@@ -52,9 +52,9 @@ const CONVERGENCE_MAP = [
 function CellHighlight({ active }: { active: boolean }) {
   return (
     <td
-      className={`px-2 py-1.5 text-center font-mono text-xs ${active ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300' : 'text-slate-400'}`}
+      className={`px-2 py-1.5 text-center font-mono text-xs ${active ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300' : 'text-slate-500 dark:text-slate-400'}`}
     >
-      {active ? '●' : '—'}
+      {active ? '●' : '-'}
     </td>
   );
 }
@@ -105,7 +105,7 @@ export default function AttackChainRansomware(): JSX.Element {
                   <span className="font-semibold">{s.label}</span>
                   <span className="ml-1.5 text-brand-600 dark:text-brand-400">{s.mitre}</span>
                 </div>
-                {i < STAGES.length - 1 && <ArrowRight size={12} className="text-slate-400 shrink-0" />}
+                {i < STAGES.length - 1 && <ArrowRight size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />}
               </div>
             ))}
           </div>

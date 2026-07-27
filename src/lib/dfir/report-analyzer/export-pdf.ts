@@ -1,6 +1,6 @@
 // src/lib/dfir/report-analyzer/export-pdf.ts
 //
-// PDF export for the Report Analyzer. Pure data-in, blob-out — no React.
+// PDF export for the Report Analyzer. Pure data-in, blob-out - no React.
 // Reuses jsPDF + jspdf-autotable (already in the bundle via report-composer).
 
 interface Ioc {
@@ -357,7 +357,7 @@ export async function exportAnalyzerPdf(data: AnalyzerOutput): Promise<Blob> {
     autoTable(doc, {
       startY: y,
       head: [['Rule', 'Severity', 'MITRE ID', 'Description']],
-      body: data.detection.siemRules.map((r) => [r.title, r.severity, r.mitreId ?? '—', r.description]),
+      body: data.detection.siemRules.map((r) => [r.title, r.severity, r.mitreId ?? '-', r.description]),
       theme: 'striped',
       headStyles: { fillColor: [30, 41, 59], textColor: 255 },
       styles: { fontSize: 8, cellPadding: 3 },

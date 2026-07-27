@@ -22,7 +22,7 @@ import { SEVERITY_TONE } from '../../components/severity';
 interface RuleNarrative {
   /** What kind of activity this rule actually detects, plain English. */
   what: string;
-  /** Why it matters operationally — not the textbook, the SOC read. */
+  /** Why it matters operationally - not the textbook, the SOC read. */
   why: string;
   /** Concrete next action for the analyst seeing this on their dashboard. */
   action: string;
@@ -52,7 +52,7 @@ const RULE_NARRATIVES: Record<string, RuleNarrative> = {
       'Treat these as immediate IR triggers, not enrichment. Pivot to your EDR with the hash and check execution events for the last 30 days.',
   },
   'phishing-brand-cluster': {
-    what: 'Several phishing URLs target the same brand within the same window — campaign behaviour, not background radiation.',
+    what: 'Several phishing URLs target the same brand within the same window - campaign behaviour, not background radiation.',
     why: 'A single phishing URL is noise. A cluster targeting one brand means an operator has standing infrastructure and a current campaign. If the brand is yours, this is a takedown request; if it is a vendor your users authenticate against, awareness training matters this week.',
     action:
       "If the targeted brand is in your top-10 SSO providers, push a one-day awareness ping to users about that vendor's recent phishing pressure.",
@@ -83,7 +83,7 @@ function narrativeFor(d: Detection): RuleNarrative {
 /**
  * Pick one rule fire to lead with, plus up to two supporting fires for the
  * "also firing" rail. The headline is what an analyst should *spend their
- * cognitive attention on right now* — so the ordering is severity-first,
+ * cognitive attention on right now* - so the ordering is severity-first,
  * then match volume, then recency. The hero deliberately can't be a low-
  * severity rule even if it dominates by volume; "defacement" rates count
  * but shouldn't ever be the top message.
@@ -176,11 +176,11 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
             <span className="text-mini font-mono text-slate-500 dark:text-slate-400">×{d.match_count}</span>
           </div>
           {d.group_key && (
-            <code className="text-mini font-mono text-brand-600 dark:text-brand-400 break-all">{d.group_key}</code>
+            <code className="text-mini font-mono text-rose-600 dark:text-rose-400 break-all">{d.group_key}</code>
           )}
           {d.description && <p className="text-meta text-muted mt-1 leading-relaxed">{d.description}</p>}
           <div className="text-mini font-mono text-slate-500 mt-1 flex flex-wrap gap-x-3 gap-y-0.5">
-            <span className="text-slate-400">rule: {d.rule_id}</span>
+            <span className="text-slate-500 dark:text-slate-400">rule: {d.rule_id}</span>
             {d.last_observed && <span>last seen {shortRel(d.last_observed)}</span>}
             <span>
               {d.indicators.length} indicator{d.indicators.length === 1 ? '' : 's'} shown
@@ -189,7 +189,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
         </div>
         <ChevronRight
           size={16}
-          className={`shrink-0 mt-1 text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`}
+          className={`shrink-0 mt-1 text-slate-500 dark:text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`}
         />
       </button>
       {open && (
@@ -206,7 +206,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
                 <div className="text-mini font-mono text-slate-500 flex flex-wrap gap-x-2">
                   <span>{it.source}</span>
                   {it.context && (
-                    <span className="text-slate-400 italic truncate max-w-[44ch]" title={it.context}>
+                    <span className="text-slate-500 dark:text-slate-400 italic truncate max-w-[44ch]" title={it.context}>
                       · {it.context}
                     </span>
                   )}
@@ -316,25 +316,25 @@ export default function Detections(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
       >
         back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Detections
+          <ShieldAlert size={28} className="text-rose-600 dark:text-rose-400" /> Detections
         </h1>
         <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           A curated detection-rule pack evaluated hourly against the unified live-IOC stream. Each card is a rule that
-          fired — cross-feed consensus, C2 / ransomware / infostealer tagging, and campaign clustering — with the
+          fired - cross-feed consensus, C2 / ransomware / infostealer tagging, and campaign clustering - with the
           indicators that triggered it.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Want to write your own?{' '}
           <Link
             to="/dfir/rule-converter"
-            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
           >
             <FlaskConical size={11} /> Detection Lab
           </Link>{' '}
@@ -354,7 +354,7 @@ export default function Detections(): JSX.Element {
           const indicatorPreview = hero.indicators.slice(0, 3);
           const remaining = Math.max(0, hero.indicators.length - indicatorPreview.length);
           return (
-            <section className="rounded-xl border border-brand-500/30 bg-gradient-to-br from-brand-50/40 to-transparent dark:from-brand-900/20 dark:to-transparent p-5 sm:p-6 mb-6">
+            <section className="rounded-xl border border-rose-500/30 bg-gradient-to-br from-rose-50/40 to-transparent dark:from-rose-900/20 dark:to-transparent p-5 sm:p-6 mb-6">
               <div className="flex items-baseline gap-3 mb-4 flex-wrap">
                 <Flame size={18} className="text-rose-600 dark:text-rose-400" />
                 <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">
@@ -383,8 +383,8 @@ export default function Detections(): JSX.Element {
                     </div>
                     <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{n.why}</p>
                   </div>
-                  <div className="rounded border-l-2 border-brand-500 pl-3 py-1 bg-brand-50/50 dark:bg-brand-900/10">
-                    <div className="text-mini font-mono uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300 mb-1">
+                  <div className="rounded border-l-2 border-rose-500 pl-3 py-1 bg-rose-50/50 dark:bg-rose-900/10">
+                    <div className="text-mini font-mono uppercase tracking-[0.18em] text-rose-700 dark:text-rose-300 mb-1">
                       do this
                     </div>
                     <p className="text-sm text-slate-900 dark:text-slate-100 leading-relaxed">{n.action}</p>
@@ -455,20 +455,20 @@ export default function Detections(): JSX.Element {
       <section className="surface-card p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by rule, group key, or indicator…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter detections"
             />
           </div>
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -485,7 +485,7 @@ export default function Detections(): JSX.Element {
               type="button"
               onClick={() => void buildStix()}
               disabled={stixLoading || !data}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-40"
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-40"
             >
               {stixLoading ? <Loader2 size={12} className="animate-spin" /> : <FileDown size={12} />}
               {stixLoading ? 'building…' : 'STIX'}
@@ -519,7 +519,7 @@ export default function Detections(): JSX.Element {
             <button
               type="button"
               onClick={() => setSevFilter(new Set())}
-              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+              className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline ml-2"
             >
               clear
             </button>
@@ -543,7 +543,7 @@ export default function Detections(): JSX.Element {
         emptyLabel={
           query || sevFilter.size > 0
             ? 'No detections match the current filter.'
-            : 'No rules fired on the current snapshot — the feeds are quiet or the rule pack is conservative.'
+            : 'No rules fired on the current snapshot - the feeds are quiet or the rule pack is conservative.'
         }
         onRetry={() => setRefreshKey((k) => k + 1)}
         rows={6}

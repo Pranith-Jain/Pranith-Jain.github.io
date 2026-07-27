@@ -178,7 +178,7 @@ export default function ActorDNA(): JSX.Element {
           onClick={() => setMatchMode(false)}
           className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
             !matchMode
-              ? 'bg-brand-600 text-white'
+              ? 'bg-rose-600 text-white'
               : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
           }`}
         >
@@ -189,7 +189,7 @@ export default function ActorDNA(): JSX.Element {
           onClick={() => setMatchMode(true)}
           className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
             matchMode
-              ? 'bg-brand-600 text-white'
+              ? 'bg-rose-600 text-white'
               : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
           }`}
         >
@@ -208,12 +208,12 @@ export default function ActorDNA(): JSX.Element {
               value={ttpsInput}
               onChange={(e) => setTtpsInput(e.target.value)}
               placeholder="Enter TTPs (comma-separated): spearphishing, powershell, cobalt_strike"
-              className="flex-1 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus:border-brand-500"
+              className="flex-1 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus:border-rose-500"
             />
             <button
               onClick={() => void matchTTPs()}
               disabled={loading}
-              className="px-6 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-sm font-medium text-white transition-colors flex items-center gap-2"
+              className="px-6 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-sm font-medium text-white transition-colors flex items-center gap-2"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
               Match
@@ -222,18 +222,18 @@ export default function ActorDNA(): JSX.Element {
 
           {matches.length > 0 && (
             <div className="mt-4 space-y-3">
-              <h3 className="text-sm font-medium text-slate-400">Matches ({matches.length})</h3>
+              <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">Matches ({matches.length})</h3>
               {matches.map((match) => (
                 <div key={match.actor_id} className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-medium">{match.actor_name}</span>
-                    <span className="text-sm px-2 py-0.5 bg-brand-500/20 text-brand-600 dark:text-brand-400 rounded">
+                    <span className="text-sm px-2 py-0.5 bg-rose-500/20 text-rose-600 dark:text-rose-400 rounded">
                       {match.match_score}% match
                     </span>
                   </div>
                   <div className="space-y-1">
                     {match.matching_signals.map((signal) => (
-                      <div key={signal.description} className="text-xs text-slate-400">
+                      <div key={signal.description} className="text-xs text-slate-500 dark:text-slate-400">
                         • {signal.description}
                       </div>
                     ))}
@@ -257,7 +257,7 @@ export default function ActorDNA(): JSX.Element {
                 onClick={() => fetchActorDNA(actor.actor_id)}
                 className={`w-full text-left p-3 rounded-xl transition-colors ${
                   selectedActor?.actor_id === actor.actor_id
-                    ? 'bg-brand-500/10 border border-brand-500/40'
+                    ? 'bg-rose-500/10 border border-rose-500/40'
                     : 'bg-slate-50 dark:bg-[rgb(var(--input-200))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] border border-transparent'
                 }`}
               >
@@ -272,7 +272,7 @@ export default function ActorDNA(): JSX.Element {
         <div className="lg:col-span-2">
           {loading ? (
             <div className="flex items-center justify-center py-12">
-              <Loader2 className="w-8 h-8 animate-spin text-brand-600 dark:text-brand-400" />
+              <Loader2 className="w-8 h-8 animate-spin text-rose-600 dark:text-rose-400" />
             </div>
           ) : selectedActor ? (
             <div className="space-y-4">
@@ -281,16 +281,16 @@ export default function ActorDNA(): JSX.Element {
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h2 className="text-xl font-bold">{selectedActor.actor_name}</h2>
-                    <div className="text-sm text-slate-400 mt-1">{selectedActor.aliases.join(' · ')}</div>
+                    <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">{selectedActor.aliases.join(' · ')}</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-brand-600 dark:text-brand-400">
+                    <div className="text-2xl font-bold text-rose-600 dark:text-rose-400">
                       {selectedActor.confidence}%
                     </div>
                     <div className="text-xs text-slate-500">Confidence</div>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2 text-xs text-slate-400">
+                <div className="flex flex-wrap gap-2 text-xs text-slate-500 dark:text-slate-400">
                   <span>First seen: {selectedActor.first_seen}</span>
                   <span>•</span>
                   <span>Last seen: {selectedActor.last_seen}</span>
@@ -470,7 +470,7 @@ export default function ActorDNA(): JSX.Element {
 
 function DNACard({ title, items, color }: { title: string; items: string[]; color: string }) {
   // DNA category cards are differentiated by their TITLE, not colour. The prior
-  // 10-colour rainbow was arbitrary, off-palette, and a generic-AI tell —
+  // 10-colour rainbow was arbitrary, off-palette, and a generic-AI tell -
   // collapsed to one neutral on-brand surface. `color` is kept for call-site
   // compatibility but no longer themes.
   const surface =
@@ -490,7 +490,7 @@ function DNACard({ title, items, color }: { title: string; items: string[]; colo
 
   return (
     <div className={`rounded-xl border p-3 ${colorMap[color] ?? surface}`}>
-      <div className="text-xs font-medium text-slate-400 mb-2">{title}</div>
+      <div className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">{title}</div>
       <div className="flex flex-wrap gap-1">
         {items.map((item) => (
           <span

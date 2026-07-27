@@ -127,7 +127,7 @@ export function AlertConfigPanel({ events }: AlertConfigPanelProps) {
               <span className={`w-2 h-2 rounded-full ${rule.enabled ? 'bg-emerald-500' : 'bg-slate-400'}`} />
               <span className="text-xs font-medium text-slate-700 dark:text-slate-300 flex-1">{rule.name}</span>
               <span className="text-micro font-mono text-slate-500">{rule.keywords.join(', ')}</span>
-              <button onClick={() => removeRule(rule.id)} className="text-slate-400 hover:text-rose-400">
+              <button onClick={() => removeRule(rule.id)} className="text-slate-500 dark:text-slate-400 hover:text-rose-400">
                 <Trash2 size={12} />
               </button>
             </div>

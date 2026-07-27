@@ -64,7 +64,7 @@ export default function AttributionFramework(): JSX.Element {
           value={indicators}
           onChange={(e) => setIndicators(e.target.value)}
           placeholder="Enter IOCs, one per line…"
-          className="w-full h-28 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
+          className="w-full h-28 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 resize-y"
         />
         <div className="mt-3">
           <label htmlFor="attribution-context" className="text-xs text-slate-500 dark:text-slate-400 mb-1 block">
@@ -76,13 +76,13 @@ export default function AttributionFramework(): JSX.Element {
             value={context}
             onChange={(e) => setContext(e.target.value)}
             placeholder="e.g., targeting financial sector"
-            className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
         <button
           onClick={() => void handleAssess()}
           disabled={loading || !indicators.trim()}
-          className="mt-3 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+          className="mt-3 w-full px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Scale size={14} />}
           {loading ? 'Analyzing…' : 'Assess Attribution'}
@@ -105,14 +105,14 @@ export default function AttributionFramework(): JSX.Element {
                 </span>
               </div>
               <div className="text-right">
-                <div className="text-3xl font-display font-bold text-brand-600 dark:text-brand-400">
+                <div className="text-3xl font-display font-bold text-rose-600 dark:text-rose-400">
                   {assessment.confidence}%
                 </div>
-                <div className="text-micro font-mono text-slate-400">confidence</div>
+                <div className="text-micro font-mono text-slate-500 dark:text-slate-400">confidence</div>
               </div>
             </div>
             <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2">
-              <div className="bg-brand-500 h-2 rounded-full" style={{ width: `${assessment.confidence}%` }} />
+              <div className="bg-rose-500 h-2 rounded-full" style={{ width: `${assessment.confidence}%` }} />
             </div>
           </div>
           <div className="surface-card/40 shadow-e1 overflow-hidden">
@@ -122,9 +122,9 @@ export default function AttributionFramework(): JSX.Element {
             >
               <span className="font-display font-bold text-sm">Evidence ({assessment.evidence.length})</span>
               {expandedEvidence ? (
-                <ChevronDown size={14} className="text-slate-400" />
+                <ChevronDown size={14} className="text-slate-500 dark:text-slate-400" />
               ) : (
-                <ChevronRight size={14} className="text-slate-400" />
+                <ChevronRight size={14} className="text-slate-500 dark:text-slate-400" />
               )}
             </button>
             {expandedEvidence && (
@@ -134,12 +134,12 @@ export default function AttributionFramework(): JSX.Element {
                     key={i}
                     className="flex items-start gap-3 py-2 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 last:border-0"
                   >
-                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 shrink-0">
+                    <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 shrink-0">
                       {e.type}
                     </span>
                     <div className="flex-1 min-w-0">
                       <div className="text-xs text-slate-700 dark:text-slate-300">{e.description}</div>
-                      <div className="text-micro font-mono text-slate-400 mt-0.5">
+                      <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">
                         Weight: {e.weight} · Source: {e.source}
                       </div>
                     </div>

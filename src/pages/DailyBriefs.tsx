@@ -119,12 +119,12 @@ function Expandable({
       <button onClick={() => setOpen(!open)} className="flex w-full items-center justify-between px-4 py-3 text-left">
         <span className="text-sm font-semibold text-slate-900 dark:text-white">
           {title}
-          {count !== undefined && <span className="ml-2 text-xs font-normal text-slate-400">({count})</span>}
+          {count !== undefined && <span className="ml-2 text-xs font-normal text-slate-500 dark:text-slate-400">({count})</span>}
         </span>
         {open ? (
-          <ChevronUp size={16} className="text-slate-400" />
+          <ChevronUp size={16} className="text-slate-500 dark:text-slate-400" />
         ) : (
-          <ChevronDown size={16} className="text-slate-400" />
+          <ChevronDown size={16} className="text-slate-500 dark:text-slate-400" />
         )}
       </button>
       {open && <div className="border-t border-slate-200 px-4 py-3 dark:border-slate-700">{children}</div>}
@@ -173,7 +173,7 @@ export default function DailyBriefs() {
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Daily Intelligence Briefs</h1>
           <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             Source: {indexData?.source ?? 'agentic-ai-daily-reports.netlify.app'} &middot; Generated{' '}
-            {indexData?.generatedAt ?? '—'}
+            {indexData?.generatedAt ?? '-'}
           </p>
         </div>
         <div className="flex gap-2">
@@ -189,7 +189,7 @@ export default function DailyBriefs() {
       </div>
 
       {/* Tabs */}
-      <div className="mb-6 flex gap-1 rounded-lg bg-slate-100 p-1 dark:bg-slate-800">
+      <div className="mb-6 flex gap-1 rounded-xl bg-slate-100 p-1 dark:bg-slate-800">
         {TAB_CONFIG.map(({ id, label, icon: Icon, color }) => (
           <button
             key={id}
@@ -230,12 +230,12 @@ export default function DailyBriefs() {
 
       {/* Content */}
       {briefLoading || isLoading ? (
-        <div className="flex items-center justify-center py-20 text-slate-400">Loading brief...</div>
+        <div className="flex items-center justify-center py-20 text-slate-500 dark:text-slate-400">Loading brief...</div>
       ) : !brief ? (
-        <div className="flex flex-col items-center justify-center py-20 text-slate-400">
+        <div className="flex flex-col items-center justify-center py-20 text-slate-500 dark:text-slate-400">
           <AlertTriangle size={40} className="mb-3 opacity-40" />
           <p>
-            No brief available for {tab} on {currentDate ?? '—'}
+            No brief available for {tab} on {currentDate ?? '-'}
           </p>
           <p className="mt-1 text-xs">Run the sync pipeline to populate data.</p>
         </div>
@@ -257,7 +257,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
     <div className="space-y-6">
       {/* Threat Level */}
       {brief.threatLevel && (
-        <div className={`rounded-lg border p-4 ${sevPill('red')}`}>
+        <div className={`rounded-xl border p-4 ${sevPill('red')}`}>
           <span className="text-sm font-semibold">{brief.threatLevel}</span>
         </div>
       )}
@@ -286,7 +286,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
           <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Key Findings</h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {brief.keyFindings.map((f, i) => (
-              <div key={i} className="rounded-lg border border-slate-200 p-3 dark:border-slate-700">
+              <div key={i} className="rounded-xl border border-slate-200 p-3 dark:border-slate-700">
                 <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{f.title}</h3>
                 <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">{f.summary}</p>
               </div>
@@ -301,7 +301,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
           <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">Top Priority Threats</h2>
           <div className="space-y-3">
             {brief.topThreats.map((t, i) => (
-              <div key={i} className="rounded-lg border border-slate-200 p-3 dark:border-slate-700">
+              <div key={i} className="rounded-xl border border-slate-200 p-3 dark:border-slate-700">
                 <div className="flex items-center gap-2">
                   <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-100 text-mini font-bold text-rose-700 dark:bg-rose-950/60 dark:text-rose-300">
                     {i + 1}
@@ -530,7 +530,7 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
       {/* Risk Outlook */}
       {brief.riskOutlook && (
         <div
-          className={`rounded-lg border p-4 ${brief.riskOutlook.toLowerCase() === 'worsening' ? sevPill('red') : sevPill('orange')}`}
+          className={`rounded-xl border p-4 ${brief.riskOutlook.toLowerCase() === 'worsening' ? sevPill('red') : sevPill('orange')}`}
         >
           <span className="text-sm font-semibold">Overall Outlook: {brief.riskOutlook}</span>
         </div>
@@ -586,7 +586,7 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
                   <div className="mb-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs sm:grid-cols-3">
                     {Object.entries(inc.fields).map(([k, v]) => (
                       <div key={k}>
-                        <span className="text-slate-400">{k}:</span>{' '}
+                        <span className="text-slate-500 dark:text-slate-400">{k}:</span>{' '}
                         <span className="text-slate-600 dark:text-slate-300">{v}</span>
                       </div>
                     ))}
@@ -671,7 +671,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
       {/* Threat Level */}
       {brief.overallThreat && (
         <div
-          className={`rounded-lg border p-4 ${sevPill(brief.overallThreat.toLowerCase() === 'high' ? 'red' : 'orange')}`}
+          className={`rounded-xl border p-4 ${sevPill(brief.overallThreat.toLowerCase() === 'high' ? 'red' : 'orange')}`}
         >
           <span className="text-sm font-semibold">Overall Threat: {brief.overallThreat}</span>
         </div>
@@ -741,7 +741,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
             {brief.escalateEvents.map((ev, i) => (
               <div
                 key={i}
-                className="rounded-lg border border-rose-200 bg-rose-50/50 px-4 py-3 dark:border-rose-900 dark:bg-rose-950/20"
+                className="rounded-xl border border-rose-200 bg-rose-50/50 px-4 py-3 dark:border-rose-900 dark:bg-rose-950/20"
               >
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-rose-500" />
@@ -776,7 +776,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
             {brief.monitorEvents.map((ev, i) => (
               <div
                 key={i}
-                className="rounded-lg border border-orange-200 bg-orange-50/50 px-4 py-3 dark:border-orange-900 dark:bg-orange-950/20"
+                className="rounded-xl border border-orange-200 bg-orange-50/50 px-4 py-3 dark:border-orange-900 dark:bg-orange-950/20"
               >
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-orange-500" />

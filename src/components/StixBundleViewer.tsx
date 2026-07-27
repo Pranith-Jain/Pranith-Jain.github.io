@@ -77,7 +77,7 @@ export function extractStixBundle(report: string): StixBundle | null {
 
 /** Render STIX relationships as an inline graph summary within the report. */
 function StixRelationshipGraphImpl({ bundle }: { bundle: StixBundle }): JSX.Element | null {
-  // Build a lookup map for object names — memoized so we don't re-allocate
+  // Build a lookup map for object names - memoized so we don't re-allocate
   // on every re-render of the parent (e.g. when the user toggles the
   // stakeholder filter chip). MUST be called before any conditional return
   // so React hooks are always invoked in the same order.
@@ -95,7 +95,7 @@ function StixRelationshipGraphImpl({ bundle }: { bundle: StixBundle }): JSX.Elem
   return (
     <div className="mt-4 mb-4 rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4">
       <div className="text-xs font-mono font-bold text-emerald-700 dark:text-emerald-300 mb-3 flex items-center gap-2">
-        Intelligence Graph — {relationships.length} relationship{relationships.length !== 1 ? 's' : ''}
+        Intelligence Graph - {relationships.length} relationship{relationships.length !== 1 ? 's' : ''}
       </div>
       <div className="space-y-1.5">
         {relationships.map((r) => {
@@ -109,7 +109,7 @@ function StixRelationshipGraphImpl({ bundle }: { bundle: StixBundle }): JSX.Elem
           return (
             <div key={r.id} className="flex items-center gap-2 text-xs font-mono">
               <span className={`px-1.5 py-0.5 rounded border ${srcColor}`}>{srcName}</span>
-              <span className="text-slate-400">→{r.relationship_type}→</span>
+              <span className="text-slate-500 dark:text-slate-400">→{r.relationship_type}→</span>
               <span className={`px-1.5 py-0.5 rounded border ${tgtColor}`}>{tgtName}</span>
             </div>
           );
@@ -251,7 +251,7 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
   );
 }
 
-// Memoize the object table — same reason as the relationship graph: avoid
+// Memoize the object table - same reason as the relationship graph: avoid
 // re-grouping hundreds of objects when the parent re-renders for unrelated
 // reasons.
 export const StixObjectTable = React.memo(StixObjectTableImpl);

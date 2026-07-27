@@ -10,7 +10,7 @@ export default function ExperiencePage() {
         description="Professional experience and the teams and companies Pranith Jain has worked with across DFIR, threat intelligence, and security engineering."
         canonicalPath="/experience"
       />
-      <h1 className="sr-only">Experience — Pranith Jain</h1>
+      <h1 className="sr-only">Experience - Pranith Jain</h1>
       <div className="space-y-16">
         <Experience experiences={experiences} />
         <Companies companies={companies} />

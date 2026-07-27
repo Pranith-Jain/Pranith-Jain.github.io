@@ -10,7 +10,7 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 /**
- * Feed IDs — strictly breach-focused. Krebs / BleepingComputer cover
+ * Feed IDs - strictly breach-focused. Krebs / BleepingComputer cover
  * general security news; they're included on /threatintel/threat-feeds
  * already, so we keep them OUT of this page so the feed stays clean
  * "incident disclosure" signal.
@@ -33,7 +33,7 @@ const BREACH_NEWS_FEED_IDS = [
 /**
  * Live breach disclosures page. Thin wrapper around the
  * `BreachDisclosuresPanel` widget that also lives on the unified
- * /threatintel/darkweb view — same data (Have I Been Pwned public breach
+ * /threatintel/darkweb view - same data (Have I Been Pwned public breach
  * corpus via /api/v1/breach-disclosures), presented standalone so each
  * surface has its own focused entry point.
  */
@@ -81,7 +81,7 @@ export default function BreachDisclosures(): JSX.Element {
               href="https://mythreatintel.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               MyThreatIntel
             </a>{' '}
@@ -90,7 +90,7 @@ export default function BreachDisclosures(): JSX.Element {
               href="https://haveibeenpwned.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               Have I Been Pwned
             </a>{' '}
@@ -107,7 +107,7 @@ export default function BreachDisclosures(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
             aria-label="Refresh breach disclosures"
           >
             <RefreshCw size={11} /> refresh
@@ -115,20 +115,20 @@ export default function BreachDisclosures(): JSX.Element {
         </div>
       }
     >
-      {/* MTI leaks panel — the active firehose. Sits above HIBP because
+      {/* MTI leaks panel - the active firehose. Sits above HIBP because
           this is the timeliness-first signal; HIBP carries the depth and
           the data-class breakdown but lags weeks behind a fresh dump. */}
       <MtiLeaksPanel />
 
       <BreachDisclosuresPanel key={refreshKey} />
 
-      {/* Breach-news section — RSS aggregate from breach-reporting blogs +
+      {/* Breach-news section - RSS aggregate from breach-reporting blogs +
           research labs. Complements the HIBP corpus above (which is exhaustive
           but lags) with timely write-ups of incidents in the wild. */}
       <section className="mt-10">
         <div className="mb-3">
           <h2 className="font-display font-bold text-xl inline-flex items-center gap-2">
-            <Newspaper size={18} className="text-brand-600 dark:text-brand-400" /> Recent breach news
+            <Newspaper size={18} className="text-rose-600 dark:text-rose-400" /> Recent breach news
           </h2>
         </div>
 
@@ -166,7 +166,7 @@ export default function BreachDisclosures(): JSX.Element {
                 .map((item, i) => (
                   <li
                     key={`${item.link}-${i}`}
-                    className="surface-card p-3 hover:border-brand-500/40 transition-colors"
+                    className="surface-card p-3 hover:border-rose-500/40 transition-colors"
                   >
                     <a
                       href={sanitizeUrl(item.link) || undefined}
@@ -176,14 +176,14 @@ export default function BreachDisclosures(): JSX.Element {
                       title={item.title ?? item.link}
                     >
                       <div className="flex items-baseline gap-2 mb-1 flex-wrap">
-                        <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex-1 min-w-0">
+                        <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors flex-1 min-w-0">
                           {item.title ?? '(untitled)'}
                         </span>
-                        <ExternalLink size={11} className="text-slate-400 shrink-0" aria-hidden="true" />
+                        <ExternalLink size={11} className="text-slate-500 dark:text-slate-400 shrink-0" aria-hidden="true" />
                       </div>
                       <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap">
-                        {item.source && <span className="text-brand-600 dark:text-brand-400">{item.source}</span>}
-                        {item.pubDate && <span className="text-slate-400">{formatRelativeTime(item.pubDate)}</span>}
+                        {item.source && <span className="text-rose-600 dark:text-rose-400">{item.source}</span>}
+                        {item.pubDate && <span className="text-slate-500 dark:text-slate-400">{formatRelativeTime(item.pubDate)}</span>}
                       </div>
                     </a>
                     <div className="mt-2">

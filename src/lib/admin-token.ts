@@ -7,7 +7,7 @@
  * The browser sends the cookie automatically on every API request.
  *
  * localStorage is used ONLY as a UI state hint (to show/hide the admin
- * panel) — it does NOT store the token itself. The `adminAuthHeaders()`
+ * panel) - it does NOT store the token itself. The `adminAuthHeaders()`
  * function returns empty headers; the browser sends the HttpOnly cookie
  * automatically.
  *
@@ -18,7 +18,7 @@
 const SESSION_STATE_KEY = 'adminSessionActive';
 
 export function readAdminToken(): string | null {
-  // No token in localStorage — rely on HttpOnly cookie.
+  // No token in localStorage - rely on HttpOnly cookie.
   // Return a non-null sentinel so UI knows a session exists.
   if (typeof window === 'undefined') return null;
   try {
@@ -31,10 +31,10 @@ export function readAdminToken(): string | null {
 export function writeAdminToken(_token: string): void {
   if (typeof window === 'undefined') return;
   try {
-    // Store only a boolean flag — never the token itself.
+    // Store only a boolean flag - never the token itself.
     window.localStorage.setItem(SESSION_STATE_KEY, 'true');
   } catch {
-    // Storage quota or private browsing — non-fatal.
+    // Storage quota or private browsing - non-fatal.
   }
 }
 
@@ -50,7 +50,7 @@ export function clearAdminToken(): void {
 /**
  * Build headers for admin API requests.
  *
- * The HttpOnly session cookie is sent automatically by the browser —
+ * The HttpOnly session cookie is sent automatically by the browser -
  * no token header is needed. Returns empty headers to avoid leaking
  * any token value via JavaScript-accessible headers.
  *
@@ -64,7 +64,7 @@ export function adminAuthHeaders(): Record<string, string> {
 /**
  * Create an HttpOnly session cookie by calling POST /api/v1/admin/session.
  * The browser will store the cookie and send it automatically on all
- * subsequent API requests — no JS involvement needed.
+ * subsequent API requests - no JS involvement needed.
  *
  * Call this after the user enters their admin token. The token is also
  * saved to localStorage as a fallback (see readAdminToken).

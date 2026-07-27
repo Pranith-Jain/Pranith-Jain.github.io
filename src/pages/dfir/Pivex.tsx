@@ -256,7 +256,7 @@ export default function Pivex(): JSX.Element {
           <Network size={28} className="text-brand-600 dark:text-brand-400" /> PIVEX
         </h1>
         <p className="text-muted max-w-2xl leading-relaxed">
-          Infrastructure pivot graph — map relationships between IPs, domains, certificates, ASNs, and threat actors.
+          Infrastructure pivot graph - map relationships between IPs, domains, certificates, ASNs, and threat actors.
           {nodes.length > 0 && (
             <span className="text-slate-500">
               {' '}
@@ -270,7 +270,7 @@ export default function Pivex(): JSX.Element {
         <h2 className="font-display font-bold text-sm mb-3">Start Investigation</h2>
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -314,7 +314,7 @@ export default function Pivex(): JSX.Element {
               <span>
                 Seed: <span className="text-slate-700 dark:text-slate-300">{seedInfo.seed}</span>
               </span>
-              {seedInfo.type && <span className="text-slate-400">({seedInfo.type})</span>}
+              {seedInfo.type && <span className="text-slate-500 dark:text-slate-400">({seedInfo.type})</span>}
               {seedInfo.truncated && <span className="text-amber-600">· truncated</span>}
               {seedInfo.warning && <span className="text-amber-600">· {seedInfo.warning}</span>}
             </div>
@@ -473,7 +473,7 @@ function GraphCluster({
                       className={`flex items-center gap-2 text-mini font-mono transition-opacity ${getEdgeOpacity(e.source, e.target)}`}
                     >
                       <span className="text-slate-500">{n.label}</span>
-                      <span className="text-slate-400">── {e.label} ──</span>
+                      <span className="text-slate-500 dark:text-slate-400">── {e.label} ──</span>
                       <span className="text-slate-600 dark:text-slate-300">{target.label}</span>
                     </div>
                   );
@@ -504,7 +504,7 @@ function RelationCard({
         {title}
       </h3>
       {edges.length === 0 ? (
-        <p className="text-xs text-slate-400 italic">No relationships mapped</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 italic">No relationships mapped</p>
       ) : (
         <div className="space-y-1.5">
           {edges.map((e, i) => {
@@ -514,7 +514,7 @@ function RelationCard({
             return (
               <div key={`${e.source}-${e.target}-${i}`} className="flex items-center gap-2 text-xs font-mono">
                 <span className={`px-1.5 py-0.5 rounded text-micro ${getNodeColor(source.type)}`}>{source.label}</span>
-                <span className="text-slate-400 text-micro">→</span>
+                <span className="text-slate-500 dark:text-slate-400 text-micro">→</span>
                 <span className={`px-1.5 py-0.5 rounded text-micro ${getNodeColor(target.type)}`}>{target.label}</span>
               </div>
             );

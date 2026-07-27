@@ -50,13 +50,13 @@ export default function AgenticReports(): JSX.Element {
       {/* Search */}
       <div className="mb-6">
         <div className="relative max-w-md">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search reports, actors, tags…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
       </div>
@@ -68,7 +68,7 @@ export default function AgenticReports(): JSX.Element {
             key={r.id}
             type="button"
             onClick={() => setSelectedId(r.id)}
-            className="w-full text-left surface-card p-4 hover:border-brand-400/60 hover:shadow-e2 transition-all"
+            className="w-full text-left surface-card p-4 hover:border-rose-400/60 hover:shadow-e2 transition-all"
           >
             <div className="flex flex-wrap items-start gap-2 mb-2">
               <span
@@ -92,7 +92,7 @@ export default function AgenticReports(): JSX.Element {
                   {t}
                 </span>
               ))}
-              {r.tags.length > 5 && <span className="text-micro font-mono text-slate-400">+{r.tags.length - 5}</span>}
+              {r.tags.length > 5 && <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{r.tags.length - 5}</span>}
             </div>
           </button>
         ))}
@@ -129,7 +129,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
               href={report.externalUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
             >
               source <ExternalLink className="h-3 w-3" />
             </a>
@@ -168,7 +168,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                        className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
                       >
                         {s.title} <ExternalLink className="h-2.5 w-2.5" />
                       </a>
@@ -325,7 +325,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                         href={`https://attack.mitre.org/techniques/${t.id}/`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                        className="font-mono text-rose-600 dark:text-rose-400 hover:underline"
                       >
                         {t.id}
                       </a>
@@ -366,7 +366,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
           <ul className="space-y-1.5">
             {report.conclusion.takeaways.map((t, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-200">
-                <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-500 shrink-0" />
+                <span className="mt-1 h-1.5 w-1.5 rounded-full bg-rose-500 shrink-0" />
                 {t}
               </li>
             ))}
@@ -410,7 +410,7 @@ function Section({
   return (
     <section className="surface-card p-4 mb-3">
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-brand-600 dark:text-brand-400">{icon}</span>
+        <span className="text-rose-600 dark:text-rose-400">{icon}</span>
         <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{title}</h3>
         {typeof count === 'number' && (
           <span className="ml-auto text-micro font-mono uppercase text-slate-500">{count}</span>

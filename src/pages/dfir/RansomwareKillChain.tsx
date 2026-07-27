@@ -31,7 +31,7 @@ const STAGES: Stage[] = [
     mitre: 'T1133',
     durationMin: 15,
     baseProb: 0.7,
-    description: 'External Remote Services — VPN credential abuse or exposed RDP',
+    description: 'External Remote Services - VPN credential abuse or exposed RDP',
   },
   {
     id: 2,
@@ -39,7 +39,7 @@ const STAGES: Stage[] = [
     mitre: 'T1059.001',
     durationMin: 5,
     baseProb: 0.85,
-    description: 'PowerShell — living-off-the-land binary execution',
+    description: 'PowerShell - living-off-the-land binary execution',
   },
   {
     id: 3,
@@ -47,7 +47,7 @@ const STAGES: Stage[] = [
     mitre: 'T1547.001',
     durationMin: 3,
     baseProb: 0.9,
-    description: 'Registry Run Key — survives reboot via HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run',
+    description: 'Registry Run Key - survives reboot via HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run',
   },
   {
     id: 4,
@@ -55,7 +55,7 @@ const STAGES: Stage[] = [
     mitre: 'T1548.002',
     durationMin: 10,
     baseProb: 0.6,
-    description: 'UAC Bypass — bypass user account control for admin-level access',
+    description: 'UAC Bypass - bypass user account control for admin-level access',
   },
   {
     id: 5,
@@ -63,7 +63,7 @@ const STAGES: Stage[] = [
     mitre: 'T1562.001',
     durationMin: 5,
     baseProb: 0.75,
-    description: 'Disable Defender — tamper with Windows Defender real-time monitoring',
+    description: 'Disable Defender - tamper with Windows Defender real-time monitoring',
   },
   {
     id: 6,
@@ -71,7 +71,7 @@ const STAGES: Stage[] = [
     mitre: 'T1003.001',
     durationMin: 8,
     baseProb: 0.8,
-    description: 'LSASS Dump — dump process memory to extract plaintext credentials',
+    description: 'LSASS Dump - dump process memory to extract plaintext credentials',
   },
   {
     id: 7,
@@ -79,7 +79,7 @@ const STAGES: Stage[] = [
     mitre: 'T1087.002',
     durationMin: 10,
     baseProb: 0.9,
-    description: 'Domain Enumeration — enumerate AD groups, users, shares, SPNs',
+    description: 'Domain Enumeration - enumerate AD groups, users, shares, SPNs',
   },
   {
     id: 8,
@@ -87,7 +87,7 @@ const STAGES: Stage[] = [
     mitre: 'T1021.002',
     durationMin: 20,
     baseProb: 0.65,
-    description: 'SMB Lateral Movement — use stolen creds to spread via file shares',
+    description: 'SMB Lateral Movement - use stolen creds to spread via file shares',
   },
   {
     id: 9,
@@ -95,7 +95,7 @@ const STAGES: Stage[] = [
     mitre: 'T1560',
     durationMin: 15,
     baseProb: 0.85,
-    description: 'Archive Collected Data — compress and stage sensitive files for exfil',
+    description: 'Archive Collected Data - compress and stage sensitive files for exfil',
   },
   {
     id: 10,
@@ -103,7 +103,7 @@ const STAGES: Stage[] = [
     mitre: 'T1071.001',
     durationMin: 5,
     baseProb: 0.8,
-    description: 'Web Protocol C2 — HTTPS reverse tunnel to operator infrastructure',
+    description: 'Web Protocol C2 - HTTPS reverse tunnel to operator infrastructure',
   },
   {
     id: 11,
@@ -111,7 +111,7 @@ const STAGES: Stage[] = [
     mitre: 'T1567.002',
     durationMin: 30,
     baseProb: 0.55,
-    description: 'Exfil to Cloud — upload archives to cloud storage for double-extortion leverage',
+    description: 'Exfil to Cloud - upload archives to cloud storage for double-extortion leverage',
   },
   {
     id: 12,
@@ -119,7 +119,7 @@ const STAGES: Stage[] = [
     mitre: 'T1074.001',
     durationMin: 10,
     baseProb: 0.9,
-    description: 'Staging — position payloads on all target hosts before detonation',
+    description: 'Staging - position payloads on all target hosts before detonation',
   },
   {
     id: 13,
@@ -127,7 +127,7 @@ const STAGES: Stage[] = [
     mitre: 'T1486',
     durationMin: 20,
     baseProb: 0.7,
-    description: 'Data Encrypted for Impact — ransomware payload encrypts all accessible files',
+    description: 'Data Encrypted for Impact - ransomware payload encrypts all accessible files',
   },
   {
     id: 14,
@@ -135,7 +135,7 @@ const STAGES: Stage[] = [
     mitre: 'T1489',
     durationMin: 2,
     baseProb: 0.99,
-    description: 'Service Stop — drop ransom note, stop backup services, kill databases',
+    description: 'Service Stop - drop ransom note, stop backup services, kill databases',
   },
   {
     id: 15,
@@ -143,7 +143,7 @@ const STAGES: Stage[] = [
     mitre: 'T1490',
     durationMin: 0,
     baseProb: 0.95,
-    description: 'Inhibit System Recovery — delete shadow copies, disable recovery',
+    description: 'Inhibit System Recovery - delete shadow copies, disable recovery',
   },
 ];
 
@@ -266,7 +266,7 @@ export default function RansomwareKillChain(): JSX.Element {
             addLog('warn', `BLOCKED at ${s.name}: Defense stack detected and stopped the attack`);
           } else {
             rs.status = 'compromised';
-            addLog('critical', `BREACH at ${s.name}: Attacker advanced — ${s.mitre}`);
+            addLog('critical', `BREACH at ${s.name}: Attacker advanced - ${s.mitre}`);
           }
         }
       }
@@ -341,7 +341,7 @@ export default function RansomwareKillChain(): JSX.Element {
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Swords size={28} className="text-violet-600 dark:text-violet-400" /> Ransomware Kill Chain — 15-Stage
+          <Swords size={28} className="text-violet-600 dark:text-violet-400" /> Ransomware Kill Chain - 15-Stage
           Intrusion
         </h1>
         <p className="text-muted mb-6 max-w-2xl text-sm font-mono">
@@ -513,7 +513,7 @@ export default function RansomwareKillChain(): JSX.Element {
               <div className="border-t border-slate-100 dark:border-[rgb(var(--input-200))] pt-3">
                 <h3 className="text-xs font-mono text-muted mb-2">Event Log</h3>
                 <div className="h-56 overflow-y-auto space-y-1 font-mono text-xs">
-                  {log.length === 0 && <div className="text-muted italic">No events — start the simulation.</div>}
+                  {log.length === 0 && <div className="text-muted italic">No events - start the simulation.</div>}
                   {log.map((entry, i) => (
                     <div
                       key={i}

@@ -185,7 +185,7 @@ const PHASES: Phase[] = [
     name: 'Disseminate',
     short: 'Deliver intel to stakeholders',
     icon: Megaphone,
-    accent: 'bg-brand-500/10',
+    accent: 'bg-rose-500/10',
     ringClass: 'ring-indigo-400/60 dark:ring-indigo-500/40',
     who: 'CTI lead + comms + leadership',
     defenderGoal: 'Right intel, right audience, right format, right time.',
@@ -491,7 +491,7 @@ export default function F3ead(): JSX.Element {
                       <div className="mt-4">
                         <Link
                           to={p.platformTool.to}
-                          className="inline-flex items-center gap-1.5 rounded border border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/40 px-3 py-1.5 text-xs font-mono text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-950/60"
+                          className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-500/40 bg-rose-50 dark:bg-rose-950/40 px-3 py-1.5 text-xs font-mono text-rose-700 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-950/60"
                         >
                           <Wrench className="h-3.5 w-3.5" /> Use platform tool: {p.platformTool.label}
                           <ArrowRight className="h-3.5 w-3.5" />
@@ -513,7 +513,7 @@ export default function F3ead(): JSX.Element {
           </h2>
           <p className="text-sm text-muted mt-1 max-w-3xl">
             A 6-step click-through using the Lazarus / Copperhedge sample already in the platform's
-            <Link to="/threatintel/research-hub/ai" className="text-brand-600 dark:text-brand-400 hover:underline mx-1">
+            <Link to="/threatintel/research-hub/ai" className="text-rose-600 dark:text-rose-400 hover:underline mx-1">
               AI Report showcase
             </Link>
             as the running example. Click a step to jump to that phase.
@@ -533,7 +533,7 @@ export default function F3ead(): JSX.Element {
                   onClick={() => setWalkStep(i)}
                   className={`inline-flex items-center gap-1.5 rounded border px-2 py-1 text-mini font-mono transition-colors ${
                     active
-                      ? 'border-brand-400 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
+                      ? 'border-rose-400 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
                       : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
                   }`}
                 >
@@ -577,7 +577,7 @@ export default function F3ead(): JSX.Element {
               type="button"
               onClick={() => setWalkStep((s) => Math.max(0, s - 1))}
               disabled={walkStep === 0}
-              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-3 py-1 text-xs font-mono text-slate-600 dark:text-slate-300 hover:border-brand-400 disabled:opacity-40 disabled:hover:border-slate-300 dark:disabled:hover:border-[rgb(var(--border-400))]"
+              className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-3 py-1 text-xs font-mono text-slate-600 dark:text-slate-300 hover:border-rose-400 disabled:opacity-40 disabled:hover:border-slate-300 dark:disabled:hover:border-[rgb(var(--border-400))]"
             >
               &larr; previous
             </button>
@@ -590,7 +590,7 @@ export default function F3ead(): JSX.Element {
               type="button"
               onClick={() => setWalkStep((s) => Math.min(WALK.length - 1, s + 1))}
               disabled={walkStep === WALK.length - 1}
-              className="rounded border border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/40 px-3 py-1 text-xs font-mono text-brand-700 dark:text-brand-300 hover:bg-brand-100 disabled:opacity-40"
+              className="rounded border border-rose-300 dark:border-rose-500/40 bg-rose-50 dark:bg-rose-950/40 px-3 py-1 text-xs font-mono text-rose-700 dark:text-rose-300 hover:bg-rose-100 disabled:opacity-40"
             >
               next &rarr;
             </button>
@@ -659,7 +659,7 @@ export default function F3ead(): JSX.Element {
                   <td className="px-3 py-2">
                     <Link
                       to={row.platformPage}
-                      className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline font-mono text-xs"
+                      className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline font-mono text-xs"
                     >
                       {row.platformPage.replace('/threatintel/', '/ti/').replace('/dfir/', '/d/')}
                       <ExternalLink className="h-3 w-3" />

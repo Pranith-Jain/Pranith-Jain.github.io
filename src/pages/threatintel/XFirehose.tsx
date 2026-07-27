@@ -146,13 +146,13 @@ export default function XFirehose(): JSX.Element {
       <section className="surface-card p-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by post text or handle…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter X posts"
             />
           </div>
@@ -173,7 +173,7 @@ export default function XFirehose(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -199,7 +199,7 @@ export default function XFirehose(): JSX.Element {
                       ? TOPIC_PILL[h.topic]
                       : h.ok
                         ? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400 opacity-50'
+                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 opacity-50'
                   }`}
                 >
                   {platformGlyph} {h.name.length > 18 ? h.name.slice(0, 18) + '…' : h.name}{' '}
@@ -211,7 +211,7 @@ export default function XFirehose(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setHandleFilter(new Set())}
-                className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+                className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline ml-2"
               >
                 clear
               </button>
@@ -277,7 +277,7 @@ export default function XFirehose(): JSX.Element {
               className="group block"
             >
               <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-                <span className="font-mono text-meta text-brand-600 dark:text-brand-400 inline-flex items-center gap-1">
+                <span className="font-mono text-meta text-rose-600 dark:text-rose-400 inline-flex items-center gap-1">
                   <span aria-hidden="true">{it.platform === 'bluesky' ? 'BS' : 'M'}</span>
                   {it.handle_name}{' '}
                   <span
@@ -286,16 +286,16 @@ export default function XFirehose(): JSX.Element {
                     {it.handle_topic}
                   </span>
                 </span>
-                <ExternalLink size={11} className="text-slate-400 shrink-0" />
+                <ExternalLink size={11} className="text-slate-500 dark:text-slate-400 shrink-0" />
               </div>
-              <p className="text-tool text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-relaxed mb-1.5 whitespace-pre-line">
+              <p className="text-tool text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 leading-relaxed mb-1.5 whitespace-pre-line">
                 {it.text}
               </p>
               <PostSummary text={postSummaries.get(String(it.link))} />
               <div className="text-micro font-mono text-slate-500 flex items-center gap-2 flex-wrap">
-                <AtSign size={9} className="text-slate-400" />
+                <AtSign size={9} className="text-slate-500 dark:text-slate-400" />
                 <span>{it.handle}</span>
-                <span className="ml-auto text-slate-400" title={it.pub_date}>
+                <span className="ml-auto text-slate-500 dark:text-slate-400" title={it.pub_date}>
                   {shortRel(it.pub_date)}
                 </span>
               </div>

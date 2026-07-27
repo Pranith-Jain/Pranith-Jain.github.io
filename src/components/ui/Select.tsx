@@ -59,7 +59,7 @@ export function Select({
             error
               ? 'border-rose-400 focus:border-rose-500 focus-visible:ring-rose-500/20 dark:border-rose-600'
               : 'border-slate-200 bg-white text-slate-900 focus:border-brand-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100'
-          } ${!value && placeholder ? 'text-slate-400 dark:text-slate-500' : ''}`}
+          } ${!value && placeholder ? 'text-slate-500 dark:text-slate-400' : ''}`}
         >
           {placeholder && (
             <option value="" disabled>
@@ -73,7 +73,7 @@ export function Select({
           ))}
         </select>
         <ChevronDown
-          className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+          className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400"
           aria-hidden="true"
         />
       </div>

@@ -8,7 +8,7 @@ interface FeaturedProps {
 export function Featured({ featuredArticles }: FeaturedProps) {
   return (
     <section id="featured" className="scroll-mt-24">
-      {/* Header — section contains external interviews and expert
+      {/* Header - section contains external interviews and expert
           profiles ABOUT me, not original writing BY me. The previous
           heading ("Where the work shows up / Recognition") could be
           misread as a link to case studies; renamed to make the

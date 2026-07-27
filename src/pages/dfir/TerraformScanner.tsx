@@ -5,12 +5,12 @@ import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
 /**
- * Terraform / IaC Plan Scanner — 100% client-side.
+ * Terraform / IaC Plan Scanner - 100% client-side.
  *
  * Paste `terraform show -json <planfile>` (or `terraform plan -json`
  * piped, or `terraform show -json` of state). Planned resource
  * attributes are statically checked for the misconfigurations that
- * become cloud incidents — public S3 / RDS, security groups open to the
+ * become cloud incidents - public S3 / RDS, security groups open to the
  * world, unencrypted storage, IMDSv1, wildcard IAM, public resource
  * policies, and hardcoded secrets. Nothing leaves your browser.
  */
@@ -184,7 +184,7 @@ function analyzeRes(r: Res, findings: Finding[]): void {
     findings.push({
       sev: 'medium',
       title: `Destructive change: ${r.actions.join('+')} ${t}`,
-      detail: 'The plan destroys a stateful resource — confirm data is backed up / this is intentional.',
+      detail: 'The plan destroys a stateful resource - confirm data is backed up / this is intentional.',
       where,
       fix: 'Add prevent_destroy lifecycle or verify the migration plan before apply.',
     });
@@ -224,7 +224,7 @@ function analyzeRes(r: Res, findings: Finding[]): void {
       findings.push({
         sev: 'critical',
         title: `Public/over-broad resource policy (${i})`,
-        detail: `${t} attaches a policy with ${i} — anonymous access to the resource.`,
+        detail: `${t} attaches a policy with ${i} - anonymous access to the resource.`,
         where,
         fix: 'Scope Principal to specific accounts/ARNs; never "*" without a strict Condition.',
       });
@@ -277,7 +277,7 @@ function analyzeRes(r: Res, findings: Finding[]): void {
       findings.push({
         sev: 'critical',
         title: 'Database is publicly accessible',
-        detail: `${t} has publicly_accessible = true — the DB gets a public endpoint.`,
+        detail: `${t} has publicly_accessible = true - the DB gets a public endpoint.`,
         where,
         fix: 'Set publicly_accessible = false; place it in private subnets.',
       });
@@ -315,7 +315,7 @@ function analyzeRes(r: Res, findings: Finding[]): void {
     findings.push({
       sev: 'medium',
       title: 'EBS volume not encrypted',
-      detail: 'encrypted = false — data at rest is unprotected.',
+      detail: 'encrypted = false - data at rest is unprotected.',
       where,
       fix: 'Set encrypted = true (account-level EBS encryption by default is better).',
     });
@@ -357,7 +357,7 @@ function analyzeRes(r: Res, findings: Finding[]): void {
       findings.push({
         sev: 'medium',
         title: 'CloudTrail is single-region',
-        detail: 'is_multi_region_trail = false — activity in other regions is not captured.',
+        detail: 'is_multi_region_trail = false - activity in other regions is not captured.',
         where,
         fix: 'Set is_multi_region_trail = true.',
       });
@@ -365,7 +365,7 @@ function analyzeRes(r: Res, findings: Finding[]): void {
       findings.push({
         sev: 'low',
         title: 'CloudTrail log-file validation off',
-        detail: 'enable_log_file_validation = false — tampering is harder to detect.',
+        detail: 'enable_log_file_validation = false - tampering is harder to detect.',
         where,
         fix: 'Set enable_log_file_validation = true.',
       });
@@ -383,7 +383,7 @@ function analyzeRes(r: Res, findings: Finding[]): void {
       findings.push({
         sev: 'high',
         title: `Possible hardcoded secret (${k})`,
-        detail: `Attribute "${k}" is a literal string in the plan — secrets in IaC/state leak to anyone with plan/state access.`,
+        detail: `Attribute "${k}" is a literal string in the plan - secrets in IaC/state leak to anyone with plan/state access.`,
         where,
         fix: 'Source from a secrets manager / variable marked sensitive; rotate if already applied.',
       });
@@ -401,7 +401,7 @@ function analyze(text: string): Analysis | null {
   } catch (e) {
     console.error('analyze failed:', e instanceof Error ? e.message : String(e));
     return {
-      error: `${(e as Error).message}. Tip: this expects JSON — run \`terraform show -json <planfile>\` (not the human-readable plan).`,
+      error: `${(e as Error).message}. Tip: this expects JSON - run \`terraform show -json <planfile>\` (not the human-readable plan).`,
       resources: 0,
       findings: [],
     };
@@ -557,7 +557,7 @@ export default function TerraformScanner(): JSX.Element {
             <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
               <ShieldCheck size={16} className="mt-0.5 flex-shrink-0" />
               <span>
-                No misconfigurations matched the ruleset. This is not a full policy engine — pair with tfsec / Checkov
+                No misconfigurations matched the ruleset. This is not a full policy engine - pair with tfsec / Checkov
                 in CI.
               </span>
             </section>

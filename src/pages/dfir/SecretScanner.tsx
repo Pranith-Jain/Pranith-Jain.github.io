@@ -4,13 +4,13 @@ import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
 /**
- * Secret / API-Key Scanner — 100% client-side.
+ * Secret / API-Key Scanner - 100% client-side.
  *
  * Paste code, config, .env, CI logs, JSON. Known credential formats
  * (cloud keys, VCS/CI/SaaS tokens, private keys, DB URIs, JWTs) are
  * matched by signature; generic `key = "…"` assignments are flagged when
  * the value is high-entropy. Matches are shown redacted with a line
- * number. Nothing leaves the browser — paste freely.
+ * number. Nothing leaves the browser - paste freely.
  */
 
 interface Hit {
@@ -198,7 +198,7 @@ export default function SecretScanner(): JSX.Element {
           Paste code, <span className="font-mono text-tool">.env</span>, config, or CI logs. Cloud keys, VCS/CI/SaaS
           tokens, private keys, DB URIs and JWTs are matched by signature; generic high-entropy
           <span className="font-mono text-tool"> key="…"</span> assignments are flagged too. Redacted output, line
-          numbers — <strong>nothing leaves your browser</strong>.
+          numbers - <strong>nothing leaves your browser</strong>.
         </p>
         <div className="flex flex-wrap gap-2 mb-4">
           <button
@@ -226,7 +226,7 @@ export default function SecretScanner(): JSX.Element {
         id="sec-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Paste code / .env / logs — scanned entirely in-browser, never uploaded."
+        placeholder="Paste code / .env / logs - scanned entirely in-browser, never uploaded."
         rows={12}
         spellCheck={false}
         aria-label="Text to scan for secrets"
@@ -258,7 +258,7 @@ export default function SecretScanner(): JSX.Element {
             <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
               <ShieldCheck size={16} className="mt-0.5 flex-shrink-0" />
               <span>
-                No known secret signatures or high-entropy assignments found. Signature scanning isn’t exhaustive —
+                No known secret signatures or high-entropy assignments found. Signature scanning isn’t exhaustive -
                 still gate commits with a CI scanner.
               </span>
             </section>
@@ -280,7 +280,7 @@ export default function SecretScanner(): JSX.Element {
                         {hit.sev}
                       </span>
                       <span className={`font-display font-semibold text-sm ${st.text}`}>{hit.kind}</span>
-                      <span className="text-mini font-mono text-slate-400">line {hit.line}</span>
+                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400">line {hit.line}</span>
                       <code className="text-meta font-mono text-slate-700 dark:text-slate-300 break-all">
                         {hit.redacted}
                       </code>
@@ -290,7 +290,7 @@ export default function SecretScanner(): JSX.Element {
               })}
               <p className="text-meta text-slate-500 mt-3">
                 Treat every match as live: <strong>rotate/revoke</strong> the credential, then purge it from git history
-                (git-filter-repo / BFG) — deleting the line is not enough.
+                (git-filter-repo / BFG) - deleting the line is not enough.
               </p>
             </section>
           )}

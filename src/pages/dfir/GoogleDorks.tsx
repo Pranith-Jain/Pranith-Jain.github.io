@@ -5,14 +5,14 @@ import { Search, ExternalLink, Loader2, Copy } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 
 /**
- * /dfir/google-dorks — SerpAPI-backed Google search with dork-operator hints.
+ * /dfir/google-dorks - SerpAPI-backed Google search with dork-operator hints.
  *
  * The page is a thin shell around /api/v1/google-dorks?q=… : type a query
  * (with operators like `site:`, `inurl:`, `intitle:`, `filetype:`), see the
  * organic results inline, click through to the source. Results are
  * edge-cached for an hour to keep SerpAPI quota usage sane.
  *
- * Nothing on the page leaves the browser except the search query — and the
+ * Nothing on the page leaves the browser except the search query - and the
  * server-side route strips HTML-y chars before forwarding to SerpAPI.
  */
 
@@ -83,7 +83,7 @@ export default function GoogleDorks(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
 
-  // Sync the query into the URL — share-friendly, back-button friendly.
+  // Sync the query into the URL - share-friendly, back-button friendly.
   useEffect(() => {
     setSearchParams(
       (prev) => {
@@ -96,7 +96,7 @@ export default function GoogleDorks(): JSX.Element {
     );
   }, [query, setSearchParams]);
 
-  // Auto-run on initial mount when the URL carried a `?q=` — supports
+  // Auto-run on initial mount when the URL carried a `?q=` - supports
   // shareable dork links.
   useEffect(() => {
     if (initialQuery.trim()) void runSearch(initialQuery, num);
@@ -168,7 +168,7 @@ export default function GoogleDorks(): JSX.Element {
       backTo="/dfir"
       icon={<Search size={28} />}
       title="Google Dorks"
-      description="Programmatic Google search with dork-operator hints — useful for surfacing exposed config files, public credential leaks, indexed admin panels, and similar OSINT leads. Backed by SerpAPI; results are edge-cached for an hour to keep the free tier from burning out."
+      description="Programmatic Google search with dork-operator hints - useful for surfacing exposed config files, public credential leaks, indexed admin panels, and similar OSINT leads. Backed by SerpAPI; results are edge-cached for an hour to keep the free tier from burning out."
     >
       <form onSubmit={onSubmit} className="mb-6">
         <label htmlFor="dork-q" className="sr-only">
@@ -282,7 +282,7 @@ export default function GoogleDorks(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => void copyLink(r.link)}
-                    className="shrink-0 p-1.5 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                    className="shrink-0 p-1.5 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                     title="Copy link"
                     aria-label="Copy link"
                   >

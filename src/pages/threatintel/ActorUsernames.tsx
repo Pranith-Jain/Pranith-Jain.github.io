@@ -99,17 +99,17 @@ export default function ActorUsernames(): JSX.Element {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Fingerprint size={28} className="text-brand-600 dark:text-brand-400" /> Actor username search
+          <Fingerprint size={28} className="text-rose-600 dark:text-rose-400" /> Actor username search
         </h1>
         <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Search ~{stats?.total_usernames?.toLocaleString() ?? '291k'} usernames scraped from cybercrime forums to see
-          which boards a handle appears on. An attribution signal — a hit means the handle was seen in a forum scrape,
+          which boards a handle appears on. An attribution signal - a hit means the handle was seen in a forum scrape,
           not proof of identity. Sourced from{' '}
           <a
             href="https://github.com/spmedia/Threat-Actor-Usernames-Scrape"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             spmedia/Threat-Actor-Usernames-Scrape
           </a>{' '}
@@ -125,19 +125,19 @@ export default function ActorUsernames(): JSX.Element {
       <form onSubmit={submit} className="surface-card p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="search"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Enter a username / handle (min 2 chars)…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Search threat-actor usernames"
             />
           </div>
           <button
             type="submit"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/70"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/70"
           >
             search
           </button>
@@ -151,7 +151,7 @@ export default function ActorUsernames(): JSX.Element {
               onClick={() => setMode(m.id)}
               className={`text-mini font-mono px-2 py-1 rounded border ${
                 mode === m.id
-                  ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                  ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
                   : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
               }`}
             >
@@ -205,7 +205,7 @@ export default function ActorUsernames(): JSX.Element {
                       key={f.forum}
                       className={`text-mini font-mono px-2 py-0.5 rounded border ${
                         f.dead
-                          ? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400 line-through'
+                          ? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 line-through'
                           : 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
                       }`}
                       title={f.dead ? 'defunct forum' : 'active forum'}

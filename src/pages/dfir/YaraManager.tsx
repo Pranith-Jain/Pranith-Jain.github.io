@@ -19,7 +19,7 @@ const STORAGE_KEY = 'dfir-yara-rules:v1';
 
 /**
  * Starter rule. Detects the PowerShell encoded-command flag pattern as a
- * concrete, low-risk example — common in initial-access tradecraft and a
+ * concrete, low-risk example - common in initial-access tradecraft and a
  * good first hit a new analyst will recognise. Replace the rule body
  * before saving; the meta block documents the intent so the rule
  * remains readable in shared rule packs.
@@ -28,7 +28,7 @@ const TEMPLATE_RULE = `rule PowerShellEncodedCommand
 {
     meta:
         author = "analyst"
-        description = "Detects PowerShell launched with -EncodedCommand or -enc — common in initial-access tradecraft. Pair with a parent-process filter in your hunting query."
+        description = "Detects PowerShell launched with -EncodedCommand or -enc - common in initial-access tradecraft. Pair with a parent-process filter in your hunting query."
         date = "${new Date().toISOString().slice(0, 10)}"
         reference = "MITRE T1059.001"
     strings:
@@ -272,7 +272,7 @@ export default function YaraManager(): JSX.Element {
  * Two read-only panels backed by the authenticated ransomware.live proxy:
  * recent ransomware cyber-attacks, and per-group YARA. Picking an attack's
  * group loads that group's YARA rules. The local rule manager above is
- * untouched — this is additive context, not a replacement.
+ * untouched - this is additive context, not a replacement.
  */
 
 interface RlAttack {
@@ -342,7 +342,7 @@ function RansomwareIntelPanels(): JSX.Element {
           .filter(rec)
           .map((o) => ({
             group: s(o, ['group', 'group_name', 'gang']) ?? 'unknown',
-            victim: s(o, ['victim', 'title', 'post_title', 'domain', 'company']) ?? '—',
+            victim: s(o, ['victim', 'title', 'post_title', 'domain', 'company']) ?? '-',
             date: s(o, ['discovered', 'published', 'date', 'added']),
             url: s(o, ['url', 'link', 'source', 'press']),
           }))
@@ -421,7 +421,7 @@ function RansomwareIntelPanels(): JSX.Element {
                   <span className="text-muted truncate flex-1 min-w-0" title={a.victim}>
                     {a.victim}
                   </span>
-                  {a.date && <span className="text-slate-400 text-micro">{a.date.slice(0, 10)}</span>}
+                  {a.date && <span className="text-slate-500 dark:text-slate-400 text-micro">{a.date.slice(0, 10)}</span>}
                   {a.url && (
                     <a
                       href={sanitizeUrl(a.url) || undefined}

@@ -111,7 +111,7 @@ export default function EntityGraphPage(): JSX.Element {
   return (
     <DataPageLayout
       title="Entity Graph"
-      description="Interactive topology of threat-intel entities — CVEs, actors, IOCs, sectors, and techniques"
+      description="Interactive topology of threat-intel entities - CVEs, actors, IOCs, sectors, and techniques"
       icon={<Network size={20} />}
       accentClass="text-violet-500"
       backTo="/threatintel"
@@ -126,7 +126,7 @@ export default function EntityGraphPage(): JSX.Element {
               <button
                 key={t}
                 onClick={() => toggleType(t)}
-                className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-mono transition-all ${
+                className={`flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-xs font-mono transition-all ${
                   active
                     ? 'border-2 bg-white shadow-sm dark:bg-[rgb(var(--surface-200))]'
                     : 'border border-slate-200 bg-slate-50 opacity-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]'
@@ -141,18 +141,18 @@ export default function EntityGraphPage(): JSX.Element {
           })}
           <div className="ml-auto flex items-center gap-2">
             <div className="relative">
-              <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+              <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Filter nodes…"
-                className="h-8 w-40 rounded-lg border border-slate-200 bg-white pl-7 pr-2 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white"
+                className="h-8 w-40 rounded-xl border border-slate-200 bg-white pl-7 pr-2 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white"
               />
             </div>
             <button
               onClick={fetchGraph}
-              className="flex items-center gap-1 rounded-lg p-1.5 text-slate-400 hover:text-brand-600 transition-colors"
+              className="flex items-center gap-1 rounded-xl p-1.5 text-slate-500 dark:text-slate-400 hover:text-rose-600 transition-colors"
               aria-label="Refresh"
             >
               <RefreshCw size={13} />
@@ -164,7 +164,7 @@ export default function EntityGraphPage(): JSX.Element {
       {/* ── Canvas ──────────────────────────────────────────────────── */}
       {loading && (
         <div className="flex items-center justify-center py-24">
-          <Loader2 size={28} className="animate-spin text-brand-500" />
+          <Loader2 size={28} className="animate-spin text-rose-500" />
           <span className="ml-3 font-mono text-sm text-slate-500">Building graph…</span>
         </div>
       )}
@@ -183,7 +183,7 @@ export default function EntityGraphPage(): JSX.Element {
           <Suspense
             fallback={
               <div className="flex items-center justify-center h-full">
-                <Loader2 size={20} className="animate-spin text-slate-400" />
+                <Loader2 size={20} className="animate-spin text-slate-500 dark:text-slate-400" />
               </div>
             }
           >
@@ -193,7 +193,7 @@ export default function EntityGraphPage(): JSX.Element {
       )}
 
       {/* ── Legend ───────────────────────────────────────────────────── */}
-      <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-[11px] font-mono text-slate-400">
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-[11px] font-mono text-slate-500 dark:text-slate-400">
         <span className="flex items-center gap-1.5">
           <GitBranch size={11} />
           {filteredEdges.length} edges

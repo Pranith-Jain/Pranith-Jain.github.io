@@ -19,7 +19,7 @@ interface SourceTogglePanelProps {
 }
 
 /**
- * Shared per-feed toggle panel — used by pages that aggregate RSS feeds
+ * Shared per-feed toggle panel - used by pages that aggregate RSS feeds
  * (ThreatFeeds, TechAiNews, ScamWatch, etc.). Renders a section-grouped
  * grid of checkboxes with the live ok/error status reported by the
  * aggregator next to each name, so the user can both pick which feeds

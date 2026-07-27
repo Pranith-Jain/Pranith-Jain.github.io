@@ -38,7 +38,7 @@ export default function ScreenshotIntel(): JSX.Element {
     setEnts([]);
     setOcr(null);
     setNote('');
-    // Reject oversized uploads before decoding — a small compressed image can
+    // Reject oversized uploads before decoding - a small compressed image can
     // decompress to a huge canvas allocation (decompression-bomb DoS).
     if (file.size > 25 * 1024 * 1024) {
       setNote('Image too large (max 25 MB).');
@@ -46,7 +46,7 @@ export default function ScreenshotIntel(): JSX.Element {
       return;
     }
     try {
-      // EXIF / metadata (exifr — already a dependency)
+      // EXIF / metadata (exifr - already a dependency)
       try {
         const exifr = (await import('exifr')).default;
         const m = await exifr.parse(file, { gps: true });
@@ -55,7 +55,7 @@ export default function ScreenshotIntel(): JSX.Element {
         console.error('analyze failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* no exif */
       }
-      // QR decode (jsQR — lazy chunk, tiny pure-JS, no wasm)
+      // QR decode (jsQR - lazy chunk, tiny pure-JS, no wasm)
       const bmp = await createImageBitmap(file);
       // Guard against pixel-dimension bombs: a 25 MB file can still decode to
       // hundreds of megapixels, allocating gigabytes for the canvas/ImageData.
@@ -77,7 +77,7 @@ export default function ScreenshotIntel(): JSX.Element {
       const qrText = code?.data ?? '';
       setQr(qrText || '');
 
-      // OCR — tesseract.js, fully self-hosted (worker + core + traineddata
+      // OCR - tesseract.js, fully self-hosted (worker + core + traineddata
       // served same-origin; workerBlobURL:false keeps the CSP tight).
       let ocrText = '';
       try {
@@ -123,7 +123,7 @@ export default function ScreenshotIntel(): JSX.Element {
         Screenshot Intelligence
       </h1>
       <p className="text-sm font-mono text-muted mt-1 mb-6">
-        Drop a screenshot/photo — runs OCR (self-hosted Tesseract), decodes embedded QR codes, reads EXIF/GPS metadata,
+        Drop a screenshot/photo - runs OCR (self-hosted Tesseract), decodes embedded QR codes, reads EXIF/GPS metadata,
         and pulls OSINT entities (URLs, domains, IPs, emails, crypto addresses, hashes) from the recognised text. 100%
         client-side; the language model is served same-origin.
       </p>
@@ -138,7 +138,7 @@ export default function ScreenshotIntel(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           {busy ? 'Analyzing...' : 'Drop an image here, or click to choose'}
         </p>
-        <p className="text-mini font-mono text-slate-400 mt-1">
+        <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1">
           OCR, QR decode, EXIF/GPS extraction. 100% client-side.
         </p>
       </button>

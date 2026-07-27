@@ -100,7 +100,7 @@ function NodeBubble({
         strokeWidth={highlighted ? 2.5 : 1.5}
       >
         <title>
-          {tool.label} ({tool.origin}) — {tool.capabilities.join(', ') || 'no capability classified'}
+          {tool.label} ({tool.origin}) - {tool.capabilities.join(', ') || 'no capability classified'}
           {tool.detail ? '\n' + tool.detail : ''}
         </title>
       </circle>
@@ -286,7 +286,7 @@ export default function AgentMap(): JSX.Element {
                 ))}
               </ul>
               <p className="mt-3 text-mini font-mono text-slate-400 dark:text-slate-400 leading-relaxed">
-                Classification is heuristic — based on tool name, description, and Claude Code permission shape. Hover a
+                Classification is heuristic - based on tool name, description, and Claude Code permission shape. Hover a
                 node to see the source detail.
               </p>
             </div>
@@ -334,7 +334,7 @@ export default function AgentMap(): JSX.Element {
             </section>
           ) : graph.tools.length > 0 ? (
             <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 mb-6 text-sm font-mono text-emerald-700 dark:text-emerald-300">
-              No exfil / RCE chains detected. Heuristic only — re-run after every config change.
+              No exfil / RCE chains detected. Heuristic only - re-run after every config change.
             </section>
           ) : null}
 
@@ -389,7 +389,7 @@ export default function AgentMap(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              OWASP LLM Top 10 — LLM06 Excessive Agency, LLM02 Sensitive Information Disclosure
+              OWASP LLM Top 10 - LLM06 Excessive Agency, LLM02 Sensitive Information Disclosure
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -400,7 +400,7 @@ export default function AgentMap(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              Invariant Labs — Tool Poisoning attacks against MCP
+              Invariant Labs - Tool Poisoning attacks against MCP
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>

@@ -47,7 +47,7 @@ interface Phase {
 const PRINCIPLES: Principle[] = [
   {
     title: 'Never trust, always verify',
-    body: 'Every request is authenticated & authorized regardless of origin — inside the network gets no free pass.',
+    body: 'Every request is authenticated & authorized regardless of origin - inside the network gets no free pass.',
     example:
       'A “trusted” internal agent calling the prod DB still needs a fresh OAuth token, an mTLS handshake, and a per-request scope check. No shared service accounts, no ambient trust.',
   },
@@ -58,23 +58,23 @@ const PRINCIPLES: Principle[] = [
       'Compromised RAG retriever can only read its own index, can’t pivot to the payments agent. Identity-scoped blast radius, not network-scoped.',
   },
   {
-    title: 'Least privilege — least agency',
+    title: 'Least privilege - least agency',
     body: 'Constrain not just what agents access, but what each tool can do, how often, and where.',
     example:
-      'The triage agent can `get_ticket` and `add_internal_note`. It cannot call `refund_payment` even if a prompt-injection thread asks it to. The capability isn’t throttled — it isn’t there.',
+      'The triage agent can `get_ticket` and `add_internal_note`. It cannot call `refund_payment` even if a prompt-injection thread asks it to. The capability isn’t throttled - it isn’t there.',
   },
 ];
 
 const MATRIX: MatrixRow[] = [
   {
     domain: 'Identity & authentication',
-    foundation: 'Per-agent cryptographic IDs; short-lived IdP tokens — no static API keys',
+    foundation: 'Per-agent cryptographic IDs; short-lived IdP tokens - no static API keys',
     enterprise: 'X.509 certs w/ full lifecycle; mutual TLS + certificate pinning',
     advanced: 'HSM/TPM hardware-backed identity with remote attestation',
     practice:
       'Issue every agent a workload identity (SPIFFE/SPIRE or equivalent) bound to its runtime, not its IP. Rotate signing material on a sub-day cadence.',
     failureMode:
-      'A leaked long-lived API key in an MCP server gives an attacker the same identity as the legitimate agent for months — no signal, no revocation path.',
+      'A leaked long-lived API key in an MCP server gives an attacker the same identity as the legitimate agent for months - no signal, no revocation path.',
   },
   {
     domain: 'Access control & privilege',
@@ -84,7 +84,7 @@ const MATRIX: MatrixRow[] = [
     practice:
       'Author policies against identity × resource × action × context (time, geo, sensitivity). Default-deny. Re-evaluate on every call, not only at session start.',
     failureMode:
-      'Session-scoped authz means a 12-hour agent that was once authorized to read customer PII keeps reading it for the rest of the session — even after the task changes.',
+      'Session-scoped authz means a 12-hour agent that was once authorized to read customer PII keeps reading it for the rest of the session - even after the task changes.',
   },
   {
     domain: 'Observability & auditing',
@@ -94,7 +94,7 @@ const MATRIX: MatrixRow[] = [
     practice:
       'Log every tool call with the input prompt hash, retrieved-doc IDs, and resulting actions. Make the log immutable (write-once / hash-chained) so it holds up in incident review.',
     failureMode:
-      'Without provenance, you can’t answer “which documents did this agent see before it exfiltrated?” after the fact — and you can’t prove the chain of custody for an AI-generated action.',
+      'Without provenance, you can’t answer “which documents did this agent see before it exfiltrated?” after the fact - and you can’t prove the chain of custody for an AI-generated action.',
   },
   {
     domain: 'Behavioral monitoring',
@@ -102,7 +102,7 @@ const MATRIX: MatrixRow[] = [
     enterprise: 'Learned baselines; automatic containment & access revocation',
     advanced: 'Continuous drift detection; orchestrated SOAR playbooks',
     practice:
-      'Profile each agent’s normal call graph (tools per minute, data volume, time-of-day). Detect and contain deviations automatically — don’t rely on a human to notice.',
+      'Profile each agent’s normal call graph (tools per minute, data volume, time-of-day). Detect and contain deviations automatically - don’t rely on a human to notice.',
     failureMode:
       'An attacker with a stolen agent identity can quietly enumerate the file tree for days because no per-tool rate baseline exists. A model exfiltrating training data shows up as “normal tool usage” without drift detection.',
   },
@@ -122,7 +122,7 @@ const MATRIX: MatrixRow[] = [
     enterprise: 'Signed configurations; automated rollback with health checks',
     advanced: 'Immutable infrastructure; self-healing auto-remediation',
     practice:
-      'Pin and sign every agent config, system prompt, and tool manifest. Sign policy changes. Have a tested rollback path that completes in <1h — exercises, not paperwork.',
+      'Pin and sign every agent config, system prompt, and tool manifest. Sign policy changes. Have a tested rollback path that completes in <1h - exercises, not paperwork.',
     failureMode:
       'A poisoned system prompt gets merged on Friday. Monday morning, every agent in the fleet is exfiltrating. No signed config means no diff, no rollback, no accountability.',
   },
@@ -134,7 +134,7 @@ const MATRIX: MatrixRow[] = [
     practice:
       'Block deployment when AI-BOM is missing, model card is stale, or shadow-AI tooling is detected on endpoints. Governance is a CI check, not a quarterly audit.',
     failureMode:
-      'Marketing pastes customer emails into a consumer chatbot to “summarize feedback.” No AI-BOM, no policy enforcement, no detection — and a regulator asks for the data flow on Tuesday.',
+      'Marketing pastes customer emails into a consumer chatbot to “summarize feedback.” No AI-BOM, no policy enforcement, no detection - and a regulator asks for the data flow on Tuesday.',
   },
 ];
 
@@ -142,7 +142,7 @@ const THREATS: Threat[] = [
   {
     num: 1,
     title: 'Prompt injection',
-    body: 'Direct & indirect — LLMs cannot reliably separate informational context from actionable instructions.',
+    body: 'Direct & indirect - LLMs cannot reliably separate informational context from actionable instructions.',
     category: 'injection',
     mitigations: [
       'Spotlight untrusted content (delimiters, type tags) so the model can distinguish data from instructions',
@@ -157,7 +157,7 @@ const THREATS: Threat[] = [
     category: 'tooling',
     mitigations: [
       'Pin MCP tool manifests by hash; alert on any drift',
-      'Allow-list tools per agent — never expose a superset',
+      'Allow-list tools per agent - never expose a superset',
       'Sandbox execution; cap tool-call rate and cumulative cost per task',
     ],
   },
@@ -169,7 +169,7 @@ const THREATS: Threat[] = [
     mitigations: [
       'Re-issue short-lived tokens on every tool call; never inherit session scopes',
       'Issue per-tool credentials with the minimum scope the tool needs',
-      'Purge memory scopes on task boundary — no implicit carryover',
+      'Purge memory scopes on task boundary - no implicit carryover',
     ],
   },
   {
@@ -191,7 +191,7 @@ const THREATS: Threat[] = [
     mitigations: [
       'Isolate memory by tenant and by agent; never share indexes across trust boundaries',
       'Sign and provenance-check every document at write time; re-validate on read',
-      'Apply retrieval-integrity checks (TITs) — flag retrieved docs whose source drift exceeds baseline',
+      'Apply retrieval-integrity checks (TITs) - flag retrieved docs whose source drift exceeds baseline',
     ],
   },
 ];
@@ -233,7 +233,7 @@ const PHASES: Phase[] = [
     title: 'Identify requirements',
     body: 'regulatory, operational, stakeholder alignment',
     detail:
-      'Map every applicable regulation (EU AI Act, sectoral rules, data-residency) and every internal stakeholder. Define what data the agent may touch, what it may do, and what it must never do — in writing, before the first prototype.',
+      'Map every applicable regulation (EU AI Act, sectoral rules, data-residency) and every internal stakeholder. Define what data the agent may touch, what it may do, and what it must never do - in writing, before the first prototype.',
     outputs: ['AI acceptable-use policy', 'Stakeholder RACI', 'Regulatory scope memo'],
   },
   {
@@ -249,7 +249,7 @@ const PHASES: Phase[] = [
     title: 'Define agent boundaries',
     body: 'simple IDs, least agency, blast radius',
     detail:
-      'Issue each agent a workload identity. Enumerate the smallest possible tool set, scope, and rate. Cap blast radius explicitly — which other agents can this one call? What data can it read?',
+      'Issue each agent a workload identity. Enumerate the smallest possible tool set, scope, and rate. Cap blast radius explicitly - which other agents can this one call? What data can it read?',
     outputs: ['Per-agent ID spec', 'Tool allow-list', 'Blast-radius matrix'],
   },
   {
@@ -310,7 +310,7 @@ const TIER_LABEL: Record<
 > = {
   foundation: {
     label: 'FOUNDATION',
-    tag: 'minimum viable — the floor has been raised',
+    tag: 'minimum viable - the floor has been raised',
     bar: 'bg-amber-500',
     head: 'text-amber-700 dark:text-amber-300',
     chip: 'bg-amber-50 text-amber-700 ring-amber-500/40 dark:bg-amber-500/15 dark:text-amber-300',
@@ -465,7 +465,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                     {p.title}
                   </h3>
                   <p className="mt-1 text-meta font-mono text-muted leading-relaxed">{p.body}</p>
-                  <p className="mt-2 text-mini font-mono text-slate-400 dark:text-slate-500 leading-relaxed italic border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
+                  <p className="mt-2 text-mini font-mono text-slate-500 dark:text-slate-400 leading-relaxed italic border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
                     <Lightbulb size={10} className="inline -mt-0.5 mr-1 text-brand-500" aria-hidden="true" />
                     {p.example}
                   </p>
@@ -497,7 +497,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
 
           {/* Middle column: Capability matrix */}
           <section className="min-w-0">
-            <SectionHeader label="CAPABILITY MATRIX — 3 TIERS × 7 DOMAINS" tone="brand" />
+            <SectionHeader label="CAPABILITY MATRIX - 3 TIERS × 7 DOMAINS" tone="brand" />
 
             {/* Tier filter + search */}
             <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -554,7 +554,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                       <div className={`text-eyebrow font-mono uppercase tracking-[0.18em] ${cfg.head}`}>
                         {cfg.label}
                       </div>
-                      <div className="text-mini font-mono text-slate-400 dark:text-slate-500 mt-0.5 leading-snug">
+                      <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
                         {cfg.tag}
                       </div>
                     </div>
@@ -596,7 +596,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                           <ChevronDown
                             size={12}
                             className={[
-                              'mt-1 text-slate-400 transition-transform shrink-0',
+                              'mt-1 text-slate-500 dark:text-slate-400 transition-transform shrink-0',
                               isExpanded ? 'rotate-0 text-brand-500' : '-rotate-90',
                             ].join(' ')}
                             aria-hidden="true"
@@ -719,7 +719,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                         size={12}
                         className={[
                           'mt-1 shrink-0 transition-transform',
-                          isOpen ? 'rotate-0 text-rose-500' : '-rotate-90 text-slate-400',
+                          isOpen ? 'rotate-0 text-rose-500' : '-rotate-90 text-slate-500 dark:text-slate-400',
                         ].join(' ')}
                         aria-hidden="true"
                       />
@@ -771,7 +771,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
             <article className="rounded bg-brand-50 dark:bg-brand-500/10 ring-1 ring-brand-500/40 p-3">
               <p className="text-[12.5px] font-mono text-brand-800 dark:text-brand-200 leading-relaxed">
                 <span className="font-semibold text-brand-700 dark:text-brand-300">The floor keeps rising:</span> expect
-                today’s Advanced to become tomorrow’s Enterprise — and Enterprise to become Foundation.
+                today’s Advanced to become tomorrow’s Enterprise - and Enterprise to become Foundation.
               </p>
             </article>
           </aside>
@@ -779,7 +779,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
 
         {/* ─── Implementation workflow ─────────────────────────────── */}
         <section className="mt-10 sm:mt-12">
-          <SectionHeader label="IMPLEMENTATION WORKFLOW — 8 PHASES" tone="brand" />
+          <SectionHeader label="IMPLEMENTATION WORKFLOW - 8 PHASES" tone="brand" />
 
           <div
             className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2"
@@ -836,7 +836,7 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                 <span className="text-eyebrow font-mono uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300">
                   Phase {phase.num}
                 </span>
-                <span className="text-eyebrow font-mono uppercase tracking-[0.18em] text-slate-400">·</span>
+                <span className="text-eyebrow font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">·</span>
                 <h3 className="font-display font-bold text-slate-900 dark:text-slate-100 text-base">{phase.title}</h3>
               </div>
               <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{phase.detail}</p>

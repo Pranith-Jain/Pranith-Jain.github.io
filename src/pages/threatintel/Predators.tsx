@@ -54,7 +54,7 @@ const CATEGORIES: PredatorCategory[] = [
       'NCMEC Take It Down',
       'StopNCII.org',
       'FBI IC3 Sextortion PSA',
-      'Thorn — Safer.io',
+      'Thorn - Safer.io',
     ],
   },
   {
@@ -72,7 +72,7 @@ const CATEGORIES: PredatorCategory[] = [
       'Gaming console direct-message contacts',
     ],
     resources: [
-      'Thorn — Safer.io',
+      'Thorn - Safer.io',
       'NetSmartz Workshop',
       'NCMEC CyberTipline',
       'Internet Matters',
@@ -80,7 +80,7 @@ const CATEGORIES: PredatorCategory[] = [
     ],
   },
   {
-    name: 'Human Trafficking — Online Recruitment',
+    name: 'Human Trafficking - Online Recruitment',
     type: 'Labor / Sex Trafficking',
     risk: 'CRITICAL',
     regions: ['Southeast Asia', 'Latin America', 'Sub-Saharan Africa', 'Eastern Europe', 'Middle East'],
@@ -181,7 +181,7 @@ const CATEGORIES: PredatorCategory[] = [
       'Undercover OSINT techniques',
       'Cross-platform account linkage',
     ],
-    resources: ['Thorn — Safer.io', 'NCMEC CyberTipline', 'Project VIC', 'IWF Image Hash List', 'StopNCII.org'],
+    resources: ['Thorn - Safer.io', 'NCMEC CyberTipline', 'Project VIC', 'IWF Image Hash List', 'StopNCII.org'],
   },
 ];
 
@@ -218,17 +218,17 @@ export default function Predators(): JSX.Element {
     <DataPageLayout
       backTo="/threatintel"
       icon={<ShieldAlert size={28} />}
-      title="Online Predator Monitoring — Tracking & Response"
-      description="Tracking categories of online predation, exploitation networks, and trafficking operations — organized by threat risk, regional prevalence, and investigator resources."
+      title="Online Predator Monitoring - Tracking & Response"
+      description="Tracking categories of online predation, exploitation networks, and trafficking operations - organized by threat risk, regional prevalence, and investigator resources."
     >
       <div className="relative mb-6">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Filter by name, type, region, indicator, or resource…"
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
         />
       </div>
 
@@ -271,7 +271,7 @@ export default function Predators(): JSX.Element {
 
             <div className="mt-auto space-y-2 text-xs font-mono text-slate-500 dark:text-slate-500">
               <div>
-                <span className="flex items-center gap-1 text-slate-400 dark:text-slate-500 mb-1">
+                <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400 mb-1">
                   <AlertTriangle size={11} /> Indicators
                 </span>
                 <ul className="space-y-0.5">
@@ -283,7 +283,7 @@ export default function Predators(): JSX.Element {
                 </ul>
               </div>
               <div>
-                <span className="flex items-center gap-1 text-slate-400 dark:text-slate-500 mb-1">
+                <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400 mb-1">
                   <Lock size={11} /> Response Resources
                 </span>
                 <ul className="space-y-0.5">

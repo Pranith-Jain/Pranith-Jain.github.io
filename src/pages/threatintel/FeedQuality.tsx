@@ -93,7 +93,7 @@ function pillarBarColor(score: number): string {
 
 function relativeAgo(iso: string): string {
   const t = Date.parse(iso);
-  if (!Number.isFinite(t)) return '—';
+  if (!Number.isFinite(t)) return '-';
   const ageH = (Date.now() - t) / 3_600_000;
   if (ageH < 0) return 'just now';
   if (ageH < 1) return `${Math.round(ageH * 60)}m ago`;
@@ -177,12 +177,12 @@ export default function FeedQuality(): JSX.Element {
     <DataPageLayout
       backTo="/threatintel"
       icon={<BarChart3 size={28} />}
-      title="TIFCE — Feed Quality Scorecard"
+      title="TIFCE - Feed Quality Scorecard"
       description="Four-pillar scorecard for every IOC feed in the live stream. The framework (TIFCE: TI Feed Content Evaluation) was originally published as a Microsoft Sentinel KQL workbook; this is a vendor-neutral re-implementation operating on the platform's own IOC infrastructure."
       loading={loading}
       error={error}
       empty={!error && (!data || data.feeds.length === 0)}
-      emptyMessage="No TIFCE build available yet — the live-IOC stream hasn't reported enough feeds to score."
+      emptyMessage="No TIFCE build available yet - the live-IOC stream hasn't reported enough feeds to score."
       onRetry={() => void refetch()}
       maxWidthClass="max-w-6xl"
       headerExtra={
@@ -190,7 +190,7 @@ export default function FeedQuality(): JSX.Element {
           <span>Scored hourly · cached 1h at the edge</span>
           <span>·</span>
           <a
-            className="underline decoration-dotted hover:text-brand-600 dark:hover:text-brand-400"
+            className="underline decoration-dotted hover:text-rose-600 dark:hover:text-rose-400"
             href="https://zenodo.org/records/18208974"
             target="_blank"
             rel="noopener noreferrer"
@@ -199,7 +199,7 @@ export default function FeedQuality(): JSX.Element {
           </a>
           <span>·</span>
           <a
-            className="underline decoration-dotted hover:text-brand-600 dark:hover:text-brand-400"
+            className="underline decoration-dotted hover:text-rose-600 dark:hover:text-rose-400"
             href="https://github.com/cyb3rmik3/KQL-threat-hunting-queries/tree/main/TIFCE"
             target="_blank"
             rel="noopener noreferrer"
@@ -217,7 +217,7 @@ export default function FeedQuality(): JSX.Element {
             <p className="font-bold uppercase tracking-wider mb-1">Scoping note</p>
             <p className="leading-relaxed">
               Pillars 2 (Environmental Relevance) and 3 (Signal vs Noise) in the reference TIFCE workbook answer
-              tenant-side questions — &ldquo;does this IOC hit MY endpoint/email telemetry?&rdquo; and &ldquo;does it
+              tenant-side questions - &ldquo;does this IOC hit MY endpoint/email telemetry?&rdquo; and &ldquo;does it
               correlate to MY confirmed incidents?&rdquo; This platform is a public CTI aggregator with no tenant
               telemetry. We substitute the strongest in-platform signals we track:{' '}
               <strong>ioc_lifecycle peak_score &gt; 0</strong> as a TP proxy and{' '}
@@ -313,13 +313,13 @@ function FilterBar({
     <section className="surface-card p-4 mb-4">
       <div className="flex items-center gap-3 flex-wrap">
         <div className="relative flex-1 min-w-[200px]">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Filter by feed id…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             aria-label="Filter feeds"
           />
         </div>
@@ -334,14 +334,14 @@ function FilterBar({
         <button
           type="button"
           onClick={() => setShowMeta(!showMeta)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
         >
           <Info size={12} /> build details
         </button>
         <button
           type="button"
           onClick={onRefresh}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
         >
           <RefreshCw size={12} /> refresh
         </button>
@@ -425,9 +425,9 @@ function FeedRow({
           <div className="text-micro font-mono text-slate-500 uppercase tracking-wider">composite</div>
         </div>
         {expanded ? (
-          <ChevronDown size={16} className="shrink-0 text-slate-400" />
+          <ChevronDown size={16} className="shrink-0 text-slate-500 dark:text-slate-400" />
         ) : (
-          <ChevronRight size={16} className="shrink-0 text-slate-400" />
+          <ChevronRight size={16} className="shrink-0 text-slate-500 dark:text-slate-400" />
         )}
       </button>
       {expanded && (
@@ -466,7 +466,7 @@ function PillarBars({ feed }: { feed: FeedTifceScore }): JSX.Element {
           <div key={k} className="flex items-center gap-1.5" title={`${PILLAR_LABELS[k].label}: ${s.toFixed(1)}`}>
             <div className="flex-1 h-1.5 rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
               <div
-                className={`h-full ${pillarBarColor(s)} transition-[width] duration-300`}
+                className={`h-full ${pillarBarColor(s)} transition-[width] duration-200`}
                 style={{ width: `${s}%` }}
               />
             </div>

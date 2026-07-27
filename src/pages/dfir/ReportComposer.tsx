@@ -26,7 +26,7 @@ import {
 } from '../../lib/dfir/report-composer/schema';
 
 /**
- * /dfir/report-composer — client-side investigation report builder.
+ * /dfir/report-composer - client-side investigation report builder.
  *
  * Edit a multi-section report (cover, summary, findings, IOCs, sources)
  * in the browser; export to PDF (jsPDF) or DOCX (in-house OOXML build
@@ -265,7 +265,7 @@ export default function ReportComposer(): JSX.Element {
         </div>
       </div>
       <p className="text-muted max-w-2xl leading-relaxed mb-2">
-        Build an investigation report in the browser, then export to PDF or DOCX. No server, no API keys — your draft
+        Build an investigation report in the browser, then export to PDF or DOCX. No server, no API keys - your draft
         stays in localStorage until you export.
       </p>
       <p className="text-xs text-slate-500 mb-8 font-mono">
@@ -305,7 +305,7 @@ export default function ReportComposer(): JSX.Element {
                 type="text"
                 value={doc.meta.subject}
                 onChange={(e) => updateMeta('subject', e.target.value)}
-                placeholder="e.g. APT29 phishing campaign — 2026-06"
+                placeholder="e.g. APT29 phishing campaign - 2026-06"
                 className="w-full px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm"
               />
             </Field>
@@ -418,7 +418,7 @@ export default function ReportComposer(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => removeFinding(i)}
-                    className="ml-auto p-1 text-slate-400 hover:text-rose-400"
+                    className="ml-auto p-1 text-slate-500 dark:text-slate-400 hover:text-rose-400"
                     aria-label="Remove finding"
                   >
                     <Trash2 size={12} />
@@ -483,7 +483,7 @@ export default function ReportComposer(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => removeIoc(i)}
-                    className="p-1.5 text-slate-400 hover:text-rose-400"
+                    className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-rose-400"
                     aria-label="Remove IOC"
                   >
                     <Trash2 size={12} />
@@ -546,7 +546,7 @@ export default function ReportComposer(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => removeSection(i)}
-                    className="p-1 text-slate-400 hover:text-rose-400"
+                    className="p-1 text-slate-500 dark:text-slate-400 hover:text-rose-400"
                     aria-label="Remove section"
                   >
                     <Trash2 size={12} />
@@ -612,7 +612,7 @@ export default function ReportComposer(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => removeSource(i)}
-                    className="p-1.5 text-slate-400 hover:text-rose-400"
+                    className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-rose-400"
                     aria-label="Remove source"
                   >
                     <Trash2 size={12} />

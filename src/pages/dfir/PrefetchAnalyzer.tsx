@@ -4,7 +4,7 @@ import { Activity, Upload, Loader2 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { fileTooLarge, yieldToPaint, MAX_PARSE_BYTES } from '../../lib/dfir/file-guard';
 
-/* ── LZXPRESS Huffman decompression ([MS-XCA] 2.2) — for Win8+/Win10+ ──
+/* ── LZXPRESS Huffman decompression ([MS-XCA] 2.2) - for Win8+/Win10+ ──
    prefetch, which is wrapped in a MAM\x04 container. */
 function decompressLzxpressHuffman(src: Uint8Array, outSize: number): Uint8Array {
   if (!Number.isFinite(outSize) || outSize < 0 || outSize > MAX_PARSE_BYTES)
@@ -130,7 +130,7 @@ function parsePrefetch(buf: ArrayBuffer): PF {
   if (u8[0] === 0x4d && u8[1] === 0x41 && u8[2] === 0x4d) {
     const outSize = new DataView(buf).getUint32(4, true);
     u8 = decompressLzxpressHuffman(u8.subarray(8), outSize);
-    note = 'MAM-compressed (Win8+/Win10+) — LZXPRESS-Huffman decompressed in-browser.';
+    note = 'MAM-compressed (Win8+/Win10+) - LZXPRESS-Huffman decompressed in-browser.';
   }
   const d = new DataView(u8.buffer, u8.byteOffset, u8.byteLength);
   const ver = d.getUint32(0, true);
@@ -171,7 +171,7 @@ function parsePrefetch(buf: ArrayBuffer): PF {
     lastRuns.push(filetime(d, FI + 0x80));
     runCount = d.getUint32(FI + 0x98, true);
   } else {
-    // v26 / v30 / v31 — 8 FILETIME slots, run count later in the section.
+    // v26 / v30 / v31 - 8 FILETIME slots, run count later in the section.
     for (let i = 0; i < 8; i++) {
       const t = filetime(d, FI + 0x80 + i * 8);
       if (t) lastRuns.push(t);
@@ -206,7 +206,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
       </h1>
       <p className="text-sm font-mono text-muted mt-1 mb-6">
         Drop a Windows <code>.pf</code> prefetch file. Decompresses Win8+/Win10+ MAM containers (LZXPRESS-Huffman) in
-        the browser, then extracts the executable, run count, last-run times and every referenced file/DLL path — 100%
+        the browser, then extracts the executable, run count, last-run times and every referenced file/DLL path - 100%
         client-side.
       </p>
 
@@ -220,7 +220,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           Drop a .pf file file here, or click to choose
         </p>
-        <p className="text-mini font-mono text-slate-400 mt-1">100% client-side. No upload.</p>
+        <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1">100% client-side. No upload.</p>
       </button>
       <input
         id="prefetchanalyzer-input"

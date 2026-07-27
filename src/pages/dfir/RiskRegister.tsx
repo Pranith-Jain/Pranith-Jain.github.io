@@ -418,7 +418,7 @@ export default function RiskRegister(): JSX.Element {
                   >
                     {entry.priority_score}
                   </span>
-                  <span className="text-micro font-mono text-slate-400 uppercase mt-0.5">priority</span>
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 uppercase mt-0.5">priority</span>
                 </div>
 
                 {/* Info */}
@@ -435,7 +435,7 @@ export default function RiskRegister(): JSX.Element {
                     <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${statusTone} shrink-0`}>
                       {entry.status}
                     </span>
-                    <span className="text-micro font-mono text-slate-400 shrink-0">{entry.category}</span>
+                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">{entry.category}</span>
                   </div>
                   <div className="flex items-center gap-3 text-micro text-slate-500 mt-0.5">
                     <span>inherent: {entry.inherent_level}</span>
@@ -451,15 +451,15 @@ export default function RiskRegister(): JSX.Element {
                     e.stopPropagation();
                     handleDelete(entry.id);
                   }}
-                  className="text-slate-400 hover:text-rose-500 transition-colors shrink-0"
+                  className="text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors shrink-0"
                   title="Delete risk"
                 >
                   <Trash2 size={12} />
                 </button>
                 {isOpen ? (
-                  <ChevronDown size={14} className="text-slate-400 shrink-0" />
+                  <ChevronDown size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
                 ) : (
-                  <ChevronRight size={14} className="text-slate-400 shrink-0" />
+                  <ChevronRight size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
                 )}
               </button>
 
@@ -499,7 +499,7 @@ export default function RiskRegister(): JSX.Element {
 
                   {/* Treatment */}
                   {entry.treatment_strategy && (
-                    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
+                    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
                       <div className="text-micro font-mono text-slate-500 mb-1">
                         Treatment: {entry.treatment_strategy}
                         {entry.treatment_owner && ` · Owner: ${entry.treatment_owner}`}
@@ -513,19 +513,19 @@ export default function RiskRegister(): JSX.Element {
 
                   {/* FAIR Quantification */}
                   {entry.fair && (
-                    <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
+                    <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
                       <div className="text-micro font-mono text-slate-500 mb-1">FAIR Quantification</div>
                       <div className="grid grid-cols-3 gap-2 text-micro font-mono">
                         <div>
-                          <span className="text-slate-400">SLE:</span>{' '}
+                          <span className="text-slate-500 dark:text-slate-400">SLE:</span>{' '}
                           {entry.fair.currency === 'USD' ? '$' : entry.fair.currency}
                           {entry.fair.sle_most_likely.toLocaleString()}
                         </div>
                         <div>
-                          <span className="text-slate-400">ARO:</span> {entry.fair.annual_occurrences}x/yr
+                          <span className="text-slate-500 dark:text-slate-400">ARO:</span> {entry.fair.annual_occurrences}x/yr
                         </div>
                         <div>
-                          <span className="text-slate-400">ALE:</span>{' '}
+                          <span className="text-slate-500 dark:text-slate-400">ALE:</span>{' '}
                           {entry.fair.currency === 'USD' ? '$' : entry.fair.currency}
                           {entry.fair.ale_most_likely.toLocaleString()}
                         </div>

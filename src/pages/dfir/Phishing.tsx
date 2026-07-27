@@ -143,7 +143,7 @@ export default function Phishing(): JSX.Element {
       sessionStorage.setItem('ioc-extractor-pipe', input);
     } catch (_catchErr) {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* sessionStorage unavailable — silent */
+      /* sessionStorage unavailable - silent */
     }
     navigate('/dfir/extract?from=phishing');
   };
@@ -334,18 +334,18 @@ export default function Phishing(): JSX.Element {
                 </span>
               )}
               {fpResult.count && (
-                <span className="text-micro font-mono text-slate-400">
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
                   seen {fpResult.count} time{fpResult.count === 1 ? '' : 's'}
                 </span>
               )}
             </div>
             {fpResult.first_seen && (
-              <p className="text-mini font-mono text-slate-400">
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
                 first seen: {new Date(fpResult.first_seen).toLocaleString()}
               </p>
             )}
             {fpResult.urls && fpResult.urls.length > 0 && (
-              <div className="text-mini font-mono text-slate-400">
+              <div className="text-mini font-mono text-slate-500 dark:text-slate-400">
                 <span className="text-muted">sample URLs:</span>
                 <ul className="mt-1 space-y-0.5">
                   {fpResult.urls.map((u) => (
@@ -356,7 +356,7 @@ export default function Phishing(): JSX.Element {
                 </ul>
               </div>
             )}
-            <p className="text-micro font-mono text-slate-400 break-all" title={fpHash}>
+            <p className="text-micro font-mono text-slate-500 dark:text-slate-400 break-all" title={fpHash}>
               hash: {fpHash.slice(0, 16)}…{fpHash.slice(-8)}
             </p>
           </div>
@@ -370,7 +370,7 @@ export default function Phishing(): JSX.Element {
           URL Auto-Analysis
         </h2>
         <p className="text-xs text-slate-500 mb-4 max-w-xl">
-          Enter a URL to fetch and scan for phishing indicators — form extraction, password fields, suspicious keywords,
+          Enter a URL to fetch and scan for phishing indicators - form extraction, password fields, suspicious keywords,
           scripts/iframes, external links, DNS resolution, and auto risk score.
         </p>
         <div className="flex gap-2">
@@ -417,7 +417,7 @@ export default function Phishing(): JSX.Element {
               <code className="text-mini font-mono text-muted break-all block">{aaResult.url}</code>
               {aaResult.title && <p className="text-xs mt-1.5 font-semibold">{aaResult.title}</p>}
               {aaResult.ip && (
-                <p className="text-micro font-mono text-slate-400 mt-1 flex items-center gap-1">
+                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1">
                   <Globe size={10} /> {aaResult.ip}
                 </p>
               )}
@@ -426,7 +426,7 @@ export default function Phishing(): JSX.Element {
             {/* Key indicators */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               <div className="rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
-                <p className="text-micro font-mono text-slate-400 flex items-center gap-1">
+                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1">
                   <Lock size={10} /> Password field
                 </p>
                 <p
@@ -436,19 +436,19 @@ export default function Phishing(): JSX.Element {
                 </p>
               </div>
               <div className="rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
-                <p className="text-micro font-mono text-slate-400 flex items-center gap-1">
+                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1">
                   <FileText size={10} /> Fields
                 </p>
                 <p className="text-sm font-bold">{aaResult.forms.length}</p>
               </div>
               <div className="rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
-                <p className="text-micro font-mono text-slate-400 flex items-center gap-1">
+                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1">
                   <ExternalLink size={10} /> Ext. links
                 </p>
                 <p className="text-sm font-bold">{aaResult.external_links}</p>
               </div>
               <div className="rounded-xl border border-slate-100 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3">
-                <p className="text-micro font-mono text-slate-400 flex items-center gap-1">
+                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1">
                   <FileText size={10} /> Scripts
                 </p>
                 <p className="text-sm font-bold">{aaResult.scripts}</p>
@@ -485,7 +485,7 @@ export default function Phishing(): JSX.Element {
                     <span className="text-micro px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] uppercase">
                       {f.type}
                     </span>
-                    <span className="text-brand-600 dark:text-brand-400">{f.name || '—'}</span>
+                    <span className="text-brand-600 dark:text-brand-400">{f.name || '-'}</span>
                     <span className="text-slate-500">{f.placeholder || ''}</span>
                   </div>
                 ))}

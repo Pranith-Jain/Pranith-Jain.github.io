@@ -12,7 +12,7 @@
  *
  *   ingest -> execute (bash / eval / unrestricted command)
  *
- * Capability classification is heuristic — it relies on tool names,
+ * Capability classification is heuristic - it relies on tool names,
  * descriptions, and Claude Code permission rules, not full semantic
  * analysis. False positives are preferable to false negatives.
  */
@@ -46,7 +46,7 @@ export interface RiskPath {
 export interface GraphResult {
   tools: ToolNode[];
   risks: RiskPath[];
-  /** Aggregate count of capabilities across all tools — for the legend. */
+  /** Aggregate count of capabilities across all tools - for the legend. */
   capCounts: Record<Capability, number>;
 }
 
@@ -89,13 +89,13 @@ function pushTool(out: ToolNode[], node: ToolNode): void {
 function fromMcpServer(name: string, server: McpServerEntry, out: ToolNode[]): void {
   const tools = server.tools ?? [];
   if (tools.length === 0) {
-    // Server with no declared tools — still represent as a node.
+    // Server with no declared tools - still represent as a node.
     pushTool(out, {
       id: `mcp:${name}`,
       label: name,
       origin: 'mcp',
       capabilities: classify(name, ''),
-      detail: server.url ? `Remote MCP at ${server.url}` : `Stdio MCP — ${server.command ?? ''}`.trim(),
+      detail: server.url ? `Remote MCP at ${server.url}` : `Stdio MCP - ${server.command ?? ''}`.trim(),
     });
     return;
   }
@@ -207,7 +207,7 @@ function findRisks(tools: ToolNode[]): RiskPath[] {
   const egressNodes = tools.filter((t) => has(t, 'egress'));
   const executeNodes = tools.filter((t) => has(t, 'execute'));
 
-  // Exfil chain — ingest → sensitive → egress (within the same agent context).
+  // Exfil chain - ingest → sensitive → egress (within the same agent context).
   if (ingestNodes.length && sensitiveNodes.length && egressNodes.length) {
     out.push({
       id: 'exfil-chain',
@@ -218,11 +218,11 @@ function findRisks(tools: ToolNode[]): RiskPath[] {
         'The agent has at least one ingest tool (which can be poisoned with attacker-authored content), at least one tool that reads sensitive data, and at least one tool with network egress. This is the textbook indirect-injection exfil shape.',
       nodes: [ingestNodes[0]!.id, sensitiveNodes[0]!.id, egressNodes[0]!.id].filter((v, i, a) => a.indexOf(v) === i),
       remediation:
-        'Break the chain — sandbox ingest tools, remove sensitive-read scopes, or block egress from the agent runtime. Where possible, rewrite ingested content to strip embedded instructions before model sees it.',
+        'Break the chain - sandbox ingest tools, remove sensitive-read scopes, or block egress from the agent runtime. Where possible, rewrite ingested content to strip embedded instructions before model sees it.',
     });
   }
 
-  // RCE chain — ingest → execute.
+  // RCE chain - ingest → execute.
   if (ingestNodes.length && executeNodes.length) {
     out.push({
       id: 'rce-chain',
@@ -237,7 +237,7 @@ function findRisks(tools: ToolNode[]): RiskPath[] {
     });
   }
 
-  // Over-privilege — broad-permission shells (Bash(*) etc.)
+  // Over-privilege - broad-permission shells (Bash(*) etc.)
   for (const t of tools) {
     if (t.label === 'Bash(*)' || t.label === 'Bash' || t.label.match(/^Bash\(\*\)$/)) {
       out.push({
@@ -253,7 +253,7 @@ function findRisks(tools: ToolNode[]): RiskPath[] {
     }
   }
 
-  // High counts of sensitive without monitoring — info-only
+  // High counts of sensitive without monitoring - info-only
   if (sensitiveNodes.length >= 2 && egressNodes.length === 0 && ingestNodes.length === 0) {
     out.push({
       id: 'sensitive-only',
@@ -261,7 +261,7 @@ function findRisks(tools: ToolNode[]): RiskPath[] {
       severity: 'medium',
       title: 'Sensitive-read tools with no observed ingest/egress path',
       detail:
-        'The agent can read sensitive material but no ingest or egress tools were classified. A future tool addition could turn this into an exfil chain — track these as latent risk.',
+        'The agent can read sensitive material but no ingest or egress tools were classified. A future tool addition could turn this into an exfil chain - track these as latent risk.',
       nodes: sensitiveNodes.slice(0, 3).map((t) => t.id),
       remediation:
         'Confirm no other tools provide ingest. Periodically re-audit when new MCP servers or permission rules are added.',
@@ -272,7 +272,7 @@ function findRisks(tools: ToolNode[]): RiskPath[] {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Layout — simple ring layout for SVG rendering
+// Layout - simple ring layout for SVG rendering
 // ─────────────────────────────────────────────────────────────────────────
 
 export interface NodePos {

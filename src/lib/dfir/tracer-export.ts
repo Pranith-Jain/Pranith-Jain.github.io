@@ -12,7 +12,7 @@ function csvCell(v: string): string {
   return /[",\n]/.test(safe) ? `"${safe.replace(/"/g, '""')}"` : safe;
 }
 
-/** One row per edge — a flow table for spreadsheets / legal hand-off. */
+/** One row per edge - a flow table for spreadsheets / legal hand-off. */
 export function toCSV(graph: TracerGraph): string {
   const header = ['from', 'to', 'amount', 'token', 'tx_hash', 'direction', 'confidence', 'timestamp'];
   const rows = [...graph.edges.values()].map((e) =>

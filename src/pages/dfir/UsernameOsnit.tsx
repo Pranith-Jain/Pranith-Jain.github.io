@@ -72,11 +72,11 @@ export default function UsernameOsnit(): JSX.Element {
           <Users size={28} className="text-brand-600 dark:text-brand-400" /> Username OSINT
         </h1>
         <p className="text-muted mb-2 leading-relaxed">
-          Check 60+ platforms for a username — social, dev, gaming, creative, finance. Server-side HTTP checks, bounded
+          Check 60+ platforms for a username - social, dev, gaming, creative, finance. Server-side HTTP checks, bounded
           concurrency, 15-minute edge cache.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          Inspired by Sherlock (84k stars). Checks live HTTP status codes to determine presence — "found" means the
+          Inspired by Sherlock (84k stars). Checks live HTTP status codes to determine presence - "found" means the
           profile page returned 200/3xx, not that the account belongs to the same person.
         </p>
       </div>
@@ -84,7 +84,7 @@ export default function UsernameOsnit(): JSX.Element {
       <section className="surface-card p-4 mb-6">
         <form onSubmit={onSubmit} className="flex gap-2">
           <div className="relative flex-1 min-w-[220px]">
-            <Users size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <Users size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
             <input
               type="text"
               value={input}
@@ -163,14 +163,14 @@ export default function UsernameOsnit(): JSX.Element {
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 p-2.5 rounded-xl bg-emerald-500/5 border border-emerald-500/20 hover:bg-emerald-500/10 transition text-sm font-mono"
                   >
-                    <span className="text-emerald-500">✓</span>
+                    <span className="text-emerald-500">ok</span>
                     <span className="font-medium text-slate-900 dark:text-slate-100">{r.name}</span>
                     <span
                       className={`text-micro px-1.5 py-0.5 rounded border ${CATEGORY_CLS[r.category] ?? CATEGORY_CLS.other}`}
                     >
                       {r.category}
                     </span>
-                    <ExternalLink size={10} className="text-slate-400 ml-auto shrink-0" />
+                    <ExternalLink size={10} className="text-slate-500 dark:text-slate-400 ml-auto shrink-0" />
                   </a>
                 ))}
               </div>
@@ -180,7 +180,7 @@ export default function UsernameOsnit(): JSX.Element {
           {/* Not Found */}
           {filter === 'all' && notFound.length > 0 && (
             <section className="surface-card p-6">
-              <h2 className="font-display font-bold text-xl mb-4 text-slate-400">Not Found ({notFound.length})</h2>
+              <h2 className="font-display font-bold text-xl mb-4 text-slate-500 dark:text-slate-400">Not Found ({notFound.length})</h2>
               <div className="flex flex-wrap gap-1.5">
                 {notFound.map((r) => (
                   <span
@@ -197,7 +197,7 @@ export default function UsernameOsnit(): JSX.Element {
           {/* Category Breakdown */}
           {Object.keys(result.summary).length > 0 && (
             <section className="surface-card p-6">
-              <h2 className="font-display font-bold text-xl mb-4 text-slate-400">Category Breakdown</h2>
+              <h2 className="font-display font-bold text-xl mb-4 text-slate-500 dark:text-slate-400">Category Breakdown</h2>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(result.summary)
                   .sort((a, b) => b[1] - a[1])

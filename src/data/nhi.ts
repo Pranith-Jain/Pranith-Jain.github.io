@@ -51,7 +51,7 @@ export const NHI_TOP_10: NhiTopItem[] = [
     num: 2,
     title: 'Secret Leakage',
     summary:
-      "NHI credentials end up where they shouldn't — committed to git, embedded in client bundles, pasted into logs, dumped from CI variables, exposed in error pages, or printed by a debug endpoint.",
+      "NHI credentials end up where they shouldn't - committed to git, embedded in client bundles, pasted into logs, dumped from CI variables, exposed in error pages, or printed by a debug endpoint.",
     attack:
       "A developer commits a long-lived AWS access key in a config file, force-pushes to remove it, then opens the repo to public. Bots index the leaked key within minutes; a Bitcoin-mining workload spins up on the team's account.",
     mitigation:
@@ -87,7 +87,7 @@ export const NHI_TOP_10: NhiTopItem[] = [
     num: 5,
     title: 'Overprivileged NHI',
     summary:
-      'Service accounts, IAM roles, and OAuth apps run with broad scopes "just in case" — Owner / Editor / *.* / wildcard policies. A single compromise becomes a tenant-wide one.',
+      'Service accounts, IAM roles, and OAuth apps run with broad scopes "just in case" - Owner / Editor / *.* / wildcard policies. A single compromise becomes a tenant-wide one.',
     attack:
       'The "deploy" service principal in Azure has Owner on the subscription because someone got tired of debugging permission errors. A leaked deploy token gives the attacker full admin.',
     mitigation:
@@ -143,7 +143,7 @@ export const NHI_TOP_10: NhiTopItem[] = [
     num: 10,
     title: 'Human Use of NHI',
     summary:
-      'Engineers, ops, and on-call staff use service-account credentials for day-to-day work — for convenience, debugging, or because the per-human IAM is too painful. Audit trails collapse to a single non-human identity.',
+      'Engineers, ops, and on-call staff use service-account credentials for day-to-day work - for convenience, debugging, or because the per-human IAM is too painful. Audit trails collapse to a single non-human identity.',
     attack:
       'An incident involves a deletion that wiped customer data. The audit log shows the action came from "deploy-bot". The team can\'t determine which on-call engineer ran it; nobody is accountable.',
     mitigation:
@@ -152,7 +152,7 @@ export const NHI_TOP_10: NhiTopItem[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────
-// NHI types — the kinds of identity an inventory tracks
+// NHI types - the kinds of identity an inventory tracks
 // ─────────────────────────────────────────────────────────────────────────
 
 export type NhiType =

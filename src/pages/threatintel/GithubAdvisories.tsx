@@ -84,7 +84,7 @@ export default function GithubAdvisories(): JSX.Element {
   // is in its useEffect), so the previous explicit refetch on every
   // filter change was redundant and a rate-limit hazard (it doubled
   // the upstream calls per keystroke). Only `refreshKey` still needs
-  // an explicit refetch — it bumps the same URL and asks the cache to
+  // an explicit refetch - it bumps the same URL and asks the cache to
   // be invalidated.
   useEffect(() => {
     if (refreshKey > 0) refetch();
@@ -134,7 +134,7 @@ export default function GithubAdvisories(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-6 font-mono"
       >
         back
       </BackLink>
@@ -146,7 +146,7 @@ export default function GithubAdvisories(): JSX.Element {
         </h1>
       </div>
       <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
-        Live GitHub Security Advisory feed — reviewed vulnerabilities normalized into a CVE-style view.
+        Live GitHub Security Advisory feed - reviewed vulnerabilities normalized into a CVE-style view.
       </p>
 
       {/* Stats */}
@@ -190,7 +190,7 @@ export default function GithubAdvisories(): JSX.Element {
         <select
           value={ecoFilter}
           onChange={(e) => setEcoFilter(e.target.value)}
-          className="px-2 py-1 rounded text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500"
+          className="px-2 py-1 rounded text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 focus:outline-none focus:border-rose-500"
         >
           <option value="">All</option>
           {ECOSYSTEMS.map((e) => (
@@ -205,7 +205,7 @@ export default function GithubAdvisories(): JSX.Element {
               setSevFilter(new Set());
               setEcoFilter('');
             }}
-            className="text-xs text-brand-600 dark:text-brand-400 hover:underline ml-2"
+            className="text-xs text-rose-600 dark:text-rose-400 hover:underline ml-2"
           >
             clear filters
           </button>
@@ -221,7 +221,7 @@ export default function GithubAdvisories(): JSX.Element {
             placeholder="Search package name…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
           />
         </div>
         <button
@@ -241,7 +241,7 @@ export default function GithubAdvisories(): JSX.Element {
             {filtered.length} advisories
             {data.stale && (
               <span className="ml-2 text-amber-600 dark:text-amber-400">
-                (stale — upstream temporarily unavailable, showing cached list)
+                (stale - upstream temporarily unavailable, showing cached list)
               </span>
             )}
           </span>
@@ -263,7 +263,7 @@ export default function GithubAdvisories(): JSX.Element {
         emptyLabel={
           query.trim() || ecoFilter
             ? `No reviewed advisories match the current filters (${[query.trim(), ecoFilter].filter(Boolean).join(' · ')}).`
-            : 'No reviewed advisories available right now. The GitHub Advisory Database feed may be temporarily rate-limited or empty — try the filters or refresh in a minute.'
+            : 'No reviewed advisories available right now. The GitHub Advisory Database feed may be temporarily rate-limited or empty - try the filters or refresh in a minute.'
         }
         onRetry={refetch}
         rows={8}
@@ -284,7 +284,7 @@ export default function GithubAdvisories(): JSX.Element {
                         href={`https://github.com/advisories/${a.ghsa_id}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm font-semibold font-mono text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 flex items-center gap-1"
+                        className="text-sm font-semibold font-mono text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 flex items-center gap-1"
                       >
                         {a.ghsa_id} <ExternalLink className="w-3 h-3" />
                       </a>
@@ -298,7 +298,7 @@ export default function GithubAdvisories(): JSX.Element {
                           href={`https://nvd.nist.gov/vuln/detail/${cveId}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:text-brand-600 dark:hover:text-brand-400"
+                          className="px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:text-rose-600 dark:hover:text-rose-400"
                         >
                           {cveId}
                         </a>
@@ -313,7 +313,7 @@ export default function GithubAdvisories(): JSX.Element {
                         >
                           <Package className="w-2.5 h-2.5" /> {v.package.ecosystem}/{v.package.name}
                           {v.vulnerable_version_range && (
-                            <span className="text-slate-400">({v.vulnerable_version_range})</span>
+                            <span className="text-slate-500 dark:text-slate-400">({v.vulnerable_version_range})</span>
                           )}
                         </span>
                       ))}
@@ -323,7 +323,7 @@ export default function GithubAdvisories(): JSX.Element {
                           href={a.references[0]}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-0.5"
+                          className="text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-0.5"
                         >
                           <ExternalLink className="w-2.5 h-2.5" /> ref
                         </a>
@@ -347,7 +347,7 @@ export default function GithubAdvisories(): JSX.Element {
                 <span className="font-mono text-slate-700 dark:text-slate-300 w-24">{eco}</span>
                 <div className="flex-1 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-brand-500 rounded-full"
+                    className="h-full bg-rose-500 rounded-full"
                     style={{ width: `${Math.min(100, (count / Math.max(...ecoBreakdown.map(([, c]) => c))) * 100)}%` }}
                   />
                 </div>

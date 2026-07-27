@@ -113,7 +113,7 @@ export function StructuredData({ personalInfo, stats }: StructuredDataProps) {
   const professionalServiceSchema = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: `${personalInfo.name} — Security Analyst, Threat Intel & Security Automation`,
+    name: `${personalInfo.name} - Security Analyst, Threat Intel & Security Automation`,
     description:
       'Security analysis, threat intelligence, and security automation. Phishing / BEC / commodity-malware response across 150+ global brands. Builder of an open, edge-hosted DFIR toolkit on Cloudflare Workers.',
     provider: {

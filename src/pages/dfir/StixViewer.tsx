@@ -10,12 +10,12 @@ import {
 } from '../../lib/dfir/stix-graph';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 
-// Lazy-loaded — @xyflow/react is ~133KB. Only mount once the user has a parsed
+// Lazy-loaded - @xyflow/react is ~133KB. Only mount once the user has a parsed
 // bundle so the route's initial chunk stays slim.
 const StixGraph = lazy(() => import('./StixGraph'));
 
 // Minimal local type shapes. We deliberately do NOT `import type { Node, Edge }`
-// from '@xyflow/react' — Rollup's module-graph pass registers even type-only
+// from '@xyflow/react' - Rollup's module-graph pass registers even type-only
 // static imports as edges, which then emits a `<link rel="modulepreload">` for
 // vendor-xyflow on every page. The whole point of the lazy split was to keep
 // that 178KB chunk off the entry path until a user actually visits /dfir/stix.
@@ -280,7 +280,7 @@ export default function StixViewer(): JSX.Element {
                 type="text"
                 value={stixId}
                 onChange={(e) => setStixId(e.target.value)}
-                placeholder="T1566.001 · S0001 · G0016 — or attack-pattern--<uuid>"
+                placeholder="T1566.001 · S0001 · G0016 - or attack-pattern--<uuid>"
                 className="flex-1 min-w-0 px-2 py-1.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 spellCheck={false}
               />
@@ -294,13 +294,13 @@ export default function StixViewer(): JSX.Element {
             </form>
             <p className="text-micro font-mono text-slate-400 dark:text-slate-400 mt-2 leading-relaxed">
               Enter a MITRE ATT&amp;CK id (T1566.001, S0001, G0016, M1049, TA0001, DS0009, C0001) or a raw STIX id
-              (&lt;type&gt;--&lt;uuid&gt;). Public MITRE ATT&amp;CK TAXII 2.1 — Enterprise / ICS / Mobile, cached 7d.
-              Other STIX feeds need auth — paste a bundle below for those.
+              (&lt;type&gt;--&lt;uuid&gt;). Public MITRE ATT&amp;CK TAXII 2.1 - Enterprise / ICS / Mobile, cached 7d.
+              Other STIX feeds need auth - paste a bundle below for those.
             </p>
             {fetchError && <p className="mt-2 text-mini font-mono text-rose-600 dark:text-rose-400">{fetchError}</p>}
             {fetchedFrom && !fetchError && (
               <p className="mt-2 text-mini font-mono text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-1">
-                ✓ {fetchedFrom.collection}
+                {fetchedFrom.collection}
                 {fetchedFrom.attackId && (
                   <a
                     href={`https://attack.mitre.org/techniques/${fetchedFrom.attackId.replace(/\./, '/')}/`}

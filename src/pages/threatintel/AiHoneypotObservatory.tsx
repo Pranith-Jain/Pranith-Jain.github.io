@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 /**
- * AI Honeypot Observatory — LLM/AI endpoint honeypot intelligence.
+ * AI Honeypot Observatory - LLM/AI endpoint honeypot intelligence.
  *
  * Pulls full JSON IOC feed from ai-honeypots.com (CC0 1.0 licensed) and displays
  * attacker categories, TTPs, behavioral metadata, and confidence scoring.
@@ -217,7 +217,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
     <DataPageLayout
       backTo="/threatintel/infra"
       title="AI Honeypot Observatory"
-      description="LLM/AI endpoint honeypot intelligence — attacker categories, TTPs, behavioral metadata from ai-honeypots.com (CC0 1.0)"
+      description="LLM/AI endpoint honeypot intelligence - attacker categories, TTPs, behavioral metadata from ai-honeypots.com (CC0 1.0)"
       icon={<Bot size={28} />}
     >
       {/* Header stats */}
@@ -432,13 +432,13 @@ export default function AiHoneypotObservatory(): JSX.Element {
                         {formatHits(entry.total_hits)}
                       </td>
                       <td className="px-3 py-2 text-right font-mono text-slate-500 dark:text-slate-500">
-                        {entry.ttps.length > 0 ? entry.ttps.length : '—'}
+                        {entry.ttps.length > 0 ? entry.ttps.length : '-'}
                       </td>
                       <td className="px-3 py-2 text-center">
                         {isExpanded ? (
-                          <ChevronUp className="w-3 h-3 text-slate-400" />
+                          <ChevronUp className="w-3 h-3 text-slate-500 dark:text-slate-400" />
                         ) : (
-                          <ChevronDown className="w-3 h-3 text-slate-400" />
+                          <ChevronDown className="w-3 h-3 text-slate-500 dark:text-slate-400" />
                         )}
                       </td>
                     </tr>
@@ -462,7 +462,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
                             <div>
                               <span className="font-semibold text-slate-700 dark:text-slate-300">Paths probed:</span>{' '}
                               <span className="font-mono text-slate-600 dark:text-slate-400">
-                                {entry.interesting_paths.join(', ') || '—'}
+                                {entry.interesting_paths.join(', ') || '-'}
                               </span>
                             </div>
                             <div>

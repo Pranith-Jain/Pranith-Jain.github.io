@@ -112,7 +112,7 @@ export default function EvtxParser(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           Drop a .evtx file file here, or click to choose
         </p>
-        <p className="text-mini font-mono text-slate-400 mt-1">100% client-side. No upload.</p>
+        <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1">100% client-side. No upload.</p>
       </button>
       <input
         id="evtxparser-input"
@@ -159,7 +159,7 @@ export default function EvtxParser(): JSX.Element {
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="filter strings — e.g. 4624, powershell, lateral host…"
+            placeholder="filter strings - e.g. 4624, powershell, lateral host…"
             className="w-full surface-card px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
           />
           <ul className="space-y-2">

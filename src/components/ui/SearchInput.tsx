@@ -77,7 +77,7 @@ export function SearchInput({
   return (
     <div className={`relative ${className}`}>
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
         <input
           ref={inputRef}
           type="text"
@@ -101,7 +101,7 @@ export function SearchInput({
           aria-autocomplete="list"
           autoComplete="off"
           className={[
-            'w-full rounded border border-slate-200 bg-white py-2 pl-9 pr-9 font-mono text-sm text-slate-900 transition-colors placeholder:text-slate-400',
+            'w-full rounded border border-slate-200 bg-white py-2 pl-9 pr-9 font-mono text-tool text-slate-900 transition-colors placeholder:text-slate-400',
             'focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/20',
             'dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 dark:placeholder:text-slate-500',
             'disabled:opacity-50 disabled:cursor-not-allowed',
@@ -116,7 +116,7 @@ export function SearchInput({
               onClear?.();
               inputRef.current?.focus();
             }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
             aria-label="Clear search"
           >
             {loading ? (
@@ -149,7 +149,7 @@ export function SearchInput({
               }}
               onMouseEnter={() => setActiveIdx(i)}
               className={[
-                'flex items-center gap-3 px-4 py-2.5 text-sm cursor-pointer transition-colors',
+                'flex items-center gap-3 px-4 py-2.5 text-tool cursor-pointer transition-colors',
                 i === activeIdx
                   ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300'
                   : 'text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-[rgb(var(--surface-300))]',
@@ -159,7 +159,7 @@ export function SearchInput({
               <div className="min-w-0 flex-1">
                 <div className="font-medium truncate">{s.label}</div>
                 {s.description && (
-                  <div className="text-xs font-mono text-slate-500 dark:text-slate-400 truncate">{s.description}</div>
+                  <div className="text-meta font-mono text-slate-500 dark:text-slate-400 truncate">{s.description}</div>
                 )}
               </div>
             </li>

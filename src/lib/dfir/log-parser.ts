@@ -4,7 +4,7 @@
  * Auto-detects the most common DFIR log shapes and emits structured
  * records plus best-effort MITRE ATT&CK technique tags. Designed for
  * the "I just got handed a blob of logs and need a starting point"
- * triage step — not a replacement for a real SIEM pipeline.
+ * triage step - not a replacement for a real SIEM pipeline.
  *
  * Supported formats (auto-detected per line):
  *   - Windows Event Log XML (incl. Sysmon)
@@ -13,7 +13,7 @@
  *   - key=value pairs (CEF-style, AWS/CloudTrail-style key="value")
  *   - "fallback" raw line (no structure detected)
  *
- * MITRE tagging is intentionally conservative — only fires when a
+ * MITRE tagging is intentionally conservative - only fires when a
  * confident match exists (e.g. Sysmon EID 1 with command-line containing
  * "powershell -enc", or a Security 4625 logon failure).
  */
@@ -24,7 +24,7 @@ export interface ParsedRecord {
   format: LogFormat;
   /** Original raw line (for traceability). */
   raw: string;
-  /** Flat key→value extract — keys vary by format. */
+  /** Flat key→value extract - keys vary by format. */
   fields: Record<string, string>;
   /** ISO 8601 timestamp if extractable. */
   timestamp?: string;
@@ -34,15 +34,15 @@ export interface ParsedRecord {
   source?: string;
   /** Best-effort MITRE technique IDs. */
   mitre_techniques: string[];
-  /** Severity (info/low/medium/high) — mostly heuristic. */
+  /** Severity (info/low/medium/high) - mostly heuristic. */
   severity: 'info' | 'low' | 'medium' | 'high';
   /** Hint shown alongside the line when present. */
   notes: string[];
 }
 
 /* ──────────────────────────────────────────────────────────────────
- * MITRE technique map — keyed by source + EID, loose match on a
- * fingerprint substring in the line. Not exhaustive — covers the
+ * MITRE technique map - keyed by source + EID, loose match on a
+ * fingerprint substring in the line. Not exhaustive - covers the
  * highest-volume IDs analysts triage daily.
  *
  * Format: { source: 'Sysmon', eid: '1', match: /powershell.*-enc/i, techniques: ['T1059.001','T1027'] }
@@ -64,7 +64,7 @@ const RULES: TechniqueRule[] = [
     eid: '1',
     match: /(?:powershell.*-enc|frombase64string|iex\(|invoke-expression)/i,
     techniques: ['T1059.001', 'T1027'],
-    note: 'PowerShell with -EncodedCommand or live IEX — common loader pattern',
+    note: 'PowerShell with -EncodedCommand or live IEX - common loader pattern',
     severity: 'high',
   },
   {
@@ -80,7 +80,7 @@ const RULES: TechniqueRule[] = [
     eid: '1',
     match: /\\?Temp\\.+\.(?:exe|scr|bat|cmd|ps1|vbs|js)/i,
     techniques: ['T1059'],
-    note: 'Process spawned from %TEMP% — staging behaviour',
+    note: 'Process spawned from %TEMP% - staging behaviour',
     severity: 'medium',
   },
   { source: 'Sysmon', eid: '3', techniques: ['T1071'], note: 'Network connection', severity: 'low' },
@@ -89,17 +89,17 @@ const RULES: TechniqueRule[] = [
     source: 'Sysmon',
     eid: '8',
     techniques: ['T1055.012'],
-    note: 'CreateRemoteThread — process injection',
+    note: 'CreateRemoteThread - process injection',
     severity: 'high',
   },
   {
     source: 'Sysmon',
     eid: '10',
     techniques: ['T1003.001'],
-    note: 'Process access — possible LSASS dump',
+    note: 'Process access - possible LSASS dump',
     severity: 'high',
   },
-  { source: 'Sysmon', eid: '11', techniques: ['T1105'], note: 'File creation — possible ingress', severity: 'low' },
+  { source: 'Sysmon', eid: '11', techniques: ['T1105'], note: 'File creation - possible ingress', severity: 'low' },
   { source: 'Sysmon', eid: '12', techniques: ['T1112'], note: 'Registry create / delete', severity: 'low' },
   { source: 'Sysmon', eid: '13', techniques: ['T1112'], note: 'Registry value modified', severity: 'medium' },
   { source: 'Sysmon', eid: '15', techniques: ['T1564.004'], note: 'Alternate Data Stream', severity: 'medium' },
@@ -109,7 +109,7 @@ const RULES: TechniqueRule[] = [
     source: 'Sysmon',
     eid: '25',
     techniques: ['T1055.012'],
-    note: 'Process tampering — image hollowing',
+    note: 'Process tampering - image hollowing',
     severity: 'high',
   },
 
@@ -120,7 +120,7 @@ const RULES: TechniqueRule[] = [
     eid: '4624',
     match: /Logon Type:\s*3/i,
     techniques: ['T1078'],
-    note: 'Network logon — lateral movement / valid accounts',
+    note: 'Network logon - lateral movement / valid accounts',
     severity: 'medium',
   },
   { source: 'Security', eid: '4672', techniques: ['T1078'], note: 'Special privileges assigned', severity: 'medium' },
@@ -310,7 +310,7 @@ function severityRank(s: ParsedRecord['severity']): number {
 
 export function parseLogs(input: string): ParsedRecord[] {
   // Multi-line XML support: collapse anything that opens with `<Event` and
-  // doesn't close on the same line — Windows Event XML is often pretty-printed.
+  // doesn't close on the same line - Windows Event XML is often pretty-printed.
   const blob = input.replace(/\r\n/g, '\n').replace(/(<Event\b[\s\S]*?<\/Event>)/g, (m) => m.replace(/\n/g, ' '));
 
   const lines = blob.split('\n').filter((l) => l.trim().length > 0);
@@ -341,7 +341,7 @@ export function parseLogs(input: string): ParsedRecord[] {
  * Hunting query generators
  *
  * Produce platform-specific queries for the MITRE technique IDs and
- * notable field values found in the parsed records. Best effort —
+ * notable field values found in the parsed records. Best effort -
  * meant as a starting point analysts can copy into their SIEM and
  * refine, not turnkey rules.
  * ────────────────────────────────────────────────────────────────── */
@@ -367,17 +367,17 @@ export function generateQueries(records: ParsedRecord[]): HuntingQuery[] {
   if (techniques.length > 0) {
     out.push({
       platform: 'splunk',
-      label: `Splunk SPL — events tagged with ${techniques.length} technique(s)`,
+      label: `Splunk SPL - events tagged with ${techniques.length} technique(s)`,
       query: `index=* (${techniques.map((t) => `tag::eventtype=${t}`).join(' OR ')}) | stats count by host, EventID, technique`,
     });
     out.push({
       platform: 'elastic-kql',
-      label: `Elastic KQL — events tagged with these techniques`,
+      label: `Elastic KQL - events tagged with these techniques`,
       query: `event.module: * and threat.technique.id: (${techniques.map((t) => `"${t}"`).join(' or ')})`,
     });
     out.push({
       platform: 'sentinel-kql',
-      label: `Microsoft Sentinel KQL — events tagged with these techniques`,
+      label: `Microsoft Sentinel KQL - events tagged with these techniques`,
       query: `union withsource=Table SecurityEvent, Sysmon\n| where Technique in (${techniques.map((t) => `"${t}"`).join(', ')})\n| summarize count() by Computer, EventID, Technique`,
     });
   }
@@ -385,12 +385,12 @@ export function generateQueries(records: ParsedRecord[]): HuntingQuery[] {
   if (eids.length > 0) {
     out.push({
       platform: 'splunk',
-      label: `Splunk SPL — recurrence of EIDs in this batch`,
+      label: `Splunk SPL - recurrence of EIDs in this batch`,
       query: `index=wineventlog (EventCode IN (${eids.join(',')})) earliest=-7d | timechart count by EventCode`,
     });
     out.push({
       platform: 'sentinel-kql',
-      label: `Sentinel KQL — recurrence of EIDs over 7 days`,
+      label: `Sentinel KQL - recurrence of EIDs over 7 days`,
       query: `SecurityEvent\n| where EventID in (${eids.join(', ')})\n| where TimeGenerated > ago(7d)\n| summarize Count = count() by bin(TimeGenerated, 1h), EventID, Computer`,
     });
   }
@@ -398,7 +398,7 @@ export function generateQueries(records: ParsedRecord[]): HuntingQuery[] {
   if (cmds.length > 0) {
     out.push({
       platform: 'elastic-kql',
-      label: `Elastic KQL — process.command_line matches from this batch`,
+      label: `Elastic KQL - process.command_line matches from this batch`,
       query: `process.command_line: (${cmds.map((c) => `"${c.replace(/"/g, '\\"').slice(0, 200)}"`).join(' or ')})`,
     });
   }

@@ -3,7 +3,7 @@
  *
  * The site already exposes a generic email-auth verdict via /dfir/domain.
  * This module reframes the same data as "how easy is this domain to spoof
- * for a BEC pretext?" — a defender-side score where 0 means well-protected
+ * for a BEC pretext?" - a defender-side score where 0 means well-protected
  * and 100 means a phisher could send as you today with no friction.
  */
 
@@ -18,7 +18,7 @@ export interface DomainApiResponse {
     tls_rpt: { present: boolean; rua?: string };
   };
   // Note: the /api/v1/domain response also includes a `dns: { MX, ... }`
-  // block, but assess() doesn't read it — domain DNS records are surfaced
+  // block, but assess() doesn't read it - domain DNS records are surfaced
   // separately by the Domain page. If a future BEC heuristic needs MX
   // (e.g. "uses Google Workspace" → relax certain signal), reintroduce
   // it here together with the assessor change.
@@ -110,7 +110,7 @@ export function assess(d: DomainApiResponse): BecAssessment {
         scenario:
           spf.policy === 'pass'
             ? '+all explicitly authorises every sender. This is equivalent to publishing no SPF at all.'
-            : '?all is treated as no opinion — receivers fall back to other signals, most of which you also fail.',
+            : '?all is treated as no opinion - receivers fall back to other signals, most of which you also fail.',
         remediation: 'Tighten the trailing mechanism to ~all (during rollout) or -all (steady state).',
       });
     } else {
@@ -126,7 +126,7 @@ export function assess(d: DomainApiResponse): BecAssessment {
       title: 'DMARC record is missing',
       severity: 'critical',
       scenario:
-        'Without DMARC, SPF and DKIM still authenticate the envelope but the visible From: header is unconstrained. A phisher sets RFC5322.From to your domain and the message still authenticates against their own infrastructure — classic display-name spoofing for BEC.',
+        'Without DMARC, SPF and DKIM still authenticate the envelope but the visible From: header is unconstrained. A phisher sets RFC5322.From to your domain and the message still authenticates against their own infrastructure - classic display-name spoofing for BEC.',
       remediation:
         'Publish DMARC at _dmarc.<domain>. Start with p=none + reporting addresses, then progress to quarantine and reject.',
       record: {
@@ -137,7 +137,7 @@ export function assess(d: DomainApiResponse): BecAssessment {
     });
   } else {
     if (dmarc.policy === 'reject') {
-      positives.push('DMARC is at p=reject — direct-domain spoofing is blocked at compliant receivers.');
+      positives.push('DMARC is at p=reject - direct-domain spoofing is blocked at compliant receivers.');
     } else if (dmarc.policy === 'quarantine') {
       score += 8;
       gaps.push({
@@ -182,7 +182,7 @@ export function assess(d: DomainApiResponse): BecAssessment {
           id: 'dmarc-pct',
           title: `DMARC pct is ${dmarc.pct} (less than 100)`,
           severity: 'medium',
-          scenario: `Only ${dmarc.pct}% of failing mail is subjected to your policy — the rest still gets delivered.`,
+          scenario: `Only ${dmarc.pct}% of failing mail is subjected to your policy - the rest still gets delivered.`,
           remediation: 'Once your reports look clean, raise pct to 100.',
         });
       }
@@ -192,7 +192,7 @@ export function assess(d: DomainApiResponse): BecAssessment {
           title: 'No DMARC aggregate reports (rua=) configured',
           severity: 'low',
           scenario:
-            'Without rua=, you have no visibility into who is sending as your domain — including legitimate services you forgot about and attackers probing weak senders.',
+            'Without rua=, you have no visibility into who is sending as your domain - including legitimate services you forgot about and attackers probing weak senders.',
           remediation: 'Add rua=mailto:<inbox>@<domain> (and a managed parser like dmarcian / Postmark / Valimail).',
         });
       }
@@ -260,7 +260,7 @@ export function assess(d: DomainApiResponse): BecAssessment {
       },
     });
   } else {
-    positives.push('BIMI record published — extra brand signal in supporting clients.');
+    positives.push('BIMI record published - extra brand signal in supporting clients.');
   }
 
   // ── TLS-RPT ──────────────────────────────────────────────────────────
@@ -290,9 +290,9 @@ export function assess(d: DomainApiResponse): BecAssessment {
     g === 'safe'
       ? 'Direct-domain spoofing is well-defended.'
       : g === 'low'
-        ? 'Mostly defended — one or two minor gaps.'
+        ? 'Mostly defended - one or two minor gaps.'
         : g === 'medium'
-          ? 'Partial protection — a determined phisher will find a way through.'
+          ? 'Partial protection - a determined phisher will find a way through.'
           : g === 'high'
             ? 'Easily spoofable for a competent BEC operator.'
             : 'Effectively unprotected against direct-domain spoofing.';

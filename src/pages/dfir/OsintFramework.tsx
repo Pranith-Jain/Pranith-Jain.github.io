@@ -64,7 +64,7 @@ export default function OsintFramework(): JSX.Element {
           Filter by category, by pricing tier (free / free-with-account / freemium / paid), or full-text search.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
-          Hand-picked subset of osintframework.com — every entry was reachable when added. Pairs with{' '}
+          Hand-picked subset of osintframework.com - every entry was reachable when added. Pairs with{' '}
           <Link to="/dfir/username-investigator" className="text-brand-600 dark:text-brand-400 hover:underline">
             Username Pivot
           </Link>
@@ -82,12 +82,12 @@ export default function OsintFramework(): JSX.Element {
 
       <section className="surface-card p-4 mb-6 space-y-3">
         <div className="relative">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by name, description, or category — e.g. crypto, breach, court, image"
+            placeholder="Search by name, description, or category - e.g. crypto, breach, court, image"
             className="w-full pl-9 pr-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:border-brand-500/60 focus:outline-none"
             aria-label="Search OSINT framework"
           />

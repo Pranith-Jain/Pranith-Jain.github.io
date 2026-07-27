@@ -94,7 +94,7 @@ export default function EmlExtractor(): JSX.Element {
           <Link to="/dfir/file" className="text-brand-600 dark:text-brand-400 hover:underline">
             File / Hash Lookup
           </Link>{' '}
-          for multi-engine reputation. Pure client-side — nothing leaves your browser.
+          for multi-engine reputation. Pure client-side - nothing leaves your browser.
           <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
             Pairs with{' '}
             <Link to="/dfir/phishing" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -200,15 +200,15 @@ export default function EmlExtractor(): JSX.Element {
             </h2>
             <dl className="grid sm:grid-cols-[140px_1fr] gap-x-4 gap-y-1 text-meta font-mono">
               <dt className="text-slate-500 dark:text-slate-400">Subject</dt>
-              <dd className="text-slate-900 dark:text-slate-100 break-words">{parsed.subject ?? '—'}</dd>
+              <dd className="text-slate-900 dark:text-slate-100 break-words">{parsed.subject ?? '-'}</dd>
               <dt className="text-slate-500 dark:text-slate-400">From</dt>
-              <dd className="text-slate-900 dark:text-slate-100 break-words">{parsed.from ?? '—'}</dd>
+              <dd className="text-slate-900 dark:text-slate-100 break-words">{parsed.from ?? '-'}</dd>
               <dt className="text-slate-500 dark:text-slate-400">To</dt>
-              <dd className="text-slate-900 dark:text-slate-100 break-words">{parsed.to ?? '—'}</dd>
+              <dd className="text-slate-900 dark:text-slate-100 break-words">{parsed.to ?? '-'}</dd>
               <dt className="text-slate-500 dark:text-slate-400">Date</dt>
-              <dd className="text-slate-900 dark:text-slate-100">{parsed.date ?? '—'}</dd>
+              <dd className="text-slate-900 dark:text-slate-100">{parsed.date ?? '-'}</dd>
               <dt className="text-slate-500 dark:text-slate-400">Content-Type</dt>
-              <dd className="text-slate-900 dark:text-slate-100 break-all">{parsed.contentType ?? '—'}</dd>
+              <dd className="text-slate-900 dark:text-slate-100 break-all">{parsed.contentType ?? '-'}</dd>
             </dl>
           </section>
 
@@ -250,7 +250,7 @@ export default function EmlExtractor(): JSX.Element {
           <section className="surface-card p-4 mb-6">
             <details>
               <summary className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono cursor-pointer inline-flex items-center gap-2">
-                <FileText size={12} /> All headers ({parsed.headers.length}) — click to expand
+                <FileText size={12} /> All headers ({parsed.headers.length}) - click to expand
               </summary>
               <dl className="grid sm:grid-cols-[180px_1fr] gap-x-4 gap-y-1 text-mini font-mono mt-3 max-h-96 overflow-auto">
                 {parsed.headers.map((h, i) => (

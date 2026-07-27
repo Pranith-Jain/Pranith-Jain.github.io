@@ -6,11 +6,11 @@ import { detectType } from '../../lib/dfir/indicator-client';
 import type { ProviderResultWire, DoneEvent } from '../../lib/dfir/types';
 
 /**
- * IOC Pivot Graph — enrich one indicator across the 26-source checker
+ * IOC Pivot Graph - enrich one indicator across the 26-source checker
  * (reuses /api/v1/ioc/check SSE), then render a radial relationship graph:
  * indicator → sources (verdict-coloured) → derived pivot indicators
  * (IPs / domains / hashes / ASNs / CVEs found in the evidence). Every
- * pivot node is clickable to re-centre the graph on it — the core CTI
+ * pivot node is clickable to re-centre the graph on it - the core CTI
  * pivoting workflow. Nothing is stored; analysis is per-request.
  */
 
@@ -87,7 +87,7 @@ export default function IocPivot(): JSX.Element {
   const [summary, setSummary] = useState<DoneEvent | null>(null);
   const [streaming, setStreaming] = useState(false);
   const stopRef = useRef<(() => void) | null>(null);
-  // STIX export state — built lazily on first click, then the bundleId is
+  // STIX export state - built lazily on first click, then the bundleId is
   // remembered so the user can re-trigger the download without rebuilding.
   // `stixBuilding` is a separate flag from `streaming` (the live enrichment)
   // so the buttons can show independent spinners.
@@ -122,7 +122,7 @@ export default function IocPivot(): JSX.Element {
     setActive(v);
   };
   const pivotTo = (v: string) => {
-    // Ignore pivot clicks while the previous stream is still open — two
+    // Ignore pivot clicks while the previous stream is still open - two
     // concurrent EventSources would race their results into the same state.
     // The submit button is already disabled during `streaming`, but the
     // graph node clicks aren't, so they need their own guard.
@@ -206,14 +206,14 @@ export default function IocPivot(): JSX.Element {
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">IOC Pivot Graph</h1>
         <p className="text-muted mb-6 max-w-2xl">
-          Enrich an indicator across 26 sources and graph what it touches — verdict-coloured sources plus derived IPs /
+          Enrich an indicator across 26 sources and graph what it touches - verdict-coloured sources plus derived IPs /
           domains / hashes / ASNs / CVEs. Click any derived node to re-centre the graph on it. Nothing is stored.
         </p>
       </div>
 
       <form onSubmit={submit} className="flex flex-wrap gap-2 mb-6">
         <div className="relative flex-1 min-w-[240px]">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -330,7 +330,7 @@ export default function IocPivot(): JSX.Element {
                 {centerType}
               </text>
             </svg>
-            <div className="flex flex-wrap gap-x-4 gap-y-1 text-mini font-mono text-slate-400 px-2 pb-1">
+            <div className="flex flex-wrap gap-x-4 gap-y-1 text-mini font-mono text-slate-500 dark:text-slate-400 px-2 pb-1">
               <span>
                 <span style={{ color: VERDICT_COLOR.malicious }}>●</span> malicious
               </span>

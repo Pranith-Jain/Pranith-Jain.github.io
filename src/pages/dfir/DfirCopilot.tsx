@@ -229,7 +229,7 @@ export default function DfirCopilot(): JSX.Element {
       icon={<Zap size={28} />}
       title="DFIR Copilot"
       maxWidthClass="max-w-5xl"
-      description="AI-powered IOC investigation. Paste any IP, domain, hash, URL, email, or CVE — get a multi-source verdict with confidence scoring and actionable recommendations."
+      description="AI-powered IOC investigation. Paste any IP, domain, hash, URL, email, or CVE - get a multi-source verdict with confidence scoring and actionable recommendations."
     >
       {/* Search */}
       <form
@@ -247,7 +247,7 @@ export default function DfirCopilot(): JSX.Element {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Paste an IOC — IP, domain, hash, URL, email, or CVE…"
+              placeholder="Paste an IOC - IP, domain, hash, URL, email, or CVE…"
               className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
@@ -270,7 +270,7 @@ export default function DfirCopilot(): JSX.Element {
       {/* Quick examples */}
       {!result && !loading && (
         <div className="mb-6">
-          <div className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
+          <div className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
             Quick examples
           </div>
           <div className="flex flex-wrap gap-2">
@@ -284,7 +284,7 @@ export default function DfirCopilot(): JSX.Element {
                 }}
                 className="text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
-                {ex.label} <span className="text-slate-400 ml-1">({ex.type})</span>
+                {ex.label} <span className="text-slate-500 dark:text-slate-400 ml-1">({ex.type})</span>
               </button>
             ))}
           </div>
@@ -353,9 +353,9 @@ export default function DfirCopilot(): JSX.Element {
                       key={s.name}
                       className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
                     >
-                      <span className="font-bold text-slate-400">{i + 1}.</span>
+                      <span className="font-bold text-slate-500 dark:text-slate-400">{i + 1}.</span>
                       {s.name}
-                      <span className="text-slate-400">({s.items})</span>
+                      <span className="text-slate-500 dark:text-slate-400">({s.items})</span>
                     </span>
                   ))}
                 </div>
@@ -369,7 +369,7 @@ export default function DfirCopilot(): JSX.Element {
               <FileText size={15} className="text-brand-600 dark:text-brand-400" />
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Investigation Report</span>
               {result._meta && (
-                <span className="ml-auto font-mono text-mini text-slate-400">
+                <span className="ml-auto font-mono text-mini text-slate-500 dark:text-slate-400">
                   {result._meta.total_items} data points across {result._meta.total_sources} sources
                 </span>
               )}

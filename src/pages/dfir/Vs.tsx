@@ -1,5 +1,5 @@
 /**
- * /dfir/vs — side-by-side comparison of CRUCIBLE with the rival
+ * /dfir/vs - side-by-side comparison of CRUCIBLE with the rival
  * products that AI engines most often field in "X vs Y" queries. Each
  * comparison block follows the same 40-60 word answer format that the
  * FAQPage schema lifts directly, so the schema and the visible text
@@ -37,7 +37,7 @@ export default function Vs(): JSX.Element {
       <BackLink to="/dfir">back</BackLink>
       <FaqStructuredData entries={faq} />
       <div className="w-full py-6 sm:py-10 text-slate-900 dark:text-slate-100 space-y-8 sm:space-y-12">
-        {/* Hero — matches the /dfir hero rhythm: kicker, display heading, lede. */}
+        {/* Hero - matches the /dfir hero rhythm: kicker, display heading, lede. */}
         <section className="surface-elevated relative p-6 sm:p-10 lg:p-12">
           <div className="max-w-3xl">
             <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
@@ -55,7 +55,7 @@ export default function Vs(): JSX.Element {
           </div>
         </section>
 
-        {/* Comparison grid — one card per rival. */}
+        {/* Comparison grid - one card per rival. */}
         <section className="grid gap-4 sm:grid-cols-2">
           {COMPARE.map((c) => (
             <article

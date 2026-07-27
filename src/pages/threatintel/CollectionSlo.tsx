@@ -84,7 +84,7 @@ export default function CollectionSlo(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up mb-8">
         <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-          <Activity size={28} className="text-brand-600 dark:text-brand-400" /> Collection SLO
+          <Activity size={28} className="text-rose-600 dark:text-rose-400" /> Collection SLO
         </h1>
         <p className="text-muted mt-2 max-w-3xl">
           Live health status of every intelligence collector, source, and feed. Green = data flowing within 6h SLA.
@@ -99,14 +99,14 @@ export default function CollectionSlo(): JSX.Element {
               <div className="mb-6 rounded-xl border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20 p-4">
                 <div className="flex items-center gap-2 text-rose-700 dark:text-rose-300 text-xs font-medium mb-2">
                   <AlertTriangle size={14} />
-                  {data.down} collector(s) down — intelligence gap detected
+                  {data.down} collector(s) down - intelligence gap detected
                 </div>
                 <div className="space-y-1">
                   {data.rows
                     .filter((s) => s.status === 'down')
                     .map((s) => (
                       <p key={s.id} className="text-mini text-slate-700 dark:text-slate-300">
-                        <span className="font-mono">{s.label}</span> — {s.reason}
+                        <span className="font-mono">{s.label}</span> - {s.reason}
                       </p>
                     ))}
                 </div>
@@ -117,7 +117,7 @@ export default function CollectionSlo(): JSX.Element {
               <div className="mb-6 rounded-xl border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/20 p-4">
                 <div className="flex items-center gap-2 text-amber-700 dark:text-amber-300 text-xs font-medium mb-1">
                   <Clock size={14} />
-                  {data.degraded} collector(s) degraded — stale data
+                  {data.degraded} collector(s) degraded - stale data
                 </div>
               </div>
             )}
@@ -154,7 +154,7 @@ export default function CollectionSlo(): JSX.Element {
                   label: 'Cold / Unknown',
                   value: data.cold,
                   icon: HelpCircle,
-                  color: 'text-slate-400',
+                  color: 'text-slate-500 dark:text-slate-400',
                   onClick: () => setFilter(filter === 'cold' ? null : 'cold'),
                   selected: filter === 'cold',
                 },
@@ -165,7 +165,7 @@ export default function CollectionSlo(): JSX.Element {
                     key={k.label}
                     type="button"
                     onClick={k.onClick}
-                    className={`rounded-xl border p-4 text-left transition-colors ${k.selected ? 'border-brand-500/50 bg-brand-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/30'}`}
+                    className={`rounded-xl border p-4 text-left transition-colors ${k.selected ? 'border-rose-500/50 bg-rose-500/5' : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-rose-500/30'}`}
                   >
                     <div className="flex items-center gap-1.5 text-mini font-mono text-slate-500 mb-1">
                       <Icon size={12} className={k.color} /> {k.label}
@@ -210,16 +210,16 @@ export default function CollectionSlo(): JSX.Element {
                       >
                         <td className="px-4 py-3">
                           <div className="text-sm font-medium">{s.label}</div>
-                          <div className="text-mini font-mono text-slate-400">{s.id}</div>
+                          <div className="text-mini font-mono text-slate-500 dark:text-slate-400">{s.id}</div>
                         </td>
                         <td className="px-4 py-3">
                           <span
                             className={`text-micro font-mono px-1.5 py-0.5 rounded ${RELIABILITY_BADGE[s.reliability ?? ''] ?? ''}`}
                           >
-                            {s.reliability ?? '—'}
+                            {s.reliability ?? '-'}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-mini font-mono text-slate-500">{s.category ?? '—'}</td>
+                        <td className="px-4 py-3 text-mini font-mono text-slate-500">{s.category ?? '-'}</td>
                         <td className="px-4 py-3">
                           <span
                             className={`text-micro font-mono px-2 py-0.5 rounded border ${STATUS_STYLES[s.status] ?? ''}`}
@@ -228,13 +228,13 @@ export default function CollectionSlo(): JSX.Element {
                           </span>
                         </td>
                         <td className="px-4 py-3 text-right text-mini font-mono text-slate-500">
-                          {s.upstream_age_s !== undefined ? `${Math.round(s.upstream_age_s / 3600)}h` : '—'}
+                          {s.upstream_age_s !== undefined ? `${Math.round(s.upstream_age_s / 3600)}h` : '-'}
                         </td>
                         <td className="px-4 py-3 text-right">
                           <span
-                            className={`text-mini font-mono ${s.metrics?.sources_ok !== undefined ? 'text-emerald-500' : 'text-slate-400'}`}
+                            className={`text-mini font-mono ${s.metrics?.sources_ok !== undefined ? 'text-emerald-500' : 'text-slate-500 dark:text-slate-400'}`}
                           >
-                            {s.metrics?.sources_ok ?? '—'}
+                            {s.metrics?.sources_ok ?? '-'}
                           </span>
                         </td>
                       </tr>

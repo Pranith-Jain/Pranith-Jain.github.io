@@ -101,7 +101,7 @@ export default function IsraelAlerts() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setSoundEnabled(!soundEnabled)}
-            className="p-1 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+            className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
           >
             {soundEnabled ? <Volume2 size={14} /> : <VolumeX size={14} />}
           </button>
@@ -120,9 +120,9 @@ export default function IsraelAlerts() {
               <div className="min-w-0 flex-1">
                 <div className="text-meta font-bold text-red-400">{alert.type}</div>
                 <div className="text-tool text-slate-600 dark:text-slate-300">{alert.threat}</div>
-                <div className="text-mini text-slate-400">{alert.locations.join(', ')}</div>
+                <div className="text-mini text-slate-500 dark:text-slate-400">{alert.locations.join(', ')}</div>
               </div>
-              <span className="text-mini text-slate-400 ml-auto shrink-0">
+              <span className="text-mini text-slate-500 dark:text-slate-400 ml-auto shrink-0">
                 {new Date(alert.time).toLocaleTimeString()}
               </span>
             </div>
@@ -132,7 +132,7 @@ export default function IsraelAlerts() {
         <div className="flex flex-col items-center py-4">
           <Shield size={24} className="text-emerald-400 mb-2" />
           <div className="text-tool text-emerald-400 font-bold">ALL CLEAR</div>
-          <div className="text-mini text-slate-400 mt-1">Polling 5s · Pikud HaOref</div>
+          <div className="text-mini text-slate-500 dark:text-slate-400 mt-1">Polling 5s · Pikud HaOref</div>
         </div>
       )}
     </div>

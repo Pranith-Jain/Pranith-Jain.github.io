@@ -216,7 +216,7 @@ export default function WinReg() {
           >
             dfir-scripts.github.io/registry
           </a>{' '}
-          — {index?.counts.artifacts ?? 292} artifacts across {index?.counts.categories ?? 16} categories, mapped to
+          - {index?.counts.artifacts ?? 292} artifacts across {index?.counts.categories ?? 16} categories, mapped to
           MITRE ATT&CK.
         </span>
       }
@@ -228,7 +228,7 @@ export default function WinReg() {
         {/* Search + stats bar */}
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[200px] max-w-md">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="text"
               placeholder="Search artifacts by name, key, technique..."
@@ -325,12 +325,12 @@ export default function WinReg() {
                       </span>
                     ))}
                     {art.techniques.length > 3 && (
-                      <span className="font-mono text-micro text-slate-400">+{art.techniques.length - 3}</span>
+                      <span className="font-mono text-micro text-slate-500 dark:text-slate-400">+{art.techniques.length - 3}</span>
                     )}
                   </div>
                 )}
                 {art.tool.length > 0 && (
-                  <div className="mt-2 text-micro text-slate-400 dark:text-slate-500 truncate">
+                  <div className="mt-2 text-micro text-slate-500 dark:text-slate-400 truncate">
                     {art.tool.slice(0, 2).join(', ')}
                   </div>
                 )}
@@ -350,7 +350,7 @@ export default function WinReg() {
           >
             dfir-scripts.github.io
           </a>{' '}
-          — Windows Registry Forensic Artifacts reference ({index?.license ?? 'MIT'}).
+          - Windows Registry Forensic Artifacts reference ({index?.license ?? 'MIT'}).
           <br />
           Artifact definitions derived from RegRipper 3.0/4.0, Sysinternals Autoruns, RECmd, SBECmd, AmcacheParser, and
           MITRE ATT&CK.

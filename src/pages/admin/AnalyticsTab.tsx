@@ -10,7 +10,7 @@ import type {
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function fmtNum(n: number | undefined): string {
-  if (n == null) return '—';
+  if (n == null) return '-';
   return n.toLocaleString();
 }
 
@@ -232,7 +232,7 @@ function ByTypeTable({ rows }: { rows: SocialAnalyticsByType[] }) {
         id="by-type-heading"
         className="text-sm font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-3"
       >
-        What performs — by content type
+        What performs - by content type
       </h2>
       <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
         <table className="w-full text-sm">
@@ -377,7 +377,7 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
                       View
                     </a>
                   ) : (
-                    <span className="text-xs text-slate-400 dark:text-slate-600">—</span>
+                    <span className="text-xs text-slate-400 dark:text-slate-600">-</span>
                   )}
                 </td>
                 <td className="px-3 py-2 text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">
@@ -442,7 +442,7 @@ export default function AnalyticsTab() {
       {/* Empty state */}
       {!hasPosts && (
         <p className="text-slate-500 dark:text-slate-400 text-sm">
-          No engagement data yet — auto-refreshes hourly for posted tweets; add LinkedIn/Instagram numbers manually
+          No engagement data yet - auto-refreshes hourly for posted tweets; add LinkedIn/Instagram numbers manually
           using the form below.
         </p>
       )}
@@ -453,7 +453,7 @@ export default function AnalyticsTab() {
       {/* Per-post table */}
       {hasPosts && <PostsTable posts={data!.posts} />}
 
-      {/* Manual entry form — always visible so operator can add numbers any time */}
+      {/* Manual entry form - always visible so operator can add numbers any time */}
       <MetricsForm onSaved={() => void load()} />
     </div>
   );

@@ -50,7 +50,7 @@ export default function HealthTab() {
   useEffect(() => {
     void load();
     // Cards look stale unless they're refreshed periodically. 30s is fine
-    // for KV-list counts — cheap on the worker side, and the admin tab
+    // for KV-list counts - cheap on the worker side, and the admin tab
     // is rarely the foreground for long.
     const t = window.setInterval(() => void load(), AUTO_REFRESH_MS);
     return () => window.clearInterval(t);
@@ -80,18 +80,18 @@ export default function HealthTab() {
   //     "publisher 429'd" hours later; this surfaces it immediately.
   const badges: Array<{ tone: 'ok' | 'warn' | 'err'; text: string }> = [];
   if (health.approvalRequired) {
-    badges.push({ tone: 'warn', text: 'Approval gate ON — new posts queue in Drafts' });
+    badges.push({ tone: 'warn', text: 'Approval gate ON - new posts queue in Drafts' });
   } else {
     badges.push({ tone: 'ok', text: 'Auto-publish ON' });
   }
   if (health.secrets) {
     if (!health.secrets.groq) {
-      badges.push({ tone: 'err', text: 'GROQ_API_KEY missing — falls back to Workers AI' });
+      badges.push({ tone: 'err', text: 'GROQ_API_KEY missing - falls back to Workers AI' });
     } else {
       badges.push({ tone: 'ok', text: 'Groq key set' });
     }
     if (!health.secrets.vulncheck) {
-      badges.push({ tone: 'warn', text: 'VULNCHECK_API_TOKEN missing — KEV runner no-ops' });
+      badges.push({ tone: 'warn', text: 'VULNCHECK_API_TOKEN missing - KEV runner no-ops' });
     } else {
       badges.push({ tone: 'ok', text: 'VulnCheck key set' });
     }

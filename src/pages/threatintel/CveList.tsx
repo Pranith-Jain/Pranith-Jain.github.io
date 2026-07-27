@@ -25,7 +25,7 @@ interface RecentCve {
   origin: 'nvd' | 'kev' | 'mti' | 'cvefeed';
   /** Telegram permalink when origin is 'mti'. */
   mti_permalink?: string;
-  /** External link when origin is 'cvefeed' — cvefeed.io detail page. */
+  /** External link when origin is 'cvefeed' - cvefeed.io detail page. */
   cvefeed_url?: string;
 }
 
@@ -38,7 +38,7 @@ interface CveResponse {
 }
 
 // Source the four canonical severity tones from the shared Badge module so a
-// future tweak ripples here. LOW intentionally uses slate (not emerald) — a
+// future tweak ripples here. LOW intentionally uses slate (not emerald) - a
 // low-severity CVE is still a CVE and green misreads as "safe".
 const SEVERITY_PILL: Record<RecentCve['severity'], string> = {
   CRITICAL: SEVERITY_TONE.critical,
@@ -58,17 +58,17 @@ const ORIGIN_PILL: Record<RecentCve['origin'], { label: string; cls: string; too
   kev: {
     label: 'KEV',
     cls: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-    tooltip: 'CISA Known Exploited Vulnerabilities — actively exploited in the wild',
+    tooltip: 'CISA Known Exploited Vulnerabilities - actively exploited in the wild',
   },
   mti: {
     label: 'MTI',
     cls: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
-    tooltip: 'Gap-filled from mythreatintel Telegram channel — not yet in NVD',
+    tooltip: 'Gap-filled from mythreatintel Telegram channel - not yet in NVD',
   },
   cvefeed: {
     label: 'cvefeed.io',
-    cls: 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300',
-    tooltip: 'Gap-filled from cvefeed.io high-severity feed — not yet in NVD',
+    cls: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+    tooltip: 'Gap-filled from cvefeed.io high-severity feed - not yet in NVD',
   },
 };
 
@@ -179,13 +179,13 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
       <section className="surface-card p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by CVE id or description text…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter CVEs"
             />
           </div>
@@ -195,7 +195,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
             className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border ${
               kevOnly
                 ? 'border-rose-500/60 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40'
             }`}
             title="Toggle CISA KEV-only (actively exploited CVEs)"
           >
@@ -218,7 +218,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
           <button
             type="button"
             onClick={() => refetch()}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -244,7 +244,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
             <button
               type="button"
               onClick={() => setSeverityFilter(new Set())}
-              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+              className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline ml-2"
             >
               clear
             </button>
@@ -277,7 +277,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
               <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
                 <Link
                   to={`/dfir/cve?id=${encodeURIComponent(c.id)}`}
-                  className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 font-mono inline-flex items-center gap-2"
+                  className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 font-mono inline-flex items-center gap-2"
                 >
                   {c.id}
                   {isNew && (
@@ -315,7 +315,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
                             href={a.mitre_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:underline lowercase tracking-normal"
+                            className="px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline lowercase tracking-normal"
                             title={`MITRE ${a.mitre_id} · ${a.mitre_name}`}
                           >
                             {a.slug}
@@ -324,7 +324,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
                         ) : (
                           <span
                             key={a.slug}
-                            className="px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 lowercase tracking-normal"
+                            className="px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 lowercase tracking-normal"
                             title="curated actor (not yet in MITRE)"
                           >
                             {a.slug}
@@ -346,7 +346,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
                     {ORIGIN_PILL[c.origin].label}
                   </span>
                   <span
-                    className="text-slate-400"
+                    className="text-slate-500 dark:text-slate-400"
                     title={c.origin === 'kev' ? `Added to KEV ${c.kev_added}` : `Published ${c.published}`}
                   >
                     {shortRel(c.published)}
@@ -359,7 +359,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
                   href={sanitizeUrl(c.reference) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline mt-2"
+                  className="inline-flex items-center gap-1 text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline mt-2"
                 >
                   primary reference <ExternalLink size={9} />
                 </a>
@@ -375,7 +375,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
             type="button"
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page <= 1}
-            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40"
+            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-rose-500/40"
           >
             ← prev
           </button>
@@ -386,7 +386,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
             type="button"
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page >= totalPages}
-            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40"
+            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-rose-500/40"
           >
             next →
           </button>
@@ -405,19 +405,19 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
           <p className="text-muted mb-2 max-w-3xl leading-relaxed">
             Up to <strong>1,500 CVEs newly published in the last 30 days</strong> (NVD) merged with{' '}
             <strong>CISA KEV</strong> additions, <strong>MyThreatIntel</strong> alerts, and{' '}
-            <strong>cvefeed.io high-severity</strong> RSS as gap-fillers. NVD reports ~5,500 CVEs per 30-day window —
+            <strong>cvefeed.io high-severity</strong> RSS as gap-fillers. NVD reports ~5,500 CVEs per 30-day window -
             this is a triage view that prioritises high-signal records, not the full corpus. For exhaustive search use{' '}
             <a
               href="https://nvd.nist.gov/vuln/search"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               nvd.nist.gov/vuln/search
             </a>
             . Entries flagged KEV are known to be exploited in the wild, so prioritise those. Click a CVE id to drill
             into{' '}
-            <Link to="/dfir/cve" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link to="/dfir/cve" className="text-rose-600 dark:text-rose-400 hover:underline">
               CVE Lookup
             </Link>{' '}
             (full NVD + EPSS + KEV record).

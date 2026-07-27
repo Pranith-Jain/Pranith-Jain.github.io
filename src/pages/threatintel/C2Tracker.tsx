@@ -113,7 +113,7 @@ export default function C2Tracker(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setRefreshKey((k) => k + 1)}
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
                   aria-label="Refresh C2 tracker"
                 >
                   <RefreshCw size={11} /> refresh
@@ -136,7 +136,7 @@ export default function C2Tracker(): JSX.Element {
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setFilter('all')}
-                className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === 'all' ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'}`}
+                className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === 'all' ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'}`}
               >
                 All <span className="opacity-60">· {data.count}</span>
               </button>
@@ -144,14 +144,14 @@ export default function C2Tracker(): JSX.Element {
                 <button
                   key={fw}
                   onClick={() => setFilter(fw)}
-                  className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === fw ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'}`}
+                  className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === fw ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'}`}
                 >
                   {fw} <span className="opacity-60">· {data.frameworks[fw]}</span>
                 </button>
               ))}
             </div>
             <p className="text-xs font-mono text-slate-500 mt-3">
-              Sources: C2IntelFeeds · ThreatFox · CriticalPathSecurity · CriminalIP · TweetFeed — cached 30 min
+              Sources: C2IntelFeeds · ThreatFox · CriticalPathSecurity · CriminalIP · TweetFeed - cached 30 min
             </p>
           </section>
 
@@ -196,19 +196,19 @@ export default function C2Tracker(): JSX.Element {
                   <div className="flex gap-1.5 mt-1.5">
                     <Link
                       to={`/dfir/ioc-check?indicator=${entry.ip}`}
-                      className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                      className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
                     >
                       ioc
                     </Link>
                     <Link
                       to={`/dfir/ip-geo?ip=${entry.ip}`}
-                      className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                      className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
                     >
                       geo
                     </Link>
                     <Link
                       to={`/dfir/domain-rep?domain=${entry.ip}`}
-                      className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                      className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
                     >
                       bl
                     </Link>

@@ -2,7 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import {
   fetchSearchTimeline,
-  readAuthCookies,
+  resolveAuthCookies,
   XAuthMissingError,
   XAuthInvalidError,
   XAuthRateLimitedError,

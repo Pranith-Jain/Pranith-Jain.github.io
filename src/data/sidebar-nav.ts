@@ -3,7 +3,7 @@
  *
  * Auto-generated from `data/threatintel-hubs.ts` so every page in the
  * catalog has a sidebar entry. Adding a new page to the registry
- * automatically adds a sidebar item — no manual upkeep.
+ * automatically adds a sidebar item - no manual upkeep.
  *
  * The sidebar is the primary wayfinding surface for /threatintel/* pages.
  * It's grouped by hub and shows all direct page URLs (no nested tabs).
@@ -286,7 +286,7 @@ function buildThreatIntelSidebar(): SidebarConfig {
         label: 'Home',
         href: '/threatintel',
         icon: Compass,
-        description: 'Landing page — quick actions and recent tools',
+        description: 'Landing page - quick actions and recent tools',
       },
       {
         label: 'Page Catalog',
@@ -298,7 +298,7 @@ function buildThreatIntelSidebar(): SidebarConfig {
     ],
   };
 
-  // Per-hub groups — list direct page URLs only (no hub landing page; the
+  // Per-hub groups - list direct page URLs only (no hub landing page; the
   // catalog at /threatintel/catalog?cat=<id> is the single navigation
   // surface for browsing a category).
   const hubGroups: SidebarGroup[] = HUB_META.map((hub) => ({
@@ -362,7 +362,7 @@ const dfir: SidebarConfig = {
           label: 'Infostealer Intel',
           href: '/dfir/infostealer-intel',
           icon: KeyRound,
-          description: 'Hudson Rock Cavalier — compromised credential search.',
+          description: 'Hudson Rock Cavalier - compromised credential search.',
         },
         { label: 'K8s RBAC', href: '/dfir/k8s-rbac', icon: KeyRound },
         { label: 'GCP IAM', href: '/dfir/gcp-iam', icon: Shield },
@@ -376,9 +376,7 @@ const dfir: SidebarConfig = {
         { label: 'Rule Converter', href: '/dfir/rule-converter', icon: FileText },
         { label: 'TRACERULES', href: '/dfir/tracerules', icon: Shield },
         { label: 'ATTMAP-AI', href: '/dfir/attmap-ai', icon: Target },
-        { label: 'Rule Converter', href: '/dfir/rule-converter', icon: Flame },
         { label: 'MITRE Atlas', href: '/threatintel/wiki/llm', icon: Compass },
-        { label: 'STIX Workbench', href: '/dfir/stix-workbench', icon: GitBranch },
         { label: 'Decode', href: '/dfir/decode', icon: FileText },
         { label: 'Sec Headers', href: '/dfir/sec-headers', icon: Shield },
         { label: 'Kill Chain', href: '/dfir/kill-chain', icon: Target },
@@ -401,7 +399,6 @@ const SIDEBARS: Record<string, SidebarConfig> = {
         title: 'Tools',
         items: [
           { label: 'Scan', href: '/radar', icon: Radar },
-          { label: 'Recent Runs', href: '/radar', icon: List },
         ],
       },
     ],
@@ -420,7 +417,7 @@ export const PAGE_TITLES: Record<string, string> = (() => {
   out['/threatintel'] = 'Threat Intel';
   out['/threatintel/catalog'] = 'Page Catalog';
   out['/threatintel/about'] = 'About';
-  // Per-page titles only — no bare hub paths in PAGE_TITLES since
+  // Per-page titles only - no bare hub paths in PAGE_TITLES since
   // hub landing pages are gone. The catalog is the single navigation
   // surface for browsing a category.
   for (const hub of HUB_META) {

@@ -52,7 +52,7 @@ interface InsightsPayload {
 
 // ── Pretty-printing helpers ──────────────────────────────────────────
 function fmtCount(n: number | undefined): string {
-  if (n == null) return '—';
+  if (n == null) return '-';
   if (n >= 1e9) return (n / 1e9).toFixed(1).replace(/\.0$/, '') + 'B+';
   if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M+';
   if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'K+';
@@ -60,7 +60,7 @@ function fmtCount(n: number | undefined): string {
 }
 
 function fmtExact(n: number | undefined): string {
-  if (n == null) return '—';
+  if (n == null) return '-';
   return n.toLocaleString();
 }
 
@@ -78,9 +78,9 @@ function fmtWindow(window: '1h' | '24h' | '30d'): string {
 }
 
 function relTime(iso: string | undefined): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const t = Date.parse(iso);
-  if (Number.isNaN(t)) return '—';
+  if (Number.isNaN(t)) return '-';
   const diff = Date.now() - t;
   const m = Math.floor(diff / 60_000);
   if (m < 1) return 'just now';
@@ -92,9 +92,9 @@ function relTime(iso: string | undefined): string {
 }
 
 function relTimeShort(iso: string | undefined): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const t = Date.parse(iso);
-  if (Number.isNaN(t)) return '—';
+  if (Number.isNaN(t)) return '-';
   const diff = Date.now() - t;
   const m = Math.floor(diff / 60_000);
   if (m < 60) return `${m}m`;
@@ -137,7 +137,7 @@ function MiniLineChart({
   }, [series]);
 
   if (points.length === 0) {
-    return <div className="flex h-20 items-center justify-center text-xs text-slate-400">no data</div>;
+    return <div className="flex h-20 items-center justify-center text-xs text-slate-500 dark:text-slate-400">no data</div>;
   }
   const pathD = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(' ');
   const fillD = `${pathD} L 100 100 L 0 100 Z`;
@@ -158,7 +158,7 @@ function MiniLineChart({
         ))}
       </svg>
       {/* X-axis labels */}
-      <div className="absolute inset-x-0 -bottom-4 flex justify-between text-micro text-slate-400 dark:text-slate-500">
+      <div className="absolute inset-x-0 -bottom-4 flex justify-between text-micro text-slate-500 dark:text-slate-400">
         {points.map((p, i) => (
           <span key={i} className={i === 0 ? 'text-left' : i === points.length - 1 ? 'text-right' : 'text-center'}>
             {p.label.replace('th', '').replace('st', '').replace('nd', '').replace('rd', '')}
@@ -186,14 +186,14 @@ function TopDomainsCloud({ domains }: { domains: Record<string, number> }): JSX.
         const size = 0.75 + ratio * 1.4; // rem multiplier
         const tone =
           ratio > 0.66
-            ? 'text-brand-600 dark:text-brand-300 font-semibold'
+            ? 'text-rose-600 dark:text-rose-300 font-semibold'
             : ratio > 0.33
               ? 'text-slate-800 dark:text-slate-200 font-medium'
               : 'text-slate-500 dark:text-slate-400';
         return (
           <span
             key={domain}
-            className={`${tone} hover:text-brand-600 dark:hover:text-brand-400 transition-colors cursor-default`}
+            className={`${tone} hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-default`}
             style={{ fontSize: `${size}rem`, lineHeight: 1.15 }}
             title={`${count.toLocaleString()} subdomains`}
           >
@@ -222,7 +222,7 @@ function BigStat({
   tone?: 'brand' | 'emerald' | 'amber' | 'rose' | 'violet' | 'cyan';
 }): JSX.Element {
   const toneCls: Record<string, string> = {
-    brand: 'border-brand-200 dark:border-brand-800/60 bg-brand-50/40 dark:bg-brand-950/20',
+    brand: 'border-rose-200 dark:border-rose-800/60 bg-rose-50/40 dark:bg-rose-950/20',
     emerald: 'border-emerald-200 dark:border-emerald-900/60 bg-emerald-50/40 dark:bg-emerald-950/20',
     amber: 'border-amber-200 dark:border-amber-900/60 bg-amber-50/40 dark:bg-amber-950/20',
     rose: 'border-rose-200 dark:border-rose-900/60 bg-rose-50/40 dark:bg-rose-950/20',
@@ -230,7 +230,7 @@ function BigStat({
     cyan: 'border-cyan-200 dark:border-cyan-900/60 bg-cyan-50/40 dark:bg-cyan-950/20',
   };
   const iconTone: Record<string, string> = {
-    brand: 'text-brand-600 dark:text-brand-400',
+    brand: 'text-rose-600 dark:text-rose-400',
     emerald: 'text-emerald-600 dark:text-emerald-400',
     amber: 'text-amber-600 dark:text-amber-400',
     rose: 'text-rose-600 dark:text-rose-400',
@@ -266,14 +266,14 @@ function SecretTypeRow({ name, count, max }: { name: string; count: number; max:
         <span className="font-mono tabular-nums text-muted">{count.toLocaleString()}</span>
       </div>
       <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
-        <div className="h-full rounded-full bg-brand-500" style={{ width: `${pct}%` }} />
+        <div className="h-full rounded-full bg-rose-500" style={{ width: `${pct}%` }} />
       </div>
     </li>
   );
 }
 
 // ── Main page ────────────────────────────────────────────────────────
-const REFRESH_MS = 60_000; // 1 min auto-refresh interval — see auto-refresh useEffect below
+const REFRESH_MS = 60_000; // 1 min auto-refresh interval - see auto-refresh useEffect below
 
 export default function RedHuntInsights(): JSX.Element {
   const [payload, setPayload] = useState<InsightsPayload | null>(null);
@@ -330,7 +330,7 @@ export default function RedHuntInsights(): JSX.Element {
   const topSecrets = data?.top_secrets?.secrets ?? {};
   const latestSecrets = data?.latest_secrets ?? [];
 
-  // Top 10 secret types — sorted desc.
+  // Top 10 secret types - sorted desc.
   const topSecretEntries = useMemo(() => {
     const arr = Object.entries(topSecrets);
     arr.sort(([, a], [, b]) => b - a);
@@ -358,11 +358,11 @@ export default function RedHuntInsights(): JSX.Element {
             href="https://research.redhuntlabs.com/internet-insights"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             research.redhuntlabs.com/internet-insights
           </a>{' '}
-          — internet-wide exposure trends, code-platform secrets monitoring, subdomains enumeration, and Postman
+          - internet-wide exposure trends, code-platform secrets monitoring, subdomains enumeration, and Postman
           ecosystem exposure. Auto-refreshes every minute. The raw JSON is at{' '}
           <code className="rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 text-xs">
             research.redhuntlabs.com/api/latest.json
@@ -375,7 +375,7 @@ export default function RedHuntInsights(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             aria-label="Refresh now"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
@@ -412,17 +412,17 @@ export default function RedHuntInsights(): JSX.Element {
       {data && (
         <>
           {/* ── Headline hero ────────────────────────────────────────── */}
-          <div className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-brand-50/60 via-white to-brand-50/20 dark:from-brand-950/20 dark:via-slate-900 dark:to-brand-950/10 p-5 shadow-e1">
+          <div className="mb-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-rose-50/60 via-white to-rose-50/20 dark:from-rose-950/20 dark:via-slate-900 dark:to-rose-950/10 p-5 shadow-e1">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <div>
-                <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
                   Internet-Wide Exposure Analytics
                 </p>
                 <h2 className="mt-1 text-2xl sm:text-3xl font-display font-bold text-slate-900 dark:text-slate-100">
                   3.7+ Billion Addresses Analyzed
                 </h2>
                 <p className="mt-1 text-sm text-muted max-w-2xl">
-                  Checkout Our Recent Internet Scan Study — aggregate counts of the assets RedHunt Labs' Project
+                  Checkout Our Recent Internet Scan Study - aggregate counts of the assets RedHunt Labs' Project
                   Resonance engine has catalogued across subdomains, code-platform commits, DockerHub, APKs, and
                   Postman.
                 </p>
@@ -432,9 +432,9 @@ export default function RedHuntInsights(): JSX.Element {
                   Last updated
                 </p>
                 <p className="font-mono text-sm text-slate-700 dark:text-slate-200">
-                  {data.timestamp ? new Date(data.timestamp).toLocaleString() : '—'}
+                  {data.timestamp ? new Date(data.timestamp).toLocaleString() : '-'}
                 </p>
-                <p className="text-micro font-mono text-slate-400">{relTime(data.timestamp)}</p>
+                <p className="text-micro font-mono text-slate-500 dark:text-slate-400">{relTime(data.timestamp)}</p>
               </div>
             </div>
           </div>
@@ -773,7 +773,7 @@ export default function RedHuntInsights(): JSX.Element {
               RedHunt Labs Research Loop
             </p>
             <p className="mt-2 font-display text-xl font-bold text-slate-900 dark:text-slate-100">
-              <span className="text-brand-600 dark:text-brand-400">DISCOVER</span> ·{' '}
+              <span className="text-rose-600 dark:text-rose-400">DISCOVER</span> ·{' '}
               <span className="text-emerald-600 dark:text-emerald-400">ATTACK</span> ·{' '}
               <span className="text-rose-600 dark:text-rose-400">REPEAT</span>
             </p>
@@ -783,12 +783,12 @@ export default function RedHuntInsights(): JSX.Element {
                 href="https://research.redhuntlabs.com/internet-insights"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-600 dark:text-brand-400 hover:underline"
+                className="text-rose-600 dark:text-rose-400 hover:underline"
               >
                 research.redhuntlabs.com/internet-insights
               </a>{' '}
               every minute and caches in KV for 5 minutes. The data shown is the snapshot from{' '}
-              <span className="font-mono">{data.timestamp ? new Date(data.timestamp).toLocaleString() : '—'}</span>.
+              <span className="font-mono">{data.timestamp ? new Date(data.timestamp).toLocaleString() : '-'}</span>.
             </p>
           </div>
         </>
@@ -799,7 +799,7 @@ export default function RedHuntInsights(): JSX.Element {
 
 // Sum per-week values across multiple series so the merged chart shows the
 // platform-aggregated total. Weeks not present in all three are still shown
-// as long as they're present in at least one — the chart already does
+// as long as they're present in at least one - the chart already does
 // best-effort label normalisation.
 function mergeWeekly(...series: (Record<string, number> | undefined)[]): Record<string, number> {
   const out: Record<string, number> = {};

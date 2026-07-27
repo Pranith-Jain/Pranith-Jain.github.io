@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 254 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 257 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 254,
-  "generatedAt": "2026-07-24T14:32:23.548Z",
+  "toolCount": 257,
+  "generatedAt": "2026-07-27T17:28:24.733Z",
   "tools": [
     {
       "name": "ai_threats_get",
@@ -48,6 +48,11 @@
       "name": "analyze_report",
       "description": "Unified per-report analyzer. Runs summary + IOC extraction (with allowlist + confidence) + MITRE ATT&CK TTP mapping + 5W context + CVE extraction + image-OCR + STIX 2.1 bundle in a single round-trip. Accepts text, URL, or both; optionally takes image URLs to OCR. When format=markdown returns a TI Mindmap HUB-style rich formatted markdown report.",
       "category": "analysis"
+    },
+    {
+      "name": "breach_vip_search",
+      "description": "Search the BreachVIP breach corpus (10B+ records, 1000+ datasets) directly. Supports 10 field types (email, username, domain, ip, phone, password, name, uuid, steamid, discordid). Returns grouped metadata: breach name, record count, and exposed data classes — raw credentials are never surfaced.",
+      "category": "breach"
     },
     {
       "name": "btc_abuse_check",
@@ -1070,6 +1075,11 @@
       "category": "other"
     },
     {
+      "name": "ti_get_detection_list",
+      "description": "Return the full detection list body with all entries (indicator values + metadata: description, tool, severity, category, reference, regex). Optionally search within the list by keyword or severity. Use ti_list_detection_lists first to discover slugs.",
+      "category": "other"
+    },
+    {
       "name": "ti_get_ioc",
       "description": "Return the full IOC family body with indicators, MITRE techniques, context, and (where populated) LLM summary. Use ti_list_iocs first to discover family slugs.",
       "category": "other"
@@ -1077,6 +1087,11 @@
     {
       "name": "ti_list_cves",
       "description": "List CVEs from the threat-intel vertical (NVD + CISA KEV). CVEs are enriched with priority scoring (CVSS + KEV + recency). Filter by severity, KEV-only, vendor, recency, or keyword.",
+      "category": "other"
+    },
+    {
+      "name": "ti_list_detection_lists",
+      "description": "List SOC/DFIR detection lists (suspicious named pipes, ports, user-agents, mutexes, ransomware extensions, etc.) sourced from mthcht/awesome-lists. Each list is a curated CSV of indicators with metadata (tool, severity, category, reference). Filter by category or keyword.",
       "category": "other"
     },
     {

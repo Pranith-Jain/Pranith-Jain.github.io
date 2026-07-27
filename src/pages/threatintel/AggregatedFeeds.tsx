@@ -56,14 +56,14 @@ const CATEGORY_META: Record<string, { label: string; icon: typeof Shield; color:
 };
 
 function formatBytes(b: number | null): string {
-  if (b === null) return '—';
+  if (b === null) return '-';
   if (b < 1024) return `${b} B`;
   if (b < 1024 * 1024) return `${(b / 1024).toFixed(1)} KB`;
   return `${(b / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 function formatCount(n: number | null): string {
-  if (n === null) return '—';
+  if (n === null) return '-';
   if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
   return String(n);
 }
@@ -122,19 +122,19 @@ export default function AggregatedFeeds() {
   const headerExtra = (
     <div className="flex flex-wrap gap-3">
       <div className="relative flex-1 min-w-[200px]">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
         <input
           type="text"
           placeholder="Search feeds..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500"
+          className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-rose-500"
         />
       </div>
       <select
         value={categoryFilter}
         onChange={(e) => setCategoryFilter(e.target.value)}
-        className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
+        className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-rose-500"
       >
         <option value="all">All Categories</option>
         {Object.entries(CATEGORY_META).map(([key, meta]) => (
@@ -151,7 +151,7 @@ export default function AggregatedFeeds() {
       backTo="/threatintel"
       icon={<Database className="w-7 h-7" />}
       title="Aggregated Intelligence Feeds"
-      description={`Live feed data from CriticalPathSecurity Public-Intelligence-Feeds — ${data?.feeds_ok ?? 0} of ${data?.total_feeds ?? 0} feeds available`}
+      description={`Live feed data from CriticalPathSecurity Public-Intelligence-Feeds - ${data?.feeds_ok ?? 0} of ${data?.total_feeds ?? 0} feeds available`}
       headerExtra={data ? headerExtra : undefined}
       loading={loading}
       error={error ? `Failed to load: ${error}` : null}
@@ -187,7 +187,7 @@ export default function AggregatedFeeds() {
                       href={sanitizeUrl(feed.url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1"
+                      className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1"
                     >
                       <ExternalLink className="w-4 h-4" />
                     </a>
@@ -199,11 +199,11 @@ export default function AggregatedFeeds() {
                         feed.fetch_ok ? 'text-slate-700 dark:text-slate-300' : 'text-rose-600 dark:text-rose-400'
                       }
                     >
-                      <span className="text-slate-400 dark:text-slate-500">IOCs:</span>{' '}
+                      <span className="text-slate-500 dark:text-slate-400">IOCs:</span>{' '}
                       <strong>{feed.fetch_ok ? formatCount(feed.ioc_count) : 'unreachable'}</strong>
                     </span>
                     <span className="text-slate-700 dark:text-slate-300">
-                      <span className="text-slate-400 dark:text-slate-500">Size:</span>{' '}
+                      <span className="text-slate-500 dark:text-slate-400">Size:</span>{' '}
                       <strong>{formatBytes(feed.size_bytes)}</strong>
                     </span>
                     <span className="text-muted text-xs capitalize px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -214,7 +214,7 @@ export default function AggregatedFeeds() {
                   {feed.fetch_ok && feed.sample_entries.length > 0 && (
                     <div className="mt-3">
                       <details className="text-sm">
-                        <summary className="text-slate-400 dark:text-slate-500 cursor-pointer hover:text-slate-600 dark:hover:text-slate-300">
+                        <summary className="text-slate-500 dark:text-slate-400 cursor-pointer hover:text-slate-600 dark:hover:text-slate-300">
                           Sample entries ({feed.sample_entries.length})
                         </summary>
                         <div className="mt-2 space-y-1">

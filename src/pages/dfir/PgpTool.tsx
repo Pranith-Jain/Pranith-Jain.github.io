@@ -40,7 +40,7 @@ export default function PgpTool() {
       setPublicKey(pub);
       setOutput(priv);
       setStatus('done');
-      setMessage('Key pair generated. Save your private key securely — it cannot be recovered.');
+      setMessage('Key pair generated. Save your private key securely - it cannot be recovered.');
     } catch (err) {
       console.error('PgpTool failed:', err instanceof Error ? err.message : String(err));
       setStatus('error');
@@ -87,7 +87,7 @@ export default function PgpTool() {
           const result = await openpgp.verify({ message: msg, verificationKeys: pub });
           const sig = result.signatures[0];
           const verified = await sig?.verified;
-          setMessage(verified ? '✓ Signature verified' : '✗ Signature INVALID');
+          setMessage(verified ? 'Signature verified' : 'Signature INVALID');
           setOutput(result.data as string);
           break;
         }

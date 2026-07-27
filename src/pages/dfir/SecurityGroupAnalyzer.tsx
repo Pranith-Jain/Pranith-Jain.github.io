@@ -4,12 +4,12 @@ import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
 /**
- * Security Group / NSG Exposure Analyzer — 100% client-side.
+ * Security Group / NSG Exposure Analyzer - 100% client-side.
  *
  * Paste AWS `aws ec2 describe-security-groups` JSON or an Azure NSG
  * (securityRules / ARM shape). Inbound rules open to the internet
  * (0.0.0.0/0, ::/0, "*", "Internet", "Any") are flagged, severity-ranked
- * by the service behind the port — SSH/RDP/databases/admin planes that
+ * by the service behind the port - SSH/RDP/databases/admin planes that
  * should never face the public internet. Nothing leaves the browser.
  */
 
@@ -145,7 +145,7 @@ function pushExposure(
     findings.push({
       sev: 'critical',
       title: `ALL ports open to the internet (${src})`,
-      detail: `${proto.toUpperCase()} all ports are reachable from anywhere — every service on these hosts is internet-exposed.`,
+      detail: `${proto.toUpperCase()} all ports are reachable from anywhere - every service on these hosts is internet-exposed.`,
       where,
       fix: 'Replace the source with specific CIDRs / a bastion / SG reference and open only the ports you serve.',
     });
@@ -159,7 +159,7 @@ function pushExposure(
         sev: 'info',
         title: `Port ${from} open to the internet (${src})`,
         detail:
-          'Standard web port exposed publicly — expected for a public endpoint; confirm it is meant to be public.',
+          'Standard web port exposed publicly - expected for a public endpoint; confirm it is meant to be public.',
         where,
         fix: 'If this is not a public web endpoint, restrict the source range.',
       });
@@ -181,7 +181,7 @@ function pushExposure(
       title: `${h.svc} (port ${h.port}) open to the internet (${src})`,
       detail: `${proto.toUpperCase()} ${h.port} (${h.svc}) is reachable from anywhere. Internet-facing ${h.svc} is a top initial-access / data-exposure vector.`,
       where,
-      fix: `Restrict port ${h.port} to specific CIDRs, a bastion host, or a security-group reference — never 0.0.0.0/0.`,
+      fix: `Restrict port ${h.port} to specific CIDRs, a bastion host, or a security-group reference - never 0.0.0.0/0.`,
     });
   }
 }
@@ -469,7 +469,7 @@ export default function SecurityGroupAnalyzer(): JSX.Element {
                           >
                             {f.sev}
                           </span>
-                          <span className="text-mini font-mono text-slate-400">{f.where}</span>
+                          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{f.where}</span>
                         </div>
                         <h3 className={`font-display font-semibold mt-1.5 ${st.text}`}>{f.title}</h3>
                         <p className="text-sm text-muted mt-1 leading-relaxed">{f.detail}</p>

@@ -70,7 +70,7 @@ export default function Whoxy() {
           >
             whoxy.com
           </a>{' '}
-          — find all domains associated with an email, owner name, company, or keyword.
+          - find all domains associated with an email, owner name, company, or keyword.
         </span>
       }
     >
@@ -210,13 +210,13 @@ export default function Whoxy() {
                             </a>
                           </td>
                           <td className="px-4 py-2 text-sm text-slate-700 dark:text-slate-300">
-                            {d.registrant_name || <span className="text-muted">—</span>}
+                            {d.registrant_name || <span className="text-muted">-</span>}
                           </td>
                           <td className="px-4 py-2 text-sm text-slate-700 dark:text-slate-300">
-                            {d.company_name || <span className="text-muted">—</span>}
+                            {d.company_name || <span className="text-muted">-</span>}
                           </td>
-                          <td className="px-4 py-2 text-mini text-muted font-mono">{d.creation_date || '—'}</td>
-                          <td className="px-4 py-2 text-mini text-muted font-mono">{d.expiry_date || '—'}</td>
+                          <td className="px-4 py-2 text-mini text-muted font-mono">{d.creation_date || '-'}</td>
+                          <td className="px-4 py-2 text-mini text-muted font-mono">{d.expiry_date || '-'}</td>
                           <td className="px-4 py-2">
                             <Link
                               to={`/dfir/whois-history?domain=${encodeURIComponent(d.domain_name)}`}
@@ -251,7 +251,7 @@ export default function Whoxy() {
           >
             whoxy.com
           </a>{' '}
-          — 705M+ WHOIS records across 1,596 TLDs.
+          - 705M+ WHOIS records across 1,596 TLDs.
         </div>
       </div>
     </DataPageLayout>

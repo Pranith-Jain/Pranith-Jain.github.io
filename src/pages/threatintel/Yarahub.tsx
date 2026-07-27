@@ -46,7 +46,7 @@ export default function Yarahub(): JSX.Element {
       }
       const json = (await res.json()) as YaraifyListResponse;
       if (json.query_status !== 'ok') {
-        throw new Error(`YARAify API: ${json.query_status}${typeof json.data === 'string' ? ` — ${json.data}` : ''}`);
+        throw new Error(`YARAify API: ${json.query_status}${typeof json.data === 'string' ? ` - ${json.data}` : ''}`);
       }
       if (!ctrl.signal.aborted) setRules(Array.isArray(json.data) ? json.data : []);
     } catch (e) {
@@ -112,7 +112,7 @@ export default function Yarahub(): JSX.Element {
           setContentError(typeof json.data === 'string' ? json.data : 'YARAify API returned an error');
         } else {
           setRuleContent(JSON.stringify(json, null, 2));
-          setContentError('Unexpected response format — showing raw JSON');
+          setContentError('Unexpected response format - showing raw JSON');
         }
       } else {
         const text = await res.text();
@@ -142,7 +142,7 @@ export default function Yarahub(): JSX.Element {
             href="https://yaraify.abuse.ch/yarahub/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             YARAhub
           </a>{' '}
@@ -162,13 +162,13 @@ export default function Yarahub(): JSX.Element {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by rule name, family, or author (e.g. MALWARE_Win_Neshta, emotet, trickbot)"
-                className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               />
             </div>
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
+              className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2"
             >
               {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
               Search
@@ -181,7 +181,7 @@ export default function Yarahub(): JSX.Element {
     >
       {loading && !error && (
         <div className="surface-card p-8 text-center">
-          <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
+          <Loader2 size={20} className="animate-spin mx-auto text-slate-500 dark:text-slate-400 mb-2" />
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Fetching YARA rules from YARAhub…</p>
         </div>
       )}
@@ -190,7 +190,7 @@ export default function Yarahub(): JSX.Element {
         <div className="surface-card p-12 text-center">
           <Search size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">{search ? 'No matching rules' : 'No YARA rules loaded'}</p>
-          <p className="text-xs font-mono text-slate-400 mt-1">
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">
             {search ? 'Try a different search term' : 'The YARAhub API may be unavailable'}
           </p>
         </div>
@@ -205,7 +205,7 @@ export default function Yarahub(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setSearch('')}
-                  className="ml-2 text-brand-600 dark:text-brand-400 hover:underline"
+                  className="ml-2 text-rose-600 dark:text-rose-400 hover:underline"
                 >
                   clear filter
                 </button>
@@ -216,14 +216,14 @@ export default function Yarahub(): JSX.Element {
             {filtered.map((rule) => (
               <div
                 key={rule.yarahub_uuid ?? rule.rule_name}
-                className="surface-card hover:border-brand-500/40 transition-colors"
+                className="surface-card hover:border-rose-500/40 transition-colors"
               >
                 <div className="flex items-start justify-between p-4">
                   <div className="flex-1 min-w-0">
                     <button
                       type="button"
                       onClick={() => void viewRule(rule.yarahub_uuid ?? rule.rule_name, rule.rule_name)}
-                      className="text-left font-display font-semibold text-sm text-brand-600 dark:text-brand-400 hover:underline break-all"
+                      className="text-left font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline break-all"
                     >
                       {rule.rule_name}
                     </button>
@@ -249,7 +249,7 @@ export default function Yarahub(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => void viewRule(rule.yarahub_uuid ?? rule.rule_name, rule.rule_name)}
-                    className="shrink-0 ml-3 text-mini font-mono px-2.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                    className="shrink-0 ml-3 text-mini font-mono px-2.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
                   >
                     View rule
                   </button>
@@ -262,7 +262,7 @@ export default function Yarahub(): JSX.Element {
 
       {contentLoading && (
         <div className="mt-6 surface-card p-8 text-center">
-          <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
+          <Loader2 size={20} className="animate-spin mx-auto text-slate-500 dark:text-slate-400 mb-2" />
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Downloading rule content…</p>
         </div>
       )}
@@ -276,7 +276,7 @@ export default function Yarahub(): JSX.Element {
                 href={`https://yaraify.abuse.ch/yarahub/#${contentName}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
               >
                 <ExternalLink size={11} /> YARAhub
               </a>
@@ -291,7 +291,7 @@ export default function Yarahub(): JSX.Element {
                   a.click();
                   URL.revokeObjectURL(url);
                 }}
-                className="text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
               >
                 <FileDown size={11} /> Download
               </button>
@@ -301,7 +301,7 @@ export default function Yarahub(): JSX.Element {
                   setRuleContent(null);
                   setContentName(null);
                 }}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
               >
                 <X size={14} />
               </button>
@@ -326,7 +326,7 @@ export default function Yarahub(): JSX.Element {
             href="https://yaraify.abuse.ch/yarahub/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             View on YARAhub <ExternalLink size={10} className="inline" />
           </a>

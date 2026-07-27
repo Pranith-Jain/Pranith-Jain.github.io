@@ -61,7 +61,7 @@ export function ToolJsonLd({ section, toolName, description, path, category, fea
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     isPartOf: {
       '@type': 'SoftwareApplication',
-      name: 'Pranith Jain — DFIR & Threat Intel Platform',
+      name: 'Pranith Jain - DFIR & Threat Intel Platform',
       url: BASE_URL,
     },
     author: {

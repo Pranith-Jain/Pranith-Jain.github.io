@@ -87,14 +87,14 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
     <div className="mt-2 border-t border-slate-100 pt-2 dark:border-[rgb(var(--border-400))]">
       <button
         onClick={() => setOpen(!open)}
-        className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-mini font-mono text-slate-500 hover:text-brand-600 hover:bg-slate-50 transition-colors dark:hover:bg-[rgb(var(--surface-200))]"
+        className="inline-flex items-center gap-1.5 rounded-xl px-2 py-1 text-mini font-mono text-slate-500 hover:text-brand-600 hover:bg-slate-50 transition-colors dark:hover:bg-[rgb(var(--surface-200))]"
       >
         <Shield size={12} />
         Generate detection rule
         {open ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
       </button>
       {open && (
-        <div className="mt-2 space-y-2 rounded-lg border border-slate-200 bg-slate-50/50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.3]">
+        <div className="mt-2 space-y-2 rounded-xl border border-slate-200 bg-slate-50/50 p-3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.3]">
           <div className="flex items-center gap-1.5">
             <span className="text-mini font-medium text-slate-600 dark:text-slate-300">Format:</span>
             {RULE_TYPES.map((r) => (
@@ -142,14 +142,14 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
                 <button
                   onClick={handleSave}
                   disabled={saving || saved}
-                  className="rounded bg-white/90 p-1 text-slate-400 hover:text-brand-600 disabled:opacity-50 dark:bg-[rgb(var(--surface-200))/0.9]"
+                  className="rounded bg-white/90 p-1 text-slate-500 dark:text-slate-400 hover:text-brand-600 disabled:opacity-50 dark:bg-[rgb(var(--surface-200))/0.9]"
                   aria-label="Save rule"
                 >
                   {saved ? <Check size={12} className="text-emerald-500" /> : <Save size={12} />}
                 </button>
                 <button
                   onClick={handleCopy}
-                  className="rounded bg-white/90 p-1 text-slate-400 hover:text-brand-600 dark:bg-[rgb(var(--surface-200))/0.9]"
+                  className="rounded bg-white/90 p-1 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:bg-[rgb(var(--surface-200))/0.9]"
                   aria-label="Copy rule"
                 >
                   {copied ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}

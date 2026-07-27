@@ -3,7 +3,7 @@ import { Bot } from 'lucide-react';
 interface Props {
   /** ISO timestamp from when the content was generated. */
   generatedAt?: string;
-  /** "case-study" | "briefing" | "social" | "intel-bundle" — drives the wording. */
+  /** "case-study" | "briefing" | "social" | "intel-bundle" - drives the wording. */
   kind?: 'case-study' | 'briefing' | 'social' | 'intel-bundle' | 'generic';
   /** Override the variant for a darker background card. */
   variant?: 'inline' | 'banner';
@@ -21,7 +21,7 @@ const KIND_COPY: Record<NonNullable<Props['kind']>, string> = {
 /**
  * Surfaces machine-generated provenance on any page that renders LLM /
  * pipeline output. Reviewers should never mistake an auto-publish artefact
- * for hand-authored work; the inverse is also true — hand-authored
+ * for hand-authored work; the inverse is also true - hand-authored
  * research without a badge reads as the analyst's own work.
  *
  * Banner variant = full-width rule below a hero (case studies, briefings).

@@ -27,7 +27,7 @@ function sevBadgeClass(sev: string): string {
 
 function timeAgo(iso: string): string {
   const t = new Date(iso).getTime();
-  if (isNaN(t)) return '—';
+  if (isNaN(t)) return '-';
   const diff = Date.now() - t;
   if (diff < 3_600_000) return `${Math.floor(diff / 60_000)}m ago`;
   if (diff < 86_400_000) return `${Math.floor(diff / 3_600_000)}h ago`;
@@ -39,7 +39,7 @@ function timeAgo(iso: string): string {
 export default function ThreatRail({ threats, onCardClick, selectedId }: ThreatRailProps): JSX.Element {
   if (threats.length === 0) {
     return (
-      <div className="flex items-center justify-center h-32 text-xs font-mono text-slate-400">
+      <div className="flex items-center justify-center h-32 text-xs font-mono text-slate-500 dark:text-slate-400">
         No critical threats in window.
       </div>
     );
@@ -62,7 +62,7 @@ export default function ThreatRail({ threats, onCardClick, selectedId }: ThreatR
           }`}
         >
           <div className="flex items-start gap-2">
-            <span className="text-micro font-mono text-slate-400 w-4 shrink-0 pt-0.5">{i + 1}</span>
+            <span className="text-micro font-mono text-slate-500 dark:text-slate-400 w-4 shrink-0 pt-0.5">{i + 1}</span>
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-xs font-mono font-medium text-slate-800 dark:text-slate-200 truncate">
@@ -83,8 +83,8 @@ export default function ThreatRail({ threats, onCardClick, selectedId }: ThreatR
                 {t.score != null && (
                   <span className="text-micro font-mono text-slate-500">CVSS {t.score.toFixed(1)}</span>
                 )}
-                <span className="text-micro font-mono text-slate-400">{t.source}</span>
-                <span className="text-micro font-mono text-slate-400">{timeAgo(t.published)}</span>
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{t.source}</span>
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{timeAgo(t.published)}</span>
               </div>
             </div>
           </div>

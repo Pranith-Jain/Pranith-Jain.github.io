@@ -311,7 +311,7 @@ async function fetchLobsters(username: string): Promise<IdentityProfile | null> 
 }
 
 export const PLATFORMS: PlatformDef[] = [
-  { id: 'github', name: 'GitHub', category: 'dev', icon: '☰', fetch: fetchGithub },
+  { id: 'github', name: 'GitHub', category: 'dev', icon: 'GH', fetch: fetchGithub },
   { id: 'gitlab', name: 'GitLab', category: 'dev', icon: '◆', fetch: fetchGitlab },
   { id: 'codeberg', name: 'Codeberg', category: 'dev', icon: '◈', fetch: fetchCodeberg },
   { id: 'devto', name: 'Dev.to', category: 'dev', icon: '◈', fetch: fetchDevTo },
@@ -321,7 +321,7 @@ export const PLATFORMS: PlatformDef[] = [
   { id: 'lobsters', name: 'Lobsters', category: 'dev', icon: '◆', fetch: fetchLobsters },
   { id: 'hackernews', name: 'Hacker News', category: 'social', icon: '◆', fetch: fetchHackerNews },
   { id: 'keybase', name: 'Keybase', category: 'social', icon: '◆', fetch: fetchKeybase },
-  { id: 'bluesky', name: 'Bluesky', category: 'social', icon: '☁', fetch: fetchBluesky },
+  { id: 'bluesky', name: 'Bluesky', category: 'social', icon: 'BS', fetch: fetchBluesky },
 ];
 
 export const CATEGORY_LABELS: Record<string, string> = {

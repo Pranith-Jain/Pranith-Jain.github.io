@@ -126,7 +126,7 @@ export default function EmailReputation(): JSX.Element {
       scoreValue += Math.min(25, listedCount * 5);
 
       // Fan out the emailrep.io call only when the input was a full email
-      // address. emailrep is per-address — it doesn't have a useful
+      // address. emailrep is per-address - it doesn't have a useful
       // domain-level lookup, and calling it with a bare domain just wastes
       // the rate limit on a guaranteed miss.
       let emailRepResult: NonNullable<typeof result>['emailRep'] | undefined;
@@ -216,7 +216,7 @@ export default function EmailReputation(): JSX.Element {
       title="Email Reputation"
       description={
         <>
-          Full email infrastructure health check — MX, SPF, DKIM, DMARC, BIMI, MTA-STS, TLS-RPT <strong>plus</strong>{' '}
+          Full email infrastructure health check - MX, SPF, DKIM, DMARC, BIMI, MTA-STS, TLS-RPT <strong>plus</strong>{' '}
           real-time DNSBL checks of your mail server IPs against <strong>{IP_DNSBLS.length} IP blacklists</strong>{' '}
           (Spamhaus, Barracuda, SORBS, CBL, SpamCop, PSBL, SpamEatingMonkey, UCEPROTECT, Hostkarma, SPFBL) and the
           domain against <strong>{DOMAIN_DNSBLS.length} domain blacklists</strong> (Spamhaus DBL, URIBL, SURBL,
@@ -233,7 +233,7 @@ export default function EmailReputation(): JSX.Element {
       >
         <div className="flex gap-2">
           <div className="flex-1 relative">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
             <input
               type="text"
               value={input}
@@ -328,7 +328,7 @@ export default function EmailReputation(): JSX.Element {
                       </span>
                     )}
                     {result.emailRep.references !== undefined && result.emailRep.references > 0 && (
-                      <span className="text-micro font-mono text-slate-400">
+                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
                         {result.emailRep.references} references
                       </span>
                     )}

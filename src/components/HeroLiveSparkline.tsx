@@ -7,7 +7,7 @@ import { dedupRansomwareVictims } from '../lib/dedup-ransomware';
  * Hero-section sparkline that renders the last 7 days of ransomware
  * leak-site claims as thin SVG bars directly below the main headline.
  * Decision rationale: the headline says "investigating attacks at human
- * scale, building defenders at AI scale" — without a piece of live data
+ * scale, building defenders at AI scale" - without a piece of live data
  * underneath, the headline is just a line. With one, the headline is a
  * thesis statement backed by real numbers the visitor can verify by
  * clicking through to /threatintel/ransomware-activity.
@@ -26,7 +26,7 @@ import { dedupRansomwareVictims } from '../lib/dedup-ransomware';
  *     with the live data. Never blocks the page on a network call.
  *
  * Failure mode: any fetch failure shows the placeholder strip with a
- * single muted caption "live data unavailable" — never an error toast
+ * single muted caption "live data unavailable" - never an error toast
  * or a broken layout.
  */
 
@@ -42,7 +42,7 @@ function dayKey(iso: string): string {
 
 /**
  * Compact "fresh N min ago" label for the freshness indicator. Stays
- * short to fit beside the existing caption — "just now" for <60s,
+ * short to fit beside the existing caption - "just now" for <60s,
  * "Nm ago" for minutes, "Nh ago" for hours. Never renders seconds
  * (jitter would draw the eye to a re-render every second; the polling
  * interval makes the freshness change every 5 minutes anyway).
@@ -66,7 +66,7 @@ interface ComputedBars {
   bars: number[];
   /** Index of the peak bar (highlighted), or -1 if all zero. */
   peakIdx: number;
-  /** Display max — at least 1 so we never divide by zero. */
+  /** Display max - at least 1 so we never divide by zero. */
   max: number;
   /** Total claims across the window. Used in the caption. */
   total: number;
@@ -86,7 +86,7 @@ function computeBars(victims: RansomwareVictim[]): ComputedBars {
   // Dedupe by (group + victim), keeping the earliest discovery date. The
   // upstream merge already collapses same-day dupes, but the same victim
   // can still appear on multiple days when different trackers index it
-  // 1-3 days apart — without this the bars inflate (matching the "today
+  // 1-3 days apart - without this the bars inflate (matching the "today
   // = 200+" surface the metrics page hit).
   const deduped = dedupRansomwareVictims(victims as Parameters<typeof dedupRansomwareVictims>[0]);
   for (const v of deduped) {
@@ -110,7 +110,7 @@ function computeBars(victims: RansomwareVictim[]): ComputedBars {
 
 /**
  * How often the sparkline re-polls the API while the page is visible.
- * Backend cache TTL is 15 min, so 5 min is the right cadence — the user
+ * Backend cache TTL is 15 min, so 5 min is the right cadence - the user
  * sees the latest cached payload at most ~5 min after it rotates, while
  * the worker handles at most 3 client polls per cache cycle per visitor.
  * The poll is paused when document.visibilityState !== 'visible' so
@@ -274,7 +274,7 @@ export function HeroLiveSparkline(): JSX.Element {
               ransomware claims · last 7d ·{' '}
               <span className="text-brand-600 dark:text-brand-400">{display.total} total</span>
               {fetchedAt && (
-                <span className="ml-2 normal-case tracking-normal text-slate-400">· {relativeAge(fetchedAt)}</span>
+                <span className="ml-2 normal-case tracking-normal text-slate-500 dark:text-slate-400">· {relativeAge(fetchedAt)}</span>
               )}
             </>
           ) : failed ? (
@@ -290,7 +290,7 @@ export function HeroLiveSparkline(): JSX.Element {
             disabled={refreshing}
             aria-label="Refresh ransomware claim cadence"
             title="Refresh now"
-            className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] -my-2 sm:my-0 sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition disabled:opacity-50"
+            className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] -my-2 sm:my-0 sm:min-h-0 sm:min-w-0 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition disabled:opacity-50"
           >
             <RefreshCw size={11} aria-hidden="true" className={refreshing ? 'animate-spin' : undefined} />
           </button>

@@ -49,7 +49,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 const CONFIDENCE_LABELS = {
   high: { label: 'High', color: 'text-emerald-600 dark:text-emerald-400' },
   medium: { label: 'Med', color: 'text-amber-600 dark:text-amber-400' },
-  low: { label: 'Low', color: 'text-slate-400 dark:text-slate-500' },
+  low: { label: 'Low', color: 'text-slate-500 dark:text-slate-400' },
 } as const;
 
 interface PivotSuggestionsProps {
@@ -113,7 +113,7 @@ export function PivotSuggestions({
     return (
       <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
         <Loader2 size={12} className="animate-spin text-brand-500" />
-        <span className="font-mono text-mini text-slate-400">Suggesting pivots…</span>
+        <span className="font-mono text-mini text-slate-500 dark:text-slate-400">Suggesting pivots…</span>
       </div>
     );
   }
@@ -151,7 +151,7 @@ export function PivotSuggestions({
             <button
               key={i}
               onClick={() => onSubmit(s.query)}
-              className="group flex w-full items-start gap-2 rounded-lg border border-slate-100 bg-slate-50/50 px-2.5 py-2 text-left transition-all hover:border-brand-300 hover:bg-brand-50/50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.3] dark:hover:border-brand-400/30 dark:hover:bg-brand-900/10"
+              className="group flex w-full items-start gap-2 rounded-xl border border-slate-100 bg-slate-50/50 px-2.5 py-2 text-left transition-all hover:border-brand-300 hover:bg-brand-50/50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.3] dark:hover:border-brand-400/30 dark:hover:bg-brand-900/10"
             >
               <span
                 className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md ${CATEGORY_COLORS[s.category] ?? 'text-slate-600 bg-slate-50 dark:text-slate-400 dark:bg-slate-950/20'}`}

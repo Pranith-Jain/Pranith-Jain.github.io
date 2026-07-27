@@ -70,7 +70,7 @@ export default function Briefings(): JSX.Element {
     setLoading(true);
     setError(null);
     // Filter + search server-side so `total` and the page are the same
-    // (filtered) universe — the old client-side filter over one 30-row page
+    // (filtered) universe - the old client-side filter over one 30-row page
     // made the "N of total" pager lie and search miss later pages.
     const params = new URLSearchParams({ limit: String(activeLimit), offset: String(offset) });
     if (filter !== 'all') params.set('type', filter);
@@ -125,7 +125,7 @@ export default function Briefings(): JSX.Element {
         </h1>
         <p className="text-base text-muted max-w-2xl leading-relaxed">
           Auto-generated daily and weekly summaries of threat-intelligence activity, drawn from CISA KEV, NVD, and
-          abuse.ch / OpenPhish feeds. Daily briefings publish at 00:30 UTC; weekly at 00:45 UTC Monday. Reference only —
+          abuse.ch / OpenPhish feeds. Daily briefings publish at 00:30 UTC; weekly at 00:45 UTC Monday. Reference only -
           verify all indicators in your own environment. For real-time activity, see the live snapshot on{' '}
           <BackLink to="/threatintel" className="text-brand-600 dark:text-brand-400 hover:underline">
             /threatintel
@@ -151,11 +151,11 @@ export default function Briefings(): JSX.Element {
           <h2 className="font-display font-bold text-xl">Briefings</h2>
         </div>
 
-        {/* Search input — wires into the same filtered useMemo as the type
+        {/* Search input - wires into the same filtered useMemo as the type
             chips so "lockbit" + Daily narrows by both. Slug, title, and
             date_range are searched so a date fragment ("2026-05") matches. */}
         <div className="relative mb-4">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="search"
             value={query}
@@ -230,7 +230,7 @@ export default function Briefings(): JSX.Element {
         )}
 
         <div className="flex items-center justify-between py-3 text-xs font-mono text-slate-500">
-          <span>{total > 0 ? `${offset + 1}–${Math.min(offset + activeLimit, total)} of ${total}` : '—'}</span>
+          <span>{total > 0 ? `${offset + 1}–${Math.min(offset + activeLimit, total)} of ${total}` : '-'}</span>
           <div className="flex gap-2">
             <button
               type="button"
@@ -314,7 +314,7 @@ export default function Briefings(): JSX.Element {
                     {(item.metadata.sources ?? []).join(', ')}
                   </span>
                 </div>
-                <ChevronRight size={14} className="text-slate-400 shrink-0" />
+                <ChevronRight size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
               </div>
               <div className="mt-2 flex items-center gap-1.5">
                 <a
@@ -350,7 +350,7 @@ export default function Briefings(): JSX.Element {
       </section>
 
       <div className="mt-16 flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/60">
-        <Rss size={16} className="text-slate-400 shrink-0" />
+        <Rss size={16} className="text-slate-500 dark:text-slate-400 shrink-0" />
         <p className="text-sm font-mono text-slate-500 flex-1">
           Subscribe in your reader.{' '}
           <a
@@ -361,7 +361,7 @@ export default function Briefings(): JSX.Element {
           >
             RSS 2.0 feed
           </a>{' '}
-          — last 10 briefings.
+          - last 10 briefings.
         </p>
         <CopyButton
           text={`${window.location.origin}/api/v1/briefings/rss`}

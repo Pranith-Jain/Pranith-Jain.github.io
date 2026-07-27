@@ -3,7 +3,7 @@
  *
  * Curated, interactive counterpart to the static resources listed in
  * /threatintel/external-resources. Inspired by the open-source Personal
- * Security Checklist (lissy93) and Digital Defense — both catalogued there
+ * Security Checklist (lissy93) and Digital Defense - both catalogued there
  * as `personal-security-checklist` and `digital-defense`.
  *
  * Each item is short and actionable. Severity encodes effort-vs-impact
@@ -66,7 +66,7 @@ export const CATEGORIES: CheckCategory[] = [
         id: 'acc-pwmgr',
         title: 'Use a password manager',
         severity: 'critical',
-        body: 'Generate and store every password in a reputable password manager. Memorise the master password and the recovery key — never type either into a webpage, email, or chat.',
+        body: 'Generate and store every password in a reputable password manager. Memorise the master password and the recovery key - never type either into a webpage, email, or chat.',
         refs: [
           { label: 'Bitwarden', href: 'https://bitwarden.com/' },
           { label: '1Password', href: 'https://1password.com/' },
@@ -76,13 +76,13 @@ export const CATEGORIES: CheckCategory[] = [
         id: 'acc-unique-pw',
         title: 'No password reuse across sites',
         severity: 'critical',
-        body: 'Every account uses a unique password. A breach on one site must not cascade. Most password managers have an audit / reuse-report — fix the top 10 reused first.',
+        body: 'Every account uses a unique password. A breach on one site must not cascade. Most password managers have an audit / reuse-report - fix the top 10 reused first.',
       },
       {
         id: 'acc-passkeys',
         title: 'Adopt passkeys on supported services',
         severity: 'high',
-        body: 'Where supported (Google, Apple, Microsoft, GitHub, many banks), prefer a passkey over a password. Phishing-resistant by design — the key only works on the registered origin.',
+        body: 'Where supported (Google, Apple, Microsoft, GitHub, many banks), prefer a passkey over a password. Phishing-resistant by design - the key only works on the registered origin.',
       },
       {
         id: 'acc-mfa-primary',
@@ -104,7 +104,7 @@ export const CATEGORIES: CheckCategory[] = [
         id: 'acc-recovery-codes',
         title: 'Recovery codes stored offline',
         severity: 'high',
-        body: 'Print or write down the one-time recovery codes for primary email, password manager, and any account you cannot afford to lose. Store them in a fireproof envelope or safe — not in cloud notes.',
+        body: 'Print or write down the one-time recovery codes for primary email, password manager, and any account you cannot afford to lose. Store them in a fireproof envelope or safe - not in cloud notes.',
       },
       {
         id: 'acc-email-audit',
@@ -116,7 +116,7 @@ export const CATEGORIES: CheckCategory[] = [
         id: 'acc-ssn',
         title: 'Lock / freeze credit bureaus',
         severity: 'high',
-        body: 'Free credit freeze at Equifax, Experian, TransUnion (US) or equivalent. Cheaper and stronger than credit-monitoring — freezes block new account opening outright. Lift temporarily when applying for credit.',
+        body: 'Free credit freeze at Equifax, Experian, TransUnion (US) or equivalent. Cheaper and stronger than credit-monitoring - freezes block new account opening outright. Lift temporarily when applying for credit.',
       },
       {
         id: 'acc-haveibeenpwned',
@@ -145,7 +145,7 @@ export const CATEGORIES: CheckCategory[] = [
         id: 'dev-fde',
         title: 'Full-disk encryption on every device',
         severity: 'critical',
-        body: 'BitLocker (Windows), FileVault (macOS), LUKS (Linux), default since Android 6 / iOS 8. Verify the recovery key is stored offline — not just in your password manager.',
+        body: 'BitLocker (Windows), FileVault (macOS), LUKS (Linux), default since Android 6 / iOS 8. Verify the recovery key is stored offline - not just in your password manager.',
       },
       {
         id: 'dev-os-updates',
@@ -193,13 +193,13 @@ export const CATEGORIES: CheckCategory[] = [
         id: 'dev-iot-segment',
         title: 'IoT / smart-home devices on a guest VLAN',
         severity: 'medium',
-        body: 'Cameras, TVs, vacuums, plugs, light bulbs — anything with a microphone, camera, or unknown patch cadence — should be on a network that cannot reach your primary devices or laptop.',
+        body: 'Cameras, TVs, vacuums, plugs, light bulbs - anything with a microphone, camera, or unknown patch cadence - should be on a network that cannot reach your primary devices or laptop.',
       },
       {
         id: 'dev-ble-airtags',
         title: 'Know what Bluetooth trackers are paired to you',
         severity: 'low',
-        body: 'AirTag, Tile, SmartTag — review in iOS / Android settings. Stalking via rogue trackers is rare but real; the OS-level alerts work only if the setting is on.',
+        body: 'AirTag, Tile, SmartTag - review in iOS / Android settings. Stalking via rogue trackers is rare but real; the OS-level alerts work only if the setting is on.',
       },
     ],
   },
@@ -260,7 +260,7 @@ export const CATEGORIES: CheckCategory[] = [
     longTitle: 'Communications & Messaging',
     icon: 'comms',
     intro:
-      'Default messenger, default email provider, default voice / video — these three choices leak the most metadata about your life. E2E encryption is necessary; metadata minimisation is what most people miss.',
+      'Default messenger, default email provider, default voice / video - these three choices leak the most metadata about your life. E2E encryption is necessary; metadata minimisation is what most people miss.',
     items: [
       {
         id: 'com-signal',
@@ -291,7 +291,7 @@ export const CATEGORIES: CheckCategory[] = [
         id: 'com-voicemail-pin',
         title: 'Strong, unique voicemail PIN',
         severity: 'high',
-        body: 'Default carrier voicemail PINs are typically the last 4 of your phone number — publicly guessable. Change it to a 6+ digit random PIN.',
+        body: 'Default carrier voicemail PINs are typically the last 4 of your phone number - publicly guessable. Change it to a 6+ digit random PIN.',
       },
     ],
   },
@@ -313,7 +313,7 @@ export const CATEGORIES: CheckCategory[] = [
         id: 'phys-webcam-cover',
         title: 'Webcam cover or hardware kill switch',
         severity: 'medium',
-        body: 'Cheap plastic slider, or a laptop with a hardware camera kill switch. Disabling the camera in software is not enough — kernel-level malware can re-enable it.',
+        body: 'Cheap plastic slider, or a laptop with a hardware camera kill switch. Disabling the camera in software is not enough - kernel-level malware can re-enable it.',
       },
       {
         id: 'phys-mic',
@@ -337,7 +337,7 @@ export const CATEGORIES: CheckCategory[] = [
         id: 'phys-usb',
         title: 'Never plug in unknown USB sticks',
         severity: 'high',
-        body: 'BadUSB, HID attacks, and drop-payload sticks are cheap. If you find a stick in the parking lot, hand it to IT — do not test it on a personal laptop.',
+        body: 'BadUSB, HID attacks, and drop-payload sticks are cheap. If you find a stick in the parking lot, hand it to IT - do not test it on a personal laptop.',
       },
     ],
   },
@@ -359,7 +359,7 @@ export const CATEGORIES: CheckCategory[] = [
         id: 'ops-data-broker',
         title: 'Opt out of data-broker and people-search sites',
         severity: 'high',
-        body: 'Each broker has a manual opt-out form. Services like DeleteMe, Privacy Duck, or Kanary automate this. Repeat quarterly — they re-add you from public sources.',
+        body: 'Each broker has a manual opt-out form. Services like DeleteMe, Privacy Duck, or Kanary automate this. Repeat quarterly - they re-add you from public sources.',
       },
       {
         id: 'ops-social-dox',
@@ -421,7 +421,7 @@ export const CATEGORIES: CheckCategory[] = [
       },
       {
         id: 'tvl-rogue-ev',
-        title: 'Inspect charging ports — use a USB data blocker',
+        title: 'Inspect charging ports - use a USB data blocker',
         severity: 'medium',
         body: 'Public USB charging (airports, hotels) can carry "juice-jacking" payloads. Carry a USB data-blocker dongle, or use only the AC adapter.',
       },
@@ -463,7 +463,7 @@ export const CATEGORIES: CheckCategory[] = [
         id: 'rec-revoke-session',
         title: 'Know how to kill all sessions on every major service',
         severity: 'medium',
-        body: 'Google, Apple, Microsoft, Facebook, GitHub, password manager — each has a "sign out of all devices" path. Bookmarked. Used in the first 60 seconds of a confirmed compromise.',
+        body: 'Google, Apple, Microsoft, Facebook, GitHub, password manager - each has a "sign out of all devices" path. Bookmarked. Used in the first 60 seconds of a confirmed compromise.',
       },
       {
         id: 'rec-monitoring',
@@ -479,7 +479,7 @@ export const CATEGORIES: CheckCategory[] = [
     longTitle: 'Family & Household',
     icon: 'family',
     intro:
-      'You are only as secure as the weakest member of your household — and the most willing to click. The goal is friction that is invisible for you and intuitive for them.',
+      'You are only as secure as the weakest member of your household - and the most willing to click. The goal is friction that is invisible for you and intuitive for them.',
     items: [
       {
         id: 'fam-shared-pwmgr',
@@ -507,7 +507,7 @@ export const CATEGORIES: CheckCategory[] = [
       },
       {
         id: 'fam-talk',
-        title: 'Talk about it — "we have a security plan"',
+        title: 'Talk about it - "we have a security plan"',
         severity: 'high',
         body: 'A 30-minute conversation covers more than any tool. What is OPSEC, what is plausible to attack, what is the family protocol if someone thinks they have been compromised.',
       },

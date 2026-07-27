@@ -102,7 +102,7 @@ export default function ExportHub(): JSX.Element {
       icon={<Download size={28} />}
       title="Export Hub"
       maxWidthClass="max-w-6xl"
-      description="Export IOCs to standard formats — STIX, MISP, Sigma, YARA, Snort, Suricata, CSV, pfSense"
+      description="Export IOCs to standard formats - STIX, MISP, Sigma, YARA, Snort, Suricata, CSV, pfSense"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>

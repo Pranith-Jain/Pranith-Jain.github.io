@@ -446,7 +446,7 @@ export default function PhishBook(): JSX.Element {
           <BookOpen size={28} className="text-brand-600 dark:text-brand-400" /> PHISHBOOK
         </h1>
         <p className="text-muted max-w-2xl leading-relaxed">
-          Phishing Incident Response Playbook — decision trees, enrichment tools, query templates, and escalation
+          Phishing Incident Response Playbook - decision trees, enrichment tools, query templates, and escalation
           criteria across 9 investigation phases.
         </p>
       </div>
@@ -501,13 +501,13 @@ export default function PhishBook(): JSX.Element {
                   </div>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0">
-                  <span className="text-micro font-mono text-slate-400">
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
                     {PHASES.indexOf(phase) + 1} / {PHASES.length}
                   </span>
                   {open ? (
-                    <ChevronDown size={16} className="text-slate-400" />
+                    <ChevronDown size={16} className="text-slate-500 dark:text-slate-400" />
                   ) : (
-                    <ChevronRight size={16} className="text-slate-400" />
+                    <ChevronRight size={16} className="text-slate-500 dark:text-slate-400" />
                   )}
                 </div>
               </button>

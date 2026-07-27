@@ -215,6 +215,58 @@ export function readAuthCookies(env: Env): AuthCookies {
   return { authToken, ct0, bearer };
 }
 
+/** KV key for the admin-managed X cookie override (routes/admin-x-cookies.ts). */
+export const X_COOKIES_KV_KEY = 'admin:x-cookies:v1';
+
+export interface StoredXCookies {
+  authToken: string;
+  ct0: string;
+  bearer?: string;
+  updatedAt: string;
+}
+
+/** Validate cookie shapes; returns an error message, or null when both pass. */
+export function validateXCookiesShape(authToken: string, ct0: string): string | null {
+  if (!authToken || !ct0) return 'authToken and ct0 are both required';
+  if (!AUTH_TOKEN_RE.test(authToken)) {
+    return `authToken looks malformed (expected 32-200 chars, got ${authToken.length})`;
+  }
+  if (!CT0_RE.test(ct0)) {
+    return `ct0 looks malformed (expected 32-256 chars, got ${ct0.length})`;
+  }
+  return null;
+}
+
+/**
+ * Resolve the X auth cookies, preferring the admin-managed KV override
+ * (`admin:x-cookies:v1`) and falling back to the `X_AUTH_TOKEN` / `X_CT0`
+ * worker secrets. A malformed or unreadable KV value logs a warning and
+ * falls through to the secrets, so a bad admin write can't brick the X
+ * integration. Async because of the KV read — callers must `await`.
+ */
+export async function resolveAuthCookies(env: Env): Promise<AuthCookies> {
+  const kv = env.KV_CACHE;
+  if (kv) {
+    try {
+      const raw = await kv.get(X_COOKIES_KV_KEY);
+      if (raw) {
+        const stored = JSON.parse(raw) as StoredXCookies;
+        if (stored.authToken && stored.ct0 && !validateXCookiesShape(stored.authToken, stored.ct0)) {
+          return {
+            authToken: stored.authToken,
+            ct0: stored.ct0,
+            bearer: (stored.bearer ?? DEFAULT_BEARER).trim(),
+          };
+        }
+        console.warn('resolveAuthCookies: KV override present but invalid - falling back to env secrets');
+      }
+    } catch (e) {
+      console.warn('resolveAuthCookies: KV read failed - falling back to env secrets:', e instanceof Error ? e.message : String(e));
+    }
+  }
+  return readAuthCookies(env);
+}
+
 /** Build the cookie header X expects for an authenticated session. */
 function buildCookieHeader(creds: AuthCookies): string {
   return `auth_token=${creds.authToken}; ct0=${creds.ct0}; lang=en`;
@@ -473,7 +525,7 @@ export async function fetchAuthedTimeline(
 ): Promise<AuthedTimelineResponse> {
   if (!SCREEN_NAME_RE.test(screenName)) throw new Error(`invalid screen_name: ${screenName}`);
   const lower = screenName.toLowerCase();
-  const creds = readAuthCookies(env);
+  const creds = await resolveAuthCookies(env);
 
   const sinceDays = options.sinceDays ?? 7;
   const includePinned = options.includePinned === true;
@@ -571,7 +623,7 @@ export async function fetchSearchTimeline(
 ): Promise<SearchTimelineResponse> {
   if (!query || query.trim().length === 0) throw new Error('search query cannot be empty');
   if (query.length > 500) throw new Error('search query too long (max 500 chars)');
-  const creds = readAuthCookies(env);
+  const creds = await resolveAuthCookies(env);
   const count = Math.min(options.count ?? 20, 40);
   const product = options.product ?? 'Latest';
 

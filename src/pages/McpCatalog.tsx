@@ -275,7 +275,7 @@ export default function McpCatalogPage(): JSX.Element {
         {/* Search + category filter */}
         <section className="surface-card p-4 mb-6">
           <div className="relative">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="search"
               value={query}
@@ -287,7 +287,7 @@ export default function McpCatalogPage(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setQuery('')}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-100"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-100"
                 aria-label="Clear search"
               >
                 <X className="h-4 w-4" />

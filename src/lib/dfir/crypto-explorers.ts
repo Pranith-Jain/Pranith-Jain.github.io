@@ -6,7 +6,7 @@
 
 export interface ExplorerLink {
   label: string;
-  /** URL template — `${ADDR}` placeholder. */
+  /** URL template - `${ADDR}` placeholder. */
   url: string;
   /** Optional category for grouping in UI. */
   category: 'explorer' | 'nft' | 'defi' | 'scam-check' | 'analytics';

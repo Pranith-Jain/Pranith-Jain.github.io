@@ -53,7 +53,7 @@ const THREAT_COLORS: Record<string, string> = {
   high: 'text-orange-400 bg-orange-500/10 border-orange-500/30',
   medium: 'text-amber-400 bg-amber-500/10 border-amber-500/30',
   low: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
-  unknown: 'text-slate-400 bg-slate-500/10 border-slate-500/30',
+  unknown: 'text-slate-500 dark:text-slate-400 bg-slate-500/10 border-slate-500/30',
 };
 
 const TREND_ICONS: Record<string, string> = {
@@ -100,7 +100,7 @@ export function ThreatAnalysisPanel({
         }),
       });
       if (res.status === 429) {
-        setError('Rate limited — try again in a moment');
+        setError('Rate limited - try again in a moment');
         return;
       }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -148,7 +148,7 @@ export function ThreatAnalysisPanel({
             type="button"
             onClick={() => fetchAnalysis()}
             disabled={loading}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
             title="Re-analyze"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
@@ -156,14 +156,14 @@ export function ThreatAnalysisPanel({
           <button
             type="button"
             onClick={() => setExpanded((p) => !p)}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
           >
             {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
           >
             <X size={14} />
           </button>
@@ -177,7 +177,7 @@ export function ThreatAnalysisPanel({
           {loading && !analysis && (
             <div className="flex items-center gap-3 py-6 justify-center">
               <RefreshCw size={16} className="animate-spin text-brand-400" />
-              <span className="text-sm text-slate-400">Analyzing threat intelligence…</span>
+              <span className="text-sm text-slate-500 dark:text-slate-400">Analyzing threat intelligence…</span>
             </div>
           )}
 
@@ -354,7 +354,7 @@ function IndicatorAnalysisContent({ analysis }: { analysis: IndicatorAnalysis })
           <Shield size={12} />
           {analysis.risk_level?.toUpperCase()}
         </span>
-        <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-500/10 text-slate-400">
+        <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-500/10 text-slate-500 dark:text-slate-400">
           {analysis.type}
         </span>
         <span className="text-micro font-mono text-slate-500">confidence: {analysis.confidence}</span>

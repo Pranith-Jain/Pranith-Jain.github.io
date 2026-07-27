@@ -9,7 +9,7 @@ const SAFE_HEX = /^#[0-9a-fA-F]{3,8}$/;
 const FALLBACK_COLOR = '#2c3ee5';
 
 function pinIcon(color: string, selected = false): L.DivIcon {
-  // Highlight selection with a ring, not by swapping the colour — the previous
+  // Highlight selection with a ring, not by swapping the colour - the previous
   // approach forced the selected pin to #2c3ee5, which is invisible when the
   // pin's own colour is already the default #2c3ee5.
   const safe = SAFE_HEX.test(color) ? color : FALLBACK_COLOR;

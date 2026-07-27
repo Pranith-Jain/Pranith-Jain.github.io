@@ -54,14 +54,14 @@ const KIND_LABEL = {
 
 /**
  * Per-kind pill colour. Sourced from Tailwind defaults so dark mode works
- * without any custom token mapping — every class lists an explicit
+ * without any custom token mapping - every class lists an explicit
  * `dark:` variant.
  */
 const KIND_COLOR = {
   cve: 'border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400',
   actor: 'border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400',
   technique:
-    'border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/30 text-brand-700 dark:text-brand-400',
+    'border-rose-300 dark:border-rose-500/40 bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400',
   malware:
     'border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400',
 } as const;
@@ -148,7 +148,7 @@ export default function ThreatPulse(): JSX.Element {
   }, [data]);
 
   // Highest threshold that still yields at least one entity under the current
-  // kind filter — used to power the "lower the threshold for me" recovery
+  // kind filter - used to power the "lower the threshold for me" recovery
   // button in the empty state instead of dead-ending the analyst on a
   // "try lowering it yourself" instruction.
   const recovery = useMemo(() => {
@@ -164,13 +164,13 @@ export default function ThreatPulse(): JSX.Element {
   return (
     <DataPageLayout
       backTo="/threatintel"
-      icon={<Activity size={28} className="text-brand-600 dark:text-brand-400" />}
+      icon={<Activity size={28} className="text-rose-600 dark:text-rose-400" />}
       title="Cross-source threat pulse"
       description={
         <>
           Entities mentioned across multiple independent intelligence surfaces simultaneously. Higher cross-source count
           = higher confidence that this is a real, active threat. Scans Reddit (16 subs), Bluesky (16 researchers),
-          Mastodon (infosec.exchange — 8 accounts), Telegram (curated cybersec channels), X (cookie-auth firehose for 5
+          Mastodon (infosec.exchange - 8 accounts), Telegram (curated cybersec channels), X (cookie-auth firehose for 5
           CTI handles + TweetFeed × fxtwitter), CTI writeups (35+ blogs), and cybercrime news in real time. IOC feeds
           include Phishing.Database, ViriBack C2, Threatview IP/Domain blocklists, and 12+ other live threat sources.
         </>
@@ -179,7 +179,7 @@ export default function ThreatPulse(): JSX.Element {
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
+          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 mt-1"
           aria-label="Refresh threat pulse"
         >
           <RefreshCw size={11} /> refresh
@@ -190,7 +190,7 @@ export default function ThreatPulse(): JSX.Element {
       empty={!loading && !error && data !== null && data.entities.length === 0}
       emptyMessage="No entities found."
     >
-      {/* Kind summary — at-a-glance counts before the filter row.
+      {/* Kind summary - at-a-glance counts before the filter row.
           Computed off the entire entities array so the numbers reflect the
           full snapshot regardless of active filter / threshold. */}
       {data && data.entities.length > 0 && (
@@ -206,11 +206,11 @@ export default function ThreatPulse(): JSX.Element {
                 aria-pressed={kindFilter === k}
                 className={`flex items-center gap-3 rounded-xl border p-3 text-left transition-colors ${
                   kindFilter === k
-                    ? 'border-brand-500/60 bg-brand-500/10'
-                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
+                    ? 'border-rose-500/60 bg-rose-500/10'
+                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-rose-500/40'
                 }`}
               >
-                <Icon size={18} className="shrink-0 text-brand-600 dark:text-brand-400" />
+                <Icon size={18} className="shrink-0 text-rose-600 dark:text-rose-400" />
                 <div className="min-w-0">
                   <div className="text-micro font-mono uppercase tracking-wider text-slate-500">{KIND_LABEL[k]}s</div>
                   <div className="text-xl font-display font-bold tabular-nums">{n.toLocaleString()}</div>
@@ -225,7 +225,7 @@ export default function ThreatPulse(): JSX.Element {
         <AiSummaryCard
           surface="Threat Pulse"
           items={data.entities.slice(0, 30).map((e) => ({
-            title: `${e.label} (${e.kind}) — seen in ${e.source_count} source${e.source_count > 1 ? 's' : ''}`,
+            title: `${e.label} (${e.kind}) - seen in ${e.source_count} source${e.source_count > 1 ? 's' : ''}`,
             body: `Sources: ${e.sources.join(', ')}`,
           }))}
         />
@@ -247,8 +247,8 @@ export default function ThreatPulse(): JSX.Element {
               onClick={() => setKindFilter(f.id)}
               className={`px-3 py-1 text-xs font-mono uppercase tracking-wider border transition-colors ${
                 kindFilter === f.id
-                  ? 'bg-brand-50 dark:bg-brand-950/30 text-brand-700 dark:text-brand-300 border-brand-300 dark:border-brand-700'
-                  : 'bg-white dark:bg-[rgb(var(--surface-200))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40'
+                  ? 'bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-500/40'
+                  : 'bg-white dark:bg-[rgb(var(--surface-200))] text-muted border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40'
               }`}
             >
               {f.label}
@@ -268,7 +268,7 @@ export default function ThreatPulse(): JSX.Element {
             id="pulse-min-sources"
             value={minSources}
             onChange={(e) => setMinSources(Number(e.target.value))}
-            className="border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500/60"
+            className="border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500/60"
           >
             {[1, 2, 3, 4].map((n) => (
               <option key={n} value={n}>
@@ -297,7 +297,7 @@ export default function ThreatPulse(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setMinSources(recovery.threshold)}
-                  className="inline-flex items-center gap-1.5 border border-brand-500 bg-brand-500/10 px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-brand-700 dark:text-brand-400 transition-colors hover:bg-brand-500 hover:text-white rounded"
+                  className="inline-flex items-center gap-1.5 border border-rose-500 bg-rose-500/10 px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-rose-700 dark:text-rose-400 transition-colors hover:bg-rose-500 hover:text-white rounded"
                 >
                   Show {recovery.count} at ≥{recovery.threshold} source{recovery.threshold > 1 ? 's' : ''}
                 </button>
@@ -326,11 +326,11 @@ export default function ThreatPulse(): JSX.Element {
               return (
                 <div
                   key={`${entity.kind}:${entity.label}`}
-                  className="border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors rounded-xl"
+                  className="border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-4 hover:border-rose-500/40 dark:hover:border-rose-400/40 transition-colors rounded-xl"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0 flex-1">
-                      <Icon size={18} className="shrink-0 text-brand-600 dark:text-brand-400" />
+                      <Icon size={18} className="shrink-0 text-rose-600 dark:text-rose-400" />
                       <div className="min-w-0 flex-1">
                         <div className="flex items-baseline gap-2 flex-wrap">
                           {(() => {
@@ -343,7 +343,7 @@ export default function ThreatPulse(): JSX.Element {
                               );
                             }
                             const className =
-                              'font-display font-semibold text-base text-slate-900 dark:text-slate-100 break-all hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1';
+                              'font-display font-semibold text-base text-slate-900 dark:text-slate-100 break-all hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1';
                             return link.external ? (
                               <a
                                 href={sanitizeUrl(link.href)}
@@ -365,14 +365,14 @@ export default function ThreatPulse(): JSX.Element {
                           >
                             {KIND_LABEL[entity.kind]}
                           </span>
-                          {/* Platform-diversity badge — same source_count means
+                          {/* Platform-diversity badge - same source_count means
                             different things when all from one platform vs
                             spread across many. The badge separates the two
                             without needing more screen space than a pill. */}
                           {isCrossPlatform ? (
                             <span
                               className="inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
-                              title={`${platformCount} distinct platform types — cross-platform corroboration, stronger signal than same-platform mentions`}
+                              title={`${platformCount} distinct platform types - cross-platform corroboration, stronger signal than same-platform mentions`}
                             >
                               <Layers size={9} aria-hidden="true" />
                               {platformCount} platforms
@@ -380,7 +380,7 @@ export default function ThreatPulse(): JSX.Element {
                           ) : entity.source_count > 1 ? (
                             <span
                               className="inline-flex items-center gap-1 text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500"
-                              title="All mentions on a single platform — same-platform corroboration, weaker signal than cross-platform"
+                              title="All mentions on a single platform - same-platform corroboration, weaker signal than cross-platform"
                             >
                               same-platform
                             </span>
@@ -405,7 +405,7 @@ export default function ThreatPulse(): JSX.Element {
                           ? 'bg-rose-500/15 text-rose-700 dark:text-rose-400'
                           : entity.source_count === 2
                             ? 'bg-amber-500/15 text-amber-700 dark:text-amber-400'
-                            : 'bg-brand-500/10 text-brand-700 dark:text-brand-400'
+                            : 'bg-rose-500/10 text-rose-700 dark:text-rose-400'
                       }`}
                     >
                       <span className="text-lg font-bold">{entity.source_count}</span>
@@ -444,7 +444,7 @@ function CopyEntityButton({ entity }: { entity: PulseEntity }): JSX.Element {
       setTimeout(() => setDone(false), 1200);
     } catch (_catchErr) {
       console.error('CopyEntityButton failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* clipboard blocked — silent */
+      /* clipboard blocked - silent */
     }
   };
   return (
@@ -453,7 +453,7 @@ function CopyEntityButton({ entity }: { entity: PulseEntity }): JSX.Element {
       onClick={onClick}
       aria-label={`Copy ${entity.label} with sources`}
       title="Copy entity + sources for tickets / Slack"
-      className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-[22px] sm:min-w-[22px] rounded text-slate-400 hover:text-brand-500 transition-colors"
+      className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-[22px] sm:min-w-[22px] rounded text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
     >
       {done ? <Check size={12} /> : <Copy size={12} />}
     </button>

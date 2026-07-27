@@ -15,7 +15,7 @@ interface MobileSidebarDrawerProps {
  * opens THIS drawer instead, so mobile users still get the full
  * grouped-category navigation.
  *
- * Renders the same `SidebarContent` as the desktop sidebar — no
+ * Renders the same `SidebarContent` as the desktop sidebar - no
  * duplication, single source of truth for the nav. The Drawer handles
  * the Esc-to-close, body-scroll-lock, and focus-trap plumbing.
  */

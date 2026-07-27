@@ -127,7 +127,7 @@ export default function MalbriefAi(): JSX.Element {
       );
     if (result.summary) lines.push(`## Analysis\n\n${result.summary}\n`);
     if (result.mitre?.length)
-      lines.push(`## MITRE ATT&CK\n\n${result.mitre.map((m) => `- ${m.id} — ${m.name}`).join('\n')}\n`);
+      lines.push(`## MITRE ATT&CK\n\n${result.mitre.map((m) => `- ${m.id} - ${m.name}`).join('\n')}\n`);
     if (result.signatures?.length)
       lines.push(`## Detection Signatures\n\n${result.signatures.map((s) => `- \`${s}\``).join('\n')}\n`);
     if (result.huntingPivots?.length)
@@ -160,7 +160,7 @@ export default function MalbriefAi(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Behavioral Indicators</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">required</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">required</span>
             </div>
             <textarea
               value={indicators}
@@ -317,7 +317,7 @@ export default function MalbriefAi(): JSX.Element {
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 Paste behavioral indicators and click <span className="font-semibold">Analyze</span>
               </p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 Output: classification, MITRE, signatures, hunting pivots
               </p>
             </div>

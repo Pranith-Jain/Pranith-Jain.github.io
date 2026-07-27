@@ -19,7 +19,7 @@
  *
  * Anything we can't parse surfaces as a top-level warning; the parser
  * is never silent. Heuristic fallback (flat `field <op> "value"`) lives
- * in parsers.ts — this module is the strict alternative.
+ * in parsers.ts - this module is the strict alternative.
  */
 import type { MatchOp, Predicate, SelectionGroup } from './types';
 
@@ -204,7 +204,7 @@ function parsePrimary(p: Parser): AstNode | null {
     consume(p);
     const inner = parseExpr(p);
     if (peek(p)?.kind === 'rparen') consume(p);
-    else p.warnings.push('unmatched `(` — emitted unbalanced parens');
+    else p.warnings.push('unmatched `(` - emitted unbalanced parens');
     return inner;
   }
   if (t.kind === 'ident') {
@@ -232,7 +232,7 @@ function parsePrimary(p: Parser): AstNode | null {
         matchOp = op.op as MatchOp;
       }
     } else {
-      p.warnings.push(`unknown operator '${op.value}' on field '${t.value}' — treating as eq`);
+      p.warnings.push(`unknown operator '${op.value}' on field '${t.value}' - treating as eq`);
       matchOp = 'eq';
     }
     const pred: Predicate = { field: t.value, op: matchOp, values: [val.value] };
@@ -277,7 +277,7 @@ function collectGroups(node: AstNode, out: Map<string, Predicate>): void {
  * `where` is present) into a strict IR-shaped result.
  */
 export function parseKqlStrict(src: string): KqlExprResult {
-  const warnings: string[] = ['KQL parsed in strict mode — full boolean expression preserved (and/or/not/parens).'];
+  const warnings: string[] = ['KQL parsed in strict mode - full boolean expression preserved (and/or/not/parens).'];
   // Strip `where` if present.
   const whereIdx = src.search(/\bwhere\b/i);
   const scope = whereIdx >= 0 ? src.slice(whereIdx + 5) : src;
@@ -291,14 +291,14 @@ export function parseKqlStrict(src: string): KqlExprResult {
   const parser: Parser = { pos: 0, tokens, warnings, groupCounter: 0 };
   const ast = parseExpr(parser);
   if (parser.pos < tokens.length) {
-    warnings.push(`trailing tokens after expression at position ${parser.pos} — ignored`);
+    warnings.push(`trailing tokens after expression at position ${parser.pos} - ignored`);
   }
   if (!ast) {
     return { groups: [], condition: '', warnings };
   }
   const groupMap = new Map<string, Predicate>();
   collectGroups(ast, groupMap);
-  // Order groups by declaration order — Map preserves insertion.
+  // Order groups by declaration order - Map preserves insertion.
   const groups: SelectionGroup[] = [];
   for (const [name, pred] of groupMap) {
     groups.push({ name, kind: 'fields', predicates: [pred] });

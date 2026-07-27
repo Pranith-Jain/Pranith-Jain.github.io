@@ -30,9 +30,9 @@ function PhaseHeader({
         {phase.techniques.length} techniques
       </span>
       {expanded ? (
-        <ChevronDown size={16} className="flex-none text-slate-400" aria-hidden="true" />
+        <ChevronDown size={16} className="flex-none text-slate-500 dark:text-slate-400" aria-hidden="true" />
       ) : (
-        <ChevronRight size={16} className="flex-none text-slate-400" aria-hidden="true" />
+        <ChevronRight size={16} className="flex-none text-slate-500 dark:text-slate-400" aria-hidden="true" />
       )}
     </button>
   );

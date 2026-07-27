@@ -6,7 +6,7 @@ import { PAGES, searchPages, hasPageMatch, type PageGroup, type PageEntry } from
 /**
  * Extract every `path: '/...'` route literal from the App.tsx route table.
  * Used to confirm the pages index has an entry for every registered
- * subpage — missing entries are surfaced as failing tests with a clear
+ * subpage - missing entries are surfaced as failing tests with a clear
  * list of routes that need to be added.
  */
 function extractAppRoutes(): string[] {
@@ -14,7 +14,7 @@ function extractAppRoutes(): string[] {
   const src = readFileSync(appPath, 'utf8');
   // Match `path: '/foo/bar'` declarations in the ROUTES table only.
   // REDIRECTS entries share the same `path:` key but also carry a
-  // sibling `to:` — they're alias URLs, not real subpages, and
+  // sibling `to:` - they're alias URLs, not real subpages, and
   // don't need a pages-index entry (their target already has one).
   const matches = src.matchAll(/path:\s*'([^']+)'/g);
   const out = new Set<string>();
@@ -50,7 +50,7 @@ describe('pages-index', () => {
     }
   });
 
-  it('has unique paths (or shares a path with a different group — redirects are allowed)', () => {
+  it('has unique paths (or shares a path with a different group - redirects are allowed)', () => {
     const seen = new Map<string, PageEntry[]>();
     for (const p of PAGES) {
       const list = seen.get(p.path) ?? [];
@@ -59,7 +59,7 @@ describe('pages-index', () => {
     }
     // Multiple entries with the same path are allowed (e.g. an "alias"
     // entry pointing at a primary page). What we forbid is two entries
-    // with the same path AND the same group — that would be a typo.
+    // with the same path AND the same group - that would be a typo.
     for (const [path, list] of seen) {
       if (list.length <= 1) continue;
       const groups = new Set(list.map((p) => p.group));
@@ -74,12 +74,12 @@ describe('pages-index', () => {
     // search. Admin and /admin, /sponsor, /behind-the-reports, /copilot
     // should be present. Portfolio root paths we still want to match.
     const expected = routes.filter((r) => {
-      // /difr is a misspelled redirect in App.tsx — skip.
+      // /difr is a misspelled redirect in App.tsx - skip.
       if (r === '/difr') return false;
       return true;
     });
     const missing = expected.filter((r) => !registered.has(r));
-    // Filter out :param-only routes — they require a real slug to be
+    // Filter out :param-only routes - they require a real slug to be
     // searchable, and the index can hold the parametrized form OR a
     // concrete example.
     const realMissing = missing.filter((r) => !r.includes(':'));

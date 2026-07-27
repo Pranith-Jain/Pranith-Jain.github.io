@@ -112,7 +112,7 @@ export default function QuickIocCheck() {
                   )}
                 </span>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-slate-500">{r.status === 'error' ? '—' : r.score}</span>
+                  <span className="font-mono text-slate-500">{r.status === 'error' ? '-' : r.score}</span>
                   <VerdictChip verdict={r.verdict} />
                 </div>
               </div>

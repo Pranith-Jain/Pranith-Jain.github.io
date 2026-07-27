@@ -68,7 +68,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 const CATEGORY_BADGE: Record<string, string> = {
   apt: 'font-mono text-rose-400 bg-rose-950/30 border-rose-800/40',
   other: 'font-mono text-amber-400 bg-amber-950/30 border-amber-800/40',
-  unknown: 'font-mono text-slate-400 bg-slate-950/30 border-slate-700/40',
+  unknown: 'font-mono text-slate-500 dark:text-slate-400 bg-slate-950/30 border-slate-700/40',
 };
 
 function getCountryFlag(code: string): string {
@@ -117,7 +117,7 @@ export default function ETDAActorsPage() {
     <DataPageLayout
       icon={<Globe className="text-rose-400" />}
       title="APT Actor Database"
-      description={`ETDA Threat Group Cards — ${indexData?.counts.actors ?? '...'} threat actors (${indexData?.counts.apt ?? '...'} APT)`}
+      description={`ETDA Threat Group Cards - ${indexData?.counts.actors ?? '...'} threat actors (${indexData?.counts.apt ?? '...'} APT)`}
       loading={loading}
       error={error ? String(error) : undefined}
       backTo="/"
@@ -314,7 +314,7 @@ export default function ETDAActorsPage() {
                       </p>
                       <p className="font-medium text-slate-900 dark:text-slate-100 mt-0.5">
                         {detailData.firstSeen}
-                        {detailData.lastSeen ? ` — ${detailData.lastSeen}` : ''}
+                        {detailData.lastSeen ? ` - ${detailData.lastSeen}` : ''}
                       </p>
                     </div>
                   )}

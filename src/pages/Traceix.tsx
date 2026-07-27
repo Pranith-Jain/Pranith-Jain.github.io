@@ -69,7 +69,7 @@ export default function Traceix() {
           >
             traceix.com
           </a>{' '}
-          — antivirus/reputation results powered by{' '}
+          - antivirus/reputation results powered by{' '}
           <a
             href="https://perkinsfund.org"
             target="_blank"
@@ -227,7 +227,7 @@ export default function Traceix() {
           >
             traceix.com
           </a>{' '}
-          — a project of{' '}
+          - a project of{' '}
           <a
             href="https://perkinsfund.org"
             target="_blank"

@@ -52,7 +52,7 @@ export default function DfirCatalogPage(): JSX.Element {
     <>
       <PageMeta
         title="DFIR Toolkit Catalog"
-        description="Every routable page in the DFIR / security-toolkit area — search by name, route, or keyword, or filter by category."
+        description="Every routable page in the DFIR / security-toolkit area - search by name, route, or keyword, or filter by category."
         section="DFIR"
         canonicalPath="/dfir/catalog"
       />
@@ -94,7 +94,7 @@ export default function DfirCatalogPage(): JSX.Element {
           <div className="relative">
             <Search
               size={14}
-              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
               aria-hidden="true"
             />
             <input
@@ -216,7 +216,7 @@ function CategorySection({ category, entries }: { category: HubMeta; entries: re
             <category.icon size={16} aria-hidden="true" />
           </span>
           {category.label}
-          <span className="font-mono text-micro text-slate-400">- {entries.length}</span>
+          <span className="font-mono text-micro text-slate-500 dark:text-slate-400">- {entries.length}</span>
         </h2>
         <p className="hidden text-tool text-slate-500 dark:text-slate-400 sm:block">{category.blurb}</p>
       </div>
@@ -257,7 +257,7 @@ function CatalogCard({ entry, hubIcon }: { entry: HubPage; hubIcon: LucideIcon }
           {entry.label}
         </h3>
         <p className="mt-0.5 line-clamp-2 text-tool text-slate-500 dark:text-slate-400">{entry.desc}</p>
-        <div className="mt-2 flex items-center justify-between gap-2 font-mono text-micro text-slate-400">
+        <div className="mt-2 flex items-center justify-between gap-2 font-mono text-micro text-slate-500 dark:text-slate-400">
           <code className="truncate font-mono">{entry.path}</code>
           <span className="inline-flex items-center gap-0.5 text-brand-600 dark:text-brand-400 opacity-0 transition-opacity group-hover:opacity-100">
             open <ArrowRight size={10} />

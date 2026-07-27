@@ -58,7 +58,7 @@ export function About({ stats }: AboutProps) {
         </div>
       </div>
 
-      {/* Stats strip — same minimal `dl` rhythm as the home status block.
+      {/* Stats strip - same minimal `dl` rhythm as the home status block.
           Plain numbers, caps-mono labels, no card chrome. Each cell is
           separated by a thin left rule on sm+ so the row reads as a clean
           band of facts, not four boxes. */}

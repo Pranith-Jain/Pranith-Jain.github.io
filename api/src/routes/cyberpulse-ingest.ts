@@ -852,6 +852,7 @@ export interface RawPost {
 const CLAIM_HANDLES_LOWER = new Set([
   'falconfeedsio',
   'dailydarkweb',
+  'darkwebinformer',
   'ransomnews',
   'leakradario',
   'monthreat',

@@ -51,18 +51,20 @@ export function CopyToClipboard({ text, label, className = '', successMessage = 
         inline-flex items-center gap-2
         px-3 py-1.5
         rounded-xl
-        bg-white/10 text-slate-300
-        hover:bg-white/20 hover:text-white
+        bg-slate-100 text-slate-600
+        hover:bg-slate-200 hover:text-slate-900
+        dark:bg-white/10 dark:text-slate-300
+        dark:hover:bg-white/20 dark:hover:text-white
         transition-all duration-200
-        focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50
         ${className}
       `}
       aria-label={`Copy ${label || text} to clipboard`}
     >
       {copied ? (
         <>
-          <Check className="h-4 w-4 text-emerald-400" aria-hidden="true" />
-          <span className="text-emerald-400">{successMessage}</span>
+          <Check className="h-4 w-4 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
+          <span className="text-emerald-600 dark:text-emerald-400">{successMessage}</span>
         </>
       ) : (
         <>

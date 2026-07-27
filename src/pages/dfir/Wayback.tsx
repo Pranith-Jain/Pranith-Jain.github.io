@@ -11,7 +11,7 @@ interface Snapshot {
   length: string;
 }
 
-// Worker-proxied — see api/src/routes/wayback.ts for upstream behaviour and
+// Worker-proxied - see api/src/routes/wayback.ts for upstream behaviour and
 // rationale (browser-direct fetch was hitting NetworkError on Firefox when
 // IA returned 5xx without CORS headers).
 const CDX_BASE = '/api/v1/wayback/cdx';
@@ -45,7 +45,7 @@ export default function Wayback(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   // Epoch ms when the shared IA cooldown clears. While set, Lookup is
-  // disabled and auto-fetch is suppressed — manual retries during the
+  // disabled and auto-fetch is suppressed - manual retries during the
   // window are exactly what keep IA's IP-wide throttle alive.
   const [cooldownUntil, setCooldownUntil] = useState<number | null>(null);
   const [nowTick, setNowTick] = useState(Date.now());
@@ -70,7 +70,7 @@ export default function Wayback(): JSX.Element {
   const lookup = async (override?: string) => {
     const t = (override ?? url).trim();
     if (!t) return;
-    // Hard block during the shared cooldown — firing here is the root cause
+    // Hard block during the shared cooldown - firing here is the root cause
     // of the recurring throttle (every request re-arms IA's IP-wide ban).
     if (cooldownUntil !== null && Date.now() < cooldownUntil) return;
     if (override) setUrl(override);
@@ -83,7 +83,7 @@ export default function Wayback(): JSX.Element {
       const res = await fetch(buildCdxUrl(t));
       if (!res.ok) {
         // Server returns structured { error, upstream_status, hint, retry_after_seconds }
-        // — surface the human-readable hint when available, else fall back to
+        // - surface the human-readable hint when available, else fall back to
         // the HTTP code so the analyst at least sees what happened.
         let detail: { error?: string; hint?: string; retry_after_seconds?: number } = {};
         try {
@@ -97,7 +97,7 @@ export default function Wayback(): JSX.Element {
           setNowTick(Date.now());
           throw new Error(
             detail.hint ??
-              `Internet Archive is rate-limiting all Wayback lookups from this site. Cooling down — Lookup re-enables automatically.`
+              `Internet Archive is rate-limiting all Wayback lookups from this site. Cooling down - Lookup re-enables automatically.`
           );
         }
         if (detail.hint) throw new Error(detail.hint);
@@ -202,7 +202,7 @@ export default function Wayback(): JSX.Element {
           <History size={28} className="text-brand-600 dark:text-brand-400" /> Wayback Machine Pivot
         </h1>
         <p className="text-muted mb-2 leading-relaxed">
-          Paste a URL — get the Internet Archive snapshot timeline (first / last seen, status-code distribution, deduped
+          Paste a URL - get the Internet Archive snapshot timeline (first / last seen, status-code distribution, deduped
           via content digest). Useful for phishing-site evolution, infrastructure churn, and content provenance.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
@@ -229,7 +229,7 @@ export default function Wayback(): JSX.Element {
           className="flex flex-wrap gap-2"
         >
           <div className="relative flex-1 min-w-[280px]">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
             <input
               type="url"
               value={url}
@@ -258,7 +258,7 @@ export default function Wayback(): JSX.Element {
                 <>
                   {' '}
                   <span className="text-slate-500 dark:text-slate-400">
-                    Auto-retry available in {cooldownRemaining}s — no need to refresh.
+                    Auto-retry available in {cooldownRemaining}s - no need to refresh.
                   </span>
                 </>
               )}
@@ -270,7 +270,7 @@ export default function Wayback(): JSX.Element {
       {snapshots && snapshots.length === 0 && !error && (
         <section className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 mb-6 text-sm font-mono text-amber-700 dark:text-amber-300 inline-flex items-center gap-2">
           <AlertTriangle size={14} /> No snapshots found for this URL. The Internet Archive may not have crawled it, or
-          the path is too specific — try the bare domain.
+          the path is too specific - try the bare domain.
         </section>
       )}
 
@@ -349,10 +349,10 @@ export default function Wayback(): JSX.Element {
                       <span
                         className={`text-micro uppercase tracking-wider px-1.5 py-0.5 rounded border ${statusClass(s.status || '0')}`}
                       >
-                        {s.status || '—'}
+                        {s.status || '-'}
                       </span>
                     </td>
-                    <td className="py-1.5 pr-3 text-muted">{s.mime || '—'}</td>
+                    <td className="py-1.5 pr-3 text-muted">{s.mime || '-'}</td>
                     <td className="py-1.5 pr-3 text-muted">{s.length}</td>
                     <td className="py-1.5 pr-3">
                       <div className="flex items-center gap-2">
@@ -404,19 +404,19 @@ export default function Wayback(): JSX.Element {
             <Link to="/dfir/domain-investigator" className="text-brand-600 dark:text-brand-400 hover:underline">
               Domain Lookup
             </Link>{' '}
-            — RDAP, DNS, email-auth posture.
+            - RDAP, DNS, email-auth posture.
           </li>
           <li>
             <Link to="/dfir/url-preview" className="text-brand-600 dark:text-brand-400 hover:underline">
               URL Preview
             </Link>{' '}
-            — server-side metadata for live URLs.
+            - server-side metadata for live URLs.
           </li>
           <li>
             <Link to="/dfir/domain-investigator" className="text-brand-600 dark:text-brand-400 hover:underline">
               Exposure Scanner
             </Link>{' '}
-            — subdomains and open ports.
+            - subdomains and open ports.
           </li>
         </ul>
       </section>
@@ -452,7 +452,7 @@ function daysBetween(a: string, b: string): string {
     `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}T${s.slice(8, 10)}:${s.slice(10, 12)}:${s.slice(12, 14)}Z`;
   const start = new Date(toIso(a)).getTime();
   const end = new Date(toIso(b)).getTime();
-  if (!start || !end) return '—';
+  if (!start || !end) return '-';
   const days = Math.round((end - start) / 86_400_000);
   if (days <= 1) return '<1 day';
   if (days < 365) return `${days} days`;

@@ -15,11 +15,11 @@ const Card = memo(function Card({ tool }: { tool: Tool }): JSX.Element {
   const className =
     'group relative block overflow-hidden surface-card p-5 ' +
     'transition-[transform,border-color,box-shadow] duration-200 ' +
-    'hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-[0_10px_30px_-12px_rgba(44,62,229,0.35)] ' +
+    'hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-e2 ' +
     'focus-visible:outline-none focus-visible:-translate-y-0.5 focus-visible:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40';
   const inner = (
     <>
-      {/* Left accent rail — reveals on hover/focus so a scanned grid gets
+      {/* Left accent rail - reveals on hover/focus so a scanned grid gets
           directional weight instead of 90 identical flat cards. */}
       <span
         aria-hidden="true"
@@ -34,7 +34,7 @@ const Card = memo(function Card({ tool }: { tool: Tool }): JSX.Element {
           {external && <ExternalLink size={12} className="opacity-60" aria-hidden="true" />}
         </span>
       </div>
-      {/* Prose, not mono — mono is for IOC/data, not tile descriptions. */}
+      {/* Prose, not mono - mono is for IOC/data, not tile descriptions. */}
       <p className="text-tool text-muted leading-relaxed">{desc}</p>
     </>
   );
@@ -91,7 +91,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
 
   // Scope to the requested group, then drop tools gated behind a
   // deployment flag that isn't enabled (dormant self-hosted bridges).
-  // Everything downstream — search, counts, empty-state — flows from
+  // Everything downstream - search, counts, empty-state - flows from
   // this visible set so a hidden tool never leaks into the tallies.
   const baseSections = useMemo(
     () =>
@@ -125,7 +125,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
         <div className="relative">
           <SearchIcon
             size={14}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
             aria-hidden="true"
           />
           <input
@@ -140,7 +140,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
             <button
               type="button"
               onClick={() => setQuery('')}
-              className="absolute right-1 top-1/2 -translate-y-1/2 inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 sm:p-1 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+              className="absolute right-1 top-1/2 -translate-y-1/2 inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 sm:p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
               aria-label="Clear search"
             >
               <X size={14} />

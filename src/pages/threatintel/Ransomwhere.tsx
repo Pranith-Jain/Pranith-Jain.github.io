@@ -31,7 +31,7 @@ interface RansomwhereResponse {
   upstream_error?: string;
 }
 
-/** Only render http(s) links — the dataset urls come from an untrusted upstream,
+/** Only render http(s) links - the dataset urls come from an untrusted upstream,
  *  so never let a `javascript:`/`data:` URL reach an href. */
 function safeHref(url: string): string | null {
   try {
@@ -66,8 +66,8 @@ const CHAIN_TONE: Record<string, string> = {
 function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
-      ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+      ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -115,17 +115,17 @@ export default function Ransomwhere(): JSX.Element {
 
   const description = (
     <>
-      Crowdsourced directory of cryptocurrency wallets attributed to ransomware families — on-chain balance (USD),
+      Crowdsourced directory of cryptocurrency wallets attributed to ransomware families - on-chain balance (USD),
       transaction count, and first/last-seen. Data:{' '}
       <a
         href="https://ransomwhe.re/"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-brand-600 dark:text-brand-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline"
       >
         Ransomwhere
       </a>{' '}
-      — open data, free to cite with attribution. Pivot any address into the crypto tracer.
+      - open data, free to cite with attribution. Pivot any address into the crypto tracer.
     </>
   );
 
@@ -186,7 +186,7 @@ export default function Ransomwhere(): JSX.Element {
             <div className="flex items-start justify-between gap-2">
               <button
                 onClick={() => setFamily(w.family)}
-                className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug text-left hover:text-brand-600 dark:hover:text-brand-400"
+                className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug text-left hover:text-rose-600 dark:hover:text-rose-400"
                 title="Filter by this family"
               >
                 {w.family || 'unattributed'}
@@ -216,7 +216,7 @@ export default function Ransomwhere(): JSX.Element {
             <div className="mt-2 pt-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
               <Link
                 to={`/dfir/tracer?address=${encodeURIComponent(w.address)}`}
-                className="inline-flex items-center gap-1 text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                className="inline-flex items-center gap-1 text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
                 title="Trace this address in the crypto tracer"
               >
                 <Search size={11} /> trace address →
@@ -227,22 +227,22 @@ export default function Ransomwhere(): JSX.Element {
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
           Data:{' '}
           <a
             href={safeHref(data.source_url) ?? '#'}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-brand-600 dark:hover:text-brand-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400"
           >
             {data.source}
           </a>{' '}
-          — open data, free to cite with attribution ·{' '}
+          - open data, free to cite with attribution ·{' '}
           <a
             href={safeHref(data.dataset_url) ?? '#'}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-brand-600 dark:hover:text-brand-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400"
           >
             Zenodo dataset <ExternalLink size={10} className="inline align-baseline opacity-60" />
           </a>{' '}

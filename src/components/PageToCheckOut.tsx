@@ -8,7 +8,7 @@ const PAGES = [
   {
     path: '/threatintel',
     name: 'Threat Intel Platform',
-    desc: 'Live CTI from 30+ feeds — ransomware, CVEs, dark web, and social.',
+    desc: 'Live CTI from 30+ feeds - ransomware, CVEs, dark web, and social.',
   },
   {
     path: '/threatintel/predictive/global-pulse',

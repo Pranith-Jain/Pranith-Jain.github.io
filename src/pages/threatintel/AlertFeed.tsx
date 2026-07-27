@@ -97,7 +97,7 @@ export default function AlertFeed() {
     <DataPageLayout
       backTo="/threatintel"
       title="Alert Feed"
-      description="Prioritised threat intelligence alerts — noise-filtered, confidence-scored, and matched to your estate."
+      description="Prioritised threat intelligence alerts - noise-filtered, confidence-scored, and matched to your estate."
       icon={<Bell />}
       loading={loading && alerts.length === 0}
       error={error}
@@ -186,7 +186,7 @@ export default function AlertFeed() {
                       {!alert.read && (
                         <button
                           onClick={() => markRead(alert.id)}
-                          className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-green-500"
+                          className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-green-500"
                           title="Mark read"
                         >
                           <CheckCircle size={14} />
@@ -194,7 +194,7 @@ export default function AlertFeed() {
                       )}
                       <button
                         onClick={() => dismiss(alert.id)}
-                        className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-red-500"
+                        className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-red-500"
                         title="Dismiss"
                       >
                         <XCircle size={14} />
@@ -202,7 +202,7 @@ export default function AlertFeed() {
                     </div>
                   </div>
                   <p className="text-sm text-slate-500 mt-1 line-clamp-2">{alert.description}</p>
-                  <div className="flex items-center gap-3 mt-2 text-xs text-slate-400">
+                  <div className="flex items-center gap-3 mt-2 text-xs text-slate-500 dark:text-slate-400">
                     <span>
                       {hoursAgo < 1
                         ? 'Just now'

@@ -44,7 +44,7 @@ interface LiveIocsResponse {
   /**
    * Sources that contributed items to THIS snapshot. Drives the
    * count / freshness badge in the header. Silent-failure / empty
-   * sources are NOT here — see `registered_sources` for the full roster.
+   * sources are NOT here - see `registered_sources` for the full roster.
    */
   sources: LiveSource[];
   /**
@@ -52,7 +52,7 @@ interface LiveIocsResponse {
    * run attached. Includes silent-failure / empty sources. Used for the
    * "Sources: …" prose and the filter-pill row so the user sees the
    * full ~30-feed roster, not just the 10-12 that happened to have
-   * items in the current snapshot. Field was added 2026-06 — older
+   * items in the current snapshot. Field was added 2026-06 - older
    * responses omit it and we fall back to `sources`.
    */
   registered_sources?: LiveSource[];
@@ -222,7 +222,7 @@ export default function LiveIocs(): JSX.Element {
               return (
                 <>
                   {labels}
-                  <span className="text-slate-400 italic"> (active only)</span>
+                  <span className="text-slate-500 dark:text-slate-400 italic"> (active only)</span>
                 </>
               );
             })()}
@@ -267,13 +267,13 @@ export default function LiveIocs(): JSX.Element {
       <section className="surface-card p-4 mb-4">
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative flex-1 min-w-[200px]">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by indicator, reporter, or context…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter IOC stream"
             />
           </div>
@@ -294,7 +294,7 @@ export default function LiveIocs(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -328,7 +328,7 @@ export default function LiveIocs(): JSX.Element {
               const newestRel = s.newest_observation ? shortRel(s.newest_observation) : null;
               // Inactive here means: registered but produced 0 items OR errored
               // in the current snapshot. Still clickable for filtering (so the
-              // user can pick "all sources" or drill in) — the filter just
+              // user can pick "all sources" or drill in) - the filter just
               // won’t match anything until the source has items again.
               const isEmpty = s.count === 0;
               const tooltip = isEmpty
@@ -351,7 +351,7 @@ export default function LiveIocs(): JSX.Element {
                       : s.ok === false
                         ? 'border-rose-300/70 dark:border-rose-700/40 text-rose-700/80 dark:text-rose-400/80'
                         : isEmpty
-                          ? 'border-slate-300/60 dark:border-[rgb(var(--border-400))]/60 text-slate-400 dark:text-slate-500 opacity-60'
+                          ? 'border-slate-300/60 dark:border-[rgb(var(--border-400))]/60 text-slate-500 dark:text-slate-400 opacity-60'
                           : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
                   }`}
                   title={tooltip}
@@ -382,7 +382,7 @@ export default function LiveIocs(): JSX.Element {
                   setSourceFilter(new Set());
                   setKindFilter(new Set());
                 }}
-                className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+                className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline ml-2"
               >
                 clear
               </button>
@@ -432,7 +432,7 @@ export default function LiveIocs(): JSX.Element {
         emptyLabel={
           query || kindFilter.size > 0 || sourceFilter.size > 0
             ? 'No indicators match the current filter.'
-            : 'No indicators in the current snapshot. The cron repopulates this every 15 minutes — click refresh to re-pull.'
+            : 'No indicators in the current snapshot. The cron repopulates this every 15 minutes - click refresh to re-pull.'
         }
         onRetry={() => setRefreshKey((k) => k + 1)}
         rows={8}
@@ -467,7 +467,7 @@ export default function LiveIocs(): JSX.Element {
                         href={sanitizeUrl(it.reference_url) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-500 transition-colors shrink-0"
+                        className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors shrink-0"
                         aria-label="open source post"
                         title="open source post"
                       >
@@ -480,7 +480,7 @@ export default function LiveIocs(): JSX.Element {
                     <AdmiraltyBadge admiralty={gradeForLiveIoc(it.source, it.kind)} compact />
                     {it.reporter && <span className="text-muted">{it.reporter}</span>}
                     {it.context && (
-                      <span className="text-slate-400 italic truncate max-w-[40ch]" title={it.context}>
+                      <span className="text-slate-500 dark:text-slate-400 italic truncate max-w-[40ch]" title={it.context}>
                         · {it.context}
                       </span>
                     )}
@@ -505,7 +505,7 @@ export default function LiveIocs(): JSX.Element {
             type="button"
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page <= 1}
-            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40"
+            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-rose-500/40"
           >
             ← prev
           </button>
@@ -516,7 +516,7 @@ export default function LiveIocs(): JSX.Element {
             type="button"
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page >= totalPages}
-            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-brand-500/40"
+            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] disabled:opacity-30 hover:border-rose-500/40"
           >
             next →
           </button>

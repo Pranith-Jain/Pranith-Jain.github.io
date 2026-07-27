@@ -1,15 +1,15 @@
 /**
- * Username pivoting library — Sherlock-lite for the browser.
+ * Username pivoting library - Sherlock-lite for the browser.
  *
  * Two flavours of service:
  *   - "active": exposes a CORS-friendly JSON endpoint. We can do an actual
  *     existence check from the browser without a server proxy.
  *   - "manual": no CORS-friendly endpoint, or the check requires HTML
- *     scraping. We render the deep link only — the user clicks through.
+ *     scraping. We render the deep link only - the user clicks through.
  *
  * The active list is intentionally small (about a dozen services) so we
  * don't hammer rate limits or get blocked. The manual list is curated for
- * defenders / investigators — places where a username's *existence* on
+ * defenders / investigators - places where a username's *existence* on
  * that service is a meaningful pivot.
  */
 
@@ -31,7 +31,7 @@ export interface Service {
   name: string;
   category: Category;
   mode: CheckMode;
-  /** URL to surface to the user — ${USERNAME} placeholder. */
+  /** URL to surface to the user - ${USERNAME} placeholder. */
   profileUrl: string;
   /**
    * Active check function. Returns 'exists', 'not-found', 'rate-limited',
@@ -52,7 +52,7 @@ async function safeFetch(url: string, init?: RequestInit): Promise<Response | nu
   }
 }
 
-/** GitHub user — 200 / 404 / 403 (rate-limited). */
+/** GitHub user - 200 / 404 / 403 (rate-limited). */
 async function checkGithub(username: string): Promise<CheckResult> {
   const r = await safeFetch(`https://api.github.com/users/${encodeURIComponent(username)}`, {
     headers: ACCEPT_JSON,
@@ -64,7 +64,7 @@ async function checkGithub(username: string): Promise<CheckResult> {
   return 'error';
 }
 
-/** GitLab — query users API for an exact match. */
+/** GitLab - query users API for an exact match. */
 async function checkGitlab(username: string): Promise<CheckResult> {
   const r = await safeFetch(`https://gitlab.com/api/v4/users?username=${encodeURIComponent(username)}`, {
     headers: ACCEPT_JSON,
@@ -82,7 +82,7 @@ async function checkGitlab(username: string): Promise<CheckResult> {
   return 'error';
 }
 
-/** Reddit /user/<u>/about.json — 200 / 404. Reddit may also redirect to a "this user has been suspended" page with 200 status; check `data.is_suspended`. */
+/** Reddit /user/<u>/about.json - 200 / 404. Reddit may also redirect to a "this user has been suspended" page with 200 status; check `data.is_suspended`. */
 async function checkReddit(username: string): Promise<CheckResult> {
   const r = await safeFetch(`https://www.reddit.com/user/${encodeURIComponent(username)}/about.json`, {
     headers: ACCEPT_JSON,
@@ -102,7 +102,7 @@ async function checkReddit(username: string): Promise<CheckResult> {
   return 'error';
 }
 
-/** Hacker News user via Firebase API — strictly 200 + JSON or 200 + null. */
+/** Hacker News user via Firebase API - strictly 200 + JSON or 200 + null. */
 async function checkHackerNews(username: string): Promise<CheckResult> {
   const r = await safeFetch(`https://hacker-news.firebaseio.com/v0/user/${encodeURIComponent(username)}.json`);
   if (!r) return 'error';
@@ -117,7 +117,7 @@ async function checkHackerNews(username: string): Promise<CheckResult> {
   return 'error';
 }
 
-/** npm registry — /-/user/org.couchdb.user:<u> returns 200 / 404. */
+/** npm registry - /-/user/org.couchdb.user:<u> returns 200 / 404. */
 async function checkNpm(username: string): Promise<CheckResult> {
   const r = await safeFetch(`https://registry.npmjs.org/-/user/org.couchdb.user:${encodeURIComponent(username)}`, {
     headers: ACCEPT_JSON,
@@ -128,7 +128,7 @@ async function checkNpm(username: string): Promise<CheckResult> {
   return 'error';
 }
 
-/** Lobsters — public JSON for a user profile. */
+/** Lobsters - public JSON for a user profile. */
 async function checkLobsters(username: string): Promise<CheckResult> {
   const r = await safeFetch(`https://lobste.rs/u/${encodeURIComponent(username)}.json`);
   if (!r) return 'error';
@@ -137,7 +137,7 @@ async function checkLobsters(username: string): Promise<CheckResult> {
   return 'error';
 }
 
-/** Codeberg (Gitea) — /api/v1/users/<u>. */
+/** Codeberg (Gitea) - /api/v1/users/<u>. */
 async function checkCodeberg(username: string): Promise<CheckResult> {
   const r = await safeFetch(`https://codeberg.org/api/v1/users/${encodeURIComponent(username)}`, {
     headers: ACCEPT_JSON,
@@ -148,7 +148,7 @@ async function checkCodeberg(username: string): Promise<CheckResult> {
   return 'error';
 }
 
-/** Dev.to — /api/users/by_username?url=<u>. */
+/** Dev.to - /api/users/by_username?url=<u>. */
 async function checkDevTo(username: string): Promise<CheckResult> {
   const r = await safeFetch(`https://dev.to/api/users/by_username?url=${encodeURIComponent(username)}`, {
     headers: ACCEPT_JSON,

@@ -13,7 +13,7 @@ import { rssFeeds } from '../../data/rssFeeds';
 import { SourceTogglePanel } from '../../components/threatintel/SourceTogglePanel';
 
 /**
- * Scam Watch — live aggregator of digital-fraud reporting.
+ * Scam Watch - live aggregator of digital-fraud reporting.
  *
  * Sections:
  *   - Official alerts: FTC consumer alerts + FBI IC3 PSAs
@@ -37,19 +37,19 @@ const SECTIONS: { id: string; label: string; blurb: string; feedIds: string[] }[
   {
     id: 'crypto-nft',
     label: 'Crypto & NFT scams',
-    blurb: 'Rug pulls, wallet drainers, NFT phishing, DeFi exploits — first-person + post-mortems.',
+    blurb: 'Rug pulls, wallet drainers, NFT phishing, DeFi exploits - first-person + post-mortems.',
     feedIds: ['rekt-news', 'web3-grift', 'reddit-cryptoscams'],
   },
   {
     id: 'job',
     label: 'Job & recruitment',
-    blurb: 'Fake recruiters, fake interviews, fake offer letters — fastest-growing scam category.',
+    blurb: 'Fake recruiters, fake interviews, fake offer letters - fastest-growing scam category.',
     feedIds: ['reddit-jobscams'],
   },
   {
     id: 'impersonation',
     label: 'Impersonation & social engineering',
-    blurb: 'Tech-support, IRS, Microsoft, SIM-swap, vishing — anyone-but-them on the phone.',
+    blurb: 'Tech-support, IRS, Microsoft, SIM-swap, vishing - anyone-but-them on the phone.',
     feedIds: ['reddit-scammer-payback'],
   },
   {
@@ -175,12 +175,12 @@ export default function ScamWatch(): JSX.Element {
           <AlertTriangle size={28} className="text-brand-600 dark:text-brand-400" /> Scam Watch
         </h1>
         <p className="text-muted mb-2 max-w-2xl">
-          Live aggregator of digital-scam activity — official advisories, deepfake incidents, first-person victim
+          Live aggregator of digital-scam activity - official advisories, deepfake incidents, first-person victim
           reports, and mainstream coverage. {ALL_FEED_IDS.length} sources fetched server-side, deduped, sorted by
           publication time.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          Reddit feeds are real victim reports — context-rich but anecdotal. FTC + FBI IC3 are the authoritative source
+          Reddit feeds are real victim reports - context-rich but anecdotal. FTC + FBI IC3 are the authoritative source
           for U.S. fraud trends. Pairs with{' '}
           <Link to="/threatintel/catalog?cat=darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
             Dark Web Watch
@@ -201,7 +201,7 @@ export default function ScamWatch(): JSX.Element {
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search title or description — e.g. pig butchering, voice clone, romance"
+            placeholder="Search title or description - e.g. pig butchering, voice clone, romance"
             className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search Scam Watch"
           />

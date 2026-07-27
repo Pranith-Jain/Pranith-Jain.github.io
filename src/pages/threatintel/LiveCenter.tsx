@@ -162,7 +162,7 @@ const CATEGORIES: Category[] = [
         name: 'Have I Been Pwned',
         desc: 'Check email against known breaches.',
         detail: {
-          install: 'Web-based — no install needed',
+          install: 'Web-based - no install needed',
           example: 'https://haveibeenpwned.com/',
           url: 'https://haveibeenpwned.com',
         },
@@ -198,7 +198,7 @@ const CATEGORIES: Category[] = [
         name: 'Hudson Rock',
         desc: 'Credential breach database search.',
         detail: {
-          install: 'Web-based — no install needed',
+          install: 'Web-based - no install needed',
           example: 'https://www.hudsonrock.com/threat-intelligence-ai',
           url: 'https://www.hudsonrock.com/threat-intelligence-ai',
         },
@@ -299,7 +299,7 @@ export default function LiveCenter(): JSX.Element {
     <DataPageLayout
       backTo="/threatintel"
       icon={<Terminal size={28} />}
-      title="Live Center — Web-Based OSINT Tools"
+      title="Live Center - Web-Based OSINT Tools"
       description={
         <span>
           Collection of command line tools ready to be utilized.{' '}
@@ -330,7 +330,7 @@ export default function LiveCenter(): JSX.Element {
         {CATEGORIES.map((cat) => (
           <section key={cat.id} aria-label={cat.label}>
             <div className="mb-3 flex items-center gap-2">
-              <span className="text-brand-600 dark:text-brand-400">{cat.icon}</span>
+              <span className="text-rose-600 dark:text-rose-400">{cat.icon}</span>
               <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">{cat.label}</h2>
               <span className="rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-micro font-mono text-slate-500 dark:text-slate-400">
                 {cat.tools.length}
@@ -341,13 +341,13 @@ export default function LiveCenter(): JSX.Element {
                 const key = `${cat.id}:${tool.name}`;
                 const open = expanded[key] ?? false;
                 return (
-                  <div key={tool.name} className="surface-card overflow-hidden surface-card transition-all">
+                  <div key={tool.name} className="surface-card overflow-hidden transition-all">
                     <div className="p-4">
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                           {tool.name}
                         </h3>
-                        <span className="shrink-0 rounded border border-brand-500/30 bg-brand-500/10 px-1.5 py-0.5 text-micro font-mono uppercase tracking-wider text-brand-700 dark:text-brand-300">
+                        <span className="shrink-0 rounded border border-rose-500/30 bg-rose-500/10 px-1.5 py-0.5 text-micro font-mono uppercase tracking-wider text-rose-700 dark:text-rose-300">
                           {cat.id}
                         </span>
                       </div>
@@ -355,7 +355,7 @@ export default function LiveCenter(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => toggle(key)}
-                        className="inline-flex items-center gap-1.5 rounded-xl border border-brand-500/40 bg-brand-500/10 px-3 py-1.5 text-xs font-mono font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-500/20 transition-colors"
+                        className="inline-flex items-center gap-1.5 rounded-xl border border-rose-500/40 bg-rose-500/10 px-3 py-1.5 text-xs font-mono font-medium text-rose-700 dark:text-rose-300 hover:bg-rose-500/20 transition-colors"
                         aria-expanded={open}
                         aria-controls={`detail-${key}`}
                       >
@@ -387,7 +387,7 @@ export default function LiveCenter(): JSX.Element {
                           href={tool.detail.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                          className="inline-flex items-center gap-1.5 text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline"
                         >
                           <ExternalLink size={11} /> {tool.detail.url.replace(/^https?:\/\//, '')}
                         </a>

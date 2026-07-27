@@ -50,7 +50,7 @@ const STATUS_PILL: Record<string, string> = {
   dormant: 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
   defunct:
     'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700',
-  unknown: 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] text-slate-400 border-slate-200 dark:border-slate-700',
+  unknown: 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700',
 };
 
 const COUNTRY_FLAGS: Record<string, string> = {
@@ -64,12 +64,12 @@ const COUNTRY_FLAGS: Record<string, string> = {
   IN: '🇮🇳',
   VN: '🇻🇳',
   BY: '🇧🇾',
-  Unknown: '🌐',
+  Unknown: '??',
 };
 
 const CARD = 'surface-card';
 const INPUT =
-  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500';
+  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500';
 
 function getCountryCode(country: string): string {
   const match = country.match(/^([A-Z]{2})/);
@@ -90,7 +90,7 @@ function ActorCard({
   onSectorClick?: (s: string) => void;
 }) {
   const cc = getCountryCode(actor.country);
-  const flag = COUNTRY_FLAGS[cc] ?? '🌐';
+  const flag = COUNTRY_FLAGS[cc] ?? '??';
   const statusCls = STATUS_PILL[actor.status] ?? STATUS_PILL.unknown;
 
   return (
@@ -101,7 +101,7 @@ function ActorCard({
         onClick={onToggle}
         className="w-full text-left p-4 flex items-start gap-3 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors"
       >
-        <div className={`rounded-lg p-2 shrink-0 ${TYPE_COLORS[actor.type]}`}>{TYPE_ICONS[actor.type]}</div>
+        <div className={`rounded-xl p-2 shrink-0 ${TYPE_COLORS[actor.type]}`}>{TYPE_ICONS[actor.type]}</div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 truncate">
@@ -131,16 +131,16 @@ function ActorCard({
                 </span>
               ))}
               {!isExpanded && actor.aliases.length > 3 && (
-                <span className="text-micro font-mono text-slate-400">+{actor.aliases.length - 3}</span>
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{actor.aliases.length - 3}</span>
               )}
             </div>
           )}
         </div>
         <div className="shrink-0 mt-1">
           {isExpanded ? (
-            <ChevronDown className="h-4 w-4 text-slate-400" />
+            <ChevronDown className="h-4 w-4 text-slate-500 dark:text-slate-400" />
           ) : (
-            <ChevronRight className="h-4 w-4 text-slate-400" />
+            <ChevronRight className="h-4 w-4 text-slate-500 dark:text-slate-400" />
           )}
         </div>
       </button>
@@ -178,7 +178,7 @@ function ActorCard({
                     {m}
                   </button>
                 ))}
-                {actor.malware.length === 0 && <span className="text-xs text-slate-400 italic">None listed</span>}
+                {actor.malware.length === 0 && <span className="text-xs text-slate-500 dark:text-slate-400 italic">None listed</span>}
               </div>
             </div>
             <div>
@@ -194,7 +194,7 @@ function ActorCard({
                     {t}
                   </span>
                 ))}
-                {actor.tools.length === 0 && <span className="text-xs text-slate-400 italic">None listed</span>}
+                {actor.tools.length === 0 && <span className="text-xs text-slate-500 dark:text-slate-400 italic">None listed</span>}
               </div>
             </div>
           </div>
@@ -213,7 +213,7 @@ function ActorCard({
                     e.stopPropagation();
                     onSectorClick?.(t);
                   }}
-                  className="inline-flex items-center gap-1 text-xs font-mono bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800 rounded-full px-2 py-0.5 hover:bg-brand-100 dark:hover:bg-brand-900/60 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1 text-xs font-mono bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 rounded-full px-2 py-0.5 hover:bg-rose-100 dark:hover:bg-rose-900/60 transition-colors cursor-pointer"
                 >
                   <Target className="h-3 w-3" /> {t}
                 </button>
@@ -249,7 +249,7 @@ function ActorCard({
               <ul className="mt-1.5 space-y-1">
                 {actor.campaigns.map((c) => (
                   <li key={c} className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
-                    <span className="h-1.5 w-1.5 rounded-full bg-brand-500 shrink-0" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-rose-500 shrink-0" />
                     {c}
                   </li>
                 ))}
@@ -270,7 +270,7 @@ function ActorCard({
                     href={`https://attack.mitre.org/groups/${g}/`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                    className="inline-flex items-center gap-1 text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline"
                   >
                     {g} <ExternalLink className="h-3 w-3" />
                   </a>
@@ -299,7 +299,7 @@ function ActorCard({
                 ))}
               </div>
               {actor.telegram_handles_source && (
-                <p className="text-micro text-slate-400 mt-1">Source: {actor.telegram_handles_source.join('; ')}</p>
+                <p className="text-micro text-slate-500 dark:text-slate-400 mt-1">Source: {actor.telegram_handles_source.join('; ')}</p>
               )}
             </div>
           )}
@@ -390,7 +390,7 @@ export default function ActorProfiles() {
       backLabel="back to threat intel"
       icon={<Skull className="h-6 w-6" />}
       title="Threat Actor Profiles"
-      description={`${stats.total} threat actor profiles — APTs, cybercrime syndicates, ransomware operations. Aliases, malware, sectors, TTPs, and campaign history.`}
+      description={`${stats.total} threat actor profiles - APTs, cybercrime syndicates, ransomware operations. Aliases, malware, sectors, TTPs, and campaign history.`}
       maxWidthClass="max-w-5xl"
       headerExtra={
         <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
@@ -408,7 +408,7 @@ export default function ActorProfiles() {
     >
       {/* Search */}
       <div className="relative mb-4">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -424,7 +424,7 @@ export default function ActorProfiles() {
           onClick={() => setActiveType(null)}
           className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
             activeType === null
-              ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
+              ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
               : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
           }`}
         >
@@ -475,7 +475,7 @@ export default function ActorProfiles() {
           .sort((a, b) => b[1] - a[1])
           .slice(0, 6)
           .map(([cc, count]) => {
-            const flag = COUNTRY_FLAGS[cc] ?? '🌐';
+            const flag = COUNTRY_FLAGS[cc] ?? '??';
             const name = THREAT_ACTORS.find((a) => getCountryCode(a.country) === cc)?.country.split(': ')[1] ?? cc;
             return (
               <button
@@ -484,7 +484,7 @@ export default function ActorProfiles() {
                 onClick={() => setActiveCountry(activeCountry === cc ? null : cc)}
                 className={`px-2 py-0.5 rounded-full text-mini font-mono border transition-colors ${
                   activeCountry === cc
-                    ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
+                    ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
                     : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'
                 }`}
               >
@@ -522,7 +522,7 @@ export default function ActorProfiles() {
           {activeSector && (
             <button
               onClick={() => setActiveSector(null)}
-              className="inline-flex items-center gap-1 text-mini font-mono bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800 rounded-full px-2 py-0.5"
+              className="inline-flex items-center gap-1 text-mini font-mono bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 rounded-full px-2 py-0.5"
             >
               Sector: {activeSector} ×
             </button>
@@ -539,7 +539,7 @@ export default function ActorProfiles() {
           <button
             type="button"
             onClick={expandAll}
-            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             Expand all
           </button>
@@ -547,7 +547,7 @@ export default function ActorProfiles() {
           <button
             type="button"
             onClick={collapseAll}
-            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             Collapse all
           </button>

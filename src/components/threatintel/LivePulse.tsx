@@ -4,7 +4,7 @@ import { StatBand, StatCell, StatNumber, STAT_NUM, STAT_SUB, prefersReducedMotio
 import { dedupRansomwareVictims } from '../../lib/dedup-ransomware';
 
 /**
- * LivePulse — the live "operations console" band at the top of /threatintel,
+ * LivePulse - the live "operations console" band at the top of /threatintel,
  * directly under the hero. Mirrors the same three tiles the portfolio root
  * (`Live from the platform · updated on load` strip) renders, so a visitor
  * who lands on /threatintel sees the exact same one-breath read of the
@@ -14,10 +14,10 @@ import { dedupRansomwareVictims } from '../../lib/dedup-ransomware';
  *   2. Top firing detection                → /api/v1/detections
  *   3. Cross-source IOC consensus          → /api/v1/ioc-correlation
  *
- * Same endpoints, same dedupe, same 18-feed scope copy as the root strip —
+ * Same endpoints, same dedupe, same 18-feed scope copy as the root strip -
  * the only intentional diff is the band chrome (3-tile grid here vs 3-tile
  * strip on the home page) and the "Live · platform telemetry" header which
- * /threatintel owns. Data is fetched once on mount, "updated on load" — no
+ * /threatintel owns. Data is fetched once on mount, "updated on load" - no
  * polling. Repeat visitors hit the worker edge cache and pay no upstream
  * cost.
  *
@@ -62,7 +62,7 @@ interface ConsensusMetric {
 }
 
 /** 24h filter matching src/components/LiveSignalStrip.tsx so the two
- *  surfaces agree on "today" — same instant math, same dedupe. */
+ *  surfaces agree on "today" - same instant math, same dedupe. */
 function within24h(iso: string): boolean {
   const t = Date.parse(iso);
   if (Number.isNaN(t)) return false;
@@ -90,7 +90,7 @@ function pickTopDetection(items: Detection[]): TopDetMetric | null {
   return top ? { matchCount: top.match_count, ruleName: top.rule_name, severity: top.severity } : null;
 }
 
-const DASH = <span className={`${STAT_NUM} text-slate-400`}>—</span>;
+const DASH = <span className={`${STAT_NUM} text-slate-500 dark:text-slate-400`}>-</span>;
 
 export function LivePulse(): JSX.Element {
   const reduce = prefersReducedMotion();
@@ -100,7 +100,7 @@ export function LivePulse(): JSX.Element {
     cons: ConsensusMetric | null;
   } | null>(null);
 
-  // "updated on load" — one fetch pass on mount, no polling. The underlying
+  // "updated on load" - one fetch pass on mount, no polling. The underlying
   // endpoints are 1h edge-cached at the worker (snapshot.ts / detections.ts /
   // ioc-correlation.ts) so repeat visitors pay no upstream cost. Abort on
   // unmount so a fast nav away from /threatintel doesn't leak listeners.
@@ -152,7 +152,7 @@ export function LivePulse(): JSX.Element {
     </>
   );
   const note = (
-    <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-slate-400 sm:inline">
+    <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 sm:inline">
       edge-cached
     </span>
   );
@@ -172,7 +172,7 @@ export function LivePulse(): JSX.Element {
         ))
       ) : (
         <>
-          {/* Tile 1 — Ransomware claims · last 24h (with leader for the same
+          {/* Tile 1 - Ransomware claims · last 24h (with leader for the same
               window). Mirrors src/components/LiveSignalStrip.tsx so a
               visitor who saw the same number on the root sees the same
               "Leader: <group> (N claims)" attribution here. */}
@@ -210,7 +210,7 @@ export function LivePulse(): JSX.Element {
             )}
           </StatCell>
 
-          {/* Tile 2 — Top firing detection (rule name + severity). Same
+          {/* Tile 2 - Top firing detection (rule name + severity). Same
               picker logic / severity rank as the root strip so the rule
               named here is the rule named there. */}
           <StatCell
@@ -238,7 +238,7 @@ export function LivePulse(): JSX.Element {
             </p>
           </StatCell>
 
-          {/* Tile 3 — Cross-source IOC consensus. Same /api/v1/ioc-correlation
+          {/* Tile 3 - Cross-source IOC consensus. Same /api/v1/ioc-correlation
               endpoint and same 18-feed copy as the root strip; the trust
               signal the platform actually exists to produce. */}
           <StatCell

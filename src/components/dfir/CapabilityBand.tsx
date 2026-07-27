@@ -3,11 +3,11 @@ import { MAIN_TOOL_COUNT } from './tool-sections';
 import { StatBand, StatCell, StatNumber, STAT_NUM, STAT_SUB, prefersReducedMotion } from '../StatBand';
 
 /**
- * CapabilityBand — the /dfir counterpart to /threatintel's LivePulse. The DFIR
+ * CapabilityBand - the /dfir counterpart to /threatintel's LivePulse. The DFIR
  * toolkit landing has no live feeds, so faking a "live" band would be
  * dishonest; instead this elevates the page's static capability figures (what
- * the old StatBar carried) into the same operations-console aesthetic — big
- * animated count-ups in a hairline cluster — under a static "TOOLKIT" mark
+ * the old StatBar carried) into the same operations-console aesthetic - big
+ * animated count-ups in a hairline cluster - under a static "TOOLKIT" mark
  * rather than a LIVE pulse. Shares the StatBand primitive with LivePulse so the
  * two landings speak one visual language.
  */
@@ -82,7 +82,7 @@ export function CapabilityBand(): JSX.Element {
     </>
   );
   const note = (
-    <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-slate-400 sm:inline">no upload</span>
+    <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 sm:inline">no upload</span>
   );
 
   return (
@@ -97,7 +97,7 @@ export function CapabilityBand(): JSX.Element {
             label={s.label}
             iconClass={a.chip}
             icon={<Icon size={14} className={a.icon} aria-hidden="true" />}
-            ariaLabel={`${s.value}${s.suffix ?? ''} ${s.label} — ${s.sub}.`}
+            ariaLabel={`${s.value}${s.suffix ?? ''} ${s.label} - ${s.sub}.`}
           >
             <span className="flex items-baseline gap-0.5">
               <StatNumber value={s.value} reduce={reduce} className={`${STAT_NUM} ${a.num}`} />

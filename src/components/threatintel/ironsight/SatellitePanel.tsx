@@ -13,7 +13,7 @@ interface FireEvent {
 }
 
 const INTENSITY_COLORS: Record<string, string> = {
-  low: 'text-slate-400',
+  low: 'text-slate-500 dark:text-slate-400',
   medium: 'text-amber-400',
   high: 'text-orange-400',
   extreme: 'text-red-400',
@@ -68,20 +68,20 @@ export default function SatellitePanel() {
           <Satellite size={16} className="text-orange-400" />
           <h3 className="text-tool font-bold font-mono text-slate-700 dark:text-slate-200">SAT THERMAL DETECT</h3>
         </div>
-        <span className="text-mini font-mono text-slate-400">NASA FIRMS</span>
+        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">NASA FIRMS</span>
       </div>
       <div className="flex gap-4 mb-3">
         <div className="text-center">
           <div className="text-sm font-bold text-slate-800 dark:text-white">{stats.total}</div>
-          <div className="text-mini text-slate-400">HOTSPOTS</div>
+          <div className="text-mini text-slate-500 dark:text-slate-400">HOTSPOTS</div>
         </div>
         <div className="text-center">
           <div className="text-sm font-bold text-orange-400">{stats.highIntensity}</div>
-          <div className="text-mini text-slate-400">HIGH INT</div>
+          <div className="text-mini text-slate-500 dark:text-slate-400">HIGH INT</div>
         </div>
         <div className="text-center">
           <div className="text-sm font-bold text-red-400">{stats.flagged}</div>
-          <div className="text-mini text-slate-400">FLAGGED</div>
+          <div className="text-mini text-slate-500 dark:text-slate-400">FLAGGED</div>
         </div>
       </div>
       <div className="space-y-1 max-h-48 overflow-y-auto custom-scrollbar">
@@ -92,7 +92,7 @@ export default function SatellitePanel() {
             ))}
           </div>
         ) : events.length === 0 ? (
-          <div className="text-center text-tool text-slate-400 py-4">No thermal anomalies detected</div>
+          <div className="text-center text-tool text-slate-500 dark:text-slate-400 py-4">No thermal anomalies detected</div>
         ) : (
           events.slice(0, 15).map((e, i) => (
             <div
@@ -109,7 +109,7 @@ export default function SatellitePanel() {
                     FLAGGED
                   </span>
                 )}
-                <div className="text-mini text-slate-400">
+                <div className="text-mini text-slate-500 dark:text-slate-400">
                   FRP: {e.frp} MW · {e.lat.toFixed(2)}, {e.lon.toFixed(2)}
                 </div>
               </div>

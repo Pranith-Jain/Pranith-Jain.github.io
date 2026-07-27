@@ -155,7 +155,7 @@ export default function DarkWebRecon(): JSX.Element {
               }}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors ${
                 tab === t.id
-                  ? 'bg-brand-500/20 text-brand-700 dark:text-brand-300 ring-1 ring-brand-500/40'
+                  ? 'bg-rose-500/20 text-rose-700 dark:text-rose-300 ring-1 ring-rose-500/40'
                   : 'text-muted hover:text-slate-800 dark:hover:text-slate-200 hover:bg-white/5'
               }`}
             >
@@ -176,12 +176,12 @@ export default function DarkWebRecon(): JSX.Element {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             placeholder={activeTab.placeholder}
-            className="flex-1 [background:rgb(var(--surface-200)/0.6)] border border-[rgb(var(--border-500))] rounded-xl px-4 py-2.5 text-slate-900 dark:text-slate-200 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-transparent text-sm"
+            className="flex-1 [background:rgb(var(--surface-200)/0.6)] border border-[rgb(var(--border-500))] rounded-xl px-4 py-2.5 text-slate-900 dark:text-slate-200 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-transparent text-sm"
           />
           <button
             onClick={handleSearch}
             disabled={loading || !input.trim()}
-            className="flex items-center gap-2 px-4 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-700 disabled:text-slate-500 rounded-xl text-sm font-medium text-white transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-700 disabled:text-slate-500 rounded-xl text-sm font-medium text-white transition-colors"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
             {loading ? 'Searching...' : 'Search'}
@@ -223,7 +223,7 @@ function OnionSearchResults({ data }: { data: { query: string; count: number; re
               href={r.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium text-sm flex items-center gap-1"
+              className="text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-medium text-sm flex items-center gap-1"
             >
               {r.title || 'Untitled'}
               <ExternalLink className="w-3 h-3 flex-shrink-0" />

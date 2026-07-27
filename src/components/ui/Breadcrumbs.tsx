@@ -20,7 +20,7 @@ export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
           const isLast = i === items.length - 1;
           return (
             <li key={item.href || item.label} className="flex items-center gap-1.5">
-              {i > 0 && <ChevronRight className="h-3 w-3 text-slate-400" aria-hidden="true" />}
+              {i > 0 && <ChevronRight className="h-3 w-3 text-slate-500 dark:text-slate-400" aria-hidden="true" />}
               {item.href && !isLast ? (
                 <a href={item.href} className="transition-colors hover:text-brand-600 dark:hover:text-brand-400">
                   {item.label}

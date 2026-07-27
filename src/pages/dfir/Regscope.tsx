@@ -68,7 +68,7 @@ export default function Regscope(): JSX.Element {
         <p className="text-muted max-w-2xl leading-relaxed">
           Analyze Windows registry key paths for known persistence, defense evasion, and credential access techniques.
           Contains {KNOWN_KEYS.length} entries across {categories.length} categories and {tactics.length} ATT&CK
-          tactics. 100% client-side — no data leaves your browser.
+          tactics. 100% client-side - no data leaves your browser.
         </p>
       </div>
 
@@ -76,8 +76,8 @@ export default function Regscope(): JSX.Element {
         <div className="space-y-4">
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <Search size={14} className="text-slate-400" />
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Registry Key Path</span>
+              <Search size={14} className="text-slate-500 dark:text-slate-400" />
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Registry Key Path</span>
             </div>
 
             <input
@@ -88,12 +88,12 @@ export default function Regscope(): JSX.Element {
               className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
             />
 
-            <p className="text-micro font-mono text-slate-400 mt-2">
+            <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2">
               Full paths supported. The analyzer walks up the path to find the nearest known parent key.
             </p>
 
             <div className="flex flex-wrap gap-1.5 mt-3">
-              <span className="text-micro font-mono text-slate-400 self-center">Hive shortcuts:</span>
+              <span className="text-micro font-mono text-slate-500 dark:text-slate-400 self-center">Hive shortcuts:</span>
               {['HKLM', 'HKCU', 'HKCR', 'HKU', 'HKCC'].map((hive) => (
                 <span
                   key={hive}
@@ -132,9 +132,9 @@ export default function Regscope(): JSX.Element {
               onClick={() => setShowAll(!showAll)}
               className="flex items-center gap-2 w-full text-left"
             >
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Key Database</span>
-              <span className="text-xs font-mono text-slate-400">{KNOWN_KEYS.length} entries</span>
-              <span className="ml-auto text-xs text-slate-400">{showAll ? '▲' : '▼'}</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Key Database</span>
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{KNOWN_KEYS.length} entries</span>
+              <span className="ml-auto text-xs text-slate-500 dark:text-slate-400">{showAll ? '▲' : '▼'}</span>
             </button>
 
             {showAll && (
@@ -201,8 +201,8 @@ export default function Regscope(): JSX.Element {
                         <span className="text-micro font-mono text-brand-600 dark:text-brand-400">
                           {entry.techniqueId}
                         </span>
-                        <span className="text-micro font-mono text-slate-400">·</span>
-                        <span className="text-micro font-mono text-slate-400">{entry.tactic}</span>
+                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">·</span>
+                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{entry.tactic}</span>
                       </div>
                     </div>
                   ))}
@@ -219,7 +219,7 @@ export default function Regscope(): JSX.Element {
               <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
                 Paste a registry key path and click Analyze
               </p>
-              <p className="text-micro font-mono text-slate-400 dark:text-slate-500 mt-2">
+              <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2">
                 Supports persistence, defense evasion, credential access, discovery, and known malware keys
               </p>
             </div>
@@ -244,23 +244,23 @@ export default function Regscope(): JSX.Element {
 
                 <div className="grid grid-cols-2 gap-3 mb-4">
                   <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
-                    <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Category</span>
+                    <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Category</span>
                     <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mt-1">{result.category}</p>
                   </div>
                   <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
-                    <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Tactic</span>
+                    <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Tactic</span>
                     <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mt-1">{result.tactic}</p>
                   </div>
                 </div>
 
                 <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 mb-3">
-                  <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Description</span>
+                  <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Description</span>
                   <p className="text-xs font-mono text-muted mt-1">{result.description}</p>
                 </div>
 
                 <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3 mb-3">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-micro font-mono uppercase tracking-wider text-slate-400">ATT&CK</span>
+                    <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">ATT&CK</span>
                   </div>
                   <span className="inline-block text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30 mr-1">
                     {result.techniqueId}
@@ -270,7 +270,7 @@ export default function Regscope(): JSX.Element {
 
                 {result.malware.length > 0 && (
                   <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-3">
-                    <span className="text-micro font-mono uppercase tracking-wider text-slate-400">
+                    <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                       Associated Malware
                     </span>
                     <div className="flex flex-wrap gap-1 mt-1">
@@ -294,7 +294,7 @@ export default function Regscope(): JSX.Element {
               <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
                 <HelpCircle size={16} />
                 <p className="text-sm font-mono">
-                  Key not recognized. The analyzer walks up the path to find the nearest known parent — try using a
+                  Key not recognized. The analyzer walks up the path to find the nearest known parent - try using a
                   higher-level path.
                 </p>
               </div>
@@ -303,7 +303,7 @@ export default function Regscope(): JSX.Element {
         </div>
       </div>
 
-      <p className="mt-8 text-micro font-mono text-slate-400 text-center">
+      <p className="mt-8 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
         H3AD-DF / REGSCOPE · {KNOWN_KEYS.length} entries · Client-side only · No backend
       </p>
     </div>

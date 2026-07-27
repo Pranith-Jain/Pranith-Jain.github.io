@@ -180,7 +180,7 @@ export default function ExifParse(): JSX.Element {
       >
         <Upload
           size={32}
-          className={`mx-auto mb-3 transition-colors ${dragging ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'}`}
+          className={`mx-auto mb-3 transition-colors ${dragging ? 'text-brand-600 dark:text-brand-400' : 'text-slate-500 dark:text-slate-400'}`}
         />
         <p className="font-mono text-sm text-muted">
           Drop an image here or{' '}

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
 
 /**
- * usePostSummaries — fetch per-post AI summaries for a feed.
+ * usePostSummaries - fetch per-post AI summaries for a feed.
  *
  * Companion to <AiSummaryCard> (the page-level summary). Given the visible
  * feed items, POSTs the top `max` to /api/v1/ai-item-summary and returns a
@@ -47,7 +47,7 @@ export function usePostSummaries(opts: UsePostSummariesOpts): Map<string, string
   const { surface, items, max = DEFAULT_MAX, requireAdmin = true, enabled = true } = opts;
   const [summaries, setSummaries] = useState<Map<string, string>>(new Map());
 
-  // Ids we've already requested (resolved or not) — never re-ask.
+  // Ids we've already requested (resolved or not) - never re-ask.
   const requestedRef = useRef<Set<string>>(new Set());
   const inflightRef = useRef<AbortController | null>(null);
 
@@ -94,7 +94,7 @@ export function usePostSummaries(opts: UsePostSummariesOpts): Map<string, string
           return next;
         });
       } catch {
-        /* network/abort — leave those ids un-summarised (posts render plain) */
+        /* network/abort - leave those ids un-summarised (posts render plain) */
       } finally {
         clearTimeout(timer);
         if (inflightRef.current === ctrl) inflightRef.current = null;

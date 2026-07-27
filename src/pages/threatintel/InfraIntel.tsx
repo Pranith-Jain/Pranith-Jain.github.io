@@ -25,7 +25,7 @@ export default function InfraIntel(): JSX.Element {
       backTo="/threatintel"
       icon={<Globe size={28} />}
       title="Infrastructure Intelligence"
-      description="Physical infrastructure lookup — curated strategic facilities and OpenStreetMap-based search."
+      description="Physical infrastructure lookup - curated strategic facilities and OpenStreetMap-based search."
     >
       <nav
         className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"

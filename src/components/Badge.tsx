@@ -33,7 +33,7 @@ const SIZE: Record<BadgeSize, string> = {
 };
 
 const TONE: Record<BadgeTone, string> = {
-  // Default project-tag look — calm, surface-aware.
+  // Default project-tag look - calm, surface-aware.
   neutral:
     'border-slate-200 bg-white/80 text-slate-700 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]/60 dark:text-slate-200',
   brand:

@@ -22,7 +22,7 @@ interface TopBarProps {
    */
   onOpenMobileNav?: () => void;
   /**
-   * Whether a mobile nav drawer is open — drives the hamburger
+   * Whether a mobile nav drawer is open - drives the hamburger
    * → X transition. When undefined, always render the hamburger.
    */
   mobileNavOpen?: boolean;
@@ -40,7 +40,7 @@ const SEARCH_PLACEHOLDERS: Record<string, string> = {
   radar: 'Scan a domain with SCOUT…',
 };
 
-// Geist mark chip: surface-200 wash + accent-tinted icon. No ring —
+// Geist mark chip: surface-200 wash + accent-tinted icon. No ring -
 // Geist leans on borders and tonal surfaces, not decorative rings.
 const MARK_ACCENT: Record<'dfir' | 'threatintel' | 'radar', string> = {
   dfir: 'bg-brand-500/10 text-brand-600 dark:text-brand-300',
@@ -119,7 +119,7 @@ export function TopBar({
             <span className={`font-display font-bold text-sm sm:text-base ${accentClass} truncate`}>
               {sectionLabel}
             </span>
-            <span className="hidden sm:inline text-micro font-mono uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500 truncate">
+            <span className="hidden sm:inline text-micro font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 truncate">
               {TAGLINE[mark]}
             </span>
           </span>
@@ -132,7 +132,7 @@ export function TopBar({
           aria-label="Open search (press Cmd+K or Ctrl+K)"
         >
           <Search
-            className="h-4 w-4 flex-shrink-0 text-slate-400 group-hover:text-slate-500 dark:text-slate-500 dark:group-hover:text-slate-400"
+            className="h-4 w-4 flex-shrink-0 text-slate-500 dark:text-slate-400 group-hover:text-slate-500 dark:text-slate-500 dark:group-hover:text-slate-500 dark:text-slate-400"
             aria-hidden="true"
           />
           <span className="truncate flex-1 text-tool sm:text-sm">

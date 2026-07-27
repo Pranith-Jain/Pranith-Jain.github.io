@@ -4,7 +4,7 @@ import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
 /**
- * OpenAPI / Swagger Security Auditor — 100% client-side.
+ * OpenAPI / Swagger Security Auditor - 100% client-side.
  *
  * Paste an OpenAPI 3.x or Swagger 2.0 spec (JSON; YAML is best-effort).
  * Operations are checked against the patterns behind the OWASP API
@@ -158,7 +158,7 @@ function analyze(text: string): Analysis | null {
   const isV2 = String(doc.swagger ?? '') === '2.0';
   if (!isV3 && !isV2 && !doc.paths)
     return {
-      error: 'No `openapi`/`swagger` version or `paths` — does not look like an OpenAPI/Swagger document.',
+      error: 'No `openapi`/`swagger` version or `paths` - does not look like an OpenAPI/Swagger document.',
       spec: '',
       operations: 0,
       findings: [],
@@ -177,7 +177,7 @@ function analyze(text: string): Analysis | null {
       sev: 'high',
       title: 'No global security requirement',
       detail:
-        'The spec sets no top-level `security`. Every operation is unauthenticated unless it declares its own — fail-open by default (OWASP API2/API5).',
+        'The spec sets no top-level `security`. Every operation is unauthenticated unless it declares its own - fail-open by default (OWASP API2/API5).',
       where: 'document root',
       fix: 'Declare a global `security` and explicitly opt specific public endpoints out with `security: []`.',
     });
@@ -185,7 +185,7 @@ function analyze(text: string): Analysis | null {
     findings.push({
       sev: 'high',
       title: 'No security schemes defined',
-      detail: 'No securitySchemes/securityDefinitions — the API documents no way to authenticate at all.',
+      detail: 'No securitySchemes/securityDefinitions - the API documents no way to authenticate at all.',
       where: 'components.securitySchemes',
       fix: 'Define an OAuth2/OIDC (or at minimum bearer) scheme and require it.',
     });
@@ -197,7 +197,7 @@ function analyze(text: string): Analysis | null {
         sev: 'high',
         title: `API key passed in query string (${name})`,
         detail:
-          'Query strings are logged by proxies, gateways, and browser history — an API key there is effectively logged plaintext.',
+          'Query strings are logged by proxies, gateways, and browser history - an API key there is effectively logged plaintext.',
         where: `securityScheme ${name}`,
         fix: 'Move the API key to a header (or use OAuth2 bearer).',
       });
@@ -205,7 +205,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: 'medium',
         title: `HTTP Basic auth scheme (${name})`,
-        detail: 'Basic auth sends reusable base64 credentials on every request — no rotation, no scoping.',
+        detail: 'Basic auth sends reusable base64 credentials on every request - no rotation, no scoping.',
         where: `securityScheme ${name}`,
         fix: 'Prefer OAuth2/OIDC bearer tokens with short expiry and scopes.',
       });
@@ -218,7 +218,7 @@ function analyze(text: string): Analysis | null {
         findings.push({
           sev: 'medium',
           title: `OAuth2 scheme without scopes (${name})`,
-          detail: 'No scopes defined — tokens are all-or-nothing, defeating least-privilege (OWASP API5 BFLA).',
+          detail: 'No scopes defined - tokens are all-or-nothing, defeating least-privilege (OWASP API5 BFLA).',
           where: `securityScheme ${name}`,
           fix: 'Define granular scopes and require them per-operation.',
         });
@@ -231,7 +231,7 @@ function analyze(text: string): Analysis | null {
     findings.push({
       sev: 'high',
       title: 'Server served over plaintext HTTP',
-      detail: 'A `servers` entry uses http:// — tokens & data are interceptable.',
+      detail: 'A `servers` entry uses http:// - tokens & data are interceptable.',
       where: 'servers',
       fix: 'Serve the API exclusively over HTTPS.',
     });
@@ -264,7 +264,7 @@ function analyze(text: string): Analysis | null {
         findings.push({
           sev: 'critical',
           title: 'Authentication explicitly disabled',
-          detail: `\`security: []\` overrides the global requirement — this endpoint is public.`,
+          detail: `\`security: []\` overrides the global requirement - this endpoint is public.`,
           where,
           fix: 'Remove the empty security override unless this is intentionally a public endpoint.',
         });
@@ -272,7 +272,7 @@ function analyze(text: string): Analysis | null {
         findings.push({
           sev: m === 'get' ? 'high' : 'critical',
           title: 'Unauthenticated endpoint',
-          detail: `No operation or global \`security\` applies — anyone can call this ${m.toUpperCase()}${m !== 'get' ? ' (state-changing!)' : ''} (OWASP API2).`,
+          detail: `No operation or global \`security\` applies - anyone can call this ${m.toUpperCase()}${m !== 'get' ? ' (state-changing!)' : ''} (OWASP API2).`,
           where,
           fix: 'Require an auth scheme on this operation (or globally).',
         });
@@ -281,7 +281,7 @@ function analyze(text: string): Analysis | null {
         findings.push({
           sev: 'medium',
           title: 'Possible BOLA / IDOR (object id in path)',
-          detail: `Path takes an object identifier. Authentication ≠ authorization — confirm the handler checks the caller OWNS this object (OWASP API1, the #1 API risk).`,
+          detail: `Path takes an object identifier. Authentication ≠ authorization - confirm the handler checks the caller OWNS this object (OWASP API1, the #1 API risk).`,
           where,
           fix: 'Enforce object-level authorization server-side; never trust the id alone.',
         });
@@ -302,7 +302,7 @@ function analyze(text: string): Analysis | null {
           sev: 'low',
           title: 'No 429 (rate limiting) documented',
           detail:
-            'No 429 anywhere suggests no documented rate limiting — OWASP API4 (unrestricted resource consumption).',
+            'No 429 anywhere suggests no documented rate limiting - OWASP API4 (unrestricted resource consumption).',
           where,
           fix: 'Add 429 responses and enforce rate limits at the gateway.',
         });
@@ -325,7 +325,7 @@ function analyze(text: string): Analysis | null {
           findings.push({
             sev: 'medium',
             title: 'Mass-assignment risk (free-form request body)',
-            detail: `Request body is an object with no \`properties\` and additionalProperties not false — clients can submit arbitrary fields (OWASP API6 / API3).`,
+            detail: `Request body is an object with no \`properties\` and additionalProperties not false - clients can submit arbitrary fields (OWASP API6 / API3).`,
             where,
             fix: 'Define an explicit allow-list schema and set additionalProperties: false.',
           });
@@ -339,7 +339,7 @@ function analyze(text: string): Analysis | null {
           findings.push({
             sev: 'low',
             title: `Unbounded array parameter "${String(pr.name ?? '?')}"`,
-            detail: 'Array parameter with no maxItems — a caller can send an enormous list (OWASP API4).',
+            detail: 'Array parameter with no maxItems - a caller can send an enormous list (OWASP API4).',
             where,
             fix: 'Set maxItems on array parameters.',
           });
@@ -349,7 +349,7 @@ function analyze(text: string): Analysis | null {
         findings.push({
           sev: 'info',
           title: 'Deprecated operation still served',
-          detail: 'Deprecated endpoints are often unmaintained and unmonitored — a soft target.',
+          detail: 'Deprecated endpoints are often unmaintained and unmonitored - a soft target.',
           where,
           fix: 'Plan removal; monitor usage and sunset.',
         });
@@ -403,7 +403,7 @@ export default function OpenApiAuditor(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">OpenAPI / Swagger Auditor</h1>
         <p className="text-muted mb-6 max-w-2xl">
           Paste an OpenAPI 3.x / Swagger 2.0 spec (JSON; YAML best-effort). Checked against the OWASP API Security Top
-          10 — unauthenticated &amp; BOLA-prone endpoints, query-string API keys, Basic/no-scope auth, plaintext HTTP,
+          10 - unauthenticated &amp; BOLA-prone endpoints, query-string API keys, Basic/no-scope auth, plaintext HTTP,
           mass assignment, unbounded params, debug paths. Nothing leaves your browser.
         </p>
         <div className="flex flex-wrap gap-2 mb-4">
@@ -468,7 +468,7 @@ export default function OpenApiAuditor(): JSX.Element {
             <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
               <ShieldCheck size={16} className="mt-0.5 flex-shrink-0" />
               <span>
-                No issues matched the ruleset. Spec-level checks ≠ a pentest — verify object-level authz at runtime.
+                No issues matched the ruleset. Spec-level checks ≠ a pentest - verify object-level authz at runtime.
               </span>
             </section>
           )}

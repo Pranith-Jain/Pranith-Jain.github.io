@@ -46,11 +46,11 @@ const NODE_COLORS: Record<EntityType, string> = {
 };
 
 const NODE_ICONS: Record<EntityType, string> = {
-  cve: '🛡',
-  actor: '👤',
-  ioc: '🔗',
-  sector: '🏢',
-  technique: '⚔',
+  cve: 'CVE',
+  actor: 'ACT',
+  ioc: 'IOC',
+  sector: 'SEC',
+  technique: 'TEC',
 };
 
 function EntityNodeBox({
@@ -64,7 +64,7 @@ function EntityNodeBox({
   return (
     <div
       className={`rounded-xl border-2 px-3 py-2 text-xs font-mono shadow-e1 bg-white dark:bg-[rgb(var(--surface-200))] ${
-        selected ? 'ring-2 ring-brand-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-950' : ''
+        selected ? 'ring-2 ring-rose-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-950' : ''
       }`}
       style={{ borderColor: color, minWidth: 120, maxWidth: 180 }}
     >

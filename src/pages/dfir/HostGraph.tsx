@@ -158,12 +158,12 @@ export default function HostGraphView(): JSX.Element {
       <h1 className="text-3xl font-display font-semibold mb-2">Host Graph Pivot</h1>
       <p className="text-muted mb-6">
         Network-intel pivot: paste an IP, ASN, or CIDR and get the announcing prefix, holder, registry, and abuse
-        contact — fused from bgp.tools, RIPE Stat, and the RDAP bootstrap registry. Keyless, no signup.
+        contact - fused from bgp.tools, RIPE Stat, and the RDAP bootstrap registry. Keyless, no signup.
       </p>
 
       <form onSubmit={onSubmit} className="flex gap-2 mb-3">
         <div className="relative flex-1">
-          <Network size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Network size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={query}
@@ -215,9 +215,9 @@ export default function HostGraphView(): JSX.Element {
       {result && result.kind === 'cidr' && <PrefixView data={result.data} input={result.input.cidr} />}
 
       {result && (
-        <p className="mt-6 text-mini font-mono text-slate-400 flex items-center gap-2">
+        <p className="mt-6 text-mini font-mono text-slate-500 dark:text-slate-400 flex items-center gap-2">
           <Clock size={11} />
-          generated {new Date(result.generated_at).toLocaleString()} · sources: {result.data.sources.join(', ') || '—'}
+          generated {new Date(result.generated_at).toLocaleString()} · sources: {result.data.sources.join(', ') || '-'}
         </p>
       )}
     </div>
@@ -248,7 +248,7 @@ function Row({ label, value, mono = true }: { label: string; value: React.ReactN
   return (
     <div className="grid grid-cols-1 sm:grid-cols-[8rem_1fr] gap-y-1 gap-x-4 py-1.5 text-sm">
       <span className="text-xs font-mono uppercase tracking-wider text-slate-500">{label}</span>
-      <span className={mono ? 'font-mono' : ''}>{value || <span className="text-slate-400">—</span>}</span>
+      <span className={mono ? 'font-mono' : ''}>{value || <span className="text-slate-500 dark:text-slate-400">-</span>}</span>
     </div>
   );
 }
@@ -320,7 +320,7 @@ function AsnView({ data, input }: { data: AsData; input: number }): JSX.Element 
             </div>
             <div className="text-sm text-slate-500">
               {data.name && <span>{data.name}</span>}
-              {data.descr && data.descr !== data.name && <span className="ml-2 text-slate-400">· {data.descr}</span>}
+              {data.descr && data.descr !== data.name && <span className="ml-2 text-slate-500 dark:text-slate-400">· {data.descr}</span>}
             </div>
           </div>
         </div>

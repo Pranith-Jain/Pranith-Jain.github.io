@@ -13,7 +13,7 @@
 export interface DailyQuote {
   text: string;
   attribution: string;
-  topic: string; // short label shown above the quote — "Threat intel · 2026"
+  topic: string; // short label shown above the quote - "Threat intel · 2026"
 }
 
 export const QUOTES: ReadonlyArray<DailyQuote> = [
@@ -93,7 +93,7 @@ export const QUOTES: ReadonlyArray<DailyQuote> = [
     topic: 'Vulnerability management',
   },
   {
-    text: 'Ransomware groups don’t innovate — they industrialise.',
+    text: 'Ransomware groups don’t innovate - they industrialise.',
     attribution: 'Live ransomware tracking, 2026',
     topic: 'Ransomware',
   },

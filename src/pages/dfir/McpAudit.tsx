@@ -135,28 +135,28 @@ export default function McpAudit(): JSX.Element {
             <button
               onClick={() => setInput(SAMPLE_CLEAN)}
               className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
-              title="Sample MCP config — no findings expected"
+              title="Sample MCP config - no findings expected"
             >
               MCP · clean
             </button>
             <button
               onClick={() => setInput(SAMPLE_DIRTY)}
               className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
-              title="Sample MCP config — multiple findings"
+              title="Sample MCP config - multiple findings"
             >
               MCP · dirty
             </button>
             <button
               onClick={() => setInput(SAMPLE_CC_CLEAN)}
               className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
-              title="Sample Claude Code settings — no findings expected"
+              title="Sample Claude Code settings - no findings expected"
             >
               Claude Code · clean
             </button>
             <button
               onClick={() => setInput(SAMPLE_CC_DIRTY)}
               className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
-              title="Sample Claude Code settings — multiple findings"
+              title="Sample Claude Code settings - multiple findings"
             >
               Claude Code · dirty
             </button>
@@ -272,22 +272,22 @@ export default function McpAudit(): JSX.Element {
               </h3>
               <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
                 <li>
-                  <strong>Dangerous startup commands</strong> — bare shells, <code>curl | sh</code> installers,
+                  <strong>Dangerous startup commands</strong> - bare shells, <code>curl | sh</code> installers,
                   destructive primitives.
                 </li>
                 <li>
-                  <strong>Hardcoded credentials</strong> — secret-shaped values in <code>env</code> / <code>args</code>.
+                  <strong>Hardcoded credentials</strong> - secret-shaped values in <code>env</code> / <code>args</code>.
                 </li>
                 <li>
-                  <strong>Tool description injection</strong> — prompt-injection patterns inside tool descriptions (tool
+                  <strong>Tool description injection</strong> - prompt-injection patterns inside tool descriptions (tool
                   poisoning).
                 </li>
                 <li>
-                  <strong>Broad-permission tool names</strong> — <code>exec</code>, <code>run_shell</code>,
+                  <strong>Broad-permission tool names</strong> - <code>exec</code>, <code>run_shell</code>,
                   <code> eval</code> (excessive agency).
                 </li>
                 <li>
-                  <strong>Insecure remote transports</strong> — plain HTTP, third-party hosts, unrestricted flags.
+                  <strong>Insecure remote transports</strong> - plain HTTP, third-party hosts, unrestricted flags.
                 </li>
               </ul>
             </div>
@@ -297,22 +297,22 @@ export default function McpAudit(): JSX.Element {
               </h3>
               <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
                 <li>
-                  <strong>Permission allow/deny rules</strong> — flags <code>Bash(*)</code>, dangerous primitives in
+                  <strong>Permission allow/deny rules</strong> - flags <code>Bash(*)</code>, dangerous primitives in
                   allow, missing deny lists, sensitive Read paths (<code>~/.ssh</code>, <code>/etc</code>).
                 </li>
                 <li>
-                  <strong>Permissive default modes</strong> — <code>bypassPermissions</code> and{' '}
+                  <strong>Permissive default modes</strong> - <code>bypassPermissions</code> and{' '}
                   <code>acceptEdits</code> flagged as silent-execution risks.
                 </li>
                 <li>
-                  <strong>Hostile hooks</strong> — <code>curl | sh</code> in hook commands, remote URL hooks, network
+                  <strong>Hostile hooks</strong> - <code>curl | sh</code> in hook commands, remote URL hooks, network
                   egress in PreToolUse / UserPromptSubmit, missing timeouts, embedded secrets.
                 </li>
                 <li>
-                  <strong>apiKeyHelper</strong> — flagged when it executes remote / piped code.
+                  <strong>apiKeyHelper</strong> - flagged when it executes remote / piped code.
                 </li>
                 <li>
-                  <strong>enableAllProjectMcpServers</strong> — auto-trusts every <code>.mcp.json</code> in the project
+                  <strong>enableAllProjectMcpServers</strong> - auto-trusts every <code>.mcp.json</code> in the project
                   tree.
                 </li>
               </ul>
@@ -344,7 +344,7 @@ export default function McpAudit(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              Invariant Labs — Tool Poisoning attacks against MCP
+              Invariant Labs - Tool Poisoning attacks against MCP
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -362,7 +362,7 @@ export default function McpAudit(): JSX.Element {
         </ul>
         <p className="mt-3 text-xs font-mono text-slate-500 dark:text-slate-400">
           <AlertTriangle className="inline h-3 w-3 mb-0.5" aria-hidden="true" /> Heuristics only. A clean report is not
-          a security guarantee — review upstream code, pin versions, and watch tool descriptions on every update.
+          a security guarantee - review upstream code, pin versions, and watch tool descriptions on every update.
         </p>
       </section>
     </div>

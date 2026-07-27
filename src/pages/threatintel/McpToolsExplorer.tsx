@@ -47,7 +47,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 
 const CARD = 'surface-card';
 const INPUT =
-  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500';
+  'w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500';
 
 function ToolCard({ tool, isExpanded, onToggle }: { tool: McpTool; isExpanded: boolean; onToggle: () => void }) {
   const [copied, setCopied] = useState(false);
@@ -80,15 +80,15 @@ function ToolCard({ tool, isExpanded, onToggle }: { tool: McpTool; isExpanded: b
               e.stopPropagation();
               copyName();
             }}
-            className="p-1 rounded text-slate-400 hover:text-brand-500 transition-colors"
+            className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
             title="Copy tool name"
           >
             {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
           </button>
           {isExpanded ? (
-            <ChevronDown className="h-4 w-4 text-slate-400" />
+            <ChevronDown className="h-4 w-4 text-slate-500 dark:text-slate-400" />
           ) : (
-            <ChevronRight className="h-4 w-4 text-slate-400" />
+            <ChevronRight className="h-4 w-4 text-slate-500 dark:text-slate-400" />
           )}
         </div>
       </button>
@@ -96,13 +96,13 @@ function ToolCard({ tool, isExpanded, onToggle }: { tool: McpTool; isExpanded: b
         <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-3 space-y-2">
           <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{tool.description}</p>
           <div className="flex items-center gap-2">
-            <span className="text-micro font-mono text-slate-400">MCP name:</span>
+            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">MCP name:</span>
             <code className="text-mini font-mono bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded px-1.5 py-0.5 text-slate-700 dark:text-slate-300">
               {tool.name}
             </code>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-micro font-mono text-slate-400">Category:</span>
+            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">Category:</span>
             <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${catCls}`}>{tool.category}</span>
           </div>
         </div>
@@ -160,7 +160,7 @@ export default function McpToolsExplorer() {
       backLabel="back to threat intel"
       icon={<Plug className="h-6 w-6" />}
       title="MCP Tools Explorer"
-      description={`${manifest?.toolCount ?? '—'} tools across ${categories.length} categories — search, filter, and copy tool names for your MCP client.`}
+      description={`${manifest?.toolCount ?? '-'} tools across ${categories.length} categories - search, filter, and copy tool names for your MCP client.`}
       maxWidthClass="max-w-6xl"
       loading={loading}
       error={error}
@@ -176,7 +176,7 @@ export default function McpToolsExplorer() {
           <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1">
             {categories.length} categories
           </span>
-          <span className="rounded border border-brand-200 dark:border-brand-800 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 px-2 py-1">
+          <span className="rounded border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 px-2 py-1">
             v{manifest.version}
           </span>
         </div>
@@ -184,17 +184,17 @@ export default function McpToolsExplorer() {
 
       {/* Search */}
       <div className="relative mb-4">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder={`Search ${manifest?.toolCount ?? '—'} tools…`}
+          placeholder={`Search ${manifest?.toolCount ?? '-'} tools…`}
           className={`${INPUT} pl-9 pr-3`}
         />
         {query && (
           <button
             onClick={() => setQuery('')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
           >
             ×
           </button>
@@ -206,7 +206,7 @@ export default function McpToolsExplorer() {
         <button
           type="button"
           onClick={() => setActiveCategory(null)}
-          className={`text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${activeCategory === null ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'}`}
+          className={`text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${activeCategory === null ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400'}`}
         >
           All ({manifest?.toolCount ?? 0})
         </button>
@@ -231,7 +231,7 @@ export default function McpToolsExplorer() {
           <button
             type="button"
             onClick={expandAll}
-            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             Expand all
           </button>
@@ -239,7 +239,7 @@ export default function McpToolsExplorer() {
           <button
             type="button"
             onClick={collapseAll}
-            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             Collapse all
           </button>

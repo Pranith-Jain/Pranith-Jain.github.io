@@ -89,7 +89,7 @@ const PAGE_GROUP_ICONS: Record<string, LucideIcon> = {
 
 const PAGE_GROUP_COLORS: Record<string, string> = {
   portfolio: 'text-slate-600 dark:text-slate-300 border-slate-400/40 bg-slate-500/10',
-  dfir: 'text-brand-600 dark:text-brand-400 border-brand-500/30 bg-brand-500/10',
+  dfir: 'text-rose-600 dark:text-rose-400 border-rose-500/30 bg-rose-500/10',
   threatintel: 'text-emerald-600 dark:text-emerald-300 border-emerald-500/30 bg-emerald-500/10',
   admin: 'text-amber-600 dark:text-amber-300 border-amber-500/30 bg-amber-500/10',
   blog: 'text-violet-600 dark:text-violet-300 border-violet-500/30 bg-violet-500/10',
@@ -110,7 +110,7 @@ export default function UnifiedSearch(): JSX.Element {
   const abortRef = useRef<AbortController | null>(null);
   const lastSearchedRef = useRef<string>('');
 
-  // Instant, client-side TOOL matches over the catalog — no network, no backend
+  // Instant, client-side TOOL matches over the catalog - no network, no backend
   // coupling. This is the "omnibox searches tools too" half.
   const allTools = flattenTools(SECTIONS);
   const toolMatches = useMemo(
@@ -118,7 +118,7 @@ export default function UnifiedSearch(): JSX.Element {
     [allTools, query]
   );
 
-  // Subpage matches — covers every registered route in App.tsx (DFIR,
+  // Subpage matches - covers every registered route in App.tsx (DFIR,
   // threatintel, blog, projects, admin, plus common aliases). The pages
   // index is hand-curated; the search ranks by exact label, path,
   // description, and keyword bag so e.g. "ransomware" surfaces both the
@@ -134,7 +134,7 @@ export default function UnifiedSearch(): JSX.Element {
   const detected = useMemo(() => detectIoc(query.trim()), [query]);
   const pivots = useMemo(() => (detected ? getIocPivots(detected) : []), [detected]);
 
-  // Pure fetch — no URL writes here, so this stays referentially STABLE (deps []).
+  // Pure fetch - no URL writes here, so this stays referentially STABLE (deps []).
   // Keeping it out of the debounce effect's dep chain is what prevents react-router's
   // unstable setParams identity from re-firing the search on every render.
   const runSearch = useCallback(async (raw: string) => {
@@ -161,7 +161,7 @@ export default function UnifiedSearch(): JSX.Element {
       if (!ac.signal.aborted) setData(d);
     } catch (e) {
       console.error('handler failed:', e instanceof Error ? e.message : String(e));
-      if ((e as Error).name === 'AbortError') return; // superseded / unmounted — swallow
+      if ((e as Error).name === 'AbortError') return; // superseded / unmounted - swallow
       setError(e instanceof Error ? e.message : 'search failed');
     } finally {
       if (!ac.signal.aborted) setLoading(false);
@@ -169,7 +169,7 @@ export default function UnifiedSearch(): JSX.Element {
   }, []);
 
   // Reflect the committed query in the ?q= URL param. GUARDED so it only navigates
-  // when actually out of sync — otherwise the unstable setParams would churn
+  // when actually out of sync - otherwise the unstable setParams would churn
   // re-renders + history entries on every search cycle.
   useEffect(() => {
     const q = query.trim();
@@ -230,7 +230,7 @@ export default function UnifiedSearch(): JSX.Element {
       backTo="/threatintel"
       icon={<Search size={28} />}
       title="Unified Search"
-      description="One omnibox across the platform — tools, ransomware victims, C2 IPs, live IOCs, detections, actor timelines, CVEs, writeups, cybercrime forums, and breaches. Type an IP, hash, CVE, actor, or keyword; ranked by relevance with one-click pivots and an optional AI summary."
+      description="One omnibox across the platform - tools, ransomware victims, C2 IPs, live IOCs, detections, actor timelines, CVEs, writeups, cybercrime forums, and breaches. Type an IP, hash, CVE, actor, or keyword; ranked by relevance with one-click pivots and an optional AI summary."
       maxWidthClass="max-w-5xl"
     >
       <form
@@ -240,24 +240,24 @@ export default function UnifiedSearch(): JSX.Element {
         }}
         className="relative mb-6 max-w-2xl"
       >
-        <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+        <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
         <input
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search threat intelligence — e.g. LockBit, 185.234.72.0, CVE-2026-1234, RedLine…"
+          placeholder="Search threat intelligence - e.g. LockBit, 185.234.72.0, CVE-2026-1234, RedLine…"
           aria-label="Search across all intelligence sources and tools"
-          className="w-full pl-11 pr-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
+          className="w-full pl-11 pr-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 font-mono"
         />
       </form>
 
-      {/* Entity quick-actions — instant, from the detected indicator type. */}
+      {/* Entity quick-actions - instant, from the detected indicator type. */}
       {detected && pivots.length > 0 && (
-        <div className="mb-4 rounded-xl border border-brand-200/60 dark:border-brand-800/40 bg-brand-50/40 dark:bg-brand-950/10 p-3">
+        <div className="mb-4 rounded-xl border border-rose-200/60 dark:border-rose-800/40 bg-rose-50/40 dark:bg-rose-950/10 p-3">
           <div className="mb-2 flex items-center gap-2">
-            <Zap size={14} className="text-brand-600 dark:text-brand-400" />
+            <Zap size={14} className="text-rose-600 dark:text-rose-400" />
             <span className="text-mini font-mono text-muted">
-              Detected {IOC_TYPE_LABEL[detected.type]} — quick actions
+              Detected {IOC_TYPE_LABEL[detected.type]} - quick actions
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -268,7 +268,7 @@ export default function UnifiedSearch(): JSX.Element {
                   href={sanitizeUrl(p.path) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded border border-brand-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-brand-700 hover:border-brand-500/60 hover:bg-brand-50 dark:bg-[rgb(var(--surface-200))] dark:text-brand-300 dark:hover:bg-brand-950/30"
+                  className="inline-flex items-center gap-1.5 rounded border border-rose-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-rose-700 hover:border-rose-500/60 hover:bg-rose-50 dark:bg-[rgb(var(--surface-200))] dark:text-rose-300 dark:hover:bg-rose-950/30"
                   title={p.desc}
                 >
                   {p.label}
@@ -278,7 +278,7 @@ export default function UnifiedSearch(): JSX.Element {
                 <Link
                   key={p.path}
                   to={p.path}
-                  className="inline-flex items-center gap-1.5 rounded border border-brand-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-brand-700 hover:border-brand-500/60 hover:bg-brand-50 dark:bg-[rgb(var(--surface-200))] dark:text-brand-300 dark:hover:bg-brand-950/30"
+                  className="inline-flex items-center gap-1.5 rounded border border-rose-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-rose-700 hover:border-rose-500/60 hover:bg-rose-50 dark:bg-[rgb(var(--surface-200))] dark:text-rose-300 dark:hover:bg-rose-950/30"
                   title={p.desc}
                 >
                   {p.label}
@@ -290,10 +290,10 @@ export default function UnifiedSearch(): JSX.Element {
         </div>
       )}
 
-      {/* Tools — instant client-side catalog matches. */}
+      {/* Tools - instant client-side catalog matches. */}
       {toolMatches.length > 0 && (
         <section className="mb-4 surface-card overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-brand-600 dark:text-brand-400">
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-rose-600 dark:text-rose-400">
             <Wrench size={14} />
             <span className="font-display font-semibold text-sm">Tools</span>
             <span className="text-mini font-mono opacity-70">· {toolMatches.length}</span>
@@ -303,7 +303,7 @@ export default function UnifiedSearch(): JSX.Element {
               <li key={tool.to} className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)]">
                 <Link to={tool.to} className="flex items-start justify-between gap-2 group">
                   <div className="min-w-0">
-                    <span className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 block truncate">
+                    <span className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 block truncate">
                       {tool.label}
                     </span>
                     <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">{tool.desc}</span>
@@ -318,7 +318,7 @@ export default function UnifiedSearch(): JSX.Element {
         </section>
       )}
 
-      {/* Pages — every registered subpage in the app (DFIR, threatintel,
+      {/* Pages - every registered subpage in the app (DFIR, threatintel,
           portfolio, blog, admin). Surfaces routes that aren't in the
           tile-level SECTIONS catalog. */}
       {pageMatches.length > 0 && (
@@ -345,7 +345,7 @@ export default function UnifiedSearch(): JSX.Element {
                         className={`mt-0.5 shrink-0 inline-flex items-center justify-center rounded border px-1 py-0.5 ${color}`}
                       />
                       <div className="min-w-0">
-                        <span className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 block truncate">
+                        <span className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 block truncate">
                           {page.label}
                         </span>
                         <span className="text-mini font-mono text-slate-500 mt-0.5 block truncate">
@@ -387,7 +387,7 @@ export default function UnifiedSearch(): JSX.Element {
 
       {data && total > 0 && (
         <div className="space-y-4">
-          {/* Opt-in AI summary — public same-origin endpoint, button-triggered. */}
+          {/* Opt-in AI summary - public same-origin endpoint, button-triggered. */}
           <AiSummaryCard
             surface="Unified Search"
             items={summaryItems}
@@ -428,7 +428,7 @@ export default function UnifiedSearch(): JSX.Element {
                           className="flex items-start justify-between gap-2 group"
                         >
                           <div className="min-w-0">
-                            <span className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 truncate block">
+                            <span className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 truncate block">
                               {item.label}
                             </span>
                             {item.description && (
@@ -437,7 +437,7 @@ export default function UnifiedSearch(): JSX.Element {
                               </span>
                             )}
                           </div>
-                          <ExternalLink size={12} className="shrink-0 mt-1 text-slate-400 group-hover:text-brand-500" />
+                          <ExternalLink size={12} className="shrink-0 mt-1 text-slate-500 dark:text-slate-400 group-hover:text-rose-500" />
                         </a>
                       ) : (
                         <div>
@@ -451,7 +451,7 @@ export default function UnifiedSearch(): JSX.Element {
                           )}
                         </div>
                       )}
-                      <span className="text-micro font-mono text-slate-400 mt-1 block">
+                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-1 block">
                         {item.source}
                         {item.subkind ? ` · ${item.subkind}` : ''}
                       </span>

@@ -141,7 +141,7 @@ export default function DomainReputation(): JSX.Element {
       >
         <div className="flex gap-2">
           <div className="flex-1 relative">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
             <input
               type="text"
               value={input}
@@ -207,7 +207,7 @@ export default function DomainReputation(): JSX.Element {
                 </>
               ) : (
                 <>
-                  <span className="text-emerald-500 font-semibold">Clean</span> — no blacklists flagged this{' '}
+                  <span className="text-emerald-500 font-semibold">Clean</span> - no blacklists flagged this{' '}
                   {results.type}
                 </>
               )}
@@ -293,7 +293,7 @@ export default function DomainReputation(): JSX.Element {
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">
               <BookOpen size={12} aria-hidden="true" /> External reputation lookups
             </h3>
-            <p className="text-mini font-mono text-slate-400 mb-3">
+            <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-3">
               For a second opinion, cross-check against these free tools:
             </p>
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -309,7 +309,7 @@ export default function DomainReputation(): JSX.Element {
                   <div className="font-display font-semibold text-xs text-slate-900 dark:text-slate-100 inline-flex items-center gap-1">
                     {t.name} <ExternalLink size={10} aria-hidden="true" />
                   </div>
-                  <p className="text-micro font-mono text-slate-400 mt-0.5">{t.description}</p>
+                  <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">{t.description}</p>
                 </a>
               ))}
             </div>

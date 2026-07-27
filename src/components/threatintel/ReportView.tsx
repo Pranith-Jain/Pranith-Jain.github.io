@@ -221,21 +221,21 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
       {/* Appendices: tables */}
       {report.appendices.iocs.length > 0 && (
         <AppendixTable
-          title="Appendix A — Indicators"
+          title="Appendix A - Indicators"
           head={['Type', 'Value']}
           rows={report.appendices.iocs.map((i) => [i.type, i.value])}
         />
       )}
       {report.appendices.mitre.length > 0 && (
         <AppendixTable
-          title="Appendix B — MITRE ATT&CK"
+          title="Appendix B - MITRE ATT&CK"
           head={['Technique', 'Name', 'Tactic']}
           rows={report.appendices.mitre.map((m) => [m.technique_id, m.technique_name, m.tactic])}
         />
       )}
       {report.appendices.cves.length > 0 && (
         <AppendixTable
-          title="Appendix C — CVEs"
+          title="Appendix C - CVEs"
           head={['CVE', 'CVSS', 'EPSS', 'KEV']}
           rows={report.appendices.cves.map((c) => [
             c.id,
@@ -249,7 +249,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
       {/* Sources appendix (with Admiralty badges + anchor targets for citations) */}
       {report.appendices.sources.length > 0 && (
         <section className="surface-card p-5">
-          <h2 className="font-display font-semibold text-lg mb-3">Appendix D — Sources</h2>
+          <h2 className="font-display font-semibold text-lg mb-3">Appendix D - Sources</h2>
           <ul className="space-y-1.5">
             {report.appendices.sources.map((s) => (
               <li
@@ -257,7 +257,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
                 id={`report-src-${s.ref}`}
                 className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300"
               >
-                <span className="font-mono text-xs text-slate-400">[{s.ref}]</span>
+                <span className="font-mono text-xs text-slate-500 dark:text-slate-400">[{s.ref}]</span>
                 <span
                   className="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]"
                   title="NATO Admiralty reliability"
@@ -291,7 +291,7 @@ function AppendixTable({ title, head, rows }: { title: string; head: string[]; r
       <h2 className="font-display font-semibold text-lg mb-3">{title}</h2>
       <table className="w-full text-xs font-mono">
         <thead>
-          <tr className="text-left text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <tr className="text-left text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
             {head.map((h) => (
               <th key={h} className="py-1 pr-3 font-semibold">
                 {h}

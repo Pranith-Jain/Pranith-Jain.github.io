@@ -49,7 +49,7 @@ function StixNodeBox({
 const NODE_TYPES: NodeTypes = { stixNode: StixNodeBox };
 
 // Loose structural prop types. The parent (StixViewer) deliberately does NOT
-// import { Node, Edge } from '@xyflow/react' even as a type — Rollup's module
+// import { Node, Edge } from '@xyflow/react' even as a type - Rollup's module
 // graph treats type-only static imports as edges and emits a modulepreload
 // link for the vendor-xyflow chunk on every page. We accept the looser shape
 // here and cast to xyflow's strict types at the boundary.

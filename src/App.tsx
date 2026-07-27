@@ -26,7 +26,7 @@ const CommandPalette = lazy(() =>
 
 // Top-level pages are lazy-loaded so the initial paint only ships the JS
 // needed for the current route. Home stays eagerly imported because it's
-// the most-likely landing page — lighthouse measurement 2026-05-12 showed
+// the most-likely landing page - lighthouse measurement 2026-05-12 showed
 // lazy-Home regressed wiki score 77→64 and root 72→69. The Suspense
 // fallback shifts FCP and adds CLS that outweighs the parse savings.
 import Home from './pages/Home';
@@ -110,7 +110,7 @@ const McpAudit = lazy(() => import('./pages/dfir/McpAudit'));
 const KillChain = lazy(() => import('./pages/dfir/KillChain'));
 const Diamond = lazy(() => import('./pages/dfir/Diamond'));
 const Lolbins = lazy(() => import('./pages/dfir/Lolbins'));
-const ReportAnalyzer = lazy(() => import('./pages/dfir/ReportAnalyzer'));
+const ReportHub = lazy(() => import('./pages/dfir/ReportHub'));
 const IocLifecycle = lazy(() => import('./pages/dfir/IocLifecycle'));
 const CtMonitor = lazy(() => import('./pages/dfir/CtMonitor'));
 const StealerParser = lazy(() => import('./pages/dfir/StealerParser'));
@@ -125,8 +125,7 @@ const IrPlaybooks = lazy(() => import('./pages/dfir/IrPlaybooks'));
 const EmailDefense = lazy(() => import('./pages/dfir/EmailDefense'));
 const Nhi = lazy(() => import('./pages/dfir/Nhi'));
 const Pivex = lazy(() => import('./pages/dfir/Pivex'));
-const Tracepulse = lazy(() => import('./pages/dfir/Tracepulse'));
-const Quicktrace = lazy(() => import('./pages/dfir/Quicktrace'));
+const CryptoTracer = lazy(() => import('./pages/dfir/CryptoTracer'));
 const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
 const AgentMap = lazy(() => import('./pages/dfir/AgentMap'));
 const AgentInvestigator = lazy(() => import('./pages/dfir/AgentInvestigator'));
@@ -184,15 +183,10 @@ const FleetMap = lazy(() => import('./pages/dfir/FleetMap'));
 const WordPressSim = lazy(() => import('./pages/dfir/WordPressSim'));
 const RhysidaIntrusion = lazy(() => import('./pages/dfir/RhysidaIntrusion'));
 
-const InsightAi = lazy(() => import('./pages/dfir/InsightAi'));
-const QuerycraftAi = lazy(() => import('./pages/dfir/QuerycraftAi'));
-const ChronoAi = lazy(() => import('./pages/dfir/ChronoAi'));
-const MalbriefAi = lazy(() => import('./pages/dfir/MalbriefAi'));
-const VerdiktAi = lazy(() => import('./pages/dfir/VerdiktAi'));
+const AiSuite = lazy(() => import('./pages/dfir/AiSuite'));
 const ReverseImage = lazy(() => import('./pages/dfir/ReverseImage'));
 const EmlExtractor = lazy(() => import('./pages/dfir/EmlExtractor'));
 const EmailDeliverability = lazy(() => import('./pages/dfir/EmailDeliverability'));
-const Tracer = lazy(() => import('./pages/dfir/Tracer'));
 const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
 const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
 const ThreatIntelCatalog = lazy(() => import('./pages/threatintel/Catalog'));
@@ -383,7 +377,6 @@ const DmarcAnalyzer = lazy(() => import('./pages/dfir/DmarcAnalyzer'));
 const AssessmentDetail = lazy(() => import('./pages/threatintel/AssessmentDetail'));
 const ExportHub = lazy(() => import('./pages/dfir/ExportHub'));
 const MultiSearch = lazy(() => import('./pages/dfir/MultiSearch'));
-const ReportComposer = lazy(() => import('./pages/dfir/ReportComposer'));
 const XVeridikt = lazy(() => import('./pages/dfir/XVeridikt'));
 const Dnscope = lazy(() => import('./pages/dfir/Dnscope'));
 const AttmapAi = lazy(() => import('./pages/dfir/AttmapAi'));
@@ -430,7 +423,7 @@ interface RouteDef {
 }
 
 /**
- * Data-driven route table — replaces ~1820 lines of repetitive <Route> JSX.
+ * Data-driven route table - replaces ~1820 lines of repetitive <Route> JSX.
  * Route ORDER does not affect matching (React Router v6 ranks by path
  * specificity, not declaration order); entries are kept in the original source
  * order for diff sanity. Every lazy()/eager/redirect mapping is byte-identical
@@ -475,7 +468,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/aptmap', Component: Aptmap },
   { path: '/threatintel/external/cerast', Component: Cerast },
   { path: '/threatintel/external/threatmon', Component: ThreatMonInfostealer },
-  { path: '/live', Component: Snapshots },
   { path: '/dfir', Component: DFIR },
   { path: '/dfir/orkl', Component: OrklPage },
   { path: '/dfir/abuse-rep', Component: AbuseRepPage },
@@ -573,8 +565,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/phishops', Component: PhishOps },
   { path: '/dfir/phishbook', Component: PhishBook },
   { path: '/dfir/pivex', Component: Pivex },
-  { path: '/dfir/tracepulse', Component: Tracepulse },
-  { path: '/dfir/quicktrace', Component: Quicktrace },
+  { path: '/dfir/crypto-tracer', Component: CryptoTracer },
   { path: '/dfir/email-defense', Component: EmailDefense },
   { path: '/dfir/dmarc-analyzer', Component: DmarcAnalyzer },
   { path: '/dfir/nhi', Component: Nhi },
@@ -629,11 +620,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/pe', Component: PeAnalyzer },
   { path: '/dfir/web-log', Component: WebLogAnalyzer },
   { path: '/dfir/prefetch', Component: PrefetchAnalyzer },
-  { path: '/dfir/insight-ai', Component: InsightAi },
-  { path: '/dfir/querycraft-ai', Component: QuerycraftAi },
-  { path: '/dfir/chrono-ai', Component: ChronoAi },
-  { path: '/dfir/malbrief-ai', Component: MalbriefAi },
-  { path: '/dfir/verdikt-ai', Component: VerdiktAi },
+  { path: '/dfir/ai-suite', Component: AiSuite },
   { path: '/dfir/x-verdikt', Component: XVeridikt },
   { path: '/dfir/dnscope', Component: Dnscope },
   { path: '/dfir/attmap-ai', Component: AttmapAi },
@@ -648,7 +635,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/url-rep', Component: UrlReputation },
   { path: '/dfir/email-rep', Component: EmailReputation },
   { path: '/dfir/email-osnit', Component: EmailOsnit },
-  { path: '/dfir/tracer', Component: Tracer },
   { path: '/threatintel/catalog', Component: ThreatIntelCatalog },
   { path: '/threatintel/about', Component: ThreatIntelAbout },
   { path: '/threatintel', Component: ThreatIntelHome },
@@ -799,8 +785,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   // ── 24 Gap Features ──────────────────────────────────────────────
   { path: '/dfir/export-hub', Component: ExportHub },
   { path: '/dfir/multi-search', Component: MultiSearch },
-  { path: '/dfir/report-composer', Component: ReportComposer },
-  { path: '/dfir/report-analyzer', Component: ReportAnalyzer },
+  { path: '/dfir/report-hub', Component: ReportHub },
   { path: '/admin', Component: AdminApp },
   { path: '/admin/analytics', Component: AdminAnalyticsDashboard },
   { path: '/radar', Component: RadarHome },
@@ -818,16 +803,28 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/dfir/discord-watch', to: '/threatintel/catalog?cat=social' },
   { path: '/dfir/industry-news', to: '/threatintel/catalog?cat=social' },
   { path: '/difr', to: '/dfir' },
+  { path: '/live', to: '/snapshots' },
   { path: '/osint-tools', to: '/threatintel/osint/cli' },
   { path: '/threatnexus/', to: '/threatnexus' },
 
-  // ── Duplicate routes (same component) — collapsed 2026-06 ─────
+  // ── Duplicate routes (same component) - collapsed 2026-06 ─────
   // Aliases of tab-hubs (DomainInvestigator, IocInvestigate, etc.) point
-  // at the same component so they're not separate pages — redirect them.
+  // at the same component so they're not separate pages - redirect them.
   { path: '/dfir/dork-builder', to: '/dfir/google-dorks' },
-  { path: '/dfir/report-parser', to: '/dfir/report-analyzer' },
+  { path: '/dfir/report-parser', to: '/dfir/report-hub' },
+  { path: '/dfir/report-analyzer', to: '/dfir/report-hub' },
+  { path: '/dfir/report-composer', to: '/dfir/report-hub' },
   { path: '/dfir/mobile-sqlite', to: '/dfir/sqlite' },
-  { path: '/dfir/crypto-trace', to: '/dfir/tracer' },
+  // ── Merged route redirects ──
+  { path: '/dfir/crypto-trace', to: '/dfir/crypto-tracer' },
+  { path: '/dfir/tracer', to: '/dfir/crypto-tracer' },
+  { path: '/dfir/tracepulse', to: '/dfir/crypto-tracer' },
+  { path: '/dfir/quicktrace', to: '/dfir/crypto-tracer' },
+  { path: '/dfir/insight-ai', to: '/dfir/ai-suite' },
+  { path: '/dfir/querycraft-ai', to: '/dfir/ai-suite' },
+  { path: '/dfir/chrono-ai', to: '/dfir/ai-suite' },
+  { path: '/dfir/malbrief-ai', to: '/dfir/ai-suite' },
+  { path: '/dfir/verdikt-ai', to: '/dfir/ai-suite' },
   { path: '/dfir/username', to: '/dfir/username-investigator' },
   { path: '/dfir/username-osint', to: '/dfir/username-investigator' },
   { path: '/dfir/identity-lookup', to: '/dfir/username-investigator' },
@@ -836,7 +833,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/whoxy', to: '/dfir/whoxy' },
   { path: '/threatintel/research-hub/campaign-gen', to: '/threatintel/campaigns/generator' },
   { path: '/threatintel/tools/graph', to: '/threatintel/actors/graph' },
-  // Tab-hub aliases — same component, different default tab
+  // Tab-hub aliases - same component, different default tab
   { path: '/dfir/domain', to: '/dfir/domain-investigator' },
   { path: '/dfir/domain-rep', to: '/dfir/domain-investigator' },
   { path: '/dfir/webcheck', to: '/dfir/domain-investigator' },
@@ -894,7 +891,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/cves/k8s', to: '/threatintel/cves/cves' },
   { path: '/threatintel/cves/exploitable', to: '/threatintel/cves/cves' },
   { path: '/threatintel/cves/list', to: '/threatintel/cves/cves' },
-  // ── Canonical 2-segment hub paths → real page (defensive — direct
+  // ── Canonical 2-segment hub paths → real page (defensive - direct
   //    `to`/`href` from a component should use the real path; this
   //    redirect exists so external links, bookmarks, and copy-paste
   //    URLs to the short path still land on a real page, not a 404).
@@ -1059,7 +1056,7 @@ export function AppContent() {
   // /dfir/* and /threatintel/* are stand-alone web apps hosted next to the
   // portfolio. They get their own app-shell chrome and skip the portfolio
   // Header / Footer / background-gradient layer entirely. This is the
-  // single most-important "feel" toggle on the site — sub-pages of those
+  // single most-important "feel" toggle on the site - sub-pages of those
   // two routes should not look like sub-pages of someone's portfolio.
   const appMode: 'dfir' | 'threatintel' | 'radar' | null = location.pathname.startsWith('/dfir')
     ? 'dfir'

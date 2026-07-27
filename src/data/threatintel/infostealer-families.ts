@@ -1,5 +1,5 @@
 /**
- * Baseline infostealer encyclopedia — curated family profiles with
+ * Baseline infostealer encyclopedia - curated family profiles with
  * Malpedia references and threat-actor attribution.
  *
  * Inspired by Hokage-Intel's 24-family infostealer seed set.

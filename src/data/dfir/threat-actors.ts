@@ -47,7 +47,7 @@ export const threatActors: ThreatActor[] = [
     techniques: ['T1059', 'T1078', 'T1486', 'T1561', 'T1071'],
     targets: ['Energy / critical infrastructure', 'Ukrainian government', 'Western defense'],
     description:
-      'Sandworm is a Russian GRU Unit 74455 threat actor responsible for some of the most destructive cyberattacks on record. The group deployed BlackEnergy against Ukrainian power grids in 2015–2016, NotPetya in 2017 — the most costly cyberattack in history — and Industroyer/CRASHOVERRIDE against Ukrainian transmission systems. They remain highly active targeting Ukrainian and Western infrastructure.',
+      'Sandworm is a Russian GRU Unit 74455 threat actor responsible for some of the most destructive cyberattacks on record. The group deployed BlackEnergy against Ukrainian power grids in 2015–2016, NotPetya in 2017 - the most costly cyberattack in history - and Industroyer/CRASHOVERRIDE against Ukrainian transmission systems. They remain highly active targeting Ukrainian and Western infrastructure.',
     references: ['https://attack.mitre.org/groups/G0034/'],
   },
   {
@@ -143,7 +143,7 @@ export const threatActors: ThreatActor[] = [
     techniques: ['T1078', 'T1133', 'T1059', 'T1036', 'T1105'],
     targets: ['US critical infrastructure', 'Communications', 'Energy', 'Transportation', 'Water'],
     description:
-      'Volt Typhoon is a Chinese state-sponsored actor identified in 2023 targeting US critical infrastructure. The group is notable for using living-off-the-land techniques — relying on built-in OS tools and legitimate credentials rather than custom malware — making detection difficult. US and allied governments assess the group is pre-positioning for potential disruptive attacks in the event of conflict.',
+      'Volt Typhoon is a Chinese state-sponsored actor identified in 2023 targeting US critical infrastructure. The group is notable for using living-off-the-land techniques - relying on built-in OS tools and legitimate credentials rather than custom malware - making detection difficult. US and allied governments assess the group is pre-positioning for potential disruptive attacks in the event of conflict.',
     references: ['https://attack.mitre.org/groups/G1017/'],
   },
   {
@@ -175,7 +175,7 @@ export const threatActors: ThreatActor[] = [
     techniques: ['T1195', 'T1542', 'T1027', 'T1078'],
     targets: ['Government', 'Military', 'Telecommunications', 'Energy'],
     description:
-      "Equation Group is widely attributed to the NSA's Tailored Access Operations (TAO) unit. The group developed some of the most sophisticated tooling ever documented, including firmware-level implants (GrayFish) that survive disk reformatting. Tools leaked by the Shadow Brokers in 2016–2017 — including EternalBlue — were subsequently weaponized in WannaCry and NotPetya outbreaks.",
+      "Equation Group is widely attributed to the NSA's Tailored Access Operations (TAO) unit. The group developed some of the most sophisticated tooling ever documented, including firmware-level implants (GrayFish) that survive disk reformatting. Tools leaked by the Shadow Brokers in 2016–2017 - including EternalBlue - were subsequently weaponized in WannaCry and NotPetya outbreaks.",
     references: ['https://attack.mitre.org/groups/G0020/'],
   },
   {
@@ -367,7 +367,7 @@ export const threatActors: ThreatActor[] = [
     techniques: ['T1566.004', 'T1598', 'T1621', 'T1098', 'T1199', 'T1486'],
     targets: ['Telecom', 'BPO / outsourcing', 'Casinos & hospitality', 'Financial services', 'Tech / cloud'],
     description:
-      'Scattered Spider is a financially-motivated, English-speaking collective known for elite social engineering — help-desk impersonation, SIM swapping, and real-time MFA-fatigue/AiTM — to seize identity-provider and cloud access, then deploy ransomware (historically ALPHV/BlackCat, later RansomHub). High-profile 2023–2025 intrusions include MGM Resorts and Caesars. Members overlap with the broader "Comm" cybercrime community.',
+      'Scattered Spider is a financially-motivated, English-speaking collective known for elite social engineering - help-desk impersonation, SIM swapping, and real-time MFA-fatigue/AiTM - to seize identity-provider and cloud access, then deploy ransomware (historically ALPHV/BlackCat, later RansomHub). High-profile 2023–2025 intrusions include MGM Resorts and Caesars. Members overlap with the broader "Comm" cybercrime community.',
     references: ['https://attack.mitre.org/groups/G1015/'],
   },
   {
@@ -466,7 +466,7 @@ export const threatActors: ThreatActor[] = [
     techniques: ['T1190', 'T1059', 'T1014', 'T1040', 'T1003'],
     targets: ['Telecommunications carriers', 'Government', 'ISPs', 'Lawful-intercept systems'],
     description:
-      'Salt Typhoon is a Chinese state espionage group that, disclosed in late 2024, deeply compromised multiple major US telecommunications providers — accessing call-detail records, the lawful-intercept (CALEA) infrastructure, and communications of government and political targets. One of the most significant telecom-espionage campaigns on record; remediation was still ongoing into 2025.',
+      'Salt Typhoon is a Chinese state espionage group that, disclosed in late 2024, deeply compromised multiple major US telecommunications providers - accessing call-detail records, the lawful-intercept (CALEA) infrastructure, and communications of government and political targets. One of the most significant telecom-espionage campaigns on record; remediation was still ongoing into 2025.',
   },
   {
     slug: 'muddywater',
@@ -516,7 +516,7 @@ export const threatActors: ThreatActor[] = [
     techniques: ['T1566.002', 'T1598', 'T1114.002', 'T1071.001', 'T1556'],
     targets: ['Academia / think tanks', 'Journalists & dissidents', 'Government', 'NGOs'],
     description:
-      'APT35 (Charming Kitten) is an Iranian IRGC-aligned espionage group specializing in elaborate, patient social-engineering — fake personas, journalist/scholar impersonation, and credential-harvesting — against policy experts, journalists and dissidents. It uses the HYPERSCRAPE tool to silently exfiltrate victim mailboxes and the modular BellaCiao/POWERSTAR implants. Activity continued through 2024–2025 including targeting of political campaigns.',
+      'APT35 (Charming Kitten) is an Iranian IRGC-aligned espionage group specializing in elaborate, patient social-engineering - fake personas, journalist/scholar impersonation, and credential-harvesting - against policy experts, journalists and dissidents. It uses the HYPERSCRAPE tool to silently exfiltrate victim mailboxes and the modular BellaCiao/POWERSTAR implants. Activity continued through 2024–2025 including targeting of political campaigns.',
     references: ['https://attack.mitre.org/groups/G0059/'],
   },
   {

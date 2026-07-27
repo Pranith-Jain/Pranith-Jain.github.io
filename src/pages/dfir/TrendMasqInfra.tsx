@@ -17,7 +17,7 @@ const FINDINGS: Finding[] = [
     id: 'favicon-pivot',
     title: 'Favicon-Pivot Discovery',
     description:
-      'Threat actors embedding unique favicon hashes across multiple infrastructure nodes to establish shared identity. Pivoting on favicon SHA256 reveals entire clusters of impersonation domains — a single hash surfaces dozens of related sites that would otherwise appear unrelated.',
+      'Threat actors embedding unique favicon hashes across multiple infrastructure nodes to establish shared identity. Pivoting on favicon SHA256 reveals entire clusters of impersonation domains - a single hash surfaces dozens of related sites that would otherwise appear unrelated.',
     delivery: 'Infrastructure fingerprinting',
     detectionSignals: [
       'Favicon SHA256 hash clustering',
@@ -32,7 +32,7 @@ const FINDINGS: Finding[] = [
     id: 'js-gated-exe',
     title: 'JS-Gated EXE Delivery (MROScanner OU Cert)',
     description:
-      'Malware delivery gated behind JavaScript execution checks — the browser must execute JS before the payload drops. Uses MROScanner organizational unit certificate for code signing legitimacy. Targets users who paste copied content or follow installation instructions.',
+      'Malware delivery gated behind JavaScript execution checks - the browser must execute JS before the payload drops. Uses MROScanner organizational unit certificate for code signing legitimacy. Targets users who paste copied content or follow installation instructions.',
     delivery: 'Browser-gated payload',
     detectionSignals: [
       'MROScanner OU code signing certificate',
@@ -46,9 +46,9 @@ const FINDINGS: Finding[] = [
   },
   {
     id: 'clickfix-ai-tools',
-    title: 'ClickFix Install Modals — AI Dev Tools',
+    title: 'ClickFix Install Modals - AI Dev Tools',
     description:
-      'ClickFix social engineering campaigns impersonating Claude Code CLI and LM Studio installers. Fake install modals prompt users to paste terminal commands that execute malicious cradles. Targets AI developer community specifically — a high-value, fast-growing audience with elevated trust in CLI-based tooling.',
+      'ClickFix social engineering campaigns impersonating Claude Code CLI and LM Studio installers. Fake install modals prompt users to paste terminal commands that execute malicious cradles. Targets AI developer community specifically - a high-value, fast-growing audience with elevated trust in CLI-based tooling.',
     delivery: 'Social engineering modals',
     detectionSignals: [
       'Claude Code CLI impersonation pages',
@@ -64,7 +64,7 @@ const FINDINGS: Finding[] = [
     id: 'domain-squatting',
     title: 'Post-Launch Domain Squatting',
     description:
-      'Registering lookalike domains immediately after product launches, security advisories, or viral announcements. Squatting domains timed to capture search traffic and social media referrals during peak interest windows — then redirecting to malware payloads.',
+      'Registering lookalike domains immediately after product launches, security advisories, or viral announcements. Squatting domains timed to capture search traffic and social media referrals during peak interest windows - then redirecting to malware payloads.',
     delivery: 'Typosquatting / brand impersonation',
     detectionSignals: [
       'Brand-adjacent domain registration spikes',
@@ -80,7 +80,7 @@ const FINDINGS: Finding[] = [
     id: 'favicon-infrastructure',
     title: 'Software Impersonation Infrastructure',
     description:
-      'Complete infrastructure setups impersonating legitimate software products — cloned landing pages, matching CDN patterns, and domain-adjacent registrations. The infrastructure is purpose-built to capture users searching for legitimate tools and redirect them to malicious payloads.',
+      'Complete infrastructure setups impersonating legitimate software products - cloned landing pages, matching CDN patterns, and domain-adjacent registrations. The infrastructure is purpose-built to capture users searching for legitimate tools and redirect them to malicious payloads.',
     delivery: 'Cloned landing pages + CDN abuse',
     detectionSignals: [
       'Landing page fingerprint matching',
@@ -108,7 +108,7 @@ export default function TrendMasqInfra(): JSX.Element {
       backTo="/dfir"
       icon={<Fingerprint size={28} />}
       title="Trend: Software Impersonation Infrastructure"
-      description="Analysis of threat actor infrastructure built to impersonate legitimate software products — cloned landing pages, ClickFix delivery chains targeting AI developers, and post-launch domain squatting campaigns."
+      description="Analysis of threat actor infrastructure built to impersonate legitimate software products - cloned landing pages, ClickFix delivery chains targeting AI developers, and post-launch domain squatting campaigns."
       headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           5 validated hunts · 1,569 pipeline records · 5 brands tracked

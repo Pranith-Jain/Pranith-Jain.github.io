@@ -97,7 +97,7 @@ export default function DomainMonitor(): JSX.Element {
             <div className="flex-1 relative">
               <Search
                 size={14}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
                 aria-hidden="true"
               />
               <input
@@ -105,14 +105,14 @@ export default function DomainMonitor(): JSX.Element {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="example.com"
-                className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-9 pr-3 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
                 aria-label="Domain to monitor"
               />
             </div>
             <button
               type="submit"
               disabled={loading || !clean}
-              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+              className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
             >
               {loading ? (
                 <Loader2 size={16} className="animate-spin inline mr-1" />
@@ -129,7 +129,7 @@ export default function DomainMonitor(): JSX.Element {
       onRetry={run}
       empty={!loading && !error && !results}
       emptyMessage="Enter a domain above to scan for typosquat variants."
-      emptyIcon={<Globe size={28} className="mx-auto text-slate-400" />}
+      emptyIcon={<Globe size={28} className="mx-auto text-slate-500 dark:text-slate-400" />}
     >
       {results && (
         <div className="space-y-6">
@@ -201,7 +201,7 @@ export default function DomainMonitor(): JSX.Element {
                       )}
                       <Link
                         to={`/dfir/domain-rep?domain=${encodeURIComponent(v.domain)}`}
-                        className="text-xs font-mono text-brand-600 hover:text-brand-700 dark:text-brand-400"
+                        className="text-xs font-mono text-rose-600 hover:text-rose-700 dark:text-rose-400"
                       >
                         Check Rep
                       </Link>
@@ -246,14 +246,14 @@ export default function DomainMonitor(): JSX.Element {
                 {results.results.unchecked.slice(0, 20).map((v) => (
                   <span
                     key={v.domain}
-                    className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400"
+                    className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400"
                     title={v.type}
                   >
                     {v.domain}
                   </span>
                 ))}
                 {results.results.unchecked.length > 20 && (
-                  <span className="text-xs font-mono text-slate-400">
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                     +{results.results.unchecked.length - 20} more
                   </span>
                 )}
@@ -285,19 +285,19 @@ export default function DomainMonitor(): JSX.Element {
           <div className="flex gap-2 flex-wrap">
             <Link
               to={`/dfir/domain-rep?domain=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40"
             >
               <ExternalLink size={10} /> Domain Reputation
             </Link>
             <Link
               to={`/dfir/ioc-check?indicator=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40"
             >
               <ExternalLink size={10} /> IOC Checker
             </Link>
             <Link
               to={`/dfir/breach?domain=${encodeURIComponent(clean)}`}
-              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40"
             >
               <ExternalLink size={10} /> Breach Check
             </Link>

@@ -1,5 +1,5 @@
 /**
- * StatCards — reusable stat grid used across 30+ pages.
+ * StatCards - reusable stat grid used across 30+ pages.
  *
  * Replaces the pattern of:
  *   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -52,8 +52,8 @@ export function StatCards({ cards, cols = 'grid-cols-2 sm:grid-cols-4' }: StatCa
             }`}
           >
             <div className="flex items-center gap-2 mb-1.5">
-              {card.icon && <span className={card.color ?? 'text-slate-400'}>{card.icon}</span>}
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">{card.label}</span>
+              {card.icon && <span className={card.color ?? 'text-slate-500 dark:text-slate-400'}>{card.icon}</span>}
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{card.label}</span>
             </div>
             <div className={`text-2xl font-display font-bold ${card.color ?? 'text-slate-900 dark:text-white'}`}>
               {typeof card.value === 'number' ? card.value.toLocaleString() : card.value}

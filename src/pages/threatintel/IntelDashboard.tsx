@@ -38,21 +38,21 @@ const SOURCES = [
     href: '/dfir/phishing',
     label: 'Phishing URLs',
     icon: Target,
-    desc: 'OpenPhish + PhishTank — 80+ targeted brands',
+    desc: 'OpenPhish + PhishTank - 80+ targeted brands',
   },
   {
     key: 'malware',
     href: '/threatintel/malware-vault',
     label: 'Malware Samples',
     icon: Radio,
-    desc: 'MalwareBazaar — hashes, signatures, tags',
+    desc: 'MalwareBazaar - hashes, signatures, tags',
   },
   {
     key: 'telegram',
     href: '/threatintel/social',
     label: 'Telegram Intel',
     icon: Globe2,
-    desc: '22 channels + custom — IOC drops, leak announcements',
+    desc: '22 channels + custom - IOC drops, leak announcements',
   },
   {
     key: 'telegram_leaks',
@@ -66,14 +66,14 @@ const SOURCES = [
     href: '/threatintel/iocs',
     label: 'Breach Database',
     icon: Activity,
-    desc: '7 breach sources — email + domain search',
+    desc: '7 breach sources - email + domain search',
   },
   {
     key: 'ioc',
     href: '/threatintel/correlation',
     label: 'IOC Correlation',
     icon: TrendingUp,
-    desc: '21 sources cross-referenced — high-signal indicators',
+    desc: '21 sources cross-referenced - high-signal indicators',
   },
 ];
 
@@ -118,16 +118,16 @@ export default function IntelDashboard(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
       >
         back
       </BackLink>
 
       <div className="animate-fade-in-up mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-          <Activity size={28} className="text-brand-600 dark:text-brand-400" /> Intelligence Dashboard
+        <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3 mb-3">
+          <Activity size={28} className="text-rose-600 dark:text-rose-400" /> Intelligence Dashboard
         </h1>
-        <p className="text-muted mt-2 max-w-3xl">Consolidated view across all threat intelligence sources.</p>
+        <p className="text-muted max-w-3xl">Consolidated view across all threat intelligence sources.</p>
       </div>
 
       <DataState loading={loading} error={error} rows={16}>
@@ -138,12 +138,12 @@ export default function IntelDashboard(): JSX.Element {
               <div className="surface-card p-4">
                 <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Leaks indexed</p>
                 <p className="text-2xl font-bold font-display">{data.telegram_monitor.total_leaks}</p>
-                <p className="text-mini text-slate-400 mt-0.5">{data.telegram_monitor.leaks_24h} in 24h</p>
+                <p className="text-mini text-slate-500 dark:text-slate-400 mt-0.5">{data.telegram_monitor.leaks_24h} in 24h</p>
               </div>
               <div className="surface-card p-4">
                 <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Watched channels</p>
                 <p className="text-2xl font-bold font-display">{data.telegram_monitor.watched_channels}</p>
-                <p className="text-mini text-slate-400 mt-0.5">
+                <p className="text-mini text-slate-500 dark:text-slate-400 mt-0.5">
                   {data.telegram_monitor.unreviewed_channels} unreviewed
                 </p>
               </div>
@@ -158,13 +158,13 @@ export default function IntelDashboard(): JSX.Element {
                 >
                   {data.feed_health}
                 </p>
-                <p className="text-mini text-slate-400 mt-0.5">{data.feed_count} sources</p>
+                <p className="text-mini text-slate-500 dark:text-slate-400 mt-0.5">{data.feed_count} sources</p>
               </div>
             </div>
 
             {/* Program health: CTI-CMM maturity + source-reliability histogram */}
             <section id="maturity">
-              <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-brand-600 dark:text-brand-400 font-mono mb-4">
+              <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-rose-600 dark:text-rose-400 font-mono mb-2">
                 Program Health
               </h2>
               <MaturityPanel />
@@ -172,18 +172,18 @@ export default function IntelDashboard(): JSX.Element {
 
             {/* Source cards */}
             <section>
-              <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-brand-600 dark:text-brand-400 font-mono mb-4">
+              <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-rose-600 dark:text-rose-400 font-mono mb-2">
                 Threat Intelligence Sources
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {SOURCES.map((s) => {
                   const Icon = s.icon;
                   return (
                     <Link key={s.key} to={s.href} className="surface-card card-hover block p-4 group">
                       <div className="flex items-start gap-3">
-                        <Icon size={18} className="text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                        <Icon size={18} className="text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
                         <div>
-                          <h3 className="font-display font-semibold text-sm group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                          <h3 className="font-display font-semibold text-sm group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
                             {s.label}
                           </h3>
                           <p className="text-meta text-muted mt-0.5 leading-relaxed">{s.desc}</p>
@@ -226,7 +226,7 @@ export default function IntelDashboard(): JSX.Element {
                   <Link
                     key={link.href}
                     to={link.href}
-                    className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                    className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                   >
                     {link.label}
                   </Link>

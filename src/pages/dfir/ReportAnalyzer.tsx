@@ -173,7 +173,7 @@ interface MindmapEdge {
   label: string;
 }
 
-/** Diamond Model — 4-axis view of an intrusion. */
+/** Diamond Model - 4-axis view of an intrusion. */
 interface DiamondModel {
   adversary: string[];
   capability: { id: string; name: string; tactic: string; evidence: string }[];
@@ -181,7 +181,7 @@ interface DiamondModel {
   victim: { sector: string; geography: string; asset: string };
 }
 
-/** Attack Flow — kill-chain phases, each holding the TTPs observed in that phase. */
+/** Attack Flow - kill-chain phases, each holding the TTPs observed in that phase. */
 interface AttackFlowPhase {
   phase: string;
   techniques: { id: string; name: string; evidence: string }[];
@@ -363,7 +363,7 @@ const CONFIDENCE_PILL: Record<'high' | 'medium' | 'low', string> = {
 };
 
 /**
- * Report Analyzer — paste a URL or text, get a unified per-report
+ * Report Analyzer - paste a URL or text, get a unified per-report
  * analysis: AI summary, IOCs (with allowlist filtering + confidence),
  * MITRE ATT&CK TTPs (LLM + keyword merged), CVEs, 5W context, an
  * auto-generated mindmap, and a STIX 2.1 bundle.
@@ -513,7 +513,7 @@ export default function ReportAnalyzer(): JSX.Element {
       setCorrelations(Object.keys(j.correlations).length > 0 ? j.correlations : null);
     } catch (_catchErr) {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      // Silently fail — correlation is best-effort
+      // Silently fail - correlation is best-effort
     } finally {
       setCorrelating(false);
     }
@@ -525,7 +525,7 @@ export default function ReportAnalyzer(): JSX.Element {
       backLabel="back to threat intel"
       icon={<FileText className="h-6 w-6" />}
       title="Report Analyzer"
-      description="Paste a report URL or text. The analyzer runs AI summary, IOC extraction, MITRE ATT&CK TTP mapping, 5W context, CVE extraction, image-OCR, detection opportunities, conclusion with recommendations, and a STIX 2.1 bundle — in a single round-trip."
+      description="Paste a report URL or text. The analyzer runs AI summary, IOC extraction, MITRE ATT&CK TTP mapping, 5W context, CVE extraction, image-OCR, detection opportunities, conclusion with recommendations, and a STIX 2.1 bundle - in a single round-trip."
       maxWidthClass="max-w-6xl"
     >
       {/* Input card */}
@@ -560,9 +560,9 @@ export default function ReportAnalyzer(): JSX.Element {
               placeholder="https://example.com/report"
               className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-2 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
             />
-            <p className="mt-1 text-mini text-slate-400 dark:text-slate-500 leading-snug">
+            <p className="mt-1 text-mini text-slate-500 dark:text-slate-400 leading-snug">
               Works best with server-rendered pages (Arctic Wolf, vendor blogs). JS-rendered sites (CISA, Mandiant,
-              CrowdStrike) may return minimal content — paste the text directly for best results.
+              CrowdStrike) may return minimal content - paste the text directly for best results.
             </p>
             <label
               htmlFor="report-analyzer-images"
@@ -591,7 +591,7 @@ export default function ReportAnalyzer(): JSX.Element {
                   Include STIX bundle
                 </span>
                 <span className="block mt-0.5 normal-case">
-                  Off by default — STIX enrichment (Maltiverse / RDAP / NVD) can exceed the free-plan subrequest budget
+                  Off by default - STIX enrichment (Maltiverse / RDAP / NVD) can exceed the free-plan subrequest budget
                   on larger reports. Turn on for short / high-value reports where you specifically need the STIX tab
                   populated.
                 </span>
@@ -781,7 +781,7 @@ function FilterInput({
 }) {
   return (
     <div className="relative mb-3">
-      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
@@ -1078,7 +1078,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }) {
             <dt className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {r.label}
             </dt>
-            <dd className="mt-0.5 text-sm text-slate-900 dark:text-slate-100 break-words">{r.value || '—'}</dd>
+            <dd className="mt-0.5 text-sm text-slate-900 dark:text-slate-100 break-words">{r.value || '-'}</dd>
           </div>
         ))}
       </dl>
@@ -1115,7 +1115,7 @@ function DiamondTab({ diamond }: { diamond: DiamondModel | null }): JSX.Element 
   if (!diamond) {
     return (
       <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
-        <Diamond className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
+        <Diamond className="mx-auto mb-2 h-8 w-8 text-slate-500 dark:text-slate-400" />
         No adversary/capability/infrastructure/victim signal could be derived from this report.
       </div>
     );
@@ -1237,7 +1237,7 @@ function AttackFlowTab({ phases }: { phases: AttackFlowPhase[] }): JSX.Element {
   if (phases.length === 0) {
     return (
       <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
-        <GitBranch className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
+        <GitBranch className="mx-auto mb-2 h-8 w-8 text-slate-500 dark:text-slate-400" />
         No TTP signal to render as a kill chain.
       </div>
     );
@@ -1613,7 +1613,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
     return ids.size;
   }, [ttp]);
 
-  if (ttp.length === 0) return <EmptyState message="No techniques detected — heatmap is empty." />;
+  if (ttp.length === 0) return <EmptyState message="No techniques detected - heatmap is empty." />;
 
   // Sort tactics by canonical ATT&CK order.
   const activeTactics = MITRE_TACTICS.filter((t) => grouped.has(t));
@@ -1677,7 +1677,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
                 <div className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 truncate">
                   {tactic}
                 </div>
-                <div className="text-micro font-mono text-slate-400 dark:text-slate-500">
+                <div className="text-micro font-mono text-slate-500 dark:text-slate-400">
                   {hits.length} technique{hits.length !== 1 ? 's' : ''}
                 </div>
               </div>
@@ -1800,7 +1800,7 @@ function TimelineTab() {
   if (loading) {
     return (
       <section className="surface-card p-8 text-center">
-        <RefreshCw className="h-6 w-6 animate-spin text-slate-400 mx-auto mb-2" />
+        <RefreshCw className="h-6 w-6 animate-spin text-slate-500 dark:text-slate-400 mx-auto mb-2" />
         <span className="text-sm text-slate-500 dark:text-slate-400">Loading timeline…</span>
       </section>
     );
@@ -1919,7 +1919,7 @@ function TimelineTab() {
                         );
                       })}
                       {report.iocs.length > 8 && (
-                        <span className="text-micro text-slate-400 dark:text-slate-500 self-center">
+                        <span className="text-micro text-slate-500 dark:text-slate-400 self-center">
                           +{report.iocs.length - 8} more
                         </span>
                       )}

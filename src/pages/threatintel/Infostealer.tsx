@@ -8,9 +8,9 @@ import { sanitizeUrl } from '../../lib/sanitize-url';
 /**
  * Infostealer live tracker. Three independent live sources composed on one
  * page (no new backend beyond the rl proxy alias):
- *   1. ransomware.live PRO /victims/recent — HudsonRock infostealer
+ *   1. ransomware.live PRO /victims/recent - HudsonRock infostealer
  *      enrichment (authenticated proxy at /api/v1/rl/infostealer).
- *   2. AF datamarkets — demonforums ULP / cloud-log market threads
+ *   2. AF datamarkets - demonforums ULP / cloud-log market threads
  *      (via the existing /api/v1/cyber-crime aggregate).
  *   3. deepdarkCTI "Infostealer Telegram" channel directory
  *      (via the existing /api/v1/deepdarkcti aggregate).
@@ -42,7 +42,7 @@ const TABS: Array<{ id: TabId; label: string; icon: typeof KeyRound; blurb: stri
     id: 'hudsonrock',
     label: 'HudsonRock (PRO)',
     icon: KeyRound,
-    blurb: 'ransomware.live PRO — recent victims carrying HudsonRock infostealer exposure.',
+    blurb: 'ransomware.live PRO - recent victims carrying HudsonRock infostealer exposure.',
   },
   {
     id: 'markets',
@@ -73,21 +73,21 @@ const TABS: Array<{ id: TabId; label: string; icon: typeof KeyRound; blurb: stri
     label: 'Combo & forum intel',
     icon: Network,
     blurb:
-      'Intelligence ABOUT combolist / stealer-log forums & channels — directory metadata + tagged chatter pointers. No stolen data is fetched, parsed, or shown here.',
+      'Intelligence ABOUT combolist / stealer-log forums & channels - directory metadata + tagged chatter pointers. No stolen data is fetched, parsed, or shown here.',
   },
   {
     id: 'encyclopedia',
     label: 'Family encyclopedia',
     icon: BookText,
     blurb:
-      'Curated profiles for 17 baseline infostealer families — description, capabilities, first-seen, Malpedia cross-refs, and known actor attribution.',
+      'Curated profiles for 17 baseline infostealer families - description, capabilities, first-seen, Malpedia cross-refs, and known actor attribution.',
   },
   {
     id: 'articles',
     label: 'News articles',
     icon: BookText,
     blurb:
-      'Latest infostealer research, campaign tracking, and breach reports from Hudson Rock / InfoStealers.com — RedLine, Lumma, Vidar, StealC, and emerging stealer families.',
+      'Latest infostealer research, campaign tracking, and breach reports from Hudson Rock / InfoStealers.com - RedLine, Lumma, Vidar, StealC, and emerging stealer families.',
   },
 ];
 
@@ -162,7 +162,7 @@ function RawJson({ value }: { value: unknown }) {
 }
 
 export default function Infostealer(): JSX.Element {
-  // Default tab is "hudsonrock" — the headline PRO source. The previous
+  // Default tab is "hudsonrock" - the headline PRO source. The previous
   // default ('markets') was a leftover from the demo build.
   const [tab, setTab] = useState<TabId>('hudsonrock');
   const [hr, setHr] = useState<unknown>(null);
@@ -232,7 +232,7 @@ export default function Infostealer(): JSX.Element {
               : `PRO request failed: ${(j as { error?: string }).error ?? 'unknown'}`
           );
       } else setHrErr('PRO request failed.');
-      // Log markets — AF demonforums threads from the cybercrime aggregate
+      // Log markets - AF demonforums threads from the cybercrime aggregate
       if (ccRes.status === 'fulfilled' && isRecord(ccRes.value) && Array.isArray(ccRes.value.items)) {
         const items = (ccRes.value.items as Record<string, unknown>[])
           .filter((i) => String(i.source ?? '').includes('andreafortuna-demonforums'))
@@ -245,7 +245,7 @@ export default function Infostealer(): JSX.Element {
           }));
         setMarkets(items);
       } else setMarkets([]);
-      // Telegram channels — deepdarkCTI 'Infostealer Telegram' category
+      // Telegram channels - deepdarkCTI 'Infostealer Telegram' category
       if (ddcRes.status === 'fulfilled' && isRecord(ddcRes.value) && Array.isArray(ddcRes.value.entries)) {
         const ch = (ddcRes.value.entries as Record<string, unknown>[])
           .filter((e) => e.category === 'Infostealer Telegram')
@@ -257,7 +257,7 @@ export default function Infostealer(): JSX.Element {
           }));
         setTg(ch);
       } else setTg([]);
-      // Stealer samples — MalwareBazaar uploads matching a known family
+      // Stealer samples - MalwareBazaar uploads matching a known family
       if (mbRes.status === 'fulfilled' && isRecord(mbRes.value) && Array.isArray(mbRes.value.samples)) {
         const ss = (mbRes.value.samples as Record<string, unknown>[])
           .map((s) => {
@@ -279,7 +279,7 @@ export default function Infostealer(): JSX.Element {
           .filter((x) => x !== null) as SampleItem[];
         setSamples(ss);
       } else setSamples([]);
-      // Stealer C2 / IOCs — live-iocs items whose family/context matches
+      // Stealer C2 / IOCs - live-iocs items whose family/context matches
       if (liRes.status === 'fulfilled' && isRecord(liRes.value) && Array.isArray(liRes.value.items)) {
         const ci = (liRes.value.items as Record<string, unknown>[])
           .filter((i) => STEALER_RE.test(String(i.context ?? '')))
@@ -292,7 +292,7 @@ export default function Infostealer(): JSX.Element {
           }));
         setC2(ci);
       } else setC2([]);
-      // Combo & stealer-forum intel — metadata + chatter pointers only
+      // Combo & stealer-forum intel - metadata + chatter pointers only
       if (sfiRes.status === 'fulfilled' && isRecord(sfiRes.value) && Array.isArray(sfiRes.value.forums)) {
         setSfi(sfiRes.value as unknown as SfiResponse);
       } else setSfi(null);
@@ -387,7 +387,7 @@ export default function Infostealer(): JSX.Element {
               onClick={() => setTab(t.id)}
               className={`inline-flex items-center gap-1.5 px-3 py-2 font-mono text-meta border-b-2 -mb-px ${
                 tab === t.id
-                  ? 'border-brand-500 text-brand-700 dark:text-brand-300'
+                  ? 'border-rose-500 text-rose-700 dark:text-rose-300'
                   : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
               }`}
             >
@@ -435,7 +435,7 @@ export default function Infostealer(): JSX.Element {
                   <li key={`${title}-${date}-${i}`} className="surface-card p-3">
                     <div className="font-display font-semibold text-sm truncate">{title}</div>
                     {sub && <p className="font-mono text-mini text-muted mt-1 line-clamp-2">{sub}</p>}
-                    {date && <p className="font-mono text-micro text-slate-400 mt-1">{date}</p>}
+                    {date && <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{date}</p>}
                   </li>
                 );
               })}
@@ -454,21 +454,21 @@ export default function Infostealer(): JSX.Element {
                   href={sanitizeUrl(m.url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-display font-semibold text-sm text-brand-600 dark:text-brand-400 hover:underline break-all"
+                  className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline break-all"
                 >
                   {m.title}
                 </a>
                 <button
                   type="button"
                   onClick={() => copy(m.url)}
-                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
+                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
                   aria-label="Copy URL"
                 >
                   <Copy size={11} />
                 </button>
               </div>
               {m.description && <p className="font-mono text-mini text-slate-500 mt-1 line-clamp-2">{m.description}</p>}
-              {m.published && <p className="font-mono text-micro text-slate-400 mt-1">{m.published}</p>}
+              {m.published && <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{m.published}</p>}
             </li>
           ))}
           {markets && markets.length === 0 && (
@@ -498,7 +498,7 @@ export default function Infostealer(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => copy(c.url)}
-                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
+                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
                   aria-label="Copy URL"
                 >
                   <Copy size={11} />
@@ -523,27 +523,27 @@ export default function Infostealer(): JSX.Element {
                 <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                   {s.family}
                 </span>
-                {s.file_type && <span className="font-mono text-micro text-slate-400">{s.file_type}</span>}
+                {s.file_type && <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{s.file_type}</span>}
               </div>
               <div className="flex items-center gap-2 mt-1">
                 <a
                   href={sanitizeUrl(s.url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-mini text-brand-600 dark:text-brand-400 hover:underline break-all"
+                  className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline break-all"
                 >
                   {s.sha256.slice(0, 32)}…
                 </a>
                 <button
                   type="button"
                   onClick={() => copy(s.sha256)}
-                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
+                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
                   aria-label="Copy SHA256"
                 >
                   <Copy size={11} />
                 </button>
               </div>
-              <p className="font-mono text-micro text-slate-400 mt-1">
+              <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">
                 {s.reporter ? `by ${s.reporter}` : ''} {s.first_seen ?? ''}
               </p>
             </li>
@@ -564,7 +564,7 @@ export default function Infostealer(): JSX.Element {
                 <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                   {x.family}
                 </span>
-                <span className="font-mono text-micro text-slate-400">
+                <span className="font-mono text-micro text-slate-500 dark:text-slate-400">
                   {x.kind} · {x.source}
                 </span>
               </div>
@@ -573,13 +573,13 @@ export default function Infostealer(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => copy(x.value)}
-                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
+                  className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
                   aria-label="Copy indicator"
                 >
                   <Copy size={11} />
                 </button>
               </div>
-              {x.observed_at && <p className="font-mono text-micro text-slate-400 mt-1">{x.observed_at}</p>}
+              {x.observed_at && <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{x.observed_at}</p>}
             </li>
           ))}
           {c2 && c2.length === 0 && (
@@ -593,12 +593,12 @@ export default function Infostealer(): JSX.Element {
       {!loading && tab === 'encyclopedia' && (
         <div className="space-y-4">
           {INFOSTEALER_FAMILIES.map((fam) => (
-            <details key={fam.slug} className="surface-card group open:border-brand-500/40">
+            <details key={fam.slug} className="surface-card group open:border-rose-500/40">
               <summary className="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer select-none hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200))] rounded-xl list-none">
                 <div className="min-w-0">
                   <Link
                     to={`/threatintel/infostealer/${fam.slug}`}
-                    className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400"
+                    className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400"
                   >
                     {fam.name}
                   </Link>
@@ -607,10 +607,10 @@ export default function Infostealer(): JSX.Element {
                   )}
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-micro font-mono text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-1.5 py-0.5">
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-1.5 py-0.5">
                     {fam.firstSeen}
                   </span>
-                  <span className="text-micro font-mono text-slate-400">{fam.platforms.join('/')}</span>
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{fam.platforms.join('/')}</span>
                 </div>
               </summary>
               <div className="px-4 pb-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3 space-y-3">
@@ -648,7 +648,7 @@ export default function Infostealer(): JSX.Element {
                       href={fam.malpediaUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
+                      className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline"
                     >
                       Malpedia <ExternalLink size={11} />
                     </a>
@@ -669,13 +669,13 @@ export default function Infostealer(): JSX.Element {
         <div className="space-y-5">
           <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-mini text-amber-700 dark:text-amber-300">
             Defensive intelligence only. This tab tracks <strong>where</strong> combolist / stealer-log activity lives
-            and <strong>that</strong> it is being discussed — directory metadata and public permalinks. It never
+            and <strong>that</strong> it is being discussed - directory metadata and public permalinks. It never
             fetches, parses, or displays stolen credentials or breach contents.
           </div>
 
           {!sfi && (
             <p className="font-mono text-meta text-slate-500">
-              Forum-intel cache is cold — visit again shortly once it warms.
+              Forum-intel cache is cold - visit again shortly once it warms.
             </p>
           )}
 
@@ -720,7 +720,7 @@ export default function Infostealer(): JSX.Element {
                           <button
                             type="button"
                             onClick={() => copy(e.url)}
-                            className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
+                            className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
                             aria-label="Copy URL"
                           >
                             <Copy size={11} />
@@ -751,13 +751,13 @@ export default function Infostealer(): JSX.Element {
                             {s.keyword}
                           </span>
                           <span className="text-muted truncate">{s.source}</span>
-                          {s.when && <span className="text-slate-400 text-micro">{s.when.slice(0, 10)}</span>}
+                          {s.when && <span className="text-slate-500 dark:text-slate-400 text-micro">{s.when.slice(0, 10)}</span>}
                           {s.link && (
                             <a
                               href={sanitizeUrl(s.link)}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="ml-auto text-brand-600 dark:text-brand-400 hover:underline"
+                              className="ml-auto text-rose-600 dark:text-rose-400 hover:underline"
                             >
                               open ↗
                             </a>
@@ -793,7 +793,7 @@ export default function Infostealer(): JSX.Element {
                     onClick={() => setArticleSource(src)}
                     className={`text-mini font-mono px-2 py-1 rounded border ${
                       articleSource === src
-                        ? 'bg-brand-500/15 border-brand-500/40 text-brand-700 dark:text-brand-300'
+                        ? 'bg-rose-500/15 border-rose-500/40 text-rose-700 dark:text-rose-300'
                         : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
                     }`}
                   >
@@ -815,19 +815,19 @@ export default function Infostealer(): JSX.Element {
                           href={sanitizeUrl(a.link)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-display font-semibold text-sm text-brand-600 dark:text-brand-400 hover:underline block mb-1"
+                          className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline block mb-1"
                         >
                           {a.title}
                         </a>
                         {a.description && (
                           <p className="font-mono text-mini text-muted line-clamp-2 mb-1">{a.description}</p>
                         )}
-                        <div className="flex items-center gap-2 text-micro font-mono text-slate-400">
+                        <div className="flex items-center gap-2 text-micro font-mono text-slate-500 dark:text-slate-400">
                           <ExternalLink size={10} />
                           <span
                             className={`rounded border px-1 py-0.5 ${
                               a.source === 'blog'
-                                ? 'border-brand-500/30 bg-brand-500/10 text-brand-600 dark:text-brand-400'
+                                ? 'border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400'
                                 : a.source === 'report'
                                   ? 'border-violet-500/30 bg-violet-500/10 text-violet-600 dark:text-violet-400'
                                   : a.source === 'technique'

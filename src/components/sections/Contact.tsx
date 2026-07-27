@@ -10,10 +10,10 @@ interface ContactProps {
 export function Contact({ personalInfo }: ContactProps) {
   return (
     <section id="contact" className="scroll-mt-24" aria-labelledby="contact-heading">
-      {/* CTA panel — light surface, brand-text accent on the heading.
+      {/* CTA panel - light surface, brand-text accent on the heading.
           The previous dark-on-dark panel was heavy and read as a code
           block. Geist treats CTAs as a final surface, not a separate
-          "hero island" — so we use the same `bg-white` + gray-alpha
+          "hero island" - so we use the same `bg-white` + gray-alpha
           border as the cards above, then highlight the eyebrow with
           the brand text accent to give it presence. */}
       <div className="relative overflow-hidden rounded-hero border border-black/10 bg-white px-5 py-10 dark:border-white/10 dark:bg-[rgb(var(--surface-200))] sm:px-10 sm:py-14 lg:py-16">
@@ -42,17 +42,17 @@ export function Contact({ personalInfo }: ContactProps) {
             Investigating an incident, or building detections before one happens?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-muted">
-            I work with security teams on phishing, BEC, and malware cases — and on the detection engineering,
+            I work with security teams on phishing, BEC, and malware cases - and on the detection engineering,
             threat-intel feeds, and email-defense work that prevents the next one. Available for short engagements and
             strategy calls.
           </p>
 
-          {/* CTAs — Geist h-48 (48px) height. Primary in light mode is
+          {/* CTAs - Geist h-48 (48px) height. Primary in light mode is
               slate-900 fill (one important action per view). In dark
               mode the panel is rgb(18,18,24); a pure white button
               there read as a stark slab with no relationship to the
               secondary, so we step the primary up to surface-300
-              (rgb(28,28,36)) with a thin white/10 ring — still the
+              (rgb(28,28,36)) with a thin white/10 ring - still the
               single most important action, but visually integrated.
               Secondary uses a translucent gray-alpha border + hover
               wash (the 100→200 step). NOTE: we use dark:bg-[rgb(28,28,36)]
@@ -77,7 +77,7 @@ export function Contact({ personalInfo }: ContactProps) {
             <CopyToClipboard text={personalInfo.email} label="Copy email address" />
           </div>
 
-          {/* Social Links — compact mono row on a light divider, no
+          {/* Social Links - compact mono row on a light divider, no
               per-link bg chips. Panel is now light, so the row uses
               slate-500 default and slate-900 hover. */}
           <ul

@@ -10,7 +10,7 @@ const SOURCES = [
     name: 'Ransomlook',
     grade: 'B',
     risk: 'low',
-    desc: 'Leak-site scraping — ransomware group onion posts',
+    desc: 'Leak-site scraping - ransomware group onion posts',
     bias: 'Only claims posted to leak sites',
   },
   {
@@ -18,14 +18,14 @@ const SOURCES = [
     name: 'ransomware.live PRO',
     grade: 'B',
     risk: 'low',
-    desc: 'Authenticated API — ransom notes, negotiation logs, victim claims',
+    desc: 'Authenticated API - ransom notes, negotiation logs, victim claims',
   },
   {
     id: 'ctifyi',
     name: 'cti.fyi',
     grade: 'B',
     risk: 'low',
-    desc: 'Leak-site post tracker — victim claims with .onion screenshots',
+    desc: 'Leak-site post tracker - victim claims with .onion screenshots',
     bias: 'Only claims posted to leak sites',
   },
   {
@@ -34,16 +34,16 @@ const SOURCES = [
     grade: 'C',
     risk: 'medium',
     desc: 'Ransomware + breach claims parsed from threat-intel X posts (free text)',
-    bias: 'Heuristic extraction from prose — lower precision; unverified actor claims',
+    bias: 'Heuristic extraction from prose - lower precision; unverified actor claims',
   },
   {
     id: 'cisa-kev',
     name: 'CISA KEV',
     grade: 'A',
     risk: 'low',
-    desc: 'Known Exploited Vulnerabilities — authoritative US govt',
+    desc: 'Known Exploited Vulnerabilities - authoritative US govt',
   },
-  { id: 'nvd', name: 'NVD', grade: 'A', risk: 'low', desc: 'National Vulnerability Database — official CVE repo' },
+  { id: 'nvd', name: 'NVD', grade: 'A', risk: 'low', desc: 'National Vulnerability Database - official CVE repo' },
   {
     id: 'malpedia',
     name: 'Malpedia',
@@ -97,7 +97,7 @@ const SOURCES = [
     name: 'Telegram Cybersec',
     grade: 'D',
     risk: 'high',
-    desc: 'Public Telegram channels — IOC drops, leak announcements',
+    desc: 'Public Telegram channels - IOC drops, leak announcements',
     bias: 'Quality varies by channel',
   },
   {
@@ -188,7 +188,7 @@ export function DataDisclaimer() {
         </p>
         <p>
           This platform aggregates data from the following sources for reference and decision-support purposes only.
-          Source reliability varies — always validate indicators in your own environment before taking action. The
+          Source reliability varies - always validate indicators in your own environment before taking action. The
           platform does not verify, endorse, or guarantee the accuracy of third-party data.
         </p>
       </div>
@@ -213,7 +213,7 @@ export function DataDisclaimer() {
               </span>
               <div className="flex-1 min-w-0">
                 <span className="font-medium text-slate-900 dark:text-slate-100">{s.name}</span>
-                <span className="text-slate-500"> — {s.desc}</span>
+                <span className="text-slate-500"> - {s.desc}</span>
                 {s.bias && <span className="text-amber-600 dark:text-amber-400 block truncate">{s.bias}</span>}
               </div>
               <span

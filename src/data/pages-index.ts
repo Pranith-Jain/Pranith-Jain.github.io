@@ -5,7 +5,7 @@
  *   The Unified Search omnibox (and the ⌘K command palette) used to match
  *   only the `SECTIONS` tiles in `threatintel-sections.ts` and
  *   `dfir/tool-sections.ts`. Those tile catalogs are intentionally lean
- *   (~24 + ~138 entries) — they describe the marketing surface, not the
+ *   (~24 + ~138 entries) - they describe the marketing surface, not the
  *   full route table. App.tsx registers ~336 paths, so the previous
  *   search was missing the majority of routable subpages (most tab
  *   variants, every /threatintel/* hub, every DFIR /tools/* leaf, the
@@ -17,7 +17,7 @@
  *   matches across all four layers.
  *
  * Source-of-truth ordering:
- *   1. PORTFOLIO_PAGES, DFIR_PAGES, THREATINTEL_PAGES, ADMIN_PAGES —
+ *   1. PORTFOLIO_PAGES, DFIR_PAGES, THREATINTEL_PAGES, ADMIN_PAGES -
  *      explicit, hand-curated entries. Edit these when a new page
  *      ships; the search picks it up automatically. The blog index
  *      and per-post page live in PORTFOLIO_PAGES because they share
@@ -31,7 +31,7 @@
  *   - It does not lazy-load page components. The search matches by
  *     `path` only and navigates via `react-router` <Link>. The
  *     destination chunk is loaded by the router on click.
- *   - It does not replace `SECTIONS` / `tool-sections.ts` — those
+ *   - It does not replace `SECTIONS` / `tool-sections.ts` - those
  *     files own the visual tile grid for /threatintel and /dfir. This
  *     index is a parallel data source used solely for search.
  *
@@ -55,7 +55,7 @@ export interface PageEntry {
   description: string;
   /** Section / category hint shown alongside description. */
   sectionLabel: string;
-  /** Top-level group — used to filter the index and tint badges. */
+  /** Top-level group - used to filter the index and tint badges. */
   group: PageGroup;
   /**
    * Free-form keyword bag for the matcher. Includes synonyms and
@@ -74,7 +74,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
   {
     path: '/',
     label: 'Home',
-    description: 'Landing page — overview, recent work, featured case studies, and call-to-action.',
+    description: 'Landing page - overview, recent work, featured case studies, and call-to-action.',
     sectionLabel: 'Portfolio',
     group: 'portfolio',
   },
@@ -113,7 +113,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     path: '/threat-intel',
     label: 'Threat Intel',
     description:
-      'CVE catalog, CISA KEV, IOC families, and sector-specific threat briefs — aggregated from NVD, KEV, and Daily-Hunt references.',
+      'CVE catalog, CISA KEV, IOC families, and sector-specific threat briefs - aggregated from NVD, KEV, and Daily-Hunt references.',
     sectionLabel: 'Portfolio',
     group: 'portfolio',
     keywords: ['cve', 'kev', 'ioc', 'sector', 'briefing', 'vulnerability', 'ransomware'],
@@ -145,7 +145,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
   {
     path: '/projects/:slug',
     label: 'Case Study',
-    description: 'Per-project deep dive — problem, approach, detection logic, and impact.',
+    description: 'Per-project deep dive - problem, approach, detection logic, and impact.',
     sectionLabel: 'Portfolio',
     group: 'case-study',
     keywords: ['writeup', 'case', 'study'],
@@ -168,7 +168,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
   {
     path: '/live',
     label: 'Live Snapshots',
-    description: 'Alias for /snapshots — bookmarkable hub of every live signal.',
+    description: 'Alias for /snapshots - bookmarkable hub of every live signal.',
     sectionLabel: 'Portfolio',
     group: 'portfolio',
     keywords: ['live', 'snapshots', 'telemetry'],
@@ -183,14 +183,14 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
   {
     path: '/blog/:slug',
     label: 'Blog Post',
-    description: 'A single blog post — narrative, IOCs, and detection logic.',
+    description: 'A single blog post - narrative, IOCs, and detection logic.',
     sectionLabel: 'Portfolio',
     group: 'blog',
   },
   {
     path: '/behind-the-reports',
     label: 'Behind the Reports',
-    description: 'Process notes — how a published report is sourced, drafted, and reviewed.',
+    description: 'Process notes - how a published report is sourced, drafted, and reviewed.',
     sectionLabel: 'Portfolio',
     group: 'portfolio',
   },
@@ -239,7 +239,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     path: '/winreg',
     label: 'Windows Registry Artifacts',
     description:
-      '292 Windows Registry forensic artifact definitions across 16 categories, mapped to MITRE ATT&CK — from dfir-scripts.github.io.',
+      '292 Windows Registry forensic artifact definitions across 16 categories, mapped to MITRE ATT&CK - from dfir-scripts.github.io.',
     sectionLabel: 'Portfolio',
     group: 'portfolio',
     keywords: ['registry', 'forensic', 'artifact', 'windows', 'dfir', 'regripper', 'recmd'],
@@ -248,7 +248,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     path: '/traceix',
     label: 'Traceix Hash Lookup',
     description:
-      'SHA-256 hash antivirus/reputation lookup against traceix.com (PCEF) — per-engine verdicts: Safe, Malicious, Unknown, Failed.',
+      'SHA-256 hash antivirus/reputation lookup against traceix.com (PCEF) - per-engine verdicts: Safe, Malicious, Unknown, Failed.',
     sectionLabel: 'Portfolio',
     group: 'portfolio',
     keywords: ['traceix', 'hash', 'sha256', 'av', 'antivirus', 'reputation', 'pcef', 'perkins fund'],
@@ -257,7 +257,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     path: '/threatintel/external/cerast',
     label: 'Cerast Intelligence',
     description:
-      'OSINT domain exposure search — find exposed paths, staging environments, and misconfigurations across observed domains.',
+      'OSINT domain exposure search - find exposed paths, staging environments, and misconfigurations across observed domains.',
     sectionLabel: 'Threat Intel',
     group: 'threatintel',
     keywords: ['cerast', 'domain', 'exposure', 'osint', 'staging', 'misconfiguration', 'paths', 'intelligence'],
@@ -283,7 +283,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
   {
     path: '/osint/domain',
     label: 'Domain Investigation',
-    description: 'Investigate domains — WHOIS, DNS, certificates, and reputation.',
+    description: 'Investigate domains - WHOIS, DNS, certificates, and reputation.',
     sectionLabel: 'OSINT',
     group: 'osint',
     keywords: ['domain', 'whois', 'dns', 'certificate', 'reputation', 'investigation'],
@@ -291,7 +291,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
   {
     path: '/osint/ip',
     label: 'IP Investigation',
-    description: 'Investigate IP addresses — geolocation, ASN, reputation, and threat intelligence.',
+    description: 'Investigate IP addresses - geolocation, ASN, reputation, and threat intelligence.',
     sectionLabel: 'OSINT',
     group: 'osint',
     keywords: ['ip', 'address', 'geolocation', 'asn', 'reputation', 'threat'],
@@ -307,7 +307,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
   {
     path: '/osint/email',
     label: 'Email Investigation',
-    description: 'Investigate email addresses — breach data, accounts, and identity.',
+    description: 'Investigate email addresses - breach data, accounts, and identity.',
     sectionLabel: 'OSINT',
     group: 'osint',
     keywords: ['email', 'breach', 'account', 'identity', 'investigation'],
@@ -315,7 +315,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
   {
     path: '/osint/phone',
     label: 'Phone Investigation',
-    description: 'Investigate phone numbers — carrier, location, and reputation.',
+    description: 'Investigate phone numbers - carrier, location, and reputation.',
     sectionLabel: 'OSINT',
     group: 'osint',
     keywords: ['phone', 'number', 'carrier', 'location', 'reputation'],
@@ -331,7 +331,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
   {
     path: '/osint/dns',
     label: 'DNS Investigation',
-    description: 'DNS lookup and investigation — records, resolution, and history.',
+    description: 'DNS lookup and investigation - records, resolution, and history.',
     sectionLabel: 'OSINT',
     group: 'osint',
     keywords: ['dns', 'lookup', 'record', 'resolution', 'history'],
@@ -339,7 +339,7 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
   {
     path: '/osint/subdomain',
     label: 'Subdomain Discovery',
-    description: 'Discover subdomains for a domain — enumeration and analysis.',
+    description: 'Discover subdomains for a domain - enumeration and analysis.',
     sectionLabel: 'OSINT',
     group: 'osint',
     keywords: ['subdomain', 'enumeration', 'discovery', 'domain'],
@@ -380,7 +380,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir',
     label: 'DFIR Dashboard',
-    description: 'DFIR landing — paste-an-IOC dispatcher, recent tools, and quick pivots.',
+    description: 'DFIR landing - paste-an-IOC dispatcher, recent tools, and quick pivots.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
     keywords: ['home', 'landing'],
@@ -388,7 +388,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/ioc-check',
     label: 'IOC Check',
-    description: 'Multi-engine indicator lookup — VirusTotal, AbuseIPDB, URLScan, GreyNoise.',
+    description: 'Multi-engine indicator lookup - VirusTotal, AbuseIPDB, URLScan, GreyNoise.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
     keywords: ['ioc', 'indicator', 'hash', 'ip', 'domain', 'url', 'lookup'],
@@ -427,7 +427,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/email-osnit',
     label: 'Email OSINT Profile',
-    description: 'Build digital identity from email — GitHub, Gravatar, breach exposure, reputation, DNS, PGP.',
+    description: 'Build digital identity from email - GitHub, Gravatar, breach exposure, reputation, DNS, PGP.',
     sectionLabel: 'DFIR · OSINT',
     group: 'dfir',
   },
@@ -472,14 +472,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/domain-investigator',
     label: 'Domain Investigator (deep)',
-    description: 'Deep-dive domain analysis — nameserver history, IP neighbors, and SSL SAN pivots.',
+    description: 'Deep-dive domain analysis - nameserver history, IP neighbors, and SSL SAN pivots.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
   {
     path: '/dfir/webcheck',
     label: 'Domain Webcheck',
-    description: 'Live HTTP fetch of a domain — title, headers, cookies, and screenshot.',
+    description: 'Live HTTP fetch of a domain - title, headers, cookies, and screenshot.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
@@ -487,7 +487,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/medusa-scan',
     label: 'Medusa Scanner',
     description:
-      'Client-side code scanner — secrets detection (21 issuer types: Anthropic, OpenAI, PyPI, GitHub PATs, AWS, GCP, Stripe, Slack…), SAST (injection, XSS, SSRF, deserialization), and AI security (prompt injection, data exfiltration, tool shadowing). Paste code or scan files locally.',
+      'Client-side code scanner - secrets detection (21 issuer types: Anthropic, OpenAI, PyPI, GitHub PATs, AWS, GCP, Stripe, Slack…), SAST (injection, XSS, SSRF, deserialization), and AI security (prompt injection, data exfiltration, tool shadowing). Paste code or scan files locally.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['medusa', 'scanner', 'secrets', 'sast', 'ai-security', 'prompt-injection', 'leaked-keys', 'code-audit'],
@@ -495,7 +495,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/url-preview',
     label: 'URL Preview',
-    description: 'Sandboxed URL preview — server-rendered screenshot and meta extraction.',
+    description: 'Sandboxed URL preview - server-rendered screenshot and meta extraction.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
@@ -509,28 +509,28 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/exposure',
     label: 'Exposure Scan',
-    description: 'External attack-surface scan — open ports, exposed services, and ASN neighbors.',
+    description: 'External attack-surface scan - open ports, exposed services, and ASN neighbors.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
   {
     path: '/dfir/exposed-host',
     label: 'Exposed Host',
-    description: 'Investigate a single exposed host — services, banners, and CVE candidates.',
+    description: 'Investigate a single exposed host - services, banners, and CVE candidates.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
   {
     path: '/dfir/full-spectrum',
     label: 'Full Spectrum',
-    description: 'Multi-vector investigation pivot — given an indicator, fan out across IP, domain, hash, and TLS.',
+    description: 'Multi-vector investigation pivot - given an indicator, fan out across IP, domain, hash, and TLS.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
   {
     path: '/dfir/threat-hunt',
     label: 'Threat Hunt',
-    description: 'Hypothesis-driven hunting — craft Sigma/SPL/KQL queries from a starting TTP.',
+    description: 'Hypothesis-driven hunting - craft Sigma/SPL/KQL queries from a starting TTP.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
     keywords: ['hunt', 'sigma', 'kql', 'spl'],
@@ -538,21 +538,21 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/threat-graph',
     label: 'Threat Graph',
-    description: 'Interactive graph of indicators, actors, and campaigns — pivot by clicking a node.',
+    description: 'Interactive graph of indicators, actors, and campaigns - pivot by clicking a node.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
   {
     path: '/dfir/attack-chain',
     label: 'Attack Chain',
-    description: 'Reconstruct a kill-chain from a sequence of events — TTPs, gaps, and detection coverage.',
+    description: 'Reconstruct a kill-chain from a sequence of events - TTPs, gaps, and detection coverage.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
   {
     path: '/dfir/attack-navigator',
     label: 'ATT&CK Navigator',
-    description: 'MITRE ATT&CK layer editor — annotate techniques, color by coverage, export as JSON.',
+    description: 'MITRE ATT&CK layer editor - annotate techniques, color by coverage, export as JSON.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
     keywords: ['mitre', 'attack', 'navigator', 'ttp'],
@@ -568,21 +568,21 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/kill-chain',
     label: 'Kill Chain',
-    description: 'Lockheed Martin cyber kill-chain view — annotate, score, and pivot.',
+    description: 'Lockheed Martin cyber kill-chain view - annotate, score, and pivot.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
   {
     path: '/dfir/diamond',
     label: 'Diamond Model',
-    description: 'Diamond Model of intrusion analysis — adversary, infrastructure, capability, victim.',
+    description: 'Diamond Model of intrusion analysis - adversary, infrastructure, capability, victim.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
   {
     path: '/dfir/atlas',
     label: 'MITRE ATLAS',
-    description: 'MITRE ATLAS matrix for AI/ML threats — annotated view of adversary techniques.',
+    description: 'MITRE ATLAS matrix for AI/ML threats - annotated view of adversary techniques.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
     keywords: ['ai', 'ml', 'llm', 'atlas', 'mitre'],
@@ -590,14 +590,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/owasp',
     label: 'OWASP',
-    description: 'OWASP Top 10 and supporting references — web, API, and LLM threat views.',
+    description: 'OWASP Top 10 and supporting references - web, API, and LLM threat views.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
   {
     path: '/dfir/lolbins',
     label: 'LOLBins',
-    description: 'Living-off-the-land binaries — catalog of signed Microsoft tools abused by attackers.',
+    description: 'Living-off-the-land binaries - catalog of signed Microsoft tools abused by attackers.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
     keywords: ['lolbin', 'lolbas', 'living off the land'],
@@ -613,7 +613,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/pi-taxonomy',
     label: 'PI Taxonomy',
-    description: 'Arcanum Prompt Injection Taxonomy — 172 classified attack nodes for AI red teaming.',
+    description: 'Arcanum Prompt Injection Taxonomy - 172 classified attack nodes for AI red teaming.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
     keywords: ['llm', 'ai', 'injection', 'taxonomy', 'red-team', 'attack', 'prompt'],
@@ -638,7 +638,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/nhi',
     label: 'Non-Human Identity',
-    description: 'Inventory and risk-score non-human identities — service accounts, tokens, OAuth apps.',
+    description: 'Inventory and risk-score non-human identities - service accounts, tokens, OAuth apps.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
     keywords: ['nhi', 'service account', 'identity'],
@@ -646,7 +646,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/agent',
     label: 'Agent Investigator',
-    description: 'Investigate an AI agent — call graph, tool list, prompt history, and policy drift.',
+    description: 'Investigate an AI agent - call graph, tool list, prompt history, and policy drift.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
     keywords: ['ai', 'agent', 'llm'],
@@ -654,7 +654,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/agent-enrich',
     label: 'Agent Enrich',
-    description: 'Enrich agent observables — tool calls, prompts, and data flows with external threat intel.',
+    description: 'Enrich agent observables - tool calls, prompts, and data flows with external threat intel.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
     keywords: ['ai', 'agent', 'enrich', 'threat-intel'],
@@ -662,7 +662,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/agent-map',
     label: 'Agent Map',
-    description: 'Map of agent ↔ tool ↔ data dependencies — drift detection and policy gaps.',
+    description: 'Map of agent ↔ tool ↔ data dependencies - drift detection and policy gaps.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
     keywords: ['ai', 'agent', 'llm'],
@@ -670,50 +670,43 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/pivex',
     label: 'Pivot Express',
-    description: 'Express pivot tool — given an indicator, find the next likely indicator with one click.',
+    description: 'Express pivot tool - given an indicator, find the next likely indicator with one click.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
   {
     path: '/dfir/phishops',
     label: 'PhishOps',
-    description: 'Phishing response runbook — extract, enrich, block, and notify in one workspace.',
+    description: 'Phishing response runbook - extract, enrich, block, and notify in one workspace.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
   {
     path: '/dfir/phishbook',
     label: 'Phishbook',
-    description: 'Phishing case notebook — track per-incident pivots, decisions, and follow-ups.',
+    description: 'Phishing case notebook - track per-incident pivots, decisions, and follow-ups.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
   {
-    path: '/dfir/tracepulse',
-    label: 'Tracepulse',
-    description: 'Live trace viewer for distributed traces — flag outliers, decode protobuf, pivot on tags.',
-    sectionLabel: 'DFIR · Triage',
+    path: '/dfir/crypto-tracer',
+    label: 'Crypto Tracer',
+    description: 'Cross-chain transaction tracing, real-time flow monitoring, and quick address lookups.',
+    sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
-    keywords: ['otel', 'tracing'],
-  },
-  {
-    path: '/dfir/quicktrace',
-    label: 'Quicktrace',
-    description: 'Fast trace search — paste a trace ID, get the call tree, dependencies, and errors.',
-    sectionLabel: 'DFIR · Triage',
-    group: 'dfir',
+    keywords: ['crypto', 'tracer', 'tracepulse', 'quicktrace', 'btc', 'eth', 'blockchain', 'aml'],
   },
   {
     path: '/dfir/agent-history',
     label: 'Agent History',
-    description: 'AI agent investigation sessions — quality scores, IOCs, and key findings.',
+    description: 'AI agent investigation sessions - quality scores, IOCs, and key findings.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
   {
     path: '/dfir/copilot',
     label: 'DFIR Copilot',
-    description: 'Conversational DFIR assistant — ask follow-up questions, summarize IOCs, draft pivots.',
+    description: 'Conversational DFIR assistant - ask follow-up questions, summarize IOCs, draft pivots.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['ai', 'assistant', 'chat'],
@@ -722,7 +715,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/orkl',
     label: 'ORKL Library Search',
     description:
-      'Search the ORKL open-source threat intelligence library — reports, threat actors, CVEs from hundreds of sources.',
+      'Search the ORKL open-source threat intelligence library - reports, threat actors, CVEs from hundreds of sources.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
     keywords: ['orkl', 'threat intelligence', 'library', 'cti', 'reports'],
@@ -737,7 +730,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/file',
     label: 'File → IOC Check',
-    description: 'Hash redirect — hashes the input and pivots into the IOC checker.',
+    description: 'Hash redirect - hashes the input and pivots into the IOC checker.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
@@ -746,7 +739,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/asset-intel',
     label: 'Asset Intel',
-    description: 'Per-asset intelligence — owner, exposure score, recent events.',
+    description: 'Per-asset intelligence - owner, exposure score, recent events.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
@@ -765,30 +758,17 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
-    path: '/dfir/report-analyzer',
-    label: 'Report Analyzer',
-    description: 'Deep analysis of a threat report — entities, timeline, severity, and pivot list.',
+    path: '/dfir/report-hub',
+    label: 'Report Hub',
+    description: 'Analyze external reports and compose investigation reports — AI summarisation, IOC extraction, MITRE mapping, PDF/DOCX export.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
-  },
-  {
-    path: '/dfir/report-parser',
-    label: 'Report Parser',
-    description: 'Parse a raw threat report (PDF, blog, JSON) into structured STIX-like fields.',
-    sectionLabel: 'DFIR · Investigate',
-    group: 'dfir',
-  },
-  {
-    path: '/dfir/report-composer',
-    label: 'Report Composer',
-    description: 'Compose a finished threat report from a set of IOCs, TTPs, and findings.',
-    sectionLabel: 'DFIR · Investigate',
-    group: 'dfir',
+    keywords: ['report', 'analyzer', 'composer', 'ioc', 'mitre', 'stix', 'pdf', 'docx'],
   },
   {
     path: '/dfir/extract',
     label: 'IOC Extractor',
-    description: 'Bulk IOC extraction from text — regex + parser for IPv4, IPv6, hashes, URLs, emails, CVEs.',
+    description: 'Bulk IOC extraction from text - regex + parser for IPv4, IPv6, hashes, URLs, emails, CVEs.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
@@ -802,7 +782,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/whoxy',
     label: 'Whoxy Reverse WHOIS',
-    description: 'Reverse WHOIS lookup via whoxy.com — find domains by email, owner name, company, or keyword.',
+    description: 'Reverse WHOIS lookup via whoxy.com - find domains by email, owner name, company, or keyword.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
@@ -830,14 +810,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/ioc-investigate',
     label: 'IOC Investigate',
-    description: 'Full investigative flow for an indicator — enrichment, history, related campaigns.',
+    description: 'Full investigative flow for an indicator - enrichment, history, related campaigns.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
   {
     path: '/dfir/ioc-lifecycle',
     label: 'IOC Lifecycle',
-    description: 'Track indicator lifecycle — first-seen, last-seen, decay, and retirement.',
+    description: 'Track indicator lifecycle - first-seen, last-seen, decay, and retirement.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
@@ -851,7 +831,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/cve',
     label: 'CVE Lookup',
-    description: 'Single-CVE detail — description, CVSS, affected products, KEV status, exploits.',
+    description: 'Single-CVE detail - description, CVSS, affected products, KEV status, exploits.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['cve', 'vuln', 'vulnerability'],
@@ -866,7 +846,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/cloudtrail-triage',
     label: 'CloudTrail Triage',
-    description: 'Triage suspicious AWS CloudTrail events — root usage, IAM changes, console logins.',
+    description: 'Triage suspicious AWS CloudTrail events - root usage, IAM changes, console logins.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['aws', 'cloud', 'iam'],
@@ -874,7 +854,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/gcp-iam',
     label: 'GCP IAM Analyzer',
-    description: 'Analyze a GCP IAM policy dump — privilege escalation paths, risky bindings.',
+    description: 'Analyze a GCP IAM policy dump - privilege escalation paths, risky bindings.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['gcp', 'google cloud', 'iam', 'cloud'],
@@ -882,7 +862,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/azure-rbac',
     label: 'Azure RBAC Analyzer',
-    description: 'Analyze an Azure RBAC export — role assignments, escalation paths, and PIM posture.',
+    description: 'Analyze an Azure RBAC export - role assignments, escalation paths, and PIM posture.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['azure', 'rbac', 'cloud'],
@@ -890,7 +870,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/k8s-rbac',
     label: 'K8s RBAC Analyzer',
-    description: 'Analyze a Kubernetes RBAC dump — RoleBindings, ClusterRoleBindings, escalation paths.',
+    description: 'Analyze a Kubernetes RBAC dump - RoleBindings, ClusterRoleBindings, escalation paths.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['kubernetes', 'k8s', 'rbac'],
@@ -898,14 +878,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/iam-analyzer',
     label: 'IAM Policy Analyzer',
-    description: 'Generic IAM policy analyzer — works against any JSON IAM policy export.',
+    description: 'Generic IAM policy analyzer - works against any JSON IAM policy export.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
   {
     path: '/dfir/sg-analyzer',
     label: 'Security Group Analyzer',
-    description: 'AWS security-group diff — find open rules, shadowed rules, and risky ingress.',
+    description: 'AWS security-group diff - find open rules, shadowed rules, and risky ingress.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
@@ -919,7 +899,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/username-investigator',
     label: 'Username Investigator',
-    description: 'Enumerate a username across 200+ platforms — first/last seen, profile pivots.',
+    description: 'Enumerate a username across 200+ platforms - first/last seen, profile pivots.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
@@ -933,14 +913,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/username-osint',
     label: 'Username OSINT',
-    description: 'Username OSINT sweep — fast enumeration with first-seen timing.',
+    description: 'Username OSINT sweep - fast enumeration with first-seen timing.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
   {
     path: '/dfir/socmint',
     label: 'SOCMINT',
-    description: 'Social-media intelligence — extract profile data, posts, and pivots.',
+    description: 'Social-media intelligence - extract profile data, posts, and pivots.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['social', 'twitter', 'x', 'instagram'],
@@ -948,14 +928,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/phone-osint',
     label: 'Phone OSINT',
-    description: 'Phone-number OSINT — carrier, geolocation, breach exposure, and reporting.',
+    description: 'Phone-number OSINT - carrier, geolocation, breach exposure, and reporting.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
   {
     path: '/dfir/phone-intel',
     label: 'Phone Intel',
-    description: 'Phone intelligence — carrier lookup, geolocation, device info, and breach exposure.',
+    description: 'Phone intelligence - carrier lookup, geolocation, device info, and breach exposure.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['phone', 'carrier', 'geolocation', 'breach'],
@@ -970,7 +950,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/reverse-image',
     label: 'Reverse Image',
-    description: 'Reverse image search across engines — Yandex, Google, TinEye, Bing.',
+    description: 'Reverse image search across engines - Yandex, Google, TinEye, Bing.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
@@ -985,21 +965,21 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/exif',
     label: 'EXIF Parser',
-    description: 'Extract EXIF / XMP / IPTC metadata from an image — camera, GPS, software.',
+    description: 'Extract EXIF / XMP / IPTC metadata from an image - camera, GPS, software.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
   {
     path: '/dfir/screenshot-intel',
     label: 'Screenshot Intel',
-    description: 'Analyze a screenshot — extract text (OCR), URLs, and brand assets.',
+    description: 'Analyze a screenshot - extract text (OCR), URLs, and brand assets.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
   {
     path: '/dfir/whois-history',
     label: 'WHOIS History',
-    description: 'Historical WHOIS for a domain — registrant changes, nameserver pivots.',
+    description: 'Historical WHOIS for a domain - registrant changes, nameserver pivots.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['whois', 'rdap'],
@@ -1008,7 +988,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/passive-dns',
     label: 'Passive DNS',
     description:
-      'Historical DNS resolution data for a domain or IP — detect migrations, fast-flux, and infrastructure reuse.',
+      'Historical DNS resolution data for a domain or IP - detect migrations, fast-flux, and infrastructure reuse.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['passive dns', 'pdns', 'infrastructure', 'fast-flux', 'migration'],
@@ -1016,7 +996,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/cert-search',
     label: 'Cert Search',
-    description: 'Certificate transparency search — find certs by domain, issuer, or fingerprint.',
+    description: 'Certificate transparency search - find certs by domain, issuer, or fingerprint.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['ct', 'certificate', 'transparency', 'ssl', 'tls'],
@@ -1047,14 +1027,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/ip-geo',
     label: 'IP Geolocation',
-    description: 'IP geolocation — country, city, ASN, and hosting provider.',
+    description: 'IP geolocation - country, city, ASN, and hosting provider.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
   {
     path: '/dfir/wayback',
     label: 'Wayback Machine',
-    description: 'Wayback Machine lookup — historical snapshots of a URL.',
+    description: 'Wayback Machine lookup - historical snapshots of a URL.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['archive', 'historical'],
@@ -1062,17 +1042,9 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/brand-impersonation',
     label: 'Brand Impersonation',
-    description: 'Monitor brand-impersonation domains — punycode, homoglyphs, and TLD variants.',
+    description: 'Monitor brand-impersonation domains - punycode, homoglyphs, and TLD variants.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
-  },
-  {
-    path: '/dfir/tracer',
-    label: 'Crypto Tracer',
-    description: 'Trace cryptocurrency transactions across addresses, clusters, and services.',
-    sectionLabel: 'DFIR · Investigate',
-    group: 'dfir',
-    keywords: ['crypto', 'btc', 'eth', 'blockchain'],
   },
   {
     path: '/dfir/crypto-trace',
@@ -1084,14 +1056,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/osint-mapper',
     label: 'OSINT Mapper',
-    description: 'Map OSINT collection across a target — entities, sources, and gaps.',
+    description: 'Map OSINT collection across a target - entities, sources, and gaps.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
   {
     path: '/dfir/jwt',
     label: 'JWT Inspector',
-    description: 'Decode, verify, and forge JWT tokens — header / payload / signature view.',
+    description: 'Decode, verify, and forge JWT tokens - header / payload / signature view.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['json web token', 'jwt', 'token'],
@@ -1099,28 +1071,28 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/decode',
     label: 'Decoder',
-    description: 'Multi-format decoder — base64, URL, hex, ROT13, gzip, and chained decoding.',
+    description: 'Multi-format decoder - base64, URL, hex, ROT13, gzip, and chained decoding.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
   {
     path: '/dfir/encoder',
     label: 'Encoder',
-    description: 'Multi-format encoder — base64, URL, hex, ROT, and chained encoding.',
+    description: 'Multi-format encoder - base64, URL, hex, ROT, and chained encoding.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
   {
     path: '/dfir/punycode',
     label: 'Punycode',
-    description: 'Convert and inspect punycode / IDN domains — spot homoglyph attacks.',
+    description: 'Convert and inspect punycode / IDN domains - spot homoglyph attacks.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
   {
     path: '/dfir/takeover',
     label: 'Subdomain Takeover',
-    description: 'Subdomain takeover scanner — detect dangling DNS records across cloud providers.',
+    description: 'Subdomain takeover scanner - detect dangling DNS records across cloud providers.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
@@ -1135,7 +1107,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/timestamp',
     label: 'Timestamp Converter',
-    description: 'Convert epoch, ISO, and human timestamps across timezones — useful for log normalization.',
+    description: 'Convert epoch, ISO, and human timestamps across timezones - useful for log normalization.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
   },
@@ -1159,7 +1131,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/detection-lab',
     label: 'Detection Lab',
-    description: 'Sandbox detection rules — pre-built lab with sample telemetry to test against.',
+    description: 'Sandbox detection rules - pre-built lab with sample telemetry to test against.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
   },
@@ -1188,7 +1160,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/yara',
     label: 'YARA Manager',
-    description: 'YARA rule authoring, testing, and corpus scanning — sandboxed runner.',
+    description: 'YARA rule authoring, testing, and corpus scanning - sandboxed runner.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['yara'],
@@ -1196,7 +1168,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/yara-workbench',
     label: 'YARA Workbench',
-    description: 'YARA rule workbench — multi-rule composition, test harness, and false-positive triage.',
+    description: 'YARA rule workbench - multi-rule composition, test harness, and false-positive triage.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['yara'],
@@ -1204,7 +1176,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/fp-lens',
     label: 'False Positive Lens',
-    description: 'False-positive analyzer for detection rules — backtest against historical alerts.',
+    description: 'False-positive analyzer for detection rules - backtest against historical alerts.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['false positive', 'fp', 'tune'],
@@ -1228,7 +1200,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/secret-scan',
     label: 'Secret Scanner',
-    description: 'Scan a file or repo for leaked credentials — AWS, GCP, GitHub, generic tokens.',
+    description: 'Scan a file or repo for leaked credentials - AWS, GCP, GitHub, generic tokens.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['secret', 'leak', 'token', 'credential'],
@@ -1236,7 +1208,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/openapi-audit',
     label: 'OpenAPI Audit',
-    description: 'Audit an OpenAPI / Swagger spec for security issues — broken auth, missing scopes.',
+    description: 'Audit an OpenAPI / Swagger spec for security issues - broken auth, missing scopes.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['openapi', 'swagger', 'api'],
@@ -1244,7 +1216,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/graphql-audit',
     label: 'GraphQL Audit',
-    description: 'Audit a GraphQL schema — introspection, depth limits, cost analysis.',
+    description: 'Audit a GraphQL schema - introspection, depth limits, cost analysis.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['graphql', 'api'],
@@ -1252,7 +1224,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/sec-headers',
     label: 'Security Headers',
-    description: 'Inspect a URL for security headers — HSTS, CSP, X-Frame-Options, Referrer-Policy.',
+    description: 'Inspect a URL for security headers - HSTS, CSP, X-Frame-Options, Referrer-Policy.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
   },
@@ -1260,7 +1232,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/sec-headers-live',
     label: 'Live Security Headers',
     description:
-      'Third-party live HTTP security-headers scan via IntoDNS.ai — HSTS, CSP, X-Frame-Options, plus ready-to-paste Nginx/Apache/Caddy/Cloudflare configs.',
+      'Third-party live HTTP security-headers scan via IntoDNS.ai - HSTS, CSP, X-Frame-Options, plus ready-to-paste Nginx/Apache/Caddy/Cloudflare configs.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['security', 'headers', 'hsts', 'csp', 'live', 'scan', 'intodns'],
@@ -1269,7 +1241,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/csrf-poc',
     label: 'CSRF PoC Generator',
     description:
-      'Client-side CSRF proof-of-concept generator — XHR, fetch, and img-based payloads for web security testing.',
+      'Client-side CSRF proof-of-concept generator - XHR, fetch, and img-based payloads for web security testing.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['csrf', 'poc', 'proof-of-concept', 'web', 'security', 'testing'],
@@ -1277,7 +1249,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/xss-payloads',
     label: 'XSS Payload Selector',
-    description: 'XSS payload selector by context — filter by tag, event handler, encoding, and WAF bypass technique.',
+    description: 'XSS payload selector by context - filter by tag, event handler, encoding, and WAF bypass technique.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['xss', 'payload', 'selector', 'waf', 'bypass', 'context'],
@@ -1285,7 +1257,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/taxii',
     label: 'TAXII Server',
-    description: 'TAXII 2.1 server browser — list collections, pull indicators, and subscribe.',
+    description: 'TAXII 2.1 server browser - list collections, pull indicators, and subscribe.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['taxii', 'stix'],
@@ -1293,7 +1265,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/stix',
     label: 'STIX Viewer',
-    description: 'STIX 2.1 bundle viewer — tree of objects, relationships, and references.',
+    description: 'STIX 2.1 bundle viewer - tree of objects, relationships, and references.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['stix'],
@@ -1301,7 +1273,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/stix-builder',
     label: 'STIX Builder',
-    description: 'STIX 2.1 bundle builder — craft a bundle from indicators, threat actors, and relationships.',
+    description: 'STIX 2.1 bundle builder - craft a bundle from indicators, threat actors, and relationships.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['stix'],
@@ -1309,7 +1281,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/stix-builder/b/:bundleId',
     label: 'STIX Bundle',
-    description: 'Edit an existing STIX 2.1 bundle — loaded by bundle id.',
+    description: 'Edit an existing STIX 2.1 bundle - loaded by bundle id.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['stix'],
@@ -1317,7 +1289,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/stix-workbench',
     label: 'STIX Workbench',
-    description: 'STIX workbench — multi-bundle workspace, diff, merge, and export.',
+    description: 'STIX workbench - multi-bundle workspace, diff, merge, and export.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['stix'],
@@ -1325,7 +1297,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/bloom',
     label: 'Bloom Filter',
-    description: 'Bloom filter analyzer — given a filter, test membership and estimate FPR.',
+    description: 'Bloom filter analyzer - given a filter, test membership and estimate FPR.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
   },
@@ -1341,7 +1313,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/infostealer-intel',
     label: 'Infostealer Intelligence',
     description:
-      'Hudson Rock Cavalier — search compromised credentials, domain exposure, and infection analysis from 30M+ infostealer-infected machines.',
+      'Hudson Rock Cavalier - search compromised credentials, domain exposure, and infection analysis from 30M+ infostealer-infected machines.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['infostealer', 'hudsonrock', 'cavalier', 'credentials', 'stealer', 'compromised', 'breach'],
@@ -1349,14 +1321,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/tabletop',
     label: 'Tabletop Exercise',
-    description: 'Tabletop scenarios — facilitator script, injects, and decision-trail capture.',
+    description: 'Tabletop scenarios - facilitator script, injects, and decision-trail capture.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
   },
   {
     path: '/dfir/ir-playbooks',
     label: 'IR Playbooks',
-    description: 'Incident-response playbooks — step-by-step, with role assignments and exit criteria.',
+    description: 'Incident-response playbooks - step-by-step, with role assignments and exit criteria.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
   },
@@ -1365,28 +1337,28 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/linux-triage',
     label: 'Linux Triage',
-    description: 'Linux host triage checklist — volatile data, persistence, logs, network.',
+    description: 'Linux host triage checklist - volatile data, persistence, logs, network.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
   },
   {
     path: '/dfir/log-parser',
     label: 'Log Parser',
-    description: 'Parse and normalize a log file — extract events, IOCs, and timelines.',
+    description: 'Parse and normalize a log file - extract events, IOCs, and timelines.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
   },
   {
     path: '/dfir/web-log',
     label: 'Web Log Analyzer',
-    description: 'Web server log analyzer — top IPs, error rates, suspicious paths, and UA pivots.',
+    description: 'Web server log analyzer - top IPs, error rates, suspicious paths, and UA pivots.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
   },
   {
     path: '/dfir/pcap-triage',
     label: 'PCAP Triage',
-    description: 'PCAP triage — quick statistics, top talkers, DNS resolutions, and exported objects.',
+    description: 'PCAP triage - quick statistics, top talkers, DNS resolutions, and exported objects.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
     keywords: ['pcap', 'packet', 'network'],
@@ -1394,21 +1366,21 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/registry-hive',
     label: 'Registry Hive',
-    description: 'Windows registry hive parser — recent docs, USB history, shellbags, services.',
+    description: 'Windows registry hive parser - recent docs, USB history, shellbags, services.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
   },
   {
     path: '/dfir/prefetch',
     label: 'Prefetch Analyzer',
-    description: 'Windows Prefetch parser — execution history with run count and timestamps.',
+    description: 'Windows Prefetch parser - execution history with run count and timestamps.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
   },
   {
     path: '/dfir/evtx',
     label: 'EVTX Parser',
-    description: 'Windows EVTX parser — filter by channel, event id, and time range.',
+    description: 'Windows EVTX parser - filter by channel, event id, and time range.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
     keywords: ['evtx', 'windows', 'event log'],
@@ -1416,35 +1388,35 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/plist-protobuf',
     label: 'Plist / Protobuf',
-    description: 'Parse Apple plist and Protobuf payloads — useful for iOS backup analysis.',
+    description: 'Parse Apple plist and Protobuf payloads - useful for iOS backup analysis.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
   },
   {
     path: '/dfir/ios-backup',
     label: 'iOS Backup Explorer',
-    description: 'iOS backup explorer — per-app data, keychain, and sqlite databases.',
+    description: 'iOS backup explorer - per-app data, keychain, and sqlite databases.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
   },
   {
     path: '/dfir/mobile-sqlite',
     label: 'Mobile SQLite',
-    description: 'Alias for the SQLite Explorer — useful for mobile backups.',
+    description: 'Alias for the SQLite Explorer - useful for mobile backups.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
   },
   {
     path: '/dfir/sqlite',
     label: 'SQLite Explorer',
-    description: 'SQLite database browser — schemas, rows, and BLOB export.',
+    description: 'SQLite database browser - schemas, rows, and BLOB export.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
   },
   {
     path: '/dfir/pe',
     label: 'PE Analyzer',
-    description: 'PE binary analyzer — imports, sections, entropy, signatures, and YARA match.',
+    description: 'PE binary analyzer - imports, sections, entropy, signatures, and YARA match.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
     keywords: ['pe', 'portable executable', 'binary'],
@@ -1452,7 +1424,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/apk-analyzer',
     label: 'APK Analyzer',
-    description: 'Android APK analyzer — manifest, permissions, components, and code risk.',
+    description: 'Android APK analyzer - manifest, permissions, components, and code risk.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
     keywords: ['apk', 'android', 'mobile'],
@@ -1460,7 +1432,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/powershell-deobf',
     label: 'PowerShell Deobfuscator',
-    description: 'Deobfuscate PowerShell — decode base64, XOR, string reversal, and Invoke-Expression.',
+    description: 'Deobfuscate PowerShell - decode base64, XOR, string reversal, and Invoke-Expression.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
     keywords: ['powershell', 'deobfuscate', 'obfuscation'],
@@ -1468,7 +1440,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/sample-scan',
     label: 'Sample Scan',
-    description: 'Scan a malware sample — hash lookup, sandbox verdict, and family attribution.',
+    description: 'Scan a malware sample - hash lookup, sandbox verdict, and family attribution.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
   },
@@ -1482,21 +1454,21 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/malware-analyzer',
     label: 'Malware Analyzer',
-    description: 'Static + dynamic malware analysis — strings, imports, behavior, and pivots.',
+    description: 'Static + dynamic malware analysis - strings, imports, behavior, and pivots.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
   },
   {
     path: '/dfir/malware-capabilities',
     label: 'Malware Capabilities',
-    description: 'MITRE ATT&CK mapping of a malware sample — techniques, mitigations, detections.',
+    description: 'MITRE ATT&CK mapping of a malware sample - techniques, mitigations, detections.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
   },
   {
     path: '/dfir/sandbox',
     label: 'Malware Sandbox',
-    description: 'Detonate a sample in a sandboxed environment — network, file, and process capture.',
+    description: 'Detonate a sample in a sandboxed environment - network, file, and process capture.',
     sectionLabel: 'DFIR · Forensics',
     group: 'dfir',
   },
@@ -1510,49 +1482,17 @@ const DFIR_PAGES: readonly PageEntry[] = [
 
   // AI assistants + blocklists + privacy + tools hub
   {
-    path: '/dfir/insight-ai',
-    label: 'Insight AI',
-    description: 'AI summarization of an investigation, briefing, or report.',
+    path: '/dfir/ai-suite',
+    label: 'AI Suite',
+    description: 'AI-assisted investigation — incident summarisation, query generation, timeline reconstruction, malware briefing, and IOC verdicts.',
     sectionLabel: 'DFIR · AI',
     group: 'dfir',
-    keywords: ['ai', 'summary', 'briefing'],
-  },
-  {
-    path: '/dfir/querycraft-ai',
-    label: 'QueryCraft AI',
-    description: 'AI-assisted detection query generation from natural language.',
-    sectionLabel: 'DFIR · AI',
-    group: 'dfir',
-    keywords: ['ai', 'query', 'detection'],
-  },
-  {
-    path: '/dfir/chrono-ai',
-    label: 'Chrono AI',
-    description: 'AI timeline builder — given a raw narrative, build a chronological event list.',
-    sectionLabel: 'DFIR · AI',
-    group: 'dfir',
-    keywords: ['ai', 'timeline'],
-  },
-  {
-    path: '/dfir/malbrief-ai',
-    label: 'Malbrief AI',
-    description: 'AI malware briefing — summarize a sample, family, and IOCs from a hash.',
-    sectionLabel: 'DFIR · AI',
-    group: 'dfir',
-    keywords: ['ai', 'malware', 'briefing'],
-  },
-  {
-    path: '/dfir/verdikt-ai',
-    label: 'Verdikt AI',
-    description: 'AI verdict reconciliation — aggregate multi-engine verdicts and explain disagreements.',
-    sectionLabel: 'DFIR · AI',
-    group: 'dfir',
-    keywords: ['ai', 'verdict', 'scan'],
+    keywords: ['ai', 'insight', 'querycraft', 'chrono', 'malbrief', 'verdikt', 'llm', 'copilot'],
   },
   {
     path: '/dfir/blocklists',
     label: 'Blocklists',
-    description: 'Curated blocklists — IP, domain, URL — exportable for SIEM, EDR, firewall.',
+    description: 'Curated blocklists - IP, domain, URL - exportable for SIEM, EDR, firewall.',
     sectionLabel: 'DFIR · Operations',
     group: 'dfir',
   },
@@ -1573,28 +1513,28 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/privacy',
     label: 'Privacy',
-    description: 'PII / secret redaction helper — scrub logs, screenshots, and exports.',
+    description: 'PII / secret redaction helper - scrub logs, screenshots, and exports.',
     sectionLabel: 'DFIR · Operations',
     group: 'dfir',
   },
   {
     path: '/dfir/privacy-hub',
     label: 'Privacy Hub',
-    description: 'Privacy hub — GDPR / CCPA / data-subject-request workflows and templates.',
+    description: 'Privacy hub - GDPR / CCPA / data-subject-request workflows and templates.',
     sectionLabel: 'DFIR · Compliance',
     group: 'dfir',
   },
   {
     path: '/dfir/personal-security',
     label: 'Personal Security',
-    description: 'Personal security playbook — opsec for high-risk users, account hardening, device hygiene.',
+    description: 'Personal security playbook - opsec for high-risk users, account hardening, device hygiene.',
     sectionLabel: 'DFIR · Compliance',
     group: 'dfir',
   },
   {
     path: '/dfir/dlp-scan',
     label: 'DLP Scan',
-    description: 'Data-loss-prevention scan — find sensitive data in files, repos, and storage.',
+    description: 'Data-loss-prevention scan - find sensitive data in files, repos, and storage.',
     sectionLabel: 'DFIR · Compliance',
     group: 'dfir',
     keywords: ['dlp', 'data', 'pii'],
@@ -1602,63 +1542,63 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/data-classification',
     label: 'Data Classification',
-    description: 'Classify a dataset by sensitivity — public, internal, confidential, restricted.',
+    description: 'Classify a dataset by sensitivity - public, internal, confidential, restricted.',
     sectionLabel: 'DFIR · Compliance',
     group: 'dfir',
   },
   {
     path: '/dfir/grc',
     label: 'GRC',
-    description: 'Governance, risk, and compliance — control mapping, evidence collection, and audits.',
+    description: 'Governance, risk, and compliance - control mapping, evidence collection, and audits.',
     sectionLabel: 'DFIR · Compliance',
     group: 'dfir',
   },
   {
     path: '/dfir/pgp-tool',
     label: 'PGP Tool',
-    description: 'PGP key generation, encrypt / decrypt, sign / verify — web-of-trust friendly.',
+    description: 'PGP key generation, encrypt / decrypt, sign / verify - web-of-trust friendly.',
     sectionLabel: 'DFIR · Operations',
     group: 'dfir',
   },
   {
     path: '/dfir/one-time-secret',
     label: 'One-Time Secret',
-    description: 'Encrypted secret sharing with burn-after-reading — AES-GCM in-browser, zero-knowledge server.',
+    description: 'Encrypted secret sharing with burn-after-reading - AES-GCM in-browser, zero-knowledge server.',
     sectionLabel: 'DFIR · Operations',
     group: 'dfir',
   },
   {
     path: '/dfir/tor-gateway',
     label: 'Tor Gateway',
-    description: 'Tor / .onion gateway — route a fetch through Tor to reach onion services.',
+    description: 'Tor / .onion gateway - route a fetch through Tor to reach onion services.',
     sectionLabel: 'DFIR · Operations',
     group: 'dfir',
   },
   {
     path: '/dfir/vuln-toolkit',
     label: 'Vulnerability Toolkit',
-    description: 'Curated vulnerability toolkit — exploitation references, lab environments, and reports.',
+    description: 'Curated vulnerability toolkit - exploitation references, lab environments, and reports.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
   },
   {
     path: '/dfir/briefings',
     label: 'Briefings',
-    description: 'DFIR briefings — daily / weekly tactical digests, threat-landscape reports.',
+    description: 'DFIR briefings - daily / weekly tactical digests, threat-landscape reports.',
     sectionLabel: 'DFIR · Operations',
     group: 'dfir',
   },
   {
     path: '/dfir/briefings/:slug',
     label: 'Briefing',
-    description: 'A single DFIR briefing — narrative, IOCs, and detection logic.',
+    description: 'A single DFIR briefing - narrative, IOCs, and detection logic.',
     sectionLabel: 'DFIR · Operations',
     group: 'dfir',
   },
   {
     path: '/dfir/host',
     label: 'Host alias',
-    description: 'Alias — redirects to the Asset Intel page.',
+    description: 'Alias - redirects to the Asset Intel page.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
@@ -1666,7 +1606,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/x-verdikt',
     label: 'X-VERDIKT',
     description:
-      'Multi-source IOC verdict comparison across 10 threat-intel providers — VT, AbuseIPDB, OTX, URLScan, and more.',
+      'Multi-source IOC verdict comparison across 10 threat-intel providers - VT, AbuseIPDB, OTX, URLScan, and more.',
     sectionLabel: 'DFIR · Intelligence',
     group: 'dfir',
     keywords: ['verdikt', 'ioc', 'verdict', 'enrichment', 'threatfox'],
@@ -1675,7 +1615,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/dnscope',
     label: 'DNSCOPE',
     description:
-      'Deep domain infrastructure mapping — WHOIS, DNS, certificates, subdomains, lookalikes, ports, CDN, and threat intel.',
+      'Deep domain infrastructure mapping - WHOIS, DNS, certificates, subdomains, lookalikes, ports, CDN, and threat intel.',
     sectionLabel: 'DFIR · Investigation',
     group: 'dfir',
     keywords: ['dns', 'domain', 'infrastructure', 'whois', 'certificates'],
@@ -1684,7 +1624,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/attmap-ai',
     label: 'ATTMAP-AI',
     description:
-      'AI-powered MITRE ATT&CK technique mapper — describe adversary behavior and get mapped techniques with confidence scores.',
+      'AI-powered MITRE ATT&CK technique mapper - describe adversary behavior and get mapped techniques with confidence scores.',
     sectionLabel: 'DFIR · Intelligence',
     group: 'dfir',
     keywords: ['attack', 'mitre', 'technique', 'mapping', 'ttps'],
@@ -1693,7 +1633,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/tracerules',
     label: 'TRACERULES',
     description:
-      'Detection query arsenal — browse, search, and copy KQL, Sigma, and XQL detection queries by tactic and technique.',
+      'Detection query arsenal - browse, search, and copy KQL, Sigma, and XQL detection queries by tactic and technique.',
     sectionLabel: 'DFIR · Intelligence',
     group: 'dfir',
     keywords: ['detection', 'kql', 'sigma', 'xql', 'query', 'rules'],
@@ -1702,7 +1642,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/regscope',
     label: 'REGSCOPE',
     description:
-      'Windows registry artifact analyzer — identify known persistence, defense evasion, and credential access registry keys with ATT&CK mapping.',
+      'Windows registry artifact analyzer - identify known persistence, defense evasion, and credential access registry keys with ATT&CK mapping.',
     sectionLabel: 'DFIR · Core DFIR',
     group: 'dfir',
     keywords: ['registry', 'regscope', 'persistence', 'windows', 'forensics'],
@@ -1712,7 +1652,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/tools/:group',
     label: 'DFIR Tools (category)',
-    description: 'DFIR tools grouped by category — pick a subcategory to see relevant tooling.',
+    description: 'DFIR tools grouped by category - pick a subcategory to see relevant tooling.',
     sectionLabel: 'DFIR · Tools',
     group: 'dfir',
   },
@@ -1727,15 +1667,15 @@ const DFIR_PAGES: readonly PageEntry[] = [
   },
   {
     path: '/dfir/tools/about',
-    label: 'DFIR Tools — About',
-    description: 'About the DFIR tool surface — what is covered, what is out of scope, and how to extend.',
+    label: 'DFIR Tools - About',
+    description: 'About the DFIR tool surface - what is covered, what is out of scope, and how to extend.',
     sectionLabel: 'DFIR · Tools',
     group: 'dfir',
   },
   {
     path: '/dfir/wifi-investigation',
     label: 'Wi-Fi Investigation',
-    description: 'Investigate a BSSID (MAC) or SSID (network name) — WiGLE lookup, MAC vendor, search pivots.',
+    description: 'Investigate a BSSID (MAC) or SSID (network name) - WiGLE lookup, MAC vendor, search pivots.',
     sectionLabel: 'DFIR · Network & Domain',
     group: 'dfir',
     keywords: ['wifi', 'wireless', 'bssid', 'ssid', 'wigle', 'mac'],
@@ -1744,7 +1684,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/ironsight',
     label: 'IronSight',
     description:
-      'Geopolitical intelligence — Israel alerts, strike tracker, satellite imagery, military flights, and prediction markets.',
+      'Geopolitical intelligence - Israel alerts, strike tracker, satellite imagery, military flights, and prediction markets.',
     sectionLabel: 'DFIR · Tools',
     group: 'dfir',
     keywords: ['ironsight', 'geopolitical', 'israel', 'strike', 'satellite', 'military'],
@@ -1753,23 +1693,23 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/detection-chokepoints',
     label: 'Detection Chokepoints',
     description:
-      'Invariant detection points in attack chains — prerequisites attackers cannot bypass, mapped to MITRE ATT&CK.',
+      'Invariant detection points in attack chains - prerequisites attackers cannot bypass, mapped to MITRE ATT&CK.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['chokepoint', 'detection', 'mitre', 'attack', 'kill-chain', 'invariant'],
   },
   {
     path: '/dfir/long-watch',
-    label: 'The Long Watch — Org Cyber Attack Sim',
+    label: 'The Long Watch - Org Cyber Attack Sim',
     description:
-      'Interactive browser-based network defense simulation with 3 scenarios — attack surface, phishing & identity, ransomware kill chain.',
+      'Interactive browser-based network defense simulation with 3 scenarios - attack surface, phishing & identity, ransomware kill chain.',
     sectionLabel: 'DFIR · Detection',
     group: 'dfir',
     keywords: ['simulation', 'long-watch', 'defense', 'ransomware', 'phishing', 'attack-surface', 'kill-chain'],
   },
   {
     path: '/dfir/attack-surface',
-    label: 'Attack Surface — SSL-VPN CVE Model',
+    label: 'Attack Surface - SSL-VPN CVE Model',
     description:
       'Simulate SSL-VPN exploitation across 8 years with 4 CVEs, 6 defensive controls, and probabilistic modeling.',
     sectionLabel: 'DFIR · Simulation',
@@ -1780,25 +1720,25 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/subdomain-takeover',
     label: 'Subdomain Takeover Scanner',
     description:
-      'Detect dangling CNAMEs pointing to expired or unclaimed third-party services — common attack surface gap.',
+      'Detect dangling CNAMEs pointing to expired or unclaimed third-party services - common attack surface gap.',
     sectionLabel: 'DFIR · Asset',
     group: 'dfir',
     keywords: ['subdomain', 'takeover', 'cname', 'dangling', 'attack-surface', 'recon'],
   },
   {
     path: '/dfir/ransomware-killchain',
-    label: 'Ransomware Kill Chain — 15-Stage Intrusion',
+    label: 'Ransomware Kill Chain - 15-Stage Intrusion',
     description:
-      'Walk through a ransomware intrusion from initial access to encryption — MITRE ATT&CK tagged at every stage.',
+      'Walk through a ransomware intrusion from initial access to encryption - MITRE ATT&CK tagged at every stage.',
     sectionLabel: 'DFIR · Simulation',
     group: 'dfir',
     keywords: ['simulation', 'ransomware', 'kill-chain', 'mitre', 'intrusion', 'long-watch', 'encryption'],
   },
   {
     path: '/dfir/phishing-identity',
-    label: 'Phishing & Identity — Inbox Arms Race',
+    label: 'Phishing & Identity - Inbox Arms Race',
     description:
-      '8-year inbox arms race simulation — credential phishing to MFA fatigue to deepfake voice, with progressive defenses.',
+      '8-year inbox arms race simulation - credential phishing to MFA fatigue to deepfake voice, with progressive defenses.',
     sectionLabel: 'DFIR · Simulation',
     group: 'dfir',
     keywords: ['simulation', 'phishing', 'identity', 'mfa', 'bce', 'aitm', 'deepfake', 'long-watch'],
@@ -1843,7 +1783,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/attack-chains/aitm',
     label: 'AiTM / Phishing Kit Chain',
-    description: 'Tycoon 2FA, Evilginx, EvilProxy, Sneaky 2FA, Device Code Flow — MFA bypass via session token theft.',
+    description: 'Tycoon 2FA, Evilginx, EvilProxy, Sneaky 2FA, Device Code Flow - MFA bypass via session token theft.',
     sectionLabel: 'DFIR · Detection Chokepoints',
     group: 'dfir',
     keywords: ['aitm', 'mfa-bypass', 'phishing', 'session-theft', 'tycoon', 'evilginx'],
@@ -1876,7 +1816,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/chokepoints/cross-chain',
     label: 'Cross-Chain Ecosystem',
-    description: 'How attack chains feed into each other — infostealers fund ransomware, AiTM enables BEC.',
+    description: 'How attack chains feed into each other - infostealers fund ransomware, AiTM enables BEC.',
     sectionLabel: 'DFIR · Detection Chokepoints',
     group: 'dfir',
     keywords: ['ecosystem', 'cross-chain', 'infostealer-ransomware', 'aitm-bec', 'credential-pipeline'],
@@ -1907,7 +1847,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   },
   {
     path: '/dfir/fleet-map',
-    label: 'UK Threat Map — Fleet Simulation',
+    label: 'UK Threat Map - Fleet Simulation',
     description:
       'National-scale attack surface simulation: 300 organisations across the UK, modelling SSL-VPN, Citrix, VMware Horizon, RDP, and WordPress exposure from 2018–2025.',
     sectionLabel: 'DFIR · Simulation',
@@ -1916,7 +1856,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   },
   {
     path: '/dfir/wordpress-sim',
-    label: 'WordPress Server — Attack Simulation',
+    label: 'WordPress Server - Attack Simulation',
     description:
       'Single-server attack simulation: a LAMP-stack WordPress box exposed to the internet from 2018–2025, with configurable defensive controls.',
     sectionLabel: 'DFIR · Simulation',
@@ -1927,7 +1867,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/rhysida-intrusion',
     label: 'Anatomy of a Rhysida Intrusion',
     description:
-      'A real Rhysida kill chain mapped to MITRE ATT&CK — 24 stages across all 12 tactics, from no-MFA VPN login through Zerologon to domain-wide encryption.',
+      'A real Rhysida kill chain mapped to MITRE ATT&CK - 24 stages across all 12 tactics, from no-MFA VPN login through Zerologon to domain-wide encryption.',
     sectionLabel: 'DFIR · Simulation',
     group: 'dfir',
     keywords: [
@@ -1945,7 +1885,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/ai-threats',
     label: 'AI Threat Landscape',
-    description: 'AI-powered threat landscape analysis — trending threats, emerging campaigns, and predictive intel.',
+    description: 'AI-powered threat landscape analysis - trending threats, emerging campaigns, and predictive intel.',
     sectionLabel: 'DFIR · AI',
     group: 'dfir',
     keywords: ['ai', 'threat', 'landscape', 'predictive', 'emerging'],
@@ -1954,7 +1894,7 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/oss-feeds',
     label: 'OSS Feeds',
     description:
-      'Open-source threat intelligence feeds — aggregated from public sources, with quality scoring and categorization.',
+      'Open-source threat intelligence feeds - aggregated from public sources, with quality scoring and categorization.',
     sectionLabel: 'DFIR · Intelligence',
     group: 'dfir',
     keywords: ['oss', 'feeds', 'open-source', 'threat-intel', 'intelligence'],
@@ -1970,7 +1910,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel',
     label: 'Threat Intel Home',
-    description: 'Threat-intel landing — live center, top sources, recent campaigns.',
+    description: 'Threat-intel landing - live center, top sources, recent campaigns.',
     sectionLabel: 'Threat Intel · Home',
     group: 'threatintel',
     keywords: ['home', 'landing', 'browse'],
@@ -1978,7 +1918,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/radar',
     label: 'Radar',
-    description: 'Live internet exposure radar — port, service, and certificate signals across the portfolio.',
+    description: 'Live internet exposure radar - port, service, and certificate signals across the portfolio.',
     sectionLabel: 'Threat Intel · Adjacent apps',
     group: 'threatintel',
     keywords: ['radar', 'exposure', 'scan', 'internet'],
@@ -1994,7 +1934,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatnexus',
     label: 'ThreatNexus',
-    description: 'Cross-source threat intelligence dashboard — actor, malware, and CVE pivots in one surface.',
+    description: 'Cross-source threat intelligence dashboard - actor, malware, and CVE pivots in one surface.',
     sectionLabel: 'Threat Intel · Adjacent apps',
     group: 'threatintel',
     keywords: ['threatnexus', 'dashboard', 'pivot', 'actor', 'malware', 'cve'],
@@ -2009,7 +1949,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/copilot',
     label: 'Threat Intel Copilot',
-    description: 'Conversational threat-intel assistant — ask, pivot, summarize.',
+    description: 'Conversational threat-intel assistant - ask, pivot, summarize.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
     keywords: ['ai', 'assistant', 'chat'],
@@ -2025,7 +1965,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/settings',
     label: 'Settings',
-    description: 'Platform settings — API keys, default view, and notification preferences.',
+    description: 'Platform settings - API keys, default view, and notification preferences.',
     sectionLabel: 'Threat Intel · Operations',
     group: 'threatintel',
   },
@@ -2041,14 +1981,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/predictive',
     label: 'Predictive Intel',
-    description: 'Predictive threat intelligence — AI-driven forecasting from current trends.',
+    description: 'Predictive threat intelligence - AI-driven forecasting from current trends.',
     sectionLabel: 'Threat Intel · Predictive',
     group: 'threatintel',
   },
   {
     path: '/threatintel/predictive/:tab',
     label: 'Predictive Intel (tab)',
-    description: 'Predictive intelligence tab — landscape, assessments, metrics, or dashboard.',
+    description: 'Predictive intelligence tab - landscape, assessments, metrics, or dashboard.',
     sectionLabel: 'Threat Intel · Predictive',
     group: 'threatintel',
   },
@@ -2076,7 +2016,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/dashboard',
     label: 'Threat Intel Dashboard',
-    description: 'Unified threat-intel dashboard — live intelligence, top sources, and recent campaigns.',
+    description: 'Unified threat-intel dashboard - live intelligence, top sources, and recent campaigns.',
     sectionLabel: 'Threat Intel · Predictive',
     group: 'threatintel',
     keywords: ['dashboard', 'home', 'landing', 'intelligence'],
@@ -2084,21 +2024,21 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/intel-dashboard',
     label: 'Intel Dashboard',
-    description: 'Curated intel dashboard — top stories, top IOCs, and trending actors.',
+    description: 'Curated intel dashboard - top stories, top IOCs, and trending actors.',
     sectionLabel: 'Threat Intel · Predictive',
     group: 'threatintel',
   },
   {
     path: '/threatintel/cti-dashboard',
     label: 'CTI Dashboard',
-    description: 'CTI collector dashboard — IOC stats, predictions, mutations, and decay.',
+    description: 'CTI collector dashboard - IOC stats, predictions, mutations, and decay.',
     sectionLabel: 'Threat Intel · Predictive',
     group: 'threatintel',
   },
   {
     path: '/threatintel/pir-dashboard',
     label: 'PIR Dashboard',
-    description: 'Priority Intelligence Requirements dashboard — coverage and gaps.',
+    description: 'Priority Intelligence Requirements dashboard - coverage and gaps.',
     sectionLabel: 'Threat Intel · Predictive',
     group: 'threatintel',
   },
@@ -2106,14 +2046,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/ti-dashboard',
     label: 'TI Dashboard',
     description:
-      'Weekly threat intelligence report — IOCs, threat stories, actor profiles, vulnerabilities, hunting leads, and supply chain incidents.',
+      'Weekly threat intelligence report - IOCs, threat stories, actor profiles, vulnerabilities, hunting leads, and supply chain incidents.',
     sectionLabel: 'Threat Intel · Predictive',
     group: 'threatintel',
   },
   {
     path: '/threatintel/assessments',
     label: 'Assessments',
-    description: 'Threat-intel assessments — formal, scored, and time-bounded.',
+    description: 'Threat-intel assessments - formal, scored, and time-bounded.',
     sectionLabel: 'Threat Intel · Predictive',
     group: 'threatintel',
   },
@@ -2136,14 +2076,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/actors',
     label: 'Actor Directory',
-    description: 'Unified actor browser — MITRE ATT&CK, MISP Galaxy, and platform database.',
+    description: 'Unified actor browser - MITRE ATT&CK, MISP Galaxy, and platform database.',
     sectionLabel: 'Threat Intel · Actors',
     group: 'threatintel',
   },
   {
     path: '/threatintel/actors/:slug',
     label: 'Threat Actor Profile',
-    description: 'Per-actor profile — aliases, TTPs, campaigns, infrastructure, and IOCs.',
+    description: 'Per-actor profile - aliases, TTPs, campaigns, infrastructure, and IOCs.',
     sectionLabel: 'Threat Intel · Actors',
     group: 'threatintel',
   },
@@ -2164,21 +2104,21 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/actor-timeline',
     label: 'Actor Timeline',
-    description: 'Actor activity timeline — operations, leaks, and infrastructure churn over time.',
+    description: 'Actor activity timeline - operations, leaks, and infrastructure churn over time.',
     sectionLabel: 'Threat Intel · Actors',
     group: 'threatintel',
   },
   {
     path: '/threatintel/actor-usernames',
     label: 'Actor Usernames',
-    description: 'Usernames attributed to threat actors — pivots from handles to personas.',
+    description: 'Usernames attributed to threat actors - pivots from handles to personas.',
     sectionLabel: 'Threat Intel · Actors',
     group: 'threatintel',
   },
   {
     path: '/threatintel/apt-tracker',
     label: 'APT Tracker',
-    description: 'Nation-state APT tracker — operations, sponsors, and target sectors.',
+    description: 'Nation-state APT tracker - operations, sponsors, and target sectors.',
     sectionLabel: 'Threat Intel · Actors',
     group: 'threatintel',
     keywords: ['apt', 'nation-state'],
@@ -2186,7 +2126,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/most-wanted',
     label: 'Most Wanted Actors',
-    description: 'Most-wanted threat actors — top impact, top activity.',
+    description: 'Most-wanted threat actors - top impact, top activity.',
     sectionLabel: 'Threat Intel · Actors',
     group: 'threatintel',
   },
@@ -2194,7 +2134,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/extremists',
     label: 'Extremism Monitoring',
     description:
-      'Tracked extremist ideologies, networks, and movements — indicators and monitoring sources for counter-extremism analysis.',
+      'Tracked extremist ideologies, networks, and movements - indicators and monitoring sources for counter-extremism analysis.',
     sectionLabel: 'Threat Intel · Actors',
     group: 'threatintel',
     keywords: ['extremist', 'extremism', 'terrorism', 'radicalization'],
@@ -2203,7 +2143,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/predators',
     label: 'Predator Monitoring',
     description:
-      'Online predator tracking categories — exploitation networks, sextortion, trafficking, and investigator response resources.',
+      'Online predator tracking categories - exploitation networks, sextortion, trafficking, and investigator response resources.',
     sectionLabel: 'Threat Intel · Actors',
     group: 'threatintel',
     keywords: ['predator', 'exploitation', 'trafficking', 'sextortion', 'csam'],
@@ -2241,14 +2181,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/campaigns/:id',
     label: 'Campaign Detail',
-    description: 'Per-campaign detail — timeline, IOCs, victims, and TTPs.',
+    description: 'Per-campaign detail - timeline, IOCs, victims, and TTPs.',
     sectionLabel: 'Threat Intel · Campaigns',
     group: 'threatintel',
   },
   {
     path: '/threatintel/campaign-lifecycle',
     label: 'Campaign Lifecycle',
-    description: 'Lifecycle view of campaigns — discovery, exploitation, monetization, and decay.',
+    description: 'Lifecycle view of campaigns - discovery, exploitation, monetization, and decay.',
     sectionLabel: 'Threat Intel · Campaigns',
     group: 'threatintel',
   },
@@ -2262,7 +2202,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/attribution',
     label: 'Attribution Framework',
-    description: 'Multi-signal attribution framework — confidence scoring and evidence ledger.',
+    description: 'Multi-signal attribution framework - confidence scoring and evidence ledger.',
     sectionLabel: 'Threat Intel · Campaigns',
     group: 'threatintel',
   },
@@ -2276,7 +2216,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/correlation',
     label: 'Correlation',
-    description: 'Cross-source correlation view — pivot by indicator, actor, or campaign.',
+    description: 'Cross-source correlation view - pivot by indicator, actor, or campaign.',
     sectionLabel: 'Threat Intel · Campaigns',
     group: 'threatintel',
   },
@@ -2290,7 +2230,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/observe',
     label: 'Observe',
-    description: 'Observation workspace — pin indicators and watch the correlated signal stream.',
+    description: 'Observation workspace - pin indicators and watch the correlated signal stream.',
     sectionLabel: 'Threat Intel · Campaigns',
     group: 'threatintel',
   },
@@ -2299,7 +2239,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/live-center',
     label: 'Live Center',
-    description: 'Real-time intel center — live IOCs, breaking campaigns, and trending stories.',
+    description: 'Real-time intel center - live IOCs, breaking campaigns, and trending stories.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
@@ -2313,7 +2253,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/social/:tab',
     label: 'Social Hub',
-    description: 'Social hub — Telegram, X, Reddit, Mastodon, prediction markets, scam watch.',
+    description: 'Social hub - Telegram, X, Reddit, Mastodon, prediction markets, scam watch.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
@@ -2327,7 +2267,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/darkweb/:tab',
     label: 'Darkweb Hub',
-    description: 'Dark-web hub — leaks, ransomware, forums, onion-watch, deepdarkCTI.',
+    description: 'Dark-web hub - leaks, ransomware, forums, onion-watch, deepdarkCTI.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
@@ -2341,14 +2281,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/iocs/:tab',
     label: 'IOC Hub (tab)',
-    description: 'IOC hub tab — live, enrichment, entity resolution, map, feeds, C2.',
+    description: 'IOC hub tab - live, enrichment, entity resolution, map, feeds, C2.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/c2-tracker',
     label: 'C2 Tracker',
-    description: 'Command-and-control tracker — known C2 infrastructure, IPs, and SSL fingerprints.',
+    description: 'Command-and-control tracker - known C2 infrastructure, IPs, and SSL fingerprints.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
     keywords: ['c2', 'command and control'],
@@ -2356,21 +2296,21 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/ioc-enrichment',
     label: 'IOC Enrichment',
-    description: 'IOC enrichment — pivot an indicator through vendor feeds and reputation sources.',
+    description: 'IOC enrichment - pivot an indicator through vendor feeds and reputation sources.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/entity-resolution',
     label: 'Entity Resolution',
-    description: 'Entity resolution — deduplicate and cluster indicators across sources.',
+    description: 'Entity resolution - deduplicate and cluster indicators across sources.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/threat-map',
     label: 'Threat Map',
-    description: 'Geolocated threat map — origin, target, and attack type per indicator.',
+    description: 'Geolocated threat map - origin, target, and attack type per indicator.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
@@ -2398,7 +2338,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/soc-dashboard',
     label: 'SOC Dashboards',
-    description: 'Red/cyan/purple panels — ransomware, vulnerabilities, and IOC stream with consensus scoring.',
+    description: 'Red/cyan/purple panels - ransomware, vulnerabilities, and IOC stream with consensus scoring.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
@@ -2419,7 +2359,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/threat-pulse',
     label: 'Threat Pulse',
-    description: 'Live intel pulse — minute-by-minute indicator deltas and trending clusters.',
+    description: 'Live intel pulse - minute-by-minute indicator deltas and trending clusters.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
@@ -2440,84 +2380,84 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/feeds',
     label: 'Feed Hub',
-    description: 'Feed management — sources, scheduler, alert engine, file catalog, aggregated feeds.',
+    description: 'Feed management - sources, scheduler, alert engine, file catalog, aggregated feeds.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/feeds/:tab',
     label: 'Feed Hub (tab)',
-    description: 'Feed hub tab — sources, scheduler, status, quality, or catalog.',
+    description: 'Feed hub tab - sources, scheduler, status, quality, or catalog.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/feed-sources',
     label: 'Feed Sources',
-    description: 'Feed source list — add, remove, and edit upstream feeds.',
+    description: 'Feed source list - add, remove, and edit upstream feeds.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/feed-scheduler',
     label: 'Feed Scheduler',
-    description: 'Feed scheduler — when each source polls and how failures are retried.',
+    description: 'Feed scheduler - when each source polls and how failures are retried.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/feed-quality',
     label: 'Feed Quality',
-    description: 'Feed quality scorecard — precision, recall, freshness, and signal-to-noise.',
+    description: 'Feed quality scorecard - precision, recall, freshness, and signal-to-noise.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/feed-catalog',
     label: 'Feed Catalog',
-    description: 'Catalog of all known feeds — taxonomy, examples, and provenance.',
+    description: 'Catalog of all known feeds - taxonomy, examples, and provenance.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/aggregated-feeds',
     label: 'Aggregated Feeds',
-    description: 'Aggregated feed views — merged signal from multiple upstream feeds.',
+    description: 'Aggregated feed views - merged signal from multiple upstream feeds.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/source-health',
     label: 'Source Health',
-    description: 'Source health monitor — uptime, latency, error rate per upstream.',
+    description: 'Source health monitor - uptime, latency, error rate per upstream.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/source-reliability',
     label: 'Source Reliability',
-    description: 'Source reliability scoring — historical accuracy, citation count, and decay.',
+    description: 'Source reliability scoring - historical accuracy, citation count, and decay.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/collection-slo',
     label: 'Collection SLO',
-    description: 'Collection SLO — coverage, freshness, and availability targets.',
+    description: 'Collection SLO - coverage, freshness, and availability targets.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/facilities',
     label: 'Facilities',
-    description: 'Collection facilities — cloud accounts, API keys, and quota usage.',
+    description: 'Collection facilities - cloud accounts, API keys, and quota usage.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
   {
     path: '/threatintel/watches',
     label: 'Watches',
-    description: 'Watch lists — keyword, indicator, and entity watches with notification routing.',
+    description: 'Watch lists - keyword, indicator, and entity watches with notification routing.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
@@ -2531,7 +2471,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/observable-db',
     label: 'Observable DB',
-    description: 'Observable database — catalog of every observed indicator across feeds.',
+    description: 'Observable database - catalog of every observed indicator across feeds.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
@@ -2547,7 +2487,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/detections/:tab',
     label: 'Detection Hub (tab)',
-    description: 'Detection hub tab — detections, signal, yara, disarm.',
+    description: 'Detection hub tab - detections, signal, yara, disarm.',
     sectionLabel: 'Threat Intel · Detection',
     group: 'threatintel',
   },
@@ -2582,7 +2522,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/disarm',
     label: 'DISARM Framework',
-    description: 'DISARM disinformation framework — detection engineering for influence ops.',
+    description: 'DISARM disinformation framework - detection engineering for influence ops.',
     sectionLabel: 'Threat Intel · Detection',
     group: 'threatintel',
   },
@@ -2596,7 +2536,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/cves/:tab',
     label: 'CVE Hub (tab)',
-    description: 'CVE hub tab — list, KEV, exploitable, PoC scanner, cyber news, K8s, CERT-In, health.',
+    description: 'CVE hub tab - list, KEV, exploitable, PoC scanner, cyber news, K8s, CERT-In, health.',
     sectionLabel: 'Threat Intel · Detection',
     group: 'threatintel',
     keywords: ['poc', 'scanner', 'github', 'news', 'feed', 'health', 'nvd', 'epss', 'kev'],
@@ -2625,14 +2565,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/malware/:tab',
     label: 'Malware Hub (tab)',
-    description: 'Malware hub tab — IOCs, vault, packages, malpedia, maltrail, sandbox.',
+    description: 'Malware hub tab - IOCs, vault, packages, malpedia, maltrail, sandbox.',
     sectionLabel: 'Threat Intel · Detection',
     group: 'threatintel',
   },
   {
     path: '/threatintel/malware-sandbox',
     label: 'Malware Sandbox',
-    description: 'Hash lookup across 10+ public sandbox platforms — consensus verdict, family attribution.',
+    description: 'Hash lookup across 10+ public sandbox platforms - consensus verdict, family attribution.',
     sectionLabel: 'Threat Intel · Detection',
     group: 'threatintel',
   },
@@ -2653,14 +2593,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/malicious-packages',
     label: 'Malicious Packages',
-    description: 'Malicious-package feed — typosquats, backdoored deps, and supply-chain attacks.',
+    description: 'Malicious-package feed - typosquats, backdoored deps, and supply-chain attacks.',
     sectionLabel: 'Threat Intel · Detection',
     group: 'threatintel',
   },
   {
     path: '/threatintel/depx',
     label: 'Supply-Chain Feed',
-    description: 'depx-style malicious package intelligence — recently disclosed supply-chain threats from OpenSSF.',
+    description: 'depx-style malicious package intelligence - recently disclosed supply-chain threats from OpenSSF.',
     sectionLabel: 'Threat Intel · Detection',
     group: 'threatintel',
     keywords: ['depx', 'supply-chain', 'malicious', 'package', 'npm', 'pypi', 'openssf'],
@@ -2668,7 +2608,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/entity-graph',
     label: 'Entity Graph',
-    description: 'Interactive topology of CVEs, actors, IOCs, sectors, and techniques — relationship visualization.',
+    description: 'Interactive topology of CVEs, actors, IOCs, sectors, and techniques - relationship visualization.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
     keywords: ['entity', 'graph', 'topology', 'relationship', 'visualization', 'network'],
@@ -2677,7 +2617,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/malware/supply-chain',
     label: 'Supply-Chain Incidents',
     description:
-      'Confirmed software supply-chain compromise incidents — status, severity, blast radius, IOCs, remediation, and sources. Data: supplychainattack.org.',
+      'Confirmed software supply-chain compromise incidents - status, severity, blast radius, IOCs, remediation, and sources. Data: supplychainattack.org.',
     sectionLabel: 'Threat Intel · Detection',
     group: 'threatintel',
   },
@@ -2705,7 +2645,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/infostealer/:slug',
     label: 'Infostealer Family',
-    description: 'Per-family infostealer detail — indicators, capabilities, and post-infection TTPs.',
+    description: 'Per-family infostealer detail - indicators, capabilities, and post-infection TTPs.',
     sectionLabel: 'Threat Intel · Detection',
     group: 'threatintel',
   },
@@ -2719,7 +2659,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/phishing/:tab',
     label: 'Phishing Hub',
-    description: 'Phishing hub tab — feed, defense, impersonation, wordlists.',
+    description: 'Phishing hub tab - feed, defense, impersonation, wordlists.',
     sectionLabel: 'Threat Intel · Detection',
     group: 'threatintel',
   },
@@ -2742,7 +2682,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/osint/:tab',
     label: 'OSINT Hub (tab)',
-    description: 'OSINT hub tab — username, framework, map, toolbox, secops, cli.',
+    description: 'OSINT hub tab - username, framework, map, toolbox, secops, cli.',
     sectionLabel: 'Threat Intel · OSINT',
     group: 'threatintel',
   },
@@ -2763,14 +2703,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/curated-toolbox',
     label: 'Curated Toolbox',
-    description: 'Curated OSINT toolbox — analyst-grade tooling, grouped by tradecraft niche.',
+    description: 'Curated OSINT toolbox - analyst-grade tooling, grouped by tradecraft niche.',
     sectionLabel: 'Threat Intel · OSINT',
     group: 'threatintel',
   },
   {
     path: '/threatintel/secops-tools',
     label: 'SecOps Tools',
-    description: 'SecOps catalog — vendor and open-source security operations tools.',
+    description: 'SecOps catalog - vendor and open-source security operations tools.',
     sectionLabel: 'Threat Intel · OSINT',
     group: 'threatintel',
   },
@@ -2786,35 +2726,35 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/infra',
     label: 'Infra Hub',
-    description: 'Infrastructure hub — ASN, IP space, hosting, and cert graphs.',
+    description: 'Infrastructure hub - ASN, IP space, hosting, and cert graphs.',
     sectionLabel: 'Threat Intel · Infra',
     group: 'threatintel',
   },
   {
     path: '/threatintel/infra/:tab',
     label: 'Infra Hub (tab)',
-    description: 'Infra hub tab — search, ASN, IP neighbors, hosting pivots.',
+    description: 'Infra hub tab - search, ASN, IP neighbors, hosting pivots.',
     sectionLabel: 'Threat Intel · Infra',
     group: 'threatintel',
   },
   {
     path: '/threatintel/infra-search',
     label: 'Infra Search',
-    description: 'Infrastructure search — find related infrastructure across ASN, IP, and cert graphs.',
+    description: 'Infrastructure search - find related infrastructure across ASN, IP, and cert graphs.',
     sectionLabel: 'Threat Intel · Infra',
     group: 'threatintel',
   },
   {
     path: '/threatintel/domain-monitor',
     label: 'Domain Monitor',
-    description: 'Domain monitor — watch a list of domains for cert, whois, and DNS changes.',
+    description: 'Domain monitor - watch a list of domains for cert, whois, and DNS changes.',
     sectionLabel: 'Threat Intel · Infra',
     group: 'threatintel',
   },
   {
     path: '/threatintel/certstream',
     label: 'CertStream Live',
-    description: 'Live certificate-transparency stream — watch new certs in real time.',
+    description: 'Live certificate-transparency stream - watch new certs in real time.',
     sectionLabel: 'Threat Intel · Infra',
     group: 'threatintel',
     keywords: ['ct', 'certificate'],
@@ -2822,7 +2762,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/bitwire-blocklist',
     label: 'Bitwire Blocklist',
-    description: 'Bitwire curated IP blocklist — phishing and C2 infrastructure.',
+    description: 'Bitwire curated IP blocklist - phishing and C2 infrastructure.',
     sectionLabel: 'Threat Intel · Infra',
     group: 'threatintel',
   },
@@ -2838,21 +2778,21 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/briefings/:slug',
     label: 'Briefing',
-    description: 'A single briefing — narrative, IOCs, and detection logic.',
+    description: 'A single briefing - narrative, IOCs, and detection logic.',
     sectionLabel: 'Threat Intel · Briefings',
     group: 'threatintel',
   },
   {
     path: '/threatintel/research-hub',
     label: 'Research Hub',
-    description: 'Research hub — original reports, writeups, and external research.',
+    description: 'Research hub - original reports, writeups, and external research.',
     sectionLabel: 'Threat Intel · Research',
     group: 'threatintel',
   },
   {
     path: '/threatintel/research-hub/:tab',
     label: 'Research Hub (tab)',
-    description: 'Research hub tab — research, writeups, redhunt, AI reports, reports.',
+    description: 'Research hub tab - research, writeups, redhunt, AI reports, reports.',
     sectionLabel: 'Threat Intel · Research',
     group: 'threatintel',
   },
@@ -2866,7 +2806,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/research/:slug',
     label: 'Research Post',
-    description: 'A single research post — narrative, IOCs, and detection logic.',
+    description: 'A single research post - narrative, IOCs, and detection logic.',
     sectionLabel: 'Threat Intel · Research',
     group: 'threatintel',
   },
@@ -2880,28 +2820,28 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/writeups',
     label: 'Writeups',
-    description: 'Long-form writeups — deep dives on incidents, malware, and tradecraft.',
+    description: 'Long-form writeups - deep dives on incidents, malware, and tradecraft.',
     sectionLabel: 'Threat Intel · Research',
     group: 'threatintel',
   },
   {
     path: '/threatintel/redhunt-labs',
     label: 'RedHunt Labs Research',
-    description: 'RedHunt Labs research — curated reports on adversary TTPs.',
+    description: 'RedHunt Labs research - curated reports on adversary TTPs.',
     sectionLabel: 'Threat Intel · Research',
     group: 'threatintel',
   },
   {
     path: '/threatintel/redhunt-insights',
     label: 'RedHunt Insights',
-    description: 'RedHunt Insights — long-form analysis and tradecraft posts.',
+    description: 'RedHunt Insights - long-form analysis and tradecraft posts.',
     sectionLabel: 'Threat Intel · Research',
     group: 'threatintel',
   },
   {
     path: '/threatintel/ai-report',
     label: 'AI Report',
-    description: 'AI-assisted report — auto-drafted from a set of IOCs and TTPs.',
+    description: 'AI-assisted report - auto-drafted from a set of IOCs and TTPs.',
     sectionLabel: 'Threat Intel · Research',
     group: 'threatintel',
   },
@@ -2917,7 +2857,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/wiki/:slug',
     label: 'Wiki Article',
-    description: 'A single wiki article — concept, references, and analyst notes.',
+    description: 'A single wiki article - concept, references, and analyst notes.',
     sectionLabel: 'Threat Intel · Reference',
     group: 'threatintel',
   },
@@ -2933,14 +2873,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/external',
     label: 'External Resources',
-    description: 'Off-site cross-references — dashboards, OSINT directories, training labs, sample sources.',
+    description: 'Off-site cross-references - dashboards, OSINT directories, training labs, sample sources.',
     sectionLabel: 'Threat Intel · Reference',
     group: 'threatintel',
   },
   {
     path: '/threatintel/external/:tab',
     label: 'External Hub',
-    description: 'External hub tab — external, awesome-lists, projectdiscovery.',
+    description: 'External hub tab - external, awesome-lists, projectdiscovery.',
     sectionLabel: 'Threat Intel · Reference',
     group: 'threatintel',
   },
@@ -2977,14 +2917,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/tools/:tab',
     label: 'Tools Hub',
-    description: 'Tools hub tab — copilot, mcp, misp, stix, graph, investigations, watches, settings, unified-search.',
+    description: 'Tools hub tab - copilot, mcp, misp, stix, graph, investigations, watches, settings, unified-search.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
   },
   {
     path: '/threatintel/unified-search',
     label: 'Unified Search',
-    description: 'Cross-source omnibox — search the platform, query IOC pivots, and trigger an AI summary.',
+    description: 'Cross-source omnibox - search the platform, query IOC pivots, and trigger an AI summary.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
     keywords: ['search', 'omni', 'find', 'q='],
@@ -3046,28 +2986,28 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/analyze',
     label: 'Analyze',
-    description: 'Ad-hoc analysis workspace — paste data, run enrichment, and pivot.',
+    description: 'Ad-hoc analysis workspace - paste data, run enrichment, and pivot.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
   },
   {
     path: '/threatintel/knowledge-graph',
     label: 'Knowledge Graph',
-    description: 'Knowledge graph — entities, relationships, and cross-source pivots.',
+    description: 'Knowledge graph - entities, relationships, and cross-source pivots.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
   },
   {
     path: '/threatintel/knowledge-hub',
     label: 'Knowledge Hub',
-    description: 'Knowledge hub — wiki, learning, and external research entry points.',
+    description: 'Knowledge hub - wiki, learning, and external research entry points.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
   },
   {
     path: '/threatintel/redhunt-labs-research',
     label: 'RedHunt Labs Research (page)',
-    description: 'RedHunt Labs research — curated reports and tradecraft posts.',
+    description: 'RedHunt Labs research - curated reports and tradecraft posts.',
     sectionLabel: 'Threat Intel · Research',
     group: 'threatintel',
   },
@@ -3156,7 +3096,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/telegram',
     label: 'Telegram Intelligence Hub',
     description:
-      'Unified Telegram CTI workspace — free cross-source search across channels and leak text, KPIs, and a card grid of all Telegram surfaces.',
+      'Unified Telegram CTI workspace - free cross-source search across channels and leak text, KPIs, and a card grid of all Telegram surfaces.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
     keywords: ['telegram', 'hub', 'firehose', 'collection', 'search', 'cti'],
@@ -3165,7 +3105,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/telegram-monitor',
     label: 'Telegram Monitor',
     description:
-      'Telegram Intelligence Hub — 7 tabs: firehose (merged cross-source stream), leak feed, channel search (tgstat-backed), statistics, channel discovery, linked actors (channel → MITRE pivot), and settings.',
+      'Telegram Intelligence Hub - 7 tabs: firehose (merged cross-source stream), leak feed, channel search (tgstat-backed), statistics, channel discovery, linked actors (channel → MITRE pivot), and settings.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
     keywords: ['telegram', 'leak', 'channel', 'search', 'tgstat', 'actor correlation'],
@@ -3260,7 +3200,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/cyberpulse',
     label: 'CyberPulse',
     description:
-      'Breach, leak & cybercrime incident tracker — sourced from X/Twitter, Telegram, Reddit, Bluesky & Mastodon firehose. Broader than ransom.live.',
+      'Breach, leak & cybercrime incident tracker - sourced from X/Twitter, Telegram, Reddit, Bluesky & Mastodon firehose. Broader than ransom.live.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
     keywords: [
@@ -3278,7 +3218,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/infra/ai-honeypot',
     label: 'AI Honeypot Observatory',
     description:
-      'LLM/AI endpoint honeypot intelligence — attacker categories, top IPs, and attack volume from ai-honeypots.com.',
+      'LLM/AI endpoint honeypot intelligence - attacker categories, top IPs, and attack volume from ai-honeypots.com.',
     sectionLabel: 'Threat Intel · Infrastructure',
     group: 'threatintel',
     keywords: ['ai', 'llm', 'honeypot', 'mcp', 'credential harvester', 'scanner', 'ioc', 'blocklist'],
@@ -3294,7 +3234,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/alerts',
     label: 'Alert Feed',
     description:
-      'Prioritised threat intelligence alerts — noise-filtered, confidence-scored, and matched to your estate.',
+      'Prioritised threat intelligence alerts - noise-filtered, confidence-scored, and matched to your estate.',
     sectionLabel: 'Threat Intel · Monitoring',
     group: 'threatintel',
   },
@@ -3302,7 +3242,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/estate',
     label: 'Estate Configuration',
     description:
-      'Manage your digital estate — assets, tech stack, sector, and data types for personalised correlation.',
+      'Manage your digital estate - assets, tech stack, sector, and data types for personalised correlation.',
     sectionLabel: 'Threat Intel · Monitoring',
     group: 'threatintel',
   },
@@ -3418,7 +3358,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/dork-builder',
     label: 'Dork Builder',
-    description: 'Compose Google / Bing / GitHub dorks from a template — filter by site, filetype, inurl.',
+    description: 'Compose Google / Bing / GitHub dorks from a template - filter by site, filetype, inurl.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['dork', 'google', 'bing', 'osint'],
@@ -3426,7 +3366,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/google-dorks',
     label: 'Google Dorks',
-    description: 'Google Dorks — ready-made search queries for exposed files, leaks, and misconfigs.',
+    description: 'Google Dorks - ready-made search queries for exposed files, leaks, and misconfigs.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['dork', 'google', 'osint'],
@@ -3434,14 +3374,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/discord-watch',
     label: 'Discord Watch (alias)',
-    description: 'Alias for the Social hub — Discord watchlists.',
+    description: 'Alias for the Social hub - Discord watchlists.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
   {
     path: '/dfir/industry-news',
     label: 'Industry News (alias)',
-    description: 'Alias for the Social hub — industry-news view.',
+    description: 'Alias for the Social hub - industry-news view.',
     sectionLabel: 'DFIR · Triage',
     group: 'dfir',
   },
@@ -3449,7 +3389,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/dfir/fusion-exposure',
     label: 'Fusion Exposure Worklist',
     description:
-      'Composite 4-dimension scoring (CVSS/KEV/EPSS/Exploit-DB) — ranked worklist with per-dimension breakdown.',
+      'Composite 4-dimension scoring (CVSS/KEV/EPSS/Exploit-DB) - ranked worklist with per-dimension breakdown.',
     sectionLabel: 'DFIR · Operations',
     group: 'dfir',
     keywords: ['fusion', 'exposure', 'scoring', 'cvss', 'kev', 'epss', 'prioritization'],
@@ -3466,7 +3406,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/dfir/attack-path',
     label: 'Attack Path Graph',
     description:
-      'BFS shortest-path reachability from exposed assets to crown jewels — choke point detection, demo fallback.',
+      'BFS shortest-path reachability from exposed assets to crown jewels - choke point detection, demo fallback.',
     sectionLabel: 'DFIR · Operations',
     group: 'dfir',
     keywords: ['attack', 'path', 'graph', 'bfs', 'choke', 'crown jewel'],
@@ -3483,7 +3423,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/vulnerability-ops',
     label: 'Vulnerability Ops (VOC)',
-    description: 'Intake / triage / SLA tracking — severity, status, source filters with auto-computed deadlines.',
+    description: 'Intake / triage / SLA tracking - severity, status, source filters with auto-computed deadlines.',
     sectionLabel: 'DFIR · Operations',
     group: 'dfir',
     keywords: ['vulnerability', 'vuln', 'ops', 'sla', 'triage', 'patch'],
@@ -3508,7 +3448,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/dfir/soc-automation',
     label: 'SOC Automation Engine',
     description:
-      'Playbook engine with configurable actions (webhook/email/slack/KB/MCP) — one-click execute, run history.',
+      'Playbook engine with configurable actions (webhook/email/slack/KB/MCP) - one-click execute, run history.',
     sectionLabel: 'DFIR · Operations',
     group: 'dfir',
     keywords: ['soc', 'automation', 'playbook', 'webhook', 'orchestration'],
@@ -3517,7 +3457,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/catalog',
     label: 'Page Catalog',
-    description: 'Every routable page in the threat-intel area — searchable, filterable, grouped by category.',
+    description: 'Every routable page in the threat-intel area - searchable, filterable, grouped by category.',
     sectionLabel: 'Threat Intel · Home',
     group: 'threatintel',
     keywords: ['catalog', 'directory', 'browse', 'index', 'all pages'],
@@ -3574,14 +3514,14 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/apt-actors',
     label: 'APT Actors',
-    description: 'ETDA threat group cards — 504 APT actors with aliases, TTPs, and operations.',
+    description: 'ETDA threat group cards - 504 APT actors with aliases, TTPs, and operations.',
     sectionLabel: 'Threat Intel · Actors',
     group: 'threatintel',
   },
   {
     path: '/threatintel/aptmap',
     label: 'APTmap',
-    description: 'Interactive APT relationship map — threat actor infrastructure and connections.',
+    description: 'Interactive APT relationship map - threat actor infrastructure and connections.',
     sectionLabel: 'Threat Intel · Actors',
     group: 'threatintel',
   },
@@ -3623,7 +3563,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/campaigns/reference',
     label: 'Reference',
-    description: 'Campaign reference library — named campaign histories, known threat-actor ops, and TTP baselines.',
+    description: 'Campaign reference library - named campaign histories, known threat-actor ops, and TTP baselines.',
     sectionLabel: 'Threat Intel · Campaigns',
     group: 'threatintel',
   },
@@ -4149,7 +4089,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/osint/directory',
     label: 'Directory',
-    description: 'OSINT directory — categorized tool listings and investigative resources.',
+    description: 'OSINT directory - categorized tool listings and investigative resources.',
     sectionLabel: 'Threat Intel · OSINT',
     group: 'threatintel',
   },
@@ -4191,7 +4131,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/research-hub/library',
     label: 'Library',
-    description: 'Research library — curated threat reports, whitepapers, and references.',
+    description: 'Research library - curated threat reports, whitepapers, and references.',
     sectionLabel: 'Threat Intel · Research',
     group: 'threatintel',
   },
@@ -4325,7 +4265,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/tools/mcp',
     label: 'MCP Search · TI Mindmap Hub',
     description:
-      'Live gateway to 25 MCP tools on ti-mindmap-hub.com — reports, CVE intel, IOC search, briefings, STIX bundles, knowledge graph, platform stats.',
+      'Live gateway to 25 MCP tools on ti-mindmap-hub.com - reports, CVE intel, IOC search, briefings, STIX bundles, knowledge graph, platform stats.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
     keywords: [
@@ -4404,21 +4344,21 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/tools/workspaces',
     label: 'Investigation Workspaces',
-    description: 'AEAD lifecycle workspaces — Acquire, Enrich, Assess, Deliver.',
+    description: 'AEAD lifecycle workspaces - Acquire, Enrich, Assess, Deliver.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
   },
   {
     path: '/threatintel/tools/directory',
     label: 'Directory',
-    description: 'Tools directory — browse all available threat-intel tools by category.',
+    description: 'Tools directory - browse all available threat-intel tools by category.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
   },
   {
     path: '/threatintel/tools/tg-intel-search',
     label: 'TG Intel Search',
-    description: 'Boolean search across Telegram messages — AND/OR/NOT, field qualifiers, IOC extraction.',
+    description: 'Boolean search across Telegram messages - AND/OR/NOT, field qualifiers, IOC extraction.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
   },
@@ -4426,7 +4366,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/tools/darknet-intel',
     label: 'Darknet Intel',
     description:
-      'Deep darknet intelligence — 22+ sources including GreyNoise, Pulsedive, Vulners, AbuseIPDB, ransomware.live, HIBP, ThreatFox, MalwareBazaar, OTX, and Hybrid Analysis.',
+      'Deep darknet intelligence - 22+ sources including GreyNoise, Pulsedive, Vulners, AbuseIPDB, ransomware.live, HIBP, ThreatFox, MalwareBazaar, OTX, and Hybrid Analysis.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
     keywords: [
@@ -4547,7 +4487,7 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/threatintel/vera',
     label: 'Vera',
-    description: 'Vera — AI-powered investigative assistant for threat intelligence workflows.',
+    description: 'Vera - AI-powered investigative assistant for threat intelligence workflows.',
     sectionLabel: 'Threat Intel · Tools',
     group: 'threatintel',
     keywords: ['vera', 'ai', 'assistant', 'investigation', 'chat'],
@@ -4558,7 +4498,7 @@ const ADMIN_PAGES: readonly PageEntry[] = [
   {
     path: '/admin',
     label: 'Admin App',
-    description: 'Internal admin — briefings, drafts, published, schedule, retention, manual entries.',
+    description: 'Internal admin - briefings, drafts, published, schedule, retention, manual entries.',
     sectionLabel: 'Admin',
     group: 'admin',
     keywords: ['admin', 'backstage', 'cms'],

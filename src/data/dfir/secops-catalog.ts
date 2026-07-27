@@ -2,21 +2,21 @@
  * Curated SecOps tools catalog.
  *
  * Hand-picked across the categories a working analyst actually reaches
- * for — not an exhaustive directory. Quality > quantity. Each entry:
+ * for - not an exhaustive directory. Quality > quantity. Each entry:
  *   - is currently live and reachable as of last review
  *   - has a clear primary use-case in 1–2 sentences
  *   - declares its pricing posture honestly (open-source vs free
- *     freemium vs paid-only) — see the standing improvement-goal doc:
+ *     freemium vs paid-only) - see the standing improvement-goal doc:
  *     paid services are listed as outbound URL pivots, not proxied.
  *
- * Inspired by but distinct from /threatintel/osint-framework — that page is
+ * Inspired by but distinct from /threatintel/osint-framework - that page is
  * OSINT-only with deeper coverage of search/recon angles. This one
  * spans the whole SecOps surface.
  *
  * Adding entries: keep the description concrete (what it does, not
  * marketing). If the tool is open-source, fill source_url. If the
  * primary value is "list of paid tools to know about", that's still
- * fair — the analyst needs to know the landscape exists.
+ * fair - the analyst needs to know the landscape exists.
  */
 
 export type Pricing = 'open-source' | 'free' | 'freemium' | 'paid';
@@ -68,7 +68,7 @@ export const CATEGORY_LABELS: Record<Category, string> = {
 };
 
 export const CATEGORY_BLURB: Record<Category, string> = {
-  osint: 'Open-source intelligence — reconnaissance, attribution, public-record pivots.',
+  osint: 'Open-source intelligence - reconnaissance, attribution, public-record pivots.',
   dfir: 'Forensics, incident response, memory + disk + endpoint analysis, IR orchestration.',
   'threat-intel': 'IOC feeds, actor tracking, intel platforms, ATT&CK navigation.',
   'ai-security': 'LLM red-teaming, prompt-injection scanners, model robustness, AI governance.',
@@ -109,7 +109,7 @@ export const TOOLS: Tool[] = [
     url: 'https://www.spiderfoot.net',
     categories: ['osint'],
     pricing: 'open-source',
-    description: 'Automated OSINT scanner — 200+ modules pivoting from a single starting point (domain, IP, person).',
+    description: 'Automated OSINT scanner - 200+ modules pivoting from a single starting point (domain, IP, person).',
     source_url: 'https://github.com/smicallef/spiderfoot',
   },
   {
@@ -165,7 +165,7 @@ export const TOOLS: Tool[] = [
     url: 'https://www.binaryedge.io',
     categories: ['osint', 'network-security'],
     pricing: 'freemium',
-    description: 'Internet attack-surface intelligence — exposed services, leaks, ICS/SCADA detection.',
+    description: 'Internet attack-surface intelligence - exposed services, leaks, ICS/SCADA detection.',
   },
   {
     id: 'fofa',
@@ -234,7 +234,7 @@ export const TOOLS: Tool[] = [
     categories: ['dfir'],
     pricing: 'open-source',
     description:
-      'Super-timeline generator — extracts timestamps from 200+ artifacts and produces a single CSV/JSON timeline.',
+      'Super-timeline generator - extracts timestamps from 200+ artifacts and produces a single CSV/JSON timeline.',
     source_url: 'https://github.com/log2timeline/plaso',
   },
   {
@@ -244,7 +244,7 @@ export const TOOLS: Tool[] = [
     categories: ['dfir'],
     pricing: 'free',
     description:
-      "Kroll's triage collector — runs on a target host, extracts forensic artifacts in under 10 minutes. Free for non-commercial use.",
+      "Kroll's triage collector - runs on a target host, extracts forensic artifacts in under 10 minutes. Free for non-commercial use.",
   },
   {
     id: 'velociraptor',
@@ -253,7 +253,7 @@ export const TOOLS: Tool[] = [
     categories: ['dfir', 'detection-engineering'],
     pricing: 'open-source',
     description:
-      'Endpoint visibility and DFIR-at-scale. Custom VQL queries against fleets of agents — collect, hunt, respond.',
+      'Endpoint visibility and DFIR-at-scale. Custom VQL queries against fleets of agents - collect, hunt, respond.',
     source_url: 'https://github.com/Velocidex/velociraptor',
   },
   {
@@ -312,7 +312,7 @@ export const TOOLS: Tool[] = [
     url: 'https://www.magnetforensics.com/products/magnet-axiom',
     categories: ['dfir'],
     pricing: 'paid',
-    description: 'Commercial DFIR suite — disk + mobile + cloud + memory in one workflow. Paid; widely used by LE.',
+    description: 'Commercial DFIR suite - disk + mobile + cloud + memory in one workflow. Paid; widely used by LE.',
   },
 
   // ── Threat Intelligence ────────────────────────────────────────────────
@@ -351,7 +351,7 @@ export const TOOLS: Tool[] = [
     url: 'https://abuse.ch',
     categories: ['threat-intel'],
     pricing: 'free',
-    description: 'URLhaus / MalwareBazaar / ThreatFox — free IOC feeds. Free API key on signup.',
+    description: 'URLhaus / MalwareBazaar / ThreatFox - free IOC feeds. Free API key on signup.',
     badge: 'essential',
   },
   {
@@ -474,7 +474,7 @@ export const TOOLS: Tool[] = [
     categories: ['ai-security'],
     pricing: 'freemium',
     description:
-      'Hosted LLM-firewall API — prompt-injection + jailbreak + PII detection. Free tier limited; paid for production.',
+      'Hosted LLM-firewall API - prompt-injection + jailbreak + PII detection. Free tier limited; paid for production.',
   },
   {
     id: 'owasp-llm-top10',
@@ -539,7 +539,7 @@ export const TOOLS: Tool[] = [
     url: 'https://www.hybrid-analysis.com',
     categories: ['malware-analysis'],
     pricing: 'free',
-    description: 'CrowdStrike Falcon Sandbox — free public submissions, API for vetted researchers.',
+    description: 'CrowdStrike Falcon Sandbox - free public submissions, API for vetted researchers.',
   },
   {
     id: 'malwarebazaar',
@@ -575,7 +575,7 @@ export const TOOLS: Tool[] = [
     categories: ['malware-analysis'],
     pricing: 'open-source',
     description:
-      'NSA-released reverse-engineering framework. Free IDA Pro alternative — disassembler + decompiler + scripting.',
+      'NSA-released reverse-engineering framework. Free IDA Pro alternative - disassembler + decompiler + scripting.',
     source_url: 'https://github.com/NationalSecurityAgency/ghidra',
   },
   {
@@ -650,7 +650,7 @@ export const TOOLS: Tool[] = [
     categories: ['vulnerability', 'threat-intel'],
     pricing: 'free',
     description:
-      'Known Exploited Vulnerabilities catalog. The "patch this first" list — every entry has confirmed exploitation.',
+      'Known Exploited Vulnerabilities catalog. The "patch this first" list - every entry has confirmed exploitation.',
     badge: 'essential',
   },
   {
@@ -660,7 +660,7 @@ export const TOOLS: Tool[] = [
     categories: ['vulnerability'],
     pricing: 'free',
     description:
-      'Exploit Prediction Scoring System — probability that a CVE will be exploited in the next 30 days. Free API.',
+      'Exploit Prediction Scoring System - probability that a CVE will be exploited in the next 30 days. Free API.',
   },
   {
     id: 'osv',
@@ -685,7 +685,7 @@ export const TOOLS: Tool[] = [
     url: 'https://www.exploit-db.com',
     categories: ['vulnerability', 'pentest-redteam'],
     pricing: 'free',
-    description: 'Offensive Security exploit archive. PoCs, shellcodes, exploit techniques — historical + current.',
+    description: 'Offensive Security exploit archive. PoCs, shellcodes, exploit techniques - historical + current.',
   },
   {
     id: 'vulncheck-kev',
@@ -693,7 +693,7 @@ export const TOOLS: Tool[] = [
     url: 'https://vulncheck.com/kev',
     categories: ['vulnerability', 'threat-intel'],
     pricing: 'free',
-    description: 'Independent KEV catalog — earlier exploitation signals than CISA, broader source set. Free API tier.',
+    description: 'Independent KEV catalog - earlier exploitation signals than CISA, broader source set. Free API tier.',
   },
   {
     id: 'nuclei',
@@ -855,7 +855,7 @@ export const TOOLS: Tool[] = [
     categories: ['detection-engineering'],
     pricing: 'open-source',
     description:
-      'Open Sigma ruleset — thousands of rules across Windows, Linux, cloud, network. Curated by the community.',
+      'Open Sigma ruleset - thousands of rules across Windows, Linux, cloud, network. Curated by the community.',
     source_url: 'https://github.com/SigmaHQ/sigma',
   },
   {
@@ -901,7 +901,7 @@ export const TOOLS: Tool[] = [
     url: 'https://www.limacharlie.io',
     categories: ['detection-engineering', 'dfir'],
     pricing: 'freemium',
-    description: 'SecOps cloud — EDR + log + automation primitives, pay-per-event. Free for small workloads.',
+    description: 'SecOps cloud - EDR + log + automation primitives, pay-per-event. Free for small workloads.',
   },
   {
     id: 'panther',
@@ -992,7 +992,7 @@ export const TOOLS: Tool[] = [
     url: 'https://emailrep.io',
     categories: ['email-security', 'osint'],
     pricing: 'free',
-    description: 'Email-address reputation lookup — breach hits, social presence, sender history. Free API.',
+    description: 'Email-address reputation lookup - breach hits, social presence, sender history. Free API.',
   },
 
   // ── Network Security ───────────────────────────────────────────────────
@@ -1068,7 +1068,7 @@ export const TOOLS: Tool[] = [
     url: 'https://www.activecountermeasures.com/free-tools/rita/',
     categories: ['network-security', 'detection-engineering'],
     pricing: 'open-source',
-    description: 'Real Intelligence Threat Analytics — beaconing detection on Zeek logs. Active Countermeasures.',
+    description: 'Real Intelligence Threat Analytics - beaconing detection on Zeek logs. Active Countermeasures.',
     source_url: 'https://github.com/activecm/rita',
   },
 
@@ -1135,7 +1135,7 @@ export const TOOLS: Tool[] = [
     url: 'https://github.com/RhinoSecurityLabs/pacu',
     categories: ['cloud-security', 'pentest-redteam'],
     pricing: 'open-source',
-    description: 'AWS exploitation framework — privilege escalation, persistence, exfiltration. Rhino Security.',
+    description: 'AWS exploitation framework - privilege escalation, persistence, exfiltration. Rhino Security.',
     source_url: 'https://github.com/RhinoSecurityLabs/pacu',
   },
   {
@@ -1153,7 +1153,7 @@ export const TOOLS: Tool[] = [
     url: 'https://www.wiz.io',
     categories: ['cloud-security'],
     pricing: 'paid',
-    description: 'Cloud security platform — agentless CSPM/CWPP/CIEM. Acquired by Google for $32B in 2024.',
+    description: 'Cloud security platform - agentless CSPM/CWPP/CIEM. Acquired by Google for $32B in 2024.',
   },
 
   // ── AppSec / Web ───────────────────────────────────────────────────────
@@ -1173,7 +1173,7 @@ export const TOOLS: Tool[] = [
     url: 'https://caido.io',
     categories: ['appsec', 'pentest-redteam'],
     pricing: 'freemium',
-    description: 'Modern web pentesting suite — Burp alternative, Rust-based. Free tier capable; Pro paid.',
+    description: 'Modern web pentesting suite - Burp alternative, Rust-based. Free tier capable; Pro paid.',
   },
   {
     id: 'owasp-zap',
@@ -1398,7 +1398,7 @@ export const TOOLS: Tool[] = [
     categories: ['pentest-redteam', 'detection-engineering'],
     pricing: 'open-source',
     description:
-      'Adversary-emulation platform — same project as listed under Detection Engineering, complementary use cases.',
+      'Adversary-emulation platform - same project as listed under Detection Engineering, complementary use cases.',
     source_url: 'https://github.com/mitre/caldera',
   },
   {
@@ -1418,7 +1418,7 @@ export const TOOLS: Tool[] = [
     categories: ['osint'],
     pricing: 'freemium',
     description:
-      'Comprehensive OSINT platform — username search (50+ platforms), geolocation, email/domain recon, metadata extraction, dark-web link checker, crypto wallet tracking, and steganography tools. REST API available.',
+      'Comprehensive OSINT platform - username search (50+ platforms), geolocation, email/domain recon, metadata extraction, dark-web link checker, crypto wallet tracking, and steganography tools. REST API available.',
   },
   {
     id: 'osinttools-io',
@@ -1436,7 +1436,7 @@ export const TOOLS: Tool[] = [
     categories: ['osint'],
     pricing: 'free',
     description:
-      'Curated OSINT and cybersecurity tools directory — categorized tools for reconnaissance, social media investigation, and digital forensics investigations.',
+      'Curated OSINT and cybersecurity tools directory - categorized tools for reconnaissance, social media investigation, and digital forensics investigations.',
   },
   {
     id: 'web-check-xyz',
@@ -1445,7 +1445,7 @@ export const TOOLS: Tool[] = [
     categories: ['appsec', 'network-security'],
     pricing: 'free',
     description:
-      'All-in-one website analysis — DNS, SSL/TLS, security headers, WHOIS, tech stack detection, performance audit, and security misconfiguration scanning from a single URL.',
+      'All-in-one website analysis - DNS, SSL/TLS, security headers, WHOIS, tech stack detection, performance audit, and security misconfiguration scanning from a single URL.',
   },
   {
     id: 'hacktricks-tools',
@@ -1454,7 +1454,7 @@ export const TOOLS: Tool[] = [
     categories: ['pentest-redteam', 'appsec'],
     pricing: 'freemium',
     description:
-      'Interactive security tools suite — domain/DNS auditor, host checker, clickjacking PoC generator, GitHub leaks scanner, cloud IAM auditor (PEASS), and AI security chatbot.',
+      'Interactive security tools suite - domain/DNS auditor, host checker, clickjacking PoC generator, GitHub leaks scanner, cloud IAM auditor (PEASS), and AI security chatbot.',
   },
   {
     id: 'osv-dev',
@@ -1463,7 +1463,7 @@ export const TOOLS: Tool[] = [
     categories: ['vulnerability'],
     pricing: 'free',
     description:
-      'Google-backed open-source vulnerability database — ecosystem-agnostic schema covering PyPI, npm, Go, Maven, Rust, and more. REST API and deterministic query by commit hash.',
+      'Google-backed open-source vulnerability database - ecosystem-agnostic schema covering PyPI, npm, Go, Maven, Rust, and more. REST API and deterministic query by commit hash.',
   },
   {
     id: 'malwareworld',
@@ -1481,7 +1481,7 @@ export const TOOLS: Tool[] = [
     categories: ['threat-intel'],
     pricing: 'free',
     description:
-      'Threat intelligence platform — cross-reference IOCs, track threat actor campaigns, and browse curated OSINT tools. Community-driven threat data aggregation.',
+      'Threat intelligence platform - cross-reference IOCs, track threat actor campaigns, and browse curated OSINT tools. Community-driven threat data aggregation.',
   },
   {
     id: 'sigma-nasbench',
@@ -1490,7 +1490,7 @@ export const TOOLS: Tool[] = [
     categories: ['detection-engineering'],
     pricing: 'free',
     description:
-      'Interactive Sigma rule browser — search and filter detection rules with live SIEM conversion previews for Splunk, Elasticsearch, QRadar, Microsoft Sentinel, and more.',
+      'Interactive Sigma rule browser - search and filter detection rules with live SIEM conversion previews for Splunk, Elasticsearch, QRadar, Microsoft Sentinel, and more.',
   },
   {
     id: 'bitwire-blocklist',
@@ -1509,7 +1509,7 @@ export const TOOLS: Tool[] = [
     categories: ['threat-intel'],
     pricing: 'free',
     description:
-      'Interactive threat intelligence mindmap — visual navigation of TTPs, threat actors, campaigns, and detection strategies aligned with the MITRE ATT&CK framework.',
+      'Interactive threat intelligence mindmap - visual navigation of TTPs, threat actors, campaigns, and detection strategies aligned with the MITRE ATT&CK framework.',
   },
   // ── TI Mindmap Hub MCP Tools (25 tools via mcp.ti-mindmap-hub.com) ──
   {
@@ -1528,7 +1528,7 @@ export const TOOLS: Tool[] = [
     categories: ['threat-intel'],
     pricing: 'free',
     description:
-      'Fetch detailed metadata for a single TI report — IOCs, TTPs, CVEs, malware families, severity, CVSS, and EPSS scores.',
+      'Fetch detailed metadata for a single TI report - IOCs, TTPs, CVEs, malware families, severity, CVSS, and EPSS scores.',
   },
   {
     id: 'tim-get-report-content',
@@ -1571,7 +1571,7 @@ export const TOOLS: Tool[] = [
     categories: ['threat-intel', 'vulnerability'],
     pricing: 'free',
     description:
-      'Look up a specific CVE ID — returns CVSS score, severity, EPSS, exploitation status (KEV), description, affected products, and references.',
+      'Look up a specific CVE ID - returns CVSS score, severity, EPSS, exploitation status (KEV), description, affected products, and references.',
   },
   {
     id: 'tim-search-cves-by-keyword',
@@ -1605,7 +1605,7 @@ export const TOOLS: Tool[] = [
     categories: ['threat-intel', 'vulnerability'],
     pricing: 'free',
     description:
-      'Platform-wide CVE statistics — total count, distribution by severity, top vendors, exploitation count, average CVSS, and monthly trend.',
+      'Platform-wide CVE statistics - total count, distribution by severity, top vendors, exploitation count, average CVSS, and monthly trend.',
   },
   {
     id: 'tim-list-briefings',
@@ -1653,7 +1653,7 @@ export const TOOLS: Tool[] = [
     url: '/threatintel/tools/mcp',
     categories: ['threat-intel', 'detection-engineering'],
     pricing: 'free',
-    description: 'STIX bundle statistics — total bundles, total objects, distribution by STIX object type.',
+    description: 'STIX bundle statistics - total bundles, total objects, distribution by STIX object type.',
   },
   {
     id: 'tim-kg-stats',
@@ -1662,7 +1662,7 @@ export const TOOLS: Tool[] = [
     categories: ['threat-intel'],
     pricing: 'free',
     description:
-      'Knowledge graph statistics — total entities, relationships, entity type distribution, and relationship type distribution.',
+      'Knowledge graph statistics - total entities, relationships, entity type distribution, and relationship type distribution.',
   },
   {
     id: 'tim-kg-search',
@@ -1679,7 +1679,7 @@ export const TOOLS: Tool[] = [
     categories: ['threat-intel'],
     pricing: 'free',
     description:
-      'Expand a knowledge graph entity to its local neighborhood — related entities and relationships at configurable depth.',
+      'Expand a knowledge graph entity to its local neighborhood - related entities and relationships at configurable depth.',
   },
   {
     id: 'tim-kg-timeline',
@@ -1703,7 +1703,7 @@ export const TOOLS: Tool[] = [
     url: '/threatintel/tools/mcp',
     categories: ['threat-intel'],
     pricing: 'free',
-    description: 'Find shared entities between two TI reports — useful for linking campaigns and actor infrastructure.',
+    description: 'Find shared entities between two TI reports - useful for linking campaigns and actor infrastructure.',
   },
   {
     id: 'tim-get-statistics',
@@ -1711,7 +1711,7 @@ export const TOOLS: Tool[] = [
     url: '/threatintel/tools/mcp',
     categories: ['threat-intel'],
     pricing: 'free',
-    description: 'TI Mindmap Hub platform statistics — total reports, IOCs, CVEs, briefings, and source count.',
+    description: 'TI Mindmap Hub platform statistics - total reports, IOCs, CVEs, briefings, and source count.',
   },
   {
     id: 'tim-submit-article',
@@ -1729,7 +1729,7 @@ export const TOOLS: Tool[] = [
     categories: ['dfir', 'detection-engineering'],
     pricing: 'free',
     description:
-      'Comprehensive insider threat framework — indicators, detection methods, mitigation playbooks, and real-world case studies across insider personas and attack vectors.',
+      'Comprehensive insider threat framework - indicators, detection methods, mitigation playbooks, and real-world case studies across insider personas and attack vectors.',
   },
   {
     id: 'orca-osintcti',
@@ -1738,7 +1738,7 @@ export const TOOLS: Tool[] = [
     categories: ['osint', 'threat-intel'],
     pricing: 'free',
     description:
-      'OSINT and threat intelligence search platform — unified queries across multiple data sources for indicator lookups, threat actor profiling, and infrastructure discovery.',
+      'OSINT and threat intelligence search platform - unified queries across multiple data sources for indicator lookups, threat actor profiling, and infrastructure discovery.',
   },
   {
     id: 'cybersectools',
@@ -1747,7 +1747,7 @@ export const TOOLS: Tool[] = [
     categories: ['osint', 'pentest-redteam'],
     pricing: 'free',
     description:
-      'Curated catalog of cybersecurity tools — penetration testing, forensics, OSINT, red teaming, and blue team operations. Categorized with search and filtering.',
+      'Curated catalog of cybersecurity tools - penetration testing, forensics, OSINT, red teaming, and blue team operations. Categorized with search and filtering.',
   },
   {
     id: 'redhunt-research',
@@ -1756,7 +1756,7 @@ export const TOOLS: Tool[] = [
     categories: ['threat-intel', 'vulnerability'],
     pricing: 'free',
     description:
-      'Security research publications — attack surface management insights, vulnerability disclosures, APT tracking, and adversary infrastructure analysis.',
+      'Security research publications - attack surface management insights, vulnerability disclosures, APT tracking, and adversary infrastructure analysis.',
   },
   {
     id: 'aidefend',
@@ -1765,7 +1765,7 @@ export const TOOLS: Tool[] = [
     categories: ['ai-security'],
     pricing: 'freemium',
     description:
-      'AI-powered cybersecurity defense — automated threat detection, AI-driven incident response orchestration, and continuous security posture management.',
+      'AI-powered cybersecurity defense - automated threat detection, AI-driven incident response orchestration, and continuous security posture management.',
   },
   {
     id: 'appsec-master',
@@ -1774,7 +1774,7 @@ export const TOOLS: Tool[] = [
     categories: ['appsec'],
     pricing: 'free',
     description:
-      'Interactive application security training — hands-on labs covering OWASP Top 10, API security testing, secure coding practices, and vulnerability remediation.',
+      'Interactive application security training - hands-on labs covering OWASP Top 10, API security testing, secure coding practices, and vulnerability remediation.',
   },
   {
     id: 'arcanum-ai-sec',
@@ -1783,7 +1783,7 @@ export const TOOLS: Tool[] = [
     categories: ['ai-security'],
     pricing: 'free',
     description:
-      'Curated AI/ML security resource hub — academic papers, offensive/defensive tools, CTF challenges, and frameworks for adversarial ML and LLM red teaming.',
+      'Curated AI/ML security resource hub - academic papers, offensive/defensive tools, CTF challenges, and frameworks for adversarial ML and LLM red teaming.',
   },
   {
     id: 'owasp-ai-visualizer',
@@ -1792,7 +1792,7 @@ export const TOOLS: Tool[] = [
     categories: ['ai-security'],
     pricing: 'free',
     description:
-      'Interactive visual mapping of the OWASP AI security landscape — explore AI-specific threats, vulnerabilities, and controls across the ML development lifecycle.',
+      'Interactive visual mapping of the OWASP AI security landscape - explore AI-specific threats, vulnerabilities, and controls across the ML development lifecycle.',
   },
   {
     id: 'mjolnir-intel',
@@ -1801,7 +1801,7 @@ export const TOOLS: Tool[] = [
     categories: ['threat-intel'],
     pricing: 'free',
     description:
-      'Threat intelligence dashboard — live IOC feeds, campaign tracking, and real-time security event monitoring from Mjolnir Security.',
+      'Threat intelligence dashboard - live IOC feeds, campaign tracking, and real-time security event monitoring from Mjolnir Security.',
   },
   {
     id: 'geniebot',
@@ -1810,6 +1810,6 @@ export const TOOLS: Tool[] = [
     categories: ['ai-security'],
     pricing: 'freemium',
     description:
-      'AI-powered security assistant — threat intelligence queries, security automation workflows, and chatbot-driven incident response guidance.',
+      'AI-powered security assistant - threat intelligence queries, security automation workflows, and chatbot-driven incident response guidance.',
   },
 ];

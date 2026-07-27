@@ -36,7 +36,7 @@ export type CatalogBadge = 'live' | 'new' | 'alias' | 'beta' | 'static';
 /**
  * The full catalog: every page in every hub.
  *
- * `CatalogCategory` here is identical to `HubMeta` — the old name is kept
+ * `CatalogCategory` here is identical to `HubMeta` - the old name is kept
  * to avoid breaking the Catalog page import.
  */
 export const CATALOG: HubMeta[] = [...HUB_META];

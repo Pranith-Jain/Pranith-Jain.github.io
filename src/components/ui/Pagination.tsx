@@ -36,7 +36,7 @@ export function Pagination({
 
       <span className="px-2 text-xs font-mono text-slate-500">
         {page} / {totalPages}
-        {showCount && count !== undefined && <span className="ml-1 text-slate-400">({count})</span>}
+        {showCount && count !== undefined && <span className="ml-1 text-slate-500 dark:text-slate-400">({count})</span>}
       </span>
 
       <button

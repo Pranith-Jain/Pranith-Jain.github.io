@@ -36,6 +36,7 @@ const CACHE_TTL_SECONDS = 3600;
 const CLAIM_HANDLES = [
   'FalconFeedsio',
   'DailyDarkWeb',
+  'DarkWebInformer',
   'ransomnews',
   'LeakRadario',
   'MonThreat',
@@ -79,13 +80,15 @@ function isoFromTweet(ms: number, fallback: string): string {
  * handle fetch (rate-limit, auth) contributes nothing rather than throwing.
  */
 export async function fetchXClaims(env: Env): Promise<XClaimsResponse> {
-  const timelines = await Promise.all(
-    CLAIM_HANDLES.map((h) =>
-      fetchAuthedTimeline(env, h, { count: 40, sinceDays: 7, includeReplies: false, includePinned: false }).catch(
-        () => null
-      )
-    )
-  );
+  const timelines: (Awaited<ReturnType<typeof fetchAuthedTimeline>> | null)[] = [];
+  for (let i = 0; i < CLAIM_HANDLES.length; i++) {
+    if (i > 0) await new Promise((r) => setTimeout(r, 300));
+    try {
+      timelines.push(await fetchAuthedTimeline(env, CLAIM_HANDLES[i]!, { count: 40, sinceDays: 7, includeReplies: false, includePinned: false }));
+    } catch {
+      timelines.push(null);
+    }
+  }
 
   const ransByKey = new Map<string, RansomwareVictim>();
   const breachByKey = new Map<string, BreachClaim>();

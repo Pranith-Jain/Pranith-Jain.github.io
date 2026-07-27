@@ -37,7 +37,7 @@ interface DisarmResponse {
   upstream_error?: string;
 }
 
-/** Only render http(s) links — the external_references urls come from an
+/** Only render http(s) links - the external_references urls come from an
  *  untrusted upstream STIX bundle, so never let a `javascript:`/`data:` URL
  *  reach an href. */
 function safeHref(url: string): string | null {
@@ -72,8 +72,8 @@ function typeLabel(t: string): string {
 function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
-      ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+      ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -133,12 +133,12 @@ export default function DisarmFramework(): JSX.Element {
         href="https://github.com/DISARMFoundation/DISARMframeworks"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-brand-600 dark:text-brand-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline"
       >
         DISARM
       </a>{' '}
       framework for Foreign Information Manipulation &amp; Interference (FIMI) / disinformation, rendered from its
-      published STIX 2.1 bundle — disinformation tactics (TA01–TA16) and the techniques (T0xxx) that ladder up to them,
+      published STIX 2.1 bundle - disinformation tactics (TA01–TA16) and the techniques (T0xxx) that ladder up to them,
       each with its description and DISARM reference. Licensed CC BY-SA 4.0 by the DISARM Foundation (attribution +
       ShareAlike).
     </>
@@ -157,7 +157,7 @@ export default function DisarmFramework(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search techniques / tactics (name, description, T-id)…"
-          className="w-full max-w-md rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-3 py-1.5 text-sm font-mono text-slate-700 dark:text-slate-300 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+          className="w-full max-w-md rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-3 py-1.5 text-sm font-mono text-slate-700 dark:text-slate-300 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
         />
         <div className="flex flex-wrap gap-1.5">
           <button onClick={() => setType('all')} className={chip(type === 'all')}>
@@ -205,17 +205,17 @@ export default function DisarmFramework(): JSX.Element {
                       href={primaryRef}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-brand-600 dark:hover:text-brand-400"
+                      className="hover:text-rose-600 dark:hover:text-rose-400"
                     >
                       {entry.external_id && (
-                        <span className="font-mono text-brand-600 dark:text-brand-400 mr-1.5">{entry.external_id}</span>
+                        <span className="font-mono text-rose-600 dark:text-rose-400 mr-1.5">{entry.external_id}</span>
                       )}
                       {entry.name} <ExternalLink size={12} className="inline align-baseline opacity-60" />
                     </a>
                   ) : (
                     <>
                       {entry.external_id && (
-                        <span className="font-mono text-brand-600 dark:text-brand-400 mr-1.5">{entry.external_id}</span>
+                        <span className="font-mono text-rose-600 dark:text-rose-400 mr-1.5">{entry.external_id}</span>
                       )}
                       {entry.name}
                     </>
@@ -261,13 +261,13 @@ export default function DisarmFramework(): JSX.Element {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                        className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
                         title={ref.source_name}
                       >
                         {label}
                       </a>
                     ) : (
-                      <span key={i} className="text-micro font-mono text-slate-400">
+                      <span key={i} className="text-micro font-mono text-slate-500 dark:text-slate-400">
                         {label}
                       </span>
                     );
@@ -280,17 +280,17 @@ export default function DisarmFramework(): JSX.Element {
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
           Data:{' '}
           <a
             href={data.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-brand-600 dark:hover:text-brand-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400"
           >
             {data.source}
           </a>{' '}
-          — DISARM Frameworks; CC BY-SA 4.0 (attribution + ShareAlike)
+          - DISARM Frameworks; CC BY-SA 4.0 (attribution + ShareAlike)
           {data.spec_version ? ` · STIX ${data.spec_version}` : ''} · {data.total} entries
         </p>
       )}

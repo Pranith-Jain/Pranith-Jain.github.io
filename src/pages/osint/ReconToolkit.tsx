@@ -77,11 +77,11 @@ export default function ReconToolkit() {
             <div className="flex items-center gap-3">
               <Link
                 to="/osint"
-                className="p-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50"
+                className="p-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50"
               >
                 <ArrowLeft size={16} className="text-slate-600" />
               </Link>
-              <div className="w-10 h-10 rounded-lg bg-orange-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-orange-600 flex items-center justify-center">
                 <Search size={20} className="text-white" />
               </div>
               <div>
@@ -107,7 +107,7 @@ export default function ReconToolkit() {
                 <div className="flex-1">
                   <h3 className="text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-brand-600 transition-colors flex items-center gap-2">
                     {tool.name}
-                    {tool.external && <ExternalLink size={12} className="text-slate-400" />}
+                    {tool.external && <ExternalLink size={12} className="text-slate-500 dark:text-slate-400" />}
                   </h3>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{tool.description}</p>
                 </div>

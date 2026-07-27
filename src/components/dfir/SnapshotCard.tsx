@@ -13,7 +13,7 @@ import type { LucideIcon } from 'lucide-react';
  *   - rightAction: typically a "feed →" Link to the deep-view page
  *   - loading: when true, render skeleton bars
  *   - error: when set, render the error string in rose
- *   - children: the body — typically a stat line + a list of items
+ *   - children: the body - typically a stat line + a list of items
  *
  * Accent colour map is closed-set so Tailwind's JIT can statically extract
  * the classes. Adding a new colour means adding a row here.
@@ -47,21 +47,21 @@ interface Props {
   accent: SnapshotAccent;
   icon: LucideIcon;
   title: string;
-  /** Optional — number of items new since last visit. */
+  /** Optional - number of items new since last visit. */
   newCount?: number;
-  /** Optional — number of items matching the analyst's watchlist. */
+  /** Optional - number of items matching the analyst's watchlist. */
   watchCount?: number;
-  /** Optional — concrete watchlist terms used for the watchpill tooltip. */
+  /** Optional - concrete watchlist terms used for the watchpill tooltip. */
   watchTerms?: string[];
   /** Whether to render newCount + watchCount badges (false when no last-visit baseline). */
   showNewBadge?: boolean;
-  /** Element rendered top-right — typically a "feed →" Link. */
+  /** Element rendered top-right - typically a "feed →" Link. */
   rightAction?: ReactNode;
   /** When true: skeleton placeholder rows replace children. */
   loading?: boolean;
   /** When set: rose error message replaces children. */
   error?: string;
-  /** Card padding tier — `compact` for landing-page embeds. */
+  /** Card padding tier - `compact` for landing-page embeds. */
   compact?: boolean;
   children?: ReactNode;
 }

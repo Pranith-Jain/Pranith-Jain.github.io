@@ -6,7 +6,7 @@
  * related sources one click away instead of forcing the user to
  * re-navigate the chip strip.
  *
- * The single source of truth is `data/threatintel-hubs.ts` — a hub is
+ * The single source of truth is `data/threatintel-hubs.ts` - a hub is
  * what the catalog filters by (`?cat=<hub-id>`). Pages look up their hub
  * id by slug (last path segment) via `hubIdForSlug()`. We don't
  * duplicate the slug → hub map here so it can't drift from the registry.
@@ -39,12 +39,12 @@ const DFIR_TOOL_TO_GROUP: Record<string, ToolGroup> = (() => {
 
 /**
  * Given the current pathname, return the URL the "back" link should
- * send the user to. Returns `null` when the page isn't a known tool —
+ * send the user to. Returns `null` when the page isn't a known tool -
  * callers fall back to the surface's hub root (`/threatintel` or
  * `/dfir`).
  */
 export function backCategoryFor(pathname: string): string | null {
-  // 2-segment threatintel paths — two cases:
+  // 2-segment threatintel paths - two cases:
   //   (a) Hub landing page: /threatintel/<hub-id>
   //       (e.g. /threatintel/detections → ?cat=detections)
   //   (b) Flat tool page: /threatintel/<slug>

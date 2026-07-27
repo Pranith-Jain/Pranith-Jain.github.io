@@ -5,7 +5,7 @@ import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { DataPageLayout } from '../../components/DataPageLayout';
 
 /**
- * /threatintel/research — original adversary-tracking and methodology
+ * /threatintel/research - original adversary-tracking and methodology
  * pieces written by Pranith Jain. Distinct from /threatintel/writeups
  * (aggregated third-party blogs) and /threatintel/signal (the curated
  * subset of the same). This is the only surface on the platform with
@@ -31,13 +31,13 @@ export default function Research(): JSX.Element {
           </span>
           <span className="mt-3 block text-meta font-mono text-slate-500">
             For aggregated third-party research, see{' '}
-            <Link to="/threatintel/detections/signal" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link to="/threatintel/detections/signal" className="text-rose-600 dark:text-rose-400 hover:underline">
               /threatintel/signal
             </Link>{' '}
             (curated) or{' '}
             <Link
               to="/threatintel/research-hub/writeups"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               /threatintel/writeups
             </Link>{' '}
@@ -62,12 +62,12 @@ export default function Research(): JSX.Element {
 
       <ul className="space-y-4">
         {posts.map((p) => (
-          <li key={p.slug} className="surface-card/40 shadow-e1 p-5 transition hover:border-brand-500/40">
+          <li key={p.slug} className="surface-card/40 shadow-e1 p-5 transition hover:border-rose-500/40">
             <Link to={`/threatintel/research/${p.slug}`} className="group block">
-              <div className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
+              <div className="text-micro font-mono uppercase tracking-[0.18em] text-rose-600 dark:text-rose-400 mb-1.5">
                 {p.kicker}
               </div>
-              <h2 className="font-display text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
+              <h2 className="font-display text-xl font-bold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">
                 {p.title}
                 <ExternalLink size={14} className="inline-block ml-2 opacity-50" aria-hidden="true" />
               </h2>

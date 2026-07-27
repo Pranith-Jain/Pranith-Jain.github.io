@@ -53,7 +53,7 @@ interface InfoResponse {
 }
 
 function formatDate(iso: string): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   try {
     return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
   } catch (_catchErr) {
@@ -184,7 +184,7 @@ export default function Orkl(): JSX.Element {
           >
             ORKL
           </a>{' '}
-          open-source threat intelligence library — security reports, threat actor profiles, and vulnerability analyses
+          open-source threat intelligence library - security reports, threat actor profiles, and vulnerability analyses
           aggregated from hundreds of sources. Click any entry to view full details.
         </p>
       </div>
@@ -246,7 +246,7 @@ export default function Orkl(): JSX.Element {
           {/* Results list */}
           {results !== null && results.length > 0 && (
             <div className={`space-y-2 ${selected ? 'lg:col-span-1' : 'lg:col-span-3'}`}>
-              <div className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-400 mb-2">
+              <div className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                 {results.length} result{results.length !== 1 ? 's' : ''}
               </div>
               {results.map((entry) => (
@@ -291,7 +291,7 @@ export default function Orkl(): JSX.Element {
                 </h2>
 
                 {selected.sha1_hash && (
-                  <div className="flex items-center gap-1.5 text-mini font-mono text-slate-400 mb-2">
+                  <div className="flex items-center gap-1.5 text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">
                     <Hash size={10} /> {selected.sha1_hash}
                   </div>
                 )}
@@ -382,7 +382,7 @@ export default function Orkl(): JSX.Element {
 
               {/* Plain text */}
               <div className="surface-card p-4">
-                <h3 className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3">
+                <h3 className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
                   Full Text
                 </h3>
                 {detailLoading ? (

@@ -18,7 +18,7 @@ export default function RhysidaIntrusion(): JSX.Element {
           <Skull size={28} className="text-brand-600 dark:text-brand-400" /> Anatomy of a Rhysida Intrusion
         </h1>
         <p className="text-muted mb-2 leading-relaxed">
-          A real Rhysida kill chain mapped to MITRE ATT&CK — 24 stages across all 12 tactics, from no-MFA VPN login
+          A real Rhysida kill chain mapped to MITRE ATT&CK - 24 stages across all 12 tactics, from no-MFA VPN login
           through Zerologon, ntds.dit exfiltration to domain-wide encryption. Step through stage by stage, or watch the
           8-hour timeline play out.
         </p>
@@ -81,13 +81,13 @@ export default function RhysidaIntrusion(): JSX.Element {
         </h2>
         <div className="grid gap-1.5 sm:grid-cols-2 text-sm font-mono text-slate-700 dark:text-slate-300">
           {[
-            'Initial Access — no-MFA VPN login',
-            'Credential Access — Zerologon (CVE-2020-1472)',
-            'Discovery — domain enumeration',
-            'Lateral Movement — DCSync, PsExec',
-            'Collection — ntds.dit extraction',
-            'Exfiltration — Rhysida blob upload',
-            'Impact — domain-wide encryption',
+            'Initial Access - no-MFA VPN login',
+            'Credential Access - Zerologon (CVE-2020-1472)',
+            'Discovery - domain enumeration',
+            'Lateral Movement - DCSync, PsExec',
+            'Collection - ntds.dit extraction',
+            'Exfiltration - Rhysida blob upload',
+            'Impact - domain-wide encryption',
           ].map((t) => (
             <div key={t} className="flex items-start gap-2">
               <span className="shrink-0 mt-1.5 inline-block w-1.5 h-1.5 rounded-full bg-rose-500" />
@@ -110,7 +110,7 @@ export default function RhysidaIntrusion(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              mr-r3b00t/org_cyber_attack_sim — live simulation
+              mr-r3b00t/org_cyber_attack_sim - live simulation
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -121,7 +121,7 @@ export default function RhysidaIntrusion(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              GitHub — source code
+              GitHub - source code
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>

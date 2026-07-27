@@ -473,7 +473,7 @@ export default function UrlPreview(): JSX.Element {
                       (e.currentTarget as HTMLImageElement).style.display = 'none';
                     }}
                   />
-                  <p className="mt-1 text-mini font-mono text-slate-400">
+                  <p className="mt-1 text-mini font-mono text-slate-500 dark:text-slate-400">
                     Note: image loaded from the queried site, so referer may be visible to that server.
                   </p>
                 </div>

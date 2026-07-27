@@ -44,7 +44,7 @@ export default function PredictionMarkets() {
           <BarChart3 size={16} className="text-emerald-400" />
           <h3 className="text-tool font-bold font-mono text-slate-700 dark:text-slate-200">PREDICTION MARKETS</h3>
         </div>
-        <span className="text-mini font-mono text-slate-400">{markets.length} markets · Polymarket</span>
+        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{markets.length} markets · Polymarket</span>
       </div>
       <div className="space-y-2.5 max-h-64 overflow-y-auto custom-scrollbar">
         {loading ? (
@@ -54,7 +54,7 @@ export default function PredictionMarkets() {
             ))}
           </div>
         ) : markets.length === 0 ? (
-          <div className="text-center text-tool text-slate-400 py-4">No prediction markets found</div>
+          <div className="text-center text-tool text-slate-500 dark:text-slate-400 py-4">No prediction markets found</div>
         ) : (
           markets.map((m) => {
             const yes = m.outcomes.find((o) => o.label === 'Yes') || m.outcomes[0];
@@ -70,7 +70,7 @@ export default function PredictionMarkets() {
                     <div className="text-tool text-slate-700 dark:text-slate-200 leading-tight line-clamp-2">
                       {m.question}
                     </div>
-                    <div className="text-mini text-slate-400 mt-0.5">
+                    <div className="text-mini text-slate-500 dark:text-slate-400 mt-0.5">
                       Vol: {formatVol(m.volume24hr)} 24h · {formatVol(m.volumeTotal)} total
                     </div>
                   </div>

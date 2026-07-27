@@ -47,7 +47,7 @@ const STEPS: StepDef[] = [
     label: 'Header Analysis',
     icon: Shield,
     title: 'Header Analysis',
-    description: 'Extract and analyze email headers — From, Reply-To, Return-Path, SPF, DKIM, and DMARC verdicts.',
+    description: 'Extract and analyze email headers - From, Reply-To, Return-Path, SPF, DKIM, and DMARC verdicts.',
   },
   {
     id: 2,
@@ -82,7 +82,7 @@ const STEPS: StepDef[] = [
     label: 'IOC Aggregation',
     icon: ListTree,
     title: 'IOC Aggregation',
-    description: 'Consolidate all extracted IOCs — IPs, domains, URLs, hashes, email addresses.',
+    description: 'Consolidate all extracted IOCs - IPs, domains, URLs, hashes, email addresses.',
   },
   {
     id: 7,
@@ -176,7 +176,7 @@ const EXAMPLE_DATA: Record<StepId, { fields: Array<{ label: string; value: strin
       { label: 'Return-Path', value: 'bounce@evil-domain.xyz' },
       { label: 'SPF', value: 'FAIL (domain evil-domain.xyz does not designate 203.0.113.42 as sender)' },
       { label: 'DKIM', value: 'FAIL (signature domain mismatch: d=evil-domain.xyz)' },
-      { label: 'DMARC', value: 'none (no policy — fallthrough)' },
+      { label: 'DMARC', value: 'none (no policy - fallthrough)' },
     ],
   },
   2: {
@@ -184,7 +184,7 @@ const EXAMPLE_DATA: Record<StepId, { fields: Array<{ label: string; value: strin
       { label: 'URL 1', value: 'https://evil-domain.xyz/login.php?token=abc123' },
       { label: 'URL 2', value: 'https://evil-domain.xyz/collect.php' },
       { label: 'Domain Age', value: '12 days (registered 2026-05-28)' },
-      { label: 'urlscan Verdict', value: 'MALICIOUS — flagged by 3 scanners' },
+      { label: 'urlscan Verdict', value: 'MALICIOUS - flagged by 3 scanners' },
       { label: 'Redirect Chain', value: 'evil-domain.xyz → 203.0.113.42 → parked (sinkhole)' },
     ],
   },
@@ -198,15 +198,15 @@ const EXAMPLE_DATA: Record<StepId, { fields: Array<{ label: string; value: strin
         label: 'True Type',
         value: 'Microsoft Word Macro-Enabled Document (application/vnd.ms-word.document.macroenabled.12)',
       },
-      { label: 'Sandbox Verdict', value: 'MALICIOUS — dropped Cobalt Strike beacon via macro' },
+      { label: 'Sandbox Verdict', value: 'MALICIOUS - dropped Cobalt Strike beacon via macro' },
     ],
   },
   4: {
     fields: [
       { label: 'Recipient', value: 'john.doe@company.com' },
-      { label: 'Okta Sessions', value: '2 active sessions (desktop + mobile) — no unusual IPs' },
+      { label: 'Okta Sessions', value: '2 active sessions (desktop + mobile) - no unusual IPs' },
       { label: 'MFA Events', value: '1 MFA push accepted at 14:32 UTC from IP 198.51.100.7 (unusual)' },
-      { label: 'Suspicious Logins', value: '198.51.100.7 — no previous auth history for this user' },
+      { label: 'Suspicious Logins', value: '198.51.100.7 - no previous auth history for this user' },
       {
         label: 'Inbox Rules',
         value:
@@ -219,7 +219,7 @@ const EXAMPLE_DATA: Record<StepId, { fields: Array<{ label: string; value: strin
       { label: 'Blocklist Action', value: 'evil-domain.xyz added to email gateway blocklist' },
       { label: 'URL Block', value: 'All URLs under evil-domain.xyz blocked at proxy (category: phishing)' },
       { label: 'Quarantine', value: '3 copies of the email quarantined (john.doe@, helpdesk@, admin@)' },
-      { label: 'Account Status', value: 'john.doe@company.com — disabled, password reset forced' },
+      { label: 'Account Status', value: 'john.doe@company.com - disabled, password reset forced' },
       { label: 'Sessions Revoked', value: 'All Okta sessions revoked; user required to re-authenticate' },
     ],
   },
@@ -240,7 +240,7 @@ const EXAMPLE_DATA: Record<StepId, { fields: Array<{ label: string; value: strin
       },
       {
         label: 'Confidence Tags',
-        value: 'HIGH — phishing kit detected, credential harvesting confirmed, sandbox detonation produced C2 beacon',
+        value: 'HIGH - phishing kit detected, credential harvesting confirmed, sandbox detonation produced C2 beacon',
       },
     ],
   },
@@ -256,7 +256,7 @@ const EXAMPLE_DATA: Record<StepId, { fields: Array<{ label: string; value: strin
       {
         label: 'Timeline',
         value:
-          '14:30 UTC — Email received. 14:32 UTC — User clicked link and entered credentials. 14:33 UTC — Inbox rule created. 14:35 UTC — Alert triggered. 14:40 UTC — Analyst begins triage. 15:00 UTC — Account disabled, email quarantined. 15:15 UTC — Containment complete.',
+          '14:30 UTC - Email received. 14:32 UTC - User clicked link and entered credentials. 14:33 UTC - Inbox rule created. 14:35 UTC - Alert triggered. 14:40 UTC - Analyst begins triage. 15:00 UTC - Account disabled, email quarantined. 15:15 UTC - Containment complete.',
       },
       {
         label: 'Lessons Learned',
@@ -270,7 +270,7 @@ const EXAMPLE_DATA: Record<StepId, { fields: Array<{ label: string; value: strin
 function buildReport(s: InvestigationState): string {
   const lines: string[] = [];
   const d = new Date(s.startedAt);
-  lines.push('# PHISHOPS — Phishing Investigation Report');
+  lines.push('# PHISHOPS - Phishing Investigation Report');
   lines.push(`**Started:** ${d.toLocaleString()}`);
   lines.push('');
   for (const step of STEPS) {
@@ -279,7 +279,7 @@ function buildReport(s: InvestigationState): string {
     const done = items.filter((i) => i.done).length;
     lines.push(`Progress: ${done}/${items.length} checks completed`);
     for (const item of items) {
-      lines.push(`- [${item.done ? 'x' : ' '}] ${item.label}${item.notes ? ` — ${item.notes}` : ''}`);
+      lines.push(`- [${item.done ? 'x' : ' '}] ${item.label}${item.notes ? ` - ${item.notes}` : ''}`);
     }
     const note = s.notes[step.id];
     if (note?.trim()) {
@@ -378,7 +378,7 @@ export default function PhishOps(): JSX.Element {
           <Shield size={28} className="text-brand-600 dark:text-brand-400" /> PHISHOPS
         </h1>
         <p className="text-muted max-w-2xl leading-relaxed">
-          Guided Phishing Investigation — 7-step tracker with checklists, IOC aggregation, and export.
+          Guided Phishing Investigation - 7-step tracker with checklists, IOC aggregation, and export.
         </p>
       </div>
 
@@ -520,7 +520,7 @@ export default function PhishOps(): JSX.Element {
                   <span
                     role="button"
                     tabIndex={0}
-                    className={`text-sm font-mono cursor-pointer ${item.done ? 'line-through text-slate-400 dark:text-slate-500' : 'text-slate-700 dark:text-slate-300'}`}
+                    className={`text-sm font-mono cursor-pointer ${item.done ? 'line-through text-slate-500 dark:text-slate-400' : 'text-slate-700 dark:text-slate-300'}`}
                     onClick={() => toggleCheck(state.currentStep, item.id)}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {

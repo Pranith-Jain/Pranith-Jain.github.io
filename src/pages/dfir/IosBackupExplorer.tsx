@@ -39,7 +39,7 @@ export default function IosBackupExplorer(): JSX.Element {
       db = d;
       // Manifest.db: Files(fileID, domain, relativePath, flags, file)
       const res = d.exec('SELECT domain, relativePath, fileID, flags FROM Files ORDER BY domain LIMIT 20000');
-      if (res.length === 0) throw new Error('No Files table — is this an iOS Manifest.db?');
+      if (res.length === 0) throw new Error('No Files table - is this an iOS Manifest.db?');
       const rows: FileRow[] = res[0]!.values.map((r: unknown[]) => ({
         domain: String(r[0] ?? ''),
         path: String(r[1] ?? ''),
@@ -55,7 +55,7 @@ export default function IosBackupExplorer(): JSX.Element {
       setErr(e instanceof Error ? e.message : String(e));
       setFiles(null);
     } finally {
-      // Free the WASM-backed handle — rows/domains are already materialized
+      // Free the WASM-backed handle - rows/domains are already materialized
       // into plain JS, so the sql.js Database is no longer needed.
       db?.close?.();
       setBusy(false);
@@ -82,7 +82,7 @@ export default function IosBackupExplorer(): JSX.Element {
         iOS Backup Explorer
       </h1>
       <p className="text-sm font-mono text-muted mt-1 mb-6">
-        Drop an iOS backup <code>Manifest.db</code> — enumerates the backed-up file inventory by domain and path (Files
+        Drop an iOS backup <code>Manifest.db</code> - enumerates the backed-up file inventory by domain and path (Files
         table). sql.js runs as a lazy WASM chunk; nothing is uploaded.
       </p>
 
@@ -96,7 +96,7 @@ export default function IosBackupExplorer(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           {busy ? 'Loading...' : 'Drop Manifest.db here, or click to choose'}
         </p>
-        <p className="text-mini font-mono text-slate-400 mt-1">iOS backup SQLite database. 100% client-side.</p>
+        <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1">iOS backup SQLite database. 100% client-side.</p>
       </button>
       <input
         id="iosbackup-input"
@@ -131,7 +131,7 @@ export default function IosBackupExplorer(): JSX.Element {
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="filter by domain / path — e.g. CameraRollDomain, sms.db, WhatsApp…"
+            placeholder="filter by domain / path - e.g. CameraRollDomain, sms.db, WhatsApp…"
             className="w-full surface-card px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
           />
           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">

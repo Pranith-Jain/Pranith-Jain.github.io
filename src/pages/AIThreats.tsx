@@ -94,26 +94,26 @@ export default function AIThreats() {
         {loading && (
           <div className="grid grid-cols-3 gap-4">
             {['Total Entries', 'Main Tracker', 'Deepfake'].map((label) => (
-              <div key={label} className="h-20 animate-pulse rounded-lg bg-slate-200 dark:bg-slate-800" />
+              <div key={label} className="h-20 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-800" />
             ))}
           </div>
         )}
         {error && (
-          <div className="rounded-lg border border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/40 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+          <div className="rounded-xl border border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/40 px-4 py-3 text-sm text-red-700 dark:text-red-300">
             Failed to load AI Threats index: <span className="font-mono">{error}</span>
           </div>
         )}
         {!loading && !error && index && (
           <div className="grid grid-cols-3 gap-4">
-            <div className="rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
+            <div className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
               <div className="text-xs font-medium uppercase tracking-wider text-muted">Total Entries</div>
               <div className="mt-1 text-2xl font-semibold">{index.counts.total}</div>
             </div>
-            <div className="rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
+            <div className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
               <div className="text-xs font-medium uppercase tracking-wider text-muted">Main Tracker</div>
               <div className="mt-1 text-2xl font-semibold">{index.counts.main}</div>
             </div>
-            <div className="rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
+            <div className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
               <div className="text-xs font-medium uppercase tracking-wider text-muted">Deepfake</div>
               <div className="mt-1 text-2xl font-semibold">{index.counts.deepfake}</div>
             </div>
@@ -128,13 +128,13 @@ export default function AIThreats() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search actors, TTPs, categories..."
-              className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 py-2 pl-9 pr-3 text-sm"
+              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 py-2 pl-9 pr-3 text-sm"
             />
           </div>
           <select
             value={tableFilter}
             onChange={(e) => setTableFilter(e.target.value)}
-            className="rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-3 py-2 text-sm"
+            className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-3 py-2 text-sm"
           >
             <option value="">All Tables</option>
             <option value="main">Main</option>
@@ -145,7 +145,7 @@ export default function AIThreats() {
 
       <div className="grid grid-cols-1 gap-3">
         {entries.length === 0 && !loading && (
-          <div className="rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-muted">
+          <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-muted">
             {searchTerm || tableFilter
               ? 'No entries match your filters.'
               : 'No entries found. Ensure data is built (see README).'}
@@ -156,7 +156,7 @@ export default function AIThreats() {
           <button
             key={entry.slug}
             onClick={() => setSelectedEntry(selectedEntry === entry.slug ? null : entry.slug)}
-            className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3 text-left transition-colors hover:bg-white/80 dark:hover:bg-[rgb(var(--card-bg))]/80"
+            className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3 text-left transition-colors hover:bg-white/80 dark:hover:bg-[rgb(var(--card-bg))]/80"
           >
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
@@ -215,7 +215,7 @@ export default function AIThreats() {
                     <div>
                       <div className="mb-1 font-medium text-muted">TTP Mapping</div>
                       <div
-                        className="rounded-lg bg-slate-50 dark:bg-slate-900/50 p-3 font-mono text-mini leading-relaxed whitespace-pre-wrap"
+                        className="rounded-xl bg-slate-50 dark:bg-slate-900/50 p-3 font-mono text-mini leading-relaxed whitespace-pre-wrap"
                         dangerouslySetInnerHTML={{
                           __html: entryDetail.ttpMd
                             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')

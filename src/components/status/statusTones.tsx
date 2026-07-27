@@ -4,8 +4,8 @@ import { AlertTriangle, CheckCircle2, CircleDashed, XCircle, type LucideIcon } f
  * Shared visual language for platform health status.
  *
  * Two surfaces consume these tokens:
- *   - `/threatintel/feeds/status` — analyst workbench, full admiralty drill-down
- *   - `/status`                    — public, mobile-first landing page
+ *   - `/threatintel/feeds/status` - analyst workbench, full admiralty drill-down
+ *   - `/status`                    - public, mobile-first landing page
  *
  * Keep this file as the single source of truth so both pages match.
  */
@@ -48,7 +48,7 @@ export const CREDIBILITY: Record<number, { label: string; tone: string }> = {
 };
 
 /**
- * Reliability (A–F) tone — fixed property of the source, distinct from
+ * Reliability (A–F) tone - fixed property of the source, distinct from
  * the per-data-point credibility. A=reliable, F=unreliable.
  */
 export const RELIABILITY_TONE: Record<string, string> = {
@@ -64,7 +64,7 @@ export const RELIABILITY_TONE: Record<string, string> = {
  * Format an upstream age in seconds as a compact "Xs/Xm/Xh/Xd ago" string.
  */
 export function ageString(s?: number): string {
-  if (s === undefined) return '—';
+  if (s === undefined) return '-';
   if (s < 60) return `${s}s ago`;
   if (s < 3600) return `${Math.floor(s / 60)}m ago`;
   if (s < 86400) return `${Math.floor(s / 3600)}h ago`;

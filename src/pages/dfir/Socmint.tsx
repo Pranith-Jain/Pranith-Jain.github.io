@@ -201,7 +201,7 @@ export default function Socmint(): JSX.Element {
       <section className="surface-card p-4 mb-6">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
             <input
               type="text"
               value={input}
@@ -246,7 +246,7 @@ export default function Socmint(): JSX.Element {
 
       {value && categoriesAvailable.length > 0 && (
         <section className="flex flex-wrap items-center gap-2 mb-4">
-          <span className="text-mini font-mono text-slate-400 mr-1">filter:</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">filter:</span>
           {categoriesAvailable.map((c) => {
             const meta = CATEGORY_META[c];
             const Icon = meta.icon;
@@ -353,7 +353,7 @@ function PivotInner({ pivot, url, internal }: { pivot: PivotLink; url: string; i
     <>
       <div className="flex items-baseline justify-between gap-2 mb-0.5">
         <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{pivot.label}</span>
-        <span className="inline-flex items-center gap-1 text-micro font-mono text-slate-400">
+        <span className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400">
           {pivot.paid && (
             <span className="px-1 py-0.5 rounded border border-amber-500/40 text-amber-700 dark:text-amber-300">
               <Lock size={9} className="inline" /> paid

@@ -125,7 +125,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
             <button
               key={p}
               onClick={() => togglePlatform(p)}
-              className={`px-2.5 py-1.5 rounded-xl text-xs font-mono border transition-colors ${platforms.has(p) ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:border-brand-500/30'}`}
+              className={`px-2.5 py-1.5 rounded-xl text-xs font-mono border transition-colors ${platforms.has(p) ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/30'}`}
             >
               {p}
             </button>

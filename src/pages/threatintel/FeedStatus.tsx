@@ -100,12 +100,12 @@ export default function FeedStatus(): JSX.Element {
             </span>
           </div>
         ) : (
-          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">—</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">-</span>
         )}
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
         >
           <RefreshCw size={12} /> refresh
         </button>
@@ -130,7 +130,7 @@ export default function FeedStatus(): JSX.Element {
                   <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
                     <Link
                       to={r.page_path}
-                      className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400"
+                      className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400"
                     >
                       {r.label}
                     </Link>
@@ -160,7 +160,7 @@ export default function FeedStatus(): JSX.Element {
                   </div>
                   <p className="text-meta font-mono text-muted leading-relaxed mb-1.5">{r.reason}</p>
                   <div className="flex flex-wrap items-center gap-2 text-micro font-mono text-slate-500">
-                    <Link to={r.page_path} className="hover:text-brand-600 dark:hover:text-brand-400">
+                    <Link to={r.page_path} className="hover:text-rose-600 dark:hover:text-rose-400">
                       {r.page_path}
                     </Link>
                     <span>·</span>
@@ -168,7 +168,7 @@ export default function FeedStatus(): JSX.Element {
                       href={r.api_path}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400"
+                      className="inline-flex items-center gap-1 hover:text-rose-600 dark:hover:text-rose-400"
                     >
                       {r.api_path} <ExternalLink size={9} />
                     </a>

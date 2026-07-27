@@ -126,7 +126,7 @@ export default function ExposedHostView(): JSX.Element {
       const data = (await res.json()) as ExposedHostResult;
       setResult(data);
 
-      // CDN/WAF detection (metabigor cdn equivalent) — non-blocking
+      // CDN/WAF detection (metabigor cdn equivalent) - non-blocking
       const ac = new AbortController();
       cdnAbortRef.current = ac;
       fetch(`${API}/cdn-detect?ip=${encodeURIComponent(targetIp)}`, { signal: ac.signal })
@@ -156,13 +156,13 @@ export default function ExposedHostView(): JSX.Element {
 
       <h1 className="text-3xl font-display font-semibold mb-2">Exposed Host Intelligence</h1>
       <p className="text-muted mb-6">
-        Per-IP asset intelligence view — open ports, services, CVEs, privacy flags, and artifact inventory. Inspired by
+        Per-IP asset intelligence view - open ports, services, CVEs, privacy flags, and artifact inventory. Inspired by
         etugen.io's exposed host feature.
       </p>
 
       <form onSubmit={onSubmit} className="flex gap-2 mb-8">
         <div className="relative flex-1">
-          <Server size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Server size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={ip}
@@ -207,7 +207,7 @@ export default function ExposedHostView(): JSX.Element {
                   {result.asn && <span className="font-mono">· {result.asn}</span>}
                 </div>
               </div>
-              <div className="text-right text-xs font-mono text-slate-400">
+              <div className="text-right text-xs font-mono text-slate-500 dark:text-slate-400">
                 <div>{result.scanTimeMs}ms</div>
                 <div>{result.sources.join(', ')}</div>
               </div>
@@ -251,7 +251,7 @@ export default function ExposedHostView(): JSX.Element {
               </div>
             )}
 
-            {/* CDN/WAF Detection — metabigor cdn equivalent */}
+            {/* CDN/WAF Detection - metabigor cdn equivalent */}
             {cdnResult && cdnResult.is_cdn && (
               <div className="mt-3 p-3 rounded-xl border border-sky-200 dark:border-sky-800/50 bg-sky-50/50 dark:bg-sky-900/15">
                 <div className="flex items-center gap-2 text-sm font-mono">
@@ -260,7 +260,7 @@ export default function ExposedHostView(): JSX.Element {
                   <span className="text-sky-600 dark:text-sky-400">({cdnResult.type})</span>
                 </div>
                 <p className="text-xs font-mono text-sky-600 dark:text-sky-400 mt-1">
-                  This IP is fronted by a CDN/WAF — the origin server may differ.
+                  This IP is fronted by a CDN/WAF - the origin server may differ.
                 </p>
               </div>
             )}
@@ -276,7 +276,7 @@ export default function ExposedHostView(): JSX.Element {
             ].map(({ label, value, icon: Icon }) => (
               <div key={label} className="p-3 surface-card">
                 <div className="flex items-center gap-1.5 mb-1">
-                  <Icon size={12} className="text-slate-400" />
+                  <Icon size={12} className="text-slate-500 dark:text-slate-400" />
                   <span className="text-micro font-mono uppercase text-slate-500">{label}</span>
                 </div>
                 <span className="text-2xl font-mono font-bold">{value}</span>
@@ -396,7 +396,7 @@ export default function ExposedHostView(): JSX.Element {
                           key={h}
                           className="flex items-center gap-2 p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]"
                         >
-                          <Globe size={10} className="text-slate-400" />
+                          <Globe size={10} className="text-slate-500 dark:text-slate-400" />
                           <Link to={`/dfir/domain?d=${h}`} className="font-mono text-sm text-brand-600 hover:underline">
                             {h}
                           </Link>
@@ -460,8 +460,8 @@ export default function ExposedHostView(): JSX.Element {
                       {previewArtifact.risk}
                     </span>
                   </div>
-                  <button onClick={() => setPreviewArtifact(null)} className="text-slate-400 hover:text-slate-600">
-                    ✕
+                  <button onClick={() => setPreviewArtifact(null)} className="text-slate-500 dark:text-slate-400 hover:text-slate-600">
+                    remove
                   </button>
                 </div>
                 <div className="p-4 space-y-3 overflow-y-auto max-h-[60vh]">
@@ -511,8 +511,8 @@ export default function ExposedHostView(): JSX.Element {
                       )}
                     </div>
                   )}
-                  <div className="text-xs text-slate-400">
-                    Artifact preview is for demonstration — full content analysis requires the Open Directory Scanner.
+                  <div className="text-xs text-slate-500 dark:text-slate-400">
+                    Artifact preview is for demonstration - full content analysis requires the Open Directory Scanner.
                   </div>
                 </div>
               </div>
@@ -525,7 +525,7 @@ export default function ExposedHostView(): JSX.Element {
         <div className="text-center py-16">
           <Server size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-400" />
           <p className="text-slate-500">Enter an IP address to see exposed host intelligence</p>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Shows open ports, CVEs, hostnames, privacy flags, and artifact inventory
           </p>
         </div>

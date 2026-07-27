@@ -61,7 +61,7 @@ export default function ActorDetail(): JSX.Element {
     return () => ac.abort();
   }, [actor]);
 
-  // Live enrichment from the aggregator — pulls Malpedia, OTX, Maltrail,
+  // Live enrichment from the aggregator - pulls Malpedia, OTX, Maltrail,
   // DNA, skeleton profile, and briefings in one call. Renders as a
   // "Live Intelligence" section below the curated content.
   useEffect(() => {
@@ -182,9 +182,9 @@ export default function ActorDetail(): JSX.Element {
             <span className="text-xs font-mono text-slate-500">· {linkedCves.length}</span>
           )}
         </h2>
-        <p className="text-mini font-mono text-slate-400 mb-3">
+        <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-3">
           CVEs publicly attributed to {actor.name} via CISA advisories, vendor PSIRT bulletins, and IR write-ups.
-          Curated — narrow by design (does not include unattributed KEV entries).
+          Curated - narrow by design (does not include unattributed KEV entries).
         </p>
         {cvesLoading && <p className="text-xs font-mono text-slate-500">Loading attribution…</p>}
         {!cvesLoading && linkedCves && linkedCves.length === 0 && (
@@ -208,7 +208,7 @@ export default function ActorDetail(): JSX.Element {
         )}
       </section>
 
-      {/* Live Intelligence — pulled from the /api/v1/actor-profile aggregator. */}
+      {/* Live Intelligence - pulled from the /api/v1/actor-profile aggregator. */}
       <section className="mb-8 rounded-xl border border-brand-300/40 dark:border-brand-700/40 bg-brand-50/30 dark:bg-brand-950/20 p-6">
         <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
           <Sparkles size={16} className="text-brand-500" /> Live Intelligence
@@ -223,7 +223,7 @@ export default function ActorDetail(): JSX.Element {
         </h2>
         {!profile && !profileLoading && (
           <p className="text-xs font-mono text-slate-500">
-            Live enrichment offline — curated data above still applies.
+            Live enrichment offline - curated data above still applies.
           </p>
         )}
         {profile && (

@@ -56,9 +56,9 @@ const CONVERGENCE_MAP = [
 function CellHighlight({ active }: { active: boolean }) {
   return (
     <td
-      className={`px-2 py-1.5 text-center font-mono text-xs ${active ? 'bg-sky-500/15 text-sky-700 dark:text-sky-300' : 'text-slate-400'}`}
+      className={`px-2 py-1.5 text-center font-mono text-xs ${active ? 'bg-sky-500/15 text-sky-700 dark:text-sky-300' : 'text-slate-500 dark:text-slate-400'}`}
     >
-      {active ? '●' : '—'}
+      {active ? '●' : '-'}
     </td>
   );
 }
@@ -95,7 +95,7 @@ export default function AttackChainHypervisor(): JSX.Element {
             </span>
           </div>
           <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed mb-5">
-            VMware vSphere and ESXi targeting — from vCenter RCE through hypervisor credential theft to guest VM
+            VMware vSphere and ESXi targeting - from vCenter RCE through hypervisor credential theft to guest VM
             encryption. The Snowflake breach (2024) demonstrated cloud management plane risk at scale.
           </p>
 
@@ -109,7 +109,7 @@ export default function AttackChainHypervisor(): JSX.Element {
                   <span className="font-semibold">{s.label}</span>
                   <span className="ml-1.5 text-brand-600 dark:text-brand-400">{s.mitre}</span>
                 </div>
-                {i < STAGES.length - 1 && <ArrowRight size={12} className="text-slate-400 shrink-0" />}
+                {i < STAGES.length - 1 && <ArrowRight size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />}
               </div>
             ))}
           </div>

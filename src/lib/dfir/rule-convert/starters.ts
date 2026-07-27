@@ -4,7 +4,7 @@ import type { RuleFormat } from './types';
  * Curated starter library for the Rule Converter.
  *
  * Every starter is a fully-formed Sigma rule modelled on a well-understood
- * detection pattern — the kind of rule the converter is most often used to
+ * detection pattern - the kind of rule the converter is most often used to
  * port (Sigma is the dominant source format in the public ecosystem). They
  * deliberately use canonical Sysmon / Windows Security field names
  * (`Image`, `CommandLine`, `ParentImage`, `TargetFilename`, …) so the
@@ -12,7 +12,7 @@ import type { RuleFormat } from './types';
  *
  * Authoring rules:
  *  - Every starter is valid Sigma the parser accepts without warnings.
- *  - Keep field names canonical Sysmon / windows-security — that's what
+ *  - Keep field names canonical Sysmon / windows-security - that's what
  *    the FieldMap presets target.
  *  - One detection idea per starter. Don't bundle.
  *  - `description` is a one-line analyst summary.
@@ -23,7 +23,7 @@ export interface ConverterStarter {
   group: 'Process execution' | 'Credential access' | 'Defence evasion' | 'Persistence' | 'Lateral movement' | 'Network';
   label: string;
   description: string;
-  /** Always Sigma — every converter starter is Sigma source. */
+  /** Always Sigma - every converter starter is Sigma source. */
   format: RuleFormat;
   body: string;
 }
@@ -34,7 +34,7 @@ export const CONVERTER_STARTERS: ConverterStarter[] = [
     id: 'certutil-urlcache',
     group: 'Process execution',
     label: 'Certutil URL-cache download',
-    description: 'certutil.exe used to fetch a remote file via urlcache — classic LOLBin download cradle.',
+    description: 'certutil.exe used to fetch a remote file via urlcache - classic LOLBin download cradle.',
     format: 'sigma',
     body: `title: Certutil URL cache download
 status: experimental
@@ -59,7 +59,7 @@ tags:
     id: 'powershell-encoded',
     group: 'Process execution',
     label: 'PowerShell encoded command',
-    description: 'powershell.exe invoked with -EncodedCommand — common obfuscation wrapper.',
+    description: 'powershell.exe invoked with -EncodedCommand - common obfuscation wrapper.',
     format: 'sigma',
     body: `title: PowerShell EncodedCommand
 status: stable
@@ -84,7 +84,7 @@ tags:
     id: 'rundll32-javascript',
     group: 'Defence evasion',
     label: 'rundll32 javascript: protocol',
-    description: 'rundll32.exe invoked with a javascript: URI — squiblydoo / Koadic style execution.',
+    description: 'rundll32.exe invoked with a javascript: URI - squiblydoo / Koadic style execution.',
     format: 'sigma',
     body: `title: rundll32 javascript protocol
 status: stable
@@ -109,7 +109,7 @@ tags:
     id: 'lsass-access',
     group: 'Credential access',
     label: 'LSASS process access by suspicious caller',
-    description: 'Process opens LSASS — common credential-dumping precursor (Mimikatz, ProcDump, comsvcs.dll).',
+    description: 'Process opens LSASS - common credential-dumping precursor (Mimikatz, ProcDump, comsvcs.dll).',
     format: 'sigma',
     body: `title: LSASS access
 status: stable
@@ -138,7 +138,7 @@ tags:
     id: 'scheduled-task-rare',
     group: 'Persistence',
     label: 'Scheduled task created with suspicious binary',
-    description: 'schtasks.exe creating a task that points at a non-system path — common persistence pattern.',
+    description: 'schtasks.exe creating a task that points at a non-system path - common persistence pattern.',
     format: 'sigma',
     body: `title: Scheduled task with non-system binary
 status: experimental
@@ -166,7 +166,7 @@ tags:
     id: 'autorun-registry',
     group: 'Persistence',
     label: 'Run/RunOnce registry persistence',
-    description: 'Write to a Run / RunOnce key — autostart persistence on logon.',
+    description: 'Write to a Run / RunOnce key - autostart persistence on logon.',
     format: 'sigma',
     body: `title: Run registry key autostart write
 status: stable
@@ -191,7 +191,7 @@ tags:
     id: 'psexec-named-pipe',
     group: 'Lateral movement',
     label: 'PsExec service named pipe',
-    description: 'Named pipe created with the PsExec service convention — interactive lateral movement via PsExec.',
+    description: 'Named pipe created with the PsExec service convention - interactive lateral movement via PsExec.',
     format: 'sigma',
     body: `title: PsExec service named pipe
 status: stable

@@ -8,7 +8,7 @@ interface LiveIndicatorProps {
   /** Right-side hint, e.g. "edge-cached" or "updated 30s ago". Hidden on
    *  the narrowest screens. */
   note?: string;
-  /** Visual size — `sm` matches the LivePulse band header, `md` is the
+  /** Visual size - `sm` matches the LivePulse band header, `md` is the
    *  default for page sub-headers, `lg` is for hero placements. */
   size?: 'sm' | 'md' | 'lg';
   className?: string;
@@ -48,7 +48,7 @@ export function LiveIndicator({
       <span className={`font-mono uppercase tracking-[0.2em] ${text} text-slate-600 dark:text-slate-300`}>{label}</span>
       {trailing}
       {note && (
-        <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-slate-400 sm:inline">{note}</span>
+        <span className="hidden font-mono text-micro uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 sm:inline">{note}</span>
       )}
     </div>
   );

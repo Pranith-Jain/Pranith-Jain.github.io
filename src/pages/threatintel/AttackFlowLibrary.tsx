@@ -38,7 +38,7 @@ interface FlowBundleResponse {
   bundle: StixBundle;
 }
 
-/** Only render http(s) links — every URL here comes from an untrusted upstream
+/** Only render http(s) links - every URL here comes from an untrusted upstream
  *  (GitHub Contents API + a derived Pages URL), so never let a
  *  `javascript:`/`data:` URL reach an href. */
 function safeHref(url: string): string | null {
@@ -142,11 +142,11 @@ export default function AttackFlowLibrary(): JSX.Element {
         href="https://center-for-threat-informed-defense.github.io/attack-flow/"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-brand-600 dark:text-brand-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline"
       >
         Center for Threat-Informed Defense
       </a>{' '}
-      Attack Flow corpus — Black Basta, Conti, NotPetya, SolarWinds, REvil, Equifax, Target, Uber, and more, each
+      Attack Flow corpus - Black Basta, Conti, NotPetya, SolarWinds, REvil, Equifax, Target, Uber, and more, each
       modeled as a sequence of ATT&amp;CK techniques and published as a STIX 2.1 bundle. This view lists the corpus from
       a single GitHub listing; opening a flow fetches just that one bundle on demand and renders its STIX objects +
       relationship graph. Apache-2.0; attribution to the Center for Threat-Informed Defense.
@@ -166,7 +166,7 @@ export default function AttackFlowLibrary(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={`Filter ${data.total} flows…`}
-          className="w-full max-w-sm text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500/60"
+          className="w-full max-w-sm text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-800 dark:text-slate-200 focus:outline-none focus:border-rose-500/60"
         />
       </div>
     ) : undefined;
@@ -185,7 +185,7 @@ export default function AttackFlowLibrary(): JSX.Element {
     >
       {/* On-demand single-flow STIX viewer */}
       {activeFlow && (
-        <div className="mb-6 rounded-xl border border-brand-500/30 bg-brand-500/5 p-4">
+        <div className="mb-6 rounded-xl border border-rose-500/30 bg-rose-500/5 p-4">
           <div className="flex items-start justify-between gap-3">
             <div>
               <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{activeFlow}</h2>
@@ -199,7 +199,7 @@ export default function AttackFlowLibrary(): JSX.Element {
             <button
               type="button"
               onClick={() => setActiveFlow(null)}
-              className="shrink-0 inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+              className="shrink-0 inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
             >
               <X size={12} /> close
             </button>
@@ -207,14 +207,14 @@ export default function AttackFlowLibrary(): JSX.Element {
 
           {flowLoading && (
             <div className="flex items-center justify-center py-10" role="status" aria-live="polite">
-              <Loader2 size={20} className="animate-spin text-slate-400" aria-hidden="true" />
+              <Loader2 size={20} className="animate-spin text-slate-500 dark:text-slate-400" aria-hidden="true" />
               <span className="sr-only">Loading flow…</span>
             </div>
           )}
 
           {flowError && (
             <p className="mt-3 text-sm text-rose-600 dark:text-rose-400">
-              Could not load this flow ({flowError}). The STIX export may be missing — try the raw source on GitHub.
+              Could not load this flow ({flowError}). The STIX export may be missing - try the raw source on GitHub.
             </p>
           )}
 
@@ -235,7 +235,7 @@ export default function AttackFlowLibrary(): JSX.Element {
                           href={l.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                          className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
                         >
                           {l.label} <ExternalLink size={10} className="opacity-60" />
                         </a>
@@ -260,14 +260,14 @@ export default function AttackFlowLibrary(): JSX.Element {
               key={flow.sha || flow.name}
               className={`rounded-xl border p-3 transition-colors ${
                 isActive
-                  ? 'border-brand-500/60 bg-brand-500/5'
+                  ? 'border-rose-500/60 bg-rose-500/5'
                   : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]'
               }`}
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">{flow.name}</h3>
                 {flow.size > 0 && (
-                  <span className="shrink-0 text-micro font-mono text-slate-400">{fmtSize(flow.size)}</span>
+                  <span className="shrink-0 text-micro font-mono text-slate-500 dark:text-slate-400">{fmtSize(flow.size)}</span>
                 )}
               </div>
 
@@ -275,7 +275,7 @@ export default function AttackFlowLibrary(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setActiveFlow(isActive ? null : flow.name)}
-                  className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                  className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
                 >
                   {isActive ? 'hide flow' : 'view flow →'}
                 </button>
@@ -284,7 +284,7 @@ export default function AttackFlowLibrary(): JSX.Element {
                     href={ghHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                    className="text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
                     title="View .afb source on GitHub"
                   >
                     GitHub <ExternalLink size={10} className="opacity-60" />
@@ -297,17 +297,17 @@ export default function AttackFlowLibrary(): JSX.Element {
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
           Data:{' '}
           <a
             href={data.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-brand-600 dark:hover:text-brand-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400"
           >
             {data.source}
           </a>{' '}
-          — {data.license} · {data.total} flows · manifest + on-demand (no per-load fan-out)
+          - {data.license} · {data.total} flows · manifest + on-demand (no per-load fan-out)
         </p>
       )}
     </DataPageLayout>

@@ -88,14 +88,14 @@ export default function BrandImpersonation(): JSX.Element {
         Brand Impersonation Explorer
       </h1>
       <p className="text-sm font-mono text-muted mt-1 mb-6">
-        Generate typosquat, homoglyph, affix and TLD-swap variants of a brand domain. Each variant links to crt.sh —
+        Generate typosquat, homoglyph, affix and TLD-swap variants of a brand domain. Each variant links to crt.sh -
         pivot to find which lookalikes have live certs. Generated locally.
       </p>
 
       <input
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="brand domain — e.g. example.com"
+        placeholder="brand domain - e.g. example.com"
         className="w-full surface-card px-3 py-2.5 font-mono text-sm focus:border-brand-500 focus:outline-none"
       />
 

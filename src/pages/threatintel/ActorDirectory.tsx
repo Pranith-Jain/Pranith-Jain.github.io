@@ -23,7 +23,7 @@ export default function ActorDirectory(): JSX.Element {
       backTo="/threatintel"
       icon={<Users size={28} />}
       title="Threat Actor Directory"
-      description="Unified threat actor browser — platform database, MITRE ATT&CK intrusion sets, and MISP Galaxy clusters. Search across all sources."
+      description="Unified threat actor browser - platform database, MITRE ATT&CK intrusion sets, and MISP Galaxy clusters. Search across all sources."
     >
       <nav
         className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"

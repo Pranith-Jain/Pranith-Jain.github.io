@@ -150,7 +150,7 @@ export default function StatusPage(): JSX.Element {
               })}
           </div>
           <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
-            {data ? `snapshot ${ageString(Math.round((Date.now() - Date.parse(data.generated_at)) / 1000))}` : '—'}
+            {data ? `snapshot ${ageString(Math.round((Date.now() - Date.parse(data.generated_at)) / 1000))}` : '-'}
           </span>
         </section>
 

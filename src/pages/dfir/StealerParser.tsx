@@ -107,7 +107,7 @@ export default function StealerParser(): JSX.Element {
           className="w-full h-48 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-4 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="flex items-center justify-between mt-3">
-          <span className="text-xs text-slate-400 font-mono">
+          <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
             {input.length > 0 ? `${(input.length / 1024).toFixed(1)} KB` : 'Max 500 KB'}
           </span>
           <button
@@ -197,7 +197,7 @@ export default function StealerParser(): JSX.Element {
               <div className="max-h-64 overflow-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="text-left text-micro font-mono uppercase tracking-wider text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                    <tr className="text-left text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                       <th scope="col" className="pb-2">
                         Domain
                       </th>
@@ -221,7 +221,7 @@ export default function StealerParser(): JSX.Element {
                         <td className="py-1.5 font-mono text-xs">{cred.domain}</td>
                         <td className="py-1.5 font-mono text-xs">{cred.username}</td>
                         <td className="py-1.5 text-xs text-slate-500">{cred.password_length}</td>
-                        <td className="py-1.5 text-xs text-slate-400">{cred.source}</td>
+                        <td className="py-1.5 text-xs text-slate-500 dark:text-slate-400">{cred.source}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -304,8 +304,8 @@ function StatCard({
   return (
     <div className="surface-card/40 shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-1.5">
-        {icon && <span className={color ?? 'text-slate-400'}>{icon}</span>}
-        <span className="text-micro font-mono uppercase tracking-wider text-slate-400">{label}</span>
+        {icon && <span className={color ?? 'text-slate-500 dark:text-slate-400'}>{icon}</span>}
+        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</span>
       </div>
       <div className={`text-2xl font-display font-bold ${color ?? 'text-slate-900 dark:text-white'}`}>
         {value.toLocaleString()}
@@ -317,7 +317,7 @@ function StatCard({
 function InfoField({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="text-micro font-mono uppercase tracking-wider text-slate-400">{label}</div>
+      <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
       <div className="text-sm font-mono text-slate-700 dark:text-slate-300">{value}</div>
     </div>
   );

@@ -225,7 +225,7 @@ export default function IrPlaybooks(): JSX.Element {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium">{step.title}</div>
-                      <div className="text-micro font-mono text-slate-400">{step.estimated_time}</div>
+                      <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{step.estimated_time}</div>
                     </div>
                     {step.critical && (
                       <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300">
@@ -233,9 +233,9 @@ export default function IrPlaybooks(): JSX.Element {
                       </span>
                     )}
                     {isExpanded ? (
-                      <ChevronDown size={14} className="text-slate-400" />
+                      <ChevronDown size={14} className="text-slate-500 dark:text-slate-400" />
                     ) : (
-                      <ChevronRight size={14} className="text-slate-400" />
+                      <ChevronRight size={14} className="text-slate-500 dark:text-slate-400" />
                     )}
                   </button>
                   {isExpanded && (
@@ -243,7 +243,7 @@ export default function IrPlaybooks(): JSX.Element {
                       <p className="text-sm text-muted mt-3 mb-3">{step.description}</p>
                       {step.tools.length > 0 && (
                         <div>
-                          <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+                          <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
                             Recommended Tools
                           </div>
                           <div className="flex flex-wrap gap-1.5">
@@ -296,9 +296,9 @@ export default function IrPlaybooks(): JSX.Element {
                   >
                     <div>
                       <div className="text-sm font-medium">{rp.title}</div>
-                      <div className="text-micro font-mono text-slate-400">{rp.category}</div>
+                      <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{rp.category}</div>
                     </div>
-                    <ChevronRight size={14} className="text-slate-400" />
+                    <ChevronRight size={14} className="text-slate-500 dark:text-slate-400" />
                   </button>
                 ))}
               </div>

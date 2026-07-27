@@ -78,8 +78,8 @@ const ALL_TIERS = ['Critical', 'High', 'Medium', 'Low'] as const;
 function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
-      ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+      ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -166,13 +166,13 @@ export default function LlmThreatAtlas(): JSX.Element {
 
   const description = (
     <span>
-      LLM/agentic AI threat-modeling coverage map — 480 curated attack vectors across {domainOrder.length} domains. Use
+      LLM/agentic AI threat-modeling coverage map - 480 curated attack vectors across {domainOrder.length} domains. Use
       the bubbles below to review, score, and document controls. Data from{' '}
       <a
         href="https://mr-akuma.github.io/llm-threat-coverage-atlas.html"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-brand-600 dark:text-brand-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline"
       >
         LLM Threat Coverage Atlas
       </a>
@@ -188,14 +188,14 @@ export default function LlmThreatAtlas(): JSX.Element {
   const headerExtra = (
     <div className="space-y-3">
       <div className="relative max-w-md">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
         <input
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search vectors, IDs, or domains…"
           aria-label="Search LLM threat vectors"
-          className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500/60"
+          className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500/60"
         />
       </div>
 
@@ -251,7 +251,7 @@ export default function LlmThreatAtlas(): JSX.Element {
                 className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
               >
                 <div className="flex items-start justify-between gap-2">
-                  <span className="font-mono text-lg font-bold text-brand-600 dark:text-brand-400">{key}</span>
+                  <span className="font-mono text-lg font-bold text-rose-600 dark:text-rose-400">{key}</span>
                   <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted">
                     {count}
                   </span>
@@ -267,7 +267,7 @@ export default function LlmThreatAtlas(): JSX.Element {
       )}
 
       {/* Results count */}
-      <p className="mb-3 text-micro font-mono text-slate-400">
+      <p className="mb-3 text-micro font-mono text-slate-500 dark:text-slate-400">
         {filtered.length} of {data?.count ?? 0} vectors
         {query.trim() || activeArch !== 'all' || activeTier !== 'all' ? ' (filtered)' : ''}
       </p>
@@ -321,7 +321,7 @@ export default function LlmThreatAtlas(): JSX.Element {
                         window.history.replaceState(null, '', window.location.pathname);
                       }
                     }}
-                    className="text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                    className="text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                     aria-label={expanded ? 'Collapse details' : 'Expand details'}
                   >
                     {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -404,13 +404,13 @@ export default function LlmThreatAtlas(): JSX.Element {
 
       {/* JSON download */}
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
           480 vectors ·{' '}
           <a
             href={SOURCE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-brand-600 dark:hover:text-brand-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400"
           >
             JSON source
           </a>{' '}
@@ -425,7 +425,7 @@ function Section({ icon: Icon, title, text }: { icon: typeof Shield; title: stri
   return (
     <div>
       <h4 className="flex items-center gap-1.5 font-semibold text-slate-800 dark:text-slate-200 mb-1">
-        <Icon size={12} className="text-slate-400" aria-hidden="true" />
+        <Icon size={12} className="text-slate-500 dark:text-slate-400" aria-hidden="true" />
         {title}
       </h4>
       <p className="text-muted leading-relaxed">{text}</p>

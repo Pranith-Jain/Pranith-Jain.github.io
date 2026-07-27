@@ -28,7 +28,7 @@ interface K8sCveResponse {
   upstream_error?: string;
 }
 
-/** Only render http(s) links — the urls come from an untrusted upstream, so
+/** Only render http(s) links - the urls come from an untrusted upstream, so
  *  never let a `javascript:`/`data:` URL reach an href. */
 function safeHref(url: string): string | null {
   try {
@@ -50,8 +50,8 @@ const STATUS_TONE: Record<string, string> = {
 function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
-      ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+      ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -102,13 +102,13 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
 
   const description = (
     <>
-      The official Kubernetes CVE feed — core-Kubernetes vulnerabilities (kube-apiserver, kubelet, CSI/CNI, and
+      The official Kubernetes CVE feed - core-Kubernetes vulnerabilities (kube-apiserver, kubelet, CSI/CNI, and
       ecosystem components) published by the Kubernetes Security Response Committee. Data:{' '}
       <a
         href="https://kubernetes.io/docs/reference/issues-security/official-cve-feed/"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-brand-600 dark:text-brand-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline"
       >
         kubernetes.io
       </a>{' '}
@@ -158,7 +158,7 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
                       href={recordHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-brand-600 dark:hover:text-brand-400"
+                      className="hover:text-rose-600 dark:hover:text-rose-400"
                     >
                       {cve.title} <ExternalLink size={12} className="inline align-baseline opacity-60" />
                     </a>
@@ -182,14 +182,14 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
                   <Link
                     key={id}
                     to={`/dfir/cve?id=${encodeURIComponent(id)}`}
-                    className="text-micro font-mono px-1.5 py-0.5 rounded border border-rose-500/40 text-rose-600 dark:text-rose-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400"
+                    className="text-micro font-mono px-1.5 py-0.5 rounded border border-rose-500/40 text-rose-600 dark:text-rose-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
                     title="Pivot to CVE lookup"
                   >
                     {id} →
                   </Link>
                 ))}
                 {cve.published && (
-                  <span className="text-micro font-mono text-slate-400 ml-auto">{fmtDate(cve.published)}</span>
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-auto">{fmtDate(cve.published)}</span>
                 )}
               </div>
 
@@ -203,7 +203,7 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
                     href={issueHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                    className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
                   >
                     <GitBranch size={12} /> tracking issue
                   </a>
@@ -215,17 +215,17 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
           Data:{' '}
           <a
             href={data.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-brand-600 dark:hover:text-brand-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400"
           >
             {data.source}
           </a>{' '}
-          — {data.license} · {data.total} CVEs
+          - {data.license} · {data.total} CVEs
         </p>
       )}
     </>

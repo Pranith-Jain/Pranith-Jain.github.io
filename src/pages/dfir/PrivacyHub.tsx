@@ -18,14 +18,14 @@ const CYCLE: Record<CheckStatus, CheckStatus> = {
 };
 
 const STATUS_STYLES: Record<CheckStatus, { label: string; cls: string }> = {
-  unset: { label: '— unset', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500' },
+  unset: { label: '- unset', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500' },
   covered: {
-    label: '✓ covered',
+    label: 'covered',
     cls: 'border-emerald-400/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   },
   partial: { label: '~ partial', cls: 'border-amber-400/60 bg-amber-500/10 text-amber-700 dark:text-amber-300' },
-  gap: { label: '✗ gap', cls: 'border-rose-400/60 bg-rose-500/10 text-rose-700 dark:text-rose-300' },
-  na: { label: 'n/a', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400' },
+  gap: { label: 'gap', cls: 'border-rose-400/60 bg-rose-500/10 text-rose-700 dark:text-rose-300' },
+  na: { label: 'n/a', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400' },
 };
 
 const REGIME_STYLES: Record<RegimeId, string> = {
@@ -67,7 +67,7 @@ function exportMd(state: State): string {
   const lines: string[] = ['# Privacy & Data-Protection Assessment', ''];
   for (const r of REGIMES) {
     const c = coverage([...r.rights, ...r.obligations], state);
-    lines.push(`## ${r.short} — ${c.score}% (${c.covered}/${c.total})`);
+    lines.push(`## ${r.short} - ${c.score}% (${c.covered}/${c.total})`);
     lines.push('');
     lines.push(`**Jurisdiction:** ${r.jurisdiction}  `);
     lines.push(`**Effective:** ${r.effectiveDate}`);
@@ -156,11 +156,11 @@ export default function PrivacyHub(): JSX.Element {
         <p className="text-muted mb-2 leading-relaxed">
           {REGIMES.length} privacy regimes side by side: <strong>GDPR</strong>, <strong>CCPA / CPRA</strong>,{' '}
           <strong>DPDP</strong> (India), <strong>HIPAA Privacy Rule</strong>, <strong>PCI DSS 4.0</strong>. Rights,
-          controller / fiduciary obligations, breach-notification timelines, enforcement &amp; penalties — all
+          controller / fiduciary obligations, breach-notification timelines, enforcement &amp; penalties - all
           cross-mapped to the framework controls in /dfir/grc.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          Reference only — not legal advice. Pairs with the{' '}
+          Reference only - not legal advice. Pairs with the{' '}
           <Link to="/dfir/grc" className="text-brand-600 dark:text-brand-400 hover:underline">
             GRC hub
           </Link>{' '}
@@ -254,7 +254,7 @@ export default function PrivacyHub(): JSX.Element {
       {/* Breach notification */}
       <section className="rounded-xl border border-rose-500/30 bg-rose-500/5 p-4 mb-6">
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-700 dark:text-rose-300 font-mono mb-2">
-          Breach notification — {active.breachNotification.summary}
+          Breach notification - {active.breachNotification.summary}
         </h3>
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed mb-2">
           {active.breachNotification.detail}

@@ -139,7 +139,7 @@ export default function PowershellDeobf(): JSX.Element {
           replace chains, backtick noise. Each pass shows what it changed.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          Heuristic — does not actually execute anything. Pure client-side; nothing leaves your browser. After decoding,
+          Heuristic - does not actually execute anything. Pure client-side; nothing leaves your browser. After decoding,
           dangerous primitives (<code>IEX</code>, <code>DownloadString</code>, <code>VirtualAlloc</code>, Defender
           tampering) are flagged.
         </p>
@@ -238,7 +238,7 @@ export default function PowershellDeobf(): JSX.Element {
 
           {result.steps.length === 0 && (
             <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 mb-6 text-sm font-mono text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-2">
-              <CheckCircle2 size={14} /> No transformations fired — the input is either already plain or uses an
+              <CheckCircle2 size={14} /> No transformations fired - the input is either already plain or uses an
               encoding this tool doesn't recognise.
             </section>
           )}
@@ -278,27 +278,27 @@ export default function PowershellDeobf(): JSX.Element {
         </h2>
         <ul className="space-y-1 text-sm font-mono text-muted list-disc pl-5">
           <li>
-            <strong>encoded-command</strong> — decodes <code>-EncodedCommand</code> base64 (UTF-16LE).
+            <strong>encoded-command</strong> - decodes <code>-EncodedCommand</code> base64 (UTF-16LE).
           </li>
           <li>
-            <strong>from-base64-string</strong> — <code>[Convert]::FromBase64String</code> + standalone long blobs.
+            <strong>from-base64-string</strong> - <code>[Convert]::FromBase64String</code> + standalone long blobs.
           </li>
           <li>
-            <strong>strip-backticks</strong> — removes lone backticks used as escape-noise.
+            <strong>strip-backticks</strong> - removes lone backticks used as escape-noise.
           </li>
           <li>
-            <strong>reverse-string</strong> — resolves <code>[Array]::Reverse</code> on string literals.
+            <strong>reverse-string</strong> - resolves <code>[Array]::Reverse</code> on string literals.
           </li>
           <li>
-            <strong>replace-chain</strong> — applies chained <code>.Replace(&quot;a&quot;,&quot;b&quot;)</code> on
+            <strong>replace-chain</strong> - applies chained <code>.Replace(&quot;a&quot;,&quot;b&quot;)</code> on
             literals.
           </li>
           <li>
-            <strong>format-string</strong> — resolves <code>&quot;{'{0}{1}'}&quot; -f &apos;a&apos;,&apos;b&apos;</code>{' '}
+            <strong>format-string</strong> - resolves <code>&quot;{'{0}{1}'}&quot; -f &apos;a&apos;,&apos;b&apos;</code>{' '}
             composition.
           </li>
           <li>
-            <strong>char-literals</strong> — <code>[char]65 + [char]66</code> and{' '}
+            <strong>char-literals</strong> - <code>[char]65 + [char]66</code> and{' '}
             <code>[char[]](72,73) -join &apos;&apos;</code>.
           </li>
         </ul>

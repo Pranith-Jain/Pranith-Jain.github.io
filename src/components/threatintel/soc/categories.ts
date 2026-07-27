@@ -6,7 +6,7 @@
  * a chart label or KPI headline. Anything unrecognized buckets to "Unknown" so
  * no foreign-language or garbage label ever leaks into the UI.
  *
- * Keep these as the single chokepoint — pages must not hand raw upstream strings
+ * Keep these as the single chokepoint - pages must not hand raw upstream strings
  * to charts.
  */
 

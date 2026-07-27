@@ -4,7 +4,7 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 
 /**
- * Abuse reputation lookup — IP / email triage via Stop Forum Spam
+ * Abuse reputation lookup - IP / email triage via Stop Forum Spam
  * (stopforumspam.org, free, no key). Crowdsourced abuse registry: how often
  * an address has been reported, last seen, tor-exit flag, and a confidence
  * score. A quick triage signal alongside the heavier IOC enrichments.
@@ -69,7 +69,7 @@ export default function AbuseRep(): JSX.Element {
           >
             Stop Forum Spam
           </a>{' '}
-          (free, no key) — report frequency, last-seen, tor-exit flag, and confidence.
+          (free, no key) - report frequency, last-seen, tor-exit flag, and confidence.
         </>
       }
       loading={loading}
@@ -113,10 +113,10 @@ export default function AbuseRep(): JSX.Element {
               {[
                 { label: 'appears', value: data.appears.toLocaleString() },
                 { label: 'frequency', value: data.frequency.toLocaleString() },
-                { label: 'confidence', value: data.confidence != null ? `${data.confidence.toFixed(1)}%` : '—' },
-                { label: 'last seen', value: data.last_seen ?? '—' },
-                { label: 'country', value: data.country ?? '—' },
-                { label: 'ASN', value: data.asn != null ? `AS${data.asn}` : '—' },
+                { label: 'confidence', value: data.confidence != null ? `${data.confidence.toFixed(1)}%` : '-' },
+                { label: 'last seen', value: data.last_seen ?? '-' },
+                { label: 'country', value: data.country ?? '-' },
+                { label: 'ASN', value: data.asn != null ? `AS${data.asn}` : '-' },
               ].map((s) => (
                 <div key={s.label}>
                   <div className="text-micro font-mono uppercase tracking-wider text-slate-500 mb-0.5">{s.label}</div>

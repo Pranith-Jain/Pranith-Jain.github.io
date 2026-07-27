@@ -35,11 +35,11 @@ const STATUS_CYCLE: Record<CoverageStatus, CoverageStatus> = {
 
 const STATUS_STYLES: Record<CoverageStatus, { label: string; cls: string }> = {
   unset: {
-    label: '— unset',
+    label: '- unset',
     cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
   },
   covered: {
-    label: '✓ covered',
+    label: 'covered',
     cls: 'border-emerald-400/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   },
   partial: {
@@ -47,12 +47,12 @@ const STATUS_STYLES: Record<CoverageStatus, { label: string; cls: string }> = {
     cls: 'border-amber-400/60 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   },
   gap: {
-    label: '✗ gap',
+    label: 'gap',
     cls: 'border-rose-400/60 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   },
   na: {
     label: 'n/a',
-    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400',
+    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400',
   },
 };
 
@@ -75,7 +75,7 @@ function buildMarkdown(items: NhiEntry[]): string {
   }
   for (const e of items) {
     const r = entryRisk(e);
-    lines.push(`## ${e.name || '(unnamed)'} — ${r.grade.toUpperCase()} (${r.score}/100)`);
+    lines.push(`## ${e.name || '(unnamed)'} - ${r.grade.toUpperCase()} (${r.score}/100)`);
     lines.push('');
     lines.push(`- **Type:** ${e.type}`);
     if (e.owner) lines.push(`- **Owner:** ${e.owner}`);
@@ -112,7 +112,7 @@ export default function Nhi(): JSX.Element {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     } catch (_catchErr) {
       console.error('Nhi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* quota — non-fatal */
+      /* quota - non-fatal */
     }
   }, [items]);
 
@@ -242,9 +242,9 @@ export default function Nhi(): JSX.Element {
                     </span>
                   </span>
                   {expanded ? (
-                    <ChevronDown size={16} className="flex-none text-slate-400" />
+                    <ChevronDown size={16} className="flex-none text-slate-500 dark:text-slate-400" />
                   ) : (
-                    <ChevronRight size={16} className="flex-none text-slate-400" />
+                    <ChevronRight size={16} className="flex-none text-slate-500 dark:text-slate-400" />
                   )}
                 </button>
                 {expanded && (
@@ -380,9 +380,9 @@ export default function Nhi(): JSX.Element {
                         {risk.grade} · {risk.score}
                       </span>
                       {isOpen ? (
-                        <ChevronDown size={16} className="flex-none text-slate-400" />
+                        <ChevronDown size={16} className="flex-none text-slate-500 dark:text-slate-400" />
                       ) : (
-                        <ChevronRight size={16} className="flex-none text-slate-400" />
+                        <ChevronRight size={16} className="flex-none text-slate-500 dark:text-slate-400" />
                       )}
                     </button>
 
@@ -427,7 +427,7 @@ export default function Nhi(): JSX.Element {
                               type="text"
                               value={e.owner}
                               onChange={(ev) => update(e.id, { owner: ev.target.value })}
-                              placeholder="alice@team — name + escalation path"
+                              placeholder="alice@team - name + escalation path"
                               className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
@@ -462,7 +462,7 @@ export default function Nhi(): JSX.Element {
                               type="text"
                               value={e.storage}
                               onChange={(ev) => update(e.id, { storage: ev.target.value })}
-                              placeholder="AWS Secrets Manager — secret/prod/deploy"
+                              placeholder="AWS Secrets Manager - secret/prod/deploy"
                               className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                             />
                           </Field>
@@ -482,7 +482,7 @@ export default function Nhi(): JSX.Element {
                             value={e.notes}
                             onChange={(ev) => update(e.id, { notes: ev.target.value })}
                             rows={2}
-                            placeholder="Free text — incident history, special handling, related tickets…"
+                            placeholder="Free text - incident history, special handling, related tickets…"
                             className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                           />
                         </Field>
@@ -554,7 +554,7 @@ export default function Nhi(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              SPIFFE — workload identity standard
+              SPIFFE - workload identity standard
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>

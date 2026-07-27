@@ -83,14 +83,14 @@ function buildLookups(phone: string): PhoneLookup[] {
       service: 'TrueCaller',
       url: `https://www.truecaller.com/search/${digits}`,
       category: 'reverse-lookup',
-      description: 'Global caller ID & spam database — name, carrier, spam score',
+      description: 'Global caller ID & spam database - name, carrier, spam score',
       free: true,
     },
     {
       service: 'NumLookup',
       url: `https://www.numlookup.com/phone/${international}`,
       category: 'reverse-lookup',
-      description: 'Reverse phone lookup — carrier, location, line type',
+      description: 'Reverse phone lookup - carrier, location, line type',
       free: true,
     },
     {
@@ -104,28 +104,28 @@ function buildLookups(phone: string): PhoneLookup[] {
       service: 'Sync.me',
       url: `https://sync.me/search/?number=${digits}`,
       category: 'reverse-lookup',
-      description: 'Caller ID & contact sync service — name & photo lookup',
+      description: 'Caller ID & contact sync service - name & photo lookup',
       free: true,
     },
     {
       service: 'SpyDialer',
       url: `https://www.spydialer.com/default.aspx?r=${digits}`,
       category: 'reverse-lookup',
-      description: 'US-focused reverse lookup — name, voicemail, address',
+      description: 'US-focused reverse lookup - name, voicemail, address',
       free: true,
     },
     {
       service: 'WhitePages',
       url: `https://www.whitepages.com/phone/${digits}`,
       category: 'reverse-lookup',
-      description: 'US phone directory — name, address, carrier, line type',
+      description: 'US phone directory - name, address, carrier, line type',
       free: true,
     },
     {
       service: 'BeenVerified',
       url: `https://www.beenverified.com/phone/${digits}/`,
       category: 'reverse-lookup',
-      description: 'People search — name, address, email, social profiles',
+      description: 'People search - name, address, email, social profiles',
       free: false,
     },
     // Carrier & Line Type
@@ -133,14 +133,14 @@ function buildLookups(phone: string): PhoneLookup[] {
       service: 'NumVerify',
       url: `https://numverify.com/`,
       category: 'carrier',
-      description: 'Number validation API — carrier, line type, location, country',
+      description: 'Number validation API - carrier, line type, location, country',
       free: true,
     },
     {
       service: 'Twilio Lookup',
       url: `https://www.twilio.com/lookup`,
       category: 'carrier',
-      description: 'Phone number intelligence — carrier, line type, caller name',
+      description: 'Phone number intelligence - carrier, line type, caller name',
       free: false,
     },
     // Geolocation
@@ -148,7 +148,7 @@ function buildLookups(phone: string): PhoneLookup[] {
       service: 'PhoneLocation.io',
       url: `https://www.phonelocation.io/phone/${international}`,
       category: 'geolocation',
-      description: 'Phone number geolocation — country, city, coordinates',
+      description: 'Phone number geolocation - country, city, coordinates',
       free: true,
     },
     {
@@ -163,7 +163,7 @@ function buildLookups(phone: string): PhoneLookup[] {
       service: 'WhatsApp Check',
       url: `https://wa.me/${digits}`,
       category: 'messaging',
-      description: 'Check if number is on WhatsApp — profile pic & status visible',
+      description: 'Check if number is on WhatsApp - profile pic & status visible',
       free: true,
     },
     {
@@ -185,7 +185,7 @@ function buildLookups(phone: string): PhoneLookup[] {
       service: 'Hudson Rock',
       url: `https://www.hudsonrock.com/free-tools`,
       category: 'breach',
-      description: 'Infostealer credential check — search by phone for stealer-log exposure',
+      description: 'Infostealer credential check - search by phone for stealer-log exposure',
       free: true,
     },
     // Google Dorks
@@ -268,7 +268,7 @@ export default function PhoneOsint(): JSX.Element {
       title="Phone OSINT"
       description={
         <span className="block max-w-3xl">
-          Investigate a phone number — reverse lookup, carrier info, geolocation, social/messaging presence, and breach
+          Investigate a phone number - reverse lookup, carrier info, geolocation, social/messaging presence, and breach
           exposure. Paste a number in E.164 or local format and hit enter.
         </span>
       }
@@ -277,7 +277,7 @@ export default function PhoneOsint(): JSX.Element {
       <form onSubmit={handleSubmit} className="mb-6">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="tel"
               value={input}
@@ -330,7 +330,7 @@ export default function PhoneOsint(): JSX.Element {
         </div>
       )}
 
-      {/* API Result — carrier + breach details */}
+      {/* API Result - carrier + breach details */}
       {apiResult && (
         <div className="mb-6 surface-card p-4">
           <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-3">
@@ -339,7 +339,7 @@ export default function PhoneOsint(): JSX.Element {
 
           {!!apiResult.carrier && (
             <div className="mb-3 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-400 mb-1">Carrier / Line Type</p>
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Carrier / Line Type</p>
               <div className="flex flex-wrap gap-3 text-sm font-mono">
                 <span className="px-2 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30">
                   {(apiResult.carrier as Record<string, string>).type}
@@ -347,7 +347,7 @@ export default function PhoneOsint(): JSX.Element {
                 <span className="text-slate-600 dark:text-slate-300">
                   {(apiResult.carrier as Record<string, string>).carrier}
                 </span>
-                <span className="text-slate-400">
+                <span className="text-slate-500 dark:text-slate-400">
                   confidence: {(apiResult.carrier as Record<string, string>).confidence}
                 </span>
               </div>
@@ -356,7 +356,7 @@ export default function PhoneOsint(): JSX.Element {
 
           {!!apiResult.numverify && (
             <div className="mb-3 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-400 mb-1">NumVerify API</p>
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">NumVerify API</p>
               <div className="grid gap-1 sm:grid-cols-2 text-sm font-mono">
                 {Object.entries(apiResult.numverify as Record<string, string>).map(([k, v]) =>
                   v ? (
@@ -372,7 +372,7 @@ export default function PhoneOsint(): JSX.Element {
 
           {!!apiResult.breach && (
             <div className="mb-3 pb-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-400 mb-1">Breach Exposure</p>
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Breach Exposure</p>
               <div className="text-sm font-mono">
                 {(apiResult.breach as Record<string, string>).checked ? (
                   <span className="text-green-600 dark:text-green-400">Checked via Hudson Rock</span>
@@ -385,7 +385,7 @@ export default function PhoneOsint(): JSX.Element {
 
           {Array.isArray(apiResult.dorks) && apiResult.dorks.length > 0 && (
             <div className="mt-2">
-              <p className="text-mini font-mono text-slate-400 mb-2">Generated Dorks</p>
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">Generated Dorks</p>
               <div className="flex flex-wrap gap-1.5">
                 {(apiResult.dorks as Array<{ engine: string; query: string; url: string }>).map((d, i) => (
                   <a
@@ -408,7 +408,7 @@ export default function PhoneOsint(): JSX.Element {
       {/* Category pills */}
       {categories.size > 0 && (
         <div className="flex flex-wrap items-center gap-1.5 mb-4">
-          <span className="text-mini font-mono text-slate-400 mr-1">category:</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">category:</span>
           {[...categories.entries()].map(([cat, count]) => {
             const Icon = CATEGORY_ICONS[cat] ?? Globe;
             const active = activeCategory === cat;
@@ -492,7 +492,7 @@ export default function PhoneOsint(): JSX.Element {
         </h3>
         <ul className="text-meta font-mono text-muted space-y-1.5">
           <li>
-            <strong>WhatsApp check:</strong> Click the WhatsApp link — if a profile photo appears, the number is active.
+            <strong>WhatsApp check:</strong> Click the WhatsApp link - if a profile photo appears, the number is active.
             Screenshot it before they change it.
           </li>
           <li>
@@ -501,7 +501,7 @@ export default function PhoneOsint(): JSX.Element {
           </li>
           <li>
             <strong>Carrier info:</strong> NumVerify and Twilio Lookup can tell you if the line is mobile, landline, or
-            VoIP — VoIP numbers are often used for scamming.
+            VoIP - VoIP numbers are often used for scamming.
           </li>
           <li>
             <strong>Breach check:</strong> Infostealer logs frequently contain phone numbers from saved contacts. Hudson
@@ -509,7 +509,7 @@ export default function PhoneOsint(): JSX.Element {
           </li>
           <li>
             <strong>Multiple formats:</strong> Try different formats (+country code, local format, with/without spaces)
-            — some services index differently.
+            - some services index differently.
           </li>
         </ul>
       </div>

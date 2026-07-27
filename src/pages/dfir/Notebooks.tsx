@@ -279,7 +279,7 @@ export default function Notebooks() {
       )}
 
       <div className="flex flex-col lg:flex-row gap-6">
-        {/* Sidebar — notebook list */}
+        {/* Sidebar - notebook list */}
         <div className="lg:w-96 flex-shrink-0">
           {/* Controls */}
           <form onSubmit={(e) => e.preventDefault()} className="flex gap-3 mb-4">
@@ -389,7 +389,7 @@ export default function Notebooks() {
           </div>
         </div>
 
-        {/* Main — notebook detail */}
+        {/* Main - notebook detail */}
         <div className="flex-1 min-w-0">
           {!selectedNotebook ? (
             <div className="flex flex-col items-center justify-center py-24 text-muted">
@@ -637,7 +637,7 @@ export default function Notebooks() {
                   type="text"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  placeholder="e.g. Phishing Campaign — example.com"
+                  placeholder="e.g. Phishing Campaign - example.com"
                   className="w-full px-4 py-2.5 surface-card font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
                 />
               </div>

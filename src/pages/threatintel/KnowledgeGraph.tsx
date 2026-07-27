@@ -170,7 +170,7 @@ export default function KnowledgeGraph(): JSX.Element {
       backLabel="back to threat intel"
       icon={<Network className="h-6 w-6" />}
       title="Knowledge Graph Explorer"
-      description="Cross-report view of every threat-intel entity the platform has ingested — IOCs, actors, malware, CVEs, techniques, campaigns. Filter by type and time window; nodes are ranked by recency and source count."
+      description="Cross-report view of every threat-intel entity the platform has ingested - IOCs, actors, malware, CVEs, techniques, campaigns. Filter by type and time window; nodes are ranked by recency and source count."
       maxWidthClass="max-w-6xl"
     >
       {/* Filter card */}
@@ -245,7 +245,7 @@ export default function KnowledgeGraph(): JSX.Element {
             <button
               type="button"
               onClick={() => setRefreshKey((k) => k + 1)}
-              className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-xs hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400"
+              className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-xs hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
             >
               <RefreshCw className="h-3 w-3" /> refresh
             </button>
@@ -263,7 +263,7 @@ export default function KnowledgeGraph(): JSX.Element {
             {data.stats.edgeCount} edges
           </span>
           <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1">
-            types: {data.stats.sourceTypes.join(', ') || '—'}
+            types: {data.stats.sourceTypes.join(', ') || '-'}
           </span>
         </div>
       )}
@@ -274,7 +274,7 @@ export default function KnowledgeGraph(): JSX.Element {
         </div>
       )}
 
-      {/* Loading — without this the page renders only the filter bar over
+      {/* Loading - without this the page renders only the filter bar over
           emptiness while /graph/cross-report resolves, which reads as broken. */}
       {loading && !data && !error && (
         <section
@@ -284,7 +284,7 @@ export default function KnowledgeGraph(): JSX.Element {
           aria-live="polite"
         >
           <div className="flex flex-col items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
-            <RefreshCw className="h-6 w-6 animate-spin text-brand-500" aria-hidden="true" />
+            <RefreshCw className="h-6 w-6 animate-spin text-rose-500" aria-hidden="true" />
             <span>Building the cross-report graph…</span>
           </div>
         </section>

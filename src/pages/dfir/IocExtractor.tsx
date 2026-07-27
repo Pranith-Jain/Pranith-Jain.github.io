@@ -33,7 +33,7 @@ const LABELS: Record<IocBucket, string> = {
  * Cyrillic/Greek lookalikes that defenders use to "defang" (or that
  * attackers use to bypass naive scanners). Folded back to ASCII when
  * the homograph-normalize toggle is on. Confined to the most common
- * confusables — overzealous folding mangles legitimate non-Latin text.
+ * confusables - overzealous folding mangles legitimate non-Latin text.
  */
 const HOMOGRAPHS: Record<string, string> = {
   а: 'a',
@@ -98,7 +98,7 @@ function refang(input: string, normaliseHomographs: boolean): string {
     s = s.replace(/[[({]\s*(?:\.|dot|punto|점)\s*[\])}]/gi, '.');
     // Bracketed colon, word form too.
     s = s.replace(/[[({]\s*(?::|colon)\s*[\])}]/gi, ':');
-    // Bracketed @ — also "[at]" / "(at)" / "{at}" with optional whitespace.
+    // Bracketed @ - also "[at]" / "(at)" / "{at}" with optional whitespace.
     s = s.replace(/[[({]\s*(?:@|at)\s*[\])}]/gi, '@');
     // Bracketed scheme separator and slashes.
     s = s.replace(/[[({]\s*:\/\/\s*[\])}]/g, '://');
@@ -187,7 +187,7 @@ export default function IocExtractor(): JSX.Element {
   useEffect(() => {
     const from = searchParams.get('from');
     if (!from) return;
-    // Sister tools all share the same sessionStorage slot — only one
+    // Sister tools all share the same sessionStorage slot - only one
     // pipe at a time matters. Each `from` value carries a friendly label
     // for the banner.
     const KEYS: Record<string, { storage: string; label: string }> = {
@@ -210,7 +210,7 @@ export default function IocExtractor(): JSX.Element {
       }
     } catch (_catchErr) {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* sessionStorage unavailable — silently skip */
+      /* sessionStorage unavailable - silently skip */
     }
     // Drop the ?from param so the URL is clean after the pipe.
     const next = new URLSearchParams(searchParams);
@@ -296,7 +296,7 @@ export default function IocExtractor(): JSX.Element {
         id="ioc-extractor-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Paste raw email, chat log, threat report, or any blob — refanging is automatic. Try patterns like example[.]com, hxxps://bad[.]site, 1[.]2[.]3[.]4[:]8080, [[.]] nesting, or Cyrillic homographs."
+        placeholder="Paste raw email, chat log, threat report, or any blob - refanging is automatic. Try patterns like example[.]com, hxxps://bad[.]site, 1[.]2[.]3[.]4[:]8080, [[.]] nesting, or Cyrillic homographs."
         rows={14}
         aria-label="Text blob to extract IOCs from"
         className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
@@ -325,7 +325,7 @@ export default function IocExtractor(): JSX.Element {
       {refangChanged && (
         <details className="mb-8 rounded border border-cyan-500/30 bg-cyan-500/5 p-3">
           <summary className="text-xs font-mono text-sky-700 dark:text-sky-300 cursor-pointer inline-flex items-center gap-2">
-            <ShieldAlert size={12} /> input was refanged before extraction — click to see normalised text
+            <ShieldAlert size={12} /> input was refanged before extraction - click to see normalised text
           </summary>
           <pre className="mt-2 text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all max-h-40 overflow-auto">
             {refangedPreview}

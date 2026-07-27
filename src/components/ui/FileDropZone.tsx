@@ -91,7 +91,7 @@ export function FileDropZone({
         tabIndex={-1}
         aria-hidden="true"
       />
-      <div className={`mb-3 transition-colors ${dragging ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'}`}>
+      <div className={`mb-3 transition-colors ${dragging ? 'text-brand-600 dark:text-brand-400' : 'text-slate-500 dark:text-slate-400'}`}>
         {icon || <Upload className="mx-auto h-8 w-8" aria-hidden="true" />}
       </div>
       {label && (

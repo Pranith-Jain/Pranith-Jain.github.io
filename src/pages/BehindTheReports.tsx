@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
+import { PageMeta } from '../components/PageMeta';
 
 const sections = [
   {
     label: 'Phase One',
     title: 'How Threats Are Found',
     body: [
-      'Every night, a self-hosted collection platform scans adversary infrastructure — C2 panels, phishing kits, malware distribution points, and open directories hosting stolen data. Automated crawlers enumerate new domains, certificates, and IPs tied to active campaigns, while passive sensors ingest telemetry from dark web forums, Telegram channels, and paste sites.',
-      'Discovered binaries and documents are detonated in a sandbox environment. Network traffic, file system changes, and registry modifications are recorded. Indicators of compromise — hashes, IPs, domains, mutexes, and registry keys — are extracted and correlated against existing threat data.',
+      'Every night, a self-hosted collection platform scans adversary infrastructure - C2 panels, phishing kits, malware distribution points, and open directories hosting stolen data. Automated crawlers enumerate new domains, certificates, and IPs tied to active campaigns, while passive sensors ingest telemetry from dark web forums, Telegram channels, and paste sites.',
+      'Discovered binaries and documents are detonated in a sandbox environment. Network traffic, file system changes, and registry modifications are recorded. Indicators of compromise - hashes, IPs, domains, mutexes, and registry keys - are extracted and correlated against existing threat data.',
       'A triage dashboard surfaces what is worth investigating. Automated scoring accounts for prevalence, victimology, and novelty. The result is a prioritized queue of genuine threats, not a fire hose of unverified alerts.',
     ],
   },
@@ -24,6 +25,11 @@ const sections = [
 export default function BehindTheReports() {
   return (
     <>
+      <PageMeta
+        title="Behind the Reports"
+        description="How threats are found and how reports are made - the collection, analysis, and editorial pipeline behind every published investigation."
+        canonicalPath="/behind-the-reports"
+      />
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
         <div className="mb-16">
           <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
@@ -58,7 +64,7 @@ export default function BehindTheReports() {
             <span className="font-semibold text-slate-900 dark:text-white">
               Most threat intelligence fails defenders
             </span>{' '}
-            — it is too slow, too generic, or too noisy to act on. The Hunter's Ledger exists to fill that gap. Every
+            - it is too slow, too generic, or too noisy to act on. The Hunter's Ledger exists to fill that gap. Every
             report is original research, produced from raw collection through a rigorous, repeatable process designed
             for one purpose: giving you intelligence you can trust under pressure.
           </p>

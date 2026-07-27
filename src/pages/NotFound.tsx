@@ -39,7 +39,7 @@ function detectMovedUrl(pathname: string): { from: string; to: string } | null {
 }
 
 /**
- * Tiny Levenshtein-ish distance — for "did you mean" suggestions on
+ * Tiny Levenshtein-ish distance - for "did you mean" suggestions on
  * mistyped slugs. Two-row implementation: only the previous row is kept
  * in memory. Cost: O(len(a) * len(b)) with constant extra space, which
  * is fine for the <100 paths we ever compare against.
@@ -144,7 +144,7 @@ export default function NotFound(): JSX.Element {
           </p>
         )}
 
-        {/* Fuzzy "did you mean" — only show if we have sidebar data for
+        {/* Fuzzy "did you mean" - only show if we have sidebar data for
             the section AND the typo is short enough that a near-match
             is more likely than a random URL. */}
         {!moved && suggestions.length > 0 && (
@@ -190,7 +190,7 @@ export default function NotFound(): JSX.Element {
         </div>
       </div>
 
-      {/* Section tool grid — surfaces all 30+ tools in the relevant
+      {/* Section tool grid - surfaces all 30+ tools in the relevant
           section as a card grid so a 404 still gets the user to a tool
           they want. Renders only when the URL's section matches a
           known sidebar (e.g. /threatintel/* or /dfir/*). For a random

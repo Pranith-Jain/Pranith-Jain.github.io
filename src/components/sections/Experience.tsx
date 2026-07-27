@@ -17,7 +17,7 @@ interface ExperienceProps {
 }
 
 export function Experience({ experiences }: ExperienceProps) {
-  // The first (current) role expands by default — the rest collapse so the
+  // The first (current) role expands by default - the rest collapse so the
   // list stays scannable. Each card flips on click.
   const [expanded, setExpanded] = useState<Set<number>>(() => new Set([0]));
 
@@ -32,7 +32,7 @@ export function Experience({ experiences }: ExperienceProps) {
 
   return (
     <section id="experience" className="scroll-mt-24">
-      {/* Header — consistent with the rest of the redesigned sections:
+      {/* Header - consistent with the rest of the redesigned sections:
           small caps-mono kicker, display heading, no chrome. */}
       <div className="mb-10 max-w-2xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
@@ -43,7 +43,7 @@ export function Experience({ experiences }: ExperienceProps) {
         </h2>
       </div>
 
-      {/* Collapsible list — thin-bordered cards, no glass, no glow.
+      {/* Collapsible list - thin-bordered cards, no glass, no glow.
           The chevron alone marks expanded state. */}
       <div className="grid gap-3">
         {experiences.map((exp, index) => {
@@ -98,13 +98,13 @@ export function Experience({ experiences }: ExperienceProps) {
                           className={`scroll-mt-28 ${sIndex < exp.sections!.length - 1 ? 'mb-5' : ''}`}
                         >
                           <h3 className="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2 flex items-center gap-2">
-                            {IconComponent && <IconComponent className="w-4 h-4" />}
+                            {IconComponent && <IconComponent className="w-4 h-4" aria-hidden="true" />}
                             {section.title}
                           </h3>
                           <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300 ml-6">
                             {section.items.map((item, iIndex) => (
                               <li key={iIndex} className="relative pl-4">
-                                <span className="absolute left-0 text-brand-600 dark:text-brand-300">•</span>
+                                <span className="absolute left-0 text-brand-600 dark:text-brand-300" aria-hidden="true">•</span>
                                 {item}
                               </li>
                             ))}
@@ -118,7 +118,7 @@ export function Experience({ experiences }: ExperienceProps) {
                     <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300">
                       {exp.items.map((item, iIndex) => (
                         <li key={iIndex} className="relative pl-4">
-                          <span className="absolute left-0 text-brand-600 dark:text-brand-300">•</span>
+                          <span className="absolute left-0 text-brand-600 dark:text-brand-300" aria-hidden="true">•</span>
                           {item}
                         </li>
                       ))}

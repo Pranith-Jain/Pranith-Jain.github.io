@@ -18,7 +18,7 @@ export function Companies({ companies }: CompaniesProps) {
         </p>
       </div>
 
-      {/* Company tiles — small bordered chips, consistent with the rest of
+      {/* Company tiles - small bordered chips, consistent with the rest of
           the design system: rounded-xl, thin border, no glass, no lift on
           hover. The hover state only nudges the border colour. */}
       <div className="flex flex-wrap gap-2.5">

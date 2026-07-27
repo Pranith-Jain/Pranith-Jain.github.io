@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 
 /**
- * IntoDNS.ai panel — surfaces a free, public DNS-and-email-security
+ * IntoDNS.ai panel - surfaces a free, public DNS-and-email-security
  * grade for the queried domain. Calls our own /api/v1/intodns/snapshot
  * route (which wraps https://intodns.ai/api/scan/quick with KV caching),
  * not intodns.ai directly, so the UI never sees a CORS or rate-limit
@@ -21,13 +21,13 @@ import {
  *
  * Why a panel like this exists alongside your own email_auth block:
  * your own parsers (SPF, DKIM, DMARC, BIMI, MTA-STS, TLS-RPT) report
- * *what's there*. IntoDNS reports a *grade* — an opinionated score
+ * *what's there*. IntoDNS reports a *grade* - an opinionated score
  * computed by the methodology at https://intodns.ai/methodology, with
  * weighted categories across DNS, email, and security headers. Showing
  * both gives the user a third-party corroboration.
  *
  * The LLM explanation (when GROQ_API_KEY is set server-side) is a
- * secondary, opt-in fetch — the user clicks "Explain with AI" and we
+ * secondary, opt-in fetch - the user clicks "Explain with AI" and we
  * call /api/v1/intodns/explain. We don't auto-fetch on mount because
  * the LLM call is the expensive one and most users want the structured
  * grade first.
@@ -280,7 +280,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
         </div>
       )}
 
-      {/* Issues — only show critical/high by default; expand for the rest */}
+      {/* Issues - only show critical/high by default; expand for the rest */}
       {issues.length > 0 && (
         <div className="mt-3 border-t border-slate-200 pt-3 dark:border-[rgb(var(--border-400))]">
           <div className="text-mini font-mono uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">

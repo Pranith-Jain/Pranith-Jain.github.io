@@ -1,5 +1,5 @@
 /**
- * Detection engine — pure, dependency-free rule evaluator.
+ * Detection engine - pure, dependency-free rule evaluator.
  *
  * It takes a list of detection rules and a list of observed indicators
  * (the unified live-IOC stream, see routes/live-iocs.ts) and returns the
@@ -13,7 +13,7 @@
  *     reaches `aggregate.minCount`. This is how cross-feed consensus is
  *     expressed ("same value seen by ≥ N distinct sources").
  *
- * There is NO native YARA/Sigma execution here — those are file/log engines.
+ * There is NO native YARA/Sigma execution here - those are file/log engines.
  * This engine evaluates structured threat-feed indicators, which is what the
  * platform actually has at the edge. The DSL is intentionally small so the
  * exact same module runs server-side (cron pack) and client-side (the
@@ -41,7 +41,7 @@ export type DetectionSeverity = 'low' | 'medium' | 'high' | 'critical';
  */
 export interface MatchPredicate {
   kind?: EngineIocKind | EngineIocKind[];
-  /** Exact feed source id(s) — e.g. "c2-intel", "threatfox". */
+  /** Exact feed source id(s) - e.g. "c2-intel", "threatfox". */
   source?: string | string[];
   /** Case-insensitive regex tested against the indicator value. */
   valueRegex?: string;
@@ -61,7 +61,7 @@ export interface DetectionRule {
   match: MatchPredicate;
   /**
    * Suppression clause. An indicator that matches BOTH `match` AND
-   * `exclude` is dropped from the rule's matched set — useful for tuning
+   * `exclude` is dropped from the rule's matched set - useful for tuning
    * out a known-benign source / context pattern without weakening the
    * primary predicate. Same shape as `match`; omit to skip suppression.
    */
@@ -78,13 +78,13 @@ export interface DetectionRule {
   minMatches?: number;
   /**
    * Optional MITRE ATT&CK technique id, e.g. `T1190`, `T1071.001`. Surface
-   * metadata only — the engine doesn't read it; the UI shows it as a pill
+   * metadata only - the engine doesn't read it; the UI shows it as a pill
    * on detections so the analyst can pivot to the ATT&CK matrix.
    */
   technique?: string;
   /** Optional ATT&CK tactic label, e.g. "Initial Access". UI-only. */
   tactic?: string;
-  /** Citations for the rule's logic — vendor advisories, blog posts, CVEs. */
+  /** Citations for the rule's logic - vendor advisories, blog posts, CVEs. */
   references?: string[];
 }
 
@@ -101,7 +101,7 @@ export interface Detection {
   indicators: EngineIndicator[];
   first_observed?: string;
   last_observed?: string;
-  /** Copied from the rule for UI convenience — see DetectionRule.technique. */
+  /** Copied from the rule for UI convenience - see DetectionRule.technique. */
   technique?: string;
   tactic?: string;
   references?: string[];
@@ -154,7 +154,7 @@ interface CompiledPredicate {
   valueRe?: RegExp;
   contextRe?: RegExp;
   reporterRe?: RegExp;
-  /** True when no predicate fields are present — guard against an empty
+  /** True when no predicate fields are present - guard against an empty
    *  exclude clause silently dropping every match. */
   empty: boolean;
 }

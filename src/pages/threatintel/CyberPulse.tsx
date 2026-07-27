@@ -24,7 +24,7 @@ import {
 import { useDebounce } from '../../hooks/useDebounce';
 
 /**
- * CyberPulse — comprehensive breach/leak/intel incident tracker.
+ * CyberPulse - comprehensive breach/leak/intel incident tracker.
  *
  * Broader than ransom.live: covers ransomware, data leaks, credential leaks,
  * extortion, supply chain, zero-day, DDoS, hacktivism, and general breaches.
@@ -146,7 +146,7 @@ function relativeTime(dateStr: string): string {
 }
 
 function formatNumber(n: number | null): string {
-  if (n === null) return '—';
+  if (n === null) return '-';
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
   return String(n);
@@ -255,7 +255,7 @@ export default function CyberPulse(): JSX.Element {
     <DataPageLayout
       backTo="/threatintel"
       title="CyberPulse"
-      description="Breach, leak & cybercrime incident tracker — sourced from X/Twitter, Telegram, Reddit, Bluesky & Mastodon firehose"
+      description="Breach, leak & cybercrime incident tracker - sourced from X/Twitter, Telegram, Reddit, Bluesky & Mastodon firehose"
       icon={<AlertTriangle size={28} />}
     >
       {/* Stats cards */}
@@ -267,7 +267,7 @@ export default function CyberPulse(): JSX.Element {
               key={s.severity}
               label={s.severity}
               value={s.count}
-              color={SEVERITY_COLORS[s.severity]?.split(' ')[1] ?? 'text-slate-400'}
+              color={SEVERITY_COLORS[s.severity]?.split(' ')[1] ?? 'text-slate-500 dark:text-slate-400'}
             />
           ))}
         </div>
@@ -332,7 +332,7 @@ export default function CyberPulse(): JSX.Element {
                 const data = await res.json();
                 if (data.ok) {
                   setScanResult(
-                    `Scan complete — ${data.incidents_created} new, ${data.incidents_deduped} deduped in ${Math.round(data.duration_ms / 1000)}s`
+                    `Scan complete - ${data.incidents_created} new, ${data.incidents_deduped} deduped in ${Math.round(data.duration_ms / 1000)}s`
                   );
                   setRefreshKey((k) => k + 1);
                 } else {
@@ -363,7 +363,7 @@ export default function CyberPulse(): JSX.Element {
 
       {scanResult && (
         <div
-          className={`mb-4 px-4 py-2 rounded-lg text-sm ${scanResult.includes('complete') ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800' : 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800'}`}
+          className={`mb-4 px-4 py-2 rounded-xl text-sm ${scanResult.includes('complete') ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800' : 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800'}`}
         >
           {scanResult}
         </div>

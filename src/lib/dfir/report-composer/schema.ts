@@ -1,7 +1,7 @@
 // src/lib/dfir/report-composer/schema.ts
 //
-// Data model for the client-side Report Composer. Pure data — no
-// React, no DOM, no jsPDF — so this file can be unit-tested with
+// Data model for the client-side Report Composer. Pure data - no
+// React, no DOM, no jsPDF - so this file can be unit-tested with
 // vitest and the same shape can be exported to PDF and DOCX.
 
 export type Tlp = 'CLEAR' | 'GREEN' | 'AMBER' | 'RED';
@@ -52,13 +52,13 @@ export interface ReportDoc {
 
 export const TLP_OPTIONS: Array<{ value: Tlp; label: string; color: string; description: string }> = [
   { value: 'CLEAR', label: 'TLP:CLEAR', color: 'slate',
-    description: 'Public — may be distributed without restriction.' },
+    description: 'Public - may be distributed without restriction.' },
   { value: 'GREEN', label: 'TLP:GREEN', color: 'emerald',
-    description: 'Community-wide — limited disclosure to the community.' },
+    description: 'Community-wide - limited disclosure to the community.' },
   { value: 'AMBER', label: 'TLP:AMBER', color: 'amber',
-    description: 'Limited disclosure — participants only.' },
+    description: 'Limited disclosure - participants only.' },
   { value: 'RED', label: 'TLP:RED', color: 'rose',
-    description: 'Restricted — named recipients only.' },
+    description: 'Restricted - named recipients only.' },
 ];
 
 export const IOC_TYPES: Array<{ value: IocEntry['type']; label: string }> = [

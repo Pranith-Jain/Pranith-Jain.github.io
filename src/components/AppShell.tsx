@@ -23,7 +23,7 @@ const SECTION_META: Record<'dfir' | 'threatintel' | 'radar', { label: string; hr
 /**
  * Pretty labels for routes used in the auto-breadcrumb. Unmapped paths
  * fall back to a humanised version of the segment (e.g. "actor-kb" →
- * "Actor Kb") — so even a path we haven't audited reads sensibly.
+ * "Actor Kb") - so even a path we haven't audited reads sensibly.
  *
  * Add a label here when a route's slug doesn't match its display name
  * (slugs use kebab-case, display uses Title Case or brand names).
@@ -190,7 +190,7 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
           <MobileSidebarDrawer open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} config={sidebarConfig} />
         )}
         {/* tabIndex={-1} so the SkipToContent anchor (href="#main-content") can
-            actually move focus here — without it the skip link only scrolls and
+            actually move focus here - without it the skip link only scrolls and
             focus stays in the header, breaking it across the whole TI/DFIR app. */}
         <main id="main-content" key={pageKey} tabIndex={-1} className="flex-1 min-w-0 outline-none pb-16 md:pb-0">
           <div className="animate-fade-in-up">
@@ -254,7 +254,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' }): JSX
                 scout
               </span>
               <span className="text-slate-300 dark:text-slate-700">·</span>
-              <span className="hidden sm:inline">Domain recon — analyze any URL instantly.</span>
+              <span className="hidden sm:inline">Domain recon - analyze any URL instantly.</span>
             </>
           ) : mode === 'dfir' ? (
             <>
@@ -294,7 +294,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' }): JSX
           <Link
             to="/"
             className="inline-flex items-center gap-1.5 min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-slate-900 dark:hover:text-slate-100"
-            aria-label="Built by Pranith Jain — back to portfolio"
+            aria-label="Built by Pranith Jain - back to portfolio"
           >
             <PjMark className="h-3.5 w-3.5" />
             Built by PJ

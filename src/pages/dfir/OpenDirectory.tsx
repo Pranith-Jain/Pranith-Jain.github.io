@@ -31,7 +31,7 @@ interface ScanResult {
 }
 
 function formatSize(bytes: number | null): string {
-  if (bytes === null) return '—';
+  if (bytes === null) return '-';
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
   if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
@@ -99,7 +99,7 @@ export default function OpenDirectory(): JSX.Element {
       {/* Search */}
       <form onSubmit={onSubmit} className="flex gap-2 mb-8">
         <div className="relative flex-1">
-          <FolderOpen size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <FolderOpen size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={url}
@@ -133,12 +133,12 @@ export default function OpenDirectory(): JSX.Element {
               { label: 'Files', value: result.totalFiles, icon: File },
               { label: 'Directories', value: result.totalDirectories, icon: FolderOpen },
               { label: 'Total Size', value: formatSize(result.totalSize), icon: HardDrive },
-              { label: 'Server', value: result.server ?? '—', icon: Server },
+              { label: 'Server', value: result.server ?? '-', icon: Server },
               { label: 'Scan Time', value: `${result.scanTimeMs}ms`, icon: Clock },
             ].map(({ label, value, icon: Icon }) => (
               <div key={label} className="p-3 surface-card">
                 <div className="flex items-center gap-1.5 mb-1">
-                  <Icon size={12} className="text-slate-400" />
+                  <Icon size={12} className="text-slate-500 dark:text-slate-400" />
                   <span className="text-micro font-mono uppercase text-slate-500">{label}</span>
                 </div>
                 <span className="text-lg font-mono font-bold">{value}</span>
@@ -236,7 +236,7 @@ export default function OpenDirectory(): JSX.Element {
                           {entry.type === 'directory' ? (
                             <FolderOpen size={12} className="text-amber-500 flex-shrink-0" />
                           ) : (
-                            <File size={12} className="text-slate-400 flex-shrink-0" />
+                            <File size={12} className="text-slate-500 dark:text-slate-400 flex-shrink-0" />
                           )}
                           <span
                             className={`font-mono truncate ${entry.risk === 'critical' ? 'font-semibold text-rose-700 dark:text-rose-300' : ''}`}
@@ -246,7 +246,7 @@ export default function OpenDirectory(): JSX.Element {
                         </div>
                       </td>
                       <td className="px-3 py-2 font-mono text-slate-500">
-                        {entry.extension ?? (entry.type === 'directory' ? 'dir' : '—')}
+                        {entry.extension ?? (entry.type === 'directory' ? 'dir' : '-')}
                       </td>
                       <td className="px-3 py-2 text-right font-mono text-slate-500">{formatSize(entry.size)}</td>
                       <td className="px-3 py-2">
@@ -257,7 +257,7 @@ export default function OpenDirectory(): JSX.Element {
                           {entry.risk}
                         </span>
                       </td>
-                      <td className="px-3 py-2 text-slate-500">{entry.riskReason ?? '—'}</td>
+                      <td className="px-3 py-2 text-slate-500">{entry.riskReason ?? '-'}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -278,7 +278,7 @@ export default function OpenDirectory(): JSX.Element {
         <div className="text-center py-16">
           <FolderOpen size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-400" />
           <p className="text-slate-500">Enter a URL to scan for exposed open directories</p>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Identifies malware staging, credential dumps, config files, and other sensitive artifacts
           </p>
         </div>

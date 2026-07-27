@@ -2,7 +2,7 @@
  * Field-mapping presets. The converter parses any input into a RuleIR
  * whose predicates use the SOURCE format's field names verbatim. Most
  * Sigma rules in the wild use canonical Sysmon / Windows Security event
- * field names (`Image`, `CommandLine`, `ParentImage`, …) — those names
+ * field names (`Image`, `CommandLine`, `ParentImage`, …) - those names
  * are exactly what Microsoft Defender, Elastic ECS, and Splunk CIM each
  * call by a different label.
  *
@@ -12,7 +12,7 @@
  * a field is unmapped, rather than silently emitting the unfamiliar
  * source name into the target query).
  *
- * The maps below are intentionally narrow — they cover the field set a
+ * The maps below are intentionally narrow - they cover the field set a
  * typical Sysmon `process_creation` / `network_connection` Sigma rule
  * touches, which is the most common conversion use case. Expand a map
  * once you hit a Sigma category it doesn't cover; do not bloat every
@@ -31,7 +31,7 @@ export interface FieldMap {
 }
 
 /**
- * Microsoft Defender for Endpoint — Advanced Hunting schema. Field names
+ * Microsoft Defender for Endpoint - Advanced Hunting schema. Field names
  * sourced from the public schema reference at
  * learn.microsoft.com/microsoft-365/security/defender/advanced-hunting-schema-tables.
  */
@@ -62,7 +62,7 @@ const DEFENDER_M365: Record<string, string> = {
 };
 
 /**
- * Elastic Common Schema (ECS) — the most portable target. Field names
+ * Elastic Common Schema (ECS) - the most portable target. Field names
  * sourced from elastic.co/guide/en/ecs/current/ecs-field-reference.html
  */
 const ELASTIC_ECS: Record<string, string> = {
@@ -91,7 +91,7 @@ const ELASTIC_ECS: Record<string, string> = {
 
 /**
  * Splunk CIM (Endpoint / Process model). Field names sourced from
- * docs.splunk.com Common Information Model — Endpoint data model.
+ * docs.splunk.com Common Information Model - Endpoint data model.
  */
 const SPLUNK_CIM: Record<string, string> = {
   Image: 'process_path',

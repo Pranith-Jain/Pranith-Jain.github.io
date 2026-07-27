@@ -1,6 +1,6 @@
 /**
  * Auto-extracted from ToolGrid.tsx so the component file can satisfy the
- * react-refresh/only-export-components rule — Fast Refresh only works when
+ * react-refresh/only-export-components rule - Fast Refresh only works when
  * a file exports components and nothing else. Data (SECTIONS, EXTERNAL,
  * Tool / Section types, TOOL_COUNT) lives here; the renderer lives in
  * ToolGrid.tsx and imports from this module.
@@ -72,16 +72,16 @@ export interface Tool {
   useCase?: string;
   external?: boolean;
   /**
-   * Mark a tool as a "utility" — duplicative of well-known online tools
+   * Mark a tool as a "utility" - duplicative of well-known online tools
    * (timestamp converters, hex/base64 decoders, hash calculators,
    * homoglyph viewers). The hub hides utilities behind a toggle so the
    * count of "real" tools reads as the actual depth of the toolkit, not
-   * a padded list. The routes still resolve — nothing is deleted, only
+   * a padded list. The routes still resolve - nothing is deleted, only
    * de-emphasised on the landing.
    */
   utility?: boolean;
   /**
-   * What this tool CAN'T do — kept honest. Surfaced on the tool page so
+   * What this tool CAN'T do - kept honest. Surfaced on the tool page so
    * a visitor doesn't bounce when they realise the tool isn't a Splunk
    * replacement. Optional; absent means no panel renders.
    */
@@ -93,7 +93,7 @@ export interface Tool {
    * Hide this tool from all nav + search until the named deployment
    * feature flag is enabled (see `GET /api/v1/features` and
    * `src/lib/features.tsx`). Used for dormant self-hosted bridges that
-   * only work once an operator sets the matching `*_BRIDGE_URL` secret —
+   * only work once an operator sets the matching `*_BRIDGE_URL` secret -
    * no point advertising a tool that just returns a 503 setup hint. The
    * route still exists; direct navigation is handled by a page-level
    * guard that redirects when the flag is off.
@@ -112,15 +112,15 @@ export type ToolGroup = 'core-dfir' | 'investigation' | 'intelligence' | 'recon'
 export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
   'core-dfir': {
     label: 'Core DFIR',
-    blurb: 'Triage & analysis — IOC checks, malware triage, file analysis, artifact parsers.',
+    blurb: 'Triage & analysis - IOC checks, malware triage, file analysis, artifact parsers.',
   },
   investigation: {
     label: 'Investigation',
-    blurb: 'Infrastructure & identity — domain/network, assets, email security, vulnerabilities.',
+    blurb: 'Infrastructure & identity - domain/network, assets, email security, vulnerabilities.',
   },
   intelligence: {
     label: 'Intelligence',
-    blurb: 'Detection & standards — rule converters, STIX/TAXII, IR playbooks, hunting tools.',
+    blurb: 'Detection & standards - rule converters, STIX/TAXII, IR playbooks, hunting tools.',
   },
   recon: {
     label: 'Recon & OSINT',
@@ -449,7 +449,7 @@ export const SECTIONS: Section[] = [
     tools: [
       {
         path: '/dfir/asset-intel',
-        useCase: 'Unified IP and domain asset reconnaissance — exposed host, WHOIS history, and artifact analysis.',
+        useCase: 'Unified IP and domain asset reconnaissance - exposed host, WHOIS history, and artifact analysis.',
         label: 'Asset Intelligence',
         desc: 'IP → exposed host with open ports, CVEs, artifacts · domain → WHOIS timeline, registration changes, related domains · auto-detects input type',
         icon: ScanLine,
@@ -509,7 +509,7 @@ export const SECTIONS: Section[] = [
         path: '/dfir/email-defense',
         useCase: 'Score BEC risk for the domain you protect.',
         cantDo:
-          "Reads DNS only — won't catch a domain that auths correctly but sends from a compromised mailbox. The score is the floor of attacker effort, not the ceiling of your safety.",
+          "Reads DNS only - won't catch a domain that auths correctly but sends from a compromised mailbox. The score is the floor of attacker effort, not the ceiling of your safety.",
         workflow:
           'Enter your domain → review the rule failures with attack-scenario context → fix in DNS → recheck → set DMARC p=reject when alignment is clean.',
         label: 'Email Defense / BEC Score',
@@ -643,7 +643,7 @@ export const SECTIONS: Section[] = [
       },
       {
         path: '/dfir/phone-osint',
-        useCase: 'Investigate a phone number — reverse lookup, carrier, geolocation, messaging presence.',
+        useCase: 'Investigate a phone number - reverse lookup, carrier, geolocation, messaging presence.',
         label: 'Phone OSINT',
         desc: 'E.164 parser · 20+ lookup services (TrueCaller, NumLookup, NumVerify, WhatsApp/Telegram check) · reverse lookup, carrier, geolocation, breach, social · category filtering',
         icon: Phone,
@@ -652,7 +652,7 @@ export const SECTIONS: Section[] = [
         path: '/dfir/weather-osint',
         useCase: 'Use weather data to verify alibis, reconstruct timelines, or cross-reference photo metadata.',
         label: 'Weather OSINT',
-        desc: 'Location-based weather intelligence — current conditions, 7-day forecast, astronomy, alerts · alibi verification, timeline reconstruction, geolocation confirmation · Google Maps/Windy/Zoom Earth pivots',
+        desc: 'Location-based weather intelligence - current conditions, 7-day forecast, astronomy, alerts · alibi verification, timeline reconstruction, geolocation confirmation · Google Maps/Windy/Zoom Earth pivots',
         icon: Cloud,
       },
       {
@@ -740,7 +740,7 @@ export const SECTIONS: Section[] = [
         workflow:
           'Seed an address → click nodes to expand counterparties → confirm hops → inspect tx calldata / find the cash-out path → save, export, or pin to an investigation → watch the address for new movement.',
         cantDo:
-          'Not Chainalysis — entity labels are a curated seed + on-the-fly Blockscout/ENS, not an 800M-label index; save / label / watch are admin-gated; native-only value moves (no token-transfer) are not monitored.',
+          'Not Chainalysis - entity labels are a curated seed + on-the-fly Blockscout/ENS, not an 800M-label index; save / label / watch are admin-gated; native-only value moves (no token-transfer) are not monitored.',
         label: 'Fund-Flow Tracer',
         desc: 'EVM + BTC + Tron fund-flow graph · entity labels + risk score · calldata/TxDataHiding inspector · BTC common-input clustering · auto-path to CEX/Mixer · save/export (JSON/CSV/PNG) + investigation pinning · OSINT identity pivot · address monitoring & alerts',
         icon: Coins,
@@ -829,7 +829,7 @@ export const SECTIONS: Section[] = [
         path: '/dfir/rule-converter',
         useCase: 'Translate a detection between Sigma, KQL, SPL, EQL, YARA.',
         cantDo:
-          'Heuristic, not pySigma — reverse-parsing query languages back into the IR recovers only flat `field op "value"` predicates. YARA / DLP / supply-chain carry no field semantics; every lossy step is flagged in the warnings panel.',
+          'Heuristic, not pySigma - reverse-parsing query languages back into the IR recovers only flat `field op "value"` predicates. YARA / DLP / supply-chain carry no field semantics; every lossy step is flagged in the warnings panel.',
         workflow:
           'Pick the source format (Sigma is the most-faithful) → pick a SIEM field-map preset (Defender / ECS / CIM) → paste a rule or load a starter → copy the emitted target.',
         label: 'Rule Converter',
@@ -853,7 +853,7 @@ export const SECTIONS: Section[] = [
       {
         path: '/dfir/fp-lens',
         useCase: 'Score detection rules for false-positive risk before going live.',
-        label: 'FPLENS — FP Analyzer',
+        label: 'FPLENS - FP Analyzer',
         desc: 'Paste a rule + sample hits → FP risk verdict, plausible FP patterns, TP signals, suggested exclusions, and tuning guidance · Workers AI',
         icon: ScanSearch,
       },
@@ -1103,7 +1103,7 @@ export const SECTIONS: Section[] = [
         path: '/dfir/zero-trust-ai-agents',
         useCase: 'Read the reference card for securing AI agent identities and tool calls.',
         label: 'Zero Trust for AI Agents',
-        desc: 'Static reference card / infographic recasting Zero Trust principles (verify explicitly, least privilege, assume breach) for the AI-agent threat surface — identity, prompts, tool calls, memory, exfil paths. Phase-by-phase workflow, model + data + supply-chain control matrix, and detection signals.',
+        desc: 'Static reference card / infographic recasting Zero Trust principles (verify explicitly, least privilege, assume breach) for the AI-agent threat surface - identity, prompts, tool calls, memory, exfil paths. Phase-by-phase workflow, model + data + supply-chain control matrix, and detection signals.',
         icon: ShieldCheck,
       },
     ],
@@ -1256,7 +1256,7 @@ export const SECTIONS: Section[] = [
   {
     id: 'export-hub',
     label: 'Export Hub',
-    blurb: 'Export IOCs to 8 standard formats — STIX, MISP, Sigma, YARA, Snort, Suricata, CSV, pfSense.',
+    blurb: 'Export IOCs to 8 standard formats - STIX, MISP, Sigma, YARA, Snort, Suricata, CSV, pfSense.',
     group: 'specialized',
     tools: [
       {
@@ -1286,7 +1286,7 @@ export const SECTIONS: Section[] = [
 
 /**
  * Off-site sources / catalogs the External-Resources block used to render.
- * Moved to /threatintel as part of the 2026-05-11 split — see
+ * Moved to /threatintel as part of the 2026-05-11 split - see
  * `EXTERNAL_SOURCES` in `src/pages/threatintel/Home.tsx`. Kept here as
  * an empty array so the page renderer below doesn't need a conditional.
  */

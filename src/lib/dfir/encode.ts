@@ -1,5 +1,5 @@
 /**
- * Pure-client encoder — counterpart to lib/dfir/decode.ts.
+ * Pure-client encoder - counterpart to lib/dfir/decode.ts.
  *
  * Each encoder is reversible against the corresponding decoder pass.
  * The chain mode applies passes left-to-right so a "url -> base64"

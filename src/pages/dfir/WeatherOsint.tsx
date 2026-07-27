@@ -207,7 +207,7 @@ export default function WeatherOsint(): JSX.Element {
       title="Weather OSINT"
       description={
         <span className="block max-w-3xl">
-          Weather intelligence for investigations — verify alibis, reconstruct timelines, correlate geolocation, and
+          Weather intelligence for investigations - verify alibis, reconstruct timelines, correlate geolocation, and
           check environmental conditions at a specific location and date. Powered by wttr.in (free, no API key).
         </span>
       }
@@ -216,7 +216,7 @@ export default function WeatherOsint(): JSX.Element {
       <form onSubmit={handleSubmit} className="mb-6">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="text"
               value={query}
@@ -239,7 +239,7 @@ export default function WeatherOsint(): JSX.Element {
       {/* Recent searches */}
       {history.length > 0 && (
         <div className="mb-4 flex flex-wrap gap-1.5">
-          <span className="text-mini font-mono text-slate-400 mr-1">recent:</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">recent:</span>
           {history.map((h) => (
             <button
               key={h}
@@ -293,34 +293,34 @@ export default function WeatherOsint(): JSX.Element {
             {/* Current conditions grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
               <div className="flex items-center gap-2">
-                <Thermometer size={14} className="text-slate-400" />
+                <Thermometer size={14} className="text-slate-500 dark:text-slate-400" />
                 <div>
-                  <div className="text-micro font-mono text-slate-400">Condition</div>
+                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Condition</div>
                   <div className="text-sm font-mono text-slate-900 dark:text-slate-100">{result.current.condition}</div>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Wind size={14} className="text-slate-400" />
+                <Wind size={14} className="text-slate-500 dark:text-slate-400" />
                 <div>
-                  <div className="text-micro font-mono text-slate-400">Wind</div>
+                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Wind</div>
                   <div className="text-sm font-mono text-slate-900 dark:text-slate-100">
                     {result.current.wind_kph} km/h {result.current.wind_dir}
                   </div>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Eye size={14} className="text-slate-400" />
+                <Eye size={14} className="text-slate-500 dark:text-slate-400" />
                 <div>
-                  <div className="text-micro font-mono text-slate-400">Visibility</div>
+                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Visibility</div>
                   <div className="text-sm font-mono text-slate-900 dark:text-slate-100">
                     {result.current.visibility_km} km
                   </div>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Cloud size={14} className="text-slate-400" />
+                <Cloud size={14} className="text-slate-500 dark:text-slate-400" />
                 <div>
-                  <div className="text-micro font-mono text-slate-400">Cloud Cover</div>
+                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Cloud Cover</div>
                   <div className="text-sm font-mono text-slate-900 dark:text-slate-100">{result.current.cloud}%</div>
                 </div>
               </div>
@@ -329,21 +329,21 @@ export default function WeatherOsint(): JSX.Element {
             {/* Secondary stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-3">
               <div>
-                <div className="text-micro font-mono text-slate-400">Humidity</div>
+                <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Humidity</div>
                 <div className="text-sm font-mono text-slate-900 dark:text-slate-100">{result.current.humidity}%</div>
               </div>
               <div>
-                <div className="text-micro font-mono text-slate-400">Pressure</div>
+                <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Pressure</div>
                 <div className="text-sm font-mono text-slate-900 dark:text-slate-100">
                   {result.current.pressure_mb} mb
                 </div>
               </div>
               <div>
-                <div className="text-micro font-mono text-slate-400">UV Index</div>
+                <div className="text-micro font-mono text-slate-500 dark:text-slate-400">UV Index</div>
                 <div className="text-sm font-mono text-slate-900 dark:text-slate-100">{result.current.uv}</div>
               </div>
               <div>
-                <div className="text-micro font-mono text-slate-400">Precipitation</div>
+                <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Precipitation</div>
                 <div className="text-sm font-mono text-slate-900 dark:text-slate-100">
                   {result.current.precip_mm} mm
                 </div>

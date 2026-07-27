@@ -37,7 +37,7 @@ const CONFIDENCE_BADGE: Record<string, string> = {
 const TREND_ICON: Record<string, JSX.Element> = {
   increasing: <TrendingUp size={14} className="text-rose-500" />,
   decreasing: <TrendingDown size={14} className="text-emerald-500" />,
-  stable: <Minus size={14} className="text-slate-400" />,
+  stable: <Minus size={14} className="text-slate-500 dark:text-slate-400" />,
 };
 
 const RISK_BAR_COLOR: Record<string, string> = {
@@ -74,7 +74,7 @@ export default function PredictiveIntel(): JSX.Element {
       emptyIcon={<TrendingUp size={32} className="text-slate-300 dark:text-slate-400" />}
     >
       {summary && (
-        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-brand-500/5 to-brand-500/10 dark:from-brand-500/10 dark:to-brand-500/5 p-5 mb-6">
+        <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-rose-500/5 to-rose-500/10 dark:from-rose-500/10 dark:to-rose-500/5 p-5 mb-6">
           <div className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Executive Summary</div>
           <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{summary}</p>
         </div>
@@ -89,7 +89,7 @@ export default function PredictiveIntel(): JSX.Element {
             icon: <Shield size={16} />,
             color: 'text-emerald-600 dark:text-emerald-400',
           },
-          { label: 'Avg Probability', value: `${avgProbability}%`, color: 'text-brand-600 dark:text-brand-400' },
+          { label: 'Avg Probability', value: `${avgProbability}%`, color: 'text-rose-600 dark:text-rose-400' },
           {
             label: 'High-Risk Sectors',
             value: highRiskSectors,
@@ -152,25 +152,25 @@ export default function PredictiveIntel(): JSX.Element {
                   <div>
                     <h3 className="font-display font-bold text-sm capitalize">{f.threat_type.replace(/_/g, ' ')}</h3>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-micro font-mono text-slate-400">{f.timeframe}</span>
+                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{f.timeframe}</span>
                       <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${CONFIDENCE_BADGE[f.confidence]}`}>
                         {f.confidence}
                       </span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">
+                    <div className="text-2xl font-display font-bold text-rose-600 dark:text-rose-400">
                       {f.probability}%
                     </div>
-                    <div className="text-micro font-mono text-slate-400">probability</div>
+                    <div className="text-micro font-mono text-slate-500 dark:text-slate-400">probability</div>
                   </div>
                 </div>
                 <div className="w-full bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-2 mb-3">
-                  <div className="bg-brand-500 h-2 rounded-full" style={{ width: `${f.probability}%` }} />
+                  <div className="bg-rose-500 h-2 rounded-full" style={{ width: `${f.probability}%` }} />
                 </div>
                 {f.basis && f.basis.length > 0 && (
                   <div className="mb-2">
-                    <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">Basis</div>
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Basis</div>
                     <ul className="space-y-0.5">
                       {f.basis.map((b, j) => (
                         <li key={j} className="text-xs text-muted flex items-start gap-1.5">
@@ -182,7 +182,7 @@ export default function PredictiveIntel(): JSX.Element {
                 )}
                 {f.indicators_to_watch && f.indicators_to_watch.length > 0 && (
                   <div className="mb-2">
-                    <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                       Indicators to Watch
                     </div>
                     <div className="flex flex-wrap gap-1">

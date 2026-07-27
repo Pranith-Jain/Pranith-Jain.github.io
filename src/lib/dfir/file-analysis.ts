@@ -3,7 +3,7 @@
  *
  * Computes hashes (SHA-256 / SHA-1 / MD5), detects file type from magic
  * bytes, calculates Shannon entropy, and extracts ASCII strings ≥ 4
- * chars. Doesn't disassemble or sandbox — that's what /dfir/malware-scan
+ * chars. Doesn't disassemble or sandbox - that's what /dfir/malware-scan
  * routes you to (VirusTotal, MalwareBazaar, ANY.RUN, Joe Sandbox).
  *
  * MD5 implementation lives in eml-parser.ts because SubtleCrypto.digest

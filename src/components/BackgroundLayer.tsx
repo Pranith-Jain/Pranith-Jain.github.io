@@ -5,7 +5,7 @@ import { memo } from 'react';
  * both the portfolio render path and the /dfir, /threatintel app paths.
  *
  * Memoized because the two divs were previously duplicated inline in App.tsx
- * — re-rendered on every route transition — and the inline style objects with
+ * - re-rendered on every route transition - and the inline style objects with
  * a multi-line gradient string + base64 SVG data URI added measurable cost to
  * each transition. Only `isDark` drives variation.
  */

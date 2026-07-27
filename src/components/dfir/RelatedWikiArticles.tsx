@@ -14,7 +14,7 @@ interface Props {
 /**
  * "Related wiki articles" footer. Drop into any tool page that has a
  * matching tool-topics entry. Renders nothing if no articles backlink
- * to the current path — safe to include unconditionally.
+ * to the current path - safe to include unconditionally.
  *
  * The auto-link direction (wiki → tool) lives in `WikiArticle.tsx` via
  * tool-topics. This is the reciprocal direction so an analyst on a
@@ -52,7 +52,7 @@ export function RelatedWikiArticles({ path, limit = 5, className = '' }: Props):
       </ul>
       {articles.length > limit && (
         <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2">
-          {articles.length - limit} more articles also backlink to this tool —{' '}
+          {articles.length - limit} more articles also backlink to this tool -{' '}
           <Link to="/threatintel/catalog?cat=wiki" className="text-sky-700 dark:text-sky-300 hover:underline">
             browse the full wiki
           </Link>

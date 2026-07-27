@@ -6,9 +6,9 @@
  *
  * Source keys match the ids emitted by the `/api/v1/live-iocs` handler.
  *
- * - `label`  — human-readable name (used in the derived "Sources: …" prose).
- * - `color`  — Tailwind pill classes (border + bg + text, with dark: variants).
- * - `weight` — SOC criticality source weight (0-60), the dominant signal in
+ * - `label`  - human-readable name (used in the derived "Sources: …" prose).
+ * - `color`  - Tailwind pill classes (border + bg + text, with dark: variants).
+ * - `weight` - SOC criticality source weight (0-60), the dominant signal in
  *              the per-IOC criticality score. Omit to use the default.
  */
 

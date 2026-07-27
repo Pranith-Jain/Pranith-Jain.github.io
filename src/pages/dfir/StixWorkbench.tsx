@@ -23,7 +23,7 @@ export default function StixWorkbench(): JSX.Element {
       backTo="/dfir"
       icon={<FileText size={28} />}
       title="STIX/TAXII Workbench"
-      description="Unified STIX/TAXII workflow — build bundles, visualize with interactive graphs, and share via TAXII server."
+      description="Unified STIX/TAXII workflow - build bundles, visualize with interactive graphs, and share via TAXII server."
     >
       <nav
         className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"

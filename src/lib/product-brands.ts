@@ -3,7 +3,7 @@
  *
  * Rule of thumb:
  *   - Product chrome (top bar, breadcrumbs, nav, page titles): use CODE names
- *   - Marketing subtitles: CODE + role ("CRUCIBLE — DFIR toolkit")
+ *   - Marketing subtitles: CODE + role ("CRUCIBLE - DFIR toolkit")
  *   - Never invent a third name for the same surface
  */
 
@@ -73,7 +73,7 @@ export const PRODUCTS: Record<ProductId, ProductBrand> = {
   },
 };
 
-/** CVE/KEV vertical at /threat-intel — not the full PANOPTICON app. */
+/** CVE/KEV vertical at /threat-intel - not the full PANOPTICON app. */
 export const THREAT_INTEL_VERTICAL = {
   code: 'CVE & KEV Catalog',
   role: 'NVD + CISA KEV + IOC families',
@@ -90,7 +90,7 @@ export function productForPath(pathname: string): ProductBrand {
   return PRODUCTS.portfolio;
 }
 
-/** Accent utility for section headers (uses existing Tailwind classes — not tokens). */
+/** Accent utility for section headers (uses existing Tailwind classes - not tokens). */
 export function accentClassForPath(pathname: string): string {
   if (pathname.startsWith('/threatintel') || pathname.startsWith('/threat-intel')) {
     return 'text-rose-600 dark:text-rose-400';
@@ -108,8 +108,8 @@ export function kickerForPath(pathname: string): string {
   return productForPath(pathname).kicker;
 }
 
-/** "CRUCIBLE — DFIR toolkit" marketing title */
+/** "CRUCIBLE - DFIR toolkit" marketing title */
 export function marketingTitle(id: ProductId): string {
   const p = PRODUCTS[id];
-  return `${p.code} — ${p.role}`;
+  return `${p.code} - ${p.role}`;
 }

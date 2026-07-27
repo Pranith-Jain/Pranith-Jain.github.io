@@ -716,13 +716,13 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
       {/* Controls */}
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative flex-1 min-w-[200px] max-w-md">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search facilities..."
-            className="w-full pl-9 pr-3 py-2 text-sm font-mono surface-card/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+            className="w-full pl-9 pr-3 py-2 text-sm font-mono surface-card/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/40"
           />
         </div>
         <div className="flex items-center gap-1">
@@ -731,8 +731,8 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
             onClick={() => setView('table')}
             className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
               view === 'table'
-                ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 border-brand-500/30'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:text-slate-600'
+                ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:text-slate-600'
             }`}
           >
             Table
@@ -742,8 +742,8 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
             onClick={() => setView('map')}
             className={`px-3 py-1.5 text-xs font-mono rounded-xl border transition-colors ${
               view === 'map'
-                ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 border-brand-500/30'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 hover:text-slate-600'
+                ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:text-slate-600'
             }`}
           >
             Map
@@ -782,7 +782,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
               className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-xl border transition-all ${
                 active
                   ? `${config.bgColor} ${config.color} border-current`
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-400 opacity-50'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 opacity-50'
               }`}
             >
               <config.icon size={12} />
@@ -802,7 +802,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
           <Suspense
             fallback={
               <div className="flex items-center justify-center h-[500px]">
-                <div className="text-sm text-slate-400">Loading map…</div>
+                <div className="text-sm text-slate-500 dark:text-slate-400">Loading map…</div>
               </div>
             }
           >
@@ -858,9 +858,9 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-2">
                             {isExpanded ? (
-                              <ChevronUp size={12} className="text-slate-400" />
+                              <ChevronUp size={12} className="text-slate-500 dark:text-slate-400" />
                             ) : (
-                              <ChevronDown size={12} className="text-slate-400" />
+                              <ChevronDown size={12} className="text-slate-500 dark:text-slate-400" />
                             )}
                             <span className="font-medium text-slate-900 dark:text-slate-100">{f.name}</span>
                           </div>
@@ -893,7 +893,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
                               href={`https://www.google.com/maps?q=${f.lat},${f.lng}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 mt-2 text-xs font-mono text-brand-500 hover:text-brand-600"
+                              className="inline-flex items-center gap-1 mt-2 text-xs font-mono text-rose-500 hover:text-rose-600"
                               onClick={(e) => e.stopPropagation()}
                             >
                               Open in Maps <ExternalLink size={10} />
@@ -908,7 +908,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
             </table>
           </div>
           {filtered.length === 0 && (
-            <div className="px-4 py-12 text-center text-sm text-slate-400">
+            <div className="px-4 py-12 text-center text-sm text-slate-500 dark:text-slate-400">
               No facilities match the current filters.
             </div>
           )}
@@ -922,7 +922,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
       backTo="/threatintel"
       icon={<Building2 size={28} />}
       title="Facilities Database"
-      description="Strategic facilities worldwide — conflict zones, military bases, nuclear sites, disputed territories, sanctions targets, and critical infrastructure."
+      description="Strategic facilities worldwide - conflict zones, military bases, nuclear sites, disputed territories, sanctions targets, and critical infrastructure."
       maxWidthClass="max-w-7xl"
     >
       {body}

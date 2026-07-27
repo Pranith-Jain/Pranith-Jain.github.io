@@ -11,7 +11,7 @@ export interface BarItem {
   hint?: string;
   /** Color override for this specific row. */
   color?: string;
-  /** Optional click target — makes the bar a button-like element. */
+  /** Optional click target - makes the bar a button-like element. */
   href?: string;
   /** Optional right-side meta rendered after the value. */
   meta?: ReactNode;
@@ -164,7 +164,7 @@ export function SocBar({
               </button>
               <span className="text-slate-500 tabular-nums shrink-0 flex items-center gap-1.5">
                 {fmt(it.value)}
-                {it.hint && <span className="text-slate-400">{it.hint}</span>}
+                {it.hint && <span className="text-slate-500 dark:text-slate-400">{it.hint}</span>}
                 {it.meta}
               </span>
             </div>
@@ -187,7 +187,7 @@ export function SocBar({
         );
       })}
       {axis && (
-        <li className="flex justify-between text-mini text-slate-400 dark:text-slate-500 font-mono pt-1">
+        <li className="flex justify-between text-mini text-slate-500 dark:text-slate-400 font-mono pt-1">
           <span>0</span>
           <span>{fmt(Math.round(ceiling / 2))}</span>
           <span>{fmt(ceiling)}</span>
@@ -328,7 +328,7 @@ export function SocDonut({
                 <span className="truncate text-slate-700 dark:text-slate-300">{s.label}</span>
                 <span className="ml-auto text-slate-500 tabular-nums">
                   {s.value.toLocaleString('en-US')}{' '}
-                  <span className="text-slate-400">({((s.value / total) * 100).toFixed(1)}%)</span>
+                  <span className="text-slate-500 dark:text-slate-400">({((s.value / total) * 100).toFixed(1)}%)</span>
                 </span>
               </li>
             ))}

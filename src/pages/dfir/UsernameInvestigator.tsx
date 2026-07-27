@@ -25,7 +25,7 @@ export default function UsernameInvestigator(): JSX.Element {
       backTo="/dfir"
       icon={<Users size={28} />}
       title="Username & Identity Investigator"
-      description="Unified username investigation — rich profiles, quick existence checks, and deep server-side scans across 60+ platforms. Pick a tab based on the depth you need."
+      description="Unified username investigation - rich profiles, quick existence checks, and deep server-side scans across 60+ platforms. Pick a tab based on the depth you need."
     >
       {/* Tab bar */}
       <nav

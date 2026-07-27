@@ -173,19 +173,19 @@ export default function MostWanted(): JSX.Element {
       backTo="/threatintel"
       icon={<ShieldAlert size={28} />}
       title="Threat Actor Most Wanted"
-      description="Curated list of the most significant threat actors and cybercriminal groups currently active — prioritized by risk and global impact."
+      description="Curated list of the most significant threat actors and cybercriminal groups currently active - prioritized by risk and global impact."
     >
       <div className="flex justify-center mb-4 opacity-30">
         <ASCIIArt />
       </div>
       <div className="relative mb-6">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Filter by name, category, risk, origin, tools, or aliases…"
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
         />
       </div>
 
@@ -198,10 +198,10 @@ export default function MostWanted(): JSX.Element {
           <Link
             key={actor.slug}
             to={`/threatintel/actors/${actor.slug}`}
-            className="group surface-card p-5 transition hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-e2 flex flex-col"
+            className="group surface-card p-5 transition hover:-translate-y-0.5 hover:border-rose-500/50 hover:shadow-e2 flex flex-col"
           >
             <div className="flex items-start justify-between gap-3 mb-2">
-              <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
                 {actor.name}
               </h3>
               <span
@@ -227,14 +227,14 @@ export default function MostWanted(): JSX.Element {
             <div className="mt-auto space-y-1.5 text-xs font-mono text-slate-500 dark:text-slate-500">
               {actor.aliases.length > 0 && (
                 <p>
-                  <span className="text-slate-400 dark:text-slate-500">Aliases:</span> {actor.aliases.join(', ')}
+                  <span className="text-slate-500 dark:text-slate-400">Aliases:</span> {actor.aliases.join(', ')}
                 </p>
               )}
               <p>
-                <span className="text-slate-400 dark:text-slate-500">Origin:</span> {actor.origin}
+                <span className="text-slate-500 dark:text-slate-400">Origin:</span> {actor.origin}
               </p>
               <p>
-                <span className="text-slate-400 dark:text-slate-500">Tools:</span> {actor.tools.join(', ')}
+                <span className="text-slate-500 dark:text-slate-400">Tools:</span> {actor.tools.join(', ')}
               </p>
             </div>
           </Link>

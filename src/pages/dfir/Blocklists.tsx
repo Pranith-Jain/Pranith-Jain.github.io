@@ -167,7 +167,7 @@ export default function BlocklistsPage(): JSX.Element {
       {/* Status bar */}
       <div className="surface-card p-4 mb-6 flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3 text-sm font-mono">
-          <Clock size={16} className="text-slate-400" />
+          <Clock size={16} className="text-slate-500 dark:text-slate-400" />
           {loading ? (
             <span className="text-slate-500">Loading…</span>
           ) : error ? (
@@ -272,7 +272,7 @@ export default function BlocklistsPage(): JSX.Element {
             </code>{' '}
             and add it to your suricata.yaml.
           </p>
-          <p className="text-micro text-slate-400 mt-2">
+          <p className="text-micro text-slate-500 dark:text-slate-400 mt-2">
             API endpoints:{' '}
             <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
               /api/v1/blocklists/pfsense

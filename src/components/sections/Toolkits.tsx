@@ -8,11 +8,11 @@ const apps = [
     title: 'CRUCIBLE',
     subtitle: 'DFIR Toolkit',
     description:
-      'Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules, and more — 90+ tools that run in your browser.',
+      'Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules, and more - 90+ tools that run in your browser.',
     rows: [
       ['IOC checker', 'Paste an IP, domain, or hash → verdict from 24 sources'],
       ['Common tasks', 'Phishing analysis · CVE triage · rule conversion'],
-      ['How it works', 'Runs entirely in your browser — no data leaves your machine'],
+      ['How it works', 'Runs entirely in your browser - no data leaves your machine'],
     ],
     builtWith: ['Free', 'No signup', 'Client-side'],
     href: '/dfir',
@@ -26,7 +26,7 @@ const apps = [
     title: 'PANOPTICON',
     subtitle: 'Threat Intel Platform',
     description:
-      'Monitor ransomware activity, track threat actors, and stay ahead of campaigns — live intelligence from 100+ public feeds.',
+      'Monitor ransomware activity, track threat actors, and stay ahead of campaigns - live intelligence from 100+ public feeds.',
     rows: [
       ['Live feeds', 'Ransomware leaks · CVEs · dark web · social media'],
       ['Common tasks', 'Actor research · IOC enrichment · campaign tracking'],
@@ -44,7 +44,7 @@ const apps = [
     title: 'SCOUT',
     subtitle: 'Recon Scanner',
     description:
-      'Deep crawl, JS analysis, API endpoint discovery, secret detection, and security scoring — full reconnaissance in one scan.',
+      'Deep crawl, JS analysis, API endpoint discovery, secret detection, and security scoring - full reconnaissance in one scan.',
     rows: [
       ['Deep crawl', 'Multi-page crawl with JS bundle analysis'],
       ['Common tasks', 'API discovery · secret detection · domain enumeration'],
@@ -102,16 +102,16 @@ export function Toolkits() {
                 </div>
                 <div className="flex items-baseline gap-1 tabular-nums">
                   <span className="font-display text-2xl font-bold text-slate-900 dark:text-white">{app.stat}</span>
-                  <span className="text-mini font-mono text-slate-400">{app.statLabel}</span>
+                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{app.statLabel}</span>
                 </div>
               </div>
               <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 {app.title}
               </h3>
-              <p className="mt-0.5 text-xs font-medium text-slate-400 dark:text-slate-500">{app.subtitle}</p>
+              <p className="mt-0.5 text-xs font-medium text-slate-500 dark:text-slate-400">{app.subtitle}</p>
               <p className="mt-2 text-sm text-muted leading-relaxed flex-1">{app.description}</p>
 
-              <dl className="mt-4 -mx-1 divide-y divide-slate-200/70 dark:divide-slate-800 border-y border-slate-200/70 dark:border-[rgb(var(--border-400))]">
+              <dl className="mt-4 -mx-1 divide-y divide-slate-200/70 dark:divide-[rgb(var(--border-400))] border-y border-slate-200/70 dark:border-[rgb(var(--border-400))]">
                 {app.rows.map(([k, v]) => (
                   <div key={k} className="grid grid-cols-[7.5rem_1fr] items-baseline gap-3 px-1 py-2 text-sm">
                     <dt className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">{k}</dt>

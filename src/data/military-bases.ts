@@ -8,7 +8,7 @@ export interface MilitaryBase {
 }
 
 export const MILITARY_BASES: MilitaryBase[] = [
-  // US Bases — Europe
+  // US Bases - Europe
   {
     name: 'Ramstein Air Base',
     lat: 49.436,
@@ -97,7 +97,7 @@ export const MILITARY_BASES: MilitaryBase[] = [
     type: 'usa',
     description: 'US Navy Mediterranean logistics hub',
   },
-  // US Bases — Middle East
+  // US Bases - Middle East
   {
     name: 'Al Udeid Air Base',
     lat: 25.117,
@@ -146,7 +146,7 @@ export const MILITARY_BASES: MilitaryBase[] = [
     type: 'usa',
     description: 'USAF airlift operations',
   },
-  // US Bases — Asia-Pacific
+  // US Bases - Asia-Pacific
   {
     name: 'Kadena Air Base',
     lat: 26.352,
@@ -211,7 +211,7 @@ export const MILITARY_BASES: MilitaryBase[] = [
     type: 'usa',
     description: 'US Navy Pacific Fleet headquarters',
   },
-  // US Bases — Africa & Americas
+  // US Bases - Africa & Americas
   {
     name: 'Camp Lemonnier',
     lat: 11.547,

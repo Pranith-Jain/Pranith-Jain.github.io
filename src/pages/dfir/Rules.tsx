@@ -63,7 +63,7 @@ function formatRel(dateStr: string): string {
 }
 
 function formatNum(n?: number): string {
-  if (n === undefined) return '—';
+  if (n === undefined) return '-';
   if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
   return String(n);
 }

@@ -1,7 +1,7 @@
 /**
  * Types + node palette shared between RelationshipGraph (the page shell) and
  * RelationshipGraphCanvas (the lazily-loaded ReactFlow/dagre canvas). Kept dep-
- * free so importing it into the page does NOT pull in @xyflow/react or dagre —
+ * free so importing it into the page does NOT pull in @xyflow/react or dagre -
  * those load only when the canvas chunk is fetched.
  */
 

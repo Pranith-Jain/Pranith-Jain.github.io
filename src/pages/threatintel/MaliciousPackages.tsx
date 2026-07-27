@@ -117,8 +117,8 @@ export default function MaliciousPackages(): JSX.Element {
               }}
               className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
                 ecosystem === e.id
-                  ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                  ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
               }`}
             >
               {e.label}
@@ -129,13 +129,13 @@ export default function MaliciousPackages(): JSX.Element {
 
       <div className="flex items-center gap-2">
         <div className="relative flex-1">
-          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={`Filter ${ecosystem} package names…`}
-            className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] font-mono text-sm focus:outline-none focus:border-rose-500"
           />
         </div>
         {data && (
@@ -155,11 +155,11 @@ export default function MaliciousPackages(): JSX.Element {
         href="https://github.com/ossf/malicious-packages"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-brand-600 dark:text-brand-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline"
       >
         ossf/malicious-packages
       </a>{' '}
-      — the OpenSSF curated mirror of OSV-format reports across npm, PyPI, RubyGems, Maven, Go, and Rust. Each name
+      - the OpenSSF curated mirror of OSV-format reports across npm, PyPI, RubyGems, Maven, Go, and Rust. Each name
       links to its registry detail page; click the OSSF link for the full OSV record (versions + indicators) and
       timeline.
     </>
@@ -182,7 +182,7 @@ export default function MaliciousPackages(): JSX.Element {
           {filtered.slice(0, 600).map((p) => (
             <li
               key={`${p.ecosystem}:${p.name}`}
-              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 hover:border-brand-500/40 transition-colors"
+              className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] p-2 hover:border-rose-500/40 transition-colors"
             >
               <code
                 className="block font-mono text-tool text-slate-900 dark:text-slate-100 break-all truncate"
@@ -195,7 +195,7 @@ export default function MaliciousPackages(): JSX.Element {
                   href={registryLink(p)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+                  className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-0.5"
                   title={`Open ${p.ecosystem} registry`}
                 >
                   registry <ExternalLink size={9} />
@@ -204,14 +204,14 @@ export default function MaliciousPackages(): JSX.Element {
                   href={p.ossf_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+                  className="text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-0.5"
                   title="OSSF malicious-packages OSV record"
                 >
                   OSSF <ExternalLink size={9} />
                 </a>
                 <Link
                   to={`/dfir/ioc-check?indicator=${encodeURIComponent(p.name)}`}
-                  className="ml-auto text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                  className="ml-auto text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
                   title="Search platform IOC checker"
                 >
                   pivot →
@@ -224,12 +224,12 @@ export default function MaliciousPackages(): JSX.Element {
 
       {filtered.length > 600 && (
         <p className="mt-3 text-mini font-mono text-slate-500 text-center">
-          Showing first 600 — refine the filter to narrow.
+          Showing first 600 - refine the filter to narrow.
         </p>
       )}
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
           source: {data.source_url} · refreshed {new Date(data.generated_at).toLocaleString()}
         </p>
       )}

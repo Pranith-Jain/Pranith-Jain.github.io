@@ -69,7 +69,7 @@ function humanSize(bytes: number): string {
 }
 
 function formatDate(iso: string | null): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   try {
     return new Date(iso).toLocaleString();
   } catch {
@@ -114,9 +114,9 @@ function BreachCard({
     <button
       type="button"
       onClick={onSelect}
-      className={`w-full text-left rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-brand-500/40 transition-colors ${
+      className={`w-full text-left rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-4 hover:border-rose-500/40 transition-colors ${
         selected
-          ? 'border-brand-500/60 ring-1 ring-brand-500/30'
+          ? 'border-rose-500/60 ring-1 ring-rose-500/30'
           : 'border-slate-200 dark:border-[rgb(var(--border-400))]'
       }`}
     >
@@ -126,7 +126,7 @@ function BreachCard({
             {entry.title}
           </h4>
           <div className="flex items-center gap-2 mt-1 text-mini font-mono text-slate-500 flex-wrap">
-            <span className="text-brand-600 dark:text-brand-400">{entry.group}</span>
+            <span className="text-rose-600 dark:text-rose-400">{entry.group}</span>
             {entry.country && <span>{entry.country}</span>}
             <span>{entry.discovered ? new Date(entry.discovered).toLocaleDateString() : ''}</span>
           </div>
@@ -137,11 +137,11 @@ function BreachCard({
           >
             {entry.severity}
           </span>
-          <span className="text-micro font-mono text-slate-400">{humanSize(entry.sizeBytes)}</span>
+          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{humanSize(entry.sizeBytes)}</span>
         </div>
       </div>
       <div className="flex items-center justify-between mt-2">
-        <span className="text-micro font-mono text-slate-400">{CATEGORY_LABELS[entry.category] ?? entry.category}</span>
+        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{CATEGORY_LABELS[entry.category] ?? entry.category}</span>
         <PostAnalysisButton
           title={entry.title}
           source={entry.group}
@@ -188,7 +188,7 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
         <button
           type="button"
           onClick={onClose}
-          className="text-mini font-mono text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+          className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
         >
           close
         </button>
@@ -256,7 +256,7 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
               href={sanitizeUrl(body.source_url) || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
+              className="inline-flex items-center gap-1 text-sm font-mono text-rose-600 dark:text-rose-400 hover:underline"
             >
               source <ExternalLink size={11} />
             </a>
@@ -272,7 +272,7 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
                       href={sanitizeUrl(r) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline break-all"
+                      className="text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline break-all"
                     >
                       {r} <ExternalLink size={9} className="inline" />
                     </a>
@@ -433,7 +433,7 @@ export default function BreachWatch(): JSX.Element {
               href="https://ransomware.live"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               ransomware.live
             </a>
@@ -442,7 +442,7 @@ export default function BreachWatch(): JSX.Element {
               href="https://ransomlook.io"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               ransomlook.io
             </a>
@@ -451,7 +451,7 @@ export default function BreachWatch(): JSX.Element {
               href="https://darkfield.orizon.one"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               Darkfield
             </a>
@@ -460,7 +460,7 @@ export default function BreachWatch(): JSX.Element {
               href="https://recentbreaches.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               RecentBreaches
             </a>
@@ -469,7 +469,7 @@ export default function BreachWatch(): JSX.Element {
               href="https://cti.fyi"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               CTI.FYI
             </a>
@@ -478,14 +478,14 @@ export default function BreachWatch(): JSX.Element {
               href="https://xposedornot.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               XposedOrNot
             </a>
             .
           </span>
           <span className="block text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
-            Combined breach corpus — ransomware leaks, data breaches, credential dumps, and combo lists.
+            Combined breach corpus - ransomware leaks, data breaches, credential dumps, and combo lists.
           </span>
         </>
       }
@@ -494,7 +494,7 @@ export default function BreachWatch(): JSX.Element {
           {index && (
             <>
               <LiveFreshnessPill tone={freshnessTone(index.lastSyncedAt)} ago={shortRel(index.lastSyncedAt)} />
-              <span className="text-mini font-mono text-slate-400">
+              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
                 {index.counts.breaches.toLocaleString()} breaches · {index.counts.groups} groups
               </span>
             </>
@@ -503,7 +503,7 @@ export default function BreachWatch(): JSX.Element {
             type="button"
             onClick={() => loadData(false)}
             disabled={loading}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-40"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-40"
             aria-label="Refresh breach watch data"
           >
             <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
@@ -538,8 +538,8 @@ export default function BreachWatch(): JSX.Element {
                   onClick={() => setFilter('category', filterCategory === c.key ? '' : c.key)}
                   className={`text-micro font-mono px-2.5 py-1 rounded-full border transition-colors ${
                     filterCategory === c.key
-                      ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300 border-brand-500/40'
-                      : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-500 border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40'
+                      ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/40'
+                      : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-500 border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40'
                   }`}
                 >
                   {c.label} ({c.count})
@@ -551,18 +551,18 @@ export default function BreachWatch(): JSX.Element {
           {/* Search + filters */}
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <div className="relative flex-1 min-w-[200px] max-w-sm">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setFilter('q', e.target.value)}
                 placeholder="Search breaches…"
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
               />
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
-              <Filter size={13} className="text-slate-400" />
+              <Filter size={13} className="text-slate-500 dark:text-slate-400" />
               <select
                 value={filterGroup}
                 onChange={(e) => setFilter('group', e.target.value)}
@@ -652,7 +652,7 @@ export default function BreachWatch(): JSX.Element {
                 type="button"
                 onClick={loadMore}
                 disabled={loadingMore}
-                className="text-mini font-mono px-4 py-2 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 bg-white dark:bg-[rgb(var(--surface-200))] disabled:opacity-40 inline-flex items-center gap-2"
+                className="text-mini font-mono px-4 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 bg-white dark:bg-[rgb(var(--surface-200))] disabled:opacity-40 inline-flex items-center gap-2"
               >
                 {loadingMore && <Loader2 size={12} className="animate-spin" />}
                 Load more
@@ -671,7 +671,7 @@ export default function BreachWatch(): JSX.Element {
           {groups.length > 0 && !filterGroup && (
             <section className="mt-10">
               <h2 className="font-display font-bold text-xl mb-3 inline-flex items-center gap-2">
-                <ShieldAlert size={18} className="text-brand-600 dark:text-brand-400" /> Threat actor groups
+                <ShieldAlert size={18} className="text-rose-600 dark:text-rose-400" /> Threat actor groups
               </h2>
               <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                 {groups.slice(0, 60).map((g) => (
@@ -679,7 +679,7 @@ export default function BreachWatch(): JSX.Element {
                     key={g.name}
                     type="button"
                     onClick={() => setFilter('group', g.name)}
-                    className="surface-card p-3 hover:border-brand-500/40 transition-colors text-left"
+                    className="surface-card p-3 hover:border-rose-500/40 transition-colors text-left"
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">
@@ -687,7 +687,7 @@ export default function BreachWatch(): JSX.Element {
                       </span>
                       <span className="text-micro font-mono text-slate-500 shrink-0 ml-2">{g.count}</span>
                     </div>
-                    <span className="text-micro font-mono text-slate-400">
+                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
                       {CATEGORY_LABELS[g.topCategory] ?? g.topCategory}
                     </span>
                   </button>

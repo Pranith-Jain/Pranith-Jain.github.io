@@ -6,7 +6,7 @@ import { Radio, Loader2, AlertTriangle, CheckCircle2 } from 'lucide-react';
  *
  * Hits POST /api/v1/actor-enrich/otx-stream which streams SSE events
  * (started / actor / error / done). Streams the actor list it has
- * locally — server applies fair-queue rotation (never-attempted first,
+ * locally - server applies fair-queue rotation (never-attempted first,
  * then fewest IOCs, then oldest attempt) and processes up to `limit`
  * actors per click.
  */
@@ -81,7 +81,7 @@ export default function ActorOtxSweep({ actors, limit = 10 }: Props) {
         throw new Error(msg);
       }
 
-      // Parse the SSE byte-stream manually — EventSource is GET-only, so
+      // Parse the SSE byte-stream manually - EventSource is GET-only, so
       // a POST+stream has to walk the bytes itself. Standard SSE is:
       //   event: <name>\ndata: <json>\n\n
       const reader = res.body.getReader();
@@ -160,7 +160,7 @@ export default function ActorOtxSweep({ actors, limit = 10 }: Props) {
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Fetch fresh OTX pulses for {limit} actors per sweep. Picks never-attempted first, then fewest IOCs, then
-            oldest attempt. Rotation state cached at the edge — no API quota cost.
+            oldest attempt. Rotation state cached at the edge - no API quota cost.
           </p>
         </div>
         {running ? (
@@ -217,7 +217,7 @@ export default function ActorOtxSweep({ actors, limit = 10 }: Props) {
 
       {done && (
         <div className="mt-3 text-xs text-slate-500 dark:text-slate-400">
-          done — {done.processed} processed, {done.skipped} skipped
+          done - {done.processed} processed, {done.skipped} skipped
         </div>
       )}
     </section>

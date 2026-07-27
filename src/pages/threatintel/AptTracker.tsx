@@ -20,11 +20,11 @@ function AptGroupCard({ group, onClick }: { group: AptGroup; onClick: () => void
     <button
       type="button"
       onClick={onClick}
-      className="text-left surface-card p-4 hover:border-brand-500/40 hover:shadow-e2 transition-all"
+      className="text-left surface-card p-4 hover:border-rose-500/40 hover:shadow-e2 transition-all"
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{group.name}</h3>
-        <ChevronRight size={14} className="text-slate-400 shrink-0 mt-0.5" />
+        <ChevronRight size={14} className="text-slate-500 dark:text-slate-400 shrink-0 mt-0.5" />
       </div>
       {group.aliases.length > 0 && (
         <div className="flex flex-wrap gap-1 mb-2">
@@ -37,7 +37,7 @@ function AptGroupCard({ group, onClick }: { group: AptGroup; onClick: () => void
             </span>
           ))}
           {group.aliases.length > 3 && (
-            <span className="text-micro font-mono text-slate-400">+{group.aliases.length - 3}</span>
+            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{group.aliases.length - 3}</span>
           )}
         </div>
       )}
@@ -68,7 +68,7 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
             <button
               type="button"
               onClick={onClose}
-              className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xl leading-none"
+              className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xl leading-none"
             >
               ×
             </button>
@@ -125,7 +125,7 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
                     href={l}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1 break-all"
+                    className="text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 break-all"
                   >
                     <ExternalLink size={10} /> {l}
                   </a>
@@ -164,32 +164,32 @@ export default function AptTracker(): JSX.Element {
       backTo="/threatintel"
       icon={<Shield size={28} />}
       title="APT Tracker"
-      description="Open-source APT groups and operations database — 411 groups across 9 regions. Data from onuroktay14/APTTracker (CC BY 4.0)."
+      description="Open-source APT groups and operations database - 411 groups across 9 regions. Data from onuroktay14/APTTracker (CC BY 4.0)."
     >
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
         <div className="surface-card p-4 text-center">
-          <div className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">{totalGroups}</div>
+          <div className="text-2xl font-display font-bold text-rose-600 dark:text-rose-400">{totalGroups}</div>
           <div className="text-micro font-mono text-slate-500 uppercase">APT Groups</div>
         </div>
         <div className="surface-card p-4 text-center">
-          <div className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">{APT_REGIONS.length}</div>
+          <div className="text-2xl font-display font-bold text-rose-600 dark:text-rose-400">{APT_REGIONS.length}</div>
           <div className="text-micro font-mono text-slate-500 uppercase">Regions</div>
         </div>
         <div className="surface-card p-4 text-center">
-          <div className="text-2xl font-display font-bold text-brand-600 dark:text-brand-400">{totalOps}</div>
+          <div className="text-2xl font-display font-bold text-rose-600 dark:text-rose-400">{totalOps}</div>
           <div className="text-micro font-mono text-slate-500 uppercase">Operations</div>
         </div>
       </div>
 
       <div className="mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search APT groups, aliases, malware, operations..."
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
       </div>
@@ -199,7 +199,7 @@ export default function AptTracker(): JSX.Element {
           <p className="text-mini font-mono text-slate-500 mb-3">
             {filtered.length} result{filtered.length !== 1 ? 's' : ''} for "{query}"
           </p>
-          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((g) => (
               <AptGroupCard key={g.name} group={g} onClick={() => setSelectedGroup(g)} />
             ))}
@@ -241,14 +241,14 @@ export default function AptTracker(): JSX.Element {
           <button
             type="button"
             onClick={() => setSelectedRegion(null)}
-            className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline mb-4"
+            className="text-sm font-mono text-rose-600 dark:text-rose-400 hover:underline mb-4"
           >
             ← Back to all regions
           </button>
-          <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100 mb-4">
+          <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100 mb-2">
             {APT_REGIONS.find((r) => r.name === selectedRegion)?.flag} {selectedRegion}
           </h2>
-          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {(APT_REGIONS.find((r) => r.name === selectedRegion)?.groups ?? []).map((g) => (
               <AptGroupCard key={g.name} group={g} onClick={() => setSelectedGroup(g)} />
             ))}
@@ -264,7 +264,7 @@ export default function AptTracker(): JSX.Element {
           href="https://onuroktay14.github.io/APTTracker/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-brand-600 dark:text-brand-400 hover:underline"
+          className="text-rose-600 dark:text-rose-400 hover:underline"
         >
           APT Tracker
         </a>{' '}

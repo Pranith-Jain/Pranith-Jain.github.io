@@ -160,7 +160,7 @@ export default function PromptInjection(): JSX.Element {
           </h1>
           <p className="mt-1 text-sm font-mono text-muted">
             Scan system prompts, user inputs, or LLM outputs against {PATTERNS.length} known injection and jailbreak
-            patterns. Pure client-side — nothing leaves your browser.
+            patterns. Pure client-side - nothing leaves your browser.
           </p>
         </div>
       </header>
@@ -218,7 +218,7 @@ export default function PromptInjection(): JSX.Element {
               {matches.length === 0 ? (
                 <span className="inline-flex items-center gap-1.5">
                   <CheckCircle2 className="h-4 w-4 text-emerald-500" aria-hidden="true" />
-                  No known injection patterns detected. This is a regex-based check — absence of matches is not proof of
+                  No known injection patterns detected. This is a regex-based check - absence of matches is not proof of
                   safety.
                 </span>
               ) : (
@@ -266,7 +266,7 @@ export default function PromptInjection(): JSX.Element {
                       {m.pattern.owasp.map((id) => (
                         <span
                           key={id}
-                          title={`OWASP ${id} — ${LLM_TOP10[id].title}`}
+                          title={`OWASP ${id} - ${LLM_TOP10[id].title}`}
                           className="text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300"
                         >
                           {id}
@@ -302,7 +302,7 @@ export default function PromptInjection(): JSX.Element {
         </div>
         <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
           Curated prompts to send into your own LLM endpoint or eval harness. Each entry lists the expected well-behaved
-          response so you can score the model's actual reply. Nothing here is operational uplift — every pattern is
+          response so you can score the model's actual reply. Nothing here is operational uplift - every pattern is
           publicly documented.
         </p>
 
@@ -463,7 +463,7 @@ export default function PromptInjection(): JSX.Element {
               <button
                 key={id}
                 onClick={() => setOwaspFilter(id)}
-                title={`${meta.title} — ${meta.short}`}
+                title={`${meta.title} - ${meta.short}`}
                 className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                   owaspFilter === id
                     ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
@@ -478,7 +478,7 @@ export default function PromptInjection(): JSX.Element {
         {owaspFilter !== 'all' && (
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
             <span className="font-semibold text-slate-700 dark:text-slate-300">{LLM_TOP10[owaspFilter].title}</span>
-            {' — '}
+            {' - '}
             {LLM_TOP10[owaspFilter].short}
           </p>
         )}
@@ -555,7 +555,7 @@ export default function PromptInjection(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              Goodside / Embrace the Red — Invisible Unicode-tag injection
+              Goodside / Embrace the Red - Invisible Unicode-tag injection
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>

@@ -96,11 +96,11 @@ export function KnowledgeGraphPanel({ actors, campaigns, ttps, context, onClose 
           <button
             onClick={fetchGraph}
             disabled={loading}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200"
+            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
-          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200">
+          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200">
             <X size={14} />
           </button>
         </div>
@@ -110,7 +110,7 @@ export function KnowledgeGraphPanel({ actors, campaigns, ttps, context, onClose 
         {loading && !graph && (
           <div className="flex items-center gap-2 justify-center py-6">
             <RefreshCw size={14} className="animate-spin text-brand-400" />
-            <span className="text-xs text-slate-400">Building knowledge graph…</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">Building knowledge graph…</span>
           </div>
         )}
 
@@ -137,7 +137,7 @@ export function KnowledgeGraphPanel({ actors, campaigns, ttps, context, onClose 
                     {nodes.map((n) => (
                       <span
                         key={n.id}
-                        className={`text-micro font-mono px-2 py-0.5 rounded border ${NODE_COLORS[type] || 'text-slate-400 bg-slate-500/10 border-slate-500/20'}`}
+                        className={`text-micro font-mono px-2 py-0.5 rounded border ${NODE_COLORS[type] || 'text-slate-500 dark:text-slate-400 bg-slate-500/10 border-slate-500/20'}`}
                       >
                         {n.label}
                       </span>

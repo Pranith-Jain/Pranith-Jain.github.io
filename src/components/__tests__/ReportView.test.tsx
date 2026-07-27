@@ -48,9 +48,9 @@ describe('ReportView', () => {
     expect(screen.getByText('Executive Summary')).toBeInTheDocument();
     expect(screen.getByText('Group Overview')).toBeInTheDocument();
     expect(screen.getByText('TTPs')).toBeInTheDocument();
-    expect(screen.getByText('Appendix A — Indicators')).toBeInTheDocument();
-    expect(screen.getByText('Appendix B — MITRE ATT&CK')).toBeInTheDocument();
-    expect(screen.getByText('Appendix D — Sources')).toBeInTheDocument();
+    expect(screen.getByText('Appendix A - Indicators')).toBeInTheDocument();
+    expect(screen.getByText('Appendix B - MITRE ATT&CK')).toBeInTheDocument();
+    expect(screen.getByText('Appendix D - Sources')).toBeInTheDocument();
     expect(screen.getByText('Sources Conflict')).toBeInTheDocument();
     // a citation anchor exists and points at the sources appendix
     const cite = screen.getAllByText('[1]').find((el) => el.tagName === 'A');

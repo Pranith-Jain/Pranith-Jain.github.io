@@ -52,7 +52,7 @@ export function AsyncState({
     return (
       <div
         role="alert"
-        className="rounded-xl border border-rose-300/70 bg-rose-50/60 px-4 py-5 text-sm text-rose-700 dark:border-rose-800/60 dark:bg-rose-950/30 dark:text-rose-300"
+        className="rounded-xl border border-rose-300/70 bg-rose-50/60 px-4 py-5 text-tool text-rose-700 dark:border-rose-800/60 dark:bg-rose-950/30 dark:text-rose-300"
       >
         <p className="font-display font-semibold">Couldn&rsquo;t load this.</p>
         <p className="mt-1 text-rose-600/90 dark:text-rose-400/90">{error}</p>
@@ -60,7 +60,7 @@ export function AsyncState({
           <button
             type="button"
             onClick={onRetry}
-            className="mt-3 inline-flex items-center rounded border border-rose-400/50 px-3 py-1.5 text-xs font-semibold text-rose-700 transition-colors hover:bg-rose-100/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 dark:text-rose-300 dark:hover:bg-rose-900/30"
+            className="mt-3 inline-flex items-center rounded border border-rose-400/50 px-3 py-1.5 text-meta font-semibold text-rose-700 transition-colors hover:bg-rose-100/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 dark:text-rose-300 dark:hover:bg-rose-900/30"
           >
             Retry
           </button>
@@ -74,7 +74,7 @@ export function AsyncState({
       <div
         role="status"
         aria-live="polite"
-        className="rounded-xl border border-dashed border-slate-300 px-4 py-10 text-center text-sm text-slate-500 dark:border-[rgb(var(--border-400))] dark:text-slate-400"
+        className="rounded-xl border border-dashed border-slate-300 px-4 py-10 text-center text-tool text-slate-500 dark:border-[rgb(var(--border-400))] dark:text-slate-400"
       >
         {emptyLabel}
       </div>

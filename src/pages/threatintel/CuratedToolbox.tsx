@@ -54,7 +54,7 @@ function hostnameOf(url: string): string {
 }
 
 /**
- * Curated Toolbox — Harun Seker's "Mastering Threat Intelligence Platforms"
+ * Curated Toolbox - Harun Seker's "Mastering Threat Intelligence Platforms"
  * start.me page, mirrored via Jina Reader on a daily cron (the only
  * reliable way to read start.me, which is behind a Cloudflare bot
  * challenge). The page reads /api/v1/curated-toolbox and groups the
@@ -198,11 +198,11 @@ export default function CuratedToolbox(): JSX.Element {
             href="https://start.me/p/gGj8gn/mastering-threat-intelligence-platforms"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             Harun Seker’s Mastering Threat Intelligence Platforms
           </a>{' '}
-          on start.me. Auto-synced daily via Jina Reader — the only reliable way to read start.me, which is behind a
+          on start.me. Auto-synced daily via Jina Reader - the only reliable way to read start.me, which is behind a
           Cloudflare bot challenge.
         </span>
       }
@@ -211,7 +211,7 @@ export default function CuratedToolbox(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
@@ -226,7 +226,7 @@ export default function CuratedToolbox(): JSX.Element {
               className="rounded border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40 px-2 py-1 text-amber-700 dark:text-amber-300 font-mono"
               title={meta.error}
             >
-              sync failing — showing last good snapshot
+              sync failing - showing last good snapshot
             </span>
           )}
           {meta?.ok && meta.fetchedAt && !meta.fetchedAt.startsWith('1970') && (
@@ -249,26 +249,26 @@ export default function CuratedToolbox(): JSX.Element {
           <section className="surface-card p-4 mb-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="relative flex-1">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.totalTools} tools across ${data.totalSections} sections…`}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={expandAll}
-                  className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                  className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 >
                   expand all
                 </button>
                 <button
                   type="button"
                   onClick={collapseAll}
-                  className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                  className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 >
                   collapse all
                 </button>
@@ -288,7 +288,7 @@ export default function CuratedToolbox(): JSX.Element {
                   href={data.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-brand-600 dark:text-brand-400 hover:underline truncate"
+                  className="text-rose-600 dark:text-rose-400 hover:underline truncate"
                 >
                   start.me
                 </a>
@@ -364,14 +364,14 @@ function SectionCard({
               key={`${t.url}-${i}`}
               className="flex items-start gap-3 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 px-4 py-2.5 last:border-b-0 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.3)] transition-colors"
             >
-              <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500 dark:bg-brand-400" />
+              <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-rose-500 dark:bg-rose-400" />
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-baseline gap-2">
                   <a
                     href={t.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 hover:underline"
+                    className="text-sm font-medium text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 hover:underline"
                   >
                     {t.title}
                   </a>
@@ -379,7 +379,7 @@ function SectionCard({
                     href={t.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center"
+                    className="text-xs text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors inline-flex items-center"
                   >
                     {hostnameOf(t.url)}
                     <ExternalLink className="ml-1 inline h-3 w-3" />

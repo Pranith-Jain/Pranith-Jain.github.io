@@ -27,7 +27,7 @@ export const DIAMOND_VERTICES: DiamondVertex[] = [
     name: 'Adversary',
     short: 'Who is behind the activity.',
     description:
-      'The actor (group, individual, or organisation) responsible for the intrusion. In practice you rarely have a hard attribution — most analysts work with "adversary persona" identifiers (cluster names like UNC2452, FIN7) until evidence converges.',
+      'The actor (group, individual, or organisation) responsible for the intrusion. In practice you rarely have a hard attribution - most analysts work with "adversary persona" identifiers (cluster names like UNC2452, FIN7) until evidence converges.',
     pivots: [
       'Operator handle / persona observed in C2 strings or jabber/Slack leaks.',
       'TTP overlap with previously catalogued clusters.',
@@ -46,7 +46,7 @@ export const DIAMOND_VERTICES: DiamondVertex[] = [
     name: 'Capability',
     short: 'What tools and TTPs they use.',
     description:
-      'The set of skills, malware, exploits, and techniques the adversary deploys. Capability includes both purpose-built tooling and "living off the land". A capability can be unique enough to act as a fingerprint — Cobalt Strike beacon configs, custom loaders, JA3 / JA4 hashes.',
+      'The set of skills, malware, exploits, and techniques the adversary deploys. Capability includes both purpose-built tooling and "living off the land". A capability can be unique enough to act as a fingerprint - Cobalt Strike beacon configs, custom loaders, JA3 / JA4 hashes.',
     pivots: [
       'Malware family lineage (shared code / config schema).',
       'Toolmark patterns: PDB strings, mutex names, Cobalt Strike watermarks.',
@@ -66,7 +66,7 @@ export const DIAMOND_VERTICES: DiamondVertex[] = [
     name: 'Infrastructure',
     short: 'What systems carry their traffic.',
     description:
-      'The hosts, domains, IPs, certificates, mail relays, and CDNs the adversary uses. Infrastructure is the most pivotable feature in active intrusions — registration metadata, certificate fingerprints, and provider reuse leak across operations.',
+      'The hosts, domains, IPs, certificates, mail relays, and CDNs the adversary uses. Infrastructure is the most pivotable feature in active intrusions - registration metadata, certificate fingerprints, and provider reuse leak across operations.',
     pivots: [
       'WHOIS reuse, registrant email, registrar choice, name-servers.',
       'JARM / JA3S server fingerprints.',
@@ -85,7 +85,7 @@ export const DIAMOND_VERTICES: DiamondVertex[] = [
   {
     id: 'victim',
     name: 'Victim',
-    short: 'The target — people, assets, business processes.',
+    short: 'The target - people, assets, business processes.',
     description:
       'Who or what was targeted. Important to model both the target persona (CFO, finance team, dev with prod creds) and the target asset (Outlook mailbox, GitHub PAT, payroll system). Victimology is what reveals motive when adversary attribution is weak.',
     pivots: [
@@ -96,7 +96,7 @@ export const DIAMOND_VERTICES: DiamondVertex[] = [
     ],
     examples: [
       'Manufacturing OT engineer with VPN access to production network.',
-      'CFO mailbox at a 200-person SaaS company — BEC target.',
+      'CFO mailbox at a 200-person SaaS company - BEC target.',
       'Maintainer of an npm package with > 1M weekly downloads.',
       'Service account for SSO connector with admin scope.',
     ],
@@ -119,7 +119,7 @@ export const META_FEATURES: MetaFeature[] = [
   {
     id: 'phase',
     name: 'Phase',
-    description: 'Where the event sits on the kill chain — Reconnaissance, Delivery, Exploitation, etc.',
+    description: 'Where the event sits on the kill chain - Reconnaissance, Delivery, Exploitation, etc.',
   },
   {
     id: 'result',
@@ -134,13 +134,13 @@ export const META_FEATURES: MetaFeature[] = [
   {
     id: 'methodology',
     name: 'Methodology',
-    description: 'High-level class — phishing, credential theft, ransomware, supply-chain, BEC, etc.',
+    description: 'High-level class - phishing, credential theft, ransomware, supply-chain, BEC, etc.',
   },
   {
     id: 'resources',
     name: 'Resources',
     description:
-      'External resources the adversary used or required — leaked credentials, infostealer logs, paid 0-days, insiders.',
+      'External resources the adversary used or required - leaked credentials, infostealer logs, paid 0-days, insiders.',
   },
 ];
 
@@ -156,7 +156,7 @@ export const EXTENDED_AXES: SocioPoliticalAxis[] = [
     id: 'social-political',
     name: 'Socio-political',
     description:
-      'Why the adversary picked this victim. Captures the relationship — espionage tasking, financial targeting, hacktivism, insider grievance, supply-chain stepping-stone.',
+      'Why the adversary picked this victim. Captures the relationship - espionage tasking, financial targeting, hacktivism, insider grievance, supply-chain stepping-stone.',
     questions: [
       'What does the adversary gain from a successful operation?',
       'Is the victim the goal, or a stepping stone?',
@@ -168,7 +168,7 @@ export const EXTENDED_AXES: SocioPoliticalAxis[] = [
     id: 'technology',
     name: 'Technology',
     description:
-      'The intersection of capability and infrastructure — protocols, frameworks, and platforms that connect them in this specific event.',
+      'The intersection of capability and infrastructure - protocols, frameworks, and platforms that connect them in this specific event.',
     questions: [
       'What protocol carries the C2 traffic?',
       'What software stack does the capability rely on?',
@@ -179,17 +179,17 @@ export const EXTENDED_AXES: SocioPoliticalAxis[] = [
 
 /** Sample event that will be the default in the page form. */
 export const SAMPLE_EVENT = {
-  adversary: 'UNC-internal-001 (cluster) — operator persona "andy_h" seen in beacon strings',
+  adversary: 'UNC-internal-001 (cluster) - operator persona "andy_h" seen in beacon strings',
   capability: 'Cobalt Strike beacon (watermark 0xfeed) + ProxyShell exploit chain',
   infrastructure: 'CDN-fronted C2 cdn.example-svc[.]com (Cloudflare); staging at 185.220.101[.]23 (Tor exit)',
   victim: 'Mailbox of CFO@acme.example, plus on-prem Exchange CAS server',
   timestamp: '2026-04-12 02:14 UTC → 2026-04-15 18:00 UTC',
   phase: 'Exploitation → C2',
-  result: 'Partial — beacon active 73h, contained before exfil',
+  result: 'Partial - beacon active 73h, contained before exfil',
   direction: 'Adversary → Infrastructure → Victim',
   methodology: 'Edge-appliance exploitation + interactive beacon',
   resources: 'Public ProxyShell PoC; leaked Cobalt Strike crackpipe; bulletproof CDN fronting',
-  socioPolitical: 'Financially motivated — pre-quarter close, target picked for wire-fraud window.',
+  socioPolitical: 'Financially motivated - pre-quarter close, target picked for wire-fraud window.',
   technology: 'Cobalt Strike over HTTPS; OWA WebShell as fallback channel.',
 };
 

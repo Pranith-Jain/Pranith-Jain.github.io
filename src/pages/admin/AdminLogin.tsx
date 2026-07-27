@@ -31,7 +31,7 @@ export default function AdminLogin({ onLogin }: Props) {
     if (!ok) {
       clearAdminToken();
       await clearAdminSession();
-      setError('Token rejected — check the value and try again.');
+      setError('Token rejected - check the value and try again.');
       setBusy(false);
       return;
     }

@@ -44,7 +44,7 @@ function buildMarkdown(
   sel: Selection
 ): string {
   const lines: string[] = [];
-  lines.push(`# Tabletop exercise — ${arch.name}`);
+  lines.push(`# Tabletop exercise - ${arch.name}`);
   lines.push('');
   lines.push(`**Actor:** ${vars.actor}  `);
   lines.push(`**Industry:** ${vars.industry}  `);
@@ -56,7 +56,7 @@ function buildMarkdown(
   lines.push(renderTemplate(arch.setup, vars));
   lines.push('');
   for (const inj of arch.injects) {
-    lines.push(`## ${inj.t} — ${inj.headline}`);
+    lines.push(`## ${inj.t} - ${inj.headline}`);
     lines.push('');
     lines.push(renderTemplate(inj.body, vars));
     lines.push('');
@@ -153,7 +153,7 @@ export default function Tabletop(): JSX.Element {
             >
               {threatActors.map((a) => (
                 <option key={a.slug} value={a.slug}>
-                  {a.name} — {a.motivation}
+                  {a.name} - {a.motivation}
                 </option>
               ))}
             </select>
@@ -276,11 +276,11 @@ export default function Tabletop(): JSX.Element {
             <strong>Time-box.</strong> 10-15 minutes per inject keeps a 60-90 minute exercise on track.
           </li>
           <li>
-            <strong>Don't break the fourth wall.</strong> If a participant says "we'd just check our runbook" — make
+            <strong>Don't break the fourth wall.</strong> If a participant says "we'd just check our runbook" - make
             them run it. The point is to find the gap.
           </li>
           <li>
-            <strong>Decision logs.</strong> Capture who decided what, on what evidence — that's the artefact you
+            <strong>Decision logs.</strong> Capture who decided what, on what evidence - that's the artefact you
             actually want from a tabletop.
           </li>
           <li>

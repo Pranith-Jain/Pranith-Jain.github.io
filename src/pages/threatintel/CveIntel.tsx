@@ -25,16 +25,16 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   {
     id: 'poc',
     label: 'PoC Scanner',
-    desc: 'Search GitHub for public exploit/PoC repositories — stars, code, and metadata',
+    desc: 'Search GitHub for public exploit/PoC repositories - stars, code, and metadata',
   },
-  { id: 'news', label: 'Cyber News', desc: '11-source security news feed across 5 tiers — advisories to community' },
+  { id: 'news', label: 'Cyber News', desc: '11-source security news feed across 5 tiers - advisories to community' },
   { id: 'k8s', label: 'Kubernetes', desc: 'Kubernetes-specific CVE feed from official security advisories' },
   {
     id: 'cert-in',
     label: 'CERT-In',
     desc: 'Indian CERT advisories (CIAD-YYYY-NNNN) with severity, products, and CVE mapping',
   },
-  { id: 'health', label: 'Health', desc: 'Data pipeline health — NVD, EPSS, KEV, GitHub, and Exploit-DB status' },
+  { id: 'health', label: 'Health', desc: 'Data pipeline health - NVD, EPSS, KEV, GitHub, and Exploit-DB status' },
 ];
 
 export default function CveIntel(): JSX.Element {
@@ -45,7 +45,7 @@ export default function CveIntel(): JSX.Element {
       backTo="/threatintel"
       icon={<Bug size={28} />}
       title="CVE Intelligence"
-      description="Unified CVE intelligence — recent vulnerabilities, exploitable CVEs, CISA KEV catalog, and Kubernetes-specific advisories. All feeds updated regularly."
+      description="Unified CVE intelligence - recent vulnerabilities, exploitable CVEs, CISA KEV catalog, and Kubernetes-specific advisories. All feeds updated regularly."
     >
       <nav
         className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"

@@ -91,7 +91,7 @@ export default function SqliteExplorer(): JSX.Element {
         SQLite Artifact Explorer
       </h1>
       <p className="text-sm font-mono text-muted mt-1 mb-6">
-        Open a SQLite DB (browser history, app artifact, <code>.sqlite</code>/<code>.db</code>) — inspect schema, browse
+        Open a SQLite DB (browser history, app artifact, <code>.sqlite</code>/<code>.db</code>) - inspect schema, browse
         rows, run read queries. sql.js runs as a lazy WASM chunk; the file never leaves your browser.
       </p>
 
@@ -105,7 +105,7 @@ export default function SqliteExplorer(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           {busy ? 'Loading...' : 'Drop a SQLite file here, or click to choose'}
         </p>
-        <p className="text-mini font-mono text-slate-400 mt-1">
+        <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1">
           Browser history, app artifacts. 100% client-side via sql.js WASM.
         </p>
       </button>

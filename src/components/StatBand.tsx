@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 import { useCountUp } from '../hooks/useCountUp';
 
 /**
- * StatBand — the shared "operations console" stat cluster used by the two
+ * StatBand - the shared "operations console" stat cluster used by the two
  * landing pages. A bordered, hairline-separated row of big stat cells under a
  * labelled header. The host supplies the header `indicator` (a LIVE pulse on
  * /threatintel, a static TOOLKIT mark on /dfir) and the cells.
@@ -39,7 +39,7 @@ export const StatNumber = memo(function StatNumber({
 
 /** Shared type ramp for a band cell's number + sub-line. */
 export const STAT_NUM = 'font-display text-3xl font-bold leading-none tabular-nums sm:text-4xl';
-export const STAT_SUB = 'mt-auto font-mono text-mini leading-relaxed text-slate-500';
+export const STAT_SUB = 'mt-auto font-mono text-mini leading-relaxed text-slate-500 dark:text-slate-400';
 
 interface StatCellProps {
   to: string;
@@ -49,7 +49,7 @@ interface StatCellProps {
   ariaLabel: string;
   children: ReactNode;
 }
-/** One cell of the band — an icon-chipped, labelled link wrapping a number.
+/** One cell of the band - an icon-chipped, labelled link wrapping a number.
  *  memoised: each cell renders a <Link> + count-up + sub-line; the band
  *  re-renders on data fetch, so memo keeps cells whose slice of state
  *  didn't change from re-rendering their (potentially expensive) children. */
@@ -65,11 +65,11 @@ export const StatCell = memo(function StatCell({
     <Link
       to={to}
       aria-label={ariaLabel}
-      className="group flex min-h-[7rem] flex-col gap-2.5 bg-white px-4 py-4 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-500/50 dark:bg-[rgb(var(--surface-200))] dark:hover:bg-[#16161f] sm:px-5"
+      className="group flex min-h-[7rem] flex-col gap-2.5 bg-white px-4 py-4 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-500/50 dark:bg-[rgb(var(--surface-200))] dark:hover:bg-[rgb(var(--surface-300))] sm:px-5"
     >
       <div className="flex items-center gap-2">
         <span className={`inline-flex h-6 w-6 items-center justify-center rounded ${iconClass}`}>{icon}</span>
-        <span className="font-mono text-micro uppercase tracking-[0.18em] text-slate-500">{label}</span>
+        <span className="font-mono text-micro uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">{label}</span>
       </div>
       {children}
     </Link>
@@ -78,11 +78,11 @@ export const StatCell = memo(function StatCell({
 
 interface StatBandProps {
   ariaLabel: string;
-  /** Left side of the header — a LIVE pulse + label, or a static toolkit mark. */
+  /** Left side of the header - a LIVE pulse + label, or a static toolkit mark. */
   indicator: ReactNode;
   /** Optional right-aligned header note (hidden on the narrowest screens). */
   note?: ReactNode;
-  /** The cells (or skeletons) — a 2-up / 3-up / 4-up hairline grid.
+  /** The cells (or skeletons) - a 2-up / 3-up / 4-up hairline grid.
    *  Defaults to 4 to keep /dfir's CapabilityBand unchanged. */
   gridCols?: 3 | 4;
   children: ReactNode;

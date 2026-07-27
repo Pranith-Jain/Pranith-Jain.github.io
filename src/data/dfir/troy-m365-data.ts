@@ -903,7 +903,7 @@ export const TROY_ATLAS: TroyAtlas = {
           stage: 'Credential Access & Evasion, the pivot',
           attacker: [
             'Evilginx-style reverse proxy sits between victim and Microsoft, harvesting the authenticated session cookie.',
-            'With the cookie the attacker never needs the password or a second factor again — this is why plain MFA does not stop AiTM.',
+            'With the cookie the attacker never needs the password or a second factor again - this is why plain MFA does not stop AiTM.',
           ],
           controls: [
             {
@@ -1090,7 +1090,7 @@ export const TROY_ATLAS: TroyAtlas = {
               fn: 'respond',
               product: 'Defender XDR',
               name: 'Incident response playbook',
-              note: "Password reset isn't enough for AiTM — revoke the session cookies, pull the attacker's inbox rules and any MFA changes.",
+              note: "Password reset isn't enough for AiTM - revoke the session cookies, pull the attacker's inbox rules and any MFA changes.",
               docs: [
                 {
                   label: 'Respond to a compromised account',

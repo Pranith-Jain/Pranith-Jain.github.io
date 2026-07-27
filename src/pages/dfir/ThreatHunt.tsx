@@ -196,7 +196,7 @@ export default function ThreatHunt(): JSX.Element {
             {result.ioc_providers.hits.length === 0 ? (
               <p className="text-xs font-mono text-slate-500 py-2">
                 {result.ioc_providers.total_checked > 0
-                  ? `Checked ${result.ioc_providers.total_checked} providers — no threat signals found`
+                  ? `Checked ${result.ioc_providers.total_checked} providers - no threat signals found`
                   : 'No IOC provider hits'}
               </p>
             ) : (
@@ -268,7 +268,7 @@ export default function ThreatHunt(): JSX.Element {
                 {result.breach_data.hits.map((b) => (
                   <div key={b.name} className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)]">
                     <p className="text-xs font-mono font-medium">{b.name}</p>
-                    {b.description && <p className="text-mini font-mono text-slate-400 mt-0.5">{b.description}</p>}
+                    {b.description && <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5">{b.description}</p>}
                   </div>
                 ))}
               </div>
@@ -356,7 +356,7 @@ function Section({
       <h2 className="font-display font-semibold text-sm flex items-center gap-2 mb-1">
         {icon} {title} {count > 0 && <span className="text-xs font-mono text-slate-500">({count})</span>}
       </h2>
-      {subtitle && <p className="text-mini font-mono text-slate-400 mb-3">{subtitle}</p>}
+      {subtitle && <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-3">{subtitle}</p>}
       <div className={subtitle ? '' : 'mt-3'}>{children}</div>
     </div>
   );

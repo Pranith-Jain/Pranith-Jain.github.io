@@ -3,7 +3,7 @@ import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, Copy, Download, Filter, Info, Search, Shield, Tag } from 'lucide-react';
 
 /**
- * /dfir/xss-payloads — XSS payload selector by context.
+ * /dfir/xss-payloads - XSS payload selector by context.
  *
  * Curated payload library organized by injection context, with filtering,
  * encoding helpers, and one-click copy. All logic runs in-browser.
@@ -72,7 +72,7 @@ const PAYLOADS: Payload[] = [
     payload: '<img src=x onerror=alert(1)>',
     context: 'html-tag',
     severity: 'critical',
-    description: 'Image tag with onerror handler — triggers when src fails to load',
+    description: 'Image tag with onerror handler - triggers when src fails to load',
     tags: ['event-handler'],
   },
   {
@@ -117,7 +117,7 @@ const PAYLOADS: Payload[] = [
     payload: '<marquee onstart=alert(1)>',
     context: 'html-tag',
     severity: 'medium',
-    description: 'Deprecated marquee element — may bypass strict filters',
+    description: 'Deprecated marquee element - may bypass strict filters',
     bypasses: ['WAF', 'input filter'],
     tags: ['deprecated'],
   },
@@ -185,7 +185,7 @@ const PAYLOADS: Payload[] = [
     payload: 'confirm(1)',
     context: 'javascript',
     severity: 'critical',
-    description: 'Confirm dialog — requires user interaction to dismiss',
+    description: 'Confirm dialog - requires user interaction to dismiss',
     tags: ['classic'],
   },
   {
@@ -194,7 +194,7 @@ const PAYLOADS: Payload[] = [
     payload: 'prompt(1)',
     context: 'javascript',
     severity: 'critical',
-    description: 'Prompt dialog — displays input field',
+    description: 'Prompt dialog - displays input field',
     tags: ['classic'],
   },
   {
@@ -203,7 +203,7 @@ const PAYLOADS: Payload[] = [
     payload: 'document.cookie',
     context: 'javascript',
     severity: 'critical',
-    description: 'Access cookies — for cookie theft PoCs',
+    description: 'Access cookies - for cookie theft PoCs',
     tags: ['exfil'],
   },
   {
@@ -252,7 +252,7 @@ const PAYLOADS: Payload[] = [
     payload: 'expression(alert(1))',
     context: 'css',
     severity: 'medium',
-    description: 'IE-specific CSS expression — legacy but bypasses some filters',
+    description: 'IE-specific CSS expression - legacy but bypasses some filters',
     bypasses: ['IE-specific'],
     tags: ['legacy', 'ie'],
   },
@@ -338,7 +338,7 @@ const PAYLOADS: Payload[] = [
     payload: 'onanimationend=alert(1)',
     context: 'event-handler',
     severity: 'high',
-    description: 'CSS animation end event — requires CSS injection',
+    description: 'CSS animation end event - requires CSS injection',
     tags: ['animation'],
   },
   {
@@ -388,7 +388,7 @@ const PAYLOADS: Payload[] = [
     payload: '%253Cscript%253Ealert(1)%253C%252Fscript%253E',
     context: 'encoded',
     severity: 'critical',
-    description: 'Double URL encoding — bypasses single-decode filters',
+    description: 'Double URL encoding - bypasses single-decode filters',
     bypasses: ['WAF', 'single-decode filter'],
     tags: ['url-encode', 'waf-bypass'],
   },
@@ -449,7 +449,7 @@ const PAYLOADS: Payload[] = [
     payload: '{{constructor.constructor("alert(1)")()}}',
     context: 'template',
     severity: 'critical',
-    description: 'Angular template injection — SSTI',
+    description: 'Angular template injection - SSTI',
     bypasses: ['Angular sandbox'],
     tags: ['angular', 'ssti'],
   },
@@ -562,13 +562,13 @@ export default function XssPayloadSelector(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <BackLink to="/dfir">Back to DFIR Catalog</BackLink>
       <div className="flex items-center gap-3 mt-4 mb-2">
-        <div className="p-2 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400">
+        <div className="p-2 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400">
           <Shield size={24} />
         </div>
         <div>
           <h1 className="text-2xl font-bold">XSS Payload Selector</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Curated XSS payload library — filter by context, severity, or tags
+            Curated XSS payload library - filter by context, severity, or tags
           </p>
         </div>
       </div>
@@ -595,17 +595,17 @@ export default function XssPayloadSelector(): JSX.Element {
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="relative flex-1 min-w-[200px]">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search payloads, tags, descriptions..."
-            className="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-sm font-mono"
+            className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-sm font-mono"
           />
         </div>
         <div className="flex items-center gap-1">
-          <Filter size={14} className="text-slate-400" />
+          <Filter size={14} className="text-slate-500 dark:text-slate-400" />
           <div className="flex flex-wrap gap-1">
             {CONTEXTS.map((c) => (
               <button
@@ -628,7 +628,7 @@ export default function XssPayloadSelector(): JSX.Element {
 
       {/* Actions */}
       {selectedPayloads.size > 0 && (
-        <div className="flex items-center gap-2 mb-3 p-2 rounded-lg bg-purple-50 dark:bg-purple-500/5 border border-purple-200 dark:border-purple-500/20">
+        <div className="flex items-center gap-2 mb-3 p-2 rounded-xl bg-purple-50 dark:bg-purple-500/5 border border-purple-200 dark:border-purple-500/20">
           <Tag size={14} className="text-purple-500" />
           <span className="text-xs text-purple-700 dark:text-purple-300">{selectedPayloads.size} selected</span>
           <button

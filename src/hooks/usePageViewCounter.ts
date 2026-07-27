@@ -14,7 +14,7 @@ interface PageViewData {
  * GLOBAL site view counter (D1-backed `/api/v1/pageviews`).
  *
  * Previously this was a per-browser localStorage tally rendered as a global
- * "N views" — so it differed on every device/session (62, 30, 44…). Now it
+ * "N views" - so it differed on every device/session (62, 30, 44…). Now it
  * reads/increments one shared server counter, so every visitor sees the
  * same number. Still privacy-first: increments once per browser SESSION
  * (sessionStorage guard), no per-user tracking. The GET is edge-cached so
@@ -40,7 +40,7 @@ export function usePageViewCounter(): PageViewData & { increment: () => void } {
         setFirstVisit(stored);
       }
     } catch {
-      newSession = true; // private mode — treat as a fresh session
+      newSession = true; // private mode - treat as a fresh session
     }
     setIsNewSession(newSession);
 
@@ -53,7 +53,7 @@ export function usePageViewCounter(): PageViewData & { increment: () => void } {
         if (alive && typeof d.views === 'number') setCount(d.views);
       })
       .catch(() => {
-        /* leave at 0 — better than a misleading device-local tally */
+        /* leave at 0 - better than a misleading device-local tally */
       });
     return () => {
       alive = false;

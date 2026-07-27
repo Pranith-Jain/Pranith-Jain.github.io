@@ -21,11 +21,11 @@ export default function McpSearch(): JSX.Element {
             href="https://ti-mindmap-hub.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             ti-mindmap-hub.com
           </a>
-          . Search reports, CVEs, IOCs, briefings, and STIX bundles — all via MCP.
+          . Search reports, CVEs, IOCs, briefings, and STIX bundles - all via MCP.
         </span>
       }
       headerExtra={<McpStatusBanner className="max-w-2xl" />}
@@ -58,18 +58,18 @@ export default function McpSearch(): JSX.Element {
         <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
           <Link
             to="/threatintel/research-hub/ai"
-            className="inline-flex items-center gap-1.5 hover:text-brand-600 dark:hover:text-brand-400"
+            className="inline-flex items-center gap-1.5 hover:text-rose-600 dark:hover:text-rose-400"
           >
-            <BrainCircuit className="h-3 w-3 text-brand-500" />
+            <BrainCircuit className="h-3 w-3 text-rose-500" />
             AI Report Showcase
           </Link>
           <a
             href="https://docs.ti-mindmap-hub.com/mcp/server/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 hover:text-brand-600 dark:hover:text-brand-400"
+            className="inline-flex items-center gap-1.5 hover:text-rose-600 dark:hover:text-rose-400"
           >
-            <Github className="h-3 w-3 text-slate-400" />
+            <Github className="h-3 w-3 text-slate-500 dark:text-slate-400" />
             MCP Docs
           </a>
         </div>

@@ -5,7 +5,7 @@
  * in an anchor is a phishing / (CSP-permitting) script-execution vector.
  *
  * Returns the normalized URL when the scheme is in the allowlist, else `''`
- * (callers should treat an empty result as "no link" — render plain text).
+ * (callers should treat an empty result as "no link" - render plain text).
  */
 const SAFE_SCHEMES = ['http:', 'https:', 'mailto:'];
 
@@ -14,7 +14,7 @@ export function sanitizeUrl(url: string | null | undefined): string {
   const trimmed = String(url).trim();
   try {
     const parsed = new URL(trimmed);
-    // Reject credential-containing URLs — `http://trusted.com@evil.com` parses
+    // Reject credential-containing URLs - `http://trusted.com@evil.com` parses
     // as host `evil.com` with username `trusted.com`, enabling phishing.
     if (parsed.username || parsed.password) return '';
     return SAFE_SCHEMES.includes(parsed.protocol) ? parsed.href : '';

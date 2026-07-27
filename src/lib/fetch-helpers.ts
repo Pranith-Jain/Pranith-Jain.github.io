@@ -16,7 +16,7 @@
 
 import { ApiError } from './api-client';
 
-/** Alias for backward compat — catches as `instanceof ApiError` too. */
+/** Alias for backward compat - catches as `instanceof ApiError` too. */
 export const FetchError = ApiError;
 
 /**

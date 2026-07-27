@@ -241,13 +241,13 @@ function DDoSPanel() {
           {/* Search */}
           <div className="flex gap-2">
             <div className="flex-1 relative">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
               <input
                 type="text"
                 value={searchQ}
                 onChange={(e) => setSearchQ(e.target.value)}
                 placeholder="Search by IP or malware family..."
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500"
+                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500"
               />
             </div>
           </div>
@@ -302,7 +302,7 @@ function DDoSPanel() {
                           href={b.urlhausLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1"
+                          className="text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1"
                         >
                           URLhaus <ExternalLink size={8} />
                         </a>
@@ -362,7 +362,7 @@ function FortiBleedPanel() {
           <h3 className="font-display font-semibold text-sm">FortiGate / FortiOS Vulnerability Check</h3>
         </div>
         <p className="text-meta font-mono text-muted mb-3">
-          Checks for CVE-2024-21762 (CVSS 9.8) — FortiGate SSL VPN out-of-bound write RCE. Enter a domain or IP.
+          Checks for CVE-2024-21762 (CVSS 9.8) - FortiGate SSL VPN out-of-bound write RCE. Enter a domain or IP.
         </p>
         <form onSubmit={handleCheck} className="flex gap-2">
           <input
@@ -370,12 +370,12 @@ function FortiBleedPanel() {
             value={target}
             onChange={(e) => setTarget(e.target.value)}
             placeholder="example.com or 203.0.113.10"
-            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-brand-500"
+            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-rose-500"
           />
           <button
             type="submit"
             disabled={loading}
-            className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50"
+            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : 'Check'}
           </button>
@@ -447,7 +447,7 @@ function FortiBleedPanel() {
                 href={`https://nvd.nist.gov/vuln/detail/${result.vulnerability}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1"
+                className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1"
               >
                 View on NVD <ExternalLink size={8} />
               </a>
@@ -568,13 +568,13 @@ function HealthcarePanel() {
 
           <div className="flex gap-2">
             <div className="flex-1 relative">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
               <input
                 type="text"
                 value={searchQ}
                 onChange={(e) => setSearchQ(e.target.value)}
                 placeholder="Search by name or state..."
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500"
+                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500"
               />
             </div>
           </div>
@@ -698,7 +698,7 @@ function ThreatReportsPanel() {
               onClick={() => setReportType(t)}
               className={`px-3 py-1.5 rounded text-mini font-mono font-semibold border transition-colors ${
                 reportType === t
-                  ? 'bg-brand-50 dark:bg-brand-900/20 border-brand-200 dark:border-brand-800 text-brand-700 dark:text-brand-300'
+                  ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300'
                   : 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400'
               }`}
             >
@@ -767,14 +767,14 @@ function ThreatReportsPanel() {
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
                 placeholder="example.com"
-                className="w-full px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
               />
             </div>
           )}
           <button
             onClick={handleGenerate}
             disabled={loading || (reportType === 'external' && !domain)}
-            className="px-4 py-1.5 bg-brand-600 dark:bg-brand-500 text-white text-mini font-mono font-semibold rounded hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50"
+            className="px-4 py-1.5 bg-rose-600 dark:bg-rose-500 text-white text-mini font-mono font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50"
           >
             {loading ? <Loader2 size={12} className="animate-spin" /> : 'Generate'}
           </button>

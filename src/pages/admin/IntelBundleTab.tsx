@@ -112,7 +112,7 @@ export default function IntelBundleTab() {
             error: {error}
             {error.includes('not_found') && (
               <span className="block mt-1 text-slate-600 dark:text-slate-500">
-                No persisted row for that (source, ref). The warmer may not have run yet — wait for the top of the next
+                No persisted row for that (source, ref). The warmer may not have run yet - wait for the top of the next
                 hour or check `wrangler tail` for the `intel-bundle-warm` log line.
               </span>
             )}
@@ -170,7 +170,7 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Sectors (${data.sectors.length})`}>
         {data.sectors.length === 0 ? (
-          <p className="text-xs text-slate-500 dark:text-slate-400">—</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">-</p>
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {data.sectors.map((s) => (
@@ -187,7 +187,7 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Affected products (${data.affectedProducts.length})`}>
         {data.affectedProducts.length === 0 ? (
-          <p className="text-xs text-slate-500 dark:text-slate-400">—</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">-</p>
         ) : (
           <ul className="space-y-1 text-xs font-mono">
             {data.affectedProducts.map((p) => (
@@ -201,7 +201,7 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Attack patterns (${data.attackPatterns.length})`}>
         {data.attackPatterns.length === 0 ? (
-          <p className="text-xs text-slate-500 dark:text-slate-400">—</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">-</p>
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {data.attackPatterns.map((a) => (
@@ -221,13 +221,13 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Candidate actors (${data.actorCandidates.length})`}>
         {data.actorCandidates.length === 0 ? (
-          <p className="text-xs text-slate-500 dark:text-slate-400">—</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">-</p>
         ) : (
           <ul className="space-y-1 text-xs">
             {data.actorCandidates.map((c) => (
               <li key={c.name}>
                 <span className="font-mono">{c.name}</span>
-                {c.rationale && <span className="text-slate-600 dark:text-slate-500"> — {c.rationale}</span>}
+                {c.rationale && <span className="text-slate-600 dark:text-slate-500"> - {c.rationale}</span>}
               </li>
             ))}
           </ul>
@@ -236,13 +236,13 @@ function Result({ data }: { data: InspectShape }) {
 
       <Block title={`Candidate malware (${data.malwareCandidates.length})`}>
         {data.malwareCandidates.length === 0 ? (
-          <p className="text-xs text-slate-500 dark:text-slate-400">—</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">-</p>
         ) : (
           <ul className="space-y-1 text-xs">
             {data.malwareCandidates.map((c) => (
               <li key={c.name}>
                 <span className="font-mono">{c.name}</span>
-                {c.rationale && <span className="text-slate-600 dark:text-slate-500"> — {c.rationale}</span>}
+                {c.rationale && <span className="text-slate-600 dark:text-slate-500"> - {c.rationale}</span>}
               </li>
             ))}
           </ul>

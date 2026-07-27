@@ -48,7 +48,7 @@ function confidenceTone(c: number): string {
 }
 
 function formatSubs(n: number | null): string {
-  if (n === null) return '—';
+  if (n === null) return '-';
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
   return String(n);
@@ -101,7 +101,7 @@ export default function TelegramChannelSearch(): JSX.Element {
 
   const addToWatch = async (handle: string) => {
     if (!adminToken) {
-      setError('Admin token required to add a channel — set it in the Settings tab.');
+      setError('Admin token required to add a channel - set it in the Settings tab.');
       return;
     }
     setBusy(handle);
@@ -130,7 +130,7 @@ export default function TelegramChannelSearch(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-8 text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up mb-6">
         <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-          <Search size={26} className="text-brand-600 dark:text-brand-400" /> Channel search
+          <Search size={26} className="text-rose-600 dark:text-rose-400" /> Channel search
         </h1>
         <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-2 max-w-3xl leading-relaxed">
           Discover public Telegram channels by keyword. Backed by{' '}
@@ -138,12 +138,12 @@ export default function TelegramChannelSearch(): JSX.Element {
             href="https://tgstat.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             tgstat.com
           </a>{' '}
           (HTML, no key required, 12h cache). Each result is automatically correlated with the in-repo actor catalog and
-          deepdarkCTI&apos;s <code className="text-xs">telegram_threat_actors.md</code> — a row that shows linked actors
+          deepdarkCTI&apos;s <code className="text-xs">telegram_threat_actors.md</code> - a row that shows linked actors
           is a strong candidate for the watchlist.
         </p>
       </div>
@@ -153,13 +153,13 @@ export default function TelegramChannelSearch(): JSX.Element {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="keyword (e.g. ransomware, stealer, APT)"
-          className="flex-1 min-w-[220px] px-3 py-2 surface-card text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+          className="flex-1 min-w-[220px] px-3 py-2 surface-card text-sm font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
           aria-label="Search keyword"
         />
         <button
           type="submit"
           disabled={loading || !input.trim()}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-600 text-white text-sm font-mono hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-600 text-white text-sm font-mono hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
           Search
@@ -175,7 +175,7 @@ export default function TelegramChannelSearch(): JSX.Element {
       {data && data.stale && (
         <div className="mb-4 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-sm text-amber-700 dark:text-amber-300 inline-flex items-center gap-2">
           <AlertTriangle size={14} />
-          tgstat upstream failed — serving the previous result (re-checked within 5 min).
+          tgstat upstream failed - serving the previous result (re-checked within 5 min).
         </div>
       )}
 
@@ -227,7 +227,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                     <Users size={11} /> {formatSubs(r.subscribers)}
                   </span>
                   <span className="inline-flex items-center gap-1">
-                    <BarChart3 size={11} /> {r.posts_per_day ?? '—'}/day
+                    <BarChart3 size={11} /> {r.posts_per_day ?? '-'}/day
                   </span>
                 </div>
               </div>
@@ -258,8 +258,8 @@ export default function TelegramChannelSearch(): JSX.Element {
                           via {a.sources.map((s) => SOURCE_LABEL[s]).join(', ')}
                         </span>
                         {a.citations[0] && (
-                          <span className="ml-1 text-slate-400" title={a.citations.join(' · ')}>
-                            — {a.citations[0]}
+                          <span className="ml-1 text-slate-500 dark:text-slate-400" title={a.citations.join(' · ')}>
+                            - {a.citations[0]}
                           </span>
                         )}
                       </li>
@@ -273,7 +273,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                   href={sanitizeUrl(`https://telegram.me/s/${r.handle}`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
                 >
                   <ExternalLink size={11} /> telegram.me/s/{r.handle}
                 </a>
@@ -281,7 +281,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                   href={sanitizeUrl(r.tgstat_url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
                 >
                   tgstat
                 </a>
@@ -298,7 +298,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                 )}
                 {!adminToken && (
                   <span
-                    className="text-micro font-mono text-slate-400 inline-flex items-center gap-1"
+                    className="text-micro font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1"
                     title="Set an admin token in the Settings tab to add channels directly from this view."
                   >
                     <Lock size={10} /> admin token required to add

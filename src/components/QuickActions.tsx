@@ -8,7 +8,7 @@ export interface QuickAction {
   icon: LucideIcon;
   /** Optional badge text shown top-right (e.g. "live", "new"). */
   badge?: string;
-  /** Visual treatment of the badge — defaults to emerald (live). */
+  /** Visual treatment of the badge - defaults to emerald (live). */
   badgeTone?: 'live' | 'new' | 'beta';
   /** Optional keyboard hint shown bottom-right (e.g. "⌘K"). */
   hint?: string;
@@ -37,7 +37,7 @@ const ACCENT: Record<
     title: 'group-hover:text-brand-600 dark:group-hover:text-brand-400',
     ring: 'focus-visible:ring-brand-500/40',
     arrow: 'group-hover:text-brand-500 dark:group-hover:text-brand-400',
-    shadow: 'hover:shadow-[0_8px_24px_-12px_rgba(44,62,229,0.25)]',
+    shadow: 'hover:shadow-e2',
   },
   rose: {
     border: 'hover:border-rose-500/50',
@@ -45,13 +45,13 @@ const ACCENT: Record<
     title: 'group-hover:text-rose-600 dark:group-hover:text-rose-400',
     ring: 'focus-visible:ring-rose-500/40',
     arrow: 'group-hover:text-rose-500 dark:group-hover:text-rose-400',
-    shadow: 'hover:shadow-[0_8px_24px_-12px_rgba(225,29,72,0.25)]',
+    shadow: 'hover:shadow-e2',
   },
 };
 
 interface QuickActionsProps {
   actions: QuickAction[];
-  /** Section accent — used for the icon color. */
+  /** Section accent - used for the icon color. */
   accentClass?: string;
   /** Drives the hover/focus accent so it matches the section (default brand). */
   tone?: AccentTone;
@@ -92,7 +92,7 @@ export function QuickActions({
             key={a.to}
             to={a.to}
             style={{ animationDelay: `${i * 40}ms` }}
-            className={`qa-tile group relative flex items-start gap-3 surface-card p-3.5 transition-all duration-150 motion-safe:hover:-translate-y-0.5 hover:bg-slate-50 dark:hover:bg-[#16161f] focus:outline-none focus-visible:ring-2 ${accent.border} ${accent.shadow} ${accent.ring}`}
+            className={`qa-tile group relative flex items-start gap-3 surface-card p-3.5 transition-all duration-150 motion-safe:hover:-translate-y-0.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] focus:outline-none focus-visible:ring-2 ${accent.border} ${accent.shadow} ${accent.ring}`}
           >
             <span
               className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-slate-100/80 dark:bg-[rgb(var(--surface-300)/0.6)] ${accent.iconBg} ${accentClass} transition-colors`}
@@ -102,7 +102,7 @@ export function QuickActions({
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline justify-between gap-2">
                 <span
-                  className={`font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate ${accent.title} transition-colors`}
+                  className={`font-display font-semibold text-tool text-slate-900 dark:text-slate-100 truncate ${accent.title} transition-colors`}
                 >
                   {a.label}
                 </span>

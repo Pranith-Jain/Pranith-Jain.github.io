@@ -9,13 +9,13 @@ import { BackLink } from '../../components/BackLink';
 import type { IntelBundleResponse, IntelView } from '../../hooks/useIntelBundle';
 
 /**
- * /dfir/stix-builder — the manual entry point for the intel-bundle pipeline.
+ * /dfir/stix-builder - the manual entry point for the intel-bundle pipeline.
  *
  * Four input modes:
- *  1. text — free-form threat-report blurb       → POST /api/v1/intel-bundle/build
- *  2. iocs — newline-separated IoC list           → POST /api/v1/intel-bundle/build
- *  3. url  — fetch a public URL (SSRF-guarded)     → POST /api/v1/intel-bundle/build
- *  4. file — upload PDF/DOCX/image/text/HTML       → POST /api/v1/report/ingest
+ *  1. text - free-form threat-report blurb       → POST /api/v1/intel-bundle/build
+ *  2. iocs - newline-separated IoC list           → POST /api/v1/intel-bundle/build
+ *  3. url  - fetch a public URL (SSRF-guarded)     → POST /api/v1/intel-bundle/build
+ *  4. file - upload PDF/DOCX/image/text/HTML       → POST /api/v1/report/ingest
  *            (multipart; admin-gated; PDF/DOCX need the file2txt bridge)
  *
  * Output: an APT28-style enriched <IntelCard> (incl. MITRE Attack-Flow steps)
@@ -80,7 +80,7 @@ export default function StixBuilder(): JSX.Element {
   const [file, setFile] = useState<File | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  // Deep-link mode — fetch a previously persisted bundle by ID and drop
+  // Deep-link mode - fetch a previously persisted bundle by ID and drop
   // straight into the rendered view. Powered by GET /api/v1/intel-bundle/
   // by-id/:bundleId which returns `{ bundle, view }` from D1.
   useEffect(() => {
@@ -118,7 +118,7 @@ export default function StixBuilder(): JSX.Element {
   }, [copyStatus]);
 
   // Track the most-recent in-flight build so mode switches / re-submits
-  // abort the previous request — otherwise a slow first response can
+  // abort the previous request - otherwise a slow first response can
   // overwrite a newer one when it eventually lands.
   const buildCtrlRef = useRef<AbortController | null>(null);
 
@@ -184,7 +184,7 @@ export default function StixBuilder(): JSX.Element {
         signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(60_000)]),
       });
       if (res.status === 401 || res.status === 403) {
-        throw new Error('Admin access required — file ingestion is admin-gated. Sign in at /admin, then retry.');
+        throw new Error('Admin access required - file ingestion is admin-gated. Sign in at /admin, then retry.');
       }
       if (res.status === 503) {
         throw new Error(
@@ -227,7 +227,7 @@ export default function StixBuilder(): JSX.Element {
     // Use the IANA-registered STIX 2.1 media type (`application/stix+json;
     // version=2.1`) so strict consumers (MISP import, OpenCTI ingest,
     // TAXII 2.1 collectors) detect the file correctly from the content
-    // type alone — the same mime the canonical server export endpoint at
+    // type alone - the same mime the canonical server export endpoint at
     // /api/v1/intel-bundle/:id/export.stix.json sends. The `.stix.json`
     // suffix matches the server's filename so the two paths produce
     // byte-identical-looking downloads.
@@ -253,7 +253,7 @@ export default function StixBuilder(): JSX.Element {
         </span>
         <h1 className="text-3xl sm:text-4xl font-display font-bold leading-tight mb-2">STIX 2.1 Builder</h1>
         <p className="text-sm text-muted max-w-3xl leading-relaxed">
-          Turn a threat-report blurb, a flat IoC list, or a public URL into a strict STIX 2.1 bundle — heuristic actor /
+          Turn a threat-report blurb, a flat IoC list, or a public URL into a strict STIX 2.1 bundle - heuristic actor /
           malware / CVE / IoC extraction, bulk-provider enrichment with composite risk scores, deterministic UUIDv5 IDs
           so the same input always yields the same bundle. Importable into OpenCTI, MISP, or any TAXII 2.1 client.
         </p>
@@ -300,7 +300,7 @@ export default function StixBuilder(): JSX.Element {
               className="block w-full text-sm text-muted"
             />
             <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
-              Upload a threat report — text / HTML parse in-Worker, images via OCR, PDF / DOCX via the optional file2txt
+              Upload a threat report - text / HTML parse in-Worker, images via OCR, PDF / DOCX via the optional file2txt
               bridge. Max 10&nbsp;MB. <span className="font-semibold">Admin-gated</span> (sign in at{' '}
               <code className="font-mono text-mini">/admin</code>).
             </p>
@@ -418,7 +418,7 @@ function Output({ result, viewTab, setViewTab, onCopy, onDownload, copyStatus }:
 
   return (
     <section className="mt-10 space-y-6">
-      {/* The same card every /threatintel page uses — single source of UI truth. */}
+      {/* The same card every /threatintel page uses - single source of UI truth. */}
       <BuilderIntelCard view={result.view} bundle={result.bundle} />
 
       <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
@@ -492,7 +492,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
   // keeps the card component itself as the single source of styling truth
   // for the /threatintel pages.
   // For the tool surface specifically, we expose the view fields directly
-  // since we already have them — no roundtrip needed.
+  // since we already have them - no roundtrip needed.
   void IntelCard; // referenced for code-search; intentional no-render of the hook variant here
   return (
     <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-e1 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
@@ -582,7 +582,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
                 key={`${step.techniqueId}-${i}`}
                 className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))]"
               >
-                <span className="font-mono text-micro text-slate-400">{i + 1}.</span>
+                <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{i + 1}.</span>
                 <span className="font-medium text-slate-700 dark:text-slate-200">{step.name}</span>
                 <span className="font-mono text-micro text-slate-500">{step.techniqueId}</span>
                 {step.tactic && (
@@ -626,7 +626,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
       )}
 
       <footer className="mt-4 flex items-center justify-between border-t border-slate-200 pt-3 text-xs dark:border-[rgb(var(--border-400))]">
-        <span className="font-mono text-micro text-slate-400">
+        <span className="font-mono text-micro text-slate-500 dark:text-slate-400">
           {bundle.objects.length} STIX objects · extracted_hash {view.extractedHash.slice(0, 8)}…
         </span>
       </footer>

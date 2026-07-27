@@ -1,5 +1,6 @@
 import { Mail } from 'lucide-react';
 import { Button } from '../components/ui/Button';
+import { PageMeta } from '../components/PageMeta';
 
 const tiers = [
   {
@@ -31,7 +32,7 @@ const tiers = [
 const benefits = [
   {
     title: 'Reach Defenders',
-    body: 'Your brand appears alongside intelligence that SOC analysts, incident responders, and threat hunters read and reference. No noise — just the right audience.',
+    body: 'Your brand appears alongside intelligence that SOC analysts, incident responders, and threat hunters read and reference. No noise - just the right audience.',
   },
   {
     title: 'Demonstrate Credibility',
@@ -46,6 +47,11 @@ const benefits = [
 export default function Sponsor() {
   return (
     <>
+      <PageMeta
+        title="Sponsor"
+        description="Support independent threat intelligence production. Sponsor a report or the collection infrastructure that powers it."
+        canonicalPath="/sponsor"
+      />
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
         <div className="mb-16 text-center">
           <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
@@ -53,7 +59,7 @@ export default function Sponsor() {
           </h1>
           <p className="mt-3 text-base sm:text-lg text-muted leading-relaxed max-w-2xl mx-auto">
             Support independent threat intelligence production. Your sponsorship keeps the collection infrastructure
-            running, the sandbox detonating, and the reports coming — all while reaching the security community that
+            running, the sandbox detonating, and the reports coming - all while reaching the security community that
             matters.
           </p>
         </div>
@@ -106,7 +112,7 @@ export default function Sponsor() {
             </p>
             <p>
               If a sponsor is implicated in suspicious activity, that fact is disclosed in the relevant report. Trust is
-              the only asset that matters here — it is not for sale.
+              the only asset that matters here - it is not for sale.
             </p>
           </div>
         </div>

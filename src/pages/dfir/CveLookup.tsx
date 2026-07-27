@@ -256,7 +256,7 @@ export default function CveLookup(): JSX.Element {
               {result.kev.in_kev && result.kev.known_ransomware && (
                 <span
                   className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-900 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-400 dark:border-amber-700"
-                  title="CISA has tied this CVE to a known ransomware campaign — top remediation priority"
+                  title="CISA has tied this CVE to a known ransomware campaign - top remediation priority"
                 >
                   Ransomware
                 </span>
@@ -292,7 +292,7 @@ export default function CveLookup(): JSX.Element {
             </div>
           </section>
 
-          {/* Patch priority — combined CVSS + EPSS + KEV */}
+          {/* Patch priority - combined CVSS + EPSS + KEV */}
           {(() => {
             if (!result.cvss && !result.epss && !result.kev) return null;
             const p = prioritise({ cvss: result.cvss, epss: result.epss, kev: result.kev });
@@ -391,7 +391,7 @@ export default function CveLookup(): JSX.Element {
 
                 <div className="mt-4 flex">
                   <CopyButton
-                    value={`${result.cve_id} — ${TIER_LABELS[p.tier]} (${p.score}/100, ${p.sla}).\n${p.rationale.map((r) => '- ' + r.replace(/\*\*/g, '')).join('\n')}`}
+                    value={`${result.cve_id} - ${TIER_LABELS[p.tier]} (${p.score}/100, ${p.sla}).\n${p.rationale.map((r) => '- ' + r.replace(/\*\*/g, '')).join('\n')}`}
                   />
                   <span className="ml-2 self-center text-mini font-mono text-slate-400 dark:text-slate-400">
                     Copy ticket-ready rationale
@@ -453,7 +453,7 @@ export default function CveLookup(): JSX.Element {
                     setCopied('explain');
                     setTimeout(() => setCopied(null), 2000);
                   }}
-                  className="text-xs font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                  className="text-xs font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                 >
                   {copied === 'explain' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                 </button>
@@ -562,7 +562,7 @@ export default function CveLookup(): JSX.Element {
                     : 'text-rose-800 dark:text-rose-300'
                 }`}
               >
-                CISA KEV — Known Exploited
+                CISA KEV - Known Exploited
                 {result.kev.known_ransomware && (
                   <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-amber-200 dark:bg-amber-800/40 text-amber-900 dark:text-amber-200 border border-amber-400 dark:border-amber-700">
                     Ransomware
@@ -571,7 +571,7 @@ export default function CveLookup(): JSX.Element {
               </h3>
               {result.kev.known_ransomware && (
                 <p className="text-xs font-mono text-amber-900 dark:text-amber-300 mb-3 leading-relaxed">
-                  CISA has linked this CVE to known ransomware campaigns. Treat as top-of-queue remediation — patch
+                  CISA has linked this CVE to known ransomware campaigns. Treat as top-of-queue remediation - patch
                   immediately and hunt for active exploitation indicators in your environment.
                 </p>
               )}
@@ -598,7 +598,7 @@ export default function CveLookup(): JSX.Element {
             </section>
           )}
 
-          {/* Actor attribution panel — surfaces evidence-scored CVE→actor links */}
+          {/* Actor attribution panel - surfaces evidence-scored CVE→actor links */}
           {result.actor_links && result.actor_links.length > 0 && (
             <section className="rounded-xl border border-violet-200 dark:border-violet-900/40 bg-violet-50/40 dark:bg-violet-900/10 p-6">
               <h3 className="font-display font-semibold text-lg mb-3 text-violet-900 dark:text-violet-300">
@@ -616,7 +616,7 @@ export default function CveLookup(): JSX.Element {
                   .map((link) => {
                     const conf = link.confidence;
                     const tier = conf >= 90 ? 'high' : conf >= 60 ? 'medium' : 'low';
-                    // Attribution CONFIDENCE is a trust scale, NOT severity — high
+                    // Attribution CONFIDENCE is a trust scale, NOT severity - high
                     // confidence reads as good (emerald), not a warning. Do not route
                     // this through SEVERITY_TONE (where high = orange).
                     const tierColor =
@@ -669,19 +669,19 @@ export default function CveLookup(): JSX.Element {
                 </summary>
                 <ul className="mt-2 text-micro font-mono text-violet-800/70 dark:text-violet-300/70 leading-relaxed space-y-0.5 list-disc list-inside">
                   <li>
-                    <b>100 — curated:</b> human-vetted attribution from CISA advisory, vendor PSIRT, or IR report.
+                    <b>100 - curated:</b> human-vetted attribution from CISA advisory, vendor PSIRT, or IR report.
                   </li>
                   <li>
-                    <b>70 — OTX:</b> AlienVault pulse tagged both the actor and the CVE.
+                    <b>70 - OTX:</b> AlienVault pulse tagged both the actor and the CVE.
                   </li>
                   <li>
-                    <b>65 — NVD:</b> NVD description text names a known actor.
+                    <b>65 - NVD:</b> NVD description text names a known actor.
                   </li>
                   <li>
-                    <b>60 — CISA KEV:</b> KEV vulnerability name / required-action text mentions an actor.
+                    <b>60 - CISA KEV:</b> KEV vulnerability name / required-action text mentions an actor.
                   </li>
                   <li>
-                    <b>35 — feed:</b> news/blog feed item mentioned both the actor and the CVE.
+                    <b>35 - feed:</b> news/blog feed item mentioned both the actor and the CVE.
                   </li>
                 </ul>
               </details>
@@ -726,7 +726,7 @@ export default function CveLookup(): JSX.Element {
             </section>
           )}
 
-          {/* References — filterable by tag (Vendor Advisory / Exploit / Patch / Mitigation / Third Party Advisory). */}
+          {/* References - filterable by tag (Vendor Advisory / Exploit / Patch / Mitigation / Third Party Advisory). */}
           {result.references &&
             result.references.length > 0 &&
             (() => {
@@ -765,7 +765,7 @@ export default function CveLookup(): JSX.Element {
                   </div>
                   {tagList.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 mb-3">
-                      <span className="text-mini font-mono text-slate-400 mr-1 self-center">filter by tag:</span>
+                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1 self-center">filter by tag:</span>
                       {tagList.map((t) => {
                         const active = refTagFilter.has(t);
                         return (

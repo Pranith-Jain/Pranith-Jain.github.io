@@ -20,9 +20,9 @@ import {
  * Esc / outside-click / selection.
  *
  * Search index has two layers:
- *   - Tools (61, synchronous) — the SECTIONS tile grid. Available the
+ *   - Tools (61, synchronous) - the SECTIONS tile grid. Available the
  *     instant the palette opens.
- *   - Catalog content (~340 lazy, async) — wiki articles, Telegram
+ *   - Catalog content (~340 lazy, async) - wiki articles, Telegram
  *     channels, SecOps catalog, CVE resources, threat
  *     actors. Loaded once on first palette open and cached.
  *
@@ -78,7 +78,7 @@ function pushRecent(path: string): void {
     cur.unshift(path);
     localStorage.setItem(RECENT_KEY, JSON.stringify(cur.slice(0, RECENT_MAX)));
   } catch {
-    /* private mode / quota — silent */
+    /* private mode / quota - silent */
   }
 }
 
@@ -88,7 +88,7 @@ interface MatchedEntry extends SearchEntry {
 
 /**
  * Detect whether a query string is an IOC.
- * Pure regex — no network. Used to synthesize "pivot" entries at the top of
+ * Pure regex - no network. Used to synthesize "pivot" entries at the top of
  * the command-palette results so typing e.g. "1.2.3.4" surfaces:
  *   → Check 1.2.3.4 in IOC Checker
  *   → Lookup 1.2.3.4 in ASN tool
@@ -101,7 +101,7 @@ interface MatchedEntry extends SearchEntry {
  */
 type IocType = BaseIocType | 'actor-slug';
 
-/** Known ransomware/APT actor slugs — kept in sync with api/src/lib/ransomware-mitre-groups.ts. */
+/** Known ransomware/APT actor slugs - kept in sync with api/src/lib/ransomware-mitre-groups.ts. */
 const KNOWN_ACTOR_SLUGS = new Set([
   'lockbit',
   'alphv',
@@ -136,7 +136,7 @@ const KNOWN_ACTOR_SLUGS = new Set([
 function detectIoc(raw: string): { type: IocType; value: string } | null {
   // Shared single-indicator detector (lib/dfir/ioc-detect), with the
   // palette-only actor-slug match layered on top. Detection logic is no
-  // longer duplicated here — it lives in one place.
+  // longer duplicated here - it lives in one place.
   const base = detectIocBase(raw);
   if (base) return base;
   const lower = raw.trim().toLowerCase();
@@ -169,7 +169,7 @@ function buildPivots(query: string): MatchedEntry[] {
     pivots.push({
       kind: 'tool',
       label: `CVE list page → search for ${ioc.value}`,
-      desc: 'Filter platform CVE list — see actor pills + KEV flags inline',
+      desc: 'Filter platform CVE list - see actor pills + KEV flags inline',
       path: `/threatintel/cve-list?q=${enc}`,
       sectionLabel: 'IOC pivot',
       matchedBy: 'pivot',
@@ -181,7 +181,7 @@ function buildPivots(query: string): MatchedEntry[] {
     pivots.push({
       kind: 'tool',
       label: `MITRE technique → ${ioc.value}`,
-      desc: 'Open ATT&CK matrix scoped to this technique — actors, mitigations, detections',
+      desc: 'Open ATT&CK matrix scoped to this technique - actors, mitigations, detections',
       path: `/threatintel/mitre?id=${enc}`,
       sectionLabel: 'IOC pivot',
       matchedBy: 'pivot',
@@ -229,7 +229,7 @@ function buildPivots(query: string): MatchedEntry[] {
     pivots.push({
       kind: 'tool',
       label: `Crypto Trace → ${ioc.value.slice(0, 24)}…`,
-      desc: 'On-chain BTC tracing — flow + cluster + exchange-attribution',
+      desc: 'On-chain BTC tracing - flow + cluster + exchange-attribution',
       path: `/dfir/crypto-trace?address=${enc}`,
       sectionLabel: 'IOC pivot',
       matchedBy: 'pivot',
@@ -267,7 +267,7 @@ function buildPivots(query: string): MatchedEntry[] {
     matchedBy: 'pivot',
   });
 
-  // Cross-source correlation lookup is universal for network indicators —
+  // Cross-source correlation lookup is universal for network indicators -
   // the page's text filter accepts the indicator value directly.
   if (ioc.type === 'ip' || ioc.type === 'ipv6' || ioc.type === 'domain' || ioc.type === 'url') {
     pivots.push({
@@ -319,7 +319,7 @@ function buildPivots(query: string): MatchedEntry[] {
     pivots.push({
       kind: 'tool',
       label: `URL Preview → ${ioc.value}`,
-      desc: 'Server-side fetch + screenshot + headers — safe to inspect',
+      desc: 'Server-side fetch + screenshot + headers - safe to inspect',
       path: `/dfir/url-preview?url=${enc}`,
       sectionLabel: 'IOC pivot',
       matchedBy: 'pivot',
@@ -466,7 +466,7 @@ export function CommandPalette(): JSX.Element | null {
           {
             kind: 'tool',
             label: `Search live intel for "${q}"`,
-            desc: 'Unified omnibox — tools + live threat data (ransomware, IOCs, CVEs, actors, breaches)',
+            desc: 'Unified omnibox - tools + live threat data (ransomware, IOCs, CVEs, actors, breaches)',
             path: `/threatintel/unified-search?q=${encodeURIComponent(q)}`,
             sectionLabel: 'Live search',
             matchedBy: 'pivot',
@@ -554,12 +554,12 @@ export function CommandPalette(): JSX.Element | null {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder={`Search ${fullIndex.length} items — tools, wiki, channels, actors…`}
+            placeholder={`Search ${fullIndex.length} items - tools, wiki, channels, actors…`}
             className="flex-1 bg-transparent border-0 outline-none font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500"
             aria-label="Search"
           />
           {catalogLoading && (
-            <Loader2 size={14} className="text-slate-400 animate-spin shrink-0" aria-label="Loading catalog index" />
+            <Loader2 size={14} className="text-slate-500 dark:text-slate-400 animate-spin shrink-0" aria-label="Loading catalog index" />
           )}
           <button
             type="button"
@@ -631,7 +631,7 @@ export function CommandPalette(): JSX.Element | null {
                   ) : (
                     <span
                       className={`w-4 text-center text-micro font-mono uppercase tracking-wider ${
-                        active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'
+                        active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-500 dark:text-slate-400'
                       }`}
                       aria-hidden="true"
                     >

@@ -7,8 +7,8 @@ import { preloadRoute } from '../lib/route-preloaders';
 /**
  * Live-from-the-platform strip on the portfolio root. The goal: a first-
  * time visitor who doesn't drill into /threatintel still sees the platform
- * *working* on real data in the first scroll. Three numbers — none of them
- * vanity — fetched directly from the same edge worker that powers the CTI
+ * *working* on real data in the first scroll. Three numbers - none of them
+ * vanity - fetched directly from the same edge worker that powers the CTI
  * surface.
  *
  * Design rule: each tile must be answerable in one breath. "How many
@@ -16,7 +16,7 @@ import { preloadRoute } from '../lib/route-preloaders';
  * four KPIs". And every tile has to link to where the underlying data
  * lives, so a curious visitor can verify the number rather than trust it.
  *
- * Failure mode: if any single fetch fails, that tile shows `—` and the
+ * Failure mode: if any single fetch fails, that tile shows `-` and the
  * other two still render. The strip never blocks the page render; it's a
  * progressive enhancement on top of the static hero above it.
  */
@@ -80,7 +80,7 @@ export function LiveSignalStrip(): JSX.Element {
     const empty: Tile = {
       icon: Activity,
       label: '',
-      primary: '—',
+      primary: '-',
       context: 'unable to read live feed',
       href: '/threatintel',
       accent: 'brand',
@@ -105,7 +105,7 @@ export function LiveSignalStrip(): JSX.Element {
       // for the same window. Intentionally a tighter window than the
       // 7-day sparkline in the hero above: the sparkline shows cadence
       // (the week's shape), this tile shows velocity (today's pulse).
-      // The two are complementary, not competing — context line below
+      // The two are complementary, not competing - context line below
       // makes the relationship explicit so a quiet 24h doesn't read as
       // contradicting the week's larger total.
       let t1: Tile = { ...empty, icon: Flame, label: 'Ransomware claims · last 24h', accent: 'rose' };
@@ -158,7 +158,7 @@ export function LiveSignalStrip(): JSX.Element {
         }
       }
 
-      // Tile 3: count of cross-source IOC consensus hits — the signal an
+      // Tile 3: count of cross-source IOC consensus hits - the signal an
       // analyst trusts versus single-feed noise. This is the metric that
       // most justifies the platform's existence; surfacing it on the home
       // page is the implicit thesis statement of the whole CTI build.
@@ -248,7 +248,7 @@ export function LiveSignalStrip(): JSX.Element {
               className={`group block surface-elevated rounded-xl p-4 transition ${ACCENT_BG[t.accent]}`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-eyebrow font-mono uppercase text-slate-400">{t.label}</span>
+                <span className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">{t.label}</span>
                 <Icon className={`h-4 w-4 ${ACCENT_TEXT[t.accent]}`} aria-hidden="true" />
               </div>
               <div className="flex items-baseline gap-3">

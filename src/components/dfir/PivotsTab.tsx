@@ -14,7 +14,7 @@ interface Pivot {
  *
  * raw_summary shapes are deliberately Spartan (aggregate counts, not full
  * result items).  We extract whatever structured data each adapter actually
- * emits — see api/src/providers/<name>.ts for exact field names.
+ * emits - see api/src/providers/<name>.ts for exact field names.
  */
 function extractPivots(results: ProviderResultWire[], indicatorValue: string): Pivot[] {
   const pivots: Pivot[] = [];
@@ -153,7 +153,7 @@ export function PivotsTab({
     <section className="mb-8 surface-card p-5">
       <div className="flex items-center gap-2 mb-4">
         <Fingerprint size={16} className="text-brand-600 dark:text-brand-400" />
-        <h3 className="font-display font-semibold text-base">Pivots — extracted artifacts</h3>
+        <h3 className="font-display font-semibold text-base">Pivots - extracted artifacts</h3>
         <span className="text-mini font-mono text-slate-500">
           · {pivots.length} artifact{pivots.length !== 1 ? 's' : ''}
         </span>
@@ -184,7 +184,7 @@ export function PivotsTab({
                 >
                   {p.value}
                 </code>
-                <span className="text-micro font-mono text-slate-400 truncate block">{p.label}</span>
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate block">{p.label}</span>
               </div>
               <div className="flex items-center gap-1 shrink-0">
                 <a
@@ -211,13 +211,13 @@ export function PivotsTab({
         })}
       </div>
       <details className="mt-3">
-        <summary className="cursor-pointer text-micro font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+        <summary className="cursor-pointer text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
           Why some providers are missing
         </summary>
-        <p className="mt-2 text-micro font-mono text-slate-400 leading-relaxed">
+        <p className="mt-2 text-micro font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
           Several enrichment providers (URLScan, VirusTotal, and others) only return aggregate scores and counts in
           their raw_summary, not the individual result items needed for pivots. The artifacts shown are extracted from
-          the structured fields each provider actually emits — a quiet adapter means fewer pivots, not a platform gap.
+          the structured fields each provider actually emits - a quiet adapter means fewer pivots, not a platform gap.
         </p>
       </details>
     </section>

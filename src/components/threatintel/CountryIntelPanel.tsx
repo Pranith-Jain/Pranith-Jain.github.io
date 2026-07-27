@@ -90,11 +90,11 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
           <button
             onClick={fetchIntel}
             disabled={loading}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200"
+            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
-          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200">
+          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200">
             <X size={14} />
           </button>
         </div>
@@ -104,7 +104,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
         {loading && !intel && (
           <div className="flex items-center gap-2 justify-center py-6">
             <RefreshCw size={14} className="animate-spin text-brand-400" />
-            <span className="text-xs text-slate-400">Generating intelligence brief…</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">Generating intelligence brief…</span>
           </div>
         )}
 
@@ -124,7 +124,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
                 {intel.overall_threat_level?.toUpperCase()}
               </span>
               <span
-                className={`inline-flex items-center gap-1 text-micro font-mono ${intel.trend === 'deteriorating' ? 'text-rose-400' : intel.trend === 'improving' ? 'text-emerald-400' : 'text-slate-400'}`}
+                className={`inline-flex items-center gap-1 text-micro font-mono ${intel.trend === 'deteriorating' ? 'text-rose-400' : intel.trend === 'improving' ? 'text-emerald-400' : 'text-slate-500 dark:text-slate-400'}`}
               >
                 <TrendIcon size={12} />
                 {intel.trend}
@@ -136,14 +136,14 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
             {intel.cyber_threats && (
               <div className="rounded-xl bg-rose-500/5 border border-rose-500/10 p-3">
                 <span className="text-micro font-mono uppercase text-rose-400 block mb-1">Cyber Threats</span>
-                <p className="text-xs text-slate-400">{intel.cyber_threats}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{intel.cyber_threats}</p>
               </div>
             )}
 
             {intel.geopolitical_risks && (
               <div className="rounded-xl bg-amber-500/5 border border-amber-500/10 p-3">
                 <span className="text-micro font-mono uppercase text-amber-400 block mb-1">Geopolitical Risks</span>
-                <p className="text-xs text-slate-400">{intel.geopolitical_risks}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{intel.geopolitical_risks}</p>
               </div>
             )}
 
@@ -186,7 +186,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
                 </span>
                 <ul className="space-y-0.5">
                   {intel.watch_items.map((w, i) => (
-                    <li key={i} className="text-xs text-slate-400 flex items-start gap-1">
+                    <li key={i} className="text-xs text-slate-500 dark:text-slate-400 flex items-start gap-1">
                       <span className="text-cyan-400">•</span>
                       {w}
                     </li>
@@ -198,7 +198,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
             {intel.recommended_posture && (
               <div className="rounded-xl bg-emerald-500/5 border border-emerald-500/10 p-3">
                 <span className="text-micro font-mono uppercase text-emerald-400 block mb-1">Recommended Posture</span>
-                <p className="text-xs text-slate-400">{intel.recommended_posture}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{intel.recommended_posture}</p>
               </div>
             )}
           </>

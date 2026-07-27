@@ -22,7 +22,7 @@ const CATEGORY_CONFIG: Record<string, { icon: string; color: string }> = {
   REPORT: { icon: 'i', color: 'text-blue-400' },
 };
 const SEV_COLORS: Record<string, string> = {
-  low: 'text-slate-400',
+  low: 'text-slate-500 dark:text-slate-400',
   medium: 'text-amber-400',
   high: 'text-orange-400',
   critical: 'text-red-400',
@@ -76,7 +76,7 @@ export default function StrikeTracker() {
           <Flame size={16} className="text-red-400" />
           <h3 className="text-tool font-bold font-mono text-slate-700 dark:text-slate-200">MISSILE / STRIKE TRACKER</h3>
         </div>
-        <span className="text-mini font-mono text-slate-400">{strikes.length} events</span>
+        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{strikes.length} events</span>
       </div>
       <div className="flex gap-2 mb-3 flex-wrap">
         {Object.entries(counts).map(([cat, count]) => {
@@ -85,7 +85,7 @@ export default function StrikeTracker() {
             <span key={cat} className="text-mini flex items-center gap-1">
               <span>{c.icon}</span>
               <span className={`font-bold ${c.color}`}>{cat}</span>
-              <span className="text-slate-400">({count})</span>
+              <span className="text-slate-500 dark:text-slate-400">({count})</span>
             </span>
           );
         })}
@@ -98,7 +98,7 @@ export default function StrikeTracker() {
             ))}
           </div>
         ) : strikes.length === 0 ? (
-          <div className="text-center text-tool text-slate-400 py-4">No strike events detected</div>
+          <div className="text-center text-tool text-slate-500 dark:text-slate-400 py-4">No strike events detected</div>
         ) : (
           strikes.slice(0, 12).map((s, i) => {
             const c = (CATEGORY_CONFIG[s.category] || CATEGORY_CONFIG.REPORT)!;
@@ -115,10 +115,10 @@ export default function StrikeTracker() {
                     {s.category}
                   </span>
                   <span className={`text-mini font-bold ${SEV_COLORS[s.severity]}`}>{s.severity.toUpperCase()}</span>
-                  <span className="text-mini text-slate-400 ml-auto">{timeAgo(s.date)}</span>
+                  <span className="text-mini text-slate-500 dark:text-slate-400 ml-auto">{timeAgo(s.date)}</span>
                 </div>
                 <p className="text-tool text-slate-700 dark:text-slate-200 leading-tight line-clamp-1">{s.title}</p>
-                <span className="text-mini text-slate-400">
+                <span className="text-mini text-slate-500 dark:text-slate-400">
                   {s.source} · {s.country}
                 </span>
               </a>

@@ -1,10 +1,10 @@
 /**
  * Color tokens for the SOC dashboards. All chart fills, severity tokens,
- * and per-domain palettes live here — pages never define their own colors.
+ * and per-domain palettes live here - pages never define their own colors.
  *
  * Severity tokens mirror `tailwind.config.js` and src/components/severity.ts
  * so a critical finding reads the same on any page (rose → orange → amber →
- * slate). `low` is *intentionally* slate (neutral), NOT green — green is
+ * slate). `low` is *intentionally* slate (neutral), NOT green - green is
  * reserved for `ok` (a healthy/passing status), a distinct concept.
  */
 
@@ -41,7 +41,7 @@ export const SEVERITY_DOT: Record<SocSeverity, string> = {
 
 /* ─── Hex fill palettes (chart colours) ───────────────────────────── */
 
-/** Severity → fill hex — mirrors tailwind severity tokens exactly. */
+/** Severity → fill hex - mirrors tailwind severity tokens exactly. */
 export const CHART_SEV: Record<string, string> = {
   CRITICAL: '#e11d48',
   HIGH: '#f97316',

@@ -25,7 +25,7 @@ export interface DocumentMeta {
   description?: string;
   /** Optional section (e.g. "Threat Intel", "DFIR") used in the suffix. */
   section?: string;
-  /** Optional canonical path — emits <link rel="canonical">. */
+  /** Optional canonical path - emits <link rel="canonical">. */
   canonicalPath?: string;
   /** Optional override for the full title (skips the site suffix). */
   fullTitle?: string;
@@ -107,7 +107,7 @@ export function useDocumentMeta(meta: DocumentMeta): void {
 
     const fullTitle =
       meta.fullTitle ??
-      (meta.section ? `${meta.title} — ${meta.section} · ${SITE_NAME}` : `${meta.title} · ${SITE_NAME}`);
+      (meta.section ? `${meta.title} - ${meta.section} · ${SITE_NAME}` : `${meta.title} · ${SITE_NAME}`);
 
     const siteUrl = 'https://pranithjain.qzz.io';
     const ogImage = meta.ogImage

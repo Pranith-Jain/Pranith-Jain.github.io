@@ -8,7 +8,7 @@ export interface ClusterTab {
 
 /**
  * Route-based tab bar that unifies a cluster of related pages into one
- * "tabbed canonical" surface without merging their content — each tab is a
+ * "tabbed canonical" surface without merging their content - each tab is a
  * real URL, so deep links and per-page data/behavior are preserved. Drop it
  * into a page's `headerExtra` (DataPageLayout) so siblings share one nav.
  */
@@ -38,7 +38,7 @@ export function ClusterTabs({ tabs, ariaLabel = 'Section' }: { tabs: ClusterTab[
   );
 }
 
-/** The ransomware-intel cluster — live victims, geo map, generated report. */
+/** The ransomware-intel cluster - live victims, geo map, generated report. */
 // eslint-disable-next-line react-refresh/only-export-components
 export const RANSOMWARE_TABS: ClusterTab[] = [
   { label: 'Live', to: '/threatintel/ransomware-live' },

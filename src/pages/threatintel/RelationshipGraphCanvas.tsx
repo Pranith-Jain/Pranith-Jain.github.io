@@ -34,7 +34,7 @@ function RelNodeBox({
   return (
     <div
       className={`rounded-xl border-2 px-3 py-2 text-xs font-mono shadow-e1 bg-white dark:bg-[rgb(var(--surface-200))] ${
-        selected ? 'ring-2 ring-brand-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-950' : ''
+        selected ? 'ring-2 ring-rose-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-950' : ''
       }`}
       style={{ borderColor: color, minWidth: 130, maxWidth: 200 }}
     >
@@ -235,7 +235,7 @@ function RelationshipGraphCanvasInner({
 
 /**
  * Wrapper that supplies the React Flow store context. `useReactFlow()` (and
- * any other React Flow hook) must run *inside* a provider — rendering
+ * any other React Flow hook) must run *inside* a provider - rendering
  * <ReactFlow> alone only gives the context to its children, not to the
  * component that renders it, so calling the hook beside <ReactFlow> in the
  * same component throws "you have not used zustand provider as an ancestor".

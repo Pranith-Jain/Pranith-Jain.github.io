@@ -309,9 +309,9 @@ export default function AttackNavigator(): JSX.Element {
             {matrixSource === 'attack' &&
               'Interactive matrix mapping LLM-specific attack techniques to the MITRE ATT&CK framework. Color intensity reflects technique prevalence, risk scores, or actor adoption. Click any highlighted tile for full detail including ARiES scores, sub-techniques, and linked actors.'}
             {matrixSource === 'a3m' &&
-              'A3M Matrix (Agentic AI Attack Matrix) — 167 techniques across 17 phases, covering reconnaissance to impact for tool-using agents, browser automation, RAG, memory, and SaaS integrations. Click any technique for full detail.'}
+              'A3M Matrix (Agentic AI Attack Matrix) - 167 techniques across 17 phases, covering reconnaissance to impact for tool-using agents, browser automation, RAG, memory, and SaaS integrations. Click any technique for full detail.'}
             {matrixSource === 'd3fend' &&
-              'MITRE D3FEND — defensive countermeasure matrix. 250+ techniques across 7 tactics (Model, Harden, Detect, Isolate, Deceive, Evict, Restore) mapped to the artifacts they protect. Click any technique for full detail.'}
+              'MITRE D3FEND - defensive countermeasure matrix. 250+ techniques across 7 tactics (Model, Harden, Detect, Isolate, Deceive, Evict, Restore) mapped to the artifacts they protect. Click any technique for full detail.'}
           </p>
           <div className="flex flex-wrap items-center gap-4 text-sm font-mono text-slate-500 mb-3">
             <span>
@@ -363,7 +363,7 @@ export default function AttackNavigator(): JSX.Element {
                     rel="noopener noreferrer"
                     className="text-brand-600 dark:text-brand-400 hover:underline"
                   >
-                    A3M Matrix — Agentic AI Attack Matrix
+                    A3M Matrix - Agentic AI Attack Matrix
                   </a>
                 </>
               )}
@@ -415,7 +415,7 @@ export default function AttackNavigator(): JSX.Element {
               }`}
             >
               <span className="font-semibold">{t.label}</span>
-              <span className="text-micro uppercase tracking-wider text-slate-400">{t.sub}</span>
+              <span className="text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">{t.sub}</span>
             </button>
           ))}
         </div>
@@ -423,7 +423,7 @@ export default function AttackNavigator(): JSX.Element {
         {/* Toolbar */}
         <div className="flex flex-wrap items-center gap-2 mb-6 mt-6">
           <div className="relative flex-1 min-w-[260px] max-w-md">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
             <input
               type="text"
               value={query}
@@ -453,7 +453,7 @@ export default function AttackNavigator(): JSX.Element {
         <div className="flex flex-wrap items-center gap-3 mb-6 text-xs font-mono text-slate-500">
           {matrixSource === 'attack' ? (
             <>
-              <span className="font-semibold uppercase tracking-wider text-micro text-slate-400">
+              <span className="font-semibold uppercase tracking-wider text-micro text-slate-500 dark:text-slate-400">
                 {MODE_LABELS[colorMode]}:
               </span>
               {getLegendItems(colorMode).map((item) => (
@@ -516,7 +516,7 @@ export default function AttackNavigator(): JSX.Element {
                         <div className="text-micro font-mono font-bold leading-tight text-slate-900 dark:text-slate-100">
                           {tactic.name}
                         </div>
-                        <div className="text-micro font-mono text-slate-400 mt-0.5">{tacticCount} techniques</div>
+                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">{tacticCount} techniques</div>
                       </a>
                     </div>
 
@@ -649,7 +649,7 @@ export default function AttackNavigator(): JSX.Element {
                       <span className="font-mono font-semibold">{selectedScore.count.toLocaleString()}</span>
                     </div>
                     <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2 mt-2">
-                      <div className="text-micro font-mono uppercase text-slate-400 mb-1">ARiES Risk Score</div>
+                      <div className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400 mb-1">ARiES Risk Score</div>
                       <div className="flex justify-between">
                         <span className="text-slate-500">Raw mean:</span>
                         <span className="font-mono font-semibold">{selectedScore.raw_mean.toFixed(1)}</span>

@@ -47,12 +47,12 @@ export default function LiveFeedBar({ items }: LiveFeedBarProps): JSX.Element {
         <div className="flex items-center gap-2">
           <Radio size={12} className="text-rose-500 animate-pulse" />
           <span className="text-micro font-mono uppercase tracking-[0.15em] text-muted">Live Feed</span>
-          <span className="text-micro font-mono text-slate-400">({items.length})</span>
+          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">({items.length})</span>
         </div>
         {collapsed ? (
-          <ChevronDown size={14} className="text-slate-400" />
+          <ChevronDown size={14} className="text-slate-500 dark:text-slate-400" />
         ) : (
-          <ChevronUp size={14} className="text-slate-400" />
+          <ChevronUp size={14} className="text-slate-500 dark:text-slate-400" />
         )}
       </button>
 
@@ -72,8 +72,8 @@ export default function LiveFeedBar({ items }: LiveFeedBarProps): JSX.Element {
                   {item.kind}
                 </span>
                 <span className="font-mono text-slate-700 dark:text-slate-300 truncate flex-1">{item.value}</span>
-                <span className="text-micro font-mono text-slate-400 shrink-0">{item.source}</span>
-                <span className="text-micro font-mono text-slate-400 shrink-0 w-14 text-right">
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">{item.source}</span>
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0 w-14 text-right">
                   {timeAgo(item.observedAt)}
                 </span>
               </div>

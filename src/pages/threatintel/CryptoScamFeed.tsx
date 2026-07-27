@@ -98,28 +98,28 @@ export default function CryptoScamFeed(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
       >
         back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Bitcoin size={28} className="text-brand-600 dark:text-brand-400" /> Crypto scam feed
+          <Bitcoin size={28} className="text-rose-600 dark:text-rose-400" /> Crypto scam feed
         </h1>
         <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-          Fresh crypto-phishing, scam, drainer, and pig-butchering domains — all ≤ 1 year old at inclusion, refreshed
+          Fresh crypto-phishing, scam, drainer, and pig-butchering domains - all ≤ 1 year old at inclusion, refreshed
           daily. Sourced from{' '}
           <a
             href="https://github.com/spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed
           </a>{' '}
           (MIT). Also flows into the{' '}
-          <Link to="/threatintel/catalog?cat=iocs" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/catalog?cat=iocs" className="text-rose-600 dark:text-rose-400 hover:underline">
             Live IOCs
           </Link>{' '}
           firehose.
@@ -152,13 +152,13 @@ export default function CryptoScamFeed(): JSX.Element {
                   title={`${count} domains · click to filter`}
                 >
                   <span
-                    className={`w-16 text-right text-meta font-mono shrink-0 ${active ? 'text-brand-600 dark:text-brand-400 font-semibold' : 'text-slate-500'}`}
+                    className={`w-16 text-right text-meta font-mono shrink-0 ${active ? 'text-rose-600 dark:text-rose-400 font-semibold' : 'text-slate-500'}`}
                   >
                     .{tld}
                   </span>
                   <span className="flex-1 h-4 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                     <span
-                      className={`block h-full rounded ${active ? 'bg-brand-500' : 'bg-brand-500/50 group-hover:bg-brand-500/70'}`}
+                      className={`block h-full rounded ${active ? 'bg-rose-500' : 'bg-rose-500/50 group-hover:bg-rose-500/70'}`}
                       style={{ width: `${Math.max(4, (count / maxTld) * 100)}%` }}
                     />
                   </span>
@@ -173,13 +173,13 @@ export default function CryptoScamFeed(): JSX.Element {
       <section className="surface-card p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter domains…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter crypto scam domains"
             />
           </div>
@@ -187,7 +187,7 @@ export default function CryptoScamFeed(): JSX.Element {
             type="button"
             onClick={copyBlocklist}
             disabled={filtered.length === 0}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-50"
             title="Copy filtered domains as a newline-separated blocklist"
           >
             {copied ? <Check size={12} /> : <Copy size={12} />} {copied ? 'copied' : 'copy blocklist'}
@@ -195,7 +195,7 @@ export default function CryptoScamFeed(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -204,7 +204,7 @@ export default function CryptoScamFeed(): JSX.Element {
           <button
             type="button"
             onClick={() => setTldFilter(null)}
-            className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline mt-2"
+            className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline mt-2"
           >
             clear .{tldFilter} filter
           </button>
@@ -247,7 +247,7 @@ export default function CryptoScamFeed(): JSX.Element {
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="truncate text-slate-800 dark:text-slate-200">{it.domain}</span>
-                <span className="text-mini text-slate-400 shrink-0">.{it.tld}</span>
+                <span className="text-mini text-slate-500 dark:text-slate-400 shrink-0">.{it.tld}</span>
               </div>
               <PostSummary text={postSummaries.get(String(it.domain))} />
             </li>

@@ -15,13 +15,13 @@ interface IngestResponse extends IntelBundleResponse {
 }
 
 const ERROR_BY_STATUS: Record<number, string> = {
-  400: 'No file received — try again.',
-  401: 'Admin session required — authenticate in the admin console, then retry.',
+  400: 'No file received - try again.',
+  401: 'Admin session required - authenticate in the admin console, then retry.',
   413: 'File too large (max 10 MB).',
   415: 'Unsupported file type. Use PDF, DOCX, image, HTML, or text.',
-  422: "Couldn't extract readable text from this file — try another format.",
-  429: 'Image OCR is rate-limited right now — try again later, or upload text/HTML.',
-  502: 'Failed to build the STIX bundle — try again.',
+  422: "Couldn't extract readable text from this file - try another format.",
+  429: 'Image OCR is rate-limited right now - try again later, or upload text/HTML.',
+  502: 'Failed to build the STIX bundle - try again.',
   503: 'PDF/DOCX extraction needs the optional bridge.',
 };
 
@@ -79,7 +79,7 @@ export default function ReportIngest(): JSX.Element {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       if (ctrl.signal.aborted) return;
       setStatus('error');
-      setError('Network error — try again.');
+      setError('Network error - try again.');
     }
   }, []);
 
@@ -175,9 +175,9 @@ export default function ReportIngest(): JSX.Element {
           className="hidden"
           aria-label="Upload a report file"
         />
-        <Upload size={28} className="mx-auto mb-3 text-slate-400" />
+        <Upload size={28} className="mx-auto mb-3 text-slate-500 dark:text-slate-400" />
         <p className="font-mono text-sm text-muted">{fileName ? fileName : 'Drop a file here, or click to choose'}</p>
-        <p className="font-mono text-xs text-slate-400 mt-1">txt · md · html · png · jpg · pdf · docx — max 10 MB</p>
+        <p className="font-mono text-xs text-slate-500 dark:text-slate-400 mt-1">txt · md · html · png · jpg · pdf · docx - max 10 MB</p>
       </div>
 
       {status === 'loading' && (
@@ -219,7 +219,7 @@ export default function ReportIngest(): JSX.Element {
               </span>
             </div>
             {result?.ingest && (
-              <p className="font-mono text-xs text-slate-400 mt-3">
+              <p className="font-mono text-xs text-slate-500 dark:text-slate-400 mt-3">
                 extraction: {result.ingest.method}
                 {result.ingest.truncated ? ' · truncated' : ''}
               </p>
@@ -254,7 +254,7 @@ export default function ReportIngest(): JSX.Element {
               <div className="space-y-1">
                 {view.iocs.map((ioc) => (
                   <div key={`${ioc.type}:${ioc.value}`} className="flex items-center gap-3 font-mono text-xs">
-                    <span className="text-slate-400 w-12">{ioc.type}</span>
+                    <span className="text-slate-500 dark:text-slate-400 w-12">{ioc.type}</span>
                     <span className="break-all">{ioc.value}</span>
                     <span
                       className={`px-1.5 py-0.5 rounded border ${
@@ -267,7 +267,7 @@ export default function ReportIngest(): JSX.Element {
                     >
                       {ioc.verdict} · {ioc.riskScore}
                     </span>
-                    {ioc.listedIn.length > 0 && <span className="text-slate-400">{ioc.listedIn.length} src</span>}
+                    {ioc.listedIn.length > 0 && <span className="text-slate-500 dark:text-slate-400">{ioc.listedIn.length} src</span>}
                   </div>
                 ))}
               </div>
@@ -285,7 +285,7 @@ export default function ReportIngest(): JSX.Element {
                       <span className="px-1.5 py-0.5 rounded border border-rose-500/40 text-rose-600">KEV</span>
                     )}
                     {typeof cve.epssScore === 'number' && (
-                      <span className="text-slate-400">EPSS {(cve.epssScore * 100).toFixed(1)}%</span>
+                      <span className="text-slate-500 dark:text-slate-400">EPSS {(cve.epssScore * 100).toFixed(1)}%</span>
                     )}
                   </div>
                 ))}

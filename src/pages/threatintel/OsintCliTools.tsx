@@ -41,17 +41,17 @@ export default function OsintCliTools(): JSX.Element {
       icon={<Terminal size={28} />}
       title="OSINT CLI Tools Directory"
       maxWidthClass="max-w-7xl"
-      description="Curated directory of OSINT command-line tools organized by use case. 55+ tools across 10 categories — username hunting, email intel, domain recon, social media, dorking, and more."
+      description="Curated directory of OSINT command-line tools organized by use case. 55+ tools across 10 categories - username hunting, email intel, domain recon, social media, dorking, and more."
     >
       <div className="flex items-center gap-2 mb-4">
         <div className="relative flex-1 max-w-md">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search tools…"
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
         <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{filtered.length} tools</span>
@@ -65,7 +65,7 @@ export default function OsintCliTools(): JSX.Element {
           }}
           className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeCat
-              ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+              ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
               : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
           }`}
         >
@@ -80,7 +80,7 @@ export default function OsintCliTools(): JSX.Element {
             }}
             className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
               activeCat === cat
-                ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-300 dark:hover:border-[rgb(var(--border-400))]'
             }`}
           >
@@ -108,11 +108,11 @@ function ToolCard({ tool }: { tool: CliTool }): JSX.Element {
       href={sanitizeUrl(tool.repo)}
       target="_blank"
       rel="noopener noreferrer"
-      className="block surface-card p-4 transition-all hover:border-brand-500/50 hover:shadow-e3 hover:shadow-brand-500/5 hover:-translate-y-0.5"
+      className="block surface-card p-4 transition-all hover:border-rose-500/50 hover:shadow-e3 hover:shadow-rose-500/5 hover:-translate-y-0.5"
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <span className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100">{tool.name}</span>
-        <ExternalLink size={12} className="text-slate-400 flex-shrink-0 mt-0.5" />
+        <ExternalLink size={12} className="text-slate-500 dark:text-slate-400 flex-shrink-0 mt-0.5" />
       </div>
       <p className="text-xs text-muted leading-relaxed mb-3 line-clamp-2">{tool.desc}</p>
       <div className="flex items-center gap-2 flex-wrap">
@@ -124,7 +124,7 @@ function ToolCard({ tool }: { tool: CliTool }): JSX.Element {
             {tool.lang}
           </span>
         )}
-        {tool.stars && <span className="text-micro font-mono text-amber-600 dark:text-amber-400">★ {tool.stars}</span>}
+        {tool.stars && <span className="text-micro font-mono text-amber-600 dark:text-amber-400">{tool.stars}</span>}
       </div>
     </a>
   );

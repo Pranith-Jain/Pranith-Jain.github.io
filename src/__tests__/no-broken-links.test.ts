@@ -10,7 +10,7 @@ const read = (p: string): string => readFileSync(join(root, p), 'utf8');
  * Every `to="/threatintel/*"` and `to="/dfir/*"` link in a `.tsx`
  * source file must resolve to either a registered App.tsx route or a
  * redirect target. If a link is a 404, the user lands on a blank
- * `NotFound` page — which is bad UX and is what this guard exists
+ * `NotFound` page - which is bad UX and is what this guard exists
  * to prevent.
  *
  * Pattern matching: routes with `:param` segments (e.g. /threatintel/wiki/:slug)
@@ -59,7 +59,7 @@ function collectLinks(dir: string): Map<string, string[]> {
         const text = readFileSync(full, 'utf8');
         // Capture both React-Router `to="…"` (used by <Link>) and raw
         // `href="…"` (used by plain <a>). The previous version missed
-        // three real broken links in plain <a> tags — the user landed
+        // three real broken links in plain <a> tags - the user landed
         // on a 404. We now scan both, with the same allowlist.
         for (const m of text.matchAll(
           /(?:to|href)="(\/(?:threatintel|dfir|blog|admin|portfolio)\/[^"?]+)(?:\?[^"]*)?"/g

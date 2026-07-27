@@ -190,7 +190,7 @@ export default function InsightAi(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Alert / Log Content</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">required</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">required</span>
             </div>
             <textarea
               value={alertText}
@@ -284,7 +284,7 @@ export default function InsightAi(): JSX.Element {
             <div className="surface-card/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
               <p className="text-sm text-slate-600 dark:text-slate-300">Generating runbook…</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">This may take 15–30 seconds</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">This may take 15–30 seconds</p>
             </div>
           )}
 
@@ -367,7 +367,7 @@ export default function InsightAi(): JSX.Element {
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 Paste an alert and select modes, then click <span className="font-semibold">Generate</span>
               </p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 Output: structured investigation runbook
               </p>
             </div>

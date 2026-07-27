@@ -110,11 +110,11 @@ export function FeedDigestPanel({ items, period = 'daily', onClose }: FeedDigest
           <button
             onClick={fetchDigest}
             disabled={loading}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200"
+            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
-          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200">
+          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200">
             <X size={14} />
           </button>
         </div>
@@ -124,7 +124,7 @@ export function FeedDigestPanel({ items, period = 'daily', onClose }: FeedDigest
         {loading && !digest && (
           <div className="flex items-center gap-2 justify-center py-6">
             <RefreshCw size={14} className="animate-spin text-brand-400" />
-            <span className="text-xs text-slate-400">Generating digest…</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">Generating digest…</span>
           </div>
         )}
 
@@ -145,16 +145,16 @@ export function FeedDigestPanel({ items, period = 'daily', onClose }: FeedDigest
                   <div key={i} className="rounded-xl bg-slate-800/50 p-3 space-y-1">
                     <div className="flex items-center gap-2">
                       <span
-                        className={`text-micro font-mono px-1.5 py-0.5 rounded ${CATEGORY_COLORS[story.category] || 'text-slate-400 bg-slate-500/10'}`}
+                        className={`text-micro font-mono px-1.5 py-0.5 rounded ${CATEGORY_COLORS[story.category] || 'text-slate-500 dark:text-slate-400 bg-slate-500/10'}`}
                       >
                         {story.category}
                       </span>
-                      <span className={`text-micro font-mono ${URGENCY_COLORS[story.urgency] || 'text-slate-400'}`}>
+                      <span className={`text-micro font-mono ${URGENCY_COLORS[story.urgency] || 'text-slate-500 dark:text-slate-400'}`}>
                         {story.urgency}
                       </span>
                     </div>
                     <p className="text-xs font-semibold text-slate-200">{story.headline}</p>
-                    <p className="text-xs text-slate-400">{story.summary}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{story.summary}</p>
                     <p className="text-micro text-slate-500 italic">{story.significance}</p>
                   </div>
                 ))}
@@ -174,7 +174,7 @@ export function FeedDigestPanel({ items, period = 'daily', onClose }: FeedDigest
                 <span className="text-micro font-mono uppercase text-slate-500 block mb-1">Watchlist</span>
                 <ul className="space-y-0.5">
                   {digest.watchlist.map((w, i) => (
-                    <li key={i} className="text-xs text-slate-400 flex items-start gap-1">
+                    <li key={i} className="text-xs text-slate-500 dark:text-slate-400 flex items-start gap-1">
                       <span className="text-brand-400">•</span>
                       {w}
                     </li>

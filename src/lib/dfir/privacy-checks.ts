@@ -388,14 +388,14 @@ export function computeOpsecScore(args: {
       label: 'Battery API exposed',
       weight: 4,
       hit: !!battery,
-      advice: 'Battery info is fingerprintable; modern Firefox/Safari already block it — Chrome still exposes it.',
+      advice: 'Battery info is fingerprintable; modern Firefox/Safari already block it - Chrome still exposes it.',
     },
     {
       id: 'network-info',
       label: 'Network connection info exposed',
       weight: 4,
       hit: !!network?.effectiveType,
-      advice: 'navigator.connection leaks downlink/RTT — Brave and privacy.resistFingerprinting (Firefox) hide it.',
+      advice: 'navigator.connection leaks downlink/RTT - Brave and privacy.resistFingerprinting (Firefox) hide it.',
     },
     {
       id: 'hardware-detailed',
@@ -409,7 +409,7 @@ export function computeOpsecScore(args: {
       label: 'Multiple languages disclosed',
       weight: 3,
       hit: fp.languages.length > 1,
-      advice: 'navigator.languages leaks UI locale list — set one language to reduce uniqueness.',
+      advice: 'navigator.languages leaks UI locale list - set one language to reduce uniqueness.',
     },
     {
       id: 'audio-fingerprint',
@@ -433,7 +433,7 @@ export function computeOpsecScore(args: {
       weight: 3,
       hit: !!fp.speechVoicesCount && fp.speechVoicesCount > 0,
       advice:
-        'Installed system voices are highly stable per-OS — combined with timezone they uniquely identify many devices.',
+        'Installed system voices are highly stable per-OS - combined with timezone they uniquely identify many devices.',
     },
     {
       id: 'permissions-leak',

@@ -130,7 +130,7 @@ export default function HashCalculator(): JSX.Element {
         Hash Calculator
       </h1>
       <p className="text-sm font-mono text-muted mt-1 mb-6">
-        MD5, SHA-1, SHA-256, SHA-384, SHA-512 for text or a dropped file. Fully client-side — nothing is uploaded.
+        MD5, SHA-1, SHA-256, SHA-384, SHA-512 for text or a dropped file. Fully client-side - nothing is uploaded.
       </p>
 
       <textarea

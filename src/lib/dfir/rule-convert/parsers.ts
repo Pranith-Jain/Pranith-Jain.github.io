@@ -7,7 +7,7 @@
  * plus a top-level warning describing what was dropped. Failures return
  * `{ error }` instead of throwing so the caller can surface a clean message.
  *
- * `!=` is deliberately not parsed back to an `eq` predicate — the IR has no
+ * `!=` is deliberately not parsed back to an `eq` predicate - the IR has no
  * negated-predicate op, so capturing it would silently flip negation to
  * equality. We detect its presence and emit a warning instead.
  */
@@ -162,7 +162,7 @@ export function parseSigma(src: string): RuleIR | { error: string } {
 
 /* ════════════════════════ KQL / Splunk SPL ════════════════════════ */
 
-// `!=` is intentionally excluded — see the module header.
+// `!=` is intentionally excluded - see the module header.
 const KQL_PRED_RE = /([A-Za-z_][\w.]*)\s*(==|=~|contains|startswith|endswith|matches\s+regex|has)\s*"([^"]*)"/gi;
 const NEG_OP_RE = /!=\s*"[^"]*"|\bnot\s+\(/i;
 
@@ -203,9 +203,9 @@ export function parseKql(src: string): RuleIR | { error: string } {
   }
   if (preds.length === 0) return { error: 'no recognisable `Field <op> "value"` predicates found in the KQL' };
   if (/\bor\b/i.test(scope) && /\band\b/i.test(scope))
-    warnings.push('mixed and/or detected — flattened to a single AND-ed selection; review the boolean logic');
+    warnings.push('mixed and/or detected - flattened to a single AND-ed selection; review the boolean logic');
   if (NEG_OP_RE.test(scope))
-    warnings.push('negation (`!=` / `not (…)`) detected — not interpreted by the IR; re-add it on the target by hand');
+    warnings.push('negation (`!=` / `not (…)`) detected - not interpreted by the IR; re-add it on the target by hand');
   return {
     groups: [{ name: 'selection', kind: 'fields', predicates: preds }],
     condition: 'selection',
@@ -244,9 +244,9 @@ export function parseSplunk(src: string): RuleIR | { error: string } {
   }
   if (preds.length === 0) return { error: 'no recognisable `field="value"` predicates found in the SPL' };
   if (/\bOR\b/.test(src) && /\bAND\b/.test(src))
-    warnings.push('mixed AND/OR detected — flattened to a single AND-ed selection; review the boolean logic');
+    warnings.push('mixed AND/OR detected - flattened to a single AND-ed selection; review the boolean logic');
   if (SPL_NEG_RE.test(src))
-    warnings.push('negation (`!=` / `NOT`) detected — not interpreted by the IR; re-add it on the target by hand');
+    warnings.push('negation (`!=` / `NOT`) detected - not interpreted by the IR; re-add it on the target by hand');
   return {
     groups: [{ name: 'selection', kind: 'fields', predicates: preds }],
     condition: 'selection',
@@ -400,7 +400,7 @@ export function parseDlp(src: string): RuleIR | { error: string } {
 
 export function parseSupplychain(src: string): RuleIR | { error: string } {
   const warnings = [
-    'Supply-chain parsing only recovers the `pattern-regex:` lines from a Semgrep-style scaffold — ' +
+    'Supply-chain parsing only recovers the `pattern-regex:` lines from a Semgrep-style scaffold - ' +
       'languages, metavariables, and pattern composition are not interpreted.',
   ];
   const preds: Predicate[] = [];

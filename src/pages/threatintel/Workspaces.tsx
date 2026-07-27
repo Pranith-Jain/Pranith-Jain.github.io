@@ -205,7 +205,7 @@ export default function Workspaces() {
             setSelectedId(null);
             setSummary(null);
           }}
-          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
         >
           back
         </button>
@@ -242,7 +242,7 @@ export default function Workspaces() {
                   <div
                     className={`flex items-center gap-1.5 px-2 py-1.5 rounded flex-1 text-mini font-mono ${
                       isCurrent
-                        ? 'bg-brand-50 dark:bg-brand-900/20 border border-brand-200 dark:border-brand-800 font-semibold'
+                        ? 'bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 font-semibold'
                         : isComplete
                           ? 'bg-emerald-50 dark:bg-emerald-900/10'
                           : 'opacity-40'
@@ -251,7 +251,7 @@ export default function Workspaces() {
                     {isComplete ? (
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     ) : (
-                      <phase.icon className={`w-3.5 h-3.5 ${isCurrent ? phase.color : 'text-slate-400'} shrink-0`} />
+                      <phase.icon className={`w-3.5 h-3.5 ${isCurrent ? phase.color : 'text-slate-500 dark:text-slate-400'} shrink-0`} />
                     )}
                     <span
                       className={
@@ -275,7 +275,7 @@ export default function Workspaces() {
               <button
                 onClick={handleAdvance}
                 disabled={advancing || selected.phase === 'complete'}
-                className="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-50 dark:bg-brand-900/20 hover:bg-brand-100 dark:hover:bg-brand-900/30 text-brand-700 dark:text-brand-300 rounded text-mini font-mono font-semibold transition-colors disabled:opacity-50"
+                className="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-50 dark:bg-rose-900/20 hover:bg-rose-100 dark:hover:bg-rose-900/30 text-rose-700 dark:text-rose-300 rounded text-mini font-mono font-semibold transition-colors disabled:opacity-50"
               >
                 {advancing ? <Loader2 className="w-3 h-3 animate-spin" /> : <ArrowRight className="w-3 h-3" />}
                 Advance
@@ -287,7 +287,7 @@ export default function Workspaces() {
         {/* Recommended Commands */}
         <div className="surface-card p-4 mb-6">
           <h2 className="font-display font-semibold text-sm mb-2">
-            Recommended — <span className="text-brand-600 dark:text-brand-400 capitalize">{selected.phase}</span>
+            Recommended - <span className="text-rose-600 dark:text-rose-400 capitalize">{selected.phase}</span>
           </h2>
           <div className="grid grid-cols-2 gap-1.5">
             {(PHASE_COMMANDS[selected.phase] || []).map((cmd) => (
@@ -295,7 +295,7 @@ export default function Workspaces() {
                 key={cmd}
                 className="px-2.5 py-1.5 bg-slate-50 dark:bg-[rgb(var(--surface-100))] rounded border border-slate-100 dark:border-[rgb(var(--border-300))]"
               >
-                <code className="text-mini font-mono text-brand-600 dark:text-brand-400">{cmd}</code>
+                <code className="text-mini font-mono text-rose-600 dark:text-rose-400">{cmd}</code>
               </div>
             ))}
           </div>
@@ -317,7 +317,7 @@ export default function Workspaces() {
               <Link
                 key={to}
                 to={to}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-50 dark:bg-[rgb(var(--surface-100))] rounded border border-slate-100 dark:border-[rgb(var(--border-300))] hover:border-brand-300 dark:hover:border-brand-700 transition-colors text-mini font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-50 dark:bg-[rgb(var(--surface-100))] rounded border border-slate-100 dark:border-[rgb(var(--border-300))] hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors text-mini font-mono text-muted hover:text-slate-900 dark:hover:text-slate-100"
               >
                 <Icon className="w-3 h-3" /> {label}
               </Link>
@@ -333,7 +333,7 @@ export default function Workspaces() {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
       >
         back
       </BackLink>
@@ -342,14 +342,14 @@ export default function Workspaces() {
         <div>
           <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Investigation Workspaces</h1>
           <p className="text-sm font-mono text-muted max-w-2xl">
-            AEAD lifecycle management — Acquire, Enrich, Assess, Deliver. Create workspaces to track investigations
+            AEAD lifecycle management - Acquire, Enrich, Assess, Deliver. Create workspaces to track investigations
             through structured intelligence phases.
           </p>
         </div>
         <button
           type="button"
           onClick={() => setShowCreate(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-brand-700 dark:hover:bg-brand-400"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400"
         >
           <Plus size={14} /> New Workspace
         </button>
@@ -374,7 +374,7 @@ export default function Workspaces() {
                 value={formTitle}
                 onChange={(e) => setFormTitle(e.target.value)}
                 placeholder="Investigation title"
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-rose-500"
               />
             </div>
             <div>
@@ -383,7 +383,7 @@ export default function Workspaces() {
                 value={formTarget}
                 onChange={(e) => setFormTarget(e.target.value)}
                 placeholder="Target (domain, IP, email...)"
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-rose-500"
               />
             </div>
             <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label="Target type">
@@ -394,7 +394,7 @@ export default function Workspaces() {
                   onClick={() => setFormType(t.value)}
                   className={`flex items-center gap-1 px-2 py-1 rounded text-mini font-mono border transition-colors ${
                     formType === t.value
-                      ? 'bg-brand-50 dark:bg-brand-900/20 border-brand-200 dark:border-brand-800 text-brand-700 dark:text-brand-300'
+                      ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300'
                       : 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-400 hover:border-slate-300'
                   }`}
                 >
@@ -409,7 +409,7 @@ export default function Workspaces() {
                 onChange={(e) => setFormDesc(e.target.value)}
                 rows={2}
                 placeholder="Description (optional)"
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
               />
             </div>
           </div>
@@ -423,7 +423,7 @@ export default function Workspaces() {
             </button>
             <button
               type="submit"
-              className="px-4 py-1.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded hover:bg-brand-700 dark:hover:bg-brand-400"
+              className="px-4 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400"
             >
               Create
             </button>
@@ -444,7 +444,7 @@ export default function Workspaces() {
           <p className="font-mono text-sm mb-3">Create a workspace to start a structured investigation</p>
           <button
             onClick={() => setShowCreate(true)}
-            className="text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-mono text-sm font-semibold"
+            className="text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-mono text-sm font-semibold"
           >
             Create your first workspace
           </button>
@@ -465,7 +465,7 @@ export default function Workspaces() {
                   setSelectedId(ws.id);
                 }
               }}
-              className="surface-card hover:border-brand-500/40 transition-colors p-4 cursor-pointer group"
+              className="surface-card hover:border-rose-500/40 transition-colors p-4 cursor-pointer group"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
@@ -488,12 +488,12 @@ export default function Workspaces() {
                       e.stopPropagation();
                       handleDelete(ws.id);
                     }}
-                    className="p-1.5 rounded hover:bg-rose-50 dark:hover:bg-rose-900/20 text-slate-400 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100"
+                    className="p-1.5 rounded hover:bg-rose-50 dark:hover:bg-rose-900/20 text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100"
                     aria-label="Delete workspace"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
-                  <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-400 group-hover:text-brand-500 transition-colors" />
+                  <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-400 group-hover:text-rose-500 transition-colors" />
                 </div>
               </div>
             </div>

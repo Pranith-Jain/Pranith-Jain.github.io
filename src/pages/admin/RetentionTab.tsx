@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { postJsonWithBody } from './adminApi';
 
 /**
- * Admin Retention tab — data retention sweep + Telegram cleanup.
+ * Admin Retention tab - data retention sweep + Telegram cleanup.
  *
  * Two sections:
  *   1. Full retention sweep (13 tables, default 30 days)
@@ -193,12 +193,12 @@ export default function RetentionTab() {
             <div className="text-sm text-slate-700 dark:text-slate-300 mb-3">
               {wasDry ? (
                 <>
-                  <span className="text-amber-700 dark:text-amber-300 font-semibold">Dry run</span> — {totalDeleted}{' '}
+                  <span className="text-amber-700 dark:text-amber-300 font-semibold">Dry run</span> - {totalDeleted}{' '}
                   row(s) would be deleted (no DELETEs issued).
                 </>
               ) : (
                 <>
-                  <span className="text-emerald-700 dark:text-emerald-300 font-semibold">Sweep complete</span> —{' '}
+                  <span className="text-emerald-700 dark:text-emerald-300 font-semibold">Sweep complete</span> -{' '}
                   {totalDeleted} row(s) deleted.
                 </>
               )}
@@ -240,7 +240,7 @@ export default function RetentionTab() {
 
             {result.tables_swept.length === 0 && (
               <p className="text-sm text-slate-600 dark:text-slate-500">
-                No tables had rows past the cutoff — nothing to do.
+                No tables had rows past the cutoff - nothing to do.
               </p>
             )}
           </div>
@@ -248,7 +248,7 @@ export default function RetentionTab() {
 
         <p className="mt-4 text-xs text-slate-600 dark:text-slate-500">
           The sweep excludes <code>api_keys</code>, <code>telegram_watched_channels</code>, <code>ct_watch</code>, and{' '}
-          <code>counters</code> — those are operator-state, not intel.
+          <code>counters</code> - those are operator-state, not intel.
         </p>
       </div>
     </div>

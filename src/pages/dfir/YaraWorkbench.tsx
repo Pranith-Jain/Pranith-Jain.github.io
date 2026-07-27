@@ -21,7 +21,7 @@ export default function YaraWorkbench(): JSX.Element {
       backTo="/dfir"
       icon={<FileCode size={28} />}
       title="YARA Workbench"
-      description="Unified YARA workflow — build rules in the library, then test them against samples in the test lab."
+      description="Unified YARA workflow - build rules in the library, then test them against samples in the test lab."
     >
       <nav
         className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"

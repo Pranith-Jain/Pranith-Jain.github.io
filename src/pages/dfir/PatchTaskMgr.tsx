@@ -208,7 +208,7 @@ export default function PatchTaskMgr(): JSX.Element {
       )}
 
       <div className="flex items-center justify-between mb-4">
-        <div className="flex gap-1 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-0.5">
+        <div className="flex gap-1 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-0.5">
           <button
             type="button"
             onClick={() => setTab('patches')}
@@ -333,7 +333,7 @@ export default function PatchTaskMgr(): JSX.Element {
                       )}
                     </div>
                     <div className="font-mono text-xs font-semibold truncate">{p.title}</div>
-                    <div className="flex flex-wrap items-center gap-2 text-micro text-slate-400 font-mono mt-0.5">
+                    <div className="flex flex-wrap items-center gap-2 text-micro text-slate-500 dark:text-slate-400 font-mono mt-0.5">
                       <span>Released {new Date(p.release_date).toLocaleDateString()}</span>
                       {p.cve_ids.length > 0 && <span>{p.cve_ids.join(', ')}</span>}
                       {p.assigned_to && <span>Assigned: {p.assigned_to}</span>}
@@ -433,7 +433,7 @@ export default function PatchTaskMgr(): JSX.Element {
                       </span>
                     </div>
                     <div className="font-mono text-xs font-semibold truncate">{w.title}</div>
-                    <div className="flex items-center gap-2 text-micro text-slate-400 font-mono mt-0.5">
+                    <div className="flex items-center gap-2 text-micro text-slate-500 dark:text-slate-400 font-mono mt-0.5">
                       <span>{w.affected_systems.length} systems</span>
                       {w.approver && <span>Approver: {w.approver}</span>}
                       {w.patch_ids.length > 0 && <span>{w.patch_ids.length} patches</span>}

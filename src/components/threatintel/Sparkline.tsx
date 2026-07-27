@@ -4,7 +4,7 @@ import { memo } from 'react';
  * Zero-dependency SVG sparkline. Draws a single series as a line + faint
  * area fill with an endpoint dot. Inherits its colour from the parent via
  * `currentColor`, so callers set the tone with a Tailwind text class. Kept
- * tiny and presentational — no animation, no deps — so it adds ~nothing to
+ * tiny and presentational - no animation, no deps - so it adds ~nothing to
  * the bundle and is safe under prefers-reduced-motion.
  *
  * Decorative by default (aria-hidden): the LivePulse cell that hosts it

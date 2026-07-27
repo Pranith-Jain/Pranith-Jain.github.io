@@ -54,7 +54,7 @@ export default function Tracerules(): JSX.Element {
       <div className="surface-card/40 shadow-e1 p-5 mb-6">
         <div className="flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-[200px]">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="text"
               value={query}
@@ -123,7 +123,7 @@ export default function Tracerules(): JSX.Element {
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <FIcon size={14} className="text-slate-400" />
+                      <FIcon size={14} className="text-slate-500 dark:text-slate-400" />
                       <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                         {rule.title}
                       </h3>
@@ -151,14 +151,14 @@ export default function Tracerules(): JSX.Element {
                       ))}
                     </div>
                   </div>
-                  <span className="text-xs text-slate-400 shrink-0">{isOpen ? '▲' : '▼'}</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 shrink-0">{isOpen ? '▲' : '▼'}</span>
                 </div>
               </button>
 
               {isOpen && (
                 <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] p-5 bg-slate-50 dark:bg-[rgb(var(--input-200)/0.6)]">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Query</span>
+                    <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Query</span>
                     <button
                       type="button"
                       onClick={() => copyQuery(rule.id, rule.query)}
@@ -172,7 +172,7 @@ export default function Tracerules(): JSX.Element {
                     {rule.query}
                   </pre>
                   <div className="flex flex-wrap gap-1.5 mt-3">
-                    <span className="text-micro font-mono text-slate-400">Coverage:</span>
+                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400">Coverage:</span>
                     {rule.coverage.map((c) => (
                       <span
                         key={c}
@@ -195,7 +195,7 @@ export default function Tracerules(): JSX.Element {
         </p>
       )}
 
-      <p className="mt-8 text-micro font-mono text-slate-400 text-center">
+      <p className="mt-8 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
         H3AD-DETECT / TRACERULES · {QUERIES.length} rules · KQL · Sigma · XQL
       </p>
     </div>

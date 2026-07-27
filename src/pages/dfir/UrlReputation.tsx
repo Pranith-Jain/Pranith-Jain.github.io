@@ -77,7 +77,7 @@ export default function UrlReputation(): JSX.Element {
         </h1>
         <p className="text-muted mb-8 max-w-2xl">
           Check a URL against 20+ threat intelligence sources in parallel. Get a composite verdict with per-source
-          scores, tags, and evidence — powered by the same streaming pipeline as the IOC Checker.
+          scores, tags, and evidence - powered by the same streaming pipeline as the IOC Checker.
         </p>
       </div>
 
@@ -90,7 +90,7 @@ export default function UrlReputation(): JSX.Element {
       >
         <div className="flex gap-2">
           <div className="flex-1 relative">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
             <input
               ref={inputRef}
               type="text"
@@ -117,7 +117,7 @@ export default function UrlReputation(): JSX.Element {
       </form>
 
       {streaming && eligible.length === 0 && (
-        <p className="text-xs font-mono text-slate-500 animate-pulse mb-4">opening stream — waiting for providers…</p>
+        <p className="text-xs font-mono text-slate-500 animate-pulse mb-4">opening stream - waiting for providers…</p>
       )}
       {error && (
         <p role="alert" className="text-xs font-mono text-rose-600 dark:text-rose-400 mb-4">
@@ -153,7 +153,7 @@ export default function UrlReputation(): JSX.Element {
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               Per-source results
             </h3>
-            <span className="text-mini font-mono text-slate-400">
+            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
               {streaming ? 'streaming…' : `${results.length} sources`}
             </span>
           </div>

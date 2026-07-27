@@ -23,7 +23,7 @@ import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisBut
 import { FeedDigestPanel } from '../../components/threatintel/FeedDigestPanel';
 
 /**
- * Threat Feeds — sectioned aggregator for the threat-intelligence half of
+ * Threat Feeds - sectioned aggregator for the threat-intelligence half of
  * "what's happening." Industry / AI / general-tech content lives in
  * /threatintel/tech-ai-news; scam-watch content lives in /threatintel/scam-watch.
  */
@@ -39,7 +39,7 @@ const SECTIONS: Section[] = [
   {
     id: 'gov',
     label: 'Government advisories',
-    blurb: 'CISA alerts, medical-device advisories, ICS-CERT — authoritative US-government feeds.',
+    blurb: 'CISA alerts, medical-device advisories, ICS-CERT - authoritative US-government feeds.',
     feedIds: landingThreatGovernment,
   },
   {
@@ -63,19 +63,19 @@ const SECTIONS: Section[] = [
   {
     id: 'reddit',
     label: 'Reddit infosec',
-    blurb: 'r/netsec, r/Malware, r/blueteamsec, r/threatintel — community-curated threat content.',
+    blurb: 'r/netsec, r/Malware, r/blueteamsec, r/threatintel - community-curated threat content.',
     feedIds: landingThreatReddit,
   },
   {
     id: 'vulns',
     label: 'Vulnerabilities',
-    blurb: 'CVE Details and Exploit-DB — fresh disclosures and proof-of-concept code.',
+    blurb: 'CVE Details and Exploit-DB - fresh disclosures and proof-of-concept code.',
     feedIds: landingThreatVulns,
   },
   {
     id: 'news',
     label: 'Security news',
-    blurb: 'Independent press — Krebs, Bleeping, SecurityWeek, Schneier, The Register, Wired Security.',
+    blurb: 'Independent press - Krebs, Bleeping, SecurityWeek, Schneier, The Register, Wired Security.',
     feedIds: landingThreatNews,
   },
 ];
@@ -238,7 +238,7 @@ export default function ThreatFeeds(): JSX.Element {
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search title or description — e.g. CVE-2026, lockbit, exchange RCE"
+            placeholder="Search title or description - e.g. CVE-2026, lockbit, exchange RCE"
             className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search Threat Feeds"
           />
@@ -304,7 +304,7 @@ export default function ThreatFeeds(): JSX.Element {
         {showSourcePanel && (
           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 space-y-3 max-h-[420px] overflow-y-auto">
             <div className="flex items-center justify-between gap-2">
-              <p className="text-mini font-mono text-slate-400">
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
                 Toggle individual feeds. Disabling a feed both hides it AND skips the upstream fetch. Persisted in
                 localStorage.
               </p>

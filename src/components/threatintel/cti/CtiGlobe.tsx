@@ -396,7 +396,7 @@ export default function CtiGlobe({
             <span className="w-3 h-3 rounded-full" style={{ backgroundColor: severityColor(hoveredPoint.severity) }} />
             <div>
               <p className="text-sm font-medium text-slate-200">{hoveredPoint.label}</p>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 {hoveredPoint.severity.toUpperCase()} · Count: {hoveredPoint.count}
               </p>
             </div>
@@ -425,7 +425,7 @@ export default function CtiGlobe({
                 </span>
               </div>
               <p className="text-sm font-semibold text-white">{selectedPoint.label}</p>
-              <p className="text-xs text-slate-400 mt-1">Count: {selectedPoint.count}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Count: {selectedPoint.count}</p>
               {selectedPoint.countryCode && (
                 <p className="text-xs text-slate-500 mt-1">Country: {selectedPoint.countryCode}</p>
               )}
@@ -457,7 +457,7 @@ export default function CtiGlobe({
       {/* Stats */}
       {ready && (
         <div className="absolute bottom-4 left-4 bg-[#0f1629]/80 backdrop-blur-sm rounded-xl border border-slate-700/50 px-3 py-1.5 pointer-events-none">
-          <span className="text-micro font-mono text-slate-400">
+          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
             {points.length} points · {arcs.length} arcs
           </span>
         </div>

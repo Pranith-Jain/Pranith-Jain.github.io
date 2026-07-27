@@ -154,7 +154,7 @@ export default function BloomFilter(): JSX.Element {
           <Zap size={28} className="text-brand-600 dark:text-brand-400" /> Bloom Filter Lookup
         </h1>
         <p className="text-muted max-w-2xl leading-relaxed">
-          Ultra-fast probabilistic IOC membership testing. Zero false negatives — if the filter says "not found", the
+          Ultra-fast probabilistic IOC membership testing. Zero false negatives - if the filter says "not found", the
           indicator is definitely not in the set.
         </p>
       </div>
@@ -197,14 +197,14 @@ export default function BloomFilter(): JSX.Element {
           </h2>
           <button
             onClick={fetchStats}
-            className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-400 transition-colors"
+            className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 transition-colors"
           >
             <RefreshCw size={14} />
           </button>
         </div>
         {statsLoading ? (
           <div className="flex items-center justify-center py-6">
-            <Loader2 size={20} className="animate-spin text-slate-400" />
+            <Loader2 size={20} className="animate-spin text-slate-500 dark:text-slate-400" />
           </div>
         ) : stats ? (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -225,8 +225,8 @@ export default function BloomFilter(): JSX.Element {
                   <div className="space-y-0.5 text-xs text-slate-500 dark:text-slate-400">
                     <div>{filter.ioc_count?.toLocaleString()} IOCs</div>
                     <div>FPR: {filter.false_positive_rate}</div>
-                    <div className="text-micro text-slate-400">
-                      {filter.built_at ? new Date(filter.built_at).toLocaleTimeString() : '—'}
+                    <div className="text-micro text-slate-500 dark:text-slate-400">
+                      {filter.built_at ? new Date(filter.built_at).toLocaleTimeString() : '-'}
                     </div>
                   </div>
                 )}

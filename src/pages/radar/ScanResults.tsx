@@ -379,9 +379,9 @@ function JsPanel({ data }: { data: ScanData }) {
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {data.js_files.map((f) => (
           <div key={f.url} className="flex items-center gap-3 px-4 py-2.5 text-sm">
-            <Code className="h-4 w-4 shrink-0 text-slate-400" />
+            <Code className="h-4 w-4 shrink-0 text-slate-500 dark:text-slate-400" />
             <span className="truncate font-mono text-slate-700 dark:text-slate-300">{f.url}</span>
-            <ExternalLink className="ml-auto h-3.5 w-3.5 shrink-0 text-slate-400" />
+            <ExternalLink className="ml-auto h-3.5 w-3.5 shrink-0 text-slate-500 dark:text-slate-400" />
           </div>
         ))}
         {data.js_files.length === 0 && <div className="px-4 py-3 text-sm text-slate-500">No JS files found</div>}
@@ -412,7 +412,7 @@ function EndpointsPanel({ data }: { data: ScanData }) {
               {ep.method}
             </span>
             <span className="truncate font-mono text-slate-700 dark:text-slate-300">{ep.url}</span>
-            <span className="ml-auto shrink-0 text-xs text-slate-400">{ep.type}</span>
+            <span className="ml-auto shrink-0 text-xs text-slate-500 dark:text-slate-400">{ep.type}</span>
           </div>
         ))}
         {data.endpoints.length === 0 && <div className="px-4 py-3 text-sm text-slate-500">No endpoints found</div>}
@@ -587,7 +587,7 @@ function FormsPanel({ data }: { data: ScanData }) {
                 {form.inputs.map((inp) => (
                   <div key={inp.name} className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
                     <span className="font-mono">{inp.name}</span>
-                    <span className="text-slate-400">({inp.type})</span>
+                    <span className="text-slate-500 dark:text-slate-400">({inp.type})</span>
                   </div>
                 ))}
               </div>
@@ -631,7 +631,7 @@ function LinksPanel({ data }: { data: ScanData }) {
       <div className="divide-y divide-slate-100 dark:divide-slate-800">
         {data.links.slice(0, 200).map((link, i) => (
           <div key={i} className="flex items-center gap-3 px-4 py-2 text-sm">
-            <Link2 className="h-4 w-4 shrink-0 text-slate-400" />
+            <Link2 className="h-4 w-4 shrink-0 text-slate-500 dark:text-slate-400" />
             <span className="truncate text-slate-700 dark:text-slate-300">{link.text || link.href}</span>
             {link.rel && (
               <span className="ml-auto shrink-0 rounded bg-slate-100 px-1.5 py-0.5 text-micro text-slate-500 dark:bg-[rgb(var(--surface-300))]">
@@ -880,7 +880,7 @@ export default function ScanResults() {
         </div>
         <div className="mt-4 flex flex-wrap gap-6">
           <MiniStat label="Status" value={`${data.http.status}`} />
-          <MiniStat label="Server" value={data.http.server || '—'} />
+          <MiniStat label="Server" value={data.http.server || '-'} />
           <MiniStat label="URLs" value={`${data.scanned_urls?.length ?? 0}`} />
           <MiniStat label="APIs" value={`${data.api_paths?.length ?? 0}`} />
           <MiniStat label="Domains" value={`${data.domains?.length ?? 0}`} />
@@ -905,7 +905,7 @@ export default function ScanResults() {
                 onClick={() => setActiveTab('secrets')}
                 className={`flex flex-1 items-center justify-center gap-1.5 border-b-2 px-3 py-3 text-xs font-semibold transition-colors ${activeTab === 'secrets' ? 'border-brand-500 text-brand-600 dark:text-brand-400' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
               >
-                <Shield className="h-3.5 w-3.5" /> Keys & Secrets <LockKeyhole className="h-3 w-3 text-slate-400" />
+                <Shield className="h-3.5 w-3.5" /> Keys & Secrets <LockKeyhole className="h-3 w-3 text-slate-500 dark:text-slate-400" />
               </button>
             </div>
             <nav className="flex flex-col p-1">

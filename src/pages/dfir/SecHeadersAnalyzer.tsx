@@ -4,7 +4,7 @@ import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
 /**
- * HTTP Security Headers Analyzer — 100% client-side.
+ * HTTP Security Headers Analyzer - 100% client-side.
  *
  * Paste a raw HTTP response (status line + headers, or just headers;
  * `curl -I` / DevTools "copy response headers" both work). CSP, HSTS,
@@ -81,7 +81,7 @@ function analyze(raw: string): { findings: Finding[]; grade: string; count: numb
           fix: 'Include lines like `Name: value`.',
         },
       ],
-      grade: '—',
+      grade: '-',
       count: 0,
     };
   const f: Finding[] = [];
@@ -93,7 +93,7 @@ function analyze(raw: string): { findings: Finding[]; grade: string; count: numb
     f.push({
       sev: 'high',
       title: 'Missing Strict-Transport-Security',
-      detail: 'No HSTS — a MITM can strip TLS on the first/next visit (sslstrip).',
+      detail: 'No HSTS - a MITM can strip TLS on the first/next visit (sslstrip).',
       fix: 'Add `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`.',
     });
   else {
@@ -121,14 +121,14 @@ function analyze(raw: string): { findings: Finding[]; grade: string; count: numb
     f.push({
       sev: 'high',
       title: 'Missing Content-Security-Policy',
-      detail: 'No CSP — no defense-in-depth against XSS/data injection.',
+      detail: 'No CSP - no defense-in-depth against XSS/data injection.',
       fix: 'Add a strict CSP (nonce/hash-based, no unsafe-inline).',
     });
   else if (!csp && cspRO)
     f.push({
       sev: 'medium',
       title: 'CSP is Report-Only',
-      detail: 'A report-only policy is not enforced — it logs but does not block.',
+      detail: 'A report-only policy is not enforced - it logs but does not block.',
       fix: 'Move to an enforcing Content-Security-Policy once validated.',
     });
   if (csp) {
@@ -143,14 +143,14 @@ function analyze(raw: string): { findings: Finding[]; grade: string; count: numb
       f.push({
         sev: 'medium',
         title: "CSP allows 'unsafe-eval'",
-        detail: 'Permits eval()/new Function — broadens the XSS sink surface.',
+        detail: 'Permits eval()/new Function - broadens the XSS sink surface.',
         fix: 'Remove unsafe-eval; refactor code that needs eval.',
       });
     if (/(script-src|default-src)[^;]*\*(?!\.)/.test(csp))
       f.push({
         sev: 'high',
         title: 'CSP script source is wildcard "*"',
-        detail: 'Any origin can serve scripts — effectively no script restriction.',
+        detail: 'Any origin can serve scripts - effectively no script restriction.',
         fix: 'Allow-list explicit script origins.',
       });
     if (!/default-src|script-src/.test(csp))
@@ -164,7 +164,7 @@ function analyze(raw: string): { findings: Finding[]; grade: string; count: numb
       f.push({
         sev: 'medium',
         title: 'No frame-ancestors and no X-Frame-Options',
-        detail: 'Clickjacking is possible — the page can be framed by anyone.',
+        detail: 'Clickjacking is possible - the page can be framed by anyone.',
         fix: "Add `frame-ancestors 'none'` (or 'self') and/or X-Frame-Options.",
       });
   }
@@ -219,21 +219,21 @@ function analyze(raw: string): { findings: Finding[]; grade: string; count: numb
       sev: 'critical',
       title: 'CORS: ACAO "*" with Allow-Credentials true',
       detail:
-        'An invalid + dangerous combination — strongly signals a reflected-origin misconfig that exposes authenticated data cross-origin.',
+        'An invalid + dangerous combination - strongly signals a reflected-origin misconfig that exposes authenticated data cross-origin.',
       fix: 'Never combine wildcard origin with credentials; allow-list exact origins.',
     });
   else if (acao === '*')
     f.push({
       sev: 'medium',
       title: 'CORS: Access-Control-Allow-Origin "*"',
-      detail: 'Any origin can read responses — fine for truly public data, dangerous for anything authenticated.',
+      detail: 'Any origin can read responses - fine for truly public data, dangerous for anything authenticated.',
       fix: 'Restrict ACAO to specific trusted origins for non-public APIs.',
     });
   else if (acao === 'null')
     f.push({
       sev: 'high',
       title: 'CORS: Access-Control-Allow-Origin "null"',
-      detail: 'The "null" origin is reachable from sandboxed iframes/data URLs — commonly exploitable.',
+      detail: 'The "null" origin is reachable from sandboxed iframes/data URLs - commonly exploitable.',
       fix: 'Never allow the null origin; allow-list explicit origins.',
     });
   else if (acao && acac && !h('vary')?.toLowerCase().includes('origin'))
@@ -346,7 +346,7 @@ export default function SecHeadersAnalyzer(): JSX.Element {
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">HTTP Security Headers Analyzer</h1>
         <p className="text-muted mb-6 max-w-2xl">
-          Paste a raw HTTP response (status line + headers, or just headers —{' '}
+          Paste a raw HTTP response (status line + headers, or just headers -{' '}
           <span className="font-mono text-tool">curl -I</span> or DevTools "copy response headers"). CSP, HSTS, framing,
           CORS, Set-Cookie flags and info-leak headers are graded with per-issue fixes. Nothing leaves your browser.
         </p>

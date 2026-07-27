@@ -32,7 +32,7 @@ import { PivotsTab } from '../../components/dfir/PivotsTab';
 
 type BulkVerdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
-/** One row in the bulk table — assembled from each indicator's `done` event. */
+/** One row in the bulk table - assembled from each indicator's `done` event. */
 interface BulkRow {
   indicator: string;
   type: string;
@@ -47,7 +47,7 @@ interface BulkRow {
   error?: string;
 }
 
-/** Bulk runner — streams each indicator, with a concurrency cap so a paste
+/** Bulk runner - streams each indicator, with a concurrency cap so a paste
  *  of 30 IOCs doesn't open 30 EventSources at once. Uses the same per-IOC
  *  `streamIoc` the single-mode path uses, just promisified. */
 async function runBulk(
@@ -171,7 +171,7 @@ function buildNextSteps(verdict: string, type: string): NextStep {
     ];
     if (type === 'url' || type === 'domain') {
       steps.push('Submit the URL to URLhaus or PhishTank to help other defenders.');
-      steps.push('Check if your DMARC policy is set to reject — phishing campaigns abuse weak SPF/DMARC.');
+      steps.push('Check if your DMARC policy is set to reject - phishing campaigns abuse weak SPF/DMARC.');
     }
     if (type === 'ipv4' || type === 'ipv6') {
       steps.push('Add to your perimeter blocklist; consider rate-limiting the entire ASN if abuse is widespread.');
@@ -180,23 +180,23 @@ function buildNextSteps(verdict: string, type: string): NextStep {
       steps.push('Hunt the hash across EDR. Quarantine endpoints if matches found.');
       steps.push('Pull a sample to a sandbox (Hybrid Analysis, ANY.RUN) for behavioural confirmation.');
     }
-    return { tone: 'malicious', title: 'Confirmed malicious — recommended actions', steps };
+    return { tone: 'malicious', title: 'Confirmed malicious - recommended actions', steps };
   }
   if (verdict === 'suspicious') {
     return {
       tone: 'suspicious',
-      title: 'Mixed signals — recommended actions',
+      title: 'Mixed signals - recommended actions',
       steps: [
         "Treat as untrusted until cleared. Don't auto-allow if it appears in user-reported phishing or alerts.",
         'Cross-check with other tools: Domain Lookup for registration age, Subdomain Takeover for dangling pointers, URL Preview for content inspection.',
         'Search your logs for prior interactions; one signal in isolation is rarely enough to act on.',
-        'Re-run in 24h — providers update their feeds frequently and a "suspicious" verdict often hardens or clears within a day.',
+        'Re-run in 24h - providers update their feeds frequently and a "suspicious" verdict often hardens or clears within a day.',
       ],
     };
   }
   return {
     tone: 'clean',
-    title: 'No active threat signal — operational notes',
+    title: 'No active threat signal - operational notes',
     steps: [
       'Clean now does not mean clean tomorrow. Re-check periodically if this indicator stays in scope.',
       'A clean verdict on a freshly-registered domain or recently-rotated IP is weaker evidence than for a long-established asset.',
@@ -221,7 +221,7 @@ export default function IocCheck(): JSX.Element {
   const canSubmit = !!input.trim() && detectedType !== 'unknown' && !streaming;
   // The Checker only enriches network indicators + hashes (detectType's domain).
   // When the input is a recognized IOC of another kind (CVE / MITRE / ASN / BTC),
-  // don't dead-end with "unrecognized" — `detectIoc` is the richer detector and
+  // don't dead-end with "unrecognized" - `detectIoc` is the richer detector and
   // `getIocPivots` gives the canonical tool to route to instead.
   const richIoc = input.trim() && detectedType === 'unknown' ? detectIoc(refang(input.trim())) : null;
   const redirectPivot = richIoc ? (getIocPivots(richIoc)[0] ?? null) : null;
@@ -229,7 +229,7 @@ export default function IocCheck(): JSX.Element {
   // ── Bulk mode ──────────────────────────────────────────────────────────
   // Toggle to a multi-line textarea; pool 3 streamIoc() calls; collect
   // each indicator's `done` event into a table row. Single-mode behaviour
-  // is untouched — the two modes live side-by-side on the same page.
+  // is untouched - the two modes live side-by-side on the same page.
   const [mode, setMode] = useState<'single' | 'bulk'>('single');
   const [bulkInput, setBulkInput] = useState('');
   const [bulkRows, setBulkRows] = useState<BulkRow[]>([]);
@@ -425,7 +425,7 @@ export default function IocCheck(): JSX.Element {
 
       <ToolDocs path="/dfir/ioc-check" />
 
-      {/* Mode toggle — single is the default, faithful to the existing
+      {/* Mode toggle - single is the default, faithful to the existing
           single-IOC streaming experience. Bulk swaps to a paste-many UI
           with a table of per-IOC verdicts + CSV/JSON export. */}
       <div className="mb-4 inline-flex rounded border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
@@ -525,7 +525,7 @@ export default function IocCheck(): JSX.Element {
               </>
             )}
             {bulkIndicators.length > 0 && (
-              <span className="text-mini font-mono text-slate-400">
+              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
                 detected {bulkIndicators.length} unique indicator{bulkIndicators.length === 1 ? '' : 's'}
                 {bulkInput.split(/[\s,;|]+/).filter(Boolean).length > BULK_MAX && ` (capped at ${BULK_MAX})`}
               </span>
@@ -589,9 +589,9 @@ export default function IocCheck(): JSX.Element {
                           {r.type === 'unknown' ? '?' : r.type}
                         </td>
                         <td className="px-3 py-2">
-                          {r.status === 'pending' && <span className="text-mini font-mono text-slate-400">queued</span>}
+                          {r.status === 'pending' && <span className="text-mini font-mono text-slate-500 dark:text-slate-400">queued</span>}
                           {r.status === 'running' && (
-                            <span className="inline-flex items-center gap-1 text-mini font-mono text-slate-400">
+                            <span className="inline-flex items-center gap-1 text-mini font-mono text-slate-500 dark:text-slate-400">
                               <Loader2 size={11} className="animate-spin" /> running
                             </span>
                           )}
@@ -601,13 +601,13 @@ export default function IocCheck(): JSX.Element {
                           {r.status === 'done' && r.verdict && <VerdictChip verdict={r.verdict} />}
                         </td>
                         <td className="px-3 py-2 text-right font-mono tabular-nums">
-                          {r.score !== undefined ? `${r.score}/100` : '—'}
+                          {r.score !== undefined ? `${r.score}/100` : '-'}
                         </td>
                         <td className="px-3 py-2 text-meta font-mono text-slate-500">
-                          {r.contributing !== undefined && r.total !== undefined ? `${r.contributing}/${r.total}` : '—'}
+                          {r.contributing !== undefined && r.total !== undefined ? `${r.contributing}/${r.total}` : '-'}
                         </td>
                         <td className="px-3 py-2 text-meta font-mono text-slate-700 dark:text-slate-300">
-                          {r.flagged && r.flagged.length > 0 ? r.flagged.join(', ') : '—'}
+                          {r.flagged && r.flagged.length > 0 ? r.flagged.join(', ') : '-'}
                           {r.error && <span className="text-rose-500"> ({r.error})</span>}
                         </td>
                       </tr>
@@ -662,7 +662,7 @@ export default function IocCheck(): JSX.Element {
             <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-xl border border-brand-500/30 bg-brand-500/5 px-3 py-2 text-xs font-mono">
               <span className="text-slate-600 dark:text-slate-300">
                 <code className="font-semibold text-slate-900 dark:text-slate-100">{richIoc.value}</code> is a{' '}
-                {IOC_TYPE_LABEL[richIoc.type]} — the IOC Checker enriches network indicators &amp; hashes. Open it in:
+                {IOC_TYPE_LABEL[richIoc.type]} - the IOC Checker enriches network indicators &amp; hashes. Open it in:
               </span>
               {redirectPivot.external ? (
                 <a
@@ -739,7 +739,7 @@ export default function IocCheck(): JSX.Element {
                   <h3 className="font-display font-semibold text-sm mb-2">NATO Admiralty Code</h3>
                   <p className="text-sm font-mono text-muted leading-relaxed">
                     <span className="font-bold">{summary.admiralty.label}</span>
-                    {' — '}
+                    {' - '}
                     Reliability <strong>{summary.admiralty.reliability}</strong> (source ceiling), Credibility{' '}
                     <strong>{summary.admiralty.credibility}</strong> (IOC type baseline). IP-based IOCs cap at D because
                     addresses rotate fast; hashes and CVEs score higher as persistent artifacts.
@@ -797,7 +797,7 @@ export default function IocCheck(): JSX.Element {
                         setCopied('explain');
                         setTimeout(() => setCopied(null), 2000);
                       }}
-                      className="text-xs font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                      className="text-xs font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                     >
                       {copied === 'explain' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                     </button>
@@ -861,7 +861,7 @@ export default function IocCheck(): JSX.Element {
           <h3 className="font-display font-semibold mb-4 text-lg">Per-source</h3>
           {streaming && eligible.length === 0 ? (
             <p className="text-xs font-mono text-slate-500 dark:text-slate-400 animate-pulse">
-              opening stream — waiting for eligible providers…
+              opening stream - waiting for eligible providers…
             </p>
           ) : (
             <div className="grid sm:grid-cols-2 gap-3">

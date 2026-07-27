@@ -7,7 +7,7 @@
  * the home pages can surface a "Recently used" QuickActions row above
  * the curated default.
  *
- * Privacy note: the entire app is "no tracking, no analytics" — this
+ * Privacy note: the entire app is "no tracking, no analytics" - this
  * stays on-device, never leaves the browser, and the data is wiped if
  * the user clears site storage. The localStorage key is namespaced
  * `pj.recent.<section>` so a DFIR visitor doesn't see Threat Intel
@@ -21,7 +21,7 @@ const RECENT_LIMIT = 4;
 export interface RecentEntry {
   path: string;
   label: string;
-  /** epoch ms — used to dedupe and to render "2 min ago" hints. */
+  /** epoch ms - used to dedupe and to render "2 min ago" hints. */
   at: number;
 }
 
@@ -59,7 +59,7 @@ function read(section: 'dfir' | 'threatintel' | 'radar'): RecentEntry[] {
 }
 
 /**
- * Read up to `limit` most-recent entries for a section — the single canonical
+ * Read up to `limit` most-recent entries for a section - the single canonical
  * reader. `useRecentTools` calls this instead of re-implementing the parse,
  * type-guard, and key derivation.
  */
@@ -72,7 +72,7 @@ function write(section: 'dfir' | 'threatintel' | 'radar', entries: RecentEntry[]
   try {
     window.localStorage.setItem(key(section), JSON.stringify(entries.slice(0, MAX_ENTRIES)));
   } catch {
-    /* quota / disabled — silent. */
+    /* quota / disabled - silent. */
   }
 }
 

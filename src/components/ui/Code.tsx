@@ -91,7 +91,7 @@ export function CodeBlock({
         <button
           type="button"
           onClick={handleCopy}
-          className={`absolute right-2 top-2 rounded p-1.5 text-slate-400 opacity-0 transition-all hover:text-slate-600 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 group-hover:opacity-100 dark:hover:text-slate-300 ${
+          className={`absolute right-2 top-2 rounded p-1.5 text-slate-500 dark:text-slate-400 opacity-0 transition-all hover:text-slate-600 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 group-hover:opacity-100 dark:hover:text-slate-300 ${
             copied ? 'opacity-100 text-emerald-500' : ''
           }`}
           aria-label={copied ? 'Copied' : 'Copy to clipboard'}

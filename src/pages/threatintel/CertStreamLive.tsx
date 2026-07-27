@@ -29,7 +29,7 @@ const MAX_BUFFER = 500;
 const STORAGE_KEY = 'threatintel.certstream.keyword';
 
 // Defaults are bare apex domains so the secondary upstream (Cert Spotter)
-// can serve them when crt.sh is 502'ing — that lifecycle is the most
+// can serve them when crt.sh is 502'ing - that lifecycle is the most
 // common analyst use case (watch certs for MY brand). Wildcard patterns
 // (`%anthrop%`) still work but are crt.sh-only; the page surfaces a
 // "upstream degraded" banner when crt.sh is down and a wildcard is set.
@@ -152,7 +152,7 @@ export default function CertStreamLive(): JSX.Element {
       localStorage.setItem(STORAGE_KEY, keyword.trim());
     } catch (_catchErr) {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* localStorage unavailable — fine, just won't persist */
+      /* localStorage unavailable - fine, just won't persist */
     }
     setItems([]);
     watermarkRef.current = 0;
@@ -180,7 +180,7 @@ export default function CertStreamLive(): JSX.Element {
           onChange={(e) => setKeyword(e.target.value)}
           disabled={streaming}
           placeholder="e.g. %anthrop%   (use % as wildcard)"
-          className="flex-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !streaming) start();
           }}
@@ -198,7 +198,7 @@ export default function CertStreamLive(): JSX.Element {
             type="button"
             onClick={start}
             disabled={!keyword.trim()}
-            className="inline-flex items-center justify-center gap-1.5 rounded bg-brand-600 px-3 py-2 text-xs font-mono font-semibold text-white hover:bg-brand-500 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="inline-flex items-center justify-center gap-1.5 rounded bg-rose-600 px-3 py-2 text-xs font-mono font-semibold text-white hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <Play size={12} /> Start stream
           </button>
@@ -212,7 +212,7 @@ export default function CertStreamLive(): JSX.Element {
             key={s.label}
             type="button"
             onClick={() => setKeyword(s.keyword)}
-            className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
+            className="text-mini font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-0.5 text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-500/40"
           >
             {s.label}
           </button>
@@ -225,7 +225,7 @@ export default function CertStreamLive(): JSX.Element {
     <DataPageLayout
       backTo="/threatintel"
       icon={<Radio size={28} />}
-      title="CertStream — live CT log"
+      title="CertStream - live CT log"
       description="Live Certificate Transparency feed filtered by a keyword. Polls crt.sh every 15s and tickers in newly-issued certificates matching your watch term. Use %substring% for fuzzy lookalikes (typosquats, homographs, brand impersonations) or a bare term for an exact apex match."
       headerExtra={headerExtra}
     >
@@ -246,14 +246,14 @@ export default function CertStreamLive(): JSX.Element {
           {keyword.includes('%') ? (
             <>
               {' '}
-              — wildcard patterns can only be served by crt.sh, which is currently returning 502.
+              - wildcard patterns can only be served by crt.sh, which is currently returning 502.
               <span className="block mt-1 text-amber-800/80 dark:text-amber-300/80">
                 For a bare apex domain (e.g. <code className="font-mono">anthropic.com</code>), the page auto-falls-back
-                to Cert Spotter — try a non-wildcard keyword to keep the stream live.
+                to Cert Spotter - try a non-wildcard keyword to keep the stream live.
               </span>
             </>
           ) : (
-            <> — falling back to Cert Spotter. ({upstreamDegraded})</>
+            <> - falling back to Cert Spotter. ({upstreamDegraded})</>
           )}
         </div>
       )}
@@ -269,7 +269,7 @@ export default function CertStreamLive(): JSX.Element {
               ) : (
                 <>
                   <span className="text-slate-700 dark:text-slate-300 font-semibold">{items.length}</span> certs
-                  buffered · high-water id <code>{highWater || '—'}</code>
+                  buffered · high-water id <code>{highWater || '-'}</code>
                   {lastPoll && <> · last poll {formatTimeAgo(lastPoll)}</>}
                 </>
               )}
@@ -332,7 +332,7 @@ export default function CertStreamLive(): JSX.Element {
                         href={it.crtsh_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+                        className="text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
                         title="Open on crt.sh"
                       >
                         <ExternalLink size={12} />
@@ -345,7 +345,7 @@ export default function CertStreamLive(): JSX.Element {
                         to={`/dfir/cert-search?domain=${encodeURIComponent(
                           (it.common_name || it.dns_names[0] || '').replace(/^\*\./, '')
                         )}`}
-                        className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+                        className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-0.5"
                       >
                         <Search size={9} /> investigate
                       </Link>
@@ -360,12 +360,12 @@ export default function CertStreamLive(): JSX.Element {
 
       {!streaming && (
         <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50/60 dark:bg-[rgb(var(--input-200)/0.4)] p-8 text-center">
-          <Radio size={28} className="mx-auto text-slate-400 mb-2" />
+          <Radio size={28} className="mx-auto text-slate-500 dark:text-slate-400 mb-2" />
           <p className="text-sm font-mono text-slate-500">
-            Enter a keyword and press <span className="text-brand-600 dark:text-brand-400">Start stream</span> to begin
+            Enter a keyword and press <span className="text-rose-600 dark:text-rose-400">Start stream</span> to begin
             polling.
           </p>
-          <p className="text-mini font-mono text-slate-400 mt-2">
+          <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-2">
             Tip: brand-name fuzzy patterns (e.g. <code>%g1thub%</code>) surface lookalike issuances within minutes of
             certificate creation.
           </p>

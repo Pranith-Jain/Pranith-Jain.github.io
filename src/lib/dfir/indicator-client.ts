@@ -141,7 +141,7 @@ export function extractIndicators(text: string, max = 6): ExtractedIndicator[] {
     out.push({ type: 'url', value: url });
   }
 
-  // Hashes (high confidence — long hex sequences are unlikely false positives)
+  // Hashes (high confidence - long hex sequences are unlikely false positives)
   for (const m of refanged.matchAll(HASH_FIND)) {
     const v = m[0].toLowerCase();
     if (seen.has(v)) continue;
@@ -160,7 +160,7 @@ export function extractIndicators(text: string, max = 6): ExtractedIndicator[] {
     out.push({ type: 'ipv4', value: ip });
   }
 
-  // Domains — skip if already inside a captured URL, skip false positives + news domains
+  // Domains - skip if already inside a captured URL, skip false positives + news domains
   const urlHosts = out
     .filter((i) => i.type === 'url')
     .map((i) => {

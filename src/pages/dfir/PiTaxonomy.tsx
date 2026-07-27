@@ -43,7 +43,7 @@ const CAT: Record<
     dot: 'bg-orange-400',
     badge: 'bg-orange-500/10 text-orange-500 border-orange-500/30',
     cardBorder: 'border-l-orange-500',
-    cardHover: 'hover:bg-orange-500/5 hover:shadow-[0_0_20px_rgba(249,115,22,0.15)]',
+    cardHover: 'hover:bg-orange-500/5 hover:shadow-e2',
     icon: 'T',
   },
   evasions: {
@@ -53,7 +53,7 @@ const CAT: Record<
     dot: 'bg-purple-400',
     badge: 'bg-purple-500/10 text-purple-500 border-purple-500/30',
     cardBorder: 'border-l-purple-500',
-    cardHover: 'hover:bg-purple-500/5 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)]',
+    cardHover: 'hover:bg-purple-500/5 hover:shadow-e2',
     icon: 'E',
   },
   intents: {
@@ -63,7 +63,7 @@ const CAT: Record<
     dot: 'bg-red-400',
     badge: 'bg-red-500/10 text-red-500 border-red-500/30',
     cardBorder: 'border-l-red-500',
-    cardHover: 'hover:bg-red-500/5 hover:shadow-[0_0_20px_rgba(239,68,68,0.15)]',
+    cardHover: 'hover:bg-red-500/5 hover:shadow-e2',
     icon: 'I',
   },
   inputs: {
@@ -73,7 +73,7 @@ const CAT: Record<
     dot: 'bg-teal-400',
     badge: 'bg-teal-500/10 text-teal-500 border-teal-500/30',
     cardBorder: 'border-l-teal-500',
-    cardHover: 'hover:bg-teal-500/5 hover:shadow-[0_0_20px_rgba(20,184,166,0.15)]',
+    cardHover: 'hover:bg-teal-500/5 hover:shadow-e2',
     icon: 'In',
   },
 };
@@ -150,7 +150,7 @@ export default function PiTaxonomy() {
       backTo="/dfir"
       icon={<Shield size={28} />}
       title="PI Taxonomy"
-      description="Arcanum Prompt Injection Taxonomy — 172 classified attack nodes for AI red teaming. Based on the work by Jason Haddix, Arcanum Information Security."
+      description="Arcanum Prompt Injection Taxonomy - 172 classified attack nodes for AI red teaming. Based on the work by Jason Haddix, Arcanum Information Security."
       maxWidthClass="max-w-7xl"
     >
       {/* Stats */}
@@ -170,7 +170,7 @@ export default function PiTaxonomy() {
       {/* Search + Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={search}
@@ -246,7 +246,7 @@ export default function PiTaxonomy() {
         </div>
       )}
 
-      {visibleCards.length === 0 && <div className="text-center py-12 text-slate-400">No results for "{search}"</div>}
+      {visibleCards.length === 0 && <div className="text-center py-12 text-slate-500 dark:text-slate-400">No results for "{search}"</div>}
 
       {/* Footer */}
       <div className="mt-8 pt-6 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-center">
@@ -262,7 +262,7 @@ export default function PiTaxonomy() {
           </a>{' '}
           by Jason Haddix
         </p>
-        <p className="text-mini text-slate-400 mt-1">CC BY 4.0 · arcanum-sec.com/pitax</p>
+        <p className="text-mini text-slate-500 dark:text-slate-400 mt-1">CC BY 4.0 · arcanum-sec.com/pitax</p>
       </div>
 
       {/* Modal */}
@@ -295,13 +295,13 @@ function Card({ cat, node, onClick }: { cat: Category; node: TaxonomyNode; onCli
       </div>
       <p className="text-tool text-slate-600 dark:text-slate-400 line-clamp-2">{node.description}</p>
       {node.aliases && node.aliases.length > 0 && (
-        <p className="text-mini text-slate-400 mt-2 font-mono line-clamp-1">
+        <p className="text-mini text-slate-500 dark:text-slate-400 mt-2 font-mono line-clamp-1">
           <span className="text-cyan-500 font-semibold">aka</span> {node.aliases.join(' · ')}
         </p>
       )}
       <div className="flex items-center justify-between mt-3 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]/50">
-        <span className="text-mini text-slate-400">{node.ideas?.length ?? 0} ideas</span>
-        {cat !== 'inputs' && <span className="text-mini text-slate-400">{node.examples?.length ?? 0} prompts</span>}
+        <span className="text-mini text-slate-500 dark:text-slate-400">{node.ideas?.length ?? 0} ideas</span>
+        {cat !== 'inputs' && <span className="text-mini text-slate-500 dark:text-slate-400">{node.examples?.length ?? 0} prompts</span>}
         <span className="text-mini text-brand-500 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
           View →
         </span>
@@ -337,7 +337,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
           >
             <X size={16} />
           </button>

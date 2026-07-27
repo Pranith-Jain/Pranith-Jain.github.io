@@ -174,7 +174,7 @@ export default function OneTimeSecret() {
         <>
           <p className="text-xs font-mono text-slate-500 max-w-xl">
             Secrets are encrypted in your browser before being sent to the server. The decryption key is embedded in the
-            share URL — the server never sees it. Once viewed, the secret is permanently deleted.
+            share URL - the server never sees it. Once viewed, the secret is permanently deleted.
           </p>
 
           <div>

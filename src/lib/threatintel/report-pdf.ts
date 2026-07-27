@@ -109,7 +109,7 @@ export async function exportReportPdf(report: Report): Promise<void> {
 
   // ── Executive summary ──
   heading('Executive Summary');
-  mdBlock(report.executive_summary || '—');
+  mdBlock(report.executive_summary || '-');
 
   // ── Sections ──
   for (const sec of report.sections) {
@@ -124,7 +124,7 @@ export async function exportReportPdf(report: Report): Promise<void> {
   };
   if (report.appendices.iocs.length) {
     ensure(60);
-    heading('Appendix A — Indicators');
+    heading('Appendix A - Indicators');
     autoTable(doc, {
       startY: y,
       head: [['Type', 'Value']],
@@ -136,7 +136,7 @@ export async function exportReportPdf(report: Report): Promise<void> {
   }
   if (report.appendices.mitre.length) {
     ensure(60);
-    heading('Appendix B — MITRE ATT&CK');
+    heading('Appendix B - MITRE ATT&CK');
     autoTable(doc, {
       startY: y,
       head: [['Technique', 'Name', 'Tactic']],
@@ -148,7 +148,7 @@ export async function exportReportPdf(report: Report): Promise<void> {
   }
   if (report.appendices.cves.length) {
     ensure(60);
-    heading('Appendix C — CVEs');
+    heading('Appendix C - CVEs');
     autoTable(doc, {
       startY: y,
       head: [['CVE', 'CVSS', 'EPSS', 'KEV']],
@@ -160,7 +160,7 @@ export async function exportReportPdf(report: Report): Promise<void> {
   }
   if (report.appendices.sources.length) {
     ensure(60);
-    heading('Appendix D — Sources (Admiralty)');
+    heading('Appendix D - Sources (Admiralty)');
     autoTable(doc, {
       startY: y,
       head: [['#', 'Source', 'Reliability']],

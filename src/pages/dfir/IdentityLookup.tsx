@@ -39,7 +39,7 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
               className="w-10 h-10 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))]"
             />
           ) : (
-            <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-lg text-slate-400">
+            <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-lg text-slate-500 dark:text-slate-400">
               {platform.icon}
             </div>
           )}
@@ -49,7 +49,7 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
             <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
               {profile.displayName ?? profile.username}
             </span>
-            <span className="text-micro font-mono text-slate-400">@{profile.username}</span>
+            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">@{profile.username}</span>
             <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 flex items-center gap-1">
               <CatIcon size={10} /> {CATEGORY_LABELS[platform.category] ?? platform.category}
             </span>
@@ -57,13 +57,13 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
           <div className="text-mini font-mono text-muted mt-1 leading-relaxed line-clamp-2">
             {profile.bio ?? 'No bio'}
           </div>
-          <div className="flex items-center gap-3 mt-1.5 text-micro font-mono text-slate-400 flex-wrap">
+          <div className="flex items-center gap-3 mt-1.5 text-micro font-mono text-slate-500 dark:text-slate-400 flex-wrap">
             {profile.followers !== undefined && <span>↑ {profile.followers} followers</span>}
             {profile.following !== undefined && <span>↓ {profile.following} following</span>}
             {profile.publicRepos !== undefined && <span>⊞ {profile.publicRepos} repos</span>}
             {profile.location && (
               <span className="inline-flex items-center gap-1">
-                <MapPin size={12} className="text-slate-400" />
+                <MapPin size={12} className="text-slate-500 dark:text-slate-400" />
                 {profile.location}
               </span>
             )}
@@ -168,7 +168,7 @@ export default function IdentityLookup(): JSX.Element {
           className="flex flex-wrap gap-2"
         >
           <div className="relative flex-1 min-w-[220px]">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               ref={inputRef}
               type="text"
@@ -199,7 +199,7 @@ export default function IdentityLookup(): JSX.Element {
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono flex items-center gap-2">
                 <Globe size={14} /> Profiles for <span className="text-slate-900 dark:text-slate-100">@{query}</span>
               </h2>
-              <span className="text-mini font-mono text-slate-400">
+              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
                 {foundCount} found · {PLATFORMS.length - foundCount} not found
               </span>
             </div>
@@ -244,15 +244,15 @@ export default function IdentityLookup(): JSX.Element {
                     key={platform.id}
                     className="flex items-center gap-3 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
-                    <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-lg text-slate-400">
+                    <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center text-lg text-slate-500 dark:text-slate-400">
                       {platform.icon}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <span className="font-display font-semibold text-sm text-slate-500">{platform.name}</span>
-                        <span className="text-micro font-mono text-slate-400">@{query}</span>
+                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">@{query}</span>
                       </div>
-                      <p className="text-mini font-mono text-slate-400 mt-0.5">
+                      <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5">
                         {profiles.get(platform.id) === undefined ? 'Checking...' : 'Not found'}
                       </p>
                     </div>

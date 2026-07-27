@@ -13,14 +13,14 @@ interface SolutionPillar {
 const PILLARS: SolutionPillar[] = [
   {
     title: 'CRUCIBLE',
-    desc: 'DFIR toolkit — IOC enrichment, domain triage, email defense, breach lookup, OSINT pivots, web/cert scanning. Browser-side or edge-hosted.',
+    desc: 'DFIR toolkit - IOC enrichment, domain triage, email defense, breach lookup, OSINT pivots, web/cert scanning. Browser-side or edge-hosted.',
     href: '/dfir',
     icon: ShieldAlert,
     bullets: ['90+ tools', 'IOC Checker', 'Email Defense (SPF/DKIM/DMARC)', 'Domain · ASN · Cert · Web'],
   },
   {
     title: 'PANOPTICON',
-    desc: 'Threat intel platform — ransomware leak claims, infostealer logs, CVE/KEV stream, Telegram/Bluesky/Mastodon firehose, dark-web watch, daily + weekly briefings.',
+    desc: 'Threat intel platform - ransomware leak claims, infostealer logs, CVE/KEV stream, Telegram/Bluesky/Mastodon firehose, dark-web watch, daily + weekly briefings.',
     href: '/threatintel',
     icon: Activity,
     bullets: ['100+ live feeds', 'Ransomware activity', 'Live CVE + KEV', 'Threat Pulse'],
@@ -34,7 +34,7 @@ const PILLARS: SolutionPillar[] = [
   },
   {
     title: 'IOC Stream',
-    desc: 'Cross-source correlation engine — indicators appearing in 2+ feeds ranked by source consensus, with per-IOC reporter handles and freshness badges.',
+    desc: 'Cross-source correlation engine - indicators appearing in 2+ feeds ranked by source consensus, with per-IOC reporter handles and freshness badges.',
     href: '/threatintel/correlation',
     icon: Radio,
     bullets: ['30+ IOC feeds', 'Consensus ranking', 'STIX 2.1 export', 'Live stream'],
@@ -74,7 +74,7 @@ export function Solutions() {
                 </h3>
                 <ArrowRight
                   size={18}
-                  className="ml-auto text-slate-400 transition-transform group-hover:text-brand-500 group-hover:translate-x-0.5"
+                  className="ml-auto text-slate-500 dark:text-slate-400 transition-transform group-hover:text-brand-500 group-hover:translate-x-0.5"
                   aria-hidden="true"
                 />
               </div>

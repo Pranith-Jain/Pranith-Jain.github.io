@@ -33,7 +33,7 @@ export interface RedHuntAuthor {
 }
 
 export interface RedHuntTool {
-  /** URL slug — used for keys; not exposed in the UI. */
+  /** URL slug - used for keys; not exposed in the UI. */
   id: string;
   name: string;
   url: string;
@@ -61,16 +61,16 @@ export const SECTIONS: RedHuntSection[] = [
   {
     id: 'research',
     short: 'Research',
-    longTitle: 'Project Resonance — Internet-Wide Security Research',
+    longTitle: 'Project Resonance - Internet-Wide Security Research',
     intro:
       "Project Resonance is RedHunt Labs' flagship research initiative: internet-wide port scans, exposure studies, and data leak surveys released one Wave at a time. Every wave targets a specific area (exposed control panels, misconfigured cloud storage, etc.) and ships with a downloadable dataset. They take exclusions seriously and stop scanning hosts that ask to be excluded.",
   },
   {
     id: 'datasets',
     short: 'Datasets',
-    longTitle: 'Research Datasets — Project Resonance Waves',
+    longTitle: 'Research Datasets - Project Resonance Waves',
     intro:
-      'Each Project Resonance wave ships a structured dataset — typically CSV / JSON of exposed assets, with tags for the asset type, the country of origin, and a confidence score. The datasets are freely downloadable. The live listing is on the upstream /datasets page, where you can filter by wave.',
+      'Each Project Resonance wave ships a structured dataset - typically CSV / JSON of exposed assets, with tags for the asset type, the country of origin, and a confidence score. The datasets are freely downloadable. The live listing is on the upstream /datasets page, where you can filter by wave.',
   },
   {
     id: 'about',
@@ -150,7 +150,7 @@ export const TOOLS: RedHuntTool[] = [
     tags: ['recon', 'osint'],
     conferences: [],
     description:
-      'Custom search tool that looks for specific keywords or strings across a variety of online IDEs, paste sites, and code-sharing platforms. Helps security professionals, developers, and researchers quickly identify potentially sensitive or exposed information — code snippets, credentials, and other critical data that may have been inadvertently shared publicly.',
+      'Custom search tool that looks for specific keywords or strings across a variety of online IDEs, paste sites, and code-sharing platforms. Helps security professionals, developers, and researchers quickly identify potentially sensitive or exposed information - code snippets, credentials, and other critical data that may have been inadvertently shared publicly.',
   },
   {
     id: 'redhunt-os',
@@ -217,21 +217,21 @@ export const RESEARCH_ITEMS: RedHuntResearchItem[] = [
     title: 'Awesome AI Exposure Cheatsheet',
     url: 'https://github.com/redhuntlabs/awesome-ai-exposure-cheatsheet',
     summary:
-      'Curated resources for finding and assessing AI/LLM exposures — model endpoints, MCP servers, prompt-injection surfaces, and misconfigured inference infrastructure.',
+      'Curated resources for finding and assessing AI/LLM exposures - model endpoints, MCP servers, prompt-injection surfaces, and misconfigured inference infrastructure.',
   },
   {
     id: 'aegis-ai-governance-framework',
-    title: 'Aegis — AI Governance Framework',
+    title: 'Aegis - AI Governance Framework',
     url: 'https://github.com/redhuntlabs/Aegis-AI-Governance-Framework',
     summary:
-      'Open framework for assessing AI governance posture — model risk classification, policy enforcement, and audit trail generation for organizations deploying AI/ML systems.',
+      'Open framework for assessing AI governance posture - model risk classification, policy enforcement, and audit trail generation for organizations deploying AI/ML systems.',
   },
   {
     id: 'one-liner-pocs',
     title: 'One-liner POCs',
     url: 'https://github.com/redhuntlabs/one-liner-pocs',
     summary:
-      'Single-line command-line proof-of-concept snippets for reproducing common vulnerability classes — useful for blue teams validating detections and for offensive security researchers documenting new findings.',
+      'Single-line command-line proof-of-concept snippets for reproducing common vulnerability classes - useful for blue teams validating detections and for offensive security researchers documenting new findings.',
   },
   {
     id: 'wizard',
@@ -245,7 +245,7 @@ export const RESEARCH_ITEMS: RedHuntResearchItem[] = [
     title: 'zgrab2 (contrib)',
     url: 'https://github.com/redhuntlabs/zgrab2',
     summary:
-      "RedHunt Labs' fork and contribution back to the zgrab2 application-layer scanner used for banner grabbing at internet scale — feeds Project Resonance data collection.",
+      "RedHunt Labs' fork and contribution back to the zgrab2 application-layer scanner used for banner grabbing at internet scale - feeds Project Resonance data collection.",
   },
 ];
 
@@ -262,7 +262,7 @@ export const DATASETS: RedHuntDataset[] = [
   {
     id: 'wave-exposures-overview',
     wave: 'Ongoing',
-    title: 'Internet Exposures — Aggregated Index',
+    title: 'Internet Exposures - Aggregated Index',
     url: 'https://research.redhuntlabs.com/datasets',
     description:
       'The headline dataset for Project Resonance: aggregated counts of exposed services and components across the public IPv4 internet, broken down by country, ASN, and component type. Updated as new waves ship.',
@@ -292,7 +292,7 @@ export const ABOUT: RedHuntAbout = {
   principles: [
     {
       title: 'Use and Share',
-      body: 'Utilize our data to create impactful solutions. Share your outcomes with us by tagging the RedHunt Labs team — they will showcase your work and share it with the world.',
+      body: 'Utilize our data to create impactful solutions. Share your outcomes with us by tagging the RedHunt Labs team - they will showcase your work and share it with the world.',
     },
     {
       title: 'Propose a Study',

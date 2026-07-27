@@ -15,7 +15,7 @@
  * For synchronous contexts, use escapeHtml() instead.
  */
 
-// Default restrictive config — no scripts, no event handlers, no javascript: URIs.
+// Default restrictive config - no scripts, no event handlers, no javascript: URIs.
 const SANITIZE_CONFIG = {
   ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|#|\/):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
   ADD_ATTR: ['title', 'target', 'rel'],
@@ -65,7 +65,7 @@ const SANITIZE_CONFIG = {
   ],
 };
 
-// Strict config for AI-generated content — no images.
+// Strict config for AI-generated content - no images.
 const STRICT_CONFIG = {
   ...SANITIZE_CONFIG,
   ALLOWED_TAGS: SANITIZE_CONFIG.ALLOWED_TAGS.filter((t: string) => t !== 'img' && t !== 'figure' && t !== 'figcaption'),
@@ -100,7 +100,7 @@ export async function sanitizeHtml(html: string): Promise<string> {
 }
 
 /**
- * Sanitize AI-generated HTML content. Stricter than `sanitizeHtml` —
+ * Sanitize AI-generated HTML content. Stricter than `sanitizeHtml` -
  * removes images that an LLM might generate via prompt injection.
  */
 export async function sanitizeAiHtml(html: string): Promise<string> {
@@ -109,7 +109,7 @@ export async function sanitizeAiHtml(html: string): Promise<string> {
 }
 
 /**
- * Escape HTML entities in plain text. Synchronous — use this BEFORE
+ * Escape HTML entities in plain text. Synchronous - use this BEFORE
  * applying regex-based markdown rendering. Ensures that any HTML in
  * the original text is escaped before transformation.
  */

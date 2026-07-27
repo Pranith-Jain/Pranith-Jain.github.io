@@ -123,7 +123,7 @@ export function ToolSearchBar(): JSX.Element {
       <div className="relative">
         <Search
           size={16}
-          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
           aria-hidden="true"
         />
         <input
@@ -212,7 +212,7 @@ export function ToolSearchBar(): JSX.Element {
                         {GROUP_META[h.group].label.split(' ')[0]}
                       </span>
                       {h.tool.utility && (
-                        <span className="text-micro font-mono uppercase tracking-[0.18em] text-slate-400">utility</span>
+                        <span className="text-micro font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">utility</span>
                       )}
                     </div>
                     <div className="font-mono text-mini text-slate-500 truncate">{h.tool.path}</div>

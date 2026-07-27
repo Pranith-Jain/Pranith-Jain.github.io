@@ -2,8 +2,8 @@
  * Shared types + lookup tables for the rule converter.
  *
  * One intermediate representation (RuleIR) sits between the parsers and the
- * emitters. Keep this file purely declarative — no parsing, no emitting,
- * no I/O — so the rest of the module tree can import from it freely without
+ * emitters. Keep this file purely declarative - no parsing, no emitting,
+ * no I/O - so the rest of the module tree can import from it freely without
  * pulling in either side's logic.
  */
 
@@ -31,7 +31,7 @@ export const TARGET_FORMATS: RuleFormat[] = [
   'dlp',
   'supplychain',
 ];
-// SOURCE_FORMATS is a subset of TARGET_FORMATS — snort + powershell are
+// SOURCE_FORMATS is a subset of TARGET_FORMATS - snort + powershell are
 // target-only (we don't yet have parsers that round-trip Snort `content:`
 // rules or PowerShell `Select-String` patterns back into the IR).
 export const SOURCE_FORMATS: RuleFormat[] = TARGET_FORMATS.filter((f) => f !== 'snort' && f !== 'powershell');

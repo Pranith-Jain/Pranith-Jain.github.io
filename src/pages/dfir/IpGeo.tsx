@@ -118,7 +118,7 @@ export default function IpGeo(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setData((await res.json()) as IpGeoResponse);
 
-      // CIDR/ASN discovery (metabigor net equivalent) — non-blocking
+      // CIDR/ASN discovery (metabigor net equivalent) - non-blocking
       cidrAbortRef.current?.abort();
       const ac = new AbortController();
       cidrAbortRef.current = ac;
@@ -153,7 +153,7 @@ export default function IpGeo(): JSX.Element {
       title="IP Geolocation"
       description={
         <>
-          Country, ASN, hosting provider, reverse DNS, proxy/mobile/hosting flags — composed from{' '}
+          Country, ASN, hosting provider, reverse DNS, proxy/mobile/hosting flags - composed from{' '}
           <a
             href="https://ip-api.com"
             target="_blank"
@@ -190,14 +190,14 @@ export default function IpGeo(): JSX.Element {
             <div className="relative flex-1">
               <Search
                 size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
                 aria-hidden="true"
               />
               <input
                 type="text"
                 value={ip}
                 onChange={(e) => setIp(e.target.value)}
-                placeholder="Enter IPv4 or IPv6 — e.g. 8.8.8.8 or 2606:4700:4700::1111"
+                placeholder="Enter IPv4 or IPv6 - e.g. 8.8.8.8 or 2606:4700:4700::1111"
                 className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                 autoComplete="off"
                 spellCheck={false}
@@ -298,7 +298,7 @@ export default function IpGeo(): JSX.Element {
                 <div>
                   <div className="text-mini font-mono text-slate-400 dark:text-slate-400">Usage type</div>
                   <div className="text-base font-mono text-slate-900 dark:text-slate-100">
-                    {data.reputation.usage_type ?? '—'}
+                    {data.reputation.usage_type ?? '-'}
                   </div>
                 </div>
               </div>
@@ -328,20 +328,20 @@ export default function IpGeo(): JSX.Element {
                   <div className="flex justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] py-1">
                     <span className="text-slate-500 dark:text-slate-400">Country</span>
                     <span className="text-slate-900 dark:text-slate-100">
-                      {data.geo.country ?? '—'} {data.geo.country_code && `(${data.geo.country_code})`}
+                      {data.geo.country ?? '-'} {data.geo.country_code && `(${data.geo.country_code})`}
                     </span>
                   </div>
                   <div className="flex justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] py-1">
                     <span className="text-slate-500 dark:text-slate-400">Region / city</span>
                     <span className="text-slate-900 dark:text-slate-100">
-                      {[data.geo.region, data.geo.city].filter(Boolean).join(', ') || '—'}
+                      {[data.geo.region, data.geo.city].filter(Boolean).join(', ') || '-'}
                     </span>
                   </div>
                   <div className="flex justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] py-1">
                     <span className="text-slate-500 dark:text-slate-400 inline-flex items-center gap-1">
                       <Clock size={10} /> Timezone
                     </span>
-                    <span className="text-slate-900 dark:text-slate-100">{data.geo.timezone ?? '—'}</span>
+                    <span className="text-slate-900 dark:text-slate-100">{data.geo.timezone ?? '-'}</span>
                   </div>
                   <div className="flex justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] py-1">
                     <span className="text-slate-500 dark:text-slate-400">Coordinates</span>
@@ -356,7 +356,7 @@ export default function IpGeo(): JSX.Element {
                           {data.geo.lat.toFixed(2)}, {data.geo.lon.toFixed(2)} <ExternalLink size={10} />
                         </a>
                       ) : (
-                        '—'
+                        '-'
                       )}
                     </span>
                   </div>
@@ -365,13 +365,13 @@ export default function IpGeo(): JSX.Element {
                       <Building size={10} /> ISP
                     </span>
                     <span className="text-slate-900 dark:text-slate-100 text-right break-words">
-                      {data.geo.isp ?? '—'}
+                      {data.geo.isp ?? '-'}
                     </span>
                   </div>
                   <div className="flex justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] py-1">
                     <span className="text-slate-500 dark:text-slate-400">Org</span>
                     <span className="text-slate-900 dark:text-slate-100 text-right break-words">
-                      {data.geo.org ?? '—'}
+                      {data.geo.org ?? '-'}
                     </span>
                   </div>
                   <div className="flex justify-between border-b border-slate-200 dark:border-[rgb(var(--border-400))] py-1 sm:col-span-2">
@@ -380,7 +380,7 @@ export default function IpGeo(): JSX.Element {
                     </span>
                     <span className="text-slate-900 dark:text-slate-100">
                       {data.geo.asn ? (
-                        // ip-api returns asn as "AS15169 Google LLC" — the ASN tool
+                        // ip-api returns asn as "AS15169 Google LLC" - the ASN tool
                         // accepts that shape directly via its ?asn= prefill.
                         <Link
                           to={`/dfir/asn?asn=${encodeURIComponent(data.geo.asn)}`}
@@ -389,7 +389,7 @@ export default function IpGeo(): JSX.Element {
                           {data.geo.asn} {data.geo.asname && `(${data.geo.asname})`}
                         </Link>
                       ) : (
-                        '—'
+                        '-'
                       )}
                     </span>
                   </div>
@@ -432,7 +432,7 @@ export default function IpGeo(): JSX.Element {
             </p>
           </section>
 
-          {/* CIDR/ASN Discovery — metabigor net equivalent */}
+          {/* CIDR/ASN Discovery - metabigor net equivalent */}
           {cidrData && cidrData.cidrs.length > 0 && (
             <section className="surface-card p-4 mb-6">
               <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono mb-3 inline-flex items-center gap-2">

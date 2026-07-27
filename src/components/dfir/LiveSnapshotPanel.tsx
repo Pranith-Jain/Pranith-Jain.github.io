@@ -9,7 +9,7 @@ import { sanitizeUrl } from '../../lib/sanitize-url';
 import { LiveIndicator } from '../LiveIndicator';
 
 /**
- * Module-scope rightAction links. These don't depend on any prop or state —
+ * Module-scope rightAction links. These don't depend on any prop or state -
  * the deep-link targets are fixed and the only thing that varies is the
  * label/arrow icon. Hoisting them out of the render function means each
  * SnapshotCard (which is React.memo'd) gets a stable `rightAction` prop
@@ -41,7 +41,7 @@ const RIGHT_ACTION_BRIEFINGS = (tone: 'brand' | 'rose' = 'brand'): JSX.Element =
   makeRightAction('/threatintel/briefings', 'archive', tone);
 
 /**
- * Live "right now" snapshot — 6 cards: Ransomware claims, Cybersec
+ * Live "right now" snapshot - 6 cards: Ransomware claims, Cybersec
  * Telegram firehose, Scam intel (FTC + IC3), Threat intel firehose,
  * Tech & AI news, Threat briefings. Mounts on /threatintel landing.
  *
@@ -53,7 +53,7 @@ const RIGHT_ACTION_BRIEFINGS = (tone: 'brand' | 'rose' = 'brand'): JSX.Element =
  *   newer than the localStorage `dfir.briefings.last_visit` baseline.
  *   Baseline captured at mount, overwritten with `now` on unmount.
  * - The localStorage key is shared across every place we mount the
- *   panel — visiting one page resets the baseline so the user doesn't
+ *   panel - visiting one page resets the baseline so the user doesn't
  *   see the same "12 new" pill on the next page.
  *
  * Card removals 2026-05-11:
@@ -61,7 +61,7 @@ const RIGHT_ACTION_BRIEFINGS = (tone: 'brand' | 'rose' = 'brand'): JSX.Element =
  *   - Detection rules      → moved to /threatintel/rules page
  *   - Cyber threat map     → moved to /threatintel/threat-map page
  * The /api/v1/snapshot envelope still ships `onion`, `rules`, and
- * `threat_map` fields — we just don't render them here.
+ * `threat_map` fields - we just don't render them here.
  */
 
 interface Props {
@@ -126,7 +126,7 @@ interface BriefingsResp {
 }
 
 /**
- * Wire shape of /api/v1/snapshot — a thin envelope around the six per-source
+ * Wire shape of /api/v1/snapshot - a thin envelope around the six per-source
  * payloads. Each source is independently `ok: true/false` so a single bad
  * upstream doesn't blank the whole panel.
  */
@@ -226,7 +226,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
     briefings?: string;
   }>({});
 
-  // Single fetch to /api/v1/snapshot — server-side fan-out replaces six
+  // Single fetch to /api/v1/snapshot - server-side fan-out replaces six
   // parallel client requests. One round-trip, one setState cycle, lower TBT.
   // 12s hard timeout: the server-side snapshot already has an 8s per-source
   // budget, so a 12s abort is the client-side kill switch for a slow edge.
@@ -267,7 +267,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         } else if (env.briefings && !env.briefings.ok)
           setErrors((cur) => ({ ...cur, briefings: env.briefings.error ?? 'unknown' }));
         // env.onion / env.rules / env.threat_map come through the snapshot
-        // payload but the corresponding cards were removed 2026-05-11 — we
+        // payload but the corresponding cards were removed 2026-05-11 - we
         // intentionally drop those fields here.
       } catch (e) {
         if (cancelled) return;
@@ -340,7 +340,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
   );
   const totalNew = newRansomwareCount + newTelegramCount + newScamCount + newThreatIntelCount + newTechAiCount;
 
-  // Per-card watchlist match counts — across the FULL response so the badge
+  // Per-card watchlist match counts - across the FULL response so the badge
   // reflects real matches, not just visible top-N.
   const watchedRansomware = useMemo(
     () =>
@@ -493,7 +493,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           )}
         </SnapshotCard>
 
-        {/* Cybersec Telegram firehose — links to the dedicated /threatintel/cybersec
+        {/* Cybersec Telegram firehose - links to the dedicated /threatintel/cybersec
             page which has the full filterable view; the Telegram catalog
             (/threatintel/telegram-watch) is the channel-discovery surface, not the
             message stream. */}
@@ -561,12 +561,12 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           )}
         </SnapshotCard>
 
-        {/* .onion reachability card removed 2026-05-11 — too noisy on the
+        {/* .onion reachability card removed 2026-05-11 - too noisy on the
             landing (the inventory page at /threatintel/onion-watch is the
             right place for that depth of detail; the card competed for
             attention with higher-signal sources). */}
 
-        {/* Scam intel — FTC + IC3 official alerts */}
+        {/* Scam intel - FTC + IC3 official alerts */}
         <SnapshotCard
           accent="amber"
           icon={AlertTriangle}
@@ -630,7 +630,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           )}
         </SnapshotCard>
 
-        {/* Threat-intel firehose — BleepingComputer + Krebs + DFIR Report + SecurityWeek */}
+        {/* Threat-intel firehose - BleepingComputer + Krebs + DFIR Report + SecurityWeek */}
         <SnapshotCard
           accent="emerald"
           icon={Newspaper}
@@ -696,7 +696,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           )}
         </SnapshotCard>
 
-        {/* Tech & AI news — TechCrunch AI / VentureBeat AI / TechCrunch security / cybersec funding */}
+        {/* Tech & AI news - TechCrunch AI / VentureBeat AI / TechCrunch security / cybersec funding */}
         <SnapshotCard
           accent="fuchsia"
           icon={Sparkles}
@@ -750,7 +750,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           </a>
                           <span className="text-slate-500 shrink-0">{shortRel(it.pubDate)}</span>
                         </div>
-                        {/* Tech & AI shows source for non-compact only — analysts want to see when YC blog / HN surfaces. */}
+                        {/* Tech & AI shows source for non-compact only - analysts want to see when YC blog / HN surfaces. */}
                         {!compact && <p className="text-slate-500 dark:text-slate-400 truncate pl-3.5">{it.source}</p>}
                       </li>
                     );
@@ -761,12 +761,12 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           )}
         </SnapshotCard>
 
-        {/* Detection rules card removed 2026-05-11 — committers fire all
+        {/* Detection rules card removed 2026-05-11 - committers fire all
             day on Sigma / Elastic / Sentinel repos so the card was always
             full and rarely actionable from the landing. The full feed is
             still live at /threatintel/rules. */}
 
-        {/* Threat briefings — latest daily/weekly KV-baked briefings */}
+        {/* Threat briefings - latest daily/weekly KV-baked briefings */}
         <SnapshotCard
           accent="violet"
           icon={ScrollText}
@@ -816,7 +816,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                         {findings === 0 && iocs === 0 ? (
                           <span
                             className="shrink-0 text-micro uppercase tracking-wider px-1 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300"
-                            title="Upstream feeds were unreachable at build time — this briefing rebuilds automatically every hour."
+                            title="Upstream feeds were unreachable at build time - this briefing rebuilds automatically every hour."
                           >
                             rebuilding
                           </span>
@@ -837,7 +837,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           )}
         </SnapshotCard>
 
-        {/* Cyber threat map card removed 2026-05-11 — the country-leaderboard
+        {/* Cyber threat map card removed 2026-05-11 - the country-leaderboard
             duplicates what the full /threatintel/threat-map page does better.
             The card on the landing competed with higher-signal cards. */}
       </div>

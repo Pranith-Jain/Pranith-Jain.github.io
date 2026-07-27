@@ -56,18 +56,18 @@ describe('useDocumentMeta', () => {
 
   it('includes the section in the title when provided', () => {
     renderHook(() => useDocumentMeta({ title: 'Actor Directory', section: 'Threat Intel' }));
-    expect(document.title).toBe('Actor Directory — Threat Intel · Pranith Jain · Security Portfolio');
+    expect(document.title).toBe('Actor Directory - Threat Intel · Pranith Jain · Security Portfolio');
   });
 
   it('honors fullTitle override (no suffix appended)', () => {
-    renderHook(() => useDocumentMeta({ title: 'ignored', fullTitle: 'Custom Title — Special' }));
-    expect(document.title).toBe('Custom Title — Special');
+    renderHook(() => useDocumentMeta({ title: 'ignored', fullTitle: 'Custom Title - Special' }));
+    expect(document.title).toBe('Custom Title - Special');
   });
 
   it('updates og:title alongside document.title', () => {
     renderHook(() => useDocumentMeta({ title: 'Actor Directory', section: 'Threat Intel' }));
     const og = document.querySelector<HTMLMetaElement>('meta[property="og:title"]');
-    expect(og?.getAttribute('content')).toBe('Actor Directory — Threat Intel · Pranith Jain · Security Portfolio');
+    expect(og?.getAttribute('content')).toBe('Actor Directory - Threat Intel · Pranith Jain · Security Portfolio');
   });
 
   it('writes description meta tag when provided', () => {

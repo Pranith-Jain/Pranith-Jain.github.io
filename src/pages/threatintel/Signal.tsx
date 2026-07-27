@@ -8,14 +8,14 @@ import { XLivePanel } from '../../components/threatintel/XLivePanel';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
- * /threatintel/signal — the high-signal subset of /threatintel/writeups.
+ * /threatintel/signal - the high-signal subset of /threatintel/writeups.
  *
  * The writeups endpoint aggregates ~30 RSS feeds across vendor labs,
  * independent researchers, and the Medium long-tail. That's the firehose.
  * This page asks for `?tier=signal`, which the server filters down to a
  * tight curated set (ThreatSignal, DFIR Report, SentinelLabs, Unit 42,
  * Check Point, Huntress, Eye, Exodus, OpenAnalysis, BushidoToken,
- * DoublePulsar). Low-volume sources, high-depth pieces — the kind of
+ * DoublePulsar). Low-volume sources, high-depth pieces - the kind of
  * source an analyst reads every time it ships.
  *
  * Same API contract as /writeups; tier filter is a server-side filter on
@@ -133,7 +133,7 @@ export default function Signal(): JSX.Element {
             For the full ecosystem cut (including Medium tag feeds and the long tail), see{' '}
             <Link
               to="/threatintel/research-hub/writeups"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               /threatintel/writeups
             </Link>
@@ -147,7 +147,7 @@ export default function Signal(): JSX.Element {
       emptyMessage={
         query.trim() || sourceFilter.size > 0
           ? 'No items match the current filter.'
-          : 'No items in the snapshot. Feed refreshes hourly — click refresh to re-pull.'
+          : 'No items in the snapshot. Feed refreshes hourly - click refresh to re-pull.'
       }
       onRetry={() => setRefreshKey((k) => k + 1)}
       maxWidthClass="max-w-5xl"
@@ -180,20 +180,20 @@ export default function Signal(): JSX.Element {
       <section className="surface-card p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by title, source, tag, or summary…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter research signal"
             />
           </div>
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
           >
             <RefreshCw size={11} /> refresh
           </button>
@@ -212,8 +212,8 @@ export default function Signal(): JSX.Element {
                     onClick={() => toggleSource(src)}
                     className={`text-mini font-mono px-2 py-1 rounded border ${
                       active
-                        ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40'
+                        ? 'border-rose-500/60 bg-rose-500/10 text-rose-700 dark:text-rose-300'
+                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/40'
                     }`}
                   >
                     {src} <span className="opacity-70">· {count}</span>
@@ -227,7 +227,7 @@ export default function Signal(): JSX.Element {
                   setSourceFilter(new Set());
                   setQuery('');
                 }}
-                className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-1"
+                className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline ml-1"
               >
                 clear
               </button>
@@ -248,14 +248,14 @@ export default function Signal(): JSX.Element {
           <li key={it.url} className="surface-card p-4">
             <a href={sanitizeUrl(it.url)} target="_blank" rel="noopener noreferrer" className="group block">
               <div className="flex items-baseline justify-between gap-3 mb-1.5">
-                <span className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
+                <span className="text-micro font-mono uppercase tracking-[0.18em] text-rose-600 dark:text-rose-400">
                   {it.source}
                 </span>
                 <span className="text-micro font-mono text-slate-500 shrink-0" title={formatDate(it.published)}>
                   {shortRel(it.published)}
                 </span>
               </div>
-              <h2 className="font-display font-semibold text-base text-slate-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              <h2 className="font-display font-semibold text-base text-slate-900 dark:text-white leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
                 {it.title}
                 <ExternalLink size={12} className="inline-block ml-1 opacity-50" aria-hidden="true" />
               </h2>

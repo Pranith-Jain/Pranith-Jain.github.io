@@ -1,5 +1,5 @@
 /**
- * PowerShell deobfuscator — heuristic, multi-pass, client-side.
+ * PowerShell deobfuscator - heuristic, multi-pass, client-side.
  *
  * Real PowerShell loaders chain a handful of techniques. Rather than try to
  * be a full parser, we run a set of independent passes in a loop until the
@@ -70,7 +70,7 @@ function b64Utf8(s: string): string | null {
   }
 }
 
-/** Heuristic — does this look like PowerShell-y text after decoding? */
+/** Heuristic - does this look like PowerShell-y text after decoding? */
 function looksReadable(s: string): boolean {
   if (s.length < 3) return false;
   // At least 80% printable ASCII / common chars.
@@ -86,7 +86,7 @@ function looksReadable(s: string): boolean {
 // Passes
 // ─────────────────────────────────────────────────────────────────────────
 
-/** -EncodedCommand <base64> — the canonical Windows-Defender bypass entry-point. */
+/** -EncodedCommand <base64> - the canonical Windows-Defender bypass entry-point. */
 const passEncodedCommand: Pass = {
   name: 'encoded-command',
   description: 'Decode -EncodedCommand / -EC base64 (UTF-16LE).',
@@ -127,7 +127,7 @@ const passReverseString: Pass = {
   name: 'reverse-string',
   description: 'Resolve "rts.eulav" -split | %{$_[..]} reverse-string idioms.',
   apply(s) {
-    // [string]::Concat([char[]]"abc"[..]) — too pattern-specific to be robust.
+    // [string]::Concat([char[]]"abc"[..]) - too pattern-specific to be robust.
     // Catch the simple "...".ToCharArray() | …Reverse pattern.
     const re = /\[(?:System\.)?Array\]::Reverse\(\s*\[?(?:char\[\])?\]?\s*["']([^"']{4,})["']\s*\)/gi;
     let changed = false;
@@ -234,7 +234,7 @@ const passStripBackticks: Pass = {
 /** GZip blob: -bxor decompression chains we can't actually run, but flag. */
 const passFlagDangerous: Pass = {
   name: 'flag-dangerous',
-  description: "Flag dangerous primitives we can't resolve — IEX, DownloadString, GzipStream.",
+  description: "Flag dangerous primitives we can't resolve - IEX, DownloadString, GzipStream.",
   apply(s) {
     return { out: s, changed: false };
   },
@@ -309,7 +309,7 @@ export function findRisks(s: string): RiskFinding[] {
         id: 'downloadstring',
         label: 'DownloadString / DownloadFile',
         severity: 'critical',
-        description: 'WebClient.DownloadString — the classic remote-payload pull.',
+        description: 'WebClient.DownloadString - the classic remote-payload pull.',
       },
     ],
     [
@@ -318,7 +318,7 @@ export function findRisks(s: string): RiskFinding[] {
         id: 'net-classes',
         label: '.NET network primitives',
         severity: 'high',
-        description: 'Direct .NET network classes — used to bypass cmdlet logging.',
+        description: 'Direct .NET network classes - used to bypass cmdlet logging.',
       },
     ],
     [
@@ -345,7 +345,7 @@ export function findRisks(s: string): RiskFinding[] {
         id: 'gzip',
         label: 'GZip / Deflate decompression',
         severity: 'medium',
-        description: 'Compressed-payload decoder — common second-stage wrapper.',
+        description: 'Compressed-payload decoder - common second-stage wrapper.',
       },
     ],
     [
@@ -354,7 +354,7 @@ export function findRisks(s: string): RiskFinding[] {
         id: 'reflection',
         label: 'Reflection.Assembly load',
         severity: 'high',
-        description: 'In-memory assembly load — fileless execution primitive.',
+        description: 'In-memory assembly load - fileless execution primitive.',
       },
     ],
     [
@@ -372,7 +372,7 @@ export function findRisks(s: string): RiskFinding[] {
         id: 'hidden-window',
         label: '-WindowStyle Hidden',
         severity: 'low',
-        description: 'Hides the PowerShell host window — a low-confidence indicator on its own.',
+        description: 'Hides the PowerShell host window - a low-confidence indicator on its own.',
       },
     ],
     [
@@ -381,7 +381,7 @@ export function findRisks(s: string): RiskFinding[] {
         id: 'no-profile',
         label: '-NoProfile',
         severity: 'low',
-        description: 'Skips $PROFILE — common in malicious one-liners and benign scripts alike.',
+        description: 'Skips $PROFILE - common in malicious one-liners and benign scripts alike.',
       },
     ],
   ];

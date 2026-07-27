@@ -6,7 +6,7 @@ import { RefreshCw, Globe, Loader2, Pause, Play, X } from 'lucide-react';
 import { IocSnapshotPanel } from '../../components/dfir/IocSnapshotPanel';
 import { ActorTtpsPanel } from '../../components/threatintel/ActorTtpsPanel';
 
-// Lazy-loaded — react-simple-maps is ~80KB. Side panel + stats render first.
+// Lazy-loaded - react-simple-maps is ~80KB. Side panel + stats render first.
 const ThreatMapChart = lazy(() => import('./ThreatMapChart'));
 
 interface CountryAgg {
@@ -232,7 +232,7 @@ function colourFor(count: number, max: number): string {
 
 // Auto-refresh cadence when "live" mode is on. 60s is generous on the
 // upstream cache (which holds 5min anyway) so the polling isn't burning
-// bandwidth — it's there for the UX of seeing the counter tick up when
+// bandwidth - it's there for the UX of seeing the counter tick up when
 // real changes land.
 const REFRESH_INTERVAL_MS = 60_000;
 
@@ -242,12 +242,12 @@ export default function ThreatMap(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [hovered, setHovered] = useState<{ alpha2: string; name: string } | null>(null);
   // Clicking a country (on the map or in the leaderboard) sets a sticky
-  // selection — replaces the hover-only tooltip with a persistent detail
+  // selection - replaces the hover-only tooltip with a persistent detail
   // panel listing all IPs from that country. Clicking the same country
   // again clears it. Required for mobile, where hover doesn't fire.
   const [selected, setSelected] = useState<{ alpha2: string; name: string } | null>(null);
   // Globe vs flat (mercator) projection toggle. Using react-simple-maps'
-  // built-in geoOrthographic — gives a true sphere shape without pulling
+  // built-in geoOrthographic - gives a true sphere shape without pulling
   // in three.js (would be ~150KB extra gzipped).
   const [globeView, setGlobeView] = useState(false);
   // Live mode = poll /api/v1/threat-map every REFRESH_INTERVAL_MS and
@@ -359,7 +359,7 @@ export default function ThreatMap(): JSX.Element {
   // Combine sample_ips (capped to 5 per country in the backend) with the
   // global samples array (capped to 60 across all countries) filtered to
   // the selected country. Dedup'd, gives up to ~10–15 IPs per country in
-  // practice — enough to triage without paginating.
+  // practice - enough to triage without paginating.
   const selectedIps = useMemo(() => {
     if (!selected || !data) return [] as Array<{ ip: string; sources: string[] }>;
     const out = new Map<string, string[]>();
@@ -564,10 +564,10 @@ export default function ThreatMap(): JSX.Element {
             </aside>
           </div>
 
-          {/* Attack-type breakdown — stacked-bar visualization of the
+          {/* Attack-type breakdown - stacked-bar visualization of the
               IOC-kind split (URLs / domains / hashes / IPs). Uses the
               data.iocs_by_type buckets already returned by the upstream
-              snapshot — no extra fetch. Inspired by Checkpoint / Fortiguard's
+              snapshot - no extra fetch. Inspired by Checkpoint / Fortiguard's
               attack-type categories, adapted to our IOC taxonomy (we don't
               classify by malware/phishing/DDoS individually; the source
               feeds do that implicitly). */}
@@ -576,7 +576,7 @@ export default function ThreatMap(): JSX.Element {
           )}
 
           {/* Country drill-down detail panel.
-              Persistent click-selection state — replaces the hover-only
+              Persistent click-selection state - replaces the hover-only
               tooltip behaviour, which doesn't work on touch. Shows source
               breakdown + every IP we have for the selected country with
               one-click IOC Checker links. */}
@@ -627,7 +627,7 @@ export default function ThreatMap(): JSX.Element {
                           className="block rounded border border-amber-400/30 hover:border-brand-500/40 bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 transition-colors"
                         >
                           <div className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">{ip}</div>
-                          <div className="text-mini font-mono text-slate-400 mt-0.5">sources: {sources.join(', ')}</div>
+                          <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5">sources: {sources.join(', ')}</div>
                         </Link>
                       </li>
                     ))}
@@ -662,11 +662,11 @@ export default function ThreatMap(): JSX.Element {
             </section>
           )}
 
-          {/* Per-type IOC feed tiles were removed 2026-05-14 — the new
+          {/* Per-type IOC feed tiles were removed 2026-05-14 - the new
               IocTypeBreakdown stacked bar above covers the same ground
               with the percentage context the tile row was missing. */}
 
-          {/* Sources panel — per-feed contribution to this snapshot, with
+          {/* Sources panel - per-feed contribution to this snapshot, with
               what each feed type is good for. Replaces the old single
               text-line header that just listed "URLhaus: 4712 · ThreatFox: 215". */}
           <SourcesBreakdown
@@ -680,7 +680,7 @@ export default function ThreatMap(): JSX.Element {
           <div className="mt-8">
             <ActorTtpsPanel
               title="MITRE technique distribution from currently-active actors"
-              subtitle="Beyond geo — what TTPs to tune detections for, weighted by who's posting right now. Pulls the same actor-timeline data as /threatintel/actor-timeline."
+              subtitle="Beyond geo - what TTPs to tune detections for, weighted by who's posting right now. Pulls the same actor-timeline data as /threatintel/actor-timeline."
             />
           </div>
 
@@ -698,7 +698,7 @@ export default function ThreatMap(): JSX.Element {
 /**
  * Stacked-bar visualisation of the IOC-type split (URLs, domains, hashes)
  * alongside the geolocated-IPs count. Plays the role Checkpoint /
- * Fortiguard maps fill with their "attack types" sidebar — but uses the
+ * Fortiguard maps fill with their "attack types" sidebar - but uses the
  * honest taxonomy we have (kind of IOC, not malware/phishing/DDoS, which
  * the source feeds classify implicitly).
  */
@@ -818,7 +818,7 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           Sources contributing to this snapshot
         </h3>
-        <span className="text-mini font-mono text-slate-400 tabular-nums">
+        <span className="text-mini font-mono text-slate-500 dark:text-slate-400 tabular-nums">
           {rows.length} feeds · {totalAcrossSources.toLocaleString()} indicators
         </span>
       </div>
@@ -853,7 +853,7 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
             </div>
             <div className="flex items-baseline justify-between gap-2 text-meta font-mono">
               <span className="text-muted truncate" title={r.meta.desc}>
-                {r.meta.desc || '—'}
+                {r.meta.desc || '-'}
               </span>
               <span className="text-brand-600 dark:text-brand-400 font-bold tabular-nums shrink-0">
                 {r.count.toLocaleString()}
@@ -892,7 +892,7 @@ function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: Io
         <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           IOC type breakdown
         </h3>
-        <span className="text-mini font-mono text-slate-400 tabular-nums">
+        <span className="text-mini font-mono text-slate-500 dark:text-slate-400 tabular-nums">
           {total.toLocaleString()} total · share of current snapshot
         </span>
       </div>

@@ -224,7 +224,7 @@ export default function ThreatSignalRss(): JSX.Element {
         <Clock size={11} />
         assembled {relativeDate(agg.assembledAt)}
       </span>
-      <span className="text-slate-400">·</span>
+      <span className="text-slate-500 dark:text-slate-400">·</span>
       <span>
         {healthySources.length}/{agg.sources.length} source{agg.sources.length === 1 ? '' : 's'} healthy
       </span>
@@ -249,13 +249,13 @@ export default function ThreatSignalRss(): JSX.Element {
       title="Threat Research Feeds"
       description={
         <span>
-          High-signal research feeds — long-form threat analysis, campaign breakdowns, and offensive tradecraft.
+          High-signal research feeds - long-form threat analysis, campaign breakdowns, and offensive tradecraft.
           Sources:{' '}
           <a
             href="https://www.threatsignal.in/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             ThreatSignal
           </a>
@@ -264,7 +264,7 @@ export default function ThreatSignalRss(): JSX.Element {
             href="https://opensourcemalware.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             OpenSourceMalware
           </a>
@@ -273,7 +273,7 @@ export default function ThreatSignalRss(): JSX.Element {
             href="https://ctrlaltintel.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             Ctrl-Alt-Intel
           </a>
@@ -282,7 +282,7 @@ export default function ThreatSignalRss(): JSX.Element {
             href="https://research.checkpoint.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             Check Point Research
           </a>
@@ -291,7 +291,7 @@ export default function ThreatSignalRss(): JSX.Element {
             href="https://unit42.paloaltonetworks.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             Unit 42
           </a>
@@ -300,7 +300,7 @@ export default function ThreatSignalRss(): JSX.Element {
             href="https://www.elastic.co/security-labs"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             Elastic Security Labs
           </a>
@@ -309,7 +309,7 @@ export default function ThreatSignalRss(): JSX.Element {
             href="https://www.volexity.com/blog/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             Volexity
           </a>
@@ -372,7 +372,7 @@ export default function ThreatSignalRss(): JSX.Element {
           />
           <StatCard
             label="Latest"
-            value={agg.items[0] ? relativeDate(agg.items[0].pubDate) : '—'}
+            value={agg.items[0] ? relativeDate(agg.items[0].pubDate) : '-'}
             accent="amber"
             small
           />
@@ -391,7 +391,7 @@ export default function ThreatSignalRss(): JSX.Element {
                 href={s.source.displayLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/40 dark:bg-[rgb(var(--surface-200))]/40 p-3 flex flex-col gap-1 transition-colors hover:border-brand-500/50"
+                className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/40 dark:bg-[rgb(var(--surface-200))]/40 p-3 flex flex-col gap-1 transition-colors hover:border-rose-500/50"
               >
                 <div className="flex items-center gap-2">
                   <span
@@ -404,7 +404,7 @@ export default function ThreatSignalRss(): JSX.Element {
                       <AlertTriangle size={9} /> stale
                     </span>
                   )}
-                  <ExternalLink size={10} className="ml-auto text-slate-400 group-hover:text-brand-500" />
+                  <ExternalLink size={10} className="ml-auto text-slate-500 dark:text-slate-400 group-hover:text-rose-500" />
                 </div>
                 <div className="flex items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
                   <span>{stats?.count ?? 0} posts</span>
@@ -428,7 +428,7 @@ export default function ThreatSignalRss(): JSX.Element {
         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 p-3 mb-4 flex flex-col gap-2">
           <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
-              <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
               <input
                 type="text"
                 value={query}
@@ -479,7 +479,7 @@ export default function ThreatSignalRss(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setActiveSources(new Set())}
-                  className="text-micro font-mono text-slate-500 hover:text-brand-500 underline"
+                  className="text-micro font-mono text-slate-500 hover:text-rose-500 underline"
                 >
                   clear
                 </button>
@@ -521,7 +521,7 @@ export default function ThreatSignalRss(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setActiveCategories(new Set())}
-                  className="text-micro font-mono text-slate-500 hover:text-brand-500 underline"
+                  className="text-micro font-mono text-slate-500 hover:text-rose-500 underline"
                 >
                   clear
                 </button>
@@ -559,16 +559,16 @@ export default function ThreatSignalRss(): JSX.Element {
 function PostCard({ item, summary }: { item: RssItem; summary?: string }): JSX.Element {
   const cat = categoryStyle(item.category);
   return (
-    <div className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 p-4 flex flex-col gap-2 transition-colors hover:border-brand-500/50 hover:bg-white/80 dark:hover:bg-[rgb(var(--surface-200)/0.6)]">
+    <div className="group rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--surface-200))]/40 p-4 flex flex-col gap-2 transition-colors hover:border-rose-500/50 hover:bg-white/80 dark:hover:bg-[rgb(var(--surface-200)/0.6)]">
       <div className="flex items-start gap-2">
         <a
           href={sanitizeUrl(item.link)}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 inline-flex items-center gap-1"
+          className="flex-1 font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 inline-flex items-center gap-1"
         >
           {item.title}
-          <ExternalLink size={12} className="text-slate-400 group-hover:text-brand-500 shrink-0 mt-0.5" />
+          <ExternalLink size={12} className="text-slate-500 dark:text-slate-400 group-hover:text-rose-500 shrink-0 mt-0.5" />
         </a>
         <PostAnalysisButton
           title={item.title}
@@ -606,8 +606,8 @@ function PostCard({ item, summary }: { item: RssItem; summary?: string }): JSX.E
           <Clock size={9} />
           {relativeDate(item.pubDate)}
         </span>
-        {item.author && <span className="text-micro font-mono text-slate-400">· {item.author}</span>}
-        <span className="ml-auto inline-flex items-center gap-0.5 text-micro font-mono text-slate-400 group-hover:text-brand-500">
+        {item.author && <span className="text-micro font-mono text-slate-500 dark:text-slate-400">· {item.author}</span>}
+        <span className="ml-auto inline-flex items-center gap-0.5 text-micro font-mono text-slate-500 dark:text-slate-400 group-hover:text-rose-500">
           read <ChevronRight size={10} />
         </span>
       </div>
@@ -631,7 +631,7 @@ function StatCard({ label, value, accent = 'brand', small = false }: StatCardPro
         ? 'text-amber-500 dark:text-amber-400'
         : accent === 'violet'
           ? 'text-violet-500 dark:text-violet-400'
-          : 'text-brand-500 dark:text-brand-400';
+          : 'text-rose-500 dark:text-rose-400';
   return (
     <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/40 dark:bg-[rgb(var(--surface-200))]/40 px-3 py-2">
       <div className="text-micro uppercase tracking-wide text-slate-500 dark:text-slate-400 font-mono">{label}</div>

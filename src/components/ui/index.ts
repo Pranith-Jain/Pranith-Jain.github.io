@@ -9,7 +9,7 @@
 export { ScrollProgress } from './ScrollProgress';
 export { BackToTop } from './BackToTop';
 
-// (ui/Badge removed — consolidated onto the canonical components/Badge.tsx
+// (ui/Badge removed - consolidated onto the canonical components/Badge.tsx
 //  Badge + SeverityPill, the documented single source of truth.)
 
 export { Skeleton, SkeletonCard, SkeletonTable } from './Skeleton';

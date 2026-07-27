@@ -108,14 +108,14 @@ const VERA_MODES: VeraModeDef[] = [
     label: 'Ask',
     description: 'Quick, sourced, conversational answers',
     icon: MessageSquare,
-    color: 'bg-brand-500',
+    color: 'bg-rose-500',
   },
   {
     id: 'investigate',
     label: 'Investigate',
     description: 'Multi-step agent reasoning with full tool fan-out',
     icon: Search,
-    color: 'bg-brand-700',
+    color: 'bg-rose-700',
   },
   {
     id: 'draft',
@@ -138,7 +138,7 @@ const VERA_MODES: VeraModeDef[] = [
 type AnalystRole = 'ciso' | 'detection' | 'ir' | 'cti';
 const ROLES: { id: AnalystRole; label: string; icon: typeof Shield; desc: string; color: string }[] = [
   { id: 'ciso', label: 'CISO', icon: BarChart3, desc: 'Risk posture & strategic trends', color: 'bg-emerald-600' },
-  { id: 'detection', label: 'Detection', icon: Search, desc: 'TTPs, detections & rule ideas', color: 'bg-brand-600' },
+  { id: 'detection', label: 'Detection', icon: Search, desc: 'TTPs, detections & rule ideas', color: 'bg-rose-600' },
   {
     id: 'ir',
     label: 'Incident Response',
@@ -146,7 +146,7 @@ const ROLES: { id: AnalystRole; label: string; icon: typeof Shield; desc: string
     desc: 'IOCs & behaviors for rapid triage',
     color: 'bg-severity-critical',
   },
-  { id: 'cti', label: 'Threat Intel', icon: Brain, desc: 'Contextual analysis & relationships', color: 'bg-brand-700' },
+  { id: 'cti', label: 'Threat Intel', icon: Brain, desc: 'Contextual analysis & relationships', color: 'bg-rose-700' },
 ];
 
 // ── Constants ───────────────────────────────────────────────────────────
@@ -182,7 +182,7 @@ function renderMarkdown(safeMd: string): string {
     const trimmed = (code as string).replace(/\n$/, '');
     const escaped = (trimmed as string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     const langAttr = lang ? ` data-language="${lang}"` : '';
-    return `<pre class="overflow-x-auto rounded-lg bg-slate-100 p-3 my-2 dark:bg-[rgb(var(--surface-300))]"${langAttr}><code class="text-xs font-mono leading-relaxed text-slate-800 dark:text-slate-200">${escaped}</code></pre>`;
+    return `<pre class="overflow-x-auto rounded-xl bg-slate-100 p-3 my-2 dark:bg-[rgb(var(--surface-300))]"${langAttr}><code class="text-xs font-mono leading-relaxed text-slate-800 dark:text-slate-200">${escaped}</code></pre>`;
   });
   html = html
     .replace(/### (.+)/g, '<h3 class="text-base font-semibold mt-4 mb-1.5">$1</h3>')
@@ -218,7 +218,7 @@ function renderMarkdown(safeMd: string): string {
   return html;
 }
 
-const ACCENT_STEPS = ['bg-brand-600', 'bg-blue-500', 'bg-violet-500', 'bg-amber-500', 'bg-rose-500', 'bg-emerald-500'];
+const ACCENT_STEPS = ['bg-rose-600', 'bg-blue-500', 'bg-violet-500', 'bg-amber-500', 'bg-rose-500', 'bg-emerald-500'];
 
 function StepIndicator({ steps, currentStep }: { steps: AgentStep[]; currentStep: number }) {
   if (steps.length === 0) return null;
@@ -237,7 +237,7 @@ function StepIndicator({ steps, currentStep }: { steps: AgentStep[]; currentStep
                 : isError
                   ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
                   : isActive
-                    ? 'bg-brand-100 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300 ring-1 ring-brand-500/50'
+                    ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300 ring-1 ring-rose-500/50'
                     : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500'
             }`}
           >
@@ -761,21 +761,21 @@ export default function VeraChat(): JSX.Element {
         <div className="flex items-center gap-3 border-b border-slate-200 bg-white/80 px-4 py-2.5 backdrop-blur-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.8]">
           <button
             onClick={() => setSidebarOpen((p) => !p)}
-            className="flex h-7 w-7 items-center justify-center rounded-md text-slate-400 hover:bg-slate-100 hover:text-brand-600 lg:hidden dark:hover:bg-[rgb(var(--surface-300))]"
+            className="flex h-7 w-7 items-center justify-center rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 hover:text-rose-600 lg:hidden dark:hover:bg-[rgb(var(--surface-300))]"
             aria-label="Toggle sidebar"
           >
             <PanelLeftOpen size={15} />
           </button>
           <BackLink
             to="/threatintel"
-            className="flex items-center gap-1 text-xs font-mono text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 shrink-0"
+            className="flex items-center gap-1 text-xs font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 shrink-0"
           >
             back
           </BackLink>
           <div className="flex min-w-0 flex-1 items-center gap-2">
             {hasMessages ? (
               <>
-                <MessageSquare size={14} className="shrink-0 text-brand-500" />
+                <MessageSquare size={14} className="shrink-0 text-rose-500" />
                 <span className="truncate text-sm font-medium text-slate-700 dark:text-slate-200">
                   {currentTitle ?? 'Vera'}
                 </span>
@@ -792,7 +792,7 @@ export default function VeraChat(): JSX.Element {
               <>
                 <button
                   onClick={exportConversation}
-                  className="flex h-7 w-7 items-center justify-center rounded-md text-slate-400 hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-[rgb(var(--surface-300))]"
+                  className="flex h-7 w-7 items-center justify-center rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 hover:text-rose-600 dark:hover:bg-[rgb(var(--surface-300))]"
                   aria-label="Export conversation"
                 >
                   <Download size={13} />
@@ -812,7 +812,7 @@ export default function VeraChat(): JSX.Element {
         <div className="flex-1 overflow-y-auto">
           {!isReporting && (
             <div className="mx-auto max-w-4xl px-4 py-6">
-              {/* Hero — only show when no messages */}
+              {/* Hero - only show when no messages */}
               {!hasMessages && !streaming && (
                 <div className="mb-8 flex flex-col items-center gap-3 text-center">
                   <div
@@ -822,7 +822,7 @@ export default function VeraChat(): JSX.Element {
                   </div>
                   <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Vera</h1>
                   <p className="max-w-lg text-sm text-slate-500 dark:text-slate-400">
-                    Your AI threat-intel analyst. Ask, investigate, draft, or challenge — in plain English.
+                    Your AI threat-intel analyst. Ask, investigate, draft, or challenge - in plain English.
                   </p>
                   {/* Mode selector */}
                   <div className="flex flex-wrap justify-center gap-2">
@@ -835,7 +835,7 @@ export default function VeraChat(): JSX.Element {
                           aria-pressed={veraMode === m.id}
                           className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-mono transition-all ${
                             veraMode === m.id
-                              ? 'border-brand-500 bg-brand-600/10 text-brand-700 dark:text-brand-300'
+                              ? 'border-rose-500 bg-rose-600/10 text-rose-700 dark:text-rose-300'
                               : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-300'
                           }`}
                           title={m.description}
@@ -846,10 +846,10 @@ export default function VeraChat(): JSX.Element {
                       );
                     })}
                   </div>
-                  <p className="text-xs text-slate-400 italic">{activeModeDef.description}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 italic">{activeModeDef.description}</p>
                   {/* Role selector */}
                   <div className="flex flex-wrap justify-center gap-1.5">
-                    <span className="text-micro text-slate-400 self-center mr-1 font-medium uppercase tracking-wider">
+                    <span className="text-micro text-slate-500 dark:text-slate-400 self-center mr-1 font-medium uppercase tracking-wider">
                       As:
                     </span>
                     {ROLES.map((r) => {
@@ -881,7 +881,7 @@ export default function VeraChat(): JSX.Element {
                         }}
                         className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200"
                       >
-                        <span className="text-slate-400">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
+                        <span className="text-slate-500 dark:text-slate-400">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
                       </button>
                     ))}
                   </div>
@@ -893,7 +893,7 @@ export default function VeraChat(): JSX.Element {
                           setQuery(starter);
                           void submitChat(starter);
                         }}
-                        className="rounded-full border border-slate-200 bg-white px-3 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
+                        className="rounded-full border border-slate-200 bg-white px-3 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-rose-400 hover:text-rose-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
                       >
                         {starter}
                       </button>
@@ -905,7 +905,7 @@ export default function VeraChat(): JSX.Element {
                         key={label}
                         className="flex flex-col items-center gap-1.5 rounded-xl border border-slate-100 bg-slate-50/50 p-3 text-center dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]"
                       >
-                        <Icon className="h-4 w-4 text-brand-500" />
+                        <Icon className="h-4 w-4 text-rose-500" />
                         <span className="text-xs font-medium">{label}</span>
                         <span className="text-mini text-slate-500 dark:text-slate-400">{desc}</span>
                       </div>
@@ -921,7 +921,7 @@ export default function VeraChat(): JSX.Element {
                     msg.role === 'user' ? (
                       <div key={i} className="flex justify-end group">
                         <div className="relative max-w-[85%] sm:max-w-[70%]">
-                          <div className="rounded-2xl bg-brand-600 px-4 py-2.5 text-sm text-white shadow-sm">
+                          <div className="rounded-2xl bg-rose-600 px-4 py-2.5 text-sm text-white shadow-sm">
                             {msg.content}
                           </div>
                           <button
@@ -929,7 +929,7 @@ export default function VeraChat(): JSX.Element {
                             className="absolute -left-7 top-1/2 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-100"
                             aria-label="Edit message"
                           >
-                            <Edit3 size={12} className="text-slate-400 hover:text-brand-600" />
+                            <Edit3 size={12} className="text-slate-500 dark:text-slate-400 hover:text-rose-600" />
                           </button>
                         </div>
                       </div>
@@ -948,19 +948,19 @@ export default function VeraChat(): JSX.Element {
                               <div className="flex items-center gap-2">
                                 <div className="flex gap-1">
                                   <span
-                                    className="h-2 w-2 animate-bounce rounded-full bg-brand-500"
+                                    className="h-2 w-2 animate-bounce rounded-full bg-rose-500"
                                     style={{ animationDelay: '0ms' }}
                                   />
                                   <span
-                                    className="h-2 w-2 animate-bounce rounded-full bg-brand-500"
+                                    className="h-2 w-2 animate-bounce rounded-full bg-rose-500"
                                     style={{ animationDelay: '150ms' }}
                                   />
                                   <span
-                                    className="h-2 w-2 animate-bounce rounded-full bg-brand-500"
+                                    className="h-2 w-2 animate-bounce rounded-full bg-rose-500"
                                     style={{ animationDelay: '300ms' }}
                                   />
                                 </div>
-                                <span className="font-mono text-xs text-slate-400">Investigating</span>
+                                <span className="font-mono text-xs text-slate-500 dark:text-slate-400">Investigating</span>
                               </div>
                               <button
                                 onClick={cancelInvestigation}
@@ -979,7 +979,7 @@ export default function VeraChat(): JSX.Element {
                                   className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 font-mono text-mini text-slate-500 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400"
                                 >
                                   {s.name}
-                                  <span className="text-slate-400">({s.items})</span>
+                                  <span className="text-slate-500 dark:text-slate-400">({s.items})</span>
                                 </span>
                               ))}
                             </div>
@@ -987,7 +987,7 @@ export default function VeraChat(): JSX.Element {
                           <div className="mt-2 flex items-center justify-between border-t border-slate-100 pt-2 dark:border-[rgb(var(--border-400))]">
                             <div className="flex items-center gap-2">
                               {msg.model_used && (
-                                <span className="font-mono text-mini text-slate-400">via {msg.model_used}</span>
+                                <span className="font-mono text-mini text-slate-500 dark:text-slate-400">via {msg.model_used}</span>
                               )}
                             </div>
                             {msg.content && (
@@ -998,7 +998,7 @@ export default function VeraChat(): JSX.Element {
                                     setCopiedIndex(i);
                                     setTimeout(() => setCopiedIndex(null), 1500);
                                   }}
-                                  className="text-slate-400 hover:text-brand-600 transition-colors"
+                                  className="text-slate-500 dark:text-slate-400 hover:text-rose-600 transition-colors"
                                   aria-label="Copy response"
                                 >
                                   {copiedIndex === i ? (
@@ -1075,7 +1075,7 @@ export default function VeraChat(): JSX.Element {
                     value={template}
                     onChange={(e) => setTemplate(e.target.value)}
                     aria-label="Report template"
-                    className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-mono text-slate-600 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-300"
+                    className="rounded-xl border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-mono text-slate-600 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-300"
                   >
                     <option value="auto">Auto template</option>
                     <option value="ransomware-group">Ransomware Group</option>
@@ -1087,7 +1087,7 @@ export default function VeraChat(): JSX.Element {
                     value={tlp}
                     onChange={(e) => setTlp(e.target.value)}
                     aria-label="TLP classification"
-                    className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-mono text-slate-600 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-300"
+                    className="rounded-xl border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-mono text-slate-600 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-300"
                   >
                     <option value="CLEAR">TLP:CLEAR</option>
                     <option value="GREEN">TLP:GREEN</option>
@@ -1096,7 +1096,7 @@ export default function VeraChat(): JSX.Element {
                   </select>
                 </div>
                 <div className="relative">
-                  <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                  <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
                   <input
                     ref={inputRef}
                     type="text"
@@ -1105,14 +1105,14 @@ export default function VeraChat(): JSX.Element {
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && submit(query)}
                     placeholder="Subject for a full report (group, actor, CVE, or IOC)…"
-                    className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-14 text-base text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500"
+                    className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-14 text-base text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500"
                     disabled={loading || !!progress}
                   />
                   <button
                     onClick={() => submit(query)}
                     aria-label="Submit query"
                     disabled={loading || !!progress || !query.trim()}
-                    className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl bg-rose-600 text-white transition-all hover:bg-rose-700 disabled:opacity-30 disabled:cursor-not-allowed"
                   >
                     {loading || progress ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                   </button>
@@ -1137,7 +1137,7 @@ export default function VeraChat(): JSX.Element {
 
               {!hasResults && !loading && !progress && !report && (
                 <div className="mt-6 flex flex-col items-center gap-3">
-                  <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-400">
+                  <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     <Lightbulb size={12} /> Try an example
                   </p>
                   <div className="flex flex-wrap justify-center gap-2">
@@ -1150,7 +1150,7 @@ export default function VeraChat(): JSX.Element {
                         }}
                         className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200"
                       >
-                        <span className="text-slate-400">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
+                        <span className="text-slate-500 dark:text-slate-400">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
                       </button>
                     ))}
                   </div>
@@ -1166,12 +1166,12 @@ export default function VeraChat(): JSX.Element {
                   >
                     <div className="mb-2 flex items-center justify-between font-mono text-xs text-slate-500 dark:text-slate-400">
                       <span className="inline-flex items-center gap-2">
-                        <Loader2 size={13} className="animate-spin text-brand-500" /> {progress.phase}
+                        <Loader2 size={13} className="animate-spin text-rose-500" /> {progress.phase}
                       </span>
                       <span>{progress.pct}%</span>
                     </div>
                     <div className="h-1.5 overflow-hidden rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))]">
-                      <div className="h-full bg-brand-500 transition-all" style={{ width: `${progress.pct}%` }} />
+                      <div className="h-full bg-rose-500 transition-all" style={{ width: `${progress.pct}%` }} />
                     </div>
                     <p className="mt-2 font-mono text-xs text-slate-500 dark:text-slate-400">{progress.detail}</p>
                   </section>
@@ -1181,7 +1181,7 @@ export default function VeraChat(): JSX.Element {
 
                 {loading && !progress && (
                   <div className="py-16 text-center">
-                    <Loader2 size={32} className="mx-auto mb-4 animate-spin text-brand-500" />
+                    <Loader2 size={32} className="mx-auto mb-4 animate-spin text-rose-500" />
                     <p className="font-mono text-sm text-slate-500 dark:text-slate-400">Gathering intelligence…</p>
                   </div>
                 )}
@@ -1190,7 +1190,7 @@ export default function VeraChat(): JSX.Element {
           )}
         </div>
 
-        {/* Chat input bar — fixed bottom */}
+        {/* Chat input bar - fixed bottom */}
         {!isReporting && (
           <div className="shrink-0 border-t border-slate-200 bg-white/80 backdrop-blur-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.8]">
             <div className="mx-auto flex max-w-4xl items-center gap-2 px-4 py-3">
@@ -1224,7 +1224,7 @@ export default function VeraChat(): JSX.Element {
                               ? 'What read should I challenge?'
                               : 'Ask about any threat…'
                   }
-                  className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-4 pr-12 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white dark:placeholder:text-slate-500"
+                  className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-4 pr-12 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white dark:placeholder:text-slate-500"
                   disabled={streaming}
                 />
                 <button
@@ -1237,7 +1237,7 @@ export default function VeraChat(): JSX.Element {
                   }}
                   aria-label="Send message"
                   disabled={streaming || !query.trim()}
-                  className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg bg-brand-600 text-white transition-all hover:bg-brand-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl bg-rose-600 text-white transition-all hover:bg-rose-700 disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   {streaming ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
                 </button>
@@ -1274,7 +1274,7 @@ function ChatNarrative({ markdown }: { markdown: string }) {
   }, [markdown]);
   return (
     <div
-      className="text-slate-800 dark:text-slate-200 [&_h2]:text-base [&_h2]:font-bold [&_h2]:mt-4 [&_h2]:mb-1.5 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-3 [&_h3]:mb-1 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1 [&_ol]:space-y-1 [&_ol]:my-1 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-200))] [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
+      className="text-slate-800 dark:text-slate-200 [&_h2]:text-base [&_h2]:font-bold [&_h2]:mt-4 [&_h2]:mb-1.5 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-3 [&_h3]:mb-1 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1 [&_ol]:space-y-1 [&_ol]:my-1 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-200))] [&_code]:text-xs [&_code]:font-mono [&_code]:text-rose-700 [&_code]:dark:text-rose-300"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
@@ -1325,8 +1325,8 @@ function FollowUpSuggestions({
   if (loadingFU) {
     return (
       <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
-        <Loader2 size={11} className="animate-spin text-slate-400" />
-        <span className="font-mono text-mini text-slate-400">Suggesting follow-ups…</span>
+        <Loader2 size={11} className="animate-spin text-slate-500 dark:text-slate-400" />
+        <span className="font-mono text-mini text-slate-500 dark:text-slate-400">Suggesting follow-ups…</span>
       </div>
     );
   }
@@ -1339,7 +1339,7 @@ function FollowUpSuggestions({
         <button
           key={s}
           onClick={() => onSubmit(s)}
-          className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-brand-400 hover:text-brand-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:border-brand-400 dark:hover:text-brand-400"
+          className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-rose-400 hover:text-rose-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:border-rose-400 dark:hover:text-rose-400"
         >
           {s}
         </button>
@@ -1395,7 +1395,7 @@ function SessionSidebar({
       <div
         className={`w-80 shrink-0 flex-col border-r border-slate-200 bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] lg:sticky lg:top-0 lg:h-full lg:translate-x-0 lg:z-10 ${
           open
-            ? 'fixed inset-y-0 left-0 z-50 translate-x-0 shadow-xl transition-transform duration-300 lg:relative lg:shadow-none'
+            ? 'fixed inset-y-0 left-0 z-50 translate-x-0 shadow-xl transition-transform duration-200 lg:relative lg:shadow-none'
             : 'fixed -translate-x-full lg:relative lg:translate-x-0'
         }`}
       >
@@ -1404,14 +1404,14 @@ function SessionSidebar({
           <div className="flex items-center gap-1">
             <button
               onClick={onNew}
-              className="flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-mono text-slate-500 hover:text-brand-600 transition-colors"
+              className="flex items-center gap-1 rounded-xl px-2 py-1 text-xs font-mono text-slate-500 hover:text-rose-600 transition-colors"
             >
               <Plus size={13} />
               New
             </button>
             <button
               onClick={onClose}
-              className="rounded-lg p-1 text-slate-400 hover:text-slate-600 transition-colors"
+              className="rounded-xl p-1 text-slate-500 dark:text-slate-400 hover:text-slate-600 transition-colors"
               aria-label="Close sidebar"
             >
               <PanelLeftClose size={16} />
@@ -1421,25 +1421,25 @@ function SessionSidebar({
         <div className="flex-1 overflow-y-auto">
           {loading && (
             <div className="flex items-center justify-center py-8">
-              <Loader2 size={16} className="animate-spin text-slate-400" />
+              <Loader2 size={16} className="animate-spin text-slate-500 dark:text-slate-400" />
             </div>
           )}
           {!loading && sessions.length === 0 && (
-            <div className="px-4 py-8 text-center font-mono text-xs text-slate-400">No conversations yet</div>
+            <div className="px-4 py-8 text-center font-mono text-xs text-slate-500 dark:text-slate-400">No conversations yet</div>
           )}
           {!loading &&
             sessions.map((s) => (
               <div
                 key={s.id}
                 className={`group flex items-center gap-2 border-b border-slate-50 px-4 py-2.5 cursor-pointer transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))/0.3] dark:hover:bg-[rgb(var(--surface-300))] ${
-                  s.id === activeId ? 'bg-brand-50 dark:bg-brand-900/20' : ''
+                  s.id === activeId ? 'bg-rose-50 dark:bg-rose-900/20' : ''
                 }`}
                 onClick={() => onSelect(s.id)}
               >
-                <MessageSquare size={14} className="shrink-0 text-slate-400" />
+                <MessageSquare size={14} className="shrink-0 text-slate-500 dark:text-slate-400" />
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-sm font-medium text-slate-700 dark:text-slate-300">{s.title}</div>
-                  <div className="flex items-center gap-2 text-mini font-mono text-slate-400">
+                  <div className="flex items-center gap-2 text-mini font-mono text-slate-500 dark:text-slate-400">
                     <Clock size={10} />
                     <span>{formatTime(s.updated_at)}</span>
                     <span>
@@ -1465,7 +1465,7 @@ function SessionSidebar({
         <div className="border-t border-slate-100 p-3 dark:border-[rgb(var(--border-400))]">
           {onVeraModeChange && veraMode && veraModes && (
             <div className="mb-2">
-              <label className="mb-1 block text-mini font-mono font-medium text-slate-400">Mode</label>
+              <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">Mode</label>
               <div className="flex gap-1">
                 {veraModes.map((m) => (
                   <button
@@ -1473,7 +1473,7 @@ function SessionSidebar({
                     onClick={() => onVeraModeChange(m.id)}
                     className={`flex-1 rounded px-2 py-1 text-xs font-mono transition-colors ${
                       veraMode === m.id
-                        ? 'bg-brand-500 text-white'
+                        ? 'bg-rose-500 text-white'
                         : 'bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))]'
                     }`}
                   >
@@ -1485,7 +1485,7 @@ function SessionSidebar({
           )}
           {role && roles && onRoleChange && (
             <div className="mb-2">
-              <label className="mb-1 block text-mini font-mono font-medium text-slate-400">Role</label>
+              <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">Role</label>
               <select
                 value={role}
                 onChange={(e) => onRoleChange(e.target.value as AnalystRole)}
@@ -1502,7 +1502,7 @@ function SessionSidebar({
           <div className="flex gap-2">
             {onTemplateChange && (
               <div className="flex-1">
-                <label className="mb-1 block text-mini font-mono font-medium text-slate-400">Template</label>
+                <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">Template</label>
                 <select
                   value={template}
                   onChange={(e) => onTemplateChange(e.target.value)}
@@ -1516,7 +1516,7 @@ function SessionSidebar({
             )}
             {onTlpChange && (
               <div className="flex-1">
-                <label className="mb-1 block text-mini font-mono font-medium text-slate-400">TLP</label>
+                <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">TLP</label>
                 <select
                   value={tlp}
                   onChange={(e) => onTlpChange(e.target.value)}

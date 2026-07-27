@@ -147,19 +147,19 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
           <div className="fixed left-1/2 top-1/2 z-50 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-xl border border-slate-200 bg-white p-5 shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
             <div className="mb-3 flex items-center justify-between">
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200">Bulk IOC Investigation</h3>
-              <button onClick={() => setOpen(false)} className="text-slate-400 hover:text-slate-600">
+              <button onClick={() => setOpen(false)} className="text-slate-500 dark:text-slate-400 hover:text-slate-600">
                 <X size={16} />
               </button>
             </div>
             <p className="mb-3 text-xs text-slate-500 dark:text-slate-400">
-              Paste IPs, domains, hashes, CVEs, emails, or URLs — one per line or comma-separated.
+              Paste IPs, domains, hashes, CVEs, emails, or URLs - one per line or comma-separated.
             </p>
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
               onInput={handleParse}
               placeholder={`8.8.8.8\n1.1.1.1\nCVE-2024-1709\nevil.com\ncafebabedeadbeef...`}
-              className="h-28 w-full resize-none rounded-lg border border-slate-200 bg-white p-3 text-xs font-mono text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white"
+              className="h-28 w-full resize-none rounded-xl border border-slate-200 bg-white p-3 text-xs font-mono text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white"
               spellCheck={false}
             />
             {parsed.length > 0 && (
@@ -197,7 +197,7 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
               </div>
             )}
             {enriching && (
-              <div className="mt-2 flex items-center gap-2 rounded-lg bg-slate-50 p-2 dark:bg-[rgb(var(--surface-300))]">
+              <div className="mt-2 flex items-center gap-2 rounded-xl bg-slate-50 p-2 dark:bg-[rgb(var(--surface-300))]">
                 <Loader2 size={12} className="animate-spin text-brand-500" />
                 <span className="font-mono text-xs text-slate-500">Enriching across providers…</span>
               </div>
@@ -229,9 +229,9 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
                         {r.verdict === 'malicious' ? '!' : r.verdict === 'clean' ? <Check size={8} /> : '?'}
                       </span>
                       <span className="font-mono text-slate-700 dark:text-slate-300">{r.value}</span>
-                      <span className="text-slate-400">({r.score})</span>
+                      <span className="text-slate-500 dark:text-slate-400">({r.score})</span>
                       {r.tags.length > 0 && (
-                        <span className="truncate text-slate-400">{r.tags.slice(0, 2).join(', ')}</span>
+                        <span className="truncate text-slate-500 dark:text-slate-400">{r.tags.slice(0, 2).join(', ')}</span>
                       )}
                     </div>
                   ))
@@ -246,21 +246,21 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
                   setParsed([]);
                   setEnrichResults(null);
                 }}
-                className="rounded-lg border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-500 hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:text-slate-400"
+                className="rounded-xl border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-500 hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:text-slate-400"
               >
                 Cancel
               </button>
               <button
                 onClick={handleEnrich}
                 disabled={parsed.length === 0 || enriching}
-                className="rounded-lg border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-600 hover:border-brand-400 hover:text-brand-600 disabled:opacity-50 dark:border-[rgb(var(--border-400))] dark:text-slate-400"
+                className="rounded-xl border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-600 hover:border-brand-400 hover:text-brand-600 disabled:opacity-50 dark:border-[rgb(var(--border-400))] dark:text-slate-400"
               >
                 {enriching ? <Loader2 size={11} className="animate-spin" /> : 'Enrich'}
               </button>
               <button
                 onClick={handleInvestigate}
                 disabled={parsed.length === 0 || enriching}
-                className="rounded-lg bg-brand-600 px-3 py-1.5 font-mono text-xs text-white hover:bg-brand-700 disabled:opacity-50"
+                className="rounded-xl bg-brand-600 px-3 py-1.5 font-mono text-xs text-white hover:bg-brand-700 disabled:opacity-50"
               >
                 Investigate {parsed.length > 0 ? `(${parsed.length} IOCs)` : ''}
               </button>

@@ -7,7 +7,7 @@ import { sanitizeUrl } from '../../lib/sanitize-url';
 import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 /**
- * Ransomware Intel Report — a per-threat-group CTI report assembled from the
+ * Ransomware Intel Report - a per-threat-group CTI report assembled from the
  * ransomware.live PRO API (reused via the /api/v1/rl proxy). Mirrors the
  * RansomCTI tool's report (Overview, MITRE TTPs, Tools, Exploited CVEs,
  * infrastructure/IOCs, YARA) but renders in-app with a print-to-PDF export
@@ -84,7 +84,7 @@ function normSeverity(raw?: string): Severity {
 function Section({ title, children }: { title: string; children: React.ReactNode }): JSX.Element {
   return (
     <section className="mb-6 break-inside-avoid">
-      <h2 className="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-1.5 mb-3">
+      <h2 className="text-xs font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-1.5 mb-3">
         {title}
       </h2>
       {children}
@@ -280,7 +280,7 @@ export default function RansomReport(): JSX.Element {
           y += 12;
           for (const tech of t.techniques ?? []) {
             para(
-              `- ${tech.technique_id ?? ''} ${tech.technique_name ?? ''}${tech.technique_details ? ` — ${tech.technique_details}` : ''}`,
+              `- ${tech.technique_id ?? ''} ${tech.technique_name ?? ''}${tech.technique_details ? ` - ${tech.technique_details}` : ''}`,
               8.5,
               90
             );
@@ -319,7 +319,7 @@ export default function RansomReport(): JSX.Element {
       if (locations.length > 0) {
         heading(`Leak-site Infrastructure / IOCs (${locations.length})`);
         for (const l of locations) {
-          para(`[${l.type ?? 'site'}] ${l.fqdn ?? l.slug ?? ''}${l.title ? ` — ${l.title}` : ''}`, 8, 90);
+          para(`[${l.type ?? 'site'}] ${l.fqdn ?? l.slug ?? ''}${l.title ? ` - ${l.title}` : ''}`, 8, 90);
         }
         y += 8;
       }
@@ -361,7 +361,7 @@ export default function RansomReport(): JSX.Element {
       doc.save(`ransom-report-${(profile.group ?? selected).replace(/[^a-z0-9]/gi, '_')}.pdf`);
     } catch (_catchErr) {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      setPdfError("Couldn't generate the PDF — the export library failed to load. Check your connection and retry.");
+      setPdfError("Couldn't generate the PDF - the export library failed to load. Check your connection and retry.");
     } finally {
       setPdfBusy(false);
     }
@@ -374,13 +374,13 @@ export default function RansomReport(): JSX.Element {
       title="Ransomware intel report"
       description={
         <>
-          Per-group CTI report — overview, MITRE ATT&amp;CK TTPs, exploited CVEs, tooling, leak-site infrastructure, and
-          YARA — assembled from{' '}
+          Per-group CTI report - overview, MITRE ATT&amp;CK TTPs, exploited CVEs, tooling, leak-site infrastructure, and
+          YARA - assembled from{' '}
           <a
             href="https://www.ransomware.live"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             ransomware.live
           </a>
@@ -396,7 +396,7 @@ export default function RansomReport(): JSX.Element {
       emptyMessage={`No ransomware.live profile for "${selected}".`}
       maxWidthClass="max-w-4xl"
     >
-      {/* Scoped print CSS — print only the report card as a clean PDF. */}
+      {/* Scoped print CSS - print only the report card as a clean PDF. */}
       <style>{`@media print {
         body * { visibility: hidden !important; }
         #ransom-report, #ransom-report * { visibility: visible !important; }
@@ -412,14 +412,14 @@ export default function RansomReport(): JSX.Element {
 
         <form onSubmit={submit} className="flex flex-col sm:flex-row gap-3 mb-6">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="text"
               list="rl-groups"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="threat group — e.g. lockbit3, akira, qilin"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              placeholder="threat group - e.g. lockbit3, akira, qilin"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Threat group"
             />
             <datalist id="rl-groups">
@@ -433,7 +433,7 @@ export default function RansomReport(): JSX.Element {
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/70 disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/70 disabled:opacity-50"
           >
             {loading ? <Loader2 size={13} className="animate-spin" /> : <ShieldAlert size={13} />} build report
           </button>
@@ -442,7 +442,7 @@ export default function RansomReport(): JSX.Element {
               type="button"
               onClick={() => void downloadPdf()}
               disabled={pdfBusy}
-              className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-50"
             >
               {pdfBusy ? <Loader2 size={13} className="animate-spin" /> : <FileDown size={13} />}{' '}
               {pdfBusy ? 'building…' : 'PDF'}
@@ -497,7 +497,7 @@ export default function RansomReport(): JSX.Element {
                         <li key={`${tech.technique_id}-${i}`} className="text-meta text-muted">
                           <span className="font-mono text-slate-700 dark:text-slate-300">{tech.technique_id}</span>{' '}
                           {tech.technique_name}
-                          {tech.technique_details ? ` — ${tech.technique_details}` : ''}
+                          {tech.technique_details ? ` - ${tech.technique_details}` : ''}
                         </li>
                       ))}
                     </ul>
@@ -534,7 +534,7 @@ export default function RansomReport(): JSX.Element {
                             href={sanitizeUrl(`https://nvd.nist.gov/vuln/detail/${v.CVE}`) || undefined}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-mono text-meta text-brand-600 dark:text-brand-400 hover:underline"
+                            className="font-mono text-meta text-rose-600 dark:text-rose-400 hover:underline"
                           >
                             {v.CVE}
                           </a>
@@ -543,12 +543,12 @@ export default function RansomReport(): JSX.Element {
                           <span
                             className={`text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_TONE[normSeverity(v.severity)]}`}
                           >
-                            {v.severity ?? '—'}
+                            {v.severity ?? '-'}
                           </span>
                         </td>
-                        <td className="px-3 py-1.5 font-mono text-meta tabular-nums text-muted">{v.CVSS ?? '—'}</td>
-                        <td className="px-3 py-1.5 text-meta text-muted">{v.Vendor ?? '—'}</td>
-                        <td className="px-3 py-1.5 text-meta text-muted">{v.Product ?? '—'}</td>
+                        <td className="px-3 py-1.5 font-mono text-meta tabular-nums text-muted">{v.CVSS ?? '-'}</td>
+                        <td className="px-3 py-1.5 text-meta text-muted">{v.Vendor ?? '-'}</td>
+                        <td className="px-3 py-1.5 text-meta text-muted">{v.Product ?? '-'}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -577,8 +577,8 @@ export default function RansomReport(): JSX.Element {
               <ul className="space-y-1 font-mono text-mini">
                 {locations.map((l, i) => (
                   <li key={`${l.fqdn}-${i}`} className="break-all text-muted">
-                    <span className="text-slate-400">[{l.type ?? 'site'}]</span> {l.fqdn ?? l.slug}
-                    {l.title ? ` — ${l.title}` : ''}
+                    <span className="text-slate-500 dark:text-slate-400">[{l.type ?? 'site'}]</span> {l.fqdn ?? l.slug}
+                    {l.title ? ` - ${l.title}` : ''}
                   </li>
                 ))}
               </ul>
@@ -587,7 +587,7 @@ export default function RansomReport(): JSX.Element {
 
           {victims.length > 0 && (
             <Section title={`Recent victims (${victims.length})`}>
-              <p className="text-micro font-mono text-slate-400 mb-2">
+              <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-2">
                 From the latest 100 disclosures on ransomware.live.
               </p>
               <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -611,12 +611,12 @@ export default function RansomReport(): JSX.Element {
                         className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70"
                       >
                         <td className="px-3 py-1.5 text-meta text-slate-700 dark:text-slate-300 break-all">
-                          {v.victim ?? '—'}
+                          {v.victim ?? '-'}
                         </td>
-                        <td className="px-3 py-1.5 text-meta text-muted">{v.country ?? '—'}</td>
-                        <td className="px-3 py-1.5 text-meta text-muted">{v.activity ?? '—'}</td>
+                        <td className="px-3 py-1.5 text-meta text-muted">{v.country ?? '-'}</td>
+                        <td className="px-3 py-1.5 text-meta text-muted">{v.activity ?? '-'}</td>
                         <td className="px-3 py-1.5 font-mono text-mini text-slate-500 whitespace-nowrap">
-                          {(v.discovered ?? v.attackdate ?? '').slice(0, 10) || '—'}
+                          {(v.discovered ?? v.attackdate ?? '').slice(0, 10) || '-'}
                         </td>
                       </tr>
                     ))}
@@ -639,7 +639,7 @@ export default function RansomReport(): JSX.Element {
             )}
           </Section>
 
-          <p className="mt-6 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono text-slate-400">
+          <p className="mt-6 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-micro font-mono text-slate-500 dark:text-slate-400">
             Source: ransomware.live · generated by pranithjain.qzz.io threat-intel platform
           </p>
         </div>

@@ -5,7 +5,7 @@ export interface BlacklistCheck {
    *  (`127.255.x.y`) instead of a real listing. Spamhaus, URIBL, SURBL and
    *  most major DNSBLs block queries from public DNS resolvers (Cloudflare
    *  DoH, Google DNS, Quad9). Those responses MUST NOT be counted as
-   *  "listed" — they mean "we refused to answer your query", not "your
+   *  "listed" - they mean "we refused to answer your query", not "your
    *  IP/domain is on our list".
    *  Real listings live in `127.0.0.x` (and a handful of vendor-specific
    *  `127.x` sublists); the sentinel namespace `127.255.0.0/16` is
@@ -55,7 +55,7 @@ export interface DnsblSource {
    *  listing. The generic classifier already filters `127.255.x.x`; this
    *  field is for zones that overload codes inside the normal `127.0.0.x`
    *  namespace as a blocked-resolver indicator. URIBL is the canonical
-   *  case — `127.0.0.1` on URIBL means "public resolver / over quota",
+   *  case - `127.0.0.1` on URIBL means "public resolver / over quota",
    *  but the same code on SURBL would be a real jp/job-spam listing, so
    *  this must be per-zone, not global. */
   blockedCodes?: string[];
@@ -74,14 +74,14 @@ export const IP_DNSBLS: DnsblSource[] = [
     name: 'Spamhaus XBL',
     zone: 'xbl.spamhaus.org',
     type: 'ip',
-    description: 'Exploits blocklist — hijacked PCs, bots, open proxies.',
+    description: 'Exploits blocklist - hijacked PCs, bots, open proxies.',
   },
   {
     id: 'spamhaus-pbl',
     name: 'Spamhaus PBL',
     zone: 'pbl.spamhaus.org',
     type: 'ip',
-    description: 'Policy blocklist — end-user IP ranges that should not send mail.',
+    description: 'Policy blocklist - end-user IP ranges that should not send mail.',
   },
   {
     id: 'cbl',
@@ -151,7 +151,7 @@ export const IP_DNSBLS: DnsblSource[] = [
     name: 'SPFBL.net',
     zone: 'dnsbl.spfbl.net',
     type: 'ip',
-    description: 'SPF-based blocklist — IPs with invalid or abusive SPF records.',
+    description: 'SPF-based blocklist - IPs with invalid or abusive SPF records.',
   },
 ];
 
@@ -161,7 +161,7 @@ export const DOMAIN_DNSBLS: DnsblSource[] = [
     name: 'Spamhaus DBL',
     zone: 'dbl.spamhaus.org',
     type: 'domain',
-    description: 'Domain blocklist — domains in spam or malicious emails.',
+    description: 'Domain blocklist - domains in spam or malicious emails.',
   },
   {
     id: 'uribl-multi',
@@ -184,7 +184,7 @@ export const DOMAIN_DNSBLS: DnsblSource[] = [
     name: 'URIBL grey',
     zone: 'grey.uribl.com',
     type: 'domain',
-    description: 'Suspicious — monitor if volume increases.',
+    description: 'Suspicious - monitor if volume increases.',
     blockedCodes: ['127.0.0.1'],
   },
   {
@@ -192,7 +192,7 @@ export const DOMAIN_DNSBLS: DnsblSource[] = [
     name: 'SURBL',
     zone: 'multi.surbl.org',
     type: 'domain',
-    description: 'Spam URI Realtime Blocklists — domains in spam message bodies.',
+    description: 'Spam URI Realtime Blocklists - domains in spam message bodies.',
   },
   {
     id: 'ipl-reputation',
@@ -209,7 +209,7 @@ export const DOMAIN_DNSBLS: DnsblSource[] = [
  *
  * The generic sentinel namespace is `127.255.x.x` (Spamhaus, SURBL, several
  * SORBS lists). Per-zone overrides via `extraBlockedCodes` capture lists
- * that overload codes inside `127.0.0.x` for the same purpose — URIBL
+ * that overload codes inside `127.0.0.x` for the same purpose - URIBL
  * returns `127.0.0.1` to public resolvers, for example.
  *
  * Examples handled:
@@ -282,7 +282,7 @@ function scoreFromListings(listed: number, reachable: number): number {
 /**
  * Aggregate a list of DNSBL check results.
  *
- * `blocked` rows are sources that refused our public-resolver query — they
+ * `blocked` rows are sources that refused our public-resolver query - they
  * must NOT count as either listed OR clean. The `score` ratio is therefore
  * computed over `reachable = listed + clean` (excludes blocked) so a result
  * dominated by blocked rows doesn't get misclassified as "0% listed = clean".
@@ -313,7 +313,7 @@ export const EXTERNAL_REP_TOOLS: ExternalRepTool[] = [
   {
     name: 'Talos Intelligence',
     url: 'https://talosintelligence.com/reputation_center/email_rep',
-    description: 'Cisco Talos email & IP reputation — check sender reputation, volume, and blacklist status.',
+    description: 'Cisco Talos email & IP reputation - check sender reputation, volume, and blacklist status.',
   },
   {
     name: 'IPQualityScore',
@@ -323,27 +323,27 @@ export const EXTERNAL_REP_TOOLS: ExternalRepTool[] = [
   {
     name: 'Scamalytics',
     url: 'https://scamalytics.com/ip',
-    description: 'IP fraud risk scoring — checks IP against known fraud databases with confidence metrics.',
+    description: 'IP fraud risk scoring - checks IP against known fraud databases with confidence metrics.',
   },
   {
     name: 'MultiRBL Valli',
     url: 'https://multirbl.valli.org',
-    description: 'Multi-RBL lookup — checks IP/domain against 100+ DNSBLs simultaneously with detailed results.',
+    description: 'Multi-RBL lookup - checks IP/domain against 100+ DNSBLs simultaneously with detailed results.',
   },
   {
     name: 'Blacklist Alert',
     url: 'https://www.blacklistalert.org',
-    description: 'Real-time blacklist monitor — checks if your IP/domain is listed on major DNSBLs.',
+    description: 'Real-time blacklist monitor - checks if your IP/domain is listed on major DNSBLs.',
   },
   {
     name: 'IP Chicken',
     url: 'https://www.ipchicken.com',
-    description: 'Simple IP address and DNS lookup tool — shows your public IP, hostname, and ISP.',
+    description: 'Simple IP address and DNS lookup tool - shows your public IP, hostname, and ISP.',
   },
   {
     name: 'SOCRadar IOC Radar',
     url: 'https://socradar.io/free-tools/ioc-radar',
     description:
-      'Free threat intelligence lookup — risk scores, threat categories, and actor attribution for IPs, domains, and hashes.',
+      'Free threat intelligence lookup - risk scores, threat categories, and actor attribution for IPs, domains, and hashes.',
   },
 ];

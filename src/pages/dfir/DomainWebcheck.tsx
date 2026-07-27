@@ -84,7 +84,7 @@ export default function DomainWebcheck(): JSX.Element {
       const data = (await r.json()) as WebcheckResponse;
       setResult(data);
 
-      // CDN/WAF detection (metabigor cdn equivalent) — non-blocking
+      // CDN/WAF detection (metabigor cdn equivalent) - non-blocking
       cdnAbortRef.current?.abort();
       if (data.shodan?.ip) {
         const ac = new AbortController();
@@ -166,7 +166,7 @@ export default function DomainWebcheck(): JSX.Element {
             />
             <StatCard
               label="Ports"
-              value={result.ports.length ? result.ports.join(', ') : '—'}
+              value={result.ports.length ? result.ports.join(', ') : '-'}
               sub={`${result.ports.length} open`}
             />
           </div>
@@ -180,14 +180,14 @@ export default function DomainWebcheck(): JSX.Element {
               {result.security_headers.checks.map((ch) => (
                 <div key={ch.header} className="flex items-center gap-2 text-sm font-mono">
                   <span className={ch.secure ? 'text-emerald-500' : ch.present ? 'text-amber-500' : 'text-rose-500'}>
-                    {ch.secure ? '✓' : ch.present ? '!' : '✗'}
+                    {ch.secure ? 'secure' : ch.present ? 'partial' : 'missing'}
                   </span>
                   <span className="w-48 truncate text-slate-700 dark:text-slate-300">{ch.header}</span>
                   <span className="text-slate-500 text-xs flex-1 truncate">
                     {ch.present ? (ch.value?.slice(0, 60) ?? 'present') : 'MISSING'}
                   </span>
                   {!ch.secure && ch.recommendation && (
-                    <span className="text-xs text-slate-400 hidden md:block max-w-xs truncate">
+                    <span className="text-xs text-slate-500 dark:text-slate-400 hidden md:block max-w-xs truncate">
                       {ch.recommendation}
                     </span>
                   )}
@@ -208,7 +208,7 @@ export default function DomainWebcheck(): JSX.Element {
                     key={i}
                     className="px-2.5 py-1 rounded-xl text-xs font-mono bg-slate-100 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
                   >
-                    <span className="text-slate-400">{t.category}:</span> {t.name}
+                    <span className="text-slate-500 dark:text-slate-400">{t.category}:</span> {t.name}
                   </span>
                 ))}
               </div>
@@ -223,24 +223,24 @@ export default function DomainWebcheck(): JSX.Element {
               </h2>
               <div className="font-mono text-sm space-y-1">
                 <div>
-                  <span className="text-slate-400">IP:</span> {result.shodan.ip}
+                  <span className="text-slate-500 dark:text-slate-400">IP:</span> {result.shodan.ip}
                 </div>
                 <div>
-                  <span className="text-slate-400">Org:</span> {result.shodan.org}
+                  <span className="text-slate-500 dark:text-slate-400">Org:</span> {result.shodan.org}
                 </div>
                 <div>
-                  <span className="text-slate-400">OS:</span> {result.shodan.os}
+                  <span className="text-slate-500 dark:text-slate-400">OS:</span> {result.shodan.os}
                 </div>
                 {result.shodan.vulns && result.shodan.vulns.length > 0 && (
                   <div>
-                    <span className="text-slate-400">Vulns:</span> {result.shodan.vulns.join(', ')}
+                    <span className="text-slate-500 dark:text-slate-400">Vulns:</span> {result.shodan.vulns.join(', ')}
                   </div>
                 )}
               </div>
             </section>
           )}
 
-          {/* CDN/WAF Detection — metabigor cdn equivalent */}
+          {/* CDN/WAF Detection - metabigor cdn equivalent */}
           {cdnResult && cdnResult.is_cdn && (
             <section className="surface-card p-6">
               <h2 className="font-display font-bold text-xl mb-2 flex items-center gap-2">
@@ -248,14 +248,14 @@ export default function DomainWebcheck(): JSX.Element {
               </h2>
               <div className="font-mono text-sm space-y-1">
                 <div>
-                  <span className="text-slate-400">Provider:</span>{' '}
+                  <span className="text-slate-500 dark:text-slate-400">Provider:</span>{' '}
                   <span className="text-slate-900 dark:text-slate-100 font-semibold">{cdnResult.provider}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400">Type:</span> {cdnResult.type}
+                  <span className="text-slate-500 dark:text-slate-400">Type:</span> {cdnResult.type}
                 </div>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                  This domain is fronted by a CDN/WAF — the origin server IP may differ from what Shodan shows.
+                  This domain is fronted by a CDN/WAF - the origin server IP may differ from what Shodan shows.
                 </p>
               </div>
             </section>
@@ -296,7 +296,7 @@ function StatCard({
 }) {
   return (
     <div className="p-3 surface-card">
-      <div className="text-xs font-mono text-slate-400">{label}</div>
+      <div className="text-xs font-mono text-slate-500 dark:text-slate-400">{label}</div>
       <div className={`text-lg font-bold font-mono mt-0.5 ${valueClass ?? 'text-slate-900 dark:text-slate-100'}`}>
         {value}
       </div>

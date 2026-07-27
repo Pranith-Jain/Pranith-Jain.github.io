@@ -15,7 +15,7 @@ import {
 import { CopyButton } from '../../components/ui/CopyButton';
 
 /**
- * Live Security Headers Scanner — third-party HSTS/CSP/etc. scan via
+ * Live Security Headers Scanner - third-party HSTS/CSP/etc. scan via
  * IntoDNS.ai. Complements the existing /dfir/sec-headers
  * (which is paste-your-headers, 100% client-side, no API). This tool
  * fetches a live URL and gets an opinionated grade + per-header status
@@ -312,7 +312,7 @@ export default function SecHeadersLive(): JSX.Element {
             </section>
           )}
 
-          <footer className="text-mini font-mono text-slate-400 dark:text-slate-500">
+          <footer className="text-mini font-mono text-slate-500 dark:text-slate-400">
             methodology:{' '}
             <a href={CITATIONS.methodology} target="_blank" rel="noopener noreferrer" className="underline">
               intodns.ai/methodology

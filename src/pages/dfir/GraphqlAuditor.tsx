@@ -4,12 +4,12 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
 /**
- * GraphQL Security Analyzer — 100% client-side.
+ * GraphQL Security Analyzer - 100% client-side.
  *
  * Paste an introspection result (`{ "data": { "__schema": … } }`) or
  * SDL. Flags introspection exposure, sensitive/PII fields, auth-less
  * mutations/subscriptions, and recursive types that enable depth/
- * complexity DoS — the GraphQL-specific slice of the OWASP API Top 10
+ * complexity DoS - the GraphQL-specific slice of the OWASP API Top 10
  * (API4 resource consumption, API3 excessive data exposure, API5 BFLA).
  * Nothing leaves the browser.
  */
@@ -180,7 +180,7 @@ function analyze(text: string): Analysis | null {
       (doc as Record<string, unknown>).schema) as Record<string, unknown> | undefined;
     if (!schema || !Array.isArray(schema.types))
       return {
-        error: 'No __schema.types — expected an introspection result ({ "data": { "__schema": … } }).',
+        error: 'No __schema.types - expected an introspection result ({ "data": { "__schema": … } }).',
         mode: '',
         types: 0,
         findings: [],
@@ -192,7 +192,7 @@ function analyze(text: string): Analysis | null {
     mode = 'SDL';
   } else {
     return {
-      error: 'Unrecognised input — paste an introspection JSON or GraphQL SDL.',
+      error: 'Unrecognised input - paste an introspection JSON or GraphQL SDL.',
       mode: '',
       types: 0,
       findings: [],
@@ -207,7 +207,7 @@ function analyze(text: string): Analysis | null {
       sev: 'high',
       title: 'Introspection is enabled',
       detail:
-        'You obtained a full introspection result from the server — in production this hands attackers the entire schema for free enumeration (OWASP API exposure).',
+        'You obtained a full introspection result from the server - in production this hands attackers the entire schema for free enumeration (OWASP API exposure).',
       where: '__schema',
       fix: 'Disable introspection in production (e.g. NODE_ENV gate / apollo introspection:false); allow it only in non-prod.',
     });
@@ -221,14 +221,14 @@ function analyze(text: string): Analysis | null {
           sev: 'high',
           title: `Sensitive field exposed: ${tn}.${fld.name}`,
           detail:
-            'A credential/PII-looking field is queryable in the schema — excessive data exposure (OWASP API3); also a BOLA amplifier.',
+            'A credential/PII-looking field is queryable in the schema - excessive data exposure (OWASP API3); also a BOLA amplifier.',
           where: `${tn}.${fld.name}`,
           fix: 'Remove from the GraphQL type, or gate it behind field-level authorization and never return it by default.',
         });
     }
   }
 
-  // Mutations / subscriptions — authz cannot be seen in the schema
+  // Mutations / subscriptions - authz cannot be seen in the schema
   const mut = mutation && types[mutation];
   if (mut && mut.fields.length > 0)
     findings.push({
@@ -246,7 +246,7 @@ function analyze(text: string): Analysis | null {
       sev: 'low',
       title: 'Subscriptions exposed',
       detail:
-        'Real-time subscriptions run over a long-lived transport (WS/SSE) — auth on the upgrade/connection is frequently missed.',
+        'Real-time subscriptions run over a long-lived transport (WS/SSE) - auth on the upgrade/connection is frequently missed.',
       where: subscription,
       fix: 'Authenticate the connection on connect and re-check authz per published event.',
     });
@@ -257,7 +257,7 @@ function analyze(text: string): Analysis | null {
     findings.push({
       sev: 'medium',
       title: 'Recursive type relationship (query-depth DoS surface)',
-      detail: `Cyclic object references (${cycle}) let a client nest a query arbitrarily deep and explode resolver/DB work — OWASP API4 unrestricted resource consumption.`,
+      detail: `Cyclic object references (${cycle}) let a client nest a query arbitrarily deep and explode resolver/DB work - OWASP API4 unrestricted resource consumption.`,
       where: cycle,
       fix: 'Enforce a max query depth + cost/complexity limit and pagination; consider persisted queries.',
     });
@@ -278,7 +278,7 @@ function analyze(text: string): Analysis | null {
       sev: 'info',
       title: 'No auth directives visible in SDL',
       detail:
-        'No @auth/@hasRole/@requires-style directives — authorization may be enforced in resolvers (not visible here). Cannot verify least-privilege from the schema alone.',
+        'No @auth/@hasRole/@requires-style directives - authorization may be enforced in resolvers (not visible here). Cannot verify least-privilege from the schema alone.',
       where: 'schema',
       fix: 'Confirm resolver-level authorization exists for every query/mutation; consider schema directives for auditability.',
     });
@@ -348,7 +348,7 @@ export default function GraphqlAuditor(): JSX.Element {
         id="gql-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder='{ "data": { "__schema": { "types": [ … ] } } }   — or paste SDL (type Query { … })'
+        placeholder='{ "data": { "__schema": { "types": [ … ] } } }   - or paste SDL (type Query { … })'
         rows={12}
         spellCheck={false}
         aria-label="GraphQL introspection JSON or SDL"
@@ -383,7 +383,7 @@ export default function GraphqlAuditor(): JSX.Element {
             <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
               <ShieldCheck size={16} className="mt-0.5 flex-shrink-0" />
               <span>
-                No schema-level issues matched. Authorization can’t be fully judged from a schema — verify resolver
+                No schema-level issues matched. Authorization can’t be fully judged from a schema - verify resolver
                 authz at runtime.
               </span>
             </section>

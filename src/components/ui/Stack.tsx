@@ -24,7 +24,7 @@ const SPACING: Record<StackSpacing, string> = {
 };
 
 // Literal class lookup. `items-${align}` (template literal) was a
-// Tailwind JIT trap — the scanner only sees strings written verbatim
+// Tailwind JIT trap - the scanner only sees strings written verbatim
 // in source, so the responsive/align variants could silently fall
 // out of the build. Mapping each option to its literal class makes
 // the contract explicit and lets the build catch typos.

@@ -35,7 +35,7 @@ interface CloudResponse {
   upstream_error?: string;
 }
 
-/** Only render http(s) links — the external_references urls come from an
+/** Only render http(s) links - the external_references urls come from an
  *  untrusted upstream STIX bundle, so never let a `javascript:`/`data:` URL
  *  reach an href. */
 function safeHref(url: string): string | null {
@@ -58,8 +58,8 @@ const TYPE_TONE: Record<string, string> = {
 function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
-      ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+      ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -112,11 +112,11 @@ export default function CloudThreatLandscape(): JSX.Element {
         href="https://www.wiz.io/feed/cloud-threats-landscape"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-brand-600 dark:text-brand-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline"
       >
         Wiz Research
       </a>{' '}
-      and published as a STIX 2.1 bundle — campaign objective, timeline, and the original Wiz blog reference per entry.
+      and published as a STIX 2.1 bundle - campaign objective, timeline, and the original Wiz blog reference per entry.
       Free to display and cite with attribution to Wiz Research.
     </>
   );
@@ -169,7 +169,7 @@ export default function CloudThreatLandscape(): JSX.Element {
                       href={primaryRef}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-brand-600 dark:hover:text-brand-400"
+                      className="hover:text-rose-600 dark:hover:text-rose-400"
                     >
                       {inc.name} <ExternalLink size={12} className="inline align-baseline opacity-60" />
                     </a>
@@ -198,7 +198,7 @@ export default function CloudThreatLandscape(): JSX.Element {
                   </span>
                 ))}
                 {fmtDate(inc.modified || inc.created) && (
-                  <span className="text-micro font-mono text-slate-400 ml-auto">
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-auto">
                     {fmtDate(inc.modified || inc.created)}
                   </span>
                 )}
@@ -224,13 +224,13 @@ export default function CloudThreatLandscape(): JSX.Element {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                        className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
                         title={ref.source_name}
                       >
                         {ref.source_name || 'source'}
                       </a>
                     ) : (
-                      <span key={i} className="text-micro font-mono text-slate-400">
+                      <span key={i} className="text-micro font-mono text-slate-500 dark:text-slate-400">
                         {ref.source_name}
                       </span>
                     );
@@ -243,17 +243,17 @@ export default function CloudThreatLandscape(): JSX.Element {
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
           Data:{' '}
           <a
             href={data.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-brand-600 dark:hover:text-brand-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400"
           >
             {data.source}
           </a>{' '}
-          — Wiz Cloud Threat Landscape; free to display and cite with attribution
+          - Wiz Cloud Threat Landscape; free to display and cite with attribution
           {data.spec_version ? ` · STIX ${data.spec_version}` : ''} · {data.total} entries
         </p>
       )}

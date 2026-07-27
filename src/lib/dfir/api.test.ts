@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { streamIoc } from './api';
 
 /**
- * Controllable EventSource stub — jsdom has no EventSource, and we need to
+ * Controllable EventSource stub - jsdom has no EventSource, and we need to
  * drive individual SSE frames (including malformed ones) at the handlers.
  */
 class MockEventSource {
@@ -55,7 +55,7 @@ describe('streamIoc', () => {
 
   it('a malformed `done` frame fails the stream instead of stranding it', () => {
     // Regression: the old code called JSON.parse() before es.close(), so a bad
-    // frame threw out of the listener — es never closed, onError never fired,
+    // frame threw out of the listener - es never closed, onError never fired,
     // and bulk Promise.all() hung forever.
     const h = handlers();
     streamIoc('1.2.3.4', h);

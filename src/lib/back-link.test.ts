@@ -6,7 +6,7 @@ describe('backCategoryFor', () => {
   describe('threat-intel 2-segment paths (flat tool pages)', () => {
     // The 2-segment shapes that the resolver should recognise as
     // registered flat tool pages (every flat page has a direct
-    // /threatintel/<slug> URL — see HUB_META).
+    // /threatintel/<slug> URL - see HUB_META).
 
     it('returns null for /threatintel/detections (a redirect target, not a flat page)', () => {
       // /threatintel/detections → /threatintel/detections/detections
@@ -34,8 +34,8 @@ describe('backCategoryFor', () => {
     });
 
     it('returns null for paths that are not registered tools', () => {
-      // /threatintel/about IS a registered flat page (wiki hub) — see
-      // HUB_META — so the resolver correctly back-links to the wiki
+      // /threatintel/about IS a registered flat page (wiki hub) - see
+      // HUB_META - so the resolver correctly back-links to the wiki
       // catalog. The unrecognised path below is the real negative case.
       expect(backCategoryFor('/threatintel/unknown-tool')).toBeNull();
       expect(backCategoryFor('/threatintel/about')).toBe('/threatintel/catalog?cat=wiki');

@@ -10,7 +10,7 @@ import { QuoteOfTheDay } from '../components/QuoteOfTheDay';
 import { PageMeta } from '../components/PageMeta';
 
 /**
- * /snapshots — single bookmarkable URL that aggregates every live signal
+ * /snapshots - single bookmarkable URL that aggregates every live signal
  * surfaced on the portfolio home. Each child component is self-fetching
  * (no prop drilling) so this is just a composition. The point: power
  * users can pin one URL and see the state of the platform at a glance.
@@ -20,7 +20,7 @@ export default function Snapshots(): JSX.Element {
     <>
       <PageMeta
         title="Live Snapshots"
-        description="Live platform telemetry in one place — ransomware victims in the last 24h, top detections, IOC consensus, global pulse, latest briefing, feed health, and a featured tool."
+        description="Live platform telemetry in one place - ransomware victims in the last 24h, top detections, IOC consensus, global pulse, latest briefing, feed health, and a featured tool."
         canonicalPath="/snapshots"
       />
       <div className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
@@ -38,7 +38,7 @@ export default function Snapshots(): JSX.Element {
             </h1>
             <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-400">
               One bookmarkable view of every signal the platform surfaces on the home page. Components self-fetch on
-              mount, so refresh to recapture. Numbers are platform-wide telemetry — not personal.
+              mount, so refresh to recapture. Numbers are platform-wide telemetry - not personal.
             </p>
           </div>
           <FeedHealthBadge />

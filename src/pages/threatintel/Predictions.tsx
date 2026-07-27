@@ -53,7 +53,7 @@ const BUCKET_META: Record<Bucket, { label: string; icon: typeof TrendingUp; acce
 const ORDER: Bucket[] = ['cyber', 'ai', 'tech'];
 
 function formatVolume(n: number): string {
-  if (!n) return '—';
+  if (!n) return '-';
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000) return `$${(n / 1_000).toFixed(0)}K`;
   return `$${n.toFixed(0)}`;
@@ -75,7 +75,7 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
       href={m.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block surface-card/60 p-5 hover:border-brand-300 dark:hover:border-brand-700 transition-colors"
+      className="group block surface-card/60 p-5 hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors"
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <span
@@ -85,7 +85,7 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
         </span>
         <ExternalLink
           size={13}
-          className="text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-0.5"
+          className="text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-0.5"
         />
       </div>
       <p
@@ -96,12 +96,12 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
       </p>
       <div className="flex items-center justify-between text-xs mb-1.5">
         <span className="font-mono text-slate-500 dark:text-slate-400">{top ? `${top.name} ${pct}%` : `${pct}%`}</span>
-        <span className="font-mono text-slate-400 dark:text-slate-500">{formatVolume(m.volume)} vol</span>
+        <span className="font-mono text-slate-500 dark:text-slate-400">{formatVolume(m.volume)} vol</span>
       </div>
       <div className="h-1.5 w-full rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
         <div className={`h-full rounded-full ${meta.bar}`} style={{ width: `${Math.min(100, Math.max(2, pct))}%` }} />
       </div>
-      <div className="mt-3 text-mini font-mono text-slate-400 dark:text-slate-500">
+      <div className="mt-3 text-mini font-mono text-slate-500 dark:text-slate-400">
         resolves {formatEndDate(m.end_date)}
       </div>
     </a>
@@ -164,7 +164,7 @@ export default function Predictions(): JSX.Element {
             onClick={() => setFilter(b)}
             className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-colors ${
               active
-                ? 'border-brand-500 bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-300'
+                ? 'border-rose-500 bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-300'
                 : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600'
             }`}
           >
@@ -180,7 +180,7 @@ export default function Predictions(): JSX.Element {
       backTo="/threatintel"
       icon={<TrendingUp className="w-7 h-7" />}
       title="Prediction Markets"
-      description="Live Manifold prediction-market odds on cyber-threat, tech, and AI outcomes — ranked by liquidity. Community crowd forecasts, not advice. Source: Manifold Markets."
+      description="Live Manifold prediction-market odds on cyber-threat, tech, and AI outcomes - ranked by liquidity. Community crowd forecasts, not advice. Source: Manifold Markets."
       headerExtra={headerExtra}
       loading={loading}
       error={error ? `Failed to load predictions: ${error}` : null}

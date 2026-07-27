@@ -30,7 +30,7 @@ import { DFIR_FAQ } from '../data/dfir-faq';
 import { PRODUCTS } from '../lib/product-brands';
 
 /**
- * DFIR home page — redesigned following SaaS UX patterns from
+ * DFIR home page - redesigned following SaaS UX patterns from
  * Huntress, Shodan, and Recorded Future.
  *
  * Visual language (2026-06-19): one card surface, no rainbow category
@@ -39,17 +39,17 @@ import { PRODUCTS } from '../lib/product-brands';
  * accent instead of the old 224px blurred brand wash.
  *
  * Structure:
- *   1. Bold hero — "What is this?" in one sentence + primary search
- *   2. Stats — Social proof (Huntress "5M+ endpoints" pattern)
- *   3. Category overview — 8 clean topic cards (NOT 60+ individual tools)
- *   4. Quick access — Most-used tools for returning users
- *   5. Getting started — 3-step guide for novices
- *   6. Case studies — "Used in real cases" (proven credibility)
- *   7. Full catalog — One click away
+ *   1. Bold hero - "What is this?" in one sentence + primary search
+ *   2. Stats - Social proof (Huntress "5M+ endpoints" pattern)
+ *   3. Category overview - 8 clean topic cards (NOT 60+ individual tools)
+ *   4. Quick access - Most-used tools for returning users
+ *   5. Getting started - 3-step guide for novices
+ *   6. Case studies - "Used in real cases" (proven credibility)
+ *   7. Full catalog - One click away
  */
 
 /* ------------------------------------------------------------------ */
-/*  Category cards — the primary navigation surface                    */
+/*  Category cards - the primary navigation surface                    */
 /* ------------------------------------------------------------------ */
 
 interface CategoryCard {
@@ -61,7 +61,7 @@ interface CategoryCard {
   tone: string;
 }
 
-/** Live page counts from the hub registry — never hard-code. */
+/** Live page counts from the hub registry - never hard-code. */
 function hubPageCount(hubId: string): number {
   return CATALOG.find((h) => h.id === hubId)?.pages.length ?? 0;
 }
@@ -102,7 +102,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
   {
     id: 'detection',
     label: 'Detection & Rules',
-    description: 'Author, convert, and test detection rules. Sigma, KQL, YARA, SPL — all in one place.',
+    description: 'Author, convert, and test detection rules. Sigma, KQL, YARA, SPL - all in one place.',
     icon: FileSearch,
     href: '/dfir/catalog?cat=detection',
     tone: 'text-amber-600 dark:text-amber-400 hover:border-amber-500/40',
@@ -126,7 +126,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
   {
     id: 'frameworks',
     label: 'Frameworks & Models',
-    description: 'MITRE ATT&CK, Diamond Model, Kill Chain, OWASP, STIX/TAXII — visual frameworks for analysis.',
+    description: 'MITRE ATT&CK, Diamond Model, Kill Chain, OWASP, STIX/TAXII - visual frameworks for analysis.',
     icon: GitBranch,
     href: '/dfir/catalog?cat=frameworks',
     tone: 'text-indigo-600 dark:text-indigo-400 hover:border-indigo-500/40',
@@ -134,7 +134,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/*  Case studies — Huntress "Global Threats We've Wrecked" pattern     */
+/*  Case studies - Huntress "Global Threats We've Wrecked" pattern     */
 /* ------------------------------------------------------------------ */
 
 interface ToolCase {
@@ -262,14 +262,14 @@ export default function DFIRPage(): JSX.Element {
             },
           ]}
         />
-        {/* ── Hero — bold value prop + primary search ───────────── */}
+        {/* ── Hero - bold value prop + primary search ───────────── */}
         {/* surface-card + tone-tinted 1px hairline at top-left replaces
           the old 224px blurred brand wash. Same hierarchy, none of the
           AI-decorative feel. */}
         <section className="surface-elevated relative p-6 sm:p-10 lg:p-12">
           <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-brand-500/60" />
 
-          {/* Status ribbon — product-accurate kicker (not blanket "local only"). */}
+          {/* Status ribbon - product-accurate kicker (not blanket "local only"). */}
           <div className="mb-5 sm:mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-mini uppercase tracking-[0.16em] text-slate-500">
             <span className="inline-flex items-center gap-1.5">
               <span className="relative inline-flex h-1.5 w-1.5">
@@ -284,7 +284,7 @@ export default function DFIRPage(): JSX.Element {
             <span>Free · No signup · Runs in your browser</span>
           </div>
 
-          {/* H1 — the single most important visual moment. Bigger, tighter
+          {/* H1 - the single most important visual moment. Bigger, tighter
             tracking, real display weight. The stat row now lives below the
             lead paragraph as a hairline-separated band, not a single
             inline string. */}
@@ -294,15 +294,15 @@ export default function DFIRPage(): JSX.Element {
             <span className="sm:inline"> Respond with confidence.</span>
           </h1>
           <p className="mt-5 sm:mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-            Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules — 60+ tools
+            Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules - 60+ tools
             that run entirely in your browser. No data leaves your machine.
           </p>
 
-          {/* Primary search — the VirusTotal/Shodan pattern */}
+          {/* Primary search - the VirusTotal/Shodan pattern */}
           <div role="search" className="mt-6 relative max-w-2xl">
             <Search
               size={16}
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
               aria-hidden="true"
             />
             <input
@@ -310,7 +310,7 @@ export default function DFIRPage(): JSX.Element {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search 60+ tools — IOC check, phishing, CVEs, decoders..."
+              placeholder="Search 60+ tools - IOC check, phishing, CVEs, decoders..."
               className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
               aria-label="Search DFIR tools"
             />
@@ -327,7 +327,7 @@ export default function DFIRPage(): JSX.Element {
                 <X size={12} /> clear
               </button>
             ) : (
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-xs text-slate-400 sm:inline-flex">
+              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-xs text-slate-500 dark:text-slate-400 sm:inline-flex">
                 <kbd className="rounded border border-slate-200 bg-white px-1.5 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-700">
                   /
                 </kbd>
@@ -339,26 +339,7 @@ export default function DFIRPage(): JSX.Element {
             )}
           </div>
 
-          {/* Popular shortcuts */}
-          <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
-            <span>Popular:</span>
-            {[
-              { label: 'IOC Check', href: '/dfir/ioc-check' },
-              { label: 'Email Defense', href: '/dfir/email-defense' },
-              { label: 'CVE Prioritizer', href: '/dfir/cve-prioritizer' },
-              { label: 'Rule Converter', href: '/dfir/rule-converter' },
-            ].map((link) => (
-              <Link
-                key={link.href}
-                to={link.href}
-                className="inline-flex items-center gap-1 surface-card rounded-full px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-brand-300 hover:text-brand-600 dark:text-slate-300 dark:hover:border-brand-600 dark:hover:text-brand-400"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Stat band — Hunt.io "data table inside a card" pattern.
+          {/* Stat band - Hunt.io "data table inside a card" pattern.
               Three rows, hairline divider, big mono numerals. Reads as
               capability, not as bullet list. */}
           <dl className="mt-7 sm:mt-9 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[rgb(var(--border-400))] border-y border-[rgb(var(--border-400))]">
@@ -381,7 +362,7 @@ export default function DFIRPage(): JSX.Element {
           </dl>
         </section>
 
-        {/* ── Personalized workspace — "Continue where you left off" */}
+        {/* ── Personalized workspace - "Continue where you left off" */}
         {isHydrated && recentTools.length > 0 && (
           <section className="surface-card p-4 sm:p-5">
             <div className="flex items-center justify-between mb-3">
@@ -391,7 +372,7 @@ export default function DFIRPage(): JSX.Element {
                   Continue where you left off
                 </h2>
               </div>
-              <span className="font-mono text-micro text-slate-400 dark:text-slate-500">
+              <span className="font-mono text-micro text-slate-500 dark:text-slate-400">
                 {recentTools.length} recent
               </span>
             </div>
@@ -418,7 +399,7 @@ export default function DFIRPage(): JSX.Element {
           </section>
         )}
 
-        {/* ── Quick IOC check — paste an indicator inline */}
+        {/* ── Quick IOC check - paste an indicator inline */}
         <section className="surface-card p-4 sm:p-5">
           <div className="flex items-center gap-2 mb-3">
             <Hash size={14} className="text-brand-600 dark:text-brand-400" />
@@ -463,7 +444,7 @@ export default function DFIRPage(): JSX.Element {
             <div className="font-mono text-xs text-slate-500 mb-4">
               {searchResults?.length ?? 0} {searchResults?.length === 1 ? 'match' : 'matches'} for &ldquo;{query.trim()}
               &rdquo;
-              {(searchResults?.length ?? 0) === 0 && ' — try fewer or different keywords'}
+              {(searchResults?.length ?? 0) === 0 && ' - try fewer or different keywords'}
             </div>
             {searchResults && searchResults.length > 0 && (
               <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -474,7 +455,7 @@ export default function DFIRPage(): JSX.Element {
                       <Link to={t.path} className="group block h-full surface-card card-hover p-4">
                         <div className="flex items-start justify-between gap-2 mb-2">
                           <Icon size={16} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" />
-                          <span className="font-mono text-micro uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                          <span className="font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
                             {category.label}
                           </span>
                         </div>
@@ -499,7 +480,7 @@ export default function DFIRPage(): JSX.Element {
         {/* ── Non-search content ───────────────────────────────── */}
         {!isSearching && (
           <>
-            {/* ── Quick access — always visible, no scrolling needed */}
+            {/* ── Quick access - always visible, no scrolling needed */}
             <section>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {[
@@ -544,7 +525,7 @@ export default function DFIRPage(): JSX.Element {
               </div>
             </section>
 
-            {/* ── Explore by topic — open by default: these category cards are
+            {/* ── Explore by topic - open by default: these category cards are
                 the hub's primary navigation, so they shouldn't be hidden behind
                 a collapsed summary on landing. Secondary sections stay collapsed. */}
             <details open className="group surface-card">
@@ -557,7 +538,7 @@ export default function DFIRPage(): JSX.Element {
                     8 categories · {MAIN_TOOL_COUNT}+ tools
                   </p>
                 </div>
-                <ArrowRight size={16} className="text-slate-400 group-open:rotate-90 transition-transform" />
+                <ArrowRight size={16} className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform" />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -601,7 +582,7 @@ export default function DFIRPage(): JSX.Element {
             <details className="group surface-card">
               <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
                 <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">New here?</h2>
-                <ArrowRight size={16} className="text-slate-400 group-open:rotate-90 transition-transform" />
+                <ArrowRight size={16} className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform" />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="grid gap-4 sm:grid-cols-3">
@@ -649,7 +630,7 @@ export default function DFIRPage(): JSX.Element {
                     {TOOL_CASES.length} case studies · real incidents
                   </p>
                 </div>
-                <ArrowRight size={16} className="text-slate-400 group-open:rotate-90 transition-transform" />
+                <ArrowRight size={16} className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform" />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -684,7 +665,7 @@ export default function DFIRPage(): JSX.Element {
             <details className="group surface-card">
               <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
                 <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Common questions</h2>
-                <ArrowRight size={16} className="text-slate-400 group-open:rotate-90 transition-transform" />
+                <ArrowRight size={16} className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform" />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5 space-y-4">
                 {DFIR_FAQ.map((f) => (
@@ -706,7 +687,7 @@ export default function DFIRPage(): JSX.Element {
               >
                 <Compass size={16} />
                 Browse the full catalog
-                <span className="font-mono text-xs text-slate-400 dark:text-slate-500">{MAIN_TOOL_COUNT}+ tools</span>
+                <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{MAIN_TOOL_COUNT}+ tools</span>
                 <ArrowRight size={14} />
               </Link>
             </div>

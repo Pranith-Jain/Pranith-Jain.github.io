@@ -15,7 +15,7 @@ import { TOOL_TOPICS, type ToolTopic } from '../../data/dfir/tool-topics';
  * later iterations cannot scan inside the link's title attribute and produce
  * nested markup like `[SPF](… "… [DKIM](…) …")`. This module exists as a
  * standalone export specifically so the nesting bug can be regression-tested
- * in isolation — the symptom shipped to production once already.
+ * in isolation - the symptom shipped to production once already.
  */
 export function injectToolLinks(body: string): { body: string; matched: ToolTopic[] } {
   const segments: { kind: 'plain' | 'skip'; text: string }[] = [];

@@ -41,8 +41,8 @@ export default function Dashboard(): JSX.Element {
     return {
       total: entries.length,
       distinct: tools.size,
-      top: top ? top[0] : '—',
-      last: entries[0] ? relative(entries[0].timestamp) : '—',
+      top: top ? top[0] : '-',
+      last: entries[0] ? relative(entries[0].timestamp) : '-',
     };
   }, [entries]);
 
@@ -51,7 +51,7 @@ export default function Dashboard(): JSX.Element {
       backTo="/dfir"
       icon={<LayoutDashboard size={28} />}
       title="Toolkit dashboard"
-      description="A glance at your recent activity — last 20 queries, kept anonymously in this browser. Nothing is sent anywhere."
+      description="A glance at your recent activity - last 20 queries, kept anonymously in this browser. Nothing is sent anywhere."
       maxWidthClass="max-w-3xl"
       headerExtra={
         entries.length > 0 ? (
@@ -65,7 +65,7 @@ export default function Dashboard(): JSX.Element {
         ) : undefined
       }
     >
-      {/* At-a-glance stats — derived from local history. */}
+      {/* At-a-glance stats - derived from local history. */}
       <div className="stagger grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
         {[
           { k: 'Lookups', v: String(stats.total) },
@@ -106,7 +106,7 @@ export default function Dashboard(): JSX.Element {
       </h2>
       <DataState
         empty={entries.length === 0}
-        emptyLabel="No lookups yet — run the IOC checker or any tool and they’ll show up here."
+        emptyLabel="No lookups yet - run the IOC checker or any tool and they’ll show up here."
       >
         <ul className="stagger space-y-2">
           {entries.map((e) => (

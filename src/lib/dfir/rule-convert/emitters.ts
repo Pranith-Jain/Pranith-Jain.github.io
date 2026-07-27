@@ -168,7 +168,7 @@ export function emitEql(ir: RuleIR): string {
 
 export function emitYara(ir: RuleIR, warnings: string[]): string {
   warnings.push(
-    'YARA output is a string-extraction heuristic: field/log semantics are lost — it only matches the literal ' +
+    'YARA output is a string-extraction heuristic: field/log semantics are lost - it only matches the literal ' +
       'string values from the rule anywhere in a file/buffer. Tune strings + condition before operational use.'
   );
   const values = allStringValues(ir).filter((v) => v.length >= 3 && !/^\d+$/.test(v));
@@ -203,7 +203,7 @@ function valueToRegex(v: string, op: MatchOp): string {
 export function emitDlp(ir: RuleIR, warnings: string[]): string {
   warnings.push(
     'DLP output is a flat regex pattern list (one per matched value). Boolean structure and field scoping ' +
-      'are not represented — wire each pattern into your DLP engine and set the field/channel scope there.'
+      'are not represented - wire each pattern into your DLP engine and set the field/channel scope there.'
   );
   const rows: { field: string; pattern: string }[] = [];
   for (const g of ir.groups) {
@@ -237,7 +237,7 @@ export function emitDlp(ir: RuleIR, warnings: string[]): string {
  */
 export function emitSnort(ir: RuleIR, warnings: string[]): string {
   warnings.push(
-    'Snort/Suricata output is a content/pcre scaffold — host-log field semantics do not exist in NIDS rules. ' +
+    'Snort/Suricata output is a content/pcre scaffold - host-log field semantics do not exist in NIDS rules. ' +
       'Validate the proto / direction / sid; tune classtype + reference before deploying.'
   );
   const values = allStringValues(ir).filter((v) => v.length >= 3);
@@ -254,16 +254,16 @@ export function emitSnort(ir: RuleIR, warnings: string[]): string {
 }
 
 /**
- * PowerShell emitter — produces a `Select-String -Pattern …` one-liner
+ * PowerShell emitter - produces a `Select-String -Pattern …` one-liner
  * that scans the EventLog / file system for the IR's literal values.
- * This is a triage helper, not a hardened detection — it's what an IR
+ * This is a triage helper, not a hardened detection - it's what an IR
  * tier-1 would paste into a Windows host to confirm/deny the rule's
  * substrate before promoting it to a SIEM detection.
  */
 export function emitPowerShell(ir: RuleIR, warnings: string[]): string {
   warnings.push(
     'PowerShell output is a triage one-liner (Select-String over EventLogs / files). ' +
-      'Field semantics are not preserved — review what surface you are scanning before running.'
+      'Field semantics are not preserved - review what surface you are scanning before running.'
   );
   const values = allStringValues(ir).filter((v) => v.length >= 3);
   if (values.length === 0) return '# no string values to derive a PowerShell scanner from';
@@ -284,7 +284,7 @@ export function emitPowerShell(ir: RuleIR, warnings: string[]): string {
 export function emitSupplyChain(ir: RuleIR, warnings: string[]): string {
   warnings.push(
     'Supply-chain output is a Semgrep-style scaffold + guidance, NOT a faithful transpile. Detection-rule ' +
-      'semantics rarely map onto dependency/code scanning — treat this as a starting point and validate against ' +
+      'semantics rarely map onto dependency/code scanning - treat this as a starting point and validate against ' +
       'Guarddog / OSV-Scanner / Semgrep directly.'
   );
   const values = allStringValues(ir);
@@ -292,7 +292,7 @@ export function emitSupplyChain(ir: RuleIR, warnings: string[]): string {
     .slice(0, 12)
     .map((v) => `      - pattern-regex: ${JSON.stringify(valueToRegex(v, 'contains'))}`);
   return [
-    '# Semgrep scaffold (heuristic) — review before use.',
+    '# Semgrep scaffold (heuristic) - review before use.',
     '#   • For malicious-package detection use DataDog Guarddog.',
     '#   • For known-vuln dependencies use Google OSV-Scanner.',
     'rules:',

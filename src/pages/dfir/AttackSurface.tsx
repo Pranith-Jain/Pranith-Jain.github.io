@@ -27,32 +27,32 @@ const CVES: Cve[] = [
     id: 'CVE-2018-13379',
     cvss: 9.8,
     disclosed: Date.parse('2018-08-02'),
-    description: 'Pre-auth path traversal — reads /etc/passwd and session files over HTTPS without authentication.',
+    description: 'Pre-auth path traversal - reads /etc/passwd and session files over HTTPS without authentication.',
   },
   {
     id: 'CVE-2019-5591',
     cvss: 7.5,
     disclosed: Date.parse('2019-07-24'),
-    description: 'Default configuration leak — sends sensitive system files to peer FortiGate via FortiGuard.',
+    description: 'Default configuration leak - sends sensitive system files to peer FortiGate via FortiGuard.',
   },
   {
     id: 'CVE-2020-12812',
     cvss: 9.8,
     disclosed: Date.parse('2020-07-23'),
-    description: 'MFA bypass — logging in with a blank space as the second factor succeeds on certain configurations.',
+    description: 'MFA bypass - logging in with a blank space as the second factor succeeds on certain configurations.',
   },
   {
     id: 'CVE-2022-40684',
     cvss: 9.8,
     disclosed: Date.parse('2022-10-10'),
     description:
-      'Auth bypass via crafted HTTP/HTTPS request — reads configs, keys, and session tokens without credentials.',
+      'Auth bypass via crafted HTTP/HTTPS request - reads configs, keys, and session tokens without credentials.',
   },
 ];
 
 const CONTROLS = [
   { key: 'defenderAv', label: 'Defender AV', icon: ShieldCheck, desc: 'Endpoint antivirus running on VPN gateway' },
-  { key: 'edr', label: 'EDR', icon: Eye, desc: 'Endpoint detection & response — behavioral monitoring' },
+  { key: 'edr', label: 'EDR', icon: Eye, desc: 'Endpoint detection & response - behavioral monitoring' },
   { key: 'conditionalAccess', label: 'Conditional Access', icon: Lock, desc: 'Geo/IP/device-based access policies' },
   {
     key: 'vpnPatching',
@@ -182,7 +182,7 @@ export default function AttackSurface(): JSX.Element {
             ev.detail = `Blocked by defense stack`;
           } else {
             ev.type = 'breach';
-            ev.detail = `Exploitation successful — ${cve.id}`;
+            ev.detail = `Exploitation successful - ${cve.id}`;
           }
           setEvents((prev) => [...prev, ev]);
           setSiemLog((prev) => {
@@ -224,7 +224,7 @@ export default function AttackSurface(): JSX.Element {
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <ShieldAlert size={28} className="text-rose-600 dark:text-rose-400" /> Attack Surface — SSL-VPN CVE Model
+          <ShieldAlert size={28} className="text-rose-600 dark:text-rose-400" /> Attack Surface - SSL-VPN CVE Model
         </h1>
         <p className="text-muted mb-6 max-w-2xl text-sm font-mono">
           Simulate exploitation of Fortinet SSL-VPN appliances across 8 years. Toggle defenses, adjust patch cadence,
@@ -463,7 +463,7 @@ export default function AttackSurface(): JSX.Element {
                 <h3 className="text-xs font-mono text-muted mb-2">SIEM Feed</h3>
                 <div className="h-64 overflow-y-auto space-y-1 font-mono text-xs">
                   {siemLog.length === 0 && (
-                    <div className="text-muted italic">No events yet — start the simulation.</div>
+                    <div className="text-muted italic">No events yet - start the simulation.</div>
                   )}
                   {siemLog.map((line, i) => {
                     const isCrit = line.startsWith('[S') ? false : line.includes('CRITICAL');

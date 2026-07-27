@@ -30,11 +30,11 @@ function rowsFor(raw: string): Row[] {
     push('Unix seconds', n * 1000);
     push('Unix milliseconds', n);
     push('Unix microseconds', n / 1000);
-    // Windows FILETIME — 100ns ticks since 1601.
+    // Windows FILETIME - 100ns ticks since 1601.
     push('Windows FILETIME (100ns since 1601)', n / 10000 + FILETIME_EPOCH_MS);
-    // WebKit/Chrome — microseconds since 1601.
+    // WebKit/Chrome - microseconds since 1601.
     push('WebKit / Chrome (µs since 1601)', n / 1000 + FILETIME_EPOCH_MS);
-    // Apple Cocoa / Mac absolute time — seconds since 2001-01-01.
+    // Apple Cocoa / Mac absolute time - seconds since 2001-01-01.
     push('Apple Cocoa (s since 2001)', (n + 978307200) * 1000);
   }
   return out;
@@ -67,7 +67,7 @@ export default function TimestampConverter(): JSX.Element {
         Timestamp Converter
       </h1>
       <p className="text-sm font-mono text-muted mt-1 mb-6">
-        Unix (s/ms/µs), Windows FILETIME, WebKit/Chrome, Apple Cocoa, and ISO 8601 — all interpretations at once. 100%
+        Unix (s/ms/µs), Windows FILETIME, WebKit/Chrome, Apple Cocoa, and ISO 8601 - all interpretations at once. 100%
         client-side.
       </p>
 

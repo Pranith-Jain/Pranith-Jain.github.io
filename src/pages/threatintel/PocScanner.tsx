@@ -47,7 +47,7 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
     <div className="space-y-4">
       <div className="flex gap-2">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             placeholder="CVE-2024-3094"
@@ -60,7 +60,7 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
         <button
           onClick={scan}
           disabled={!/^CVE-\d{4}-\d{4,7}$/.test(cveId.trim().toUpperCase())}
-          className="px-4 py-2 bg-brand-600 hover:bg-brand-700 disabled:opacity-40 text-white rounded-xl text-sm font-medium flex items-center gap-1.5 transition-colors"
+          className="px-4 py-2 bg-rose-600 hover:bg-rose-700 disabled:opacity-40 text-white rounded-xl text-sm font-medium flex items-center gap-1.5 transition-colors"
         >
           <Search className="h-4 w-4" />
           Scan GitHub
@@ -72,7 +72,7 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
           <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
             <span className="font-mono font-semibold text-slate-900 dark:text-white">{data.cve_id}</span>
             <span>{data.repos.length} PoC repos found</span>
-            <span className="text-xs text-slate-400">({data.total_count} total on GitHub)</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">({data.total_count} total on GitHub)</span>
           </div>
 
           {data.repos.length === 0 ? (
@@ -84,7 +84,7 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
               {data.repos.map((repo) => (
                 <div
                   key={repo.id}
-                  className="p-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl hover:border-brand-300 dark:hover:border-brand-600 transition-colors"
+                  className="p-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl hover:border-rose-300 dark:hover:border-rose-600 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
@@ -93,7 +93,7 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
                           href={repo.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-mono text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1"
+                          className="font-mono text-sm font-semibold text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1"
                         >
                           {repo.full_name}
                           <ExternalLink className="h-3 w-3" />

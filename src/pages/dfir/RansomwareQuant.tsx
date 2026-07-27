@@ -141,7 +141,7 @@ export default function RansomwareQuant(): JSX.Element {
       backTo="/dfir"
       icon={<Shield size={28} />}
       title="Ransomware $ Quantification"
-      description="Estimate financial impact of ransomware scenarios — downtime, data loss, ransom, IR, legal, PR, regulatory fines, and insurance recovery."
+      description="Estimate financial impact of ransomware scenarios - downtime, data loss, ransom, IR, legal, PR, regulatory fines, and insurance recovery."
       loading={loading}
       error={error}
       onRetry={fetchData}
@@ -200,7 +200,7 @@ export default function RansomwareQuant(): JSX.Element {
             </label>
             <div className="col-span-3 grid grid-cols-2 sm:grid-cols-4 gap-2">
               <div>
-                <label className="text-micro font-mono text-slate-400">Annual Revenue</label>
+                <label className="text-micro font-mono text-slate-500 dark:text-slate-400">Annual Revenue</label>
                 <input
                   name="annual_revenue"
                   type="number"
@@ -209,7 +209,7 @@ export default function RansomwareQuant(): JSX.Element {
                 />
               </div>
               <div>
-                <label className="text-micro font-mono text-slate-400">Ransom Demand</label>
+                <label className="text-micro font-mono text-slate-500 dark:text-slate-400">Ransom Demand</label>
                 <input
                   name="ransom_demand"
                   type="number"
@@ -218,7 +218,7 @@ export default function RansomwareQuant(): JSX.Element {
                 />
               </div>
               <div>
-                <label className="text-micro font-mono text-slate-400">PII Records</label>
+                <label className="text-micro font-mono text-slate-500 dark:text-slate-400">PII Records</label>
                 <input
                   name="pii_records"
                   type="number"
@@ -227,7 +227,7 @@ export default function RansomwareQuant(): JSX.Element {
                 />
               </div>
               <div>
-                <label className="text-micro font-mono text-slate-400">Insurance Coverage</label>
+                <label className="text-micro font-mono text-slate-500 dark:text-slate-400">Insurance Coverage</label>
                 <input
                   name="cyber_insurance_coverage"
                   type="number"
@@ -277,7 +277,7 @@ export default function RansomwareQuant(): JSX.Element {
                 >
                   {fmt(s.total_impact)}
                 </span>
-                <span className="text-micro text-slate-400">{s.estimated_downtime_hours}h downtime</span>
+                <span className="text-micro text-slate-500 dark:text-slate-400">{s.estimated_downtime_hours}h downtime</span>
               </div>
               <div className="mt-1 w-full h-1 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
                 <div
@@ -308,7 +308,7 @@ export default function RansomwareQuant(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => handleDelete(selected.id)}
-                  className="text-micro text-slate-400 hover:text-rose-500 p-1"
+                  className="text-micro text-slate-500 dark:text-slate-400 hover:text-rose-500 p-1"
                 >
                   <AlertTriangle size={14} />
                 </button>
@@ -316,26 +316,26 @@ export default function RansomwareQuant(): JSX.Element {
 
               {/* Summary cards */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
-                  <div className="text-micro font-mono text-slate-400">Total Impact</div>
+                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
+                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Total Impact</div>
                   <div className="text-sm font-bold font-mono text-rose-600 dark:text-rose-400">
                     {fmt(selected.total_impact)}
                   </div>
                 </div>
-                <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
-                  <div className="text-micro font-mono text-slate-400">After Insurance</div>
+                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
+                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">After Insurance</div>
                   <div className="text-sm font-bold font-mono text-emerald-600 dark:text-emerald-400">
                     {fmt(selected.total_impact_after_insurance)}
                   </div>
                 </div>
-                <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
-                  <div className="text-micro font-mono text-slate-400">Insurance Recovers</div>
+                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
+                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Insurance Recovers</div>
                   <div className="text-sm font-bold font-mono text-blue-600 dark:text-blue-400">
                     {fmt(selected.insurance_recovery)}
                   </div>
                 </div>
-                <div className="rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
-                  <div className="text-micro font-mono text-slate-400">Total Downtime</div>
+                <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
+                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Total Downtime</div>
                   <div className="text-sm font-bold font-mono">
                     {selected.estimated_downtime_hours + selected.recovery_time_hours}h
                   </div>
@@ -410,31 +410,31 @@ export default function RansomwareQuant(): JSX.Element {
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-micro font-mono">
                   <div>
-                    <span className="text-slate-400">Revenue/yr:</span> {fmt(selected.annual_revenue)}
+                    <span className="text-slate-500 dark:text-slate-400">Revenue/yr:</span> {fmt(selected.annual_revenue)}
                   </div>
                   <div>
-                    <span className="text-slate-400">Ransom:</span> {fmt(selected.ransom_demand)}
+                    <span className="text-slate-500 dark:text-slate-400">Ransom:</span> {fmt(selected.ransom_demand)}
                   </div>
                   <div>
-                    <span className="text-slate-400">PII records:</span> {selected.pii_records.toLocaleString()}
+                    <span className="text-slate-500 dark:text-slate-400">PII records:</span> {selected.pii_records.toLocaleString()}
                   </div>
                   <div>
-                    <span className="text-slate-400">Insurance:</span> {fmt(selected.cyber_insurance_coverage)}
+                    <span className="text-slate-500 dark:text-slate-400">Insurance:</span> {fmt(selected.cyber_insurance_coverage)}
                   </div>
                   <div>
-                    <span className="text-slate-400">Deductible:</span> {fmt(selected.insurance_deductible)}
+                    <span className="text-slate-500 dark:text-slate-400">Deductible:</span> {fmt(selected.insurance_deductible)}
                   </div>
                   <div>
-                    <span className="text-slate-400">IR cost/hr:</span> {fmt(selected.hourly_incident_response_cost)}
+                    <span className="text-slate-500 dark:text-slate-400">IR cost/hr:</span> {fmt(selected.hourly_incident_response_cost)}
                   </div>
                   <div>
-                    <span className="text-slate-400">Data volume:</span> {selected.data_volume_gb} GB
+                    <span className="text-slate-500 dark:text-slate-400">Data volume:</span> {selected.data_volume_gb} GB
                   </div>
                   <div>
-                    <span className="text-slate-400">IP at risk:</span> {fmt(selected.ip_value_at_risk)}
+                    <span className="text-slate-500 dark:text-slate-400">IP at risk:</span> {fmt(selected.ip_value_at_risk)}
                   </div>
                   <div>
-                    <span className="text-slate-400">Fine/record:</span> {fmt(selected.regulatory_fine_per_record)}
+                    <span className="text-slate-500 dark:text-slate-400">Fine/record:</span> {fmt(selected.regulatory_fine_per_record)}
                   </div>
                 </div>
               </div>

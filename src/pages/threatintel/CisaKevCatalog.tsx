@@ -242,7 +242,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
             value: filtered.filter((v) => v.cvss_score != null).length,
             color: 'text-blue-600 dark:text-blue-400',
           },
-          { label: 'Showing', value: filtered.length, color: 'text-brand-600 dark:text-brand-400' },
+          { label: 'Showing', value: filtered.length, color: 'text-rose-600 dark:text-rose-400' },
         ].map((kpi) => (
           <div key={kpi.label} className="surface-card p-3">
             <div className="text-xs text-slate-500 dark:text-slate-400">{kpi.label}</div>
@@ -262,12 +262,12 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
       {/* Filters */}
       <div className="flex flex-wrap gap-2 items-center">
         <div className="relative flex-1 min-w-[200px]">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search CVE, product, name..."
-            className="w-full pl-8 pr-3 py-2 text-sm surface-card text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50"
+            className="w-full pl-8 pr-3 py-2 text-sm surface-card text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/50"
           />
         </div>
         <select
@@ -356,7 +356,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                       href={`https://nvd.nist.gov/vuln/detail/${v.cve_id}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-brand-600 dark:text-brand-400 hover:underline font-mono text-xs"
+                      className="text-rose-600 dark:text-rose-400 hover:underline font-mono text-xs"
                     >
                       {v.cve_id}
                     </a>
@@ -385,7 +385,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                         <AlertTriangle size={10} /> Yes
                       </span>
                     ) : (
-                      <span className="text-xs text-slate-400">No</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">No</span>
                     )}
                   </td>
                 </tr>
@@ -399,7 +399,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
           <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400">
             <span>
               {filtered.length.toLocaleString()} result{filtered.length !== 1 ? 's' : ''}
-              {pageSize < filtered.length && ` — page ${page + 1} of ${pageCount} (${pageEntries.length} shown)`}
+              {pageSize < filtered.length && ` - page ${page + 1} of ${pageCount} (${pageEntries.length} shown)`}
             </span>
             <div className="flex items-center gap-2">
               <span className="hidden sm:inline">Rows:</span>
@@ -409,7 +409,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   setPageSize(Number(e.target.value));
                   setPage(0);
                 }}
-                className="text-xs rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 px-2 py-1"
+                className="text-xs rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 px-2 py-1"
               >
                 {PAGE_SIZES.map((s) => (
                   <option key={s} value={s}>
@@ -423,7 +423,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   type="button"
                   disabled={page === 0}
                   onClick={() => setPage(Math.max(0, page - 1))}
-                  className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed"
                   aria-label="Previous page"
                 >
                   <ChevronLeft size={14} />
@@ -435,7 +435,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   type="button"
                   disabled={page >= pageCount - 1}
                   onClick={() => setPage(Math.min(pageCount - 1, page + 1))}
-                  className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed"
                   aria-label="Next page"
                 >
                   <ChevronRight size={14} />
@@ -456,13 +456,13 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
       maxWidthClass="max-w-6xl"
       description={
         <>
-          Known Exploited Vulnerabilities catalog — {stats.total.toLocaleString()} entries, {stats.ransomware} with
+          Known Exploited Vulnerabilities catalog - {stats.total.toLocaleString()} entries, {stats.ransomware} with
           ransomware use, {stats.last30} added in last 30 days.{' '}
           <a
             href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             cisa.gov <ExternalLink size={11} className="inline" />
           </a>

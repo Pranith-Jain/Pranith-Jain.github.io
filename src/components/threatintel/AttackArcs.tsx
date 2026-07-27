@@ -7,7 +7,7 @@ import { useMemo, useRef } from 'react';
  * "target" point (or between top source countries). Uses the same
  * country-aggregated data from /api/v1/threat-map.
  *
- * Inspired by raven (github.com/qeeqbox/raven) — pure JS, no deps.
+ * Inspired by raven (github.com/qeeqbox/raven) - pure JS, no deps.
  */
 
 interface ArcData {

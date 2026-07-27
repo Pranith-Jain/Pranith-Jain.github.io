@@ -10,11 +10,11 @@ export interface RegistryEntry {
 }
 
 export const KNOWN_KEYS: RegistryEntry[] = [
-  // Persistence — Run Keys
+  // Persistence - Run Keys
   {
     path: 'HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run',
     category: 'Persistence',
-    description: 'Run key — common malware persistence via registry.',
+    description: 'Run key - common malware persistence via registry.',
     malware: ['Emotet', 'TrickBot', 'AgentTesla', 'QakBot'],
     techniqueId: 'T1547.001',
     technique: 'Registry Run Keys / Startup Folder',
@@ -34,7 +34,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce',
     category: 'Persistence',
-    description: 'Run once key — executes on next boot then deletes.',
+    description: 'Run once key - executes on next boot then deletes.',
     malware: ['Ryuk', 'Conti'],
     techniqueId: 'T1547.001',
     technique: 'Registry Run Keys / Startup Folder',
@@ -44,7 +44,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\RunServices',
     category: 'Persistence',
-    description: 'RunServices key — loads before user logon.',
+    description: 'RunServices key - loads before user logon.',
     malware: ['NetBus', 'SubSeven'],
     techniqueId: 'T1547.001',
     technique: 'Registry Run Keys / Startup Folder',
@@ -66,7 +66,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\System\\CurrentControlSet\\Control\\Session Manager\\BootExecute',
     category: 'Persistence',
-    description: 'BootExecute — runs before system services start.',
+    description: 'BootExecute - runs before system services start.',
     malware: ['BootRookit', 'TDSS', 'Petya'],
     techniqueId: 'T1547.002',
     technique: 'LSASS Driver Load',
@@ -78,7 +78,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\System\\CurrentControlSet\\Services',
     category: 'Persistence',
-    description: 'Windows services key — subkeys are individual service configurations.',
+    description: 'Windows services key - subkeys are individual service configurations.',
     malware: ['WannaCry', 'Stuxnet', 'TrickBot'],
     techniqueId: 'T1543.003',
     technique: 'Windows Service',
@@ -88,7 +88,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\System\\CurrentControlSet\\Control\\SafeBoot',
     category: 'Defense Evasion',
-    description: 'SafeBoot configuration — malware may disable or use minimal safe mode.',
+    description: 'SafeBoot configuration - malware may disable or use minimal safe mode.',
     malware: ['RobbinHood', 'GandCrab'],
     techniqueId: 'T1562.001',
     technique: 'Disable or Modify Tools',
@@ -100,7 +100,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options',
     category: 'Defense Evasion',
-    description: 'IFEO — used for silent process exit debugging, process ghosting.',
+    description: 'IFEO - used for silent process exit debugging, process ghosting.',
     malware: ['PlugX', 'Houdini'],
     techniqueId: 'T1546.012',
     technique: 'Image File Execution Options Injection',
@@ -110,7 +110,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\*\\Debugger',
     category: 'Defense Evasion',
-    description: 'Global debugger flags — redirects execution to an attacker binary.',
+    description: 'Global debugger flags - redirects execution to an attacker binary.',
     malware: ['PlugX', 'Gh0stRAT'],
     techniqueId: 'T1546.012',
     technique: 'Image File Execution Options Injection',
@@ -118,11 +118,11 @@ export const KNOWN_KEYS: RegistryEntry[] = [
     risk: 'high',
   },
 
-  // Notifications — Winlogon
+  // Notifications - Winlogon
   {
     path: 'HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\Notify',
     category: 'Persistence',
-    description: 'Winlogon notifications — loads DLLs on user logon.',
+    description: 'Winlogon notifications - loads DLLs on user logon.',
     malware: ['Mydoom', 'Gaobot'],
     techniqueId: 'T1547.004',
     technique: 'Winlogon Helper DLL',
@@ -132,7 +132,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\Userinit',
     category: 'Persistence',
-    description: 'Userinit — userinit.exe is launched at logon.',
+    description: 'Userinit - userinit.exe is launched at logon.',
     malware: ['TrickBot', 'Zeus', 'Banker'],
     techniqueId: 'T1547.004',
     technique: 'Winlogon Helper DLL',
@@ -142,7 +142,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\Shell',
     category: 'Persistence',
-    description: 'Shell — replaces explorer.exe as the default shell.',
+    description: 'Shell - replaces explorer.exe as the default shell.',
     malware: ['Ransom.Win32.FileCrypt', 'Dexter'],
     techniqueId: 'T1547.004',
     technique: 'Winlogon Helper DLL',
@@ -154,7 +154,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows\\AppInit_DLLs',
     category: 'Persistence',
-    description: 'AppInit_DLLs — loads DLLs into every process loading user32.dll.',
+    description: 'AppInit_DLLs - loads DLLs into every process loading user32.dll.',
     malware: ['Koobface', 'Ramnit', 'Bancos'],
     techniqueId: 'T1546.001',
     technique: 'AppInit DLLs',
@@ -176,7 +176,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\Software\\Microsoft\\Internet Explorer\\Extensions',
     category: 'Persistence',
-    description: 'IE extensions — depreacted but still supported for legacy compat.',
+    description: 'IE extensions - depreacted but still supported for legacy compat.',
     malware: ['SearchProtect', 'SpySheriff'],
     techniqueId: 'T1176',
     technique: 'Browser Extensions',
@@ -188,7 +188,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\System\\CurrentControlSet\\Control\\Lsa\\Security Packages',
     category: 'Credential Access',
-    description: 'LSA security packages — loads authentication packages including SSPs.',
+    description: 'LSA security packages - loads authentication packages including SSPs.',
     malware: ['Mimikatz SSP', 'Wannabe'],
     techniqueId: 'T1556.004',
     technique: 'Security Support Provider (SSP)',
@@ -244,7 +244,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\Software\\Microsoft\\SystemCertificates\\Root\\Certificates',
     category: 'Defense Evasion',
-    description: 'Root certificate store — malware may install untrusted root CAs.',
+    description: 'Root certificate store - malware may install untrusted root CAs.',
     malware: ['Superfish', 'Dell eDellRoot', 'PlugX'],
     techniqueId: 'T1553.004',
     technique: 'Install Root Certificate',
@@ -266,7 +266,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\System\\CurrentControlSet\\Control\\Session Manager\\AppCertDlls',
     category: 'Persistence',
-    description: 'AppCert DLLs — loaded by every process that calls Win32 APIs.',
+    description: 'AppCert DLLs - loaded by every process that calls Win32 APIs.',
     malware: [],
     techniqueId: 'T1546.009',
     technique: 'AppCert DLLs',
@@ -278,7 +278,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\Software\\Microsoft\\Active Setup\\Installed Components',
     category: 'Persistence',
-    description: 'Active Setup — runs on user logon before explorer.',
+    description: 'Active Setup - runs on user logon before explorer.',
     malware: ['Adware', 'BrowseFox'],
     techniqueId: 'T1547.011',
     technique: 'Active Setup',
@@ -290,7 +290,7 @@ export const KNOWN_KEYS: RegistryEntry[] = [
   {
     path: 'HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders',
     category: 'Persistence',
-    description: 'Shell folder redirection — malware can redirect startup/profile locations.',
+    description: 'Shell folder redirection - malware can redirect startup/profile locations.',
     malware: ['ZeroAccess'],
     techniqueId: 'T1547.006',
     technique: 'Boot or Logon Autostart',

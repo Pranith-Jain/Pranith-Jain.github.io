@@ -122,7 +122,7 @@ export default function SecopsCatalog(): JSX.Element {
           <Layers size={28} className="text-brand-600 dark:text-brand-400" /> SecOps Tools Catalog
         </h1>
         <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-          {TOOLS.length} hand-picked tools across {ALL_CATEGORIES.length} SecOps categories. Quality &gt; quantity —
+          {TOOLS.length} hand-picked tools across {ALL_CATEGORIES.length} SecOps categories. Quality &gt; quantity -
           every entry has a clear primary use-case and an honest pricing tag.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
@@ -134,19 +134,19 @@ export default function SecopsCatalog(): JSX.Element {
           <BackLink to="/threatintel" className="text-brand-600 dark:text-brand-400 hover:underline">
             /dfir tile grid
           </BackLink>
-          . Paid services are listed for landscape awareness — they're not proxied or invoked on your behalf.
+          . Paid services are listed for landscape awareness - they're not proxied or invoked on your behalf.
         </p>
       </div>
 
       {/* Search + summary */}
       <section className="surface-card p-4 mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search name, description, category — e.g. 'sigma', 'github', 'open-source dfir'"
+            placeholder="Search name, description, category - e.g. 'sigma', 'github', 'open-source dfir'"
             className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search SecOps tools"
           />
@@ -154,7 +154,7 @@ export default function SecopsCatalog(): JSX.Element {
 
         {/* Pricing toggles */}
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
-          <span className="text-mini font-mono text-slate-400 mr-1">pricing:</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">pricing:</span>
           {ALL_PRICING.map((p) => {
             const active = activePricing.has(p);
             return (
@@ -184,7 +184,7 @@ export default function SecopsCatalog(): JSX.Element {
       {/* Category pills */}
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini font-mono text-slate-400 mr-1">categories:</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">categories:</span>
           {ALL_CATEGORIES.map((c) => {
             const count = catCounts.get(c) ?? 0;
             const active = activeCats.has(c);
@@ -256,7 +256,7 @@ export default function SecopsCatalog(): JSX.Element {
                   href={sanitizeUrl(t.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
                   title="Source repository"
                 >
                   <Github size={10} /> source

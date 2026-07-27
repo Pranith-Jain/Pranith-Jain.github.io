@@ -185,7 +185,7 @@ function SpecialistProgressBar({ steps }: { steps: AgentStep[] }): JSX.Element {
                     ? `${color} ring-2 ring-offset-1 ring-slate-200 dark:ring-slate-700`
                     : isDone
                       ? `${color} opacity-70`
-                      : 'border-slate-200 bg-slate-50 text-slate-400'
+                      : 'border-slate-200 bg-slate-50 text-slate-500 dark:text-slate-400'
                 }`}
               >
                 {icon ? (
@@ -372,10 +372,10 @@ export default function AgentInvestigator(): JSX.Element {
     <DataPageLayout
       backTo="/dfir"
       icon={<Bot size={28} />}
-      title="Agent — Autonomous Investigator"
+      title="Agent - Autonomous Investigator"
       description={
         <>
-          Describe what to investigate — the agent identifies the target, calls focused intel tools, and produces a
+          Describe what to investigate - the agent identifies the target, calls focused intel tools, and produces a
           structured report with STIX 2.1 export.
         </>
       }
@@ -397,7 +397,7 @@ export default function AgentInvestigator(): JSX.Element {
       <div className="surface-card p-4 mb-6">
         <div className="flex gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="text"
               value={query}
@@ -675,13 +675,13 @@ export default function AgentInvestigator(): JSX.Element {
                     className={`shrink-0 w-2 h-2 rounded-full ${s.status === 'done' ? 'bg-emerald-500' : s.status === 'error' ? 'bg-rose-500' : 'bg-amber-500 animate-pulse'}`}
                   />
                   <span className="font-mono text-sm truncate flex-1">{s.query}</span>
-                  <span className="text-micro font-mono text-slate-400 shrink-0">{s.total_steps} steps</span>
-                  <ChevronRight size={14} className="text-slate-400 group-hover:text-brand-500 shrink-0" />
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">{s.total_steps} steps</span>
+                  <ChevronRight size={14} className="text-slate-500 dark:text-slate-400 group-hover:text-brand-500 shrink-0" />
                 </button>
                 <button
                   type="button"
                   onClick={() => deleteSession(s.id)}
-                  className="shrink-0 p-1.5 rounded hover:bg-rose-50 dark:hover:bg-rose-950/20 text-slate-400 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="shrink-0 p-1.5 rounded hover:bg-rose-50 dark:hover:bg-rose-950/20 text-slate-500 dark:text-slate-400 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity"
                   title="Delete investigation"
                 >
                   <Trash2 size={14} />
@@ -757,7 +757,7 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
               </span>
             )}
             {specialistLabel && !specialistChanged && specialistIcon && (
-              <span className="text-xs font-mono text-slate-400 inline-flex items-center gap-1">
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1">
                 {React.createElement(specialistIcon, { size: 10, className: 'shrink-0' })}
                 {specialistLabel}
               </span>
@@ -779,7 +779,7 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
           </div>
         </div>
         {step.observation && (
-          <span className="text-micro font-mono text-slate-400 max-w-[200px] truncate hidden sm:block">
+          <span className="text-micro font-mono text-slate-500 dark:text-slate-400 max-w-[200px] truncate hidden sm:block">
             {step.observation}
           </span>
         )}
@@ -803,7 +803,7 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
                 >
                   {r.status === 'ok' ? 'OK' : 'ERR'} {r.tool}
                 </span>
-                <span className="text-micro font-mono text-slate-400">{r.durationMs}ms</span>
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{r.durationMs}ms</span>
               </div>
               {r.error && <p className="text-micro font-mono text-rose-600">{r.error}</p>}
               {r.data !== undefined && r.data !== null && (

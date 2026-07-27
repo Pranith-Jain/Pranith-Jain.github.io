@@ -42,7 +42,7 @@ function loadEvent(): EventForm {
 
 function buildMarkdown(e: EventForm): string {
   const has = (s: string) => s.trim().length > 0;
-  const lines: string[] = ['# Diamond Model — Intrusion Event', ''];
+  const lines: string[] = ['# Diamond Model - Intrusion Event', ''];
   lines.push('## Core features', '');
   if (has(e.adversary)) lines.push(`- **Adversary:** ${e.adversary}`);
   if (has(e.capability)) lines.push(`- **Capability:** ${e.capability}`);
@@ -77,7 +77,7 @@ const VERTEX_POS: Record<VertexId, { x: number; y: number }> = {
 
 /**
  * Detect IOC type for the auto-fill input. Extended to recognize actor
- * slugs in addition to network/file indicators — actor names trigger a
+ * slugs in addition to network/file indicators - actor names trigger a
  * different fetch path (MITRE Group profile → Adversary corner direct).
  */
 type DiamondIocType = 'ip' | 'ipv6' | 'domain' | 'url' | 'hash' | 'cve' | 'actor' | null;
@@ -118,7 +118,7 @@ function detectIoc(raw: string): { type: DiamondIocType; value: string } {
   if (!v) return { type: null, value: '' };
   // Shared single-indicator detector (lib/dfir/ioc-detect), mapped onto the
   // coarser set the auto-fill acts on. Types it doesn't handle (email / btc /
-  // asn / mitre) collapse to null — the same "unrecognized" result as before,
+  // asn / mitre) collapse to null - the same "unrecognized" result as before,
   // since the old local detector didn't test for them either.
   const base = detectIocBase(v);
   if (base) {
@@ -137,7 +137,7 @@ function detectIoc(raw: string): { type: DiamondIocType; value: string } {
         return { type: null, value: v };
     }
   }
-  // Actor-slug fallback — lower-cased value must be in our curated lookup.
+  // Actor-slug fallback - lower-cased value must be in our curated lookup.
   const lower = v.toLowerCase();
   if (KNOWN_ACTORS_DIAMOND.has(lower)) return { type: 'actor', value: lower };
   return { type: null, value: v };
@@ -162,7 +162,7 @@ function Diamond(): JSX.Element {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(event));
     } catch (_catchErr) {
       console.error('Diamond failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* quota / private mode — non-fatal */
+      /* quota / private mode - non-fatal */
     }
   }, [event]);
 
@@ -174,7 +174,7 @@ function Diamond(): JSX.Element {
 
   /**
    * Auto-fill the four diamond corners by querying our own APIs for
-   * context about the IOC. Conservative — fills only empty fields,
+   * context about the IOC. Conservative - fills only empty fields,
    * appends to existing ones if the user already typed something,
    * and surfaces a short note about what was actually filled vs
    * what we couldn't resolve.
@@ -228,7 +228,7 @@ function Diamond(): JSX.Element {
               methodology:
                 e.methodology ||
                 (row.mitre
-                  ? `MITRE ${row.mitre.id} — ${row.mitre.name}`
+                  ? `MITRE ${row.mitre.id} - ${row.mitre.name}`
                   : `Ransomware operator (RaaS=${row.raas ? 'yes' : 'no'})`),
               direction: e.direction || 'External-to-Internal',
               result: e.result || 'Data exfiltration + encryption',
@@ -302,7 +302,7 @@ function Diamond(): JSX.Element {
             } else if (cve.kev_ransomware) {
               adversaryParts.push('Unattributed ransomware operator (CISA KEV ransomware-use flag)');
             } else if (cve.kev) {
-              adversaryParts.push('Active in-the-wild exploitation (CISA KEV — actor unknown)');
+              adversaryParts.push('Active in-the-wild exploitation (CISA KEV - actor unknown)');
             }
             if (adversaryParts.length > 0) {
               setEvent((e) => ({ ...e, adversary: e.adversary || adversaryParts.join(', ') }));
@@ -311,7 +311,7 @@ function Diamond(): JSX.Element {
 
             setEvent((e) => ({
               ...e,
-              capability: e.capability || `${value} — ${cve.description.slice(0, 200)}`,
+              capability: e.capability || `${value} - ${cve.description.slice(0, 200)}`,
               technology: e.technology || `Vulnerability class: ${cve.description.slice(0, 80)}`,
             }));
             filled.push('Capability', 'Technology');
@@ -363,7 +363,7 @@ function Diamond(): JSX.Element {
 
         // ioc-check → Capability hints (any "malicious" verdict tags)
         if (iocRes.status === 'fulfilled' && iocRes.value.ok) {
-          // SSE stream — read the whole text and grep for tags. This is a
+          // SSE stream - read the whole text and grep for tags. This is a
           // pragmatic shortcut; for a proper read we'd parse event-stream.
           const text = await iocRes.value.text();
           if (signal.aborted) return;
@@ -418,7 +418,7 @@ function Diamond(): JSX.Element {
               ...e,
               victim:
                 e.victim ||
-                `${hit.victim}${hit.sector ? ` (${hit.sector})` : ''} — claimed by ${hit.group} on ${hit.discovered.slice(0, 10)}`,
+                `${hit.victim}${hit.sector ? ` (${hit.sector})` : ''} - claimed by ${hit.group} on ${hit.discovered.slice(0, 10)}`,
               adversary: e.adversary || `${hit.group} (ransomware operator)`,
             }));
             filled.push('Victim', 'Adversary (from ransomware claim)');
@@ -473,7 +473,7 @@ function Diamond(): JSX.Element {
           if (signal.aborted) return;
           const hit = body.samples.find((s) => s.sha256 === value || s.md5 === value || s.sha1 === value);
           if (hit) {
-            const cap = `${hit.signature ?? 'Unknown family'}${hit.file_type ? ` (${hit.file_type})` : ''}${hit.tags?.length ? ` — tags: ${hit.tags.slice(0, 5).join(', ')}` : ''}`;
+            const cap = `${hit.signature ?? 'Unknown family'}${hit.file_type ? ` (${hit.file_type})` : ''}${hit.tags?.length ? ` - tags: ${hit.tags.slice(0, 5).join(', ')}` : ''}`;
             setEvent((e) => ({
               ...e,
               capability: e.capability || cap,
@@ -481,7 +481,7 @@ function Diamond(): JSX.Element {
             }));
             filled.push('Capability', 'Technology');
           } else {
-            skipped.push(`Hash not in MalwareBazaar recent window — try /dfir/ioc-check for broader hash lookup`);
+            skipped.push(`Hash not in MalwareBazaar recent window - try /dfir/ioc-check for broader hash lookup`);
           }
         }
       }
@@ -671,7 +671,7 @@ function Diamond(): JSX.Element {
               {DIAMOND_VERTICES.map((v) => (
                 <li key={v.id} className="flex items-baseline gap-2">
                   <span className="text-brand-600 dark:text-brand-400 font-semibold">{v.name}</span>
-                  <span className="text-xs">— {v.short}</span>
+                  <span className="text-xs">- {v.short}</span>
                 </li>
               ))}
             </ul>
@@ -689,7 +689,7 @@ function Diamond(): JSX.Element {
           </h2>
         </div>
         <p className="text-mini font-mono text-muted mb-2">
-          Paste any IP / IPv6 / domain / URL / hash / CVE / ransomware-actor-name — we pull context from IOC checker,
+          Paste any IP / IPv6 / domain / URL / hash / CVE / ransomware-actor-name - we pull context from IOC checker,
           ip-geo, cross-source correlation, KEV+actor mapping, MalwareBazaar, actor-timeline (MITRE Group), and
           ransomware-victim cross-match, then populate empty corners. Won&apos;t overwrite anything you&apos;ve already
           typed.
@@ -757,7 +757,7 @@ function Diamond(): JSX.Element {
             return (
               <label key={v.id} className="block">
                 <span className="text-xs font-mono text-slate-700 dark:text-slate-300 mb-1 block">
-                  {v.name} <span className="text-slate-400 dark:text-slate-400">— {v.short}</span>
+                  {v.name} <span className="text-slate-400 dark:text-slate-400">- {v.short}</span>
                 </span>
                 <textarea
                   value={event[k]}
@@ -839,7 +839,7 @@ function Diamond(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              Caltagirone, Pendergast &amp; Betz — The Diamond Model of Intrusion Analysis (2013)
+              Caltagirone, Pendergast &amp; Betz - The Diamond Model of Intrusion Analysis (2013)
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -850,7 +850,7 @@ function Diamond(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              ActiveResponse — Diamond Model overview &amp; examples
+              ActiveResponse - Diamond Model overview &amp; examples
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>

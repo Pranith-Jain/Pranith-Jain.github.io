@@ -1,6 +1,6 @@
 // src/data/threatintel/external-resources.ts
 /**
- * External resources catalog — sites and dashboards I cross-reference outside
+ * External resources catalog - sites and dashboards I cross-reference outside
  * this repo. Mixed kinds (training, lab, tool, dashboard, directory, samples,
  * community, research) so a single pill row drives the filter.
  *
@@ -115,7 +115,7 @@ export const TAG_PILL: Record<ResourceTag, string> = {
 
 export const RESOURCES: ExternalResource[] = [
   // Migrated from src/pages/threatintel/Home.tsx (External Sources block, 2026-05-14).
-  // Descriptions copied verbatim — no rewriting in this commit.
+  // Descriptions copied verbatim - no rewriting in this commit.
   {
     id: 'my-threat-intel',
     name: 'My Threat Intel',
@@ -181,7 +181,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['ai-security', 'threat-intel'],
     description:
-      'Community-curated hub of AI-security resources — adversarial ML, LLM red-teaming, model/data exfiltration, prompt-injection catalogues, governance frameworks, and AI-CTI tooling. Useful as a discovery surface when triaging AI-system risks or scoping AI red-team engagements.',
+      'Community-curated hub of AI-security resources - adversarial ML, LLM red-teaming, model/data exfiltration, prompt-injection catalogues, governance frameworks, and AI-CTI tooling. Useful as a discovery surface when triaging AI-system risks or scoping AI red-team engagements.',
     why: 'Centralised AI-security starting point I cross-reference when scoping AI risk assessments or building detection content for LLM-adjacent threats.',
   },
   {
@@ -191,7 +191,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'directory',
     featured: true,
     description:
-      'Curated start.me page by Syberseeker aggregating free certification tracks — security, cloud, networking, and blue-team paths from vendors, universities, and community programs. Mirrored in-platform at /threatintel/osint/certs with a daily auto-sync.',
+      'Curated start.me page by Syberseeker aggregating free certification tracks - security, cloud, networking, and blue-team paths from vendors, universities, and community programs. Mirrored in-platform at /threatintel/osint/certs with a daily auto-sync.',
     why: 'The single best free-cert starting point I have found. Direct mirror on the platform means the same link list is searchable, deep-linkable, and survives start.me outages.',
   },
   {
@@ -226,7 +226,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'lab',
     featured: true,
     description:
-      'Open-source AI security playground for hands-on LLM red teaming — prompt injection, RAG poisoning, OWASP LLM Top 10 — runs fully offline.',
+      'Open-source AI security playground for hands-on LLM red teaming - prompt injection, RAG poisoning, OWASP LLM Top 10 - runs fully offline.',
   },
   {
     id: 'vulnos',
@@ -252,7 +252,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'lab',
     featured: true,
     description:
-      'Web-app pentest training platform — 36 labs across 5 difficulty tiers with XP, leaderboards, and vulnerability-chaining scenarios.',
+      'Web-app pentest training platform - 36 labs across 5 difficulty tiers with XP, leaderboards, and vulnerability-chaining scenarios.',
   },
   {
     id: 'redteam-community',
@@ -284,7 +284,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://deepfind.me/tools',
     kind: 'tool',
     description:
-      'Comprehensive OSINT toolkit — username search (50+ platforms), geolocation, email/domain recon, metadata extraction, dark-web link checker, crypto wallet tracking, and more. REST API available.',
+      'Comprehensive OSINT toolkit - username search (50+ platforms), geolocation, email/domain recon, metadata extraction, dark-web link checker, crypto wallet tracking, and more. REST API available.',
   },
   {
     id: 'ai-supply-chain-observatory',
@@ -301,7 +301,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://darkwebdaily.live/',
     kind: 'dashboard',
     description:
-      'Curated dark-web news aggregator — breach announcements, ransomware claims, and underground forum highlights delivered in a daily digest format.',
+      'Curated dark-web news aggregator - breach announcements, ransomware claims, and underground forum highlights delivered in a daily digest format.',
   },
   {
     id: 'haxor-llm-security',
@@ -326,7 +326,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     featured: true,
     description:
-      'All-in-one website analysis tool — DNS, SSL, headers, WHOIS, tech stack, performance, and security audit from a single URL input.',
+      'All-in-one website analysis tool - DNS, SSL, headers, WHOIS, tech stack, performance, and security audit from a single URL input.',
   },
   {
     id: 'claude101',
@@ -334,7 +334,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://claude101.com/',
     kind: 'training',
     description:
-      'Learning resource hub for Claude AI — prompt engineering guides, use-case examples, and best practices for Anthropic Claude.',
+      'Learning resource hub for Claude AI - prompt engineering guides, use-case examples, and best practices for Anthropic Claude.',
   },
   {
     id: 'appsec-master',
@@ -343,7 +343,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'training',
     featured: true,
     description:
-      'Interactive application security training platform — hands-on labs covering OWASP Top 10, API security, and secure coding practices.',
+      'Interactive application security training platform - hands-on labs covering OWASP Top 10, API security, and secure coding practices.',
   },
   {
     id: 'osinttools-io',
@@ -361,7 +361,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'directory',
     featured: true,
     description:
-      'Curated, filterable directory of blockchain/crypto OSINT tools — wallet tracing, transaction analysis, identity and infrastructure recon. Field-tested entries organized by cost, skill level, OPSEC sensitivity, and input type (address, hash, email, username).',
+      'Curated, filterable directory of blockchain/crypto OSINT tools - wallet tracing, transaction analysis, identity and infrastructure recon. Field-tested entries organized by cost, skill level, OPSEC sensitivity, and input type (address, hash, email, username).',
     why: 'On-chain OSINT companion to the crypto-trace / fund-flow tooling here.',
     tags: ['osint', 'threat-intel'],
   },
@@ -371,7 +371,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://databreach.com/',
     kind: 'tool',
     description:
-      'Data breach search platform — check if credentials or personal data have been exposed in known breaches. Also provides breach monitoring alerts.',
+      'Data breach search platform - check if credentials or personal data have been exposed in known breaches. Also provides breach monitoring alerts.',
   },
   {
     id: 'malwareworld',
@@ -389,7 +389,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     featured: true,
     description:
-      'Interactive security tools by HackTricks — domain/DNS auditor, host checker, clickjacking PoC generator, GitHub leaks scanner, AI chatbot, and cloud IAM auditor (PEASS).',
+      'Interactive security tools by HackTricks - domain/DNS auditor, host checker, clickjacking PoC generator, GitHub leaks scanner, AI chatbot, and cloud IAM auditor (PEASS).',
   },
   {
     id: 'osv-dev',
@@ -398,7 +398,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     featured: true,
     description:
-      'Open Source Vulnerabilities database — Google-backed, API-first vulnerability feed covering PyPI, npm, Go, Maven, and other ecosystems with ecosystem-agnostic schema.',
+      'Open Source Vulnerabilities database - Google-backed, API-first vulnerability feed covering PyPI, npm, Go, Maven, and other ecosystems with ecosystem-agnostic schema.',
   },
   {
     id: 'digital-defense',
@@ -406,7 +406,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://digital-defense.io/',
     kind: 'tool',
     description:
-      'OPSEC and privacy toolkit — guides and checklists for operational security, digital footprint reduction, and secure communications.',
+      'OPSEC and privacy toolkit - guides and checklists for operational security, digital footprint reduction, and secure communications.',
   },
   {
     id: 'awesome-privacy',
@@ -414,7 +414,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://awesome-privacy.xyz/',
     kind: 'directory',
     description:
-      'Curated list of privacy-focused tools and services — VPNs, encrypted messaging, password managers, analytics alternatives, and privacy hardware.',
+      'Curated list of privacy-focused tools and services - VPNs, encrypted messaging, password managers, analytics alternatives, and privacy hardware.',
   },
   {
     id: 'bitwire-blocklist',
@@ -423,7 +423,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['blocklist', 'threat-intel'],
     description:
-      'Upstream stats dashboard for bitwire-it/ipblocklist — live counters, growth history and source attribution. Pairs with the in-platform mirror at /threatintel/bitwire-blocklist.',
+      'Upstream stats dashboard for bitwire-it/ipblocklist - live counters, growth history and source attribution. Pairs with the in-platform mirror at /threatintel/bitwire-blocklist.',
   },
   {
     id: 'crowdthreat',
@@ -431,7 +431,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://www.crowdthreat.com/',
     kind: 'dashboard',
     description:
-      'Threat intelligence dashboard — cross-references IOCs, threat actor profiles, and campaign tracking. Includes OSINT tools section at /osint_tools.',
+      'Threat intelligence dashboard - cross-references IOCs, threat actor profiles, and campaign tracking. Includes OSINT tools section at /osint_tools.',
   },
   {
     id: 'ti-mindmap-hub',
@@ -439,7 +439,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://ti-mindmap-hub.com/',
     kind: 'tool',
     description:
-      'Interactive threat intelligence mindmap — visual navigation of TTPs, threat actors, campaigns, and detection strategies mapped to the MITRE ATT&CK framework.',
+      'Interactive threat intelligence mindmap - visual navigation of TTPs, threat actors, campaigns, and detection strategies mapped to the MITRE ATT&CK framework.',
   },
   {
     id: 'insider-threat-matrix',
@@ -456,7 +456,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://orca.osintcti.com/',
     kind: 'tool',
     description:
-      'OSINT and cyber threat intelligence platform — unified search across multiple data sources for indicators, threat actors, and infrastructure discovery.',
+      'OSINT and cyber threat intelligence platform - unified search across multiple data sources for indicators, threat actors, and infrastructure discovery.',
   },
   {
     id: 'redhunt-labs-research',
@@ -465,7 +465,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'research',
     featured: true,
     description:
-      'Security research blog from RedHunt Labs — attack surface management insights, vulnerability disclosures, and adversary infrastructure tracking write-ups.',
+      'Security research blog from RedHunt Labs - attack surface management insights, vulnerability disclosures, and adversary infrastructure tracking write-ups.',
   },
   {
     id: 'aidefend',
@@ -473,7 +473,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://aidefend.net/',
     kind: 'tool',
     description:
-      'AI-powered cybersecurity defense platform — automated threat detection, response orchestration, and security posture management.',
+      'AI-powered cybersecurity defense platform - automated threat detection, response orchestration, and security posture management.',
   },
   {
     id: 'cyber-laws',
@@ -481,7 +481,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://cyber-laws.com/en/',
     kind: 'research',
     description:
-      'Legal reference platform for cybersecurity regulations worldwide — GDPR, CCPA, HIPAA, DPDP, and cross-border data protection frameworks with jurisdictional analysis.',
+      'Legal reference platform for cybersecurity regulations worldwide - GDPR, CCPA, HIPAA, DPDP, and cross-border data protection frameworks with jurisdictional analysis.',
   },
   {
     id: 'kongsec-osai-notes',
@@ -490,7 +490,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'research',
     featured: true,
     description:
-      'Research notes on offensive AI security — prompt injection, LLM red-teaming, AI supply-chain attacks, and adversarial ML techniques.',
+      'Research notes on offensive AI security - prompt injection, LLM red-teaming, AI supply-chain attacks, and adversarial ML techniques.',
   },
   {
     id: 'mjolnir-intel',
@@ -498,7 +498,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://intel.mjolnirsecurity.com/',
     kind: 'dashboard',
     description:
-      'Threat intelligence dashboard — IOC feeds, campaign tracking, and real-time security event monitoring from Mjolnir Security.',
+      'Threat intelligence dashboard - IOC feeds, campaign tracking, and real-time security event monitoring from Mjolnir Security.',
   },
   {
     id: 'mjolnir-vulnot',
@@ -506,7 +506,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://vulnot.mjolnirlabs.com/',
     kind: 'tool',
     description:
-      'Vulnerability notes and OT/IoT security advisory aggregator — CVE tracking, exploit POC references, and remediation guidance for operational technology.',
+      'Vulnerability notes and OT/IoT security advisory aggregator - CVE tracking, exploit POC references, and remediation guidance for operational technology.',
   },
   {
     id: 'owasp-ai-visualizer',
@@ -515,7 +515,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     featured: true,
     description:
-      'Interactive visualizer for the OWASP AI Security landscape — maps AI-specific threats, vulnerabilities, and controls across the ML lifecycle.',
+      'Interactive visualizer for the OWASP AI Security landscape - maps AI-specific threats, vulnerabilities, and controls across the ML lifecycle.',
   },
   {
     id: 'cybersectools',
@@ -524,7 +524,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'directory',
     featured: true,
     description:
-      'Curated catalog of cybersecurity tools organized by category — penetration testing, forensics, OSINT, red teaming, and blue team operations.',
+      'Curated catalog of cybersecurity tools organized by category - penetration testing, forensics, OSINT, red teaming, and blue team operations.',
   },
   {
     id: 'sigma-nasbench',
@@ -533,7 +533,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     featured: true,
     description:
-      'Interactive Sigma rule browser — search, filter, and explore Sigma detection rules with SIEM conversion previews for Splunk, Elastic, QRadar, and more.',
+      'Interactive Sigma rule browser - search, filter, and explore Sigma detection rules with SIEM conversion previews for Splunk, Elastic, QRadar, and more.',
   },
   {
     id: 'ghostint-tools',
@@ -542,7 +542,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'directory',
     featured: true,
     description:
-      'Curated OSINT and cybersecurity tools directory — categorized tools for reconnaissance, social media investigation, and digital forensics.',
+      'Curated OSINT and cybersecurity tools directory - categorized tools for reconnaissance, social media investigation, and digital forensics.',
   },
   {
     id: 'arcanum-ai-sec',
@@ -551,7 +551,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'research',
     featured: true,
     description:
-      'Curated resources on AI/ML security — papers, tools, frameworks, and CTF challenges focused on adversarial ML, LLM security, and AI red teaming.',
+      'Curated resources on AI/ML security - papers, tools, frameworks, and CTF challenges focused on adversarial ML, LLM security, and AI red teaming.',
   },
   {
     id: 'extsentry-feeds',
@@ -559,7 +559,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://extsentry.github.io/#feeds/malicious',
     kind: 'tool',
     description:
-      'Browser extension threat feeds — curated list of malicious browser extensions tracked via abuse reports and security research.',
+      'Browser extension threat feeds - curated list of malicious browser extensions tracked via abuse reports and security research.',
   },
   {
     id: 'hocsec',
@@ -567,7 +567,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://hackersonlineclub.com/hocsec/',
     kind: 'directory',
     description:
-      'Cybersecurity tools and resources directory by Hackers Online Club — categorized security tools, learning resources, and community projects.',
+      'Cybersecurity tools and resources directory by Hackers Online Club - categorized security tools, learning resources, and community projects.',
   },
   {
     id: 'quanqiuchongtu',
@@ -575,7 +575,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://quanqiuchongtu.com/',
     kind: 'dashboard',
     description:
-      'Global cybersecurity conflict monitoring dashboard — tracks nation-state cyber operations, hacktivist campaigns, and geopolitical cyber events.',
+      'Global cybersecurity conflict monitoring dashboard - tracks nation-state cyber operations, hacktivist campaigns, and geopolitical cyber events.',
   },
   {
     id: 'map-wddadk',
@@ -583,7 +583,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://map.wddadk.com/',
     kind: 'dashboard',
     description:
-      'Live cyber threat attack map — real-time visualization of cyber attacks, DDoS events, and scanning activity across global infrastructure.',
+      'Live cyber threat attack map - real-time visualization of cyber attacks, DDoS events, and scanning activity across global infrastructure.',
   },
   {
     id: 'apt28-victimology',
@@ -592,7 +592,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     featured: true,
     description:
-      'APT28 (Fancy Bear) victimology dashboard — tracks known targets, campaigns, and infrastructure attribution for the Russian state-sponsored threat actor.',
+      'APT28 (Fancy Bear) victimology dashboard - tracks known targets, campaigns, and infrastructure attribution for the Russian state-sponsored threat actor.',
   },
   {
     id: 'kilaz-net',
@@ -601,7 +601,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'research',
     featured: true,
     description:
-      'Security research and threat intelligence blog — APT analysis, malware reverse engineering, and cybercrime ecosystem investigations.',
+      'Security research and threat intelligence blog - APT analysis, malware reverse engineering, and cybercrime ecosystem investigations.',
   },
   {
     id: 'mail-thc',
@@ -609,7 +609,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://mail.thc.org/',
     kind: 'tool',
     description:
-      'The Hackers Choice mail service — privacy-focused email with security features for the infosec community.',
+      'The Hackers Choice mail service - privacy-focused email with security features for the infosec community.',
   },
   {
     id: 'crowdthreat-osint',
@@ -617,7 +617,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://www.crowdthreat.com/osint_tools',
     kind: 'directory',
     description:
-      'Curated OSINT tools section within CrowdThreat — categorized open-source intelligence tools for digital investigations.',
+      'Curated OSINT tools section within CrowdThreat - categorized open-source intelligence tools for digital investigations.',
   },
   {
     id: 'dmarc-labs',
@@ -625,7 +625,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://www.dmarclabsds1.xyz/',
     kind: 'tool',
     description:
-      'Free DMARC RUA report analyzer — privacy-first, in-memory XML parsing with IP enrichment, SPF/DKIM/DMARC alignment per sender. See also /dfir/dmarc-analyzer on this site.',
+      'Free DMARC RUA report analyzer - privacy-first, in-memory XML parsing with IP enrichment, SPF/DKIM/DMARC alignment per sender. See also /dfir/dmarc-analyzer on this site.',
   },
   {
     id: 'osv-api',
@@ -633,7 +633,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://osv.dev/#use-the-api',
     kind: 'tool',
     description:
-      'Open Source Vulnerabilities REST API — query by package/version or commit hash to identify known vulnerabilities across open-source ecosystems.',
+      'Open Source Vulnerabilities REST API - query by package/version or commit hash to identify known vulnerabilities across open-source ecosystems.',
   },
   {
     id: 'hudsonrock-free-tools',
@@ -641,7 +641,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://www.hudsonrock.com/free-tools',
     kind: 'tool',
     description:
-      'Free infostealer exposure check — search by email, domain, or username for compromised credentials from infostealer infections. By Hudson Rock.',
+      'Free infostealer exposure check - search by email, domain, or username for compromised credentials from infostealer infections. By Hudson Rock.',
   },
   {
     id: 'infostealers-victims',
@@ -649,7 +649,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://www.infostealers.com/infostealer-victims/',
     kind: 'dashboard',
     description:
-      'Infostealer victims dashboard by Hudson Rock — browse compromised machines, employees, and domains per infostealer family.',
+      'Infostealer victims dashboard by Hudson Rock - browse compromised machines, employees, and domains per infostealer family.',
   },
   // ── Open Directory Search Tools (2026-05-27) ─────────────────────────────
   {
@@ -658,7 +658,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://opendirsearch.abifog.com/',
     kind: 'tool',
     description:
-      'Open directory search engine — find publicly accessible directory listings for OSINT recon and file discovery.',
+      'Open directory search engine - find publicly accessible directory listings for OSINT recon and file discovery.',
   },
   {
     id: 'odcrawler-xyz',
@@ -666,7 +666,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'http://odcrawler.xyz/',
     kind: 'tool',
     description:
-      'Open directory crawler and search engine — indexes publicly accessible directory listings for OSINT investigations.',
+      'Open directory crawler and search engine - indexes publicly accessible directory listings for OSINT investigations.',
   },
   {
     id: 'odfinder-github',
@@ -674,7 +674,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://odfinder.github.io/',
     kind: 'tool',
     description:
-      'Open directory finder tool — search engine for finding open directory listings across the web for OSINT data gathering.',
+      'Open directory finder tool - search engine for finding open directory listings across the web for OSINT data gathering.',
   },
   {
     id: 'lendx-org',
@@ -682,7 +682,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://lendx.org/',
     kind: 'tool',
     description:
-      'Open directory search engine — discover exposed directory listings and publicly accessible files for intelligence gathering.',
+      'Open directory search engine - discover exposed directory listings and publicly accessible files for intelligence gathering.',
   },
   {
     id: 'palined-search',
@@ -690,7 +690,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://palined.com/search/',
     kind: 'tool',
     description:
-      'Open directory search tool — search across publicly accessible directory listings for OSINT and reconnaissance.',
+      'Open directory search tool - search across publicly accessible directory listings for OSINT and reconnaissance.',
   },
   {
     id: 'ewasion-od-finder',
@@ -698,7 +698,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://ewasion.github.io/opendirectory-finder/',
     kind: 'tool',
     description:
-      'Open directory finder tool — browser-based tool for discovering and searching open directory listings.',
+      'Open directory finder tool - browser-based tool for discovering and searching open directory listings.',
   },
   {
     id: 'expde-od-finder',
@@ -706,7 +706,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://expde.github.io/OpenDirectoryFinder/',
     kind: 'tool',
     description:
-      'Open directory search tool — find exposed directory listings and publicly accessible file indexes for OSINT collection.',
+      'Open directory search tool - find exposed directory listings and publicly accessible file indexes for OSINT collection.',
   },
   {
     id: 'eyedex-org',
@@ -714,7 +714,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://eyedex.org/',
     kind: 'tool',
     description:
-      'Open directory index and search engine — browse and search across publicly accessible directory listings worldwide.',
+      'Open directory index and search engine - browse and search across publicly accessible directory listings worldwide.',
   },
   {
     id: 'newsmap',
@@ -722,7 +722,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://newsmap.cc/',
     kind: 'dashboard',
     description:
-      'Geographic heatmap of global news by category — visualize breaking news trends, media bias, and coverage density across regions.',
+      'Geographic heatmap of global news by category - visualize breaking news trends, media bias, and coverage density across regions.',
   },
   {
     id: 'ransomware-interviews',
@@ -741,7 +741,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     featured: true,
     description:
-      "Telegram search and analytics platform — search channels, messages, groups, and media across Telegram's public surface. Built for OSINT analysts and threat hunters.",
+      "Telegram search and analytics platform - search channels, messages, groups, and media across Telegram's public surface. Built for OSINT analysts and threat hunters.",
   },
   {
     id: 'lyzem',
@@ -749,7 +749,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://lyzem.com/',
     kind: 'tool',
     description:
-      "Telegram search engine — full-text search across public channels and messages. Indexes content beyond Telegram's native search for OSINT discovery.",
+      "Telegram search engine - full-text search across public channels and messages. Indexes content beyond Telegram's native search for OSINT discovery.",
   },
   {
     id: 'telegago',
@@ -757,7 +757,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://cse.google.com/cse?cx=006368593537057042503:efxu7xprihg',
     kind: 'tool',
     description:
-      "Google Custom Search Engine scoped to Telegram public content — search indexed Telegram channels, groups, and messages via Google's crawler.",
+      "Google Custom Search Engine scoped to Telegram public content - search indexed Telegram channels, groups, and messages via Google's crawler.",
   },
   {
     id: 'xtea',
@@ -766,7 +766,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     featured: true,
     description:
-      'Telegram intelligence and search platform — advanced search across channels, messages, and media. Designed for OSINT researchers, investigators, and threat analysts.',
+      'Telegram intelligence and search platform - advanced search across channels, messages, and media. Designed for OSINT researchers, investigators, and threat analysts.',
   },
   {
     id: 'tgstat',
@@ -775,7 +775,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     featured: true,
     description:
-      'Telegram analytics and statistics platform — channel rankings, subscriber growth, engagement metrics, and content search across millions of public Telegram channels.',
+      'Telegram analytics and statistics platform - channel rankings, subscriber growth, engagement metrics, and content search across millions of public Telegram channels.',
   },
   {
     id: 'tgdb',
@@ -783,7 +783,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://tgdb.io/',
     kind: 'directory',
     description:
-      'Telegram database and directory — browse and search public Telegram channels, groups, and bots. Categorized index for OSINT discovery and channel enumeration.',
+      'Telegram database and directory - browse and search public Telegram channels, groups, and bots. Categorized index for OSINT discovery and channel enumeration.',
   },
   // ── Malware Sample Repositories (2026-05-28) ────────────────────────────
   {
@@ -804,7 +804,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['malware', 'threat-intel', 'dfir'],
     description:
-      "abuse.ch project — crowdsourced malware sample repository. Upload and download samples, search by hash/tag/family, API access. Integrated into this platform's IOC checker.",
+      "abuse.ch project - crowdsourced malware sample repository. Upload and download samples, search by hash/tag/family, API access. Integrated into this platform's IOC checker.",
   },
   {
     id: 'virushare',
@@ -841,7 +841,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'samples',
     tags: ['malware', 'sandbox', 'threat-intel'],
     description:
-      'Decentralized malware marketplace — submit samples for scanning by multiple competing engines. Free tier available. Real-time threat intelligence from 40+ anti-malware engines.',
+      'Decentralized malware marketplace - submit samples for scanning by multiple competing engines. Free tier available. Real-time threat intelligence from 40+ anti-malware engines.',
   },
   {
     id: 'inquest-labs',
@@ -851,7 +851,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['malware', 'dfir', 'threat-intel'],
     description:
-      'Malware research lab — IOC database, YARA rule repository, retrohunt, and sample analysis. Free tier with API access. Specialises in document-based malware (Office, PDF, LNK).',
+      'Malware research lab - IOC database, YARA rule repository, retrohunt, and sample analysis. Free tier with API access. Specialises in document-based malware (Office, PDF, LNK).',
   },
   // ── abuse.ch Projects (2026-05-28) ──────────────────────────────────────
   {
@@ -862,7 +862,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['threat-intel', 'c2', 'malware'],
     description:
-      "abuse.ch IOC sharing platform — community-submitted IOCs (IPs, domains, URLs, hashes) mapped to malware families. Searchable database with API. Integrated into this platform's live IOCs feed.",
+      "abuse.ch IOC sharing platform - community-submitted IOCs (IPs, domains, URLs, hashes) mapped to malware families. Searchable database with API. Integrated into this platform's live IOCs feed.",
   },
   {
     id: 'urlhaus',
@@ -872,7 +872,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['threat-intel', 'malware', 'phishing'],
     description:
-      "abuse.ch URL tracking — community-submitted malicious URLs serving malware payloads. Searchable database with API and downloadable blocklists. Integrated into this platform's live IOCs feed.",
+      "abuse.ch URL tracking - community-submitted malicious URLs serving malware payloads. Searchable database with API and downloadable blocklists. Integrated into this platform's live IOCs feed.",
   },
   {
     id: 'sslbl',
@@ -881,7 +881,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['threat-intel', 'c2', 'blocklist'],
     description:
-      'abuse.ch SSL/TLS certificate blacklist — tracks malicious SSL certificates used by botnet C2 servers. Downloadable IP and certificate SHA1 blacklists.',
+      'abuse.ch SSL/TLS certificate blacklist - tracks malicious SSL certificates used by botnet C2 servers. Downloadable IP and certificate SHA1 blacklists.',
   },
   {
     id: 'yaraify',
@@ -890,7 +890,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     tags: ['malware', 'dfir', 'threat-intel'],
     description:
-      'abuse.ch YARA scanning platform — submit samples for YARA rule matching, search by YARA rule, upload custom rules. Community-driven detection rule testing.',
+      'abuse.ch YARA scanning platform - submit samples for YARA rule matching, search by YARA rule, upload custom rules. Community-driven detection rule testing.',
   },
   // ── Sandboxes & Analysis Platforms (2026-05-28) ─────────────────────────
   {
@@ -901,7 +901,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['sandbox', 'malware', 'dfir'],
     description:
-      'Interactive malware sandbox — real-time behavioural analysis with Windows VMs. Free tier with public submissions. Process tree, network captures, MITRE ATT&CK mapping.',
+      'Interactive malware sandbox - real-time behavioural analysis with Windows VMs. Free tier with public submissions. Process tree, network captures, MITRE ATT&CK mapping.',
   },
   {
     id: 'joe-sandbox',
@@ -941,7 +941,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['threat-intel', 'c2', 'blocklist'],
     description:
-      "Open Threat Exchange — community-driven threat intelligence. IOC pulses, reputation data, endpoint telemetry. Free API. Integrated into this platform's IOC checker.",
+      "Open Threat Exchange - community-driven threat intelligence. IOC pulses, reputation data, endpoint telemetry. Free API. Integrated into this platform's IOC checker.",
   },
   {
     id: 'c2-tracker-feeds',
@@ -950,7 +950,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['c2', 'threat-intel', 'blocklist'],
     description:
-      "Automated C2 infrastructure feeds — IP and domain lists for Cobalt Strike, Sliver, Brute Ratel, and other C2 frameworks. Updated daily via GitHub. Integrated into this platform's live IOCs feed.",
+      "Automated C2 infrastructure feeds - IP and domain lists for Cobalt Strike, Sliver, Brute Ratel, and other C2 frameworks. Updated daily via GitHub. Integrated into this platform's live IOCs feed.",
   },
   {
     id: 'khaos-c2',
@@ -968,7 +968,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['phishing', 'threat-intel', 'blocklist'],
     description:
-      "Automated phishing intelligence — real-time phishing URL feed. Community feed is free; premium adds targeted brand analysis. Integrated into this platform's live IOCs feed.",
+      "Automated phishing intelligence - real-time phishing URL feed. Community feed is free; premium adds targeted brand analysis. Integrated into this platform's live IOCs feed.",
   },
   {
     id: 'phishtank',
@@ -977,7 +977,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['phishing', 'threat-intel'],
     description:
-      'Community phishing verification platform — submit and verify suspected phishing URLs. Free API and downloadable database. Operated by OpenDNS/Cisco.',
+      'Community phishing verification platform - submit and verify suspected phishing URLs. Free API and downloadable database. Operated by OpenDNS/Cisco.',
   },
   // ── New entries (2026-05-28) ─────────────────────────────────────────────
   {
@@ -1051,7 +1051,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['threat-intel', 'phishing', 'blocklist'],
     description:
-      "Free threat intelligence feeds on GitHub — malware URLs, phishing URLs, C2 domains, and file hashes. Updated regularly. Integrated into this platform's IOC checker.",
+      "Free threat intelligence feeds on GitHub - malware URLs, phishing URLs, C2 domains, and file hashes. Updated regularly. Integrated into this platform's IOC checker.",
   },
   // ── Threat Intel Platforms & Frameworks (2026-05-30) ───────────────────
   {
@@ -1072,7 +1072,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['threat-intel', 'malware', 'sandbox', 'dfir'],
     description:
-      'Open-source threat intelligence analysis orchestration — submits files, URLs, hashes, IPs to 200+ analyzers (VirusTotal, AbuseIPDB, Shodan, YARA, etc.). REST API, web UI, Celery-based job queue.',
+      'Open-source threat intelligence analysis orchestration - submits files, URLs, hashes, IPs to 200+ analyzers (VirusTotal, AbuseIPDB, Shodan, YARA, etc.). REST API, web UI, Celery-based job queue.',
   },
   {
     id: 'opencti-platform',
@@ -1121,7 +1121,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['threat-intel', 'dfir', 'osint', 'malware'],
     description:
-      'Curated list of 1,000+ threat intelligence resources — feeds, tools, frameworks, platforms, YARA rules, SIGMA rules, standards, books, and courses. 10,000+ GitHub stars.',
+      'Curated list of 1,000+ threat intelligence resources - feeds, tools, frameworks, platforms, YARA rules, SIGMA rules, standards, books, and courses. 10,000+ GitHub stars.',
   },
   {
     id: 'muchdogesec-awesome-ti',
@@ -1139,7 +1139,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'directory',
     tags: ['threat-intel', 'dfir', 'vulnerability'],
     description:
-      'Curated list of open-source threat detection resources — detection engineering, SIGMA rules, YARA rules, queries (KQL, SPL, EQL), threat hunting, and adversary emulation.',
+      'Curated list of open-source threat detection resources - detection engineering, SIGMA rules, YARA rules, queries (KQL, SPL, EQL), threat hunting, and adversary emulation.',
   },
   // ── YARA & Detection Rules (2026-05-30) ────────────────────────────────
   {
@@ -1158,7 +1158,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'directory',
     tags: ['malware', 'dfir'],
     description:
-      'Curated list of YARA rules, tools, and resources — rule repositories, testing frameworks, IDE plugins, and learning materials for YARA-based detection engineering.',
+      'Curated list of YARA rules, tools, and resources - rule repositories, testing frameworks, IDE plugins, and learning materials for YARA-based detection engineering.',
   },
   {
     id: 'mthcht-awesome-rules',
@@ -1196,7 +1196,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'directory',
     tags: ['dfir', 'osint'],
     description:
-      'Comprehensive DFIR and OSINT tool collection — disk forensics, memory analysis, network forensics, timeline analysis, triage, and reporting tools. Community-maintained resource list.',
+      'Comprehensive DFIR and OSINT tool collection - disk forensics, memory analysis, network forensics, timeline analysis, triage, and reporting tools. Community-maintained resource list.',
   },
   {
     id: 'leonov-av-awesome-forensics',
@@ -1205,7 +1205,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'directory',
     tags: ['dfir', 'osint'],
     description:
-      'Curated list of digital forensics resources — forensic tools, analysis frameworks, artifact collections, CTF challenges, and educational materials for DFIR practitioners.',
+      'Curated list of digital forensics resources - forensic tools, analysis frameworks, artifact collections, CTF challenges, and educational materials for DFIR practitioners.',
   },
   {
     id: 'shevacyber-osint-collectors',
@@ -1214,7 +1214,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'directory',
     tags: ['osint'],
     description:
-      'Curated collection of OSINT data collectors — web scraping templates, API wrappers, and data extraction scripts for open-source intelligence gathering across platforms.',
+      'Curated collection of OSINT data collectors - web scraping templates, API wrappers, and data extraction scripts for open-source intelligence gathering across platforms.',
   },
   {
     id: 'osint-for-countries',
@@ -1223,7 +1223,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'directory',
     tags: ['osint'],
     description:
-      'Per-country OSINT resource directory — 1,500+ curated tools and data sources across 247 countries. Covers government registries, news, maps, people search, social media, transportation, utilities, and crime data. Powers the interactive country OSINT map on this platform.',
+      'Per-country OSINT resource directory - 1,500+ curated tools and data sources across 247 countries. Covers government registries, news, maps, people search, social media, transportation, utilities, and crime data. Powers the interactive country OSINT map on this platform.',
   },
   // ── Incident Response & Cloud Security (2026-05-30) ────────────────────
   {
@@ -1233,7 +1233,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     tags: ['dfir', 'vulnerability'],
     description:
-      'Official AWS incident response playbook samples — CloudFormation templates, Lambda functions, and runbooks for automating IR workflows in AWS. Pre-built response actions for common scenarios.',
+      'Official AWS incident response playbook samples - CloudFormation templates, Lambda functions, and runbooks for automating IR workflows in AWS. Pre-built response actions for common scenarios.',
   },
   {
     id: 'taxii-server',
@@ -1251,7 +1251,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['osint', 'threat-intel'],
     description:
-      'French open-source intelligence platform — real-time aggregation across geopolitics, cyber, and military domains. Multi-source dashboard surfacing breaking events with structured metadata for analysts tracking hybrid threats.',
+      'French open-source intelligence platform - real-time aggregation across geopolitics, cyber, and military domains. Multi-source dashboard surfacing breaking events with structured metadata for analysts tracking hybrid threats.',
   },
   {
     id: 'cloak-matrix',
@@ -1260,7 +1260,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'research',
     tags: ['dfir', 'osint'],
     description:
-      'OPSEC techniques and procedures reference — tactic → technique → sub-technique → procedure hierarchy modeled after MITRE ATT&CK but scoped to operational-security tradecraft. Useful for blue teams mapping counter-surveillance controls and red teams modelling adversary OPSEC gaps.',
+      'OPSEC techniques and procedures reference - tactic → technique → sub-technique → procedure hierarchy modeled after MITRE ATT&CK but scoped to operational-security tradecraft. Useful for blue teams mapping counter-surveillance controls and red teams modelling adversary OPSEC gaps.',
   },
   // ── Anonymity & OpSec tools ──────────────────────────────────────
   {
@@ -1288,7 +1288,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     tags: ['anonymity', 'dfir'],
     description:
-      'Android encrypted overlay filesystem using gocryptfs (and CryFS). Mounts volumes as virtual disks without root, keeping data invisible to other apps and media scanners. AGPL-3.0, on F-Droid. Critical for mobile OpSec — encrypted photo capture, internal file viewer, fingerprint unlock, auto-lock on background.',
+      'Android encrypted overlay filesystem using gocryptfs (and CryFS). Mounts volumes as virtual disks without root, keeping data invisible to other apps and media scanners. AGPL-3.0, on F-Droid. Critical for mobile OpSec - encrypted photo capture, internal file viewer, fingerprint unlock, auto-lock on background.',
   },
   {
     id: 'macchangerx',
@@ -1297,7 +1297,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     tags: ['anonymity'],
     description:
-      'Python Linux MAC changer with random / spoof / anti-fingerprint modes. Bundles log clearing, hostname spoofing, DNS cache flushing, and Bluetooth MAC rotation — all-in-one L2 fingerprint erasure. MIT, requires root. (Small but free and works.)',
+      'Python Linux MAC changer with random / spoof / anti-fingerprint modes. Bundles log clearing, hostname spoofing, DNS cache flushing, and Bluetooth MAC rotation - all-in-one L2 fingerprint erasure. MIT, requires root. (Small but free and works.)',
   },
   {
     id: 'spoofdpi',
@@ -1306,7 +1306,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     tags: ['anonymity'],
     description:
-      'Go-based anti-censorship proxy that bypasses Deep Packet Inspection without root/admin by modifying the length of the first packets in the TLS handshake, defeating packet-based DPI used by ISPs to censor the web. Apache-2.0, 4.6k★, install via Homebrew or single binary from GitHub releases.',
+      'Go-based anti-censorship proxy that bypasses Deep Packet Inspection without root/admin by modifying the length of the first packets in the TLS handshake, defeating packet-based DPI used by ISPs to censor the web. Apache-2.0, 4.6k, install via Homebrew or single binary from GitHub releases.',
   },
   {
     id: 'kloak',
@@ -1333,7 +1333,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     tags: ['anonymity', 'osint'],
     description:
-      "DIY Bitcoin + Lightning full node on a Raspberry Pi with integrated Tor, Electrum server, and physical-key HD wallet isolation. Self-sovereign hardware node with zero cloud dependence. MIT, but the hardware (Pi 4/5 + 1-2 TB SSD + PSU) costs ~$200-400 — software is free, the appliance isn't.",
+      "DIY Bitcoin + Lightning full node on a Raspberry Pi with integrated Tor, Electrum server, and physical-key HD wallet isolation. Self-sovereign hardware node with zero cloud dependence. MIT, but the hardware (Pi 4/5 + 1-2 TB SSD + PSU) costs ~$200-400 - software is free, the appliance isn't.",
   },
   // ── AI Security & Agent Skills (2026-06-07) ─────────────────────────
   {
@@ -1364,7 +1364,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['ai-security', 'threat-intel'],
     description:
-      'Curated list of AI security resources — frameworks, standards, red teaming tools, LLM attack techniques, agentic AI security, MCP security, adversarial ML, and AI governance. 1,000+ GitHub stars.',
+      'Curated list of AI security resources - frameworks, standards, red teaming tools, LLM attack techniques, agentic AI security, MCP security, adversarial ML, and AI governance. 1,000+ GitHub stars.',
   },
   {
     id: 'openosint-agent',
@@ -1384,7 +1384,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['dfir', 'osint', 'malware'],
     description:
-      'Comprehensive curated collection of 10,000+ penetration testing resources — tools, books, frameworks, CTF platforms, network tools, exploit development, OSINT, web exploitation, reverse engineering, and security conferences. 26,000+ GitHub stars.',
+      'Comprehensive curated collection of 10,000+ penetration testing resources - tools, books, frameworks, CTF platforms, network tools, exploit development, OSINT, web exploitation, reverse engineering, and security conferences. 26,000+ GitHub stars.',
   },
   {
     id: 'owasp-web-checklist',
@@ -1393,7 +1393,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'directory',
     tags: ['vulnerability', 'threat-intel'],
     description:
-      'Structured OWASP checklist covering 100+ web application security tests — info gathering, config management, authentication, session management, authorization, data validation, cryptography, and business logic. 2,000+ GitHub stars.',
+      'Structured OWASP checklist covering 100+ web application security tests - info gathering, config management, authentication, session management, authorization, data validation, cryptography, and business logic. 2,000+ GitHub stars.',
   },
   {
     id: 'cti-as-a-code',
@@ -1404,7 +1404,7 @@ export const RESOURCES: ExternalResource[] = [
     tags: ['threat-intel', 'dfir'],
     description:
       'Version-controlled CTI methodology with 8 structured training assignments covering reactive, proactive, and full-cycle intelligence. Docker Compose lab stack (OpenCTI, TheHive, Cortex, Elastic SIEM). Evidence-traced analysis with deployable Sigma rule output.',
-    why: 'Practitioner-grade CTI training that treats investigations like software engineering — version-controlled, template-driven, evidence-traced, and reproducible.',
+    why: 'Practitioner-grade CTI training that treats investigations like software engineering - version-controlled, template-driven, evidence-traced, and reproducible.',
   },
   // ── Geopolitical OSINT & News Monitoring (2026-06-12) ───────────────────
   {
@@ -1415,7 +1415,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['osint', 'threat-intel'],
     description:
-      'CIA-style real-time geopolitical news monitoring platform — live map visualization, news crawler, facilities database, and Neo4j network graph explorer. MENA region focus with interactive map overlays and dark/light mode.',
+      'CIA-style real-time geopolitical news monitoring platform - live map visualization, news crawler, facilities database, and Neo4j network graph explorer. MENA region focus with interactive map overlays and dark/light mode.',
   },
   {
     id: 'worldwideview',
@@ -1425,7 +1425,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['osint', 'threat-intel'],
     description:
-      'Geospatial intelligence platform — real-time 3D globe with live data feeds, entity filters, and infrastructure tracking. AI-powered news aggregation, geopolitical monitoring, and infrastructure visualization.',
+      'Geospatial intelligence platform - real-time 3D globe with live data feeds, entity filters, and infrastructure tracking. AI-powered news aggregation, geopolitical monitoring, and infrastructure visualization.',
   },
   // ── YARA Rules & Detection Sources (2026-06-12) ────────────────────────
   {
@@ -1446,7 +1446,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['threat-intel', 'dfir'],
     description:
-      'Detection logic mapped to MITRE ATT&CK — Jupyter notebooks with Sigma rules, Splunk queries, and threat-hunting methodologies for each technique. Community-driven, regularly updated.',
+      'Detection logic mapped to MITRE ATT&CK - Jupyter notebooks with Sigma rules, Splunk queries, and threat-hunting methodologies for each technique. Community-driven, regularly updated.',
   },
   {
     id: 'ransomwatch',
@@ -1455,7 +1455,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['threat-intel', 'malware'],
     description:
-      "Ransomware group monitoring — tracks 100+ ransomware operations, scrapes leak sites, and publishes structured JSON of new victim posts. MIT licensed. Integrated into this platform's live IOCs feed.",
+      "Ransomware group monitoring - tracks 100+ ransomware operations, scrapes leak sites, and publishes structured JSON of new victim posts. MIT licensed. Integrated into this platform's live IOCs feed.",
   },
   {
     id: 'misp-galaxy',
@@ -1465,8 +1465,8 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['threat-intel', 'malware'],
     description:
-      'Open knowledge base of threat actor clusters, malware, ransomware, tools, and ATT&CK matrices. 200+ clusters covering threat actors, backdoors, bankers, exploit kits, ransomware, RATs, and surveillance vendors. CC0-licensed — importable into any threat intelligence platform.',
-    why: 'Definitive open-source repository of structured threat intelligence clusters — the reference for actor naming, tool tracking, and cross-platform STIX-compatible sharing.',
+      'Open knowledge base of threat actor clusters, malware, ransomware, tools, and ATT&CK matrices. 200+ clusters covering threat actors, backdoors, bankers, exploit kits, ransomware, RATs, and surveillance vendors. CC0-licensed - importable into any threat intelligence platform.',
+    why: 'Definitive open-source repository of structured threat intelligence clusters - the reference for actor naming, tool tracking, and cross-platform STIX-compatible sharing.',
   },
   {
     id: 'osint-vault',
@@ -1485,7 +1485,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['threat-intel'],
     description:
-      'Threat intelligence dashboard — live IOC feeds, campaign tracking, and real-time security event monitoring from Mjolnir Security.',
+      'Threat intelligence dashboard - live IOC feeds, campaign tracking, and real-time security event monitoring from Mjolnir Security.',
   },
   {
     id: 'bamqam',
@@ -1517,8 +1517,8 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['osint', 'threat-intel'],
     description:
-      'Open-source Palantir alternative — 3D globe tracking 10,000+ aircraft (ADS-B), 2,000+ satellites, and worldwide CCTV. Built-in browser tools: Nmap, DNS, WHOIS, SSL cert, BGP/ASN lookups, IP reputation. 20+ live feeds (earthquakes, wildfires, nuclear facilities, cyber threats, conflicts, GPS jamming).',
-    why: 'Unifies the OSINT + CTI + GEOINT experience into a single browser dashboard — closest open-source analogue to commercial intelligence platforms. Strong complement to our GlobalPulse war-room and our aircraft/satellite layers.',
+      'Open-source Palantir alternative - 3D globe tracking 10,000+ aircraft (ADS-B), 2,000+ satellites, and worldwide CCTV. Built-in browser tools: Nmap, DNS, WHOIS, SSL cert, BGP/ASN lookups, IP reputation. 20+ live feeds (earthquakes, wildfires, nuclear facilities, cyber threats, conflicts, GPS jamming).',
+    why: 'Unifies the OSINT + CTI + GEOINT experience into a single browser dashboard - closest open-source analogue to commercial intelligence platforms. Strong complement to our GlobalPulse war-room and our aircraft/satellite layers.',
   },
   {
     id: 'personal-security-checklist',
@@ -1528,7 +1528,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['osint'],
     description:
-      "Lissy93's curated checklist of 300+ tips for protecting digital security and privacy — 21k+ stars on GitHub. Structured as a YAML knowledge base with categories covering accounts, devices, networks, communications, physical, and OPSEC. CC0-licensed.",
+      "Lissy93's curated checklist of 300+ tips for protecting digital security and privacy - 21k+ stars on GitHub. Structured as a YAML knowledge base with categories covering accounts, devices, networks, communications, physical, and OPSEC. CC0-licensed.",
     why: 'The de-facto open-source personal security checklist. The structured YAML makes it a natural complement to a local interactive checklist implementation.',
   },
   {
@@ -1547,7 +1547,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'directory',
     tags: ['darkweb', 'osint', 'dfir'],
     description:
-      'Curated start.me page aggregating dark-web data-breach resources — leak-site monitors, paste-site scrapers, ransomware-tracker dashboards, exposed-credential search portals, and underground-market intelligence feeds. Useful for monitoring breach disclosures and pivoting into compromised-asset investigations.',
+      'Curated start.me page aggregating dark-web data-breach resources - leak-site monitors, paste-site scrapers, ransomware-tracker dashboards, exposed-credential search portals, and underground-market intelligence feeds. Useful for monitoring breach disclosures and pivoting into compromised-asset investigations.',
   },
   {
     id: 'bitwire-repo',
@@ -1557,7 +1557,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['threat-intel', 'blocklist'],
     description:
-      'Bitwire-it/ipblocklist — 338-star GitHub repo aggregating 30+ IP blocklists (AbuseIPDB, FireHOL, ipsum, ThreatFox, Spamhaus DROP, Binary Defense, SANS, CINSscore) into two curated feeds updated every 2h. inbound.txt (~2M IPs) for WAN-IN drops, outbound.txt (~150K IPs) for LAN-OUT blocks. CC BY-NC-SA 4.0.',
+      'Bitwire-it/ipblocklist - 338-star GitHub repo aggregating 30+ IP blocklists (AbuseIPDB, FireHOL, ipsum, ThreatFox, Spamhaus DROP, Binary Defense, SANS, CINSscore) into two curated feeds updated every 2h. inbound.txt (~2M IPs) for WAN-IN drops, outbound.txt (~150K IPs) for LAN-OUT blocks. CC BY-NC-SA 4.0.',
     why: 'Best open-source single-source-of-truth for compiled malicious IP feeds. Reflected in /threatintel/bitwire-blocklist (in-platform dashboard), /dfir/blocklists (consolidated pfSense/iptables/Suricata) and /api/v1/feeds/ioc-summary?source=bitwire-inbound|bitwire.',
   },
   {
@@ -1577,11 +1577,11 @@ export const RESOURCES: ExternalResource[] = [
     tags: ['osint'],
     description:
       'Comprehensive browser-fingerprint demo from Gonzosint. Loads ThumbmarkJS, ImprintJS and 8+ other fingerprinting libraries side-by-side so analysts can see what each library leaks: canvas hash, audio context, WebGL renderer, font enumeration, hardware concurrency, etc.',
-    why: 'Side-by-side comparison of every major fingerprint library is unique — useful for /dfir/privacy follow-up: see exactly what your own browser is leaking and which library would be the most effective adversary tool.',
+    why: 'Side-by-side comparison of every major fingerprint library is unique - useful for /dfir/privacy follow-up: see exactly what your own browser is leaking and which library would be the most effective adversary tool.',
   },
   {
     id: 'osintnewsletter-tools',
-    name: 'OSINT Newsletter — OSINT Tools Library',
+    name: 'OSINT Newsletter - OSINT Tools Library',
     url: 'https://tools.osintnewsletter.com/osint-tools',
     kind: 'directory',
     tags: ['osint'],
@@ -1596,7 +1596,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['osint', 'phishing', 'threat-intel'],
     description:
-      'Free public URL sandbox — 100 scans/day without auth. Captures screenshot, rendered DOM, network requests, TLS chain, and verdicts for any submitted URL. Used by /api/v1/url-preview and as enrichment in /dfir/phishing.',
+      'Free public URL sandbox - 100 scans/day without auth. Captures screenshot, rendered DOM, network requests, TLS chain, and verdicts for any submitted URL. Used by /api/v1/url-preview and as enrichment in /dfir/phishing.',
   },
   {
     id: 'greynoise',
@@ -1623,7 +1623,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     tags: ['osint', 'threat-intel'],
     description:
-      'Community IP-reputation database — 1000 free lookups/day. Confidence-scored abuse reports per IP. Used as enrichment in /api/v1/ioc-check.',
+      'Community IP-reputation database - 1000 free lookups/day. Confidence-scored abuse reports per IP. Used as enrichment in /api/v1/ioc-check.',
   },
   {
     id: 'shodan',
@@ -1641,7 +1641,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'directory',
     tags: ['threat-intel', 'osint'],
     description:
-      'Open-source APT groups and operations database — tracks 411 groups across 9 regions with aliases, attributed malware, known operations, and country-level mapping. CC BY 4.0 licensed, compiled from public threat intelligence sources.',
+      'Open-source APT groups and operations database - tracks 411 groups across 9 regions with aliases, attributed malware, known operations, and country-level mapping. CC BY 4.0 licensed, compiled from public threat intelligence sources.',
   },
   {
     id: 'vxdb',
@@ -1650,7 +1650,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'research',
     tags: ['threat-intel', 'osint'],
     description:
-      'Threat intelligence and cybercrime news blog — deep-dive investigations into organized crime, crypto heists, infostealers, piracy takedowns, and underground markets. Ghost-powered, CC BY 4.0.',
+      'Threat intelligence and cybercrime news blog - deep-dive investigations into organized crime, crypto heists, infostealers, piracy takedowns, and underground markets. Ghost-powered, CC BY 4.0.',
   },
   {
     id: 'h3ad-sec',
@@ -1671,11 +1671,11 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['threat-intel', 'dfir'],
     description:
-      'Interactive MITRE ATT&CK navigation dashboard — browse techniques, sub-techniques, and mitigations across all ATT&CK domains (Enterprise, Mobile, ICS) with a clean card-based UI. Useful for rapid technique lookup and kill-chain mapping during threat-intel analysis.',
+      'Interactive MITRE ATT&CK navigation dashboard - browse techniques, sub-techniques, and mitigations across all ATT&CK domains (Enterprise, Mobile, ICS) with a clean card-based UI. Useful for rapid technique lookup and kill-chain mapping during threat-intel analysis.',
   },
   {
     id: 'llm-pentest-hub',
-    name: 'LLMPenTestHub — AI/ML Roadmap for Pentesters',
+    name: 'LLMPenTestHub - AI/ML Roadmap for Pentesters',
     url: 'https://anmolksachan.github.io/LLMPenTestHub/ai-ml-roadmap-for-pentester.html#phases',
     kind: 'training',
     tags: ['ai-security', 'vulnerability'],
@@ -1693,11 +1693,11 @@ export const RESOURCES: ExternalResource[] = [
   },
   {
     id: 'cti-guide-2026',
-    name: 'CTI 2026 — The Ultimate Guide',
+    name: 'CTI 2026 - The Ultimate Guide',
     url: 'https://undercodetesting.com/cyber-threat-intelligence-2026-the-ultimate-guide-to-mastering-cti-ai-driven-defense-and-proactive-threat-hunting-video/',
     kind: 'training',
     tags: ['threat-intel', 'dfir', 'ai-security'],
     description:
-      'Comprehensive 2026 guide to mastering Cyber Threat Intelligence — covers AI-driven defense, proactive threat hunting, CTI frameworks (Diamond Model, Kill Chain, ATT&CK), intelligence lifecycle, and practical tradecraft. Includes companion video walkthrough.',
+      'Comprehensive 2026 guide to mastering Cyber Threat Intelligence - covers AI-driven defense, proactive threat hunting, CTI frameworks (Diamond Model, Kill Chain, ATT&CK), intelligence lifecycle, and practical tradecraft. Includes companion video walkthrough.',
   },
 ];

@@ -74,7 +74,7 @@ export default function TelegramLeaks(): JSX.Element {
     };
   }, [refreshKey, search, severityFilter, channelFilter, offset]);
 
-  // Reset pagination to page 1 whenever a filter changes — otherwise a new
+  // Reset pagination to page 1 whenever a filter changes - otherwise a new
   // query runs with a stale offset and can render a false "no results".
   useEffect(() => {
     setOffset(0);
@@ -104,7 +104,7 @@ export default function TelegramLeaks(): JSX.Element {
     <button
       type="button"
       onClick={() => setRefreshKey((k) => k + 1)}
-      className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+      className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
       aria-label="Refresh"
     >
       <RefreshCw size={11} /> refresh
@@ -123,7 +123,7 @@ export default function TelegramLeaks(): JSX.Element {
         />
         <button
           type="submit"
-          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
         >
           <Search size={11} /> search
         </button>
@@ -190,7 +190,7 @@ export default function TelegramLeaks(): JSX.Element {
                   {entry.leak_type}
                 </span>
               </div>
-              <span className="text-micro font-mono text-slate-400 dark:text-slate-500 shrink-0">
+              <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">
                 {new Date(entry.discovered_at).toLocaleString()}
               </span>
             </div>
@@ -221,7 +221,7 @@ export default function TelegramLeaks(): JSX.Element {
                   href={sanitizeUrl(entry.message_link)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline ml-auto"
+                  className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline ml-auto"
                 >
                   <ExternalLink size={10} /> source
                 </a>
@@ -239,7 +239,7 @@ export default function TelegramLeaks(): JSX.Element {
         type="button"
         disabled={offset === 0}
         onClick={() => setOffset((prev) => Math.max(0, prev - pageSize))}
-        className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
+        className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
       >
         ← previous
       </button>
@@ -250,7 +250,7 @@ export default function TelegramLeaks(): JSX.Element {
         type="button"
         disabled={entries.length < pageSize}
         onClick={() => setOffset((prev) => prev + pageSize)}
-        className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
+        className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
       >
         next →
       </button>

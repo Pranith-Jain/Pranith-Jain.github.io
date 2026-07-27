@@ -12,7 +12,7 @@ import {
 } from '../../lib/dfir/multi-search/platforms';
 
 /**
- * /dfir/multi-search — fan out a single query across 60+ OSINT platforms.
+ * /dfir/multi-search - fan out a single query across 60+ OSINT platforms.
  *
  * The user pastes one piece of intel (email, IP, username, hash, CVE,
  * BTC address, etc.) and the page auto-detects the kind, fills URL
@@ -27,7 +27,7 @@ import {
  *     unchecked, or they want a specific platform added even though
  *     it's not auto-selected).
  *   - `activePlatforms` (derived): union of autoSelected + manualOverrides.
- *     This separation matters — the previous implementation re-built
+ *     This separation matters - the previous implementation re-built
  *     the active set on every input change, which silently undid the
  *     user's manual toggles.
  *
@@ -139,7 +139,7 @@ export default function MultiSearch(): JSX.Element {
   const [favorites, setFavorites] = useState<Set<string>>(loadFavorites);
   const [autoSelected, setAutoSelected] = useState<Set<string>>(new Set());
   /** Manual add/remove keyed by platform id. The value is the desired
-   *  state — true = force-on, false = force-off. The union with
+   *  state - true = force-on, false = force-off. The union with
    *  autoSelected is the live activePlatforms set. */
   const [manualOverrides, setManualOverrides] = useState<Map<string, boolean>>(new Map());
   const [popupStatus, setPopupStatus] = useState<{ opened: number; blocked: number } | null>(null);
@@ -156,7 +156,7 @@ export default function MultiSearch(): JSX.Element {
   }, [input]);
 
   // Auto-select when the kind or favorites change. Manual overrides
-  // are NOT touched here — that was the bug in v1.
+  // are NOT touched here - that was the bug in v1.
   useEffect(() => {
     setAutoSelected(buildAutoSelected(kind, input, favorites));
   }, [kind, input, favorites]);
@@ -249,7 +249,7 @@ export default function MultiSearch(): JSX.Element {
       const win = window.open(url, '_blank', 'noopener,noreferrer');
       if (win) opened++;
       else blocked++;
-      // Stagger — most browsers cap unprompted popups at ~1-2 if
+      // Stagger - most browsers cap unprompted popups at ~1-2 if
       // the user hasn't clicked recently; 250ms is the standard
       // pattern for "user-initiated multi-open".
       await new Promise((r) => setTimeout(r, 250));
@@ -300,7 +300,7 @@ export default function MultiSearch(): JSX.Element {
       </h1>
       <p className="text-muted max-w-2xl leading-relaxed mb-8">
         Fan out a single indicator across {PLATFORMS.length}+ OSINT platforms in parallel. Type a value, the page
-        auto-detects the kind and pre-selects every matching tool. Pure frontend — no API keys, no rate limits, no
+        auto-detects the kind and pre-selects every matching tool. Pure frontend - no API keys, no rate limits, no
         server cost.
       </p>
 
@@ -408,7 +408,7 @@ export default function MultiSearch(): JSX.Element {
             type="button"
             onClick={clearOverrides}
             className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-xs font-mono text-amber-600 dark:text-amber-400"
-            title={`${manualOverrides.size} manual override${manualOverrides.size === 1 ? '' : 's'} active — click to clear`}
+            title={`${manualOverrides.size} manual override${manualOverrides.size === 1 ? '' : 's'} active - click to clear`}
           >
             Clear {manualOverrides.size} override{manualOverrides.size === 1 ? '' : 's'}
           </button>
@@ -563,11 +563,11 @@ function PlatformCard({
             <button
               type="button"
               onClick={onFavorite}
-              className={`text-sm ${favorite ? 'text-amber-500' : 'text-slate-400 hover:text-amber-500'} transition-colors`}
+              className={`text-sm ${favorite ? 'text-amber-500' : 'text-slate-500 dark:text-slate-400 hover:text-amber-500'} transition-colors`}
               aria-label={favorite ? 'Unfavorite' : 'Favorite'}
               title={favorite ? 'Unfavorite' : 'Add to favorites'}
             >
-              {favorite ? '★' : '☆'}
+              {favorite ? 'on' : 'off'}
             </button>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-snug">{platform.description}</p>
@@ -591,7 +591,7 @@ function PlatformCard({
           }}
           className={`flex-1 inline-flex items-center justify-center gap-1 px-2 py-1 rounded text-xs font-medium transition-colors ${
             hasUnfilled
-              ? 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-400 cursor-not-allowed'
+              ? 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 cursor-not-allowed'
               : 'bg-brand-600 hover:bg-brand-700 text-white'
           }`}
         >

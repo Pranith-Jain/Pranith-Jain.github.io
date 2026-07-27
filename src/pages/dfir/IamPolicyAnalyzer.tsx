@@ -4,7 +4,7 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
 /**
- * AWS IAM / Cloud Policy Analyzer — 100% client-side.
+ * AWS IAM / Cloud Policy Analyzer - 100% client-side.
  *
  * Paste an AWS policy JSON (identity, resource-based, S3 bucket, or role
  * trust policy). It is parsed and statically analysed for the
@@ -98,7 +98,7 @@ const PRIV_ESC = [
   'ec2:runinstances',
 ];
 
-/** Broad access to secrets / data — exfil-relevant when paired with *. */
+/** Broad access to secrets / data - exfil-relevant when paired with *. */
 const SENSITIVE_DATA = [
   'secretsmanager:getsecretvalue',
   'kms:decrypt',
@@ -158,7 +158,7 @@ function analyze(text: string): Analysis | null {
     findings.push({
       sev: 'info',
       title: 'No statements found',
-      detail: 'The policy has no Statement array — nothing to evaluate.',
+      detail: 'The policy has no Statement array - nothing to evaluate.',
       where: 'Document',
       fix: 'Add at least one statement, or verify you pasted the right document.',
     });
@@ -191,7 +191,7 @@ function analyze(text: string): Analysis | null {
       return;
     }
 
-    // Deny statements with wildcards are generally safe (and often good) —
+    // Deny statements with wildcards are generally safe (and often good) -
     // only Allow statements grant risk. Keep Deny noise out.
     if (effect === 'Deny') return;
 
@@ -202,7 +202,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: 'critical',
         title: 'Full administrative access (Action "*" on Resource "*")',
-        detail: 'This statement allows every action on every resource — equivalent to AdministratorAccess.',
+        detail: 'This statement allows every action on every resource - equivalent to AdministratorAccess.',
         where,
         fix: 'Scope Action and Resource to exactly what the principal needs.',
       });
@@ -243,7 +243,7 @@ function analyze(text: string): Analysis | null {
         sev: 'high',
         title: 'NotAction with Allow',
         detail:
-          'Allow + NotAction grants EVERY action except the listed ones — an allow-list inversion that almost always grants far more than intended.',
+          'Allow + NotAction grants EVERY action except the listed ones - an allow-list inversion that almost always grants far more than intended.',
         where,
         fix: 'Rewrite as an explicit Allow of the required Action list.',
       });
@@ -264,8 +264,8 @@ function analyze(text: string): Analysis | null {
         sev: hasCondition ? 'high' : 'critical',
         title: hasCondition ? 'Wildcard Principal gated only by Condition' : 'Public / anonymous Principal ("*")',
         detail: hasCondition
-          ? 'The resource is exposed to every AWS account / anonymous caller and only restricted by a Condition block — verify the condition is actually restrictive (e.g. aws:SourceArn / aws:PrincipalOrgID), not just aws:SecureTransport.'
-          : 'This grants access to ANY AWS principal — effectively public. A classic source of S3 / SNS / SQS / KMS data exposure.',
+          ? 'The resource is exposed to every AWS account / anonymous caller and only restricted by a Condition block - verify the condition is actually restrictive (e.g. aws:SourceArn / aws:PrincipalOrgID), not just aws:SecureTransport.'
+          : 'This grants access to ANY AWS principal - effectively public. A classic source of S3 / SNS / SQS / KMS data exposure.',
         where,
         fix: 'Set Principal to specific account/role ARNs, or add a strict Condition (aws:PrincipalOrgID, aws:SourceArn).',
       });
@@ -289,7 +289,7 @@ function analyze(text: string): Analysis | null {
           sev: 'high',
           title: 'Cross-account trust without ExternalId / SourceArn (confused deputy)',
           detail:
-            'This role can be assumed by another account with no sts:ExternalId, aws:SourceArn, aws:SourceAccount or aws:PrincipalOrgID condition — the confused-deputy pattern third parties exploit.',
+            'This role can be assumed by another account with no sts:ExternalId, aws:SourceArn, aws:SourceAccount or aws:PrincipalOrgID condition - the confused-deputy pattern third parties exploit.',
           where,
           fix: 'Add a Condition requiring sts:ExternalId (third-party) or aws:SourceArn/aws:PrincipalOrgID (internal).',
         });
@@ -306,7 +306,7 @@ function analyze(text: string): Analysis | null {
           .slice(0, 6)
           .join(
             ', '
-          )}${escHits.length > 6 ? ` +${escHits.length - 6} more` : ''} — these let a principal grant itself more access or pivot through a passed role.`,
+          )}${escHits.length > 6 ? ` +${escHits.length - 6} more` : ''} - these let a principal grant itself more access or pivot through a passed role.`,
         where,
         fix: 'Remove these unless strictly required; if iam:PassRole is needed, scope Resource to the exact role ARN and add an iam:PassedToService condition.',
       });
@@ -318,7 +318,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: 'high',
         title: 'Broad access to secrets / data',
-        detail: `${dataHits.slice(0, 5).join(', ')} on Resource "*" — account-wide read access to secrets, KMS plaintext, parameters or object data.`,
+        detail: `${dataHits.slice(0, 5).join(', ')} on Resource "*" - account-wide read access to secrets, KMS plaintext, parameters or object data.`,
         where,
         fix: 'Scope Resource to specific secret/key/bucket ARNs.',
       });
@@ -389,7 +389,7 @@ export default function IamPolicyAnalyzer(): JSX.Element {
       maxWidthClass="max-w-4xl"
       icon={<ShieldAlert size={28} />}
       title="IAM Policy Analyzer"
-      description="Paste an AWS policy (identity, resource-based, S3 bucket, or role trust policy). It is analysed locally for least-privilege and misconfiguration risks — wildcard admin, public principals, NotAction/NotResource allows, privilege-escalation actions, broad secret access, and confused-deputy trust. Nothing leaves your browser."
+      description="Paste an AWS policy (identity, resource-based, S3 bucket, or role trust policy). It is analysed locally for least-privilege and misconfiguration risks - wildcard admin, public principals, NotAction/NotResource allows, privilege-escalation actions, broad secret access, and confused-deputy trust. Nothing leaves your browser."
       headerExtra={
         <div className="flex flex-wrap gap-2">
           <button
@@ -486,7 +486,7 @@ export default function IamPolicyAnalyzer(): JSX.Element {
                           >
                             {f.sev}
                           </span>
-                          <span className="text-mini font-mono text-slate-400">{f.where}</span>
+                          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{f.where}</span>
                         </div>
                         <h3 className={`font-display font-semibold mt-1.5 ${st.text}`}>{f.title}</h3>
                         <p className="text-sm text-muted mt-1 leading-relaxed">{f.detail}</p>

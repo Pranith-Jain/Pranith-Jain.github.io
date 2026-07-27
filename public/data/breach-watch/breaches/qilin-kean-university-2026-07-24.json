@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-kean-university-2026-07-24",
-  "title": "Kean University",
-  "group": "Qilin",
-  "discovered": "2026-07-24T00:00:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "United States",
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/kean-university-qilin-2026-07",
-  "groupAliases": [],
-  "activity": "Education",
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"qilin-kean-university-2026-07-24","title":"Kean University","group":"qilin","discovered":"2026-07-24T10:36:49.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/6c84f320-b367-408e-84e6-c1f480fec2b1","groupAliases":[],"activity":"Education","references":["Darkfield"]}

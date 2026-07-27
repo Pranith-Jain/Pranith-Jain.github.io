@@ -261,7 +261,7 @@ export function McpSearchWorkbench(props: {
     ioc: '8.8.8.8 · evil.com · sha256:…',
     cve: 'CVE-2025-55182',
     report: 'ransomware · lazarus · apt29',
-    briefing: '(no input needed — list latest briefings)',
+    briefing: '(no input needed - list latest briefings)',
   };
   const disabled = status !== 'connected' || busy || (mode !== 'briefing' && !q.trim());
 
@@ -352,13 +352,13 @@ export function McpSearchWorkbench(props: {
           )}
         </form>
 
-        {/* Filter bar — only visible in report mode with results */}
+        {/* Filter bar - only visible in report mode with results */}
         {mode === 'report' && hit?.reports && (
-          <div className="mt-3 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-[rgb(var(--surface-200)/0.5)] p-3 space-y-2.5">
+          <div className="mt-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50/50 dark:bg-[rgb(var(--surface-200)/0.5)] p-3 space-y-2.5">
             {/* Row 1: Date range */}
             <div className="flex flex-wrap items-center gap-2">
               <div className="flex items-center gap-1.5">
-                <Calendar className="h-3 w-3 text-slate-400" />
+                <Calendar className="h-3 w-3 text-slate-500 dark:text-slate-400" />
                 <span className="text-micro font-mono uppercase tracking-wider text-slate-500">date</span>
               </div>
               <div className="flex flex-wrap gap-1">
@@ -391,7 +391,7 @@ export function McpSearchWorkbench(props: {
             {/* Row 2: Severity */}
             <div className="flex flex-wrap items-center gap-2">
               <div className="flex items-center gap-1.5">
-                <Shield className="h-3 w-3 text-slate-400" />
+                <Shield className="h-3 w-3 text-slate-500 dark:text-slate-400" />
                 <span className="text-micro font-mono uppercase tracking-wider text-slate-500">severity</span>
               </div>
               <div className="flex flex-wrap gap-1">
@@ -437,20 +437,20 @@ export function McpSearchWorkbench(props: {
                       <span className="text-slate-800 dark:text-slate-200 font-medium">{filteredCount}</span> of{' '}
                       <span className="text-slate-800 dark:text-slate-200">{totalCount}</span> reports
                       {typeof apiTotal === 'number' && apiTotal > totalCount && (
-                        <span className="text-slate-400"> (of {apiTotal} total)</span>
+                        <span className="text-slate-500 dark:text-slate-400"> (of {apiTotal} total)</span>
                       )}
                     </>
                   ) : (
                     <>
                       <span className="text-slate-800 dark:text-slate-200 font-medium">{totalCount}</span> reports
                       {typeof apiTotal === 'number' && apiTotal > totalCount && (
-                        <span className="text-slate-400"> (of {apiTotal} total)</span>
+                        <span className="text-slate-500 dark:text-slate-400"> (of {apiTotal} total)</span>
                       )}
                     </>
                   )}
                 </span>
                 {hasFilters && (
-                  <span className="text-slate-400">
+                  <span className="text-slate-500 dark:text-slate-400">
                     · {activeFilterCount} filter{activeFilterCount === 1 ? '' : 's'} active
                   </span>
                 )}
@@ -462,7 +462,7 @@ export function McpSearchWorkbench(props: {
                     setTimeRange('');
                     setSeverityFilter(new Set());
                   }}
-                  className="text-micro font-mono text-slate-400 hover:text-rose-500 transition-colors"
+                  className="text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
                 >
                   clear all
                 </button>
@@ -891,7 +891,7 @@ function BriefingInline({ hit }: { hit: BriefingSummary }): JSX.Element {
       <div className="min-w-0 flex-1">
         <p className="text-xs font-medium text-slate-800 dark:text-slate-200">{hit.title ?? hit.briefing_id}</p>
         <p className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
-          {hit.type ?? 'briefing'} · {hit.date ?? '—'}
+          {hit.type ?? 'briefing'} · {hit.date ?? '-'}
         </p>
         {hit.summary && <p className="mt-1 text-mini text-slate-600 dark:text-slate-400 line-clamp-3">{hit.summary}</p>}
       </div>
@@ -904,7 +904,7 @@ function BriefingRow({ hit }: { hit: BriefingSummary }): JSX.Element {
     <li className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-2.5 py-1.5">
       <p className="text-xs font-medium text-slate-800 dark:text-slate-200">{hit.title ?? hit.briefing_id}</p>
       <p className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
-        {hit.type ?? 'briefing'} · {hit.date ?? '—'}
+        {hit.type ?? 'briefing'} · {hit.date ?? '-'}
       </p>
       {hit.summary && <p className="mt-1 text-mini text-slate-600 dark:text-slate-400 line-clamp-2">{hit.summary}</p>}
     </li>
@@ -944,7 +944,7 @@ function ReportRow({
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="shrink-0 text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+            className="shrink-0 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
             title="Open on ti-mindmap-hub.com"
           >
             <ExternalLink className="h-3 w-3" />

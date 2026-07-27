@@ -1,7 +1,7 @@
 /**
  * Compact relative-time formatter used by the live-snapshot cards.
  *
- * Distinct from `formatRelativeTime()` in services/rssService — that one
+ * Distinct from `formatRelativeTime()` in services/rssService - that one
  * spells out units ("5 minutes ago"); this one is space-constrained for
  * timestamp slots in narrow card rows ("5m ago"). Same input convention:
  * an ISO-8601 string. Returns `''` for malformed input so the caller's

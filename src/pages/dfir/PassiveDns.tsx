@@ -176,8 +176,8 @@ export default function PassiveDns(): JSX.Element {
                 <AlertTriangle size={16} /> Fast-Flux Detection
               </h3>
               <div className="text-sm font-mono text-rose-800 dark:text-rose-200">
-                {result.fast_flux.unique_ips} unique IPs in {result.fast_flux.observation_window_hours}h — rotation
-                rate: {result.fast_flux.rotation_rate} IPs/day — severity: {result.fast_flux.severity}
+                {result.fast_flux.unique_ips} unique IPs in {result.fast_flux.observation_window_hours}h - rotation
+                rate: {result.fast_flux.rotation_rate} IPs/day - severity: {result.fast_flux.severity}
               </div>
             </div>
           )}

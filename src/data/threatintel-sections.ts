@@ -50,7 +50,7 @@ export const SECTIONS: Section[] = [
       {
         to: '/threatintel/catalog',
         label: 'Page Catalog',
-        desc: 'Every routable page in the threat-intel area — searchable, filterable, with deep links.',
+        desc: 'Every routable page in the threat-intel area - searchable, filterable, with deep links.',
         icon: Search,
         badge: 'new',
       },
@@ -64,14 +64,14 @@ export const SECTIONS: Section[] = [
       {
         to: '/threatintel/threat-actor-catalog',
         label: 'Threat Actor Catalog',
-        desc: 'Curated profiles of 15 major groups — aliases, countries, malware, TTPs, campaigns, MITRE mapping.',
+        desc: 'Curated profiles of 15 major groups - aliases, countries, malware, TTPs, campaigns, MITRE mapping.',
         icon: Skull,
         badge: 'new',
       },
       {
         to: '/threatintel/actors',
         label: 'Actor Directory',
-        desc: 'Unified actor browser — MITRE ATT&CK, MISP Galaxy, and platform database with search.',
+        desc: 'Unified actor browser - MITRE ATT&CK, MISP Galaxy, and platform database with search.',
         icon: Users,
       },
       {
@@ -117,7 +117,7 @@ export const SECTIONS: Section[] = [
       {
         to: '/threatintel/soc-dashboard',
         label: 'SOC Dashboards',
-        desc: 'Red/cyan/purple panels — ransomware activity, vulnerability index, and IOC stream with consensus scoring.',
+        desc: 'Red/cyan/purple panels - ransomware activity, vulnerability index, and IOC stream with consensus scoring.',
         icon: LayoutDashboard,
         badge: 'new',
       },
@@ -156,7 +156,7 @@ export const SECTIONS: Section[] = [
       {
         to: '/threatintel/malware-sandbox',
         label: 'Malware Sandbox',
-        desc: 'Hash lookup across 10+ public sandbox platforms — consensus verdict, family attribution, one-click detonation.',
+        desc: 'Hash lookup across 10+ public sandbox platforms - consensus verdict, family attribution, one-click detonation.',
         icon: Bug,
         badge: 'new',
       },
@@ -183,7 +183,7 @@ export const SECTIONS: Section[] = [
       {
         to: '/threatintel/osint-cli-tools',
         label: 'OSINT CLI Tools',
-        desc: '55+ curated CLI tools across 10 categories — username, email, domain, social, dorking, recon.',
+        desc: '55+ curated CLI tools across 10 categories - username, email, domain, social, dorking, recon.',
         icon: Terminal,
         badge: 'new',
       },
@@ -196,7 +196,7 @@ export const SECTIONS: Section[] = [
       {
         to: '/threatintel/stix-bundles',
         label: 'STIX Bundle Browser',
-        desc: 'Browse and download STIX 2.1 bundles — import into OpenCTI, MISP, or any STIX-aware platform.',
+        desc: 'Browse and download STIX 2.1 bundles - import into OpenCTI, MISP, or any STIX-aware platform.',
         icon: GitBranch,
         badge: 'new',
       },
@@ -231,7 +231,7 @@ export const SECTIONS: Section[] = [
       {
         to: '/threatintel/external',
         label: 'External Resources',
-        desc: 'Off-site cross-references — dashboards, OSINT directories, training labs, malware samples, research portfolios.',
+        desc: 'Off-site cross-references - dashboards, OSINT directories, training labs, malware samples, research portfolios.',
         icon: Globe,
       },
       {
@@ -267,12 +267,12 @@ export const SECTIONS: Section[] = [
     id: 'darknet-intel',
     label: 'Darknet Intel',
     blurb:
-      'Live threat lookups — IP reputation, malware analysis, vulnerability search, ransomware tracking, breach intelligence.',
+      'Live threat lookups - IP reputation, malware analysis, vulnerability search, ransomware tracking, breach intelligence.',
     tools: [
       {
         to: '/threatintel/tools/darknet-intel',
         label: 'Darknet Intel Hub',
-        desc: '42 tools across 13 providers — GreyNoise, Pulsedive, Vulners, IntelX, AbuseIPDB, ransomware, HIBP, abuse.ch, OTX, Hybrid Analysis.',
+        desc: '42 tools across 13 providers - GreyNoise, Pulsedive, Vulners, IntelX, AbuseIPDB, ransomware, HIBP, abuse.ch, OTX, Hybrid Analysis.',
         icon: Shield,
         badge: 'new',
       },

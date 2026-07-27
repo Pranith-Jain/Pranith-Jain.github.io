@@ -17,7 +17,7 @@ const STYLES: Record<string, string> = {
 };
 
 // Pair each verdict with an icon so pass/fail is not conveyed by color alone
-// (WCAG 1.4.1 — colorblind users + screen readers get the meaning too).
+// (WCAG 1.4.1 - colorblind users + screen readers get the meaning too).
 const ICONS: Record<string, LucideIcon> = {
   pass: CheckCircle2,
   fail: XCircle,

@@ -39,7 +39,7 @@ const ALL_QUERIES: TriageQuery[] = [
   // ── Authentication ──
   {
     id: 'auth-001',
-    name: 'Failed Logins — Spike Detection',
+    name: 'Failed Logins - Spike Detection',
     description: 'Detects anomalous spikes in failed authentication attempts across Azure AD and on-prem AD.',
     category: 'auth',
     dataSources: ['AzureAD', 'Windows Event Log (4625)'],
@@ -63,7 +63,7 @@ ResultType IN ("50057","50126")
   },
   {
     id: 'auth-002',
-    name: 'MFA Failures — Possible Fatigue Attack',
+    name: 'MFA Failures - Possible Fatigue Attack',
     description: 'Multiple MFA denial prompts in short window indicating MFA fatigue / bombing attacks.',
     category: 'auth',
     dataSources: ['AzureAD', 'Duo', 'Okta'],
@@ -87,7 +87,7 @@ ResultType=500121
   },
   {
     id: 'auth-003',
-    name: 'Privileged Account Usage — Off-Hours',
+    name: 'Privileged Account Usage - Off-Hours',
     description: 'Privileged account logons outside business hours (20:00–06:00 local).',
     category: 'auth',
     dataSources: ['Windows Event Log (4672)', 'AzureAD'],
@@ -136,7 +136,7 @@ NOT (Location IN ("US","CA") OR src_ip="10.*")
   },
   {
     id: 'auth-005',
-    name: 'Guest User Activity — Suspicious',
+    name: 'Guest User Activity - Suspicious',
     description: 'Guest/external user access to sensitive applications or elevated privilege grants.',
     category: 'auth',
     dataSources: ['AzureAD', 'Microsoft 365'],
@@ -157,7 +157,7 @@ operation IN ("Add guest user", "Invite guest", "Grant consent") result=success
   },
   {
     id: 'auth-006',
-    name: 'Password Spray — Pattern Detection',
+    name: 'Password Spray - Pattern Detection',
     description: 'Same password attempted across multiple accounts in rapid succession.',
     category: 'auth',
     dataSources: ['AzureAD', 'Windows Event Log (4625)'],
@@ -182,7 +182,7 @@ ResultType=50126
   // ── Network ──
   {
     id: 'net-001',
-    name: 'Unusual Outbound Traffic — Beaconing',
+    name: 'Unusual Outbound Traffic - Beaconing',
     description:
       'Periodic outbound connections to rare destinations with regular intervals indicative of C2 beaconing.',
     category: 'network',
@@ -207,7 +207,7 @@ dest_ip_type=public initiated=true
   },
   {
     id: 'net-002',
-    name: 'DNS Anomalies — DGA or Tunnel',
+    name: 'DNS Anomalies - DGA or Tunnel',
     description: 'High-entropy DNS queries, excessive NXDOMAIN responses, or long subdomain lengths.',
     category: 'network',
     dataSources: ['DNS logs', 'Zeek dns.log'],
@@ -228,7 +228,7 @@ query = regex("^[a-z0-9]{20,}\\.[a-z]+$")
   },
   {
     id: 'net-003',
-    name: 'TLS Handshake Failures — SSL/TLS Anomalies',
+    name: 'TLS Handshake Failures - SSL/TLS Anomalies',
     description: 'Repeated TLS handshake failures suggesting certificate mismatch or MITM attempts.',
     category: 'network',
     dataSources: ['Zeek ssl.log', 'Firewall logs'],
@@ -251,7 +251,7 @@ action IN ("connection_failed","tls_failed")
   },
   {
     id: 'net-004',
-    name: 'Port Scanning — Inbound Recon',
+    name: 'Port Scanning - Inbound Recon',
     description: 'Multiple ports targeted from a single source IP indicating reconnaissance.',
     category: 'network',
     dataSources: ['Firewall logs', 'Zeek conn.log'],
@@ -274,7 +274,7 @@ action=attempt
   },
   {
     id: 'net-005',
-    name: 'Data Transfer Spikes — Exfiltration',
+    name: 'Data Transfer Spikes - Exfiltration',
     description: 'Outbound data volume spike to a single destination exceeding baseline by 3 sigma.',
     category: 'network',
     dataSources: ['Firewall logs', 'Zeek', 'Zscaler'],
@@ -303,7 +303,7 @@ action=attempt
       kql: `DeviceNetworkEvents
 | where Timestamp > ago(24h)
 | where RemoteIP in (dynamic(["185.220.101.0", "185.220.102.0", "199.249.230.0"]))
-// Tor exit node ranges — expand with TI feed
+// Tor exit node ranges - expand with TI feed
 | project Timestamp, DeviceName, RemoteIP, RemotePort, InitiatingProcessFileName`,
       xql: `dataset = network_connection
 | filter event_type = "NETWORK" and TIMESTAMP > NOW() - 24h
@@ -318,7 +318,7 @@ dest_ip IN ("185.220.101.0/24", "185.220.102.0/24", "199.249.230.0/24")
   // ── Endpoint ──
   {
     id: 'end-001',
-    name: 'Process Creation — Anomalous Parents',
+    name: 'Process Creation - Anomalous Parents',
     description: 'Unusual parent-child process relationships (e.g., Office spawning cmd, PDF launching PowerShell).',
     category: 'endpoint',
     dataSources: ['Windows Event Log (4688)', 'Sysmon (1)'],
@@ -341,7 +341,7 @@ NewProcessName IN ("*powershell.exe","*cmd.exe","*wscript.exe","*cscript.exe")
   },
   {
     id: 'end-002',
-    name: 'Scheduled Task Creation — Persistence',
+    name: 'Scheduled Task Creation - Persistence',
     description: 'New scheduled tasks created by non-admin users or with suspicious names/actions.',
     category: 'endpoint',
     dataSources: ['Windows Event Log (4698)', 'Sysmon (1)'],
@@ -361,7 +361,7 @@ NewProcessName IN ("*powershell.exe","*cmd.exe","*wscript.exe","*cscript.exe")
   },
   {
     id: 'end-003',
-    name: 'Service Installation — Suspicious',
+    name: 'Service Installation - Suspicious',
     description: 'New Windows services installed by non-approved processes or from temp directories.',
     category: 'endpoint',
     dataSources: ['Windows Event Log (7045)', 'Sysmon'],
@@ -381,7 +381,7 @@ NewProcessName IN ("*powershell.exe","*cmd.exe","*wscript.exe","*cscript.exe")
   },
   {
     id: 'end-004',
-    name: 'DLL Load Monitoring — Side-Loading',
+    name: 'DLL Load Monitoring - Side-Loading',
     description: 'DLLs loaded from non-standard paths by trusted binaries indicating DLL side-loading.',
     category: 'endpoint',
     dataSources: ['Sysmon (7)', 'Windows Event Log'],
@@ -405,7 +405,7 @@ Image IN ("*svchost.exe", "*rundll32.exe", "*regsvr32.exe")
   },
   {
     id: 'end-005',
-    name: 'Registry Persistence — Run Keys',
+    name: 'Registry Persistence - Run Keys',
     description: 'New or modified auto-run registry keys pointing to unsigned binaries.',
     category: 'endpoint',
     dataSources: ['Sysmon (13)', 'Windows Event Log'],
@@ -426,7 +426,7 @@ TargetObject="*CurrentVersion\\Run*"
   },
   {
     id: 'end-006',
-    name: 'USB Device Events — Unauthorized',
+    name: 'USB Device Events - Unauthorized',
     description: 'New USB device connections with device IDs not in the approved hardware list.',
     category: 'endpoint',
     dataSources: ['Windows Event Log (6416)', 'Sysmon'],
@@ -446,7 +446,7 @@ TargetObject="*CurrentVersion\\Run*"
   // ── Cloud ──
   {
     id: 'cloud-001',
-    name: 'IAM Changes — Privilege Escalation',
+    name: 'IAM Changes - Privilege Escalation',
     description: 'New IAM roles, policy attachments, or permission grants that could indicate privilege escalation.',
     category: 'cloud',
     dataSources: ['CloudTrail', 'Azure Activity Log'],
@@ -468,7 +468,7 @@ eventName IN ("CreateRole", "AttachRolePolicy", "PutRolePolicy", "CreatePolicy")
   },
   {
     id: 'cloud-002',
-    name: 'Storage Access — Public/Anomalous',
+    name: 'Storage Access - Public/Anomalous',
     description: 'S3/GCS/Azure Blob access from public IPs or anonymous principals outside expected patterns.',
     category: 'cloud',
     dataSources: ['CloudTrail', 'S3 server logs'],
@@ -491,7 +491,7 @@ eventSource="s3.amazonaws.com" userIdentity type="Anonymous"
   },
   {
     id: 'cloud-003',
-    name: 'API Call Spike — Anomalous Volume',
+    name: 'API Call Spike - Anomalous Volume',
     description: 'Sudden increase in API calls from a single principal or source IP, indicating credential abuse.',
     category: 'cloud',
     dataSources: ['CloudTrail', 'Azure Activity Log'],
@@ -513,7 +513,7 @@ eventSource="s3.amazonaws.com" userIdentity type="Anonymous"
   },
   {
     id: 'cloud-004',
-    name: 'Configuration Drift — Security Group Changes',
+    name: 'Configuration Drift - Security Group Changes',
     description: 'Security group, firewall rule, or NSG changes opening ports to 0.0.0.0/0.',
     category: 'cloud',
     dataSources: ['CloudTrail', 'Azure Activity Log', 'GCP Audit Log'],
@@ -537,7 +537,7 @@ requestParameters.ipPermissions.items{}.ipRanges{}.cidrIp="0.0.0.0/0"
   },
   {
     id: 'cloud-005',
-    name: 'VPC Changes — Network Hijacking',
+    name: 'VPC Changes - Network Hijacking',
     description: 'Modifications to VPC route tables, peering connections, or VPN attachments.',
     category: 'cloud',
     dataSources: ['CloudTrail', 'VPC Flow Logs'],
@@ -559,7 +559,7 @@ eventName IN ("CreateVpcPeering", "ModifyVpcAttribute", "CreateRoute", "ReplaceR
   },
   {
     id: 'cloud-006',
-    name: 'Key Rotation Failures — Crypto Doom',
+    name: 'Key Rotation Failures - Crypto Doom',
     description: 'Failed KMS key rotation, disabled keys used for decryption, or deleted key material.',
     category: 'cloud',
     dataSources: ['CloudTrail', 'AWS KMS logs'],
@@ -620,7 +620,7 @@ export default function Quicktrace(): JSX.Element {
           <Zap size={28} className="text-brand-600 dark:text-brand-400" /> QUICKTRACE
         </h1>
         <p className="text-muted max-w-2xl leading-relaxed">
-          Daily triage queries across authentication, network, endpoint, and cloud — ready to paste into Sentinel, XQL,
+          Daily triage queries across authentication, network, endpoint, and cloud - ready to paste into Sentinel, XQL,
           or Splunk.
           <span className="text-slate-500"> {totalQueries} queries across 4 domains</span>
         </p>
@@ -672,7 +672,7 @@ export default function Quicktrace(): JSX.Element {
 
       {/* Search */}
       <div className="relative mb-6">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -689,7 +689,7 @@ export default function Quicktrace(): JSX.Element {
       {/* Query cards */}
       {categoryQueries.length === 0 ? (
         <div className="surface-card/40 shadow-e1 p-8 text-center">
-          <AlertTriangle size={24} className="mx-auto mb-2 text-slate-400" />
+          <AlertTriangle size={24} className="mx-auto mb-2 text-slate-500 dark:text-slate-400" />
           <p className="text-sm text-slate-500">No queries match your filter.</p>
         </div>
       ) : (
@@ -722,7 +722,7 @@ export default function Quicktrace(): JSX.Element {
               {/* Query code */}
               <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap">
                 {query.platforms[platform] ?? (
-                  <span className="text-slate-400 italic">Not available for {platform.toUpperCase()}</span>
+                  <span className="text-slate-500 dark:text-slate-400 italic">Not available for {platform.toUpperCase()}</span>
                 )}
               </pre>
             </div>

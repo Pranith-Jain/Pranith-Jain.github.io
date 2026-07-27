@@ -41,7 +41,7 @@ describe('DFIR sub-routes', () => {
 
     // Use a regex match so headings that decorate the title with a status
     // pill (e.g. <h1>Threat Intel Briefings<LiveFreshnessPill/></h1>) still
-    // match — the accessible name is the concatenation of all the text
+    // match - the accessible name is the concatenation of all the text
     // nodes, and exact string match would break for any future decoration.
     expect(
       await screen.findByRole('heading', { level: 1, name: new RegExp(heading) }, { timeout: 5000 })

@@ -7,7 +7,7 @@
  *   - value uses display font (matches AppHero h1) for visual parity
  *   - `mono` flag forces a smaller mono value (used for timestamps,
  *     hashes, build IDs) so the row stays rhythmically even
- *   - dividers are subtle 1px hairlines, not card padding — reads as
+ *   - dividers are subtle 1px hairlines, not card padding - reads as
  *     "one panel with 4 cells" not "4 cards"
  */
 export interface StatItem {

@@ -6,7 +6,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import './index.css';
 
 /**
- * SSR entry point — Phase 3 streaming refactor (2026-05-12).
+ * SSR entry point - Phase 3 streaming refactor (2026-05-12).
  *
  * Phase 1/2 used `renderToString` which doesn't await Suspense boundaries.
  * Every route under <Suspense fallback={...}><LazyRoute /></Suspense> in
@@ -19,7 +19,7 @@ import './index.css';
  * into a string via Response(stream).text().
  *
  * Cost: render() is now async. The prerender script awaits each route.
- * The dynamic imports each lazy() makes also fire during Node SSR — Vite
+ * The dynamic imports each lazy() makes also fire during Node SSR - Vite
  * emits each as a separate chunk in .ssr-build/assets/ and Node loads
  * them on demand. Total prerender time scales with route count.
  */

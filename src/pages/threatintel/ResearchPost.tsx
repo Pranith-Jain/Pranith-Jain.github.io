@@ -9,7 +9,7 @@ import { extractTableOfContents, addHeadingIds } from '../../lib/content-utils';
 type TocItem = { id: string; text: string; level: number };
 
 /**
- * /threatintel/research/<slug> — long-form read page for a Pranith-
+ * /threatintel/research/<slug> - long-form read page for a Pranith-
  * authored research piece. Same marked + DOMPurify rendering chain the
  * /projects case study page uses, so internal links work, all URLs are
  * sanitised, and no raw HTML reaches the DOM.
@@ -150,7 +150,7 @@ export default function ResearchPost(): JSX.Element {
 
       {/* Structured STIX 2.1 view of this research piece. Heuristic extractor
           pulls every actor, malware family, CVE, and IoC the piece mentions
-          across its full body — alongside the human-authored prose below,
+          across its full body - alongside the human-authored prose below,
           this gives a downloadable bundle for pivoting / sharing. */}
       <section className="mb-8">
         <IntelCard
@@ -167,7 +167,7 @@ export default function ResearchPost(): JSX.Element {
       </section>
 
       {html === null ? (
-        <div className="space-y-3 text-slate-400" aria-busy="true" aria-label="Loading research post">
+        <div className="space-y-3 text-slate-500 dark:text-slate-400" aria-busy="true" aria-label="Loading research post">
           <div className="h-4 w-3/4 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
           <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
           <div className="h-4 w-5/6 rounded bg-slate-200 dark:bg-[rgb(var(--surface-300))] animate-pulse" />
@@ -181,14 +181,14 @@ export default function ResearchPost(): JSX.Element {
               '[&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-slate-900 [&_h2]:dark:text-white [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:tracking-tight ' +
               '[&_h3]:font-display [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-900 [&_h3]:dark:text-white [&_h3]:mt-6 [&_h3]:mb-2 ' +
               '[&_p]:mb-4 ' +
-              '[&_a]:text-brand-700 [&_a]:dark:text-brand-400 [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:no-underline ' +
+              '[&_a]:text-rose-700 [&_a]:dark:text-rose-400 [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:no-underline ' +
               '[&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:space-y-1.5 ' +
               '[&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:space-y-1.5 ' +
               '[&_li]:leading-relaxed ' +
               '[&_strong]:text-slate-900 [&_strong]:dark:text-white [&_strong]:font-semibold ' +
               '[&_code]:font-mono [&_code]:text-[0.9em] [&_code]:bg-slate-100 [&_code]:dark:bg-[rgb(var(--surface-300))] [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
               '[&_pre]:bg-slate-900 [&_pre]:dark:bg-[rgb(var(--input-200))] [&_pre]:text-slate-100 [&_pre]:p-4 [&_pre]:rounded-xl [&_pre]:overflow-x-auto [&_pre]:my-5 [&_pre]:text-meta [&_pre]:font-mono [&_pre]:leading-relaxed [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:whitespace-pre ' +
-              '[&_blockquote]:border-l-2 [&_blockquote]:border-brand-500/40 [&_blockquote]:pl-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_blockquote]:dark:text-slate-400 ' +
+              '[&_blockquote]:border-l-2 [&_blockquote]:border-rose-500/40 [&_blockquote]:pl-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_blockquote]:dark:text-slate-400 ' +
               '[&_hr]:my-8 [&_hr]:border-slate-200 [&_hr]:dark:border-[rgb(var(--border-400))] ' +
               '[&_em]:italic'
             }
@@ -210,7 +210,7 @@ export default function ResearchPost(): JSX.Element {
                         item.level === 3 ? 'pl-3 text-xs' : 'text-sm'
                       } ${
                         activeTocId === item.id
-                          ? 'text-brand-600 dark:text-brand-400 font-semibold'
+                          ? 'text-rose-600 dark:text-rose-400 font-semibold'
                           : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                       }`}
                     >
@@ -238,13 +238,13 @@ export default function ResearchPost(): JSX.Element {
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <Link
             to="/threatintel/research-hub/research"
-            className="inline-flex items-center gap-2 text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
+            className="inline-flex items-center gap-2 text-sm font-mono text-rose-600 dark:text-rose-400 hover:underline"
           >
             all research
           </Link>
           <Link
             to="/threatintel"
-            className="inline-flex items-center gap-2 text-sm font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400"
+            className="inline-flex items-center gap-2 text-sm font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400"
           >
             threat intel platform <ArrowRight size={14} />
           </Link>
@@ -258,18 +258,18 @@ export default function ResearchPost(): JSX.Element {
                 <li key={r.slug}>
                   <Link
                     to={`/threatintel/research/${r.slug}`}
-                    className="group flex h-full items-start gap-3 surface-card/40 shadow-e1 p-3 transition hover:border-brand-500/40"
+                    className="group flex h-full items-start gap-3 surface-card/40 shadow-e1 p-3 transition hover:border-rose-500/40"
                   >
                     <FileText
                       size={14}
-                      className="shrink-0 mt-0.5 text-brand-600 dark:text-brand-400"
+                      className="shrink-0 mt-0.5 text-rose-600 dark:text-rose-400"
                       aria-hidden="true"
                     />
                     <div className="min-w-0 flex-1">
                       <div className="text-micro font-mono uppercase tracking-[0.18em] text-slate-500 mb-0.5">
                         {r.kicker}
                       </div>
-                      <div className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
+                      <div className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors leading-snug">
                         {r.title}
                       </div>
                     </div>

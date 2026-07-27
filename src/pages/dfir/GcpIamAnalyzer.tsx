@@ -4,13 +4,13 @@ import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
 /**
- * GCP IAM Policy Analyzer — 100% client-side.
+ * GCP IAM Policy Analyzer - 100% client-side.
  *
  * Paste a GCP IAM allow policy (`gcloud … get-iam-policy --format=json`,
  * i.e. { bindings: [...] }) or a custom role
  * (`gcloud iam roles describe --format=json`, i.e.
  * { includedPermissions: [...] }). Bindings and permissions are scored
- * for the over-grant / privilege-escalation patterns specific to GCP —
+ * for the over-grant / privilege-escalation patterns specific to GCP -
  * allUsers/allAuthenticatedUsers, primitive owner/editor roles, service-
  * account impersonation & key creation, setIamPolicy, and wildcard
  * custom-role permissions. Nothing leaves the browser.
@@ -71,11 +71,11 @@ interface Binding {
 const DANGEROUS_ROLES: Record<string, { sev: Sev; why: string }> = {
   'roles/owner': {
     sev: 'critical',
-    why: 'full control of the project incl. IAM — anyone with it can grant themselves anything.',
+    why: 'full control of the project incl. IAM - anyone with it can grant themselves anything.',
   },
   'roles/editor': {
     sev: 'high',
-    why: 'broad write across almost all services (primitive role) — not least-privilege.',
+    why: 'broad write across almost all services (primitive role) - not least-privilege.',
   },
   'roles/iam.securityAdmin': { sev: 'high', why: 'can read & set IAM policy across the project.' },
   'roles/iam.roleAdmin': { sev: 'high', why: 'can edit custom roles → grant itself extra permissions.' },
@@ -83,15 +83,15 @@ const DANGEROUS_ROLES: Record<string, { sev: Sev; why: string }> = {
   'roles/resourcemanager.organizationAdmin': { sev: 'critical', why: 'organization-level admin.' },
   'roles/iam.serviceAccountTokenCreator': {
     sev: 'critical',
-    why: 'can mint access tokens / sign as ANY service account it is granted on — direct impersonation & escalation.',
+    why: 'can mint access tokens / sign as ANY service account it is granted on - direct impersonation & escalation.',
   },
   'roles/iam.serviceAccountUser': {
     sev: 'high',
-    why: 'can deploy resources that run AS a service account (actAs) — pivot to the SA’s privileges.',
+    why: 'can deploy resources that run AS a service account (actAs) - pivot to the SA’s privileges.',
   },
   'roles/iam.serviceAccountKeyAdmin': {
     sev: 'high',
-    why: 'can create long-lived SA keys — persistence & credential exfil.',
+    why: 'can create long-lived SA keys - persistence & credential exfil.',
   },
   'roles/iam.workloadIdentityUser': { sev: 'medium', why: 'external workload can impersonate the service account.' },
   'roles/storage.admin': { sev: 'high', why: 'full control of all buckets/objects in scope.' },
@@ -100,11 +100,11 @@ const DANGEROUS_ROLES: Record<string, { sev: Sev; why: string }> = {
   'roles/compute.admin': { sev: 'high', why: 'create VMs with attached service accounts → token theft.' },
   'roles/cloudbuild.builds.editor': {
     sev: 'high',
-    why: 'trigger builds that run as the Cloud Build SA — well-known escalation.',
+    why: 'trigger builds that run as the Cloud Build SA - well-known escalation.',
   },
   'roles/deploymentmanager.editor': {
     sev: 'high',
-    why: 'Deployment Manager runs as a Google-managed SA — escalation path.',
+    why: 'Deployment Manager runs as a Google-managed SA - escalation path.',
   },
 };
 
@@ -159,7 +159,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: 'critical',
         title: 'Privilege-escalation permissions in custom role',
-        detail: `Includes ${[...new Set(hitEsc)].slice(0, 6).join(', ')} — setIamPolicy / actAs / token & key minting let the holder escalate or impersonate.`,
+        detail: `Includes ${[...new Set(hitEsc)].slice(0, 6).join(', ')} - setIamPolicy / actAs / token & key minting let the holder escalate or impersonate.`,
         where,
         fix: 'Remove escalation permissions; if actAs is required, scope the role to a single service account.',
       });
@@ -176,7 +176,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: 'info',
         title: 'Custom role is DISABLED',
-        detail: 'Role stage is DISABLED — bindings to it are inert (context only).',
+        detail: 'Role stage is DISABLED - bindings to it are inert (context only).',
         where,
         fix: 'No action; noted for completeness.',
       });
@@ -207,7 +207,7 @@ function analyze(text: string): Analysis | null {
     if (members.includes('allUsers')) {
       findings.push({
         sev: 'critical',
-        title: `Public access — allUsers on ${role}`,
+        title: `Public access - allUsers on ${role}`,
         detail: `Anyone on the internet (unauthenticated) holds ${role}. The classic GCP public-bucket / public-API exposure.`,
         where,
         fix: 'Remove allUsers; expose public content via a CDN/load balancer, not an IAM binding.',
@@ -216,8 +216,8 @@ function analyze(text: string): Analysis | null {
     if (members.includes('allAuthenticatedUsers')) {
       findings.push({
         sev: 'high',
-        title: `Any Google account — allAuthenticatedUsers on ${role}`,
-        detail: `Every Google/Workspace account anywhere holds ${role} — not "your org", literally any Google identity.`,
+        title: `Any Google account - allAuthenticatedUsers on ${role}`,
+        detail: `Every Google/Workspace account anywhere holds ${role} - not "your org", literally any Google identity.`,
         where,
         fix: 'Replace with specific principals or your org/group; never use allAuthenticatedUsers for non-public data.',
       });
@@ -232,7 +232,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: saMembers.length && (role === 'roles/owner' || role === 'roles/editor') ? 'critical' : baseSev,
         title: `Sensitive role: ${role}`,
-        detail: `${dr.why}${saMembers.length ? ` Bound to a service account (${saMembers.length}) — a compromised workload token then has this.` : ''}${hasCond ? ' (an IAM Condition is attached — verify it is genuinely restrictive.)' : ''}`,
+        detail: `${dr.why}${saMembers.length ? ` Bound to a service account (${saMembers.length}) - a compromised workload token then has this.` : ''}${hasCond ? ' (an IAM Condition is attached - verify it is genuinely restrictive.)' : ''}`,
         where,
         fix:
           role === 'roles/owner' || role === 'roles/editor' || role === 'roles/viewer'
@@ -243,7 +243,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: 'medium',
         title: 'Primitive role: roles/viewer',
-        detail: 'Project-wide read of nearly every resource — broad data exposure even though it is "read only".',
+        detail: 'Project-wide read of nearly every resource - broad data exposure even though it is "read only".',
         where,
         fix: 'Use service-specific viewer roles scoped to what the principal needs.',
       });
@@ -256,7 +256,7 @@ function analyze(text: string): Analysis | null {
         findings.push({
           sev: 'high',
           title: 'Primitive role granted to individual user accounts',
-          detail: `${userMembers.slice(0, 3).join(', ')} hold ${role} directly — bind to groups and use least-privilege roles instead.`,
+          detail: `${userMembers.slice(0, 3).join(', ')} hold ${role} directly - bind to groups and use least-privilege roles instead.`,
           where,
           fix: 'Grant roles to Google Groups, not individuals; replace owner/editor with predefined roles.',
         });
@@ -267,7 +267,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: 'low',
         title: 'Binding references deleted principals',
-        detail: `${deleted.length} member(s) are "deleted:" — stale bindings; if the principal id is recycled they could regain access.`,
+        detail: `${deleted.length} member(s) are "deleted:" - stale bindings; if the principal id is recycled they could regain access.`,
         where,
         fix: 'Remove deleted: members from the policy.',
       });
@@ -291,7 +291,7 @@ function analyze(text: string): Analysis | null {
         sev: 'low',
         title: 'Data-access audit logging not fully enabled',
         detail:
-          'allServices DATA_READ/DATA_WRITE audit logs are not both enabled — data-plane actions may be invisible during IR.',
+          'allServices DATA_READ/DATA_WRITE audit logs are not both enabled - data-plane actions may be invisible during IR.',
         where: 'auditConfigs',
         fix: 'Enable DATA_READ + DATA_WRITE audit logs for allServices (mind log volume/cost).',
       });
@@ -354,7 +354,7 @@ export default function GcpIamAnalyzer(): JSX.Element {
         <p className="text-muted mb-6 max-w-2xl">
           Paste a GCP IAM allow policy (<span className="font-mono text-tool">get-iam-policy --format=json</span>) or a
           custom role (<span className="font-mono text-tool">iam roles describe --format=json</span>). Bindings &amp;
-          permissions are scored for GCP-specific risks — allUsers/allAuthenticatedUsers, primitive owner/editor,
+          permissions are scored for GCP-specific risks - allUsers/allAuthenticatedUsers, primitive owner/editor,
           service-account impersonation &amp; key creation, setIamPolicy, wildcard custom-role permissions. Nothing
           leaves your browser.
         </p>

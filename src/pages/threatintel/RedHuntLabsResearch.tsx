@@ -112,7 +112,7 @@ function ToolRow({
               href={tool.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 hover:underline"
+              className="font-medium text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 hover:underline"
             >
               {tool.name}
             </a>
@@ -139,7 +139,7 @@ function ToolRow({
               href={tool.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-auto text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+              className="ml-auto text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
               aria-label="Open on GitHub"
             >
               <ExternalLink className="h-3.5 w-3.5" />
@@ -169,10 +169,10 @@ function ResearchCard({ item, query }: { item: RedHuntResearchItem; query: strin
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+      className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] p-4 hover:border-rose-500/60 hover:shadow-e2 transition-all"
     >
       <div className="flex items-start gap-2">
-        <FlaskConical className="mt-0.5 h-4 w-4 shrink-0 text-brand-600 dark:text-brand-400" />
+        <FlaskConical className="mt-0.5 h-4 w-4 shrink-0 text-rose-600 dark:text-rose-400" />
         <div className="min-w-0 flex-1">
           <h3 className="text-base font-medium text-slate-900 dark:text-slate-100">{item.title}</h3>
           <p className="mt-1 text-sm text-muted leading-relaxed">{item.summary}</p>
@@ -181,7 +181,7 @@ function ResearchCard({ item, query }: { item: RedHuntResearchItem; query: strin
               {item.details}
             </p>
           )}
-          <p className="mt-2 inline-flex items-center gap-1 text-xs text-brand-600 dark:text-brand-400">
+          <p className="mt-2 inline-flex items-center gap-1 text-xs text-rose-600 dark:text-rose-400">
             {hostnameOf(item.url)}
             <ExternalLink className="h-3 w-3" />
           </p>
@@ -205,10 +205,10 @@ function DatasetCard({ ds, query }: { ds: RedHuntDataset; query: string }): JSX.
       href={ds.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] p-4 hover:border-brand-500/60 hover:shadow-e2 transition-all"
+      className="block rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] p-4 hover:border-rose-500/60 hover:shadow-e2 transition-all"
     >
       <div className="flex items-start gap-2">
-        <Database className="mt-0.5 h-4 w-4 shrink-0 text-brand-600 dark:text-brand-400" />
+        <Database className="mt-0.5 h-4 w-4 shrink-0 text-rose-600 dark:text-rose-400" />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-2">
             <h3 className="text-base font-medium text-slate-900 dark:text-slate-100">{ds.title}</h3>
@@ -234,7 +234,7 @@ function socialIcon(label: string): typeof Github {
 }
 
 /**
- * RedHunt Labs Research — curated mirror of https://research.redhuntlabs.com/
+ * RedHunt Labs Research - curated mirror of https://research.redhuntlabs.com/
  *
  * RedHunt Labs is an ASM (Attack Surface Management) and exposures
  * shop. Their research arm publishes ~11 open-source security tools
@@ -270,7 +270,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
       }
     } catch (_catchErr) {
       console.error('RedHuntLabsResearch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* localStorage may be disabled (private mode, sandbox) — fall back to default. */
+      /* localStorage may be disabled (private mode, sandbox) - fall back to default. */
     }
   }, []);
   useEffect(() => {
@@ -301,11 +301,11 @@ export default function RedHuntLabsResearch(): JSX.Element {
             href="https://research.redhuntlabs.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             research.redhuntlabs.com
           </a>{' '}
-          — ASM and Exposure research, open-source security tools, Project Resonance waves, and downloadable datasets.
+          - ASM and Exposure research, open-source security tools, Project Resonance waves, and downloadable datasets.
           Pairs with the catalog entry at /threatintel/external-resources.
         </span>
       }
@@ -333,7 +333,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
               onClick={() => setTab(t.id)}
               className={`inline-flex items-center gap-1.5 rounded px-3 py-1.5 text-sm font-medium transition-colors ${
                 active
-                  ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300 border border-brand-300/60 dark:border-brand-700/60'
+                  ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-300/60 dark:border-rose-500/40/60'
                   : 'border border-transparent text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300)/0.5)]'
               }`}
             >
@@ -360,7 +360,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
         <section className="mb-4 surface-card p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="relative flex-1">
-              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -371,7 +371,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
                       ? `Search ${RESEARCH_ITEMS.length} research projects…`
                       : `Search ${DATASETS.length} datasets…`
                 }
-                className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+                className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
               />
             </div>
             {query && (
@@ -399,7 +399,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
               href="https://research.redhuntlabs.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline truncate"
+              className="text-rose-600 dark:text-rose-400 hover:underline truncate"
             >
               research.redhuntlabs.com
             </a>
@@ -412,7 +412,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
         <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))]">
           {filteredTools.length === 0 ? (
             <div className="p-8 text-center text-sm text-slate-500 dark:text-slate-400">
-              <FolderTree className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
+              <FolderTree className="mx-auto mb-2 h-8 w-8 text-slate-500 dark:text-slate-400" />
               No tools match &quot;{query}&quot;.
             </div>
           ) : (
@@ -429,7 +429,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
             return query && !matchesText(haystack, query);
           }) ? (
             <div className="col-span-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
-              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
+              <Search className="mx-auto mb-2 h-8 w-8 text-slate-500 dark:text-slate-400" />
               No research projects match &quot;{query}&quot;.
             </div>
           ) : (
@@ -446,7 +446,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
             return query && !matchesText(haystack, query);
           }) ? (
             <div className="col-span-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-8 text-center text-sm text-slate-500 dark:text-slate-400">
-              <Search className="mx-auto mb-2 h-8 w-8 text-slate-400 dark:text-slate-500" />
+              <Search className="mx-auto mb-2 h-8 w-8 text-slate-500 dark:text-slate-400" />
               No datasets match &quot;{query}&quot;.
             </div>
           ) : (
@@ -490,7 +490,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
                   <li key={c.label}>
                     <a
                       href={c.href}
-                      className="inline-flex items-center gap-1.5 text-brand-600 dark:text-brand-400 hover:underline"
+                      className="inline-flex items-center gap-1.5 text-rose-600 dark:text-rose-400 hover:underline"
                     >
                       <Mail className="h-3.5 w-3.5" />
                       {c.value}
@@ -510,7 +510,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
                         href={s.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-brand-600 dark:text-brand-400 hover:underline"
+                        className="inline-flex items-center gap-1.5 text-rose-600 dark:text-rose-400 hover:underline"
                       >
                         <Icon className="h-3.5 w-3.5" />
                         {s.label}
@@ -523,7 +523,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
           </div>
 
           <p className="text-center text-xs text-slate-500 dark:text-slate-500">
-            Built with passion by the RedHunt Labs Research Team — Fueling research and innovation for the community.
+            Built with passion by the RedHunt Labs Research Team - Fueling research and innovation for the community.
           </p>
         </div>
       )}

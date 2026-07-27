@@ -6,7 +6,7 @@
  * mapping: given a tool path, find every wiki article that mentions any
  * term that resolves back to this tool.
  *
- * Computed once at module load — TOOL_TOPICS is small (~30 entries) and
+ * Computed once at module load - TOOL_TOPICS is small (~30 entries) and
  * wikiArticles is small (~60 entries), so this is sub-millisecond on
  * every page load. No reason to defer.
  */
@@ -60,7 +60,7 @@ export const TOOL_WIKI_BACKLINKS: Map<string, RelatedWikiArticle[]> = (() => {
 
 /**
  * Return wiki articles that backlink to the given tool path.
- * Path matching ignores query strings — `/dfir/domain?d=foo.com` and
+ * Path matching ignores query strings - `/dfir/domain?d=foo.com` and
  * `/dfir/domain` map to the same backlinks.
  */
 export function getRelatedWiki(path: string): RelatedWikiArticle[] {

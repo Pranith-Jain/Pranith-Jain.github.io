@@ -16,7 +16,7 @@ export function Hero({ personalInfo }: HeroProps) {
         {/* Left: tagline, live data, CTAs */}
         <div className="min-w-0 max-w-3xl">
           <div className="mb-5 flex items-center gap-2.5 text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">
-            <span className="inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+            <span className="inline-flex rounded-full h-2 w-2 bg-brand-500" aria-hidden="true"></span>
             Certified Cyber Criminologist
           </div>
 
@@ -58,9 +58,9 @@ export function Hero({ personalInfo }: HeroProps) {
 
           <p className="mt-7 max-w-2xl text-base sm:text-lg leading-relaxed text-muted">{personalInfo.description}</p>
 
-          {/* CTAs — Geist h-40 (40px) height, 6px radius. The primary
+          {/* CTAs - Geist h-40 (40px) height, 6px radius. The primary
               is brand-blue (this is one of the few surfaces that
-              justifies the accent for a CTA — "Try IOC Check" is the
+              justifies the accent for a CTA - "Try IOC Check" is the
               single most important action on the home page). The
               secondary uses a translucent gray-alpha border with a
               black/5 hover wash (the 100→200 step from the spec). */}
@@ -74,7 +74,7 @@ export function Hero({ personalInfo }: HeroProps) {
           </div>
         </div>
 
-        {/* Right: personal card — Geist surface ramp. White fill,
+        {/* Right: personal card - Geist surface ramp. White fill,
             gray-alpha-400 border, no shadow (the previous shadow-e1
             pushed it forward of the page; Geist hierarchy is "borders
             first, shadows subtle" so the card sits in the page). */}

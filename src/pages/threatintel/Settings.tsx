@@ -5,10 +5,10 @@ import { Plug, Shield, Globe, Server, FileSearch, Cpu, Book, Bug, Terminal } fro
 /**
  * Public-facing integrations directory.
  *
- * This is intentionally an analyst-facing surface — what's wired into the
+ * This is intentionally an analyst-facing surface - what's wired into the
  * platform and what capability each integration unlocks. It deliberately
  * does NOT expose the underlying env-var names, account URLs, free-tier
- * limits, or Worker bindings — those are operator concerns and live in
+ * limits, or Worker bindings - those are operator concerns and live in
  * the deploy docs, not in a public page.
  */
 
@@ -282,8 +282,8 @@ export default function Settings(): JSX.Element {
               role="switch"
               aria-checked={isDark}
               onClick={toggleTheme}
-              className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[rgb(var(--surface-100))] ${
-                isDark ? 'bg-brand-600' : 'bg-slate-300'
+              className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-[rgb(var(--surface-100))] ${
+                isDark ? 'bg-rose-600' : 'bg-slate-300'
               }`}
               aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
             >

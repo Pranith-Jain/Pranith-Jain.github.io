@@ -174,7 +174,7 @@ export default function StixIpExport() {
                 onChange={(e) => setIpInput(e.target.value)}
                 placeholder={isBatch ? '203.0.113.42&#10;198.51.100.7' : '203.0.113.42'}
                 rows={isBatch ? 4 : 1}
-                className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/50 font-mono"
+                className="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500/50 font-mono"
               />
             </div>
             <div>
@@ -193,7 +193,7 @@ export default function StixIpExport() {
             <button
               onClick={isBatch ? enrichBatch : enrichSingle}
               disabled={loading || !ipInput.trim()}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50 transition-colors"
             >
               <Search size={14} />{' '}
               {loading
@@ -221,22 +221,22 @@ export default function StixIpExport() {
                     <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-600 dark:text-slate-400">
                       {r.org && (
                         <div>
-                          <span className="text-slate-400">Org:</span> {r.org}
+                          <span className="text-slate-500 dark:text-slate-400">Org:</span> {r.org}
                         </div>
                       )}
                       {r.country && (
                         <div>
-                          <span className="text-slate-400">Country:</span> {r.country}
+                          <span className="text-slate-500 dark:text-slate-400">Country:</span> {r.country}
                         </div>
                       )}
                       {r.isp && (
                         <div>
-                          <span className="text-slate-400">ISP:</span> {r.isp}
+                          <span className="text-slate-500 dark:text-slate-400">ISP:</span> {r.isp}
                         </div>
                       )}
                       {r.asn && (
                         <div>
-                          <span className="text-slate-400">ASN:</span> {r.asn}
+                          <span className="text-slate-500 dark:text-slate-400">ASN:</span> {r.asn}
                         </div>
                       )}
                       {r.is_vpn && (
@@ -251,31 +251,31 @@ export default function StixIpExport() {
                       )}
                       {r.shodan_ports?.length && (
                         <div>
-                          <span className="text-slate-400">Ports:</span> {r.shodan_ports.join(', ')}
+                          <span className="text-slate-500 dark:text-slate-400">Ports:</span> {r.shodan_ports.join(', ')}
                         </div>
                       )}
                       {r.shodan_vulns?.length && (
                         <div className="col-span-2">
-                          <span className="text-slate-400">Vulns:</span>{' '}
+                          <span className="text-slate-500 dark:text-slate-400">Vulns:</span>{' '}
                           {r.shodan_vulns.slice(0, 5).map((v) => (
                             <a
                               key={v}
                               href={`https://nvd.nist.gov/vuln/detail/${v}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-brand-600 dark:text-brand-400 hover:underline mr-2"
+                              className="text-rose-600 dark:text-rose-400 hover:underline mr-2"
                             >
                               {v}
                             </a>
                           ))}
                           {r.shodan_vulns.length > 5 && (
-                            <span className="text-slate-400">+{r.shodan_vulns.length - 5} more</span>
+                            <span className="text-slate-500 dark:text-slate-400">+{r.shodan_vulns.length - 5} more</span>
                           )}
                         </div>
                       )}
                       {r.phantomcandle_malicious_family && (
                         <div className="col-span-2 text-red-600 dark:text-red-400">
-                          <span className="text-slate-400">Threat:</span> {r.phantomcandle_malicious_family}
+                          <span className="text-slate-500 dark:text-slate-400">Threat:</span> {r.phantomcandle_malicious_family}
                           {r.phantomcandle_campaign ? ` (${r.phantomcandle_campaign})` : ''}
                           {r.phantomcandle_category ? ` · cat:${r.phantomcandle_category}` : ''}
                           {r.phantomcandle_risk_level ? ` · risk:${r.phantomcandle_risk_level}` : ''}

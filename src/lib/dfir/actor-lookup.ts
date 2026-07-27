@@ -52,7 +52,7 @@ export function lookupActors(hints: CtiHints, max = 6): ScoredActor[] {
       matched.push(`country:${actor.country}`);
     }
 
-    // Technique match (high weight) — exact MITRE id
+    // Technique match (high weight) - exact MITRE id
     if (hints.techniques?.length) {
       for (const tech of hints.techniques) {
         if (actor.techniques.some((t) => t.toLowerCase() === tech.toLowerCase())) {
@@ -62,7 +62,7 @@ export function lookupActors(hints: CtiHints, max = 6): ScoredActor[] {
       }
     }
 
-    // Malware match (high weight) — substring
+    // Malware match (high weight) - substring
     if (hints.malware?.length) {
       for (const mw of hints.malware) {
         const lcMw = lc(mw);
@@ -73,7 +73,7 @@ export function lookupActors(hints: CtiHints, max = 6): ScoredActor[] {
       }
     }
 
-    // Tag match (medium weight) — tag in actor description / tags / motivation / targets / malware
+    // Tag match (medium weight) - tag in actor description / tags / motivation / targets / malware
     if (hints.tags?.length) {
       const haystack = [actor.description, actor.motivation, ...actor.targets, ...actor.malware]
         .join(' ')

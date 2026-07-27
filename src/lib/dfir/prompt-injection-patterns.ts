@@ -20,7 +20,7 @@ export type Category =
   | 'data-exfiltration';
 
 /**
- * OWASP Top 10 for LLM Applications 2025 — IDs each pattern maps to.
+ * OWASP Top 10 for LLM Applications 2025 - IDs each pattern maps to.
  * (LLM05 Improper Output Handling and LLM07 System Prompt Leakage are
  * handled implicitly via LLM02 Sensitive Information Disclosure here.)
  */
@@ -111,7 +111,7 @@ export const PATTERNS: InjectionPattern[] = [
     name: 'DAN-style roleplay',
     category: 'role-override',
     severity: 'critical',
-    description: '"Do Anything Now" persona — claims to be unrestricted. Most-known jailbreak family.',
+    description: '"Do Anything Now" persona - claims to be unrestricted. Most-known jailbreak family.',
     re: /\b(DAN|do anything now|jailbroken|unrestricted (AI|model|assistant)|no (longer|more) bound by)\b/i,
     reference: 'r/ChatGPTJailbreak archive',
     owasp: ['LLM01'],
@@ -228,7 +228,7 @@ export const PATTERNS: InjectionPattern[] = [
     name: 'Leet-speak obfuscation',
     category: 'encoding-smuggling',
     severity: 'low',
-    description: 'Heavy use of digit-letter substitutions — sometimes used to bypass keyword filters.',
+    description: 'Heavy use of digit-letter substitutions - sometimes used to bypass keyword filters.',
     re: /\b\w*[013457]\w*[013457]\w*[013457]\w*[013457]\w+\b/,
     owasp: ['LLM01'],
   },
@@ -258,7 +258,7 @@ export const PATTERNS: InjectionPattern[] = [
     name: 'curl / wget payload',
     category: 'tool-abuse',
     severity: 'critical',
-    description: 'Embedded download command — if the model has shell access, attacker pulls payload from C2.',
+    description: 'Embedded download command - if the model has shell access, attacker pulls payload from C2.',
     re: /\b(curl|wget|fetch)\s+(-[a-zA-Z]+\s+)*https?:\/\/\S+/i,
     owasp: ['LLM06', 'LLM03'],
   },
@@ -287,7 +287,7 @@ export const PATTERNS: InjectionPattern[] = [
     name: 'Send to attacker URL',
     category: 'data-exfiltration',
     severity: 'critical',
-    description: 'Instructs the model to POST data to an external URL — classic indirect-injection exfil.',
+    description: 'Instructs the model to POST data to an external URL - classic indirect-injection exfil.',
     re: /\b(send|post|exfiltrate|forward|upload)\b.{0,40}\b(to|via)\b.{0,80}https?:\/\/\S+/i,
     owasp: ['LLM02'],
   },
@@ -341,7 +341,7 @@ export const PATTERNS: InjectionPattern[] = [
     category: 'tool-abuse',
     severity: 'high',
     description:
-      'Forces an unbounded generation loop or huge output — drives cost up and starves shared rate-limit budgets.',
+      'Forces an unbounded generation loop or huge output - drives cost up and starves shared rate-limit budgets.',
     re: /\b(repeat|print|generate)\s+(this|the\s+word|the\s+letter|forever|infinitely|\d{4,}\s+times)\b/i,
     owasp: ['LLM10'],
   },

@@ -36,12 +36,12 @@ export default function Home() {
     <>
       <PageMeta
         title="Home"
-        description="Pranith Jain — Security Analyst & Detection Engineer. DFIR toolkit, threat-intel catalogs, and live breach signals."
+        description="Pranith Jain - Security Analyst & Detection Engineer. DFIR toolkit, threat-intel catalogs, and live breach signals."
         canonicalPath="/"
       />
       <Hero personalInfo={personalInfo} />
 
-      {/* Live platform signals — labeled for hierarchy/scannability */}
+      {/* Live platform signals - labeled for hierarchy/scannability */}
       <RevealSection className="mt-16">
         <div className="mb-4 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           Live from the platform
@@ -56,7 +56,7 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      {/* Products first — the toolkits are the substance of the portfolio, so
+      {/* Products first - the toolkits are the substance of the portfolio, so
           they lead ahead of the lighter "daily picks" filler below. */}
       <RevealSection className="mt-16">
         <Toolkits />
@@ -72,7 +72,7 @@ export default function Home() {
         </ErrorBoundary>
       </RevealSection>
 
-      {/* Daily picks — light, rotating filler; kept near the foot of the page */}
+      {/* Daily picks - light, rotating filler; kept near the foot of the page */}
       <RevealSection className="mt-16">
         <div className="mb-4 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           Daily picks

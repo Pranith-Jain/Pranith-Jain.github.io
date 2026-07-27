@@ -90,7 +90,7 @@ const ANALYSIS_LABELS: Record<string, string> = {
 
 export default function MispBrowser() {
   const [baseUrl, setBaseUrl] = useState(() => sessionStorage.getItem('mispUrl') ?? '');
-  // API key is held in memory only — never persisted. Persisting a third-party
+  // API key is held in memory only - never persisted. Persisting a third-party
   // credential in sessionStorage exposes it to any XSS or malicious extension.
   const [apiKey, setApiKey] = useState('');
   const [connected, setConnected] = useState(false);
@@ -153,7 +153,7 @@ export default function MispBrowser() {
       if (!ctrl.signal.aborted) setLoading(false);
     }
     // loadEvents is declared below (a stable useCallback) and is only invoked
-    // inside connect — listing it here would be a use-before-declaration error.
+    // inside connect - listing it here would be a use-before-declaration error.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [baseUrl, apiKey, proxy]);
 
@@ -236,7 +236,7 @@ export default function MispBrowser() {
       <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
         <BackLink
           to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-6 font-mono"
         >
           back
         </BackLink>
@@ -275,14 +275,14 @@ export default function MispBrowser() {
               placeholder="MISP API key"
             />
           </div>
-          <p className="text-mini font-mono text-slate-400 italic">
-            Your API key is sent to the MISP server via a Worker proxy and kept in memory only — it is never stored. You
+          <p className="text-mini font-mono text-slate-500 dark:text-slate-400 italic">
+            Your API key is sent to the MISP server via a Worker proxy and kept in memory only - it is never stored. You
             will need to re-enter it after a page reload.
           </p>
           <button
             onClick={() => void connect()}
             disabled={loading || !baseUrl || !apiKey}
-            className="px-4 py-2 text-xs font-mono rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50"
+            className="px-4 py-2 text-xs font-mono rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50"
           >
             {loading ? 'Connecting...' : 'Connect'}
           </button>
@@ -304,7 +304,7 @@ export default function MispBrowser() {
       <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
         <button
           onClick={() => setSelected(null)}
-          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-4 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-4 font-mono"
         >
           back to events
         </button>
@@ -372,12 +372,12 @@ export default function MispBrowser() {
                         <td className="py-1 pr-3 text-slate-900 dark:text-slate-100 break-all max-w-md">{a.value}</td>
                         <td className="py-1 pr-3">
                           {a.to_ids ? (
-                            <span className="text-emerald-600 dark:text-emerald-400">✓</span>
+                            <span className="text-emerald-600 dark:text-emerald-400">ok</span>
                           ) : (
-                            <span className="text-slate-400">—</span>
+                            <span className="text-slate-500 dark:text-slate-400">-</span>
                           )}
                         </td>
-                        <td className="py-1 text-slate-400 max-w-xs truncate">{a.comment || ''}</td>
+                        <td className="py-1 text-slate-500 dark:text-slate-400 max-w-xs truncate">{a.comment || ''}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -399,7 +399,7 @@ export default function MispBrowser() {
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{o.name}</span>
-                      <span className="text-micro font-mono text-slate-400">{o.meta_category}</span>
+                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{o.meta_category}</span>
                     </div>
                     {o.description && (
                       <p className="text-mini font-mono text-slate-500 dark:text-slate-400">{o.description}</p>
@@ -408,11 +408,11 @@ export default function MispBrowser() {
                       <ul className="space-y-1">
                         {o.Attribute.slice(0, 5).map((a) => (
                           <li key={a.id} className="text-mini font-mono text-muted truncate">
-                            <span className="text-slate-400">{a.type}:</span> {a.value}
+                            <span className="text-slate-500 dark:text-slate-400">{a.type}:</span> {a.value}
                           </li>
                         ))}
                         {o.Attribute.length > 5 && (
-                          <li className="text-mini font-mono text-slate-400 italic">+{o.Attribute.length - 5} more</li>
+                          <li className="text-mini font-mono text-slate-500 dark:text-slate-400 italic">+{o.Attribute.length - 5} more</li>
                         )}
                       </ul>
                     )}
@@ -439,7 +439,7 @@ export default function MispBrowser() {
                         {g.GalaxyCluster.map((c) => (
                           <span
                             key={c.id}
-                            className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-300"
+                            className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300"
                           >
                             {c.value}
                           </span>
@@ -480,9 +480,9 @@ export default function MispBrowser() {
                   <button
                     key={r.Event.id}
                     onClick={() => loadEventDetail(r.Event.id)}
-                    className="text-left text-xs font-mono px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-400 transition-colors"
+                    className="text-left text-xs font-mono px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-400 transition-colors"
                   >
-                    <span className="text-slate-400">{r.Event.date}</span>
+                    <span className="text-slate-500 dark:text-slate-400">{r.Event.date}</span>
                     <span className="text-slate-700 dark:text-slate-300 mx-1">·</span>
                     <span className="text-slate-700 dark:text-slate-300">{r.Event.info || '(no info)'}</span>
                     <span className="text-slate-700 dark:text-slate-300 mx-1">·</span>
@@ -514,7 +514,7 @@ export default function MispBrowser() {
           <button
             onClick={() => loadEvents(1)}
             disabled={loading}
-            className="flex items-center gap-1 px-3 py-1.5 text-mini font-mono rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500"
+            className="flex items-center gap-1 px-3 py-1.5 text-mini font-mono rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500"
           >
             <RefreshCw size={12} className={loading ? 'animate-spin' : ''} /> Refresh
           </button>
@@ -529,11 +529,11 @@ export default function MispBrowser() {
 
       <div className="flex flex-wrap gap-2 items-end">
         <div className="flex-1 min-w-[200px]">
-          <label htmlFor="misp-search" className="text-micro font-mono text-slate-400 mb-0.5 block">
+          <label htmlFor="misp-search" className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5 block">
             Search
           </label>
           <div className="relative">
-            <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               id="misp-search"
               type="text"
@@ -546,7 +546,7 @@ export default function MispBrowser() {
           </div>
         </div>
         <div className="w-40">
-          <label htmlFor="misp-tag-filter" className="text-micro font-mono text-slate-400 mb-0.5 block">
+          <label htmlFor="misp-tag-filter" className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5 block">
             Tag filter
           </label>
           <input
@@ -562,7 +562,7 @@ export default function MispBrowser() {
         <button
           onClick={() => loadEvents(1)}
           disabled={loading}
-          className="px-3 py-1.5 text-xs font-mono rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50"
+          className="px-3 py-1.5 text-xs font-mono rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50"
         >
           {loading ? 'Loading...' : 'Filter'}
         </button>
@@ -575,7 +575,7 @@ export default function MispBrowser() {
       )}
 
       {events.length === 0 && !loading && (
-        <div className="flex flex-col items-center justify-center py-16 text-slate-400">
+        <div className="flex flex-col items-center justify-center py-16 text-slate-500 dark:text-slate-400">
           <Info size={32} className="mb-3" />
           <p className="text-sm font-mono">No events found</p>
           <p className="text-xs font-mono mt-1">Try adjusting your search or tag filter</p>
@@ -591,12 +591,12 @@ export default function MispBrowser() {
             <button
               key={e.id}
               onClick={() => loadEventDetail(e.id)}
-              className="text-left w-full surface-card p-4 hover:border-brand-400 dark:hover:border-brand-600 transition-colors group"
+              className="text-left w-full surface-card p-4 hover:border-rose-400 dark:hover:border-rose-600 transition-colors group"
             >
               <div className="flex items-start justify-between gap-3 flex-wrap">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors truncate">
+                    <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors truncate">
                       {e.info || '(no info)'}
                     </span>
                     {e.published && (
@@ -623,7 +623,7 @@ export default function MispBrowser() {
                         </span>
                       ))}
                       {e.tags.length > 5 && (
-                        <span className="text-micro font-mono text-slate-400">+{e.tags.length - 5}</span>
+                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{e.tags.length - 5}</span>
                       )}
                     </div>
                   )}
@@ -634,7 +634,7 @@ export default function MispBrowser() {
                   </span>
                   <ExternalLink
                     size={14}
-                    className="text-slate-400 dark:text-slate-300 group-hover:text-brand-500 transition-colors"
+                    className="text-slate-400 dark:text-slate-300 group-hover:text-rose-500 transition-colors"
                   />
                 </div>
               </div>
@@ -648,7 +648,7 @@ export default function MispBrowser() {
           <button
             onClick={() => loadEvents(page - 1)}
             disabled={loading}
-            className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500 disabled:opacity-50"
+            className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500 disabled:opacity-50"
           >
             ← Previous
           </button>
@@ -656,7 +656,7 @@ export default function MispBrowser() {
           <button
             onClick={() => loadEvents(page + 1)}
             disabled={loading || events.length < 20}
-            className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500 disabled:opacity-50"
+            className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500 disabled:opacity-50"
           >
             Next →
           </button>

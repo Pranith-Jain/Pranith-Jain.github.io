@@ -40,7 +40,7 @@ export default function SocDashboard(): JSX.Element {
       backTo="/threatintel"
       icon={<Shield size={28} />}
       title="SOC Dashboard"
-      description="Unified tactical SOC view — ransomware activity, vulnerability intelligence, and IOC stream. All panels auto-refresh."
+      description="Unified tactical SOC view - ransomware activity, vulnerability intelligence, and IOC stream. All panels auto-refresh."
     >
       <nav
         className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"

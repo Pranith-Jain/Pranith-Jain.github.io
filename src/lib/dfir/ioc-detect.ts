@@ -3,11 +3,11 @@
  *
  * Used by sister-tool pipes (PowerShell Deobfuscator, Decoder, Phishing
  * Analyzer) to decide whether to surface the "send to IOC Extractor"
- * button. Intentionally permissive — false positives are cheap (the
+ * button. Intentionally permissive - false positives are cheap (the
  * button shows but the extractor finds nothing, no harm done), false
  * negatives are expensive (analyst misses a usable pivot).
  *
- * The actual extraction lives in IocExtractor — this is just a yes/no
+ * The actual extraction lives in IocExtractor - this is just a yes/no
  * gate for showing the CTA.
  */
 export function hasIocCandidates(text: string): boolean {
@@ -20,7 +20,7 @@ export function hasIocCandidates(text: string): boolean {
 }
 
 /**
- * Single-indicator type detection — strict, returns one canonical IocType
+ * Single-indicator type detection - strict, returns one canonical IocType
  * or null. Used by the Cmd+K palette and the /dfir landing's paste-to-
  * dispatch input. Regex order is precedence (more specific first).
  */
@@ -93,7 +93,7 @@ export interface Pivot {
 }
 
 /**
- * Pivot tools for a detected IOC — the 2-3 most useful destinations
+ * Pivot tools for a detected IOC - the 2-3 most useful destinations
  * per IOC type. The Cmd+K palette has the long tail; this is the
  * landing's quick-paste dispatcher.
  */
@@ -109,7 +109,7 @@ export function getIocPivots(ioc: DetectedIoc): Pivot[] {
     });
     pivots.push({
       label: 'CVE list',
-      desc: 'Filter the platform CVE list — actor pills + KEV flags inline',
+      desc: 'Filter the platform CVE list - actor pills + KEV flags inline',
       path: `/threatintel/cve-list?q=${enc}`,
     });
     return pivots;
@@ -125,7 +125,7 @@ export function getIocPivots(ioc: DetectedIoc): Pivot[] {
   if (ioc.type === 'mitre-group') {
     pivots.push({
       label: 'MITRE Group profile',
-      desc: 'Open ATT&CK Group page — techniques, software, references',
+      desc: 'Open ATT&CK Group page - techniques, software, references',
       path: `https://attack.mitre.org/groups/${enc}/`,
       external: true,
     });
@@ -156,7 +156,7 @@ export function getIocPivots(ioc: DetectedIoc): Pivot[] {
     return pivots;
   }
 
-  // Network indicators + hashes — IOC Checker is universal primary pivot.
+  // Network indicators + hashes - IOC Checker is universal primary pivot.
   pivots.push({
     label: 'IOC Checker',
     desc: `Run ${IOC_TYPE_LABEL[ioc.type]} through 20+ providers (VT, AbuseIPDB, OTX, GreyNoise, threatfox, urlhaus, …)`,
@@ -196,7 +196,7 @@ export function getIocPivots(ioc: DetectedIoc): Pivot[] {
   } else if (ioc.type === 'url') {
     pivots.push({
       label: 'URL Preview',
-      desc: 'Server-side fetch + screenshot + headers — safe to inspect',
+      desc: 'Server-side fetch + screenshot + headers - safe to inspect',
       path: `/dfir/url-preview?url=${enc}`,
     });
     pivots.push({

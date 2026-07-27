@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { briefingsGet, briefingsPost } from './adminApi';
 
 /**
- * Admin Briefings tab — manual control over the threat-briefing pipeline.
+ * Admin Briefings tab - manual control over the threat-briefing pipeline.
  *
  * The daily/weekly briefings are normally built by cron (30 0 * * * daily,
  * 45 0 * * 1 weekly) and self-healed hourly (0 * * * *). This tab lets an
@@ -72,7 +72,7 @@ const num = (n: number | undefined): number => n ?? 0;
 const isEmpty = (s: BriefingStats | undefined): boolean => num(s?.findings) === 0;
 
 function StatPills({ stats }: { stats: BriefingStats | undefined }) {
-  if (!stats) return <span className="text-slate-600 dark:text-slate-500">—</span>;
+  if (!stats) return <span className="text-slate-600 dark:text-slate-500">-</span>;
   const empty = isEmpty(stats);
   return (
     <span
@@ -230,7 +230,7 @@ export default function BriefingsTab() {
         <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Build now</h2>
         <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
           Rebuilds the latest closed window for the chosen type and writes it (overwriting an empty row; a richer
-          existing row is preserved). Runs in request context with a full subrequest budget — use this to recover a
+          existing row is preserved). Runs in request context with a full subrequest budget - use this to recover a
           briefing the cron heal shipped empty, or to apply a builder change immediately. <code>daily</code> targets
           yesterday&apos;s UTC window.
         </p>
@@ -248,7 +248,7 @@ export default function BriefingsTab() {
           <button
             onClick={() => build('daily', true)}
             disabled={building !== null}
-            title="Rebuild today's in-progress (live) daily — the only way to refresh daily-<today>"
+            title="Rebuild today's in-progress (live) daily - the only way to refresh daily-<today>"
             className="px-4 py-1.5 border border-emerald-200 dark:border-emerald-700 text-emerald-700 dark:text-emerald-200 rounded text-sm hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
           >
             {building === 'daily-live' ? 'Building today…' : 'Build today (live)'}
@@ -271,13 +271,13 @@ export default function BriefingsTab() {
               {buildResult.ok ? 'Built' : 'Done'}
             </span>{' '}
             <code className="font-mono text-slate-700 dark:text-slate-300">{buildResult.slug}</code>
-            {buildResult.reason && <span className="text-slate-600 dark:text-slate-500"> — {buildResult.reason}</span>}
+            {buildResult.reason && <span className="text-slate-600 dark:text-slate-500"> - {buildResult.reason}</span>}
             <div className="mt-1">
               <StatPills stats={buildResult.stats} />
             </div>
             {isEmpty(buildResult.stats) && (
               <p className="mt-2 text-xs text-amber-700 dark:text-amber-300">
-                Still empty in request context — the feeds themselves returned nothing for this window (check the
+                Still empty in request context - the feeds themselves returned nothing for this window (check the
                 briefing-build-sources log), not a cron-budget issue.
               </p>
             )}
@@ -374,7 +374,7 @@ export default function BriefingsTab() {
         <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Sweep old briefings</h2>
         <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
           Deletes briefings older than the retention window (clamped to the policy ceiling). Also runs on the hourly
-          cron — this is for a one-off prune.
+          cron - this is for a one-off prune.
         </p>
         <div className="flex flex-wrap items-end gap-3 mb-3">
           <label className="block">
@@ -406,7 +406,7 @@ export default function BriefingsTab() {
         )}
         {sweepResult && (
           <div className="px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-slate-700 dark:text-slate-300">
-            <span className="text-emerald-700 dark:text-emerald-300 font-semibold">Swept</span> —{' '}
+            <span className="text-emerald-700 dark:text-emerald-300 font-semibold">Swept</span> -{' '}
             {sweepResult.deleted.length} deleted, {sweepResult.kept} kept (max age {sweepResult.max_age_days}d).
           </div>
         )}
@@ -436,7 +436,7 @@ export default function BriefingsTab() {
         </div>
         <p className="text-xs text-slate-600 dark:text-slate-500 mb-3">
           Empty (0 findings / 0 IOCs) rows are flagged in red. The list is edge-cached ~5 min, so a just-built row may
-          lag — the build/backfill result above shows fresh stats.
+          lag - the build/backfill result above shows fresh stats.
         </p>
         {deleteMsg && (
           <div className="mb-3 px-3 py-2 border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] rounded text-sm text-slate-700 dark:text-slate-300">
@@ -466,7 +466,7 @@ export default function BriefingsTab() {
                 >
                   <td className="px-3 py-1.5 font-mono text-slate-700 dark:text-slate-300">{it.slug}</td>
                   <td className="px-3 py-1.5 text-slate-500 dark:text-slate-400 capitalize">
-                    {it.metadata.type ?? '—'}
+                    {it.metadata.type ?? '-'}
                   </td>
                   <td className="px-3 py-1.5">
                     <StatPills stats={it.metadata.stats} />

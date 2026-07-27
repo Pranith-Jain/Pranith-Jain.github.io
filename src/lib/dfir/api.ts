@@ -12,7 +12,7 @@ export function streamIoc(indicator: string, h: IocStreamHandlers): () => void {
   const es = new EventSource(url);
 
   // Parse a frame safely. A malformed/truncated frame must NEVER throw out of
-  // the listener — the old code parsed before es.close(), so a bad `done`
+  // the listener - the old code parsed before es.close(), so a bad `done`
   // frame stranded the socket: single-mode hung on `streaming=true` forever
   // and the bulk runner's per-IOC Promise never resolved, deadlocking
   // Promise.all() and permanently disabling the scan button.

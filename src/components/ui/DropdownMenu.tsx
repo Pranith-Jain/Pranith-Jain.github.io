@@ -66,7 +66,7 @@ export function DropdownMenu({
       >
         {trigger}
         <ChevronDown
-          className={`h-4 w-4 text-slate-400 transition-transform ${open ? 'rotate-180' : ''}`}
+          className={`h-4 w-4 text-slate-500 dark:text-slate-400 transition-transform ${open ? 'rotate-180' : ''}`}
           aria-hidden="true"
         />
       </button>
@@ -74,7 +74,7 @@ export function DropdownMenu({
         <div
           id={menuId}
           // Plain disclosure of Tab-navigable buttons. We deliberately do NOT
-          // claim role="menu"/"menuitem" — that contract requires arrow-key
+          // claim role="menu"/"menuitem" - that contract requires arrow-key
           // roving focus + Home/End + focus-return, which isn't implemented;
           // an empty menu role is worse than none (SR says "menu", arrows do nothing).
           className={`absolute top-full z-50 mt-1 min-w-[180px] overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-e3 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] ${

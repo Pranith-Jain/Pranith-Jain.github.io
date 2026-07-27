@@ -2,7 +2,7 @@
  * Skip-to-main-content link. Hidden until focused (Tab from page load),
  * then visually positioned in the top-left for keyboard users.
  *
- * Pure CSS visibility — no JS state — so browsers that natively focus the
+ * Pure CSS visibility - no JS state - so browsers that natively focus the
  * link (Safari, screen readers) show it immediately rather than after a
  * stateful Tab handler fires.
  */

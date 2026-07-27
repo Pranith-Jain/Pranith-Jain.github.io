@@ -83,7 +83,7 @@ const FRESHNESS_PILL: Record<Freshness, { label: string; cls: string }> = {
   },
   'no-timestamp': {
     label: 'no upstream timestamp',
-    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400',
+    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400',
   },
 };
 
@@ -122,7 +122,7 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
             </span>
           ))}
           {ioc.context && (
-            <span className="text-slate-400 italic" title={ioc.context}>
+            <span className="text-slate-500 dark:text-slate-400 italic" title={ioc.context}>
               · {ioc.context.length > 60 ? `${ioc.context.slice(0, 60)}…` : ioc.context}
             </span>
           )}
@@ -264,7 +264,7 @@ export default function IocCorrelation(): JSX.Element {
         </section>
       )}
 
-      {/* Feed-health row — was buried at the bottom as a comma-separated
+      {/* Feed-health row - was buried at the bottom as a comma-separated
           run-on. If 5 feeds are offline the user had no way to know the
           corpus was degraded. Now: explicit per-feed dot + count + the
           aggregate "N of M online". */}
@@ -310,13 +310,13 @@ export default function IocCorrelation(): JSX.Element {
       <section className="surface-card p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by indicator value, source, or context…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter IOCs"
             />
           </div>
@@ -338,7 +338,7 @@ export default function IocCorrelation(): JSX.Element {
             type="button"
             onClick={() => downloadFilteredCsv(filtered)}
             disabled={filtered.length === 0}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:border-brand-500/40 disabled:opacity-40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:border-rose-500/40 disabled:opacity-40"
             title="Download the currently filtered IOCs as CSV. Pasteable straight into a firewall blocklist."
           >
             <Download size={12} /> CSV
@@ -356,7 +356,7 @@ export default function IocCorrelation(): JSX.Element {
               type="button"
               onClick={() => void buildStixBundle(filtered, setStixLoading, setStixBundleId, setStixError)}
               disabled={stixLoading || filtered.length === 0}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:border-brand-500/40 disabled:opacity-40"
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:border-rose-500/40 disabled:opacity-40"
             >
               {stixLoading ? <Loader2 size={12} className="animate-spin" /> : <FileDown size={12} />}
               {stixLoading ? 'building…' : 'STIX'}
@@ -370,7 +370,7 @@ export default function IocCorrelation(): JSX.Element {
           <button
             type="button"
             onClick={() => refetch()}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -397,7 +397,7 @@ export default function IocCorrelation(): JSX.Element {
             <button
               type="button"
               onClick={() => setKindFilter(new Set())}
-              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+              className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline ml-2"
             >
               clear
             </button>
@@ -425,7 +425,7 @@ export default function IocCorrelation(): JSX.Element {
             <button
               type="button"
               onClick={() => setFreshFilter(new Set())}
-              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+              className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline ml-2"
             >
               clear
             </button>
@@ -482,7 +482,7 @@ export default function IocCorrelation(): JSX.Element {
               <span className="text-muted">low (2 sources)</span>: corroborated, but verify before action.
             </li>
           </ul>
-          {/* Feeds-queried run-on line removed 2026-05-14 — replaced by
+          {/* Feeds-queried run-on line removed 2026-05-14 - replaced by
               the dedicated "Feed health" panel above which shows per-feed
               status as a visual grid instead of comma-separated text. */}
         </section>

@@ -65,14 +65,14 @@ const RISK_TONE: Record<RiskLevel, string> = {
 };
 
 const RISK_GUIDANCE: Record<RiskLevel, string> = {
-  HIGH: 'High FP risk — expect constant noise. Apply tuning before going live.',
-  MEDIUM: 'Moderate FP risk — expect some noise, especially in mixed-use environments.',
-  LOW: 'Well-scoped — should produce actionable alerts. Verify coverage periodically.',
+  HIGH: 'High FP risk - expect constant noise. Apply tuning before going live.',
+  MEDIUM: 'Moderate FP risk - expect some noise, especially in mixed-use environments.',
+  LOW: 'Well-scoped - should produce actionable alerts. Verify coverage periodically.',
 };
 
 function buildExportText(r: FpLensResult): string {
   const lines: string[] = [];
-  lines.push(`# FPLENS — False Positive Analysis`);
+  lines.push(`# FPLENS - False Positive Analysis`);
   lines.push('');
   lines.push(`**FP Risk Level:** ${r.fp_risk_level}`);
   lines.push('');
@@ -171,7 +171,7 @@ export default function FpLens(): JSX.Element {
       description={
         <>
           False Positive Likelihood Analyzer. Paste a detection rule (Sigma, KQL, SPL, XQL, or just an alert name) plus
-          optional sample hits and environment context. The model returns a structured verdict — FP risk level,
+          optional sample hits and environment context. The model returns a structured verdict - FP risk level,
           plausible FP patterns with signals, TP indicators, suggested exclusions, and tuning guidance.
           <p className="mt-2 text-xs font-mono text-slate-500 dark:text-slate-400">
             Powered by Workers AI (Llama 3.3 70B) with Groq fallback · request content is not stored
@@ -185,7 +185,7 @@ export default function FpLens(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Detection rule / alert</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">required</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">required</span>
             </div>
             <textarea
               value={rule}
@@ -211,7 +211,7 @@ export default function FpLens(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Sample hits / additional logs</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">optional</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">optional</span>
             </div>
             <textarea
               value={sampleHits}
@@ -225,7 +225,7 @@ export default function FpLens(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Environment context</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">optional</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">optional</span>
             </div>
             <input
               type="text"
@@ -313,7 +313,7 @@ export default function FpLens(): JSX.Element {
               <div className="surface-card/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <AlertTriangle size={14} className="text-amber-600 dark:text-amber-400" /> False Positive Patterns
-                  <span className="ml-auto text-micro font-mono text-slate-400">{result.fp_patterns.length}</span>
+                  <span className="ml-auto text-micro font-mono text-slate-500 dark:text-slate-400">{result.fp_patterns.length}</span>
                 </h2>
                 <div className="space-y-3">
                   {result.fp_patterns.map((p, i) => (
@@ -337,7 +337,7 @@ export default function FpLens(): JSX.Element {
               <div className="surface-card/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <CheckCircle2 size={14} className="text-emerald-600 dark:text-emerald-400" /> True Positive Signals
-                  <span className="ml-auto text-micro font-mono text-slate-400">{result.tp_signals.length}</span>
+                  <span className="ml-auto text-micro font-mono text-slate-500 dark:text-slate-400">{result.tp_signals.length}</span>
                 </h2>
                 <ul className="space-y-1.5 text-sm text-slate-700 dark:text-slate-300">
                   {result.tp_signals.map((t, i) => (
@@ -352,7 +352,7 @@ export default function FpLens(): JSX.Element {
               <div className="surface-card/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <Wrench size={14} className="text-brand-600 dark:text-brand-400" /> Suggested Exclusions
-                  <span className="ml-auto text-micro font-mono text-slate-400">
+                  <span className="ml-auto text-micro font-mono text-slate-500 dark:text-slate-400">
                     {result.suggested_exclusions.length}
                   </span>
                 </h2>
@@ -369,7 +369,7 @@ export default function FpLens(): JSX.Element {
               <div className="surface-card/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <ListChecks size={14} className="text-brand-600 dark:text-brand-400" /> Tuning Guidance
-                  <span className="ml-auto text-micro font-mono text-slate-400">{result.tuning_guidance.length}</span>
+                  <span className="ml-auto text-micro font-mono text-slate-500 dark:text-slate-400">{result.tuning_guidance.length}</span>
                 </h2>
                 <ol className="space-y-2 text-sm text-slate-700 dark:text-slate-300 list-decimal pl-5">
                   {result.tuning_guidance.map((g, i) => (
@@ -387,7 +387,7 @@ export default function FpLens(): JSX.Element {
                 <p className="text-sm text-slate-500 dark:text-slate-400">
                   Paste a detection rule and click <span className="font-semibold">Analyze</span>
                 </p>
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                   Output: risk verdict, FP patterns, TP signals, exclusions, tuning steps
                 </p>
               </div>

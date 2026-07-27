@@ -280,7 +280,7 @@ export default function TiDashboard() {
       backLabel="back to threat intel"
       icon={<ShieldAlert className="h-6 w-6" />}
       title="TI Dashboard"
-      description="Weekly threat intelligence report — IOCs, threat stories, actor profiles, critical vulnerabilities, hunting leads, and supply chain incidents."
+      description="Weekly threat intelligence report - IOCs, threat stories, actor profiles, critical vulnerabilities, hunting leads, and supply chain incidents."
       maxWidthClass="max-w-6xl"
       loading={loading}
       error={errorMsg}
@@ -372,7 +372,7 @@ export default function TiDashboard() {
           {showFilter && (
             <div className="flex items-center gap-3 mb-4 flex-wrap">
               <div className="relative">
-                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                 <input
                   type="text"
                   placeholder="Search keywords…"
@@ -383,7 +383,7 @@ export default function TiDashboard() {
                 {keywordSearch && (
                   <button
                     onClick={() => setKeywordSearch('')}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600"
                   >
                     ×
                   </button>
@@ -451,7 +451,7 @@ export default function TiDashboard() {
                     className="w-full flex items-start gap-4 p-4 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] transition-colors"
                     onClick={() => toggleStory(idx)}
                   >
-                    <span className="font-mono text-xs text-slate-400 pt-0.5 shrink-0">
+                    <span className="font-mono text-xs text-slate-500 dark:text-slate-400 pt-0.5 shrink-0">
                       {String(idx + 1).padStart(2, '0')}
                     </span>
                     <div className="flex-1 min-w-0">
@@ -464,7 +464,7 @@ export default function TiDashboard() {
                         {story.impact_assessment}
                       </span>
                     </div>
-                    <span className="text-slate-400 shrink-0 mt-1">{expandedStories[idx] ? '▲' : '▼'}</span>
+                    <span className="text-slate-500 dark:text-slate-400 shrink-0 mt-1">{expandedStories[idx] ? '▲' : '▼'}</span>
                   </button>
                   {expandedStories[idx] && (
                     <div className="px-5 pb-5 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -807,7 +807,7 @@ export default function TiDashboard() {
             <div>
               <div className="mb-4">
                 <div className="relative max-w-xs">
-                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                   <input
                     type="text"
                     placeholder="Filter sources…"
@@ -826,7 +826,7 @@ export default function TiDashboard() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))] transition-colors text-sm"
                   >
-                    <span className="font-mono text-xs text-slate-400 shrink-0">{src.id}</span>
+                    <span className="font-mono text-xs text-slate-500 dark:text-slate-400 shrink-0">{src.id}</span>
                     <div className="flex-1 min-w-0">
                       <span className="text-slate-900 dark:text-slate-100 font-medium truncate block">{src.title}</span>
                       <span className="text-xs text-slate-500 dark:text-slate-400">
@@ -836,7 +836,7 @@ export default function TiDashboard() {
                     <span className="text-micro font-mono uppercase tracking-wider bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded shrink-0">
                       {src.source_type}
                     </span>
-                    <ExternalLink className="w-3 h-3 text-slate-400 shrink-0" />
+                    <ExternalLink className="w-3 h-3 text-slate-500 dark:text-slate-400 shrink-0" />
                   </a>
                 ))}
               </div>

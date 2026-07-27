@@ -5,13 +5,13 @@ import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info, FileSearch } from 'lucide-react';
 
 /**
- * Linux IR Triage — 100% client-side.
+ * Linux IR Triage - 100% client-side.
  *
  * Paste /var/log/auth.log or /secure, `last` / wtmp text, a crontab, or
  * a ~/.bash_history. Heuristics surface the host-compromise signals:
  * SSH brute force, success-after-failure, direct root login, new
  * sudoers / users, persistence via cron, and reverse-shell / download-
- * cradle one-liners. The forensic toolkit is Windows-heavy — this fills
+ * cradle one-liners. The forensic toolkit is Windows-heavy - this fills
  * the Linux gap. Nothing leaves your browser.
  */
 
@@ -111,7 +111,7 @@ function analyze(text: string): Analysis | null {
             sev: 'critical',
             title: `Successful SSH login after ${failByIp.get(ip)} failures (${ip})`,
             detail:
-              'A source that was brute-forcing then authenticated successfully — treat as a likely account compromise.',
+              'A source that was brute-forcing then authenticated successfully - treat as a likely account compromise.',
             evidence: ev,
             fix: 'Isolate the host, kill the session, rotate the credential / key, review post-login activity.',
           });
@@ -120,7 +120,7 @@ function analyze(text: string): Analysis | null {
           findings.push({
             sev: 'high',
             title: 'Direct root SSH login',
-            detail: 'Root authenticated directly over SSH — most hardened hosts set PermitRootLogin no and use sudo.',
+            detail: 'Root authenticated directly over SSH - most hardened hosts set PermitRootLogin no and use sudo.',
             evidence: ev,
             fix: 'Set `PermitRootLogin no`; require named accounts + sudo. Confirm this was expected.',
           });
@@ -141,7 +141,7 @@ function analyze(text: string): Analysis | null {
         findings.push({
           sev: 'medium',
           title: 'sudo authentication failure',
-          detail: 'Failed sudo attempt — could be a user error or an attacker probing for sudo rights.',
+          detail: 'Failed sudo attempt - could be a user error or an attacker probing for sudo rights.',
           evidence: ev,
           fix: 'Correlate with the user’s other activity around this time.',
         });
@@ -150,7 +150,7 @@ function analyze(text: string): Analysis | null {
         findings.push({
           sev: 'high',
           title: 'New user / group created',
-          detail: 'Account creation is a classic persistence step — verify it matches a provisioning action.',
+          detail: 'Account creation is a classic persistence step - verify it matches a provisioning action.',
           evidence: ev,
           fix: 'Confirm via change management; delete if unauthorized and hunt for how it was created.',
         });
@@ -159,7 +159,7 @@ function analyze(text: string): Analysis | null {
         findings.push({
           sev: 'high',
           title: 'User added to sudo/wheel group',
-          detail: 'Privilege grant — persistence / escalation.',
+          detail: 'Privilege grant - persistence / escalation.',
           evidence: ev,
           fix: 'Verify the change; remove if unauthorized.',
         });
@@ -168,7 +168,7 @@ function analyze(text: string): Analysis | null {
         findings.push({
           sev: 'low',
           title: 'Reverse-DNS mismatch (possible break-in attempt)',
-          detail: 'sshd logged a PTR/forward mismatch — common with scanners; noteworthy in aggregate.',
+          detail: 'sshd logged a PTR/forward mismatch - common with scanners; noteworthy in aggregate.',
           evidence: ev,
           fix: 'Low signal alone; weigh with brute-force counts from the same source.',
         });
@@ -191,7 +191,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: 'critical',
         title: 'Pipe-to-shell download cradle',
-        detail: 'Remote content fetched and piped straight into a shell — primary malware-delivery pattern.',
+        detail: 'Remote content fetched and piped straight into a shell - primary malware-delivery pattern.',
         evidence: ev,
         fix: 'Recover the URL; analyse what was executed; assume code execution.',
       });
@@ -201,7 +201,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: 'high',
         title: 'Anti-forensics / log tampering',
-        detail: 'History clearing or log truncation — defenders’ data being destroyed.',
+        detail: 'History clearing or log truncation - defenders’ data being destroyed.',
         evidence: ev,
         fix: 'Pivot to host-external telemetry (auditd, network, EDR); preserve remaining artifacts.',
       });
@@ -211,7 +211,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: 'high',
         title: 'Persistence mechanism',
-        detail: 'authorized_keys / shell-rc / cron / systemd / nohup — keeps access across reboots & logouts.',
+        detail: 'authorized_keys / shell-rc / cron / systemd / nohup - keeps access across reboots & logouts.',
         evidence: ev,
         fix: 'Inspect the artifact written; remove unauthorized persistence; hunt for siblings.',
       });
@@ -237,7 +237,7 @@ function analyze(text: string): Analysis | null {
         sev: n >= 50 ? 'high' : 'medium',
         title: `SSH brute force from ${ip} (${n} failures${users ? `, ${users} usernames` : ''})`,
         detail: invalidUsers.has(ip)
-          ? 'High-volume failed auth incl. invalid users — username/password spraying.'
+          ? 'High-volume failed auth incl. invalid users - username/password spraying.'
           : 'High-volume failed SSH auth from a single source.',
         evidence: `aggregated: ${n} "Failed password" lines from ${ip}`,
         fix: 'Block the source, enable fail2ban/rate-limiting, prefer key-only auth.',
@@ -364,7 +364,7 @@ export default function LinuxTriage(): JSX.Element {
             <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
               <ShieldCheck size={16} className="mt-0.5 flex-shrink-0" />
               <span>
-                No host-compromise heuristics matched. Absence of signal ≠ clean — correlate with auditd / EDR.
+                No host-compromise heuristics matched. Absence of signal ≠ clean - correlate with auditd / EDR.
               </span>
             </section>
           )}

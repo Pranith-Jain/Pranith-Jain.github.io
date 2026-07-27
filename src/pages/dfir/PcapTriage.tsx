@@ -19,7 +19,7 @@ interface Summary {
 const MAX = 200_000;
 // File-size cap so a 500 MB capture doesn't OOM the browser tab before the
 // per-packet `MAX` limit kicks in. The packet cap only stops the parser
-// loop — the full `arrayBuffer()` has already been read into memory by then.
+// loop - the full `arrayBuffer()` has already been read into memory by then.
 const MAX_FILE_BYTES = 50 * 1024 * 1024;
 
 function ipv4(d: DataView, o: number): string {
@@ -122,7 +122,7 @@ function parsePacket(
     else note(`IP proto ${proto}`);
   } catch (_catchErr) {
     console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    /* malformed packet — skip */
+    /* malformed packet - skip */
   }
 }
 
@@ -144,7 +144,7 @@ function parse(buf: ArrayBuffer): Summary {
     linkType = 1;
 
   if (m === 0x0a0d0d0a) {
-    // pcapng — walk blocks, parse SHB/IDB/EPB
+    // pcapng - walk blocks, parse SHB/IDB/EPB
     format = 'pcapng';
     let le = true;
     let o = 0;
@@ -216,7 +216,7 @@ export default function PcapTriage(): JSX.Element {
         PCAP Triage
       </h1>
       <p className="text-sm font-mono text-muted mt-1 mb-6">
-        Drop a <code>.pcap</code> / <code>.pcapng</code> — extracts protocol mix, top talkers, conversations, DNS
+        Drop a <code>.pcap</code> / <code>.pcapng</code> - extracts protocol mix, top talkers, conversations, DNS
         queries and HTTP request lines. Parsed entirely in your browser; nothing is uploaded.
       </p>
 
@@ -230,7 +230,7 @@ export default function PcapTriage(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           Drop a capture file file here, or click to choose
         </p>
-        <p className="text-mini font-mono text-slate-400 mt-1">100% client-side. No upload.</p>
+        <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1">100% client-side. No upload.</p>
       </button>
       <input
         id="pcaptriage-input"

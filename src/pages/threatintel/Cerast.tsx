@@ -67,7 +67,7 @@ export default function Cerast() {
     <>
       <PageMeta
         title="Cerast Intelligence"
-        description="OSINT domain exposure search — find exposed paths, staging environments, and misconfigurations across observed domains."
+        description="OSINT domain exposure search - find exposed paths, staging environments, and misconfigurations across observed domains."
         section="Threat Intel"
         canonicalPath="/threatintel/external/cerast"
       />
@@ -76,7 +76,7 @@ export default function Cerast() {
         backLabel="Catalog"
         icon={<Globe size={28} />}
         title="Cerast Intelligence"
-        description="Search observed domains for exposed paths and misconfigurations. Substring search — find staging, dev, admin, and test environments."
+        description="Search observed domains for exposed paths and misconfigurations. Substring search - find staging, dev, admin, and test environments."
       >
         <div className="space-y-5">
           {/* Search */}
@@ -88,14 +88,14 @@ export default function Cerast() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="domain contains… (min 3 chars)"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-sm font-mono placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-brand-500/40 transition-shadow"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-sm font-mono placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-rose-500/40 transition-shadow"
                 minLength={3}
               />
             </div>
             <button
               type="submit"
               disabled={query.trim().length < 3 || loading}
-              className="px-5 py-2.5 rounded-xl bg-brand-600 dark:bg-brand-500 text-white font-semibold text-sm hover:brightness-110 disabled:opacity-50 transition-all inline-flex items-center gap-2 shadow-e1 hover:shadow-e1"
+              className="px-5 py-2.5 rounded-xl bg-rose-600 dark:bg-rose-500 text-white font-semibold text-sm hover:brightness-110 disabled:opacity-50 transition-all inline-flex items-center gap-2 shadow-e1 hover:shadow-e1"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Search'}
             </button>
@@ -108,7 +108,7 @@ export default function Cerast() {
                 key={ex}
                 type="button"
                 onClick={() => runExample(ex)}
-                className="px-2.5 py-1 rounded border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-mini font-mono text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-[rgb(var(--surface-300))] transition-all"
+                className="px-2.5 py-1 rounded border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-mini font-mono text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-[rgb(var(--surface-300))] transition-all"
               >
                 {ex}
               </button>
@@ -131,7 +131,7 @@ export default function Cerast() {
                 <div className="text-muted">
                   {data.limited ? (
                     <>
-                      <span className="font-semibold text-foreground">{data.count.toLocaleString()}+</span> matches —
+                      <span className="font-semibold text-foreground">{data.count.toLocaleString()}+</span> matches -
                       showing latest {data.results.length}. Refine to narrow.
                     </>
                   ) : (
@@ -195,7 +195,7 @@ export default function Cerast() {
                               className={
                                 r.multihost
                                   ? 'opacity-50'
-                                  : 'text-foreground group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors'
+                                  : 'text-foreground group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors'
                               }
                             >
                               {r.domain}
@@ -212,7 +212,7 @@ export default function Cerast() {
                                 href={`https://${r.domain}${r.path}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:text-brand-600 dark:hover:text-brand-400 transition inline-flex items-center gap-1"
+                                className="hover:text-rose-600 dark:hover:text-rose-400 transition inline-flex items-center gap-1"
                               >
                                 {r.path}{' '}
                                 <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -253,7 +253,7 @@ export default function Cerast() {
                     <div key={i} className="font-mono">
                       <span className="text-foreground/60">{d.provider}</span>: {d.status}{' '}
                       <span className="text-foreground/40">({d.ms}ms)</span>
-                      {d.error ? <span className="text-rose-500/70"> — {d.error}</span> : ''}
+                      {d.error ? <span className="text-rose-500/70"> - {d.error}</span> : ''}
                     </div>
                   ))}
                 </div>
@@ -264,7 +264,7 @@ export default function Cerast() {
           {/* About */}
           <div className="mt-6 p-5 rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-xs text-muted space-y-3">
             <div className="flex items-center gap-2">
-              <Shield className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+              <Shield className="h-4 w-4 text-rose-600 dark:text-rose-400" />
               <p className="font-semibold text-foreground text-sm">About Cerast Intelligence</p>
             </div>
             <p className="leading-relaxed">
@@ -277,7 +277,7 @@ export default function Cerast() {
                 href="https://search.cerast-intelligence.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 font-medium"
+                className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 font-medium"
               >
                 Open Cerast Intelligence <ExternalLink className="h-3 w-3" />
               </a>

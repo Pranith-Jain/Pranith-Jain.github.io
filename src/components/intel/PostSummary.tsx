@@ -1,7 +1,7 @@
 import { Sparkles } from 'lucide-react';
 
 /**
- * <PostSummary> — one-line AI summary rendered under a single feed post.
+ * <PostSummary> - one-line AI summary rendered under a single feed post.
  *
  * Pair with usePostSummaries(): pass `text={summaries.get(item.id)}`. Renders
  * nothing when there's no summary (public visitors, un-summarised items, or a

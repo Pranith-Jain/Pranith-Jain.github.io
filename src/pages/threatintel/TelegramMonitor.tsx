@@ -18,12 +18,12 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   {
     id: 'firehose',
     label: 'Firehose',
-    desc: 'Unified cross-source stream — t.me/s firehose + leak monitor + live IOCs, auto-refreshed every 60s.',
+    desc: 'Unified cross-source stream - t.me/s firehose + leak monitor + live IOCs, auto-refreshed every 60s.',
   },
   { id: 'leaks', label: 'Leak Feed', desc: 'Credential leak entries from monitored channels' },
   { id: 'search', label: 'Channel Search', desc: 'Keyword search via tgstat.com + actor correlation' },
   { id: 'stats', label: 'Statistics', desc: 'KPIs, severity distribution, top channels' },
-  { id: 'channels', label: 'Channel Discovery', desc: 'Auto-discovered channels — approve or reject' },
+  { id: 'channels', label: 'Channel Discovery', desc: 'Auto-discovered channels - approve or reject' },
   {
     id: 'actors',
     label: 'Linked Actors',
@@ -53,7 +53,7 @@ export default function TelegramMonitor(): JSX.Element {
       backTo="/threatintel"
       icon={<MessageSquare size={28} />}
       title="Telegram Leak Monitor"
-      description="Unified Telegram leak monitoring — firehose, credential leak feed, channel search, statistics, channel discovery, linked actors, and settings. All powered by monitored Telegram channels."
+      description="Unified Telegram leak monitoring - firehose, credential leak feed, channel search, statistics, channel discovery, linked actors, and settings. All powered by monitored Telegram channels."
     >
       <nav
         className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"

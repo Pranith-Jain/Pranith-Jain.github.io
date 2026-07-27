@@ -86,21 +86,21 @@ export default function MaltrailTrails(): JSX.Element {
             href="https://github.com/stamparm/maltrail"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             stamparm/maltrail
           </a>{' '}
-          — per-actor indicator lists maintained by Miroslav Stampar. Each file contains known IPs, domains, and hashes
+          - per-actor indicator lists maintained by Miroslav Stampar. Each file contains known IPs, domains, and hashes
           associated with a specific APT group.
         </p>
       }
     >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Sidebar — trail file list */}
+        {/* Sidebar - trail file list */}
         <div className="lg:col-span-1">
           <div className="surface-card p-4">
             <h2 className="font-display font-semibold text-sm mb-3 flex items-center gap-2">
-              <FileText size={15} className="text-brand-600 dark:text-brand-400" />
+              <FileText size={15} className="text-rose-600 dark:text-rose-400" />
               Trail files ({files?.length ?? '…'})
             </h2>
             {files && (
@@ -112,13 +112,13 @@ export default function MaltrailTrails(): JSX.Element {
                     onClick={() => fetchTrail(f.name)}
                     className={`w-full text-left px-2.5 py-2 rounded text-xs font-mono transition-colors truncate ${
                       selected === f.name
-                        ? 'bg-brand-500/10 border border-brand-500/30 text-brand-700 dark:text-brand-300'
+                        ? 'bg-rose-500/10 border border-rose-500/30 text-rose-700 dark:text-rose-300'
                         : 'hover:bg-slate-100 dark:hover:bg-[rgb(var(--input-200))] border border-transparent text-muted'
                     }`}
                   >
                     <div className="font-semibold truncate">{f.name.replace(/\.txt$/i, '')}</div>
-                    <div className="text-micro text-slate-400 mt-0.5">
-                      {f.actors?.[0] ?? '—'} · {(f.size / 1024).toFixed(1)} KB
+                    <div className="text-micro text-slate-500 dark:text-slate-400 mt-0.5">
+                      {f.actors?.[0] ?? '-'} · {(f.size / 1024).toFixed(1)} KB
                     </div>
                   </button>
                 ))}
@@ -127,7 +127,7 @@ export default function MaltrailTrails(): JSX.Element {
           </div>
         </div>
 
-        {/* Main — trail content */}
+        {/* Main - trail content */}
         <div className="lg:col-span-2">
           {!selected && !contentLoading && (
             <div className="surface-card p-8 text-center">
@@ -165,7 +165,7 @@ export default function MaltrailTrails(): JSX.Element {
                 </div>
                 {content.truncated && (
                   <p className="text-mini font-mono text-amber-600 dark:text-amber-400 mt-2">
-                    Showing first 5000 IOCs — file contains more.
+                    Showing first 5000 IOCs - file contains more.
                   </p>
                 )}
               </div>

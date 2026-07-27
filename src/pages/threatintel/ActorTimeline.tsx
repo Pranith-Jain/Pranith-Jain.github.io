@@ -75,7 +75,7 @@ export default function ActorTimeline(): JSX.Element {
   });
 
   // Per-row max for relative shading (a group with 10 posts/day shouldn't drown
-  // out a group whose top day is 3 — the visual question is "is this group's
+  // out a group whose top day is 3 - the visual question is "is this group's
   // cadence accelerating or cooling," not "which group is biggest").
   const rowMaxes = useMemo(() => {
     if (!data) return new Map<string, number>();
@@ -135,7 +135,7 @@ export default function ActorTimeline(): JSX.Element {
           <button
             type="button"
             onClick={() => refetch()}
-            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-50"
             aria-label="refresh"
           >
             <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
@@ -192,7 +192,7 @@ export default function ActorTimeline(): JSX.Element {
                         {g.buckets.map((b) => (
                           <div
                             key={b.day}
-                            className={`h-5 rounded ${cellColor(b.count, max)} hover:ring-2 hover:ring-brand-500/40 transition-shadow`}
+                            className={`h-5 rounded ${cellColor(b.count, max)} hover:ring-2 hover:ring-rose-500/40 transition-shadow`}
                             title={`${b.day} · ${b.count} post${b.count === 1 ? '' : 's'}`}
                           />
                         ))}
@@ -210,7 +210,7 @@ export default function ActorTimeline(): JSX.Element {
                             MITRE {g.mitre.id} · {g.mitre.name} <ExternalLink size={9} />
                           </a>
                         ) : (
-                          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400">
+                          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400">
                             not in MITRE
                           </span>
                         )}
@@ -221,7 +221,7 @@ export default function ActorTimeline(): JSX.Element {
                         )}
                         {g.partial ? (
                           <span
-                            className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400"
+                            className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400"
                             title="ransomlook per-group endpoint was unreachable; this row is rebuilt from the recent-claims feed. Heatmap is accurate for the window; all-time count, mirrors and references are unavailable."
                           >
                             recent-feed only
@@ -261,7 +261,7 @@ export default function ActorTimeline(): JSX.Element {
                               href={sanitizeUrl(ref) || undefined}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="hover:underline hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                              className="hover:underline hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
                               title={ref}
                             >
                               {host} <ExternalLink size={9} />
@@ -315,7 +315,7 @@ export default function ActorTimeline(): JSX.Element {
 }
 
 /**
- * Acceleration badge — compares last-7-day post count vs the prior 7-day
+ * Acceleration badge - compares last-7-day post count vs the prior 7-day
  * window. A persistent +/-N signal next to the actor name flags groups
  * that are heating up or cooling off without forcing the analyst to
  * eyeball the heatmap.

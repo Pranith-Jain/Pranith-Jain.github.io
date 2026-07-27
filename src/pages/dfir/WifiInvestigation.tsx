@@ -27,7 +27,7 @@ function buildWifiLookups(
       {
         service: 'WiGLE.net',
         url: `https://wigle.net/search?query=${encodeURIComponent(mac)}`,
-        description: 'Wireless network mapping — location, SSID history, signal strength',
+        description: 'Wireless network mapping - location, SSID history, signal strength',
         category: 'wireless',
       },
       {
@@ -51,13 +51,13 @@ function buildWifiLookups(
       {
         service: 'Censys',
         url: `https://search.censys.io/search?resource=hosts&q=${encodeURIComponent(mac)}`,
-        description: 'Internet-wide scan data — check for exposed services on this MAC',
+        description: 'Internet-wide scan data - check for exposed services on this MAC',
         category: 'search',
       },
       {
         service: 'Shodan',
         url: `https://www.shodan.io/search?query=${encodeURIComponent(mac)}`,
-        description: 'IoT device search engine — look for the BSSID in device databases',
+        description: 'IoT device search engine - look for the BSSID in device databases',
         category: 'search',
       }
     );
@@ -111,14 +111,14 @@ function analyzeSecurityFlags(type: 'bssid' | 'ssid', value: string): SecurityFl
         type: 'info',
         label: 'Locally Administered',
         description:
-          'Bit 1 of first octet is set — this MAC was manually assigned or randomized, not from the manufacturer.',
+          'Bit 1 of first octet is set - this MAC was manually assigned or randomized, not from the manufacturer.',
       });
     }
     if (firstByte & 0x01) {
       flags.push({
         type: 'info',
         label: 'Multicast',
-        description: 'Bit 0 of first octet is set — this is a multicast address, not assigned to a single device.',
+        description: 'Bit 0 of first octet is set - this is a multicast address, not assigned to a single device.',
       });
     }
     if (/^(AA:BB:CC|00:00:00|FF:FF:FF)/i.test(mac)) {
@@ -136,7 +136,7 @@ function analyzeSecurityFlags(type: 'bssid' | 'ssid', value: string): SecurityFl
       flags.push({
         type: 'warning',
         label: 'Default SSID Pattern',
-        description: 'SSID starts with a common router brand name — may be using default configuration.',
+        description: 'SSID starts with a common router brand name - may be using default configuration.',
       });
     }
     if (/^(mywifi|wifi|network|internet|home|admin)/i.test(ssid)) {
@@ -151,14 +151,14 @@ function analyzeSecurityFlags(type: 'bssid' | 'ssid', value: string): SecurityFl
         type: 'danger',
         label: 'IP-Like SSID',
         description:
-          'SSID looks like an IP address — this is highly unusual and may indicate a captive portal or attack.',
+          'SSID looks like an IP address - this is highly unusual and may indicate a captive portal or attack.',
       });
     }
     if (ssid.length > 32) {
       flags.push({
         type: 'info',
         label: 'Long SSID',
-        description: 'SSID exceeds 32 characters — some devices may not display or connect to this network properly.',
+        description: 'SSID exceeds 32 characters - some devices may not display or connect to this network properly.',
       });
     }
   }
@@ -231,7 +231,7 @@ export default function WifiInvestigation(): JSX.Element {
       title="Wi-Fi / BSSID Investigation"
       description={
         <span className="block max-w-3xl">
-          Investigate a wireless network — BSSID vendor lookup, SSID analysis, security flags, and investigation
+          Investigate a wireless network - BSSID vendor lookup, SSID analysis, security flags, and investigation
           resources. Enter a MAC address (BSSID) or network name (SSID) and hit enter.
         </span>
       }
@@ -239,7 +239,7 @@ export default function WifiInvestigation(): JSX.Element {
       <form onSubmit={handleSubmit} className="mb-6">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Wifi size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Wifi size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="text"
               value={input}
@@ -258,7 +258,7 @@ export default function WifiInvestigation(): JSX.Element {
           </button>
         </div>
         {input.trim() && inputType && (
-          <p className="text-mini font-mono text-slate-400 mt-2">
+          <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-2">
             Detected as:{' '}
             <span className="text-slate-600 dark:text-slate-300">
               {inputType === 'bssid' ? 'BSSID (MAC address)' : 'SSID (network name)'}
@@ -267,7 +267,7 @@ export default function WifiInvestigation(): JSX.Element {
         )}
         {input.trim() && !inputType && (
           <p className="text-mini font-mono text-amber-500 mt-2">
-            Could not detect input type — enter a MAC address (AA:BB:CC:DD:EE:FF) or network name
+            Could not detect input type - enter a MAC address (AA:BB:CC:DD:EE:FF) or network name
           </p>
         )}
       </form>
@@ -289,7 +289,7 @@ export default function WifiInvestigation(): JSX.Element {
             <div>
               <span className="text-slate-500 dark:text-slate-400">First Octet:</span>{' '}
               <span className="text-slate-900 dark:text-slate-100">{formatMac(result.value).substring(0, 2)}</span>
-              <span className="text-slate-400 ml-2">
+              <span className="text-slate-500 dark:text-slate-400 ml-2">
                 (
                 {parseInt(formatMac(result.value).substring(0, 2), 16) & 0x02
                   ? 'locally administered'
@@ -304,7 +304,7 @@ export default function WifiInvestigation(): JSX.Element {
           </div>
           {!!apiResult?.mac && (
             <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-400 mb-2">Server Vendor Lookup:</p>
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">Server Vendor Lookup:</p>
               <div className="grid gap-2 sm:grid-cols-2 font-mono text-sm">
                 <div>
                   <span className="text-slate-500 dark:text-slate-400">Vendor:</span>{' '}
@@ -323,7 +323,7 @@ export default function WifiInvestigation(): JSX.Element {
           )}
           {Array.isArray(apiResult?.lookups) && (
             <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-400 mb-2">Server Lookups:</p>
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">Server Lookups:</p>
               <div className="flex flex-wrap gap-2">
                 {(apiResult.lookups as Array<{ service: string; url: string }>).map((l) => (
                   <a
@@ -341,7 +341,7 @@ export default function WifiInvestigation(): JSX.Element {
           )}
           {Array.isArray(apiResult?.flags) && apiResult.flags.length > 0 && (
             <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-400 mb-2">Server Flags:</p>
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">Server Flags:</p>
               <ul className="text-meta font-mono text-muted space-y-1">
                 {(apiResult.flags as string[]).map((f, i) => (
                   <li key={i}>- {f}</li>
@@ -369,7 +369,7 @@ export default function WifiInvestigation(): JSX.Element {
           </div>
           {Array.isArray(apiResult?.lookups) && (
             <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-400 mb-2">Server Lookups:</p>
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">Server Lookups:</p>
               <div className="flex flex-wrap gap-2">
                 {(apiResult.lookups as Array<{ service: string; url: string }>).map((l) => (
                   <a
@@ -387,7 +387,7 @@ export default function WifiInvestigation(): JSX.Element {
           )}
           {Array.isArray(apiResult?.flags) && apiResult.flags.length > 0 && (
             <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <p className="text-mini font-mono text-slate-400 mb-2">Server Flags:</p>
+              <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-2">Server Flags:</p>
               <ul className="text-meta font-mono text-muted space-y-1">
                 {(apiResult.flags as string[]).map((f, i) => (
                   <li key={i}>- {f}</li>
@@ -461,27 +461,27 @@ export default function WifiInvestigation(): JSX.Element {
         </h3>
         <ul className="text-meta font-mono text-muted space-y-1.5">
           <li>
-            <strong>BSSID to location:</strong> WiGLE.net maintains a global database of wireless access points — a
+            <strong>BSSID to location:</strong> WiGLE.net maintains a global database of wireless access points - a
             BSSID search often returns GPS coordinates, SSID history, and first/last seen dates.
           </li>
           <li>
             <strong>Vendor identification:</strong> The first 3 octets (OUI) of a MAC address identify the manufacturer.
-            Use this to narrow down the device type — AP, router, IoT device, or phone hotspot.
+            Use this to narrow down the device type - AP, router, IoT device, or phone hotspot.
           </li>
           <li>
             <strong>Locally administered bit:</strong> If bit 1 of the first octet is set, the MAC was manually set or
-            randomized — common for privacy features but also used by attackers to spoof APs.
+            randomized - common for privacy features but also used by attackers to spoof APs.
           </li>
           <li>
             <strong>Rogue AP detection:</strong> Look for duplicate SSIDs with different BSSIDs, or known brand SSIDs
-            with unexpected OUI vendors — these may indicate evil twin attacks.
+            with unexpected OUI vendors - these may indicate evil twin attacks.
           </li>
           <li>
             <strong>SSID default check:</strong> If the SSID matches a router brand default (e.g., "NETGEARXX",
-            "Linksys"), the network may be using factory credentials — check router default passwords.
+            "Linksys"), the network may be using factory credentials - check router default passwords.
           </li>
           <li>
-            <strong>Cross-reference:</strong> Combine BSSID and SSID data — if a known BSSID is broadcasting an
+            <strong>Cross-reference:</strong> Combine BSSID and SSID data - if a known BSSID is broadcasting an
             unexpected SSID, the device may have been reconfigured or compromised.
           </li>
         </ul>

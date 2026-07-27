@@ -7,7 +7,7 @@ const PRINCIPLES = [
   {
     icon: ShieldCheck,
     t: 'Privacy-first',
-    d: 'Client-side processing by default — no accidental uploads, no tracking, no accounts.',
+    d: 'Client-side processing by default - no accidental uploads, no tracking, no accounts.',
   },
   { icon: Eye, t: 'Transparent', d: 'Predictable, inspectable tool behaviour built on standard Web APIs.' },
   { icon: Zap, t: 'Zero setup', d: 'Ready-to-use in the browser. Nothing to install, no keys to provision.' },
@@ -39,7 +39,7 @@ export default function ToolsAbout(): JSX.Element {
 
       <h1 className="font-display font-bold text-3xl mb-2">About these toolkits</h1>
       <p className="text-sm font-mono text-muted mb-8 max-w-2xl">
-        Privacy-first DFIR &amp; OSINT utilities by {personalInfo.name} — {personalInfo.title}. Every tool runs entirely
+        Privacy-first DFIR &amp; OSINT utilities by {personalInfo.name} - {personalInfo.title}. Every tool runs entirely
         in your browser; sensitive data never leaves your device.
       </p>
 
@@ -62,7 +62,7 @@ export default function ToolsAbout(): JSX.Element {
           A collection of browser-based utilities for incident-response triage: IOC extraction, timestamp conversion,
           hashing, email-header analysis, log and PCAP triage, Windows artifact parsing (EVTX, registry hives, prefetch,
           PE), SQLite/iOS artifact inspection and more. Built for SOC analysts, DFIR responders, blue-teamers and
-          students who need fast, trustworthy tools without setup overhead — and without shipping enterprise data to a
+          students who need fast, trustworthy tools without setup overhead - and without shipping enterprise data to a
           third party.
         </p>
       </Section>
@@ -78,7 +78,7 @@ export default function ToolsAbout(): JSX.Element {
 
       <Section title="Why I built this">
         <p>
-          Many online security tools require uploads or proxy your input through external services — an unnecessary
+          Many online security tools require uploads or proxy your input through external services - an unnecessary
           exposure when you're handling logs, hashes, headers or reconnaissance data that can contain confidential
           infrastructure detail or PII. These tools take the opposite stance: modern browser APIs do the work locally,
           so capability doesn't cost you confidentiality.
@@ -93,11 +93,11 @@ export default function ToolsAbout(): JSX.Element {
             Web Crypto API, File API and Canvas for local processing; lazy WASM (sql.js) loaded per-tool on demand
           </li>
           <li>
-            Hand-rolled binary parsers (PE, regf, EVTX, prefetch/LZXPRESS-Huffman, pcap, plist, protobuf) — no server
+            Hand-rolled binary parsers (PE, regf, EVTX, prefetch/LZXPRESS-Huffman, pcap, plist, protobuf) - no server
             round-trips
           </li>
           <li>CSV/JSON export via the File API</li>
-          <li>Deployed on Cloudflare Workers (edge) with strict CSP — privacy-first, client-side processing</li>
+          <li>Deployed on Cloudflare Workers (edge) with strict CSP - privacy-first, client-side processing</li>
         </ul>
       </Section>
 

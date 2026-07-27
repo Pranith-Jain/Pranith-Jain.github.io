@@ -10,7 +10,7 @@ interface ProjectsProps {
 }
 
 /**
- * Projects list — improved with better visual hierarchy for case studies,
+ * Projects list - improved with better visual hierarchy for case studies,
  * timeline indicators, and tool links.
  */
 
@@ -127,7 +127,7 @@ export function Projects({ projects }: ProjectsProps) {
         </p>
       </div>
 
-      {/* Case studies — the credibility document. Featured prominently
+      {/* Case studies - the credibility document. Featured prominently
           with timeline indicators and outcome metrics. */}
       {publishedCaseStudies.length > 0 && (
         <div className="mb-12">
@@ -135,7 +135,7 @@ export function Projects({ projects }: ProjectsProps) {
             <div className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
               Case Studies
             </div>
-            <span className="text-xs font-mono text-slate-400">· {publishedCaseStudies.length} published</span>
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">· {publishedCaseStudies.length} published</span>
           </div>
 
           {/* Timeline layout */}
@@ -157,11 +157,11 @@ export function Projects({ projects }: ProjectsProps) {
                     <span className="text-micro font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
                       {cs.kicker}
                     </span>
-                    <span className="inline-flex items-center gap-1 text-xs text-slate-400">
+                    <span className="inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
                       <Calendar size={10} />
                       {new Date(cs.publishedAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                     </span>
-                    <span className="inline-flex items-center gap-1 text-xs text-slate-400">
+                    <span className="inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
                       <Clock size={10} />
                       {cs.readingTime}
                     </span>
@@ -191,13 +191,13 @@ export function Projects({ projects }: ProjectsProps) {
                       {cs.tags.slice(0, 4).map((tag) => (
                         <span
                           key={tag}
-                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                          className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400"
                         >
                           {tag}
                         </span>
                       ))}
                       {cs.tags.length > 4 && (
-                        <span className="text-micro font-mono text-slate-400">+{cs.tags.length - 4}</span>
+                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{cs.tags.length - 4}</span>
                       )}
                     </div>
                   )}

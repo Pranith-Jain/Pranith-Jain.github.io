@@ -28,7 +28,7 @@ describe('useInView', () => {
     mockDisconnect = vi.fn();
     mockUnobserve = vi.fn();
 
-    // Must be a *constructable* function — the hook calls `new IntersectionObserver(...)`,
+    // Must be a *constructable* function - the hook calls `new IntersectionObserver(...)`,
     // and arrow functions can't be used with `new` (vitest v4/tinyspy throws "not a constructor").
     (globalThis as typeof globalThis & { IntersectionObserver: typeof IntersectionObserver }).IntersectionObserver =
       vi.fn(function (this: {

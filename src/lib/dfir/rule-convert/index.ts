@@ -1,5 +1,5 @@
 /**
- * Rule converter — heuristic, any-to-any detection translation.
+ * Rule converter - heuristic, any-to-any detection translation.
  *
  *     source text ──parse──▶ RuleIR ──emit──▶ target text
  *
@@ -7,11 +7,11 @@
  * a UI needs (RuleFormat list, FORMAT_LABELS, ConvertResult). Each side of the
  * pipeline lives in a focused module:
  *
- *   types.ts     — IR + format tables + small shared helpers
- *   parsers.ts   — text → IR (Sigma faithful; rest regex-heuristic)
- *   emitters.ts  — IR → text (Sigma/KQL/SPL/Lucene/EQL/YARA/DLP/supply-chain)
+ *   types.ts     - IR + format tables + small shared helpers
+ *   parsers.ts   - text → IR (Sigma faithful; rest regex-heuristic)
+ *   emitters.ts  - IR → text (Sigma/KQL/SPL/Lucene/EQL/YARA/DLP/supply-chain)
  *
- * Pure module — no DOM / no network — so it stays unit-testable in isolation.
+ * Pure module - no DOM / no network - so it stays unit-testable in isolation.
  */
 
 import { FORMAT_LABELS, uniq, type ConvertResult, type RuleFormat, type RuleIR } from './types';
@@ -53,20 +53,20 @@ export { FIELD_MAPS, findFieldMap, type FieldMap } from './field-maps';
 
 /**
  * Options for `convertRule`. `fieldMap` rewrites IR predicate field names
- * after parse, before emit — every source field is looked up in the map;
+ * after parse, before emit - every source field is looked up in the map;
  * unmapped fields pass through unchanged and are surfaced as a warning so
  * the analyst knows what the chosen preset didn't cover.
  */
 export interface ConvertOptions {
   fieldMap?: Record<string, string>;
-  /** Used only for warning text — the human label of the preset. */
+  /** Used only for warning text - the human label of the preset. */
   fieldMapLabel?: string;
 }
 
 /**
  * Apply a field map to every predicate in the IR. Returns the set of
  * field names the map didn't cover (for a warning) and the rewritten IR.
- * Pure — does not mutate the input.
+ * Pure - does not mutate the input.
  */
 function applyFieldMap(ir: RuleIR, map: Record<string, string>): { ir: RuleIR; unmapped: string[]; mapped: string[] } {
   const unmapped = new Set<string>();
@@ -98,11 +98,11 @@ const PARSERS: Record<RuleFormat, (s: string) => RuleIR | { error: string }> = {
   yara: parseYara,
   dlp: parseDlp,
   supplychain: parseSupplychain,
-  // No native parser for Snort/PowerShell yet — they're target-only. The
+  // No native parser for Snort/PowerShell yet - they're target-only. The
   // FE prevents picking either as a source; if a caller bypasses that we
   // return an explicit error rather than misclassify the input.
-  snort: () => ({ error: 'Snort/Suricata is target-only — pick a different source format.' }),
-  powershell: () => ({ error: 'PowerShell is target-only — pick a different source format.' }),
+  snort: () => ({ error: 'Snort/Suricata is target-only - pick a different source format.' }),
+  powershell: () => ({ error: 'PowerShell is target-only - pick a different source format.' }),
 };
 
 export function convertRule(
@@ -118,7 +118,7 @@ export function convertRule(
 
   const warnings = [...parsed.warnings];
   if (from !== 'sigma') warnings.unshift(`${FORMAT_LABELS[from]} → IR is heuristic; verify the result.`);
-  if (from === to) warnings.push('Source and target are the same format — output is a normalised round-trip.');
+  if (from === to) warnings.push('Source and target are the same format - output is a normalised round-trip.');
 
   // Apply field-map remap, if any. Surfaces what was rewritten and what
   // the chosen preset doesn't cover so the analyst can spot fields the
@@ -134,7 +134,7 @@ export function convertRule(
     }
     if (remap.unmapped.length > 0) {
       warnings.push(
-        `Field map has no entry for ${remap.unmapped.length} field(s) — emitted as-is: ${remap.unmapped.join(', ')}.`
+        `Field map has no entry for ${remap.unmapped.length} field(s) - emitted as-is: ${remap.unmapped.join(', ')}.`
       );
     }
   }
@@ -183,7 +183,7 @@ export function convertRule(
 }
 
 /**
- * Parse-only entry point — returns the IR (or an error) without emitting.
+ * Parse-only entry point - returns the IR (or an error) without emitting.
  * Powers the lab's "what the parser saw" inspector panel so the analyst
  * can debug a failing conversion by reading the structured intermediate.
  */

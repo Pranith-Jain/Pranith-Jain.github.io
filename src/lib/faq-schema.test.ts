@@ -15,7 +15,7 @@ describe('extractFaq', () => {
     'Hunt for POST requests to /admin/create with an empty auth header.',
     '',
     '## References',
-    '- [NVD](https://nvd.nist.gov) — record',
+    '- [NVD](https://nvd.nist.gov) - record',
   ].join('\n');
 
   it('parses each ### question + answer in the FAQ section', () => {

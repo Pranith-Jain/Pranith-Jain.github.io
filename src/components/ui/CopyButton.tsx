@@ -32,10 +32,10 @@ const SIZE_STYLES: Record<string, string> = {
 };
 
 const VARIANT_STYLES = {
-  icon: 'p-1 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]',
+  icon: 'p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]',
   button:
-    'px-3 py-1.5 rounded text-sm font-medium bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700',
-  ghost: 'p-1 rounded text-slate-400 hover:text-brand-600 dark:hover:text-brand-400',
+    'px-3 py-1.5 rounded text-tool font-medium bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700',
+  ghost: 'p-1 rounded text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400',
 };
 
 /**
@@ -133,7 +133,7 @@ interface CopyChipProps {
 }
 
 /**
- * Bordered chip with icon + short label — for toolbars and headers where
+ * Bordered chip with icon + short label - for toolbars and headers where
  * the copy action needs to be visible (not icon-only).
  */
 export function CopyChip({
@@ -180,7 +180,7 @@ export function CopyChip({
       onClick={() => void handleCopy()}
       title={title}
       aria-label={copied ? 'Copied!' : title}
-      className={`text-xs font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${className}`}
+      className={`text-meta font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${className}`}
     >
       {copied ? <Check size={11} /> : <Copy size={11} />}
       {copied ? 'copied' : label}

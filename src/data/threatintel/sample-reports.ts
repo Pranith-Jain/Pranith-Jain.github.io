@@ -11,10 +11,10 @@
  *   - title: the report headline as it would appear in a feed
  *   - source: the upstream publication
  *   - url: link to the original write-up
- *   - publishedAt: ISO date — used in the AI Summary header
+ *   - publishedAt: ISO date - used in the AI Summary header
  *   - tags: short keywords shown in the meta row
  *   - text: the full body that gets POSTed to /api/v1/report-analyzer
- *           via { text: ... }. 4–8 KB is the sweet spot — long enough
+ *           via { text: ... }. 4–8 KB is the sweet spot - long enough
  *           to exercise the LLM extractors, short enough to fit the
  *           25s budget the analyzer allots each branch.
  *
@@ -32,7 +32,7 @@ export interface SampleReport {
   url: string;
   publishedAt: string;
   tags: string[];
-  /** Text the analyzer pipeline receives. Plain text or markdown — the
+  /** Text the analyzer pipeline receives. Plain text or markdown - the
    *  pipeline does not care, but markdown keeps tables + code blocks
    *  coherent if the user opens the sample in a text view. */
   text: string;
@@ -40,7 +40,7 @@ export interface SampleReport {
 
 const LAZARUS_COPPERHEDGE_TEXT = `Analysis of the Attack Campaign by the APT-C-26 (Lazarus) Group Exploiting CVE-2025-55182 and the Copperhedge Component
 
-Source: ctfiot.com — Published: June 5, 2026
+Source: ctfiot.com - Published: June 5, 2026
 
 This threat report focuses on a recent cyber operation attributed to APT-C-26, also known as the Lazarus Group, a notorious North Korean state-sponsored Advanced Persistent Threat (APT) actor. The group targeted financial institutions and blockchain-related infrastructure, employing a combination of sophisticated techniques, including exploitation of the CVE-2025-55182 vulnerability and deployment of the Copperhedge malware suite. The campaign's objective appeared to be deep system penetration for data theft, financial gain, and intelligence gathering.
 
@@ -51,30 +51,30 @@ Once a foothold was established, the attackers leveraged MultiRelay for lateral 
 Attribution and IOCs: Copperhedge has been linked to Lazarus since 2020. Recent attacks match Lazarus TTPs and target sectors. Confirmed use of CVE-2025-55182 and EtherRAT. Sample MD5 hashes observed in the wild: 2e5fafffc9970527c1bbd5262da52f59, f85a05aa9781848e2a9e3f42f0c3418a, 324f7ef1b7aeb9258e06dabe99a8948f, e3d66a422a81ed40dbd6bb6abd4a3e54, 246e5b07824f131dc4cb1fad35f8f763, 9174ecb742b82a0bc4c002b82cc13fa0, a4d2759e6fc0b6fe5fe221a8bd75c769, 3c922758c200100840f77bc691ef78ce, 72aa61fa53e9caeee9d2993312587b46, cb7c15fc9c07a3db79f35d64efc2fc73, 2175449ed1c275f2cb2490094d7aabf8, bfd66efdcafb9d24ed9f0e2f733b129c, e6569de917f84422439765b3a67ca971, 0677555769e4b64cc084dcc132048144. C2 URL: https://www.magazineschool.co.kr/includes/lm9.asp. C2 IP: 206.71.148.38. Persistence artefact: AppData\\Local\\Microsoft\\Internet Explorer\\brndlog.txt. Mutex: MsSecurityObj.
 
 TTPs observed (MITRE ATT&CK):
-- T1190 Exploit Public-Facing Application — initial access via CVE-2025-55182 against React 19.x RSC
-- T1204 User Execution — list.txt target list
-- T1202 Indirect Command Execution — rundll32.exe loads Copperhedge Loader
-- T1548.002 User Account Control Bypass — Akagi64
-- T1105 Ingress Tool Transfer — MultiRelay and Akagi64 binaries dropped
-- T1059.003 Command and Scripting Interpreter: Windows Command Shell — rundll32.exe chain
-- T1218.011 System Binary Proxy Execution: Rundll32 — Copperhedge Loader
-- T1140 Deobfuscate/Decode Files or Information — XOR decryption of Copperhedge Backdoor
-- T1036 Masquerading — "WaveTest" payload name
-- T1112 Modify Registry — config storage
-- T1053 Scheduled Task/Job — persistence
+- T1190 Exploit Public-Facing Application - initial access via CVE-2025-55182 against React 19.x RSC
+- T1204 User Execution - list.txt target list
+- T1202 Indirect Command Execution - rundll32.exe loads Copperhedge Loader
+- T1548.002 User Account Control Bypass - Akagi64
+- T1105 Ingress Tool Transfer - MultiRelay and Akagi64 binaries dropped
+- T1059.003 Command and Scripting Interpreter: Windows Command Shell - rundll32.exe chain
+- T1218.011 System Binary Proxy Execution: Rundll32 - Copperhedge Loader
+- T1140 Deobfuscate/Decode Files or Information - XOR decryption of Copperhedge Backdoor
+- T1036 Masquerading - "WaveTest" payload name
+- T1112 Modify Registry - config storage
+- T1053 Scheduled Task/Job - persistence
 - T1620 Reflective Code Loading
-- T1106 Native API — File Copy/Move
+- T1106 Native API - File Copy/Move
 - T1570 Lateral Tool Transfer
-- T1070 Indicator Removal on Host — (–dc)
-- T1027 Obfuscated Files or Information — C2 encoding
+- T1070 Indicator Removal on Host - (–dc)
+- T1027 Obfuscated Files or Information - C2 encoding
 - T1041 Exfiltration Over C2 Channel
-- T1132 Data Encoding — Base64 over C2
+- T1132 Data Encoding - Base64 over C2
 
 The Lazarus group is primarily motivated by financial gain (cryptocurrency theft, bank heists) and intelligence gathering. The attacks target financial institutions and blockchain/cryptocurrency exchanges globally. The vulnerability affects systems running React 19.x and frameworks built with it, including Next.js 15.x and 16.x.`;
 
-const SUPPLY_CHAIN_TEXT = `TeamPCP Multi-Stage Supply Chain Campaign — Cross-Source Analysis
+const SUPPLY_CHAIN_TEXT = `TeamPCP Multi-Stage Supply Chain Campaign - Cross-Source Analysis
 
-Source: TI Mindmap HUB analytics aggregator — March 2026
+Source: TI Mindmap HUB analytics aggregator - March 2026
 
 TeamPCP (also tracked as PCPcat, ShellForce, DeadCatx3) is a rapidly escalating cloud-native cybercrime group that has executed one of the most impactful open-source supply chain campaigns observed to date. Between December 2025 and March 2026, the group evolved from opportunistic exploitation of exposed Docker and Kubernetes APIs into a coordinated, multi-stage supply chain operation that compromised five major vendor ecosystems in just five days during March 2026.
 
@@ -91,7 +91,7 @@ MITRE ATT&CK TTPs observed include T1190 (exploitation of CI misconfigurations),
 
 const PHISHING_KIT_TEXT = `Analysis: Tycoon 2FA Phishing Kit Targeting Microsoft 365
 
-Source: Phish.report / Valimail — May 2026
+Source: Phish.report / Valimail - May 2026
 
 A new phishing-as-a-service (PaaS) kit dubbed "Tycoon 2FA" has been observed targeting Microsoft 365 credentials using an AitM (adversary-in-the-middle) reverse proxy technique. The kit bypasses MFA by relaying the authentication session in real time between the victim and the legitimate Microsoft login page. Targets receive an email containing a link to a phishing page that mimics the Microsoft 365 login portal; once the victim enters credentials and completes MFA, the attacker captures the authenticated session cookie.
 
@@ -123,7 +123,7 @@ export const SAMPLE_REPORTS: SampleReport[] = [
   },
   {
     id: 'teampcp-supply-chain',
-    title: 'TeamPCP Multi-Stage Supply Chain Campaign — 20-Report Cross-Source Analysis',
+    title: 'TeamPCP Multi-Stage Supply Chain Campaign - 20-Report Cross-Source Analysis',
     source: 'TI Mindmap HUB analytics aggregator',
     url: 'https://ti-mindmap-hub.com/analytics/teampcp-supply-chain-threat-intelligence-report',
     publishedAt: '2026-03-26',
@@ -132,7 +132,7 @@ export const SAMPLE_REPORTS: SampleReport[] = [
   },
   {
     id: 'tycoon-2fa-phishing',
-    title: 'Tycoon 2FA Phishing Kit — Microsoft 365 AitM Reverse Proxy',
+    title: 'Tycoon 2FA Phishing Kit - Microsoft 365 AitM Reverse Proxy',
     source: 'Phish.report / Valimail',
     url: 'https://phish.report/analysis/',
     publishedAt: '2026-05-15',

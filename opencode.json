@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "infron": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Infron",
+      "options": {
+        "baseURL": "https://llm.onerouter.pro/v1"
+      },
+      "models": {
+        "qwen/qwen3.8-max-preview:free": {
+          "name": "Qwen 3.8 Max Preview (Free — promo)"
+        },
+        "mindai/macaron-v1-venti:free": {
+          "name": "Macaron V1 Venti (Free)"
+        }
+      }
+    }
+  },
+  "model": "infron/qwen/qwen3.8-max-preview:free"
+}

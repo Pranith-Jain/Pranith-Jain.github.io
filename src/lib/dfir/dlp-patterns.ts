@@ -1,5 +1,5 @@
 /**
- * Sensitive-data pattern library — client-side regex pack with
+ * Sensitive-data pattern library - client-side regex pack with
  * confidence scoring.
  *
  * Each pattern declares:
@@ -12,10 +12,10 @@
  *    and entropy thresholds for "looks like a key" detectors.
  *
  * Findings are surfaced with a confidence level:
- *   - 'verified' — passed an algorithmic check (Luhn / IBAN mod-97 / JWT-shape)
- *   - 'high'     — strict prefix-anchored regex (sk_live_…, ghp_…)
- *   - 'medium'   — pattern matches but no second signal
- *   - 'low'      — heuristic only (entropy / loose shape)
+ *   - 'verified' - passed an algorithmic check (Luhn / IBAN mod-97 / JWT-shape)
+ *   - 'high'     - strict prefix-anchored regex (sk_live_…, ghp_…)
+ *   - 'medium'   - pattern matches but no second signal
+ *   - 'low'      - heuristic only (entropy / loose shape)
  */
 
 export type Severity = 'critical' | 'high' | 'medium' | 'low';
@@ -133,7 +133,7 @@ export const PATTERNS: SensitivePattern[] = [
     name: 'Credit / debit card (PAN)',
     category: 'financial',
     severity: 'critical',
-    description: 'Primary Account Number — 13-19 digits with Luhn checksum.',
+    description: 'Primary Account Number - 13-19 digits with Luhn checksum.',
     re: /\b(?:\d[ -]?){12,18}\d\b/g,
     defaultConfidence: 'low',
     validate: (m) => (luhn(m) ? 'verified' : null),
@@ -143,7 +143,7 @@ export const PATTERNS: SensitivePattern[] = [
     name: 'IBAN',
     category: 'financial',
     severity: 'high',
-    description: 'International Bank Account Number — country code + check digits + BBAN, mod-97 verified.',
+    description: 'International Bank Account Number - country code + check digits + BBAN, mod-97 verified.',
     re: /\b[A-Z]{2}\d{2}[A-Z0-9]{4}[A-Z0-9]{6,28}\b/g,
     defaultConfidence: 'medium',
     validate: (m) => (ibanMod97(m) ? 'verified' : null),
@@ -183,7 +183,7 @@ export const PATTERNS: SensitivePattern[] = [
     name: 'PAN (India)',
     category: 'government-id',
     severity: 'high',
-    description: 'Permanent Account Number — five letters, four digits, one letter.',
+    description: 'Permanent Account Number - five letters, four digits, one letter.',
     re: /\b[A-Z]{5}[0-9]{4}[A-Z]\b/g,
     defaultConfidence: 'high',
   },
@@ -192,7 +192,7 @@ export const PATTERNS: SensitivePattern[] = [
     name: 'UK National Insurance Number',
     category: 'government-id',
     severity: 'high',
-    description: 'NINO — two letters + 6 digits + suffix letter.',
+    description: 'NINO - two letters + 6 digits + suffix letter.',
     re: /\b(?!BG|GB|NK|KN|TN|NT|ZZ)[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z]\d{6}[A-D]?\b/g,
     defaultConfidence: 'high',
   },
@@ -212,7 +212,7 @@ export const PATTERNS: SensitivePattern[] = [
     name: 'NHS number (UK)',
     category: 'health',
     severity: 'critical',
-    description: 'UK NHS patient identifier — 10 digits with mod-11 checksum.',
+    description: 'UK NHS patient identifier - 10 digits with mod-11 checksum.',
     re: /\b\d{3}[ -]?\d{3}[ -]?\d{4}\b/g,
     defaultConfidence: 'low',
     validate: (m) => {
@@ -353,7 +353,7 @@ export const PATTERNS: SensitivePattern[] = [
     name: 'Phone number (E.164)',
     category: 'personal',
     severity: 'medium',
-    description: 'International E.164 — +CCNNNNNNNNNN.',
+    description: 'International E.164 - +CCNNNNNNNNNN.',
     re: /\+\d{7,15}\b/g,
     defaultConfidence: 'high',
   },
@@ -362,7 +362,7 @@ export const PATTERNS: SensitivePattern[] = [
     name: 'Phone number (US)',
     category: 'personal',
     severity: 'medium',
-    description: 'US-formatted phone — (NNN) NNN-NNNN or NNN-NNN-NNNN.',
+    description: 'US-formatted phone - (NNN) NNN-NNNN or NNN-NNN-NNNN.',
     re: /\b(?:\(\d{3}\)\s?|\d{3}[-.\s])\d{3}[-.\s]\d{4}\b/g,
     defaultConfidence: 'medium',
   },
@@ -373,7 +373,7 @@ export const PATTERNS: SensitivePattern[] = [
     name: 'IPv4 in RFC1918 private range',
     category: 'network',
     severity: 'low',
-    description: '10/8, 172.16/12, 192.168/16 — internal infrastructure leak.',
+    description: '10/8, 172.16/12, 192.168/16 - internal infrastructure leak.',
     re: /\b(?:10(?:\.\d{1,3}){3}|192\.168(?:\.\d{1,3}){2}|172\.(?:1[6-9]|2\d|3[01])(?:\.\d{1,3}){2})\b/g,
     defaultConfidence: 'high',
   },
@@ -432,7 +432,7 @@ export function detect(input: string): Finding[] {
       if (out.length > 1000) return out;
     }
   }
-  // Drop overlapping findings — keep the higher-severity / earlier one.
+  // Drop overlapping findings - keep the higher-severity / earlier one.
   out.sort((a, b) => a.index - b.index || rankSeverity(b) - rankSeverity(a));
   const filtered: Finding[] = [];
   let lastEnd = -1;
@@ -473,7 +473,7 @@ export function summary(findings: Finding[]): {
 }
 
 /**
- * Apply a redaction mask to the input — replace every detected match with
+ * Apply a redaction mask to the input - replace every detected match with
  * `[REDACTED:<short id>]`.
  */
 export function redact(input: string, findings: Finding[]): string {

@@ -10,7 +10,7 @@ import { EmptyState } from './ui/EmptyState';
  * When a `DataPageLayout` is already mounted higher in the tree, nested
  * children (e.g. tab panels that also wrap in `DataPageLayout`) should
  * suppress their own back link to avoid duplicates.  The context carries
- * a single boolean — `true` when an ancestor layout is present.
+ * a single boolean - `true` when an ancestor layout is present.
  */
 const DataPageLayoutContext = createContext(false);
 
@@ -44,13 +44,13 @@ export interface DataPageLayoutProps {
   maxWidthClass?: string;
   /** Suppress the back link. When true the component still provides the
    *  layout shell (title, description, error/loading/empty states) but
-   *  skips rendering the ArrowLeft back link — useful when an ancestor
+   *  skips rendering the ArrowLeft back link - useful when an ancestor
    *  `DataPageLayout` already renders one. */
   hideBack?: boolean;
   /** When set, skip the smart-back (`backCategoryFor`) lookup and use this
    *  path verbatim for the back link. Use for pages that are surfaced as
    *  cross-surface "cards" from a different parent (e.g. the Global Pulse
-   *  snap on the portfolio home — the user came in from `/`, not from
+   *  snap on the portfolio home - the user came in from `/`, not from
    *  `/threatintel/catalog?cat=predictive`, so "back" should return to
    *  the portfolio home, not the threat-intel hub). */
   backToOverride?: string;
@@ -95,7 +95,7 @@ export function DataPageLayout({
   // from (e.g. /threatintel/c/knowledge) when one is mapped for this route, else
   // fall back to the explicit backTo. Mirrors the shared BackLink behavior so
   // migrating a page onto this shell preserves its category-aware back-link.
-  // `backToOverride` (when set) bypasses the smart-back entirely — used for
+  // `backToOverride` (when set) bypasses the smart-back entirely - used for
   // pages surfaced as cross-surface cards where "back" should return to the
   // parent surface (e.g. portfolio home), not the threatintel hub.
   const { pathname } = useLocation();
@@ -121,10 +121,10 @@ export function DataPageLayout({
         />
       )}
 
-      {!hideBack && (
+      {!hideBack && !insideLayout && (
         <Link
           to={backTarget}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 -ml-3 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[rgb(var(--hover-100))] rounded-lg mb-8 font-mono transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 -ml-3 text-tool text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[rgb(var(--hover-100))] rounded-xl mb-8 font-mono transition-colors"
         >
           <ArrowLeft size={14} /> {resolvedBackLabel}
         </Link>
@@ -146,15 +146,15 @@ export function DataPageLayout({
           <div className="flex items-center gap-3">
             <AlertTriangle size={16} className="text-rose-600 dark:text-rose-400 flex-shrink-0" />
             <div>
-              <p className="text-sm font-medium text-rose-800 dark:text-rose-200">Couldn&rsquo;t load this.</p>
-              <p className="text-sm text-rose-700 dark:text-rose-300">{error}</p>
+              <p className="text-tool font-medium text-rose-800 dark:text-rose-200">Couldn&rsquo;t load this.</p>
+              <p className="text-tool text-rose-700 dark:text-rose-300">{error}</p>
             </div>
           </div>
           {onRetry && (
             <button
               type="button"
               onClick={onRetry}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-rose-700 dark:text-rose-300 border border-rose-300/50 dark:border-rose-800/50 rounded-xl hover:bg-rose-100/50 dark:hover:bg-rose-900/20 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-meta font-mono text-rose-700 dark:text-rose-300 border border-rose-300/50 dark:border-rose-800/50 rounded-xl hover:bg-rose-100/50 dark:hover:bg-rose-900/20 transition-colors"
             >
               <RefreshCw size={12} /> Retry
             </button>
@@ -164,7 +164,7 @@ export function DataPageLayout({
 
       {loading ? (
         <div className="flex items-center justify-center py-16" role="status" aria-live="polite" aria-busy="true">
-          <Loader2 size={24} className="animate-spin text-slate-400" aria-hidden="true" />
+          <Loader2 size={24} className="animate-spin text-slate-500 dark:text-slate-400" aria-hidden="true" />
           <span className="sr-only">Loading…</span>
         </div>
       ) : empty ? (

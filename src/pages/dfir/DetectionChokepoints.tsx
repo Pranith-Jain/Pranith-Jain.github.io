@@ -59,7 +59,7 @@ const CHOKEPOINTS: Chokepoint[] = [
     fpLevel: 'Medium FP',
     maturity: 'Research',
     description:
-      'Defense evasion via EDR sensor tampering — process termination, driver unloading, callback removal, and direct kernel calls. Each variant leaves distinct telemetry gaps.',
+      'Defense evasion via EDR sensor tampering - process termination, driver unloading, callback removal, and direct kernel calls. Each variant leaves distinct telemetry gaps.',
     url: 'https://iimp0ster.github.io/detection-chokepoints/',
     tags: ['edr', 'defense-evasion', 'tampering', 'kernel'],
   },
@@ -70,7 +70,7 @@ const CHOKEPOINTS: Chokepoint[] = [
     fpLevel: 'Medium FP',
     maturity: 'Hunt',
     description:
-      'Pre-encryption service disruption — stopping backup agents, databases, and AV services via sc.exe, net stop, or PsExec. Creates a detection window before payload execution.',
+      'Pre-encryption service disruption - stopping backup agents, databases, and AV services via sc.exe, net stop, or PsExec. Creates a detection window before payload execution.',
     url: 'https://iimp0ster.github.io/detection-chokepoints/',
     tags: ['ransomware', 'service-stop', 'backup-disable', 'pre-encryption'],
   },
@@ -92,7 +92,7 @@ const CHOKEPOINTS: Chokepoint[] = [
     fpLevel: 'High FP',
     maturity: 'Analyst',
     description:
-      'Bring-your-own scripting interpreters — Python, Node.js, PowerShell downloaded to disk and used for execution. Bypasses application whitelisting by using legitimate runtimes.',
+      'Bring-your-own scripting interpreters - Python, Node.js, PowerShell downloaded to disk and used for execution. Bypasses application whitelisting by using legitimate runtimes.',
     url: 'https://iimp0ster.github.io/detection-chokepoints/',
     tags: ['scripting', 'interpreter', 'python', 'node', 'powershell'],
   },
@@ -103,7 +103,7 @@ const CHOKEPOINTS: Chokepoint[] = [
     fpLevel: 'Pre-Exec',
     maturity: 'Research',
     description:
-      'OAuth device code flow abuse — attacker tricks user into approving a device code, granting persistent token access without password compromise. Bypasses MFA entirely.',
+      'OAuth device code flow abuse - attacker tricks user into approving a device code, granting persistent token access without password compromise. Bypasses MFA entirely.',
     url: 'https://iimp0ster.github.io/detection-chokepoints/',
     tags: ['oauth', 'device-code', 'cloud', 'identity'],
   },
@@ -114,7 +114,7 @@ const CHOKEPOINTS: Chokepoint[] = [
     fpLevel: 'Pre-Exec',
     maturity: 'Hunt',
     description:
-      'Azure/M365 Graph API enumeration — bulk user, group, and role queries from a single token. Detectable via query velocity, unusual service-principal activity, and cross-tenant access patterns.',
+      'Azure/M365 Graph API enumeration - bulk user, group, and role queries from a single token. Detectable via query velocity, unusual service-principal activity, and cross-tenant access patterns.',
     url: 'https://iimp0ster.github.io/detection-chokepoints/',
     tags: ['graph-api', 'reconnaissance', 'azure', 'entra-id'],
   },
@@ -196,7 +196,7 @@ export default function DetectionChokepoints(): JSX.Element {
       backTo="/dfir"
       icon={<Shield size={28} />}
       title="Detection Chokepoints"
-      description="Invariant detection points in attack chains — prerequisites that attackers cannot bypass. Each chokepoint targets a forced action that generates reliable telemetry regardless of the specific tool or variant used."
+      description="Invariant detection points in attack chains - prerequisites that attackers cannot bypass. Each chokepoint targets a forced action that generates reliable telemetry regardless of the specific tool or variant used."
       headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Source:{' '}
@@ -216,7 +216,7 @@ export default function DetectionChokepoints(): JSX.Element {
       {/* Filters */}
       <div className="space-y-3 mb-6">
         <div className="relative">
-          <Target size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+          <Target size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
           <input
             type="text"
             value={query}
@@ -399,7 +399,7 @@ export default function DetectionChokepoints(): JSX.Element {
                 >
                   Pre-Exec
                 </span>{' '}
-                Action occurs before execution — minimal FP
+                Action occurs before execution - minimal FP
               </li>
               <li>
                 <span

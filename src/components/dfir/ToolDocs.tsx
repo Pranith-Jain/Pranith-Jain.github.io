@@ -3,7 +3,7 @@ import { SECTIONS } from './tool-sections';
 
 /**
  * Standard "what this is / what it isn't / how to use it" panel for any
- * /dfir tool page. Reads the source-of-truth from tool-sections.ts —
+ * /dfir tool page. Reads the source-of-truth from tool-sections.ts -
  * `useCase`, `cantDo`, `workflow`. Renders only the fields that are set
  * so tools without populated docs don't render an empty panel.
  *
@@ -11,7 +11,7 @@ import { SECTIONS } from './tool-sections';
  *
  *     <ToolDocs path="/dfir/ioc-check" />
  *
- * The intent is honesty about each tool's scope — the bigger the toolkit,
+ * The intent is honesty about each tool's scope - the bigger the toolkit,
  * the more important it is that each individual page tells you what it
  * IS and what it ISN'T, before you spend 10 minutes finding out.
  */
@@ -22,7 +22,7 @@ export function ToolDocs({ path }: { path: string }): JSX.Element | null {
     for (const t of s.tools) {
       if (t.path === path) {
         // Only render the panel if at least one of the docs fields is
-        // populated — keeps tools without docs from showing a stub.
+        // populated - keeps tools without docs from showing a stub.
         if (!t.useCase && !t.cantDo && !t.workflow) return null;
         return (
           <section

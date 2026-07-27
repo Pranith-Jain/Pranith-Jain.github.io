@@ -8,7 +8,7 @@ import { sanitizeUrl } from '../../lib/sanitize-url';
 const CATEGORY_META: Record<RSSFeed['category'], { label: string; icon: typeof Rss; className: string }> = {
   vulnerability: { label: 'Vulnerability', icon: Shield, className: 'text-rose-600 dark:text-rose-400' },
   advisory: { label: 'Advisory', icon: GraduationCap, className: 'text-amber-600 dark:text-amber-400' },
-  'threat-intel': { label: 'Threat Intel', icon: Globe, className: 'text-brand-600 dark:text-brand-400' },
+  'threat-intel': { label: 'Threat Intel', icon: Globe, className: 'text-rose-600 dark:text-rose-400' },
   news: { label: 'News', icon: Newspaper, className: 'text-blue-600 dark:text-blue-400' },
   general: { label: 'General', icon: Rss, className: 'text-muted' },
   'ics-cert': { label: 'ICS CERT', icon: Cpu, className: 'text-violet-600 dark:text-violet-400' },
@@ -92,7 +92,7 @@ export default function FeedSources(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search feeds by name, source, or description…"
-            className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
           <label className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-500 cursor-pointer select-none">
             <input
@@ -146,7 +146,7 @@ export default function FeedSources(): JSX.Element {
                         </button>
                       </div>
                       <p className="font-mono text-micro text-slate-500 line-clamp-2 mb-1">{f.description}</p>
-                      <div className="flex items-center gap-2 font-mono text-micro text-slate-400">
+                      <div className="flex items-center gap-2 font-mono text-micro text-slate-500 dark:text-slate-400">
                         {f.source && <span className="truncate">{f.source}</span>}
                         {f.language && <span className="uppercase">{f.language}</span>}
                         <span className="ml-auto">
@@ -155,7 +155,7 @@ export default function FeedSources(): JSX.Element {
                               href={sanitizeUrl(f.url)}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-0.5 hover:text-brand-600 dark:hover:text-brand-400"
+                              className="inline-flex items-center gap-0.5 hover:text-rose-600 dark:hover:text-rose-400"
                             >
                               <ExternalLink size={9} />
                             </a>
@@ -172,12 +172,12 @@ export default function FeedSources(): JSX.Element {
       </div>
 
       <details className="mt-10">
-        <summary className="cursor-pointer text-mini font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+        <summary className="cursor-pointer text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
           How feed management works
         </summary>
         <div className="mt-3 text-mini font-mono text-slate-500 leading-relaxed space-y-1 max-w-2xl">
           <p>
-            Disabling a feed hides it from the aggregated feed view. The server-side fetch still runs — this toggle
+            Disabling a feed hides it from the aggregated feed view. The server-side fetch still runs - this toggle
             controls display only, stored in your browser localStorage.
           </p>
           <p>

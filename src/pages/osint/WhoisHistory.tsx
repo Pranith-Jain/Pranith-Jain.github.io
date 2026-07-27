@@ -53,11 +53,11 @@ export default function WhoisHistory() {
             <div className="flex items-center gap-3 mb-4">
               <Link
                 to="/osint"
-                className="p-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50"
+                className="p-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50"
               >
                 <ArrowLeft size={16} className="text-slate-600" />
               </Link>
-              <div className="w-10 h-10 rounded-lg bg-pink-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-pink-600 flex items-center justify-center">
                 <FileText size={20} className="text-white" />
               </div>
               <h1 className="text-xl font-bold text-slate-900 dark:text-white">WHOIS History</h1>
@@ -69,12 +69,12 @@ export default function WhoisHistory() {
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 placeholder="Enter domain"
-                className="flex-1 px-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+                className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
               />
               <button
                 onClick={handleSearch}
                 disabled={loading || !query.trim()}
-                className="px-4 py-2.5 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 disabled:opacity-50"
+                className="px-4 py-2.5 rounded-xl bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 disabled:opacity-50"
               >
                 {loading ? 'Looking up...' : 'Lookup'}
               </button>
@@ -83,11 +83,11 @@ export default function WhoisHistory() {
         </div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
           {error && (
-            <div className="p-4 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-sm mb-4">{error}</div>
+            <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm mb-4">{error}</div>
           )}
           {loading && (
             <div className="p-12 text-center">
-              <RefreshCw size={24} className="animate-spin text-slate-400 mx-auto" />
+              <RefreshCw size={24} className="animate-spin text-slate-500 dark:text-slate-400 mx-auto" />
             </div>
           )}
           {result && (
@@ -96,25 +96,25 @@ export default function WhoisHistory() {
               <div className="grid md:grid-cols-2 gap-4 text-sm">
                 {result.registrar && (
                   <div>
-                    <label className="text-micro font-mono uppercase text-slate-400">Registrar</label>
+                    <label className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Registrar</label>
                     <p className="text-slate-700 dark:text-slate-300">{result.registrar}</p>
                   </div>
                 )}
                 {result.registrationDate && (
                   <div>
-                    <label className="text-micro font-mono uppercase text-slate-400">Registered</label>
+                    <label className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Registered</label>
                     <p className="text-slate-700 dark:text-slate-300">{result.registrationDate}</p>
                   </div>
                 )}
                 {result.expirationDate && (
                   <div>
-                    <label className="text-micro font-mono uppercase text-slate-400">Expires</label>
+                    <label className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Expires</label>
                     <p className="text-slate-700 dark:text-slate-300">{result.expirationDate}</p>
                   </div>
                 )}
                 {result.updatedDate && (
                   <div>
-                    <label className="text-micro font-mono uppercase text-slate-400">Last Updated</label>
+                    <label className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Last Updated</label>
                     <p className="text-slate-700 dark:text-slate-300">{result.updatedDate}</p>
                   </div>
                 )}
@@ -127,19 +127,19 @@ export default function WhoisHistory() {
                   <div className="grid md:grid-cols-2 gap-3 text-sm">
                     {result.registrant.name && (
                       <div>
-                        <label className="text-micro font-mono uppercase text-slate-400">Name</label>
+                        <label className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Name</label>
                         <p className="text-slate-700 dark:text-slate-300">{result.registrant.name}</p>
                       </div>
                     )}
                     {result.registrant.organization && (
                       <div>
-                        <label className="text-micro font-mono uppercase text-slate-400">Organization</label>
+                        <label className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Organization</label>
                         <p className="text-slate-700 dark:text-slate-300">{result.registrant.organization}</p>
                       </div>
                     )}
                     {result.registrant.country && (
                       <div>
-                        <label className="text-micro font-mono uppercase text-slate-400">Country</label>
+                        <label className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Country</label>
                         <p className="text-slate-700 dark:text-slate-300">{result.registrant.country}</p>
                       </div>
                     )}

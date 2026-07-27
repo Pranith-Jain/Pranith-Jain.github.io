@@ -223,7 +223,7 @@ export default function FusionExposure(): JSX.Element {
           {kevFilter && <span className="text-rose-500">KEV only</span>}
           {exploitFilter && <span className="text-orange-500">exploit only</span>}
           {minScore > 0 && <span>min score: {minScore}</span>}
-          <span className="text-slate-400">· {data.generated_at.slice(0, 16).replace('T', ' ')}</span>
+          <span className="text-slate-500 dark:text-slate-400">· {data.generated_at.slice(0, 16).replace('T', ' ')}</span>
         </div>
       )}
 
@@ -247,7 +247,7 @@ export default function FusionExposure(): JSX.Element {
                   >
                     {item.fusion_score}
                   </span>
-                  <span className="text-micro font-mono text-slate-400 uppercase mt-0.5">score</span>
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 uppercase mt-0.5">score</span>
                 </div>
 
                 {/* Fusion score bar */}
@@ -296,9 +296,9 @@ export default function FusionExposure(): JSX.Element {
                 </div>
 
                 {isOpen ? (
-                  <ChevronDown size={14} className="text-slate-400 shrink-0" />
+                  <ChevronDown size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
                 ) : (
-                  <ChevronRight size={14} className="text-slate-400 shrink-0" />
+                  <ChevronRight size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
                 )}
               </button>
 
@@ -317,7 +317,7 @@ export default function FusionExposure(): JSX.Element {
                     {item.dimensions.map((d) => (
                       <div
                         key={d.name}
-                        className={`rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5 ${dimBg(d.score)}`}
+                        className={`rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5 ${dimBg(d.score)}`}
                       >
                         <div className="flex items-center justify-between mb-1">
                           <span className="text-micro font-mono text-slate-600 dark:text-slate-400">{d.name}</span>

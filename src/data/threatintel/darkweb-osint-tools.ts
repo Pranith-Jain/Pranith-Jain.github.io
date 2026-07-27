@@ -194,7 +194,7 @@ export const TOOLS: DarkWebTool[] = [
     name: 'OnionIngestor',
     url: 'https://github.com/danieleperera/OnionIngestor',
     category: 'crawlers',
-    description: 'Modular onion site ingestor — crawl, parse, and export structured data from dark-web pages.',
+    description: 'Modular onion site ingestor - crawl, parse, and export structured data from dark-web pages.',
     source_url: 'https://github.com/danieleperera/OnionIngestor',
   },
   {
@@ -259,7 +259,7 @@ export const TOOLS: DarkWebTool[] = [
     url: 'https://www.socradar.com/dark-web-monitoring/',
     category: 'intel-platforms',
     description:
-      'Commercial dark-web monitoring — leaked credentials, brand impersonation, forum mentions, ransomware leak sites.',
+      'Commercial dark-web monitoring - leaked credentials, brand impersonation, forum mentions, ransomware leak sites.',
   },
   {
     id: 'flare',
@@ -341,7 +341,7 @@ export const TOOLS: DarkWebTool[] = [
     name: 'torsocks',
     url: 'https://gitlab.torproject.org/tpo/core/torsocks',
     category: 'misc',
-    description: 'Wraps any CLI tool so its traffic routes through Tor. Use with curl, nmap, git — any TCP-based tool.',
+    description: 'Wraps any CLI tool so its traffic routes through Tor. Use with curl, nmap, git - any TCP-based tool.',
     source_url: 'https://gitlab.torproject.org/tpo/core/torsocks',
   },
   {

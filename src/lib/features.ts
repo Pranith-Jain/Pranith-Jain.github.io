@@ -7,7 +7,7 @@ import { createContext, useContext } from 'react';
  * `FeaturesProvider` still probes `GET /api/v1/features` on load to
  * learn which optional always-on flags the server advertises, but
  * the public boolean map only carries the always-on `samples` flag
- * today — dormant self-hosted bridges (CAPE/recon) were removed.
+ * today - dormant self-hosted bridges (CAPE/recon) were removed.
  *
  * The Provider component lives in `components/FeaturesProvider.tsx`; this
  * module stays component-free so Fast Refresh / react-refresh stays happy
@@ -25,7 +25,7 @@ export interface FeaturesState extends Features {
 /**
  * Default before the probe resolves: every gated tool is treated as
  * dormant (hidden). Hiding-then-revealing a configured tool is the safe
- * direction — better than flashing a tool we may immediately hide. This
+ * direction - better than flashing a tool we may immediately hide. This
  * is also the value returned when no provider is mounted (e.g. in unit
  * tests), so components degrade gracefully rather than throwing.
  *

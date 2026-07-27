@@ -48,11 +48,11 @@ export default function SubdomainDiscovery() {
             <div className="flex items-center gap-3 mb-4">
               <Link
                 to="/osint"
-                className="p-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50"
+                className="p-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50"
               >
                 <ArrowLeft size={16} className="text-slate-600" />
               </Link>
-              <div className="w-10 h-10 rounded-lg bg-indigo-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center">
                 <Globe size={20} className="text-white" />
               </div>
               <h1 className="text-xl font-bold text-slate-900 dark:text-white">Subdomain Discovery</h1>
@@ -64,12 +64,12 @@ export default function SubdomainDiscovery() {
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 placeholder="Enter domain (e.g., example.com)"
-                className="flex-1 px-4 py-2.5 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+                className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
               />
               <button
                 onClick={handleSearch}
                 disabled={loading || !query.trim()}
-                className="px-4 py-2.5 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 disabled:opacity-50"
+                className="px-4 py-2.5 rounded-xl bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 disabled:opacity-50"
               >
                 {loading ? 'Enumerating...' : 'Discover'}
               </button>
@@ -78,11 +78,11 @@ export default function SubdomainDiscovery() {
         </div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
           {error && (
-            <div className="p-4 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-sm mb-4">{error}</div>
+            <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm mb-4">{error}</div>
           )}
           {loading && (
             <div className="p-12 text-center">
-              <RefreshCw size={24} className="animate-spin text-slate-400 mx-auto" />
+              <RefreshCw size={24} className="animate-spin text-slate-500 dark:text-slate-400 mx-auto" />
             </div>
           )}
           {result && (
@@ -108,7 +108,7 @@ export default function SubdomainDiscovery() {
                           className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
                         >
                           <td className="px-4 py-2.5 font-mono text-xs text-slate-700 dark:text-slate-300">{s.name}</td>
-                          <td className="px-4 py-2.5 font-mono text-xs text-slate-500">{s.ip || '—'}</td>
+                          <td className="px-4 py-2.5 font-mono text-xs text-slate-500">{s.ip || '-'}</td>
                           <td className="px-4 py-2.5">
                             <span
                               className={`px-2 py-0.5 text-micro font-mono rounded ${s.status === 'alive' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}

@@ -118,14 +118,14 @@ export default function ThreatMonInfostealer() {
                   }
                 }}
                 placeholder="Enter a domain to search"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-sm font-mono placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-brand-500/40 transition-shadow"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-sm font-mono placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-rose-500/40 transition-shadow"
                 minLength={2}
               />
             </div>
             <button
               type="submit"
               disabled={domain.trim().length < 2 || loading}
-              className="px-5 py-2.5 rounded-xl bg-brand-600 dark:bg-brand-500 text-white font-semibold text-sm hover:brightness-110 disabled:opacity-50 transition-all inline-flex items-center gap-2 shadow-e1 hover:shadow-e1"
+              className="px-5 py-2.5 rounded-xl bg-rose-600 dark:bg-rose-500 text-white font-semibold text-sm hover:brightness-110 disabled:opacity-50 transition-all inline-flex items-center gap-2 shadow-e1 hover:shadow-e1"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Search'}
             </button>
@@ -152,12 +152,12 @@ export default function ThreatMonInfostealer() {
               </div>
               <div className="text-lg font-semibold text-foreground mb-2">Search on ThreatMon directly</div>
               <p className="text-sm text-muted mb-6 max-w-md mx-auto leading-relaxed">
-                ThreatMon IntelHub is protected by Cloudflare managed challenge. Server-side API access is restricted —
+                ThreatMon IntelHub is protected by Cloudflare managed challenge. Server-side API access is restricted -
                 use their platform to search.
               </p>
               <button
                 onClick={openThreatMon}
-                className="px-6 py-2.5 rounded-xl bg-brand-600 dark:bg-brand-500 text-white font-semibold text-sm hover:brightness-110 transition-all inline-flex items-center gap-2 shadow-e1 hover:shadow-e1"
+                className="px-6 py-2.5 rounded-xl bg-rose-600 dark:bg-rose-500 text-white font-semibold text-sm hover:brightness-110 transition-all inline-flex items-center gap-2 shadow-e1 hover:shadow-e1"
               >
                 Open ThreatMon IntelHub <ExternalLink className="h-4 w-4" />
               </button>
@@ -216,8 +216,8 @@ export default function ThreatMonInfostealer() {
                       className="flex items-center gap-4 px-4 py-3 rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] hover:bg-[rgb(var(--surface-300))]/40 hover:border-[rgb(var(--border-500))] transition-all group"
                     >
                       <div className="flex-1 min-w-0">
-                        <div className="font-mono text-xs text-brand-600 dark:text-brand-400 truncate group-hover:underline">
-                          {r.url || '—'}
+                        <div className="font-mono text-xs text-rose-600 dark:text-rose-400 truncate group-hover:underline">
+                          {r.url || '-'}
                         </div>
                         <div className="flex items-center gap-2 mt-1">
                           {r.isEmployee ? (
@@ -249,7 +249,7 @@ export default function ThreatMonInfostealer() {
           {/* About */}
           <div className="mt-6 p-5 rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] text-xs text-muted space-y-3">
             <div className="flex items-center gap-2">
-              <Shield className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+              <Shield className="h-4 w-4 text-rose-600 dark:text-rose-400" />
               <p className="font-semibold text-foreground text-sm">About ThreatMon Infostealer Intelligence</p>
             </div>
             <p className="leading-relaxed">
@@ -276,7 +276,7 @@ export default function ThreatMonInfostealer() {
                 href="https://intelhub.threatmon.io/infostealer-investigation"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 font-medium"
+                className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 font-medium"
               >
                 Open ThreatMon IntelHub <ExternalLink className="h-3 w-3" />
               </a>

@@ -40,12 +40,12 @@ const CYCLE: Record<CheckStatus, CheckStatus> = {
 
 const STATUS_STYLES: Record<CheckStatus, { label: string; cls: string; tone: 'good' | 'warn' | 'bad' | 'muted' }> = {
   unset: {
-    label: '— unset',
+    label: '- unset',
     cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400',
     tone: 'muted',
   },
   covered: {
-    label: '✓ covered',
+    label: 'covered',
     cls: 'border-emerald-400/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
     tone: 'good',
   },
@@ -55,13 +55,13 @@ const STATUS_STYLES: Record<CheckStatus, { label: string; cls: string; tone: 'go
     tone: 'warn',
   },
   gap: {
-    label: '✗ gap',
+    label: 'gap',
     cls: 'border-rose-400/60 bg-rose-500/10 text-rose-700 dark:text-rose-300',
     tone: 'bad',
   },
   na: {
     label: 'n/a',
-    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400 dark:text-slate-500',
+    cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400',
     tone: 'muted',
   },
 };
@@ -187,7 +187,7 @@ function exportMd(state: State): string {
     '',
     `_Generated ${new Date().toISOString().slice(0, 10)}._`,
     '',
-    'Methodology: ✓ covered = 1.0, ~ partial = 0.5, ✗ gap / — unset / n/a = 0.0. Score = sum / total items × 100.',
+    'Methodology: covered = 1.0, partial = 0.5, gap / unset / n/a = 0.0. Score = sum / total items x 100.',
     '',
     '## Summary',
     '',
@@ -198,7 +198,7 @@ function exportMd(state: State): string {
   lines.push('');
   for (const cat of CATEGORIES) {
     const c = categoryStats(cat.items, state);
-    lines.push(`## ${cat.short} — ${c.score}% (${c.covered}/${c.total})`);
+    lines.push(`## ${cat.short} - ${c.score}% (${c.covered}/${c.total})`);
     lines.push('');
     lines.push(cat.intro);
     lines.push('');
@@ -231,7 +231,7 @@ export default function PersonalSecurity(): JSX.Element {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (_catchErr) {
       console.error('PersonalSecurity failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* quota — silent */
+      /* quota - silent */
     }
   }, [state]);
 
@@ -310,11 +310,11 @@ export default function PersonalSecurity(): JSX.Element {
             Digital Defense
             <ExternalLink size={11} aria-hidden="true" />
           </a>
-          . {CATEGORIES.length} domains, {CATEGORIES.reduce((n, c) => n + c.items.length, 0)} curated actions — click
+          . {CATEGORIES.length} domains, {CATEGORIES.reduce((n, c) => n + c.items.length, 0)} curated actions - click
           any item to cycle <span className="font-mono">unset → covered → partial → gap → n/a</span>.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          Reference only — not legal or professional advice. Pairs with{' '}
+          Reference only - not legal or professional advice. Pairs with{' '}
           <Link to="/dfir/privacy" className="text-brand-600 dark:text-brand-400 hover:underline">
             /dfir/privacy
           </Link>{' '}
@@ -450,7 +450,7 @@ export default function PersonalSecurity(): JSX.Element {
         {openGaps.length === 0 ? (
           <p className="text-sm font-mono text-muted">
             <CheckCircle2 size={13} className="inline mr-1 text-emerald-500" aria-hidden="true" />
-            No open critical / high gaps — well done. Tidy up the medium / low items for a stronger posture.
+            No open critical / high gaps - well done. Tidy up the medium / low items for a stronger posture.
           </p>
         ) : (
           <ul className="space-y-2">
@@ -491,22 +491,22 @@ export default function PersonalSecurity(): JSX.Element {
         <ul className="grid sm:grid-cols-2 gap-1.5 text-sm font-mono text-muted">
           <li>
             <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES.covered.cls}`}>
-              ✓ covered
+              covered
             </span>{' '}
-            — fully implemented and tested
+            - fully implemented and tested
           </li>
           <li>
             <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES.partial.cls}`}>
               ~ partial
             </span>{' '}
-            — half-done or untested (counts 0.5×)
+            - half-done or untested (counts 0.5×)
           </li>
           <li>
-            <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES.gap.cls}`}>✗ gap</span>{' '}
-            — known not done, on the to-do list
+            <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES.gap.cls}`}>gap</span>{' '}
+            - known not done, on the to-do list
           </li>
           <li>
-            <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES.na.cls}`}>n/a</span> —
+            <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES.na.cls}`}>n/a</span> -
             not applicable to your situation
           </li>
         </ul>
@@ -525,7 +525,7 @@ export default function PersonalSecurity(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              Lissy93 — Personal Security Checklist (300+ tips, CC0)
+              Lissy93 - Personal Security Checklist (300+ tips, CC0)
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -536,7 +536,7 @@ export default function PersonalSecurity(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              Digital Defense — interactive personal security checklist
+              Digital Defense - interactive personal security checklist
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -558,7 +558,7 @@ export default function PersonalSecurity(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              CISA — Cybersecurity Resources
+              CISA - Cybersecurity Resources
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>

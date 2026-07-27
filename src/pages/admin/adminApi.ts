@@ -1,6 +1,6 @@
 // Tiny fetch client for the admin API. Injects X-Admin-Token from localStorage
 // on every request. On 401 we wipe the token and reload so the session falls
-// back to the login screen — this also covers token-rotated / expired cases
+// back to the login screen - this also covers token-rotated / expired cases
 // without per-component error handling.
 
 import { readAdminToken, clearAdminToken, adminAuthHeaders } from '../../lib/admin-token';
@@ -22,12 +22,12 @@ function handleUnauthorized(): void {
   if (reloadingForAuth) return;
   reloadingForAuth = true;
   clearAdminToken();
-  // window.location.reload bounces back to the login screen — simplest UX.
+  // window.location.reload bounces back to the login screen - simplest UX.
   window.location.reload();
 }
 
 /** Pull `{error}` + `{message}` out of the body for nicer messages, fall back to status.
- *  Many admin endpoints return both — `error` is a short machine-friendly
+ *  Many admin endpoints return both - `error` is a short machine-friendly
  *  code (e.g. "rewrite_failed"), `message` is the human-friendly detail
  *  (e.g. "validation failed: missing section: ## Lessons learned").
  *  We surface both so a 4xx/5xx failure shows the actual reason. */

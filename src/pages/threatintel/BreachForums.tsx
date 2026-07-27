@@ -6,14 +6,14 @@ import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 import { DataPageLayout } from '../../components/DataPageLayout';
 
 /**
- * Breach / leak-forum tracker. Intelligence ABOUT forums only — directory
+ * Breach / leak-forum tracker. Intelligence ABOUT forums only - directory
  * metadata + public OSINT-coverage links. Never the forums' contents.
  *
  * The page is composed of:
- *   1. The directory (deepdarkCTI + curated) — primary table
- *   2. Recent status changes — historical delta feed written by the hourly cron
- *   3. OSINT coverage — headlines from 8 public news sites matching breach keywords
- *   4. Forum mentions — headlines matching tight forum-brand keywords
+ *   1. The directory (deepdarkCTI + curated) - primary table
+ *   2. Recent status changes - historical delta feed written by the hourly cron
+ *   3. OSINT coverage - headlines from 8 public news sites matching breach keywords
+ *   4. Forum mentions - headlines matching tight forum-brand keywords
  *
  * Sections 2-4 each have their own fetcher + error boundary so a transient
  * upstream failure on one source never blanks the whole page.
@@ -128,7 +128,7 @@ export default function BreachForums(): JSX.Element {
     };
   }, [refreshKey]);
 
-  // Status-delta fetch — historical changes recorded by the hourly cron
+  // Status-delta fetch - historical changes recorded by the hourly cron
   useEffect(() => {
     let alive = true;
     const ctrl = new AbortController();
@@ -153,7 +153,7 @@ export default function BreachForums(): JSX.Element {
     };
   }, [refreshKey]);
 
-  // OSINT coverage — broad breach keyword filter
+  // OSINT coverage - broad breach keyword filter
   useEffect(() => {
     let alive = true;
     const ctrl = new AbortController();
@@ -178,7 +178,7 @@ export default function BreachForums(): JSX.Element {
     };
   }, [refreshKey]);
 
-  // OSINT coverage — tight forum-brand filter
+  // OSINT coverage - tight forum-brand filter
   useEffect(() => {
     let alive = true;
     const ctrl = new AbortController();
@@ -226,7 +226,7 @@ export default function BreachForums(): JSX.Element {
       description={
         <p className="text-muted max-w-3xl leading-relaxed">
           A directory of criminal forums and dark markets (community-maintained deepdarkCTI list) plus a curated set of
-          notable breach/leak forums. This is <strong>intelligence about</strong> these venues — names, status, public
+          notable breach/leak forums. This is <strong>intelligence about</strong> these venues - names, status, public
           OSINT coverage, and historical status deltas.
         </p>
       }
@@ -244,7 +244,7 @@ export default function BreachForums(): JSX.Element {
             {[error && 'directory', statusError && 'status', coverageError && 'coverage', mentionsError && 'mentions']
               .filter(Boolean)
               .join(', ')}{' '}
-            — tap Retry on the failed section below
+            - tap Retry on the failed section below
           </span>
         </div>
       )}
@@ -257,7 +257,7 @@ export default function BreachForums(): JSX.Element {
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
         >
           <RefreshCw size={12} /> refresh
         </button>
@@ -316,7 +316,7 @@ export default function BreachForums(): JSX.Element {
                           href={sanitizeUrl(r.url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-mono text-mini text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                          className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
                         >
                           OSINT coverage <ExternalLink size={9} />
                         </a>
@@ -326,7 +326,7 @@ export default function BreachForums(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => copy(r.url)}
-                        className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
+                        className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
                         aria-label="Copy URL"
                       >
                         <Copy size={11} />
@@ -343,10 +343,10 @@ export default function BreachForums(): JSX.Element {
       {/* ── Recent status changes ──────────────────────────────────────── */}
       <section className="mt-10" aria-labelledby="status-deltas">
         <h2 id="status-deltas" className="text-xl font-display font-semibold mb-2 flex items-center gap-2">
-          <History size={18} className="text-brand-600 dark:text-brand-400" /> Recent status changes
+          <History size={18} className="text-rose-600 dark:text-rose-400" /> Recent status changes
         </h2>
         <p className="text-muted text-sm mb-4 max-w-3xl leading-relaxed">
-          Hourly diff against the deepdarkCTI snapshot. First-observations, removals, and status transitions only —
+          Hourly diff against the deepdarkCTI snapshot. First-observations, removals, and status transitions only -
           no-op snapshots are dropped. Persisted by the scheduled Worker, not reconstructed on each read.
         </p>
         <DataState
@@ -407,12 +407,12 @@ export default function BreachForums(): JSX.Element {
       {/* ── OSINT coverage ─────────────────────────────────────────────── */}
       <section className="mt-10" aria-labelledby="osint-coverage">
         <h2 id="osint-coverage" className="text-xl font-display font-semibold mb-2 flex items-center gap-2">
-          <Newspaper size={18} className="text-brand-600 dark:text-brand-400" /> OSINT coverage
+          <Newspaper size={18} className="text-rose-600 dark:text-rose-400" /> OSINT coverage
         </h2>
         <p className="text-muted text-sm mb-4 max-w-3xl leading-relaxed">
           Headlines from 8 public cybersecurity news sites (DarkWebInformer, DataBreaches.net, BleepingComputer, The
           Record, Threatpost, HackRead, SecurityWeek, CyberScoop) ranked by keyword density and recency. No forum links,
-          no leak dumps — just the press.
+          no leak dumps - just the press.
         </p>
         {coverageData && (
           <p className="text-mini font-mono text-slate-500 mb-2">
@@ -437,7 +437,7 @@ export default function BreachForums(): JSX.Element {
                       href={sanitizeUrl(it.link) || '#'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-display font-semibold text-sm text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                      className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
                     >
                       {it.title} <ExternalLink size={10} />
                     </a>
@@ -457,10 +457,10 @@ export default function BreachForums(): JSX.Element {
       {/* ── Forum mentions ─────────────────────────────────────────────── */}
       <section className="mt-10" aria-labelledby="forum-mentions">
         <h2 id="forum-mentions" className="text-xl font-display font-semibold mb-2 flex items-center gap-2">
-          <Radio size={18} className="text-brand-600 dark:text-brand-400" /> Forum mentions in OSINT
+          <Radio size={18} className="text-rose-600 dark:text-rose-400" /> Forum mentions in OSINT
         </h2>
         <p className="text-muted text-sm mb-4 max-w-3xl leading-relaxed">
-          Tight filter — only headlines that name a specific leak forum (BreachForums, Leakbase, Cracked, XSS, Dread,
+          Tight filter - only headlines that name a specific leak forum (BreachForums, Leakbase, Cracked, XSS, Dread,
           Sinisterly, Exploit, etc.). Useful for spotting law-enforcement seizures and successor-site chatter.
         </p>
         {mentionsData && (
@@ -486,7 +486,7 @@ export default function BreachForums(): JSX.Element {
                       href={sanitizeUrl(it.link) || '#'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-display font-semibold text-sm text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                      className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
                     >
                       {it.title} <ExternalLink size={10} />
                     </a>

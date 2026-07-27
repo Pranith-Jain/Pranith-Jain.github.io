@@ -115,7 +115,7 @@ export default function Leaderboard() {
               </div>
             </div>
             <div className="text-right">
-              <div className="text-2xl font-bold text-brand-600 dark:text-brand-400">#{myRank || '—'}</div>
+              <div className="text-2xl font-bold text-brand-600 dark:text-brand-400">#{myRank || '-'}</div>
               <div className="text-xs text-slate-500">{myProfile.xp} XP</div>
             </div>
           </div>
@@ -139,9 +139,9 @@ export default function Leaderboard() {
       {/* Leaderboard List */}
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-slate-400 text-sm">Loading...</div>
+          <div className="p-8 text-center text-slate-500 dark:text-slate-400 text-sm">Loading...</div>
         ) : entries.length === 0 ? (
-          <div className="p-8 text-center text-slate-400 text-sm">No entries yet</div>
+          <div className="p-8 text-center text-slate-500 dark:text-slate-400 text-sm">No entries yet</div>
         ) : (
           <div className="divide-y divide-slate-100 dark:divide-slate-700/50">
             {entries.map((entry) => (
@@ -150,7 +150,7 @@ export default function Leaderboard() {
                 className={`flex items-center gap-4 px-4 py-3 ${entry.user_id === user?.id ? 'bg-brand-500/5' : ''}`}
               >
                 {/* Rank */}
-                <div className={`w-8 text-center font-mono font-bold ${TIER_COLORS[entry.rank] || 'text-slate-400'}`}>
+                <div className={`w-8 text-center font-mono font-bold ${TIER_COLORS[entry.rank] || 'text-slate-500 dark:text-slate-400'}`}>
                   {entry.rank <= 3 ? (
                     <span className="text-lg font-mono font-bold">
                       {entry.rank === 1 ? '1' : entry.rank === 2 ? '2' : '3'}
@@ -171,7 +171,7 @@ export default function Leaderboard() {
                     {entry.display_name || 'Anonymous'}
                     {entry.user_id === user?.id && <span className="ml-2 text-xs text-brand-500">(you)</span>}
                   </div>
-                  <div className="text-xs text-slate-400">Level {entry.level}</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400">Level {entry.level}</div>
                 </div>
 
                 {/* Stats */}

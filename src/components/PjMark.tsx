@@ -1,7 +1,7 @@
 import { useId } from 'react';
 
 /**
- * The "PJ" brand mark. Single source of truth — was duplicated inline
+ * The "PJ" brand mark. Single source of truth - was duplicated inline
  * three times (hero logo, hero avatar, footer). `useId` gives each
  * instance a unique gradient id so multiple marks on one page stay
  * valid SVG.

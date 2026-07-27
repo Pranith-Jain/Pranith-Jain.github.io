@@ -96,7 +96,7 @@ export default function SocRansomware(): JSX.Element {
     const groups = data?.groups ?? [];
     const top = groups[0];
     const topShare = data?.count && top ? Math.round((top.count / data.count) * 100) : 0;
-    // Top *named* sector — skip the "Unknown"/"Other" buckets so the headline
+    // Top *named* sector - skip the "Unknown"/"Other" buckets so the headline
     // reflects an actual targeted industry rather than the unclassified pile.
     const topSec = (data?.sectors ?? [])
       .filter((s) => s.count > 0 && s.sector && s.sector !== 'Unknown' && s.sector !== 'Other')
@@ -104,9 +104,9 @@ export default function SocRansomware(): JSX.Element {
     return {
       total: data?.count ?? 0,
       groups: groups.length,
-      topName: top?.group ?? '—',
-      topPct: top ? `${topShare}%` : '—',
-      topSector: topSec?.sector ?? '—',
+      topName: top?.group ?? '-',
+      topPct: top ? `${topShare}%` : '-',
+      topSector: topSec?.sector ?? '-',
       topSectorPct: topSec ? `${topSec.pct}%` : null,
     };
   }, [data]);
@@ -125,7 +125,7 @@ export default function SocRansomware(): JSX.Element {
   const status = useMemo<SocStatus>(() => {
     if (!data) return { label: 'Loading', severity: 'medium' };
     if (data.count === 0) return { label: 'Nominal', severity: 'ok' };
-    if (kpis.topPct !== '—' && parseInt(kpis.topPct, 10) >= 20)
+    if (kpis.topPct !== '-' && parseInt(kpis.topPct, 10) >= 20)
       return { label: 'Critical · active intrusions', severity: 'critical' };
     if (data.count > 50) return { label: 'High · active intrusions detected', severity: 'high' };
     if (data.count > 10) return { label: 'Elevated activity', severity: 'medium' };
@@ -227,7 +227,7 @@ export default function SocRansomware(): JSX.Element {
           Recent ransomware leak-site claims merged across{' '}
           <Link
             to="/threatintel/darkweb/ransom-activity"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             live trackers
           </Link>
@@ -237,7 +237,7 @@ export default function SocRansomware(): JSX.Element {
       }
       meta={
         <span>
-          source: <span className="uppercase">{data?.source ?? '—'}</span>
+          source: <span className="uppercase">{data?.source ?? '-'}</span>
           {data && data.victims.length > 0
             ? ` · ${data.victims.length} cross-claim record${data.victims.length === 1 ? '' : 's'}`
             : data
@@ -300,7 +300,7 @@ export default function SocRansomware(): JSX.Element {
             right={
               <Link
                 to="/threatintel/catalog?cat=actors"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
               >
                 all <ExternalLink size={10} />
               </Link>
@@ -381,7 +381,7 @@ export default function SocRansomware(): JSX.Element {
             <dl className="space-y-2 text-meta font-mono">
               <div className="flex items-baseline justify-between gap-2">
                 <dt className="text-slate-500 dark:text-slate-400">top country</dt>
-                <dd className="text-slate-700 dark:text-slate-300">{countrySlices[0]?.label ?? '—'}</dd>
+                <dd className="text-slate-700 dark:text-slate-300">{countrySlices[0]?.label ?? '-'}</dd>
               </div>
               <div className="flex items-baseline justify-between gap-2">
                 <dt className="text-slate-500 dark:text-slate-400">top group</dt>
@@ -404,7 +404,7 @@ export default function SocRansomware(): JSX.Element {
             right={
               <Link
                 to="/threatintel/darkweb/ransom-activity"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
               >
                 feed <ExternalLink size={10} />
               </Link>
@@ -450,15 +450,15 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
               <td className="px-2 py-1.5 text-slate-700 dark:text-slate-300">
                 <Link
                   to={`/threatintel/actors/${encodeURIComponent(slugifyGroup(v.group))}`}
-                  className="hover:text-brand-600 dark:hover:text-brand-400"
+                  className="hover:text-rose-600 dark:hover:text-rose-400"
                 >
                   {v.group}
                 </Link>
               </td>
-              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">{v.sector ?? '—'}</td>
-              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">{v.country ?? '—'}</td>
+              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">{v.sector ?? '-'}</td>
+              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">{v.country ?? '-'}</td>
               <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400 text-right tabular-nums">
-                {v.discovered ? v.discovered.slice(0, 10) : '—'}
+                {v.discovered ? v.discovered.slice(0, 10) : '-'}
               </td>
             </tr>
           ))}

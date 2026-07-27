@@ -5,7 +5,7 @@ import { timeAgo } from './utils';
 
 export type { SocSeverity } from './tone';
 
-/* ─── Page shell — brand-aligned header + controls ─────────────────── */
+/* ─── Page shell - brand-aligned header + controls ─────────────────── */
 
 interface WindowOption {
   days: number;
@@ -155,7 +155,7 @@ export function SocShell({
             {loading ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
             refresh
             {autoRefreshMs > 0 && !loading && (
-              <span className="text-slate-400 dark:text-slate-500">· {Math.ceil(nextRefreshIn / 1000)}s</span>
+              <span className="text-slate-500 dark:text-slate-400">· {Math.ceil(nextRefreshIn / 1000)}s</span>
             )}
           </button>
 
@@ -278,7 +278,7 @@ export function SocKpi({
   sub?: ReactNode;
   /** Inline delta chip (e.g. "+12 vs last 7d"). Direction picks the hue. */
   delta?: string;
-  /** '+' / '−' / '~' — 'up' rose, 'down' emerald, 'flat' slate. */
+  /** '+' / '−' / '~' - 'up' rose, 'down' emerald, 'flat' slate. */
   deltaDirection?: 'up' | 'down' | 'flat';
   icon?: ReactNode;
 }): JSX.Element {
@@ -294,7 +294,7 @@ export function SocKpi({
         <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
           {label}
         </span>
-        {icon && <span className="text-slate-400 dark:text-slate-500">{icon}</span>}
+        {icon && <span className="text-slate-500 dark:text-slate-400">{icon}</span>}
       </div>
       <div
         className={`font-mono font-extrabold leading-none tabular-nums text-3xl sm:text-4xl ${SEVERITY_TEXT[severity]}`}

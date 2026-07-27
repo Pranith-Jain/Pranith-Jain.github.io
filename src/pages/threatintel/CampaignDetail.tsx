@@ -75,7 +75,7 @@ function buildMarkdown(d: CampaignDoc, input: SavedCampaign['input'], model: str
   }
   if (d.mitre_techniques.length) {
     lines.push('## MITRE ATT&CK');
-    for (const m of d.mitre_techniques) lines.push(`- **${m.id} — ${m.name}** — ${m.rationale}`);
+    for (const m of d.mitre_techniques) lines.push(`- **${m.id} - ${m.name}** - ${m.rationale}`);
     lines.push('');
   }
   if (d.hunting_hypotheses.length) {
@@ -161,11 +161,11 @@ export default function CampaignDetail(): JSX.Element {
   if (deleted) {
     return (
       <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 sm:py-20 text-slate-900 dark:text-slate-100 text-center">
-        <Trash2 size={28} className="mx-auto text-slate-400 mb-2" />
+        <Trash2 size={28} className="mx-auto text-slate-500 dark:text-slate-400 mb-2" />
         <p className="text-sm font-mono text-slate-500 mb-3">Campaign deleted.</p>
         <Link
           to="/threatintel/catalog?cat=campaigns"
-          className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
+          className="text-sm font-mono text-rose-600 dark:text-rose-400 hover:underline"
         >
           ← back to campaigns
         </Link>
@@ -200,7 +200,7 @@ export default function CampaignDetail(): JSX.Element {
             <button
               type="button"
               onClick={() => void copyMarkdown()}
-              className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-mini font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/40"
+              className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-mini font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-500/40"
             >
               {copied ? (
                 <>
@@ -264,7 +264,7 @@ export default function CampaignDetail(): JSX.Element {
                     key={`${k.phase}-${i}`}
                     className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
                   >
-                    <div className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-0.5">
+                    <div className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-0.5">
                       {PHASE_LABELS[k.phase] ?? k.phase}
                     </div>
                     <div className="text-sm text-slate-700 dark:text-slate-300">{k.description}</div>
@@ -287,11 +287,11 @@ export default function CampaignDetail(): JSX.Element {
                       href={`https://attack.mitre.org/techniques/${m.id.replace('.', '/')}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono font-semibold text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                      className="font-mono font-semibold text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
                     >
                       {m.id} <ExternalLink size={9} />
                     </a>{' '}
-                    <span className="font-semibold text-slate-800 dark:text-slate-200">— {m.name}</span>
+                    <span className="font-semibold text-slate-800 dark:text-slate-200">- {m.name}</span>
                     <div className="text-mini font-mono text-slate-500 mt-0.5">{m.rationale}</div>
                   </li>
                 ))}
@@ -315,7 +315,7 @@ export default function CampaignDetail(): JSX.Element {
                     </span>
                     <Link
                       to={`/dfir/ioc-check?indicator=${encodeURIComponent(ioc)}`}
-                      className="text-micro text-brand-600 dark:text-brand-400 hover:underline shrink-0"
+                      className="text-micro text-rose-600 dark:text-rose-400 hover:underline shrink-0"
                     >
                       pivot →
                     </Link>

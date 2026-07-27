@@ -3,7 +3,7 @@ import { Sparkles, RefreshCw, Loader2 } from 'lucide-react';
 import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
 
 /**
- * <AiSummaryCard> — AI-generated operational summary for a feed surface.
+ * <AiSummaryCard> - AI-generated operational summary for a feed surface.
  *
  * Posts the visible items to /api/v1/ai-summary and renders the
  * analyst-grade summary. Cached per (surface, date) on the server so
@@ -59,12 +59,12 @@ export function AiSummaryCard({
   const date = dayKey ?? new Date().toISOString().slice(0, 10);
 
   // The default endpoint (/api/v1/ai-summary) is admin-gated, so a public
-  // visitor would only ever get a 401 — gate the UI on the token so the card
+  // visitor would only ever get a 401 - gate the UI on the token so the card
   // stays silent. The omnibox passes requireAdmin={false} to use its PUBLIC
   // same-origin endpoint, where the card renders for everyone.
   const allowed = requireAdmin ? readAdminToken() !== null : true;
 
-  // Inflight request — cancelled on unmount + before a new fetch, so a
+  // Inflight request - cancelled on unmount + before a new fetch, so a
   // fast double-click on "Generate" or a hot-reload doesn't leave a
   // pending POST in flight that could race a later one. Also bounds the
   // request with a 20s timeout so a stuck AI worker can't pin the card
@@ -142,7 +142,7 @@ export function AiSummaryCard({
 
   return (
     <div
-      // Wrapper sits on the page background in both themes — no panel,
+      // Wrapper sits on the page background in both themes - no panel,
       // no gradient, no chromatic cast. In light mode a 1px slate hairline
       // gives the header row an edge; in dark mode the card literally
       // becomes the page so the AI summary reads as content, not chrome.
@@ -161,7 +161,7 @@ export function AiSummaryCard({
         <div className="flex items-center gap-2">
           <Sparkles size={16} className="text-brand-600 dark:text-brand-400" />
           <span className="text-sm font-display font-bold text-slate-900 dark:text-slate-100">
-            AI Summary — {surface}
+            AI Summary - {surface}
           </span>
           {data && (
             <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-1">
@@ -182,7 +182,7 @@ export function AiSummaryCard({
               Generate
             </button>
           )}
-          <span className="text-micro text-slate-400">{expanded ? '▲' : '▼'}</span>
+          <span className="text-micro text-slate-500 dark:text-slate-400">{expanded ? '▲' : '▼'}</span>
         </div>
       </button>
 

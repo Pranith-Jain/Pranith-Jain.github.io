@@ -6,14 +6,14 @@
  * and the controls that typically break the chain.
  *
  * The chain itself is criticised for being too linear for modern intrusions
- * (ransomware, BEC, supply-chain) — it pairs well with the Diamond Model,
+ * (ransomware, BEC, supply-chain) - it pairs well with the Diamond Model,
  * which describes the *who* and *what* per intrusion event.
  */
 
 export interface KillChainTechnique {
   /** Short label shown on the matrix card. */
   label: string;
-  /** Optional MITRE ATT&CK ID — links into /threatintel/mitre. */
+  /** Optional MITRE ATT&CK ID - links into /threatintel/mitre. */
   attack?: string;
   /** One-sentence example. */
   example: string;
@@ -39,7 +39,7 @@ export const KILL_CHAIN: KillChainPhase[] = [
     name: 'Reconnaissance',
     short: 'Research, identify, select targets.',
     description:
-      'The attacker harvests information about the target — people, technology, infrastructure, partner networks, certificates, exposed services. Most of this is passive (OSINT) and indistinguishable from legitimate research.',
+      'The attacker harvests information about the target - people, technology, infrastructure, partner networks, certificates, exposed services. Most of this is passive (OSINT) and indistinguishable from legitimate research.',
     attackerGoal: 'Build a profile rich enough to pick the right initial-access vector.',
     defenderGoal: 'Reduce attack surface and detect targeted scanning that crosses into active recon.',
     techniques: [
@@ -81,7 +81,7 @@ export const KILL_CHAIN: KillChainPhase[] = [
     name: 'Weaponization',
     short: 'Couple a payload with a deliverable.',
     description:
-      'Attacker pairs an exploit / capability with a deliverable artifact — a maldoc, an HTML smuggling page, a malicious LNK, a poisoned package, an ISO. This phase is mostly invisible to the defender; it happens on attacker infrastructure.',
+      'Attacker pairs an exploit / capability with a deliverable artifact - a maldoc, an HTML smuggling page, a malicious LNK, a poisoned package, an ISO. This phase is mostly invisible to the defender; it happens on attacker infrastructure.',
     attackerGoal: 'Create an artifact that survives mail filters and EDR static checks.',
     defenderGoal: 'Make weaponized artifacts ineffective by hardening the runtime they target.',
     techniques: [
@@ -123,12 +123,12 @@ export const KILL_CHAIN: KillChainPhase[] = [
     name: 'Delivery',
     short: 'Transmit the weapon to the target.',
     description:
-      'The artifact crosses the perimeter — usually by email, less often by web download, removable media, supply-chain update, or trusted partner network. This is the first phase the defender can normally observe.',
+      'The artifact crosses the perimeter - usually by email, less often by web download, removable media, supply-chain update, or trusted partner network. This is the first phase the defender can normally observe.',
     attackerGoal: 'Place the artifact in front of a human or process that will execute it.',
     defenderGoal: 'Block at the boundary; if it reaches a user, give them the right cues to refuse it.',
     techniques: [
       {
-        label: 'Phishing — link or attachment',
+        label: 'Phishing - link or attachment',
         attack: 'T1566',
         example: 'BEC-style invoice swap, MFA fatigue link, OAuth consent phish.',
       },
@@ -145,11 +145,11 @@ export const KILL_CHAIN: KillChainPhase[] = [
       {
         label: 'External remote services',
         attack: 'T1133',
-        example: 'Citrix / VPN / RDP abuse — credentials sourced from infostealer logs.',
+        example: 'Citrix / VPN / RDP abuse - credentials sourced from infostealer logs.',
       },
     ],
     detection: [
-      'Mail-flow telemetry — DMARC alignment, header anomalies, look-alike sender.',
+      'Mail-flow telemetry - DMARC alignment, header anomalies, look-alike sender.',
       'Outbound DNS for newly registered domains in click-time.',
       'Endpoint download provenance + MOTW preservation.',
     ],
@@ -165,7 +165,7 @@ export const KILL_CHAIN: KillChainPhase[] = [
     name: 'Exploitation',
     short: 'Trigger the weapon to run code on the target.',
     description:
-      'A vulnerability — software CVE, configuration weakness, or human decision — is triggered. The artifact transitions from "data" to "running code" inside the victim environment.',
+      'A vulnerability - software CVE, configuration weakness, or human decision - is triggered. The artifact transitions from "data" to "running code" inside the victim environment.',
     attackerGoal: 'Achieve code execution with the privileges of the entry point.',
     defenderGoal: 'Detect the moment-of-execution; minimise blast radius via sandboxing.',
     techniques: [
@@ -193,7 +193,7 @@ export const KILL_CHAIN: KillChainPhase[] = [
     detection: [
       'EDR process-tree anomalies (Office spawning cmd / wscript).',
       'Web-server processes spawning shells.',
-      'OAuth grant logs — unusual app, unusual scopes.',
+      'OAuth grant logs - unusual app, unusual scopes.',
     ],
     controls: [
       'Patching with KEV / EPSS prioritisation.',
@@ -289,9 +289,9 @@ export const KILL_CHAIN: KillChainPhase[] = [
     id: 'actions',
     number: 7,
     name: 'Actions on Objectives',
-    short: 'Achieve the goal — exfil, ransom, sabotage, fraud.',
+    short: 'Achieve the goal - exfil, ransom, sabotage, fraud.',
     description:
-      'The attacker pursues the actual mission — data theft, ransomware deployment, fraudulent wire transfers, sabotage, or staging for the next victim. Detection here is too late but containment still matters.',
+      'The attacker pursues the actual mission - data theft, ransomware deployment, fraudulent wire transfers, sabotage, or staging for the next victim. Detection here is too late but containment still matters.',
     attackerGoal: 'Realise the mission with the lowest chance of being stopped mid-flight.',
     defenderGoal: 'Detect mass-staging / encryption / exfil bursts; rapid isolation.',
     techniques: [

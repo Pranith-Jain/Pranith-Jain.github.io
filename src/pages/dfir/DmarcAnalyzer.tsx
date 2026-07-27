@@ -88,10 +88,10 @@ function parseDmarcXml(xml: string): DmarcReport {
   const records = doc.getElementsByTagName('record');
 
   if (!metadata)
-    throw new Error('Could not find <report_metadata> in XML — invalid or unsupported DMARC report format.');
+    throw new Error('Could not find <report_metadata> in XML - invalid or unsupported DMARC report format.');
   if (!policy)
-    throw new Error('Could not find <policy_published> in XML — invalid or unsupported DMARC report format.');
-  if (records.length === 0) throw new Error('No <record> elements found in XML — report may be empty.');
+    throw new Error('Could not find <policy_published> in XML - invalid or unsupported DMARC report format.');
+  if (records.length === 0) throw new Error('No <record> elements found in XML - report may be empty.');
 
   const ipMap = new Map<string, DmarcRecord>();
   for (let i = 0; i < records.length; i++) {
@@ -309,7 +309,7 @@ export default function DmarcAnalyzer(): JSX.Element {
       backTo="/dfir"
       icon={<Shield size={28} />}
       title="DMARC RUA Analyzer"
-      description="Parse & analyze your DMARC aggregate (RUA) XML reports — XML parsed in-browser, IPs enriched via real-time WHOIS/GeoIP."
+      description="Parse & analyze your DMARC aggregate (RUA) XML reports - XML parsed in-browser, IPs enriched via real-time WHOIS/GeoIP."
       headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Inspired by{' '}
@@ -371,7 +371,7 @@ export default function DmarcAnalyzer(): JSX.Element {
         <Upload size={36} className="mx-auto mb-3 text-slate-400 dark:text-slate-400" />
         <p className="text-sm font-mono text-muted mb-1">Drag &amp; drop your DMARC XML report here</p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-          or click to browse — .xml, .gz, .zip up to 25 MB
+          or click to browse - .xml, .gz, .zip up to 25 MB
         </p>
       </div>
 
@@ -420,7 +420,7 @@ export default function DmarcAnalyzer(): JSX.Element {
               <div className="rounded-xl bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">Report Period</p>
                 <p className="text-sm font-bold">
-                  {report.beginDate} — {report.endDate}
+                  {report.beginDate} - {report.endDate}
                 </p>
               </div>
             </div>
@@ -534,22 +534,22 @@ export default function DmarcAnalyzer(): JSX.Element {
                         <td className="px-4 py-3 text-xs max-w-[200px] truncate" title={r.enrichment?.org}>
                           {r.enrichment?.org ? (
                             <span className="inline-flex items-center gap-1.5">
-                              <Building2 size={12} className="text-slate-400 shrink-0" />
+                              <Building2 size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
                               {r.enrichment.org}
                             </span>
                           ) : (
-                            <span className="text-slate-500">—</span>
+                            <span className="text-slate-500">-</span>
                           )}
                         </td>
                         <td className="px-4 py-3 text-xs">
                           {r.enrichment?.country ? (
                             <span className="inline-flex items-center gap-1.5">
-                              <Globe size={12} className="text-slate-400 shrink-0" />
+                              <Globe size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
                               {r.enrichment.country}
                               {r.enrichment.country_code && ` (${r.enrichment.country_code})`}
                             </span>
                           ) : (
-                            <span className="text-slate-500">—</span>
+                            <span className="text-slate-500">-</span>
                           )}
                         </td>
                         <td className="px-4 py-3 text-right text-xs">{r.count.toLocaleString()}</td>
@@ -603,7 +603,7 @@ export default function DmarcAnalyzer(): JSX.Element {
               <Link to="/dfir/ip-geo" className="text-brand-600 dark:text-brand-400 hover:underline">
                 IP Geo
               </Link>{' '}
-              tool — no file content is uploaded. Results are ephemeral and disappear on page refresh.
+              tool - no file content is uploaded. Results are ephemeral and disappear on page refresh.
             </p>
           </div>
         </div>

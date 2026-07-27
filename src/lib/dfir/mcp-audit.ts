@@ -293,7 +293,7 @@ export function auditMcpConfig(raw: unknown): Finding[] {
       title: 'No issues found',
       severity: 'info',
       scope: '$',
-      detail: `${Object.keys(servers).length} server(s) checked. No heuristic findings — that's not a guarantee of safety, just absence of known bad signals.`,
+      detail: `${Object.keys(servers).length} server(s) checked. No heuristic findings - that's not a guarantee of safety, just absence of known bad signals.`,
       remediation: 'Continue to pin upstream versions and review tool descriptions on every update.',
     });
   }
@@ -367,7 +367,7 @@ const DANGEROUS_BASH_HEADS = [
 ];
 
 function checkPermissionRule(rule: string, kind: 'allow' | 'deny' | 'ask', out: Finding[]): void {
-  // Bash(*) — full shell access
+  // Bash(*) - full shell access
   if (rule === 'Bash(*)' || rule === 'Bash' || rule === '*') {
     pushIfNew(out, {
       id: 'permission-blank-cheque',
@@ -393,7 +393,7 @@ function checkPermissionRule(rule: string, kind: 'allow' | 'deny' | 'ask', out: 
         title: `Dangerous allow rule: Bash(${head}:*)`,
         severity: head === 'rm' || head === 'curl' || head === 'wget' || head === 'sudo' ? 'critical' : 'high',
         scope: `permissions.allow`,
-        detail: `Allow rule "${rule}" auto-approves "${head}" with any args. ${head === 'curl' || head === 'wget' ? 'Trivially exfiltrates files or pulls payloads from C2.' : head === 'rm' ? 'Wipes anything the model thinks needs cleaning up.' : 'Broad-permission shell primitive — moves it from "ask" to silent execution.'}`,
+        detail: `Allow rule "${rule}" auto-approves "${head}" with any args. ${head === 'curl' || head === 'wget' ? 'Trivially exfiltrates files or pulls payloads from C2.' : head === 'rm' ? 'Wipes anything the model thinks needs cleaning up.' : 'Broad-permission shell primitive - moves it from "ask" to silent execution.'}`,
         remediation: `Tighten the rule (e.g. Bash(${head} ./safe/path) or move it back to "ask"). Don't auto-approve destructive or network primitives.`,
       });
     }
@@ -414,13 +414,13 @@ function checkPermissionRule(rule: string, kind: 'allow' | 'deny' | 'ask', out: 
         title: `Sensitive read allow: Read(${target})`,
         severity: 'high',
         scope: `permissions.allow`,
-        detail: `Auto-approving reads on "${target}" lets the model surface secrets, SSH keys, AWS creds, or tokens — which a prompt-injection then exfiltrates.`,
+        detail: `Auto-approving reads on "${target}" lets the model surface secrets, SSH keys, AWS creds, or tokens - which a prompt-injection then exfiltrates.`,
         remediation: 'Scope reads to the project tree. Keep secret-bearing paths in "ask" or "deny".',
       });
     }
   }
 
-  // WebFetch(*) etc. — broad network egress
+  // WebFetch(*) etc. - broad network egress
   if (/^WebFetch(\(\*?\))?$/i.test(rule) && kind === 'allow') {
     pushIfNew(out, {
       id: 'permission-broad-webfetch',
@@ -451,7 +451,7 @@ function checkHookEntry(
       title: 'Hook downloads and executes code',
       severity: 'critical',
       scope,
-      detail: `Hook command "${cmd.slice(0, 80)}..." pipes a network download into a shell. The hook fires automatically — there's no user prompt — so this is silent RCE.`,
+      detail: `Hook command "${cmd.slice(0, 80)}..." pipes a network download into a shell. The hook fires automatically - there's no user prompt - so this is silent RCE.`,
       remediation: 'Install hook scripts out-of-band, then point command at the resolved local path.',
     });
   }
@@ -462,7 +462,7 @@ function checkHookEntry(
       title: 'Hook command is a remote URL',
       severity: 'critical',
       scope,
-      detail: `Hook command begins with "${cmd.slice(0, 60)}..." — every fired hook becomes a remote-code-execution gadget if the host is compromised.`,
+      detail: `Hook command begins with "${cmd.slice(0, 60)}..." - every fired hook becomes a remote-code-execution gadget if the host is compromised.`,
       remediation: 'Hooks should run vetted local scripts only.',
     });
   }
@@ -473,7 +473,7 @@ function checkHookEntry(
       title: 'Hook contains destructive command',
       severity: 'critical',
       scope,
-      detail: `Hook would run "${cmd}" — destructive on every trigger.`,
+      detail: `Hook would run "${cmd}" - destructive on every trigger.`,
       remediation: 'Remove the destructive op or scope it to a known temp path.',
     });
   }
@@ -486,7 +486,7 @@ function checkHookEntry(
       scope,
       detail:
         'A token, key, or PAT is embedded directly in the hook command. Anyone with read access to settings.json gets the credential.',
-      remediation: 'Read secrets from env/keychain inside the hook script — never inline them in settings.',
+      remediation: 'Read secrets from env/keychain inside the hook script - never inline them in settings.',
     });
   }
 
@@ -658,7 +658,7 @@ export function auditClaudeCodeSettings(raw: unknown): Finding[] {
       severity: 'info',
       scope: '$',
       detail:
-        'No heuristic findings. Heuristics only — keep deny rules tight, vet hook scripts, and pin MCP server versions.',
+        'No heuristic findings. Heuristics only - keep deny rules tight, vet hook scripts, and pin MCP server versions.',
       remediation: 'Re-run after every settings change.',
     });
   }

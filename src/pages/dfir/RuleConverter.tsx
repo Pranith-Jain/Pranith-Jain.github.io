@@ -70,7 +70,7 @@ Image="*\\\\rundll32.exe" CommandLine="*javascript:*"
     patterns:
       - pattern-regex: "DownloadString"
       - pattern-regex: "FromBase64String"`,
-  // Target-only formats — these samples are only shown when the user
+  // Target-only formats - these samples are only shown when the user
   // round-trips a rule INTO this format. The converter rejects them as
   // source inputs because we don't have parsers yet.
   snort: `alert tcp any any -> $HOME_NET any (msg:"PowerShell DownloadString"; content:"DownloadString"; nocase; content:"FromBase64String"; nocase; classtype:trojan-activity; sid:1000001; rev:1;)`,
@@ -91,7 +91,7 @@ function CopyBtn({ text }: { text: string }) {
         setDone(true);
         setTimeout(() => setDone(false), 1200);
       }}
-      className="inline-flex items-center gap-1 text-mini font-mono text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+      className="inline-flex items-center gap-1 text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
     >
       {done ? <Check size={12} /> : <Copy size={12} />} {done ? 'copied' : 'copy'}
     </button>
@@ -128,7 +128,7 @@ export default function RuleConverter(): JSX.Element {
     return convertBatch(input, from, to, options ?? {});
   }, [batchMode, input, from, to, options]);
 
-  /** Parsed IR for the inspector panel — independent of the emit step so an
+  /** Parsed IR for the inspector panel - independent of the emit step so an
    *  emit failure doesn't hide what was parsed. */
   const ir: RuleIR | { error: string } | null = useMemo(() => {
     if (!input.trim()) return null;
@@ -158,7 +158,7 @@ export default function RuleConverter(): JSX.Element {
           <Shuffle size={28} className="text-brand-600 dark:text-brand-400" /> Rule Converter
         </h1>
         <p className="text-muted mb-3 max-w-3xl leading-relaxed">
-          Universal detection-rule translation — entirely in your browser. <strong>Any</strong> format converts to{' '}
+          Universal detection-rule translation - entirely in your browser. <strong>Any</strong> format converts to{' '}
           <strong>any</strong> other: Sigma, Microsoft KQL, Splunk SPL, Elastic Lucene & EQL, YARA, DLP regex, and a
           supply-chain Semgrep scaffold. Everything funnels through one intermediate representation.
         </p>
@@ -166,14 +166,14 @@ export default function RuleConverter(): JSX.Element {
           <AlertTriangle size={13} className="mt-0.5 flex-shrink-0" />
           Heuristic, not pySigma. Field-map presets handle the canonical Sysmon → Defender / ECS / CIM rewrites. Parsing
           non-Sigma languages back to the IR recovers only flat <code>field op &quot;value&quot;</code> predicates;
-          YARA/DLP/supply-chain carry no field semantics. Every lossy step is flagged below — validate before
+          YARA/DLP/supply-chain carry no field semantics. Every lossy step is flagged below - validate before
           operational use.
         </p>
       </div>
 
       <ToolDocs path="/dfir/rule-converter" />
 
-      {/* Format + field-map controls — first row picks source/target/swap;
+      {/* Format + field-map controls - first row picks source/target/swap;
           second row picks the field-mapping preset (only meaningful when
           source = Sigma; pass-through for everything else). */}
       <div className="flex flex-wrap items-center gap-3 mb-3">
@@ -193,7 +193,7 @@ export default function RuleConverter(): JSX.Element {
             </option>
           ))}
         </select>
-        <ArrowRight size={16} className="text-slate-400" aria-hidden="true" />
+        <ArrowRight size={16} className="text-slate-500 dark:text-slate-400" aria-hidden="true" />
         <label htmlFor="rc-to" className="sr-only">
           Target format
         </label>
@@ -241,7 +241,7 @@ export default function RuleConverter(): JSX.Element {
           ))}
         </select>
         {chosenMap && fieldMapId !== 'passthrough' && (
-          <span className="text-mini font-mono text-slate-400" title={chosenMap.description}>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400" title={chosenMap.description}>
             ~{Object.keys(chosenMap.mappings).length} field rewrites
           </span>
         )}
@@ -292,12 +292,12 @@ export default function RuleConverter(): JSX.Element {
         )}
       </div>
 
-      {/* Starter library picker — Sigma rules grouped by tactic. Click loads
+      {/* Starter library picker - Sigma rules grouped by tactic. Click loads
           into the source editor and switches `from` to sigma. */}
       {showStarters && (
         <section className="rounded-xl border border-brand-500/30 bg-brand-50/30 dark:bg-brand-900/15 p-4 mb-4">
           <p className="text-mini font-mono text-muted mb-3">
-            Canonical Sigma rules with Sysmon / Windows-Security field names — the converter's most common source.
+            Canonical Sigma rules with Sysmon / Windows-Security field names - the converter's most common source.
             Switches the source format to Sigma when loaded.
           </p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -320,7 +320,7 @@ export default function RuleConverter(): JSX.Element {
                         <div className="text-meta font-medium text-slate-900 dark:text-slate-100 leading-tight">
                           {s.label}
                         </div>
-                        <div className="text-micro font-mono text-slate-400 mt-0.5 truncate">{s.description}</div>
+                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5 truncate">{s.description}</div>
                       </button>
                     </li>
                   ))}
@@ -357,7 +357,7 @@ export default function RuleConverter(): JSX.Element {
             <h3 className="font-display font-semibold text-sm">
               {FORMAT_LABELS[to]}
               {batchMode && batchResult && batchResult.length > 0 && (
-                <span className="ml-2 text-micro font-mono text-slate-400 uppercase tracking-wider">
+                <span className="ml-2 text-micro font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   batch · {batchResult.filter((b) => b.ok).length}/{batchResult.length}
                 </span>
               )}
@@ -392,7 +392,7 @@ export default function RuleConverter(): JSX.Element {
                             : 'text-mini font-mono text-rose-600 dark:text-rose-400'
                         }
                       >
-                        {b.ok ? '✓' : '✗'} {b.title ?? `rule-${b.index}`}
+                        {b.ok ? 'ok' : 'fail'} {b.title ?? `rule-${b.index}`}
                       </span>
                       {b.ok && b.output && <CopyBtn text={b.output} />}
                     </div>
@@ -415,7 +415,7 @@ export default function RuleConverter(): JSX.Element {
         </section>
       </div>
 
-      {/* Warnings — combined across single + batch modes. */}
+      {/* Warnings - combined across single + batch modes. */}
       {(() => {
         const warnings = batchMode
           ? Array.from(new Set(batchResult?.flatMap((b) => b.warnings) ?? []))
@@ -437,7 +437,7 @@ export default function RuleConverter(): JSX.Element {
         );
       })()}
 
-      {/* IR inspector — the structured intermediate the parser extracted.
+      {/* IR inspector - the structured intermediate the parser extracted.
           Powers test-driven debugging: if a conversion isn't producing
           what you expect, the IR shows exactly what the parser saw. */}
       {input.trim() && !batchMode && (
@@ -484,12 +484,12 @@ export default function RuleConverter(): JSX.Element {
         <ul className="space-y-1.5 text-sm font-mono text-muted">
           <li>
             <Link to="/dfir/rule-converter" className="text-brand-600 dark:text-brand-400 hover:underline">
-              Detection Lab — write and test IOC-based detection rules against live feeds
+              Detection Lab - write and test IOC-based detection rules against live feeds
             </Link>
           </li>
           <li>
             <Link to="/dfir/yara-workbench" className="text-brand-600 dark:text-brand-400 hover:underline">
-              YARA / Sigma Playground — test a rule against a sample
+              YARA / Sigma Playground - test a rule against a sample
             </Link>
           </li>
           <li>
@@ -497,11 +497,11 @@ export default function RuleConverter(): JSX.Element {
               to="/threatintel/detections/detections"
               className="text-brand-600 dark:text-brand-400 hover:underline"
             >
-              Detections — the live rule engine on this site
+              Detections - the live rule engine on this site
             </Link>
           </li>
         </ul>
-        <p className="mt-3 text-mini font-mono text-slate-400 leading-relaxed">
+        <p className="mt-3 text-mini font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
           {CONVERTER_STARTERS.length} starters · {FIELD_MAPS.length - 1} field-map presets · multi-doc Sigma batch · IR
           inspector for debugging lossy parses.
         </p>

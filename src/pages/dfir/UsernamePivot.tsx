@@ -78,7 +78,7 @@ export default function UsernamePivot(): JSX.Element {
     }));
     setRows(initial);
 
-    // Run active checks in parallel — capped concurrency via Promise.all over groups of 4.
+    // Run active checks in parallel - capped concurrency via Promise.all over groups of 4.
     const active = SERVICES.filter((s) => s.mode === 'active');
     const concurrency = 4;
     for (let i = 0; i < active.length; i += concurrency) {
@@ -139,7 +139,7 @@ export default function UsernamePivot(): JSX.Element {
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Inspired by Sherlock. Designed for IR / threat-actor pivoting and brand-monitoring; "exists" doesn't always
-          mean the same person — confirm via cross-correlation (display name, profile photo, post timing).
+          mean the same person - confirm via cross-correlation (display name, profile photo, post timing).
         </p>
       </div>
 
@@ -152,7 +152,7 @@ export default function UsernamePivot(): JSX.Element {
           className="flex flex-wrap gap-2"
         >
           <div className="relative flex-1 min-w-[220px]">
-            <AtSign size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <AtSign size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
             <input
               type="text"
               value={username}
@@ -273,7 +273,7 @@ export default function UsernamePivot(): JSX.Element {
         </h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
           <li>
-            "exists" is a structural signal, not identity — a hit on the same handle across 5 sites is a much stronger
+            "exists" is a structural signal, not identity - a hit on the same handle across 5 sites is a much stronger
             pivot than a hit on 1.
           </li>
           <li>
@@ -281,7 +281,7 @@ export default function UsernamePivot(): JSX.Element {
             return as <code>rate-limited</code> rather than a real result.
           </li>
           <li>
-            Manual entries open the deep-link in a new tab — the user's browser carries cookies, so a logged-in session
+            Manual entries open the deep-link in a new tab - the user's browser carries cookies, so a logged-in session
             can see content this tool can't from the API.
           </li>
           <li>

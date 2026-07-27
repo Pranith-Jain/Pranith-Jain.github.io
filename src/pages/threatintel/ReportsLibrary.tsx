@@ -125,7 +125,7 @@ export default function ReportsLibrary(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
           </button>
@@ -143,12 +143,12 @@ export default function ReportsLibrary(): JSX.Element {
           <section className="surface-card p-4 mb-4">
             <div className="flex flex-col gap-3">
               <div className="relative flex-1">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Search ${data.count} reports\u2026`}
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex flex-wrap items-center gap-3">
@@ -158,7 +158,7 @@ export default function ReportsLibrary(): JSX.Element {
                     onClick={() => setActiveCategory(null)}
                     className={`text-xs font-mono px-2.5 py-1 rounded-xl border transition-colors ${
                       !activeCategory
-                        ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                        ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
                         : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-[rgb(var(--border-400))]'
                     }`}
                   >
@@ -171,7 +171,7 @@ export default function ReportsLibrary(): JSX.Element {
                       onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
                       className={`text-xs font-mono px-2.5 py-1 rounded-xl border transition-colors ${
                         activeCategory === cat
-                          ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                          ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
                           : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-[rgb(var(--border-400))]'
                       }`}
                     >
@@ -184,12 +184,12 @@ export default function ReportsLibrary(): JSX.Element {
                     value={yearFilter}
                     onChange={(e) => setYearFilter(e.target.value)}
                     placeholder="Year"
-                    className="w-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+                    className="w-20 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
                   />
                   <select
                     value={publisherFilter}
                     onChange={(e) => setPublisherFilter(e.target.value)}
-                    className="w-36 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
+                    className="w-36 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-rose-500/60 focus:outline-none"
                   >
                     <option value="">All publishers</option>
                     {publishers.map((p) => (
@@ -245,7 +245,7 @@ function ReportCard({ report }: { report: ReportEntry }) {
       href={report.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block surface-card p-4 hover:border-brand-500/40 hover:shadow-e2 transition-all"
+      className="group block surface-card p-4 hover:border-rose-500/40 hover:shadow-e2 transition-all"
     >
       <div className="flex flex-wrap items-center gap-2 mb-2">
         <span className="text-micro font-mono font-semibold px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 uppercase tracking-wider">
@@ -256,14 +256,14 @@ function ReportCard({ report }: { report: ReportEntry }) {
         </span>
       </div>
 
-      <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+      <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
         {report.title}
       </h3>
 
       <p className="text-xs text-muted leading-relaxed mb-3 line-clamp-2">{report.description}</p>
 
       <div className="flex items-center justify-between">
-        <span className="inline-flex items-center gap-1 text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300">
+        <span className="inline-flex items-center gap-1 text-micro font-mono px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-700 dark:text-rose-300">
           {report.publisher}
           <ExternalLink className="h-2.5 w-2.5" />
         </span>

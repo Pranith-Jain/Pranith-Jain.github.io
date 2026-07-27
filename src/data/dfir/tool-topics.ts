@@ -7,7 +7,7 @@
  * Each entry can include a `prefill` field for query-string preset that
  * the destination tool reads (e.g. /dfir/cve?q= for the search box).
  *
- * Add new entries as wiki articles grow — keep this list curated; we
+ * Add new entries as wiki articles grow - keep this list curated; we
  * don't want every common word turning into a link.
  */
 
@@ -33,7 +33,7 @@ export const TOOL_TOPICS: ToolTopic[] = [
   {
     term: 'CVE',
     href: '/threatintel/cve-resources',
-    blurb: 'Curated CVE resources catalog — databases, exploits, PSIRTs, scoring, feeds',
+    blurb: 'Curated CVE resources catalog - databases, exploits, PSIRTs, scoring, feeds',
   },
   {
     term: 'PSIRT',
@@ -55,12 +55,12 @@ export const TOOL_TOPICS: ToolTopic[] = [
   { term: 'SPF', href: '/dfir/domain', blurb: 'Check SPF, DKIM, DMARC, MX, and TXT for any domain' },
   { term: 'DKIM', href: '/dfir/domain', blurb: 'Check SPF, DKIM, DMARC, MX, and TXT for any domain' },
   { term: 'DMARC', href: '/dfir/domain', blurb: 'Check SPF, DKIM, DMARC, MX, and TXT for any domain' },
-  { term: 'DMARC report', href: '/dfir/dmarc-analyzer', blurb: 'Parse DMARC RUA XML reports — in-browser, no upload' },
+  { term: 'DMARC report', href: '/dfir/dmarc-analyzer', blurb: 'Parse DMARC RUA XML reports - in-browser, no upload' },
   { term: 'RUA', href: '/dfir/dmarc-analyzer', blurb: 'Parse DMARC aggregate XML reports in your browser' },
   {
     term: 'DMARC aggregate',
     href: '/dfir/dmarc-analyzer',
-    blurb: 'Parse DMARC RUA XML reports — in-browser, no upload',
+    blurb: 'Parse DMARC RUA XML reports - in-browser, no upload',
   },
   { term: 'BIMI', href: '/dfir/domain', blurb: 'Check email-auth records for any domain' },
 
@@ -101,7 +101,7 @@ export const TOOL_TOPICS: ToolTopic[] = [
   {
     term: 'lite 0x12',
     href: '/dfir/sample-scan',
-    blurb: 'Free alternative to 0x12darksandbox — hash fan-out + public sandbox links',
+    blurb: 'Free alternative to 0x12darksandbox - hash fan-out + public sandbox links',
   },
   {
     term: 'sandbox',

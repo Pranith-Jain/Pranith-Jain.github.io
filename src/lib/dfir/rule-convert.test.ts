@@ -14,7 +14,7 @@ detection:
   condition: selection
 level: high`;
 
-describe('convertRule — Sigma source', () => {
+describe('convertRule - Sigma source', () => {
   it('Sigma → KQL produces field operators', () => {
     const r = convertRule(SIGMA, 'sigma', 'kql');
     expect(r.ok).toBe(true);
@@ -77,7 +77,7 @@ describe('convertRule — Sigma source', () => {
   });
 });
 
-describe('convertRule — heuristic reverse parsers', () => {
+describe('convertRule - heuristic reverse parsers', () => {
   it('KQL → Sigma recovers predicates', () => {
     const kql = 'SecurityEvent | where Image endswith "powershell.exe" and CommandLine contains "FromBase64String"';
     const r = convertRule(kql, 'kql', 'sigma');
@@ -98,7 +98,7 @@ describe('convertRule — heuristic reverse parsers', () => {
   });
 
   it('errors clearly on unparseable input', () => {
-    // An operator-only input (no field, no value) — neither the strict
+    // An operator-only input (no field, no value) - neither the strict
     // parser nor the heuristic can recover a predicate. We expect a clean
     // error rather than a silently-mis-shapen rule.
     const r = convertRule('where == and', 'kql', 'sigma');
@@ -109,7 +109,7 @@ describe('convertRule — heuristic reverse parsers', () => {
     // As of 2026-06-22 the strict KQL parser DOES consume `!=` and emits
     // a warning that the negation is flattened to a positive form. The IR
     // still has no native negation, so the underlying behavior (warn about
-    // it) is preserved — we just don't pretend to drop the predicate.
+    // it) is preserved - we just don't pretend to drop the predicate.
     const r = convertRule('Events | where Image == "a.exe" and User != "SYSTEM"', 'kql', 'sigma');
     expect(r.ok).toBe(true);
     if (!r.ok) return;
@@ -126,7 +126,7 @@ describe('convertRule — heuristic reverse parsers', () => {
   });
 });
 
-describe('convertRule — universal sources', () => {
+describe('convertRule - universal sources', () => {
   it('Lucene → Sigma recovers wildcard predicates', () => {
     const r = convertRule('Image:*\\\\powershell.exe AND CommandLine:*Base64*', 'lucene', 'sigma');
     expect(r.ok).toBe(true);

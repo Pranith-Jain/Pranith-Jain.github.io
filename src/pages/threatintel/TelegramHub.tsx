@@ -76,7 +76,7 @@ interface HubKpis {
 /* ------------------------------------------------------------------ */
 
 function formatNum(n: number | null): string {
-  if (n === null) return '—';
+  if (n === null) return '-';
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
   return String(n);
@@ -118,7 +118,7 @@ const HUB_CARDS: HubCard[] = [
     icon: <Radio size={20} />,
     title: 'Telegram Monitor',
     blurb:
-      '7-tab live workspace — firehose, leak feed, channel search, statistics, channel discovery, linked actors, settings.',
+      '7-tab live workspace - firehose, leak feed, channel search, statistics, channel discovery, linked actors, settings.',
     badge: 'live',
     accent: 'border-sky-500/40 hover:border-sky-500/70 text-sky-700 dark:text-sky-300',
   },
@@ -206,7 +206,7 @@ export default function TelegramHub(): JSX.Element {
     };
   }, [stats]);
 
-  /* Unified search — runs both endpoints in parallel */
+  /* Unified search - runs both endpoints in parallel */
   const searchRef = useRef<AbortController | null>(null);
   async function runSearch(query: string) {
     searchRef.current?.abort();
@@ -250,7 +250,7 @@ export default function TelegramHub(): JSX.Element {
       backTo="/threatintel"
       icon={<MessageSquare size={28} />}
       title="Telegram Intelligence Hub"
-      description="Unified Telegram CTI workspace — channel discovery, leak monitoring, IOC pipeline, and a free cross-source search across monitored channels and tgstat.com."
+      description="Unified Telegram CTI workspace - channel discovery, leak monitoring, IOC pipeline, and a free cross-source search across monitored channels and tgstat.com."
     >
       {/* Hero search */}
       <section className="mb-6 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-gradient-to-br from-slate-50 to-white dark:from-slate-900/50 dark:to-slate-900/20 p-5">
@@ -262,13 +262,13 @@ export default function TelegramHub(): JSX.Element {
         </div>
         <form onSubmit={onSubmit} className="flex gap-2">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 pointer-events-none" />
             <input
               type="search"
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search channels (e.g. conti leaks) or leak text (e.g. cve-2026-10520)"
-              className="w-full pl-9 pr-3 py-2.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full pl-9 pr-3 py-2.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-rose-500"
               aria-label="Search Telegram channels and leak text"
               maxLength={120}
             />
@@ -276,7 +276,7 @@ export default function TelegramHub(): JSX.Element {
           <button
             type="submit"
             disabled={searchLoading || !q.trim()}
-            className="inline-flex items-center gap-2 rounded bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-mono text-sm font-semibold px-4 py-2.5 transition-colors"
+            className="inline-flex items-center gap-2 rounded bg-rose-600 hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-mono text-sm font-semibold px-4 py-2.5 transition-colors"
           >
             {searchLoading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             Search
@@ -292,7 +292,7 @@ export default function TelegramHub(): JSX.Element {
       {hasSearched && (
         <section className="mb-8">
           <h2 className="font-mono text-sm uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-3">
-            Results for <span className="text-brand-600 dark:text-brand-400">“{submittedQ}”</span>
+            Results for <span className="text-rose-600 dark:text-rose-400">“{submittedQ}”</span>
           </h2>
           <DataState
             loading={searchLoading}
@@ -322,13 +322,13 @@ export default function TelegramHub(): JSX.Element {
                             href={sanitizeUrl(c.tgstat_url) ?? '#'}
                             target="_blank"
                             rel="noreferrer"
-                            className="font-mono text-sm font-semibold text-brand-700 dark:text-brand-300 hover:underline flex items-center gap-1"
+                            className="font-mono text-sm font-semibold text-rose-700 dark:text-rose-300 hover:underline flex items-center gap-1"
                           >
                             @{c.handle}
                             <ExternalLink size={11} />
                           </a>
                           <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
-                            {formatSubs(c.subscribers)} subs · {c.posts_per_day ?? '—'} posts/day
+                            {formatSubs(c.subscribers)} subs · {c.posts_per_day ?? '-'} posts/day
                           </span>
                         </div>
                         <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
@@ -364,7 +364,7 @@ export default function TelegramHub(): JSX.Element {
                         <div className="flex items-center justify-between gap-2 mb-1">
                           <Link
                             to={`/threatintel/telegram-monitor?tab=leaks&channel=${encodeURIComponent(l.channel_handle)}`}
-                            className="font-mono text-sm font-semibold text-brand-700 dark:text-brand-300 hover:underline"
+                            className="font-mono text-sm font-semibold text-rose-700 dark:text-rose-300 hover:underline"
                           >
                             @{l.channel_handle}
                           </Link>
@@ -377,7 +377,7 @@ export default function TelegramHub(): JSX.Element {
                           </span>
                         </div>
                         <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
-                          {(l.message_text ?? '').slice(0, 220) || '—'}
+                          {(l.message_text ?? '').slice(0, 220) || '-'}
                         </p>
                         <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-1">
                           {l.discovered_at} · {l.leak_type}
@@ -449,7 +449,7 @@ export default function TelegramHub(): JSX.Element {
                   {card.title}
                 </span>
                 {card.badge && (
-                  <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-brand-600 dark:bg-brand-500 text-white">
+                  <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-rose-600 dark:bg-rose-500 text-white">
                     {card.badge}
                   </span>
                 )}

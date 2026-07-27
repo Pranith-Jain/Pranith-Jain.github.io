@@ -33,7 +33,7 @@ interface CveRecentResponse {
   cves: RecentCve[];
 }
 
-/* ─── Severity palette (canonical — mirrors tailwind.config severity tokens) ── */
+/* ─── Severity palette (canonical - mirrors tailwind.config severity tokens) ── */
 
 const SEV_COLOR: Record<Severity, string | undefined> = {
   CRITICAL: CHART_SEV.CRITICAL,
@@ -302,7 +302,7 @@ export default function SocVulns(): JSX.Element {
         <span>
           NVD + CISA KEV + MyThreatIntel + cvefeed.io merged for the chosen window. Critical and high counts derived
           from CVSS; KEV tracks the all-time known-exploited corpus. Drill into the vendor list or jump to the{' '}
-          <Link to="/threatintel/cves/cves" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/cves/cves" className="text-rose-600 dark:text-rose-400 hover:underline">
             full CVE list
           </Link>
           .
@@ -401,7 +401,7 @@ export default function SocVulns(): JSX.Element {
             right={
               <Link
                 to="/threatintel/cves/cves"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
               >
                 all <ExternalLink size={10} />
               </Link>
@@ -419,7 +419,7 @@ export default function SocVulns(): JSX.Element {
             right={
               <Link
                 to="/threatintel/cves/cves?kev=1"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
               >
                 feed <ExternalLink size={10} />
               </Link>
@@ -439,7 +439,7 @@ export default function SocVulns(): JSX.Element {
             <dl className="space-y-2 text-meta font-mono">
               <div className="flex items-baseline justify-between gap-2">
                 <dt className="text-slate-500 dark:text-slate-400">top vendor</dt>
-                <dd className="text-slate-700 dark:text-slate-300 truncate">{topVendors[0]?.label ?? '—'}</dd>
+                <dd className="text-slate-700 dark:text-slate-300 truncate">{topVendors[0]?.label ?? '-'}</dd>
               </div>
               <div className="flex items-baseline justify-between gap-2">
                 <dt className="text-slate-500 dark:text-slate-400">critical + high</dt>
@@ -482,13 +482,13 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
               <td className="px-4 sm:px-2 py-1.5">
                 <Link
                   to={`/dfir/cve?id=${encodeURIComponent(c.id)}`}
-                  className="text-brand-600 dark:text-brand-400 hover:underline"
+                  className="text-rose-600 dark:text-rose-400 hover:underline"
                 >
                   {c.id}
                 </Link>
               </td>
               <td className="px-2 py-1.5 tabular-nums text-slate-700 dark:text-slate-300">
-                {c.score?.toFixed(1) ?? '—'}
+                {c.score?.toFixed(1) ?? '-'}
               </td>
               <td className="px-2 py-1.5">
                 <span
@@ -501,7 +501,7 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
                 {extractVendorFromDescription(c.description)}
               </td>
               <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400 text-right tabular-nums">
-                {c.kev_added ? c.kev_added.slice(0, 10) : '—'}
+                {c.kev_added ? c.kev_added.slice(0, 10) : '-'}
               </td>
             </tr>
           ))}

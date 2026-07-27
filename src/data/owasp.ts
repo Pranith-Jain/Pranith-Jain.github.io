@@ -81,7 +81,7 @@ export const OWASP_ITEMS: OwaspItem[] = [
     list: 'web',
     title: 'Insecure Design',
     summary:
-      'Architectural flaws — missing or ineffective control design — that no amount of perfect implementation can fix. Distinct from implementation bugs. Threat-modelling and secure-by-design patterns are the antidote.',
+      'Architectural flaws - missing or ineffective control design - that no amount of perfect implementation can fix. Distinct from implementation bugs. Threat-modelling and secure-by-design patterns are the antidote.',
     example:
       "A password-reset flow that emails a token but doesn't expire it or invalidate it after use. Implementation is correct; design is wrong.",
     mitigation:
@@ -106,7 +106,7 @@ export const OWASP_ITEMS: OwaspItem[] = [
     summary:
       'Using libraries, frameworks, OS, runtimes with known CVEs. Modern apps pull hundreds of transitive dependencies; one weak link often leads to RCE or data exposure.',
     example:
-      'Log4Shell (CVE-2021-44228) — a logging library with one bad lookup function exposed millions of apps to remote code execution.',
+      'Log4Shell (CVE-2021-44228) - a logging library with one bad lookup function exposed millions of apps to remote code execution.',
     mitigation:
       'Inventory dependencies (SBOM). Patch on a known cadence. Run dependency-vuln scanners on every build (npm audit, pip-audit, govulncheck, OSV). Subscribe to security mailing lists for components you ship.',
     attack: ['T1190'],
@@ -139,7 +139,7 @@ export const OWASP_ITEMS: OwaspItem[] = [
     list: 'web',
     title: 'Security Logging and Monitoring Failures',
     summary:
-      'Insufficient logging, monitoring, alerting. Without it, breaches remain undetected. The Verizon DBIR routinely measures breach-detection times in months — most by external parties, not the victim.',
+      'Insufficient logging, monitoring, alerting. Without it, breaches remain undetected. The Verizon DBIR routinely measures breach-detection times in months - most by external parties, not the victim.',
     example:
       'A breached SaaS company learns about the incident from a customer who saw their data on a leak site, not from any internal alert.',
     mitigation:
@@ -152,7 +152,7 @@ export const OWASP_ITEMS: OwaspItem[] = [
     summary:
       'The web app fetches a remote resource without validating the user-supplied URL. An attacker coerces the server into making requests to unintended destinations: internal services, cloud metadata endpoints, file:// URLs.',
     example:
-      'An app accepts ?url= and fetches it for a preview. Attacker submits http://169.254.169.254/latest/meta-data/iam/ — server returns AWS credentials.',
+      'An app accepts ?url= and fetches it for a preview. Attacker submits http://169.254.169.254/latest/meta-data/iam/ - server returns AWS credentials.',
     mitigation:
       'Allow-list URLs at the URL host level. Disable redirects or re-validate after each redirect. Block private IP ranges and metadata endpoints. Enforce a network policy that the app cannot reach internal services.',
     attack: ['T1190', 'T1133'],
@@ -238,7 +238,7 @@ export const OWASP_ITEMS: OwaspItem[] = [
     summary:
       'An API fetches a remote resource based on user-supplied URL/data. Attacker pivots to internal services, cloud metadata endpoints, or other side effects.',
     example:
-      'Webhook URL field on a settings page. Attacker sets it to http://169.254.169.254/latest/meta-data/ — service POSTs cloud creds to attacker-controlled endpoint.',
+      'Webhook URL field on a settings page. Attacker sets it to http://169.254.169.254/latest/meta-data/ - service POSTs cloud creds to attacker-controlled endpoint.',
     mitigation:
       'Allow-list outbound destinations. Block private/cloud-metadata ranges. Validate URLs at the host level after DNS resolution. Disable HTTP redirects or re-validate post-redirect.',
     attack: ['T1190', 'T1133'],
@@ -299,7 +299,7 @@ export const OWASP_ITEMS: OwaspItem[] = [
     summary:
       "LLM outputs data it shouldn't: training-data PII, system prompts, customer data from RAG context, internal documents, or other tenants' content in multi-tenant systems.",
     example:
-      'Customer support chatbot has access to all customer tickets via RAG. A user asks "show me other customers\' issues" — model returns them because retrieval wasn\'t scoped to the requesting tenant.',
+      'Customer support chatbot has access to all customer tickets via RAG. A user asks "show me other customers\' issues" - model returns them because retrieval wasn\'t scoped to the requesting tenant.',
     mitigation:
       "Strict per-request retrieval scoping. Output filters for known PII patterns. Don't train on production data without scrubbing. Test for prompt-extraction attacks. Audit logs of model outputs.",
     attack: ['T1530'],

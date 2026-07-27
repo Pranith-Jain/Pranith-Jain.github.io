@@ -7,7 +7,7 @@ import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
- * /threatintel/writeups — live aggregation of long-form CTI writeups from
+ * /threatintel/writeups - live aggregation of long-form CTI writeups from
  * security-research blogs, vendor labs, and analyst Medium handles.
  *
  * Source list lives in api/src/lib/writeup-sources.ts and is pulled live
@@ -185,7 +185,7 @@ export default function Writeups(): JSX.Element {
         <>
           The broad ecosystem cut: vendor blogs, news outlets, Medium tag feeds, the long tail. For the curated
           analyst-must-read set, see{' '}
-          <Link to="/threatintel/detections/signal" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/detections/signal" className="text-rose-600 dark:text-rose-400 hover:underline">
             /threatintel/signal
           </Link>{' '}
           (no overlap between the two pages).
@@ -205,20 +205,20 @@ export default function Writeups(): JSX.Element {
       <section className="surface-card p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by title, source, author, tag, or summary…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter writeups"
             />
           </div>
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -259,7 +259,7 @@ export default function Writeups(): JSX.Element {
                     onClick={() => toggleSource(src)}
                     className={`text-mini font-mono px-2 py-1 rounded border ${
                       active
-                        ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                        ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
                         : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
                     }`}
                   >
@@ -274,7 +274,7 @@ export default function Writeups(): JSX.Element {
                   setSourceFilter(new Set());
                   setKindFilter(new Set());
                 }}
-                className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+                className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline ml-2"
               >
                 clear
               </button>
@@ -320,13 +320,13 @@ export default function Writeups(): JSX.Element {
 
       <ul className="space-y-3">
         {filtered.map((it, i) => (
-          <li key={`${it.url}-${i}`} className="surface-card p-4 hover:border-brand-500/40 transition-colors">
+          <li key={`${it.url}-${i}`} className="surface-card p-4 hover:border-rose-500/40 transition-colors">
             <a href={sanitizeUrl(it.url)} target="_blank" rel="noopener noreferrer" className="group block">
               <div className="flex items-start justify-between gap-3 mb-1.5 flex-wrap">
-                <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 flex-1 min-w-0">
+                <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 flex-1 min-w-0">
                   {it.title}
                 </h3>
-                <ExternalLink size={12} className="text-slate-400 shrink-0 mt-1" />
+                <ExternalLink size={12} className="text-slate-500 dark:text-slate-400 shrink-0 mt-1" />
               </div>
               {it.description && (
                 <p className="text-tool text-muted leading-relaxed mb-2 line-clamp-3">{it.description}</p>

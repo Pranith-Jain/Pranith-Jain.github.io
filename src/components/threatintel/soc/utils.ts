@@ -10,9 +10,9 @@ export function formatNumber(n: number): string {
 }
 
 export function timeAgo(iso: string | null | undefined): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const t = Date.parse(iso);
-  if (Number.isNaN(t)) return '—';
+  if (Number.isNaN(t)) return '-';
   const seconds = Math.max(0, Math.floor((Date.now() - t) / 1000));
   if (seconds < 60) return `${seconds}s ago`;
   const minutes = Math.floor(seconds / 60);

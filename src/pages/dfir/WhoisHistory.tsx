@@ -177,7 +177,7 @@ export default function WhoisHistory(): JSX.Element {
   };
 
   const formatDate = (d?: string) => {
-    if (!d) return '—';
+    if (!d) return '-';
     try {
       return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     } catch (_catchErr) {
@@ -187,7 +187,7 @@ export default function WhoisHistory(): JSX.Element {
   };
 
   const formatDateTime = (d?: string) => {
-    if (!d) return '—';
+    if (!d) return '-';
     try {
       return new Date(d).toLocaleString('en-US', {
         year: 'numeric',
@@ -219,7 +219,7 @@ export default function WhoisHistory(): JSX.Element {
 
       <form onSubmit={onSubmit} className="flex gap-2 mb-8">
         <div className="relative flex-1">
-          <Globe size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Globe size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={query}
@@ -257,7 +257,7 @@ export default function WhoisHistory(): JSX.Element {
             ].map(({ label, value, icon: Icon }) => (
               <div key={label} className="p-3 surface-card">
                 <div className="flex items-center gap-2 mb-1">
-                  <Icon size={14} className="text-slate-400" />
+                  <Icon size={14} className="text-slate-500 dark:text-slate-400" />
                   <span className="text-mini font-mono uppercase text-slate-500">{label}</span>
                 </div>
                 <span className="text-2xl font-mono font-bold">{value}</span>
@@ -273,7 +273,7 @@ export default function WhoisHistory(): JSX.Element {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
                 <div>
                   <span className="text-slate-500">Registrar:</span>{' '}
-                  <span className="font-mono">{history.current.registrar ?? '—'}</span>
+                  <span className="font-mono">{history.current.registrar ?? '-'}</span>
                 </div>
                 <div>
                   <span className="text-slate-500">Created:</span>{' '}
@@ -358,7 +358,7 @@ export default function WhoisHistory(): JSX.Element {
                       <div className="px-3 pb-3 pt-1 border-t border-slate-100 dark:border-[rgb(var(--border-400))] text-sm space-y-1">
                         <div>
                           <span className="text-slate-500">Registrar:</span>{' '}
-                          <span className="font-mono">{snap.registrar ?? '—'}</span>
+                          <span className="font-mono">{snap.registrar ?? '-'}</span>
                         </div>
                         <div>
                           <span className="text-slate-500">Created:</span>{' '}
@@ -411,13 +411,13 @@ export default function WhoisHistory(): JSX.Element {
                       <div className="flex items-center gap-2 mb-2">
                         <Icon size={14} />
                         <span className="text-xs font-semibold uppercase">{change.change_type}</span>
-                        <span className="text-xs text-slate-400 ml-auto">{formatDateTime(change.detected_at)}</span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400 ml-auto">{formatDateTime(change.detected_at)}</span>
                       </div>
                       <div className="text-sm grid grid-cols-1 sm:grid-cols-2 gap-1">
-                        <div className="line-through text-slate-400 font-mono text-xs break-all">
-                          {change.old_value ?? '—'}
+                        <div className="line-through text-slate-500 dark:text-slate-400 font-mono text-xs break-all">
+                          {change.old_value ?? '-'}
                         </div>
-                        <div className="font-mono text-xs break-all">{change.new_value ?? '—'}</div>
+                        <div className="font-mono text-xs break-all">{change.new_value ?? '-'}</div>
                       </div>
                     </div>
                   );
@@ -440,7 +440,7 @@ export default function WhoisHistory(): JSX.Element {
                       Found <span className="font-bold text-brand-600">{pivots.total_found}</span> related domains
                       sharing registrant attributes with <span className="font-mono">{pivots.target}</span>
                     </p>
-                    <span className="text-xs font-mono text-slate-400">{pivots.query_time_ms}ms</span>
+                    <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{pivots.query_time_ms}ms</span>
                   </div>
                   <div className="space-y-2">
                     {pivots.related_domains.map((d) => {
@@ -456,7 +456,7 @@ export default function WhoisHistory(): JSX.Element {
                               href={`https://${d.domain}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-slate-400 hover:text-brand-600"
+                              className="text-slate-500 dark:text-slate-400 hover:text-brand-600"
                             >
                               <ExternalLink size={12} />
                             </a>
@@ -465,8 +465,8 @@ export default function WhoisHistory(): JSX.Element {
                             <span className="px-1.5 py-0.5 rounded bg-brand-50 dark:bg-brand-950/20 text-brand-700 dark:text-brand-300">
                               {d.match_reason.replace(/_/g, ' ')}
                             </span>
-                            <span className="text-slate-400">{d.match_value}</span>
-                            {d.current_registrar && <span className="text-slate-400">via {d.current_registrar}</span>}
+                            <span className="text-slate-500 dark:text-slate-400">{d.match_value}</span>
+                            {d.current_registrar && <span className="text-slate-500 dark:text-slate-400">via {d.current_registrar}</span>}
                           </div>
                         </div>
                       );
@@ -489,10 +489,10 @@ export default function WhoisHistory(): JSX.Element {
         <div className="text-center py-16">
           <Globe size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-400" />
           <p className="text-slate-500">Enter a domain to explore its WHOIS registration history</p>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Track ownership changes, registrar transfers, and pivot across related domains
           </p>
-          <p className="text-xs text-slate-400 mt-3">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">
             Want to find all domains by an email? Try{' '}
             <Link to="/dfir/whoxy" className="text-brand-600 dark:text-brand-400 hover:underline">
               Whoxy Reverse WHOIS

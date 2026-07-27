@@ -24,7 +24,7 @@ import {
 } from 'lucide-react';
 
 /**
- * Threat Intel Metrics — quantitative read of what's flowing through the
+ * Threat Intel Metrics - quantitative read of what's flowing through the
  * platform RIGHT NOW. Everything is computed client-side from the same
  * four endpoints the other /threatintel pages use, so there's no new
  * worker code and no risk of stale aggregates: refresh → fresh chart.
@@ -39,7 +39,7 @@ import {
  *   7. Which sectors are ransomware groups targeting?           (HBar, heuristic)
  *   8. Which vendors are most-exploited on the KEV catalogue?   (HBar)
  *   9. Which malware families are spreading right now?          (HBar)
- *   10. Re-leak hotspots — groups doing the most cross-claims    (HBar)
+ *   10. Re-leak hotspots - groups doing the most cross-claims    (HBar)
  *   11. Where do malicious IPs originate?                        (HBar)
  *   12. Which C2 frameworks have the most live infra?            (HBar)
  *   13. Which fresh breach disclosures are largest?              (HBar)
@@ -48,7 +48,7 @@ import {
  *
  * Headline counters carry a ▲/▼ delta vs the previous in-session refresh.
  *
- * Charts are hand-rolled SVG — no Recharts/D3 dependency. Each is small,
+ * Charts are hand-rolled SVG - no Recharts/D3 dependency. Each is small,
  * presentational, and accessible (title/aria on rects + percentage labels).
  */
 
@@ -58,7 +58,7 @@ interface RansomwareVictim {
   discovered: string;
   description?: string;
   source_url: string;
-  /** Heuristic sector classification — see api/src/lib/sector-classifier.ts. */
+  /** Heuristic sector classification - see api/src/lib/sector-classifier.ts. */
   sector?: string;
 }
 
@@ -131,7 +131,7 @@ interface DeepDarkCtiResponse {
 }
 
 // Canonical severity colour ramp. Mirrors src/components/Badge.tsx
-// SEVERITY_TONE — kept as raw hex here because these feed inline SVG fills.
+// SEVERITY_TONE - kept as raw hex here because these feed inline SVG fills.
 // `low` is slate (not emerald): a low-severity CVE is still a CVE and green
 // reads as "safe/done", inconsistent with the severity meaning.
 const SEVERITY_COLORS: Record<RecentCve['severity'], string> = {
@@ -194,7 +194,7 @@ function HBar({
               </span>
               <span className="text-slate-500 tabular-nums shrink-0">
                 {fmt(it.value)}
-                {it.hint && <span className="text-slate-400 ml-1">{String(it.hint)}</span>}
+                {it.hint && <span className="text-slate-500 dark:text-slate-400 ml-1">{String(it.hint)}</span>}
               </span>
             </div>
             <div className="h-1.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
@@ -244,7 +244,7 @@ function StackedSeverityBar({ counts, total }: { counts: Record<RecentCve['sever
               />
               <span className="text-slate-700 dark:text-slate-300">{sev}</span>
               <span className="ml-auto text-slate-500 tabular-nums">
-                {n} <span className="text-slate-400">({pct.toFixed(0)}%)</span>
+                {n} <span className="text-slate-500 dark:text-slate-400">({pct.toFixed(0)}%)</span>
               </span>
             </li>
           );
@@ -387,14 +387,14 @@ export default function Metrics(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
-    // 'no-store': this is a live metrics dashboard — always pull fresh from the
+    // 'no-store': this is a live metrics dashboard - always pull fresh from the
     // edge rather than risk the browser serving a stale HTTP-cached copy (a
     // past "0 ransomware claims" pinned-cache bug). The edge cache still makes
     // these cheap server-side.
     const opts = { signal: ctrl.signal, cache: 'no-store' } as const;
     setState((s) => ({ ...s, loading: true, error: null }));
 
-    // Ransomware-recent is the heaviest feed — a multi-tracker fan-out with a
+    // Ransomware-recent is the heaviest feed - a multi-tracker fan-out with a
     // 15-min edge TTL. On a cache-miss the synchronous fan-out can transiently
     // return an empty 200 (cold colo, thin upstreams, no last-good yet) or time
     // out, which blanked ALL SIX ransomware panels to "No data". Retry once on
@@ -437,7 +437,7 @@ export default function Metrics(): JSX.Element {
         if (cancelled) return;
 
         // MyThreatIntel CVEs merged into the CVE pool (existing entries win
-        // ties — they carry the KEV flag); enriches every CVE panel.
+        // ties - they carry the KEV flag); enriches every CVE panel.
         const baseCves = cRes.status === 'fulfilled' ? ((cRes.value as { cves: RecentCve[] }).cves ?? []) : null;
         const mtiCveItems =
           mtiCveRes.status === 'fulfilled' ? ((mtiCveRes.value as { items?: MtiCveRow[] }).items ?? []) : [];
@@ -510,7 +510,7 @@ export default function Metrics(): JSX.Element {
    * row counts can sum to the StatBar headline count and to the
    * ransomware cadence chart bar sum. Was a rolling 168-hour
    * `withinDays(v.discovered, windowDays)` per-call check which counted
-   * a partial day at the trailing edge — caused the "239 vs 231" surface
+   * a partial day at the trailing edge - caused the "239 vs 231" surface
    * inconsistency users hit. windowDays still drives N: 7d = 7 UTC dates,
    * 30d = 30 UTC dates, 90d = 90 UTC dates.
    */
@@ -536,8 +536,8 @@ export default function Metrics(): JSX.Element {
    * (group, victim) duplicates at the worker, but the same victim can
    * still appear on multiple days when different upstream trackers
    * index it on different dates (Ransomlook vs cti.fyi vs ransomfeed
-   * often disagree by 1-3 days). For metrics — "top groups", cadence,
-   * headline read, sectors — we want each unique victim to count ONCE
+   * often disagree by 1-3 days). For metrics - "top groups", cadence,
+   * headline read, sectors - we want each unique victim to count ONCE
    * per group, with the *earliest* discovery date winning. This was
    * the source of the "thegentlemen = 200+" surface where the real
    * distinct-victim count for the window was 51.
@@ -581,7 +581,7 @@ export default function Metrics(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dedupedRansomware, state.mtiGroups, ransomwareWindowDayKeys]);
 
-  // 11. NEW — country-origin of malicious IPs. data.threatMap.countries was
+  // 11. NEW - country-origin of malicious IPs. data.threatMap.countries was
   // already being fetched but never visualised. Plain HBar; not gated by
   // windowDays because threat-map is a live snapshot, not historical.
   const topCountries = useMemo<HBarItem[]>(() => {
@@ -608,7 +608,7 @@ export default function Metrics(): JSX.Element {
       const key = dayKey(v.discovered);
       if (map.has(key)) map.set(key, (map.get(key) ?? 0) + 1);
     }
-    // Per-day axis labels — at 7 bars the labels fit without sparseness.
+    // Per-day axis labels - at 7 bars the labels fit without sparseness.
     return [...map.entries()].map(([k, v]) => ({
       label: k.slice(5),
       value: v,
@@ -636,7 +636,7 @@ export default function Metrics(): JSX.Element {
     // computation above AND the hero sparkline on the portfolio root.
     // Was a rolling 168-hour window (`now - 7 * day`), which counted
     // a few extra claims at the trailing edge of the window that the
-    // chart's calendar-day buckets excluded — visible to users as
+    // chart's calendar-day buckets excluded - visible to users as
     // "headline says 239 but the bars sum to 231". Now headline +
     // chart + hero all share the same 7-UTC-calendar-day definition
     // of "last 7 days", so the numbers line up across surfaces.
@@ -912,7 +912,7 @@ export default function Metrics(): JSX.Element {
     const critHighPct = (critHigh / t) * 100;
     const profile =
       critHighPct > 55 ? 'a top-heavy window' : critHighPct > 35 ? 'a typical mix' : 'a moderate-only window';
-    return `${critHigh.toLocaleString()} of ${t.toLocaleString()} CVEs (${critHighPct.toFixed(0)}%) are CRITICAL or HIGH. ${profile} — prioritise the top ${critHigh > 0 ? critHigh : 0} for patch triage first.`;
+    return `${critHigh.toLocaleString()} of ${t.toLocaleString()} CVEs (${critHighPct.toFixed(0)}%) are CRITICAL or HIGH. ${profile} - prioritise the top ${critHigh > 0 ? critHigh : 0} for patch triage first.`;
   }, [cveSeverityCounts]);
 
   const kevCadenceRead = useMemo((): string => {
@@ -988,7 +988,7 @@ export default function Metrics(): JSX.Element {
     // headline read panel, and the hero sparkline on /. The old
     // `withinDays` filter used a rolling 168-hour window which counted
     // a partial day at the trailing edge that the chart's calendar
-    // buckets excluded — that's the 239-vs-231 discrepancy users hit.
+    // buckets excluded - that's the 239-vs-231 discrepancy users hit.
     //
     // We count DISTINCT (group, victim) pairs, not raw rows, so the
     // same victim reported by multiple upstream trackers across
@@ -1014,7 +1014,7 @@ export default function Metrics(): JSX.Element {
     return { r, c, kevCount, p, ips, c2 };
   }, [state, windowDays, dedupedRansomware]);
 
-  // Live deltas — change in each headline counter since the previous refresh.
+  // Live deltas - change in each headline counter since the previous refresh.
   // Only meaningful within a fixed window, so it resets when windowDays flips
   // and stays null on first load (nothing to diff against yet).
   type Summary = typeof summary;
@@ -1050,14 +1050,14 @@ export default function Metrics(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
       >
         back
       </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <BarChart3 size={28} className="text-brand-600 dark:text-brand-400" /> Threat Intel Metrics
+          <BarChart3 size={28} className="text-rose-600 dark:text-rose-400" /> Threat Intel Metrics
         </h1>
         <p className="text-muted mb-6 max-w-3xl leading-relaxed">
           Quantitative snapshot computed live in the browser from ten upstream feeds. One headline read, six narrative
@@ -1088,7 +1088,7 @@ export default function Metrics(): JSX.Element {
           <Stat label="active C2 servers" value={summary.c2} loading={state.loading} delta={deltas?.c2} />
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          {/* Window selector — gates ransomware-based panels (groups, cadence,
+          {/* Window selector - gates ransomware-based panels (groups, cadence,
               sectors, sector-classified-pct) and the summary count. KEV
               cadence keeps its own 12-week scale; CVE list returns its own
               server-side window; threat-map is a live snapshot. */}
@@ -1107,7 +1107,7 @@ export default function Metrics(): JSX.Element {
                   aria-pressed={active}
                   className={`px-2.5 py-1.5 transition-colors ${
                     active
-                      ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                      ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300'
                       : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
                   }`}
                 >
@@ -1119,7 +1119,7 @@ export default function Metrics(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -1145,12 +1145,12 @@ export default function Metrics(): JSX.Element {
         </div>
       )}
 
-      {/* Headline read — one chart, one written interpretation. Replaces the
+      {/* Headline read - one chart, one written interpretation. Replaces the
           temptation to lead with a wall of fifteen neutral panels. The prose
           recomputes on refresh; the trend / concentration / takeaway lines
           adapt grammatically to whatever values the feed produces right now. */}
       {!state.loading && headlineRead && (
-        <section className="rounded-xl border border-brand-500/30 bg-gradient-to-br from-brand-50/40 to-transparent dark:from-brand-900/20 dark:to-transparent p-5 sm:p-6 mb-6">
+        <section className="rounded-xl border border-rose-500/30 bg-gradient-to-br from-rose-50/40 to-transparent dark:from-rose-900/20 dark:to-transparent p-5 sm:p-6 mb-6">
           <div className="flex items-baseline gap-3 mb-3">
             <Flame size={18} className="text-rose-600 dark:text-rose-400" />
             <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">
@@ -1205,7 +1205,7 @@ export default function Metrics(): JSX.Element {
                 Method: 7-vs-7-day delta with a 10% deadband; concentration is the top operator's share of the last 7
                 days. Sources: ransomlook.io aggregated leak-site index merged with MyThreatIntel CTI events (deduped by
                 victim).{' '}
-                <Link to="/threatintel/catalog?cat=iocs" className="text-brand-600 dark:text-brand-400 hover:underline">
+                <Link to="/threatintel/catalog?cat=iocs" className="text-rose-600 dark:text-rose-400 hover:underline">
                   Drill into the underlying data →
                 </Link>
               </p>
@@ -1216,7 +1216,7 @@ export default function Metrics(): JSX.Element {
 
       {/* Six narrative panels, each with a one-sentence written
           interpretation computed from the data. These are the panels
-          that earn the first scroll — the ones an analyst would actually
+          that earn the first scroll - the ones an analyst would actually
           discuss in a meeting. The remaining ten panels (sectors, brands,
           IOC volume, malware families, re-leaks, IP origins, breaches,
           OSINT chatter, dark-web, MTI profiled) are equally accurate but
@@ -1289,7 +1289,7 @@ export default function Metrics(): JSX.Element {
               <HBar items={topKevVendors} color="#dc2626" />
             </ChartCard>
 
-            {/* 6. Active C2 frameworks — promoted because the share split
+            {/* 6. Active C2 frameworks - promoted because the share split
                 here is the operational basis for detection-coverage
                 prioritisation (cf the c2-dominance research piece) */}
             <ChartCard
@@ -1306,24 +1306,24 @@ export default function Metrics(): JSX.Element {
             </ChartCard>
           </div>
 
-          {/* 7. ATT&CK technique heatmap — full-width below the narrative
+          {/* 7. ATT&CK technique heatmap - full-width below the narrative
               grid because the horizontal column layout needs the space */}
           <AttackHeatmap mbClass="mt-6" />
         </section>
       )}
 
-      {/* Analyst panels — the remaining 10. Accurate and well-sourced but
+      {/* Analyst panels - the remaining 10. Accurate and well-sourced but
           less narrative than the six above. Default-collapsed because
           page load shouldn't pretend each of these matters equally to
           a first-time visitor; an analyst who knows what they want can
           expand to see the catalog. */}
       {!state.loading && (
         <details className="mb-2 group">
-          <summary className="cursor-pointer text-xs font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 font-mono py-3">
+          <summary className="cursor-pointer text-xs font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 font-mono py-3">
             Analyst panels (10 more). Sectors, brands, IOC volume, malware families, re-leaks, IP origins, breaches,
             chatter, dark-web, MTI profiled
-            <span className="ml-2 text-slate-400 group-open:hidden">expand</span>
-            <span className="ml-2 text-slate-400 hidden group-open:inline">collapse</span>
+            <span className="ml-2 text-slate-500 dark:text-slate-400 group-open:hidden">expand</span>
+            <span className="ml-2 text-slate-500 dark:text-slate-400 hidden group-open:inline">collapse</span>
           </summary>
           <p className="mt-2 text-meta font-mono text-slate-500 max-w-2xl mb-4">
             All ten are computed live from the same upstream feeds the narrative panels above use. No interpretation
@@ -1409,7 +1409,7 @@ export default function Metrics(): JSX.Element {
 
             <ChartCard
               icon={MessageSquare}
-              title="OSINT chatter — most cross-referenced entities"
+              title="OSINT chatter - most cross-referenced entities"
               question="Which CVEs, actors, techniques and malware are researchers talking about across the most feeds?"
               footer={`From threat-pulse · ${state.pulse?.length ?? 0} entities seen across Reddit / Mastodon / Telegram researcher feeds. Value = distinct feeds.`}
               href="/threatintel/feeds"
@@ -1444,32 +1444,32 @@ export default function Metrics(): JSX.Element {
         </details>
       )}
 
-      {/* Related-surfaces footer. Plain <a> caused full-page reloads —
+      {/* Related-surfaces footer. Plain <a> caused full-page reloads -
           use <Link> so router state survives the navigation. */}
       <section className="mt-10 surface-card p-5">
         <h3 className="font-display font-semibold text-sm mb-3">Related surfaces</h3>
         <div className="grid sm:grid-cols-2 gap-2 text-meta font-mono">
           <Link
             to="/threatintel/iocs/cross"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-700 dark:text-slate-300"
           >
             Cross-source IOC correlation →
           </Link>
           <Link
             to="/threatintel/actors/timeline"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-700 dark:text-slate-300"
           >
             Actor activity timeline + MITRE TTPs →
           </Link>
           <Link
             to="/threatintel/darkweb/leaks"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-700 dark:text-slate-300"
           >
             Victim re-leak detection →
           </Link>
           <Link
             to="/threatintel/catalog?cat=iocs"
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-700 dark:text-slate-300"
           >
             Live IOC stream →
           </Link>
@@ -1518,7 +1518,7 @@ function Stat({
             accent === 'rose' ? 'text-rose-600 dark:text-rose-400' : 'text-slate-900 dark:text-slate-100'
           }`}
         >
-          {loading ? '—' : typeof value === 'number' ? value.toLocaleString() : value}
+          {loading ? '-' : typeof value === 'number' ? value.toLocaleString() : value}
         </span>
         {!loading && typeof delta === 'number' && delta !== 0 && (
           <span
@@ -1562,10 +1562,10 @@ function ChartCard({
     <div className="surface-card p-4">
       <div className="flex items-baseline justify-between gap-2 mb-1">
         <h3 className="font-display font-semibold text-sm inline-flex items-center gap-2">
-          <Icon size={14} className="text-brand-600 dark:text-brand-400" /> {title}
+          <Icon size={14} className="text-rose-600 dark:text-rose-400" /> {title}
         </h3>
         {href && (
-          <Link to={href} className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to={href} className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline">
             details →
           </Link>
         )}
@@ -1573,11 +1573,11 @@ function ChartCard({
       <p className="text-xs italic text-slate-500 mb-3 leading-relaxed">{question}</p>
       <div className="mb-3">{children}</div>
       {interpretation && (
-        <p className="text-meta text-slate-700 dark:text-slate-300 leading-relaxed mb-2 border-l-2 border-brand-500/40 pl-3">
+        <p className="text-meta text-slate-700 dark:text-slate-300 leading-relaxed mb-2 border-l-2 border-rose-500/40 pl-3">
           {interpretation}
         </p>
       )}
-      <p className="text-micro font-mono text-slate-400">{footer}</p>
+      <p className="text-micro font-mono text-slate-500 dark:text-slate-400">{footer}</p>
     </div>
   );
 }

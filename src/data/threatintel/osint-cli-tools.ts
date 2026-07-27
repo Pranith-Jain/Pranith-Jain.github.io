@@ -56,7 +56,7 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/p1ngul1n0/blackbird',
     category: 'username',
     lang: 'Python',
-    desc: 'Fast username checker — search 100+ sites in seconds',
+    desc: 'Fast username checker - search 100+ sites in seconds',
     stars: '3.5k',
   },
   {
@@ -88,7 +88,7 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/C3n7ral051nt4g3ncy/HandleHawk',
     category: 'username',
     lang: 'Python',
-    desc: 'X/Twitter handle investigation — followers, tweets, metadata',
+    desc: 'X/Twitter handle investigation - followers, tweets, metadata',
     tags: ['x', 'twitter'],
   },
   {
@@ -113,7 +113,7 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/mxrch/GHunt',
     category: 'email',
     lang: 'Python',
-    desc: 'Investigate Google accounts — emails, calendars, Drive, maps',
+    desc: 'Investigate Google accounts - emails, calendars, Drive, maps',
     stars: '6.5k',
   },
   {
@@ -121,7 +121,7 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/khast3x/h8mail',
     category: 'email',
     lang: 'Python',
-    desc: 'Email OSINT — breach check, password tracking, linked accounts',
+    desc: 'Email OSINT - breach check, password tracking, linked accounts',
     stars: '2.2k',
   },
   {
@@ -145,21 +145,21 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/jakecreps/poastal',
     category: 'email',
     lang: 'Python',
-    desc: 'Email OSINT — breach lookup, social profiles, domain intel',
+    desc: 'Email OSINT - breach lookup, social profiles, domain intel',
   },
   {
     name: 'Eyes',
     repo: 'https://github.com/N0rz3/Eyes',
     category: 'email',
     lang: 'Python',
-    desc: 'Email intelligence — find linked accounts and data breaches',
+    desc: 'Email intelligence - find linked accounts and data breaches',
   },
   {
     name: 'Zen',
     repo: 'https://github.com/s0md3v/Zen',
     category: 'email',
     lang: 'Python',
-    desc: 'Email reconnaissance — social media, breach data, reverse lookup',
+    desc: 'Email reconnaissance - social media, breach data, reverse lookup',
   },
 
   // Domain
@@ -184,7 +184,7 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/smicallef/spiderfoot',
     category: 'domain',
     lang: 'Python',
-    desc: 'Full OSINT automation — 200+ modules for recon on IP, domain, name',
+    desc: 'Full OSINT automation - 200+ modules for recon on IP, domain, name',
     stars: '14k',
   },
   {
@@ -192,7 +192,7 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/thewhiteh4t/FinalRecon',
     category: 'domain',
     lang: 'Python',
-    desc: 'All-in-one web recon — headers, whois, DNS, subdomains, trace',
+    desc: 'All-in-one web recon - headers, whois, DNS, subdomains, trace',
     stars: '2.5k',
   },
   {
@@ -200,7 +200,7 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/s0md3v/Photon',
     category: 'domain',
     lang: 'Python',
-    desc: 'Fast web crawler — extract emails, URLs, social accounts, files',
+    desc: 'Fast web crawler - extract emails, URLs, social accounts, files',
     stars: '5.5k',
   },
   {
@@ -208,14 +208,14 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/jasonxtn/Argus',
     category: 'domain',
     lang: 'Python',
-    desc: 'OSINT framework — recon, forensics, trace, and visualization',
+    desc: 'OSINT framework - recon, forensics, trace, and visualization',
   },
   {
     name: 'Unfurl',
     repo: 'https://github.com/tomnomnom/unfurl',
     category: 'domain',
     lang: 'Go',
-    desc: 'Extract and analyze URLs — query params, paths, fragments',
+    desc: 'Extract and analyze URLs - query params, paths, fragments',
     stars: '3.5k',
   },
   {
@@ -232,7 +232,7 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/megadose/toutatis',
     category: 'social',
     lang: 'Python',
-    desc: 'X/Twitter OSINT — profile info, followers, tweets, lists',
+    desc: 'X/Twitter OSINT - profile info, followers, tweets, lists',
     stars: '2.5k',
   },
   {
@@ -240,21 +240,21 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/Alb-310/Geogramint',
     category: 'social',
     lang: 'Python',
-    desc: 'Telegram OSINT — geolocate users via shared media and groups',
+    desc: 'Telegram OSINT - geolocate users via shared media and groups',
   },
   {
     name: 'Masto',
     repo: 'https://github.com/C3n7ral051nt4g3ncy/Masto',
     category: 'social',
     lang: 'Python',
-    desc: 'Mastodon OSINT — profile search, instance enumeration',
+    desc: 'Mastodon OSINT - profile search, instance enumeration',
   },
   {
     name: 'SnapIntel',
     repo: 'https://github.com/Kr0wZ/SnapIntel',
     category: 'social',
     lang: 'Python',
-    desc: 'Snapchat OSINT — profile lookup and metadata extraction',
+    desc: 'Snapchat OSINT - profile lookup and metadata extraction',
   },
   {
     name: 'LinkedIn2Username',
@@ -269,7 +269,7 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/HackUnderway/WhatsOSINT',
     category: 'social',
     lang: 'Python',
-    desc: 'WhatsApp OSINT — profile photo extraction and metadata',
+    desc: 'WhatsApp OSINT - profile photo extraction and metadata',
   },
 
   // Dorking
@@ -278,14 +278,14 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/rly0nheart/oxdork',
     category: 'dorking',
     lang: 'Python',
-    desc: 'Google dorking automation — fast, multi-query search engine dorking',
+    desc: 'Google dorking automation - fast, multi-query search engine dorking',
   },
   {
     name: 'Dorks Eye',
     repo: 'https://github.com/BullsEye0/dorks-eye',
     category: 'dorking',
     lang: 'Python',
-    desc: 'Google dork scanner — find exposed files, login panels, data leaks',
+    desc: 'Google dork scanner - find exposed files, login panels, data leaks',
   },
   {
     name: 'XNL Dorker',
@@ -316,7 +316,7 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/six2dez/reconftw',
     category: 'recon',
     lang: 'Shell',
-    desc: 'Automated recon — subdomain takeovers, port scanning, web fuzzing',
+    desc: 'Automated recon - subdomain takeovers, port scanning, web fuzzing',
     stars: '5.5k',
   },
   {
@@ -353,7 +353,7 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://github.com/devxprite/infoooze',
     category: 'recon',
     lang: 'JavaScript',
-    desc: 'OSINT tool — email, username, IP, phone, domain lookups',
+    desc: 'OSINT tool - email, username, IP, phone, domain lookups',
   },
 
   // Framework
@@ -370,14 +370,14 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://map.malfrats.industries/',
     category: 'framework',
     lang: '',
-    desc: 'Interactive OSINT tool map — visual navigation of tools by use case',
+    desc: 'Interactive OSINT tool map - visual navigation of tools by use case',
   },
   {
     name: 'Bellingcat Toolkit',
     repo: 'https://bellingcat.gitbook.io/toolkit',
     category: 'framework',
     lang: '',
-    desc: "Bellingcat's curated OSINT toolkit — investigations, verification, geolocation",
+    desc: "Bellingcat's curated OSINT toolkit - investigations, verification, geolocation",
   },
 
   // Breach
@@ -386,14 +386,14 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://www.dehashed.com/',
     category: 'breach',
     lang: '',
-    desc: 'Breach database search — emails, usernames, IPs, names, phone numbers',
+    desc: 'Breach database search - emails, usernames, IPs, names, phone numbers',
   },
   {
     name: 'IntelX',
     repo: 'https://intelx.io/',
     category: 'breach',
     lang: '',
-    desc: 'Intelligence search engine — breaches, darknet, paste sites',
+    desc: 'Intelligence search engine - breaches, darknet, paste sites',
   },
 
   // Telegram
@@ -402,7 +402,7 @@ export const CLI_TOOLS: CliTool[] = [
     repo: 'https://tgstat.com/',
     category: 'telegram',
     lang: '',
-    desc: 'Telegram channel analytics — growth, reach, engagement stats',
+    desc: 'Telegram channel analytics - growth, reach, engagement stats',
   },
   {
     name: 'Telemetr',

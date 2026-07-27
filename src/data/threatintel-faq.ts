@@ -14,7 +14,7 @@ export const THREATINTEL_FAQ: { question: string; answer: string }[] = [
   {
     question: 'What is PANOPTICON (Threat Intelligence Platform)?',
     answer:
-      'PANOPTICON is a free, live, self-updating CTI surface that aggregates 30-plus intel sources — ransomware leak sites, MITRE ATT&CK, CISA KEV, NVD, deepdarkCTI criminal forums, Telegram channels, and Reddit subreddits — into one searchable view. It correlates IOCs across sources with consensus scoring, tracks threat actor timelines, monitors dark-web chatter, and exports enriched bundles as STIX 2.1. Everything updates hourly with no signup required.',
+      'PANOPTICON is a free, live, self-updating CTI surface that aggregates 30-plus intel sources - ransomware leak sites, MITRE ATT&CK, CISA KEV, NVD, deepdarkCTI criminal forums, Telegram channels, and Reddit subreddits - into one searchable view. It correlates IOCs across sources with consensus scoring, tracks threat actor timelines, monitors dark-web chatter, and exports enriched bundles as STIX 2.1. Everything updates hourly with no signup required.',
   },
   {
     question: 'How does the platform pull from ransomware leak sites?',

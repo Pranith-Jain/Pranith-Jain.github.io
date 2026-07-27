@@ -7,10 +7,10 @@ export default function SkillsPage() {
     <>
       <PageMeta
         title="Skills & Expertise"
-        description="Technical skills, certifications, and education — DFIR, threat intelligence, cloud security, and detection engineering."
+        description="Technical skills, certifications, and education - DFIR, threat intelligence, cloud security, and detection engineering."
         canonicalPath="/skills"
       />
-      <h1 className="sr-only">Skills & Expertise — Pranith Jain</h1>
+      <h1 className="sr-only">Skills & Expertise - Pranith Jain</h1>
       <Skills skills={skills} />
       <Certifications certifications={certifications} education={education} />
     </>

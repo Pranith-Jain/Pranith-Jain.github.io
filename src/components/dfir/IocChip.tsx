@@ -25,7 +25,7 @@ import { CopyButton } from '../ui/CopyButton';
 /**
  * A single indicator-of-compromise / entity chip.
  *
- * One reusable primitive for rendering an IOC anywhere in the app — a
+ * One reusable primitive for rendering an IOC anywhere in the app - a
  * type glyph, the (monospace, middle-truncated) value, one-click copy,
  * and a "pivot" menu of the most useful related tools. It composes the
  * existing IOC backbone rather than reinventing it:
@@ -35,7 +35,7 @@ import { CopyButton } from '../ui/CopyButton';
  *   - `ui/CopyButton` handles copy-with-feedback + a11y
  *
  * It is purely presentational and synchronous: any async enrichment
- * (e.g. a live verdict) is the parent's job — pass the result down via
+ * (e.g. a live verdict) is the parent's job - pass the result down via
  * `verdict`, and gate the surrounding list with `AsyncState`.
  *
  * Edge cases are handled so it never breaks on arbitrary input:
@@ -64,10 +64,10 @@ export interface IocChipProps {
   copyable?: boolean;
   /** Show the pivot menu (auto-hidden when the type has no pivots). */
   pivots?: boolean;
-  /** Drop the border/background/padding frame — for inline use inside an
+  /** Drop the border/background/padding frame - for inline use inside an
    * existing bordered row, where a boxed chip would read as nested. */
   bare?: boolean;
-  /** Optional verdict — drives a colored border/glyph accent + sr text. */
+  /** Optional verdict - drives a colored border/glyph accent + sr text. */
   verdict?: Verdict;
   /** Max chars before middle-truncation; `false` disables truncation. */
   truncate?: number | false;
@@ -96,11 +96,11 @@ const IOC_TYPE_GLYPH: Record<IocType, LucideIcon> = {
 
 const NEUTRAL_ACCENT = {
   ring: 'border-slate-200 dark:border-[rgb(var(--border-400))]',
-  glyph: 'text-slate-400 dark:text-slate-500',
+  glyph: 'text-slate-500 dark:text-slate-400',
 };
 
 // Reuses the VerdictChip palette so a "malicious" chip reads the same
-// wherever it appears. Neutral by default — color only on verdict.
+// wherever it appears. Neutral by default - color only on verdict.
 const VERDICT_ACCENT: Record<Verdict, { ring: string; glyph: string }> = {
   clean: { ring: 'border-emerald-500/40', glyph: 'text-emerald-600 dark:text-emerald-400' },
   suspicious: { ring: 'border-amber-500/40', glyph: 'text-amber-600 dark:text-amber-400' },
@@ -196,7 +196,7 @@ function IocChipInner({
     <span className={`group inline-flex max-w-full items-center ${sz.gap} ${frame} ${className}`}>
       <Glyph className={`${sz.icon} shrink-0 ${accent.glyph}`} aria-hidden="true" />
       {showType && (
-        <span className={`shrink-0 font-mono ${sz.label} uppercase tracking-wider text-slate-400 dark:text-slate-500`}>
+        <span className={`shrink-0 font-mono ${sz.label} uppercase tracking-wider text-slate-500 dark:text-slate-400`}>
           {typeLabel}
         </span>
       )}
@@ -217,7 +217,7 @@ function IocChipInner({
  * Modeled on ui/DropdownMenu but with link items + descriptions.
  */
 function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.Element | null {
-  // getIocPivots builds a 1–3 element array — cheap enough to call inline,
+  // getIocPivots builds a 1–3 element array - cheap enough to call inline,
   // and PivotMenu only mounts when the chip's pivots are enabled.
   const pivots = getIocPivots(ioc);
   const [open, setOpen] = useState(false);
@@ -294,7 +294,7 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
         aria-expanded={open}
         aria-controls={open ? menuId : undefined}
         aria-label={`Pivot ${ioc.value} to related tools`}
-        className={`grid place-items-center rounded p-0.5 text-slate-400 transition-colors hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-slate-500 dark:hover:text-brand-400 ${
+        className={`grid place-items-center rounded p-0.5 text-slate-500 dark:text-slate-400 transition-colors hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-slate-500 dark:hover:text-brand-400 ${
           open ? 'text-brand-600 dark:text-brand-400' : ''
         }`}
       >
@@ -312,7 +312,7 @@ function PivotMenu({ ioc, size }: { ioc: DetectedIoc; size: 'sm' | 'md' }): JSX.
               <>
                 <span className="flex items-center gap-1.5 font-mono text-meta font-medium text-slate-800 dark:text-slate-200">
                   {p.label}
-                  {p.external && <ExternalLink className="h-3 w-3 text-slate-400" aria-hidden="true" />}
+                  {p.external && <ExternalLink className="h-3 w-3 text-slate-500 dark:text-slate-400" aria-hidden="true" />}
                 </span>
                 <span className="mt-0.5 block text-mini leading-snug text-slate-500 dark:text-slate-400">{p.desc}</span>
               </>

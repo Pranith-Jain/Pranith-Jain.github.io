@@ -217,17 +217,17 @@ export default function Extremists(): JSX.Element {
     <DataPageLayout
       backTo="/threatintel"
       icon={<ShieldAlert size={28} />}
-      title="Extremism Monitoring — Group Tracking"
-      description="Tracked extremist ideologies, networks, and movements — organized by threat risk, regional presence, and observable indicators. For analysts conducting counter-extremism monitoring."
+      title="Extremism Monitoring - Group Tracking"
+      description="Tracked extremist ideologies, networks, and movements - organized by threat risk, regional presence, and observable indicators. For analysts conducting counter-extremism monitoring."
     >
       <div className="relative mb-6">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Filter by name, ideology, region, indicator, or description…"
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
         />
       </div>
 
@@ -270,7 +270,7 @@ export default function Extremists(): JSX.Element {
 
             <div className="mt-auto space-y-2 text-xs font-mono text-slate-500 dark:text-slate-500">
               <div>
-                <span className="flex items-center gap-1 text-slate-400 dark:text-slate-500 mb-1">
+                <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400 mb-1">
                   <AlertTriangle size={11} /> Indicators
                 </span>
                 <ul className="space-y-0.5">
@@ -282,7 +282,7 @@ export default function Extremists(): JSX.Element {
                 </ul>
               </div>
               <div>
-                <span className="flex items-center gap-1 text-slate-400 dark:text-slate-500 mb-1">
+                <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400 mb-1">
                   <Radio size={11} /> Monitoring Sources
                 </span>
                 <ul className="space-y-0.5">

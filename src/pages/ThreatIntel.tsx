@@ -662,7 +662,7 @@ export default function ThreatIntel() {
             onChange={(e) => setListFilter(e.target.value)}
             className="w-full mb-4 px-3 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
           />
-          <div className="grid gap-2 md:grid-cols-2">
+          <div className="grid gap-2 sm:grid-cols-2">
             {(listsData?.lists ?? [])
               .filter(
                 (l) =>

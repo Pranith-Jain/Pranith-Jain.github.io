@@ -29,7 +29,7 @@ const ERAS: Era[] = [
     technique: 'T1566.002',
     clickRate: 0.1,
     filterEff: 0.4,
-    description: 'Mass-sent credential harvesting — generic lures, low sophistication, ~1 in 10 clicks',
+    description: 'Mass-sent credential harvesting - generic lures, low sophistication, ~1 in 10 clicks',
   },
   {
     year: 2019,
@@ -37,7 +37,7 @@ const ERAS: Era[] = [
     technique: 'T1566.001',
     clickRate: 0.2,
     filterEff: 0.55,
-    description: 'Spear-phishing BEC — impersonated executives, high click-rate due to urgency',
+    description: 'Spear-phishing BEC - impersonated executives, high click-rate due to urgency',
   },
   {
     year: 2020,
@@ -45,7 +45,7 @@ const ERAS: Era[] = [
     technique: 'T1621',
     clickRate: 0.15,
     filterEff: 0.6,
-    description: 'Push-bombing MFA fatigue attacks — spam approvals until victim relents',
+    description: 'Push-bombing MFA fatigue attacks - spam approvals until victim relents',
   },
   {
     year: 2021,
@@ -53,7 +53,7 @@ const ERAS: Era[] = [
     technique: 'T1550.001',
     clickRate: 0.12,
     filterEff: 0.65,
-    description: 'Adversary-in-the-Middle proxy kits (Tycoon 2FA) — steal session tokens bypassing MFA',
+    description: 'Adversary-in-the-Middle proxy kits (Tycoon 2FA) - steal session tokens bypassing MFA',
   },
   {
     year: 2022,
@@ -61,7 +61,7 @@ const ERAS: Era[] = [
     technique: 'T1528',
     clickRate: 0.08,
     filterEff: 0.7,
-    description: 'OAuth device code flow abuse — grants persistent API access without password',
+    description: 'OAuth device code flow abuse - grants persistent API access without password',
   },
   {
     year: 2023,
@@ -69,7 +69,7 @@ const ERAS: Era[] = [
     technique: 'T1566.002',
     clickRate: 0.18,
     filterEff: 0.7,
-    description: 'LLM-crafted lures — near-perfect grammar, personalized at scale, hard to distinguish from legit',
+    description: 'LLM-crafted lures - near-perfect grammar, personalized at scale, hard to distinguish from legit',
   },
   {
     year: 2024,
@@ -77,7 +77,7 @@ const ERAS: Era[] = [
     technique: 'T1621',
     clickRate: 0.05,
     filterEff: 0.75,
-    description: 'FIDO2 passkeys adoption — AiTM-resistant, phishing-resistant by design',
+    description: 'FIDO2 passkeys adoption - AiTM-resistant, phishing-resistant by design',
   },
   {
     year: 2025,
@@ -85,7 +85,7 @@ const ERAS: Era[] = [
     technique: 'T1598.003',
     clickRate: 0.1,
     filterEff: 0.8,
-    description: 'Voice phishing with deepfake audio — new attack surface beyond email',
+    description: 'Voice phishing with deepfake audio - new attack surface beyond email',
   },
 ];
 
@@ -94,7 +94,7 @@ const PHISH_CONTROLS = [
     key: 'emailFilter',
     label: 'Email Filtering',
     icon: Mail,
-    desc: 'Defender for Office 365 — AI-powered phishing detection',
+    desc: 'Defender for Office 365 - AI-powered phishing detection',
   },
   { key: 'conditionalAccess', label: 'Conditional Access', icon: Lock, desc: 'Geo/IP/device compliance policies' },
   { key: 'mfa', label: 'MFA', icon: ShieldCheck, desc: 'Multi-factor authentication enforcement' },
@@ -156,7 +156,7 @@ export default function PhishingIdentity(): JSX.Element {
           const ev: TickEvent = {
             year: era.year,
             type: 'filtered',
-            detail: `Email blocked by filtering — ${era.technique}`,
+            detail: `Email blocked by filtering - ${era.technique}`,
           };
           setEvents((prev) => [...prev, ev]);
           setSiemLog((prev) => [`[${era.year}] INFO Filtered: ${era.technique}`, ...prev].slice(0, 50));
@@ -167,7 +167,7 @@ export default function PhishingIdentity(): JSX.Element {
         if (Math.random() > clickProb) {
           setEvents((prev) => [
             ...prev,
-            { year: era.year, type: 'delivered', detail: 'Email delivered — not clicked' },
+            { year: era.year, type: 'delivered', detail: 'Email delivered - not clicked' },
           ]);
           setSiemLog((prev) => [`[${era.year}] INFO Delivered: not clicked`, ...prev].slice(0, 50));
           continue;
@@ -225,10 +225,10 @@ export default function PhishingIdentity(): JSX.Element {
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Mail size={28} className="text-amber-600 dark:text-amber-400" /> Phishing & Identity — Inbox Arms Race
+          <Mail size={28} className="text-amber-600 dark:text-amber-400" /> Phishing & Identity - Inbox Arms Race
         </h1>
         <p className="text-muted mb-6 max-w-2xl text-sm font-mono">
-          Simulate 8 years of phishing evolution — from bulk credential phishing to deepfake voice. Watch how defenses
+          Simulate 8 years of phishing evolution - from bulk credential phishing to deepfake voice. Watch how defenses
           evolve against increasingly sophisticated attacks.
         </p>
       </div>
@@ -317,7 +317,7 @@ export default function PhishingIdentity(): JSX.Element {
 
           <section className="surface-card p-5">
             <h2 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-4">
-              Timeline — Eras
+              Timeline - Eras
             </h2>
             <div className="relative">
               <div className="absolute left-0 top-0 bottom-0 w-px bg-slate-200 dark:bg-[rgb(var(--border-400))]" />
@@ -465,7 +465,7 @@ export default function PhishingIdentity(): JSX.Element {
                 <h3 className="text-xs font-mono text-muted mb-2">SIEM Feed</h3>
                 <div className="h-56 overflow-y-auto space-y-1 font-mono text-xs">
                   {siemLog.length === 0 && (
-                    <div className="text-muted italic">No events yet — start the simulation.</div>
+                    <div className="text-muted italic">No events yet - start the simulation.</div>
                   )}
                   {siemLog.map((line, i) => (
                     <div

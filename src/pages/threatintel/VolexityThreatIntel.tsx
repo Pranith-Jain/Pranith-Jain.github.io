@@ -57,7 +57,7 @@ interface FolderResponse {
   upstream_error?: string;
 }
 
-/** Only render http(s) links — every URL here comes from an untrusted upstream
+/** Only render http(s) links - every URL here comes from an untrusted upstream
  *  GitHub tree / CSV, so never let a `javascript:`/`data:` URL reach an href. */
 function safeHref(url: string): string | null {
   try {
@@ -81,8 +81,8 @@ const KIND_TONE: Record<string, string> = {
 function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
-      ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+      ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -129,7 +129,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
         aria-expanded={open}
         className="w-full flex items-start gap-2 p-3 text-left"
       >
-        <span className="text-slate-400 mt-0.5 shrink-0">
+        <span className="text-slate-500 dark:text-slate-400 mt-0.5 shrink-0">
           {open ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
         </span>
         <span className="min-w-0 flex-1">
@@ -156,7 +156,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
             ))}
           </span>
         </span>
-        {folder.date && <span className="text-micro font-mono text-slate-400 shrink-0">{folder.date}</span>}
+        {folder.date && <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">{folder.date}</span>}
       </button>
 
       {open && (
@@ -172,12 +172,12 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                    className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
                   >
                     <FileCode size={12} /> {rf.name}
                   </a>
                 ) : (
-                  <span key={rf.name} className="text-micro font-mono text-slate-400">
+                  <span key={rf.name} className="text-micro font-mono text-slate-500 dark:text-slate-400">
                     {rf.name}
                   </span>
                 );
@@ -186,7 +186,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
           )}
 
           {loading && (
-            <div className="flex items-center gap-2 py-3 text-slate-400">
+            <div className="flex items-center gap-2 py-3 text-slate-500 dark:text-slate-400">
               <Loader2 size={16} className="animate-spin" />
               <span className="text-xs font-mono">loading indicators…</span>
             </div>
@@ -214,7 +214,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
                     </span>
                   ))}
                 {data.count === 0 && (
-                  <span className="text-micro font-mono text-slate-400">no indicator CSV in this folder</span>
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">no indicator CSV in this folder</span>
                 )}
               </div>
 
@@ -222,7 +222,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs">
                     <thead>
-                      <tr className="text-left text-slate-400 font-mono">
+                      <tr className="text-left text-slate-500 dark:text-slate-400 font-mono">
                         <th className="py-1 pr-3 font-normal">indicator</th>
                         <th className="py-1 pr-3 font-normal">type</th>
                         <th className="py-1 font-normal">context</th>
@@ -238,7 +238,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
                             {pivotable(ioc.kind) ? (
                               <Link
                                 to={`/dfir/ioc-check?indicator=${encodeURIComponent(ioc.value)}`}
-                                className="hover:text-brand-600 dark:hover:text-brand-400"
+                                className="hover:text-rose-600 dark:hover:text-rose-400"
                                 title="Pivot to IOC checker"
                               >
                                 {ioc.value} →
@@ -268,7 +268,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 mt-2"
+                      className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 mt-2"
                     >
                       raw iocs.csv <ExternalLink size={12} />
                     </a>
@@ -331,11 +331,11 @@ export default function VolexityThreatIntel(): JSX.Element {
         href="https://github.com/volexity/threat-intel"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-brand-600 dark:text-brand-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline"
       >
         threat-intel
       </a>{' '}
-      repository — each folder ships an indicators CSV plus YARA / Snort detection rules. Expand a folder to load its
+      repository - each folder ships an indicators CSV plus YARA / Snort detection rules. Expand a folder to load its
       indicators on demand and pivot any hash / domain / IP to the IOC checker. Licensed BSD-2-Clause; free to display
       and cite with attribution to Volexity.
     </>
@@ -364,7 +364,7 @@ export default function VolexityThreatIntel(): JSX.Element {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="filter by actor / campaign…"
-          className="w-full max-w-sm text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500/60"
+          className="w-full max-w-sm text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 focus:outline-none focus:border-rose-500/60"
         />
       </div>
     ) : undefined;
@@ -388,17 +388,17 @@ export default function VolexityThreatIntel(): JSX.Element {
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
           Data:{' '}
           <a
             href={safeHref(data.source_url) ?? '#'}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-brand-600 dark:hover:text-brand-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400"
           >
             {data.source}
           </a>{' '}
-          — BSD-2-Clause; free to display and cite with attribution to Volexity · {data.total} research folders
+          - BSD-2-Clause; free to display and cite with attribution to Volexity · {data.total} research folders
         </p>
       )}
     </DataPageLayout>

@@ -3,7 +3,7 @@ import { BackLink } from '../../components/BackLink';
 import { ShieldAlert, ShieldCheck, Loader2, ExternalLink } from 'lucide-react';
 
 /**
- * OSV Dependency Scanner — paste a lockfile/manifest → known
+ * OSV Dependency Scanner - paste a lockfile/manifest → known
  * vulnerabilities via OSV.dev (proxied server-side; OSV has no browser
  * CORS). Parsing is 100% client-side; only the {name,ecosystem,version}
  * list is sent. Supports npm (package-lock/package.json), PyPI
@@ -165,7 +165,7 @@ export default function OsvScanner(): JSX.Element {
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">OSV Dependency Scanner</h1>
         <p className="text-muted mb-6 max-w-2xl">
-          Paste a lockfile/manifest — <span className="font-mono text-tool">package-lock.json</span> / package.json,
+          Paste a lockfile/manifest - <span className="font-mono text-tool">package-lock.json</span> / package.json,
           requirements.txt, go.mod, Cargo.lock, Gemfile.lock. Parsed in your browser; only the name/version list is
           checked against{' '}
           <a
@@ -176,7 +176,7 @@ export default function OsvScanner(): JSX.Element {
           >
             OSV.dev
           </a>{' '}
-          (proxied — OSV has no browser CORS).
+          (proxied - OSV has no browser CORS).
         </p>
         <div className="flex flex-wrap gap-2 mb-4">
           <button
@@ -252,7 +252,7 @@ export default function OsvScanner(): JSX.Element {
             <section className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400">
               <ShieldCheck size={16} className="mt-0.5 flex-shrink-0" />
               <span>
-                No known OSV advisories for the parsed packages. (Exact-version matching — transitive ranges may still
+                No known OSV advisories for the parsed packages. (Exact-version matching - transitive ranges may still
                 warrant a full SCA in CI.)
               </span>
             </section>
@@ -282,7 +282,7 @@ export default function OsvScanner(): JSX.Element {
                       {v.id} <ExternalLink size={11} />
                     </a>
                     {v.aliases && v.aliases.length > 0 && (
-                      <span className="text-mini font-mono text-slate-400">
+                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
                         {' '}
                         · {v.aliases.filter((a) => a.startsWith('CVE')).join(', ')}
                       </span>

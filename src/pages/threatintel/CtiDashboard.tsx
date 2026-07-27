@@ -226,7 +226,7 @@ export default function CtiDashboard(): JSX.Element {
       }}
       empty={!stats || (stats.total_iocs === 0 && stats.recent_news === 0)}
       emptyMessage="No CTI data yet. Run a collection to populate the database."
-      emptyIcon={<Shield size={32} className="text-slate-400" />}
+      emptyIcon={<Shield size={32} className="text-slate-500 dark:text-slate-400" />}
     >
       {loadError && !loading && (
         <div
@@ -280,7 +280,7 @@ export default function CtiDashboard(): JSX.Element {
               <button
                 onClick={handleCollect}
                 disabled={collecting}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 text-sm font-mono font-semibold hover:bg-brand-100 dark:hover:bg-brand-900/40 disabled:opacity-50 transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-rose-300 dark:border-rose-500/40 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 text-sm font-mono font-semibold hover:bg-rose-100 dark:hover:bg-rose-900/40 disabled:opacity-50 transition-colors"
               >
                 {collecting ? <RefreshCw size={14} className="animate-spin" /> : <Zap size={14} />}
                 {collecting ? 'Collecting...' : 'Run Collection'}
@@ -302,7 +302,7 @@ export default function CtiDashboard(): JSX.Element {
                 icon={<Target size={16} />}
                 label="Total IOCs"
                 value={stats.total_iocs}
-                accent="text-brand-600 dark:text-brand-400"
+                accent="text-rose-600 dark:text-rose-400"
               />
               <StatCard
                 icon={<TrendingUp size={16} />}
@@ -348,7 +348,7 @@ export default function CtiDashboard(): JSX.Element {
                     </div>
                   ))}
                 {Object.keys(stats.type_breakdown).length === 0 && (
-                  <p className="text-xs font-mono text-slate-400 dark:text-slate-500">No IOCs collected yet.</p>
+                  <p className="text-xs font-mono text-slate-500 dark:text-slate-400">No IOCs collected yet.</p>
                 )}
               </div>
 
@@ -357,7 +357,7 @@ export default function CtiDashboard(): JSX.Element {
                   <AlertTriangle size={14} /> Top Malware Families
                 </h3>
                 {stats.top_malware_families.length === 0 ? (
-                  <p className="text-xs font-mono text-slate-400 dark:text-slate-500">
+                  <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
                     No named families yet. Run a collection first.
                   </p>
                 ) : (
@@ -398,7 +398,7 @@ export default function CtiDashboard(): JSX.Element {
                           key={i}
                           className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
                         >
-                          <td className="py-2 font-mono text-xs text-brand-600 dark:text-brand-400 max-w-xs truncate">
+                          <td className="py-2 font-mono text-xs text-rose-600 dark:text-rose-400 max-w-xs truncate">
                             {t.value}
                           </td>
                           <td className="py-2">
@@ -438,7 +438,7 @@ export default function CtiDashboard(): JSX.Element {
 
             {predictions.length === 0 ? (
               <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center">
-                <Brain size={32} className="mx-auto text-slate-400 dark:text-slate-500 mb-3" />
+                <Brain size={32} className="mx-auto text-slate-500 dark:text-slate-400 mb-3" />
                 <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
                   No predictions yet. Click "Generate Predictions" to forecast attack patterns.
                 </p>
@@ -449,7 +449,7 @@ export default function CtiDashboard(): JSX.Element {
                   <div key={p.prediction_id} className="surface-card/60 p-5">
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <div className="min-w-0">
-                        <span className="text-mini font-mono text-slate-400 dark:text-slate-500">
+                        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
                           {p.prediction_id}
                         </span>
                         <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-0.5 leading-snug">
@@ -462,7 +462,7 @@ export default function CtiDashboard(): JSX.Element {
                         >
                           {p.threat_level}
                         </span>
-                        <span className="text-mini font-mono text-slate-400 dark:text-slate-500">{p.confidence}%</span>
+                        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{p.confidence}%</span>
                       </div>
                     </div>
                     <p className="text-xs text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">{p.summary}</p>
@@ -478,8 +478,8 @@ export default function CtiDashboard(): JSX.Element {
                               key={i}
                               className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] text-mini font-mono text-slate-600 dark:text-slate-400"
                             >
-                              <span className="text-brand-600 dark:text-brand-400">{phase.technique_id}</span>
-                              <span className="text-slate-400 dark:text-slate-500">→</span>
+                              <span className="text-rose-600 dark:text-rose-400">{phase.technique_id}</span>
+                              <span className="text-slate-500 dark:text-slate-400">→</span>
                               {phase.technique}
                             </span>
                           ))}
@@ -487,7 +487,7 @@ export default function CtiDashboard(): JSX.Element {
                       </div>
                     )}
 
-                    <div className="flex flex-wrap gap-3 text-mini font-mono text-slate-400 dark:text-slate-500">
+                    <div className="flex flex-wrap gap-3 text-mini font-mono text-slate-500 dark:text-slate-400">
                       {p.target_sectors?.length > 0 && <span>Targets: {p.target_sectors.join(', ')}</span>}
                       {p.defensive_recommendations?.length > 0 && (
                         <span className="text-emerald-600 dark:text-emerald-400">
@@ -514,7 +514,7 @@ export default function CtiDashboard(): JSX.Element {
                 value={mutationInput}
                 onChange={(e) => setMutationInput(e.target.value)}
                 placeholder="Describe an attack pattern, campaign, or malware (e.g. 'LockBit ransomware exploiting CVE-2024-21413 via phishing email to encrypt ESXi servers')"
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-3 text-sm font-mono text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 resize-none h-24 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-3 text-sm font-mono text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 resize-none h-24 focus:outline-none focus:ring-2 focus:ring-rose-500/30 focus:border-rose-500 dark:focus:border-rose-400"
               />
               <button
                 onClick={handleMutate}
@@ -532,7 +532,7 @@ export default function CtiDashboard(): JSX.Element {
                 <StatCard
                   label="Seeds"
                   value={mutations.stats.seeds || 0}
-                  accent="text-brand-600 dark:text-brand-400"
+                  accent="text-rose-600 dark:text-rose-400"
                 />
                 <StatCard
                   label="Variants"
@@ -557,12 +557,12 @@ export default function CtiDashboard(): JSX.Element {
                   <div key={v.variant_id} className="surface-card/60 p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <span className="text-mini font-mono text-slate-400 dark:text-slate-500">{v.variant_id}</span>
+                        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{v.variant_id}</span>
                         <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-0.5 leading-snug">
                           {v.title}
                         </h4>
                         {v.seed_name && (
-                          <p className="text-mini font-mono text-slate-400 dark:text-slate-500 mt-0.5">
+                          <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5">
                             Seed: {v.seed_name}
                           </p>
                         )}
@@ -573,7 +573,7 @@ export default function CtiDashboard(): JSX.Element {
                         >
                           {v.threat_level}
                         </span>
-                        <span className="text-mini font-mono text-slate-400 dark:text-slate-500">
+                        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
                           Score: {v.combined_score}
                         </span>
                       </div>
@@ -603,7 +603,7 @@ export default function CtiDashboard(): JSX.Element {
 
             {news.length === 0 ? (
               <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center">
-                <Newspaper size={32} className="mx-auto text-slate-400 dark:text-slate-500 mb-3" />
+                <Newspaper size={32} className="mx-auto text-slate-500 dark:text-slate-400 mb-3" />
                 <p className="text-sm font-mono text-slate-500 dark:text-slate-400">No news articles collected yet.</p>
               </div>
             ) : (
@@ -614,13 +614,13 @@ export default function CtiDashboard(): JSX.Element {
                     href={String(n.url || '#')}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group block surface-card/60 p-4 hover:border-brand-300 dark:hover:border-brand-700 transition-colors"
+                    className="group block surface-card/60 p-4 hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <h4 className="text-sm font-medium text-slate-800 dark:text-slate-200 flex-1 leading-snug line-clamp-2">
                         {String(n.title)}
                       </h4>
-                      <span className="text-mini font-mono text-slate-400 dark:text-slate-500 whitespace-nowrap flex-shrink-0">
+                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400 whitespace-nowrap flex-shrink-0">
                         {String(n.source)}
                       </span>
                     </div>

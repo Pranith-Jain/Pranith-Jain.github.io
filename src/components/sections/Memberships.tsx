@@ -4,7 +4,7 @@ interface MembershipsProps {
   memberships: Membership[];
 }
 
-// Single brand palette across every membership card — the previous
+// Single brand palette across every membership card - the previous
 // 4-color colorMap read as the "bento with 5+ accent colors" AI tell.
 const ABBREV_TILE =
   'grid h-9 w-9 place-items-center rounded bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300 font-mono text-meta font-semibold';

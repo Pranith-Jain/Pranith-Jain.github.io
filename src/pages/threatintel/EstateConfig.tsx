@@ -356,7 +356,7 @@ export default function EstateConfig() {
                   key={a.id}
                   className="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-slate-700/30"
                 >
-                  <Icon size={18} className="text-slate-400" />
+                  <Icon size={18} className="text-slate-500 dark:text-slate-400" />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="text-sm font-medium truncate">{a.label || a.value}</span>
@@ -374,11 +374,11 @@ export default function EstateConfig() {
                         {a.criticality}
                       </span>
                     </div>
-                    <div className="text-xs text-slate-400 font-mono">{a.value}</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">{a.value}</div>
                   </div>
                   <button
                     onClick={() => deleteAsset(a.id)}
-                    className="p-1.5 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 text-slate-400 hover:text-red-500"
+                    className="p-1.5 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 text-slate-500 dark:text-slate-400 hover:text-red-500"
                   >
                     <Trash2 size={14} />
                   </button>

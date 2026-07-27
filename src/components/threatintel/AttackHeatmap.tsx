@@ -160,7 +160,7 @@ export function AttackHeatmap({
         </div>
       </div>
 
-      <p className="text-micro font-mono text-slate-400 mt-3">
+      <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-3">
         {data.aggregate_techniques.length} techniques across {tacticKeys.length} tactics · top {MAX_PER_TACTIC} per
         tactic
       </p>

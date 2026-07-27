@@ -94,7 +94,7 @@ const FINGERPRINT_FIELDS: Array<{ key: keyof Fingerprint; label: string }> = [
 ];
 
 function riskColor(score: number | undefined): string {
-  if (score === undefined || score === null) return 'text-slate-400';
+  if (score === undefined || score === null) return 'text-slate-500 dark:text-slate-400';
   if (score >= 10) return 'text-rose-500';
   if (score >= 7) return 'text-orange-500';
   if (score >= 4) return 'text-amber-500';
@@ -127,7 +127,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
         onClick={() => setExpanded(!expanded)}
         className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
       >
-        <div className="flex-shrink-0 text-slate-400">
+        <div className="flex-shrink-0 text-slate-500 dark:text-slate-400">
           {expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
         </div>
         <div className="flex-1 min-w-0 grid grid-cols-12 gap-3 items-center text-tool">
@@ -141,7 +141,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
             {risk !== undefined ? (
               <span className={riskColor(risk)}>{risk}</span>
             ) : (
-              <span className="text-slate-400">-</span>
+              <span className="text-slate-500 dark:text-slate-400">-</span>
             )}
           </div>
           <div className="col-span-2 text-muted text-meta truncate">
@@ -161,7 +161,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1 text-mini text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
+                className="inline-flex items-center gap-1 text-mini text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
               >
                 <ExternalLink size={10} /> visit
               </a>
@@ -240,11 +240,11 @@ function ResultRow({ result }: { result: WebamonResult }) {
                   ))}
                 </div>
               ) : (
-                <p className="text-slate-400 text-meta">No unique fingerprints</p>
+                <p className="text-slate-500 dark:text-slate-400 text-meta">No unique fingerprints</p>
               )}
             </div>
           </div>
-          <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))] flex items-center gap-3 text-mini text-slate-400 font-mono">
+          <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))] flex items-center gap-3 text-mini text-slate-500 dark:text-slate-400 font-mono">
             <span>Index: {result._index}</span>
             {result.sub_domain && <span>Subdomain: {result.sub_domain}</span>}
             {result.matched_fields && result.matched_fields.length > 0 && (
@@ -429,12 +429,12 @@ function JsonBlock({ data, label }: { data: Record<string, unknown>; label: stri
         className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
       >
         {open ? (
-          <ChevronDown size={14} className="text-slate-400" />
+          <ChevronDown size={14} className="text-slate-500 dark:text-slate-400" />
         ) : (
-          <ChevronRight size={14} className="text-slate-400" />
+          <ChevronRight size={14} className="text-slate-500 dark:text-slate-400" />
         )}
         <span className="font-mono text-tool font-semibold text-slate-700 dark:text-slate-300">{label}</span>
-        <span className="text-mini text-slate-400 font-mono">{Object.keys(data).length} fields</span>
+        <span className="text-mini text-slate-500 dark:text-slate-400 font-mono">{Object.keys(data).length} fields</span>
       </button>
       {open && (
         <pre className="text-mini font-mono text-muted bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-4 overflow-x-auto max-h-96">
@@ -516,7 +516,7 @@ function SearchTab() {
         className="mb-6"
       >
         <div className="relative max-w-3xl">
-          <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="search"
             value={query}
@@ -561,7 +561,7 @@ function SearchTab() {
           <div className="flex items-center justify-between mb-4 text-sm text-slate-500 dark:text-slate-400 font-mono">
             <span>
               {data.total_hits.toLocaleString()} result{data.total_hits !== 1 ? 's' : ''}
-              {data.search_string ? <span className="text-slate-400"> for &quot;{data.search_string}&quot;</span> : ''}
+              {data.search_string ? <span className="text-slate-500 dark:text-slate-400"> for &quot;{data.search_string}&quot;</span> : ''}
             </span>
             {pagination && data.total_hits > PAGE_SIZE && (
               <span>
@@ -569,7 +569,7 @@ function SearchTab() {
               </span>
             )}
           </div>
-          <div className="hidden sm:grid grid-cols-12 gap-3 px-7 py-2 text-mini font-semibold text-slate-400 uppercase tracking-wider font-mono">
+          <div className="hidden sm:grid grid-cols-12 gap-3 px-7 py-2 text-mini font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-mono">
             <div className="col-span-3">Domain</div>
             <div className="col-span-2">Page Title</div>
             <div className="col-span-1 text-center">Risk</div>
@@ -608,7 +608,7 @@ function SearchTab() {
       )}
 
       {!loading && !error && !data && (
-        <div className="text-center py-16 text-slate-400">
+        <div className="text-center py-16 text-slate-500 dark:text-slate-400">
           <Search size={48} className="mx-auto mb-4 opacity-30" />
           <p className="text-lg font-medium mb-1">Search Webamon's Domain Index</p>
           <p className="text-sm max-w-md mx-auto">Enter a Lucene query above to search across 750M+ scanned domains.</p>
@@ -864,7 +864,7 @@ function SandboxTab() {
                         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 overflow-hidden">
                           <table className="w-full text-micro font-mono">
                             <thead>
-                              <tr className="text-left text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                              <tr className="text-left text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                                 <th className="py-1 pr-2">Name</th>
                                 <th className="py-1 pr-2">Domain</th>
                                 <th className="py-1 pr-2">Secure</th>
@@ -905,8 +905,8 @@ function SandboxTab() {
                             >
                               <Tag size={10} />
                               {t.name}
-                              {t.version && <span className="text-slate-400">v{t.version}</span>}
-                              {t.category && <span className="text-slate-400 text-micro">({t.category})</span>}
+                              {t.version && <span className="text-slate-500 dark:text-slate-400">v{t.version}</span>}
+                              {t.category && <span className="text-slate-500 dark:text-slate-400 text-micro">({t.category})</span>}
                             </span>
                           ))}
                         </div>
@@ -922,7 +922,7 @@ function SandboxTab() {
                         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
                           <table className="w-full text-micro font-mono">
                             <thead>
-                              <tr className="text-left text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+                              <tr className="text-left text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                                 <th className="py-1 pr-3">SHA256</th>
                                 <th className="py-1 pr-3">MIME</th>
                                 <th className="py-1 pr-3">Size</th>
@@ -1000,7 +1000,7 @@ function SandboxTab() {
                                   {m.status}
                                 </span>
                               )}
-                              {m.last_checked && <span className="text-slate-400">{m.last_checked}</span>}
+                              {m.last_checked && <span className="text-slate-500 dark:text-slate-400">{m.last_checked}</span>}
                             </div>
                           ))}
                         </div>
@@ -1101,7 +1101,7 @@ function SandboxTab() {
       )}
 
       {!result && !error && (
-        <div className="text-center py-16 text-slate-400">
+        <div className="text-center py-16 text-slate-500 dark:text-slate-400">
           <Send size={48} className="mx-auto mb-4 opacity-30" />
           <p className="text-lg font-medium mb-1">Submit a URL for Sandbox Analysis</p>
           <p className="text-sm max-w-md mx-auto">Enter a URL above to scan it through Webamon's sandbox.</p>
@@ -1216,7 +1216,7 @@ function InfraTab() {
       )}
 
       {!loading && !error && !data && (
-        <div className="text-center py-16 text-slate-400 dark:text-slate-500">
+        <div className="text-center py-16 text-slate-500 dark:text-slate-400">
           <Globe size={32} className="mx-auto mb-3 opacity-40" />
           <p className="font-mono text-sm">
             Look up infrastructure for a {activeMode.label.toLowerCase()} - resolved hosts, certificates, and related

@@ -1,5 +1,5 @@
 /**
- * ReportView — structured renderer for the DFIR agent / Copilot report.
+ * ReportView - structured renderer for the DFIR agent / Copilot report.
  *
  * Takes the prose report (markdown) + the structured action card produced
  * by the synthesizer, and renders:
@@ -21,7 +21,7 @@
  *
  * The prose body keeps its full markdown rendering. Code fences (KQL,
  * Splunk, YARA) are highlighted. The "action-card" and "stix" code
- * blocks are stripped — the UI has structured components for those.
+ * blocks are stripped - the UI has structured components for those.
  */
 import { useMemo, useState } from 'react';
 import {
@@ -58,7 +58,7 @@ import { extractStixBundle, StixRelationshipGraph, StixObjectTable } from '../St
 import { Modal } from '../ui/Modal';
 
 // ─────────────────────────────────────────────────────────────────────────
-// Types — mirror api/src/lib/agent/types.ts. Kept inline so this component
+// Types - mirror api/src/lib/agent/types.ts. Kept inline so this component
 // can be embedded in any client bundle without re-importing the agent types.
 // ─────────────────────────────────────────────────────────────────────────
 
@@ -134,9 +134,9 @@ export interface ReportActionCard {
   };
   diamond?: ReportDiamond;
   pirs?: ReportPir[];
-  /** Internal — populated by synthesizer when it parses the :::handoff block. */
+  /** Internal - populated by synthesizer when it parses the :::handoff block. */
   handoff?: { next_stages: string[]; analyst_approval_required: boolean };
-  /** Internal — populated by synthesizer when it parses the
+  /** Internal - populated by synthesizer when it parses the
    *  \`\`\`report-header block. Drives the BLUF hero card. */
   reportHeader?: {
     headline: string;
@@ -205,7 +205,7 @@ function buildShareMarkdown(report: string, actionCard?: ReportActionCard, query
     lines.push('');
     for (const a of actionCard.actions) {
       const sevTag = `[${a.severity.toUpperCase()}]`;
-      const stakeholders = a.stakeholders?.length ? ` — Stakeholders: ${a.stakeholders.join(', ')}` : '';
+      const stakeholders = a.stakeholders?.length ? ` - Stakeholders: ${a.stakeholders.join(', ')}` : '';
       const target = a.target ? ` (${a.target})` : '';
       const source = a.source ? ` [Source: ${a.source}]` : '';
       lines.push(`- ${sevTag} ${a.action}${target}${source}${stakeholders}`);
@@ -220,7 +220,7 @@ function buildShareMarkdown(report: string, actionCard?: ReportActionCard, query
     lines.push('| Type | Value | Confidence | Source |');
     lines.push('| --- | --- | --- | --- |');
     for (const ioc of actionCard.iocs) {
-      lines.push(`| ${ioc.type} | \`${ioc.value}\` | ${ioc.confidence} | ${ioc.source ?? '—'} |`);
+      lines.push(`| ${ioc.type} | \`${ioc.value}\` | ${ioc.confidence} | ${ioc.source ?? '-'} |`);
     }
     lines.push('');
   }
@@ -231,7 +231,7 @@ function buildShareMarkdown(report: string, actionCard?: ReportActionCard, query
     lines.push('');
     for (const m of actionCard.mitre) {
       const tactic = m.tactic ? ` (${m.tactic})` : '';
-      const det = m.detection ? ` — detection: ${m.detection}` : '';
+      const det = m.detection ? ` - detection: ${m.detection}` : '';
       lines.push(`- **${m.id}** ${m.name ?? ''}${tactic}${det}`);
     }
     lines.push('');
@@ -251,7 +251,7 @@ function buildShareMarkdown(report: string, actionCard?: ReportActionCard, query
 interface ReportViewProps {
   report: string;
   actionCard?: ReportActionCard;
-  /** Query that produced the report — used to call the action buttons. */
+  /** Query that produced the report - used to call the action buttons. */
   query?: string;
   /** Optional: invoked when the user clicks an action button. The parent
    *  wires this to the existing tool endpoints. */
@@ -327,7 +327,7 @@ const STAKEHOLDER_META: Record<Stakeholder, { label: string; color: string }> = 
 /** Render simple markdown to HTML (headings, bullets, bold, code, tables, kql/sigma/splunk blocks). */
 function renderMarkdown(md: string): string {
   if (!md) return '';
-  // Strip the trailing :::handoff + action-card blocks — UI handles those.
+  // Strip the trailing :::handoff + action-card blocks - UI handles those.
   let s = md;
   s = s.replace(/\n*:::handoff\s*\n[\s\S]*?\n:::\s*$/g, '');
   s = s.replace(/\n*```action-card\s*\n[\s\S]*?\n```\s*$/g, '');
@@ -337,7 +337,7 @@ function renderMarkdown(md: string): string {
   // Escape HTML for the safe portions.
   const esc = (x: string) => x.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-  // Convert fenced code blocks first — keep them intact through other regexes.
+  // Convert fenced code blocks first - keep them intact through other regexes.
   const codeBlocks: string[] = [];
   s = s.replace(/```(\w*)\n([\s\S]*?)```/g, (_m, lang, body) => {
     const idx = codeBlocks.length;
@@ -361,7 +361,7 @@ function renderMarkdown(md: string): string {
   s = s.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
   s = s.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
 
-  // Severity tags at the start of bullets — [CRITICAL] etc.
+  // Severity tags at the start of bullets - [CRITICAL] etc.
   // Match the WHOLE line so we can close the </li> at the end (otherwise
   // the line ends with unclosed <li><span> tags, which breaks styling).
   // The rest of the line is already HTML (strong/em/code from prior passes)
@@ -370,22 +370,22 @@ function renderMarkdown(md: string): string {
     /^(\s*[-*]\s*)\[(CRITICAL|HIGH|MEDIUM|LOW|INFO)\]\s+([\s\S]*?)$/gim,
     (_m, _marker: string, sev: string, rest: string) => {
       const s2 = sev.toLowerCase() as Severity;
-      return `<li class="ml-5 list-disc marker:text-slate-400 text-sm leading-relaxed mb-1"><span class="inline-block px-1.5 py-0.5 mr-1 rounded text-micro font-mono font-bold ${SEVERITY_COLORS[s2].pill}">${sev}</span> ${rest.trim()}</li>`;
+      return `<li class="ml-5 list-disc marker:text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-1"><span class="inline-block px-1.5 py-0.5 mr-1 rounded text-micro font-mono font-bold ${SEVERITY_COLORS[s2].pill}">${sev}</span> ${rest.trim()}</li>`;
     }
   );
 
-  // Regular bullets — match the whole line and close </li> for consistency.
+  // Regular bullets - match the whole line and close </li> for consistency.
   // The rest of the line is already HTML.
   s = s.replace(
     /^(\s*[-*]\s+)(?!<li>)([\s\S]*?)$/gm,
     (_m, _marker: string, rest: string) =>
-      `<li class="ml-5 list-disc marker:text-slate-400 text-sm leading-relaxed mb-1">${rest.trim()}</li>`
+      `<li class="ml-5 list-disc marker:text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-1">${rest.trim()}</li>`
   );
 
   // Wrap contiguous sequences of <li> in <ul> so we have well-formed HTML.
   s = s.replace(/(<li[^>]*>[\s\S]*?<\/li>(?:\s*<li[^>]*>[\s\S]*?<\/li>)*)/g, '<ul class="my-2 space-y-0.5">$1</ul>');
 
-  // Tables — basic pipe-tables
+  // Tables - basic pipe-tables
   s = s.replace(/((?:^\|.*\|\n)+)/gm, (block) => {
     const rows = block.trim().split('\n');
     if (rows.length < 2) return block;
@@ -595,7 +595,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
               <span
                 className={`px-1.5 py-0.5 rounded text-micro font-mono font-bold ${cvssSeverityColor(card.cvss.severity)}`}
               >
-                {card.cvss.severity ?? '—'}
+                {card.cvss.severity ?? '-'}
               </span>
             </div>
             {card.cvss.vector && (
@@ -736,7 +736,7 @@ function IocTable({ iocs }: { iocs: ReportIoc[] }): JSX.Element | null {
     Probable: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
     Possible: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
   };
-  // Type-color map — gives the "Type" column a quick visual signal that
+  // Type-color map - gives the "Type" column a quick visual signal that
   // matches the indicator's nature (file hash = rose, domain = cyan, etc.).
   const typeColor: Record<string, string> = {
     ipv4: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
@@ -810,7 +810,7 @@ function IocTable({ iocs }: { iocs: ReportIoc[] }): JSX.Element | null {
                       {i.confidence}
                     </span>
                   </td>
-                  <td className="px-3 py-1.5 font-mono text-mini text-slate-500">{i.source ?? '—'}</td>
+                  <td className="px-3 py-1.5 font-mono text-mini text-slate-500">{i.source ?? '-'}</td>
                   <td className="px-3 py-1.5">
                     <CopyButton text={i.value} label="Copy" />
                   </td>
@@ -904,7 +904,7 @@ function MitreTable({ mitre }: { mitre: ReportMitre[] }): JSX.Element | null {
                     </a>
                   </td>
                   <td className="px-3 py-1.5">
-                    <div className="text-sm">{m.name ?? '—'}</div>
+                    <div className="text-sm">{m.name ?? '-'}</div>
                     {m.evidence && <div className="text-xs text-slate-500 mt-0.5">{m.evidence}</div>}
                   </td>
                   <td className="px-3 py-1.5">
@@ -959,7 +959,7 @@ function DiamondQuadrant({ title, value, items }: { title: string; value?: strin
           ))}
         </ul>
       )}
-      {!value && (!items || items.length === 0) && <div className="text-xs text-slate-400 italic">unknown</div>}
+      {!value && (!items || items.length === 0) && <div className="text-xs text-slate-500 dark:text-slate-400 italic">unknown</div>}
     </div>
   );
 }
@@ -1071,9 +1071,9 @@ function TimelineList({ timeline }: { timeline: ReportActionCard['timeline'] }):
         {timeline.map((t, idx) => (
           <li key={idx} className="relative py-1.5">
             <div className="absolute -left-3 mt-1.5 w-2 h-2 rounded-full bg-brand-500 ring-2 ring-white dark:ring-slate-900" />
-            <div className="text-mini font-mono text-slate-500">{t.date ?? '—'}</div>
+            <div className="text-mini font-mono text-slate-500">{t.date ?? '-'}</div>
             <div className="text-sm text-slate-900 dark:text-slate-100">{t.event}</div>
-            {t.source && <div className="text-micro font-mono text-slate-400">[{t.source}]</div>}
+            {t.source && <div className="text-micro font-mono text-slate-500 dark:text-slate-400">[{t.source}]</div>}
           </li>
         ))}
       </ol>
@@ -1089,7 +1089,7 @@ function NextActionsBar({
   onGenerateYaraRule,
   onDrillDeeper,
 }: {
-  /** Raw report text — used for the Share-as-Markdown export. */
+  /** Raw report text - used for the Share-as-Markdown export. */
   report?: string;
   query?: string;
   actionCard?: ReportActionCard;
@@ -1382,7 +1382,7 @@ export function ReportView({
   }, [actionCard]);
 
   if (!actionCard) {
-    // Fallback — render the prose only with the STIX bundle inline.
+    // Fallback - render the prose only with the STIX bundle inline.
     return (
       <div>
         {headline && (
@@ -1413,7 +1413,7 @@ export function ReportView({
     <div>
       {actionCard.reportHeader ? <BlufPanel header={actionCard.reportHeader} /> : <SeverityBanner card={actionCard} />}
 
-      {/* CVE intelligence card — only renders when KEV/CVSS/EPSS/actor data is present. */}
+      {/* CVE intelligence card - only renders when KEV/CVSS/EPSS/actor data is present. */}
       <CveMetaCard card={actionCard} />
 
       {actionCard.reportHeader?.bluf && (
@@ -1487,7 +1487,7 @@ export function ReportView({
       <TimelineList timeline={actionCard.timeline} />
       <PirList pirs={actionCard.pirs ?? []} />
 
-      {/* Technical details — collapsible. Analyst can fold the body and
+      {/* Technical details - collapsible. Analyst can fold the body and
           just see BLUF + action card + IOCs at a glance. */}
       <div className="surface-card mb-4">
         <button

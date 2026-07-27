@@ -7,7 +7,7 @@ export interface FaqItem {
  * Extract FAQ Q&A pairs from a post's markdown body, for FAQPage JSON-LD.
  * Looks for a `## FAQ` section, then each `### question` heading followed by
  * its answer text (up to the next heading). Returns [] when there is no
- * parseable FAQ — callers should then emit no FAQPage schema (graceful).
+ * parseable FAQ - callers should then emit no FAQPage schema (graceful).
  */
 export function extractFaq(markdown: string): FaqItem[] {
   const lines = markdown.split('\n');

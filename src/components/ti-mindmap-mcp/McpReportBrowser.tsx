@@ -189,7 +189,7 @@ export function McpReportBrowser(props: {
             Add your TI-Mindmap-Hub API key in the header pill to load the 1,628+ reports from the upstream catalog.
           </p>
           <p>
-            The key stays in your browser (localStorage) and is sent only to ti-mindmap-hub.com — never to our backend.
+            The key stays in your browser (localStorage) and is sent only to ti-mindmap-hub.com - never to our backend.
           </p>
         </div>
       )}

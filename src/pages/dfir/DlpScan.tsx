@@ -57,15 +57,15 @@ b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAA
   },
   {
     label: 'BEC indicators',
-    text: `Subject: URGENT — wire transfer
+    text: `Subject: URGENT - wire transfer
 From: cfo@ourcompany.tld
 
 Please process a wire of $48,000 to:
-Account: GB29 NWBK 6016 1331 9268 19 (IBAN — verify mod-97)
+Account: GB29 NWBK 6016 1331 9268 19 (IBAN - verify mod-97)
 Routing: 026073150
 Reference: alice.smith@vendor.example, phone (212) 555-0199
 
-Resubmitted on the same thread as before — see eyJ... for context.`,
+Resubmitted on the same thread as before - see eyJ... for context.`,
   },
 ];
 

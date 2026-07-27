@@ -52,7 +52,7 @@ export function TextField({
   };
 
   const inputClasses = [
-    'w-full px-3 py-2 rounded text-sm font-mono border transition-colors',
+    'w-full px-3 py-2 rounded text-tool font-mono border transition-colors',
     'focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20',
     'disabled:opacity-50 disabled:cursor-not-allowed',
     error
@@ -67,7 +67,7 @@ export function TextField({
 
   return (
     <div className={className}>
-      <label htmlFor={id} className="mb-1 block text-xs font-medium uppercase tracking-wider text-slate-500">
+      <label htmlFor={id} className="mb-1 block text-meta font-medium uppercase tracking-wider text-slate-500">
         {label}
         {required && (
           <span className="ml-0.5 text-rose-500" aria-hidden="true">
@@ -77,7 +77,7 @@ export function TextField({
       </label>
       <div className="relative">
         {icon && (
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true">
             {icon}
           </span>
         )}
@@ -111,12 +111,12 @@ export function TextField({
         )}
       </div>
       {error && (
-        <p id={errorId} role="alert" className="mt-1 text-xs font-medium text-rose-600 dark:text-rose-400">
+        <p id={errorId} role="alert" className="mt-1 text-meta font-medium text-rose-600 dark:text-rose-400">
           {error}
         </p>
       )}
       {helperText && !error && (
-        <p id={helperId} className="mt-1 text-xs text-slate-400">
+        <p id={helperId} className="mt-1 text-meta text-slate-500 dark:text-slate-400">
           {helperText}
         </p>
       )}

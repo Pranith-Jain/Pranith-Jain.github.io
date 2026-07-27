@@ -101,7 +101,7 @@ export default function ACH(): JSX.Element {
       description={
         <>
           ACH is a structured analytic technique that forces explicit consideration of multiple explanations for the
-          same evidence. Enter a topic — the system retrieves relevant intelligence and generates competing hypotheses
+          same evidence. Enter a topic - the system retrieves relevant intelligence and generates competing hypotheses
           with evidence for/against each.
         </>
       }
@@ -115,14 +115,14 @@ export default function ACH(): JSX.Element {
             onChange={(e) => setTopic(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void analyze()}
             placeholder="e.g. Qilin ransomware, Scattered Spider, CVE-2024-1709 campaign attribution…"
-            className="flex-1 text-sm px-4 py-2.5 surface-card/60 shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 placeholder:text-slate-400"
+            className="flex-1 text-sm px-4 py-2.5 surface-card/60 shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 placeholder:text-slate-400"
             disabled={loading}
           />
           <button
             type="button"
             onClick={() => void analyze()}
             disabled={loading || !topic.trim()}
-            className="inline-flex items-center gap-2 text-sm font-mono px-5 py-2.5 rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-mono px-5 py-2.5 rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50 transition-colors"
           >
             {loading ? (
               <svg
@@ -148,7 +148,7 @@ export default function ACH(): JSX.Element {
           {/* Question + meta */}
           <div className="surface-card p-5">
             <h2 className="text-lg font-bold mb-1">{result.question}</h2>
-            <div className="flex flex-wrap gap-3 text-mini font-mono text-slate-400">
+            <div className="flex flex-wrap gap-3 text-mini font-mono text-slate-500 dark:text-slate-400">
               <span>topic: {result.topic}</span>
               <span>model: {result.model_used}</span>
               <span>{new Date(result.generated_at).toLocaleString()}</span>
@@ -198,12 +198,12 @@ export default function ACH(): JSX.Element {
                       >
                         {h.confidence}%
                       </div>
-                      <div className="text-micro font-mono text-slate-400">confidence</div>
+                      <div className="text-micro font-mono text-slate-500 dark:text-slate-400">confidence</div>
                     </div>
                     {isOpen ? (
-                      <ChevronDown size={16} className="text-slate-400" />
+                      <ChevronDown size={16} className="text-slate-500 dark:text-slate-400" />
                     ) : (
-                      <ChevronRight size={16} className="text-slate-400" />
+                      <ChevronRight size={16} className="text-slate-500 dark:text-slate-400" />
                     )}
                   </button>
 
@@ -237,7 +237,7 @@ export default function ACH(): JSX.Element {
                               >
                                 <p className="text-mini text-slate-700 dark:text-slate-300">{ev.claim}</p>
                                 <div className="flex items-center gap-2 mt-1">
-                                  <span className="text-micro font-mono text-slate-400">source: {ev.source}</span>
+                                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">source: {ev.source}</span>
                                   <span
                                     className={`text-micro font-mono px-1 py-0.5 rounded ${RELEVANCE_COLORS[ev.relevance]}`}
                                   >
@@ -247,12 +247,12 @@ export default function ACH(): JSX.Element {
                               </div>
                             ))}
                           {!showFor && h.evidence_for.length > 0 && (
-                            <p className="text-micro text-slate-400 italic">
+                            <p className="text-micro text-slate-500 dark:text-slate-400 italic">
                               Click to expand {h.evidence_for.length} evidence items
                             </p>
                           )}
                           {h.evidence_for.length === 0 && (
-                            <p className="text-micro text-slate-400 italic">No supporting evidence identified</p>
+                            <p className="text-micro text-slate-500 dark:text-slate-400 italic">No supporting evidence identified</p>
                           )}
                         </div>
 
@@ -280,7 +280,7 @@ export default function ACH(): JSX.Element {
                               >
                                 <p className="text-mini text-slate-700 dark:text-slate-300">{ev.claim}</p>
                                 <div className="flex items-center gap-2 mt-1">
-                                  <span className="text-micro font-mono text-slate-400">source: {ev.source}</span>
+                                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">source: {ev.source}</span>
                                   <span
                                     className={`text-micro font-mono px-1 py-0.5 rounded ${RELEVANCE_COLORS[ev.relevance]}`}
                                   >
@@ -290,12 +290,12 @@ export default function ACH(): JSX.Element {
                               </div>
                             ))}
                           {!showAgainst && h.evidence_against.length > 0 && (
-                            <p className="text-micro text-slate-400 italic">
+                            <p className="text-micro text-slate-500 dark:text-slate-400 italic">
                               Click to expand {h.evidence_against.length} evidence items
                             </p>
                           )}
                           {h.evidence_against.length === 0 && (
-                            <p className="text-micro text-slate-400 italic">No contradictory evidence identified</p>
+                            <p className="text-micro text-slate-500 dark:text-slate-400 italic">No contradictory evidence identified</p>
                           )}
                         </div>
                       </div>
@@ -340,7 +340,7 @@ export default function ACH(): JSX.Element {
               <ul className="space-y-2">
                 {result.recommended_collection.map((r) => (
                   <li key={r} className="flex items-start gap-2 text-xs text-muted">
-                    <span className="text-brand-500 mt-0.5">→</span>
+                    <span className="text-rose-500 mt-0.5">→</span>
                     {r}
                   </li>
                 ))}

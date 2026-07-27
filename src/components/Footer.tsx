@@ -11,9 +11,9 @@ interface FooterProps {
 
 /**
  * Three-column footer sitemap:
- *   1. Brand — logo + name + one-line tagline + social icons
- *   2. Site  — portfolio destinations (About / Skills / Experience / Projects)
- *   3. Build — platform destinations (DFIR / Threat Intel / Blog / Briefings)
+ *   1. Brand - logo + name + one-line tagline + social icons
+ *   2. Site  - portfolio destinations (About / Skills / Experience / Projects)
+ *   3. Build - platform destinations (DFIR / Threat Intel / Blog / Briefings)
  * with a slim bottom strip carrying © / view counter / stack credit.
  *
  * Three columns reads as a real sitemap, not a single-row outro, and keeps
@@ -59,7 +59,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
               </span>
             </Link>
             <p className="mt-3 max-w-xs text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Threat intel, email defense, and edge-native security tooling. Reference only — verify indicators in your
+              Threat intel, email defense, and edge-native security tooling. Reference only - verify indicators in your
               own environment.
             </p>
             <div className="mt-4 flex items-center gap-2">
@@ -93,7 +93,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
 
           {/* Site column */}
           <div>
-            <div className="text-eyebrow font-mono uppercase text-slate-400">Site</div>
+            <div className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Site</div>
             <ul className="mt-3 space-y-2">
               {SITE_LINKS.map((l) => (
                 <li key={l.href}>
@@ -110,7 +110,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
 
           {/* Build column */}
           <div>
-            <div className="text-eyebrow font-mono uppercase text-slate-400">Build</div>
+            <div className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Build</div>
             <ul className="mt-3 space-y-2">
               {BUILD_LINKS.map((l) => (
                 <li key={l.href}>
@@ -126,7 +126,7 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
           </div>
         </div>
 
-        {/* Bottom strip — copyright, view counter, stack credit */}
+        {/* Bottom strip - copyright, view counter, stack credit */}
         <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-slate-200/60 pt-5 text-mini text-slate-500 dark:border-white/10 dark:text-slate-400 sm:flex-row sm:items-center">
           <span>
             © {currentYear} {personalInfo.name}. All rights reserved.

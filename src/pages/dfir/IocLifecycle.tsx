@@ -46,7 +46,7 @@ const STATUS_BADGE: Record<string, string> = {
 const TREND_ICON: Record<string, typeof TrendingUp> = { rising: TrendingUp, stable: Minus, declining: TrendingDown };
 const TREND_COLOR: Record<string, string> = {
   rising: 'text-emerald-600 dark:text-emerald-400',
-  stable: 'text-slate-400',
+  stable: 'text-slate-500 dark:text-slate-400',
   declining: 'text-rose-600 dark:text-rose-400',
 };
 
@@ -202,7 +202,7 @@ export default function IocLifecycle(): JSX.Element {
                     <th
                       key={h}
                       scope="col"
-                      className="px-4 py-3 text-micro font-mono uppercase tracking-wider text-slate-400"
+                      className="px-4 py-3 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400"
                     >
                       {h}
                     </th>
@@ -247,7 +247,7 @@ export default function IocLifecycle(): JSX.Element {
                         </div>
                       </td>
                       <td className="px-4 py-2.5 text-xs font-mono text-slate-500">{ioc.observation_count}</td>
-                      <td className="px-4 py-2.5 text-xs font-mono text-slate-400">
+                      <td className="px-4 py-2.5 text-xs font-mono text-slate-500 dark:text-slate-400">
                         {ioc.last_seen_hours_ago < 1 ? 'Just now' : `${ioc.last_seen_hours_ago}h ago`}
                       </td>
                     </tr>
@@ -275,27 +275,27 @@ export default function IocLifecycle(): JSX.Element {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
             <div>
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-400">First Seen</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">First Seen</div>
               <div className="text-sm">{new Date(lifecycle.first_seen).toLocaleString()}</div>
             </div>
             <div>
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-400">Last Seen</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Last Seen</div>
               <div className="text-sm">{new Date(lifecycle.last_seen).toLocaleString()}</div>
             </div>
             <div>
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-400">Peak</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Peak</div>
               <div className="text-sm font-mono">{lifecycle.peak_score}</div>
               <ScoreBar score={lifecycle.peak_score} />
             </div>
             <div>
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-400">Current</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Current</div>
               <div className="text-sm font-mono">{lifecycle.current_score}</div>
               <ScoreBar score={lifecycle.current_score} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
                 Sources ({lifecycle.sources_seen.length})
               </div>
               <div className="flex flex-wrap gap-1">
@@ -310,7 +310,7 @@ export default function IocLifecycle(): JSX.Element {
               </div>
             </div>
             <div>
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1.5">Tags</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">Tags</div>
               <div className="flex flex-wrap gap-1">
                 {lifecycle.tags.map((t) => (
                   <span
@@ -343,8 +343,8 @@ function StatCard({
   return (
     <div className="surface-card/40 shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-1.5">
-        {icon && <span className={color ?? 'text-slate-400'}>{icon}</span>}
-        <span className="text-micro font-mono uppercase tracking-wider text-slate-400">{label}</span>
+        {icon && <span className={color ?? 'text-slate-500 dark:text-slate-400'}>{icon}</span>}
+        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</span>
       </div>
       <div className={`text-2xl font-display font-bold ${color ?? 'text-slate-900 dark:text-white'}`}>
         {(value ?? 0).toLocaleString()}

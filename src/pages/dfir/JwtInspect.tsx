@@ -114,7 +114,7 @@ export default function JwtInspect(): JSX.Element {
   const [token, setToken] = useState(initialToken);
   const decoded = useMemo<DecodedJwt | null>(() => (token.trim() ? decode(token) : null), [token]);
 
-  // Persist current token into the URL — only when non-empty so the page
+  // Persist current token into the URL - only when non-empty so the page
   // doesn't drop a stray ?token= behind it.
   useEffect(() => {
     setSearchParams(

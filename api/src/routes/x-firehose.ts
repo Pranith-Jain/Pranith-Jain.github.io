@@ -2,12 +2,15 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import {
   fetchAuthedTimeline,
-  readAuthCookies,
+  resolveAuthCookies,
   XAuthMissingError,
   XAuthInvalidError,
   XAuthRateLimitedError,
   type AuthedTimelineResponse,
 } from '../lib/twitter-auth-graphql';
+
+const PROBE_BATCH_MAX = 80;
+const PROBE_STAGGER_MS = 350;
 
 /**
  * X (Twitter) firehose handler.
@@ -34,7 +37,7 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
   // attempting a fetch first.
   if (c.req.query('status') !== undefined) {
     try {
-      readAuthCookies(c.env);
+      await resolveAuthCookies(c.env);
       return c.json({ ok: true, configured: true });
     } catch (_catchErr) {
       console.error('xFirehoseHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
@@ -105,4 +108,84 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
     }
     return c.json({ error: 'upstream error' }, 502);
   }
+}
+
+interface ProbeResult {
+  count: number;
+  status: 'ok' | 'rate_limited' | 'error' | 'not_found';
+}
+
+/**
+ * Batch probe — checks activity for many handles in one request,
+ * staggering upstream calls to avoid tripping X's per-IP rate limit.
+ *
+ *   POST /api/v1/x-firehose/probe-batch
+ *   Body: { handles: string[], since_days?: number }
+ *   Response: { results: Record<string, ProbeResult>, elapsed_ms: number }
+ */
+export async function xFirehoseProbeBatchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  let body: { handles?: string[]; since_days?: number };
+  try {
+    body = (await c.req.json()) as typeof body;
+  } catch {
+    return c.json({ error: 'invalid JSON body' }, 400);
+  }
+
+  const handles = (body.handles ?? []).filter((h) => HANDLE_RE.test(h)).slice(0, PROBE_BATCH_MAX);
+  if (handles.length === 0) return c.json({ error: 'no valid handles' }, 400);
+
+  const sinceDays = Number.isFinite(body.since_days) ? Math.max(1, Math.min(90, Math.floor(body.since_days!))) : 7;
+  const edgeCache = (caches as unknown as { default: Cache }).default;
+  const results: Record<string, ProbeResult> = {};
+  const start = Date.now();
+
+  for (let i = 0; i < handles.length; i++) {
+    const h = handles[i]!;
+    if (i > 0) await new Promise((r) => setTimeout(r, PROBE_STAGGER_MS));
+
+    const staleKey = staleCacheKey(h);
+    try {
+      const res = await fetchAuthedTimeline(c.env, h, { count: 5, sinceDays, includePinned: false, includeReplies: false });
+      results[h] = { count: res.items.length, status: 'ok' };
+      if (res.items.length > 0) {
+        const cacheable = new Response(JSON.stringify(res), {
+          status: 200,
+          headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${STALE_CACHE_TTL_SECONDS}` },
+        });
+        c.executionCtx.waitUntil(edgeCache.put(staleKey, cacheable).catch(() => undefined));
+      }
+    } catch (err) {
+      if (err instanceof XAuthRateLimitedError) {
+        try {
+          const stale = await edgeCache.match(staleKey);
+          if (stale) {
+            const parsed = (await stale.json()) as AuthedTimelineResponse;
+            results[h] = { count: parsed.items?.length ?? 0, status: 'ok' };
+            continue;
+          }
+        } catch { /* fall through */ }
+        results[h] = { count: 0, status: 'rate_limited' };
+        for (let j = i + 1; j < handles.length; j++) {
+          results[handles[j]!] = { count: 0, status: 'rate_limited' };
+        }
+        break;
+      }
+      if (err instanceof XAuthMissingError || err instanceof XAuthInvalidError) {
+        for (let j = i; j < handles.length; j++) {
+          results[handles[j]!] = { count: 0, status: 'error' };
+        }
+        break;
+      }
+      const msg = err instanceof Error ? err.message : '';
+      if (msg.includes('no result') || msg.includes('could not resolve')) {
+        results[h] = { count: 0, status: 'not_found' };
+      } else {
+        results[h] = { count: 0, status: 'error' };
+      }
+    }
+  }
+
+  return c.json({ results, elapsed_ms: Date.now() - start }, 200, {
+    'cache-control': 'public, max-age=300, s-maxage=600',
+  });
 }

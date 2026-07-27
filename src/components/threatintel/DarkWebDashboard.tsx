@@ -90,11 +90,11 @@ export function DarkWebDashboard({ items, onClose }: DarkWebDashboardProps) {
           <button
             onClick={fetchIntel}
             disabled={loading}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200"
+            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
-          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-400 hover:text-slate-200">
+          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200">
             <X size={14} />
           </button>
         </div>
@@ -104,7 +104,7 @@ export function DarkWebDashboard({ items, onClose }: DarkWebDashboardProps) {
         {loading && !intel && (
           <div className="flex items-center gap-2 justify-center py-6">
             <RefreshCw size={14} className="animate-spin text-brand-400" />
-            <span className="text-xs text-slate-400">Analyzing dark web activity…</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">Analyzing dark web activity…</span>
           </div>
         )}
 
@@ -141,7 +141,7 @@ export function DarkWebDashboard({ items, onClose }: DarkWebDashboardProps) {
                           {site.threat_assessment}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-400">{site.recent_activity}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">{site.recent_activity}</p>
                       <div className="flex items-center gap-2 text-micro text-slate-500">
                         <span>Victims: {site.victim_count}</span>
                         {site.sectors_targeted?.length > 0 && <span>Sectors: {site.sectors_targeted.join(', ')}</span>}

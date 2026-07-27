@@ -109,7 +109,7 @@ export default function DataClassification(): JSX.Element {
             <div className="text-xs font-mono uppercase tracking-wider opacity-80">{TIER_LABELS[t]}</div>
             <div className="text-2xl font-display font-bold">{dist[t]}</div>
             <div className="text-micro font-mono opacity-70">
-              {total === 0 ? '—' : `${Math.round((dist[t] / total) * 100)}%`}
+              {total === 0 ? '-' : `${Math.round((dist[t] / total) * 100)}%`}
             </div>
           </div>
         ))}
@@ -309,9 +309,9 @@ export default function DataClassification(): JSX.Element {
                       {TIER_LABELS[d.tier]}
                     </span>
                     {isOpen ? (
-                      <ChevronDown size={16} className="flex-none text-slate-400" />
+                      <ChevronDown size={16} className="flex-none text-slate-500 dark:text-slate-400" />
                     ) : (
-                      <ChevronRight size={16} className="flex-none text-slate-400" />
+                      <ChevronRight size={16} className="flex-none text-slate-500 dark:text-slate-400" />
                     )}
                   </button>
                   {isOpen && (
@@ -361,7 +361,7 @@ export default function DataClassification(): JSX.Element {
                             type="text"
                             value={d.owner}
                             onChange={(e) => updateDataset(d.id, { owner: e.target.value })}
-                            placeholder="alice@team — name + escalation"
+                            placeholder="alice@team - name + escalation"
                             className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-2 py-1.5 font-mono text-xs"
                           />
                         </Field>
@@ -503,7 +503,7 @@ export default function DataClassification(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              NIST glossary — Data Classification
+              NIST glossary - Data Classification
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -512,7 +512,7 @@ export default function DataClassification(): JSX.Element {
               to="/threatintel/wiki/data-classification"
               className="text-brand-600 dark:text-brand-400 hover:underline"
             >
-              Wiki — Data classification primer
+              Wiki - Data classification primer
             </Link>
           </li>
           <li>
@@ -520,7 +520,7 @@ export default function DataClassification(): JSX.Element {
               to="/threatintel/wiki/dlp-architectures"
               className="text-brand-600 dark:text-brand-400 hover:underline"
             >
-              Wiki — DLP architectures
+              Wiki - DLP architectures
             </Link>
           </li>
         </ul>

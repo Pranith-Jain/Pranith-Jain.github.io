@@ -93,7 +93,7 @@ const SOURCE_LABEL: Record<Source, string> = {
 };
 
 const PAGE_SIZE = 100;
-const REFRESH_MS = 60_000; // 1 minute — gentle on the edge cache
+const REFRESH_MS = 60_000; // 1 minute - gentle on the edge cache
 
 /* ------------------------------------------------------------------ */
 /*  Main component                                                     */
@@ -214,7 +214,7 @@ export default function TelegramFirehose(): JSX.Element {
         body: it.text,
         channel: it.channel_handle,
         link: it.permalink,
-        meta: { views: it.views ?? '—' },
+        meta: { views: it.views ?? '-' },
       });
     }
     for (const l of leaks) {
@@ -228,14 +228,14 @@ export default function TelegramFirehose(): JSX.Element {
         channel: l.channel_handle,
         link: l.message_link,
         meta: {
-          credentials: l.credential_count ? `${l.credential_count} creds` : '—',
+          credentials: l.credential_count ? `${l.credential_count} creds` : '-',
           domains: (() => {
             try {
               const arr = JSON.parse(l.domains_found);
-              return Array.isArray(arr) && arr.length > 0 ? `${arr.length} domains` : '—';
+              return Array.isArray(arr) && arr.length > 0 ? `${arr.length} domains` : '-';
             } catch (_catchErr) {
               console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-              return '—';
+              return '-';
             }
           })(),
         },
@@ -309,8 +309,8 @@ export default function TelegramFirehose(): JSX.Element {
         <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
           <div>
             <h2 className="font-display font-semibold text-lg flex items-center gap-2">
-              <Radio size={18} className="text-brand-600 dark:text-brand-400" /> Telegram firehose
-              <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-400">
+              <Radio size={18} className="text-rose-600 dark:text-rose-400" /> Telegram firehose
+              <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-400">
                 live · auto-refresh 60s
               </span>
             </h2>
@@ -331,7 +331,7 @@ export default function TelegramFirehose(): JSX.Element {
             <button
               type="button"
               onClick={() => setRefreshKey((k) => k + 1)}
-              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
             >
               <RefreshCw size={11} className={anyLoading ? 'animate-spin' : ''} /> refresh
             </button>
@@ -387,7 +387,7 @@ export default function TelegramFirehose(): JSX.Element {
               type="checkbox"
               checked={newOnly}
               onChange={(e) => setNewOnly(e.target.checked)}
-              className="accent-brand-600"
+              className="accent-rose-600"
             />
             <span>new only</span>
           </label>
@@ -398,13 +398,13 @@ export default function TelegramFirehose(): JSX.Element {
           <div className="relative flex-1 min-w-[220px]">
             <Search
               size={12}
-              className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+              className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 pointer-events-none"
             />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="filter by keyword, handle, or IOC value…"
-              className="w-full pl-7 pr-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+              className="w-full pl-7 pr-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200)/0.4)] text-sm font-mono focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
               aria-label="Filter firehose"
             />
           </div>
@@ -469,7 +469,7 @@ function FirehoseRow({ item }: { item: FirehoseItem }): JSX.Element {
           </span>
         )}
         <span className="text-micro font-mono text-slate-500 dark:text-slate-400">@{item.channel}</span>
-        <span className="text-micro font-mono text-slate-400 ml-auto">{relativeAgo(item.ts, '—')}</span>
+        <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-auto">{relativeAgo(item.ts, '-')}</span>
       </div>
       <div className="flex flex-wrap items-start gap-2">
         <div className="flex-1 min-w-0">
@@ -493,7 +493,7 @@ function FirehoseRow({ item }: { item: FirehoseItem }): JSX.Element {
             href={sanitizeUrl(item.link)}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 shrink-0"
+            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 shrink-0"
           >
             <ExternalLink size={11} /> open
           </a>

@@ -4,7 +4,7 @@ import { Search } from 'lucide-react';
 import { detectKind, ROUTE_FOR } from './pivot-kind';
 
 /**
- * Shared pivot bar — type an IP or domain and jump to the right tool.
+ * Shared pivot bar - type an IP or domain and jump to the right tool.
  * Mirrors the etugen.io "Search / pivot" entry. Entity detection lives in
  * pivot-kind.ts (separate file) so React Fast Refresh and the
  * `react-refresh/only-export-components` lint rule stay happy.
@@ -30,7 +30,7 @@ export function PivotBar({ initial = '', placeholder = 'IP or domain…' }: Pivo
     <form onSubmit={onSubmit} className="mb-2">
       <div className="flex gap-2 items-stretch">
         <div className="relative flex-1">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={value}

@@ -303,7 +303,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-6 font-mono"
       >
         back
       </BackLink>
@@ -315,13 +315,13 @@ export default function DarknetMarketsTimeline(): JSX.Element {
         </h1>
       </div>
       <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
-        Historical and current darknet marketplaces — status, founding dates, seizure history, and exit scams. Data
+        Historical and current darknet marketplaces - status, founding dates, seizure history, and exit scams. Data
         sourced from{' '}
         <a
           href="https://www.dread.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-brand-600 dark:text-brand-400 hover:underline"
+          className="text-rose-600 dark:text-rose-400 hover:underline"
         >
           Dread
         </a>
@@ -330,7 +330,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
           href="https://tortaxi.info"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-brand-600 dark:text-brand-400 hover:underline"
+          className="text-rose-600 dark:text-rose-400 hover:underline"
         >
           TorTaxi
         </a>
@@ -361,13 +361,13 @@ export default function DarknetMarketsTimeline(): JSX.Element {
             placeholder="Search market name, description, country…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
           value={catFilter}
           onChange={(e) => setCatFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
         >
           <option value="">All categories</option>
           {ALL_CATEGORIES.map((c) => (
@@ -400,7 +400,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
         {statusFilter.size > 0 && (
           <button
             onClick={() => setStatusFilter(new Set())}
-            className="text-xs text-brand-600 dark:text-brand-400 hover:underline ml-2"
+            className="text-xs text-rose-600 dark:text-rose-400 hover:underline ml-2"
           >
             clear
           </button>
@@ -448,7 +448,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
                         href={sanitizeUrl(m.url)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-0.5"
+                        className="text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-0.5"
                       >
                         <ExternalLink className="w-2.5 h-2.5" /> onion
                       </a>

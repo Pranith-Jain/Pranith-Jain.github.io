@@ -214,7 +214,7 @@ export default function PlistProtobuf(): JSX.Element {
       </h1>
       <p className="text-sm font-mono text-muted mt-1 mb-6">
         Decodes Apple binary plists (<code>bplist00</code>), XML plists, and schema-less protobuf blobs. Hand-rolled
-        parsers — no upload, fully client-side.
+        parsers - no upload, fully client-side.
       </p>
 
       <div className="flex flex-wrap gap-2 mb-3 text-meta font-mono">

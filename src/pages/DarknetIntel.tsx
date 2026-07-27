@@ -128,7 +128,7 @@ function ToolForm({
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{description}</p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            {ageText && <span className="text-micro font-mono text-slate-400 dark:text-slate-500">{ageText}</span>}
+            {ageText && <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{ageText}</span>}
             {examples && (
               <button
                 type="button"
@@ -263,7 +263,7 @@ function ProvidersTab() {
                     ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400'
                     : keyStatus[s.name] === 'missing'
                       ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400'
-                      : 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-400'
+                      : 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400'
                 }`}
               >
                 {keyStatus[s.name] === 'configured'
@@ -662,7 +662,7 @@ export default function DarknetIntel() {
       backLabel="back to threat intel"
       icon={<Shield className="h-6 w-6" />}
       title="Darknet Intel"
-      description="42 tools across 13 providers — IP reputation, malware analysis, vulnerability lookup, ransomware tracking, breach intelligence, and dark web search."
+      description="42 tools across 13 providers - IP reputation, malware analysis, vulnerability lookup, ransomware tracking, breach intelligence, and dark web search."
       maxWidthClass="max-w-6xl"
     >
       <div className="mb-6 flex flex-wrap gap-1.5">

@@ -3,7 +3,7 @@ import { Search, Globe, FileText, Hash, Shield, ExternalLink, Users } from 'luci
 import type { Verdict } from '../../lib/dfir/types';
 
 /**
- * Pivot Matrix — investigation guidance after enrichment.
+ * Pivot Matrix - investigation guidance after enrichment.
  *
  * Inspired by Hokage-Intel's Pivot Matrix: personalized next steps based
  * on indicator type and verdict, with action buttons that link to other
@@ -109,7 +109,7 @@ export function PivotMatrix({ type, value, verdict }: { type: string; value: str
     <section className="surface-card p-5 mb-6">
       <h3 className="font-display font-semibold text-base mb-3 inline-flex items-center gap-2">
         <Search size={15} className="text-brand-600 dark:text-brand-400" />
-        Pivot Matrix — investigation steps
+        Pivot Matrix - investigation steps
       </h3>
       <div className="grid sm:grid-cols-2 gap-3">
         {pivots.map((p) => (
@@ -120,11 +120,11 @@ export function PivotMatrix({ type, value, verdict }: { type: string; value: str
             rel={p.external ? 'noopener noreferrer' : undefined}
             className="flex items-start gap-3 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors group"
           >
-            <p.icon size={16} className="mt-0.5 shrink-0 text-slate-400 group-hover:text-brand-500" />
+            <p.icon size={16} className="mt-0.5 shrink-0 text-slate-500 dark:text-slate-400 group-hover:text-brand-500" />
             <div className="min-w-0">
               <div className="text-sm font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
                 {p.label}
-                {p.external && <ExternalLink size={11} className="text-slate-400" />}
+                {p.external && <ExternalLink size={11} className="text-slate-500 dark:text-slate-400" />}
               </div>
               <p className="text-mini font-mono text-slate-500 mt-0.5">{p.desc}</p>
             </div>

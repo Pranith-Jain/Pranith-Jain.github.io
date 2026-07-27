@@ -92,8 +92,8 @@ export default function Dnscope(): JSX.Element {
       if (data.email_auth) {
         const lines: string[] = [];
         const { spf, dmarc, dkim, bimi, mta_sts } = data.email_auth;
-        if (spf.present) lines.push(`SPF: ${spf.policy ?? 'present'}${spf.record ? ` — ${spf.record}` : ''}`);
-        if (dmarc.present) lines.push(`DMARC: ${dmarc.policy ?? 'present'}${dmarc.record ? ` — ${dmarc.record}` : ''}`);
+        if (spf.present) lines.push(`SPF: ${spf.policy ?? 'present'}${spf.record ? ` - ${spf.record}` : ''}`);
+        if (dmarc.present) lines.push(`DMARC: ${dmarc.policy ?? 'present'}${dmarc.record ? ` - ${dmarc.record}` : ''}`);
         if (dkim.selectors_found?.length) lines.push(`DKIM: ${dkim.selectors_found.length} selector(s) found`);
         if (bimi.present) lines.push(`BIMI: logo configured`);
         if (mta_sts.present) lines.push(`MTA-STS: ${mta_sts.mode ?? 'enabled'}`);
@@ -106,7 +106,7 @@ export default function Dnscope(): JSX.Element {
             ?.filter((s) => s !== data.domain)
             .slice(0, 2)
             .join(', ');
-          return `${c.issuer?.slice(0, 40)}… — ${c.not_before?.slice(0, 10)}${san ? ` SAN: ${san}` : ''}`;
+          return `${c.issuer?.slice(0, 40)}… - ${c.not_before?.slice(0, 10)}${san ? ` SAN: ${san}` : ''}`;
         });
         lines.unshift(`${data.certificates.length} certificate(s) found`);
         built.push({ id: 'certs', label: 'Certificates · CT Logs', data: lines });
@@ -127,17 +127,17 @@ export default function Dnscope(): JSX.Element {
         {
           id: 'subs',
           label: 'Subdomains (coming soon)',
-          data: ['Subdomain enumeration via external API — not yet wired'],
+          data: ['Subdomain enumeration via external API - not yet wired'],
         },
         {
           id: 'lookalike',
           label: 'Lookalike · Permutations (coming soon)',
-          data: ['Permutation analysis — not yet wired'],
+          data: ['Permutation analysis - not yet wired'],
         },
         {
           id: 'ports',
           label: 'Ports · Services (coming soon)',
-          data: ['Port scan via Shodan/InternetDB — not yet wired'],
+          data: ['Port scan via Shodan/InternetDB - not yet wired'],
         }
       );
 
@@ -155,7 +155,7 @@ export default function Dnscope(): JSX.Element {
       backTo="/dfir"
       icon={<Globe size={28} />}
       title="DNSCOPE"
-      description="Deep domain infrastructure mapping via live DNS, RDAP, certificate transparency, email auth, and threat intelligence — all in one scan."
+      description="Deep domain infrastructure mapping via live DNS, RDAP, certificate transparency, email auth, and threat intelligence - all in one scan."
       maxWidthClass="max-w-6xl"
     >
       {error && (
@@ -172,8 +172,8 @@ export default function Dnscope(): JSX.Element {
         <div className="space-y-4">
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <Search size={14} className="text-slate-400" />
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Target Domain</span>
+              <Search size={14} className="text-slate-500 dark:text-slate-400" />
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Target Domain</span>
             </div>
             <input
               type="text"
@@ -221,7 +221,7 @@ export default function Dnscope(): JSX.Element {
               <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
                 Enter a domain above to map its infrastructure
               </p>
-              <p className="text-micro font-mono text-slate-400 dark:text-slate-500 mt-2">
+              <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2">
                 DNS · RDAP · CT logs · Email auth · Threat intel
               </p>
             </div>
@@ -256,8 +256,8 @@ export default function Dnscope(): JSX.Element {
         </div>
       </div>
 
-      <p className="mt-8 text-micro font-mono text-slate-400 text-center">
-        H3AD-X / DNSCOPE — Live multi-source domain scan
+      <p className="mt-8 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
+        H3AD-X / DNSCOPE - Live multi-source domain scan
       </p>
     </DataPageLayout>
   );

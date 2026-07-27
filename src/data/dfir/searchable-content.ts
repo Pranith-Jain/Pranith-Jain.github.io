@@ -83,7 +83,7 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
 
     const out: SearchEntry[] = [];
 
-    // Wiki articles. Body is excluded — too noisy for substring search and
+    // Wiki articles. Body is excluded - too noisy for substring search and
     // already represented in the Wiki page's own search.
     for (const a of wikiM.wikiArticles) {
       out.push({
@@ -95,7 +95,7 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
       });
     }
 
-    // Telegram channels — link to /threatintel/telegram-watch with q= so the catalog
+    // Telegram channels - link to /threatintel/telegram-watch with q= so the catalog
     // page filters down to the matched entry on arrival.
     for (const e of tgM.CATALOG) {
       out.push({
@@ -107,7 +107,7 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
       });
     }
 
-    // SecOps tools — large set (~140), so the substring filter does the heavy
+    // SecOps tools - large set (~140), so the substring filter does the heavy
     // lifting. Catalog pre-filter is left to the page itself.
     for (const t of secopsM.TOOLS) {
       out.push({
@@ -130,7 +130,7 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
       });
     }
 
-    // Threat actors — direct deep link to the per-actor page.
+    // Threat actors - direct deep link to the per-actor page.
     for (const a of actorM.threatActors) {
       const aliases = (a as unknown as { aliases?: string[] }).aliases ?? [];
       const desc = (a as unknown as { description?: string }).description ?? '';
@@ -144,7 +144,7 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
       });
     }
 
-    // Threat-intel pages from pages-index — high-value pages that analysts
+    // Threat-intel pages from pages-index - high-value pages that analysts
     // search for by keyword (MCP Search, tools, feeds, dashboards, etc.)
     const TI_PRIORITY = new Set([
       '/threatintel/mcp-search',

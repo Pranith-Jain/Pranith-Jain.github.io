@@ -8,14 +8,14 @@ import { DataState } from '../../components/DataState';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 /**
- * /threatintel/cyber-crime — live aggregation of cyber fraud + cyber crime
+ * /threatintel/cyber-crime - live aggregation of cyber fraud + cyber crime
  * news from law-enforcement, crypto-crime trackers, fraud-research blogs,
  * and breach reporters.
  *
  * Source list + filter keywords live in api/src/lib/cybercrime-sources.ts.
  * Pulled live via /api/v1/cyber-crime (RSS in, unified JSON out).
  *
- * Distinct from /threatintel/writeups (CTI research articles) — this
+ * Distinct from /threatintel/writeups (CTI research articles) - this
  * surface is about INCIDENTS: indictments, takedowns, schemes, sanctions.
  */
 
@@ -64,7 +64,7 @@ const CATEGORY_LABEL: Record<Category, string> = {
 };
 
 function formatDate(iso?: string): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
   return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
@@ -193,7 +193,7 @@ export default function CyberCrime(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
       >
         back
       </BackLink>
@@ -203,7 +203,7 @@ export default function CyberCrime(): JSX.Element {
           <AlertOctagon size={28} className="text-rose-600 dark:text-rose-400" /> Cyber crime &amp; fraud feeds
         </h1>
         <p className="text-muted mb-8 max-w-3xl">
-          Live coverage of cyber crime incidents — indictments, takedowns, crypto-crime tracing, BEC and romance-scam
+          Live coverage of cyber crime incidents - indictments, takedowns, crypto-crime tracing, BEC and romance-scam
           schemes, sanctions, breach reporting. Aggregated from US DOJ, CISA, Chainalysis, Elliptic, Krebs on Security,
           The Record, BleepingComputer, DataBreaches.net, and HackRead. Round-robin selection means no single chatty
           source dominates the visible top.
@@ -218,7 +218,7 @@ export default function CyberCrime(): JSX.Element {
             onClick={() => setActiveCategory('all')}
             className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
               activeCategory === 'all'
-                ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
                 : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
             }`}
           >
@@ -252,13 +252,13 @@ export default function CyberCrime(): JSX.Element {
 
       {/* Search */}
       <div className="relative mb-6">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search title, description, source…"
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
         />
       </div>
 
@@ -283,13 +283,13 @@ export default function CyberCrime(): JSX.Element {
       >
         <ul className="space-y-3">
           {filtered.map((it, i) => (
-            <li key={`${it.url}-${i}`} className="surface-card p-4 hover:border-brand-500/40 transition-colors">
+            <li key={`${it.url}-${i}`} className="surface-card p-4 hover:border-rose-500/40 transition-colors">
               <div className="flex flex-wrap items-baseline gap-2 mb-2">
                 <a
                   href={sanitizeUrl(it.url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 break-words"
+                  className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 break-words"
                 >
                   {it.title} <ExternalLink size={11} className="inline ml-0.5 opacity-60" />
                 </a>
@@ -314,12 +314,12 @@ export default function CyberCrime(): JSX.Element {
 
       {/* Source picker + status. Click a row to toggle that source on/off
           (persisted in localStorage). Disabling hides items locally but
-          still pulls from the server — the round-robin still fires. */}
+          still pulls from the server - the round-robin still fires. */}
       {data && (
         <details className="mt-8 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3">
           <summary className="text-xs font-mono text-slate-500 cursor-pointer flex items-center justify-between gap-2 flex-wrap">
             <span>
-              sources — {data.sources.length - disabledSources.size}/{data.sources.length} enabled ·{' '}
+              sources - {data.sources.length - disabledSources.size}/{data.sources.length} enabled ·{' '}
               {data.sources.filter((s) => s.ok).length}/{data.sources.length} ok
             </span>
             {disabledSources.size > 0 && (
@@ -329,7 +329,7 @@ export default function CyberCrime(): JSX.Element {
                   e.preventDefault();
                   setDisabledSources(new Set());
                 }}
-                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
               >
                 enable all
               </button>
@@ -348,12 +348,12 @@ export default function CyberCrime(): JSX.Element {
                   onClick={() => toggleSource(s.label)}
                   className={`flex items-baseline justify-between gap-2 rounded px-2 py-1 text-left transition-colors border ${
                     enabled
-                      ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40'
+                      ? 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-rose-500/40'
                       : 'border-slate-200/40 dark:border-[rgb(var(--border-400))]/40 bg-slate-100/40 dark:bg-[rgb(var(--input-200)/0.4)] opacity-60'
                   }`}
                 >
                   <span className={s.ok ? 'text-slate-700 dark:text-slate-300' : 'text-rose-600 dark:text-rose-400'}>
-                    {enabled ? (s.ok ? '✓' : '✗') : '○'} {s.label}
+                    {enabled ? (s.ok ? 'on' : 'off') : '-'} {s.label}
                   </span>
                   <span className="text-slate-500">
                     {s.count}

@@ -4,7 +4,7 @@ import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
 /**
- * Kubernetes RBAC Analyzer — 100% client-side.
+ * Kubernetes RBAC Analyzer - 100% client-side.
  *
  * Paste `kubectl get clusterroles,roles,clusterrolebindings,rolebindings
  * -o json` (a List with items[]) or a single Role / ClusterRole /
@@ -84,7 +84,7 @@ function analyzeRole(o: K8sObj, findings: Finding[]): void {
       findings.push({
         sev: o.kind === 'ClusterRole' ? 'critical' : 'high',
         title: 'Wildcard verbs on wildcard resources',
-        detail: `Rule grants verbs:["*"] on resources:["*"]${o.kind === 'ClusterRole' ? ' cluster-wide — effectively cluster-admin.' : ' in this namespace — namespace-admin.'}`,
+        detail: `Rule grants verbs:["*"] on resources:["*"]${o.kind === 'ClusterRole' ? ' cluster-wide - effectively cluster-admin.' : ' in this namespace - namespace-admin.'}`,
         where,
         fix: 'Enumerate the exact verbs and resources required; never "*" on "*".',
       });
@@ -112,7 +112,7 @@ function analyzeRole(o: K8sObj, findings: Finding[]): void {
         sev: 'critical',
         title: 'verb: escalate on RBAC',
         detail:
-          'The "escalate" verb lets the holder grant itself permissions beyond its own — direct privilege escalation.',
+          'The "escalate" verb lets the holder grant itself permissions beyond its own - direct privilege escalation.',
         where,
         fix: 'Remove "escalate" unless this is a controller that genuinely needs it; scope to specific roles.',
       });
@@ -120,7 +120,7 @@ function analyzeRole(o: K8sObj, findings: Finding[]): void {
       findings.push({
         sev: 'critical',
         title: 'verb: bind on RBAC',
-        detail: '"bind" lets the holder create bindings to roles it does not itself hold — privilege escalation.',
+        detail: '"bind" lets the holder create bindings to roles it does not itself hold - privilege escalation.',
         where,
         fix: 'Remove "bind" or constrain with resourceNames to specific safe roles.',
       });
@@ -128,7 +128,7 @@ function analyzeRole(o: K8sObj, findings: Finding[]): void {
       findings.push({
         sev: 'critical',
         title: 'verb: impersonate',
-        detail: 'Allows acting as any user / group / service account — full identity takeover within scope.',
+        detail: 'Allows acting as any user / group / service account - full identity takeover within scope.',
         where,
         fix: 'Remove impersonate, or restrict with resourceNames to a specific principal.',
       });
@@ -139,7 +139,7 @@ function analyzeRole(o: K8sObj, findings: Finding[]): void {
       findings.push({
         sev: o.kind === 'ClusterRole' ? 'critical' : 'high',
         title: 'Secret read access',
-        detail: `Can read Secrets${o.kind === 'ClusterRole' ? ' cluster-wide (every namespace)' : ' in this namespace'} — service-account tokens, credentials, TLS keys.`,
+        detail: `Can read Secrets${o.kind === 'ClusterRole' ? ' cluster-wide (every namespace)' : ' in this namespace'} - service-account tokens, credentials, TLS keys.`,
         where,
         fix: 'Scope to specific secrets via resourceNames; avoid cluster-wide secret read.',
       });
@@ -150,7 +150,7 @@ function analyzeRole(o: K8sObj, findings: Finding[]): void {
       findings.push({
         sev: 'high',
         title: 'pods/exec | attach | portforward',
-        detail: 'Shell/console into running pods — code execution on workloads, a common lateral-movement primitive.',
+        detail: 'Shell/console into running pods - code execution on workloads, a common lateral-movement primitive.',
         where,
         fix: 'Restrict to break-glass roles; audit who is bound.',
       });
@@ -185,7 +185,7 @@ function analyzeRole(o: K8sObj, findings: Finding[]): void {
         sev: 'high',
         title: 'CSR signing / SA token request',
         detail:
-          'Issuing certificates or service-account tokens lets the holder mint new identities — persistence & escalation.',
+          'Issuing certificates or service-account tokens lets the holder mint new identities - persistence & escalation.',
         where,
         fix: 'Restrict to the controllers that require it.',
       });
@@ -205,7 +205,7 @@ function analyzeBinding(o: K8sObj, findings: Finding[]): void {
       findings.push({
         sev: 'critical',
         title: `RBAC granted to anonymous (${o.kind} → ${roleName})`,
-        detail: `Subject ${sName} binds the cluster's unauthenticated identity to ${roleName} — any unauthenticated API call gets these rights.`,
+        detail: `Subject ${sName} binds the cluster's unauthenticated identity to ${roleName} - any unauthenticated API call gets these rights.`,
         where,
         fix: 'Delete this binding immediately; never bind roles to system:anonymous/unauthenticated.',
       });
@@ -239,7 +239,7 @@ function analyzeBinding(o: K8sObj, findings: Finding[]): void {
       findings.push({
         sev: 'critical',
         title: 'Service account is cluster-admin',
-        detail: `SA ${s.namespace ?? ''}/${sName} is cluster-admin — a compromised pod with this SA token owns the cluster.`,
+        detail: `SA ${s.namespace ?? ''}/${sName} is cluster-admin - a compromised pod with this SA token owns the cluster.`,
         where,
         fix: 'Never give workloads cluster-admin; scope SA permissions to the workload’s needs.',
       });
@@ -356,7 +356,7 @@ export default function K8sRbacAnalyzer(): JSX.Element {
           <span className="font-mono text-tool">
             kubectl get clusterroles,roles,clusterrolebindings,rolebindings -o json
           </span>{' '}
-          (or a single object). Rules &amp; bindings are scored for the escalation patterns attackers abuse — wildcard
+          (or a single object). Rules &amp; bindings are scored for the escalation patterns attackers abuse - wildcard
           verbs/resources, escalate/bind/impersonate, cluster-wide secret read, pod exec, cluster-admin &amp; anonymous
           bindings. Nothing leaves your browser.
         </p>

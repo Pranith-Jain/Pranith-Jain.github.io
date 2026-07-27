@@ -199,7 +199,7 @@ export default function AttackChain(): JSX.Element {
               {result.tactics.map((t, i) => (
                 <div key={t.tactic.id} className="flex items-center gap-3">
                   <div
-                    className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${t.coverage > 0 ? (TACTIC_COLORS[t.tactic.id] ?? 'bg-slate-500') : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-400'}`}
+                    className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${t.coverage > 0 ? (TACTIC_COLORS[t.tactic.id] ?? 'bg-slate-500') : 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400'}`}
                   >
                     {i + 1}
                   </div>
@@ -208,7 +208,7 @@ export default function AttackChain(): JSX.Element {
                   >
                     <div className="flex items-center justify-between">
                       <span
-                        className={`text-sm font-medium ${t.coverage > 0 ? 'text-slate-900 dark:text-white' : 'text-slate-400'}`}
+                        className={`text-sm font-medium ${t.coverage > 0 ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}
                       >
                         {t.tactic.name}
                       </span>
@@ -294,7 +294,7 @@ export default function AttackChain(): JSX.Element {
                   >
                     <div>
                       <div className="text-sm font-medium">{rec.action}</div>
-                      <div className="text-micro font-mono text-slate-400 mt-0.5">{rec.technique}</div>
+                      <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">{rec.technique}</div>
                     </div>
                     <span
                       className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[rec.priority]}`}

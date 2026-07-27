@@ -27,7 +27,7 @@ export default function IocInvestigate(): JSX.Element {
       backTo="/dfir"
       icon={<Crosshair size={28} />}
       title="IOC Investigator"
-      description="Unified IOC investigation — table view, pivot graph, and extended threat hunt. Paste an IP, domain, URL, or hash to start."
+      description="Unified IOC investigation - table view, pivot graph, and extended threat hunt. Paste an IP, domain, URL, or hash to start."
     >
       <nav
         className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"

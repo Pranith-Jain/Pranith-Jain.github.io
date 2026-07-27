@@ -487,7 +487,7 @@ export default function AttmapAi(): JSX.Element {
           <Target size={28} className="text-brand-600 dark:text-brand-400" /> ATTMAP-AI
         </h1>
         <p className="text-muted max-w-2xl leading-relaxed">
-          Describe an adversary behavior, alert, log, or report — maps to MITRE ATT&CK techniques with confidence
+          Describe an adversary behavior, alert, log, or report - maps to MITRE ATT&CK techniques with confidence
           scores, evidence, and tactic grouping.
         </p>
       </div>
@@ -496,8 +496,8 @@ export default function AttmapAi(): JSX.Element {
         <div className="space-y-4">
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <Sparkles size={14} className="text-slate-400" />
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Input</span>
+              <Sparkles size={14} className="text-slate-500 dark:text-slate-400" />
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Input</span>
             </div>
 
             <div className="flex flex-wrap gap-2 mb-4">
@@ -526,7 +526,7 @@ export default function AttmapAi(): JSX.Element {
             />
 
             <div className="mt-3">
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Known Context (optional)
               </span>
               <input
@@ -538,8 +538,8 @@ export default function AttmapAi(): JSX.Element {
               />
             </div>
 
-            <p className="text-micro font-mono text-slate-400 mt-2">
-              Analysis runs entirely in your browser — no data is sent to any server.
+            <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2">
+              Analysis runs entirely in your browser - no data is sent to any server.
             </p>
 
             <div className="flex gap-2 mt-4">
@@ -581,7 +581,7 @@ export default function AttmapAi(): JSX.Element {
               <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
                 Paste behavior description and click Map to ATT&CK
               </p>
-              <p className="text-micro font-mono text-slate-400 dark:text-slate-500 mt-2">
+              <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2">
                 Supports full reports, log snippets, alert details, or a plain behavior summary
               </p>
             </div>
@@ -628,7 +628,7 @@ export default function AttmapAi(): JSX.Element {
         </div>
       </div>
 
-      <p className="mt-8 text-micro font-mono text-slate-400 text-center">
+      <p className="mt-8 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
         Client-side analysis · no data leaves your browser · H3AD-AI / ATTMAP-AI
       </p>
     </div>

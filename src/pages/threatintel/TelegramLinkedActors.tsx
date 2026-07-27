@@ -330,7 +330,7 @@ export default function TelegramLinkedActors(): JSX.Element {
           <code className="text-mini bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1 py-0.5 rounded">
             associated-telegram-handle
           </code>{' '}
-          custom field — cross-referenced with leak-monitor activity in the last 30 days.
+          custom field - cross-referenced with leak-monitor activity in the last 30 days.
         </p>
 
         <form onSubmit={onSubmit} className="mt-3 flex flex-wrap gap-2">
@@ -344,7 +344,7 @@ export default function TelegramLinkedActors(): JSX.Element {
           <button
             type="button"
             onClick={() => setActiveHandle(null)}
-            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
           >
             <Users size={12} /> all
           </button>
@@ -364,7 +364,7 @@ export default function TelegramLinkedActors(): JSX.Element {
         )}
         {searchData?.stale && (
           <div className="mt-3 rounded-xl border border-amber-500/40 bg-amber-500/10 p-2 font-mono text-xs text-amber-700 dark:text-amber-300 inline-flex items-center gap-1.5">
-            <AlertTriangle size={12} /> upstream failed — serving the previous result (re-checked within 5 min).
+            <AlertTriangle size={12} /> upstream failed - serving the previous result (re-checked within 5 min).
           </div>
         )}
       </section>
@@ -449,7 +449,7 @@ function CatalogStat({
   tone: 'brand' | 'sky' | 'amber' | 'violet';
 }): JSX.Element {
   const tones: Record<typeof tone, string> = {
-    brand: 'border-brand-500/30 bg-brand-500/5 text-brand-700 dark:text-brand-300',
+    brand: 'border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300',
     sky: 'border-sky-500/30 bg-sky-500/5 text-sky-700 dark:text-sky-300',
     amber: 'border-amber-500/30 bg-amber-500/5 text-amber-700 dark:text-amber-300',
     violet: 'border-violet-500/30 bg-violet-500/5 text-violet-700 dark:text-violet-300',
@@ -489,7 +489,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
             <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100">@{pivot.handle}</h3>
             {pivot.catalogActors.length > 0 && (
               <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
-                ★ catalog hit
+                catalog hit
               </span>
             )}
             {pivot.searchActors.length > 0 && (
@@ -522,7 +522,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
             href={sanitizeUrl(`https://telegram.me/s/${pivot.handle}`)}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
           >
             <ExternalLink size={11} /> telegram.me/s/{pivot.handle}
           </a>
@@ -530,7 +530,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
             <button
               type="button"
               onClick={onClearFilter}
-              className="text-micro font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+              className="text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
             >
               clear
             </button>
@@ -550,7 +550,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
                 <div className="flex flex-wrap items-baseline gap-2">
                   <Link
                     to="/threatintel/catalog?cat=actors"
-                    className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400"
+                    className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400"
                   >
                     {a.name}
                   </Link>
@@ -596,8 +596,8 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
                 </span>
                 <span className="ml-2 text-slate-500">via {la.sources.map((s) => SOURCE_LABEL[s]).join(', ')}</span>
                 {la.citations[0] && (
-                  <span className="ml-1 text-slate-400" title={la.citations.join(' · ')}>
-                    — {la.citations[0]}
+                  <span className="ml-1 text-slate-500 dark:text-slate-400" title={la.citations.join(' · ')}>
+                    - {la.citations[0]}
                   </span>
                 )}
               </li>
@@ -627,13 +627,13 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
                   </span>
                   <span className="font-mono text-slate-700 dark:text-slate-300">{l.leak_type}</span>
                   {l.credential_count > 0 && <span className="text-slate-500">{l.credential_count} creds</span>}
-                  <span className="text-slate-500 ml-auto">{relativeAgo(l.discovered_at, '—')}</span>
+                  <span className="text-slate-500 ml-auto">{relativeAgo(l.discovered_at, '-')}</span>
                   {l.message_link && (
                     <a
                       href={sanitizeUrl(l.message_link)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-500 hover:text-brand-600"
+                      className="text-slate-500 hover:text-rose-600"
                     >
                       <ExternalLink size={10} />
                     </a>

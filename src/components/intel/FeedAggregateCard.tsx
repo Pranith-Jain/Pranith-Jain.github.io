@@ -8,7 +8,7 @@ import { IntelCard } from './IntelCard';
  * Why aggregate instead of per-item: many of these pages render dozens of
  * short messages. A per-item card would fan out N fetches AND yield little
  * (Telegram messages are often a few sentences). An aggregate card pools
- * the visible items' text into one extraction pass — a single STIX bundle
+ * the visible items' text into one extraction pass - a single STIX bundle
  * representing "what's hot on this feed right now."
  *
  * itemRef is derived from a stable per-day bucket so the bundle re-builds
@@ -30,7 +30,7 @@ export interface FeedAggregateCardProps {
   /** Page-level title shown on the card. */
   title: string;
   /**
-   * Stable per-day bucket key — usually `new Date().toISOString().slice(0,10)`
+   * Stable per-day bucket key - usually `new Date().toISOString().slice(0,10)`
    * so the same calendar day shares a bundle. Pass a different key if
    * you want a finer / coarser bucket.
    */
@@ -41,7 +41,7 @@ export interface FeedAggregateCardProps {
   maxItems?: number;
 }
 
-/** Cap on combined body bytes — sized just under the route's MAX_BRIEF_BYTES
+/** Cap on combined body bytes - sized just under the route's MAX_BRIEF_BYTES
  *  (50 KB) so we can pack as much 7-day signal as the extractor will accept. */
 const MAX_BODY_BYTES = 45_000;
 
@@ -70,7 +70,7 @@ export function FeedAggregateCard(props: FeedAggregateCardProps): JSX.Element | 
   const day = dayKey ?? new Date().toISOString().slice(0, 10);
   const body = useMemo(() => joinItems(items, maxItems), [items, maxItems]);
 
-  // No content to extract — skip the card entirely so we don't pin a useless
+  // No content to extract - skip the card entirely so we don't pin a useless
   // entry in D1 just because the page loaded with an empty feed.
   if (!body) return null;
 
@@ -80,12 +80,12 @@ export function FeedAggregateCard(props: FeedAggregateCardProps): JSX.Element | 
         sourceId={sourceId}
         itemRef={`${sourceId}:${day}`}
         item={{
-          title: `${title} — ${day}`,
+          title: `${title} - ${day}`,
           body,
           publishedAt: new Date().toISOString(),
         }}
         // No fallback by design: the page's existing list IS the fallback
-        // surface — the card is purely additive while it loads.
+        // surface - the card is purely additive while it loads.
         fallback={null}
       />
     </div>

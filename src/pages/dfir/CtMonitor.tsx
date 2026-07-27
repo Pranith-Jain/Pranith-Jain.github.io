@@ -180,7 +180,7 @@ export default function CtMonitor(): JSX.Element {
           </h2>
           {loading && watched.length === 0 ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 size={20} className="animate-spin text-slate-400" />
+              <Loader2 size={20} className="animate-spin text-slate-500 dark:text-slate-400" />
             </div>
           ) : watched.length === 0 ? (
             <p className="text-sm text-slate-500 dark:text-slate-400 py-4">No domains watched yet.</p>
@@ -207,12 +207,12 @@ export default function CtMonitor(): JSX.Element {
                         e.stopPropagation();
                         removeDomain(w.domain);
                       }}
-                      className="p-1 rounded hover:bg-rose-100 dark:hover:bg-rose-900/20 text-slate-400 hover:text-rose-500"
+                      className="p-1 rounded hover:bg-rose-100 dark:hover:bg-rose-900/20 text-slate-500 dark:text-slate-400 hover:text-rose-500"
                     >
                       <Trash2 size={12} />
                     </button>
                   </div>
-                  <div className="text-micro font-mono text-slate-400 mt-0.5">
+                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">
                     {w.cert_count} certs · {w.last_checked ? new Date(w.last_checked).toLocaleDateString() : 'Never'}
                   </div>
                 </div>
@@ -225,12 +225,12 @@ export default function CtMonitor(): JSX.Element {
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-display font-bold text-sm flex items-center gap-2">
               <Globe size={14} className="text-brand-600 dark:text-brand-400" /> Certs{' '}
-              {selectedDomain && <span className="font-mono text-xs text-slate-400">· {selectedDomain}</span>}
+              {selectedDomain && <span className="font-mono text-xs text-slate-500 dark:text-slate-400">· {selectedDomain}</span>}
             </h2>
             {selectedDomain && (
               <button
                 onClick={() => fetchCerts(selectedDomain)}
-                className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-400"
+                className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400"
               >
                 <RefreshCw size={14} />
               </button>
@@ -242,7 +242,7 @@ export default function CtMonitor(): JSX.Element {
             </p>
           ) : certsLoading ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 size={20} className="animate-spin text-slate-400" />
+              <Loader2 size={20} className="animate-spin text-slate-500 dark:text-slate-400" />
             </div>
           ) : certs.length === 0 ? (
             <p className="text-sm text-slate-500 dark:text-slate-400 py-8 text-center">
@@ -260,7 +260,7 @@ export default function CtMonitor(): JSX.Element {
                   ))}
                 </div>
               )}
-              <h3 className="text-xs font-mono text-slate-400">All ({certs.length})</h3>
+              <h3 className="text-xs font-mono text-slate-500 dark:text-slate-400">All ({certs.length})</h3>
               {certs.map((cert) => (
                 <CertCard key={cert.id} cert={cert} />
               ))}
@@ -303,7 +303,7 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
       {expanded && (
         <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs space-y-2">
           <div>
-            <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Names</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Names</span>
             <div className="mt-1 flex flex-wrap gap-1">
               {cert.names.map((n, i) => (
                 <span
@@ -317,16 +317,16 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Valid From</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Valid From</span>
               <div>{new Date(cert.not_before).toLocaleDateString()}</div>
             </div>
             <div>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Valid Until</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Valid Until</span>
               <div>{new Date(cert.not_after).toLocaleDateString()}</div>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Serial</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Serial</span>
             <code className="text-micro font-mono text-slate-600 dark:text-slate-300 truncate">{cert.serial}</code>
             <CopyButton value={cert.serial} />
           </div>

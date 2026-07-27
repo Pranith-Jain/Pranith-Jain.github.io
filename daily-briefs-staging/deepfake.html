@@ -1,955 +1,756 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DeepFake and Generative AI Intelligence Brief — 21 July 2026</title>
-<style>
-  :root{
-    --bg: #0b1a2b;
-    --panel: #11243a;
-    --card: #142b45;
-    --border: #2d4a66;
-    --text: #e6effa;
-    --muted: #9bb4cc;
-    --accent-red: #ff4d4f;
-    --accent-amber: #ffc53d;
-    --accent-green: #36cfc9;
-    --accent-cyan: #40a9ff;
-    --badge-esc: #ff4d4f;
-    --badge-mon: #ffa940;
-    --badge-ign: #52c41a;
-  }
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-    line-height: 1.55;
-  }
-  a { color: var(--accent-cyan); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 24px;
-  }
-  .masthead {
-    background: linear-gradient(135deg, #173b66 0%, #0f2742 60%, #0b1a2b 100%);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px 28px 24px 28px;
-    position: relative;
-    overflow: hidden;
-  }
-  .masthead h1 {
-    margin: 0 0 8px 0;
-    font-size: 1.8rem;
-    color: #ffffff;
-  }
-  .subhead {
-    color: var(--muted);
-    font-size: 0.95rem;
-  }
-  .threat-badge {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: rgba(255,77,79,0.12);
-    border: 1px solid var(--accent-red);
-    color: #ffb3b3;
-    padding: 8px 12px;
-    border-radius: 12px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-  }
-  section.panel {
-    margin-top: 18px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px;
-  }
-  section.panel h2 {
-    margin: 2px 0 12px 0;
-    font-size: 1.2rem;
-    color: #ffffff;
-  }
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-  .one-col {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px;
-  }
-  .card h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.05rem;
-    color: #ffffff;
-  }
-  .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 10px;
-    color: var(--muted);
-    font-size: 0.88rem;
-  }
-  .badge {
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 10px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    border: 1px solid transparent;
-  }
-  .badge.esc { background: rgba(255,77,79,0.12); color: #ffb3b3; border-color: var(--accent-red); }
-  .badge.mon { background: rgba(255,169,64,0.12); color: #ffd8a6; border-color: var(--badge-mon); }
-  .badge.high { background: rgba(255,77,79,0.12); color: #ffb3b3; border-color: var(--accent-red); }
-  .badge.med { background: rgba(255,197,61,0.12); color: #ffe2a3; border-color: var(--accent-amber); }
-  .badge.low { background: rgba(54,207,201,0.12); color: #bdf0ee; border-color: var(--accent-green); }
-  .grid-incidents {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-  .fields {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 16px;
-    margin-top: 8px;
-    font-size: 0.94rem;
-  }
-  .field label {
-    display: block;
-    color: var(--muted);
-    font-size: 0.78rem;
-    margin-bottom: 3px;
-  }
-  .field div { color: var(--text); }
-  .section-body p { margin: 8px 0; }
-  ul { margin: 6px 0 6px 20px; }
-  li { margin: 4px 0; }
-  .footer {
-    margin-top: 18px;
-    color: var(--muted);
-    font-size: 0.85rem;
-    text-align: center;
-  }
-  @media (max-width: 900px) {
-    .two-col { grid-template-columns: 1fr; }
-    .fields { grid-template-columns: 1fr; }
-    .threat-badge { position: static; display: inline-block; margin-top: 10px; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepFake and Generative AI Intelligence Brief — 26 July 2026</title>
+  <style>
+    :root{
+      --bg:#0b1630;
+      --panel:#101e3f;
+      --card:#13244a;
+      --border:#2a3b66;
+      --text:#ffffff;
+      --muted:#9db0d3;
+      --accent-red:#ff4d4d;
+      --accent-amber:#ffb84d;
+      --accent-green:#43d17e;
+      --accent-cyan:#4dd2ff;
+      --accent-purple:#a18eff;
+    }
+    html,body{
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      margin:0;
+      padding:0;
+      line-height:1.5;
+    }
+    .masthead{
+      background: linear-gradient(135deg, #1a2a6c 0%, #1a4e8a 45%, #278ea5 100%);
+      padding: 28px 22px 24px 22px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+    .masthead h1{
+      margin:0;
+      font-size: 1.8rem;
+      letter-spacing: 0.2px;
+    }
+    .subhead{
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .threat-badge{
+      position:absolute;
+      top:18px;
+      right:18px;
+      background: rgba(255,77,77,0.15);
+      color:#ffbbbb;
+      border:1px solid #ff8181;
+      padding:8px 12px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      backdrop-filter: blur(2px);
+    }
+    .container{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+    section.panel{
+      background: var(--panel);
+      border:1px solid var(--border);
+      border-radius: 14px;
+      padding:18px;
+      margin-bottom:16px;
+    }
+    section.panel h2{
+      margin-top:0;
+      font-size:1.25rem;
+      border-bottom:1px solid var(--border);
+      padding-bottom:10px;
+    }
+    p, li{
+      color: var(--text);
+    }
+    .muted{
+      color: var(--muted);
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    .incident-card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: 12px;
+      padding:14px;
+      position: relative;
+    }
+    .incident-card h3{
+      margin-top:0;
+      font-size:1.05rem;
+    }
+    .badge{
+      display:inline-block;
+      padding:4px 8px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight:700;
+      margin-right:6px;
+      border:1px solid transparent;
+    }
+    .badge.escalate{ background: rgba(255,77,77,0.1); border-color:#ff4d4d; color:#ff9a9a;}
+    .badge.monitor{ background: rgba(77,210,255,0.08); border-color:#4dd2ff; color:#a8eaff;}
+    .urgency{ position:absolute; top:12px; right:12px;}
+    .urgency.high{ background: rgba(255,77,77,0.18); border-color:#ff4d4d; color:#ffb3b3;}
+    .urgency.medium{ background: rgba(255,184,77,0.15); border-color:#ffb84d; color:#ffd79a;}
+    .urgency.low{ background: rgba(67,209,126,0.15); border-color:#43d17e; color:#b8f3d3;}
+    .meta{
+      display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 10px 0;
+    }
+    .meta .chip{
+      background: rgba(255,255,255,0.05);
+      border:1px solid var(--border);
+      color: var(--muted);
+      padding:4px 8px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+    }
+    .field{
+      margin:6px 0;
+    }
+    .field strong{ color:#d6e3ff;}
+    .source-link{
+      display:inline-block;
+      color:#9bd3ff;
+      text-decoration: underline;
+      margin-top:6px;
+    }
+    a.source-link:hover{ color:#caf0ff; }
+    .cols{
+      display:grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap:16px;
+    }
+    @media (max-width: 900px){
+      .grid-2, .cols{
+        grid-template-columns: 1fr;
+      }
+      .threat-badge{ position:static; display:inline-block; margin-top:10px;}
+    }
+    ul.findings{ margin: 0 0 0 18px; }
+    .small{ font-size:0.92rem; }
+    .footer{
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .table{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .table th, .table td{
+      text-align: left;
+      padding: 8px;
+      border-bottom:1px solid var(--border);
+      color: var(--text);
+    }
+    .table th{ color:#d6e3ff; font-weight:600; }
+    .pill{
+      display:inline-block; padding:2px 8px; border-radius:999px; background:rgba(255,255,255,0.06); border:1px solid var(--border); color:var(--muted); font-size:0.78rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <header class="masthead">
-      <h1>DeepFake and Generative AI Intelligence Brief</h1>
-      <div class="subhead">Generated: Tuesday, July 21, 2026 | Classification: Publicly Available Information</div>
-      <div class="threat-badge">Overall Outlook: Worsening</div>
-    </header>
+  <header class="masthead">
+    <h1>DeepFake and Generative AI Intelligence Brief</h1>
+    <div class="subhead">Generated: Sunday, July 26, 2026 • Classification: Publicly Available Information</div>
+    <div class="threat-badge">Overall Threat: Worsening</div>
+  </header>
 
+  <main class="container">
     <section class="panel" id="executive-overview">
       <h2>Executive Overview</h2>
-      <div class="section-body">
-        <p>This briefing highlights a sharp escalation of criminal and legal activity surrounding synthetic media. High-urgency incidents include law-enforcement actions against deepfake sexual abuse infrastructure in the United States, expanding litigation over alleged AI-generated child sexual abuse material, and major fraud operations in Southeast Asia reportedly using real-time deepfakes and multilingual AI to scale cross-border scams. Concurrently, authorities reported sustained financial losses from AI-enabled fraud and new impersonation schemes leveraging AI-generated videos to spoof law-enforcement brands.</p>
-        <p>Governments are intensifying both enforcement and policy responses. The UK detailed foreign information warfare using counterfeit documents and deepfakes, added democratic interference to its National Risk Register, and moved to bolster media detection capacity. The European Commission issued operational guidance clarifying imminent AI Act transparency and deepfake labeling obligations. Platform-level countermeasures also advanced, including Android’s fake-call detection and expanded content provenance tooling from OpenAI, though new vulnerabilities in C2PA-related components highlight defensive fragility.</p>
-        <p>Observed synthetic-media types span deepfake video, non-consensual intimate imagery, voice cloning, counterfeit documents, and large-scale AI-generated text. Affected groups include the public, media organizations, governments, financial services, and platform operators. Based on the breadth of active criminal use, ongoing high-impact enforcement, and fresh regulatory obligations, the overall threat environment appears to be worsening.</p>
+      <div class="cols">
+        <div>
+          <p>This period saw confirmed criminal and national-security incidents involving synthetic media and AI-enabled deception. In Minnesota, defendants pleaded guilty to a $2.2M Medicaid fraud in which AI-generated documents were used to create fake records and conceal the scheme. <a href="https://www.justice.gov/opa/pr/four-men-plead-guilty-2m-minnesota-medicaid-fraud" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> Diplomatically, U.S. officials warned of an impostor posing as Secretary of State Marco Rubio using AI-enabled impersonation to contact foreign ministers and other leaders. <a href="https://apnews.com/article/rubio-artificial-intelligence-impersonation-1b3cc78464404b54e63f4eba9dd4f5a9" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></p>
+          <p>Counterintelligence action disabled 13 fake consulting sites that used AI-generated photos and synthetic identities to target U.S. security-clearance holders, aiming to solicit sensitive information. <a href="https://www.justice.gov/opa/pr/justice-department-fbi-disable-13-websites-backed-suspected-chinese-agents-sought-sensitive" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> Separately, law enforcement seized deepfake pornography domains in a multinational operation, citing the Take It Down Act. <a href="https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> Corporate environments were targeted via a malware campaign that abused trust in a major AI brand through ads for a fake Claude desktop app, reportedly compromising at least 29 organizations over two days. <a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></p>
+        </div>
+        <div>
+          <p>Defensively, the EU released operational guidance and a Code of Practice to meet imminent AI Act transparency obligations for deepfakes and machine-readable content marking, and major vendors signaled alignment with watermarking and provenance standards. <a href="https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> <a href="https://blog.google/company-news/outreach-and-initiatives/public-policy/eu-ai-act-transparency-code-of-practice/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> NIST guidance highlights the need to analyze digital media for deepfake signatures during identity proofing, while a new CVE in content-authenticity tooling underscores supply-chain risks in provenance frameworks. <a href="https://pages.nist.gov/800-63-4/sp800-63a.html" target="_blank" rel="noopener noreferrer" class="source-link">Vendor Advisory</a> <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48287" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></p>
+          <p>Based on the concentration of confirmed high-impact incidents and continuing policy and research responses, the threat landscape appears to be worsening, with synthetic documents, voice impersonation, and brand-trust abuse posing acute risks across healthcare, government, and corporate sectors.</p>
+        </div>
       </div>
     </section>
 
     <section class="panel" id="key-findings">
       <h2>Key Findings</h2>
-      <ul>
-        <li>Large-scale criminal adoption: Organized crime in Southeast Asia is reportedly using generative AI and real-time deepfakes to scale fraud, sextortion, and multilingual social engineering across borders.</li>
-        <li>Severe exploitation harms: Multiple U.S. enforcement actions target platforms and actors distributing non-consensual AI-generated sexual imagery under newer legal authorities.</li>
-        <li>AI-enabled fraud losses: FBI data indicates more than 22,000 AI-related complaints and over USD 893 million in adjusted losses, with voice-cloning and AI-assisted BEC prominent.</li>
-        <li>Escalating CSAM litigation: Ongoing cases allege large-scale AI-generated child sexual abuse imagery and question model providers’ safeguards and reporting practices.</li>
-        <li>National security exposure: The UK reported state-linked operations using counterfeit documents and deepfakes; democratic interference risk added to the national registry.</li>
-        <li>Regulatory tightening: The EU issued detailed guidance for deepfake transparency and machine-readable marking obligations effective August 2026.</li>
-        <li>Platform defenses: Google introduced fake-call detection for Android; OpenAI expanded C2PA and SynthID-based provenance verification tools.</        <li>Detection fragility: Research flagged vulnerabilities in text watermarking and newly reported CVEs impacting C2PA-related tooling, raising integrity concerns.</li>
-        <li>Telecom and voice risks: Authorities charged suspects tied to a call-spoofing platform linked to over 1.8 million scam calls in the UK.</li>
+      <ul class="findings">
+        <li>Healthcare fraudsters used AI-generated documents to fabricate records and conceal a $2.2M Medicaid scheme in Minnesota. <a href="https://www.justice.gov/opa/pr/four-men-plead-guilty-2m-minnesota-medicaid-fraud" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Diplomatic targets received AI-enabled impersonation messages from an impostor claiming to be the U.S. Secretary of State, prompting State Department alerts. <a href="https://apnews.com/article/rubio-artificial-intelligence-impersonation-1b3cc78464404b54e63f4eba9dd4f5a9" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Authorities took down 13 fake consulting websites that used AI-generated photos and synthetic identities to target U.S. clearance holders. <a href="https://www.justice.gov/opa/pr/justice-department-fbi-disable-13-websites-backed-suspected-chinese-agents-sought-sensitive" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>A malware campaign leveraged a fake Claude desktop app via ads, abusing AI-brand trust and compromising at least 29 organizations. <a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Law enforcement seized deepfake pornography domains in a multinational operation under the Take It Down Act. <a href="https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>EU guidance and a Code of Practice set near-term transparency expectations for deepfakes and machine-readable content marking. <a href="https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>NIST identity-proofing guidance recommends analyzing submitted media for deepfake signatures, supporting anti-fraud controls. <a href="https://pages.nist.gov/800-63-4/sp800-63a.html" target="_blank" rel="noopener noreferrer" class="source-link">Vendor Advisory</a></li>
+        <li>A CVE affecting Content Credentials/C2PA tooling highlights provenance supply-chain risks pending patch adoption. <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48287" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></li>
+        <li>Research advances continue in interpretable audio deepfake detection and proactive anti-deepfake protection. <a href="https://arxiv.org/abs/2607.21127" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
       </ul>
     </section>
 
     <section class="panel" id="risk-outlook">
       <h2>Risk Outlook</h2>
-      <p><strong>Assessment: Worsening</strong></p>
-      <p>The supplied records collectively show an escalation in AI-enabled criminal activity (fraud, non-consensual intimate imagery, cyberstalking), continued national-security information operations using deepfakes and counterfeit materials, and significant financial losses. Although regulatory guidance and platform defenses advanced, concurrent reports of detection and provenance vulnerabilities suggest defensive gaps remain. The spread of voice cloning and impersonation, alongside high-profile enforcement, supports a worsening overall environment.</p>
+      <p><strong>Assessment: Worsening.</strong> Multiple high-urgency incidents show confirmed criminal and national-security misuse: AI-generated documents facilitated a multimillion-dollar Medicaid fraud, AI-enabled impersonation targeted senior officials, deepfake pornography distribution prompted domain seizures, and brand-trust abuse drove rapid organizational compromises. <a href="https://www.justice.gov/opa/pr/four-men-plead-guilty-2m-minnesota-medicaid-fraud" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://apnews.com/article/rubio-artificial-intelligence-impersonation-1b3cc78464404b54e63f4eba9dd4f5a9" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></p>
+      <p>Defensive and regulatory measures (EU transparency guidance, NIST recommendations, provenance initiatives) are advancing but primarily signal preparation rather than demonstrable reduction in active threat activity during the period. <a href="https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://pages.nist.gov/800-63-4/sp800-63a.html" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></p>
     </section>
 
     <section class="panel" id="priority-incidents">
       <h2>Priority Incidents</h2>
-      <div class="grid-incidents">
 
-        <!-- ESCALATE incidents (High priority first) -->
-        <div class="card">
-          <h3>UNODC: Organized crime operationalizing generative AI and real-time deepfakes for cross-border scams</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-21</div></div>
-            <div class="field"><label>Location</label><div>Southeast Asia</div></div>
-            <div class="field"><label>Media type</label><div>Multimedia</div></div>
-            <div class="field"><label>Threat category</label><div>Criminal</div></div>
-            <div class="field"><label>Affected sector</label><div>Public</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://apnews.com/article/crime-scams-un-drugs-trafficking-southeast-asia-7b096f2a77f73f7e1cea428db056049a">https://apnews.com/article/crime-scams-un-drugs-trafficking-southeast-asia-7b096f2a77f73f7e1cea428db056049a</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> A new UNODC report indicates organized criminal groups are leveraging generative AI, deepfake video, voice calls, and multilingual targeting to scale scam operations across borders.</p>
-          <p><strong>Operational Impact:</strong> Increased exploitation of children and scam victims; heightened sextortion, phishing, and deepfake-enabled social engineering risk.</p>
-          <p><strong>Technology and Deception Method:</strong> Generative AI, real-time deepfake video, AI voice calls, multilingual content scaling.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
-          <p><strong>Analyst Assessment:</strong> Cross-border AI-enabled scam operations complicate attribution and takedowns; multilingual capabilities expand victim pools and bypass language-based defenses.</p>
-          <p><strong>Investigator Considerations:</strong> Prioritize cross-jurisdictional coordination; request platform telemetry and payment-funnel data; leverage voice and video forensic indicators where feasible.</p>
-          <p><strong>Confidence:</strong> High (0.90). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
+      <!-- ESCALATE (High) -->
+      <div class="incident-card">
+        <span class="badge escalate">ESCALATE</span>
+        <span class="badge urgency high">High</span>
+        <h3>AI-generated documents used to conceal $2.2M Medicaid fraud in Minnesota</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-07-24</span>
+          <span class="chip">Location: Minnesota, United States</span>
+          <span class="chip">Media type: Document</span>
+          <span class="chip">Threat category: Fraud</span>
+          <span class="chip">Affected sector: Healthcare</span>
         </div>
-
-        <div class="card">
-          <h3>FBI IC3: 22,000+ AI-related complaints and USD 893M in adjusted losses documented</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-05</div></div>
-            <div class="field"><label>Location</label><div>United States</div></div>
-            <div class="field"><label>Media type</label><div>Multimedia</div></div>
-            <div class="field"><label>Threat category</label><div>Fraud</div></div>
-            <div class="field"><label>Affected sector</label><div>Public</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.fbi.gov/file-repository/2025_ic3report.pdf">https://www.fbi.gov/file-repository/2025_ic3report.pdf</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> The FBI’s annual IC3 report for 2025 documented over 22,000 AI-related complaints and more than USD 893 million in adjusted losses, highlighting voice-cloning distress schemes and AI-assisted business email compromise.</p>
-          <p><strong>Operational Impact:</strong> Businesses and financial institutions face rising losses from AI-enhanced impersonation, phishing, and payment fraud.</p>
-          <p><strong>Technology and Deception Method:</strong> AI voice cloning, AI-generated phishing content, social engineering augmentation.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
-          <p><strong>Analyst Assessment:</strong> Complaint and loss volumes indicate sustained, material risk that merits expanded multi-factor payment controls and out-of-band verification practices.</p>
-          <p><strong>Investigator Considerations:</strong> Prioritize rapid payment recalls; collect call recordings and metadata for voice analysis; coordinate with financial institutions for transaction tracing.</p>
-          <p><strong>Confidence:</strong> High (0.95). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>US DOJ arrests for publishing AI deepfake pornography under the Take It Down Act</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-05-20</div></div>
-            <div class="field"><label>Location</label><div>United States</div></div>
-            <div class="field"><label>Media type</label><div>Multimedia</div></div>
-            <div class="field"><label>Threat category</label><div>Legal</div></div>
-            <div class="field"><label>Affected sector</label><div>Public</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.justice.gov/usao-edny/pr/two-individuals-arrested-publishing-ai-deepfake-pornography-violation-take-it-down-act">https://www.justice.gov/usao-edny/pr/two-individuals-arrested-publishing-ai-deepfake-pornography-violation-take-it-down-act</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> Two individuals were arrested for publishing AI-generated sexualized forgeries depicting celebrities, elected officials, and private individuals, reportedly viewed millions of times.</p>
-          <p><strong>Operational Impact:</strong> Demonstrates expanding federal enforcement targeting publication platforms distributing synthetic abuse material.</p>
-          <p><strong>Technology and Deception Method:</strong> AI-generated explicit deepfake imagery at scale.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Enforcement under the Take It Down Act; no additional technical guidance reported.</p>
-          <p><strong>Analyst Assessment:</strong> The case signals increased legal exposure for operators enabling distribution of non-consensual AI imagery and may deter large-scale hosting operations.</p>
-          <p><strong>Investigator Considerations:</strong> Seek hosting and payment provider records; preserve platform analytics logs to quantify reach and victimization.</p>
-          <p><strong>Confidence:</strong> High (0.97). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>DOJ seizes CFAKE and SOCFAKE deepfake nude sites under the Take It Down Act</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-06-15</div></div>
-            <div class="field"><label>Location</label><div>United States</div></div>
-            <div class="field"><label>Media type</label><div>Document</div></div>
-            <div class="field"><label>Threat category</label><div>Legal</div></div>
-            <div class="field"><label>Affected sector</label><div>Public</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/">https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> The DOJ seized platforms alleged to host non-consensual synthetic sexual imagery, leveraging a newer U.S. legal framework.</p>
-          <p><strong>Operational Impact:</strong> Operators hosting deepfake sexual content face seizure risk; potential accelerated disruption of abuse platforms.</p>
-          <p><strong>Technology and Deception Method:</strong> AI-generated non-consensual intimate imagery.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Platform seizures under the Take It Down Act.</p>
-          <p><strong>Analyst Assessment:</strong> The action reflects concrete enforcement against operational deepfake abuse infrastructure, likely driving adversaries to migrate to new hosting or distribution vectors.</p>
-          <p><strong>Investigator Considerations:</strong> Track infrastructure reconstitution; request domain registrar, CDN, and payment traces to map successor services and affiliates.</p>
-          <p><strong>Confidence:</strong> High (0.86). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>Federal cyberstalking charge over AI-generated nude images and targeted harassment campaign</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-06-18</div></div>
-            <div class="field"><label>Location</label><div>United States</div></div>
-            <div class="field"><label>Media type</label><div>Social Media</div></div>
-            <div class="field"><label>Threat category</label><div>Criminal</div></div>
-            <div class="field"><label>Affected sector</label><div>Public</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.justice.gov/usao-ndga/pr/new-york-man-faces-federal-cyberstalking-charge-after-posting-ai-generated-nude-images">https://www.justice.gov/usao-ndga/pr/new-york-man-faces-federal-cyberstalking-charge-after-posting-ai-generated-nude-images</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> A New York man faces a federal cyberstalking charge after allegedly posting AI-generated nude images and using impersonation posts in a sustained harassment campaign.</p>
-          <p><strong>Operational Impact:</strong> Highlights platform abuse burdens and the need for rapid response to impersonation and AI-generated intimate imagery.</p>
-          <p><strong>Technology and Deception Method:</strong> AI-generated intimate imagery and impersonation content on social media.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
-          <p><strong>Analyst Assessment:</strong> Case demonstrates real-world harms and investigative complexity when synthetic media is weaponized for harassment.</p>
-          <p><strong>Investigator Considerations:</strong> Preserve account metadata, postings, and upload telemetry; coordinate with platforms for expedited data preservation orders.</p>
-          <p><strong>Confidence:</strong> High (0.95). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>Litigation: Alleged large-scale AI-generated CSAM via Grok; reporting adequacy disputed (xAI/Stability AI cases)</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication dates</label><div>2026-07-07; 2026-07-08; 2026-07-16</div></div>
-            <div class="field"><label>Location</label><div>United States</div></div>
-            <div class="field"><label>Media type</label><div>Image</div></div>
-            <div class="field"><label>Threat category</label><div>Legal / Criminal</div></div>
-            <div class="field"><label>Affected sector</label><div>Public</div></div>
-            <div class="field"><label>Primary Source URLs</label>
-              <div>
-                <a target="_blank" rel="noopener noreferrer" href="https://cyberscoop.com/deepfake-csam-lawsuit-grok-xai-expands-stability-ai/">https://cyberscoop.com/deepfake-csam-lawsuit-grok-xai-expands-stability-ai/</a><br>
-                <a target="_blank" rel="noopener noreferrer" href="https://arstechnica.com/tech-policy/2026/07/lawsuit-grok-user-made-7k-child-sex-images-xai-only-reported-one-gang-rape-prompt/">https://arstechnica.com/tech-policy/2026/07/lawsuit-grok-user-made-7k-child-sex-images-xai-only-reported-one-gang-rape-prompt/</a><br>
-                <a target="_blank" rel="noopener noreferrer" href="https://arstechnica.com/tech-policy/2026/07/xai-cant-deny-grok-makes-csam-anymore-so-its-suing-users/">https://arstechnica.com/tech-policy/2026/07/xai-cant-deny-grok-makes-csam-anymore-so-its-suing-users/</a>
-              </div>
-            </div>
-          </div>
-          <p><strong>Incident Summary:</strong> Separate reports describe litigation alleging AI tools were used to generate large volumes of child sexual abuse images; questions are raised over safeguards, reporting quality, and traceability. One suit reportedly expanded to include additional AI developers.</p>
-          <p><strong>Operational Impact:</strong> Heightened legal, compliance, and reputational pressure on AI model providers regarding prevention and reporting of illegal synthetic content.</p>
-          <p><strong>Technology and Deception Method:</strong> AI-generated child sexual abuse imagery; potential misuse of image-generation models.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
-          <p><strong>Analyst Assessment:</strong> These cases may set consequential precedents on provider obligations for safeguards, detection, and incident reporting related to illegal synthetic imagery.</p>
-          <p><strong>Investigator Considerations:</strong> Pursue model-use logs, content filters, and incident-reporting records; coordinate with NCMEC/clearinghouses where applicable.</p>
-          <p><strong>Confidence:</strong> Moderate to High (0.81–0.84). Confidence reflects the supplied intelligence records and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>San Francisco legal action challenges app store distribution of AI nudify apps</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-17</div></div>
-            <div class="field"><label>Location</label><div>San Francisco, California, United States</div></div>
-            <div class="field"><label>Media type</label><div>Image</div></div>
-            <div class="field"><label>Threat category</label><div>Legal</div></div>
-            <div class="field"><label>Affected sector</label><div>Public</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://arstechnica.com/tech-policy/2026/07/apple-google-must-stop-profiting-off-ai-nudify-apps-san-francisco-ag-says/">https://arstechnica.com/tech-policy/2026/07/apple-google-must-stop-profiting-off-ai-nudify-apps-san-francisco-ag-says/</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> A major city legal action seeks to prevent app stores from distributing apps alleged to enable non-consensual sexual deepfakes.</p>
-          <p><strong>Operational Impact:</strong> Increased legal and regulatory pressure on app distribution ecosystems over AI-generated abuse facilitation.</p>
-          <p><strong>Technology and Deception Method:</strong> AI “nudify” image-generation abuse.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
-          <p><strong>Analyst Assessment:</strong> App store enforcement outcomes could materially constrain access to abusive tooling and shift distribution to less regulated channels.</p>
-          <p><strong>Investigator Considerations:</strong> Engage app store trust/safety teams; collect developer account linkages, payment identifiers, and user complaint histories.</p>
-          <p><strong>Confidence:</strong> High (0.87). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>UK: Government details foreign information warfare using counterfeit documents and deepfakes</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-13</div></div>
-            <div class="field"><label>Location</label><div>United Kingdom</div></div>
-            <div class="field"><label>Media type</label><div>Multimedia</div></div>
-            <div class="field"><label>Threat category</label><div>National Security</div></div>
-            <div class="field"><label>Affected sector</label><div>Government</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.gov.uk/government/publications/uk-action-against-russian-foreign-information-warfare/new-uk-action-against-foreign-information-warfare">https://www.gov.uk/government/publications/uk-action-against-russian-foreign-information-warfare/new-uk-action-against-foreign-information-warfare</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> The UK described state-linked information operations using counterfeit documents and deepfake content with national-security implications.</p>
-          <p><strong>Operational Impact:</strong> Increased burden on government and partner institutions to detect and counter synthetic-media-enabled influence operations.</p>
-          <p><strong>Technology and Deception Method:</strong> Deepfake media and forged documentation for influence operations.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
-          <p><strong>Analyst Assessment:</strong> Reinforces the need for content provenance, rapid debunking, and cross-platform monitoring during geopolitical flashpoints.</p>
-          <p><strong>Investigator Considerations:</strong> Coordinate with social platforms; preserve original dissemination artifacts and network graphs for attribution analysis.</p>
-          <p><strong>Confidence:</strong> High (0.89). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>UK: Democratic interference risk added to National Risk Register (deepfake relevance)</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-14</div></div>
-            <div class="field"><label>Location</label><div>United Kingdom</div></div>
-            <div class="field"><label>Media type</label><div>Social Media</div></div>
-            <div class="field"><label>Threat category</label><div>Political</div></div>
-            <div class="field"><label>Affected sector</label><div>Government</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.gov.uk/government/news/risk-of-democratic-interference-added-to-national-risk-register">https://www.gov.uk/government/news/risk-of-democratic-interference-added-to-national-risk-register</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> The UK elevated the risk of democratic interference, which can include synthetic-media operations impacting elections and public trust.</p>
-          <p><strong>Operational Impact:</strong> Election and security institutions face planning requirements for synthetic-media interference scenarios.</p>
-          <p><strong>Technology and Deception Method:</strong> Potential use of deepfakes and deceptive synthetic content in political contexts.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
-          <p><strong>Analyst Assessment:</strong> Risk elevation underscores the operational need for pre-election monitoring, crisis communication plans, and authenticity toolkits.</p>
-          <p><strong>Investigator Considerations:</strong> Establish rapid takedown and fact-checking workflows; pre-authorize cross-agency information sharing for election periods.</p>
-          <p><strong>Confidence:</strong> High (0.82). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>EU issues operational guidance clarifying deepfake transparency and marking obligations (AI Act)</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-20</div></div>
-            <div class="field"><label>Location</label><div>European Union</div></div>
-            <div class="field"><label>Media type</label><div>Social Media</div></div>
-            <div class="field"><label>Threat category</label><div>Regulation</div></div>
-            <div class="field"><label>Affected sector</label><div>Government</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems">https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> The European Commission published guidance for AI Act transparency obligations, including deepfake disclosure and machine-readable marking requirements effective 2026-08-02.</p>
-          <p><strong>Operational Impact:</strong> Providers and deployers face near-term compliance duties for labeling and marking synthetic content.</p>
-          <p><strong>Technology and Deception Method:</strong> Content labeling and provenance marking for AI-generated and manipulated media.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Guidance clarifies disclosure and marking requirements to mitigate deception risks.</p>
-          <p><strong>Analyst Assessment:</strong> Imminent obligations will influence platform UX, detection integrations, and audit readiness across EU-facing services.</p>
-          <p><strong>Investigator Considerations:</strong> Align collection and preservation practices with expected provenance signals; monitor for non-compliance patterns post-effective date.</p>
-          <p><strong>Confidence:</strong> High (0.98). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>FBI PSA: AI-generated videos impersonating FBI in recovery scams and spoofed complaint sites</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-20</div></div>
-            <div class="field"><label>Location</label><div>United States</div></div>
-            <div class="field"><label>Media type</label><div>Video</div></div>
-            <div class="field"><label>Threat category</label><div>Fraud</div></div>
-            <div class="field"><label>Affected sector</label><div>Government</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.ic3.gov/PSA/2026/PSA260720">https://www.ic3.gov/PSA/2026/PSA260720</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> The FBI warned of active criminal misuse of AI-generated videos impersonating FBI personnel, coupled with spoofed complaint sites to harvest data and payments from scam victims.</p>
-          <p><strong>Operational Impact:</strong> Undermines trust in official reporting channels and risks re-victimizing previous fraud victims.</p>
-          <p><strong>Technology and Deception Method:</strong> AI-generated video impersonation; website spoofing.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Public advisory warning of the scheme; no additional technical mitigations were detailed.</p>
-          <p><strong>Analyst Assessment:</strong> Agencies and financial institutions should update fraud-playbooks and public messaging to counter law-enforcement brand spoofing using synthetic media.</p>
-          <p><strong>Investigator Considerations:</strong> Triage victim reports for spoofed domains; coordinate with registrars for rapid takedowns; capture video samples for forensic analysis.</p>
-          <p><strong>Confidence:</strong> High (0.98). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>Android introduces fake-call detection to counter AI voice-cloning scams</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-06-02</div></div>
-            <div class="field"><label>Location</label><div>Global</div></div>
-            <div class="field"><label>Media type</label><div>Voice</div></div>
-            <div class="field"><label>Threat category</label><div>Financial</div></div>
-            <div class="field"><label>Affected sector</label><div>Public</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://blog.google/security/android-fake-call-detection/">https://blog.google/security/android-fake-call-detection/</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> Google launched detection and verification features aimed at identifying fake calls and countering AI voice-cloning impersonation scams.</p>
-          <p><strong>Operational Impact:</strong> Mobile ecosystems and financial institutions gain platform-level support to mitigate caller-ID spoofing and synthetic voice attacks.</p>
-          <p><strong>Technology and Deception Method:</strong> Voice cloning and caller-ID spoofing for social engineering and fraud.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Introduction of fake-call detection and anti-impersonation call verification features.</p>
-          <p><strong>Analyst Assessment:</strong> Native OS controls can materially reduce successful vishing; effectiveness depends on user adoption and integration with bank verification workflows.</p>
-          <p><strong>Investigator Considerations:</strong> Encourage victims to preserve call details; work with carriers and OS vendors for telemetry on flagged calls.</p>
-          <p><strong>Confidence:</strong> High (0.89). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>INTERPOL: 5,811 arrests and USD 293M intercepted in global anti-fraud operation</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-09</div></div>
-            <div class="field"><label>Location</label><div>Global</div></div>
-            <div class="field"><label>Media type</label><div>Voice</div></div>
-            <div class="field"><label>Threat category</label><div>Fraud</div></div>
-            <div class="field"><label>Affected sector</label><div>Finance</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.interpol.int/News-and-Events/News/2026/Over-5-800-arrests-USD-293-million-intercepted-in-global-fraud-bust">https://www.interpol.int/News-and-Events/News/2026/Over-5-800-arrests-USD-293-million-intercepted-in-global-fraud-bust</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> INTERPOL reported thousands of arrests and substantial funds intercepted across 97 countries in operations targeting social-engineering scams.</p>
-          <p><strong>Operational Impact:</strong> Demonstrates scale of global fraud ecosystems affecting consumers and businesses; consistent with trends in AI-assisted deception.</p>
-          <p><strong>Technology and Deception Method:</strong> Social engineering potentially augmented by AI-generated voice and content.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Coordinated law-enforcement operations leading to arrests and fund interception.</p>
-          <p><strong>Analyst Assessment:</strong> Industrialized fraud supply chains likely integrate AI tooling opportunistically; disruptions may be temporary without sustained financial choke points.</p>
-          <p><strong>Investigator Considerations:</strong> Expand international evidence sharing; prioritize money-mule networks and transaction monitoring partnerships.</p>
-          <p><strong>Confidence:</strong> High (0.88). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>FBI alert: AI-generated voice messages impersonating senior U.S. officials in malicious campaign</h3>
-          <div class="meta">
-            <span class="badge esc">ESCALATE</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2025-05-15</div></div>
-            <div class="field"><label>Location</label><div>United States</div></div>
-            <div class="field"><label>Media type</label><div>Voice</div></div>
-            <div class="field"><label>Threat category</label><div>National Security</div></div>
-            <div class="field"><label>Affected sector</label><div>Government</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.fbi.gov/investigate/cyber/alerts/2025/senior-us-officials-impersonated-in-malicious-messaging-campaign">https://www.fbi.gov/investigate/cyber/alerts/2025/senior-us-officials-impersonated-in-malicious-messaging-campaign</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> The FBI described an ongoing malicious messaging campaign using AI-generated voice to impersonate current and former senior U.S. officials.</p>
-          <p><strong>Operational Impact:</strong> Risks credential theft and further impersonation through trusted channels, potentially compromising additional contacts.</p>
-          <p><strong>Technology and Deception Method:</strong> AI voice-cloning for senior-official impersonation.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
-          <p><strong>Analyst Assessment:</strong> Targeted vishing against high-level officials can catalyze broader network intrusions if not rapidly contained.</p>
-          <p><strong>Investigator Considerations:</strong> Implement strict callback verification; review voicemail and messaging platform logs for anomalous patterns and TTPs.</p>
-          <p><strong>Confidence:</strong> High (0.93). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <!-- MONITOR incidents -->
-        <div class="card">
-          <h3>UK charges suspects linked to Russian Coms call spoofing platform tied to 1.8M+ scam calls</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge high">High Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-13</div></div>
-            <div class="field"><label>Location</label><div>United Kingdom</div></div>
-            <div class="field"><label>Media type</label><div>Voice</div></div>
-            <div class="field"><label>Threat category</label><div>Criminal</div></div>
-            <div class="field"><label>Affected sector</label><div>Public</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.bleepingcomputer.com/news/security/uk-charges-suspects-linked-to-russian-coms-call-spoofing-platform/">https://www.bleepingcomputer.com/news/security/uk-charges-suspects-linked-to-russian-coms-call-spoofing-platform/</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> UK authorities charged five suspects tied to a call spoofing platform associated with over 1.8 million scam calls, involving caller-ID spoofing and voice-changing.</p>
-          <p><strong>Operational Impact:</strong> Significant law-enforcement disruption costs and erosion of telecom trust; ongoing risk of similar platforms.</p>
-          <p><strong>Technology and Deception Method:</strong> Caller-ID spoofing and voice modification to enable fraud.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Criminal charges; no additional mitigations reported.</p>
-          <p><strong>Analyst Assessment:</strong> Telecom and financial services should align on call-authentication enforcement and post-call verification workflows.</p>
-          <p><strong>Investigator Considerations:</strong> Seek platform infrastructure logs, customer lists, and payment trails; coordinate with carriers for STIR/SHAKEN evidence.</p>
-          <p><strong>Confidence:</strong> High (0.90). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>NIST 2026 GenAI evaluation: Measuring generation–detection gap for deceptive AI content</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>UNKNOWN</div></div>
-            <div class="field"><label>Location</label><div>United States</div></div>
-            <div class="field"><label>Media type</label><div>Audio</div></div>
-            <div class="field"><label>Threat category</label><div>Research</div></div>
-            <div class="field"><label>Affected sector</label><div>Public</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://ai-challenges.nist.gov/genai">https://ai-challenges.nist.gov/genai</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> Ongoing NIST evaluation benchmarks the widening gap between convincing AI-generated content and detection capabilities.</p>
-          <p><strong>Operational Impact:</strong> Supports development of better detection tools and organizational risk assessments.</p>
-          <p><strong>Technology and Deception Method:</strong> Evaluation of text/audio generation versus detection performance.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Benchmarking program; no specific mitigations reported.</p>
-          <p><strong>Analyst Assessment:</strong> Empirical metrics can guide model risk controls and procurement decisions for detection solutions.</p>
-          <p><strong>Investigator Considerations:</strong> Use benchmark outputs to validate toolchains before operational deployment.</p>
-          <p><strong>Confidence:</strong> Moderate (0.83). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>SSTMark: Training-free semantic speech watermarking proposal</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-20</div></div>
-            <div class="field"><label>Location</label><div>Unknown</div></div>
-            <div class="field"><label>Media type</label><div>Audio</div></div>
-            <div class="field"><label>Threat category</label><div>Research</div></div>
-            <div class="field"><label>Affected sector</label><div>Media</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2607.17592">https://arxiv.org/abs/2607.17592</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> New paper proposes a training-free semantic-level watermark for synthetic speech aimed at improving attribution and robustness.</p>
-          <p><strong>Operational Impact:</strong> Potentially strengthens provenance for audio, aiding platforms and enterprises.</p>
-          <p><strong>Technology and Deception Method:</strong> Watermarking for AI-generated speech content.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Research proposal; no deployment guidance provided.</p>
-          <p><strong>Analyst Assessment:</strong> If robust under common transformations, could augment audio verification pipelines; independent testing required.</p>
-          <p><strong>Investigator Considerations:</strong> Validate false-positive/negative rates across codecs, noise, and paraphrasing before evidentiary reliance.</p>
-          <p><strong>Confidence:</strong> Moderate (0.72). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>ESRB warns frontier AI may strain cyber resilience in EU financial system</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-07</div></div>
-            <div class="field"><label>Location</label><div>European Union</div></div>
-            <div class="field"><label>Media type</label><div>Document</div></div>
-            <div class="field"><label>Threat category</label><div>Research</div></div>
-            <div class="field"><label>Affected sector</label><div>Finance</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.esrb.europa.eu/news/pr/date/2026/html/esrb.pr260707~4e1b68241a.en.html">https://www.esrb.europa.eu/news/pr/date/2026/html/esrb.pr260707~4e1b68241a.en.html</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> The ESRB cautioned that frontier AI alters the cyber threat landscape and could challenge financial system resilience.</p>
-          <p><strong>Operational Impact:</strong> Financial institutions may see elevated fraud and service disruption risks downstream of AI-enhanced attacks.</p>
-          <p><strong>Technology and Deception Method:</strong> Generative AI used to enhance cyber and deception capabilities.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
-          <p><strong>Analyst Assessment:</strong> Institutions should incorporate AI-enabled attack scenarios into resilience testing and red teaming.</p>
-          <p><strong>Investigator Considerations:</strong> Coordinate with FS-ISAC equivalents; collect cross-incident indicators tied to AI-generated lures.</p>
-          <p><strong>Confidence:</strong> Moderate (0.78). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>Research: Text watermarking methods vulnerable to paraphrasing; false negatives and some false positives observed</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-17</div></div>
-            <div class="field"><label>Location</label><div>Unknown</div></div>
-            <div class="field"><label>Media type</label><div>Document</div></div>
-            <div class="field"><label>Threat category</label><div>Research</div></div>
-            <div class="field"><label>Affected sector</label><div>Law Enforcement / Other</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2607.16010">https://arxiv.org/abs/2607.16010</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> A preprint reports that tested text watermarking approaches were highly susceptible to paraphrasing, producing significant false negatives and some false positives.</p>
-          <p><strong>Operational Impact:</strong> Overreliance on current watermark detections could mislead investigations and legal proceedings.</p>
-          <p><strong>Technology and Deception Method:</strong> Evasion of watermark-based detection via paraphrasing and transformations.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific mitigation guidance was reported.</p>
-          <p><strong>Analyst Assessment:</strong> Watermark outputs should be corroborated with linguistic, metadata, and provenance analyses before evidentiary use.</p>
-          <p><strong>Investigator Considerations:</strong> Establish validation protocols and expert testimony frameworks addressing known watermark limitations.</p>
-          <p><strong>Confidence:</strong> Moderate (0.78–0.76). Confidence reflects the supplied intelligence records and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>NVD: Vulnerabilities disclosed affecting Adobe Content Credentials/C2PA-related tooling</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-16</div></div>
-            <div class="field"><label>Location</label><div>Global</div></div>
-            <div class="field"><label>Media type</label><div>Document</div></div>
-            <div class="field"><label>Threat category</label><div>Technology</div></div>
-            <div class="field"><label>Affected sector</label><div>Media</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://nvd.nist.gov/vuln/detail/CVE-2026-48287">https://nvd.nist.gov/vuln/detail/CVE-2026-48287</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> Newly analyzed vulnerabilities impact Content Credentials and C2PA-related SDK/tooling, raising concerns about the security of provenance infrastructures.</p>
-          <p><strong>Operational Impact:</strong> Trust signals in authenticity workflows could be weakened without prompt patching and validation.</p>
-          <p><strong>Technology and Deception Method:</strong> Exploitation of provenance tooling vulnerabilities to undermine authenticity indicators.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No specific mitigations in the record; standard patching implied.</p>
-          <p><strong>Analyst Assessment:</strong> Provenance integrity requires continuous security hardening; organizations should reassess verification dependencies post-advisory.</p>
-          <p><strong>Investigator Considerations:</strong> Document tool versions used in verification; revalidate conclusions after patching.</p>
-          <p><strong>Confidence:</strong> High (0.83–0.92). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>OpenAI expands C2PA Content Credentials and SynthID; public image verification tool previewed/launched</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-05-22 (reporting varies)</div></div>
-            <div class="field"><label>Location</label><div>Global</div></div>
-            <div class="field"><label>Media type</label><div>Multimedia</div></div>
-            <div class="field"><label>Threat category</label><div>Technology / Detection</div></div>
-            <div class="field"><label>Affected sector</label><div>Media / Corporate</div></div>
-            <div class="field"><label>Source URLs</label>
-              <div>
-                <a target="_blank" rel="noopener noreferrer" href="https://openai.com/index/advancing-content-provenance/">https://openai.com/index/advancing-content-provenance/</a><br>
-                <a target="_blank" rel="noopener noreferrer" href="https://help.openai.com/en/articles/8912793-c2pa-in-dall-e-3">https://help.openai.com/en/articles/8912793-c2pa-in-dall-e-3</a>
-              </div>
-            </div>
-          </div>
-          <p><strong>Incident Summary:</strong> OpenAI announced and documented expanded C2PA-conformant provenance signals and SynthID watermarks for generated images, alongside public verification capabilities.</p>
-          <p><strong>Operational Impact:</strong> Investigators and platforms gain additional provenance signals to assess whether images originated from OpenAI tools.</p>
-          <p><strong>Technology and Deception Method:</strong> C2PA Content Credentials metadata; SynthID watermarking.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Provision of public verification tooling and guidance to validate provenance signals.</p>
-          <p><strong>Analyst Assessment:</strong> Combining C2PA metadata with robust chain-of-custody practices can strengthen authenticity checks, but metadata can be stripped; corroboration remains essential.</p>
-          <p><strong>Investigator Considerations:</strong> Preserve original files to retain embedded credentials; validate signals across multiple tools and hash-based integrity checks.</p>
-          <p><strong>Confidence:</strong> High (0.86–0.92). Confidence reflects the supplied intelligence records and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>NIST GenAI Deepfakes 2026 challenge provides benchmark for manipulated-media detection</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>UNKNOWN</div></div>
-            <div class="field"><label>Location</label><div>United States</div></div>
-            <div class="field"><label>Media type</label><div>Multimedia</div></div>
-            <div class="field"><label>Threat category</label><div>Detection</div></div>
-            <div class="field"><label>Affected sector</label><div>Government</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://ai-challenges.nist.gov/forensics">https://ai-challenges.nist.gov/forensics</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> NIST provides a benchmark to evaluate deepfake detection performance under adversarial conditions.</p>
-          <p><strong>Operational Impact:</strong> Supports tool evaluation and selection for agencies and enterprises.</p>
-          <p><strong>Technology and Deception Method:</strong> Detection benchmarking against synthetic images/video/audio.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Benchmark program; no specific mitigations reported.</p>
-          <p><strong>Analyst Assessment:</strong> Benchmarks should inform procurement and SOC integration decisions for detection capabilities.</p>
-          <p><strong>Investigator Considerations:</strong> Validate detector performance on case-relevant codecs and compression artifacts.</p>
-          <p><strong>Confidence:</strong> Moderate (0.74). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>UK media strategy: Support for deepfake detection and authenticity labeling in newsrooms</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-14</div></div>
-            <div class="field"><label>Location</label><div>United Kingdom</div></div>
-            <div class="field"><label>Media type</label><div>Multimedia</div></div>
-            <div class="field"><label>Threat category</label><div>Detection</div></div>
-            <div class="field"><label>Affected sector</label><div>Media</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.gov.uk/government/consultations/watch-this-space-a-new-strategic-direction-for-uk-media-green-paper-and-public-consultation/watch-this-space-a-new-strategic-direction-for-uk-media-green-paper-and-public-consultation">https://www.gov.uk/government/consultations/watch-this-space-a-new-strategic-direction-for-uk-media-green-paper-and-public-consultation/watch-this-space-a-new-strategic-direction-for-uk-media-green-paper-and-public-consultation</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> UK policy development proposes practical support for newsroom deployment of deepfake detection and authenticity workflows.</p>
-          <p><strong>Operational Impact:</strong> Potential uplift in pre-publication verification and labeling, reducing misinformation amplification.</p>
-          <p><strong>Technology and Deception Method:</strong> Detection tools and labeling frameworks for synthetic media.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Policy support; no specific tools mandated.</p>
-          <p><strong>Analyst Assessment:</strong> Institutional support can accelerate adoption of provenance checks and detection services across media operators.</p>
-          <p><strong>Investigator Considerations:</strong> Engage with media partners to establish shared authenticity standards and incident referral channels.</p>
-          <p><strong>Confidence:</strong> Moderate (0.84). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>EU: Code of practice and opinion on transparency of AI-generated content</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication dates</label><div>2026-06-10; 2026-07-09</div></div>
-            <div class="field"><label>Location</label><div>European Union</div></div>
-            <div class="field"><label>Media type</label><div>Multimedia</div></div>
-            <div class="field"><label>Threat category</label><div>Regulation</div></div>
-            <div class="field"><label>Affected sector</label><div>Government</div></div>
-            <div class="field"><label>Source URLs</label>
-              <div>
-                <a target="_blank" rel="noopener noreferrer" href="https://digital-strategy.ec.europa.eu/en/library/commission-opinion-assessment-code-practice-transparency-ai-generated-content">https://digital-strategy.ec.europa.eu/en/library/commission-opinion-assessment-code-practice-transparency-ai-generated-content</a><br>
-                <a target="_blank" rel="noopener noreferrer" href="https://digital-strategy.ec.europa.eu/en/news/commission-publishes-code-practice-marking-and-labelling-ai-generated-content">https://digital-strategy.ec.europa.eu/en/news/commission-publishes-code-practice-marking-and-labelling-ai-generated-content</a>
-              </div>
-            </div>
-          </div>
-          <p><strong>Incident Summary:</strong> EU actions encourage and assess transparency measures for labeling and marking AI-generated and manipulated content ahead of enforcement timelines.</p>
-          <p><strong>Operational Impact:</strong> Providers and deployers face practical frameworks to implement marking, detection, and labeling controls.</p>
-          <p><strong>Technology and Deception Method:</strong> Labeling and machine-readable marking of synthetic content.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Policy guidance; no specific technical measures mandated in the record.</p>
-          <p><strong>Analyst Assessment:</strong> Early adoption of marking practices can reduce compliance risk and improve user trust.</p>
-          <p><strong>Investigator Considerations:</strong> Capture and preserve any machine-readable marks during evidence collection for later validation.</p>
-          <p><strong>Confidence:</strong> High to Moderate (0.90–0.92). Confidence reflects the supplied intelligence records and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>EU: Transparency FAQs clarifying deepfake labeling/marking duties (Article 50)</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-20</div></div>
-            <div class="field"><label>Location</label><div>European Union</div></div>
-            <div class="field"><label>Media type</label><div>Multimedia</div></div>
-            <div class="field"><label>Threat category</label><div>Regulation</div></div>
-            <div class="field"><label>Affected sector</label><div>Government</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act">https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> The Commission published FAQs providing operational detail on labeling and machine-readable marking obligations for deepfakes and synthetic media.</p>
-          <p><strong>Operational Impact:</strong> Clarifies compliance expectations for providers and deployers of generative AI in the EU.</p>
-          <p><strong>Technology and Deception Method:</strong> Content disclosure and machine-readable marking.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Guidance for implementing transparency obligations.</p>
-          <p><strong>Analyst Assessment:</strong> FAQs can inform readiness assessments and control designs for content provenance and labeling features.</p>
-          <p><strong>Investigator Considerations:</strong> Update SOPs to recognize and capture EU-compliant marks in collected media.</p>
-          <p><strong>Confidence:</strong> High (0.90). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>Europol: Generative AI increasing effectiveness of online fraud tradecraft</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-14</div></div>
-            <div class="field"><label>Location</label><div>European Union</div></div>
-            <div class="field"><label>Media type</label><div>Multimedia</div></div>
-            <div class="field"><label>Threat category</label><div>Technology</div></div>
-            <div class="field"><label>Affected sector</label><div>Other</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.europol.europa.eu/publications-events/events/how-online-fraud-schemes-are-becoming-growing-threat">https://www.europol.europa.eu/publications-events/events/how-online-fraud-schemes-are-becoming-growing-threat</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> An expert session emphasized that generative AI is materially improving online fraud capabilities.</p>
-          <p><strong>Operational Impact:</strong> Anticipate more convincing social engineering and scaling of fraud operations.</p>
-          <p><strong>Technology and Deception Method:</strong> AI-assisted content generation and personalization for fraud.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific mitigations reported.</p>
-          <p><strong>Analyst Assessment:</strong> Fraud defenses should assume AI-augmented scripting, localization, and rapid iteration.</p>
-          <p><strong>Investigator Considerations:</strong> Track linguistic signatures and template reuse across campaigns for linkage analysis.</p>
-          <p><strong>Confidence:</strong> Moderate (0.79). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>European Parliament: Proposals to bolster democracy shield against malicious deepfakes</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-06-23</div></div>
-            <div class="field"><label>Location</label><div>European Union</div></div>
-            <div class="field"><label>Media type</label><div>Social Media</div></div>
-            <div class="field"><label>Threat category</label><div>Political</div></div>
-            <div class="field"><label>Affected sector</label><div>Government</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.europarl.europa.eu/news/en/press-room/20260622IPR45921/des-propositions-visant-a-ameliorer-le-bouclier-de-la-democratie-europeenne">https://www.europarl.europa.eu/news/en/press-room/20260622IPR45921/des-propositions-visant-a-ameliorer-le-bouclier-de-la-democratie-europeenne</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> Proposals explicitly target malicious deepfakes and synthetic-content labeling as part of democratic resilience planning.</p>
-          <p><strong>Operational Impact:</strong> May increase pressure on platforms to surface verified sources and label synthetic content.</p>
-          <p><strong>Technology and Deception Method:</strong> Deepfake and synthetic media controls in democratic contexts.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Policy proposals; no direct mitigations reported.</p>
-          <p><strong>Analyst Assessment:</strong> Aligns with broader EU transparency push; anticipate compliance alignment across platform policies.</p>
-          <p><strong>Investigator Considerations:</strong> Prepare workflows for verifying and archiving labeled political content.</p>
-          <p><strong>Confidence:</strong> Moderate (0.80). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>Report: AI-generated spam rising on LinkedIn and X, increasing moderation and attribution burdens</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-09</div></div>
-            <div class="field"><label>Location</label><div>Global</div></div>
-            <div class="field"><label>Media type</label><div>Social Media</div></div>
-            <div class="field"><label>Threat category</label><div>Technology</div></div>
-            <div class="field"><label>Affected sector</label><div>Public</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.404media.co/linkedin-and-x-are-flooded-with-ai-spam-browsing-data-suggests/">https://www.404media.co/linkedin-and-x-are-flooded-with-ai-spam-browsing-data-suggests/</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> Measurement suggests substantial shares of content on LinkedIn and X are likely AI generated, indicating platform-scale authenticity pressure.</p>
-          <p><strong>Operational Impact:</strong> Increased risk of users being misled; higher moderation and attribution workloads for platforms and brands.</p>
-          <p><strong>Technology and Deception Method:</strong> Large-scale AI-generated text posts.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific mitigations reported.</p>
-          <p><strong>Analyst Assessment:</strong> Expect more automated engagement farming and deceptive amplification requiring provenance and behavioral analysis.</p>
-          <p><strong>Investigator Considerations:</strong> Employ clustering on posting cadence and semantic similarity to identify AI spam networks.</p>
-          <p><strong>Confidence:</strong> Moderate (0.67). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>UK justice reforms: AI to accelerate digital evidence review in fraud cases</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-14</div></div>
-            <div class="field"><label>Location</label><div>United Kingdom</div></div>
-            <div class="field"><label>Media type</label><div>Unknown</div></div>
-            <div class="field"><label>Threat category</label><div>Financial</div></div>
-            <div class="field"><label>Affected sector</label><div>Government / Justice</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.gov.uk/government/news/ai-to-speed-up-justice-under-major-disclosure-reforms">https://www.gov.uk/government/news/ai-to-speed-up-justice-under-major-disclosure-reforms</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> UK police and justice agencies plan to use AI to review and summarize large digital evidence sets in fraud cases.</p>
-          <p><strong>Operational Impact:</strong> Potential acceleration of case processing for fraud investigations.</p>
-          <p><strong>Technology and Deception Method:</strong> AI for evidence triage and summarization.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific mitigations reported.</p>
-          <p><strong>Analyst Assessment:</strong> Chain-of-custody and auditability must be preserved when integrating AI into evidentiary workflows.</p>
-          <p><strong>Investigator Considerations:</strong> Document model versions, prompts, and outputs; maintain reproducibility records for court disclosure.</p>
-          <p><strong>Confidence:</strong> Moderate (0.71). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
-        <div class="card">
-          <h3>UK call for evidence: Unauthorised fraud scaling with deepfakes and generative AI</h3>
-          <div class="meta">
-            <span class="badge mon">MONITOR</span>
-            <span class="badge med">Medium Urgency</span>
-          </div>
-          <div class="fields">
-            <div class="field"><label>Publication date</label><div>2026-07-15</div></div>
-            <div class="field"><label>Location</label><div>United Kingdom</div></div>
-            <div class="field"><label>Media type</label><div>Voice</div></div>
-            <div class="field"><label>Threat category</label><div>Financial</div></div>
-            <div class="field"><label>Affected sector</label><div>Finance</div></div>
-            <div class="field"><label>Source URL</label><div><a target="_blank" rel="noopener noreferrer" href="https://www.gov.uk/government/calls-for-evidence/unauthorised-fraud-in-the-uk/unauthorised-fraud-in-the-uk-call-for-evidence">https://www.gov.uk/government/calls-for-evidence/unauthorised-fraud-in-the-uk/unauthorised-fraud-in-the-uk-call-for-evidence</a></div></div>
-          </div>
-          <p><strong>Incident Summary:</strong> UK initiative seeks evidence on how unauthorized fraud is evolving with deepfakes and generative AI.</p>
-          <p><strong>Operational Impact:</strong> Financial institutions and fraud teams may need to document AI-related modus operandi and mitigations.</p>
-          <p><strong>Technology and Deception Method:</strong> Deepfake voice and content used to defeat trust mechanisms.</p>
-          <p><strong>Source-Reported Detection or Mitigation:</strong> Call for evidence; no mitigations specified.</p>
-          <p><strong>Analyst Assessment:</strong> Provides a policy channel to align regulatory expectations with operational realities of AI-enabled fraud.</p>
-          <p><strong>Investigator Considerations:</strong> Submit case studies detailing verification controls that succeeded or failed against synthetic media.</p>
-          <p><strong>Confidence:</strong> Moderate (0.88). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
-        </div>
-
+        <div class="field"><strong>Direct Source:</strong> <a href="https://www.justice.gov/opa/pr/four-men-plead-guilty-2m-minnesota-medicaid-fraud" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        <div class="field"><strong>Incident Summary:</strong> Defendants pleaded guilty after using AI to create fake records that concealed fraudulent billing against Minnesota’s Housing Stabilization Services program and insurers, exploiting vulnerable Medicaid recipients.</div>
+        <div class="field"><strong>Operational Impact:</strong> Approximately $2.2 million in losses and erosion of trust in healthcare support programs were reported.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> AI-generated supporting documents; record references explicit use of ChatGPT to fabricate materials.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> The case evidences mature use of synthetic documentation in reimbursement fraud, indicating rising risk to healthcare, insurers, and public-benefit programs.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Examine original digital files for generation artifacts and metadata anomalies; cross-validate service logs and beneficiary interviews; compare narrative consistency across claims; consider LLM-text stylometry and template repetition patterns.</div>
+        <div class="field"><strong>Confidence:</strong> High (0.98). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
       </div>
+
+      <div class="incident-card">
+        <span class="badge escalate">ESCALATE</span>
+        <span class="badge urgency high">High</span>
+        <h3>AI-enabled impersonation targets senior officials; State Department issues alerts</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-07-08</span>
+          <span class="chip">Location: Washington, United States</span>
+          <span class="chip">Media type: Voice</span>
+          <span class="chip">Threat category: National Security</span>
+          <span class="chip">Affected sector: Government</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://apnews.com/article/rubio-artificial-intelligence-impersonation-1b3cc78464404b54e63f4eba9dd4f5a9" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        <div class="field"><strong>Incident Summary:</strong> An impostor posing as Secretary of State Marco Rubio contacted at least three foreign ministers, a U.S. senator, and a governor using AI-enabled impersonation techniques, prompting warnings to embassies and consulates.</div>
+        <div class="field"><strong>Operational Impact:</strong> Risk of diplomatic confusion, exposure of sensitive communications, and downstream social-engineering against government staff.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> AI-assisted impersonation; likely voice cloning or synthetic messaging as characterized in the report.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> State Department warnings to missions and consulates.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> High-value impersonation indicates motivated, capable threat actors; diplomatic and government workflows reliant on voice or messaging identity require urgent hardening.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Preserve call records and message metadata; verify voice samples against known baselines; implement out-of-band callbacks through verified channels prior to policy or access actions.</div>
+        <div class="field"><strong>Confidence:</strong> High (0.98). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge escalate">ESCALATE</span>
+        <span class="badge urgency high">High</span>
+        <h3>13 fake consulting sites using AI-generated photos targeted U.S. clearance holders</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-06-10</span>
+          <span class="chip">Location: United States</span>
+          <span class="chip">Media type: Document</span>
+          <span class="chip">Threat category: National Security</span>
+          <span class="chip">Affected sector: Government</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://www.justice.gov/opa/pr/justice-department-fbi-disable-13-websites-backed-suspected-chinese-agents-sought-sensitive" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        <div class="field"><strong>Incident Summary:</strong> Federal authorities disabled 13 fraudulent consulting websites allegedly backed by suspected Chinese agents. The operation used AI-generated photos, fictitious personas, and stolen identities to approach U.S. persons with security clearances.</div>
+        <div class="field"><strong>Operational Impact:</strong> Attempted collection of sensitive information from clearance holders; potential compromise of government and contractor networks via social engineering.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Synthetic identities augmented with AI-generated imagery across recruitment and outreach fronts.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Websites disabled by the Justice Department and FBI.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> The blend of synthetic personas and recruitment lures mirrors long-running influence and collection tradecraft adapted to AI; continuous counterintelligence monitoring of synthetic-photo usage on recruitment sites is warranted.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Archive seized site content; analyze face-image generation artifacts and reverse-image search traces; correlate outreach emails and WHOIS/domain history; notify potential victims for controlled debriefs.</div>
+        <div class="field"><strong>Confidence:</strong> High (0.95). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge escalate">ESCALATE</span>
+        <span class="badge urgency high">High</span>
+        <h3>Deepfake pornography domains seized in multinational action under Take It Down Act</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-06-15</span>
+          <span class="chip">Location: United States, Italy, France</span>
+          <span class="chip">Media type: Image</span>
+          <span class="chip">Threat category: Legal</span>
+          <span class="chip">Affected sector: Public</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        <div class="field"><strong>Incident Summary:</strong> Authorities seized two domains allegedly used to distribute nonconsensual AI-generated explicit imagery targeting identifiable women, including public figures.</div>
+        <div class="field"><strong>Operational Impact:</strong> Disruption of distribution infrastructure and signaling of legal risk to operators of deepfake pornography services.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> AI-generated explicit images (deepfakes) used to impersonate real individuals.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Domain seizures pursuant to applicable U.S. statute referenced by the report.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> The action demonstrates cross-border enforcement capacity and an evolving legal framework for combating synthetic intimate-image abuse.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Preserve hosting and payment records; pursue repeat-upload prevention mechanisms with platforms; coordinate with victim services and legal teams for rapid takedowns.</div>
+        <div class="field"><strong>Confidence:</strong> High (0.94). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge escalate">ESCALATE</span>
+        <span class="badge urgency high">High</span>
+        <h3>Fake Claude desktop app pushed via ads installs Sectoprat infostealer</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-07-23</span>
+          <span class="chip">Location: Global</span>
+          <span class="chip">Media type: Social Media</span>
+          <span class="chip">Threat category: Fraud</span>
+          <span class="chip">Affected sector: Corporate</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        <div class="field"><strong>Incident Summary:</strong> A campaign promoted a fake “Claude desktop” via ads, leading users to install malware that steals credentials and payment data.</div>
+        <div class="field"><strong>Operational Impact:</strong> At least 29 organizations were reportedly compromised in two days, with trust in a major AI brand and legitimate hosting abused to scale distribution.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Brand impersonation, malvertising, and use of a legitimate Claude.ai-hosted artifact to lower scrutiny and deliver payloads.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Brand-adjacent malvertising around AI tools is a fast-moving vector; asset-allowlisting and EDR behavioral detections for Sectoprat-like TTPs are advisable.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Triage ad-click telemetry, inspect signed artifacts and download chains, and hunt for credential-stuffing activity post-compromise.</div>
+        <div class="field"><strong>Confidence:</strong> High (0.90). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <!-- MONITOR -->
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>Interpretable speech deepfake detection research (audio)</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-07-22 / 2026-07-23</span>
+          <span class="chip">Location: Global</span>
+          <span class="chip">Media type: Audio</span>
+          <span class="chip">Threat category: Research</span>
+          <span class="chip">Affected sector: Corporate</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://arxiv.org/abs/2607.21127" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></div>
+        <div class="field"><strong>Incident Summary:</strong> A research paper proposes more interpretable speech deepfake detection to support human analysts with artifact-level explanations.</div>
+        <div class="field"><strong>Operational Impact:</strong> Potential to improve analyst trust and triage in suspected voice-cloning incidents; still pre-deployment research.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Addresses cloned/manipulated speech; focuses on interpretable detector design.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Not applicable (research proposal).</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Promising for contact centers and executive-protection workflows facing vishing with cloned voices.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Benchmark against real-world vishing audio and validate explanations for evidentiary use.</div>
+        <div class="field"><strong>Confidence:</strong> Moderate (0.74–0.73). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>LLM watermarking approach for identifying AI-generated text</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-07-21</span>
+          <span class="chip">Location: Global</span>
+          <span class="chip">Media type: Document</span>
+          <span class="chip">Threat category: Research</span>
+          <span class="chip">Affected sector: Media</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://arxiv.org/abs/2607.18445" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></div>
+        <div class="field"><strong>Incident Summary:</strong> A new watermarking technique aims to make AI-generated text easier to identify without relying on the original model.</div>
+        <div class="field"><strong>Operational Impact:</strong> Potential support for enterprise and regulatory text-marking with reduced false positives; research-stage only.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Watermarking for LLM outputs to aid provenance and detection.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Not applicable (research proposal).</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Could complement policy-mandated transparency labeling in media and public comms ecosystems.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Validate robustness under paraphrasing and compression; assess adversarial removal risks.</div>
+        <div class="field"><strong>Confidence:</strong> Moderate (0.76). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency low">Low</span>
+        <h3>C2PA practical guide: Signing and verifying assets</h3>
+        <div class="meta">
+          <span class="chip">Publication date: UNKNOWN</span>
+          <span class="chip">Location: Global</span>
+          <span class="chip">Media type: Document</span>
+          <span class="chip">Threat category: Technology</span>
+          <span class="chip">Affected sector: Media</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://learn.contentauthenticity.org/signing-your-first-asset" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        <div class="field"><strong>Incident Summary:</strong> Implementation guidance for C2PA tool usage to sign and verify assets, enabling end-user inspection of tamper-evident provenance data.</div>
+        <div class="field"><strong>Operational Impact:</strong> Supports enterprise authenticity workflows; enhances trust signals across media pipelines.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Content provenance signing and verification (C2PA).</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Practical steps for signing and verifying assets provided by the tool documentation.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Useful for newsroom and platform rollouts preparing for provenance at scale.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Integrate provenance checks into ingestion triage; maintain chain-of-custody for signed assets.</div>
+        <div class="field"><strong>Confidence:</strong> Moderate (0.72). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>NIST SP 800-63A: Analyze media for deepfake signatures in identity proofing</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2025-08-00</span>
+          <span class="chip">Location: United States</span>
+          <span class="chip">Media type: Image</span>
+          <span class="chip">Threat category: Detection</span>
+          <span class="chip">Affected sector: Finance</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://pages.nist.gov/800-63-4/sp800-63a.html" target="_blank" rel="noopener noreferrer" class="source-link">Vendor Advisory</a></div>
+        <div class="field"><strong>Incident Summary:</strong> Guidance recommends automated media analysis and human review to detect deepfake manipulation during identity-proofing.</div>
+        <div class="field"><strong>Operational Impact:</strong> Strengthens anti-fraud defenses for identity providers and financial institutions; raises screening expectations for user-submitted media.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Detection of AI-generated or manipulated selfie and media artifacts.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Explicit recommendations for media analysis in identity proofing workflows.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Aligns with rising use of synthetic identities in KYC/AML and account opening fraud.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Combine liveness, device, and network telemetry with forensic media checks; route edge cases to trained human reviewers.</div>
+        <div class="field"><strong>Confidence:</strong> Moderate (0.84). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>Explainable image deepfake detection challenge (benchmark)</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-07-22 / 2026-07-23</span>
+          <span class="chip">Location: Global</span>
+          <span class="chip">Media type: Image</span>
+          <span class="chip">Threat category: Research</span>
+          <span class="chip">Affected sector: Media</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://arxiv.org/abs/2607.21007" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></div>
+        <div class="field"><strong>Incident Summary:</strong> A benchmark challenge to improve explainability in image deepfake detection, aiding analyst transparency and evidentiary review.</div>
+        <div class="field"><strong>Operational Impact:</strong> Potential to improve detector trust and court-usable explanations; still evaluation-focused.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Addresses explainability for various image deepfake manipulations.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Not applicable (benchmark initiative).</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Valuable for standardizing explanation quality across vendor tools.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Prefer detectors exposing localized artifact evidence that can be peer-reviewed.</div>
+        <div class="field"><strong>Confidence:</strong> Moderate (0.70–0.69). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>NIST GenAI: Deepfakes 2026 — adversarial evaluation of image detectors</h3>
+        <div class="meta">
+          <span class="chip">Publication date: UNKNOWN</span>
+          <span class="chip">Location: United States</span>
+          <span class="chip">Media type: Image</span>
+          <span class="chip">Threat category: Research</span>
+          <span class="chip">Affected sector: Other</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://ai-challenges.nist.gov/forensics" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        <div class="field"><strong>Incident Summary:</strong> NIST initiative focuses on adversarially challenging evaluations to measure deepfake detector performance under realistic conditions.</div>
+        <div class="field"><strong>Operational Impact:</strong> Benchmarks inform procurement and deployment decisions for detection systems likely to face degraded real-world performance.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Image deepfakes; adversarial stress testing of detectors.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Provides evaluation framework; no incident-specific mitigations.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Critical for validating detector robustness against adaptive adversaries.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Demand third-party evaluations reflecting compression, social-platform transforms, and adversarial noise.</div>
+        <div class="field"><strong>Confidence:</strong> High (0.89). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>Content Credentials “Three Pillars of Provenance” (durable TrustMark and fingerprinting)</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-01-22</span>
+          <span class="chip">Location: Global</span>
+          <span class="chip">Media type: Image</span>
+          <span class="chip">Threat category: Technology</span>
+          <span class="chip">Affected sector: Media</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://contentauthenticity.org/blog/three-pillars-of-provenance" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        <div class="field"><strong>Incident Summary:</strong> Adobe describes durable Content Credentials using watermarking (TrustMark), metadata recovery, and fingerprinting to maintain provenance even after metadata stripping.</div>
+        <div class="field"><strong>Operational Impact:</strong> Enhances provenance verification across platforms and downstream workflows.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Watermarking, metadata, and fingerprint-based content provenance.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Framework guidance for implementing end-to-end provenance signals.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Complements regulatory transparency requirements and enterprise authenticity policies.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Prioritize tooling able to recover provenance after third-party transformations.</div>
+        <div class="field"><strong>Confidence:</strong> Moderate (0.81). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>EU AI Act: Transparency guidance and Code of Practice for deepfakes</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-07-20</span>
+          <span class="chip">Location: European Union</span>
+          <span class="chip">Media type: Multimedia</span>
+          <span class="chip">Threat category: Regulation</span>
+          <span class="chip">Affected sector: Government</span>
+        </div>
+        <div class="field"><strong>Direct Sources:</strong> 
+          <a href="https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems" target="_blank" rel="noopener noreferrer" class="source-link">Guidelines</a>
+          <a href="https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content" target="_blank" rel="noopener noreferrer" class="source-link">Code of Practice</a>
+        </div>
+        <div class="field"><strong>Incident Summary:</strong> The European Commission published operational guidance for transparency obligations and a Code of Practice covering deepfakes and machine-readable marking, with applicability from 2026-08-02.</div>
+        <div class="field"><strong>Operational Impact:</strong> Providers and deployers must implement disclosures and labeling; vendors and platforms prepare provenance and detection workflows.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Targets AI-generated and manipulated public-interest content; encourages watermarking and provenance signals.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Policy guidance on labeling, machine-readable signals, and transparency practices.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Imminent compliance timelines will drive rapid operationalization of provenance and watermark checks across EU-facing products.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Track platform adherence; assess labeling consistency across cross-posted content and archivals.</div>
+        <div class="field"><strong>Confidence:</strong> High (0.96, 0.90, 0.94 across related records). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>EU assessment of transparency Code and consolidated rollout update</h3>
+        <div class="meta">
+          <span class="chip">Publication dates: 2026-07-09; 2026-07-23</span>
+          <span class="chip">Location: European Union</span>
+          <span class="chip">Media type: Multimedia</span>
+          <span class="chip">Threat category: Regulation</span>
+          <span class="chip">Affected sector: Government</span>
+        </div>
+        <div class="field"><strong>Direct Sources:</strong> 
+          <a href="https://digital-strategy.ec.europa.eu/en/library/commission-opinion-assessment-code-practice-transparency-ai-generated-content" target="_blank" rel="noopener noreferrer" class="source-link">Commission Opinion</a>
+          <a href="https://futurium.ec.europa.eu/en/apply-ai-alliance/news/ai-transparency-package-guidelines-code-practice" target="_blank" rel="noopener noreferrer" class="source-link">EU AI Alliance Update</a>
+        </div>
+        <div class="field"><strong>Incident Summary:</strong> The Commission assessed its Code of Practice as adequate for AI Act transparency obligations, followed by a consolidated update to drive implementation.</div>
+        <div class="field"><strong>Operational Impact:</strong> Signals acceleration for labeling, provenance, and disclosure workflows by public and private deployers.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Transparency measures for deepfakes and AI-generated content.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Policy instruments and implementation guidance.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Expect rapid commitments and audits by major platforms and content producers ahead of enforcement.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Monitor cross-border consistency for labeling across EU and non-EU platforms.</div>
+        <div class="field"><strong>Confidence:</strong> High (0.93, 0.85). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>Google to sign EU transparency Code; commits to C2PA and SynthID watermarking</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-07-24</span>
+          <span class="chip">Location: European Union</span>
+          <span class="chip">Media type: Social Media</span>
+          <span class="chip">Threat category: Regulation</span>
+          <span class="chip">Affected sector: Government</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://blog.google/company-news/outreach-and-initiatives/public-policy/eu-ai-act-transparency-code-of-practice/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        <div class="field"><strong>Incident Summary:</strong> Google announced participation in the EU transparency Code of Practice, tying commitments to C2PA adoption and SynthID watermarking across generated content.</div>
+        <div class="field"><strong>Operational Impact:</strong> Anticipated broader provenance signal availability and labeling across ecosystems influenced by Google tooling.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Watermarking and content provenance for generated media.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Platform policy and provenance deployments.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Could materially increase machine-readable authenticity data for investigators and platforms.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Prepare ingestion pipelines to parse C2PA manifests and SynthID signals where exposed.</div>
+        <div class="field"><strong>Confidence:</strong> Moderate (0.79). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>FBI IC3 reporting: AI-linked scams driving significant victim losses</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-06</span>
+          <span class="chip">Location: United States</span>
+          <span class="chip">Media type: Multimedia</span>
+          <span class="chip">Threat category: Research</span>
+          <span class="chip">Affected sector: Public</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://www.fbi.gov/file-repository/2025_ic3report.pdf" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></div>
+        <div class="field"><strong>Incident Summary:</strong> The FBI’s 2025 IC3 report warns of AI use in employment and investment scams, complicating detection for individuals and enterprises.</div>
+        <div class="field"><strong>Operational Impact:</strong> Heightened fraud risk at scale with reduced human ability to discern synthetic content.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> AI-assisted scam content across modalities.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Not detailed in the cited report excerpt.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Aligns with observed malvertising and impersonation patterns impacting organizations and consumers.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Correlate scam-payment flows and platform telemetry to prioritize takedowns and victim notifications.</div>
+        <div class="field"><strong>Confidence:</strong> High (0.95). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>CVE-2026-48287: Vulnerability in Content Credentials/C2PA SDKs</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-07-16</span>
+          <span class="chip">Location: Global</span>
+          <span class="chip">Media type: Multimedia</span>
+          <span class="chip">Threat category: Technology</span>
+          <span class="chip">Affected sector: Media</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48287" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></div>
+        <div class="field"><strong>Incident Summary:</strong> A code-execution vulnerability is listed for Adobe C2PA/Content Credentials SDK components across Rust, JavaScript, and CLI tools.</div>
+        <div class="field"><strong>Operational Impact:</strong> Potential to undermine trust in provenance workflows if unpatched; supply-chain exposure across media pipelines.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Exploitation of authenticity-tooling vulnerabilities rather than media manipulation itself.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Refer to CVE for patching guidance; no abuse case reported in the source.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Immediate patch management and validation of verification toolchains are advised.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Document tool versions used in forensic verification to preserve evidentiary integrity.</div>
+        <div class="field"><strong>Confidence:</strong> High (0.88). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>FakeGit: 7,600 GitHub repos push SmartLoader malware</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-07-21</span>
+          <span class="chip">Location: Global</span>
+          <span class="chip">Media type: Social Media</span>
+          <span class="chip">Threat category: Criminal</span>
+          <span class="chip">Affected sector: Corporate</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://www.bleepingcomputer.com/news/security/fakegit-campaign-uses-7-600-github-repos-to-push-smartloader-malware/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        <div class="field"><strong>Incident Summary:</strong> A large-scale campaign used thousands of fake GitHub repositories impersonating legitimate projects to spread malware, with over 14 million downloads claimed.</div>
+        <div class="field"><strong>Operational Impact:</strong> Demonstrates platform-trust abuse at scale; synthetic-media component is indirect.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Repository impersonation and social engineering of developers/users.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Highlights need for package/repo provenance verification and allowlisting in dev environments.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Trace downloader telemetry; compare repository creation patterns and contributor graphs for clustering.</div>
+        <div class="field"><strong>Confidence:</strong> Moderate (0.68). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>FTC seeks comment on AI accuracy policy statement</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-07-24</span>
+          <span class="chip">Location: United States</span>
+          <span class="chip">Media type: Unknown</span>
+          <span class="chip">Threat category: Regulation</span>
+          <span class="chip">Affected sector: Government</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://www.ftc.gov/news-events/news/press-releases/2026/07/ftc-seeks-public-comment-policy-statement-addressing-ai-accuracy" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        <div class="field"><strong>Incident Summary:</strong> The FTC requested public comment on a policy statement addressing AI output accuracy, potentially affecting how companies present and handle AI-generated content.</div>
+        <div class="field"><strong>Operational Impact:</strong> Signals regulatory scrutiny over misleading AI outputs; may impact product design and disclosures.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Focus on accuracy and potential deception in AI outputs.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Policy-development step; no technical mitigations provided.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Anticipate cross-functional reviews of AI disclosures and user-interface claims.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Track complaint patterns involving misrepresentation by AI systems as potential enforcement signals.</div>
+        <div class="field"><strong>Confidence:</strong> Moderate (0.76). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>FTC compliance guidance under the Take It Down Act</h3>
+        <div class="meta">
+          <span class="chip">Publication date: UNKNOWN</span>
+          <span class="chip">Location: United States</span>
+          <span class="chip">Media type: Unknown</span>
+          <span class="chip">Threat category: Regulation</span>
+          <span class="chip">Affected sector: Media</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://www.ftc.gov/business-guidance/resources/complying-take-it-down-act" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></div>
+        <div class="field"><strong>Incident Summary:</strong> Guidance outlines platform obligations for removing user-generated intimate content and preventing reposting, relevant to synthetic-intimate imagery cases.</div>
+        <div class="field"><strong>Operational Impact:</strong> Sets clear expectations for removal speed and recurrence prevention under federal law.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Addresses nonconsensual intimate synthetic content; emphasizes repeat-upload prevention.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Compliance measures and platform responsibilities are detailed.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Provides a framework to coordinate legal and trust-and-safety responses for victims.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Align takedown documentation and evidence preservation with platform processes and victim support pathways.</div>
+        <div class="field"><strong>Confidence:</strong> Moderate (0.79). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency low">Low</span>
+        <h3>No additional qualifying incidents within last 5 days (meta)</h3>
+        <div class="meta">
+          <span class="chip">Publication date: UNKNOWN</span>
+          <span class="chip">Location: Unknown</span>
+          <span class="chip">Media type: Unknown</span>
+          <span class="chip">Threat category: Technology</span>
+          <span class="chip">Affected sector: Other</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> No source URL provided.</div>
+        <div class="field"><strong>Incident Summary:</strong> Meta-update noting a lack of additional authoritative, current synthetic-media incidents within the specified recent time window.</div>
+        <div class="field"><strong>Operational Impact:</strong> No immediate action indicated.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Not applicable.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Not applicable.</div>
+        <div class="field"><strong>Analyst Assessment:</strong> None.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> None.</div>
+        <div class="field"><strong>Confidence:</strong> Low (0.62). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>Multimodal deepfake-news detection framework (video + audio)</h3>
+        <div class="meta">
+          <span class="chip">Publication date: 2026-07-21</span>
+          <span class="chip">Location: Global</span>
+          <span class="chip">Media type: Video</span>
+          <span class="chip">Threat category: Research</span>
+          <span class="chip">Affected sector: Media</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://arxiv.org/abs/2607.20579" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></div>
+        <div class="field"><strong>Incident Summary:</strong> Proposes a multimodal framework to detect fake news videos by combining audio-visual analysis.</div>
+        <div class="field"><strong>Operational Impact:</strong> Could strengthen newsroom and platform authenticity checks; research-stage.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Deepfake video and accompanying audio inconsistencies.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Not applicable (research proposal).</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Promising for election-integrity and crisis-communications monitoring.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Evaluate on real platform-transcoded samples; document feature contributions for explainability.</div>
+        <div class="field"><strong>Confidence:</strong> Moderate (0.72). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
+      <div class="incident-card">
+        <span class="badge monitor">MONITOR</span>
+        <span class="badge urgency medium">Medium</span>
+        <h3>PhantomSeal: Proactive anti-deepfake protection and forensic tracing</h3>
+        <div class="meta">
+          <span class="chip">Publication dates: 2026-07-20 / 2026-07-21</span>
+          <span class="chip">Location: Global</span>
+          <span class="chip">Media type: Image / Video</span>
+          <span class="chip">Threat category: Research</span>
+          <span class="chip">Affected sector: Media</span>
+        </div>
+        <div class="field"><strong>Direct Source:</strong> <a href="https://arxiv.org/abs/2607.20564" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></div>
+        <div class="field"><strong>Incident Summary:</strong> Research reports proactive defenses to reduce success of face-swap and context-manipulation deepfakes and enable tracing.</div>
+        <div class="field"><strong>Operational Impact:</strong> Potential for proactive identity protection and attribution support if robust outside the lab.</div>
+        <div class="field"><strong>Technology and Deception Method:</strong> Countermeasures against face-swapping and manipulation workflows.</div>
+        <div class="field"><strong>Source-Reported Detection or Mitigation:</strong> Not applicable (research proposal).</div>
+        <div class="field"><strong>Analyst Assessment:</strong> Could augment content provenance with active protection of high-risk faces and assets.</div>
+        <div class="field"><strong>Investigator Considerations:</strong> Test for transferability across model families and robustness under typical social-media transformations.</div>
+        <div class="field"><strong>Confidence:</strong> Moderate (0.74–0.78). Confidence reflects the supplied intelligence record and does not constitute independent verification.</div>
+      </div>
+
     </section>
 
     <section class="panel" id="emerging-trends">
       <h2>Emerging Trends</h2>
       <ul>
-        <li>Voice cloning and AI vishing: Multiple records show AI voice used in impersonation scams and messages, with platform-level defenses emerging.</li>
-        <li>Non-consensual intimate imagery and deepfake sexual abuse: Repeated enforcement and litigation actions indicate persistent and large-scale harm.</li>
-        <li>Organized international fraud using synthetic media: Reports of real-time deepfakes and multilingual AI to scale scams across borders.</li>
-        <li>National-security influence operations: Government reporting on counterfeit documents and deepfakes underscores geopolitical risk.</li>
-        <li>Regulatory acceleration on transparency: EU guidance and codes of practice advance deepfake labeling and machine-readable marking expectations.</li>
-        <li>Provenance and detection advances (and weaknesses): C2PA/SynthID expansions contrasted with new vulnerabilities and watermark fragility research.</li>
-        <li>Platform-scale AI content pressure: Indications of AI-generated spam flooding social networks increase moderation and verification burdens.</li>
+        <li>Synthetic documentation for fraud: AI-generated records are enabling and concealing reimbursement schemes in healthcare. <a href="https://www.justice.gov/opa/pr/four-men-plead-guilty-2m-minnesota-medicaid-fraud" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+        <li>Voice-clone impersonation targeting high-value officials: AI-enabled outreach to diplomatic leaders raises verification urgency. <a href="https://apnews.com/article/rubio-artificial-intelligence-impersonation-1b3cc78464404b54e63f4eba9dd4f5a9" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+        <li>Brand-trust abuse around AI tools: Malvertising campaigns exploit demand for AI apps to distribute infostealers. <a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+        <li>Provenance and labeling acceleration: EU AI Act guidance and vendor participation (C2PA, watermarking) indicate rapid operationalization of transparency. <a href="https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+        <li>Interpretable detection research: Advances aim to provide artifact-level explanations for audio and image deepfake detection. <a href="https://arxiv.org/abs/2607.21127" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+        <li>Enforcement against synthetic intimate abuse: Domain seizures under federal authorities demonstrate active use of new legal tools. <a href="https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
       </ul>
     </section>
 
     <section class="panel" id="industry-impact">
       <h2>Industry Impact</h2>
-      <div class="two-col">
-        <div class="card">
-          <h3>Public Sector</h3>
-          <p>Observed Risk: Harassment, sextortion, and impersonation targeting citizens via deepfakes and voice cloning.</p>
-          <p>Trust Mechanisms: Visual authenticity of images/videos; caller identity.</p>
-          <p>Operational Consequence: Increased victimization and investigative caseloads; need for rapid platform cooperation.</p>
+      <div class="grid-2">
+        <div class="incident-card">
+          <h3>Healthcare</h3>
+          <p><strong>Observed Risk:</strong> Synthetic-document fraud in Medicaid billing.</p>
+          <p><strong>Trust Mechanism Affected:</strong> Claims documentation authenticity.</p>
+          <p><strong>Operational Consequence:</strong> Financial losses, beneficiary harm, increased audit burdens. <a href="https://www.justice.gov/opa/pr/four-men-plead-guilty-2m-minnesota-medicaid-fraud" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></p>
         </div>
-        <div class="card">
-          <h3>Government and National Security</h3>
-          <p>Observed Risk: State-linked influence operations using counterfeit documents and deepfakes; impersonation of officials.</p>
-          <p>Trust Mechanisms: Official communications, media literacy, election integrity.</p>
-          <p>Operational Consequence: Enhanced monitoring and rapid-response requirements; public advisories and risk register updates.</p>
+        <div class="incident-card">
+          <h3>Government</h3>
+          <p><strong>Observed Risk:</strong> AI-enabled impersonation of senior officials; recruitment fronts using synthetic identities.</p>
+          <p><strong>Trust Mechanism Affected:</strong> Identity assurance in diplomatic and clearance-holder communications.</p>
+          <p><strong>Operational Consequence:</strong> Potential disclosure of sensitive information; policy manipulation risk. <a href="https://apnews.com/article/rubio-artificial-intelligence-impersonation-1b3cc78464404b54e63f4eba9dd4f5a9" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://www.justice.gov/opa/pr/justice-department-fbi-disable-13-websites-backed-suspected-chinese-agents-sought-sensitive" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></p>
         </div>
-        <div class="card">
-          <h3>Financial Services</h3>
-          <p>Observed Risk: AI-assisted BEC, vishing, and social engineering fueling high losses.</p>
-          <p>Trust Mechanisms: Caller verification, payment authorization, KYC/AML.</p>
-          <p>Operational Consequence: Need for out-of-band verification, anomaly detection, and coordinated recalls.</p>
+        <div class="incident-card">
+          <h3>Corporate</h3>
+          <p><strong>Observed Risk:</strong> Malvertising tied to AI brands; large-scale developer-platform impersonation.</p>
+          <p><strong>Trust Mechanism Affected:</strong> User trust in ads and open-source repositories.</p>
+          <p><strong>Operational Consequence:</strong> Credential theft, payment fraud, supply-chain intrusion. <a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://www.bleepingcomputer.com/news/security/fakegit-campaign-uses-7-600-github-repos-to-push-smartloader-malware/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></p>
         </div>
-        <div class="card">
+        <div class="incident-card">
           <h3>Media and Platforms</h3>
-          <p>Observed Risk: Scale of AI spam and manipulated media eroding trust; vulnerabilities in authenticity tooling.</p>
-          <p>Trust Mechanisms: Content provenance, labeling, editorial verification.</p>
-          <p>Operational Consequence: Urgent patching, tool validation, and integration of provenance signals in workflows.</p>
+          <p><strong>Observed Risk:</strong> Synthetic intimate content and deepfake news; provenance tooling vulnerabilities.</p>
+          <p><strong>Trust Mechanism Affected:</strong> Content authenticity and takedown efficacy.</p>
+          <p><strong>Operational Consequence:</strong> Legal exposure, user harm, and trust erosion if provenance and removal obligations fail. <a href="https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48287" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></p>
         </div>
-        <div class="card">
-          <h3>Corporate Technology Providers</h3>
-          <p>Observed Risk: Legal and compliance exposure from tool misuse and transparency obligations.</p>
-          <p>Trust Mechanisms: Model safeguards, abuse reporting, content provenance.</p>
-          <p>Operational Consequence: Strengthen safeguards, logging, and reporting pipelines; prepare for regulatory audits.</p>
+        <div class="incident-card">
+          <h3>Finance and Identity Providers</h3>
+          <p><strong>Observed Risk:</strong> Synthetic-identity attempts during onboarding.</p>
+          <p><strong>Trust Mechanism Affected:</strong> Biometric selfie and document verification.</p>
+          <p><strong>Operational Consequence:</strong> Account fraud and regulatory non-compliance if deepfake screening is weak. <a href="https://pages.nist.gov/800-63-4/sp800-63a.html" target="_blank" rel="noopener noreferrer" class="source-link">Vendor Advisory</a></p>
         </div>
       </div>
     </section>
@@ -957,37 +758,39 @@
     <section class="panel" id="geographic-observations">
       <h2>Geographic Observations</h2>
       <ul>
-        <li>United States: Multiple enforcement actions and advisories (DOJ seizures and arrests; FBI PSA; IC3 report; cyberstalking case).</li>
-        <li>United Kingdom: Government reporting on foreign information warfare; democratic interference added to risk register; call-spoofing platform charges; media and justice policy updates.</li>
-        <li>European Union: Transparency guidance and codes of practice advancing deepfake labeling and marking obligations; financial-system risk warnings.</li>
-        <li>Southeast Asia: Reported organized crime use of generative AI and deepfakes to scale cross-border scams.</li>
-        <li>Global: INTERPOL anti-fraud operation; platform provenance tools; rising AI spam on major social networks.</li>
+        <li>Minnesota, United States: AI-generated document fraud in Medicaid program. <a href="https://www.justice.gov/opa/pr/four-men-plead-guilty-2m-minnesota-medicaid-fraud" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+        <li>Washington, United States: AI-enabled impersonation targeting foreign ministers and U.S. officials. <a href="https://apnews.com/article/rubio-artificial-intelligence-impersonation-1b3cc78464404b54e63f4eba9dd4f5a9" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+        <li>United States, Italy, France: Deepfake pornography distribution domains seized. <a href="https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+        <li>European Union: AI Act transparency guidance and Code of Practice rollout. <a href="https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+        <li>Global: Malvertising and repository-impersonation campaigns; research and provenance developments. <a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
       </ul>
     </section>
 
     <section class="panel" id="detection-defensive-developments">
       <h2>Detection and Defensive Developments</h2>
-      <div class="two-col">
-        <div class="card">
+      <div class="grid-2">
+        <div class="incident-card">
           <h3>A. Source-Reported Measures</h3>
           <ul>
-            <li>EU guidance clarifies deepfake disclosure and machine-readable marking obligations effective 2026-08-02.</li>
-            <li>Android introduced fake-call detection and call verification to counter AI voice-cloning scams.</li>
-            <li>OpenAI expanded C2PA Content Credentials and SynthID signals with public image verification.</li>
-            <li>NIST launched benchmarks for GenAI detection and deepfake forensics performance.</li>
-            <li>NVD disclosed vulnerabilities impacting C2PA-related tooling, requiring patching and validation.</li>
-            <li>FBI issued a PSA warning of AI-generated video impersonation schemes targeting FBI branding.</li>
+            <li>Law enforcement disabled 13 synthetic-identity recruitment sites targeting clearance holders. <a href="https://www.justice.gov/opa/pr/justice-department-fbi-disable-13-websites-backed-suspected-chinese-agents-sought-sensitive" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+            <li>Deepfake pornography domains seized under the Take It Down Act. <a href="https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+            <li>EU issued transparency guidance and a Code of Practice for deepfakes and machine-readable marking. <a href="https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems" target="_blank" rel="noopener noreferrer" class="source-link">Guidelines</a> <a href="https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content" target="_blank" rel="noopener noreferrer" class="source-link">Code</a></li>
+            <li>NIST SP 800-63A recommends analyzing user-submitted media for deepfake indicators in identity proofing. <a href="https://pages.nist.gov/800-63-4/sp800-63a.html" target="_blank" rel="noopener noreferrer" class="source-link">Vendor Advisory</a></li>
+            <li>CVE-2026-48287 disclosed in Content Credentials/C2PA SDKs. <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48287" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></li>
+            <li>C2PA guide provides practical steps to sign and verify assets. <a href="https://learn.contentauthenticity.org/signing-your-first-asset" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+            <li>Google to adopt transparency Code with C2PA and SynthID across workflows. <a href="https://blog.google/company-news/outreach-and-initiatives/public-policy/eu-ai-act-transparency-code-of-practice/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
           </ul>
         </div>
-        <div class="card">
+        <div class="incident-card">
           <h3>B. Analyst Recommendations</h3>
           <ul>
-            <li>Adopt multi-channel verification for financial transactions and executive requests, including known-number callbacks and challenge-response phrases.</li>
-            <li>Integrate content provenance (C2PA) checks into editorial and trust/safety workflows; preserve originals to retain metadata.</li>
-            <li>Avoid sole reliance on text or audio watermarks for attribution; corroborate with linguistic, metadata, and behavioral evidence.</li>
-            <li>Harden provenance toolchains: patch known CVEs, log tool versions, and implement integrity checks for verification outputs.</li>
-            <li>Deploy AI-aware fraud playbooks that reference current PSAs; train staff to recognize law-enforcement and brand-impersonation red flags.</li>
-            <li>For elections and public communications, pre-stage crisis messaging and rapid debunking protocols for suspected deepfakes.</li>
+            <li><strong>Healthcare/Insurers:</strong> Implement document-forensics checks on claims (metadata consistency, template reuse, narrative stylometry) and require independent corroboration of high-risk services. <span class="pill">Analyst Recommendation</span></li>
+            <li><strong>Diplomatic/Government:</strong> Enforce out-of-band verification for high-level requests; deploy voice-clone detection and callback policies for sensitive communications. <span class="pill">Analyst Recommendation</span></li>
+            <li><strong>Enterprise IT/SecOps:</strong> Allowlist official app distribution; block malvertising domains; monitor for Sectoprat/SmartLoader behaviors; harden endpoint controls. <span class="pill">Analyst Recommendation</span></li>
+            <li><strong>Provenance Programs:</strong> Adopt C2PA signing and verification; patch C2PA/Content Credentials toolchains per CVE-2026-48287; continuously validate verification paths. <span class="pill">Analyst Recommendation</span></li>
+            <li><strong>Identity Proofing:</strong> Integrate NIST SP 800-63A-aligned media analysis with human review; log adjudication rationales for audits. <span class="pill">Analyst Recommendation</span></li>
+            <li><strong>News/Platforms:</strong> Prepare for EU transparency obligations; enable machine-readable labels; integrate watermark and fingerprint parsing into CMS ingestion. <span class="pill">Analyst Recommendation</span></li>
+            <li><strong>Legal/Policy:</strong> Map platform takedown SLAs and repeat-upload prevention to FTC guidance; validate evidence preservation for legal process. <span class="pill">Analyst Recommendation</span></li>
           </ul>
         </div>
       </div>
@@ -995,39 +798,35 @@
 
     <section class="panel" id="recommendations">
       <h2>Recommendations</h2>
-      <div class="two-col">
-        <div class="card">
+      <div class="grid-2">
+        <div class="incident-card">
           <h3>For Investigators</h3>
           <ul>
-            <li>Analyst Recommendation: Preserve original media and platform telemetry (hashes, upload timestamps, C2PA credentials) at first contact.</li>
-            <li>Analyst Recommendation: Seek cross-border data via established channels for scam networks operating in Southeast Asia and beyond.</li>
-            <li>Analyst Recommendation: Validate any watermark detections with independent methods before using as evidence.</li>
-            <li>Analyst Recommendation: For voice-related crimes, collect call audio, signaling metadata, and device logs for voice-forensic analysis.</li>
+            <li>Preserve original digital artifacts (documents, audio, images) and examine for AI-generation signatures; document tool versions and hashes. <span class="pill">Analyst Recommendation</span></li>
+            <li>Use out-of-band identity verification for voice or message-based requests from senior officials. <span class="pill">Analyst Recommendation</span></li>
+            <li>Correlate domain/hosting, WHOIS history, and payment trails for synthetic-identity front sites. <span class="pill">Analyst Recommendation</span></li>
           </ul>
         </div>
-        <div class="card">
+        <div class="incident-card">
           <h3>For Organizations</h3>
           <ul>
-            <li>Analyst Recommendation: Implement out-of-band verification for payments and executive directives; enable caller-protection features on corporate devices.</li>
-            <li>Analyst Recommendation: Integrate provenance checking and deepfake-detection APIs into moderation and incident-response pipelines.</li>
-            <li>Analyst Recommendation: Patch and test content-authenticity toolchains; maintain SBOMs and version inventories for audit trails.</li>
-            <li>Analyst Recommendation: Establish rapid takedown relationships with app stores and social platforms for synthetic-intimacy abuse.</li>
+            <li>Establish app-distribution allowlists and disable ad-driven software acquisition; monitor for infostealer IOCs associated with recent malvertising campaigns. <span class="pill">Analyst Recommendation</span></li>
+            <li>Adopt C2PA verification at media ingress; maintain SBOMs and timely patches for provenance toolchains (see CVE-2026-48287). <span class="pill">Analyst Recommendation</span></li>
+            <li>Embed NIST SP 800-63A media checks into identity-proofing and high-risk onboarding. <span class="pill">Analyst Recommendation</span></li>
           </ul>
         </div>
-        <div class="card">
+        <div class="incident-card">
           <h3>For News and Public-Safety Organizations</h3>
           <ul>
-            <li>Analyst Recommendation: Adopt newsroom authenticity playbooks using C2PA signals, reverse image search, and model-consistency checks.</li>
-            <li>Analyst Recommendation: Proactively warn the public about AI-enabled impersonation of law-enforcement and government services.</li>
-            <li>Analyst Recommendation: Participate in NIST challenges to benchmark in-house verification tools and staff proficiency.</li>
+            <li>Integrate multimodal deepfake screening for video/audio submissions and preserve explainability outputs for editorial/legal review. <span class="pill">Analyst Recommendation</span></li>
+            <li>Implement machine-readable labels and provenance displays aligned with EU transparency guidance and C2PA. <span class="pill">Analyst Recommendation</span></li>
           </ul>
         </div>
-        <div class="card">
+        <div class="incident-card">
           <h3>For Legal and Policy Professionals</h3>
           <ul>
-            <li>Analyst Recommendation: Align compliance programs with EU transparency guidance and upcoming labeling/marking obligations.</li>
-            <li>Analyst Recommendation: Define discovery protocols for AI-generated evidence, including chain-of-custody for provenance artifacts.</li>
-            <li>Analyst Recommendation: Monitor case law from synthetic-CSAM litigation for evolving provider obligations and reporting standards.</li>
+            <li>Operationalize EU AI Act transparency workflows and audit trails ahead of enforcement; harmonize with voluntary Codes. <span class="pill">Analyst Recommendation</span></li>
+            <li>Use FTC Take It Down guidance to standardize evidence, rapid removal, and repeat-upload prevention for intimate synthetic content. <span class="pill">Analyst Recommendation</span></li>
           </ul>
         </div>
       </div>
@@ -1035,74 +834,162 @@
 
     <section class="panel" id="forensic-insight">
       <h2>Forensic Insight of the Day</h2>
-      <p>Across multiple records, successful interventions did not rely solely on media-level detection; they often combined platform metadata, payment and hosting records, and coordinated enforcement. This indicates that combining provenance signals with traditional investigative artifacts remains the most reliable path to disruption and attribution in synthetic-media crimes.</p>
+      <p>Synthetic-document abuse is now a frontline enabler of financial crime: the Minnesota Medicaid case shows AI-generated paperwork can both facilitate and conceal fraud. Pairing identity-proofing media analysis (NIST SP 800-63A) with provenance-aware workflows (C2PA/Content Credentials) offers a practical path to detect such records before payout. Evidence of broader trend formation beyond this incident is emerging but remains limited to the supplied records. <a href="https://www.justice.gov/opa/pr/four-men-plead-guilty-2m-minnesota-medicaid-fraud" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://pages.nist.gov/800-63-4/sp800-63a.html" target="_blank" rel="noopener noreferrer" class="source-link">Vendor Advisory</a> <a href="https://contentauthenticity.org/blog/three-pillars-of-provenance" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></p>
     </section>
 
     <section class="panel" id="key-takeaways">
       <h2>Key Takeaways</h2>
       <ul>
-        <li>AI-enabled scams and deepfake abuse continue to expand globally, with measurable financial and human impact.</li>
-        <li>Law enforcement is increasingly applying new legal tools to seize platforms and arrest operators of deepfake sexual abuse content.</li>
-        <li>EU transparency obligations for deepfake labeling and marking arrive imminently, affecting providers and deployers.</li>
-        <li>Defensive progress (Android call protections, C2PA/SynthID) is offset by vulnerabilities and watermark reliability concerns.</li>
-        <li>National-security and democratic processes are active targets for synthetic-media influence operations.</li>
-        <li>Operational defenses should emphasize provenance capture, out-of-band verification, and cross-border coordination.</li>
+        <li>Synthetic media now underpins both fraud and national-security targeting, not just online misinformation.</li>
+        <li>AI-generated documents can materially impact healthcare reimbursements at scale.</li>
+        <li>High-level voice impersonation requires strict verification and anti-vishing controls.</li>
+        <li>Brand-trust abuse around popular AI tools is an emerging malware delivery vector.</li>
+        <li>EU transparency obligations are catalyzing rapid provenance and labeling deployments.</li>
+        <li>Toolchain vulnerabilities in provenance frameworks present supply-chain risks.</li>
+        <li>Interpretable detection research is advancing but remains pre-deployment; plan for human-in-the-loop review.</li>
       </ul>
     </section>
 
     <section class="panel" id="source-index">
       <h2>Source Index</h2>
-      <div class="one-col">
-        <div class="card">
-          <ul>
-            <li>2026-06-15 — DOJ seizes CFAKE and SOCFAKE deepfake nude sites under the Take It Down Act — https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/</li>
-            <li>2026-07-08 — Lawsuit alleges Grok user generated 7k child sex images; reporting adequacy disputed — https://arstechnica.com/tech-policy/2026/07/lawsuit-grok-user-made-7k-child-sex-images-xai-only-reported-one-gang-rape-prompt/</li>
-            <li>2026-07-16 — Litigation update: xAI cannot deny CSAM generation claims; suing users — https://arstechnica.com/tech-policy/2026/07/xai-cant-deny-grok-makes-csam-anymore-so-its-suing-users/</li>
-            <li>2026-07-17 — San Francisco action: Apple/Google must stop profiting off AI nudify apps — https://arstechnica.com/tech-policy/2026/07/apple-google-must-stop-profiting-off-ai-nudify-apps-san-francisco-ag-says/</li>
-            <li>2026-07-07 — Deepfake CSAM lawsuit expands to include Stability AI — https://cyberscoop.com/deepfake-csam-lawsuit-grok-xai-expands-stability-ai/</li>
-            <li>2026-07-21 — UNODC: Organized crime in Southeast Asia using generative AI and deepfakes — https://apnews.com/article/crime-scams-un-drugs-trafficking-southeast-asia-7b096f2a77f73f7e1cea428db056049a</li>
-            <li>2026-05 — FBI IC3 Report 2025 — https://www.fbi.gov/file-repository/2025_ic3report.pdf</li>
-            <li>2026-05-20 — Two individuals arrested for publishing AI deepfake pornography (Take It Down Act) — https://www.justice.gov/usao-edny/pr/two-individuals-arrested-publishing-ai-deepfake-pornography-violation-take-it-down-act</li>
-            <li>2026-07-13 — UK action against foreign information warfare (counterfeit documents, deepfakes) — https://www.gov.uk/government/publications/uk-action-against-russian-foreign-information-warfare/new-uk-action-against-foreign-information-warfare</li>
-            <li>2026-06-18 — Federal cyberstalking charge after posting AI-generated nude images — https://www.justice.gov/usao-ndga/pr/new-york-man-faces-federal-cyberstalking-charge-after-posting-ai-generated-nude-images</li>
-            <li>2026-07-14 — Risk of democratic interference added to UK National Risk Register — https://www.gov.uk/government/news/risk-of-democratic-interference-added-to-national-risk-register</li>
-            <li>2026-07-20 — EU guidelines on transparency obligations for deepfakes and AI-generated content — https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems</li>
-            <li>2026-07-20 — FBI Public Service Announcement on AI-generated FBI impersonation videos — https://www.ic3.gov/PSA/2026/PSA260720</li>
-            <li>2026-06-02 — Android fake call detection and anti-impersonation call verification — https://blog.google/security/android-fake-call-detection/</li>
-            <li>2026-07-09 — INTERPOL global fraud operation: 5,811 arrests, USD 293M intercepted — https://www.interpol.int/News-and-Events/News/2026/Over-5-800-arrests-USD-293-million-intercepted-in-global-fraud-bust</li>
-            <li>2025-05-15 — FBI alert: Senior U.S. officials impersonated via AI-generated voice — https://www.fbi.gov/investigate/cyber/alerts/2025/senior-us-officials-impersonated-in-malicious-messaging-campaign</li>
-            <li>2026-07-20 — SSTMark: Semantic speech watermarking preprint — https://arxiv.org/abs/2607.17592</li>
-            <li>UNKNOWN — NIST 2026 GenAI Evaluation — https://ai-challenges.nist.gov/genai</li>
-            <li>2026-07-07 — ESRB warns frontier AI may strain financial cyber resilience — https://www.esrb.europa.eu/news/pr/date/2026/html/esrb.pr260707~4e1b68241a.en.html</li>
-            <li>2026-07-17 — Research: Text watermarking fragility to paraphrasing — https://arxiv.org/abs/2607.16010</li>
-            <li>UNKNOWN — NIST 2026 GenAI Text Challenge — https://ai-challenges.nist.gov/text-2026</li>
-            <li>2026-07-16 — NVD CVE affecting Content Credentials/C2PA-related tooling — https://nvd.nist.gov/vuln/detail/CVE-2026-48287</li>
-            <li>UNKNOWN — OpenAI C2PA in DALL·E 3 (help guidance) — https://help.openai.com/en/articles/8912793-c2pa-in-dall-e-3</li>
-            <li>2026-05-22 — OpenAI: Advancing content provenance (C2PA + SynthID, verification tool) — https://openai.com/index/advancing-content-provenance/</li>
-            <li>UNKNOWN — NIST GenAI Deepfakes Forensics Challenge — https://ai-challenges.nist.gov/forensics</li>
-            <li>2026-07-14 — UK media green paper: Detection and labeling support — https://www.gov.uk/government/consultations/watch-this-space-a-new-strategic-direction-for-uk-media-green-paper-and-public-consultation/watch-this-space-a-new-strategic-direction-for-uk-media-green-paper-and-public-consultation</li>
-            <li>2026-07-09 — Commission opinion on Code of Practice for transparency of AI-generated content — https://digital-strategy.ec.europa.eu/en/library/commission-opinion-assessment-code-practice-transparency-ai-generated-content</li>
-            <li>2026-06-10 — Code of practice on marking and labelling AI-generated content — https://digital-strategy.ec.europa.eu/en/news/commission-publishes-code-practice-marking-and-labelling-ai-generated-content</li>
-            <li>2026-07-20 — EU FAQs on transparency obligations (Article 50 AI Act) — https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act</li>
-            <li>2026-07-14 — Europol event: Online fraud schemes and growing threat — https://www.europol.europa.eu/publications-events/events/how-online-fraud-schemes-are-becoming-growing-threat</li>
-            <li>2026-06-23 — European Parliament proposals on democracy shield vs deepfakes — https://www.europarl.europa.eu/news/en/press-room/20260622IPR45921/des-propositions-visant-a-ameliorer-le-bouclier-de-la-democratie-europeenne</li>
-            <li>2026-07-09 — AI spam flooding LinkedIn and X (measurement) — https://www.404media.co/linkedin-and-x-are-flooded-with-ai-spam-browsing-data-suggests/</li>
-            <li>2026-07-14 — UK justice: AI to speed up disclosure in fraud cases — https://www.gov.uk/government/news/ai-to-speed-up-justice-under-major-disclosure-reforms</li>
-            <li>2026-07-13 — UK charges tied to Russian Coms call spoofing platform — https://www.bleepingcomputer.com/news/security/uk-charges-suspects-linked-to-russian-coms-call-spoofing-platform/</li>
-            <li>2026-07-15 — UK call for evidence: Unauthorised fraud in the UK — https://www.gov.uk/government/calls-for-evidence/unauthorised-fraud-in-the-uk/unauthorised-fraud-in-the-uk-call-for-evidence</li>
-          </ul>
-        </div>
-      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Publication Date</th>
+            <th>Descriptive Title</th>
+            <th>Direct URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2026-07-24</td>
+            <td>DOJ: Four men plead guilty in $2M Minnesota Medicaid fraud; AI-generated records used</td>
+            <td><a href="https://www.justice.gov/opa/pr/four-men-plead-guilty-2m-minnesota-medicaid-fraud" target="_blank" rel="noopener noreferrer" class="source-link">https://www.justice.gov/opa/pr/four-men-plead-guilty-2m-minnesota-medicaid-fraud</a></td>
+          </tr>
+          <tr>
+            <td>2026-06-10</td>
+            <td>DOJ/FBI disable 13 suspected Chinese-backed recruiting websites using AI-generated photos</td>
+            <td><a href="https://www.justice.gov/opa/pr/justice-department-fbi-disable-13-websites-backed-suspected-chinese-agents-sought-sensitive" target="_blank" rel="noopener noreferrer" class="source-link">https://www.justice.gov/opa/pr/justice-department-fbi-disable-13-websites-backed-suspected-chinese-agents-sought-sensitive</a></td>
+          </tr>
+          <tr>
+            <td>2026-06-15</td>
+            <td>DOJ seizes deepfake nude sites under the Take It Down Act</td>
+            <td><a href="https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/" target="_blank" rel="noopener noreferrer" class="source-link">https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-23</td>
+            <td>Fake Claude app via ads pushes Sectoprat malware; at least 29 orgs impacted</td>
+            <td><a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-08</td>
+            <td>AP: AI-enabled impersonation of U.S. Secretary of State targets foreign ministers</td>
+            <td><a href="https://apnews.com/article/rubio-artificial-intelligence-impersonation-1b3cc78464404b54e63f4eba9dd4f5a9" target="_blank" rel="noopener noreferrer" class="source-link">https://apnews.com/article/rubio-artificial-intelligence-impersonation-1b3cc78464404b54e63f4eba9dd4f5a9</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-22/23</td>
+            <td>Interpretable speech deepfake detection (research)</td>
+            <td><a href="https://arxiv.org/abs/2607.21127" target="_blank" rel="noopener noreferrer" class="source-link">https://arxiv.org/abs/2607.21127</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-21</td>
+            <td>LLM watermarking approach (research)</td>
+            <td><a href="https://arxiv.org/abs/2607.18445" target="_blank" rel="noopener noreferrer" class="source-link">https://arxiv.org/abs/2607.18445</a></td>
+          </tr>
+          <tr>
+            <td>UNKNOWN</td>
+            <td>C2PA: Signing your first asset (implementation guide)</td>
+            <td><a href="https://learn.contentauthenticity.org/signing-your-first-asset" target="_blank" rel="noopener noreferrer" class="source-link">https://learn.contentauthenticity.org/signing-your-first-asset</a></td>
+          </tr>
+          <tr>
+            <td>2025-08-00</td>
+            <td>NIST SP 800-63A (Digital Identity Guidelines — Enrollment and Identity Proofing)</td>
+            <td><a href="https://pages.nist.gov/800-63-4/sp800-63a.html" target="_blank" rel="noopener noreferrer" class="source-link">https://pages.nist.gov/800-63-4/sp800-63a.html</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-22/23</td>
+            <td>Explainable deepfake detection challenge (image)</td>
+            <td><a href="https://arxiv.org/abs/2607.21007" target="_blank" rel="noopener noreferrer" class="source-link">https://arxiv.org/abs/2607.21007</a></td>
+          </tr>
+          <tr>
+            <td>UNKNOWN</td>
+            <td>NIST GenAI: Deepfakes 2026 forensics challenge</td>
+            <td><a href="https://ai-challenges.nist.gov/forensics" target="_blank" rel="noopener noreferrer" class="source-link">https://ai-challenges.nist.gov/forensics</a></td>
+          </tr>
+          <tr>
+            <td>2026-01-22</td>
+            <td>Content Authenticity Initiative: Three pillars of provenance</td>
+            <td><a href="https://contentauthenticity.org/blog/three-pillars-of-provenance" target="_blank" rel="noopener noreferrer" class="source-link">https://contentauthenticity.org/blog/three-pillars-of-provenance</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-09</td>
+            <td>Commission opinion assessing Code of Practice for AI-generated content</td>
+            <td><a href="https://digital-strategy.ec.europa.eu/en/library/commission-opinion-assessment-code-practice-transparency-ai-generated-content" target="_blank" rel="noopener noreferrer" class="source-link">https://digital-strategy.ec.europa.eu/en/library/commission-opinion-assessment-code-practice-transparency-ai-generated-content</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-20</td>
+            <td>EU guidelines on transparency obligations for certain AI systems</td>
+            <td><a href="https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems" target="_blank" rel="noopener noreferrer" class="source-link">https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-20</td>
+            <td>EU Code of Practice on AI-generated content</td>
+            <td><a href="https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content" target="_blank" rel="noopener noreferrer" class="source-link">https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-23</td>
+            <td>AI Transparency Package: Guidelines and Code of Practice (EU AI Alliance)</td>
+            <td><a href="https://futurium.ec.europa.eu/en/apply-ai-alliance/news/ai-transparency-package-guidelines-code-practice" target="_blank" rel="noopener noreferrer" class="source-link">https://futurium.ec.europa.eu/en/apply-ai-alliance/news/ai-transparency-package-guidelines-code-practice</a></td>
+          </tr>
+          <tr>
+            <td>2026-06</td>
+            <td>FBI IC3 2025 Internet Crime Report</td>
+            <td><a href="https://www.fbi.gov/file-repository/2025_ic3report.pdf" target="_blank" rel="noopener noreferrer" class="source-link">https://www.fbi.gov/file-repository/2025_ic3report.pdf</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-16</td>
+            <td>CVE-2026-48287 — Content Credentials/C2PA SDK vulnerability</td>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48287" target="_blank" rel="noopener noreferrer" class="source-link">https://nvd.nist.gov/vuln/detail/CVE-2026-48287</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-21</td>
+            <td>FakeGit campaign uses 7,600 GitHub repos to push SmartLoader malware</td>
+            <td><a href="https://www.bleepingcomputer.com/news/security/fakegit-campaign-uses-7-600-github-repos-to-push-smartloader-malware/" target="_blank" rel="noopener noreferrer" class="source-link">https://www.bleepingcomputer.com/news/security/fakegit-campaign-uses-7-600-github-repos-to-push-smartloader-malware/</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-24</td>
+            <td>Google: EU AI Act transparency Code of Practice commitment (C2PA/SynthID)</td>
+            <td><a href="https://blog.google/company-news/outreach-and-initiatives/public-policy/eu-ai-act-transparency-code-of-practice/" target="_blank" rel="noopener noreferrer" class="source-link">https://blog.google/company-news/outreach-and-initiatives/public-policy/eu-ai-act-transparency-code-of-practice/</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-24</td>
+            <td>FTC seeks public comment on AI accuracy policy statement</td>
+            <td><a href="https://www.ftc.gov/news-events/news/press-releases/2026/07/ftc-seeks-public-comment-policy-statement-addressing-ai-accuracy" target="_blank" rel="noopener noreferrer" class="source-link">https://www.ftc.gov/news-events/news/press-releases/2026/07/ftc-seeks-public-comment-policy-statement-addressing-ai-accuracy</a></td>
+          </tr>
+          <tr>
+            <td>UNKNOWN</td>
+            <td>FTC: Complying with the Take It Down Act (business guidance)</td>
+            <td><a href="https://www.ftc.gov/business-guidance/resources/complying-take-it-down-act" target="_blank" rel="noopener noreferrer" class="source-link">https://www.ftc.gov/business-guidance/resources/complying-take-it-down-act</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-21</td>
+            <td>Multimodal deepfake-news detection framework (research)</td>
+            <td><a href="https://arxiv.org/abs/2607.20579" target="_blank" rel="noopener noreferrer" class="source-link">https://arxiv.org/abs/2607.20579</a></td>
+          </tr>
+          <tr>
+            <td>2026-07-20/21</td>
+            <td>PhantomSeal: Proactive anti-deepfake protection and tracing (research)</td>
+            <td><a href="https://arxiv.org/abs/2607.20564" target="_blank" rel="noopener noreferrer" class="source-link">https://arxiv.org/abs/2607.20564</a></td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
-    <section class="panel" id="methodology-note">
+    <section class="panel" id="methodology">
       <h2>Methodology Note</h2>
-      <p>This report is based on publicly available reporting. Source-reported facts are presented alongside clearly labeled analyst assessments and recommendations. Inclusion of a record does not constitute independent verification of every claim. Readers should review the original linked sources for complete context.</p>
+      <p class="small">This intelligence brief is based on publicly available reporting. Source-reported facts are presented alongside clearly labeled analyst assessments and recommendations. Inclusion of an item does not constitute independent verification of every source claim. Readers should review the original linked sources for complete context and updates.</p>
+      <div class="footer">Generated from AI-assisted analysis for investigative and public-information purposes.</div>
     </section>
-
-    <div class="footer">
-      Generated from AI-assisted analysis for situational awareness and decision support.
-    </div>
-  </div>
+  </main>
 </body>
 </html>

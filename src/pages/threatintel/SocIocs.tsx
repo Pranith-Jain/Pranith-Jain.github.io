@@ -43,7 +43,7 @@ interface LiveIocsResponse {
 /**
  * Per-IOC criticality score, 0-100. Higher = more actionable.
  *
- * Source reputation (which upstream flagged it) is the dominant signal —
+ * Source reputation (which upstream flagged it) is the dominant signal -
  * C2/ThreatFox/URLhaus sources carry stronger attribution than bulk
  * blocklists. Kinds matter too: IP/URL are network-side and immediately
  * blockable, hash requires endpoint response, domain is in between.
@@ -53,13 +53,13 @@ interface LiveIocsResponse {
  */
 function iocCriticality(ioc: LiveIoc): number {
   let s = 0;
-  // Source weight (0-60) — canonical weights live in lib/dfir/source-meta.
+  // Source weight (0-60) - canonical weights live in lib/dfir/source-meta.
   s += sourceWeight(ioc.source);
   // Kind weight (0-25)
   s += { ip: 25, url: 22, domain: 18, hash: 12 }[ioc.kind] ?? 10;
   // Context richness (0-15)
   if (ioc.context) s += 8;
-  if (ioc.reporter && ioc.reporter !== '—') s += 4;
+  if (ioc.reporter && ioc.reporter !== '-') s += 4;
   if (ioc.reference_url) s += 3;
   return Math.min(100, s);
 }
@@ -275,7 +275,7 @@ export default function SocIocs(): JSX.Element {
       onExport={onExport}
       description={
         <span>
-          Live aggregation across {sources.length} upstream feeds — blocklists, threat intel, C2 trackers, and sandboxed
+          Live aggregation across {sources.length} upstream feeds - blocklists, threat intel, C2 trackers, and sandboxed
           malware samples. Criticality is a 0-100 score combining source reputation, kind, and context richness; filter
           by IOC kind to drill into a specific signal.
         </span>
@@ -291,7 +291,7 @@ export default function SocIocs(): JSX.Element {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
         <SocKpi
           label="Total captured IOCs"
-          value={data ? formatNumber(data.total) : '—'}
+          value={data ? formatNumber(data.total) : '-'}
           severity="info"
           sub={`${formatNumber(totalInWindow)} observed in last ${windowDays}d`}
           icon={<Database size={16} />}
@@ -350,8 +350,8 @@ export default function SocIocs(): JSX.Element {
               aria-pressed={on}
               className={`text-meta font-mono px-2.5 py-1 rounded border transition-colors ${
                 on
-                  ? 'border-brand-500 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-brand-500/40'
+                  ? 'border-rose-500 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-rose-500/40'
               }`}
             >
               {KIND_LABEL[k]}
@@ -362,7 +362,7 @@ export default function SocIocs(): JSX.Element {
           <button
             type="button"
             onClick={() => setKindFilter(new Set())}
-            className="text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 ml-1"
+            className="text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 ml-1"
           >
             clear
           </button>
@@ -389,7 +389,7 @@ export default function SocIocs(): JSX.Element {
             right={
               <Link
                 to="/threatintel/catalog?cat=feeds"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
               >
                 feeds <ExternalLink size={10} />
               </Link>
@@ -446,7 +446,7 @@ export default function SocIocs(): JSX.Element {
             right={
               <Link
                 to="/threatintel/iocs/live"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
               >
                 all <ExternalLink size={10} />
               </Link>

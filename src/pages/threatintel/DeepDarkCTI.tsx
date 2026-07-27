@@ -96,18 +96,18 @@ export default function DeepDarkCTI(): JSX.Element {
             href="https://github.com/fastfire/deepdarkCTI"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             fastfire/deepdarkCTI
           </a>{' '}
-          — ransomware leak sites, dark markets, criminal forums, infostealer & threat-actor channels. Onion addresses
+          - ransomware leak sites, dark markets, criminal forums, infostealer & threat-actor channels. Onion addresses
           are copy-only (clearnet browsers can't open <code>.onion</code>).
         </>
       }
       loading={!data && !error}
       error={error}
       empty={!!data && data.total === 0}
-      emptyMessage="deepdarkCTI temporarily unavailable — upstream fetch failed and no cached copy exists yet."
+      emptyMessage="deepdarkCTI temporarily unavailable - upstream fetch failed and no cached copy exists yet."
       onRetry={() => setRefreshKey((k) => k + 1)}
       maxWidthClass="max-w-6xl"
     >
@@ -117,7 +117,7 @@ export default function DeepDarkCTI(): JSX.Element {
             <div className="relative flex-1 min-w-[200px]">
               <Search
                 size={14}
-                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
                 aria-hidden="true"
               />
               <input
@@ -125,7 +125,7 @@ export default function DeepDarkCTI(): JSX.Element {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search name, notes, actor…"
-                className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100"
+                className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100"
                 aria-label="Search deepdarkCTI"
               />
             </div>
@@ -167,7 +167,7 @@ export default function DeepDarkCTI(): JSX.Element {
             )}
           </p>
 
-          {/* Aggregate STIX 2.1 view of the directory — extraction yield is
+          {/* Aggregate STIX 2.1 view of the directory - extraction yield is
                 low (mostly forum/market metadata), but actor + attack_type
                 fields surface known threat actors and malware. Intelligence-
                 about, never content. */}
@@ -196,7 +196,7 @@ export default function DeepDarkCTI(): JSX.Element {
                         {e.status}
                       </span>
                       {e.attack_type && (
-                        <span className="shrink-0 rounded border border-brand-500/40 bg-brand-500/10 px-1.5 py-0.5 font-mono text-micro text-brand-700 dark:text-brand-300">
+                        <span className="shrink-0 rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro text-rose-700 dark:text-rose-300">
                           {e.attack_type}
                         </span>
                       )}
@@ -209,7 +209,7 @@ export default function DeepDarkCTI(): JSX.Element {
                         href={sanitizeUrl(e.url) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-1 inline-flex items-center gap-1 font-mono text-mini text-brand-600 dark:text-brand-400 hover:underline break-all"
+                        className="mt-1 inline-flex items-center gap-1 font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline break-all"
                       >
                         {e.url}
                         <ExternalLink size={10} className="shrink-0" />
@@ -220,19 +220,19 @@ export default function DeepDarkCTI(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => copy(e.url)}
-                    className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1.5 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                    className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1.5 text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
                     aria-label="Copy URL"
                   >
                     <Copy size={12} />
                   </button>
                 </div>
                 <div className="mt-1.5 flex items-center gap-2">
-                  <span className="font-mono text-micro uppercase tracking-wider text-slate-400">{e.category}</span>
+                  <span className="font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">{e.category}</span>
                   <a
                     href={`https://github.com/fastfire/deepdarkCTI/blob/main/${e.source_file}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-micro text-slate-400 hover:text-brand-500"
+                    className="font-mono text-micro text-slate-500 dark:text-slate-400 hover:text-rose-500"
                   >
                     {e.source_file}
                   </a>

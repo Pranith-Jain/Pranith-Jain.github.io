@@ -3,7 +3,7 @@
  *
  * ~70 hand-picked tools and sources across the categories an investigator
  * actually walks through during a phishing / BEC / fraud / threat-actor
- * investigation. Inspired by osintframework.com but kept tighter — every
+ * investigation. Inspired by osintframework.com but kept tighter - every
  * entry should be currently live and reachable from a normal browser.
  *
  * Each entry declares whether it's free, free-with-account, or paid; that
@@ -98,7 +98,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://millionshort.com',
     category: 'search-engines',
     pricing: 'free',
-    description: 'Search excluding the most-popular sites — surfaces long-tail / niche pages.',
+    description: 'Search excluding the most-popular sites - surfaces long-tail / niche pages.',
   },
 
   // ── Social media ──────────────────────────────────────────────────────
@@ -120,7 +120,7 @@ export const ENTRIES: Entry[] = [
   },
   {
     id: 'mastodon-search',
-    name: 'Mastodon — search.f-droid.org instance',
+    name: 'Mastodon - search.f-droid.org instance',
     url: 'https://search.fedi.tools',
     category: 'social-media',
     pricing: 'free',
@@ -132,7 +132,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://bsky.app/search',
     category: 'social-media',
     pricing: 'free-account',
-    description: 'Native Bluesky search — author + keyword + date filters.',
+    description: 'Native Bluesky search - author + keyword + date filters.',
   },
   {
     id: 'reddit-search',
@@ -184,7 +184,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://emailrep.io',
     category: 'email-recon',
     pricing: 'freemium',
-    description: 'Reputation lookup for an email address — domain age, SMTP signals, social presence.',
+    description: 'Reputation lookup for an email address - domain age, SMTP signals, social presence.',
   },
   {
     id: 'hunter',
@@ -208,7 +208,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://gravatar.com',
     category: 'email-recon',
     pricing: 'free',
-    description: 'Public Gravatar profile by MD5 of an email — confirms registration + sometimes reveals real name.',
+    description: 'Public Gravatar profile by MD5 of an email - confirms registration + sometimes reveals real name.',
   },
 
   // ── Phone-number recon ───────────────────────────────────────────────
@@ -234,7 +234,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://libphonenumber.appspot.com',
     category: 'phone-recon',
     pricing: 'free',
-    description: "Google's libphonenumber demo — country, region, carrier, line type.",
+    description: "Google's libphonenumber demo - country, region, carrier, line type.",
   },
 
   // ── Domain / IP / network ────────────────────────────────────────────
@@ -260,7 +260,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://search.censys.io',
     category: 'domain-ip',
     pricing: 'freemium',
-    description: 'Internet-wide scan data — hosts, certificates, services. Strong CT-log-based pivots.',
+    description: 'Internet-wide scan data - hosts, certificates, services. Strong CT-log-based pivots.',
   },
   {
     id: 'shodan',
@@ -284,7 +284,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://crt.sh',
     category: 'domain-ip',
     pricing: 'free',
-    description: 'Certificate Transparency log search — find subdomains via cert issuance.',
+    description: 'Certificate Transparency log search - find subdomains via cert issuance.',
   },
   {
     id: 'dnsdumpster',
@@ -334,7 +334,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://yandex.com/images',
     category: 'image-video',
     pricing: 'free',
-    description: 'Best-in-class for face matching — finds matches Google routinely misses.',
+    description: 'Best-in-class for face matching - finds matches Google routinely misses.',
   },
   {
     id: 'invid-verify',
@@ -342,7 +342,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://www.invid-project.eu/tools-and-services/invid-verification-plugin/',
     category: 'image-video',
     pricing: 'free',
-    description: 'Browser extension for video / image verification — keyframe extraction, EXIF, reverse search.',
+    description: 'Browser extension for video / image verification - keyframe extraction, EXIF, reverse search.',
   },
   {
     id: 'forensically',
@@ -350,7 +350,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://29a.ch/photo-forensics/',
     category: 'image-video',
     pricing: 'free',
-    description: 'In-browser image-forensics suite — ELA, clone detection, magnifier, geo metadata.',
+    description: 'In-browser image-forensics suite - ELA, clone detection, magnifier, geo metadata.',
   },
 
   // ── Geolocation ──────────────────────────────────────────────────────
@@ -360,7 +360,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://geospy.ai',
     category: 'geolocation',
     pricing: 'freemium',
-    description: 'AI-driven photo geolocation — guesses location from visual cues.',
+    description: 'AI-driven photo geolocation - guesses location from visual cues.',
   },
   {
     id: 'osm-overpass',
@@ -368,7 +368,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://overpass-turbo.eu',
     category: 'geolocation',
     pricing: 'free',
-    description: 'Query OpenStreetMap with Overpass QL — find every petrol station within X metres of a coord.',
+    description: 'Query OpenStreetMap with Overpass QL - find every petrol station within X metres of a coord.',
   },
   {
     id: 'mapchecking',
@@ -385,7 +385,7 @@ export const ENTRIES: Entry[] = [
     category: 'geolocation',
     pricing: 'free',
     description:
-      "Sun azimuth + elevation by location and time — confirm a photo's claimed time/place by shadow direction.",
+      "Sun azimuth + elevation by location and time - confirm a photo's claimed time/place by shadow direction.",
   },
 
   // ── People search ────────────────────────────────────────────────────
@@ -403,7 +403,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://thatsthem.com',
     category: 'people-search',
     pricing: 'free',
-    description: 'US-focused free people-search — name → phone, address, family.',
+    description: 'US-focused free people-search - name → phone, address, family.',
   },
   {
     id: 'fastpeoplesearch',
@@ -421,7 +421,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://opencorporates.com',
     category: 'company-corp',
     pricing: 'free',
-    description: 'Largest open registry of companies — ownership, filings, jurisdiction crossover.',
+    description: 'Largest open registry of companies - ownership, filings, jurisdiction crossover.',
   },
   {
     id: 'gleif',
@@ -429,7 +429,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://search.gleif.org',
     category: 'company-corp',
     pricing: 'free',
-    description: 'Global Legal Entity Identifier registry — verify legal-entity identity across borders.',
+    description: 'Global Legal Entity Identifier registry - verify legal-entity identity across borders.',
   },
   {
     id: 'sec-edgar',
@@ -453,7 +453,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://www.mca.gov.in/content/mca/global/en/home.html',
     category: 'company-corp',
     pricing: 'free-account',
-    description: 'Indian Ministry of Corporate Affairs — directors, ROC filings, charges.',
+    description: 'Indian Ministry of Corporate Affairs - directors, ROC filings, charges.',
   },
 
   // ── Archive / Wayback ────────────────────────────────────────────────
@@ -539,7 +539,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://oxt.me',
     category: 'cryptocurrency',
     pricing: 'free',
-    description: 'Bitcoin transaction graph + entity clustering — strong for tracing flows.',
+    description: 'Bitcoin transaction graph + entity clustering - strong for tracing flows.',
   },
   {
     id: 'arkham',
@@ -581,7 +581,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://www.marinetraffic.com',
     category: 'transport-tracking',
     pricing: 'freemium',
-    description: 'AIS-based vessel tracking — port calls, voyages, ownership.',
+    description: 'AIS-based vessel tracking - port calls, voyages, ownership.',
   },
 
   // ── Public records ───────────────────────────────────────────────────
@@ -599,7 +599,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://pacer.uscourts.gov',
     category: 'public-records',
     pricing: 'paid',
-    description: 'Official US federal court records — pay-per-page, but authoritative.',
+    description: 'Official US federal court records - pay-per-page, but authoritative.',
   },
   {
     id: 'judyrecords',
@@ -617,7 +617,7 @@ export const ENTRIES: Entry[] = [
     pricing: 'freemium',
     featured: true,
     description:
-      'Comprehensive OSINT platform — username search (50+ platforms), geolocation, email/domain recon, metadata extraction, dark-web link checking, and crypto wallet tracking.',
+      'Comprehensive OSINT platform - username search (50+ platforms), geolocation, email/domain recon, metadata extraction, dark-web link checking, and crypto wallet tracking.',
   },
   {
     id: 'osinttools-io',
@@ -637,7 +637,7 @@ export const ENTRIES: Entry[] = [
     pricing: 'free',
     featured: true,
     description:
-      'Curated OSINT and cybersecurity tools directory — categorized tools for reconnaissance, social media investigation, and digital forensics.',
+      'Curated OSINT and cybersecurity tools directory - categorized tools for reconnaissance, social media investigation, and digital forensics.',
   },
   {
     id: 'orca-osintcti',
@@ -647,7 +647,7 @@ export const ENTRIES: Entry[] = [
     pricing: 'free',
     featured: true,
     description:
-      'OSINT and threat intelligence search platform — unified queries across data sources for indicator lookups and infrastructure discovery.',
+      'OSINT and threat intelligence search platform - unified queries across data sources for indicator lookups and infrastructure discovery.',
   },
   {
     id: 'web-check-xyz',
@@ -657,7 +657,7 @@ export const ENTRIES: Entry[] = [
     pricing: 'free',
     featured: true,
     description:
-      'All-in-one website analysis — DNS, SSL/TLS, security headers, WHOIS, tech stack, and performance audit from a single URL.',
+      'All-in-one website analysis - DNS, SSL/TLS, security headers, WHOIS, tech stack, and performance audit from a single URL.',
   },
   {
     id: 'databreach-com',
@@ -666,7 +666,7 @@ export const ENTRIES: Entry[] = [
     category: 'email-recon',
     pricing: 'free',
     description:
-      'Breach search platform — check if credentials or personal data have been exposed in known data breaches.',
+      'Breach search platform - check if credentials or personal data have been exposed in known data breaches.',
   },
   {
     id: 'digital-defense',
@@ -675,7 +675,7 @@ export const ENTRIES: Entry[] = [
     category: 'search-engines',
     pricing: 'free',
     description:
-      'OPSEC and privacy toolkit — operational security guides, digital footprint reduction checklists, and secure communications reference.',
+      'OPSEC and privacy toolkit - operational security guides, digital footprint reduction checklists, and secure communications reference.',
   },
   {
     id: 'awesome-privacy',
@@ -684,6 +684,6 @@ export const ENTRIES: Entry[] = [
     category: 'search-engines',
     pricing: 'free',
     description:
-      'Curated list of privacy-focused tools — VPNs, encrypted messaging, password managers, and privacy-first software alternatives.',
+      'Curated list of privacy-focused tools - VPNs, encrypted messaging, password managers, and privacy-first software alternatives.',
   },
 ];

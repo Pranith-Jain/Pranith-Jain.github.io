@@ -5,7 +5,7 @@
  * same-day (group, victim) dupes per fetcher, but the same victim can still
  * appear on multiple days when different trackers index it 1-3 days apart.
  * For any "this group made N claims" surface each unique victim should count
- * once, so we collapse across days too — keep the EARLIEST discovery date.
+ * once, so we collapse across days too - keep the EARLIEST discovery date.
  *
  * Used by:
  *   - src/components/threatintel/LivePulse.tsx   (computeRansom)
@@ -19,7 +19,7 @@
  */
 export interface DedupRansomwareVictim {
   group: string;
-  /** Optional — some upstream shapes don't carry a victim name. */
+  /** Optional - some upstream shapes don't carry a victim name. */
   victim?: string;
   /** ISO timestamp of upstream discovery. */
   discovered: string;

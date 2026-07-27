@@ -180,7 +180,7 @@ export function WhatsNewBanner(): JSX.Element | null {
                 to={r.to}
                 className="inline-flex items-baseline gap-1 px-2 py-1 rounded border border-rose-500/40 bg-rose-500/15 dark:bg-rose-500/15 text-xs font-mono text-rose-200 dark:text-rose-200 hover:border-rose-400 hover:bg-rose-500/25 dark:hover:bg-rose-500/25"
                 onClick={() => {
-                  // Don't markVisited on click — user is just looking. The
+                  // Don't markVisited on click - user is just looking. The
                   // explicit "mark all read" button is the only consumer.
                 }}
               >

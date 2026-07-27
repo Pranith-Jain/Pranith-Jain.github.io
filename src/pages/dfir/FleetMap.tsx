@@ -15,7 +15,7 @@ export default function FleetMap(): JSX.Element {
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Map size={28} className="text-brand-600 dark:text-brand-400" /> UK Threat Map — Fleet Simulation
+          <Map size={28} className="text-brand-600 dark:text-brand-400" /> UK Threat Map - Fleet Simulation
         </h1>
         <p className="text-muted mb-2 leading-relaxed">
           National-scale attack surface simulation: 300 organisations across the UK, modelling SSL-VPN, Citrix, VMware
@@ -65,7 +65,7 @@ export default function FleetMap(): JSX.Element {
         </div>
         <iframe
           src={SIM_URL}
-          title="UK Threat Map — Fleet Simulation"
+          title="UK Threat Map - Fleet Simulation"
           className="w-full border-0"
           style={{ minHeight: '70vh' }}
           sandbox="allow-scripts"
@@ -110,7 +110,7 @@ export default function FleetMap(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              mr-r3b00t/org_cyber_attack_sim — live simulation
+              mr-r3b00t/org_cyber_attack_sim - live simulation
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -121,7 +121,7 @@ export default function FleetMap(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              GitHub — source code
+              GitHub - source code
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>

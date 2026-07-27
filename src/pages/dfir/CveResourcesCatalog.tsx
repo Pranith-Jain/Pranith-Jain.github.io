@@ -105,7 +105,7 @@ export default function CveResourcesCatalog(): JSX.Element {
       backTo="/dfir"
       icon={<BookText size={28} />}
       title="CVE Resources Catalog"
-      description={`${RESOURCES.length} hand-picked CVE resources across ${ALL_CATEGORIES.length} categories. Right tool for the right question — "what is this CVE?" / "is there an exploit?" / "what's the patch?" / "should I patch NOW?" / "who's writing about it?" / "tell me when something hits".`}
+      description={`${RESOURCES.length} hand-picked CVE resources across ${ALL_CATEGORIES.length} categories. Right tool for the right question - "what is this CVE?" / "is there an exploit?" / "what's the patch?" / "should I patch NOW?" / "who's writing about it?" / "tell me when something hits".`}
       headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           For the broader SecOps surface (DFIR, threat intel, malware analysis, AI sec, etc):{' '}
@@ -124,18 +124,18 @@ export default function CveResourcesCatalog(): JSX.Element {
       {/* Search + pricing toggles */}
       <section className="surface-card p-4 mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search name, description, category — e.g. 'wordpress', 'cisco', 'rss', 'kev'"
+            placeholder="Search name, description, category - e.g. 'wordpress', 'cisco', 'rss', 'kev'"
             className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             aria-label="Search CVE resources"
           />
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
-          <span className="text-mini font-mono text-slate-400 mr-1">pricing:</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">pricing:</span>
           {ALL_PRICING.map((p) => {
             const active = activePricing.has(p);
             return (
@@ -165,7 +165,7 @@ export default function CveResourcesCatalog(): JSX.Element {
       {/* Category pills */}
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini font-mono text-slate-400 mr-1">categories:</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">categories:</span>
           {ALL_CATEGORIES.map((c) => {
             const count = catCounts.get(c) ?? 0;
             const active = activeCats.has(c);
@@ -247,7 +247,7 @@ export default function CveResourcesCatalog(): JSX.Element {
                   href={sanitizeUrl(r.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
                   title="Source repository"
                 >
                   <Github size={10} /> source

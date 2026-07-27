@@ -3,7 +3,7 @@
  *
  * This is intentionally NOT a full parser:
  *  - YARA: extract `strings:` (text, hex, regex variants), test each against
- *    the sample. Condition is informational only — we don't evaluate boolean
+ *    the sample. Condition is informational only - we don't evaluate boolean
  *    logic; the analyst can read the condition and reason about it.
  *  - Sigma: walk the `detection:` block, pull out keyword / contains / equals
  *    leaves and test each as a substring match. Modifiers like |contains and
@@ -23,7 +23,7 @@ export interface RuleStringMatch {
   text: string;
   /** Index inside the sample. */
   index: number;
-  /** Origin tag — yara_string, yara_hex, yara_regex, sigma_keyword. */
+  /** Origin tag - yara_string, yara_hex, yara_regex, sigma_keyword. */
   kind: 'yara_string' | 'yara_hex' | 'yara_regex' | 'sigma_keyword';
 }
 
@@ -54,7 +54,7 @@ function escapeRegex(s: string): string {
 
 /**
  * Cheap ReDoS guard: reject user-supplied regex sources that contain a nested
- * unbounded quantifier (e.g. `(a+)+`, `(a*)*`, `(a+)*`) — the classic
+ * unbounded quantifier (e.g. `(a+)+`, `(a*)*`, `(a+)*`) - the classic
  * catastrophic-backtracking shape. Not exhaustive, but blocks the trivially
  * pathological patterns from hanging the tab.
  */
@@ -111,7 +111,7 @@ function hexPatternToRegex(hex: string): RegExp {
     if (/^[0-9a-fA-F]{2}$/.test(pair)) {
       // Encode as the literal byte's char-code; we treat the sample as text,
       // so this only matches if the hex bytes correspond to printable / matching
-      // chars — good enough for teaching. Use \\xNN for safety.
+      // chars - good enough for teaching. Use \\xNN for safety.
       re += `\\x${pair}`;
       i += 2;
       continue;
@@ -146,7 +146,7 @@ export function parseYaraRule(rule: string): ParsedRule {
           const literal = raw.slice(1, -1).replace(/\\(.)/g, '$1');
           const flags = mods.includes('nocase') ? 'i' : '';
           if (mods.includes('wide')) {
-            // wide = UTF-16LE — interleave NULs. We can't rely on the sample
+            // wide = UTF-16LE - interleave NULs. We can't rely on the sample
             // being binary, so fall back to a relaxed pattern.
             const w = literal
               .split('')
@@ -169,7 +169,7 @@ export function parseYaraRule(rule: string): ParsedRule {
           const flags = raw.slice(lastSlash + 1);
           const cleaned = flags.replace(/[^gimsuy]/g, '');
           if (isLikelyCatastrophicRegex(body)) {
-            warnings.push(`String ${id}: regex skipped — nested unbounded quantifier (ReDoS risk).`);
+            warnings.push(`String ${id}: regex skipped - nested unbounded quantifier (ReDoS risk).`);
           } else {
             needles.push({ name: id, pattern: new RegExp(body, cleaned), kind: 'yara_regex' });
           }
@@ -179,7 +179,7 @@ export function parseYaraRule(rule: string): ParsedRule {
       }
     }
   } else {
-    warnings.push('No "strings:" block found — rule has no patterns to test.');
+    warnings.push('No "strings:" block found - rule has no patterns to test.');
   }
 
   // Surface metadata
@@ -203,7 +203,7 @@ export function parseYaraRule(rule: string): ParsedRule {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Sigma parser (very minimal — no full YAML)
+// Sigma parser (very minimal - no full YAML)
 // ─────────────────────────────────────────────────────────────────────────
 
 interface SigmaLeaf {
@@ -327,7 +327,7 @@ export function parseSigmaRule(rule: string): ParsedRule {
           pattern = new RegExp(escapeRegex(v), 'i');
         } else if (mod === 're') {
           if (isLikelyCatastrophicRegex(v)) {
-            warnings.push(`Sigma value ${tagName}: regex skipped — nested unbounded quantifier (ReDoS risk).`);
+            warnings.push(`Sigma value ${tagName}: regex skipped - nested unbounded quantifier (ReDoS risk).`);
             continue;
           }
           pattern = new RegExp(v, 'i');

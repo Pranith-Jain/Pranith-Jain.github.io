@@ -4,7 +4,7 @@ import { IocChip } from '../dfir/IocChip';
 import { useIntelBundle, type IntelView, type IntelViewIoc, type IocVerdict } from '../../hooks/useIntelBundle';
 
 /**
- * <IntelCard> — generic per-source-item enrichment surface.
+ * <IntelCard> - generic per-source-item enrichment surface.
  *
  * Drops onto any /threatintel page: the host passes a stable `sourceId`,
  * `itemRef`, and the item's `title`/`body` so the hook can compute on first
@@ -12,7 +12,7 @@ import { useIntelBundle, type IntelView, type IntelViewIoc, type IocVerdict } fr
  * keywords) and exposes a download link to the strict bundle.
  *
  * While the bundle is being computed (or on error), `fallback` is rendered.
- * This means a page never shows an empty card — the existing row stays
+ * This means a page never shows an empty card - the existing row stays
  * visible, the card just "upgrades" it once the data lands.
  */
 
@@ -49,7 +49,7 @@ const VERDICT_LABEL: Record<IocVerdict, string> = {
   malicious: 'malicious',
   suspicious: 'suspicious',
   clean: 'clean',
-  unknown: '—',
+  unknown: '-',
 };
 
 function groupBy<T, K extends string>(items: T[], keyOf: (it: T) => K): Record<K, T[]> {
@@ -64,7 +64,7 @@ function groupBy<T, K extends string>(items: T[], keyOf: (it: T) => K): Record<K
 function IocBadge({ ioc }: { ioc: IntelViewIoc }): JSX.Element {
   // Compact `value · risk N · listed in K` line. Solid backgrounds (not
   // translucent /60 /40) so monospace text stays crisp over whatever the
-  // page background happens to be — translucent surfaces over varying
+  // page background happens to be - translucent surfaces over varying
   // content underneath was what read as "blurry".
   const tone = VERDICT_TONE[ioc.verdict];
   return (
@@ -88,7 +88,7 @@ function IocBadge({ ioc }: { ioc: IntelViewIoc }): JSX.Element {
 /**
  * Server-side export URL. The endpoint returns the persisted STIX 2.1
  * bundle JSON with `application/stix+json` and a `content-disposition`
- * attachment header — analyst tools (MISP/OpenCTI/TAXII clients) sniff
+ * attachment header - analyst tools (MISP/OpenCTI/TAXII clients) sniff
  * on the media type, and the URL is shareable / linkable rather than a
  * one-shot in-memory blob.
  */
@@ -329,7 +329,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
                   {view.actorCandidates.map((c) => (
                     <li key={c.name}>
                       <span className="font-mono text-slate-700 dark:text-slate-300">{c.name}</span>
-                      {c.rationale && <span className="text-slate-500 dark:text-slate-400"> — {c.rationale}</span>}
+                      {c.rationale && <span className="text-slate-500 dark:text-slate-400"> - {c.rationale}</span>}
                     </li>
                   ))}
                 </ul>
@@ -344,7 +344,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
                   {view.malwareCandidates.map((c) => (
                     <li key={c.name}>
                       <span className="font-mono text-slate-700 dark:text-slate-300">{c.name}</span>
-                      {c.rationale && <span className="text-slate-500 dark:text-slate-400"> — {c.rationale}</span>}
+                      {c.rationale && <span className="text-slate-500 dark:text-slate-400"> - {c.rationale}</span>}
                     </li>
                   ))}
                 </ul>
@@ -417,7 +417,7 @@ export function IntelCard(props: IntelCardProps): JSX.Element {
   const { lazy = false, enabled = true } = props;
 
   // Lazy mount: keep `inView` false until IntersectionObserver fires. We then
-  // flip it to true permanently — even if the card scrolls out, the bundle
+  // flip it to true permanently - even if the card scrolls out, the bundle
   // stays mounted so the user doesn't pay the fetch twice on flick-scroll.
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const [inView, setInView] = useState(!lazy);
@@ -426,7 +426,7 @@ export function IntelCard(props: IntelCardProps): JSX.Element {
     if (!lazy || inView) return;
     const el = wrapRef.current;
     if (!el || typeof IntersectionObserver === 'undefined') {
-      // SSR or no-IO env — just enable. The fallback covers the gap.
+      // SSR or no-IO env - just enable. The fallback covers the gap.
       setInView(true);
       return;
     }
@@ -460,7 +460,7 @@ export function IntelCard(props: IntelCardProps): JSX.Element {
   // that nudged the `body` prop kicked the hook back into 'loading' and
   // the card flipped to fallback (null on the aggregate-card surfaces),
   // which read as "the card faded when I scrolled". The bundle is
-  // computed server-side and stable for a given (source, ref) — the
+  // computed server-side and stable for a given (source, ref) - the
   // refetch is a cache hit, no visual interruption is justified.
   if (view && bundle) {
     return (

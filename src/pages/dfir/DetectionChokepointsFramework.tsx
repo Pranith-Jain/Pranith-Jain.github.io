@@ -13,7 +13,7 @@ const STEPS: Step[] = [
     number: 1,
     title: 'What is this technique at a technical level?',
     description:
-      'Define the exact mechanism — process injection, credential theft, lateral movement protocol. Be specific about the implementation, not just the intent.',
+      'Define the exact mechanism - process injection, credential theft, lateral movement protocol. Be specific about the implementation, not just the intent.',
   },
   {
     number: 2,
@@ -44,7 +44,7 @@ const STEPS: Step[] = [
     number: 6,
     title: 'What are all the variations?',
     description:
-      'Map every known variant, tool, and implementation. The chokepoint must hold across families — if it only works for one tool, it is not a chokepoint.',
+      'Map every known variant, tool, and implementation. The chokepoint must hold across families - if it only works for one tool, it is not a chokepoint.',
   },
 ];
 
@@ -123,28 +123,28 @@ interface Contrast {
 const CONTRAST_DATA: Contrast[] = [
   {
     dimension: 'Durability',
-    chokepoint: 'Months to years — attacker must violate it to succeed',
-    tool: 'Days to weeks — signature becomes stale after first rotation',
+    chokepoint: 'Months to years - attacker must violate it to succeed',
+    tool: 'Days to weeks - signature becomes stale after first rotation',
   },
   {
     dimension: 'Coverage',
-    chokepoint: 'Broad — catches all families sharing the prerequisite',
-    tool: 'Narrow — specific to one tool or variant',
+    chokepoint: 'Broad - catches all families sharing the prerequisite',
+    tool: 'Narrow - specific to one tool or variant',
   },
   {
     dimension: 'Maintenance',
-    chokepoint: 'Low — monitor telemetry drift, rarely update',
-    tool: 'High — constant signature updates, FP tuning, rule rewrites',
+    chokepoint: 'Low - monitor telemetry drift, rarely update',
+    tool: 'High - constant signature updates, FP tuning, rule rewrites',
   },
   {
     dimension: 'FP Rate',
-    chokepoint: 'Low — grounded in attacker constraints, not behavioral heuristics',
-    tool: 'Variable — often high without extensive tuning',
+    chokepoint: 'Low - grounded in attacker constraints, not behavioral heuristics',
+    tool: 'Variable - often high without extensive tuning',
   },
   {
     dimension: 'Evasion Difficulty',
-    chokepoint: 'Hard — would require fundamentally different attack approach',
-    tool: 'Easy — tool swap, encoding change, or minor variant',
+    chokepoint: 'Hard - would require fundamentally different attack approach',
+    tool: 'Easy - tool swap, encoding change, or minor variant',
   },
 ];
 
@@ -154,7 +154,7 @@ export default function DetectionChokepointsFramework(): JSX.Element {
       backTo="/dfir"
       icon={<Shield size={28} />}
       title="Detection Chokepoints Framework"
-      description="The 6-step chokepoint identification process adapted from Matt Graeber's methodology. Find invariant detection points where attackers are forced to violate observable prerequisites — regardless of tool choice or variant."
+      description="The 6-step chokepoint identification process adapted from Matt Graeber's methodology. Find invariant detection points where attackers are forced to violate observable prerequisites - regardless of tool choice or variant."
       headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Source:{' '}

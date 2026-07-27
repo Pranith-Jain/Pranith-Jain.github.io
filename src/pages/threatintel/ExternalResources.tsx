@@ -305,7 +305,7 @@ export default function ExternalResources(): JSX.Element {
               setActiveTags(new Set());
               setFeaturedOnly(false);
             }}
-            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-brand-500/40 transition-colors"
+            className="text-mini font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/40 transition-colors"
             aria-label="Clear all filters"
           >
             Show all
@@ -316,13 +316,13 @@ export default function ExternalResources(): JSX.Element {
       {/* Search */}
       <section className="surface-card p-4 mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search name, description (e.g. 'osint', 'ransomware', 'llm')"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             aria-label="Search external resources"
           />
         </div>
@@ -343,7 +343,7 @@ export default function ExternalResources(): JSX.Element {
                 type="button"
                 onClick={() => toggleKind(k)}
                 className={`text-mini font-mono px-2 py-1 rounded border ${cls} ${count === 0 ? 'opacity-30' : ''}`}
-                title={isDisabled ? `${KIND_LABELS[k]} — no entries match the current search` : KIND_BLURB[k]}
+                title={isDisabled ? `${KIND_LABELS[k]} - no entries match the current search` : KIND_BLURB[k]}
                 disabled={isDisabled}
                 aria-pressed={active}
                 aria-label={`Filter by ${KIND_LABELS[k]} (${count} ${count === 1 ? 'entry' : 'entries'})`}
@@ -385,7 +385,7 @@ export default function ExternalResources(): JSX.Element {
         Showing {filtered.length} of {merged.length}
         {featuredOnly && ' (featured quality resources)'}
         {dynamicLoading && (
-          <span className="ml-2 inline-flex items-center gap-1 text-slate-400">
+          <span className="ml-2 inline-flex items-center gap-1 text-slate-500 dark:text-slate-400">
             <Loader2 size={11} className="animate-spin" /> loading community entries…
           </span>
         )}
@@ -415,7 +415,7 @@ export default function ExternalResources(): JSX.Element {
                 href={sanitizeUrl(r.url)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 min-w-0 break-words"
+                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 min-w-0 break-words"
               >
                 {r.name} <ExternalLink size={12} className="opacity-60 shrink-0" />
               </a>
@@ -442,7 +442,7 @@ export default function ExternalResources(): JSX.Element {
                   className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_PILL[r.kind]}`}
                   title={`Filter by ${KIND_LABELS[r.kind]}`}
                   aria-pressed={activeKinds.has(r.kind)}
-                  aria-label={`${KIND_LABELS[r.kind]} — toggle filter`}
+                  aria-label={`${KIND_LABELS[r.kind]} - toggle filter`}
                 >
                   {KIND_LABELS[r.kind]}
                 </button>
@@ -488,14 +488,14 @@ export default function ExternalResources(): JSX.Element {
       {filtered.length === 0 && (
         <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-6">
           Nothing matches the current filters.{' '}
-          <button type="button" onClick={clearAll} className="underline text-brand-600 dark:text-brand-400">
+          <button type="button" onClick={clearAll} className="underline text-rose-600 dark:text-rose-400">
             Clear all
           </button>
           .
         </p>
       )}
 
-      {/* Footer auth control — minimal so unauth visitors don't see admin UI */}
+      {/* Footer auth control - minimal so unauth visitors don't see admin UI */}
       <div className="mt-12 text-right">
         {token ? (
           <button
@@ -510,7 +510,7 @@ export default function ExternalResources(): JSX.Element {
           <button
             type="button"
             onClick={() => setSignInOpen(true)}
-            className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-400 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+            className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-400 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
             title="Paste your admin token to enable runtime editing"
           >
             <KeyRound size={11} /> editor sign in
@@ -536,7 +536,7 @@ export default function ExternalResources(): JSX.Element {
             onChange={(e) => setTokenDraft(e.target.value)}
             placeholder="admin token"
             aria-label="Admin token"
-            className="w-full px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-brand-500"
+            className="w-full px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-rose-500"
           />
           <div className="flex justify-end gap-2">
             <button
@@ -549,7 +549,7 @@ export default function ExternalResources(): JSX.Element {
             <button
               type="submit"
               disabled={!tokenDraft.trim()}
-              className="px-3 py-1.5 rounded bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
+              className="px-3 py-1.5 rounded bg-rose-600 text-white text-tool font-semibold hover:bg-rose-500 disabled:opacity-40"
             >
               Sign in
             </button>
@@ -635,7 +635,7 @@ function AddResourceCard({
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/15"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/15"
         >
           <Plus size={14} /> add resource
         </button>
@@ -644,7 +644,7 @@ function AddResourceCard({
   }
 
   return (
-    <section className="mb-6 rounded-xl border border-brand-500/40 bg-brand-500/5 p-4">
+    <section className="mb-6 rounded-xl border border-rose-500/40 bg-rose-500/5 p-4">
       <form onSubmit={submit} className="space-y-3">
         <div className="grid sm:grid-cols-[1fr_140px] gap-3">
           <label className="block">
@@ -657,7 +657,7 @@ function AddResourceCard({
               onChange={(e) => setUrl(e.target.value)}
               required
               placeholder="https://example.com"
-              className="mt-1 w-full px-3 py-2 min-h-[44px] sm:min-h-0 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500"
+              className="mt-1 w-full px-3 py-2 min-h-[44px] sm:min-h-0 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500"
             />
           </label>
           <label className="block">
@@ -667,7 +667,7 @@ function AddResourceCard({
             <select
               value={kind}
               onChange={(e) => setKind(e.target.value as ResourceKind)}
-              className="mt-1 w-full px-3 py-2 min-h-[44px] sm:min-h-0 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500"
+              className="mt-1 w-full px-3 py-2 min-h-[44px] sm:min-h-0 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500"
             >
               {ALL_KINDS.map((k) => (
                 <option key={k} value={k}>
@@ -687,7 +687,7 @@ function AddResourceCard({
             onChange={(e) => setName(e.target.value)}
             required
             placeholder="hunter.how"
-            className="mt-1 w-full px-3 py-2 min-h-[44px] sm:min-h-0 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500"
+            className="mt-1 w-full px-3 py-2 min-h-[44px] sm:min-h-0 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500"
           />
         </label>
         <label className="block">
@@ -699,7 +699,7 @@ function AddResourceCard({
             value={why}
             onChange={(e) => setWhy(e.target.value)}
             placeholder="one-line note: what this site fills that the existing catalog doesn't"
-            className="mt-1 w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500"
+            className="mt-1 w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500"
           />
         </label>
         {error && (
@@ -721,7 +721,7 @@ function AddResourceCard({
           <button
             type="submit"
             disabled={busy || !name.trim() || !url.trim()}
-            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded bg-brand-600 dark:bg-brand-500 text-white font-semibold disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center justify-center gap-1.5"
+            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded bg-rose-600 dark:bg-rose-500 text-white font-semibold disabled:opacity-40 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center justify-center gap-1.5"
           >
             {busy && <Loader2 size={12} className="animate-spin" />}
             {busy ? 'Saving…' : 'Save resource'}

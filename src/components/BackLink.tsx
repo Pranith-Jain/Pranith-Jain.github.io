@@ -30,7 +30,7 @@ export function BackLink({ to, className, children, ...rest }: BackLinkProps): J
       to={target}
       className={
         className ??
-        'inline-flex items-center gap-1.5 px-3 py-1.5 -ml-3 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[rgb(var(--hover-100))] rounded-lg mb-8 font-mono transition-colors'
+        'inline-flex items-center gap-1.5 px-3 py-1.5 -ml-3 text-tool text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[rgb(var(--hover-100))] rounded-xl mb-8 font-mono transition-colors'
       }
       {...rest}
     >

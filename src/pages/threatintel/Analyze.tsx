@@ -187,7 +187,7 @@ export default function Analyze(): JSX.Element {
     >
       <span className="inline-flex items-center gap-1">
         {label}
-        <ArrowUpDown size={10} className={sortKey === sort ? 'text-brand-500' : 'opacity-30'} />
+        <ArrowUpDown size={10} className={sortKey === sort ? 'text-rose-500' : 'opacity-30'} />
       </span>
     </th>
   );
@@ -200,7 +200,7 @@ export default function Analyze(): JSX.Element {
       title="Analysis Orchestration"
       description={
         <span className="text-sm font-mono">
-          Multi-source observable enrichment — fans out to 45 threat intel providers in parallel and aggregates results
+          Multi-source observable enrichment - fans out to 45 threat intel providers in parallel and aggregates results
           into a structured verdict table. Inspired by IntelOwl's parallel analyzer pattern.
         </span>
       }
@@ -218,10 +218,10 @@ export default function Analyze(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="IP, domain, URL, hash, or email"
-              className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             />
             {input && detectedType !== 'unknown' && (
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-brand-600 dark:text-brand-400 uppercase">
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-rose-600 dark:text-rose-400 uppercase">
                 {detectedType === 'hash'
                   ? (() => {
                       const sub = detectHashSubtype(input);
@@ -237,7 +237,7 @@ export default function Analyze(): JSX.Element {
           <button
             type="submit"
             disabled={!input.trim() || detectedType === 'unknown' || streaming}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
+            className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2"
           >
             {streaming ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
             {streaming ? 'Analyzing…' : 'Analyze'}
@@ -253,7 +253,7 @@ export default function Analyze(): JSX.Element {
 
       {streaming && results.length === 0 && (
         <div className="surface-card p-8 text-center animate-pulse">
-          <Loader2 size={24} className="animate-spin mx-auto text-slate-400 mb-3" />
+          <Loader2 size={24} className="animate-spin mx-auto text-slate-500 dark:text-slate-400 mb-3" />
           <p className="text-sm font-mono text-slate-500">Opening SSE stream to 45 providers…</p>
         </div>
       )}
@@ -330,7 +330,7 @@ export default function Analyze(): JSX.Element {
                   onClick={() => setFilterVerdict(f.key)}
                   className={`text-mini font-mono px-2.5 py-1 rounded border transition-colors ${
                     filterVerdict === f.key
-                      ? 'bg-brand-500/15 border-brand-500/40 text-brand-700 dark:text-brand-300'
+                      ? 'bg-rose-500/15 border-rose-500/40 text-rose-700 dark:text-rose-300'
                       : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
                   }`}
                 >
@@ -351,14 +351,14 @@ export default function Analyze(): JSX.Element {
               <button
                 type="button"
                 onClick={exportCsv}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
               >
                 <FileDown size={11} /> CSV
               </button>
               <button
                 type="button"
                 onClick={exportJson}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
               >
                 <FileDown size={11} /> JSON
               </button>
@@ -405,17 +405,17 @@ export default function Analyze(): JSX.Element {
                           })
                         }
                       >
-                        <td className="px-2 py-2.5 text-slate-400">
+                        <td className="px-2 py-2.5 text-slate-500 dark:text-slate-400">
                           {isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
                         </td>
                         <td className="px-3 py-2.5 font-display font-semibold capitalize text-slate-900 dark:text-slate-100">
                           {r.source}
-                          {r.cached && <span className="ml-2 text-micro text-brand-500">cached</span>}
+                          {r.cached && <span className="ml-2 text-micro text-rose-500">cached</span>}
                         </td>
                         <td className="px-3 py-2.5">
                           {r.status === 'ok' && <CheckCircle2 size={14} className="text-emerald-500" />}
                           {r.status === 'error' && <XCircle size={14} className="text-rose-500" />}
-                          {r.status === 'unsupported' && <MinusCircle size={14} className="text-slate-400" />}
+                          {r.status === 'unsupported' && <MinusCircle size={14} className="text-slate-500 dark:text-slate-400" />}
                         </td>
                         <td className="px-3 py-2.5">
                           <VerdictChip verdict={r.verdict} />
@@ -443,7 +443,7 @@ export default function Analyze(): JSX.Element {
                                     } · ${(r.raw_summary.finding_types as string[]).slice(0, 3).join(', ')}`
                                   : Object.keys(r.raw_summary).length > 0
                                     ? JSON.stringify(r.raw_summary).slice(0, 120) + '…'
-                                    : '—'}
+                                    : '-'}
                           </span>
                         </td>
                         <td className="px-3 py-2.5">
@@ -476,7 +476,7 @@ export default function Analyze(): JSX.Element {
                               </span>
                             ))}
                             {r.tags.length > 3 && (
-                              <span className="text-micro font-mono text-slate-400">+{r.tags.length - 3}</span>
+                              <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{r.tags.length - 3}</span>
                             )}
                           </div>
                         </td>
@@ -503,7 +503,7 @@ export default function Analyze(): JSX.Element {
                         className="p-4 bg-slate-50/50 dark:bg-[rgb(var(--surface-200))]/30"
                       >
                         <h4 className="font-display font-semibold text-xs uppercase tracking-wider text-slate-500 mb-2">
-                          {r.source} — raw evidence
+                          {r.source} - raw evidence
                         </h4>
                         {r.source === 'secrets' && secretFindings.length > 0 && (
                           <ul className="mb-3 space-y-1.5">
@@ -526,7 +526,7 @@ export default function Analyze(): JSX.Element {
                           {JSON.stringify(r.raw_summary, null, 2)}
                         </pre>
                         {r.fetched_at && (
-                          <p className="mt-2 text-micro font-mono text-slate-400">
+                          <p className="mt-2 text-micro font-mono text-slate-500 dark:text-slate-400">
                             fetched: {new Date(r.fetched_at).toISOString()}
                           </p>
                         )}
@@ -545,9 +545,9 @@ export default function Analyze(): JSX.Element {
               <XCircle size={12} className="text-rose-500" /> {errorCount} error
             </span>
             <span className="inline-flex items-center gap-1">
-              <MinusCircle size={12} className="text-slate-400" /> {results.length - supportedCount} unsupported
+              <MinusCircle size={12} className="text-slate-500 dark:text-slate-400" /> {results.length - supportedCount} unsupported
             </span>
-            <span className="text-slate-400">
+            <span className="text-slate-500 dark:text-slate-400">
               {eligible.length} providers eligible for {detectedType}
             </span>
           </div>
@@ -567,8 +567,8 @@ export default function Analyze(): JSX.Element {
         <div className="surface-card p-12 text-center">
           <Search size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">Enter an observable above to run a multi-source analysis</p>
-          <p className="text-xs font-mono text-slate-400 mt-2">
-            Fans out to 45 threat intel providers — Spamhaus, VirusTotal, AbuseIPDB, AlienVault OTX, ThreatFox, URLhaus,
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-2">
+            Fans out to 45 threat intel providers - Spamhaus, VirusTotal, AbuseIPDB, AlienVault OTX, ThreatFox, URLhaus,
             GreyNoise, and a local secrets regex bank
           </p>
         </div>

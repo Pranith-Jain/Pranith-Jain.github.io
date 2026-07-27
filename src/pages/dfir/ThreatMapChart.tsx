@@ -7,12 +7,12 @@ import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps
  * The react-simple-maps library is ~80KB (chunk `vendor-maps`). Splitting the
  * chart into its own React.lazy() module ensures the parent route ships the
  * side panel + stats first, then streams the chart in. The 190KB topojson is
- * fetched concurrently — the parent's hover-preload (route-preloaders.ts)
+ * fetched concurrently - the parent's hover-preload (route-preloaders.ts)
  * warms it before this module mounts.
  *
  * Two projections supported via the `globeView` prop:
- *   - geoMercator (default) — familiar flat 2D world map
- *   - geoOrthographic       — globe / sphere projection, slow auto-rotate
+ *   - geoMercator (default) - familiar flat 2D world map
+ *   - geoOrthographic       - globe / sphere projection, slow auto-rotate
  * Using react-simple-maps' built-in projections avoids pulling in three.js
  * (~150KB gzipped) for the globe aesthetic.
  *
@@ -53,7 +53,7 @@ export default function ThreatMapChart({
   selectedAlpha2,
   globeView,
 }: ThreatMapChartProps): JSX.Element {
-  // Slow globe rotation when in globe view — 2.5 deg / 200ms = full rotation
+  // Slow globe rotation when in globe view - 2.5 deg / 200ms = full rotation
   // in ~28s. Ticking at 200ms (not 80ms) cuts full-map re-renders from ~12.5/s
   // to 5/s for the same visual speed; each setState re-renders ~177 country
   // paths, so the slower cadence is a meaningful CPU saving while the globe is
@@ -67,7 +67,7 @@ export default function ThreatMapChart({
     return () => window.clearInterval(id);
   }, [globeView]);
 
-  // Resolve the top-12 marker layer only when the data or selection changes —
+  // Resolve the top-12 marker layer only when the data or selection changes -
   // NOT on every 200ms rotation tick. While the globe spins this component
   // re-renders 5×/s, but the sort/slice is rotation-independent, so without
   // this memo it re-materialized + re-sorted the country map every frame.
@@ -139,7 +139,7 @@ export default function ThreatMapChart({
         }
       </Geographies>
       {/* Pulse markers on the top-12 active countries. Decorative, not
-          attack arcs — our data has no real source→target pairing.
+          attack arcs - our data has no real source→target pairing.
           Hidden when a country is selected so the drill-down stays clean. */}
       {topMarkers.map(({ code, coords }) => (
         <Marker key={code} coordinates={coords}>

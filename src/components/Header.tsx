@@ -29,7 +29,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
     setIsMac(/Mac|iPhone|iPad/.test(navigator.platform));
   }, []);
 
-  // Track scroll position for header styling — throttled via rAF
+  // Track scroll position for header styling - throttled via rAF
   useEffect(() => {
     const handleScroll = () => {
       if (scrollRafRef.current) return;
@@ -152,7 +152,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
+        className={`sticky top-0 z-50 transition-all duration-200 ${
           isScrolled
             ? 'border-b border-[rgb(var(--border-400))] bg-[rgb(var(--surface-100))] dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))]'
             : 'border-b border-transparent bg-[rgb(var(--surface-100))] dark:bg-[rgb(var(--surface-100))]'
@@ -171,7 +171,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
             </span>
           </Link>
 
-          {/* Desktop Navigation — Home is skipped (logo already routes home)
+          {/* Desktop Navigation - Home is skipped (logo already routes home)
               and CTA-tagged links (Contact) are pulled out so they render
               as a button on the right, not as an inline pill. */}
           <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
@@ -262,7 +262,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
 
           {/* Actions */}
           <div className="flex items-center gap-2">
-            {/* CTA pill — sits to the left of the theme toggle on desktop;
+            {/* CTA pill - sits to the left of the theme toggle on desktop;
                 hidden on mobile (the drawer surfaces Contact as its own
                 row). The arrow nudges the user toward action without being
                 shouty. */}
@@ -324,7 +324,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
+        className={`fixed inset-0 z-40 md:hidden transition-all duration-200 ${
           isMobileMenuOpen ? 'visible opacity-100' : 'invisible opacity-0'
         }`}
         id="mobile-menu"
@@ -332,21 +332,21 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
       >
         {/* Backdrop */}
         <div
-          className={`absolute inset-0 bg-slate-950/20 backdrop-blur-sm dark:bg-black/50 transition-opacity duration-300 ${
+          className={`absolute inset-0 bg-slate-950/20 backdrop-blur-sm dark:bg-black/50 transition-opacity duration-200 ${
             isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
           }`}
           onClick={closeMobileMenu}
           aria-hidden="true"
         />
 
-        {/* Menu — focus trap attached to the nav panel, not the backdrop overlay,
+        {/* Menu - focus trap attached to the nav panel, not the backdrop overlay,
             so Tab cycling stays within the interactive links. */}
         <nav
           ref={mobileMenuRef as React.RefObject<HTMLElement>}
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
-          className={`absolute top-[env(safe-area-inset-top,0px)] left-0 right-0 border-t border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))] max-h-[calc(100dvh-env(safe-area-inset-top,0px)-env(safe-area-inset-bottom,0px))] overflow-y-auto overscroll-contain transition-all duration-300 ${
+          className={`absolute top-[env(safe-area-inset-top,0px)] left-0 right-0 border-t border-[rgb(var(--border-400))] bg-white dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-100))] max-h-[calc(100dvh-env(safe-area-inset-top,0px)-env(safe-area-inset-bottom,0px))] overflow-y-auto overscroll-contain transition-all duration-200 ${
             isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-3 opacity-0'
           }`}
           style={{ WebkitOverflowScrolling: 'touch' }}

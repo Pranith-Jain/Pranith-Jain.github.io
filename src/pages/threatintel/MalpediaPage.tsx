@@ -61,11 +61,11 @@ export default function MalpediaPage(): JSX.Element {
           href="https://malpedia.caad.fkie.fraunhofer.de/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-brand-600 dark:text-brand-400 hover:underline"
+          className="text-rose-600 dark:text-rose-400 hover:underline"
         >
           Fraunhofer FKIE Malpedia
         </a>{' '}
-        — search actors and malware families for descriptions, associated malware, and references.
+        - search actors and malware families for descriptions, associated malware, and references.
       </p>
       <div className="surface-card p-5">
         <div className="flex gap-3 mb-4">
@@ -76,7 +76,7 @@ export default function MalpediaPage(): JSX.Element {
               onClick={() => setMode(m)}
               className={`px-3 py-1.5 rounded text-xs font-mono font-semibold transition-colors ${
                 mode === m
-                  ? 'bg-brand-600 text-white'
+                  ? 'bg-rose-600 text-white'
                   : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted hover:bg-slate-200 dark:hover:bg-slate-700'
               }`}
             >
@@ -98,13 +98,13 @@ export default function MalpediaPage(): JSX.Element {
                   ? 'Family name (e.g. cobalt strike, redline)'
                   : 'Search actors and families…'
             }
-            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
           <button
             type="button"
             onClick={() => void search()}
             disabled={loading || !query.trim()}
-            className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
           >
             <Search size={15} className="inline mr-1.5" />
             {loading ? '…' : 'Lookup'}
@@ -130,7 +130,7 @@ export default function MalpediaPage(): JSX.Element {
           {result.actors && result.actors.length > 0 && (
             <section>
               <h2 className="font-display font-semibold text-base mb-3 inline-flex items-center gap-2">
-                <Users size={16} className="text-brand-600" /> Actors ({result.actors.length})
+                <Users size={16} className="text-rose-600" /> Actors ({result.actors.length})
               </h2>
               <div className="grid gap-2 sm:grid-cols-2">
                 {result.actors.map((a) => {
@@ -150,7 +150,7 @@ export default function MalpediaPage(): JSX.Element {
           {result.families && result.families.length > 0 && (
             <section>
               <h2 className="font-display font-semibold text-base mb-3 inline-flex items-center gap-2">
-                <Bug size={16} className="text-brand-600" /> Families ({result.families.length})
+                <Bug size={16} className="text-rose-600" /> Families ({result.families.length})
               </h2>
               <div className="grid gap-2 sm:grid-cols-2">
                 {result.families.map((f) => {
@@ -185,9 +185,9 @@ export default function MalpediaPage(): JSX.Element {
         <div className="surface-card p-5">
           <div className="flex items-center gap-3 mb-4">
             {mode === 'actor' ? (
-              <Users size={20} className="text-brand-600" />
+              <Users size={20} className="text-rose-600" />
             ) : (
-              <Bug size={20} className="text-brand-600" />
+              <Bug size={20} className="text-rose-600" />
             )}
             <div>
               <h2 className="font-display font-bold text-xl">
@@ -232,7 +232,7 @@ export default function MalpediaPage(): JSX.Element {
                       href={sanitizeUrl(ref) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-meta font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 break-all"
+                      className="text-meta font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 break-all"
                     >
                       {ref} <ExternalLink size={10} />
                     </a>

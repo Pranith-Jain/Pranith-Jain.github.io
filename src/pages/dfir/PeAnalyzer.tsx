@@ -178,7 +178,7 @@ export default function PeAnalyzer(): JSX.Element {
         PE Static Analyzer <span className="text-sm font-mono text-slate-500">Lite</span>
       </h1>
       <p className="text-sm font-mono text-muted mt-1 mb-6">
-        Drop a Windows <code>.exe</code>/<code>.dll</code> — parses headers, mitigations, sections (with entropy for a
+        Drop a Windows <code>.exe</code>/<code>.dll</code> - parses headers, mitigations, sections (with entropy for a
         packed-binary signal) and the import table (suspicious APIs flagged). Hand-rolled parser; nothing is uploaded.
       </p>
 
@@ -192,7 +192,7 @@ export default function PeAnalyzer(): JSX.Element {
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
           Drop a PE file file here, or click to choose
         </p>
-        <p className="text-mini font-mono text-slate-400 mt-1">100% client-side. No upload.</p>
+        <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1">100% client-side. No upload.</p>
       </button>
       <input
         id="peanalyzer-input"

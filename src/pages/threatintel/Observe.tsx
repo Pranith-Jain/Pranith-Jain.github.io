@@ -196,12 +196,12 @@ export default function Observe(): JSX.Element {
       backTo="/threatintel"
       icon={<Monitor size={28} />}
       title="Observable 360"
-      description="Unified view of any IP, domain, hash, URL, email, CVE, or threat actor — enrichment, context, and related intelligence in one place."
+      description="Unified view of any IP, domain, hash, URL, email, CVE, or threat actor - enrichment, context, and related intelligence in one place."
       maxWidthClass="max-w-5xl"
     >
       <section className="surface-card p-4 mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             aria-label="Observable query"
@@ -209,13 +209,13 @@ export default function Observe(): JSX.Element {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && fetchObserve(query)}
             placeholder="IP, domain, hash, CVE, URL, email, or threat actor name..."
-            className="w-full pl-9 pr-14 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            className="w-full pl-9 pr-14 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             disabled={loading}
           />
           <button
             onClick={() => fetchObserve(query)}
             disabled={loading || !query.trim()}
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded bg-brand-600 dark:bg-brand-500 hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-30 disabled:cursor-not-allowed text-white transition-colors"
+            className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded bg-rose-600 dark:bg-rose-500 hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-30 disabled:cursor-not-allowed text-white transition-colors"
             aria-label="Look up"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
@@ -231,7 +231,7 @@ export default function Observe(): JSX.Element {
       )}
 
       {loading && (
-        <div className="flex items-center justify-center py-20 text-slate-400">
+        <div className="flex items-center justify-center py-20 text-slate-500 dark:text-slate-400">
           <Loader2 size={24} className="animate-spin mr-3" />
           <span className="font-mono text-sm">Querying intelligence sources...</span>
         </div>
@@ -256,7 +256,7 @@ export default function Observe(): JSX.Element {
                   <p className="text-sm text-muted">
                     {data.entity.label}
                     {data.entity.aliases.length > 0 && (
-                      <span className="ml-2 text-slate-400">aliases: {data.entity.aliases.join(', ')}</span>
+                      <span className="ml-2 text-slate-500 dark:text-slate-400">aliases: {data.entity.aliases.join(', ')}</span>
                     )}
                   </p>
                 )}
@@ -293,7 +293,7 @@ export default function Observe(): JSX.Element {
                 className="w-full flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
               >
                 <div className="flex items-center gap-2">
-                  <Shield size={16} className="text-brand-600 dark:text-brand-400" />
+                  <Shield size={16} className="text-rose-600 dark:text-rose-400" />
                   <span className="font-semibold text-sm">IOC Enrichment</span>
                 </div>
                 {showIocDetail ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
@@ -301,7 +301,7 @@ export default function Observe(): JSX.Element {
               {showIocDetail && (
                 <div className="px-4 pb-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3">
                   {iocLoading && (
-                    <div className="flex items-center gap-2 text-sm text-slate-400">
+                    <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
                       <Loader2 size={14} className="animate-spin" />
                       Checking 24+ threat intelligence sources...
                     </div>
@@ -326,13 +326,13 @@ export default function Observe(): JSX.Element {
                         </div>
                       ))}
                       {iocVerdicts.length > 15 && (
-                        <p className="text-xs text-slate-400 mt-2">+{iocVerdicts.length - 15} more</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">+{iocVerdicts.length - 15} more</p>
                       )}
                     </div>
                   )}
                   <Link
                     to={`/dfir/ioc-check?indicator=${encodeURIComponent(submittedQuery)}`}
-                    className="inline-flex items-center gap-1 text-xs text-brand-600 dark:text-brand-400 hover:underline mt-3"
+                    className="inline-flex items-center gap-1 text-xs text-rose-600 dark:text-rose-400 hover:underline mt-3"
                   >
                     <ExternalLink size={10} /> Full IOC check
                   </Link>
@@ -345,10 +345,10 @@ export default function Observe(): JSX.Element {
               <div className="surface-card">
                 <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
                   <div className="flex items-center gap-2">
-                    <Users size={16} className="text-brand-600 dark:text-brand-400" />
+                    <Users size={16} className="text-rose-600 dark:text-rose-400" />
                     <span className="font-semibold text-sm">Entity Profile</span>
                   </div>
-                  <span className="text-micro font-mono text-slate-400">
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
                     confidence: {Math.round((data.profile.entity.confidence ?? 0) * 100)}%
                   </span>
                 </div>
@@ -359,10 +359,10 @@ export default function Observe(): JSX.Element {
                       <div className="space-y-1">
                         {data.profile.links.slice(0, 8).map((link, i) => (
                           <div key={i} className="flex items-center gap-2 text-xs font-mono text-muted">
-                            <span className="text-slate-400">{link.relationship}</span>
+                            <span className="text-slate-500 dark:text-slate-400">{link.relationship}</span>
                             <Link
                               to={`/threatintel/observe?q=${encodeURIComponent(link.target_id)}`}
-                              className="text-brand-600 dark:text-brand-400 hover:underline"
+                              className="text-rose-600 dark:text-rose-400 hover:underline"
                             >
                               {link.target_id}
                             </Link>
@@ -404,7 +404,7 @@ export default function Observe(): JSX.Element {
                   )}
                   <Link
                     to={`/threatintel/entity-resolution?q=${encodeURIComponent(submittedQuery)}`}
-                    className="inline-flex items-center gap-1 text-xs text-brand-600 dark:text-brand-400 hover:underline"
+                    className="inline-flex items-center gap-1 text-xs text-rose-600 dark:text-rose-400 hover:underline"
                   >
                     <ExternalLink size={10} /> Full entity detail
                   </Link>
@@ -416,7 +416,7 @@ export default function Observe(): JSX.Element {
             {data.wiki_articles.length > 0 && (
               <div className="surface-card">
                 <div className="flex items-center gap-2 p-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                  <BookOpen size={16} className="text-brand-600 dark:text-brand-400" />
+                  <BookOpen size={16} className="text-rose-600 dark:text-rose-400" />
                   <span className="font-semibold text-sm">Related Knowledge Base</span>
                 </div>
                 <div className="p-4 space-y-2">
@@ -428,7 +428,7 @@ export default function Observe(): JSX.Element {
                     >
                       <p className="text-sm font-medium">{a.title}</p>
                       <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1">{a.description}</p>
-                      <span className="text-micro font-mono text-slate-400">{a.category}</span>
+                      <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{a.category}</span>
                     </Link>
                   ))}
                 </div>
@@ -438,27 +438,27 @@ export default function Observe(): JSX.Element {
             {/* Quick Actions */}
             <div className="surface-card">
               <div className="flex items-center gap-2 p-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <FileText size={16} className="text-brand-600 dark:text-brand-400" />
+                <FileText size={16} className="text-rose-600 dark:text-rose-400" />
                 <span className="font-semibold text-sm">Quick Actions</span>
               </div>
               <div className="p-4 space-y-2">
                 <Link
                   to={`/dfir/export-hub?q=${encodeURIComponent(submittedQuery)}`}
-                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
+                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                 >
                   <Download size={12} />
                   Export as STIX / CSV / YARA / Sigma / Blocklist
                 </Link>
                 <Link
                   to={`/threatintel/search?q=${encodeURIComponent(submittedQuery)}`}
-                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
+                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                 >
                   <Search size={12} />
                   Cross-source search
                 </Link>
                 <Link
                   to={`/threatintel/tools/copilot?q=${encodeURIComponent(submittedQuery)}`}
-                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
+                  className="flex items-center gap-2 text-xs font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                 >
                   <Users size={12} />
                   Ask the CTI Copilot
@@ -466,7 +466,7 @@ export default function Observe(): JSX.Element {
                 {entityType === 'domain' && (
                   <Link
                     to={`/dfir/domain?q=${encodeURIComponent(submittedQuery)}`}
-                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
+                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                   >
                     <Globe size={12} />
                     Full domain analysis (WHOIS / DNS / email-auth)
@@ -475,7 +475,7 @@ export default function Observe(): JSX.Element {
                 {entityType === 'ip' && (
                   <Link
                     to={`/dfir/ip-geo?q=${encodeURIComponent(submittedQuery)}`}
-                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
+                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                   >
                     <Monitor size={12} />
                     IP geolocation + reputation
@@ -484,7 +484,7 @@ export default function Observe(): JSX.Element {
                 {entityType === 'cve' && (
                   <Link
                     to={`/dfir/cve?q=${encodeURIComponent(submittedQuery)}`}
-                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-brand-600 dark:hover:text-brand-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
+                    className="flex items-center gap-2 text-xs font-mono text-muted hover:text-rose-600 dark:hover:text-rose-400 p-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                   >
                     <Shield size={12} />
                     CVE details (EPSS, KEV, PoC)

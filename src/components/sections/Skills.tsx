@@ -11,7 +11,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 /**
- * Skills grid — minimal editorial. No glass, no rounded-2xl, no
+ * Skills grid - minimal editorial. No glass, no rounded-2xl, no
  * glow. Each cluster is a thin-bordered card with an inline icon
  * and a plain bulleted list; the only colour is the brand accent on the
  * icon and the small list bullet.
@@ -23,7 +23,7 @@ interface SkillsProps {
 export function Skills({ skills }: SkillsProps) {
   return (
     <section id="skills" className="scroll-mt-24">
-      {/* Header — matches the design-system rhythm: caps-mono kicker + a
+      {/* Header - matches the design-system rhythm: caps-mono kicker + a
           plain display heading + a single-line lede. */}
       <div className="mb-10 max-w-3xl">
         <div className="mb-3 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">

@@ -93,12 +93,12 @@ export default function LogParser(): JSX.Element {
           <ScrollText size={28} className="text-brand-600 dark:text-brand-400" /> Log Parser
         </h1>
         <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-          Paste raw log lines — Sysmon / Windows Security / syslog / JSON-line / key=value. Each line is auto-detected,
+          Paste raw log lines - Sysmon / Windows Security / syslog / JSON-line / key=value. Each line is auto-detected,
           parsed into a structured record, and tagged with MITRE ATT&amp;CK techniques where heuristics fire. Hunting
           queries are generated for Splunk SPL, Elastic KQL, and Microsoft Sentinel KQL.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          Pure client-side. Nothing leaves your browser. MITRE tagging is conservative — only fires on confident matches
+          Pure client-side. Nothing leaves your browser. MITRE tagging is conservative - only fires on confident matches
           (Sysmon EID + cmdline pattern, Security 4625, etc). Treat this as a triage starting point.
         </p>
       </div>
@@ -128,7 +128,7 @@ export default function LogParser(): JSX.Element {
           id="logparser-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Paste log lines here — one per line, or paste a multi-line WinEvent XML blob (will be auto-collapsed per Event)…"
+          placeholder="Paste log lines here - one per line, or paste a multi-line WinEvent XML blob (will be auto-collapsed per Event)…"
           rows={14}
           aria-label="Log lines input"
           className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-mini text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
@@ -185,7 +185,7 @@ export default function LogParser(): JSX.Element {
           {/* Severity filter */}
           <section className="flex flex-wrap items-center gap-2 mb-4">
             <Filter size={12} className="text-slate-500" />
-            <span className="text-mini font-mono text-slate-400">filter:</span>
+            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">filter:</span>
             {(['high', 'medium', 'low', 'info'] as const).map((s) => {
               const count = summary.by_severity[s];
               const active = severityFilter.size === 0 || severityFilter.has(s);
@@ -267,7 +267,7 @@ export default function LogParser(): JSX.Element {
 
                 <details>
                   <summary className="text-mini font-mono text-slate-400 dark:text-slate-400 cursor-pointer">
-                    {Object.keys(r.fields).length} parsed field{Object.keys(r.fields).length === 1 ? '' : 's'} — show
+                    {Object.keys(r.fields).length} parsed field{Object.keys(r.fields).length === 1 ? '' : 's'} - show
                     structured JSON
                   </summary>
                   <pre className="mt-2 text-mini font-mono text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded p-2 border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-60 overflow-auto">

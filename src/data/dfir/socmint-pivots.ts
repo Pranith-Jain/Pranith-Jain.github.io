@@ -1,21 +1,21 @@
 /**
- * SOCMINT pivot catalogue — URL generators that take an
+ * SOCMINT pivot catalogue - URL generators that take an
  * email/domain/username/handle/full-name and produce a categorised
- * list of OSINT lookup links. URL generation only — no scraping.
+ * list of OSINT lookup links. URL generation only - no scraping.
  *
  * Each pivot is plain template substitution. Always opens in a new tab.
  *
  * Categories:
- *   - breach        — Have I Been Pwned, XposedOrNot, Dehashed, etc.
- *   - b2b           — ZoomInfo, Apollo, Hunter, Snov, Lusha, RocketReach,
+ *   - breach        - Have I Been Pwned, XposedOrNot, Dehashed, etc.
+ *   - b2b           - ZoomInfo, Apollo, Hunter, Snov, Lusha, RocketReach,
  *                      ContactOut, LeadIQ, PeopleDataLabs, Clearbit/HubSpot
- *   - social        — LinkedIn, Twitter/X, Facebook, Instagram, Reddit,
+ *   - social        - LinkedIn, Twitter/X, Facebook, Instagram, Reddit,
  *                      Mastodon, Bluesky, Telegram
- *   - dev           — GitHub commit search, GitLab, Bitbucket, npm/PyPI
- *   - paste         — paste-site Google dorks
- *   - dorks         — Google / Bing / DuckDuckGo / Yandex composite
- *   - identity      — Gravatar, Pipl (paid), Spokeo, ThatsThem, BeenVerified
- *   - infra         — DNS / WHOIS / Shodan / Censys / SecurityTrails for domains
+ *   - dev           - GitHub commit search, GitLab, Bitbucket, npm/PyPI
+ *   - paste         - paste-site Google dorks
+ *   - dorks         - Google / Bing / DuckDuckGo / Yandex composite
+ *   - identity      - Gravatar, Pipl (paid), Spokeo, ThatsThem, BeenVerified
+ *   - infra         - DNS / WHOIS / Shodan / Censys / SecurityTrails for domains
  *
  * `appliesTo` controls which input kinds each pivot accepts.
  */
@@ -54,7 +54,7 @@ const handleOf = (s: string): string => s.replace(/^@/, '').trim();
  *   john_doe123@x   → "John Doe"
  *   firstname.lastname.middle@x → "Firstname Lastname Middle"
  * Strips trailing digits, splits on . / _ / -, drops empty tokens, titlecases.
- * Heuristic only — never confirms, only proposes.
+ * Heuristic only - never confirms, only proposes.
  */
 function inferredName(email: string): string {
   const local = email.split('@')[0] ?? '';
@@ -67,7 +67,7 @@ function inferredName(email: string): string {
   return parts.join(' ') || local;
 }
 
-/** Slugify the inferred name to LinkedIn /in/<slug> shape — hyphenated lowercase. */
+/** Slugify the inferred name to LinkedIn /in/<slug> shape - hyphenated lowercase. */
 function inferredSlug(email: string, joiner = '-'): string {
   const local = email.split('@')[0] ?? '';
   return local
@@ -79,7 +79,7 @@ function inferredSlug(email: string, joiner = '-'): string {
     .join(joiner);
 }
 
-/** Bare company name — strip TLD + common suffixes. acme.com → "acme" */
+/** Bare company name - strip TLD + common suffixes. acme.com → "acme" */
 function companyFromDomain(domain: string): string {
   const root = domain.replace(/\.(com|net|org|io|co|ai|tech|app|dev|inc|corp|ltd|llc).*$/i, '');
   const parts = root.split('.');
@@ -158,7 +158,7 @@ export const PIVOTS: PivotLink[] = [
     category: 'b2b',
     appliesTo: ['domain', 'name'],
     label: 'Apollo.io',
-    blurb: 'B2B contact database — search by company or name',
+    blurb: 'B2B contact database - search by company or name',
     build: (v) => `https://app.apollo.io/#/companies?qOrganizationName=${enc(v)}`,
     signupRequired: true,
   },
@@ -250,7 +250,7 @@ export const PIVOTS: PivotLink[] = [
   {
     category: 'social',
     appliesTo: ['email'],
-    label: 'LinkedIn — inferred name + company dork',
+    label: 'LinkedIn - inferred name + company dork',
     blurb: 'Heuristic: derive name from email local-part + company from domain → Google site-search',
     build: (v) => {
       const name = inferredName(v);
@@ -261,21 +261,21 @@ export const PIVOTS: PivotLink[] = [
   {
     category: 'social',
     appliesTo: ['email'],
-    label: 'LinkedIn — probable URL (hyphen)',
+    label: 'LinkedIn - probable URL (hyphen)',
     blurb: 'Heuristic guess: linkedin.com/in/<first-last>. Verify before quoting.',
     build: (v) => `https://www.linkedin.com/in/${enc(inferredSlug(v, '-'))}`,
   },
   {
     category: 'social',
     appliesTo: ['email'],
-    label: 'LinkedIn — probable URL (no separator)',
+    label: 'LinkedIn - probable URL (no separator)',
     blurb: 'Heuristic guess: linkedin.com/in/<firstlast>. Some users use this slug shape.',
     build: (v) => `https://www.linkedin.com/in/${enc(inferredSlug(v, ''))}`,
   },
   {
     category: 'social',
     appliesTo: ['email'],
-    label: 'LinkedIn — email-as-leak dork',
+    label: 'LinkedIn - email-as-leak dork',
     blurb: 'Some profiles leak the email address itself in the bio/contact panel',
     build: (v) => `https://www.google.com/search?q=${enc(`site:linkedin.com "${v}"`)}`,
   },
@@ -444,7 +444,7 @@ export const PIVOTS: PivotLink[] = [
     category: 'dorks',
     appliesTo: ['email', 'domain', 'username', 'handle', 'name'],
     label: 'Bing search',
-    blurb: 'Independent index — Microsoft Bing',
+    blurb: 'Independent index - Microsoft Bing',
     build: (v) => `https://www.bing.com/search?q=${enc(`"${v}"`)}`,
   },
   {
@@ -458,7 +458,7 @@ export const PIVOTS: PivotLink[] = [
     category: 'dorks',
     appliesTo: ['email', 'domain', 'username', 'handle', 'name'],
     label: 'Yandex search',
-    blurb: 'Russian index — often catches different content',
+    blurb: 'Russian index - often catches different content',
     build: (v) => `https://yandex.com/search/?text=${enc(`"${v}"`)}`,
   },
   {
@@ -474,7 +474,7 @@ export const PIVOTS: PivotLink[] = [
     category: 'identity',
     appliesTo: ['email'],
     label: 'Gravatar profile',
-    blurb: 'Globally Recognised Avatar — also exposes some user metadata',
+    blurb: 'Globally Recognised Avatar - also exposes some user metadata',
     build: gravatarUrl,
   },
   {

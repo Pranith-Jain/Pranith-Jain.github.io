@@ -48,7 +48,7 @@ export default function Encoder(): JSX.Element {
     );
   }, [input, chain, setSearchParams]);
 
-  // Mark "auto-ran on URL prefill" — purely informational; encoding is
+  // Mark "auto-ran on URL prefill" - purely informational; encoding is
   // synchronous so the result renders immediately on first paint.
   useEffect(() => {
     if (!autoRan.current && initialQ) autoRan.current = true;
@@ -162,13 +162,13 @@ export default function Encoder(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => removeStep(idx)}
-                  className="p-1 rounded text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
+                  className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
                   aria-label="remove pass"
                 >
                   <X size={11} />
                 </button>
               )}
-              {idx < chain.length - 1 && <ArrowRight size={12} className="text-slate-400" aria-hidden="true" />}
+              {idx < chain.length - 1 && <ArrowRight size={12} className="text-slate-500 dark:text-slate-400" aria-hidden="true" />}
             </div>
           ))}
         </div>

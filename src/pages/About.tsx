@@ -11,27 +11,27 @@ interface Chapter {
 
 const storyChapters: Chapter[] = [
   {
-    period: '2022 — 2023 / The Foundation',
+    period: '2022 - 2023 / The Foundation',
     paragraphs: [
-      'My journey started at AiROBOSOFT as an AIML Intern, where I trained predictive-analytics models with Scikit-learn and Pandas — and learned the gap between a notebook that works and a model that ships.',
+      'My journey started at AiROBOSOFT as an AIML Intern, where I trained predictive-analytics models with Scikit-learn and Pandas - and learned the gap between a notebook that works and a model that ships.',
       'At TekWorks I built "Arogya", a hospital management system that replaced paper-and-Excel for an entire administrative team. Patient-record lookup went from hours to seconds. I owned the responsive front-end and the REST APIs underneath it.',
     ],
     badges: ['Python', 'React', 'REST APIs'],
   },
   {
-    period: '2023 — 2024 / The Front Lines',
+    period: '2023 - 2024 / The Front Lines',
     paragraphs: [
-      'At UnifyCX, email security found me the way it finds most people — because something was on fire. IP blacklisting and weak SMTP auth had tanked delivery for 200+ enterprise domains. I pulled them back to 95% inbox placement by hardening SPF, DKIM, and DMARC across the fleet. Failures dropped 40%+. I cleaned 60+ web assets, automated SSL/TLS renewals for 300+ domains, and learned that the right infrastructure fix prevents more incidents than any detection rule.',
+      'At UnifyCX, email security found me the way it finds most people - because something was on fire. IP blacklisting and weak SMTP auth had tanked delivery for 200+ enterprise domains. I pulled them back to 95% inbox placement by hardening SPF, DKIM, and DMARC across the fleet. Failures dropped 40%+. I cleaned 60+ web assets, automated SSL/TLS renewals for 300+ domains, and learned that the right infrastructure fix prevents more incidents than any detection rule.',
       'My first SOC seat came at Tracelay as a SOC Analyst Intern. Tier-1 monitoring, alert pattern-matching, and the fundamental question that still drives my work: "what does this alert actually mean?"',
     ],
     badges: ['SPF/DKIM/DMARC', 'SOC', 'WAF', 'SSL/TLS'],
   },
   {
-    period: '2024 — Present / Security Automation & AI',
+    period: '2024 - Present / Security Automation & AI',
     paragraphs: [
       'At Qubit Capital I own email security for 150+ early-stage startups. SPF, DKIM, and DMARC at 98%+ alignment across 1,300+ domains. Spoofing incidents down 60%. Built a real-time monitoring dashboard with Claude Code that replaced the Monday-morning manual health check.',
       '250+ phishing, BEC, and malware cases investigated. Header analysis, sandbox detonation, IOC pivots. False positives down 25%, analysis time down 35%, remediation above 90%. The n8n automation pipeline dropped mean response from 4 hours to under 75 minutes.',
-      'Now I am deep in AI security and Non-Human Identity governance — areas where the attack surface is still being mapped. I have earned certifications in AI security from Proofpoint and Virtual Cyber Labs, because understanding the new attacker toolkit means learning it myself first.',
+      'Now I am deep in AI security and Non-Human Identity governance - areas where the attack surface is still being mapped. I have earned certifications in AI security from Proofpoint and Virtual Cyber Labs, because understanding the new attacker toolkit means learning it myself first.',
     ],
     badges: ['n8n Automation', 'AI Security', 'NHI Governance', 'Cloudflare'],
   },
@@ -42,7 +42,7 @@ export default function AboutPage() {
     <>
       <PageMeta
         title="About"
-        description="Pranith Jain — security analyst and detection engineer. From email security at UnifyCX (200+ domains, 95% inbox placement) to shipping a free 60+ tool DFIR toolkit on Cloudflare Workers."
+        description="Pranith Jain - security analyst and detection engineer. From email security at UnifyCX (200+ domains, 95% inbox placement) to shipping a free 60+ tool DFIR toolkit on Cloudflare Workers."
         canonicalPath="/about"
       />
       <h1 className="sr-only">About Pranith Jain</h1>

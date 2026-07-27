@@ -11,22 +11,22 @@ const VALID: ToolGroup[] = ['core-dfir', 'investigation', 'intelligence', 'recon
 const HERO: Record<ToolGroup, { kicker: string; title: string; sub: string }> = {
   'core-dfir': {
     kicker: 'Privacy-first · No upload · No login · Local analysis only',
-    title: 'Core DFIR — Triage & Analysis',
-    sub: 'IOC checks, malware triage, file analysis, artifact parsers. Everything runs in your browser — no data leaves your device.',
+    title: 'Core DFIR - Triage & Analysis',
+    sub: 'IOC checks, malware triage, file analysis, artifact parsers. Everything runs in your browser - no data leaves your device.',
   },
   investigation: {
     kicker: 'Privacy-first · No upload · No login · Local analysis only',
-    title: 'Investigation — Infrastructure & Identity',
+    title: 'Investigation - Infrastructure & Identity',
     sub: 'Domain/network lookups, asset analysis, email security, vulnerability checks. Client-side, instant results.',
   },
   intelligence: {
     kicker: 'Privacy-first · No upload · No login · Local analysis only',
-    title: 'Intelligence — Detection & Standards',
+    title: 'Intelligence - Detection & Standards',
     sub: 'Rule converters, STIX/TAXII tools, IR playbooks, hunting frameworks. Author and test without uploading.',
   },
   recon: {
     kicker: 'Privacy-first · No upload · No login · Local analysis only',
-    title: 'Recon & OSINT — Identity, Network, Dark Web',
+    title: 'Recon & OSINT - Identity, Network, Dark Web',
     sub: 'Username pivots, network intel, image analysis, dark web tools, privacy checks. Collected client-side.',
   },
   specialized: {
@@ -111,7 +111,7 @@ export default function ToolsCategory(): JSX.Element {
       <div className="mb-6">
         <h2 className="font-display font-bold text-2xl">Available Tools</h2>
         <p className="text-sm font-mono text-muted mt-1">
-          Each tool runs 100% in your browser — your data never leaves your device.
+          Each tool runs 100% in your browser - your data never leaves your device.
         </p>
       </div>
 
@@ -121,7 +121,7 @@ export default function ToolsCategory(): JSX.Element {
             <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-mono">
               {s.label}
             </h3>
-            <span className="text-mini font-mono text-slate-400">{s.blurb}</span>
+            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{s.blurb}</span>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {s.tools.map((t) => {
@@ -163,10 +163,10 @@ export default function ToolsCategory(): JSX.Element {
       {g === 'core-dfir' && (
         <section className="mt-12 mb-8 rounded-xl border border-brand-500/30 dark:border-brand-500/20 bg-brand-500/5 p-8">
           <h2 className="font-display font-bold text-xl flex items-center gap-2 mb-4">
-            <Search size={20} className="text-brand-600 dark:text-brand-400" /> Quick demo — Identity Lookup
+            <Search size={20} className="text-brand-600 dark:text-brand-400" /> Quick demo - Identity Lookup
           </h2>
           <p className="text-sm font-mono text-muted mb-4 leading-relaxed">
-            Look up a username across 11+ platforms. All checks run from your browser against public APIs — no server,
+            Look up a username across 11+ platforms. All checks run from your browser against public APIs - no server,
             no sign-in. Try this live example:
           </p>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -188,11 +188,11 @@ export default function ToolsCategory(): JSX.Element {
             ].map((ex) => (
               <div key={ex.platform} className="surface-card/60 shadow-e1 p-3 flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-brand-500/10 flex items-center justify-center text-xs font-mono text-brand-600 dark:text-brand-400">
-                  ✓
+                  done
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-semibold font-display">{ex.platform}</div>
-                  <div className="text-mini font-mono text-slate-400 truncate">@{ex.username}</div>
+                  <div className="text-mini font-mono text-slate-500 dark:text-slate-400 truncate">@{ex.username}</div>
                 </div>
                 <a
                   href={ex.profileUrl}
@@ -221,7 +221,7 @@ export default function ToolsCategory(): JSX.Element {
         <p className="text-sm font-mono text-muted mt-3 leading-relaxed max-w-3xl">
           Uploading sensitive security data to third-party servers is an unnecessary risk. Logs, hashes, indicators and
           email headers can carry confidential infrastructure detail, PII or proprietary information. Everything here is
-          processed in your browser with standard Web APIs — the results are yours alone.
+          processed in your browser with standard Web APIs - the results are yours alone.
         </p>
       </section>
 

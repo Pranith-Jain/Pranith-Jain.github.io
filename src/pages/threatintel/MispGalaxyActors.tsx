@@ -25,7 +25,7 @@ interface GalaxyResponse {
   upstream_error?: string;
 }
 
-/** Only render http(s) links — the ref urls come from an untrusted upstream,
+/** Only render http(s) links - the ref urls come from an untrusted upstream,
  *  so never let a `javascript:`/`data:` URL reach an href. */
 function safeHref(url: string): string | null {
   try {
@@ -40,8 +40,8 @@ function safeHref(url: string): string | null {
 function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
-      ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+      ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
   }`;
 }
 
@@ -61,7 +61,7 @@ export default function MispGalaxyActors(): JSX.Element {
     setLoading(true);
     setError(null);
     // Fetch a generous slice once and filter client-side (search box + country
-    // chips) so typing never re-hits the edge — same-origin, plain fetch.
+    // chips) so typing never re-hits the edge - same-origin, plain fetch.
     fetch('/api/v1/misp-galaxy-actors?limit=1000', {
       signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
     })
@@ -103,13 +103,13 @@ export default function MispGalaxyActors(): JSX.Element {
 
   const description = (
     <>
-      Searchable threat-actor alias directory — canonical name, known synonyms, suspected origin country, and reference
+      Searchable threat-actor alias directory - canonical name, known synonyms, suspected origin country, and reference
       links from the{' '}
       <a
         href="https://github.com/MISP/misp-galaxy"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-brand-600 dark:text-brand-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline"
       >
         MISP Galaxy
       </a>{' '}
@@ -127,14 +127,14 @@ export default function MispGalaxyActors(): JSX.Element {
           </p>
         )}
         <div className="relative max-w-md">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search actor or alias (e.g. APT28, Fancy Bear, Lazarus)…"
             aria-label="Search threat actor or alias"
-            className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500/60"
+            className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500/60"
           />
         </div>
         <div className="flex flex-wrap gap-1.5">
@@ -163,7 +163,7 @@ export default function MispGalaxyActors(): JSX.Element {
       empty={!loading && !error && !!data && filtered.length === 0}
       emptyMessage="No actors match the search."
     >
-      <p className="mb-3 text-micro font-mono text-slate-400">
+      <p className="mb-3 text-micro font-mono text-slate-500 dark:text-slate-400">
         {filtered.length} of {data?.total ?? 0} actors{query.trim() || country !== 'all' ? ' (filtered)' : ''}
       </p>
       <div className="grid gap-3 lg:grid-cols-2">
@@ -184,14 +184,14 @@ export default function MispGalaxyActors(): JSX.Element {
             <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
               <Link
                 to={`/threatintel/actors?q=${encodeURIComponent(actor.value)}`}
-                className="text-micro font-mono px-1.5 py-0.5 rounded border border-brand-500/40 text-brand-600 dark:text-brand-400 hover:bg-brand-500/10"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-rose-500/40 text-rose-600 dark:text-rose-400 hover:bg-rose-500/10"
                 title="Open in the threat-actor catalogue"
               >
                 actors →
               </Link>
               <Link
                 to={`/dfir/ioc-check?indicator=${encodeURIComponent(actor.value)}`}
-                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
                 title="Pivot to IOC checker"
               >
                 ioc-check →
@@ -222,7 +222,7 @@ export default function MispGalaxyActors(): JSX.Element {
 
             {actor.refs.length > 0 && (
               <details className="mt-2 group">
-                <summary className="text-micro font-mono text-slate-500 cursor-pointer hover:text-brand-600 dark:hover:text-brand-400">
+                <summary className="text-micro font-mono text-slate-500 cursor-pointer hover:text-rose-600 dark:hover:text-rose-400">
                   references · {actor.refs.length}
                 </summary>
                 <div className="flex flex-col gap-1 mt-1 ml-1">
@@ -234,12 +234,12 @@ export default function MispGalaxyActors(): JSX.Element {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline truncate"
+                        className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline truncate"
                       >
                         {ref} <ExternalLink size={10} className="inline align-baseline opacity-60" />
                       </a>
                     ) : (
-                      <span key={i} className="text-micro font-mono text-slate-400 truncate">
+                      <span key={i} className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate">
                         {ref}
                       </span>
                     );
@@ -252,17 +252,17 @@ export default function MispGalaxyActors(): JSX.Element {
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
           Data:{' '}
           <a
             href={data.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-brand-600 dark:hover:text-brand-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400"
           >
             {data.source}
           </a>{' '}
-          — {data.license} · {data.total} actors
+          - {data.license} · {data.total} actors
         </p>
       )}
     </DataPageLayout>

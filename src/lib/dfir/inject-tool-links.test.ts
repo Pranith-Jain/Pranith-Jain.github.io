@@ -5,7 +5,7 @@ import { injectToolLinks } from './inject-tool-links';
  * Regression tests for the wiki tool-link injector.
  *
  * The nesting test (`does not nest when topics co-occur in tooltip text`)
- * is the load-bearing one — that's the exact bug that shipped to prod
+ * is the load-bearing one - that's the exact bug that shipped to prod
  * before this module was extracted. The user observed:
  *
  *   What is [SPF](/dfir/domain "Check SPF, [DKIM](/dfir/domain "...
@@ -25,14 +25,14 @@ describe('injectToolLinks', () => {
 
   it('only wraps the FIRST mention of a topic', () => {
     const { body } = injectToolLinks('SPF and SPF and SPF again');
-    // Three "SPF" tokens — only the first should be a link.
+    // Three "SPF" tokens - only the first should be a link.
     const linkCount = (body.match(/\[SPF\]/g) || []).length;
     expect(linkCount).toBe(1);
   });
 
   it('does not nest when topics co-occur in tooltip text', () => {
     // The SPF / DKIM tool-topic blurbs both contain the literal strings
-    // "SPF" and "DKIM" — this is the exact production regression.
+    // "SPF" and "DKIM" - this is the exact production regression.
     const { body } = injectToolLinks('What is SPF? What is DKIM?');
 
     // Outer-link assertion: SPF link's title text must NOT contain an
@@ -95,7 +95,7 @@ describe('injectToolLinks', () => {
   });
 
   it('handles topic terms with regex-special characters in body', () => {
-    // Mostly a smoke test — TOOL_TOPICS escapes special chars before
+    // Mostly a smoke test - TOOL_TOPICS escapes special chars before
     // building the regex. The body itself may also contain special chars.
     const input = 'Use SPF (1.0+) for email.';
     const { body } = injectToolLinks(input);

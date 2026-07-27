@@ -99,7 +99,7 @@ export function StepList({
               )}
               {hasContent && (
                 <ChevronDown
-                  className={`h-4 w-4 shrink-0 text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                  className={`h-4 w-4 shrink-0 text-slate-500 dark:text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
                   aria-hidden="true"
                 />
               )}

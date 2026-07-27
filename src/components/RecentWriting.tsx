@@ -14,7 +14,7 @@ import { publishedResearch } from '../data/threatintel/research';
  * is it." Each card carries a kicker pill so the type is still
  * obvious at a glance.
  *
- * Cap is 4 items — enough to show range, few enough to fit cleanly
+ * Cap is 4 items - enough to show range, few enough to fit cleanly
  * above the fold-and-a-half. Beyond 4, the per-section pages
  * (/projects, /threatintel/research) carry the depth.
  */
@@ -114,13 +114,13 @@ export function RecentWriting(): JSX.Element | null {
                     <Icon size={10} aria-hidden="true" />
                     {e.kind === 'research' ? 'Research' : 'Case study'}
                   </span>
-                  <span className="text-eyebrow font-mono uppercase text-slate-400">{e.kicker}</span>
+                  <span className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">{e.kicker}</span>
                 </div>
                 <h3 className="font-display text-xl font-semibold tracking-[-0.96px] text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
                   {e.title}
                 </h3>
                 <p className="text-sm text-muted leading-relaxed line-clamp-3">{e.excerpt}</p>
-                <div className="mt-auto flex items-center gap-2 text-meta font-mono text-slate-400">
+                <div className="mt-auto flex items-center gap-2 text-meta font-mono text-slate-500 dark:text-slate-400">
                   <time dateTime={e.publishedAt}>{dateLabel}</time>
                   <span aria-hidden="true">·</span>
                   <span>{e.readingTime} read</span>

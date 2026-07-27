@@ -171,22 +171,22 @@ export default function InfraMap({
             <div className="text-sm font-sans">
               <div className="font-semibold text-slate-900">{r.name}</div>
               <div className="text-xs text-slate-500 mt-0.5">{r.category}</div>
-              <div className="text-mini font-mono text-slate-400 mt-1">
+              <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-1">
                 {r.lat.toFixed(5)}, {r.lon.toFixed(5)}
               </div>
               {r.tags.operator && (
                 <div className="text-mini text-slate-600 mt-1">
-                  <span className="text-slate-400">Operator:</span> {r.tags.operator}
+                  <span className="text-slate-500 dark:text-slate-400">Operator:</span> {r.tags.operator}
                 </div>
               )}
               {r.tags.man_made && (
                 <div className="text-mini text-slate-600">
-                  <span className="text-slate-400">Type:</span> {r.tags.man_made}
+                  <span className="text-slate-500 dark:text-slate-400">Type:</span> {r.tags.man_made}
                 </div>
               )}
               {r.tags.amenity && (
                 <div className="text-mini text-slate-600">
-                  <span className="text-slate-400">Amenity:</span> {r.tags.amenity}
+                  <span className="text-slate-500 dark:text-slate-400">Amenity:</span> {r.tags.amenity}
                 </div>
               )}
               {r.tags.website && (

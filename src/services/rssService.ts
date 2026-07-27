@@ -219,7 +219,7 @@ export interface AggregatedFeedResponse {
  *
  * Returns:
  *   - null   only when zero feeds in the requested set are aggregator-
- *            eligible (local config issue — callers can treat as "no data
+ *            eligible (local config issue - callers can treat as "no data
  *            to show" without alarming the user).
  *   - throws on HTTP / network / timeout errors with a descriptive message
  *            so the page-level error UI surfaces the real reason instead
@@ -233,7 +233,7 @@ export interface AggregatedFeedResponse {
  *  cap, producing "fetch_failed: Too many subrequests" for the tail of
  *  feeds. 15 leaves safe headroom: even if every URL redirects (30
  *  subrequests) we stay well under 50. The trade-off is more parallel
- *  Worker calls — each its own 50-req budget — which is exactly what
+ *  Worker calls - each its own 50-req budget - which is exactly what
  *  we want for hard isolation. */
 const AGGREGATOR_CHUNK_SIZE = 15;
 
@@ -247,7 +247,7 @@ async function fetchOneBatch(urls: string[], limit: number, perSource: number): 
   } catch (err) {
     const reason = err instanceof Error ? err.message : 'network error';
     if (reason.toLowerCase().includes('timed out') || reason.toLowerCase().includes('abort')) {
-      throw new Error('feed aggregator timed out (25s) — upstream RSS sources are slow right now');
+      throw new Error('feed aggregator timed out (25s) - upstream RSS sources are slow right now');
     }
     throw new Error(`feed aggregator unreachable: ${reason}`);
   }
@@ -270,12 +270,12 @@ export async function fetchAggregatedFeed(
   const limit = options.limit ?? 100;
   const perSource = options.perSource ?? 5;
 
-  // Single-batch path — keeps a request fast when the URL count is small.
+  // Single-batch path - keeps a request fast when the URL count is small.
   if (urlList.length <= AGGREGATOR_CHUNK_SIZE) {
     return fetchOneBatch(urlList, limit, perSource);
   }
 
-  // Chunked path — split into N batches and run them in parallel. The
+  // Chunked path - split into N batches and run them in parallel. The
   // root cause this fixes: a single aggregator call with 53 URLs
   // exceeded the Cloudflare Worker 50-subrequest-per-invocation cap and
   // produced "fetch_failed: Too many subrequests" for the tail of feeds.

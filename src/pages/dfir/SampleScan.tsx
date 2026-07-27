@@ -226,7 +226,7 @@ function ProviderRow({ r }: { r: ProviderResultWire }): JSX.Element {
             {r.error_status ? ` · ${r.error_status}` : ''}
           </span>
         ) : (
-          <span className="text-slate-400">skipped</span>
+          <span className="text-slate-500 dark:text-slate-400">skipped</span>
         )}
       </span>
     </li>
@@ -532,7 +532,7 @@ export default function SampleScan(): JSX.Element {
           </ul>
           {done && (
             <p className="mt-3 font-mono text-mini text-slate-500">
-              Streaming as each engine responds — finished in {meta ? 'one round-trip' : '?'} of the SSE feed. Verdict
+              Streaming as each engine responds - finished in {meta ? 'one round-trip' : '?'} of the SSE feed. Verdict
               biased toward malicious when ≥2 weighted providers agree.
             </p>
           )}

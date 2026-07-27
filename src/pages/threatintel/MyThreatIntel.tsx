@@ -8,15 +8,15 @@ import { StatBar } from '../../components/StatBar';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
- * MyThreatIntel dashboard — one surface over the official REST API
+ * MyThreatIntel dashboard - one surface over the official REST API
  * (proxied at /api/v1/mti, Bearer token injected server-side). Source
  * picker fans across all nine intelligence categories; each renders its
  * documented columns plus a distribution bar over the most meaningful
  * categorical field. Matches the portfolio design system (DataState,
- * StatBar, card/pill primitives) — no new chart deps.
+ * StatBar, card/pill primitives) - no new chart deps.
  */
 
-// NOTE: the upstream `events` source is permanently empty — MyThreatIntel
+// NOTE: the upstream `events` source is permanently empty - MyThreatIntel
 // serves CTI victim/event data via `ransomware`, so that tab IS the CTI
 // events view. `events` is intentionally omitted to avoid a dead tab.
 const SOURCES = ['iocs', 'malware', 'cve', 'ransomware', 'leaks', 'groups', 'markets', 'onions'] as const;
@@ -117,10 +117,10 @@ interface MtiResponse {
 }
 
 function cellText(v: unknown): string {
-  if (v == null) return '—';
+  if (v == null) return '-';
   if (Array.isArray(v)) return v.join(', ');
   const s = String(v).trim();
-  return s && s !== 'N/D' ? s : '—';
+  return s && s !== 'N/D' ? s : '-';
 }
 
 function DistBar({ rows, distKey }: { rows: MtiRow[]; distKey: string | null }): JSX.Element | null {
@@ -149,7 +149,7 @@ function DistBar({ rows, distKey }: { rows: MtiRow[]; distKey: string | null }):
             </div>
             <div className="flex-1 h-2.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
               <div
-                className="h-full rounded bg-brand-500/70 dark:bg-brand-400/70"
+                className="h-full rounded bg-rose-500/70 dark:bg-rose-400/70"
                 style={{ width: `${Math.max(3, Math.round((n / max) * 100))}%` }}
               />
             </div>
@@ -177,10 +177,10 @@ interface DnsResponse {
 }
 
 function recArr(v: string[] | undefined): string {
-  return v && v.length > 0 ? v.join(', ') : '—';
+  return v && v.length > 0 ? v.join(', ') : '-';
 }
 
-/** Shared "integration disabled" banner — token unset vs. token rejected. */
+/** Shared "integration disabled" banner - token unset vs. token rejected. */
 function DisabledBanner({ reason }: { reason: 'not_configured' | 'token_invalid' }): JSX.Element {
   return (
     <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-6 text-sm text-amber-800 dark:text-amber-200">
@@ -201,7 +201,7 @@ function DisabledBanner({ reason }: { reason: 'not_configured' | 'token_invalid'
 }
 
 /**
- * Active dnstwist typosquatting scan (MyThreatIntel `source=dns`). On-demand —
+ * Active dnstwist typosquatting scan (MyThreatIntel `source=dns`). On-demand -
  * the operator enters an apex domain (+ optional extra TLDs / keywords) and we
  * fire a live scan. The upstream takes 30–120s, so this is a deliberate button
  * press with a long-running loading state, not an auto-fetch.
@@ -270,14 +270,14 @@ function DnsScanPanel(): JSX.Element {
             type="text"
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
-            placeholder="apex domain — e.g. company.com"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            placeholder="apex domain - e.g. company.com"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             aria-label="Target apex domain"
           />
           <button
             type="submit"
             disabled={loading || !domain.trim()}
-            className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/70 disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/70 disabled:opacity-50"
           >
             {loading ? <Loader2 size={13} className="animate-spin" /> : <Globe size={13} />}
             {loading ? 'scanning…' : 'scan'}
@@ -288,21 +288,21 @@ function DnsScanPanel(): JSX.Element {
             type="text"
             value={tlds}
             onChange={(e) => setTlds(e.target.value)}
-            placeholder="extra TLDs (optional) — ru,cn,xyz,top"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            placeholder="extra TLDs (optional) - ru,cn,xyz,top"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             aria-label="Extra TLDs"
           />
           <input
             type="text"
             value={words}
             onChange={(e) => setWords(e.target.value)}
-            placeholder="keywords (optional) — login,secure,vpn"
-            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            placeholder="keywords (optional) - login,secure,vpn"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-xs focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             aria-label="Keyword variants"
           />
         </div>
         <p className="text-mini font-mono text-slate-500 dark:text-slate-400">
-          Live dnstwist scan — typically 30–120s depending on domain and TLD breadth.
+          Live dnstwist scan - typically 30–120s depending on domain and TLD breadth.
         </p>
       </form>
 
@@ -360,10 +360,10 @@ function DnsScanPanel(): JSX.Element {
                           className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70 align-top hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--surface-200)/0.4)]"
                         >
                           <td className="px-3 py-2 font-mono text-mini text-slate-500 whitespace-nowrap">
-                            {r.fuzzer || '—'}
+                            {r.fuzzer || '-'}
                           </td>
                           <td className="px-3 py-2 font-mono text-meta text-slate-800 dark:text-slate-200 break-all">
-                            {r.domain || '—'}
+                            {r.domain || '-'}
                           </td>
                           <td className="px-3 py-2 font-mono text-mini text-muted break-all">{recArr(r.dns_a)}</td>
                           <td className="px-3 py-2 font-mono text-mini text-muted break-all">{recArr(r.dns_mx)}</td>
@@ -374,7 +374,7 @@ function DnsScanPanel(): JSX.Element {
                                 resolves
                               </span>
                             ) : (
-                              <span className="text-mini font-mono text-slate-400">—</span>
+                              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">-</span>
                             )}
                           </td>
                         </tr>
@@ -404,7 +404,7 @@ export default function MyThreatIntel(): JSX.Element {
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
-    // The DNS tab owns its own fetch lifecycle — don't fire the records query
+    // The DNS tab owns its own fetch lifecycle - don't fire the records query
     // (and a needless upstream call) while it's active.
     if (view !== 'records') return;
     let cancelled = false;
@@ -424,7 +424,7 @@ export default function MyThreatIntel(): JSX.Element {
           }
         }
         // Token is set but upstream rejected it (expired / invalid key). The
-        // proxy surfaces the real upstream status in the 502 body — read it so
+        // proxy surfaces the real upstream status in the 502 body - read it so
         // we can show a precise message instead of a generic "upstream 502".
         if (r.status === 502) {
           const j = (await r.json().catch(() => ({}))) as { error?: string; upstream_status?: number | null };
@@ -463,7 +463,7 @@ export default function MyThreatIntel(): JSX.Element {
       backTo="/threatintel"
       icon={<Radar size={28} />}
       title="MyThreatIntel"
-      description="Live view of the MyThreatIntel CTI platform via its authenticated REST API. The bearer token is held as a Worker secret and injected server-side — it never reaches the browser."
+      description="Live view of the MyThreatIntel CTI platform via its authenticated REST API. The bearer token is held as a Worker secret and injected server-side - it never reaches the browser."
       maxWidthClass="max-w-6xl"
       headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
@@ -484,8 +484,8 @@ export default function MyThreatIntel(): JSX.Element {
               }}
               className={`text-xs font-mono px-3 py-1.5 rounded border transition-colors ${
                 view === 'records' && source === s
-                  ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                  ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
               }`}
             >
               {SOURCE_LABEL[s]}
@@ -496,8 +496,8 @@ export default function MyThreatIntel(): JSX.Element {
             onClick={() => setView('dns')}
             className={`inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border transition-colors ${
               view === 'dns'
-                ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+                : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
             }`}
           >
             <Globe size={12} /> DNS typosquat
@@ -506,20 +506,20 @@ export default function MyThreatIntel(): JSX.Element {
         {view === 'records' && (
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
-              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
               <input
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={`Filter ${SOURCE_LABEL[source].toLowerCase()}…`}
-                className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
                 aria-label="Filter records"
               />
             </div>
             <button
               type="button"
               onClick={() => setRefreshKey((k) => k + 1)}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
             >
               <RefreshCw size={12} /> refresh
             </button>
@@ -535,7 +535,7 @@ export default function MyThreatIntel(): JSX.Element {
         <>
           {data?.stale && (
             <div className="mb-4 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm font-mono text-amber-800 dark:text-amber-200">
-              ! Live MyThreatIntel feed is temporarily unavailable — showing the last cached snapshot. Data may be out
+              ! Live MyThreatIntel feed is temporarily unavailable - showing the last cached snapshot. Data may be out
               of date.
             </div>
           )}
@@ -545,7 +545,7 @@ export default function MyThreatIntel(): JSX.Element {
                 { label: 'source', value: SOURCE_LABEL[source] },
                 { label: 'total upstream', value: data.total.toLocaleString() },
                 { label: 'in view', value: filtered.length.toLocaleString() },
-                { label: 'generated', value: shortRel(data.generated_at) || '—' },
+                { label: 'generated', value: shortRel(data.generated_at) || '-' },
               ]}
             />
           )}
@@ -596,8 +596,8 @@ export default function MyThreatIntel(): JSX.Element {
                                 : 'text-slate-700 dark:text-slate-300'
                             } ${isLong ? 'max-w-md' : 'whitespace-nowrap'}`}
                           >
-                            {text === '—' ? (
-                              <span className="text-slate-400">—</span>
+                            {text === '-' ? (
+                              <span className="text-slate-500 dark:text-slate-400">-</span>
                             ) : isHash ? (
                               <span className="inline-flex items-center">
                                 <span className="truncate inline-block max-w-[16rem] align-middle" title={text}>
@@ -610,7 +610,7 @@ export default function MyThreatIntel(): JSX.Element {
                                 href={safeUrl || undefined}
                                 target="_blank"
                                 rel="noreferrer noopener"
-                                className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline break-all"
+                                className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline break-all"
                               >
                                 {text.length > 48 ? text.slice(0, 45) + '…' : text} <ExternalLink size={11} />
                               </a>

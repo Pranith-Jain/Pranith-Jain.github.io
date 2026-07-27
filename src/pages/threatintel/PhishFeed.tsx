@@ -175,13 +175,13 @@ export default function PhishFeed(): JSX.Element {
             placeholder="Search URL, domain, or target brand…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
           value={sourceFilter}
           onChange={(e) => setSourceFilter(e.target.value as any)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
         >
           <option value="all">All sources</option>
           <option value="openphish">OpenPhish</option>
@@ -214,7 +214,7 @@ export default function PhishFeed(): JSX.Element {
             onClick={() => setSortKey(k)}
             className={`px-2 py-1 rounded text-xs font-mono border transition ${
               sortKey === k
-                ? 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300'
+                ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
                 : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
             }`}
           >
@@ -225,7 +225,7 @@ export default function PhishFeed(): JSX.Element {
         <select
           value={exportFormat}
           onChange={(e) => setExportFormat(e.target.value as any)}
-          className="px-2 py-1 rounded text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500"
+          className="px-2 py-1 rounded text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 focus:outline-none focus:border-rose-500"
         >
           <option value="txt">Plain list (.txt)</option>
           <option value="hosts">Hosts file</option>
@@ -268,7 +268,7 @@ export default function PhishFeed(): JSX.Element {
                   href={sanitizeUrl(u.url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 min-w-0 truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex items-center gap-1"
+                  className="flex-1 min-w-0 truncate text-slate-700 dark:text-slate-300 hover:text-rose-600 dark:hover:text-rose-400 flex items-center gap-1"
                 >
                   {u.url} <ExternalLink className="w-3 h-3 shrink-0" />
                 </a>
@@ -296,13 +296,13 @@ export default function PhishFeed(): JSX.Element {
                 >
                   {u.source}
                 </span>
-                {u.first_seen && <span className="text-slate-400 shrink-0">{relativeAgo(u.first_seen)}</span>}
+                {u.first_seen && <span className="text-slate-500 dark:text-slate-400 shrink-0">{relativeAgo(u.first_seen)}</span>}
               </div>
             );
           })}
           {filtered.length > 200 && (
             <div className="text-center py-3 text-xs text-slate-500 font-mono">
-              Showing 200 of {filtered.length} — use export to download all
+              Showing 200 of {filtered.length} - use export to download all
             </div>
           )}
         </div>
@@ -319,7 +319,7 @@ export default function PhishFeed(): JSX.Element {
                 onClick={() => setQuery(brand === query ? '' : brand)}
                 className={`w-full flex items-center gap-2 text-xs px-2 py-1 rounded transition ${
                   query === brand
-                    ? 'bg-brand-500/10 border border-brand-500/30 text-brand-700 dark:text-brand-300'
+                    ? 'bg-rose-500/10 border border-rose-500/30 text-rose-700 dark:text-rose-300'
                     : 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] text-muted'
                 }`}
               >

@@ -227,13 +227,13 @@ export default function NavalTracker() {
           <Anchor size={16} className="text-blue-400" />
           <h3 className="text-tool font-bold font-mono text-slate-700 dark:text-slate-200">NAVAL TRACKER</h3>
         </div>
-        <span className="text-mini font-mono text-slate-400">{SHIPS.length} vessels · OSINT</span>
+        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{SHIPS.length} vessels · OSINT</span>
       </div>
       <div className="flex gap-3 mb-3 flex-wrap">
         {(['Persian Gulf', 'Red Sea', 'Eastern Med', 'Strait of Hormuz'] as const).map((r) => {
           const c = SHIPS.filter((s) => s.region === r).length;
           return c > 0 ? (
-            <span key={r} className="text-mini text-slate-400">
+            <span key={r} className="text-mini text-slate-500 dark:text-slate-400">
               <span className="text-cyan-400 font-bold">{c}</span> {r}
             </span>
           ) : null;
@@ -243,7 +243,7 @@ export default function NavalTracker() {
         {sorted.map((navy) => (
           <div key={navy}>
             <div
-              className={`text-mini font-bold font-mono tracking-wider mb-1 ${NAVY_COLORS[navy] || 'text-slate-400'}`}
+              className={`text-mini font-bold font-mono tracking-wider mb-1 ${NAVY_COLORS[navy] || 'text-slate-500 dark:text-slate-400'}`}
             >
               {navy.toUpperCase()} ({byNavy[navy]!.length})
             </div>
@@ -255,7 +255,7 @@ export default function NavalTracker() {
                 <div className="flex items-center gap-1.5">
                   <span className="text-xs font-mono">{TYPE_ICONS[ship.type] || '--'}</span>
                   <span className="text-tool font-medium text-slate-700 dark:text-slate-200">{ship.name}</span>
-                  <span className="text-mini text-slate-400 font-mono">{ship.hull}</span>
+                  <span className="text-mini text-slate-500 dark:text-slate-400 font-mono">{ship.hull}</span>
                 </div>
                 <span
                   className={`text-mini px-1.5 py-0.5 rounded ${ship.status === 'Active' ? 'text-emerald-400 bg-emerald-500/10' : 'text-cyan-400 bg-cyan-500/10'}`}

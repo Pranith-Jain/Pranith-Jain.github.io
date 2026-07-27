@@ -87,18 +87,18 @@ export default function Campaigns(): JSX.Element {
       description={
         <span className="text-sm font-mono">
           Saved campaign hypotheses from the{' '}
-          <Link to="/threatintel/catalog?cat=tools" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/catalog?cat=tools" className="text-rose-600 dark:text-rose-400 hover:underline">
             AI Campaign Generator
           </Link>
           . Each entry is a structured brief with kill-chain mapping, MITRE techniques, hunting hypotheses, and IOC
-          pivots — committed to KV so the analyst can return to it without re-running the prompt.
+          pivots - committed to KV so the analyst can return to it without re-running the prompt.
         </span>
       }
       headerExtra={
         <div className="flex flex-wrap items-center justify-between gap-2">
           <Link
             to="/threatintel/catalog?cat=tools"
-            className="inline-flex items-center gap-1.5 rounded bg-brand-600 px-3 py-1.5 text-xs font-mono font-semibold text-white hover:bg-brand-500"
+            className="inline-flex items-center gap-1.5 rounded bg-rose-600 px-3 py-1.5 text-xs font-mono font-semibold text-white hover:bg-rose-500"
           >
             <Wand2 size={12} /> Generate new campaign
           </Link>
@@ -106,7 +106,7 @@ export default function Campaigns(): JSX.Element {
             type="button"
             onClick={() => void load()}
             disabled={loading}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
           >
             <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
           </button>
@@ -117,16 +117,16 @@ export default function Campaigns(): JSX.Element {
       onRetry={() => void load()}
       empty={isEmpty}
       emptyMessage="No saved campaigns yet. Generate one with the AI Campaign Generator and click Save."
-      emptyIcon={<Sparkles size={28} className="mx-auto text-slate-400" />}
+      emptyIcon={<Sparkles size={28} className="mx-auto text-slate-500 dark:text-slate-400" />}
     >
       {items.length > 0 && (
         <ul className="space-y-2">
           {items.map((it) => (
-            <li key={it.id} className="surface-card p-4 hover:border-brand-500/40 transition-colors">
+            <li key={it.id} className="surface-card p-4 hover:border-rose-500/40 transition-colors">
               <div className="flex items-start justify-between gap-3 mb-2 flex-wrap">
                 <Link
                   to={`/threatintel/campaigns/${it.id}`}
-                  className="font-display font-bold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                  className="font-display font-bold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
                 >
                   {it.name} <ExternalLink size={11} />
                 </Link>
@@ -140,7 +140,7 @@ export default function Campaigns(): JSX.Element {
                     type="button"
                     onClick={() => void handleDelete(it.id)}
                     title="Delete campaign"
-                    className="text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                    className="text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                   >
                     <Trash2 size={12} />
                   </button>

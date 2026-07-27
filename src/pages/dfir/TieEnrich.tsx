@@ -234,7 +234,7 @@ export default function TieEnrich() {
         </div>
         <label className="flex items-center gap-2 text-xs text-slate-500">
           <input type="checkbox" checked={deep} onChange={(e) => setDeep(e.target.checked)} className="rounded" />
-          Deep analysis (autonomous investigator — runs 3-5 steps, generates structured report with QA verification)
+          Deep analysis (autonomous investigator - runs 3-5 steps, generates structured report with QA verification)
         </label>
       </form>
 
@@ -352,7 +352,7 @@ export default function TieEnrich() {
           <div className="flex items-center gap-2">
             <Icon size={20} className="text-cyan-600" />
             <span className="font-mono text-sm text-slate-800 dark:text-slate-200">{result.ioc}</span>
-            <span className="text-xs text-slate-400">{IOC_LABELS[result.iocType]}</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">{IOC_LABELS[result.iocType]}</span>
           </div>
 
           {result.diagnostics.length > 0 && (

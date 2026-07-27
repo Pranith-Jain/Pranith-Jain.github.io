@@ -23,12 +23,12 @@ export default function RansomwareActivity(): JSX.Element {
       description={
         <>
           <p className="mb-2 max-w-3xl leading-relaxed">
-            Recent ransomware leak-site claims merged across multiple trackers —{' '}
+            Recent ransomware leak-site claims merged across multiple trackers -{' '}
             <a
               href="https://www.ransomlook.io/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               Ransomlook
             </a>
@@ -37,7 +37,7 @@ export default function RansomwareActivity(): JSX.Element {
               href="https://t.me/mythreatintel"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               mythreatintel
             </a>
@@ -46,7 +46,7 @@ export default function RansomwareActivity(): JSX.Element {
               href="https://www.ransomfeed.it/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               ransomfeed.it
             </a>
@@ -55,7 +55,7 @@ export default function RansomwareActivity(): JSX.Element {
               href="https://ransomwatch.telemetry.ltd/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               ransomwatch
             </a>
@@ -64,7 +64,7 @@ export default function RansomwareActivity(): JSX.Element {
               href="https://www.ransomware.live/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               ransomware.live
             </a>
@@ -73,7 +73,7 @@ export default function RansomwareActivity(): JSX.Element {
               href="https://ctifeeds.andreafortuna.org/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               Andrea Fortuna
             </a>
@@ -85,7 +85,7 @@ export default function RansomwareActivity(): JSX.Element {
             Refreshed hourly from upstream. See also{' '}
             <Link
               to="/threatintel/darkweb/ransom-activity"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               ransomware negotiations
             </Link>{' '}

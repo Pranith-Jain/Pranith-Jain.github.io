@@ -139,7 +139,7 @@ export default function Tracer(): JSX.Element {
       if (!res.ok) return setUnifiedResult('search unavailable');
       const data = (await res.json()) as { total?: number };
       const n = data.total ?? 0;
-      setUnifiedResult(`${n} result${n === 1 ? '' : 's'} — open in Unified Search`);
+      setUnifiedResult(`${n} result${n === 1 ? '' : 's'} - open in Unified Search`);
     } catch (_catchErr) {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       setUnifiedResult('search unavailable');
@@ -154,7 +154,7 @@ export default function Tracer(): JSX.Element {
       if (data.context?.ens_name) setEnsName(data.context.ens_name);
     } catch (_catchErr) {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* ignore — Tier-1 unaffected */
+      /* ignore - Tier-1 unaffected */
     }
   }, []);
 
@@ -286,7 +286,7 @@ export default function Tracer(): JSX.Element {
         a.click();
       } catch (_catchErr) {
         console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-        setError('PNG export failed — JSON/CSV still work.');
+        setError('PNG export failed - JSON/CSV still work.');
       }
     },
     [graph, chain, download]
@@ -297,7 +297,7 @@ export default function Tracer(): JSX.Element {
     if (listRes.status === 401 || listRes.status === 403) return setError('Pinning requires an admin session.');
     if (!listRes.ok) return setError('Could not load investigations.');
     const { investigations } = (await listRes.json()) as { investigations: { id: string; title: string }[] };
-    if (!investigations?.length) return setError('No investigations exist yet — create one in the workspace first.');
+    if (!investigations?.length) return setError('No investigations exist yet - create one in the workspace first.');
     setError(null);
     setPinList(investigations);
     setPinTarget({ value, type });
@@ -323,7 +323,7 @@ export default function Tracer(): JSX.Element {
     if (!graph) return;
     const path = findPathToCategory(graph, ['exchange', 'mixer']);
     setHighlightPath(path ?? undefined);
-    if (!path) setError('No cash-out (CEX/Mixer) path in the loaded graph — expand further.');
+    if (!path) setError('No cash-out (CEX/Mixer) path in the loaded graph - expand further.');
   }, [graph]);
 
   const incidentEdges = useMemo(
@@ -356,7 +356,7 @@ export default function Tracer(): JSX.Element {
         {/* Control rail */}
         <div className="space-y-3 rounded-xl border border-slate-700 p-3 text-sm">
           <label className="block">
-            <span className="text-slate-400">Chain</span>
+            <span className="text-slate-500 dark:text-slate-400">Chain</span>
             <select
               className="mt-1 w-full rounded bg-slate-800 p-2"
               value={chain}
@@ -370,7 +370,7 @@ export default function Tracer(): JSX.Element {
             </select>
           </label>
           <label className="block">
-            <span className="text-slate-400">Seed address</span>
+            <span className="text-slate-500 dark:text-slate-400">Seed address</span>
             <input
               className="mt-1 w-full rounded bg-slate-800 p-2 font-mono text-xs"
               value={seed}
@@ -379,7 +379,7 @@ export default function Tracer(): JSX.Element {
             />
           </label>
           <label className="block">
-            <span className="text-slate-400">Direction</span>
+            <span className="text-slate-500 dark:text-slate-400">Direction</span>
             <select
               className="mt-1 w-full rounded bg-slate-800 p-2"
               value={direction}
@@ -391,7 +391,7 @@ export default function Tracer(): JSX.Element {
             </select>
           </label>
           <div className="border-t border-slate-700 pt-2">
-            <span className="text-slate-400">Time tolerance (optional)</span>
+            <span className="text-slate-500 dark:text-slate-400">Time tolerance (optional)</span>
             <input
               type="datetime-local"
               className="mt-1 w-full rounded bg-slate-800 p-2 text-xs"
@@ -474,7 +474,7 @@ export default function Tracer(): JSX.Element {
           </div>
           {savedList ? (
             <div className="rounded border border-slate-700 p-2 text-xs">
-              <span className="text-slate-400">Saved traces</span>
+              <span className="text-slate-500 dark:text-slate-400">Saved traces</span>
               {savedList.length ? (
                 <ul className="mt-1 space-y-1">
                   {savedList.map((sv) => (
@@ -522,15 +522,15 @@ export default function Tracer(): JSX.Element {
             <>
               <div className="break-all font-mono text-xs">{selected.address}</div>
               <div>
-                <span className="text-slate-400">Label: </span>
-                {selected.label ?? '—'} <span className="text-slate-500">({selected.category})</span>
+                <span className="text-slate-500 dark:text-slate-400">Label: </span>
+                {selected.label ?? '-'} <span className="text-slate-500">({selected.category})</span>
               </div>
               <div>
-                <span className="text-slate-400">Risk: </span>
+                <span className="text-slate-500 dark:text-slate-400">Risk: </span>
                 <span className="font-semibold uppercase">{selected.risk.level}</span> ({selected.risk.score})
               </div>
               {selected.risk.signals.length ? (
-                <ul className="list-inside list-disc text-xs text-slate-400">
+                <ul className="list-inside list-disc text-xs text-slate-500 dark:text-slate-400">
                   {selected.risk.signals.map((s) => (
                     <li key={s}>{s}</li>
                   ))}
@@ -570,11 +570,11 @@ export default function Tracer(): JSX.Element {
               {/* Transactions → calldata inspector */}
               {incidentEdges.length ? (
                 <div className="border-t border-slate-700 pt-2">
-                  <span className="text-slate-400">Transactions</span>
+                  <span className="text-slate-500 dark:text-slate-400">Transactions</span>
                   <ul className="mt-1 space-y-1">
                     {incidentEdges.map((e) => (
                       <li key={e.id} className="flex items-center justify-between gap-2">
-                        <span className="truncate font-mono text-micro text-slate-400">{e.tx_hash.slice(0, 14)}…</span>
+                        <span className="truncate font-mono text-micro text-slate-500 dark:text-slate-400">{e.tx_hash.slice(0, 14)}…</span>
                         <button
                           className="rounded border border-slate-600 px-1 text-micro hover:bg-slate-800 disabled:opacity-40"
                           disabled={selected.chain === 'btc' || selected.chain === 'solana' || calldataLoading}
@@ -610,12 +610,12 @@ export default function Tracer(): JSX.Element {
                       {calldata.analysis.verdict}
                     </span>
                   </div>
-                  <div className="text-slate-400">
+                  <div className="text-slate-500 dark:text-slate-400">
                     {calldata.analysis.known_method ?? calldata.analysis.selector ?? 'no selector'} ·{' '}
                     {calldata.analysis.input_size}B
                   </div>
                   {calldata.analysis.flags.length ? (
-                    <ul className="list-inside list-disc text-slate-400">
+                    <ul className="list-inside list-disc text-slate-500 dark:text-slate-400">
                       {calldata.analysis.flags.map((f) => (
                         <li key={f}>{f}</li>
                       ))}
@@ -636,7 +636,7 @@ export default function Tracer(): JSX.Element {
               {/* BTC common-input cluster */}
               {cluster && cluster.length ? (
                 <div className="border-t border-slate-700 pt-2">
-                  <span className="text-slate-400">Likely same-owner (common-input)</span>
+                  <span className="text-slate-500 dark:text-slate-400">Likely same-owner (common-input)</span>
                   <ul className="mt-1 space-y-1">
                     {cluster.slice(0, 8).map((c) => (
                       <li key={c.address} className="flex items-center justify-between gap-2">
@@ -655,7 +655,7 @@ export default function Tracer(): JSX.Element {
 
               {/* OSINT pivots (Phase D) */}
               <div className="border-t border-slate-700 pt-2">
-                <span className="text-slate-400">OSINT pivots</span>
+                <span className="text-slate-500 dark:text-slate-400">OSINT pivots</span>
                 <div className="mt-1 flex flex-wrap gap-1">
                   {buildDorkQueries(selected.address).map((d) => (
                     <a
@@ -675,7 +675,7 @@ export default function Tracer(): JSX.Element {
                 >
                   Run unified search
                 </button>
-                {unifiedResult ? <p className="mt-1 text-micro text-slate-400">{unifiedResult}</p> : null}
+                {unifiedResult ? <p className="mt-1 text-micro text-slate-500 dark:text-slate-400">{unifiedResult}</p> : null}
                 {selected.chain === 'evm' && !selected.label && !ensName ? (
                   <button
                     className="mt-1 w-full rounded border border-slate-600 p-1 text-micro hover:bg-slate-800"
@@ -731,7 +731,7 @@ export default function Tracer(): JSX.Element {
                   alerts.length ? (
                     <ul className="mt-1 space-y-1 text-micro">
                       {alerts.slice(0, 8).map((al, i) => (
-                        <li key={i} className="text-slate-400">
+                        <li key={i} className="text-slate-500 dark:text-slate-400">
                           <span className="font-semibold text-amber-400">{al.alert_type}</span> ·{' '}
                           {al.detected_at.slice(0, 16)}
                         </li>

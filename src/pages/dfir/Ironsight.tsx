@@ -21,7 +21,7 @@ export default function Ironsight() {
       backTo="/dfir"
       icon={<Crosshair size={28} />}
       title="IRONSIGHT OSINT"
-      description="Real-time OSINT command center — 50+ live sources including alerts, military tracking, strikes, prediction markets, and satellite thermal detection. Replicated from NoblerWorks-HQ/IRONSIGHT."
+      description="Real-time OSINT command center - 50+ live sources including alerts, military tracking, strikes, prediction markets, and satellite thermal detection. Replicated from NoblerWorks-HQ/IRONSIGHT."
       maxWidthClass="max-w-7xl"
     >
       <div className="space-y-4">

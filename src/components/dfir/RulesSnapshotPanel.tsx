@@ -7,7 +7,7 @@ import { decodeHtml } from '../../lib/htmlDecode';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
- * Live snapshot for /threatintel/rules — buckets the recent_commits returned by
+ * Live snapshot for /threatintel/rules - buckets the recent_commits returned by
  * /api/v1/rules by detection-rule platform (Sigma / YARA / Suricata / SIEM)
  * so the analyst sees "what just landed in upstream rule repos" at a glance.
  *
@@ -46,7 +46,7 @@ interface CardSpec {
  * Four cards covering the four main detection-platform families. KQL +
  * Elastic + Splunk SPL all collapse into one "SIEM" card because they're
  * the same workflow from the analyst's POV (paste a query into a search
- * bar). Sigma stays solo even when it has zero commits — its absence is
+ * bar). Sigma stays solo even when it has zero commits - its absence is
  * itself a signal worth seeing.
  */
 const CARDS: CardSpec[] = [
@@ -179,7 +179,7 @@ export function RulesSnapshotPanel(): JSX.Element {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0 inline-flex items-center gap-1"
-                          title={`${decodeHtml(cm.title)} — ${cm.source_label}`}
+                          title={`${decodeHtml(cm.title)} - ${cm.source_label}`}
                         >
                           <GitCommit size={9} className="opacity-50 shrink-0" />
                           <span className="truncate">{decodeHtml(cm.title)}</span>

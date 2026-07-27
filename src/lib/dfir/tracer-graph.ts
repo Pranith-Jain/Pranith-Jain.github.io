@@ -96,7 +96,7 @@ export function toGraphResponse(graph: TracerGraph): GraphResponse {
     id: e.id,
     source: e.source,
     target: e.target,
-    label: `${e.direction} ${e.amount}${e.confidence === 'confirmed' ? ' ✓' : ''}`,
+    label: `${e.direction} ${e.amount}${e.confidence === 'confirmed' ? ' (confirmed)' : ''}`,
     data: { confidence: e.confidence, tx_hash: e.tx_hash, timestamp: e.timestamp },
   }));
   const seedNode = graph.nodes.get(graph.seedId);

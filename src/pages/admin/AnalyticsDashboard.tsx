@@ -19,7 +19,7 @@ interface AnalyticsSummary {
 }
 
 /**
- * Analytics Dashboard — shows page views, tool usage, and geographic data
+ * Analytics Dashboard - shows page views, tool usage, and geographic data
  * from Cloudflare Analytics Engine. Accessible at /admin/analytics.
  */
 export default function AnalyticsDashboard(): JSX.Element {
@@ -94,7 +94,7 @@ export default function AnalyticsDashboard(): JSX.Element {
         <button
           type="button"
           onClick={() => setRefreshKey((k) => k + 1)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-[#16161f] hover:text-slate-900 dark:hover:text-white transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] hover:text-slate-900 dark:hover:text-white transition-colors"
         >
           <RefreshCw size={14} />
           Refresh
@@ -139,7 +139,7 @@ export default function AnalyticsDashboard(): JSX.Element {
             (data?.topEvents ?? []).map((e) => (
               <div key={e.type} className="flex items-center justify-between p-4">
                 <div className="flex items-center gap-3">
-                  <Activity size={14} className="text-slate-400" />
+                  <Activity size={14} className="text-slate-500 dark:text-slate-400" />
                   <span className="font-mono text-sm text-slate-700 dark:text-slate-300">{e.type}</span>
                 </div>
                 <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">
@@ -161,7 +161,7 @@ export default function AnalyticsDashboard(): JSX.Element {
             (data?.topCountries ?? []).map((c) => (
               <div key={c.country} className="flex items-center justify-between p-4">
                 <div className="flex items-center gap-3">
-                  <Globe size={14} className="text-slate-400" />
+                  <Globe size={14} className="text-slate-500 dark:text-slate-400" />
                   <span className="font-mono text-sm text-slate-700 dark:text-slate-300">{c.country}</span>
                 </div>
                 <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">
@@ -183,7 +183,7 @@ export default function AnalyticsDashboard(): JSX.Element {
             (data?.recentEvents ?? []).slice(0, 20).map((e, idx) => (
               <div key={idx} className="flex items-center justify-between p-4">
                 <div className="flex items-center gap-3">
-                  <Activity size={14} className="text-slate-400" />
+                  <Activity size={14} className="text-slate-500 dark:text-slate-400" />
                   <div>
                     <span className="font-mono text-sm text-slate-700 dark:text-slate-300">
                       {e.blobs[0] ?? 'unknown'}
@@ -193,7 +193,7 @@ export default function AnalyticsDashboard(): JSX.Element {
                 </div>
                 <div className="flex items-center gap-3">
                   {e.indexes[0] && <span className="text-xs font-mono text-slate-500">{e.indexes[0]}</span>}
-                  <span className="text-xs text-slate-400">{new Date(e.timestamp).toLocaleTimeString()}</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400">{new Date(e.timestamp).toLocaleTimeString()}</span>
                 </div>
               </div>
             ))

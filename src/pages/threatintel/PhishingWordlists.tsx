@@ -81,13 +81,13 @@ export default function PhishingWordlists(): JSX.Element {
       description={
         <>
           Fuzzing wordlists (Gobuster / ffuf) for hunting exposed credential dumps, admin panels, and webshells on
-          phishing infrastructure — the filenames threat actors use to stash stolen creds and campaign data. Pairs with
+          phishing infrastructure - the filenames threat actors use to stash stolen creds and campaign data. Pairs with
           open-directory / exposed-host hunting. Sourced from{' '}
           <a
             href="https://github.com/spmedia/PhishingSecLists"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             spmedia/PhishingSecLists
           </a>{' '}
@@ -105,7 +105,7 @@ export default function PhishingWordlists(): JSX.Element {
               onClick={() => setActiveId(l.id)}
               className={`text-xs font-mono px-3 py-1.5 rounded border ${
                 activeId === l.id
-                  ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                  ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
                   : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
               } ${!l.ok ? 'opacity-50' : ''}`}
               title={l.ok ? `${l.line_count.toLocaleString()} entries` : 'unreachable'}
@@ -123,13 +123,13 @@ export default function PhishingWordlists(): JSX.Element {
           <section className="surface-card p-4 mb-4">
             <div className="flex items-center gap-3">
               <div className="relative flex-1">
-                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
                 <input
                   type="search"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={`Filter ${active.label}…`}
-                  className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                  className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
                   aria-label="Filter wordlist entries"
                 />
               </div>
@@ -137,7 +137,7 @@ export default function PhishingWordlists(): JSX.Element {
                 type="button"
                 onClick={copyList}
                 disabled={filtered.length === 0}
-                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-50"
               >
                 {copied ? <Check size={12} /> : <Copy size={12} />} {copied ? 'copied' : 'copy'}
               </button>

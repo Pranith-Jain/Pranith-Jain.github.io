@@ -64,10 +64,10 @@ function reducer(state: State, action: Action): State {
       return { ...state, [action.tool]: { loading: true, data: null, error: null }, complete: false };
     case 'SET_RESULT': {
       const next = { ...state, [action.tool]: { loading: false, data: action.data, error: null } };
-      // Only check tool keys — `Object.keys(INITIAL)` includes `domain` (a
+      // Only check tool keys - `Object.keys(INITIAL)` includes `domain` (a
       // string) and `complete` (a boolean), both of which return `undefined`
       // for `?.loading`, satisfying `every(!loading)` after the very first
-      // tool reports — flipping `complete: true` long before the others
+      // tool reports - flipping `complete: true` long before the others
       // finish. Enumerate from TOOL_CONFIG instead.
       const allDone = TOOL_CONFIG.every((t) => !next[t.key]?.loading);
       if (allDone) next.complete = true;
@@ -515,7 +515,7 @@ export default function FullSpectrum(): JSX.Element {
           <Shield size={28} className="text-brand-600 dark:text-brand-400" /> Full Spectrum Investigation
         </h1>
         <p className="text-muted mb-8 max-w-3xl">
-          Fire six parallel domain-intelligence tools from one input — domain lookup, exposure scan, web vulnerability
+          Fire six parallel domain-intelligence tools from one input - domain lookup, exposure scan, web vulnerability
           scan, takeover check, certificate search, and breach database check.
         </p>
       </div>

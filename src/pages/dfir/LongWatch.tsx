@@ -17,13 +17,13 @@ interface Scenario {
 const SCENARIOS: Scenario[] = [
   {
     id: 'attack-surface',
-    title: 'Attack Surface — SSL-VPN CVE Model',
+    title: 'Attack Surface - SSL-VPN CVE Model',
     icon: Shield,
     color: 'text-rose-700 dark:text-rose-300',
     border: 'border-rose-500/40',
     bg: 'bg-rose-500/5',
     description:
-      'Model the exploitation of SSL-VPN appliances over an 8-year timeline (2018–2025). Four real CVEs with 6 defensive controls — watch how patching cadence, compensating controls, and asset visibility affect breach probability over time.',
+      'Model the exploitation of SSL-VPN appliances over an 8-year timeline (2018–2025). Four real CVEs with 6 defensive controls - watch how patching cadence, compensating controls, and asset visibility affect breach probability over time.',
     features: [
       '4 real CVEs modeled against SSL-VPN appliances',
       '6 defensive controls with realistic deployment timelines',
@@ -35,13 +35,13 @@ const SCENARIOS: Scenario[] = [
   },
   {
     id: 'phishing-identity',
-    title: 'Phishing & Identity — Inbox Arms Race',
+    title: 'Phishing & Identity - Inbox Arms Race',
     icon: Swords,
     color: 'text-amber-700 dark:text-amber-300',
     border: 'border-amber-500/40',
     bg: 'bg-amber-500/5',
     description:
-      'An 8-year inbox arms race: credential harvesting → MFA fatigue → AiTM proxy kits. Simulates the evolution of phishing techniques against progressively harder defensive postures — from basic email filters to FIDO2 passkeys.',
+      'An 8-year inbox arms race: credential harvesting → MFA fatigue → AiTM proxy kits. Simulates the evolution of phishing techniques against progressively harder defensive postures - from basic email filters to FIDO2 passkeys.',
     features: [
       '8-year timeline of phishing technique evolution',
       'Credential harvest → MFA fatigue → AiTM progression',
@@ -53,18 +53,18 @@ const SCENARIOS: Scenario[] = [
   },
   {
     id: 'ransomware-killchain',
-    title: 'Ransomware Kill Chain — 15-Stage Intrusion',
+    title: 'Ransomware Kill Chain - 15-Stage Intrusion',
     icon: Monitor,
     color: 'text-violet-700 dark:text-violet-300',
     border: 'border-violet-500/40',
     bg: 'bg-violet-500/5',
     description:
-      'A 15-stage ransomware intrusion model with full MITRE ATT&CK tagging. Combines scripted (deterministic) and probabilistic (randomized) elements — each run plays out differently based on defender actions and defender posture.',
+      'A 15-stage ransomware intrusion model with full MITRE ATT&CK tagging. Combines scripted (deterministic) and probabilistic (randomized) elements - each run plays out differently based on defender actions and defender posture.',
     features: [
       '15-stage kill chain from initial access to exfiltration',
       'MITRE ATT&CK tagged at every stage',
       'Scripted + probabilistic hybrid execution',
-      'Replayable — different outcomes based on defender choices',
+      'Replayable - different outcomes based on defender choices',
     ],
     techniqueTags: ['T1566', 'T1059', 'T1053', 'T1486', 'T1490', 'T1560'],
     url: 'https://mr-r3b00t.github.io/org_cyber_attack_sim/',
@@ -83,10 +83,10 @@ export default function LongWatch(): JSX.Element {
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Clock size={28} className="text-brand-600 dark:text-brand-400" /> The Long Watch — Org Cyber Attack Sim
+          <Clock size={28} className="text-brand-600 dark:text-brand-400" /> The Long Watch - Org Cyber Attack Sim
         </h1>
         <p className="text-muted mb-2 leading-relaxed">
-          Interactive browser-based network defense simulation. Runs entirely in your browser — no data leaves the page.
+          Interactive browser-based network defense simulation. Runs entirely in your browser - no data leaves the page.
           Movable SOC panel, telemetry from 2018–2025, and three scenarios modeling real-world attack evolution against
           progressive defensive postures.
         </p>
@@ -163,7 +163,7 @@ export default function LongWatch(): JSX.Element {
         <ul className="space-y-1.5 text-sm font-mono text-slate-700 dark:text-slate-300">
           <li className="flex items-start gap-2">
             <span className="shrink-0 mt-1.5 inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            Runs entirely in your browser — no data leaves the page
+            Runs entirely in your browser - no data leaves the page
           </li>
           <li className="flex items-start gap-2">
             <span className="shrink-0 mt-1.5 inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
@@ -179,7 +179,7 @@ export default function LongWatch(): JSX.Element {
           </li>
           <li className="flex items-start gap-2">
             <span className="shrink-0 mt-1.5 inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            Scripted + probabilistic hybrid — replayable with different outcomes
+            Scripted + probabilistic hybrid - replayable with different outcomes
           </li>
         </ul>
       </section>
@@ -197,7 +197,7 @@ export default function LongWatch(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              mr-r3b00t/org_cyber_attack_sim — live simulation
+              mr-r3b00t/org_cyber_attack_sim - live simulation
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -208,7 +208,7 @@ export default function LongWatch(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              GitHub — source code
+              GitHub - source code
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>

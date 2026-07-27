@@ -14,7 +14,7 @@ import { shortRel } from '../../lib/relativeTime';
  * but specialised for IOC entries (each row is a IocEntry with type +
  * value + first_seen).
  *
- * Single fetch to /api/v1/ioc-snapshot — server-side fan-out.
+ * Single fetch to /api/v1/ioc-snapshot - server-side fan-out.
  */
 
 interface IocEntry {
@@ -139,7 +139,7 @@ export function IocSnapshotPanel(): JSX.Element {
     return Object.values(data.sources).reduce((n, s) => n + (s.data?.count ?? 0), 0);
   }, [data]);
 
-  // Per-card watchlist hit counts — across the FULL response per source so
+  // Per-card watchlist hit counts - across the FULL response per source so
   // the badge reflects real matches even when the visible top-N hides them.
   const watchedBySource = useMemo(() => {
     const out: Record<string, number> = {};

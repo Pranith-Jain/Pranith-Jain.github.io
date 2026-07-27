@@ -137,20 +137,20 @@ const KEY_FINDINGS: Finding[] = [
   {
     label: 'Cradle Family Evolution',
     detail:
-      'IWR → Curl pivot — attackers switching from Invoke-WebRequest to curl for better evasion and cross-platform coverage.',
+      'IWR → Curl pivot - attackers switching from Invoke-WebRequest to curl for better evasion and cross-platform coverage.',
   },
   {
     label: 'Evasion Acceleration',
-    detail: 'Base64 encoding seen 18× increase — layered encoding to bypass static analysis and content filtering.',
+    detail: 'Base64 encoding seen 18× increase - layered encoding to bypass static analysis and content filtering.',
   },
   {
     label: 'Self-Delete Emergence',
-    detail: 'Post-execution artifact cleanup becoming standard — scripts remove themselves after payload delivery.',
+    detail: 'Post-execution artifact cleanup becoming standard - scripts remove themselves after payload delivery.',
   },
   {
     label: 'CDN Staging',
     detail:
-      'Cloudflare Workers, Azure CDN, and other legitimate infrastructure used as payload staging — blends with normal traffic.',
+      'Cloudflare Workers, Azure CDN, and other legitimate infrastructure used as payload staging - blends with normal traffic.',
   },
 ];
 
@@ -180,7 +180,7 @@ export default function TrendClickFix(): JSX.Element {
       backTo="/dfir"
       icon={<TrendingUp size={28} />}
       title="Trend: ClickFix Delivery Chain"
-      description="ClickFix trend analysis — 9 variants tracked across 25,607 crawled sites. Social engineering delivery chains exploiting user interaction patterns with clipboard and terminal mechanics."
+      description="ClickFix trend analysis - 9 variants tracked across 25,607 crawled sites. Social engineering delivery chains exploiting user interaction patterns with clipboard and terminal mechanics."
       headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Source:{' '}
@@ -229,7 +229,7 @@ export default function TrendClickFix(): JSX.Element {
         </h2>
 
         <div className="mb-4 relative">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
           <input
             type="text"
             value={searchQuery}

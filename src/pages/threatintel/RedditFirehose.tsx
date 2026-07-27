@@ -140,7 +140,7 @@ export default function RedditFirehose(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <MessageSquare size={28} className="text-brand-600 dark:text-brand-400" /> Cybersec Reddit firehose
+          <MessageSquare size={28} className="text-rose-600 dark:text-rose-400" /> Cybersec Reddit firehose
         </h1>
         <p className="text-muted mb-2 max-w-3xl leading-relaxed">
           Curated stream from active public cybersec subreddits. Research, advisories, IR write-ups, malware analysis,
@@ -154,13 +154,13 @@ export default function RedditFirehose(): JSX.Element {
       <section className="surface-card p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter by title, body text, or author…"
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
               aria-label="Filter Reddit posts"
             />
           </div>
@@ -181,7 +181,7 @@ export default function RedditFirehose(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
           </button>
@@ -202,7 +202,7 @@ export default function RedditFirehose(): JSX.Element {
                       ? TOPIC_PILL[s.topic]
                       : s.ok
                         ? 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500'
-                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400 opacity-50'
+                        : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 opacity-50'
                   }`}
                 >
                   {s.label} <span className="opacity-70">· {s.count}</span>
@@ -213,7 +213,7 @@ export default function RedditFirehose(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setSubFilter(new Set())}
-                className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+                className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline ml-2"
               >
                 clear
               </button>
@@ -277,10 +277,10 @@ export default function RedditFirehose(): JSX.Element {
                   className="group block"
                 >
                   <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-                    <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 flex-1 min-w-0">
+                    <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 flex-1 min-w-0">
                       {it.title}
                     </span>
-                    <ExternalLink size={11} className="text-slate-400 shrink-0" />
+                    <ExternalLink size={11} className="text-slate-500 dark:text-slate-400 shrink-0" />
                   </div>
                   {it.text && (
                     <p className="text-meta font-mono text-muted leading-relaxed line-clamp-2 mb-1.5">{it.text}</p>
@@ -289,8 +289,8 @@ export default function RedditFirehose(): JSX.Element {
                 <PostSummary text={postSummaries.get(it.link)} />
                 <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap">
                   <span className={`px-1.5 py-0.5 rounded border ${TOPIC_PILL[it.sub_topic]}`}>{it.sub_label}</span>
-                  <span>by {it.author || '—'}</span>
-                  <span className="ml-auto text-slate-400" title={it.pub_date}>
+                  <span>by {it.author || '-'}</span>
+                  <span className="ml-auto text-slate-500 dark:text-slate-400" title={it.pub_date}>
                     {shortRel(it.pub_date)}
                   </span>
                 </div>

@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import UnifiedSearch from '../UnifiedSearch';
 
 // The omnibox's tool matches + entity quick-actions are computed CLIENT-SIDE
-// from the query (detectIoc/getIocPivots + the tool catalog) — no network. We
+// from the query (detectIoc/getIocPivots + the tool catalog) - no network. We
 // stub fetch so the debounced live-data call resolves empty and never errors.
 function stubFetchEmpty() {
   vi.stubGlobal(

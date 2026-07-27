@@ -70,7 +70,7 @@ export function XClaimsPanel() {
   const hasAny = ransomware.length > 0 || breach.length > 0;
 
   // Nothing extracted (cold cache / rate-limited): stay quiet rather than show
-  // an empty card — the firehose below is the page's primary content.
+  // an empty card - the firehose below is the page's primary content.
   if (!loading && !hasAny) return null;
 
   const tabBtn = (id: Tab, label: string, count: number, Icon: typeof ShieldAlert) => (
@@ -97,7 +97,7 @@ export function XClaimsPanel() {
             <ShieldAlert size={16} className="text-rose-500" /> Extracted claims
           </h2>
           <p className="text-mini font-mono text-slate-500 mt-0.5">
-            Ransomware victim + breach claims parsed from FalconFeeds / @DailyDarkWeb posts. Heuristic — verify before
+            Ransomware victim + breach claims parsed from FalconFeeds / @DailyDarkWeb posts. Heuristic - verify before
             use.
           </p>
         </div>
@@ -137,7 +137,7 @@ export function XClaimsPanel() {
                     href={sanitizeUrl(r.source_url)}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="shrink-0 text-slate-400 hover:text-brand-500"
+                    className="shrink-0 text-slate-500 dark:text-slate-400 hover:text-brand-500"
                     aria-label="source post"
                   >
                     <ExternalLink size={14} />
@@ -165,7 +165,7 @@ export function XClaimsPanel() {
                     href={sanitizeUrl(b.source_url)}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="shrink-0 text-slate-400 hover:text-brand-500"
+                    className="shrink-0 text-slate-500 dark:text-slate-400 hover:text-brand-500"
                     aria-label="source post"
                   >
                     <ExternalLink size={14} />

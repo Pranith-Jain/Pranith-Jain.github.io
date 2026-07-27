@@ -7,7 +7,7 @@ export const personalInfo = {
   headline: 'Building at the intersection of AI, threat intelligence, and edge-native security tooling.',
   // Plain-text bio. Used as-is by StructuredData (SEO schema). The Hero
   // renders a JSX version with inline links on "DFIR toolkit" and
-  // "threat-intel platform" — see Hero.tsx. Keep both copies in sync:
+  // "threat-intel platform" - see Hero.tsx. Keep both copies in sync:
   // any rewording here should be mirrored over there.
   description: `a security analyst working phishing, BEC, and malware incidents across 150+ brands. The rest of the time I ship the tools I wished I'd had on shift: a 60+ tool DFIR toolkit and a live, self-updating threat-intel platform, both edge-hosted on Cloudflare and free to use. Currently digging into AI security, NHI governance, and detection engineering.`,
   currentFocus: 'Threat intel, email defense, and cloud identity security',
@@ -32,7 +32,7 @@ export const personalInfo = {
  * job with real numbers.
  *
  * Type is explicit (not inferred) so consumers that branch on the
- * optional `suffix` / `progress` fields still typecheck — those fields
+ * optional `suffix` / `progress` fields still typecheck - those fields
  * were only used by the dropped Response Time stat, but the conditional
  * rendering code stays in place for future stats that might want them.
  */
@@ -327,7 +327,7 @@ export const projects: Project[] = [
   {
     title: 'Autonomous DFIR Agent',
     description:
-      'An autonomous investigator agent at /dfir/agent. Describe what to investigate in natural language — the agent classifies the query type, plans which of 30+ intelligence tools to call, executes them in parallel, observes results, and repeats for up to 8 reasoning steps before synthesizing a structured intelligence report. Built on a Cloudflare Durable Object for stateful multi-step execution with alarm-driven scheduling, the same pattern used by the report builder. LLM planning via Groq (primary) with Workers AI fallback. Real-time progress streamed to the frontend via SSE.',
+      'An autonomous investigator agent at /dfir/agent. Describe what to investigate in natural language - the agent classifies the query type, plans which of 30+ intelligence tools to call, executes them in parallel, observes results, and repeats for up to 8 reasoning steps before synthesizing a structured intelligence report. Built on a Cloudflare Durable Object for stateful multi-step execution with alarm-driven scheduling, the same pattern used by the report builder. LLM planning via Groq (primary) with Workers AI fallback. Real-time progress streamed to the frontend via SSE.',
     tags: ['Cloudflare Workers', 'Durable Objects', 'LLM', 'Groq', 'TypeScript', 'Jun 2026'],
     github: 'https://github.com/Pranith-Jain/Pranith-Jain.github.io',
     href: '/dfir/agent',
@@ -342,35 +342,35 @@ export const projects: Project[] = [
   {
     title: 'DFIR MCP Server',
     description:
-      'MCP server exposing 20 DFIR and threat intelligence tools for AI agents — IOC checking, CVE lookup, threat actor enrichment, phishing analysis, and more. Built on Cloudflare Workers with streaming SSE support. Works with Claude Desktop, Cursor, and any MCP-compatible client.',
+      'MCP server exposing 20 DFIR and threat intelligence tools for AI agents - IOC checking, CVE lookup, threat actor enrichment, phishing analysis, and more. Built on Cloudflare Workers with streaming SSE support. Works with Claude Desktop, Cursor, and any MCP-compatible client.',
     tags: ['MCP', 'Cloudflare Workers', 'AI Agents', 'DFIR', 'TypeScript', 'Jun 2026'],
     github: 'https://github.com/Pranith-Jain/dfir-mcp-server',
   },
   {
     title: 'DFIR AI Skills',
     description:
-      'AI coding assistant skills for Digital Forensics and Incident Response — investigation workflows, threat report generation, detection rule authoring. Compatible with Claude Code, Cursor, and GitHub Copilot/Codex. Source lives locally at /agent/dfir-ai-skills.',
+      'AI coding assistant skills for Digital Forensics and Incident Response - investigation workflows, threat report generation, detection rule authoring. Compatible with Claude Code, Cursor, and GitHub Copilot/Codex. Source lives locally at /agent/dfir-ai-skills.',
     tags: ['AI', 'DFIR', 'Skills', 'Claude Code', 'Jun 2026'],
     github: 'https://github.com/Pranith-Jain/dfir-ai-skills',
   },
   {
     title: 'CTI AI Skills',
     description:
-      'AI coding assistant skills for Cyber Threat Intelligence — IOC extraction, OCR analysis, threat intel, dark web monitoring, and feed management. Compatible with Claude Code, Cursor, and GitHub Copilot/Codex. Source lives locally at /agent/cti-ai-skills.',
+      'AI coding assistant skills for Cyber Threat Intelligence - IOC extraction, OCR analysis, threat intel, dark web monitoring, and feed management. Compatible with Claude Code, Cursor, and GitHub Copilot/Codex. Source lives locally at /agent/cti-ai-skills.',
     tags: ['AI', 'CTI', 'Skills', 'Claude Code', 'Jun 2026'],
     github: 'https://github.com/Pranith-Jain/cti-ai-skills',
   },
   {
     title: 'DFIR CLI',
     description:
-      'Command-line DFIR toolkit — IOC extraction, encoding, file analysis, PE triage. Powered by the pranithjain.qzz.io API.',
+      'Command-line DFIR toolkit - IOC extraction, encoding, file analysis, PE triage. Powered by the pranithjain.qzz.io API.',
     tags: ['CLI', 'DFIR', 'Python', 'Jun 2026'],
     github: 'https://github.com/Pranith-Jain/dfir-cli',
   },
   {
     title: 'CTI CLI',
     description:
-      'Command-line threat intelligence — AI copilot, IOC checker, 13+ feeds. Powered by the pranithjain.qzz.io API.',
+      'Command-line threat intelligence - AI copilot, IOC checker, 13+ feeds. Powered by the pranithjain.qzz.io API.',
     tags: ['CLI', 'CTI', 'Python', 'Jun 2026'],
     github: 'https://github.com/Pranith-Jain/cti-cli',
   },
@@ -545,7 +545,7 @@ export const memberships = [
     color: 'emerald',
   },
   {
-    name: 'OSMOSIS — An Association for OSINT Professionals',
+    name: 'OSMOSIS - An Association for OSINT Professionals',
     abbreviation: 'OSMOSIS',
     period: 'Jul 2026 - Present',
     description:
@@ -566,14 +566,14 @@ interface NavLink {
 }
 
 /**
- * Header navigation. Grouped to keep the desktop bar compact — 4 visible
- * top-level items + the Contact CTA — while preserving every destination
+ * Header navigation. Grouped to keep the desktop bar compact - 4 visible
+ * top-level items + the Contact CTA - while preserving every destination
  * via dropdown children. The `Home` entry is kept first so the mobile
  * drawer can still surface it; it is filtered out in the desktop bar
  * (the logo already routes home).
  *
  * The Contact route renders as a CTA pill on the right of the header,
- * not as a regular nav link — set `cta: true` so the Header component
+ * not as a regular nav link - set `cta: true` so the Header component
  * knows to pull it out of the inline list.
  */
 interface NavLinkExt extends NavLink {

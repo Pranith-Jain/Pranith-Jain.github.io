@@ -92,12 +92,12 @@ export default function CrossCorrelate(): JSX.Element {
             onChange={(e) => setSector(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && load(sector)}
             placeholder="Filter by sector (e.g. finance, healthcare, energy)…"
-            className="flex-1 text-sm px-4 py-2 surface-card/60 shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+            className="flex-1 text-sm px-4 py-2 surface-card/60 shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
           />
           <button
             type="button"
             onClick={() => load(sector)}
-            className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-xl bg-brand-600 text-white hover:bg-brand-700 transition-colors"
+            className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-xl bg-rose-600 text-white hover:bg-rose-700 transition-colors"
           >
             <Search size={14} /> Correlate
           </button>
@@ -170,10 +170,10 @@ export default function CrossCorrelate(): JSX.Element {
           </div>
 
           {data.insights.length === 0 && (
-            <div className="text-center py-16 text-slate-400">
+            <div className="text-center py-16 text-slate-500 dark:text-slate-400">
               <Target size={32} className="mx-auto mb-3 opacity-50" />
               <p className="text-sm">
-                No correlated insights — all sources healthy and no cross-reference gaps detected.
+                No correlated insights - all sources healthy and no cross-reference gaps detected.
               </p>
             </div>
           )}

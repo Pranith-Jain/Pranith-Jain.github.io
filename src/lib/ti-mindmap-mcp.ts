@@ -109,7 +109,7 @@ export function setStoredApiKey(key: string): void {
     // Any new key invalidates the previous session id.
     window.localStorage.removeItem(SESSION_STORAGE);
   } catch {
-    /* private mode / blocked storage — accept the loss, key still works for this session */
+    /* private mode / blocked storage - accept the loss, key still works for this session */
   }
 }
 
@@ -310,7 +310,7 @@ function parseSseFrame<T>(text: string, _id: number | string): JsonRpcResponse<T
 
   // SSE messages are separated by blank lines (\n\n). Each message block
   // may contain event:, data:, id:, and retry: fields. We split into
-  // blocks first, then extract data: lines per block — this avoids
+  // blocks first, then extract data: lines per block - this avoids
   // concatenating data from *different* messages into one JSON blob.
   const blocks = cleaned.split(/\r?\n\r?\n/);
   const candidates: JsonRpcResponse<T>[] = [];
@@ -329,7 +329,7 @@ function parseSseFrame<T>(text: string, _id: number | string): JsonRpcResponse<T
     try {
       candidates.push(JSON.parse(joined) as JsonRpcResponse<T>);
     } catch {
-      /* not valid JSON — try per-line fallback for this block */
+      /* not valid JSON - try per-line fallback for this block */
       for (const part of dataLines) {
         const trimmed = part.trim();
         if (!trimmed) continue;
@@ -627,14 +627,14 @@ export async function listTools(apiKey: string, endpoint = PROXY_URL): Promise<M
   return data.result?.tools ?? [];
 }
 
-// ── Briefings (3 tools — wrapping the 1 missing one) ────────────────
+// ── Briefings (3 tools - wrapping the 1 missing one) ────────────────
 
 export async function getBriefingByDate(apiKey: string, date: string): Promise<BriefingSummary | null> {
   const res = await callTool<BriefingListResult>('get_briefing_by_date', { date }, apiKey);
   return res.briefings?.[0] ?? null;
 }
 
-// ── CVE Intelligence (5 tools — wrapping the 4 missing ones) ────────
+// ── CVE Intelligence (5 tools - wrapping the 4 missing ones) ────────
 
 export interface CveSummary {
   cve_id: string;
@@ -681,7 +681,7 @@ export async function getCveStatistics(apiKey: string): Promise<CveStatistics> {
   return callTool<CveStatistics>('get_cve_statistics', {}, apiKey);
 }
 
-// ── STIX Bundles (3 tools — all missing) ────────────────────────────
+// ── STIX Bundles (3 tools - all missing) ────────────────────────────
 
 export interface StixBundleSummary {
   article_id: string;
@@ -728,7 +728,7 @@ export async function submitArticle(apiKey: string, url: string): Promise<Submit
   return callTool<SubmitArticleResult>('submit_article', { url }, apiKey);
 }
 
-// ── Knowledge Graph — STIX Constellation (6 tools — all missing) ────
+// ── Knowledge Graph - STIX Constellation (6 tools - all missing) ────
 
 export interface KgStatsResult {
   total_entities?: number;

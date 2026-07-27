@@ -224,8 +224,8 @@ export default function XVeridikt(): JSX.Element {
             {mode === 'single' ? (
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <Search size={14} className="text-slate-400" />
-                  <span className="text-micro font-mono uppercase tracking-wider text-slate-400">IOC Type</span>
+                  <Search size={14} className="text-slate-500 dark:text-slate-400" />
+                  <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">IOC Type</span>
                   {iocInput && (
                     <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30">
                       {iocType}
@@ -239,15 +239,15 @@ export default function XVeridikt(): JSX.Element {
                   placeholder="IP / Domain / URL / Hash…"
                   className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
                 />
-                <p className="text-micro font-mono text-slate-400">
+                <p className="text-micro font-mono text-slate-500 dark:text-slate-400">
                   Auto-detects IPv4, Domains, URLs, MD5/SHA1/SHA256/SHA512
                 </p>
               </div>
             ) : (
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <Upload size={14} className="text-slate-400" />
-                  <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Bulk Input</span>
+                  <Upload size={14} className="text-slate-500 dark:text-slate-400" />
+                  <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Bulk Input</span>
                 </div>
                 <textarea
                   value={bulkInput}
@@ -256,7 +256,7 @@ export default function XVeridikt(): JSX.Element {
                   rows={6}
                   className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
                 />
-                <p className="text-micro font-mono text-slate-400">One IOC per line. Auto-detects type.</p>
+                <p className="text-micro font-mono text-slate-500 dark:text-slate-400">One IOC per line. Auto-detects type.</p>
               </div>
             )}
 
@@ -288,7 +288,7 @@ export default function XVeridikt(): JSX.Element {
           {results.length > 0 && (
             <div className="surface-card/40 shadow-e1 p-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-400">Filter</span>
+                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Filter</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 <select
@@ -333,7 +333,7 @@ export default function XVeridikt(): JSX.Element {
               <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
                 Enter an IOC above to get multi-source verdict
               </p>
-              <p className="text-micro font-mono text-slate-400 dark:text-slate-500 mt-2">
+              <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-2">
                 Multi-provider enrichment · AI-powered analysis
               </p>
             </div>
@@ -348,7 +348,7 @@ export default function XVeridikt(): JSX.Element {
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div>
                         <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{result.ioc}</h3>
-                        <span className="text-micro font-mono text-slate-400">{result.type}</span>
+                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{result.type}</span>
                       </div>
                       <span
                         className={`flex items-center gap-1 shrink-0 text-micro font-mono font-semibold uppercase tracking-wider px-2 py-1 rounded border ${VERDICT_STYLES[result.verdict]}`}
@@ -359,7 +359,7 @@ export default function XVeridikt(): JSX.Element {
 
                     <div className="mb-3">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-micro font-mono text-slate-400">Consensus</span>
+                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">Consensus</span>
                         <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
                           <div
                             className={`h-full rounded-full transition-all ${
@@ -404,7 +404,7 @@ export default function XVeridikt(): JSX.Element {
         </div>
       </div>
 
-      <p className="mt-8 text-micro font-mono text-slate-400 text-center">Multi-provider engine · H3AD-X / X-VERDIKT</p>
+      <p className="mt-8 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">Multi-provider engine · H3AD-X / X-VERDIKT</p>
     </div>
   );
 }

@@ -75,7 +75,7 @@ const CHAINS: AttackChain[] = [
     chokepoints: 5,
     avgTTR: 'N/A (passive)',
     description:
-      'Commodity infostealer pipeline targeting browser credentials, crypto wallets, and session cookies. 15M+ infections/year — the primary feeder for initial access brokers.',
+      'Commodity infostealer pipeline targeting browser credentials, crypto wallets, and session cookies. 15M+ infections/year - the primary feeder for initial access brokers.',
   },
   {
     id: 'aitm',
@@ -124,7 +124,7 @@ const CHAINS: AttackChain[] = [
     chokepoints: 5,
     avgTTR: 'Variable',
     description:
-      'VMware vSphere and ESXi targeting — from vCenter RCE through hypervisor credential theft to guest VM encryption. The Snowflake breach (2024) demonstrated cloud management plane risk at scale.',
+      'VMware vSphere and ESXi targeting - from vCenter RCE through hypervisor credential theft to guest VM encryption. The Snowflake breach (2024) demonstrated cloud management plane risk at scale.',
   },
   {
     id: 'identity',
@@ -149,7 +149,7 @@ const CHAINS: AttackChain[] = [
     chokepoints: 5,
     avgTTR: 'Variable',
     description:
-      'Active Directory and Entra ID identity chain — from credential theft through Golden SAML, DCSync, or cloud token abuse to full domain or tenant compromise.',
+      'Active Directory and Entra ID identity chain - from credential theft through Golden SAML, DCSync, or cloud token abuse to full domain or tenant compromise.',
   },
 ];
 
@@ -180,7 +180,7 @@ const REAL_EXAMPLES = [
   {
     name: 'Snowflake Breach (2024)',
     description:
-      'Compromised credentials from infostealer infections used to access Snowflake customer environments. No MFA enabled — 165+ organizations affected, 1.5B+ records exfiltrated.',
+      'Compromised credentials from infostealer infections used to access Snowflake customer environments. No MFA enabled - 165+ organizations affected, 1.5B+ records exfiltrated.',
     tags: ['infostealer', 'cloud', 'no-mfa', 'credential-theft'],
   },
   {
@@ -281,7 +281,7 @@ export default function AttackChains(): JSX.Element {
                   <span className="font-semibold">{s.label}</span>
                   {s.mitre && <span className="ml-1.5 text-brand-600 dark:text-brand-400">{s.mitre}</span>}
                 </div>
-                {i < chain.stages.length - 1 && <ArrowRight size={12} className="text-slate-400 shrink-0" />}
+                {i < chain.stages.length - 1 && <ArrowRight size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />}
               </div>
             ))}
           </div>

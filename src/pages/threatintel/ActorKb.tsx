@@ -45,7 +45,7 @@ interface ActorEnrichment {
 }
 
 /**
- * Threat-Actor Knowledge Base — MITRE ATT&CK intrusion-sets, fully
+ * Threat-Actor Knowledge Base - MITRE ATT&CK intrusion-sets, fully
  * client-side (the dataset is built + committed by scripts/build-actor-kb.mjs,
  * no runtime fetch). Search by name / alias / ATT&CK id / technique →
  * actor profile: aliases, description, TTPs grouped by tactic, tooling.
@@ -96,7 +96,7 @@ export default function ActorKb(): JSX.Element {
       }
     } catch (_catchErr) {
       console.error('ActorKb failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* swallow — empty list */
+      /* swallow - empty list */
     } finally {
       setSkeletonsLoading(false);
     }
@@ -240,17 +240,17 @@ export default function ActorKb(): JSX.Element {
       {!insideLayout && (
         <BackLink
           to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
         >
           back
         </BackLink>
       )}
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-3 flex items-center gap-3">
-          <Users size={28} className="text-brand-600 dark:text-brand-400" /> Threat-Actor Knowledge Base
+          <Users size={28} className="text-rose-600 dark:text-rose-400" /> Threat-Actor Knowledge Base
         </h1>
         <p className="text-muted mb-6 max-w-2xl">
-          {actorKb.length} MITRE ATT&amp;CK intrusion-sets — aliases, tradecraft (TTPs by tactic) and tooling.
+          {actorKb.length} MITRE ATT&amp;CK intrusion-sets - aliases, tradecraft (TTPs by tactic) and tooling.
         </p>
       </div>
 
@@ -262,13 +262,13 @@ export default function ActorKb(): JSX.Element {
       {!kbLoading && (
         <>
           <div className="relative mb-6 max-w-md">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search actor, alias, Gxxxx, technique, malware…"
               aria-label="Search threat actors"
-              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             />
           </div>
           {selected && (
@@ -279,7 +279,7 @@ export default function ActorKb(): JSX.Element {
                   href={sanitizeUrl(selected.url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-meta font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/5 text-brand-700 dark:text-brand-300 hover:bg-brand-500/10"
+                  className="inline-flex items-center gap-1 text-meta font-mono px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
                 >
                   {selected.attackId} <ExternalLink size={11} />
                 </a>
@@ -317,7 +317,7 @@ export default function ActorKb(): JSX.Element {
                   <div className="space-y-3">
                     {techByTactic.map(([t, list]) => (
                       <div key={t}>
-                        <div className="text-meta font-semibold text-brand-700 dark:text-brand-300 mb-1">
+                        <div className="text-meta font-semibold text-rose-700 dark:text-rose-300 mb-1">
                           {tacticLabel(t)}
                         </div>
                         <div className="flex flex-wrap gap-1.5">
@@ -328,7 +328,7 @@ export default function ActorKb(): JSX.Element {
                               target="_blank"
                               rel="noopener noreferrer"
                               title={tech.name}
-                              className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                              className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
                             >
                               {tech.id} {tech.name}
                             </a>
@@ -360,7 +360,7 @@ export default function ActorKb(): JSX.Element {
                                 href={`https://malpedia.caad.fkie.fraunhofer.de/details/${m.type === 'actor' ? 'actor' : 'win'}.${m.name.toLowerCase().replace(/[^a-z0-9]/g, '_')}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-brand-500/30 text-brand-700 dark:text-brand-300 hover:bg-brand-500/10 inline-flex items-center gap-1"
+                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-rose-500/30 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10 inline-flex items-center gap-1"
                               >
                                 {m.name} <ExternalLink size={10} />
                               </a>
@@ -380,7 +380,7 @@ export default function ActorKb(): JSX.Element {
                                 href={`/api/v1/maltrail/fetch?trail=${encodeURIComponent(t.filename)}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 inline-flex items-center gap-1"
+                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40 inline-flex items-center gap-1"
                               >
                                 {t.displayName} <ExternalLink size={10} />
                               </a>
@@ -400,7 +400,7 @@ export default function ActorKb(): JSX.Element {
                                 href={`https://otx.alienvault.com/pulse/${p.id}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="block text-mini font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                                className="block text-mini font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
                               >
                                 <span className="text-slate-900 dark:text-slate-100">{p.name}</span>
                                 {p.author && <span className="ml-2 text-slate-500">by {p.author}</span>}
@@ -446,8 +446,8 @@ export default function ActorKb(): JSX.Element {
                 onClick={() => open(a.attackId)}
                 className={`text-left surface-card p-3 transition-colors ${
                   a.attackId === selectedId
-                    ? 'border-brand-500/50 bg-brand-500/5 dark:bg-brand-500/5'
-                    : 'hover:border-brand-500/40'
+                    ? 'border-rose-500/50 bg-rose-500/5 dark:bg-rose-500/5'
+                    : 'hover:border-rose-500/40'
                 }`}
               >
                 <div className="flex items-baseline justify-between gap-2">
@@ -464,20 +464,20 @@ export default function ActorKb(): JSX.Element {
             ))}
           </div>
           {filtered.length > 240 && (
-            <p className="text-meta text-slate-500 mt-3">Showing first 240 — refine the search to narrow.</p>
+            <p className="text-meta text-slate-500 mt-3">Showing first 240 - refine the search to narrow.</p>
           )}
         </>
       )}
 
       {/* Maltrail-discovered skeleton actors. apt_*.txt files with no
           canonical-actor match are auto-promoted to skeleton profiles so
-          their IOCs always have a home — a later MITRE/Malpedia
+          their IOCs always have a home - a later MITRE/Malpedia
           enrichment can flesh them out. */}
       <section className="mt-12 surface-card p-5">
         <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
           <div>
             <h2 className="text-lg font-display font-bold inline-flex items-center gap-2">
-              <Sparkles size={16} className="text-brand-600 dark:text-brand-400" />
+              <Sparkles size={16} className="text-rose-600 dark:text-rose-400" />
               Maltrail-discovered actors
               {!skeletonsLoading && skeletons.length > 0 && (
                 <span className="text-xs font-mono text-slate-500 dark:text-slate-400">· {skeletons.length}</span>
@@ -492,7 +492,7 @@ export default function ActorKb(): JSX.Element {
             type="button"
             onClick={() => void runMaltrailSync()}
             disabled={syncing}
-            className="text-xs font-mono px-2.5 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="text-xs font-mono px-2.5 py-1 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20 inline-flex items-center gap-1.5 disabled:opacity-50"
           >
             <RefreshCw size={11} className={syncing ? 'animate-spin' : ''} />
             {syncing ? 'syncing' : 'sync maltrail'}
@@ -500,7 +500,7 @@ export default function ActorKb(): JSX.Element {
         </div>
         {syncResult && (
           <div className="rounded border border-emerald-300 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-950/40 p-2 mb-3 text-mini font-mono text-emerald-800 dark:text-emerald-300">
-            sync complete — {syncResult.created} new skeleton{syncResult.created !== 1 ? 's' : ''}, {syncResult.matched}{' '}
+            sync complete - {syncResult.created} new skeleton{syncResult.created !== 1 ? 's' : ''}, {syncResult.matched}{' '}
             matched existing, {syncResult.updated} refreshed
           </div>
         )}
@@ -517,7 +517,7 @@ export default function ActorKb(): JSX.Element {
         )}
         {!skeletonsLoading && skeletons.length === 0 && (
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
-            No skeleton actors yet — click <span className="text-brand-600 dark:text-brand-400">sync maltrail</span> to
+            No skeleton actors yet - click <span className="text-rose-600 dark:text-rose-400">sync maltrail</span> to
             discover unmatched apt_*.txt profiles.
           </p>
         )}
@@ -535,7 +535,7 @@ export default function ActorKb(): JSX.Element {
                   <span className="font-display font-semibold text-sm truncate" title={sk.canonical_name}>
                     {sk.canonical_name}
                   </span>
-                  <span className="text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300 shrink-0">
+                  <span className="text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 shrink-0">
                     skeleton
                   </span>
                 </div>
@@ -544,7 +544,7 @@ export default function ActorKb(): JSX.Element {
                   href={`/api/v1/maltrail/fetch?trail=${encodeURIComponent(sk.maltrail_file)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-1.5 inline-flex items-center gap-1 text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                  className="mt-1.5 inline-flex items-center gap-1 text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
                   title={`Maltrail trail file: ${sk.maltrail_file}`}
                 >
                   <Bug size={9} /> {sk.maltrail_file}

@@ -23,7 +23,7 @@ async function hashes(file: File): Promise<{ a: string; d: string }> {
   const avg = block.reduce((s, n) => s + n, 0) / 64;
   let aBits = '';
   for (const g of block) aBits += g >= avg ? '1' : '0';
-  // dHash — compare each pixel to its right neighbour (9 wide → 8 diffs/row).
+  // dHash - compare each pixel to its right neighbour (9 wide → 8 diffs/row).
   let dBits = '';
   for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) dBits += gray[y * 9 + x]! < gray[y * 9 + x + 1]! ? '1' : '0';
   const toHex = (b: string) => (b.match(/.{4}/g) ?? []).map((n) => parseInt(n, 2).toString(16)).join('');
@@ -57,7 +57,7 @@ export default function ImageFingerprint(): JSX.Element {
   const Slot = ({ n, set, r }: { n: number; set: (v: { a: string; d: string }) => void; r: typeof r1 }) => (
     <div className="surface-card p-3">
       <label className="block text-meta font-mono mb-2 cursor-pointer text-brand-600 dark:text-brand-400">
-        Image {n} — choose…
+        Image {n} - choose…
         <input
           type="file"
           accept="image/*"

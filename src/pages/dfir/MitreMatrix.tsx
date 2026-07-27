@@ -44,8 +44,8 @@ function actorsByTechnique(id: string): typeof threatActors {
  * Per-tile coverage marker. localStorage-backed so analysts can stage a
  * SIEM coverage map without a backend. Cycle order on click:
  *   none → covered → partial → uncovered → none
- * — represents "have we got detection for this technique." This is the
- * "placeholder for user-defined coverage config" — a real deployment
+ * - represents "have we got detection for this technique." This is the
+ * "placeholder for user-defined coverage config" - a real deployment
  * would seed this from a Sigma/Sentinel ruleset audit.
  */
 type Coverage = 'covered' | 'partial' | 'uncovered';
@@ -89,7 +89,7 @@ export default function MitreMatrix(): JSX.Element {
   const [coverage, setCoverage] = useState<Record<string, Coverage>>(() => loadCoverage());
   const [coverageMode, setCoverageMode] = useState(false);
   const [showGapsOnly, setShowGapsOnly] = useState(false);
-  // The matrix dataset is ~89KB — load it as its own chunk so it doesn't bloat
+  // The matrix dataset is ~89KB - load it as its own chunk so it doesn't bloat
   // the route's initial JS. Empty until the dynamic import resolves.
   const [mitreMatrix, setMitreMatrix] = useState<MitreTactic[]>([]);
   useEffect(() => {
@@ -179,7 +179,7 @@ export default function MitreMatrix(): JSX.Element {
       localStorage.setItem(COVERAGE_KEY, JSON.stringify(coverage));
     } catch (_catchErr) {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* quota exceeded / private mode — silently skip */
+      /* quota exceeded / private mode - silently skip */
     }
   }, [coverage]);
 
@@ -227,7 +227,7 @@ export default function MitreMatrix(): JSX.Element {
   }, [query, mitreMatrix]);
 
   // Apply highlight+gap-mode to produce the visible matrix. Search
-  // highlights rather than filters (keeps tactic columns intact) — the
+  // highlights rather than filters (keeps tactic columns intact) - the
   // explicit "show gaps only" toggle is the filter pathway.
   const visibleMatrix = useMemo(() => {
     if (!showGapsOnly) return mitreMatrix;
@@ -328,12 +328,12 @@ export default function MitreMatrix(): JSX.Element {
         {/* Search + coverage toolbar */}
         <div className="flex flex-wrap items-center gap-2 mb-8">
           <div className="relative flex-1 min-w-[260px] max-w-md">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search ID, name, or description — matches highlight, others dim…"
+              placeholder="Search ID, name, or description - matches highlight, others dim…"
               className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Search MITRE ATT&CK techniques"
             />
@@ -358,7 +358,7 @@ export default function MitreMatrix(): JSX.Element {
                 ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
                 : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
             }`}
-            title="Show only techniques tagged uncovered/partial or untagged — your detection gap."
+            title="Show only techniques tagged uncovered/partial or untagged - your detection gap."
           >
             gaps only
           </button>
@@ -388,7 +388,7 @@ export default function MitreMatrix(): JSX.Element {
           <p className="font-mono text-slate-500 text-sm">No techniques to show with current filters.</p>
         )}
 
-        {/* Matrix — horizontally scrollable; explicit hint so touch users know to swipe */}
+        {/* Matrix - horizontally scrollable; explicit hint so touch users know to swipe */}
         <p className="sm:hidden text-mini font-mono text-slate-400 dark:text-slate-400 mb-2 italic">
           Swipe horizontally to scan tactics →
         </p>

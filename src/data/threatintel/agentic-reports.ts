@@ -1,5 +1,5 @@
 /**
- * Agentic Reports — cross-source correlated threat intelligence analyses.
+ * Agentic Reports - cross-source correlated threat intelligence analyses.
  *
  * Each report synthesizes multiple upstream sources into a single
  * comprehensive analysis with executive summary, detection opportunities,
@@ -64,7 +64,7 @@ export interface AgenticReport {
 
 const FORTIBLEED: AgenticReport = {
   id: 'fortibleed-credential-compromise',
-  title: 'FortiBleed — Massive Fortinet Credential Compromise Campaign',
+  title: 'FortiBleed - Massive Fortinet Credential Compromise Campaign',
   tlp: 'WHITE',
   severity: 'critical',
   publishedAt: '2026-06-20',
@@ -136,7 +136,7 @@ const FORTIBLEED: AgenticReport = {
     'active-directory',
     'critical-infrastructure',
   ],
-  summary: `On June 17, 2026, security researcher Volodymyr "Bob" Diachenko disclosed **FortiBleed** — a massive credential compromise campaign targeting Fortinet FortiGate firewalls and SSL VPN gateways worldwide. The dataset contains valid administrator and SSL VPN credentials for approximately **73,932 unique FortiGate device URLs** spanning **194 countries** and over **21,600 domains**, representing roughly **50% of all internet-facing FortiGate firewalls globally**.
+  summary: `On June 17, 2026, security researcher Volodymyr "Bob" Diachenko disclosed **FortiBleed** - a massive credential compromise campaign targeting Fortinet FortiGate firewalls and SSL VPN gateways worldwide. The dataset contains valid administrator and SSL VPN credentials for approximately **73,932 unique FortiGate device URLs** spanning **194 countries** and over **21,600 domains**, representing roughly **50% of all internet-facing FortiGate firewalls globally**.
 
 FortiBleed is not a single zero-day vulnerability, but the culmination of a long-running, multi-pronged credential-harvesting operation. A Russian-speaking threat group operating as an Initial Access Broker (IAB) under the alias **"SantaAd"** executed over **1.16 billion credential attempts** against FortiGate devices and **2.1 billion brute-force attempts** against MSSQL systems. The attackers intercepted SSL VPN authentication hashes and cracked them using a distributed **45-GPU cluster** managed via Hashtopolis.
 
@@ -148,7 +148,7 @@ Verified victims include Fortune Global 500 companies, government agencies, defe
     language: 'Russian',
     infrastructure: 'Multi-server (brute-force, cracking, jumpbox, operator workstation)',
   },
-  technicalDetails: `The campaign exploits a **legacy password hashing weakness** in FortiOS. Historically, FortiGate devices stored admin credentials using SHA-256 with Salt — vulnerable to offline GPU cracking. While newer FortiOS versions (7.2.11, 7.4.8, 7.6.1) introduced PBKDF2, existing credentials are NOT automatically re-hashed upon firmware upgrade.
+  technicalDetails: `The campaign exploits a **legacy password hashing weakness** in FortiOS. Historically, FortiGate devices stored admin credentials using SHA-256 with Salt - vulnerable to offline GPU cracking. While newer FortiOS versions (7.2.11, 7.4.8, 7.6.1) introduced PBKDF2, existing credentials are NOT automatically re-hashed upon firmware upgrade.
 
 The attacker's infrastructure was inadvertently exposed when their backend server was left publicly accessible, revealing the complete attack pipeline: brute-force server, operator workstation (7 Kali VMs), Hashtopolis cracking cluster (45 GPUs), and jump box.
 
@@ -167,7 +167,7 @@ Four parallel credential acquisition techniques were employed:
         "logsource:\n  product: fortinet\n  service: event\ndetection:\n  selection:\n    srcip:\n      - '85.11.187.8'\n      - '85.11.187.28'\n      - '193.8.187.2'\n      - '185.229.26.83'\n    action: 'login'\n  condition: selection\nlevel: critical",
     },
     {
-      title: 'Mass Authentication Failure — Brute-Force',
+      title: 'Mass Authentication Failure - Brute-Force',
       description: 'Detects brute-force patterns against FortiGate admin/VPN interfaces',
       severity: 'high',
       mitreId: 'T1110',
@@ -191,7 +191,7 @@ Four parallel credential acquisition techniques were employed:
       confidence: 'HIGH',
     },
     { type: 'IPv4', value: '85.11.187[.]28', description: 'Credential harvesting server', confidence: 'HIGH' },
-    { type: 'IPv4', value: '193.8.187[.]2', description: 'Jump box — staging server', confidence: 'HIGH' },
+    { type: 'IPv4', value: '193.8.187[.]2', description: 'Jump box - staging server', confidence: 'HIGH' },
     { type: 'IPv4', value: '185.229.26[.]83', description: 'Hashtopolis GPU worker', confidence: 'HIGH' },
     { type: 'IPv4', value: '213.169.49[.]142', description: 'Hashtopolis GPU worker', confidence: 'HIGH' },
     { type: 'IPv4', value: '38.117.87[.]37', description: 'Hashtopolis GPU worker', confidence: 'HIGH' },
@@ -263,7 +263,7 @@ Four parallel credential acquisition techniques were employed:
   conclusion: {
     takeaways: [
       'Scale without precedent: ~50% of all internet-facing FortiGate firewalls globally compromised',
-      'Not a zero-day — worse: exploits legacy password hashing persisting after firmware upgrades',
+      'Not a zero-day - worse: exploits legacy password hashing persisting after firmware upgrades',
       'IAB-as-a-Service model: fully automated, AI-enhanced credential harvesting and marketplace listing',
       'Confirmed espionage impact: 105 GB military data exfiltration from Turkish NATO contractor',
       'Ongoing campaign with self-reinforcing credential feed-back loop',
@@ -274,7 +274,7 @@ Four parallel credential acquisition techniques were employed:
       { priority: 'immediate', action: 'Enforce MFA on all administrative and VPN interfaces' },
       {
         priority: 'short-term',
-        action: 'Restrict management interface exposure — remove all internet-facing admin panels',
+        action: 'Restrict management interface exposure - remove all internet-facing admin panels',
       },
       {
         priority: 'short-term',
@@ -298,7 +298,7 @@ Four parallel credential acquisition techniques were employed:
 
 const TEAMPCP_SUPPLY_CHAIN: AgenticReport = {
   id: 'teampcp-supply-chain',
-  title: 'TeamPCP Multi-Stage Supply Chain Campaign — Cross-Source Analysis',
+  title: 'TeamPCP Multi-Stage Supply Chain Campaign - Cross-Source Analysis',
   tlp: 'WHITE',
   severity: 'critical',
   publishedAt: '2026-03-26',
@@ -416,7 +416,7 @@ The campaign's defining characteristic is its cascading nature: a single unrevok
 
 const TYCOON_2FA: AgenticReport = {
   id: 'tycoon-2fa-phishing',
-  title: 'Tycoon 2FA Phishing Kit — Microsoft 365 AitM Reverse Proxy',
+  title: 'Tycoon 2FA Phishing Kit - Microsoft 365 AitM Reverse Proxy',
   tlp: 'WHITE',
   severity: 'high',
   publishedAt: '2026-05-15',

@@ -122,7 +122,7 @@ function NodeRow({ node, depth, defaultOpen }: { node: OwaspNode; depth: number;
                 href={node.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`font-medium ${isLeaf ? 'text-base text-slate-900 dark:text-slate-50' : 'text-base text-slate-900 dark:text-slate-50'} hover:text-brand-600 dark:hover:text-brand-400 hover:underline`}
+                className={`font-medium ${isLeaf ? 'text-base text-slate-900 dark:text-slate-50' : 'text-base text-slate-900 dark:text-slate-50'} hover:text-rose-600 dark:hover:text-rose-400 hover:underline`}
               >
                 {node.title}
               </a>
@@ -141,7 +141,7 @@ function NodeRow({ node, depth, defaultOpen }: { node: OwaspNode; depth: number;
                 href={node.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-auto text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+                className="ml-auto text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
                 aria-label="Open external"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
@@ -163,7 +163,7 @@ function NodeRow({ node, depth, defaultOpen }: { node: OwaspNode; depth: number;
 }
 
 /**
- * OWASP AI Security Landscape — full tree of every OWASP project, initiative,
+ * OWASP AI Security Landscape - full tree of every OWASP project, initiative,
  * guide, cheat sheet, and CTF related to AI / ML / agentic security.
  *
  * Sourced from RicoKomenda/owasp-ai-security-visualizer on GitHub. Auto-synced
@@ -253,7 +253,7 @@ export default function OwaspAiLandscape(): JSX.Element {
             href="https://github.com/RicoKomenda/owasp-ai-security-visualizer"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             RicoKomenda/owasp-ai-security-visualizer
           </a>
@@ -265,7 +265,7 @@ export default function OwaspAiLandscape(): JSX.Element {
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             aria-label="Refresh"
           >
             <RefreshCw className="h-3.5 w-3.5" /> refresh
@@ -301,12 +301,12 @@ export default function OwaspAiLandscape(): JSX.Element {
           <section className="surface-card p-4 mb-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="relative flex-1">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search resources…"
-                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
                 />
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -352,7 +352,7 @@ export default function OwaspAiLandscape(): JSX.Element {
                   href={data.source}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-brand-600 dark:text-brand-400 hover:underline truncate"
+                  className="text-rose-600 dark:text-rose-400 hover:underline truncate"
                 >
                   data.json
                 </a>

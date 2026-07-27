@@ -24,7 +24,7 @@ export interface ButtonProps {
 // fill with a translucent gray-alpha-400 border; tertiary = transparent
 // with gray-1000 text. The portfolio app overrides primary to brand-blue
 // (the only place we use the accent for an action) by passing
-// variant="primary" tone="brand" — see Button() below.
+// variant="primary" tone="brand" - see Button() below.
 const VARIANT: Record<ButtonVariant, string> = {
   // Default: Geist-style gray-1000 fill (the "one important action" rule).
   primary:
@@ -54,7 +54,7 @@ const VARIANT: Record<ButtonVariant, string> = {
 const SIZE: Record<ButtonSize, string> = {
   xs: 'h-7 px-1.5 text-tool font-medium',
   sm: 'h-8 px-2.5 text-tool font-medium',
-  md: 'h-10 px-3 text-sm font-medium',
+  md: 'h-10 px-3 text-tool font-medium',
   lg: 'h-12 px-4 text-base font-medium',
   xl: 'h-[52px] px-5 text-base font-medium',
 };
@@ -75,7 +75,7 @@ export function Button({
 }: ButtonProps) {
   const classes = [
     // Geist button: 6px radius, no monospace (default UI), medium weight
-    // (500 — the spec's button-14 fontWeight). Monospace is only
+    // (500 - the spec's button-14 fontWeight). Monospace is only
     // appropriate for terminal-style controls; the rest of the app
     // uses it because the previous Button passed font-mono unconditionally.
     'inline-flex items-center justify-center gap-2 rounded font-sans transition-colors',

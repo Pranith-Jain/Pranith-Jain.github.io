@@ -1,13 +1,13 @@
 /**
  * Minimal pure-JS MD5 (RFC 1321).
  *
- * Used because SubtleCrypto.digest doesn't ship MD5 — and we need MD5
+ * Used because SubtleCrypto.digest doesn't ship MD5 - and we need MD5
  * because legacy IOC corpora (VirusTotal pre-2010 entries, OTX
  * indicator pulses, certain old YARA rules, MalwareBazaar) still key
  * by MD5. Removing MD5 means losing matches against those corpora.
  *
  * Not constant-time. Don't use for password hashing or anything where
- * timing matters — that's not what this is for.
+ * timing matters - that's not what this is for.
  *
  * Shared by /dfir/eml (attachment hashing) and /dfir/malware-scan
  * (file hashing).

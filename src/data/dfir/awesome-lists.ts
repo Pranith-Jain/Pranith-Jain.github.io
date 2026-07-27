@@ -1,5 +1,5 @@
 /**
- * Curated GitHub awesome-lists — external reference catalogues that an
+ * Curated GitHub awesome-lists - external reference catalogues that an
  * analyst will actually open mid-investigation.
  *
  * Honest scope:
@@ -11,7 +11,7 @@
  *     commits), supplemented by a few smaller specialty lists that fill
  *     genuine gaps (Claude Code security skills, MCP security).
  *   - Each entry's `why` field explains why I personally come back to that
- *     list — the tradecraft niche it covers — rather than just restating
+ *     list - the tradecraft niche it covers - rather than just restating
  *     the README.
  *
  * Last verified 2026-05-11 (gh repo metadata).
@@ -30,9 +30,9 @@ export interface AwesomeList {
   id: string;
   /** Pretty display name. */
   name: string;
-  /** "owner/repo" — the canonical short form. */
+  /** "owner/repo" - the canonical short form. */
   repo: string;
-  /** Full GitHub URL — what the card click opens. */
+  /** Full GitHub URL - what the card click opens. */
   url: string;
   /** What the list contains, in 1–2 sentences. */
   description: string;
@@ -43,7 +43,7 @@ export interface AwesomeList {
   /** Optional badge: "essential" (must-bookmark), "reference" (solid baseline),
    *  "specialised" (narrow but useful). */
   badge?: 'essential' | 'reference' | 'specialised';
-  /** Why this list earns a slot on this page — the niche it fills better
+  /** Why this list earns a slot on this page - the niche it fills better
    *  than its peers. Surfaces as a single italic line on the card. */
   why: string;
 }
@@ -60,11 +60,11 @@ export const FOCUS_LABELS: Record<AwesomeFocus, string> = {
 
 export const FOCUS_BLURB: Record<AwesomeFocus, string> = {
   'threat-intel': 'CTI feeds, platforms, frameworks, and adversary-tracking resources.',
-  osint: 'Open-source intelligence — sites, tools, browser extensions, search dorks.',
-  'incident-response': 'IR tradecraft — triage, memory forensics, network forensics, malware analysis.',
-  'cybersecurity-general': 'Broad cybersec resource catalogues — red/blue/training/policy.',
-  'soc-cert': 'SOC / CERT operations — IOC feeds, detection content, suspicious-indicator lists.',
-  'mcp-security': 'Model Context Protocol — server security, attack surface, defensive tooling.',
+  osint: 'Open-source intelligence - sites, tools, browser extensions, search dorks.',
+  'incident-response': 'IR tradecraft - triage, memory forensics, network forensics, malware analysis.',
+  'cybersecurity-general': 'Broad cybersec resource catalogues - red/blue/training/policy.',
+  'soc-cert': 'SOC / CERT operations - IOC feeds, detection content, suspicious-indicator lists.',
+  'mcp-security': 'Model Context Protocol - server security, attack surface, defensive tooling.',
   'ai-skills': 'AI agent skills + security toolkits for Claude Code and similar runtimes.',
 };
 
@@ -97,7 +97,7 @@ export const LISTS: AwesomeList[] = [
     focus: ['threat-intel'],
     stars: 'site',
     badge: 'reference',
-    why: 'The only public source I have found that ships per-group ransom-note transcripts AND leak-site screenshots together — linked from the External Sources block on /threatintel.',
+    why: 'The only public source I have found that ships per-group ransom-note transcripts AND leak-site screenshots together - linked from the External Sources block on /threatintel.',
   },
 
   // ─── OSINT ───────────────────────────────────────────────────────────────
@@ -107,7 +107,7 @@ export const LISTS: AwesomeList[] = [
     repo: 'jivoi/awesome-osint',
     url: 'https://github.com/jivoi/awesome-osint',
     description:
-      'The canonical OSINT meta-list — sites, tools, browser extensions, image/video search, breach data, and country-specific resources, organised by investigation surface.',
+      'The canonical OSINT meta-list - sites, tools, browser extensions, image/video search, breach data, and country-specific resources, organised by investigation surface.',
     focus: ['osint'],
     stars: '26k',
     badge: 'essential',
@@ -123,7 +123,7 @@ export const LISTS: AwesomeList[] = [
     focus: ['osint', 'mcp-security'],
     stars: '227',
     badge: 'specialised',
-    why: 'Bridges OSINT tradecraft and the agent stack — the place to discover OSINT MCPs you can wire into your IDE.',
+    why: 'Bridges OSINT tradecraft and the agent stack - the place to discover OSINT MCPs you can wire into your IDE.',
   },
 
   // ─── Threat Intelligence ─────────────────────────────────────────────────
@@ -133,7 +133,7 @@ export const LISTS: AwesomeList[] = [
     repo: 'hslatman/awesome-threat-intelligence',
     url: 'https://github.com/hslatman/awesome-threat-intelligence',
     description:
-      'The de-facto CTI reference list — sources, formats (STIX/TAXII), frameworks (MITRE, Diamond), training, books, and research blogs. Updated for over a decade.',
+      'The de-facto CTI reference list - sources, formats (STIX/TAXII), frameworks (MITRE, Diamond), training, books, and research blogs. Updated for over a decade.',
     focus: ['threat-intel'],
     stars: '10k',
     badge: 'essential',
@@ -145,11 +145,11 @@ export const LISTS: AwesomeList[] = [
     repo: 'brandonhimpfen/awesome-threat-intelligence',
     url: 'https://github.com/brandonhimpfen/awesome-threat-intelligence',
     description:
-      'Smaller, recently-curated CTI list — feeds, platforms, and tools focused on detect / analyze / respond. Lighter than hslatman but easier to skim end-to-end.',
+      'Smaller, recently-curated CTI list - feeds, platforms, and tools focused on detect / analyze / respond. Lighter than hslatman but easier to skim end-to-end.',
     focus: ['threat-intel'],
     stars: '9',
     badge: 'specialised',
-    why: 'Useful as a quick-glance complement to hslatman — different curator, slightly different selection bias.',
+    why: 'Useful as a quick-glance complement to hslatman - different curator, slightly different selection bias.',
   },
 
   // ─── Incident Response ───────────────────────────────────────────────────
@@ -159,7 +159,7 @@ export const LISTS: AwesomeList[] = [
     repo: 'meirwah/awesome-incident-response',
     url: 'https://github.com/meirwah/awesome-incident-response',
     description:
-      'IR tools index — triage, evidence collection, memory forensics, network forensics, malware analysis, sandbox stacks, plus IR books / courses / playbooks.',
+      'IR tools index - triage, evidence collection, memory forensics, network forensics, malware analysis, sandbox stacks, plus IR books / courses / playbooks.',
     focus: ['incident-response'],
     stars: '9k',
     badge: 'essential',
@@ -173,11 +173,11 @@ export const LISTS: AwesomeList[] = [
     repo: 'SlimKQL/Detections.AI',
     url: 'https://github.com/SlimKQL/Detections.AI',
     description:
-      'Mirrored KQL detection-rule library — Defender XDR / Microsoft Sentinel rules with a focus on AI-related, identity-attack, and emerging-threat detections. Active commit cadence.',
+      'Mirrored KQL detection-rule library - Defender XDR / Microsoft Sentinel rules with a focus on AI-related, identity-attack, and emerging-threat detections. Active commit cadence.',
     focus: ['threat-intel', 'soc-cert'],
     stars: '114',
     badge: 'specialised',
-    why: 'Sharper / niche complement to Azure-Sentinel — wired into /threatintel/rules as a detection-rule source so latest commits appear in the live feed.',
+    why: 'Sharper / niche complement to Azure-Sentinel - wired into /threatintel/rules as a detection-rule source so latest commits appear in the live feed.',
   },
 
   // ─── SOC / CERT ──────────────────────────────────────────────────────────
@@ -187,11 +187,11 @@ export const LISTS: AwesomeList[] = [
     repo: 'mthcht/awesome-lists',
     url: 'https://github.com/mthcht/awesome-lists',
     description:
-      'A SOC / CERT / CTI working catalogue — IOC feeds, suspicious user-agent strings, malicious ASN lists, scanner fingerprints, detection-rule sources. Practitioner-curated.',
+      'A SOC / CERT / CTI working catalogue - IOC feeds, suspicious user-agent strings, malicious ASN lists, scanner fingerprints, detection-rule sources. Practitioner-curated.',
     focus: ['soc-cert', 'threat-intel', 'incident-response'],
     stars: '1.4k',
     badge: 'reference',
-    why: 'High operational density — many of the lists here are directly importable into a SIEM or feed pipeline.',
+    why: 'High operational density - many of the lists here are directly importable into a SIEM or feed pipeline.',
   },
 
   // ─── General Cybersecurity ───────────────────────────────────────────────
@@ -201,7 +201,7 @@ export const LISTS: AwesomeList[] = [
     repo: 'okhosting/awesome-cyber-security',
     url: 'https://github.com/okhosting/awesome-cyber-security',
     description:
-      'Broad cybersec resource catalogue — red/blue tools, certifications, books, talks, podcasts. Generalist coverage rather than niche depth.',
+      'Broad cybersec resource catalogue - red/blue tools, certifications, books, talks, podcasts. Generalist coverage rather than niche depth.',
     focus: ['cybersecurity-general'],
     stars: '522',
     badge: 'reference',
@@ -215,7 +215,7 @@ export const LISTS: AwesomeList[] = [
     repo: 'Puliczek/awesome-mcp-security',
     url: 'https://github.com/Puliczek/awesome-mcp-security',
     description:
-      'Model Context Protocol security — published vulns, attack surface notes, defensive tooling, server-hardening tips, and MCP-specific threat research.',
+      'Model Context Protocol security - published vulns, attack surface notes, defensive tooling, server-hardening tips, and MCP-specific threat research.',
     focus: ['mcp-security'],
     stars: '692',
     badge: 'specialised',
@@ -227,7 +227,7 @@ export const LISTS: AwesomeList[] = [
     repo: 'MorDavid/awesome-cyber-security-mcp',
     url: 'https://github.com/MorDavid/awesome-cyber-security-mcp',
     description:
-      'Index of cybersecurity-focused MCP servers — pentest helpers, IOC enrichment, threat-feed bridges. Smaller list, narrower than the OSINT-MCP one.',
+      'Index of cybersecurity-focused MCP servers - pentest helpers, IOC enrichment, threat-feed bridges. Smaller list, narrower than the OSINT-MCP one.',
     focus: ['mcp-security', 'cybersecurity-general'],
     stars: '87',
     badge: 'specialised',
@@ -239,7 +239,7 @@ export const LISTS: AwesomeList[] = [
     repo: 'Eyadkelleh/awesome-claude-skills-security',
     url: 'https://github.com/Eyadkelleh/awesome-claude-skills-security',
     description:
-      'Security testing toolkit for Claude Code — curated SecLists wordlists, injection payloads, and expert agents for authorized pentest / CTF / bug-bounty work.',
+      'Security testing toolkit for Claude Code - curated SecLists wordlists, injection payloads, and expert agents for authorized pentest / CTF / bug-bounty work.',
     focus: ['ai-skills', 'cybersecurity-general'],
     stars: '235',
     badge: 'specialised',
@@ -253,7 +253,7 @@ export const LISTS: AwesomeList[] = [
     repo: 'Hack-with-Github/Awesome-Hacking',
     url: 'https://github.com/Hack-with-Github/Awesome-Hacking',
     description:
-      'Meta-list of awesome-lists — pen-test, exploit dev, web security, mobile, hardware, malware, CTF, OSINT, social engineering. The "start here" index for everything else.',
+      'Meta-list of awesome-lists - pen-test, exploit dev, web security, mobile, hardware, malware, CTF, OSINT, social engineering. The "start here" index for everything else.',
     focus: ['cybersecurity-general', 'osint', 'threat-intel'],
     stars: '112k',
     badge: 'essential',
@@ -265,11 +265,11 @@ export const LISTS: AwesomeList[] = [
     repo: 'carpedm20/awesome-hacking',
     url: 'https://github.com/carpedm20/awesome-hacking',
     description:
-      'Broad hacking tutorials, tools, conference talks, papers, books — older but well-organised, complements the Hack-with-Github meta-list with deeper per-topic curation.',
+      'Broad hacking tutorials, tools, conference talks, papers, books - older but well-organised, complements the Hack-with-Github meta-list with deeper per-topic curation.',
     focus: ['cybersecurity-general'],
     stars: '16k',
     badge: 'reference',
-    why: 'Stronger on conference talks + papers than the Hack-with-Github meta-list — pair the two.',
+    why: 'Stronger on conference talks + papers than the Hack-with-Github meta-list - pair the two.',
   },
   {
     id: 'onlurking-awesome-infosec',
@@ -277,11 +277,11 @@ export const LISTS: AwesomeList[] = [
     repo: 'onlurking/awesome-infosec',
     url: 'https://github.com/onlurking/awesome-infosec',
     description:
-      'Curated infosec courses + training resources — university lecture series, free MOOCs, books, lab platforms, certification prep.',
+      'Curated infosec courses + training resources - university lecture series, free MOOCs, books, lab platforms, certification prep.',
     focus: ['cybersecurity-general'],
     stars: '5.7k',
     badge: 'reference',
-    why: 'The reference list when someone asks "how do I get into infosec" — has actual learning paths, not just tool lists.',
+    why: 'The reference list when someone asks "how do I get into infosec" - has actual learning paths, not just tool lists.',
   },
 
   // ─── Offensive Security / AppSec ─────────────────────────────────────────
@@ -295,7 +295,7 @@ export const LISTS: AwesomeList[] = [
     focus: ['cybersecurity-general'],
     stars: '26k',
     badge: 'essential',
-    why: 'Best single index of pentest tooling — keeps you from rebuilding a discovery list every engagement.',
+    why: 'Best single index of pentest tooling - keeps you from rebuilding a discovery list every engagement.',
   },
   {
     id: 'paragonie-awesome-appsec',
@@ -303,11 +303,11 @@ export const LISTS: AwesomeList[] = [
     repo: 'paragonie/awesome-appsec',
     url: 'https://github.com/paragonie/awesome-appsec',
     description:
-      'Application-security learning resources — cryptography pitfalls, secure-code reviews, OWASP Top-10 deep dives, language-specific guidance.',
+      'Application-security learning resources - cryptography pitfalls, secure-code reviews, OWASP Top-10 deep dives, language-specific guidance.',
     focus: ['cybersecurity-general'],
     stars: '6.9k',
     badge: 'reference',
-    why: 'AppSec-focused complement to the broader pentest list — heavier on theory + code-review craft.',
+    why: 'AppSec-focused complement to the broader pentest list - heavier on theory + code-review craft.',
   },
   {
     id: '0xInfection-awesome-waf',
@@ -315,7 +315,7 @@ export const LISTS: AwesomeList[] = [
     repo: '0xInfection/Awesome-WAF',
     url: 'https://github.com/0xInfection/Awesome-WAF',
     description:
-      'Everything WAF — fingerprints, bypass techniques, evasion research, vendor-specific notes, related CVEs. From an offensive-research perspective.',
+      'Everything WAF - fingerprints, bypass techniques, evasion research, vendor-specific notes, related CVEs. From an offensive-research perspective.',
     focus: ['cybersecurity-general'],
     stars: '7.5k',
     badge: 'specialised',
@@ -327,7 +327,7 @@ export const LISTS: AwesomeList[] = [
     repo: 'analysis-tools-dev/static-analysis',
     url: 'https://github.com/analysis-tools-dev/static-analysis',
     description:
-      'Curated SAST tools + linters across every language — Semgrep, CodeQL, SonarQube, Checkmarx, Bandit, gosec, ESLint security plugins, and language-specific entries.',
+      'Curated SAST tools + linters across every language - Semgrep, CodeQL, SonarQube, Checkmarx, Bandit, gosec, ESLint security plugins, and language-specific entries.',
     focus: ['cybersecurity-general'],
     stars: '14k',
     badge: 'reference',
@@ -341,7 +341,7 @@ export const LISTS: AwesomeList[] = [
     repo: 'danielmiessler/SecLists',
     url: 'https://github.com/danielmiessler/SecLists',
     description:
-      "The security tester's companion — usernames, passwords, fuzzing payloads, web-content discovery wordlists, data patterns. Not strictly an awesome-list, but the most-referenced security wordlist collection in existence.",
+      "The security tester's companion - usernames, passwords, fuzzing payloads, web-content discovery wordlists, data patterns. Not strictly an awesome-list, but the most-referenced security wordlist collection in existence.",
     focus: ['cybersecurity-general'],
     stars: '71k',
     badge: 'essential',
@@ -353,7 +353,7 @@ export const LISTS: AwesomeList[] = [
     repo: 'joe-shenouda/awesome-cyber-skills',
     url: 'https://github.com/joe-shenouda/awesome-cyber-skills',
     description:
-      'Curated list of legal hacking environments to practise on — CTF platforms, intentionally-vulnerable apps, lab simulators, war games. Skill-building only, no live targets.',
+      'Curated list of legal hacking environments to practise on - CTF platforms, intentionally-vulnerable apps, lab simulators, war games. Skill-building only, no live targets.',
     focus: ['cybersecurity-general'],
     stars: '4.4k',
     badge: 'reference',
@@ -367,11 +367,11 @@ export const LISTS: AwesomeList[] = [
     repo: 'caesar0301/awesome-pcaptools',
     url: 'https://github.com/caesar0301/awesome-pcaptools',
     description:
-      'Tools for PCAP capture, analysis, and protocol dissection — from Wireshark plugins to ML-driven anomaly detectors. Includes sample-PCAP corpora for testing.',
+      'Tools for PCAP capture, analysis, and protocol dissection - from Wireshark plugins to ML-driven anomaly detectors. Includes sample-PCAP corpora for testing.',
     focus: ['incident-response'],
     stars: '3.4k',
     badge: 'specialised',
-    why: 'IR-focused complement to meirwah/awesome-incident-response — sharper on the network-forensics niche.',
+    why: 'IR-focused complement to meirwah/awesome-incident-response - sharper on the network-forensics niche.',
   },
 
   // ─── OSINT (kept distinct because of focus tagging) ───────────────────────
@@ -381,10 +381,10 @@ export const LISTS: AwesomeList[] = [
     repo: 'rawfilejson/awesome-osint-arsenal',
     url: 'https://github.com/rawfilejson/awesome-osint-arsenal',
     description:
-      'Curated OSINT + recon toolkit for Kali Linux — 100+ tools with a one-command installer. Strong on the "ready-to-go investigator workstation" angle.',
+      'Curated OSINT + recon toolkit for Kali Linux - 100+ tools with a one-command installer. Strong on the "ready-to-go investigator workstation" angle.',
     focus: ['osint'],
     stars: '382',
     badge: 'specialised',
-    why: 'Useful when bootstrapping a fresh OSINT VM — saves an hour of apt+pip+go installs.',
+    why: 'Useful when bootstrapping a fresh OSINT VM - saves an hour of apt+pip+go installs.',
   },
 ];

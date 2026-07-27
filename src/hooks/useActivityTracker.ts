@@ -23,7 +23,7 @@ export function useActivityTracker() {
           body: JSON.stringify({ action, metadata }),
         });
       } catch {
-        // Silently fail — activity tracking shouldn't block the user
+        // Silently fail - activity tracking shouldn't block the user
       }
     },
     [user]

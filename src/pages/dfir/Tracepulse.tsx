@@ -30,7 +30,7 @@ interface QueryPack {
 const QUERY_PACKS: QueryPack[] = [
   {
     id: 'cve-2026-41940',
-    name: 'CVE-2026-41940 — cPanel Harvester Toolkit',
+    name: 'CVE-2026-41940 - cPanel Harvester Toolkit',
     severity: 'high',
     cveId: 'CVE-2026-41940',
     affectedProducts: ['cPanel', 'WHM', 'Apache httpd'],
@@ -41,7 +41,7 @@ const QUERY_PACKS: QueryPack[] = [
     queries: [
       {
         lang: 'kql',
-        code: `// CVE-2026-41940 — cPanel Harvester Toolkit
+        code: `// CVE-2026-41940 - cPanel Harvester Toolkit
 // Detect web shell deployment via cPanel API abuse
 DeviceProcessEvents
 | where Timestamp > ago(7d)
@@ -71,7 +71,7 @@ level: high`,
       },
       {
         lang: 'xql',
-        code: `// CVE-2026-41940 — cPanel Harvester
+        code: `// CVE-2026-41940 - cPanel Harvester
 // XQL: Hunt web shell deployment on cPanel servers
 dataset = process_creation
 | filter event_type = "PROCESS" and TIMESTAMP > NOW() - 7d
@@ -91,7 +91,7 @@ dataset = process_creation
   },
   {
     id: 'cve-2026-41823',
-    name: 'CVE-2026-41823 — Exchange RCE',
+    name: 'CVE-2026-41823 - Exchange RCE',
     severity: 'critical',
     cveId: 'CVE-2026-41823',
     affectedProducts: ['Microsoft Exchange Server 2019', 'Exchange Online'],
@@ -102,7 +102,7 @@ dataset = process_creation
     queries: [
       {
         lang: 'kql',
-        code: `// CVE-2026-41823 — Exchange RCE
+        code: `// CVE-2026-41823 - Exchange RCE
 // Detect post-exploit webshell deployment on Exchange
 DeviceProcessEvents
 | where Timestamp > ago(14d)
@@ -131,7 +131,7 @@ level: critical`,
       },
       {
         lang: 'xql',
-        code: `// CVE-2026-41823 — Exchange RCE
+        code: `// CVE-2026-41823 - Exchange RCE
 // Find suspicious child processes of w3wp.exe
 dataset = process_creation
 | filter event_type = "PROCESS" and TIMESTAMP > NOW() - 14d
@@ -151,7 +151,7 @@ NewProcessName=*powershell.exe
   },
   {
     id: 'cve-2026-41290',
-    name: 'CVE-2026-41290 — Log4Shell Variants',
+    name: 'CVE-2026-41290 - Log4Shell Variants',
     severity: 'critical',
     cveId: 'CVE-2026-41290',
     affectedProducts: ['Apache Log4j 2.x', 'Multiple vendor appliances'],
@@ -162,7 +162,7 @@ NewProcessName=*powershell.exe
     queries: [
       {
         lang: 'kql',
-        code: `// CVE-2026-41290 — Log4Shell Variants
+        code: `// CVE-2026-41290 - Log4Shell Variants
 // Detect JNDI LDAP outbound connections
 DeviceNetworkEvents
 | where Timestamp > ago(30d)
@@ -195,7 +195,7 @@ level: critical`,
       },
       {
         lang: 'xql',
-        code: `// CVE-2026-41290 — Log4Shell JNDI Variant
+        code: `// CVE-2026-41290 - Log4Shell JNDI Variant
 // Hunt LDAP outbound from Java processes
 dataset = network_connection
 | filter event_type = "NETWORK" and TIMESTAMP > NOW() - 30d
@@ -214,7 +214,7 @@ dest_port IN (389,1389,636) dest_ip!="10.0.0.0/8" dest_ip!="172.16.0.0/12" dest_
   },
   {
     id: 'lockbit-3',
-    name: 'LockBit 3.0 Ransomware — Active Campaign',
+    name: 'LockBit 3.0 Ransomware - Active Campaign',
     severity: 'high',
     campaignName: 'LockBit 3.0 Ransomware',
     actorName: 'LockBit',
@@ -226,7 +226,7 @@ dest_port IN (389,1389,636) dest_ip!="10.0.0.0/8" dest_ip!="172.16.0.0/12" dest_
     queries: [
       {
         lang: 'kql',
-        code: `// LockBit 3.0 — Ransomware Deployment
+        code: `// LockBit 3.0 - Ransomware Deployment
 // Detect LockBit named pipe + service creation
 DeviceProcessEvents
 | where Timestamp > ago(7d)
@@ -251,7 +251,7 @@ level: high`,
       },
       {
         lang: 'xql',
-        code: `// LockBit 3.0 — Named Pipe + Service Install
+        code: `// LockBit 3.0 - Named Pipe + Service Install
 dataset = process_creation
 | filter event_type = "PROCESS" and TIMESTAMP > NOW() - 7d
 | filter process_cmdline contains any ("\\\\.\\pipe\\lockbit", "LockBit\\")
@@ -268,7 +268,7 @@ CommandLine="*\\\\.\\pipe\\lockbit*" OR CommandLine="*LockBit\\*"
   },
   {
     id: 'clop-moveit',
-    name: 'CLOP MOVEit Exploitation — Ongoing',
+    name: 'CLOP MOVEit Exploitation - Ongoing',
     severity: 'critical',
     campaignName: 'CLOP MOVEit Exploitation',
     actorName: 'TA-584 (CLOP)',
@@ -280,7 +280,7 @@ CommandLine="*\\\\.\\pipe\\lockbit*" OR CommandLine="*LockBit\\*"
     queries: [
       {
         lang: 'kql',
-        code: `// CLOP — MOVEit Exploitation
+        code: `// CLOP - MOVEit Exploitation
 // Detect MOVEit human.txt webshell access
 DeviceNetworkEvents
 | where Timestamp > ago(14d)
@@ -306,7 +306,7 @@ level: critical`,
       },
       {
         lang: 'xql',
-        code: `// CLOP — MOVEit Webshell
+        code: `// CLOP - MOVEit Webshell
 dataset = http_request
 | filter event_type = "HTTP" and TIMESTAMP > NOW() - 14d
 | filter url contains any ("/human.txt", "/moveitapi")
@@ -324,7 +324,7 @@ uri="*/human.txt*" OR uri="*/moveitapi*"
   },
   {
     id: 'apt29-solarwinds',
-    name: 'APT29 — SolarWinds Post-Exploit',
+    name: 'APT29 - SolarWinds Post-Exploit',
     severity: 'critical',
     campaignName: 'SolarWinds Post-Exploit',
     actorName: 'APT29 (Cozy Bear)',
@@ -336,7 +336,7 @@ uri="*/human.txt*" OR uri="*/moveitapi*"
     queries: [
       {
         lang: 'kql',
-        code: `// APT29 — SolarWinds Post-Exploit
+        code: `// APT29 - SolarWinds Post-Exploit
 // Detect suspicious Azure AD app registration + SAML token
 AuditLogs
 | where Timestamp > ago(30d)
@@ -364,7 +364,7 @@ level: critical`,
       },
       {
         lang: 'xql',
-        code: `// APT29 — Azure AD App Registration
+        code: `// APT29 - Azure AD App Registration
 dataset = cloud_audit
 | filter event_type = "AZURE_AUDIT" and TIMESTAMP > NOW() - 30d
 | filter operation_name in ("Add application", "Add service principal", "Update application")
@@ -383,7 +383,7 @@ result=success
   },
   {
     id: 'blackcat-alphv',
-    name: 'BlackCat/ALPHV — Encryptor Deployment',
+    name: 'BlackCat/ALPHV - Encryptor Deployment',
     severity: 'high',
     campaignName: 'BlackCat/ALPHV Ransomware',
     actorName: 'ALPHV (BlackCat)',
@@ -395,7 +395,7 @@ result=success
     queries: [
       {
         lang: 'kql',
-        code: `// BlackCat/ALPHV — Encryptor Deployment
+        code: `// BlackCat/ALPHV - Encryptor Deployment
 // Rust-compiled binary with known ALPHV hashes
 DeviceProcessEvents
 | where Timestamp > ago(7d)
@@ -422,7 +422,7 @@ level: high`,
       },
       {
         lang: 'xql',
-        code: `// BlackCat/ALPHV — Rust Encryptor
+        code: `// BlackCat/ALPHV - Rust Encryptor
 dataset = process_creation
 | filter event_type = "PROCESS" and TIMESTAMP > NOW() - 7d
 | filter process_cmdline contains any ("-encrypt", "--decrypt", "-vss")
@@ -439,7 +439,7 @@ CommandLine="*-encrypt*" OR CommandLine="*--decrypt*" OR CommandLine="*-vss*"
   },
   {
     id: 'lazarus-crypto',
-    name: 'Lazarus — Crypto Bridge Heists',
+    name: 'Lazarus - Crypto Bridge Heists',
     severity: 'high',
     campaignName: 'Crypto Bridge Heists',
     actorName: 'Lazarus Group (HIDDEN COBRA)',
@@ -451,7 +451,7 @@ CommandLine="*-encrypt*" OR CommandLine="*--decrypt*" OR CommandLine="*-vss*"
     queries: [
       {
         lang: 'kql',
-        code: `// Lazarus — Crypto Bridge Heist
+        code: `// Lazarus - Crypto Bridge Heist
 // Detect malicious npm package installs from known typosquatting
 DeviceProcessEvents
 | where Timestamp > ago(14d)
@@ -480,7 +480,7 @@ level: high`,
       },
       {
         lang: 'xql',
-        code: `// Lazarus — Suspicious npm Packages
+        code: `// Lazarus - Suspicious npm Packages
 dataset = process_creation
 | filter event_type = "PROCESS" and TIMESTAMP > NOW() - 14d
 | filter process_cmdline contains "npm install"
@@ -498,7 +498,7 @@ command="*npm install*web3-bridge*" OR command="*npm install*ethers-bridge*"
   },
   {
     id: 'scattered-spider',
-    name: 'Scattered Spider — SaaS TTPs',
+    name: 'Scattered Spider - SaaS TTPs',
     severity: 'medium',
     campaignName: 'Scattered Spider SaaS Attacks',
     actorName: 'Scattered Spider (UNC3944)',
@@ -510,7 +510,7 @@ command="*npm install*web3-bridge*" OR command="*npm install*ethers-bridge*"
     queries: [
       {
         lang: 'kql',
-        code: `// Scattered Spider — MFA Fatigue + Help Desk Takeover
+        code: `// Scattered Spider - MFA Fatigue + Help Desk Takeover
 // Detect mass MFA denial prompts
 SigninLogs
 | where Timestamp > ago(7d)
@@ -535,7 +535,7 @@ level: medium`,
       },
       {
         lang: 'xql',
-        code: `// Scattered Spider — MFA Fatigue
+        code: `// Scattered Spider - MFA Fatigue
 dataset = authentication
 | filter event_type = "AZURE_SIGNIN" and TIMESTAMP > NOW() - 7d
 | filter result_code = "500121"
@@ -556,7 +556,7 @@ ResultType=500121
   },
   {
     id: 'cve-2026-40123',
-    name: 'CVE-2026-40123 — CitrixBleed',
+    name: 'CVE-2026-40123 - CitrixBleed',
     severity: 'critical',
     cveId: 'CVE-2026-40123',
     affectedProducts: ['Citrix ADC', 'Citrix Gateway', 'NetScaler'],
@@ -567,7 +567,7 @@ ResultType=500121
     queries: [
       {
         lang: 'kql',
-        code: `// CVE-2026-40123 — CitrixBleed
+        code: `// CVE-2026-40123 - CitrixBleed
 // Detect exploitation via URI pattern + post-exploit webshell
 DeviceNetworkEvents
 | where Timestamp > ago(30d)
@@ -592,7 +592,7 @@ level: critical`,
       },
       {
         lang: 'xql',
-        code: `// CVE-2026-40123 — CitrixBleed
+        code: `// CVE-2026-40123 - CitrixBleed
 dataset = http_request
 | filter event_type = "HTTP" and TIMESTAMP > NOW() - 30d
 | filter url contains any ("/vpn/../", "/gwserver/")
@@ -673,7 +673,7 @@ export default function Tracepulse(): JSX.Element {
           <FileCode size={28} className="text-brand-600 dark:text-brand-400" /> TRACEPULSE
         </h1>
         <p className="text-muted max-w-2xl leading-relaxed">
-          CVE and campaign-tied detection query packs — deploy as soon as a new CVE drops or campaign goes active.
+          CVE and campaign-tied detection query packs - deploy as soon as a new CVE drops or campaign goes active.
           <span className="text-slate-500">
             {' '}
             {QUERY_PACKS.length} query packs · {QUERY_PACKS.reduce((s, p) => s + p.queries.length, 0)} queries across
@@ -701,7 +701,7 @@ export default function Tracepulse(): JSX.Element {
 
       {/* Search */}
       <div className="relative mb-6">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -718,7 +718,7 @@ export default function Tracepulse(): JSX.Element {
       {/* Packs */}
       {filteredPacks.length === 0 ? (
         <div className="surface-card/40 shadow-e1 p-8 text-center">
-          <AlertTriangle size={24} className="mx-auto mb-2 text-slate-400" />
+          <AlertTriangle size={24} className="mx-auto mb-2 text-slate-500 dark:text-slate-400" />
           <p className="text-sm text-slate-500">No query packs match your filter.</p>
         </div>
       ) : (
@@ -738,7 +738,7 @@ export default function Tracepulse(): JSX.Element {
                       </span>
                     </div>
                     <p className="text-xs text-muted mb-2">{pack.summary}</p>
-                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-micro font-mono text-slate-400">
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-micro font-mono text-slate-500 dark:text-slate-400">
                       {pack.cveId && (
                         <span className="flex items-center gap-1">
                           <Shield size={10} /> {pack.cveId}

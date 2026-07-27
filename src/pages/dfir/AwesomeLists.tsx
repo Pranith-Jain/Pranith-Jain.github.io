@@ -94,7 +94,7 @@ export default function AwesomeLists(): JSX.Element {
       {/* Search */}
       <section className="surface-card p-4 mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
           <input
             type="search"
             value={query}
@@ -120,7 +120,7 @@ export default function AwesomeLists(): JSX.Element {
       {/* Focus pills */}
       <section className="surface-card p-4 mb-6">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-mini font-mono text-slate-400 mr-1">focus:</span>
+          <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1">focus:</span>
           {ALL_FOCUS.map((f) => {
             const count = focusCounts.get(f) ?? 0;
             const active = activeFocus.has(f);
@@ -157,7 +157,7 @@ export default function AwesomeLists(): JSX.Element {
               >
                 {r.name} <ExternalLink size={12} className="opacity-60" />
               </a>
-              <span className="text-micro font-mono text-slate-400 inline-flex items-center gap-1 shrink-0">
+              <span className="text-micro font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1 shrink-0">
                 <Star size={10} /> {r.stars}
               </span>
             </div>
@@ -165,7 +165,7 @@ export default function AwesomeLists(): JSX.Element {
               href={sanitizeUrl(r.url) || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-mini font-mono text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 mb-2"
+              className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 mb-2"
             >
               <Github size={10} /> {r.repo}
             </a>

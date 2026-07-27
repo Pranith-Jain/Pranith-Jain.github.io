@@ -33,12 +33,12 @@ const CATEGORY_ICONS: Record<string, typeof Shield> = {
 };
 
 const RELIABILITY_DESC: Record<string, string> = {
-  A: 'Reliable — authoritative, no known bias',
-  B: 'Usually reliable — minor caveats',
-  C: 'Fairly reliable — corroboration recommended',
-  D: 'Not usually reliable — treat with caution',
-  E: 'Unreliable — likely inaccurate',
-  F: 'Unassessed — no track record',
+  A: 'Reliable - authoritative, no known bias',
+  B: 'Usually reliable - minor caveats',
+  C: 'Fairly reliable - corroboration recommended',
+  D: 'Not usually reliable - treat with caution',
+  E: 'Unreliable - likely inaccurate',
+  F: 'Unassessed - no track record',
 };
 
 export default function SourceReliability(): JSX.Element {
@@ -53,7 +53,7 @@ export default function SourceReliability(): JSX.Element {
       backTo="/threatintel"
       icon={<Shield size={28} />}
       title="Source Reliability"
-      description="NATO Admiralty Code grading for every intelligence source — how much to trust each collector."
+      description="NATO Admiralty Code grading for every intelligence source - how much to trust each collector."
       loading={loading && sources.length === 0}
       error={error}
       onRetry={refetch}
@@ -83,9 +83,9 @@ export default function SourceReliability(): JSX.Element {
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <Icon size={14} className="text-slate-400 shrink-0" />
+                    <Icon size={14} className="text-slate-500 dark:text-slate-400 shrink-0" />
                     <span className="text-sm font-medium">{s.name}</span>
-                    <span className="text-micro font-mono text-slate-400">({s.id})</span>
+                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400">({s.id})</span>
                   </div>
                   <p className="text-xs text-muted mt-0.5">{s.description}</p>
                   {s.known_bias && (

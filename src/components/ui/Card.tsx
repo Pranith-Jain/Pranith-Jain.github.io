@@ -7,7 +7,7 @@ export interface CardProps<T extends ElementType = 'div'> {
   variant?: 'default' | 'glass' | 'surface' | 'interactive';
   padding?: 'none' | 'sm' | 'md' | 'lg';
   /**
-   * Radius role. Defaults to `card` (8px) — the workhorse surface for
+   * Radius role. Defaults to `card` (8px) - the workhorse surface for
    * data tiles and toolkit cards. `panel` (10px) is for surfaces that
    * contain internal rows/tables. `hero` (14px) is reserved for hero
    * CTAs / contact panels; only top-of-page callouts earn the larger
@@ -25,7 +25,7 @@ export interface CardProps<T extends ElementType = 'div'> {
   onClick?: () => void;
 }
 
-// Literal class lookup — Tailwind's JIT scanner only emits classes that
+// Literal class lookup - Tailwind's JIT scanner only emits classes that
 // appear as string literals in source. Using a typed const map (rather
 // than a template literal) guarantees these classes are scanned.
 const RADIUS: Record<CardRadius, string> = {
@@ -39,7 +39,7 @@ const TONE_CLASSES: Record<'brand' | 'rose', string> = {
   rose: 'hover:border-rose-500/30 focus-visible:ring-rose-500',
 };
 
-// Single source of truth for the surface recipe — replaces the
+// Single source of truth for the surface recipe - replaces the
 // hand-rolled `border-slate-200 dark:border-[rgb(var(--border-400))]`
 // + `bg-white dark:bg-[rgb(var(--surface-200))]` pair that was duplicated
 // across ~60 page files.

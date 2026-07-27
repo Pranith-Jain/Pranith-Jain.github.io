@@ -173,7 +173,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
             />
             <button
               onClick={fetchData}
-              className="text-xs flex items-center gap-1 px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700"
+              className="text-xs flex items-center gap-1 px-3 py-1.5 rounded bg-rose-600 text-white hover:bg-rose-700"
             >
               <Search size={12} /> Query
             </button>
@@ -242,7 +242,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
           emptyLabel="No bundles match these filters."
         >
           {data && (
-            <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
               <table className="w-full text-xs">
                 <thead>
                   <tr className="bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -290,7 +290,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
             </div>
           )}
           {data && (
-            <p className="text-micro text-slate-400 mt-2">
+            <p className="text-micro text-slate-500 dark:text-slate-400 mt-2">
               {data.length} bundle{data.length !== 1 ? 's' : ''}
             </p>
           )}

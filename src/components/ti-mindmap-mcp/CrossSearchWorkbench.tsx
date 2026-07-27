@@ -322,7 +322,7 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
               autoComplete="off"
               spellCheck={false}
             />
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-500 dark:text-slate-400" />
           </div>
           <button
             type="submit"
@@ -350,7 +350,7 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
 
         {q && (
           <p className="mt-1.5 text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
-            {MODE_LABEL[mode]} — fires {mode === 'general' ? '5 parallel' : '1'} tool call
+            {MODE_LABEL[mode]} - fires {mode === 'general' ? '5 parallel' : '1'} tool call
             {mode === 'general' ? 's' : ''}
           </p>
         )}
@@ -523,7 +523,7 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
                     setEntityCluster(null);
                     setEntityTimeline(null);
                   }}
-                  className="ml-auto p-0.5 rounded text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30"
+                  className="ml-auto p-0.5 rounded text-slate-500 dark:text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30"
                 >
                   <X className="h-3 w-3" />
                 </button>
@@ -531,7 +531,7 @@ export function CrossSearchWorkbench(props: { showHeader?: boolean }): JSX.Eleme
               {entityCluster?.entities != null && entityCluster.entities.length > 0 && (
                 <div className="mb-2">
                   <p className="text-micro font-mono uppercase text-slate-500 mb-1">
-                    Local Graph — {entityCluster.entities.length} entities
+                    Local Graph - {entityCluster.entities.length} entities
                   </p>
                   <div className="flex flex-wrap gap-1">
                     {entityCluster.entities.slice(0, 8).map((e) => (
@@ -634,9 +634,9 @@ function Section(props: {
         className="w-full flex items-center gap-2 px-4 py-2.5 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]"
       >
         {isOpen ? (
-          <ChevronDown className="h-3.5 w-3.5 text-slate-400" />
+          <ChevronDown className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" />
         ) : (
-          <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
+          <ChevronRight className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" />
         )}
         <Icon className={`h-4 w-4 ${CAT_COLORS[props.cat] ?? 'text-slate-500'}`} />
         <span className="text-xs font-semibold text-slate-900 dark:text-slate-100">{props.title}</span>

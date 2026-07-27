@@ -65,7 +65,7 @@ export default function ScheduleTab() {
   // Backend's /admin/schedule handler already revalidates each published
   // slot against /posts/<slug> and downgrades stale rows to 'pending', so
   // the client just renders the response verbatim. The previous in-browser
-  // post-exists fan-out used an unauthenticated raw fetch — that would
+  // post-exists fan-out used an unauthenticated raw fetch - that would
   // start mis-labelling rows the moment the blog endpoint got gated.
   const load = useCallback(async () => {
     setLoading(true);
@@ -386,7 +386,7 @@ export default function ScheduleTab() {
                     <span className={`w-2 h-2 rounded-full ${STATUS_COLORS[s.status] ?? 'bg-slate-300'}`} />
                     <span className="text-xs font-mono text-slate-700 dark:text-slate-300">{s.candidateId}</span>
                     <span className="text-micro uppercase text-slate-500 dark:text-slate-400">{s.status}</span>
-                    <span className="text-micro text-slate-400 dark:text-slate-500">
+                    <span className="text-micro text-slate-500 dark:text-slate-400">
                       {new Date(s.slotAt).toLocaleTimeString()}
                     </span>
                   </div>
@@ -418,7 +418,7 @@ export default function ScheduleTab() {
                         View
                       </a>
                     )}
-                    {s.status === 'draft' && <span className="text-micro text-slate-400">Awaiting approval</span>}
+                    {s.status === 'draft' && <span className="text-micro text-slate-500 dark:text-slate-400">Awaiting approval</span>}
                   </div>
                 </div>
               ))}

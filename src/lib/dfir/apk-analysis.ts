@@ -114,7 +114,7 @@ function parseAxml(buf: Uint8Array): { namespaces: AxmlNamespace[]; tags: AxmlTa
   const flags = readU32(buf, off + 16);
 
   // The string-pool counts are attacker-controlled. Validate them against the
-  // real chunk/buffer bounds before using them as loop limits — otherwise a
+  // real chunk/buffer bounds before using them as loop limits - otherwise a
   // crafted AXML blob drives a multi-billion-iteration read (DoS).
   if (strCount < 0 || styleCount < 0 || strCount > 1_000_000 || styleCount > 1_000_000) {
     return { namespaces, tags, strings };

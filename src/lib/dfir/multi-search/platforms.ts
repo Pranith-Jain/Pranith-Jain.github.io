@@ -6,7 +6,7 @@
 // get filled in from the input form. The page auto-detects the input
 // kind (email, domain, IPv4, …) and pre-selects the matching platforms.
 //
-// Pure data — no React imports — so the module can be unit-tested with
+// Pure data - no React imports - so the module can be unit-tested with
 // vitest and tree-shaken into per-page chunks.
 
 export type Placeholder =

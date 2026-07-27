@@ -62,7 +62,7 @@ export function ToolOfTheDay(): JSX.Element | null {
       <div className="relative">
         <div className="flex items-center gap-2 mb-3">
           <div className="grid h-6 w-6 place-items-center rounded bg-brand-500/10 text-brand-600 dark:text-brand-400">
-            <Sparkles size={12} />
+            <Sparkles size={12} aria-hidden="true" />
           </div>
           <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Tool of the Day
@@ -76,7 +76,7 @@ export function ToolOfTheDay(): JSX.Element | null {
         >
           <div className="flex items-start gap-3">
             <div className="grid h-9 w-9 place-items-center rounded-xl bg-brand-500/10 dark:bg-brand-500/15 text-brand-600 dark:text-brand-400 shrink-0">
-              <Wrench size={16} />
+              <Wrench size={16} aria-hidden="true" />
             </div>
             <div className="min-w-0 flex-1">
               <h4 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">

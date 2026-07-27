@@ -251,7 +251,7 @@ export default function AiRuleGenerator(): JSX.Element {
               if (items.length === 0) return null;
               return (
                 <div key={cat} className="mb-3">
-                  <div className="text-micro font-mono uppercase tracking-[0.18em] text-slate-400 mb-2">
+                  <div className="text-micro font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 mb-2">
                     {catLabel[cat]}
                   </div>
                   <div className="flex flex-wrap gap-1.5">
@@ -426,17 +426,17 @@ export default function AiRuleGenerator(): JSX.Element {
                 <h2 className="font-display font-bold text-sm mb-3">Metadata</h2>
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div>
-                    <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-0.5">Rule Name</div>
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-0.5">Rule Name</div>
                     <div className="font-mono">{result.rule_name}</div>
                   </div>
                   <div>
-                    <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-0.5">
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-0.5">
                       Complexity
                     </div>
                     <div className="capitalize">{result.meta.complexity}</div>
                   </div>
                   <div>
-                    <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-0.5">
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-0.5">
                       Syntax Confidence
                     </div>
                     <span
@@ -446,7 +446,7 @@ export default function AiRuleGenerator(): JSX.Element {
                     </span>
                   </div>
                   <div>
-                    <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-0.5">
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-0.5">
                       Detection Confidence
                     </div>
                     <span
@@ -488,7 +488,7 @@ export default function AiRuleGenerator(): JSX.Element {
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-10 text-center">
               <Wand2 size={32} className="text-slate-300 dark:text-slate-400 mx-auto mb-3" />
               <p className="text-sm text-slate-500 dark:text-slate-400">Select a format and describe what to detect</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">The generated rule will appear here</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">The generated rule will appear here</p>
             </div>
           )}
         </div>

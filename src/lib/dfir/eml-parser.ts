@@ -3,7 +3,7 @@
  *
  * Scope: extract Content-Disposition: attachment parts (and inline parts
  * with a filename) plus their decoded bytes, then SHA-256 each one. Used
- * by /dfir/eml. Not a full mail parser — header decoding is best-effort,
+ * by /dfir/eml. Not a full mail parser - header decoding is best-effort,
  * we don't follow message/rfc822 nesting unless the user pastes the
  * inner message manually.
  *
@@ -13,7 +13,7 @@
  *   - quoted-printable      (=XX hex + soft line breaks)
  *
  * Charset of HEADERS handled via RFC 2047 encoded-word (=?utf-8?B?...?=
- * and =?iso-8859-1?Q?...?=). Body charset stays as bytes — we hash bytes,
+ * and =?iso-8859-1?Q?...?=). Body charset stays as bytes - we hash bytes,
  * we don't decode bodies as text.
  *
  * Hard limits: 10 MB total .eml input, 5 MB per part. Beyond those, the
@@ -60,7 +60,7 @@ export interface ParsedEml {
   /** Top-level Content-Type. */
   contentType?: string;
   attachments: EmlAttachment[];
-  /** Soft warnings — parsing continued, but something was odd. */
+  /** Soft warnings - parsing continued, but something was odd. */
   warnings: string[];
 }
 
@@ -284,7 +284,7 @@ function findHeader(headers: ParsedHeader[], name: string): ParsedHeader | undef
 
 async function digestHex(algorithm: 'SHA-256' | 'SHA-1' | 'MD5', bytes: Uint8Array): Promise<string> {
   // SubtleCrypto doesn't ship MD5. We compute MD5 via the shared module
-  // (lib/dfir/md5.ts) — legacy IOC databases still key by MD5.
+  // (lib/dfir/md5.ts) - legacy IOC databases still key by MD5.
   if (algorithm === 'MD5') return md5HexFromBytes(bytes);
   const buf = await crypto.subtle.digest(algorithm, bytes as unknown as BufferSource);
   const arr = new Uint8Array(buf);
@@ -325,11 +325,11 @@ export async function parseEml(eml: string): Promise<ParsedEml> {
 
   const attachments: EmlAttachment[] = [];
 
-  // Recursive walker — flat-walks every leaf MIME part. message/rfc822
+  // Recursive walker - flat-walks every leaf MIME part. message/rfc822
   // nesting is treated as a leaf (the user can paste the inner message).
   async function walk(partHeaders: ParsedHeader[], partBody: string, depth: number): Promise<void> {
     if (depth > 20) {
-      warnings.push('multipart nesting too deep — bailing at depth 20');
+      warnings.push('multipart nesting too deep - bailing at depth 20');
       return;
     }
     const ctHeader = findHeader(partHeaders, 'content-type');
@@ -358,7 +358,7 @@ export async function parseEml(eml: string): Promise<ParsedEml> {
     const hasFilename = filename != null && filename.length > 0;
 
     // We treat any leaf part with a filename as an attachment for
-    // forensics purposes — analysts typically want every embedded file
+    // forensics purposes - analysts typically want every embedded file
     // hashed, not just those flagged disposition: attachment.
     if (!isAttachment && !hasFilename) return;
 

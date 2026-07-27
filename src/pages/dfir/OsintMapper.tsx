@@ -158,7 +158,7 @@ export default function OsintMapper(): JSX.Element {
         setSelection(null);
         setImportError(null);
       } else {
-        setImportError('Invalid .osint.json file — not a recognized OSINT project.');
+        setImportError('Invalid .osint.json file - not a recognized OSINT project.');
       }
     });
     e.target.value = '';

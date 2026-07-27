@@ -39,7 +39,7 @@ import {
   type TiReportSummary,
 } from '../../lib/ti-mindmap-mcp';
 
-// Mirror of api/src/lib/report-analyzer.ts types (kept in sync — this page
+// Mirror of api/src/lib/report-analyzer.ts types (kept in sync - this page
 // is a read-only consumer; if the API shape changes, this needs an update).
 type IocKind = 'ip' | 'url' | 'domain' | 'hash' | 'cve' | 'email';
 interface ExtractedIoc {
@@ -148,7 +148,7 @@ const IOC_PILL: Record<IocKind, string> = {
 };
 
 // ── Tab bodies (mirror the ReportAnalyzer styles, no React Flow needed
-//    for the showcase — we use a CSS-only mindmap rendering so the page
+//    for the showcase - we use a CSS-only mindmap rendering so the page
 //    loads without the 250KB xyflow bundle) ───────────────────────────
 
 function SummaryTab({ data, sample }: { data: AnalyzerOutput; sample: SampleReport }): JSX.Element {
@@ -156,7 +156,7 @@ function SummaryTab({ data, sample }: { data: AnalyzerOutput; sample: SampleRepo
     <div className="surface-card p-5 space-y-4">
       <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] pb-3">
         <div>
-          <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+          <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
             AI-Generated Summary · {data.summary?.model ?? 'unknown model'}
           </p>
           <h2 className="text-xl sm:text-2xl font-display font-bold text-slate-900 dark:text-slate-100 mt-1">
@@ -223,8 +223,8 @@ function MindmapSimpleTab({ mindmap }: { mindmap: { nodes: MindmapNode[]; edges:
   return (
     <div className="space-y-3">
       {finding && (
-        <div className="rounded-xl border-2 border-brand-400 dark:border-brand-600 bg-brand-50 dark:bg-brand-950/30 p-4 text-center shadow-e1">
-          <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+        <div className="rounded-xl border-2 border-rose-400 dark:border-rose-600 bg-rose-50 dark:bg-rose-950/30 p-4 text-center shadow-e1">
+          <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
             Central Finding
           </p>
           <h3 className="mt-1 text-base font-semibold text-slate-900 dark:text-slate-100">{finding.label}</h3>
@@ -275,7 +275,7 @@ function StixTab({ data }: { data: AnalyzerOutput }): JSX.Element {
   return (
     <div className="surface-card p-5 space-y-4">
       <div className="flex items-baseline justify-between">
-        <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+        <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
           STIX 2.1 Bundle · {objects.length} objects
         </p>
         <details className="text-xs">
@@ -411,7 +411,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
   return (
     <div className="surface-card overflow-hidden">
       <div className="flex flex-wrap items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
-        <Link2 className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+        <Link2 className="h-4 w-4 text-rose-600 dark:text-rose-400" />
         <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
           {iocs.length} IOC{iocs.length === 1 ? '' : 's'} extracted
         </p>
@@ -420,7 +420,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
           type="button"
           onClick={() => void runEnrichment()}
           disabled={!canEnrich || enriching || enrichable.length === 0}
-          className="ml-auto inline-flex items-center gap-1.5 rounded border border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/40 px-2.5 py-1 text-xs font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-100 disabled:opacity-50"
+          className="ml-auto inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-500/40 bg-rose-50 dark:bg-rose-950/40 px-2.5 py-1 text-xs font-medium text-rose-700 dark:text-rose-300 hover:bg-rose-100 disabled:opacity-50"
           title={
             canEnrich ? `Cross-check up to 8 IOCs against TI-Mindmap-Hub` : 'Configure your MCP API key above to enable'
           }
@@ -467,7 +467,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
                 <td className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 font-mono">{i.source}</td>
                 <td className="px-4 py-2 text-xs">
                   {!er ? (
-                    <span className="text-slate-400 dark:text-slate-400 font-mono">—</span>
+                    <span className="text-slate-400 dark:text-slate-400 font-mono">-</span>
                   ) : er.loading ? (
                     <span className="inline-flex items-center gap-1 font-mono text-slate-500">
                       <Loader2 className="h-3 w-3 animate-spin" /> searching…
@@ -527,7 +527,7 @@ function TtpsTab({ ttp }: { ttp: TtpHit[] }): JSX.Element {
                   href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}/`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-brand-600 dark:text-brand-400 hover:underline"
+                  className="text-rose-600 dark:text-rose-400 hover:underline"
                 >
                   {t.id}
                 </a>
@@ -561,7 +561,7 @@ function AttackFlowTabView({ phases }: { phases: AttackFlowPhase[] }): JSX.Eleme
           className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] shadow-e1 overflow-hidden"
         >
           <div className="flex items-center gap-2 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] px-4 py-2">
-            <TrendingUp className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+            <TrendingUp className="h-4 w-4 text-rose-600 dark:text-rose-400" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{p.phase}</h3>
             <span className="ml-auto text-micro font-mono uppercase text-slate-500">
               {p.techniques.length} technique{p.techniques.length === 1 ? '' : 's'}
@@ -597,7 +597,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
   ];
   return (
     <div className="surface-card p-5 space-y-3">
-      <p className="text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+      <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
         5W Analysis · AI confidence {fmtConfidence(fiveW.confidence)}
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -610,7 +610,7 @@ function FiveWTab({ fiveW }: { fiveW: FiveW | null }): JSX.Element {
               <Icon className="h-3.5 w-3.5 text-slate-500" />
               <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{q}</p>
             </div>
-            <p className="text-sm text-slate-800 dark:text-slate-200">{a || '—'}</p>
+            <p className="text-sm text-slate-800 dark:text-slate-200">{a || '-'}</p>
           </div>
         ))}
       </div>
@@ -637,7 +637,7 @@ function EmptyTab({ msg }: { msg: string }): JSX.Element {
 // ── TI-Mindmap-Hub MCP integration ────────────────────────────
 // Browser-side client for https://mcp.ti-mindmap-hub.com/mcp (JSON-RPC over
 // HTTPS + SSE). The API key is stored in localStorage and never reaches our
-// backend — the MCP server validates it directly. Components below:
+// backend - the MCP server validates it directly. Components below:
 //   - McpStatusBanner : read-only status, key editing lives in the global TopBar
 //   - McpSearchPanel  : free-text search across reports / IOCs / CVEs
 //   - IocEnrichment   : per-IOC lookup result chip rendered next to each row
@@ -688,7 +688,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
   return (
     <div className="mt-3 surface-card p-4">
       <div className="flex flex-wrap items-center gap-2 mb-3">
-        <Search className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+        <Search className="h-4 w-4 text-rose-600 dark:text-rose-400" />
         <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Cross-Source Search</h3>
         <span className="ml-auto text-micro font-mono uppercase text-slate-500">via TI-Mindmap-Hub MCP · 25 tools</span>
       </div>
@@ -705,7 +705,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
               key={m}
               type="button"
               onClick={() => setMode(m)}
-              className={`px-2.5 py-1.5 ${mode === m ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'}`}
+              className={`px-2.5 py-1.5 ${mode === m ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300' : 'bg-white dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'}`}
             >
               {m}
             </button>
@@ -729,7 +729,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
         <button
           type="submit"
           disabled={disabled}
-          className="inline-flex items-center gap-1.5 rounded border border-brand-300 dark:border-brand-700 bg-brand-600 dark:bg-brand-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-500/40 bg-rose-600 dark:bg-rose-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-rose-700 disabled:opacity-50"
         >
           {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Search className="h-3.5 w-3.5" />}
           search
@@ -739,7 +739,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
       {!props.apiKey && (
         <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
           Add your TI-Mindmap-Hub API key above to enable cross-source lookups. Keys stay in your browser (localStorage)
-          — they are never sent to our backend.
+          - they are never sent to our backend.
         </p>
       )}
 
@@ -959,14 +959,14 @@ export default function AIReportShowcase(): JSX.Element {
       description={
         <span>
           A live, in-browser demonstration of the{' '}
-          <Link to="/dfir/report-analyzer" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/dfir/report-analyzer" className="text-rose-600 dark:text-rose-400 hover:underline">
             Report Analyzer
           </Link>{' '}
           pipeline. Pick a sample report (or paste your own at{' '}
-          <Link to="/dfir/report-analyzer" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/dfir/report-analyzer" className="text-rose-600 dark:text-rose-400 hover:underline">
             /dfir/report-analyzer
           </Link>
-          ) — the page runs the eight-branch AI extraction (summary, IOCs, MITRE ATT&CK TTPs, 5W, CVEs, mindmap, Diamond
+          ) - the page runs the eight-branch AI extraction (summary, IOCs, MITRE ATT&CK TTPs, 5W, CVEs, mindmap, Diamond
           Model, STIX 2.1) and renders all 9 PDF-quality sections below.
         </span>
       }
@@ -1002,7 +1002,7 @@ export default function AIReportShowcase(): JSX.Element {
       {/* ── Sample picker ───────────────────────────────────────────── */}
       <div className="mb-4 surface-card p-4">
         <div className="flex items-center gap-2 mb-3">
-          <Beaker className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+          <Beaker className="h-4 w-4 text-rose-600 dark:text-rose-400" />
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Pick a sample report</h3>
           <span className="ml-auto text-micro font-mono uppercase text-slate-500">
             {SAMPLE_REPORTS.length} curated samples
@@ -1018,13 +1018,13 @@ export default function AIReportShowcase(): JSX.Element {
                 onClick={() => handleSelect(r.id)}
                 className={`text-left rounded-xl border p-3 transition-all ${
                   active
-                    ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/30 shadow-e2'
-                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] hover:border-brand-400/60'
+                    ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/30 shadow-e2'
+                    : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] hover:border-rose-400/60'
                 }`}
               >
                 <div className="flex items-baseline justify-between gap-2 mb-1">
                   <p className="text-sm font-medium text-slate-900 dark:text-slate-100 line-clamp-2">{r.title}</p>
-                  {active && <CircleDot className="h-3 w-3 text-brand-500 shrink-0" />}
+                  {active && <CircleDot className="h-3 w-3 text-rose-500 shrink-0" />}
                 </div>
                 <p className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                   {r.source} · {r.publishedAt}
@@ -1040,7 +1040,7 @@ export default function AIReportShowcase(): JSX.Element {
             href={sample.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
           >
             {sample.url}
             <ExternalLink className="h-3 w-3" />
@@ -1090,7 +1090,7 @@ export default function AIReportShowcase(): JSX.Element {
                   onClick={() => setTab(t.id)}
                   className={`inline-flex items-center gap-1.5 text-mini font-mono rounded-full border px-2.5 py-1 transition-colors ${
                     tab === t.id
-                      ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
+                      ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300'
                       : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
                   }`}
                 >
@@ -1103,7 +1103,7 @@ export default function AIReportShowcase(): JSX.Element {
               type="button"
               onClick={() => void runAnalyzer(sample)}
               disabled={loading}
-              className="ml-auto inline-flex items-center gap-1.5 text-mini font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400 transition-colors disabled:opacity-50"
+              className="ml-auto inline-flex items-center gap-1.5 text-mini font-mono rounded-full border border-slate-300 dark:border-[rgb(var(--border-400))] px-2.5 py-1 text-slate-500 dark:text-slate-400 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
             >
               <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
               re-run
@@ -1124,7 +1124,7 @@ export default function AIReportShowcase(): JSX.Element {
 
       {!data && !loading && !error && (
         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-12 text-center">
-          <BookOpen className="mx-auto h-10 w-10 text-slate-400 dark:text-slate-500 mb-3" />
+          <BookOpen className="mx-auto h-10 w-10 text-slate-500 dark:text-slate-400 mb-3" />
           <p className="text-sm text-muted">Pick a sample above to begin.</p>
         </div>
       )}

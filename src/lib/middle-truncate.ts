@@ -1,5 +1,5 @@
 /**
- * Middle-truncate a string so both ends stay legible — e.g. a hash or URL
+ * Middle-truncate a string so both ends stay legible - e.g. a hash or URL
  * renders as `a1b2c3d4…9f8e7d6c` instead of losing its tail to a trailing
  * ellipsis. Returns the input unchanged when it already fits or `max` is
  * non-positive / non-finite.

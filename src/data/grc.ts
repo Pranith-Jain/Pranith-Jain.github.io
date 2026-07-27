@@ -17,7 +17,7 @@
  *   - https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2
  *   - https://www.soc-cmm.com/
  *
- * Cross-mappings are illustrative — for audit work, validate against the
+ * Cross-mappings are illustrative - for audit work, validate against the
  * official mapping documents (NIST has published OSCAL mappings for CSF↔CIS
  * and CSF↔ISO that are the canonical source).
  */
@@ -27,7 +27,7 @@ export type FrameworkId = 'nist-csf' | 'iso-27001' | 'iso-42001' | 'cis' | 'soc2
 export const FRAMEWORK_META: Record<FrameworkId, { label: string; short: string; year: string }> = {
   'nist-csf': { label: 'NIST CSF 2.0', short: 'NIST Cybersecurity Framework 2.0', year: '2024' },
   'iso-27001': { label: 'ISO 27001:2022', short: 'ISO/IEC 27001 Annex A', year: '2022' },
-  'iso-42001': { label: 'ISO 42001:2023', short: 'ISO/IEC 42001 — AI Management System', year: '2023' },
+  'iso-42001': { label: 'ISO 42001:2023', short: 'ISO/IEC 42001 - AI Management System', year: '2023' },
   cis: { label: 'CIS Controls v8', short: 'Center for Internet Security Controls', year: '2021' },
   soc2: { label: 'SOC 2 TSC', short: 'AICPA Trust Services Criteria', year: '2017' },
   'soc-cmm': { label: 'SOC-CMM', short: 'SOC Capability Maturity Model', year: '2023' },
@@ -36,7 +36,7 @@ export const FRAMEWORK_META: Record<FrameworkId, { label: string; short: string;
 export type CoverageStatus = 'unset' | 'covered' | 'partial' | 'gap' | 'na';
 
 export interface ControlMapping {
-  /** Cross-reference to another framework — frameworkId : controlId */
+  /** Cross-reference to another framework - frameworkId : controlId */
   to: string;
   /** Optional display label override. */
   label?: string;
@@ -49,7 +49,7 @@ export interface Control {
   shortId: string;
   /** Title. */
   title: string;
-  /** Body — what the control requires. */
+  /** Body - what the control requires. */
   body: string;
   /** Cross-mappings to other frameworks. */
   mappings?: ControlMapping[];
@@ -476,7 +476,7 @@ export const NIST_CSF: Function_[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────
-// ISO 27001:2022 Annex A — 4 themes, top controls
+// ISO 27001:2022 Annex A - 4 themes, top controls
 // ─────────────────────────────────────────────────────────────────────────
 
 export interface IsoTheme {
@@ -599,7 +599,7 @@ export const ISO_27001: IsoTheme[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────
-// ISO/IEC 42001:2023 — AI Management System (AIMS)
+// ISO/IEC 42001:2023 - AI Management System (AIMS)
 // ─────────────────────────────────────────────────────────────────────────
 // First international standard for AI management systems. Annex A defines
 // 9 control domains (A.2-A.10). Domain A.1 is intentionally not used (it
@@ -631,7 +631,7 @@ export const ISO_42001: AiDomain[] = [
         id: 'iso-42001:A.2.3',
         shortId: 'A.2.3',
         title: 'Alignment with other organisational policies',
-        body: 'AI policy is consistent with broader policies — security, privacy, ethics, HR, vendor management.',
+        body: 'AI policy is consistent with broader policies - security, privacy, ethics, HR, vendor management.',
         mappings: [{ to: 'nist-csf:GV.OC-03' }],
       },
     ],
@@ -762,7 +762,7 @@ export const ISO_42001: AiDomain[] = [
         id: 'iso-42001:A.6.2.5',
         shortId: 'A.6.2.5',
         title: 'AI system deployment',
-        body: 'Deployment is planned and controlled — staging, rollback, gradual rollout, user training.',
+        body: 'Deployment is planned and controlled - staging, rollback, gradual rollout, user training.',
         mappings: [{ to: 'nist-csf:PR.PS-02' }],
       },
       {
@@ -791,7 +791,7 @@ export const ISO_42001: AiDomain[] = [
     id: 'iso-42001-A7',
     shortId: 'A.7',
     title: 'Data for AI systems',
-    description: 'Manage the data used to train, evaluate, and operate AI systems — quality, provenance, governance.',
+    description: 'Manage the data used to train, evaluate, and operate AI systems - quality, provenance, governance.',
     controls: [
       {
         id: 'iso-42001:A.7.2',
@@ -835,7 +835,7 @@ export const ISO_42001: AiDomain[] = [
         id: 'iso-42001:A.8.2',
         shortId: 'A.8.2',
         title: 'System documentation and information for users',
-        body: 'Users receive information sufficient to use the AI system appropriately — capabilities, limitations, intended use.',
+        body: 'Users receive information sufficient to use the AI system appropriately - capabilities, limitations, intended use.',
       },
       {
         id: 'iso-42001:A.8.3',
@@ -863,7 +863,7 @@ export const ISO_42001: AiDomain[] = [
     id: 'iso-42001-A9',
     shortId: 'A.9',
     title: 'Use of AI systems',
-    description: 'Govern the actual use of AI systems — intended-use boundaries, monitoring of misuse.',
+    description: 'Govern the actual use of AI systems - intended-use boundaries, monitoring of misuse.',
     controls: [
       {
         id: 'iso-42001:A.9.2',
@@ -916,7 +916,7 @@ export const ISO_42001: AiDomain[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────
-// CIS Controls v8 — 18 top-level controls
+// CIS Controls v8 - 18 top-level controls
 // ─────────────────────────────────────────────────────────────────────────
 
 export interface CisControl {
@@ -924,7 +924,7 @@ export interface CisControl {
   number: number;
   title: string;
   description: string;
-  /** IG1 / IG2 / IG3 — Implementation Group thresholds. */
+  /** IG1 / IG2 / IG3 - Implementation Group thresholds. */
   igLevel: 1 | 2 | 3;
 }
 
@@ -1098,7 +1098,7 @@ export const SOC2_TSC: Soc2Criterion[] = [
     id: 'soc2:CC1.4',
     category: 'Common Criteria',
     shortId: 'CC1.4',
-    title: 'Competence — security training',
+    title: 'Competence - security training',
     description: 'The entity demonstrates a commitment to attract, develop, and retain competent individuals.',
   },
   {
@@ -1196,7 +1196,7 @@ export const SOC2_TSC: Soc2Criterion[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────
-// SOC-CMM — 5 domains × 5 maturity levels
+// SOC-CMM - 5 domains × 5 maturity levels
 // ─────────────────────────────────────────────────────────────────────────
 
 export type MaturityLevel = 0 | 1 | 2 | 3 | 4 | 5;
@@ -1239,7 +1239,7 @@ export const SOC_CMM: SocCmmDomain[] = [
   {
     id: 'process',
     title: 'Process',
-    description: 'Defined and measured SOC processes — alert handling, IR, hunting, intel, vulnerability management.',
+    description: 'Defined and measured SOC processes - alert handling, IR, hunting, intel, vulnerability management.',
     levels: {
       0: 'Processes are ad-hoc. Tribal knowledge dominates.',
       1: 'Some processes documented. Inconsistent execution.',
@@ -1266,7 +1266,7 @@ export const SOC_CMM: SocCmmDomain[] = [
     id: 'services',
     title: 'Services',
     description:
-      'Services the SOC offers — monitoring, IR, threat hunting, vulnerability management, threat intel, training.',
+      'Services the SOC offers - monitoring, IR, threat hunting, vulnerability management, threat intel, training.',
     levels: {
       0: 'Monitoring only, with limited follow-through.',
       1: 'Monitoring + reactive IR. No proactive services.',

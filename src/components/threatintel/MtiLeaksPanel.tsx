@@ -38,7 +38,7 @@ interface MtiResp {
 
 /**
  * Parse upstream's free-text size string (e.g. "348.69 M", "2.3 G",
- * "412 K") into bytes. Used only for the size-sort ordering — the
+ * "412 K") into bytes. Used only for the size-sort ordering - the
  * display always renders the upstream string verbatim. Unknown
  * formats return -1 so they sink to the bottom of the size sort.
  */
@@ -151,7 +151,7 @@ export function MtiLeaksPanel(): JSX.Element {
 
       <div className="flex flex-wrap gap-2 items-center mb-3">
         <div className="relative flex-1 min-w-[200px]">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="search"
             value={query}

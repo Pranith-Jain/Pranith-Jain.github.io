@@ -515,7 +515,7 @@ function DraftPreviewPanel({
         <>
           <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-1">{post.title}</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-            <span className="font-mono text-micro uppercase tracking-wider text-slate-400 mr-1.5">Excerpt</span>
+            <span className="font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1.5">Excerpt</span>
             {post.excerpt}
           </p>
           <div
@@ -532,7 +532,7 @@ function DraftPreviewPanel({
               '[&_code]:font-mono [&_code]:text-[0.85em] [&_code]:bg-slate-100 dark:[&_code]:bg-slate-900 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
               '[&_pre]:bg-slate-100 dark:[&_pre]:bg-slate-900 [&_pre]:p-3 [&_pre]:rounded [&_pre]:overflow-x-auto [&_pre]:mb-3 ' +
               '[&_strong]:text-slate-800 dark:[&_strong]:text-slate-100 [&_strong]:font-semibold ' +
-              '[&_blockquote]:border-l-2 [&_blockquote]:border-slate-200 dark:[&_blockquote]:border-slate-700 [&_blockquote]:pl-3 [&_blockquote]:text-slate-500 dark:[&_blockquote]:text-slate-400 [&_blockquote]:my-3'
+              '[&_blockquote]:border-l-2 [&_blockquote]:border-slate-200 dark:[&_blockquote]:border-slate-700 [&_blockquote]:pl-3 [&_blockquote]:text-slate-500 dark:[&_blockquote]:text-slate-500 dark:text-slate-400 [&_blockquote]:my-3'
             }
             dangerouslySetInnerHTML={{ __html: safeHtml }}
           />
@@ -605,7 +605,7 @@ function LinkVerifyBadge({
   const pill = 'px-1.5 py-0.5 rounded border text-micro font-mono ';
   return (
     <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
-      <span className="text-micro uppercase tracking-wider text-slate-400 mr-0.5">Links</span>
+      <span className="text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-0.5">Links</span>
       <span
         className={pill + 'border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300'}
         title={`${lv.verified} of ${lv.checked} reference URLs resolved live (2xx)`}

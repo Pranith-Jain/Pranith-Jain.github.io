@@ -179,21 +179,21 @@ export default function SupplyChainFeed(): JSX.Element {
         <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Check a Package</h3>
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="text"
               value={checkInput}
               onChange={(e) => setCheckInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleCheck()}
               placeholder="npm:lodash or pypi:requests"
-              className="h-10 w-full rounded-lg border border-slate-200 bg-white pl-9 pr-3 text-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white"
+              className="h-10 w-full rounded-xl border border-slate-200 bg-white pl-9 pr-3 text-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white"
               disabled={checkLoading}
             />
           </div>
           <button
             onClick={handleCheck}
             disabled={checkLoading || !checkInput.trim()}
-            className="flex h-10 items-center gap-1.5 rounded-lg bg-brand-600 px-4 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-40"
+            className="flex h-10 items-center gap-1.5 rounded-xl bg-rose-600 px-4 text-sm font-medium text-white hover:bg-rose-700 disabled:opacity-40"
           >
             {checkLoading ? <Loader2 size={14} className="animate-spin" /> : <Shield size={14} />}
             Check
@@ -230,7 +230,7 @@ export default function SupplyChainFeed(): JSX.Element {
             onClick={() => setEcoFilter(null)}
             className={`rounded-full px-2.5 py-1 text-mini font-mono transition-colors ${
               !ecoFilter
-                ? 'bg-brand-600 text-white'
+                ? 'bg-rose-600 text-white'
                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'
             }`}
           >
@@ -241,7 +241,7 @@ export default function SupplyChainFeed(): JSX.Element {
               key={eco.id}
               onClick={() => setEcoFilter(eco.id)}
               className={`rounded-full px-2.5 py-1 text-mini font-mono transition-colors ${
-                ecoFilter === eco.id ? 'bg-brand-600 text-white' : eco.color
+                ecoFilter === eco.id ? 'bg-rose-600 text-white' : eco.color
               }`}
             >
               {eco.label}
@@ -249,7 +249,7 @@ export default function SupplyChainFeed(): JSX.Element {
           ))}
           <button
             onClick={fetchFeed}
-            className="flex items-center gap-1 rounded-full px-2 py-1 text-mini text-slate-400 hover:text-brand-600 transition-colors"
+            className="flex items-center gap-1 rounded-full px-2 py-1 text-mini text-slate-500 dark:text-slate-400 hover:text-rose-600 transition-colors"
             aria-label="Refresh"
           >
             <RefreshCw size={11} />
@@ -259,20 +259,20 @@ export default function SupplyChainFeed(): JSX.Element {
 
       {/* ── Search bar ──────────────────────────────────────────────── */}
       <div className="relative mb-4">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Filter packages…"
-          className="h-9 w-full rounded-lg border border-slate-200 bg-white pl-9 pr-3 text-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white"
+          className="h-9 w-full rounded-xl border border-slate-200 bg-white pl-9 pr-3 text-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white"
         />
       </div>
 
       {/* ── Feed entries ────────────────────────────────────────────── */}
       {loading && (
         <div className="flex items-center justify-center py-16">
-          <Loader2 size={24} className="animate-spin text-brand-500" />
+          <Loader2 size={24} className="animate-spin text-rose-500" />
           <span className="ml-3 font-mono text-sm text-slate-500">Loading feed…</span>
         </div>
       )}
@@ -285,12 +285,12 @@ export default function SupplyChainFeed(): JSX.Element {
 
       {!loading && !error && feed && (
         <>
-          <div className="text-xs font-mono text-slate-400 mb-3">
+          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
             {filteredEntries.length} packages {ecoFilter ? `in ${ecoFilter}` : 'across all ecosystems'}
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {filteredEntries.length === 0 && (
-              <div className="col-span-full py-12 text-center text-sm text-slate-400">
+              <div className="col-span-full py-12 text-center text-sm text-slate-500 dark:text-slate-400">
                 No packages match your filter.
               </div>
             )}
@@ -325,7 +325,7 @@ export default function SupplyChainFeed(): JSX.Element {
                       {meta?.icon ?? eco.slice(0, 2)}
                     </span>
                     <div className="flex-1 h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))]">
-                      <div className="h-full rounded-full bg-brand-500 transition-all" style={{ width: `${pct}%` }} />
+                      <div className="h-full rounded-full bg-rose-500 transition-all" style={{ width: `${pct}%` }} />
                     </div>
                     <span className="w-16 text-right text-xs font-mono text-slate-500">{count.toLocaleString()}</span>
                   </div>
@@ -341,7 +341,7 @@ export default function SupplyChainFeed(): JSX.Element {
           href="https://github.com/ossf/malicious-packages"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-xs font-mono text-slate-400 hover:text-brand-600 transition-colors"
+          className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 transition-colors"
         >
           <ExternalLink size={11} />
           Source: OpenSSF Malicious Packages
@@ -355,7 +355,7 @@ export default function SupplyChainFeed(): JSX.Element {
 
 function StatPill({ label, value, color }: { label: string; value: string; color: string }) {
   return (
-    <div className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
+    <div className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-2.5 py-1.5 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
       <span className={`text-sm font-bold ${color}`}>{value}</span>
       <span className="text-micro font-medium text-slate-500">{label}</span>
     </div>
@@ -369,7 +369,7 @@ function PackageCard({ entry }: { entry: FeedEntry }) {
       href={entry.ossf_url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-center gap-2 rounded-lg border border-slate-150 bg-white px-3 py-2 transition-all hover:border-rose-300/50 hover:shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:hover:border-rose-500/30"
+      className="group flex items-center gap-2 rounded-xl border border-slate-150 bg-white px-3 py-2 transition-all hover:border-rose-300/50 hover:shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:hover:border-rose-500/30"
     >
       <ShieldOff size={12} className="text-rose-400 shrink-0 group-hover:text-rose-500" />
       <span className="font-mono text-xs font-medium text-slate-800 dark:text-slate-200 truncate flex-1">
@@ -380,7 +380,7 @@ function PackageCard({ entry }: { entry: FeedEntry }) {
       >
         {meta?.icon ?? entry.ecosystem.slice(0, 2)}
       </span>
-      <ExternalLink size={10} className="shrink-0 text-slate-300 group-hover:text-brand-500 dark:text-slate-600" />
+      <ExternalLink size={10} className="shrink-0 text-slate-300 group-hover:text-rose-500 dark:text-slate-600" />
     </a>
   );
 }
@@ -389,7 +389,7 @@ function VerdictCard({ result }: { result: CheckResult }) {
   const meta = VERDICT_META[result.verdict] ?? VERDICT_META.unknown!;
   const Icon = meta.icon;
   return (
-    <div className={`mt-3 rounded-lg border p-3 ${meta.bg}`}>
+    <div className={`mt-3 rounded-xl border p-3 ${meta.bg}`}>
       <div className="flex items-center gap-2 mb-2">
         <Icon size={16} className={meta.color} />
         <span className={`text-sm font-bold ${meta.color}`}>{meta.label}</span>
@@ -413,7 +413,7 @@ function VerdictCard({ result }: { result: CheckResult }) {
           href={result.registry_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-2 inline-flex items-center gap-1 text-mini font-mono text-brand-600 hover:text-brand-700"
+          className="mt-2 inline-flex items-center gap-1 text-mini font-mono text-rose-600 hover:text-rose-700"
         >
           <ExternalLink size={10} />
           View on registry

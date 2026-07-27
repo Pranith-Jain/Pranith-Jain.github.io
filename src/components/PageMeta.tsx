@@ -10,7 +10,7 @@ export interface PageMetaProps {
 }
 
 export function PageMeta({ title, description, section, canonicalPath, fullTitle, ogImage }: PageMetaProps) {
-  const resolvedTitle = fullTitle ?? (section ? `${title} — ${section} · ${SITE_NAME}` : `${title} · ${SITE_NAME}`);
+  const resolvedTitle = fullTitle ?? (section ? `${title} - ${section} · ${SITE_NAME}` : `${title} · ${SITE_NAME}`);
 
   const siteUrl = 'https://pranithjain.qzz.io';
   const resolvedOgImage = ogImage

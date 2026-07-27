@@ -98,12 +98,12 @@ export default function TaxiiServer(): JSX.Element {
         </h2>
         <div className="space-y-2">
           <div className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2">
-            <span className="text-micro font-mono uppercase tracking-wider text-slate-400 shrink-0">Discovery</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 shrink-0">Discovery</span>
             <code className="text-xs text-brand-600 dark:text-brand-400 flex-1 truncate font-mono">{baseUrl}</code>
             <CopyButton value={baseUrl} />
           </div>
           <div className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2">
-            <span className="text-micro font-mono uppercase tracking-wider text-slate-400 shrink-0">Content-Type</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 shrink-0">Content-Type</span>
             <code className="text-xs text-muted font-mono">application/vnd.oasis.taxii+json; version=2.1</code>
           </div>
         </div>
@@ -118,14 +118,14 @@ export default function TaxiiServer(): JSX.Element {
             </h2>
             <button
               onClick={fetchCollections}
-              className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-400 transition-colors"
+              className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 transition-colors"
             >
               <RefreshCw size={14} />
             </button>
           </div>
           {loading ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 size={20} className="animate-spin text-slate-400" />
+              <Loader2 size={20} className="animate-spin text-slate-500 dark:text-slate-400" />
             </div>
           ) : (
             <div className="space-y-1.5">
@@ -166,7 +166,7 @@ export default function TaxiiServer(): JSX.Element {
           <h2 className="font-display font-bold text-sm mb-4 flex items-center gap-2">
             <Database size={14} className="text-brand-600 dark:text-brand-400" />
             STIX Objects{' '}
-            {selectedCollection && <span className="font-mono text-xs text-slate-400">· {selectedCollection}</span>}
+            {selectedCollection && <span className="font-mono text-xs text-slate-500 dark:text-slate-400">· {selectedCollection}</span>}
           </h2>
           {!selectedCollection ? (
             <p className="text-sm text-slate-500 dark:text-slate-400 py-8 text-center">
@@ -174,7 +174,7 @@ export default function TaxiiServer(): JSX.Element {
             </p>
           ) : objectsLoading ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 size={20} className="animate-spin text-slate-400" />
+              <Loader2 size={20} className="animate-spin text-slate-500 dark:text-slate-400" />
             </div>
           ) : objects.length === 0 ? (
             <p className="text-sm text-slate-500 dark:text-slate-400 py-8 text-center">No objects in this collection</p>
@@ -193,11 +193,11 @@ export default function TaxiiServer(): JSX.Element {
         <h2 className="font-display font-bold text-sm mb-4">Quick Start</h2>
         <div className="space-y-3">
           <CodeBlock
-            title="curl — List collections"
+            title="curl - List collections"
             code={`curl -H "Accept: application/vnd.oasis.taxii+json; version=2.1" \\\n  ${baseUrl}collections/`}
           />
           <CodeBlock
-            title="curl — Get IOCs"
+            title="curl - Get IOCs"
             code={`curl -H "Accept: application/stix+json; version=2.1" \\\n  "${baseUrl}collections/iocs/objects/?limit=100"`}
           />
         </div>

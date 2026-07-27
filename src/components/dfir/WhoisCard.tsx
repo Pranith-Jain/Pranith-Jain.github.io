@@ -10,8 +10,8 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
       </section>
     );
   }
-  const fmt = (s?: string) => (s ? new Date(s).toISOString().slice(0, 10) : '—');
-  const fmtDateTime = (s?: string) => (s ? new Date(s).toISOString().replace('T', ' ').slice(0, 19) + 'Z' : '—');
+  const fmt = (s?: string) => (s ? new Date(s).toISOString().slice(0, 10) : '-');
+  const fmtDateTime = (s?: string) => (s ? new Date(s).toISOString().replace('T', ' ').slice(0, 19) + 'Z' : '-');
   return (
     <section className="surface-card p-6">
       <h3 className="font-display font-bold text-lg mb-3">WHOIS / RDAP</h3>
@@ -54,7 +54,7 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
         <span className="text-xs text-muted font-mono uppercase tracking-wider">Registrar</span>
         <dl className="mt-2 grid grid-cols-[140px_1fr] gap-x-4 gap-y-1.5 text-sm font-mono">
           <dt className="text-muted">Name</dt>
-          <dd className="text-slate-900 dark:text-slate-100">{rdap.registrar ?? '—'}</dd>
+          <dd className="text-slate-900 dark:text-slate-100">{rdap.registrar ?? '-'}</dd>
           {rdap.registrar_iana_id && (
             <>
               <dt className="text-muted">IANA ID</dt>

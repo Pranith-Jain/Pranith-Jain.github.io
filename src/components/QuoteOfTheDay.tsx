@@ -3,7 +3,7 @@ import { Quote, Shield } from 'lucide-react';
 
 const QUOTES = [
   {
-    text: "Threat intelligence is not about collecting more data — it's about answering the questions that matter to your organization.",
+    text: "Threat intelligence is not about collecting more data - it's about answering the questions that matter to your organization.",
     author: 'Recorded Future',
   },
   {
@@ -11,9 +11,9 @@ const QUOTES = [
     author: 'SANS Institute',
   },
   { text: 'The best threat intelligence is the kind that helps you make better decisions, faster.', author: 'Gartner' },
-  { text: 'In incident response, speed matters — but accuracy matters more.', author: 'NIST' },
+  { text: 'In incident response, speed matters - but accuracy matters more.', author: 'NIST' },
   {
-    text: "Know thy network, know thy enemy, and know thyself — that's the trifecta of threat intelligence.",
+    text: "Know thy network, know thy enemy, and know thyself - that's the trifecta of threat intelligence.",
     author: 'Adapted from Sun Tzu',
   },
   {
@@ -21,7 +21,7 @@ const QUOTES = [
     author: 'CrowdStrike',
   },
   {
-    text: "Good threat intel isn't about indicators alone — it's about understanding intent, capability, and opportunity.",
+    text: "Good threat intel isn't about indicators alone - it's about understanding intent, capability, and opportunity.",
     author: 'Mandiant',
   },
   {
@@ -41,7 +41,7 @@ const QUOTES = [
     author: 'FireEye',
   },
   {
-    text: "Dark web monitoring isn't optional anymore — it's the front line of proactive defense.",
+    text: "Dark web monitoring isn't optional anymore - it's the front line of proactive defense.",
     author: 'Flashpoint',
   },
   { text: 'IOCs without context are just noise. Context without action is just trivia.', author: 'SANS Institute' },
@@ -73,13 +73,13 @@ export function QuoteOfTheDay(): JSX.Element | null {
       </div>
       <div className="relative flex items-start gap-3">
         <div className="grid h-8 w-8 place-items-center rounded-xl bg-brand-500/10 dark:bg-brand-500/15 text-brand-600 dark:text-brand-400 shrink-0">
-          <Quote size={14} />
+          <Quote size={14} aria-hidden="true" />
         </div>
         <div>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 italic">
             &ldquo;{quote.text}&rdquo;
           </p>
-          <p className="mt-2 text-xs font-mono text-slate-500 dark:text-slate-400">— {quote.author}</p>
+          <p className="mt-2 text-xs font-mono text-slate-500 dark:text-slate-400">- {quote.author}</p>
         </div>
       </div>
     </section>

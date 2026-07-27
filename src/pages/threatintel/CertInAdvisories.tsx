@@ -45,7 +45,7 @@ const SEVERITY_STYLES: Record<string, string> = {
 };
 
 function formatDate(iso: string): string {
-  if (!iso) return '—';
+  if (!iso) return '-';
   // Avoid timezone drift: the index stores YYYY-MM-DD directly.
   return iso;
 }
@@ -158,7 +158,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
         }}
         className={`flex items-center gap-1 font-mono text-xs uppercase tracking-wider ${
           active
-            ? 'text-brand-600 dark:text-brand-400'
+            ? 'text-rose-600 dark:text-rose-400'
             : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
         }`}
       >
@@ -181,7 +181,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
             </h1>
           </div>
           <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
-            Advisories published by the Indian Computer Emergency Response Team (CERT-In) — vulnerability disclosures
+            Advisories published by the Indian Computer Emergency Response Team (CERT-In) - vulnerability disclosures
             affecting Indian enterprises and critical infrastructure. Filter by year or severity, or search by CVE /
             product. Click any advisory ID to open the official detail page.
           </p>
@@ -215,13 +215,13 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
             placeholder="Search CVE, product, ID, description…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
           value={yearFilter}
           onChange={(e) => setYearFilter(e.target.value)}
-          className="w-full sm:w-32 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="w-full sm:w-32 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
         >
           <option value="">All years</option>
           {years.map((y) => (
@@ -233,7 +233,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
         <select
           value={severityFilter}
           onChange={(e) => setSeverityFilter(e.target.value)}
-          className="w-full sm:w-36 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="w-full sm:w-36 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
         >
           <option value="">All severities</option>
           <option value="critical">Critical</option>
@@ -315,7 +315,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
                       href={adv.detail_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1"
+                      className="text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1"
                     >
                       {adv.id} <ExternalLink className="w-3 h-3" />
                     </a>
@@ -341,7 +341,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
                             href={`https://nvd.nist.gov/vuln/detail/${cve}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-mono text-xs text-brand-600 dark:text-brand-400 hover:underline"
+                            className="font-mono text-xs text-rose-600 dark:text-rose-400 hover:underline"
                           >
                             {cve}
                           </a>
@@ -349,7 +349,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
                         {adv.cves.length > 3 && <span className="text-xs text-slate-500">+{adv.cves.length - 3}</span>}
                       </div>
                     ) : (
-                      <span className="text-slate-400 text-xs">—</span>
+                      <span className="text-slate-500 dark:text-slate-400 text-xs">-</span>
                     )}
                   </td>
                   <td className="px-3 py-2 max-w-xs">
@@ -368,14 +368,14 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
                         )}
                       </div>
                     ) : (
-                      <span className="text-slate-400 text-xs">—</span>
+                      <span className="text-slate-500 dark:text-slate-400 text-xs">-</span>
                     )}
                   </td>
                   <td className="px-3 py-2 text-slate-600 dark:text-slate-400 text-xs max-w-md">
                     {adv.description ? (
                       <span className="line-clamp-2">{adv.description}</span>
                     ) : (
-                      <span className="italic text-slate-400">{adv.summary}</span>
+                      <span className="italic text-slate-500 dark:text-slate-400">{adv.summary}</span>
                     )}
                   </td>
                 </tr>

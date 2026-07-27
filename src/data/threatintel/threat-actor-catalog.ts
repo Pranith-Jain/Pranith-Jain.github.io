@@ -20,9 +20,9 @@ export interface ThreatActor {
   /** Public Telegram channels associated with this actor (handles without leading @).
    *  Sourced from public vendor reports (Group-IB, Flashpoint, CrowdStrike, MITRE)
    *  and the deepdarkCTI `telegram_threat_actors.md` index. Many of these are
-   *  OPSEC-sensitive — treat them as leads, not as primary attribution evidence. */
+   *  OPSEC-sensitive - treat them as leads, not as primary attribution evidence. */
   telegram_handles?: string[];
-  /** Source notes for `telegram_handles` — same length as `telegram_handles` when set. */
+  /** Source notes for `telegram_handles` - same length as `telegram_handles` when set. */
   telegram_handles_source?: string[];
 }
 

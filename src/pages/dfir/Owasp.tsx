@@ -12,13 +12,13 @@ const CHECK_CYCLE: Record<Check, Check> = { unset: 'covered', covered: 'partial'
 
 const CHECK_STYLES: Record<Check, { label: string; bg: string; text: string; border: string }> = {
   unset: {
-    label: '— unset',
+    label: '- unset',
     bg: 'bg-slate-50 dark:bg-[rgb(var(--surface-200))]',
     text: 'text-slate-500',
     border: 'border-slate-300 dark:border-[rgb(var(--border-400))]',
   },
   covered: {
-    label: '✓ covered',
+    label: 'covered',
     bg: 'bg-emerald-50 dark:bg-emerald-900/20',
     text: 'text-emerald-700 dark:text-emerald-300',
     border: 'border-emerald-400/60',
@@ -30,7 +30,7 @@ const CHECK_STYLES: Record<Check, { label: string; bg: string; text: string; bor
     border: 'border-amber-400/60',
   },
   gap: {
-    label: '✗ gap',
+    label: 'gap',
     bg: 'bg-rose-50 dark:bg-rose-900/20',
     text: 'text-rose-700 dark:text-rose-300',
     border: 'border-rose-400/60',
@@ -106,7 +106,7 @@ export default function Owasp(): JSX.Element {
   const exportReport = () => {
     const list = OWASP_LISTS.find((l) => l.id === activeList);
     const lines: string[] = [
-      `# ${list?.label} ${list?.year} — Self-Assessment`,
+      `# ${list?.label} ${list?.year} - Self-Assessment`,
       `Generated: ${new Date().toISOString().slice(0, 10)}`,
       '',
       `Coverage: ${stats.covered}/${stats.total} covered, ${stats.partial} partial, ${stats.gap} gaps, ${stats.unset} unset`,
@@ -156,7 +156,7 @@ export default function Owasp(): JSX.Element {
           <span className="font-mono">unset</span> chip to mark it{' '}
           <span className="text-emerald-600 dark:text-emerald-400 font-mono">covered</span>,{' '}
           <span className="text-amber-600 dark:text-amber-400 font-mono">partial</span>, or{' '}
-          <span className="text-rose-600 dark:text-rose-400 font-mono">gap</span> — your assessment is stored locally
+          <span className="text-rose-600 dark:text-rose-400 font-mono">gap</span> - your assessment is stored locally
           and exportable as a Markdown audit trail.
         </p>
       </div>

@@ -3,10 +3,10 @@ import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, Copy, Download, FileCode, Info, Shield, Zap } from 'lucide-react';
 
 /**
- * /dfir/csrf-poc — Client-side CSRF proof-of-concept generator.
+ * /dfir/csrf-poc - Client-side CSRF proof-of-concept generator.
  *
  * Generates ready-to-use HTML PoCs for testing CSRF vulnerabilities.
- * All logic runs in-browser — no server round-trip.
+ * All logic runs in-browser - no server round-trip.
  */
 
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
@@ -233,7 +233,7 @@ export default function CsrfPocGenerator(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 py-8">
       <BackLink to="/dfir">Back to DFIR Catalog</BackLink>
       <div className="flex items-center gap-3 mt-4 mb-2">
-        <div className="p-2 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400">
+        <div className="p-2 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400">
           <Shield size={24} />
         </div>
         <div>
@@ -257,7 +257,7 @@ export default function CsrfPocGenerator(): JSX.Element {
               type="url"
               value={config.targetUrl}
               onChange={(e) => setConfig((c) => ({ ...c, targetUrl: e.target.value }))}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] font-mono text-sm"
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] font-mono text-sm"
               placeholder="https://example.com/api/action"
             />
 
@@ -267,7 +267,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                 <select
                   value={config.method}
                   onChange={(e) => setConfig((c) => ({ ...c, method: e.target.value as Method }))}
-                  className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] font-mono text-sm"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] font-mono text-sm"
                 >
                   <option value="GET">GET</option>
                   <option value="POST">POST</option>
@@ -285,7 +285,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                     if (v === 'xhr') setConfig((c) => ({ ...c, includeXhr: true }));
                     else setConfig((c) => ({ ...c, includeXhr: false, encoding: v as Encoding }));
                   }}
-                  className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] font-mono text-sm"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] font-mono text-sm"
                 >
                   <option value="html">HTML Form</option>
                   <option value="xhr">XMLHttpRequest</option>
@@ -364,7 +364,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                     onClick={() => removeField(i)}
                     className="text-xs text-rose-500 hover:text-rose-700 px-1"
                   >
-                    ✕
+                    remove
                   </button>
                 </div>
               ))}
@@ -382,7 +382,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                 onChange={(e) => setConfig((c) => ({ ...c, customHeaders: e.target.value }))}
                 placeholder="X-Custom-Header: value&#10;Authorization: Bearer token"
                 rows={3}
-                className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] font-mono text-xs"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] font-mono text-xs"
               />
             </div>
           )}
@@ -415,7 +415,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                 </button>
               </div>
             </div>
-            <pre className="bg-slate-900 text-slate-100 rounded-lg p-4 text-xs font-mono overflow-x-auto max-h-[500px] overflow-y-auto">
+            <pre className="bg-slate-900 text-slate-100 rounded-xl p-4 text-xs font-mono overflow-x-auto max-h-[500px] overflow-y-auto">
               {poc}
             </pre>
           </div>
@@ -432,7 +432,7 @@ export default function CsrfPocGenerator(): JSX.Element {
                   <p className="text-xs text-amber-600 dark:text-amber-400 mt-1 mb-2">
                     For GET requests, an invisible img tag can trigger the request without user interaction:
                   </p>
-                  <pre className="bg-slate-900 text-slate-100 rounded-lg p-3 text-xs font-mono overflow-x-auto">
+                  <pre className="bg-slate-900 text-slate-100 rounded-xl p-3 text-xs font-mono overflow-x-auto">
                     {imgPoc}
                   </pre>
                 </div>
@@ -446,14 +446,14 @@ export default function CsrfPocGenerator(): JSX.Element {
               <Info size={14} className="text-slate-500" /> Usage Notes
             </h4>
             <ul className="text-xs text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
-              <li>HTML Form — classic auto-submitting form, works in all browsers</li>
-              <li>XMLHttpRequest — sends request via XHR, useful for same-origin testing</li>
-              <li>Fetch API — modern async request with Promise-based handling</li>
+              <li>HTML Form - classic auto-submitting form, works in all browsers</li>
+              <li>XMLHttpRequest - sends request via XHR, useful for same-origin testing</li>
+              <li>Fetch API - modern async request with Promise-based handling</li>
               <li>
                 <code className="px-1 py-0.5 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded">
                   withCredentials
                 </code>{' '}
-                — include cookies/auth headers (same-origin or CORS-enabled targets)
+                - include cookies/auth headers (same-origin or CORS-enabled targets)
               </li>
               <li>Always obtain proper authorization before testing CSRF on live applications</li>
             </ul>

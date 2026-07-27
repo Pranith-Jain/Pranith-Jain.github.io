@@ -11,7 +11,7 @@ interface Props {
 /**
  * Three-state badge:
  *   - listed   → rose, ShieldAlert      ("the DNSBL says this IP/domain is on its list")
- *   - blocked  → slate, ShieldQuestion  ("the DNSBL refused our query because we used a public DoH resolver — answer is unknown, NOT a positive listing")
+ *   - blocked  → slate, ShieldQuestion  ("the DNSBL refused our query because we used a public DoH resolver - answer is unknown, NOT a positive listing")
  *   - clean    → emerald, ShieldCheck   ("the DNSBL responded with no records")
  */
 function BlacklistBadgeInner({ bl, compact, showName = true }: Props): JSX.Element {
@@ -26,7 +26,7 @@ function BlacklistBadgeInner({ bl, compact, showName = true }: Props): JSX.Eleme
     Icon = ShieldQuestion;
     title =
       bl.detail ??
-      'This list blocks queries from public DNS resolvers — we cannot confirm listed status from the browser. See an external multi-RBL service for an authoritative check.';
+      'This list blocks queries from public DNS resolvers - we cannot confirm listed status from the browser. See an external multi-RBL service for an authoritative check.';
   } else if (bl.listed) {
     tone = 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300';
     label = 'listed';

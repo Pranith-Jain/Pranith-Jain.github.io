@@ -50,7 +50,7 @@ export default function TelegramLeakStats(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up mb-8">
         <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-          <BarChart3 size={28} className="text-brand-600 dark:text-brand-400" /> Telegram Leak Monitor Stats
+          <BarChart3 size={28} className="text-rose-600 dark:text-rose-400" /> Telegram Leak Monitor Stats
         </h1>
         <p className="text-muted mt-2 max-w-2xl">
           Aggregate statistics across all monitored channels and leak entries.

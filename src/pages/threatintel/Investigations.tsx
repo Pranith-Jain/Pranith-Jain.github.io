@@ -348,7 +348,7 @@ function InvestigationsPage(): JSX.Element {
         <button
           type="button"
           onClick={() => setActiveInv(null)}
-          className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-6 font-mono"
         >
           back to investigations
         </button>
@@ -380,7 +380,7 @@ function InvestigationsPage(): JSX.Element {
             <button
               type="button"
               onClick={exportJson}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
             >
               <FileDown size={11} /> JSON
             </button>
@@ -445,7 +445,7 @@ function InvestigationsPage(): JSX.Element {
                   value={obsValue}
                   onChange={(e) => setObsValue(e.target.value)}
                   placeholder="observable value"
-                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') void addObservable();
                   }}
@@ -454,7 +454,7 @@ function InvestigationsPage(): JSX.Element {
                   type="button"
                   onClick={() => void addObservable()}
                   disabled={!obsValue.trim()}
-                  className="px-3 py-1.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+                  className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
                 >
                   <Plus size={12} />
                 </button>
@@ -469,7 +469,7 @@ function InvestigationsPage(): JSX.Element {
                       className="flex items-center justify-between px-2 py-1.5 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] group"
                     >
                       <div className="flex items-center gap-2 min-w-0">
-                        <span className="text-micro font-mono uppercase text-slate-400 shrink-0 w-10">{o.type}</span>
+                        <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400 shrink-0 w-10">{o.type}</span>
                         <span className="text-meta font-mono text-slate-800 dark:text-slate-200 break-all">
                           {o.value}
                         </span>
@@ -477,7 +477,7 @@ function InvestigationsPage(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => void removeObservable(o.id)}
-                        className="text-slate-400 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="text-slate-500 dark:text-slate-400 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <X size={12} />
                       </button>
@@ -497,7 +497,7 @@ function InvestigationsPage(): JSX.Element {
                   value={taskTitle}
                   onChange={(e) => setTaskTitle(e.target.value)}
                   placeholder="new task"
-                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+                  className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') void addTask();
                   }}
@@ -506,7 +506,7 @@ function InvestigationsPage(): JSX.Element {
                   type="button"
                   onClick={() => void addTask()}
                   disabled={!taskTitle.trim()}
-                  className="px-3 py-1.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+                  className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
                 >
                   <Plus size={12} />
                 </button>
@@ -532,7 +532,7 @@ function InvestigationsPage(): JSX.Element {
                         )}
                       </button>
                       <span
-                        className={`text-meta font-mono flex-1 ${t.status === 'completed' ? 'line-through text-slate-400' : 'text-slate-800 dark:text-slate-200'}`}
+                        className={`text-meta font-mono flex-1 ${t.status === 'completed' ? 'line-through text-slate-500 dark:text-slate-400' : 'text-slate-800 dark:text-slate-200'}`}
                       >
                         {t.title}
                       </span>
@@ -569,7 +569,7 @@ function InvestigationsPage(): JSX.Element {
                     className="relative pl-4 border-l-2 border-slate-200 dark:border-[rgb(var(--border-400))]"
                   >
                     <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-snug">{ev.message}</p>
-                    <p className="text-micro font-mono text-slate-400 mt-0.5">{relativeTime(ev.created_at)}</p>
+                    <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">{relativeTime(ev.created_at)}</p>
                   </div>
                 ))}
               </div>
@@ -580,7 +580,7 @@ function InvestigationsPage(): JSX.Element {
                     value={noteText}
                     onChange={(e) => setNoteText(e.target.value)}
                     placeholder="add a note…"
-                    className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+                    className="flex-1 px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') void addNote();
                     }}
@@ -589,7 +589,7 @@ function InvestigationsPage(): JSX.Element {
                     type="button"
                     onClick={() => void addNote()}
                     disabled={!noteText.trim()}
-                    className="px-3 py-1.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+                    className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-mini rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
                   >
                     Add
                   </button>
@@ -615,7 +615,7 @@ function InvestigationsPage(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
       >
         back
       </BackLink>
@@ -624,14 +624,14 @@ function InvestigationsPage(): JSX.Element {
         <div>
           <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Investigations</h1>
           <p className="text-sm font-mono text-muted max-w-2xl">
-            Case management board — create investigations, track observables, manage tasks, and document your analysis
+            Case management board - create investigations, track observables, manage tasks, and document your analysis
             timeline. Inspired by TheHive.
           </p>
         </div>
         <button
           type="button"
           onClick={() => setShowCreate(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-brand-700 dark:hover:bg-brand-400"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400"
         >
           <Plus size={14} /> New Investigation
         </button>
@@ -639,13 +639,13 @@ function InvestigationsPage(): JSX.Element {
 
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <div className="relative flex-1 min-w-[200px] max-w-sm">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search investigations…"
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
@@ -681,7 +681,7 @@ function InvestigationsPage(): JSX.Element {
                 value={createForm.title}
                 onChange={(e) => setCreateForm((p) => ({ ...p, title: e.target.value }))}
                 placeholder="Investigation title"
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-rose-500"
               />
             </div>
             <div className="sm:col-span-2">
@@ -690,7 +690,7 @@ function InvestigationsPage(): JSX.Element {
                 onChange={(e) => setCreateForm((p) => ({ ...p, description: e.target.value }))}
                 placeholder="Description (optional)"
                 rows={2}
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
               />
             </div>
             <select
@@ -719,7 +719,7 @@ function InvestigationsPage(): JSX.Element {
                 value={createForm.tags}
                 onChange={(e) => setCreateForm((p) => ({ ...p, tags: e.target.value }))}
                 placeholder="Tags (comma separated)"
-                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
               />
             </div>
           </div>
@@ -727,7 +727,7 @@ function InvestigationsPage(): JSX.Element {
             <button
               type="submit"
               disabled={!createForm.title.trim()}
-              className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-meta font-semibold rounded disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+              className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-meta font-semibold rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
             >
               Create
             </button>
@@ -750,7 +750,7 @@ function InvestigationsPage(): JSX.Element {
 
       {loading && (
         <div className="surface-card p-12 text-center">
-          <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
+          <Loader2 size={20} className="animate-spin mx-auto text-slate-500 dark:text-slate-400 mb-2" />
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400">Loading investigations…</p>
         </div>
       )}
@@ -763,7 +763,7 @@ function InvestigationsPage(): JSX.Element {
               ? 'No matching investigations'
               : 'No investigations yet'}
           </p>
-          <p className="text-xs font-mono text-slate-400 mt-1">
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">
             {search || filterSeverity !== 'all' || filterStatus !== 'all'
               ? 'Try different filters'
               : 'Create your first investigation to start tracking security cases'}
@@ -781,7 +781,7 @@ function InvestigationsPage(): JSX.Element {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') setActiveInv(inv);
               }}
-              className="surface-card hover:border-brand-500/40 transition-colors p-4 cursor-pointer"
+              className="surface-card hover:border-rose-500/40 transition-colors p-4 cursor-pointer"
               onClick={() => setActiveInv(inv)}
             >
               <div className="flex items-start justify-between gap-4">
@@ -812,7 +812,7 @@ function InvestigationsPage(): JSX.Element {
                     <p className="text-meta font-mono text-slate-500 mt-1 line-clamp-1">{inv.description}</p>
                   )}
                 </div>
-                <div className="shrink-0 text-right text-micro font-mono text-slate-400">
+                <div className="shrink-0 text-right text-micro font-mono text-slate-500 dark:text-slate-400">
                   <p>{inv.observables.length} observables</p>
                   <p>{inv.tasks.filter((t) => t.status !== 'completed').length} open tasks</p>
                   <p className="mt-1">{relativeTime(inv.updated_at)}</p>

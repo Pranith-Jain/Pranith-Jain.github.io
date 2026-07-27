@@ -406,7 +406,7 @@ export default function MedusaScanner(): JSX.Element {
           <h1 className="text-3xl sm:text-4xl font-display font-semibold">MEDUSA Security Scanner</h1>
         </div>
         <p className="text-muted max-w-2xl">
-          AI-first security scanner — 140+ rules ported from{' '}
+          AI-first security scanner - 140+ rules ported from{' '}
           <a
             href="https://github.com/Pantheon-Security/medusa"
             target="_blank"
@@ -474,7 +474,7 @@ export default function MedusaScanner(): JSX.Element {
           type="text"
           value={filename}
           onChange={(e) => setFilename(e.target.value)}
-          placeholder="filename.ext (optional — enables language-aware rules)"
+          placeholder="filename.ext (optional - enables language-aware rules)"
           className="w-full px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
@@ -486,7 +486,7 @@ export default function MedusaScanner(): JSX.Element {
         id="medusa-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Paste source code, .env, config, or AI context files — scanned in-browser."
+        placeholder="Paste source code, .env, config, or AI context files - scanned in-browser."
         rows={12}
         spellCheck={false}
         aria-label="Code to scan for security issues"
@@ -540,7 +540,7 @@ export default function MedusaScanner(): JSX.Element {
               <Check size={16} className="mt-0.5 flex-shrink-0" />
               <span>
                 No issues detected ({rulesCount.fired}/{rulesCount.total} rules matched). Signature scanning isn't
-                exhaustive — always use a CI scanner.
+                exhaustive - always use a CI scanner.
               </span>
             </section>
           )}

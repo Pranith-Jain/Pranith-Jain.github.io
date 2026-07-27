@@ -60,7 +60,7 @@ export default function RegionalThreats() {
           <Globe size={16} className="text-purple-400" />
           <h3 className="text-tool font-bold font-mono text-slate-700 dark:text-slate-200">REGIONAL THREAT MONITOR</h3>
         </div>
-        <span className="text-mini font-mono text-slate-400">
+        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
           {alerts.filter((a) => a.level !== 'CLEAR').length} active
         </span>
       </div>
@@ -89,7 +89,7 @@ export default function RegionalThreats() {
                   }
                 >
                   <div className="flex items-center gap-1.5">
-                    <span className="text-mini text-slate-400">{isCollapsed ? '▸' : '▾'}</span>
+                    <span className="text-mini text-slate-500 dark:text-slate-400">{isCollapsed ? '▸' : '▾'}</span>
                     <span className="text-xs">{country.flag}</span>
                     <span className="text-tool font-bold" style={{ color: country.color || '#888' }}>
                       {country.name}
@@ -117,7 +117,7 @@ export default function RegionalThreats() {
                           <p className="text-mini text-slate-700 dark:text-slate-200 leading-tight line-clamp-1">
                             {event.title}
                           </p>
-                          <span className="text-mini text-slate-400">
+                          <span className="text-mini text-slate-500 dark:text-slate-400">
                             {event.source} · {timeAgo(event.time)}
                           </span>
                         </div>

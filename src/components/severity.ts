@@ -1,7 +1,7 @@
 /**
- * Canonical severity tones — used everywhere a CVE / detection / risk pill
+ * Canonical severity tones - used everywhere a CVE / detection / risk pill
  * is rendered. The five-step ramp (rose → orange → amber → slate → sky) maps
- * to threat-meaning, not a colour gradient — `low` is *intentionally* slate
+ * to threat-meaning, not a colour gradient - `low` is *intentionally* slate
  * (neutral), not green. A low-severity finding is still a finding, and green
  * reads as "safe/done" which conflicts with the severity meaning.
  *
@@ -21,7 +21,7 @@ export const SEVERITY_TONE: Record<Severity, string> = {
 };
 
 /**
- * Solid bar/dot fill per severity — for progress bars, count strips, and
+ * Solid bar/dot fill per severity - for progress bars, count strips, and
  * legend dots where the translucent badge tone (SEVERITY_TONE) reads too
  * faint. Same ramp and same `low`=slate rule.
  */

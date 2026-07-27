@@ -1,7 +1,7 @@
 import { adminAuthHeaders } from '../admin-token';
 
 // Frontend mirror of the backend Report (api/src/lib/report/types.ts). Kept in
-// sync by hand — the FE can't import server code.
+// sync by hand - the FE can't import server code.
 export type Tlp = 'CLEAR' | 'GREEN' | 'AMBER' | 'RED';
 export type Reliability = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
 

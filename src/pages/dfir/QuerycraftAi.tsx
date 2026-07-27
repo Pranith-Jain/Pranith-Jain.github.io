@@ -17,10 +17,10 @@ interface HistoryEntry {
 }
 
 const SIEM_CARDS: Array<{ id: SiemFormat; label: string; desc: string }> = [
-  { id: 'kql', label: 'KQL', desc: 'Kusto Query Language — Azure Sentinel / Defender' },
-  { id: 'spl', label: 'SPL', desc: 'Search Processing Language — Splunk' },
+  { id: 'kql', label: 'KQL', desc: 'Kusto Query Language - Azure Sentinel / Defender' },
+  { id: 'spl', label: 'SPL', desc: 'Search Processing Language - Splunk' },
   { id: 'sigma', label: 'Sigma', desc: 'SIEM-agnostic generic rule format' },
-  { id: 'xql', label: 'XQL', desc: 'eXtended Query Language — Cortex XSIAM' },
+  { id: 'xql', label: 'XQL', desc: 'eXtended Query Language - Cortex XSIAM' },
 ];
 
 const EXAMPLE_PROMPTS = [
@@ -187,7 +187,7 @@ export default function QuerycraftAi(): JSX.Element {
             </h2>
             <button
               onClick={clearHistory}
-              className="text-micro font-mono text-slate-400 hover:text-rose-500 transition-colors inline-flex items-center gap-1"
+              className="text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors inline-flex items-center gap-1"
             >
               <Trash2 size={11} /> clear
             </button>

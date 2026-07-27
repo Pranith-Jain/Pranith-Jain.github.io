@@ -89,7 +89,7 @@ export default function CrossChainEcosystem() {
       backTo="/dfir/attack-chains"
       icon={<Shield size={28} />}
       title="Cross-Chain Ecosystem"
-      description="How attack chains feed into each other — infostealers fund ransomware, AiTM enables BEC, ClickFix delivers stealers."
+      description="How attack chains feed into each other - infostealers fund ransomware, AiTM enables BEC, ClickFix delivers stealers."
       headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Source:{' '}
@@ -133,7 +133,7 @@ export default function CrossChainEcosystem() {
             <div key={i} className={`${CARD} p-4`}>
               <div className="flex items-center gap-3 mb-2 flex-wrap">
                 <span className={`text-xs font-mono px-2 py-0.5 rounded border ${TONE[link.color]}`}>{link.from}</span>
-                <ArrowRight size={14} className="text-slate-400" />
+                <ArrowRight size={14} className="text-slate-500 dark:text-slate-400" />
                 <span className={`text-xs font-mono px-2 py-0.5 rounded border ${TONE[link.color]}`}>{link.to}</span>
                 <span className="text-xs font-mono text-slate-500 dark:text-slate-400">· {link.label}</span>
               </div>

@@ -27,14 +27,14 @@ import {
 } from '../../data/grc';
 
 const STATUS_STYLES: Record<CoverageStatus, { label: string; cls: string }> = {
-  unset: { label: '— unset', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500' },
+  unset: { label: '- unset', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500' },
   covered: {
-    label: '✓ covered',
+    label: 'covered',
     cls: 'border-emerald-400/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   },
   partial: { label: '~ partial', cls: 'border-amber-400/60 bg-amber-500/10 text-amber-700 dark:text-amber-300' },
-  gap: { label: '✗ gap', cls: 'border-rose-400/60 bg-rose-500/10 text-rose-700 dark:text-rose-300' },
-  na: { label: 'n/a', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400' },
+  gap: { label: 'gap', cls: 'border-rose-400/60 bg-rose-500/10 text-rose-700 dark:text-rose-300' },
+  na: { label: 'n/a', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400' },
 };
 
 function scoreColour(score: number): string {
@@ -93,16 +93,16 @@ export default function Grc(): JSX.Element {
     lines.push('## Coverage by framework', '');
     for (const fid of ['nist-csf', 'iso-27001', 'iso-42001', 'cis', 'soc2'] as FrameworkId[]) {
       const c = overall[fid as keyof typeof overall];
-      lines.push(`- **${FRAMEWORK_META[fid].label}** — ${c.score}% (${c.covered}/${c.total})`);
+      lines.push(`- **${FRAMEWORK_META[fid].label}** - ${c.score}% (${c.covered}/${c.total})`);
     }
     lines.push('', '## SOC-CMM target levels', '');
     for (const d of SOC_CMM) {
       const lvl = a.socCmm[d.id] ?? 0;
-      lines.push(`- **${d.title}** — level ${lvl}: ${d.levels[lvl]}`);
+      lines.push(`- **${d.title}** - level ${lvl}: ${d.levels[lvl]}`);
     }
     lines.push('', '## Per-control status', '');
     for (const f of NIST_CSF) {
-      lines.push(`### NIST CSF — ${f.title}`);
+      lines.push(`### NIST CSF - ${f.title}`);
       for (const cat of f.categories) {
         for (const ctl of cat.controls) {
           const s = a.controls[ctl.id] ?? 'unset';
@@ -135,7 +135,7 @@ export default function Grc(): JSX.Element {
       description="Six major frameworks side-by-side with cross-mapping and self-assessment. NIST CSF 2.0 is the spine; ISO 27001:2022, ISO 42001:2023 (AI Management System), CIS Controls v8, and SOC 2 are mapped to NIST where official cross-references exist. SOC-CMM gives a maturity view across Business / People / Process / Technology / Services."
       headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-          All data stays in your browser. Cross-mappings are illustrative — for audit work, validate against official
+          All data stays in your browser. Cross-mappings are illustrative - for audit work, validate against official
           OSCAL mapping documents. Pairs with the{' '}
           <Link to="/dfir/nhi" className="text-brand-600 dark:text-brand-400 hover:underline">
             NHI Inventory
@@ -241,7 +241,7 @@ export default function Grc(): JSX.Element {
                   {fn.categories.map((cat) => (
                     <div key={cat.id}>
                       <h4 className="font-display font-semibold text-sm text-slate-800 dark:text-slate-200 mb-1">
-                        {cat.shortId} — {cat.title}
+                        {cat.shortId} - {cat.title}
                       </h4>
                       <p className="text-xs font-mono text-muted mb-2">{cat.description}</p>
                       <div className="space-y-1.5">
@@ -332,7 +332,7 @@ export default function Grc(): JSX.Element {
                 })}
                 {theme.controls.length === 0 && (
                   <p className="text-mini font-mono text-slate-400 dark:text-slate-400">
-                    Detail-level controls not enumerated — use the official ISO 27001:2022 Annex A for the full set (
+                    Detail-level controls not enumerated - use the official ISO 27001:2022 Annex A for the full set (
                     {theme.controlCount} controls in this theme).
                   </p>
                 )}
@@ -342,11 +342,11 @@ export default function Grc(): JSX.Element {
         </div>
       )}
 
-      {/* ISO 42001 — AI Management System */}
+      {/* ISO 42001 - AI Management System */}
       {tab === 'iso-42001' && (
         <div className="space-y-3">
           <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
-            ISO/IEC 42001:2023 — first international standard for AI management systems. Annex A defines 9 control
+            ISO/IEC 42001:2023 - first international standard for AI management systems. Annex A defines 9 control
             domains (A.2-A.10). Pairs with{' '}
             <Link to="/dfir/owasp" className="text-brand-600 dark:text-brand-400 hover:underline">
               OWASP LLM Top 10
@@ -554,7 +554,7 @@ export default function Grc(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              ISO/IEC 42001:2023 — AI Management System
+              ISO/IEC 42001:2023 - AI Management System
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -587,7 +587,7 @@ export default function Grc(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              SOC-CMM — SOC Capability Maturity Model
+              SOC-CMM - SOC Capability Maturity Model
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>

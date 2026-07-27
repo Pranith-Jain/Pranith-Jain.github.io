@@ -52,7 +52,7 @@ export function CollapsibleInner({
       >
         <span className="text-sm font-medium text-slate-900 dark:text-white">{title}</span>
         <ChevronDown
-          className={`h-4 w-4 shrink-0 text-slate-400 transition-transform ${open ? 'rotate-180' : ''}`}
+          className={`h-4 w-4 shrink-0 text-slate-500 dark:text-slate-400 transition-transform ${open ? 'rotate-180' : ''}`}
           aria-hidden="true"
         />
       </button>

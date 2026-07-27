@@ -22,7 +22,7 @@ interface CampaignLifecycle {
 
 const PHASE_STATUS: Record<string, string> = {
   completed: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
-  active: 'bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-300',
+  active: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
   upcoming: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
 };
 
@@ -63,18 +63,18 @@ export default function CampaignLifecycle(): JSX.Element {
         value={campaignName}
         onChange={(e) => setCampaignName(e.target.value)}
         placeholder="Campaign name…"
-        className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 mb-3"
+        className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 mb-3"
       />
       <textarea
         value={indicators}
         onChange={(e) => setIndicators(e.target.value)}
         placeholder="Related IOCs (optional, one per line)…"
-        className="w-full h-20 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
+        className="w-full h-20 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-3 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400 resize-y"
       />
       <button
         onClick={handleAnalyze}
         disabled={loading || !campaignName.trim()}
-        className="mt-3 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+        className="mt-3 w-full px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
       >
         {loading ? <Loader2 size={14} className="animate-spin" /> : <Target size={14} />}
         {loading ? 'Analyzing…' : 'Analyze Campaign'}
@@ -96,12 +96,12 @@ export default function CampaignLifecycle(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-2">
               <h2 className="font-display font-bold text-lg">{lifecycle.name}</h2>
-              <span className="text-micro font-mono text-slate-400">Confidence: {lifecycle.confidence}%</span>
+              <span className="text-micro font-mono text-slate-500 dark:text-slate-400">Confidence: {lifecycle.confidence}%</span>
             </div>
             <div className="text-sm text-muted">Actor: {lifecycle.actor}</div>
             <div className="flex items-center gap-2 mt-2 text-xs">
-              <span className="font-mono text-brand-600 dark:text-brand-400">Current: {lifecycle.current_phase}</span>
-              <ChevronRight size={12} className="text-slate-400" />
+              <span className="font-mono text-rose-600 dark:text-rose-400">Current: {lifecycle.current_phase}</span>
+              <ChevronRight size={12} className="text-slate-500 dark:text-slate-400" />
               <span className="font-mono text-amber-600 dark:text-amber-400 flex items-center gap-1">
                 <Zap size={12} /> Next: {lifecycle.predicted_next}
               </span>
@@ -117,30 +117,30 @@ export default function CampaignLifecycle(): JSX.Element {
                     className="w-full flex items-center gap-3 p-4 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.2)] transition-colors"
                   >
                     <div
-                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${phase.status === 'completed' ? 'bg-emerald-500' : phase.status === 'active' ? 'bg-brand-600' : 'bg-slate-300 dark:bg-slate-700'}`}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${phase.status === 'completed' ? 'bg-emerald-500' : phase.status === 'active' ? 'bg-rose-600' : 'bg-slate-300 dark:bg-slate-700'}`}
                     >
-                      {phase.status === 'completed' ? '✓' : i + 1}
+                      {phase.status === 'completed' ? 'done' : i + 1}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium">{phase.name}</div>
                       {phase.start_date && (
-                        <div className="text-micro font-mono text-slate-400">{phase.start_date}</div>
+                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{phase.start_date}</div>
                       )}
                     </div>
                     <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${PHASE_STATUS[phase.status]}`}>
                       {phase.status}
                     </span>
                     {isOpen ? (
-                      <ChevronDown size={14} className="text-slate-400" />
+                      <ChevronDown size={14} className="text-slate-500 dark:text-slate-400" />
                     ) : (
-                      <ChevronRight size={14} className="text-slate-400" />
+                      <ChevronRight size={14} className="text-slate-500 dark:text-slate-400" />
                     )}
                   </button>
                   {isOpen && (
                     <div className="px-4 pb-4 pt-0 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
                       {phase.indicators.length > 0 && (
                         <div className="mt-3 mb-2">
-                          <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">
+                          <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                             Indicators
                           </div>
                           <div className="flex flex-wrap gap-1">
@@ -157,7 +157,7 @@ export default function CampaignLifecycle(): JSX.Element {
                       )}
                       {phase.techniques.length > 0 && (
                         <div>
-                          <div className="text-micro font-mono uppercase tracking-wider text-slate-400 mb-1">
+                          <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                             Techniques
                           </div>
                           <div className="flex flex-wrap gap-1">

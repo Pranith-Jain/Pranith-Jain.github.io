@@ -29,10 +29,10 @@ import {
  * PoCs, named threat actors) and reduced to a single patch-priority
  * verdict + a 0–100 score + a CVSS-vector breakdown + an action runbook.
  *
- *   ACT NOW  — CISA KEV, named adversary, or weaponised + high signal
- *   SCHEDULE — very-high EPSS, critical CVSS, or public PoC
- *   MONITOR  — elevated signal but no in-the-wild evidence
- *   DEFER    — low signal across all three sources
+ *   ACT NOW  - CISA KEV, named adversary, or weaponised + high signal
+ *   SCHEDULE - very-high EPSS, critical CVSS, or public PoC
+ *   MONITOR  - elevated signal but no in-the-wild evidence
+ *   DEFER    - low signal across all three sources
  *
  * The asset-context toggle adjusts the verdict for exposure: internal-
  * only assets drop network-only ACT NOW → SCHEDULE; internet-facing
@@ -152,7 +152,7 @@ export default function CvePrioritizer(): JSX.Element {
     if (initial) void run();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  /** Re-derive verdict + score whenever context changes — no re-fetch. */
+  /** Re-derive verdict + score whenever context changes - no re-fetch. */
   const decoratedRows = useMemo<Row[]>(() => {
     return rows.map((r) => {
       if (!r.data) return r;
@@ -262,7 +262,7 @@ export default function CvePrioritizer(): JSX.Element {
       backTo="/dfir"
       icon={<ShieldAlert size={28} />}
       title="CVE Exploit Prioritizer"
-      description="Paste CVE IDs (any format — IDs are extracted). Each is enriched with NVD CVSS + FIRST EPSS + CISA KEV (incl. known-ransomware) + public PoC count + named-actor attribution and reduced to a single verdict, a 0-100 score, and a CVSS vector breakdown. CVSS alone over-prioritises — KEV + EPSS + PoCs + actor attribution + asset context is how you pick what to patch this week."
+      description="Paste CVE IDs (any format - IDs are extracted). Each is enriched with NVD CVSS + FIRST EPSS + CISA KEV (incl. known-ransomware) + public PoC count + named-actor attribution and reduced to a single verdict, a 0-100 score, and a CVSS vector breakdown. CVSS alone over-prioritises - KEV + EPSS + PoCs + actor attribution + asset context is how you pick what to patch this week."
       maxWidthClass="max-w-4xl"
     >
       <ToolDocs path="/dfir/cve-prioritizer" />
@@ -310,10 +310,10 @@ export default function CvePrioritizer(): JSX.Element {
               }
               title={
                 c === 'internet-facing'
-                  ? 'External-facing asset — full weight on every signal.'
+                  ? 'External-facing asset - full weight on every signal.'
                   : c === 'internal-only'
-                    ? 'Internal-only asset — reduce urgency for network-exposure CVEs.'
-                    : 'Context unknown — apply a small reduction; rescore when exposure is known.'
+                    ? 'Internal-only asset - reduce urgency for network-exposure CVEs.'
+                    : 'Context unknown - apply a small reduction; rescore when exposure is known.'
               }
             >
               {c.replace('-', ' ')}
@@ -347,7 +347,7 @@ export default function CvePrioritizer(): JSX.Element {
 
       {sortedRows.length > 0 && (
         <div className="mt-8 space-y-4">
-          {/* Summary strip — verdict counts + export buttons. Click a
+          {/* Summary strip - verdict counts + export buttons. Click a
               count to filter the list below to that verdict. */}
           <section className="surface-card p-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -368,7 +368,7 @@ export default function CvePrioritizer(): JSX.Element {
                     </button>
                   ) : null
                 )}
-                <span className="text-mini font-mono text-slate-400 ml-2">{sortedRows.length} CVE(s)</span>
+                <span className="text-mini font-mono text-slate-500 dark:text-slate-400 ml-2">{sortedRows.length} CVE(s)</span>
                 {filterVerdict && (
                   <button
                     type="button"
@@ -408,7 +408,7 @@ export default function CvePrioritizer(): JSX.Element {
                 <article key={r.id} className="surface-card p-4">
                   <header className="flex items-start gap-2.5">
                     {r.loading ? (
-                      <Loader2 size={16} className="mt-0.5 flex-shrink-0 animate-spin text-slate-400" />
+                      <Loader2 size={16} className="mt-0.5 flex-shrink-0 animate-spin text-slate-500 dark:text-slate-400" />
                     ) : (
                       <st.Icon size={16} className={`mt-0.5 flex-shrink-0 ${st.text}`} />
                     )}
@@ -424,7 +424,7 @@ export default function CvePrioritizer(): JSX.Element {
                         )}
                         {r.verdict?.baseVerdict && (
                           <span
-                            className="text-micro font-mono text-slate-400"
+                            className="text-micro font-mono text-slate-500 dark:text-slate-400"
                             title={`Verdict adjusted for asset context (${context}). Without it: ${r.verdict.baseVerdict}.`}
                           >
                             (was {r.verdict.baseVerdict})
@@ -434,10 +434,10 @@ export default function CvePrioritizer(): JSX.Element {
                           <span className="ml-auto inline-flex items-center gap-1.5">
                             <span className="text-micro font-mono uppercase tracking-wider text-slate-500">score</span>
                             <span className={`text-base font-bold tabular-nums ${st.text}`}>{r.score.score}</span>
-                            <span className="text-micro font-mono text-slate-400">/100</span>
+                            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">/100</span>
                           </span>
                         )}
-                        {r.loading && <span className="text-mini font-mono text-slate-400">enriching…</span>}
+                        {r.loading && <span className="text-mini font-mono text-slate-500 dark:text-slate-400">enriching…</span>}
                         {r.error && <span className="text-mini font-mono text-rose-500">{r.error}</span>}
                       </div>
 
@@ -459,7 +459,7 @@ export default function CvePrioritizer(): JSX.Element {
                             {vec.version && (
                               <span
                                 className="ml-1 text-micro font-mono uppercase tracking-wider px-1 rounded border border-slate-300/60 dark:border-[rgb(var(--border-400))]/60 text-slate-500"
-                                title={`CVSS v${vec.version} vector — scoring scales and field set differ from other versions.`}
+                                title={`CVSS v${vec.version} vector - scoring scales and field set differ from other versions.`}
                               >
                                 v{vec.version}
                               </span>
@@ -467,7 +467,7 @@ export default function CvePrioritizer(): JSX.Element {
                             {vec.wormable && (
                               <span
                                 className="ml-1 text-micro font-mono uppercase tracking-wider px-1 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300"
-                                title="Network, low complexity, no auth, no UI — wormable shape."
+                                title="Network, low complexity, no auth, no UI - wormable shape."
                               >
                                 wormable
                               </span>
@@ -628,7 +628,7 @@ export default function CvePrioritizer(): JSX.Element {
                                 ).map(([key, code]) => {
                                   const raw = vec[key];
                                   const labelMap = CVSS_FIELD_LABELS[key] as Record<string, string>;
-                                  const label = raw ? labelMap[raw] : '—';
+                                  const label = raw ? labelMap[raw] : '-';
                                   return (
                                     <div key={key} className="contents">
                                       <dt className="text-slate-500">{code}</dt>
@@ -654,7 +654,7 @@ export default function CvePrioritizer(): JSX.Element {
                             </ol>
                             {r.data.description && (
                               <details className="mt-3">
-                                <summary className="text-mini font-mono text-slate-400 cursor-pointer">
+                                <summary className="text-mini font-mono text-slate-500 dark:text-slate-400 cursor-pointer">
                                   NVD description
                                 </summary>
                                 <p className="mt-1 text-meta text-muted leading-relaxed">{r.data.description}</p>

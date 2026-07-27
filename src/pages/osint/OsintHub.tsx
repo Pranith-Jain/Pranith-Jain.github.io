@@ -113,7 +113,7 @@ export default function OsintHub() {
           {/* Quick Search */}
           <div className="mb-8">
             <div className="relative max-w-2xl mx-auto">
-              <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
               <input
                 type="text"
                 placeholder="Enter a domain, IP, username, email, or phone number..."
@@ -171,7 +171,7 @@ export default function OsintHub() {
               </div>
               <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">Passive Recon</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                All lookups are passive — no active scanning or exploitation.
+                All lookups are passive - no active scanning or exploitation.
               </p>
             </div>
             <div className="text-center">

@@ -65,7 +65,7 @@ function highlight(input: string, matches: RuleStringMatch[]): JSX.Element[] {
       </span>,
     ];
   const sorted = [...matches].sort((a, b) => a.index - b.index);
-  // Drop overlaps — keep the first
+  // Drop overlaps - keep the first
   const nonOverlap: RuleStringMatch[] = [];
   let lastEnd = -1;
   for (const m of sorted) {
@@ -134,7 +134,7 @@ export default function RulePlayground(): JSX.Element {
           strings and keywords, highlights matches in the sample, and surfaces the parsed condition for review.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
-          Heuristic only — this is a teaching aid, not a YARA/Sigma engine. Boolean conditions ("at least 2 of $a*",
+          Heuristic only - this is a teaching aid, not a YARA/Sigma engine. Boolean conditions ("at least 2 of $a*",
           "selection and not filter") are shown but not evaluated. For real validation, run the rule through{' '}
           <code>yara</code> or a Sigma converter.
         </p>
@@ -179,7 +179,7 @@ export default function RulePlayground(): JSX.Element {
             onChange={(e) => setRule(e.target.value)}
             rows={16}
             spellCheck={false}
-            placeholder="rule MyRule { strings: $a = ... condition: ... }   — or —   title: …\nlogsource: …\ndetection: …"
+            placeholder="rule MyRule { strings: $a = ... condition: ... }   - or -   title: …\nlogsource: …\ndetection: …"
             aria-labelledby="rule-playground-rule-label"
             className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           />

@@ -108,7 +108,7 @@ export default function CtiFilters({
               className={`inline-flex items-center gap-1 text-micro font-mono px-2 py-1 rounded-xl border transition-colors ${
                 on
                   ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400'
               }`}
             >
               {l.icon}

@@ -4,7 +4,7 @@
  *
  * The aliases tested here are EXTRACTED DYNAMICALLY from App.tsx's
  * REDIRECTS table, so this test gives 100% coverage of all 178
- * registered aliases — not just a hand-picked subset. If someone adds
+ * registered aliases - not just a hand-picked subset. If someone adds
  * a redirect to App.tsx, it's tested here automatically.
  */
 import { describe, it, expect } from 'vitest';
@@ -36,7 +36,7 @@ describe('alias URLs land on a real page', () => {
         <AppContent />
       </MemoryRouter>
     );
-    // Wait for the page to render — look for any heading or main content
+    // Wait for the page to render - look for any heading or main content
     // (but not a 404 message)
     await new Promise((r) => setTimeout(r, 100));
     // Verify not on 404

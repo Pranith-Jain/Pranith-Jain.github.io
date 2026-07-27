@@ -109,7 +109,7 @@ const FOCAL_LNG = 10;
 /**
  * Build arcs from source-country points to a focal target node.
  * This models "observed source telemetry converging on a monitored point"
- * — NOT invented attacker→victim attribution.
+ * - NOT invented attacker→victim attribution.
  */
 export function synthesizeArcs(points: CtiPoint[]): CtiArc[] {
   return points
@@ -164,7 +164,7 @@ export function normalizeThreatMap(data: ThreatMapResponse): { points: CtiPoint[
         lng: centroid?.lng ?? 0,
         severity: severityFromCount(c.count),
         count: c.count,
-        label: `${c.country} — ${c.count} indicators`,
+        label: `${c.country} - ${c.count} indicators`,
         countryCode: c.countryCode,
       };
     })
@@ -195,7 +195,7 @@ export function normalizeRansomwareMap(data: RansomwareMapResponse): { points: C
         lng: centroid?.lng ?? 0,
         severity: severityFromCount(c.victim_count, { critical: 50, high: 20, medium: 5 }),
         count: c.victim_count,
-        label: `${c.country} — ${c.victim_count} victims`,
+        label: `${c.country} - ${c.victim_count} victims`,
         countryCode: c.countryCode,
       };
     })
@@ -232,7 +232,7 @@ export function normalizeCveThreatMap(data: CveThreatMapResponse): { points: Cti
               ? 'medium'
               : 'low') as Severity,
         count: c.cve_count,
-        label: `${c.country} — ${c.cve_count} CVEs (avg CVSS ${c.cvss_avg.toFixed(1)})`,
+        label: `${c.country} - ${c.cve_count} CVEs (avg CVSS ${c.cvss_avg.toFixed(1)})`,
         countryCode: c.countryCode,
       };
     })

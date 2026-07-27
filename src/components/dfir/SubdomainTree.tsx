@@ -19,7 +19,7 @@ export function SubdomainTree({ subdomains }: { subdomains: ExposureScanResponse
             <div className="mt-2 font-mono text-xs">
               <span className="text-muted">ports: </span>
               <span className="text-slate-900 dark:text-slate-100">
-                {(s.shodan.raw_summary.ports ?? []).slice(0, 8).join(', ') || '—'}
+                {(s.shodan.raw_summary.ports ?? []).slice(0, 8).join(', ') || '-'}
               </span>
               {(s.shodan.raw_summary.vulns?.length ?? 0) > 0 && (
                 <span className="ml-3 text-rose-600 dark:text-rose-400">

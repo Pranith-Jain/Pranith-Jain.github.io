@@ -82,7 +82,7 @@ export default function EmailDefense(): JSX.Element {
             <Link to="/dfir/domain-investigator" className="text-brand-600 dark:text-brand-400 hover:underline">
               Domain Lookup
             </Link>{' '}
-            — same data, defender-side framing focused on direct-domain spoofing.
+            - same data, defender-side framing focused on direct-domain spoofing.
           </p>
         </>
       }
@@ -98,7 +98,7 @@ export default function EmailDefense(): JSX.Element {
           className="flex flex-wrap gap-2"
         >
           <div className="relative flex-1 min-w-[220px]">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
             <input
               type="text"
               value={domain}
@@ -324,7 +324,7 @@ export default function EmailDefense(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              RFC 7489 — Domain-based Message Authentication, Reporting &amp; Conformance (DMARC)
+              RFC 7489 - Domain-based Message Authentication, Reporting &amp; Conformance (DMARC)
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -335,7 +335,7 @@ export default function EmailDefense(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              CISA BOD 18-01 — DMARC enforcement requirements
+              CISA BOD 18-01 - DMARC enforcement requirements
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -346,7 +346,7 @@ export default function EmailDefense(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              RFC 8461 — SMTP MTA Strict Transport Security (MTA-STS)
+              RFC 8461 - SMTP MTA Strict Transport Security (MTA-STS)
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>

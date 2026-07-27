@@ -216,7 +216,7 @@ export default function VerdiktAi(): JSX.Element {
           <Shield size={28} className="text-brand-600 dark:text-brand-400" /> VERDIKT-AI
         </h1>
         <p className="text-muted max-w-2xl leading-relaxed">
-          Combine IOC enrichment with AI analysis. Submit an IP, domain, URL, or hash — get enrichment from multiple
+          Combine IOC enrichment with AI analysis. Submit an IP, domain, URL, or hash - get enrichment from multiple
           sources plus an AI-generated analyst narrative.
         </p>
       </div>
@@ -227,7 +227,7 @@ export default function VerdiktAi(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">IOC Value</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">required</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">required</span>
             </div>
             <div className="relative">
               <input
@@ -279,7 +279,7 @@ export default function VerdiktAi(): JSX.Element {
             <div className="surface-card/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
               <p className="text-sm text-slate-600 dark:text-slate-300">Checking IOC sources…</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Generating analyst narrative</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Generating analyst narrative</p>
             </div>
           )}
 
@@ -303,7 +303,7 @@ export default function VerdiktAi(): JSX.Element {
                       .map(([k, v]) => (
                         <div key={k}>
                           <span className="text-micro font-mono uppercase tracking-wider text-slate-500">{k}</span>
-                          <div className="font-mono truncate">{String(v ?? '—')}</div>
+                          <div className="font-mono truncate">{String(v ?? '-')}</div>
                         </div>
                       ))}
                   </div>
@@ -422,7 +422,7 @@ export default function VerdiktAi(): JSX.Element {
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 Enter an IOC and click <span className="font-semibold">Enrich & Analyze</span>
               </p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 Output: enrichment + AI analyst narrative + detection queries
               </p>
             </div>

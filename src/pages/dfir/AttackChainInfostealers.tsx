@@ -52,9 +52,9 @@ const CONVERGENCE_MAP = [
 function CellHighlight({ active }: { active: boolean }) {
   return (
     <td
-      className={`px-2 py-1.5 text-center font-mono text-xs ${active ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300' : 'text-slate-400'}`}
+      className={`px-2 py-1.5 text-center font-mono text-xs ${active ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300' : 'text-slate-500 dark:text-slate-400'}`}
     >
-      {active ? '●' : '—'}
+      {active ? '●' : '-'}
     </td>
   );
 }
@@ -92,7 +92,7 @@ export default function AttackChainInfostealers(): JSX.Element {
           </div>
           <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed mb-5">
             Commodity infostealer pipeline targeting browser credentials, crypto wallets, and session cookies. 15M+
-            infections/year — the primary feeder for initial access brokers.
+            infections/year - the primary feeder for initial access brokers.
           </p>
 
           <h3 className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
@@ -105,7 +105,7 @@ export default function AttackChainInfostealers(): JSX.Element {
                   <span className="font-semibold">{s.label}</span>
                   <span className="ml-1.5 text-brand-600 dark:text-brand-400">{s.mitre}</span>
                 </div>
-                {i < STAGES.length - 1 && <ArrowRight size={12} className="text-slate-400 shrink-0" />}
+                {i < STAGES.length - 1 && <ArrowRight size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />}
               </div>
             ))}
           </div>

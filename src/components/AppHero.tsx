@@ -37,10 +37,10 @@ export function AppHero({
   }[tone];
   return (
     <section className="surface-elevated relative p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6">
-      {/* Hairline corner accent — tone-tinted at 1px weight. This is the
+      {/* Hairline corner accent - tone-tinted at 1px weight. This is the
           replacement for the large blur-3xl brand wash blob: hierarchy from
           a single mark, not from a 224px decorative color halo. Geist/Vercel
-          admin pattern — the page anchor reads as content, not chrome. */}
+          admin pattern - the page anchor reads as content, not chrome. */}
       <div aria-hidden className={`pointer-events-none absolute top-0 left-0 h-px w-12 ${TONE.accent}`} />
       <div
         className={`text-mini font-mono uppercase tracking-[0.18em] ${TONE.kicker} mb-2 sm:mb-3 inline-flex items-center gap-2`}
@@ -50,7 +50,7 @@ export function AppHero({
       <h1 className="font-display font-bold text-2xl sm:text-4xl lg:text-[2.75rem] leading-[1.1] tracking-tight">
         {title}
       </h1>
-      {/* Prose is sans (readable) — mono is reserved for IOCs/data. */}
+      {/* Prose is sans (readable) - mono is reserved for IOCs/data. */}
       <p className="text-slate-600 dark:text-slate-300 mt-3 sm:mt-4 max-w-3xl text-sm sm:text-base leading-relaxed">
         {sub}
       </p>

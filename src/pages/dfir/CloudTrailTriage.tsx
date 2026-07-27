@@ -4,12 +4,12 @@ import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
 /**
- * CloudTrail Triage — 100% client-side.
+ * CloudTrail Triage - 100% client-side.
  *
  * Paste CloudTrail JSON: a log file ({ Records: [...] }), `aws cloudtrail
  * lookup-events` output ({ Events: [{ CloudTrailEvent: "<json>" }] }), a
  * raw array, or a single event. Management-plane events are scored for
- * the patterns that show up in cloud intrusions — no-MFA console logins,
+ * the patterns that show up in cloud intrusions - no-MFA console logins,
  * root usage, log/guardrail tampering, IAM changes, public exposure,
  * snapshot/AMI sharing, and access-denied recon bursts.
  */
@@ -278,7 +278,7 @@ function analyze(text: string): Analysis | null {
         findings.push({
           sev: 'critical',
           title: `Snapshot / AMI shared publicly (${name})`,
-          detail: `${who} added "all" to a snapshot/AMI/DB-snapshot share permission — public data exfiltration vector.`,
+          detail: `${who} added "all" to a snapshot/AMI/DB-snapshot share permission - public data exfiltration vector.`,
           where,
           fix: 'Remove the public share immediately; audit what data the snapshot contained.',
         });
@@ -290,7 +290,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: 'high',
         title: `KMS key disable/deletion (${name})`,
-        detail: `${who} scheduled deletion of / disabled a KMS key — potential ransom / destruction or break-glass.`,
+        detail: `${who} scheduled deletion of / disabled a KMS key - potential ransom / destruction or break-glass.`,
         where,
         fix: 'Cancel deletion if unintended; KMS key loss is unrecoverable.',
       });
@@ -310,7 +310,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: 'medium',
         title: `Access-denied burst (${n}) from one principal`,
-        detail: `${who} generated ${n} AccessDenied/Unauthorized errors — permission enumeration / recon signature.`,
+        detail: `${who} generated ${n} AccessDenied/Unauthorized errors - permission enumeration / recon signature.`,
         where: who,
         fix: 'Review what the principal was probing; consider whether the credential is compromised.',
       });
@@ -321,7 +321,7 @@ function analyze(text: string): Analysis | null {
       findings.push({
         sev: 'high',
         title: `Bulk secret / parameter / decrypt access (${n})`,
-        detail: `${who} pulled secrets/SSM params or called KMS Decrypt ${n} times — possible mass credential harvesting.`,
+        detail: `${who} pulled secrets/SSM params or called KMS Decrypt ${n} times - possible mass credential harvesting.`,
         where: who,
         fix: 'Confirm the workload legitimately needs this volume; rotate exposed secrets if not.',
       });
@@ -387,7 +387,7 @@ export default function CloudTrailTriage(): JSX.Element {
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">CloudTrail Triage</h1>
         <p className="text-muted mb-6 max-w-2xl">
-          Paste CloudTrail JSON — a log file, <span className="font-mono text-tool">lookup-events</span> output, an
+          Paste CloudTrail JSON - a log file, <span className="font-mono text-tool">lookup-events</span> output, an
           array, or one event. Management activity is scored for intrusion patterns: no-MFA / root logins, log &
           guardrail tampering, IAM changes, public exposure, snapshot sharing, and recon bursts. Nothing leaves your
           browser.

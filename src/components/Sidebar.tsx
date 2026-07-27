@@ -148,7 +148,7 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
                             className={`flex-shrink-0 ${
                               active
                                 ? activeIcon
-                                : 'text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300'
+                                : 'text-slate-500 dark:text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'
                             }`}
                             aria-hidden="true"
                           />
@@ -171,7 +171,7 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
       </nav>
 
       <div className="border-t border-[rgb(var(--border-400))] px-3 py-2">
-        <span className="text-micro font-mono text-slate-400 dark:text-slate-500">{totalItems} tools</span>
+        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{totalItems} tools</span>
       </div>
     </>
   );
@@ -208,7 +208,7 @@ export function Sidebar({ config }: SidebarProps): JSX.Element {
           <button
             type="button"
             onClick={() => setCollapsed((c) => !c)}
-            className="grid h-6 w-6 place-items-center text-slate-400 transition hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            className="grid h-6 w-6 place-items-center text-slate-500 dark:text-slate-400 transition hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {collapsed ? <ChevronRight size={14} aria-hidden="true" /> : <ChevronLeft size={14} aria-hidden="true" />}

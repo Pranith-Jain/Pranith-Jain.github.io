@@ -108,19 +108,19 @@ export default function FeedCatalog() {
       headerExtra={
         <div className="flex flex-wrap gap-3">
           <div className="relative flex-1 min-w-[200px]">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
             <input
               type="text"
               placeholder="Search vendors, descriptions, categories..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full pl-10 pr-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-rose-500"
             />
           </div>
           <select
             value={vendorFilter}
             onChange={(e) => setVendorFilter(e.target.value)}
-            className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
+            className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-rose-500"
           >
             <option value="all">All Vendors</option>
             {data?.vendors.map((v) => (
@@ -132,7 +132,7 @@ export default function FeedCatalog() {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
+            className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-rose-500"
           >
             <option value="all">All Types</option>
             {data?.categories.map((c) => (
@@ -144,7 +144,7 @@ export default function FeedCatalog() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
+            className="px-4 py-2 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-slate-900 dark:text-slate-200 focus:outline-none focus:border-rose-500"
           >
             <option value="all">All Status</option>
             <option value="Active">Active</option>
@@ -199,7 +199,7 @@ export default function FeedCatalog() {
                       href={sanitizeUrl(entry.raw_url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1"
+                      className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1"
                       title="Open feed URL"
                     >
                       <ExternalLink className="w-4 h-4" />

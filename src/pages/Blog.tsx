@@ -26,21 +26,21 @@ const TYPE_ORDER = ['cve', 'actor', 'malware', 'ransom', 'breach', 'scam', 'aise
  * Human-readable label + one-line description per case-study type. Used by
  * the /blog/c/:type category landing route to give each category its own
  * H1 + intro paragraph, and by the in-page chip strip via fall-through.
- * Adding a new type? Append a row here — the index page picks it up via
+ * Adding a new type? Append a row here - the index page picks it up via
  * the actual post data and the landing page falls back to the type slug.
  */
 const TYPE_META: Record<string, { label: string; blurb: string }> = {
   cve: {
     label: 'CVE deep-dives',
-    blurb: 'Vulnerability analyses — affected products, exploit chains, KEV status, patch priority.',
+    blurb: 'Vulnerability analyses - affected products, exploit chains, KEV status, patch priority.',
   },
   actor: {
     label: 'Threat actors',
-    blurb: 'Group profiles — TTPs, named operations, MITRE ATT&CK mapping, recent activity.',
+    blurb: 'Group profiles - TTPs, named operations, MITRE ATT&CK mapping, recent activity.',
   },
   malware: {
     label: 'Malware analysis',
-    blurb: 'Family deep-dives — capabilities, sandbox detonation, IOCs, attribution.',
+    blurb: 'Family deep-dives - capabilities, sandbox detonation, IOCs, attribution.',
   },
   ransom: {
     label: 'Ransomware',
@@ -48,7 +48,7 @@ const TYPE_META: Record<string, { label: string; blurb: string }> = {
   },
   breach: {
     label: 'Breach disclosures',
-    blurb: 'Public breach analyses — scope, sensitivity, data classes, response timeline.',
+    blurb: 'Public breach analyses - scope, sensitivity, data classes, response timeline.',
   },
   scam: {
     label: 'Fraud & scams',
@@ -87,6 +87,12 @@ export default function Blog() {
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string | null>(routeType ?? null);
 
+  // Sync the filter when the route param changes (e.g. navigating
+  // /blog/c/actor -> /blog/c/malware reuses this component instance).
+  useEffect(() => {
+    if (routeType) setTypeFilter(routeType);
+  }, [routeType]);
+
   // Per-page meta varies with the /blog/c/:type route. Category
   // landings get their own title + description so Google
   // doesn't see 9 near-duplicate versions of the same page.
@@ -112,7 +118,7 @@ export default function Blog() {
     return () => ac.abort();
   }, [reloadKey]);
 
-  // Counts per type so the chip strip can show "actor · 12" — analyst-grade
+  // Counts per type so the chip strip can show "actor · 12" - analyst-grade
   // affordance: tells you where the volume is before you filter.
   const typeCounts = useMemo(() => {
     const m = new Map<string, number>();
@@ -163,7 +169,7 @@ export default function Blog() {
   const inCategoryMode = Boolean(routeType);
   const categoryMeta = inCategoryMode ? metaFor(routeType!) : null;
 
-  // Guard against typo URLs like /blog/c/whoops — surface a 404-ish state
+  // Guard against typo URLs like /blog/c/whoops - surface a 404-ish state
   // (redirect to the index) so we don't render an empty category page
   // with an unfamiliar slug as the H1. We only flag this once posts have
   // loaded; before that we keep showing the loading skeleton.
@@ -198,14 +204,14 @@ export default function Blog() {
           {inCategoryMode ? categoryMeta!.blurb : 'Security research, threat analysis, and deep dives.'}
         </p>
 
-        {/* Category strip — only on the /blog index (not on /blog/c/:type),
+        {/* Category strip - only on the /blog index (not on /blog/c/:type),
           and only once posts have loaded. Each present category becomes a
           chip that routes to its own landing page. Gives every category a
           shareable URL while keeping the in-page chip filter as a quick
           alternative below. */}
         {!inCategoryMode && presentTypes.length > 1 && (
           <nav aria-label="Browse by category" className="mb-6 flex flex-wrap items-center gap-1.5">
-            <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-400 mr-1">browse:</span>
+            <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 mr-1">browse:</span>
             {presentTypes.map((t) => (
               <Link
                 key={t}
@@ -221,14 +227,14 @@ export default function Blog() {
           </nav>
         )}
 
-        {/* Filter bar — only renders once posts are loaded (avoids a flash of
+        {/* Filter bar - only renders once posts are loaded (avoids a flash of
           empty chips while the data is in flight). The chip strip is hidden
           in category mode since the URL already expresses the type, but the
           search input stays so the user can narrow within the category. */}
         {posts.length > 0 && (
           <section className="surface-card p-3 mb-6">
             <div className="relative">
-              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
               <input
                 type="search"
                 value={query}

@@ -266,7 +266,7 @@ export function useErrorBoundary() {
   }, []);
 
   // Store the error in state so ErrorComponent can render the fallback UI.
-  // Do NOT re-throw — throwError is called from callbacks / async code where
+  // Do NOT re-throw - throwError is called from callbacks / async code where
   // a thrown error would become an unhandled rejection and crash the app.
   const throwError = useCallback((err: Error) => {
     setError(err);

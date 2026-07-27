@@ -3,9 +3,9 @@
  * come from the live-iocs / correlation feeds (where the API doesn't
  * attach a grade per row).
  *
- * Reliability is set by the source — known curated lists score B, OSINT
+ * Reliability is set by the source - known curated lists score B, OSINT
  * aggregators C, social/firehose D. Credibility is set by the artifact
- * type — file hashes are most persistent (=2), domains/URLs middle
+ * type - file hashes are most persistent (=2), domains/URLs middle
  * (=3), IPs lowest (=4, because they rotate fast).
  *
  * Source IDs match the live-iocs handler. Unknown sources fall back to
@@ -22,7 +22,7 @@ export interface AdmiraltyGrade {
 }
 
 const SOURCE_RELIABILITY: Record<string, AdmiraltyReliability> = {
-  // abuse.ch family — curated, vetted, well-maintained
+  // abuse.ch family - curated, vetted, well-maintained
   urlhaus: 'B',
   threatfox: 'B',
   malwarebazaar: 'B',
@@ -46,7 +46,7 @@ const SOURCE_RELIABILITY: Record<string, AdmiraltyReliability> = {
   // commercial wrappers
   virustotal: 'B',
   abuseipdb: 'B',
-  // MyThreatIntel (sourced from many places — average C)
+  // MyThreatIntel (sourced from many places - average C)
   mti: 'C',
   mythreatintel: 'C',
   // catch-all

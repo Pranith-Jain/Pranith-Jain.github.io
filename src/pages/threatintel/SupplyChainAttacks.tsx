@@ -48,7 +48,7 @@ interface ScResponse {
   upstream_error?: string;
 }
 
-/** Only render http(s) links — the source urls come from an untrusted upstream,
+/** Only render http(s) links - the source urls come from an untrusted upstream,
  *  so never let a `javascript:`/`data:` URL reach an href. */
 function safeHref(url: string): string | null {
   try {
@@ -76,8 +76,8 @@ const STATUS_TONE: Record<string, string> = {
 function chip(active: boolean): string {
   return `text-xs font-mono px-2.5 py-1 rounded border transition-colors ${
     active
-      ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-      : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+      ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+      : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-rose-500/40'
   }`;
 }
 
@@ -125,17 +125,17 @@ export default function SupplyChainAttacks(): JSX.Element {
 
   const description = (
     <>
-      Confirmed software supply-chain compromise incidents (npm · PyPI · container registries · AI agents) — status,
+      Confirmed software supply-chain compromise incidents (npm · PyPI · container registries · AI agents) - status,
       severity, blast radius, remediation, and advisory sources. Data:{' '}
       <a
         href="https://supplychainattack.org"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-brand-600 dark:text-brand-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline"
       >
         supplychainattack.org
       </a>{' '}
-      — a neutral public reference (free to cite with attribution). Each incident links back to its source.
+      - a neutral public reference (free to cite with attribution). Each incident links back to its source.
     </>
   );
 
@@ -198,7 +198,7 @@ export default function SupplyChainAttacks(): JSX.Element {
                       href={titleHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-brand-600 dark:hover:text-brand-400"
+                      className="hover:text-rose-600 dark:hover:text-rose-400"
                     >
                       {inc.title} <ExternalLink size={12} className="inline align-baseline opacity-60" />
                     </a>
@@ -240,7 +240,7 @@ export default function SupplyChainAttacks(): JSX.Element {
                   </span>
                 ))}
                 {inc.disclosed_date && (
-                  <span className="text-micro font-mono text-slate-400 ml-auto">{inc.disclosed_date}</span>
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-auto">{inc.disclosed_date}</span>
                 )}
               </div>
 
@@ -260,7 +260,7 @@ export default function SupplyChainAttacks(): JSX.Element {
                     <Link
                       key={pkg}
                       to={`/dfir/ioc-check?indicator=${encodeURIComponent(pkg)}`}
-                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-brand-500/50 hover:text-brand-600 dark:hover:text-brand-400"
+                      className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400"
                       title="Pivot to IOC checker"
                     >
                       {pkg} →
@@ -271,7 +271,7 @@ export default function SupplyChainAttacks(): JSX.Element {
 
               {inc.remediation.length > 0 && (
                 <details className="mt-2 group">
-                  <summary className="text-micro font-mono text-slate-500 cursor-pointer hover:text-brand-600 dark:hover:text-brand-400">
+                  <summary className="text-micro font-mono text-slate-500 cursor-pointer hover:text-rose-600 dark:hover:text-rose-400">
                     remediation · {inc.remediation.length}
                   </summary>
                   <ul className="mt-1 ml-3 list-disc text-xs text-slate-600 dark:text-slate-400 space-y-0.5">
@@ -292,13 +292,13 @@ export default function SupplyChainAttacks(): JSX.Element {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                        className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
                         title={s.publisher}
                       >
                         {s.title || s.publisher || 'source'}
                       </a>
                     ) : (
-                      <span key={i} className="text-micro font-mono text-slate-400">
+                      <span key={i} className="text-micro font-mono text-slate-500 dark:text-slate-400">
                         {s.title || s.publisher}
                       </span>
                     );
@@ -311,17 +311,17 @@ export default function SupplyChainAttacks(): JSX.Element {
       </div>
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
           Data:{' '}
           <a
             href={data.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-brand-600 dark:hover:text-brand-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400"
           >
             {data.source}
           </a>{' '}
-          — a neutral public reference; free to cite with attribution
+          - a neutral public reference; free to cite with attribution
           {data.revised ? ` · catalog revised ${data.revised}` : ''} · {data.total} incidents
         </p>
       )}

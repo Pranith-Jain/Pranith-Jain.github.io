@@ -99,7 +99,7 @@ export default function ApiKeysTab() {
   }
 
   function formatDate(iso: string | null): string {
-    if (!iso) return '—';
+    if (!iso) return '-';
     return new Date(iso).toLocaleString();
   }
 
@@ -148,7 +148,7 @@ export default function ApiKeysTab() {
         {newKey && (
           <div className="mt-4 p-4 rounded bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50">
             <p className="text-xs text-emerald-700 dark:text-emerald-400 font-semibold mb-2">
-              Copy this key now — it won't be shown again.
+              Copy this key now - it won't be shown again.
             </p>
             <div className="flex items-center gap-2">
               <code className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--input-200))] rounded text-sm font-mono text-emerald-700 dark:text-emerald-300 break-all">

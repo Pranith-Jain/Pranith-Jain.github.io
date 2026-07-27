@@ -334,7 +334,7 @@ const ROUTES = [
   // ── DFIR: triage & forensic tools (5) — 0 API calls ───────────
   '/dfir/dnscope',
   '/dfir/regscope',
-  '/dfir/tracer',
+  '/dfir/crypto-tracer',
   '/dfir/tracerules',
   '/dfir/phone-osint',
   '/dfir/phone-intel',
@@ -442,17 +442,11 @@ const ROUTES = [
   '/threatintel/cve-resources',
   '/threatintel/osint-framework',
 
-  // ── H3AD-SEC AI tools (5) — make API calls, prerendered chrome ─
-  '/dfir/insight-ai',
-  '/dfir/querycraft-ai',
-  '/dfir/chrono-ai',
-  '/dfir/malbrief-ai',
-  '/dfir/verdikt-ai',
+  // ── H3AD-SEC AI suite (1 tab-hub) — prerendered chrome ─
+  '/dfir/ai-suite',
 
   // ── H3AD-SEC hunting / detection / ops (5) — prerendered chrome ─
   '/dfir/pivex',
-  '/dfir/tracepulse',
-  '/dfir/quicktrace',
   '/dfir/phishops',
   '/dfir/phishbook',
 
@@ -535,9 +529,7 @@ const ROUTES = [
   '/dfir/file',
   '/dfir/host-graph',
   '/dfir/identity-lookup',
-  '/dfir/report-parser',
-  '/dfir/report-composer',
-  '/dfir/report-analyzer',
+  '/dfir/report-hub',
   '/dfir/threat-hunt',
 
   // ── Phase 5: New gap features ─────────────────────────────────
@@ -689,4 +681,12 @@ async function main() {
   console.log(`prerender: ✓ all ${expected.length} PRERENDERED_ROUTES entries have generated HTML.`);
 }
 
-void main();
+// Explicit exit: the SSR bundle keeps a handle on the event loop, so without
+// this the process hangs forever after the work is done (the build never
+// completes, which is what wedged `npm run build` / `npm run deploy`).
+main()
+  .then(() => process.exit(0))
+  .catch((err) => {
+    console.error('prerender failed:', err);
+    process.exit(1);
+  });

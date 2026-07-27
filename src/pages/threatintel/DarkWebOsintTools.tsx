@@ -83,7 +83,7 @@ export default function DarkWebOsintTools(): JSX.Element {
               href="https://github.com/apurvsinghgautam/dark-web-osint-tools"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               dark-web-osint-tools
             </a>{' '}
@@ -92,11 +92,11 @@ export default function DarkWebOsintTools(): JSX.Element {
               href="https://github.com/apurvsinghgautam/robin"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               Robin
             </a>{' '}
-            — an AI-powered dark-web investigation tool built on top of these engines.
+            - an AI-powered dark-web investigation tool built on top of these engines.
           </span>
         </>
       }
@@ -106,15 +106,15 @@ export default function DarkWebOsintTools(): JSX.Element {
             <div className="relative">
               <Search
                 size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
                 aria-hidden="true"
               />
               <input
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search tools — e.g. 'crawler', 'ahmia', 'onion scan'"
-                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                placeholder="Search tools - e.g. 'crawler', 'ahmia', 'onion scan'"
+                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
                 aria-label="Search dark web OSINT tools"
               />
             </div>
@@ -146,7 +146,7 @@ export default function DarkWebOsintTools(): JSX.Element {
                 <button
                   type="button"
                   onClick={clearAll}
-                  className="sm:ml-auto text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                  className="sm:ml-auto text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline"
                 >
                   clear filters
                 </button>
@@ -168,7 +168,7 @@ export default function DarkWebOsintTools(): JSX.Element {
                 href={sanitizeUrl(t.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
               >
                 {t.name} <ExternalLink size={12} className="opacity-60" />
               </a>
@@ -180,7 +180,7 @@ export default function DarkWebOsintTools(): JSX.Element {
             </div>
             {t.badge && (
               <div className="mb-1.5">
-                <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30 inline-flex items-center gap-1">
+                <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/30 inline-flex items-center gap-1">
                   <Star size={9} /> {t.badge}
                 </span>
               </div>
@@ -200,7 +200,7 @@ export default function DarkWebOsintTools(): JSX.Element {
                   href={sanitizeUrl(t.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
                   title="Source repository"
                 >
                   <Github size={10} /> source
@@ -214,7 +214,7 @@ export default function DarkWebOsintTools(): JSX.Element {
       {filtered.length === 0 && (
         <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-6">
           Nothing matches the current filters.{' '}
-          <button onClick={clearAll} className="underline text-brand-600 dark:text-brand-400">
+          <button onClick={clearAll} className="underline text-rose-600 dark:text-rose-400">
             Clear all
           </button>
           ?

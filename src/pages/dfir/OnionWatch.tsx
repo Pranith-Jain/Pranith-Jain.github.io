@@ -12,8 +12,8 @@ import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/Clust
  * Consumes /api/v1/onion-watch (Worker proxy to Ransomlook.io's per-group
  * profile API). Surfaces canonical Tor URLs for the most-active leak sites
  * along with reachability flags from Ransomlook's last scrape. We don't
- * fetch .onion sites ourselves — Cloudflare Workers cannot route through
- * Tor — so this is a navigation/inventory aid, not a live prober.
+ * fetch .onion sites ourselves - Cloudflare Workers cannot route through
+ * Tor - so this is a navigation/inventory aid, not a live prober.
  *
  * Companion summary panel lives on /threatintel/darkweb. This page is the deeper
  * view: search across groups + fqdns, sort options, copy-all-mirrors, and
@@ -112,7 +112,7 @@ export default function OnionWatch(): JSX.Element {
 
   // When Ransomlook's prober is degraded (reports 0 reachable across 20+
   // tracked mirrors), the "hide offline" filter would hide EVERYTHING and
-  // the page would render empty — actively unhelpful. Auto-bypass the
+  // the page would render empty - actively unhelpful. Auto-bypass the
   // filter in that case so users still see the mirror inventory.
   const proberLikelyDegraded = !!data && data.total_count >= 20 && data.reachable_count === 0;
   const effectiveShowOffline = showOffline || proberLikelyDegraded;
@@ -153,7 +153,7 @@ export default function OnionWatch(): JSX.Element {
       setTimeout(() => setCopiedKey((k) => (k === key ? null : k)), 1500);
     } catch (_catchErr) {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* clipboard blocked — silent */
+      /* clipboard blocked - silent */
     }
   };
 
@@ -212,7 +212,7 @@ export default function OnionWatch(): JSX.Element {
       </section>
 
       {/* Prober-health banner. Ransomlook's Tor reachability prober
-          occasionally goes offline — when that happens it stops marking
+          occasionally goes offline - when that happens it stops marking
           ANY mirror as available, even though the mirrors themselves are
           fine. The page used to read this as "0% reachable, all sites
           down" which is technically accurate-by-data but practically
@@ -223,7 +223,7 @@ export default function OnionWatch(): JSX.Element {
           <AlertTriangle size={16} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
           <div className="text-amber-800 dark:text-amber-300">
             <strong>Upstream prober looks degraded.</strong> Ransomlook is reporting 0 reachable mirrors across{' '}
-            {data.total_count} tracked .onion endpoints — this almost always means their Tor reachability prober is
+            {data.total_count} tracked .onion endpoints - this almost always means their Tor reachability prober is
             offline, not that every leak site is down. The mirror addresses below are still accurate (canonical Tor
             URLs); just don't trust the green/red dots until Ransomlook's prober recovers.{' '}
             <a
@@ -241,7 +241,7 @@ export default function OnionWatch(): JSX.Element {
       {/* Filters */}
       <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[rgb(var(--surface-100))] shadow-e1 p-4 mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
           <input
             type="search"
             value={query}
@@ -423,7 +423,7 @@ export default function OnionWatch(): JSX.Element {
 
                   {g.mirrors.length > 1 && (
                     <div className="mt-2 text-micro font-mono text-slate-500 dark:text-slate-400">
-                      Multiple mirrors are normal — leak sites mirror across .onion v3 addresses to survive takedowns
+                      Multiple mirrors are normal - leak sites mirror across .onion v3 addresses to survive takedowns
                       and DDoS. Try the next mirror if one fails.
                     </div>
                   )}

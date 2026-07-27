@@ -60,7 +60,7 @@ export default function Lolbins(): JSX.Element {
           MITRE ATT&amp;CK with a one-line abuse example and a detection idea.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          A subset of the full catalogues — pick the entries I reach for during phishing / BEC / commodity-malware IRs.
+          A subset of the full catalogues - pick the entries I reach for during phishing / BEC / commodity-malware IRs.
           Use the upstream sources (linked on each card) for the complete coverage.
         </p>
       </div>
@@ -68,7 +68,7 @@ export default function Lolbins(): JSX.Element {
       {/* Filters */}
       <div className="space-y-3 mb-6">
         <div className="relative">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
           <input
             type="text"
             value={query}
@@ -240,7 +240,7 @@ export default function Lolbins(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              LOLBAS — Windows binaries, scripts and libraries
+              LOLBAS - Windows binaries, scripts and libraries
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -251,7 +251,7 @@ export default function Lolbins(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              GTFOBins — Unix binaries used to bypass restrictions
+              GTFOBins - Unix binaries used to bypass restrictions
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -262,7 +262,7 @@ export default function Lolbins(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              LOOBins — macOS living-off-the-land
+              LOOBins - macOS living-off-the-land
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>

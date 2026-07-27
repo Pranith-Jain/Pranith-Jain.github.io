@@ -93,7 +93,7 @@ export default function SubdomainTakeover() {
         setCtSubdomains(subdomains);
       } catch (_catchErr) {
         console.error('SubdomainTakeover failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-        // crt.sh may be slow/down — continue with just the base domain
+        // crt.sh may be slow/down - continue with just the base domain
       }
 
       // Phase 2: Check CNAMEs for the base domain + discovered subdomains
@@ -113,7 +113,7 @@ export default function SubdomainTakeover() {
           cname: 'Direct A record (no CNAME)',
           status: 'safe',
           provider: 'N/A',
-          evidence: 'Domain resolves directly — no dangling CNAME',
+          evidence: 'Domain resolves directly - no dangling CNAME',
         });
       } else {
         for (const cname of baseCnames) {
@@ -125,7 +125,7 @@ export default function SubdomainTakeover() {
             status: isKnownProvider ? 'vulnerable' : 'safe',
             provider,
             evidence: isKnownProvider
-              ? `CNAME points to ${provider} — verify claim status`
+              ? `CNAME points to ${provider} - verify claim status`
               : 'CNAME not in known vulnerable provider list',
           });
         }
@@ -150,7 +150,7 @@ export default function SubdomainTakeover() {
               status: isKnownProvider ? 'vulnerable' : 'safe',
               provider,
               evidence: isKnownProvider
-                ? `CNAME points to ${provider} — verify claim status`
+                ? `CNAME points to ${provider} - verify claim status`
                 : 'CNAME not in known vulnerable provider list',
             });
           }
@@ -256,10 +256,10 @@ export default function SubdomainTakeover() {
                       )}
                     </div>
                     <p className="text-xs text-muted mb-1">
-                      CNAME: <span className="font-mono text-slate-400">{r.cname}</span>
+                      CNAME: <span className="font-mono text-slate-500 dark:text-slate-400">{r.cname}</span>
                     </p>
                     <p className="text-xs text-muted">
-                      Provider: <span className="text-slate-700 dark:text-slate-300">{r.provider}</span> — {r.evidence}
+                      Provider: <span className="text-slate-700 dark:text-slate-300">{r.provider}</span> - {r.evidence}
                     </p>
                   </div>
                   {r.status === 'vulnerable' && (

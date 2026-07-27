@@ -81,7 +81,7 @@ const CHOKEPOINTS: Chokepoint[] = [
     fpLevel: 'Medium FP',
     maturity: 'Research',
     description:
-      'Defense evasion via EDR sensor tampering — process termination, driver unloading, callback removal, and direct kernel calls.',
+      'Defense evasion via EDR sensor tampering - process termination, driver unloading, callback removal, and direct kernel calls.',
     tags: ['edr', 'defense-evasion', 'tampering', 'kernel'],
   },
   {
@@ -91,7 +91,7 @@ const CHOKEPOINTS: Chokepoint[] = [
     fpLevel: 'Medium FP',
     maturity: 'Hunt',
     description:
-      'Pre-encryption service disruption — stopping backup agents, databases, and AV services via sc.exe, net stop, or PsExec.',
+      'Pre-encryption service disruption - stopping backup agents, databases, and AV services via sc.exe, net stop, or PsExec.',
     tags: ['ransomware', 'service-stop', 'backup-disable', 'pre-encryption'],
   },
   {
@@ -111,7 +111,7 @@ const CHOKEPOINTS: Chokepoint[] = [
     fpLevel: 'High FP',
     maturity: 'Analyst',
     description:
-      'Bring-your-own scripting interpreters — Python, Node.js, PowerShell downloaded to disk and used for execution. Bypasses application whitelisting.',
+      'Bring-your-own scripting interpreters - Python, Node.js, PowerShell downloaded to disk and used for execution. Bypasses application whitelisting.',
     tags: ['scripting', 'interpreter', 'python', 'node', 'powershell'],
   },
   {
@@ -121,7 +121,7 @@ const CHOKEPOINTS: Chokepoint[] = [
     fpLevel: 'Pre-Exec',
     maturity: 'Research',
     description:
-      'OAuth device code flow abuse — attacker tricks user into approving a device code, granting persistent token access without password compromise.',
+      'OAuth device code flow abuse - attacker tricks user into approving a device code, granting persistent token access without password compromise.',
     tags: ['oauth', 'device-code', 'cloud', 'identity'],
   },
   {
@@ -131,7 +131,7 @@ const CHOKEPOINTS: Chokepoint[] = [
     fpLevel: 'Pre-Exec',
     maturity: 'Hunt',
     description:
-      'Azure/M365 Graph API enumeration — bulk user, group, and role queries from a single token. Detectable via query velocity.',
+      'Azure/M365 Graph API enumeration - bulk user, group, and role queries from a single token. Detectable via query velocity.',
     tags: ['graph-api', 'reconnaissance', 'azure', 'entra-id'],
   },
   {
@@ -190,7 +190,7 @@ const STEPS = [
   {
     n: 1,
     title: 'What is this technique?',
-    desc: 'Define the exact mechanism — process injection, credential theft, lateral movement protocol.',
+    desc: 'Define the exact mechanism - process injection, credential theft, lateral movement protocol.',
   },
   {
     n: 2,
@@ -271,10 +271,10 @@ const VALIDATION = [
 
 const CONTRAST = [
   { dim: 'Durability', cp: 'Months to years', tool: 'Days to weeks' },
-  { dim: 'Coverage', cp: 'Broad — all families', tool: 'Narrow — one tool' },
-  { dim: 'Maintenance', cp: 'Low — rarely update', tool: 'High — constant updates' },
-  { dim: 'FP Rate', cp: 'Low — attacker constraints', tool: 'Variable — often high' },
-  { dim: 'Evasion', cp: 'Hard — fundamental change', tool: 'Easy — tool swap' },
+  { dim: 'Coverage', cp: 'Broad - all families', tool: 'Narrow - one tool' },
+  { dim: 'Maintenance', cp: 'Low - rarely update', tool: 'High - constant updates' },
+  { dim: 'FP Rate', cp: 'Low - attacker constraints', tool: 'Variable - often high' },
+  { dim: 'Evasion', cp: 'Hard - fundamental change', tool: 'Easy - tool swap' },
 ];
 
 // ═══════════════════════════════════════════════════════════════════
@@ -638,7 +638,7 @@ const TRENDS: Trend[] = [
       },
       {
         title: 'JS-Gated EXE Delivery',
-        detail: 'MROScanner OU cert — JavaScript gates executable downloads behind browser validation.',
+        detail: 'MROScanner OU cert - JavaScript gates executable downloads behind browser validation.',
       },
       {
         title: 'AI Tool Targeting',
@@ -686,7 +686,7 @@ export default function DetectionChokepointsHub() {
       backTo="/dfir"
       icon={<Shield size={28} />}
       title="Detection Chokepoints"
-      description="Invariant detection points in attack chains — prerequisites that attackers cannot bypass. Each chokepoint targets a forced action that generates reliable telemetry regardless of tool choice or variant."
+      description="Invariant detection points in attack chains - prerequisites that attackers cannot bypass. Each chokepoint targets a forced action that generates reliable telemetry regardless of tool choice or variant."
       headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Source:{' '}
@@ -720,7 +720,7 @@ export default function DetectionChokepointsHub() {
       {tab === 'chokepoints' && (
         <div className="space-y-3">
           <div className="relative">
-            <Target size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <Target size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
             <input
               type="text"
               value={query}
@@ -903,7 +903,7 @@ export default function DetectionChokepointsHub() {
       {tab === 'chains' && (
         <div className="space-y-3">
           <p className="text-sm text-muted mb-4">
-            Same stages, different tools. Each stage is an unavoidable prerequisite — detect the prerequisite, catch any
+            Same stages, different tools. Each stage is an unavoidable prerequisite - detect the prerequisite, catch any
             actor.
           </p>
           {CHAINS.map((ch) => (
@@ -936,7 +936,7 @@ export default function DetectionChokepointsHub() {
                           <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300">
                             {s.label}
                           </span>
-                          {i < ch.stages.length - 1 && <ArrowRight size={10} className="text-slate-400" />}
+                          {i < ch.stages.length - 1 && <ArrowRight size={10} className="text-slate-500 dark:text-slate-400" />}
                         </span>
                       ))}
                     </div>
@@ -950,7 +950,7 @@ export default function DetectionChokepointsHub() {
                         <div key={a.name} className="flex items-center gap-2 text-sm">
                           <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                           <span className="font-mono text-slate-900 dark:text-white">{a.name}</span>
-                          {a.notes && <span className="text-xs text-muted">— {a.notes}</span>}
+                          {a.notes && <span className="text-xs text-muted">- {a.notes}</span>}
                         </div>
                       ))}
                     </div>
@@ -986,7 +986,7 @@ export default function DetectionChokepointsHub() {
                     <span className={`text-xs font-mono px-2 py-0.5 rounded border ${NODE_TONE[l.color]}`}>
                       {l.from}
                     </span>
-                    <ArrowRight size={14} className="text-slate-400" />
+                    <ArrowRight size={14} className="text-slate-500 dark:text-slate-400" />
                     <span className={`text-xs font-mono px-2 py-0.5 rounded border ${NODE_TONE[l.color]}`}>{l.to}</span>
                     <span className="text-xs font-mono text-slate-500 dark:text-slate-400">· {l.label}</span>
                   </div>

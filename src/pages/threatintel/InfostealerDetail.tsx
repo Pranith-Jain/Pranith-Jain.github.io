@@ -55,7 +55,7 @@ export default function InfostealerDetail(): JSX.Element {
     ]).then(([mbRes, liRes]) => {
       if (!alive) return;
 
-      // Both upstreams failed (network error or non-2xx) — surface a real
+      // Both upstreams failed (network error or non-2xx) - surface a real
       // error instead of rendering the misleading "no live data" empty state.
       if (mbRes.status === 'rejected' && liRes.status === 'rejected') {
         const reason = mbRes.reason instanceof Error ? mbRes.reason : null;
@@ -217,7 +217,7 @@ export default function InfostealerDetail(): JSX.Element {
               href={family.malpediaUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-brand-600 dark:text-brand-400"
+              className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-rose-600 dark:text-rose-400"
             >
               <ExternalLink size={12} /> Malpedia
             </a>
@@ -233,7 +233,7 @@ export default function InfostealerDetail(): JSX.Element {
 
       <section className="mb-8">
         <h2 className="font-display font-semibold text-base mb-3 inline-flex items-center gap-2">
-          <Bug size={16} className="text-brand-600 dark:text-brand-400" /> Live MalwareBazaar samples
+          <Bug size={16} className="text-rose-600 dark:text-rose-400" /> Live MalwareBazaar samples
         </h2>
         {loading ? (
           <p className="font-mono text-meta text-slate-500 animate-pulse">loading samples…</p>
@@ -251,27 +251,27 @@ export default function InfostealerDetail(): JSX.Element {
                   <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                     {s.family}
                   </span>
-                  {s.file_type && <span className="font-mono text-micro text-slate-400">{s.file_type}</span>}
+                  {s.file_type && <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{s.file_type}</span>}
                 </div>
                 <div className="flex items-center gap-2">
                   <a
                     href={sanitizeUrl(s.url)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-mini text-brand-600 dark:text-brand-400 hover:underline break-all flex-1 min-w-0"
+                    className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline break-all flex-1 min-w-0"
                   >
                     <code>{s.sha256.slice(0, 32)}…</code>
                   </a>
                   <button
                     type="button"
                     onClick={() => void navigator.clipboard.writeText(s.sha256)}
-                    className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
+                    className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
                     aria-label="Copy SHA256"
                   >
                     <Copy size={11} />
                   </button>
                 </div>
-                <p className="font-mono text-micro text-slate-400 mt-1">
+                <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">
                   {s.reporter ? `by ${s.reporter}` : ''} {s.first_seen ?? ''}
                 </p>
               </li>
@@ -282,7 +282,7 @@ export default function InfostealerDetail(): JSX.Element {
 
       <section className="mb-8">
         <h2 className="font-display font-semibold text-base mb-3 inline-flex items-center gap-2">
-          <Radio size={16} className="text-brand-600 dark:text-brand-400" /> Live C2 / IOCs
+          <Radio size={16} className="text-rose-600 dark:text-rose-400" /> Live C2 / IOCs
         </h2>
         {loading ? (
           <p className="font-mono text-meta text-slate-500 animate-pulse">loading IOCs…</p>
@@ -300,7 +300,7 @@ export default function InfostealerDetail(): JSX.Element {
                   <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                     {x.family}
                   </span>
-                  <span className="font-mono text-micro text-slate-400">
+                  <span className="font-mono text-micro text-slate-500 dark:text-slate-400">
                     {x.kind} · {x.source}
                   </span>
                 </div>
@@ -309,13 +309,13 @@ export default function InfostealerDetail(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => void navigator.clipboard.writeText(x.value)}
-                    className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-brand-600"
+                    className="shrink-0 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1 text-slate-500 hover:text-rose-600"
                     aria-label="Copy indicator"
                   >
                     <Copy size={11} />
                   </button>
                 </div>
-                {x.observed_at && <p className="font-mono text-micro text-slate-400 mt-1">{x.observed_at}</p>}
+                {x.observed_at && <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{x.observed_at}</p>}
               </li>
             ))}
           </ul>

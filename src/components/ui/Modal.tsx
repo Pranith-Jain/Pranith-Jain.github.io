@@ -46,7 +46,7 @@ export function Modal({
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = 'hidden';
     document.body.style.paddingRight = `${scrollbarWidth}px`;
-    // Move focus INTO the dialog on open — otherwise focus stays on the trigger
+    // Move focus INTO the dialog on open - otherwise focus stays on the trigger
     // behind the backdrop and the Tab-trap below only engages once focus is
     // already inside (so the first Tab can escape to background content).
     const t = setTimeout(() => {
@@ -116,7 +116,7 @@ export function Modal({
             <button
               type="button"
               onClick={onClose}
-              className="grid h-11 w-11 sm:h-8 sm:w-8 place-items-center rounded text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-[rgb(var(--surface-300))] dark:hover:text-slate-300"
+              className="grid h-11 w-11 sm:h-8 sm:w-8 place-items-center rounded text-slate-500 dark:text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:hover:bg-[rgb(var(--surface-300))] dark:hover:text-slate-300"
               aria-label="Close dialog"
             >
               <X className="h-4 w-4" aria-hidden="true" />

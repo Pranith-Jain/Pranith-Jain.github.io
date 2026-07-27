@@ -20,7 +20,7 @@ export const ROLE_LABELS: Record<Role, string> = {
 };
 
 export interface Inject {
-  /** Time offset from T+0 — e.g. "T+0", "T+30 min", "T+4 h", "T+24 h". */
+  /** Time offset from T+0 - e.g. "T+0", "T+30 min", "T+4 h", "T+24 h". */
   t: string;
   /** Headline of the development. */
   headline: string;
@@ -33,7 +33,7 @@ export interface Inject {
 export interface ScenarioArchetype {
   id: Archetype;
   name: string;
-  /** When this archetype should be picked — match actor.motivation. */
+  /** When this archetype should be picked - match actor.motivation. */
   motivationMatch: RegExp;
   /** Default day-of-week / hour cue. */
   timingCue: string;
@@ -46,7 +46,7 @@ const RANSOMWARE: ScenarioArchetype = {
   id: 'ransomware',
   name: 'Ransomware deployment',
   motivationMatch: /financial|crime|ransom/i,
-  timingCue: 'Friday 16:30 local — most of the team is starting weekend plans.',
+  timingCue: 'Friday 16:30 local - most of the team is starting weekend plans.',
   setup:
     'Your SOC has just received a wave of EDR alerts from across the {{INDUSTRY}} business unit. File-rename + encryption activity is spreading fast across endpoints and a network share. Initial telemetry suggests {{ACTOR}} TTPs and the {{MALWARE}} family. A ransom note has been found on three workstations.',
   injects: [
@@ -123,7 +123,7 @@ const BEC: ScenarioArchetype = {
   id: 'bec',
   name: 'Business Email Compromise / wire fraud',
   motivationMatch: /financial|crime|fraud|business email/i,
-  timingCue: 'Tuesday 11:00 — the AP team is processing month-end invoices.',
+  timingCue: 'Tuesday 11:00 - the AP team is processing month-end invoices.',
   setup:
     'AP receives an email from what appears to be the CFO\'s mailbox approving a $480k wire to a new beneficiary account "for the Q-end vendor consolidation". The CFO is travelling and reachable only by phone. The thread has earlier benign messages from the same address. {{ACTOR}} TTPs are consistent with the email metadata.',
   injects: [
@@ -189,7 +189,7 @@ const SUPPLY_CHAIN: ScenarioArchetype = {
   id: 'supply-chain',
   name: 'Supply-chain compromise',
   motivationMatch: /espionage|nation-state|state-sponsored/i,
-  timingCue: 'Wednesday 09:00 — a vendor publishes a security advisory.',
+  timingCue: 'Wednesday 09:00 - a vendor publishes a security advisory.',
   setup:
     "A widely-used IT-management vendor publishes an advisory: their software-update channel was compromised. Customers who took updates between two specific dates received a backdoored binary. Your team's update history is within that window. {{ACTOR}} is the attributed actor. The {{INDUSTRY}} sector is mentioned as a target.",
   injects: [
@@ -206,7 +206,7 @@ const SUPPLY_CHAIN: ScenarioArchetype = {
           role: 'ir-lead',
           question: 'Who owns the vendor relationship? When was the last vulnerability assessment of their access?',
         },
-        { role: 'legal', question: 'Contractual obligations — does the vendor owe us forensic detail?' },
+        { role: 'legal', question: 'Contractual obligations - does the vendor owe us forensic detail?' },
       ],
     },
     {
@@ -229,7 +229,7 @@ const SUPPLY_CHAIN: ScenarioArchetype = {
       prompts: [
         {
           role: 'tech-lead',
-          question: 'Mass credential rotation — what is the order of operations? What breaks first?',
+          question: 'Mass credential rotation - what is the order of operations? What breaks first?',
         },
         { role: 'legal', question: 'When does this become a notifiable event?' },
         {
@@ -245,21 +245,21 @@ const ESPIONAGE: ScenarioArchetype = {
   id: 'espionage',
   name: 'Long-dwell espionage',
   motivationMatch: /espionage|nation-state|state-sponsored|intelligence/i,
-  timingCue: 'Monday 14:00 — a hunting team finds something old but live.',
+  timingCue: 'Monday 14:00 - a hunting team finds something old but live.',
   setup:
     "A threat-hunting query returns matches for {{ACTOR}}'s known {{MALWARE}} loader on a single jump-host. The artifact is dated 11 months ago. The host is on a Tier-1 administrative segment. Network telemetry shows recent C2 callbacks.",
   injects: [
     {
       t: 'T+0',
-      headline: 'Hunt match — 11-month-old implant, recent activity',
+      headline: 'Hunt match - 11-month-old implant, recent activity',
       body: 'Implant runs as a service. C2 over HTTPS to a CDN-fronted endpoint. JA4 fingerprint matches public IoCs.',
       prompts: [
         {
           role: 'tech-lead',
-          question: 'Containment posture — do we cut C2 immediately or watch for a defined window?',
+          question: 'Containment posture - do we cut C2 immediately or watch for a defined window?',
         },
         { role: 'ir-lead', question: 'What is the legal authority to perform host forensics on this jump-host?' },
-        { role: 'exec', question: 'Government / law-enforcement engagement — when and who?' },
+        { role: 'exec', question: 'Government / law-enforcement engagement - when and who?' },
       ],
     },
     {
@@ -270,7 +270,7 @@ const ESPIONAGE: ScenarioArchetype = {
         {
           role: 'tech-lead',
           question:
-            'Domain-wide credential reset — sequence and timing? What about Kerberos golden-ticket risk (krbtgt rotation x2)?',
+            'Domain-wide credential reset - sequence and timing? What about Kerberos golden-ticket risk (krbtgt rotation x2)?',
         },
         { role: 'legal', question: 'What jurisdiction governs the data this jump-host accessed?' },
         { role: 'comms', question: 'Internal-only for now? Vendor / partner disclosure?' },
@@ -282,8 +282,8 @@ const ESPIONAGE: ScenarioArchetype = {
       body: 'Hunting confirms the same implant on three more hosts in different segments. Dwell time on each: 4-13 months.',
       prompts: [
         { role: 'ir-lead', question: 'Do we still have the data we need? 90-day log retention is now a problem.' },
-        { role: 'tech-lead', question: 'Engagement scope — is this an open-ended IR or do we set a containment date?' },
-        { role: 'exec', question: 'External IR firm — engage now? Which one is on retainer?' },
+        { role: 'tech-lead', question: 'Engagement scope - is this an open-ended IR or do we set a containment date?' },
+        { role: 'exec', question: 'External IR firm - engage now? Which one is on retainer?' },
       ],
     },
   ],
@@ -293,7 +293,7 @@ const EDGE_EXPLOIT: ScenarioArchetype = {
   id: 'edge-exploit',
   name: 'Edge-appliance exploitation',
   motivationMatch: /financial|espionage|nation-state|crime/i,
-  timingCue: 'Sunday 22:00 — a public PoC for a 0-day drops.',
+  timingCue: 'Sunday 22:00 - a public PoC for a 0-day drops.',
   setup:
     'A 0-day in your edge VPN appliance is publicly disclosed with a working PoC. Vendor patch is delayed 48 hours. Your appliance is internet-facing. {{ACTOR}} has historically weaponised similar bugs within hours.',
   injects: [
@@ -304,7 +304,7 @@ const EDGE_EXPLOIT: ScenarioArchetype = {
       prompts: [
         {
           role: 'ir-lead',
-          question: 'Mitigation options before patch — IP allow-listing, MFA-only access, full shutdown?',
+          question: 'Mitigation options before patch - IP allow-listing, MFA-only access, full shutdown?',
         },
         { role: 'tech-lead', question: 'What is the business impact of taking the VPN offline for 48 hours?' },
         { role: 'exec', question: 'Authority to declare emergency change-management?' },
@@ -316,20 +316,20 @@ const EDGE_EXPLOIT: ScenarioArchetype = {
       body: 'Telemetry shows a burst of authentication attempts against the appliance from a small set of IPs, with sessions established but no downstream activity yet.',
       prompts: [
         { role: 'tech-lead', question: 'Are we already compromised? What does session validation show?' },
-        { role: 'ir-lead', question: 'IR escalation — declare incident now or wait for confirmed exploitation?' },
+        { role: 'ir-lead', question: 'IR escalation - declare incident now or wait for confirmed exploitation?' },
         { role: 'legal', question: 'Disclosure timing if we discover post-exploitation activity?' },
       ],
     },
     {
       t: 'T+12 h',
-      headline: 'Vendor patch available — risk assessment',
-      body: 'Vendor releases patch with caveats — known-issue reboot loop on certain configurations. Your config is in the affected list.',
+      headline: 'Vendor patch available - risk assessment',
+      body: 'Vendor releases patch with caveats - known-issue reboot loop on certain configurations. Your config is in the affected list.',
       prompts: [
         {
           role: 'tech-lead',
           question: 'Patch now and risk reboot loop, or wait for fixed patch with known compromise window?',
         },
-        { role: 'exec', question: 'Risk-acceptance decision — who signs?' },
+        { role: 'exec', question: 'Risk-acceptance decision - who signs?' },
       ],
     },
   ],
@@ -339,7 +339,7 @@ const INSIDER: ScenarioArchetype = {
   id: 'insider',
   name: 'Insider threat / privileged misuse',
   motivationMatch: /insider|.*/i,
-  timingCue: 'Thursday 17:00 — a manager flags concerning behaviour from an employee.',
+  timingCue: 'Thursday 17:00 - a manager flags concerning behaviour from an employee.',
   setup:
     'A manager reports that an engineer who was given a poor performance review yesterday has spent the day accessing repositories outside their normal scope and downloading large amounts of data. The employee has admin on a customer-data system.',
   injects: [
@@ -363,10 +363,10 @@ const INSIDER: ScenarioArchetype = {
       prompts: [
         {
           role: 'tech-lead',
-          question: 'How do we preserve evidence — endpoint imaging, log preservation, account snapshot?',
+          question: 'How do we preserve evidence - endpoint imaging, log preservation, account snapshot?',
         },
         { role: 'legal', question: 'When is law-enforcement / external counsel engaged?' },
-        { role: 'comms', question: 'Customer notification — what triggers it?' },
+        { role: 'comms', question: 'Customer notification - what triggers it?' },
       ],
     },
     {
@@ -374,10 +374,10 @@ const INSIDER: ScenarioArchetype = {
       headline: 'Employee resigns by email',
       body: 'Employee submits a resignation effective immediately and offers to "return any company property". They request a final-pay statement.',
       prompts: [
-        { role: 'legal', question: 'Acceptance of resignation vs termination — implications for our claim?' },
+        { role: 'legal', question: 'Acceptance of resignation vs termination - implications for our claim?' },
         {
           role: 'ir-lead',
-          question: 'Forensic acquisition timeline — do we still have access to the personal device?',
+          question: 'Forensic acquisition timeline - do we still have access to the personal device?',
         },
         { role: 'exec', question: 'Public stance if this becomes a regulatory or media event?' },
       ],

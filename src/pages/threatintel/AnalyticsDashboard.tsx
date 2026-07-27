@@ -70,7 +70,7 @@ const STATUS_COLOR: Record<string, string> = {
   ok: 'text-emerald-600 dark:text-emerald-400',
   degraded: 'text-amber-600 dark:text-amber-400',
   down: 'text-rose-600 dark:text-rose-400',
-  cold: 'text-slate-400 dark:text-slate-500',
+  cold: 'text-slate-500 dark:text-slate-400',
 };
 
 const STATUS_BG: Record<string, string> = {
@@ -81,7 +81,7 @@ const STATUS_BG: Record<string, string> = {
 };
 
 function formatAge(seconds?: number): string {
-  if (seconds === undefined) return '—';
+  if (seconds === undefined) return '-';
   if (seconds < 60) return `${seconds}s`;
   if (seconds < 3600) return `${Math.floor(seconds / 60)}m`;
   if (seconds < 86400) return `${Math.floor(seconds / 3600)}h`;
@@ -89,7 +89,7 @@ function formatAge(seconds?: number): string {
 }
 
 function reliabilityColor(grade?: string): string {
-  if (!grade) return 'text-slate-400';
+  if (!grade) return 'text-slate-500 dark:text-slate-400';
   const letter = grade.charAt(0);
   if (letter === 'A') return 'text-emerald-600 dark:text-emerald-400';
   if (letter === 'B') return 'text-sky-600 dark:text-sky-400';
@@ -182,7 +182,7 @@ export default function AnalyticsDashboard(): JSX.Element {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-16">
-        <Loader2 size={24} className="animate-spin text-slate-400" />
+        <Loader2 size={24} className="animate-spin text-slate-500 dark:text-slate-400" />
       </div>
     );
   }
@@ -209,14 +209,14 @@ export default function AnalyticsDashboard(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono transition-colors"
       >
         back
       </BackLink>
 
       <div className="animate-fade-in-up mb-10">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <span className="text-brand-600 dark:text-brand-400">
+          <span className="text-rose-600 dark:text-rose-400">
             <BarChart3 size={28} />
           </span>{' '}
           Analytics &amp; Ops
@@ -232,12 +232,12 @@ export default function AnalyticsDashboard(): JSX.Element {
               setError(null);
               setRefreshKey((k) => k + 1);
             }}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
           >
             <RefreshCw size={11} /> refresh
           </button>
           {feed?.generated_at && (
-            <span className="text-mini font-mono text-slate-400">
+            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
               feeds {new Date(feed.generated_at).toLocaleTimeString()}
             </span>
           )}
@@ -289,7 +289,7 @@ export default function AnalyticsDashboard(): JSX.Element {
               icon={<Target size={18} />}
               label="Live IOCs"
               value={snap.ioc_count > 1000 ? `${(snap.ioc_count / 1000).toFixed(1)}k` : String(snap.ioc_count)}
-              accent="text-brand-600 dark:text-brand-400"
+              accent="text-rose-600 dark:text-rose-400"
               href="/threatintel/iocs"
             />
           )}
@@ -326,7 +326,7 @@ export default function AnalyticsDashboard(): JSX.Element {
               return (
                 <div key={grade} className="surface-card p-3 text-center">
                   <div className={`text-2xl font-display font-bold ${reliabilityColor(grade)}`}>
-                    {grade === 'ungraded' ? '—' : grade}
+                    {grade === 'ungraded' ? '-' : grade}
                   </div>
                   <div className="text-mini font-mono text-slate-500 mt-1">
                     {count} {count === 1 ? 'source' : 'sources'}
@@ -357,7 +357,7 @@ export default function AnalyticsDashboard(): JSX.Element {
                   <span className="text-emerald-600">{cat.ok}</span>
                   <span className="text-amber-600">{cat.degraded}</span>
                   <span className="text-rose-600">{cat.down}</span>
-                  <span className="text-slate-400">{cat.cold}</span>
+                  <span className="text-slate-500 dark:text-slate-400">{cat.cold}</span>
                 </div>
               </div>
             ))}
@@ -408,7 +408,7 @@ export default function AnalyticsDashboard(): JSX.Element {
                           {row.page_path ? (
                             <Link
                               to={row.page_path}
-                              className="font-mono text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                              className="font-mono text-sm text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                             >
                               {row.label}
                             </Link>
@@ -417,11 +417,11 @@ export default function AnalyticsDashboard(): JSX.Element {
                           )}
                         </td>
                         <td className="px-4 py-2.5 hidden sm:table-cell">
-                          <span className="font-mono text-xs text-slate-500 capitalize">{row.category ?? '—'}</span>
+                          <span className="font-mono text-xs text-slate-500 capitalize">{row.category ?? '-'}</span>
                         </td>
                         <td className="px-4 py-2.5 hidden md:table-cell">
                           <span className={`font-mono text-xs font-semibold ${reliabilityColor(row.admiralty_grade)}`}>
-                            {row.admiralty_grade ?? '—'}
+                            {row.admiralty_grade ?? '-'}
                           </span>
                         </td>
                         <td className="px-4 py-2.5 hidden lg:table-cell">
@@ -472,7 +472,7 @@ export default function AnalyticsDashboard(): JSX.Element {
               <div key={`${m.source}-${m.key}-${i}`} className={`rounded-xl border p-3 ${STATUS_BG[m.status]}`}>
                 <div className="flex items-center justify-between mb-1">
                   <span className="font-mono text-xs text-slate-500">{m.source}</span>
-                  <span className="font-mono text-xs text-slate-400">{m.key}</span>
+                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{m.key}</span>
                 </div>
                 <div className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
                   {m.value.toLocaleString()}
@@ -492,7 +492,7 @@ export default function AnalyticsDashboard(): JSX.Element {
             href="https://dash.cloudflare.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             Cloudflare dashboard
           </a>{' '}

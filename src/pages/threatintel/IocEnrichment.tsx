@@ -51,7 +51,7 @@ const SOURCES: Source[] = [
     id: 'triage',
     label: 'Triage (malware)',
     url: '/api/v1/triage/search?q=',
-    hint: 'Needs TRIAGE_API_KEY — search hashes, IPs, domains',
+    hint: 'Needs TRIAGE_API_KEY - search hashes, IPs, domains',
     docsUrl: 'https://tria.ge',
   },
 ];
@@ -140,7 +140,7 @@ export default function IocEnrichment(): JSX.Element {
       title="IOC Enrichment"
       description={
         <span className="font-mono text-sm">
-          Query external free threat intel APIs — Maltiverse, InQuest Labs, HackerTarget DNS, Cloudflare Radar — from
+          Query external free threat intel APIs - Maltiverse, InQuest Labs, HackerTarget DNS, Cloudflare Radar - from
           one interface. Supports IP, domain, hash, and keyword lookups.
         </span>
       }
@@ -152,7 +152,7 @@ export default function IocEnrichment(): JSX.Element {
               <div className="relative">
                 <Search
                   size={14}
-                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
                 />
                 <input
                   type="text"
@@ -160,7 +160,7 @@ export default function IocEnrichment(): JSX.Element {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder={source.hint}
-                  className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-4 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-4 font-mono text-tool text-slate-900 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
                   aria-label="Search query"
                 />
               </div>
@@ -173,10 +173,10 @@ export default function IocEnrichment(): JSX.Element {
                 aria-haspopup="listbox"
                 aria-expanded={showDropdown}
                 aria-label={`Data source: ${source.label}`}
-                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5 font-mono text-tool text-slate-900 hover:border-brand-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 min-w-[180px] justify-between"
+                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5 font-mono text-tool text-slate-900 hover:border-rose-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-100 min-w-[180px] justify-between"
               >
                 <span>{source.label}</span>
-                <ChevronDown size={14} className="text-slate-400" />
+                <ChevronDown size={14} className="text-slate-500 dark:text-slate-400" />
               </button>
               {showDropdown && (
                 <div
@@ -196,7 +196,7 @@ export default function IocEnrichment(): JSX.Element {
                       }}
                       className={`w-full text-left px-3 py-2.5 text-tool font-mono transition-colors hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] ${
                         source.id === s.id
-                          ? 'text-brand-700 dark:text-brand-300 bg-brand-500/5'
+                          ? 'text-rose-700 dark:text-rose-300 bg-rose-500/5'
                           : 'text-slate-700 dark:text-slate-300'
                       }`}
                     >
@@ -211,7 +211,7 @@ export default function IocEnrichment(): JSX.Element {
               type="button"
               onClick={handleSearch}
               disabled={loading || !query.trim()}
-              className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 font-mono text-tool font-semibold text-white hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+              className="inline-flex items-center gap-2 rounded-xl bg-rose-600 px-4 py-2.5 font-mono text-tool font-semibold text-white hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
               {loading ? 'Searching…' : 'Search'}
@@ -223,7 +223,7 @@ export default function IocEnrichment(): JSX.Element {
               href={source.docsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 mt-3 text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+              className="inline-flex items-center gap-1 mt-3 text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
             >
               <ExternalLink size={11} /> {source.label} docs
             </a>

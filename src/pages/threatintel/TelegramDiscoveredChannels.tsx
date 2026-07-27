@@ -61,7 +61,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
 
   const mutate = async (handle: string, action: Action) => {
     if (!readAdminToken()) {
-      setError('Admin token required to review channels — set it above.');
+      setError('Admin token required to review channels - set it above.');
       setShowToken(true);
       return;
     }
@@ -75,7 +75,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
         credentials: 'same-origin',
       });
       if (res.status === 401 || res.status === 403) {
-        setError('Admin token rejected — check the value and try again.');
+        setError('Admin token rejected - check the value and try again.');
         setShowToken(true);
         return;
       }
@@ -98,7 +98,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
       <div className="animate-fade-in-up">
         <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
           <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-            <Radio size={28} className="text-brand-600 dark:text-brand-400" /> Discovered Telegram Channels
+            <Radio size={28} className="text-rose-600 dark:text-rose-400" /> Discovered Telegram Channels
           </h1>
           <div className="flex items-center gap-2 mt-1">
             <button
@@ -111,12 +111,12 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
               }`}
               aria-label="Admin token"
             >
-              <Lock size={11} /> {authed ? 'admin ✓' : 'set token'}
+              <Lock size={11} /> {authed ? 'admin' : 'set token'}
             </button>
             <button
               type="button"
               onClick={() => setRefreshKey((k) => k + 1)}
-              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
               aria-label="Refresh"
             >
               <RefreshCw size={11} /> refresh
@@ -125,7 +125,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
         </div>
         <p className="text-muted mb-6 max-w-3xl leading-relaxed">
           Channels auto-discovered from messages in monitored feeds and bot-subscribed chats. <strong>Approve</strong>{' '}
-          to add a channel to the watchlist for leak scanning, or <strong>reject</strong> to dismiss it — rejected
+          to add a channel to the watchlist for leak scanning, or <strong>reject</strong> to dismiss it - rejected
           channels are remembered and won&apos;t be surfaced again.
         </p>
       </div>
@@ -133,7 +133,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
       {showToken && (
         <div className="animate-fade-in-up mb-6 surface-card p-3.5">
           <label htmlFor="vt-admin-token" className="block text-micro uppercase tracking-wider text-slate-500 mb-1.5">
-            Admin token — stored locally, sent only with approve/reject requests
+            Admin token - stored locally, sent only with approve/reject requests
           </label>
           <div className="flex items-center gap-2">
             <input
@@ -152,7 +152,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
               type="button"
               onClick={saveToken}
               disabled={!token.trim()}
-              className="text-mini font-mono px-3 py-1.5 rounded border border-brand-500/40 text-brand-600 dark:text-brand-400 hover:bg-brand-500/10 disabled:opacity-40"
+              className="text-mini font-mono px-3 py-1.5 rounded border border-rose-500/40 text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 disabled:opacity-40"
             >
               save
             </button>
@@ -162,7 +162,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
 
       <div className="animate-fade-in-up mb-8 flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-2">
-          <Search size={14} className="text-slate-400" />
+          <Search size={14} className="text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={search}
@@ -208,7 +208,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                       </span>
                     ) : null}
                     {ch.added_to_watch === 1 && (
-                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-600 dark:text-brand-400">
+                      <span className="text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-600 dark:text-rose-400">
                         watched
                       </span>
                     )}
@@ -220,7 +220,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                         href={sanitizeUrl(ch.source_message)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
+                        className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline"
                       >
                         <ExternalLink size={10} /> source
                       </a>

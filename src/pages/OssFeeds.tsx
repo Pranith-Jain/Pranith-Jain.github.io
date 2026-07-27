@@ -83,32 +83,32 @@ export default function OssFeeds() {
         {loading && (
           <div className="grid grid-cols-3 gap-4">
             {['Total Feeds', 'Categories', 'Active'].map((label) => (
-              <div key={label} className="h-20 animate-pulse rounded-lg bg-slate-200 dark:bg-slate-800" />
+              <div key={label} className="h-20 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-800" />
             ))}
           </div>
         )}
         {error && (
-          <div className="rounded-lg border border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/40 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+          <div className="rounded-xl border border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/40 px-4 py-3 text-sm text-red-700 dark:text-red-300">
             Failed to load OSS Feed Registry: <span className="font-mono">{error}</span>
           </div>
         )}
         {!loading && !error && index && (
           <div className="grid grid-cols-4 gap-4">
-            <div className="rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
+            <div className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
               <div className="text-xs font-medium uppercase tracking-wider text-muted">Total Feeds</div>
               <div className="mt-1 text-2xl font-semibold">{index.counts.total}</div>
             </div>
-            <div className="rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
+            <div className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
               <div className="text-xs font-medium uppercase tracking-wider text-muted">Categories</div>
               <div className="mt-1 text-2xl font-semibold">{index.categories.length}</div>
             </div>
-            <div className="rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
+            <div className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
               <div className="text-xs font-medium uppercase tracking-wider text-muted">Active</div>
               <div className="mt-1 text-2xl font-semibold text-emerald-600 dark:text-emerald-400">
                 {index.counts.byStatus.Active ?? 0}
               </div>
             </div>
-            <div className="rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
+            <div className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3">
               <div className="text-xs font-medium uppercase tracking-wider text-muted">Offline</div>
               <div className="mt-1 text-2xl font-semibold text-rose-600 dark:text-rose-400">
                 {index.counts.byStatus.Offline ?? 0}
@@ -125,13 +125,13 @@ export default function OssFeeds() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search feeds by vendor, description, category..."
-              className="w-full rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 py-2 pl-9 pr-3 text-sm"
+              className="w-full rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 py-2 pl-9 pr-3 text-sm"
             />
           </div>
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-3 py-2 text-sm"
+            className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-3 py-2 text-sm"
           >
             <option value="">All Categories</option>
             {index?.categories
@@ -162,7 +162,7 @@ export default function OssFeeds() {
       </div>
 
       {selectedCategory && categoryDetail && (
-        <div className="mb-6 rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 p-4">
+        <div className="mb-6 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 p-4">
           <div className="mb-3 flex items-center justify-between">
             <span className="text-sm font-semibold">
               {categoryDetail.category} Feeds ({categoryDetail.count})
@@ -173,7 +173,7 @@ export default function OssFeeds() {
           </div>
           <div className="space-y-2">
             {categoryDetail.feeds.map((feed, i) => (
-              <div key={i} className="flex items-start gap-2 rounded-lg bg-slate-50 dark:bg-slate-900/50 p-2.5 text-xs">
+              <div key={i} className="flex items-start gap-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 p-2.5 text-xs">
                 <Globe size={12} className="mt-0.5 shrink-0 text-muted" />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
@@ -203,7 +203,7 @@ export default function OssFeeds() {
 
       <div className="space-y-2">
         {feeds.length === 0 && !loading && (
-          <div className="rounded-lg border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-muted">
+          <div className="rounded-xl border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-8 text-center text-sm text-muted">
             {searchTerm || categoryFilter ? 'No feeds match your filters.' : 'No feeds found. Ensure data is built.'}
           </div>
         )}
@@ -211,7 +211,7 @@ export default function OssFeeds() {
         {feeds.map((feed, i) => (
           <div
             key={i}
-            className="rounded-lg border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3"
+            className="rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white/60 dark:bg-[rgb(var(--card-bg))]/60 px-4 py-3"
           >
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">

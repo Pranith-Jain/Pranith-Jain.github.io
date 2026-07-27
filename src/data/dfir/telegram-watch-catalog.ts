@@ -6,7 +6,7 @@
  *   - We do NOT scrape or proxy Telegram. Telegram channels accessible
  *     to non-members go through t.me/<channel> or t.me/s/<channel>
  *     (preview view). Joining channels requires a Telegram account and
- *     is opsec-sensitive — use a dedicated sock-puppet account.
+ *     is opsec-sensitive - use a dedicated sock-puppet account.
  *   - This is an INDEX, not a feed. Channels rotate (Telegram bans + actor
  *     pivots). Each entry is documented in public threat-intel writeups
  *     or by reputable researchers; verify before relying on the link.
@@ -37,7 +37,7 @@ export type Audience = 'public-channel' | 'public-group' | 'preview-only';
 
 export interface TelegramEntry {
   id: string;
-  /** Display name — what researchers refer to it as. */
+  /** Display name - what researchers refer to it as. */
   name: string;
   /** Channel handle without the @, e.g. "vxunderground". */
   handle: string;
@@ -80,7 +80,7 @@ export const CATEGORY_BLURB: Record<TelegramCategory, string> = {
   'osint-research': 'OSINT-team channels for geolocation, SOCMINT, conflict tracking.',
   'regional-cybercrime': 'Russian / Chinese / Iranian / LatAm-language cybercrime communities.',
   hacktivism: 'Hacktivist groups announcing operations and dumps.',
-  'index-of-indexes': 'Curated catalogues of other Telegram channels — start here.',
+  'index-of-indexes': 'Curated catalogues of other Telegram channels - start here.',
 };
 
 export const LANGUAGE_LABELS: Record<TelegramEntry['language'], string> = {
@@ -102,7 +102,7 @@ export const AUDIENCE_LABELS: Record<Audience, string> = {
 
 export const CATALOG: TelegramEntry[] = [
   // ─────────────────────────────────────────────────────────────────────
-  // Index-of-indexes — start here
+  // Index-of-indexes - start here
   // ─────────────────────────────────────────────────────────────────────
   {
     id: 'deepdarkcti-telegram',
@@ -113,7 +113,7 @@ export const CATALOG: TelegramEntry[] = [
     language: 'mixed',
     audience: 'public-channel',
     description:
-      'Continuously-maintained markdown index of dark-web and cybercrime Telegram channels. The canonical starting point for fast-rotating threat channels — saves you from chasing dead handles.',
+      'Continuously-maintained markdown index of dark-web and cybercrime Telegram channels. The canonical starting point for fast-rotating threat channels - saves you from chasing dead handles.',
     badge: 'essential',
   },
 
@@ -153,7 +153,7 @@ export const CATALOG: TelegramEntry[] = [
     language: 'en',
     audience: 'public-channel',
     description:
-      'Real-time threat-intelligence aggregator — fresh IOCs, advisories, and breach announcements. Multiple posts per day; pair with your TIP for ingestion.',
+      'Real-time threat-intelligence aggregator - fresh IOCs, advisories, and breach announcements. Multiple posts per day; pair with your TIP for ingestion.',
     badge: 'essential',
   },
   {
@@ -177,7 +177,7 @@ export const CATALOG: TelegramEntry[] = [
     language: 'en',
     audience: 'public-channel',
     description:
-      'Defensive-CTI write-ups, IR retros, and threat-actor tracking — English-language community channel; multiple posts per day.',
+      'Defensive-CTI write-ups, IR retros, and threat-actor tracking - English-language community channel; multiple posts per day.',
     badge: 'research',
   },
   {
@@ -200,7 +200,7 @@ export const CATALOG: TelegramEntry[] = [
     language: 'en',
     audience: 'public-channel',
     description:
-      'Official Group-IB channel — vendor blog cross-posts on APT campaigns, ransomware actors, and underground-economy research.',
+      'Official Group-IB channel - vendor blog cross-posts on APT campaigns, ransomware actors, and underground-economy research.',
     badge: 'research',
   },
   {
@@ -211,7 +211,7 @@ export const CATALOG: TelegramEntry[] = [
     language: 'en',
     audience: 'public-channel',
     description:
-      'High-volume breach-repost channel — fresh database dumps, sample releases, and breach announcements aggregated from multiple sources.',
+      'High-volume breach-repost channel - fresh database dumps, sample releases, and breach announcements aggregated from multiple sources.',
   },
   {
     id: 'leakradar-io',
@@ -222,7 +222,7 @@ export const CATALOG: TelegramEntry[] = [
     language: 'en',
     audience: 'public-channel',
     description:
-      'Official LeakRadar channel — fresh stealer-log drops, breach-file indexing alerts, and combolist availability notices from the 290B+ credential corpus they index. Pairs with leakradar.io for searchable access.',
+      'Official LeakRadar channel - fresh stealer-log drops, breach-file indexing alerts, and combolist availability notices from the 290B+ credential corpus they index. Pairs with leakradar.io for searchable access.',
     badge: 'research',
   },
 
@@ -237,7 +237,7 @@ export const CATALOG: TelegramEntry[] = [
     categories: ['security-news'],
     language: 'en',
     audience: 'public-channel',
-    description: 'Official Telegram mirror of BleepingComputer headlines — fast vector for breaking incident news.',
+    description: 'Official Telegram mirror of BleepingComputer headlines - fast vector for breaking incident news.',
   },
   {
     id: 'thehackernews',
@@ -257,7 +257,7 @@ export const CATALOG: TelegramEntry[] = [
     language: 'en',
     audience: 'public-channel',
     description:
-      'High-volume aggregator — daily mirrors of vendor blogs, news sites, and advisories into one feed. Best paired with a keyword filter.',
+      'High-volume aggregator - daily mirrors of vendor blogs, news sites, and advisories into one feed. Best paired with a keyword filter.',
   },
   {
     id: 'cyberscoop',
@@ -267,7 +267,7 @@ export const CATALOG: TelegramEntry[] = [
     categories: ['security-news'],
     language: 'en',
     audience: 'public-channel',
-    description: 'Official CyberScoop mirror — strong on government / federal-cyber and policy coverage.',
+    description: 'Official CyberScoop mirror - strong on government / federal-cyber and policy coverage.',
   },
   {
     id: 'darkfeednews',
@@ -278,7 +278,7 @@ export const CATALOG: TelegramEntry[] = [
     language: 'en',
     audience: 'public-channel',
     description:
-      'Real-time cyber threat intelligence feed — fresh IOCs, breach announcements, ransomware claims, and dark-web activity aggregated from multiple sources. High-volume; best paired with keyword filtering.',
+      'Real-time cyber threat intelligence feed - fresh IOCs, breach announcements, ransomware claims, and dark-web activity aggregated from multiple sources. High-volume; best paired with keyword filtering.',
     badge: 'essential',
   },
 
@@ -306,7 +306,7 @@ export const CATALOG: TelegramEntry[] = [
     language: 'mixed',
     audience: 'public-channel',
     description:
-      'OSINT-team channels (Bellingcat, IntelCrab, OSINT-team) have rotated handles or disabled previews repeatedly. The deepdarkCTI living index is the canonical pointer — find current handles there before relying on any specific entry.',
+      'OSINT-team channels (Bellingcat, IntelCrab, OSINT-team) have rotated handles or disabled previews repeatedly. The deepdarkCTI living index is the canonical pointer - find current handles there before relying on any specific entry.',
     badge: 'pointer',
   },
 
@@ -322,7 +322,7 @@ export const CATALOG: TelegramEntry[] = [
     language: 'mixed',
     audience: 'public-channel',
     description:
-      'Pointer to the deepdarkCTI living list of infostealer-distribution channels (RedLine, Raccoon, Lumma, Vidar, StealC). Hard-coding individual handles is futile — they rotate weekly.',
+      'Pointer to the deepdarkCTI living list of infostealer-distribution channels (RedLine, Raccoon, Lumma, Vidar, StealC). Hard-coding individual handles is futile - they rotate weekly.',
     badge: 'pointer',
   },
   {
@@ -350,7 +350,7 @@ export const CATALOG: TelegramEntry[] = [
     language: 'ru',
     audience: 'public-channel',
     description:
-      'Russian-language forum-mirror channels (XSS, Exploit.in, BHF). The deepdarkCTI forum index is the place to look — direct handles change frequently after operator infighting and bans.',
+      'Russian-language forum-mirror channels (XSS, Exploit.in, BHF). The deepdarkCTI forum index is the place to look - direct handles change frequently after operator infighting and bans.',
     badge: 'pointer',
   },
   {
@@ -362,12 +362,12 @@ export const CATALOG: TelegramEntry[] = [
     language: 'zh',
     audience: 'public-channel',
     description:
-      'Chinese-language cybercrime and dox channels — mostly hosted on Telegram for jurisdictional convenience. deepdarkCTI maintains a section.',
+      'Chinese-language cybercrime and dox channels - mostly hosted on Telegram for jurisdictional convenience. deepdarkCTI maintains a section.',
     badge: 'pointer',
   },
 
   // ─────────────────────────────────────────────────────────────────────
-  // Hacktivism — public-by-design
+  // Hacktivism - public-by-design
   // ─────────────────────────────────────────────────────────────────────
   {
     id: 'killnet-track',
@@ -410,7 +410,7 @@ export const CATALOG: TelegramEntry[] = [
     language: 'en',
     audience: 'public-channel',
     description:
-      'CVE alert feed — new critical and high-severity CVEs tracked by DWI, with affected products, CVSS scores, and mitigation timelines.',
+      'CVE alert feed - new critical and high-severity CVEs tracked by DWI, with affected products, CVSS scores, and mitigation timelines.',
     badge: 'research',
   },
 ];

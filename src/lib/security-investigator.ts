@@ -7,7 +7,7 @@
  * Routing prompt reminder: this client is the same code path the MCP
  * server uses on the Worker side. If a field is null here, the same
  * field is null when fetched via MCP. Don't add client-side
- * fallbacks — the edge is the source of truth.
+ * fallbacks - the edge is the source of truth.
  *
  * Usage:
  *   import { createSiClient } from '@/lib/security-investigator';
@@ -384,5 +384,5 @@ async function streamMarkdown(url: string, fetcher: typeof fetch, signal: AbortS
   };
 }
 
-/** Default singleton — uses the same `/api/v1/si` base as the Worker route. */
+/** Default singleton - uses the same `/api/v1/si` base as the Worker route. */
 export const siClient: SecurityInvestigatorClient = createSiClient();

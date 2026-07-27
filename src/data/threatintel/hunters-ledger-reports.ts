@@ -67,7 +67,7 @@ export const REPORTS: TIntelReport[] = [
   },
   {
     id: 'multi-cluster-rhadamanthys',
-    title: 'Multi-Cluster Open Directory — Rhadamanthys / BellaMain / Inkognito',
+    title: 'Multi-Cluster Open Directory - Rhadamanthys / BellaMain / Inkognito',
     date: '2026-05-15',
     severity: 'critical',
     tags: ['MaaS', 'Stealer', 'Loader', 'Open Dir'],
@@ -189,12 +189,12 @@ export const REPORTS: TIntelReport[] = [
   },
   {
     id: 'pulsar-rat',
-    title: 'PULSAR RAT — Technical Analysis & Business Risk',
+    title: 'PULSAR RAT - Technical Analysis & Business Risk',
     date: '2025-12-10',
     severity: 'critical',
     tags: ['RAT', 'Cred Theft', 'Evasion', '.NET'],
     summary:
-      'Deep analysis of PULSAR RAT (server.exe) — a .NET-based remote access trojan with credential theft, screen capture, and evasion capabilities targeting enterprise environments.',
+      'Deep analysis of PULSAR RAT (server.exe) - a .NET-based remote access trojan with credential theft, screen capture, and evasion capabilities targeting enterprise environments.',
     iocs: [
       { type: 'sha256', value: 'd0e1f2a3b4c5...pulsar_server_exe' },
       { type: 'md5', value: 'e1f2a3b4c5d6...' },
@@ -208,7 +208,7 @@ export const REPORTS: TIntelReport[] = [
   },
   {
     id: 'webshells-cloud',
-    title: 'From Webshells to The Cloud — PHP Webshell Campaign',
+    title: 'From Webshells to The Cloud - PHP Webshell Campaign',
     date: '2025-10-22',
     severity: 'high',
     tags: ['Webshell', 'PHP', 'Exfil', 'C2'],

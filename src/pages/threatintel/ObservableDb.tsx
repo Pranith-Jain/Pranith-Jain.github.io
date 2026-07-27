@@ -81,7 +81,7 @@ function verdictIcon(v: string) {
   if (v === 'malicious') return <CheckCircle2 size={10} className="text-rose-500" />;
   if (v === 'suspicious') return <Brain size={10} className="text-amber-500" />;
   if (v === 'clean') return <CheckCircle2 size={10} className="text-emerald-500" />;
-  return <HelpCircle size={10} className="text-slate-400" />;
+  return <HelpCircle size={10} className="text-slate-500 dark:text-slate-400" />;
 }
 
 const TLP_COLORS: Record<string, string> = {
@@ -271,7 +271,7 @@ export default function ObservableDb(): JSX.Element {
     }
   };
 
-  // Operator tool — its API is admin-gated, so show a clean locked state to
+  // Operator tool - its API is admin-gated, so show a clean locked state to
   // non-admin visitors instead of a red "Failed to load".
   if (!readAdminToken()) return <AdminRequired tool="The Observable Database" />;
 
@@ -290,7 +290,7 @@ export default function ObservableDb(): JSX.Element {
           <button
             type="button"
             onClick={() => setShowAddForm(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400"
           >
             <Plus size={14} /> Add Observable
           </button>
@@ -309,7 +309,7 @@ export default function ObservableDb(): JSX.Element {
               value={addIndicator}
               onChange={(e) => setAddIndicator(e.target.value)}
               placeholder="Indicator value (IP, domain, hash…)"
-              className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-brand-500"
+              className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-rose-500"
             />
             <select
               value={addType}
@@ -327,12 +327,12 @@ export default function ObservableDb(): JSX.Element {
               value={addTags}
               onChange={(e) => setAddTags(e.target.value)}
               placeholder="Tags (comma)"
-              className="w-48 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-brand-500"
+              className="w-48 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-meta focus:outline-none focus:border-rose-500"
             />
             <button
               type="submit"
               disabled={!addIndicator.trim()}
-              className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-meta font-semibold rounded disabled:opacity-30"
+              className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-meta font-semibold rounded disabled:opacity-30"
             >
               Save
             </button>
@@ -349,13 +349,13 @@ export default function ObservableDb(): JSX.Element {
 
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <div className="relative flex-1 max-w-xs">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search indicators or tags…"
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
@@ -379,18 +379,18 @@ export default function ObservableDb(): JSX.Element {
             max={100}
             value={minScore}
             onChange={(e) => setMinScore(Number(e.target.value))}
-            className="w-24 accent-brand-500"
+            className="w-24 accent-rose-500"
           />
           <span className="w-6 text-right">{minScore}</span>
         </div>
-        <span className="text-mini font-mono text-slate-400">{total} observables</span>
+        <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{total} observables</span>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className={`${selected ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
           {loading && (
             <div className="surface-card p-12 text-center">
-              <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
+              <Loader2 size={20} className="animate-spin mx-auto text-slate-500 dark:text-slate-400 mb-2" />
             </div>
           )}
 
@@ -398,7 +398,7 @@ export default function ObservableDb(): JSX.Element {
             <div className="surface-card p-12 text-center">
               <Database size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
               <p className="text-sm font-mono text-slate-500">No observables saved yet</p>
-              <p className="text-xs font-mono text-slate-400 mt-1">
+              <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">
                 Use the analysis page to check IOCs and save results here, or add manually
               </p>
             </div>
@@ -415,9 +415,9 @@ export default function ObservableDb(): JSX.Element {
                     if (e.key === 'Enter' || e.key === ' ') setSelected(entry);
                   }}
                   onClick={() => setSelected(entry)}
-                  className={`rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] p-3 cursor-pointer transition-all hover:border-brand-400 ${
+                  className={`rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] p-3 cursor-pointer transition-all hover:border-rose-400 ${
                     selected?.id === entry.id
-                      ? 'border-brand-500 ring-1 ring-brand-500'
+                      ? 'border-rose-500 ring-1 ring-rose-500'
                       : 'border-slate-200 dark:border-[rgb(var(--border-400))]'
                   }`}
                 >
@@ -434,7 +434,7 @@ export default function ObservableDb(): JSX.Element {
                           {entry.tlp.toUpperCase()}
                         </span>
                       </div>
-                      <div className="flex items-center gap-3 mt-1 text-micro font-mono text-slate-400">
+                      <div className="flex items-center gap-3 mt-1 text-micro font-mono text-slate-500 dark:text-slate-400">
                         <span className={scoreColor(entry.composite_score)}>{entry.composite_score}%</span>
                         <span>{entry.provider_count} sources</span>
                         <span>Updated {timeAgo(entry.updated_at)} ago</span>
@@ -464,7 +464,7 @@ export default function ObservableDb(): JSX.Element {
                         e.stopPropagation();
                         void deleteObservable(entry.id);
                       }}
-                      className="p-1 rounded text-slate-400 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] shrink-0"
+                      className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] shrink-0"
                     >
                       <Trash2 size={12} />
                     </button>
@@ -483,7 +483,7 @@ export default function ObservableDb(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setSelected(null)}
-                  className="p-1 rounded text-slate-400 hover:text-slate-600"
+                  className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-600"
                 >
                   <X size={14} />
                 </button>
@@ -491,16 +491,16 @@ export default function ObservableDb(): JSX.Element {
 
               <div className="space-y-4 text-meta font-mono">
                 <div>
-                  <span className="text-slate-400 text-micro">Indicator</span>
+                  <span className="text-slate-500 dark:text-slate-400 text-micro">Indicator</span>
                   <p className="text-tool font-semibold break-all">{selected.indicator}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <span className="text-slate-400 text-micro">Type</span>
+                    <span className="text-slate-500 dark:text-slate-400 text-micro">Type</span>
                     <p className="font-semibold capitalize">{selected.type}</p>
                   </div>
                   <div>
-                    <span className="text-slate-400 text-micro">TLP</span>
+                    <span className="text-slate-500 dark:text-slate-400 text-micro">TLP</span>
                     <p>
                       <span
                         className={`px-1 py-0.5 rounded text-micro font-semibold ${TLP_COLORS[selected.tlp] ?? TLP_COLORS.amber}`}
@@ -510,31 +510,31 @@ export default function ObservableDb(): JSX.Element {
                     </p>
                   </div>
                   <div>
-                    <span className="text-slate-400 text-micro">Score</span>
+                    <span className="text-slate-500 dark:text-slate-400 text-micro">Score</span>
                     <p className={`font-bold ${scoreColor(selected.composite_score)}`}>{selected.composite_score}%</p>
                   </div>
                   <div>
-                    <span className="text-slate-400 text-micro">Sources</span>
+                    <span className="text-slate-500 dark:text-slate-400 text-micro">Sources</span>
                     <p>{selected.provider_count}</p>
                   </div>
                   <div>
-                    <span className="text-slate-400 text-micro">Created</span>
+                    <span className="text-slate-500 dark:text-slate-400 text-micro">Created</span>
                     <p>{new Date(selected.created_at).toLocaleDateString()}</p>
                   </div>
                   <div>
-                    <span className="text-slate-400 text-micro">Updated</span>
+                    <span className="text-slate-500 dark:text-slate-400 text-micro">Updated</span>
                     <p>{timeAgo(selected.updated_at)} ago</p>
                   </div>
                 </div>
 
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-slate-400 text-micro">Tags</span>
+                    <span className="text-slate-500 dark:text-slate-400 text-micro">Tags</span>
                     <button
                       type="button"
                       onClick={() => setTagInputOpen((v) => !v)}
                       aria-expanded={tagInputOpen}
-                      className="text-brand-600 dark:text-brand-400 text-micro hover:underline"
+                      className="text-rose-600 dark:text-rose-400 text-micro hover:underline"
                     >
                       + Add
                     </button>
@@ -560,12 +560,12 @@ export default function ObservableDb(): JSX.Element {
                         onChange={(e) => setTagDraft(e.target.value)}
                         placeholder="tag, tag…"
                         aria-label="Add tags (comma-separated)"
-                        className="flex-1 px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-mini font-mono focus:outline-none focus:border-brand-500"
+                        className="flex-1 px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-mini font-mono focus:outline-none focus:border-rose-500"
                       />
                       <button
                         type="submit"
                         disabled={!tagDraft.trim()}
-                        className="px-2 py-1.5 bg-brand-600 dark:bg-brand-500 text-white rounded text-micro font-mono disabled:opacity-30"
+                        className="px-2 py-1.5 bg-rose-600 dark:bg-rose-500 text-white rounded text-micro font-mono disabled:opacity-30"
                       >
                         <Plus size={12} />
                       </button>
@@ -592,19 +592,19 @@ export default function ObservableDb(): JSX.Element {
                         </button>
                       </span>
                     ))}
-                    {selected.tags.length === 0 && <span className="text-slate-400 text-micro italic">No tags</span>}
+                    {selected.tags.length === 0 && <span className="text-slate-500 dark:text-slate-400 text-micro italic">No tags</span>}
                   </div>
                 </div>
 
                 {selected.verdicts.length > 0 && (
                   <div>
-                    <span className="text-slate-400 text-micro">Provider Verdicts</span>
+                    <span className="text-slate-500 dark:text-slate-400 text-micro">Provider Verdicts</span>
                     <div className="mt-1 space-y-1 max-h-40 overflow-y-auto">
                       {selected.verdicts.slice(0, 20).map((v) => (
                         <div key={v.provider} className="flex items-center gap-2 text-mini">
                           {verdictIcon(v.verdict)}
                           <span className="font-semibold">{v.provider}</span>
-                          <span className="text-slate-400 text-micro capitalize">{v.verdict}</span>
+                          <span className="text-slate-500 dark:text-slate-400 text-micro capitalize">{v.verdict}</span>
                           <span className={scoreColor(v.score)}>{v.score}</span>
                         </div>
                       ))}
@@ -614,7 +614,7 @@ export default function ObservableDb(): JSX.Element {
 
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-slate-400 text-micro">Notes ({selected.notes.length})</span>
+                    <span className="text-slate-500 dark:text-slate-400 text-micro">Notes ({selected.notes.length})</span>
                   </div>
                   <form onSubmit={(e) => void addNote(e)} className="flex gap-2 mb-2">
                     <input
@@ -622,19 +622,19 @@ export default function ObservableDb(): JSX.Element {
                       value={noteText}
                       onChange={(e) => setNoteText(e.target.value)}
                       placeholder="Add note…"
-                      className="flex-1 px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-mini font-mono focus:outline-none focus:border-brand-500"
+                      className="flex-1 px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-mini font-mono focus:outline-none focus:border-rose-500"
                     />
                     <input
                       type="text"
                       value={noteAuthor}
                       onChange={(e) => setNoteAuthor(e.target.value)}
                       placeholder="Author"
-                      className="w-20 px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-micro font-mono focus:outline-none focus:border-brand-500"
+                      className="w-20 px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-micro font-mono focus:outline-none focus:border-rose-500"
                     />
                     <button
                       type="submit"
                       disabled={!noteText.trim()}
-                      className="px-2 py-1.5 bg-brand-600 dark:bg-brand-500 text-white rounded text-micro font-mono disabled:opacity-30"
+                      className="px-2 py-1.5 bg-rose-600 dark:bg-rose-500 text-white rounded text-micro font-mono disabled:opacity-30"
                     >
                       <Plus size={12} />
                     </button>
@@ -648,23 +648,23 @@ export default function ObservableDb(): JSX.Element {
                           key={n.id}
                           className="flex items-start gap-2 bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] rounded p-2"
                         >
-                          <FileText size={10} className="text-slate-400 mt-0.5 shrink-0" />
+                          <FileText size={10} className="text-slate-500 dark:text-slate-400 mt-0.5 shrink-0" />
                           <div className="flex-1 min-w-0">
                             <p className="text-mini">{n.text}</p>
-                            <p className="text-micro text-slate-400 mt-0.5">
+                            <p className="text-micro text-slate-500 dark:text-slate-400 mt-0.5">
                               {n.author} · {timeAgo(n.created_at)} ago
                             </p>
                           </div>
                           <button
                             type="button"
                             onClick={() => void deleteNote(n.id)}
-                            className="p-0.5 text-slate-400 hover:text-rose-500 shrink-0"
+                            className="p-0.5 text-slate-500 dark:text-slate-400 hover:text-rose-500 shrink-0"
                           >
                             <X size={10} />
                           </button>
                         </div>
                       ))}
-                    {selected.notes.length === 0 && <span className="text-slate-400 text-micro italic">No notes</span>}
+                    {selected.notes.length === 0 && <span className="text-slate-500 dark:text-slate-400 text-micro italic">No notes</span>}
                   </div>
                 </div>
               </div>

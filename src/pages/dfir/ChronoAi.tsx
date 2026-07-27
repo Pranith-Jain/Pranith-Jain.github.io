@@ -175,7 +175,7 @@ export default function ChronoAi(): JSX.Element {
       '',
       result.summary,
       '',
-      ...result.timeline.map((e) => `[${e.timestamp}] ${e.source} — ${e.event} (${e.phase}, ${e.technique})`),
+      ...result.timeline.map((e) => `[${e.timestamp}] ${e.source} - ${e.event} (${e.phase}, ${e.technique})`),
     ].join('\n');
     try {
       await navigator.clipboard.writeText(text);
@@ -230,7 +230,7 @@ export default function ChronoAi(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Log Events</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-400">required</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">required</span>
             </div>
             <textarea
               value={logs}
@@ -274,7 +274,7 @@ export default function ChronoAi(): JSX.Element {
             <div className="surface-card/40 shadow-e1 p-10 text-center">
               <Loader2 size={32} className="text-brand-600 dark:text-brand-400 mx-auto mb-3 animate-spin" />
               <p className="text-sm text-slate-600 dark:text-slate-300">Analyzing log events…</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Building timeline</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Building timeline</p>
             </div>
           )}
 
@@ -311,7 +311,7 @@ export default function ChronoAi(): JSX.Element {
                         <div key={p.id} className="flex-1">
                           <div className="flex items-center gap-1 mb-1">
                             <span className="text-micro text-slate-500">{PHASE_ICONS[p.id]}</span>
-                            <span className="text-micro font-mono text-slate-400 truncate">{p.label}</span>
+                            <span className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate">{p.label}</span>
                           </div>
                           <div className="h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
                             <div
@@ -319,7 +319,7 @@ export default function ChronoAi(): JSX.Element {
                               style={{ width: `${pct}%` }}
                             />
                           </div>
-                          <span className="text-micro font-mono text-slate-400">{count}</span>
+                          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{count}</span>
                         </div>
                       );
                     })}
@@ -402,7 +402,7 @@ export default function ChronoAi(): JSX.Element {
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 Paste log events and click <span className="font-semibold">Reconstruct</span>
               </p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 Output: kill chain timeline with color-coded phases
               </p>
             </div>

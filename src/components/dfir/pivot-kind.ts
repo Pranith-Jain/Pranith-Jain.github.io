@@ -1,5 +1,5 @@
 /**
- * Pivot helper — shared regexes and detection logic for the PivotBar search
+ * Pivot helper - shared regexes and detection logic for the PivotBar search
  * input. Lives in its own file (not in PivotBar.tsx) so that React Fast Refresh
  * can hot-reload component edits without re-evaluating the helpers, and so the
  * eslint `react-refresh/only-export-components` rule is satisfied.

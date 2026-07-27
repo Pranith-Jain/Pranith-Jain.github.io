@@ -76,7 +76,7 @@ function statusColor(status: LinkStatus): string {
     case 'broken':
       return 'text-rose-500';
     case 'unchecked':
-      return 'text-slate-400';
+      return 'text-slate-500 dark:text-slate-400';
   }
 }
 
@@ -280,7 +280,7 @@ export default function PendingTab() {
                       <td className="py-2 pr-4 text-xs max-w-[12rem]">
                         {(() => {
                           const links = sourceLinksFrom(c.evidence);
-                          if (links.length === 0) return <span className="text-slate-400 dark:text-slate-400">—</span>;
+                          if (links.length === 0) return <span className="text-slate-400 dark:text-slate-400">-</span>;
                           return (
                             <div className="flex flex-col gap-0.5">
                               {links.map((u) => {
@@ -391,7 +391,7 @@ function GenerateBtn({
           base + 'border-emerald-200 dark:border-emerald-700/40 text-emerald-700 dark:text-emerald-400 opacity-60'
         }
       >
-        {label} ✓
+        {label}
       </button>
     );
   }
@@ -427,7 +427,7 @@ function SocialPreviewPanel({ preview, onClose }: { preview: SocialPreview; onCl
     <div className="mt-4 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-4">
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-          {preview.platform === 'linkedin' ? 'LinkedIn' : 'X / Twitter'} — {preview.key.slice(0, 50)}
+          {preview.platform === 'linkedin' ? 'LinkedIn' : 'X / Twitter'} - {preview.key.slice(0, 50)}
         </h3>
         <div className="flex gap-2">
           <button

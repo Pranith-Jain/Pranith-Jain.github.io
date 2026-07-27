@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 /**
- * NATO Admiralty Code badge — displays reliability × credibility grade
+ * NATO Admiralty Code badge - displays reliability × credibility grade
  * for an IOC based on source type and indicator type.
  */
 
@@ -28,7 +28,7 @@ function AdmiraltyBadgeInner({ admiralty, compact }: { admiralty: AdmiraltyGrade
       className={`inline-flex items-center gap-1 font-mono rounded border px-1.5 py-0.5 ${colors} ${
         compact ? 'text-micro' : 'text-mini'
       }`}
-      title={`NATO Admiralty Code: ${admiralty.reliability}${admiralty.credibility} — Reliability ${admiralty.reliability}, Credibility ${admiralty.credibility}`}
+      title={`NATO Admiralty Code: ${admiralty.reliability}${admiralty.credibility} - Reliability ${admiralty.reliability}, Credibility ${admiralty.credibility}`}
     >
       <span className="font-bold">{admiralty.reliability}</span>
       <span className="opacity-70">{admiralty.credibility}</span>

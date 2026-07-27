@@ -1,6 +1,6 @@
 // src/lib/dfir/report-composer/export-pdf.ts
 //
-// PDF export for the Report Composer. Pure data-in, blob-out —
+// PDF export for the Report Composer. Pure data-in, blob-out -
 // no React. The dynamic imports of jspdf + jspdf-autotable keep the
 // ~600KB jsPDF bundle out of the page chunk; it only loads when the
 // user actually exports.
@@ -131,9 +131,9 @@ export async function exportReportPdf(report: ReportDoc): Promise<Blob> {
 
   // ── Meta block ──────────────────────────────────────────────────
   const meta: Array<[string, string]> = [
-    ['Case ID', report.meta.caseId || '—'],
-    ['Classification', report.meta.classification || '—'],
-    ['Author', report.meta.author || '—'],
+    ['Case ID', report.meta.caseId || '-'],
+    ['Classification', report.meta.classification || '-'],
+    ['Author', report.meta.author || '-'],
     ['Generated', fmtDate(report.meta.generatedAt)],
     [
       'TL;DR',

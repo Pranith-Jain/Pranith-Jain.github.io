@@ -104,7 +104,7 @@ export default function Privacy(): JSX.Element {
 
   // Intentionally NOT auto-running on mount. Fingerprinting (canvas hash,
   // WebGL renderer, audio fingerprint, WebRTC leak detection) collects
-  // identifying signal — analysts and curious visitors should opt in
+  // identifying signal - analysts and curious visitors should opt in
   // explicitly. The page renders an empty disclosure-only state until
   // the user clicks "Run scan."
   useEffect(() => {
@@ -125,7 +125,7 @@ export default function Privacy(): JSX.Element {
       <span
         className={`text-sm text-slate-900 dark:text-slate-100 ${mono ? 'font-mono' : ''} text-right break-all max-w-[60%]`}
       >
-        {value === null || value === undefined || value === '' ? '—' : String(value)}
+        {value === null || value === undefined || value === '' ? '-' : String(value)}
       </span>
     </div>
   );
@@ -142,7 +142,7 @@ export default function Privacy(): JSX.Element {
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Privacy Check</h1>
         <p className="text-muted mb-6 max-w-2xl">
           Your browser reveals more than you think. This tool surfaces what trackers, advertisers, and threat actors can
-          see about you — but the scan itself collects identifying signal, so it requires your explicit consent before
+          see about you - but the scan itself collects identifying signal, so it requires your explicit consent before
           running.
         </p>
       </div>
@@ -156,7 +156,7 @@ export default function Privacy(): JSX.Element {
             <li>Public IP, ASN, country (one server-side lookup)</li>
             <li>User-Agent, language, timezone, screen + viewport size, color depth</li>
             <li>
-              Canvas fingerprint hash, WebGL renderer + vendor, audio context fingerprint — collectively unique enough
+              Canvas fingerprint hash, WebGL renderer + vendor, audio context fingerprint - collectively unique enough
               to identify your browser across sites
             </li>
             <li>WebRTC ICE candidates (may reveal your local LAN IP behind VPNs)</li>
@@ -164,7 +164,7 @@ export default function Privacy(): JSX.Element {
             <li>Connection type / effective bandwidth (where the browser still exposes it)</li>
           </ul>
           <p className="text-xs font-mono text-muted mb-4">
-            <strong>Retention:</strong> none. Results live only in this browser tab — not stored, not logged server-side
+            <strong>Retention:</strong> none. Results live only in this browser tab - not stored, not logged server-side
             beyond standard Cloudflare access logs that already exist for any visit. Refreshing the page clears
             everything. The composite fingerprint hash is computed locally and never sent anywhere.
           </p>
@@ -173,7 +173,7 @@ export default function Privacy(): JSX.Element {
             disabled={scanning}
             className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >
-            <Shield size={16} className="inline mr-2" />I understand — run scan
+            <Shield size={16} className="inline mr-2" />I understand - run scan
           </button>
         </section>
       )}
@@ -243,7 +243,7 @@ export default function Privacy(): JSX.Element {
                 >
                   {f.label}
                 </span>
-                <span className="text-xs font-mono text-slate-400 shrink-0">−{f.weight}</span>
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400 shrink-0">−{f.weight}</span>
               </div>
             ))}
           </div>

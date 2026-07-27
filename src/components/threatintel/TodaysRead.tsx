@@ -5,16 +5,16 @@ import { publishedResearch } from '../../data/threatintel/research';
 import { dedupRansomwareVictims } from '../../lib/dedup-ransomware';
 
 /**
- * "Today's read" — opinionated three-card promotion at the top of
+ * "Today's read" - opinionated three-card promotion at the top of
  * /threatintel. Same medicine the DFIR hub got: 20+ intel surfaces below
  * are useful but undirected; this section answers "if you have 60
  * seconds, which one of these is worth your attention right now?"
  *
  * Three cards:
- *   1. Latest authored research (static — newest publishedResearch entry)
- *   2. Top firing detection (live — /api/v1/detections, sev/match-count
+ *   1. Latest authored research (static - newest publishedResearch entry)
+ *   2. Top firing detection (live - /api/v1/detections, sev/match-count
  *      sorted, same picker the /detections page itself uses)
- *   3. Weekly ransomware read (live — count claims in the last 7d, compute
+ *   3. Weekly ransomware read (live - count claims in the last 7d, compute
  *      a one-sentence trend interpretation similar to the metrics page)
  *
  * Each card has a concrete "do this if..." trigger framed by what the
@@ -55,9 +55,9 @@ function pickTopDetection(items: Detection[]): Detection | null {
 
 function weeklyRansomwareLine(victims: RansomwareVictim[]): { primary: string; secondary: string } {
   if (!victims || victims.length === 0) {
-    return { primary: '—', secondary: 'no live ransomware data yet' };
+    return { primary: '-', secondary: 'no live ransomware data yet' };
   }
-  // Calendar-day bucketing — same definition the hero sparkline on /
+  // Calendar-day bucketing - same definition the hero sparkline on /
   // and the /threatintel/metrics page (StatBar + chart + headline) use.
   // The old rolling-168h cutoff produced a different number for the
   // same "last 7 days" label, which surfaced as 241 here vs 233 there

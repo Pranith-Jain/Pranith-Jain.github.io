@@ -4,7 +4,7 @@ import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
 /**
- * Azure RBAC Analyzer — 100% client-side.
+ * Azure RBAC Analyzer - 100% client-side.
  *
  * Paste `az role assignment list -o json` (role assignments) or
  * `az role definition list --custom-role-only -o json` (role
@@ -63,25 +63,25 @@ const SEV_STYLE: Record<Sev, { text: string; chip: string; Icon: typeof ShieldAl
 
 /** Built-in roles whose grant is itself broad / an escalation primitive. */
 const PRIV_ROLES: Record<string, { sev: Sev; why: string }> = {
-  owner: { sev: 'critical', why: 'full control INCLUDING role assignment — a holder can grant itself anything.' },
+  owner: { sev: 'critical', why: 'full control INCLUDING role assignment - a holder can grant itself anything.' },
   'user access administrator': {
     sev: 'critical',
-    why: 'can assign ANY role (incl. Owner) — pure privilege-escalation role.',
+    why: 'can assign ANY role (incl. Owner) - pure privilege-escalation role.',
   },
   'role based access control administrator': {
     sev: 'critical',
-    why: 'manages role assignments — escalation primitive.',
+    why: 'manages role assignments - escalation primitive.',
   },
   contributor: { sev: 'high', why: 'create/modify/delete almost everything (cannot assign roles, but very broad).' },
   'global administrator': { sev: 'critical', why: 'Entra ID tenant-wide superuser.' },
-  'privileged role administrator': { sev: 'critical', why: 'can grant Entra admin roles — escalation.' },
+  'privileged role administrator': { sev: 'critical', why: 'can grant Entra admin roles - escalation.' },
   'security administrator': { sev: 'high', why: 'broad security-config control.' },
   'key vault administrator': { sev: 'high', why: 'full Key Vault data + management access (secrets/keys/certs).' },
   'key vault secrets officer': { sev: 'high', why: 'read/write all Key Vault secrets in scope.' },
   'storage blob data owner': { sev: 'high', why: 'full data-plane access to all blobs in scope.' },
   'storage account contributor': { sev: 'high', why: 'can list keys → full storage data access.' },
   'virtual machine contributor': { sev: 'high', why: 'can run commands / extensions on VMs (code exec).' },
-  reader: { sev: 'medium', why: 'broad read of (almost) every resource in scope — wide data exposure.' },
+  reader: { sev: 'medium', why: 'broad read of (almost) every resource in scope - wide data exposure.' },
 };
 
 function scopeBreadth(scope: string): { label: string; broad: boolean } {
@@ -112,7 +112,7 @@ interface Assignment {
 }
 
 function roleNameFromId(id: string): string {
-  // .../roleDefinitions/<guid> — name unknown; surface the guid tail.
+  // .../roleDefinitions/<guid> - name unknown; surface the guid tail.
   const m = id.match(/roleDefinitions\/([^/]+)/i);
   return m ? `roleDefinitionId ${m[1]}` : id;
 }
@@ -136,7 +136,7 @@ function analyzeAssignments(items: Assignment[], findings: Finding[]): void {
       findings.push({
         sev,
         title: `${roleName} at ${sb.label} scope`,
-        detail: `${pr.why}${sb.broad ? ` Scope is ${sb.label} — this applies tenant/subscription-wide.` : ''}`,
+        detail: `${pr.why}${sb.broad ? ` Scope is ${sb.label} - this applies tenant/subscription-wide.` : ''}`,
         where,
         fix:
           roleName.toLowerCase() === 'owner' || roleName.toLowerCase() === 'contributor'
@@ -149,7 +149,7 @@ function analyzeAssignments(items: Assignment[], findings: Finding[]): void {
       findings.push({
         sev: 'critical',
         title: 'Service principal holds a privileged role at broad scope',
-        detail: `A workload/app identity (${pName}) has ${roleName} over a ${sb.label} — a leaked client secret/cert = tenant-wide compromise.`,
+        detail: `A workload/app identity (${pName}) has ${roleName} over a ${sb.label} - a leaked client secret/cert = tenant-wide compromise.`,
         where,
         fix: 'Scope SP access to the exact resources it automates; rotate creds; consider workload identity federation.',
       });
@@ -183,7 +183,7 @@ const DANGER_ACTIONS: { re: RegExp; sev: Sev; title: string; detail: string }[] 
     sev: 'critical',
     title: 'elevateAccess action',
     detail:
-      'Microsoft.Authorization/elevateAccess/action lets the principal grant itself User Access Administrator at tenant root — full takeover.',
+      'Microsoft.Authorization/elevateAccess/action lets the principal grant itself User Access Administrator at tenant root - full takeover.',
   },
   {
     re: /^microsoft\.authorization\/roleassignments\/write$|^microsoft\.authorization\/\*$|^\*$/i,
@@ -202,7 +202,7 @@ const DANGER_ACTIONS: { re: RegExp; sev: Sev; title: string; detail: string }[] 
     sev: 'high',
     title: 'VM run-command / extension write (code exec)',
     detail:
-      'Run-command / VM extensions execute arbitrary code as SYSTEM/root on the VM — and inherit its managed identity.',
+      'Run-command / VM extensions execute arbitrary code as SYSTEM/root on the VM - and inherit its managed identity.',
   },
   {
     re: /^microsoft\.storage\/storageaccounts\/listkeys\/action$/i,
@@ -245,7 +245,7 @@ function analyzeDefs(items: RoleDef[], findings: Finding[]): void {
       findings.push({
         sev: 'critical',
         title: 'Custom role grants "*" (all actions)',
-        detail: 'Equivalent to Owner (minus data-plane) — not least-privilege.',
+        detail: 'Equivalent to Owner (minus data-plane) - not least-privilege.',
         where,
         fix: 'Enumerate only the action strings the role needs.',
       });
@@ -278,7 +278,7 @@ function analyzeDefs(items: RoleDef[], findings: Finding[]): void {
       findings.push({
         sev: 'high',
         title: 'Broad data-plane actions',
-        detail: 'dataActions includes "*" or Key Vault secret access — direct access to stored data/secrets.',
+        detail: 'dataActions includes "*" or Key Vault secret access - direct access to stored data/secrets.',
         where,
         fix: 'Scope dataActions to the specific data operations required.',
       });
@@ -288,7 +288,7 @@ function analyzeDefs(items: RoleDef[], findings: Finding[]): void {
       findings.push({
         sev: 'high',
         title: 'Custom role assignable at root / management-group scope',
-        detail: `assignableScopes includes ${scopes.find((s) => s === '/' || /managementGroups/i.test(s))} — the role can be granted very broadly.`,
+        detail: `assignableScopes includes ${scopes.find((s) => s === '/' || /managementGroups/i.test(s))} - the role can be granted very broadly.`,
         where,
         fix: 'Limit assignableScopes to specific subscriptions / resource groups.',
       });

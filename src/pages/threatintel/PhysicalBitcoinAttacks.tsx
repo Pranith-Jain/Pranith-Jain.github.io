@@ -350,7 +350,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
       backTo="/threatintel"
       icon={<Skull size={28} />}
       title="Physical Bitcoin Attacks"
-      description="Known physical attacks against Bitcoin and crypto asset holders — armed robberies, kidnappings, home invasions, and express kidnappings. A database of real-world violence driven by crypto wealth."
+      description="Known physical attacks against Bitcoin and crypto asset holders - armed robberies, kidnappings, home invasions, and express kidnappings. A database of real-world violence driven by crypto wealth."
       maxWidthClass="max-w-6xl"
     >
       {/* Stats */}
@@ -379,13 +379,13 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
             placeholder="Search attacks…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
           />
         </div>
         <select
           value={countryFilter}
           onChange={(e) => setCountryFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
         >
           <option value="">All countries</option>
           {ALL_COUNTRIES.map((c) => (
@@ -397,7 +397,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
         <select
           value={outcomeFilter}
           onChange={(e) => setOutcomeFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
         >
           <option value="">All outcomes</option>
           <option value="unsolved">Unsolved</option>
@@ -408,7 +408,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
         <select
           value={victimFilter}
           onChange={(e) => setVictimFilter(e.target.value)}
-          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+          className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
         >
           <option value="">All victims</option>
           <option value="individual">Individual</option>
@@ -428,7 +428,7 @@ export default function PhysicalBitcoinAttacks(): JSX.Element {
               <div className="flex items-start gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <span className="text-xs font-mono text-slate-400">{a.id}</span>
+                    <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{a.id}</span>
                     <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                       {a.country}
                       {a.city ? `, ${a.city}` : ''}

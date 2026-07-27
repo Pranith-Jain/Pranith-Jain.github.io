@@ -4,13 +4,13 @@ import { ArrowLeft, Clock } from 'lucide-react';
 import { findCaseStudy } from '../data/case-studies';
 
 /**
- * /projects/<slug> — long-form case study read page. The data lives in
+ * /projects/<slug> - long-form case study read page. The data lives in
  * src/data/case-studies.ts and the body is rendered through the same
  * marked → DOMPurify chain the wiki article page uses, so internal
  * /dfir + /threatintel links work, every URL is escaped, and no
  * dynamic HTML reaches the DOM without sanitisation.
  *
- * Unknown / unpublished slugs redirect to /projects rather than 404 —
+ * Unknown / unpublished slugs redirect to /projects rather than 404 -
  * the index page is the closest meaningful destination for someone who
  * landed on a stale link.
  */
@@ -43,7 +43,7 @@ export default function CaseStudy(): JSX.Element {
 
   // Intercept clicks on internal SPA links so they navigate via React
   // Router instead of a full page reload. Mirrors the wiki article's
-  // approach — modifier-clicks still open in a new tab as expected.
+  // approach - modifier-clicks still open in a new tab as expected.
   useEffect(() => {
     const root = bodyRef.current;
     if (!root) return;

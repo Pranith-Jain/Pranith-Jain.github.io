@@ -1,7 +1,7 @@
 /**
  * Reverse-image-search URL templates.
  *
- * Pure URL generation — we don't upload, scrape, or proxy anything.
+ * Pure URL generation - we don't upload, scrape, or proxy anything.
  * The user clicks through to the engine, which fetches the image
  * server-side from the URL the user pasted.
  *
@@ -36,7 +36,7 @@ export const ENGINES: ReverseImageEngine[] = [
   {
     id: 'google-images',
     name: 'Google Images (legacy)',
-    blurb: 'Older Google reverse-image endpoint — sometimes returns matches Lens misses.',
+    blurb: 'Older Google reverse-image endpoint - sometimes returns matches Lens misses.',
     build: (u) => `https://www.google.com/searchbyimage?image_url=${enc(u)}&safe=off`,
     coverage: 'Use as a cross-check for Lens.',
   },

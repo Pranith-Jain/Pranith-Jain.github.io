@@ -43,7 +43,7 @@ export interface Article {
 }
 
 export interface BreachNotification {
-  /** Short label — e.g. "72 h to authority". */
+  /** Short label - e.g. "72 h to authority". */
   summary: string;
   /** Body text expanded. */
   detail: string;
@@ -70,7 +70,7 @@ const GDPR: Regime = {
     {
       id: 'gdpr-art15',
       title: 'Right of access',
-      body: 'Right to a copy of personal data and information on processing — purposes, categories, recipients, retention, sources.',
+      body: 'Right to a copy of personal data and information on processing - purposes, categories, recipients, retention, sources.',
       citation: 'Art. 15',
     },
     {
@@ -150,7 +150,7 @@ const GDPR: Regime = {
     {
       id: 'gdpr-art35',
       title: 'Data Protection Impact Assessment (DPIA)',
-      body: 'Required before high-risk processing — large-scale automated decisions, sensitive data at scale, systematic monitoring of public areas.',
+      body: 'Required before high-risk processing - large-scale automated decisions, sensitive data at scale, systematic monitoring of public areas.',
       citation: 'Art. 35',
     },
     {
@@ -175,7 +175,7 @@ const GDPR: Regime = {
       'Notify affected individuals "without undue delay" if the breach is likely to result in a high risk to their rights and freedoms (Art. 34).',
   },
   enforcement:
-    'Up to €20M or 4% of annual global turnover — whichever is higher (Art. 83). Supervisory authorities (lead authority via one-stop-shop) issue fines, corrective orders, processing bans.',
+    'Up to €20M or 4% of annual global turnover - whichever is higher (Art. 83). Supervisory authorities (lead authority via one-stop-shop) issue fines, corrective orders, processing bans.',
   links: [
     { label: 'Regulation text (EUR-Lex)', href: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj' },
     {
@@ -213,7 +213,7 @@ const CCPA: Regime = {
     {
       id: 'ccpa-right-correct',
       title: 'Right to correct',
-      body: 'CPRA addition — right to correct inaccurate personal information.',
+      body: 'CPRA addition - right to correct inaccurate personal information.',
     },
     {
       id: 'ccpa-right-opt-out',
@@ -223,7 +223,7 @@ const CCPA: Regime = {
     {
       id: 'ccpa-right-limit-spi',
       title: 'Right to limit use of sensitive PI',
-      body: 'CPRA addition — right to limit use and disclosure of sensitive personal information to what is necessary to provide the service.',
+      body: 'CPRA addition - right to limit use and disclosure of sensitive personal information to what is necessary to provide the service.',
     },
     {
       id: 'ccpa-right-non-discrim',
@@ -265,11 +265,11 @@ const CCPA: Regime = {
     {
       id: 'ccpa-risk-assessments',
       title: 'Risk assessments (CPPA regulations)',
-      body: 'Annual risk assessment for processing that "presents significant risk" — cross-contextual behavioural advertising, sensitive PI use, profiling, automated decision-making.',
+      body: 'Annual risk assessment for processing that "presents significant risk" - cross-contextual behavioural advertising, sensitive PI use, profiling, automated decision-making.',
     },
   ],
   breachNotification: {
-    summary: 'No fixed-hour clock — "in the most expedient time possible and without unreasonable delay"',
+    summary: 'No fixed-hour clock - "in the most expedient time possible and without unreasonable delay"',
     detail:
       'California Civil Code § 1798.82 requires notification "in the most expedient time possible and without unreasonable delay" once the breach is discovered or notified. AG must also be notified if > 500 California residents are affected.',
     trigger: 'Discovery / notification of a breach involving unencrypted personal information.',
@@ -328,7 +328,7 @@ const DPDP: Regime = {
     {
       id: 'dpdp-s5',
       title: 'Notice',
-      body: 'Itemised notice in clear and plain language at or before consent — purposes, manner of exercising rights, complaint mechanism.',
+      body: 'Itemised notice in clear and plain language at or before consent - purposes, manner of exercising rights, complaint mechanism.',
       citation: 'S. 5',
     },
     {
@@ -367,10 +367,10 @@ const DPDP: Regime = {
     detail:
       'Section 8(6) requires Data Fiduciaries to intimate the Data Protection Board of India and each affected Data Principal of any personal data breach. The exact timeline and form will be specified in subordinate rules under the Act.',
     trigger: 'Becoming aware of a personal data breach.',
-    toIndividuals: 'Yes — each affected Data Principal must be intimated.',
+    toIndividuals: 'Yes - each affected Data Principal must be intimated.',
   },
   enforcement:
-    "Data Protection Board of India. Financial penalties up to ₹250 crore (~$30M USD) per breach class — unlawful processing, breach of children's data obligations, failure to notify a breach. Schedule of penalties in the Act.",
+    "Data Protection Board of India. Financial penalties up to ₹250 crore (~$30M USD) per breach class - unlawful processing, breach of children's data obligations, failure to notify a breach. Schedule of penalties in the Act.",
   links: [
     {
       label: 'DPDP Act 2023 (PDF)',
@@ -393,7 +393,7 @@ const HIPAA: Regime = {
   scope:
     'Applies to Covered Entities (health plans, healthcare clearinghouses, healthcare providers that conduct HIPAA standard transactions electronically) and their Business Associates.',
   appliesTo:
-    'Covered Entities and Business Associates handling Protected Health Information (PHI) — health information that is identifiable.',
+    'Covered Entities and Business Associates handling Protected Health Information (PHI) - health information that is identifiable.',
   rights: [
     {
       id: 'hipaa-right-access',
@@ -478,18 +478,18 @@ const HIPAA: Regime = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────
-// PCI DSS — data-protection aspects
+// PCI DSS - data-protection aspects
 // ─────────────────────────────────────────────────────────────────────────
 const PCI: Regime = {
   id: 'pci-dss',
   short: 'PCI DSS 4.0',
   longTitle: 'Payment Card Industry Data Security Standard 4.0',
-  jurisdiction: 'Contractual — global; enforced by acquirers / card brands',
+  jurisdiction: 'Contractual - global; enforced by acquirers / card brands',
   effectiveDate: 'PCI DSS 4.0 effective March 2024; v4.0.1 active',
   scope:
     'All entities that store, process, or transmit cardholder data (CHD) or sensitive authentication data (SAD), and entities that could affect the security of CHD.',
   appliesTo:
-    'Merchants (Levels 1–4) and service providers (Levels 1–2) handling payment card data — directly or indirectly.',
+    'Merchants (Levels 1–4) and service providers (Levels 1–2) handling payment card data - directly or indirectly.',
   rights: [
     {
       id: 'pci-cardholder-protection',
@@ -500,43 +500,43 @@ const PCI: Regime = {
   obligations: [
     {
       id: 'pci-r3',
-      title: 'Requirement 3 — Protect stored account data',
+      title: 'Requirement 3 - Protect stored account data',
       body: 'Encrypt stored PAN; truncate / mask in display; never store SAD (full track, CVV, PIN) post-authorisation; key management.',
       citation: 'Req. 3',
     },
     {
       id: 'pci-r4',
-      title: 'Requirement 4 — Protect cardholder data with strong cryptography during transmission',
+      title: 'Requirement 4 - Protect cardholder data with strong cryptography during transmission',
       body: 'TLS 1.2+ with strong ciphers across open / public networks; trusted keys & certificates.',
       citation: 'Req. 4',
     },
     {
       id: 'pci-r6',
-      title: 'Requirement 6 — Develop and maintain secure systems and software',
+      title: 'Requirement 6 - Develop and maintain secure systems and software',
       body: 'Patch within defined SLAs, secure SDLC, threat modelling, code review, software inventory.',
       citation: 'Req. 6',
     },
     {
       id: 'pci-r7-8',
-      title: 'Requirements 7-8 — Restrict access; identify and authenticate',
+      title: 'Requirements 7-8 - Restrict access; identify and authenticate',
       body: 'Need-to-know access; unique IDs; MFA; password / passphrase policy; service-account governance.',
       citation: 'Req. 7-8',
     },
     {
       id: 'pci-r10',
-      title: 'Requirement 10 — Log and monitor access',
+      title: 'Requirement 10 - Log and monitor access',
       body: 'Audit logs covering all access to CHD; daily review (or correlation/alerting that achieves equivalent); 1 year retention with 3 months readily available.',
       citation: 'Req. 10',
     },
     {
       id: 'pci-r11',
-      title: 'Requirement 11 — Test security regularly',
+      title: 'Requirement 11 - Test security regularly',
       body: 'Quarterly external ASV scans, internal vulnerability scans, annual penetration tests + after significant change, file-integrity monitoring.',
       citation: 'Req. 11',
     },
     {
       id: 'pci-r12',
-      title: 'Requirement 12 — Information security policy',
+      title: 'Requirement 12 - Information security policy',
       body: 'Maintain an information-security programme, run risk assessments, manage service-provider risk, train workforce.',
       citation: 'Req. 12',
     },
@@ -546,7 +546,7 @@ const PCI: Regime = {
     detail:
       "PCI DSS itself does not set a fixed notification window; notification obligations come from card-brand operating regulations and the merchant's acquirer contract. Actual or suspected compromise typically triggers immediate notification of acquirer + Forensic Investigation by a PCI Forensic Investigator (PFI). Statutory breach laws (state laws, GDPR, HIPAA, CCPA) may apply in parallel.",
     trigger: 'Suspected or confirmed compromise of cardholder data.',
-    toIndividuals: 'Per applicable state breach-notification laws / contract — not a PCI DSS requirement directly.',
+    toIndividuals: 'Per applicable state breach-notification laws / contract - not a PCI DSS requirement directly.',
   },
   enforcement:
     'Contractual fines (typically passed from acquirer to merchant), increased transaction fees, possible loss of merchant status. Compliance levels validated annually via Self-Assessment Questionnaire (SAQ) or Report on Compliance (ROC).',

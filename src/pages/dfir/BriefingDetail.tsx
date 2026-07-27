@@ -20,7 +20,7 @@ import { BackLink } from '../../components/BackLink';
 import { SEVERITY_TONE, type Severity as CanonSeverity } from '../../components/severity';
 
 /**
- * Wire-level severity as it can arrive from the briefing API — includes the
+ * Wire-level severity as it can arrive from the briefing API - includes the
  * legacy `'unknown'` bucket that the canonical ramp folds into `low`.
  */
 type Severity = 'critical' | 'high' | 'medium' | 'low' | 'unknown';
@@ -116,7 +116,7 @@ interface Briefing {
 
 /**
  * Shape of a `type === 'landscape'` briefing. Built by
- * api/src/lib/landscape-builder.ts — see that file for the canonical
+ * api/src/lib/landscape-builder.ts - see that file for the canonical
  * section list. We type-assert from `unknown` when handing off the
  * already-loaded briefing so the rest of the page can stay loose.
  */
@@ -238,7 +238,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
             ))}
           </div>
         )}
-      <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-400">
+      <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-500 dark:text-slate-400">
         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
           {finding.source}
         </span>
@@ -334,7 +334,7 @@ function IocDumpPanel({
         document.execCommand('copy');
       } catch (err) {
         console.error('handler failed:', err instanceof Error ? err.message : String(err));
-        // Older browser / insecure context — clipboard copy unavailable.
+        // Older browser / insecure context - clipboard copy unavailable.
         // We just silently fall through; the download button is the other path.
         void err;
       }
@@ -462,7 +462,7 @@ function JumpNav({
 
 /**
  * Landscape-report specific view. Distinct from the daily/weekly view
- * because the data shape is different — landscape reports have named
+ * because the data shape is different - landscape reports have named
  * sections (top_threats, trending_actors, key_incidents,
  * recommended_actions, outlook) rather than a generic sections[] array,
  * and they don't carry IOC tables.
@@ -555,7 +555,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
                   {f.description && (
                     <p className="text-sm text-muted leading-relaxed mb-3 line-clamp-4">{f.description}</p>
                   )}
-                  <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-400">
+                  <div className="flex flex-wrap items-center gap-2 text-mini font-mono text-slate-500 dark:text-slate-400">
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
                       {f.source}
                     </span>
@@ -631,7 +631,7 @@ export default function BriefingDetail(): JSX.Element {
   }, [slug, refreshKey]);
 
   // Concatenate the briefing's narrative content into one body string the
-  // intel extractor can scan — executive summary + every finding's title +
+  // intel extractor can scan - executive summary + every finding's title +
   // description. The flat-IoC tables further down stay as the human-friendly
   // browsing surface; the card adds the structured STIX 2.1 view on top.
   // Called before the conditional returns so it satisfies the rules-of-hooks
@@ -639,7 +639,7 @@ export default function BriefingDetail(): JSX.Element {
   const intelBody = useMemo(() => {
     if (!briefing) return '';
     const parts: string[] = [briefing.executive_summary];
-    // Landscape reports have a different structure — use named sections.
+    // Landscape reports have a different structure - use named sections.
     if (briefing.type === 'landscape') {
       const lr = briefing as unknown as LandscapeReport;
       for (const section of [
@@ -725,7 +725,7 @@ export default function BriefingDetail(): JSX.Element {
                 </p>
                 <p className="text-xs text-amber-800 dark:text-amber-300 mt-1 leading-relaxed">
                   CISA KEV and NVD returned errors from the edge at build time. The hourly self-heal will rebuild this
-                  briefing as soon as the feeds respond — within an hour of recovery. This is{' '}
+                  briefing as soon as the feeds respond - within an hour of recovery. This is{' '}
                   <span className="font-semibold">not</span> an all-clear; do not treat zero findings as &quot;no new
                   vulnerabilities&quot;.
                 </p>
@@ -787,11 +787,11 @@ export default function BriefingDetail(): JSX.Element {
         </div>
       </header>
 
-      {/* Landscape reports have their own section layout — branch before the
+      {/* Landscape reports have their own section layout - branch before the
           daily/weekly findings/IOC tables render. */}
       {briefing.type === 'landscape' && <LandscapeReportView briefing={briefing as unknown as LandscapeReport} />}
 
-      {/* Stats bar — daily/weekly only; landscape has its own stats in LandscapeReportView. */}
+      {/* Stats bar - daily/weekly only; landscape has its own stats in LandscapeReportView. */}
       {briefing.type !== 'landscape' && (
         <section className="surface-card p-4 mb-8">
           <div className="flex flex-wrap items-center justify-around gap-6">
@@ -808,7 +808,7 @@ export default function BriefingDetail(): JSX.Element {
         </section>
       )}
 
-      {/* Jump-nav pills — link to the CVE / ransomware / IOC / MITRE blocks
+      {/* Jump-nav pills - link to the CVE / ransomware / IOC / MITRE blocks
           further down the page. Hidden on landscape reports and on briefs
           that have nothing in any of those buckets. */}
       {briefing.type !== 'landscape' && (
@@ -821,7 +821,7 @@ export default function BriefingDetail(): JSX.Element {
       )}
 
       {/* Structured STIX 2.1 intel view. Renders an enriched card backed by
-          /api/v1/intel-bundle — heuristic-extracted actors, malware, CVEs,
+          /api/v1/intel-bundle - heuristic-extracted actors, malware, CVEs,
           theme tags + bulk-enriched IoCs with risk scores. Falls back to
           rendering nothing while loading so the Executive Summary still
           carries the page on first paint. */}
@@ -846,7 +846,7 @@ export default function BriefingDetail(): JSX.Element {
         <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{briefing.executive_summary}</p>
       </section>
 
-      {/* Sections — daily/weekly only; landscape uses LandscapeReportView above.
+      {/* Sections - daily/weekly only; landscape uses LandscapeReportView above.
           The id="briefing-cves" target is used by the JumpNav pills. */}
       {briefing.type !== 'landscape' && briefing.sections && briefing.sections.length > 0 && (
         <section id="briefing-cves" className="mb-12 space-y-8 scroll-mt-20">
@@ -876,7 +876,7 @@ export default function BriefingDetail(): JSX.Element {
         </section>
       )}
 
-      {/* No sections message — when there are no findings but IOCs exist */}
+      {/* No sections message - when there are no findings but IOCs exist */}
       {briefing.type !== 'landscape' &&
         briefing.sections.length === 0 &&
         briefing.ioc_dump &&
@@ -897,7 +897,7 @@ export default function BriefingDetail(): JSX.Element {
           </section>
         )}
 
-      {/* MITRE techniques observed — daily/weekly only. id="briefing-mitre" is
+      {/* MITRE techniques observed - daily/weekly only. id="briefing-mitre" is
           the JumpNav target. */}
       {briefing.type !== 'landscape' && briefing.mitre_techniques && briefing.mitre_techniques.length > 0 && (
         <section id="briefing-mitre" className="mb-10 scroll-mt-20">
@@ -910,9 +910,9 @@ export default function BriefingDetail(): JSX.Element {
         </section>
       )}
 
-      {/* IOCs — daily/weekly only. Rendered as a single txt dump (capped at
+      {/* IOCs - daily/weekly only. Rendered as a single txt dump (capped at
           30 total) with download + copy buttons, NOT inline tables. The inline
-          per-kind IocTable is gone — when a user wants the actual list of
+          per-kind IocTable is gone - when a user wants the actual list of
           indicators they grab the txt and use it as a blocklist seed.
           id="briefing-iocs" is the JumpNav target. */}
       {briefing.type !== 'landscape' && briefing.ioc_dump && briefing.ioc_dump.count > 0 && (

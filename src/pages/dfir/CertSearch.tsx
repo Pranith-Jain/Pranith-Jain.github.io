@@ -144,7 +144,7 @@ export default function CertSearch(): JSX.Element {
             <div className="relative flex-1 min-w-[260px]">
               <Search
                 size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
                 aria-hidden="true"
               />
               <input
@@ -242,7 +242,7 @@ export default function CertSearch(): JSX.Element {
               <CopyChip value={allNamesBlob} label={`copy ${filteredNames.length}`} />
             </div>
             <div className="relative mb-3">
-              <Filter size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Filter size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
               <input
                 type="search"
                 value={filter}
