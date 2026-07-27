@@ -47,7 +47,7 @@ function compactNumber(n?: number): string {
 }
 
 /**
- * Compact embeddable panel of recent cybersec X tweets — same data as
+ * Compact embeddable panel of recent cybersec X tweets - same data as
  * /threatintel/x-live (TweetFeed × fxtwitter hybrid). Drop into any page
  * that benefits from a fresh-from-X side panel.
  */
@@ -100,7 +100,7 @@ export function XLivePanel({
         </Link>
       </div>
       <p className="text-micro font-mono text-slate-500 mb-3">
-        TweetFeed × fxtwitter — last {sinceHours}h of researcher-posted IOC tweets · click-through to x.com
+        TweetFeed × fxtwitter - last {sinceHours}h of researcher-posted IOC tweets · click-through to x.com
       </p>
       {loading && (
         <p className="text-xs font-mono text-slate-500 inline-flex items-center gap-1">
@@ -121,6 +121,7 @@ export function XLivePanel({
               <div className="flex items-start gap-2">
                 {t.author.avatar_url && (
                   <img
+                    loading="lazy"
                     src={t.author.avatar_url}
                     alt={t.author.name}
                     className="w-7 h-7 rounded-full shrink-0"

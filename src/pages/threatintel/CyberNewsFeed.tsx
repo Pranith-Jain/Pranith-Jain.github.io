@@ -90,7 +90,7 @@ export default function CyberNewsFeed(): JSX.Element {
           onClick={() => setActiveTier(null)}
           className={`px-2.5 py-1 rounded-xl text-xs font-medium border transition-colors ${
             activeTier === null
-              ? 'bg-brand-600 text-white border-brand-600'
+              ? 'bg-rose-600 text-white border-rose-600'
               : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
           }`}
         >
@@ -102,7 +102,7 @@ export default function CyberNewsFeed(): JSX.Element {
             key={tier}
             onClick={() => setActiveTier(activeTier === Number(tier) ? null : Number(tier))}
             className={`px-2.5 py-1 rounded-xl text-xs font-medium border transition-colors ${
-              activeTier === Number(tier) ? 'bg-brand-600 text-white border-brand-600' : color
+              activeTier === Number(tier) ? 'bg-rose-600 text-white border-rose-600' : color
             }`}
           >
             {label}
@@ -120,7 +120,7 @@ export default function CyberNewsFeed(): JSX.Element {
         {data && (
           <>
             <div className="text-xs text-slate-500 dark:text-slate-400">
-              {filtered?.length ?? 0} articles — updated {relativeAgo(data.last_updated)}
+              {filtered?.length ?? 0} articles - updated {relativeAgo(data.last_updated)}
             </div>
             <div className="space-y-2">
               {filtered?.map((article, i) => {
@@ -131,11 +131,12 @@ export default function CyberNewsFeed(): JSX.Element {
                     href={article.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block p-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl hover:border-brand-300 dark:hover:border-brand-600 transition-colors group"
+                    className="block p-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl hover:border-rose-300 dark:hover:border-rose-600 transition-colors group"
                   >
                     <div className="flex items-start gap-3">
                       {article.image_url && (
                         <img
+                          loading="lazy"
                           src={article.image_url}
                           alt=""
                           className="w-16 h-12 object-cover rounded-xl flex-shrink-0 hidden sm:block"
@@ -154,7 +155,7 @@ export default function CyberNewsFeed(): JSX.Element {
                             </span>
                           )}
                         </div>
-                        <h3 className="text-sm font-medium text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 line-clamp-2 flex items-center gap-1">
+                        <h3 className="text-sm font-medium text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400 line-clamp-2 flex items-center gap-1">
                           {article.title}
                           <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 flex-shrink-0" />
                         </h3>

@@ -93,7 +93,7 @@ export default function EmailOsnit() {
       icon={<Mail size={28} />}
       title="Email OSINT Profile"
       maxWidthClass="max-w-6xl"
-      description="Build digital identity from email — GitHub, Gravatar, breach exposure, reputation, DNS, PGP keys, social hints."
+      description="Build digital identity from email - GitHub, Gravatar, breach exposure, reputation, DNS, PGP keys, social hints."
     >
       <form onSubmit={handleSearch} className="mb-6">
         <div className="flex gap-2">
@@ -128,7 +128,7 @@ export default function EmailOsnit() {
           {/* Header + Risk */}
           <div className="flex items-center gap-4 p-4 surface-card">
             {profile.gravatar.avatarUrl ? (
-              <img src={profile.gravatar.avatarUrl} alt="" className="w-12 h-12 rounded-full" />
+              <img loading="lazy" src={profile.gravatar.avatarUrl} alt="" className="w-12 h-12 rounded-full" />
             ) : (
               <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center">
                 <User size={20} className="text-slate-400" />

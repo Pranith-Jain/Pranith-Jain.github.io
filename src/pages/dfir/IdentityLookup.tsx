@@ -33,6 +33,7 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
         <div className="shrink-0">
           {profile.avatarUrl ? (
             <img
+              loading="lazy"
               src={profile.avatarUrl}
               alt=""
               className="w-10 h-10 rounded-full border border-slate-200 dark:border-[rgb(var(--border-400))]"
@@ -149,7 +150,7 @@ export default function IdentityLookup(): JSX.Element {
           <Search size={28} className="text-brand-600 dark:text-brand-400" /> Identity Lookup
         </h1>
         <p className="text-muted mb-2 leading-relaxed">
-          Look up a username across {PLATFORMS.length} platforms and see profile details — avatar, bio, followers,
+          Look up a username across {PLATFORMS.length} platforms and see profile details - avatar, bio, followers,
           repos. All checks run from your browser against public APIs.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
@@ -269,7 +270,7 @@ export default function IdentityLookup(): JSX.Element {
         </h2>
         <ul className="space-y-1.5 text-sm font-mono text-muted list-disc pl-5">
           <li>
-            Each platform is checked via its public API — no auth keys, no server proxy. Data is what the API returns.
+            Each platform is checked via its public API - no auth keys, no server proxy. Data is what the API returns.
           </li>
           <li>"Not found" may also mean the API is rate-limiting (GitHub: 60 req/h per IP, Reddit: 60 req/min).</li>
           <li>

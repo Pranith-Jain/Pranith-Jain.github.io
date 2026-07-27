@@ -58,6 +58,7 @@ function ForumLogo({ logoUrl, forum }: { logoUrl?: string; forum: string }) {
   if (!logoUrl) return null;
   return (
     <img
+      loading="lazy"
       src={logoUrl}
       alt={`${forum} logo`}
       className="w-4 h-4 rounded object-contain shrink-0"
@@ -98,7 +99,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
     try {
       const res = await fetch(`/api/v1/scrapedintel-usernames?q=${encodeURIComponent(query)}`);
       const body = (await res.json().catch(() => null)) as SearchResponse | { error?: string } | null;
-      if (res.status === 429) throw new Error('Rate limited — try again in a minute.');
+      if (res.status === 429) throw new Error('Rate limited - try again in a minute.');
       if (res.status === 502 || res.status === 503) throw new Error('Source temporarily unavailable.');
       if (!res.ok || !body || !('results' in body)) {
         throw new Error((body as { error?: string } | null)?.error ?? `lookup failed (${res.status})`);
@@ -160,17 +161,17 @@ export default function ScrapedIntelUsernames(): JSX.Element {
       title="Threat Actor Username Search"
       description={
         <>
-          Search 3M+ usernames indexed across 35 cybercrime forums and open sources. A hit is an attribution signal —
+          Search 3M+ usernames indexed across 35 cybercrime forums and open sources. A hit is an attribution signal -
           not proof of identity (corpus includes researchers, journalists, LE).{' '}
           <a
             href="https://threatactorusernames.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             ScrapedIntel
           </a>{' '}
-          — rate-limited, results edge-cached.
+          - rate-limited, results edge-cached.
         </>
       }
       loading={loading}
@@ -190,7 +191,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Username / handle (min 2 chars)…"
-              className="w-full pl-9 pr-9 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-9 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500"
               aria-label="Search threat actor usernames"
               maxLength={80}
             />
@@ -206,7 +207,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
           </div>
           <button
             type="submit"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-4 py-2.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/70"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-4 py-2.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/70"
           >
             <Search size={14} /> Search
           </button>
@@ -226,7 +227,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                   setSubmitted(q);
                   setSearchParams({ q }, { replace: true });
                 }}
-                className="text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-muted transition-colors"
+                className="text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted transition-colors"
               >
                 {q}
               </button>
@@ -250,13 +251,13 @@ export default function ScrapedIntelUsernames(): JSX.Element {
           <div className="ml-auto flex gap-2">
             <button
               onClick={exportCsv}
-              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-muted"
+              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted"
             >
               <Download size={12} /> CSV
             </button>
             <button
               onClick={exportJson}
-              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-muted"
+              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted"
             >
               <Download size={12} /> JSON
             </button>
@@ -264,7 +265,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
               href={`https://threatactorusernames.com/search?q=${encodeURIComponent(data.query)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-muted"
+              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted"
             >
               <ExternalLink size={12} /> Upstream
             </a>
@@ -310,7 +311,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                   <div className="mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]/50 opacity-0 group-hover:opacity-100 transition-opacity">
                     <a
                       href={`/dfir/agent?query=Investigate+actor+${encodeURIComponent(m.username)}`}
-                      className="inline-flex items-center gap-1 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                      className="inline-flex items-center gap-1 text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline"
                     >
                       <Bot size={12} /> Investigate with Agent
                     </a>
@@ -337,7 +338,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                         {forum}
                       </span>
                       <div className="w-20 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                        <div className="h-full bg-brand-500 rounded-full" style={{ width: `${pct}%` }} />
+                        <div className="h-full bg-rose-500 rounded-full" style={{ width: `${pct}%` }} />
                       </div>
                       <span className="text-mini font-mono text-slate-400 w-8 text-right">{count}</span>
                     </div>
@@ -362,7 +363,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                     href={data.source_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline hover:text-brand-500"
+                    className="underline hover:text-rose-500"
                   >
                     {data.source}
                   </a>

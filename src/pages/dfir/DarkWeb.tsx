@@ -14,7 +14,7 @@ type FeedItem = AggregatedFeedItem & { source: string; pubDate: string };
 
 /**
  * Curated dark-web monitoring sources. Higher-signal subset of the general
- * ThreatIntelFeed — leak sites, ransomware, breach reports, and IR writeups
+ * ThreatIntelFeed - leak sites, ransomware, breach reports, and IR writeups
  * that surface dark-web activity.
  */
 const DARKWEB_FEEDS: { id: string; label: string }[] = [
@@ -130,7 +130,7 @@ function withinWindow(item: FeedItem, win: DateWindow): boolean {
 function highlightInText(text: string, re: RegExp | null): JSX.Element {
   if (!re) return <>{text}</>;
   // String.split with a single capturing group puts the matched delimiters at
-  // the ODD indices of the result — use that parity instead of re.test(part).
+  // the ODD indices of the result - use that parity instead of re.test(part).
   // `re` carries the /g flag and .test() mutates its lastIndex, so calling it
   // once per fragment in this loop previously mis-tagged parts. (split itself
   // ignores lastIndex, so reusing one precompiled `re` across rows is safe.)
@@ -151,7 +151,7 @@ function highlightInText(text: string, re: RegExp | null): JSX.Element {
 }
 
 /**
- * DarkWeb is now the aggregated dark-web RSS feed view only — the three
+ * DarkWeb is now the aggregated dark-web RSS feed view only - the three
  * per-source widgets (ransomware activity / cybersec Telegram firehose /
  * breach disclosures) live as their own dedicated /threatintel/* pages
  * and import their panel components from this file. See
@@ -164,7 +164,7 @@ export default function DarkWeb(): JSX.Element {
   const [sourceCount, setSourceCount] = useState(0);
   const [watchlist, setWatchlist] = useState<string[]>([]);
   const [newTerm, setNewTerm] = useState('');
-  // Search controls — persisted in URL as ?q=
+  // Search controls - persisted in URL as ?q=
   const [search, setSearch] = useState(searchParams.get('q') ?? '');
   const [activeSources, setActiveSources] = useState<Set<string>>(() => new Set(ALL_FEED_IDS));
   const [dateWindow, setDateWindow] = useState<DateWindow>('30d');
@@ -314,7 +314,7 @@ export default function DarkWeb(): JSX.Element {
       }
       headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-          Per-source widgets —{' '}
+          Per-source widgets -{' '}
           <Link
             to="/threatintel/darkweb/ransom-activity"
             className="text-brand-600 dark:text-brand-400 hover:underline"
@@ -333,7 +333,7 @@ export default function DarkWeb(): JSX.Element {
           <Link to="/threatintel/darkweb/forums" className="text-brand-600 dark:text-brand-400 hover:underline">
             breach / leak-forum tracker
           </Link>{' '}
-          — live as their own pages.
+          - live as their own pages.
         </p>
       }
     >
@@ -604,7 +604,7 @@ export default function DarkWeb(): JSX.Element {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Breach Disclosures panel — pulls Have I Been Pwned's public breach corpus
+// Breach Disclosures panel - pulls Have I Been Pwned's public breach corpus
 // ─────────────────────────────────────────────────────────────────────────
 
 interface BreachDisclosure {
@@ -630,7 +630,7 @@ interface BreachDisclosuresResponse {
 }
 
 function formatPwnCount(n?: number): string {
-  if (!n || n <= 0) return '—';
+  if (!n || n <= 0) return '-';
   if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(1)}B`;
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000) return `${(n / 1_000).toFixed(0)}k`;
@@ -775,7 +775,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Recent Ransomware Activity panel — pulls Ransomlook.io's leak-site posts
+// Recent Ransomware Activity panel - pulls Ransomlook.io's leak-site posts
 // ─────────────────────────────────────────────────────────────────────────
 
 type RansomwareOrigin =
@@ -799,42 +799,42 @@ const ORIGIN_PILL: Record<RansomwareOrigin, { label: string; cls: string; toolti
   ransomlook: {
     label: 'RL',
     cls: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-    tooltip: 'Ransomlook — primary tracker with .onion screenshots',
+    tooltip: 'Ransomlook - primary tracker with .onion screenshots',
   },
   mti: {
     label: 'MTI',
     cls: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
-    tooltip: 'mythreatintel Telegram channel — real-time Spanish CTI firehose',
+    tooltip: 'mythreatintel Telegram channel - real-time Spanish CTI firehose',
   },
   ransomfeed: {
     label: 'RFI',
     cls: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-    tooltip: 'ransomfeed.it — RSS of victim claims',
+    tooltip: 'ransomfeed.it - RSS of victim claims',
   },
   ransomwatch: {
     label: 'RW',
     cls: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
-    tooltip: 'ransomwatch slot — RansomLook deep leak-site feed (extended 7-day coverage)',
+    tooltip: 'ransomwatch slot - RansomLook deep leak-site feed (extended 7-day coverage)',
   },
   ransomwarelive: {
     label: 'RL!',
     cls: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-    tooltip: 'ransomware.live — public victim dump with country + sector data',
+    tooltip: 'ransomware.live - public victim dump with country + sector data',
   },
   andreafortuna: {
     label: 'AF',
     cls: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
-    tooltip: 'Andrea Fortuna CTI feeds — ransomware victim tracker',
+    tooltip: 'Andrea Fortuna CTI feeds - ransomware victim tracker',
   },
   ctifyi: {
     label: 'CTI',
     cls: 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300',
-    tooltip: 'cti.fyi — leak-site post tracker with .onion screenshots',
+    tooltip: 'cti.fyi - leak-site post tracker with .onion screenshots',
   },
   x: {
     label: 'X',
     cls: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
-    tooltip: 'X / FalconFeeds + @DailyDarkWeb — leak-site claims parsed from posts',
+    tooltip: 'X / FalconFeeds + @DailyDarkWeb - leak-site claims parsed from posts',
   },
 };
 
@@ -1036,6 +1036,7 @@ export function RansomwareActivityPanel(): JSX.Element {
                     aria-label={`View leak-site screenshot for ${v.victim}`}
                   >
                     <img
+                      loading="lazy"
                       src={v.screen_url}
                       alt=""
                       loading="lazy"
@@ -1115,7 +1116,7 @@ export function RansomwareActivityPanel(): JSX.Element {
       {data && data.victims.some((v) => v.screen_url) && (
         <p className="mt-3 text-micro font-mono text-slate-400 dark:text-slate-400 leading-relaxed">
           Thumbnails are PNG screenshots of the .onion leak post, captured by Ransomlook&apos;s Tor-equipped backend and
-          rehosted on clearnet. Click to zoom — we never fetch the .onion site from your browser. Treat the content as
+          rehosted on clearnet. Click to zoom - we never fetch the .onion site from your browser. Treat the content as
           untrusted (leak-site screenshots can include malicious links + actor branding).
         </p>
       )}
@@ -1159,6 +1160,7 @@ export function RansomwareActivityPanel(): JSX.Element {
               </button>
             </div>
             <img
+              loading="lazy"
               src={lightbox.url}
               alt={`Leak-site screenshot of ${lightbox.victim}`}
               className="w-full max-h-[80vh] object-contain rounded border border-slate-700 bg-slate-800"
@@ -1175,7 +1177,7 @@ export function RansomwareActivityPanel(): JSX.Element {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Telegram firehose panel — aggregated cybersec channel preview from
+// Telegram firehose panel - aggregated cybersec channel preview from
 // /api/v1/telegram-feed. Server fetches telegram.me/s/<handle> for ~10 curated
 // channels and we render the merged stream here. Watchlist matches use
 // the same localStorage key as the main feed.
@@ -1218,7 +1220,7 @@ interface TelegramFeedResponse {
 
 function qualityPill(score?: number): { label: string; cls: string } {
   if (score === undefined)
-    return { label: '—', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400' };
+    return { label: '-', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400' };
   if (score >= 75)
     return { label: `${score}`, cls: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' };
   if (score >= 50) return { label: `${score}`, cls: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300' };
@@ -1277,7 +1279,7 @@ export function TelegramFeedPanel(): JSX.Element {
       if (e.key === STORAGE_KEY_WATCH) setWatchlist(loadJson<string[]>(STORAGE_KEY_WATCH, []));
     };
     window.addEventListener('storage', onStorage);
-    // Also poll once after a short delay — same-tab writes don't fire `storage`.
+    // Also poll once after a short delay - same-tab writes don't fire `storage`.
     const t = setTimeout(() => setWatchlist(loadJson<string[]>(STORAGE_KEY_WATCH, [])), 1000);
     return () => {
       window.removeEventListener('storage', onStorage);
@@ -1372,7 +1374,7 @@ export function TelegramFeedPanel(): JSX.Element {
       </div>
 
       <p className="text-meta font-mono text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">
-        Latest messages from a curated set of public threat-intel and cybercrime-tracking Telegram channels —{' '}
+        Latest messages from a curated set of public threat-intel and cybercrime-tracking Telegram channels -{' '}
         <Link to="/threatintel/telegram-monitor" className="text-brand-600 dark:text-brand-400 hover:underline">
           full catalogue
         </Link>

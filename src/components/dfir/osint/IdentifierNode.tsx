@@ -54,13 +54,13 @@ export function IdentifierNode({ data }: { data: IdentifierNodeData }): JSX.Elem
       <Handle type="target" position={Position.Top} className="!bg-slate-400" />
       <div className="flex items-center gap-2">
         {data.customIconUrl ? (
-          <img src={data.customIconUrl} alt="" className="w-4 h-4 rounded object-cover" />
+          <img loading="lazy" src={data.customIconUrl} alt="" className="w-4 h-4 rounded object-cover" />
         ) : (
           <Icon size={16} className="text-brand-600 dark:text-brand-400" />
         )}
         <div className="text-xs font-mono text-slate-500">{def.label}</div>
       </div>
-      <div className="mt-1 text-sm font-medium truncate max-w-[180px]">{data.primary || '—'}</div>
+      <div className="mt-1 text-sm font-medium truncate max-w-[180px]">{data.primary || '-'}</div>
       <Handle type="source" position={Position.Bottom} className="!bg-slate-400" />
     </div>
   );

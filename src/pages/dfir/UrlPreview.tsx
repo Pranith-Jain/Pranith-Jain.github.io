@@ -225,7 +225,7 @@ export default function UrlPreview(): JSX.Element {
               {result.final_url}
               <ExternalLink size={12} className="flex-shrink-0" />
             </a>
-            {/* Per-final-URL pivots — let the analyst go directly to the host
+            {/* Per-final-URL pivots - let the analyst go directly to the host
                 inspector / cert-search / IOC reputation rather than copy-pasting. */}
             {(() => {
               try {
@@ -272,7 +272,7 @@ export default function UrlPreview(): JSX.Element {
                 Redirect Blocked
               </h3>
               <p className="text-sm font-mono text-amber-700 dark:text-amber-400">
-                The redirect target was blocked by the SSRF guard — it resolves to a private or reserved IP.
+                The redirect target was blocked by the SSRF guard - it resolves to a private or reserved IP.
               </p>
               {result.redirect_blocked.location && (
                 <div className="mt-2 text-sm font-mono text-muted">
@@ -307,6 +307,7 @@ export default function UrlPreview(): JSX.Element {
                 {result.favicon && (
                   <span className="inline-flex items-center gap-2">
                     <img
+                      loading="lazy"
                       src={result.favicon}
                       alt="favicon"
                       className="h-5 w-5 rounded"
@@ -357,7 +358,7 @@ export default function UrlPreview(): JSX.Element {
             </section>
           )}
 
-          {/* urlscan.io — most recent existing public scan */}
+          {/* urlscan.io - most recent existing public scan */}
           {result.urlscan && (
             <section className="surface-card p-6">
               <div className="flex items-center justify-between mb-3">
@@ -374,6 +375,7 @@ export default function UrlPreview(): JSX.Element {
               {result.urlscan.screenshot && (
                 <a href={sanitizeUrl(result.urlscan.result)} target="_blank" rel="noopener noreferrer">
                   <img
+                    loading="lazy"
                     src={result.urlscan.screenshot}
                     alt="urlscan screenshot"
                     className="max-w-full max-h-72 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] object-contain"
@@ -463,6 +465,7 @@ export default function UrlPreview(): JSX.Element {
                 <div className="mb-4">
                   <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-2">Image</div>
                   <img
+                    loading="lazy"
                     src={result.og.image}
                     alt="og:image"
                     className="max-w-full max-h-48 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] object-contain"
@@ -512,6 +515,7 @@ export default function UrlPreview(): JSX.Element {
                 <div className="mb-4">
                   <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-2">Image</div>
                   <img
+                    loading="lazy"
                     src={result.twitter.image}
                     alt="Twitter card preview"
                     className="max-w-full max-h-48 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] object-contain"

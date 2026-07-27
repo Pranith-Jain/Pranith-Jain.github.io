@@ -104,7 +104,7 @@ export default function BlogPost() {
   const [relatedPosts, setRelatedPosts] = useState<PostIndexEntry[]>([]);
   const [reloadKey, setReloadKey] = useState(0);
   const [tocOpen, setTocOpen] = useState(false);
-  // Reading-progress state — drives a thin progress bar at the top of
+  // Reading-progress state - drives a thin progress bar at the top of
   // the page so readers know how far through the case study they are.
   // Updated by a passive scroll listener mounted below. 0-100.
   const [readingProgress, setReadingProgress] = useState(0);
@@ -121,7 +121,7 @@ export default function BlogPost() {
     const url = `https://pranithjain.qzz.io/blog/${post.slug}`;
 
     // Update document title
-    document.title = `${post.title} — Pranith Jain`;
+    document.title = `${post.title} - Pranith Jain`;
 
     // Set or update meta tags
     const setMeta = (property: string, content: string) => {
@@ -138,7 +138,7 @@ export default function BlogPost() {
     setMeta('og:description', description);
     setMeta('og:url', url);
     setMeta('og:type', 'article');
-    setMeta('og:site_name', 'Pranith Jain — CTI Portfolio');
+    setMeta('og:site_name', 'Pranith Jain - CTI Portfolio');
     setMeta('article:published_time', post.publishedAt);
     setMeta('article:author', 'Pranith Jain');
     if (post.tags.length > 0) setMeta('article:tag', post.tags.join(','));
@@ -154,7 +154,7 @@ export default function BlogPost() {
 
     // Cleanup on unmount
     return () => {
-      document.title = 'Pranith Jain — CTI Portfolio';
+      document.title = 'Pranith Jain - CTI Portfolio';
     };
   }, [post]);
 
@@ -211,7 +211,7 @@ export default function BlogPost() {
     return () => observer.disconnect();
   }, [html]);
 
-  // Reading-progress listener. Cheap — one rAF, no resize observer. Bound
+  // Reading-progress listener. Cheap - one rAF, no resize observer. Bound
   // to the post slug so we reset to 0 when navigating between case studies.
   useEffect(() => {
     let raf = 0;
@@ -297,7 +297,7 @@ export default function BlogPost() {
       {/* Reading-progress bar. Positioned at the very top of the article
           (sticky to the page, not the article, so it sits below the
           portfolio nav). One CSS variable drives the fill so we don't
-          re-render the DOM on every scroll tick — only the inline
+          re-render the DOM on every scroll tick - only the inline
           transform. */}
       <div
         aria-hidden="true"
@@ -348,7 +348,7 @@ export default function BlogPost() {
                     '@type': 'Person',
                     name: 'Pranith Jain',
                     url: 'https://pranithjain.qzz.io',
-                    // sameAs disambiguates the author entity across platforms —
+                    // sameAs disambiguates the author entity across platforms -
                     // a measured lift for getting cited by AI answer engines.
                     sameAs: ['https://www.linkedin.com/in/pranithjain', 'https://x.com/Npj8448'],
                   },
@@ -378,7 +378,7 @@ export default function BlogPost() {
             />
             {(() => {
               // FAQPage structured data, derived from the post's `## FAQ`
-              // section. Emits only when ≥2 Q&A pairs parse — the highest-
+              // section. Emits only when ≥2 Q&A pairs parse - the highest-
               // weighted answer-engine signal; absent FAQ → no script.
               const faq = extractFaq(post.body);
               if (faq.length < 2) return null;
@@ -414,6 +414,7 @@ export default function BlogPost() {
             )}
 
             <img
+              loading="lazy"
               className="mb-6 w-full h-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]"
               alt={`Hero visual for ${post.title}`}
               width={1200}
@@ -448,7 +449,7 @@ export default function BlogPost() {
                             ? 'border-amber-400/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
                             : 'border-rose-400/40 bg-rose-500/10 text-rose-700 dark:text-rose-300')
                       }
-                      title={`Quality score ${post.quality.total}/100 — based on length, sections, depth, technical density, references, and filler penalty`}
+                      title={`Quality score ${post.quality.total}/100 - based on length, sections, depth, technical density, references, and filler penalty`}
                     >
                       Quality {post.quality.total}
                     </span>
@@ -644,7 +645,7 @@ export default function BlogPost() {
                       </a>
                       {s.title && (
                         <span className="text-slate-500 dark:text-slate-400 ml-1">
-                          — {s.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                          - {s.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
                         </span>
                       )}
                     </li>

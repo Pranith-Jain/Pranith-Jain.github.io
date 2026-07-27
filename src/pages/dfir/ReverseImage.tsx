@@ -70,7 +70,7 @@ export default function ReverseImage(): JSX.Element {
           <ImageIcon size={28} className="text-brand-600 dark:text-brand-400" /> Reverse Image Search
         </h1>
         <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-          Paste an image URL — get one-click links to Google Lens, Bing Visual, Yandex (best for faces), TinEye (best
+          Paste an image URL - get one-click links to Google Lens, Bing Visual, Yandex (best for faces), TinEye (best
           for first-seen), Baidu, Sogou, and Karma Decay (Reddit). Pure URL generation; the image stays on its original
           host.
         </p>
@@ -83,7 +83,7 @@ export default function ReverseImage(): JSX.Element {
           <Link to="/dfir/exif" className="text-brand-600 dark:text-brand-400 hover:underline">
             EXIF parser
           </Link>{' '}
-          (provenance from metadata). Run multiple engines in parallel — none has full coverage on its own.
+          (provenance from metadata). Run multiple engines in parallel - none has full coverage on its own.
         </p>
       </div>
 
@@ -130,6 +130,7 @@ export default function ReverseImage(): JSX.Element {
             </h2>
             <div className="flex flex-col sm:flex-row gap-4">
               <img
+                loading="lazy"
                 src={trimmed}
                 alt="reverse-search target"
                 className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] max-h-48 max-w-xs object-contain bg-slate-50 dark:bg-[rgb(var(--input-200))]"
@@ -196,7 +197,7 @@ export default function ReverseImage(): JSX.Element {
             </ul>
             <p className="text-micro font-mono text-slate-400 dark:text-slate-400 mt-3">
               <Star size={9} className="inline text-brand-600 dark:text-brand-400" /> = recommended starting set. Run
-              all four (Lens / Bing / Yandex / TinEye) — coverage barely overlaps.
+              all four (Lens / Bing / Yandex / TinEye) - coverage barely overlaps.
             </p>
           </section>
         </>

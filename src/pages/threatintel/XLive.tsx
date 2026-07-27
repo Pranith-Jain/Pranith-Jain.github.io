@@ -159,7 +159,7 @@ export default function XLive(): JSX.Element {
           <select
             value={sinceHours}
             onChange={(e) => setSinceHours(Number(e.target.value))}
-            className="border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-1.5 py-0.5 text-mini font-mono rounded focus:outline-none focus:border-brand-500"
+            className="border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-1.5 py-0.5 text-mini font-mono rounded focus:outline-none focus:border-rose-500"
           >
             {[6, 12, 24, 48, 72, 168].map((h) => (
               <option key={h} value={h}>
@@ -175,14 +175,14 @@ export default function XLive(): JSX.Element {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="filter text, handle, or tag…"
-            className="w-full pl-7 pr-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-xs font-mono focus:outline-none focus:border-brand-500"
+            className="w-full pl-7 pr-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-xs font-mono focus:outline-none focus:border-rose-500"
           />
         </div>
         <button
           type="button"
           onClick={() => load(sinceHours)}
           disabled={loading}
-          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-50"
         >
           <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
         </button>
@@ -195,8 +195,8 @@ export default function XLive(): JSX.Element {
             onClick={() => setActiveHandle(null)}
             className={`text-mini font-mono px-2 py-0.5 rounded border transition-colors ${
               activeHandle === null
-                ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+                : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
             }`}
           >
             all · {data?.items.length ?? 0}
@@ -208,8 +208,8 @@ export default function XLive(): JSX.Element {
               onClick={() => setActiveHandle(handle === activeHandle ? null : handle)}
               className={`text-mini font-mono px-2 py-0.5 rounded border transition-colors ${
                 activeHandle === handle
-                  ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                  ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
               }`}
             >
               @{handle} · {count}
@@ -229,12 +229,12 @@ export default function XLive(): JSX.Element {
       description={
         <>
           <span className="block text-sm font-mono max-w-3xl leading-relaxed">
-            Chronological X tweets from cybersec IOC-posting accounts — assembled by joining{' '}
+            Chronological X tweets from cybersec IOC-posting accounts - assembled by joining{' '}
             <a
               href="https://github.com/0xDanielLopez/TweetFeed"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               TweetFeed
             </a>{' '}
@@ -243,22 +243,22 @@ export default function XLive(): JSX.Element {
               href="https://github.com/FixTweet/FxTwitter"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline"
             >
               fxtwitter
             </a>{' '}
             (per-status enrichment for full text, author, media, engagement). This is the only free path that delivers{' '}
-            <em>recent</em> X content — X gates anonymous timeline access, but per-tweet embed previews stay open
+            <em>recent</em> X content - X gates anonymous timeline access, but per-tweet embed previews stay open
             because Discord/Slack/Telegram link cards depend on them.
           </span>
           <span className="block text-mini font-mono text-slate-500 mt-2">
             <strong>Coverage caveat:</strong> only tweets that TweetFeed surfaces (researcher-posted IOCs). Prose-only
             researcher takes won&apos;t appear here. For non-IOC chatter use{' '}
-            <Link to="/threatintel/social/firehose" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link to="/threatintel/social/firehose" className="text-rose-600 dark:text-rose-400 hover:underline">
               Bluesky+Mastodon firehose
             </Link>
             . For static profile reference, see{' '}
-            <Link to="/threatintel/social/firehose" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link to="/threatintel/social/firehose" className="text-rose-600 dark:text-rose-400 hover:underline">
               X profile highlights
             </Link>
             .
@@ -275,8 +275,8 @@ export default function XLive(): JSX.Element {
           {data.stale ? 'Showing cached data (upstream enrichment temporarily unavailable). ' : ''}
           {data.items.length === 0
             ? data.total_status_ids_seen > 0
-              ? `TweetFeed has ${data.total_status_ids_seen} status IDs but enrichment (fxtwitter) couldn't resolve them — upstream may be rate-limited or temporary unavailable.`
-              : `No status IDs in the last ${sinceHours}h — TweetFeed may be quiet or upstream rate-limited.`
+              ? `TweetFeed has ${data.total_status_ids_seen} status IDs but enrichment (fxtwitter) couldn't resolve them - upstream may be rate-limited or temporary unavailable.`
+              : `No status IDs in the last ${sinceHours}h - TweetFeed may be quiet or upstream rate-limited.`
             : 'No tweets match the current filter.'}
         </p>
       )}
@@ -298,6 +298,7 @@ export default function XLive(): JSX.Element {
                 <div className="flex items-start gap-3">
                   {t.author.avatar_url && (
                     <img
+                      loading="lazy"
                       src={t.author.avatar_url}
                       alt={t.author.name}
                       className="w-9 h-9 rounded-full shrink-0"
@@ -312,7 +313,7 @@ export default function XLive(): JSX.Element {
                       <button
                         type="button"
                         onClick={() => setActiveHandle(t.author.screen_name.toLowerCase())}
-                        className="text-mini font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                        className="text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
                         title="filter to this handle"
                       >
                         @{t.author.screen_name}
@@ -332,7 +333,7 @@ export default function XLive(): JSX.Element {
                         href={sanitizeUrl(t.url) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="ml-auto text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+                        className="ml-auto text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-0.5"
                         title={t.created_at}
                       >
                         {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />
@@ -349,7 +350,7 @@ export default function XLive(): JSX.Element {
                             key={tag}
                             type="button"
                             onClick={() => setSearch(tag)}
-                            className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                            className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
                           >
                             {tag}
                           </button>

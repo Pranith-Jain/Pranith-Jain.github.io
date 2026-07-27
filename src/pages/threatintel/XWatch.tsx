@@ -308,13 +308,13 @@ export default function XWatch(): JSX.Element {
         const body = (await r.json()) as FirehoseResponse | { error: string; hint?: string; status?: number };
         if (cancelled) return;
         if (!r.ok || 'error' in body) {
-          // Generic error surface — backend details (auth state, upstream
+          // Generic error surface - backend details (auth state, upstream
           // URLs, hints) are not exposed to the user. They get logged in
           // wrangler tail server-side if the operator needs to diagnose.
-          if (r.status === 429) setError('rate-limited — try again in a moment');
+          if (r.status === 429) setError('rate-limited - try again in a moment');
           else if (r.status === 503 || r.status === 401) setError('service unavailable');
           else setError('could not load tweets');
-          // 503/401 → service unavailable — show the soft banner.
+          // 503/401 → service unavailable - show the soft banner.
           if (r.status === 503 || r.status === 401) {
             setAuthStatus({ ok: false, configured: false });
           }
@@ -388,7 +388,7 @@ export default function XWatch(): JSX.Element {
       ctrl.abort();
     };
     // Re-probe when window/replies/auth changes. customHandles changes
-    // intentionally NOT in dep list — adding a custom handle probes that
+    // intentionally NOT in dep list - adding a custom handle probes that
     // single handle via the load() side-effect, no need to re-fire all
     // 41 probes. load is a closure (excluded for same reason as above).
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -435,7 +435,7 @@ export default function XWatch(): JSX.Element {
       hideBack={insideLayout}
       icon={<Twitter size={28} />}
       title="X firehose"
-      description='Live chronological tweets from cybersec accounts. Filter by handle, time window, replies, and pinned. Inactive handles (no posts within the selected window) are hidden by default — click "+N inactive" in each section to surface them.'
+      description='Live chronological tweets from cybersec accounts. Filter by handle, time window, replies, and pinned. Inactive handles (no posts within the selected window) are hidden by default - click "+N inactive" in each section to surface them.'
       headerExtra={
         authStatus?.configured ? (
           <span className="text-micro font-mono px-1.5 py-0.5 rounded border bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30">
@@ -497,10 +497,10 @@ export default function XWatch(): JSX.Element {
                       onClick={() => setActive(h)}
                       className={`text-xs font-mono px-2 py-1 rounded border transition-colors inline-flex items-center gap-1 ${
                         active === h
-                          ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                          ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
                           : dim
                             ? 'border-slate-300/40 dark:border-[rgb(var(--border-400))]/40 text-slate-500 opacity-50'
-                            : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                            : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
                       }`}
                       title={
                         count !== undefined
@@ -520,7 +520,7 @@ export default function XWatch(): JSX.Element {
                     type="button"
                     onClick={() => setShowInactive(true)}
                     className="text-micro font-mono px-1.5 py-1 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
-                    title={`Hidden — no posts in last ${sinceDays}d: ${inactive.map((h) => '@' + h).join(', ')}`}
+                    title={`Hidden - no posts in last ${sinceDays}d: ${inactive.map((h) => '@' + h).join(', ')}`}
                   >
                     +{inactive.length} inactive
                   </button>
@@ -547,8 +547,8 @@ export default function XWatch(): JSX.Element {
                   key={h}
                   className={`inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border transition-colors ${
                     active === h
-                      ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40'
+                      ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
                   }`}
                 >
                   <button type="button" onClick={() => setActive(h)}>
@@ -576,14 +576,14 @@ export default function XWatch(): JSX.Element {
               onChange={(e) => setAddInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && addHandle()}
               placeholder="add custom handle…"
-              className="flex-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-brand-500"
+              className="flex-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-sm font-mono focus:outline-none focus:border-rose-500"
             />
           </div>
           <button
             type="button"
             onClick={addHandle}
             disabled={!addInput.trim()}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-40"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-40"
           >
             <Plus size={11} /> add
           </button>
@@ -592,7 +592,7 @@ export default function XWatch(): JSX.Element {
             <select
               value={sinceDays}
               onChange={(e) => setSinceDays(Number(e.target.value))}
-              className="border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-1.5 py-0.5 text-mini font-mono rounded focus:outline-none focus:border-brand-500"
+              className="border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] px-1.5 py-0.5 text-mini font-mono rounded focus:outline-none focus:border-rose-500"
             >
               {[1, 3, 7, 14, 30].map((d) => (
                 <option key={d} value={d}>
@@ -623,7 +623,7 @@ export default function XWatch(): JSX.Element {
             type="button"
             onClick={() => load(active)}
             disabled={loading || (authStatus && !authStatus.configured) === true}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-50"
           >
             <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
           </button>
@@ -658,7 +658,7 @@ export default function XWatch(): JSX.Element {
                 href={`https://x.com/${active}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+                className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-0.5"
               >
                 open on x.com <ExternalLink size={9} />
               </a>
@@ -672,7 +672,7 @@ export default function XWatch(): JSX.Element {
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 placeholder="filter tweets…"
-                className="pl-7 pr-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-xs font-mono focus:outline-none focus:border-brand-500"
+                className="pl-7 pr-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-xs font-mono focus:outline-none focus:border-rose-500"
               />
             </div>
           </div>
@@ -702,7 +702,7 @@ export default function XWatch(): JSX.Element {
                     <button
                       type="button"
                       onClick={() => setIncludeReplies(true)}
-                      className="text-brand-600 dark:text-brand-400 hover:underline"
+                      className="text-rose-600 dark:text-rose-400 hover:underline"
                     >
                       Include replies
                     </button>{' '}
@@ -712,7 +712,7 @@ export default function XWatch(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setSinceDays(30)}
-                  className="text-brand-600 dark:text-brand-400 hover:underline"
+                  className="text-rose-600 dark:text-rose-400 hover:underline"
                 >
                   widen window
                 </button>
@@ -744,6 +744,7 @@ export default function XWatch(): JSX.Element {
                   <div className="flex items-start gap-3">
                     {t.author.avatar_url && (
                       <img
+                        loading="lazy"
                         src={t.author.avatar_url}
                         alt={t.author.name}
                         className="w-9 h-9 rounded-full shrink-0"
@@ -782,7 +783,7 @@ export default function XWatch(): JSX.Element {
                           href={sanitizeUrl(t.url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="ml-auto text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+                          className="ml-auto text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-0.5"
                           title={t.created_at}
                         >
                           {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />

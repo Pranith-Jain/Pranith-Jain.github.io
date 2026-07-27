@@ -129,7 +129,7 @@ export default function PublishedTab() {
   }, [load]);
 
   async function unpublish(slug: string) {
-    // Destructive — match DraftsTab.reject's confirm UX.
+    // Destructive - match DraftsTab.reject's confirm UX.
     if (!window.confirm(`Unpublish /blog/${slug}? This removes the post from the site.`)) return;
     setActionMsg(null);
     try {
@@ -423,9 +423,9 @@ function SocialQueueAgenda() {
               ? 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700/50'
               : 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-[rgb(var(--border-400))]'
           }`}
-          aria-label={autopostEnabled ? 'Auto-post is ON' : 'Auto-post is OFF — review only'}
+          aria-label={autopostEnabled ? 'Auto-post is ON' : 'Auto-post is OFF - review only'}
         >
-          {autopostEnabled ? 'Auto-post: ON' : 'Auto-post: OFF — review only'}
+          {autopostEnabled ? 'Auto-post: ON' : 'Auto-post: OFF - review only'}
         </span>
       </div>
 
@@ -439,7 +439,7 @@ function SocialQueueAgenda() {
               className="flex flex-wrap items-center gap-2 text-xs text-slate-600 dark:text-slate-400"
             >
               <span className="font-mono text-slate-500 dark:text-slate-500 whitespace-nowrap">
-                {item.scheduledAt ? new Date(item.scheduledAt).toLocaleString() : '—'}
+                {item.scheduledAt ? new Date(item.scheduledAt).toLocaleString() : '-'}
               </span>
               <span className="text-slate-400 dark:text-slate-600" aria-hidden="true">
                 ·
@@ -661,7 +661,7 @@ function InstagramSection({
         try {
           const url = await getObjectUrl(`/social/carousel/${encodeURIComponent(slug)}/${i}.png`);
           // Fix 1: if cleanup ran while the fetch was in flight, revoke
-          // the newly-created blob URL immediately and bail — never push it.
+          // the newly-created blob URL immediately and bail - never push it.
           if (cancelled) {
             URL.revokeObjectURL(url);
             break;
@@ -778,6 +778,7 @@ function InstagramSection({
                   >
                     {!isLoading && !isError && url ? (
                       <img
+                        loading="lazy"
                         src={url}
                         alt={`Carousel slide ${i + 1} of ${total}: ${slide.headline}`}
                         className="w-40 h-40 object-cover rounded border border-slate-200 dark:border-[rgb(var(--border-400))]"
@@ -808,14 +809,14 @@ function InstagramSection({
         </div>
       )}
 
-      {/* Mark-posted row — reuses the same SchedulePanel which now includes instagram */}
+      {/* Mark-posted row - reuses the same SchedulePanel which now includes instagram */}
       {/* (SchedulePanel already renders the instagram row via SocialPlatform union) */}
     </div>
   );
 }
 
 /** One platform's generated copy, with the link + carousel blocks split out so
- *  each can be copied separately — the link must go in the first comment/reply,
+ *  each can be copied separately - the link must go in the first comment/reply,
  *  not the post body, so you never paste it into the post itself. */
 function SocialSection({
   heading,
@@ -1156,7 +1157,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`px-1.5 py-0.5 rounded text-micro bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700/50 underline underline-offset-2`}
-                  aria-label={`${platform} posted — view post`}
+                  aria-label={`${platform} posted - view post`}
                 >
                   posted
                   {entry?.postedAt ? ` ${new Date(entry.postedAt).toLocaleDateString()}` : ''}
@@ -1216,7 +1217,7 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
                 title="Planned post time (saved on blur)"
               />
 
-              {/* Approve / Unapprove — twitter + linkedin only */}
+              {/* Approve / Unapprove - twitter + linkedin only */}
               {canAutoPost && (status === 'pending' || status === 'failed') && (
                 <button
                   onClick={() => void handleApprove(platform)}
@@ -1231,14 +1232,14 @@ function SchedulePanel({ slug, refreshTrigger = 0 }: { slug: string; refreshTrig
                 <button
                   onClick={() => void handleUnapprove(platform)}
                   disabled={busy === platform}
-                  aria-label={`Unapprove ${platform} — return to pending`}
+                  aria-label={`Unapprove ${platform} - return to pending`}
                   className="px-2 py-0.5 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
                 >
                   Unapprove
                 </button>
               )}
 
-              {/* Manual mark-posted toggle — all platforms */}
+              {/* Manual mark-posted toggle - all platforms */}
               <button
                 onClick={() => void togglePosted(platform, status)}
                 disabled={busy === platform}

@@ -482,6 +482,7 @@ function InfostealerView({ data }: { data: unknown }): JSX.Element {
               {screenshot && (
                 <a href={screenshot} target="_blank" rel="noopener noreferrer" className="block mt-2">
                   <img
+                    loading="lazy"
                     src={screenshot}
                     alt={`${victim} leak screenshot`}
                     loading="lazy"
@@ -899,6 +900,7 @@ function CountryMapView(): JSX.Element | null {
             <div className="flex items-center justify-between gap-3 mb-1">
               <div className="flex items-center gap-2">
                 <img
+                  loading="lazy"
                   src={`https://images.ransomware.live/flags/${c.countryCode}.svg`}
                   alt={c.countryCode}
                   className="w-5 h-3.5 rounded-sm"

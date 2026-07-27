@@ -237,6 +237,7 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
             <div className="flex items-center gap-2 min-w-0">
               {b.logo && (
                 <img
+                  loading="lazy"
                   src={b.logo}
                   alt={b.name}
                   className="w-6 h-6 rounded object-contain shrink-0"
