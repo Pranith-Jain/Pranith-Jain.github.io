@@ -79,6 +79,26 @@ export interface QaVerdict {
   issues: string[];
 }
 
+/**
+ * Outcome of the generation-time reference HEAD-check. Surfaced in the
+ * admin so an operator can tell verified citations from ones kept on the
+ * benefit of the doubt ('unchecked' — a WAF block / 5xx / timeout that is
+ * NOT proof the page is gone) and from confirmed-broken links that were
+ * pruned before publish.
+ */
+export interface LinkVerification {
+  /** Total distinct reference URLs probed. */
+  checked: number;
+  /** Resolved live (2xx, not a soft-404). */
+  verified: number;
+  /** Could not be confirmed dead (403/429/5xx/timeout) — kept, not pruned. */
+  unchecked: number;
+  /** Confirmed dead (404/410/soft-404/NXDOMAIN) — pruned before publish. */
+  broken: number;
+  /** The pruned URLs (first few), for the admin tooltip. */
+  brokenUrls?: string[];
+}
+
 export interface Post {
   slug: string;
   type: CaseStudyType;
@@ -96,6 +116,8 @@ export interface Post {
   sources: PostSource[];
   quality?: QualityScore;
   qa?: QaVerdict;
+  /** Reference-link HEAD-check outcome, for the admin verification badge. */
+  linkVerification?: LinkVerification;
   /**
    * Optional snapshot of the original candidate's evidence, persisted
    * at generation time so the admin `/drafts/:slug/regenerate` (rewrite

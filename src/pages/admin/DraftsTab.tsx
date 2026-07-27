@@ -3,7 +3,7 @@ import { getJson, postJson, postJsonWithBody } from './adminApi';
 import { SearchFilter } from './SearchFilter';
 
 /**
- * Drafts queue — populated by the publisher when BLOG_APPROVAL_REQUIRED
+ * Drafts queue - populated by the publisher when BLOG_APPROVAL_REQUIRED
  * is on. Each draft is a fully-generated post sitting in `drafts:<slug>`
  * awaiting an admin approve, reject, or regenerate. Approve copies the
  * post to the public index + refreshes RSS; reject deletes it; regenerate
@@ -38,6 +38,13 @@ interface DraftPreview {
     iocs: Array<{ type: string; value: string }>;
     sources: Array<{ name: string; url: string }>;
     quality?: { total: number };
+    linkVerification?: {
+      checked: number;
+      verified: number;
+      unchecked: number;
+      broken: number;
+      brokenUrls?: string[];
+    };
   };
   bodyHtml: string;
 }
@@ -141,7 +148,7 @@ export default function DraftsTab() {
     const verb = mode === 'fix' ? 'Regenerate (fix)' : 'Regenerate (rewrite)';
     const confirmMsg =
       mode === 'fix'
-        ? `Run postProcess on "${slug}"? No LLM call — auto-linkifies References and refreshes QA.`
+        ? `Run postProcess on "${slug}"? No LLM call - auto-linkifies References and refreshes QA.`
         : `Regenerate "${slug}" with the LLM? This will cost one inference call${notes ? ' and use your notes' : ''}.`;
     if (!window.confirm(confirmMsg)) return;
     setActionBusy(`regen:${slug}`);
@@ -236,7 +243,7 @@ export default function DraftsTab() {
 
   return (
     <div>
-      {/* Gate-mode banner — explains the tab's purpose differently
+      {/* Gate-mode banner - explains the tab's purpose differently
           depending on whether BLOG_APPROVAL_REQUIRED is on or off. */}
       {approvalRequired === false && (
         <div className="mb-4 rounded border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 px-3 py-2 text-xs text-amber-700 dark:text-amber-300">
@@ -395,7 +402,7 @@ function DraftPreviewPanel({
   const [editBody, setEditBody] = useState(post.body);
   const [saving, setSaving] = useState(false);
 
-  // Re-sanitize the server-rendered HTML in the browser before injecting it —
+  // Re-sanitize the server-rendered HTML in the browser before injecting it -
   // defense-in-depth matching the public BlogPost path, rather than trusting
   // the server regex sanitizer as the only layer. DOMPurify is loaded lazily
   // (no static isomorphic-dompurify import per the project lint rule).
@@ -459,6 +466,7 @@ function DraftPreviewPanel({
             {post.iocs.length > 0 && <> · {post.iocs.length} IOCs</>}
             {post.sources.length > 0 && <> · {post.sources.length} sources</>}
           </p>
+          {post.linkVerification && <LinkVerifyBadge lv={post.linkVerification} />}
         </div>
         <div className="flex items-center gap-2">
           {!editing && (
@@ -581,6 +589,49 @@ function DraftPreviewPanel({
   );
 }
 
+/**
+ * Reference-link verification badge. Shows how many citations resolved
+ * live (verified), how many were kept on the benefit of the doubt
+ * (unchecked - a WAF block / 5xx / timeout, NOT proof the page is gone),
+ * and how many were confirmed dead and pruned before publish (broken).
+ * The broken URLs are listed in a tooltip so the admin can see exactly
+ * what was dropped.
+ */
+function LinkVerifyBadge({
+  lv,
+}: {
+  lv: { checked: number; verified: number; unchecked: number; broken: number; brokenUrls?: string[] };
+}) {
+  const pill = 'px-1.5 py-0.5 rounded border text-micro font-mono ';
+  return (
+    <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+      <span className="text-micro uppercase tracking-wider text-slate-400 mr-0.5">Links</span>
+      <span
+        className={pill + 'border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300'}
+        title={`${lv.verified} of ${lv.checked} reference URLs resolved live (2xx)`}
+      >
+        {lv.verified} verified
+      </span>
+      {lv.unchecked > 0 && (
+        <span
+          className={pill + 'border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300'}
+          title={`${lv.unchecked} URL(s) could not be confirmed dead (403/429/5xx/timeout) and were kept on the benefit of the doubt. Spot-check these.`}
+        >
+          {lv.unchecked} unchecked
+        </span>
+      )}
+      {lv.broken > 0 && (
+        <span
+          className={pill + 'border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-300'}
+          title={`Pruned before publish:\n${(lv.brokenUrls ?? []).join('\n')}`}
+        >
+          {lv.broken} broken (pruned)
+        </span>
+      )}
+    </div>
+  );
+}
+
 function SocialBtn({ label, busy, onClick }: { label: string; busy?: string; onClick: () => void }) {
   const base = 'px-2 py-1 rounded text-xs border ';
   if (busy === 'busy') {
@@ -608,8 +659,8 @@ function SocialBtn({ label, busy, onClick }: { label: string; busy?: string; onC
 
 /**
  * Compact "Regen" dropdown for the drafts table. Two visible options:
- *  - Fix (no LLM, free) — runs postProcess; auto-linkifies References
- *  - Rewrite (LLM) — opens a notes textarea, then re-issues generatePost
+ *  - Fix (no LLM, free) - runs postProcess; auto-linkifies References
+ *  - Rewrite (LLM) - opens a notes textarea, then re-issues generatePost
  * The dropdown lives inline in the Actions cell so the row stays a
  * single line on desktop and wraps gracefully on narrow viewports.
  */
@@ -663,7 +714,7 @@ function RegenMenu({
             >
               <div className="font-semibold">Fix (no LLM)</div>
               <div className="text-slate-500 dark:text-slate-400 text-micro mt-0.5">
-                postProcess — auto-linkify References, refresh QA. Free.
+                postProcess - auto-linkify References, refresh QA. Free.
               </div>
             </button>
             <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2">
@@ -721,7 +772,7 @@ function RegenInline({
           onClick={() => onRegen('fix')}
           disabled={disabled}
           className="px-3 py-1.5 border border-emerald-200 dark:border-emerald-800 rounded text-sm text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
-          title="Run postProcess (no LLM call) — auto-linkify References, refresh QA"
+          title="Run postProcess (no LLM call) - auto-linkify References, refresh QA"
         >
           {busy ? '…' : 'Regen (fix)'}
         </button>

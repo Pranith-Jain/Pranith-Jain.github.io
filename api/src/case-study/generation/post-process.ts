@@ -541,6 +541,33 @@ function fixClosingBoldParagraph(body: string): string {
   return body.replace(/^(\s*(?:[-+*]|\d+\.)\s.+\n)(\*\*[^*]+\*\*)/gm, '$1\n$2');
 }
 
+/**
+ * A hook that opens on the reader ("You run a SOC...", "Your team...",
+ * "If you're still...") is the single most common AI tell and the exact
+ * sameness the voice identity fights. Prompt-level bans are routinely
+ * ignored, so enforce deterministically.
+ *
+ * The hook is the preamble before the first `## ` heading. If its first
+ * sentence starts with a banned "You" form AND the preamble has a second
+ * sentence, drop the opener sentence — a cliche is better gone than
+ * published. A single-sentence "You" hook is left intact (stripping would
+ * empty the hook); that case is surfaced as a warning for the admin / the
+ * one-shot repair pass to handle.
+ */
+const YOU_HOOK_RE = /^(?:if you\b|you\b|your\b|yours\b|you're\b|you've\b|you'll\b|you'd\b)/i;
+
+function deyouHook(body: string): { body: string; detected: boolean; stripped: boolean } {
+  const firstHeading = body.search(/^##\s+/m);
+  if (firstHeading < 0) return { body, detected: false, stripped: false };
+  const preamble = body.slice(0, firstHeading);
+  const rest = body.slice(firstHeading);
+  const trimmed = preamble.trim();
+  if (!trimmed || !YOU_HOOK_RE.test(trimmed)) return { body, detected: false, stripped: false };
+  const sentences = trimmed.split(/(?<=[.!?])\s+/);
+  if (sentences.length < 2) return { body, detected: true, stripped: false };
+  return { body: `${sentences.slice(1).join(' ')}\n\n${rest}`, detected: true, stripped: true };
+}
+
 export function postProcess(input: PostProcessInput): PostProcessOutput {
   const errors: string[] = [];
 
@@ -616,6 +643,19 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
   }
   if (slopStrippedCount > 0) {
     errors.push(`warning: stripped ${slopStrippedCount} ai-slop sentence(s) (e.g. 'serves as a stark reminder')`);
+  }
+
+  // Step 9: "You"-hook guardrail. Drop a hook that opens addressing the
+  // reader ("You run a SOC...") — the dominant AI tell. Deterministic so it
+  // doesn't rely on the model honouring the prompt-level ban.
+  const deyou = deyouHook(body);
+  body = deyou.body;
+  if (deyou.detected) {
+    errors.push(
+      deyou.stripped
+        ? 'warning: hook opened addressing the reader ("You..."); stripped the opener sentence'
+        : 'warning: hook opens addressing the reader ("You..."); rewrite to lead with the entity, number, or finding'
+    );
   }
 
   if (!/^##\s/.test(body.trim())) {

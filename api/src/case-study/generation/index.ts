@@ -454,6 +454,18 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     sources: finalSources,
     quality: processed.quality,
     qa: processed.qa,
+    // Reference-link HEAD-check outcome, surfaced in the admin so an
+    // operator can see verified vs unchecked (kept on a maybe) vs pruned.
+    linkVerification:
+      refCheck.report.checked > 0
+        ? {
+            checked: refCheck.report.checked,
+            verified: refCheck.report.verified,
+            unchecked: refCheck.report.unchecked,
+            broken: refCheck.report.broken.length,
+            brokenUrls: refCheck.report.broken.slice(0, 5),
+          }
+        : undefined,
     // Snapshot the candidate evidence so an admin can later hit
     // POST /api/v1/admin/drafts/:slug/regenerate?mode=rewrite and have
     // the model see the same facts the original draft was grounded in.

@@ -128,6 +128,33 @@ describe('postProcess', () => {
     expect(out.errors.join('|')).toMatch(/ai-slop/i);
   });
 
+  it('strips a multi-sentence hook that opens addressing the reader ("You...")', () => {
+    const raw =
+      `You're probably seeing more LockBit activity in your feeds. The numbers say it's affiliate churn, not new compromise.\n\n` +
+      `## Summary\n\nReal analysis here.\n\n## References\n\n- https://x\n`;
+    const out = postProcess({ type: 'ransom', raw, factsText: 'LockBit' });
+    // The "You"-leading opener sentence is gone; the hook now leads with the subject.
+    expect(out.body).not.toMatch(/^You're probably/i);
+    expect(out.body).toMatch(/^The numbers say/);
+    expect(out.errors.join('|')).toMatch(/stripped the opener sentence/i);
+  });
+
+  it('warns but keeps a single-sentence "You" hook (stripping would empty it)', () => {
+    const raw = `You run a SOC and this matters.\n\n## Summary\n\nx\n\n## References\n\n- https://x\n`;
+    const out = postProcess({ type: 'intel', raw, factsText: 'x' });
+    expect(out.body).toMatch(/^You run a SOC/);
+    expect(out.errors.join('|')).toMatch(/rewrite to lead with the entity/i);
+  });
+
+  it('does not touch a hook that leads with the subject', () => {
+    const raw =
+      `LockBit posted 15 victims in 7 days. Same haul, second auction.\n\n` +
+      `## Summary\n\nx\n\n## References\n\n- https://x\n`;
+    const out = postProcess({ type: 'ransom', raw, factsText: 'LockBit' });
+    expect(out.body).toMatch(/^LockBit posted 15 victims/);
+    expect(out.errors.join('|')).not.toMatch(/addressing the reader/i);
+  });
+
   it('qaReview passes substantive, sourced, non-repetitive content', () => {
     const body = `${'A precise, specific sentence about the finding number ' + Math.random()} ${Array.from(
       { length: 60 },

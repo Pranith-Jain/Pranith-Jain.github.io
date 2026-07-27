@@ -34,6 +34,15 @@ export interface VerifyOptions {
    * Defaults to a Cloudflare DoH lookup.
    */
   dohResolve?: (host: string) => Promise<number | null>;
+  /**
+   * Opt-in deep soft-404 probe. A HEAD-200 never fetches a body, so a fabricated
+   * article slug on a host that answers HEAD 200 for ANY path sails through as
+   * 'ok'. When enabled, a HEAD-200 URL gets ONE extra ranged GET whose <title>
+   * is sniffed for not-found markers. OFF by default because it spends one
+   * extra subrequest per HEAD-200 URL (free-plan budget is 50/invocation) —
+   * callers enable it only when they can afford it, and the verdict is cached.
+   */
+  deepSoft404?: boolean;
 }
 
 // A current full-browser UA + Accept headers. Datacenter egress with a bot-ish
@@ -91,6 +100,33 @@ function isSoftRedirectToRoot(reqUrl: string, res: Response): boolean {
   }
 }
 
+/**
+ * Not-found markers in a page's <title>. The strongest, least-spoofable
+ * soft-404 signal: a real article about "404 errors" still has its own title
+ * first, whereas a custom not-found page puts the 404 phrase IN the title.
+ * Matched only inside `<title>…</title>` so body prose mentioning "not found"
+ * never false-positives.
+ */
+const SOFT_404_TITLE_RE =
+  /<title[^>]*>[^<]*(?:404|not[ -]?found|page (?:does not exist|could not be found)|content not found|article not found|no such page)[^<]*<\/title>/i;
+
+/**
+ * Content-based soft-404: read the (already-fetched, 2KB Range) body and
+ * return true when the <title> is a not-found page. Only ever called when a
+ * body is already in hand (the GET-fallback path) or when the caller opted
+ * into the extra deep GET, so it never adds an unexpected subrequest. Catches
+ * the fake-article-slug hallucination on WAF-fronted hosts (bleepingcomputer,
+ * thehackernews, vendor blogs).
+ */
+async function isSoft404Body(res: Response): Promise<boolean> {
+  try {
+    const slice = await res.text();
+    return SOFT_404_TITLE_RE.test(slice);
+  } catch {
+    return false;
+  }
+}
+
 function classifyStatus(status: number): LinkStatus {
   if (status >= 200 && status < 300) return 'ok';
   if (BROKEN_STATUSES.has(status)) return 'broken';
@@ -130,14 +166,37 @@ export async function verifyUrl(url: string, timeoutMs = 5000, opts: VerifyOptio
   const fetchImpl = opts.fetchImpl ?? fetch;
   try {
     let res = await doFetch(fetchImpl, url, 'HEAD', timeoutMs);
+    let usedGet = false;
     if (HEAD_RETRY_STATUSES.has(res.status)) {
       res = await doFetch(fetchImpl, url, 'GET', timeoutMs);
+      usedGet = true;
     }
     let linkStatus = classifyStatus(res.status);
     let reason = `http ${res.status}`;
     if (linkStatus === 'ok' && isSoftRedirectToRoot(url, res)) {
       linkStatus = 'broken';
       reason = 'soft-404 (redirect to host root)';
+    }
+    // Content-based soft-404: a 2xx whose <title> is a not-found page. Only
+    // reliable when a body was actually fetched (the GET-fallback path), so
+    // this never adds a subrequest to the common HEAD-200 case.
+    if (linkStatus === 'ok' && usedGet && (await isSoft404Body(res))) {
+      linkStatus = 'broken';
+      reason = 'soft-404 (not-found page body)';
+    }
+    // Opt-in deep soft-404: the HEAD-200 path fetched no body, so do ONE
+    // ranged GET and sniff its <title>. Catches fabricated slugs on hosts
+    // that answer HEAD 200 for any path. Off by default (extra subrequest).
+    if (linkStatus === 'ok' && !usedGet && opts.deepSoft404) {
+      try {
+        const getRes = await doFetch(fetchImpl, url, 'GET', timeoutMs);
+        if (getRes.status >= 200 && getRes.status < 300 && (await isSoft404Body(getRes))) {
+          linkStatus = 'broken';
+          reason = 'soft-404 (deep: not-found page body)';
+        }
+      } catch {
+        // An inconclusive deep GET leaves the HEAD verdict standing.
+      }
     }
     return {
       ok: res.ok,

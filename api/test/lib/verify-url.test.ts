@@ -100,6 +100,56 @@ describe('verifyUrl — classification', () => {
     expect(r.linkStatus).toBe('broken');
   });
 
+  it('detects a content soft-404 (HEAD 403 then GET 200 with a not-found title) as broken', async () => {
+    const { fn } = stubFetch((m) =>
+      m === 'HEAD'
+        ? resp(403)
+        : resp(200, { body: '<html><head><title>404 Page Not Found</title></head><body>Sorry.</body></html>' })
+    );
+    const r = await verifyUrl('https://waf.example/news/security/fake-slug', 3000, {
+      fetchImpl: fn,
+      dohResolve: noDoh,
+    });
+    expect(r.linkStatus).toBe('broken');
+    expect(r.reason).toMatch(/not-found page body/);
+  });
+
+  it('keeps a real article whose GET body has a normal title (no false positive)', async () => {
+    const { fn } = stubFetch((m) =>
+      m === 'HEAD'
+        ? resp(403)
+        : resp(200, {
+            body: '<html><head><title>LockBit leaks 12GB from hospital chain</title></head><body>...</body></html>',
+          })
+    );
+    const r = await verifyUrl('https://waf.example/news/security/lockbit-hospital', 3000, {
+      fetchImpl: fn,
+      dohResolve: noDoh,
+    });
+    expect(r.linkStatus).toBe('ok');
+  });
+
+  it('deep soft-404 (opt-in): HEAD 200 then a ranged GET whose title is a 404 page → broken', async () => {
+    const { fn, calls } = stubFetch((m) =>
+      m === 'HEAD' ? resp(200) : resp(200, { body: '<html><head><title>Page not found</title></head></html>' })
+    );
+    const r = await verifyUrl('https://x.example/news/anything-returns-200', 3000, {
+      fetchImpl: fn,
+      dohResolve: noDoh,
+      deepSoft404: true,
+    });
+    expect(r.linkStatus).toBe('broken');
+    expect(r.reason).toMatch(/deep/);
+    expect(calls.map((c) => c.method)).toEqual(['HEAD', 'GET']);
+  });
+
+  it('deep soft-404 is OFF by default: HEAD 200 stays ok without an extra GET', async () => {
+    const { fn, calls } = stubFetch(() => resp(200));
+    const r = await verifyUrl('https://x.example/a', 3000, { fetchImpl: fn, dohResolve: noDoh });
+    expect(r.linkStatus).toBe('ok');
+    expect(calls.map((c) => c.method)).toEqual(['HEAD']);
+  });
+
   it('sends a browser-like User-Agent on the request', async () => {
     const { fn, calls } = stubFetch(() => resp(200));
     await verifyUrl('https://x.example/a', 3000, { fetchImpl: fn, dohResolve: noDoh });

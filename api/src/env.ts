@@ -255,6 +255,12 @@ export interface Env {
   PHANTOMCANDLE_TOKEN?: string;
   /** Set "true" to disable AI blog illustrations (cost control). Default: on. */
   BLOG_AI_IMAGES_DISABLED?: string;
+  /** Set "true" to enable the deep soft-404 probe on reference URLs: a HEAD-200
+   *  URL gets one extra ranged GET whose <title> is sniffed for not-found
+   *  markers, catching fabricated article slugs on hosts that answer HEAD 200
+   *  for any path. OFF by default — it spends one extra subrequest per HEAD-200
+   *  URL (free-plan budget is 50/invocation); verdicts are KV-cached. */
+  DEEP_LINK_VERIFY?: string;
   /** BuiltWith Domain API key (paid). Optional — when unset, the
    *  /api/v1/builtwith tech-stack lookup falls back to a free, self-contained
    *  heuristic that fingerprints the target's live HTTP headers + HTML body.

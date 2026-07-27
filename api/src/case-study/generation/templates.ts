@@ -507,7 +507,9 @@ export function buildPrompt(input: BuildPromptInput): BuiltPrompt {
     sourcesBlock +
     `\n\nPOSSIBLE SECTIONS:\n${outline}\n\n` +
     `Write the case study in Markdown. Open with a strong hook paragraph ` +
-    `before the first section heading. Address the reader directly. ` +
+    `before the first section heading. Lead with the subject — the named entity, ` +
+    `the hard number, or the finding. NEVER open the hook with "You", "Your", or ` +
+    `"If you"; the reader is implied, never addressed. ` +
     `Apply your domain knowledge to elaborate on thin sections. ` +
     `If after elaboration a section still has nothing real to say, omit it. ` +
     (hasSources ? `End with a bold closing paragraph after ## References. ` : `End with a bold closing paragraph. `) +

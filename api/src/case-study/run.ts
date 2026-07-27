@@ -126,6 +126,9 @@ export interface CaseStudyEnv {
    *  unset, each published post gets an AI hero + in-body image (best-effort,
    *  falls back to the SVG hero on any failure). */
   BLOG_AI_IMAGES_DISABLED?: string;
+  /** Set "true" to opt into the deep soft-404 reference probe (one extra
+   *  ranged GET per HEAD-200 URL). Off by default for subrequest budget. */
+  DEEP_LINK_VERIFY?: string;
   /** Discord webhook URL for pipeline notifications. */
   DISCORD_WEBHOOK_URL?: string;
   /** Slack webhook URL for pipeline notifications. */
@@ -495,9 +498,17 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
         // Cache reference-URL liveness across publishes when a cache binding
         // exists — one KV blob read + write per generation, vs. re-probing
         // canonical hosts (nvd, cisa, …) on every post. Falls back to a live
-        // probe when KV_CACHE is unbound.
+        // probe when KV_CACHE is unbound. DEEP_LINK_VERIFY=true opts into the
+        // extra ranged-GET soft-404 probe (budget permitting); verdicts cache.
         verifyRefs: env.KV_CACHE
-          ? createBatchedCachedVerify({ kv: env.KV_CACHE, nowMs: n.getTime(), verify: liveVerifyUrls })
+          ? createBatchedCachedVerify({
+              kv: env.KV_CACHE,
+              nowMs: n.getTime(),
+              verify:
+                env.DEEP_LINK_VERIFY === 'true'
+                  ? (urls) => liveVerifyUrls(urls, { deepSoft404: true })
+                  : liveVerifyUrls,
+            })
           : undefined,
         // AI illustrations: on by default, disable via BLOG_AI_IMAGES_DISABLED.
         aiImages:

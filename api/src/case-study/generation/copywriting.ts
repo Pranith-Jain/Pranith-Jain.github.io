@@ -81,7 +81,8 @@ export const COPYWRITING_RULES =
   `- Simple and direct. No setup, straight to the point. About them, not you. Specific, never generic. One clear idea.\n` +
   `- Concrete and specific beats clever. "A defense contractor, an animal shelter, an aerospace firm. One group. One week." beats "You won't believe what happened."\n` +
   `- Vary hook form across pieces: a sharp contrast, a single hard number, a short fact triplet, a timeline jolt, a pattern call-out. Rotate. Do not reuse a form you'd use elsewhere.\n` +
-  `- BANNED openers (formulaic, instantly recognizable as AI): "You're probably...", "You're likely...", "You might be...", "You've probably...", "Chances are...", "Imagine...", "Have you ever...", "In a world where...", "Picture this", "Let that sink in".\n\n` +
+  `- BANNED openers (formulaic, instantly recognizable as AI): "You're probably...", "You're likely...", "You might be...", "You've probably...", "Chances are...", "Imagine...", "Have you ever...", "In a world where...", "Picture this", "Let that sink in".\n` +
+  `- BANNED hook first word: never open the hook with "You", "Your", "Yours", or "If you". Opening on the reader is the single most common AI tell and the exact thing that makes every post read the same. Open on the SUBJECT: the named entity, the hard number, the finding, the contrast. "LockBit posted 15 victims in 7 days." not "You've probably seen LockBit in your feeds."\n\n` +
   `**Write like a human analyst:**\n` +
   `- Contractions: you're, don't, we'll (never "do not").\n` +
   `- Vary rhythm deliberately: short punch, then a longer analytical sentence. Fragments are fine when they land.\n` +
@@ -166,6 +167,7 @@ export const QUALITY_CHECKS =
   `#QUALITY CHECKS\n\n` +
   `Before outputting, verify:\n` +
   `- The hook is built from THIS case's specific facts, not a reusable opener.\n` +
+  `- The hook's first word is NOT "You", "Your", or "If you" — it leads with the subject.\n` +
   `- No banned opener, no robotic filler ("Here's the thing"/"Look,"/"Honestly,").\n` +
   `- Structure is not a generic skeleton. It follows the angle the data suggested.\n` +
   `- No AI slop, no em-dashes, no semicolons.\n` +

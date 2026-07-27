@@ -168,3 +168,40 @@ describe('LinkedIn sparse-merge tidy', () => {
     expect(res.linkedin).toContain(`Short one.\n\n${long}\n\nShort two.`);
   });
 });
+
+describe('"You"-hook guardrail', () => {
+  const youHookBody = [
+    "You're probably seeing more Fortinet exploitation in your logs this week.",
+    'CVE-2026-20182 in the healthcare sector is the driver, and the pattern is affiliate churn, not new compromise.',
+    '',
+    '- CVE-2026-20182 patched across 3 Fortinet edge appliances',
+    '- 6 healthcare organisations hit, 3 in manufacturing',
+    '- Median dwell time before disclosure: 11 days',
+    '',
+    'If your IR retainer treats every extortion note as a fresh compromise, what does it actually hand off between attempts?',
+    '',
+    'FIRST COMMENT: https://pranithjain.qzz.io/blog/x',
+  ].join('\n');
+
+  it('flags a LinkedIn hook that opens addressing the reader', async () => {
+    const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    (runCompletion as any).mockImplementation(async () => ({ text: youHookBody, modelUsed: 'mock' }));
+    const res = await generateLinkedinContent(mockPost, {} as any, new Date());
+    const issues = res._validation?.quality?.issues ?? [];
+    expect(issues.join('|')).toMatch(/addressing the reader/i);
+  });
+
+  it('does not flag a hook that leads with the subject', async () => {
+    const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
+    const { runCompletion } = await import('../../../src/case-study/generation/ai-client');
+    const subjectLead = youHookBody.replace(
+      "You're probably seeing more Fortinet exploitation in your logs this week.",
+      'Fortinet exploitation spiked across healthcare this week.'
+    );
+    (runCompletion as any).mockImplementation(async () => ({ text: subjectLead, modelUsed: 'mock' }));
+    const res = await generateLinkedinContent(mockPost, {} as any, new Date());
+    const issues = res._validation?.quality?.issues ?? [];
+    expect(issues.join('|')).not.toMatch(/addressing the reader/i);
+  });
+});

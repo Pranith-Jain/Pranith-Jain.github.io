@@ -127,6 +127,25 @@ function tidyLinkedin(text: string): string {
 
 // ── Post-processing validation ──────────────────────────────────────────
 
+const YOU_HOOK_RE = /^(?:if you\b|you\b|your\b|yours\b|you're\b|you've\b|you'll\b|you'd\b)/i;
+
+/**
+ * True when the generated copy's hook (first content block) opens addressing
+ * the reader ("You...", "Your...", "If you..."). The link line ("FIRST
+ * COMMENT/REPLY:") and thread counters are ignored; the first remaining block
+ * is the hook for every platform (tweet 1 / LinkedIn fold / IG opener).
+ */
+function socialHookStartsWithYou(text: string): boolean {
+  const body = text.split(/FIRST (?:COMMENT|REPLY):/i)[0] ?? text;
+  const firstBlock =
+    body
+      .split(/\n\n+/)
+      .map((b) => b.trim())
+      .find((b) => b.length > 0) ?? '';
+  const firstLine = firstBlock.split('\n')[0]?.trim() ?? '';
+  return YOU_HOOK_RE.test(firstLine);
+}
+
 const TWITTER_HARD_LIMIT = 280;
 const LINKEDIN_HARD_LIMIT = 3000;
 const INSTAGRAM_HARD_LIMIT = 2200;
@@ -327,6 +346,15 @@ function validateSocial(
     issues.push(`${slop.length} AI-slop phrases`);
   }
 
+  // "You"-hook detection. A hook that opens addressing the reader ("You run
+  // a SOC...", "Your team...", "If you're still...") is the dominant AI tell
+  // and the exact sameness the voice identity fights. Flag it so the self-heal
+  // retry gets targeted feedback to rewrite the lead.
+  const youHook = socialHookStartsWithYou(text);
+  if (youHook) {
+    issues.push('hook opens addressing the reader ("You..."); lead with the named entity, hard number, or finding');
+  }
+
   // Reuse the concrete-specifics count from the issues check above (which
   // uses the same concreteWords list + version counting) so scoring always
   // agrees with the issues detection. 0 for Twitter (not checked).
@@ -345,6 +373,9 @@ function validateSocial(
   score -= Math.min(30, ungrounded.length * 15);
   score -= Math.min(15, stripped.length * 5);
   score -= Math.min(15, slop.length * 7);
+  // "You"-hook penalty — enough to drop a borderline post below the 60
+  // retry threshold so the model gets a targeted rewrite prompt.
+  if (youHook) score -= 15;
   // Hashtag overuse penalty (2026 algorithm)
   if (platform === 'linkedin') {
     const bodyOnly = text.split(/FIRST COMMENT:/i)[0] ?? text;
