@@ -145,6 +145,7 @@ import {
 } from './routes/cyberpulse';
 import { negotiationsHandler, negotiationTranscriptHandler } from './routes/negotiations';
 import { ransomwareLiveHandler } from './routes/ransomwarelive';
+import { kqlIndexHandler, kqlViewHandler } from './routes/ransomwarelive-kql';
 import { writeupsHandler } from './routes/writeups';
 import { cybercrimeHandler } from './routes/cybercrime';
 import { iocExplainHandler, iocRuleHandler } from './routes/ioc-verdict';
@@ -709,6 +710,10 @@ app.use(
 app.use('/api/v1/darkweb-osint/*', requestId);
 app.use('/api/v1/darkweb-osint/*', csrfGuard);
 app.use('/api/v1/darkweb-osint/*', looseValidation());
+app.use('/api/v1/darkweb-osint/*', requestLogger);
+// The crawl handler fans out up to ~50 subrequests (tor2web gateways); without
+// this it bypassed the global chain (mounted above it) and was unlimited.
+app.use('/api/v1/darkweb-osint/*', rateLimit);
 app.route('/api/v1', darkwebOsintRouter);
 
 // ── Daily Briefs (public, no auth — read-only intelligence briefs) ──────
@@ -1163,6 +1168,8 @@ app.get('/api/v1/breach-forum-status/deltas', breachForumStatusHandler);
 app.get('/api/v1/breach-coverage', breachCoverageHandler);
 app.get('/api/v1/negotiations', negotiationsHandler);
 app.get('/api/v1/negotiations/:group/:id', negotiationTranscriptHandler);
+app.get('/api/v1/rl/kql', kqlIndexHandler);
+app.get('/api/v1/rl/kql/:id', kqlViewHandler);
 app.get('/api/v1/rl/:resource', ransomwareLiveHandler);
 app.get('/api/v1/rl/:resource/:arg', ransomwareLiveHandler);
 app.get('/api/v1/breach-disclosures', breachDisclosuresHandler);

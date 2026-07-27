@@ -52,6 +52,20 @@ const RESOURCES: Record<string, ResourceSpec> = {
     path: (a) => (a ? `/yara/${encodeURIComponent(a)}` : '/yara'),
     ttl: 21600,
   },
+  // /iocs — groups with IoC breakdown; /iocs/{group} — actual indicator values.
+  iocs: {
+    path: (a) => (a ? `/iocs/${encodeURIComponent(a)}` : '/iocs'),
+    ttl: 21600,
+  },
+  // /ransomnotes — groups with note counts; /ransomnotes/{group} — note filenames.
+  ransomnotes: {
+    path: (a) => (a ? `/ransomnotes/${encodeURIComponent(a)}` : '/ransomnotes'),
+    ttl: 21600,
+  },
+  // /listsectors — unique sectors with victim counts.
+  listsectors: { path: () => '/listsectors', ttl: 21600 },
+  // /8k — SEC Form 8-K cybersecurity incident filings.
+  '8k': { path: () => '/8k', ttl: 3600 },
   csirt: { path: (a) => `/csirt/${encodeURIComponent(a ?? '')}`, ttl: 86400, argRequired: true },
 };
 
