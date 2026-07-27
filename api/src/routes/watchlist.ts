@@ -17,6 +17,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { kvBulkGetText } from '../lib/safe-catch';
 import { badRequest, internalError, notFound, serviceUnavailable } from '../lib/api-error';
 
 // ── Helpers ────────────────────────────────────────────────────────────
@@ -276,14 +277,21 @@ export async function watchlistDigestsListHandler(c: Context<{ Bindings: Env }>)
     const l1Cached = await caches.default.match(new Request(c.req.url));
     if (l1Cached) return c.json(await l1Cached.json());
 
-    // L2: KV list + per-key get (N+1, but limited to 20 keys)
+    // L2: KV bulk read (one subrequest per 100 keys, was N+1 per key)
     const listed = await kv.list<unknown>({ prefix: 'digest:weekly:', limit: 20 });
-    const digests = await Promise.all(
-      listed.keys.map(async (key) => {
-        const val = (await kv.get(key.name, 'json').catch(() => null)) as DigestResult | null;
-        return val;
-      })
+    const values = await kvBulkGetText(
+      kv,
+      listed.keys.map((k) => k.name)
     );
+    const digests = listed.keys.map((key): DigestResult | null => {
+      const raw = values.get(key.name) ?? null;
+      if (!raw) return null;
+      try {
+        return JSON.parse(raw) as DigestResult;
+      } catch {
+        return null;
+      }
+    });
 
     const result = {
       digests: digests.filter(Boolean).sort((a, b) => b!.generated_at.localeCompare(a!.generated_at)),

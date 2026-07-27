@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { safeNullLog } from '../lib/safe-catch';
+import { safeNullLog, kvBulkGetText } from '../lib/safe-catch';
 
 export type AssessmentStatus = 'draft' | 'review' | 'published' | 'archived';
 export type AssessmentType = 'actor' | 'campaign' | 'cve' | 'ransomware' | 'sector' | 'general';
@@ -61,17 +61,20 @@ async function loadAll(env: Env): Promise<Assessment[]> {
       }
     }
     const list = await kv.list({ prefix: KV_PREFIX + ':' });
-    const results = await Promise.all(
-      list.keys.map(async (key) => {
-        try {
-          const raw = await kv.get(key.name);
-          return raw ? (JSON.parse(raw) as Assessment) : null;
-        } catch (_catchErr) {
-          console.error('loadAll failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-          return null;
-        }
-      })
+    // One bulk read per 100 keys instead of one get per key.
+    const values = await kvBulkGetText(
+      kv,
+      list.keys.map((k) => k.name)
     );
+    const results = list.keys.map((key) => {
+      try {
+        const raw = values.get(key.name) ?? null;
+        return raw ? (JSON.parse(raw) as Assessment) : null;
+      } catch (_catchErr) {
+        console.error('loadAll failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        return null;
+      }
+    });
     const assessments: Assessment[] = results.filter((a): a is Assessment => a !== null);
     const sorted = assessments.sort((a, b) => b.created_at.localeCompare(a.created_at));
     if (cache && sorted.length > 0) {

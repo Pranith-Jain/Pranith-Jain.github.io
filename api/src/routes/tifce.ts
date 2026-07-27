@@ -3,7 +3,7 @@ import type { Env } from '../env';
 import type { D1Database } from '@cloudflare/workers-types';
 import { fetchIocCorrelation } from './ioc-correlation';
 import { fetchLiveIocs, type LiveIocsResponse, type LiveIoc, type LiveSource } from './live-iocs';
-import { safeNullLog } from '../lib/safe-catch';
+import { safeNullLog, kvBulkGetText } from '../lib/safe-catch';
 import { scoreAllFeeds, type FeedContribution, type TifceHistoryRow, type TifceResult } from '../lib/tifce';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 
@@ -256,26 +256,29 @@ async function loadDetectionFiredSet(env: Env): Promise<Set<string>> {
         ...(cursor ? { cursor } : {}),
       });
       const pageKeys = page.keys ?? [];
-      const pageResults = await Promise.all(
-        pageKeys.map(async (k) => {
-          scanned += 1;
-          if (scanned > SCAN_CAP) return null;
-          const raw = await kv.get(k.name);
-          if (!raw) return null;
-          try {
-            const parsed = JSON.parse(raw) as { iocs?: unknown; fired_at?: string };
-            const firedAt = typeof parsed.fired_at === 'string' ? Date.parse(parsed.fired_at) : 0;
-            if (firedAt && Date.now() - firedAt > 24 * 3_600_000) return null;
-            if (Array.isArray(parsed.iocs)) {
-              return parsed.iocs.filter((i): i is string => typeof i === 'string');
-            }
-            return null;
-          } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-            return null;
+      // Bulk-read this page's values — one subrequest per 100 keys instead of
+      // one get per key (was up to 2000 gets per invocation). Keys past SCAN_CAP
+      // are counted but not read, matching the old per-key cap check.
+      const remaining = Math.max(0, SCAN_CAP - scanned);
+      const keysToRead = pageKeys.slice(0, remaining).map((k) => k.name);
+      scanned += pageKeys.length;
+      const values = await kvBulkGetText(kv, keysToRead);
+      const pageResults = keysToRead.map((name): string[] | null => {
+        const raw = values.get(name) ?? null;
+        if (!raw) return null;
+        try {
+          const parsed = JSON.parse(raw) as { iocs?: unknown; fired_at?: string };
+          const firedAt = typeof parsed.fired_at === 'string' ? Date.parse(parsed.fired_at) : 0;
+          if (firedAt && Date.now() - firedAt > 24 * 3_600_000) return null;
+          if (Array.isArray(parsed.iocs)) {
+            return parsed.iocs.filter((i): i is string => typeof i === 'string');
           }
-        })
-      );
+          return null;
+        } catch (_catchErr) {
+          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          return null;
+        }
+      });
       for (const iocs of pageResults) {
         if (iocs) for (const i of iocs) set.add(i);
       }

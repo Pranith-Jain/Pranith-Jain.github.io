@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { safeNullLog } from '../lib/safe-catch';
+import { safeNullLog, kvBulkGetText } from '../lib/safe-catch';
 
 export type RiskLevel = 'none' | 'low' | 'medium' | 'high' | 'critical';
 export type RiskStatus = 'identified' | 'assessed' | 'treatment' | 'monitoring' | 'accepted' | 'closed';
@@ -106,16 +106,19 @@ async function loadAll(env: Env): Promise<RiskRegisterEntry[]> {
       }
     }
     const list = await kv.list({ prefix: KV_PREFIX + ':' });
-    const results = await Promise.all(
-      list.keys.map(async (key) => {
-        try {
-          const raw = await kv.get(key.name);
-          return raw ? (JSON.parse(raw) as RiskRegisterEntry) : null;
-        } catch {
-          return null;
-        }
-      })
+    // One bulk read per 100 keys instead of one get per key.
+    const values = await kvBulkGetText(
+      kv,
+      list.keys.map((k) => k.name)
     );
+    const results = list.keys.map((key) => {
+      try {
+        const raw = values.get(key.name) ?? null;
+        return raw ? (JSON.parse(raw) as RiskRegisterEntry) : null;
+      } catch {
+        return null;
+      }
+    });
     const entries = results.filter((e): e is RiskRegisterEntry => e !== null);
     const sorted = entries.sort(
       (a, b) => b.priority_score - a.priority_score || b.created_at.localeCompare(a.created_at)

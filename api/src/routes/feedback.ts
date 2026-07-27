@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { safeNullLog } from '../lib/safe-catch';
+import { safeNullLog, kvBulkGetText } from '../lib/safe-catch';
 
 export type FeedbackTarget = 'copilot' | 'briefing' | 'pir' | 'finding' | 'ioc' | 'assessment';
 export type FeedbackRating = 'useful' | 'not_useful' | 'actioned' | 'accurate' | 'inaccurate' | 'no_value';
@@ -132,17 +132,20 @@ async function loadAllFeedback(kv: KVNamespace): Promise<Feedback[]> {
   }
   const listResult = await kv.list({ prefix: KV_PREFIX + ':', limit: 1000 });
   const eligibleKeys = listResult.keys.slice(0, 500).filter((k) => !k.name.startsWith(KV_PREFIX + ':agg:'));
-  const results = await Promise.all(
-    eligibleKeys.map(async (key) => {
-      try {
-        const raw = await kv.get(key.name);
-        return raw ? (JSON.parse(raw) as Feedback) : null;
-      } catch (_catchErr) {
-        console.error('loadAllFeedback failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-        return null;
-      }
-    })
+  // One bulk read per 100 keys instead of one get per key (was up to 500 gets).
+  const values = await kvBulkGetText(
+    kv,
+    eligibleKeys.map((k) => k.name)
   );
+  const results = eligibleKeys.map((key) => {
+    try {
+      const raw = values.get(key.name) ?? null;
+      return raw ? (JSON.parse(raw) as Feedback) : null;
+    } catch (_catchErr) {
+      console.error('loadAllFeedback failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      return null;
+    }
+  });
   const feedbacks: Feedback[] = results.filter((f): f is Feedback => f !== null);
   feedbacks.sort((a, b) => b.created_at.localeCompare(a.created_at));
   safeNullLog(

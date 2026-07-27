@@ -301,25 +301,23 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               // Fail open: if the KV key is stale or missing, runCyberPulseIngestion
               // falls back to its own GraphQL fetches.
               let xAccountPosts: unknown[] | undefined;
-              if (env.KV_CACHE) {
-                try {
-                  const raw = await env.KV_CACHE.get('cp:warm:x_accounts', 'json');
-                  if (Array.isArray(raw) && raw.length > 0) xAccountPosts = raw as unknown[];
-                } catch {
-                  /* fail open — CyberPulse falls back to direct GraphQL */
-                }
-              }
-              // Read social and reddit from gp:warm KV slices (warmed by gp queue).
               let socialItems: unknown[] | undefined;
               let redditItems: unknown[] | undefined;
               if (env.KV_CACHE) {
+                // One bulk read for all three warm slices (was 3 separate gets).
+                // Fail open: a missing/stale slice leaves its value undefined and
+                // runCyberPulseIngestion falls back to its own GraphQL fetches.
+                let warm = new Map<string, unknown>();
                 try {
-                  const raw = await env.KV_CACHE.get('gp:warm:x', 'json');
-                  if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
-                    socialItems = (raw as { items: unknown[] }).items;
-                  }
+                  warm = await env.KV_CACHE.get(['cp:warm:x_accounts', 'gp:warm:x', 'gp:warm:reddit'], 'json');
                 } catch {
-                  /* fail open — fallback to direct fetch */
+                  /* fail open — CyberPulse falls back to direct GraphQL */
+                }
+                const xa = warm.get('cp:warm:x_accounts');
+                if (Array.isArray(xa) && xa.length > 0) xAccountPosts = xa as unknown[];
+                const gx = warm.get('gp:warm:x');
+                if (gx && typeof gx === 'object' && 'items' in (gx as Record<string, unknown>)) {
+                  socialItems = (gx as { items: unknown[] }).items;
                 }
                 if (!socialItems) {
                   try {
@@ -329,13 +327,9 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                     /* fail open */
                   }
                 }
-                try {
-                  const raw = await env.KV_CACHE.get('gp:warm:reddit', 'json');
-                  if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
-                    redditItems = (raw as { items: unknown[] }).items;
-                  }
-                } catch {
-                  /* fail open */
+                const gr = warm.get('gp:warm:reddit');
+                if (gr && typeof gr === 'object' && 'items' in (gr as Record<string, unknown>)) {
+                  redditItems = (gr as { items: unknown[] }).items;
                 }
                 if (!redditItems) {
                   try {
@@ -1051,14 +1045,24 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // KV-only reads — no direct fetches (preserves subrequest budget).
           // Queue consumer (gp:warm / cp:warm) writes these keys before the
           // cron reads them; if a key is cold it's skipped with a warning.
+          // One bulk read for all four warm slices (was 4 separate gets).
+          let warm = new Map<string, unknown>();
           try {
-            const raw = await env.KV_CACHE.get('cp:warm:x_accounts', 'json');
+            warm = await env.KV_CACHE.get(
+              ['cp:warm:x_accounts', 'gp:warm:x', 'gp:warm:reddit', 'gp:warm:telegram'],
+              'json'
+            );
+          } catch {
+            /* fail open */
+          }
+          try {
+            const raw = warm.get('cp:warm:x_accounts');
             if (Array.isArray(raw) && raw.length > 0) xAccountPosts = raw as unknown[];
           } catch {
             /* fail open */
           }
           try {
-            const raw = await env.KV_CACHE.get('gp:warm:x', 'json');
+            const raw = warm.get('gp:warm:x');
             if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
               const items = (raw as { items: unknown[] }).items;
               if (items.length > 0) {
@@ -1073,7 +1077,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             /* fail open */
           }
           try {
-            const raw = await env.KV_CACHE.get('gp:warm:reddit', 'json');
+            const raw = warm.get('gp:warm:reddit');
             if (raw && typeof raw === 'object' && 'items' in (raw as Record<string, unknown>)) {
               const items = (raw as { items: unknown[] }).items;
               if (items.length > 0) {
@@ -1088,7 +1092,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             /* fail open */
           }
           try {
-            const kvTg = (await env.KV_CACHE.get('gp:warm:telegram', 'json')) as TelegramFeedResponse | null;
+            const kvTg = warm.get('gp:warm:telegram') as TelegramFeedResponse | null;
             if (kvTg?.items?.length) {
               telegramItems = kvTg.items;
               console.log(JSON.stringify({ job: 'cp-30-telegram', status: 'kv_hit', count: telegramItems.length }));

@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { requireAdmin } from '../lib/admin-auth';
-import { safeNullLog } from '../lib/safe-catch';
+import { safeNullLog, kvBulkGetText } from '../lib/safe-catch';
 
 const CUSTOM_CHANNELS_KV_KEY = 'tg:custom-channels:v1';
 
@@ -1132,8 +1132,13 @@ export async function telegramBotStatusHandler(c: Context<{ Bindings: Env }>): P
   if (kv) {
     try {
       const map = await getBotChannelMap(kv);
+      // One bulk read per 100 channels instead of one get per channel.
+      const postValues = await kvBulkGetText(
+        kv,
+        [...map.values()].map((chatId) => `tg:bot-posts:${chatId}`)
+      );
       for (const [handle, chatId] of map) {
-        const raw = await kv.get(`tg:bot-posts:${chatId}`).catch(() => null);
+        const raw = postValues.get(`tg:bot-posts:${chatId}`) ?? null;
         if (raw) {
           JSON.parse(raw);
           cachedChannels.push({ handle, chat_id: chatId });

@@ -39,6 +39,35 @@ export async function kvGetSafe<T>(
   }
 }
 
+/** Workers KV bulk reads accept at most 100 keys per call. */
+const KV_BULK_CHUNK = 100;
+
+/**
+ * Bulk-read many KV keys using the fewest possible subrequests.
+ *
+ * KV's batch `get(keys[])` counts as ONE subrequest regardless of key count
+ * (vs N for a `Promise.all` of individual gets) but caps at 100 keys per call,
+ * so this chunks the input and merges the per-chunk Maps. Values are returned
+ * as raw text so callers keep their own `JSON.parse` + per-key error isolation
+ * — a malformed value can never fail the whole batch the way a bulk
+ * `get(…, 'json')` could. An empty key list returns an empty Map with zero
+ * subrequests; missing keys map to null. A failed chunk fails soft (its keys
+ * become null) rather than aborting the whole read, matching `kvGetSafe`.
+ */
+export async function kvBulkGetText(ns: KVNamespace, keys: string[]): Promise<Map<string, string | null>> {
+  const out = new Map<string, string | null>();
+  for (let i = 0; i < keys.length; i += KV_BULK_CHUNK) {
+    const chunk = keys.slice(i, i + KV_BULK_CHUNK);
+    try {
+      const res = await ns.get(chunk, 'text');
+      for (const [k, v] of res) out.set(k, v);
+    } catch {
+      for (const k of chunk) if (!out.has(k)) out.set(k, null);
+    }
+  }
+  return out;
+}
+
 /** Wrap a KV.put + .catch(() => {}) pattern with optional error logging. */
 export async function kvPutSafe(
   ns: KVNamespace,

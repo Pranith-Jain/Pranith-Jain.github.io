@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { kvBulkGetText } from '../lib/safe-catch';
 
 export interface RansomScenario {
   id: string;
@@ -117,9 +118,14 @@ async function loadAll(env: Env): Promise<RansomScenario[]> {
     if (cached) return JSON.parse(cached) as RansomScenario[];
     const idsRaw = await kv.get(`${KV_PREFIX}:index`);
     const ids: string[] = idsRaw ? JSON.parse(idsRaw) : [];
+    // One bulk read per 100 ids instead of one get per id.
+    const values = await kvBulkGetText(
+      kv,
+      ids.map((id) => `${KV_PREFIX}:${id}`)
+    );
     const results: RansomScenario[] = [];
     for (const id of ids) {
-      const raw = await kv.get(`${KV_PREFIX}:${id}`);
+      const raw = values.get(`${KV_PREFIX}:${id}`) ?? null;
       if (raw) results.push(JSON.parse(raw) as RansomScenario);
     }
     await kv.put(INDEX_CACHE_KEY, JSON.stringify(results), { expirationTtl: INDEX_CACHE_TTL });

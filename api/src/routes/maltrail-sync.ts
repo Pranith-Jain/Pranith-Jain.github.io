@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { kvBulkGetText } from '../lib/safe-catch';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 
 /**
@@ -236,23 +237,25 @@ export async function listSkeletonActorsHandler(c: Context<{ Bindings: Env }>): 
     });
   }
 
-  // Cap the per-slug fan-out: on a cold cache this is one KV get per slug, and
-  // an unbounded index (the sync job appends over time) would blow the
-  // Free-plan 50-subrequest cap. Read at most 45 (index read + cache.match
-  // already consumed a couple). The Cache API front keeps this off the hot path.
+  // Cap the per-slug fan-out at MAX_READS. KV bulk reads make this a single
+  // subrequest (was one get per slug), so the cap is no longer needed for the
+  // Free-plan 50-subrequest budget — it's retained as a response-size policy
+  // and can now be raised. The Cache API front keeps this off the hot path.
   const MAX_READS = 45;
   const slice = slugs.slice(0, MAX_READS);
-  const records = await Promise.all(
-    slice.map(async (slug) => {
-      try {
-        const raw = await kv.get(`${SKELETON_KEY_PREFIX}${slug}`);
-        return raw ? (JSON.parse(raw) as SkeletonActor) : null;
-      } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-        return null;
-      }
-    })
+  const values = await kvBulkGetText(
+    kv,
+    slice.map((slug) => `${SKELETON_KEY_PREFIX}${slug}`)
   );
+  const records = slice.map((slug) => {
+    try {
+      const raw = values.get(`${SKELETON_KEY_PREFIX}${slug}`) ?? null;
+      return raw ? (JSON.parse(raw) as SkeletonActor) : null;
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      return null;
+    }
+  });
 
   const items = records.filter((r): r is SkeletonActor => r !== null);
   const response = c.json(
