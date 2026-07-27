@@ -342,9 +342,8 @@ export default function XWatch(): JSX.Element {
   }, [active, sinceDays, includeReplies, includePinned, authStatus?.configured]);
 
   // Probe every handle on mount + whenever the window/auth changes so
-  // inactive handles can be hidden by default. Each probe hits the same
-  // /api/v1/x-firehose endpoint that the active-view uses, so the 30-min
-  // per-handle edge cache makes click-through instant after first probe.
+  // inactive handles can be hidden by default. Uses the server-side
+  // batch endpoint which staggers upstream X calls to avoid rate limits.
   useEffect(() => {
     if (authStatus && !authStatus.configured) return;
     const allHandles = Array.from(new Set([...SECTIONS.flatMap((s) => s.handles), ...customHandles]));
@@ -356,41 +355,44 @@ export default function XWatch(): JSX.Element {
       for (const h of allHandles) next[h] = h === active ? prev[h] : undefined;
       return next;
     });
-    Promise.allSettled(
-      allHandles.map(async (h) => {
-        const qs = new URLSearchParams({
-          handle: h,
-          count: '5',
-          since_days: String(sinceDays),
-          include_replies: includeReplies ? '1' : '0',
-          include_pinned: '0',
-        });
-        const r = await fetch(`/api/v1/x-firehose?${qs.toString()}`, {
-          signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
-        });
-        if (!r.ok) return { h, count: 0 };
-        const body = (await r.json()) as FirehoseResponse;
-        return { h, count: body.items?.length ?? 0 };
-      })
-    ).then((results) => {
-      if (cancelled) return;
-      setActivity((prev) => {
-        const next = { ...prev };
-        for (const r of results) {
-          if (r.status === 'fulfilled') next[r.value.h] = r.value.count;
+
+    const CHUNK = 40;
+    const chunks: string[][] = [];
+    for (let i = 0; i < allHandles.length; i += CHUNK) chunks.push(allHandles.slice(i, i + CHUNK));
+
+    (async () => {
+      const merged: Record<string, number | undefined> = {};
+      for (const chunk of chunks) {
+        if (cancelled) return;
+        try {
+          const r = await fetch('/api/v1/x-firehose/probe-batch', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ handles: chunk, since_days: sinceDays }),
+            signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(120_000)]),
+          });
+          if (!r.ok) continue;
+          const body = (await r.json()) as {
+            results: Record<string, { count: number; status: string }>;
+          };
+          for (const [h, v] of Object.entries(body.results)) {
+            if (v.status === 'ok') merged[h] = v.count;
+            else if (v.status === 'not_found') merged[h] = 0;
+            // rate_limited / error → leave undefined (unknown, not inactive)
+          }
+        } catch {
+          /* network error — leave handles as unknown */
         }
-        return next;
-      });
+      }
+      if (cancelled) return;
+      setActivity((prev) => ({ ...prev, ...merged }));
       setProbing(false);
-    });
+    })();
+
     return () => {
       cancelled = true;
       ctrl.abort();
     };
-    // Re-probe when window/replies/auth changes. customHandles changes
-    // intentionally NOT in dep list - adding a custom handle probes that
-    // single handle via the load() side-effect, no need to re-fire all
-    // 41 probes. load is a closure (excluded for same reason as above).
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sinceDays, includeReplies, authStatus?.configured]);
 
@@ -483,7 +485,11 @@ export default function XWatch(): JSX.Element {
                   · {sec.handles.length - inactive.length}/{sec.handles.length} active
                 </span>
                 {probing && (
-                  <Loader2 size={9} className="inline ml-1 animate-spin text-slate-400" aria-label="probing" />
+                  <Loader2
+                    size={9}
+                    className="inline ml-1 animate-spin text-slate-500 dark:text-slate-400"
+                    aria-label="probing"
+                  />
                 )}
               </h3>
               <div className="flex flex-wrap gap-1.5">
@@ -519,7 +525,7 @@ export default function XWatch(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setShowInactive(true)}
-                    className="text-micro font-mono px-1.5 py-1 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                    className="text-micro font-mono px-1.5 py-1 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                     title={`Hidden - no posts in last ${sinceDays}d: ${inactive.map((h) => '@' + h).join(', ')}`}
                   >
                     +{inactive.length} inactive
@@ -533,7 +539,7 @@ export default function XWatch(): JSX.Element {
           <button
             type="button"
             onClick={() => setShowInactive(false)}
-            className="text-micro font-mono px-2 py-0.5 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+            className="text-micro font-mono px-2 py-0.5 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
           >
             hide inactive again
           </button>
@@ -557,7 +563,7 @@ export default function XWatch(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => removeCustom(h)}
-                    className="text-slate-400 hover:text-rose-600"
+                    className="text-slate-500 dark:text-slate-400 hover:text-rose-600"
                     title="remove from watchlist"
                   >
                     <XIcon size={10} />
@@ -569,7 +575,7 @@ export default function XWatch(): JSX.Element {
         )}
         <div className="flex items-center gap-2 flex-wrap">
           <div className="flex items-center gap-1 flex-1 min-w-[200px]">
-            <span className="text-slate-400">@</span>
+            <span className="text-slate-500 dark:text-slate-400">@</span>
             <input
               type="text"
               value={addInput}
@@ -666,7 +672,10 @@ export default function XWatch(): JSX.Element {
           </div>
           <div className="flex items-center gap-2">
             <div className="relative">
-              <Search size={11} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search
+                size={11}
+                className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              />
               <input
                 type="search"
                 value={filter}
@@ -748,7 +757,6 @@ export default function XWatch(): JSX.Element {
                         src={t.author.avatar_url}
                         alt={t.author.name}
                         className="w-9 h-9 rounded-full shrink-0"
-                        loading="lazy"
                       />
                     )}
                     <div className="min-w-0 flex-1">
@@ -839,7 +847,7 @@ export default function XWatch(): JSX.Element {
         )}
 
         {data && (
-          <p className="mt-4 text-micro font-mono text-slate-400 text-center">
+          <p className="mt-4 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
             refreshed {formatTimeAgo(data.generated_at)}
           </p>
         )}

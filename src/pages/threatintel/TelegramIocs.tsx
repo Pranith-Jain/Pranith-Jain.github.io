@@ -212,7 +212,7 @@ export default function TelegramIocs(): JSX.Element {
 
   // Filtered cross-source view: IOCs that include `telegram-leak` in
   // their source list. These are the highest-signal items in the
-  // consensus — Telegram AND at least one other source agreed on them.
+  // consensus - Telegram AND at least one other source agreed on them.
   const telegramCorrelated = useMemo(() => {
     if (!correlation) return [];
     const buckets: Array<{ kind: 'ip' | 'url' | 'domain' | 'hash'; list: CorrelatedIoc[] }> = [
@@ -262,7 +262,7 @@ export default function TelegramIocs(): JSX.Element {
         <KpiCard
           icon={<Shield size={14} />}
           label="Telegram-leak in consensus"
-          value={corrLoading ? '…' : tgSource ? `${tgSource.count} rows` : '—'}
+          value={corrLoading ? '…' : tgSource ? `${tgSource.count} rows` : '-'}
           sub={`${sourceCount} sources total · 7-day window`}
           tone="text-rose-700 dark:text-rose-300"
         />
@@ -283,7 +283,7 @@ export default function TelegramIocs(): JSX.Element {
             setLeakRefreshKey((k) => k + 1);
             setCorrRefreshKey((k) => k + 1);
           }}
-          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
         >
           <RefreshCw size={11} /> refresh both
         </button>
@@ -452,7 +452,7 @@ function PipelineView({
                         href={sanitizeUrl(row.message_link)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                        className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
                       >
                         source <ExternalLink size={9} />
                       </a>
@@ -583,10 +583,7 @@ function SourcesView({
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]'
             }`}
           >
-            <span className="truncate">
-              {s.id === 'telegram-leak' && <span className="text-rose-600 dark:text-rose-400 mr-1">★</span>}
-              {s.id}
-            </span>
+            <span className="truncate">{s.id}</span>
             <span className="text-micro font-mono text-slate-500 shrink-0">
               {s.ok ? `${s.count.toLocaleString()} items` : 'unavailable'}
             </span>

@@ -782,7 +782,6 @@ function InstagramSection({
                         src={url}
                         alt={`Carousel slide ${i + 1} of ${total}: ${slide.headline}`}
                         className="w-40 h-40 object-cover rounded border border-slate-200 dark:border-[rgb(var(--border-400))]"
-                        loading="lazy"
                       />
                     ) : (
                       // Fix 4: distinct aria-label for errored vs loading slides;
@@ -793,7 +792,7 @@ function InstagramSection({
                           isError ? `Slide ${i + 1} of ${total} failed to load` : `Loading slide ${i + 1} of ${total}`
                         }
                       >
-                        <span aria-hidden="true" className="text-xs text-slate-400 dark:text-slate-500">
+                        <span aria-hidden="true" className="text-xs text-slate-500 dark:text-slate-400">
                           {isError ? 'err' : '…'}
                         </span>
                       </div>

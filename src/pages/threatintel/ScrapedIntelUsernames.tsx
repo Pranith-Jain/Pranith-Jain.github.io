@@ -62,7 +62,6 @@ function ForumLogo({ logoUrl, forum }: { logoUrl?: string; forum: string }) {
       src={logoUrl}
       alt={`${forum} logo`}
       className="w-4 h-4 rounded object-contain shrink-0"
-      loading="lazy"
       onError={(e) => {
         (e.target as HTMLImageElement).style.display = 'none';
       }}
@@ -185,7 +184,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
       <form onSubmit={submit} className="surface-card p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
             <input
               type="search"
               value={input}
@@ -199,7 +198,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
               <button
                 type="button"
                 onClick={() => setInput('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600"
               >
                 <X size={14} />
               </button>
@@ -340,7 +339,9 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                       <div className="w-20 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                         <div className="h-full bg-rose-500 rounded-full" style={{ width: `${pct}%` }} />
                       </div>
-                      <span className="text-mini font-mono text-slate-400 w-8 text-right">{count}</span>
+                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400 w-8 text-right">
+                        {count}
+                      </span>
                     </div>
                   );
                 })}
@@ -356,7 +357,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                   ? `"${data.query}" was seen across ${topForums.length} forum${topForums.length === 1 ? '' : 's'} in the ScrapedIntel corpus of 3M+ scraped records.`
                   : `No matches found in the ScrapedIntel corpus.`}
               </p>
-              <p className="text-xs text-slate-400 mt-2">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
                 Corpus:{' '}
                 {data.source_url ? (
                   <a

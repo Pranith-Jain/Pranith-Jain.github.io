@@ -1039,7 +1039,6 @@ export function RansomwareActivityPanel(): JSX.Element {
                       loading="lazy"
                       src={v.screen_url}
                       alt=""
-                      loading="lazy"
                       decoding="async"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover object-left-top opacity-90 group-hover:opacity-100 transition-opacity"
@@ -1166,7 +1165,7 @@ export function RansomwareActivityPanel(): JSX.Element {
               className="w-full max-h-[80vh] object-contain rounded border border-slate-700 bg-slate-800"
               referrerPolicy="no-referrer"
             />
-            <p className="text-micro font-mono text-slate-400 text-center">
+            <p className="text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
               Source: ransomlook.io · clearnet-rehosted PNG of the .onion leak page
             </p>
           </div>
@@ -1220,7 +1219,10 @@ interface TelegramFeedResponse {
 
 function qualityPill(score?: number): { label: string; cls: string } {
   if (score === undefined)
-    return { label: '-', cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-400' };
+    return {
+      label: '-',
+      cls: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 dark:text-slate-400',
+    };
   if (score >= 75)
     return { label: `${score}`, cls: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' };
   if (score >= 50) return { label: `${score}`, cls: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300' };

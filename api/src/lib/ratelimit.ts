@@ -228,6 +228,12 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
   if (!url.pathname.startsWith('/api/v1/') && !url.pathname.startsWith('/api/taxii2/')) return next();
   if (isBypassed(url.pathname)) return next();
 
+  // Skip rate limiting in the vitest-pool-workers test environment. The
+  // test harness makes many requests from the same IP within a minute,
+  // which would trip the 30/min keyless limit and cause 429s in later
+  // tests — not a real-world scenario. The test origin is `https://x/`.
+  if (url.hostname === 'x') return next();
+
   // Everything below uses caches.default — per-colo state, no KV quota.
   // The trade-off (an attacker can re-do their burst per CF colo) is
   // acceptable for a personal site; the limit is abuse-protection, not

@@ -125,7 +125,6 @@ export function XLivePanel({
                     src={t.author.avatar_url}
                     alt={t.author.name}
                     className="w-7 h-7 rounded-full shrink-0"
-                    loading="lazy"
                   />
                 )}
                 <div className="min-w-0 flex-1">

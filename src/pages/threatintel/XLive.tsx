@@ -169,7 +169,7 @@ export default function XLive(): JSX.Element {
           </select>
         </label>
         <div className="relative flex-1 min-w-[200px]">
-          <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="search"
             value={search}
@@ -302,7 +302,6 @@ export default function XLive(): JSX.Element {
                       src={t.author.avatar_url}
                       alt={t.author.name}
                       className="w-9 h-9 rounded-full shrink-0"
-                      loading="lazy"
                     />
                   )}
                   <div className="min-w-0 flex-1">
@@ -397,7 +396,7 @@ export default function XLive(): JSX.Element {
       )}
 
       {data && (
-        <p className="mt-6 text-micro font-mono text-slate-400 text-center">
+        <p className="mt-6 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
           {data.stale && <span className="text-amber-500 dark:text-amber-400">stale · </span>}
           source: TweetFeed ({data.total_status_ids_seen} status IDs seen) × fxtwitter ({data.enriched_count} enriched
           {data.enrichment_failures != null && data.enrichment_failures > 0
