@@ -29,13 +29,13 @@ const DATABASES: ReadonlyArray<BreachDb> = [
   {
     name: 'Lunar',
     url: 'https://lunarcyber.com/breach-catalog/',
-    desc: 'Webz.io’s breach-monitoring platform — continuous ingestion from breach dumps and infostealer logs. Free Community tier exposes real-time credential + cookie exposure; Pro adds dashboards and automation.',
+    desc: 'Webz.io’s breach-monitoring platform - continuous ingestion from breach dumps and infostealer logs. Free Community tier exposes real-time credential + cookie exposure; Pro adds dashboards and automation.',
     tier: 'freemium-api',
   },
   {
     name: 'Flawtrack',
     url: 'https://www.flawtrack.com/scan',
-    desc: 'Free dark-web credential scanner. 2.2B+ leaked credentials, 33M+ compromised devices. Search by email, company domain, or service URL — no signup.',
+    desc: 'Free dark-web credential scanner. 2.2B+ leaked credentials, 33M+ compromised devices. Search by email, company domain, or service URL - no signup.',
     tier: 'free-check',
   },
   {
@@ -53,7 +53,7 @@ const DATABASES: ReadonlyArray<BreachDb> = [
   {
     name: 'XposedOrNot',
     url: 'https://xposedornot.com',
-    desc: 'Open-source breach checker — email + password + domain + CXO dashboard. 835M+ exposed passwords. Public API, no key required. Mirrored into this site’s /dfir/breach backend.',
+    desc: 'Open-source breach checker - email + password + domain + CXO dashboard. 835M+ exposed passwords. Public API, no key required. Mirrored into this site’s /dfir/breach backend.',
     tier: 'free-check',
   },
   {
@@ -80,6 +80,12 @@ const DATABASES: ReadonlyArray<BreachDb> = [
     desc: 'Mozilla’s consumer-facing wrapper over HIBP. Free email check with re-check alerts.',
     tier: 'free-check',
   },
+  {
+    name: 'BreachVIP',
+    url: 'https://breach.vip',
+    desc: 'Free database search engine with 10B+ records across 1000+ breach datasets. Search by email, username, domain, IP, phone, password, and more. Keyless REST API. Mirrored into this site’s /dfir/breach backend.',
+    tier: 'free-check',
+  },
 ];
 
 const TIER_STYLE: Record<BreachDb['tier'], string> = {
@@ -97,7 +103,7 @@ const TIER_LABEL: Record<BreachDb['tier'], string> = {
 /**
  * Static catalog of legitimate, well-known breach databases. We can't proxy
  * most of them (key required or ToS prohibits redistribution), so this is
- * a cross-reference block — analysts use the embedded checker for the
+ * a cross-reference block - analysts use the embedded checker for the
  * fast path, then pivot here when they need broader coverage.
  */
 export function BreachDatabasesPanel({ initialQuery }: { initialQuery?: string }): JSX.Element {
@@ -112,6 +118,7 @@ export function BreachDatabasesPanel({ initialQuery }: { initialQuery?: string }
     if (db.name === 'XposedOrNot' && trimmed.includes('@')) return `https://xposedornot.com/email-report/${q}`;
     if (db.name === 'DataBreach.com') return `https://databreach.com/?q=${q}`;
     if (db.name === 'DeHashed') return `https://dehashed.com/search?query=${q}`;
+    if (db.name === 'BreachVIP') return `https://breach.vip/?term=${q}`;
     return db.url;
   };
 
@@ -125,7 +132,7 @@ export function BreachDatabasesPanel({ initialQuery }: { initialQuery?: string }
         <span className="text-xs font-mono text-slate-500">{DATABASES.length} sources</span>
       </div>
       <p className="text-sm text-muted mb-4 max-w-3xl">
-        For deeper coverage beyond what this tool can check directly. Each link opens an external search — credentials
+        For deeper coverage beyond what this tool can check directly. Each link opens an external search - credentials
         and ToS apply.{trimmed && ' Where supported, the link is pre-filled with your query.'}
       </p>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

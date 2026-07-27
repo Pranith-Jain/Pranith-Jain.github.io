@@ -1,5 +1,6 @@
 import { SELF } from 'cloudflare:test';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { withTestApiKey } from '../test-helpers';
 
 beforeEach(() => {
   vi.restoreAllMocks();
@@ -344,6 +345,83 @@ describe('GET /api/v1/breach/email', () => {
     // positive weights (TLD/domain/MX/syntax) all stay at 0.
     expect(body.verification.score).toBe(15);
   });
+
+  it('surfaces BreachVIP results grouped by breach source', async () => {
+    let breachVipCalled = false;
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+      const url = String(input);
+      if (url === 'https://breach.vip/api/search') {
+        breachVipCalled = true;
+        return new Response(
+          JSON.stringify({
+            results: [
+              { source: 'Dropbox', email: 'a@example.com', password: 'x' },
+              { source: 'Dropbox', email: 'b@example.com', password: 'y' },
+              { source: 'LinkedIn', email: 'a@example.com', password: 'z' },
+            ],
+          }),
+          { status: 200, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+      // Other upstreams report nothing.
+      return new Response(JSON.stringify({ ExposedBreaches: null }), { status: 200 });
+    });
+    const fetchAuthed = await withTestApiKey();
+    const r = await fetchAuthed('https://x/api/v1/breach/email?email=a@example.com');
+    expect(r.status).toBe(200);
+    expect(breachVipCalled).toBe(true);
+    const body = (await r.json()) as Record<string, unknown>;
+    expect(body.found).toBe(true);
+    expect(body.source).toBe('breachvip');
+    expect(body.sources_queried as string[]).toContain('breachvip');
+    const breaches = body.breaches as Array<Record<string, unknown>>;
+    // Two distinct breach sources, Dropbox first (higher count)
+    expect(breaches.length).toBe(2);
+    expect(breaches[0]!.name).toBe('Dropbox');
+    expect(breaches[0]!.pwn_count).toBe(2);
+    expect(breaches[0]!.source).toBe('breachvip');
+    expect(breaches[0]!.data_classes).toEqual(['Email addresses', 'Passwords']);
+    expect(breaches[1]!.name).toBe('LinkedIn');
+    expect(breaches[1]!.pwn_count).toBe(1);
+  });
+
+  it('returns found=false when BreachVIP returns empty results', async () => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+      const url = String(input);
+      if (url === 'https://breach.vip/api/search') {
+        return new Response(JSON.stringify({ results: [] }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+      return new Response(JSON.stringify({ ExposedBreaches: null }), { status: 200 });
+    });
+    const fetchAuthed = await withTestApiKey();
+    const r = await fetchAuthed('https://x/api/v1/breach/email?email=clean@example.com');
+    expect(r.status).toBe(200);
+    const body = (await r.json()) as Record<string, unknown>;
+    expect(body.found).toBe(false);
+    expect(body.breach_count).toBe(0);
+  });
+
+  it('degrades gracefully when BreachVIP returns a Cloudflare challenge (HTML)', async () => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+      const url = String(input);
+      if (url === 'https://breach.vip/api/search') {
+        return new Response('<!DOCTYPE html><html><title>Just a moment...</title></html>', {
+          status: 403,
+          headers: { 'Content-Type': 'text/html' },
+        });
+      }
+      return new Response(JSON.stringify({ ExposedBreaches: null }), { status: 200 });
+    });
+    const fetchAuthed = await withTestApiKey();
+    const r = await fetchAuthed('https://x/api/v1/breach/email?email=a@example.com');
+    expect(r.status).toBe(200);
+    const body = (await r.json()) as Record<string, unknown>;
+    // BreachVIP unreachable but other sources OK → not a 502
+    expect(body.found).toBe(false);
+  });
 });
 
 // ─── Domain handler ───────────────────────────────────────────────────────────
@@ -501,5 +579,59 @@ describe('GET /api/v1/breach/domain', () => {
     const body = (await r.json()) as Record<string, unknown>;
     expect(body.found).toBe(false);
     expect(body.breach_count).toBe(0);
+  });
+
+  it('surfaces BreachVIP domain results grouped by breach source', async () => {
+    let breachVipCalled = false;
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+      const url = String(input);
+      if (url === 'https://breach.vip/api/search') {
+        breachVipCalled = true;
+        return new Response(
+          JSON.stringify({
+            results: [
+              { source: 'Adobe', domain: 'example.com', email: 'a@example.com' },
+              { source: 'Adobe', domain: 'example.com', email: 'b@example.com' },
+              { source: 'MyFitnessPal', domain: 'example.com', email: 'c@example.com' },
+            ],
+          }),
+          { status: 200, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+      return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+    });
+    const fetchAuthed = await withTestApiKey();
+    const r = await fetchAuthed('https://x/api/v1/breach/domain?domain=example.com');
+    expect(r.status).toBe(200);
+    expect(breachVipCalled).toBe(true);
+    const body = (await r.json()) as Record<string, unknown>;
+    expect(body.found).toBe(true);
+    expect(body.source).toBe('breachvip');
+    expect(body.sources_queried as string[]).toContain('breachvip');
+    const breaches = body.breaches as Array<Record<string, unknown>>;
+    expect(breaches.length).toBe(2);
+    expect(breaches[0]!.name).toBe('Adobe');
+    expect(breaches[0]!.pwn_count).toBe(2);
+    expect(breaches[0]!.source).toBe('breachvip');
+    expect(breaches[0]!.domain).toBe('example.com');
+    expect(breaches[1]!.name).toBe('MyFitnessPal');
+  });
+
+  it('degrades gracefully when BreachVIP returns a non-JSON response for domain', async () => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+      const url = String(input);
+      if (url === 'https://breach.vip/api/search') {
+        return new Response('<html>challenge</html>', {
+          status: 403,
+          headers: { 'Content-Type': 'text/html' },
+        });
+      }
+      return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+    });
+    const fetchAuthed = await withTestApiKey();
+    const r = await fetchAuthed('https://x/api/v1/breach/domain?domain=example.com');
+    expect(r.status).toBe(200);
+    const body = (await r.json()) as Record<string, unknown>;
+    expect(body.found).toBe(false);
   });
 });

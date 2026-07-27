@@ -32,6 +32,7 @@ const SOURCE_LABELS: Record<string, string> = {
   hudsonrock: 'Hudson Rock',
   projectdiscovery: 'ProjectDiscovery',
   hackmyip: 'HackMyIP',
+  breachvip: 'BreachVIP',
 };
 
 const SOURCE_COLORS: Record<string, string> = {
@@ -42,6 +43,7 @@ const SOURCE_COLORS: Record<string, string> = {
   hudsonrock: 'bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/30',
   projectdiscovery: 'bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300 border-fuchsia-500/30',
   hackmyip: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30',
+  breachvip: 'bg-teal-500/10 text-teal-700 dark:text-teal-300 border-teal-500/30',
 };
 
 const MODES: Array<{ id: Mode; label: string; icon: typeof Key }> = [
@@ -66,7 +68,7 @@ interface BreachEntry {
  * APIs (throwaway.sslboard.com + rapid-email-verifier.fly.dev) merged
  * server-side. `status` is the headline verdict and `score` is a
  * heuristic 0-100 derived from the booleans (NOT a vendor-published
- * metric — see `deriveVerificationScore` in breach.ts for weights).
+ * metric - see `deriveVerificationScore` in breach.ts for weights).
  */
 interface EmailVerification {
   status: 'deliverable' | 'undeliverable' | 'risky' | 'unknown';
@@ -97,7 +99,7 @@ interface BreachEmailResponse {
 interface BreachDomainResponse {
   domain: string;
   found: boolean;
-  source: 'xposedornot' | 'leakcheck' | 'leakix' | 'hudsonrock' | 'projectdiscovery' | 'none';
+  source: 'xposedornot' | 'leakcheck' | 'leakix' | 'hudsonrock' | 'projectdiscovery' | 'breachvip' | 'none';
   sources_queried: string[];
   breach_count: number;
   breaches: BreachEntry[];
@@ -183,7 +185,7 @@ function getVerificationVerdict(v: EmailVerification): {
       label: 'Role address',
       classes: 'bg-sky-100 text-cyan-800 dark:bg-sky-500/10 dark:text-sky-300 border-cyan-300 dark:border-cyan-700',
       Icon: Inbox,
-      blurb: 'This is a shared role address (info@, abuse@, postmaster@, …) — not tied to one person.',
+      blurb: 'This is a shared role address (info@, abuse@, postmaster@, …) - not tied to one person.',
     };
   }
   if (v.isAlias) {
@@ -200,7 +202,7 @@ function getVerificationVerdict(v: EmailVerification): {
       classes:
         'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 border-amber-300 dark:border-amber-700',
       Icon: AlertTriangle,
-      blurb: 'Deliverability is uncertain — treat breach records with caution.',
+      blurb: 'Deliverability is uncertain - treat breach records with caution.',
     };
   }
   if (v.status === 'deliverable') {
@@ -283,7 +285,7 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
  * Email-verification card. Renders the deliverability verdict with a
  * score bar and a small grid of raw signals (syntax / TLD / domain / MX /
  * role / alias / disposable). The card is intentionally a peer of the
- * breach summary, not a child — a deliverable address is independent
+ * breach summary, not a child - a deliverable address is independent
  * evidence that the breach dataset is current, not a derivative signal.
  *
  * Sourced from two free, keyless public APIs (throwaway.sslboard.com +
@@ -306,12 +308,14 @@ function VerificationCard({ verification }: { verification: EmailVerification })
             >
               {v.label}
             </span>
-            <span className="text-micro font-mono text-slate-400">verified by {sourceCount}/2 free sources</span>
+            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+              verified by {sourceCount}/2 free sources
+            </span>
             <a
               href="https://github.com/sslboard/throwaway"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-micro font-mono text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+              className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
             >
               throwaway <ExternalLink size={9} />
             </a>
@@ -319,7 +323,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
               href="https://github.com/umuterturk/email-verifier"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-micro font-mono text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+              className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
             >
               rapid-verifier <ExternalLink size={9} />
             </a>
@@ -383,7 +387,7 @@ function Signal({ label, value }: { label: string; value: boolean }): JSX.Elemen
       <span
         className={`inline-block w-1.5 h-1.5 rounded-full ${value ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`}
       />
-      <span className={value ? 'text-slate-700 dark:text-slate-300' : 'text-slate-400 dark:text-slate-500'}>
+      <span className={value ? 'text-slate-700 dark:text-slate-300' : 'text-slate-500 dark:text-slate-400'}>
         {label}
       </span>
     </div>
@@ -467,7 +471,7 @@ function PasswordTab(): JSX.Element {
             <input
               // Deliberately NOT type="password". A masked password field on a
               // public page is what Google Safe Browsing classifies as a
-              // deceptive "user login" — that got /dfir/breach flagged
+              // deceptive "user login" - that got /dfir/breach flagged
               // ("Possible Phishing Detected on User Login"). This is a one-way
               // hash lookup, not a login: keep the masked UX via CSS
               // text-security and tell password managers to ignore the field so
@@ -491,7 +495,7 @@ function PasswordTab(): JSX.Element {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
               aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -651,7 +655,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
 
   return (
     <div>
-      {/* Privacy notice — explicit about upstream forwarding */}
+      {/* Privacy notice - explicit about upstream forwarding */}
       <div className="mb-6 rounded-xl border border-amber-300 dark:border-amber-900/60 bg-amber-50 dark:bg-amber-900/10 p-4">
         <div className="flex gap-3">
           <AlertTriangle size={18} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
@@ -685,6 +689,10 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
               , and{' '}
               <a href="https://hackmyip.com" target="_blank" rel="noopener noreferrer" className="underline">
                 HackMyIP
+              </a>
+              , and{' '}
+              <a href="https://breach.vip" target="_blank" rel="noopener noreferrer" className="underline">
+                BreachVIP
               </a>{' '}
               in parallel. Transit logs may record the request. The address is not stored in our app database.
               <strong> Don't query addresses you don't own.</strong>
@@ -792,7 +800,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
           )}
 
           {/* Hunter.io deliverability card (only when the server returned
-              a verification result — `undefined` means no HUNTER_API_KEY
+              a verification result - `undefined` means no HUNTER_API_KEY
               is configured, `null` means the call failed). */}
           {result.verification && <VerificationCard verification={result.verification} />}
 
@@ -892,12 +900,12 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
 
   return (
     <div>
-      {/* Notice — explicit about upstream forwarding + data quality */}
+      {/* Notice - explicit about upstream forwarding + data quality */}
       <div className="mb-6 rounded-xl border border-amber-300 dark:border-amber-900/60 bg-amber-50 dark:bg-amber-900/10 p-4">
         <div className="flex gap-3">
           <AlertTriangle size={18} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
           <div className="text-sm text-amber-900 dark:text-amber-200">
-            <p className="font-semibold mb-1">Domain forwarded to breach databases — results are noisy</p>
+            <p className="font-semibold mb-1">Domain forwarded to breach databases - results are noisy</p>
             <p className="text-tool">
               The domain is sent to{' '}
               <a href="https://xposedornot.com" target="_blank" rel="noopener noreferrer" className="underline">
@@ -918,6 +926,10 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
               , and{' '}
               <a href="https://projectdiscovery.io" target="_blank" rel="noopener noreferrer" className="underline">
                 ProjectDiscovery
+              </a>
+              , and{' '}
+              <a href="https://breach.vip" target="_blank" rel="noopener noreferrer" className="underline">
+                BreachVIP
               </a>{' '}
               in parallel. Treat any single hit as a starting point, not a verdict.{' '}
               <strong>Don't query domains you don't have authorization for.</strong>

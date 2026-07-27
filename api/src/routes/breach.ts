@@ -4,6 +4,7 @@ import type { Env } from '../env';
 const HIBP_RANGE = 'https://api.pwnedpasswords.com/range';
 const XON_BASE = 'https://api.xposedornot.com/v1';
 const LEAKCHECK_BASE = 'https://leakcheck.io/api/public';
+const BREACHVIP_SEARCH = 'https://breach.vip/api/search';
 const UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
 const PREFIX_RE = /^[A-Fa-f0-9]{5}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -12,7 +13,7 @@ const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}
 // ─── shared types ────────────────────────────────────────────────────────────
 
 type BreachSource =
-  'xposedornot' | 'leakcheck' | 'leakix' | 'proxynova' | 'hudsonrock' | 'projectdiscovery' | 'hackmyip';
+  'xposedornot' | 'leakcheck' | 'leakix' | 'proxynova' | 'hudsonrock' | 'projectdiscovery' | 'hackmyip' | 'breachvip';
 
 interface BreachEntry {
   name: string;
@@ -50,6 +51,7 @@ interface BreachDomainEntry {
   pwn_count?: number;
   description?: string;
   domain?: string;
+  data_classes?: string[];
   logo?: string;
   source: BreachSource;
 }
@@ -125,6 +127,140 @@ interface LeakCheckResponse {
   sources?: LeakCheckSource[];
   fields?: string[];
   error?: string;
+}
+
+// ─── BreachVIP response shapes ────────────────────────────────────────────────
+
+interface BreachVipResult {
+  /** Breach / dataset name (e.g. "Dropbox", "LinkedIn"). */
+  source: string;
+  categories?: string | string[];
+  /** Additional properties are the actual field values (email, password, …). */
+  [key: string]: unknown;
+}
+
+interface BreachVipResponse {
+  results?: BreachVipResult[];
+  error?: string;
+}
+
+/**
+ * Map breach.vip field keys to human-readable data-class labels. Used to
+ * derive `data_classes` from the keys present in each result record — we
+ * never surface the raw credential values themselves, only which *types*
+ * of data were exposed (consistent with the HIBP / XposedOrNot pattern).
+ */
+const BREACHVIP_FIELD_LABELS: Record<string, string> = {
+  email: 'Email addresses',
+  password: 'Passwords',
+  username: 'Usernames',
+  name: 'Names',
+  phone: 'Phone numbers',
+  domain: 'Domains',
+  ip: 'IP addresses',
+  uuid: 'Minecraft UUIDs',
+  steamid: 'Steam IDs',
+  discordid: 'Discord IDs',
+};
+
+/**
+ * Group raw breach.vip result records by their `source` (breach name) and
+ * synthesize metadata-only entries — one per breach, with a record count
+ * and the set of exposed data classes. Raw credential values are never
+ * included in the output; only counts and data-class labels.
+ *
+ * Capped at 50 breach entries to keep the response payload reasonable
+ * (breach.vip returns up to 10 000 records per query).
+ */
+function groupBreachVipResults(results: BreachVipResult[]): BreachEntry[] {
+  const groups = new Map<string, { count: number; fields: Set<string> }>();
+  for (const r of results) {
+    const name = r.source || 'Unknown';
+    const g = groups.get(name) ?? { count: 0, fields: new Set<string>() };
+    g.count++;
+    for (const key of Object.keys(r)) {
+      if (key !== 'source' && key !== 'categories' && BREACHVIP_FIELD_LABELS[key]) {
+        g.fields.add(key);
+      }
+    }
+    groups.set(name, g);
+  }
+  const sorted = Array.from(groups.entries()).sort((a, b) => b[1].count - a[1].count);
+  const capped = sorted.slice(0, 50);
+  const totalRecords = results.length;
+  return capped.map(([name, g]) => ({
+    name,
+    pwn_count: g.count,
+    data_classes: Array.from(g.fields)
+      .map((f) => BREACHVIP_FIELD_LABELS[f])
+      .filter((v): v is string => Boolean(v)),
+    description:
+      `${g.count.toLocaleString('en-US')} record(s) from ${name} via BreachVIP ` +
+      `(10B+ record corpus${totalRecords > 10000 ? '; capped at 10 000' : ''})`,
+    source: 'breachvip' as const,
+  }));
+}
+
+/**
+ * Query breach.vip for an email address. Searches the `email` field and
+ * groups results by breach source. Returns metadata-only entries (counts +
+ * data classes) — raw credentials are never surfaced.
+ *
+ * breach.vip is free, keyless, and rate-limited to 15 req/min. The site
+ * sits behind a Cloudflare managed challenge that may block non-browser
+ * clients; on any non-JSON or error response we degrade gracefully to []
+ * (same pattern as every other source helper).
+ */
+async function queryBreachVipEmail(email: string): Promise<BreachEntry[]> {
+  try {
+    const res = await fetch(BREACHVIP_SEARCH, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', accept: 'application/json', 'user-agent': UA },
+      body: JSON.stringify({ term: email, fields: ['email'] }),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return [];
+    const ct = res.headers.get('content-type') ?? '';
+    if (!ct.includes('json')) return [];
+    const data = (await res.json()) as BreachVipResponse;
+    if (!data.results || data.results.length === 0) return [];
+    return groupBreachVipResults(data.results);
+  } catch (_catchErr) {
+    console.error('queryBreachVipEmail failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    return [];
+  }
+}
+
+/**
+ * Query breach.vip for a domain. Searches the `domain` field and groups
+ * results by breach source. Same metadata-only approach as the email
+ * variant — counts + data classes, no raw credentials.
+ */
+async function queryBreachVipDomain(domain: string): Promise<BreachDomainEntry[]> {
+  try {
+    const res = await fetch(BREACHVIP_SEARCH, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', accept: 'application/json', 'user-agent': UA },
+      body: JSON.stringify({ term: domain, fields: ['domain'] }),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return [];
+    const ct = res.headers.get('content-type') ?? '';
+    if (!ct.includes('json')) return [];
+    const data = (await res.json()) as BreachVipResponse;
+    if (!data.results || data.results.length === 0) return [];
+    return groupBreachVipResults(data.results).map((e) => ({
+      name: e.name,
+      pwn_count: e.pwn_count,
+      data_classes: e.data_classes,
+      description: e.description,
+      domain,
+      source: 'breachvip' as const,
+    }));
+  } catch (_catchErr) {
+    console.error('queryBreachVipDomain failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    return [];
+  }
 }
 
 // ─── internal query helpers ──────────────────────────────────────────────────
@@ -688,6 +824,7 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
     queryHudsonRockEmail(email),
     queryProjectDiscovery(email),
     queryHackMyIp(email),
+    queryBreachVipEmail(email),
   ]);
   const sourceNames: BreachSource[] = [
     'xposedornot',
@@ -697,6 +834,7 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
     'hudsonrock',
     'projectdiscovery',
     'hackmyip',
+    'breachvip',
   ];
 
   // Primary upstreams (XposedOrNot, LeakCheck) carry the actual breach
@@ -756,8 +894,16 @@ export async function breachDomainHandler(c: Context<{ Bindings: Env }>): Promis
     queryLeakIx(domain),
     queryHudsonRockDomain(domain),
     queryProjectDiscoveryDomain(domain),
+    queryBreachVipDomain(domain),
   ]);
-  const sourceNames: BreachSource[] = ['xposedornot', 'leakcheck', 'leakix', 'hudsonrock', 'projectdiscovery'];
+  const sourceNames: BreachSource[] = [
+    'xposedornot',
+    'leakcheck',
+    'leakix',
+    'hudsonrock',
+    'projectdiscovery',
+    'breachvip',
+  ];
 
   // See breachEmailHandler — 502 when both primary upstreams reject.
   const primaryRejected = sources[0]?.status === 'rejected' && sources[1]?.status === 'rejected';
