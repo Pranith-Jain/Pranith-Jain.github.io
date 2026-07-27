@@ -760,7 +760,8 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/report-hub',
     label: 'Report Hub',
-    description: 'Analyze external reports and compose investigation reports — AI summarisation, IOC extraction, MITRE mapping, PDF/DOCX export.',
+    description:
+      'Analyze external reports and compose investigation reports - AI summarisation, IOC extraction, MITRE mapping, PDF/DOCX export.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
     keywords: ['report', 'analyzer', 'composer', 'ioc', 'mitre', 'stix', 'pdf', 'docx'],
@@ -1484,7 +1485,8 @@ const DFIR_PAGES: readonly PageEntry[] = [
   {
     path: '/dfir/ai-suite',
     label: 'AI Suite',
-    description: 'AI-assisted investigation — incident summarisation, query generation, timeline reconstruction, malware briefing, and IOC verdicts.',
+    description:
+      'AI-assisted investigation - incident summarisation, query generation, timeline reconstruction, malware briefing, and IOC verdicts.',
     sectionLabel: 'DFIR · AI',
     group: 'dfir',
     keywords: ['ai', 'insight', 'querycraft', 'chrono', 'malbrief', 'verdikt', 'llm', 'copilot'],

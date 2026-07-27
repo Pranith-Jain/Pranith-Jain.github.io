@@ -381,7 +381,7 @@ export default function XWatch(): JSX.Element {
             // rate_limited / error → leave undefined (unknown, not inactive)
           }
         } catch {
-          /* network error — leave handles as unknown */
+          /* network error - leave handles as unknown */
         }
       }
       if (cancelled) return;
