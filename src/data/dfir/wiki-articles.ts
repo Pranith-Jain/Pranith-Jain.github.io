@@ -2067,7 +2067,7 @@ This is "Tool Poisoning" (Invariant Labs, 2025): a server publishes a benign too
 ## See also
 
 - [\`/dfir/mcp-audit\`](/dfir/mcp-audit) - auditor that checks an MCP / Claude Code config against these patterns.
-- [\`/dfir/agent-map\`](/dfir/agent-map) - capability graph + exfil-chain detector.
+- [\`/dfir/agent-suite\`](/dfir/agent-suite) - capability graph + exfil-chain detector.
 `,
   },
   {
@@ -2100,7 +2100,7 @@ A summarisation agent ingests untrusted documents (ingest), can read the user's 
 
 ## See also
 
-- [\`/dfir/agent-map\`](/dfir/agent-map) - capability graph that flags excessive-agency chains.
+- [\`/dfir/agent-suite\`](/dfir/agent-suite) - capability graph that flags excessive-agency chains.
 - [\`/dfir/owasp\`](/dfir/owasp) - LLM Top 10 self-assessment.
 `,
   },

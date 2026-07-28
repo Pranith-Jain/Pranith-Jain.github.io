@@ -69,7 +69,7 @@ const apps = [
       ['How it works', 'Interactive D3 + three.js visualizations backed by curated APT data'],
     ],
     builtWith: ['Free', 'Standalone', 'Visual'],
-    href: '/threatnexus',
+    href: '/argus',
     stat: '6',
     statLabel: 'views',
     cta: 'Open ARGUS',

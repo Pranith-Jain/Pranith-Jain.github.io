@@ -16,7 +16,6 @@ import { handleWebSocketUpgrade } from './ws-router';
 import { handleMcp } from './mcp-handler';
 import { DfirMcpServer } from './mcp-server';
 import { handleRadarCrawl } from './radar-handler';
-import { handleArgusDashboard, handleArgusApi } from './argus-proxy';
 import type { Env } from './env';
 
 export { LiveFeedDO, DfirMcpServer, CronLockDO, ReportBuilderDO, InvestigatorAgentDO, RadarCrawlerDO, GlobalPulseDO };
@@ -101,24 +100,6 @@ export default {
       if (radarRes) return radarRes;
     } catch (err) {
       console.error('handleRadarCrawl failed', err);
-      return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
-    }
-
-    // ARGUS dashboard proxy (/threatnexus/*)
-    try {
-      const argusDashRes = await handleArgusDashboard(request, url, requestId);
-      if (argusDashRes) return argusDashRes;
-    } catch (err) {
-      console.error('handleArgusDashboard failed', err);
-      return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
-    }
-
-    // ARGUS API proxy (/api/actors, /api/feed, etc.)
-    try {
-      const argusApiRes = await handleArgusApi(request, env, url, requestId);
-      if (argusApiRes) return argusApiRes;
-    } catch (err) {
-      console.error('handleArgusApi failed', err);
       return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
     }
 

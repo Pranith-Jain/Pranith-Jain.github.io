@@ -309,7 +309,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                   {/* Quick investigate link */}
                   <div className="mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]/50 opacity-0 group-hover:opacity-100 transition-opacity">
                     <a
-                      href={`/dfir/agent?query=Investigate+actor+${encodeURIComponent(m.username)}`}
+                      href={`/dfir/agent-suite?query=Investigate+actor+${encodeURIComponent(m.username)}`}
                       className="inline-flex items-center gap-1 text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline"
                     >
                       <Bot size={12} /> Investigate with Agent

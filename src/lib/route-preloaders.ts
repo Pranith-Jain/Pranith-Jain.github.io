@@ -59,7 +59,7 @@ export const routePreloaders: Record<string, Preloader> = {
   // Warming these on hover/focus removes the chunk-load round-trip the user
   // would otherwise see between click and first paint.
   '/threatintel/predictive/global-pulse': () => import('../pages/threatintel/GlobalPulse'),
-  '/threatintel/darkweb/ransom-activity': () => import('../pages/threatintel/RansomwareActivity'),
+  '/threatintel/ransomware-hub': () => import('../pages/threatintel/RansomwareActivity'),
   '/threatintel/detections': () => import('../pages/threatintel/Detections'),
   '/threatintel/iocs/cross': () => import('../pages/threatintel/CrossCorrelate'),
   // /threatintel/briefings reuses the DFIR Briefings component, so its
@@ -78,7 +78,7 @@ export const routePreloaders: Record<string, Preloader> = {
 
   // New DFIR tools (inbound links from EmailDefense / Dnscope panels).
   '/dfir/email-deliverability': () => import('../pages/dfir/EmailDeliverability'),
-  '/dfir/sec-headers-live': () => import('../pages/dfir/SecHeadersLive'),
+  '/dfir/sec-headers-live-live': () => import('../pages/dfir/SecHeadersLive'),
 };
 
 /**

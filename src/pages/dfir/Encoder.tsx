@@ -68,7 +68,7 @@ export default function Encoder(): JSX.Element {
   // Pipe the current encoded result into Decoder for a round-trip check.
   const sendToDecoder = () => {
     if (!finalOutput) return;
-    navigate(`/dfir/decode?q=${encodeURIComponent(finalOutput)}`);
+    navigate(`/dfir/codec?q=${encodeURIComponent(finalOutput)}`);
   };
 
   return (
@@ -79,7 +79,7 @@ export default function Encoder(): JSX.Element {
       description={
         <>
           Multi-pass encoder. Counterpart to{' '}
-          <Link to="/dfir/decode" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/dfir/codec" className="text-brand-600 dark:text-brand-400 hover:underline">
             Decoder
           </Link>
           . Useful for crafting test payloads, replicating attacker obfuscation chains, and quickly producing
@@ -186,7 +186,7 @@ export default function Encoder(): JSX.Element {
                 type="button"
                 onClick={sendToDecoder}
                 className="inline-flex items-center gap-1.5 text-mini font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
-                title="Round-trip: decode this back via /dfir/decode"
+                title="Round-trip: decode this back via /dfir/codec"
               >
                 <ArrowRight size={11} /> round-trip in Decoder
               </button>

@@ -226,7 +226,7 @@ export default function SocRansomware(): JSX.Element {
         <span>
           Recent ransomware leak-site claims merged across{' '}
           <Link
-            to="/threatintel/darkweb/ransom-activity"
+            to="/threatintel/ransomware-hub"
             className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             live trackers
@@ -403,7 +403,7 @@ export default function SocRansomware(): JSX.Element {
             title="Recent claims"
             right={
               <Link
-                to="/threatintel/darkweb/ransom-activity"
+                to="/threatintel/ransomware-hub"
                 className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
               >
                 feed <ExternalLink size={10} />

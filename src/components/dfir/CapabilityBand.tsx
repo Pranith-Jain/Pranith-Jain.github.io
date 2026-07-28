@@ -67,7 +67,7 @@ const STATS: CapStat[] = [
     icon: Database,
     accent: 'amber',
   },
-  { to: '/dfir/tools/about', label: 'Credits', value: 0, sub: 'no signup, no key', icon: BadgeCheck, accent: 'sky' },
+  { to: '/dfir', label: 'Credits', value: 0, sub: 'no signup, no key', icon: BadgeCheck, accent: 'sky' },
 ];
 
 export function CapabilityBand(): JSX.Element {

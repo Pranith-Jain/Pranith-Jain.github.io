@@ -221,19 +221,14 @@ export const HUB_META: readonly HubMeta[] = [
     tone: 'text-amber-700 dark:text-amber-300 border-amber-500/30 bg-amber-500/10',
     pages: [
       {
-        path: '/dfir/decode',
-        tabId: 'decode',
-        label: 'Decoder',
-        desc: 'base64 - hex - url - rot13 - zlib - gzip - chained auto-detection.',
-        compVar: 'Decode',
+        path: '/dfir/codec',
+        tabId: 'codec',
+        label: 'Codec Hub',
+        desc: 'Decode and encode across base64, hex, URL, rot13, zlib, gzip with auto-detection.',
+        compVar: 'CodecHub',
+        keywords: ['decode', 'encode', 'base64', 'hex', 'url', 'rot13', 'zlib', 'gzip'],
       },
-      {
-        path: '/dfir/encoder',
-        tabId: 'encoder',
-        label: 'Encoder',
-        desc: 'Reverse of Decoder - encode any text to any of the supported formats.',
-        compVar: 'Encoder',
-      },
+
       {
         path: '/dfir/hash-calc',
         tabId: 'hash-calc',
@@ -410,13 +405,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'crt.sh-style CT log search for a domain - subdomains - cert chain.',
         compVar: 'CertSearch',
       },
-      {
-        path: '/dfir/takeover',
-        tabId: 'takeover',
-        label: 'Subdomain Takeover',
-        desc: 'Detect dangling DNS records vulnerable to subdomain takeover.',
-        compVar: 'Takeover',
-      },
+
       {
         path: '/dfir/dnscope',
         tabId: 'dnscope',
@@ -617,20 +606,14 @@ export const HUB_META: readonly HubMeta[] = [
       },
 
       {
-        path: '/dfir/phone-osint',
-        tabId: 'phone-osint',
-        label: 'Phone OSINT',
-        desc: 'Phone number - carrier, country, line type, breach presence.',
-        compVar: 'PhoneOsint',
+        path: '/dfir/phone-hub',
+        tabId: 'phone-hub',
+        label: 'Phone Intelligence',
+        desc: 'Phone number OSINT - carrier lookup, line type, breach presence, and AI-powered risk scoring.',
+        compVar: 'PhoneHub',
+        keywords: ['phone', 'osint', 'carrier', 'intel', 'risk'],
       },
-      {
-        path: '/dfir/phone-intel',
-        tabId: 'phone-intel',
-        label: 'AI Phone Intel',
-        desc: 'AI-powered OSINT dashboard - phone/URL scanner with risk scoring.',
-        compVar: 'PhoneIntel',
-        badge: 'live',
-      },
+
       {
         path: '/dfir/wifi-investigation',
         tabId: 'wifi-investigation',
@@ -667,11 +650,12 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'Breach',
       },
       {
-        path: '/dfir/reverse-image',
-        tabId: 'reverse-image',
-        label: 'Reverse Image Search',
-        desc: 'Multi-engine reverse image - Google, Yandex, TinEye, Bing.',
-        compVar: 'ReverseImage',
+        path: '/dfir/image-intel',
+        tabId: 'image-intel',
+        label: 'Image Intelligence',
+        desc: 'Image analysis - reverse search, perceptual fingerprinting, and OCR screenshot intelligence.',
+        compVar: 'ImageIntel',
+        keywords: ['image', 'reverse', 'fingerprint', 'phash', 'dhash', 'screenshot', 'ocr'],
       },
       {
         path: '/dfir/brand-impersonation',
@@ -680,20 +664,8 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Detect typosquats / look-alike domains targeting your brand.',
         compVar: 'BrandImpersonation',
       },
-      {
-        path: '/dfir/image-fingerprint',
-        tabId: 'image-fingerprint',
-        label: 'Image Fingerprint',
-        desc: 'Perceptual hash (pHash, dHash) for image clustering & de-duplication.',
-        compVar: 'ImageFingerprint',
-      },
-      {
-        path: '/dfir/screenshot-intel',
-        tabId: 'screenshot-intel',
-        label: 'Screenshot Intel',
-        desc: 'Extract text + URLs + indicators from a screenshot - OCR pipeline.',
-        compVar: 'ScreenshotIntel',
-      },
+
+
       {
         path: '/dfir/ironsight',
         tabId: 'ironsight',
@@ -905,13 +877,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Step-by-step playbooks for common incident types.',
         compVar: 'IrPlaybooks',
       },
-      {
-        path: '/dfir/tools/about',
-        tabId: 'tools-about',
-        label: 'Tools About',
-        desc: 'About the DFIR toolkit - principles, design, and feature flags.',
-        compVar: 'ToolsAbout',
-      },
+
       {
         path: '/dfir/tracerules',
         tabId: 'tracerules',
@@ -947,26 +913,15 @@ export const HUB_META: readonly HubMeta[] = [
     tone: 'text-blue-700 dark:text-blue-300 border-blue-500/30 bg-blue-500/10',
     pages: [
       {
-        path: '/dfir/iam-analyzer',
-        tabId: 'iam-analyzer',
-        label: 'AWS IAM Analyzer',
-        desc: 'Parse a downloaded IAM policy - find privilege escalation paths.',
-        compVar: 'IamPolicyAnalyzer',
+        path: '/dfir/iam-hub',
+        tabId: 'iam-hub',
+        label: 'IAM & RBAC Hub',
+        desc: 'Cloud identity analysis - AWS, GCP, Azure, and Kubernetes RBAC policy analyzers.',
+        compVar: 'IamHub',
+        keywords: ['iam', 'rbac', 'aws', 'gcp', 'azure', 'k8s', 'kubernetes', 'privilege', 'escalation'],
       },
-      {
-        path: '/dfir/gcp-iam',
-        tabId: 'gcp-iam',
-        label: 'GCP IAM Analyzer',
-        desc: 'GCP IAM policy + role analyzer.',
-        compVar: 'GcpIamAnalyzer',
-      },
-      {
-        path: '/dfir/azure-rbac',
-        tabId: 'azure-rbac',
-        label: 'Azure RBAC Analyzer',
-        desc: 'Azure RBAC role assignments - least-privilege check.',
-        compVar: 'AzureRbacAnalyzer',
-      },
+
+
       {
         path: '/dfir/sg-analyzer',
         tabId: 'sg-analyzer',
@@ -981,13 +936,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Filter CloudTrail logs for an incident timeframe - IAM, EC2, S3, KMS.',
         compVar: 'CloudTrailTriage',
       },
-      {
-        path: '/dfir/k8s-rbac',
-        tabId: 'k8s-rbac',
-        label: 'K8s RBAC Analyzer',
-        desc: 'Kubernetes Role/ClusterRole analyzer - risky verbs, secrets access.',
-        compVar: 'K8sRbacAnalyzer',
-      },
+
       {
         path: '/dfir/terraform-scan',
         tabId: 'terraform-scan',
@@ -1041,26 +990,15 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'McpAudit',
       },
       {
-        path: '/dfir/agent',
-        tabId: 'agent',
-        label: 'Agent Investigator',
-        desc: 'Investigate an autonomous agent - tool calls, prompt history, exfil.',
-        compVar: 'AgentInvestigator',
+        path: '/dfir/agent-suite',
+        tabId: 'agent-suite',
+        label: 'Agent Suite',
+        desc: 'AI agent investigation - tool-call analysis, observable enrichment, and attack-surface mapping.',
+        compVar: 'AgentSuite',
+        keywords: ['agent', 'investigator', 'enrich', 'map', 'ai', 'tool calls', 'exfil'],
       },
-      {
-        path: '/dfir/agent-enrich',
-        tabId: 'agent-enrich',
-        label: 'Agent Enrich',
-        desc: 'Enrich agent observables with external threat intel',
-        compVar: 'TieEnrich',
-      },
-      {
-        path: '/dfir/agent-map',
-        tabId: 'agent-map',
-        label: 'Agent Map',
-        desc: "Visualise an agent's reachable tools and data sources",
-        compVar: 'AgentMap',
-      },
+
+
       {
         path: '/dfir/ai-threats',
         tabId: 'ai-threats',
@@ -1108,13 +1046,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Decode - verify - alg-confusion check - claim analysis.',
         compVar: 'JwtInspect',
       },
-      {
-        path: '/dfir/sec-headers',
-        tabId: 'sec-headers',
-        label: 'Security Headers Analyzer',
-        desc: 'CORS - CSP - HSTS - X-Frame-Options - graded report.',
-        compVar: 'SecHeadersAnalyzer',
-      },
+
       {
         path: '/dfir/sec-headers-live',
         tabId: 'sec-headers-live',
@@ -1287,13 +1219,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Browser-routed Tor gateway for safe .onion lookups.',
         compVar: 'TorGateway',
       },
-      {
-        path: '/dfir/privacy',
-        tabId: 'privacy',
-        label: 'Privacy Toolkit',
-        desc: 'Privacy hygiene: tracker audit, browser fingerprint, cookie analysis.',
-        compVar: 'Privacy',
-      },
+
     ],
   },
   {

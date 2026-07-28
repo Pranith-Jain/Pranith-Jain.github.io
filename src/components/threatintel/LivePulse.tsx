@@ -177,7 +177,7 @@ export function LivePulse(): JSX.Element {
               visitor who saw the same number on the root sees the same
               "Leader: <group> (N claims)" attribution here. */}
           <StatCell
-            to="/threatintel/darkweb/ransom-activity"
+            to="/threatintel/ransomware-hub"
             label="Ransomware claims · last 24h"
             icon={<Flame size={14} className="text-rose-600 dark:text-rose-400" aria-hidden="true" />}
             iconClass="bg-rose-500/10"

@@ -456,20 +456,8 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Reliability scoring for each feed provider - uptime, freshness, accuracy, and NATO Admiralty trust grades.',
         compVar: 'FeedReliability',
       },
-      {
-        path: '/threatintel/source-health',
-        tabId: 'status',
-        label: 'Feed Status',
-        desc: 'Real-time operational status of all feed providers - last fetch, errors, rate limits.',
-        compVar: 'FeedStatus',
-      },
-      {
-        path: '/threatintel/source-health',
-        tabId: 'source-health',
-        label: 'Source Health',
-        desc: 'Operational status, SLO metrics, and NATO Admiralty trust grades for every upstream feed.',
-        compVar: 'SourceHealth',
-      },
+
+
     ],
   },
   {
@@ -569,28 +557,15 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'TelegramStats',
       },
       {
-        path: '/threatintel/social/x-firehose',
-        tabId: 'x-firehose',
-        label: 'X/Twitter Firehose',
-        desc: 'X/Twitter threat intelligence firehose - real-time posts from monitored security accounts.',
-        compVar: 'XFirehose',
-        badge: 'live',
+        path: '/threatintel/social/x-hub',
+        tabId: 'x-hub',
+        label: 'X/Twitter Hub',
+        desc: 'X/Twitter intelligence - firehose, live stream, and watchlist monitoring.',
+        compVar: 'XHub',
+        keywords: ['x', 'twitter', 'firehose', 'live', 'watch'],
       },
-      {
-        path: '/threatintel/social/x-live',
-        tabId: 'x-live',
-        label: 'X/Twitter Live Stream',
-        desc: 'Live X/Twitter stream - real-time security event and IOC posting monitor.',
-        compVar: 'XLiveStream',
-        badge: 'live',
-      },
-      {
-        path: '/threatintel/social/x-watch',
-        tabId: 'x-watch',
-        label: 'X/Twitter Watch',
-        desc: 'X/Twitter watchlist - monitor specific accounts, keywords, and hashtags for threat intel.',
-        compVar: 'XWatch',
-      },
+
+
     ],
   },
   {
@@ -674,34 +649,16 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'new',
       },
       {
-        path: '/threatintel/darkweb/ransom-report',
-        tabId: 'ransom-report',
-        label: 'Ransom Report',
-        desc: 'Per-group ransomware CTI dossier - TTPs, victims, demands.',
-        compVar: 'RansomReport',
+        path: '/threatintel/ransomware-hub',
+        tabId: 'ransomware-hub',
+        label: 'Ransomware Hub',
+        desc: 'Ransomware tracking - activity feed, map, ransomwhere, and negotiation reports.',
+        compVar: 'RansomwareHub',
+        keywords: ['ransomware', 'activity', 'map', 'ransomwhere', 'report'],
       },
-      {
-        path: '/threatintel/darkweb/ransom-activity',
-        tabId: 'ransom-activity',
-        label: 'Ransomware Activity',
-        desc: 'Live ransomware activity feed - new victims, leak posts.',
-        compVar: 'RansomwareActivity',
-        badge: 'live',
-      },
-      {
-        path: '/threatintel/darkweb/ransom-map',
-        tabId: 'ransom-map',
-        label: 'Ransomware Map',
-        desc: 'Ransomware victim geo map - country, sector, group.',
-        compVar: 'RansomwareMap',
-      },
-      {
-        path: '/threatintel/darkweb/ransomwhere',
-        tabId: 'ransomwhere',
-        label: 'Ransomwhere',
-        desc: 'Crypto wallet directory tied to known ransom groups.',
-        compVar: 'Ransomwhere',
-      },
+
+
+
       {
         path: '/threatintel/darkweb/recon',
         tabId: 'recon',
@@ -1129,21 +1086,14 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'MispBrowser',
       },
       {
-        path: '/threatintel/tools/stix',
-        tabId: 'stix',
-        label: 'STIX Bundle Browser',
-        desc: 'Browse and download STIX 2.1 bundles for OpenCTI, MISP, etc.',
-        compVar: 'StixBundleBrowser',
-        badge: 'new',
+        path: '/threatintel/tools/stix-hub',
+        tabId: 'stix-hub',
+        label: 'STIX Hub',
+        desc: 'STIX 2.1 bundle browsing, IP enrichment, and API access.',
+        compVar: 'StixHub',
+        keywords: ['stix', 'bundle', 'browser', 'ip', 'enrichment'],
       },
-      {
-        path: '/threatintel/tools/stix-ip-export',
-        tabId: 'stix-ip-export',
-        label: 'STIX IP Enrichment',
-        desc: 'Enrich IPs via IPinfo/AbuseIPDB/Shodan and export as STIX 2.1 bundle.',
-        compVar: 'StixIpExport',
-        badge: 'new',
-      },
+
       {
         path: '/threatintel/tools/stix-bundles',
         tabId: 'stix-bundles',
@@ -1170,27 +1120,15 @@ export const HUB_META: readonly HubMeta[] = [
       },
 
       {
-        path: '/threatintel/tools/investigations',
-        tabId: 'investigations',
-        label: 'Investigations',
-        desc: 'Investigation case manager - open, closed, shared.',
-        compVar: 'Investigations',
+        path: '/threatintel/investigation-suite',
+        tabId: 'investigation-suite',
+        label: 'Investigation Suite',
+        desc: 'Investigation management - active cases, watchlists, and workspaces.',
+        compVar: 'InvestigationSuite',
+        keywords: ['investigation', 'cases', 'watchlist', 'workspace'],
       },
-      {
-        path: '/threatintel/tools/watches',
-        tabId: 'watches',
-        label: 'Watches',
-        desc: 'Watch lists - actor, indicator, keyword, and saved searches.',
-        compVar: 'Watches',
-      },
-      {
-        path: '/threatintel/tools/workspaces',
-        tabId: 'workspaces',
-        label: 'Investigation Workspaces',
-        desc: 'AEAD lifecycle workspaces - Acquire, Enrich, Assess, Deliver.',
-        compVar: 'Workspaces',
-        badge: 'new',
-      },
+
+
       {
         path: '/threatintel/tools/tg-intel-search',
         tabId: 'tg-intel-search',
@@ -1393,27 +1331,15 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'LiveCenter',
       },
       {
-        path: '/threatintel/ti-dashboard',
-        tabId: 'ti-dashboard',
-        label: 'TI Dashboard',
-        desc: 'Weekly threat intelligence report - IOCs, threat stories, actor profiles, vulnerabilities, hunting leads, and supply chain incidents.',
-        compVar: 'TiDashboard',
+        path: '/threatintel/dashboard-hub',
+        tabId: 'dashboard-hub',
+        label: 'Dashboard Hub',
+        desc: 'Threat intelligence dashboards - TI weekly report, CTI operations, and live threat landscape.',
+        compVar: 'DashboardHub',
+        keywords: ['dashboard', 'ti', 'cti', 'threat', 'report'],
       },
-      {
-        path: '/threatintel/cti-dashboard',
-        tabId: 'cti-dashboard',
-        label: 'CTI Dashboard',
-        desc: 'Central CTI operations dashboard - KPI cards, feed health, alert volume, and recent intel.',
-        compVar: 'CtiDashboard',
-      },
-      {
-        path: '/threatintel/dashboard',
-        tabId: 'dashboard-live',
-        label: 'Threat Dashboard',
-        desc: 'Live threat landscape - IOCs, ransomware victims, and breach disclosures with sortable table and severity filters.',
-        compVar: 'ThreatIntelDashboard',
-        badge: 'new',
-      },
+
+
     ],
   },
   {

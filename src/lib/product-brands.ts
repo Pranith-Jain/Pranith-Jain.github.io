@@ -57,7 +57,7 @@ export const PRODUCTS: Record<ProductId, ProductBrand> = {
     id: 'argus',
     code: 'ARGUS',
     role: 'Threat nexus',
-    href: '/threatnexus',
+    href: '/argus',
     kicker: 'Nation-state CTI · Interactive maps · Curated APT data',
     backLabel: 'ARGUS',
     metaSection: 'ARGUS',

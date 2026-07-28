@@ -339,9 +339,9 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
             email test
           </Link>
           <Link
-            to={`/dfir/sec-headers-live?domain=${encodeURIComponent(snapshot.domain)}`}
-            onMouseEnter={() => preloadRoute('/dfir/sec-headers-live')}
-            onFocus={() => preloadRoute('/dfir/sec-headers-live')}
+            to={`/dfir/sec-headers-live-live?domain=${encodeURIComponent(snapshot.domain)}`}
+            onMouseEnter={() => preloadRoute('/dfir/sec-headers-live-live')}
+            onFocus={() => preloadRoute('/dfir/sec-headers-live-live')}
             className="underline-offset-2 hover:underline dark:text-slate-400"
             title="Live third-party HTTP security-headers scan"
           >

@@ -1577,7 +1577,7 @@ export const RESOURCES: ExternalResource[] = [
     tags: ['osint'],
     description:
       'Comprehensive browser-fingerprint demo from Gonzosint. Loads ThumbmarkJS, ImprintJS and 8+ other fingerprinting libraries side-by-side so analysts can see what each library leaks: canvas hash, audio context, WebGL renderer, font enumeration, hardware concurrency, etc.',
-    why: 'Side-by-side comparison of every major fingerprint library is unique - useful for /dfir/privacy follow-up: see exactly what your own browser is leaking and which library would be the most effective adversary tool.',
+    why: 'Side-by-side comparison of every major fingerprint library is unique - useful for /dfir/privacy-hub follow-up: see exactly what your own browser is leaking and which library would be the most effective adversary tool.',
   },
   {
     id: 'osintnewsletter-tools',

@@ -85,7 +85,7 @@ export default function InvestigationHistory(): JSX.Element {
         {filtered.map((entry) => (
           <Link
             key={entry.id}
-            to={`/dfir/agent?query=${encodeURIComponent(entry.query)}`}
+            to={`/dfir/agent-suite?query=${encodeURIComponent(entry.query)}`}
             className="surface-card p-4 block hover:border-rose-500/40 transition-colors group"
           >
             <div className="flex items-start justify-between gap-3">

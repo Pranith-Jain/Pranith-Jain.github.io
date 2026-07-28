@@ -111,7 +111,7 @@ export const TOOL_TOPICS: ToolTopic[] = [
   { term: 'security headers', href: '/dfir/web-scan', blurb: 'HTTP security-header audit (CSP, HSTS, XCTO, XFO, etc)' },
   { term: 'CSP', href: '/dfir/web-scan', blurb: 'Content-Security-Policy audit + common exposed-path probes' },
   { term: '.eml', href: '/dfir/eml', blurb: 'Extract attachments from raw .eml + hash each (SHA-256/SHA-1/MD5)' },
-  { term: 'reverse image search', href: '/dfir/reverse-image', blurb: 'Multi-engine reverse-image search dispatcher' },
+  { term: 'reverse image search', href: '/dfir/image-intel', blurb: 'Multi-engine reverse-image search dispatcher' },
 
   // Crypto
   { term: 'OFAC', href: '/dfir/crypto-trace', blurb: 'Sanctions-check any BTC/EVM/Solana address' },
@@ -120,7 +120,7 @@ export const TOOL_TOPICS: ToolTopic[] = [
   // Breach + exposure
   { term: 'HIBP', href: '/dfir/breach', blurb: 'Check breach exposure for an email or password hash' },
   { term: 'Have I Been Pwned', href: '/dfir/breach', blurb: 'Check breach exposure for an email or password hash' },
-  { term: 'subdomain takeover', href: '/dfir/takeover', blurb: 'Check a domain for subdomain-takeover risk' },
+  { term: 'subdomain takeover', href: '/dfir/subdomain-takeover', blurb: 'Check a domain for subdomain-takeover risk' },
 
   // Privacy
   { term: 'GDPR', href: '/dfir/privacy-hub', blurb: 'Browse the privacy & data-protection hub' },

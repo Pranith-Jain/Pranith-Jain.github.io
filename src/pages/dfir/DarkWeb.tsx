@@ -316,7 +316,7 @@ export default function DarkWeb(): JSX.Element {
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Per-source widgets -{' '}
           <Link
-            to="/threatintel/darkweb/ransom-activity"
+            to="/threatintel/ransomware-hub"
             className="text-brand-600 dark:text-brand-400 hover:underline"
           >
             ransomware activity

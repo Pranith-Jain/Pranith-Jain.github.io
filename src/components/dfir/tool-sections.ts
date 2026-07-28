@@ -250,7 +250,7 @@ export const SECTIONS: Section[] = [
     blurb: 'Decode, hash, and inspect binaries and encoded payloads.',
     tools: [
       {
-        path: '/dfir/decode',
+        path: '/dfir/codec',
         useCase: 'Decode an obfuscated payload string fast.',
         label: 'Decoder',
         desc: 'Base64 · URL · multi-pass',
@@ -258,7 +258,7 @@ export const SECTIONS: Section[] = [
         utility: true,
       },
       {
-        path: '/dfir/encoder',
+        path: '/dfir/codec',
         useCase: 'Build and round-trip an encoding chain.',
         label: 'Encoder',
         desc: 'Reverse of Decoder. base64 / url / hex / binary / rot13 with chain builder + round-trip',
@@ -419,7 +419,7 @@ export const SECTIONS: Section[] = [
         icon: Radar,
       },
       {
-        path: '/dfir/takeover',
+        path: '/dfir/subdomain-takeover',
         useCase: 'Detect a dangling subdomain takeover.',
         label: 'Subdomain Takeover',
         desc: 'CNAME chain + 15 dangling-service fingerprints',
@@ -642,7 +642,7 @@ export const SECTIONS: Section[] = [
         icon: Users,
       },
       {
-        path: '/dfir/phone-osint',
+        path: '/dfir/phone-hub',
         useCase: 'Investigate a phone number - reverse lookup, carrier, geolocation, messaging presence.',
         label: 'Phone OSINT',
         desc: 'E.164 parser · 20+ lookup services (TrueCaller, NumLookup, NumVerify, WhatsApp/Telegram check) · reverse lookup, carrier, geolocation, breach, social · category filtering',
@@ -746,7 +746,7 @@ export const SECTIONS: Section[] = [
         icon: Coins,
       },
       {
-        path: '/dfir/screenshot-intel',
+        path: '/dfir/image-intel',
         useCase: 'OCR a screenshot and pull entities from the text.',
         label: 'Screenshot Intelligence',
         desc: 'OCR (self-hosted Tesseract) + QR decode + EXIF/GPS · extract URL/IP/email/crypto entities · client-side',
@@ -768,14 +768,14 @@ export const SECTIONS: Section[] = [
         icon: ImageIcon,
       },
       {
-        path: '/dfir/reverse-image',
+        path: '/dfir/image-intel',
         useCase: 'Generate reverse-image search links fast.',
         label: 'Reverse Image Search',
         desc: 'Paste image URL → Google Lens / Bing / Yandex / TinEye / Baidu · pure URL generator · pairs with Phishing',
         icon: ImageIcon,
       },
       {
-        path: '/dfir/image-fingerprint',
+        path: '/dfir/image-intel',
         useCase: 'Detect a re-uploaded or near-duplicate image.',
         label: 'Image Fingerprint',
         desc: 'In-browser aHash + dHash · compare two images for near-duplicate / re-upload detection',
@@ -1079,21 +1079,21 @@ export const SECTIONS: Section[] = [
         icon: Plug,
       },
       {
-        path: '/dfir/agent-enrich',
+        path: '/dfir/agent-suite',
         useCase: 'Enrich any IOC (IP, hash, domain, URL) using 30+ threat intel providers.',
         label: 'Agent Enrich',
         desc: 'Fast deterministic IOC enrichment across 30+ providers · deep autonomous mode for full investigation with report',
         icon: Shield,
       },
       {
-        path: '/dfir/agent-map',
+        path: '/dfir/agent-suite',
         useCase: 'Map an AI agent attack surface.',
         label: 'AI Agent Attack-Surface Mapper',
         desc: 'Capability graph from MCP/CC config · flags exfil + RCE chains · SVG visual',
         icon: Network,
       },
       {
-        path: '/dfir/agent',
+        path: '/dfir/agent-suite',
         useCase: 'Let an autonomous agent plan and run CTI tools to answer a query.',
         label: 'Agent Investigator',
         desc: 'Autonomous CTI investigator · plans steps · runs server-side tools via WebSocket · streams STIX bundle + step-by-step trace · LLM synthesis',
@@ -1137,7 +1137,7 @@ export const SECTIONS: Section[] = [
     blurb: 'Your own state and privacy hygiene.',
     tools: [
       {
-        path: '/dfir/privacy',
+        path: '/dfir/privacy-hub',
         useCase: 'Check your own IP and fingerprint exposure.',
         label: 'Privacy Check',
         desc: 'IP · WebRTC · fingerprint',
@@ -1159,21 +1159,21 @@ export const SECTIONS: Section[] = [
     blurb: 'Cloud posture & least-privilege review. runs entirely in your browser.',
     tools: [
       {
-        path: '/dfir/iam-analyzer',
+        path: '/dfir/iam-hub',
         useCase: 'Catch wildcard-admin / public-access before it ships.',
         label: 'AWS IAM Policy Analyzer',
         desc: 'Paste an AWS IAM / S3 bucket / role-trust policy · flags wildcard admin, public principals, NotAction/NotResource, privilege-escalation actions, broad secret access & confused-deputy trust · 100% client-side',
         icon: Cloud,
       },
       {
-        path: '/dfir/gcp-iam',
+        path: '/dfir/iam-hub',
         useCase: 'Find the allUsers binding / owner role on a GCP project.',
         label: 'GCP IAM Policy Analyzer',
         desc: 'Paste a GCP allow policy or custom role · flags allUsers/allAuthenticatedUsers, primitive owner/editor, SA impersonation & key creation, setIamPolicy, wildcard custom-role permissions · 100% client-side',
         icon: Shield,
       },
       {
-        path: '/dfir/azure-rbac',
+        path: '/dfir/iam-hub',
         useCase: 'Find the SP that is Owner on the whole subscription.',
         label: 'Azure RBAC Analyzer',
         desc: 'Paste az role assignment / definition list JSON · flags privileged roles at root/MG/subscription scope, SP & guest grants, legacy co-admins, custom-role escalation (roleAssignments/write, elevateAccess, VM run-command, listKeys) · 100% client-side',
@@ -1194,7 +1194,7 @@ export const SECTIONS: Section[] = [
         icon: ScrollText,
       },
       {
-        path: '/dfir/k8s-rbac',
+        path: '/dfir/iam-hub',
         useCase: 'Catch the service account that is secretly cluster-admin.',
         label: 'Kubernetes RBAC Analyzer',
         desc: 'Paste kubectl RBAC -o json · flags wildcard verbs/resources, escalate/bind/impersonate, cluster-wide secret read, pod exec, cluster-admin & anonymous bindings · 100% client-side',
@@ -1223,7 +1223,7 @@ export const SECTIONS: Section[] = [
         icon: Plug,
       },
       {
-        path: '/dfir/sec-headers',
+        path: '/dfir/sec-headers-live',
         useCase: 'Grade a site’s response headers in one paste.',
         label: 'HTTP Security Headers Analyzer',
         desc: 'Paste raw response headers · graded CSP / HSTS / framing / CORS / Set-Cookie flags + Server/X-Powered-By leakage, A–F score · 100% client-side',

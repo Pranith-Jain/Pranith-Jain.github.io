@@ -532,7 +532,7 @@ export default function RansomwareMap(): JSX.Element {
                     {selectedAgg.top_victims.map((victim) => (
                       <li key={victim}>
                         <Link
-                          to={`/threatintel/darkweb/ransom-activity?q=${encodeURIComponent(victim)}`}
+                          to={`/threatintel/ransomware-hub?q=${encodeURIComponent(victim)}`}
                           className="block rounded border border-rose-400/30 hover:border-rose-500/40 bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-1.5 transition-colors font-mono text-sm text-slate-900 dark:text-slate-100"
                         >
                           {victim}

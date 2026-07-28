@@ -51,10 +51,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/darkweb/bitcoin', '/__prerendered/threatintel__darkweb__bitcoin'],
   ['/threatintel/darkweb/infostealer', '/__prerendered/threatintel__darkweb__infostealer'],
   ['/threatintel/darkweb/leaks', '/__prerendered/threatintel__darkweb__leaks'],
-  ['/threatintel/darkweb/ransom-report', '/__prerendered/threatintel__darkweb__ransom-report'],
-  ['/threatintel/darkweb/ransom-activity', '/__prerendered/threatintel__darkweb__ransom-activity'],
-  ['/threatintel/darkweb/ransom-map', '/__prerendered/threatintel__darkweb__ransom-map'],
-  ['/threatintel/darkweb/ransomwhere', '/__prerendered/threatintel__darkweb__ransomwhere'],
+  ['/threatintel/ransomware-hub', '/__prerendered/threatintel__ransomware-hub'],
   ['/threatintel/darkweb/recon', '/__prerendered/threatintel__darkweb__recon'],
   ['/threatintel/predictive/dashboard', '/__prerendered/threatintel__predictive__dashboard'],
   ['/threatintel/predictive/global-pulse', '/__prerendered/threatintel__predictive__global-pulse'],
@@ -144,18 +141,14 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/social/telegram-settings', '/__prerendered/threatintel__social__telegram-settings'],
   ['/threatintel/social/crypto-scam', '/__prerendered/threatintel__social__crypto-scam'],
   ['/threatintel/social/reddit', '/__prerendered/threatintel__social__reddit'],
-  ['/threatintel/social/x-firehose', '/__prerendered/threatintel__social__x-firehose'],
-  ['/threatintel/social/x-live', '/__prerendered/threatintel__social__x-live'],
-  ['/threatintel/social/x-watch', '/__prerendered/threatintel__social__x-watch'],
+  ['/threatintel/social/x-hub', '/__prerendered/threatintel__social__x-hub'],
   ['/threatintel/social/scraped-intel', '/__prerendered/threatintel__social__scraped-intel'],
   ['/threatintel/tools/copilot', '/__prerendered/threatintel__tools__copilot'],
   ['/threatintel/tools/mcp', '/__prerendered/threatintel__tools__mcp'],
   ['/threatintel/tools/misp', '/__prerendered/threatintel__tools__misp'],
-  ['/threatintel/tools/stix', '/__prerendered/threatintel__tools__stix'],
+  ['/threatintel/tools/stix-hub', '/__prerendered/threatintel__tools__stix-hub'],
   ['/threatintel/tools/graph', '/__prerendered/threatintel__tools__graph'],
-  ['/threatintel/tools/investigations', '/__prerendered/threatintel__tools__investigations'],
-  ['/threatintel/tools/watches', '/__prerendered/threatintel__tools__watches'],
-  ['/threatintel/tools/workspaces', '/__prerendered/threatintel__tools__workspaces'],
+  ['/threatintel/investigation-suite', '/__prerendered/threatintel__investigation-suite'],
   ['/threatintel/tools/tg-intel-search', '/__prerendered/threatintel__tools__tg-intel-search'],
   ['/threatintel/tools/socradar-tools', '/__prerendered/threatintel__tools__socradar-tools'],
   ['/threatintel/tools/settings', '/__prerendered/threatintel__tools__settings'],
@@ -180,15 +173,13 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   // ── DFIR: utilities & decoders ────────────────────────────────
   ['/dfir/timestamp', '/__prerendered/dfir__timestamp'],
   ['/dfir/hash-calc', '/__prerendered/dfir__hash-calc'],
-  ['/dfir/decode', '/__prerendered/dfir__decode'],
-  ['/dfir/encoder', '/__prerendered/dfir__encoder'],
+  ['/dfir/codec', '/__prerendered/dfir__codec'],
   ['/dfir/punycode', '/__prerendered/dfir__punycode'],
   ['/dfir/dork-builder', '/__prerendered/dfir__dork-builder'],
   ['/dfir/brand-impersonation', '/__prerendered/dfir__brand-impersonation'],
 
   // ── DFIR: image / media ───────────────────────────────────────
-  ['/dfir/image-fingerprint', '/__prerendered/dfir__image-fingerprint'],
-  ['/dfir/reverse-image', '/__prerendered/dfir__reverse-image'],
+  ['/dfir/image-intel', '/__prerendered/dfir__image-intel'],
   ['/dfir/exif', '/__prerendered/dfir__exif'],
 
   // ── DFIR: file format analyzers ───────────────────────────────
@@ -206,7 +197,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/web-log', '/__prerendered/dfir__web-log'],
   ['/dfir/prefetch', '/__prerendered/dfir__prefetch'],
   ['/dfir/powershell-deobf', '/__prerendered/dfir__powershell-deobf'],
-  ['/dfir/screenshot-intel', '/__prerendered/dfir__screenshot-intel'],
 
   // ── DFIR: detection & analysis ────────────────────────────────
   ['/dfir/rule-converter', '/__prerendered/dfir__rule-converter'],
@@ -217,7 +207,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/pi-taxonomy', '/__prerendered/dfir__pi-taxonomy'],
   ['/dfir/ironsight', '/__prerendered/dfir__ironsight'],
   ['/dfir/mcp-audit', '/__prerendered/dfir__mcp-audit'],
-  ['/dfir/agent-map', '/__prerendered/dfir__agent-map'],
   ['/dfir/cve-prioritizer', '/__prerendered/dfir__cve-prioritizer'],
   ['/dfir/fusion-exposure', '/__prerendered/dfir__fusion-exposure'],
   ['/dfir/risk-register', '/__prerendered/dfir__risk-register'],
@@ -229,17 +218,13 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/soc-automation', '/__prerendered/dfir__soc-automation'],
 
   // ── DFIR: cloud security ──────────────────────────────────────
-  ['/dfir/iam-analyzer', '/__prerendered/dfir__iam-analyzer'],
-  ['/dfir/gcp-iam', '/__prerendered/dfir__gcp-iam'],
-  ['/dfir/azure-rbac', '/__prerendered/dfir__azure-rbac'],
+  ['/dfir/iam-hub', '/__prerendered/dfir__iam-hub'],
   ['/dfir/sg-analyzer', '/__prerendered/dfir__sg-analyzer'],
   ['/dfir/cloudtrail-triage', '/__prerendered/dfir__cloudtrail-triage'],
-  ['/dfir/k8s-rbac', '/__prerendered/dfir__k8s-rbac'],
   ['/dfir/terraform-scan', '/__prerendered/dfir__terraform-scan'],
 
   // ── DFIR: API security ────────────────────────────────────────
   ['/dfir/openapi-audit', '/__prerendered/dfir__openapi-audit'],
-  ['/dfir/sec-headers', '/__prerendered/dfir__sec-headers'],
   ['/dfir/secret-scan', '/__prerendered/dfir__secret-scan'],
   ['/dfir/medusa-scan', '/__prerendered/dfir__medusa-scan'],
   ['/dfir/graphql-audit', '/__prerendered/dfir__graphql-audit'],
@@ -267,7 +252,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   // ── DFIR: security frameworks ─────────────────────────────────
   ['/dfir/nhi', '/__prerendered/dfir__nhi'],
   ['/dfir/jwt', '/__prerendered/dfir__jwt'],
-  ['/dfir/privacy', '/__prerendered/dfir__privacy'],
   ['/dfir/zero-trust-ai-agents', '/__prerendered/dfir__zero-trust-ai-agents'],
 
   // ── DFIR: dark web workbench ──────────────────────────────────
@@ -297,15 +281,13 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/dnscope', '/__prerendered/dfir__dnscope'],
   ['/dfir/regscope', '/__prerendered/dfir__regscope'],
   ['/dfir/tracerules', '/__prerendered/dfir__tracerules'],
-  ['/dfir/phone-osint', '/__prerendered/dfir__phone-osint'],
-  ['/dfir/phone-intel', '/__prerendered/dfir__phone-intel'],
+  ['/dfir/phone-hub', '/__prerendered/dfir__phone-hub'],
   ['/dfir/weather-osint', '/__prerendered/dfir__weather-osint'],
   ['/dfir/infostealer-intel', '/__prerendered/dfir__infostealer-intel'],
   ['/dfir/rhysida-intrusion', '/__prerendered/dfir__rhysida-intrusion'],
 
   // ── DFIR: AI agent tools ─────────────────────────────────────
-  ['/dfir/agent', '/__prerendered/dfir__agent'],
-  ['/dfir/agent-enrich', '/__prerendered/dfir__agent-enrich'],
+  ['/dfir/agent-suite', '/__prerendered/dfir__agent-suite'],
   ['/dfir/attmap-ai', '/__prerendered/dfir__attmap-ai'],
   ['/dfir/x-verdikt', '/__prerendered/dfir__x-verdikt'],
 
@@ -335,7 +317,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/ioc-pivot', '/__prerendered/dfir__ioc-pivot'],
   ['/dfir/google-dorks', '/__prerendered/dfir__google-dorks'],
   ['/dfir/linux-triage', '/__prerendered/dfir__linux-triage'],
-  ['/dfir/takeover', '/__prerendered/dfir__takeover'],
   ['/dfir/email-defense', '/__prerendered/dfir__email-defense'],
   ['/dfir/dmarc-analyzer', '/__prerendered/dfir__dmarc-analyzer'],
   ['/dfir/dlp-scan', '/__prerendered/dfir__dlp-scan'],
@@ -344,7 +325,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/ip-geo', '/__prerendered/dfir__ip-geo'],
   ['/dfir/log-parser', '/__prerendered/dfir__log-parser'],
   ['/dfir/socmint', '/__prerendered/dfir__socmint'],
-  ['/dfir/tools/about', '/__prerendered/dfir__tools__about'],
   ['/dfir/web-scan', '/__prerendered/dfir__web-scan'],
   ['/dfir/malware-scan', '/__prerendered/dfir__malware-scan'],
   ['/dfir/sample-scan', '/__prerendered/dfir__sample-scan'],
@@ -531,9 +511,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/threat-actor-catalog', '/__prerendered/threatintel__threat-actor-catalog'],
   ['/threatintel/threat-landscape', '/__prerendered/threatintel__threat-landscape'],
   ['/threatintel/threat-actor-db', '/__prerendered/threatintel__threat-actor-db'],
-  ['/threatintel/cti-dashboard', '/__prerendered/threatintel__cti-dashboard'],
-  ['/threatintel/ti-dashboard', '/__prerendered/threatintel__ti-dashboard'],
-  ['/threatintel/dashboard', '/__prerendered/threatintel__dashboard'],
+  ['/threatintel/dashboard-hub', '/__prerendered/threatintel__dashboard-hub'],
   ['/dfir/copilot', '/__prerendered/dfir__copilot'],
   ['/dfir/orkl', '/__prerendered/dfir__orkl'],
   ['/dfir/wifi-investigation', '/__prerendered/dfir__wifi-investigation'],

@@ -265,7 +265,7 @@ export default function CertSearch(): JSX.Element {
                     inspect
                   </Link>
                   <Link
-                    to={`/dfir/takeover?domain=${encodeURIComponent(n.replace(/^\*\./, ''))}`}
+                    to={`/dfir/subdomain-takeover?domain=${encodeURIComponent(n.replace(/^\*\./, ''))}`}
                     className="text-micro text-brand-600 dark:text-brand-400 hover:underline shrink-0"
                   >
                     takeover

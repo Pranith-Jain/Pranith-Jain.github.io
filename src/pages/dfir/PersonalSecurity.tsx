@@ -315,8 +315,8 @@ export default function PersonalSecurity(): JSX.Element {
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Reference only - not legal or professional advice. Pairs with{' '}
-          <Link to="/dfir/privacy" className="text-brand-600 dark:text-brand-400 hover:underline">
-            /dfir/privacy
+          <Link to="/dfir/privacy-hub" className="text-brand-600 dark:text-brand-400 hover:underline">
+            /dfir/privacy-hub
           </Link>{' '}
           (live browser fingerprinting scan),{' '}
           <Link to="/dfir/privacy-hub" className="text-brand-600 dark:text-brand-400 hover:underline">

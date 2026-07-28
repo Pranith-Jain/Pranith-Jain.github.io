@@ -51,6 +51,29 @@ export function withSecurityHeaders(response: Response, nonce?: string, origin?:
   // ASSETS binding returns responses with immutable headers. Clone into
   // a mutable Headers object so we can add CSP and other security headers.
   const h = new Headers(response.headers);
+  const ct = (h.get('content-type') ?? '').toLowerCase();
+
+  // Image responses (OG cards, OG PNGs, blog illustrations) must NOT carry
+  // CSP / X-Frame-Options / frame-ancestors. Social platforms (X/Twitter,
+  // LinkedIn, Facebook, Slack) fetch the twitter:image / og:image URL to
+  // render a preview card; restrictive security headers on the image
+  // response cause their validators to reject the image and show no
+  // preview. Images can't execute scripts, so CSP adds no protection here.
+  const isImage = ct.startsWith('image/');
+  if (isImage) {
+    h.set('x-content-type-options', 'nosniff');
+    h.set('referrer-policy', 'strict-origin-when-cross-origin');
+    h.set('strict-transport-security', 'max-age=63072000; includeSubDomains; preload');
+    h.delete('server');
+    const status = response.status;
+    const bodyless = status === 101 || status === 204 || status === 205 || status === 304;
+    return new Response(bodyless ? null : response.body, {
+      status,
+      statusText: response.statusText,
+      headers: h,
+    });
+  }
+
   h.set('content-security-policy', cspHeader(nonce, origin));
   // Always override security headers with canonical secure values.
   // Previous behavior checked has() first, which allowed a misconfigured

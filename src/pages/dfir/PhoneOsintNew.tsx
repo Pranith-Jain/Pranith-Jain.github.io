@@ -487,7 +487,7 @@ export default function PhoneOsintNew() {
 
       {/* Footer */}
       <div className="mt-6 pt-4 text-center text-meta text-slate-500">
-        <a href="/dfir/phone-osint" className="text-muted">
+        <a href="/dfir/phone-hub" className="text-muted">
           Legal Policy · Privacy · Terms
         </a>
       </div>

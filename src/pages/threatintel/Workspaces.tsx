@@ -1,5 +1,5 @@
 /**
- * /threatintel/tools/workspaces -- Guided Investigation Workspaces
+ * /threatintel/investigation-suite -- Guided Investigation Workspaces
  *
  * AEAD lifecycle workspace management: create, browse, and walk through
  * Acquire → Enrich → Assess → Deliver phases with step-by-step guidance.
@@ -308,7 +308,7 @@ export default function Workspaces() {
           <div className="grid grid-cols-2 gap-1.5">
             {(
               [
-                ['/threatintel/tools/investigations', 'Investigations', Search],
+                ['/threatintel/investigation-suite', 'Investigations', Search],
                 ['/threatintel/tools/unified-search', 'Unified Search', Crosshair],
                 ['/threatintel/tools/mcp', 'MCP Tools', Shield],
                 ['/threatintel/tools/stix', 'STIX Export', FileText],
