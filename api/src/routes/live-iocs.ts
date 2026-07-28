@@ -175,7 +175,9 @@ async function fetchText(url: string): Promise<string | null> {
  * /api/v1/live-iocs so the operator can see the actual HTTP status /
  * network error for each unreachable source. Not on the hot path.
  */
-async function fetchTextDiag(url: string): Promise<{ ok: boolean; status?: number; bytes?: number; error?: string }> {
+async function fetchTextDiag(
+  url: string
+): Promise<{ ok: boolean; status?: number; bytes?: number; error?: string; duration_ms?: number }> {
   const t0 = Date.now();
   try {
     const res = await fetch(url, {
@@ -185,24 +187,25 @@ async function fetchTextDiag(url: string): Promise<{ ok: boolean; status?: numbe
       cf: { cacheTtl: 1500 },
     });
     if (!res.ok) {
-      return { ok: false, status: res.status, error: `HTTP ${res.status}` };
+      return { ok: false, status: res.status, error: `HTTP ${res.status}`, duration_ms: Date.now() - t0 };
     }
     const text = await res.text();
     if (!text) {
-      return { ok: false, status: res.status, error: 'empty body' };
+      return { ok: false, status: res.status, error: 'empty body', duration_ms: Date.now() - t0 };
     }
     const firstNonWs = text.trimStart().slice(0, 16);
     if (firstNonWs.startsWith('<!DOCTYPE') || firstNonWs.startsWith('<html')) {
-      return { ok: false, status: res.status, error: `HTML challenge page (${text.length} bytes)` };
+      return {
+        ok: false,
+        status: res.status,
+        error: `HTML challenge page (${text.length} bytes)`,
+        duration_ms: Date.now() - t0,
+      };
     }
-    return { ok: true, status: res.status, bytes: text.length };
+    return { ok: true, status: res.status, bytes: text.length, duration_ms: Date.now() - t0 };
   } catch (e) {
     console.error('fetchTextDiag failed:', e instanceof Error ? e.message : String(e));
-    return { ok: false, error: e instanceof Error ? e.message.slice(0, 120) : 'unknown' };
-  } finally {
-    // Surface wall-time so a slow-but-successful fetch shows up in the debug
-    // output too (helps catch sources that are 11s of 12s timeout away).
-    void t0;
+    return { ok: false, error: e instanceof Error ? e.message.slice(0, 120) : 'unknown', duration_ms: Date.now() - t0 };
   }
 }
 
@@ -854,10 +857,9 @@ const FEED_SOURCES: FeedSource[] = [
 
 /**
  * Registry source ids — the per-source runner units the queue fan-out
- * enqueues. NB: this is the FeedSource.id set (25 entries, incl. the
- * 'phishing' wrapper that emits phishtank + openphish), NOT the response
- * source-id set. It excludes 'feed-scheduler' (a compose-time D1 read that
- * bypasses the staleness filter — see fetchLiveIocs).
+ * enqueues. NB: this is the FeedSource.id set, NOT the response source-id
+ * set. It excludes 'feed-scheduler' (a compose-time D1 read that bypasses
+ * the staleness filter — see fetchLiveIocs).
  */
 export const FEED_SOURCE_IDS: readonly string[] = FEED_SOURCES.map((s) => s.id);
 

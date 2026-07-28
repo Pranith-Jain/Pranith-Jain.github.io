@@ -32,14 +32,7 @@ const IP_DNSBLS = [
   'ircbl.ueberstimmt.net',
 ];
 
-const DOMAIN_DNSBLS = [
-  'dbl.spamhaus.org',
-  'multi.surbl.org',
-  'multi.uribl.com',
-  'rhsbl.sorbs.net',
-  'dbl.nordspam.com',
-  'uri.blacklist.list',
-];
+const DOMAIN_DNSBLS = ['dbl.spamhaus.org', 'multi.surbl.org', 'multi.uribl.com', 'rhsbl.sorbs.net', 'dbl.nordspam.com'];
 
 async function checkIpBlacklist(ip: string, bl: string, signal?: AbortSignal): Promise<BlacklistCheck> {
   try {
@@ -157,10 +150,10 @@ export async function domainRepHandler(c: Context<{ Bindings: Env }>): Promise<R
     }
 
     // Subrequest budget: each DNSBL check is one DoH fetch, and CF caps a
-    // Worker at 50 subrequests/invocation. DOMAIN_DNSBLS (6) + N IPs × IP_DNSBLS
-    // (17) must stay under that. At 3 IPs this was 6 + 51 = 57 — over the cap,
+    // Worker at 50 subrequests/invocation. DOMAIN_DNSBLS (5) + N IPs × IP_DNSBLS
+    // (20) must stay under that. At 3 IPs this was 5 + 60 = 65 — over the cap,
     // so the tail checks failed with "Too many subrequests". Check only the
-    // primary resolved IP (6 + 17 = 23): the A records for one domain almost
+    // primary resolved IP (5 + 20 = 25): the A records for one domain almost
     // always share reputation, so the marginal coverage of IPs 2–3 wasn't
     // worth blowing the budget.
     const ipsToCheck = ips.slice(0, 1);
@@ -200,7 +193,23 @@ export async function domainRepHandler(c: Context<{ Bindings: Env }>): Promise<R
 
 // ── Domain Monitor (Typosquat Detection) ──────────────────────────────────
 
-const TLD_SWAPS = ['.com', '.net', '.org', '.co', '.io', '.ai', '.app', '.dev', '.xyz', '.top', '.club', '.online'];
+const TLD_SWAPS = [
+  '.com',
+  '.net',
+  '.org',
+  '.co',
+  '.io',
+  '.ai',
+  '.app',
+  '.dev',
+  '.xyz',
+  '.top',
+  '.club',
+  '.online',
+  '.info',
+  '.biz',
+  '.site',
+];
 const AFFIXES = [
   '-login',
   '-secure',
@@ -319,10 +328,6 @@ async function batchResolve(
       })
     );
     results.push(...batchResults);
-    // Small delay between batches to avoid rate limiting
-    if (i + batchSize < variants.length) {
-      await new Promise((r) => setTimeout(r, 200));
-    }
   }
 
   return results;

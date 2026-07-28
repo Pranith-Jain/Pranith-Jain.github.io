@@ -11,7 +11,8 @@ import type { Env } from '../env';
  * with the checks Web-Check is known for: live HTTP probe, TLS cert chain,
  * security header scoring, and technology fingerprinting.
  *
- * Subrequest budget: HTTP probe (1) + TLS probe (1) + Shodan (1) = 3 max.
+ * Subrequest budget: HTTP probe (up to 9 with redirect follows) + TLS probe
+ * (1) + Shodan (2: dns/resolve + host) = 12 max. Well under the 50 cap.
  * All other checks are in-process string parsing.
  */
 
@@ -332,6 +333,7 @@ interface TlsInfo {
   protocol?: string;
   key_size?: number;
   self_signed?: boolean;
+  hsts?: string;
 }
 
 async function probeTls(domain: string): Promise<TlsInfo> {
@@ -352,14 +354,16 @@ async function probeTls(domain: string): Promise<TlsInfo> {
     });
     clearTimeout(timer);
 
-    res.headers.get('strict-transport-security');
+    const hsts = res.headers.get('strict-transport-security');
     const server = res.headers.get('server');
     const protocol = res.headers.get('alt-svc')?.includes('h3') ? 'HTTP/3 (QUIC)' : 'HTTP/2';
 
     return {
       protocol,
-      self_signed: false, // HTTPS succeeded, so not self-signed
+      // Workers can't inspect TLS cert details (no cert chain access).
+      // self_signed/issuer are not reliably detectable from a fetch response.
       issuer: server ? `Server: ${server}` : undefined,
+      hsts: hsts ?? undefined,
     };
   } catch (_catchErr) {
     console.error('probeTls failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));

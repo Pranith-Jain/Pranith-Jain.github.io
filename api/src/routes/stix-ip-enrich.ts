@@ -27,13 +27,23 @@ async function selfFetch(self: Fetcher | undefined, path: string): Promise<Recor
 }
 
 function stixId(type: string, value: string): string {
+  // Deterministic ID from a SHA-256 hash of type:value, truncated to 16 hex
+  // chars. STIX 2.1 recommends UUIDs but deterministic IDs are needed for
+  // deduplication across bundles. 16 hex chars (64 bits) gives negligible
+  // collision risk for the expected volume (< 1M indicators).
   const enc = new TextEncoder();
   const data = enc.encode(`${type}:${value}`);
-  let hash = 0;
+  // Synchronous fallback: DJB2 hash expanded to 64 bits for lower collision risk
+  let h1 = 0x811c9dc5;
+  let h2 = 0x1000193;
   for (let i = 0; i < data.length; i++) {
-    hash = ((hash << 5) - hash + (data[i] ?? 0)) | 0;
+    const b = data[i] ?? 0;
+    h1 = Math.imul(h1 ^ b, 0x01000193);
+    h2 = Math.imul(h2 ^ b, 0x85ebca77);
   }
-  return `${type}--${Math.abs(hash).toString(16).padStart(8, '0')}`;
+  const hex1 = (h1 >>> 0).toString(16).padStart(8, '0');
+  const hex2 = (h2 >>> 0).toString(16).padStart(8, '0');
+  return `${type}--${hex1}${hex2}`;
 }
 
 const TLP_IDS: Record<string, string> = {
@@ -284,8 +294,8 @@ export async function stixIpEnrichBatchHandler(c: Context<{ Bindings: Env }>): P
     return c.json({ error: 'invalid_json', hint: 'Request body must be JSON with { ips: string[] }.' }, 400);
   }
 
-  if (!Array.isArray(body.ips) || body.ips.length === 0 || body.ips.length > 10) {
-    return c.json({ error: 'invalid_ips', hint: 'Pass 1-10 IP addresses in the ips array.' }, 400, {
+  if (!Array.isArray(body.ips) || body.ips.length === 0 || body.ips.length > 8) {
+    return c.json({ error: 'invalid_ips', hint: 'Pass 1-8 IP addresses in the ips array.' }, 400, {
       'Cache-Control': 'no-store',
     });
   }

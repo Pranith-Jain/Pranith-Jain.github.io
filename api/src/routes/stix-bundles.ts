@@ -155,9 +155,11 @@ export async function stixBundlesHandler(c: Context<{ Bindings: Env }>): Promise
           break;
         }
         case 'cd': {
+          // Contains any: JSON array column, match if ANY element matches
           const arr = f.value as string[];
-          whereClauses.push(`b.${col} IS NOT NULL`);
-          bindings.push(arr);
+          const subClauses = arr.map(() => `b.${col} LIKE ?`);
+          whereClauses.push(`(${subClauses.join(' OR ')})`);
+          for (const v of arr) bindings.push(`%"${escapeJsonString(v)}"%`);
           break;
         }
       }

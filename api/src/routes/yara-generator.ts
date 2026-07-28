@@ -127,7 +127,7 @@ async function runWorkersAi(ai: NonNullable<Env['AI']>, model: string, input: Ll
   return res.response;
 }
 
-async function callNvidia(nvidiaKey: string, input: LlmInput): Promise<string> {
+async function callNvidia(nvidiaKey: string, input: LlmInput): Promise<{ text: string; model: string }> {
   const models = ['minimaxai/minimax-m2.7', 'z-ai/glm-5.2'];
   for (const model of models) {
     try {
@@ -148,7 +148,7 @@ async function callNvidia(nvidiaKey: string, input: LlmInput): Promise<string> {
       if (!res.ok) continue;
       const j = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
       const text = j?.choices?.[0]?.message?.content;
-      if (typeof text === 'string' && text.trim()) return text;
+      if (typeof text === 'string' && text.trim()) return { text, model };
     } catch (_catchErr) {
       console.error('callNvidia failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* try next model */
@@ -171,7 +171,9 @@ async function runLlm(
     } catch (err) {
       const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
       if (msg.includes('rate') || msg.includes('429')) {
+        // rate-limited — fall through to next provider
       } else {
+        console.error('runLlm groq failed:', err instanceof Error ? err.message : String(err));
       }
     }
   }
@@ -179,9 +181,10 @@ async function runLlm(
   // 2. NVIDIA fallback
   if (nvidiaKey) {
     try {
-      const text = await callNvidia(nvidiaKey, input);
-      return { text, modelUsed: 'nvidia:minimaxai/minimax-m2.7' };
+      const { text, model: nvidiaModel } = await callNvidia(nvidiaKey, input);
+      return { text, modelUsed: `nvidia:${nvidiaModel}` };
     } catch (err) {
+      console.error('runLlm nvidia failed:', err instanceof Error ? err.message : String(err));
     }
   }
 
@@ -724,8 +727,7 @@ try {
     } else {
         Write-Host "No suspicious scheduled task creation found." -ForegroundColor Green
     }
-} catch (_catchErr) {
-  console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+} catch {
     Write-Error "Error querying scheduled tasks: $_"
 }`;
 

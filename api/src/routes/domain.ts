@@ -10,7 +10,7 @@ import { safeErrorMessage } from '../lib/error';
 import { tweetfeed } from '../providers/tweetfeed';
 import { threatfox } from '../providers/threatfox';
 import { urlhaus } from '../providers/urlhaus';
-import type { ProviderEnv, ProviderResult } from '../providers/types';
+import type { ProviderEnv, ProviderResult, ProviderId } from '../providers/types';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 const COMMON_DKIM_SELECTORS = [
@@ -29,13 +29,8 @@ const COMMON_DKIM_SELECTORS = [
   'selector2',
   // Google Workspace
   'google',
-  // Cloudflare Email Routing (current year + previous year)
-  'cf2024-1',
-  'cf2024-2',
-  'cf2025-1',
-  'cf2025-2',
-  'cf2026-1',
-  'cf2026-2',
+  // Cloudflare Email Routing (current year + previous year, dynamic)
+  ...Array.from({ length: 2 }, (_, i) => new Date().getFullYear() - i).flatMap((y) => [`cf${y}-1`, `cf${y}-2`]),
   // Postmark
   'pm',
   // Mailgun
@@ -115,21 +110,20 @@ export async function domainLookupHandler(c: Context<{ Bindings: Env }>) {
   const tiSignal = AbortSignal.timeout(8000);
   const tiIndicator = { type: 'domain' as const, value: raw };
   const tiProviders = [phishingArmy, tweetfeed, threatfox, urlhaus];
+  const tiProviderNames: ProviderId[] = ['phishingArmy', 'tweetfeed', 'threatfox', 'urlhaus'];
   const tiResults: ProviderResult[] = await Promise.all(
-    tiProviders.map((p) =>
-      p(tiIndicator, tiEnv, tiSignal).catch(
-        (err): ProviderResult => ({
-          source: 'phishingArmy',
-          status: 'error',
-          score: 0,
-          verdict: 'unknown',
-          raw_summary: {},
-          tags: [],
-          error: safeErrorMessage(c.env, err),
-          fetched_at: new Date().toISOString(),
-          cached: false,
-        })
-      )
+    tiProviders.map((p, i) =>
+      p(tiIndicator, tiEnv, tiSignal).catch((err): ProviderResult => ({
+        source: tiProviderNames[i]!,
+        status: 'error',
+        score: 0,
+        verdict: 'unknown',
+        raw_summary: {},
+        tags: [],
+        error: safeErrorMessage(c.env, err),
+        fetched_at: new Date().toISOString(),
+        cached: false,
+      }))
     )
   );
   const tiHits = tiResults.filter(
