@@ -71,18 +71,22 @@ export default function AgentMetrics(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const headers = adminAuthHeaders();
+    const opts = { headers, credentials: 'same-origin' as const };
     Promise.all([
-      fetch('/api/v1/agent/metrics', { headers }).then(async (r) => {
-        if (!r.ok) throw new Error(`metrics HTTP ${r.status}`);
+      fetch('/api/v1/agent/metrics', opts).then(async (r) => {
+        if (r.status === 401 || r.status === 403) {
+          throw new Error('Agent metrics require an admin session. Set your admin token in Settings.');
+        }
+        if (!r.ok) throw new Error(`Failed to load metrics (HTTP ${r.status}).`);
         return (await r.json()) as AgentMetricsData;
       }),
-      fetch('/api/v1/agent/provider-health', { headers })
+      fetch('/api/v1/agent/provider-health', opts)
         .then((r) => (r.ok ? (r.json() as Promise<Record<string, ProviderHealthData>>) : null))
         .catch(() => null),
-      fetch('/api/v1/agent/memory?limit=15', { headers })
+      fetch('/api/v1/agent/memory?limit=15', opts)
         .then((r) => (r.ok ? (r.json() as Promise<{ investigations: MemoryEntry[] }>) : null))
         .catch(() => null),
-      fetch('/api/v1/agent/knowledge-graph?limit=80', { headers })
+      fetch('/api/v1/agent/knowledge-graph?limit=80', opts)
         .then((r) => (r.ok ? (r.json() as Promise<KnowledgeGraphData>) : null))
         .catch(() => null),
     ])
@@ -105,8 +109,7 @@ export default function AgentMetrics(): JSX.Element {
   }, []);
 
   if (loading) return <div className="p-8 text-center font-mono text-sm text-slate-500">Loading metrics…</div>;
-  if (error)
-    return <div className="p-8 text-center font-mono text-sm text-rose-600">Failed to load metrics: {error}</div>;
+  if (error) return <div className="p-8 text-center font-mono text-sm text-rose-600">{error}</div>;
   if (!data || data.totalInvestigations === 0)
     return <div className="p-8 text-center font-mono text-sm text-slate-500">No investigations recorded yet.</div>;
 
