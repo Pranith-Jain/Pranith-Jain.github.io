@@ -109,7 +109,7 @@ interface DetectionListDetail {
   }>;
 }
 
-type Tab = 'cves' | 'kev' | 'iocs' | 'sectors' | 'lists' | 'search' | 'darkweb';
+type Tab = 'cves' | 'kev' | 'iocs' | 'sectors' | 'lists' | 'search' | 'darkweb' | 'graph';
 
 type DarkwebTool = 'multi-search' | 'onion-lookup' | 'crawl' | 'scrape-deep' | 'tor-exit';
 
@@ -167,6 +167,13 @@ export default function ThreatIntel() {
   const [dwResults, setDwResults] = useState<any>(null);
   const [dwLoading, setDwLoading] = useState(false);
   const [dwError, setDwError] = useState<string | null>(null);
+  const [graphData, setGraphData] = useState<{
+    nodes: { id: string; type: string; label: string; subtitle?: string; weight?: number }[];
+    edges: { id: string; source: string; target: string; label: string }[];
+    stats: { total_nodes: number; total_edges: number; by_type: Record<string, number> };
+  } | null>(null);
+  const [graphLoading, setGraphLoading] = useState(false);
+  const [graphError, setGraphError] = useState<string | null>(null);
 
   const { data: indexData } = useDataFetch<TiIndexSummary>({ url: '/api/v1/threat-intel/' });
   const { data: cvesData, loading: cvesLoading } = useDataFetch<{ cves: CveEntry[] }>({
@@ -371,6 +378,19 @@ export default function ThreatIntel() {
     setDwLoading(false);
   };
 
+  const loadGraph = async () => {
+    if (graphData) return;
+    setGraphLoading(true);
+    setGraphError(null);
+    try {
+      const data = await tiClient.entityGraph(150);
+      setGraphData(data);
+    } catch (e) {
+      setGraphError(e instanceof Error ? e.message : 'Failed to load graph');
+    }
+    setGraphLoading(false);
+  };
+
   const filteredCves = useMemo(() => {
     if (!cvesData?.cves) return [];
     const needle = cveFilter.toLowerCase();
@@ -423,6 +443,7 @@ export default function ThreatIntel() {
           { key: 'sectors' as Tab, label: 'Sector Briefs', icon: Globe2, count: sectorsData?.sectors?.length },
           { key: 'lists' as Tab, label: 'Detection Lists', icon: ListIcon, count: listsData?.lists?.length },
           { key: 'search' as Tab, label: 'Live Search', icon: SearchIcon },
+          { key: 'graph' as Tab, label: 'Entity Graph', icon: Network },
           { key: 'darkweb' as Tab, label: 'Dark Web', icon: Globe },
         ].map((t) => {
           const Icon = t.icon;
@@ -832,18 +853,12 @@ export default function ThreatIntel() {
               <p className="text-sm text-rose-600 dark:text-rose-400">{searchError}</p>
             </div>
           )}
-          {searchResults && searchResults.provider === 'otx' && (
-            <OtxResults data={searchResults.data} />
-          )}
-          {searchResults && searchResults.provider === 'threatfox' && (
-            <ThreatFoxResults data={searchResults.data} />
-          )}
+          {searchResults && searchResults.provider === 'otx' && <OtxResults data={searchResults.data} />}
+          {searchResults && searchResults.provider === 'threatfox' && <ThreatFoxResults data={searchResults.data} />}
           {searchResults && searchResults.provider === 'malwarebazaar' && (
             <MalwareBazaarResults data={searchResults.data} />
           )}
-          {searchResults && searchResults.provider === 'ransomware' && (
-            <RansomwareResults data={searchResults.data} />
-          )}
+          {searchResults && searchResults.provider === 'ransomware' && <RansomwareResults data={searchResults.data} />}
           {!searchLoading && !searchResults && !searchError && (
             <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400`}>
               Search across OTX, ThreatFox, MalwareBazaar, and ransomware.live. Results include IOCs, malware families,
@@ -851,6 +866,11 @@ export default function ThreatIntel() {
             </div>
           )}
         </div>
+      )}
+
+      {/* Entity Graph tab */}
+      {tab === 'graph' && (
+        <EntityGraphTab data={graphData} loading={graphLoading} error={graphError} onLoad={loadGraph} />
       )}
 
       {/* Dark Web OSINT tab (TorBot / darkdump integration) */}
@@ -1028,6 +1048,417 @@ export default function ThreatIntel() {
         </div>
       )}
     </DataPageLayout>
+  );
+}
+
+// ─── Entity Graph Component ─────────────────────────────────────────────
+
+const NODE_COLORS: Record<string, string> = {
+  cve: '#ef4444',
+  actor: '#8b5cf6',
+  sector: '#3b82f6',
+  technique: '#f59e0b',
+};
+
+function EntityGraphTab({
+  data,
+  loading,
+  error,
+  onLoad,
+}: {
+  data: {
+    nodes: { id: string; type: string; label: string; subtitle?: string; weight?: number }[];
+    edges: { id: string; source: string; target: string; label: string }[];
+    stats: { total_nodes: number; total_edges: number; by_type: Record<string, number> };
+  } | null;
+  loading: boolean;
+  error: string | null;
+  onLoad: () => void;
+}) {
+  const [selectedNode, setSelectedNode] = useState<string | null>(null);
+
+  if (!data && !loading && !error) {
+    return (
+      <div className={`${CARD} p-8 text-center`}>
+        <Network className="h-10 w-10 mx-auto mb-3 text-slate-400" />
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
+          Visualize the relationship between CVEs, threat actors, sectors, and MITRE techniques from the CISA KEV
+          catalog.
+        </p>
+        <button
+          onClick={onLoad}
+          className="px-4 py-2 rounded-xl text-sm font-medium bg-brand-600 text-white hover:bg-brand-700"
+        >
+          Load Entity Graph
+        </button>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className={`${CARD} p-8 text-center`}>
+        <Loader2 className="h-6 w-6 mx-auto mb-2 animate-spin text-brand-500" />
+        <p className="text-sm text-slate-500 dark:text-slate-400">Building entity graph from KEV data…</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={`${CARD} p-4 border-rose-300 dark:border-rose-800`}>
+        <p className="text-sm text-rose-600 dark:text-rose-400">{error}</p>
+      </div>
+    );
+  }
+
+  if (!data) return null;
+
+  const nodeMap = new Map(data.nodes.map((n) => [n.id, n]));
+  const selected = selectedNode ? nodeMap.get(selectedNode) : null;
+  const connectedEdges = selectedNode
+    ? data.edges.filter((e) => e.source === selectedNode || e.target === selectedNode)
+    : [];
+  const connectedNodes = new Set<string>();
+  for (const e of connectedEdges) {
+    connectedNodes.add(e.source);
+    connectedNodes.add(e.target);
+  }
+
+  return (
+    <div>
+      {/* Stats bar */}
+      <div className={`${CARD} p-3 mb-3`}>
+        <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
+          <span className="text-slate-500 dark:text-slate-400">
+            {data.stats.total_nodes} nodes · {data.stats.total_edges} edges
+          </span>
+          {Object.entries(data.stats.by_type).map(([type, count]) =>
+            count > 0 ? (
+              <span key={type} className="inline-flex items-center gap-1">
+                <span
+                  className="inline-block w-2 h-2 rounded-full"
+                  style={{ backgroundColor: NODE_COLORS[type] ?? '#64748b' }}
+                />
+                <span className="text-slate-500 dark:text-slate-400">
+                  {type}: {count}
+                </span>
+              </span>
+            ) : null
+          )}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+        {/* Node list */}
+        <div className="lg:col-span-1 space-y-1 max-h-[70vh] overflow-y-auto">
+          {data.nodes.slice(0, 200).map((n) => (
+            <button
+              key={n.id}
+              type="button"
+              onClick={() => setSelectedNode(selectedNode === n.id ? null : n.id)}
+              className={`w-full text-left ${CARD} p-2 transition-colors ${
+                selectedNode === n.id ? 'border-brand-500 ring-1 ring-brand-500' : 'hover:border-slate-400'
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <span
+                  className="inline-block w-2 h-2 rounded-full shrink-0"
+                  style={{ backgroundColor: NODE_COLORS[n.type] ?? '#64748b' }}
+                />
+                <span className="text-xs font-mono text-slate-800 dark:text-slate-100 truncate">{n.label}</span>
+              </div>
+              {n.subtitle && (
+                <p className="text-micro text-slate-500 dark:text-slate-400 truncate ml-4">{n.subtitle}</p>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Detail panel */}
+        <div className="lg:col-span-2">
+          {selected ? (
+            <div className={`${CARD} p-4`}>
+              <div className="flex items-center gap-2 mb-3">
+                <span
+                  className="inline-block w-3 h-3 rounded-full"
+                  style={{ backgroundColor: NODE_COLORS[selected.type] ?? '#64748b' }}
+                />
+                <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100">{selected.label}</h3>
+                <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400">
+                  {selected.type}
+                </span>
+              </div>
+              {selected.subtitle && (
+                <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono">{selected.subtitle}</p>
+              )}
+              <h4 className="text-xs font-semibold text-slate-600 dark:text-slate-300 mb-2">
+                Connections ({connectedEdges.length})
+              </h4>
+              <div className="space-y-1 max-h-60 overflow-y-auto">
+                {connectedEdges.map((e) => {
+                  const otherId = e.source === selected.id ? e.target : e.source;
+                  const other = nodeMap.get(otherId);
+                  return (
+                    <button
+                      key={e.id}
+                      type="button"
+                      onClick={() => setSelectedNode(otherId)}
+                      className="w-full text-left flex items-center gap-2 text-xs p-1.5 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))]"
+                    >
+                      <span
+                        className="inline-block w-2 h-2 rounded-full shrink-0"
+                        style={{ backgroundColor: NODE_COLORS[other?.type ?? ''] ?? '#64748b' }}
+                      />
+                      <span className="text-slate-500 dark:text-slate-400">{e.label}</span>
+                      <span className="text-slate-700 dark:text-slate-200 font-mono truncate">
+                        {other?.label ?? otherId}
+                      </span>
+                    </button>
+                  );
+                })}
+                {connectedEdges.length === 0 && (
+                  <p className="text-xs text-slate-500 dark:text-slate-400">No connections</p>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className={`${CARD} p-8 text-center`}>
+              <Network className="h-8 w-8 mx-auto mb-2 text-slate-400" />
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                Select a node from the list to see its connections.
+              </p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                {connectedNodes.size > 0 && `${connectedNodes.size} nodes in current view`}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Live Search Result Components ──────────────────────────────────────
+
+function OtxResults({ data }: { data: { total: number; pulses: OtxPulse[] } }) {
+  return (
+    <div className="space-y-2">
+      <div className={`${CARD} p-3`}>
+        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+          {data.total} pulse{data.total !== 1 ? 's' : ''} from AlienVault OTX
+        </span>
+      </div>
+      {data.pulses.length === 0 ? (
+        <div className={`${CARD} p-6 text-center text-sm text-slate-500 dark:text-slate-400`}>No pulses found</div>
+      ) : (
+        data.pulses.map((p) => (
+          <div key={p.id} className={`${CARD} p-3`}>
+            <div className="flex items-center justify-between mb-1">
+              <a
+                href={`https://otx.alienvault.com/pulse/${p.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold text-violet-600 dark:text-violet-400 hover:underline inline-flex items-center gap-1"
+              >
+                {p.name}
+                <ExternalLink className="h-3 w-3 opacity-60" />
+              </a>
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                {p.indicator_count} indicators
+              </span>
+            </div>
+            {p.description && (
+              <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-1">{p.description}</p>
+            )}
+            <div className="flex flex-wrap gap-1">
+              {p.tags.slice(0, 8).map((t) => (
+                <span
+                  key={t}
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300"
+                >
+                  {t}
+                </span>
+              ))}
+              {p.malware_families.slice(0, 4).map((m) => (
+                <span
+                  key={m}
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300"
+                >
+                  {m}
+                </span>
+              ))}
+              {p.attack_ids.slice(0, 3).map((a) => (
+                <span
+                  key={a}
+                  className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300"
+                >
+                  {a}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+function ThreatFoxResults({ data }: { data: { total: number; iocs: ThreatFoxIoc[] } }) {
+  return (
+    <div className="space-y-2">
+      <div className={`${CARD} p-3`}>
+        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+          {data.total} IOC{data.total !== 1 ? 's' : ''} from ThreatFox (abuse.ch)
+        </span>
+      </div>
+      {data.iocs.length === 0 ? (
+        <div className={`${CARD} p-6 text-center text-sm text-slate-500 dark:text-slate-400`}>No IOCs found</div>
+      ) : (
+        data.iocs.map((ioc, i) => (
+          <div key={i} className={`${CARD} p-3`}>
+            <div className="flex items-center justify-between mb-1">
+              <code className="text-xs font-mono text-slate-800 dark:text-slate-100 break-all">{ioc.ioc_value}</code>
+              <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 shrink-0 ml-2">
+                {ioc.ioc_type}
+              </span>
+            </div>
+            <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+              <span className="font-mono text-rose-600 dark:text-rose-400">{ioc.malware}</span>
+              <span>conf: {Math.round(ioc.confidence * 100)}%</span>
+              <span>reporter: {ioc.reporter}</span>
+              <span>first: {ioc.first_seen}</span>
+            </div>
+            {ioc.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1 mt-1">
+                {ioc.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+function MalwareBazaarResults({
+  data,
+}: {
+  data: { total: number; search_mode: string; samples: MalwareBazaarSample[] };
+}) {
+  return (
+    <div className="space-y-2">
+      <div className={`${CARD} p-3`}>
+        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+          {data.total} sample{data.total !== 1 ? 's' : ''} from MalwareBazaar (abuse.ch) — mode: {data.search_mode}
+        </span>
+      </div>
+      {data.samples.length === 0 ? (
+        <div className={`${CARD} p-6 text-center text-sm text-slate-500 dark:text-slate-400`}>No samples found</div>
+      ) : (
+        data.samples.map((s) => (
+          <div key={s.sha256} className={`${CARD} p-3`}>
+            <div className="flex items-center justify-between mb-1">
+              <a
+                href={`https://bazaar.abuse.ch/sample/${s.sha256}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold text-violet-600 dark:text-violet-400 hover:underline inline-flex items-center gap-1"
+              >
+                {s.signature || s.file_name || s.sha256.slice(0, 16)}
+                <ExternalLink className="h-3 w-3 opacity-60" />
+              </a>
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{s.first_seen}</span>
+            </div>
+            <code className="text-xs font-mono text-slate-500 dark:text-slate-400 break-all">{s.sha256}</code>
+            {s.file_name && <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">File: {s.file_name}</p>}
+            {s.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1 mt-1">
+                {s.tags.slice(0, 10).map((t) => (
+                  <span
+                    key={t}
+                    className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+function RansomwareResults({ data }: { data: { total: number; groups: RansomwareGroup[] } }) {
+  return (
+    <div className="space-y-2">
+      <div className={`${CARD} p-3`}>
+        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+          {data.total} group{data.total !== 1 ? 's' : ''} from ransomware.live
+        </span>
+      </div>
+      {data.groups.length === 0 ? (
+        <div className={`${CARD} p-6 text-center text-sm text-slate-500 dark:text-slate-400`}>No groups found</div>
+      ) : (
+        data.groups.map((g) => (
+          <div key={g.name} className={`${CARD} p-3`}>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-sm font-semibold text-rose-600 dark:text-rose-400">{g.name}</span>
+              <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300">
+                {g.victim_count} victims
+              </span>
+            </div>
+            {g.description && (
+              <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 mb-1">{g.description}</p>
+            )}
+            <div className="flex flex-wrap gap-2 text-xs text-slate-500 dark:text-slate-400">
+              {g.ttps.length > 0 && (
+                <div className="flex flex-wrap gap-1">
+                  {g.ttps.slice(0, 6).map((t) => (
+                    <span
+                      key={t}
+                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {g.tools.length > 0 && (
+                <div className="flex flex-wrap gap-1">
+                  {g.tools.slice(0, 4).map((t) => (
+                    <span
+                      key={t}
+                      className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+            {g.onion_urls.length > 0 && (
+              <div className="mt-1">
+                {g.onion_urls.slice(0, 2).map((u) => (
+                  <p key={u} className="text-xs font-mono text-violet-500 dark:text-violet-400 truncate">
+                    {u}
+                  </p>
+                ))}
+              </div>
+            )}
+          </div>
+        ))
+      )}
+    </div>
   );
 }
 
