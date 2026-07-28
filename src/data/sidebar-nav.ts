@@ -47,7 +47,6 @@ import {
   Map,
   MapPin as MapPinIcon,
   MessageSquare,
-  Network,
   Network as NetworkIcon,
   Newspaper,
   Package,
@@ -70,7 +69,6 @@ import {
   Store as StoreIcon,
   Sword as SwordIcon,
   Tag as TagIcon,
-  Target,
   Telescope,
   Terminal,
   Timer as TimerIcon,
@@ -311,87 +309,49 @@ function buildThreatIntelSidebar(): SidebarConfig {
 }
 
 /* ------------------------------------------------------------------ */
-/*  DFIR sidebar (unchanged, kept for parity)                          */
+/*  DFIR sidebar - auto-generated from dfir-hubs (zero manual upkeep)  */
 /* ------------------------------------------------------------------ */
 
-const dfir: SidebarConfig = {
-  sectionLabel: 'CRUCIBLE',
-  tone: 'brand',
-  groups: [
-    {
-      title: 'Triage',
-      items: [
-        { label: 'Home', href: '/dfir', icon: LayoutDashboard },
-        { label: 'Catalog', href: '/dfir/catalog', icon: Compass, description: 'Every DFIR tool, searchable.' },
-        { label: 'IOC Investigator', href: '/dfir/ioc-investigate', icon: Search },
-        { label: 'X-VERDIKT', href: '/dfir/x-verdikt', icon: Shield },
-        { label: 'REGSCOPE', href: '/dfir/regscope', icon: FolderTree },
-        {
-          label: 'ORKL Library',
-          href: '/dfir/orkl',
-          icon: BookOpen,
-          description: 'Search the open-source threat intelligence library.',
-        },
-        { label: 'Abuse Rep', href: '/dfir/abuse-rep', icon: ShieldAlert },
-        { label: 'Email Defense', href: '/dfir/email-defense', icon: Zap },
-        { label: 'Phishing', href: '/dfir/phishing', icon: ShieldAlert },
-        { label: 'Domain Investigator', href: '/dfir/domain-investigator', icon: Globe },
-        { label: 'Exposed Host', href: '/dfir/exposed-host', icon: ShieldAlert },
-        { label: 'NetDraw', href: '/dfir/netdraw', icon: Network, description: 'Network topology diagram editor.' },
-      ],
-    },
-    {
-      title: 'Investigate',
-      items: [
-        { label: 'Copilot', href: '/dfir/copilot', icon: Zap },
-        { label: 'STIX Workbench', href: '/dfir/stix-workbench', icon: FileText },
-        { label: 'Asset Intel', href: '/dfir/asset-intel', icon: Database },
-        { label: 'DNSCOPE', href: '/dfir/dnscope', icon: Globe },
-        { label: 'CVE Prioritizer', href: '/dfir/cve-prioritizer', icon: ShieldAlert },
-        { label: 'CVE Lookup', href: '/dfir/cve', icon: Bug },
-        { label: 'CloudTrail Triage', href: '/dfir/cloudtrail-triage', icon: Compass },
-        {
-          label: 'Infostealer Intel',
-          href: '/dfir/infostealer-intel',
-          icon: KeyRound,
-          description: 'Hudson Rock Cavalier - compromised credential search.',
-        },
-        { label: 'K8s RBAC', href: '/dfir/k8s-rbac', icon: KeyRound },
-        { label: 'GCP IAM', href: '/dfir/gcp-iam', icon: Shield },
-        { label: 'Azure RBAC', href: '/dfir/azure-rbac', icon: Shield },
-        { label: 'IAM Analyzer', href: '/dfir/iam-analyzer', icon: KeyRound },
-      ],
-    },
-    {
-      title: 'Reference',
-      items: [
-        { label: 'Rule Converter', href: '/dfir/rule-converter', icon: FileText },
-        { label: 'TRACERULES', href: '/dfir/tracerules', icon: Shield },
-        { label: 'ATTMAP-AI', href: '/dfir/attmap-ai', icon: Target },
-        { label: 'MITRE Atlas', href: '/threatintel/wiki/llm', icon: Compass },
-        { label: 'Decode', href: '/dfir/decode', icon: FileText },
-        { label: 'Sec Headers', href: '/dfir/sec-headers', icon: Shield },
-        { label: 'Kill Chain', href: '/dfir/kill-chain', icon: Target },
-        { label: 'ATT&CK Nav', href: '/dfir/attack-navigator', icon: Target },
-        { label: 'Diamond', href: '/dfir/diamond', icon: Target },
-        { label: 'Multi-Search', href: '/dfir/multi-search', icon: Search },
-        { label: 'Report Composer', href: '/dfir/report-composer', icon: FileText },
-      ],
-    },
-  ],
-};
+function buildDfirSidebar(): SidebarConfig {
+  // Per-hub groups, generated from the dfir-hubs registry so every catalog
+  // page gets a sidebar entry automatically (mirrors buildThreatIntelSidebar).
+  const hubGroups: SidebarGroup[] = DFIR_HUB_META.map((hub) => ({
+    title: hub.label,
+    items: hub.pages.map((p) => ({
+      label: p.label,
+      href: p.path,
+      icon: hub.icon,
+      description: p.desc,
+    })),
+  }));
+
+  // Prepend a Home entry to the first group (the registry's Overview hub) so
+  // the sidebar opens with the landing page without a redundant extra group.
+  const homeItem: SidebarItem = {
+    label: 'Home',
+    href: '/dfir',
+    icon: LayoutDashboard,
+    description: 'Search every tool, quick IOC triage.',
+  };
+  const first = hubGroups[0];
+  if (first) first.items = [homeItem, ...first.items];
+
+  return {
+    sectionLabel: 'CRUCIBLE',
+    groups: hubGroups,
+    tone: 'brand',
+  };
+}
 
 const SIDEBARS: Record<string, SidebarConfig> = {
   '/threatintel': buildThreatIntelSidebar(),
-  '/dfir': dfir,
+  '/dfir': buildDfirSidebar(),
   '/radar': {
     sectionLabel: 'SCOUT',
     groups: [
       {
         title: 'Tools',
-        items: [
-          { label: 'Scan', href: '/radar', icon: Radar },
-        ],
+        items: [{ label: 'Scan', href: '/radar', icon: Radar }],
       },
     ],
   },

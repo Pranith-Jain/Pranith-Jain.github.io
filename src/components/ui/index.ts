@@ -16,3 +16,7 @@ export type { ButtonProps, ButtonVariant, ButtonSize } from './Button';
 export { Spinner } from './Spinner';
 export { Modal } from './Modal';
 export { TabBar } from './TabBar';
+export { DataTable } from './DataTable';
+export type { DataTableColumn, DataTableProps } from './DataTable';
+export { Skeleton, SkeletonCard, SkeletonTable } from './Skeleton';
+export type { SkeletonVariant } from './Skeleton';
