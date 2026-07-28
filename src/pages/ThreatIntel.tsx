@@ -146,6 +146,7 @@ const CARD = 'surface-card';
 export default function ThreatIntel() {
   const [tab, setTab] = useState<Tab>('cves');
   const [cveFilter, setCveFilter] = useState('');
+  const [kevFilter, setKevFilter] = useState('');
   const [selectedIoc, setSelectedIoc] = useState<string | null>(null);
   const [iocFilter, setIocFilter] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -163,8 +164,7 @@ export default function ThreatIntel() {
   const [searchError, setSearchError] = useState<string | null>(null);
   const [dwTool, setDwTool] = useState<DarkwebTool>('multi-search');
   const [dwQuery, setDwQuery] = useState('');
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [dwResults, setDwResults] = useState<any>(null);
+  const [dwResults, setDwResults] = useState<Record<string, unknown> | null>(null);
   const [dwLoading, setDwLoading] = useState(false);
   const [dwError, setDwError] = useState<string | null>(null);
   const [graphData, setGraphData] = useState<{
@@ -399,6 +399,16 @@ export default function ThreatIntel() {
       : cvesData.cves;
   }, [cvesData, cveFilter]);
 
+  const filteredKev = useMemo(() => {
+    if (!kevData?.entries) return [];
+    const needle = kevFilter.toLowerCase();
+    return needle
+      ? kevData.entries.filter(
+          (e: KevEntry) => `${e.cveId} ${e.vendor} ${e.product} ${e.shortDescription}`.toLowerCase().includes(needle)
+        )
+      : kevData.entries;
+  }, [kevData, kevFilter]);
+
   const anyLoading = cvesLoading || kevLoading || iocsLoading || sectorsLoading || listsLoading;
 
   return (
@@ -533,7 +543,14 @@ export default function ThreatIntel() {
       {/* KEV tab */}
       {tab === 'kev' && (
         <div className="space-y-2">
-          {kevData?.entries?.map((entry) => (
+          <input
+            type="text"
+            placeholder="Filter by CVE ID, vendor, or product…"
+            value={kevFilter}
+            onChange={(e) => setKevFilter(e.target.value)}
+            className="w-full mb-4 px-3 py-2 rounded-xl text-sm bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500"
+          />
+          {filteredKev.map((entry) => (
             <div key={entry.cveId} className={`${CARD} p-3`}>
               <div className="flex items-center justify-between mb-1">
                 <a
@@ -552,7 +569,7 @@ export default function ThreatIntel() {
               </p>
             </div>
           ))}
-          {!kevLoading && (!kevData?.entries || kevData.entries.length === 0) && (
+          {!kevLoading && filteredKev.length === 0 && (
             <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400`}>No KEV entries</div>
           )}
         </div>
@@ -1119,11 +1136,6 @@ function EntityGraphTab({
   const connectedEdges = selectedNode
     ? data.edges.filter((e) => e.source === selectedNode || e.target === selectedNode)
     : [];
-  const connectedNodes = new Set<string>();
-  for (const e of connectedEdges) {
-    connectedNodes.add(e.source);
-    connectedNodes.add(e.target);
-  }
 
   return (
     <div>
@@ -1227,9 +1239,6 @@ function EntityGraphTab({
               <Network className="h-8 w-8 mx-auto mb-2 text-slate-400" />
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 Select a node from the list to see its connections.
-              </p>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
-                {connectedNodes.size > 0 && `${connectedNodes.size} nodes in current view`}
               </p>
             </div>
           )}

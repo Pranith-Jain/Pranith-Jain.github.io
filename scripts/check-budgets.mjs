@@ -59,6 +59,14 @@ const BUDGETS = {
   // CommandPalette) nudged the main chunk 0.6KB past 304KB raw. gzip —
   // the delivered size — stayed within budget, so transfer impact is nil;
   // modest raw headroom to absorb the drift.
+  // raw 308→336KB / gzip 98→102KB: the threat-intel vertical's typed
+  // TiClient (src/lib/threat-intel.ts) + entity-graph tab + 4 search
+  // result card components added ~26KB raw / ~3KB gzip. The ThreatIntel
+  // page itself is lazy-loaded (50KB own chunk); the growth is in shared
+  // icon + utility code pulled into the main chunk. +28KB raw / +4KB
+  // gzip headroom; transfer impact is negligible for a chunk of this
+  // size and the gzip delta is 3KB.
+  'index-*.js': { uncompressed: 336_000, gzip: 102_000 },
   // gzip 58→60KB: the OSINT Mapper's IdentifierGraph (@xyflow/react) added ~0.1KB
   // gzip to this shared vendor chunk, just past 58KB. 2KB headroom for the new
   // graph feature; transfer impact is negligible.

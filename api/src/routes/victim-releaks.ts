@@ -300,7 +300,7 @@ export async function fetchVictimReleaks(env?: Env, opts: { timeoutMs?: number }
     // Group pairs: all unordered distinct-group pairs for this victim.
     for (let i = 0; i < distinctGroups.length; i++) {
       for (let j = i + 1; j < distinctGroups.length; j++) {
-        const key = `${distinctGroups[i]} ${distinctGroups[j]}`;
+        const key = `${distinctGroups[i]}${distinctGroups[j]}`;
         pairTally.set(key, (pairTally.get(key) ?? 0) + 1);
       }
     }
@@ -320,7 +320,7 @@ export async function fetchVictimReleaks(env?: Env, opts: { timeoutMs?: number }
     .sort((a, b) => b.count - a.count);
   const group_pairs: GroupPair[] = [...pairTally.entries()]
     .map(([k, count]) => {
-      const [a, b] = k.split(' ');
+      const [a, b] = k.split('');
       return { a: a ?? '', b: b ?? '', count };
     })
     .sort((x, y) => y.count - x.count)
