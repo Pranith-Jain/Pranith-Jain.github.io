@@ -17,7 +17,7 @@ export function PageMeta({ title, description, section, canonicalPath, fullTitle
     ? ogImage.startsWith('http')
       ? ogImage
       : `${siteUrl}${ogImage}`
-    : `${siteUrl}/og-image.svg`;
+    : undefined;
 
   const ogUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : siteUrl;
   // Product surfaces (codenames + legacy section labels) are tools, not profile pages.
@@ -39,14 +39,14 @@ export function PageMeta({ title, description, section, canonicalPath, fullTitle
       {description && <meta property="og:description" content={description} />}
       {description && <meta name="twitter:description" content={description} />}
       <meta property="og:title" content={resolvedTitle} />
-      <meta property="og:image" content={resolvedOgImage} />
-      <meta property="og:image:alt" content={resolvedTitle} />
+      {resolvedOgImage && <meta property="og:image" content={resolvedOgImage} />}
+      {resolvedOgImage && <meta property="og:image:alt" content={resolvedTitle} />}
       <meta property="og:url" content={ogUrl} />
       <meta property="og:type" content={ogType} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={resolvedTitle} />
-      <meta name="twitter:image" content={resolvedOgImage} />
-      <meta name="twitter:image:alt" content={resolvedTitle} />
+      {resolvedOgImage && <meta name="twitter:image" content={resolvedOgImage} />}
+      {resolvedOgImage && <meta name="twitter:image:alt" content={resolvedTitle} />}
       <meta name="twitter:site" content="@pranithjain" />
       {canonicalPath && <link rel="canonical" href={`${siteUrl}${canonicalPath}`} />}
     </>

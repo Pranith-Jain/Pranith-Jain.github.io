@@ -233,7 +233,7 @@ export default function DFIRPage(): JSX.Element {
         description={`${MAIN_TOOL_COUNT}+ browser-side security tools for incident response, forensics, and detection engineering. IOC checks, CVE triage, rule conversion, and more.`}
         section={PRODUCTS.crucible.metaSection}
         canonicalPath="/dfir"
-        ogImage="/og-dfir.svg"
+        ogImage="/og-dfir.png"
       />
       <div className="w-full py-6 sm:py-10 text-slate-900 dark:text-slate-100 space-y-8 sm:space-y-12">
         <DfirStructuredData />

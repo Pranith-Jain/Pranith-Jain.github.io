@@ -5,14 +5,15 @@
 
 import { DfirMcpServer } from './mcp-server';
 import { withSecurityHeaders } from './csp';
+import { workerRateLimit, rateLimitResponse, callerIp } from './lib/worker-rate-limit';
 import type { Env } from './env';
+
+const MCP_LIMIT_KEYED = 60;
+const MCP_LIMIT_ANON = 10;
 
 export async function handleMcp(request: Request, env: Env, ctx: ExecutionContext, url: URL): Promise<Response | null> {
   if (!url.pathname.startsWith('/api/mcp')) return null;
 
-  // Fast gate: reject if no API key is present. Full validation happens inside
-  // the Durable Object's onConnect — this is just an early-exit to avoid
-  // spinning up a DO instance for unauthenticated requests.
   if (request.method !== 'OPTIONS') {
     const authz = request.headers.get('authorization') ?? '';
     const rawKey = /^Bearer\s+(\S+)/i.exec(authz)?.[1] ?? request.headers.get('x-api-key') ?? '';
@@ -25,6 +26,12 @@ export async function handleMcp(request: Request, env: Env, ctx: ExecutionContex
         undefined,
         url.origin
       );
+    }
+
+    const rlId = rawKey.slice(0, 16);
+    const rl = await workerRateLimit('mcp', rlId, MCP_LIMIT_KEYED);
+    if (!rl.allowed) {
+      return withSecurityHeaders(rateLimitResponse(rl), undefined, url.origin);
     }
   }
 

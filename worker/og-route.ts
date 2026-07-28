@@ -13,6 +13,9 @@ import { generateOgSvg } from './og-image';
 import { loadOgData } from './og-data';
 import { matchOgImagePath, type OgImageType } from './og-path';
 import { svgToPng } from './og-raster';
+import { workerRateLimit, rateLimitResponse, callerIp } from './lib/worker-rate-limit';
+
+const OG_LIMIT = 20;
 
 const ASSET_ORIGIN = 'https://og-assets.internal';
 
@@ -53,6 +56,9 @@ export async function handleOgImage(request: Request, env: Env, url: URL, ctx: E
   const matched = matchOgImagePath(url.pathname);
   if (!matched) return new Response('not found', { status: 404 });
   const { type, slug } = matched;
+
+  const rl = await workerRateLimit('og', callerIp(request), OG_LIMIT);
+  if (!rl.allowed) return rateLimitResponse(rl);
 
   // v2: bumped when the OG card design changed (slate → navy) so previously
   // cached slate cards are not served after deploy. Bump on any card redesign.

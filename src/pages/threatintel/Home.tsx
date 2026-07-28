@@ -191,7 +191,7 @@ export default function ThreatIntelHome(): JSX.Element {
         description="Live threat intelligence - ransomware activity, threat actors, IOCs, CVEs, dark web monitoring, and social media feeds."
         section="Threat Intel"
         canonicalPath="/threatintel"
-        ogImage="/og-threatintel.svg"
+        ogImage="/og-threatintel.png"
       />
       <div className="w-full py-6 sm:py-10 text-slate-900 dark:text-slate-100 space-y-8 sm:space-y-12">
         <ThreatIntelStructuredData />

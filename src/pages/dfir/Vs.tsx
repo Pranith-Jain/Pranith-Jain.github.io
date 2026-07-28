@@ -32,7 +32,7 @@ export default function Vs(): JSX.Element {
         description="Side-by-side comparison of CRUCIBLE (DFIR & Security Toolkit) with VirusTotal, ANY.RUN, Hybrid Analysis, and URLScan.io. When to use which, and how CRUCIBLE complements hosted sandboxes."
         section="DFIR"
         canonicalPath="/dfir/vs"
-        ogImage="/og-dfir.svg"
+        ogImage="/og-dfir.png"
       />
       <BackLink to="/dfir">back</BackLink>
       <FaqStructuredData entries={faq} />

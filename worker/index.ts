@@ -87,7 +87,7 @@ export default {
     // AI-generated blog illustrations (public, before /api/v1/* key-gate)
     if (url.pathname.startsWith('/api/v1/blog-image/')) {
       try {
-        const imgRes = await handleBlogImage(url, env);
+        const imgRes = await handleBlogImage(request, url, env);
         return withSecurityHeaders(imgRes, undefined, url.origin);
       } catch (err) {
         console.error('handleBlogImage failed', err);

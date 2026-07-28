@@ -207,9 +207,9 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
       const imgUrl = `${CANONICAL_ORIGIN}${override.image}`;
       const imgAttr = escapeAttr(imgUrl);
       out = out
-        .replace(/<meta\s+property="og:image"\s+content="[^"]*"/i, `<meta property="og:image" content="${imgAttr}"`)
+        .replace(/<meta\s+property="og:image"\s+content="[^"]*"/gi, `<meta property="og:image" content="${imgAttr}"`)
         .replace(
-          /<meta\s+property="twitter:image"\s+content="[^"]*"/i,
+          /<meta\s+property="twitter:image"\s+content="[^"]*"/gi,
           `<meta property="twitter:image" content="${imgAttr}"`
         );
     }

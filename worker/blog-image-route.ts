@@ -1,7 +1,9 @@
 import type { Env } from './env';
+import { workerRateLimit, rateLimitResponse, callerIp } from './lib/worker-rate-limit';
 
 const SLUG_RE = /^[a-z0-9-]+$/;
 const NAME_RE = /^[a-z0-9-]+$/;
+const BLOG_IMG_LIMIT = 30;
 
 /**
  * Serve an AI-generated blog illustration: GET /api/v1/blog-image/:slug/:name.
@@ -9,7 +11,7 @@ const NAME_RE = /^[a-z0-9-]+$/;
  * the OG card route. Bytes live in CASE_STUDIES under `post-img:<slug>:<name>`.
  * Validates slug/name against a strict charset to refuse path traversal.
  */
-export async function handleBlogImage(url: URL, env: Env): Promise<Response> {
+export async function handleBlogImage(request: Request, url: URL, env: Env): Promise<Response> {
   const m = url.pathname.match(/^\/api\/v1\/blog-image\/([^/]+)\/([^/.]+)(?:\.(?:jpe?g|png))?$/);
   if (!m) return new Response('not found', { status: 404 });
   const slug = m[1]!;
@@ -17,6 +19,9 @@ export async function handleBlogImage(url: URL, env: Env): Promise<Response> {
   if (slug.length > 200 || !SLUG_RE.test(slug) || !NAME_RE.test(name)) {
     return new Response('bad request', { status: 400 });
   }
+
+  const rl = await workerRateLimit('blog-img', callerIp(request), BLOG_IMG_LIMIT);
+  if (!rl.allowed) return rateLimitResponse(rl);
   if (!env.CASE_STUDIES) return new Response('not found', { status: 404 });
   const bytes = await env.CASE_STUDIES.get(`post-img:${slug}:${name}`, 'arrayBuffer');
   if (!bytes) return new Response('not found', { status: 404 });

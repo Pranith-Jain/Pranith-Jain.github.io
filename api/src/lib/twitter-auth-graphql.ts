@@ -43,10 +43,75 @@ import type { Env } from '../env';
 const DEFAULT_BEARER =
   'AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA';
 
-const USER_BY_SN_QID = 'G3KGOASz96M-Qu0nwmGXNg';
-const USER_TWEETS_QID = 'V7H0Ap3_Hh2FyS75OCDO3Q';
-const USER_TWEETS_AND_REPLIES_QID = 'E4wA5vo2sjVyvpliUffSCw';
-const SEARCH_TIMELINE_QID = 'nK1dw4oV3k4w5TdtcAdSww';
+const DEFAULT_USER_BY_SN_QID = 'G3KGOASz96M-Qu0nwmGXNg';
+const DEFAULT_USER_TWEETS_QID = 'V7H0Ap3_Hh2FyS75OCDO3Q';
+const DEFAULT_USER_TWEETS_AND_REPLIES_QID = 'E4wA5vo2sjVyvpliUffSCw';
+const DEFAULT_SEARCH_TIMELINE_QID = 'nK1dw4oV3k4w5TdtcAdSww';
+
+/* ─── Admin-overridable GraphQL query IDs ─────────────────────────────────── */
+
+export interface QueryIds {
+  userByScreenName: string;
+  userTweets: string;
+  userTweetsAndReplies: string;
+  searchTimeline: string;
+}
+
+/** KV key for admin-managed query-ID overrides (see routes/admin-x-qids.ts). */
+export const X_QIDS_KV_KEY = 'admin:x-qids:v1';
+
+const QID_RE = /^[A-Za-z0-9_-]{8,40}$/;
+export function isValidQid(v: unknown): v is string {
+  return typeof v === 'string' && QID_RE.test(v.trim());
+}
+
+const DEFAULT_QUERY_IDS: QueryIds = {
+  userByScreenName: DEFAULT_USER_BY_SN_QID,
+  userTweets: DEFAULT_USER_TWEETS_QID,
+  userTweetsAndReplies: DEFAULT_USER_TWEETS_AND_REPLIES_QID,
+  searchTimeline: DEFAULT_SEARCH_TIMELINE_QID,
+};
+
+// Short in-memory cache so the multiple GraphQL calls within one request
+// (user-id resolve + timeline fetch) share a single KV read. Per-isolate;
+// admin updates propagate within the TTL without a redeploy.
+let qidCache: { value: QueryIds; expires: number } | null = null;
+const QID_CACHE_TTL_MS = 60_000;
+
+/**
+ * Resolve the GraphQL query IDs, preferring the admin-managed KV override
+ * (`admin:x-qids:v1`) and falling back per-field to the hardcoded defaults.
+ * X rotates these IDs every few weeks; the override lets an operator refresh
+ * them from the admin UI without redeploying. A malformed/unreadable KV value
+ * logs and falls back to defaults so a bad write can't break the integration.
+ */
+export async function resolveQueryIds(env: Env): Promise<QueryIds> {
+  if (qidCache && Date.now() < qidCache.expires) return qidCache.value;
+  const qids: QueryIds = { ...DEFAULT_QUERY_IDS };
+  const kv = env.KV_CACHE;
+  if (kv) {
+    try {
+      const raw = await kv.get(X_QIDS_KV_KEY);
+      if (raw) {
+        const stored = JSON.parse(raw) as Partial<QueryIds>;
+        if (isValidQid(stored.userByScreenName)) qids.userByScreenName = stored.userByScreenName.trim();
+        if (isValidQid(stored.userTweets)) qids.userTweets = stored.userTweets.trim();
+        if (isValidQid(stored.userTweetsAndReplies)) qids.userTweetsAndReplies = stored.userTweetsAndReplies.trim();
+        if (isValidQid(stored.searchTimeline)) qids.searchTimeline = stored.searchTimeline.trim();
+      }
+    } catch (e) {
+      console.warn('resolveQueryIds: KV read failed - using defaults:', e instanceof Error ? e.message : String(e));
+    }
+  }
+  qidCache = { value: qids, expires: Date.now() + QID_CACHE_TTL_MS };
+  return qids;
+}
+
+/** Drop the in-memory QID cache so an admin write takes effect immediately
+ *  within this isolate (cross-isolate propagation is bounded by the TTL). */
+export function invalidateQidCache(): void {
+  qidCache = null;
+}
 
 // user_id lookup TTL — cached in caches.default (no KV quota), 7 days.
 const USERID_TTL = 7 * 24 * 3600;
@@ -312,7 +377,7 @@ async function graphqlGet<T>(url: string, creds: AuthCookies): Promise<T> {
 }
 
 async function resolveUserIdAuthed(
-  _env: Env,
+  env: Env,
   creds: AuthCookies,
   screenName: string
 ): Promise<{ id: string; name: string; bio: string; followers: number; verified: boolean; avatar?: string }> {
@@ -329,9 +394,10 @@ async function resolveUserIdAuthed(
   } catch {
     /* fall through */
   }
+  const qids = await resolveQueryIds(env);
   const variables = encodeURIComponent(JSON.stringify({ screen_name: screenName, withSafetyModeUserFields: true }));
   const features = encodeURIComponent(JSON.stringify(FEATURES_USER_BY_SN));
-  const url = `https://api.twitter.com/graphql/${USER_BY_SN_QID}/UserByScreenName?variables=${variables}&features=${features}`;
+  const url = `https://api.twitter.com/graphql/${qids.userByScreenName}/UserByScreenName?variables=${variables}&features=${features}`;
   const data = await graphqlGet<{ data?: { user?: { result?: Record<string, unknown> } } }>(url, creds);
   const result = data.data?.user?.result;
   if (!result) throw new Error('UserByScreenName returned no result');
@@ -546,7 +612,8 @@ export async function fetchAuthedTimeline(
 
   const userInfo = await resolveUserIdAuthed(env, creds, lower);
 
-  const qid = includeReplies ? USER_TWEETS_AND_REPLIES_QID : USER_TWEETS_QID;
+  const qids = await resolveQueryIds(env);
+  const qid = includeReplies ? qids.userTweetsAndReplies : qids.userTweets;
   const endpoint = includeReplies ? 'UserTweetsAndReplies' : 'UserTweets';
   const variables = encodeURIComponent(
     JSON.stringify({
@@ -650,8 +717,9 @@ export async function fetchSearchTimeline(
       product,
     })
   );
+  const qids = await resolveQueryIds(env);
   const features = encodeURIComponent(JSON.stringify(FEATURES_SEARCH_TIMELINE));
-  const url = `https://api.twitter.com/graphql/${SEARCH_TIMELINE_QID}/SearchTimeline?variables=${variables}&features=${features}`;
+  const url = `https://api.twitter.com/graphql/${qids.searchTimeline}/SearchTimeline?variables=${variables}&features=${features}`;
   const data = await graphqlGet<unknown>(url, creds);
   const items = parseSearchTimeline(data);
 

@@ -295,7 +295,6 @@ const RedHuntLabsResearch = lazy(() => import('./pages/threatintel/RedHuntLabsRe
 
 const Reports = lazy(() => import('./pages/threatintel/ThreatIntelReports'));
 const Research = lazy(() => import('./pages/threatintel/Research'));
-const ResearchPost = lazy(() => import('./pages/threatintel/ResearchPost'));
 const ResearchSignal = lazy(() => import('./pages/threatintel/Signal'));
 const ScamWatch = lazy(() => import('./pages/dfir/ScamWatch'));
 const ScrapedIntelUsernames = lazy(() => import('./pages/threatintel/ScrapedIntelUsernames'));
@@ -735,7 +734,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/research-hub/signal', Component: ResearchSignal },
   { path: '/threatintel/research-hub/redhunt', Component: RedHuntInsights },
   { path: '/threatintel/research-hub/volexity', Component: VolexityThreatIntel },
-  { path: '/threatintel/research-hub/post', Component: ResearchPost },
+  { path: '/threatintel/research-hub/post', Component: ResearchPostPage },
   { path: '/threatintel/research-hub/attack-flow', Component: AttackFlowLibrary },
   { path: '/threatintel/research-hub/knowledge', Component: KnowledgeGraph },
   { path: '/threatintel/research-hub/ach', Component: ACH },
@@ -837,7 +836,6 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/dfir/domain-rep', to: '/dfir/domain-investigator' },
   { path: '/dfir/webcheck', to: '/dfir/domain-investigator' },
   { path: '/dfir/web-scan', to: '/dfir/domain-investigator' },
-  { path: '/dfir/exposure', to: '/dfir/domain-investigator' }, // tab of DomainInvestigator
   { path: '/dfir/full-spectrum', to: '/dfir/domain-investigator' },
   { path: '/dfir/ioc-check', to: '/dfir/ioc-investigate' },
   { path: '/dfir/ioc-pivot', to: '/dfir/ioc-investigate' },
@@ -867,7 +865,6 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/x-live', to: '/threatintel/social/firehose' },
   { path: '/threatintel/x', to: '/threatintel/social/firehose' },
   { path: '/threatintel/reddit', to: '/threatintel/social/firehose' },
-  { path: '/threatintel/social/scraped-intel', to: '/threatintel/actors/hub' }, // tab of ActorUsernameSearch
   { path: '/threatintel/scam-watch', to: '/threatintel/social/crypto-scam' },
   { path: '/threatintel/crypto-scams', to: '/threatintel/social/crypto-scam' },
   { path: '/threatintel/mythreatintel', to: '/threatintel/catalog?cat=social' },

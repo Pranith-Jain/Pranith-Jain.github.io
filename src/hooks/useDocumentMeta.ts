@@ -114,7 +114,7 @@ export function useDocumentMeta(meta: DocumentMeta): void {
       ? meta.ogImage.startsWith('http')
         ? meta.ogImage
         : `${siteUrl}${meta.ogImage}`
-      : `${siteUrl}/og-image.svg`;
+      : undefined;
 
     document.title = fullTitle;
     if (meta.description) {
@@ -123,17 +123,18 @@ export function useDocumentMeta(meta: DocumentMeta): void {
       setMetaName('twitter:description', meta.description);
     }
     setMetaProperty('og:title', fullTitle);
-    setMetaProperty('og:image', ogImage);
-    // og:image:alt helps AI engines describe the image in cards
-    // + meets accessibility guidance. Falls back to the page
-    // title since we don't carry a per-page image description.
-    setMetaProperty('og:image:alt', fullTitle);
+    if (ogImage) {
+      setMetaProperty('og:image', ogImage);
+      setMetaProperty('og:image:alt', fullTitle);
+    }
     setMetaProperty('og:url', meta.canonicalPath ? `${siteUrl}${meta.canonicalPath}` : siteUrl);
     setMetaProperty('og:type', meta.section === 'Threat Intel' || meta.section === 'DFIR' ? 'website' : 'profile');
     setMetaName('twitter:card', 'summary_large_image');
     setMetaName('twitter:title', fullTitle);
-    setMetaName('twitter:image', ogImage);
-    setMetaName('twitter:image:alt', fullTitle);
+    if (ogImage) {
+      setMetaName('twitter:image', ogImage);
+      setMetaName('twitter:image:alt', fullTitle);
+    }
     setMetaName('twitter:site', '@pranithjain');
     if (meta.canonicalPath) {
       const origin = typeof window !== 'undefined' ? window.location.origin : '';
