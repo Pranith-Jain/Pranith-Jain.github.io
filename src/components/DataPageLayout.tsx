@@ -61,6 +61,11 @@ export interface DataPageLayoutProps {
   skipMeta?: boolean;
   /** Optional meta description override when `description` is not a string. */
   metaDescription?: string;
+  /** Suppress the title/description/headerExtra header block. Use when this
+   *  layout is embedded inside a parent page that already provides a header
+   *  (e.g. a hub tab panel) so the heading isn't duplicated. The loading /
+   *  error / empty scaffolding is still rendered. */
+  hideHeader?: boolean;
 }
 
 function descriptionText(description: ReactNode | undefined, metaDescription?: string): string | undefined {
@@ -90,6 +95,7 @@ export function DataPageLayout({
   accentClass,
   skipMeta = false,
   metaDescription,
+  hideHeader = false,
 }: DataPageLayoutProps): JSX.Element {
   // Smart back target: return to the category-filtered hub the user likely came
   // from (e.g. /threatintel/c/knowledge) when one is mapped for this route, else
@@ -130,13 +136,15 @@ export function DataPageLayout({
         </Link>
       )}
 
-      <div className="animate-fade-in-up mb-10">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold tracking-[-1.28px] mb-2 flex items-center gap-3">
-          <span className={resolvedAccent}>{icon}</span> {title}
-        </h1>
-        {description && <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">{description}</p>}
-        {headerExtra && <div className="mt-4">{headerExtra}</div>}
-      </div>
+      {!hideHeader && (
+        <div className="animate-fade-in-up mb-10">
+          <h1 className="text-3xl sm:text-4xl font-display font-semibold tracking-[-1.28px] mb-2 flex items-center gap-3">
+            <span className={resolvedAccent}>{icon}</span> {title}
+          </h1>
+          {description && <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">{description}</p>}
+          {headerExtra && <div className="mt-4">{headerExtra}</div>}
+        </div>
+      )}
 
       {error && (
         <div

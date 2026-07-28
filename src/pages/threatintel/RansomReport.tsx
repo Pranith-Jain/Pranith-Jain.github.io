@@ -92,7 +92,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-export default function RansomReport(): JSX.Element {
+export default function RansomReport({ embedded = false }: { embedded?: boolean }): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const [groups, setGroups] = useState<GroupListItem[]>([]);
   const [selected, setSelected] = useState(searchParams.get('group') ?? '');
@@ -395,6 +395,8 @@ export default function RansomReport(): JSX.Element {
       empty={!profile && !loading && !!selected}
       emptyMessage={`No ransomware.live profile for "${selected}".`}
       maxWidthClass="max-w-4xl"
+      hideHeader={embedded}
+      className={embedded ? '!py-4' : undefined}
     >
       {/* Scoped print CSS - print only the report card as a clean PDF. */}
       <style>{`@media print {
@@ -406,9 +408,11 @@ export default function RansomReport(): JSX.Element {
       }`}</style>
 
       <div className="no-print">
-        <div className="mb-6">
-          <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
-        </div>
+        {!embedded && (
+          <div className="mb-6">
+            <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
+          </div>
+        )}
 
         <form onSubmit={submit} className="flex flex-col sm:flex-row gap-3 mb-6">
           <div className="relative flex-1">
