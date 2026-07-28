@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { BackLink } from '../../components/BackLink';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { Search, Globe, Server, Clock, AlertTriangle, CheckCircle, Loader2 } from 'lucide-react';
 
 interface PassiveDnsRecord {
@@ -208,26 +209,43 @@ export default function PassiveDns(): JSX.Element {
                 <Clock size={16} /> Resolution History
               </h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-sm font-mono">
-                  <thead>
-                    <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                      <th className="text-left py-2 px-3 text-muted">Source</th>
-                      <th className="text-left py-2 px-3 text-muted">Resolved</th>
-                      <th className="text-left py-2 px-3 text-muted">Type</th>
-                      <th className="text-left py-2 px-3 text-muted">First Seen</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.records.slice(0, 20).map((r, i) => (
-                      <tr key={i} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
-                        <td className="py-2 px-3">{r.source}</td>
-                        <td className="py-2 px-3">{r.resolved}</td>
-                        <td className="py-2 px-3">{r.rrtype}</td>
-                        <td className="py-2 px-3 text-muted">{r.first_seen.slice(0, 10)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <DataTable
+                  rows={result.records.slice(0, 20)}
+                  rowKey={(r, i) => `${r.source}-${r.resolved}-${i}`}
+                  initialSort={{ key: 'first_seen', dir: 'desc' }}
+                  columns={
+                    [
+                      {
+                        key: 'source',
+                        header: 'Source',
+                        render: (r) => r.source,
+                        sortValue: (r) => r.source,
+                        className: 'font-mono',
+                      },
+                      {
+                        key: 'resolved',
+                        header: 'Resolved',
+                        render: (r) => r.resolved,
+                        sortValue: (r) => r.resolved,
+                        className: 'font-mono',
+                      },
+                      {
+                        key: 'rrtype',
+                        header: 'Type',
+                        render: (r) => r.rrtype,
+                        sortValue: (r) => r.rrtype,
+                        className: 'font-mono',
+                      },
+                      {
+                        key: 'first_seen',
+                        header: 'First Seen',
+                        render: (r) => <span className="text-muted">{r.first_seen.slice(0, 10)}</span>,
+                        sortValue: (r) => r.first_seen,
+                        className: 'font-mono',
+                      },
+                    ] as DataTableColumn<PassiveDnsRecord>[]
+                  }
+                />
                 {result.records.length > 20 && (
                   <div className="text-xs text-muted mt-2 font-mono">Showing 20 of {result.records.length} records</div>
                 )}
