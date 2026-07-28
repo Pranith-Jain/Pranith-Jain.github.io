@@ -6,13 +6,19 @@ import { Bot } from 'lucide-react';
 const AgentInvestigator = lazy(() => import('./AgentInvestigator'));
 const TieEnrich = lazy(() => import('./TieEnrich'));
 const AgentMap = lazy(() => import('./AgentMap'));
+const AgentMetrics = lazy(() => import('./AgentMetrics'));
 
-type TabId = 'investigator' | 'enrich' | 'map';
+type TabId = 'investigator' | 'enrich' | 'map' | 'metrics';
 
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'investigator', label: 'INVESTIGATOR', desc: 'Autonomous investigation agent for threat triage' },
   { id: 'enrich', label: 'ENRICH', desc: 'Threat intelligence enrichment agent' },
   { id: 'map', label: 'MAP', desc: 'Visualise investigation relationships and findings' },
+  {
+    id: 'metrics',
+    label: 'METRICS',
+    desc: 'Agent observability — quality, per-tool latency/success, feature telemetry',
+  },
 ];
 
 export default function AgentSuite(): JSX.Element {
@@ -56,6 +62,7 @@ export default function AgentSuite(): JSX.Element {
           {activeTab === 'investigator' && <AgentInvestigator />}
           {activeTab === 'enrich' && <TieEnrich />}
           {activeTab === 'map' && <AgentMap />}
+          {activeTab === 'metrics' && <AgentMetrics />}
         </Suspense>
       </div>
     </DataPageLayout>

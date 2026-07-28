@@ -337,3 +337,105 @@ export async function runCompletion(
 
   throw new Error(`All LLM providers exhausted. Errors:\n${errors.map((e) => `  - ${e}`).join('\n')}`);
 }
+
+// ── Streaming ────────────────────────────────────────────────────────────
+
+/** Timeout for a streamed completion (longer than one-shot — tokens arrive over time). */
+const STREAM_TIMEOUT_MS = 120_000;
+
+/**
+ * Parse a single Groq/OpenAI SSE line into its delta text. Returns null for
+ * non-data lines, the terminal `[DONE]`, lines without a content delta, or
+ * malformed JSON. Pure and unit-tested.
+ */
+export function parseSseDelta(line: string): string | null {
+  const trimmed = line.trim();
+  if (!trimmed.startsWith('data:')) return null;
+  const payload = trimmed.slice(5).trim();
+  if (!payload || payload === '[DONE]') return null;
+  try {
+    const j = JSON.parse(payload) as { choices?: Array<{ delta?: { content?: string } }> };
+    const content = j?.choices?.[0]?.delta?.content;
+    return typeof content === 'string' && content.length > 0 ? content : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Stream a Groq completion, invoking `onToken` for each content delta.
+ * Returns the full accumulated text. Throws on any failure so the caller can
+ * fall back to the whole-text chain.
+ */
+async function runGroqStream(key: string, input: CompletionInput, onToken: (token: string) => void): Promise<string> {
+  const body: Record<string, unknown> = {
+    model: GROQ_MODEL,
+    stream: true,
+    messages: [
+      { role: 'system', content: input.system },
+      { role: 'user', content: input.user },
+    ],
+    max_completion_tokens: input.maxTokens ?? 4000,
+    temperature: input.temperature ?? 0.5,
+  };
+  const res = await fetch(GROQ_URL, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(STREAM_TIMEOUT_MS),
+  });
+  if (res.status === 429) throw new RateLimitError('groq rate limited (429)');
+  if (!res.ok || !res.body) throw new Error(`groq stream HTTP ${res.status}`);
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let full = '';
+  let buffer = '';
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split('\n');
+    buffer = lines.pop() ?? '';
+    for (const line of lines) {
+      const delta = parseSseDelta(line);
+      if (delta) {
+        full += delta;
+        onToken(delta);
+      }
+    }
+  }
+  if (!full.trim()) throw new Error('groq empty stream');
+  return full;
+}
+
+/**
+ * Streaming completion. Tries Groq SSE first (invoking `onToken` per delta);
+ * on any failure falls back to the whole-text `runCompletion` chain, emitting
+ * the result as a single chunk. Always resolves to the full text + model.
+ */
+export async function runCompletionStream(
+  ai: unknown,
+  input: CompletionInput,
+  opts: CompletionOpts,
+  onToken: (token: string) => void
+): Promise<CompletionOutput> {
+  const health = await getProviderHealth();
+  if (opts.groqKey && (!health || (await health.isProviderHealthy('groq')))) {
+    const startMs = Date.now();
+    try {
+      const text = await runGroqStream(opts.groqKey, input, onToken);
+      if (health) await health.recordSuccess('groq', Date.now() - startMs);
+      return { text, modelUsed: `groq:${GROQ_MODEL}` };
+    } catch (err) {
+      console.error(
+        `runCompletionStream groq failed: ${(err instanceof Error ? err.message : String(err)).slice(0, 120)}`
+      );
+      if (health) await health.recordFailure('groq', isRateLimited(err));
+      // fall through to the whole-text chain
+    }
+  }
+  const out = await runCompletion(ai, input, opts);
+  onToken(out.text);
+  return out;
+}

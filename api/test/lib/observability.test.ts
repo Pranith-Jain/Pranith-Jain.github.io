@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { aggregateObservability } from '../../src/lib/agent/observability';
+import { aggregateObservability, selectDegradedTools } from '../../src/lib/agent/observability';
 
 describe('aggregateObservability', () => {
   it('computes real per-tool latency and success rate from tool_timings', () => {
@@ -67,5 +67,28 @@ describe('aggregateObservability', () => {
     const { topTools, features } = aggregateObservability(rows);
     expect(topTools).toEqual([]);
     expect(features.parallelBurst).toBe(0);
+  });
+});
+
+describe('selectDegradedTools', () => {
+  it('flags tools below the success-rate threshold with enough samples', () => {
+    const health = {
+      flaky: { count: 10, successRate: 20, avgDurationMs: 100 },
+      solid: { count: 10, successRate: 95, avgDurationMs: 100 },
+      tooFew: { count: 1, successRate: 0, avgDurationMs: 100 },
+    };
+    expect(selectDegradedTools(health)).toEqual(['flaky']);
+  });
+
+  it('respects custom thresholds and sorts worst-first', () => {
+    const health = {
+      a: { count: 5, successRate: 60, avgDurationMs: 1 },
+      b: { count: 5, successRate: 40, avgDurationMs: 1 },
+    };
+    expect(selectDegradedTools(health, { minSuccessRate: 70, minSamples: 3 })).toEqual(['b', 'a']);
+  });
+
+  it('returns empty when nothing is degraded', () => {
+    expect(selectDegradedTools({ x: { count: 9, successRate: 100, avgDurationMs: 1 } })).toEqual([]);
   });
 });

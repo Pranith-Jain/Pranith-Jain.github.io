@@ -94,7 +94,7 @@ export async function recordMetrics(
  * older rows. Extracted for unit testing.
  */
 export function aggregateObservability(
-  rows: Array<{ tools_used: string; tool_timings: string | null; meta: string | null }>
+  rows: Array<{ tools_used: string; tool_timings: string | null; meta?: string | null }>
 ): {
   topTools: Array<{ tool: string; count: number; avgDurationMs: number; successRate: number }>;
   features: AgentMetrics['features'];
@@ -362,4 +362,49 @@ export async function getAgentMetrics(db: D1Database): Promise<AgentMetrics> {
       features: { parallelBurst: 0, selfCorrection: 0, avgScoreDelta: 0, routingRefinements: 0, avgFindings: 0 },
     };
   }
+}
+
+/** Per-tool health derived from historical executions. */
+export interface ToolHealth {
+  count: number;
+  successRate: number;
+  avgDurationMs: number;
+}
+
+/**
+ * Read per-tool health (success rate + avg latency) across all recorded
+ * investigations. Used for adaptive tool selection.
+ */
+export async function getToolHealth(db: D1Database): Promise<Record<string, ToolHealth>> {
+  try {
+    const { results } = await db
+      .prepare(`SELECT tools_used, tool_timings FROM agent_metrics WHERE status = 'done'`)
+      .all<{ tools_used: string; tool_timings: string | null }>();
+    const { topTools } = aggregateObservability(results);
+    const out: Record<string, ToolHealth> = {};
+    for (const t of topTools) {
+      out[t.tool] = { count: t.count, successRate: t.successRate, avgDurationMs: t.avgDurationMs };
+    }
+    return out;
+  } catch (err) {
+    console.error('getToolHealth failed:', err);
+    return {};
+  }
+}
+
+/**
+ * Pure selector: return the names of tools that should be deprioritized, based
+ * on historical health. A tool is degraded when it has enough samples AND its
+ * success rate is below `minSuccessRate`. Sorted worst-first.
+ */
+export function selectDegradedTools(
+  health: Record<string, ToolHealth>,
+  opts: { minSuccessRate?: number; minSamples?: number } = {}
+): string[] {
+  const minSuccessRate = opts.minSuccessRate ?? 50;
+  const minSamples = opts.minSamples ?? 3;
+  return Object.entries(health)
+    .filter(([, h]) => h.count >= minSamples && h.successRate < minSuccessRate)
+    .sort(([, a], [, b]) => a.successRate - b.successRate)
+    .map(([tool]) => tool);
 }

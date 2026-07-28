@@ -250,6 +250,19 @@ export async function agentSessionsHandler(c: Context<{ Bindings: Env }>): Promi
 }
 
 /**
+ * GET /api/v1/agent/metrics
+ * Aggregated agent observability metrics (success rate, quality, per-tool
+ * latency/success, feature telemetry) for the dashboard.
+ */
+export async function agentMetricsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not configured');
+  const { getAgentMetrics } = await import('../lib/agent/observability');
+  const metrics = await getAgentMetrics(db);
+  return c.json(metrics, 200, { 'Cache-Control': 'public, max-age=60' });
+}
+
+/**
  * DELETE /api/v1/agent/:id
  * Delete an investigation session from D1 and the Durable Object.
  */

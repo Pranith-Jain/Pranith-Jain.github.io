@@ -109,6 +109,8 @@ export class InvestigatorAgentDO {
   private ipConnections = new Map<string, number>();
   /** Per-investigation cost trackers. */
   private costTrackers = new Map<string, InvestigationCost>();
+  /** Cached degraded-tools note for adaptive tool selection (5-min TTL). */
+  private degradedToolsCache: { at: number; note: string } | null = null;
 
   constructor(ctx: DurableObjectState, env: Env) {
     this.ctx = ctx;
@@ -365,6 +367,9 @@ export class InvestigatorAgentDO {
     // so the planner has full context for better tool selection.
     const workingMemory = this.buildWorkingMemory(state);
 
+    // Adaptive tool selection: planner hint for tools with high recent failure.
+    const degradedNote = await this.degradedToolsNote();
+
     // ── COST TRACKING ────────────────────────────────────────────────
     // Track token usage and costs per investigation.
     const costTracker = this.costTrackers.get(state.id) ?? createCostTracker();
@@ -461,9 +466,10 @@ export class InvestigatorAgentDO {
       );
 
       // Add specialist context to the planner
-      const specialistContext = specialistPrompt
-        ? `\n<specialist_role>${SPECIALIST_REGISTRY[currentRole].label}</specialist_role>\n<specialist_instructions>${specialistPrompt}</specialist_instructions>`
-        : undefined;
+      const specialistContext =
+        (specialistPrompt
+          ? `\n<specialist_role>${SPECIALIST_REGISTRY[currentRole].label}</specialist_role>\n<specialist_instructions>${specialistPrompt}</specialist_instructions>`
+          : '') + degradedNote || undefined;
 
       const plan = await planNextStep(
         ai,
@@ -566,6 +572,7 @@ export class InvestigatorAgentDO {
         googleKey,
         nvidiaKey,
         workingMemory,
+        specialistContext: degradedNote || undefined,
       }
     );
 
@@ -791,6 +798,33 @@ export class InvestigatorAgentDO {
     return rebuildWorkingMemory(state.steps);
   }
 
+  /**
+   * Adaptive tool selection: return a planner hint listing tools with a high
+   * recent failure rate (from historical metrics) so the agent deprioritizes
+   * them. Cached for 5 minutes to avoid a D1 read per step.
+   */
+  private async degradedToolsNote(): Promise<string> {
+    const now = Date.now();
+    if (this.degradedToolsCache && now - this.degradedToolsCache.at < 5 * 60 * 1000) {
+      return this.degradedToolsCache.note;
+    }
+    let note = '';
+    try {
+      const db = (this.env as unknown as ApiEnv).BRIEFINGS_DB;
+      if (db) {
+        const { getToolHealth, selectDegradedTools } = await import('../../api/src/lib/agent/observability');
+        const degraded = selectDegradedTools(await getToolHealth(db));
+        if (degraded.length > 0) {
+          note = `\n<degraded_tools>Deprioritize these tools (high recent failure rate): ${degraded.join(', ')}. Prefer alternatives when available.</degraded_tools>`;
+        }
+      }
+    } catch (err) {
+      console.error('degradedToolsNote failed:', err instanceof Error ? err.message : String(err));
+    }
+    this.degradedToolsCache = { at: now, note };
+    return note;
+  }
+
   /** Synthesize the final report and mark the investigation done. Streams progress to WebSocket clients. */
   private async doSynthesize(
     state: AgentState,
@@ -831,6 +865,7 @@ export class InvestigatorAgentDO {
         googleKey,
         nvidiaKey,
         dataQuality: { totalOk, totalErr, emptyResults },
+        onToken: (token) => this.broadcast({ type: 'token', token }),
       });
 
       // ── QA PHASE ─────────────────────────────────────────────────────
