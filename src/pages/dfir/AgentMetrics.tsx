@@ -17,7 +17,28 @@ interface AgentMetricsData {
     avgScoreDelta: number;
     routingRefinements: number;
     avgFindings: number;
+    avgCostUsd: number;
   };
+}
+
+interface ProviderHealthData {
+  healthy: boolean;
+  lastRateLimit: number;
+  consecutiveFailures: number;
+  successes: number;
+  failures: number;
+  avgResponseMs: number;
+}
+
+interface MemoryEntry {
+  query: string;
+  queryType: string;
+  actors: string[];
+  cves: string[];
+  mitre: string[];
+  keyFindings: string[];
+  qualityScore: number;
+  completedAt: string;
 }
 
 function Stat({ label, value, suffix }: { label: string; value: string | number; suffix?: string }): JSX.Element {
@@ -34,18 +55,31 @@ function Stat({ label, value, suffix }: { label: string; value: string | number;
 
 export default function AgentMetrics(): JSX.Element {
   const [data, setData] = useState<AgentMetricsData | null>(null);
+  const [providers, setProviders] = useState<Record<string, ProviderHealthData> | null>(null);
+  const [memory, setMemory] = useState<MemoryEntry[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
-    fetch('/api/v1/agent/metrics', { headers: adminAuthHeaders() })
-      .then(async (res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return (await res.json()) as AgentMetricsData;
-      })
-      .then((d) => {
-        if (!cancelled) setData(d);
+    const headers = adminAuthHeaders();
+    Promise.all([
+      fetch('/api/v1/agent/metrics', { headers }).then(async (r) => {
+        if (!r.ok) throw new Error(`metrics HTTP ${r.status}`);
+        return (await r.json()) as AgentMetricsData;
+      }),
+      fetch('/api/v1/agent/provider-health', { headers })
+        .then((r) => (r.ok ? (r.json() as Promise<Record<string, ProviderHealthData>>) : null))
+        .catch(() => null),
+      fetch('/api/v1/agent/memory?limit=15', { headers })
+        .then((r) => (r.ok ? (r.json() as Promise<{ investigations: MemoryEntry[] }>) : null))
+        .catch(() => null),
+    ])
+      .then(([metrics, prov, mem]) => {
+        if (cancelled) return;
+        setData(metrics);
+        setProviders(prov);
+        setMemory(mem?.investigations ?? null);
       })
       .catch((e) => {
         if (!cancelled) setError(e instanceof Error ? e.message : String(e));
@@ -74,7 +108,7 @@ export default function AgentMetrics(): JSX.Element {
         <Stat label="Avg Quality" value={data.avgQualityScore} suffix="/100" />
         <Stat label="Avg Steps" value={data.avgStepsPerInvestigation} />
         <Stat label="Avg Duration" value={(data.avgDurationMs / 1000).toFixed(1)} suffix="s" />
-        <Stat label="Error Rate" value={data.errorRate} suffix="%" />
+        <Stat label="Avg Cost" value={`$${f.avgCostUsd.toFixed(4)}`} />
       </div>
 
       <div>
@@ -87,6 +121,34 @@ export default function AgentMetrics(): JSX.Element {
           <Stat label="Avg Findings" value={f.avgFindings} />
         </div>
       </div>
+
+      {providers && (
+        <div>
+          <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">LLM Provider Health</h3>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {Object.entries(providers).map(([name, p]) => (
+              <div key={name} className="surface-card p-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono font-semibold text-slate-800 dark:text-slate-200">{name}</span>
+                  <span
+                    className={`rounded px-1.5 py-0.5 text-micro font-mono font-bold ${
+                      p.healthy ? 'bg-emerald-500/10 text-emerald-600' : 'bg-rose-500/10 text-rose-600'
+                    }`}
+                  >
+                    {p.healthy ? 'HEALTHY' : 'DEGRADED'}
+                  </span>
+                </div>
+                <div className="mt-2 text-micro font-mono text-slate-500">
+                  {p.avgResponseMs > 0 ? `${Math.round(p.avgResponseMs)}ms · ` : ''}
+                  {p.successes}✓ / {p.failures}✗
+                  {p.consecutiveFailures > 0 ? ` · ${p.consecutiveFailures} consec. fails` : ''}
+                  {p.lastRateLimit > 0 ? ' · rate-limited' : ''}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div>
         <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">
@@ -153,6 +215,40 @@ export default function AgentMetrics(): JSX.Element {
           </div>
         </div>
       </div>
+
+      {memory && memory.length > 0 && (
+        <div>
+          <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">Investigation Memory</h3>
+          <div className="surface-card divide-y divide-slate-100 dark:divide-[rgb(var(--border-400)/0.5)]">
+            {memory.map((m, i) => (
+              <div key={i} className="px-3 py-2 text-sm">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-slate-800 dark:text-slate-200 truncate">{m.query}</span>
+                  <span className="shrink-0 tabular-nums text-micro text-slate-500">{m.qualityScore}/100</span>
+                </div>
+                <div className="mt-0.5 flex flex-wrap gap-1 text-micro font-mono text-slate-500">
+                  <span className="rounded bg-slate-100 px-1 dark:bg-slate-800">{m.queryType}</span>
+                  {m.actors.slice(0, 2).map((a) => (
+                    <span key={a} className="rounded bg-rose-500/10 px-1 text-rose-600">
+                      {a}
+                    </span>
+                  ))}
+                  {m.cves.slice(0, 2).map((c) => (
+                    <span key={c} className="rounded bg-amber-500/10 px-1 text-amber-600">
+                      {c}
+                    </span>
+                  ))}
+                  {m.mitre.slice(0, 3).map((t) => (
+                    <span key={t} className="rounded bg-cyan-500/10 px-1 text-cyan-600">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

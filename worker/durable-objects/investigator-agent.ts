@@ -418,6 +418,28 @@ export class InvestigatorAgentDO {
         // Orchestrator failure — fall through to monolithic planner
       }
 
+      // Cross-investigation memory: look up related past investigations and
+      // build a prior-intelligence note for the planner (closed feedback loop).
+      if (!state.priorIntelligence) {
+        try {
+          const db = (this.env as unknown as ApiEnv).BRIEFINGS_DB;
+          if (db) {
+            const { extractQueryEntities, hasIndicators, entitiesToMemoryIndicators } =
+              await import('../../api/src/lib/agent/query-entities');
+            const entities = extractQueryEntities(state.query);
+            if (hasIndicators(entities)) {
+              const { lookupMemory, buildPriorIntelNote } =
+                await import('../../api/src/lib/agent/investigation-memory');
+              const related = await lookupMemory(db, entitiesToMemoryIndicators(entities));
+              state.priorIntelligence = buildPriorIntelNote(related);
+            }
+          }
+        } catch (_catchErr) {
+          console.error('memory lookup failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          // Non-fatal — proceed without prior intelligence
+        }
+      }
+
       // Run independent specialists' first step concurrently. Returns null (fall
       // back to the sequential path above) when <2 specialists are independent
       // or on any error, so this is purely additive.
@@ -474,7 +496,9 @@ export class InvestigatorAgentDO {
       const specialistContext =
         (specialistPrompt
           ? `\n<specialist_role>${SPECIALIST_REGISTRY[currentRole].label}</specialist_role>\n<specialist_instructions>${specialistPrompt}</specialist_instructions>`
-          : '') + degradedNote || undefined;
+          : '') +
+          degradedNote +
+          (state.priorIntelligence ?? '') || undefined;
 
       const plan = await planNextStep(
         ai,
@@ -577,7 +601,7 @@ export class InvestigatorAgentDO {
         googleKey,
         nvidiaKey,
         workingMemory,
-        specialistContext: degradedNote || undefined,
+        specialistContext: degradedNote + (state.priorIntelligence ?? '') || undefined,
       }
     );
 

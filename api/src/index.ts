@@ -467,6 +467,8 @@ import {
   agentStreamHandler,
   agentSessionsHandler,
   agentMetricsHandler,
+  agentProviderHealthHandler,
+  agentMemoryHandler,
   agentDeleteHandler,
 } from './routes/agent';
 import { agentHistoryHandler } from './routes/agent-history';
@@ -1367,6 +1369,8 @@ app.post('/api/v1/agent/investigate', validate('json', agentInvestigateSchema), 
 app.delete('/api/v1/agent/:id', agentDeleteHandler);
 app.get('/api/v1/agent/sessions', agentSessionsHandler);
 app.get('/api/v1/agent/metrics', agentMetricsHandler);
+app.get('/api/v1/agent/provider-health', agentProviderHealthHandler);
+app.get('/api/v1/agent/memory', agentMemoryHandler);
 app.get('/api/v1/agent/history', agentHistoryHandler);
 app.get('/api/v1/agent/:id/stream', agentStreamHandler);
 app.get('/api/v1/agent/:id', agentStateHandler);

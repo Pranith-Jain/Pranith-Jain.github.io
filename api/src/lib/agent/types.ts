@@ -111,6 +111,8 @@ export interface AgentState {
   findings?: import('./specialist-types').SpecialistFinding[];
   /** True when the step-1 parallel specialist burst ran (observability). */
   usedParallelBurst?: boolean;
+  /** Prior-intelligence note from related past investigations (memory loop). */
+  priorIntelligence?: string;
   /**
    * Report version history — captured when self-correction produces a second
    * draft. Compact (no full text) so D1 rows stay small; the live report text

@@ -263,6 +263,30 @@ export async function agentMetricsHandler(c: Context<{ Bindings: Env }>): Promis
 }
 
 /**
+ * GET /api/v1/agent/provider-health
+ * LLM provider health (rate-limit / circuit-breaker state, latency, success
+ * rate) so the dashboard can show why a provider was skipped.
+ */
+export async function agentProviderHealthHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const { getProviderHealthSummary } = await import('../lib/agent/provider-health');
+  const summary = await getProviderHealthSummary();
+  return c.json(summary, 200, { 'Cache-Control': 'public, max-age=15' });
+}
+
+/**
+ * GET /api/v1/agent/memory
+ * Recent investigation memory (cross-session context) for the dashboard.
+ */
+export async function agentMemoryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not configured');
+  const limit = Math.min(Number(c.req.query('limit') ?? 15), 50);
+  const { getRecentInvestigations } = await import('../lib/agent/investigation-memory');
+  const investigations = await getRecentInvestigations(db, limit);
+  return c.json({ investigations }, 200, { 'Cache-Control': 'public, max-age=30' });
+}
+
+/**
  * DELETE /api/v1/agent/:id
  * Delete an investigation session from D1 and the Durable Object.
  */

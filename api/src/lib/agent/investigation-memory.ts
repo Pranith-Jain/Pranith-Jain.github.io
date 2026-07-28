@@ -167,3 +167,26 @@ function parseJsonArray<T>(val: unknown): T[] {
   }
   return [];
 }
+
+/**
+ * Render related past investigations as a planner hint so a new investigation
+ * builds on prior work instead of re-discovering known facts. Pure + tested.
+ */
+export function buildPriorIntelNote(entries: InvestigationMemoryEntry[], max = 3): string {
+  if (entries.length === 0) return '';
+  const lines: string[] = ['<prior_intelligence>You have investigated related indicators before:'];
+  for (const e of entries.slice(0, max)) {
+    const parts: string[] = [];
+    if (e.actors.length > 0) parts.push(`actors: ${e.actors.slice(0, 3).join(', ')}`);
+    if (e.cves.length > 0) parts.push(`CVEs: ${e.cves.slice(0, 3).join(', ')}`);
+    if (e.mitre.length > 0) parts.push(`MITRE: ${e.mitre.slice(0, 4).join(', ')}`);
+    if (e.keyFindings.length > 0) parts.push(`findings: ${e.keyFindings.slice(0, 2).join('; ')}`);
+    lines.push(
+      `- "${e.query}" (${e.queryType}, quality ${e.qualityScore}/100)${parts.length > 0 ? `: ${parts.join(' | ')}` : ''}`
+    );
+  }
+  lines.push(
+    'Build on this prior work — do not re-discover what is already known; focus on the gaps.</prior_intelligence>'
+  );
+  return '\n' + lines.join('\n');
+}
