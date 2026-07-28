@@ -100,27 +100,6 @@ export async function openapiHandler(c: Context<{ Bindings: Env }>): Promise<Res
           responses: { '200': { description: 'Country intelligence brief' } },
         },
       },
-      '/api/v1/feed-digest': {
-        post: {
-          summary: 'AI feed digest',
-          description: 'Generate a daily/weekly intelligence digest from feed articles.',
-          requestBody: {
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'object',
-                  properties: {
-                    items: { type: 'array', items: { type: 'object' } },
-                    period: { type: 'string', enum: ['daily', 'weekly'] },
-                  },
-                  required: ['items'],
-                },
-              },
-            },
-          },
-          responses: { '200': { description: 'Intelligence digest' } },
-        },
-      },
       '/api/v1/event-correlation': {
         post: {
           summary: 'Correlate events',
