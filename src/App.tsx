@@ -815,7 +815,6 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/external/supply', to: '/threatintel/supply-chain' },
   { path: '/threatintel/depx', to: '/threatintel/supply-chain' },
   { path: '/threatintel/malware/supply-chain', to: '/threatintel/supply-chain' },
-
   { path: '/dfir/crypto-trace', to: '/dfir/crypto-tracer' },
   { path: '/dfir/tracer', to: '/dfir/crypto-tracer' },
   { path: '/dfir/tracepulse', to: '/dfir/crypto-tracer' },
@@ -832,7 +831,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/traceix', to: '/dfir/traceix' },
   { path: '/whoxy', to: '/dfir/whoxy' },
   { path: '/threatintel/research-hub/campaign-gen', to: '/threatintel/campaigns/generator' },
-  { path: '/threatintel/tools/graph', to: '/threatintel/actors/graph' },
+  { path: '/threatintel/tools/graph', to: '/threatintel/actors/hub' },
   // Tab-hub aliases - same component, different default tab
   { path: '/dfir/domain', to: '/dfir/domain-investigator' },
   { path: '/dfir/domain-rep', to: '/dfir/domain-investigator' },
@@ -868,7 +867,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/x-live', to: '/threatintel/social/firehose' },
   { path: '/threatintel/x', to: '/threatintel/social/firehose' },
   { path: '/threatintel/reddit', to: '/threatintel/social/firehose' },
-  { path: '/threatintel/social/scraped-intel', to: '/threatintel/actors/usernames' }, // tab of ActorUsernameSearch
+  { path: '/threatintel/social/scraped-intel', to: '/threatintel/actors/hub' }, // tab of ActorUsernameSearch
   { path: '/threatintel/scam-watch', to: '/threatintel/social/crypto-scam' },
   { path: '/threatintel/crypto-scams', to: '/threatintel/social/crypto-scam' },
   { path: '/threatintel/mythreatintel', to: '/threatintel/catalog?cat=social' },
@@ -897,7 +896,6 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   //    URLs to the short path still land on a real page, not a 404).
   { path: '/threatintel/cves', to: '/threatintel/cves/cves' },
   { path: '/threatintel/social', to: '/threatintel/social/firehose' },
-  { path: '/threatintel/supply-chain', to: '/threatintel/malware/supply-chain' },
 
   // ── Dark Web Hub ────────────────────────────────────────────────
   { path: '/threatintel/deepdarkcti', to: '/threatintel/darkweb/deepdark' },
@@ -907,7 +905,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/ransom-report', to: '/threatintel/darkweb/ransom-report' },
   { path: '/threatintel/negotiations', to: '/threatintel/darkweb/ransom-activity?tab=negotiations' },
   { path: '/threatintel/ransomwhere', to: '/threatintel/darkweb/ransomwhere' },
-  { path: '/threatintel/breach-forums', to: '/threatintel/darkweb/forums' },
+  { path: '/threatintel/breach-forums', to: '/threatintel/breach-hub' },
   { path: '/threatintel/darkweb-tools', to: '/threatintel/darkweb/watch' },
   // ── Duplicate standalone pages → hub tabs ────────────────────────
   { path: '/threatintel/ai-honeypot-observatory', to: '/threatintel/infra/ai-honeypot' },
@@ -955,7 +953,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   // ── Malware Hub ─────────────────────────────────────────────────
   { path: '/threatintel/malware-iocs', to: '/threatintel/malware/iocs' },
   { path: '/threatintel/malware-vault', to: '/threatintel/malware/vault' },
-  { path: '/threatintel/malicious-packages', to: '/threatintel/depx' },
+  { path: '/threatintel/malicious-packages', to: '/threatintel/supply-chain' },
   { path: '/threatintel/malpedia', to: '/threatintel/malware/malpedia' },
   { path: '/threatintel/maltrail', to: '/threatintel/malware/maltrail' },
   { path: '/threatintel/malware-sandbox', to: '/threatintel/malware/sandbox' },
@@ -993,7 +991,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/investigations', to: '/threatintel/tools/investigations' },
   { path: '/threatintel/watches', to: '/threatintel/tools/watches' },
   { path: '/threatintel/workspaces', to: '/threatintel/tools/workspaces' },
-  { path: '/threatintel/relationship-graph', to: '/threatintel/actors/graph' },
+  { path: '/threatintel/relationship-graph', to: '/threatintel/actors/hub' },
   { path: '/threatintel/search', to: '/threatintel/catalog?cat=tools' },
   { path: '/threatintel/campaign-generator', to: '/threatintel/catalog?cat=tools' },
   { path: '/threatintel/ach', to: '/threatintel/catalog?cat=tools' },
@@ -1023,10 +1021,10 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/cve-list', to: '/threatintel/cves/cves' },
   // ── Actor Hub ──────────────────────────────────────────────────
   { path: '/threatintel/actor-kb', to: '/threatintel/catalog?cat=actors' },
-  { path: '/threatintel/actors/kb', to: '/threatintel/actors/directory' }, // tab of ActorDirectory
+  { path: '/threatintel/actors/kb', to: '/threatintel/actors/hub' }, // tab of ActorDirectory
   { path: '/threatintel/actor-dna', to: '/threatintel/catalog?cat=actors' },
-  { path: '/threatintel/actor-timeline', to: '/threatintel/actors/timeline' },
-  { path: '/threatintel/actor-usernames', to: '/threatintel/actors/usernames' },
+  { path: '/threatintel/actor-timeline', to: '/threatintel/actors/hub' },
+  { path: '/threatintel/actor-usernames', to: '/threatintel/actors/hub' },
   { path: '/threatintel/threat-actor-catalog', to: '/threatintel/catalog?cat=actors' },
   { path: '/threatintel/threat-actor-db', to: '/threatintel/catalog?cat=actors' },
   { path: '/threatintel/intelligence-gaps', to: '/threatintel/catalog?cat=actors' },

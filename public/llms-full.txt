@@ -182,14 +182,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 
 ## Threat Intel platform surfaces (124+ routes)
 
-- [Actor Directory](https://pranithjain.qzz.io/threatintel/actors/directory) (threatintel): Unified actor browser - MITRE ATT&CK, MISP Galaxy, and platform DB.
-- [Actor Timeline](https://pranithjain.qzz.io/threatintel/actors/timeline) (threatintel): Posting activity and operational tempo per actor.
-- [Actor DNA](https://pranithjain.qzz.io/threatintel/actors/dna) (threatintel): TTP signatures and infrastructure fingerprints.
-- [Actor Usernames](https://pranithjain.qzz.io/threatintel/actors/usernames) (threatintel): Search forum handles across 2M+ records.
-- [Attribution Framework](https://pranithjain.qzz.io/threatintel/actors/attribution) (threatintel): Attribution framework and analysis.
-- [Threat Actor Catalog](https://pranithjain.qzz.io/threatintel/actors/catalog) (threatintel): Curated profiles - aliases, countries, malware, TTPs.
-- [Actor Profiles](https://pranithjain.qzz.io/threatintel/actors/profiles) (threatintel): Expandable actor cards - aliases, malware, targeted sectors, campaigns, MITRE mapping.
-- [Actor Graph](https://pranithjain.qzz.io/threatintel/actors/graph) (threatintel): Visualize actor → actor → IOC connections.
+- [Actor Hub](https://pranithjain.qzz.io/threatintel/actors/hub) (threatintel): Threat actor intelligence - directory, timelines, DNA, usernames, profiles, and relationship graphs.
 - [APT Tracker](https://pranithjain.qzz.io/threatintel/apt-tracker) (threatintel): APT group tracker organised by region - China, Russia, Iran, North Korea, NATO, Middle East, Israel.
 - [Most Wanted Actors](https://pranithjain.qzz.io/threatintel/most-wanted) (threatintel): Top-priority threat actors - LockBit, Cl0p, Scattered Spider, BlackCat, and other high-impact groups.
 - [Extremist Groups](https://pranithjain.qzz.io/threatintel/extremists) (threatintel): Ideology-driven extremist group tracking with indicators and monitoring sources.

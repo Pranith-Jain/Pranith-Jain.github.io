@@ -151,6 +151,11 @@ function buildSitemap(blogPosts = []) {
     '/dfir/malware-scan',
     '/dfir/sample-scan',
     '/dfir/sandbox',
+    // /admin is Disallow'd in robots.txt AND noindex'd at the edge —
+    // including it in the sitemap sends conflicting signals to Google
+    // ("index this" vs "don't crawl/index this"), which hurts crawl
+    // efficiency and can trigger "Crawled - currently not indexed".
+    '/admin',
   ]);
 
   // Group prerender routes by their classifier group so the output keeps

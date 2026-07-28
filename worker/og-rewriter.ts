@@ -271,7 +271,66 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
     return { ...(OG_OVERRIDES['/threatintel'] ?? { title: '', description: '' }), image };
   }
 
-  return findOgOverride(url.pathname);
+  const override = findOgOverride(url.pathname);
+  const derived = deriveOgFromPath(url.pathname);
+  if (!override) return derived;
+  // Exact match — use the explicit override verbatim.
+  if (OG_OVERRIDES[url.pathname]) return override;
+  // Prefix match only — combine the section image with a path-derived
+  // title/description so every page gets unique metadata instead of
+  // inheriting the section landing page's title for 100+ siblings.
+  return {
+    title: derived?.title ?? override.title,
+    description: derived?.description ?? override.description,
+    ...(override.image ? { image: override.image } : {}),
+  };
+}
+
+/**
+ * Fallback OG override derived from the URL path. When no explicit
+ * OG_OVERRIDES entry matches, the page would otherwise keep the home-page
+ * <title> and <meta description> — meaning hundreds of deep links share
+ * identical metadata, which Google reads as duplicate/thin content and
+ * flags as "Crawled - currently not indexed."
+ *
+ * This generates a unique, human-readable title + description from the
+ * last path segment so every page at least has its own title. The home
+ * page and root sections are excluded (they have explicit overrides or
+ * should keep the home card).
+ */
+function deriveOgFromPath(pathname: string): OgOverride | null {
+  if (pathname === '/' || pathname === '') return null;
+  const segments = pathname.split('/').filter(Boolean);
+  if (segments.length === 0) return null;
+
+  // Title-case the last segment: "ioc-check" → "IOC Check"
+  const last = segments[segments.length - 1]!;
+  const titlePart = last
+    .split(/[-_]/)
+    .map((w) => {
+      if (w.length <= 3) return w.toUpperCase();
+      return w.charAt(0).toUpperCase() + w.slice(1);
+    })
+    .join(' ');
+
+  // Build a short context prefix from the first segment: "dfir" → "DFIR", "threatintel" → "Threat Intel"
+  const first = segments[0]!;
+  const sectionLabel =
+    first === 'dfir'
+      ? 'DFIR'
+      : first === 'threatintel'
+        ? 'Threat Intel'
+        : first === 'blog'
+          ? 'Blog'
+          : first.charAt(0).toUpperCase() + first.slice(1);
+
+  const title =
+    segments.length > 1
+      ? `${titlePart} · ${sectionLabel} · pranithjain.qzz.io`
+      : `${titlePart} · pranithjain.qzz.io`;
+  const description = `${titlePart} — a free ${sectionLabel} tool on pranithjain.qzz.io. Browser-side security analysis, no signup required.`;
+
+  return { title, description };
 }
 
 /* ── Blog structured data ─────────────────────────────────────────────────
