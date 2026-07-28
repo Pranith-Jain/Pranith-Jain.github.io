@@ -119,10 +119,6 @@ export function safeParseWithFallback<T>(raw: string, schema: z.ZodSchema<T>, fa
     const result = schema.safeParse(parsed);
     if (result.success) return result.data;
     // Schema validation failed — log and return fallback
-    console.warn(
-      'schema validation failed:',
-      result.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ')
-    );
     return fallback;
   } catch {
     return fallback;

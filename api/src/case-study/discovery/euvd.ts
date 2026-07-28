@@ -60,7 +60,6 @@ export async function discoverEuvd(deps: DiscoverEuvdDeps): Promise<Candidate[]>
       });
     }
   } catch (err) {
-    console.warn('discoverEuvd failed', err);
   }
   return out;
 }

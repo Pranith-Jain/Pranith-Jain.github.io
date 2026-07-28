@@ -31,7 +31,6 @@ const SOURCE_LABELS: Record<string, string> = {
   proxynova: 'ProxyNova',
   hudsonrock: 'Hudson Rock',
   projectdiscovery: 'ProjectDiscovery',
-  hackmyip: 'HackMyIP',
   breachvip: 'BreachVIP',
 };
 
@@ -42,7 +41,6 @@ const SOURCE_COLORS: Record<string, string> = {
   proxynova: 'bg-orange-500/10 text-orange-700 dark:text-orange-300 border-orange-500/30',
   hudsonrock: 'bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/30',
   projectdiscovery: 'bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300 border-fuchsia-500/30',
-  hackmyip: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30',
   breachvip: 'bg-teal-500/10 text-teal-700 dark:text-teal-300 border-teal-500/30',
 };
 
@@ -687,11 +685,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
               <a href="https://projectdiscovery.io" target="_blank" rel="noopener noreferrer" className="underline">
                 ProjectDiscovery
               </a>
-              , and{' '}
-              <a href="https://hackmyip.com" target="_blank" rel="noopener noreferrer" className="underline">
-                HackMyIP
-              </a>
-              , and{' '}
+              ,{' '}
               <a href="https://breach.vip" target="_blank" rel="noopener noreferrer" className="underline">
                 BreachVIP
               </a>{' '}

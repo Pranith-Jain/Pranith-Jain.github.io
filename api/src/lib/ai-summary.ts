@@ -145,13 +145,6 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
       },
     };
   } catch (err) {
-    console.warn(
-      JSON.stringify({
-        job: 'ai-summary',
-        surface: input.surface,
-        error: err instanceof Error ? err.message : String(err),
-      })
-    );
     return null;
   }
 }

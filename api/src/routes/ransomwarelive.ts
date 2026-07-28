@@ -149,7 +149,6 @@ export async function ransomwareLiveHandler(c: Context<{ Bindings: Env }>): Prom
   if (!upstream.ok) {
     // Surface auth/quota/not-found without caching so a transient failure
     // (or a bad key) isn't pinned for the full TTL.
-    console.warn('ransomwarelive upstream error', upstream.status);
     return c.json(
       { error: 'upstream_error', upstream_status: upstream.status },
       upstream.status === 401 || upstream.status === 403 ? upstream.status : 502,

@@ -69,7 +69,6 @@ export async function discoverBreaches(deps: DiscoverDeps): Promise<Candidate[]>
       });
     }
   } catch (err) {
-    console.warn('discoverBreaches failed', err);
   }
   return out;
 }

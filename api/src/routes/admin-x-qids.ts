@@ -36,7 +36,6 @@ async function readStoredQids(kv: KVNamespace): Promise<StoredQids | null> {
     const raw = await kv.get(X_QIDS_KV_KEY);
     return raw ? (JSON.parse(raw) as StoredQids) : null;
   } catch (e) {
-    console.warn('admin-x-qids read failed:', e instanceof Error ? e.message : String(e));
     return null;
   }
 }

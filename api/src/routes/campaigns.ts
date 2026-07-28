@@ -157,7 +157,6 @@ export async function saveCampaignHandler(c: Context<{ Bindings: Env }>): Promis
     // grow it unbounded. Older entries remain readable by direct ID lookup.
     await writeIndex(kv, index.slice(0, 200));
   } catch (err) {
-    console.warn('campaigns: index write failed (campaign still saved)', err);
   }
   await invalidateCampaignCaches(validated.id);
 
@@ -215,7 +214,6 @@ export async function deleteCampaignHandler(c: Context<{ Bindings: Env }>): Prom
       index.filter((e) => e.id !== id)
     );
   } catch (err) {
-    console.warn('campaigns: index delete failed', err);
   }
   await invalidateCampaignCaches(id);
   return c.json({ ok: true, id }, 200);

@@ -35,7 +35,6 @@ health.post('/api/v1/csp-report', async (c) => {
   try {
     const body = await c.req.json();
     if (body && typeof body === 'object') {
-      console.log('CSP violation:', JSON.stringify(body).slice(0, 2000));
     }
   } catch {
     // silently ignore malformed reports

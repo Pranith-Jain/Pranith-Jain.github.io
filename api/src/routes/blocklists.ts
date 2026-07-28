@@ -43,7 +43,6 @@ async function readAllFromKv(kv: KVNamespace | undefined): Promise<BlocklistAll 
       return all;
     }
   } catch (e) {
-    console.warn(JSON.stringify({ job: 'blocklists-load', error: e instanceof Error ? e.message : String(e) }));
   }
   return null;
 }

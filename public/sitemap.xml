@@ -37,15 +37,9 @@
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
-  <!-- Misc (5) -->
+  <!-- Misc (4) -->
   <url>
-    <loc>https://pranithjain.qzz.io/behind-the-reports</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://pranithjain.qzz.io/sponsor</loc>
+    <loc>https://pranithjain.qzz.io/daily-briefs</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

@@ -73,7 +73,6 @@ export async function discoverVulnCheckKev(deps: DiscoverVulnCheckDeps): Promise
       });
     }
   } catch (err) {
-    console.warn('discoverVulnCheckKev failed', err);
   }
   return out;
 }

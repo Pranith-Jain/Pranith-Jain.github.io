@@ -82,9 +82,7 @@ export async function handleQueue(
           if (res.ok) {
             const body = await res.text();
             await kv.put(gpWarmKey(gp.key), body, { expirationTtl: GP_WARM_TTL_SECONDS });
-            console.log(JSON.stringify({ job: 'gp-warm-slice', key: gp.key, ok: true, bytes: body.length }));
           } else {
-            console.warn(JSON.stringify({ job: 'gp-warm-slice', key: gp.key, status: res.status }));
           }
           msg.ack();
           return;
@@ -103,21 +101,12 @@ export async function handleQueue(
             if (cp.type === 'x_accounts') {
               posts = await fetchXAccountPosts(env as unknown as ApiEnv, X_ACCOUNTS, 1);
             } else {
-              console.warn(JSON.stringify({ job: 'cp-warm-slice', type: cp.type, status: 'unknown_type' }));
               msg.ack();
               return;
             }
             await kv.put(`cp:warm:${cp.type}`, JSON.stringify(posts), {
               expirationTtl: CP_WARM_TTL_SECONDS,
             });
-            console.log(
-              JSON.stringify({
-                job: 'cp-warm-slice',
-                type: cp.type,
-                ok: true,
-                posts: posts.length,
-              })
-            );
           } catch (e) {
             console.error(
               JSON.stringify({
@@ -138,14 +127,12 @@ export async function handleQueue(
         if (!sourceId) {
           // Ack (no retry — a malformed body won't parse on redelivery) but log
           // so a burst of bad messages is observable once PR3 wires the producer.
-          console.warn(JSON.stringify({ job: 'live-iocs-slice', status: 'empty_id' }));
           msg.ack();
           return;
         }
         const result = await runFeedSourceById(sourceId, deps);
         if (!result) {
           // Unknown source id — ack so a stale/poison message doesn't loop to the DLQ.
-          console.warn(JSON.stringify({ job: 'live-iocs-slice', sourceId, status: 'unknown_source' }));
           msg.ack();
           return;
         }

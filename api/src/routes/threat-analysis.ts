@@ -117,7 +117,6 @@ async function callWorkersAI(ai: Env['AI'], system: string, user: string, maxTok
   if (typeof result === 'string') return result;
   // Some models return { messages: [...] } format
   if (result?.choices?.[0]?.message?.content) return result.choices[0].message.content;
-  console.warn('threat-analysis: unexpected Workers AI response format:', JSON.stringify(result).slice(0, 500));
   return JSON.stringify(result);
 }
 
@@ -170,7 +169,6 @@ async function callAi(
       const text = await callGroq(groqKey, system, user, maxTokens);
       return { text, model: `groq:${GROQ_MODEL}` };
     } catch (e) {
-      console.warn('threat-analysis: groq failed, trying NVIDIA', e);
     }
   }
   if (nvidiaKey) {
@@ -178,7 +176,6 @@ async function callAi(
       const text = await callNvidia(nvidiaKey, system, user, maxTokens, 0.2);
       return { text, model: 'nvidia:minimaxai/minimax-m2.7' };
     } catch (e) {
-      console.warn('threat-analysis: nvidia failed, falling back to Workers AI', e);
     }
   }
   const text = await callWorkersAI(ai, system, user, maxTokens);

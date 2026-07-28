@@ -98,11 +98,8 @@ export async function discoverFromTelegramLeaks(deps: PlatformDataDeps): Promise
         status: 'pending',
       });
     }
-
-    console.log(JSON.stringify({ runner: 'platform-telegram', candidates: candidates.length }));
     return candidates;
   } catch (err) {
-    console.warn('discoverFromTelegramLeaks failed:', err);
     return [];
   }
 }
@@ -161,11 +158,8 @@ export async function discoverFromTrendingIocs(deps: PlatformDataDeps): Promise<
         status: 'pending',
       });
     }
-
-    console.log(JSON.stringify({ runner: 'platform-iocs', candidates: candidates.length }));
     return candidates;
   } catch (err) {
-    console.warn('discoverFromTrendingIocs failed:', err);
     return [];
   }
 }
@@ -260,11 +254,8 @@ export async function discoverFromThreatPulse(deps: PlatformDataDeps): Promise<C
         status: 'pending',
       });
     }
-
-    console.log(JSON.stringify({ runner: 'platform-pulse', candidates: candidates.length }));
     return candidates;
   } catch (err) {
-    console.warn('discoverFromThreatPulse failed:', err);
     return [];
   }
 }

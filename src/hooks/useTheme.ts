@@ -14,7 +14,6 @@ function getInitialTheme(): Theme {
       return stored;
     }
   } catch (e) {
-    console.warn('Failed to read theme from localStorage:', e);
   }
 
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -34,7 +33,6 @@ export function useTheme() {
     try {
       localStorage.setItem(STORAGE_KEY, theme);
     } catch (e) {
-      console.warn('Failed to save theme to localStorage:', e);
     }
   }, [theme]);
 

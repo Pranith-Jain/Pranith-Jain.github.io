@@ -26,7 +26,6 @@ export async function fetchRecentVictims(fetchImpl: typeof globalThis.fetch = gl
         url: e.link ? `https://www.ransomlook.io${e.link.startsWith('/') ? '' : '/'}${e.link}` : undefined,
       }));
   } catch (err) {
-    console.warn('fetchRecentVictims failed', err);
     return [];
   }
 }

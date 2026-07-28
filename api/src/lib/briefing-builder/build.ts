@@ -110,7 +110,6 @@ export async function buildBriefing(
         : Promise.resolve([] as MtiCveRecord[]),
       fetchCveFeedHighSeverity().catch(() => [] as CveFeedEntry[]),
     ]);
-  console.log(JSON.stringify({ job: 'briefing-build-debug', step: 'sources-fetched', kev: kevR.ok, nvd: nvdR.ok, degraded: !kevR.ok && !nvdR.ok }));
   let degraded = !kevR.ok && !nvdR.ok;
   const kev = kevR.v;
   const nvdRecent = nvdR.v;
@@ -206,29 +205,6 @@ export async function buildBriefing(
 
   let iocsRawTotal = allIocs.length;
   let iocs = bucketIocs(allIocs);
-
-  console.log(
-    JSON.stringify({
-      job: 'briefing-build-sources',
-      slug,
-      live: !!opts.live,
-      window: { start: rangeStart.toISOString(), end: rangeEnd.toISOString() },
-      findings: {
-        kev: kevFindings.length,
-        nvd: nvdFindings.length,
-        mti: mtiCveFindings.length,
-        cvefeed: cvefeedFindings.length,
-      },
-      feeds: {
-        urlhaus: { fetched: urlhaus.length, inWindow: urlhausMatched.length },
-        malwarebazaar: { fetched: malwarebazaar.length, inWindow: malwarebazaarMatched.length },
-        threatfox: { fetched: threatfox.length, inWindow: threatfoxMatched.length },
-        tweetfeed: { fetched: tweetfeed.length, inWindow: tweetfeedMatched.length },
-      },
-      iocsRawTotal,
-    })
-  );
-
   const iocSources: string[] = [];
   if (urlhausMatched.length > 0) iocSources.push('URLhaus');
   if (malwarebazaarMatched.length > 0) iocSources.push('MalwareBazaar');
@@ -297,7 +273,6 @@ export async function buildBriefing(
   }
 
   const sections = buildSections(findings);
-  console.log(JSON.stringify({ job: 'briefing-build-debug', step: 'sections-built', findingsCount: findings.length, sectionsCount: sections.length, ransomwareFindings: ransomwareFindings.length }));
   if (ransomwareFindings.length > 0) {
     const topGroups = ransomwareGroups
       .slice(0, 3)
@@ -338,8 +313,6 @@ export async function buildBriefing(
   const executive_summary = degraded
     ? `This ${type} briefing is incomplete: both CISA KEV and NVD were unreachable from the edge at build time (${rangeLabel}). This is an upstream-availability gap, NOT an all-clear — do not read the absence of findings as "no new vulnerabilities". The briefing rebuilds automatically every hour and will be replaced as soon as the feeds respond.`
     : await buildLlmExecutiveSummary(summaryArgs, opts.env);
-  console.log(JSON.stringify({ job: 'briefing-build-debug', step: 'exec-summary-done', degraded }));
-
   const techniqueSet = new Set<string>();
   for (const f of findings) for (const t of f.mitre_techniques) techniqueSet.add(t);
 

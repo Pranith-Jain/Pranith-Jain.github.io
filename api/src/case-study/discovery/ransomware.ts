@@ -23,7 +23,6 @@ export async function discoverRansomware(deps: DiscoverRansomwareDeps): Promise<
   try {
     victims = await deps.fetchVictims();
   } catch (err) {
-    console.warn('discoverRansomware: fetchVictims failed', err);
     return [];
   }
 

@@ -57,6 +57,7 @@ threatIntelRouter.get('/threat-intel/cves', async (c) => {
       ? Math.min(365, Math.max(1, Number(c.req.query('days_back'))))
       : undefined;
     const minPriority = c.req.query('min_priority') ? Number(c.req.query('min_priority')) : undefined;
+    const minArgusScore = c.req.query('min_argus_score') ? Number(c.req.query('min_argus_score')) : undefined;
     const keyword = c.req.query('q');
     const limit = c.req.query('limit') ? Math.min(1000, Math.max(1, Number(c.req.query('limit')))) : undefined;
 
@@ -66,6 +67,7 @@ threatIntelRouter.get('/threat-intel/cves', async (c) => {
       vendor: vendor || undefined,
       daysBack,
       minPriority,
+      minArgusScore,
       keyword: keyword || undefined,
       limit,
     });

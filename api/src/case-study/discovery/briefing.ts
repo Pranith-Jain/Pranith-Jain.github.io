@@ -117,7 +117,6 @@ export async function discoverBriefing(deps: DiscoverDeps): Promise<Candidate[]>
       },
     ];
   } catch (err) {
-    console.warn('discoverBriefing failed', err);
     return [];
   }
 }

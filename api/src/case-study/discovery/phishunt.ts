@@ -49,7 +49,6 @@ export async function discoverPhishuntHunts(deps: DiscoverPhishuntDeps): Promise
   try {
     results = await deps.fetchPhishunt();
   } catch (err) {
-    console.warn('discoverPhishuntHunts: fetch failed', err instanceof Error ? err.message : String(err));
     return [];
   }
 
@@ -162,16 +161,5 @@ export async function discoverPhishuntHunts(deps: DiscoverPhishuntDeps): Promise
   // Sort by score, keep top N.
   candidates.sort((a, b) => b.score - a.score);
   const kept = candidates.slice(0, MAX_CANDIDATES);
-
-  console.log(
-    JSON.stringify({
-      runner: 'phishunt',
-      total: results.length,
-      brandCampaigns: brandCampaigns.size,
-      criticalSites: criticalSites.length,
-      candidatesGenerated: kept.length,
-    })
-  );
-
   return kept;
 }

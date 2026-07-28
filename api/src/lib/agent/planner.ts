@@ -81,7 +81,6 @@ export async function planNextStep(
       }
     }
   }
-  console.warn('planner: parse failure, synthesizing', lastErr);
   return { reasoning: 'Planner failure — synthesizing.', toolCalls: [], shouldSynthesize: true };
 }
 

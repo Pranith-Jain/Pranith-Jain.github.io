@@ -157,28 +157,12 @@ export async function warmIntelBundles(env: Env, options: WarmOptions = {}): Pro
         // internally. Kept as belt-and-suspenders against any future
         // regression in extract-llm.
         extractLlmFn(report.title, report.body, entities, env, { findingsCount }).catch((err) => {
-          console.warn(
-            JSON.stringify({
-              job: 'intel-bundle-warm',
-              stage: 'extractLlm',
-              slug: row.slug,
-              error: err instanceof Error ? err.message : String(err),
-            })
-          );
           return { ...EMPTY_LLM_ENTITIES, ran: false, partial: false };
         }),
       ]);
       const logRejected = (idx: 0 | 1 | 2, stage: string) => {
         const s = settled[idx];
         if (s.status === 'rejected') {
-          console.warn(
-            JSON.stringify({
-              job: 'intel-bundle-warm',
-              stage,
-              slug: row.slug,
-              error: s.reason instanceof Error ? s.reason.message : String(s.reason),
-            })
-          );
         }
       };
       logRejected(0, 'enrichBulk');

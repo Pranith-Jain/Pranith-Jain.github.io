@@ -356,17 +356,6 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     const live = await validateIocsLive(processed.iocs, deps.validationEnv);
     iocs = live.iocs;
     if (live.droppedCount > 0) {
-      console.log(
-        JSON.stringify({
-          job: 'generate-post',
-          stage: 'ioc-live-validation',
-          candidate: candidate.key,
-          dropped: live.droppedCount,
-          validated: live.validatedCount,
-          skipped: live.skippedCount,
-          reasons: live.dropReasons.slice(0, 5),
-        })
-      );
     }
   }
 
@@ -389,19 +378,6 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     refCheck.report.droppedRefBullets > 0 ||
     refCheck.report.broken.length > 0
   ) {
-    console.log(
-      JSON.stringify({
-        job: 'generate-post',
-        stage: 'reference-verification',
-        candidate: candidate.key,
-        checked: refCheck.report.checked,
-        brokenCount: refCheck.report.broken.length,
-        droppedSources: refCheck.report.droppedSources,
-        droppedRefBullets: refCheck.report.droppedRefBullets,
-        backedOff: refCheck.report.backedOff,
-        broken: refCheck.report.broken.slice(0, 5),
-      })
-    );
   }
 
   const slug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
@@ -425,17 +401,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
         await deps.aiImages.put(slug, 'body1', bodyBytes);
         bodyWithImages = injectBodyImage(finalBody, `/api/v1/blog-image/${slug}/body1`, candidate.title);
       }
-      console.log(
-        JSON.stringify({
-          job: 'generate-post',
-          stage: 'ai-images',
-          candidate: candidate.key,
-          hero: !!heroImageUrl,
-          body: bodyWithImages !== finalBody,
-        })
-      );
     } catch (err) {
-      console.warn('ai-image generation failed (using SVG hero):', err instanceof Error ? err.message : String(err));
     }
   }
 

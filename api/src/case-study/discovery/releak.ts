@@ -49,7 +49,6 @@ export async function discoverReleaks(deps: DiscoverReleakDeps): Promise<Candida
   try {
     rows = await deps.fetchReleaks();
   } catch (err) {
-    console.warn('discoverReleaks: fetchReleaks failed', err instanceof Error ? err.message : err);
     return [];
   }
 

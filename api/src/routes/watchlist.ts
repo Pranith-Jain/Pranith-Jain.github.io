@@ -350,7 +350,6 @@ export async function runWeeklyWatchlistDigest(db: D1Database, kv: KVNamespace):
   try {
     const count = await db.prepare('SELECT COUNT(*) as c FROM actor_watchlist WHERE active = 1').first<{ c: number }>();
     if (!count || count.c === 0) {
-      console.log('watchlist-digest: no active actors — skip');
       return;
     }
 
@@ -406,7 +405,6 @@ export async function runWeeklyWatchlistDigest(db: D1Database, kv: KVNamespace):
     };
 
     await kv.put(`digest:weekly:${isoWeek}`, JSON.stringify(digest), { expirationTtl: 86400 * 14 });
-    console.log(`watchlist-digest: generated for week ${isoWeek} (${entries.length} actor entries)`);
   } catch (e) {
     console.error('watchlist-digest: failed', e instanceof Error ? e.message : String(e));
   }

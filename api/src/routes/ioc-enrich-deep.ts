@@ -285,20 +285,13 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
     );
   }
 
-  // ── Email: ProjectDiscovery breach + reputation + domain pivot ─────────
+  // ── Email: ProjectDiscovery breach + domain pivot ─────────────────────
   if (t === 'email') {
     // ProjectDiscovery breach lookup — the user wants to know if the address
     // is pwned, what breaches, what data classes.
     hits.push(
       timeIt('breach-email', () =>
         selfFetch(self, `/api/v1/breach/email?email=${enc}`, token).then((r) =>
-          r ? r.json() : { error: 'no-response' }
-        )
-      )
-    );
-    hits.push(
-      timeIt('reputation', () =>
-        selfFetch(self, `/api/v1/ioc/check?indicator=${enc}`, token).then((r) =>
           r ? r.json() : { error: 'no-response' }
         )
       )

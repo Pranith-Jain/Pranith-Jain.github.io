@@ -364,7 +364,6 @@ async function fetchXPulse(env: Env, out: Map<string, PulseEntity>): Promise<voi
     // Either cookies not configured, or transient error. Either is fine
     // — the IOC-feed-based fallback below still runs.
     if (!(err instanceof XAuthMissingError)) {
-      console.warn('threat-pulse: authed X path failed', (err as Error).message);
     }
   }
 

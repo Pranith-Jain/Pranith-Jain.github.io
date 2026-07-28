@@ -575,7 +575,6 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
       return { items: [], error: 'too_many_redirects' };
     }
     if (res.status === 429) {
-      console.warn(`feeds-aggregate: 429 from ${parsed.hostname} for ${url}`);
       return { items: [], error: 'rate_limited_429' };
     }
     if (!res.ok) return { items: [], error: `http_${res.status}` };

@@ -7,6 +7,8 @@ import { ProviderCache } from '../lib/cache';
 import { isCircuitOpen, recordProviderFailure, recordProviderSuccess } from '../lib/circuit-breaker';
 import { compositeScore } from '../lib/scoring';
 
+const GROQ_MODEL = 'openai/gpt-oss-120b';
+
 type RuleFormat = 'kql' | 'sigma' | 'yara';
 type VerdictLabel = 'malicious' | 'suspicious' | 'clean' | 'unknown';
 
@@ -130,7 +132,7 @@ async function callAi(env: Env, system: string, user: string): Promise<string> {
         headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
         signal: AbortSignal.timeout(30_000),
         body: JSON.stringify({
-          model: 'openai/gpt-oss-120b',
+          model: GROQ_MODEL,
           messages: [
             { role: 'system', content: system },
             { role: 'user', content: user },

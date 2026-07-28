@@ -1,4 +1,3 @@
-export { AboutPreview } from './AboutPreview';
 export { Hero } from './Hero';
 export { About } from './About';
 export { Skills } from './Skills';
@@ -9,5 +8,4 @@ export { Projects } from './Projects';
 export { Featured } from './Featured';
 export { Memberships } from './Memberships';
 export { Contact } from './Contact';
-export { Solutions } from './Solutions';
 export { Toolkits } from './Toolkits';

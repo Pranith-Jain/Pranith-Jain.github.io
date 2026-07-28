@@ -142,7 +142,6 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   // would catch it but the failure looks like a code bug rather than a
   // configuration gap. Explicit skip + structured log makes the cause clear.
   if (!env.CASE_STUDIES) {
-    console.warn(JSON.stringify({ job: 'discovery', status: 'skipped_no_kv' }));
     return {
       total: 0,
       kept: 0,
@@ -430,7 +429,6 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
 
 export function runPlannerNow(env: CaseStudyEnv, now: Date) {
   if (!env.CASE_STUDIES) {
-    console.warn(JSON.stringify({ job: 'planner', status: 'skipped_no_kv' }));
     return Promise.resolve({ scheduled: [] as { candidateId: string; slotAt: string }[] });
   }
   return runPlanner({
@@ -450,7 +448,6 @@ export async function generateSocialForPost(slug: string, env: CaseStudyEnv, now
   try {
     const post = await env.CASE_STUDIES.get<import('./types').Post>(csKvKeys.post(slug), 'json');
     if (!post) {
-      console.warn(JSON.stringify({ job: 'auto-social', slug, status: 'post_not_found' }));
       return;
     }
     const social = await generateSocialContent(
@@ -462,7 +459,6 @@ export async function generateSocialForPost(slug: string, env: CaseStudyEnv, now
       env.NVIDIA_API_KEY as string | undefined
     );
     await env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
-    console.log(JSON.stringify({ job: 'auto-social', slug, status: 'generated' }));
   } catch (err) {
     console.error(
       JSON.stringify({ job: 'auto-social', slug, error: err instanceof Error ? err.message : String(err) })
@@ -472,7 +468,6 @@ export async function generateSocialForPost(slug: string, env: CaseStudyEnv, now
 
 export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
   if (!env.CASE_STUDIES) {
-    console.warn(JSON.stringify({ job: 'publisher', status: 'skipped_no_kv' }));
     return Promise.resolve({ published: null as unknown });
   }
   const requireApproval = env.BLOG_APPROVAL_REQUIRED === 'true';
@@ -620,13 +615,10 @@ export async function refreshSocialMetricsNow(env: CaseStudyEnv, now: Date) {
     try {
       const { refreshContentPerformance } = await import('./analytics/content-performance');
       const result = await refreshContentPerformance(env.BRIEFINGS_DB, env.CASE_STUDIES);
-      console.log(JSON.stringify({ job: 'content-performance', types: result.types, ts: now.toISOString() }));
     } catch {
       // D1 unavailable — content performance refresh is non-critical
     }
   }
-
-  console.log(JSON.stringify({ job: 'social-metrics', refreshed: records.length, ts: now.toISOString() }));
   return { refreshed: records.length };
 }
 
@@ -669,18 +661,5 @@ export async function runSocialAutopostNow(env: CaseStudyEnv, now: Date) {
       return { ok: r.ok, postUrl: r.postUrl, error: r.error };
     },
   });
-
-  console.log(
-    JSON.stringify({
-      job: 'social-autopost',
-      enabled,
-      drip,
-      posted: result.posted.length,
-      failed: result.failed.length,
-      skipped: result.skipped,
-      reason: result.reason,
-      ts: now.toISOString(),
-    })
-  );
   return result;
 }

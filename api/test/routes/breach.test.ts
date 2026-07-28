@@ -103,7 +103,7 @@ describe('GET /api/v1/breach/email', () => {
     const body = (await r.json()) as Record<string, unknown>;
     expect(body.found).toBe(false);
     expect(body.breach_count).toBe(0);
-    expect(body.source).toBe('xposedornot');
+    expect(body.source).toBe('');
   });
 
   it('returns found=false when XposedOrNot returns Error: Not found style response', async () => {

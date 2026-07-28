@@ -51,18 +51,19 @@ interface KevEntry {
   shortDescription: string;
 }
 
-let edgeSeq = 0;
-function eid(src: string, tgt: string, label: string): string {
-  return `e-${++edgeSeq}-${src}--${label}-->${tgt}`;
+function eid(seq: number, src: string, tgt: string, label: string): string {
+  return `e-${seq}-${src}--${label}-->${tgt}`;
 }
 
 function addNode(map: Map<string, EntityNode>, node: EntityNode): void {
   if (!map.has(node.id)) map.set(node.id, node);
 }
 
-function addEdge(map: Map<string, EntityEdge>, source: string, target: string, label: string): void {
-  const id = eid(source, target, label);
-  if (!map.has(id)) map.set(id, { id, source, target, label });
+function makeAddEdge(seqRef: { n: number }) {
+  return (map: Map<string, EntityEdge>, source: string, target: string, label: string): void => {
+    const id = eid(++seqRef.n, source, target, label);
+    if (!map.has(id)) map.set(id, { id, source, target, label });
+  };
 }
 
 async function loadTiMod() {
@@ -96,11 +97,11 @@ export function registerEntityGraphRoute(router: Hono<any>): void {
 
       // Load KEV data from manifest
       const mod = await loadTiMod();
-      const _idx = await mod.loadTiIndex(c.env.ASSETS);
       const kev = await mod.loadKevSnapshot(c.env.ASSETS);
 
       const nodes = new Map<string, EntityNode>();
       const edges = new Map<string, EntityEdge>();
+      const addEdge = makeAddEdge({ n: 0 });
 
       // ── CVE nodes from KEV ────────────────────────────────────────
       const sectorMap: Record<string, string> = {

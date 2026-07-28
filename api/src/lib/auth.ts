@@ -270,16 +270,6 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
     if (mode === 'external-only' && (c.req.method === 'GET' || c.req.method === 'HEAD')) {
       const openUntil = valveOpenUntilMs(c.env.OPEN_PUBLIC_READS);
       if (openUntil !== null && Date.now() < openUntil) {
-        console.warn(
-          JSON.stringify({
-            level: 'warn',
-            event: 'open_public_reads_passthrough',
-            message: 'OPEN_PUBLIC_READS valve open — keyless reads allowed until expiry.',
-            path: new URL(c.req.url).pathname,
-            method: c.req.method,
-            open_until: openUntil === Number.POSITIVE_INFINITY ? 'indefinite' : new Date(openUntil).toISOString(),
-          })
-        );
         return next();
       }
       // valve unset/expired → fall through to normal key auth below

@@ -546,13 +546,6 @@ export async function autoRunFeedJobs(
           const lt = nodeType === 'ip' ? 'ipv4' : nodeType;
           safeNull(recordIocObservation(db, trimmed, lt, 50, [`feed:${job.name}`]));
         } catch (nodeErr) {
-          console.warn(
-            JSON.stringify({
-              job: 'feed-scheduler',
-              nodeId: trimmed,
-              error: nodeErr instanceof Error ? nodeErr.message : String(nodeErr),
-            })
-          );
         }
       }
     }

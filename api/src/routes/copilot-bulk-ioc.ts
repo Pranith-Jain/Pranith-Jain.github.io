@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, internalError } from '../lib/api-error';
+import { detectType } from '../lib/indicator';
 
 interface BulkIocResult {
   value: string;
@@ -15,17 +16,10 @@ interface BulkIocResult {
 
 const PROVIDER_TIMEOUT = 8000;
 
-const CVE_RE = /\bCVE-\d{4}-\d{4,}\b/i;
-const IP_RE = /\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\b/;
-const HASH_RE = /\b[a-fA-F0-9]{64}\b/;
-const DOMAIN_RE = /\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|org|net|io|co|ru|cn|onion|dev|app|gov|edu|info|biz)\b/;
-
 function classifyToken(token: string): string {
-  if (CVE_RE.test(token)) return 'cve';
-  if (IP_RE.test(token)) return 'ip';
-  if (HASH_RE.test(token)) return 'hash';
-  if (DOMAIN_RE.test(token)) return 'domain';
-  return 'unknown';
+  const t = detectType(token);
+  if (t === 'ipv4') return 'ip';
+  return t;
 }
 
 export async function copilotBulkIocHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
