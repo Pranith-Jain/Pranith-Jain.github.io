@@ -385,6 +385,19 @@ function DfirFileRedirect() {
   return <Navigate to={target} replace />;
 }
 
+/**
+ * Redirect that preserves the query string. Used for alias routes whose
+ * target page reads search params (e.g. `/dfir/ioc-check?indicator=…`
+ * → `/dfir/ioc-investigate?indicator=…`). Without this, `<Navigate>`
+ * drops the query string and the deep-link auto-run never fires.
+ */
+function QueryRedirect({ to }: { to: string }) {
+  const [params] = useSearchParams();
+  const qs = params.toString();
+  const target = qs ? `${to}?${qs}` : to;
+  return <Navigate to={target} replace />;
+}
+
 interface RouteDef {
   path: string;
   Component: ComponentType;
@@ -742,7 +755,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
 ];
 
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
-const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
+const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boolean }> = [
   { path: '/dfir/host', to: '/dfir/asset-intel' },
   // ── Hub merge redirects ──
   { path: '/dfir/decode', to: '/dfir/codec' },
@@ -832,9 +845,9 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/dfir/webcheck', to: '/dfir/domain-investigator' },
   { path: '/dfir/web-scan', to: '/dfir/domain-investigator' },
   { path: '/dfir/full-spectrum', to: '/dfir/domain-investigator' },
-  { path: '/dfir/ioc-check', to: '/dfir/ioc-investigate' },
-  { path: '/dfir/ioc-pivot', to: '/dfir/ioc-investigate' },
-  { path: '/dfir/threat-hunt', to: '/dfir/ioc-investigate' },
+  { path: '/dfir/ioc-check', to: '/dfir/ioc-investigate', preserveQuery: true },
+  { path: '/dfir/ioc-pivot', to: '/dfir/ioc-investigate', preserveQuery: true },
+  { path: '/dfir/threat-hunt', to: '/dfir/ioc-investigate', preserveQuery: true },
   { path: '/dfir/malware-scan', to: '/dfir/malware-analyzer' },
   { path: '/dfir/sample-scan', to: '/dfir/malware-analyzer' },
   { path: '/dfir/malware-capabilities', to: '/dfir/malware-analyzer' },
@@ -1089,8 +1102,12 @@ export function AppContent() {
             }
           />
         ))}
-        {REDIRECTS.map(({ path, to }) => (
-          <Route key={path} path={path} element={<Navigate to={to} replace />} />
+        {REDIRECTS.map(({ path, to, preserveQuery }) => (
+          <Route
+            key={path}
+            path={path}
+            element={preserveQuery ? <QueryRedirect to={to} /> : <Navigate to={to} replace />}
+          />
         ))}
         <Route
           path="*"

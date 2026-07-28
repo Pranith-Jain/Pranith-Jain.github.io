@@ -53,7 +53,7 @@ export async function threatHuntHandler(c: Context<{ Bindings: Env }>): Promise<
         telegram_leak_hits: telegramLeakHits,
         breach_hits: breachHits,
         ioc_link: `/api/v1/ioc/check?indicator=${encodeURIComponent(q)}`,
-        hunt_link: `/dfir/ioc-check?indicator=${encodeURIComponent(q)}`,
+        hunt_link: `/dfir/ioc-investigate?indicator=${encodeURIComponent(q)}`,
       },
       200,
       { 'Cache-Control': 'public, max-age=30' }

@@ -9,6 +9,8 @@
  * 4. Self-correction = retry with feedback when quality is low
  */
 
+import type { AgentStep } from './types';
+
 // ── Working Memory ─────────────────────────────────────────────────────────
 
 /**
@@ -125,6 +127,62 @@ function parseIoc(raw: string): { type: string; value: string; confidence: strin
   if (trimmed.includes('.') && !trimmed.includes(' '))
     return { type: 'domain', value: trimmed, confidence: 'medium', source: 'observer' };
   return { type: 'indicator', value: trimmed, confidence: 'medium', source: 'observer' };
+}
+
+/**
+ * Rebuild working memory from a list of completed steps.
+ *
+ * Prefers the structured observer findings persisted on each step (so
+ * accumulated IOCs/MITRE/facts survive across alarm invocations — the
+ * in-memory WorkingMemory is ephemeral and dies with each DO alarm); falls
+ * back to any structured fields a tool exposes directly on its result data.
+ */
+export function rebuildWorkingMemory(steps: AgentStep[]): WorkingMemory {
+  let mem = createWorkingMemory();
+  for (const step of steps) {
+    const entries: Array<{
+      tool: string;
+      iocs?: string[];
+      mitre?: string[];
+      keyFacts?: string[];
+      confidence?: string;
+      gaps?: string[];
+    }> = [];
+
+    if (step.observerFindings) {
+      const toolNames = [...new Set((step.results ?? []).map((r) => r.tool))].join('+') || 'observer';
+      entries.push({
+        tool: toolNames,
+        iocs: step.observerFindings.iocs,
+        mitre: step.observerFindings.mitre,
+        keyFacts: step.observerFindings.keyFacts,
+        confidence: step.observerFindings.confidence,
+        gaps: step.observerFindings.gaps,
+      });
+    }
+
+    for (const r of step.results ?? []) {
+      if (r.status !== 'ok' || !r.data || typeof r.data !== 'object') continue;
+      const data = r.data as Record<string, unknown>;
+      const iocs = Array.isArray(data.iocs) ? (data.iocs as string[]) : undefined;
+      const mitre = Array.isArray(data.mitre) ? (data.mitre as string[]) : undefined;
+      const keyFacts = Array.isArray(data.keyFacts) ? (data.keyFacts as string[]) : undefined;
+      const gaps = Array.isArray(data.gaps) ? (data.gaps as string[]) : undefined;
+      if (iocs || mitre || keyFacts || gaps) {
+        entries.push({
+          tool: r.tool,
+          iocs,
+          mitre,
+          keyFacts,
+          confidence: typeof data.confidence === 'string' ? data.confidence : undefined,
+          gaps,
+        });
+      }
+    }
+
+    if (entries.length > 0) mem = mergeIntoMemory(mem, step.stepNumber, entries);
+  }
+  return mem;
 }
 
 /**

@@ -569,6 +569,7 @@ const DYNAMIC_ROUTE_FALLBACKS: ReadonlyArray<[RegExp, string]> = [
   [/^\/threatintel\/assessments\/[^/]+$/i, '/__prerendered/threatintel__catalog'],
   // ── Blog ───────────────────────────────────────────────────────
   [/^\/blog\/c\/[^/]+$/i, '/__prerendered/blog'],
+  [/^\/blog\/t\/[^/]+$/i, '/__prerendered/blog'],
   [/^\/blog\/[^/]+$/i, '/__prerendered/blog'],
   // ── Projects ───────────────────────────────────────────────────
   [/^\/projects\/[^/]+$/i, '/__prerendered/projects'],

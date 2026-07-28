@@ -20,8 +20,7 @@ import {
   type SpecialistRole,
 } from '../../api/src/lib/agent/specialist-types';
 import {
-  createWorkingMemory,
-  mergeIntoMemory,
+  rebuildWorkingMemory,
   memoryToPrompt,
   shouldRetry,
   buildSelfCorrectionPrompt,
@@ -655,57 +654,11 @@ export class InvestigatorAgentDO {
   }
 
   /**
-   * Build working memory from the current state's steps.
-   * Prefers the structured observer findings persisted on each step (so
-   * accumulated IOCs/MITRE/facts survive across alarm invocations); falls back
-   * to any structured fields exposed directly on raw tool data.
+   * Build working memory from the current state's steps. Delegates to the
+   * shared pure helper so the reconstruction logic is unit-testable.
    */
   private buildWorkingMemory(state: AgentState): WorkingMemory {
-    let mem = createWorkingMemory();
-    for (const step of state.steps) {
-      const entries: Array<{
-        tool: string;
-        iocs?: string[];
-        mitre?: string[];
-        keyFacts?: string[];
-        confidence?: string;
-        gaps?: string[];
-      }> = [];
-
-      if (step.observerFindings) {
-        const toolNames = [...new Set((step.results ?? []).map((r) => r.tool))].join('+') || 'observer';
-        entries.push({
-          tool: toolNames,
-          iocs: step.observerFindings.iocs,
-          mitre: step.observerFindings.mitre,
-          keyFacts: step.observerFindings.keyFacts,
-          confidence: step.observerFindings.confidence,
-          gaps: step.observerFindings.gaps,
-        });
-      }
-
-      for (const r of step.results ?? []) {
-        if (r.status !== 'ok' || !r.data || typeof r.data !== 'object') continue;
-        const data = r.data as Record<string, unknown>;
-        const iocs = Array.isArray(data.iocs) ? (data.iocs as string[]) : undefined;
-        const mitre = Array.isArray(data.mitre) ? (data.mitre as string[]) : undefined;
-        const keyFacts = Array.isArray(data.keyFacts) ? (data.keyFacts as string[]) : undefined;
-        const gaps = Array.isArray(data.gaps) ? (data.gaps as string[]) : undefined;
-        if (iocs || mitre || keyFacts || gaps) {
-          entries.push({
-            tool: r.tool,
-            iocs,
-            mitre,
-            keyFacts,
-            confidence: typeof data.confidence === 'string' ? data.confidence : undefined,
-            gaps,
-          });
-        }
-      }
-
-      if (entries.length > 0) mem = mergeIntoMemory(mem, step.stepNumber, entries);
-    }
-    return mem;
+    return rebuildWorkingMemory(state.steps);
   }
 
   /** Synthesize the final report and mark the investigation done. Streams progress to WebSocket clients. */
