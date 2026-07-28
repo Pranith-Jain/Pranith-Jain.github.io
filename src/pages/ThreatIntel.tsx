@@ -180,7 +180,7 @@ export default function ThreatIntel() {
     url: '/api/v1/threat-intel/cves?limit=50',
   });
   const { data: kevData, loading: kevLoading } = useDataFetch<{ entries: KevEntry[] }>({
-    url: '/api/v1/threat-intel/kev',
+    url: '/api/v1/threat-intel/kev?limit=100',
   });
   const { data: iocsData, loading: iocsLoading } = useDataFetch<{ iocs: IocEntry[] }>({
     url: '/api/v1/threat-intel/iocs?limit=50',
