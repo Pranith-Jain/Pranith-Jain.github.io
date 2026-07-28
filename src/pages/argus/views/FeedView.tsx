@@ -123,7 +123,7 @@ export function FeedView({ feed, actors }: Props) {
   const fetchLiveFeeds = useCallback(async () => {
     setLiveStatus('loading');
     try {
-      const PROXY = 'https://api.allorigins.win/raw?url=';
+      const PROXY = '/api/v1/argus/rss?url=';
       const results: FeedItem[] = [];
       const fetches = RSS_SOURCES.map(async (source) => {
         try {

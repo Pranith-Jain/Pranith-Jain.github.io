@@ -446,22 +446,23 @@ export default function ThreatFeeds(): JSX.Element {
                 : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]'
             }`}
           >
-            <Brain size={14} />
-            {showDigest ? 'Hide Digest' : 'Generate AI Digest'}
+            <BarChart3 size={14} />
+            {showDigest ? 'Hide Summary' : 'Show Feed Summary'}
           </button>
         </div>
       )}
 
       {showDigest && (
         <div className="mb-6">
-          <FeedDigestPanel
-            items={annotated.slice(0, 30).map(({ item }) => ({
+          <FeedSummaryPanel
+            entries={annotated.map(({ item, section }) => ({
               title: item.title,
-              description: item.description,
+              link: item.link,
               source: item.source,
               pubDate: item.pubDate,
+              section,
             }))}
-            period="daily"
+            sectionLabels={SECTION_LABELS}
             onClose={() => setShowDigest(false)}
           />
         </div>

@@ -396,8 +396,8 @@ export function GlobeView({ actors, onOpen }: Props) {
 
   return (
     <div className="absolute inset-0 flex globe-bg">
-      <aside className="w-72 border-r border-slate-200 dark:border-[rgb(var(--border-400))] overflow-y-auto p-3 hidden md:block bg-white/50 dark:bg-[rgb(var(--surface-200))]/50 backdrop-blur-sm">
-        <div className="text-eyebrow font-mono text-slate-500 dark:text-slate-400 mb-3">Threat origins</div>
+      <aside className="w-72 border-r border-white/10 overflow-y-auto p-3 hidden md:block globe-panel">
+        <div className="text-eyebrow font-mono text-slate-400 mb-3">Threat origins</div>
         <div className="space-y-0.5">
           {Object.entries(
             actors.reduce<Record<string, Actor[]>>((acc, a) => {
@@ -410,22 +410,22 @@ export function GlobeView({ actors, onOpen }: Props) {
               <button
                 key={code}
                 onClick={() => onOpen(list[0]!)}
-                className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-left transition-all duration-200"
+                className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg hover:bg-white/5 text-left transition-all duration-200"
               >
                 <span className="h-3 w-3 rounded-full shrink-0" style={{ background: n.color, boxShadow: `0 0 10px ${n.color}66` }} />
                 <div className="flex-1 min-w-0">
-                  <div className="text-[12.5px] text-slate-900 dark:text-slate-100 truncate">{n.name}</div>
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                  <div className="text-[12.5px] text-slate-100 truncate">{n.name}</div>
+                  <div className="text-micro font-mono text-slate-400">
                     {list.map(a => a.name).join(', ')}
                   </div>
                 </div>
-                <span className="text-mini font-mono text-slate-500 dark:text-slate-400 shrink-0">{list.length}</span>
+                <span className="text-mini font-mono text-slate-400 shrink-0">{list.length}</span>
               </button>
             );
           })}
         </div>
-        <div className="text-eyebrow font-mono text-slate-500 dark:text-slate-400 mt-6 mb-2">Controls</div>
-        <div className="text-mini text-slate-500 dark:text-slate-400 leading-relaxed space-y-1">
+        <div className="text-eyebrow font-mono text-slate-400 mt-6 mb-2">Controls</div>
+        <div className="text-mini text-slate-400 leading-relaxed space-y-1">
           <p>Drag to rotate</p>
           <p>Scroll to zoom</p>
           <p>Click marker to open dossier</p>
@@ -436,13 +436,13 @@ export function GlobeView({ actors, onOpen }: Props) {
         <div ref={mountRef} className="absolute inset-0 z-0" style={{ cursor: 'grab' }} />
 
         <div className="absolute top-3 left-3 sm:top-4 sm:left-4 flex gap-1.5 sm:gap-2 pointer-events-none">
-          <div className="surface-card px-2.5 sm:px-3 py-1.5">
-            <div className="font-mono text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">{actors.length}</div>
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">actors</div>
+          <div className="globe-card px-2.5 sm:px-3 py-1.5">
+            <div className="font-mono text-xl sm:text-2xl font-bold text-slate-100">{actors.length}</div>
+            <div className="text-micro font-mono uppercase tracking-wider text-slate-400">actors</div>
           </div>
-          <div className="surface-card px-2.5 sm:px-3 py-1.5">
-            <div className="font-mono text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">{new Set(actors.map(a => a.country)).size}</div>
-            <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">nations</div>
+          <div className="globe-card px-2.5 sm:px-3 py-1.5">
+            <div className="font-mono text-xl sm:text-2xl font-bold text-slate-100">{new Set(actors.map(a => a.country)).size}</div>
+            <div className="text-micro font-mono uppercase tracking-wider text-slate-400">nations</div>
           </div>
         </div>
 
@@ -452,9 +452,9 @@ export function GlobeView({ actors, onOpen }: Props) {
             aria-pressed={showArcs}
             className={`inline-flex items-center gap-1.5 h-8 px-3 rounded-lg border text-tool font-medium transition-colors ${
               showArcs
-                ? 'border-rose-500/40 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                : 'border-[rgb(var(--border-400))] bg-white/70 dark:bg-[rgb(var(--surface-200))]/70 text-slate-500 dark:text-slate-400 hover:border-[rgb(var(--border-500))]'
-            } backdrop-blur-md`}
+                ? 'border-rose-500/40 bg-rose-500/15 text-rose-300'
+                : 'border-white/10 globe-panel text-slate-300 hover:border-white/20'
+            }`}
           >
             <Waypoints size={13} className="shrink-0" />
             <span className="hidden sm:inline">target arcs</span>
@@ -463,14 +463,14 @@ export function GlobeView({ actors, onOpen }: Props) {
 
         {hovered && (
           <div
-            className="surface-raised px-3 py-2.5 text-tool pointer-events-none absolute z-10 min-w-[160px]"
+            className="globe-card px-3 py-2.5 text-tool pointer-events-none absolute z-10 min-w-[160px]"
             style={{ left: Math.min(hovered.x + 14, (mountRef.current?.clientWidth ?? 600) - 200), top: hovered.y + 14 }}
           >
-            <div className="font-semibold text-slate-900 dark:text-slate-100">{hovered.actor.name}</div>
-            <div className="text-slate-500 dark:text-slate-400 font-mono text-[11px] mt-0.5">
+            <div className="font-semibold text-slate-100">{hovered.actor.name}</div>
+            <div className="text-slate-400 font-mono text-[11px] mt-0.5">
               {hovered.actor.apt} · {NATION_PALETTE[hovered.actor.country]?.name}
             </div>
-            <div className="text-slate-500 dark:text-slate-400 text-[11px] mt-1">
+            <div className="text-slate-400 text-[11px] mt-1">
               {hovered.actor.motivation} · {hovered.actor.sectors.slice(0, 2).join(', ')}
             </div>
           </div>
