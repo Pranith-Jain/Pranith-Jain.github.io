@@ -862,14 +862,6 @@ export const HUB_META: readonly HubMeta[] = [
         keywords: ['chokepoint', 'detection', 'mitre', 'kill-chain'],
       },
       {
-        path: '/dfir/long-watch',
-        tabId: 'long-watch',
-        label: 'The Long Watch',
-        desc: 'Interactive network defense simulation - 3 scenarios over 8 years of attack evolution.',
-        compVar: 'LongWatch',
-        keywords: ['simulation', 'defense', 'ransomware', 'phishing', 'attack-surface'],
-      },
-      {
         path: '/dfir/ir-playbooks',
         tabId: 'ir-playbooks',
         label: 'IR Playbooks',
