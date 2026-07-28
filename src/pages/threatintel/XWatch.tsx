@@ -51,6 +51,9 @@ interface FirehoseResponse {
   cached: boolean;
   stale?: boolean;
   upstream_error?: string;
+  degraded?: boolean;
+  fallback?: string;
+  authed_error?: string;
 }
 
 interface StatusResponse {
@@ -305,15 +308,22 @@ export default function XWatch(): JSX.Element {
       signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]),
     })
       .then(async (r) => {
-        const body = (await r.json()) as FirehoseResponse | { error: string; hint?: string; status?: number };
+        const body = (await r.json()) as
+          | FirehoseResponse
+          | { error: string; hint?: string; status?: number; code?: string; detail?: string };
         if (cancelled) return;
         if (!r.ok || 'error' in body) {
-          // Generic error surface - backend details (auth state, upstream
-          // URLs, hints) are not exposed to the user. They get logged in
-          // wrangler tail server-side if the operator needs to diagnose.
+          // Surface the specific upstream cause so the operator knows whether
+          // to refresh cookies, update query IDs, or just retry - instead of
+          // a single opaque "could not load tweets".
+          const b = body as { error?: string; code?: string; detail?: string };
           if (r.status === 429) setError('rate-limited - try again in a moment');
+          else if (b.code === 'stale_qid')
+            setError('X query IDs look stale - refresh them in api/src/lib/twitter-auth-graphql.ts');
+          else if (b.code === 'auth_expired') setError('X cookies expired - refresh them in admin > X Cookies');
+          else if (b.code === 'auth_missing') setError('X cookies not configured - add them in admin > X Cookies');
           else if (r.status === 503 || r.status === 401) setError('service unavailable');
-          else setError('could not load tweets');
+          else setError(b.detail ? `could not load tweets: ${b.detail}` : 'could not load tweets');
           // 503/401 → service unavailable - show the soft banner.
           if (r.status === 503 || r.status === 401) {
             setAuthStatus({ ok: false, configured: false });
@@ -658,6 +668,14 @@ export default function XWatch(): JSX.Element {
               {data?.stale && (
                 <span className="text-amber-700 dark:text-amber-300" title={data.upstream_error}>
                   <AlertTriangle size={9} className="inline" /> stale
+                </span>
+              )}
+              {data?.degraded && (
+                <span
+                  className="text-amber-700 dark:text-amber-300"
+                  title={`Authenticated feed unavailable (${data.authed_error ?? 'upstream'}) - showing the anonymous curated timeline`}
+                >
+                  <AlertTriangle size={9} className="inline" /> anonymous fallback
                 </span>
               )}
               <a

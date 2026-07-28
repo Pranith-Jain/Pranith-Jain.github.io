@@ -9,6 +9,7 @@ import {
   XAuthRateLimitedError,
   type AuthedTimelineResponse,
 } from '../lib/twitter-auth-graphql';
+import { fetchUserTimeline } from '../lib/twitter-graphql';
 
 const PROBE_BATCH_MAX = 80;
 const PROBE_STAGGER_MS = 350;
@@ -92,12 +93,10 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
     return c.json(body, 200, { 'cache-control': 'public, max-age=600, s-maxage=1800' });
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    if (err instanceof XAuthMissingError) {
-      return c.json({ error: 'service unavailable', configured: false }, 503);
-    }
     if (err instanceof XAuthRateLimitedError) {
       // Serve the stale Cache API entry, if any. Better an old payload
-      // than a hard error during a transient rate-limit.
+      // than a hard error during a transient rate-limit. (Anonymous would
+      // hit the same per-IP limit, so no fallback here.)
       try {
         const stale = await edgeCache.match(staleKey);
         if (stale) {
@@ -112,10 +111,38 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
       }
       return c.json({ error: 'rate-limited', retry_after: err.retryAfter ?? 'unknown' }, 429);
     }
-    if (err instanceof XAuthInvalidError) {
-      return c.json({ error: 'service unavailable', status: err.status }, 401);
+    // Every other authed failure - missing cookies, expired cookies, stale
+    // GraphQL query IDs (X rotates them; surfaces as HTTP 200 + errors field),
+    // or a transient network/parse error - falls back to the anonymous
+    // guest-token timeline (separate query IDs, curated "best of" set) so the
+    // analyst still sees tweets instead of a hard "could not load" error.
+    const msg = err instanceof Error ? err.message : String(err);
+    const code =
+      err instanceof XAuthMissingError
+        ? 'auth_missing'
+        : err instanceof XAuthInvalidError
+          ? 'auth_expired'
+          : /GraphQL error/i.test(msg)
+            ? 'stale_qid'
+            : 'upstream';
+    try {
+      const anon = await fetchUserTimeline(c.env, handleRaw, { count, sinceDays, includePinned });
+      return c.json({ ...anon, degraded: true, fallback: 'anonymous', authed_error: code }, 200, {
+        'cache-control': 'public, max-age=300, s-maxage=600',
+      });
+    } catch (anonErr) {
+      console.error('anonymous fallback failed:', anonErr instanceof Error ? anonErr.message : String(anonErr));
+      const status = code === 'auth_missing' ? 503 : code === 'auth_expired' ? 401 : 502;
+      const detail =
+        code === 'stale_qid'
+          ? 'X GraphQL query IDs appear stale - refresh the QIDs in api/src/lib/twitter-auth-graphql.ts'
+          : code === 'auth_expired'
+            ? 'X cookies expired - refresh auth_token/ct0 in admin > X Cookies'
+            : code === 'auth_missing'
+              ? 'X cookies not configured - add them in admin > X Cookies'
+              : msg.slice(0, 200);
+      return c.json({ error: 'upstream error', code, detail, configured: code !== 'auth_missing' }, status);
     }
-    return c.json({ error: 'upstream error' }, 502);
   }
 }
 

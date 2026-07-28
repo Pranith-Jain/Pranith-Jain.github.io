@@ -117,8 +117,49 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
   // build can exceed the Worker CPU / 50-subrequest budget, and the resulting
   // 503 is UNCATCHABLE (Cloudflare kills the isolate) — exactly the
   // "Couldn't load this. HTTP 503" the page showed. Build in the background
-  // (it populates both caches for the next request) and serve a graceful empty
-  // map now; the client refreshes and picks up the freshly-built data.
+  // (it populates both caches for the next request) and serve a graceful
+  // partial map now with the highest-value feeds fetched synchronously; the
+  // client refreshes and picks up the full data once the background build
+  // populates the caches.
+  const self = c.env.SELF;
+
+  // Safe wrapper — used by both the sync fetch and the background build.
+  const safe = <T>(fn: () => T): T => {
+    try {
+      return fn();
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      return [] as unknown as T;
+    }
+  };
+
+  // Synchronously fetch the 3 highest-value feeds so the page is never
+  // completely empty. These are cheap (cached upstreams) and stay within
+  // the subrequest budget. The background build below fetches the rest.
+  const syncEvents: PulseEvent[] = [];
+  try {
+    const [cveRes, ransomRes, iocRes] = await Promise.allSettled([
+      signedSelfFetch(self, '/api/v1/cve-recent?days=7', c.env, 12000),
+      signedSelfFetch(self, '/api/v1/ransomware-recent?days=7', c.env, 10000),
+      signedSelfFetch(self, '/api/v1/live-iocs', c.env, 10000),
+    ]);
+    if (cveRes.status === 'fulfilled' && cveRes.value?.ok) {
+      const cveData = (await cveRes.value.json()) as Parameters<typeof fromCveRecent>[0];
+      syncEvents.push(...safe(() => fromCveRecent(cveData)));
+    }
+    if (ransomRes.status === 'fulfilled' && ransomRes.value?.ok) {
+      const ransomData = (await ransomRes.value.json()) as Parameters<typeof fromRansomware>[0];
+      syncEvents.push(...safe(() => fromRansomware(ransomData)));
+    }
+    if (iocRes.status === 'fulfilled' && iocRes.value?.ok) {
+      const iocData = (await iocRes.value.json()) as Parameters<typeof fromLiveIocs>[0];
+      syncEvents.push(...safe(() => fromLiveIocs(iocData)));
+    }
+  } catch (_catchErr) {
+    console.error('global-pulse sync fetch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    /* degraded — serve empty, background build will populate */
+  }
+
   c.executionCtx.waitUntil(
     (async () => {
       try {
@@ -187,7 +228,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         // so the old `fetch('https://pranithjain.qzz.io/...')` approach always
         // returned null for every feed when KV was cold — making every page visit
         // a fresh invocation with no data. SELF.fetch() avoids the loopback.
-        const self = c.env.SELF;
+        // (self is declared in the outer scope — shared with the sync fetch above.)
 
         // The warm KV slices (gp:warm:<key>, warmed globally by the queue consumer
         // — one feed per invocation, 90-min TTL) are the read source for feed data.
@@ -768,15 +809,20 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     })()
   );
 
-  return emptyGlobalPulseResponse();
-}
-
-/** Graceful empty map served on a cold cache while the background build runs.
- *  Cached only briefly so the client revalidates quickly and picks up the
- *  freshly-built data once the background build populates the caches. */
-function emptyGlobalPulseResponse(): Response {
+  // Serve the synchronously-fetched events (if any) so the page is never
+  // completely empty while the background build runs. Cached briefly (60s)
+  // so the client revalidates quickly and picks up the full data.
+  const syncLayers: Record<string, number> = {};
+  for (const e of syncEvents) {
+    syncLayers[e.kind] = (syncLayers[e.kind] ?? 0) + 1;
+  }
   return new Response(
-    JSON.stringify({ generated_at: new Date().toISOString(), total_events: 0, events: [], layers: {} }),
+    JSON.stringify({
+      generated_at: new Date().toISOString(),
+      total_events: syncEvents.length,
+      events: syncEvents,
+      layers: syncLayers,
+    }),
     {
       headers: {
         'content-type': 'application/json',
