@@ -72,10 +72,6 @@ export const routePreloaders: Record<string, Preloader> = {
   // Blog.
   '/blog': () => import('../pages/Blog'),
 
-  // /snapshots hub - aggregates the live-snap cards from the home page.
-  '/snapshots': () => import('../pages/Snapshots'),
-  '/live': () => import('../pages/Snapshots'),
-
   // New DFIR tools (inbound links from EmailDefense / Dnscope panels).
   '/dfir/email-deliverability': () => import('../pages/dfir/EmailDeliverability'),
   '/dfir/sec-headers-live-live': () => import('../pages/dfir/SecHeadersLive'),

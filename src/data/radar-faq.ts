@@ -19,7 +19,7 @@ export const RADAR_FAQ: { question: string; answer: string }[] = [
   {
     question: 'Is the Domain Recon Scanner free?',
     answer:
-      'Yes. The scanner is free, requires no signup, and runs entirely on Cloudflare Workers with a per-colo cache. There is no API key, no rate-limit login, and no telemetry on what you scan. Server costs are absorbed by the author and optional sponsorship is available at /sponsor. The scanner is part of the same 60-tool DFIR surface that ships with the portfolio.',
+      'Yes. The scanner is free, requires no signup, and runs entirely on Cloudflare Workers with a per-colo cache. There is no API key, no rate-limit login, and no telemetry on what you scan. Server costs are absorbed by the author. The scanner is part of the same 145+ tool DFIR surface that ships with the portfolio.',
   },
   {
     question: 'What can I use the security score for?',
