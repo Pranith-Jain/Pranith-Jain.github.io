@@ -33,7 +33,7 @@ export async function buildOrchestratorPlan(
   queryType: string,
   _opts: { groqKey?: string; googleKey?: string; nvidiaKey?: string }
 ): Promise<OrchestratorPlan> {
-  const specialistRoles = getSpecialistsForQueryType(queryType);
+  const specialistRoles = getSpecialistsForQueryType(queryType, query);
 
   const specialistCalls: SpecialistDispatch[] = specialistRoles.map((role, i) => {
     const def = SPECIALIST_REGISTRY[role];
@@ -65,7 +65,8 @@ export function checkSpecialistExit(
   steps: AgentStep[],
   stepNum: number,
   maxSteps: number,
-  queryType?: string
+  queryType?: string,
+  query?: string
 ): { shouldSwitch: boolean; nextRole: SpecialistRole | null; reason: string } {
   const def = SPECIALIST_REGISTRY[currentRole];
   const view: SpecialistView = { stepNum, maxSteps, steps, role: currentRole };
@@ -73,7 +74,7 @@ export function checkSpecialistExit(
   for (const cond of def.exitConditions) {
     if (cond.met(view)) {
       // Find next specialist in the routing chain
-      const specialistRoles = getSpecialistsForQueryType(queryType ?? 'generic');
+      const specialistRoles = getSpecialistsForQueryType(queryType ?? 'generic', query);
       const currentIdx = specialistRoles.indexOf(currentRole);
       const nextRole =
         currentIdx >= 0 && currentIdx < specialistRoles.length - 1 ? specialistRoles[currentIdx + 1]! : null;
@@ -293,7 +294,11 @@ async function executeToolsForRole(calls: AgentToolCall[], tools: AgentTool[]): 
   return results;
 }
 
-function extractFindings(result: AgentToolResult, role: SpecialistRole, stepNum: number): SpecialistFinding[] {
+export function extractFindings(
+  result: AgentToolResult,
+  _role: SpecialistRole | undefined,
+  stepNum: number
+): SpecialistFinding[] {
   const findings: SpecialistFinding[] = [];
   if (!result.data || typeof result.data !== 'object') return findings;
 

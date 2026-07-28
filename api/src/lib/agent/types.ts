@@ -103,6 +103,28 @@ export interface AgentState {
    * "badge bar" of the data sources that fed the report.
    */
   sources?: Array<{ name: string; items: number }>;
+  /**
+   * Typed findings (IOC/actor/CVE/domain/hash) extracted deterministically from
+   * tool results via the orchestrator's `extractFindings`. Feeds the action
+   * card's IOC table so it reflects tool-grounded data, not just prose regex.
+   */
+  findings?: import('./specialist-types').SpecialistFinding[];
+  /**
+   * Report version history — captured when self-correction produces a second
+   * draft. Compact (no full text) so D1 rows stay small; the live report text
+   * is in `report`.
+   */
+  reportVersioning?: {
+    versions: Array<{ version: number; qualityScore: number; modelUsed: string; reason: string }>;
+    diff?: {
+      fromVersion: number;
+      toVersion: number;
+      fromScore: number;
+      toScore: number;
+      additions: number;
+      deletions: number;
+    };
+  };
 }
 
 /** Structured log entry for the investigation loop. */
@@ -252,6 +274,11 @@ export interface ReportActionCard {
   /** Structured BLUF panel parsed from the synthesizer's report-header
    *  block. Drives the dashboard's hero card. */
   reportHeader?: import('./synthesizer').ReportHeader;
+  /**
+   * IOC/actor/CVE/MITRE relationship graph derived deterministically from the
+   * tool results (not the LLM). Rendered by the UI as an interactive graph.
+   */
+  graph?: import('./ioc-graph').GraphData;
 }
 
 export interface SynthesizerOutput {

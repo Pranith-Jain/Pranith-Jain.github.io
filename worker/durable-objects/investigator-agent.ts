@@ -1,6 +1,6 @@
 import type { Env } from '../env';
 import type { Env as ApiEnv } from '../../api/src/env';
-import type { AgentState, AgentStep, AgentToolResult, AgentToolCall } from '../../api/src/lib/agent/types';
+import type { AgentState, AgentStep, AgentToolResult, AgentToolCall, IocEntry } from '../../api/src/lib/agent/types';
 import { buildToolRegistry } from '../../api/src/lib/agent/tools';
 import { planNextStep } from '../../api/src/lib/agent/planner';
 import { evaluateCtiExit, filterCtiToolCalls } from '../../api/src/lib/agent/cti-loop';
@@ -13,12 +13,17 @@ import {
   checkSpecialistExit,
   getSpecialistPrompt,
   applySpecialistGuardrails,
+  extractFindings,
 } from '../../api/src/lib/agent/orchestrator';
 import {
   SPECIALIST_REGISTRY,
+  SPECIALIST_TOOLS,
   getToolsForSpecialist,
+  getSpecialistsForQueryType,
   type SpecialistRole,
+  type SpecialistFinding,
 } from '../../api/src/lib/agent/specialist-types';
+import { runParallelSpecialists, type SpecialistExecutor } from '../../api/src/lib/agent/parallel-specialists';
 import {
   rebuildWorkingMemory,
   memoryToPrompt,
@@ -36,6 +41,8 @@ import {
   type InvestigationCost,
 } from '../../api/src/lib/agent/cost-tracker';
 import { checkDuplicate, registerInvestigation } from '../../api/src/lib/agent/request-dedup';
+import { extractGraphFromSteps } from '../../api/src/lib/agent/ioc-graph';
+import { createVersionedReport, addVersion, getVersionDiff } from '../../api/src/lib/agent/report-versioning';
 
 /** Truncate JSON-serializable data to a max char length. Returns valid JSON. */
 function truncateData(data: unknown, maxChars: number): unknown {
@@ -50,6 +57,34 @@ function truncateData(data: unknown, maxChars: number): unknown {
     console.error('truncateData failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     // JSON is broken at the cut point — return a safe string summary
     return { _truncated: true, _original_chars: json.length, _preview: truncated.slice(0, 500) };
+  }
+}
+
+/**
+ * Map a specialist finding to an action-card IOC entry type. Returns null for
+ * finding kinds that aren't IOC-table material (techniques, campaigns, generic
+ * intel) so they're excluded from the IOC list.
+ */
+function classifyFindingIocType(f: SpecialistFinding): IocEntry['type'] | null {
+  switch (f.type) {
+    case 'actor':
+      return 'actor';
+    case 'cve':
+      return 'cve';
+    case 'domain':
+      return 'domain';
+    case 'hash':
+      return 'hash';
+    case 'ioc': {
+      const v = f.value.trim();
+      if (/^\d{1,3}(\.\d{1,3}){3}$/.test(v)) return 'ipv4';
+      if (/^[a-f0-9]{32,64}$/i.test(v)) return 'hash';
+      if (/^https?:\/\//i.test(v)) return 'url';
+      if (/^[^@\s]+@[^@\s]+$/.test(v)) return 'email';
+      return 'domain';
+    }
+    default:
+      return null;
   }
 }
 
@@ -269,6 +304,7 @@ export class InvestigatorAgentDO {
             qa: next.qa,
             actionCard: next.actionCard,
             sources: next.sources,
+            reportVersioning: next.reportVersioning,
           });
         } else {
           // Schedule next step with a small delay to avoid burst
@@ -371,9 +407,22 @@ export class InvestigatorAgentDO {
         console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         // Orchestrator failure — fall through to monolithic planner
       }
+
+      // Run independent specialists' first step concurrently. Returns null (fall
+      // back to the sequential path above) when <2 specialists are independent
+      // or on any error, so this is purely additive.
+      const burst = await this.tryParallelBurst(state, ai, groqKey, googleKey, nvidiaKey, allTools, workingMemory);
+      if (burst) return burst;
     } else if (currentRole) {
       // Check if current specialist's exit conditions have fired
-      const specialistCheck = checkSpecialistExit(currentRole, state.steps, stepNum, state.maxSteps);
+      const specialistCheck = checkSpecialistExit(
+        currentRole,
+        state.steps,
+        stepNum,
+        state.maxSteps,
+        state.queryType,
+        state.query
+      );
       if (specialistCheck.shouldSwitch) {
         if (specialistCheck.nextRole) {
           // Switch to next specialist
@@ -444,7 +493,14 @@ export class InvestigatorAgentDO {
 
       if (toolCalls.length === 0) {
         // No valid tools for this specialist — switch or synthesize
-        const specialistCheck = checkSpecialistExit(currentRole, state.steps, stepNum, state.maxSteps, state.queryType);
+        const specialistCheck = checkSpecialistExit(
+          currentRole,
+          state.steps,
+          stepNum,
+          state.maxSteps,
+          state.queryType,
+          state.query
+        );
         if (specialistCheck.shouldSwitch && specialistCheck.nextRole) {
           currentRole = specialistCheck.nextRole;
           state.currentSpecialist = currentRole;
@@ -552,6 +608,79 @@ export class InvestigatorAgentDO {
     state.currentStep = stepNum;
 
     return state;
+  }
+
+  /**
+   * Run a contiguous prefix of independent specialists concurrently for their
+   * first step. Only specialists whose tool sets don't overlap any
+   * already-selected specialist are included (stops at the first overlap, so no
+   * specialist is skipped). Returns the updated state, or null to fall back to
+   * the sequential path. Purely additive — any error returns null.
+   */
+  private async tryParallelBurst(
+    state: AgentState,
+    ai: ApiEnv['AI'],
+    groqKey: string | undefined,
+    googleKey: string | undefined,
+    nvidiaKey: string | undefined,
+    allTools: ReturnType<typeof buildToolRegistry>,
+    workingMemory: WorkingMemory
+  ): Promise<AgentState | null> {
+    try {
+      const roles = getSpecialistsForQueryType(state.queryType, state.query);
+      const burst: SpecialistRole[] = [];
+      const usedTools = new Set<string>();
+      for (const role of roles) {
+        const tools = SPECIALIST_TOOLS[role];
+        if (tools.some((t) => usedTools.has(t))) break;
+        burst.push(role);
+        for (const t of tools) usedTools.add(t);
+      }
+      if (burst.length < 2) return null;
+
+      const opts = { groqKey, googleKey, nvidiaKey };
+      const executor: SpecialistExecutor = {
+        plan: (role, tools, steps, sn, ms) => {
+          const prompt = getSpecialistPrompt(role, tools, sn, ms, state.query, steps);
+          const specialistContext = prompt
+            ? `\n<specialist_role>${SPECIALIST_REGISTRY[role].label}</specialist_role>\n<specialist_instructions>${prompt}</specialist_instructions>`
+            : undefined;
+          return planNextStep(ai, state.query, state.queryType, steps, sn, ms, tools, {
+            ...opts,
+            specialistContext,
+            workingMemory,
+          });
+        },
+        execute: (calls, tools) => this.executeTools(calls, tools),
+        observe: (sn, reasoning, results) => observeStep(ai, sn, reasoning, results, opts),
+        guard: (role, calls, view) => {
+          const valid = new Set(getToolsForSpecialist(role, allTools).map((t) => t.name));
+          return applySpecialistGuardrails(role, filterCtiToolCalls(calls, view, valid), view);
+        },
+      };
+
+      const results = await runParallelSpecialists(burst, allTools, 1, executor);
+      const newSteps = results.flatMap((r) => r.steps);
+      if (newSteps.length === 0) return null;
+
+      let sn = state.currentStep;
+      for (const s of newSteps) {
+        sn += 1;
+        s.stepNumber = sn;
+      }
+      state.steps.push(...newSteps);
+      state.currentStep = sn;
+      // Continue the chain from the last burst specialist; the next alarm's
+      // checkSpecialistExit advances to the following specialist.
+      state.currentSpecialist = burst[burst.length - 1];
+      return state;
+    } catch (err) {
+      console.error(
+        'parallel burst failed, falling back to sequential:',
+        err instanceof Error ? err.message : String(err)
+      );
+      return null;
+    }
   }
 
   /** Execute tool calls in parallel, collecting results. Uses cache for repeat calls. */
@@ -742,6 +871,13 @@ export class InvestigatorAgentDO {
           missingFacts: qa.missingFacts,
         };
 
+        // Track report versions so the self-correction before/after is auditable.
+        let versioned = addVersion(createVersionedReport(state.id), result.report, {
+          qualityScore: qa.qualityScore,
+          modelUsed: qa.modelUsed,
+          reason: 'Initial synthesis + QA',
+        });
+
         if (
           qa.qualityScore >= 0 &&
           shouldRetry(qa.qualityScore, qa.flaggedClaims.length, qa.missingFacts.length, stepNum, state.maxSteps)
@@ -788,6 +924,13 @@ export class InvestigatorAgentDO {
             nvidiaKey,
           });
 
+          // Record the corrected draft as version 2 (whether or not it wins).
+          versioned = addVersion(versioned, correctedProse, {
+            qualityScore: qa2.qualityScore,
+            modelUsed: qa2.modelUsed,
+            reason: 'Self-correction retry',
+          });
+
           // Use the corrected version only if it scored higher
           if (qa2.qualityScore > qa.qualityScore) {
             finalReport = qa2.verifiedReport;
@@ -816,6 +959,29 @@ export class InvestigatorAgentDO {
         state.actionCard = qaCard ?? finalActionCard;
         state.modelUsed = finalModelUsed;
         state.qa = finalQa;
+
+        // Surface the version history + compact diff when a correction happened.
+        if (versioned.versions.length > 1) {
+          const diff = getVersionDiff(versioned, 1, versioned.currentVersion);
+          state.reportVersioning = {
+            versions: versioned.versions.map((v) => ({
+              version: v.version,
+              qualityScore: v.qualityScore,
+              modelUsed: v.modelUsed,
+              reason: v.reason,
+            })),
+            diff: diff
+              ? {
+                  fromVersion: diff.fromVersion,
+                  toVersion: diff.toVersion,
+                  fromScore: diff.fromScore,
+                  toScore: diff.toScore,
+                  additions: diff.additions,
+                  deletions: diff.deletions,
+                }
+              : undefined,
+          };
+        }
 
         qaStep.status = 'done';
         qaStep.completedAt = new Date().toISOString();
@@ -847,6 +1013,43 @@ export class InvestigatorAgentDO {
           items,
         }))
         .sort((a, b) => b.items - a.items);
+
+      // Derive the relationship graph deterministically from tool results and
+      // attach it to the action card for the UI (no LLM involved → no hallucination).
+      if (state.actionCard) {
+        const graph = extractGraphFromSteps(state.steps);
+        if (graph.nodes.length > 0) state.actionCard.graph = graph;
+      }
+
+      // Extract typed findings from all tool results (orchestrator's
+      // extractFindings, previously dead code) and merge tool-grounded IOCs into
+      // the action card, deduped against whatever the synthesizer emitted.
+      const findings: SpecialistFinding[] = [];
+      const seenFinding = new Set<string>();
+      for (const s of state.steps) {
+        for (const r of s.results) {
+          if (r.status !== 'ok' || !r.data) continue;
+          for (const f of extractFindings(r, undefined, s.stepNumber)) {
+            const key = `${f.type}:${f.value.toLowerCase()}`;
+            if (seenFinding.has(key)) continue;
+            seenFinding.add(key);
+            findings.push(f);
+          }
+        }
+      }
+      state.findings = findings;
+
+      if (state.actionCard) {
+        const existing = new Set(state.actionCard.iocs.map((i) => i.value.toLowerCase()));
+        const confMap = { high: 'Confirmed', medium: 'Probable', low: 'Possible' } as const;
+        for (const f of findings) {
+          if (existing.has(f.value.toLowerCase())) continue;
+          const type = classifyFindingIocType(f);
+          if (!type) continue;
+          state.actionCard.iocs.push({ type, value: f.value, confidence: confMap[f.confidence], source: f.source });
+          existing.add(f.value.toLowerCase());
+        }
+      }
 
       state.steps.push(synthesizeStep);
       state.steps.push(qaStep);
