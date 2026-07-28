@@ -62,7 +62,7 @@ Tool results:
 ${resultBlock}
 </step>
 
-Analyze these results. What was found? What are the key facts? What gaps remain?`;
+Analyze these results. What was found? Extract exact values into keyFacts/iocs/actors/cves/malware/mitre. Which Diamond Model vertex did this populate? What report sections can now be written, and which gaps remain?`;
 
     const input: CompletionInput = { system, user, maxTokens: 800, temperature: 0.2 };
 

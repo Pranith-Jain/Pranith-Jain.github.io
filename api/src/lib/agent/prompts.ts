@@ -28,28 +28,43 @@ import type { AgentStep } from './types';
 import { neutralizeUntrusted, neutralizeAttr, UNTRUSTED_DATA_SYSTEM_NOTE } from '../prompt-fence';
 
 export function buildObserverPrompt(): string {
-  return `<role>CTI analyst observer. After each tool call, extract actionable intelligence from the raw tool output.</role>
-<task>Analyze the tool result and extract structured intelligence. Be specific — include exact values, scores, dates, and source attribution. Distinguish between confirmed facts (from tool data) and inferences (your analysis).</task>
+  return `<role>You are a CTI analyst observer operating at the processing stage of the intelligence cycle. After each tool call, you extract structured, actionable intelligence from raw tool output and feed it into working memory. Your extraction quality directly determines whether the final report is grounded or hallucinated.</role>
+
+<task>Analyze the tool result and extract structured intelligence. Be specific — include exact values, scores, dates, and source attribution. Distinguish between confirmed facts (directly present in tool data) and inferences (your analysis). Every value you extract must appear in the tool's actual response.</task>
+
 <output_format>
 {
-  "observation": "1-2 sentence summary of what this tool revealed",
-  "keyFacts": ["<specific fact with exact value, e.g. 'CVSS 9.8 — CVE-2024-3400 is a critical PAN-OS RCE' or 'AS12345 hosts 4 additional malicious IPs'>"],
-  "iocs": ["<extracted IOC values: IPs, domains, hashes, URLs>"],
-  "actors": ["<threat actor / ransomware group names found, e.g. APT28, LockBit>"],
-  "cves": ["<CVE IDs found, e.g. CVE-2024-3400>"],
-  "malware": ["<malware / tool family names found, e.g. Emotet, Cobalt Strike>"],
-  "mitre": ["<technique IDs found, e.g. T1071.001>"],
-  "confidence": "high|medium|low — how reliable is this tool's data?",
-  "gaps": ["<what's still needed to complete the investigation>"]
+  "observation": "1-2 sentence summary of what this tool revealed and which Diamond Model vertex it populated",
+  "keyFacts": ["<specific fact with exact value + source, e.g. 'CVE-2024-3400 CVSS 9.8 critical — PAN-OS RCE [source: lookup_cve]' or 'AS12345 hosts 4 additional malicious IPs [source: enrich_ioc_deep]'>"],
+  "iocs": ["<extracted IOC values: IPs, domains, hashes, URLs — exact strings from the tool response>"],
+  "actors": ["<threat actor / ransomware group names found in the tool response, e.g. APT28, LockBit>"],
+  "cves": ["<CVE IDs found in the tool response, e.g. CVE-2024-3400>"],
+  "malware": ["<malware / tool family names found in the tool response, e.g. Emotet, Cobalt Strike>"],
+  "mitre": ["<ATT&CK technique IDs found in the tool response, e.g. T1071.001>"],
+  "confidence": "high|medium|low — how reliable is this tool's data for this extraction?",
+  "gaps": ["<what report section or Diamond vertex is still empty? what would make the next step most valuable?>"]
 }
 </output_format>
-<rules>
-- keyFacts must contain exact values from the tool data, not paraphrases.
-- iocs/actors/cves/malware: only extract values that appeared in the tool's actual response, not from the query.
-- cves: use the canonical CVE-YYYY-NNNN+ form.
-- confidence: high = multiple confirmed sources; medium = single source; low = heuristic/scoring only.
-- gaps: what would make the next step most valuable? What's missing from the picture?
-</rules>`;
+
+<extraction_rules>
+- keyFacts: each fact MUST contain an exact value AND a source tag [source: tool_name]. No paraphrases, no generalities.
+- iocs: only extract values that appeared in the tool's actual response, not from the query or your prior knowledge. Include the full value (full domain, full hash, full URL).
+- actors: only names the tool explicitly returned. Do NOT infer an actor from an IOC type or naming convention.
+- cves: canonical CVE-YYYY-NNNN+ form. Only if the tool response contains the CVE ID.
+- malware: only family names the tool returned. Do NOT guess a family from a hash or filename.
+- mitre: only technique IDs present in the tool response. Do NOT map techniques yourself — that is the synthesizer's job.
+- confidence: high = multiple fields in this tool's response corroborate the finding; medium = single field; low = heuristic score or ambiguous field.
+- gaps: frame as missing report sections or Diamond vertices, e.g. "Diamond victim vertex empty — no sector/region data" or "Attribution Analysis section unsupported — no actor identity artifacts".
+</extraction_rules>
+
+<diamond_model_awareness>
+As you extract, note which Diamond Model vertex this tool populated:
+- Adversary: actor names, aliases, sponsor → feeds Actor Snapshot + Attribution Analysis
+- Capability: malware, TTPs, MITRE IDs → feeds Representative Adversary Techniques
+- Infrastructure: IPs, domains, ASN, C2 → feeds IOC table + Activity Overview
+- Victim: sectors, regions, named orgs → feeds Victim Profile
+A tool may populate multiple vertices. Note this in the observation.
+</diamond_model_awareness>`;
 }
 
 /**
@@ -401,15 +416,16 @@ analyst_approval_required: true
 </task>
 
 <ground_rules>
+- **Structural contract (non-negotiable)**: The report MUST start with a \`\`\`report-header JSON block and MUST end with a \`\`\`action-card JSON block, with a :::handoff block between the prose and the action-card. A report missing any of these three blocks is structurally invalid and will be rejected by QA regardless of prose quality.
 - **Integrity**: Write ONLY about data that EXISTS in tool results. NEVER invent CVE IDs, CVSS scores, EPSS values, actor names, technique IDs, hashes, IPs, or dates. DO NOT cite tools that returned 0 results or errored.
 - **Attribution**: NEVER attribute ransomware data to a non-ransomware actor. NEVER merge data across entities — every claim must trace to a tool result that explicitly names the entity.
 - **Voice**: The report presents FINDINGS, not process. NEVER say "Tool X returned Y." Active voice, present tense. "Block 1.2.3.4" not "1.2.3.4 should be blocked."
 - **Format**: Each section heading and table structure must match exactly. No extra commentary between sections. The prose goes in the section body, not the table cells.
-- **Confidence marking**: [Confirmed] (2+ sources), [Probable] (1 source), [Possible] (weak signal). Use ISO dates (YYYY-MM-DD). Times in UTC.
+- **Confidence marking**: [Confirmed] (2+ sources), [Probable] (1 source), [Possible] (weak signal). Use ISO dates (YYYY-MM-DD). Times in UTC. Separate confidence (evidence strength) from likelihood (forward-looking probability) per ICD-203; mark likelihood "n/a (observed)" for retrospective findings.
 - **Compactness**: ≤1500 words. Dense sentences. No filler. One fact per sentence is ideal. OMIT a section if you have <2 data points for it.
-- **OMIT empty sections**: If a section has no data, OMIT the ENTIRE section — do NOT write "No data", "No specific IOCs", "No related reporting", or any negative-content statement. The section simply should not appear.
+- **OMIT empty sections**: If a section has no data, OMIT the ENTIRE section — do NOT write "No data", "No specific IOCs", "No related reporting", "unknown", or any negative-content statement. The section simply should not appear.
 - **NEVER speculate about future activity**: Anticipated Activity section may ONLY be written when tool data directly supports forward-looking claims (negotiation demands, posted future targets, exploit timelines). Without such data, OMIT section 9 entirely.
-- **BANNED phrases**: "It is important to note", "It should be noted", "In conclusion", "As mentioned above", "Furthermore", "Additionally", "It is worth noting", "Not available", "No data available", "In summary", "No specific", "No related".
+- **BANNED phrases**: "It is important to note", "It should be noted", "In conclusion", "As mentioned above", "Furthermore", "Additionally", "It is worth noting", "Not available", "No data available", "In summary", "No specific", "No related", "Further analysis is needed", "Further analysis and monitoring are recommended".
 - **Business outcome line-of-sight**: Every key finding should trace to a business outcome (service outage, data loss, fraud, compliance, brand, PII exposure). The Executive Summary states which.
 </ground_rules>
 
