@@ -156,7 +156,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       syncEvents.push(...safe(() => fromLiveIocs(iocData)));
     }
   } catch (_catchErr) {
-    console.error('global-pulse sync fetch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error(
+      'global-pulse sync fetch failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
     /* degraded — serve empty, background build will populate */
   }
 
@@ -267,14 +270,6 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         const mergedKev = finalKev ?? (direct.kev as typeof finalKev);
 
         // ── Convert → events ───────────────────────────────────────────────
-        const safe = <T>(fn: () => T): T => {
-          try {
-            return fn();
-          } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-            return [] as unknown as T;
-          }
-        };
         const iocEvents = safe(() =>
           mergedTm ? iocFromThreatMap(mergedTm as Parameters<typeof iocFromThreatMap>[0]) : []
         );
