@@ -181,8 +181,6 @@ const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
 const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
 const ThreatIntelCatalog = lazy(() => import('./pages/threatintel/Catalog'));
 const LiveCenter = lazy(() => import('./pages/threatintel/LiveCenter'));
-const TelegramMonitor = lazy(() => import('./pages/threatintel/TelegramMonitor'));
-const TelegramIocs = lazy(() => import('./pages/threatintel/TelegramIocs'));
 const TelegramHub = lazy(() => import('./pages/threatintel/TelegramHub'));
 const SourceHealth = lazy(() => import('./pages/threatintel/SourceHealth'));
 const SocDashboard = lazy(() => import('./pages/threatintel/SocDashboard'));
@@ -282,7 +280,6 @@ const Reports = lazy(() => import('./pages/threatintel/ThreatIntelReports'));
 const Research = lazy(() => import('./pages/threatintel/Research'));
 const ResearchSignal = lazy(() => import('./pages/threatintel/Signal'));
 const ScamWatch = lazy(() => import('./pages/dfir/ScamWatch'));
-const ScrapedIntelUsernames = lazy(() => import('./pages/threatintel/ScrapedIntelUsernames'));
 const SecopsCatalog = lazy(() => import('./pages/dfir/SecopsCatalog'));
 const SecretLeaks = lazy(() => import('./pages/threatintel/SecretLeaks'));
 const Settings = lazy(() => import('./pages/threatintel/Settings'));
@@ -480,8 +477,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/stix-builder/b/:bundleId', Component: StixBuilder },
   { path: '/threatintel/campaigns/:id', Component: CampaignDetail },
   { path: '/threatintel/telegram', Component: TelegramHub },
-  { path: '/threatintel/telegram-monitor', Component: TelegramMonitor },
-  { path: '/threatintel/telegram-iocs', Component: TelegramIocs },
   { path: '/threatintel/source-health', Component: SourceHealth },
   { path: '/threatintel/soc-dashboard', Component: SocDashboard },
   { path: '/threatintel/research/:slug', Component: ResearchPostPage },
@@ -691,7 +686,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/social/firehose', Component: SocialFirehose },
   { path: '/threatintel/social/news', Component: TechAiNews },
   { path: '/threatintel/social/crypto-scam', Component: CryptoScamFeed },
-  { path: '/threatintel/social/scraped-intel', Component: ScrapedIntelUsernames },
   { path: '/threatintel/tools/copilot', Component: Copilot },
   { path: '/threatintel/tools/mcp', Component: McpToolsExplorer },
   { path: '/threatintel/tools/misp', Component: MispBrowser },
@@ -831,34 +825,34 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/dfir/report-ingest', to: '/dfir/stix-workbench' },
 
   // ── Social Hub ──────────────────────────────────────────────────
-  { path: '/threatintel/cybersec', to: '/threatintel/telegram-monitor' },
-  { path: '/threatintel/breach', to: '/threatintel/telegram-monitor' },
-  { path: '/threatintel/cyber-crime', to: '/threatintel/telegram-monitor' },
-  { path: '/threatintel/telegram-watch', to: '/threatintel/telegram-monitor' },
-  { path: '/threatintel/telegram-settings', to: '/threatintel/telegram-monitor' },
-  { path: '/threatintel/telegram-leaks', to: '/threatintel/telegram-monitor' },
-  { path: '/threatintel/telegram-leaks/channels', to: '/threatintel/telegram-monitor' },
-  { path: '/threatintel/telegram-leaks/stats', to: '/threatintel/telegram-monitor' },
+  { path: '/threatintel/cybersec', to: '/threatintel/telegram' },
+  { path: '/threatintel/breach', to: '/threatintel/telegram' },
+  { path: '/threatintel/cyber-crime', to: '/threatintel/telegram' },
+  { path: '/threatintel/telegram-watch', to: '/threatintel/telegram' },
+  { path: '/threatintel/telegram-settings', to: '/threatintel/telegram' },
+  { path: '/threatintel/telegram-leaks', to: '/threatintel/telegram' },
+  { path: '/threatintel/telegram-leaks/channels', to: '/threatintel/telegram' },
+  { path: '/threatintel/telegram-leaks/stats', to: '/threatintel/telegram' },
+  { path: '/threatintel/telegram-monitor', to: '/threatintel/telegram' },
+  { path: '/threatintel/telegram-iocs', to: '/threatintel/telegram' },
   { path: '/threatintel/tech-ai-news', to: '/threatintel/catalog?cat=social' },
-  { path: '/threatintel/x-watch', to: '/threatintel/social/firehose' },
-  { path: '/threatintel/x-live', to: '/threatintel/social/firehose' },
-  { path: '/threatintel/x', to: '/threatintel/social/firehose' },
+  { path: '/threatintel/x-watch', to: '/threatintel/social/x-hub' },
+  { path: '/threatintel/x-live', to: '/threatintel/social/x-hub' },
+  { path: '/threatintel/x', to: '/threatintel/social/x-hub' },
   { path: '/threatintel/reddit', to: '/threatintel/social/firehose' },
   { path: '/threatintel/scam-watch', to: '/threatintel/social/crypto-scam' },
   { path: '/threatintel/crypto-scams', to: '/threatintel/social/crypto-scam' },
   { path: '/threatintel/mythreatintel', to: '/threatintel/catalog?cat=social' },
   { path: '/threatintel/status', to: '/threatintel/catalog?cat=social' },
 
-  // ── Telegram subsumed by TelegramMonitor (4 tabs) ─────
-  { path: '/threatintel/social/telegram-leaks', to: '/threatintel/telegram-monitor' },
-  { path: '/threatintel/social/telegram-stats', to: '/threatintel/telegram-monitor' },
-  { path: '/threatintel/social/telegram-channels', to: '/threatintel/telegram-monitor' },
-  { path: '/threatintel/social/telegram-settings', to: '/threatintel/telegram-monitor' },
-  // ── SocialFirehose subsumes Reddit + X tabs ─────
+  // ── Telegram subsumed by TelegramHub ─────
+  { path: '/threatintel/social/telegram-leaks', to: '/threatintel/telegram' },
+  { path: '/threatintel/social/telegram-stats', to: '/threatintel/telegram' },
+  { path: '/threatintel/social/telegram-channels', to: '/threatintel/telegram' },
+  { path: '/threatintel/social/telegram-settings', to: '/threatintel/telegram' },
+  // ── SocialFirehose subsumes Reddit; X subsumed by XHub ─────
   { path: '/threatintel/social/reddit', to: '/threatintel/social/firehose' },
-  { path: '/threatintel/social/x-firehose', to: '/threatintel/social/firehose' },
-  { path: '/threatintel/social/x-live', to: '/threatintel/social/firehose' },
-  { path: '/threatintel/social/x-watch', to: '/threatintel/social/firehose' },
+  { path: '/threatintel/social/scraped-intel', to: '/threatintel/social/firehose' },
   // ── SourceHealth subsumes Feed Status + Reliability ─────
   { path: '/threatintel/feeds/status', to: '/threatintel/source-health' },
   { path: '/threatintel/feeds/reliability', to: '/threatintel/source-health' },

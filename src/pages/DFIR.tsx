@@ -19,6 +19,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { MAIN_TOOL_COUNT } from '../components/dfir/tool-sections';
+import { CountUp } from '../components/ui/CountUp';
 import { catalogSearch, CATALOG } from '../data/dfir-catalog';
 import { useRecentTools } from '../hooks/useRecentTools';
 import { getSidebarForSection } from '../data/sidebar-nav';
@@ -294,8 +295,8 @@ export default function DFIRPage(): JSX.Element {
             <span className="sm:inline"> Respond with confidence.</span>
           </h1>
           <p className="mt-5 sm:mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-            Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules - 60+ tools
-            that run entirely in your browser. No data leaves your machine.
+            Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules -{' '}
+            {MAIN_TOOL_COUNT}+ tools that run entirely in your browser. No data leaves your machine.
           </p>
 
           {/* Primary search - the VirusTotal/Shodan pattern */}
@@ -310,7 +311,7 @@ export default function DFIRPage(): JSX.Element {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search 60+ tools - IOC check, phishing, CVEs, decoders..."
+              placeholder={`Search ${MAIN_TOOL_COUNT}+ tools - IOC check, phishing, CVEs, decoders...`}
               className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-24 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--input-200))] dark:text-slate-100 dark:placeholder:text-slate-500"
               aria-label="Search DFIR tools"
             />
@@ -342,19 +343,19 @@ export default function DFIRPage(): JSX.Element {
           {/* Stat band - Hunt.io "data table inside a card" pattern.
               Three rows, hairline divider, big mono numerals. Reads as
               capability, not as bullet list. */}
-          <dl className="mt-7 sm:mt-9 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[rgb(var(--border-400))] border-y border-[rgb(var(--border-400))]">
+          <dl className="stagger mt-7 sm:mt-9 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[rgb(var(--border-400))] border-y border-[rgb(var(--border-400))]">
             {[
-              { value: `${MAIN_TOOL_COUNT}+`, label: 'Tools', sub: 'in-browser, client-side' },
-              { value: '24', label: 'IOC sources', sub: 'checked in parallel' },
-              { value: '0', label: 'data leaves', sub: 'your browser. literally.' },
+              { to: MAIN_TOOL_COUNT, suffix: '+', label: 'Tools', sub: 'in-browser, client-side' },
+              { to: 24, suffix: '', label: 'IOC sources', sub: 'checked in parallel' },
+              { to: 0, suffix: '', label: 'data leaves', sub: 'your browser. literally.' },
             ].map((stat, i) => (
               <div
                 key={stat.label}
                 className={`flex flex-col gap-1.5 py-3 sm:py-4 ${i === 0 ? 'sm:pr-6' : i === 1 ? 'sm:px-6' : 'sm:pl-6'}`}
               >
                 <dt className="font-mono text-micro uppercase tracking-[0.16em] text-slate-500">{stat.label}</dt>
-                <dd className="font-display text-3xl sm:text-4xl font-bold leading-none tabular-nums text-slate-900 dark:text-white">
-                  {stat.value}
+                <dd className="font-display text-3xl sm:text-4xl font-bold leading-none text-slate-900 dark:text-white">
+                  <CountUp to={stat.to} duration={900} formatter={(v) => `${v.toLocaleString()}${stat.suffix}`} />
                 </dd>
                 <dd className="font-mono text-mini text-slate-500">{stat.sub}</dd>
               </div>
@@ -544,7 +545,7 @@ export default function DFIRPage(): JSX.Element {
                 />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="stagger grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                   {CATEGORY_CARDS.map((cat) => {
                     const Icon = cat.icon;
                     return (

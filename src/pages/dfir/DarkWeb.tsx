@@ -322,11 +322,11 @@ export default function DarkWeb(): JSX.Element {
             ransomware activity
           </Link>
           ,{' '}
-          <Link to="/threatintel/telegram-monitor" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/telegram" className="text-brand-600 dark:text-brand-400 hover:underline">
             cybersec Telegram firehose
           </Link>
           ,{' '}
-          <Link to="/threatintel/telegram-monitor" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/telegram" className="text-brand-600 dark:text-brand-400 hover:underline">
             breach disclosures
           </Link>
           ,{' '}
@@ -1377,7 +1377,7 @@ export function TelegramFeedPanel(): JSX.Element {
 
       <p className="text-meta font-mono text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">
         Latest messages from a curated set of public threat-intel and cybercrime-tracking Telegram channels -{' '}
-        <Link to="/threatintel/telegram-monitor" className="text-brand-600 dark:text-brand-400 hover:underline">
+        <Link to="/threatintel/telegram" className="text-brand-600 dark:text-brand-400 hover:underline">
           full catalogue
         </Link>
         . Server-side scrape of <code>telegram.me/s/&lt;handle&gt;</code>; no Telegram account required.
@@ -1525,7 +1525,7 @@ export function TelegramFeedPanel(): JSX.Element {
             {expanded ? 'Show fewer' : `Show all ${matchedItems.length}`}
           </button>
           <Link
-            to="/threatintel/telegram-monitor"
+            to="/threatintel/telegram"
             className="hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
           >
             full Telegram catalogue <ExternalLink size={10} />

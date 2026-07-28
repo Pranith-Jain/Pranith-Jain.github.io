@@ -2557,7 +2557,7 @@ operational decisions.
 
 - [\`/threatintel/darkweb\`](/threatintel/darkweb) - recent ransomware activity + Telegram firehose + breach disclosures
 - [\`/threatintel/onion-watch\`](/threatintel/onion-watch) - live .onion mirror inventory
-- [\`/threatintel/telegram-watch\`](/threatintel/telegram-watch) - curated index of cybersec Telegram channels
+- [\`/threatintel/telegram\`](/threatintel/telegram) - curated index of cybersec Telegram channels
 `,
   },
   {
@@ -2589,7 +2589,7 @@ can read **without an account**. That's the entire technical foundation of
    constantly after Telegram bans.
 
 This site indexes ~25 channels from class (1) and (2) at
-\`/threatintel/telegram-watch\` and pipes the firehose of public messages into the
+\`/threatintel/telegram\` and pipes the firehose of public messages into the
 \`/threatintel/darkweb\` panel.
 
 ## How discovery actually works
@@ -2651,7 +2651,7 @@ Telegram channels post a *lot*. The realistic signal extraction:
 
 ## See also
 
-- [\`/threatintel/telegram-watch\`](/threatintel/telegram-watch) - curated channel catalogue with category + language filters
+- [\`/threatintel/telegram\`](/threatintel/telegram) - curated channel catalogue with category + language filters
 - [\`/threatintel/darkweb\`](/threatintel/darkweb) - Telegram firehose panel with watchlist matching
 - [Dark-web monitoring tradecraft](/threatintel/wiki/dark-web-monitoring) - companion article on .onion + Ransomlook
 `,

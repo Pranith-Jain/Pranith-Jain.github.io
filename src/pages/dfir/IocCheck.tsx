@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useCallback, useMemo, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
+import { BackLink } from '../../components/BackLink';
 import { IocChip } from '../../components/dfir/IocChip';
 import {
   ArrowRight,
@@ -46,6 +47,11 @@ interface BulkRow {
   flagged?: string[];
   error?: string;
 }
+
+type BulkSortKey = 'indicator' | 'type' | 'verdict' | 'score' | 'sources';
+
+/** Severity rank for sorting verdicts (worst first by default). */
+const VERDICT_RANK: Record<BulkVerdict, number> = { malicious: 3, suspicious: 2, unknown: 1, clean: 0 };
 
 /** Bulk runner - streams each indicator, with a concurrency cap so a paste
  *  of 30 IOCs doesn't open 30 EventSources at once. Uses the same per-IOC
@@ -234,6 +240,29 @@ export default function IocCheck(): JSX.Element {
   const [bulkInput, setBulkInput] = useState('');
   const [bulkRows, setBulkRows] = useState<BulkRow[]>([]);
   const [bulkRunning, setBulkRunning] = useState(false);
+  const [bulkSort, setBulkSort] = useState<{ key: BulkSortKey; dir: 'asc' | 'desc' } | null>(null);
+
+  const sortedBulkRows = useMemo(() => {
+    if (!bulkSort) return bulkRows;
+    const { key, dir } = bulkSort;
+    const mult = dir === 'asc' ? 1 : -1;
+    return [...bulkRows].sort((a, b) => {
+      let cmp = 0;
+      if (key === 'indicator') cmp = a.indicator.localeCompare(b.indicator);
+      else if (key === 'type') cmp = a.type.localeCompare(b.type);
+      else if (key === 'verdict')
+        cmp = (VERDICT_RANK[a.verdict ?? 'unknown'] ?? 0) - (VERDICT_RANK[b.verdict ?? 'unknown'] ?? 0);
+      else if (key === 'score') cmp = (a.score ?? -1) - (b.score ?? -1);
+      else if (key === 'sources') cmp = (a.contributing ?? -1) - (b.contributing ?? -1);
+      return cmp * mult;
+    });
+  }, [bulkRows, bulkSort]);
+
+  // Cycle: none -> desc -> asc -> none (desc first: worst/highest at top).
+  const toggleBulkSort = (key: BulkSortKey) =>
+    setBulkSort((prev) =>
+      prev?.key === key ? (prev.dir === 'desc' ? { key, dir: 'asc' } : null) : { key, dir: 'desc' }
+    );
   const [stixLoading, setStixLoading] = useState(false);
   const [stixBundleId, setStixBundleId] = useState<string | null>(null);
   const [stixError, setStixError] = useState<string | null>(null);
@@ -416,6 +445,7 @@ export default function IocCheck(): JSX.Element {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="animate-fade-in-up">
+        <BackLink to="/dfir" />
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">IOC Checker</h1>
         <p className="text-muted mb-8 max-w-2xl">
           Checks IPs, domains, URLs, and file hashes against 60+ threat-intel sources in parallel. Streamed per-source
@@ -549,28 +579,46 @@ export default function IocCheck(): JSX.Element {
                 <table className="w-full text-sm">
                   <thead className="text-left text-micro font-mono uppercase tracking-wider text-slate-500 bg-slate-50 dark:bg-[rgb(var(--surface-200))]/60">
                     <tr>
-                      <th scope="col" className="px-3 py-2">
-                        Indicator
-                      </th>
-                      <th scope="col" className="px-3 py-2">
-                        Type
-                      </th>
-                      <th scope="col" className="px-3 py-2">
-                        Verdict
-                      </th>
-                      <th scope="col" className="px-3 py-2 text-right">
-                        Score
-                      </th>
-                      <th scope="col" className="px-3 py-2">
-                        Sources
-                      </th>
+                      {(
+                        [
+                          ['indicator', 'Indicator', 'text-left'],
+                          ['type', 'Type', 'text-left'],
+                          ['verdict', 'Verdict', 'text-left'],
+                          ['score', 'Score', 'text-right'],
+                          ['sources', 'Sources', 'text-left'],
+                        ] as Array<[BulkSortKey, string, string]>
+                      ).map(([key, label, align]) => {
+                        const active = bulkSort?.key === key;
+                        return (
+                          <th
+                            key={key}
+                            scope="col"
+                            aria-sort={active ? (bulkSort?.dir === 'asc' ? 'ascending' : 'descending') : 'none'}
+                            className={`px-3 py-2 ${align}`}
+                          >
+                            <button
+                              type="button"
+                              onClick={() => toggleBulkSort(key)}
+                              className="inline-flex items-center gap-1 uppercase hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
+                            >
+                              {label}
+                              <span
+                                aria-hidden
+                                className={`text-[9px] ${active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400/60'}`}
+                              >
+                                {active ? (bulkSort?.dir === 'asc' ? '▲' : '▼') : '↕'}
+                              </span>
+                            </button>
+                          </th>
+                        );
+                      })}
                       <th scope="col" className="px-3 py-2">
                         Flagged by
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {bulkRows.map((r, i) => (
+                    {sortedBulkRows.map((r, i) => (
                       <tr
                         key={`${r.indicator}-${i}`}
                         className="border-t border-slate-200/70 dark:border-[rgb(var(--border-400))]/70 align-top"

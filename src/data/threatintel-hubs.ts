@@ -487,40 +487,6 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'new',
       },
       {
-        path: '/threatintel/telegram-monitor',
-        tabId: 'telegram-monitor',
-        label: 'Telegram Leak Monitor',
-        desc: 'Telegram Intelligence Hub - 7 tabs: firehose (merged cross-source stream), leak feed, channel search (tgstat-backed), statistics, channel discovery, linked actors (channel → MITRE pivot), and settings.',
-        compVar: 'TelegramMonitor',
-        badge: 'live',
-      },
-      {
-        path: '/threatintel/telegram-iocs',
-        tabId: 'telegram-iocs',
-        label: 'Telegram IOC Pipeline',
-        desc: 'Telegram-leaked IOCs flowing into the cross-source consensus - hashes, IPs, domains, CVEs, URLs from monitored channels (7-day window).',
-        compVar: 'TelegramIocs',
-        badge: 'new',
-      },
-      {
-        path: '/threatintel/social/reddit',
-        tabId: 'reddit',
-        label: 'Reddit CTI',
-        desc: 'Reddit threat intelligence - monitor security-related subreddits for IOCs and discussions.',
-        compVar: 'RedditCti',
-      },
-      {
-        path: '/threatintel/social/scraped-intel',
-        tabId: 'scraped-intel',
-        label: 'Scraped Intel',
-        desc: 'Scraped intelligence from web sources - cleaned, deduplicated, and enriched.',
-        compVar: 'ScrapedIntel',
-      },
-
-
-
-
-      {
         path: '/threatintel/social/x-hub',
         tabId: 'x-hub',
         label: 'X/Twitter Hub',

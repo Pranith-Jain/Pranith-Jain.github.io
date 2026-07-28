@@ -162,7 +162,6 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/social/firehose': Radio,
   '/threatintel/social/news': Newspaper,
   '/threatintel/social/crypto-scam': Wallet,
-  '/threatintel/social/scraped-intel': UserSearch,
   // Dark web
   '/threatintel/darkweb/watch': Globe,
   '/threatintel/darkweb/markets': StoreIcon,
@@ -254,8 +253,6 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/predators': Eye,
   '/threatintel/briefings': Newspaper,
   '/threatintel/telegram': Radio,
-  '/threatintel/telegram-monitor': MessageSquare,
-  '/threatintel/telegram-iocs': Shield,
   '/threatintel/source-health': Activity,
   '/threatintel/ransomware-live': Flame,
   '/threatintel/alerts': Bell,

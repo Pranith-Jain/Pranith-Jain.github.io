@@ -158,12 +158,12 @@ export const TOOL_TOPICS: ToolTopic[] = [
   { term: 'Ransomlook', href: '/threatintel/onion-watch', blurb: 'Ransomlook-backed .onion mirror inventory' },
   {
     term: 'Telegram',
-    href: '/threatintel/telegram-watch',
+    href: '/threatintel/telegram',
     blurb: 'Curated threat-intel & cybercrime Telegram channel index',
   },
   {
     term: 'deepdarkCTI',
-    href: '/threatintel/telegram-watch',
+    href: '/threatintel/telegram',
     blurb: 'See the deepdarkCTI-backed Telegram catalogue + cybercrime channel index',
   },
   {

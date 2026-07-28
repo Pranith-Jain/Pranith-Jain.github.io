@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 import { BreachDatabasesPanel } from '../../components/dfir/BreachDatabasesPanel';
+import { SEVERITY_TONE, type Severity } from '../../components/severity';
 
 // ─── types ────────────────────────────────────────────────────────────────────
 
@@ -122,23 +123,9 @@ function humanizeCount(n: number): string {
 }
 
 function getSeverity(count: number): { label: string; classes: string } {
-  if (count >= 1000) {
-    return {
-      label: 'Critical',
-      classes: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300 border-rose-300 dark:border-rose-700',
-    };
-  }
-  if (count >= 100) {
-    return {
-      label: 'High',
-      classes:
-        'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 border-amber-300 dark:border-amber-700',
-    };
-  }
-  return {
-    label: 'Low',
-    classes: 'bg-sky-100 text-cyan-800 dark:bg-sky-500/10 dark:text-sky-300 border-cyan-300 dark:border-cyan-700',
-  };
+  const severity: Severity = count >= 1000 ? 'critical' : count >= 100 ? 'high' : 'low';
+  const label = severity === 'critical' ? 'Critical' : severity === 'high' ? 'High' : 'Low';
+  return { label, classes: SEVERITY_TONE[severity] };
 }
 
 /**

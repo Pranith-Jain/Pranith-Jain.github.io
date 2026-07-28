@@ -55,7 +55,7 @@ export default function CybersecTelegram(): JSX.Element {
           <p className="text-muted mb-2 max-w-3xl leading-relaxed">
             Curated stream from active public cybersec Telegram channels. IOC drops, threat-intel commentary, leak
             announcements, and security-news mirrors. Channel set is liveness-probed; see the catalogue at{' '}
-            <Link to="/threatintel/telegram-monitor" className="text-rose-600 dark:text-rose-400 hover:underline">
+            <Link to="/threatintel/telegram" className="text-rose-600 dark:text-rose-400 hover:underline">
               /threatintel/telegram-watch
             </Link>{' '}
             for descriptions of each channel.
@@ -70,25 +70,25 @@ export default function CybersecTelegram(): JSX.Element {
               <RefreshCw size={11} /> refresh
             </button>
             <Link
-              to="/threatintel/telegram-monitor"
+              to="/threatintel/telegram"
               className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1.5"
             >
               Leak monitor
             </Link>
             <Link
-              to="/threatintel/telegram-monitor"
+              to="/threatintel/telegram"
               className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1.5"
             >
               Discovered channels
             </Link>
             <Link
-              to="/threatintel/telegram-monitor"
+              to="/threatintel/telegram"
               className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1.5"
             >
               Stats
             </Link>
             <Link
-              to="/threatintel/telegram-monitor"
+              to="/threatintel/telegram"
               className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1.5"
             >
               Settings

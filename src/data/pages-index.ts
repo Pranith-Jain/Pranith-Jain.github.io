@@ -2941,27 +2941,9 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['telegram', 'hub', 'firehose', 'collection', 'search', 'cti'],
   },
   {
-    path: '/threatintel/telegram-monitor',
-    label: 'Telegram Monitor',
-    description:
-      'Telegram Intelligence Hub - 7 tabs: firehose (merged cross-source stream), leak feed, channel search (tgstat-backed), statistics, channel discovery, linked actors (channel → MITRE pivot), and settings.',
-    sectionLabel: 'Threat Intel · Live',
-    group: 'threatintel',
-    keywords: ['telegram', 'leak', 'channel', 'search', 'tgstat', 'actor correlation'],
-  },
-  {
-    path: '/threatintel/telegram-iocs',
-    label: 'Telegram IOC Pipeline',
-    description:
-      'Telegram-leaked IOCs (hashes, IPs, domains, CVEs, URLs) promoted to the cross-source IOC consensus as source #25.',
-    sectionLabel: 'Threat Intel · Live',
-    group: 'threatintel',
-    keywords: ['telegram', 'ioc', 'pipeline', 'cross-source', 'consensus'],
-  },
-  {
     path: '/threatintel/telegram-watch',
     label: 'Telegram Watch (alias)',
-    description: 'Alias for the Social Hub telegram view.',
+    description: 'Alias for the Telegram Intelligence Hub.',
     sectionLabel: 'Threat Intel · Live',
     group: 'threatintel',
   },
@@ -3993,26 +3975,12 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
-    path: '/threatintel/social/reddit',
-    label: 'Reddit',
-    description: 'Reddit security subreddits firehose.',
-    sectionLabel: 'Threat Intel · Social',
-    group: 'threatintel',
-  },
-  {
     path: '/threatintel/social/x-hub',
     label: 'X/Twitter Hub',
     description: 'X/Twitter intelligence - firehose, live stream, and watchlist monitoring.',
     sectionLabel: 'Threat Intel · Social',
     group: 'threatintel',
     keywords: ['x', 'twitter', 'firehose', 'live', 'watch'],
-  },
-  {
-    path: '/threatintel/social/scraped-intel',
-    label: 'Scraped Intel',
-    description: 'Scraped intelligence usernames.',
-    sectionLabel: 'Threat Intel · Social',
-    group: 'threatintel',
   },
   {
     path: '/threatintel/tools/copilot',

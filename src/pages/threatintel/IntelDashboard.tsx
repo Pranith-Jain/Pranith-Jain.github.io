@@ -56,7 +56,7 @@ const SOURCES = [
   },
   {
     key: 'telegram_leaks',
-    href: '/threatintel/telegram-leaks',
+    href: '/threatintel/telegram',
     label: 'Leak Monitor',
     icon: Shield,
     desc: 'Credential leaks, file drops, auto-scanned channels',
@@ -202,9 +202,9 @@ export default function IntelDashboard(): JSX.Element {
               </h2>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { label: 'Telegram Leaks', href: '/threatintel/telegram-leaks' },
-                  { label: 'Leak Stats', href: '/threatintel/telegram-leaks/stats' },
-                  { label: 'Discovered Channels', href: '/threatintel/telegram-leaks/channels' },
+                  { label: 'Telegram Leaks', href: '/threatintel/telegram' },
+                  { label: 'Leak Stats', href: '/threatintel/telegram?tab=stats' },
+                  { label: 'Discovered Channels', href: '/threatintel/telegram?tab=channels' },
                   { label: 'Breach Search', href: '/threatintel/iocs' },
                   { label: 'IOC Correlation', href: '/threatintel/correlation' },
                   { label: 'Threat Map', href: '/threatintel/threat-map' },

@@ -114,7 +114,7 @@ interface HubCard {
 
 const HUB_CARDS: HubCard[] = [
   {
-    path: '/threatintel/telegram-monitor',
+    path: '/threatintel/telegram?tab=firehose',
     icon: <Radio size={20} />,
     title: 'Telegram Monitor',
     blurb:
@@ -123,7 +123,7 @@ const HUB_CARDS: HubCard[] = [
     accent: 'border-sky-500/40 hover:border-sky-500/70 text-sky-700 dark:text-sky-300',
   },
   {
-    path: '/threatintel/telegram-iocs',
+    path: '/threatintel/telegram?tab=iocs',
     icon: <Shield size={20} />,
     title: 'Telegram IOC Pipeline',
     blurb: 'Telegram-leaked hashes, IPs, domains, CVEs, URLs promoted to the cross-source consensus.',
@@ -131,14 +131,14 @@ const HUB_CARDS: HubCard[] = [
     accent: 'border-rose-500/40 hover:border-rose-500/70 text-rose-700 dark:text-rose-300',
   },
   {
-    path: '/threatintel/telegram-monitor?tab=search',
+    path: '/threatintel/telegram?tab=search',
     icon: <Search size={20} />,
     title: 'Channel Discovery',
     blurb: 'Keyword search across tgstat.com + curated catalog with linked-actor correlation.',
     accent: 'border-violet-500/40 hover:border-violet-500/70 text-violet-700 dark:text-violet-300',
   },
   {
-    path: '/threatintel/telegram-monitor?tab=settings',
+    path: '/threatintel/telegram?tab=settings',
     icon: <Settings size={20} />,
     title: 'Channel Settings',
     blurb: 'Add or remove monitored channels, tweak per-source settings, manage the watchlist.',
@@ -363,7 +363,7 @@ export default function TelegramHub(): JSX.Element {
                       >
                         <div className="flex items-center justify-between gap-2 mb-1">
                           <Link
-                            to={`/threatintel/telegram-monitor?tab=leaks&channel=${encodeURIComponent(l.channel_handle)}`}
+                            to={`/threatintel/telegram?tab=leaks&channel=${encodeURIComponent(l.channel_handle)}`}
                             className="font-mono text-sm font-semibold text-rose-700 dark:text-rose-300 hover:underline"
                           >
                             @{l.channel_handle}

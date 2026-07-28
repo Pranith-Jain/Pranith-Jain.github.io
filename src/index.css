@@ -100,6 +100,15 @@
 
   html:not(.dark) {
     color-scheme: light;
+    /* Faint brand-tinted top glow so light mode has the same atmospheric
+       depth as dark (which gets a navy radial). Geometric radial, not a
+       decorative blur - mirrors the dark --bg-glow approach. */
+    --bg-glow: radial-gradient(120% 70% at 50% 0%, rgba(67, 94, 241, 0.06) 0%, rgba(67, 94, 241, 0) 55%);
+  }
+
+  html:not(.dark) body {
+    background-image: var(--bg-glow);
+    background-repeat: no-repeat;
   }
 
   :root {
@@ -236,6 +245,19 @@
   .dark .surface-card {
     border-color: rgb(var(--border-400));
     background-color: rgb(var(--surface-200) / 0.6);
+  }
+
+  .surface-card-faint {
+    border-radius: var(--radius-card);
+    border: 1px solid #e2e8f0;
+    background-color: rgb(248 250 252 / 0.4);
+    box-shadow: var(--shadow-e1);
+    transition: all 200ms;
+  }
+
+  .dark .surface-card-faint {
+    border-color: rgb(var(--border-400));
+    background-color: rgb(var(--surface-200) / 0.4);
   }
 
   .surface-elevated {
