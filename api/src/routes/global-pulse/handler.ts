@@ -232,9 +232,14 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         return 'other';
     }
   };
+  const sevRank = (s: string): number => (s === 'critical' ? 4 : s === 'high' ? 3 : s === 'medium' ? 2 : 1);
   const allEvents = [...syncEvents, ...warmEvents, ...cyberpulseEvents]
     .map((e) => ({ ...e, cti: tagCti(e.kind) }))
-    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    .sort((a, b) => {
+      const sd = sevRank(b.severity) - sevRank(a.severity);
+      if (sd !== 0) return sd;
+      return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+    });
 
   const syncLayers: Record<string, number> = {};
   for (const e of allEvents) {

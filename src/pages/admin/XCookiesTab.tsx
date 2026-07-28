@@ -22,6 +22,25 @@ interface HealthResult {
   checkedAt: string;
 }
 
+interface QidsStatus {
+  source: 'kv' | 'default';
+  qids: { userByScreenName: string; userTweets: string; userTweetsAndReplies: string; searchTimeline: string };
+  overridden: {
+    userByScreenName: boolean;
+    userTweets: boolean;
+    userTweetsAndReplies: boolean;
+    searchTimeline: boolean;
+  };
+  updatedAt: string | null;
+}
+
+const QID_FIELDS: Array<{ key: keyof QidsStatus['qids']; label: string }> = [
+  { key: 'userByScreenName', label: 'UserByScreenName' },
+  { key: 'userTweets', label: 'UserTweets' },
+  { key: 'userTweetsAndReplies', label: 'UserTweetsAndReplies' },
+  { key: 'searchTimeline', label: 'SearchTimeline' },
+];
+
 const SOURCE_LABEL: Record<CookieStatus['source'], string> = {
   kv: 'Admin override (KV)',
   env: 'Worker secrets',
@@ -41,6 +60,17 @@ export default function XCookiesTab() {
   const [clearing, setClearing] = useState(false);
   const [health, setHealth] = useState<HealthResult | null>(null);
   const [testing, setTesting] = useState(false);
+
+  const [qids, setQids] = useState<QidsStatus['qids']>({
+    userByScreenName: '',
+    userTweets: '',
+    userTweetsAndReplies: '',
+    searchTimeline: '',
+  });
+  const [qidsStatus, setQidsStatus] = useState<QidsStatus | null>(null);
+  const [qidsSaving, setQidsSaving] = useState(false);
+  const [qidsClearing, setQidsClearing] = useState(false);
+  const [qidsMsg, setQidsMsg] = useState<string | null>(null);
 
   async function load() {
     try {
@@ -74,6 +104,7 @@ export default function XCookiesTab() {
 
   useEffect(() => {
     void load();
+    void loadQids();
   }, []);
 
   async function handleSave(e: FormEvent) {
@@ -124,6 +155,55 @@ export default function XCookiesTab() {
       setError(err instanceof Error ? err.message : 'failed to clear');
     } finally {
       setClearing(false);
+    }
+  }
+
+  async function loadQids() {
+    try {
+      const data = await getJson<QidsStatus>('/x-qids');
+      setQidsStatus(data);
+      setQids(data.qids);
+    } catch (e) {
+      console.error('load x-qids failed:', e instanceof Error ? e.message : String(e));
+    }
+  }
+
+  async function handleSaveQids(e: FormEvent) {
+    e.preventDefault();
+    setQidsSaving(true);
+    setQidsMsg(null);
+    setError(null);
+    try {
+      await postJsonWithBody('/x-qids', qids);
+      setQidsMsg('Query IDs saved - takes effect within ~60s.');
+      void loadQids();
+    } catch (err) {
+      console.error('save x-qids failed:', err instanceof Error ? err.message : String(err));
+      setError(err instanceof Error ? err.message : 'failed to save query IDs');
+    } finally {
+      setQidsSaving(false);
+    }
+  }
+
+  async function handleClearQids() {
+    if (!confirm('Clear the query-ID override and revert to the hardcoded defaults?')) return;
+    setQidsClearing(true);
+    setError(null);
+    setQidsMsg(null);
+    try {
+      const r = await fetch('/api/v1/admin/x-qids', {
+        method: 'DELETE',
+        headers: adminAuthHeaders(),
+        credentials: 'same-origin',
+      });
+      if (!r.ok) throw new Error(`${r.status}`);
+      setQidsMsg('Query-ID override cleared - using defaults.');
+      void loadQids();
+    } catch (err) {
+      console.error('clear x-qids failed:', err instanceof Error ? err.message : String(err));
+      setError(err instanceof Error ? err.message : 'failed to clear query IDs');
+    } finally {
+      setQidsClearing(false);
     }
   }
 
@@ -274,6 +354,64 @@ export default function XCookiesTab() {
                 className="px-4 py-2 text-sm text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/50 rounded hover:bg-rose-50 dark:hover:bg-rose-950/30 disabled:opacity-50"
               >
                 {clearing ? 'Clearing…' : 'Clear override'}
+              </button>
+            )}
+          </div>
+        </form>
+      </section>
+
+      {/* Query IDs */}
+      <section className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)] p-5">
+        <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">GraphQL Query IDs</h2>
+        <p className="text-xs text-slate-500 dark:text-slate-500 leading-relaxed mb-4">
+          X rotates these query IDs every few weeks; stale IDs break every authenticated fetch. Paste fresh IDs from
+          x.com DevTools → Network → filter <code>graphql</code> (the ID is the path segment after{' '}
+          <code>/graphql/</code>
+          ). The override takes precedence over the hardcoded defaults; a field left as-is keeps its current value.
+        </p>
+        {qidsMsg && <p className="text-sm text-emerald-600 dark:text-emerald-400 mb-4">{qidsMsg}</p>}
+        {qidsStatus && (
+          <p className="text-xs text-slate-500 dark:text-slate-500 mb-4">
+            Source: {qidsStatus.source === 'kv' ? 'Admin override (KV)' : 'Hardcoded defaults'}
+            {qidsStatus.updatedAt ? ` · updated ${new Date(qidsStatus.updatedAt).toLocaleString()}` : ''}
+          </p>
+        )}
+        <form onSubmit={handleSaveQids} className="space-y-4">
+          {QID_FIELDS.map((f) => (
+            <div key={f.key}>
+              <label htmlFor={`qid-${f.key}`} className="block text-xs text-slate-600 dark:text-slate-500 mb-1">
+                {f.label}
+                {qidsStatus?.overridden[f.key] && (
+                  <span className="ml-2 text-emerald-600 dark:text-emerald-400">(overridden)</span>
+                )}
+              </label>
+              <input
+                id={`qid-${f.key}`}
+                type="text"
+                autoComplete="off"
+                spellCheck={false}
+                value={qids[f.key]}
+                onChange={(e) => setQids((prev) => ({ ...prev, [f.key]: e.target.value }))}
+                className={inputCls}
+              />
+            </div>
+          ))}
+          <div className="flex items-center gap-3">
+            <button
+              type="submit"
+              disabled={qidsSaving}
+              className="px-4 py-2 bg-brand-600 text-white text-sm font-medium rounded hover:bg-brand-500 disabled:opacity-50"
+            >
+              {qidsSaving ? 'Saving…' : 'Save query IDs'}
+            </button>
+            {qidsStatus?.source === 'kv' && (
+              <button
+                type="button"
+                onClick={() => void handleClearQids()}
+                disabled={qidsClearing}
+                className="px-4 py-2 text-sm text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/50 rounded hover:bg-rose-50 dark:hover:bg-rose-950/30 disabled:opacity-50"
+              >
+                {qidsClearing ? 'Clearing…' : 'Clear override'}
               </button>
             )}
           </div>

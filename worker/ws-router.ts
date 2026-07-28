@@ -4,7 +4,10 @@
  */
 
 import apiApp from '../api/src/index';
+import { workerRateLimit, rateLimitResponse, callerIp } from './lib/worker-rate-limit';
 import type { Env } from './env';
+
+const WS_CONNECT_LIMIT = 15;
 
 /** Static allow-list of WebSocket origins, allocated once at module scope. */
 const WS_ALLOWED_ORIGINS_STATIC = new Set(['https://pranithjain.qzz.io']);
@@ -25,6 +28,9 @@ export async function handleWebSocketUpgrade(
   requestId: string
 ): Promise<Response | null> {
   if (request.headers.get('upgrade') !== 'websocket') return null;
+
+  const rl = await workerRateLimit('ws', callerIp(request), WS_CONNECT_LIMIT);
+  if (!rl.allowed) return rateLimitResponse(rl);
 
   // LiveFeed DO
   if (url.pathname.startsWith('/api/v1/ws/live-feed')) {

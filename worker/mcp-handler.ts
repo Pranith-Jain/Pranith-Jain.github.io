@@ -5,11 +5,10 @@
 
 import { DfirMcpServer } from './mcp-server';
 import { withSecurityHeaders } from './csp';
-import { workerRateLimit, rateLimitResponse, callerIp } from './lib/worker-rate-limit';
+import { workerRateLimit, rateLimitResponse } from './lib/worker-rate-limit';
 import type { Env } from './env';
 
 const MCP_LIMIT_KEYED = 60;
-const MCP_LIMIT_ANON = 10;
 
 export async function handleMcp(request: Request, env: Env, ctx: ExecutionContext, url: URL): Promise<Response | null> {
   if (!url.pathname.startsWith('/api/mcp')) return null;

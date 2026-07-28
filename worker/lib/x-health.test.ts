@@ -1,5 +1,11 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { validateXCookiesShape, checkXHealth } from '../../api/src/lib/twitter-auth-graphql';
+import {
+  validateXCookiesShape,
+  checkXHealth,
+  resolveQueryIds,
+  isValidQid,
+  invalidateQidCache,
+} from '../../api/src/lib/twitter-auth-graphql';
 import type { Env } from '../../api/src/env';
 
 const VALID_TOKEN = 'a'.repeat(40);
@@ -11,6 +17,7 @@ function envWith(secrets: Record<string, string>): Env {
 
 beforeEach(() => {
   vi.restoreAllMocks();
+  invalidateQidCache();
   // fetchAuthedTimeline reads/writes the edge Cache API, which jsdom lacks.
   // A perpetual cache-miss stub forces the live fetch path deterministically.
   (globalThis as unknown as { caches: unknown }).caches = {
@@ -80,7 +87,12 @@ describe('checkXHealth', () => {
               user: {
                 result: {
                   rest_id: '123',
-                  legacy: { name: 'Twitter', description: '', followers_count: 1, profile_image_url_https: 'https://x/y.png' },
+                  legacy: {
+                    name: 'Twitter',
+                    description: '',
+                    followers_count: 1,
+                    profile_image_url_https: 'https://x/y.png',
+                  },
                 },
               },
             },
@@ -98,5 +110,44 @@ describe('checkXHealth', () => {
     expect(h.auth).toBe('ok');
     expect(h.qids).toBe('ok');
     expect(h.rateLimited).toBe(false);
+  });
+});
+
+describe('isValidQid', () => {
+  it('accepts a base64url query ID', () => {
+    expect(isValidQid('G3KGOASz96M-Qu0nwmGXNg')).toBe(true);
+  });
+
+  it('rejects too-short, empty, and non-string values', () => {
+    expect(isValidQid('short')).toBe(false);
+    expect(isValidQid('')).toBe(false);
+    expect(isValidQid(undefined)).toBe(false);
+    expect(isValidQid(12345678)).toBe(false);
+  });
+});
+
+describe('resolveQueryIds', () => {
+  it('returns the hardcoded defaults when there is no KV override', async () => {
+    const qids = await resolveQueryIds(envWith({}));
+    expect(qids.userByScreenName).toBe('G3KGOASz96M-Qu0nwmGXNg');
+    expect(qids.userTweets).toBe('V7H0Ap3_Hh2FyS75OCDO3Q');
+    expect(qids.userTweetsAndReplies).toBe('E4wA5vo2sjVyvpliUffSCw');
+    expect(qids.searchTimeline).toBe('nK1dw4oV3k4w5TdtcAdSww');
+  });
+
+  it('prefers KV override values, falling back per-field to defaults', async () => {
+    const stored = { userByScreenName: 'AAAA_override_111', userTweets: 'BBBB_override_222' };
+    const env = { KV_CACHE: { get: () => Promise.resolve(JSON.stringify(stored)) } } as unknown as Env;
+    const qids = await resolveQueryIds(env);
+    expect(qids.userByScreenName).toBe('AAAA_override_111');
+    expect(qids.userTweets).toBe('BBBB_override_222');
+    expect(qids.searchTimeline).toBe('nK1dw4oV3k4w5TdtcAdSww');
+  });
+
+  it('ignores malformed KV values and falls back to defaults', async () => {
+    const stored = { userByScreenName: 'bad' };
+    const env = { KV_CACHE: { get: () => Promise.resolve(JSON.stringify(stored)) } } as unknown as Env;
+    const qids = await resolveQueryIds(env);
+    expect(qids.userByScreenName).toBe('G3KGOASz96M-Qu0nwmGXNg');
   });
 });

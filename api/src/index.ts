@@ -674,6 +674,7 @@ app.get('/api/v1/radar/scan/:id', radarGetScanHandler);
 app.get('/api/v1/radar/recent', radarRecentHandler);
 
 // ── CyberPulse scan (public, rate-limited) ─────────────────────────────
+app.use('/api/v1/cyberpulse/*', rateLimit);
 app.post('/api/v1/cyberpulse/scan', cyberpulseScanHandler);
 
 // ── IRONSIGHT (public, no auth required — proxy to free external APIs) ──
@@ -690,6 +691,7 @@ app.use('/api/v1/ironsight/*', requestId);
 app.use('/api/v1/ironsight/*', csrfGuard);
 app.use('/api/v1/ironsight/*', looseValidation());
 app.use('/api/v1/ironsight/*', requestLogger);
+app.use('/api/v1/ironsight/*', rateLimit);
 app.get('/api/v1/ironsight/alerts', ironsightAlertsHandler);
 app.get('/api/v1/ironsight/flights', ironsightFlightsHandler);
 app.get('/api/v1/ironsight/strikes', ironsightStrikesHandler);
@@ -731,6 +733,7 @@ app.use(
 app.use('/api/v1/daily-briefs/*', requestId);
 app.use('/api/v1/daily-briefs/*', csrfGuard);
 app.use('/api/v1/daily-briefs/*', looseValidation());
+app.use('/api/v1/daily-briefs/*', rateLimit);
 app.route('/api/v1', dailyBriefsRouter);
 
 app.use(

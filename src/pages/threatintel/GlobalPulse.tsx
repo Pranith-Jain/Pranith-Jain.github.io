@@ -821,6 +821,19 @@ export default function GlobalPulse(): JSX.Element {
     }
   }, []);
 
+  const severityRank = useCallback((sev: PulseEvent['severity']): number => {
+    switch (sev) {
+      case 'critical':
+        return 4;
+      case 'high':
+        return 3;
+      case 'medium':
+        return 2;
+      case 'low':
+        return 1;
+    }
+  }, []);
+
   const filteredEvents = useMemo(() => {
     if (!data) return infraResults.length > 0 && activeLayers.has('infrastructure') ? infraResults : [];
     const now = Date.now();
@@ -854,10 +867,17 @@ export default function GlobalPulse(): JSX.Element {
       ...(activeLayers.has('fire_detection') ? fireEvents : []),
     ];
     return withStatic.sort((a, b) => {
+      // 1. Severity first — critical events on top regardless of type
+      const sa = severityRank(a.severity);
+      const sb = severityRank(b.severity);
+      if (sa !== sb) return sb - sa;
+      // 2. Recency — newest first within the same severity tier
+      const timeDiff = new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+      if (Math.abs(timeDiff) > 60_000) return timeDiff;
+      // 3. CTI priority as tiebreaker for events within the same minute
       const pa = ctiPriority(a.cti);
       const pb = ctiPriority(b.cti);
-      if (pa !== pb) return pb - pa;
-      return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+      return pb - pa;
     });
   }, [
     data,
@@ -869,6 +889,7 @@ export default function GlobalPulse(): JSX.Element {
     regionFilter,
     MENA_COUNTRIES,
     ctiPriority,
+    severityRank,
     infraResults,
     militaryBaseEvents,
     nuclearFacilityEvents,
