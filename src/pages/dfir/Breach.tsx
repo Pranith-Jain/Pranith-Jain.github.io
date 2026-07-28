@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent, type CSSProperties } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
   ShieldCheck,
   ShieldAlert,
@@ -1085,21 +1085,13 @@ export default function BreachPage(): JSX.Element {
   }, [urlMode]);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Breach Checker</h1>
-        <p className="text-muted mb-8 max-w-2xl">
-          Check if a password, email address, or domain has appeared in known data breaches.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<ShieldAlert size={28} />}
+      title="Breach Checker"
+      description="Check if a password, email address, or domain has appeared in known data breaches."
+      maxWidthClass="max-w-4xl"
+    >
       {/* Tab pills */}
       <div className="flex flex-wrap gap-2 mb-8">
         {MODES.map((m) => {
@@ -1132,6 +1124,6 @@ export default function BreachPage(): JSX.Element {
       <BreachDatabasesPanel initialQuery={mode === 'password' ? undefined : urlQuery} />
 
       <RelatedWikiArticles />
-    </div>
+    </DataPageLayout>
   );
 }
