@@ -42,7 +42,12 @@ export async function verifyReport(
   queryType: string,
   originalReport: string,
   steps: AgentStep[],
-  opts: { groqKey?: string; nvidiaKey?: string; googleKey?: string }
+  opts: {
+    groqKey?: string;
+    nvidiaKey?: string;
+    googleKey?: string;
+    recordUsage?: (model: string, inputText: string, outputText: string, role: string) => void;
+  }
 ): Promise<QaResult> {
   // Use ensemble mode when 2+ providers are available (any of Gemini/Groq/NVIDIA).
   // This runs QA on multiple models and takes the consensus for higher accuracy.
@@ -72,7 +77,12 @@ async function singleModelVerifyReport(
   queryType: string,
   originalReport: string,
   steps: AgentStep[],
-  opts: { groqKey?: string; nvidiaKey?: string; googleKey?: string }
+  opts: {
+    groqKey?: string;
+    nvidiaKey?: string;
+    googleKey?: string;
+    recordUsage?: (model: string, inputText: string, outputText: string, role: string) => void;
+  }
 ): Promise<QaResult> {
   // Build a compact summary of all collected data for fact-checking
   const dataSummary = buildDataSummary(steps);
@@ -97,6 +107,7 @@ async function singleModelVerifyReport(
         quality: true,
         role: 'qa-verifier',
         preferProvider: 'gemini', // Gemini has 1M context — best for long report verification
+        recordUsage: opts.recordUsage,
       });
       modelUsed = result.modelUsed;
 

@@ -1,10 +1,1 @@
-{
-  "sector": "healthcare",
-  "title": "Healthcare sector brief",
-  "generatedAt": "2026-07-24",
-  "topCount": 0,
-  "preview": "No KEV-flagged CVEs in the current window.",
-  "sizeBytes": 290,
-  "executiveSummary": "Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).",
-  "topThreats": []
-}
+{"sector":"healthcare","title":"Healthcare sector brief","generatedAt":"2026-07-28","topCount":5,"preview":"CVE-2026-35616 (critical) leads with priority 96.","sizeBytes":1874,"executiveSummary":"Brief generation runs as a separate step (see scripts/render-threat-intel-briefs.mjs).","topThreats":[{"cveId":"CVE-2026-35616","title":"A improper access control vulnerability in Fortinet FortiClientEMS 7.4.5 through 7.4.6 may allow an unauthenticated atta","relevance":"broadly-critical","risk":"CVSS 9.8; actively exploited.","recommendedAction":"Patch within the CISA KEV due date; verify compensating controls."},{"cveId":"CVE-2026-5281","title":"Use after free in Dawn in Google Chrome prior to 146.0.7680.178 allowed a remote attacker who had compromised the render","relevance":"broadly-critical","risk":"CVSS 8.8; actively exploited.","recommendedAction":"Patch within the CISA KEV due date; verify compensating controls."},{"cveId":"CVE-2026-0770","title":"Langflow exec_globals Inclusion of Functionality from Untrusted Control Sphere Remote Code Execution Vulnerability. This","relevance":"broadly-critical","risk":"CVSS 9.8; actively exploited.","recommendedAction":"Patch within the CISA KEV due date; verify compensating controls."},{"cveId":"CVE-2026-33825","title":"Insufficient granularity of access control in Microsoft Defender allows an authorized attacker to elevate privileges loc","relevance":"broadly-critical","risk":"CVSS 7.8; actively exploited.","recommendedAction":"Patch within the CISA KEV due date; verify compensating controls."},{"cveId":"CVE-2025-68686","title":"An Exposure of Sensitive Information to an Unauthorized Actor vulnerability [CWE-200] vulnerability in Fortinet FortiOS ","relevance":"broadly-critical","risk":"CVSS 5.9; actively exploited.","recommendedAction":"Patch within the CISA KEV due date; verify compensating controls."}]}

@@ -50,6 +50,8 @@ export interface CompletionOpts {
   preferGroq?: boolean;
   /** Skip directly to a specific provider (e.g. 'gemini' for large-context QA). */
   preferProvider?: 'groq' | 'gemini' | 'nvidia';
+  /** Invoked on success with the model + prompt/response text for cost tracking. */
+  recordUsage?: (model: string, inputText: string, outputText: string, role: string) => void;
 }
 
 export class RateLimitError extends Error {
@@ -259,6 +261,8 @@ export async function runCompletion(
   const errors: string[] = [];
   const groqKey = opts.groqKey;
   const health = await getProviderHealth();
+  const inputText = `${input.system}\n${input.user}`;
+  const usageRole = opts.role ?? 'completion';
 
   // When preferProvider is set, try that provider first (or exclusively)
   const providers: Array<'groq' | 'gemini' | 'nvidia'> = opts.preferProvider
@@ -279,6 +283,7 @@ export async function runCompletion(
         try {
           const text = await runGroq(groqKey, input, model);
           if (health) await health.recordSuccess('groq', Date.now() - startMs);
+          opts.recordUsage?.(`groq:${model}`, inputText, text, usageRole);
           return { text, modelUsed: `groq:${model}` };
         } catch (err) {
           const errMsg = err instanceof Error ? err.message : String(err);
@@ -299,6 +304,7 @@ export async function runCompletion(
       try {
         const text = await runGemini(opts.googleKey, input);
         if (health) await health.recordSuccess('gemini', Date.now() - startMs);
+        opts.recordUsage?.(`gemini:${GEMINI_MODEL}`, inputText, text, usageRole);
         return { text, modelUsed: `gemini:${GEMINI_MODEL}` };
       } catch (err) {
         const errMsg = err instanceof Error ? err.message : String(err);
@@ -311,6 +317,7 @@ export async function runCompletion(
       try {
         const text = await runNvidia(opts.nvidiaKey, input);
         if (health) await health.recordSuccess('nvidia', Date.now() - startMs);
+        opts.recordUsage?.(`nvidia:${NVIDIA_MODEL}`, inputText, text, usageRole);
         return { text, modelUsed: `nvidia:${NVIDIA_MODEL}` };
       } catch (err) {
         const errMsg = err instanceof Error ? err.message : String(err);
@@ -329,6 +336,7 @@ export async function runCompletion(
   if (isWorkersAi(_ai)) {
     try {
       const { text, model } = await runWorkersAI(_ai, input);
+      opts.recordUsage?.(`workers-ai:${model.split('/').pop()}`, inputText, text, usageRole);
       return { text, modelUsed: `workers-ai:${model.split('/').pop()}` };
     } catch (err) {
       errors.push(`workers-ai: ${(err instanceof Error ? err.message : String(err)).slice(0, 80)}`);
@@ -426,6 +434,7 @@ export async function runCompletionStream(
     try {
       const text = await runGroqStream(opts.groqKey, input, onToken);
       if (health) await health.recordSuccess('groq', Date.now() - startMs);
+      opts.recordUsage?.(`groq:${GROQ_MODEL}`, `${input.system}\n${input.user}`, text, opts.role ?? 'completion');
       return { text, modelUsed: `groq:${GROQ_MODEL}` };
     } catch (err) {
       console.error(

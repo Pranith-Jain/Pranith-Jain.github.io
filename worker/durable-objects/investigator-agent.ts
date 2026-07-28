@@ -39,6 +39,7 @@ import {
   createCostTracker,
   isOverBudget,
   costSummary,
+  recordCompletion,
   type InvestigationCost,
 } from '../../api/src/lib/agent/cost-tracker';
 import { checkDuplicate, registerInvestigation } from '../../api/src/lib/agent/request-dedup';
@@ -111,6 +112,8 @@ export class InvestigatorAgentDO {
   private costTrackers = new Map<string, InvestigationCost>();
   /** Cached degraded-tools note for adaptive tool selection (5-min TTL). */
   private degradedToolsCache: { at: number; note: string } | null = null;
+  /** Cached confidence-calibration hint (10-min TTL). */
+  private calibrationHintCache: { at: number; hint: string } | null = null;
 
   constructor(ctx: DurableObjectState, env: Env) {
     this.ctx = ctx;
@@ -374,6 +377,8 @@ export class InvestigatorAgentDO {
     // Track token usage and costs per investigation.
     const costTracker = this.costTrackers.get(state.id) ?? createCostTracker();
     this.costTrackers.set(state.id, costTracker);
+    const recordUsage = (model: string, inputText: string, outputText: string, role: string) =>
+      recordCompletion(costTracker, model, inputText, outputText, role);
 
     // Check budget before proceeding
     if (isOverBudget(costTracker)) {
@@ -825,6 +830,30 @@ export class InvestigatorAgentDO {
     return note;
   }
 
+  /**
+   * Confidence calibration: return a synthesizer hint built from historical
+   * confidence-accuracy stats, so the agent calibrates confidence honestly.
+   * Cached for 10 minutes.
+   */
+  private async calibrationHint(): Promise<string> {
+    const now = Date.now();
+    if (this.calibrationHintCache && now - this.calibrationHintCache.at < 10 * 60 * 1000) {
+      return this.calibrationHintCache.hint;
+    }
+    let hint = '';
+    try {
+      const db = (this.env as unknown as ApiEnv).BRIEFINGS_DB;
+      if (db) {
+        const { getCalibrationHint } = await import('../../api/src/lib/agent/confidence-calibration');
+        hint = await getCalibrationHint(db);
+      }
+    } catch (err) {
+      console.error('calibrationHint failed:', err instanceof Error ? err.message : String(err));
+    }
+    this.calibrationHintCache = { at: now, hint };
+    return hint;
+  }
+
   /** Synthesize the final report and mark the investigation done. Streams progress to WebSocket clients. */
   private async doSynthesize(
     state: AgentState,
@@ -865,6 +894,7 @@ export class InvestigatorAgentDO {
         googleKey,
         nvidiaKey,
         dataQuality: { totalOk, totalErr, emptyResults },
+        calibrationHint: await this.calibrationHint(),
         onToken: (token) => this.broadcast({ type: 'token', token }),
       });
 

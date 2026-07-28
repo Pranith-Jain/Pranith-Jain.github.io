@@ -44,8 +44,12 @@ export async function synthesizeReport(
      * query out of the revised report's prompt.
      */
     correctionPrompt?: string;
+    /** Historical confidence-accuracy hint (from calibration stats) appended to the prompt. */
+    calibrationHint?: string;
     /** When set, the synthesis is streamed (Groq SSE) and each token delta is forwarded here. */
     onToken?: (token: string) => void;
+    /** Cost-tracking callback forwarded to the completion. */
+    recordUsage?: (model: string, inputText: string, outputText: string, role: string) => void;
   }
 ): Promise<SynthesizerOutput> {
   const dq = opts.dataQuality ?? {
@@ -86,7 +90,7 @@ export async function synthesizeReport(
     ? opts.correctionPrompt
     : useMinimal
       ? buildSynthesizerUserPrompt(query, queryType, steps)
-      : buildSynthesizerUserPrompt(query, queryType, steps) + dataWarning;
+      : buildSynthesizerUserPrompt(query, queryType, steps) + dataWarning + (opts.calibrationHint ?? '');
   const input: CompletionInput = { system, user, maxTokens: useMinimal ? 2000 : 8000, temperature: 0.3 };
 
   const completionOpts = {
@@ -95,6 +99,8 @@ export async function synthesizeReport(
     nvidiaKey: opts.nvidiaKey,
     quality: true,
     preferGroq: true,
+    role: 'synthesizer',
+    recordUsage: opts.recordUsage,
   };
   const { text, modelUsed } = opts.onToken
     ? await runCompletionStream(ai, input, completionOpts, opts.onToken)

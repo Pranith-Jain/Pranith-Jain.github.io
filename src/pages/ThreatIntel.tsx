@@ -2,6 +2,13 @@ import { useMemo, useState } from 'react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
 import {
+  tiClient,
+  type OtxPulse,
+  type ThreatFoxIoc,
+  type MalwareBazaarSample,
+  type RansomwareGroup,
+} from '../lib/threat-intel';
+import {
   Shield,
   AlertTriangle,
   Link2,
@@ -13,6 +20,7 @@ import {
   Loader2,
   ExternalLink,
   List as ListIcon,
+  Network,
 } from 'lucide-react';
 
 interface TiIndexSummary {
@@ -144,8 +152,15 @@ export default function ThreatIntel() {
   const [searchProvider, setSearchProvider] = useState<'otx' | 'threatfox' | 'malwarebazaar' | 'ransomware'>(
     'threatfox'
   );
-  const [searchResults, setSearchResults] = useState<Record<string, unknown> | null>(null);
+  const [searchResults, setSearchResults] = useState<
+    | { provider: 'otx'; data: { total: number; pulses: OtxPulse[] } }
+    | { provider: 'threatfox'; data: { total: number; iocs: ThreatFoxIoc[] } }
+    | { provider: 'malwarebazaar'; data: { total: number; search_mode: string; samples: MalwareBazaarSample[] } }
+    | { provider: 'ransomware'; data: { total: number; groups: RansomwareGroup[] } }
+    | null
+  >(null);
   const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
   const [dwTool, setDwTool] = useState<DarkwebTool>('multi-search');
   const [dwQuery, setDwQuery] = useState('');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -296,18 +311,23 @@ export default function ThreatIntel() {
     if (!searchQuery.trim()) return;
     setSearchLoading(true);
     setSearchResults(null);
+    setSearchError(null);
     try {
-      const endpoints: Record<'otx' | 'threatfox' | 'malwarebazaar' | 'ransomware', string> = {
-        otx: `/api/v1/threat-intel/search/otx?q=${encodeURIComponent(searchQuery)}`,
-        threatfox: `/api/v1/threat-intel/search/threatfox?q=${encodeURIComponent(searchQuery)}`,
-        malwarebazaar: `/api/v1/threat-intel/search/malwarebazaar?q=${encodeURIComponent(searchQuery)}`,
-        ransomware: `/api/v1/threat-intel/search/ransomware-live?q=${encodeURIComponent(searchQuery)}`,
-      };
-      const res = await fetch(endpoints[searchProvider]);
-      if (res.ok) setSearchResults(await res.json());
-    } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* ignore */
+      if (searchProvider === 'otx') {
+        const data = await tiClient.searchOtx(searchQuery);
+        setSearchResults({ provider: 'otx', data });
+      } else if (searchProvider === 'threatfox') {
+        const data = await tiClient.searchThreatFox(searchQuery);
+        setSearchResults({ provider: 'threatfox', data });
+      } else if (searchProvider === 'malwarebazaar') {
+        const data = await tiClient.searchMalwareBazaar(searchQuery);
+        setSearchResults({ provider: 'malwarebazaar', data });
+      } else {
+        const data = await tiClient.searchRansomwareLive(searchQuery);
+        setSearchResults({ provider: 'ransomware', data });
+      }
+    } catch (e) {
+      setSearchError(e instanceof Error ? e.message : 'Search failed');
     }
     setSearchLoading(false);
   };
@@ -807,17 +827,24 @@ export default function ThreatIntel() {
           </div>
 
           {/* Search results */}
-          {searchResults && (
-            <div className={`${CARD} p-4`}>
-              <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-3">
-                Results from {searchProvider === 'ransomware' ? 'ransomware.live' : searchProvider}
-              </h3>
-              <pre className="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-[rgb(var(--surface-100))] rounded-xl p-3 overflow-x-auto max-h-96 overflow-y-auto">
-                {JSON.stringify(searchResults, null, 2)}
-              </pre>
+          {searchError && (
+            <div className={`${CARD} p-4 border-rose-300 dark:border-rose-800`}>
+              <p className="text-sm text-rose-600 dark:text-rose-400">{searchError}</p>
             </div>
           )}
-          {!searchLoading && !searchResults && (
+          {searchResults && searchResults.provider === 'otx' && (
+            <OtxResults data={searchResults.data} />
+          )}
+          {searchResults && searchResults.provider === 'threatfox' && (
+            <ThreatFoxResults data={searchResults.data} />
+          )}
+          {searchResults && searchResults.provider === 'malwarebazaar' && (
+            <MalwareBazaarResults data={searchResults.data} />
+          )}
+          {searchResults && searchResults.provider === 'ransomware' && (
+            <RansomwareResults data={searchResults.data} />
+          )}
+          {!searchLoading && !searchResults && !searchError && (
             <div className={`${CARD} p-8 text-center text-sm text-slate-500 dark:text-slate-400`}>
               Search across OTX, ThreatFox, MalwareBazaar, and ransomware.live. Results include IOCs, malware families,
               and group profiles.

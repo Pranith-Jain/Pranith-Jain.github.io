@@ -82,3 +82,28 @@ export async function getCalibrationStats(
     return {};
   }
 }
+
+/**
+ * Build a planner/synthesizer hint from historical calibration stats so the
+ * agent calibrates its confidence honestly. Only includes confidence levels
+ * with enough samples to be meaningful. Pure and unit-tested.
+ */
+export function buildCalibrationHint(
+  stats: Record<string, { total: number; accuracy: number }>,
+  minSamples = 5
+): string {
+  const parts: string[] = [];
+  for (const level of ['high', 'medium', 'low'] as const) {
+    const s = stats[level];
+    if (s && s.total >= minSamples) {
+      parts.push(`${level} ${s.accuracy}% accurate (${s.total} reports)`);
+    }
+  }
+  if (parts.length === 0) return '';
+  return `\n<calibration>Historical accuracy of your past confidence ratings — ${parts.join('; ')}. Calibrate honestly: reserve "high" for genuinely well-evidenced assessments and downgrade to "medium"/"low" where evidence is thin.</calibration>`;
+}
+
+/** Read calibration stats and render them as a prompt hint (empty if no data). */
+export async function getCalibrationHint(db: D1Database): Promise<string> {
+  return buildCalibrationHint(await getCalibrationStats(db));
+}

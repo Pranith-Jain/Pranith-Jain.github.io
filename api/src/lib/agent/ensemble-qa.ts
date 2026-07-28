@@ -30,7 +30,12 @@ export async function ensembleVerifyReport(
   queryType: string,
   originalReport: string,
   steps: AgentStep[],
-  opts: { groqKey?: string; nvidiaKey?: string; googleKey?: string }
+  opts: {
+    groqKey?: string;
+    nvidiaKey?: string;
+    googleKey?: string;
+    recordUsage?: (model: string, inputText: string, outputText: string, role: string) => void;
+  }
 ): Promise<EnsembleQaResult> {
   const dataSummary = buildCompactSummary(steps);
   const system = buildQaSystemPrompt();
@@ -62,6 +67,8 @@ Verify every claim in the report against the collected data. Flag hallucinations
         googleKey: opts.googleKey,
         quality: true,
         preferProvider: m.provider,
+        role: 'qa-ensemble',
+        recordUsage: opts.recordUsage,
       });
       const parsed = parseWithErrors(result.text, QaOutputSchema);
       if (!parsed.ok) return null;

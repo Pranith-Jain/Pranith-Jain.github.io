@@ -41,6 +41,7 @@ export async function planNextStep(
     googleKey?: string;
     specialistContext?: string;
     workingMemory?: WorkingMemory;
+    recordUsage?: (model: string, inputText: string, outputText: string, role: string) => void;
   }
 ): Promise<PlannerOutput> {
   const toolDescriptions = describeTools(tools);
@@ -66,12 +67,13 @@ export async function planNextStep(
 
   let lastErr: unknown;
   for (let attempt = 0; attempt <= MAX_PARSE_RETRIES; attempt++) {
-    const { text } = await runCompletion(ai, input, {
-      groqKey: opts.groqKey,
-      nvidiaKey: opts.nvidiaKey,
-      quality: queryType === 'actor' || queryType === 'ransomware' || queryType === 'campaign',
-      role: 'planner',
-    });
+      const { text } = await runCompletion(ai, input, {
+        groqKey: opts.groqKey,
+        nvidiaKey: opts.nvidiaKey,
+        quality: queryType === 'actor' || queryType === 'ransomware' || queryType === 'campaign',
+        role: 'planner',
+        recordUsage: opts.recordUsage,
+      });
     try {
       return parsePlannerOutput(text);
     } catch (err) {
