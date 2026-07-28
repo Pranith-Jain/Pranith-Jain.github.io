@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { SkeletonCard } from '../../components/ui/Skeleton';
 import { sanitizeAiHtml } from '../../lib/sanitize-html';
-import { BookText, ExternalLink, FileCode, Gauge, Loader2, Copy, Check, ChevronDown } from 'lucide-react';
+import { BookText, Bug, ExternalLink, FileCode, Gauge, Loader2, Copy, Check, ChevronDown } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
 import { prioritise, TIER_LABELS, TIER_STYLES, TIER_BARS } from '../../lib/dfir/cve-priority';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
@@ -193,21 +194,13 @@ export default function CveLookup(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/dfir"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">CVE Lookup</h1>
-        <p className="text-muted mb-8 max-w-2xl">
-          Query NVD for CVE details. Get CVSS score, EPSS exploit likelihood, CISA KEV status, and references.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/dfir"
+      icon={<Bug size={28} />}
+      title="CVE Lookup"
+      description="Query NVD for CVE details. Get CVSS score, EPSS exploit likelihood, CISA KEV status, and references."
+      maxWidthClass="max-w-4xl"
+    >
       <form onSubmit={onSubmit} className="mb-10">
         <div className="flex gap-2">
           <div className="flex-1 relative">
@@ -235,7 +228,12 @@ export default function CveLookup(): JSX.Element {
         )}
       </form>
 
-      {loading && <p className="font-mono text-muted">Querying NVD…</p>}
+      {loading && (
+        <div className="space-y-4" role="status" aria-label="Querying NVD">
+          <SkeletonCard />
+          <SkeletonCard />
+        </div>
+      )}
       {error && (
         <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
           error: {error}
@@ -765,7 +763,9 @@ export default function CveLookup(): JSX.Element {
                   </div>
                   {tagList.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 mb-3">
-                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1 self-center">filter by tag:</span>
+                      <span className="text-mini font-mono text-slate-500 dark:text-slate-400 mr-1 self-center">
+                        filter by tag:
+                      </span>
                       {tagList.map((t) => {
                         const active = refTagFilter.has(t);
                         return (
@@ -809,6 +809,6 @@ export default function CveLookup(): JSX.Element {
         </div>
       )}
       <RelatedWikiArticles />
-    </div>
+    </DataPageLayout>
   );
 }
