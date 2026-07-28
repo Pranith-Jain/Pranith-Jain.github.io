@@ -5,7 +5,10 @@
 
 import { withSecurityHeaders } from './csp';
 import { validateRawKey } from '../api/src/lib/auth';
+import { workerRateLimit, rateLimitResponse } from './lib/worker-rate-limit';
 import type { Env } from './env';
+
+const RADAR_LIMIT = 10;
 
 export async function handleRadarCrawl(
   request: Request,
@@ -49,6 +52,9 @@ export async function handleRadarCrawl(
       url.origin
     );
   }
+
+  const rl = await workerRateLimit('radar', rawKey.slice(0, 16), RADAR_LIMIT);
+  if (!rl.allowed) return withSecurityHeaders(rateLimitResponse(rl), undefined, url.origin);
 
   const crawlId = url.pathname.split('/api/v1/radar/crawl/')[1]?.split('/')[0];
   if (!crawlId) {

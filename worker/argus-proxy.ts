@@ -6,11 +6,15 @@
 
 import { withSecurityHeaders } from './csp';
 import { validateRawKey } from '../api/src/lib/auth';
+import { workerRateLimit, rateLimitResponse, callerIp } from './lib/worker-rate-limit';
 import type { Env } from './env';
 
 const ARGUS_ORIGIN = 'https://argus-threat-intel.pj-6a7.workers.dev';
 
 const ARGUS_API_PATHS = ['/api/actors', '/api/feed', '/api/stats', '/api/health', '/api/stix/bundle'];
+
+const ARGUS_API_LIMIT = 30;
+const ARGUS_DASH_LIMIT = 60;
 
 const PROXY_ALLOW_HEADERS = new Set([
   'accept',
@@ -62,6 +66,8 @@ async function proxyToOrigin(request: Request, origin: string, subPath: string, 
 /** Handle ARGUS dashboard routes (/threatnexus/*). Returns Response or null if not a match. */
 export async function handleArgusDashboard(request: Request, url: URL, requestId: string): Promise<Response | null> {
   if (url.pathname !== '/threatnexus' && !url.pathname.startsWith('/threatnexus/')) return null;
+  const rl = await workerRateLimit('argus-dash', callerIp(request), ARGUS_DASH_LIMIT);
+  if (!rl.allowed) return rateLimitResponse(rl);
   const subPath = url.pathname.replace(/^\/threatnexus\/?/, '/') || '/';
   return proxyToOrigin(request, ARGUS_ORIGIN, subPath + url.search, requestId);
 }
@@ -98,5 +104,9 @@ export async function handleArgusApi(
       url.origin
     );
   }
+
+  const rl = await workerRateLimit('argus-api', rawKey.slice(0, 16), ARGUS_API_LIMIT);
+  if (!rl.allowed) return withSecurityHeaders(rateLimitResponse(rl), undefined, url.origin);
+
   return proxyToOrigin(request, ARGUS_ORIGIN, url.pathname + url.search, requestId);
 }
