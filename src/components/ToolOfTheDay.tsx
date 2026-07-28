@@ -7,7 +7,7 @@ const TOOLS = [
   {
     path: '/dfir/ioc-check',
     name: 'IOC & Hash Checker',
-    desc: 'Check IPs, domains, URLs, and hashes across 24+ sources.',
+    desc: 'Check IPs, domains, URLs, and hashes across 60+ sources.',
   },
   { path: '/dfir/phishing', name: 'Phishing Analyzer', desc: 'Analyze email headers and detect phishing attempts.' },
   { path: '/dfir/cve-prioritizer', name: 'CVE Prioritizer', desc: 'Prioritize CVEs with CVSS, EPSS, and KEV data.' },

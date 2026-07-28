@@ -86,7 +86,7 @@ export const HUB_META: readonly HubMeta[] = [
     id: 'ioc-triage',
     label: 'IOC Triage',
     blurb:
-      'Check, extract, and track indicators across 24+ sources - IP, domain, URL, hash pivots with cross-source consensus.',
+      'Check, extract, and track indicators across 60+ sources - IP, domain, URL, hash pivots with cross-source consensus.',
     icon: Crosshair,
     tone: 'text-rose-700 dark:text-rose-300 border-rose-500/30 bg-rose-500/10',
     pages: [
@@ -665,7 +665,6 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'BrandImpersonation',
       },
 
-
       {
         path: '/dfir/ironsight',
         tabId: 'ironsight',
@@ -921,7 +920,6 @@ export const HUB_META: readonly HubMeta[] = [
         keywords: ['iam', 'rbac', 'aws', 'gcp', 'azure', 'k8s', 'kubernetes', 'privilege', 'escalation'],
       },
 
-
       {
         path: '/dfir/sg-analyzer',
         tabId: 'sg-analyzer',
@@ -997,7 +995,6 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'AgentSuite',
         keywords: ['agent', 'investigator', 'enrich', 'map', 'ai', 'tool calls', 'exfil'],
       },
-
 
       {
         path: '/dfir/ai-threats',
@@ -1219,7 +1216,6 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Browser-routed Tor gateway for safe .onion lookups.',
         compVar: 'TorGateway',
       },
-
     ],
   },
   {

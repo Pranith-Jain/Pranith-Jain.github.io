@@ -8,15 +8,15 @@ const apps = [
     title: 'CRUCIBLE',
     subtitle: 'DFIR Toolkit',
     description:
-      'Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules, and more - 90+ tools that run in your browser.',
+      'Check if an indicator is malicious, investigate phishing, triage CVEs, convert detection rules, and more - 125+ tools that run in your browser.',
     rows: [
-      ['IOC checker', 'Paste an IP, domain, or hash → verdict from 24 sources'],
+      ['IOC checker', 'Paste an IP, domain, or hash → verdict from 60+ sources'],
       ['Common tasks', 'Phishing analysis · CVE triage · rule conversion'],
       ['How it works', 'Runs entirely in your browser - no data leaves your machine'],
     ],
     builtWith: ['Free', 'No signup', 'Client-side'],
     href: '/dfir',
-    stat: '90+',
+    stat: '125+',
     statLabel: 'tools',
     cta: 'Open CRUCIBLE',
   },

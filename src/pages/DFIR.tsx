@@ -71,7 +71,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
   {
     id: 'ioc-triage',
     label: 'IOC Triage',
-    description: 'Check IPs, domains, URLs, and hashes across 24+ sources. Get consensus verdicts in seconds.',
+    description: 'Check IPs, domains, URLs, and hashes across 60+ sources. Get consensus verdicts in seconds.',
     icon: Crosshair,
     href: '/dfir/catalog?cat=ioc-triage',
     tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',

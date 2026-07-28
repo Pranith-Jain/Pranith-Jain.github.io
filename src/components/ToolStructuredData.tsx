@@ -11,7 +11,7 @@ export function DfirStructuredData(): JSX.Element {
     name: 'CRUCIBLE',
     alternateName: 'DFIR & Security Toolkit',
     description:
-      'CRUCIBLE (DFIR & Security Toolkit) is a free, browser-side collection of 60-plus utilities for incident response, digital forensics, and detection engineering. IOC checks, CVE triage, rule conversion, and more.',
+      'CRUCIBLE (DFIR & Security Toolkit) is a free, browser-side collection of 125+ utilities for incident response, digital forensics, and detection engineering. IOC checks, CVE triage, rule conversion, and more.',
     url: 'https://pranithjain.qzz.io/dfir',
     applicationCategory: 'SecurityApplication',
     operatingSystem: 'Web Browser',
@@ -21,7 +21,7 @@ export function DfirStructuredData(): JSX.Element {
       priceCurrency: 'USD',
     },
     featureList: [
-      'IOC & Hash Checker - 24 sources',
+      'IOC & Hash Checker - 60+ sources',
       'Phishing Analysis',
       'CVE Prioritizer - CVSS + EPSS + KEV',
       'Detection Rule Converter - Sigma ↔ KQL ↔ SPL ↔ YARA',

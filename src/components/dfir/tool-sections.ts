@@ -161,7 +161,7 @@ export const SECTIONS: Section[] = [
     id: 'ioc-triage',
     group: 'core-dfir',
     label: 'IOC Triage',
-    blurb: 'Check, extract, and track indicators across 24+ sources.',
+    blurb: 'Check, extract, and track indicators across 60+ sources.',
     tools: [
       {
         path: '/dfir/ioc-investigate',

@@ -196,7 +196,7 @@ export default function ApkAnalyzer(): JSX.Element {
                 to={`/dfir/ioc-check?indicator=${result.sha256}`}
                 className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
               >
-                <Search size={11} /> Check hash in IOC Checker (24 sources)
+                <Search size={11} /> Check hash in IOC Checker (60+ sources)
               </Link>
               <Link
                 to={`/dfir/malware-scan?hash=${result.sha256}`}
@@ -296,7 +296,9 @@ export default function ApkAnalyzer(): JSX.Element {
               </h3>
               {result.analysis.urls.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-1">URLs ({result.analysis.urls.length})</div>
+                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-1">
+                    URLs ({result.analysis.urls.length})
+                  </div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.urls.map((u) => (
                       <span
@@ -311,7 +313,9 @@ export default function ApkAnalyzer(): JSX.Element {
               )}
               {result.analysis.ips.length > 0 && (
                 <div className="mb-2">
-                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-1">IPs ({result.analysis.ips.length})</div>
+                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-1">
+                    IPs ({result.analysis.ips.length})
+                  </div>
                   <div className="flex flex-wrap gap-1">
                     {result.analysis.ips.map((ip) => (
                       <span
