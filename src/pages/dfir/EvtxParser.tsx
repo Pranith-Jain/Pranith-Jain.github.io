@@ -160,7 +160,8 @@ export default function EvtxParser(): JSX.Element {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="filter strings - e.g. 4624, powershell, lateral host…"
-            className="w-full surface-card px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
+            aria-label="Filter parsed events by string"
+            className="w-full surface-card px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           />
           <ul className="space-y-2">
             {shown.map((r) => (

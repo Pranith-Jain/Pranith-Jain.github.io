@@ -248,7 +248,8 @@ export default function DfirCopilot(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Paste an IOC - IP, domain, hash, URL, email, or CVE…"
-              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              aria-label="Indicator of compromise to investigate"
+              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:focus:border-brand-400"
             />
           </div>
           <button

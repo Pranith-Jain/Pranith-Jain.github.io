@@ -104,7 +104,8 @@ export default function StealerParser(): JSX.Element {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste stealer log content here…"
-          className="w-full h-48 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-4 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
+          aria-label="Stealer log content to parse"
+          className="w-full h-48 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl p-4 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="flex items-center justify-between mt-3">
           <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
@@ -305,7 +306,9 @@ function StatCard({
     <div className="surface-card/40 shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-1.5">
         {icon && <span className={color ?? 'text-slate-500 dark:text-slate-400'}>{icon}</span>}
-        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</span>
+        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          {label}
+        </span>
       </div>
       <div className={`text-2xl font-display font-bold ${color ?? 'text-slate-900 dark:text-white'}`}>
         {value.toLocaleString()}
