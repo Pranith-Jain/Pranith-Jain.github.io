@@ -21,7 +21,6 @@ export async function threatHuntHandler(c: Context<{ Bindings: Env }>): Promise<
 
     // Check Telegram leaks for domains/emails
     let telegramLeakHits = 0;
-    const breachHits = 0;
 
     if (db) {
       if (isEmail) {
@@ -51,7 +50,6 @@ export async function threatHuntHandler(c: Context<{ Bindings: Env }>): Promise<
         q,
         type,
         telegram_leak_hits: telegramLeakHits,
-        breach_hits: breachHits,
         ioc_link: `/api/v1/ioc/check?indicator=${encodeURIComponent(q)}`,
         hunt_link: `/dfir/ioc-investigate?indicator=${encodeURIComponent(q)}`,
       },

@@ -26,7 +26,7 @@ const PAGES = [
     name: 'Threat Intel Catalog',
     desc: 'Browse all threat intelligence pages and dashboards.',
   },
-  { path: '/dfir/ioc-check', name: 'IOC Checker', desc: 'Check any indicator across 24 sources instantly.' },
+  { path: '/dfir/ioc-check', name: 'IOC Checker', desc: 'Check any indicator across 60+ sources instantly.' },
   {
     path: '/threatintel/actors/hub',
     name: 'Threat Actor Database',

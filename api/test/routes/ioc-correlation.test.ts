@@ -57,6 +57,6 @@ describe('IOC correlation — telegram-leak source integration', () => {
     expect(body.hashes).toEqual([]);
     // Some stubbed feeds return 200 with content-type=json which
     // makes the parsers skip them; we only assert the new source is present.
-    expect(body.sources.length).toBeGreaterThanOrEqual(22);
+    expect(body.sources.length).toBeGreaterThanOrEqual(21);
   });
 });

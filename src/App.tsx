@@ -51,8 +51,6 @@ const CaseStudy = lazy(() => import('./pages/CaseStudy'));
 const ResearchPostPage = lazy(() => import('./pages/threatintel/ResearchPost'));
 const DFIR = lazy(() => import('./pages/DFIR'));
 
-const LoginPage = lazy(() => import('./pages/auth/LoginPage'));
-const RegisterPage = lazy(() => import('./pages/auth/RegisterPage'));
 const Phishing = lazy(() => import('./pages/dfir/Phishing'));
 const Exposure = lazy(() => import('./pages/dfir/Exposure'));
 const AssetIntel = lazy(() => import('./pages/dfir/AssetIntel'));
@@ -318,11 +316,8 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const CampaignDetail = lazy(() => import('./pages/threatintel/CampaignDetail'));
 const OrklPage = lazy(() => import('./pages/dfir/Orkl'));
 const AbuseRepPage = lazy(() => import('./pages/dfir/AbuseRep'));
-const BehindTheReports = lazy(() => import('./pages/BehindTheReports'));
-const Sponsor = lazy(() => import('./pages/Sponsor'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
-const Snapshots = lazy(() => import('./pages/Snapshots'));
 const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
 const AdminAnalyticsDashboard = lazy(() => import('./pages/admin/AnalyticsDashboard'));
 const EstateConfig = lazy(() => import('./pages/threatintel/EstateConfig'));
@@ -361,16 +356,6 @@ const DfirVs = lazy(() => import('./pages/dfir/Vs'));
 const RadarHome = lazy(() => import('./pages/radar/Home'));
 const RadarScanResults = lazy(() => import('./pages/radar/ScanResults'));
 const ArgusPage = lazy(() => import('./pages/Argus'));
-const OsintHub = lazy(() => import('./pages/osint/OsintHub'));
-const DomainInvestigation = lazy(() => import('./pages/osint/DomainInvestigation'));
-const IpInvestigation = lazy(() => import('./pages/osint/IpInvestigation'));
-const UsernameOsint = lazy(() => import('./pages/osint/UsernameOsint'));
-const EmailInvestigation = lazy(() => import('./pages/osint/EmailInvestigation'));
-const PhoneInvestigation = lazy(() => import('./pages/osint/PhoneInvestigation'));
-const ReconToolkit = lazy(() => import('./pages/osint/ReconToolkit'));
-const DnsInvestigation = lazy(() => import('./pages/osint/DnsInvestigation'));
-const SubdomainDiscovery = lazy(() => import('./pages/osint/SubdomainDiscovery'));
-const WhoisHistoryOsint = lazy(() => import('./pages/osint/WhoisHistory'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -420,27 +405,12 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/experience', Component: Experience },
   { path: '/projects', Component: Projects },
   { path: '/projects/:slug', Component: CaseStudy },
-  { path: '/behind-the-reports', Component: BehindTheReports },
-  { path: '/auth/login', Component: LoginPage },
-  { path: '/auth/register', Component: RegisterPage },
-  { path: '/sponsor', Component: Sponsor },
   { path: '/blog', Component: Blog },
   { path: '/blog/c/:type', Component: Blog },
   { path: '/blog/t/:tag', Component: Blog },
   { path: '/blog/:slug', Component: BlogPost },
-  { path: '/snapshots', Component: Snapshots },
   { path: '/mcp', Component: McpCatalog },
   { path: '/status', Component: Status },
-  { path: '/osint', Component: OsintHub },
-  { path: '/osint/domain', Component: DomainInvestigation },
-  { path: '/osint/ip', Component: IpInvestigation },
-  { path: '/osint/username', Component: UsernameOsint },
-  { path: '/osint/email', Component: EmailInvestigation },
-  { path: '/osint/phone', Component: PhoneInvestigation },
-  { path: '/osint/recon', Component: ReconToolkit },
-  { path: '/osint/dns', Component: DnsInvestigation },
-  { path: '/osint/subdomain', Component: SubdomainDiscovery },
-  { path: '/osint/whois', Component: WhoisHistoryOsint },
   { path: '/threat-intel', Component: ThreatIntel },
   { path: '/daily-briefs', Component: DailyBriefs },
   { path: '/dfir/ai-threats', Component: AIThreats },
@@ -767,6 +737,8 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/dfir/agent', to: '/dfir/agent-suite' },
   { path: '/dfir/agent-enrich', to: '/dfir/agent-suite' },
   { path: '/dfir/agent-map', to: '/dfir/agent-suite' },
+  { path: '/agent', to: '/dfir/agent-suite' },
+  { path: '/osint', to: '/dfir' },
   { path: '/dfir/reverse-image', to: '/dfir/image-intel' },
   { path: '/dfir/image-fingerprint', to: '/dfir/image-intel' },
   { path: '/dfir/screenshot-intel', to: '/dfir/image-intel' },
@@ -795,7 +767,6 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/dfir/discord-watch', to: '/threatintel/catalog?cat=social' },
   { path: '/dfir/industry-news', to: '/threatintel/catalog?cat=social' },
   { path: '/difr', to: '/dfir' },
-  { path: '/live', to: '/snapshots' },
   { path: '/osint-tools', to: '/threatintel/osint/cli' },
   { path: '/threatnexus/', to: '/argus' },
   { path: '/threatnexus', to: '/argus' },

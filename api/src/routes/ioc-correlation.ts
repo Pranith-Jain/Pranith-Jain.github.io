@@ -196,12 +196,12 @@ export async function fetchIocCorrelation(env?: Env): Promise<IocCorrelationResp
 
   // Third batch — active-C2 + curated-OSINT sources added 2026-05-18.
   // SSLBL = abuse.ch botnet-C2 IPs (malicious-SSL pinned); drb-ra
-  // domainC2s = C2 domains (complements the existing IPC2s); Botvrij =
-  // curated OSINT domains.
-  const [sslblText, c2DomainText, _botvrijDomainText, mtiIocResult] = await Promise.all([
+  // domainC2s = C2 domains (complements the existing IPC2s).
+  // (Botvrij domain feed removed — the data was fetched but never parsed
+  // into a bucket, wasting a subrequest. Re-add with a parser if needed.)
+  const [sslblText, c2DomainText, mtiIocResult] = await Promise.all([
     fetchText('https://sslbl.abuse.ch/blacklist/sslipblacklist.csv'),
     fetchText('https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/domainC2s.csv'),
-    fetchText('https://www.botvrij.eu/data/ioclist.domain'),
     // MyThreatIntel file-hash IOCs — a hash present here AND in another
     // hash feed (MalwareBazaar / ThreatFox) becomes a correlated indicator.
     env
