@@ -50,7 +50,9 @@ threatIntelRouter.get('/threat-intel/cves', async (c) => {
   try {
     const mod = await loadTiMod();
     const idx = await mod.loadTiIndex(c.env.ASSETS);
-    const severity = c.req.query('severity');
+    const VALID_SEVERITIES = ['critical', 'high', 'medium', 'low', 'unknown'];
+    const severityRaw = c.req.query('severity');
+    const severity = severityRaw && VALID_SEVERITIES.includes(severityRaw) ? (severityRaw as any) : undefined;
     const kevOnly = c.req.query('kev_only') === 'true';
     const vendor = c.req.query('vendor');
     const daysBackRaw = c.req.query('days_back');
@@ -64,7 +66,7 @@ threatIntelRouter.get('/threat-intel/cves', async (c) => {
     const limit = limitRaw ? Math.min(1000, Math.max(1, Number(limitRaw) || 100)) : undefined;
 
     const cves = mod.filterCves(idx, {
-      severity: severity as any,
+      severity,
       kevOnly: kevOnly || undefined,
       vendor: vendor || undefined,
       daysBack,
