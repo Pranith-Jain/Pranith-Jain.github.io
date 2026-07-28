@@ -327,7 +327,7 @@ export class InvestigatorAgentDO {
     // Build or restore working memory from previous steps.
     // This carries IOCs, MITRE techniques, key facts, and gaps across steps
     // so the planner has full context for better tool selection.
-    let workingMemory = this.buildWorkingMemory(state);
+    const workingMemory = this.buildWorkingMemory(state);
 
     // ── COST TRACKING ────────────────────────────────────────────────
     // Track token usage and costs per investigation.
@@ -481,20 +481,15 @@ export class InvestigatorAgentDO {
       // ── OBSERVE ──────────────────────────────────────────────────────
       const observation = await observeStep(ai, stepNum, plan.reasoning, results, { groqKey, googleKey, nvidiaKey });
       step.observation = observation.observation;
+      step.observerFindings = {
+        iocs: observation.iocs,
+        mitre: observation.mitre,
+        keyFacts: observation.keyFacts,
+        confidence: observation.confidence,
+        gaps: observation.gaps,
+      };
       step.nextAction = 'continue';
       step.status = 'done';
-
-      // Update working memory with observer findings
-      workingMemory = mergeIntoMemory(workingMemory, stepNum, [
-        {
-          tool: plan.toolCalls[0]?.tool ?? 'unknown',
-          iocs: observation.iocs,
-          mitre: observation.mitre,
-          keyFacts: observation.keyFacts,
-          confidence: observation.confidence,
-          gaps: observation.gaps,
-        },
-      ]);
 
       state.steps.push(step);
       state.currentStep = stepNum;
@@ -544,20 +539,15 @@ export class InvestigatorAgentDO {
 
     const observation = await observeStep(ai, stepNum, plan.reasoning, results, { groqKey, googleKey, nvidiaKey });
     step.observation = observation.observation;
+    step.observerFindings = {
+      iocs: observation.iocs,
+      mitre: observation.mitre,
+      keyFacts: observation.keyFacts,
+      confidence: observation.confidence,
+      gaps: observation.gaps,
+    };
     step.nextAction = 'continue';
     step.status = 'done';
-
-    // Update working memory with observer findings
-    workingMemory = mergeIntoMemory(workingMemory, stepNum, [
-      {
-        tool: plan.toolCalls[0]?.tool ?? 'unknown',
-        iocs: observation.iocs,
-        mitre: observation.mitre,
-        keyFacts: observation.keyFacts,
-        confidence: observation.confidence,
-        gaps: observation.gaps,
-      },
-    ]);
 
     state.steps.push(step);
     state.currentStep = stepNum;
@@ -666,23 +656,54 @@ export class InvestigatorAgentDO {
 
   /**
    * Build working memory from the current state's steps.
-   * Extracts IOCs, MITRE techniques, key facts, and gaps from observer outputs.
+   * Prefers the structured observer findings persisted on each step (so
+   * accumulated IOCs/MITRE/facts survive across alarm invocations); falls back
+   * to any structured fields exposed directly on raw tool data.
    */
   private buildWorkingMemory(state: AgentState): WorkingMemory {
     let mem = createWorkingMemory();
     for (const step of state.steps) {
-      if (!step.results) continue;
-      const toolData = step.results
-        .filter((r) => r.status === 'ok')
-        .map((r) => ({
-          tool: r.tool,
-          iocs: (r.data as Record<string, unknown>)?.iocs as string[] | undefined,
-          mitre: (r.data as Record<string, unknown>)?.mitre as string[] | undefined,
-          keyFacts: (r.data as Record<string, unknown>)?.keyFacts as string[] | undefined,
-          confidence: (r.data as Record<string, unknown>)?.confidence as string | undefined,
-          gaps: (r.data as Record<string, unknown>)?.gaps as string[] | undefined,
-        }));
-      mem = mergeIntoMemory(mem, step.stepNumber, toolData);
+      const entries: Array<{
+        tool: string;
+        iocs?: string[];
+        mitre?: string[];
+        keyFacts?: string[];
+        confidence?: string;
+        gaps?: string[];
+      }> = [];
+
+      if (step.observerFindings) {
+        const toolNames = [...new Set((step.results ?? []).map((r) => r.tool))].join('+') || 'observer';
+        entries.push({
+          tool: toolNames,
+          iocs: step.observerFindings.iocs,
+          mitre: step.observerFindings.mitre,
+          keyFacts: step.observerFindings.keyFacts,
+          confidence: step.observerFindings.confidence,
+          gaps: step.observerFindings.gaps,
+        });
+      }
+
+      for (const r of step.results ?? []) {
+        if (r.status !== 'ok' || !r.data || typeof r.data !== 'object') continue;
+        const data = r.data as Record<string, unknown>;
+        const iocs = Array.isArray(data.iocs) ? (data.iocs as string[]) : undefined;
+        const mitre = Array.isArray(data.mitre) ? (data.mitre as string[]) : undefined;
+        const keyFacts = Array.isArray(data.keyFacts) ? (data.keyFacts as string[]) : undefined;
+        const gaps = Array.isArray(data.gaps) ? (data.gaps as string[]) : undefined;
+        if (iocs || mitre || keyFacts || gaps) {
+          entries.push({
+            tool: r.tool,
+            iocs,
+            mitre,
+            keyFacts,
+            confidence: typeof data.confidence === 'string' ? data.confidence : undefined,
+            gaps,
+          });
+        }
+      }
+
+      if (entries.length > 0) mem = mergeIntoMemory(mem, step.stepNumber, entries);
     }
     return mem;
   }
@@ -793,10 +814,16 @@ export class InvestigatorAgentDO {
           // Re-synthesize with the correction prompt appended
           const { report: correctedText, modelUsed: correctedModel } = await synthesizeReport(
             ai,
-            correctionPrompt,
+            state.query,
             state.queryType,
             state.steps,
-            { groqKey, googleKey, nvidiaKey, dataQuality: { totalOk, totalErr, emptyResults } }
+            {
+              groqKey,
+              googleKey,
+              nvidiaKey,
+              dataQuality: { totalOk, totalErr, emptyResults },
+              correctionPrompt,
+            }
           );
 
           const { report: correctedProse, actionCard: correctedCard } = splitSynthOutput(correctedText);

@@ -421,7 +421,7 @@ export default function BlogPost() {
                 {post.tags.map((t) => (
                   <Link
                     key={t}
-                    to={`/blog/c/${t}`}
+                    to={`/blog/t/${t}`}
                     className="rounded border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-mini font-mono text-slate-600 hover:text-brand-600 hover:border-brand-300 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:text-brand-400 dark:hover:border-brand-500/40 transition-colors"
                   >
                     {t}

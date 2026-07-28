@@ -175,8 +175,15 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
   },
   {
     path: '/blog/c/:type',
-    label: 'Blog (filtered)',
-    description: 'Blog index pre-filtered by category or tag.',
+    label: 'Blog (by category)',
+    description: 'Blog index pre-filtered by case-study category (CVE, actor, malware, etc.).',
+    sectionLabel: 'Portfolio',
+    group: 'blog',
+  },
+  {
+    path: '/blog/t/:tag',
+    label: 'Blog (by tag)',
+    description: 'Blog index pre-filtered by a single tag - shareable landing page for a topic.',
     sectionLabel: 'Portfolio',
     group: 'blog',
   },
@@ -1842,7 +1849,8 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
   {
     path: '/argus',
     label: 'ARGUS',
-    description: 'Nation-state threat intelligence dashboard - 3D globe, actor dossiers, relationship graphs, and live threat feeds.',
+    description:
+      'Nation-state threat intelligence dashboard - 3D globe, actor dossiers, relationship graphs, and live threat feeds.',
     sectionLabel: 'Threat Intel · Adjacent apps',
     group: 'threatintel',
     keywords: ['argus', 'threatnexus', 'dashboard', 'pivot', 'actor', 'malware', 'cve', 'globe'],

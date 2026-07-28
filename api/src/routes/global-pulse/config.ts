@@ -78,3 +78,9 @@ export const CACHE_TTL = 300;
 // subrequest cap → HTTP 503). KV is global, so any colo can serve the last
 // successful build with one cheap read. Rewritten on every successful build.
 export const GP_RESPONSE_KEY = 'gp:response:v2';
+// TTL for the global KV fallback above. Must outlive the build cadence (hourly
+// cron) so cold colos and the GlobalPulse Durable Object can still read the last
+// successful build between builds. CACHE_TTL (300s) is only right for the
+// per-colo Cache-API entry; reusing it here made the KV entry expire ~5 min after
+// each build, leaving the WS live feed empty for ~55 min of every hour.
+export const GP_RESPONSE_TTL = 7200;

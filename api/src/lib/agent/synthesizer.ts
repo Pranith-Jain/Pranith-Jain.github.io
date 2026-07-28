@@ -33,7 +33,18 @@ export async function synthesizeReport(
   query: string,
   queryType: string,
   steps: AgentStep[],
-  opts: { groqKey?: string; googleKey?: string; nvidiaKey?: string; dataQuality?: DataQuality }
+  opts: {
+    groqKey?: string;
+    googleKey?: string;
+    nvidiaKey?: string;
+    dataQuality?: DataQuality;
+    /**
+     * When set, used verbatim as the user prompt (a full self-correction
+     * instruction) instead of building one from `query`. Keeps the original
+     * query out of the revised report's prompt.
+     */
+    correctionPrompt?: string;
+  }
 ): Promise<SynthesizerOutput> {
   const dq = opts.dataQuality ?? {
     totalOk: steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0),
@@ -69,9 +80,11 @@ export async function synthesizeReport(
   const system = useMinimal
     ? buildMinimalSynthesizerPrompt(currentDate)
     : buildSynthesizerSystemPrompt(queryType, currentDate);
-  const user = useMinimal
-    ? buildSynthesizerUserPrompt(query, queryType, steps)
-    : buildSynthesizerUserPrompt(query, queryType, steps) + dataWarning;
+  const user = opts.correctionPrompt
+    ? opts.correctionPrompt
+    : useMinimal
+      ? buildSynthesizerUserPrompt(query, queryType, steps)
+      : buildSynthesizerUserPrompt(query, queryType, steps) + dataWarning;
   const input: CompletionInput = { system, user, maxTokens: useMinimal ? 2000 : 8000, temperature: 0.3 };
 
   const { text, modelUsed } = await runCompletion(ai, input, {

@@ -6,8 +6,11 @@ interface PulseSnapshot {
   timestamp: string;
 }
 
-const GP_CACHE_KEY = 'https://global-pulse-cache.internal/v22-cyber-tech-geo';
-const GP_KV_KEY = 'gp:response:v1';
+import {
+  GLOBAL_PULSE_CACHE as GP_CACHE_KEY,
+  GP_RESPONSE_KEY as GP_KV_KEY,
+} from '../../api/src/routes/global-pulse/config';
+
 const MAX_CONNECTIONS = 50;
 
 export class GlobalPulseDO {

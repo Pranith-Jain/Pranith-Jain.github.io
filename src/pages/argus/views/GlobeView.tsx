@@ -4,6 +4,7 @@ import { Waypoints } from 'lucide-react';
 import type { Actor } from '../types';
 import { COUNTRIES, NATION_PALETTE } from '../data/countries';
 import { WORLD_GEOJSON, geoRingTo3D } from '../data/world-map';
+import { loadWorldCountries, ALPHA2_TO_NUMERIC, type WorldCountry } from '../data/world-topo';
 
 interface Props {
   actors: Actor[];
@@ -13,11 +14,7 @@ interface Props {
 function latLngToVec3(lat: number, lng: number, r: number, out: THREE.Vector3) {
   const phi = (90 - lat) * (Math.PI / 180);
   const theta = (lng + 180) * (Math.PI / 180);
-  out.set(
-    -r * Math.sin(phi) * Math.cos(theta),
-    r * Math.cos(phi),
-    r * Math.sin(phi) * Math.sin(theta),
-  );
+  out.set(-r * Math.sin(phi) * Math.cos(theta), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
   return out;
 }
 
@@ -30,6 +27,9 @@ export function GlobeView({ actors, onOpen }: Props) {
   const mountRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState<{ actor: Actor; x: number; y: number } | null>(null);
   const [showArcs, setShowArcs] = useState(true);
+  const [worldReady, setWorldReady] = useState(false);
+
+  const worldRef = useRef<WorldCountry[] | null>(null);
 
   const stateRef = useRef<{
     camera: THREE.PerspectiveCamera;
@@ -40,6 +40,10 @@ export function GlobeView({ actors, onOpen }: Props) {
     dragging: boolean;
     pickTargets: { mesh: THREE.Mesh; actor: Actor }[];
     alive: boolean;
+    baseLand: THREE.Line[];
+    mapHighlights: THREE.Line[];
+    arcs: THREE.Line[];
+    markerMeshes: THREE.Object3D[];
   } | null>(null);
 
   // Scene setup — runs once
@@ -144,14 +148,19 @@ export function GlobeView({ actors, onOpen }: Props) {
     });
     globeGroup.add(new THREE.Mesh(new THREE.SphereGeometry(1.15, 48, 36), atmoMat));
 
-    // Continent outlines
+    // Continent outlines — simplified bundled outlines render immediately as a
+    // base layer; they are swapped for accurate Natural Earth borders once the
+    // world TopoJSON loads (see the loadWorldCountries effect below).
     const outlineMat = new THREE.LineBasicMaterial({ color: 0x2c3e6b, transparent: true, opacity: 0.3 });
+    const baseLand: THREE.Line[] = [];
     for (const feature of WORLD_GEOJSON) {
       for (const ring of feature.rings) {
         const pts = geoRingTo3D(ring, 1.003);
-        const vecs = pts.map(p => new THREE.Vector3(p.x, p.y, p.z));
+        const vecs = pts.map((p) => new THREE.Vector3(p.x, p.y, p.z));
         const geo = new THREE.BufferGeometry().setFromPoints(vecs);
-        globeGroup.add(new THREE.Line(geo, outlineMat));
+        const line = new THREE.Line(geo, outlineMat);
+        globeGroup.add(line);
+        baseLand.push(line);
       }
     }
 
@@ -184,14 +193,19 @@ export function GlobeView({ actors, onOpen }: Props) {
     // Drag
     let dragging = false;
     let lastX = 0;
-    const onDown = (e: PointerEvent) => { dragging = true; lastX = e.clientX; };
+    const onDown = (e: PointerEvent) => {
+      dragging = true;
+      lastX = e.clientX;
+    };
     const onMove = (e: PointerEvent) => {
       if (dragging) {
         globeGroup.rotation.y += (e.clientX - lastX) * 0.005;
         lastX = e.clientX;
       }
     };
-    const onUp = () => { dragging = false; };
+    const onUp = () => {
+      dragging = false;
+    };
     renderer.domElement.addEventListener('pointerdown', onDown);
     window.addEventListener('pointermove', onMove);
     window.addEventListener('pointerup', onUp);
@@ -209,7 +223,7 @@ export function GlobeView({ actors, onOpen }: Props) {
       if (e.touches.length === 2) {
         pinchDist = Math.hypot(
           e.touches[0]!.clientX - e.touches[1]!.clientX,
-          e.touches[0]!.clientY - e.touches[1]!.clientY,
+          e.touches[0]!.clientY - e.touches[1]!.clientY
         );
       }
     };
@@ -218,7 +232,7 @@ export function GlobeView({ actors, onOpen }: Props) {
         e.preventDefault();
         const dist = Math.hypot(
           e.touches[0]!.clientX - e.touches[1]!.clientX,
-          e.touches[0]!.clientY - e.touches[1]!.clientY,
+          e.touches[0]!.clientY - e.touches[1]!.clientY
         );
         camera.position.z = Math.max(1.8, Math.min(6, camera.position.z + (pinchDist - dist) * 0.008));
         pinchDist = dist;
@@ -228,8 +242,18 @@ export function GlobeView({ actors, onOpen }: Props) {
     renderer.domElement.addEventListener('touchmove', onTouchMove, { passive: false });
 
     stateRef.current = {
-      camera, scene, renderer, globeGroup, raf: 0,
-      dragging: false, pickTargets: [], alive: true,
+      camera,
+      scene,
+      renderer,
+      globeGroup,
+      raf: 0,
+      dragging: false,
+      pickTargets: [],
+      alive: true,
+      baseLand,
+      mapHighlights: [],
+      arcs: [],
+      markerMeshes: [],
     };
     tick();
 
@@ -251,6 +275,36 @@ export function GlobeView({ actors, onOpen }: Props) {
     };
   }, []);
 
+  // Load accurate Natural Earth borders and swap them in for the simplified
+  // bundled outlines. Runs once; the actor-country highlights are drawn by the
+  // actors effect below (keyed on worldReady so they re-render after load).
+  useEffect(() => {
+    let cancelled = false;
+    loadWorldCountries().then((countries) => {
+      if (cancelled || !countries) return;
+      const s = stateRef.current;
+      if (!s) return;
+      worldRef.current = countries;
+
+      // Drop the simplified base continents.
+      for (const line of s.baseLand) s.globeGroup.remove(line);
+      s.baseLand = [];
+
+      // Draw every country border as an accurate, subtle line.
+      const borderMat = new THREE.LineBasicMaterial({ color: 0x33436e, transparent: true, opacity: 0.38 });
+      for (const c of countries) {
+        for (const ring of c.rings) {
+          const vecs = geoRingTo3D(ring, 1.003).map((p) => new THREE.Vector3(p.x, p.y, p.z));
+          s.globeGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(vecs), borderMat));
+        }
+      }
+      setWorldReady(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   // Update markers + arcs when actors change
   useEffect(() => {
     const s = stateRef.current;
@@ -259,13 +313,44 @@ export function GlobeView({ actors, onOpen }: Props) {
     // Clear old markers
     for (const pt of s.pickTargets) s.globeGroup.remove(pt.mesh);
     s.pickTargets = [];
+    for (const m of s.markerMeshes) s.globeGroup.remove(m);
+    s.markerMeshes = [];
 
-    // Clear old arcs (lines)
-    const toRemove: THREE.Object3D[] = [];
-    s.globeGroup.children.forEach(c => {
-      if ((c as THREE.Line).isLine) toRemove.push(c);
-    });
-    toRemove.forEach(c => s.globeGroup.remove(c));
+    // Clear old arcs + country highlights (tracked explicitly so the accurate
+    // border lines drawn by the world-map effect are never touched).
+    for (const line of s.arcs) s.globeGroup.remove(line);
+    s.arcs = [];
+    for (const line of s.mapHighlights) s.globeGroup.remove(line);
+    s.mapHighlights = [];
+
+    // Highlight home nations of the currently visible actors in their
+    // attribution colour, drawn just above the border lines.
+    if (worldReady && worldRef.current) {
+      const numericToColor = new Map<string, string>();
+      for (const a of actors) {
+        const num = ALPHA2_TO_NUMERIC[a.country];
+        if (num && !numericToColor.has(num)) {
+          numericToColor.set(num, (NATION_PALETTE[a.country] ?? NATION_PALETTE.XX!).color);
+        }
+      }
+      if (numericToColor.size > 0) {
+        for (const c of worldRef.current) {
+          const color = numericToColor.get(c.id);
+          if (!color) continue;
+          const hlMat = new THREE.LineBasicMaterial({
+            color: new THREE.Color(color),
+            transparent: true,
+            opacity: 0.85,
+          });
+          for (const ring of c.rings) {
+            const vecs = geoRingTo3D(ring, 1.006).map((p) => new THREE.Vector3(p.x, p.y, p.z));
+            const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(vecs), hlMat);
+            s.globeGroup.add(line);
+            s.mapHighlights.push(line);
+          }
+        }
+      }
+    }
 
     // Group actors by country
     const countryActors: Record<string, Actor[]> = {};
@@ -285,33 +370,48 @@ export function GlobeView({ actors, onOpen }: Props) {
 
       // Pulse glow
       const pulseMat = new THREE.MeshBasicMaterial({
-        color: new THREE.Color(nation.color), transparent: true, opacity: 0.08,
+        color: new THREE.Color(nation.color),
+        transparent: true,
+        opacity: 0.08,
       });
       const pulse = new THREE.Mesh(new THREE.SphereGeometry(radius * 2.5, 16, 16), pulseMat);
       pulse.position.copy(v);
       s.globeGroup.add(pulse);
+      s.markerMeshes.push(pulse);
 
       // Main marker
       const mat = new THREE.MeshBasicMaterial({ color: new THREE.Color(nation.color) });
       const mesh = new THREE.Mesh(new THREE.SphereGeometry(radius, 16, 16), mat);
       mesh.position.copy(v);
       s.globeGroup.add(mesh);
+      s.markerMeshes.push(mesh);
       s.pickTargets.push({ mesh, actor: list[0]! });
 
       if (isMulti) {
         const ring = new THREE.Mesh(
           new THREE.RingGeometry(radius * 1.5, radius * 1.9, 32),
-          new THREE.MeshBasicMaterial({ color: new THREE.Color(nation.color), transparent: true, opacity: 0.35, side: THREE.DoubleSide }),
+          new THREE.MeshBasicMaterial({
+            color: new THREE.Color(nation.color),
+            transparent: true,
+            opacity: 0.35,
+            side: THREE.DoubleSide,
+          })
         );
         ring.position.copy(v);
         ring.lookAt(0, 0, 0);
         s.globeGroup.add(ring);
+        s.markerMeshes.push(ring);
 
         for (let i = 1; i < list.length && i < 3; i++) {
-          const off = new THREE.Vector3((Math.random() - 0.5) * 0.02, (Math.random() - 0.5) * 0.02, (Math.random() - 0.5) * 0.02);
+          const off = new THREE.Vector3(
+            (Math.random() - 0.5) * 0.02,
+            (Math.random() - 0.5) * 0.02,
+            (Math.random() - 0.5) * 0.02
+          );
           const smallMesh = new THREE.Mesh(new THREE.SphereGeometry(radius * 0.6, 12, 12), mat.clone());
           smallMesh.position.copy(v).add(off);
           s.globeGroup.add(smallMesh);
+          s.markerMeshes.push(smallMesh);
           s.pickTargets.push({ mesh: smallMesh, actor: list[i]! });
         }
       }
@@ -340,14 +440,17 @@ export function GlobeView({ actors, onOpen }: Props) {
             const lineGeo = new THREE.BufferGeometry().setFromPoints(curve.getPoints(48));
             const lineMat = new THREE.LineBasicMaterial({
               color: new THREE.Color(NATION_PALETTE[srcCode]?.color ?? '#5b8def'),
-              transparent: true, opacity: 0.2,
+              transparent: true,
+              opacity: 0.2,
             });
-            s.globeGroup.add(new THREE.Line(lineGeo, lineMat));
+            const arcLine = new THREE.Line(lineGeo, lineMat);
+            s.globeGroup.add(arcLine);
+            s.arcs.push(arcLine);
           }
         }
       }
     }
-  }, [actors, showArcs]);
+  }, [actors, showArcs, worldReady]);
 
   // Hover + click detection
   useEffect(() => {
@@ -361,9 +464,12 @@ export function GlobeView({ actors, onOpen }: Props) {
       mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
       raycaster.setFromCamera(mouse, s.camera);
-      const hits = raycaster.intersectObjects(s.pickTargets.map(p => p.mesh), false);
+      const hits = raycaster.intersectObjects(
+        s.pickTargets.map((p) => p.mesh),
+        false
+      );
       if (hits.length > 0) {
-        const target = s.pickTargets.find(p => p.mesh === hits[0]!.object);
+        const target = s.pickTargets.find((p) => p.mesh === hits[0]!.object);
         if (target) {
           s.renderer.domElement.style.cursor = 'pointer';
           setHovered({ actor: target.actor, x: e.clientX - rect.left, y: e.clientY - rect.top });
@@ -379,9 +485,12 @@ export function GlobeView({ actors, onOpen }: Props) {
       mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
       raycaster.setFromCamera(mouse, s.camera);
-      const hits = raycaster.intersectObjects(s.pickTargets.map(p => p.mesh), false);
+      const hits = raycaster.intersectObjects(
+        s.pickTargets.map((p) => p.mesh),
+        false
+      );
       if (hits.length > 0) {
-        const target = s.pickTargets.find(p => p.mesh === hits[0]!.object);
+        const target = s.pickTargets.find((p) => p.mesh === hits[0]!.object);
         if (target) onOpen(target.actor);
       }
     };
@@ -404,25 +513,28 @@ export function GlobeView({ actors, onOpen }: Props) {
               (acc[a.country] ??= []).push(a);
               return acc;
             }, {})
-          ).sort(([, a], [, b]) => b.length - a.length).map(([code, list]) => {
-            const n = NATION_PALETTE[code] ?? NATION_PALETTE.XX!;
-            return (
-              <button
-                key={code}
-                onClick={() => onOpen(list[0]!)}
-                className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg hover:bg-white/5 text-left transition-all duration-200"
-              >
-                <span className="h-3 w-3 rounded-full shrink-0" style={{ background: n.color, boxShadow: `0 0 10px ${n.color}66` }} />
-                <div className="flex-1 min-w-0">
-                  <div className="text-[12.5px] text-slate-100 truncate">{n.name}</div>
-                  <div className="text-micro font-mono text-slate-400">
-                    {list.map(a => a.name).join(', ')}
+          )
+            .sort(([, a], [, b]) => b.length - a.length)
+            .map(([code, list]) => {
+              const n = NATION_PALETTE[code] ?? NATION_PALETTE.XX!;
+              return (
+                <button
+                  key={code}
+                  onClick={() => onOpen(list[0]!)}
+                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg hover:bg-white/5 text-left transition-all duration-200"
+                >
+                  <span
+                    className="h-3 w-3 rounded-full shrink-0"
+                    style={{ background: n.color, boxShadow: `0 0 10px ${n.color}66` }}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[12.5px] text-slate-100 truncate">{n.name}</div>
+                    <div className="text-micro font-mono text-slate-400">{list.map((a) => a.name).join(', ')}</div>
                   </div>
-                </div>
-                <span className="text-mini font-mono text-slate-400 shrink-0">{list.length}</span>
-              </button>
-            );
-          })}
+                  <span className="text-mini font-mono text-slate-400 shrink-0">{list.length}</span>
+                </button>
+              );
+            })}
         </div>
         <div className="text-eyebrow font-mono text-slate-400 mt-6 mb-2">Controls</div>
         <div className="text-mini text-slate-400 leading-relaxed space-y-1">
@@ -441,14 +553,16 @@ export function GlobeView({ actors, onOpen }: Props) {
             <div className="text-micro font-mono uppercase tracking-wider text-slate-400">actors</div>
           </div>
           <div className="globe-card px-2.5 sm:px-3 py-1.5">
-            <div className="font-mono text-xl sm:text-2xl font-bold text-slate-100">{new Set(actors.map(a => a.country)).size}</div>
+            <div className="font-mono text-xl sm:text-2xl font-bold text-slate-100">
+              {new Set(actors.map((a) => a.country)).size}
+            </div>
             <div className="text-micro font-mono uppercase tracking-wider text-slate-400">nations</div>
           </div>
         </div>
 
         <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex gap-2">
           <button
-            onClick={() => setShowArcs(s => !s)}
+            onClick={() => setShowArcs((s) => !s)}
             aria-pressed={showArcs}
             className={`inline-flex items-center gap-1.5 h-8 px-3 rounded-lg border text-tool font-medium transition-colors ${
               showArcs
@@ -464,7 +578,10 @@ export function GlobeView({ actors, onOpen }: Props) {
         {hovered && (
           <div
             className="globe-card px-3 py-2.5 text-tool pointer-events-none absolute z-10 min-w-[160px]"
-            style={{ left: Math.min(hovered.x + 14, (mountRef.current?.clientWidth ?? 600) - 200), top: hovered.y + 14 }}
+            style={{
+              left: Math.min(hovered.x + 14, (mountRef.current?.clientWidth ?? 600) - 200),
+              top: hovered.y + 14,
+            }}
           >
             <div className="font-semibold text-slate-100">{hovered.actor.name}</div>
             <div className="text-slate-400 font-mono text-[11px] mt-0.5">

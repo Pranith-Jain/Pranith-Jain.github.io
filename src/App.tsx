@@ -413,6 +413,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/sponsor', Component: Sponsor },
   { path: '/blog', Component: Blog },
   { path: '/blog/c/:type', Component: Blog },
+  { path: '/blog/t/:tag', Component: Blog },
   { path: '/blog/:slug', Component: BlogPost },
   { path: '/snapshots', Component: Snapshots },
   { path: '/mcp', Component: McpCatalog },

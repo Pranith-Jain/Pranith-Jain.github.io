@@ -39,6 +39,18 @@ export interface AgentStep {
   completedAt?: string;
   /** LLM's observation after seeing results */
   observation?: string;
+  /**
+   * Structured findings extracted by the observer for this step. Persisted on
+   * the step (unlike the ephemeral in-memory WorkingMemory) so cross-alarm
+   * rebuilds of working memory don't lose accumulated IOCs/MITRE/facts.
+   */
+  observerFindings?: {
+    iocs: string[];
+    mitre: string[];
+    keyFacts: string[];
+    confidence?: 'high' | 'medium' | 'low';
+    gaps: string[];
+  };
   /** Whether the agent decided to continue or synthesize */
   nextAction?: 'continue' | 'synthesize';
 }

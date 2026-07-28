@@ -79,7 +79,13 @@ export default function Blog() {
   // breadcrumb back to /blog. The user can still search-and-narrow within
   // the category, but the chip strip is hidden because the URL already
   // expresses the choice.
-  const { type: routeType } = useParams<{ type?: string }>();
+  //
+  // `/blog/t/:tag` reaches the same component in "tag mode": lock the tag
+  // filter on, show a breadcrumb, and hide the tag chip strip. This gives
+  // every tag a shareable landing page (and fixes the old bug where tag
+  // chips on post pages linked to /blog/c/<tag>, which 404'd for any tag
+  // that wasn't also a CaseStudyType).
+  const { type: routeType, tag: routeTag } = useParams<{ type?: string; tag?: string }>();
   const [posts, setPosts] = useState<PostEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -97,7 +103,13 @@ export default function Blog() {
   // landings get their own title + description so Google
   // doesn't see 9 near-duplicate versions of the same page.
   const blogMeta = routeType ? metaFor(routeType) : null;
-  const [tagFilter, setTagFilter] = useState<string | null>(null);
+  const [tagFilter, setTagFilter] = useState<string | null>(routeTag ?? null);
+
+  // Sync the tag filter when the route param changes (e.g. navigating
+  // /blog/t/ransomware -> /blog/t/cobalt-strike reuses this component).
+  useEffect(() => {
+    if (routeTag) setTagFilter(routeTag);
+  }, [routeTag]);
 
   useEffect(() => {
     const ac = new AbortController();
@@ -165,8 +177,9 @@ export default function Blog() {
     });
   }, [posts, query, typeFilter, tagFilter]);
 
-  const hasFilter = Boolean(query.trim() || (typeFilter && !routeType) || tagFilter);
+  const hasFilter = Boolean(query.trim() || (typeFilter && !routeType) || (tagFilter && !routeTag));
   const inCategoryMode = Boolean(routeType);
+  const inTagMode = Boolean(routeTag);
   const categoryMeta = inCategoryMode ? metaFor(routeType!) : null;
 
   // Guard against typo URLs like /blog/c/whoops - surface a 404-ish state
@@ -177,19 +190,27 @@ export default function Blog() {
     inCategoryMode && !loading && !error && posts.length > 0 && !posts.some((p) => p.type === routeType);
   if (isUnknownType) return <Navigate to="/blog" replace />;
 
+  // Same guard for /blog/t/<unknown-tag> — redirect to the index instead
+  // of rendering an empty tag landing page with a bogus slug as the H1.
+  const isUnknownTag =
+    inTagMode && !loading && !error && posts.length > 0 && !posts.some((p) => p.tags.includes(routeTag!));
+  if (isUnknownTag) return <Navigate to="/blog" replace />;
+
   return (
     <>
       <PageMeta
-        title={blogMeta ? blogMeta.label : 'Blog'}
+        title={blogMeta ? blogMeta.label : inTagMode ? `#${routeTag}` : 'Blog'}
         description={
           blogMeta
             ? blogMeta.blurb
-            : 'Case studies, briefings, and CVEs from the security desk. Phishing, BEC, ransomware, and detection engineering.'
+            : inTagMode
+              ? `Case studies tagged “${routeTag}”.`
+              : 'Case studies, briefings, and CVEs from the security desk. Phishing, BEC, ransomware, and detection engineering.'
         }
-        canonicalPath={routeType ? `/blog/c/${routeType}` : '/blog'}
+        canonicalPath={routeType ? `/blog/c/${routeType}` : inTagMode ? `/blog/t/${routeTag}` : '/blog'}
       />
       <div className="max-w-3xl mx-auto text-slate-900 dark:text-white">
-        {inCategoryMode && (
+        {(inCategoryMode || inTagMode) && (
           <Link
             to="/blog"
             className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-4"
@@ -198,10 +219,14 @@ export default function Blog() {
           </Link>
         )}
         <h1 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight mb-2">
-          {inCategoryMode ? categoryMeta!.label : 'Case Studies'}
+          {inCategoryMode ? categoryMeta!.label : inTagMode ? `#${routeTag}` : 'Case Studies'}
         </h1>
         <p className="text-muted mb-6 leading-relaxed">
-          {inCategoryMode ? categoryMeta!.blurb : 'Security research, threat analysis, and deep dives.'}
+          {inCategoryMode
+            ? categoryMeta!.blurb
+            : inTagMode
+              ? `Case studies tagged “${routeTag}”.`
+              : 'Security research, threat analysis, and deep dives.'}
         </p>
 
         {/* Category strip - only on the /blog index (not on /blog/c/:type),
@@ -211,7 +236,9 @@ export default function Blog() {
           alternative below. */}
         {!inCategoryMode && presentTypes.length > 1 && (
           <nav aria-label="Browse by category" className="mb-6 flex flex-wrap items-center gap-1.5">
-            <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 mr-1">browse:</span>
+            <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 mr-1">
+              browse:
+            </span>
             {presentTypes.map((t) => (
               <Link
                 key={t}
@@ -234,7 +261,10 @@ export default function Blog() {
         {posts.length > 0 && (
           <section className="surface-card p-3 mb-6">
             <div className="relative">
-              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search
+                size={16}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              />
               <input
                 type="search"
                 value={query}
@@ -279,7 +309,7 @@ export default function Blog() {
                 )}
               </div>
             )}
-            {!inCategoryMode && allTags.size > 0 && (
+            {!inCategoryMode && !inTagMode && allTags.size > 0 && (
               <div className="flex flex-wrap items-center gap-1.5 mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
                 <span className="text-mini font-mono text-slate-500 mr-1">tags:</span>
                 {[
@@ -363,19 +393,18 @@ export default function Blog() {
                 {p.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 mt-3">
                     {p.tags.map((t) => (
-                      <button
+                      <Link
                         key={t}
-                        type="button"
-                        onClick={() => setTagFilter(tagFilter === t ? null : t)}
+                        to={`/blog/t/${t}`}
                         className={`rounded border px-2 py-0.5 text-mini font-mono transition-colors ${
                           tagFilter === t
                             ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
                             : 'border-slate-200 bg-slate-50 text-slate-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400'
                         }`}
-                        title={`Filter by tag: ${t}`}
+                        title={`Browse tag: ${t}`}
                       >
                         {t}
-                      </button>
+                      </Link>
                     ))}
                   </div>
                 )}

@@ -1,19 +1,20 @@
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useCallback, useMemo, lazy, Suspense } from 'react';
 import { Search } from 'lucide-react';
 import './argus/argus.css';
 import { TabBar } from '../components/ui/TabBar';
 import { Spotlight } from './argus/components/Spotlight';
 import { Dossier } from './argus/components/Dossier';
-import { GlobeView } from './argus/views/GlobeView';
-import { ClusterView } from './argus/views/ClusterView';
-import { DiamondView } from './argus/views/DiamondView';
-import { LandscapeView } from './argus/views/LandscapeView';
-import { FeedView } from './argus/views/FeedView';
-import { HuntView } from './argus/views/HuntView';
 import { ACTORS } from './argus/data/actors';
 import { FEED_ITEMS } from './argus/data/feed';
 import { NATION_PALETTE } from './argus/data/countries';
 import type { Actor, GroupType, ViewKey } from './argus/types';
+
+const GlobeView = lazy(() => import('./argus/views/GlobeView').then((m) => ({ default: m.GlobeView })));
+const ClusterView = lazy(() => import('./argus/views/ClusterView').then((m) => ({ default: m.ClusterView })));
+const DiamondView = lazy(() => import('./argus/views/DiamondView').then((m) => ({ default: m.DiamondView })));
+const LandscapeView = lazy(() => import('./argus/views/LandscapeView').then((m) => ({ default: m.LandscapeView })));
+const FeedView = lazy(() => import('./argus/views/FeedView').then((m) => ({ default: m.FeedView })));
+const HuntView = lazy(() => import('./argus/views/HuntView').then((m) => ({ default: m.HuntView })));
 
 const VIEW_TABS: { id: ViewKey; label: string }[] = [
   { id: 'globe', label: 'Globe' },
@@ -161,7 +162,11 @@ export default function ArgusPage() {
           />
         </div>
 
-        <select value={regionFilter ?? ''} onChange={(e) => setRegionFilter(e.target.value || null)} className={selectCls}>
+        <select
+          value={regionFilter ?? ''}
+          onChange={(e) => setRegionFilter(e.target.value || null)}
+          className={selectCls}
+        >
           <option value="">All nations</option>
           {Object.entries(NATIONS).map(([code, name]) => (
             <option key={code} value={code}>
@@ -217,12 +222,23 @@ export default function ArgusPage() {
       {/* ── Active view ──────────────────────────────────────────── */}
       <div className="relative overflow-hidden rounded-panel border border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] min-h-[560px]">
         <div className="relative h-[62vh] min-h-[520px] max-h-[760px]">
-          {view === 'globe' && <GlobeView actors={visible} onOpen={openActor} />}
-          {view === 'cluster' && <ClusterView actors={visible} onOpen={openActor} />}
-          {view === 'diamond' && <DiamondView actors={visible} onOpen={openActor} />}
-          {view === 'landscape' && <LandscapeView actors={visible} feed={FEED_ITEMS} />}
-          {view === 'feed' && <FeedView feed={FEED_ITEMS} actors={ACTORS} onOpen={openActor} />}
-          {view === 'hunt' && <HuntView actors={visible} />}
+          <Suspense
+            fallback={
+              <div className="absolute inset-0 grid place-items-center">
+                <div className="flex flex-col items-center gap-3 text-slate-400 dark:text-slate-500">
+                  <span className="h-6 w-6 rounded-full border-2 border-slate-300 dark:border-slate-600 border-t-rose-500 animate-spin" />
+                  <span className="font-mono text-micro uppercase tracking-[0.16em]">Loading view</span>
+                </div>
+              </div>
+            }
+          >
+            {view === 'globe' && <GlobeView actors={visible} onOpen={openActor} />}
+            {view === 'cluster' && <ClusterView actors={visible} onOpen={openActor} />}
+            {view === 'diamond' && <DiamondView actors={visible} onOpen={openActor} />}
+            {view === 'landscape' && <LandscapeView actors={visible} feed={FEED_ITEMS} />}
+            {view === 'feed' && <FeedView feed={FEED_ITEMS} actors={ACTORS} onOpen={openActor} />}
+            {view === 'hunt' && <HuntView actors={visible} />}
+          </Suspense>
         </div>
       </div>
 

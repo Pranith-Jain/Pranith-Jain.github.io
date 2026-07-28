@@ -1,1 +1,15 @@
-{"slug":"safepay-landesmuseum-de-2026-07-27","title":"landesmuseum.de","group":"SafePay","discovered":"2026-07-27T00:00:00.000Z","category":"ransomware","severity":"high","country":"Germany","sizeBytes":0,"description":"Internal files exfiltrated in ransomware attack","source_url":"https://recentbreaches.com/breach/landesmuseum-de-safepay-2026-07","groupAliases":[],"activity":"Education","references":["RecentBreaches.com"]}
+{
+  "slug": "safepay-landesmuseum-de-2026-07-27",
+  "title": "landesmuseum.de",
+  "group": "safepay",
+  "discovered": "2026-07-27T19:01:20.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Established in 1919, the museum preserves and presents more than 50,000 years of human cultural history, ranging from prehistoric artifacts …",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

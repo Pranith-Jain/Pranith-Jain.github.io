@@ -8,7 +8,7 @@ import type {
   ActorTimelineResponse,
   IocCorrelationResponse,
 } from './types';
-import { GP_FEEDS, gpWarmKey, GLOBAL_PULSE_CACHE, CACHE_TTL, GP_RESPONSE_KEY } from './config';
+import { GP_FEEDS, gpWarmKey, GLOBAL_PULSE_CACHE, CACHE_TTL, GP_RESPONSE_KEY, GP_RESPONSE_TTL } from './config';
 import { listBriefings } from '../../lib/briefing-builder';
 import { readKvJson } from './shared';
 import { signInternalToken } from '../../lib/internal-token';
@@ -262,7 +262,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
   c.executionCtx.waitUntil(
     Promise.all([
       cache.put(cacheReq, response.clone()),
-      kv ? kv.put(GP_RESPONSE_KEY, json, { expirationTtl: CACHE_TTL }).catch(() => {}) : Promise.resolve(),
+      kv ? kv.put(GP_RESPONSE_KEY, json, { expirationTtl: GP_RESPONSE_TTL }).catch(() => {}) : Promise.resolve(),
     ])
   );
 
@@ -895,7 +895,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         // the read at the top of this handler) instead of each colo re-running
         // the build. Best-effort: a KV write failure must not lose the build.
         if (kv) {
-          await kv.put(GP_RESPONSE_KEY, json, { expirationTtl: CACHE_TTL }).catch(() => {});
+          await kv.put(GP_RESPONSE_KEY, json, { expirationTtl: GP_RESPONSE_TTL }).catch(() => {});
         }
 
         // NOTE: global-pulse does NOT write the warm keys. A Worker can't fetch
