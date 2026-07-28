@@ -80,9 +80,7 @@
 	],
 	"vars": {
 		"ALLOW_DEV_ORIGINS": "false",
-		"SITE_URL": "https://pranithjain.qzz.io",
-		"OPEN_PUBLIC_READS": "true",
-		"INTERNAL_TOKEN_SECRET": "dev-local-only-not-for-prod"
+		"SITE_URL": "https://pranithjain.qzz.io"
 	},
 	"analytics_engine_datasets": [
 		{ "binding": "AJ_analytics", "dataset": "PJ" }

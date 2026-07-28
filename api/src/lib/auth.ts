@@ -332,6 +332,30 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
 }
 
 /**
+ * Write-authorization guard for mutating routes.
+ *
+ * `authenticate('external-only')` accepts any *valid* API key — admin or
+ * readonly — and lets same-origin (frontend) + internal-token callers through
+ * with no attached user. That is correct for reads, but readonly keys must not
+ * perform writes. This middleware closes that gap:
+ *   - API-key callers carry `c.user`; a non-admin (readonly) key is rejected.
+ *   - same-origin frontend and internal-token callers have no `c.user` (they
+ *     were trusted by the upstream gate) and are allowed through.
+ *
+ * Mount it AFTER authenticate() on POST/PATCH/DELETE routes so the MCP write
+ * tools (shiftlog, promptvault, …) and direct API calls alike honor roles.
+ */
+export function requireAdminRole(): MiddlewareHandler<{ Bindings: Env }> {
+  return async (c: Context<{ Bindings: Env }>, next: Next) => {
+    const user = (c as Context & { user?: AuthUser }).user;
+    if (user && user.role !== 'admin') {
+      return c.json({ error: 'forbidden', message: 'this operation requires an admin API key' }, 403);
+    }
+    return next();
+  };
+}
+
+/**
  * Generates a new API key (random 40-char hex).
  * Returns the raw key (only time it's visible) and the metadata.
  */

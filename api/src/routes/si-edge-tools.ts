@@ -25,6 +25,7 @@ import { Hono } from 'hono';
 import { z } from 'zod';
 import type { Env } from '../env';
 import { badRequest, internalError, notFound } from '../lib/api-error';
+import { requireAdminRole } from '../lib/auth';
 
 type Variables = { validated?: unknown };
 
@@ -186,7 +187,7 @@ siEdgeToolsRouter.get('/si/shiftlog', async (c) => {
   }
 });
 
-siEdgeToolsRouter.post('/si/shiftlog', async (c) => {
+siEdgeToolsRouter.post('/si/shiftlog', requireAdminRole(), async (c) => {
   let body: unknown;
   try {
     body = await c.req.json();
@@ -219,7 +220,7 @@ siEdgeToolsRouter.get('/si/shiftlog/:id', async (c) => {
   }
 });
 
-siEdgeToolsRouter.patch('/si/shiftlog/:id', async (c) => {
+siEdgeToolsRouter.patch('/si/shiftlog/:id', requireAdminRole(), async (c) => {
   const id = c.req.param('id');
   let body: unknown;
   try {
@@ -241,7 +242,7 @@ siEdgeToolsRouter.patch('/si/shiftlog/:id', async (c) => {
   }
 });
 
-siEdgeToolsRouter.post('/si/shiftlog/:id/close', async (c) => {
+siEdgeToolsRouter.post('/si/shiftlog/:id/close', requireAdminRole(), async (c) => {
   const id = c.req.param('id');
   let body: unknown;
   try {
@@ -322,7 +323,7 @@ siEdgeToolsRouter.get('/si/promptvault/:slug', async (c) => {
   }
 });
 
-siEdgeToolsRouter.post('/si/promptvault', async (c) => {
+siEdgeToolsRouter.post('/si/promptvault', requireAdminRole(), async (c) => {
   let body: unknown;
   try {
     body = await c.req.json();
@@ -342,7 +343,7 @@ siEdgeToolsRouter.post('/si/promptvault', async (c) => {
   }
 });
 
-siEdgeToolsRouter.post('/si/promptvault/:slug/rate', async (c) => {
+siEdgeToolsRouter.post('/si/promptvault/:slug/rate', requireAdminRole(), async (c) => {
   const slug = c.req.param('slug');
   let body: unknown;
   try {

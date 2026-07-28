@@ -21,8 +21,7 @@
 // scripts, so disallowing them means an injected inline <script> cannot execute
 // even if an output-escaping gap is reintroduced (defence-in-depth for CSP-1).
 const CSP_REPORT_URI = 'https://pranithjain.qzz.io/api/v1/csp-report';
-const CSP_API =
-  "default-src 'self';script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com;style-src 'self' 'unsafe-inline';img-src 'self' data: https:;connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com wss://pranithjain.qzz.io;frame-src 'none';font-src 'self' data:;frame-ancestors 'none';base-uri 'self';form-action 'self';object-src 'none';report-uri ${CSP_REPORT_URI}";
+const CSP_API = `default-src 'self';script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com;style-src 'self' 'unsafe-inline';img-src 'self' data: https:;connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com wss://pranithjain.qzz.io;frame-src 'none';font-src 'self' data:;frame-ancestors 'none';base-uri 'self';form-action 'self';object-src 'none';report-uri ${CSP_REPORT_URI}`;
 
 export function cspHeader(nonce?: string, origin?: string): string {
   const s = origin ?? "'self'";
