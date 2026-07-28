@@ -14,10 +14,11 @@ import { SkipToContent } from './SkipToContent';
 import { McpKeyBar } from './ti-mindmap-mcp/McpKeyBar';
 import { recordVisit } from '../lib/recentTools';
 
-const SECTION_META: Record<'dfir' | 'threatintel' | 'radar', { label: string; href: string; accent: string }> = {
+const SECTION_META: Record<'dfir' | 'threatintel' | 'radar' | 'argus', { label: string; href: string; accent: string }> = {
   dfir: { label: 'CRUCIBLE', href: '/dfir', accent: 'text-brand-600 dark:text-brand-400' },
   threatintel: { label: 'PANOPTICON', href: '/threatintel', accent: 'text-brand-600 dark:text-brand-400' },
   radar: { label: 'SCOUT', href: '/radar', accent: 'text-brand-600 dark:text-brand-400' },
+  argus: { label: 'ARGUS', href: '/argus', accent: 'text-rose-600 dark:text-rose-400' },
 };
 
 /**
@@ -114,7 +115,7 @@ const ROUTE_LABELS: Record<string, string> = {
  */
 
 interface AppShellProps {
-  mode: 'dfir' | 'threatintel' | 'radar';
+  mode: 'dfir' | 'threatintel' | 'radar' | 'argus';
   isDark: boolean;
   onToggleTheme: () => void;
   children: React.ReactNode;
@@ -223,7 +224,7 @@ export interface FeedStatusBrief {
  * surfaces the overall health pip. For /dfir, shows the static "all
  * tools client-side or edge-only" note.
  */
-function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' }): JSX.Element {
+function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' | 'argus' }): JSX.Element {
   const {
     data: status,
     error,
@@ -261,6 +262,18 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' }): JSX
               </span>
               <span className="text-slate-300 dark:text-slate-700">·</span>
               <span className="hidden sm:inline">No signup, no key, runs in your browser.</span>
+            </>
+          ) : mode === 'argus' ? (
+            <>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="relative inline-flex h-1.5 w-1.5">
+                  <span className="absolute inset-0 rounded-full bg-rose-500 live-pulse" aria-hidden="true" />
+                  <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-rose-500" />
+                </span>
+                argus
+              </span>
+              <span className="text-slate-300 dark:text-slate-700">·</span>
+              <span className="hidden sm:inline">Nation-state threat intelligence.</span>
             </>
           ) : (
             <StatusPip status={status} error={error} loading={loading} />

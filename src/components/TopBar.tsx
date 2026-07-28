@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Moon, Sun, Shield, Radar, Menu, X } from 'lucide-react';
+import { Search, Moon, Sun, Shield, Radar, Menu, X, Globe2 } from 'lucide-react';
 
 interface TopBarProps {
   sectionLabel: string;
@@ -14,7 +14,7 @@ interface TopBarProps {
    * Drives the small mark beside the section name. Kept as a string prop so
    * the TopBar doesn't need to know the section's URL structure.
    */
-  mark?: 'dfir' | 'threatintel' | 'radar';
+  mark?: 'dfir' | 'threatintel' | 'radar' | 'argus';
   /**
    * Mobile-only: when set, renders a hamburger button on the left edge
    * (visible <md) that toggles the sidebar drawer. The AppShell wires
@@ -38,20 +38,23 @@ const SEARCH_PLACEHOLDERS: Record<string, string> = {
   dfir: 'Search CRUCIBLE forensics tools…',
   threatintel: 'Search PANOPTICON threat intelligence…',
   radar: 'Scan a domain with SCOUT…',
+  argus: 'Search ARGUS nation-state actors…',
 };
 
 // Geist mark chip: surface-200 wash + accent-tinted icon. No ring -
 // Geist leans on borders and tonal surfaces, not decorative rings.
-const MARK_ACCENT: Record<'dfir' | 'threatintel' | 'radar', string> = {
+const MARK_ACCENT: Record<'dfir' | 'threatintel' | 'radar' | 'argus', string> = {
   dfir: 'bg-brand-500/10 text-brand-600 dark:text-brand-300',
   threatintel: 'bg-brand-500/10 text-brand-600 dark:text-brand-300',
   radar: 'bg-brand-500/10 text-brand-600 dark:text-brand-300',
+  argus: 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
 };
 
-const TAGLINE: Record<'dfir' | 'threatintel' | 'radar', string> = {
+const TAGLINE: Record<'dfir' | 'threatintel' | 'radar' | 'argus', string> = {
   dfir: 'forensics',
   threatintel: 'intelligence',
   radar: 'recon',
+  argus: 'threat nexus',
 };
 
 export function TopBar({
@@ -83,7 +86,7 @@ export function TopBar({
     window.dispatchEvent(ev);
   };
 
-  const MarkIcon = mark === 'dfir' ? Shield : Radar;
+  const MarkIcon = mark === 'dfir' ? Shield : mark === 'argus' ? Globe2 : Radar;
 
   return (
     // Geist chrome: surface-100 fill (white/80) + gray-alpha-400 border.

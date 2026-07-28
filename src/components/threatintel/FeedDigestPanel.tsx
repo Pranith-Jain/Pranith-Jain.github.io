@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { RefreshCw, X, FileText } from 'lucide-react';
 
 interface TopStory {
@@ -81,9 +81,17 @@ export function FeedDigestPanel({ items, period = 'daily', onClose }: FeedDigest
     }
   }, [items, period]);
 
-  useState(() => {
-    fetchDigest();
-  });
+  // Fetch once on mount (the parent renders this panel conditionally, so mount
+  // == the user opening the digest). Must be an effect, not a useState
+  // initializer: the initializer runs during render and fetchDigest() calls
+  // setLoading/setError synchronously - an illegal render-phase state update.
+  // Deps are intentionally empty: the parent passes a fresh `items` array every
+  // render, so depending on fetchDigest would refetch in a loop. Manual
+  // refreshes go through the toolbar button.
+  useEffect(() => {
+    void fetchDigest();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="rounded-xl border border-brand-500/30 bg-brand-500/5 animate-fade-in overflow-hidden">

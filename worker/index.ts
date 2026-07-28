@@ -16,6 +16,7 @@ import { handleWebSocketUpgrade } from './ws-router';
 import { handleMcp } from './mcp-handler';
 import { DfirMcpServer } from './mcp-server';
 import { handleRadarCrawl } from './radar-handler';
+import { handleArgusRss } from './argus-feed';
 import type { Env } from './env';
 
 export { LiveFeedDO, DfirMcpServer, CronLockDO, ReportBuilderDO, InvestigatorAgentDO, RadarCrawlerDO, GlobalPulseDO };
@@ -121,6 +122,15 @@ export default {
       } catch {
         // fall through
       }
+    }
+
+    // ARGUS live-feed RSS proxy (allowlisted, server-side fetch)
+    try {
+      const argusRssRes = await handleArgusRss(request, env, url);
+      if (argusRssRes) return argusRssRes;
+    } catch (err) {
+      console.error('handleArgusRss failed', err);
+      return new Response('internal error', { status: 500, headers: { 'x-request-id': requestId } });
     }
 
     // Forward /api/* and legacy /blog/rss.xml to the API app

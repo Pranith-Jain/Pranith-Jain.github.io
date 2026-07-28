@@ -193,7 +193,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [IOC Correlation](https://pranithjain.qzz.io/threatintel/iocs/correlation) (threatintel): IOC correlation analysis with timeline.
 - [Aggregated Feeds](https://pranithjain.qzz.io/threatintel/iocs/aggregated) (threatintel): Aggregated feed browser - what each provider ships.
 - [Observable DB](https://pranithjain.qzz.io/threatintel/iocs/observable) (threatintel): Every indicator seen, with provenance.
-- [SOC IOC View](https://pranithjain.qzz.io/threatintel/soc-dashboard?tab=iocs) (threatintel): SOC-focused IOC dashboard - relevant indicators sorted by priority with enrichment context.
 - [CVE Intel](https://pranithjain.qzz.io/threatintel/cves/cves) (threatintel): Unified CVE intelligence - NVD + KEV + EPSS + exploit availability.
 - [GitHub Advisories](https://pranithjain.qzz.io/threatintel/cves/advisories) (threatintel): GitHub security advisories with affected versions and patches.
 - [CVE Resources](https://pranithjain.qzz.io/threatintel/cves/resources) (threatintel): CVE resource catalogs - patch priority, exploit DB, vendor bulletins.
@@ -202,7 +201,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Malware Sandbox](https://pranithjain.qzz.io/threatintel/malware/sandbox) (threatintel): Hash lookup across 10+ sandbox platforms - consensus verdict.
 - [Malicious Packages](https://pranithjain.qzz.io/threatintel/malware/packages) (threatintel): Malicious package tracking - npm, PyPI, RubyGems, Maven, NuGet.
 - [Supply-Chain Incidents](https://pranithjain.qzz.io/threatintel/malware/supply-chain) (threatintel): Confirmed supply-chain compromise incidents - npm · PyPI · containers · AI agents. Data: supplychainattack.org.
-- [Supply-Chain Feed](https://pranithjain.qzz.io/threatintel/depx) (threatintel): Malicious package intelligence from OpenSSF - ecosystem breakdown, package verdicts, and advisory tracking.
 - [Malpedia](https://pranithjain.qzz.io/threatintel/malware/malpedia) (threatintel): Malpedia malware encyclopedia - families, YARA, references.
 - [Maltrail Trails](https://pranithjain.qzz.io/threatintel/malware/maltrail) (threatintel): Maltrail detection trails for known malware.
 - [Feed Catalog](https://pranithjain.qzz.io/threatintel/feeds/catalog) (threatintel): Feed file browser with format and sample preview.
@@ -220,10 +218,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Telegram IOC Pipeline](https://pranithjain.qzz.io/threatintel/telegram-iocs) (threatintel): Telegram-leaked IOCs flowing into the cross-source consensus - hashes, IPs, domains, CVEs, URLs from monitored channels (7-day window).
 - [Reddit CTI](https://pranithjain.qzz.io/threatintel/social/reddit) (threatintel): Reddit threat intelligence - monitor security-related subreddits for IOCs and discussions.
 - [Scraped Intel](https://pranithjain.qzz.io/threatintel/social/scraped-intel) (threatintel): Scraped intelligence from web sources - cleaned, deduplicated, and enriched.
-- [Telegram Channel Discovery](https://pranithjain.qzz.io/threatintel/telegram-monitor?tab=channels) (threatintel): Discover Telegram channels relevant to threat intelligence - search, category, and language filters.
-- [Telegram Leak Feed](https://pranithjain.qzz.io/threatintel/telegram-monitor?tab=leaks) (threatintel): Dedicated Telegram leak channel feed - credential dumps, data breaches, and exposed databases.
-- [Telegram Settings](https://pranithjain.qzz.io/threatintel/telegram-monitor?tab=settings) (threatintel): Telegram integration settings - channel subscriptions, API configuration, notification preferences.
-- [Telegram Statistics](https://pranithjain.qzz.io/threatintel/telegram-monitor?tab=stats) (threatintel): Telegram channel analytics - message volume, engagement, IOC yield, and provider reliability.
 - [X/Twitter Hub](https://pranithjain.qzz.io/threatintel/social/x-hub) (threatintel): X/Twitter intelligence - firehose, live stream, and watchlist monitoring.
 - [Dark Web Watch](https://pranithjain.qzz.io/threatintel/darkweb/watch) (threatintel): Dark-web monitoring dashboard.
 - [Darknet Markets Timeline](https://pranithjain.qzz.io/threatintel/darkweb/markets) (threatintel): Darknet market timelines - Empire, Genesis, Hydra successors.
@@ -237,8 +231,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Breach Watch](https://pranithjain.qzz.io/threatintel/darkweb/breach-watch) (threatintel): Aggregated breach and leak corpus from 6 public trackers - ransomware leaks, data breaches, combo lists.
 - [Ransomware Hub](https://pranithjain.qzz.io/threatintel/ransomware-hub) (threatintel): Ransomware tracking - activity feed, map, ransomwhere, and negotiation reports.
 - [Dark Web Recon](https://pranithjain.qzz.io/threatintel/darkweb/recon) (threatintel): Search .onion sites, look up hidden service metadata, check BTC addresses for abuse, and scan Tor exit nodes.
-- [ransomware.live PRO](https://pranithjain.qzz.io/threatintel/ransomware-live) (threatintel): Authenticated PRO surface - victim stats, recent cyberattacks, negotiations, and YARA packs.
-- [CyberPulse](https://pranithjain.qzz.io/threatintel/cyberpulse) (threatintel): Breach, leak & cybercrime incident tracker from X/Twitter, Telegram, Reddit, Bluesky & Mastodon firehose.
 - [Onion Watch](https://pranithjain.qzz.io/threatintel/onion-watch) (threatintel): Dark web .onion service monitoring - uptime, content changes, and new service discovery.
 - [Phish Feed](https://pranithjain.qzz.io/threatintel/phishing/phish) (threatintel): Phishing feed aggregation - fresh URLs and lure analysis.
 - [Phishing Wordlists](https://pranithjain.qzz.io/threatintel/phishing/urls) (threatintel): Phishing hunting wordlists - brand, gift-card, sextortion, BEC.
@@ -286,7 +278,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [MCP Search · TI Mindmap Hub](https://pranithjain.qzz.io/threatintel/tools/mcp) (threatintel): Search 1,628+ reports, CVEs, IOCs, briefings, STIX bundles, and knowledge graph via 25 MCP tools on ti-mindmap-hub.com.
 - [MISP Browser](https://pranithjain.qzz.io/threatintel/tools/misp) (threatintel): MISP galaxy and event browser.
 - [STIX Hub](https://pranithjain.qzz.io/threatintel/tools/stix-hub) (threatintel): STIX 2.1 bundle browsing, IP enrichment, and API access.
-- [STIX Bundles API](https://pranithjain.qzz.io/threatintel/tools/stix-bundles) (threatintel): PostgREST-style STIX 2.1 bundle query interface.
 - [Actionable IOCs](https://pranithjain.qzz.io/threatintel/tools/actionable-iocs) (threatintel): PostgREST-style IOC query interface per type.
 - [CISA KEV Catalog](https://pranithjain.qzz.io/threatintel/tools/kev-catalog) (threatintel): Search and filter the CISA Known Exploited Vulnerabilities catalog.
 - [Investigation Suite](https://pranithjain.qzz.io/threatintel/investigation-suite) (threatintel): Investigation management - active cases, watchlists, and workspaces.
@@ -297,7 +288,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Security Tools Directory](https://pranithjain.qzz.io/threatintel/tools/directory) (threatintel): Curated catalog of 53 security tools organized by category.
 - [Darknet Intel](https://pranithjain.qzz.io/threatintel/tools/darknet-intel) (threatintel): 42 tools across 13 providers - IP reputation, malware analysis, vulnerability lookup, ransomware tracking, breach intelligence.
 - [External Resources](https://pranithjain.qzz.io/threatintel/external/external) (threatintel): Off-site cross-references - dashboards, OSINT directories, training labs.
-- [Supply Chain Intel](https://pranithjain.qzz.io/threatintel/external/supply) (threatintel): Supply chain intelligence - SolarWinds, 3CX, MOVEit, XZ Utils.
 - [Awesome Lists](https://pranithjain.qzz.io/threatintel/external/awesome) (threatintel): Curated awesome-security list - vetted, ranked, kept current.
 - [Cerast Intelligence](https://pranithjain.qzz.io/threatintel/external/cerast) (threatintel): OSINT domain exposure search - exposed paths, staging, misconfigs.
 - [ThreatMon Infostealer](https://pranithjain.qzz.io/threatintel/external/threatmon) (threatintel): Infostealer log search - compromised credentials by domain.
@@ -313,7 +303,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Analyze](https://pranithjain.qzz.io/threatintel/predictive/analyze) (threatintel): Intelligence analysis workspace.
 - [Assessments](https://pranithjain.qzz.io/threatintel/predictive/assessments) (threatintel): Security assessments and risk scoring.
 - [Observe](https://pranithjain.qzz.io/threatintel/predictive/observe) (threatintel): Observation dashboard - what is happening right now.
-- [SOC Dashboard](https://pranithjain.qzz.io/threatintel/soc-dashboard?tab=ransomware) (threatintel): Unified tactical SOC view - ransomware, vulnerabilities, and IOC stream panels.
 - [Live Center - Web OSINT](https://pranithjain.qzz.io/threatintel/live-center) (threatintel): Browser-based live OSINT tools with install, example, and reference URL per tool.
 - [Dashboard Hub](https://pranithjain.qzz.io/threatintel/dashboard-hub) (threatintel): Threat intelligence dashboards - TI weekly report, CTI operations, and live threat landscape.
 - [Alert Feed](https://pranithjain.qzz.io/threatintel/alerts) (threatintel): Prioritised threat intelligence alerts - noise-filtered, confidence-scored, and matched to your estate.

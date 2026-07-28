@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ExternalLink, RefreshCw, Radio, Loader2, Search, AlertTriangle, CheckCircle2, Brain } from 'lucide-react';
+import { ExternalLink, RefreshCw, Radio, Loader2, Search, AlertTriangle, CheckCircle2, BarChart3 } from 'lucide-react';
 import {
   fetchAggregatedFeed,
   formatRelativeTime,
@@ -20,7 +20,7 @@ import {
   rssFeeds,
 } from '../../data/rssFeeds';
 import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
-import { FeedDigestPanel } from '../../components/threatintel/FeedDigestPanel';
+import { FeedSummaryPanel } from '../../components/threatintel/FeedSummaryPanel';
 
 /**
  * Threat Feeds - sectioned aggregator for the threat-intelligence half of
@@ -81,6 +81,8 @@ const SECTIONS: Section[] = [
 ];
 
 const ALL_FEED_IDS = SECTIONS.flatMap((s) => s.feedIds);
+
+const SECTION_LABELS: Record<string, string> = Object.fromEntries(SECTIONS.map((s) => [s.id, s.label]));
 
 const SECTION_STYLES: Record<string, string> = {
   gov: 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300',

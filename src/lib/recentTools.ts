@@ -25,7 +25,7 @@ export interface RecentEntry {
   at: number;
 }
 
-function key(section: 'dfir' | 'threatintel' | 'radar'): string {
+function key(section: 'dfir' | 'threatintel' | 'radar' | 'argus'): string {
   return `${STORAGE_PREFIX}${section}`;
 }
 
@@ -49,7 +49,7 @@ function safeParse(raw: string | null): RecentEntry[] {
   }
 }
 
-function read(section: 'dfir' | 'threatintel' | 'radar'): RecentEntry[] {
+function read(section: 'dfir' | 'threatintel' | 'radar' | 'argus'): RecentEntry[] {
   if (typeof window === 'undefined') return [];
   try {
     return safeParse(window.localStorage.getItem(key(section)));
@@ -63,11 +63,11 @@ function read(section: 'dfir' | 'threatintel' | 'radar'): RecentEntry[] {
  * reader. `useRecentTools` calls this instead of re-implementing the parse,
  * type-guard, and key derivation.
  */
-export function readVisits(section: 'dfir' | 'threatintel' | 'radar', limit = MAX_ENTRIES): RecentEntry[] {
+export function readVisits(section: 'dfir' | 'threatintel' | 'radar' | 'argus', limit = MAX_ENTRIES): RecentEntry[] {
   return read(section).slice(0, limit);
 }
 
-function write(section: 'dfir' | 'threatintel' | 'radar', entries: RecentEntry[]): void {
+function write(section: 'dfir' | 'threatintel' | 'radar' | 'argus', entries: RecentEntry[]): void {
   if (typeof window === 'undefined') return;
   try {
     window.localStorage.setItem(key(section), JSON.stringify(entries.slice(0, MAX_ENTRIES)));
@@ -82,7 +82,7 @@ function write(section: 'dfir' | 'threatintel' | 'radar', entries: RecentEntry[]
  * and the original entry is removed. Section-prefixed keys keep the
  * two home pages independent.
  */
-export function recordVisit(section: 'dfir' | 'threatintel' | 'radar', path: string, label: string): void {
+export function recordVisit(section: 'dfir' | 'threatintel' | 'radar' | 'argus', path: string, label: string): void {
   if (typeof window === 'undefined') return;
   if (!path || !label) return;
   if (path === '/' || path === '/dfir' || path === '/threatintel' || path === '/radar') return;
@@ -92,7 +92,7 @@ export function recordVisit(section: 'dfir' | 'threatintel' | 'radar', path: str
   write(section, next);
 }
 
-export function clearVisits(section: 'dfir' | 'threatintel' | 'radar'): void {
+export function clearVisits(section: 'dfir' | 'threatintel' | 'radar' | 'argus'): void {
   if (typeof window === 'undefined') return;
   try {
     window.localStorage.removeItem(key(section));

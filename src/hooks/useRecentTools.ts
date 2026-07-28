@@ -9,7 +9,7 @@ import { clearVisits, readVisits, recordVisit, type RecentEntry } from '../lib/r
  * and an `isHydrated` flag to keep SSR-safe callers quiet.
  */
 export function useRecentTools(
-  section: 'dfir' | 'threatintel' | 'radar',
+  section: 'dfir' | 'threatintel' | 'radar' | 'argus',
   pathname: string,
   limit = 4
 ): {

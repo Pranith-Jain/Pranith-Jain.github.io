@@ -294,13 +294,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Every indicator seen, with provenance.',
         compVar: 'ObservableDb',
       },
-      {
-        path: '/threatintel/soc-dashboard?tab=iocs',
-        tabId: 'iocs',
-        label: 'SOC IOC View',
-        desc: 'SOC-focused IOC dashboard - relevant indicators sorted by priority with enrichment context.',
-        compVar: 'SocIocView',
-      },
+
     ],
   },
   {
@@ -376,13 +370,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Confirmed supply-chain compromise incidents - npm · PyPI · containers · AI agents. Data: supplychainattack.org.',
         compVar: 'SupplyChainAttacks',
       },
-      {
-        path: '/threatintel/depx',
-        tabId: 'depx',
-        label: 'Supply-Chain Feed',
-        desc: 'Malicious package intelligence from OpenSSF - ecosystem breakdown, package verdicts, and advisory tracking.',
-        compVar: 'SupplyChainFeed',
-      },
+
       {
         path: '/threatintel/malware/malpedia',
         tabId: 'malpedia',
@@ -528,34 +516,10 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Scraped intelligence from web sources - cleaned, deduplicated, and enriched.',
         compVar: 'ScrapedIntel',
       },
-      {
-        path: '/threatintel/telegram-monitor?tab=channels',
-        tabId: 'telegram-channels',
-        label: 'Telegram Channel Discovery',
-        desc: 'Discover Telegram channels relevant to threat intelligence - search, category, and language filters.',
-        compVar: 'TelegramChannels',
-      },
-      {
-        path: '/threatintel/telegram-monitor?tab=leaks',
-        tabId: 'telegram-leaks',
-        label: 'Telegram Leak Feed',
-        desc: 'Dedicated Telegram leak channel feed - credential dumps, data breaches, and exposed databases.',
-        compVar: 'TelegramLeaks',
-      },
-      {
-        path: '/threatintel/telegram-monitor?tab=settings',
-        tabId: 'telegram-settings',
-        label: 'Telegram Settings',
-        desc: 'Telegram integration settings - channel subscriptions, API configuration, notification preferences.',
-        compVar: 'TelegramSettings',
-      },
-      {
-        path: '/threatintel/telegram-monitor?tab=stats',
-        tabId: 'telegram-stats',
-        label: 'Telegram Statistics',
-        desc: 'Telegram channel analytics - message volume, engagement, IOC yield, and provider reliability.',
-        compVar: 'TelegramStats',
-      },
+
+
+
+
       {
         path: '/threatintel/social/x-hub',
         tabId: 'x-hub',
@@ -675,20 +639,8 @@ export const HUB_META: readonly HubMeta[] = [
         ] as readonly string[],
         compVar: 'DarkWebRecon',
       },
-      {
-        path: '/threatintel/ransomware-live',
-        tabId: 'ransomware-live',
-        label: 'ransomware.live PRO',
-        desc: 'Authenticated PRO surface - victim stats, recent cyberattacks, negotiations, and YARA packs.',
-        compVar: 'RansomwareLive',
-      },
-      {
-        path: '/threatintel/cyberpulse',
-        tabId: 'cyberpulse',
-        label: 'CyberPulse',
-        desc: 'Breach, leak & cybercrime incident tracker from X/Twitter, Telegram, Reddit, Bluesky & Mastodon firehose.',
-        compVar: 'CyberPulse',
-      },
+
+
       {
         path: '/threatintel/onion-watch',
         tabId: 'onion-watch',
@@ -1094,14 +1046,7 @@ export const HUB_META: readonly HubMeta[] = [
         keywords: ['stix', 'bundle', 'browser', 'ip', 'enrichment'],
       },
 
-      {
-        path: '/threatintel/tools/stix-bundles',
-        tabId: 'stix-bundles',
-        label: 'STIX Bundles API',
-        desc: 'PostgREST-style STIX 2.1 bundle query interface.',
-        compVar: 'ThreatLandscapeStix',
-        badge: 'new',
-      },
+
       {
         path: '/threatintel/tools/actionable-iocs',
         tabId: 'actionable-iocs',
@@ -1191,13 +1136,7 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Off-site cross-references - dashboards, OSINT directories, training labs.',
         compVar: 'ExternalResources',
       },
-      {
-        path: '/threatintel/external/supply',
-        tabId: 'supply',
-        label: 'Supply Chain Intel',
-        desc: 'Supply chain intelligence - SolarWinds, 3CX, MOVEit, XZ Utils.',
-        compVar: 'SupplyChainIntelligence',
-      },
+
       {
         path: '/threatintel/external/awesome',
         tabId: 'awesome',
@@ -1316,13 +1255,7 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'Observe',
         badge: 'live',
       },
-      {
-        path: '/threatintel/soc-dashboard?tab=ransomware',
-        tabId: 'soc-dashboard',
-        label: 'SOC Dashboard',
-        desc: 'Unified tactical SOC view - ransomware, vulnerabilities, and IOC stream panels.',
-        compVar: 'SocDashboard',
-      },
+
       {
         path: '/threatintel/live-center',
         tabId: 'live-center',
