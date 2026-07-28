@@ -522,6 +522,20 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   // ── Standalone SPA pages ──────────────────────────────────────
   ['/threatintel/external/cerast', '/__prerendered/threatintel__external__cerast'],
   ['/threatintel/external/threatmon', '/__prerendered/threatintel__external__threatmon'],
+  // ── Previously shell-only static pages (SEO/CWV: crawlable first paint) ─
+  ['/argus', '/__prerendered/argus'],
+  ['/threat-intel', '/__prerendered/threat-intel'],
+  ['/dfir/agent-history', '/__prerendered/dfir__agent-history'],
+  ['/dfir/csrf-poc', '/__prerendered/dfir__csrf-poc'],
+  ['/dfir/detection-chokepoints', '/__prerendered/dfir__detection-chokepoints'],
+  ['/dfir/one-time-secret', '/__prerendered/dfir__one-time-secret'],
+  ['/dfir/xss-payloads', '/__prerendered/dfir__xss-payloads'],
+  ['/threatintel/alerts', '/__prerendered/threatintel__alerts'],
+  ['/threatintel/apt-actors', '/__prerendered/threatintel__apt-actors'],
+  ['/threatintel/aptmap', '/__prerendered/threatintel__aptmap'],
+  ['/threatintel/estate', '/__prerendered/threatintel__estate'],
+  ['/threatintel/infra/ai-honeypot', '/__prerendered/threatintel__infra__ai-honeypot'],
+  ['/threatintel/tools/kev-catalog', '/__prerendered/threatintel__tools__kev-catalog'],
 ]);
 
 /**
