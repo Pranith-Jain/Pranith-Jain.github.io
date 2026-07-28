@@ -39,6 +39,7 @@ import { ReportView } from '../../components/threatintel/ReportView';
 import { PivotSuggestions } from '../../components/threatintel/PivotSuggestions';
 import { DetectionGenerate } from '../../components/threatintel/DetectionGenerate';
 import { BulkIocInput } from '../../components/threatintel/BulkIocInput';
+import { useToast } from '../../components/ui/Toast';
 
 interface Source {
   name: string;
@@ -243,6 +244,7 @@ function formatTime(iso: string): string {
 export default function Copilot(): JSX.Element {
   const location = useLocation();
   const isStandalone = location.pathname === '/copilot';
+  const toast = useToast();
 
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
@@ -930,9 +932,13 @@ export default function Copilot(): JSX.Element {
                               <div className="flex items-center gap-1.5">
                                 <button
                                   onClick={() => {
-                                    navigator.clipboard.writeText(msg.content).catch(() => {});
-                                    setCopiedIndex(i);
-                                    setTimeout(() => setCopiedIndex(null), 1500);
+                                    navigator.clipboard
+                                      .writeText(msg.content)
+                                      .then(() => {
+                                        setCopiedIndex(i);
+                                        setTimeout(() => setCopiedIndex(null), 1500);
+                                      })
+                                      .catch(() => toast.error('Failed to copy to clipboard'));
                                   }}
                                   className="text-slate-500 dark:text-slate-400 hover:text-rose-600 transition-colors"
                                   aria-label="Copy response"
