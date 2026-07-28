@@ -15,7 +15,7 @@ type Platform = 'bluesky' | 'mastodon';
 interface XFeedItem {
   handle: string;
   handle_name: string;
-  handle_topic: 'research' | 'news' | 'vendor' | 'gov' | 'malware';
+  handle_topic: 'research' | 'news' | 'vendor' | 'gov' | 'malware' | 'cve' | 'darknet' | 'ransom' | 'breach';
   handle_blurb: string;
   platform: Platform;
   text: string;
@@ -43,6 +43,10 @@ const TOPIC_PILL: Record<XFeedItem['handle_topic'], string> = {
   vendor: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
   gov: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   malware: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  cve: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+  darknet: 'border-slate-500/40 bg-slate-500/10 text-slate-600 dark:text-slate-300',
+  ransom: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+  breach: 'border-fuchsia-500/40 bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300',
 };
 
 export default function XFirehose(): JSX.Element {

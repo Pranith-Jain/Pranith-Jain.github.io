@@ -115,7 +115,7 @@ export default function ACH(): JSX.Element {
             onChange={(e) => setTopic(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && void analyze()}
             placeholder="e.g. Qilin ransomware, Scattered Spider, CVE-2024-1709 campaign attribution…"
-            className="flex-1 text-sm px-4 py-2.5 surface-card/60 shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 placeholder:text-slate-400"
+            className="flex-1 text-sm px-4 py-2.5 surface-card-faint shadow-e1 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 placeholder:text-slate-400"
             disabled={loading}
           />
           <button

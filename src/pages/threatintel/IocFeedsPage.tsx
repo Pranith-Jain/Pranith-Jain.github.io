@@ -110,7 +110,7 @@ export default function IocFeedsPage(): JSX.Element {
       </div>
 
       <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
-        <table className="w-full text-left font-mono text-xs">
+        <div className="overflow-x-auto"><table className="w-full text-left font-mono text-xs">
           <thead>
             <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]">
               <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider">Severity</th>
@@ -174,7 +174,7 @@ export default function IocFeedsPage(): JSX.Element {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table></div>
       </div>
 
       {filtered.length === 0 && (

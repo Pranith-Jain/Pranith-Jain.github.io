@@ -429,7 +429,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
           cross-check on TI-Mindmap-Hub
         </button>
       </div>
-      <table className="w-full text-sm">
+      <div className="overflow-x-auto"><table className="w-full text-sm">
         <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           <tr>
             <th className="text-left px-4 py-2">Value</th>
@@ -494,7 +494,7 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
             );
           })}
         </tbody>
-      </table>
+      </table></div>
       {iocs.length > 50 && (
         <p className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
           Showing first 50 of {iocs.length} indicators.
@@ -508,7 +508,7 @@ function TtpsTab({ ttp }: { ttp: TtpHit[] }): JSX.Element {
   if (ttp.length === 0) return <EmptyTab msg="No MITRE ATT&CK techniques were extracted." />;
   return (
     <div className="surface-card overflow-hidden">
-      <table className="w-full text-sm">
+      <div className="overflow-x-auto"><table className="w-full text-sm">
         <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
           <tr>
             <th className="text-left px-4 py-2">Technique</th>
@@ -546,7 +546,7 @@ function TtpsTab({ ttp }: { ttp: TtpHit[] }): JSX.Element {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table></div>
     </div>
   );
 }

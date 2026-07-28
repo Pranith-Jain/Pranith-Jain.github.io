@@ -435,7 +435,7 @@ export default function PirDashboard(): JSX.Element {
       }
     >
       {showCreateForm && (
-        <form onSubmit={handleCreate} className="mb-8 p-4 surface-card/60 shadow-e1 space-y-3">
+        <form onSubmit={handleCreate} className="mb-8 p-4 surface-card-faint shadow-e1 space-y-3">
           {editingId && <p className="text-mini font-mono text-rose-600">Editing {editingId}</p>}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
@@ -672,7 +672,7 @@ export default function PirDashboard(): JSX.Element {
           </button>
 
           {showRouting && (
-            <div className="mt-3 surface-card/40 shadow-e1 overflow-hidden">
+            <div className="mt-3 surface-card-faint shadow-e1 overflow-hidden">
               {/* Gantt chart */}
               {ganttRows.length > 0 && (
                 <div className="p-4 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
@@ -739,7 +739,7 @@ export default function PirDashboard(): JSX.Element {
       )}
 
       {/* ── Filter bar ──────────────────────────────────────────────────── */}
-      <div className="mb-6 p-3 surface-card/40 shadow-e1">
+      <div className="mb-6 p-3 surface-card-faint shadow-e1">
         <div className="flex items-center gap-2 text-micro font-mono text-slate-500 mb-2">
           <Filter size={12} /> Filters
         </div>
@@ -876,7 +876,7 @@ export default function PirDashboard(): JSX.Element {
                 const answers = kiqAnswers[pir.id] ?? {};
                 const answeredCount = Object.values(answers).filter((a) => a.answered).length;
                 return (
-                  <div key={pir.id} className="surface-card/40 shadow-e1 overflow-hidden">
+                  <div key={pir.id} className="surface-card-faint shadow-e1 overflow-hidden">
                     <button
                       type="button"
                       onClick={() =>

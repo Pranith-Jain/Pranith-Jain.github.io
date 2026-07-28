@@ -299,7 +299,7 @@ export default function OsintCountryMap(): JSX.Element {
         <div className="flex gap-4 flex-col lg:flex-row">
           {/* Map section */}
           <div className="lg:w-3/5 w-full">
-            <div className="surface-card/60 overflow-hidden">
+            <div className="surface-card-faint overflow-hidden">
               <div className="p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Globe className="w-4 h-4 text-slate-500 dark:text-slate-400" />
@@ -334,7 +334,7 @@ export default function OsintCountryMap(): JSX.Element {
 
             {/* Quick-search country list when no country selected */}
             {!selectedCountry && query && (
-              <div className="mt-2 surface-card/60 max-h-60 overflow-y-auto">
+              <div className="mt-2 surface-card-faint max-h-60 overflow-y-auto">
                 {filteredCountries.length === 0 ? (
                   <div className="p-4 text-sm text-slate-500 text-center">No countries match "{query}"</div>
                 ) : (
@@ -359,7 +359,7 @@ export default function OsintCountryMap(): JSX.Element {
           {/* Resource panel */}
           <div className="lg:w-2/5 w-full">
             {selectedCountry ? (
-              <div className="surface-card/60 flex flex-col h-[500px]">
+              <div className="surface-card-faint flex flex-col h-[500px]">
                 {/* Header */}
                 <div className="p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))] flex items-center justify-between shrink-0">
                   <div>
@@ -423,7 +423,7 @@ export default function OsintCountryMap(): JSX.Element {
                 </div>
               </div>
             ) : (
-              <div className="surface-card/60 h-[500px] flex items-center justify-center">
+              <div className="surface-card-faint h-[500px] flex items-center justify-center">
                 <div className="text-center p-6">
                   <Globe className="w-10 h-10 text-slate-300 dark:text-slate-400 mx-auto mb-3" />
                   <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">Click a country on the map</p>

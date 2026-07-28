@@ -258,7 +258,7 @@ export default function ResearchPost(): JSX.Element {
                 <li key={r.slug}>
                   <Link
                     to={`/threatintel/research/${r.slug}`}
-                    className="group flex h-full items-start gap-3 surface-card/40 shadow-e1 p-3 transition hover:border-rose-500/40"
+                    className="group flex h-full items-start gap-3 surface-card-faint shadow-e1 p-3 transition hover:border-rose-500/40"
                   >
                     <FileText
                       size={14}

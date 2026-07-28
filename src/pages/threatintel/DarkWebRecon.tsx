@@ -244,9 +244,9 @@ function OnionLookupResults({ data }: { data: OnionLookupResult }) {
         <span
           className={`px-2 py-0.5 rounded text-xs font-medium ${
             data.status === 'online'
-              ? 'bg-green-500/20 text-green-300'
+              ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
               : data.status === 'offline'
-                ? 'bg-red-500/20 text-red-300'
+                ? 'bg-rose-500/10 text-rose-700 dark:text-rose-300'
                 : '[background:rgb(var(--hover-100))] text-muted'
           }`}
         >
@@ -346,7 +346,7 @@ function BtcAbuseResults({ data }: { data: ChainAbuseResult }) {
       <div className="flex items-center gap-2">
         <span
           className={`px-2 py-0.5 rounded text-xs font-medium ${
-            data.count > 0 ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300'
+            data.count > 0 ? 'bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
           }`}
         >
           {data.count > 0 ? `${data.count} report${data.count !== 1 ? 's' : ''}` : 'No reports'}
@@ -384,8 +384,8 @@ function TorExitResults({ data }: { data: TorExitCheckResult }) {
         <span
           className={`px-3 py-1 rounded-xl text-sm font-medium ${
             data.isTorExit
-              ? 'bg-red-500/20 text-red-300 ring-1 ring-red-500/30'
-              : 'bg-green-500/20 text-green-300 ring-1 ring-green-500/30'
+              ? 'bg-rose-500/10 text-rose-700 dark:text-rose-300 ring-1 ring-rose-500/30'
+              : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 ring-1 ring-emerald-500/30'
           }`}
         >
           {data.isTorExit ? 'TOR EXIT NODE' : 'NOT A TOR EXIT NODE'}

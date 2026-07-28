@@ -290,7 +290,7 @@ export default function CtiDashboard(): JSX.Element {
                   fetchStats();
                   fetchNews();
                 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 surface-card/60 text-slate-600 dark:text-slate-400 text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 surface-card-faint text-slate-600 dark:text-slate-400 text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
               >
                 <RefreshCw size={14} /> Refresh
               </button>
@@ -326,7 +326,7 @@ export default function CtiDashboard(): JSX.Element {
 
             {/* Type breakdown + Top families */}
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="surface-card/60 p-5">
+              <div className="surface-card-faint p-5">
                 <h3 className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
                   <BarChart3 size={14} /> IOC Type Breakdown
                 </h3>
@@ -352,7 +352,7 @@ export default function CtiDashboard(): JSX.Element {
                 )}
               </div>
 
-              <div className="surface-card/60 p-5">
+              <div className="surface-card-faint p-5">
                 <h3 className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
                   <AlertTriangle size={14} /> Top Malware Families
                 </h3>
@@ -378,7 +378,7 @@ export default function CtiDashboard(): JSX.Element {
 
             {/* Trending */}
             {stats.trending.length > 0 && (
-              <div className="surface-card/60 p-5">
+              <div className="surface-card-faint p-5">
                 <h3 className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
                   <TrendingUp size={14} /> Most Observed IOCs (multi-source)
                 </h3>
@@ -446,7 +446,7 @@ export default function CtiDashboard(): JSX.Element {
             ) : (
               <div className="space-y-3">
                 {predictions.map((p) => (
-                  <div key={p.prediction_id} className="surface-card/60 p-5">
+                  <div key={p.prediction_id} className="surface-card-faint p-5">
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <div className="min-w-0">
                         <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
@@ -506,7 +506,7 @@ export default function CtiDashboard(): JSX.Element {
         {tab === 'mutations' && (
           <div className="space-y-4">
             {/* Input */}
-            <div className="surface-card/60 p-5">
+            <div className="surface-card-faint p-5">
               <h3 className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
                 <Dna size={14} /> Seed Attack Input
               </h3>
@@ -554,7 +554,7 @@ export default function CtiDashboard(): JSX.Element {
                   Top Mutation Variants
                 </h3>
                 {mutations.top_variants.map((v) => (
-                  <div key={v.variant_id} className="surface-card/60 p-4">
+                  <div key={v.variant_id} className="surface-card-faint p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{v.variant_id}</span>
@@ -595,7 +595,7 @@ export default function CtiDashboard(): JSX.Element {
             <div className="flex gap-3">
               <button
                 onClick={fetchNews}
-                className="inline-flex items-center gap-2 px-3 py-1.5 surface-card/60 text-slate-600 dark:text-slate-400 text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 surface-card-faint text-slate-600 dark:text-slate-400 text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
               >
                 <RefreshCw size={14} /> Refresh
               </button>
@@ -614,7 +614,7 @@ export default function CtiDashboard(): JSX.Element {
                     href={String(n.url || '#')}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group block surface-card/60 p-4 hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors"
+                    className="group block surface-card-faint p-4 hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <h4 className="text-sm font-medium text-slate-800 dark:text-slate-200 flex-1 leading-snug line-clamp-2">
@@ -652,7 +652,7 @@ function StatCard({
   accent: string;
 }) {
   return (
-    <div className="surface-card/60 p-4">
+    <div className="surface-card-faint p-4">
       <div className="flex items-center gap-1.5 mb-1">
         {icon && <span className={accent}>{icon}</span>}
         <span className="text-mini font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">{label}</span>

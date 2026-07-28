@@ -120,7 +120,7 @@ export default function Assessments(): JSX.Element {
             <Link
               key={a.id}
               to={`/threatintel/assessments/${a.id}`}
-              className="block surface-card/40 shadow-e1 p-4 hover:border-rose-500/40 transition-colors"
+              className="block surface-card-faint shadow-e1 p-4 hover:border-rose-500/40 transition-colors"
             >
               <div className="flex items-center gap-3">
                 <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES[a.status] ?? ''}`}>

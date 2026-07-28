@@ -70,25 +70,25 @@ export default function CybersecTelegram(): JSX.Element {
               <RefreshCw size={11} /> refresh
             </button>
             <Link
-              to="/threatintel/telegram"
+              to="/threatintel/telegram-monitor"
               className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1.5"
             >
               Leak monitor
             </Link>
             <Link
-              to="/threatintel/telegram"
+              to="/threatintel/telegram-monitor?tab=channels"
               className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1.5"
             >
               Discovered channels
             </Link>
             <Link
-              to="/threatintel/telegram"
+              to="/threatintel/telegram-monitor?tab=stats"
               className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1.5"
             >
               Stats
             </Link>
             <Link
-              to="/threatintel/telegram"
+              to="/threatintel/telegram-monitor?tab=settings"
               className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1.5"
             >
               Settings

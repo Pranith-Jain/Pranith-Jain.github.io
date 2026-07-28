@@ -75,7 +75,7 @@ function MarketCard({ m }: { m: PredictionMarket }): JSX.Element {
       href={m.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block surface-card/60 p-5 hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors"
+      className="group block surface-card-faint p-5 hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors"
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <span

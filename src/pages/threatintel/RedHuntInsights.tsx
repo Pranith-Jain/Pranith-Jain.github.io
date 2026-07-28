@@ -555,7 +555,7 @@ export default function RedHuntInsights(): JSX.Element {
                 <summary className="cursor-pointer text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 font-mono">
                   show numeric table ({topDomainsEntries.length} domains)
                 </summary>
-                <table className="mt-2 w-full text-left">
+                <div className="overflow-x-auto"><table className="mt-2 w-full text-left">
                   <thead className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     <tr>
                       <th className="py-1">Domain</th>
@@ -570,7 +570,7 @@ export default function RedHuntInsights(): JSX.Element {
                       </tr>
                     ))}
                   </tbody>
-                </table>
+                </table></div>
               </details>
             )}
           </div>

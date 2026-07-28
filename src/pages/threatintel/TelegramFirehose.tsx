@@ -185,7 +185,7 @@ export default function TelegramFirehose(): JSX.Element {
     const ctrl = new AbortController();
     void refreshAll(ctrl);
     const id = window.setInterval(() => {
-      void refreshAll();
+      if (document.visibilityState === 'visible') void refreshAll();
     }, REFRESH_MS);
     return () => {
       ctrl.abort();

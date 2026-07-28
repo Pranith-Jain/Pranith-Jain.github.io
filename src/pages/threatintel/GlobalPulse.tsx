@@ -957,7 +957,9 @@ export default function GlobalPulse(): JSX.Element {
       if (intervalRef.current) clearInterval(intervalRef.current);
       return;
     }
-    intervalRef.current = setInterval(load, 60_000);
+    intervalRef.current = setInterval(() => {
+      if (document.visibilityState === 'visible') load();
+    }, 60_000);
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };

@@ -149,7 +149,7 @@ function DataSummaryTable({ data, label }: { data: Array<{ name: string; count: 
           Data Summary
         </span>
       </div>
-      <table className="w-full text-sm">
+      <div className="overflow-x-auto"><table className="w-full text-sm">
         <thead className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left text-mini uppercase tracking-wider text-slate-500 dark:text-slate-400">
           <tr>
             <th className="py-2 px-4 font-medium">{label}</th>
@@ -188,7 +188,7 @@ function DataSummaryTable({ data, label }: { data: Array<{ name: string; count: 
             <td />
           </tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   );
 }
