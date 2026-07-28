@@ -1186,6 +1186,11 @@ export class InvestigatorAgentDO {
           completedAt: state.completedAt,
         });
 
+        // Grow the cross-investigation knowledge graph from this investigation's
+        // entities + relationships.
+        const { extractKnowledgeGraph, recordKnowledgeGraph } = await import('../../api/src/lib/agent/knowledge-graph');
+        await recordKnowledgeGraph(db, extractKnowledgeGraph(state.steps));
+
         // Record metrics for observability
         const { recordMetrics } = await import('../../api/src/lib/agent/observability');
         const durationMs = new Date(state.completedAt).getTime() - new Date(state.startedAt).getTime();
