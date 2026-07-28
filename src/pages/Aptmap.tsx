@@ -55,10 +55,10 @@ function TopBarChart({ items, labelKey, maxItems = 15 }: { items: CountItem[]; l
         const pct = Math.round((item.count / maxCount) * 100);
         return (
           <div key={item.id} className="flex items-center gap-2">
-            <span className="w-32 truncate text-xs font-mono text-slate-300 shrink-0" title={label}>
+            <span className="w-32 truncate text-xs font-mono text-slate-700 dark:text-slate-300 shrink-0" title={label}>
               {label}
             </span>
-            <div className="flex-1 h-4 bg-slate-800/50 rounded-full overflow-hidden">
+            <div className="flex-1 h-4 bg-slate-100 dark:bg-slate-800/50 rounded-full overflow-hidden">
               <div
                 className="h-full bg-brand-500/60 rounded-full transition-all"
                 style={{ width: `${Math.max(pct, 2)}%` }}
@@ -105,10 +105,10 @@ function HorizontalStackedChart({
         const pct = (item.count / total) * 100;
         return (
           <div key={item.id} className="flex items-center gap-2">
-            <span className="w-40 truncate text-xs font-mono text-slate-300 shrink-0" title={label}>
+            <span className="w-40 truncate text-xs font-mono text-slate-700 dark:text-slate-300 shrink-0" title={label}>
               {label}
             </span>
-            <div className="flex-1 h-5 bg-slate-800/50 rounded-full overflow-hidden flex">
+            <div className="flex-1 h-5 bg-slate-100 dark:bg-slate-800/50 rounded-full overflow-hidden flex">
               <div
                 className={`h-full ${colors[idx % colors.length]} rounded-full transition-all`}
                 style={{ width: `${Math.max(pct, 1)}%` }}
@@ -257,7 +257,7 @@ export default function AptmapPage() {
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono rounded-t-lg transition-colors ${
               activeTab === tab.id
                 ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300 border-b-2 border-brand-500'
-                : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/30'
+                : 'text-slate-500 hover:text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:bg-slate-800/30'
             }`}
           >
             {tab.icon}
@@ -288,7 +288,7 @@ export default function AptmapPage() {
                           setSelectedNode(n);
                           setActiveTab('graph');
                         }}
-                        className="w-full text-left px-2 py-1 rounded text-xs font-mono text-slate-300 hover:bg-slate-800/40 transition-colors truncate"
+                        className="w-full text-left px-2 py-1 rounded text-xs font-mono text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:bg-slate-800/40 transition-colors truncate"
                         title={n.description || n.name}
                       >
                         {n.name}
@@ -312,7 +312,7 @@ export default function AptmapPage() {
                           setSelectedNode(n);
                           setActiveTab('graph');
                         }}
-                        className="w-full text-left px-2 py-1 rounded text-xs font-mono text-slate-300 hover:bg-slate-800/40 transition-colors truncate"
+                        className="w-full text-left px-2 py-1 rounded text-xs font-mono text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:bg-slate-800/40 transition-colors truncate"
                         title={n.description || n.name}
                       >
                         {n.name}
@@ -341,7 +341,7 @@ export default function AptmapPage() {
                               setSelectedNode(n);
                               setActiveTab('graph');
                             }}
-                            className="px-2 py-0.5 rounded text-xs font-mono text-slate-300 bg-slate-800/40 hover:bg-slate-700/50 transition-colors"
+                            className="px-2 py-0.5 rounded text-xs font-mono text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/40 hover:bg-slate-200 dark:bg-slate-700/50 transition-colors"
                           >
                             {n.name}
                           </button>
@@ -447,13 +447,15 @@ export default function AptmapPage() {
                     </span>
                   </div>
                   {selectedNode.description && (
-                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2 max-w-3xl">{selectedNode.description}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2 max-w-3xl">
+                      {selectedNode.description}
+                    </p>
                   )}
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedNode(null)}
-                  className="text-slate-500 dark:text-slate-400 hover:text-slate-300 shrink-0"
+                  className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-300 shrink-0"
                 >
                   <X size={16} />
                 </button>
@@ -479,14 +481,16 @@ export default function AptmapPage() {
                         key={`${l.source}-${l.target}`}
                         type="button"
                         onClick={() => setSelectedNode(node)}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-800/20 hover:bg-slate-700/30 transition-colors text-left"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800/20 hover:bg-slate-200 dark:bg-slate-700/30 transition-colors text-left"
                       >
                         <span
                           className="w-2 h-2 rounded-full shrink-0"
                           style={{ backgroundColor: node.color || '#666' }}
                         />
                         <div className="min-w-0">
-                          <div className="text-xs font-mono text-slate-300 truncate">{node.name}</div>
+                          <div className="text-xs font-mono text-slate-700 dark:text-slate-300 truncate">
+                            {node.name}
+                          </div>
                           <div className="text-micro font-mono text-slate-500 uppercase">{node.group}</div>
                         </div>
                       </button>
@@ -511,12 +515,14 @@ export default function AptmapPage() {
                   type="button"
                   onClick={() => setSelectedNode(node)}
                   className={`flex items-center gap-2 px-2 py-1.5 rounded transition-colors text-left ${
-                    selectedNode?.id === node.id ? 'bg-brand-500/15 ring-1 ring-brand-500/30' : 'hover:bg-slate-800/30'
+                    selectedNode?.id === node.id
+                      ? 'bg-brand-500/15 ring-1 ring-brand-500/30'
+                      : 'hover:bg-slate-100 dark:bg-slate-800/30'
                   }`}
                 >
                   <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: node.color || '#666' }} />
                   <div className="min-w-0">
-                    <div className="text-xs font-mono text-slate-300 truncate">{node.name}</div>
+                    <div className="text-xs font-mono text-slate-700 dark:text-slate-300 truncate">{node.name}</div>
                     <div className="text-micro font-mono text-slate-500 uppercase">{node.group}</div>
                   </div>
                 </button>
@@ -669,12 +675,14 @@ export default function AptmapPage() {
                       return (
                         <tr
                           key={c.id}
-                          className="border-b border-[rgb(var(--border-400))]/50 hover:bg-slate-800/20 transition-colors"
+                          className="border-b border-[rgb(var(--border-400))]/50 hover:bg-slate-100 dark:bg-slate-800/20 transition-colors"
                         >
                           <td className="py-1.5 pr-4 text-slate-500">{idx + 1}</td>
-                          <td className="py-1.5 pr-4 text-slate-300">{org || '-'}</td>
+                          <td className="py-1.5 pr-4 text-slate-700 dark:text-slate-300">{org || '-'}</td>
                           <td className="py-1.5 pr-4 text-slate-500">{issuer || '-'}</td>
-                          <td className="py-1.5 text-right text-slate-300 tabular-nums">{c.count.toLocaleString()}</td>
+                          <td className="py-1.5 text-right text-slate-700 dark:text-slate-300 tabular-nums">
+                            {c.count.toLocaleString()}
+                          </td>
                         </tr>
                       );
                     })}

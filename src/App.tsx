@@ -135,6 +135,14 @@ const Grc = lazy(() => import('./pages/dfir/Grc'));
 const DlpScan = lazy(() => import('./pages/dfir/DlpScan'));
 const DataClassification = lazy(() => import('./pages/dfir/DataClassification'));
 const PrivacyHub = lazy(() => import('./pages/dfir/PrivacyHub'));
+const Privacy = lazy(() => import('./pages/dfir/Privacy'));
+const IamPolicyAnalyzer = lazy(() => import('./pages/dfir/IamPolicyAnalyzer'));
+const AzureRbacAnalyzer = lazy(() => import('./pages/dfir/AzureRbacAnalyzer'));
+const Takeover = lazy(() => import('./pages/dfir/Takeover'));
+const PhoneOsint = lazy(() => import('./pages/dfir/PhoneOsint'));
+const ImageFingerprint = lazy(() => import('./pages/dfir/ImageFingerprint'));
+const ScreenshotIntel = lazy(() => import('./pages/dfir/ScreenshotIntel'));
+const ReverseImage = lazy(() => import('./pages/dfir/ReverseImage'));
 const PersonalSecurity = lazy(() => import('./pages/dfir/PersonalSecurity'));
 const UsernameInvestigator = lazy(() => import('./pages/dfir/UsernameInvestigator'));
 const DomainInvestigator = lazy(() => import('./pages/dfir/DomainInvestigator'));
@@ -610,7 +618,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/actors/attribution', Component: Attribution },
   { path: '/threatintel/actors/catalog', Component: ThreatActorCatalog },
 
-
   { path: '/threatintel/campaigns/active', Component: Campaigns },
   { path: '/threatintel/campaigns/lifecycle', Component: CampaignLifecycle },
   { path: '/threatintel/campaigns/generator', Component: CampaignGenerator },
@@ -777,7 +784,6 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/ti-dashboard', to: '/threatintel/dashboard-hub' },
   { path: '/threatintel/cti-dashboard', to: '/threatintel/dashboard-hub' },
   { path: '/threatintel/dashboard', to: '/threatintel/dashboard-hub' },
-
 
   { path: '/dfir/sigma-convert', to: '/dfir/rule-converter' },
   { path: '/dfir/discord-watch', to: '/threatintel/catalog?cat=social' },
@@ -1049,13 +1055,15 @@ export function AppContent() {
   // Header / Footer / background-gradient layer entirely. This is the
   // single most-important "feel" toggle on the site - sub-pages of those
   // two routes should not look like sub-pages of someone's portfolio.
-  const appMode: 'dfir' | 'threatintel' | 'radar' | null = location.pathname.startsWith('/dfir')
+  const appMode: 'dfir' | 'threatintel' | 'radar' | 'argus' | null = location.pathname.startsWith('/dfir')
     ? 'dfir'
-    : location.pathname.startsWith('/threatintel') || location.pathname.startsWith('/argus')
-      ? 'threatintel'
-      : location.pathname.startsWith('/radar')
-        ? 'radar'
-        : null;
+    : location.pathname.startsWith('/argus')
+      ? 'argus'
+      : location.pathname.startsWith('/threatintel')
+        ? 'threatintel'
+        : location.pathname.startsWith('/radar')
+          ? 'radar'
+          : null;
   const isAppRoute = appMode !== null;
 
   useEffect(() => {
