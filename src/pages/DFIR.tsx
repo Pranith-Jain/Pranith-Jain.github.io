@@ -346,7 +346,7 @@ export default function DFIRPage(): JSX.Element {
           <dl className="stagger mt-7 sm:mt-9 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[rgb(var(--border-400))] border-y border-[rgb(var(--border-400))]">
             {[
               { to: MAIN_TOOL_COUNT, suffix: '+', label: 'Tools', sub: 'in-browser, client-side' },
-              { to: 24, suffix: '', label: 'IOC sources', sub: 'checked in parallel' },
+              { to: 60, suffix: '+', label: 'IOC sources', sub: 'checked in parallel' },
               { to: 0, suffix: '', label: 'data leaves', sub: 'your browser. literally.' },
             ].map((stat, i) => (
               <div

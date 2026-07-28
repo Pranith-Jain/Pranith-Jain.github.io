@@ -19,29 +19,27 @@ function ease(t: number, type: string): number {
 }
 
 export function useCountUp({ from = 0, to, duration = 600, easing: easingType = 'ease-out' }: UseCountUpOptions) {
-  const [value, setValue] = useState(from);
-  const prevTo = useRef(from);
+  // Start at `to` so SSR/prerender shows the final value (no "0" flash).
+  // The animation runs only on the client after hydration.
+  const [value, setValue] = useState(to);
   const rafRef = useRef(0);
 
   useEffect(() => {
-    const startFrom = prevTo.current;
-    prevTo.current = to;
-    if (startFrom === to) {
-      setValue(to);
-      return;
-    }
+    // On client mount, jump to `from` then animate to `to`.
+    setValue(from);
     const startTime = performance.now();
     function tick(now: number) {
       const elapsed = now - startTime;
       const t = Math.min(1, elapsed / duration);
       const eased = ease(t, easingType);
-      setValue(Math.round(startFrom + (to - startFrom) * eased));
+      setValue(Math.round(from + (to - from) * eased));
       if (t < 1) {
         rafRef.current = requestAnimationFrame(tick);
       }
     }
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [to, duration, easingType]);
 
   return value;
