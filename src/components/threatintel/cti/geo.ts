@@ -26,6 +26,51 @@ export function severityColor(sev: Severity): string {
   return GLOBE_SEV_COLOR[sev] ?? '#64748b';
 }
 
+/* ─── Kind → globe hex color ───────────────────────────────────────────── */
+
+const GLOBE_KIND_COLOR: Record<string, string> = {
+  earthquake: '#f97316',
+  ioc_activity: '#e11d48',
+  geopolitical: '#435ef1',
+  tech_news: '#0ea5e9',
+  reddit: '#f97316',
+  telegram: '#22d3ee',
+  x_feed: '#3b82f6',
+  scam: '#f59e0b',
+  breach: '#ef4444',
+  briefing: '#10b981',
+  cyber_attack: '#dc2626',
+  aircraft: '#435ef1',
+  war_room: '#b91c1c',
+  c2_tracker: '#e11d48',
+  cisa_advisory: '#f59e0b',
+  blocklist: '#64748b',
+  infostealer: '#ea580c',
+  phishing: '#d97706',
+  malware: '#dc2626',
+  ransomware: '#be123c',
+  cybercrime: '#dc2626',
+  research: '#0284c7',
+  cve: '#d97706',
+  actor_sighting: '#435ef1',
+  ioc_correlation: '#06b6d4',
+  secret_leak: '#ef4444',
+  malicious_package: '#f97316',
+  exploit: '#f59e0b',
+  github_advisory: '#0ea5e9',
+  supply_chain_attacks: '#06b6d4',
+  kev: '#be123c',
+  infrastructure: '#14b8a6',
+  military_base: '#22c55e',
+  fire_detection: '#f97316',
+  nuclear_facility: '#eab308',
+  cyberpulse: '#d946ef',
+};
+
+export function kindColor(kind: string | undefined): string {
+  return GLOBE_KIND_COLOR[kind ?? ''] ?? '#64748b';
+}
+
 export function severityFromCount(count: number, thresholds = { critical: 1000, high: 500, medium: 100 }): Severity {
   if (count >= thresholds.critical) return 'critical';
   if (count >= thresholds.high) return 'high';
@@ -48,6 +93,14 @@ export interface CtiPoint {
   count: number;
   label: string;
   countryCode: string;
+  /** Event kind (e.g. 'cve', 'ransomware', 'ioc_activity'). */
+  kind?: string;
+  /** Event source (e.g. 'NVD', 'CISA KEV', 'X: LockBit'). */
+  source?: string;
+  /** Short description for tooltip. */
+  description?: string;
+  /** CVSS score for CVE events. */
+  magnitude?: number;
 }
 
 export interface CtiArc {

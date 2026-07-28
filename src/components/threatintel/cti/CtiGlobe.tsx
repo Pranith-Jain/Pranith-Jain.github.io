@@ -12,7 +12,7 @@
 import { useEffect, useRef, useState, useMemo, type JSX } from 'react';
 import Globe, { type GlobeInstance } from 'globe.gl';
 import type { CtiArc, CtiPoint } from './geo';
-import { severityColor } from './geo';
+import { severityColor, kindColor } from './geo';
 import { useReduceMotion } from '../../../hooks/useMediaQuery';
 
 function escHtml(s: string): string {
@@ -115,7 +115,12 @@ export default function CtiGlobe({
         .pointsData(points)
         .pointLat((p: object) => datum<CtiPointDatum>(p).lat)
         .pointLng((p: object) => datum<CtiPointDatum>(p).lng)
-        .pointColor((p: object) => severityColor(datum<CtiPointDatum>(p).severity))
+        .pointColor((p: object) => {
+          const d = datum<CtiPointDatum>(p);
+          // Use kind-based color when available (distinguishes CVEs from
+          // ransomware from IOCs at a glance), fall back to severity color.
+          return d.kind ? kindColor(d.kind) : severityColor(d.severity);
+        })
         .pointAltitude((p: object) => {
           const alts: Record<string, number> = {
             critical: 0.15,
@@ -137,8 +142,16 @@ export default function CtiGlobe({
           return sizes[datum<CtiPointDatum>(p).severity] ?? 0.7;
         })
         .pointLabel((p: object) => {
-          const sevColor = severityColor(datum<CtiPointDatum>(p).severity);
-          const label = escHtml(datum<CtiPointDatum>(p).label);
+          const d = datum<CtiPointDatum>(p);
+          const sevColor = severityColor(d.severity);
+          const label = escHtml(d.label);
+          const kindLabel = d.kind ? escHtml(d.kind.replace(/_/g, ' ')) : '';
+          const sourceLabel = d.source ? escHtml(d.source) : '';
+          const descLabel = d.description ? escHtml(d.description) : '';
+          const cvssBadge =
+            d.magnitude != null
+              ? `<span style="background:${d.magnitude >= 9 ? '#e11d4825' : d.magnitude >= 7 ? '#f43f5e25' : '#f59e0b25'};color:${d.magnitude >= 9 ? '#e11d48' : d.magnitude >= 7 ? '#f43f5e' : '#f59e0b'};padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">CVSS ${d.magnitude.toFixed(1)}</span>`
+              : '';
           return `
             <div style="
               background: rgba(10,15,26,0.95);
@@ -153,7 +166,8 @@ export default function CtiGlobe({
               backdrop-filter: blur(10px);
             ">
               <div style="font-weight: 600; margin-bottom: 8px; color: #f8fafc; font-size: 14px;">${label}</div>
-              <div style="display: flex; align-items: center; gap: 10px; margin-top: 8px;">
+              ${descLabel ? `<div style="font-size: 11px; opacity: 0.7; margin-bottom: 8px; line-height: 1.4;">${descLabel}</div>` : ''}
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                 <span style="
                   background: ${sevColor}25;
                   color: ${sevColor};
@@ -162,10 +176,12 @@ export default function CtiGlobe({
                   font-size: 11px;
                   font-weight: 600;
                   text-transform: uppercase;
-                ">${datum<CtiPointDatum>(p).severity}</span>
-                <span style="opacity: 0.6; font-size: 12px;">Count: ${datum<CtiPointDatum>(p).count}</span>
+                ">${d.severity}</span>
+                ${cvssBadge}
+                ${kindLabel ? `<span style="font-size: 11px; opacity: 0.6; text-transform: uppercase;">${kindLabel}</span>` : ''}
               </div>
-              <div style="margin-top: 8px; font-size: 11px; opacity: 0.5;">Click to focus</div>
+              ${sourceLabel ? `<div style="margin-top: 6px; font-size: 11px; opacity: 0.5;">Source: ${sourceLabel}</div>` : ''}
+              <div style="margin-top: 8px; font-size: 11px; opacity: 0.4;">Click to focus</div>
             </div>
           `;
         })
@@ -393,11 +409,20 @@ export default function CtiGlobe({
       {hoveredPoint && !selectedPoint && (
         <div className="absolute top-4 left-4 bg-[#0f1629]/90 backdrop-blur-sm rounded-xl border border-slate-700/50 px-4 py-3 pointer-events-none max-w-xs">
           <div className="flex items-center gap-3">
-            <span className="w-3 h-3 rounded-full" style={{ backgroundColor: severityColor(hoveredPoint.severity) }} />
+            <span
+              className="w-3 h-3 rounded-full"
+              style={{
+                backgroundColor: hoveredPoint.kind
+                  ? kindColor(hoveredPoint.kind)
+                  : severityColor(hoveredPoint.severity),
+              }}
+            />
             <div>
               <p className="text-sm font-medium text-slate-200">{hoveredPoint.label}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                {hoveredPoint.severity.toUpperCase()} · Count: {hoveredPoint.count}
+                {hoveredPoint.severity.toUpperCase()}
+                {hoveredPoint.kind ? ` · ${hoveredPoint.kind.replace(/_/g, ' ')}` : ''}
+                {hoveredPoint.source ? ` · ${hoveredPoint.source}` : ''}
               </p>
             </div>
           </div>
@@ -412,7 +437,11 @@ export default function CtiGlobe({
               <div className="flex items-center gap-2 mb-2">
                 <span
                   className="w-3 h-3 rounded-full"
-                  style={{ backgroundColor: severityColor(selectedPoint.severity) }}
+                  style={{
+                    backgroundColor: selectedPoint.kind
+                      ? kindColor(selectedPoint.kind)
+                      : severityColor(selectedPoint.severity),
+                  }}
                 />
                 <span
                   className="text-micro font-mono uppercase px-2 py-0.5 rounded"
@@ -423,12 +452,34 @@ export default function CtiGlobe({
                 >
                   {selectedPoint.severity}
                 </span>
+                {selectedPoint.kind && (
+                  <span className="text-micro font-mono uppercase text-slate-500">
+                    {selectedPoint.kind.replace(/_/g, ' ')}
+                  </span>
+                )}
+                {selectedPoint.magnitude != null && (
+                  <span
+                    className="text-micro font-mono font-bold px-1.5 rounded"
+                    style={{
+                      backgroundColor:
+                        selectedPoint.magnitude >= 9
+                          ? '#e11d4825'
+                          : selectedPoint.magnitude >= 7
+                            ? '#f43f5e25'
+                            : '#f59e0b25',
+                      color:
+                        selectedPoint.magnitude >= 9 ? '#e11d48' : selectedPoint.magnitude >= 7 ? '#f43f5e' : '#f59e0b',
+                    }}
+                  >
+                    CVSS {selectedPoint.magnitude.toFixed(1)}
+                  </span>
+                )}
               </div>
               <p className="text-sm font-semibold text-white">{selectedPoint.label}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Count: {selectedPoint.count}</p>
-              {selectedPoint.countryCode && (
-                <p className="text-xs text-slate-500 mt-1">Country: {selectedPoint.countryCode}</p>
+              {selectedPoint.description && (
+                <p className="text-xs text-slate-400 mt-1 leading-relaxed">{selectedPoint.description}</p>
               )}
+              {selectedPoint.source && <p className="text-xs text-slate-500 mt-2">Source: {selectedPoint.source}</p>}
             </div>
             <button
               onClick={() => setSelectedPoint(null)}

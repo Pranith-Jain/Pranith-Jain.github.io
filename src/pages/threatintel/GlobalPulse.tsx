@@ -993,10 +993,14 @@ export default function GlobalPulse(): JSX.Element {
       lng: p.lng,
       severity: p.severity as CtiPoint['severity'],
       count: 1,
-      label: p.id,
+      label: p.title,
       countryCode: '',
+      kind: p.kind,
+      source: p.source,
+      description: p.description,
+      magnitude: filteredEvents.find((e) => e.id === p.id)?.magnitude,
     }));
-  }, [geoPoints]);
+  }, [geoPoints, filteredEvents]);
 
   const globeArcs: CtiArc[] = useMemo(() => synthesizeArcs(globePoints), [globePoints]);
   const kpis = useMemo(() => deriveKpis(globePoints, filteredEvents.length), [globePoints, filteredEvents]);
@@ -1450,9 +1454,23 @@ export default function GlobalPulse(): JSX.Element {
             <div className="rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] p-5 animate-fade-in">
               {/* Severity Filter */}
               <div className="mb-5">
-                <h4 className="text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">
-                  Severity
-                </h4>
+                <div className="flex items-center justify-between mb-2.5">
+                  <h4 className="text-mini font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    Severity
+                  </h4>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const isCriticalOnly = severityFilter.size === 1 && severityFilter.has('critical');
+                      setSeverityFilter(
+                        isCriticalOnly ? new Set(['critical', 'high', 'medium', 'low']) : new Set(['critical'])
+                      );
+                    }}
+                    className="text-micro font-mono text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                  >
+                    {severityFilter.size === 1 && severityFilter.has('critical') ? 'Show All' : 'Critical Only'}
+                  </button>
+                </div>
                 <div className="flex gap-2">
                   {(['critical', 'high', 'medium', 'low'] as const).map((sev) => {
                     const config = SEVERITY_CONFIG[sev];
