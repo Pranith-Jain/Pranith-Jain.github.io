@@ -133,7 +133,9 @@ async function singleModelVerifyReport(
   }
 
   if (allProvidersExhausted) {
+    console.error('qa-verifier: all LLM providers exhausted, skipping verification');
   } else {
+    console.error('qa-verifier: failed after retries, returning original report. Last error:', lastErr);
   }
 
   return {

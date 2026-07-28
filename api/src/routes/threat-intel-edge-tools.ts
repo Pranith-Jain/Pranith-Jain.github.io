@@ -53,13 +53,15 @@ threatIntelRouter.get('/threat-intel/cves', async (c) => {
     const severity = c.req.query('severity');
     const kevOnly = c.req.query('kev_only') === 'true';
     const vendor = c.req.query('vendor');
-    const daysBack = c.req.query('days_back')
-      ? Math.min(365, Math.max(1, Number(c.req.query('days_back'))))
-      : undefined;
-    const minPriority = c.req.query('min_priority') ? Number(c.req.query('min_priority')) : undefined;
-    const minArgusScore = c.req.query('min_argus_score') ? Number(c.req.query('min_argus_score')) : undefined;
+    const daysBackRaw = c.req.query('days_back');
+    const daysBack = daysBackRaw ? Math.min(365, Math.max(1, Number(daysBackRaw) || 1)) : undefined;
+    const minPriorityRaw = c.req.query('min_priority');
+    const minPriority = minPriorityRaw ? Number(minPriorityRaw) || undefined : undefined;
+    const minArgusScoreRaw = c.req.query('min_argus_score');
+    const minArgusScore = minArgusScoreRaw ? Number(minArgusScoreRaw) || undefined : undefined;
     const keyword = c.req.query('q');
-    const limit = c.req.query('limit') ? Math.min(1000, Math.max(1, Number(c.req.query('limit')))) : undefined;
+    const limitRaw = c.req.query('limit');
+    const limit = limitRaw ? Math.min(1000, Math.max(1, Number(limitRaw) || 100)) : undefined;
 
     const cves = mod.filterCves(idx, {
       severity: severity as any,
@@ -98,7 +100,7 @@ threatIntelRouter.get('/threat-intel/kev', async (c) => {
     const mod = await loadTiMod();
     const kev = await mod.loadKevSnapshot(c.env.ASSETS);
     const vendor = c.req.query('vendor');
-    const limit = c.req.query('limit') ? Math.min(500, Math.max(1, Number(c.req.query('limit')))) : undefined;
+    const limit = c.req.query('limit') ? Math.min(500, Math.max(1, Number(c.req.query('limit')) || 100)) : undefined;
     const needle = vendor?.toLowerCase();
     const out = needle ? kev.filter((e: { vendor: string }) => e.vendor.toLowerCase().includes(needle)) : kev;
     const sliced = limit ? out.slice(0, limit) : out;
@@ -116,7 +118,7 @@ threatIntelRouter.get('/threat-intel/iocs', async (c) => {
     const idx = await mod.loadTiIndex(c.env.ASSETS);
     const category = c.req.query('category');
     const keyword = c.req.query('q');
-    const limit = c.req.query('limit') ? Math.min(100, Math.max(1, Number(c.req.query('limit')))) : undefined;
+    const limit = c.req.query('limit') ? Math.min(100, Math.max(1, Number(c.req.query('limit')) || 100)) : undefined;
 
     const iocs = mod.filterIocs(idx, {
       category: (category as any) || undefined,
@@ -200,7 +202,7 @@ threatIntelRouter.get('/threat-intel/lists', async (c) => {
     const idx = await mod.loadTiIndex(c.env.ASSETS);
     const category = c.req.query('category');
     const keyword = c.req.query('q');
-    const limit = c.req.query('limit') ? Math.min(100, Math.max(1, Number(c.req.query('limit')))) : undefined;
+    const limit = c.req.query('limit') ? Math.min(100, Math.max(1, Number(c.req.query('limit')) || 100)) : undefined;
 
     const lists = mod.filterLists(idx, {
       category: category || undefined,
@@ -223,7 +225,7 @@ threatIntelRouter.get('/threat-intel/lists/:slug', async (c) => {
     if (!body) return notFound(c, `detection_list_not_found: ${slug}`);
     const keyword = c.req.query('q');
     const severity = c.req.query('severity');
-    const limit = c.req.query('limit') ? Math.min(2000, Math.max(1, Number(c.req.query('limit')))) : undefined;
+    const limit = c.req.query('limit') ? Math.min(2000, Math.max(1, Number(c.req.query('limit')) || 100)) : undefined;
     const entries = mod.searchListEntries(body, {
       keyword: keyword || undefined,
       severity: severity || undefined,
