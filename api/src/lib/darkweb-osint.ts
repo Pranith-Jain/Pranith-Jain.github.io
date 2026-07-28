@@ -84,7 +84,7 @@ function onionHost(input: string): string | null {
 }
 
 function tor2webUrl(hostname: string, gw: string): string {
-  return `https://${hostname}/${gw}`;
+  return `https://${hostname}.${gw}/`;
 }
 
 function extractEmails(text: string): string[] {
@@ -355,9 +355,9 @@ export async function darkwebCrawl(
       // Resolve links
       const resolvedLinks = links.map((l) => {
         let href = l.href;
-        // Resolve relative links
-        if (href.startsWith('/')) href = `${currentHost}${href}`;
-        else if (!href.includes('.onion') && !href.startsWith('http')) href = `${currentHost}/${href}`;
+        if (href.startsWith('/')) href = `http://${currentHost}${href}`;
+        else if (!href.includes('.onion') && !href.startsWith('http')) href = `http://${currentHost}/${href}`;
+        else if (href.includes('.onion') && !href.startsWith('http')) href = `http://${href}`;
         const isOnion = /[a-z2-7]{16,56}\.onion/i.test(href);
         return { text: l.text, href, is_onion: isOnion };
       });

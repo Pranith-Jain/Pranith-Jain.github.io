@@ -162,6 +162,7 @@ export default function UnifiedSearch(): JSX.Element {
     } catch (e) {
       console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if ((e as Error).name === 'AbortError') return; // superseded / unmounted - swallow
+      lastSearchedRef.current = '';
       setError(e instanceof Error ? e.message : 'search failed');
     } finally {
       if (!ac.signal.aborted) setLoading(false);
@@ -206,7 +207,7 @@ export default function UnifiedSearch(): JSX.Element {
     if (!data) return [];
     const out: Array<{ title: string; body?: string; source?: string }> = [];
     for (const s of data.sections) {
-      for (const it of s.items.slice(0, 6)) {
+      for (const it of (s.items ?? []).slice(0, 6)) {
         out.push({ title: it.label, body: it.description, source: `${s.label} · ${it.source}` });
         if (out.length >= 30) return out;
       }

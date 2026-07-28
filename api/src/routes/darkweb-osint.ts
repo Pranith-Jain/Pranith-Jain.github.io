@@ -49,7 +49,7 @@ darkwebOsintRouter.get('/darkweb-osint/search', async (c) => {
         .map((e) => e.trim())
         .filter(Boolean)
     : ['ahmia', 'onionland', 'tor66', 'darkweblink'];
-  const limit = Math.min(Math.max(parseInt(c.req.query('limit') ?? '20', 10), 1), 50);
+  const limit = Math.min(Math.max(parseInt(c.req.query('limit') ?? '20', 10) || 20, 1), 50);
 
   try {
     const result = await darkwebMultiSearch(q, engines, limit);
@@ -64,8 +64,8 @@ darkwebOsintRouter.get('/darkweb-osint/crawl', async (c) => {
   const url = c.req.query('url');
   if (!url) return c.json({ error: 'url parameter required (.onion address)' }, 400);
 
-  const depth = Math.min(Math.max(parseInt(c.req.query('depth') ?? '2', 10), 0), 3);
-  const pages = Math.min(Math.max(parseInt(c.req.query('pages') ?? '10', 10), 1), 20);
+  const depth = Math.min(Math.max(parseInt(c.req.query('depth') ?? '2', 10) || 2, 0), 3);
+  const pages = Math.min(Math.max(parseInt(c.req.query('pages') ?? '10', 10) || 10, 1), 20);
   const extractEmails = c.req.query('emails') !== 'false';
 
   try {
@@ -93,7 +93,7 @@ darkwebOsintRouter.get('/darkweb-osint/scrape', async (c) => {
 darkwebOsintRouter.get('/darkweb-osint/onion-search', async (c) => {
   const q = c.req.query('q');
   if (!q) return c.json({ error: 'q parameter required' }, 400);
-  const limit = Math.min(Math.max(parseInt(c.req.query('limit') ?? '20', 10), 1), 100);
+  const limit = Math.min(Math.max(parseInt(c.req.query('limit') ?? '20', 10) || 20, 1), 100);
 
   try {
     const results = await torSearchOnion(q, limit);

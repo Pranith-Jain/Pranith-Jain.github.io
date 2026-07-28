@@ -248,7 +248,7 @@ origin: ['https://pranithjain.qzz.io'];
 Admin endpoints require `X-Admin-Token` header:
 
 ```bash
-curl -H "X-Admin-Token: your_token" https://api.example.com/api/v1/admin/health
+curl -H "X-Admin-Token: your_token" https://pranithjain.qzz.io/api/v1/admin/health
 ```
 
 ### API Key Rotation

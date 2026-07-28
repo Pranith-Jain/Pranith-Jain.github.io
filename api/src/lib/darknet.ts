@@ -108,7 +108,7 @@ export function tor2webUrl(onionUrl: string, gateway: string): string {
     clean = clean.replace(/^https?:\/\//, '');
   }
   clean = clean.replace(/\/+$/, '');
-  return `https://${clean}/${gateway}`;
+  return `https://${clean}.${gateway}/`;
 }
 
 export function parseHtmlBasic(html: string): {
@@ -180,6 +180,7 @@ export async function torFetchOnion(
   const res = await fetch(url, {
     headers: { 'User-Agent': UA, Accept: 'text/html,*/*' },
     redirect: 'follow',
+    signal: AbortSignal.timeout(12_000),
   });
   const html = await res.text();
   return { html, statusCode: res.status, fetchedVia: `${hostname}.${gw}` };
@@ -193,6 +194,7 @@ export async function torScrapeOnion(onionUrl: string, gatewayIndex = 0): Promis
   const res = await fetch(url, {
     headers: { 'User-Agent': UA, Accept: 'text/html,*/*' },
     redirect: 'follow',
+    signal: AbortSignal.timeout(12_000),
   });
   const html = await res.text();
   const { title, links, bodyText } = parseHtmlBasic(html);

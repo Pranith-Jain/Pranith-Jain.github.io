@@ -24,7 +24,7 @@ interface Advisory {
 interface VerdictResult {
   ref: string;
   purl: string;
-  verdict: 'clean' | 'malicious' | 'unknown';
+  verdict: 'clean' | 'malicious' | 'vulnerable' | 'unknown';
   confidence: 'high' | 'medium' | 'low';
   ids: string[];
   package_ecosystem: string;
@@ -77,6 +77,12 @@ const VERDICT_META: Record<string, { icon: typeof Shield; color: string; bg: str
     color: 'text-emerald-700 dark:text-emerald-300',
     bg: 'border-emerald-500/30 bg-emerald-500/10',
     label: 'CLEAN',
+  },
+  vulnerable: {
+    icon: AlertOctagon,
+    color: 'text-amber-700 dark:text-amber-300',
+    bg: 'border-amber-500/30 bg-amber-500/10',
+    label: 'VULNERABLE',
   },
   unknown: {
     icon: HelpCircle,

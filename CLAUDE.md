@@ -98,7 +98,7 @@ upstream sync is no longer needed (the data is now in `public/data/si/`).
 - `public/data/si/ref/<name>.json` — 14 reference datasets
 - `public/data/si/scripts/<name>` — 5 PowerShell + detection-manifest assets (360 KB)
 
-### Round 3 — REST routes, edge tools, SVG renderer, weekly sync
+### Extended SI tools (rounds 3–4)
 
 | Tool                 | Purpose                                                                                                                                                        |
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -107,63 +107,16 @@ upstream sync is no longer needed (the data is now in `public/data/si/`).
 | `si_kql_to_ah_url`   | Encode a KQL query to a Defender XDR Advanced Hunting deep link (UTF-16LE → GZip → Base64url). TS port of `kql_to_ah_url.py`.                                  |
 | `si_list_scripts`    | List the 5 PowerShell / detection-manifest assets.                                                                                                             |
 | `si_get_script`      | Return the raw body of a script.                                                                                                                               |
-| `si_render_svg`      | Server-render an SVG dashboard from a JSON manifest (6 widget types: title-banner, kpi-card, score-card, donut-chart, stacked-bar-chart, table-widget).        |
+| `si_render_svg`      | Server-render an SVG dashboard from a JSON manifest (14 widget types).                                                                                         |
+| `si_render_png`      | Rasterise a dashboard to PNG (base64 in the MCP text field). Uses bundled `@resvg/resvg-wasm` + Hanken Grotesk TTF.                                            |
 
-**HTTP routes** (15 SI routes registered, 13 from round 2 + 2 new):
+**HTTP routes**: `GET /api/v1/si/render?slug=…&format=svg|png`, `POST /api/v1/si/render` with JSON/YAML manifest.
 
-- `GET /api/v1/si/render?slug=threat-pulse` → `image/svg+xml` directly
-- `POST /api/v1/si/render` with JSON `{manifest, data}` or YAML `manifestYaml` → JSON `{svg, bytes, widgetCount}`
+**Key modules**: `worker/lib/si-svg-renderer.ts`, `worker/lib/si-svg-png.ts`, `worker/lib/si-rate-limit.ts`, `api/src/lib/si-yaml-mini.ts`, `src/lib/security-investigator.ts` (typed client).
 
-**Renderer module**: `worker/lib/si-svg-renderer.ts` (324 lines) + symlinked into `api/src/lib/si-svg-renderer.ts` so the HTTP route can call it.
+**Weekly sync**: `.github/workflows/si-upstream-sync.yml` re-runs sync + build every Monday 06:00 UTC; opens a PR if `public/data/si/` changed.
 
-**YAML parser**: `api/src/lib/si-yaml-mini.ts` (183 lines) — minimal indent-based parser for upstream svg-widgets.yaml manifests. NOT a general YAML parser.
-
-**Weekly sync** (round 3 G):
-
-- `worker/scheduled.ts` now logs `si-stats` JSON on every cron tick (cache hits/misses + manifest counts).
-- `.github/workflows/si-upstream-sync.yml` re-runs `scripts/sync-si-from-upstream.mjs` and `scripts/build-si-manifest.mjs` every Monday 06:00 UTC; opens a PR if `public/data/si/` changed.
-
-**Tests**: 24 vitest tests pass (was 19 from round 2; +5 for round-3).
-
-### Round 4 — PNG export, rate limiter, typed client, streaming
-
-| Tool            | Purpose                                                                                                             |
-| --------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `si_render_png` | Rasterise a dashboard to PNG (base64 in the MCP text field). Uses bundled `@resvg/resvg-wasm` + Hanken Grotesk TTF. |
-
-**R4-2 — PNG export (`worker/lib/si-svg-png.ts`)**:
-
-- `svgDashboardToPng(env, svg, {width, defaultFontFamily, background})` mirrors the `og-raster.ts` pattern (wasm bundled, fonts from `public/og/`). Default width 1400 matches upstream `canvas.width`.
-- `GET /api/v1/si/render?format=png&slug=…&width=1400` returns `image/png` directly. The existing `?format=svg` and JSON paths are unchanged.
-
-**R4-3 — Per-provider rate limiter (`worker/lib/si-rate-limit.ts`)**:
-
-- Fixed-window counter in `KV_CACHE` (key: `rl:<provider>:<windowStart>`). Conservative quotas (ipinfo 70/h, abuseipdb 1000/d, shodan 5/d, vpnapi 1000/d, shodan-internetdb unlimited).
-- Wired into `si-enrich.ts` — when a bucket is empty the provider call is skipped and a `status: 'rate_limited'` diagnostic is added so the LLM client can distinguish quota exhaustion from "empty response".
-- 8 unit tests: under-limit, at-limit, window rollover, per-provider isolation, disabled providers, peek, KV-missing degradation, reset.
-
-**R4-4 — Typed Hono client (`src/lib/security-investigator.ts`)**:
-
-- `createSiClient({baseUrl?, fetch?, signal?})` returns a strongly-typed wrapper over all 15 REST routes + the streaming variants. Default singleton `siClient`.
-- Types mirror the API shapes (`SiIndex`, `SiSkillBody`, `SiQueryBody`, `SiAutomationBody`, `SiDoc`, `SiRenderManifest`, `SiStreamResult`).
-- 13 unit tests cover: index, listSkills, getSkill, renderSvg (slug + POST), renderPng (400 path), SiClientError 404, routingPrompt, URL encoding, and the streaming methods.
-
-**R4-5 — Streaming responses for get_skill / get_doc / get_query**:
-
-- Added `?stream=true` to `GET /api/v1/si/skills/:slug`, `/query?slug=…`, `/docs/:slug`. Returns `text/markdown; charset=utf-8` as a `ReadableStream` chunked in 8 KB pieces.
-- Optional `?from_line=N&max_lines=M` slices the body by line range. Response headers `X-SI-Start-Line`, `X-SI-End-Line`, `X-SI-Total-Lines`, `X-SI-Bytes` carry the metadata.
-- Client methods `streamSkill`, `streamQuery`, `streamDoc` on `siClient` return `{text, meta}`.
-
-**Stale comment fixed**: `worker/lib/si-svg-renderer.ts` header now says "Supports 14 widget types" with the full enumerated list (was "6 widget types").
-
-**MCP tool inventory (final)**: 70 tools total — 46 pre-existing DFIR / threat-intel tools + 21 SI tools (`si_list_skills`, `si_get_skill`, `si_list_queries`, `si_get_query`, `si_get_automation`, `si_stats`, `si_render_svg_dashboard`, `si_list_docs`, `si_get_doc`, `si_get_routing_prompt`, `si_list_ref`, `si_get_ref`, `si_enrich_ip`, `si_enrich_ip_batch`, `si_enrich_ip_stix`, `si_enrich_ip_stix_batch`, `si_kql_to_ah_url`, `si_list_scripts`, `si_get_script`, `si_render_svg`, `si_render_png`) + 3 depx tools (`depx_feed`, `depx_check`, `depx_stats`).
-
-**Verification (final)**:
-
-- `npx tsc --noEmit -p tsconfig.json` — clean
-- `npx tsc --noEmit -p api/tsconfig.json` — zero SI-related errors
-- `npx vitest run` — 45/45 tests pass across `si-manifest.test.ts`, `si-rate-limit.test.ts`, `security-investigator.test.ts`
-- `npx wrangler deploy --dry-run` — 9.3 MB / 2.3 MB gzip, all bindings intact, `env.ASSETS` bound, resvg-wasm bundled, 20 references to SI render tools in the output `index.js`
+**MCP tool inventory**: 258 tools total across the `DFIR_MCP` Durable Object — DFIR/threat-intel tools (`check_ioc`, `lookup_cve`, `enrich_actor`, `lookup_domain`, etc.) + SI tools (`si_*`) + threat-intel vertical (`ti_*`) + depx (`depx_*`) + winreg (`winreg_*`) + HudsonRock (`hr_*`) + Telegram (`tg_*`) + workspace/notebook (`ws_*`, `notebook_*`) + passive DNS + IOC watchlist + report analysis + more.
 
 ## Threat Intel vertical — CVE/KEV/IOC/sector brief (v1)
 

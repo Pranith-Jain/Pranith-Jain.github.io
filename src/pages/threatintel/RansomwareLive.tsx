@@ -989,7 +989,8 @@ export default function RansomwareLive(): JSX.Element {
       maxWidthClass="max-w-6xl"
       description={
         <span className="text-sm font-mono">
-          Server-proxied, key-injected, edge-cached view of the{' '}
+          PRO API data — stats, group TTPs/CVEs, YARA rules, IoCs, KQL hunting queries, and infostealer
+          enrichment from{' '}
           <a
             href="https://www.ransomware.live"
             target="_blank"
@@ -997,8 +998,12 @@ export default function RansomwareLive(): JSX.Element {
             className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             ransomware.live
-          </a>{' '}
-          PRO API + KQL scraper. Cyberattacks carry HudsonRock infostealer enrichment inline.
+          </a>
+          . For victim reporting, activity feeds, and payment tracking, see{' '}
+          <a href="/threatintel/ransomware-hub" className="text-brand-600 dark:text-brand-400 hover:underline">
+            Ransomware Hub
+          </a>
+          .
         </span>
       }
       headerExtra={

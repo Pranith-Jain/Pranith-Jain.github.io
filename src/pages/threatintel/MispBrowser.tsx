@@ -141,7 +141,7 @@ export default function MispBrowser() {
       if (Array.isArray(data)) {
         sessionStorage.setItem('mispUrl', baseUrl);
         setConnected(true);
-        loadEvents(1);
+        await loadEvents(1);
       } else {
         throw new Error('Unexpected response format');
       }

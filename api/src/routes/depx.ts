@@ -226,7 +226,15 @@ export async function depxCheckHandler(c: Context<{ Bindings: Env }>): Promise<R
     if (!ecosystem || !packageName) return c.json({ error: 'missing params' }, 400);
 
     const ghToken = c.env.GITHUB_TOKEN;
-    const osvEco = ecosystem.toUpperCase();
+    const OSV_ECO_MAP: Record<string, string> = {
+      npm: 'npm',
+      pypi: 'PyPI',
+      rubygems: 'RubyGems',
+      maven: 'Maven',
+      go: 'Go',
+      'crates.io': 'crates.io',
+    };
+    const osvEco = OSV_ECO_MAP[ecosystem] ?? ecosystem;
 
     const [ossfResult, osvResult] = await Promise.all([
       fetchResilient(
@@ -292,7 +300,7 @@ export async function depxCheckHandler(c: Context<{ Bindings: Env }>): Promise<R
     ];
 
     const isMalicious = allAdvisories.some((a) => a.id.startsWith('MAL-'));
-    const verdict = isMalicious ? 'malicious' : allAdvisories.length > 0 ? 'clean' : 'unknown';
+    const verdict = isMalicious ? 'malicious' : allAdvisories.length > 0 ? 'vulnerable' : 'unknown';
     const confidence = isMalicious ? 'high' : allAdvisories.length > 0 ? 'medium' : 'low';
 
     const registryUrls: Record<string, string> = {

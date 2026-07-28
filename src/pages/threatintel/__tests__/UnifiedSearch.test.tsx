@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import UnifiedSearch from '../UnifiedSearch';
 
@@ -59,5 +59,38 @@ describe('UnifiedSearch omnibox', () => {
     renderAt('/threatintel/unified-search?q=cve');
     const cveLink = screen.getByRole('link', { name: /CVE Lookup/i });
     expect(cveLink).toHaveAttribute('href', '/dfir/cve');
+  });
+
+  it('shows an error message when the API returns 500', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response(JSON.stringify({ error: 'internal' }), { status: 500 }))
+    );
+    renderAt('/threatintel/unified-search?q=emotet');
+    await waitFor(() => {
+      expect(screen.getByText(/search error/i)).toBeInTheDocument();
+    });
+  });
+
+  it('allows retrying the same query after a failed search', async () => {
+    let callCount = 0;
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => {
+        callCount++;
+        if (callCount === 1) return new Response(JSON.stringify({ error: 'fail' }), { status: 500 });
+        return new Response(JSON.stringify({ q: 'emotet', generated_at: '', total: 0, sections: [] }), { status: 200 });
+      })
+    );
+    renderAt('/threatintel/unified-search?q=emotet');
+    await waitFor(() => {
+      expect(screen.getByText(/search error/i)).toBeInTheDocument();
+    });
+    const form = screen.getByRole('searchbox', { name: /search across all intelligence/i }).closest('form')!;
+    fireEvent.submit(form);
+    await waitFor(() => {
+      expect(screen.queryByText(/search error/i)).not.toBeInTheDocument();
+    });
+    expect(callCount).toBeGreaterThanOrEqual(2);
   });
 });

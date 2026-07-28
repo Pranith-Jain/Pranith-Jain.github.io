@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState, type FormEvent } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import {
@@ -89,19 +89,20 @@ export default function InfraSearch(): JSX.Element {
   const [mapGlobal, setMapGlobal] = useState(false);
   const [darkTiles, setDarkTiles] = useState(true);
 
-  const onSubmit = async (e: FormEvent, overrideQuery?: string) => {
-    e.preventDefault();
-    const q = (overrideQuery ?? input).trim();
-    if (!q) return;
+  const ranOnMount = useRef(false);
+
+  const runSearch = async (q: string) => {
     setInput(q);
     setSearchParams({ q }, { replace: true });
     setLoading(true);
     setError(null);
     try {
       const r = await fetch(`/api/v1/infra-search?q=${encodeURIComponent(q)}`);
-      const data = await r.json();
-      if (!r.ok) throw new Error(data.error ?? `HTTP ${r.status}`);
-      setResult(data);
+      if (!r.ok) {
+        const body = await r.json().catch(() => null);
+        throw new Error((body as { error?: string })?.error ?? `HTTP ${r.status}`);
+      }
+      setResult(await r.json());
     } catch (err) {
       console.error('InfraSearch failed:', err instanceof Error ? err.message : String(err));
       setError(err instanceof Error ? err.message : 'search failed');
@@ -109,6 +110,21 @@ export default function InfraSearch(): JSX.Element {
       setLoading(false);
     }
   };
+
+  const onSubmit = async (e: FormEvent, overrideQuery?: string) => {
+    e.preventDefault();
+    const q = (overrideQuery ?? input).trim();
+    if (!q) return;
+    await runSearch(q);
+  };
+
+  useEffect(() => {
+    if (ranOnMount.current) return;
+    ranOnMount.current = true;
+    const q = searchParams.get('q')?.trim();
+    if (q) void runSearch(q);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const filtered = result?.results.filter((r) => catFilter === 'All' || r.category === catFilter) ?? [];
   const categoryCounts: Record<string, number> = {};

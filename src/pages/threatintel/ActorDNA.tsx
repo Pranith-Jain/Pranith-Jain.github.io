@@ -138,6 +138,7 @@ export default function ActorDNA(): JSX.Element {
         signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]),
       });
       if (ctrl.signal.aborted) return;
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       setMatches(data.matches ?? []);
       setError(null);

@@ -50,6 +50,7 @@ export default function CveIntel(): JSX.Element {
       <nav
         className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))] mb-6"
         aria-label="CVE intelligence"
+        role="tablist"
       >
         {TABS.map((t) => (
           <button
@@ -62,6 +63,8 @@ export default function CveIntel(): JSX.Element {
                 : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
             }`}
             aria-selected={activeTab === t.id}
+            aria-controls={`tabpanel-${t.id}`}
+            id={`tab-${t.id}`}
             role="tab"
           >
             {t.label}
@@ -73,7 +76,7 @@ export default function CveIntel(): JSX.Element {
         {TABS.find((t) => t.id === activeTab)?.desc}
       </p>
 
-      <div role="tabpanel">
+      <div role="tabpanel" id={`tabpanel-${activeTab}`} aria-labelledby={`tab-${activeTab}`}>
         <Suspense fallback={<TabLoader />}>
           {activeTab === 'all' && <CveList bare />}
           {activeTab === 'exploitable' && <ExploitableCves bare />}

@@ -88,6 +88,11 @@ export default function IocEnrichment(): JSX.Element {
     };
   }, [showDropdown]);
 
+  useEffect(() => {
+    setData(null);
+    setError(null);
+  }, [source]);
+
   // A successful-but-empty response (e.g. `{}` or `[]`) should read as "no
   // results", not a raw empty-object dump.
   const isEmptyResult =

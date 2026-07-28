@@ -55,6 +55,7 @@ async function fetchJson(url, dest) {
       'user-agent': 'pranithjain-threat-intel-sync/1.0 (+https://pranithjain.qzz.io)',
       ...(process.env.NVD_API_KEY ? { apiKey: process.env.NVD_API_KEY } : {}),
     },
+    signal: AbortSignal.timeout(30_000),
   });
   if (!res.ok) {
     throw new Error(`fetch failed: ${url} → ${res.status} ${res.statusText}`);
