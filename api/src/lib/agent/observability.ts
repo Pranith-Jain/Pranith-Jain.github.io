@@ -9,10 +9,37 @@ export interface AgentMetrics {
   avgQualityScore: number;
   avgStepsPerInvestigation: number;
   avgDurationMs: number;
-  topTools: Array<{ tool: string; count: number; avgDurationMs: number }>;
+  topTools: Array<{ tool: string; count: number; avgDurationMs: number; successRate: number }>;
   topModels: Array<{ model: string; count: number; avgScore: number }>;
   errorRate: number;
   recentErrors: Array<{ query: string; error: string; at: string }>;
+  /** Telemetry for the agent upgrades (parallel burst, self-correction, etc.). */
+  features: {
+    parallelBurst: number;
+    selfCorrection: number;
+    avgScoreDelta: number;
+    routingRefinements: number;
+    avgFindings: number;
+  };
+}
+
+/** Per-tool execution sample recorded on investigation completion. */
+export interface ToolTiming {
+  name: string;
+  ms: number;
+  ok: boolean;
+}
+
+/** New-feature telemetry recorded alongside each investigation. */
+export interface InvestigationMeta {
+  parallelBurst?: boolean;
+  selfCorrection?: boolean;
+  /** QA score improvement from self-correction (to - from). */
+  scoreDelta?: number;
+  /** True when a generic query was refined to a specific route. */
+  routingRefined?: boolean;
+  findings?: number;
+  graphNodes?: number;
 }
 
 /**
@@ -28,6 +55,8 @@ export async function recordMetrics(
     qualityScore: number;
     modelUsed: string;
     toolsUsed: string[];
+    toolTimings?: ToolTiming[];
+    meta?: InvestigationMeta;
     error?: string;
     completedAt: string;
   }
@@ -35,8 +64,8 @@ export async function recordMetrics(
   try {
     await db
       .prepare(
-        `INSERT INTO agent_metrics (id, query, status, total_steps, duration_ms, quality_score, model_used, tools_used, error, completed_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+        `INSERT INTO agent_metrics (id, query, status, total_steps, duration_ms, quality_score, model_used, tools_used, tool_timings, meta, error, completed_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
       )
       .bind(
         crypto.randomUUID(),
@@ -47,6 +76,8 @@ export async function recordMetrics(
         entry.qualityScore,
         entry.modelUsed,
         JSON.stringify(entry.toolsUsed),
+        JSON.stringify(entry.toolTimings ?? []),
+        JSON.stringify(entry.meta ?? {}),
         entry.error ?? null,
         entry.completedAt
       )
@@ -54,6 +85,101 @@ export async function recordMetrics(
   } catch (err) {
     console.error('recordMetrics failed:', err);
   }
+}
+
+/**
+ * Pure aggregation of per-investigation rows into top-tools (with real latency
+ * + success rate) and feature telemetry. Prefers the per-tool `tool_timings`
+ * blob (migration 0041); falls back to the legacy `tools_used` name list for
+ * older rows. Extracted for unit testing.
+ */
+export function aggregateObservability(
+  rows: Array<{ tools_used: string; tool_timings: string | null; meta: string | null }>
+): {
+  topTools: Array<{ tool: string; count: number; avgDurationMs: number; successRate: number }>;
+  features: AgentMetrics['features'];
+} {
+  const toolStats = new Map<string, { count: number; totalMs: number; ok: number }>();
+  const bump = (name: string, ms: number, ok: boolean) => {
+    const s = toolStats.get(name) ?? { count: 0, totalMs: 0, ok: 0 };
+    s.count += 1;
+    s.totalMs += ms;
+    if (ok) s.ok += 1;
+    toolStats.set(name, s);
+  };
+  let parallelBurst = 0;
+  let selfCorrection = 0;
+  let scoreDeltaSum = 0;
+  let scoreDeltaCount = 0;
+  let routingRefinements = 0;
+  let findingsSum = 0;
+  let findingsCount = 0;
+
+  for (const row of rows) {
+    let usedTimings = false;
+    if (row.tool_timings) {
+      try {
+        const timings = JSON.parse(row.tool_timings) as ToolTiming[];
+        if (Array.isArray(timings) && timings.length > 0) {
+          for (const t of timings) {
+            if (t && typeof t.name === 'string') bump(t.name, Number(t.ms) || 0, t.ok !== false);
+          }
+          usedTimings = true;
+        }
+      } catch {
+        /* skip malformed */
+      }
+    }
+    if (!usedTimings) {
+      try {
+        const tools = JSON.parse(row.tools_used) as unknown;
+        if (Array.isArray(tools)) {
+          for (const t of tools) if (typeof t === 'string') bump(t, 0, true);
+        }
+      } catch {
+        /* skip malformed */
+      }
+    }
+    if (row.meta) {
+      try {
+        const m = JSON.parse(row.meta) as InvestigationMeta;
+        if (m.parallelBurst) parallelBurst++;
+        if (m.selfCorrection) selfCorrection++;
+        if (typeof m.scoreDelta === 'number') {
+          scoreDeltaSum += m.scoreDelta;
+          scoreDeltaCount++;
+        }
+        if (m.routingRefined) routingRefinements++;
+        if (typeof m.findings === 'number') {
+          findingsSum += m.findings;
+          findingsCount++;
+        }
+      } catch {
+        /* skip malformed */
+      }
+    }
+  }
+
+  const topTools = [...toolStats.entries()]
+    .sort(([, a], [, b]) => b.count - a.count)
+    .slice(0, 10)
+    .map(([tool, s]) => ({
+      tool,
+      count: s.count,
+      avgDurationMs: s.count > 0 ? Math.round(s.totalMs / s.count) : 0,
+      successRate: s.count > 0 ? Math.round((s.ok / s.count) * 100) : 0,
+    }));
+
+  return {
+    topTools,
+    features: {
+      parallelBurst,
+      selfCorrection,
+      avgScoreDelta: scoreDeltaCount > 0 ? Math.round(scoreDeltaSum / scoreDeltaCount) : 0,
+      routingRefinements,
+      avgFindings: findingsCount > 0 ? Math.round(findingsSum / findingsCount) : 0,
+    },
+  };
 }
 
 /**
@@ -90,27 +216,86 @@ export async function getAgentMetrics(db: D1Database): Promise<AgentMetrics> {
       .first<{ avg_dur: number }>();
     const avgDurationMs = Math.round(durationResult?.avg_dur ?? 0);
 
-    // Top tools
+    // Top tools — prefer per-tool timings (real latency + success rate); fall
+    // back to the legacy tools_used name list for rows written before 0041.
     const { results: toolRows } = await db
-      .prepare(`SELECT tools_used FROM agent_metrics WHERE status = 'done'`)
-      .all<{ tools_used: string }>();
-    const toolCounts = new Map<string, { count: number; totalDuration: number }>();
+      .prepare(`SELECT tools_used, tool_timings, meta FROM agent_metrics WHERE status = 'done'`)
+      .all<{ tools_used: string; tool_timings: string | null; meta: string | null }>();
+    const toolStats = new Map<string, { count: number; totalMs: number; ok: number }>();
+    const bump = (name: string, ms: number, ok: boolean) => {
+      const s = toolStats.get(name) ?? { count: 0, totalMs: 0, ok: 0 };
+      s.count += 1;
+      s.totalMs += ms;
+      if (ok) s.ok += 1;
+      toolStats.set(name, s);
+    };
+    let parallelBurst = 0;
+    let selfCorrection = 0;
+    let scoreDeltaSum = 0;
+    let scoreDeltaCount = 0;
+    let routingRefinements = 0;
+    let findingsSum = 0;
+    let findingsCount = 0;
     for (const row of toolRows) {
-      try {
-        const tools = JSON.parse(row.tools_used) as string[];
-        for (const t of tools) {
-          const existing = toolCounts.get(t) ?? { count: 0, totalDuration: 0 };
-          existing.count++;
-          toolCounts.set(t, existing);
+      let usedTimings = false;
+      if (row.tool_timings) {
+        try {
+          const timings = JSON.parse(row.tool_timings) as ToolTiming[];
+          if (Array.isArray(timings) && timings.length > 0) {
+            for (const t of timings) {
+              if (t && typeof t.name === 'string') bump(t.name, Number(t.ms) || 0, t.ok !== false);
+            }
+            usedTimings = true;
+          }
+        } catch {
+          /* skip malformed */
         }
-      } catch {
-        /* skip */
+      }
+      if (!usedTimings) {
+        try {
+          const tools = JSON.parse(row.tools_used) as unknown;
+          if (Array.isArray(tools)) {
+            for (const t of tools) if (typeof t === 'string') bump(t, 0, true);
+          }
+        } catch {
+          /* skip malformed */
+        }
+      }
+      if (row.meta) {
+        try {
+          const m = JSON.parse(row.meta) as InvestigationMeta;
+          if (m.parallelBurst) parallelBurst++;
+          if (m.selfCorrection) selfCorrection++;
+          if (typeof m.scoreDelta === 'number') {
+            scoreDeltaSum += m.scoreDelta;
+            scoreDeltaCount++;
+          }
+          if (m.routingRefined) routingRefinements++;
+          if (typeof m.findings === 'number') {
+            findingsSum += m.findings;
+            findingsCount++;
+          }
+        } catch {
+          /* skip malformed */
+        }
       }
     }
-    const topTools = [...toolCounts.entries()]
+    const topTools = [...toolStats.entries()]
       .sort(([, a], [, b]) => b.count - a.count)
       .slice(0, 10)
-      .map(([tool, { count }]) => ({ tool, count, avgDurationMs: 0 }));
+      .map(([tool, s]) => ({
+        tool,
+        count: s.count,
+        avgDurationMs: s.count > 0 ? Math.round(s.totalMs / s.count) : 0,
+        successRate: s.count > 0 ? Math.round((s.ok / s.count) * 100) : 0,
+      }));
+    const features = {
+      parallelBurst,
+      selfCorrection,
+      avgScoreDelta: scoreDeltaCount > 0 ? Math.round(scoreDeltaSum / scoreDeltaCount) : 0,
+      routingRefinements,
+      avgFindings: findingsCount > 0 ? Math.round(findingsSum / findingsCount) : 0,
+    };
 
     // Top models
     const { results: modelRows } = await db
@@ -160,6 +345,7 @@ export async function getAgentMetrics(db: D1Database): Promise<AgentMetrics> {
       topModels,
       errorRate,
       recentErrors,
+      features,
     };
   } catch (err) {
     console.error('getAgentMetrics failed:', err);
@@ -173,6 +359,7 @@ export async function getAgentMetrics(db: D1Database): Promise<AgentMetrics> {
       topModels: [],
       errorRate: 0,
       recentErrors: [],
+      features: { parallelBurst: 0, selfCorrection: 0, avgScoreDelta: 0, routingRefinements: 0, avgFindings: 0 },
     };
   }
 }

@@ -20,6 +20,7 @@ import {
   SPECIALIST_TOOLS,
   getToolsForSpecialist,
   getSpecialistsForQueryType,
+  resolveRoutingQueryType,
   type SpecialistRole,
   type SpecialistFinding,
 } from '../../api/src/lib/agent/specialist-types';
@@ -371,7 +372,6 @@ export class InvestigatorAgentDO {
 
     // Check budget before proceeding
     if (isOverBudget(costTracker)) {
-      console.warn(`agent ${state.id}: budget exceeded (${costSummary(costTracker)}), synthesizing early`);
       return await this.doSynthesize(
         state,
         ai,
@@ -673,6 +673,7 @@ export class InvestigatorAgentDO {
       // Continue the chain from the last burst specialist; the next alarm's
       // checkSpecialistExit advances to the following specialist.
       state.currentSpecialist = burst[burst.length - 1];
+      state.usedParallelBurst = true;
       return state;
     } catch (err) {
       console.error(
@@ -1078,6 +1079,10 @@ export class InvestigatorAgentDO {
         const { recordMetrics } = await import('../../api/src/lib/agent/observability');
         const durationMs = new Date(state.completedAt).getTime() - new Date(state.startedAt).getTime();
         const toolsUsed = [...new Set(state.steps.flatMap((s) => s.results.map((r) => r.tool)))];
+        const toolTimings = state.steps.flatMap((s) =>
+          s.results.map((r) => ({ name: r.tool, ms: r.durationMs, ok: r.status === 'ok' }))
+        );
+        const diff = state.reportVersioning?.diff;
         await recordMetrics(db, {
           query: state.query,
           status: state.status,
@@ -1086,8 +1091,31 @@ export class InvestigatorAgentDO {
           qualityScore: state.qa?.qualityScore ?? 0,
           modelUsed: state.modelUsed ?? '',
           toolsUsed,
+          toolTimings,
+          meta: {
+            parallelBurst: state.usedParallelBurst === true,
+            selfCorrection: (state.reportVersioning?.versions.length ?? 0) > 1,
+            scoreDelta: diff ? diff.toScore - diff.fromScore : undefined,
+            routingRefined: resolveRoutingQueryType(state.query, state.queryType) !== state.queryType,
+            findings: state.findings?.length ?? 0,
+            graphNodes: state.actionCard?.graph?.nodes.length ?? 0,
+          },
           error: state.error ?? undefined,
           completedAt: state.completedAt,
+        });
+
+        // Record confidence calibration — predicted verdict confidence vs the
+        // QA-derived actual outcome. Feeds getCalibrationStats accuracy tracking.
+        const { recordCalibration } = await import('../../api/src/lib/agent/confidence-calibration');
+        const predictedConfidence = state.actionCard?.verdict.confidence ?? 'medium';
+        const calScore = state.qa?.qualityScore ?? 0;
+        await recordCalibration(db, {
+          query: state.query,
+          predictedConfidence,
+          actualOutcome: calScore >= 75 ? 'correct' : calScore >= 50 ? 'partial' : 'incorrect',
+          qualityScore: calScore,
+          modelUsed: state.modelUsed ?? '',
+          recordedAt: state.completedAt,
         });
       }
 

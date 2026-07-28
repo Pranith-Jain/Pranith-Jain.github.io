@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { AgentStep } from '../../src/lib/agent/types';
-import { rebuildWorkingMemory, createWorkingMemory } from '../../src/lib/agent/agent-framework';
+import { rebuildWorkingMemory, createWorkingMemory, buildFactList } from '../../src/lib/agent/agent-framework';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Regression gate for cross-alarm working-memory persistence.
@@ -103,5 +103,32 @@ describe('rebuildWorkingMemory', () => {
     expect(mem.iocs).toEqual([]);
     expect(mem.mitre).toEqual([]);
     expect(mem.keyFacts).toEqual([]);
+  });
+});
+
+describe('buildFactList', () => {
+  it('returns empty string when no observer findings exist', () => {
+    expect(buildFactList([])).toBe('');
+    expect(buildFactList([step({ stepNumber: 1 })])).toBe('');
+  });
+
+  it('compiles confirmed IOCs, MITRE, and key facts (deduped)', () => {
+    const steps = [
+      step({
+        stepNumber: 1,
+        observerFindings: { iocs: ['1.2.3.4'], mitre: ['t1059'], keyFacts: ['C2 seen'], gaps: [] },
+      }),
+      step({
+        stepNumber: 2,
+        observerFindings: { iocs: ['1.2.3.4', 'evil.com'], mitre: ['T1059'], keyFacts: ['C2 seen'], gaps: [] },
+      }),
+    ];
+    const out = buildFactList(steps);
+    expect(out).toContain('IOCs confirmed by tools: 1.2.3.4, evil.com');
+    expect(out).toContain('MITRE techniques confirmed: T1059');
+    expect(out).toContain('C2 seen');
+    // Deduped: only one C2 seen line, one T1059
+    expect(out.match(/C2 seen/g)).toHaveLength(1);
+    expect(out.match(/T1059/g)).toHaveLength(1);
   });
 });

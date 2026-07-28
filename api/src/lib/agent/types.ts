@@ -109,6 +109,8 @@ export interface AgentState {
    * card's IOC table so it reflects tool-grounded data, not just prose regex.
    */
   findings?: import('./specialist-types').SpecialistFinding[];
+  /** True when the step-1 parallel specialist burst ran (observability). */
+  usedParallelBurst?: boolean;
   /**
    * Report version history — captured when self-correction produces a second
    * draft. Compact (no full text) so D1 rows stay small; the live report text
