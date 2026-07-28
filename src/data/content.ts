@@ -630,6 +630,9 @@ export const navLinks: NavLinkExt[] = [
       { label: 'Threat Graph', href: '/dfir/threat-graph' },
     ],
   },
+  { label: 'Daily Briefs', href: '/daily-briefs' },
+  { label: 'Agent', href: '/agent' },
+  { label: 'Copilot', href: '/copilot' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/#contact', cta: true },
 ];

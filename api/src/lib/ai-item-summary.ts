@@ -115,7 +115,6 @@ export async function generateItemSummary(item: ItemInput, env: Env): Promise<st
     }
     return text;
   } catch (err) {
-    console.warn(JSON.stringify({ job: 'ai-item-summary', error: err instanceof Error ? err.message : String(err) }));
     return null;
   }
 }

@@ -129,7 +129,6 @@ export async function generateAiImage(ai: Ai, prompt: string): Promise<Uint8Arra
     }
     return null;
   } catch (err) {
-    console.warn('generateAiImage failed:', err instanceof Error ? err.message : String(err));
     return null;
   }
 }

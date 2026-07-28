@@ -137,7 +137,6 @@ export async function runRetentionSweep(
       total += wouldDelete;
       // Log a single line per non-empty table for ops visibility
       if (wouldDelete > 0) {
-        console.log(`retention: ${p.table} ${wouldDelete} rows older than ${days}d (${Date.now() - t0}ms)`);
       }
     } catch (err) {
       tables.push({

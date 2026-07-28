@@ -7,7 +7,7 @@
  * Uses system/user prompt separation for better output quality.
  */
 import type { Ai } from '@cloudflare/workers-types';
-import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
+import { runCompletion, runCompletionStream, type CompletionInput } from '../../case-study/generation/ai-client';
 import type {
   ActionItem,
   ActionStakeholder,
@@ -44,6 +44,8 @@ export async function synthesizeReport(
      * query out of the revised report's prompt.
      */
     correctionPrompt?: string;
+    /** When set, the synthesis is streamed (Groq SSE) and each token delta is forwarded here. */
+    onToken?: (token: string) => void;
   }
 ): Promise<SynthesizerOutput> {
   const dq = opts.dataQuality ?? {
@@ -87,13 +89,16 @@ export async function synthesizeReport(
       : buildSynthesizerUserPrompt(query, queryType, steps) + dataWarning;
   const input: CompletionInput = { system, user, maxTokens: useMinimal ? 2000 : 8000, temperature: 0.3 };
 
-  const { text, modelUsed } = await runCompletion(ai, input, {
+  const completionOpts = {
     googleKey: opts.googleKey,
     groqKey: opts.groqKey,
     nvidiaKey: opts.nvidiaKey,
     quality: true,
     preferGroq: true,
-  });
+  };
+  const { text, modelUsed } = opts.onToken
+    ? await runCompletionStream(ai, input, completionOpts, opts.onToken)
+    : await runCompletion(ai, input, completionOpts);
 
   const { report, actionCard, handoff, reportHeader: rawHeader } = splitSynthOutput(text);
   const keyFindings = extractKeyFindings(report);

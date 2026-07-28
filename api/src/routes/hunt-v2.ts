@@ -146,13 +146,17 @@ async function checkHudsonRock(value: string, isEmail: boolean): Promise<BreachH
   }
 }
 
-async function checkDehashed(value: string, type: string): Promise<BreachHit[]> {
+async function checkHibpBreaches(value: string, type: string, env: Env): Promise<BreachHit[]> {
   if (type !== 'email' && type !== 'domain') return [];
+  // HIBP v3 requires an API key for all endpoints. Without one, the
+  // breach lookup is skipped — HudsonRock stealer logs still provide
+  // breach-adjacent signal for emails.
+  const apiKey = env.HIBP_API_KEY;
+  if (!apiKey) return [];
   try {
-    // Dehashed has no free API — use HaveIBeenPwned's public breach list as a proxy
     const domain = type === 'email' ? (value.split('@')[1] ?? value) : value;
     const res = await fetch(`https://haveibeenpwned.com/api/v3/breaches?domain=${encodeURIComponent(domain)}`, {
-      headers: { 'user-agent': UA, 'hibp-api-key': '' },
+      headers: { 'user-agent': UA, 'hibp-api-key': apiKey },
       signal: AbortSignal.timeout(5_000),
     });
     if (!res.ok) return [];
@@ -165,14 +169,14 @@ async function checkDehashed(value: string, type: string): Promise<BreachHit[]> 
       description: `Data classes: ${b.DataClasses.join(', ')}`,
     }));
   } catch (_catchErr) {
-    console.error('checkDehashed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    console.error('checkHibpBreaches failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return [];
   }
 }
 
-async function checkBreaches(value: string, type: string): Promise<BreachHit[]> {
+async function checkBreaches(value: string, type: string, env: Env): Promise<BreachHit[]> {
   const isEmail = type === 'email';
-  const results = await Promise.allSettled([checkHudsonRock(value, isEmail), checkDehashed(value, type)]);
+  const results = await Promise.allSettled([checkHudsonRock(value, isEmail), checkHibpBreaches(value, type, env)]);
   return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
 }
 
@@ -329,7 +333,7 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
         new Promise<ProviderResult[]>((r) => setTimeout(() => r([]), 20_000)),
       ]).catch(() => [] as ProviderResult[]),
       db ? checkTelegramLeaks(db, q, type).catch(() => [] as TelegramHit[]) : Promise.resolve([] as TelegramHit[]),
-      checkBreaches(q, type).catch(() => [] as BreachHit[]),
+      checkBreaches(q, type, c.env).catch(() => [] as BreachHit[]),
     ]);
 
     // Run RDAP/CT separately so they can't crash the whole response.

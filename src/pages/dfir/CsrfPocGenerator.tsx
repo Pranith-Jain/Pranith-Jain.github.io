@@ -108,8 +108,6 @@ ${headersStr}
   xhr.withCredentials = ${withCredentials};
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
-      console.log('Status:', xhr.status);
-      console.log('Response:', xhr.responseText);
     }
   };
   xhr.send('${escJs(new URLSearchParams(payload).toString())}');
@@ -142,7 +140,7 @@ function generateFetchPoc(config: CsrfConfig): string {
     body: new URLSearchParams(${JSON.stringify(payload, null, 4)})
   })
   .then(r => r.text())
-  .then(t => console.log(t))
+  .then(t => )
   .catch(e => console.error(e));
 </script>`;
 }

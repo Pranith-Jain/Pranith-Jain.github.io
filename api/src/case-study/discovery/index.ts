@@ -82,7 +82,6 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
     );
     for (const { name, cands, error, ms } of batchResults) {
       if (error) {
-        console.warn(JSON.stringify({ job: 'discovery', runner: name, ms, error: String(error) }));
         byTopicSelected[name] = 0;
         continue;
       }
@@ -174,19 +173,6 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
     kept.map((c) => c.key),
     deps.now
   );
-
-  console.log(
-    JSON.stringify({
-      job: 'discovery',
-      total,
-      suppressed,
-      deduped,
-      kept: kept.length,
-      byTopicSelected,
-      byTopic,
-    })
-  );
-
   return {
     total,
     kept: kept.length,

@@ -13,7 +13,6 @@ export function sseStream<T>(producer: (write: (event: string, data: T) => void)
         try {
           controller.enqueue(encoder.encode(errorPayload));
         } catch (e) {
-          console.warn(JSON.stringify({ error: e instanceof Error ? e.message : String(e) }));
         }
       } finally {
         controller.close();

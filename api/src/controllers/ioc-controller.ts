@@ -73,12 +73,10 @@ export function createIocController(): IocController {
             indexes: [visitorCountry(c.req.raw)],
           });
         } catch (e) {
-          console.warn(JSON.stringify({ error: e instanceof Error ? e.message : String(e) }));
         }
         try {
           c.executionCtx.waitUntil(slot.release());
         } catch (e) {
-          console.warn(JSON.stringify({ error: e instanceof Error ? e.message : String(e) }));
         }
       });
     },

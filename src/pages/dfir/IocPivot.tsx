@@ -6,7 +6,7 @@ import { detectType } from '../../lib/dfir/indicator-client';
 import type { ProviderResultWire, DoneEvent } from '../../lib/dfir/types';
 
 /**
- * IOC Pivot Graph - enrich one indicator across the 26-source checker
+ * IOC Pivot Graph - enrich one indicator across the 60+ source checker
  * (reuses /api/v1/ioc/check SSE), then render a radial relationship graph:
  * indicator → sources (verdict-coloured) → derived pivot indicators
  * (IPs / domains / hashes / ASNs / CVEs found in the evidence). Every
@@ -206,7 +206,7 @@ export default function IocPivot(): JSX.Element {
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">IOC Pivot Graph</h1>
         <p className="text-muted mb-6 max-w-2xl">
-          Enrich an indicator across 26 sources and graph what it touches - verdict-coloured sources plus derived IPs /
+          Enrich an indicator across 60+ sources and graph what it touches - verdict-coloured sources plus derived IPs /
           domains / hashes / ASNs / CVEs. Click any derived node to re-centre the graph on it. Nothing is stored.
         </p>
       </div>

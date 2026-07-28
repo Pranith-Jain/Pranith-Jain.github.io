@@ -13,7 +13,7 @@ const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}
 // ─── shared types ────────────────────────────────────────────────────────────
 
 type BreachSource =
-  'xposedornot' | 'leakcheck' | 'leakix' | 'proxynova' | 'hudsonrock' | 'projectdiscovery' | 'hackmyip' | 'breachvip';
+  'xposedornot' | 'leakcheck' | 'leakix' | 'proxynova' | 'hudsonrock' | 'projectdiscovery' | 'breachvip';
 
 interface BreachEntry {
   name: string;
@@ -521,24 +521,6 @@ async function queryProjectDiscoveryDomain(domain: string): Promise<BreachDomain
   }
 }
 
-async function queryHackMyIp(email: string): Promise<BreachEntry[]> {
-  // Same as ProjectDiscovery above — the endpoint confirms reachability but
-  // doesn't return a per-record payload. Synthetic entries used to inflate
-  // the breach count for every reachable email; returning [] here keeps the
-  // `found` flag honest.
-  try {
-    const res = await fetch(`https://hackmyip.com/api/breach?email=${encodeURIComponent(email)}`, {
-      headers: { accept: 'application/json', 'user-agent': UA },
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!res.ok) return [];
-    return [];
-  } catch (_catchErr) {
-    console.error('queryHackMyIp failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return [];
-  }
-}
-
 /**
  * Combined email-verification result. Sourced from two free, keyless
  * public APIs (throwaway.sslboard.com + rapid-email-verifier.fly.dev)
@@ -823,7 +805,6 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
     queryProxyNova(email),
     queryHudsonRockEmail(email),
     queryProjectDiscovery(email),
-    queryHackMyIp(email),
     queryBreachVipEmail(email),
   ]);
   const sourceNames: BreachSource[] = [
@@ -833,7 +814,6 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
     'proxynova',
     'hudsonrock',
     'projectdiscovery',
-    'hackmyip',
     'breachvip',
   ];
 
@@ -864,7 +844,7 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
   const resp: BreachEmailResponse = {
     email,
     found: breaches.length > 0,
-    source: breaches[0]?.source ?? sourceNames[0] ?? '',
+    source: breaches[0]?.source ?? '',
     sources_queried: sourcesQueried,
     breach_count: breaches.length,
     breaches,
@@ -928,7 +908,7 @@ export async function breachDomainHandler(c: Context<{ Bindings: Env }>): Promis
   const resp: BreachDomainResponse = {
     domain,
     found: breaches.length > 0,
-    source: breaches[0]?.source ?? sourceNames[0] ?? '',
+    source: breaches[0]?.source ?? '',
     sources_queried: sourcesQueried,
     breach_count: breaches.length,
     breaches,

@@ -42,14 +42,13 @@ const CONCURRENCY = Math.max(1, cpus().length);
 // rather than waiting for JS parse + React mount, and hydration matches
 // the initial loading-state tree so there's no tearing.
 const ROUTES = [
-  // ── Portfolio (8) ──────────────────────────────────────────────
+  // ── Portfolio ──────────────────────────────────────────────────
   '/',
   '/about',
   '/skills',
   '/experience',
   '/projects',
-  '/behind-the-reports',
-  '/sponsor',
+  '/daily-briefs',
   '/blog',
 
   // ── Landings (4) ───────────────────────────────────────────────

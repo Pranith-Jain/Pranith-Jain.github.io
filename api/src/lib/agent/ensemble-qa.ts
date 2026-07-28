@@ -7,7 +7,7 @@ import type { Ai } from '@cloudflare/workers-types';
 import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
 import type { AgentStep } from './types';
 import { QaOutputSchema, parseWithErrors, type QaOutputValidated } from './schemas';
-import { buildQaSystemPrompt } from './agent-framework';
+import { buildQaSystemPrompt, buildFactList } from './agent-framework';
 import { neutralizeUntrusted } from '../prompt-fence';
 
 export interface EnsembleQaResult {
@@ -47,11 +47,12 @@ Verify every claim in the report against the collected data. Flag hallucinations
 
   const input: CompletionInput = { system, user, maxTokens: 4000, temperature: 0.1 };
 
-  // Run QA on multiple models in parallel
-  const models: Array<{ provider: 'groq' | 'gemini' | 'nvidia'; label: string }> = [
-    { provider: 'gemini', label: 'gemini' },
-    { provider: 'groq', label: 'groq' },
-  ];
+  // Run QA on every available provider in parallel (ensemble grows with the
+  // number of configured keys — Gemini/Groq/NVIDIA — for stronger consensus).
+  const models: Array<{ provider: 'groq' | 'gemini' | 'nvidia'; label: string }> = [];
+  if (opts.googleKey) models.push({ provider: 'gemini', label: 'gemini' });
+  if (opts.groqKey) models.push({ provider: 'groq', label: 'groq' });
+  if (opts.nvidiaKey) models.push({ provider: 'nvidia', label: 'nvidia' });
 
   const results = await Promise.allSettled(
     models.map(async (m) => {
@@ -174,5 +175,7 @@ function buildCompactSummary(steps: AgentStep[]): string {
     }
   }
   const joined = lines.join('\n\n');
-  return joined.length > 3200 ? joined.slice(0, 3200) + '\n...(truncated)' : joined;
+  const truncated = joined.length > 3200 ? joined.slice(0, 3200) + '\n...(truncated)' : joined;
+  const factList = buildFactList(steps);
+  return factList ? `${factList}\n\n--- raw tool data ---\n${truncated}` : truncated;
 }

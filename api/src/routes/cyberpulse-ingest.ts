@@ -895,12 +895,6 @@ export async function fetchXAccountPosts(
         views: 0,
       });
     }
-    console.log(
-      JSON.stringify({
-        job: 'x-claims-cache-read',
-        breach_count: claimsData.length,
-      })
-    );
   }
 
   // ── 2. Direct GraphQL fetch for handles NOT covered by x-claims ───────
@@ -913,9 +907,7 @@ export async function fetchXAccountPosts(
   } catch (e) {
     authed = false;
     if (e instanceof XAuthMissingError) {
-      console.warn('X auth not configured — skipping direct X account fetches (claims data only)');
     } else {
-      console.warn(`X auth error: ${e instanceof Error ? e.message : e} — skipping direct X account fetches`);
     }
     // Without auth, anonymous GraphQL returns curated "best of" timelines
     // (not chronological) and is heavily rate-limited. The 20+ subrequests
@@ -938,7 +930,6 @@ export async function fetchXAccountPosts(
             sinceDays: Math.max(sinceDays, 0.04),
           });
       if (resp.items.length === 0) {
-        console.warn(`X timeline for @${handle} returned 0 items (cached: ${resp.cached}, authed: ${authed})`);
       }
       for (const item of resp.items) {
         if (item.is_retweet) continue;
@@ -959,18 +950,14 @@ export async function fetchXAccountPosts(
     } catch (e) {
       if (e instanceof XAuthMissingError) break;
       if (e instanceof XAuthInvalidError) {
-        console.warn(`X auth rejected for @${handle} (HTTP ${e.status}) — cookies may be expired`);
         if (authed) {
           authed = false;
-          console.warn('Falling back to anonymous GraphQL for remaining handles');
         }
         continue;
       }
       if (e instanceof XAuthRateLimitedError) {
-        console.warn(`X rate-limited for @${handle}`);
         break;
       }
-      console.warn(`X fetch failed for @${handle}: ${e instanceof Error ? e.message : e}`);
     }
   }
   return posts;
@@ -1220,11 +1207,9 @@ async function fetchSocialBreachFeed(items?: XFeedItem[], fetched?: boolean): Pr
   try {
     const feedItems = items && items.length > 0 ? items : fetched ? (items ?? []) : (await fetchXFeed()).items;
     if (feedItems.length === 0) {
-      console.warn('fetchSocialBreachFeed: 0 items from feed — all sources returned empty');
     }
     return feedItems.map(xFeedItemToRawPost).filter((p): p is RawPost => p !== null);
   } catch (e) {
-    console.warn(`fetchSocialBreachFeed failed: ${e instanceof Error ? e.message : e}`);
     return [];
   }
 }

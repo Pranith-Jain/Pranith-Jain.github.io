@@ -368,13 +368,6 @@ export async function extractLlm(
     text = result.text;
     modelUsed = result.modelUsed;
   } catch (err) {
-    console.warn(
-      JSON.stringify({
-        job: 'extract-llm',
-        stage: 'runCompletion',
-        error: err instanceof Error ? err.message : String(err),
-      })
-    );
     return { ...EMPTY_LLM_ENTITIES, ran: true, partial: true };
   }
 
@@ -384,13 +377,11 @@ export async function extractLlm(
   // ship — violating the "bundle never blocked by LLM" invariant. Type-guard
   // here so the failure stays inside `partial: true`.
   if (typeof text !== 'string') {
-    console.warn(JSON.stringify({ job: 'extract-llm', stage: 'parse', error: 'non_string_response' }));
     return { ...EMPTY_LLM_ENTITIES, ran: true, partial: true, modelUsed };
   }
 
   const parsed = parseLlmJson(text);
   if (parsed === null) {
-    console.warn(JSON.stringify({ job: 'extract-llm', stage: 'parse', error: 'no_balanced_json' }));
     return { ...EMPTY_LLM_ENTITIES, ran: true, partial: true, modelUsed };
   }
   const validated = validateLlmEntities(parsed, title, body);

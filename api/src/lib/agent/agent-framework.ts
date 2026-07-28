@@ -186,6 +186,33 @@ export function rebuildWorkingMemory(steps: AgentStep[]): WorkingMemory {
 }
 
 /**
+ * Build a concise, truncation-proof fact list from the observer findings
+ * persisted on each step. Fed to the QA verifier alongside the (truncated) raw
+ * tool JSON so QA can verify against precise confirmed facts rather than losing
+ * them to the per-tool char cap.
+ */
+export function buildFactList(steps: AgentStep[]): string {
+  const iocs = new Set<string>();
+  const mitre = new Set<string>();
+  const facts: string[] = [];
+  for (const s of steps) {
+    const f = s.observerFindings;
+    if (!f) continue;
+    for (const i of f.iocs) if (i) iocs.add(i);
+    for (const m of f.mitre) if (m) mitre.add(m.trim().toUpperCase());
+    for (const k of f.keyFacts) if (k && !facts.includes(k)) facts.push(k);
+  }
+  const lines: string[] = [];
+  if (iocs.size > 0) lines.push(`IOCs confirmed by tools: ${[...iocs].slice(0, 25).join(', ')}`);
+  if (mitre.size > 0) lines.push(`MITRE techniques confirmed: ${[...mitre].slice(0, 20).join(', ')}`);
+  if (facts.length > 0) {
+    lines.push('Key facts confirmed by tools:');
+    for (const f of facts.slice(0, 20)) lines.push(`  - ${f}`);
+  }
+  return lines.join('\n');
+}
+
+/**
  * Serialize working memory into a compact string for prompt injection.
  */
 export function memoryToPrompt(mem: WorkingMemory): string {

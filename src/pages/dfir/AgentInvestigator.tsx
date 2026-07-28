@@ -82,6 +82,7 @@ interface SessionEntry {
 type AgentWsMessage =
   | { type: 'connected' }
   | { type: 'step'; step: AgentStep }
+  | { type: 'token'; token: string }
   | { type: 'done'; report: string; modelUsed: string; qa?: AgentState['qa']; actionCard?: ReportActionCard }
   | { type: 'error'; error: string };
 
@@ -208,6 +209,7 @@ export default function AgentInvestigator(): JSX.Element {
   const [query, setQuery] = useState('');
   const [activeId, setActiveId] = useState<string | null>(null);
   const [agentState, setAgentState] = useState<AgentState | null>(null);
+  const [streamingReport, setStreamingReport] = useState('');
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const stepsEndRef = useRef<HTMLDivElement>(null);
@@ -250,7 +252,10 @@ export default function AgentInvestigator(): JSX.Element {
             else steps.push(msg.step);
             return { ...prev, steps, currentStep: msg.step.stepNumber };
           });
+        } else if (msg.type === 'token') {
+          setStreamingReport((prev) => prev + msg.token);
         } else if (msg.type === 'done') {
+          setStreamingReport('');
           setAgentState((prev) =>
             prev
               ? {
@@ -266,6 +271,7 @@ export default function AgentInvestigator(): JSX.Element {
           );
           fetchSessions();
         } else if (msg.type === 'error') {
+          setStreamingReport('');
           setError(msg.error);
           setAgentState((prev) =>
             prev ? { ...prev, status: 'error', error: msg.error, completedAt: new Date().toISOString() } : prev
@@ -287,6 +293,7 @@ export default function AgentInvestigator(): JSX.Element {
     setIsStarting(true);
     setError(null);
     setAgentState(null);
+    setStreamingReport('');
 
     try {
       const res = await fetch('/api/v1/agent/investigate', {
@@ -561,9 +568,16 @@ export default function AgentInvestigator(): JSX.Element {
             </details>
           )}
 
-          {/* Structured report view */}
+          {/* Structured report view (streams the live draft until done) */}
+          {agentState.status !== 'done' && streamingReport && (
+            <div className="mb-2 flex items-center gap-2 text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-brand-500" /> Streaming report…
+            </div>
+          )}
           <ReportView
-            report={agentState.report ?? ''}
+            report={
+              agentState.status === 'done' ? (agentState.report ?? '') : streamingReport || (agentState.report ?? '')
+            }
             actionCard={agentState.actionCard}
             query={agentState.query}
             onGenerateHuntingQueries={async () => {
@@ -675,8 +689,13 @@ export default function AgentInvestigator(): JSX.Element {
                     className={`shrink-0 w-2 h-2 rounded-full ${s.status === 'done' ? 'bg-emerald-500' : s.status === 'error' ? 'bg-rose-500' : 'bg-amber-500 animate-pulse'}`}
                   />
                   <span className="font-mono text-sm truncate flex-1">{s.query}</span>
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">{s.total_steps} steps</span>
-                  <ChevronRight size={14} className="text-slate-500 dark:text-slate-400 group-hover:text-brand-500 shrink-0" />
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">
+                    {s.total_steps} steps
+                  </span>
+                  <ChevronRight
+                    size={14}
+                    className="text-slate-500 dark:text-slate-400 group-hover:text-brand-500 shrink-0"
+                  />
                 </button>
                 <button
                   type="button"

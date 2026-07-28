@@ -445,7 +445,6 @@ export async function cryptoTraceHandler(c: Context<{ Bindings: Env }>): Promise
       .map((r, i) => {
         if (r.status === 'fulfilled') return r.value;
         const chain = EVM_CHAINS[i]?.label ?? 'unknown';
-        console.warn(`crypto-trace: ${chain} RPC failed:`, r.reason instanceof Error ? r.reason.message : r.reason);
         return null;
       })
       .filter((x): x is ChainResult => x !== null);

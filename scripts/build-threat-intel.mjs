@@ -265,7 +265,6 @@ if (argusRaw && Array.isArray(argusRaw.cves)) {
 const nvdJson = readJsonIfExists(join(STAGING, 'nvd-recent.json'));
 const nvdItems = nvdJson?.vulnerabilities ?? [];
 const cveIndex = [];
-const cvesWritten = 0;
 for (const v of nvdItems) {
   const id = v.cve?.id;
   if (!id) continue;

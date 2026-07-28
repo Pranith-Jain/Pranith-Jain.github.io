@@ -406,7 +406,7 @@ export default function DFIRPage(): JSX.Element {
             <h2 className="font-display text-sm font-semibold text-slate-900 dark:text-slate-100">Quick IOC check</h2>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
-            Paste an IP, domain, URL, or hash and get an instant verdict from 24 sources.
+            Paste an IP, domain, URL, or hash and get an instant verdict from 60+ sources.
           </p>
           <div className="flex gap-2">
             <input
@@ -484,7 +484,7 @@ export default function DFIRPage(): JSX.Element {
             <section>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {[
-                  { label: 'IOC Check', desc: '24 sources, streaming verdicts', href: '/dfir/ioc-check', icon: Hash },
+                  { label: 'IOC Check', desc: '60+ sources, streaming verdicts', href: '/dfir/ioc-check', icon: Hash },
                   { label: 'Email Defense', desc: 'SPF / DKIM / DMARC audit', href: '/dfir/email-defense', icon: Mail },
                   {
                     label: 'CVE Prioritizer',
@@ -538,7 +538,10 @@ export default function DFIRPage(): JSX.Element {
                     8 categories · {MAIN_TOOL_COUNT}+ tools
                   </p>
                 </div>
-                <ArrowRight size={16} className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform" />
+                <ArrowRight
+                  size={16}
+                  className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
+                />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -582,7 +585,10 @@ export default function DFIRPage(): JSX.Element {
             <details className="group surface-card">
               <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
                 <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">New here?</h2>
-                <ArrowRight size={16} className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform" />
+                <ArrowRight
+                  size={16}
+                  className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
+                />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="grid gap-4 sm:grid-cols-3">
@@ -630,7 +636,10 @@ export default function DFIRPage(): JSX.Element {
                     {TOOL_CASES.length} case studies · real incidents
                   </p>
                 </div>
-                <ArrowRight size={16} className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform" />
+                <ArrowRight
+                  size={16}
+                  className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
+                />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -665,7 +674,10 @@ export default function DFIRPage(): JSX.Element {
             <details className="group surface-card">
               <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
                 <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Common questions</h2>
-                <ArrowRight size={16} className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform" />
+                <ArrowRight
+                  size={16}
+                  className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
+                />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5 space-y-4">
                 {DFIR_FAQ.map((f) => (

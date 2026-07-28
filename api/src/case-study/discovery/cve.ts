@@ -187,7 +187,6 @@ export async function discoverCves(deps: DiscoverDeps): Promise<Candidate[]> {
       });
     }
   } catch (err) {
-    console.warn('discoverCves: KEV fetch failed', err);
   }
 
   return candidates;

@@ -575,7 +575,6 @@ export async function pollBotUpdates(env: Env): Promise<void> {
     return null;
   });
   if (!r || !r.ok) {
-    console.warn(JSON.stringify({ job: 'tg-bot-poll', status: 'bad_response', httpStatus: r?.status }));
     return;
   }
 

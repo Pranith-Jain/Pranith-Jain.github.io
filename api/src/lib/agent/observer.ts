@@ -86,11 +86,8 @@ Analyze these results. What was found? What are the key facts? What gaps remain?
         input.user = `${user}\n\nIMPORTANT: Respond with ONLY valid JSON matching the required schema. Errors to fix:\n${lastErrors}`;
       }
     }
-
-    console.warn('observer: validation failed after retries, using fallback', lastErrors);
     return fallback;
   } catch (err) {
-    console.warn('observer: LLM call failed, using deterministic summary', err);
     return fallback;
   }
 }

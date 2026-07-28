@@ -70,7 +70,6 @@ export async function discoverIntel(deps: DiscoverDeps): Promise<Candidate[]> {
         });
       }
     } catch (err) {
-      console.warn(`discoverIntel: feed failed ${feed}`, err);
     }
   }
   return out;

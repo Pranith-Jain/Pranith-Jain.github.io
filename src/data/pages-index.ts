@@ -94,22 +94,6 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     group: 'portfolio',
   },
   {
-    path: '/auth/login',
-    label: 'Login',
-    description: 'Sign in to your account for personalized threat intel features.',
-    sectionLabel: 'Portfolio',
-    group: 'portfolio',
-    keywords: ['sign in', 'authentication'],
-  },
-  {
-    path: '/auth/register',
-    label: 'Register',
-    description: 'Create an account to enable workspace, watchlist, and saved-searches features.',
-    sectionLabel: 'Portfolio',
-    group: 'portfolio',
-    keywords: ['sign up', 'create account'],
-  },
-  {
     path: '/threat-intel',
     label: 'Threat Intel',
     description:
@@ -158,22 +142,6 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     group: 'blog',
   },
   {
-    path: '/snapshots',
-    label: 'Live Snapshots',
-    description: 'Bookmarkable hub: every live signal the platform surfaces on the home page in one place.',
-    sectionLabel: 'Portfolio',
-    group: 'portfolio',
-    keywords: ['live', 'snapshots', 'telemetry', 'hub', 'pulse', 'breach'],
-  },
-  {
-    path: '/live',
-    label: 'Live Snapshots',
-    description: 'Alias for /snapshots - bookmarkable hub of every live signal.',
-    sectionLabel: 'Portfolio',
-    group: 'portfolio',
-    keywords: ['live', 'snapshots', 'telemetry'],
-  },
-  {
     path: '/blog/c/:type',
     label: 'Blog (by category)',
     description: 'Blog index pre-filtered by case-study category (CVE, actor, malware, etc.).',
@@ -193,20 +161,6 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     description: 'A single blog post - narrative, IOCs, and detection logic.',
     sectionLabel: 'Portfolio',
     group: 'blog',
-  },
-  {
-    path: '/behind-the-reports',
-    label: 'Behind the Reports',
-    description: 'Process notes - how a published report is sourced, drafted, and reviewed.',
-    sectionLabel: 'Portfolio',
-    group: 'portfolio',
-  },
-  {
-    path: '/sponsor',
-    label: 'Sponsor',
-    description: 'Sponsorship tiers, deliverables, and the threat-intel platforms I support.',
-    sectionLabel: 'Portfolio',
-    group: 'portfolio',
   },
   {
     path: '/copilot',

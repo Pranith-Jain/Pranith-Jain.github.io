@@ -21,7 +21,6 @@ function splitSocialParts(text: string): SocialParts {
       };
       body = (body.slice(0, linkMatch.index) + body.slice(linkMatch.index + linkMatch[0].length)).trim();
     } else {
-      console.warn('splitSocialParts: discarded link not matching allowed domain:', rawValue.slice(0, 80));
     }
   }
   return { body, link };

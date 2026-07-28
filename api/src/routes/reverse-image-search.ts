@@ -66,7 +66,6 @@ export async function reverseImageSearchHandler(c: Context<{ Bindings: Env }>): 
       return c.json(await cached.json(), 200, { 'cache-control': `public, max-age=${CACHE_TTL}` });
     }
   } catch (e) {
-    console.warn(JSON.stringify({ error: e instanceof Error ? e.message : String(e) }));
   }
 
   const engines = buildEngineUrls(url);
@@ -85,7 +84,6 @@ export async function reverseImageSearchHandler(c: Context<{ Bindings: Env }>): 
     contentType = resp.headers.get('content-type') ?? undefined;
     contentLength = resp.headers.get('content-length') ? Number(resp.headers.get('content-length')) : undefined;
   } catch (e) {
-    console.warn(JSON.stringify({ error: e instanceof Error ? e.message : String(e) }));
   }
 
   const result = {

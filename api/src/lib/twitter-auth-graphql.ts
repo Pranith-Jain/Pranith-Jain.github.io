@@ -100,7 +100,6 @@ export async function resolveQueryIds(env: Env): Promise<QueryIds> {
         if (isValidQid(stored.searchTimeline)) qids.searchTimeline = stored.searchTimeline.trim();
       }
     } catch (e) {
-      console.warn('resolveQueryIds: KV read failed - using defaults:', e instanceof Error ? e.message : String(e));
     }
   }
   qidCache = { value: qids, expires: Date.now() + QID_CACHE_TTL_MS };
@@ -323,10 +322,8 @@ export async function resolveAuthCookies(env: Env): Promise<AuthCookies> {
             bearer: (stored.bearer ?? DEFAULT_BEARER).trim(),
           };
         }
-        console.warn('resolveAuthCookies: KV override present but invalid - falling back to env secrets');
       }
     } catch (e) {
-      console.warn('resolveAuthCookies: KV read failed - falling back to env secrets:', e instanceof Error ? e.message : String(e));
     }
   }
   return readAuthCookies(env);

@@ -82,7 +82,6 @@ async function fetchText(url: string): Promise<string | null> {
     });
     if (res.status === 429) {
       // Aggregator — partial degradation is acceptable; just surface to ops.
-      console.warn(`threat-map: 429 from ${new URL(url).host}`);
       return null;
     }
     if (!res.ok) return null;
@@ -109,7 +108,6 @@ async function geolocateBatch(ips: string[]): Promise<Map<string, { country: str
         // Worker shares one egress IP per POP so we can hit this
         // bursting on /api/v1/threat-map. Skip the remaining batches
         // — partial coverage is better than blocking forever.
-        console.warn(`threat-map: ip-api.com 429 — skipping remaining geo batches`);
         break;
       }
       if (!res.ok) continue;

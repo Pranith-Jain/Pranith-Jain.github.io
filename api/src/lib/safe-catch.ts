@@ -21,7 +21,6 @@ export async function safeNullLog<T>(label: string, promise: Promise<T>): Promis
   try {
     return await promise;
   } catch (err) {
-    console.warn(JSON.stringify({ job: 'safe-catch', label, error: err instanceof Error ? err.message : String(err) }));
     return null;
   }
 }
@@ -82,9 +81,6 @@ export async function kvPutSafe(
     await ns.put(key, value as unknown as string, options as never);
     return true;
   } catch (err) {
-    console.warn(
-      JSON.stringify({ job: 'kv-put', key: key.slice(0, 80), error: err instanceof Error ? err.message : String(err) })
-    );
     return false;
   }
 }

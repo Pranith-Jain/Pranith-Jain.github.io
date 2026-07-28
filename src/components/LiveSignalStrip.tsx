@@ -265,9 +265,7 @@ export function LiveSignalStrip(): JSX.Element {
       </div>
       <div className="mt-2 flex justify-end">
         <Link
-          to="/snapshots"
-          onMouseEnter={() => preloadRoute('/snapshots')}
-          onFocus={() => preloadRoute('/snapshots')}
+          to="/threatintel/predictive/dashboard"
           className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
         >
           view all signals →

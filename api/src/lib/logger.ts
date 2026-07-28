@@ -28,10 +28,8 @@ export function log(level: LogLevel, job: string, extra?: Record<string, unknown
       console.error(JSON.stringify(entry));
       break;
     case 'warn':
-      console.warn(JSON.stringify(entry));
       break;
     default:
-      console.log(JSON.stringify(entry));
   }
 }
 

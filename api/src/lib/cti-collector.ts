@@ -561,9 +561,6 @@ export async function runFullCollection(db: D1Database, abuseChKey?: string): Pr
   try {
     sweepResult = await sweepStaleData(db, 30);
     if (sweepResult.total_deleted > 0) {
-      console.log(
-        `cti-sweep: deleted ${sweepResult.total_deleted} stale rows (iocs=${sweepResult.iocs_deleted}, news=${sweepResult.news_deleted})`
-      );
     }
   } catch {
     // Non-critical

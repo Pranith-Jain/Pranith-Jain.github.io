@@ -39,7 +39,6 @@ export async function runPlanner(deps: RunPlannerDeps): Promise<{ scheduled: num
   const approved = await deps.listApproved();
   if (approved.length === 0) {
     await deps.setSchedule([]);
-    console.log(JSON.stringify({ job: 'planner', scheduled: 0, ts: deps.now.toISOString() }));
     return { scheduled: 0 };
   }
 
@@ -84,13 +83,5 @@ export async function runPlanner(deps: RunPlannerDeps): Promise<{ scheduled: num
   });
 
   await deps.setSchedule(slots);
-  console.log(
-    JSON.stringify({
-      job: 'planner',
-      scheduled: slots.length,
-      ids: slots.map((s) => s.candidateId),
-      ts: deps.now.toISOString(),
-    })
-  );
   return { scheduled: slots.length };
 }

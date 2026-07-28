@@ -121,18 +121,8 @@ export function createRssRunner(config: RssRunnerConfig) {
           });
         }
       } catch (err) {
-        console.warn(`${config.runnerName}: feed failed ${feed}`, err);
       }
     }
-    console.log(
-      JSON.stringify({
-        job: 'discovery-runner',
-        runner: config.runnerName,
-        feedsTotal: config.feeds.length,
-        feedsOk,
-        items: out.length,
-      })
-    );
     return out;
   };
 }

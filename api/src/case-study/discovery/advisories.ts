@@ -50,7 +50,6 @@ export async function discoverAdvisories(deps: DiscoverAdvisoriesDeps): Promise<
         });
       }
     } catch (err) {
-      console.warn(`discoverAdvisories: feed failed ${feed}`, err);
     }
   }
   return out;

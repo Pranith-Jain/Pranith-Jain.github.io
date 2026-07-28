@@ -43,8 +43,8 @@ const IOC_TYPE_VIEWS: Record<string, string> = {
   sha256: 'iocs_sha256',
 };
 
-// Allowed ioc_type values for validation
-const VALID_IOC_TYPES = new Set(['ipv4', 'ipv6', 'domain', 'url', 'hash_md5', 'hash_sha1', 'hash_sha256']);
+// Allowed ioc_type values for validation (keys must match IOC_TYPE_VIEWS)
+const VALID_IOC_TYPES = new Set(['ipv4', 'ipv6', 'domain', 'url', 'md5', 'sha1', 'sha256']);
 
 /** Column mapping for the main actionable_iocs table. */
 const COLUMN_MAP: Record<string, string> = {
@@ -146,12 +146,59 @@ async function queryIocs(
   const offset = query.offset ?? 0;
   sql += ` LIMIT ${limit} OFFSET ${offset}`;
 
-  // Count
+  // Count — rebuild the WHERE clause separately so we don't string-slice
+  // the main query (fragile if a filter value or column name contains
+  // "WHERE" or "ORDER BY").
   let total = 0;
   try {
-    const countSql = `SELECT COUNT(*) as total FROM ${tableOrView}${sql.includes('WHERE') ? ' ' + sql.slice(sql.indexOf('WHERE'), sql.indexOf('ORDER BY') > -1 ? sql.indexOf('ORDER BY') : undefined) : ''}`;
+    let countSql = `SELECT COUNT(*) as total FROM ${tableOrView}`;
+    if (query.filters.length > 0) {
+      const clauses: string[] = [];
+      for (const f of query.filters) {
+        const col = columnMap[f.column] ?? f.column;
+        switch (f.op) {
+          case 'eq':
+            clauses.push(`${col} = ?`);
+            break;
+          case 'neq':
+            clauses.push(`${col} != ?`);
+            break;
+          case 'gt':
+            clauses.push(`${col} > ?`);
+            break;
+          case 'gte':
+            clauses.push(`${col} >= ?`);
+            break;
+          case 'lt':
+            clauses.push(`${col} < ?`);
+            break;
+          case 'lte':
+            clauses.push(`${col} <= ?`);
+            break;
+          case 'is': {
+            const v = f.value;
+            if (v === null) clauses.push(`${col} IS NULL`);
+            else if (String(v).toLowerCase() === 'not.null') clauses.push(`${col} IS NOT NULL`);
+            else clauses.push(`${col} = ?`);
+            break;
+          }
+          case 'in': {
+            const arr = f.value as unknown[];
+            clauses.push(`${col} IN (${arr.map(() => '?').join(',')})`);
+            break;
+          }
+          case 'like':
+            clauses.push(`${col} LIKE ?`);
+            break;
+          case 'ilike':
+            clauses.push(`LOWER(${col}) LIKE LOWER(?)`);
+            break;
+        }
+      }
+      if (clauses.length > 0) countSql += ` WHERE ${clauses.join(' AND ')}`;
+    }
     const countRow = await db
-      .prepare(countSql.replace(/ORDER BY.*$/, '').trim())
+      .prepare(countSql)
       .bind(...bindings)
       .first<{ total: number }>();
     total = countRow?.total ?? 0;

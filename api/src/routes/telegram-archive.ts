@@ -317,6 +317,5 @@ export async function runTelegramArchive(env: Env): Promise<{ posted: number; sk
       /* KV write failed — items may repost next run; acceptable, non-fatal */
     }
   }
-  console.log(JSON.stringify({ job: 'telegram-archive', posted, ts }));
   return { posted };
 }

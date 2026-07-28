@@ -38,7 +38,6 @@ async function readStored(kv: KVNamespace): Promise<StoredXCookies | null> {
     if (!raw) return null;
     return JSON.parse(raw) as StoredXCookies;
   } catch (e) {
-    console.warn('admin-x-cookies read failed:', e instanceof Error ? e.message : String(e));
     return null;
   }
 }

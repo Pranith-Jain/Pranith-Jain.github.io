@@ -10,11 +10,11 @@ const ThreatHunt = lazy(() => import('./ThreatHunt'));
 type TabId = 'table' | 'graph' | 'hunt';
 
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
-  { id: 'table', label: 'Table View', desc: 'Stream IOC results from 24 providers in table format' },
+  { id: 'table', label: 'Table View', desc: 'Stream IOC results from 60+ providers in table format' },
   {
     id: 'graph',
     label: 'Pivot Graph',
-    desc: 'Same 26-source checker rendered as radial graph with clickable pivot nodes',
+    desc: 'Same 60+ source checker rendered as radial graph with clickable pivot nodes',
   },
   { id: 'hunt', label: 'Threat Hunt', desc: 'Extended with Telegram leak cross-ref + breach DB links' },
 ];

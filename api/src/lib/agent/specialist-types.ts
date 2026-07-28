@@ -8,6 +8,7 @@
 
 import type { AgentTool, AgentStep, AgentToolCall } from './types';
 import type { ExitCondition, Guardrail } from './loop-engine';
+import { classifyIntent } from './stix-translator';
 
 export type SpecialistRole =
   | 'ioc-reputation'
@@ -737,8 +738,37 @@ const ROUTING_TABLE: Record<string, SpecialistRole[]> = {
   generic: ['strategic-intel', 'dark-web', 'ioc-reputation'],
 };
 
-export function getSpecialistsForQueryType(queryType: string): SpecialistRole[] {
-  return ROUTING_TABLE[queryType] ?? ['strategic-intel', 'ioc-reputation'];
+export function getSpecialistsForQueryType(queryType: string, query?: string): SpecialistRole[] {
+  const resolved = query ? resolveRoutingQueryType(query, queryType) : queryType;
+  return ROUTING_TABLE[resolved] ?? ['strategic-intel', 'ioc-reputation'];
+}
+
+/**
+ * Refine an ambiguous ('generic'/'unknown') query type into a more specific
+ * routing key using the query text. Explicit indicators in the text win (most
+ * specific signal); otherwise falls back to pattern-based intent classification
+ * (actor / malware / campaign). A already-specific queryType is returned
+ * unchanged so explicit routes are never overridden.
+ */
+export function resolveRoutingQueryType(query: string, queryType: string): string {
+  if (queryType && queryType !== 'generic' && queryType !== 'unknown') return queryType;
+
+  if (/\bCVE-\d{4}-\d{4,}\b/i.test(query)) return 'cve';
+  if (/\b[a-f0-9]{64}\b/i.test(query)) return 'hash';
+  if (/\b[a-f0-9]{32}\b/i.test(query)) return 'hash';
+  if (/\bhttps?:\/\/\S+/i.test(query)) return 'url';
+  if (/\b(?:\d{1,3}\.){3}\d{1,3}\b/.test(query)) return 'ip';
+
+  switch (classifyIntent(query).intent) {
+    case 'threat_actor':
+      return 'actor';
+    case 'malware':
+      return 'ransomware';
+    case 'campaign':
+      return 'campaign';
+    default:
+      return queryType;
+  }
 }
 
 export function getToolsForSpecialist(role: SpecialistRole, allTools: AgentTool[]): AgentTool[] {

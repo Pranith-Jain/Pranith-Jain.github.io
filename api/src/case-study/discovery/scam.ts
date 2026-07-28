@@ -58,7 +58,6 @@ export async function discoverScams(deps: DiscoverDeps): Promise<Candidate[]> {
         });
       }
     } catch (err) {
-      console.warn(`discoverScams: feed failed ${feed}`, err);
     }
   }
   return out;

@@ -331,7 +331,6 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
   const { googleKey, now, getDedup, trendingContext, alreadyCoveredTopics } = deps;
 
   if (!googleKey) {
-    console.warn('discoverAgenticTrends: GOOGLE_AI_STUDIO_API_KEY not set, skipping');
     return [];
   }
 
@@ -364,11 +363,8 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
     const userMsg = `Generate 3 unique cybersecurity story ideas for ${now.toISOString().slice(0, 10)} that are COMPLETELY different from these recently-covered topics: ${coveredList.slice(0, 500)}. Each must target a different audience and angle.`;
 
     const text = await callGoogle(googleKey, prompt, userMsg);
-    console.log(JSON.stringify({ runner: 'agentic-trends', rawLength: text.length, preview: text.slice(0, 200) }));
-
     const trends = parseTrendResponse(text);
     if (trends.length === 0) {
-      console.warn('discoverAgenticTrends: LLM returned no parseable trends');
       return [];
     }
 
@@ -387,14 +383,6 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
       // requires at least one real source URL or one well-formed CVE.
       const grounding = evaluateGrounding(t);
       if (!grounding.hasRealSource && !grounding.hasRealCve) {
-        console.log(
-          JSON.stringify({
-            runner: 'agentic-trends',
-            stage: 'grounding-rejected',
-            title,
-            reason: grounding.rejectedReason,
-          })
-        );
         continue;
       }
 
@@ -419,15 +407,6 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
       const hasOk = Object.values(sourceLinkStatuses).some((s) => s === 'ok');
       const hasBroken = Object.values(sourceLinkStatuses).some((s) => s === 'broken');
       if (grounding.hasRealSource && !hasOk && hasBroken) {
-        console.log(
-          JSON.stringify({
-            runner: 'agentic-trends',
-            stage: 'link-verification-rejected',
-            title,
-            brokenUrls: grounding.realSources.length,
-            sourceLinkStatuses,
-          })
-        );
         continue;
       }
 
@@ -496,17 +475,8 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
         status: 'pending',
       });
     }
-
-    console.log(
-      JSON.stringify({
-        runner: 'agentic-trends',
-        trendsRequested: trends.length,
-        candidatesGenerated: candidates.length,
-      })
-    );
     return candidates;
   } catch (err) {
-    console.warn('discoverAgenticTrends failed:', err instanceof Error ? err.message : String(err));
     return [];
   }
 }

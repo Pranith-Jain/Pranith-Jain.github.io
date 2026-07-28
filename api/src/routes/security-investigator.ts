@@ -555,7 +555,6 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
       try {
         body = await c.req.json();
       } catch (e) {
-        console.warn('parse body failed:', e instanceof Error ? e.message : String(e));
         return c.json({ error: 'invalid_json_body' }, 400, { 'Cache-Control': 'no-store' });
       }
       if (!body || typeof body !== 'object') {

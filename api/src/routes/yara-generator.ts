@@ -171,9 +171,7 @@ async function runLlm(
     } catch (err) {
       const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
       if (msg.includes('rate') || msg.includes('429')) {
-        console.warn('rule-gen: groq rate-limited, trying NVIDIA');
       } else {
-        console.warn('rule-gen: groq failed, trying NVIDIA', err);
       }
     }
   }
@@ -184,7 +182,6 @@ async function runLlm(
       const text = await callNvidia(nvidiaKey, input);
       return { text, modelUsed: 'nvidia:minimaxai/minimax-m2.7' };
     } catch (err) {
-      console.warn('rule-gen: nvidia failed, falling back to Workers AI', err);
     }
   }
 
@@ -201,7 +198,6 @@ async function runLlm(
         if (msg.includes('rate') || msg.includes('429') || msg.includes('quota')) {
           throw new Error('AI rate-limited/quota exceeded — try again later or configure GROQ_API_KEY');
         }
-        console.warn(`rule-gen: ${model} failed, trying next`, err);
       }
     }
   }

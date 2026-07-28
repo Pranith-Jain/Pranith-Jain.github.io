@@ -418,7 +418,7 @@ export default function IocCheck(): JSX.Element {
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">IOC Checker</h1>
         <p className="text-muted mb-8 max-w-2xl">
-          Checks IPs, domains, URLs, and file hashes against 27 threat-intel sources in parallel. Streamed per-source
+          Checks IPs, domains, URLs, and file hashes against 60+ threat-intel sources in parallel. Streamed per-source
           verdicts with a weighted composite score; tags surface when a provider reports them.
         </p>
       </div>
@@ -589,7 +589,9 @@ export default function IocCheck(): JSX.Element {
                           {r.type === 'unknown' ? '?' : r.type}
                         </td>
                         <td className="px-3 py-2">
-                          {r.status === 'pending' && <span className="text-mini font-mono text-slate-500 dark:text-slate-400">queued</span>}
+                          {r.status === 'pending' && (
+                            <span className="text-mini font-mono text-slate-500 dark:text-slate-400">queued</span>
+                          )}
                           {r.status === 'running' && (
                             <span className="inline-flex items-center gap-1 text-mini font-mono text-slate-500 dark:text-slate-400">
                               <Loader2 size={11} className="animate-spin" /> running

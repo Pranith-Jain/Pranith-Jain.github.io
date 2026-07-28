@@ -12,7 +12,7 @@ import { runCompletion, type CompletionInput, isRateLimited } from '../../case-s
 import type { AgentStep } from './types';
 import { neutralizeUntrusted } from '../prompt-fence';
 import { QaOutputSchema, parseWithErrors, type QaOutputValidated } from './schemas';
-import { buildQaSystemPrompt } from './agent-framework';
+import { buildQaSystemPrompt, buildFactList } from './agent-framework';
 import { ensembleVerifyReport } from './ensemble-qa';
 
 export interface QaResult {
@@ -44,9 +44,10 @@ export async function verifyReport(
   steps: AgentStep[],
   opts: { groqKey?: string; nvidiaKey?: string; googleKey?: string }
 ): Promise<QaResult> {
-  // Use ensemble mode when multiple providers are available (Gemini + Groq)
-  // This runs QA on multiple models and takes the consensus for higher accuracy
-  if (opts.googleKey && opts.groqKey) {
+  // Use ensemble mode when 2+ providers are available (any of Gemini/Groq/NVIDIA).
+  // This runs QA on multiple models and takes the consensus for higher accuracy.
+  const availableProviders = [opts.googleKey, opts.groqKey, opts.nvidiaKey].filter(Boolean).length;
+  if (availableProviders >= 2) {
     try {
       const ensemble = await ensembleVerifyReport(ai, query, queryType, originalReport, steps, opts);
       return {
@@ -56,9 +57,8 @@ export async function verifyReport(
         qualityScore: ensemble.qualityScore,
         modelUsed: ensemble.modelUsed,
       };
-    } catch (err) {
+    } catch {
       // Ensemble failed — fall back to single-model QA
-      console.warn('qa-verifier: ensemble failed, falling back to single model', err);
     }
   }
 
@@ -116,16 +116,13 @@ async function singleModelVerifyReport(
       // If all providers are exhausted, don't retry — it won't help
       if (isRateLimited(err) || msg.includes('All LLM providers exhausted') || msg.includes('timeout')) {
         allProvidersExhausted = true;
-        console.warn(`qa-verifier: providers exhausted on attempt ${attempt + 1}, skipping`);
         break;
       }
     }
   }
 
   if (allProvidersExhausted) {
-    console.warn('qa-verifier: all providers exhausted, returning unchanged report');
   } else {
-    console.warn('qa-verifier: validation failed after retries, returning unchanged', lastErr);
   }
 
   return {
@@ -154,7 +151,11 @@ function buildDataSummary(steps: AgentStep[]): string {
   }
   // Cap total data summary at ~3200 chars to stay within provider limits
   const joined = lines.join('\n\n');
-  return joined.length > 3200 ? joined.slice(0, 3200) + '\n...(truncated)' : joined;
+  const truncated = joined.length > 3200 ? joined.slice(0, 3200) + '\n...(truncated)' : joined;
+  // Prepend the precise, truncation-proof fact list from observer findings so
+  // QA verifies against confirmed facts even when raw JSON is capped.
+  const factList = buildFactList(steps);
+  return factList ? `${factList}\n\n--- raw tool data ---\n${truncated}` : truncated;
 }
 
 function buildQaUserPrompt(query: string, report: string, dataSummary: string): string {

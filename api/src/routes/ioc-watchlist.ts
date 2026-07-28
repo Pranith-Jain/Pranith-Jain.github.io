@@ -71,13 +71,16 @@ export async function iocWatchlistCreateHandler(c: Context): Promise<Response> {
 }
 
 export async function iocWatchlistListHandler(c: Context): Promise<Response> {
-  const type = c.req.query('type') as IocType | undefined;
-  const limit = parseInt(c.req.query('limit') ?? '100', 10);
+  const type = c.req.query('type');
+  if (type && !VALID_TYPES.has(type)) {
+    return c.json({ error: `type must be one of: ${[...VALID_TYPES].join(', ')}` }, 400);
+  }
+  const limit = Math.min(parseInt(c.req.query('limit') ?? '100', 10) || 100, 500);
 
   const db = c.env.BRIEFINGS_DB;
   if (!db) return c.json({ error: 'database not available' }, 503);
 
-  const watches = await listWatches(db, { type, limit });
+  const watches = await listWatches(db, { type: type as IocType | undefined, limit });
   return c.json({ watches, count: watches.length });
 }
 
@@ -108,10 +111,14 @@ export async function iocWatchlistDeleteHandler(c: Context): Promise<Response> {
 }
 
 export async function iocWatchlistAlertsHandler(c: Context): Promise<Response> {
-  const watchId = c.req.query('watch_id') ? parseInt(c.req.query('watch_id')!, 10) : undefined;
+  const watchIdRaw = c.req.query('watch_id');
+  const watchId = watchIdRaw ? parseInt(watchIdRaw, 10) : undefined;
+  if (watchId !== undefined && isNaN(watchId)) {
+    return c.json({ error: 'invalid watch_id' }, 400);
+  }
   const indicator = c.req.query('indicator');
   const since = c.req.query('since');
-  const limit = parseInt(c.req.query('limit') ?? '50', 10);
+  const limit = Math.min(parseInt(c.req.query('limit') ?? '50', 10) || 50, 200);
 
   const db = c.env.BRIEFINGS_DB;
   if (!db) return c.json({ error: 'database not available' }, 503);

@@ -67,7 +67,6 @@ export async function discoverAiSec(deps: DiscoverDeps): Promise<Candidate[]> {
         });
       }
     } catch (err) {
-      console.warn(`discoverAiSec: keyword failed ${kw}`, err);
     }
   }
   return out;

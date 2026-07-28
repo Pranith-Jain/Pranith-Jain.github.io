@@ -117,9 +117,6 @@ candidatesRouter.post('/candidates/:key/generate', async (c) => {
   const now = new Date();
   const result: Record<string, unknown> = {};
   const errors: string[] = [];
-
-  console.log(JSON.stringify({ job: 'generate', key, formats, type: typeHint, title: candidate.title }));
-
   for (const fmt of formats) {
     try {
       if (fmt === 'blog') {

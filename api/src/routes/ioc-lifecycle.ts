@@ -68,9 +68,13 @@ export interface IocLifecycle {
 
 /**
  * Ensure the ioc_lifecycle table exists. In production this would be a
- * migration, but for edge deployment we create on first access.
+ * migration, but for edge deployment we create on first access. Gated
+ * by a module-level flag so we only run the DDL once per isolate, not
+ * on every request (4 D1 round-trips each time).
  */
+let tableReady = false;
 async function ensureTable(db: D1Database): Promise<void> {
+  if (tableReady) return;
   await db
     .prepare(
       `
@@ -95,6 +99,7 @@ async function ensureTable(db: D1Database): Promise<void> {
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_ioc_lifecycle_last_seen ON ioc_lifecycle(last_seen)').run();
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_ioc_lifecycle_type ON ioc_lifecycle(indicator_type)').run();
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_ioc_lifecycle_score ON ioc_lifecycle(peak_score)').run();
+  tableReady = true;
 }
 
 /**
@@ -117,6 +122,13 @@ export async function recordIocObservation(
   // first-seen observations can't both INSERT (PRIMARY KEY throw / 500), and
   // observation_count is incremented in SQL off the live value rather than a
   // stale read — closing the SELECT-then-write race (RACE-1).
+  //
+  // RACE-2 (sources_seen/tags last-write-wins): two concurrent observations
+  // each read the stale row, compute their own union, and the second write
+  // overwrites the first's sources. We accept this race because (a) the
+  // sources array is best-effort enrichment, not authoritative state, and
+  // (b) the next observation re-merges from the live row. A proper fix would
+  // use json_insert in SQL, but D1's JSON1 support is limited.
   const existing = await db
     .prepare('SELECT * FROM ioc_lifecycle WHERE indicator = ?')
     .bind(indicator)
@@ -125,7 +137,7 @@ export async function recordIocObservation(
   const prevSources: string[] = existing ? JSON.parse(existing.sources_seen ?? '[]') : [];
   const allSources = [...new Set([...prevSources, ...sources])].slice(0, 50);
   const peakScore = existing ? Math.max(existing.peak_score, score) : score;
-  const newDecayRate = existing ? existing.decay_rate * 0.8 + (score - existing.current_score) * 0.2 : 0.0;
+  const newDecayRate = existing ? existing.decay_rate * 0.8 + (score - existing.current_score) * 0.2 : score;
   const prevTags: string[] = existing ? JSON.parse(existing.tags ?? '[]') : [];
   const allTags = [...new Set([...prevTags, ...tags])].slice(0, 20);
 
@@ -181,7 +193,8 @@ function rowToLifecycle(row: IocLifecycleRow): IocLifecycle {
   else if (lastSeenHoursAgo < STALE_THRESHOLD_HOURS) status = 'dormant';
   else status = 'archived';
 
-  // Determine trend based on decay rate
+  // Determine trend based on decay rate (EMA of score deltas).
+  // decay_rate > 0 means scores are trending up; < 0 means declining.
   let trend: IocLifecycle['trend'];
   if (row.decay_rate > 5) trend = 'rising';
   else if (row.decay_rate < -5) trend = 'declining';

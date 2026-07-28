@@ -100,7 +100,6 @@ export async function discoverActors(deps: DiscoverActorsDeps): Promise<Candidat
         }
       }
     } catch (err) {
-      console.warn(`discoverActors: feed failed ${feed}`, err);
     }
   }
 

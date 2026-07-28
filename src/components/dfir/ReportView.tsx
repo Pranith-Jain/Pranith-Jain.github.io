@@ -23,7 +23,7 @@
  * Splunk, YARA) are highlighted. The "action-card" and "stix" code
  * blocks are stripped - the UI has structured components for those.
  */
-import { useMemo, useState } from 'react';
+import { useMemo, useState, lazy, Suspense } from 'react';
 import {
   Activity,
   AlertOctagon,
@@ -56,6 +56,10 @@ import {
 } from 'lucide-react';
 import { extractStixBundle, StixRelationshipGraph, StixObjectTable } from '../StixBundleViewer';
 import { Modal } from '../ui/Modal';
+
+// Lazy-loaded: @xyflow/react is ~133KB and only needed when a report has a
+// relationship graph. Mirrors the StixGraph lazy pattern.
+const RelationshipGraph = lazy(() => import('./RelationshipGraph'));
 
 // ─────────────────────────────────────────────────────────────────────────
 // Types - mirror api/src/lib/agent/types.ts. Kept inline so this component
@@ -134,6 +138,11 @@ export interface ReportActionCard {
   };
   diamond?: ReportDiamond;
   pirs?: ReportPir[];
+  /** IOC/actor/CVE/MITRE relationship graph derived from tool results. */
+  graph?: {
+    nodes: Array<{ id: string; label: string; type: string; severity?: string }>;
+    edges: Array<{ source: string; target: string; relationship: string; confidence: 'high' | 'medium' | 'low' }>;
+  };
   /** Internal - populated by synthesizer when it parses the :::handoff block. */
   handoff?: { next_stages: string[]; analyst_approval_required: boolean };
   /** Internal - populated by synthesizer when it parses the
@@ -959,7 +968,9 @@ function DiamondQuadrant({ title, value, items }: { title: string; value?: strin
           ))}
         </ul>
       )}
-      {!value && (!items || items.length === 0) && <div className="text-xs text-slate-500 dark:text-slate-400 italic">unknown</div>}
+      {!value && (!items || items.length === 0) && (
+        <div className="text-xs text-slate-500 dark:text-slate-400 italic">unknown</div>
+      )}
     </div>
   );
 }
@@ -1483,6 +1494,16 @@ export function ReportView({
       <ActionsList actions={actionCard.actions} filterStakeholder={stakeholder} />
       <IocTable iocs={actionCard.iocs} />
       <MitreTable mitre={actionCard.mitre} />
+      {actionCard.graph && actionCard.graph.nodes.length > 0 && (
+        <div className="surface-card mb-4 p-3">
+          <h3 className="flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">
+            Relationship Graph
+          </h3>
+          <Suspense fallback={<div className="h-[460px] animate-pulse rounded-xl bg-slate-100 dark:bg-slate-800" />}>
+            <RelationshipGraph graph={actionCard.graph} />
+          </Suspense>
+        </div>
+      )}
       <DiamondModelCard diamond={actionCard.diamond} />
       <TimelineList timeline={actionCard.timeline} />
       <PirList pirs={actionCard.pirs ?? []} />
