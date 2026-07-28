@@ -1,0 +1,83 @@
+name: Deploy
+
+# Manual CD pipeline. CI (ci.yml) already gates every push/PR to main with
+# lint + typecheck + test + budget; this workflow adds the one thing CI lacks:
+# an actual deploy plus post-deploy verification.
+#
+# To enable continuous deployment:
+#   1. Add CLOUDFLARE_API_TOKEN as a repository secret (a Cloudflare API token
+#      with Workers deploy permission). Without it the gate still runs but the
+#      deploy step skips cleanly.
+#   2. Optionally add SMOKE_API_KEY (a readonly API key) to run the full
+#      post-deploy smoke suite instead of just the public-page check.
+#   3. To auto-deploy on merge to main, uncomment the `push` trigger below.
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [main]
+
+# Never cancel an in-progress deploy — a half-deployed worker is worse than a
+# queued one. Concurrent triggers queue instead.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Gate + deploy + verify
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      SMOKE_API_KEY: ${{ secrets.SMOKE_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci --no-fund
+      # The worker bundle imports api/src, so the api/ deps (Workers/Hono types)
+      # must be installed for the typecheck + build to pass — same as ci.yml.
+      - name: install api deps
+        working-directory: api
+        run: npm ci --legacy-peer-deps
+
+      # ── Pre-flight gate (the three compilation units CI enforces) ───
+      - name: tsc (root)
+        run: npx tsc --noEmit -p tsconfig.json
+      - name: tsc (api)
+        run: npx tsc --noEmit -p api/tsconfig.json
+      - name: tsc (worker)
+        run: npx tsc --noEmit -p api/tsconfig.worker.json
+
+      # ── Build (client + SSR + prerender) and bundle budget ─────────
+      - name: Build
+        run: npm run build
+      - name: Budget check
+        run: node scripts/check-budgets.mjs
+
+      # ── Deploy (skips cleanly when the token is absent) ────────────
+      - name: Deploy to Cloudflare Workers
+        if: ${{ env.CLOUDFLARE_API_TOKEN != '' }}
+        run: npx wrangler deploy
+      - name: Deploy skipped (no CLOUDFLARE_API_TOKEN)
+        if: ${{ env.CLOUDFLARE_API_TOKEN == '' }}
+        run: |
+          echo "::warning::CLOUDFLARE_API_TOKEN is not set — the gate ran but the deploy was skipped."
+          echo "Add it as a repository secret to enable continuous deployment."
+
+      # ── Post-deploy verification ───────────────────────────────────
+      # Basic liveness: the prerendered shell + two app landings must serve 200.
+      - name: Smoke — public pages are live
+        if: ${{ env.CLOUDFLARE_API_TOKEN != '' }}
+        run: |
+          sleep 8
+          for path in / /dfir /threatintel; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "https://pranithjain.qzz.io$path")
+            echo "$path -> HTTP $code"
+            test "$code" = "200" || { echo "::error::$path returned HTTP $code after deploy"; exit 1; }
+          done
+      # Full suite (keyed endpoints) — only when a smoke key is configured.
+      - name: Smoke — full suite
+        if: ${{ env.CLOUDFLARE_API_TOKEN != '' && env.SMOKE_API_KEY != '' }}
+        run: node scripts/smoke.mjs
