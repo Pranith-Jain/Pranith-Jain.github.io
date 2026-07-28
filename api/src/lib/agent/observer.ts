@@ -14,6 +14,9 @@ export interface ObserverOutput {
   observation: string;
   keyFacts: string[];
   iocs: string[];
+  actors: string[];
+  cves: string[];
+  malware: string[];
   mitre: string[];
   confidence: 'high' | 'medium' | 'low';
   gaps: string[];
@@ -81,6 +84,9 @@ Analyze these results. What was found? What are the key facts? What gaps remain?
           observation: parsed.data.observation || fallback.observation,
           keyFacts: parsed.data.keyFacts.length > 0 ? parsed.data.keyFacts : fallback.keyFacts,
           iocs: parsed.data.iocs,
+          actors: parsed.data.actors,
+          cves: parsed.data.cves,
+          malware: parsed.data.malware,
           mitre: parsed.data.mitre,
           confidence: parsed.data.confidence,
           gaps: parsed.data.gaps.length > 0 ? parsed.data.gaps : fallback.gaps,
@@ -93,7 +99,7 @@ Analyze these results. What was found? What are the key facts? What gaps remain?
       }
     }
     return fallback;
-  } catch (err) {
+  } catch {
     return fallback;
   }
 }
@@ -127,6 +133,9 @@ function deterministicObserve(results: AgentToolResult[]): ObserverOutput {
     observation: parts.join(' '),
     keyFacts: keyFacts.slice(0, 5),
     iocs: [],
+    actors: [],
+    cves: [],
+    malware: [],
     mitre: [],
     confidence: 'medium',
     gaps: [],

@@ -54,11 +54,28 @@ describe('rebuildWorkingMemory', () => {
     const steps = [
       step({
         stepNumber: 1,
-        observerFindings: { iocs: ['1.2.3.4'], mitre: ['T1059'], keyFacts: ['fact A'], gaps: [], confidence: 'medium' },
+        observerFindings: {
+          iocs: ['1.2.3.4'],
+          actors: [],
+          cves: [],
+          malware: [],
+          mitre: ['T1059'],
+          keyFacts: ['fact A'],
+          gaps: [],
+          confidence: 'medium',
+        },
       }),
       step({
         stepNumber: 2,
-        observerFindings: { iocs: ['1.2.3.4', '5.6.7.8'], mitre: ['T1059', 'T1071'], keyFacts: ['fact B'], gaps: [] },
+        observerFindings: {
+          iocs: ['1.2.3.4', '5.6.7.8'],
+          actors: [],
+          cves: [],
+          malware: [],
+          mitre: ['T1059', 'T1071'],
+          keyFacts: ['fact B'],
+          gaps: [],
+        },
       }),
     ];
     const mem = rebuildWorkingMemory(steps);
@@ -116,11 +133,27 @@ describe('buildFactList', () => {
     const steps = [
       step({
         stepNumber: 1,
-        observerFindings: { iocs: ['1.2.3.4'], mitre: ['t1059'], keyFacts: ['C2 seen'], gaps: [] },
+        observerFindings: {
+          iocs: ['1.2.3.4'],
+          actors: [],
+          cves: [],
+          malware: [],
+          mitre: ['t1059'],
+          keyFacts: ['C2 seen'],
+          gaps: [],
+        },
       }),
       step({
         stepNumber: 2,
-        observerFindings: { iocs: ['1.2.3.4', 'evil.com'], mitre: ['T1059'], keyFacts: ['C2 seen'], gaps: [] },
+        observerFindings: {
+          iocs: ['1.2.3.4', 'evil.com'],
+          actors: [],
+          cves: [],
+          malware: [],
+          mitre: ['T1059'],
+          keyFacts: ['C2 seen'],
+          gaps: [],
+        },
       }),
     ];
     const out = buildFactList(steps);

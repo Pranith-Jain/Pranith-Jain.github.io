@@ -28,6 +28,8 @@ export interface WorkingMemory {
   actors: string[];
   /** CVEs referenced. */
   cves: string[];
+  /** Malware / tool families observed. */
+  malware: string[];
   /** Confidence trajectory across steps. */
   confidenceHistory: Array<{ step: number; confidence: 'high' | 'medium' | 'low' }>;
   /** Gaps identified by observers. */
@@ -44,6 +46,7 @@ export function createWorkingMemory(): WorkingMemory {
     keyFacts: [],
     actors: [],
     cves: [],
+    malware: [],
     confidenceHistory: [],
     openGaps: [],
     toolSummary: [],
@@ -59,6 +62,9 @@ export function mergeIntoMemory(
   toolResults: Array<{
     tool: string;
     iocs?: string[];
+    actors?: string[];
+    cves?: string[];
+    malware?: string[];
     mitre?: string[];
     keyFacts?: string[];
     confidence?: string;
@@ -74,6 +80,21 @@ export function mergeIntoMemory(
       if (parsed && !next.iocs.some((i) => i.value === parsed.value && i.type === parsed.type)) {
         next.iocs.push(parsed);
       }
+    }
+    // Actors — dedup (case-insensitive)
+    for (const raw of r.actors ?? []) {
+      const a = raw.trim();
+      if (a && !next.actors.some((x) => x.toLowerCase() === a.toLowerCase())) next.actors.push(a);
+    }
+    // CVEs — dedup (canonical upper-case)
+    for (const raw of r.cves ?? []) {
+      const c = raw.trim().toUpperCase();
+      if (c && !next.cves.includes(c)) next.cves.push(c);
+    }
+    // Malware families — dedup (case-insensitive)
+    for (const raw of r.malware ?? []) {
+      const m = raw.trim();
+      if (m && !next.malware.some((x) => x.toLowerCase() === m.toLowerCase())) next.malware.push(m);
     }
     // MITRE — dedup by id
     for (const raw of r.mitre ?? []) {
@@ -143,6 +164,9 @@ export function rebuildWorkingMemory(steps: AgentStep[]): WorkingMemory {
     const entries: Array<{
       tool: string;
       iocs?: string[];
+      actors?: string[];
+      cves?: string[];
+      malware?: string[];
       mitre?: string[];
       keyFacts?: string[];
       confidence?: string;
@@ -154,6 +178,9 @@ export function rebuildWorkingMemory(steps: AgentStep[]): WorkingMemory {
       entries.push({
         tool: toolNames,
         iocs: step.observerFindings.iocs,
+        actors: step.observerFindings.actors,
+        cves: step.observerFindings.cves,
+        malware: step.observerFindings.malware,
         mitre: step.observerFindings.mitre,
         keyFacts: step.observerFindings.keyFacts,
         confidence: step.observerFindings.confidence,
@@ -193,17 +220,26 @@ export function rebuildWorkingMemory(steps: AgentStep[]): WorkingMemory {
  */
 export function buildFactList(steps: AgentStep[]): string {
   const iocs = new Set<string>();
+  const actors = new Set<string>();
+  const cves = new Set<string>();
+  const malware = new Set<string>();
   const mitre = new Set<string>();
   const facts: string[] = [];
   for (const s of steps) {
     const f = s.observerFindings;
     if (!f) continue;
     for (const i of f.iocs) if (i) iocs.add(i);
+    for (const a of f.actors ?? []) if (a) actors.add(a);
+    for (const c of f.cves ?? []) if (c) cves.add(c.toUpperCase());
+    for (const m of f.malware ?? []) if (m) malware.add(m);
     for (const m of f.mitre) if (m) mitre.add(m.trim().toUpperCase());
     for (const k of f.keyFacts) if (k && !facts.includes(k)) facts.push(k);
   }
   const lines: string[] = [];
   if (iocs.size > 0) lines.push(`IOCs confirmed by tools: ${[...iocs].slice(0, 25).join(', ')}`);
+  if (actors.size > 0) lines.push(`Threat actors confirmed: ${[...actors].slice(0, 10).join(', ')}`);
+  if (cves.size > 0) lines.push(`CVEs confirmed: ${[...cves].slice(0, 15).join(', ')}`);
+  if (malware.size > 0) lines.push(`Malware/tools confirmed: ${[...malware].slice(0, 10).join(', ')}`);
   if (mitre.size > 0) lines.push(`MITRE techniques confirmed: ${[...mitre].slice(0, 20).join(', ')}`);
   if (facts.length > 0) {
     lines.push('Key facts confirmed by tools:');
@@ -234,6 +270,9 @@ export function memoryToPrompt(mem: WorkingMemory): string {
   }
   if (mem.cves.length > 0) {
     lines.push(`CVEs: ${mem.cves.slice(0, 10).join(', ')}`);
+  }
+  if (mem.malware.length > 0) {
+    lines.push(`Malware/tools: ${mem.malware.slice(0, 10).join(', ')}`);
   }
   if (mem.keyFacts.length > 0) {
     lines.push(`Key facts (${mem.keyFacts.length}):`);

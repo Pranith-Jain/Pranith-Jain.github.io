@@ -573,6 +573,9 @@ export class InvestigatorAgentDO {
       step.observation = observation.observation;
       step.observerFindings = {
         iocs: observation.iocs,
+        actors: observation.actors,
+        cves: observation.cves,
+        malware: observation.malware,
         mitre: observation.mitre,
         keyFacts: observation.keyFacts,
         confidence: observation.confidence,
@@ -632,6 +635,9 @@ export class InvestigatorAgentDO {
     step.observation = observation.observation;
     step.observerFindings = {
       iocs: observation.iocs,
+      actors: observation.actors,
+      cves: observation.cves,
+      malware: observation.malware,
       mitre: observation.mitre,
       keyFacts: observation.keyFacts,
       confidence: observation.confidence,

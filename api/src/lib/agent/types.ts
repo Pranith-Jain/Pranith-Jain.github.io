@@ -46,6 +46,9 @@ export interface AgentStep {
    */
   observerFindings?: {
     iocs: string[];
+    actors?: string[];
+    cves?: string[];
+    malware?: string[];
     mitre: string[];
     keyFacts: string[];
     confidence?: 'high' | 'medium' | 'low';

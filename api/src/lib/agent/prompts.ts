@@ -34,7 +34,10 @@ export function buildObserverPrompt(): string {
 {
   "observation": "1-2 sentence summary of what this tool revealed",
   "keyFacts": ["<specific fact with exact value, e.g. 'CVSS 9.8 — CVE-2024-3400 is a critical PAN-OS RCE' or 'AS12345 hosts 4 additional malicious IPs'>"],
-  "iocs": ["<extracted IOC values: IPs, domains, hashes, CVEs, actor names>"],
+  "iocs": ["<extracted IOC values: IPs, domains, hashes, URLs>"],
+  "actors": ["<threat actor / ransomware group names found, e.g. APT28, LockBit>"],
+  "cves": ["<CVE IDs found, e.g. CVE-2024-3400>"],
+  "malware": ["<malware / tool family names found, e.g. Emotet, Cobalt Strike>"],
   "mitre": ["<technique IDs found, e.g. T1071.001>"],
   "confidence": "high|medium|low — how reliable is this tool's data?",
   "gaps": ["<what's still needed to complete the investigation>"]
@@ -42,7 +45,8 @@ export function buildObserverPrompt(): string {
 </output_format>
 <rules>
 - keyFacts must contain exact values from the tool data, not paraphrases.
-- iocs: only extract IOCs that appeared in the tool's actual response, not from the query.
+- iocs/actors/cves/malware: only extract values that appeared in the tool's actual response, not from the query.
+- cves: use the canonical CVE-YYYY-NNNN+ form.
 - confidence: high = multiple confirmed sources; medium = single source; low = heuristic/scoring only.
 - gaps: what would make the next step most valuable? What's missing from the picture?
 </rules>`;
