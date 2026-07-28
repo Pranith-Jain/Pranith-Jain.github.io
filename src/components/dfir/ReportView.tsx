@@ -260,6 +260,18 @@ function buildShareMarkdown(report: string, actionCard?: ReportActionCard, query
 interface ReportViewProps {
   report: string;
   actionCard?: ReportActionCard;
+  /** Self-correction version history (versions + before/after diff summary). */
+  reportVersioning?: {
+    versions: Array<{ version: number; qualityScore: number; modelUsed: string; reason: string }>;
+    diff?: {
+      fromVersion: number;
+      toVersion: number;
+      fromScore: number;
+      toScore: number;
+      additions: number;
+      deletions: number;
+    };
+  };
   /** Query that produced the report - used to call the action buttons. */
   query?: string;
   /** Optional: invoked when the user clicks an action button. The parent
@@ -1359,6 +1371,7 @@ function NextActionsBar({
 export function ReportView({
   report,
   actionCard,
+  reportVersioning,
   query,
   onGenerateHuntingQueries,
   onGenerateYaraRule,
@@ -1507,6 +1520,33 @@ export function ReportView({
       <DiamondModelCard diamond={actionCard.diamond} />
       <TimelineList timeline={actionCard.timeline} />
       <PirList pirs={actionCard.pirs ?? []} />
+      {reportVersioning && reportVersioning.versions.length > 1 && (
+        <div className="surface-card mb-4 p-3">
+          <h3 className="flex items-center gap-2 text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">
+            QA Revision History
+          </h3>
+          <div className="space-y-1">
+            {reportVersioning.versions.map((v) => (
+              <div key={v.version} className="flex items-center justify-between text-sm">
+                <span className="font-mono text-slate-700 dark:text-slate-300">
+                  v{v.version} · {v.reason}
+                </span>
+                <span className="tabular-nums font-semibold text-slate-900 dark:text-slate-100">
+                  {v.qualityScore}/100
+                </span>
+              </div>
+            ))}
+          </div>
+          {reportVersioning.diff && (
+            <div className="mt-2 border-t border-slate-100 pt-2 text-micro font-mono text-slate-500 dark:border-[rgb(var(--border-400)/0.5)]">
+              Self-correction: {reportVersioning.diff.fromScore}→{reportVersioning.diff.toScore} (
+              {reportVersioning.diff.toScore - reportVersioning.diff.fromScore >= 0 ? '+' : ''}
+              {reportVersioning.diff.toScore - reportVersioning.diff.fromScore}) · {reportVersioning.diff.additions}{' '}
+              additions, {reportVersioning.diff.deletions} deletions
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Technical details - collapsible. Analyst can fold the body and
           just see BLUF + action card + IOCs at a glance. */}

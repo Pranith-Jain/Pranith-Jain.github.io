@@ -1,5 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { adminAuthHeaders } from '../../lib/admin-token';
+
+const RelationshipGraph = lazy(() => import('../../components/dfir/RelationshipGraph'));
+
+interface KnowledgeGraphData {
+  nodes: Array<{ id: string; label: string; type: string }>;
+  edges: Array<{ source: string; target: string; relationship: string; confidence: 'high' | 'medium' | 'low' }>;
+}
 
 interface AgentMetricsData {
   totalInvestigations: number;
@@ -57,6 +64,7 @@ export default function AgentMetrics(): JSX.Element {
   const [data, setData] = useState<AgentMetricsData | null>(null);
   const [providers, setProviders] = useState<Record<string, ProviderHealthData> | null>(null);
   const [memory, setMemory] = useState<MemoryEntry[] | null>(null);
+  const [graph, setGraph] = useState<KnowledgeGraphData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -74,12 +82,16 @@ export default function AgentMetrics(): JSX.Element {
       fetch('/api/v1/agent/memory?limit=15', { headers })
         .then((r) => (r.ok ? (r.json() as Promise<{ investigations: MemoryEntry[] }>) : null))
         .catch(() => null),
+      fetch('/api/v1/agent/knowledge-graph?limit=80', { headers })
+        .then((r) => (r.ok ? (r.json() as Promise<KnowledgeGraphData>) : null))
+        .catch(() => null),
     ])
-      .then(([metrics, prov, mem]) => {
+      .then(([metrics, prov, mem, kg]) => {
         if (cancelled) return;
         setData(metrics);
         setProviders(prov);
         setMemory(mem?.investigations ?? null);
+        setGraph(kg);
       })
       .catch((e) => {
         if (!cancelled) setError(e instanceof Error ? e.message : String(e));
@@ -247,6 +259,17 @@ export default function AgentMetrics(): JSX.Element {
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {graph && graph.nodes.length > 0 && (
+        <div>
+          <h3 className="text-mini font-mono uppercase tracking-wider text-slate-500 mb-2">
+            Knowledge Graph ({graph.nodes.length} entities, {graph.edges.length} relationships)
+          </h3>
+          <Suspense fallback={<div className="h-[460px] animate-pulse rounded-xl bg-slate-100 dark:bg-slate-800" />}>
+            <RelationshipGraph graph={graph} />
+          </Suspense>
         </div>
       )}
     </div>

@@ -67,6 +67,19 @@ interface AgentState {
     flaggedClaims: string[];
     missingFacts: string[];
   };
+  reportVersioning?: {
+    versions: Array<{ version: number; qualityScore: number; modelUsed: string; reason: string }>;
+    diff?: {
+      fromVersion: number;
+      toVersion: number;
+      fromScore: number;
+      toScore: number;
+      additions: number;
+      deletions: number;
+    };
+  };
+  cost?: { usd: number; tokens: number; llmCalls: number };
+  priorIntelligence?: string;
 }
 
 interface SessionEntry {
@@ -83,7 +96,16 @@ type AgentWsMessage =
   | { type: 'connected' }
   | { type: 'step'; step: AgentStep }
   | { type: 'token'; token: string }
-  | { type: 'done'; report: string; modelUsed: string; qa?: AgentState['qa']; actionCard?: ReportActionCard }
+  | {
+      type: 'done';
+      report: string;
+      modelUsed: string;
+      qa?: AgentState['qa'];
+      actionCard?: ReportActionCard;
+      reportVersioning?: AgentState['reportVersioning'];
+      cost?: AgentState['cost'];
+      priorIntelligence?: AgentState['priorIntelligence'];
+    }
   | { type: 'error'; error: string };
 
 // ── Specialist mesh helpers ────────────────────────────────────────────────
@@ -265,6 +287,9 @@ export default function AgentInvestigator(): JSX.Element {
                   modelUsed: msg.modelUsed,
                   qa: msg.qa,
                   actionCard: msg.actionCard,
+                  reportVersioning: msg.reportVersioning,
+                  cost: msg.cost,
+                  priorIntelligence: msg.priorIntelligence,
                   completedAt: new Date().toISOString(),
                 }
               : prev
@@ -568,6 +593,32 @@ export default function AgentInvestigator(): JSX.Element {
             </details>
           )}
 
+          {/* Inline telemetry: cost, model, prior-intelligence reuse */}
+          {agentState.status === 'done' &&
+            (agentState.cost || agentState.priorIntelligence || agentState.modelUsed) && (
+              <div className="mb-3 flex flex-wrap items-center gap-2 text-micro font-mono">
+                {agentState.modelUsed && (
+                  <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                    {agentState.modelUsed}
+                  </span>
+                )}
+                {agentState.cost && (
+                  <span className="rounded bg-emerald-500/10 px-2 py-0.5 text-emerald-700 dark:text-emerald-300">
+                    ${agentState.cost.usd.toFixed(4)} · {(agentState.cost.tokens / 1000).toFixed(1)}K tok ·{' '}
+                    {agentState.cost.llmCalls} LLM calls
+                  </span>
+                )}
+                {agentState.priorIntelligence && (
+                  <span
+                    className="rounded bg-brand-500/10 px-2 py-0.5 text-brand-700 dark:text-brand-300"
+                    title={agentState.priorIntelligence}
+                  >
+                    ↺ built on prior investigations
+                  </span>
+                )}
+              </div>
+            )}
+
           {/* Structured report view (streams the live draft until done) */}
           {agentState.status !== 'done' && streamingReport && (
             <div className="mb-2 flex items-center gap-2 text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
@@ -579,6 +630,7 @@ export default function AgentInvestigator(): JSX.Element {
               agentState.status === 'done' ? (agentState.report ?? '') : streamingReport || (agentState.report ?? '')
             }
             actionCard={agentState.actionCard}
+            reportVersioning={agentState.reportVersioning}
             query={agentState.query}
             onGenerateHuntingQueries={async () => {
               try {

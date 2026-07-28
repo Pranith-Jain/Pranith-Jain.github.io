@@ -287,6 +287,19 @@ export async function agentMemoryHandler(c: Context<{ Bindings: Env }>): Promise
 }
 
 /**
+ * GET /api/v1/agent/knowledge-graph
+ * Aggregated cross-investigation entity/relationship graph.
+ */
+export async function agentKnowledgeGraphHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return serviceUnavailable(c, 'database not configured');
+  const limit = Math.min(Number(c.req.query('limit') ?? 100), 300);
+  const { getKnowledgeGraph } = await import('../lib/agent/knowledge-graph');
+  const graph = await getKnowledgeGraph(db, limit);
+  return c.json(graph, 200, { 'Cache-Control': 'public, max-age=60' });
+}
+
+/**
  * DELETE /api/v1/agent/:id
  * Delete an investigation session from D1 and the Durable Object.
  */

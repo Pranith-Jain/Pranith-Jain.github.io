@@ -311,6 +311,8 @@ export class InvestigatorAgentDO {
             actionCard: next.actionCard,
             sources: next.sources,
             reportVersioning: next.reportVersioning,
+            cost: next.cost,
+            priorIntelligence: next.priorIntelligence,
           });
         } else {
           // Schedule next step with a small delay to avoid burst
@@ -919,6 +921,11 @@ export class InvestigatorAgentDO {
         0
       );
 
+      const synthTracker = this.costTrackers.get(state.id) ?? createCostTracker();
+      this.costTrackers.set(state.id, synthTracker);
+      const recordUsage = (model: string, inputText: string, outputText: string, role: string) =>
+        recordCompletion(synthTracker, model, inputText, outputText, role);
+
       const result = await synthesizeReport(ai, state.query, state.queryType, state.steps, {
         groqKey,
         googleKey,
@@ -926,6 +933,7 @@ export class InvestigatorAgentDO {
         dataQuality: { totalOk, totalErr, emptyResults },
         calibrationHint: await this.calibrationHint(),
         onToken: (token) => this.broadcast({ type: 'token', token }),
+        recordUsage,
       });
 
       // ── QA PHASE ─────────────────────────────────────────────────────
@@ -952,6 +960,7 @@ export class InvestigatorAgentDO {
           groqKey,
           googleKey,
           nvidiaKey,
+          recordUsage,
         });
 
         // ── SELF-CORRECTION LOOP ──────────────────────────────────────
@@ -1008,6 +1017,7 @@ export class InvestigatorAgentDO {
               nvidiaKey,
               dataQuality: { totalOk, totalErr, emptyResults },
               correctionPrompt,
+              recordUsage,
             }
           );
 
@@ -1018,6 +1028,7 @@ export class InvestigatorAgentDO {
             groqKey,
             googleKey,
             nvidiaKey,
+            recordUsage,
           });
 
           // Record the corrected draft as version 2 (whether or not it wins).
@@ -1152,6 +1163,11 @@ export class InvestigatorAgentDO {
       state.currentStep = qaStepNum;
       state.status = 'done';
       state.completedAt = new Date().toISOString();
+      state.cost = {
+        usd: Math.round(synthTracker.totalCostUsd * 10000) / 10000,
+        tokens: synthTracker.totalInputTokens + synthTracker.totalOutputTokens,
+        llmCalls: synthTracker.entries.length,
+      };
 
       // Save investigation memory for cross-session context
       const db = (this.env as unknown as ApiEnv).BRIEFINGS_DB;
@@ -1194,6 +1210,9 @@ export class InvestigatorAgentDO {
             routingRefined: resolveRoutingQueryType(state.query, state.queryType) !== state.queryType,
             findings: state.findings?.length ?? 0,
             graphNodes: state.actionCard?.graph?.nodes.length ?? 0,
+            costUsd: Math.round(synthTracker.totalCostUsd * 10000) / 10000,
+            tokens: synthTracker.totalInputTokens + synthTracker.totalOutputTokens,
+            llmCalls: synthTracker.entries.length,
           },
           error: state.error ?? undefined,
           completedAt: state.completedAt,
