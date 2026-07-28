@@ -493,7 +493,7 @@ export default function ActorProfiles() {
             );
           })}
         {(activeStatus || activeCountry) && (
-          <button
+          <button type="button"
             onClick={() => {
               setActiveStatus(null);
               setActiveCountry(null);
@@ -512,7 +512,7 @@ export default function ActorProfiles() {
             Filtered by:
           </span>
           {activeMalware && (
-            <button
+            <button type="button"
               onClick={() => setActiveMalware(null)}
               className="inline-flex items-center gap-1 text-mini font-mono bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 rounded-full px-2 py-0.5"
             >
@@ -520,7 +520,7 @@ export default function ActorProfiles() {
             </button>
           )}
           {activeSector && (
-            <button
+            <button type="button"
               onClick={() => setActiveSector(null)}
               className="inline-flex items-center gap-1 text-mini font-mono bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 rounded-full px-2 py-0.5"
             >

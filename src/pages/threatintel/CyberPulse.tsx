@@ -306,7 +306,7 @@ export default function CyberPulse(): JSX.Element {
           placeholder="Period"
         />
         {hasFilters && (
-          <button
+          <button type="button"
             onClick={clearFilters}
             className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-1"
           >
@@ -322,7 +322,7 @@ export default function CyberPulse(): JSX.Element {
             </span>
           )}
           <span className="text-xs text-slate-600 dark:text-slate-500">{total.toLocaleString()} incidents</span>
-          <button
+          <button type="button"
             onClick={async () => {
               if (scanning) return;
               setScanning(true);
@@ -350,7 +350,7 @@ export default function CyberPulse(): JSX.Element {
             {scanning ? <Loader2 className="w-3 h-3 animate-spin" /> : <Search className="w-3 h-3" />}
             {scanning ? 'Scanning…' : 'Scan now'}
           </button>
-          <button
+          <button type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
             className="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700"
           >
@@ -394,7 +394,7 @@ export default function CyberPulse(): JSX.Element {
           ))}
           {hasMore && (
             <div className="text-center py-4">
-              <button
+              <button type="button"
                 onClick={() => {
                   const ctrl = new AbortController();
                   fetch(
@@ -429,7 +429,7 @@ export default function CyberPulse(): JSX.Element {
               </h3>
               <div className="space-y-2">
                 {stats.by_type.map((t) => (
-                  <button
+                  <button type="button"
                     key={t.incident_type}
                     onClick={() => setTypeFilter(typeFilter === t.incident_type ? '' : t.incident_type)}
                     className={`w-full flex items-center justify-between px-2 py-1.5 rounded text-xs transition-colors ${typeFilter === t.incident_type ? 'bg-blue-500/20 text-blue-600 dark:text-blue-400' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-400'}`}
@@ -455,7 +455,7 @@ export default function CyberPulse(): JSX.Element {
               </h3>
               <div className="space-y-1.5">
                 {trending.trending_actors.map((a) => (
-                  <button
+                  <button type="button"
                     key={a.name}
                     onClick={() => setTypeFilter('')}
                     className="w-full flex items-center justify-between px-2 py-1 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-400"
@@ -548,7 +548,7 @@ function FilterSelect({
   const [open, setOpen] = useState(false);
   return (
     <div className="relative">
-      <button
+      <button type="button"
         onClick={() => setOpen(!open)}
         className={`flex items-center gap-1 px-2 py-1 text-xs rounded border ${value ? 'border-blue-500/50 text-blue-600 dark:text-blue-400 bg-blue-500/10' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-400'}`}
       >
@@ -559,7 +559,7 @@ function FilterSelect({
         <>
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
           <div className="absolute z-20 mt-1 left-0 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded shadow-e3 max-h-48 overflow-auto min-w-[120px]">
-            <button
+            <button type="button"
               onClick={() => {
                 onChange('');
                 setOpen(false);
@@ -569,7 +569,7 @@ function FilterSelect({
               All
             </button>
             {Object.entries(options).map(([k, v]) => (
-              <button
+              <button type="button"
                 key={k}
                 onClick={() => {
                   onChange(k);

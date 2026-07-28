@@ -48,7 +48,7 @@ export default function CrossCampaignCorrelation(): JSX.Element {
       title="Cross-Campaign Correlation"
       description="Find connections between campaigns: shared infrastructure, tooling, and TTPs."
       headerExtra={
-        <button
+        <button type="button"
           onClick={fetchCorrelations}
           disabled={loading}
           className="px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2"

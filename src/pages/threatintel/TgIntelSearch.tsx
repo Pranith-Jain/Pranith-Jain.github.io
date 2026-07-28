@@ -269,13 +269,13 @@ export default function TgIntelSearch() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <button
+          <button type="button"
             onClick={() => setShowSaved(!showSaved)}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-mini font-mono font-semibold rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors"
           >
             <Bookmark size={10} /> Saved ({savedSearches.length})
           </button>
-          <button
+          <button type="button"
             onClick={() => setShowFilters(!showFilters)}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-mini font-mono font-semibold rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-rose-300 dark:hover:border-rose-500/40 transition-colors"
           >
@@ -289,7 +289,7 @@ export default function TgIntelSearch() {
         <div className="mb-4 surface-card p-4">
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-display font-semibold text-sm">Saved Searches</h3>
-            <button
+            <button type="button"
               onClick={() => setShowSaved(false)}
               className="text-muted hover:text-slate-900 dark:hover:text-slate-100"
             >
@@ -305,11 +305,11 @@ export default function TgIntelSearch() {
                   key={s.id}
                   className="flex items-center justify-between p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-100))]"
                 >
-                  <button onClick={() => loadSaved(s)} className="text-left flex-1 min-w-0">
+                  <button type="button" onClick={() => loadSaved(s)} className="text-left flex-1 min-w-0">
                     <p className="text-tool font-semibold truncate">{s.name}</p>
                     <p className="text-meta font-mono text-muted truncate">{s.query}</p>
                   </button>
-                  <button
+                  <button type="button"
                     onClick={() => handleDeleteSaved(s.id)}
                     className="p-1 text-slate-300 dark:text-slate-400 hover:text-rose-500 ml-2"
                   >
@@ -385,13 +385,13 @@ export default function TgIntelSearch() {
             placeholder="Search name..."
             className="flex-1 max-w-xs px-3 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-tool focus:outline-none focus:border-rose-500"
           />
-          <button
+          <button type="button"
             onClick={handleSave}
             className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white text-mini font-mono font-semibold rounded"
           >
             Save
           </button>
-          <button
+          <button type="button"
             onClick={() => setShowSaveForm(false)}
             className="text-muted hover:text-slate-900 dark:hover:text-slate-100"
           >
@@ -473,7 +473,7 @@ export default function TgIntelSearch() {
                 <option value={365}>1y</option>
               </select>
             </div>
-            <button
+            <button type="button"
               onClick={() => doSearch(query, 0)}
               className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white text-mini font-mono font-semibold rounded"
             >
@@ -489,7 +489,7 @@ export default function TgIntelSearch() {
           {filterChannel && (
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 text-micro font-mono border border-sky-200 dark:border-sky-800">
               @{filterChannel}{' '}
-              <button
+              <button type="button"
                 onClick={() => {
                   setFilterChannel('');
                   doSearch(query, 0);
@@ -504,7 +504,7 @@ export default function TgIntelSearch() {
               className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-micro font-mono border ${SEV[filterSeverity] || SEV.low}`}
             >
               {filterSeverity}{' '}
-              <button
+              <button type="button"
                 onClick={() => {
                   setFilterSeverity('');
                   doSearch(query, 0);
@@ -517,7 +517,7 @@ export default function TgIntelSearch() {
           {filterFrom && (
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-micro font-mono border border-emerald-200 dark:border-emerald-800">
               From: {filterFrom}{' '}
-              <button
+              <button type="button"
                 onClick={() => {
                   setFilterFrom('');
                   doSearch(query, 0);
@@ -530,7 +530,7 @@ export default function TgIntelSearch() {
           {filterTo && (
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-micro font-mono border border-emerald-200 dark:border-emerald-800">
               To: {filterTo}{' '}
-              <button
+              <button type="button"
                 onClick={() => {
                   setFilterTo('');
                   doSearch(query, 0);
@@ -554,7 +554,7 @@ export default function TgIntelSearch() {
           </div>
           <div className="flex items-end gap-px h-20 overflow-x-auto">
             {timeline.map((t) => (
-              <button
+              <button type="button"
                 key={t.day}
                 onClick={() => handleTimelineClick(t.day)}
                 title={`${t.day}: ${t.count}`}
@@ -597,7 +597,7 @@ export default function TgIntelSearch() {
             <span className="text-micro font-mono text-muted">{total.toLocaleString()} results</span>
             <div className="flex items-center gap-1.5">
               {topChannels.slice(0, 5).map((tc) => (
-                <button
+                <button type="button"
                   key={tc.channel_handle}
                   onClick={() => {
                     setFilterChannel(tc.channel_handle);
@@ -738,7 +738,7 @@ export default function TgIntelSearch() {
                                 </div>
                                 <div className="flex flex-wrap gap-1">
                                   {items.map((i) => (
-                                    <button
+                                    <button type="button"
                                       key={i.value}
                                       onClick={() => copyIOC(i.value)}
                                       className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-micro font-mono ${IOC_CLR[i.type] || 'bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-600 dark:text-slate-400'} hover:opacity-80`}
@@ -762,7 +762,7 @@ export default function TgIntelSearch() {
                           <span className="text-micro font-mono font-semibold text-muted">Domains:</span>
                           <div className="flex flex-wrap gap-1 mt-0.5">
                             {domains.map((d) => (
-                              <button
+                              <button type="button"
                                 key={d}
                                 onClick={() => copyIOC(d)}
                                 className="text-micro font-mono px-1 py-0.5 rounded bg-sky-50 dark:bg-sky-900/20 text-sky-600 dark:text-sky-400 hover:opacity-80"
@@ -790,7 +790,7 @@ export default function TgIntelSearch() {
           </div>
           {total > limit && (
             <div className="flex items-center justify-center gap-3 mt-4">
-              <button
+              <button type="button"
                 onClick={() => doSearch(query, Math.max(0, (page - 1) * limit))}
                 disabled={page === 0}
                 className="px-3 py-1.5 text-mini font-mono font-semibold rounded border border-slate-200 dark:border-[rgb(var(--border-400))] disabled:opacity-40 hover:border-rose-300 transition-colors"
@@ -800,7 +800,7 @@ export default function TgIntelSearch() {
               <span className="text-micro font-mono text-muted">
                 Page {page + 1} of {Math.ceil(total / limit)}
               </span>
-              <button
+              <button type="button"
                 onClick={() => doSearch(query, (page + 1) * limit)}
                 disabled={(page + 1) * limit >= total}
                 className="px-3 py-1.5 text-mini font-mono font-semibold rounded border border-slate-200 dark:border-[rgb(var(--border-400))] disabled:opacity-40 hover:border-rose-300 transition-colors"

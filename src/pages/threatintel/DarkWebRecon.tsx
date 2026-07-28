@@ -146,7 +146,7 @@ export default function DarkWebRecon(): JSX.Element {
       headerExtra={
         <div className="flex flex-wrap gap-1.5">
           {TABS.map((t) => (
-            <button
+            <button type="button"
               key={t.id}
               onClick={() => {
                 setTab(t.id);
@@ -178,7 +178,7 @@ export default function DarkWebRecon(): JSX.Element {
             placeholder={activeTab.placeholder}
             className="flex-1 [background:rgb(var(--surface-200)/0.6)] border border-[rgb(var(--border-500))] rounded-xl px-4 py-2.5 text-slate-900 dark:text-slate-200 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-transparent text-sm"
           />
-          <button
+          <button type="button"
             onClick={handleSearch}
             disabled={loading || !input.trim()}
             className="flex items-center gap-2 px-4 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-700 disabled:text-slate-500 rounded-xl text-sm font-medium text-white transition-colors"

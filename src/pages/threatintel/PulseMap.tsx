@@ -308,7 +308,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: 
                 </span>
               </div>
             </div>
-            <button
+            <button type="button"
               onClick={() => setSelectedMarker(null)}
               className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
             >

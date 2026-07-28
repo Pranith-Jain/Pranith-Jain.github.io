@@ -126,11 +126,11 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
           </p>
         )}
         <div className="flex flex-wrap gap-1.5">
-          <button onClick={() => setStatus('all')} className={chip(status === 'all')}>
+          <button type="button" onClick={() => setStatus('all')} className={chip(status === 'all')}>
             All <span className="opacity-60">· {data.total}</span>
           </button>
           {statuses.map(([name, n]) => (
-            <button key={name} onClick={() => setStatus(name)} className={chip(status === name)}>
+            <button type="button" key={name} onClick={() => setStatus(name)} className={chip(status === name)}>
               {name} <span className="opacity-60">· {n}</span>
             </button>
           ))}

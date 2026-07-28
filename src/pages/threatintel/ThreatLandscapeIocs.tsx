@@ -106,13 +106,13 @@ export default function ThreatLandscapeIocs(): JSX.Element {
         description="PostgREST-style IOC query interface. Filter by type, validity, source. Use seq_id for incremental sync."
         headerExtra={
           <div className="flex gap-2">
-            <button
+            <button type="button"
               onClick={fetchData}
               className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700"
             >
               <RefreshCw size={12} /> Refresh
             </button>
-            <button
+            <button type="button"
               onClick={exportAsJson}
               disabled={!data?.length}
               className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40"
@@ -124,7 +124,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
       >
         {/* Tab selector */}
         <div className="mb-3 flex gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-          <button
+          <button type="button"
             onClick={() => {
               setActiveTab('all');
               setIocType('');
@@ -133,7 +133,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
           >
             All IOCs
           </button>
-          <button
+          <button type="button"
             onClick={() => {
               setActiveTab('type');
             }}
@@ -173,7 +173,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
             onChange={(e) => setLimit(e.target.value)}
             className="w-20 text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
           />
-          <button
+          <button type="button"
             onClick={fetchData}
             className="text-xs flex items-center gap-1 px-3 py-1.5 rounded bg-rose-600 text-white hover:bg-rose-700"
           >
@@ -185,8 +185,8 @@ export default function ThreatLandscapeIocs(): JSX.Element {
         {activeTab === 'type' && !iocType && (
           <div className="mb-4 flex flex-wrap gap-2">
             {IOC_TYPES.map((t) => (
-              <button
-                key={t}
+              <button type="button"
+                key={t} role="tab"
                 onClick={() => setIocType(t)}
                 className={`text-xs px-3 py-1.5 rounded-full border ${iocTypeColor(t)}`}
               >

@@ -221,10 +221,10 @@ export default function SecretLeaks(): JSX.Element {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 mb-8 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+        <div role="tablist" aria-label="Tabs" className="flex gap-1 mb-8 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
           {tabs.map((t) => (
             <button
-              key={t.id}
+              key={t.id} role="tab"
               type="button"
               onClick={() => {
                 setTab(t.id);
@@ -286,7 +286,7 @@ export default function SecretLeaks(): JSX.Element {
                     { label: 'Source Link', desc: 'Public link for responsible follow-up.' },
                   ].map((item) => (
                     <div
-                      key={item.label}
+                      key={item.label} role="tab"
                       className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
                     >
                       <span className="text-xs font-mono font-semibold text-rose-600 dark:text-rose-400 w-24 flex-shrink-0">
@@ -307,7 +307,7 @@ export default function SecretLeaks(): JSX.Element {
                   { label: 'Repos Scanned', value: stats.reposScanned.toLocaleString(), icon: Search },
                 ].map((s) => (
                   <div
-                    key={s.label}
+                    key={s.label} role="tab"
                     className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4"
                   >
                     <div className="flex items-center gap-2 mb-2">
@@ -507,7 +507,7 @@ export default function SecretLeaks(): JSX.Element {
                     const SevIcon = SEV_ICON[leak.severity];
                     return (
                       <div
-                        key={leak.id}
+                        key={leak.id} role="tab"
                         className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 hover:border-rose-500/40 transition-colors"
                       >
                         <div className="flex items-start justify-between gap-4">
@@ -629,7 +629,7 @@ export default function SecretLeaks(): JSX.Element {
                   },
                 ].map((s) => (
                   <div
-                    key={s.label}
+                    key={s.label} role="tab"
                     className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5"
                   >
                     <div className="flex items-center gap-2 mb-3">

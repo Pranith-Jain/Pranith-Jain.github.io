@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { SkeletonCard } from '../../components/ui/Skeleton';
 import { sanitizeAiHtml } from '../../lib/sanitize-html';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BookText, Bug, ExternalLink, FileCode, Gauge, Loader2, Copy, Check, ChevronDown } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
 import { prioritise, TIER_LABELS, TIER_STYLES, TIER_BARS } from '../../lib/dfir/cve-priority';
@@ -209,7 +210,8 @@ export default function CveLookup(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="CVE-2021-44228"
-              className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              aria-label="CVE ID to look up"
+              className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:focus:border-brand-400"
             />
           </div>
           <button
@@ -789,7 +791,7 @@ export default function CveLookup(): JSX.Element {
                     {filtered.map(({ url, tags }) => (
                       <li key={url} className="flex items-start gap-2">
                         <a
-                          href={url}
+                          href={sanitizeUrl(url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-sm text-brand-600 dark:text-brand-400 hover:underline break-all font-mono flex items-center gap-1"

@@ -190,7 +190,7 @@ export default function StixIpExport() {
                 <option value="RED">TLP:RED</option>
               </select>
             </div>
-            <button
+            <button type="button"
               onClick={isBatch ? enrichBatch : enrichSingle}
               disabled={loading || !ipInput.trim()}
               className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50 transition-colors"
@@ -298,14 +298,14 @@ export default function StixIpExport() {
                     </p>
                   </div>
                   <div className="flex gap-2">
-                    <button
+                    <button type="button"
                       onClick={copyJson}
                       className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-500))] text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
                     >
                       {copied ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
                       {copied ? 'Copied' : 'Copy JSON'}
                     </button>
-                    <button
+                    <button type="button"
                       onClick={() =>
                         downloadStixJson(bundle, `stix-ip-export-${new Date().toISOString().slice(0, 10)}.json`)
                       }

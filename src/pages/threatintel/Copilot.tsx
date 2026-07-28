@@ -742,7 +742,7 @@ export default function Copilot(): JSX.Element {
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Top bar */}
         <div className="flex items-center gap-3 border-b border-slate-200 bg-white/80 px-4 py-2.5 backdrop-blur-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.8]">
-          <button
+          <button type="button"
             onClick={() => setSidebarOpen((p) => !p)}
             className="flex h-7 w-7 items-center justify-center rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 hover:text-rose-600 lg:hidden dark:hover:bg-[rgb(var(--surface-300))]"
             aria-label="Toggle sidebar"
@@ -775,7 +775,7 @@ export default function Copilot(): JSX.Element {
           <div className="flex items-center gap-1.5">
             {mode === 'chat' && hasMessages && (
               <>
-                <button
+                <button type="button"
                   onClick={exportConversation}
                   className="flex h-7 w-7 items-center justify-center rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 hover:text-rose-600 dark:hover:bg-[rgb(var(--surface-300))]"
                   aria-label="Export conversation"
@@ -809,7 +809,7 @@ export default function Copilot(): JSX.Element {
                   </p>
                   <div className="flex flex-wrap items-center justify-center gap-2">
                     {QUERY_EXAMPLES.map((ex) => (
-                      <button
+                      <button type="button"
                         key={ex.label}
                         onClick={() => {
                           setQuery(ex.query);
@@ -823,7 +823,7 @@ export default function Copilot(): JSX.Element {
                   </div>
                   <div className="flex flex-wrap justify-center gap-1.5">
                     {CHAT_STARTERS.slice(0, 4).map((starter) => (
-                      <button
+                      <button type="button"
                         key={starter}
                         onClick={() => {
                           setQuery(starter);
@@ -860,7 +860,7 @@ export default function Copilot(): JSX.Element {
                           <div className="rounded-2xl bg-rose-600 px-4 py-2.5 text-sm text-white shadow-sm">
                             {msg.content}
                           </div>
-                          <button
+                          <button type="button"
                             onClick={() => handleEditMessage(i)}
                             className="absolute -left-7 top-1/2 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-100"
                             aria-label="Edit message"
@@ -898,7 +898,7 @@ export default function Copilot(): JSX.Element {
                                 </div>
                                 <span className="font-mono text-xs text-slate-500 dark:text-slate-400">Investigating</span>
                               </div>
-                              <button
+                              <button type="button"
                                 onClick={cancelInvestigation}
                                 className="inline-flex items-center gap-1 rounded-md border border-rose-200 bg-rose-50 px-2 py-1 text-mini font-mono text-rose-600 transition-colors hover:bg-rose-100 dark:border-rose-800/50 dark:bg-rose-950/20 dark:text-rose-400"
                                 aria-label="Cancel investigation"
@@ -928,7 +928,7 @@ export default function Copilot(): JSX.Element {
                             </div>
                             {msg.content && (
                               <div className="flex items-center gap-1.5">
-                                <button
+                                <button type="button"
                                   onClick={() => {
                                     navigator.clipboard.writeText(msg.content).catch(() => {});
                                     setCopiedIndex(i);
@@ -1056,7 +1056,7 @@ export default function Copilot(): JSX.Element {
                     className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-14 text-base text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500"
                     disabled={loading || !!progress}
                   />
-                  <button
+                  <button type="button"
                     onClick={() => submit(query)}
                     aria-label="Submit query"
                     disabled={loading || !!progress || !query.trim()}
@@ -1073,7 +1073,7 @@ export default function Copilot(): JSX.Element {
                     <span className="font-mono">
                       <AlertTriangle size={14} className="mr-1 inline" /> {error}
                     </span>
-                    <button
+                    <button type="button"
                       onClick={() => submit(query)}
                       className="shrink-0 rounded border border-rose-400/60 px-3 py-1 font-mono text-xs text-rose-700 hover:bg-rose-500/10 dark:text-rose-300"
                     >
@@ -1090,7 +1090,7 @@ export default function Copilot(): JSX.Element {
                   </p>
                   <div className="flex flex-wrap justify-center gap-2">
                     {QUERY_EXAMPLES.map((ex) => (
-                      <button
+                      <button type="button"
                         key={ex.label}
                         onClick={() => {
                           setQuery(ex.query);
@@ -1231,7 +1231,7 @@ export default function Copilot(): JSX.Element {
                     </details>
 
                     <div className="flex flex-wrap gap-2">
-                      <button
+                      <button type="button"
                         onClick={async () => {
                           if (!result) return;
                           setSaving(true);
@@ -1268,7 +1268,7 @@ export default function Copilot(): JSX.Element {
                       >
                         <Save size={12} /> {saved ? 'Saved' : saving ? 'Saving…' : 'Save as Assessment'}
                       </button>
-                      <button
+                      <button type="button"
                         onClick={() => {
                           const blob = new Blob([result.narrative], { type: 'text/markdown' });
                           const url = URL.createObjectURL(blob);
@@ -1282,7 +1282,7 @@ export default function Copilot(): JSX.Element {
                       >
                         <FileText size={12} /> download .md
                       </button>
-                      <button
+                      <button type="button"
                         onClick={() => void investigate(query)}
                         className="inline-flex items-center gap-1.5 rounded border border-slate-200 px-3 py-2 font-mono text-xs transition-colors hover:border-rose-500/40 dark:border-[rgb(var(--border-400))]"
                       >
@@ -1327,7 +1327,7 @@ export default function Copilot(): JSX.Element {
                   className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-4 pr-12 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white dark:placeholder:text-slate-500"
                   disabled={streaming}
                 />
-                <button
+                <button type="button"
                   onClick={() => {
                     if (query.trim()) {
                       const q = query;
@@ -1432,7 +1432,7 @@ function FollowUpSuggestions({
   return (
     <div className="mt-3 flex flex-wrap gap-1.5 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
       {suggestions.map((s) => (
-        <button
+        <button type="button"
           key={s}
           onClick={() => onSubmit(s)}
           className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-rose-400 hover:text-rose-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:border-rose-400 dark:hover:text-rose-400"
@@ -1494,14 +1494,14 @@ function SessionSidebar({
         <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-[rgb(var(--border-400))]">
           <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">Conversations</h2>
           <div className="flex items-center gap-1">
-            <button
+            <button type="button"
               onClick={onNew}
               className="flex items-center gap-1 rounded-xl px-2 py-1 text-xs font-mono text-slate-500 hover:text-rose-600 transition-colors"
             >
               <Plus size={13} />
               New
             </button>
-            <button
+            <button type="button"
               onClick={onClose}
               className="rounded-xl p-1 text-slate-500 dark:text-slate-400 hover:text-slate-600 transition-colors"
               aria-label="Close sidebar"
@@ -1539,7 +1539,7 @@ function SessionSidebar({
                     </span>
                   </div>
                 </div>
-                <button
+                <button type="button"
                   onClick={(e) => {
                     e.stopPropagation();
                     onDelete(s.id);
@@ -1560,7 +1560,7 @@ function SessionSidebar({
               <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">Mode</label>
               <div className="flex gap-1">
                 {(['chat', 'quick', 'report'] as const).map((m) => (
-                  <button
+                  <button type="button"
                     key={m}
                     onClick={() => onModeChange(m)}
                     className={`flex-1 rounded px-2 py-1 text-xs font-mono transition-colors ${

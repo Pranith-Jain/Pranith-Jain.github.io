@@ -173,7 +173,7 @@ export default function GithubAdvisories(): JSX.Element {
           const active = sevFilter.has(s);
           const colors = SEVERITY_COLORS[s]!;
           return (
-            <button
+            <button type="button"
               key={s}
               onClick={() => toggleSev(s)}
               className={`px-2 py-1 rounded text-xs font-mono font-medium border flex items-center gap-1 transition ${
@@ -200,7 +200,7 @@ export default function GithubAdvisories(): JSX.Element {
           ))}
         </select>
         {(sevFilter.size > 0 || ecoFilter) && (
-          <button
+          <button type="button"
             onClick={() => {
               setSevFilter(new Set());
               setEcoFilter('');
@@ -224,7 +224,7 @@ export default function GithubAdvisories(): JSX.Element {
             className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
           />
         </div>
-        <button
+        <button type="button"
           onClick={() => {
             setRefreshKey((k) => k + 1);
             refetch();

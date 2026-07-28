@@ -200,7 +200,7 @@ export default function Workspaces() {
   if (selected) {
     return (
       <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-        <button
+        <button type="button"
           onClick={() => {
             setSelectedId(null);
             setSummary(null);
@@ -272,7 +272,7 @@ export default function Workspaces() {
             <div className="flex items-center gap-4 mt-3 text-mini font-mono text-muted">
               <span>{summary.subjectsCount} subject(s)</span>
               <span>{summary.findingsCount} finding(s)</span>
-              <button
+              <button type="button"
                 onClick={handleAdvance}
                 disabled={advancing || selected.phase === 'complete'}
                 className="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-50 dark:bg-rose-900/20 hover:bg-rose-100 dark:hover:bg-rose-900/30 text-rose-700 dark:text-rose-300 rounded text-mini font-mono font-semibold transition-colors disabled:opacity-50"
@@ -358,7 +358,7 @@ export default function Workspaces() {
       {error && (
         <div className="mb-4 p-3 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
           <AlertTriangle className="w-4 h-4 shrink-0" /> {error}
-          <button onClick={() => setError(null)} className="ml-auto">
+          <button type="button" onClick={() => setError(null)} className="ml-auto">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -442,7 +442,7 @@ export default function Workspaces() {
           <Shield className="w-12 h-12 mx-auto mb-4 opacity-30" />
           <p className="font-display font-semibold text-lg mb-1">No workspaces yet</p>
           <p className="font-mono text-sm mb-3">Create a workspace to start a structured investigation</p>
-          <button
+          <button type="button"
             onClick={() => setShowCreate(true)}
             className="text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-mono text-sm font-semibold"
           >
@@ -483,7 +483,7 @@ export default function Workspaces() {
                   {ws.target && <p className="text-meta font-mono text-slate-500 truncate">{ws.target}</p>}
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
-                  <button
+                  <button type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleDelete(ws.id);

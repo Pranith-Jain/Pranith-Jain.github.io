@@ -377,12 +377,12 @@ export default function Infostealer(): JSX.Element {
       }
       maxWidthClass="max-w-6xl"
     >
-      <div className="flex flex-wrap gap-2 mb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div role="tablist" aria-label="Tabs" className="flex flex-wrap gap-2 mb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         {TABS.map((t) => {
           const Icon = t.icon;
           return (
             <button
-              key={t.id}
+              key={t.id} role="tab"
               type="button"
               onClick={() => setTab(t.id)}
               className={`inline-flex items-center gap-1.5 px-3 py-2 font-mono text-meta border-b-2 -mb-px ${
@@ -619,7 +619,7 @@ export default function Infostealer(): JSX.Element {
                 <div className="flex flex-wrap gap-1.5">
                   {fam.capabilities.map((c) => (
                     <span
-                      key={c}
+                      key={c} role="tab"
                       className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted"
                     >
                       {c}
@@ -632,7 +632,7 @@ export default function Infostealer(): JSX.Element {
                     <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Actors:</span>
                     {fam.actors.map((a) => (
                       <Link
-                        key={a}
+                        key={a} role="tab"
                         to={`/threatintel/actors/${a.toLowerCase().replace(/\s+/g, '-')}`}
                         className="text-mini font-mono px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
                       >
@@ -788,7 +788,7 @@ export default function Infostealer(): JSX.Element {
               <div className="flex flex-wrap gap-1.5 mb-4">
                 {(['all', 'blog', 'report', 'technique'] as const).map((src) => (
                   <button
-                    key={src}
+                    key={src} role="tab"
                     type="button"
                     onClick={() => setArticleSource(src)}
                     className={`text-mini font-mono px-2 py-1 rounded border ${

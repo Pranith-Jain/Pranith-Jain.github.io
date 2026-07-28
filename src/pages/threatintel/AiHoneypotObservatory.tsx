@@ -291,7 +291,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
           >
             <ExternalLink className="w-3 h-3" /> Dashboard
           </a>
-          <button
+          <button type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
             className="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700"
           >
@@ -315,7 +315,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
               const cfg = CATEGORY_CONFIG[cat];
               const Icon = cfg?.icon ?? Shield;
               return (
-                <button
+                <button type="button"
                   key={cat}
                   onClick={() => setCategoryFilter(categoryFilter === cat ? '' : cat)}
                   className={`p-3 rounded-xl border text-left transition-colors ${
@@ -358,7 +358,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
           <option value="low">Low</option>
         </select>
         {(categoryFilter || confidenceFilter || searchQuery) && (
-          <button
+          <button type="button"
             onClick={() => {
               setCategoryFilter('');
               setConfidenceFilter('');

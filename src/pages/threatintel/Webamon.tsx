@@ -123,7 +123,7 @@ function ResultRow({ result }: { result: WebamonResult }) {
 
   return (
     <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
-      <button
+      <button type="button"
         onClick={() => setExpanded(!expanded)}
         className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
       >
@@ -424,7 +424,7 @@ function JsonBlock({ data, label }: { data: Record<string, unknown>; label: stri
   const [open, setOpen] = useState(false);
   return (
     <div className="surface-card overflow-hidden">
-      <button
+      <button type="button"
         onClick={() => setOpen(!open)}
         className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
       >
@@ -529,7 +529,7 @@ function SearchTab() {
         <div className="mt-2 flex flex-wrap gap-2">
           {SEARCH_EXAMPLES.map((ex) => (
             <button
-              key={ex}
+              key={ex} role="tab"
               type="button"
               onClick={() => {
                 setQuery(ex);
@@ -799,7 +799,7 @@ function SandboxTab() {
                         <div className="space-y-2 max-h-60 overflow-y-auto">
                           {r.certificate.map((c, i) => (
                             <div
-                              key={i}
+                              key={i} role="tab"
                               className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1"
                             >
                               <div className="font-semibold text-slate-700 dark:text-slate-300">
@@ -833,7 +833,7 @@ function SandboxTab() {
                         <div className="space-y-2 max-h-60 overflow-y-auto">
                           {r.server.map((s, i) => (
                             <div
-                              key={i}
+                              key={i} role="tab"
                               className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1"
                             >
                               {s.ip && <div className="font-semibold text-slate-700 dark:text-slate-300">{s.ip}</div>}
@@ -874,7 +874,7 @@ function SandboxTab() {
                             <tbody>
                               {r.cookie.map((c, i) => (
                                 <tr
-                                  key={i}
+                                  key={i} role="tab"
                                   className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50"
                                 >
                                   <td className="py-1 pr-2 text-slate-700 dark:text-slate-300 break-all">
@@ -900,7 +900,7 @@ function SandboxTab() {
                         <div className="flex flex-wrap gap-1.5">
                           {r.technology.map((t, i) => (
                             <span
-                              key={i}
+                              key={i} role="tab"
                               className="inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-mini font-mono text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
                             >
                               <Tag size={10} />
@@ -932,7 +932,7 @@ function SandboxTab() {
                             <tbody>
                               {r.resource.map((res, i) => (
                                 <tr
-                                  key={i}
+                                  key={i} role="tab"
                                   className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50"
                                 >
                                   <td className="py-1 pr-3 text-slate-700 dark:text-slate-300 break-all">
@@ -1068,7 +1068,7 @@ function SandboxTab() {
             })()}
 
           {reportId && !screenshotUrl && !screenshotLoading && (
-            <button
+            <button type="button"
               onClick={() => loadScreenshot(reportId)}
               className="px-4 py-2 rounded-xl text-sm font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40 transition-colors inline-flex items-center gap-2"
             >
@@ -1170,7 +1170,7 @@ function InfraTab() {
               const active = mode === m.key;
               return (
                 <button
-                  key={m.key}
+                  key={m.key} role="tab"
                   type="button"
                   onClick={() => setMode(m.key)}
                   className={`px-3 py-2.5 text-meta font-mono flex items-center gap-1.5 transition-colors ${
@@ -1273,13 +1273,13 @@ export default function Webamon(): JSX.Element {
       </div>
 
       {/* Tab bar */}
-      <div className="flex gap-1 mb-8 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div role="tablist" aria-label="Tabs" className="flex gap-1 mb-8 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         {TABS.map((t) => {
           const Icon = t.icon;
           const active = tab === t.key;
           return (
             <button
-              key={t.key}
+              key={t.key} role="tab"
               type="button"
               onClick={() => setTab(t.key)}
               className={`flex items-center gap-2 px-4 py-3 text-tool font-mono font-semibold border-b-2 transition-colors ${

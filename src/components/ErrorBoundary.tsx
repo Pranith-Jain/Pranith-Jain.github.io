@@ -260,9 +260,11 @@ import { useState, useCallback } from 'react';
 // eslint-disable-next-line react-refresh/only-export-components
 export function useErrorBoundary() {
   const [error, setError] = useState<Error | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const resetError = useCallback(() => {
     setError(null);
+    setIsExpanded(false);
   }, []);
 
   // Store the error in state so ErrorComponent can render the fallback UI.
@@ -272,22 +274,26 @@ export function useErrorBoundary() {
     setError(err);
   }, []);
 
+  const toggleDetails = useCallback(() => {
+    setIsExpanded((v) => !v);
+  }, []);
+
   const ErrorComponent = useCallback(
     ({ children }: { children: ReactNode }) => {
       if (error) {
         return (
           <ErrorFallback
             error={error}
-            errorInfo={null}
-            isExpanded={false}
+            errorInfo={{ componentStack: '' }}
+            isExpanded={isExpanded}
             onReset={resetError}
-            onToggleDetails={() => {}}
+            onToggleDetails={toggleDetails}
           />
         );
       }
       return <>{children}</>;
     },
-    [error, resetError]
+    [error, resetError, isExpanded, toggleDetails]
   );
 
   return {

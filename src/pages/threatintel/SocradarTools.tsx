@@ -119,7 +119,7 @@ export default function SocradarTools() {
       title="Tactical Radar Free Tools"
       description="DDoS intelligence, FortiGate breach check, healthcare breach tracking."
     >
-      <div className="flex gap-1 mb-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div role="tablist" aria-label="Tabs" className="flex gap-1 mb-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
         {(
           [
             ['ddos', 'DDoS Intelligence', Activity],
@@ -128,8 +128,8 @@ export default function SocradarTools() {
             ['reports', 'Threat Reports', Shield],
           ] as const
         ).map(([id, label, Icon]) => (
-          <button
-            key={id}
+          <button type="button"
+            key={id} role="tab"
             onClick={() => setTab(id)}
             className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-mono font-semibold border-b-2 transition-colors ${
               tab === id
@@ -260,7 +260,7 @@ function DDoSPanel() {
             <div className="divide-y divide-slate-100 dark:divide-[rgb(var(--border-300))]">
               {searchResults.slice(0, 30).map((b, i) => (
                 <div
-                  key={b.ip + i}
+                  key={b.ip + i} role="tab"
                   role="button"
                   tabIndex={0}
                   className="px-3 py-2 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors cursor-pointer"
@@ -583,7 +583,7 @@ function HealthcarePanel() {
             <div className="divide-y divide-slate-100 dark:divide-[rgb(var(--border-300))]">
               {filtered.slice(0, 30).map((b, i) => (
                 <div
-                  key={b.id}
+                  key={b.id} role="tab"
                   role="button"
                   tabIndex={0}
                   className="px-3 py-2 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors cursor-pointer"
@@ -693,8 +693,8 @@ function ThreatReportsPanel() {
               ['external', 'External Assessment'],
             ] as const
           ).map(([t, label]) => (
-            <button
-              key={t}
+            <button type="button"
+              key={t} role="tab"
               onClick={() => setReportType(t)}
               className={`px-3 py-1.5 rounded text-mini font-mono font-semibold border transition-colors ${
                 reportType === t
@@ -771,7 +771,7 @@ function ThreatReportsPanel() {
               />
             </div>
           )}
-          <button
+          <button type="button"
             onClick={handleGenerate}
             disabled={loading || (reportType === 'external' && !domain)}
             className="px-4 py-1.5 bg-rose-600 dark:bg-rose-500 text-white text-mini font-mono font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50"
@@ -805,7 +805,7 @@ function ThreatReportsPanel() {
               <div className="flex flex-wrap gap-1">
                 {((data.country as ThreatReportCountry).topActors || []).map((a) => (
                   <span
-                    key={a}
+                    key={a} role="tab"
                     className="text-micro font-mono px-1.5 py-0.5 rounded bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300"
                   >
                     {a}
@@ -818,7 +818,7 @@ function ThreatReportsPanel() {
               <div className="flex flex-wrap gap-1">
                 {((data.country as ThreatReportCountry).topMalware || []).map((m) => (
                   <span
-                    key={m}
+                    key={m} role="tab"
                     className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300"
                   >
                     {m}
@@ -831,7 +831,7 @@ function ThreatReportsPanel() {
               <div className="flex flex-wrap gap-1">
                 {((data.country as ThreatReportCountry).criticalSectors || []).map((s) => (
                   <span
-                    key={s}
+                    key={s} role="tab"
                     className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300"
                   >
                     {s}
@@ -885,7 +885,7 @@ function ThreatReportsPanel() {
               <div className="flex flex-wrap gap-1">
                 {((data.industry as ThreatReportIndustry).topActors || []).map((a) => (
                   <span
-                    key={a}
+                    key={a} role="tab"
                     className="text-micro font-mono px-1.5 py-0.5 rounded bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300"
                   >
                     {a}

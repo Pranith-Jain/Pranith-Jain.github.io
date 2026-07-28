@@ -83,12 +83,13 @@ export default function PassiveDns(): JSX.Element {
       <form onSubmit={handleSubmit} className="mb-8">
         <div className="flex gap-3">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Enter domain or IP address..."
+              aria-label="Domain or IP address for passive DNS lookup"
               className="w-full pl-10 pr-4 py-3 surface-card font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>

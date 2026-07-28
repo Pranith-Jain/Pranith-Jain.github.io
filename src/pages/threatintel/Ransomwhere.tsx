@@ -143,21 +143,21 @@ export default function Ransomwhere(): JSX.Element {
           chains
         </p>
         <div className="flex flex-wrap gap-1.5">
-          <button onClick={() => setChain('all')} className={chip(chain === 'all')}>
+          <button type="button" onClick={() => setChain('all')} className={chip(chain === 'all')}>
             All chains
           </button>
           {blockchains.map(([name, n]) => (
-            <button key={name} onClick={() => setChain(name)} className={chip(chain === name)}>
+            <button type="button" key={name} onClick={() => setChain(name)} className={chip(chain === name)}>
               {name} <span className="opacity-60">· {n}</span>
             </button>
           ))}
         </div>
         <div className="flex flex-wrap gap-1.5">
-          <button onClick={() => setFamily('all')} className={chip(family === 'all')}>
+          <button type="button" onClick={() => setFamily('all')} className={chip(family === 'all')}>
             All families <span className="opacity-60">· {data.total}</span>
           </button>
           {families.slice(0, 24).map(([name, n]) => (
-            <button key={name} onClick={() => setFamily(name)} className={chip(family === name)}>
+            <button type="button" key={name} onClick={() => setFamily(name)} className={chip(family === name)}>
               {name} <span className="opacity-60">· {n}</span>
             </button>
           ))}
@@ -184,7 +184,7 @@ export default function Ransomwhere(): JSX.Element {
             className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
           >
             <div className="flex items-start justify-between gap-2">
-              <button
+              <button type="button"
                 onClick={() => setFamily(w.family)}
                 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug text-left hover:text-rose-600 dark:hover:text-rose-400"
                 title="Filter by this family"

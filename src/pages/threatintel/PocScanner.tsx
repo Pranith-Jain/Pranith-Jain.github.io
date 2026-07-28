@@ -57,7 +57,7 @@ export default function PocScanner({ bare }: PocScannerProps): JSX.Element {
             className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm"
           />
         </div>
-        <button
+        <button type="button"
           onClick={scan}
           disabled={!/^CVE-\d{4}-\d{4,7}$/.test(cveId.trim().toUpperCase())}
           className="px-4 py-2 bg-rose-600 hover:bg-rose-700 disabled:opacity-40 text-white rounded-xl text-sm font-medium flex items-center gap-1.5 transition-colors"

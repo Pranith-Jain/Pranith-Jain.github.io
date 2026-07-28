@@ -123,7 +123,7 @@ export default function EntityGraphPage(): JSX.Element {
             const t = type as EntityType;
             const active = typeFilter.size === 0 || typeFilter.has(t);
             return (
-              <button
+              <button type="button"
                 key={t}
                 onClick={() => toggleType(t)}
                 className={`flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-xs font-mono transition-all ${
@@ -150,7 +150,7 @@ export default function EntityGraphPage(): JSX.Element {
                 className="h-8 w-40 rounded-xl border border-slate-200 bg-white pl-7 pr-2 text-xs dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white"
               />
             </div>
-            <button
+            <button type="button"
               onClick={fetchGraph}
               className="flex items-center gap-1 rounded-xl p-1.5 text-slate-500 dark:text-slate-400 hover:text-rose-600 transition-colors"
               aria-label="Refresh"

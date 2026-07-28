@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Drawer } from './ui/Drawer';
 import { SidebarContent } from './Sidebar';
 import type { SidebarConfig } from '../data/sidebar-nav';
@@ -20,6 +21,20 @@ interface MobileSidebarDrawerProps {
  * the Esc-to-close, body-scroll-lock, and focus-trap plumbing.
  */
 export function MobileSidebarDrawer({ open, onClose, config }: MobileSidebarDrawerProps): JSX.Element {
+  // If the viewport grows past the md breakpoint while the drawer is open
+  // (tablet rotation / window resize), the `md:hidden` panel disappears but
+  // the backdrop + focus trap would stay live, locking keyboard users inside
+  // a display:none dialog. Close proactively when we cross into desktop.
+  useEffect(() => {
+    if (!open) return;
+    const mq = window.matchMedia('(min-width: 768px)');
+    const onChange = (e: MediaQueryListEvent) => {
+      if (e.matches) onClose();
+    };
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, [open, onClose]);
+
   // The AppShell closes this on every route change by flipping `open` to
   // false; the Drawer owns body-scroll lock and focus management.
   return (

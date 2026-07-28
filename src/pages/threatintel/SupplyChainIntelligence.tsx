@@ -234,7 +234,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             onKeyDown={(e) => e.key === 'Enter' && checkVerdict()}
             className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500 font-mono"
           />
-          <button
+          <button type="button"
             onClick={checkVerdict}
             disabled={!query.trim() || verdictLoading}
             className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 text-sm flex items-center gap-2"
@@ -331,7 +331,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
         {/* Ecosystem tabs */}
         <div className="flex flex-wrap gap-1.5 mb-4">
           {ECOSYSTEMS.map((e) => (
-            <button
+            <button type="button"
               key={e.id}
               onClick={() => setOssfEco(e.id)}
               className={`px-3 py-1.5 rounded-xl border text-xs font-medium transition ${

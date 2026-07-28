@@ -112,7 +112,7 @@ export default function AlertFeed() {
           const cfg = SEVERITY_CONFIG[sev]!;
           const Icon = cfg.icon;
           return (
-            <button
+            <button type="button"
               key={sev}
               onClick={() => setFilter(filter === sev ? 'all' : sev)}
               className={`rounded-xl border p-4 text-left transition-all ${
@@ -139,7 +139,7 @@ export default function AlertFeed() {
             {stats.total} alerts · <span className="font-semibold text-amber-600">{stats.unread} unread</span>
           </span>
         </div>
-        <button
+        <button type="button"
           onClick={loadAlerts}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
         >
@@ -184,7 +184,7 @@ export default function AlertFeed() {
                     </div>
                     <div className="flex items-center gap-1 shrink-0">
                       {!alert.read && (
-                        <button
+                        <button type="button"
                           onClick={() => markRead(alert.id)}
                           className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-green-500"
                           title="Mark read"
@@ -192,7 +192,7 @@ export default function AlertFeed() {
                           <CheckCircle size={14} />
                         </button>
                       )}
-                      <button
+                      <button type="button"
                         onClick={() => dismiss(alert.id)}
                         className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-red-500"
                         title="Dismiss"

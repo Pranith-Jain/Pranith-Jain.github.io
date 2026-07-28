@@ -130,11 +130,11 @@ export default function CloudThreatLandscape(): JSX.Element {
           </p>
         )}
         <div className="flex flex-wrap gap-1.5">
-          <button onClick={() => setType('all')} className={chip(type === 'all')}>
+          <button type="button" onClick={() => setType('all')} className={chip(type === 'all')}>
             All types <span className="opacity-60">· {data.total}</span>
           </button>
           {types.map(([name, n]) => (
-            <button key={name} onClick={() => setType(name)} className={chip(type === name)}>
+            <button type="button" key={name} onClick={() => setType(name)} className={chip(type === name)}>
               {name} <span className="opacity-60">· {n}</span>
             </button>
           ))}

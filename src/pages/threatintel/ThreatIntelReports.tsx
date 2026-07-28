@@ -74,7 +74,7 @@ export default function ThreatIntelReports(): JSX.Element {
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-6">
-        <button
+        <button type="button"
           onClick={() => setActiveSev(null)}
           className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeSev
@@ -85,7 +85,7 @@ export default function ThreatIntelReports(): JSX.Element {
           All ({REPORTS.length})
         </button>
         {SEVERITIES.map((sev) => (
-          <button
+          <button type="button"
             key={sev}
             onClick={() => setActiveSev(activeSev === sev ? null : sev)}
             className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${

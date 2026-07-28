@@ -670,7 +670,7 @@ export default function ThreatIntelDashboard() {
               className={`${INPUT} pl-9 pr-3`}
             />
             {search && (
-              <button
+              <button type="button"
                 onClick={() => setSearch('')}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600"
               >
@@ -738,7 +738,7 @@ export default function ThreatIntelDashboard() {
               ))}
             </div>
             {sevFilter.length > 0 && (
-              <button
+              <button type="button"
                 onClick={() => {
                   setSevFilter([]);
                   setExploitedOnly(false);

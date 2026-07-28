@@ -166,7 +166,7 @@ export default function Watches(): JSX.Element {
       error={error}
       onRetry={fetchData}
       headerExtra={
-        <button
+        <button type="button"
           onClick={() => setShowForm(!showForm)}
           className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2 text-sm transition-colors"
         >
@@ -254,13 +254,13 @@ export default function Watches(): JSX.Element {
                         />
                       </div>
                       <div className="flex items-center gap-2">
-                        <button
+                        <button type="button"
                           onClick={() => handleUpdate(watch.id)}
                           className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded text-xs hover:bg-rose-700 transition-colors"
                         >
                           Save
                         </button>
-                        <button
+                        <button type="button"
                           onClick={cancelEdit}
                           className="px-3 py-1.5 border border-slate-300 dark:border-slate-600 rounded text-xs font-mono text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                         >
@@ -296,7 +296,7 @@ export default function Watches(): JSX.Element {
                         </div>
                       </div>
                       <div className="flex items-center gap-1">
-                        <button
+                        <button type="button"
                           onClick={() => startEdit(watch)}
                           aria-label="Edit watch"
                           className="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
@@ -317,7 +317,7 @@ export default function Watches(): JSX.Element {
                             <path d="m15 5 4 4" />
                           </svg>
                         </button>
-                        <button
+                        <button type="button"
                           onClick={() => handleDelete(watch.id)}
                           aria-label="Delete watch"
                           className="p-1.5 rounded hover:bg-rose-50 dark:hover:bg-rose-900/20 text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
@@ -408,7 +408,7 @@ export default function Watches(): JSX.Element {
                     className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
                   />
                 </div>
-                <button
+                <button type="button"
                   onClick={() => void handleCreate()}
                   disabled={submitting || !form.label || !form.value || !form.webhook}
                   className="w-full py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors flex items-center justify-center gap-2 text-sm"
@@ -425,7 +425,7 @@ export default function Watches(): JSX.Element {
             <h3 className="font-display font-semibold text-sm flex items-center gap-2 mb-3">
               <AlertTriangle size={14} className="text-amber-500" />
               Recent Alerts
-              <button
+              <button type="button"
                 onClick={fetchData}
                 className="ml-auto text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
               >

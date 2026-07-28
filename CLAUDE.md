@@ -140,7 +140,7 @@ A second data vertical replicating the SI pattern (`public/data/threat-intel/`, 
 **Files**:
 
 - `worker/lib/threat-intel-manifest.ts` — LRU loader + filter helpers + priority scoring
-- `worker/lib/threat-intel-manifest.test.ts` — 24 unit tests
+- `worker/lib/threat-intel-manifest.test.ts` — 37 unit tests
 - `scripts/sync-threat-intel.mjs` — NVD + CISA KEV + Daily-Hunt fetch
 - `scripts/build-threat-intel.mjs` — normalize + score + slice into per-slug JSON
 - `worker/mcp-server.ts` — 7 `ti_*` tool registrations
@@ -160,7 +160,7 @@ node scripts/build-threat-intel.mjs  # slices into public/data/threat-intel/
 
 **To rebuild**: `node scripts/sync-threat-intel.mjs && node scripts/build-threat-intel.mjs`
 
-**Tests**: 24 vitest tests in `worker/lib/threat-intel-manifest.test.ts`
+**Tests**: 37 vitest tests in `worker/lib/threat-intel-manifest.test.ts`
 
 ## WinReg DFIR — Windows Registry Forensic Artifact Reference
 

@@ -212,7 +212,7 @@ export default function Observe(): JSX.Element {
             className="w-full pl-9 pr-14 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             disabled={loading}
           />
-          <button
+          <button type="button"
             onClick={() => fetchObserve(query)}
             disabled={loading || !query.trim()}
             className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded bg-rose-600 dark:bg-rose-500 hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-30 disabled:cursor-not-allowed text-white transition-colors"
@@ -285,7 +285,7 @@ export default function Observe(): JSX.Element {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* IOC Enrichment */}
             <div className="surface-card">
-              <button
+              <button type="button"
                 onClick={() => {
                   setShowIocDetail(!showIocDetail);
                   if (!showIocDetail && !iocVerdicts) loadIocDetail();

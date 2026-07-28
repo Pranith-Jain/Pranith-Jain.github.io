@@ -470,7 +470,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
       }
       headerExtra={
         <div className="flex items-center gap-2 mt-2">
-          <button
+          <button type="button"
             onClick={() => downloadCsv(filtered)}
             className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/70 transition-colors"
           >

@@ -219,7 +219,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
           <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-2">Quick Search</h3>
           <div className="flex flex-wrap gap-2">
             {QUICK_SEARCHES.map((q) => (
-              <button
+              <button type="button"
                 key={q}
                 onClick={() => {
                   setInput(q);
@@ -248,13 +248,13 @@ export default function ScrapedIntelUsernames(): JSX.Element {
             )}
           </p>
           <div className="ml-auto flex gap-2">
-            <button
+            <button type="button"
               onClick={exportCsv}
               className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted"
             >
               <Download size={12} /> CSV
             </button>
-            <button
+            <button type="button"
               onClick={exportJson}
               className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted"
             >

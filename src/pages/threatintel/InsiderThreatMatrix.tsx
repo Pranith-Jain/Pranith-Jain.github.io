@@ -290,7 +290,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
           const open = expanded.has(cat.id);
           return (
             <div key={cat.id} className="surface-card overflow-hidden">
-              <button
+              <button type="button"
                 onClick={() => toggle(cat.id)}
                 className="w-full flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.6)] transition-colors"
               >

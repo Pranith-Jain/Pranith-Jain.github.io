@@ -532,7 +532,7 @@ function YaraView({ data }: { data: unknown }): JSX.Element {
           const count = pick(r, ['yara_count', 'rules', 'count', 'total']);
           return (
             <button
-              key={name}
+              key={name} role="tab"
               type="button"
               onClick={() => setSelected(name)}
               className="surface-card p-3 text-left hover:border-rose-500/40 transition-colors"
@@ -584,7 +584,7 @@ function YaraRules({ group, onBack }: { group: string; onBack: () => void }): JS
           const fn = pick(r, ['filename', 'name', 'file']) ?? `rule-${i}`;
           return (
             <button
-              key={i}
+              key={i} role="tab"
               type="button"
               onClick={() => setActiveRule(i)}
               className={`px-2 py-1 rounded font-mono text-micro border ${i === activeRule ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'}`}
@@ -629,7 +629,7 @@ function IocView({ data }: { data: unknown }): JSX.Element {
           );
           return (
             <button
-              key={name}
+              key={name} role="tab"
               type="button"
               onClick={() => setSelected(name)}
               className="surface-card p-3 text-left hover:border-rose-500/40 transition-colors"
@@ -798,7 +798,7 @@ function KqlView(): JSX.Element | null {
               <div className="space-y-1">
                 {queries.map((q) => (
                   <button
-                    key={q.id}
+                    key={q.id} role="tab"
                     type="button"
                     onClick={() => setSelectedId(q.id)}
                     className="block w-full text-left surface-card p-2 hover:border-rose-500/40 transition-colors"
@@ -1009,12 +1009,12 @@ export default function RansomwareLive(): JSX.Element {
       headerExtra={
         <div className="space-y-4">
           <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
-          <div className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div role="tablist" aria-label="Tabs" className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
             {TABS.map((t) => {
               const Icon = t.icon;
               return (
                 <button
-                  key={t.id}
+                  key={t.id} role="tab"
                   type="button"
                   onClick={() => setTab(t.id)}
                   className={`inline-flex items-center gap-1.5 px-3 py-2 font-mono text-meta border-b-2 -mb-px ${tab === t.id ? 'border-rose-500 text-rose-700 dark:text-rose-300' : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'}`}

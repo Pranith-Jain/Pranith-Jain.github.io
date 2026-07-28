@@ -192,7 +192,7 @@ export default function McpToolsExplorer() {
           className={`${INPUT} pl-9 pr-3`}
         />
         {query && (
-          <button
+          <button type="button"
             onClick={() => setQuery('')}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
           >

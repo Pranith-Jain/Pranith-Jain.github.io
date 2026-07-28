@@ -350,11 +350,11 @@ export default function VolexityThreatIntel(): JSX.Element {
           </p>
         )}
         <div className="flex flex-wrap gap-1.5">
-          <button onClick={() => setYear('all')} className={chip(year === 'all')}>
+          <button type="button" onClick={() => setYear('all')} className={chip(year === 'all')}>
             All years <span className="opacity-60">· {data.total}</span>
           </button>
           {years.map(([name, n]) => (
-            <button key={name} onClick={() => setYear(name)} className={chip(year === name)}>
+            <button type="button" key={name} onClick={() => setYear(name)} className={chip(year === name)}>
               {name} <span className="opacity-60">· {n}</span>
             </button>
           ))}

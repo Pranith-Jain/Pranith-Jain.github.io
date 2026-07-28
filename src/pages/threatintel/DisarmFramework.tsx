@@ -160,15 +160,15 @@ export default function DisarmFramework(): JSX.Element {
           className="w-full max-w-md rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--input-200))] px-3 py-1.5 text-sm font-mono text-slate-700 dark:text-slate-300 placeholder:text-slate-400 focus:border-rose-500/60 focus:outline-none"
         />
         <div className="flex flex-wrap gap-1.5">
-          <button onClick={() => setType('all')} className={chip(type === 'all')}>
+          <button type="button" onClick={() => setType('all')} className={chip(type === 'all')}>
             All <span className="opacity-60">· {data.total}</span>
           </button>
           {types.map(([name, n]) => (
-            <button key={name} onClick={() => setType(name)} className={chip(type === name)}>
+            <button type="button" key={name} onClick={() => setType(name)} className={chip(type === name)}>
               {typeLabel(name)} <span className="opacity-60">· {n}</span>
             </button>
           ))}
-          <button onClick={() => setShowRaw((v) => !v)} className={chip(showRaw)}>
+          <button type="button" onClick={() => setShowRaw((v) => !v)} className={chip(showRaw)}>
             {showRaw ? 'hide' : 'show'} raw STIX bundle
           </button>
         </div>

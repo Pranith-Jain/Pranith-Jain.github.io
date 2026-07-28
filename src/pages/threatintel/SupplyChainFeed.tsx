@@ -196,7 +196,7 @@ export default function SupplyChainFeed(): JSX.Element {
               disabled={checkLoading}
             />
           </div>
-          <button
+          <button type="button"
             onClick={handleCheck}
             disabled={checkLoading || !checkInput.trim()}
             className="flex h-10 items-center gap-1.5 rounded-xl bg-rose-600 px-4 text-sm font-medium text-white hover:bg-rose-700 disabled:opacity-40"
@@ -232,7 +232,7 @@ export default function SupplyChainFeed(): JSX.Element {
 
         {/* Ecosystem filter */}
         <div className="flex flex-wrap gap-1.5 ml-auto">
-          <button
+          <button type="button"
             onClick={() => setEcoFilter(null)}
             className={`rounded-full px-2.5 py-1 text-mini font-mono transition-colors ${
               !ecoFilter
@@ -243,7 +243,7 @@ export default function SupplyChainFeed(): JSX.Element {
             All
           </button>
           {ECOSYSTEMS.map((eco) => (
-            <button
+            <button type="button"
               key={eco.id}
               onClick={() => setEcoFilter(eco.id)}
               className={`rounded-full px-2.5 py-1 text-mini font-mono transition-colors ${
@@ -253,7 +253,7 @@ export default function SupplyChainFeed(): JSX.Element {
               {eco.label}
             </button>
           ))}
-          <button
+          <button type="button"
             onClick={fetchFeed}
             className="flex items-center gap-1 rounded-full px-2 py-1 text-mini text-slate-500 dark:text-slate-400 hover:text-rose-600 transition-colors"
             aria-label="Refresh"

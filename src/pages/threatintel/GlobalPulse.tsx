@@ -1260,7 +1260,7 @@ export default function GlobalPulse(): JSX.Element {
               />
               <Building2 size={14} className="absolute left-3 top-2.5 text-teal-500/60 dark:text-teal-400/60" />
               {infraQuery && (
-                <button
+                <button type="button"
                   onClick={() => {
                     setInfraQuery('');
                     setInfraResults([]);

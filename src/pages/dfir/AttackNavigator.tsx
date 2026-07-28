@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { ExternalLink, Search, X, Shield } from 'lucide-react';
 import { threatActors } from '../../data/dfir/threat-actors';
 
@@ -224,14 +225,11 @@ export default function AttackNavigator(): JSX.Element {
     });
   }, [setSearchParams]);
 
-  useEffect(() => {
-    if (!selectedId) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeDrawer();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [selectedId, closeDrawer]);
+  // Full focus trap for the detail drawer: moves focus into the dialog on
+  // open, contains Tab/Shift+Tab within it, restores focus to the triggering
+  // technique cell on close, and handles Escape. Replaces the old Escape-only
+  // listener that left keyboard focus stranded in the background grid.
+  const drawerRef = useFocusTrap({ isActive: !!selectedId, onEscape: closeDrawer });
 
   useEffect(() => {
     setSearchParams(
@@ -605,6 +603,7 @@ export default function AttackNavigator(): JSX.Element {
             aria-hidden="true"
           />
           <aside
+            ref={drawerRef as React.RefObject<HTMLElement>}
             role="dialog"
             aria-modal="true"
             aria-labelledby="navigator-detail-title"

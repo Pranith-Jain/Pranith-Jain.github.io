@@ -138,11 +138,11 @@ export default function MispGalaxyActors(): JSX.Element {
           />
         </div>
         <div className="flex flex-wrap gap-1.5">
-          <button onClick={() => setCountry('all')} className={chip(country === 'all')}>
+          <button type="button" onClick={() => setCountry('all')} className={chip(country === 'all')}>
             All origins <span className="opacity-60">· {data.total}</span>
           </button>
           {countries.slice(0, 24).map(([name, n]) => (
-            <button key={name} onClick={() => setCountry(name)} className={chip(country === name)}>
+            <button type="button" key={name} onClick={() => setCountry(name)} className={chip(country === name)}>
               {name} <span className="opacity-60">· {n}</span>
             </button>
           ))}

@@ -384,7 +384,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
         {Object.entries(STATUS_META).map(([key, meta]) => {
           const active = statusFilter.has(key);
           return (
-            <button
+            <button type="button"
               key={key}
               onClick={() => toggleStatus(key)}
               className={`px-2 py-1 rounded text-xs font-mono font-medium border flex items-center gap-1 transition ${
@@ -398,7 +398,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
           );
         })}
         {statusFilter.size > 0 && (
-          <button
+          <button type="button"
             onClick={() => setStatusFilter(new Set())}
             className="text-xs text-rose-600 dark:text-rose-400 hover:underline ml-2"
           >

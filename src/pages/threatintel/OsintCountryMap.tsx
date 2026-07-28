@@ -287,7 +287,7 @@ export default function OsintCountryMap(): JSX.Element {
             className="w-full pl-9 pr-4 py-2 surface-card text-sm text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-slate-400 dark:focus:border-slate-500"
           />
           {query && (
-            <button
+            <button type="button"
               onClick={() => setQuery('')}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
             >
@@ -339,7 +339,7 @@ export default function OsintCountryMap(): JSX.Element {
                   <div className="p-4 text-sm text-slate-500 text-center">No countries match "{query}"</div>
                 ) : (
                   filteredCountries.map((c) => (
-                    <button
+                    <button type="button"
                       key={c.alpha2}
                       onClick={() => {
                         handleSelect(c.alpha2);
@@ -368,7 +368,7 @@ export default function OsintCountryMap(): JSX.Element {
                       {selectedResources.length} of {selectedCountry.resources.length} resources
                     </p>
                   </div>
-                  <button
+                  <button type="button"
                     onClick={() => handleSelect(null)}
                     className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 p-1"
                   >
@@ -384,7 +384,7 @@ export default function OsintCountryMap(): JSX.Element {
                       if (count === 0) return null;
                       const active = activeCategories.has(cat);
                       return (
-                        <button
+                        <button type="button"
                           key={cat}
                           onClick={() => {
                             const next = new Set(activeCategories);
@@ -498,7 +498,7 @@ function ResourceRow({ resource }: { resource: OsintCountryResource }): JSX.Elem
           {CATEGORY_LABELS[resource.category] ?? resource.category}
         </span>
       </div>
-      <button
+      <button type="button"
         onClick={() => {
           navigator.clipboard.writeText(resource.url);
           setCopied(true);

@@ -84,7 +84,7 @@ export default function IocFeedsPage(): JSX.Element {
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-6">
-        <button
+        <button type="button"
           onClick={() => setActiveSev(null)}
           className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeSev
@@ -95,7 +95,7 @@ export default function IocFeedsPage(): JSX.Element {
           All ({IOC_FEEDS.length})
         </button>
         {SEVERITIES.map((sev) => (
-          <button
+          <button type="button"
             key={sev}
             onClick={() => setActiveSev(activeSev === sev ? null : sev)}
             className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
@@ -154,7 +154,7 @@ export default function IocFeedsPage(): JSX.Element {
                 <td className="px-4 py-3 text-right text-slate-700 dark:text-slate-300">{feed.iocCount}</td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex items-center justify-end gap-1.5">
-                    <button
+                    <button type="button"
                       onClick={() => copyUrl(feed)}
                       className="inline-flex items-center gap-1 text-micro px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                     >

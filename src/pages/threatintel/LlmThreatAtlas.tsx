@@ -201,7 +201,7 @@ export default function LlmThreatAtlas(): JSX.Element {
 
       <div className="flex flex-wrap gap-1.5">
         {archList.map((arch) => (
-          <button key={arch} onClick={() => setActiveArch(arch)} className={chip(activeArch === arch)}>
+          <button type="button" key={arch} onClick={() => setActiveArch(arch)} className={chip(activeArch === arch)}>
             {arch === 'all' ? 'All architectures' : (ARCH_LABELS[arch] ?? arch)}{' '}
             <span className="opacity-60">
               ·{' '}
@@ -215,7 +215,7 @@ export default function LlmThreatAtlas(): JSX.Element {
 
       <div className="flex flex-wrap gap-1.5">
         {ALL_TIERS.map((tier) => (
-          <button
+          <button type="button"
             key={tier}
             onClick={() => setActiveTier(activeTier === tier ? 'all' : tier)}
             className={chip(activeTier === tier)}
@@ -311,7 +311,7 @@ export default function LlmThreatAtlas(): JSX.Element {
                       {arch}
                     </span>
                   ))}
-                  <button
+                  <button type="button"
                     onClick={() => {
                       const next = expanded ? null : item.id;
                       setExpandedId(next);

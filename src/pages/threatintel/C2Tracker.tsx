@@ -134,14 +134,14 @@ export default function C2Tracker(): JSX.Element {
             </div>
             {/* Framework filter */}
             <div className="flex flex-wrap gap-2">
-              <button
+              <button type="button"
                 onClick={() => setFilter('all')}
                 className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === 'all' ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'}`}
               >
                 All <span className="opacity-60">· {data.count}</span>
               </button>
               {frameworks.map((fw) => (
-                <button
+                <button type="button"
                   key={fw}
                   onClick={() => setFilter(fw)}
                   className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === fw ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'}`}

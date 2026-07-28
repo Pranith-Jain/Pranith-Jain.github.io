@@ -361,7 +361,10 @@ export default function AgentInvestigator(): JSX.Element {
     if (!activeId || !agentState || agentState.status !== 'running' || connected) return;
     const interval = setInterval(() => {
       fetch(`/api/v1/agent/${activeId}`, { headers: adminAuthHeaders() })
-        .then((r) => r.json())
+        .then((r) => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.json();
+        })
         .then((s) => {
           const state = s as AgentState;
           setAgentState(state);
@@ -728,7 +731,10 @@ export default function AgentInvestigator(): JSX.Element {
                   type="button"
                   onClick={() => {
                     fetch(`/api/v1/agent/${s.id}`, { headers: adminAuthHeaders() })
-                      .then((r) => r.json())
+                      .then((r) => {
+                        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                        return r.json();
+                      })
                       .then((state) => {
                         setAgentState(state as AgentState);
                         setActiveId(s.id);

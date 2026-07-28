@@ -279,7 +279,7 @@ export default function MispBrowser() {
             Your API key is sent to the MISP server via a Worker proxy and kept in memory only - it is never stored. You
             will need to re-enter it after a page reload.
           </p>
-          <button
+          <button type="button"
             onClick={() => void connect()}
             disabled={loading || !baseUrl || !apiKey}
             className="px-4 py-2 text-xs font-mono rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50"
@@ -302,7 +302,7 @@ export default function MispBrowser() {
     const TlIcon = tl.icon;
     return (
       <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
-        <button
+        <button type="button"
           onClick={() => setSelected(null)}
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-4 font-mono"
         >
@@ -477,7 +477,7 @@ export default function MispBrowser() {
               </h3>
               <div className="grid gap-2">
                 {e.related_events.map((r) => (
-                  <button
+                  <button type="button"
                     key={r.Event.id}
                     onClick={() => loadEventDetail(r.Event.id)}
                     className="text-left text-xs font-mono px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-400 transition-colors"
@@ -511,14 +511,14 @@ export default function MispBrowser() {
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <button
+          <button type="button"
             onClick={() => loadEvents(1)}
             disabled={loading}
             className="flex items-center gap-1 px-3 py-1.5 text-mini font-mono rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500"
           >
             <RefreshCw size={12} className={loading ? 'animate-spin' : ''} /> Refresh
           </button>
-          <button
+          <button type="button"
             onClick={disconnect}
             className="px-3 py-1.5 text-mini font-mono rounded-xl border border-rose-300 dark:border-rose-700 text-rose-600 dark:text-rose-400 hover:border-rose-500"
           >
@@ -559,7 +559,7 @@ export default function MispBrowser() {
             placeholder="tag_name"
           />
         </div>
-        <button
+        <button type="button"
           onClick={() => loadEvents(1)}
           disabled={loading}
           className="px-3 py-1.5 text-xs font-mono rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50"
@@ -588,7 +588,7 @@ export default function MispBrowser() {
           const tl = (THREAT_LEVELS[e.threat_level_id] ?? THREAT_LEVELS['4'])!;
           const TlIcon = tl.icon;
           return (
-            <button
+            <button type="button"
               key={e.id}
               onClick={() => loadEventDetail(e.id)}
               className="text-left w-full surface-card p-4 hover:border-rose-400 dark:hover:border-rose-600 transition-colors group"
@@ -645,7 +645,7 @@ export default function MispBrowser() {
 
       {page > 1 && (
         <div className="flex justify-center gap-2">
-          <button
+          <button type="button"
             onClick={() => loadEvents(page - 1)}
             disabled={loading}
             className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500 disabled:opacity-50"
@@ -653,7 +653,7 @@ export default function MispBrowser() {
             ← Previous
           </button>
           <span className="px-3 py-1.5 text-xs font-mono text-slate-500">Page {page}</span>
-          <button
+          <button type="button"
             onClick={() => loadEvents(page + 1)}
             disabled={loading || events.length < 20}
             className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500 disabled:opacity-50"

@@ -58,7 +58,7 @@ export default function OsintCliTools(): JSX.Element {
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-6">
-        <button
+        <button type="button"
           onClick={() => {
             setActiveCat(null);
             setSearchParams({});
@@ -72,7 +72,7 @@ export default function OsintCliTools(): JSX.Element {
           All ({CLI_TOOLS.length})
         </button>
         {ALL_CATS.map((cat) => (
-          <button
+          <button type="button"
             key={cat}
             onClick={() => {
               setActiveCat(activeCat === cat ? null : cat);

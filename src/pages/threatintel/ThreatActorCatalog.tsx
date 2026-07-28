@@ -73,7 +73,7 @@ export default function ThreatActorCatalog(): JSX.Element {
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-6">
-        <button
+        <button type="button"
           onClick={() => setActiveType(null)}
           className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeType
@@ -84,7 +84,7 @@ export default function ThreatActorCatalog(): JSX.Element {
           All ({THREAT_ACTORS.length})
         </button>
         {ALL_TYPES.map((t) => (
-          <button
+          <button type="button"
             key={t}
             onClick={() => setActiveType(activeType === t ? null : t)}
             className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${

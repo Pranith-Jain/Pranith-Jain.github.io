@@ -187,13 +187,23 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
         {/* tabIndex={-1} so the SkipToContent anchor (href="#main-content") can
             actually move focus here - without it the skip link only scrolls and
             focus stays in the header, breaking it across the whole TI/DFIR app. */}
-        <main id="main-content" key={pageKey} tabIndex={-1} className="flex-1 min-w-0 outline-none pb-16 md:pb-0">
+        <main
+          id="main-content"
+          key={pageKey}
+          tabIndex={-1}
+          className="flex-1 min-w-0 outline-none pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0"
+        >
           <div className="animate-fade-in-up">
             <SectionErrorBoundary sectionName={section.label}>{children}</SectionErrorBoundary>
           </div>
         </main>
       </div>
-      <AppStatusBar mode={mode} />
+      {/* Mobile bottom clearance so the fixed BottomNav (h-14 + safe-area)
+          never covers the status-bar footer. No-op on desktop where the
+          BottomNav is hidden. */}
+      <div className="mb-[calc(3.5rem+env(safe-area-inset-bottom))] md:mb-0">
+        <AppStatusBar mode={mode} />
+      </div>
       <BackToTop visible={showBackToTop} onClick={scrollToTop} />
       <BottomNav
         mode={mode}

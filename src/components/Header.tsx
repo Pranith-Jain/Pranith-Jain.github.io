@@ -352,6 +352,18 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
           style={{ WebkitOverflowScrolling: 'touch' }}
         >
           <div className="flex flex-col p-4 space-y-1 pt-[env(safe-area-inset-top,0px)]">
+            {/* In-panel close button - the header hamburger sits OUTSIDE this
+                focus-trapped nav, so keyboard users need a reachable control
+                to dismiss the menu without relying on Escape alone. */}
+            <button
+              type="button"
+              onClick={closeMobileMenu}
+              className="mb-1 inline-flex items-center justify-end gap-1.5 rounded-xl px-4 py-2 text-sm font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              aria-label="Close navigation menu"
+            >
+              Close
+              <X className="h-4 w-4" aria-hidden="true" />
+            </button>
             {navLinks.map((link) => {
               if ('children' in link && link.children) {
                 return (

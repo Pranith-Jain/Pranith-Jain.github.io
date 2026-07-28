@@ -155,7 +155,7 @@ export default function ThreatMonInfostealer() {
                 ThreatMon IntelHub is protected by Cloudflare managed challenge. Server-side API access is restricted -
                 use their platform to search.
               </p>
-              <button
+              <button type="button"
                 onClick={openThreatMon}
                 className="px-6 py-2.5 rounded-xl bg-rose-600 dark:bg-rose-500 text-white font-semibold text-sm hover:brightness-110 transition-all inline-flex items-center gap-2 shadow-e1 hover:shadow-e1"
               >

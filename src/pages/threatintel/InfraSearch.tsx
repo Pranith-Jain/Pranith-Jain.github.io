@@ -251,13 +251,13 @@ export default function InfraSearch(): JSX.Element {
                   <span>{filtered.length} shown</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <button
+                  <button type="button"
                     onClick={() => setMapGlobal(!mapGlobal)}
                     className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] inline-flex items-center gap-1"
                   >
                     <Globe size={10} /> {mapGlobal ? 'Zoom in' : 'Global'}
                   </button>
-                  <button
+                  <button type="button"
                     onClick={() => setDarkTiles(!darkTiles)}
                     className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                     title="Toggle map style"
@@ -290,7 +290,7 @@ export default function InfraSearch(): JSX.Element {
               {/* Category filter */}
               {Object.keys(categoryCounts).length > 1 && (
                 <div className="flex flex-wrap gap-1">
-                  <button
+                  <button type="button"
                     onClick={() => setCatFilter('All')}
                     className={`text-mini font-mono px-2 py-0.5 rounded border transition ${
                       catFilter === 'All'
@@ -304,7 +304,7 @@ export default function InfraSearch(): JSX.Element {
                     .sort((a, b) => b[1] - a[1])
                     .slice(0, 12)
                     .map(([cat, count]) => (
-                      <button
+                      <button type="button"
                         key={cat}
                         onClick={() => setCatFilter(cat)}
                         className={`text-mini font-mono px-2 py-0.5 rounded border transition inline-flex items-center gap-1 ${

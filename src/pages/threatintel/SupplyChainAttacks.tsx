@@ -148,21 +148,21 @@ export default function SupplyChainAttacks(): JSX.Element {
           </p>
         )}
         <div className="flex flex-wrap gap-1.5">
-          <button onClick={() => setEco('all')} className={chip(eco === 'all')}>
+          <button type="button" onClick={() => setEco('all')} className={chip(eco === 'all')}>
             All ecosystems <span className="opacity-60">· {data.total}</span>
           </button>
           {ecosystems.map(([name, n]) => (
-            <button key={name} onClick={() => setEco(name)} className={chip(eco === name)}>
+            <button type="button" key={name} onClick={() => setEco(name)} className={chip(eco === name)}>
               {name} <span className="opacity-60">· {n}</span>
             </button>
           ))}
         </div>
         <div className="flex flex-wrap gap-1.5">
-          <button onClick={() => setStatus('all')} className={chip(status === 'all')}>
+          <button type="button" onClick={() => setStatus('all')} className={chip(status === 'all')}>
             Any status
           </button>
           {statuses.map(([name, n]) => (
-            <button key={name} onClick={() => setStatus(name)} className={chip(status === name)}>
+            <button type="button" key={name} onClick={() => setStatus(name)} className={chip(status === name)}>
               {name} <span className="opacity-60">· {n}</span>
             </button>
           ))}

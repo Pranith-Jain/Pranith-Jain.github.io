@@ -214,7 +214,7 @@ export default function DarkWebOsintTools(): JSX.Element {
       {filtered.length === 0 && (
         <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-6">
           Nothing matches the current filters.{' '}
-          <button onClick={clearAll} className="underline text-rose-600 dark:text-rose-400">
+          <button type="button" onClick={clearAll} className="underline text-rose-600 dark:text-rose-400">
             Clear all
           </button>
           ?

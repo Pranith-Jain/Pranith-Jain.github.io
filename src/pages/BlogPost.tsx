@@ -193,14 +193,19 @@ export default function BlogPost() {
         }
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const data = (await r.json()) as { post: Post; bodyHtml: string };
-        setPost(data.post);
         const { default: DOMPurify } = await import('isomorphic-dompurify');
+        // Guard against fast post-to-post navigation: the abort fires on
+        // cleanup, so bail before applying state from a stale response
+        // (otherwise an earlier post's html can land after a later post's).
+        if (ac.signal.aborted) return;
+        setPost(data.post);
         const sanitized = DOMPurify.sanitize(data.bodyHtml ?? '', {
           ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|#|\/):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
           ADD_ATTR: ['title'],
         });
         const withIds = addHeadingIds(sanitized);
         const toc = extractToc(withIds);
+        if (ac.signal.aborted) return;
         setHtml(withIds);
         setTocItems(toc);
       })
@@ -431,7 +436,8 @@ export default function BlogPost() {
             )}
 
             <img
-              loading="lazy"
+              loading="eager"
+              fetchPriority="high"
               className="mb-6 w-full h-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]"
               alt={`Hero visual for ${post.title}`}
               width={1200}
