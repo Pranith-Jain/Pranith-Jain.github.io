@@ -113,14 +113,17 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     }
   }
 
-  // Cache miss. Run the heavy multi-source build OFF the request path: a cold
-  // build can exceed the Worker CPU / 50-subrequest budget, and the resulting
-  // 503 is UNCATCHABLE (Cloudflare kills the isolate) — exactly the
-  // "Couldn't load this. HTTP 503" the page showed. Build in the background
-  // (it populates both caches for the next request) and serve a graceful
-  // partial map now with the highest-value feeds fetched synchronously; the
-  // client refreshes and picks up the full data once the background build
-  // populates the caches.
+  // Cache miss. Instead of kicking off a background build that exceeds the
+  // Free-plan CPU/subrequest budget and gets killed silently, assemble the
+  // response synchronously from two cheap sources:
+  //   1. Per-feed warm KV slices (gp:warm:<key>) — warmed by the queue consumer
+  //   2. Direct SELF.fetch for the 3 highest-value feeds (CVE, ransomware, IOCs)
+  // This stays within the 50-subrequest budget (21 KV reads + 3 SELF.fetch = 24)
+  // and returns immediately with real data. The full 30+ source build that
+  // includes external fetchers (earthquakes, flights, botnet C2, etc.) runs
+  // in the background via waitUntil — if it completes, it populates the caches
+  // for the next request; if it gets killed by CPU limits, the sync data
+  // still serves a useful map.
   const self = c.env.SELF;
 
   // Safe wrapper — used by both the sync fetch and the background build.
@@ -133,9 +136,16 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     }
   };
 
-  // Synchronously fetch the 3 highest-value feeds so the page is never
-  // completely empty. These are cheap (cached upstreams) and stay within
-  // the subrequest budget. The background build below fetches the rest.
+  // ── Read per-feed warm KV slices (one batched read) ──────────────────
+  const warm: Record<string, unknown> = {};
+  if (kv) {
+    const sliceVals = await Promise.all(GP_FEEDS.map((f) => readKvJson(kv, gpWarmKey(f.key))));
+    GP_FEEDS.forEach((f, i) => {
+      if (sliceVals[i] != null) warm[f.key] = sliceVals[i];
+    });
+  }
+
+  // ── Synchronously fetch the 3 highest-value feeds ────────────────────
   const syncEvents: PulseEvent[] = [];
   try {
     const [cveRes, ransomRes, iocRes] = await Promise.allSettled([
@@ -160,9 +170,100 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       'global-pulse sync fetch failed:',
       _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
     );
-    /* degraded — serve empty, background build will populate */
   }
 
+  // ── Convert warm KV slices to events ─────────────────────────────────
+  const warmEvents: PulseEvent[] = [];
+  if (warm.tm) warmEvents.push(...safe(() => iocFromThreatMap(warm.tm as Parameters<typeof iocFromThreatMap>[0])));
+  if (warm.telegram) warmEvents.push(...safe(() => fromTelegram(warm.telegram as Parameters<typeof fromTelegram>[0])));
+  if (warm.reddit) warmEvents.push(...safe(() => fromReddit(warm.reddit as Parameters<typeof fromReddit>[0])));
+  if (warm.x) warmEvents.push(...safe(() => fromXFeed(warm.x as Parameters<typeof fromXFeed>[0])));
+  if (warm.scam) warmEvents.push(...safe(() => fromScam(warm.scam as Parameters<typeof fromScam>[0])));
+  if (warm.breach) warmEvents.push(...safe(() => fromBreaches(warm.breach as Parameters<typeof fromBreaches>[0])));
+  if (warm.stealer)
+    warmEvents.push(...safe(() => fromStealerForum(warm.stealer as Parameters<typeof fromStealerForum>[0])));
+  if (warm.phishing) warmEvents.push(...safe(() => fromPhishing(warm.phishing as Parameters<typeof fromPhishing>[0])));
+  if (warm.malware) warmEvents.push(...safe(() => fromMalware(warm.malware as Parameters<typeof fromMalware>[0])));
+  if (warm.cybercrime)
+    warmEvents.push(...safe(() => fromCybercrime(warm.cybercrime as Parameters<typeof fromCybercrime>[0])));
+  if (warm.writeups) warmEvents.push(...safe(() => fromWriteups(warm.writeups as Parameters<typeof fromWriteups>[0])));
+  if (warm.xclaims) warmEvents.push(...safe(() => fromXClaims(warm.xclaims as XClaimsResponse)));
+  if (warm.actor) warmEvents.push(...safe(() => fromActorTimeline(warm.actor as ActorTimelineResponse)));
+  if (warm.iocc) warmEvents.push(...safe(() => fromIocCorrelation(warm.iocc as IocCorrelationResponse)));
+  if (warm.secretleaks)
+    warmEvents.push(...safe(() => fromSecretLeaks(warm.secretleaks as Parameters<typeof fromSecretLeaks>[0])));
+  if (warm.malpkg)
+    warmEvents.push(...safe(() => fromMaliciousPackages(warm.malpkg as Parameters<typeof fromMaliciousPackages>[0])));
+  if (warm.exploit) warmEvents.push(...safe(() => fromExploitDb(warm.exploit as Parameters<typeof fromExploitDb>[0])));
+  if (warm.ghsa)
+    warmEvents.push(...safe(() => fromGithubAdvisories(warm.ghsa as Parameters<typeof fromGithubAdvisories>[0])));
+  if (warm.kev) warmEvents.push(...safe(() => fromCisaKev(warm.kev as Parameters<typeof fromCisaKev>[0])));
+
+  // ── CyberPulse incidents (D1) ────────────────────────────────────────
+  let cyberpulseEvents: PulseEvent[] = [];
+  try {
+    const cpRes = await signedSelfFetch(self, '/api/v1/cyberpulse/incidents?days=7&limit=30', c.env, 10000);
+    if (cpRes && cpRes.ok) {
+      const cpData = (await cpRes.json()) as Parameters<typeof fromCyberPulse>[0];
+      cyberpulseEvents = safe(() => fromCyberPulse(cpData));
+    }
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+  }
+
+  // ── Merge + sort ─────────────────────────────────────────────────────
+  const tagCti = <T extends PulseKind>(kind: T): PulseEvent['cti'] => {
+    switch (kind) {
+      case 'ransomware':
+        return 'ransomware';
+      case 'cve':
+      case 'cisa_advisory':
+        return 'cve';
+      case 'ioc_activity':
+      case 'cyber_attack':
+      case 'c2_tracker':
+      case 'blocklist':
+        return 'ioc';
+      case 'cyberpulse':
+        return 'threat';
+      case 'ioc_correlation':
+        return 'ioc';
+      default:
+        return 'other';
+    }
+  };
+  const allEvents = [...syncEvents, ...warmEvents, ...cyberpulseEvents]
+    .map((e) => ({ ...e, cti: tagCti(e.kind) }))
+    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+
+  const syncLayers: Record<string, number> = {};
+  for (const e of allEvents) {
+    syncLayers[e.kind] = (syncLayers[e.kind] ?? 0) + 1;
+  }
+
+  const json = JSON.stringify({
+    generated_at: new Date().toISOString(),
+    total_events: allEvents.length,
+    events: allEvents,
+    layers: syncLayers,
+  });
+  const response = new Response(json, {
+    headers: {
+      'content-type': 'application/json',
+      'cache-control': `public, max-age=${CACHE_TTL}`,
+      'access-control-allow-origin': '*',
+    },
+  });
+  c.executionCtx.waitUntil(
+    Promise.all([
+      cache.put(cacheReq, response.clone()),
+      kv ? kv.put(GP_RESPONSE_KEY, json, { expirationTtl: CACHE_TTL }).catch(() => {}) : Promise.resolve(),
+    ])
+  );
+
+  // ── Background build for external fetchers (earthquakes, flights, etc.) ──
+  // Best-effort: if it completes, it enriches the next cache write. If the
+  // CPU limit kills it, the sync data above still serves a useful map.
   c.executionCtx.waitUntil(
     (async () => {
       try {
@@ -804,26 +905,5 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     })()
   );
 
-  // Serve the synchronously-fetched events (if any) so the page is never
-  // completely empty while the background build runs. Cached briefly (60s)
-  // so the client revalidates quickly and picks up the full data.
-  const syncLayers: Record<string, number> = {};
-  for (const e of syncEvents) {
-    syncLayers[e.kind] = (syncLayers[e.kind] ?? 0) + 1;
-  }
-  return new Response(
-    JSON.stringify({
-      generated_at: new Date().toISOString(),
-      total_events: syncEvents.length,
-      events: syncEvents,
-      layers: syncLayers,
-    }),
-    {
-      headers: {
-        'content-type': 'application/json',
-        'cache-control': 'public, max-age=60',
-        'access-control-allow-origin': '*',
-      },
-    }
-  );
+  return response;
 }
