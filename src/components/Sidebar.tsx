@@ -158,7 +158,9 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
                               className={`shrink-0 rounded px-1 py-px text-[9px] font-mono font-bold uppercase leading-none ${
                                 item.badge === 'live'
                                   ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
-                                  : 'bg-brand-500/15 text-brand-600 dark:text-brand-400'
+                                  : item.badge === 'beta'
+                                    ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
+                                    : 'bg-brand-500/15 text-brand-600 dark:text-brand-400'
                               }`}
                             >
                               {item.badge}

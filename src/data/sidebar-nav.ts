@@ -89,8 +89,8 @@ export interface SidebarItem {
   href: string;
   icon: LucideIcon;
   description?: string;
-  /** Optional live/new badge pip (from the hub registry). */
-  badge?: 'live' | 'new';
+  /** Optional live/new/beta badge pip (from the hub registry). */
+  badge?: 'live' | 'new' | 'beta';
 }
 export interface SidebarGroup {
   title: string;
