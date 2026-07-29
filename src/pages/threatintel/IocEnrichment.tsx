@@ -1,7 +1,25 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { CopyButton } from '../../components/ui/CopyButton';
 
 import { Search, Loader2, ExternalLink, ChevronDown, ChevronRight } from 'lucide-react';
+
+/** Format an arbitrary enrichment value for readable key/value display. */
+function formatEnrichValue(value: unknown): string {
+  if (value === null || value === undefined) return '—';
+  if (typeof value === 'string') return value || '—';
+  if (typeof value === 'number' || typeof value === 'boolean') return String(value);
+  if (Array.isArray(value)) {
+    if (value.length === 0) return '—';
+    const preview = value
+      .slice(0, 5)
+      .map((v) => (typeof v === 'object' && v !== null ? JSON.stringify(v) : String(v)))
+      .join(', ');
+    return value.length > 5 ? `${preview}, … (+${value.length - 5} more)` : preview;
+  }
+  const json = JSON.stringify(value);
+  return json.length > 240 ? `${json.slice(0, 240)}…` : json;
+}
 
 interface Source {
   id: string;
@@ -256,9 +274,23 @@ export default function IocEnrichment(): JSX.Element {
             </span>
           </button>
           {expanded && (
-            <pre className="p-4 pt-0 overflow-auto max-h-[70vh] text-meta font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap break-all">
-              {JSON.stringify(data, null, 2)}
-            </pre>
+            <div className="p-4 pt-0 space-y-3">
+              <div className="flex justify-end">
+                <CopyButton value={JSON.stringify(data, null, 2)} label="Copy full JSON" />
+              </div>
+              <dl className="divide-y divide-slate-100 dark:divide-[rgb(var(--border-400))]">
+                {Object.entries(data as Record<string, unknown>).map(([key, value]) => (
+                  <div key={key} className="flex flex-col gap-0.5 py-2 sm:flex-row sm:gap-3">
+                    <dt className="font-mono text-mini uppercase tracking-wider text-slate-500 sm:w-44 shrink-0 break-all">
+                      {key}
+                    </dt>
+                    <dd className="font-mono text-meta text-slate-800 dark:text-slate-200 break-all min-w-0">
+                      {formatEnrichValue(value)}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           )}
         </div>
       )}
