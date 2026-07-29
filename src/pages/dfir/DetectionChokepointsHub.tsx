@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import {
   ExternalLink,
   Shield,
@@ -275,6 +276,32 @@ const CONTRAST = [
   { dim: 'Maintenance', cp: 'Low - rarely update', tool: 'High - constant updates' },
   { dim: 'FP Rate', cp: 'Low - attacker constraints', tool: 'Variable - often high' },
   { dim: 'Evasion', cp: 'Hard - fundamental change', tool: 'Easy - tool swap' },
+];
+
+const CONTRAST_COLUMNS: DataTableColumn<(typeof CONTRAST)[number]>[] = [
+  {
+    key: 'dim',
+    header: 'Dimension',
+    render: (r) => r.dim,
+    sortValue: (r) => r.dim,
+    className: 'font-mono text-xs text-slate-900 dark:text-white',
+  },
+  {
+    key: 'cp',
+    header: 'Chokepoint',
+    headerClassName: 'text-emerald-600 dark:text-emerald-400',
+    render: (r) => r.cp,
+    sortValue: (r) => r.cp,
+    className: 'text-slate-700 dark:text-slate-300',
+  },
+  {
+    key: 'tool',
+    header: 'Tool',
+    headerClassName: 'text-rose-600 dark:text-rose-400',
+    render: (r) => r.tool,
+    sortValue: (r) => r.tool,
+    className: 'text-slate-700 dark:text-slate-300',
+  },
 ];
 
 // ═══════════════════════════════════════════════════════════════════
@@ -720,7 +747,11 @@ export default function DetectionChokepointsHub() {
       {tab === 'chokepoints' && (
         <div className="space-y-3">
           <div className="relative">
-            <Target size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+            <Target
+              size={14}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              aria-hidden="true"
+            />
             <input
               type="text"
               value={query}
@@ -870,31 +901,7 @@ export default function DetectionChokepointsHub() {
             <h2 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-4">
               Chokepoint vs Tool Detection
             </h2>
-            <div className={`${CARD} overflow-hidden`}>
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                    <th className="text-left p-3 font-mono text-xs text-muted">Dimension</th>
-                    <th className="text-left p-3 font-mono text-xs text-emerald-600 dark:text-emerald-400">
-                      Chokepoint
-                    </th>
-                    <th className="text-left p-3 font-mono text-xs text-rose-600 dark:text-rose-400">Tool</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {CONTRAST.map((r) => (
-                    <tr
-                      key={r.dim}
-                      className="border-b border-slate-100 dark:border-[rgb(var(--surface-300))] last:border-0"
-                    >
-                      <td className="p-3 font-mono text-xs text-slate-900 dark:text-white">{r.dim}</td>
-                      <td className="p-3 text-slate-700 dark:text-slate-300">{r.cp}</td>
-                      <td className="p-3 text-slate-700 dark:text-slate-300">{r.tool}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <DataTable rows={CONTRAST} rowKey={(r) => r.dim} columns={CONTRAST_COLUMNS} />
           </div>
         </div>
       )}
@@ -936,7 +943,9 @@ export default function DetectionChokepointsHub() {
                           <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-700 dark:text-slate-300">
                             {s.label}
                           </span>
-                          {i < ch.stages.length - 1 && <ArrowRight size={10} className="text-slate-500 dark:text-slate-400" />}
+                          {i < ch.stages.length - 1 && (
+                            <ArrowRight size={10} className="text-slate-500 dark:text-slate-400" />
+                          )}
                         </span>
                       ))}
                     </div>
