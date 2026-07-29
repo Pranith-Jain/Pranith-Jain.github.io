@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { Calendar, ExternalLink, Globe, Search, Shield, ShieldAlert, ShieldOff, Skull } from 'lucide-react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
@@ -300,43 +300,35 @@ export default function DarknetMarketsTimeline(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-6 font-mono"
-      >
-        back
-      </BackLink>
-
-      <div className="flex items-center gap-3 mb-1">
-        <Globe className="w-7 h-7 text-violet-500" />
-        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
-          Darknet Markets Timeline
-        </h1>
-      </div>
-      <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
-        Historical and current darknet marketplaces - status, founding dates, seizure history, and exit scams. Data
-        sourced from{' '}
-        <a
-          href="https://www.dread.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-rose-600 dark:text-rose-400 hover:underline"
-        >
-          Dread
-        </a>
-        ,{' '}
-        <a
-          href="https://tortaxi.info"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-rose-600 dark:text-rose-400 hover:underline"
-        >
-          TorTaxi
-        </a>
-        , and public reporting.
-      </p>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Globe size={28} />}
+      title="Darknet Markets Timeline"
+      description={
+        <>
+          Historical and current darknet marketplaces - status, founding dates, seizure history, and exit scams. Data
+          sourced from{' '}
+          <a
+            href="https://www.dread.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
+          >
+            Dread
+          </a>
+          ,{' '}
+          <a
+            href="https://tortaxi.info"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
+          >
+            TorTaxi
+          </a>
+          , and public reporting.
+        </>
+      }
+    >
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
         {[
@@ -384,7 +376,8 @@ export default function DarknetMarketsTimeline(): JSX.Element {
         {Object.entries(STATUS_META).map(([key, meta]) => {
           const active = statusFilter.has(key);
           return (
-            <button type="button"
+            <button
+              type="button"
               key={key}
               onClick={() => toggleStatus(key)}
               className={`px-2 py-1 rounded text-xs font-mono font-medium border flex items-center gap-1 transition ${
@@ -398,7 +391,8 @@ export default function DarknetMarketsTimeline(): JSX.Element {
           );
         })}
         {statusFilter.size > 0 && (
-          <button type="button"
+          <button
+            type="button"
             onClick={() => setStatusFilter(new Set())}
             className="text-xs text-rose-600 dark:text-rose-400 hover:underline ml-2"
           >
@@ -479,6 +473,6 @@ export default function DarknetMarketsTimeline(): JSX.Element {
       <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
         Sources: Dread, TorTaxi, public law-enforcement reporting · {MARKETS.length} markets tracked
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

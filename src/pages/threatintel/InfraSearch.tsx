@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
   Search,
   Loader2,
@@ -133,32 +133,27 @@ export default function InfraSearch(): JSX.Element {
   }
 
   return (
-    <div className="max-w-[1600px] mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
-      >
-        back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Building2 size={28} className="text-rose-600 dark:text-rose-400" /> Infrastructure Search
-        </h1>
-        <p className="text-muted mb-2 leading-relaxed max-w-3xl">
-          Map real-world infrastructure from OpenStreetMap data - 200+ types across 30+ categories. Search by type,
-          operator, or location with natural language.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Building2 size={28} />}
+      title="Infrastructure Search"
+      description="Map real-world infrastructure from OpenStreetMap data - 200+ types across 30+ categories. Search by type, operator, or location with natural language."
+      maxWidthClass="max-w-[1600px]"
+      headerExtra={
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Powered by Overpass API + Nominatim. Inspired by Sightline (MIT).
         </p>
-      </div>
-
+      }
+    >
       {/* Search bar */}
       <section className="surface-card p-4 mb-6">
         <form onSubmit={(e) => onSubmit(e)} className="flex gap-2">
           <div className="relative flex-1 min-w-[220px]">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+            <Search
+              size={14}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              aria-hidden="true"
+            />
             <input
               type="text"
               value={input}
@@ -251,13 +246,15 @@ export default function InfraSearch(): JSX.Element {
                   <span>{filtered.length} shown</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <button type="button"
+                  <button
+                    type="button"
                     onClick={() => setMapGlobal(!mapGlobal)}
                     className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] inline-flex items-center gap-1"
                   >
                     <Globe size={10} /> {mapGlobal ? 'Zoom in' : 'Global'}
                   </button>
-                  <button type="button"
+                  <button
+                    type="button"
                     onClick={() => setDarkTiles(!darkTiles)}
                     className="text-xs font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
                     title="Toggle map style"
@@ -290,7 +287,8 @@ export default function InfraSearch(): JSX.Element {
               {/* Category filter */}
               {Object.keys(categoryCounts).length > 1 && (
                 <div className="flex flex-wrap gap-1">
-                  <button type="button"
+                  <button
+                    type="button"
                     onClick={() => setCatFilter('All')}
                     className={`text-mini font-mono px-2 py-0.5 rounded border transition ${
                       catFilter === 'All'
@@ -304,7 +302,8 @@ export default function InfraSearch(): JSX.Element {
                     .sort((a, b) => b[1] - a[1])
                     .slice(0, 12)
                     .map(([cat, count]) => (
-                      <button type="button"
+                      <button
+                        type="button"
                         key={cat}
                         onClick={() => setCatFilter(cat)}
                         className={`text-mini font-mono px-2 py-0.5 rounded border transition inline-flex items-center gap-1 ${
@@ -392,6 +391,6 @@ export default function InfraSearch(): JSX.Element {
           </div>
         </section>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

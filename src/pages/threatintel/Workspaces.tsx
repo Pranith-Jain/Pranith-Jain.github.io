@@ -7,7 +7,7 @@
 
 import { useEffect, useState, useCallback, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { adminAuthHeaders } from '../../lib/admin-token';
 import {
   Plus,
@@ -199,13 +199,20 @@ export default function Workspaces() {
   // ── Detail View ────────────────────────────────────────────────
   if (selected) {
     return (
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-        <button type="button"
+      <DataPageLayout
+        backTo="/threatintel"
+        hideBack
+        icon={<Shield size={28} />}
+        title={selected.title}
+        description={selected.description}
+      >
+        <button
+          type="button"
           onClick={() => {
             setSelectedId(null);
             setSummary(null);
           }}
-          className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-4 font-mono"
         >
           back
         </button>
@@ -251,7 +258,9 @@ export default function Workspaces() {
                     {isComplete ? (
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     ) : (
-                      <phase.icon className={`w-3.5 h-3.5 ${isCurrent ? phase.color : 'text-slate-500 dark:text-slate-400'} shrink-0`} />
+                      <phase.icon
+                        className={`w-3.5 h-3.5 ${isCurrent ? phase.color : 'text-slate-500 dark:text-slate-400'} shrink-0`}
+                      />
                     )}
                     <span
                       className={
@@ -272,7 +281,8 @@ export default function Workspaces() {
             <div className="flex items-center gap-4 mt-3 text-mini font-mono text-muted">
               <span>{summary.subjectsCount} subject(s)</span>
               <span>{summary.findingsCount} finding(s)</span>
-              <button type="button"
+              <button
+                type="button"
                 onClick={handleAdvance}
                 disabled={advancing || selected.phase === 'complete'}
                 className="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-50 dark:bg-rose-900/20 hover:bg-rose-100 dark:hover:bg-rose-900/30 text-rose-700 dark:text-rose-300 rounded text-mini font-mono font-semibold transition-colors disabled:opacity-50"
@@ -324,28 +334,18 @@ export default function Workspaces() {
             ))}
           </div>
         </div>
-      </div>
+      </DataPageLayout>
     );
   }
 
   // ── List View ──────────────────────────────────────────────────
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
-      >
-        back
-      </BackLink>
-
-      <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Investigation Workspaces</h1>
-          <p className="text-sm font-mono text-muted max-w-2xl">
-            AEAD lifecycle management - Acquire, Enrich, Assess, Deliver. Create workspaces to track investigations
-            through structured intelligence phases.
-          </p>
-        </div>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Shield size={28} />}
+      title="Investigation Workspaces"
+      description="AEAD lifecycle management - Acquire, Enrich, Assess, Deliver. Create workspaces to track investigations through structured intelligence phases."
+      headerExtra={
         <button
           type="button"
           onClick={() => setShowCreate(true)}
@@ -353,8 +353,8 @@ export default function Workspaces() {
         >
           <Plus size={14} /> New Workspace
         </button>
-      </div>
-
+      }
+    >
       {error && (
         <div className="mb-4 p-3 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300 flex items-center gap-2 font-mono text-sm">
           <AlertTriangle className="w-4 h-4 shrink-0" /> {error}
@@ -438,11 +438,12 @@ export default function Workspaces() {
       )}
 
       {!loading && workspaces.length === 0 && (
-        <div className="text-center py-16 text-muted">
+        <div className="text-center py-8 text-muted">
           <Shield className="w-12 h-12 mx-auto mb-4 opacity-30" />
           <p className="font-display font-semibold text-lg mb-1">No workspaces yet</p>
           <p className="font-mono text-sm mb-3">Create a workspace to start a structured investigation</p>
-          <button type="button"
+          <button
+            type="button"
             onClick={() => setShowCreate(true)}
             className="text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-mono text-sm font-semibold"
           >
@@ -483,7 +484,8 @@ export default function Workspaces() {
                   {ws.target && <p className="text-meta font-mono text-slate-500 truncate">{ws.target}</p>}
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
-                  <button type="button"
+                  <button
+                    type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleDelete(ws.id);
@@ -500,6 +502,6 @@ export default function Workspaces() {
           ))}
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { relativeAgo } from '../../lib/relativeTime';
 const shortRel = (iso?: string) => relativeAgo(iso, 'no timestamp');
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { IocChip } from '../../components/dfir/IocChip';
 import { ShieldAlert, RefreshCw, Search, FlaskConical, ChevronRight, Flame, FileDown, Loader2 } from 'lucide-react';
 import { DataState } from '../../components/DataState';
@@ -206,7 +206,10 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
                 <div className="text-mini font-mono text-slate-500 flex flex-wrap gap-x-2">
                   <span>{it.source}</span>
                   {it.context && (
-                    <span className="text-slate-500 dark:text-slate-400 italic truncate max-w-[44ch]" title={it.context}>
+                    <span
+                      className="text-slate-500 dark:text-slate-400 italic truncate max-w-[44ch]"
+                      title={it.context}
+                    >
                       · {it.context}
                     </span>
                   )}
@@ -313,24 +316,22 @@ export default function Detections(): JSX.Element {
     });
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
-      >
-        back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <ShieldAlert size={28} className="text-rose-600 dark:text-rose-400" /> Detections
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<ShieldAlert size={28} />}
+      title="Detections"
+      description={
+        <>
           A curated detection-rule pack evaluated hourly against the unified live-IOC stream. Each card is a rule that
           fired - cross-feed consensus, C2 / ransomware / infostealer tagging, and campaign clustering - with the
           indicators that triggered it.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+        </>
+      }
+      loading={loading}
+      error={error}
+      onRetry={() => setRefreshKey((k) => k + 1)}
+      headerExtra={
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Want to write your own?{' '}
           <Link
             to="/dfir/rule-converter"
@@ -340,8 +341,8 @@ export default function Detections(): JSX.Element {
           </Link>{' '}
           runs the same engine against the live feed in your browser.
         </p>
-      </div>
-
+      }
+    >
       {/* Headline read: one rule fire promoted to narrative form. Each rule
           has a hand-authored "what / why / action" map; the picker takes the
           highest-severity, highest-volume rule fire and renders that as the
@@ -554,6 +555,6 @@ export default function Detections(): JSX.Element {
           ))}
         </ul>
       </DataState>
-    </div>
+    </DataPageLayout>
   );
 }
