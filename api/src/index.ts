@@ -183,6 +183,14 @@ import {
   webamonResourceHandler,
 } from './routes/webamon';
 import {
+  webamonCampaignsHandler,
+  webamonCampaignStatsHandler,
+  webamonCampaignDomainsHandler,
+  webamonChangesHandler,
+  webamonClustersHandler,
+  webamonCampaignIntelHandler,
+} from './routes/webamon-campaigns';
+import {
   listBriefingsHandler,
   getBriefingHandler,
   todayBriefingHandler,
@@ -1319,6 +1327,12 @@ app.get('/api/v1/webamon/screenshot/:id', webamonScreenshotHandler);
 app.get('/api/v1/webamon/domain/:name', webamonDomainHandler);
 app.get('/api/v1/webamon/server/:ip', webamonServerHandler);
 app.get('/api/v1/webamon/resource/:sha256', webamonResourceHandler);
+app.get('/api/v1/webamon/campaigns/stats', webamonCampaignStatsHandler);
+app.get('/api/v1/webamon/campaigns/:id/domains', webamonCampaignDomainsHandler);
+app.get('/api/v1/webamon/campaigns', webamonCampaignsHandler);
+app.get('/api/v1/webamon/changes', webamonChangesHandler);
+app.get('/api/v1/webamon/clusters', webamonClustersHandler);
+app.get('/api/v1/webamon/campaign-intel', webamonCampaignIntelHandler);
 app.get('/api/v1/global-pulse', globalPulseHandler);
 app.post('/api/v1/threat-analysis', threatAnalysisHandler);
 app.post('/api/v1/ioc-extraction', iocExtractionHandler);

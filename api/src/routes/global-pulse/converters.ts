@@ -376,6 +376,80 @@ export function fromMalware(data: {
   }));
 }
 
+export function fromWebamonCampaigns(data: {
+  generated_at?: string;
+  ok?: boolean;
+  top_campaigns?: Array<{
+    campaign_id: string;
+    name: string;
+    delta_24h?: number;
+    unique_domains_total?: number;
+    tags?: string[];
+    first_seen?: string;
+    last_seen?: string;
+  }>;
+  changes?: Array<{ campaign_id: string; changes?: { countries?: string[] } }>;
+  clusters?: {
+    top?: Array<{
+      cluster_id: string;
+      fingerprint_type: string;
+      severity: string;
+      unique_domains: number;
+      delta_24h: number;
+      detected_at?: string;
+    }>;
+  };
+}): PulseEvent[] {
+  if (data.ok === false) return [];
+  const events: PulseEvent[] = [];
+  const countryByCampaign = new Map<string, string>();
+  for (const e of data.changes ?? []) {
+    const country = e.changes?.countries?.[0];
+    if (country && !countryByCampaign.has(e.campaign_id)) countryByCampaign.set(e.campaign_id, country);
+  }
+  const coord = (country?: string): { lat: number; lng: number; country?: string } => {
+    const cc = country ? countryNameToCode(country) : undefined;
+    return { lat: cc ? (COUNTRY_COORDS[cc]?.[0] ?? 0) : 0, lng: cc ? (COUNTRY_COORDS[cc]?.[1] ?? 0) : 0, country };
+  };
+  for (const c of (data.top_campaigns ?? []).slice(0, 15)) {
+    const delta = c.delta_24h ?? 0;
+    if (delta <= 0) continue;
+    const g = coord(countryByCampaign.get(c.campaign_id));
+    const tags = c.tags?.length ? ` · ${c.tags.slice(0, 3).join(', ')}` : '';
+    events.push({
+      id: `webamon-${c.campaign_id}`,
+      kind: 'phishing' as const,
+      title: `${c.name}: +${delta} domains/24h`,
+      description: `Webamon tracked estate · ${(c.unique_domains_total ?? 0).toLocaleString()} domains total${tags}`,
+      lat: g.lat,
+      lng: g.lng,
+      magnitude: delta,
+      timestamp: c.last_seen || c.first_seen || data.generated_at || new Date().toISOString(),
+      severity: delta >= 300 ? ('critical' as const) : delta >= 50 ? ('high' as const) : ('medium' as const),
+      source: 'Webamon',
+      url: 'https://intel.webamon.com',
+      country: g.country,
+    });
+  }
+  for (const cl of (data.clusters?.top ?? []).slice(0, 10)) {
+    if (cl.severity === 'watch') continue;
+    events.push({
+      id: `webamon-cluster-${cl.cluster_id.slice(-24)}`,
+      kind: 'malware' as const,
+      title: `Emerging ${cl.fingerprint_type} cluster · ${cl.unique_domains.toLocaleString()} domains`,
+      description: `Webamon emerging cluster (+${cl.delta_24h}/24h) · not yet a tracked campaign`,
+      lat: 0,
+      lng: 0,
+      magnitude: cl.unique_domains,
+      timestamp: cl.detected_at || data.generated_at || new Date().toISOString(),
+      severity: cl.severity === 'critical' ? ('critical' as const) : ('high' as const),
+      source: 'Webamon',
+      url: 'https://intel.webamon.com',
+    });
+  }
+  return events;
+}
+
 export function fromRansomware(data: {
   victims?: Array<{
     victim: string;

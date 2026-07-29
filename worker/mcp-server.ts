@@ -71,6 +71,14 @@ import { signInternalToken } from '../api/src/lib/internal-token';
 import { enrichIp, enrichIpsBatch, isValidIp, type EnrichResult } from './lib/si-enrich';
 import { traceixLookup } from './lib/traceix';
 import { whoxyReverseWhois } from './lib/whoxy';
+import {
+  listCampaigns as webamonListCampaigns,
+  getCampaignStats as webamonGetCampaignStats,
+  listChanges as webamonListChanges,
+  listClusters as webamonListClusters,
+  getCampaignIntel as webamonGetCampaignIntel,
+  type WebamonClusterSeverity,
+} from './lib/webamon-campaigns';
 import { fullhuntDomainDetails, fullhuntSubdomains } from './lib/fullhunt';
 import { opensanctionsSearch, opensanctionsEntity, opensanctionsStats } from './lib/opensanctions';
 import { dehashLookup } from './lib/dehash';
@@ -3056,6 +3064,100 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         },
         async ({ query, type }) => {
           const r = await whoxyReverseWhois(this.env as { WHOXY_API_KEY?: string }, query, type ?? 'email');
+          return untrustedToolResult(r);
+        }
+      );
+
+      // ── Webamon — campaign intelligence (intel.webamon.com estate brief) ──
+      this.tools(
+        'webamon_campaigns',
+        'List tracked phishing / malware-delivery campaigns from Webamon campaign intelligence (intel.webamon.com). Returns campaign cards with 24h domain delta, 7d activity, unique-domain totals, tags, and first/last seen. Sort by delta_24h to see the fastest-growing estates. Requires WEBAMON_API_KEY secret.',
+        {
+          tag: z.string().optional().describe('Filter by analyst tag, e.g. "gambling", "clickfix".'),
+          search: z.string().optional().describe('Free-text search over campaign names/descriptions.'),
+          size: z.number().optional().describe('Max campaigns to return (default 25, max 100).'),
+          sort_by: z
+            .string()
+            .optional()
+            .describe('Sort field: delta_24h (default), recent_7d, unique_domains_total, first_seen, last_seen.'),
+        },
+        async ({ tag, search, size, sort_by }) => {
+          const r = await webamonListCampaigns(this.env as { WEBAMON_API_KEY?: string }, {
+            tag,
+            search,
+            size: size ?? 25,
+            sortBy: sort_by ?? 'delta_24h',
+            order: 'desc',
+          });
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'webamon_campaign_changes',
+        'Webamon per-campaign change events — the daily-digest feed. For each campaign: new domains, IPs, ASNs, cert issuers, page titles, and domains that went offline / came online within the window. Powers the "by the numbers" estate brief. Requires WEBAMON_API_KEY secret.',
+        {
+          since: z
+            .string()
+            .optional()
+            .describe('ISO datetime lower bound (default: last 24h), e.g. "2026-07-28T00:00:00.000Z".'),
+          campaign_id: z.string().optional().describe('Restrict to one campaign id.'),
+          has_changes: z
+            .boolean()
+            .optional()
+            .describe('Only return campaigns that changed in the window (default true-ish).'),
+          size: z.number().optional().describe('Max events (default 100, max 200).'),
+        },
+        async ({ since, campaign_id, has_changes, size }) => {
+          const r = await webamonListChanges(this.env as { WEBAMON_API_KEY?: string }, {
+            since,
+            campaignId: campaign_id,
+            hasChanges: has_changes,
+            size: size ?? 100,
+          });
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'webamon_clusters',
+        'Webamon emerging fingerprint clusters — groups of domains sharing a fingerprint (links/ssl/dom/domains/asn/scripts/tech) not yet promoted to tracked campaigns. Returns severity (critical/high/watch), unique-domain count, 24h delta, and the seed_query to pivot into search. Requires WEBAMON_API_KEY secret.',
+        {
+          severity: z.enum(['critical', 'high', 'watch']).optional().describe('Filter by cluster severity.'),
+          fingerprint_type: z
+            .string()
+            .optional()
+            .describe('Filter by fingerprint type: links, ssl, dom, domains, asn, scripts, tech.'),
+          size: z.number().optional().describe('Max clusters (default 25, max 100).'),
+        },
+        async ({ severity, fingerprint_type, size }) => {
+          const r = await webamonListClusters(this.env as { WEBAMON_API_KEY?: string }, {
+            severity: severity as WebamonClusterSeverity | undefined,
+            fingerprintType: fingerprint_type,
+            size: size ?? 25,
+          });
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'webamon_campaign_stats',
+        'Webamon global estate rollup — total tracked campaigns, unique domains, online percentage, and aggregate activity. The headline numbers for the campaign-intelligence estate. Requires WEBAMON_API_KEY secret.',
+        {},
+        async () => {
+          const r = await webamonGetCampaignStats(this.env as { WEBAMON_API_KEY?: string });
+          return untrustedToolResult(r);
+        }
+      );
+
+      this.tools(
+        'webamon_campaign_intel',
+        'Webamon aggregated daily-brief digest in one call: global stats + top campaigns by 24h delta + change events in the window + emerging clusters, rolled up into "by the numbers" totals (new domains, takedowns, infra changes, new lure titles). Requires WEBAMON_API_KEY secret.',
+        {
+          since: z.string().optional().describe('ISO datetime lower bound (default: last 24h).'),
+        },
+        async ({ since }) => {
+          const r = await webamonGetCampaignIntel(this.env as { WEBAMON_API_KEY?: string }, { since });
           return untrustedToolResult(r);
         }
       );

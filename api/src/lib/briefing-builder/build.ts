@@ -3,6 +3,7 @@ import type { Env } from '../../env';
 import { type IocEntry } from '../ioc-feed-parsers';
 import { fetchMtiSource, type MtiCveRecord } from '../mythreatintel-api';
 import { fetchRansomwareRecent, type RansomwareVictim } from '../../routes/ransomware-recent';
+import { getCampaignIntel, type WebamonCampaignIntel } from '../webamon-campaigns';
 import { normalizeGroup } from '../group-normalize';
 import { computeDailyWindow, computeLiveDailyWindow } from '../briefing-window';
 import { fetchCveFeedHighSeverity, type CveFeedEntry } from '../../routes/cve-recent';
@@ -65,51 +66,64 @@ export async function buildBriefing(
   const wrap = <T>(p: Promise<T>, fallback: T) =>
     p.then((v) => ({ ok: true, v })).catch(() => ({ ok: false, v: fallback }));
   const mtiEnv = opts.env;
-  const [kevR, urlhaus, malwarebazaar, threatfox, tweetfeed, nvdR, ransomwareBundle, mtiCveItems, cvefeedItems] =
-    await Promise.all([
-      wrap(withLastGood(mtiEnv, 'briefing-kev', fetchKev), [] as KevEntry[]),
-      fetchFeedResilient(mtiEnv, 'urlhaus'),
-      fetchFeedResilient(mtiEnv, 'malwarebazaar'),
-      fetchFeedResilient(mtiEnv, 'threatfox'),
-      fetchFeedResilient(mtiEnv, 'tweetfeed'),
-      wrap(
-        withLastGood(mtiEnv, `briefing-nvd?s=${startMs}&e=${endMs}`, async () => {
-          try {
-            const r = await fetchNvdRecent(rangeStart, rangeEnd, opts.nvdApiKey);
-            if (r.length > 0) return r;
-          } catch {
-            /* noop */
-          }
-          return fetchCirclRecent(rangeStart, rangeEnd);
-        }),
-        [] as NvdCve[]
-      ),
-      mtiEnv
-        ? fetchRansomwareRecent(mtiEnv)
-            .then((r) => r?.body)
-            .catch(() => ({
-              generated_at: '',
-              source: '',
-              count: 0,
-              groups: [],
-              sectors: [],
-              victims: [] as RansomwareVictim[],
-            }))
-        : Promise.resolve({
+  const [
+    kevR,
+    urlhaus,
+    malwarebazaar,
+    threatfox,
+    tweetfeed,
+    nvdR,
+    ransomwareBundle,
+    mtiCveItems,
+    cvefeedItems,
+    webamonIntel,
+  ] = await Promise.all([
+    wrap(withLastGood(mtiEnv, 'briefing-kev', fetchKev), [] as KevEntry[]),
+    fetchFeedResilient(mtiEnv, 'urlhaus'),
+    fetchFeedResilient(mtiEnv, 'malwarebazaar'),
+    fetchFeedResilient(mtiEnv, 'threatfox'),
+    fetchFeedResilient(mtiEnv, 'tweetfeed'),
+    wrap(
+      withLastGood(mtiEnv, `briefing-nvd?s=${startMs}&e=${endMs}`, async () => {
+        try {
+          const r = await fetchNvdRecent(rangeStart, rangeEnd, opts.nvdApiKey);
+          if (r.length > 0) return r;
+        } catch {
+          /* noop */
+        }
+        return fetchCirclRecent(rangeStart, rangeEnd);
+      }),
+      [] as NvdCve[]
+    ),
+    mtiEnv
+      ? fetchRansomwareRecent(mtiEnv)
+          .then((r) => r?.body)
+          .catch(() => ({
             generated_at: '',
             source: '',
             count: 0,
             groups: [],
             sectors: [],
             victims: [] as RansomwareVictim[],
-          }),
-      mtiEnv
-        ? fetchMtiSource(mtiEnv, 'cve', { limit: 200 })
-            .then((r) => (r.ok ? (r.items as MtiCveRecord[]) : []))
-            .catch(() => [] as MtiCveRecord[])
-        : Promise.resolve([] as MtiCveRecord[]),
-      fetchCveFeedHighSeverity().catch(() => [] as CveFeedEntry[]),
-    ]);
+          }))
+      : Promise.resolve({
+          generated_at: '',
+          source: '',
+          count: 0,
+          groups: [],
+          sectors: [],
+          victims: [] as RansomwareVictim[],
+        }),
+    mtiEnv
+      ? fetchMtiSource(mtiEnv, 'cve', { limit: 200 })
+          .then((r) => (r.ok ? (r.items as MtiCveRecord[]) : []))
+          .catch(() => [] as MtiCveRecord[])
+      : Promise.resolve([] as MtiCveRecord[]),
+    fetchCveFeedHighSeverity().catch(() => [] as CveFeedEntry[]),
+    mtiEnv?.WEBAMON_API_KEY
+      ? getCampaignIntel(mtiEnv).catch(() => null as WebamonCampaignIntel | null)
+      : Promise.resolve(null as WebamonCampaignIntel | null),
+  ]);
   let degraded = !kevR.ok && !nvdR.ok;
   const kev = kevR.v;
   const nvdRecent = nvdR.v;
@@ -297,6 +311,68 @@ export async function buildBriefing(
     });
   }
 
+  const webamonFindings: BriefingFinding[] = [];
+  if (webamonIntel?.ok) {
+    const deltaSev = (delta: number): Severity => (delta >= 300 ? 'critical' : delta >= 50 ? 'high' : 'medium');
+    for (const camp of webamonIntel.top_campaigns.slice(0, 8)) {
+      const delta = camp.delta_24h ?? 0;
+      if (delta <= 0) continue;
+      const tags = camp.tags?.length ? ` [${camp.tags.slice(0, 4).join(', ')}]` : '';
+      webamonFindings.push({
+        id: `webamon-${camp.campaign_id}`,
+        title: `${camp.name} — +${delta.toLocaleString()} domains (24h)`,
+        description: `Fastest-growing Webamon estate: ${delta} new domains in 24h, ${camp.unique_domains_total.toLocaleString()} tracked total${tags}.`,
+        severity: deltaSev(delta),
+        source: 'Webamon',
+        source_url: 'https://intel.webamon.com',
+        mitre_techniques: [],
+      });
+    }
+    const offlineByCampaign = new Map<string, { name: string; count: number }>();
+    for (const e of webamonIntel.changes) {
+      const off = e.new_counts?.went_offline ?? 0;
+      if (off <= 0) continue;
+      const cur = offlineByCampaign.get(e.campaign_id) ?? { name: e.campaign_name, count: 0 };
+      cur.count += off;
+      offlineByCampaign.set(e.campaign_id, cur);
+    }
+    const takedowns = [...offlineByCampaign.entries()].sort((a, b) => b[1].count - a[1].count).slice(0, 5);
+    for (const [id, t] of takedowns) {
+      webamonFindings.push({
+        id: `webamon-takedown-${id}`,
+        title: `${t.name} — ${t.count.toLocaleString()} domains taken offline`,
+        description: 'Takedowns / expiry confirmed by double-checked DNS within the window.',
+        severity: t.count >= 300 ? 'high' : 'medium',
+        source: 'Webamon',
+        source_url: 'https://intel.webamon.com',
+        mitre_techniques: [],
+      });
+    }
+    for (const cl of webamonIntel.clusters.top.slice(0, 5)) {
+      if (cl.severity === 'watch') continue;
+      webamonFindings.push({
+        id: `webamon-cluster-${cl.cluster_id.replace(/[^a-z0-9]+/g, '-').slice(0, 60)}`,
+        title: `Emerging ${cl.fingerprint_type} cluster — ${cl.unique_domains.toLocaleString()} domains (+${cl.delta_24h}/24h)`,
+        description: `Not yet promoted to a tracked campaign. Seed query: ${cl.seed_query}`,
+        severity: cl.severity === 'critical' ? 'critical' : 'high',
+        source: 'Webamon',
+        source_url: 'https://intel.webamon.com',
+        mitre_techniques: [],
+      });
+    }
+  }
+  if (webamonFindings.length > 0 && webamonIntel) {
+    const t = webamonIntel.totals;
+    const blurb = `Automated campaign intelligence from Webamon (intel.webamon.com). ${t.campaigns_with_activity} campaigns with activity in-window: ${t.new_domains.toLocaleString()} new domains, ${t.went_offline.toLocaleString()} taken offline, ${t.infra_changes.toLocaleString()} infrastructure changes, ${t.new_titles.toLocaleString()} new page-title lures.`;
+    sections.push({
+      id: 'webamon-campaigns',
+      title: 'Phishing & malware campaign activity (Webamon)',
+      count: webamonFindings.length,
+      blurb,
+      findings: webamonFindings,
+    });
+  }
+
   const stats = buildStats(findings, sections, iocsRawTotal, ransomwareFindings.length);
   const summaryArgs = {
     type,
@@ -322,6 +398,7 @@ export async function buildBriefing(
   if (findings.some((f) => f.source === 'cvefeed.io')) sources.push('cvefeed.io');
   if (findings.some((f) => f.source === 'MyThreatIntel')) sources.push('MyThreatIntel');
   if (ransomwareFindings.length > 0) sources.push('ransomware.live');
+  if (webamonFindings.length > 0) sources.push('Webamon');
   sources.push(...iocSources);
 
   const ioc_dump = buildIocDump(iocs, iocsRawTotal);

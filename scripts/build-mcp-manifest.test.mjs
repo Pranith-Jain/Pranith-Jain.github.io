@@ -6,7 +6,7 @@
  *   - apostrophes inside comments (the bug that broke the first draft)
  *   - nested object literals with parens
  *   - multi-line and single-line blocks
- *   - the real mcp-server.ts file (must find >= 95 unique tools)
+ *   - the real mcp-server.ts file (must find >= 250 unique tools)
  */
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
@@ -76,18 +76,17 @@ test('parses multiple tools in one file', () => {
   assert.deepEqual(out.map((t) => t.name), ['first_tool', 'second_tool', 'third_tool']);
 });
 
-test('parses the real mcp-server.ts file (must find 98 unique tools)', () => {
+test('parses the real mcp-server.ts file (must find >= 250 unique tools)', () => {
   const real = readFileSync(join(__dirname, '..', 'worker', 'mcp-server.ts'), 'utf8');
   const out = parseTools(real);
-  // 99 tool() calls, 1 duplicate name -> 98 unique.
-  assert.ok(out.length >= 95, `expected >= 95 tools, got ${out.length}`);
+  assert.ok(out.length >= 250, `expected >= 250 tools, got ${out.length}`);
   const names = out.map((t) => t.name);
-  // Source has 99 tool() calls but one duplicate name (get_live_iocs is
-  // registered twice with different signatures - a real bug in the source).
-  // The manifest de-dupes, so we expect 98 unique names here. The presence
-  // of a duplicate is the real-world signal we want this test to surface.
+  // The source historically registered get_live_iocs twice (a real bug, since
+  // fixed — it is now registered once). The manifest must therefore contain NO
+  // duplicate tool names; this assertion guards against accidentally
+  // re-introducing a duplicate registration.
   const dupes = names.filter((n, i) => names.indexOf(n) !== i);
-  assert.equal(dupes.length, 1, `expected exactly 1 duplicate, got ${dupes.length}: ${dupes}`);
+  assert.equal(dupes.length, 0, `expected no duplicate tool names, got ${dupes.length}: ${dupes}`);
 });
 
 test('categorize() maps tools into buckets', () => {

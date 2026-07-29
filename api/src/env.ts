@@ -279,6 +279,14 @@ export interface Env {
   /** Whoxy.com Reverse WHOIS API key.
    *  Set via `wrangler secret put WHOXY_API_KEY`. Paid ($0.01/query at whoxy.com). */
   WHOXY_API_KEY?: string;
+  /** Webamon pro campaign-intelligence API key (x-api-key mode).
+   *  Set via `wrangler secret put WEBAMON_API_KEY`. Powers the campaign/changes/
+   *  clusters endpoints (intel.webamon.com estate brief) at pro.webamon.com. */
+  WEBAMON_API_KEY?: string;
+  /** Webamon OAuth client credentials (console session mode, optional).
+   *  Set via `wrangler secret put WEBAMON_CLIENT_ID` / `WEBAMON_CLIENT_SECRET`. */
+  WEBAMON_CLIENT_ID?: string;
+  WEBAMON_CLIENT_SECRET?: string;
   /** Static asset bucket binding. Type matches `Fetcher` from
    *  @cloudflare/workers-types so the SVG-PNG renderer's `env.ASSETS.fetch(...)`
    *  call is fully typed end-to-end. Optional so api-only unit tests still

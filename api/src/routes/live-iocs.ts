@@ -6,6 +6,7 @@ import { safeNullLog } from '../lib/safe-catch';
 import { requireAdmin } from '../lib/admin-auth';
 import { concurrentMap } from '../lib/concurrent-map';
 import { readSlice, type FeedQueueMessage } from '../lib/live-iocs-slices';
+import { listCampaigns, listCampaignDomains } from '../lib/webamon-campaigns';
 import {
   parseTweetFeed,
   parseSansIsc,
@@ -386,6 +387,7 @@ const FEED_SOURCE_DEBUG_URLS: Record<string, { url: string; fallbackUrls?: strin
   // mythreatintel + openphish are handled by named sources with internal
   // fetch helpers; their URLs are in the helpers themselves.
   openphish: { url: 'https://openphish.com/feed.txt' },
+  'webamon-campaigns': { url: 'https://pro.webamon.com/campaigns' },
 };
 
 const CPS_BASE = 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master';
@@ -628,6 +630,44 @@ const cryptoScamSource: FeedSource = {
   },
 };
 
+/** Webamon campaign intelligence: fresh malicious domains from the fastest-growing
+ *  tracked phishing / malware-delivery estates (intel.webamon.com). Pulls the top
+ *  campaigns by 24h delta and emits their currently-online domains. Key-gated —
+ *  degrades to an empty, ok:false row when WEBAMON_API_KEY is unset. */
+const webamonCampaignsSource: FeedSource = {
+  id: 'webamon-campaigns',
+  run: async ({ env }) => {
+    const id = 'webamon-campaigns';
+    if (!env?.WEBAMON_API_KEY) return { items: [], sources: [{ id, ok: false, count: 0 }] };
+    try {
+      const campaigns = await listCampaigns(env, { size: 3, sortBy: 'delta_24h', order: 'desc' });
+      const top = (campaigns?.results ?? []).filter((c) => (c.delta_24h ?? 0) > 0).slice(0, 3);
+      if (top.length === 0) return { items: [], sources: [{ id, ok: true, count: 0 }] };
+      const items: LiveIoc[] = [];
+      for (const camp of top) {
+        const doms = await listCampaignDomains(env, camp.campaign_id, { size: 100 });
+        for (const d of doms?.results ?? []) {
+          if (d.online === false) continue;
+          items.push({
+            value: d.domain,
+            kind: 'domain',
+            source: id,
+            reporter: 'Webamon campaigns',
+            context: `${camp.name}${d.count ? ` · ${d.count} scans` : ''}`,
+            observed_at: isoFromLoose(d.first_seen) ?? isoFromLoose(d.last_seen),
+            reference_url: 'https://intel.webamon.com',
+          });
+        }
+      }
+      const capped = items.slice(0, PER_FEED_CAP);
+      return { items: capped, sources: [{ id, ok: true, count: capped.length }] };
+    } catch (err) {
+      console.error('webamonCampaignsSource failed:', err instanceof Error ? err.message : String(err));
+      return { items: [], sources: [{ id, ok: false, count: 0 }] };
+    }
+  },
+};
+
 // Registry, ordered exactly as the original sequential blocks pushed sources —
 // concurrentMap preserves input order, so the flattened sources/items keep this
 // order (the post-sort and per-source recount depend only on it being stable).
@@ -688,6 +728,7 @@ const FEED_SOURCES: FeedSource[] = [
   malwarebazaarSource,
   phishingSource,
   cryptoScamSource,
+  webamonCampaignsSource,
   textFeedSource({
     id: 'binarydefense',
     url: `${CPS_BASE}/binarydefense.txt`,

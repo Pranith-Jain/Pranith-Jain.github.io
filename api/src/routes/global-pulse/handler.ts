@@ -41,6 +41,7 @@ import {
   fromUkmto,
   fromCyberPulse,
   fromRss,
+  fromWebamonCampaigns,
 } from './converters';
 import {
   fetchEarthquakes,
@@ -199,6 +200,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     warmEvents.push(...safe(() => fromGithubAdvisories(warm.ghsa as Parameters<typeof fromGithubAdvisories>[0])));
   if (warm.kev) warmEvents.push(...safe(() => fromCisaKev(warm.kev as Parameters<typeof fromCisaKev>[0])));
   if (warm.rss) warmEvents.push(...safe(() => fromRss(warm.rss as Parameters<typeof fromRss>[0])));
+  if (warm.webamon)
+    warmEvents.push(...safe(() => fromWebamonCampaigns(warm.webamon as Parameters<typeof fromWebamonCampaigns>[0])));
 
   // ── CyberPulse incidents (D1) ────────────────────────────────────────
   let cyberpulseEvents: PulseEvent[] = [];

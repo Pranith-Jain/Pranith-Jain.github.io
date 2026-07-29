@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 257 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 262 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 257,
-  "generatedAt": "2026-07-29T11:39:51.248Z",
+  "toolCount": 262,
+  "generatedAt": "2026-07-29T15:14:58.448Z",
   "tools": [
     {
       "name": "ai_threats_get",
@@ -1218,6 +1218,31 @@
       "name": "wayback_lookup",
       "description": "Check the Wayback Machine (archive.org) for historical snapshots of a URL. Useful for tracking website changes or recovering deleted content.",
       "category": "domain"
+    },
+    {
+      "name": "webamon_campaign_changes",
+      "description": "Webamon per-campaign change events — the daily-digest feed. For each campaign: new domains, IPs, ASNs, cert issuers, page titles, and domains that went offline / came online within the window. Powers the \"by the numbers\" estate brief. Requires WEBAMON_API_KEY secret.",
+      "category": "other"
+    },
+    {
+      "name": "webamon_campaign_intel",
+      "description": "Webamon aggregated daily-brief digest in one call: global stats + top campaigns by 24h delta + change events in the window + emerging clusters, rolled up into \"by the numbers\" totals (new domains, takedowns, infra changes, new lure titles). Requires WEBAMON_API_KEY secret.",
+      "category": "other"
+    },
+    {
+      "name": "webamon_campaign_stats",
+      "description": "Webamon global estate rollup — total tracked campaigns, unique domains, online percentage, and aggregate activity. The headline numbers for the campaign-intelligence estate. Requires WEBAMON_API_KEY secret.",
+      "category": "other"
+    },
+    {
+      "name": "webamon_campaigns",
+      "description": "List tracked phishing / malware-delivery campaigns from Webamon campaign intelligence (intel.webamon.com). Returns campaign cards with 24h domain delta, 7d activity, unique-domain totals, tags, and first/last seen. Sort by delta_24h to see the fastest-growing estates. Requires WEBAMON_API_KEY secret.",
+      "category": "other"
+    },
+    {
+      "name": "webamon_clusters",
+      "description": "Webamon emerging fingerprint clusters — groups of domains sharing a fingerprint (links/ssl/dom/domains/asn/scripts/tech) not yet promoted to tracked campaigns. Returns severity (critical/high/watch), unique-domain count, 24h delta, and the seed_query to pivot into search. Requires WEBAMON_API_KEY secret.",
+      "category": "other"
     },
     {
       "name": "whoxy_reverse_whois",
