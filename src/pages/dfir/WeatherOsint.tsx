@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { Cloud, Search, Loader2, ExternalLink, Thermometer, Wind, Eye, MapPin } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
 
@@ -49,6 +50,58 @@ function formatTemp(c: number): string {
 function formatDate(d: string): string {
   return new Date(d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
 }
+
+type ForecastDay = WeatherResult['forecast'][number];
+
+const FORECAST_COLUMNS: DataTableColumn<ForecastDay>[] = [
+  {
+    key: 'date',
+    header: 'Date',
+    render: (d) => <span className="text-slate-900 dark:text-slate-100">{formatDate(d.date)}</span>,
+    sortValue: (d) => d.date,
+  },
+  {
+    key: 'condition',
+    header: 'Condition',
+    render: (d) => <span className="text-muted">{d.condition}</span>,
+    sortValue: (d) => d.condition,
+  },
+  {
+    key: 'max_c',
+    header: 'High',
+    align: 'right',
+    render: (d) => <span className="text-slate-900 dark:text-slate-100">{formatTemp(d.max_c)}</span>,
+    sortValue: (d) => d.max_c,
+  },
+  {
+    key: 'min_c',
+    header: 'Low',
+    align: 'right',
+    render: (d) => <span className="text-slate-500">{formatTemp(d.min_c)}</span>,
+    sortValue: (d) => d.min_c,
+  },
+  {
+    key: 'precip_mm',
+    header: 'Precip',
+    align: 'right',
+    render: (d) => <span className="text-slate-500">{d.precip_mm} mm</span>,
+    sortValue: (d) => d.precip_mm,
+  },
+  {
+    key: 'wind_kph',
+    header: 'Wind',
+    align: 'right',
+    render: (d) => <span className="text-slate-500">{d.wind_kph} km/h</span>,
+    sortValue: (d) => d.wind_kph,
+  },
+  {
+    key: 'humidity',
+    header: 'Humidity',
+    align: 'right',
+    render: (d) => <span className="text-slate-500">{d.humidity}%</span>,
+    sortValue: (d) => d.humidity,
+  },
+];
 
 export default function WeatherOsint(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -401,34 +454,12 @@ export default function WeatherOsint(): JSX.Element {
                 7-Day Forecast
               </h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-sm font-mono">
-                  <thead>
-                    <tr className="text-micro text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                      <th className="text-left py-2 pr-4">Date</th>
-                      <th className="text-left py-2 pr-4">Condition</th>
-                      <th className="text-right py-2 pr-4">High</th>
-                      <th className="text-right py-2 pr-4">Low</th>
-                      <th className="text-right py-2 pr-4">Precip</th>
-                      <th className="text-right py-2 pr-4">Wind</th>
-                      <th className="text-right py-2">Humidity</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.forecast.map((d) => (
-                      <tr key={d.date} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50">
-                        <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{formatDate(d.date)}</td>
-                        <td className="py-2 pr-4 text-muted">{d.condition}</td>
-                        <td className="py-2 pr-4 text-right text-slate-900 dark:text-slate-100">
-                          {formatTemp(d.max_c)}
-                        </td>
-                        <td className="py-2 pr-4 text-right text-slate-500">{formatTemp(d.min_c)}</td>
-                        <td className="py-2 pr-4 text-right text-slate-500">{d.precip_mm} mm</td>
-                        <td className="py-2 pr-4 text-right text-slate-500">{d.wind_kph} km/h</td>
-                        <td className="py-2 text-right text-slate-500">{d.humidity}%</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <DataTable
+                  rows={result.forecast}
+                  rowKey={(d) => d.date}
+                  columns={FORECAST_COLUMNS}
+                  className="font-mono"
+                />
               </div>
             </div>
           )}
