@@ -67,6 +67,7 @@ Verify every claim in the report against the collected data. Flag hallucinations
         googleKey: opts.googleKey,
         quality: true,
         preferProvider: m.provider,
+        exclusiveProvider: true,
         role: 'qa-ensemble',
         recordUsage: opts.recordUsage,
       });

@@ -50,6 +50,10 @@ export interface CompletionOpts {
   preferGroq?: boolean;
   /** Skip directly to a specific provider (e.g. 'gemini' for large-context QA). */
   preferProvider?: 'groq' | 'gemini' | 'nvidia';
+  /** With preferProvider: use ONLY that provider, no fall-through. Used by the
+   *  ensemble QA so each parallel call makes exactly one provider fetch instead
+   *  of walking the whole chain (keeps subrequests bounded on the free plan). */
+  exclusiveProvider?: boolean;
   /** Invoked on success with the model + prompt/response text for cost tracking. */
   recordUsage?: (model: string, inputText: string, outputText: string, role: string) => void;
 }
@@ -266,7 +270,9 @@ export async function runCompletion(
 
   // When preferProvider is set, try that provider first (or exclusively)
   const providers: Array<'groq' | 'gemini' | 'nvidia'> = opts.preferProvider
-    ? [opts.preferProvider, ...(['groq', 'gemini', 'nvidia'] as const).filter((p) => p !== opts.preferProvider)]
+    ? opts.exclusiveProvider
+      ? [opts.preferProvider]
+      : [opts.preferProvider, ...(['groq', 'gemini', 'nvidia'] as const).filter((p) => p !== opts.preferProvider)]
     : ['groq', 'gemini', 'nvidia'];
 
   for (const provider of providers) {
