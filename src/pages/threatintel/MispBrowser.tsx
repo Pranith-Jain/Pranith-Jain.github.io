@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { RefreshCw, ExternalLink, Search, Calendar, ShieldAlert, Info } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -233,21 +233,12 @@ export default function MispBrowser() {
 
   if (!connected) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
-        <BackLink
-          to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-6 font-mono"
-        >
-          back
-        </BackLink>
-        <div className="flex items-baseline gap-2 mb-2">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
-            MISP Browser
-          </h1>
-          <span className="text-mini font-mono uppercase tracking-[0.18em] text-slate-500">
-            Connect to a MISP instance
-          </span>
-        </div>
+      <DataPageLayout
+        backTo="/threatintel"
+        icon={<ShieldAlert size={28} />}
+        title="MISP Browser"
+        description="Connect to a MISP instance"
+      >
         <div className="max-w-lg space-y-4">
           <div>
             <label htmlFor="misp-base-url" className="text-xs font-mono text-slate-500 mb-1 block">
@@ -279,7 +270,8 @@ export default function MispBrowser() {
             Your API key is sent to the MISP server via a Worker proxy and kept in memory only - it is never stored. You
             will need to re-enter it after a page reload.
           </p>
-          <button type="button"
+          <button
+            type="button"
             onClick={() => void connect()}
             disabled={loading || !baseUrl || !apiKey}
             className="px-4 py-2 text-xs font-mono rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50"
@@ -292,7 +284,7 @@ export default function MispBrowser() {
             </div>
           )}
         </div>
-      </div>
+      </DataPageLayout>
     );
   }
 
@@ -301,8 +293,9 @@ export default function MispBrowser() {
     const tl = (THREAT_LEVELS[e.threat_level_id] ?? THREAT_LEVELS['4'])!;
     const TlIcon = tl.icon;
     return (
-      <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
-        <button type="button"
+      <DataPageLayout backTo="/threatintel" hideBack icon={<ShieldAlert size={28} />} title={e.info || '(no info)'}>
+        <button
+          type="button"
           onClick={() => setSelected(null)}
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-4 font-mono"
         >
@@ -412,7 +405,9 @@ export default function MispBrowser() {
                           </li>
                         ))}
                         {o.Attribute.length > 5 && (
-                          <li className="text-mini font-mono text-slate-500 dark:text-slate-400 italic">+{o.Attribute.length - 5} more</li>
+                          <li className="text-mini font-mono text-slate-500 dark:text-slate-400 italic">
+                            +{o.Attribute.length - 5} more
+                          </li>
                         )}
                       </ul>
                     )}
@@ -477,7 +472,8 @@ export default function MispBrowser() {
               </h3>
               <div className="grid gap-2">
                 {e.related_events.map((r) => (
-                  <button type="button"
+                  <button
+                    type="button"
                     key={r.Event.id}
                     onClick={() => loadEventDetail(r.Event.id)}
                     className="text-left text-xs font-mono px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-400 transition-colors"
@@ -495,45 +491,48 @@ export default function MispBrowser() {
             </div>
           )}
         </div>
-      </div>
+      </DataPageLayout>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
-      <div className="flex items-baseline justify-between gap-3 flex-wrap">
-        <div className="flex items-baseline gap-2">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
-            MISP Browser
-          </h1>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<ShieldAlert size={28} />}
+      title="MISP Browser"
+      headerExtra={
+        <div className="flex items-center gap-2">
           <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
             {total > 0 ? `${total} events` : ''}
           </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <button type="button"
+          <button
+            type="button"
             onClick={() => loadEvents(1)}
             disabled={loading}
             className="flex items-center gap-1 px-3 py-1.5 text-mini font-mono rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500"
           >
             <RefreshCw size={12} className={loading ? 'animate-spin' : ''} /> Refresh
           </button>
-          <button type="button"
+          <button
+            type="button"
             onClick={disconnect}
             className="px-3 py-1.5 text-mini font-mono rounded-xl border border-rose-300 dark:border-rose-700 text-rose-600 dark:text-rose-400 hover:border-rose-500"
           >
             Disconnect
           </button>
         </div>
-      </div>
-
+      }
+    >
       <div className="flex flex-wrap gap-2 items-end">
         <div className="flex-1 min-w-[200px]">
           <label htmlFor="misp-search" className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5 block">
             Search
           </label>
           <div className="relative">
-            <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <Search
+              size={12}
+              className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+            />
             <input
               id="misp-search"
               type="text"
@@ -546,7 +545,10 @@ export default function MispBrowser() {
           </div>
         </div>
         <div className="w-40">
-          <label htmlFor="misp-tag-filter" className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5 block">
+          <label
+            htmlFor="misp-tag-filter"
+            className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5 block"
+          >
             Tag filter
           </label>
           <input
@@ -559,7 +561,8 @@ export default function MispBrowser() {
             placeholder="tag_name"
           />
         </div>
-        <button type="button"
+        <button
+          type="button"
           onClick={() => loadEvents(1)}
           disabled={loading}
           className="px-3 py-1.5 text-xs font-mono rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50"
@@ -588,7 +591,8 @@ export default function MispBrowser() {
           const tl = (THREAT_LEVELS[e.threat_level_id] ?? THREAT_LEVELS['4'])!;
           const TlIcon = tl.icon;
           return (
-            <button type="button"
+            <button
+              type="button"
               key={e.id}
               onClick={() => loadEventDetail(e.id)}
               className="text-left w-full surface-card p-4 hover:border-rose-400 dark:hover:border-rose-600 transition-colors group"
@@ -623,7 +627,9 @@ export default function MispBrowser() {
                         </span>
                       ))}
                       {e.tags.length > 5 && (
-                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{e.tags.length - 5}</span>
+                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                          +{e.tags.length - 5}
+                        </span>
                       )}
                     </div>
                   )}
@@ -645,7 +651,8 @@ export default function MispBrowser() {
 
       {page > 1 && (
         <div className="flex justify-center gap-2">
-          <button type="button"
+          <button
+            type="button"
             onClick={() => loadEvents(page - 1)}
             disabled={loading}
             className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500 disabled:opacity-50"
@@ -653,7 +660,8 @@ export default function MispBrowser() {
             ← Previous
           </button>
           <span className="px-3 py-1.5 text-xs font-mono text-slate-500">Page {page}</span>
-          <button type="button"
+          <button
+            type="button"
             onClick={() => loadEvents(page + 1)}
             disabled={loading || events.length < 20}
             className="px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500 disabled:opacity-50"
@@ -662,6 +670,6 @@ export default function MispBrowser() {
           </button>
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

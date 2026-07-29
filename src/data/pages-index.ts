@@ -1718,8 +1718,8 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/fleet-map',
     label: 'UK Threat Map - Fleet Simulation',
     description:
-      'National-scale attack surface simulation: 300 organisations across the UK, modelling SSL-VPN, Citrix, VMware Horizon, RDP, and WordPress exposure from 2018–2025.',
-    sectionLabel: 'DFIR · Simulation',
+      'National-scale attack surface simulation: 300 organisations across the UK, modelling SSL-VPN, Citrix, VMware Horizon, RDP, and WordPress exposure from 2018\u20132025.',
+    sectionLabel: 'DFIR \u00b7 Simulation',
     group: 'dfir',
     keywords: ['simulation', 'fleet', 'uk', 'threat-map', 'ssl-vpn', 'citrix', 'rdp', 'wordpress', 'long-watch'],
   },
@@ -1727,8 +1727,8 @@ const DFIR_PAGES: readonly PageEntry[] = [
     path: '/dfir/wordpress-sim',
     label: 'WordPress Server - Attack Simulation',
     description:
-      'Single-server attack simulation: a LAMP-stack WordPress box exposed to the internet from 2018–2025, with configurable defensive controls.',
-    sectionLabel: 'DFIR · Simulation',
+      'Single-server attack simulation: a LAMP-stack WordPress box exposed to the internet from 2018\u20132025, with configurable defensive controls.',
+    sectionLabel: 'DFIR \u00b7 Simulation',
     group: 'dfir',
     keywords: ['simulation', 'wordpress', 'lamp', 'sql-injection', 'brute-force', 'ddos', 'cve', 'waf', 'long-watch'],
   },
@@ -1737,19 +1737,9 @@ const DFIR_PAGES: readonly PageEntry[] = [
     label: 'Anatomy of a Rhysida Intrusion',
     description:
       'A real Rhysida kill chain mapped to MITRE ATT&CK - 24 stages across all 12 tactics, from no-MFA VPN login through Zerologon to domain-wide encryption.',
-    sectionLabel: 'DFIR · Simulation',
+    sectionLabel: 'DFIR \u00b7 Simulation',
     group: 'dfir',
-    keywords: [
-      'simulation',
-      'rhysida',
-      'ransomware',
-      'zerologon',
-      'dcsync',
-      'ntds',
-      'mitre',
-      'kill-chain',
-      'long-watch',
-    ],
+    keywords: ['simulation', 'rhysida', 'ransomware', 'zerologon', 'dcsync', 'ntds'],
   },
   {
     path: '/dfir/ai-threats',
@@ -4038,10 +4028,10 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['stix', 'bundle', 'browser', 'ip', 'enrichment'],
   },
   {
-    path: '/threatintel/tools/kev-catalog',
+    path: '/threatintel/cves?tab=kev',
     label: 'CISA KEV Catalog',
-    description: 'Search the CISA Known Exploited Vulnerabilities catalog.',
-    sectionLabel: 'Threat Intel · Tools',
+    description: 'Search the CISA Known Exploited Vulnerabilities catalog (tab of CVE Intel).',
+    sectionLabel: 'Threat Intel · CVEs',
     group: 'threatintel',
   },
   {

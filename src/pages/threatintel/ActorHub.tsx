@@ -1,5 +1,6 @@
 import { TabLoader } from '../../components/ui/TabLoader';
 import { Suspense, lazy, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Users } from 'lucide-react';
 
@@ -22,7 +23,12 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
 ];
 
 export default function ActorHub(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('directory');
+  const [params] = useSearchParams();
+  const [activeTab, setActiveTab] = useState<TabId>(() => {
+    const tab = params.get('tab');
+    if (tab && TABS.some((t) => t.id === tab)) return tab as TabId;
+    return 'directory';
+  });
 
   return (
     <DataPageLayout

@@ -1,14 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { DataState } from '../../components/DataState';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
   AlertTriangle,
   BarChart3,
   Bug,
   CheckCircle2,
   Clock,
-  Loader2,
   Radio,
   RefreshCw,
   Skull,
@@ -179,59 +177,31 @@ export default function AnalyticsDashboard(): JSX.Element {
     return withMetrics.slice(0, 12);
   }, [feedData]);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-16">
-        <Loader2 size={24} className="animate-spin text-slate-500 dark:text-slate-400" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <DataState
-        loading={false}
-        error={error}
-        onRetry={() => {
-          setError(null);
-          setLoading(true);
-          setRefreshKey((k) => k + 1);
-        }}
-      />
-    );
-  }
-
   const feed = feedData;
   const intel = intelData;
   const snap = snapshotData;
 
-  return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono transition-colors"
-      >
-        back
-      </BackLink>
+  const handleRefresh = () => {
+    setLoading(true);
+    setError(null);
+    setRefreshKey((k) => k + 1);
+  };
 
-      <div className="animate-fade-in-up mb-10">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <span className="text-rose-600 dark:text-rose-400">
-            <BarChart3 size={28} />
-          </span>{' '}
-          Analytics &amp; Ops
-        </h1>
-        <p className="text-muted max-w-2xl leading-relaxed">
-          Combined view of platform health, feed reliability, and key intelligence metrics. Data refreshes on each load.
-        </p>
-        <div className="flex items-center gap-3 mt-3">
+  return (
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<BarChart3 size={28} />}
+      title="Analytics &amp; Ops"
+      description="Combined view of platform health, feed reliability, and key intelligence metrics. Data refreshes on each load."
+      loading={loading}
+      error={error}
+      onRetry={handleRefresh}
+      maxWidthClass="max-w-6xl"
+      headerExtra={
+        <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() => {
-              setLoading(true);
-              setError(null);
-              setRefreshKey((k) => k + 1);
-            }}
+            onClick={handleRefresh}
             className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
           >
             <RefreshCw size={11} /> refresh
@@ -242,8 +212,8 @@ export default function AnalyticsDashboard(): JSX.Element {
             </span>
           )}
         </div>
-      </div>
-
+      }
+    >
       {/* ── KPI Row ─────────────────────────────────────────────── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
         <KpiCard
@@ -499,7 +469,7 @@ export default function AnalyticsDashboard(): JSX.Element {
           → Analytics → Workers Analytics Engine.
         </p>
       </section>
-    </div>
+    </DataPageLayout>
   );
 }
 

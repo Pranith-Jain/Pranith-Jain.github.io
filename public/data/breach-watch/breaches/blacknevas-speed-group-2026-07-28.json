@@ -1,0 +1,15 @@
+{
+  "slug": "blacknevas-speed-group-2026-07-28",
+  "title": "Speed Group",
+  "group": "blacknevas",
+  "discovered": "2026-07-28T20:52:05.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Speed ​​Group (speedgroupe.com / speedfrance.fr) is a global leader in the manufacture of synthetic monofilament lines. The company was founded in France over 40 years ago. Today, Speed ​​Group operates four manufacturing plants located in France, the USA, Chile, and South Africa. It specializes in the extrusion of high-quality monofilaments—particularly trimmer lines—and ranks among the world's leading players in this sector. The company also produces technical monofilaments for other industries. Since 2004, it has been part of the Italian Emak Group (Tecomec). Speed ​​Group is renowned for its high product quality, rigorous production controls, and excellent service.Cyber Attack on Speed Group (speedgroupe.com)World leader in monofilament lines manufacturing — Speed Group — has been hit by a cyber attack. Hackers breached the company’s systems and stole confidential data.More than 1 terabytes of information were exfiltrated, including technical documentation, customer databases and production data from factories in France, USA, Chile, and South Africa.The company has not issued an official statement yet. #SpeedGroup #CyberAttack #DataBreach",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["black nevas"],
+  "activity": "Transportation",
+  "references": ["ransomware.live"]
+}

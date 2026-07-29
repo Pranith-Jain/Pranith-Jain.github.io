@@ -1025,11 +1025,11 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'new',
       },
       {
-        path: '/threatintel/tools/kev-catalog',
-        tabId: 'kev-catalog',
+        path: '/threatintel/cves/cves?tab=kev',
+        tabId: 'kev',
         label: 'CISA KEV Catalog',
-        desc: 'Search and filter the CISA Known Exploited Vulnerabilities catalog.',
-        compVar: 'CisaKevCatalog',
+        desc: 'Search and filter the CISA Known Exploited Vulnerabilities catalog (tab of CVE Intel).',
+        compVar: 'CveIntel',
         badge: 'new',
       },
 

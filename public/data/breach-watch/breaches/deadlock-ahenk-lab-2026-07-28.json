@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-ahenk-lab-2026-07-28",
+  "title": "AHENK lab",
+  "group": "Deadlock",
+  "discovered": "2026-07-28T23:50:22.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "Ahenk Laboratuvarı is an ISO 15189-accredited medical laboratory in Turkey, founded in 1998 and located in Istanbul-Şişli. The company offers services in clinical biochemistry, microbiology, pathology, and genetics, and collaborates with Limbach Laboratories in Germany.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

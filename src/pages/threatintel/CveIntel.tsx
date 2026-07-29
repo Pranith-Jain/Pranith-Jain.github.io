@@ -1,4 +1,5 @@
 import { Suspense, lazy, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { TabLoader } from '../../components/ui/TabLoader';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Bug } from 'lucide-react';
@@ -38,7 +39,12 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
 ];
 
 export default function CveIntel(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('all');
+  const [params] = useSearchParams();
+  const [activeTab, setActiveTab] = useState<TabId>(() => {
+    const tab = params.get('tab');
+    if (tab && TABS.some((t) => t.id === tab)) return tab as TabId;
+    return 'all';
+  });
 
   return (
     <DataPageLayout

@@ -169,9 +169,6 @@ const PeAnalyzer = lazy(() => import('./pages/dfir/PeAnalyzer'));
 const WebLogAnalyzer = lazy(() => import('./pages/dfir/WebLogAnalyzer'));
 const PrefetchAnalyzer = lazy(() => import('./pages/dfir/PrefetchAnalyzer'));
 const SubdomainTakeover = lazy(() => import('./pages/dfir/SubdomainTakeover'));
-const FleetMap = lazy(() => import('./pages/dfir/FleetMap'));
-const WordPressSim = lazy(() => import('./pages/dfir/WordPressSim'));
-const RhysidaIntrusion = lazy(() => import('./pages/dfir/RhysidaIntrusion'));
 
 const AiSuite = lazy(() => import('./pages/dfir/AiSuite'));
 const EmlExtractor = lazy(() => import('./pages/dfir/EmlExtractor'));
@@ -205,7 +202,6 @@ const CampaignLifecycle = lazy(() => import('./pages/threatintel/CampaignLifecyc
 const Campaigns = lazy(() => import('./pages/threatintel/Campaigns'));
 const CampaignsReference = lazy(() => import('./pages/threatintel/CampaignsReference'));
 const CertStreamLive = lazy(() => import('./pages/threatintel/CertStreamLive'));
-const CisaKevCatalog = lazy(() => import('./pages/threatintel/CisaKevCatalog'));
 const CloudThreatLandscape = lazy(() => import('./pages/threatintel/CloudThreatLandscape'));
 const Copilot = lazy(() => import('./pages/threatintel/Copilot'));
 const CrossCampaignCorrelation = lazy(() => import('./pages/threatintel/CrossCampaignCorrelation'));
@@ -688,7 +684,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/tools/mcp', Component: McpToolsExplorer },
   { path: '/threatintel/tools/misp', Component: MispBrowser },
   { path: '/threatintel/tools/stix-hub', Component: StixHub },
-  { path: '/threatintel/tools/kev-catalog', Component: CisaKevCatalog },
+  // CisaKevCatalog route moved to redirect below
   { path: '/threatintel/investigation-suite', Component: InvestigationSuite },
   { path: '/threatintel/tools/directory', Component: ToolsDirectory },
   { path: '/threatintel/tools/darknet-intel', Component: DarknetIntel },
@@ -776,15 +772,16 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/dfir/mobile-sqlite', to: '/dfir/sqlite' },
   // ── Merged route redirects ──
   // ── ThreatIntel hub merges ──
-  { path: '/threatintel/actors/directory', to: '/threatintel/actors/hub' },
-  { path: '/threatintel/actors/timeline', to: '/threatintel/actors/hub' },
-  { path: '/threatintel/actors/dna', to: '/threatintel/actors/hub' },
-  { path: '/threatintel/actors/usernames', to: '/threatintel/actors/hub' },
-  { path: '/threatintel/actors/profiles', to: '/threatintel/actors/hub' },
-  { path: '/threatintel/actors/graph', to: '/threatintel/actors/hub' },
-  { path: '/threatintel/darkweb/forums', to: '/threatintel/breach-hub' },
-  { path: '/threatintel/darkweb/disclosures', to: '/threatintel/breach-hub' },
-  { path: '/threatintel/darkweb/breach-watch', to: '/threatintel/breach-hub' },
+  { path: '/threatintel/actors/directory', to: '/threatintel/actors/hub?tab=directory' },
+  { path: '/threatintel/actors/timeline', to: '/threatintel/actors/hub?tab=timeline' },
+  { path: '/threatintel/actors/dna', to: '/threatintel/actors/hub?tab=dna' },
+  { path: '/threatintel/actors/usernames', to: '/threatintel/actors/hub?tab=usernames' },
+  { path: '/threatintel/actors/profiles', to: '/threatintel/actors/hub?tab=profiles' },
+  { path: '/threatintel/actors/graph', to: '/threatintel/actors/hub?tab=graph' },
+  { path: '/threatintel/darkweb/forums', to: '/threatintel/breach-hub?tab=forums' },
+  { path: '/threatintel/darkweb/disclosures', to: '/threatintel/breach-hub?tab=disclosures' },
+  { path: '/threatintel/darkweb/breach-watch', to: '/threatintel/breach-hub?tab=watch' },
+  { path: '/threatintel/tools/kev-catalog', to: '/threatintel/cves?tab=kev' },
   { path: '/threatintel/external/supply', to: '/threatintel/supply-chain' },
   { path: '/threatintel/depx', to: '/threatintel/supply-chain' },
   { path: '/threatintel/malware/supply-chain', to: '/threatintel/supply-chain' },

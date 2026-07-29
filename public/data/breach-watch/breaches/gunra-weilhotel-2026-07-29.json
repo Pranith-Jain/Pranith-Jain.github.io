@@ -1,0 +1,15 @@
+{
+  "slug": "gunra-weilhotel-2026-07-29",
+  "title": "Weilhotel",
+  "group": "gunra",
+  "discovered": "2026-07-29T04:24:37.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "MY",
+  "sizeBytes": 0,
+  "description": "Sector: Hotel | Revenue: US$ 5,000,000",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Hospitality",
+  "references": ["ransomware.live"]
+}
