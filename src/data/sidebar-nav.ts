@@ -304,7 +304,7 @@ function buildThreatIntelSidebar(): SidebarConfig {
   return {
     sectionLabel: 'PANOPTICON',
     groups: [home, ...hubGroups],
-    tone: 'brand',
+    tone: 'rose',
   };
 }
 
