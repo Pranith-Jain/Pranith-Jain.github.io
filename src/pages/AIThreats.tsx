@@ -84,7 +84,7 @@ export default function AIThreats() {
 
   return (
     <DataPageLayout
-      backTo="/threat-intel"
+      backTo="/threatintel"
       backLabel="Threat Intel"
       icon={<Bot />}
       title="AI Threat Actors"

@@ -35,7 +35,6 @@ const Skills = lazy(() => import('./pages/Skills'));
 const Experience = lazy(() => import('./pages/Experience'));
 const McpCatalog = lazy(() => import('./pages/McpCatalog'));
 const Status = lazy(() => import('./pages/Status'));
-const ThreatIntel = lazy(() => import('./pages/ThreatIntel'));
 const DailyBriefs = lazy(() => import('./pages/DailyBriefs'));
 const AIThreats = lazy(() => import('./pages/AIThreats'));
 const OssFeeds = lazy(() => import('./pages/OssFeeds'));
@@ -408,7 +407,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/blog/:slug', Component: BlogPost },
   { path: '/mcp', Component: McpCatalog },
   { path: '/status', Component: Status },
-  { path: '/threat-intel', Component: ThreatIntel },
   { path: '/daily-briefs', Component: DailyBriefs },
   { path: '/dfir/ai-threats', Component: AIThreats },
   { path: '/dfir/oss-feeds', Component: OssFeeds },
@@ -659,7 +657,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/malware/iocs', Component: MalwareIocs },
   { path: '/threatintel/malware/vault', Component: MalwareVault },
   { path: '/threatintel/malware/sandbox', Component: MalwareSandbox },
-  { path: '/threatintel/malware/packages', to: '/threatintel/supply-chain?tab=feed' },
 
   { path: '/threatintel/malware/malpedia', Component: MalpediaPage },
   { path: '/threatintel/malware/maltrail', Component: MaltrailTrails },
@@ -721,6 +718,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
 
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
 const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boolean }> = [
+  { path: '/dfir/tools/core-dfir', to: '/dfir/catalog' },
+  { path: '/threatintel/malware/packages', to: '/threatintel/supply-chain?tab=feed' },
   { path: '/dfir/host', to: '/dfir/asset-intel' },
   // ── Hub merge redirects ──
   { path: '/dfir/decode', to: '/dfir/codec' },
@@ -734,6 +733,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/dfir/agent-map', to: '/dfir/agent-suite' },
   { path: '/agent', to: '/dfir/agent-suite' },
   { path: '/osint', to: '/dfir' },
+  { path: '/threat-intel', to: '/threatintel' },
   { path: '/dfir/reverse-image', to: '/dfir/image-intel' },
   { path: '/dfir/image-fingerprint', to: '/dfir/image-intel' },
   { path: '/dfir/screenshot-intel', to: '/dfir/image-intel' },
