@@ -462,6 +462,7 @@ export default function IocCheck(): JSX.Element {
         <button
           type="button"
           onClick={() => setMode('single')}
+          aria-pressed={mode === 'single'}
           className={
             'text-xs font-mono uppercase tracking-wider px-3 py-1.5 min-h-[44px] sm:min-h-0 inline-flex items-center justify-center ' +
             (mode === 'single'
@@ -474,6 +475,7 @@ export default function IocCheck(): JSX.Element {
         <button
           type="button"
           onClick={() => setMode('bulk')}
+          aria-pressed={mode === 'bulk'}
           className={
             'text-xs font-mono uppercase tracking-wider px-3 py-1.5 min-h-[44px] sm:min-h-0 inline-flex items-center justify-center gap-1 ' +
             (mode === 'bulk'
@@ -481,7 +483,7 @@ export default function IocCheck(): JSX.Element {
               : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300')
           }
         >
-          <Layers size={11} /> Bulk
+          <Layers size={11} aria-hidden="true" /> Bulk
         </button>
       </div>
 
@@ -813,6 +815,7 @@ export default function IocCheck(): JSX.Element {
                       key={f}
                       type="button"
                       onClick={() => setRuleFormat(f)}
+                      aria-pressed={ruleFormat === f}
                       className={`px-3 py-2 rounded-xl text-xs font-mono border transition-colors ${
                         ruleFormat === f
                           ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'

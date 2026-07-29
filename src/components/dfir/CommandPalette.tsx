@@ -552,6 +552,11 @@ export function CommandPalette(): JSX.Element | null {
           <input
             ref={inputRef}
             type="text"
+            role="combobox"
+            aria-expanded={matches.length > 0}
+            aria-controls="cp-listbox"
+            aria-activedescendant={matches.length > 0 ? `cp-option-${activeIdx}` : undefined}
+            aria-autocomplete="list"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={`Search ${fullIndex.length} items - tools, wiki, channels, actors…`}
@@ -559,7 +564,11 @@ export function CommandPalette(): JSX.Element | null {
             aria-label="Search"
           />
           {catalogLoading && (
-            <Loader2 size={14} className="text-slate-500 dark:text-slate-400 animate-spin shrink-0" aria-label="Loading catalog index" />
+            <Loader2
+              size={14}
+              className="text-slate-500 dark:text-slate-400 animate-spin shrink-0"
+              aria-label="Loading catalog index"
+            />
           )}
           <button
             type="button"
@@ -605,7 +614,13 @@ export function CommandPalette(): JSX.Element | null {
           })}
         </div>
 
-        <ul ref={listRef} className="max-h-[55vh] overflow-y-auto py-2">
+        <ul
+          ref={listRef}
+          role="listbox"
+          id="cp-listbox"
+          aria-label="Search results"
+          className="max-h-[55vh] overflow-y-auto py-2"
+        >
           {matches.length === 0 && (
             <li className="px-4 py-3 text-sm font-mono text-slate-500 dark:text-slate-400">
               No matches for "{query}".
@@ -615,7 +630,13 @@ export function CommandPalette(): JSX.Element | null {
             const Icon = m.kind === 'tool' ? TOOL_ICONS.get(m.path) : null;
             const active = idx === activeIdx;
             return (
-              <li key={`${m.kind}:${m.path}`} data-idx={idx}>
+              <li
+                key={`${m.kind}:${m.path}`}
+                role="option"
+                id={`cp-option-${idx}`}
+                aria-selected={active}
+                data-idx={idx}
+              >
                 <button
                   type="button"
                   onClick={() => select(m.path)}
