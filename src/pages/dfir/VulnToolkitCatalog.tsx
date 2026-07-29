@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { Bug, Search, ExternalLink, Shield, ShieldAlert, ShieldCheck, Calendar, Package, Filter } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
 
@@ -1017,6 +1018,126 @@ const ALL_VENDORS = [...new Set(ENTRIES.map((e) => e.vendor))].sort();
 const ALL_TYPES = [...new Set(ENTRIES.map((e) => e.type))].sort();
 const ALL_SEVERITIES = ['critical', 'high', 'medium', 'low'] as const;
 
+const SEVERITY_RANK: Record<VulnEntry['severity'], number> = { critical: 4, high: 3, medium: 2, low: 1 };
+
+const VULN_COLUMNS: DataTableColumn<VulnEntry>[] = [
+  {
+    key: 'cve',
+    header: 'CVE',
+    sortValue: (e) => e.cve,
+    render: (e) => (
+      <>
+        <div className="flex items-center gap-2">
+          <span className="font-semibold text-slate-900 dark:text-slate-100">{e.cve}</span>
+          <CopyChip value={e.cve} />
+          {e.hasExploit && (
+            <span
+              className="text-micro font-mono px-1 py-0.5 rounded bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/30"
+              title="Exploit toolkit available"
+            >
+              EXP
+            </span>
+          )}
+        </div>
+        <p className="text-meta text-slate-500 dark:text-slate-400 mt-1 max-w-md line-clamp-2">{e.description}</p>
+      </>
+    ),
+  },
+  {
+    key: 'product',
+    header: 'Product',
+    sortValue: (e) => e.product,
+    render: (e) => (
+      <div className="flex items-center gap-1.5">
+        <Package size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
+        <span className="text-slate-900 dark:text-slate-100">{e.product}</span>
+      </div>
+    ),
+  },
+  {
+    key: 'vendor',
+    header: 'Vendor',
+    render: (e) => e.vendor,
+    sortValue: (e) => e.vendor,
+    className: 'text-muted',
+  },
+  {
+    key: 'type',
+    header: 'Type',
+    sortValue: (e) => e.type,
+    render: (e) => (
+      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
+        {e.type}
+      </span>
+    ),
+  },
+  {
+    key: 'severity',
+    header: 'Severity',
+    align: 'center',
+    sortValue: (e) => SEVERITY_RANK[e.severity],
+    render: (e) => {
+      const sev = SEVERITY_CONFIG[e.severity]!;
+      const SevIcon = sev.icon;
+      return (
+        <span className={`inline-flex items-center gap-1 text-micro font-mono px-1.5 py-0.5 rounded border ${sev.cls}`}>
+          <SevIcon size={10} /> {sev.label}
+        </span>
+      );
+    },
+  },
+  {
+    key: 'cvss',
+    header: 'CVSS',
+    align: 'right',
+    sortValue: (e) => e.cvss ?? 0,
+    render: (e) => (
+      <span
+        className={`font-semibold ${
+          (e.cvss ?? 0) >= 9
+            ? 'text-rose-600 dark:text-rose-400'
+            : (e.cvss ?? 0) >= 7
+              ? 'text-orange-600 dark:text-orange-400'
+              : 'text-muted'
+        }`}
+      >
+        {e.cvss?.toFixed(1) ?? '-'}
+      </span>
+    ),
+  },
+  {
+    key: 'published',
+    header: 'Published',
+    sortValue: (e) => e.published,
+    className: 'text-slate-500 dark:text-slate-400',
+    render: (e) => (
+      <div className="flex items-center gap-1">
+        <Calendar size={11} className="shrink-0" />
+        {e.published}
+      </div>
+    ),
+  },
+  {
+    key: 'advisories',
+    header: 'Advisories',
+    render: (e) => (
+      <div className="flex flex-wrap gap-1">
+        {e.advisories.map((a) => (
+          <a
+            key={a.url}
+            href={a.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+          >
+            {a.label} <ExternalLink size={8} />
+          </a>
+        ))}
+      </div>
+    ),
+  },
+];
+
 export default function VulnToolkitCatalog(): JSX.Element {
   const [searchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('q') ?? '');
@@ -1211,107 +1332,7 @@ export default function VulnToolkitCatalog(): JSX.Element {
       </p>
 
       {/* Table */}
-      <div className="surface-card overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm font-mono">
-            <thead>
-              <tr className="text-micro text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]">
-                <th className="text-left py-3 px-4">CVE</th>
-                <th className="text-left py-3 px-4">Product</th>
-                <th className="text-left py-3 px-4">Vendor</th>
-                <th className="text-left py-3 px-4">Type</th>
-                <th className="text-center py-3 px-4">Severity</th>
-                <th className="text-right py-3 px-4">CVSS</th>
-                <th className="text-left py-3 px-4">Published</th>
-                <th className="text-left py-3 px-4">Advisories</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((e) => {
-                const sev = SEVERITY_CONFIG[e.severity]!;
-                const SevIcon = sev.icon;
-                return (
-                  <tr
-                    key={e.id}
-                    className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)] transition-colors"
-                  >
-                    <td className="py-3 px-4">
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold text-slate-900 dark:text-slate-100">{e.cve}</span>
-                        <CopyChip value={e.cve} />
-                        {e.hasExploit && (
-                          <span
-                            className="text-micro font-mono px-1 py-0.5 rounded bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/30"
-                            title="Exploit toolkit available"
-                          >
-                            EXP
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-meta text-slate-500 dark:text-slate-400 mt-1 max-w-md line-clamp-2">
-                        {e.description}
-                      </p>
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="flex items-center gap-1.5">
-                        <Package size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
-                        <span className="text-slate-900 dark:text-slate-100">{e.product}</span>
-                      </div>
-                    </td>
-                    <td className="py-3 px-4 text-muted">{e.vendor}</td>
-                    <td className="py-3 px-4">
-                      <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted">
-                        {e.type}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 text-center">
-                      <span
-                        className={`inline-flex items-center gap-1 text-micro font-mono px-1.5 py-0.5 rounded border ${sev.cls}`}
-                      >
-                        <SevIcon size={10} /> {sev.label}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 text-right">
-                      <span
-                        className={`font-semibold ${
-                          (e.cvss ?? 0) >= 9
-                            ? 'text-rose-600 dark:text-rose-400'
-                            : (e.cvss ?? 0) >= 7
-                              ? 'text-orange-600 dark:text-orange-400'
-                              : 'text-muted'
-                        }`}
-                      >
-                        {e.cvss?.toFixed(1) ?? '-'}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
-                      <div className="flex items-center gap-1">
-                        <Calendar size={11} className="shrink-0" />
-                        {e.published}
-                      </div>
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="flex flex-wrap gap-1">
-                        {e.advisories.map((a) => (
-                          <a
-                            key={a.url}
-                            href={a.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-                          >
-                            {a.label} <ExternalLink size={8} />
-                          </a>
-                        ))}
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <DataTable rows={filtered} rowKey={(e) => e.id} columns={VULN_COLUMNS} className="font-mono" />
 
       {filtered.length === 0 && (
         <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-6 text-center">
