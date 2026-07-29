@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 import { SEVERITY_TONE, SEVERITY_BAR } from '../../components/severity';
 import {
@@ -180,595 +180,600 @@ export default function SecretLeaks(): JSX.Element {
   }
 
   return (
-    <div className="max-w-full px-4 sm:px-8 py-12 text-slate-900 dark:text-white">
-      <div className="max-w-7xl mx-auto">
-        <BackLink
-          to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
-        >
-          back to Threat Intel
-        </BackLink>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Key size={28} />}
+      title="Secret Leak Dashboard"
+      description={
+        <>
+          Real-time monitoring of exposed API keys, tokens, and credentials in public repositories. Inspired by{' '}
+          <a
+            href="https://x3r0day.me/WebShame/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
+          >
+            WebShame
+          </a>
+          &mdash; public metadata only, keys always masked.
+        </>
+      }
+      maxWidthClass="max-w-7xl"
+      headerExtra={
+        data && (
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-micro font-mono uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            live
+          </span>
+        )
+      }
+    >
+      {/* Tabs */}
+      <div
+        role="tablist"
+        aria-label="Tabs"
+        className="flex gap-1 mb-8 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
+      >
+        {tabs.map((t) => (
+          <button
+            key={t.id}
+            role="tab"
+            type="button"
+            onClick={() => {
+              setTab(t.id);
+              setPage(1);
+            }}
+            className={`flex items-center gap-2 px-4 py-2.5 text-sm font-mono border-b-2 transition-colors ${
+              tab === t.id
+                ? 'border-rose-500 text-rose-600 dark:text-rose-400'
+                : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-white'
+            }`}
+          >
+            <t.icon size={14} />
+            {t.label}
+          </button>
+        ))}
+      </div>
 
-        {/* Header */}
-        <div className="animate-fade-in-up mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <Key className="text-rose-500" size={28} />
-            <h1 className="text-3xl sm:text-4xl font-display font-bold">Secret Leak Dashboard</h1>
-            {data && (
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-micro font-mono uppercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                live
-              </span>
-            )}
-          </div>
-          <p className="text-muted mb-2 max-w-3xl">
-            Real-time monitoring of exposed API keys, tokens, and credentials in public repositories. Inspired by{' '}
-            <a
-              href="https://x3r0day.me/WebShame/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
-            >
-              WebShame
-            </a>{' '}
-            &mdash; public metadata only, keys always masked.
-          </p>
-          {data?.generated_at && (
-            <p className="text-micro font-mono text-slate-500 dark:text-slate-400">
-              last scan: {new Date(data.generated_at).toLocaleString()}
-            </p>
-          )}
-        </div>
-
-        {/* Tabs */}
-        <div role="tablist" aria-label="Tabs" className="flex gap-1 mb-8 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-          {tabs.map((t) => (
-            <button
-              key={t.id} role="tab"
-              type="button"
-              onClick={() => {
-                setTab(t.id);
-                setPage(1);
-              }}
-              className={`flex items-center gap-2 px-4 py-2.5 text-sm font-mono border-b-2 transition-colors ${
-                tab === t.id
-                  ? 'border-rose-500 text-rose-600 dark:text-rose-400'
-                  : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-white'
-              }`}
-            >
-              <t.icon size={14} />
-              {t.label}
-            </button>
-          ))}
-        </div>
-
-        <DataState
-          loading={loading}
-          error={error}
-          empty={!loading && !error && leaks.length === 0}
-          emptyLabel="No leaks detected in the latest scan"
-          onRetry={() => setRefreshKey((k) => k + 1)}
-        >
-          {/* ── Overview Tab ────────────────────────────────────────────── */}
-          {tab === 'overview' && (
-            <div className="space-y-8 animate-fade-in-up">
-              {/* Mission */}
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-6">
-                  <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-2">
-                    The Mission
-                  </p>
-                  <h2 className="text-xl font-display font-bold mb-3">Visibility that helps teams defend fast.</h2>
-                  <p className="text-sm text-muted mb-4">
-                    We surface public metadata so defenders can respond quickly without retaining code.
-                  </p>
-                  <ul className="space-y-2 text-sm text-muted">
-                    {[
-                      'Secrets leak to public repos daily.',
-                      'Attackers exploit instantly. Visibility enables defense.',
-                      'No code retention. Public metadata only. Keys are always masked.',
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <Shield size={14} className="text-rose-500 mt-0.5 flex-shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-sm font-display font-semibold">Leak Anatomy</h3>
+      <DataState
+        loading={loading}
+        error={error}
+        empty={!loading && !error && leaks.length === 0}
+        emptyLabel="No leaks detected in the latest scan"
+        onRetry={() => setRefreshKey((k) => k + 1)}
+      >
+        {/* ── Overview Tab ────────────────────────────────────────────── */}
+        {tab === 'overview' && (
+          <div className="space-y-8 animate-fade-in-up">
+            {/* Mission */}
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-6">
+                <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-2">
+                  The Mission
+                </p>
+                <h2 className="text-xl font-display font-bold mb-3">Visibility that helps teams defend fast.</h2>
+                <p className="text-sm text-muted mb-4">
+                  We surface public metadata so defenders can respond quickly without retaining code.
+                </p>
+                <ul className="space-y-2 text-sm text-muted">
                   {[
-                    { label: 'Provider', desc: 'Service or API type detected.' },
-                    { label: 'Redacted Key', desc: 'Masked preview only.' },
-                    { label: 'Repository', desc: 'Repo and owner details when public.' },
-                    { label: 'Timestamp', desc: 'Most recent scan time for context.' },
-                    { label: 'Source Link', desc: 'Public link for responsible follow-up.' },
+                    'Secrets leak to public repos daily.',
+                    'Attackers exploit instantly. Visibility enables defense.',
+                    'No code retention. Public metadata only. Keys are always masked.',
                   ].map((item) => (
-                    <div
-                      key={item.label} role="tab"
-                      className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
-                    >
-                      <span className="text-xs font-mono font-semibold text-rose-600 dark:text-rose-400 w-24 flex-shrink-0">
-                        {item.label}
-                      </span>
-                      <span className="text-sm text-muted">{item.desc}</span>
-                    </div>
+                    <li key={item} className="flex items-start gap-2">
+                      <Shield size={14} className="text-rose-500 mt-0.5 flex-shrink-0" />
+                      {item}
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
 
-              {/* Quick stats */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="space-y-4">
+                <h3 className="text-sm font-display font-semibold">Leak Anatomy</h3>
                 {[
-                  { label: 'Leaks Found', value: stats.totalSecrets.toLocaleString(), icon: Bug },
-                  { label: 'Repos Affected', value: stats.leakedRepos.toLocaleString(), icon: FileWarning },
-                  { label: 'Providers', value: stats.providers.toString(), icon: Globe },
-                  { label: 'Repos Scanned', value: stats.reposScanned.toLocaleString(), icon: Search },
-                ].map((s) => (
+                  { label: 'Provider', desc: 'Service or API type detected.' },
+                  { label: 'Redacted Key', desc: 'Masked preview only.' },
+                  { label: 'Repository', desc: 'Repo and owner details when public.' },
+                  { label: 'Timestamp', desc: 'Most recent scan time for context.' },
+                  { label: 'Source Link', desc: 'Public link for responsible follow-up.' },
+                ].map((item) => (
                   <div
-                    key={s.label} role="tab"
-                    className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4"
+                    key={item.label}
+                    role="tab"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
                   >
-                    <div className="flex items-center gap-2 mb-2">
-                      <s.icon size={14} className="text-slate-500 dark:text-slate-400" />
-                      <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">{s.label}</span>
-                    </div>
-                    <div className="text-2xl font-mono font-bold">{s.value}</div>
+                    <span className="text-xs font-mono font-semibold text-rose-600 dark:text-rose-400 w-24 flex-shrink-0">
+                      {item.label}
+                    </span>
+                    <span className="text-sm text-muted">{item.desc}</span>
                   </div>
                 ))}
               </div>
-
-              {/* CTA to Live tab */}
-              <div className="text-center">
-                <button
-                  type="button"
-                  onClick={() => setTab('live')}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-rose-600 text-white rounded-xl font-mono text-sm hover:bg-rose-700 transition-colors"
-                >
-                  <Key size={16} /> View Live Leaks
-                </button>
-              </div>
-
-              {/* Related research - secret-leak pattern references */}
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                <a
-                  href="/threatintel/redhunt-labs"
-                  className="group flex items-start gap-3 surface-card p-4 hover:border-rose-500/60 hover:shadow-e2 transition-all"
-                >
-                  <FlaskConical className="mt-0.5 h-5 w-5 shrink-0 text-rose-600 dark:text-rose-400" />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
-                      Related research
-                    </p>
-                    <h3 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400">
-                      RedHunt Labs Research
-                    </h3>
-                    <p className="mt-1 text-xs text-muted leading-relaxed">
-                      Open-source security tools from RedHunt Labs (Datasploit, BucketLoot, Octopii, KubeStalk, RedHunt
-                      OS and more), plus the Project Resonance internet-wide research initiative. Many of their tools
-                      are directly relevant to secret-leak and exposure research.
-                    </p>
-                    <p className="mt-1 inline-flex items-center gap-1 text-micro font-mono text-rose-600 dark:text-rose-400">
-                      open the mirror <ExternalLink className="h-3 w-3" />
-                    </p>
-                  </div>
-                </a>
-                <a
-                  href="https://research.redhuntlabs.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-start gap-3 surface-card p-4 hover:border-rose-500/60 hover:shadow-e2 transition-all"
-                >
-                  <Bug className="mt-0.5 h-5 w-5 shrink-0 text-rose-600 dark:text-rose-400" />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
-                      Upstream
-                    </p>
-                    <h3 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400">
-                      research.redhuntlabs.com
-                    </h3>
-                    <p className="mt-1 text-xs text-muted leading-relaxed">
-                      The canonical RedHunt Labs Research site. ASM, Project Resonance, downloadable datasets, and the
-                      full tools catalog.
-                    </p>
-                    <p className="mt-1 inline-flex items-center gap-1 text-micro font-mono text-rose-600 dark:text-rose-400">
-                      open external <ExternalLink className="h-3 w-3" />
-                    </p>
-                  </div>
-                </a>
-                <a
-                  href="/threatintel/redhunt-insights"
-                  className="group flex items-start gap-3 surface-card p-4 hover:border-rose-500/60 hover:shadow-e2 transition-all"
-                >
-                  <Activity className="mt-0.5 h-5 w-5 shrink-0 text-rose-600 dark:text-rose-400" />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
-                      Live analytics
-                    </p>
-                    <h3 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400">
-                      RedHunt Internet Insights
-                    </h3>
-                    <p className="mt-1 text-xs text-muted leading-relaxed">
-                      Live internet-wide exposure dashboard - 7.6B+ subdomains, 11B+ commits, 14M+ secrets, and 6-week
-                      growth charts across GitHub, GitLab, BitBucket, DockerHub, APKs, and Postman. Auto-refreshes every
-                      minute.
-                    </p>
-                    <p className="mt-1 inline-flex items-center gap-1 text-micro font-mono text-rose-600 dark:text-rose-400">
-                      open live dashboard <ExternalLink className="h-3 w-3" />
-                    </p>
-                  </div>
-                </a>
-              </div>
             </div>
-          )}
 
-          {/* ── Live Keys Tab ───────────────────────────────────────────── */}
-          {tab === 'live' && (
-            <div className="space-y-6 animate-fade-in-up">
-              {/* Filters */}
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                <label className="flex flex-col gap-1">
-                  <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Search</span>
-                  <div className="relative">
-                    <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
-                    <input
-                      type="search"
-                      value={query}
-                      onChange={(e) => {
-                        setQuery(e.target.value);
-                        setPage(1);
-                      }}
-                      placeholder="Repo, file, provider..."
-                      className="w-full pl-8 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
-                    />
+            {/* Quick stats */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {[
+                { label: 'Leaks Found', value: stats.totalSecrets.toLocaleString(), icon: Bug },
+                { label: 'Repos Affected', value: stats.leakedRepos.toLocaleString(), icon: FileWarning },
+                { label: 'Providers', value: stats.providers.toString(), icon: Globe },
+                { label: 'Repos Scanned', value: stats.reposScanned.toLocaleString(), icon: Search },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  role="tab"
+                  className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <s.icon size={14} className="text-slate-500 dark:text-slate-400" />
+                    <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">{s.label}</span>
                   </div>
-                </label>
-                <label className="flex flex-col gap-1">
-                  <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Severity</span>
-                  <select
-                    value={severityFilter}
-                    onChange={(e) => {
-                      setSeverityFilter(e.target.value as Severity | 'all');
-                      setPage(1);
-                    }}
-                    className="py-2 px-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-rose-500"
-                  >
-                    <option value="all">All levels</option>
-                    <option value="critical">Critical</option>
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                  </select>
-                </label>
-                <label className="flex flex-col gap-1">
-                  <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Provider</span>
-                  <select
-                    value={providerFilter}
-                    onChange={(e) => {
-                      setProviderFilter(e.target.value);
-                      setPage(1);
-                    }}
-                    className="py-2 px-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-rose-500"
-                  >
-                    <option value="all">All providers</option>
-                    {providers.map((p) => (
-                      <option key={p} value={p}>
-                        {p}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label className="flex flex-col gap-1">
-                  <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Source</span>
-                  <select
-                    value={sourceFilter}
-                    onChange={(e) => {
-                      setSourceFilter(e.target.value as 'all' | Source);
-                      setPage(1);
-                    }}
-                    className="py-2 px-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-rose-500"
-                  >
-                    <option value="all">Files and commits</option>
-                    <option value="file">Files only</option>
-                    <option value="commit">Commit history</option>
-                  </select>
-                </label>
-                <label className="flex flex-col gap-1">
-                  <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Sort</span>
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                    className="py-2 px-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-rose-500"
-                  >
-                    <option value="score">Exposure score</option>
-                    <option value="secrets">Secret count</option>
-                    <option value="repo">Repo name</option>
-                    <option value="scan">Fastest scan</option>
-                  </select>
-                </label>
-              </div>
-
-              {/* Results */}
-              <div className="flex items-center justify-between text-xs font-mono text-slate-500">
-                <span>{filtered.length} results</span>
-                <span>
-                  Page {page} of {totalPages}
-                </span>
-              </div>
-
-              {paged.length === 0 ? (
-                <div className="text-center py-12">
-                  <h3 className="text-lg font-display font-semibold text-slate-500 dark:text-slate-400">No matches.</h3>
+                  <div className="text-2xl font-mono font-bold">{s.value}</div>
                 </div>
-              ) : (
-                <div className="space-y-3">
-                  {paged.map((leak) => {
-                    const SevIcon = SEV_ICON[leak.severity];
-                    return (
-                      <div
-                        key={leak.id} role="tab"
-                        className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 hover:border-rose-500/40 transition-colors"
-                      >
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="min-w-0 flex-1">
-                            <div className="flex items-center gap-2 mb-1">
-                              <span
-                                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-micro font-mono font-semibold border ${SEVERITY_TONE[leak.severity]}`}
-                              >
-                                <SevIcon size={10} />
-                                {leak.severity}
-                              </span>
-                              <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{leak.provider}</span>
-                              <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
-                                {leak.source === 'file' ? 'File' : 'Commit'}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className="text-sm font-mono font-semibold text-slate-900 dark:text-white">
-                                {leak.owner}/{leak.repo}
-                              </span>
-                              <span className="text-xs text-slate-500 dark:text-slate-400">/</span>
-                              <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{leak.file}</span>
-                            </div>
-                            <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
-                              <span>
-                                Key:{' '}
-                                <code className="bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1.5 py-0.5 rounded">
-                                  {leak.redactedKey}
-                                </code>
-                              </span>
-                              <button
-                                type="button"
-                                onClick={() => copyKey(leak.redactedKey)}
-                                className="inline-flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
-                                title="Copy redacted key"
-                              >
-                                <Copy size={10} />
-                                {copied === leak.redactedKey ? 'Copied!' : 'Copy'}
-                              </button>
-                              <span>{new Date(leak.timestamp).toLocaleString()}</span>
-                            </div>
-                          </div>
-                          <div className="text-right flex-shrink-0">
-                            <div
-                              className={`text-2xl font-mono font-bold ${SEVERITY_TEXT[scoreSeverity(leak.exposureScore)]}`}
+              ))}
+            </div>
+
+            {/* CTA to Live tab */}
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={() => setTab('live')}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-rose-600 text-white rounded-xl font-mono text-sm hover:bg-rose-700 transition-colors"
+              >
+                <Key size={16} /> View Live Leaks
+              </button>
+            </div>
+
+            {/* Related research - secret-leak pattern references */}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <a
+                href="/threatintel/redhunt-labs"
+                className="group flex items-start gap-3 surface-card p-4 hover:border-rose-500/60 hover:shadow-e2 transition-all"
+              >
+                <FlaskConical className="mt-0.5 h-5 w-5 shrink-0 text-rose-600 dark:text-rose-400" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
+                    Related research
+                  </p>
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400">
+                    RedHunt Labs Research
+                  </h3>
+                  <p className="mt-1 text-xs text-muted leading-relaxed">
+                    Open-source security tools from RedHunt Labs (Datasploit, BucketLoot, Octopii, KubeStalk, RedHunt OS
+                    and more), plus the Project Resonance internet-wide research initiative. Many of their tools are
+                    directly relevant to secret-leak and exposure research.
+                  </p>
+                  <p className="mt-1 inline-flex items-center gap-1 text-micro font-mono text-rose-600 dark:text-rose-400">
+                    open the mirror <ExternalLink className="h-3 w-3" />
+                  </p>
+                </div>
+              </a>
+              <a
+                href="https://research.redhuntlabs.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-start gap-3 surface-card p-4 hover:border-rose-500/60 hover:shadow-e2 transition-all"
+              >
+                <Bug className="mt-0.5 h-5 w-5 shrink-0 text-rose-600 dark:text-rose-400" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
+                    Upstream
+                  </p>
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400">
+                    research.redhuntlabs.com
+                  </h3>
+                  <p className="mt-1 text-xs text-muted leading-relaxed">
+                    The canonical RedHunt Labs Research site. ASM, Project Resonance, downloadable datasets, and the
+                    full tools catalog.
+                  </p>
+                  <p className="mt-1 inline-flex items-center gap-1 text-micro font-mono text-rose-600 dark:text-rose-400">
+                    open external <ExternalLink className="h-3 w-3" />
+                  </p>
+                </div>
+              </a>
+              <a
+                href="/threatintel/redhunt-insights"
+                className="group flex items-start gap-3 surface-card p-4 hover:border-rose-500/60 hover:shadow-e2 transition-all"
+              >
+                <Activity className="mt-0.5 h-5 w-5 shrink-0 text-rose-600 dark:text-rose-400" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-micro font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400">
+                    Live analytics
+                  </p>
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400">
+                    RedHunt Internet Insights
+                  </h3>
+                  <p className="mt-1 text-xs text-muted leading-relaxed">
+                    Live internet-wide exposure dashboard - 7.6B+ subdomains, 11B+ commits, 14M+ secrets, and 6-week
+                    growth charts across GitHub, GitLab, BitBucket, DockerHub, APKs, and Postman. Auto-refreshes every
+                    minute.
+                  </p>
+                  <p className="mt-1 inline-flex items-center gap-1 text-micro font-mono text-rose-600 dark:text-rose-400">
+                    open live dashboard <ExternalLink className="h-3 w-3" />
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        )}
+
+        {/* ── Live Keys Tab ───────────────────────────────────────────── */}
+        {tab === 'live' && (
+          <div className="space-y-6 animate-fade-in-up">
+            {/* Filters */}
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+              <label className="flex flex-col gap-1">
+                <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Search</span>
+                <div className="relative">
+                  <Search
+                    size={14}
+                    className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+                  />
+                  <input
+                    type="search"
+                    value={query}
+                    onChange={(e) => {
+                      setQuery(e.target.value);
+                      setPage(1);
+                    }}
+                    placeholder="Repo, file, provider..."
+                    className="w-full pl-8 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
+                  />
+                </div>
+              </label>
+              <label className="flex flex-col gap-1">
+                <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Severity</span>
+                <select
+                  value={severityFilter}
+                  onChange={(e) => {
+                    setSeverityFilter(e.target.value as Severity | 'all');
+                    setPage(1);
+                  }}
+                  className="py-2 px-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-rose-500"
+                >
+                  <option value="all">All levels</option>
+                  <option value="critical">Critical</option>
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              </label>
+              <label className="flex flex-col gap-1">
+                <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Provider</span>
+                <select
+                  value={providerFilter}
+                  onChange={(e) => {
+                    setProviderFilter(e.target.value);
+                    setPage(1);
+                  }}
+                  className="py-2 px-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-rose-500"
+                >
+                  <option value="all">All providers</option>
+                  {providers.map((p) => (
+                    <option key={p} value={p}>
+                      {p}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="flex flex-col gap-1">
+                <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Source</span>
+                <select
+                  value={sourceFilter}
+                  onChange={(e) => {
+                    setSourceFilter(e.target.value as 'all' | Source);
+                    setPage(1);
+                  }}
+                  className="py-2 px-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-rose-500"
+                >
+                  <option value="all">Files and commits</option>
+                  <option value="file">Files only</option>
+                  <option value="commit">Commit history</option>
+                </select>
+              </label>
+              <label className="flex flex-col gap-1">
+                <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">Sort</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+                  className="py-2 px-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:border-rose-500"
+                >
+                  <option value="score">Exposure score</option>
+                  <option value="secrets">Secret count</option>
+                  <option value="repo">Repo name</option>
+                  <option value="scan">Fastest scan</option>
+                </select>
+              </label>
+            </div>
+
+            {/* Results */}
+            <div className="flex items-center justify-between text-xs font-mono text-slate-500">
+              <span>{filtered.length} results</span>
+              <span>
+                Page {page} of {totalPages}
+              </span>
+            </div>
+
+            {paged.length === 0 ? (
+              <div className="text-center py-12">
+                <h3 className="text-lg font-display font-semibold text-slate-500 dark:text-slate-400">No matches.</h3>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {paged.map((leak) => {
+                  const SevIcon = SEV_ICON[leak.severity];
+                  return (
+                    <div
+                      key={leak.id}
+                      role="tab"
+                      className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-4 hover:border-rose-500/40 transition-colors"
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span
+                              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-micro font-mono font-semibold border ${SEVERITY_TONE[leak.severity]}`}
                             >
-                              {leak.exposureScore}
-                            </div>
-                            <div className="text-micro font-mono text-slate-500 dark:text-slate-400">exposure</div>
-                            <div className="text-xs font-mono text-slate-500 mt-1">
-                              {leak.secretCount} secret{leak.secretCount > 1 ? 's' : ''}
-                            </div>
+                              <SevIcon size={10} />
+                              {leak.severity}
+                            </span>
+                            <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                              {leak.provider}
+                            </span>
+                            <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
+                              {leak.source === 'file' ? 'File' : 'Commit'}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-sm font-mono font-semibold text-slate-900 dark:text-white">
+                              {leak.owner}/{leak.repo}
+                            </span>
+                            <span className="text-xs text-slate-500 dark:text-slate-400">/</span>
+                            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{leak.file}</span>
+                          </div>
+                          <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
+                            <span>
+                              Key:{' '}
+                              <code className="bg-slate-100 dark:bg-[rgb(var(--surface-300))] px-1.5 py-0.5 rounded">
+                                {leak.redactedKey}
+                              </code>
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => copyKey(leak.redactedKey)}
+                              className="inline-flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
+                              title="Copy redacted key"
+                            >
+                              <Copy size={10} />
+                              {copied === leak.redactedKey ? 'Copied!' : 'Copy'}
+                            </button>
+                            <span>{new Date(leak.timestamp).toLocaleString()}</span>
+                          </div>
+                        </div>
+                        <div className="text-right flex-shrink-0">
+                          <div
+                            className={`text-2xl font-mono font-bold ${SEVERITY_TEXT[scoreSeverity(leak.exposureScore)]}`}
+                          >
+                            {leak.exposureScore}
+                          </div>
+                          <div className="text-micro font-mono text-slate-500 dark:text-slate-400">exposure</div>
+                          <div className="text-xs font-mono text-slate-500 mt-1">
+                            {leak.secretCount} secret{leak.secretCount > 1 ? 's' : ''}
                           </div>
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
-              )}
-
-              {/* Pagination */}
-              {totalPages > 1 && (
-                <div className="flex items-center justify-between pt-4">
-                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
-                    Page {page} of {totalPages}
-                  </span>
-                  <div className="flex gap-2">
-                    <button
-                      type="button"
-                      disabled={page <= 1}
-                      onClick={() => setPage((p) => Math.max(1, p - 1))}
-                      className="px-3 py-1.5 text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-muted hover:border-rose-500/40 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                    >
-                      Prev
-                    </button>
-                    <button
-                      type="button"
-                      disabled={page >= totalPages}
-                      onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                      className="px-3 py-1.5 text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-muted hover:border-rose-500/40 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                    >
-                      Next
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* ── Leaderboard Tab ─────────────────────────────────────────── */}
-          {tab === 'leaderboard' && (
-            <div className="space-y-8 animate-fade-in-up">
-              {/* Stats */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {[
-                  {
-                    label: 'Leaks Found',
-                    value: stats.totalSecrets.toLocaleString(),
-                    sub: 'Total exposed secrets',
-                    icon: Bug,
-                  },
-                  {
-                    label: 'Repos With Leaks',
-                    value: stats.leakedRepos.toLocaleString(),
-                    sub: 'Repositories affected',
-                    icon: FileWarning,
-                  },
-                  {
-                    label: 'Providers Detected',
-                    value: stats.providers.toString(),
-                    sub: 'Unique secret types',
-                    icon: Globe,
-                  },
-                  {
-                    label: 'Repos Scanned',
-                    value: stats.reposScanned.toLocaleString(),
-                    sub: 'Latest crawl size',
-                    icon: Search,
-                  },
-                ].map((s) => (
-                  <div
-                    key={s.label} role="tab"
-                    className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5"
-                  >
-                    <div className="flex items-center gap-2 mb-3">
-                      <s.icon size={14} className="text-slate-500 dark:text-slate-400" />
-                      <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">{s.label}</span>
                     </div>
-                    <div className="text-3xl font-mono font-bold mb-1">{s.value}</div>
-                    <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{s.sub}</div>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-between pt-4">
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                  Page {page} of {totalPages}
+                </span>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    disabled={page <= 1}
+                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                    className="px-3 py-1.5 text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-muted hover:border-rose-500/40 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                  >
+                    Prev
+                  </button>
+                  <button
+                    type="button"
+                    disabled={page >= totalPages}
+                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                    className="px-3 py-1.5 text-xs font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-muted hover:border-rose-500/40 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── Leaderboard Tab ─────────────────────────────────────────── */}
+        {tab === 'leaderboard' && (
+          <div className="space-y-8 animate-fade-in-up">
+            {/* Stats */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {[
+                {
+                  label: 'Leaks Found',
+                  value: stats.totalSecrets.toLocaleString(),
+                  sub: 'Total exposed secrets',
+                  icon: Bug,
+                },
+                {
+                  label: 'Repos With Leaks',
+                  value: stats.leakedRepos.toLocaleString(),
+                  sub: 'Repositories affected',
+                  icon: FileWarning,
+                },
+                {
+                  label: 'Providers Detected',
+                  value: stats.providers.toString(),
+                  sub: 'Unique secret types',
+                  icon: Globe,
+                },
+                {
+                  label: 'Repos Scanned',
+                  value: stats.reposScanned.toLocaleString(),
+                  sub: 'Latest crawl size',
+                  icon: Search,
+                },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  role="tab"
+                  className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <s.icon size={14} className="text-slate-500 dark:text-slate-400" />
+                    <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">{s.label}</span>
+                  </div>
+                  <div className="text-3xl font-mono font-bold mb-1">{s.value}</div>
+                  <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{s.sub}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Severity Mix */}
+            <div className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="text-sm font-display font-semibold">Leak Mix</h3>
+                  <p className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                    Severity share in the latest scan
+                  </p>
+                </div>
+                <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
+                  {stats.totalSecrets.toLocaleString()} secrets
+                </span>
+              </div>
+              <div className="flex h-3 rounded-full overflow-hidden mb-3">
+                <span
+                  style={{
+                    width: `${((data?.severity_mix.critical ?? 0) / Math.max(1, stats.totalSecrets)) * 100}%`,
+                  }}
+                  className={SEVERITY_BAR.critical}
+                />
+                <span
+                  style={{ width: `${((data?.severity_mix.high ?? 0) / Math.max(1, stats.totalSecrets)) * 100}%` }}
+                  className={SEVERITY_BAR.high}
+                />
+                <span
+                  style={{ width: `${((data?.severity_mix.medium ?? 0) / Math.max(1, stats.totalSecrets)) * 100}%` }}
+                  className={SEVERITY_BAR.medium}
+                />
+                <span
+                  style={{ width: `${((data?.severity_mix.low ?? 0) / Math.max(1, stats.totalSecrets)) * 100}%` }}
+                  className={SEVERITY_BAR.low}
+                />
+              </div>
+              <div className="flex flex-wrap gap-4 text-xs font-mono">
+                {[
+                  { label: 'Critical', count: data?.severity_mix.critical ?? 0, color: SEVERITY_BAR.critical },
+                  { label: 'High', count: data?.severity_mix.high ?? 0, color: SEVERITY_BAR.high },
+                  { label: 'Medium', count: data?.severity_mix.medium ?? 0, color: SEVERITY_BAR.medium },
+                  { label: 'Low', count: data?.severity_mix.low ?? 0, color: SEVERITY_BAR.low },
+                ].map((s) => (
+                  <div key={s.label} className="flex items-center gap-1.5">
+                    <span className={`w-2 h-2 rounded-full ${s.color}`} />
+                    <span className="text-slate-500">{s.label}</span>
+                    <strong className="text-slate-700 dark:text-slate-300">{s.count.toLocaleString()}</strong>
                   </div>
                 ))}
               </div>
+            </div>
 
-              {/* Severity Mix */}
+            {/* Rankings */}
+            <div className="grid sm:grid-cols-3 gap-6">
+              {/* Top Providers */}
               <div className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-sm font-display font-semibold">Leak Mix</h3>
-                    <p className="text-micro font-mono text-slate-500 dark:text-slate-400">Severity share in the latest scan</p>
-                  </div>
-                  <span className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500">
-                    {stats.totalSecrets.toLocaleString()} secrets
-                  </span>
+                <div className="mb-4">
+                  <h3 className="text-sm font-display font-semibold">Most Exposed Providers</h3>
+                  <p className="text-micro font-mono text-slate-500 dark:text-slate-400">Top secret types by count</p>
                 </div>
-                <div className="flex h-3 rounded-full overflow-hidden mb-3">
-                  <span
-                    style={{
-                      width: `${((data?.severity_mix.critical ?? 0) / Math.max(1, stats.totalSecrets)) * 100}%`,
-                    }}
-                    className={SEVERITY_BAR.critical}
-                  />
-                  <span
-                    style={{ width: `${((data?.severity_mix.high ?? 0) / Math.max(1, stats.totalSecrets)) * 100}%` }}
-                    className={SEVERITY_BAR.high}
-                  />
-                  <span
-                    style={{ width: `${((data?.severity_mix.medium ?? 0) / Math.max(1, stats.totalSecrets)) * 100}%` }}
-                    className={SEVERITY_BAR.medium}
-                  />
-                  <span
-                    style={{ width: `${((data?.severity_mix.low ?? 0) / Math.max(1, stats.totalSecrets)) * 100}%` }}
-                    className={SEVERITY_BAR.low}
-                  />
-                </div>
-                <div className="flex flex-wrap gap-4 text-xs font-mono">
-                  {[
-                    { label: 'Critical', count: data?.severity_mix.critical ?? 0, color: SEVERITY_BAR.critical },
-                    { label: 'High', count: data?.severity_mix.high ?? 0, color: SEVERITY_BAR.high },
-                    { label: 'Medium', count: data?.severity_mix.medium ?? 0, color: SEVERITY_BAR.medium },
-                    { label: 'Low', count: data?.severity_mix.low ?? 0, color: SEVERITY_BAR.low },
-                  ].map((s) => (
-                    <div key={s.label} className="flex items-center gap-1.5">
-                      <span className={`w-2 h-2 rounded-full ${s.color}`} />
-                      <span className="text-slate-500">{s.label}</span>
-                      <strong className="text-slate-700 dark:text-slate-300">{s.count.toLocaleString()}</strong>
-                    </div>
+                <ol className="space-y-2">
+                  {(data?.leaderboard.providers ?? []).map((p, i) => (
+                    <li key={p.name} className="flex items-center gap-3">
+                      <span className="text-xs font-mono text-slate-500 dark:text-slate-400 w-4 text-right">
+                        {i + 1}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{p.name}</div>
+                        <div className="h-1.5 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full mt-1">
+                          <div className="h-full bg-rose-500 rounded-full" style={{ width: `${p.pct}%` }} />
+                        </div>
+                      </div>
+                      <span className="text-xs font-mono text-slate-500 flex-shrink-0">{p.count.toLocaleString()}</span>
+                    </li>
                   ))}
-                </div>
+                </ol>
               </div>
 
-              {/* Rankings */}
-              <div className="grid sm:grid-cols-3 gap-6">
-                {/* Top Providers */}
-                <div className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
-                  <div className="mb-4">
-                    <h3 className="text-sm font-display font-semibold">Most Exposed Providers</h3>
-                    <p className="text-micro font-mono text-slate-500 dark:text-slate-400">Top secret types by count</p>
-                  </div>
-                  <ol className="space-y-2">
-                    {(data?.leaderboard.providers ?? []).map((p, i) => (
-                      <li key={p.name} className="flex items-center gap-3">
-                        <span className="text-xs font-mono text-slate-500 dark:text-slate-400 w-4 text-right">{i + 1}</span>
-                        <div className="flex-1 min-w-0">
-                          <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">
-                            {p.name}
-                          </div>
-                          <div className="h-1.5 bg-slate-100 dark:bg-[rgb(var(--surface-300))] rounded-full mt-1">
-                            <div className="h-full bg-rose-500 rounded-full" style={{ width: `${p.pct}%` }} />
-                          </div>
-                        </div>
-                        <span className="text-xs font-mono text-slate-500 flex-shrink-0">
-                          {p.count.toLocaleString()}
-                        </span>
-                      </li>
-                    ))}
-                  </ol>
+              {/* Top Repos */}
+              <div className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
+                <div className="mb-4">
+                  <h3 className="text-sm font-display font-semibold">Top Repos</h3>
+                  <p className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                    Highest number of secrets found
+                  </p>
                 </div>
+                <ol className="space-y-2">
+                  {(data?.leaderboard.repos ?? []).map((r, i) => (
+                    <li key={r.name} className="flex items-center gap-3">
+                      <span className="text-xs font-mono text-slate-500 dark:text-slate-400 w-4 text-right">
+                        {i + 1}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{r.name}</div>
+                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{r.owner}</div>
+                      </div>
+                      <span className="text-xs font-mono font-semibold text-rose-600 dark:text-rose-400">
+                        {r.secrets}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
 
-                {/* Top Repos */}
-                <div className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
-                  <div className="mb-4">
-                    <h3 className="text-sm font-display font-semibold">Top Repos</h3>
-                    <p className="text-micro font-mono text-slate-500 dark:text-slate-400">Highest number of secrets found</p>
-                  </div>
-                  <ol className="space-y-2">
-                    {(data?.leaderboard.repos ?? []).map((r, i) => (
-                      <li key={r.name} className="flex items-center gap-3">
-                        <span className="text-xs font-mono text-slate-500 dark:text-slate-400 w-4 text-right">{i + 1}</span>
-                        <div className="flex-1 min-w-0">
-                          <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">
-                            {r.name}
-                          </div>
-                          <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{r.owner}</div>
-                        </div>
-                        <span className="text-xs font-mono font-semibold text-rose-600 dark:text-rose-400">
-                          {r.secrets}
-                        </span>
-                      </li>
-                    ))}
-                  </ol>
+              {/* Top Users */}
+              <div className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
+                <div className="mb-4">
+                  <h3 className="text-sm font-display font-semibold">Top Users</h3>
+                  <p className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                    Owners with the most leaked repos
+                  </p>
                 </div>
-
-                {/* Top Users */}
-                <div className="bg-white dark:bg-[rgb(var(--surface-200))] rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-5">
-                  <div className="mb-4">
-                    <h3 className="text-sm font-display font-semibold">Top Users</h3>
-                    <p className="text-micro font-mono text-slate-500 dark:text-slate-400">Owners with the most leaked repos</p>
-                  </div>
-                  <ol className="space-y-2">
-                    {(data?.leaderboard.owners ?? []).map((o, i) => (
-                      <li key={o.name} className="flex items-center gap-3">
-                        <span className="text-xs font-mono text-slate-500 dark:text-slate-400 w-4 text-right">{i + 1}</span>
-                        <div className="flex-1 min-w-0">
-                          <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">
-                            {o.name}
-                          </div>
-                          <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{o.repos} repos</div>
-                        </div>
-                        <span className="text-xs font-mono font-semibold text-orange-600 dark:text-orange-400">
-                          {o.totalSecrets}
-                        </span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
+                <ol className="space-y-2">
+                  {(data?.leaderboard.owners ?? []).map((o, i) => (
+                    <li key={o.name} className="flex items-center gap-3">
+                      <span className="text-xs font-mono text-slate-500 dark:text-slate-400 w-4 text-right">
+                        {i + 1}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{o.name}</div>
+                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{o.repos} repos</div>
+                      </div>
+                      <span className="text-xs font-mono font-semibold text-orange-600 dark:text-orange-400">
+                        {o.totalSecrets}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
               </div>
             </div>
-          )}
-        </DataState>
-      </div>
-    </div>
+          </div>
+        )}
+      </DataState>
+    </DataPageLayout>
   );
 }

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState, useCallback, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
   Shield,
   Users,
@@ -11,6 +12,7 @@ import {
   ChevronDown,
   ChevronUp,
   Crosshair,
+  Radio,
 } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 import { relativeAgo } from '../../lib/relativeTime';
@@ -308,7 +310,12 @@ export default function TelegramLinkedActors(): JSX.Element {
     : pivots;
 
   return (
-    <div className="space-y-4">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Radio size={28} />}
+      title="Telegram Linked Actors"
+      description="Correlated threat actors from telegram-leak monitor data, grouped by shared handles/email/domains."
+    >
       {/* Intro / search */}
       <section className="surface-card p-4">
         <h2 className="font-display font-semibold text-lg flex items-center gap-2">
@@ -431,7 +438,7 @@ export default function TelegramLinkedActors(): JSX.Element {
           ))}
         </ul>
       </DataState>
-    </div>
+    </DataPageLayout>
   );
 }
 

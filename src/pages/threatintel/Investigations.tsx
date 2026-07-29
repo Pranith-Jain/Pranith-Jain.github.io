@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback, type FormEvent } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { SEVERITY_TONE } from '../../components/severity';
 import { adminAuthHeaders } from '../../lib/admin-token';
 import {
@@ -344,7 +344,7 @@ function InvestigationsPage(): JSX.Element {
   if (activeInv) {
     const inv = activeInv;
     return (
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <DataPageLayout backTo="/threatintel" hideBack icon={<ShieldAlert size={28} />} title={inv.title}>
         <button
           type="button"
           onClick={() => setActiveInv(null)}
@@ -355,7 +355,6 @@ function InvestigationsPage(): JSX.Element {
 
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl sm:text-3xl font-display font-semibold mb-2">{inv.title}</h1>
             <div className="flex flex-wrap items-center gap-2">
               <span className={`text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_TONE[inv.severity]}`}>
                 {inv.severity}
@@ -469,7 +468,9 @@ function InvestigationsPage(): JSX.Element {
                       className="flex items-center justify-between px-2 py-1.5 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] group"
                     >
                       <div className="flex items-center gap-2 min-w-0">
-                        <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400 shrink-0 w-10">{o.type}</span>
+                        <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400 shrink-0 w-10">
+                          {o.type}
+                        </span>
                         <span className="text-meta font-mono text-slate-800 dark:text-slate-200 break-all">
                           {o.value}
                         </span>
@@ -569,7 +570,9 @@ function InvestigationsPage(): JSX.Element {
                     className="relative pl-4 border-l-2 border-slate-200 dark:border-[rgb(var(--border-400))]"
                   >
                     <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-snug">{ev.message}</p>
-                    <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">{relativeTime(ev.created_at)}</p>
+                    <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">
+                      {relativeTime(ev.created_at)}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -607,27 +610,17 @@ function InvestigationsPage(): JSX.Element {
             </section>
           </div>
         </div>
-      </div>
+      </DataPageLayout>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
-      >
-        back
-      </BackLink>
-
-      <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2">Investigations</h1>
-          <p className="text-sm font-mono text-muted max-w-2xl">
-            Case management board - create investigations, track observables, manage tasks, and document your analysis
-            timeline. Inspired by TheHive.
-          </p>
-        </div>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<ShieldAlert size={28} />}
+      title="Investigations"
+      description="Case management board - create investigations, track observables, manage tasks, and document your analysis timeline. Inspired by TheHive."
+      headerExtra={
         <button
           type="button"
           onClick={() => setShowCreate(true)}
@@ -635,8 +628,8 @@ function InvestigationsPage(): JSX.Element {
         >
           <Plus size={14} /> New Investigation
         </button>
-      </div>
-
+      }
+    >
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <div className="relative flex-1 min-w-[200px] max-w-sm">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
@@ -822,7 +815,7 @@ function InvestigationsPage(): JSX.Element {
           ))}
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }
 
