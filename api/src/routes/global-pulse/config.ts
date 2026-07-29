@@ -73,14 +73,14 @@ export async function enqueueGpFeeds(queue: Queue<FeedQueueMessage>, _hour?: num
 
 /* ─── Cache keys (all warmed by hourly cron) ────────────────────────────── */
 
-export const GLOBAL_PULSE_CACHE = 'https://global-pulse-cache.internal/v23-cyber-tech-geo';
+export const GLOBAL_PULSE_CACHE = 'https://global-pulse-cache.internal/v24-ti-only';
 export const CACHE_TTL = 300;
 // Global KV key holding the last fully-built response (raw JSON string).
 // The Cache-API entry above is per-colo, so a reader in a cold colo would
 // otherwise re-run the whole multi-source build (risking the Free-plan
 // subrequest cap → HTTP 503). KV is global, so any colo can serve the last
 // successful build with one cheap read. Rewritten on every successful build.
-export const GP_RESPONSE_KEY = 'gp:response:v2';
+export const GP_RESPONSE_KEY = 'gp:response:v3';
 // TTL for the global KV fallback above. Must outlive the build cadence (hourly
 // cron) so cold colos and the GlobalPulse Durable Object can still read the last
 // successful build between builds. CACHE_TTL (300s) is only right for the
