@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { Search, Loader2, Bug, FileText, Shield, Globe, Wallet, Monitor, AlertTriangle } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
 
@@ -18,6 +19,40 @@ interface StealerResult {
 }
 
 const SUPPORTED_STEALERS = ['RedLine', 'Raccoon', 'Vidar', 'Lumma', 'StealC', 'Mystic', 'AzorUlt'];
+
+type Credential = StealerResult['credentials'][number];
+
+const CREDENTIAL_COLUMNS: DataTableColumn<Credential>[] = [
+  {
+    key: 'domain',
+    header: 'Domain',
+    render: (c) => c.domain,
+    sortValue: (c) => c.domain,
+    className: 'font-mono text-xs',
+  },
+  {
+    key: 'username',
+    header: 'Username',
+    render: (c) => c.username,
+    sortValue: (c) => c.username,
+    className: 'font-mono text-xs',
+  },
+  {
+    key: 'password_length',
+    header: 'Pass Len',
+    render: (c) => <span className="text-slate-500">{c.password_length}</span>,
+    sortValue: (c) => c.password_length,
+    align: 'right',
+    className: 'text-xs',
+  },
+  {
+    key: 'source',
+    header: 'Source',
+    render: (c) => <span className="text-slate-500 dark:text-slate-400">{c.source}</span>,
+    sortValue: (c) => c.source,
+    className: 'text-xs',
+  },
+];
 
 export default function StealerParser(): JSX.Element {
   const [input, setInput] = useState('');
@@ -196,37 +231,11 @@ export default function StealerParser(): JSX.Element {
                 <CopyButton value={result.credentials.map((c) => `${c.domain}:${c.username}`).join('\n')} />
               </div>
               <div className="max-h-64 overflow-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="text-left text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                      <th scope="col" className="pb-2">
-                        Domain
-                      </th>
-                      <th scope="col" className="pb-2">
-                        Username
-                      </th>
-                      <th scope="col" className="pb-2">
-                        Pass Len
-                      </th>
-                      <th scope="col" className="pb-2">
-                        Source
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.credentials.slice(0, 50).map((cred) => (
-                      <tr
-                        key={`${cred.domain}-${cred.username}-${cred.source}`}
-                        className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50"
-                      >
-                        <td className="py-1.5 font-mono text-xs">{cred.domain}</td>
-                        <td className="py-1.5 font-mono text-xs">{cred.username}</td>
-                        <td className="py-1.5 text-xs text-slate-500">{cred.password_length}</td>
-                        <td className="py-1.5 text-xs text-slate-500 dark:text-slate-400">{cred.source}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <DataTable
+                  rows={result.credentials.slice(0, 50)}
+                  rowKey={(c, i) => `${c.domain}-${c.username}-${i}`}
+                  columns={CREDENTIAL_COLUMNS}
+                />
               </div>
             </div>
           )}
