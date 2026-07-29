@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Bitcoin, Copy, Check, RefreshCw, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
@@ -95,47 +95,39 @@ export default function CryptoScamFeed(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
-      >
-        back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Bitcoin size={28} className="text-rose-600 dark:text-rose-400" /> Crypto scam feed
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-          Fresh crypto-phishing, scam, drainer, and pig-butchering domains - all ≤ 1 year old at inclusion, refreshed
-          daily. Sourced from{' '}
-          <a
-            href="https://github.com/spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
-          >
-            spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed
-          </a>{' '}
-          (MIT). Also flows into the{' '}
-          <Link to="/threatintel/catalog?cat=iocs" className="text-rose-600 dark:text-rose-400 hover:underline">
-            Live IOCs
-          </Link>{' '}
-          firehose.
+    <DataPageLayout
+      title="Crypto scam feed"
+      icon={<Bitcoin size={28} />}
+      backTo="/threatintel"
+      description="Fresh crypto-phishing, scam, drainer, and pig-butchering domains - all ≤ 1 year old at inclusion, refreshed daily."
+      loading={loading}
+      error={error}
+    >
+      <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">
+        Sourced from{' '}
+        <a
+          href="https://github.com/spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-rose-600 dark:text-rose-400 hover:underline"
+        >
+          spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed
+        </a>{' '}
+        (MIT). Also flows into the{' '}
+        <Link to="/threatintel/catalog?cat=iocs" className="text-rose-600 dark:text-rose-400 hover:underline">
+          Live IOCs
+        </Link>{' '}
+        firehose.
+      </p>
+      {data && (
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+          {data.total} domains · snapshot{' '}
+          <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
+          {data.stale && (
+            <span className="text-amber-600 dark:text-amber-400 ml-2">· serving last-good (upstream unreachable)</span>
+          )}
         </p>
-        {data && (
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
-            {data.total} domains · snapshot{' '}
-            <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
-            {data.stale && (
-              <span className="text-amber-600 dark:text-amber-400 ml-2">
-                · serving last-good (upstream unreachable)
-              </span>
-            )}
-          </p>
-        )}
-      </div>
+      )}
 
       {topTlds.length > 0 && (
         <section className="surface-card p-4 mb-6">
@@ -263,6 +255,6 @@ export default function CryptoScamFeed(): JSX.Element {
           </button>
         )}
       </DataState>
-    </div>
+    </DataPageLayout>
   );
 }

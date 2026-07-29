@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Fingerprint, Search } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 
 interface UsernameMatch {
@@ -96,31 +97,17 @@ export default function ActorUsernames(): JSX.Element {
   }, [stats]);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <Fingerprint size={28} className="text-rose-600 dark:text-rose-400" /> Actor username search
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-          Search ~{stats?.total_usernames?.toLocaleString() ?? '291k'} usernames scraped from cybercrime forums to see
-          which boards a handle appears on. An attribution signal - a hit means the handle was seen in a forum scrape,
-          not proof of identity. Sourced from{' '}
-          <a
-            href="https://github.com/spmedia/Threat-Actor-Usernames-Scrape"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
-          >
-            spmedia/Threat-Actor-Usernames-Scrape
-          </a>{' '}
-          (MIT).
-        </p>
+    <DataPageLayout
+      title="Actor username search"
+      icon={<Fingerprint size={28} />}
+      backTo="/threatintel/actors/hub"
+      description={`Search ~${stats?.total_usernames?.toLocaleString() ?? '291k'} usernames scraped from cybercrime forums to see which boards a handle appears on.`}
+    >
         {stats && corpus && (
           <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
             {stats.forums.length} forums ({corpus.active} active · {corpus.dead} defunct)
           </p>
         )}
-      </div>
 
       <form onSubmit={submit} className="surface-card p-4 mb-6">
         <div className="flex items-center gap-3">
@@ -219,6 +206,6 @@ export default function ActorUsernames(): JSX.Element {
           </ul>
         </DataState>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

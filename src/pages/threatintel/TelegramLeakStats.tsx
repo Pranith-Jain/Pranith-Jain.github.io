@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { DataState } from '../../components/DataState';
-import { AlertTriangle, BarChart3, Activity, Globe, Send, TrendingUp } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { SEVERITY_BAR, type Severity } from '../../components/severity';
+import { AlertTriangle, BarChart3, Activity, Globe, Send, TrendingUp } from 'lucide-react';
 
 interface Stats {
   total_entries: number;
@@ -47,17 +47,14 @@ export default function TelegramLeakStats(): JSX.Element {
   const totalN = stats?.severity_distribution?.reduce((s, x) => s + x.n, 0) ?? 0;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <div className="animate-fade-in-up mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-          <BarChart3 size={28} className="text-rose-600 dark:text-rose-400" /> Telegram Leak Monitor Stats
-        </h1>
-        <p className="text-muted mt-2 max-w-2xl">
-          Aggregate statistics across all monitored channels and leak entries.
-        </p>
-      </div>
-
-      <DataState loading={loading} error={error} rows={6}>
+    <DataPageLayout
+      title="Telegram Leak Monitor Stats"
+      icon={<BarChart3 size={28} />}
+      backTo="/threatintel/telegram-monitor"
+      description="Aggregate statistics across all monitored channels and leak entries."
+      loading={loading}
+      error={error}
+    >
         {stats && (
           <div className="space-y-8">
             {/* KPI cards */}
@@ -154,7 +151,6 @@ export default function TelegramLeakStats(): JSX.Element {
             </div>
           </div>
         )}
-      </DataState>
-    </div>
+    </DataPageLayout>
   );
 }

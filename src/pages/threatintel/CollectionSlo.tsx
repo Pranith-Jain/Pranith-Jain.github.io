@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { Activity, AlertTriangle, CheckCircle2, HelpCircle, Clock } from 'lucide-react';
 
 interface CollectorSlo {
@@ -81,17 +81,14 @@ export default function CollectionSlo(): JSX.Element {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <div className="animate-fade-in-up mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-          <Activity size={28} className="text-rose-600 dark:text-rose-400" /> Collection SLO
-        </h1>
-        <p className="text-muted mt-2 max-w-3xl">
-          Live health status of every intelligence collector, source, and feed. Green = data flowing within 6h SLA.
-        </p>
-      </div>
-
-      <DataState loading={loading} error={error} rows={8}>
+    <DataPageLayout
+      title="Collection SLO"
+      icon={<Activity size={28} />}
+      backTo="/threatintel"
+      description="Live health status of every intelligence collector, source, and feed. Green = data flowing within 6h SLA."
+      loading={loading}
+      error={error}
+    >
         {data && (
           <>
             {/* Down-source alert banner */}
@@ -245,7 +242,6 @@ export default function CollectionSlo(): JSX.Element {
             </div>
           </>
         )}
-      </DataState>
-    </div>
+    </DataPageLayout>
   );
 }
