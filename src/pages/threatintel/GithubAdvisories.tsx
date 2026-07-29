@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataState } from '../../components/DataState';
 import { Bug, ExternalLink, Package, RefreshCw, Search } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
-import { DataState } from '../../components/DataState';
 import { relativeAgo } from '../../lib/relativeTime';
 
 interface GhsaAdvisory {
@@ -131,24 +131,12 @@ export default function GithubAdvisories(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-6 font-mono"
-      >
-        back
-      </BackLink>
-
-      <div className="flex items-center gap-3 mb-1">
-        <Bug className="w-7 h-7 text-rose-500" />
-        <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-slate-100">
-          GitHub Advisories Feed
-        </h1>
-      </div>
-      <p className="text-muted mb-6 text-sm max-w-3xl leading-relaxed">
-        Live GitHub Security Advisory feed - reviewed vulnerabilities normalized into a CVE-style view.
-      </p>
-
+    <DataPageLayout
+      title="GitHub Advisories Feed"
+      icon={<Bug size={28} />}
+      backTo="/threatintel"
+      description="Live GitHub Security Advisory feed - reviewed vulnerabilities normalized into a CVE-style view."
+    >
       {/* Stats */}
       <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-5">
         {[
@@ -361,6 +349,6 @@ export default function GithubAdvisories(): JSX.Element {
       <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
         Source: GitHub Advisory Database via Worker API
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

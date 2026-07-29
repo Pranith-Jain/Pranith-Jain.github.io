@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback, FormEvent } from 'react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { Search, Loader2, Users, BarChart3, ExternalLink, Shield, AlertTriangle, Lock } from 'lucide-react';
 import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
 import { sanitizeUrl } from '../../lib/sanitize-url';
@@ -127,27 +128,12 @@ export default function TelegramChannelSearch(): JSX.Element {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-8 text-slate-900 dark:text-slate-100">
-      <div className="animate-fade-in-up mb-6">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-          <Search size={26} className="text-rose-600 dark:text-rose-400" /> Channel search
-        </h1>
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-2 max-w-3xl leading-relaxed">
-          Discover public Telegram channels by keyword. Backed by{' '}
-          <a
-            href="https://tgstat.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
-          >
-            tgstat.com
-          </a>{' '}
-          (HTML, no key required, 12h cache). Each result is automatically correlated with the in-repo actor catalog and
-          deepdarkCTI&apos;s <code className="text-xs">telegram_threat_actors.md</code> - a row that shows linked actors
-          is a strong candidate for the watchlist.
-        </p>
-      </div>
-
+    <DataPageLayout
+      title="Channel search"
+      icon={<Search size={26} />}
+      backTo="/threatintel/telegram-monitor"
+      description="Discover public Telegram channels by keyword. Backed by tgstat.com (HTML, no key required, 12h cache)."
+    >
       <form onSubmit={onSubmit} className="mb-6 flex flex-wrap gap-3">
         <input
           value={input}
@@ -309,6 +295,6 @@ export default function TelegramChannelSearch(): JSX.Element {
           ))}
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

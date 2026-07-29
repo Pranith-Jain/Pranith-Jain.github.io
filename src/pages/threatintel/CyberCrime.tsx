@@ -3,7 +3,7 @@ import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
 import { AlertOctagon, ExternalLink, RefreshCw, Search } from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
@@ -190,26 +190,12 @@ export default function CyberCrime(): JSX.Element {
   }, [data]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
-      >
-        back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <AlertOctagon size={28} className="text-rose-600 dark:text-rose-400" /> Cyber crime &amp; fraud feeds
-        </h1>
-        <p className="text-muted mb-8 max-w-3xl">
-          Live coverage of cyber crime incidents - indictments, takedowns, crypto-crime tracing, BEC and romance-scam
-          schemes, sanctions, breach reporting. Aggregated from US DOJ, CISA, Chainalysis, Elliptic, Krebs on Security,
-          The Record, BleepingComputer, DataBreaches.net, and HackRead. Round-robin selection means no single chatty
-          source dominates the visible top.
-        </p>
-      </div>
-
+    <DataPageLayout
+      title="Cyber crime & fraud feeds"
+      icon={<AlertOctagon size={28} />}
+      backTo="/threatintel"
+      description="Live coverage of cyber crime incidents - indictments, takedowns, crypto-crime tracing, BEC and romance-scam schemes, sanctions, breach reporting."
+    >
       {/* Category filter pills */}
       {data && (
         <div className="flex flex-wrap gap-1.5 mb-4">
@@ -366,6 +352,6 @@ export default function CyberCrime(): JSX.Element {
           </div>
         </details>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

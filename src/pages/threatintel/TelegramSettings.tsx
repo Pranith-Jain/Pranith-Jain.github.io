@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { Plus, Trash2, ExternalLink, RefreshCw, Loader2, Bot, Radio } from 'lucide-react';
 import { adminAuthHeaders } from '../../lib/admin-token';
 
@@ -128,17 +129,12 @@ export default function TelegramSettings(): JSX.Element {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <div className="animate-fade-in-up mb-6">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <ExternalLink size={28} className="text-rose-600 dark:text-rose-400" /> Telegram channel settings
-        </h1>
-        <p className="text-sm font-mono text-muted mt-1">
-          Add public Telegram channels to monitor. They will appear alongside the curated channels on the Telegram feed.
-          Enter the channel handle without the @ prefix. Channels must have public{' '}
-          <code className="text-xs">telegram.me/s/</code> preview enabled.
-        </p>
-      </div>
+    <DataPageLayout
+      title="Telegram channel settings"
+      icon={<ExternalLink size={28} />}
+      backTo="/threatintel/telegram-monitor"
+      description="Add public Telegram channels to monitor. Enter the channel handle without the @ prefix."
+    >
 
       {/* Bot Status Section */}
       <div className="mb-8 surface-card p-5">
@@ -296,6 +292,6 @@ export default function TelegramSettings(): JSX.Element {
           ))}
         </ul>
       )}
-    </div>
+    </DataPageLayout>
   );
 }
