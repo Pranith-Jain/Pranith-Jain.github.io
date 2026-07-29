@@ -19,7 +19,6 @@ import {
   Users,
 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 import { useSearchParams } from 'react-router-dom';
 
 /**
