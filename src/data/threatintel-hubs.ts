@@ -294,7 +294,6 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Every indicator seen, with provenance.',
         compVar: 'ObservableDb',
       },
-
     ],
   },
   {
@@ -357,18 +356,11 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'new',
       },
       {
-        path: '/threatintel/malware/packages',
-        tabId: 'packages',
-        label: 'Malicious Packages',
-        desc: 'Malicious package tracking - npm, PyPI, RubyGems, Maven, NuGet.',
-        compVar: 'MaliciousPackages',
-      },
-      {
         path: '/threatintel/malware/supply-chain',
         tabId: 'supply-chain',
         label: 'Supply-Chain Incidents',
         desc: 'Confirmed supply-chain compromise incidents - npm · PyPI · containers · AI agents. Data: supplychainattack.org.',
-        compVar: 'SupplyChainAttacks',
+        compVar: 'SupplyChainHub',
       },
 
       {
@@ -444,8 +436,6 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Reliability scoring for each feed provider - uptime, freshness, accuracy, and NATO Admiralty trust grades.',
         compVar: 'FeedReliability',
       },
-
-
     ],
   },
   {
@@ -494,8 +484,6 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'XHub',
         keywords: ['x', 'twitter', 'firehose', 'live', 'watch'],
       },
-
-
     ],
   },
   {
@@ -587,8 +575,6 @@ export const HUB_META: readonly HubMeta[] = [
         keywords: ['ransomware', 'activity', 'map', 'ransomwhere', 'report'],
       },
 
-
-
       {
         path: '/threatintel/darkweb/recon',
         tabId: 'recon',
@@ -605,7 +591,25 @@ export const HUB_META: readonly HubMeta[] = [
         ] as readonly string[],
         compVar: 'DarkWebRecon',
       },
-
+      {
+        path: '/threatintel/darkweb/playbook',
+        tabId: 'playbook',
+        label: 'Research Playbook',
+        desc: 'Dark-web research methodology - the AI pipeline, operational realities, OPSEC protocol, and investigator workflow.',
+        keywords: [
+          'robin',
+          'networkchuck',
+          'methodology',
+          'opsec',
+          'safety',
+          'tor',
+          'onion',
+          'pipeline',
+          'sock puppet',
+        ] as readonly string[],
+        badge: 'new',
+        compVar: 'DarkWebPlaybook',
+      },
 
       {
         path: '/threatintel/onion-watch',
@@ -1012,7 +1016,6 @@ export const HUB_META: readonly HubMeta[] = [
         keywords: ['stix', 'bundle', 'browser', 'ip', 'enrichment'],
       },
 
-
       {
         path: '/threatintel/tools/actionable-iocs',
         tabId: 'actionable-iocs',
@@ -1038,7 +1041,6 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'InvestigationSuite',
         keywords: ['investigation', 'cases', 'watchlist', 'workspace'],
       },
-
 
       {
         path: '/threatintel/tools/tg-intel-search',
@@ -1237,8 +1239,6 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'DashboardHub',
         keywords: ['dashboard', 'ti', 'cti', 'threat', 'report'],
       },
-
-
     ],
   },
   {

@@ -222,6 +222,7 @@ const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'
 const CyberCrime = lazy(() => import('./pages/threatintel/CyberCrime'));
 const DarkWeb = lazy(() => import('./pages/threatintel/DarkWebOsintTools'));
 const DarkWebRecon = lazy(() => import('./pages/threatintel/DarkWebRecon'));
+const DarkWebPlaybook = lazy(() => import('./pages/threatintel/DarkWebPlaybook'));
 const DarknetIntel = lazy(() => import('./pages/DarknetIntel'));
 const OnionWatch = lazy(() => import('./pages/dfir/OnionWatch'));
 const DarknetMarketsTimeline = lazy(() => import('./pages/threatintel/DarknetMarketsTimeline'));
@@ -249,7 +250,6 @@ const IocFeedsPage = lazy(() => import('./pages/threatintel/IocFeedsPage'));
 const KnowledgeGraph = lazy(() => import('./pages/threatintel/KnowledgeGraph'));
 const LiveIocs = lazy(() => import('./pages/threatintel/LiveIocs'));
 const LlmThreatAtlas = lazy(() => import('./pages/threatintel/LlmThreatAtlas'));
-const MaliciousPackages = lazy(() => import('./pages/threatintel/MaliciousPackages'));
 const MalpediaPage = lazy(() => import('./pages/threatintel/MalpediaPage'));
 const MaltrailTrails = lazy(() => import('./pages/threatintel/MaltrailTrails'));
 const MalwareIocs = lazy(() => import('./pages/threatintel/MalwareIocs'));
@@ -605,6 +605,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
 
   { path: '/threatintel/ransomware-hub', Component: RansomwareHub },
   { path: '/threatintel/darkweb/recon', Component: DarkWebRecon },
+  { path: '/threatintel/darkweb/playbook', Component: DarkWebPlaybook },
   { path: '/threatintel/onion-watch', Component: OnionWatch },
   { path: '/threatintel/predictive/dashboard', Component: IntelDashboard },
   { path: '/threatintel/predictive/global-pulse', Component: GlobalPulse },
@@ -658,7 +659,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/malware/iocs', Component: MalwareIocs },
   { path: '/threatintel/malware/vault', Component: MalwareVault },
   { path: '/threatintel/malware/sandbox', Component: MalwareSandbox },
-  { path: '/threatintel/malware/packages', Component: MaliciousPackages },
+  { path: '/threatintel/malware/packages', to: '/threatintel/supply-chain?tab=feed' },
 
   { path: '/threatintel/malware/malpedia', Component: MalpediaPage },
   { path: '/threatintel/malware/maltrail', Component: MaltrailTrails },
@@ -923,7 +924,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   // ── Malware Hub ─────────────────────────────────────────────────
   { path: '/threatintel/malware-iocs', to: '/threatintel/malware/iocs' },
   { path: '/threatintel/malware-vault', to: '/threatintel/malware/vault' },
-  { path: '/threatintel/malicious-packages', to: '/threatintel/supply-chain' },
+  { path: '/threatintel/malicious-packages', to: '/threatintel/supply-chain?tab=feed' },
   { path: '/threatintel/malpedia', to: '/threatintel/malware/malpedia' },
   { path: '/threatintel/maltrail', to: '/threatintel/malware/maltrail' },
   { path: '/threatintel/malware-sandbox', to: '/threatintel/malware/sandbox' },

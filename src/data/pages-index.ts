@@ -3385,6 +3385,15 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/darkweb/playbook',
+    label: 'Research Playbook',
+    description:
+      'Dark-web research methodology - the AI pipeline, operational realities, OPSEC protocol, and investigator workflow.',
+    sectionLabel: 'Threat Intel · Dark Web',
+    group: 'threatintel',
+    keywords: ['robin', 'networkchuck', 'methodology', 'opsec', 'safety', 'tor', 'onion', 'pipeline'],
+  },
+  {
     path: '/threatintel/darkweb/deepdark',
     label: 'DeepDark',
     description: 'DeepDark CTI sources.',
@@ -3775,13 +3784,6 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     path: '/threatintel/malware/sandbox',
     label: 'Sandbox',
     description: 'Malware sandbox analysis.',
-    sectionLabel: 'Threat Intel · Malware',
-    group: 'threatintel',
-  },
-  {
-    path: '/threatintel/malware/packages',
-    label: 'Packages',
-    description: 'Malicious package tracking.',
     sectionLabel: 'Threat Intel · Malware',
     group: 'threatintel',
   },

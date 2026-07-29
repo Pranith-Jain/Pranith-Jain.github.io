@@ -120,10 +120,9 @@ export default function ETDAActorsPage() {
       description={`ETDA Threat Group Cards - ${indexData?.counts.actors ?? '...'} threat actors (${indexData?.counts.apt ?? '...'} APT)`}
       loading={loading}
       error={error ? String(error) : undefined}
-      backTo="/"
-      backLabel="Home"
+      backTo="/threatintel"
+      backLabel="Threat Intel"
       maxWidthClass="max-w-6xl"
-      hideBack
     >
       <div className="space-y-4">
         {/* Search & filters */}

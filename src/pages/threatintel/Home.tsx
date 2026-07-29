@@ -317,7 +317,7 @@ export default function ThreatIntelHome(): JSX.Element {
             {[
               { value: '30+', label: 'Live feeds', sub: 'refreshed every 90s' },
               { value: '100+', label: 'Intel pages', sub: `across ${CATALOG.length} categories` },
-              { value: '12+', label: 'IOC sources', sub: 'cross-correlated' },
+              { value: '60+', label: 'IOC sources', sub: 'cross-correlated' },
             ].map((stat, i) => (
               <div
                 key={stat.label}
