@@ -2,21 +2,31 @@
  * Service Worker — offline-first resilience for pranithjain.qzz.io
  *
  * Cache strategy:
- *   - Static assets (JS/CSS/fonts/images with hash in name): CacheFirst
- *   - Navigation requests (HTML pages): NetworkFirst, fallback to cache
- *   - API requests: NetworkOnly (always fresh data)
+ *   - /assets/* (content-hashed JS/CSS/fonts/images): CacheFirst. These
+ *     URLs are immutable by construction (new build = new hash), so a
+ *     cache hit can never serve stale code.
+ *   - Other same-origin statics (/fonts/fonts.css, favicon, JSON data,
+ *     wasm): stale-while-revalidate. These URLs are NOT hashed, so
+ *     CacheFirst would pin the first version forever and updates would
+ *     never reach returning visitors.
+ *   - Navigation requests (HTML pages): NetworkFirst, fallback to cache.
+ *   - API requests: NetworkOnly (always fresh data).
  *
- * On activate, stale caches from previous versions are deleted.
- * Cache version is derived from the build date embedded in the
- * import at build time.
+ * Cache names are intentionally stable (no per-build version bump):
+ * hashed assets self-invalidate via their URL, and the asset cache is
+ * capped (oldest entries evicted) so it can't grow without bound across
+ * deploys.
  */
 const CACHE_NAME = 'pj-portfolio-v1';
 
 const ASSET_CACHE = `${CACHE_NAME}-assets`;
 const PAGE_CACHE = `${CACHE_NAME}-pages`;
 
-// Asset extensions that are content-hashed and safe to cache indefinitely.
-const HASHED_ASSET_EXT = /\.(js|css|woff2?|ttf|otf|eot|png|jpg|jpeg|gif|svg|webp|ico)$/;
+// Upper bound on cached /assets/ entries. Each deploy ships new hashed
+// chunks while old ones stay cached for open tabs; evict oldest-first
+// past this cap so the cache tracks roughly two builds' worth of assets
+// instead of every build ever served.
+const MAX_ASSET_ENTRIES = 250;
 
 // Routes that have prerendered HTML. Each is cached individually so a
 // network-first navigation always has a fallback.
@@ -96,8 +106,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Static assets with hashed filenames: CacheFirst.
-  if (HASHED_ASSET_EXT.test(url.pathname)) {
+  // Content-hashed build artifacts: CacheFirst (immutable URLs).
+  if (url.pathname.startsWith('/assets/')) {
     event.respondWith(cacheFirst(request, ASSET_CACHE));
     return;
   }
@@ -122,6 +132,11 @@ async function cacheFirst(request, cacheName) {
     if (res.ok) {
       const cache = await caches.open(cacheName);
       await cache.put(request, res.clone());
+      // Evict oldest entries past the cap (keys() is insertion-ordered).
+      const keys = await cache.keys();
+      if (keys.length > MAX_ASSET_ENTRIES) {
+        await cache.delete(keys[0]);
+      }
     }
     return res;
   } catch (err) {
@@ -150,10 +165,7 @@ async function networkFirst(request, cacheName) {
 
 async function staleWhileRevalidate(request, cacheName) {
   const cache = await caches.open(cacheName);
-  const [cached, res] = await Promise.all([
-    cache.match(request),
-    fetch(request).catch(() => null),
-  ]);
+  const [cached, res] = await Promise.all([cache.match(request), fetch(request).catch(() => null)]);
   if (res && res.ok) {
     await cache.put(request, res.clone());
     return res;

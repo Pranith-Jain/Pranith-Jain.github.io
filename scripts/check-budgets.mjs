@@ -19,7 +19,6 @@ const distDir = join(__dirname, '..', 'dist');
 const BUDGETS = {
   'vendor-react-*.js': { uncompressed: 80_000, gzip: 28_000 },
   'vendor-icons-*.js': { uncompressed: 130_000, gzip: 38_000 },
-  'index-*.js': { uncompressed: 308_000, gzip: 98_000 },
   // Raw bumped 168→172KB for the STIX Builder file-upload + Attack-Flow UI.
   // 172→176KB: Facilities Database page added Tailwind utility classes.
   // gzip 26→28KB: accumulated frontend growth (OSINT Mapper, Tracer, supply-chain
@@ -59,14 +58,19 @@ const BUDGETS = {
   // CommandPalette) nudged the main chunk 0.6KB past 304KB raw. gzip —
   // the delivered size — stayed within budget, so transfer impact is nil;
   // modest raw headroom to absorb the drift.
-  // raw 308→336KB / gzip 98→102KB: the threat-intel vertical's typed
-  // TiClient (src/lib/threat-intel.ts) + entity-graph tab + 4 search
-  // result card components added ~26KB raw / ~3KB gzip. The ThreatIntel
-  // page itself is lazy-loaded (50KB own chunk); the growth is in shared
-  // icon + utility code pulled into the main chunk. +28KB raw / +4KB
-  // gzip headroom; transfer impact is negligible for a chunk of this
-  // size and the gzip delta is 3KB.
-  'index-*.js': { uncompressed: 336_000, gzip: 102_000 },
+  // raw 336→312KB / gzip 102→90KB (2026-07-29 perf audit): tightened after
+  // the entry-graph cleanup landed. Three fixes cut the index chunk from
+  // 337.8KB/102.4KB gzip to 296.8KB/84.8KB gzip: (1) removed the
+  // vendor-charts / vendor-pdf / vendor-md manualChunks rules - rolldown was
+  // hoisting those manual chunks into the entry's STATIC import list even
+  // though every consumer is a lazy route or dynamic import(), so every page
+  // load shipped ~1MB of recharts/d3 + jspdf + marked nobody used; (2) split
+  // the ~38KB of case-study markdown bodies into case-study-bodies.ts,
+  // imported only by the lazy /projects/:slug page (the eager Projects
+  // section only needs metadata); (3) dropped the dead '/' route preloader.
+  // Budget set ~15KB above the measured size to lock in the win while
+  // leaving room for ordinary shell growth.
+  'index-*.js': { uncompressed: 312_000, gzip: 90_000 },
   // gzip 58→60KB: the OSINT Mapper's IdentifierGraph (@xyflow/react) added ~0.1KB
   // gzip to this shared vendor chunk, just past 58KB. 2KB headroom for the new
   // graph feature; transfer impact is negligible.
@@ -80,7 +84,6 @@ const BUDGETS = {
   // gzip headroom; transfer impact is still negligible (gzipped CSS is
   // cached aggressively and the new layer is one class + a few rules).
   'vendor-maps-*.js': { uncompressed: 120_000, gzip: 40_000 },
-  'vendor-md-*.js': { uncompressed: 70_000, gzip: 24_000 },
 };
 
 function globMatch(pattern, name) {

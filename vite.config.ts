@@ -54,18 +54,24 @@ const clientBuild = {
         if (id.includes('node_modules/react-simple-maps')) {
           return 'vendor-maps';
         }
-        if (id.includes('node_modules/recharts') || id.includes('node_modules/d3-')) {
-          return 'vendor-charts';
-        }
-        if (id.includes('node_modules/jspdf') || id.includes('node_modules/@cantoo')) {
-          return 'vendor-pdf';
-        }
+        // NOTE (2026-07-29 perf audit): manual chunks for recharts/d3-*
+        // ("vendor-charts") and jspdf ("vendor-pdf") were REMOVED. Nothing in
+        // the eager graph imports those libs (every consumer is a lazy route
+        // or a dynamic import()), yet rolldown's manualChunks hoisted the two
+        // chunks into the entry's STATIC import list, so every page load
+        // shipped ~540KB of recharts/d3 + ~432KB of jspdf (~300KB gzip) that
+        // the landing page never uses. Natural code splitting keeps them as
+        // shared dynamic chunks fetched only by the lazy pages that need
+        // them. Do not re-add manual chunk rules for libraries that are only
+        // dynamically reachable - same footgun as the 2026-05-12 vendor-icons
+        // note above, in the opposite direction.
         if (id.includes('node_modules/tesseract.js')) {
           return 'vendor-ocr';
         }
-        if (id.includes('node_modules/marked') || id.includes('node_modules/isomorphic-dompurify')) {
-          return 'vendor-md';
-        }
+        // "vendor-md" (marked + isomorphic-dompurify) was removed in the same
+        // 2026-07-29 audit pass for the same reason: every importer uses a
+        // dynamic import(), and after the charts/pdf rules went away the
+        // manual chunk got hoisted into the entry's static imports instead.
         if (
           id.includes('src/data/threatintel-hubs') ||
           id.includes('src/data/dfir-hubs') ||

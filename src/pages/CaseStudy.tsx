@@ -2,10 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Clock } from 'lucide-react';
 import { findCaseStudy } from '../data/case-studies';
+import { getCaseStudyBody } from '../data/case-study-bodies';
 
 /**
- * /projects/<slug> - long-form case study read page. The data lives in
- * src/data/case-studies.ts and the body is rendered through the same
+ * /projects/<slug> - long-form case study read page. Metadata lives in
+ * src/data/case-studies.ts, the markdown body in src/data/case-study-bodies.ts
+ * (split so the eager graph never ships the bodies), and the body is rendered
+ * through the same
  * marked → DOMPurify chain the wiki article page uses, so internal
  * /dfir + /threatintel links work, every URL is escaped, and no
  * dynamic HTML reaches the DOM without sanitisation.
@@ -29,7 +32,7 @@ export default function CaseStudy(): JSX.Element {
         import('marked'),
         import('isomorphic-dompurify'),
       ]);
-      const raw = (await marked.parse(study.body)) as string;
+      const raw = (await marked.parse(getCaseStudyBody(study.slug))) as string;
       const safe = DOMPurify.sanitize(raw, {
         ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|#|\/):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
         ADD_ATTR: ['title'],

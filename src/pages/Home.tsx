@@ -41,11 +41,8 @@ export default function Home() {
       />
       <Hero personalInfo={personalInfo} />
 
-      {/* Live platform signals - labeled for hierarchy/scannability */}
+      {/* Live platform signals - the strip carries its own heading */}
       <RevealSection className="mt-16">
-        <div className="mb-4 text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-          Live from the platform
-        </div>
         <LiveSignalStrip />
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <LatestBriefingCard />

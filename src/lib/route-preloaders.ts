@@ -15,8 +15,10 @@
 type Preloader = () => Promise<unknown>;
 
 export const routePreloaders: Record<string, Preloader> = {
-  // Portfolio nav
-  '/': () => import('../pages/Home'),
+  // Portfolio nav. NOTE: no entry for '/' - Home is eagerly imported by
+  // App.tsx (measured decision, see the comment there), so a preloader for
+  // it is a no-op that also trips rolldown's INEFFECTIVE_DYNAMIC_IMPORT
+  // warning at build time.
   '/about': () => import('../pages/About'),
   '/skills': () => import('../pages/Skills'),
   '/experience': () => import('../pages/Experience'),
