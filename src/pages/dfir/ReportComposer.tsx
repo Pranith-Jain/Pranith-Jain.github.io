@@ -13,6 +13,7 @@ import {
   Check,
 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import {
   emptyReport,
   TLP_OPTIONS,
@@ -74,6 +75,29 @@ const CONFIDENCE_COLORS: Record<Finding['confidence'], string> = {
   Medium: 'text-amber-700 dark:text-amber-300',
   Low: 'text-slate-500 dark:text-slate-400',
 };
+
+const IOC_PREVIEW_COLUMNS: DataTableColumn<IocEntry>[] = [
+  {
+    key: 'type',
+    header: 'Type',
+    render: (i) => i.type,
+    sortValue: (i) => i.type,
+    className: 'font-mono',
+  },
+  {
+    key: 'value',
+    header: 'Value',
+    render: (i) => i.value,
+    sortValue: (i) => i.value,
+    className: 'font-mono break-all',
+  },
+  {
+    key: 'context',
+    header: 'Context',
+    render: (i) => i.context,
+    sortValue: (i) => i.context,
+  },
+];
 
 export default function ReportComposer(): JSX.Element {
   const [doc, setDoc] = useState<ReportDoc>(() => loadDraft() ?? emptyReport());
@@ -686,24 +710,7 @@ function PreviewPanel({ doc }: { doc: ReportDoc }): JSX.Element {
         <>
           <h2 className="text-lg font-semibold mt-4 mb-2">IOCs</h2>
           <div className="overflow-x-auto">
-            <table className="w-full text-xs">
-              <thead>
-                <tr>
-                  <th className="text-left">Type</th>
-                  <th className="text-left">Value</th>
-                  <th className="text-left">Context</th>
-                </tr>
-              </thead>
-              <tbody>
-                {doc.iocs.map((i, idx) => (
-                  <tr key={idx} className="border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-                    <td className="font-mono py-1">{i.type}</td>
-                    <td className="font-mono py-1 break-all">{i.value}</td>
-                    <td className="py-1">{i.context}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <DataTable rows={doc.iocs} rowKey={(i, idx) => `${i.type}-${idx}`} columns={IOC_PREVIEW_COLUMNS} />
           </div>
         </>
       )}
