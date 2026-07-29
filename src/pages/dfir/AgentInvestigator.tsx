@@ -487,10 +487,18 @@ export default function AgentInvestigator(): JSX.Element {
       </div>
 
       {error && (
-        <div className="rounded-xl border border-rose-500/30 bg-rose-500/5 p-4 mb-6 text-sm text-rose-700 dark:text-rose-300 font-mono flex items-center justify-between">
+        <div
+          role="alert"
+          className="rounded-xl border border-rose-500/30 bg-rose-500/5 p-4 mb-6 text-sm text-rose-700 dark:text-rose-300 font-mono flex items-center justify-between"
+        >
           {error}
-          <button onClick={() => setError(null)} className="text-rose-500 hover:text-rose-700">
-            <X size={14} />
+          <button
+            type="button"
+            onClick={() => setError(null)}
+            aria-label="Dismiss error"
+            className="text-rose-500 hover:text-rose-700"
+          >
+            <X size={14} aria-hidden="true" />
           </button>
         </div>
       )}
@@ -744,8 +752,12 @@ export default function AgentInvestigator(): JSX.Element {
                   className="flex-1 text-left px-3 py-2 rounded hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.4)] flex items-center gap-3"
                 >
                   <span
+                    aria-hidden="true"
                     className={`shrink-0 w-2 h-2 rounded-full ${s.status === 'done' ? 'bg-emerald-500' : s.status === 'error' ? 'bg-rose-500' : 'bg-amber-500 animate-pulse'}`}
                   />
+                  <span className="sr-only">
+                    {s.status === 'done' ? 'Done' : s.status === 'error' ? 'Error' : 'Running'}:
+                  </span>
                   <span className="font-mono text-sm truncate flex-1">{s.query}</span>
                   <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">
                     {s.total_steps} steps
@@ -758,10 +770,10 @@ export default function AgentInvestigator(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => deleteSession(s.id)}
+                  aria-label="Delete investigation"
                   className="shrink-0 p-1.5 rounded hover:bg-rose-50 dark:hover:bg-rose-950/20 text-slate-500 dark:text-slate-400 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity"
-                  title="Delete investigation"
                 >
-                  <Trash2 size={14} />
+                  <Trash2 size={14} aria-hidden="true" />
                 </button>
               </div>
             ))}
@@ -800,6 +812,7 @@ function StepCard({ step, prevStep }: { step: AgentStep; prevStep?: AgentStep })
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}
+        aria-expanded={expanded}
         className="w-full px-4 py-3 flex items-center gap-3 hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--input-200)/0.4)] text-left"
       >
         <span

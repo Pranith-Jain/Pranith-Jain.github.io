@@ -173,10 +173,18 @@ export default function AgentMetrics(): JSX.Element {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left font-mono text-micro uppercase tracking-wider text-slate-500">
-                <th className="px-3 py-2">Tool</th>
-                <th className="px-3 py-2 text-right">Calls</th>
-                <th className="px-3 py-2 text-right">Avg ms</th>
-                <th className="px-3 py-2 text-right">Success</th>
+                <th scope="col" className="px-3 py-2">
+                  Tool
+                </th>
+                <th scope="col" className="px-3 py-2 text-right">
+                  Calls
+                </th>
+                <th scope="col" className="px-3 py-2 text-right">
+                  Avg ms
+                </th>
+                <th scope="col" className="px-3 py-2 text-right">
+                  Success
+                </th>
               </tr>
             </thead>
             <tbody>
