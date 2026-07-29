@@ -11,7 +11,9 @@ export interface TabsProps {
   tabs: Tab[];
   active: string;
   onChange: (id: string) => void;
-  children?: ReactNode;
+  /** Panel content. Pass a render function to supply per-tab content
+   *  (called with the active tab id); a plain node renders in every panel. */
+  children?: ReactNode | ((activeTab: string) => ReactNode);
   className?: string;
   tabListClassName?: string;
   panelClassName?: string;
@@ -100,7 +102,7 @@ export function Tabs({
           tabIndex={0}
           className={`focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset ${panelClassName}`}
         >
-          {active === tab.id && children}
+          {active === tab.id && (typeof children === 'function' ? children(tab.id) : children)}
         </div>
       ))}
     </div>
