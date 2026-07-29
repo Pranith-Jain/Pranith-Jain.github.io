@@ -233,7 +233,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: 
       {/* Tooltip */}
       {hoveredMarker && !selectedMarker && (
         <div className="fixed z-50 pointer-events-none" style={{ left: tooltipPos.x + 10, top: tooltipPos.y - 10 }}>
-          <div className="bg-slate-900/95 rounded-xl border border-slate-700/50 px-3 py-2 shadow-e3 max-w-xs">
+          <div className="bg-white/95 dark:bg-slate-900/95 rounded-xl border border-slate-200/50 dark:border-slate-700/50 px-3 py-2 shadow-e3 max-w-xs">
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: KIND_COLORS[hoveredMarker.kind] }} />
               <span className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400">
@@ -241,7 +241,9 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: 
               </span>
             </div>
             {hoveredMarker.title && (
-              <p className="text-xs font-medium text-slate-200 line-clamp-2">{hoveredMarker.title}</p>
+              <p className="text-xs font-medium text-slate-700 dark:text-slate-200 line-clamp-2">
+                {hoveredMarker.title}
+              </p>
             )}
             <div className="flex items-center gap-2 mt-1">
               <span
@@ -308,7 +310,8 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: 
                 </span>
               </div>
             </div>
-            <button type="button"
+            <button
+              type="button"
               onClick={() => setSelectedMarker(null)}
               className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
             >

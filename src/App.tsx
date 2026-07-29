@@ -324,7 +324,6 @@ const OpenDirectory = lazy(() => import('./pages/dfir/OpenDirectory'));
 const ApkAnalyzer = lazy(() => import('./pages/dfir/ApkAnalyzer'));
 const PgpTool = lazy(() => import('./pages/dfir/PgpTool'));
 const OneTimeSecret = lazy(() => import('./pages/dfir/OneTimeSecret'));
-const TorGateway = lazy(() => import('./pages/dfir/TorGateway'));
 const EmailReputation = lazy(() => import('./pages/dfir/EmailReputation'));
 const EmailOsnit = lazy(() => import('./pages/dfir/EmailOsnit'));
 const PhishOps = lazy(() => import('./pages/dfir/PhishOps'));
@@ -343,7 +342,6 @@ const AttmapAi = lazy(() => import('./pages/dfir/AttmapAi'));
 const Tracerules = lazy(() => import('./pages/dfir/Tracerules'));
 const Regscope = lazy(() => import('./pages/dfir/Regscope'));
 const DfirCatalog = lazy(() => import('./pages/dfir/Catalog'));
-const DfirVs = lazy(() => import('./pages/dfir/Vs'));
 
 const RadarHome = lazy(() => import('./pages/radar/Home'));
 const RadarScanResults = lazy(() => import('./pages/radar/ScanResults'));
@@ -515,9 +513,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/tabletop', Component: Tabletop },
   { path: '/dfir/detection-chokepoints', Component: DetectionChokepointsHub },
   { path: '/dfir/subdomain-takeover', Component: SubdomainTakeover },
-  { path: '/dfir/fleet-map', Component: FleetMap },
-  { path: '/dfir/wordpress-sim', Component: WordPressSim },
-  { path: '/dfir/rhysida-intrusion', Component: RhysidaIntrusion },
   { path: '/dfir/grc', Component: Grc },
   { path: '/dfir/dlp-scan', Component: DlpScan },
   { path: '/dfir/data-classification', Component: DataClassification },
@@ -561,7 +556,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/regscope', Component: Regscope },
 
   { path: '/dfir/catalog', Component: DfirCatalog },
-  { path: '/dfir/vs', Component: DfirVs },
   { path: '/dfir/eml', Component: EmlExtractor },
   { path: '/dfir/email-deliverability', Component: EmailDeliverability },
   { path: '/dfir/url-rep', Component: UrlReputation },
@@ -699,7 +693,6 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/cves/resources', Component: CveResourcesCatalog },
   { path: '/dfir/pgp-tool', Component: PgpTool },
   { path: '/dfir/one-time-secret', Component: OneTimeSecret },
-  { path: '/dfir/tor-gateway', Component: TorGateway },
   { path: '/dfir/blocklists', Component: Blocklists },
   // ── 24 Gap Features ──────────────────────────────────────────────
   { path: '/dfir/export-hub', Component: ExportHub },
@@ -715,6 +708,11 @@ const ROUTES: ReadonlyArray<RouteDef> = [
 /** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
 const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boolean }> = [
   { path: '/dfir/tools/core-dfir', to: '/dfir/catalog' },
+  { path: '/dfir/fleet-map', to: '/dfir/catalog' },
+  { path: '/dfir/wordpress-sim', to: '/dfir/catalog' },
+  { path: '/dfir/rhysida-intrusion', to: '/dfir/catalog' },
+  { path: '/dfir/vs', to: '/dfir/catalog' },
+  { path: '/dfir/tor-gateway', to: '/dfir/catalog' },
   { path: '/threatintel/malware/packages', to: '/threatintel/supply-chain?tab=feed' },
   { path: '/dfir/host', to: '/dfir/asset-intel' },
   // ── Hub merge redirects ──

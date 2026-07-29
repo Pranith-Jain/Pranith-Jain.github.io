@@ -401,21 +401,21 @@ export default function Tracer(): JSX.Element {
             <input
               type="number"
               min={1}
-              className="mt-1 w-full rounded bg-slate-800 p-2 text-xs"
+              className="mt-1 w-full rounded bg-white dark:bg-slate-800 p-2 text-xs"
               value={toleranceMin}
               onChange={(e) => setToleranceMin(e.target.value)}
               placeholder="± minutes"
             />
           </div>
           <input
-            className="w-full rounded bg-slate-800 p-2 text-xs"
+            className="w-full rounded bg-white dark:bg-slate-800 p-2 text-xs"
             value={token}
             onChange={(e) => setToken(e.target.value)}
             placeholder="Token symbol filter (e.g. USDT)"
           />
           <input
             type="number"
-            className="w-full rounded bg-slate-800 p-2 text-xs"
+            className="w-full rounded bg-white dark:bg-slate-800 p-2 text-xs"
             value={minAmount}
             onChange={(e) => setMinAmount(e.target.value)}
             placeholder="Min amount"

@@ -72,13 +72,13 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
   if (catalogCache) return Promise.resolve(catalogCache);
   if (catalogPromise) return catalogPromise;
   catalogPromise = (async () => {
-    const [wikiM, tgM, secopsM, cveM, actorM, tiM] = await Promise.all([
+    const [wikiM, tgM, secopsM, cveM, actorM, tiHubsM] = await Promise.all([
       import('./wiki-articles'),
       import('./telegram-watch-catalog'),
       import('./secops-catalog'),
       import('./cve-resources-catalog'),
       import('./threat-actors'),
-      import('../pages-index'),
+      import('../threatintel-hubs'),
     ]);
 
     const out: SearchEntry[] = [];
@@ -144,47 +144,16 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
       });
     }
 
-    // Threat-intel pages from pages-index - high-value pages that analysts
-    // search for by keyword (MCP Search, tools, feeds, dashboards, etc.)
-    const TI_PRIORITY = new Set([
-      '/threatintel/mcp-search',
-      '/threatintel/tools/mcp',
-      '/threatintel/copilot',
-      '/threatintel/ai-report',
-      '/threatintel/unified-search',
-      '/threatintel/threat-feeds',
-      '/threatintel/live-iocs',
-      '/threatintel/ransomware-live',
-      '/threatintel/cve-list',
-      '/threatintel/external/external',
-      '/threatintel/secops-tools',
-      '/threatintel/osint-framework',
-      '/threatintel/threat-landscape',
-      '/threatintel/investigations',
-      '/threatintel/watches',
-      '/threatintel/misp-browser',
-      '/threatintel/yara',
-      '/threatintel/stix-bundles',
-      '/threatintel/feed-catalog',
-      '/threatintel/darkweb-tools',
-      '/threatintel/breach',
-      '/threatintel/telegram',
-      '/threatintel/onion-watch',
-      '/threatintel/infostealer',
-      '/threatintel/c2-tracker',
-      '/threatintel/entity-resolution',
-      '/threatintel/relationship-graph',
-      '/threatintel/cross-correlate',
-      '/daily-briefs',
-    ]);
-    for (const p of tiM.PAGES) {
-      if (!TI_PRIORITY.has(p.path)) continue;
+    // Threat-intel pages — sourced from the threatintel-hubs registry (the
+    // single source of truth for routes/sidebar/catalog), replacing the old
+    // hand-curated TI_PRIORITY allowlist that drifted and carried stale aliases.
+    for (const p of tiHubsM.flattenPages()) {
       out.push({
         kind: 'threatintel',
         label: p.label,
-        desc: p.description,
+        desc: p.desc,
         path: p.path,
-        sectionLabel: p.sectionLabel ?? 'Threat Intel',
+        sectionLabel: p.hub.label ?? 'Threat Intel',
       });
     }
 

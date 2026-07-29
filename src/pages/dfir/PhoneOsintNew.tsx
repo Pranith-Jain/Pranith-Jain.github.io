@@ -62,7 +62,7 @@ function Field({
     <div className="min-w-0">
       <div className="text-micro uppercase tracking-wider mb-1 text-muted">{label}</div>
       <div
-        className={`text-sm font-medium truncate ${mono ? 'font-mono' : ''} ${valueColor || 'text-slate-100'}`}
+        className={`text-sm font-medium truncate ${mono ? 'font-mono' : ''} ${valueColor || 'text-slate-900 dark:text-slate-100'}`}
         title={typeof value === 'string' ? value : undefined}
       >
         {value || '-'}
@@ -136,15 +136,15 @@ export default function PhoneOsintNew() {
       <div className="relative rounded-xl p-6 md:p-8 overflow-hidden border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))] shadow-e3">
         {/* Header */}
         <div className="flex items-center gap-3 mb-2">
-          <Radar size={32} className="text-brand-400" />
-          <h2 className="text-2xl font-bold text-slate-100">AI Phone Intel Dashboard</h2>
+          <Radar size={32} className="text-brand-600 dark:text-brand-400" />
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">AI Phone Intel Dashboard</h2>
         </div>
 
         {/* Status bar */}
         <div className="flex items-center justify-between text-tool pb-3.5 mb-5 border-b border-[rgb(var(--border-400))] gap-3 flex-wrap">
           <span className="text-muted">AI-Powered OSINT</span>
           <div className="flex items-center gap-2">
-            <span className="text-mini font-semibold px-2.5 py-1 rounded-full bg-[rgb(var(--surface-100))] text-brand-400 border border-[rgb(var(--border-400))]">
+            <span className="text-mini font-semibold px-2.5 py-1 rounded-full bg-[rgb(var(--surface-100))] text-brand-600 dark:text-brand-400 border border-[rgb(var(--border-400))]">
               Remaining: 100 of 100
             </span>
             <span className="text-micro font-bold tracking-wider px-3 py-1 rounded-full animate-pulse bg-emerald-500 text-slate-950">
@@ -188,7 +188,7 @@ export default function PhoneOsintNew() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handlePhoneScan()}
-                className="flex-1 min-w-[200px] px-5 py-4 rounded-xl text-base font-medium outline-none transition bg-[rgb(var(--surface-100))] text-slate-100 border border-[rgb(var(--border-400))]"
+                className="flex-1 min-w-[200px] px-5 py-4 rounded-xl text-base font-medium outline-none transition bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100 border border-[rgb(var(--border-400))]"
               />
               <button
                 onClick={handlePhoneScan}
@@ -211,7 +211,7 @@ export default function PhoneOsintNew() {
               <div className="space-y-4 relative">
                 {/* Phone Info Card */}
                 <div className="p-5 rounded-xl bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]">
-                  <h3 className="text-sm font-bold mb-3 flex items-center gap-2 text-brand-400">
+                  <h3 className="text-sm font-bold mb-3 flex items-center gap-2 text-brand-600 dark:text-brand-400">
                     <Phone size={14} /> Phone Information
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4">
@@ -301,7 +301,9 @@ export default function PhoneOsintNew() {
                         >
                           <span className="text-sm shrink-0">{CATEGORY_ICONS[l.category] || 'Link'}</span>
                           <div className="flex-1 min-w-0">
-                            <div className="text-xs font-medium truncate text-slate-100">{l.service}</div>
+                            <div className="text-xs font-medium truncate text-slate-900 dark:text-slate-100">
+                              {l.service}
+                            </div>
                             <div className="text-micro truncate text-muted">
                               {CATEGORY_LABELS[l.category] || l.category}
                             </div>
@@ -331,7 +333,7 @@ export default function PhoneOsintNew() {
                           rel="noopener noreferrer"
                           className="flex items-center justify-between gap-3 p-2.5 rounded-xl transition hover:bg-[rgb(var(--hover-100))] bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
                         >
-                          <span className="text-micro font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[rgb(var(--surface-300))] text-brand-400">
+                          <span className="text-micro font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[rgb(var(--surface-300))] text-brand-600 dark:text-brand-400">
                             {d.engine}
                           </span>
                           <span className="text-xs font-mono truncate flex-1 text-muted">{d.query}</span>
@@ -357,7 +359,7 @@ export default function PhoneOsintNew() {
                 value={hashInput}
                 onChange={(e) => setHashInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleMalwareScan()}
-                className="flex-1 min-w-[200px] px-5 py-4 rounded-xl text-base font-medium font-mono outline-none transition bg-[rgb(var(--surface-100))] text-slate-100 border border-[rgb(var(--border-400))]"
+                className="flex-1 min-w-[200px] px-5 py-4 rounded-xl text-base font-medium font-mono outline-none transition bg-[rgb(var(--surface-100))] text-slate-900 dark:text-slate-100 border border-[rgb(var(--border-400))]"
               />
               <button
                 onClick={handleMalwareScan}
@@ -379,7 +381,7 @@ export default function PhoneOsintNew() {
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div>
                       <div className="text-micro uppercase tracking-wider mb-1 text-muted">Family</div>
-                      <div className="text-sm font-bold text-slate-100">
+                      <div className="text-sm font-bold text-slate-900 dark:text-slate-100">
                         {malwareResult.malware_family || 'Unknown'}
                       </div>
                     </div>
@@ -399,7 +401,9 @@ export default function PhoneOsintNew() {
                     </div>
                     <div>
                       <div className="text-micro uppercase tracking-wider mb-1 text-muted">First Seen</div>
-                      <div className="text-sm text-slate-100">{malwareResult.first_seen || 'N/A'}</div>
+                      <div className="text-sm text-slate-900 dark:text-slate-100">
+                        {malwareResult.first_seen || 'N/A'}
+                      </div>
                     </div>
                     <div>
                       <div className="text-micro uppercase tracking-wider mb-1 text-muted">Tags</div>
@@ -439,7 +443,9 @@ export default function PhoneOsintNew() {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 p-2.5 rounded-xl transition hover:bg-[rgb(var(--hover-100))] bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
                       >
-                        <span className="text-xs font-medium flex-1 truncate text-slate-100">{link.name}</span>
+                        <span className="text-xs font-medium flex-1 truncate text-slate-900 dark:text-slate-100">
+                          {link.name}
+                        </span>
                         <ExternalLink size={10} className="text-muted" />
                       </a>
                     ))}
@@ -473,7 +479,7 @@ export default function PhoneOsintNew() {
                 className="flex items-center justify-between p-2.5 rounded-xl bg-[rgb(var(--surface-100))] border border-[rgb(var(--border-400))]"
               >
                 <div>
-                  <div className="text-xs font-medium font-mono text-slate-100">{scan.number}</div>
+                  <div className="text-xs font-medium font-mono text-slate-900 dark:text-slate-100">{scan.number}</div>
                   <div className="text-micro text-muted">{new Date(scan.timestamp).toLocaleTimeString()}</div>
                 </div>
                 <span className="text-micro font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-500">
