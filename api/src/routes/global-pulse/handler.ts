@@ -39,6 +39,7 @@ import {
   fromFirms,
   fromUkmto,
   fromCyberPulse,
+  fromRss,
 } from './converters';
 import {
   fetchEarthquakes,
@@ -83,10 +84,14 @@ async function signedSelfFetch(
 /* ─── Handler ───────────────────────────────────────────────────────────── */
 
 export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const force = new URL(c.req.url).searchParams.get('force') === '1';
   const cache = caches.default;
   const cacheReq = new Request(GLOBAL_PULSE_CACHE);
-  const cached = await cache.match(cacheReq);
-  if (cached) return new Response(cached.body, cached);
+
+  if (!force) {
+    const cached = await cache.match(cacheReq);
+    if (cached) return new Response(cached.body, cached);
+  }
 
   const kv = c.env.KV_CACHE;
 
@@ -96,7 +101,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
   // multi-source build — which on a cold cache can exceed the Free-plan
   // 50-subrequest cap (and CPU budget) and return HTTP 503. Rewritten by the
   // background build below.
-  if (kv) {
+  if (!force && kv) {
     const kvBody = await kv.get(GP_RESPONSE_KEY);
     if (kvBody) {
       // Warm the per-colo Cache-API so repeat crawls in this colo skip KV.
@@ -198,6 +203,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
   if (warm.ghsa)
     warmEvents.push(...safe(() => fromGithubAdvisories(warm.ghsa as Parameters<typeof fromGithubAdvisories>[0])));
   if (warm.kev) warmEvents.push(...safe(() => fromCisaKev(warm.kev as Parameters<typeof fromCisaKev>[0])));
+  if (warm.rss) warmEvents.push(...safe(() => fromRss(warm.rss as Parameters<typeof fromRss>[0])));
 
   // ── CyberPulse incidents (D1) ────────────────────────────────────────
   let cyberpulseEvents: PulseEvent[] = [];
@@ -228,6 +234,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         return 'threat';
       case 'ioc_correlation':
         return 'ioc';
+      case 'rss':
+        return 'other';
       default:
         return 'other';
     }
@@ -879,6 +887,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
             firm: firmsEvents.length,
             maritime: ukmtoEvents.length,
             cyberpulse: cyberpulseEvents.length,
+            rss: 0,
           },
         };
 

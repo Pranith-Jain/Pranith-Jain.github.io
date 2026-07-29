@@ -723,3 +723,20 @@ export function fromCyberPulse(data: {
     };
   });
 }
+
+export function fromRss(data: {
+  articles?: Array<{ title: string; link: string; description?: string; pub_date: string; source: string }>;
+}): PulseEvent[] {
+  return (data.articles ?? []).slice(0, 50).map((item) => ({
+    id: `rss-${(item.link ?? '').slice(-32) || Math.random().toString(36).slice(2)}`,
+    kind: 'rss' as const,
+    title: (item.title ?? '').slice(0, 120),
+    description: (item.description ?? '').slice(0, 200),
+    lat: 0,
+    lng: 0,
+    timestamp: item.pub_date || new Date().toISOString(),
+    severity: 'low' as const,
+    source: item.source || 'RSS',
+    url: item.link,
+  }));
+}

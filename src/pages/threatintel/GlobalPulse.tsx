@@ -88,7 +88,8 @@ type PulseKind =
   | 'military_base'
   | 'fire_detection'
   | 'nuclear_facility'
-  | 'cyberpulse';
+  | 'cyberpulse'
+  | 'rss';
 
 interface PulseEvent {
   id: string;
@@ -413,6 +414,14 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     bgColor: 'bg-fuchsia-500/10 border-fuchsia-500/20',
     group: 'intel',
   },
+  rss: {
+    label: 'RSS Feeds',
+    shortLabel: 'RSS',
+    icon: <Rss size={14} />,
+    color: 'text-orange-600 dark:text-orange-400',
+    bgColor: 'bg-orange-500/10 border-orange-500/20',
+    group: 'social',
+  },
 };
 
 /* ─── Helpers ───────────────────────────────────────────────────────────── */
@@ -500,6 +509,7 @@ export default function GlobalPulse(): JSX.Element {
       'nuclear_facility',
       'fire_detection',
       'cyberpulse',
+      'rss',
     ])
   );
   const [autoRefresh, setAutoRefresh] = useState(true);
@@ -720,12 +730,12 @@ export default function GlobalPulse(): JSX.Element {
     []
   );
 
-  const load = useCallback(async () => {
+  const load = useCallback(async (forceRefresh = false) => {
     const myId = ++loadIdRef.current;
     setLoading(true);
     setError(null);
     try {
-      const r = await fetch('/api/v1/global-pulse');
+      const r = await fetch(forceRefresh ? '/api/v1/global-pulse?force=1' : '/api/v1/global-pulse');
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const json: GlobalPulseResponse = await r.json();
 
@@ -777,7 +787,7 @@ export default function GlobalPulse(): JSX.Element {
           break;
         case 'r':
           e.preventDefault();
-          load();
+          load(true);
           break;
         case 'escape':
           setSelectedEvent(null);
@@ -1006,6 +1016,10 @@ export default function GlobalPulse(): JSX.Element {
 
   const globeArcs: CtiArc[] = useMemo(() => synthesizeArcs(globePoints), [globePoints]);
   const kpis = useMemo(() => deriveKpis(globePoints, filteredEvents.length), [globePoints, filteredEvents]);
+  const filteredCritical = useMemo(
+    () => filteredEvents.filter((e) => e.severity === 'critical').length,
+    [filteredEvents]
+  );
 
   const handlePointClick = useCallback((point: CtiPoint) => {
     setFocus({ lat: point.lat, lng: point.lng });
@@ -1046,7 +1060,7 @@ export default function GlobalPulse(): JSX.Element {
   const [trend, setTrend] = useState<{ total: number; critical: number }[]>([]);
   useEffect(() => {
     if (!data) return;
-    setTrend((t) => [...t.slice(-23), { total: data.total_events, critical: kpis.critical }]);
+    setTrend((t) => [...t.slice(-23), { total: filteredEvents.length, critical: filteredCritical }]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastUpdated]);
   const lastTrend = trend[trend.length - 1];
@@ -1091,7 +1105,7 @@ export default function GlobalPulse(): JSX.Element {
               </div>
               <div className="flex items-end justify-between gap-2">
                 <CountUp
-                  to={data.total_events}
+                  to={filteredEvents.length}
                   className="text-3xl font-display font-bold text-slate-900 dark:text-white tabular-nums leading-none"
                 />
                 {trend.length > 1 && (
@@ -1126,7 +1140,7 @@ export default function GlobalPulse(): JSX.Element {
                 )}
               </div>
               <CountUp
-                to={kpis.critical}
+                to={filteredCritical}
                 className="block text-3xl font-display font-bold text-rose-600 dark:text-rose-400 tabular-nums leading-none"
               />
               {(() => {
@@ -1260,7 +1274,8 @@ export default function GlobalPulse(): JSX.Element {
               />
               <Building2 size={14} className="absolute left-3 top-2.5 text-teal-500/60 dark:text-teal-400/60" />
               {infraQuery && (
-                <button type="button"
+                <button
+                  type="button"
                   onClick={() => {
                     setInfraQuery('');
                     setInfraResults([]);
@@ -1403,7 +1418,7 @@ export default function GlobalPulse(): JSX.Element {
               </button>
               <button
                 type="button"
-                onClick={load}
+                onClick={() => load(true)}
                 disabled={loading}
                 className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-xl border border-slate-200/60 dark:border-white/[0.08] text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-colors disabled:opacity-50"
               >
