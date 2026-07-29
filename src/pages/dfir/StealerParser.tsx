@@ -207,9 +207,9 @@ export default function StealerParser(): JSX.Element {
           {/* System Info */}
           {Object.keys(result.system_info).length > 0 && (
             <div className="surface-card/40 shadow-e1 p-5">
-              <h3 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
+              <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                 <Monitor size={14} className="text-brand-600 dark:text-brand-400" /> System Information
-              </h3>
+              </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {result.system_info.hostname && <InfoField label="Hostname" value={result.system_info.hostname} />}
                 {result.system_info.username && <InfoField label="Username" value={result.system_info.username} />}
@@ -225,9 +225,9 @@ export default function StealerParser(): JSX.Element {
           {result.credentials.length > 0 && (
             <div className="surface-card/40 shadow-e1 p-5">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="font-display font-bold text-sm text-rose-600 dark:text-rose-400">
+                <h2 className="font-display font-bold text-sm text-rose-600 dark:text-rose-400">
                   Stolen Credentials ({result.credentials.length})
-                </h3>
+                </h2>
                 <CopyButton value={result.credentials.map((c) => `${c.domain}:${c.username}`).join('\n')} />
               </div>
               <div className="max-h-64 overflow-auto">
@@ -243,7 +243,7 @@ export default function StealerParser(): JSX.Element {
           {/* Crypto Wallets */}
           {result.crypto_wallets.length > 0 && (
             <div className="surface-card/40 shadow-e1 p-5">
-              <h3 className="font-display font-bold text-sm mb-3">Crypto Wallets ({result.crypto_wallets.length})</h3>
+              <h2 className="font-display font-bold text-sm mb-3">Crypto Wallets ({result.crypto_wallets.length})</h2>
               <div className="space-y-1.5">
                 {result.crypto_wallets.map((w) => (
                   <div
@@ -264,7 +264,7 @@ export default function StealerParser(): JSX.Element {
           {/* Emails */}
           {result.emails.length > 0 && (
             <div className="surface-card/40 shadow-e1 p-5">
-              <h3 className="font-display font-bold text-sm mb-3">Emails ({result.emails.length})</h3>
+              <h2 className="font-display font-bold text-sm mb-3">Emails ({result.emails.length})</h2>
               <div className="max-h-32 overflow-y-auto flex flex-wrap gap-1">
                 {result.emails.map((e) => (
                   <span
@@ -281,7 +281,7 @@ export default function StealerParser(): JSX.Element {
           {/* Installed Software */}
           {result.installed_software.length > 0 && (
             <div className="surface-card/40 shadow-e1 p-5">
-              <h3 className="font-display font-bold text-sm mb-3">Installed Software</h3>
+              <h2 className="font-display font-bold text-sm mb-3">Installed Software</h2>
               <div className="flex flex-wrap gap-1.5">
                 {result.installed_software.map((s) => (
                   <span

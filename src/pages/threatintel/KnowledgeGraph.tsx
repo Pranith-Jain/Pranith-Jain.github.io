@@ -172,6 +172,7 @@ export default function KnowledgeGraph(): JSX.Element {
       title="Knowledge Graph Explorer"
       description="Cross-report view of every threat-intel entity the platform has ingested - IOCs, actors, malware, CVEs, techniques, campaigns. Filter by type and time window; nodes are ranked by recency and source count."
       maxWidthClass="max-w-6xl"
+      error={error}
     >
       {/* Filter card */}
       <section className="surface-card p-4 mb-4">
@@ -265,12 +266,6 @@ export default function KnowledgeGraph(): JSX.Element {
           <span className="rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1">
             types: {data.stats.sourceTypes.join(', ') || '-'}
           </span>
-        </div>
-      )}
-
-      {error && (
-        <div className="rounded-xl border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950/30 p-3 text-sm text-rose-700 dark:text-rose-200">
-          {error}
         </div>
       )}
 

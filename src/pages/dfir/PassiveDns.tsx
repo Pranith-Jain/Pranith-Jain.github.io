@@ -140,9 +140,9 @@ export default function PassiveDns(): JSX.Element {
 
           {/* Source Breakdown */}
           <div className="p-4 surface-card">
-            <h3 className="font-display font-semibold mb-3 flex items-center gap-2">
+            <h2 className="font-display font-semibold mb-3 flex items-center gap-2">
               <Server size={16} /> Sources
-            </h3>
+            </h2>
             <div className="flex flex-wrap gap-3">
               {Object.entries(result.source_summary).map(([source, count]) => (
                 <span
@@ -158,9 +158,9 @@ export default function PassiveDns(): JSX.Element {
           {/* Migrations Detected */}
           {result.migrations.length > 0 && (
             <div className="p-4 rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20">
-              <h3 className="font-display font-semibold mb-3 flex items-center gap-2 text-amber-700 dark:text-amber-300">
+              <h2 className="font-display font-semibold mb-3 flex items-center gap-2 text-amber-700 dark:text-amber-300">
                 <AlertTriangle size={16} /> Infrastructure Migrations Detected
-              </h3>
+              </h2>
               <div className="space-y-2">
                 {result.migrations.map((m, i) => (
                   <div key={i} className="text-sm font-mono text-amber-800 dark:text-amber-200">
@@ -174,9 +174,9 @@ export default function PassiveDns(): JSX.Element {
           {/* Fast Flux */}
           {result.fast_flux && result.fast_flux.is_fast_flux && (
             <div className="p-4 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20">
-              <h3 className="font-display font-semibold mb-3 flex items-center gap-2 text-rose-700 dark:text-rose-300">
+              <h2 className="font-display font-semibold mb-3 flex items-center gap-2 text-rose-700 dark:text-rose-300">
                 <AlertTriangle size={16} /> Fast-Flux Detection
-              </h3>
+              </h2>
               <div className="text-sm font-mono text-rose-800 dark:text-rose-200">
                 {result.fast_flux.unique_ips} unique IPs in {result.fast_flux.observation_window_hours}h - rotation
                 rate: {result.fast_flux.rotation_rate} IPs/day - severity: {result.fast_flux.severity}
@@ -187,9 +187,9 @@ export default function PassiveDns(): JSX.Element {
           {/* Resolved IPs */}
           {result.unique_resolved.length > 0 && (
             <div className="p-4 surface-card">
-              <h3 className="font-display font-semibold mb-3 flex items-center gap-2">
+              <h2 className="font-display font-semibold mb-3 flex items-center gap-2">
                 <Globe size={16} /> Resolved IPs
-              </h3>
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {result.unique_resolved
                   .filter((ip) => !ip.startsWith('['))
@@ -206,9 +206,9 @@ export default function PassiveDns(): JSX.Element {
           {/* Records Table */}
           {result.records.length > 0 && (
             <div className="p-4 surface-card">
-              <h3 className="font-display font-semibold mb-3 flex items-center gap-2">
+              <h2 className="font-display font-semibold mb-3 flex items-center gap-2">
                 <Clock size={16} /> Resolution History
-              </h3>
+              </h2>
               <div className="overflow-x-auto">
                 <DataTable
                   rows={result.records.slice(0, 20)}

@@ -89,6 +89,8 @@ export interface SidebarItem {
   href: string;
   icon: LucideIcon;
   description?: string;
+  /** Optional live/new badge pip (from the hub registry). */
+  badge?: 'live' | 'new';
 }
 export interface SidebarGroup {
   title: string;
@@ -169,6 +171,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   '/threatintel/darkweb/bitcoin': AlertOctagon,
   '/threatintel/darkweb/infostealer': KeyRound,
   '/threatintel/darkweb/leaks': LockIcon,
+  '/threatintel/darkweb/playbook': BookOpen,
   '/threatintel/darkweb/ransom-report': FileText,
   '/threatintel/darkweb/ransom-activity': Flame,
   '/threatintel/darkweb/ransom-map': MapPinIcon,
@@ -298,6 +301,7 @@ function buildThreatIntelSidebar(): SidebarConfig {
       href: p.path,
       icon: PAGE_ICON_OVERRIDES[p.path] ?? hub.icon,
       description: p.desc,
+      badge: p.badge,
     })),
   }));
 

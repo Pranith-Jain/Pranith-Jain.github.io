@@ -153,6 +153,17 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
                             aria-hidden="true"
                           />
                           <span className="truncate">{item.label}</span>
+                          {item.badge && (
+                            <span
+                              className={`shrink-0 rounded px-1 py-px text-[9px] font-mono font-bold uppercase leading-none ${
+                                item.badge === 'live'
+                                  ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                                  : 'bg-brand-500/15 text-brand-600 dark:text-brand-400'
+                              }`}
+                            >
+                              {item.badge}
+                            </span>
+                          )}
                           {active && (
                             <span
                               aria-hidden="true"
