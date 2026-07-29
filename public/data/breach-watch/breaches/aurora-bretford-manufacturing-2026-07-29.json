@@ -1,0 +1,15 @@
+{
+  "slug": "aurora-bretford-manufacturing-2026-07-29",
+  "title": "Bretford Manufacturing",
+  "group": "aurora",
+  "discovered": "2026-07-29T06:51:40.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Bretford Manufacturing, Inc. is a privately held manufacturer of charging solutions for mobile devices, founded in 1948 and headquartered in Franklin Park, Illinois. With ~60 employees and ~$10M annual revenue, it serves education, healthcare, retail, and government sectors.\n\nThe exposed material includes:\n\nSocial Security Numbers for the entire workforce (current + 200–400 historical employees + dependents) via ACA Census files, 1099 forms, and payroll records spanning 2010–2026.\nCorporate and vendor bank accounts — Bretford's own checking account (routing + account number) plus 26+ vendor bank accounts from NACHA ACH batch files.\nComplete network architecture — VPN gateway IP, internal topology diagram, IP allocation tables, infrastructure inventory, disaster recovery plan, and Active Directory domain name.\n20 years of HR records including medical leave, disability accommodations, drug tests, garnishments, pension, 401(k), insurance enrollment, and termination records.\nComplete product engineering library — SolidWorks CAD files for all products, CNC/laser programs, and manufacturing process documentation.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

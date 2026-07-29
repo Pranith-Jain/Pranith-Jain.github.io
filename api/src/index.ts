@@ -1595,9 +1595,9 @@ app.delete('/api/v1/copilot/rules/:id', copilotRulesDeleteHandler);
 app.post('/api/v1/agents/chat', veraChatHandler);
 app.get('/api/v1/agents/chat/modes', veraChatModesHandler);
 app.get('/api/v1/agents/chat/roles', veraChatRolesHandler);
+app.get('/api/v1/agents/chat/sessions', veraSessionsListHandler);
 app.get('/api/v1/agents/chat/:sessionId/stream', veraChatStreamHandler);
 app.get('/api/v1/agents/chat/:sessionId', veraChatHistoryHandler);
-app.get('/api/v1/agents/chat/sessions', veraSessionsListHandler);
 app.delete('/api/v1/agents/chat/:sessionId', veraChatDeleteHandler);
 app.post('/api/v1/agents/chat/:sessionId/cancel', veraChatCancelHandler);
 
