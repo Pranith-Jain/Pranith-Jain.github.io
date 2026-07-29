@@ -17,7 +17,7 @@
     }
   },
   "toolCount": 257,
-  "generatedAt": "2026-07-29T09:56:36.707Z",
+  "generatedAt": "2026-07-29T11:39:51.248Z",
   "tools": [
     {
       "name": "ai_threats_get",
@@ -876,7 +876,7 @@
     },
     {
       "name": "si_get_script",
-      "description": "Return the raw body of a PowerShell script or detection-manifest. Use si_list_scripts to discover filenames. The PowerShell scripts target Microsoft Defender XDR / Sentinel / M365 — they are NOT executable in the Worker; copy them to a PowerShell 7+ session locally to run.",
+      "description": "Return the raw body of a detection-manifest asset. Use si_list_scripts to discover filenames.",
       "category": "si"
     },
     {
@@ -911,7 +911,7 @@
     },
     {
       "name": "si_list_scripts",
-      "description": "List the 5 PowerShell / detection-manifest assets that ship in the SI bundle: Deploy-CustomDetections.ps1 (batch-deploy Defender XDR rules), Invoke-MitreScan.ps1 (full MITRE coverage scanner), Invoke-IngestionScan.ps1 (Sentinel ingestion health), example-detection-manifest.json (input template), sentinel-ingestion-drilldown.md (companion guide).",
+      "description": "List the detection-manifest assets that ship in the SI bundle: example-detection-manifest.json (input template), sentinel-chokepoint-rules.json (detection rules), sentinel-ingestion-drilldown.md (companion guide).",
       "category": "si"
     },
     {
