@@ -308,7 +308,7 @@ function GroupDetail({ group }: { group: string }): JSX.Element | null {
   const { data, loading, error } = useFetch<ProxyEnvelope>(`/api/v1/rl/group/${encodeURIComponent(group)}`, [group]);
   if (loading)
     return <div className="p-3 font-mono text-mini text-slate-500 dark:text-slate-400">loading group detail…</div>;
-  if (error) return <div className="p-3 font-mono text-mini text-red-500">{error}</div>;
+  if (error) return <div className="p-3 font-mono text-mini text-rose-600 dark:text-rose-400">{error}</div>;
   if (!data || !isRecord(data.data)) return null;
   const d = data.data as Record<string, unknown>;
   const desc = pick(d, ['description', 'desc']);
@@ -531,7 +531,8 @@ function YaraView({ data }: { data: unknown }): JSX.Element {
           const count = pick(r, ['yara_count', 'rules', 'count', 'total']);
           return (
             <button
-              key={name} role="tab"
+              key={name}
+              role="tab"
               type="button"
               onClick={() => setSelected(name)}
               className="surface-card p-3 text-left hover:border-rose-500/40 transition-colors"
@@ -561,7 +562,7 @@ function YaraRules({ group, onBack }: { group: string; onBack: () => void }): JS
     return (
       <div className="font-mono text-mini text-slate-500 dark:text-slate-400">loading YARA rules for {group}…</div>
     );
-  if (error) return <div className="font-mono text-mini text-red-500">{error}</div>;
+  if (error) return <div className="font-mono text-mini text-rose-600 dark:text-rose-400">{error}</div>;
   if (rules.length === 0)
     return <div className="font-mono text-mini text-slate-500 dark:text-slate-400">no rules found</div>;
 
@@ -583,7 +584,8 @@ function YaraRules({ group, onBack }: { group: string; onBack: () => void }): JS
           const fn = pick(r, ['filename', 'name', 'file']) ?? `rule-${i}`;
           return (
             <button
-              key={i} role="tab"
+              key={i}
+              role="tab"
               type="button"
               onClick={() => setActiveRule(i)}
               className={`px-2 py-1 rounded font-mono text-micro border ${i === activeRule ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'}`}
@@ -628,7 +630,8 @@ function IocView({ data }: { data: unknown }): JSX.Element {
           );
           return (
             <button
-              key={name} role="tab"
+              key={name}
+              role="tab"
               type="button"
               onClick={() => setSelected(name)}
               className="surface-card p-3 text-left hover:border-rose-500/40 transition-colors"
@@ -664,7 +667,7 @@ function IocValues({ group, onBack }: { group: string; onBack: () => void }): JS
 
   if (loading)
     return <div className="font-mono text-mini text-slate-500 dark:text-slate-400">loading IoCs for {group}…</div>;
-  if (error) return <div className="font-mono text-mini text-red-500">{error}</div>;
+  if (error) return <div className="font-mono text-mini text-rose-600 dark:text-rose-400">{error}</div>;
   if (!data || !isRecord(data.data))
     return <div className="font-mono text-mini text-slate-500 dark:text-slate-400">no IoCs found</div>;
 
@@ -744,7 +747,7 @@ function KqlView(): JSX.Element | null {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   if (loading) return <div className="font-mono text-mini text-slate-500 dark:text-slate-400">loading KQL index…</div>;
-  if (error) return <div className="font-mono text-mini text-red-500">{error}</div>;
+  if (error) return <div className="font-mono text-mini text-rose-600 dark:text-rose-400">{error}</div>;
   if (!data) return null;
 
   if (selectedId) {
@@ -797,7 +800,8 @@ function KqlView(): JSX.Element | null {
               <div className="space-y-1">
                 {queries.map((q) => (
                   <button
-                    key={q.id} role="tab"
+                    key={q.id}
+                    role="tab"
                     type="button"
                     onClick={() => setSelectedId(q.id)}
                     className="block w-full text-left surface-card p-2 hover:border-rose-500/40 transition-colors"
@@ -823,7 +827,7 @@ function KqlDetail2({ id, onBack }: { id: string; onBack: () => void }): JSX.Ele
   const { data, loading, error } = useFetch<KqlDetail>(`/api/v1/rl/kql/${id}`, [id]);
 
   if (loading) return <div className="font-mono text-mini text-slate-500 dark:text-slate-400">loading KQL query…</div>;
-  if (error) return <div className="font-mono text-mini text-red-500">{error}</div>;
+  if (error) return <div className="font-mono text-mini text-rose-600 dark:text-rose-400">{error}</div>;
   if (!data) return null;
 
   return (
@@ -873,7 +877,7 @@ function CountryMapView(): JSX.Element | null {
 
   if (loading)
     return <div className="font-mono text-mini text-slate-500 dark:text-slate-400">loading country data…</div>;
-  if (error) return <div className="font-mono text-mini text-red-500">{error}</div>;
+  if (error) return <div className="font-mono text-mini text-rose-600 dark:text-rose-400">{error}</div>;
   if (!data) return null;
 
   const filtered = data.countries.filter(
@@ -988,8 +992,7 @@ export default function RansomwareLive(): JSX.Element {
       maxWidthClass="max-w-6xl"
       description={
         <span className="text-sm font-mono">
-          PRO API data — stats, group TTPs/CVEs, YARA rules, IoCs, KQL hunting queries, and infostealer
-          enrichment from{' '}
+          PRO API data — stats, group TTPs/CVEs, YARA rules, IoCs, KQL hunting queries, and infostealer enrichment from{' '}
           <a
             href="https://www.ransomware.live"
             target="_blank"
@@ -1007,13 +1010,17 @@ export default function RansomwareLive(): JSX.Element {
       }
       headerExtra={
         <div className="space-y-4">
-          <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
-          <div role="tablist" aria-label="Tabs" className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+          <div
+            role="tablist"
+            aria-label="Tabs"
+            className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
+          >
             {TABS.map((t) => {
               const Icon = t.icon;
               return (
                 <button
-                  key={t.id} role="tab"
+                  key={t.id}
+                  role="tab"
                   type="button"
                   onClick={() => setTab(t.id)}
                   className={`inline-flex items-center gap-1.5 px-3 py-2 font-mono text-meta border-b-2 -mb-px ${tab === t.id ? 'border-rose-500 text-rose-700 dark:text-rose-300' : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'}`}

@@ -62,12 +62,12 @@ export function LatestBriefingCard(): JSX.Element | null {
       to={`/threatintel/briefings/${item.slug}`}
       onMouseEnter={() => preloadRoute('/threatintel/briefings')}
       onFocus={() => preloadRoute('/threatintel/briefings')}
-      className="group mb-6 flex items-center gap-4 rounded-xl border border-slate-200 bg-white px-4 py-3 transition-colors hover:border-brand-400 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:hover:border-brand-500"
+      className="group mb-6 flex items-center gap-4 rounded-xl border border-slate-200 bg-white px-4 py-3 transition-colors hover:border-rose-400 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:hover:border-rose-500"
     >
-      <FileText className="h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
+      <FileText className="h-5 w-5 shrink-0 text-rose-600 dark:text-rose-400" />
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <span className="rounded bg-brand-100 px-1.5 py-0.5 text-mini font-semibold uppercase tracking-wide text-brand-700 dark:bg-brand-900/50 dark:text-brand-300">
+          <span className="rounded bg-rose-100 px-1.5 py-0.5 text-mini font-semibold uppercase tracking-wide text-rose-700 dark:bg-rose-900/50 dark:text-rose-300">
             Latest {kind} Briefing
           </span>
           <span className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">

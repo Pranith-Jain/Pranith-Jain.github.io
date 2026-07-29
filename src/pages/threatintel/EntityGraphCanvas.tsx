@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTheme } from '../../hooks/useTheme';
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports -- lazy-loaded by EntityGraphPage
 import {
   ReactFlow,
@@ -86,7 +87,7 @@ function EntityNodeBox({
 
 const NODE_TYPES: NodeTypes = { entityNode: EntityNodeBox };
 
-function layoutGraph(data: GraphData): { nodes: Node[]; edges: Edge[] } {
+function layoutGraph(data: GraphData, isDark: boolean): { nodes: Node[]; edges: Edge[] } {
   const g = new dagre.graphlib.Graph();
   g.setDefaultEdgeLabel(() => ({}));
   g.setGraph({ rankdir: 'TB', nodesep: 60, ranksep: 80, marginx: 20, marginy: 20 });
@@ -117,15 +118,16 @@ function layoutGraph(data: GraphData): { nodes: Node[]; edges: Edge[] } {
     label: e.label,
     type: 'smoothstep',
     animated: false,
-    style: { stroke: '#cbd5e1', strokeWidth: 1.5 },
-    labelStyle: { fontSize: 9, fontFamily: 'monospace', fill: '#94a3b8' },
+    style: { stroke: isDark ? '#334155' : '#cbd5e1', strokeWidth: 1.5 },
+    labelStyle: { fontSize: 9, fontFamily: 'monospace', fill: isDark ? '#64748b' : '#94a3b8' },
   }));
 
   return { nodes, edges };
 }
 
 function CanvasInner({ graphData }: { graphData: GraphData }) {
-  const { nodes, edges } = useMemo(() => layoutGraph(graphData), [graphData]);
+  const { isDark } = useTheme();
+  const { nodes, edges } = useMemo(() => layoutGraph(graphData, isDark), [graphData, isDark]);
 
   return (
     <ReactFlow
@@ -138,11 +140,11 @@ function CanvasInner({ graphData }: { graphData: GraphData }) {
       maxZoom={2}
       defaultEdgeOptions={{ type: 'smoothstep' }}
     >
-      <Background color="#e2e8f0" gap={20} />
+      <Background color={isDark ? '#1e293b' : '#e2e8f0'} gap={20} />
       <Controls showInteractive={false} />
       <MiniMap
         nodeColor={(n) => NODE_COLORS[(n.data as { nodeType: EntityType }).nodeType] ?? '#94a3b8'}
-        maskColor="rgba(255,255,255,0.7)"
+        maskColor={isDark ? 'rgba(7,11,28,0.7)' : 'rgba(255,255,255,0.7)'}
         style={{ width: 120, height: 80 }}
       />
     </ReactFlow>
