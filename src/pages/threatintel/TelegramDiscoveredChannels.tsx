@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { DataState } from '../../components/DataState';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { RefreshCw, Radio, ExternalLink, Check, X, Search, Lock } from 'lucide-react';
 import { adminAuthHeaders, readAdminToken, writeAdminToken } from '../../lib/admin-token';
 import { sanitizeUrl } from '../../lib/sanitize-url';
@@ -94,42 +95,36 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
   const filtered = channels.filter((ch) => !search || ch.handle.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <div className="animate-fade-in-up">
-        <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
-            <Radio size={28} className="text-rose-600 dark:text-rose-400" /> Discovered Telegram Channels
-          </h1>
-          <div className="flex items-center gap-2 mt-1">
-            <button
-              type="button"
-              onClick={() => setShowToken((s) => !s)}
-              className={`text-mini font-mono px-2.5 py-1.5 rounded border inline-flex items-center gap-1 ${
-                authed
-                  ? 'border-emerald-600/40 text-emerald-700 dark:text-emerald-400'
-                  : 'border-amber-500/40 text-amber-600 dark:text-amber-400'
-              }`}
-              aria-label="Admin token"
-            >
-              <Lock size={11} /> {authed ? 'admin' : 'set token'}
-            </button>
-            <button
-              type="button"
-              onClick={() => setRefreshKey((k) => k + 1)}
-              className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
-              aria-label="Refresh"
-            >
-              <RefreshCw size={11} /> refresh
-            </button>
-          </div>
+    <DataPageLayout
+      title="Discovered Telegram Channels"
+      icon={<Radio size={28} />}
+      backTo="/threatintel/telegram-monitor"
+      description="Channels auto-discovered from messages in monitored feeds and bot-subscribed chats. Approve to add a channel to the watchlist for leak scanning, or reject to dismiss it - rejected channels are remembered and won't be surfaced again."
+      headerExtra={
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setShowToken((s) => !s)}
+            className={`text-mini font-mono px-2.5 py-1.5 rounded border inline-flex items-center gap-1 ${
+              authed
+                ? 'border-emerald-600/40 text-emerald-700 dark:text-emerald-400'
+                : 'border-amber-500/40 text-amber-600 dark:text-amber-400'
+            }`}
+            aria-label="Admin token"
+          >
+            <Lock size={11} /> {authed ? 'admin' : 'set token'}
+          </button>
+          <button
+            type="button"
+            onClick={() => setRefreshKey((k) => k + 1)}
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
+            aria-label="Refresh"
+          >
+            <RefreshCw size={11} /> refresh
+          </button>
         </div>
-        <p className="text-muted mb-6 max-w-3xl leading-relaxed">
-          Channels auto-discovered from messages in monitored feeds and bot-subscribed chats. <strong>Approve</strong>{' '}
-          to add a channel to the watchlist for leak scanning, or <strong>reject</strong> to dismiss it - rejected
-          channels are remembered and won&apos;t be surfaced again.
-        </p>
-      </div>
-
+      }
+    >
       {showToken && (
         <div className="animate-fade-in-up mb-6 surface-card p-3.5">
           <label htmlFor="vt-admin-token" className="block text-micro uppercase tracking-wider text-slate-500 mb-1.5">
@@ -253,6 +248,6 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
           </div>
         )}
       </DataState>
-    </div>
+    </DataPageLayout>
   );
 }

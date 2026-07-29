@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, useCallback } from 'react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { RefreshCw, Radio, Search, AlertTriangle, ExternalLink, Zap } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 import { useDebounce } from '../../hooks/useDebounce';
@@ -303,7 +304,12 @@ export default function TelegramFirehose(): JSX.Element {
   const anyError = feedError || leakError || liveError;
 
   return (
-    <div className="space-y-4">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Radio size={28} />}
+      title="Telegram Firehose"
+      description="Unified cross-source stream merging t.me/s firehose (curated public channels, 30d window), leak-monitor entries (critical/high credentials + domains) and live-IOCs with telegram-leak source. Newest first."
+    >
       {/* Header strip */}
       <section className="surface-card p-4">
         <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
@@ -438,7 +444,7 @@ export default function TelegramFirehose(): JSX.Element {
           </p>
         )}
       </DataState>
-    </div>
+    </DataPageLayout>
   );
 }
 
@@ -469,7 +475,9 @@ function FirehoseRow({ item }: { item: FirehoseItem }): JSX.Element {
           </span>
         )}
         <span className="text-micro font-mono text-slate-500 dark:text-slate-400">@{item.channel}</span>
-        <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-auto">{relativeAgo(item.ts, '-')}</span>
+        <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-auto">
+          {relativeAgo(item.ts, '-')}
+        </span>
       </div>
       <div className="flex flex-wrap items-start gap-2">
         <div className="flex-1 min-w-0">

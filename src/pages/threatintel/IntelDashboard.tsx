@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 import { MaturityPanel } from '../../components/threatintel/MaturityPanel';
 import { Shield, Bug, Globe2, Activity, AlertTriangle, Radio, Target, TrendingUp } from 'lucide-react';
@@ -115,21 +115,12 @@ export default function IntelDashboard(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-rose-600 dark:hover:text-rose-400 mb-8 font-mono"
-      >
-        back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3 mb-3">
-          <Activity size={28} className="text-rose-600 dark:text-rose-400" /> Intelligence Dashboard
-        </h1>
-        <p className="text-muted max-w-3xl">Consolidated view across all threat intelligence sources.</p>
-      </div>
-
+    <DataPageLayout
+      title="Intelligence Dashboard"
+      icon={<Activity size={28} />}
+      backTo="/threatintel"
+      description="Consolidated view across all threat intelligence sources."
+    >
       <DataState loading={loading} error={error} rows={16}>
         {data && (
           <div className="space-y-8">
@@ -138,7 +129,9 @@ export default function IntelDashboard(): JSX.Element {
               <div className="surface-card p-4">
                 <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Leaks indexed</p>
                 <p className="text-2xl font-bold font-display">{data.telegram_monitor.total_leaks}</p>
-                <p className="text-mini text-slate-500 dark:text-slate-400 mt-0.5">{data.telegram_monitor.leaks_24h} in 24h</p>
+                <p className="text-mini text-slate-500 dark:text-slate-400 mt-0.5">
+                  {data.telegram_monitor.leaks_24h} in 24h
+                </p>
               </div>
               <div className="surface-card p-4">
                 <p className="text-mini font-mono text-slate-500 dark:text-slate-400 mb-1">Watched channels</p>
@@ -236,6 +229,6 @@ export default function IntelDashboard(): JSX.Element {
           </div>
         )}
       </DataState>
-    </div>
+    </DataPageLayout>
   );
 }

@@ -3,6 +3,7 @@ import { useDebounce } from '../../hooks/useDebounce';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { useSearchParams } from 'react-router-dom';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { ExternalLink, MessageSquare, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { DataState } from '../../components/DataState';
@@ -137,20 +138,17 @@ export default function RedditFirehose(): JSX.Element {
     });
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-semibold mb-2 flex items-center gap-3">
-          <MessageSquare size={28} className="text-rose-600 dark:text-rose-400" /> Cybersec Reddit firehose
-        </h1>
-        <p className="text-muted mb-2 max-w-3xl leading-relaxed">
-          Curated stream from active public cybersec subreddits. Research, advisories, IR write-ups, malware analysis,
-          OSINT, and CTI threads. Same shape as the Telegram firehose. Click a post title to open the Reddit thread.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<MessageSquare size={28} />}
+      title="Cybersec Reddit Firehose"
+      description="Curated stream from active public cybersec subreddits. Research, advisories, IR write-ups, malware analysis, OSINT, and CTI threads. Same shape as the Telegram firehose. Click a post title to open the Reddit thread."
+      headerExtra={
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           16 subreddits aggregated. Updated frequently.
         </p>
-      </div>
-
+      }
+    >
       <section className="surface-card p-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
@@ -308,6 +306,6 @@ export default function RedditFirehose(): JSX.Element {
           </button>
         )}
       </DataState>
-    </div>
+    </DataPageLayout>
   );
 }
