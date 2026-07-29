@@ -300,8 +300,8 @@ export default function DfirCopilot(): JSX.Element {
       )}
 
       {loading && (
-        <div className="py-16 text-center">
-          <Loader2 size={32} className="mx-auto mb-4 animate-spin text-brand-500" />
+        <div role="status" aria-live="polite" className="py-16 text-center">
+          <Loader2 size={32} className="mx-auto mb-4 animate-spin text-brand-500" aria-hidden="true" />
           <p className="font-mono text-sm text-slate-500 dark:text-slate-400">Gathering intelligence…</p>
           <p className="mt-1 font-mono text-xs text-slate-500 dark:text-slate-500">
             Querying threat data sources and generating narrative

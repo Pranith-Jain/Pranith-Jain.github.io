@@ -518,8 +518,12 @@ export default function AgentInvestigator(): JSX.Element {
       )}
 
       {agentState?.status === 'running' && (
-        <div className="rounded-xl border border-brand-500/30 bg-brand-500/5 p-4 mb-6 flex items-center gap-3">
-          <Loader2 size={18} className="animate-spin text-brand-600" />
+        <div
+          role="status"
+          aria-live="polite"
+          className="rounded-xl border border-brand-500/30 bg-brand-500/5 p-4 mb-6 flex items-center gap-3"
+        >
+          <Loader2 size={18} className="animate-spin text-brand-600" aria-hidden="true" />
           <span className="text-sm font-mono text-brand-700 dark:text-brand-300">
             Investigating... step {agentState.currentStep + 1} of {agentState.maxSteps}
           </span>
@@ -632,8 +636,12 @@ export default function AgentInvestigator(): JSX.Element {
 
           {/* Structured report view (streams the live draft until done) */}
           {agentState.status !== 'done' && streamingReport && (
-            <div className="mb-2 flex items-center gap-2 text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-brand-500" /> Streaming report…
+            <div
+              role="status"
+              aria-live="polite"
+              className="mb-2 flex items-center gap-2 text-micro font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400"
+            >
+              <span className="h-2 w-2 animate-pulse rounded-full bg-brand-500" aria-hidden="true" /> Streaming report…
             </div>
           )}
           <ReportView
