@@ -26,15 +26,15 @@ const apps = [
     title: 'PANOPTICON',
     subtitle: 'Threat Intel Platform',
     description:
-      'Monitor ransomware activity, track threat actors, and stay ahead of campaigns - live intelligence from 100+ public feeds.',
+      'Monitor ransomware activity, track threat actors, and stay ahead of campaigns - live intelligence from 30+ public feeds.',
     rows: [
       ['Live feeds', 'Ransomware leaks · CVEs · dark web · social media'],
       ['Common tasks', 'Actor research · IOC enrichment · campaign tracking'],
-      ['How it works', 'Aggregates 100+ feeds so you see the full picture, not noise'],
+      ['How it works', 'Aggregates 30+ feeds so you see the full picture, not noise'],
     ],
     builtWith: ['Free', 'No login', 'Edge-hosted'],
     href: '/threatintel',
-    stat: '100+',
+    stat: '30+',
     statLabel: 'feeds',
     cta: 'Open PANOPTICON',
   },

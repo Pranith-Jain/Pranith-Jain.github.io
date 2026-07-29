@@ -4,7 +4,11 @@ import { Compass, ArrowRight, Star } from 'lucide-react';
 import { preloadRoute } from '../lib/route-preloaders';
 
 const PAGES = [
-  { path: '/dfir', name: 'DFIR Toolkit', desc: '60+ browser-side security tools for incident response and forensics.' },
+  {
+    path: '/dfir',
+    name: 'DFIR Toolkit',
+    desc: '125+ browser-side security tools for incident response and forensics.',
+  },
   {
     path: '/threatintel',
     name: 'Threat Intel Platform',
@@ -20,7 +24,7 @@ const PAGES = [
     name: 'Ransomware Live',
     desc: 'Live ransomware leak site monitoring and victim tracking.',
   },
-  { path: '/dfir/catalog', name: 'DFIR Tool Catalog', desc: 'Browse all 60+ tools organized by category.' },
+  { path: '/dfir/catalog', name: 'DFIR Tool Catalog', desc: 'Browse all 125+ tools organized by category.' },
   {
     path: '/threatintel/catalog',
     name: 'Threat Intel Catalog',

@@ -165,9 +165,9 @@ export const SECTIONS: Section[] = [
     tools: [
       {
         path: '/dfir/ioc-investigate',
-        useCase: 'Investigate any indicator across 26+ sources in one place.',
+        useCase: 'Investigate any indicator across 60+ sources in one place.',
         label: 'IOC Investigator',
-        desc: 'Cross-source investigation hub · 3 tabs (check · pivot · hunt) · 26+ sources · IPs · domains · URLs · hashes · emails',
+        desc: 'Cross-source investigation hub · 3 tabs (check · pivot · hunt) · 60+ sources · IPs · domains · URLs · hashes · emails',
         icon: Crosshair,
       },
       {

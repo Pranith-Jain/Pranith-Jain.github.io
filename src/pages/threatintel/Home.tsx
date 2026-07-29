@@ -22,6 +22,12 @@ import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
 import { LatestBriefingCard } from '../../components/threatintel/LatestBriefingCard';
 import { LivePulse } from '../../components/threatintel/LivePulse';
 import { CATALOG, catalogSearch } from '../../data/threatintel-catalog';
+
+/** Count pages in a category (hub) by its cat ID. */
+function catPageCount(catId: string): number {
+  const hub = CATALOG.find((h) => h.id === catId);
+  return hub ? hub.pages.length : 0;
+}
 import { ThreatIntelStructuredData } from '../../components/ToolStructuredData';
 import { FaqStructuredData } from '../../components/FaqStructuredData';
 import { BreadcrumbListSchema } from '../../components/BreadcrumbStructuredData';
@@ -73,7 +79,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: Users,
     href: '/threatintel/catalog?cat=actors',
     tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
-    pages: 12,
+    pages: catPageCount('actors'),
   },
   {
     id: 'campaigns',
@@ -82,7 +88,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: Activity,
     href: '/threatintel/catalog?cat=campaigns',
     tone: 'text-orange-600 dark:text-orange-400 hover:border-orange-500/40',
-    pages: 8,
+    pages: catPageCount('campaigns'),
   },
   {
     id: 'darkweb',
@@ -91,17 +97,17 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: Flame,
     href: '/threatintel/catalog?cat=darkweb',
     tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
-    pages: 12,
+    pages: catPageCount('darkweb'),
     highlight: 'live',
   },
   {
     id: 'iocs',
     label: 'IOCs & Indicators',
-    description: 'Live indicator feeds, enrichment, cross-correlation, and entity resolution across 12+ sources.',
+    description: 'Live indicator feeds, enrichment, cross-correlation, and entity resolution across 60+ sources.',
     icon: Shield,
     href: '/threatintel/catalog?cat=iocs',
     tone: 'text-emerald-600 dark:text-emerald-400 hover:border-emerald-500/40',
-    pages: 10,
+    pages: catPageCount('iocs'),
     highlight: 'live',
   },
   {
@@ -112,7 +118,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: AlertTriangle,
     href: '/threatintel/catalog?cat=cves',
     tone: 'text-amber-600 dark:text-amber-400 hover:border-amber-500/40',
-    pages: 6,
+    pages: catPageCount('cves'),
   },
   {
     id: 'social',
@@ -122,7 +128,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: Radio,
     href: '/threatintel/catalog?cat=social',
     tone: 'text-violet-600 dark:text-violet-400 hover:border-violet-500/40',
-    pages: 11,
+    pages: catPageCount('social'),
     highlight: 'live',
   },
   {
@@ -132,7 +138,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: Bug,
     href: '/threatintel/catalog?cat=malware',
     tone: 'text-rose-600 dark:text-rose-400 hover:border-rose-500/40',
-    pages: 6,
+    pages: catPageCount('malware'),
   },
   {
     id: 'feeds',
@@ -142,7 +148,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: Globe,
     href: '/threatintel/catalog?cat=feeds',
     tone: 'text-sky-600 dark:text-sky-400 hover:border-sky-500/40',
-    pages: 9,
+    pages: catPageCount('feeds'),
   },
   {
     id: 'tools',
@@ -151,7 +157,7 @@ const CATEGORY_CARDS: CategoryCard[] = [
     icon: Plug,
     href: '/threatintel/catalog?cat=tools',
     tone: 'text-amber-600 dark:text-amber-400 hover:border-amber-500/40',
-    pages: 18,
+    pages: catPageCount('tools'),
   },
 ];
 
@@ -310,7 +316,7 @@ export default function ThreatIntelHome(): JSX.Element {
           <dl className="mt-7 sm:mt-9 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[rgb(var(--border-400))] border-y border-[rgb(var(--border-400))]">
             {[
               { value: '30+', label: 'Live feeds', sub: 'refreshed every 90s' },
-              { value: '100+', label: 'Intel pages', sub: 'across 8 categories' },
+              { value: '100+', label: 'Intel pages', sub: `across ${CATALOG.length} categories` },
               { value: '12+', label: 'IOC sources', sub: 'cross-correlated' },
             ].map((stat, i) => (
               <div
@@ -441,7 +447,10 @@ export default function ThreatIntelHome(): JSX.Element {
                     Live Intelligence
                   </h2>
                 </div>
-                <ArrowRight size={16} className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform" />
+                <ArrowRight
+                  size={16}
+                  className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
+                />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <LiveSnapshotPanel
@@ -463,10 +472,13 @@ export default function ThreatIntelHome(): JSX.Element {
                     Explore by topic
                   </h2>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                    8 categories · {CATALOG.reduce((sum, h) => sum + h.pages.length, 0)} pages
+                    {CATALOG.length} categories · {CATALOG.reduce((sum, h) => sum + h.pages.length, 0)} pages
                   </p>
                 </div>
-                <ArrowRight size={16} className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform" />
+                <ArrowRight
+                  size={16}
+                  className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
+                />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -522,7 +534,10 @@ export default function ThreatIntelHome(): JSX.Element {
             <details className="group surface-card">
               <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
                 <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">New here?</h2>
-                <ArrowRight size={16} className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform" />
+                <ArrowRight
+                  size={16}
+                  className="text-slate-500 dark:text-slate-400 group-open:rotate-90 transition-transform"
+                />
               </summary>
               <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                 <div className="grid gap-4 sm:grid-cols-3">

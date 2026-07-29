@@ -14,7 +14,10 @@ import { SkipToContent } from './SkipToContent';
 import { McpKeyBar } from './ti-mindmap-mcp/McpKeyBar';
 import { recordVisit } from '../lib/recentTools';
 
-const SECTION_META: Record<'dfir' | 'threatintel' | 'radar' | 'argus', { label: string; href: string; accent: string }> = {
+const SECTION_META: Record<
+  'dfir' | 'threatintel' | 'radar' | 'argus',
+  { label: string; href: string; accent: string }
+> = {
   dfir: { label: 'CRUCIBLE', href: '/dfir', accent: 'text-brand-600 dark:text-brand-400' },
   threatintel: { label: 'PANOPTICON', href: '/threatintel', accent: 'text-brand-600 dark:text-brand-400' },
   radar: { label: 'SCOUT', href: '/radar', accent: 'text-brand-600 dark:text-brand-400' },
@@ -91,7 +94,7 @@ const ROUTE_LABELS: Record<string, string> = {
   '/threatintel/metrics': 'Metrics',
   '/threatintel/malware-iocs': 'Malware IOCs',
   '/threatintel/malpedia': 'Malpedia',
-    '/threatintel/dashboard-hub': 'Dashboards',
+  '/threatintel/dashboard-hub': 'Dashboards',
   // ── CRUCIBLE home ────────────────────────────────────────────
   // ── SCOUT ────────────────────────────────────────────────────
   '/radar': 'SCOUT',
@@ -292,7 +295,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' | 'argu
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {mode === 'threatintel' && (
             <span className="hidden lg:inline text-brand-600 dark:text-brand-400 font-semibold tabular-nums">
-              240+ tools
+              135+ pages
             </span>
           )}
           <span className="hidden md:inline text-slate-500 dark:text-slate-400 tabular-nums">
