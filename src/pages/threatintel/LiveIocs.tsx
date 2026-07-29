@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useApiData } from '../../hooks/useApiData';
 import { IocChip } from '../../components/dfir/IocChip';
 import { relativeAgo } from '../../lib/relativeTime';
 const shortRel = (iso?: string) => relativeAgo(iso, 'no timestamp');
@@ -96,43 +97,14 @@ const CONFIDENCE_PILL: Record<'high' | 'medium' | 'low', string> = {
 };
 
 export default function LiveIocs(): JSX.Element {
-  const [data, setData] = useState<LiveIocsResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data, loading, error, refetch } = useApiData<LiveIocsResponse>('/api/v1/live-iocs', { ttl: 30_000 });
   const [query, setQuery] = useState('');
   const [kindFilter, setKindFilter] = useState<Set<IocKind>>(new Set());
   const [sourceFilter, setSourceFilter] = useState<Set<string>>(new Set());
   const [newOnly, setNewOnly] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0);
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 50;
   const { previous: lastVisit, markVisited } = useLastVisit('live-iocs');
-
-  useEffect(() => {
-    let cancelled = false;
-    const ctrl = new AbortController();
-    setLoading(true);
-    setError(null);
-    fetch('/api/v1/live-iocs', { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(15_000)]) })
-      .then((r) => {
-        if (!r.ok) throw new Error(`upstream ${r.status}`);
-        return r.json() as Promise<LiveIocsResponse>;
-      })
-      .then((d) => {
-        if (!cancelled) setData(d);
-      })
-      .catch((e: { name?: string; message?: string }) => {
-        if (cancelled || e.name === 'AbortError') return;
-        setError(e.message ?? 'failed');
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-      ctrl.abort();
-    };
-  }, [refreshKey]);
 
   const filtered = useMemo(() => {
     if (!data) return [] as LiveIoc[];
@@ -293,7 +265,7 @@ export default function LiveIocs(): JSX.Element {
           )}
           <button
             type="button"
-            onClick={() => setRefreshKey((k) => k + 1)}
+            onClick={() => refetch()}
             className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
           >
             <RefreshCw size={12} /> refresh
@@ -434,7 +406,7 @@ export default function LiveIocs(): JSX.Element {
             ? 'No indicators match the current filter.'
             : 'No indicators in the current snapshot. The cron repopulates this every 15 minutes - click refresh to re-pull.'
         }
-        onRetry={() => setRefreshKey((k) => k + 1)}
+        onRetry={() => refetch()}
         rows={8}
       >
         <ul className="space-y-2">
