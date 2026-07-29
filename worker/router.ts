@@ -228,7 +228,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/medusa-scan', '/__prerendered/dfir__medusa-scan'],
   ['/dfir/graphql-audit', '/__prerendered/dfir__graphql-audit'],
   ['/dfir/osv-scan', '/__prerendered/dfir__osv-scan'],
-  ['/dfir/wordpress-sim', '/__prerendered/dfir__wordpress-sim'],
 
   // ── DFIR: STIX ────────────────────────────────────────────────
   ['/dfir/stix', '/__prerendered/dfir__stix'],
@@ -236,7 +235,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   // ── DFIR: catalog + per-hub category landings (2026-06-17) ───
   // ── DFIR: catalog + per-hub category landings (2026-06-17) ───
   ['/dfir/catalog', '/__prerendered/dfir__catalog'],
-  ['/dfir/vs', '/__prerendered/dfir__vs'],
   ['/dfir/ai-rule-generator', '/__prerendered/dfir__ai-rule-generator'],
   ['/dfir/fp-lens', '/__prerendered/dfir__fp-lens'],
   ['/dfir/threat-graph', '/__prerendered/dfir__threat-graph'],
@@ -255,7 +253,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
 
   // ── DFIR: dark web workbench ──────────────────────────────────
   ['/dfir/pgp-tool', '/__prerendered/dfir__pgp-tool'],
-  ['/dfir/tor-gateway', '/__prerendered/dfir__tor-gateway'],
 
   // ── DFIR: investigator workbenches ────────────────────────────
   ['/dfir/domain-investigator', '/__prerendered/dfir__domain-investigator'],
@@ -283,7 +280,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/phone-hub', '/__prerendered/dfir__phone-hub'],
   ['/dfir/weather-osint', '/__prerendered/dfir__weather-osint'],
   ['/dfir/infostealer-intel', '/__prerendered/dfir__infostealer-intel'],
-  ['/dfir/rhysida-intrusion', '/__prerendered/dfir__rhysida-intrusion'],
 
   // ── DFIR: AI agent tools ─────────────────────────────────────
   ['/dfir/agent-suite', '/__prerendered/dfir__agent-suite'],
@@ -517,7 +513,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/traceix', '/__prerendered/dfir__traceix'],
   ['/dfir/whoxy', '/__prerendered/dfir__whoxy'],
   ['/dfir/winreg', '/__prerendered/dfir__winreg'],
-  ['/dfir/fleet-map', '/__prerendered/dfir__fleet-map'],
   // ── Standalone SPA pages ──────────────────────────────────────
   ['/threatintel/external/cerast', '/__prerendered/threatintel__external__cerast'],
   ['/threatintel/external/threatmon', '/__prerendered/threatintel__external__threatmon'],
