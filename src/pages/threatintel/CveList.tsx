@@ -22,9 +22,11 @@ interface RecentCve {
   kev_due?: string;
   kev_ransomware?: boolean;
   actors?: Array<{ slug: string; mitre_id?: string; mitre_url?: string; mitre_name?: string }>;
-  origin: 'nvd' | 'kev' | 'mti' | 'cvefeed';
+  origin: 'nvd' | 'kev' | 'mti' | 'cvefeed' | 'cvenotify';
   /** Telegram permalink when origin is 'mti'. */
   mti_permalink?: string;
+  /** Telegram permalink when origin is 'cvenotify'. */
+  cvenotify_permalink?: string;
   /** External link when origin is 'cvefeed' - cvefeed.io detail page. */
   cvefeed_url?: string;
 }
@@ -69,6 +71,11 @@ const ORIGIN_PILL: Record<RecentCve['origin'], { label: string; cls: string; too
     label: 'cvefeed.io',
     cls: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
     tooltip: 'Gap-filled from cvefeed.io high-severity feed - not yet in NVD',
+  },
+  cvenotify: {
+    label: 'cvenotify',
+    cls: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
+    tooltip: 'Gap-filled from @cvenotify Telegram channel - not yet in NVD',
   },
 };
 
@@ -405,8 +412,9 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
           <p className="text-muted mb-2 max-w-3xl leading-relaxed">
             Up to <strong>1,500 CVEs newly published in the last 30 days</strong> (NVD) merged with{' '}
             <strong>CISA KEV</strong> additions, <strong>MyThreatIntel</strong> alerts, and{' '}
-            <strong>cvefeed.io high-severity</strong> RSS as gap-fillers. NVD reports ~5,500 CVEs per 30-day window -
-            this is a triage view that prioritises high-signal records, not the full corpus. For exhaustive search use{' '}
+            <strong>cvefeed.io high-severity</strong> RSS, and <strong>@cvenotify</strong> Telegram alerts as
+            gap-fillers. NVD reports ~5,500 CVEs per 30-day window - this is a triage view that prioritises high-signal
+            records, not the full corpus. For exhaustive search use{' '}
             <a
               href="https://nvd.nist.gov/vuln/search"
               target="_blank"

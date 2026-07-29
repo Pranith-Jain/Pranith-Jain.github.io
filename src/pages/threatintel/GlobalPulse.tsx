@@ -14,7 +14,6 @@ import {
   MessageSquare,
   AtSign,
   AlertTriangle,
-  Plane,
   ShieldAlert,
   Flame,
   Map,
@@ -25,7 +24,6 @@ import {
   X,
   Clock,
   Crosshair,
-  Building2,
   Play,
   Pause,
   Brain,
@@ -41,9 +39,6 @@ import { Sparkline } from '../../components/threatintel/Sparkline';
 import { SeverityPill } from '../../components/Badge';
 import type { CtiArc, CtiPoint } from '../../components/threatintel/cti/geo';
 import { synthesizeArcs, deriveKpis } from '../../components/threatintel/cti/geo';
-import { MILITARY_BASES } from '../../data/military-bases';
-import { NUCLEAR_FACILITIES } from '../../data/nuclear-facilities';
-import { fetchFireDetections } from '../../data/fire-detections';
 import { ThreatAnalysisPanel } from '../../components/threatintel/ThreatAnalysisPanel';
 import { CountryIntelPanel } from '../../components/threatintel/CountryIntelPanel';
 import { useGlobalPulse } from '../../hooks/useGlobalPulse';
@@ -55,10 +50,7 @@ const CtiGlobe = lazy(() => import('../../components/threatintel/cti/CtiGlobe'))
 /* ─── Types ─────────────────────────────────────────────────────────────── */
 
 type PulseKind =
-  | 'earthquake'
   | 'ioc_activity'
-  | 'geopolitical'
-  | 'tech_news'
   | 'reddit'
   | 'telegram'
   | 'x_feed'
@@ -66,8 +58,6 @@ type PulseKind =
   | 'breach'
   | 'briefing'
   | 'cyber_attack'
-  | 'aircraft'
-  | 'war_room'
   | 'c2_tracker'
   | 'cisa_advisory'
   | 'blocklist'
@@ -86,12 +76,9 @@ type PulseKind =
   | 'github_advisory'
   | 'supply_chain_attacks'
   | 'kev'
-  | 'infrastructure'
-  | 'military_base'
-  | 'fire_detection'
-  | 'nuclear_facility'
   | 'cyberpulse'
-  | 'rss';
+  | 'rss'
+  | 'honeypot';
 
 interface PulseEvent {
   id: string;
@@ -124,42 +111,10 @@ interface LayerDef {
   icon: ReactNode;
   color: string;
   bgColor: string;
-  group: 'geo' | 'intel' | 'social';
+  group: 'intel' | 'social';
 }
 
 const LAYER_DEFS: Record<PulseKind, LayerDef> = {
-  earthquake: {
-    label: 'Earthquakes',
-    shortLabel: 'EQ',
-    icon: <Activity size={14} />,
-    color: 'text-orange-600 dark:text-orange-400',
-    bgColor: 'bg-orange-500/10 border-orange-500/20',
-    group: 'geo',
-  },
-  war_room: {
-    label: 'War Room',
-    shortLabel: 'WAR',
-    icon: <Flame size={14} />,
-    color: 'text-rose-600 dark:text-rose-400',
-    bgColor: 'bg-rose-500/10 border-rose-500/20',
-    group: 'geo',
-  },
-  geopolitical: {
-    label: 'Geopolitical',
-    shortLabel: 'GEO',
-    icon: <Globe size={14} />,
-    color: 'text-purple-600 dark:text-purple-400',
-    bgColor: 'bg-purple-500/10 border-purple-500/20',
-    group: 'geo',
-  },
-  aircraft: {
-    label: 'Aircraft',
-    shortLabel: 'AIR',
-    icon: <Plane size={14} />,
-    color: 'text-indigo-600 dark:text-indigo-400',
-    bgColor: 'bg-indigo-500/10 border-indigo-500/20',
-    group: 'geo',
-  },
   ioc_activity: {
     label: 'IOC Activity',
     shortLabel: 'IOC',
@@ -297,8 +252,8 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     group: 'intel',
   },
   cisa_advisory: {
-    label: 'CISA KEV',
-    shortLabel: 'KEV',
+    label: 'CISA Advisories',
+    shortLabel: 'ADV',
     icon: <AlertTriangle size={14} />,
     color: 'text-amber-500',
     bgColor: 'bg-amber-600/10 border-amber-600/20',
@@ -368,46 +323,6 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     bgColor: 'bg-blue-500/10 border-blue-500/20',
     group: 'social',
   },
-  tech_news: {
-    label: 'Tech Infra',
-    shortLabel: 'TECH',
-    icon: <Newspaper size={14} />,
-    color: 'text-sky-600 dark:text-sky-400',
-    bgColor: 'bg-sky-500/10 border-sky-500/20',
-    group: 'social',
-  },
-  infrastructure: {
-    label: 'Infrastructure',
-    shortLabel: 'INFRA',
-    icon: <Building2 size={14} />,
-    color: 'text-teal-600 dark:text-teal-400',
-    bgColor: 'bg-teal-500/10 border-teal-500/20',
-    group: 'geo',
-  },
-  military_base: {
-    label: 'Military Bases',
-    shortLabel: 'BASE',
-    icon: <Shield size={14} />,
-    color: 'text-emerald-600 dark:text-emerald-400',
-    bgColor: 'bg-emerald-500/10 border-emerald-500/20',
-    group: 'geo',
-  },
-  fire_detection: {
-    label: 'Fire Detections',
-    shortLabel: 'FIRE',
-    icon: <Flame size={14} />,
-    color: 'text-orange-600 dark:text-orange-400',
-    bgColor: 'bg-orange-500/10 border-orange-500/20',
-    group: 'geo',
-  },
-  nuclear_facility: {
-    label: 'Nuclear Facilities',
-    shortLabel: 'NUC',
-    icon: <AlertTriangle size={14} />,
-    color: 'text-amber-600 dark:text-amber-400',
-    bgColor: 'bg-amber-500/10 border-amber-500/20',
-    group: 'geo',
-  },
   cyberpulse: {
     label: 'CyberPulse Incidents',
     shortLabel: 'CP',
@@ -423,6 +338,14 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     color: 'text-orange-600 dark:text-orange-400',
     bgColor: 'bg-orange-500/10 border-orange-500/20',
     group: 'social',
+  },
+  honeypot: {
+    label: 'AI Honeypot',
+    shortLabel: 'HONEY',
+    icon: <Crosshair size={14} />,
+    color: 'text-teal-600 dark:text-teal-400',
+    bgColor: 'bg-teal-500/10 border-teal-500/20',
+    group: 'intel',
   },
 };
 
@@ -507,9 +430,9 @@ export default function GlobalPulse(): JSX.Element {
       'exploit',
       'github_advisory',
       'kev',
-      'military_base',
-      'nuclear_facility',
-      'fire_detection',
+      'supply_chain_attacks',
+      'briefing',
+      'honeypot',
       'cyberpulse',
       'rss',
     ])
@@ -539,7 +462,6 @@ export default function GlobalPulse(): JSX.Element {
   const [showFilters, setShowFilters] = useState(false);
   const [severityFilter, setSeverityFilter] = useState<Set<string>>(new Set(['critical', 'high', 'medium', 'low']));
   const [ctiFilter, setCtiFilter] = useState<'all' | 'ransomware' | 'cve' | 'ioc'>('all');
-  const [regionFilter, setRegionFilter] = useState<'all' | 'mena'>('all');
   const loadIdRef = useRef(0);
 
   // WebSocket real-time updates
@@ -548,126 +470,8 @@ export default function GlobalPulse(): JSX.Element {
   // Activity tracking for gamification
   useActivityTracker();
 
-  // Infrastructure search (Overpass API + Nominatim, inspired by Sightline MIT)
-  const [infraQuery, setInfraQuery] = useState('');
-  const [infraLoading, setInfraLoading] = useState(false);
-  const [infraResults, setInfraResults] = useState<PulseEvent[]>([]);
-  const [infraError, setInfraError] = useState<string | null>(null);
-  const infraAbortRef = useRef<AbortController | null>(null);
-
   // Auto-pan for 3D globe
   const [autoPan, setAutoPan] = useState(false);
-
-  const searchInfra = useCallback(async (query: string) => {
-    const q = query.trim();
-    if (!q) {
-      setInfraResults([]);
-      setInfraError(null);
-      return;
-    }
-    infraAbortRef.current?.abort();
-    const ctrl = new AbortController();
-    infraAbortRef.current = ctrl;
-    setInfraLoading(true);
-    setInfraError(null);
-    try {
-      const r = await fetch('/api/v1/infra-search', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: q }),
-        signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(60_000)]),
-      });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const json = (await r.json()) as {
-        results: Array<{
-          id: string;
-          name: string;
-          lat: number;
-          lon: number;
-          category: string;
-          tags: Record<string, string>;
-        }>;
-      };
-      const events: PulseEvent[] = (json.results ?? []).map((item) => ({
-        id: `infra-${item.id}`,
-        kind: 'infrastructure' as PulseKind,
-        title: item.name || item.category,
-        description: `${item.category} - ${item.name || 'unnamed'}`,
-        lat: item.lat,
-        lng: item.lon,
-        severity: 'low' as const,
-        source: 'OpenStreetMap / Overpass API',
-        timestamp: new Date().toISOString(),
-      }));
-      setInfraResults(events);
-    } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
-      if (e instanceof DOMException && e.name === 'AbortError') return;
-      setInfraError((e as Error).message);
-      setInfraResults([]);
-    } finally {
-      setInfraLoading(false);
-    }
-  }, []);
-
-  // Static data: military bases → PulseEvents
-  const militaryBaseEvents: PulseEvent[] = useMemo(
-    () =>
-      MILITARY_BASES.map((b, i) => ({
-        id: `mil-${i}-${b.name.replace(/\s+/g, '-').toLowerCase()}`,
-        kind: 'military_base' as PulseKind,
-        title: b.name,
-        description: `${b.type === 'usa' ? 'US' : 'NATO'} - ${b.country}. ${b.description}`,
-        lat: b.lat,
-        lng: b.lng,
-        timestamp: new Date().toISOString(),
-        severity: 'low' as const,
-        source: b.type === 'usa' ? 'US Military' : 'NATO',
-      })),
-    []
-  );
-
-  // Static data: nuclear facilities → PulseEvents
-  const nuclearFacilityEvents: PulseEvent[] = useMemo(
-    () =>
-      NUCLEAR_FACILITIES.map((f, i) => ({
-        id: `nuc-${i}-${f.name.replace(/\s+/g, '-').toLowerCase()}`,
-        kind: 'nuclear_facility' as PulseKind,
-        title: f.name,
-        description: `${f.country} - ${f.type} (${f.status})${f.capacity_mw ? ` · ${f.capacity_mw} MW` : ''}`,
-        lat: f.lat,
-        lng: f.lng,
-        timestamp: new Date().toISOString(),
-        severity: f.status === 'operational' ? ('medium' as const) : ('low' as const),
-        source: 'World Nuclear Association',
-      })),
-    []
-  );
-
-  // Fire detections (NASA FIRMS) - fetched client-side
-  const [fireEvents, setFireEvents] = useState<PulseEvent[]>([]);
-  useEffect(() => {
-    let alive = true;
-    fetchFireDetections().then((fires) => {
-      if (!alive) return;
-      setFireEvents(
-        fires.map((f) => ({
-          id: f.id,
-          kind: 'fire_detection' as PulseKind,
-          title: `Fire - brightness ${f.brightness.toFixed(0)}`,
-          description: `FRP: ${f.frp.toFixed(0)} MW · Confidence: ${f.confidence} · ${f.acqDate} ${f.acqTime}`,
-          lat: f.lat,
-          lng: f.lng,
-          timestamp: new Date().toISOString(),
-          severity: f.frp > 50 ? ('high' as const) : f.frp > 10 ? ('medium' as const) : ('low' as const),
-          source: 'NASA FIRMS',
-        }))
-      );
-    });
-    return () => {
-      alive = false;
-    };
-  }, []);
 
   // Day/night terminator polygon for 2D map overlay
   const terminatorPolygon = useMemo(() => {
@@ -704,33 +508,6 @@ export default function GlobalPulse(): JSX.Element {
 
     return polygon;
   }, []);
-
-  const MENA_COUNTRIES = useMemo(
-    () =>
-      new Set([
-        'DZ',
-        'BH',
-        'EG',
-        'IQ',
-        'IR',
-        'IL',
-        'JO',
-        'KW',
-        'LB',
-        'LY',
-        'MA',
-        'OM',
-        'PS',
-        'QA',
-        'SA',
-        'SY',
-        'TN',
-        'TR',
-        'AE',
-        'YE',
-      ]),
-    []
-  );
 
   const load = useCallback(async (forceRefresh = false) => {
     const myId = ++loadIdRef.current;
@@ -847,7 +624,7 @@ export default function GlobalPulse(): JSX.Element {
   }, []);
 
   const filteredEvents = useMemo(() => {
-    if (!data) return infraResults.length > 0 && activeLayers.has('infrastructure') ? infraResults : [];
+    if (!data) return [];
     const now = Date.now();
     const base = data.events.filter((e) => {
       if (!activeLayers.has(e.kind)) return false;
@@ -859,7 +636,6 @@ export default function GlobalPulse(): JSX.Element {
       if (ctiFilter === 'ransomware' && e.cti !== 'ransomware') return false;
       if (ctiFilter === 'cve' && e.cti !== 'cve') return false;
       if (ctiFilter === 'ioc' && e.cti !== 'ioc') return false;
-      if (regionFilter === 'mena' && (!e.country || !MENA_COUNTRIES.has(e.country))) return false;
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
         return (
@@ -871,14 +647,7 @@ export default function GlobalPulse(): JSX.Element {
       }
       return true;
     });
-    const all = activeLayers.has('infrastructure') ? [...base, ...infraResults] : base;
-    const withStatic = [
-      ...all,
-      ...(activeLayers.has('military_base') ? militaryBaseEvents : []),
-      ...(activeLayers.has('nuclear_facility') ? nuclearFacilityEvents : []),
-      ...(activeLayers.has('fire_detection') ? fireEvents : []),
-    ];
-    return withStatic.sort((a, b) => {
+    return base.sort((a, b) => {
       // 1. Severity first — critical events on top regardless of type
       const sa = severityRank(a.severity);
       const sb = severityRank(b.severity);
@@ -891,22 +660,7 @@ export default function GlobalPulse(): JSX.Element {
       const pb = ctiPriority(b.cti);
       return pb - pa;
     });
-  }, [
-    data,
-    activeLayers,
-    severityFilter,
-    searchQuery,
-    timeRange,
-    ctiFilter,
-    regionFilter,
-    MENA_COUNTRIES,
-    ctiPriority,
-    severityRank,
-    infraResults,
-    militaryBaseEvents,
-    nuclearFacilityEvents,
-    fireEvents,
-  ]);
+  }, [data, activeLayers, severityFilter, searchQuery, timeRange, ctiFilter, ctiPriority, severityRank]);
 
   // Export to CSV
   const exportToCsv = useCallback(() => {
@@ -1030,7 +784,6 @@ export default function GlobalPulse(): JSX.Element {
   // Group layers by category
   const layerGroups = useMemo(() => {
     const groups: Record<string, Array<{ kind: PulseKind; def: LayerDef; count: number; active: boolean }>> = {
-      geo: [],
       intel: [],
       social: [],
     };
@@ -1257,52 +1010,6 @@ export default function GlobalPulse(): JSX.Element {
               )}
             </div>
 
-            {/* Infrastructure Search */}
-            <div className="relative flex-1 min-w-[200px] max-w-sm">
-              <input
-                type="text"
-                placeholder="Infra: hospitals in berlin…"
-                aria-label="Search infrastructure"
-                value={infraQuery}
-                onChange={(e) => setInfraQuery(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    searchInfra(infraQuery);
-                    if (!activeLayers.has('infrastructure')) toggleLayer('infrastructure');
-                  }
-                }}
-                className="w-full pl-9 pr-8 py-2.5 text-xs font-mono rounded-xl border border-teal-500/20 dark:border-teal-500/10 bg-white dark:bg-white/[0.03] text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-teal-500/40 focus:ring-1 focus:ring-teal-500/20 transition-colors"
-              />
-              <Building2 size={14} className="absolute left-3 top-2.5 text-teal-500/60 dark:text-teal-400/60" />
-              {infraQuery && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setInfraQuery('');
-                    setInfraResults([]);
-                    setInfraError(null);
-                  }}
-                  className="absolute right-2.5 top-2.5 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
-                >
-                  <X size={14} />
-                </button>
-              )}
-              {infraLoading && (
-                <span className="absolute right-2.5 top-2.5">
-                  <RefreshCw size={12} className="animate-spin text-teal-500" />
-                </span>
-              )}
-            </div>
-            {infraResults.length > 0 && (
-              <span className="text-micro font-mono text-teal-500 dark:text-teal-400">{infraResults.length} infra</span>
-            )}
-            {infraError && (
-              <span className="text-micro font-mono text-rose-500" title={infraError}>
-                infra error
-              </span>
-            )}
-
             {/* Time Range Filter */}
             <div className="inline-flex rounded-xl border border-slate-200/60 dark:border-white/[0.08] overflow-hidden">
               {[
@@ -1521,10 +1228,10 @@ export default function GlobalPulse(): JSX.Element {
               </div>
 
               {/* Layer Groups */}
-              {(['intel', 'geo', 'social'] as const).map((group) => {
+              {(['intel', 'social'] as const).map((group) => {
                 const layers = layerGroups[group]!;
                 const activeCount = layers.filter((l) => l.active).length;
-                const groupLabels = { geo: 'Geospatial', intel: 'Threat Intel', social: 'Social / OSINT' };
+                const groupLabels = { intel: 'Threat Intel', social: 'Social / OSINT' };
                 return (
                   <div key={group} className="mb-5 last:mb-0">
                     <div className="flex items-center justify-between mb-2.5">
@@ -1607,55 +1314,19 @@ export default function GlobalPulse(): JSX.Element {
                         'exploit',
                         'github_advisory',
                         'kev',
-                        'military_base',
-                        'nuclear_facility',
+                        'supply_chain_attacks',
+                        'briefing',
+                        'honeypot',
+                        'cyberpulse',
+                        'rss',
                       ])
                     );
                     setSeverityFilter(new Set(['critical', 'high', 'medium', 'low']));
                     setCtiFilter('all');
-                    setRegionFilter('all');
                   }}
                   className="text-micro font-mono px-3 py-1.5 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 border border-rose-500/20 transition-colors"
                 >
                   CTI Defaults
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setActiveLayers(
-                      new Set([
-                        'geopolitical',
-                        'war_room',
-                        'aircraft',
-                        'ioc_activity',
-                        'cyber_attack',
-                        'c2_tracker',
-                        'breach',
-                        'cisa_advisory',
-                      ])
-                    );
-                    setSeverityFilter(new Set(['critical', 'high', 'medium', 'low']));
-                    setCtiFilter('all');
-                    setRegionFilter('mena');
-                    setFocus({ lat: 30, lng: 45 });
-                    setMapMode('3d');
-                  }}
-                  className="text-micro font-mono px-3 py-1.5 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 border border-amber-500/20 transition-colors"
-                >
-                  MENA Focus
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setActiveLayers(new Set(['war_room', 'geopolitical', 'aircraft', 'earthquake']));
-                    setSeverityFilter(new Set(['critical', 'high', 'medium', 'low']));
-                    setCtiFilter('all');
-                    setRegionFilter('all');
-                    setMapMode('2d');
-                  }}
-                  className="text-micro font-mono px-3 py-1.5 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 border border-rose-500/20 transition-colors"
-                >
-                  Conflict Zones
                 </button>
               </div>
             </div>
@@ -1671,14 +1342,6 @@ export default function GlobalPulse(): JSX.Element {
             >
               {/* Globe Status Badge */}
               <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5">
-                {regionFilter === 'mena' && (
-                  <div className="bg-amber-500/15 backdrop-blur-sm rounded-xl border border-amber-500/30 px-2.5 py-1.5 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                    <span className="text-micro font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-400">
-                      MENA
-                    </span>
-                  </div>
-                )}
                 <div className="backdrop-blur-sm bg-white/80 dark:bg-white/[0.06] rounded-xl border border-slate-200/50 dark:border-white/[0.08] px-2.5 py-1.5 flex items-center gap-1.5">
                   <span
                     className={`w-1.5 h-1.5 rounded-full ${mapMode === '3d' ? 'bg-rose-500 animate-pulse' : 'bg-emerald-500'}`}

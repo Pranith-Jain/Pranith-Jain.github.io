@@ -814,3 +814,39 @@ export function fromRss(data: {
     url: item.link,
   }));
 }
+
+export function fromHoneypot(data: {
+  source_url?: string;
+  indicators?: Array<{
+    ioc_type: string;
+    value: string;
+    confidence: string;
+    actor_category: string;
+    ttps: string[];
+    last_seen: string;
+    first_seen: string;
+    total_hits: number;
+    distinct_personas: number;
+  }>;
+}): PulseEvent[] {
+  return (data.indicators ?? []).slice(0, 60).map((ind) => {
+    const hits = ind.total_hits ?? 0;
+    const conf = (ind.confidence ?? '').toLowerCase();
+    const severity: Sev = conf === 'high' || hits >= 100 ? 'high' : conf === 'medium' || hits >= 20 ? 'medium' : 'low';
+    const ttps = (ind.ttps ?? []).slice(0, 3).join(', ');
+    return {
+      id: `honeypot-${ind.ioc_type ?? 'ioc'}-${(ind.value ?? '').slice(-32) || Math.random().toString(36).slice(2)}`,
+      kind: 'honeypot' as const,
+      title: `${ind.ioc_type ?? 'ioc'}: ${ind.value ?? 'unknown'}`.slice(0, 120),
+      description: `${ind.actor_category ?? 'unknown actor'} · ${hits} hits · ${ind.distinct_personas ?? 0} personas${
+        ttps ? ` · ${ttps}` : ''
+      }`.slice(0, 220),
+      lat: 0,
+      lng: 0,
+      timestamp: ind.last_seen || ind.first_seen || new Date().toISOString(),
+      severity,
+      source: 'AI Honeypot',
+      url: data.source_url,
+    };
+  });
+}

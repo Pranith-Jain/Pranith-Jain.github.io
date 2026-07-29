@@ -32,14 +32,21 @@ export interface TabBarProps {
 
 export function TabBar({ tabs, active, onChange, className }: TabBarProps): JSX.Element {
   return (
-    <div className={`flex gap-1.5 mb-6 ${className ?? ''}`}>
+    // Horizontal scroll rail instead of wrapping: on narrow viewports a
+    // long tab list (e.g. /argus's six views) used to overflow the page and
+    // force a site-wide horizontal scrollbar. Buttons never shrink or wrap,
+    // the rail scrolls under a hidden scrollbar, and wide viewports are
+    // unchanged because the content fits.
+    <div
+      className={`flex gap-1.5 mb-6 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${className ?? ''}`}
+    >
       {tabs.map((tab) => (
         <button
           key={tab.id}
           type="button"
           onClick={() => !tab.disabled && onChange(tab.id)}
           disabled={tab.disabled}
-          className={`px-3 py-1.5 rounded text-meta font-mono border transition-colors ${
+          className={`shrink-0 whitespace-nowrap px-3 py-1.5 rounded text-meta font-mono border transition-colors ${
             active === tab.id
               ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400'
               : tab.disabled

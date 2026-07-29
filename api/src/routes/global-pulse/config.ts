@@ -32,6 +32,7 @@ export const GP_FEEDS: ReadonlyArray<{ key: string; path: string }> = [
   { key: 'kev', path: '/api/v1/cisa-kev?days=30' },
   { key: 'rss', path: '/api/v1/cyber-news' },
   { key: 'webamon', path: '/api/v1/webamon/campaign-intel' },
+  { key: 'honeypot', path: '/api/v1/ai-honeypot-feed' },
 ];
 
 // Per-feed warm-slice KV key for a global-pulse feed.

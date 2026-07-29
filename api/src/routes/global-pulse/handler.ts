@@ -37,17 +37,12 @@ import {
   fromXClaims,
   fromActorTimeline,
   fromIocCorrelation,
-  fromFirms,
-  fromUkmto,
   fromCyberPulse,
   fromRss,
   fromWebamonCampaigns,
+  fromHoneypot,
 } from './converters';
 import {
-  fetchEarthquakes,
-  fetchNaturalEvents,
-  fetchFlights,
-  fetchGdacsAlerts,
   fetchBotnetC2,
   fetchSupplyChain,
   fetchDShieldAttackers,
@@ -56,7 +51,6 @@ import {
   fetchCisaKev,
   fetchUrlhaus,
 } from './fetchers';
-import { getTechInfrastructureEvents, getGeopoliticalEvents, getCableEvents, getFinancialEvents } from './static-data';
 
 /* ─── Signed self-fetch helper ──────────────────────────────────────────── */
 // Retry fallbacks need to call SELF.fetch() with an internal token so the
@@ -121,7 +115,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
   //   2. Direct SELF.fetch for the 3 highest-value feeds (CVE, ransomware, IOCs)
   // This stays within the 50-subrequest budget (21 KV reads + 3 SELF.fetch = 24)
   // and returns immediately with real data. The full 30+ source build that
-  // includes external fetchers (earthquakes, flights, botnet C2, etc.) runs
+  // includes external fetchers (botnet C2, supply chain, DShield, etc.) runs
   // in the background via waitUntil — if it completes, it populates the caches
   // for the next request; if it gets killed by CPU limits, the sync data
   // still serves a useful map.
@@ -202,6 +196,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
   if (warm.rss) warmEvents.push(...safe(() => fromRss(warm.rss as Parameters<typeof fromRss>[0])));
   if (warm.webamon)
     warmEvents.push(...safe(() => fromWebamonCampaigns(warm.webamon as Parameters<typeof fromWebamonCampaigns>[0])));
+  if (warm.honeypot) warmEvents.push(...safe(() => fromHoneypot(warm.honeypot as Parameters<typeof fromHoneypot>[0])));
 
   // ── CyberPulse incidents (D1) ────────────────────────────────────────
   let cyberpulseEvents: PulseEvent[] = [];
@@ -227,6 +222,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       case 'cyber_attack':
       case 'c2_tracker':
       case 'blocklist':
+      case 'honeypot':
         return 'ioc';
       case 'cyberpulse':
         return 'threat';
@@ -270,7 +266,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     Promise.all([cache.put(cacheReq, response.clone()), routeCachePut(GP_RESPONSE_KEY, payload, GP_RESPONSE_TTL)])
   );
 
-  // ── Background build for external fetchers (earthquakes, flights, etc.) ──
+  // ── Background build for external fetchers (botnet C2, supply chain, etc.) ──
   // Best-effort: if it completes, it enriches the next cache write. If the
   // CPU limit kills it, the sync data above still serves a useful map.
   c.executionCtx.waitUntil(
@@ -327,13 +323,14 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         const finalXClaims = warm.xclaims ?? null;
         const finalActor = warm.actor ?? null;
         const finalIocCorr = warm.iocc ?? null;
-        const finalFirms = warm.firms ?? null;
-        const finalUkmto = warm.ukmto ?? null;
         const finalSecretLeaks = warm.secretleaks ?? null;
         const finalMalpkg = warm.malpkg ?? null;
         const finalExploit = warm.exploit ?? null;
         const finalGhsa = warm.ghsa ?? null;
         const finalKev = warm.kev ?? null;
+        const finalRss = warm.rss ?? null;
+        const finalWebamon = warm.webamon ?? null;
+        const finalHoneypot = warm.honeypot ?? null;
 
         // ── Direct endpoint fallback for still-missing layers ─────────────
         // Fetch ALL missing endpoints via SELF binding (in-process, no loopback).
@@ -371,8 +368,6 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         const mergedXClaims = finalXClaims ?? (direct.xclaims as typeof finalXClaims);
         const mergedActor = finalActor ?? (direct.actor as typeof finalActor);
         const mergedIocCorr = finalIocCorr ?? (direct.iocc as typeof finalIocCorr);
-        const mergedFirms = finalFirms ?? (direct.firms as typeof finalFirms);
-        const mergedUkmto = finalUkmto ?? (direct.ukmto as typeof finalUkmto);
         const mergedSecretLeaks = finalSecretLeaks ?? (direct.secretleaks as typeof finalSecretLeaks);
         const mergedMalpkg = finalMalpkg ?? (direct.malpkg as typeof finalMalpkg);
         const mergedExploit = finalExploit ?? (direct.exploit as typeof finalExploit);
@@ -424,12 +419,13 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           mergedGhsa ? fromGithubAdvisories(mergedGhsa as Parameters<typeof fromGithubAdvisories>[0]) : []
         );
         const kevEvents = safe(() => (mergedKev ? fromCisaKev(mergedKev as Parameters<typeof fromCisaKev>[0]) : []));
-        const firmsEvents = safe(() =>
-          fromFirms((mergedFirms ?? null) as Parameters<typeof fromFirms>[0])
-        ) as PulseEvent[];
-        const ukmtoEvents = safe(() =>
-          fromUkmto((mergedUkmto ?? null) as Parameters<typeof fromUkmto>[0])
-        ) as PulseEvent[];
+        const rssEvents = safe(() => (finalRss ? fromRss(finalRss as Parameters<typeof fromRss>[0]) : []));
+        const webamonEvents = safe(() =>
+          finalWebamon ? fromWebamonCampaigns(finalWebamon as Parameters<typeof fromWebamonCampaigns>[0]) : []
+        );
+        const honeypotEvents = safe(() =>
+          finalHoneypot ? fromHoneypot(finalHoneypot as Parameters<typeof fromHoneypot>[0]) : []
+        );
         const cybercrimeEvents = safe(() => (finalCybercrime ? fromCybercrime(finalCybercrime) : []));
         const researchEvents = safe(() => (finalWriteups ? fromWriteups(finalWriteups) : []));
         const cveEvents = safe(() => (mergedCve ? fromCveRecent(mergedCve) : []));
@@ -438,9 +434,6 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         const iocCorrEvents = safe(() =>
           mergedIocCorr ? fromIocCorrelation(mergedIocCorr as IocCorrelationResponse) : []
         );
-
-        // Fetch earthquakes directly from USGS (cache was never populated)
-        const earthquakes = await fetchEarthquakes();
 
         // Fetch CVE data directly if cache is empty
         let finalCveEvents = cveEvents;
@@ -533,40 +526,17 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           }
         }
 
-        // Fetch additional geo-located data from free public APIs (inspired by World Monitor)
-        const [
-          naturalEvents,
-          flights,
-          gdacsAlerts,
-          botnetC2,
-          supplyChain,
-          dshieldAttackers,
-          compromisedIPs,
-          blocklistAttackers,
-          cisaKev,
-          urlhausMalware,
-        ] = await Promise.all([
-          fetchNaturalEvents(),
-          fetchFlights(),
-          fetchGdacsAlerts(),
-          fetchBotnetC2(),
-          fetchSupplyChain(),
-          fetchDShieldAttackers(),
-          fetchCompromisedIPs(),
-          fetchBlocklistAttackers(),
-          fetchCisaKev(),
-          fetchUrlhaus(),
-        ]);
-
-        // Tech infrastructure (static data — no network needed)
-        const techInfra = getTechInfrastructureEvents();
-
-        // Geopolitical hotspots (static data — conflicts, sanctions, military, nuclear)
-        const geopoliticalEvents = getGeopoliticalEvents();
-
-        // Additional static data layers (cables, financial centers)
-        const cableEvents = getCableEvents();
-        const financialEvents = getFinancialEvents();
+        // Fetch cyber threat-intel data from free public APIs
+        const [botnetC2, supplyChain, dshieldAttackers, compromisedIPs, blocklistAttackers, cisaKev, urlhausMalware] =
+          await Promise.all([
+            fetchBotnetC2(),
+            fetchSupplyChain(),
+            fetchDShieldAttackers(),
+            fetchCompromisedIPs(),
+            fetchBlocklistAttackers(),
+            fetchCisaKev(),
+            fetchUrlhaus(),
+          ]);
 
         // Briefings (D1)
         let briefingEvents: PulseEvent[] = [];
@@ -768,6 +738,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
             case 'cyber_attack':
             case 'c2_tracker':
             case 'blocklist':
+            case 'honeypot':
               return 'ioc';
             case 'malware':
             case 'phishing':
@@ -795,21 +766,17 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
 
         // ── Merge + sort ───────────────────────────────────────────────────
         const allEvents = [
-          ...tagAll(earthquakes),
-          ...tagAll(naturalEvents),
-          ...tagAll(gdacsAlerts),
-          ...tagAll(flights),
           ...tagAll(botnetC2),
           ...tagAll(supplyChain),
           ...tagAll(dshieldAttackers),
           ...tagAll(compromisedIPs),
           ...tagAll(blocklistAttackers),
-          ...tagAll(cisaKev),
+          // CISA KEV arrives twice — warm KV (`kev`, kind `kev`) and the direct
+          // `fetchCisaKev` external fetcher (`cisa_advisory`). Same catalog, so
+          // prefer the warm slice and only fall back to the external fetch when
+          // it's empty; otherwise every KEV renders as two overlapping points.
+          ...(finalKevEvents.length > 0 ? [] : tagAll(cisaKev)),
           ...tagAll(urlhausMalware),
-          ...tagAll(techInfra),
-          ...tagAll(geopoliticalEvents),
-          ...tagAll(cableEvents),
-          ...tagAll(financialEvents),
           ...tagAll(finalIocEvents),
           ...tagAll(finalLiveIocEvents),
           ...tagAll(finalRansomwareEvents),
@@ -833,9 +800,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           ...tagAll(finalExploitEvents),
           ...tagAll(finalGhsaEvents),
           ...tagAll(finalKevEvents),
-          ...tagAll(firmsEvents),
-          ...tagAll(ukmtoEvents),
           ...tagAll(cyberpulseEvents),
+          ...tagAll(rssEvents),
+          ...tagAll(webamonEvents),
+          ...tagAll(honeypotEvents),
         ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
         const result: GlobalPulseResponse = {
@@ -843,21 +811,15 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           total_events: allEvents.length,
           events: allEvents,
           layers: {
-            earthquake: earthquakes.length,
+            earthquake: 0,
             ioc_activity: finalIocEvents.length,
-            geopolitical:
-              naturalEvents.length +
-              gdacsAlerts.length +
-              geopoliticalEvents.filter((e) => e.kind === 'geopolitical').length +
-              financialEvents.length,
-            tech_news: techInfra.length + cableEvents.length,
-            war_room:
-              naturalEvents.filter((e) => e.kind === 'war_room').length +
-              geopoliticalEvents.filter((e) => e.kind === 'war_room').length,
-            aircraft: flights.length,
+            geopolitical: 0,
+            tech_news: 0,
+            war_room: 0,
+            aircraft: 0,
             c2_tracker: botnetC2.length,
             supply_chain_attacks: supplyChain.length,
-            cisa_advisory: cisaKev.length,
+            cisa_advisory: finalKevEvents.length > 0 ? 0 : cisaKev.length,
             blocklist: blocklistAttackers.length + compromisedIPs.length,
             cyber_attack: finalLiveIocEvents.length + dshieldAttackers.length,
             reddit: finalRedditEvents.length,
@@ -867,8 +829,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
             breach: breachEvents.length,
             briefing: briefingEvents.length,
             infostealer: finalInfostealerEvents.length,
-            phishing: finalPhishingEvents.length,
-            malware: finalMalwareEvents.length + urlhausMalware.length,
+            phishing: finalPhishingEvents.length + webamonEvents.filter((e) => e.kind === 'phishing').length,
+            malware:
+              finalMalwareEvents.length +
+              urlhausMalware.length +
+              webamonEvents.filter((e) => e.kind === 'malware').length,
             ransomware: finalRansomwareEvents.length,
             cybercrime: finalCybercrimeEvents.length,
             research: finalResearchEvents.length,
@@ -880,10 +845,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
             exploit: finalExploitEvents.length,
             github_advisory: finalGhsaEvents.length,
             kev: finalKevEvents.length,
-            firm: firmsEvents.length,
-            maritime: ukmtoEvents.length,
+            firm: 0,
+            maritime: 0,
             cyberpulse: cyberpulseEvents.length,
-            rss: 0,
+            rss: rssEvents.length,
+            honeypot: honeypotEvents.length,
           },
         };
 

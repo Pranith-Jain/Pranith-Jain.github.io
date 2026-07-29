@@ -31,7 +31,7 @@ const SOURCES = [
     href: '/threatintel/cve-list',
     label: 'CVE & Vulns',
     icon: Bug,
-    desc: 'NVD, CISA KEV, MyThreatIntel, cvefeed.io',
+    desc: 'NVD, CISA KEV, MyThreatIntel, cvefeed.io, @cvenotify',
   },
   {
     key: 'phishing',

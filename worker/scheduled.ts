@@ -161,6 +161,40 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           if (lease.token) heartbeatCronLease(env, cron, lease.token, CRON_LEASE_TTL_MS).catch(() => {});
         }, 5 * 60_000);
         try {
+          // === Global Pulse feed-warm enqueue — FIRST ==========================
+          // Cheap queue sends (one message per feed); the queue consumer warms
+          // each feed in its OWN invocation with its own 50-subrequest budget.
+          // Must land before the hourly pipeline (Telegram + X + CyberPulse +
+          // CTI + phishing scan) exhausts the free-plan subrequest/CPU cap — the
+          // old position inside the fireAndForget block (~line 493) was never
+          // reached, so gp:warm:* expired and the map lost every warmed layer.
+          if (env.FEEDS_QUEUE) {
+            await enqueueGpFeeds(env.FEEDS_QUEUE, csNow.getUTCHours()).catch(logCronFail('gp-warm-enqueue'));
+          }
+
+          // === Daily Briefs sync (every 6 hours) ==============================
+          // Runs FIRST — the hourly pipeline exhausts the free-plan 50-subrequest
+          // cap (Telegram + X + CyberPulse + CTI + phishing scan) before the old
+          // position at the end, so the sync never fired. 3 fetches + KV writes
+          // fit easily in a fresh budget.
+          if (csNow.getUTCHours() % 6 === 0) {
+            try {
+              const { syncDailyBriefs } = await import('./lib/daily-briefs-sync');
+              const result = await syncDailyBriefs(env as any);
+              if (result.types.length > 0 || result.errors.length > 0) {
+                console.log(
+                  JSON.stringify({
+                    job: 'daily-briefs-sync',
+                    types: result.types,
+                    errors: result.errors,
+                  })
+                );
+              }
+            } catch (e) {
+              logCronFail('daily-briefs-sync')(e);
+            }
+          }
+
           // === Telegram leak scanning — FIRST, before anything else hits t.me ===
           // Telegram throttles repeated scrape bursts from the same egress IP. The
           // cache-warm below (it fetches /api/v1/telegram-feed) and the watched-
@@ -269,7 +303,11 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             else console.warn(line);
           } catch (e) {
             console.warn(
-              JSON.stringify({ job: 'x-health-diagnostic', status: 'error', reason: e instanceof Error ? e.message : String(e) })
+              JSON.stringify({
+                job: 'x-health-diagnostic',
+                status: 'error',
+                reason: e instanceof Error ? e.message : String(e),
+              })
             );
           }
 
@@ -465,11 +503,8 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // lease but no coordination — merged here so one lease + one heartbeat
           // covers all hourly work.
           const fireAndForget: Promise<unknown>[] = [];
-          if (env.FEEDS_QUEUE) {
-            fireAndForget.push(
-              enqueueGpFeeds(env.FEEDS_QUEUE, csNow.getUTCHours()).catch(logCronFail('gp-warm-enqueue'))
-            );
-          }
+          // enqueueGpFeeds moved to the TOP of this hourly handler — it must land
+          // before the pipeline exhausts the subrequest cap (see above).
           fireAndForget.push(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
           // Drip auto-post tick: releases approved + due X/LinkedIn posts at the
           // configured rate. No-op unless SOCIAL_AUTOPOST_ENABLED === 'true'.
@@ -899,27 +934,9 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             }
           }
 
-          // === Daily Briefs sync (every 6 hours) ==============================
-          // Fetches from agentic-ai-daily-reports.netlify.app, parses the HTML
-          // (regex-based — no external deps), and stores structured JSON in KV
-          // Cache. The fetch handler serves KV first, falling back to ASSETS.
-          if (csNow.getUTCHours() % 6 === 0) {
-            try {
-              const { syncDailyBriefs } = await import('./lib/daily-briefs-sync');
-              const result = await syncDailyBriefs(env as any);
-              if (result.types.length > 0 || result.errors.length > 0) {
-                console.log(
-                  JSON.stringify({
-                    job: 'daily-briefs-sync',
-                    types: result.types,
-                    errors: result.errors,
-                  })
-                );
-              }
-            } catch (e) {
-              logCronFail('daily-briefs-sync')(e);
-            }
-          }
+          // (Daily Briefs sync moved to the TOP of this hourly handler —
+          // the pipeline exhausts the 50-subrequest free-plan cap before
+          // reaching this point, so it never fired here.)
         } finally {
           clearInterval(heartbeatInt);
         }

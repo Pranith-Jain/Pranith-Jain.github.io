@@ -35,7 +35,8 @@ export type PulseKind =
   | 'firm'
   | 'maritime'
   | 'cyberpulse'
-  | 'rss';
+  | 'rss'
+  | 'honeypot';
 
 export interface PulseEvent {
   id: string;

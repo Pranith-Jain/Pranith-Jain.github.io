@@ -83,6 +83,18 @@ export async function handleQueue(
             const body = await res.text();
             await kv.put(gpWarmKey(gp.key), body, { expirationTtl: GP_WARM_TTL_SECONDS });
           } else {
+            // Previously silent — a non-ok warm fetch was acked with no trace,
+            // so a broken feed (e.g. a key-gated route returning 401/502) left
+            // gp:warm:<key> empty with nothing in the logs to explain it.
+            console.error(
+              JSON.stringify({
+                job: 'gp-warm-slice',
+                key: gp.key,
+                path: gp.path,
+                status: res.status,
+                error: 'warm fetch not ok',
+              })
+            );
           }
           msg.ack();
           return;

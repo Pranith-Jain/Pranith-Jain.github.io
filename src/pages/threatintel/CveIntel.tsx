@@ -16,7 +16,7 @@ const CveHealthCheck = lazy(() => import('./CveHealthCheck'));
 type TabId = 'all' | 'exploitable' | 'kev' | 'k8s' | 'cert-in' | 'poc' | 'news' | 'health';
 
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
-  { id: 'all', label: 'All Recent', desc: 'NVD feed + KEV + Microsoft Threat Intelligence + cvefeed.io' },
+  { id: 'all', label: 'All Recent', desc: 'NVD feed + KEV + Microsoft Threat Intelligence + cvefeed.io + @cvenotify' },
   {
     id: 'exploitable',
     label: 'Exploitable',
