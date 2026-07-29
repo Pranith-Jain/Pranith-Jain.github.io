@@ -1,20 +1,19 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchPredictions, type PredictionBuckets } from '../lib/manifold';
-import { safeNullLog } from '../lib/safe-catch';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 /**
  * GET /api/v1/predictions
  *
  * Manifold Markets predictions, grouped into cyber / tech / AI buckets, ranked
  * by liquidity. Read-only, fail-soft (empty buckets, never a 500, when the
- * upstream is unreachable). Edge-cached 10 min; also self-warms KV
- * `predictions:warm` so cold loads are fast and the Global Pulse layer can read
- * it without its own upstream call.
+ * upstream is unreachable). Edge-cached 10 min; also self-warms a per-colo
+ * Cache API entry so cold loads are fast.
  */
 
-const KV_KEY = 'predictions:warm';
-const KV_TTL = 900; // 15 min
+const CACHE_KEY = 'predictions:warm';
+const CACHE_TTL = 900; // 15 min
 
 interface PredictionsResponse {
   total: number;
@@ -33,21 +32,15 @@ function envelope(buckets: PredictionBuckets): PredictionsResponse {
 }
 
 export async function predictionsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-
-  // Warm path: serve the self-warmed blob if present (0 upstream subrequests).
-  if (kv) {
-    const cached = await safeNullLog('kv-get-predictions', kv.get<PredictionsResponse>(KV_KEY, 'json'));
-    if (cached && cached.buckets) {
-      return c.json(cached, 200, { 'Cache-Control': 'public, max-age=600' });
-    }
+  const cached = await routeCacheGet<PredictionsResponse>(CACHE_KEY);
+  if (cached && cached.buckets) {
+    return c.json(cached, 200, { 'Cache-Control': 'public, max-age=600' });
   }
 
-  // Cold path: fetch upstream, then self-warm KV for the next caller.
   const buckets = await fetchPredictions();
   const body = envelope(buckets);
-  if (kv && body.total > 0) {
-    safeNullLog('kv-put-predictions', kv.put(KV_KEY, JSON.stringify(body), { expirationTtl: KV_TTL }));
+  if (body.total > 0) {
+    c.executionCtx.waitUntil(routeCachePut(CACHE_KEY, body, CACHE_TTL));
   }
   return c.json(body, 200, { 'Cache-Control': 'public, max-age=600' });
 }

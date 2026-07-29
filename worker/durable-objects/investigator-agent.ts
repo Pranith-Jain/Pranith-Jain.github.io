@@ -791,12 +791,13 @@ export class InvestigatorAgentDO {
           if (altTool) {
             try {
               const altStart = Date.now();
+              let altTimer: ReturnType<typeof setTimeout> | undefined;
               const altData = await Promise.race([
                 altTool.execute(alt.args),
                 new Promise<never>((_, reject) => {
-                  setTimeout(() => reject(new Error('Alt tool timeout')), 20_000);
+                  altTimer = setTimeout(() => reject(new Error('Alt tool timeout')), 20_000);
                 }),
-              ]);
+              ]).finally(() => clearTimeout(altTimer));
               await setCachedResult(alt.tool, alt.args, altData);
               return { tool: alt.tool, args: alt.args, status: 'ok', data: altData, durationMs: Date.now() - altStart };
             } catch {

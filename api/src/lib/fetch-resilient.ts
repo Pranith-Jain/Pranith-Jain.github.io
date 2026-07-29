@@ -63,6 +63,7 @@ export async function fetchResilient(
       const res = await fetchFn(input, reqInit);
       if (res.ok || !retryable(res.status) || attempt === attempts) return res;
       const ra = parseInt(res.headers.get('retry-after') ?? '', 10);
+      await res.body?.cancel();
       // Full jitter: randomize within the delay window to decorrelate
       // concurrent retry storms (thundering-herd mitigation).
       const baseDelay = Number.isFinite(ra) ? Math.min(ra * 1000, maxDelay) : base * attempt;

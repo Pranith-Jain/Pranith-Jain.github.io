@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchResilient } from '../lib/fetch-resilient';
-import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { writeLastGood } from '../lib/lastgood';
 
 /**
  * GET /api/v1/volexity-threat-intel
@@ -523,18 +523,12 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
 
     const fResponse = c.json(folderResp, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}` });
     c.executionCtx.waitUntil(cache.put(folderCacheKey, fResponse.clone()));
-    if (kv) {
-      const forKv = folderResp;
-      c.executionCtx.waitUntil(
-        (async () => {
-          if (await shouldWriteLastGood(`volexity-ti:folder:${meta.name}`)) {
-            await kv.put(KV_FOLDER_PREFIX + meta.name, JSON.stringify(forKv), {
-              expirationTtl: KV_LAST_GOOD_TTL_SECONDS,
-            });
-          }
-        })()
-      );
-    }
+    c.executionCtx.waitUntil(
+      writeLastGood(c.env, KV_FOLDER_PREFIX + meta.name, folderResp, {
+        ttlSeconds: KV_LAST_GOOD_TTL_SECONDS,
+        keyPrefix: '',
+      })
+    );
     return fResponse;
   }
 
@@ -568,16 +562,9 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
 
   // Refresh KV last-good with the FULL (unfiltered) tree so any filter combo can
   // degrade gracefully. Debounced so we don't write on every cache miss.
-  if (kv) {
-    const fullForKv = full;
-    c.executionCtx.waitUntil(
-      (async () => {
-        if (await shouldWriteLastGood('volexity-ti:tree')) {
-          await kv.put(KV_TREE_KEY, JSON.stringify(fullForKv), { expirationTtl: KV_LAST_GOOD_TTL_SECONDS });
-        }
-      })()
-    );
-  }
+  c.executionCtx.waitUntil(
+    writeLastGood(c.env, KV_TREE_KEY, full, { ttlSeconds: KV_LAST_GOOD_TTL_SECONDS, keyPrefix: '' })
+  );
 
   return response;
 }

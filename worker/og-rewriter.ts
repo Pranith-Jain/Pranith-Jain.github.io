@@ -1,5 +1,6 @@
 import { injectScriptNonce } from './csp';
 import { readBriefing } from '../api/src/lib/briefing-builder';
+import { pageCardUrl } from './og-path';
 import type { Env } from './env';
 
 /**
@@ -63,13 +64,13 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'CRUCIBLE · DFIR Toolkit',
     description:
       'CRUCIBLE — 90+ free, browser-side DFIR tools: IOC checker, CVE prioritizer, crypto tracer, decoders, YARA/Sigma converter. No signup.',
-    image: '/og-dfir.png?v=4',
+    image: '/og-dfir.png?v=5',
   },
   '/radar': {
     title: 'SCOUT · Recon Scanner',
     description:
       'SCOUT — deep crawl, JS analysis, API discovery, secret detection, and 0-100 security scoring. Free, browser-driven recon.',
-    image: '/og-scout.png?v=2',
+    image: '/og-scout.png?v=5',
   },
   '/copilot': {
     title: 'CTI Copilot',
@@ -80,7 +81,7 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'PANOPTICON · Threat Intel Platform',
     description:
       'PANOPTICON — live ransomware leaks, CVE × CISA KEV, cross-source IOC correlation, actor × MITRE, STIX 2.1 export. Edge-hosted and free.',
-    image: '/og-threatintel.png?v=4',
+    image: '/og-threatintel.png?v=5',
   },
   '/threatintel/external-resources': {
     title: 'External Resources Catalog · pranithjain.qzz.io',
@@ -96,7 +97,7 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'ARGUS · Threat Nexus',
     description:
       'ARGUS — nation-state threat intel dashboard with 3D globe, actor dossiers, relationship graphs, and live threat feeds. Interactive D3 + three.js.',
-    image: '/og-argus.png?v=2',
+    image: '/og-argus.png?v=5',
   },
   '/threatintel/correlation': {
     title: 'Cross-source IOC correlation · pranithjain.qzz.io',
@@ -184,11 +185,14 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
   // <meta name="description"> tag spans 3 lines). A single-space pattern
   // silently fails to match a wrapped tag — that was the bug that served the
   // 317-char home description (and the home twitter card) on every route.
-  // Twitter tags are declared with property= in index.html (not name=).
+  // Twitter tags use name= (the X/Twitter card spec requires name=, not
+  // property=). LinkedIn only reads og:* so it never cared, but X is the sole
+  // consumer of twitter:* and its parser expects name= — serving property=
+  // was why per-page cards rendered on LinkedIn but not on X.
   let out = html
     .replace(/<link\s+rel="canonical"\s+href="[^"]*"/i, `<link rel="canonical" href="${u}"`)
     .replace(/<meta\s+property="og:url"\s+content="[^"]*"/i, `<meta property="og:url" content="${u}"`)
-    .replace(/<meta\s+property="twitter:url"\s+content="[^"]*"/i, `<meta property="twitter:url" content="${u}"`);
+    .replace(/<meta\s+name="twitter:url"\s+content="[^"]*"/i, `<meta name="twitter:url" content="${u}"`);
   if (override) {
     const t = escapeAttr(override.title);
     const d = escapeAttr(override.description);
@@ -197,10 +201,10 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
       .replace(/<meta\s+name="description"\s+content="[^"]*"/i, `<meta name="description" content="${d}"`)
       .replace(/<meta\s+property="og:title"\s+content="[^"]*"/i, `<meta property="og:title" content="${t}"`)
       .replace(/<meta\s+property="og:description"\s+content="[^"]*"/i, `<meta property="og:description" content="${d}"`)
-      .replace(/<meta\s+property="twitter:title"\s+content="[^"]*"/i, `<meta property="twitter:title" content="${t}"`)
+      .replace(/<meta\s+name="twitter:title"\s+content="[^"]*"/i, `<meta name="twitter:title" content="${t}"`)
       .replace(
-        /<meta\s+property="twitter:description"\s+content="[^"]*"/i,
-        `<meta property="twitter:description" content="${d}"`
+        /<meta\s+name="twitter:description"\s+content="[^"]*"/i,
+        `<meta name="twitter:description" content="${d}"`
       );
 
     if (override.image) {
@@ -209,8 +213,8 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
       out = out
         .replace(/<meta\s+property="og:image"\s+content="[^"]*"/gi, `<meta property="og:image" content="${imgAttr}"`)
         .replace(
-          /<meta\s+property="twitter:image"\s+content="[^"]*"/gi,
-          `<meta property="twitter:image" content="${imgAttr}"`
+          /<meta\s+name="twitter:image"\s+content="[^"]*"/gi,
+          `<meta name="twitter:image" content="${imgAttr}"`
         );
     }
   }
@@ -218,6 +222,55 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
     out = out.replace(/<script>/g, `<script nonce="${nonce}">`);
   }
   return out;
+}
+
+/**
+ * Section-aware branding for a generated page card, derived from the first
+ * path segment. Keeps the dynamic per-page cards visually consistent with the
+ * branded surface cards (CRUCIBLE / PANOPTICON / SCOUT / ARGUS).
+ */
+export interface OgPageMeta {
+  title: string;
+  description: string;
+  /** Top type badge, e.g. "DFIR TOOLKIT". */
+  badge: string;
+  /** Footer product family, e.g. "PANOPTICON". */
+  product: string;
+}
+
+/**
+ * Resolve the best title/description + section branding for ANY route, so the
+ * dynamic page-card generator (worker/og-data.ts) renders a card whose text
+ * matches the meta tags the rewriter serves for the same URL.
+ *
+ * Title/description precedence: an exact OG_OVERRIDES entry (hand-written copy)
+ * wins, then the path-derived unique title/description, then a prefix-match
+ * section override. Returns null only for the home page (which keeps the
+ * static home card from index.html).
+ */
+export function ogMetaForPath(pathname: string): OgPageMeta | null {
+  const exact = OG_OVERRIDES[pathname];
+  const override = findOgOverride(pathname);
+  const derived = deriveOgFromPath(pathname);
+  const title = exact?.title ?? derived?.title ?? override?.title;
+  const description = exact?.description ?? derived?.description ?? override?.description;
+  if (!title || !description) return null;
+
+  const first = pathname.split('/').filter(Boolean)[0] ?? '';
+  const badge =
+    first === 'dfir'
+      ? 'DFIR TOOLKIT'
+      : first === 'threatintel'
+        ? 'THREAT INTEL'
+        : first === 'radar'
+          ? 'RECON SCANNER'
+          : first === 'blog'
+            ? 'BLOG POST'
+            : 'SECURITY TOOLS';
+  const product =
+    first === 'threatintel' ? 'PANOPTICON' : first === 'radar' ? 'SCOUT' : first === 'threatnexus' ? 'ARGUS' : 'CRUCIBLE';
+
+  return { title, description, badge, product };
 }
 
 /**
@@ -272,18 +325,17 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
   }
 
   const override = findOgOverride(url.pathname);
-  const derived = deriveOgFromPath(url.pathname);
-  if (!override) return derived;
-  // Exact match — use the explicit override verbatim.
-  if (OG_OVERRIDES[url.pathname]) return override;
-  // Prefix match only — combine the section image with a path-derived
-  // title/description so every page gets unique metadata instead of
-  // inheriting the section landing page's title for 100+ siblings.
-  return {
-    title: derived?.title ?? override.title,
-    description: derived?.description ?? override.description,
-    ...(override.image ? { image: override.image } : {}),
-  };
+  // Branded surface with its own static card (e.g. /dfir, /threatintel, /radar,
+  // /threatnexus) → use its explicit override verbatim. These are the polished
+  // section cards generated by scripts/generate-og-png.mjs.
+  if (override?.image && OG_OVERRIDES[url.pathname]) return override;
+  // Every other URL gets a UNIQUE generated card keyed to its path, so each
+  // page has its own og:image instead of inheriting the section landing card.
+  // Home '/' has no derived/override meta → null → index.html's default home
+  // card is kept.
+  const meta = ogMetaForPath(url.pathname);
+  if (!meta) return override ?? null;
+  return { title: meta.title, description: meta.description, image: pageCardUrl(url.pathname) };
 }
 
 /**
@@ -446,8 +498,33 @@ const NOINDEX_PREFIXES = [
   '/dfir/breach',
   '/dfir/pgp-tool',
   '/dfir/phishing',
+  '/dfir/stealer-parser',
+  '/dfir/lolbins',
+  '/dfir/powershell-deobf',
+  '/dfir/ransomware-quant',
+  '/dfir/malware-analyzer',
+  '/dfir/infostealer-intel',
+  '/dfir/open-directory',
+  '/dfir/web-scan',
+  '/dfir/subdomain-takeover',
+  '/dfir/phishops',
+  '/dfir/phishbook',
+  '/dfir/xss-payloads',
   '/threatintel/telegram-leaks/channels',
   '/threatintel/misp-browser',
+  '/threatintel/darkweb',
+  '/threatintel/ransomware',
+  '/threatintel/malware',
+  '/threatintel/phishing',
+  '/threatintel/breach',
+  '/threatintel/c2-tracker',
+  '/threatintel/infostealer',
+  '/threatintel/crypto-scam',
+  '/threatintel/scam-watch',
+  '/threatintel/darkweb-tools',
+  '/threatintel/malware-iocs',
+  '/threatintel/phishing-wordlists',
+  '/threatintel/tools/darknet-intel',
   '/admin',
 ];
 function shouldNoindex(pathname: string): boolean {

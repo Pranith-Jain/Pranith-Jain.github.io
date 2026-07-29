@@ -56,6 +56,7 @@ interface VeraSession {
   created_at: string;
   updated_at: string;
   role?: AnalystRole;
+  mode?: VeraMode;
 }
 
 function generateId(): string {
@@ -107,6 +108,7 @@ async function ensureTable(db: D1Database): Promise<void> {
 async function loadSession(db: D1Database, id: string): Promise<VeraSession | null> {
   const row = await db.prepare('SELECT * FROM vera_sessions WHERE id = ?').bind(id).first<{
     id: string;
+    mode: string;
     messages_json: string;
     created_at: string;
     updated_at: string;
@@ -119,6 +121,7 @@ async function loadSession(db: D1Database, id: string): Promise<VeraSession | nu
     created_at: row.created_at,
     updated_at: row.updated_at,
     role: (row.role as AnalystRole) ?? undefined,
+    mode: (row.mode as VeraMode) ?? undefined,
   };
 }
 
@@ -134,7 +137,7 @@ async function saveSession(db: D1Database, session: VeraSession): Promise<void> 
     )
     .bind(
       session.id,
-      'ask',
+      session.mode ?? 'ask',
       JSON.stringify(session.messages),
       session.created_at,
       new Date().toISOString(),
@@ -189,11 +192,13 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
         role,
+        mode,
       };
     }
 
-    // Apply or override role
+    // Apply or override role + mode
     session.role = role;
+    session.mode = mode;
 
     const queryType = detectType(query) as string;
     const isFollowUp = isFollowUpQuery(query);

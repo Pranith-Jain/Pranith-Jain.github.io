@@ -50,6 +50,10 @@ interface InsightsPayload {
   };
 }
 
+const EMPTY_TRENDS: Record<string, TrendSeries> = {};
+const EMPTY_COUNTS: Record<string, number> = {};
+const EMPTY_SECRETS: LatestSecret[] = [];
+
 // ── Pretty-printing helpers ──────────────────────────────────────────
 function fmtCount(n: number | undefined): string {
   if (n == null) return '-';
@@ -325,10 +329,10 @@ export default function RedHuntInsights(): JSX.Element {
   }, []);
 
   const data = payload?.data;
-  const trends = data?.trends ?? {};
-  const topDomains = data?.top_domains?.top_domain ?? {};
-  const topSecrets = data?.top_secrets?.secrets ?? {};
-  const latestSecrets = data?.latest_secrets ?? [];
+  const trends = data?.trends ?? EMPTY_TRENDS;
+  const topDomains = data?.top_domains?.top_domain ?? EMPTY_COUNTS;
+  const topSecrets = data?.top_secrets?.secrets ?? EMPTY_COUNTS;
+  const latestSecrets = data?.latest_secrets ?? EMPTY_SECRETS;
 
   // Top 10 secret types - sorted desc.
   const topSecretEntries = useMemo(() => {

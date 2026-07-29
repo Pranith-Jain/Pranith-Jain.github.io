@@ -48,8 +48,6 @@ export interface RansomScenario {
 }
 
 const KV_PREFIX = 'ransom:v1';
-const INDEX_CACHE_KEY = 'https://ransom-index-cache.internal/v1';
-const INDEX_CACHE_TTL = 30;
 
 function makeId(): string {
   return Date.now().toString(36) + '-' + crypto.randomUUID().slice(0, 8);
@@ -114,11 +112,10 @@ async function loadAll(env: Env): Promise<RansomScenario[]> {
   const kv = env.KV_CACHE;
   if (!kv) return [];
   try {
-    const cached = await kv.get(INDEX_CACHE_KEY);
-    if (cached) return JSON.parse(cached) as RansomScenario[];
+    const blob = await kv.get(`${KV_PREFIX}:all`, 'json');
+    if (blob) return blob as RansomScenario[];
     const idsRaw = await kv.get(`${KV_PREFIX}:index`);
     const ids: string[] = idsRaw ? JSON.parse(idsRaw) : [];
-    // One bulk read per 100 ids instead of one get per id.
     const values = await kvBulkGetText(
       kv,
       ids.map((id) => `${KV_PREFIX}:${id}`)
@@ -128,7 +125,6 @@ async function loadAll(env: Env): Promise<RansomScenario[]> {
       const raw = values.get(`${KV_PREFIX}:${id}`) ?? null;
       if (raw) results.push(JSON.parse(raw) as RansomScenario);
     }
-    await kv.put(INDEX_CACHE_KEY, JSON.stringify(results), { expirationTtl: INDEX_CACHE_TTL });
     return results;
   } catch {
     return [];
@@ -138,10 +134,7 @@ async function loadAll(env: Env): Promise<RansomScenario[]> {
 async function saveAll(env: Env, items: RansomScenario[]): Promise<void> {
   const kv = env.KV_CACHE;
   if (!kv) return;
-  const ids = items.map((s) => s.id);
-  await kv.put(`${KV_PREFIX}:index`, JSON.stringify(ids));
-  for (const item of items) await kv.put(`${KV_PREFIX}:${item.id}`, JSON.stringify(item));
-  await kv.delete(INDEX_CACHE_KEY);
+  await kv.put(`${KV_PREFIX}:all`, JSON.stringify(items));
 }
 
 export async function ransomList(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -150,15 +143,10 @@ export async function ransomList(c: Context<{ Bindings: Env }>): Promise<Respons
 }
 
 export async function ransomGet(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 500);
-  const raw = await kv.get(`${KV_PREFIX}:${c.req.param('id')}`);
-  if (!raw) return c.json({ error: 'Not found' }, 404);
-  try {
-    return c.json(JSON.parse(raw));
-  } catch {
-    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
-  }
+  const items = await loadAll(c.env);
+  const item = items.find((i) => i.id === c.req.param('id'));
+  if (!item) return c.json({ error: 'Not found' }, 404);
+  return c.json(item);
 }
 
 export async function ransomCreate(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -191,23 +179,17 @@ export async function ransomCreate(c: Context<{ Bindings: Env }>): Promise<Respo
 }
 
 export async function ransomUpdate(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 500);
   const id = c.req.param('id');
-  const raw = await kv.get(`${KV_PREFIX}:${id}`);
-  if (!raw) return c.json({ error: 'Not found' }, 404);
-  let existing: RansomScenario;
-  try {
-    existing = JSON.parse(raw) as RansomScenario;
-  } catch {
-    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
-  }
+  if (!id) return c.json({ error: 'id required' }, 400);
+  const items = await loadAll(c.env);
+  const idx = items.findIndex((i) => i.id === id);
+  if (idx === -1) return c.json({ error: 'Not found' }, 404);
   const body = await c.req.json<Partial<RansomScenario>>();
-  const merged = { ...existing, ...body, id: existing.id, updated_at: new Date().toISOString() };
+  const merged = { ...items[idx], ...body, id, updated_at: new Date().toISOString() } as RansomScenario;
   const recomputed = computeCosts(merged);
   const updated: RansomScenario = { ...merged, ...recomputed };
-  await kv.put(`${KV_PREFIX}:${id}`, JSON.stringify(updated));
-  await kv.delete(INDEX_CACHE_KEY);
+  items[idx] = updated;
+  await saveAll(c.env, items);
   return c.json(updated);
 }
 

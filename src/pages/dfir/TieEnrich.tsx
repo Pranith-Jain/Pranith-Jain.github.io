@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { ReportView, type ReportActionCard } from '../../components/dfir/ReportView';
 import { Shield, Search, Globe, Link, FileDigit, AlertTriangle, Download, Loader2, Terminal } from 'lucide-react';
@@ -87,6 +87,14 @@ export default function TieEnrich() {
   const [error, setError] = useState('');
 
   const submitRef = useRef<AbortController | null>(null);
+  const evtSourceRef = useRef<EventSource | null>(null);
+
+  useEffect(() => {
+    return () => {
+      evtSourceRef.current?.close();
+      evtSourceRef.current = null;
+    };
+  }, []);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
@@ -115,7 +123,9 @@ export default function TieEnrich() {
 
         if (deep && data.id) {
           setResult({ ioc: ioc.trim(), iocType, status: 'running', diagnostics: [] });
+          evtSourceRef.current?.close();
           const evtSource = new EventSource(`/api/v1/tie/enrich/${data.id}/stream`);
+          evtSourceRef.current = evtSource;
           evtSource.onmessage = (ev) => {
             try {
               const msg = JSON.parse(ev.data);

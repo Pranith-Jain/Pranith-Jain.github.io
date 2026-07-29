@@ -13,6 +13,7 @@ import type { Env } from './env';
 import type { OgImageData } from './og-image';
 import type { OgImageType } from './og-path';
 import { readBriefing } from '../api/src/lib/briefing-builder';
+import { ogMetaForPath } from './og-rewriter';
 
 /** Minimal blog record shape in CASE_STUDIES KV (mirrors og-rewriter's read). */
 interface BlogOgRecord {
@@ -23,6 +24,22 @@ interface BlogOgRecord {
 }
 
 export async function loadOgData(env: Env, type: OgImageType, slug: string): Promise<OgImageData | null> {
+  // Generic per-page card: `slug` is the route path (e.g. "/dfir/cve"). Title,
+  // description, and section branding come from the SAME derivation the meta
+  // rewriter uses (ogMetaForPath), so the card text always matches the page's
+  // og:title/og:description. Pure in-memory — no KV/D1 subrequest.
+  if (type === 'page') {
+    const meta = ogMetaForPath(slug);
+    if (!meta) return null;
+    return {
+      title: meta.title.replace(/\s*·\s*pranithjain\.qzz\.io$/i, ''),
+      subtitle: meta.description,
+      type: 'page',
+      badge: meta.badge,
+      product: meta.product,
+    };
+  }
+
   if (type === 'briefing') {
     if (!env.BRIEFINGS_DB) return null;
     const b = await readBriefing(env.BRIEFINGS_DB, slug);

@@ -1,15 +1,1 @@
-{
-  "slug": "chaos-thecranewaregroup-com-2026-07-28",
-  "title": "thecranewaregroup.com",
-  "group": "chaos",
-  "discovered": "2026-07-28T16:53:00.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "Craneware’s Public Deception: The Reality Behind the 'Non-Sensitive' Data Breach\n\nRecent public statements and regulatory filings by UK health-tech firm Craneware claim that the massive cyber-attack they suffered only exposed \"non-sensitive or already public regulatory data.\" They would have the s…",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"chaos-thecranewaregroup-com-2026-07-28","title":"thecranewaregroup.com","group":"chaos","discovered":"2026-07-28T16:53:00.000Z","category":"ransomware","severity":"high","country":"GB","sizeBytes":0,"description":"Craneware’s Public Deception: The Reality Behind the 'Non-Sensitive' Data Breach\n\nRecent public statements and regulatory filings by UK health-tech firm Craneware claim that the massive cyber-attack they suffered only exposed \"non-sensitive or already public regulatory data.\" They would have the s…","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

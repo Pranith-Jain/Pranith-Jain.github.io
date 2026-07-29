@@ -35,6 +35,7 @@ import type { Env } from '../env';
 import { badRequest, badGateway } from '../lib/api-error';
 import { runCompletion } from '../case-study/generation/ai-client';
 import { fenceUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../lib/prompt-fence';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const UPSTREAM_BASE = 'https://intodns.ai/api';
 const SNAPSHOT_TTL_SECONDS = 6 * 60 * 60; // 6h
@@ -71,29 +72,25 @@ export async function intodnsSnapshotHandler(c: Context<{ Bindings: Env }>): Pro
   const format = c.req.query('format') === 'markdown' ? 'markdown' : 'json';
 
   const cacheKey = `intodns:snapshot:v1:${format}:${raw}`;
-  const kv = c.env.KV_CACHE;
-  if (kv) {
-    try {
-      const cached = (await kv.get(cacheKey, 'json')) as CachedSnapshot | null;
-      if (cached && cached.body) {
-        const headers = new Headers({
-          'Cache-Control': `public, max-age=3600`,
-          'X-Intodns-Cache': 'hit',
-          'X-Intodns-Domain': cached.domain,
-        });
-        headers.set(
-          'Content-Type',
-          format === 'markdown' ? 'text/markdown; charset=utf-8' : 'application/json; charset=utf-8'
-        );
-        return new Response(cached.body, { status: 200, headers });
-      }
-    } catch (_catchErr) {
-      console.error(
-        'intodnsSnapshotHandler failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+  try {
+    const cached = await routeCacheGet<CachedSnapshot>(cacheKey);
+    if (cached && cached.body) {
+      const headers = new Headers({
+        'Cache-Control': `public, max-age=3600`,
+        'X-Intodns-Cache': 'hit',
+        'X-Intodns-Domain': cached.domain,
+      });
+      headers.set(
+        'Content-Type',
+        format === 'markdown' ? 'text/markdown; charset=utf-8' : 'application/json; charset=utf-8'
       );
-      // Cache miss / corruption is non-fatal — fall through to upstream.
+      return new Response(cached.body, { status: 200, headers });
     }
+  } catch (_catchErr) {
+    console.error(
+      'intodnsSnapshotHandler failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
   }
 
   const url =
@@ -144,21 +141,18 @@ export async function intodnsSnapshotHandler(c: Context<{ Bindings: Env }>): Pro
 
   const body = await res.text();
 
-  if (kv) {
-    try {
-      const payload: CachedSnapshot = {
-        fetchedAt: new Date().toISOString(),
-        domain: raw,
-        format,
-        body,
-        source: 'intodns.ai',
-        upstreamStatus: res.status,
-      };
-      await kv.put(cacheKey, JSON.stringify(payload), { expirationTtl: SNAPSHOT_TTL_SECONDS });
-    } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      // KV write failure is non-fatal — we still serve the fresh response.
-    }
+  try {
+    const payload: CachedSnapshot = {
+      fetchedAt: new Date().toISOString(),
+      domain: raw,
+      format,
+      body,
+      source: 'intodns.ai',
+      upstreamStatus: res.status,
+    };
+    await routeCachePut(cacheKey, payload, SNAPSHOT_TTL_SECONDS);
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
   }
 
   const responseHeaders = new Headers({
@@ -204,35 +198,31 @@ export async function intodnsExplainHandler(c: Context<{ Bindings: Env }>): Prom
   if (!raw) return badRequest(c, 'domain is required');
   if (!DOMAIN_RE.test(raw)) return badRequest(c, 'invalid domain');
 
-  const kv = c.env.KV_CACHE;
   const explainCacheKey = `intodns:explain:v1:${raw}`;
 
   // 1. Check explanation cache.
-  if (kv) {
-    try {
-      const cached = (await kv.get(explainCacheKey, 'json')) as CachedExplanation | null;
-      if (cached && cached.explanation) {
-        return c.json(
-          {
-            domain: cached.domain,
-            explanation: cached.explanation,
-            modelUsed: cached.modelUsed,
-            cached: true,
-            fetchedAt: cached.fetchedAt,
-            degraded: cached.degraded ?? false,
-            citation: 'https://intodns.ai/methodology',
-          },
-          200,
-          { 'Cache-Control': 'public, max-age=3600' }
-        );
-      }
-    } catch (_catchErr) {
-      console.error(
-        'intodnsExplainHandler failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+  try {
+    const cached = await routeCacheGet<CachedExplanation>(explainCacheKey);
+    if (cached && cached.explanation) {
+      return c.json(
+        {
+          domain: cached.domain,
+          explanation: cached.explanation,
+          modelUsed: cached.modelUsed,
+          cached: true,
+          fetchedAt: cached.fetchedAt,
+          degraded: cached.degraded ?? false,
+          citation: 'https://intodns.ai/methodology',
+        },
+        200,
+        { 'Cache-Control': 'public, max-age=3600' }
       );
-      // fall through
     }
+  } catch (_catchErr) {
+    console.error(
+      'intodnsExplainHandler failed:',
+      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
+    );
   }
 
   // 2. Fetch the raw snapshot. We could call our own /snapshot endpoint
@@ -302,7 +292,7 @@ export async function intodnsExplainHandler(c: Context<{ Bindings: Env }>): Prom
   }
 
   // 4. Cache the explanation (including degraded=false) for 24h.
-  if (kv && explanation) {
+  if (explanation) {
     try {
       const payload: CachedExplanation = {
         fetchedAt: snapshot.fetchedAt,
@@ -311,10 +301,9 @@ export async function intodnsExplainHandler(c: Context<{ Bindings: Env }>): Prom
         modelUsed,
         degraded: false,
       };
-      await kv.put(explainCacheKey, JSON.stringify(payload), { expirationTtl: EXPLAIN_TTL_SECONDS });
+      await routeCachePut(explainCacheKey, payload, EXPLAIN_TTL_SECONDS);
     } catch (_catchErr) {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      // non-fatal
     }
   }
 
@@ -360,18 +349,13 @@ function truncateForPrompt(body: string): string {
 }
 
 async function fetchSnapshotJson(domain: string, env: Env): Promise<SnapshotResult> {
-  // Try KV cache first.
-  const kv = env.KV_CACHE;
-  if (kv) {
-    try {
-      const cached = (await kv.get(`intodns:snapshot:v1:json:${domain}`, 'json')) as CachedSnapshot | null;
-      if (cached && cached.body) {
-        return { ok: true, status: 200, body: cached.body, fetchedAt: cached.fetchedAt };
-      }
-    } catch (_catchErr) {
-      console.error('fetchSnapshotJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      // fall through
+  try {
+    const cached = await routeCacheGet<CachedSnapshot>(`intodns:snapshot:v1:json:${domain}`);
+    if (cached && cached.body) {
+      return { ok: true, status: 200, body: cached.body, fetchedAt: cached.fetchedAt };
     }
+  } catch (_catchErr) {
+    console.error('fetchSnapshotJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
   }
 
   const headers: Record<string, string> = {
@@ -410,23 +394,18 @@ async function fetchSnapshotJson(domain: string, env: Env): Promise<SnapshotResu
   const body = await res.text();
   const fetchedAt = new Date().toISOString();
 
-  if (kv) {
-    try {
-      const payload: CachedSnapshot = {
-        fetchedAt,
-        domain,
-        format: 'json',
-        body,
-        source: 'intodns.ai',
-        upstreamStatus: res.status,
-      };
-      await kv.put(`intodns:snapshot:v1:json:${domain}`, JSON.stringify(payload), {
-        expirationTtl: SNAPSHOT_TTL_SECONDS,
-      });
-    } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      // non-fatal
-    }
+  try {
+    const payload: CachedSnapshot = {
+      fetchedAt,
+      domain,
+      format: 'json',
+      body,
+      source: 'intodns.ai',
+      upstreamStatus: res.status,
+    };
+    await routeCachePut(`intodns:snapshot:v1:json:${domain}`, payload, SNAPSHOT_TTL_SECONDS);
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
   }
 
   return { ok: true, status: 200, body, fetchedAt };

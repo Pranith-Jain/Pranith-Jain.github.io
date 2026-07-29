@@ -260,7 +260,7 @@ function DDoSPanel() {
             <div className="divide-y divide-slate-100 dark:divide-[rgb(var(--border-300))]">
               {searchResults.slice(0, 30).map((b, i) => (
                 <div
-                  key={b.ip + i} role="tab"
+                  key={b.ip + i}
                   role="button"
                   tabIndex={0}
                   className="px-3 py-2 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors cursor-pointer"
@@ -583,7 +583,7 @@ function HealthcarePanel() {
             <div className="divide-y divide-slate-100 dark:divide-[rgb(var(--border-300))]">
               {filtered.slice(0, 30).map((b, i) => (
                 <div
-                  key={b.id} role="tab"
+                  key={b.id}
                   role="button"
                   tabIndex={0}
                   className="px-3 py-2 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-100))] transition-colors cursor-pointer"

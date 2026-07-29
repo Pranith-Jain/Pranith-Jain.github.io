@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { isBenign, refang, scoreConfidence } from '../lib/ioc-normalize';
 import type { D1Database, Queue } from '@cloudflare/workers-types';
 import { safeNullLog } from '../lib/safe-catch';
+import { requireAdmin } from '../lib/admin-auth';
 import { concurrentMap } from '../lib/concurrent-map';
 import { readSlice, type FeedQueueMessage } from '../lib/live-iocs-slices';
 import {
@@ -1253,6 +1254,8 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // wall time), so this is NOT a hot path.
   const debugMode = c.req.query('debug') === '1' || c.req.query('debug') === 'true';
   if (debugMode) {
+    const gate = requireAdmin(c);
+    if ('error' in gate) return gate.error;
     const t0 = Date.now();
     const sourceUrls: { id: string; url: string; fallbackUrls?: string[] }[] = [];
     for (const s of FEED_SOURCES) {
@@ -1297,6 +1300,8 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // cached slices are stale (e.g. after deploying fallback URL changes).
   const forceRefresh = c.req.query('refresh') === '1';
   if (forceRefresh) {
+    const gate = requireAdmin(c);
+    if ('error' in gate) return gate.error;
     const body = await fetchLiveIocs(c.executionCtx, c.env.KV_CACHE, c.env);
     const ttl = body.degraded ? DEGRADED_TTL_SECONDS : CACHE_TTL_SECONDS;
     const resp = new Response(JSON.stringify(body), {

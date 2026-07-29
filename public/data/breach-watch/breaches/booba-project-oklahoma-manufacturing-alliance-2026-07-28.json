@@ -1,15 +1,1 @@
-{
-  "slug": "booba-project-oklahoma-manufacturing-alliance-2026-07-28",
-  "title": "Oklahoma Manufacturing Alliance",
-  "group": "Booba Project",
-  "discovered": "2026-07-28T14:50:28.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Business Consulting and Services Stolen data: 10 GB.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"booba-project-oklahoma-manufacturing-alliance-2026-07-28","title":"Oklahoma Manufacturing Alliance","group":"Booba Project","discovered":"2026-07-28T14:50:28.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Business Consulting and Services Stolen data: 10 GB.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

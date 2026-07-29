@@ -3315,7 +3315,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       // ── PowerShell + detection-manifest scripts (round 3) ──────
       this.tools(
         'si_list_scripts',
-        'List the 5 PowerShell / detection-manifest assets that ship in the SI bundle: Deploy-CustomDetections.ps1 (batch-deploy Defender XDR rules), Invoke-MitreScan.ps1 (full MITRE coverage scanner), Invoke-IngestionScan.ps1 (Sentinel ingestion health), example-detection-manifest.json (input template), sentinel-ingestion-drilldown.md (companion guide).',
+        'List the detection-manifest assets that ship in the SI bundle: example-detection-manifest.json (input template), sentinel-chokepoint-rules.json (detection rules), sentinel-ingestion-drilldown.md (companion guide).',
         {},
         async () => {
           const idx = await loadScriptsIndex(ASSETS);
@@ -3325,12 +3325,12 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
 
       this.tools(
         'si_get_script',
-        'Return the raw body of a PowerShell script or detection-manifest. Use si_list_scripts to discover filenames. The PowerShell scripts target Microsoft Defender XDR / Sentinel / M365 — they are NOT executable in the Worker; copy them to a PowerShell 7+ session locally to run.',
+        'Return the raw body of a detection-manifest asset. Use si_list_scripts to discover filenames.',
         {
           name: z
             .string()
             .describe(
-              'Script filename, e.g. "Deploy-CustomDetections.ps1", "Invoke-MitreScan.ps1", "Invoke-IngestionScan.ps1", "example-detection-manifest.json", "sentinel-ingestion-drilldown.md".'
+              'Asset filename, e.g. "example-detection-manifest.json", "sentinel-chokepoint-rules.json", "sentinel-ingestion-drilldown.md".'
             ),
         },
         async ({ name }) => {
@@ -4909,9 +4909,9 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             body: JSON.stringify({ id, query: prompt, queryType: ioc_type, maxSteps: 4 }),
           });
 
-          // Poll up to 30s for the result
-          for (let i = 0; i < 60; i++) {
-            await new Promise((r) => setTimeout(r, 500));
+          // Poll up to 30s for the result (20 polls × 1.5s stays within subrequest budget)
+          for (let i = 0; i < 20; i++) {
+            await new Promise((r) => setTimeout(r, 1500));
             const stateRes = await stub.fetch(`https://agent/state?id=${encodeURIComponent(id)}`);
             if (!stateRes.ok) break;
             const state = (await stateRes.json()) as {

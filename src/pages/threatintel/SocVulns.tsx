@@ -46,6 +46,8 @@ const SEV_COLOR: Record<Severity, string | undefined> = {
 
 const SEV_ORDER: Severity[] = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'NONE', 'UNKNOWN'];
 
+const EMPTY_CVES: RecentCve[] = [];
+
 /** Map NVD severity to the SOC pill token. NONE/UNKNOWN render as `info`. */
 function cveSevToSoc(s: Severity): SocSeverity {
   if (s === 'NONE' || s === 'UNKNOWN') return 'info';
@@ -153,7 +155,7 @@ export default function SocVulns(): JSX.Element {
     return () => ctrl.abort();
   }, [load]);
 
-  const cves = data?.cves ?? [];
+  const cves = useMemo(() => data?.cves ?? EMPTY_CVES, [data]);
 
   /* ─── Windowing: filter CVEs to the last `windowDays` days ─────── */
   const inWindow = useMemo(() => {

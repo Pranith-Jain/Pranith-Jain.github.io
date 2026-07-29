@@ -105,15 +105,19 @@ async function loadAll(env: Env): Promise<RiskRegisterEntry[]> {
         /* fall through */
       }
     }
-    const list = await kv.list({ prefix: KV_PREFIX + ':' });
-    // One bulk read per 100 keys instead of one get per key.
-    const values = await kvBulkGetText(
-      kv,
-      list.keys.map((k) => k.name)
-    );
-    const results = list.keys.map((key) => {
+    const idsRaw = await kv.get(`${KV_PREFIX}:index`);
+    let keys: string[];
+    if (idsRaw) {
+      const ids: string[] = JSON.parse(idsRaw);
+      keys = ids.map((id) => `${KV_PREFIX}:${id}`);
+    } else {
+      const list = await kv.list({ prefix: KV_PREFIX + ':' });
+      keys = list.keys.map((k) => k.name).filter((n) => n !== `${KV_PREFIX}:index`);
+    }
+    const values = await kvBulkGetText(kv, keys);
+    const results = keys.map((key) => {
       try {
-        const raw = values.get(key.name) ?? null;
+        const raw = values.get(key) ?? null;
         return raw ? (JSON.parse(raw) as RiskRegisterEntry) : null;
       } catch {
         return null;
@@ -142,6 +146,12 @@ async function save(env: Env, entry: RiskRegisterEntry): Promise<void> {
   const kv = env.KV_CACHE;
   if (!kv) return;
   await kv.put(`${KV_PREFIX}:${entry.id}`, JSON.stringify(entry));
+  const idsRaw = await kv.get(`${KV_PREFIX}:index`);
+  const ids: string[] = idsRaw ? JSON.parse(idsRaw) : [];
+  if (!ids.includes(entry.id)) {
+    ids.push(entry.id);
+    await kv.put(`${KV_PREFIX}:index`, JSON.stringify(ids));
+  }
   const cache = cacheApi();
   if (cache) {
     try {
@@ -156,6 +166,12 @@ async function remove(env: Env, id: string): Promise<boolean> {
   const kv = env.KV_CACHE;
   if (!kv) return false;
   await kv.delete(`${KV_PREFIX}:${id}`);
+  const idsRaw = await kv.get(`${KV_PREFIX}:index`);
+  if (idsRaw) {
+    const ids: string[] = JSON.parse(idsRaw);
+    const filtered = ids.filter((i) => i !== id);
+    await kv.put(`${KV_PREFIX}:index`, JSON.stringify(filtered));
+  }
   const cache = cacheApi();
   if (cache) {
     try {

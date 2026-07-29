@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchResilient } from '../lib/fetch-resilient';
-import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { writeLastGood } from '../lib/lastgood';
 
 /**
  * Malicious-package directory backed by ossf/malicious-packages — the OpenSSF
@@ -151,14 +151,8 @@ export async function maliciousPackagesHandler(c: Context<{ Bindings: Env }>): P
   // Refresh the KV last-good so future 403s can serve stale instead of
   // erroring. Debounced via caches.default so we don't write on every
   // cache-miss-success — once every few hours per ecosystem is plenty.
-  if (kv) {
-    c.executionCtx.waitUntil(
-      (async () => {
-        if (await shouldWriteLastGood(`malicious-packages:${ecosystem}`)) {
-          await kv.put(kvKey, JSON.stringify(body), { expirationTtl: KV_LAST_GOOD_TTL_SECONDS });
-        }
-      })()
-    );
-  }
+  c.executionCtx.waitUntil(
+    writeLastGood(c.env, kvKey, body, { ttlSeconds: KV_LAST_GOOD_TTL_SECONDS, keyPrefix: '' })
+  );
   return response;
 }

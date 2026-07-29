@@ -40,6 +40,9 @@ interface LiveIocsResponse {
 
 /* ─── Severity / criticality heuristic ─────────────────────────────── */
 
+const EMPTY_ITEMS: LiveIoc[] = [];
+const EMPTY_SOURCES: LiveSource[] = [];
+
 /**
  * Per-IOC criticality score, 0-100. Higher = more actionable.
  *
@@ -122,8 +125,8 @@ export default function SocIocs(): JSX.Element {
     return () => ctrl.abort();
   }, [load]);
 
-  const items = data?.items ?? [];
-  const sources = data?.sources ?? [];
+  const items = useMemo(() => data?.items ?? EMPTY_ITEMS, [data]);
+  const sources = useMemo(() => data?.sources ?? EMPTY_SOURCES, [data]);
 
   /* ─── Windowing (time) + kind filter (UI) ────────────────────── */
   // For totals/KPIs, count uses the time window but ignores the kind filter

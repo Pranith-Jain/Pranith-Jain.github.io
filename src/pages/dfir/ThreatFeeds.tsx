@@ -21,6 +21,7 @@ import {
 } from '../../data/rssFeeds';
 import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import { FeedSummaryPanel } from '../../components/threatintel/FeedSummaryPanel';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 /**
  * Threat Feeds - sectioned aggregator for the threat-intelligence half of
@@ -466,6 +467,18 @@ export default function ThreatFeeds(): JSX.Element {
             onClose={() => setShowDigest(false)}
           />
         </div>
+      )}
+
+      {annotated.length > 0 && (
+        <AiSummaryCard
+          surface="Threat Feeds"
+          items={annotated.slice(0, 30).map(({ item }) => ({
+            title: item.title ?? '(untitled)',
+            body: stripHtml(item.description ?? ''),
+            source: item.source,
+          }))}
+          requireAdmin={false}
+        />
       )}
 
       <ul className="space-y-2">

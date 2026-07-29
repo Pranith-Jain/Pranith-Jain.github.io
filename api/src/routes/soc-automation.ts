@@ -66,8 +66,6 @@ export interface PlaybookRun {
 }
 
 const KV_PREFIX = 'soc:v1';
-const INDEX_CACHE_KEY = 'https://soc-index-cache.internal/v1';
-const INDEX_CACHE_TTL = 30;
 
 function makeId(): string {
   return Date.now().toString(36) + '-' + crypto.randomUUID().slice(0, 8);
@@ -77,12 +75,10 @@ async function loadAll<T>(env: Env, type: string): Promise<T[]> {
   const kv = env.KV_CACHE;
   if (!kv) return [];
   try {
-    const cacheKey = `${INDEX_CACHE_KEY}/${type}`;
-    const cached = await kv.get(cacheKey);
-    if (cached) return JSON.parse(cached) as T[];
+    const blob = await kv.get(`${KV_PREFIX}:${type}:all`, 'json');
+    if (blob) return blob as T[];
     const idsRaw = await kv.get(`${KV_PREFIX}:${type}:index`);
     const ids: string[] = idsRaw ? JSON.parse(idsRaw) : [];
-    // One bulk read per 100 ids instead of one get per id.
     const values = await kvBulkGetText(
       kv,
       ids.map((id) => `${KV_PREFIX}:${type}:${id}`)
@@ -92,20 +88,16 @@ async function loadAll<T>(env: Env, type: string): Promise<T[]> {
       const raw = values.get(`${KV_PREFIX}:${type}:${id}`) ?? null;
       if (raw) results.push(JSON.parse(raw) as T);
     }
-    await kv.put(cacheKey, JSON.stringify(results), { expirationTtl: INDEX_CACHE_TTL });
     return results;
   } catch {
     return [];
   }
 }
 
-async function saveAll<T>(env: Env, type: string, items: T[], getId: (item: T) => string): Promise<void> {
+async function saveAll<T>(env: Env, type: string, items: T[]): Promise<void> {
   const kv = env.KV_CACHE;
   if (!kv) return;
-  const ids = items.map(getId);
-  await kv.put(`${KV_PREFIX}:${type}:index`, JSON.stringify(ids));
-  for (const item of items) await kv.put(`${KV_PREFIX}:${type}:${getId(item)}`, JSON.stringify(item));
-  await kv.delete(`${INDEX_CACHE_KEY}/${type}`);
+  await kv.put(`${KV_PREFIX}:${type}:all`, JSON.stringify(items));
 }
 
 // ── Playbooks ────────────────────────────────────────────────────────
@@ -121,15 +113,10 @@ export async function socListPlaybooks(c: Context<{ Bindings: Env }>): Promise<R
 }
 
 export async function socGetPlaybook(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 500);
-  const raw = await kv.get(`${KV_PREFIX}:playbooks:${c.req.param('id')}`);
-  if (!raw) return c.json({ error: 'Not found' }, 404);
-  try {
-    return c.json(JSON.parse(raw));
-  } catch {
-    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
-  }
+  const items = await loadAll<Playbook>(c.env, 'playbooks');
+  const item = items.find((i) => i.id === c.req.param('id'));
+  if (!item) return c.json({ error: 'Not found' }, 404);
+  return c.json(item);
 }
 
 export async function socCreatePlaybook(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -145,26 +132,20 @@ export async function socCreatePlaybook(c: Context<{ Bindings: Env }>): Promise<
   };
   const items = await loadAll<Playbook>(c.env, 'playbooks');
   items.push(playbook);
-  await saveAll(c.env, 'playbooks', items, (p) => p.id);
+  await saveAll(c.env, 'playbooks', items);
   return c.json(playbook, 201);
 }
 
 export async function socUpdatePlaybook(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 500);
   const id = c.req.param('id');
-  const raw = await kv.get(`${KV_PREFIX}:playbooks:${id}`);
-  if (!raw) return c.json({ error: 'Not found' }, 404);
-  let existing: Playbook;
-  try {
-    existing = JSON.parse(raw) as Playbook;
-  } catch {
-    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
-  }
+  if (!id) return c.json({ error: 'id required' }, 400);
+  const items = await loadAll<Playbook>(c.env, 'playbooks');
+  const idx = items.findIndex((i) => i.id === id);
+  if (idx === -1) return c.json({ error: 'Not found' }, 404);
   const body = await c.req.json<Partial<Playbook>>();
-  const updated: Playbook = { ...existing, ...body, id: existing.id, updated_at: new Date().toISOString() };
-  await kv.put(`${KV_PREFIX}:playbooks:${id}`, JSON.stringify(updated));
-  await kv.delete(`${INDEX_CACHE_KEY}/playbooks`);
+  const updated = { ...items[idx], ...body, id, updated_at: new Date().toISOString() } as Playbook;
+  items[idx] = updated;
+  await saveAll(c.env, 'playbooks', items);
   return c.json(updated);
 }
 
@@ -172,24 +153,19 @@ export async function socDeletePlaybook(c: Context<{ Bindings: Env }>): Promise<
   const id = c.req.param('id');
   const items = await loadAll<Playbook>(c.env, 'playbooks');
   const filtered = items.filter((p) => p.id !== id);
-  await saveAll(c.env, 'playbooks', filtered, (p) => p.id);
+  await saveAll(c.env, 'playbooks', filtered);
   return c.json({ deleted: id });
 }
 
 // ── Execute ──────────────────────────────────────────────────────────
 
 export async function socExecutePlaybook(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 500);
   const id = c.req.param('id');
-  const raw = await kv.get(`${KV_PREFIX}:playbooks:${id}`);
-  if (!raw) return c.json({ error: 'Not found' }, 404);
-  let playbook: Playbook;
-  try {
-    playbook = JSON.parse(raw) as Playbook;
-  } catch {
-    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
-  }
+  if (!id) return c.json({ error: 'id required' }, 400);
+  const playbooks = await loadAll<Playbook>(c.env, 'playbooks');
+  const pbIdx = playbooks.findIndex((p) => p.id === id);
+  if (pbIdx === -1) return c.json({ error: 'Not found' }, 404);
+  const playbook = playbooks[pbIdx]!;
   if (!playbook.actions) playbook.actions = [];
   const runId = makeId();
   const startedAt = new Date().toISOString();
@@ -200,7 +176,6 @@ export async function socExecutePlaybook(c: Context<{ Bindings: Env }>): Promise
   for (const action of playbook.actions) {
     const actionStart = Date.now();
     try {
-      // Simulate action execution
       const result = await simulateAction(action, c.env, playbook.trigger);
       actionResults.push({
         action_id: action.id,
@@ -238,27 +213,17 @@ export async function socExecutePlaybook(c: Context<{ Bindings: Env }>): Promise
     error: runError,
   };
 
-  // Update playbook stats
-  const pbRaw = await kv.get(`${KV_PREFIX}:playbooks:${id}`);
-  if (pbRaw) {
-    let pb: Playbook;
-    try {
-      pb = JSON.parse(pbRaw) as Playbook;
-    } catch {
-      pb = playbook;
-    }
-    pb.run_count += 1;
-    pb.avg_duration_ms = Math.round((pb.avg_duration_ms * (pb.run_count - 1) + durationMs) / pb.run_count);
-    pb.last_run_at = completedAt;
-    pb.last_run_status = runStatus;
-    await kv.put(`${KV_PREFIX}:playbooks:${id}`, JSON.stringify(pb));
-    await kv.delete(`${INDEX_CACHE_KEY}/playbooks`);
-  }
+  const pb = playbooks[pbIdx]!;
+  pb.run_count += 1;
+  pb.avg_duration_ms = Math.round((pb.avg_duration_ms * (pb.run_count - 1) + durationMs) / pb.run_count);
+  pb.last_run_at = completedAt;
+  pb.last_run_status = runStatus;
+  playbooks[pbIdx] = pb;
+  await saveAll(c.env, 'playbooks', playbooks);
 
-  // Save run
   const runs = await loadAll<PlaybookRun>(c.env, 'runs');
   runs.push(run);
-  await saveAll(c.env, 'runs', runs, (r) => r.id);
+  await saveAll(c.env, 'runs', runs);
 
   return c.json(run, 201);
 }
@@ -286,15 +251,10 @@ export async function socListRuns(c: Context<{ Bindings: Env }>): Promise<Respon
 }
 
 export async function socGetRun(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 500);
-  const raw = await kv.get(`${KV_PREFIX}:runs:${c.req.param('id')}`);
-  if (!raw) return c.json({ error: 'Not found' }, 404);
-  try {
-    return c.json(JSON.parse(raw));
-  } catch {
-    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
-  }
+  const items = await loadAll<PlaybookRun>(c.env, 'runs');
+  const item = items.find((i) => i.id === c.req.param('id'));
+  if (!item) return c.json({ error: 'Not found' }, 404);
+  return c.json(item);
 }
 
 // ── Stats ────────────────────────────────────────────────────────────

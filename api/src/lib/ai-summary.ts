@@ -32,6 +32,7 @@ export interface SummaryInput {
 
 export interface SummaryResult {
   summary: string;
+  tweet: string;
   modelUsed: string;
   itemCount: number;
   _validation?: {
@@ -41,26 +42,36 @@ export interface SummaryResult {
   };
 }
 
-const SYSTEM_PROMPT = `You are a senior cyber-threat-intelligence analyst. Given a list of security items from a specific feed surface, write a concise operational summary (150-300 words) for a CTI team.
+const SYSTEM_PROMPT = `You are a senior cyber-threat-intelligence analyst who also writes compelling social media content. Given a list of security items from a specific feed surface, produce TWO outputs separated by a line containing only "---TWEET---".
 
-Structure your summary as:
-1. **Headline**: One sentence capturing the most important development.
-2. **Key themes**: 2-4 bullet points of the dominant trends or topics.
-3. **Notable entities**: Mention specific threat actors, malware families, CVEs, or campaigns if present.
-4. **Analyst takeaway**: One sentence on what defenders should focus on.
+OUTPUT 1 — FULL SUMMARY (150-300 words):
+Structure:
+1. **Headline**: One punchy sentence capturing the most important development.
+2. **Key themes**: 2-4 bullet points (prefixed with "- ") of dominant trends.
+3. **Notable entities**: Specific threat actors, malware families, CVEs, or campaigns.
+4. **Analyst takeaway**: One actionable sentence for defenders.
+
+OUTPUT 2 — TWEET (after ---TWEET---):
+A single tweet-ready line (max 280 chars) that a security professional would actually post. Include 1-2 relevant hashtags (#ThreatIntel, #CyberSecurity, #InfoSec, #CVE, etc). Make it punchy, specific, and jargon-light enough for a broad tech audience. No markdown formatting.
 
 Rules:
 - Be specific and factual. Reference actual names, CVE IDs, and actors from the items.
 - Do not invent or speculate beyond what the items state.
-- Use professional CTI language suitable for a SOC or threat-intel team.
+- Write like a human analyst, not a corporate press release. Avoid filler phrases.
 - If the items are thin or low-signal, say so honestly rather than padding.
-- Do not use markdown headers (#). Use bold (**) for emphasis only.
-- Output plain text, no markdown fences.
+- Do not use markdown headers (#). Use bold (**) for emphasis only in the full summary.
+- The tweet must stand alone and make sense without the full summary.
 
 ${UNTRUSTED_DATA_SYSTEM_NOTE}`;
 
 const MAX_BODY_CHARS = 12000;
-const CALL_TIMEOUT_MS = 12000;
+// Outer bound for the whole runCompletion chain (Groq → Gemini → NVIDIA →
+// Workers AI). Must be (a) long enough that the fallback chain can actually
+// run — a single Groq call alone allows 15s, so the old 12s value fired the
+// timeout BEFORE any fallback could respond, turning a slow/rate-limited Groq
+// into a hard 503 — and (b) short enough to return before the frontend's 20s
+// abort. 18s threads that needle.
+const CALL_TIMEOUT_MS = 18000;
 
 function buildUserPrompt(input: SummaryInput): string {
   const items = input.items.slice(0, input.maxItems ?? 30);
@@ -103,7 +114,11 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
         {
           system: SYSTEM_PROMPT,
           user: userPrompt,
-          maxTokens: 800,
+          // gpt-oss-120b is a reasoning model: max_completion_tokens must cover
+          // the internal reasoning trace AND the visible output. The prompt now
+          // asks for two outputs (full summary + tweet), so 800 starved the
+          // model into empty/truncated content (→ null → 503). 1500 gives headroom.
+          maxTokens: 1500,
           temperature: 0.3,
         },
         {
@@ -117,25 +132,38 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
     ]);
 
     const text = typeof result.text === 'string' ? result.text.trim() : '';
-    if (!text || text.length < 50) return null;
+    if (!text || text.length < 50) {
+      // Empty/near-empty completion — the classic reasoning-model symptom when
+      // max_completion_tokens is exhausted on the internal trace. Log it so the
+      // cause isn't lost behind the generic 503.
+      console.error(
+        `generateAiSummary[${input.surface}] short output (${text.length} chars) from ${result.modelUsed}`
+      );
+      return null;
+    }
+
+    const tweetSplit = text.split('---TWEET---');
+    const summary = tweetSplit[0]!.trim();
+    const tweet = (tweetSplit[1] ?? '').trim().slice(0, 280) || summary.split('\n')[0]!.slice(0, 280);
 
     // Validate grounding against source items
     const sourceText = input.items.map((i) => `${i.title} ${i.body}`).join(' ');
-    const ungrounded = findUngroundedCves(text, sourceText);
-    const slop = detectSlop(text);
+    const ungrounded = findUngroundedCves(summary, sourceText);
+    const slop = detectSlop(summary);
     const sourceCves = new Set(extractCves(sourceText));
-    const textCves = extractCves(text);
+    const textCves = extractCves(summary);
     const groundedCves = textCves.filter((c) => sourceCves.has(c));
 
     // Quality score: start at 100, deduct for issues
     let quality = 100;
     if (ungrounded.length > 0) quality -= ungrounded.length * 15;
     if (slop.length > 1) quality -= slop.length * 10;
-    if (textCves.length > 0 && groundedCves.length === 0) quality -= 20; // CVEs mentioned but none grounded
+    if (textCves.length > 0 && groundedCves.length === 0) quality -= 20;
     quality = Math.max(0, Math.min(100, quality));
 
     return {
-      summary: text,
+      summary,
+      tweet,
       modelUsed: result.modelUsed,
       itemCount: Math.min(input.items.length, input.maxItems ?? 30),
       _validation: {
@@ -145,6 +173,14 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
       },
     };
   } catch (err) {
+    // Never swallow silently — the route turns null into a generic 503, so the
+    // worker log is the ONLY place the real cause (provider exhaustion, auth,
+    // timeout, parse failure) surfaces. Keep returning null so the caller still
+    // degrades gracefully, but make the failure diagnosable.
+    console.error(
+      `generateAiSummary[${input.surface}] failed:`,
+      err instanceof Error ? err.message : String(err)
+    );
     return null;
   }
 }

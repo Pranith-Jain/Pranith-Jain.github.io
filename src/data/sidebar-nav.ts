@@ -237,6 +237,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   // Predictive
   '/threatintel/predictive/dashboard': LayoutDashboard,
   '/threatintel/predictive/global-pulse': Globe,
+  '/threatintel/cyberpulse': ShieldAlert,
   '/threatintel/predictive/threat-pulse': ActivityIcon,
   '/threatintel/predictive/certstream': ShieldCheck,
   '/threatintel/predictive/pir': List,

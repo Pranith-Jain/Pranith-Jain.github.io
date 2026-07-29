@@ -10,6 +10,13 @@ Sitemap: https://pranithjain.qzz.io/sitemap.xml
 # Disallow any potential admin or private areas (not applicable for this static site)
 Disallow: /admin
 Disallow: /private/
+# Dynamic per-page OG card PNGs live under /api/v1/og-image/ (blog + briefing
+# detail pages). X/Twitter's card crawler honors robots.txt when fetching the
+# twitter:image / og:image URL and would otherwise refuse these images, killing
+# the per-page card on X while LinkedIn (which ignores robots.txt for image
+# fetches) kept working. Allow the OG image path explicitly — it is more
+# specific than the /api/ disallow below, so it wins for these URLs.
+Allow: /api/v1/og-image/
 Disallow: /api/
 
 # Binary asset directories — large WASM, gzip, and document files that

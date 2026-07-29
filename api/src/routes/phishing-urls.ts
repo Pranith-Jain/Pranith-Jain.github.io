@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchResilient } from '../lib/fetch-resilient';
-import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { writeLastGood } from '../lib/lastgood';
 
 /**
  * Recent phishing URLs (OpenPhish + optional PhishTank enrichment).
@@ -109,27 +109,6 @@ async function readLastGood(
     console.error('readLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
   }
-}
-
-function writeLastGood(
-  kv: KVNamespace | undefined,
-  kvKey: string,
-  urls: PhishingUrl[],
-  executionCtx?: { waitUntil: (p: Promise<unknown>) => void }
-): void {
-  if (!kv) return;
-  const payload: LastGoodSlice = { urls, refreshed_at: new Date().toISOString() };
-  const body = JSON.stringify(payload);
-  const opts = { expirationTtl: LASTGOOD_TTL_SECONDS };
-  // Debounce: write at most once per 6h per key. Marker lives in
-  // caches.default so the throttle costs no KV.
-  const guarded = async () => {
-    if (await shouldWriteLastGood(`phishing:${kvKey}`)) {
-      await kv.put(kvKey, body, opts);
-    }
-  };
-  if (executionCtx) executionCtx.waitUntil(guarded());
-  else void guarded();
 }
 
 async function fetchOpenphish(): Promise<string | null> {
@@ -430,7 +409,14 @@ export async function fetchPhishingUrls(
   let opStale = false;
 
   if (ptUrls.length > 0) {
-    writeLastGood(kv, PHISHTANK_LASTGOOD_KEY, ptUrls, executionCtx);
+    const persist = writeLastGood(
+      { KV_CACHE: kv },
+      PHISHTANK_LASTGOOD_KEY,
+      { urls: ptUrls, refreshed_at: new Date().toISOString() } satisfies LastGoodSlice,
+      { ttlSeconds: LASTGOOD_TTL_SECONDS, keyPrefix: '' }
+    );
+    if (executionCtx) executionCtx.waitUntil(persist);
+    else void persist;
   } else {
     const restored = await readLastGood(kv, PHISHTANK_LASTGOOD_KEY, LEGACY_PHISHTANK_CACHE_KEY);
     if (restored) {
@@ -440,7 +426,14 @@ export async function fetchPhishingUrls(
   }
 
   if (opUrls.length > 0) {
-    writeLastGood(kv, OPENPHISH_LASTGOOD_KEY, opUrls, executionCtx);
+    const persist = writeLastGood(
+      { KV_CACHE: kv },
+      OPENPHISH_LASTGOOD_KEY,
+      { urls: opUrls, refreshed_at: new Date().toISOString() } satisfies LastGoodSlice,
+      { ttlSeconds: LASTGOOD_TTL_SECONDS, keyPrefix: '' }
+    );
+    if (executionCtx) executionCtx.waitUntil(persist);
+    else void persist;
   } else {
     const restored = await readLastGood(kv, OPENPHISH_LASTGOOD_KEY, LEGACY_OPENPHISH_CACHE_KEY);
     if (restored) {

@@ -37,15 +37,23 @@
   <text x="152" y="92" font-size="27" font-weight="800" letter-spacing="0.5" fill="#ffffff">pranithjain.qzz.io</text>
   <text x="153" y="116" font-size="13" font-weight="700" letter-spacing="3" fill="#a1b6fb">BUILT ON CLOUDFLARE WORKERS</text>
 
+  <!-- live indicator pill (top-right) -->
+  <g>
+    <rect x="1016" y="66" width="104" height="36" rx="18" fill="#34d399" fill-opacity="0.12" stroke="#34d399" stroke-opacity="0.45" stroke-width="1.5"/>
+    <circle cx="1040" cy="84" r="5.5" fill="#34d399"/>
+    <circle cx="1040" cy="84" r="9" fill="none" stroke="#34d399" stroke-opacity="0.35" stroke-width="1.5"/>
+    <text x="1056" y="90" font-size="15" font-weight="800" letter-spacing="2.5" fill="#6ee7b7">LIVE</text>
+  </g>
+
   <!-- section eyebrow -->
-  <text x="80" y="208" font-size="18" font-weight="800" letter-spacing="4" fill="#a1b6fb">SECURITY TOOLS · THREAT INTEL · DFIR</text>
+  <text x="80" y="208" font-size="18" font-weight="800" letter-spacing="4" fill="#a1b6fb">DFIR TOOLS · LIVE THREAT INTEL · OSINT</text>
 
   <!-- headline -->
   <text x="80" y="286" font-size="58" font-weight="800" letter-spacing="0.3" fill="#ffffff">Browser-side DFIR tooling &amp;</text>
   <text x="80" y="356" font-size="58" font-weight="800" letter-spacing="0.3" fill="#a1b6fb">a live threat-intel platform</text>
 
   <!-- features -->
-  <text x="80" y="448" font-size="22" font-weight="400" fill="#cbd5e1">90+ DFIR tools · 100+ threat intel feeds · no signup</text>
+  <text x="80" y="448" font-size="22" font-weight="400" fill="#cbd5e1">90+ DFIR tools · 145+ intel feeds · edge-hosted · no signup</text>
 
   <!-- divider -->
   <rect x="80" y="486" width="120" height="4" rx="2" fill="#5a78f2"/>
@@ -53,7 +61,7 @@
   <!-- stats -->
   <text x="80" y="528" font-size="42" font-weight="800" fill="#a1b6fb">90+</text>
   <text x="80" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">TOOLS</text>
-  <text x="330" y="528" font-size="42" font-weight="800" fill="#a1b6fb">100+</text>
+  <text x="330" y="528" font-size="42" font-weight="800" fill="#a1b6fb">145+</text>
   <text x="330" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">FEEDS</text>
   <text x="580" y="528" font-size="42" font-weight="800" fill="#a1b6fb">free</text>
   <text x="580" y="556" font-size="15" font-weight="600" letter-spacing="2" fill="#94a3b8">NO SIGNUP</text>

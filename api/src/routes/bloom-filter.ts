@@ -32,34 +32,23 @@ const FILTER_SIZES: Record<string, { bits: number; hashes: number }> = {
 
 const KV_PREFIX = 'bloom:';
 
-// Per-colo Cache API front for filter entries. Filters are rebuilt hourly
-// (KV expirationTtl 3600), so a 300s per-colo cache safely spares KV reads on
-// every /bloom/:type, /bloom/check, and especially /bloom/stats (which reads
-// one key per filter type → N reads) request.
+// Per-colo Cache API for filter entries. Filters are rebuilt on cache miss,
+// so a 300s per-colo cache spares redundant rebuilds on every /bloom/:type,
+// /bloom/check, and especially /bloom/stats (which reads one key per filter
+// type → N reads) request.
 const FILTER_ENTRY_CACHE_TTL = 300;
 function filterCacheReq(type: string): Request {
   return new Request(`https://bloom-filter-cache.internal/v1/${type}`);
 }
-async function readFilterEntry(kv: KVNamespace, type: string): Promise<unknown | null> {
+async function readFilterEntry(_kv: KVNamespace, type: string): Promise<unknown | null> {
   const cache = (caches as unknown as { default: Cache }).default;
   try {
     const hit = await cache.match(filterCacheReq(type));
     if (hit) return await hit.json();
   } catch (_catchErr) {
     console.error('readFilterEntry failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    /* fall through to KV */
   }
-  const cached = await kv.get(`${KV_PREFIX}${type}`, 'json');
-  if (cached) {
-    safeNullLog(
-      'cache-put-bloom-filter-loaded',
-      cache.put(
-        filterCacheReq(type),
-        new Response(JSON.stringify(cached), { headers: { 'cache-control': `max-age=${FILTER_ENTRY_CACHE_TTL}` } })
-      )
-    );
-  }
-  return cached;
+  return null;
 }
 
 /** Simple bloom filter implementation */
@@ -198,16 +187,12 @@ export async function bloomFilterHandler(c: Context<{ Bindings: Env }>): Promise
   const { filter, count } = await buildFilter(db, type, config);
   const data = filter.toBase64();
 
-  // Cache in KV
   const entry = {
     data,
     count,
     config,
     built_at: new Date().toISOString(),
   };
-  await kv.put(cacheKey, JSON.stringify(entry), { expirationTtl: 3600 });
-  // Write-through the per-colo cache so the freshly built filter is reused
-  // without a KV round-trip on subsequent same-colo requests.
   safeNullLog(
     'cache-put-bloom-filter-built',
     (caches as unknown as { default: Cache }).default.put(

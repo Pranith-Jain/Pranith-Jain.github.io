@@ -51,9 +51,9 @@ export async function ctiIocsHandler(c: Context<{ Bindings: Env }>) {
   const type = c.req.query('type') || '';
   const source = c.req.query('source') || '';
   const search = c.req.query('q') || '';
-  const minDecay = parseFloat(c.req.query('min_decay') || '0');
-  const limit = Math.min(parseInt(c.req.query('limit') || '100'), 500);
-  const offset = parseInt(c.req.query('offset') || '0');
+  const minDecay = Number(c.req.query('min_decay')) || 0;
+  const limit = Math.min(Math.max(Number(c.req.query('limit')) || 100, 1), 500);
+  const offset = Math.max(Number(c.req.query('offset')) || 0, 0);
 
   let where = 'WHERE 1=1';
   const params: string[] = [];
@@ -111,7 +111,7 @@ export async function ctiNewsHandler(c: Context<{ Bindings: Env }>) {
   if (!db) return c.json({ error: 'database unavailable' }, 503);
 
   const source = c.req.query('source') || '';
-  const limit = Math.min(parseInt(c.req.query('limit') || '50'), 200);
+  const limit = Math.min(Math.max(Number(c.req.query('limit')) || 50, 1), 200);
 
   let where = 'WHERE 1=1';
   const params: string[] = [];
@@ -145,7 +145,7 @@ export async function ctiNewsHandler(c: Context<{ Bindings: Env }>) {
 export async function ctiPredictionsGetHandler(c: Context<{ Bindings: Env }>) {
   const db = c.env.BRIEFINGS_DB;
   if (!db) return c.json({ error: 'database unavailable' }, 503);
-  const limit = parseInt(c.req.query('limit') || '10');
+  const limit = Math.min(Math.max(Number(c.req.query('limit')) || 10, 1), 100);
   const predictions = await getRecentPredictions(db, limit);
   return c.json({ predictions });
 }

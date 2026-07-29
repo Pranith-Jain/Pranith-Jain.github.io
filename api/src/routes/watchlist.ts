@@ -258,6 +258,13 @@ export async function watchlistDigestGenerateHandler(c: Context<{ Bindings: Env 
       .put(`digest:weekly:${isoWeek}`, JSON.stringify(digest), { expirationTtl: 86400 * 14 })
       .catch((err) => console.error('watchlist digest cache put failed:', err));
 
+    const indexRaw = await kv.get('digest:weekly:index').catch(() => null);
+    const weeks: string[] = indexRaw ? JSON.parse(indexRaw) : [];
+    if (!weeks.includes(isoWeek)) {
+      weeks.unshift(isoWeek);
+      await kv.put('digest:weekly:index', JSON.stringify(weeks.slice(0, 20))).catch(() => {});
+    }
+
     return c.json({ digest, actor_count: entries.length });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
@@ -278,13 +285,18 @@ export async function watchlistDigestsListHandler(c: Context<{ Bindings: Env }>)
     if (l1Cached) return c.json(await l1Cached.json());
 
     // L2: KV bulk read (one subrequest per 100 keys, was N+1 per key)
-    const listed = await kv.list<unknown>({ prefix: 'digest:weekly:', limit: 20 });
-    const values = await kvBulkGetText(
-      kv,
-      listed.keys.map((k) => k.name)
-    );
-    const digests = listed.keys.map((key): DigestResult | null => {
-      const raw = values.get(key.name) ?? null;
+    const indexRaw = await kv.get('digest:weekly:index');
+    let weekKeys: string[];
+    if (indexRaw) {
+      const weeks: string[] = JSON.parse(indexRaw);
+      weekKeys = weeks.slice(0, 20).map((w) => `digest:weekly:${w}`);
+    } else {
+      const listed = await kv.list<unknown>({ prefix: 'digest:weekly:', limit: 20 });
+      weekKeys = listed.keys.map((k) => k.name).filter((n) => n !== 'digest:weekly:index');
+    }
+    const values = await kvBulkGetText(kv, weekKeys);
+    const digests = weekKeys.map((key): DigestResult | null => {
+      const raw = values.get(key) ?? null;
       if (!raw) return null;
       try {
         return JSON.parse(raw) as DigestResult;
@@ -405,6 +417,13 @@ export async function runWeeklyWatchlistDigest(db: D1Database, kv: KVNamespace):
     };
 
     await kv.put(`digest:weekly:${isoWeek}`, JSON.stringify(digest), { expirationTtl: 86400 * 14 });
+
+    const indexRaw = await kv.get('digest:weekly:index').catch(() => null);
+    const weeks: string[] = indexRaw ? JSON.parse(indexRaw) : [];
+    if (!weeks.includes(isoWeek)) {
+      weeks.unshift(isoWeek);
+      await kv.put('digest:weekly:index', JSON.stringify(weeks.slice(0, 20))).catch(() => {});
+    }
   } catch (e) {
     console.error('watchlist-digest: failed', e instanceof Error ? e.message : String(e));
   }

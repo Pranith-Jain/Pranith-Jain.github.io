@@ -71,7 +71,7 @@ export async function whoxyReverseWhois(
     let page = 1;
     let totalPages = 1;
 
-    while (page <= totalPages && page <= 100) {
+    while (page <= totalPages && page <= 10) {
       const pageUrl = page === 1 ? url : `${url}&page=${page}`;
       const res = await fetch(pageUrl, { signal: AbortSignal.timeout(10_000) });
 

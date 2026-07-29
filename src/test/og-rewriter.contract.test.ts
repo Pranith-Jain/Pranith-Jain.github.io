@@ -6,11 +6,13 @@ import { injectOgMeta, OG_OVERRIDES } from '../../worker/og-rewriter';
 // Contract test against the REAL index.html so it can never silently drift:
 // the per-route metadata the worker serves is the only thing differentiating
 // social/SEO cards across routes (head tags are NOT managed in React). These
-// assertions pin the three bugs the audit found in worker/og-rewriter.ts:
+// assertions pin the bugs the audit found in worker/og-rewriter.ts:
 //   1. <meta name="description"> is multi-line in index.html, so the single-line
 //      rewrite regex never matched -> 317-char home description on every route.
-//   2. twitter:* tags use property= in index.html but the worker matched name=
-//      -> twitter:url/title/description never rewrote (home card on every share).
+//   2. twitter:* tags must use name= (the X/Twitter card spec). They were
+//      property=, which X's parser doesn't reliably read — per-page cards
+//      rendered on LinkedIn (reads og:*) but not on X. index.html AND the
+//      worker regexes now both use name=.
 //   3. /, /dfir, /copilot had no override -> 97-char home <title> verbatim.
 const indexHtml = readFileSync(resolve(process.cwd(), 'index.html'), 'utf8');
 
@@ -72,16 +74,30 @@ describe('og-rewriter per-route metadata (contract vs real index.html)', () => {
     expect(about).not.toBe(home);
   });
 
-  it('rewrites twitter:title and twitter:description per route (property= attribute)', async () => {
+  it('rewrites twitter:title and twitter:description per route (name= attribute)', async () => {
     const html = await serve('/about');
-    expect(metaByProperty(html, 'twitter:title')).toContain('About');
+    expect(metaByName(html, 'twitter:title')).toContain('About');
     // home twitter:description phrase must be gone once the override applies
-    expect(metaByProperty(html, 'twitter:description') ?? '').not.toContain('1,300+ domains secured');
+    expect(metaByName(html, 'twitter:description') ?? '').not.toContain('1,300+ domains secured');
   });
 
   it('rewrites twitter:url to the requested path on every route', async () => {
-    expect(metaByProperty(await serve('/about'), 'twitter:url')).toBe('https://pranithjain.qzz.io/about');
-    expect(metaByProperty(await serve('/dfir'), 'twitter:url')).toBe('https://pranithjain.qzz.io/dfir');
+    expect(metaByName(await serve('/about'), 'twitter:url')).toBe('https://pranithjain.qzz.io/about');
+    expect(metaByName(await serve('/dfir'), 'twitter:url')).toBe('https://pranithjain.qzz.io/dfir');
+  });
+
+  it('rewrites twitter:image + og:image per route when an override declares an image', async () => {
+    const html = await serve('/dfir');
+    expect(metaByName(html, 'twitter:image')).toContain('/og-dfir.png');
+    expect(metaByProperty(html, 'og:image')).toContain('/og-dfir.png');
+  });
+
+  it('gives a deep page a UNIQUE generated page card (og:image + twitter:image)', async () => {
+    const html = await serve('/dfir/cve');
+    expect(metaByProperty(html, 'og:image')).toContain('/api/v1/og-image/page.png?p=');
+    expect(metaByName(html, 'twitter:image')).toContain('/api/v1/og-image/page.png?p=');
+    // and it differs from the section landing card
+    expect(metaByProperty(html, 'og:image')).not.toContain('/og-dfir.png');
   });
 
   it('gives /dfir and /copilot unique, <=60-char titles (not the 97-char home default)', async () => {

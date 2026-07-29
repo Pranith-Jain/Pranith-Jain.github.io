@@ -22,7 +22,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 ## DFIR toolkit tools (130+ routes)
 
 - [DFIR Catalog](https://pranithjain.qzz.io/dfir/catalog) (dfir): Every DFIR tool, searchable, grouped by category.
-- [Toolkit vs VirusTotal / ANY.RUN / Hybrid Analysis / URLScan](https://pranithjain.qzz.io/dfir/vs) (dfir): Side-by-side comparison of the DFIR toolkit with hosted sandboxes and URL scanners.
 - [IOC Investigator](https://pranithjain.qzz.io/dfir/ioc-investigate) (dfir): Cross-source investigation hub - paste any indicator type and pivot across all sources.
 - [IOC Extractor](https://pranithjain.qzz.io/dfir/extract) (dfir): Pull IOCs from any text blob - refang-aware.
 - [IOC Lifecycle](https://pranithjain.qzz.io/dfir/ioc-lifecycle) (dfir): Track an IOC from collection to enrichment to retirement.
@@ -37,7 +36,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Infostealer Log Parser](https://pranithjain.qzz.io/dfir/stealer-parser) (dfir): Parse RedLine / Raccoon / Vidar / LummaC stealer logs - credentials, system, browser data.
 - [Bloom Filter Lookup](https://pranithjain.qzz.io/dfir/bloom) (dfir): Membership-test against a corpus of known-bad indicators.
 - [Infostealer Intelligence](https://pranithjain.qzz.io/dfir/infostealer-intel) (dfir): Infostealer-specific intelligence dashboard - prevalent families, log types, and compromised credential tracking.
-- [Rhysida Intrusion Kit](https://pranithjain.qzz.io/dfir/rhysida-intrusion) (dfir): Rhysida ransomware intrusion analysis - TTPs, IOCs, detection rules, and mitigation guidance.
 - [Codec Hub](https://pranithjain.qzz.io/dfir/codec) (dfir): Decode and encode across base64, hex, URL, rot13, zlib, gzip with auto-detection.
 - [Hash Calculator](https://pranithjain.qzz.io/dfir/hash-calc) (dfir): MD5 - SHA1 - SHA256 - SHA512 - SSDEEP - TLSH - drag a file in.
 - [Timestamp Converter](https://pranithjain.qzz.io/dfir/timestamp) (dfir): Epoch - Windows FILETIME - Unix - human - bidirectional.
@@ -66,7 +64,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Wayback Machine](https://pranithjain.qzz.io/dfir/wayback) (dfir): Search historical snapshots for a URL - changes over time.
 - [IP Geolocation](https://pranithjain.qzz.io/dfir/ip-geo) (dfir): IP - country / city / ASN / org / hosting type.
 - [Passive DNS](https://pranithjain.qzz.io/dfir/passive-dns) (dfir): Historical DNS resolution data for infrastructure tracking - migrations + fast-flux detection.
-- [Fleet Infrastructure Map](https://pranithjain.qzz.io/dfir/fleet-map) (dfir): Map and visualize infrastructure fleet - hosts, services, domains, and relationships.
 - [Asset Intelligence](https://pranithjain.qzz.io/dfir/asset-intel) (dfir): Aggregate asset inventory - domains, subdomains, services, certificates.
 - [Exposed Host](https://pranithjain.qzz.io/dfir/exposed-host) (dfir): Per-host exposure score and evidence - services, versions, CVEs.
 - [Open Directory Scanner](https://pranithjain.qzz.io/dfir/open-directory) (dfir): Detect misconfigured web servers exposing file listings.
@@ -97,7 +94,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [CVE Prioritizer](https://pranithjain.qzz.io/dfir/cve-prioritizer) (dfir): CVSS + EPSS + KEV + ransomware-use - single patch-priority call.
 - [CVE Resources Catalog](https://pranithjain.qzz.io/dfir/vuln-toolkit) (dfir): Curated list of CVE databases, exploit trackers, vendor PSIRTs.
 - [OSV Dependency Scan](https://pranithjain.qzz.io/dfir/osv-scan) (dfir): Paste a manifest.json / package-lock / requirements.txt - known vulns.
-- [WordPress Vulnerability Simulator](https://pranithjain.qzz.io/dfir/wordpress-sim) (dfir): Simulate WordPress vulnerability scenarios - core, plugin, and theme CVE testing.
 - [Fusion Exposure Worklist](https://pranithjain.qzz.io/dfir/fusion-exposure) (dfir): Composite 4-dimension scoring (CVSS/KEV/EPSS/Exploit-DB) - ranked worklist with per-dimension breakdown.
 - [Risk Register](https://pranithjain.qzz.io/dfir/risk-register) (dfir): Full lifecycle CRUD with FAIR quantification, inherent->residual levels, and treatment plans.
 - [Attack Path Graph](https://pranithjain.qzz.io/dfir/attack-path) (dfir): BFS shortest-path reachability from exposed assets to crown jewels - choke point detection, demo fallback.
@@ -114,7 +110,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [AI Rule Generator](https://pranithjain.qzz.io/dfir/ai-rule-generator) (dfir): Generate a Sigma/YARA rule from a natural-language description.
 - [FP Lens](https://pranithjain.qzz.io/dfir/fp-lens) (dfir): False-positive analyst - score a detection against historical FPs.
 - [Detection Chokepoints](https://pranithjain.qzz.io/dfir/detection-chokepoints) (dfir): Invariant detection points - prerequisites attackers cannot bypass, mapped to MITRE ATT&CK.
-- [The Long Watch](https://pranithjain.qzz.io/dfir/long-watch) (dfir): Interactive network defense simulation - 3 scenarios over 8 years of attack evolution.
 - [IR Playbooks](https://pranithjain.qzz.io/dfir/ir-playbooks) (dfir): Step-by-step playbooks for common incident types.
 - [TRACERULES](https://pranithjain.qzz.io/dfir/tracerules) (dfir): Trace a rule back to its source intel - coverage and lineage.
 - [STIX Workbench](https://pranithjain.qzz.io/dfir/stix-workbench) (dfir): Build, view, and export STIX 2.x bundles (canonical entry - /dfir/stix, /dfir/stix-builder, /dfir/taxii, /dfir/report-ingest all redirect here).
@@ -151,7 +146,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Investigation Notebooks](https://pranithjain.qzz.io/dfir/notebooks) (dfir): Persistent notes, IOC snapshots, and findings for DFIR investigations.
 - [PGP Tool](https://pranithjain.qzz.io/dfir/pgp-tool) (dfir): Generate - encrypt - sign - verify PGP messages in-browser.
 - [One-Time Secret](https://pranithjain.qzz.io/dfir/one-time-secret) (dfir): Encrypted secret sharing - AES-GCM in-browser, burn after reading, zero-knowledge server.
-- [Tor Gateway](https://pranithjain.qzz.io/dfir/tor-gateway) (dfir): Browser-routed Tor gateway for safe .onion lookups.
 - [GRC Toolkit](https://pranithjain.qzz.io/dfir/grc) (dfir): Control mapping - risk register - vendor assessment.
 - [LOLBins](https://pranithjain.qzz.io/dfir/lolbins) (dfir): Living-off-the-land binaries - search by binary or behaviour.
 - [Data Classification](https://pranithjain.qzz.io/dfir/data-classification) (dfir): Tag data with sensitivity + handling requirements.
@@ -199,7 +193,6 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Malware IOCs](https://pranithjain.qzz.io/threatintel/malware/iocs) (threatintel): Malware IOC feeds across 50+ families.
 - [Malware Vault](https://pranithjain.qzz.io/threatintel/malware/vault) (threatintel): Malware sample vault with hashes and metadata.
 - [Malware Sandbox](https://pranithjain.qzz.io/threatintel/malware/sandbox) (threatintel): Hash lookup across 10+ sandbox platforms - consensus verdict.
-- [Malicious Packages](https://pranithjain.qzz.io/threatintel/malware/packages) (threatintel): Malicious package tracking - npm, PyPI, RubyGems, Maven, NuGet.
 - [Supply-Chain Incidents](https://pranithjain.qzz.io/threatintel/malware/supply-chain) (threatintel): Confirmed supply-chain compromise incidents - npm · PyPI · containers · AI agents. Data: supplychainattack.org.
 - [Malpedia](https://pranithjain.qzz.io/threatintel/malware/malpedia) (threatintel): Malpedia malware encyclopedia - families, YARA, references.
 - [Maltrail Trails](https://pranithjain.qzz.io/threatintel/malware/maltrail) (threatintel): Maltrail detection trails for known malware.
@@ -227,6 +220,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Breach Watch](https://pranithjain.qzz.io/threatintel/darkweb/breach-watch) (threatintel): Aggregated breach and leak corpus from 6 public trackers - ransomware leaks, data breaches, combo lists.
 - [Ransomware Hub](https://pranithjain.qzz.io/threatintel/ransomware-hub) (threatintel): Ransomware tracking - activity feed, map, ransomwhere, and negotiation reports.
 - [Dark Web Recon](https://pranithjain.qzz.io/threatintel/darkweb/recon) (threatintel): Search .onion sites, look up hidden service metadata, check BTC addresses for abuse, and scan Tor exit nodes.
+- [Research Playbook](https://pranithjain.qzz.io/threatintel/darkweb/playbook) (threatintel): Dark-web research methodology - the AI pipeline, operational realities, OPSEC protocol, and investigator workflow.
 - [Onion Watch](https://pranithjain.qzz.io/threatintel/onion-watch) (threatintel): Dark web .onion service monitoring - uptime, content changes, and new service discovery.
 - [Phish Feed](https://pranithjain.qzz.io/threatintel/phishing/phish) (threatintel): Phishing feed aggregation - fresh URLs and lure analysis.
 - [Phishing Wordlists](https://pranithjain.qzz.io/threatintel/phishing/urls) (threatintel): Phishing hunting wordlists - brand, gift-card, sextortion, BEC.
@@ -275,7 +269,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [MISP Browser](https://pranithjain.qzz.io/threatintel/tools/misp) (threatintel): MISP galaxy and event browser.
 - [STIX Hub](https://pranithjain.qzz.io/threatintel/tools/stix-hub) (threatintel): STIX 2.1 bundle browsing, IP enrichment, and API access.
 - [Actionable IOCs](https://pranithjain.qzz.io/threatintel/tools/actionable-iocs) (threatintel): PostgREST-style IOC query interface per type.
-- [CISA KEV Catalog](https://pranithjain.qzz.io/threatintel/tools/kev-catalog) (threatintel): Search and filter the CISA Known Exploited Vulnerabilities catalog.
+- [CISA KEV Catalog](https://pranithjain.qzz.io/threatintel/cves/cves?tab=kev) (threatintel): Search and filter the CISA Known Exploited Vulnerabilities catalog (tab of CVE Intel).
 - [Investigation Suite](https://pranithjain.qzz.io/threatintel/investigation-suite) (threatintel): Investigation management - active cases, watchlists, and workspaces.
 - [TG Intel Search](https://pranithjain.qzz.io/threatintel/tools/tg-intel-search) (threatintel): Boolean search across Telegram messages - AND/OR/NOT, field qualifiers, IOC extraction.
 - [Tactical Radar Tools](https://pranithjain.qzz.io/threatintel/tools/socradar-tools) (threatintel): DDoS intelligence, FortiGate breach check, healthcare breach tracking.
@@ -289,6 +283,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [ThreatMon Infostealer](https://pranithjain.qzz.io/threatintel/external/threatmon) (threatintel): Infostealer log search - compromised credentials by domain.
 - [Intel Dashboard](https://pranithjain.qzz.io/threatintel/predictive/dashboard) (threatintel): Top-level intel dashboard - key stats, trending, top actors.
 - [Global Pulse](https://pranithjain.qzz.io/threatintel/predictive/global-pulse) (threatintel): Live 3D globe - 700+ events across 21 layers.
+- [CyberPulse](https://pranithjain.qzz.io/threatintel/cyberpulse) (threatintel): Live breach/leak/intel incident tracker - ransomware, leaks, extortion, supply chain from X, Telegram, Reddit, Bluesky.
 - [Threat Pulse](https://pranithjain.qzz.io/threatintel/predictive/threat-pulse) (threatintel): Threat-pulse tracking - actor activity, campaign spikes, geo shifts.
 - [CertStream](https://pranithjain.qzz.io/threatintel/predictive/certstream) (threatintel): Certificate transparency live feed.
 - [PIR Dashboard](https://pranithjain.qzz.io/threatintel/predictive/pir) (threatintel): Priority Intelligence Requirements dashboard.

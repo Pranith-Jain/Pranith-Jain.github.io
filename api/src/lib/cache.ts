@@ -18,20 +18,23 @@ interface BatchEntry {
 }
 
 /**
- * Provider result cache (KV + per-colo Cache API).
+ * Provider result cache (per-colo Cache API, with legacy KV read fallback).
  *
  * Caches upstream provider responses (VirusTotal, AbuseIPDB, etc.) to
- * reduce API quota consumption and improve response times. Two layers:
- *   - L1: per-colo `caches.default` (free, sub-millisecond)
- *   - L2: KV namespace (cross-colo durable, metered reads/writes)
+ * reduce API quota consumption and improve response times.
+ *   - L1: per-colo `caches.default` (free, sub-millisecond) — the ONLY
+ *     write path. KV writes were removed to stay under the free-plan
+ *     1,000 writes/day KV quota.
+ *   - L2 (read-only legacy): KV namespace. Old entries written before
+ *     the KV-write removal are still readable; they phase out as their
+ *     TTLs expire. No new KV entries are created by `set()`.
  *
- * The non-batched get/set path uses L1 first, falling through to L2 on
- * miss. The batched mode (used by the IOC fan-out) is L1-only — it
- * coalesces an entire indicator's worth of provider results into a single
- * Cache API entry to stay under the 50-subrequest-per-invocation limit.
+ * The batched mode (used by the IOC fan-out) is L1-only — it coalesces
+ * an entire indicator's worth of provider results into a single Cache
+ * API entry to stay under the 50-subrequest-per-invocation limit.
  *
- * Gracefully degrades when KV is unavailable — all operations become
- * no-ops so the IOC check still works (just without caching).
+ * Gracefully degrades when Cache API is unavailable — all operations
+ * become no-ops so the IOC check still works (just without caching).
  */
 export class ProviderCache {
   private kv: KVNamespace | null;
@@ -144,19 +147,15 @@ export class ProviderCache {
 
   /**
    * Cache a provider result with TTL derived from the indicator type.
-   * No-op when KV is unavailable.
+   * Writes to the per-colo Cache API only — KV L2 writes were removed to
+   * stay under the free-plan 1,000 writes/day KV quota. Provider results
+   * are ephemeral (1h–24h TTL) and same-colo repeats are the dominant
+   * access pattern; the batched IOC fan-out already proved Cache-API-only
+   * is sufficient. Cross-colo durability is a nice-to-have, not a
+   * requirement, for provider response caching.
    */
   async set(provider: string, indicator: Indicator, data: ProviderResult, ttlSeconds?: number): Promise<void> {
     const ttl = ttlSeconds ?? ProviderCache.ttlSeconds(indicator.type, provider);
-    if (!this.kv) return;
-    const key = this.buildKey(provider, indicator);
-    try {
-      await this.kv.put(key, JSON.stringify(data), { expirationTtl: ttl });
-    } catch {
-      /* best-effort — cache failure shouldn't break the request */
-    }
-    // Write-through to per-colo Cache API so subsequent queries in this colo
-    // hit cache before KV
     const cache = this.cacheApi();
     if (cache) {
       const cacheResp = new Response(JSON.stringify(data), {

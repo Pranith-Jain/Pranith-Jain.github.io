@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchResilient } from '../lib/fetch-resilient';
-import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { writeLastGood } from '../lib/lastgood';
 
 /**
  * GET /api/v1/disarm-framework
@@ -304,16 +304,9 @@ export async function disarmFrameworkHandler(c: Context<{ Bindings: Env }>): Pro
 
   // Refresh KV last-good with the FULL (unfiltered) bundle so any filter combo
   // can degrade gracefully. Debounced so we don't write on every cache miss.
-  if (kv) {
-    const fullForKv = full;
-    c.executionCtx.waitUntil(
-      (async () => {
-        if (await shouldWriteLastGood('disarm-framework')) {
-          await kv.put(KV_LAST_GOOD_KEY, JSON.stringify(fullForKv), { expirationTtl: KV_LAST_GOOD_TTL_SECONDS });
-        }
-      })()
-    );
-  }
+  c.executionCtx.waitUntil(
+    writeLastGood(c.env, KV_LAST_GOOD_KEY, full, { ttlSeconds: KV_LAST_GOOD_TTL_SECONDS, keyPrefix: '' })
+  );
 
   return response;
 }

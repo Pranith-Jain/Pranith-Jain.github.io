@@ -1,5 +1,5 @@
 import type { Hono } from 'hono';
-import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { writeLastGood } from '../lib/lastgood';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 import { RANSOMWARE_SLUGS } from '../lib/ransomware-slugs';
 import { mitreGroupRef } from '../lib/ransomware-mitre-groups';
@@ -206,15 +206,9 @@ export function registerEntityGraphRoute(router: Hono<any>): void {
 
       const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
       c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
-      if (kv) {
-        c.executionCtx.waitUntil(
-          (async () => {
-            if (await shouldWriteLastGood('entity-graph')) {
-              await kv.put(KV_KEY, JSON.stringify(body), { expirationTtl: KV_TTL });
-            }
-          })()
-        );
-      }
+      c.executionCtx.waitUntil(
+        writeLastGood(c.env, KV_KEY, body, { ttlSeconds: KV_TTL, keyPrefix: '' })
+      );
       return response;
     } catch (err) {
       console.error('entityGraphHandler failed:', err instanceof Error ? err.message : String(err));

@@ -26,6 +26,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, badGateway } from '../lib/api-error';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const UPSTREAM_BASE = 'https://intodns.ai/api';
 const CACHE_TTL_SECONDS = 60 * 60; // 1h
@@ -91,22 +92,18 @@ async function cachedJsonFetch(
   domain: string,
   endpointTag: string
 ): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (kv) {
-    try {
-      const cached = (await kv.get(cacheKey, 'json')) as CachedJson | null;
-      if (cached && cached.body) {
-        return c.json(JSON.parse(cached.body), 200, {
-          'Cache-Control': 'public, max-age=3600',
-          'X-Intodns-Cache': 'hit',
-          'X-Intodns-Domain': cached.domain,
-          'X-Intodns-Endpoint': endpointTag,
-        });
-      }
-    } catch (_catchErr) {
-      console.error('cachedJsonFetch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      // fall through
+  try {
+    const cached = await routeCacheGet<CachedJson>(cacheKey);
+    if (cached && cached.body) {
+      return c.json(JSON.parse(cached.body), 200, {
+        'Cache-Control': 'public, max-age=3600',
+        'X-Intodns-Cache': 'hit',
+        'X-Intodns-Domain': cached.domain,
+        'X-Intodns-Endpoint': endpointTag,
+      });
     }
+  } catch (_catchErr) {
+    console.error('cachedJsonFetch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
   }
 
   const url = `${UPSTREAM_BASE}${upstreamPath}${upstreamPath.includes('?') ? '&' : '?'}domain=${encodeURIComponent(domain)}`;
@@ -125,20 +122,17 @@ async function cachedJsonFetch(
   if (!res.ok) return badGateway(c, `intodns upstream returned ${res.status}`);
 
   const body = await res.text();
-  if (kv) {
-    try {
-      const payload: CachedJson = {
-        fetchedAt: new Date().toISOString(),
-        domain,
-        endpoint: endpointTag,
-        body,
-        upstreamStatus: res.status,
-      };
-      await kv.put(cacheKey, JSON.stringify(payload), { expirationTtl: CACHE_TTL_SECONDS });
-    } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      // non-fatal
-    }
+  try {
+    const payload: CachedJson = {
+      fetchedAt: new Date().toISOString(),
+      domain,
+      endpoint: endpointTag,
+      body,
+      upstreamStatus: res.status,
+    };
+    await routeCachePut(cacheKey, payload, CACHE_TTL_SECONDS);
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
   }
 
   try {
@@ -230,25 +224,21 @@ export async function intodnsBadgeHandler(c: Context<{ Bindings: Env }>): Promis
   if (v instanceof Response) return v;
 
   const cacheKey = `intodns:badge:v1:${v.domain}`;
-  const kv = c.env.KV_CACHE;
-  if (kv) {
-    try {
-      const cached = (await kv.get(cacheKey, 'json')) as CachedBadge | null;
-      if (cached && cached.body) {
-        return new Response(cached.body, {
-          status: 200,
-          headers: {
-            'Content-Type': 'image/svg+xml; charset=utf-8',
-            'Cache-Control': 'public, max-age=86400',
-            'X-Intodns-Cache': 'hit',
-            'X-Intodns-Domain': cached.domain,
-          },
-        });
-      }
-    } catch (_catchErr) {
-      console.error('intodnsBadgeHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      // fall through
+  try {
+    const cached = await routeCacheGet<CachedBadge>(cacheKey);
+    if (cached && cached.body) {
+      return new Response(cached.body, {
+        status: 200,
+        headers: {
+          'Content-Type': 'image/svg+xml; charset=utf-8',
+          'Cache-Control': 'public, max-age=86400',
+          'X-Intodns-Cache': 'hit',
+          'X-Intodns-Domain': cached.domain,
+        },
+      });
     }
+  } catch (_catchErr) {
+    console.error('intodnsBadgeHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
   }
 
   const url = `${UPSTREAM_BASE}/badge/${encodeURIComponent(v.domain)}`;
@@ -266,19 +256,16 @@ export async function intodnsBadgeHandler(c: Context<{ Bindings: Env }>): Promis
   if (!res.ok) return badGateway(c, `intodns upstream returned ${res.status}`);
 
   const body = await res.text();
-  if (kv) {
-    try {
-      const payload: CachedBadge = {
-        fetchedAt: new Date().toISOString(),
-        domain: v.domain,
-        body,
-        upstreamStatus: res.status,
-      };
-      await kv.put(cacheKey, JSON.stringify(payload), { expirationTtl: BADGE_TTL_SECONDS });
-    } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      // non-fatal
-    }
+  try {
+    const payload: CachedBadge = {
+      fetchedAt: new Date().toISOString(),
+      domain: v.domain,
+      body,
+      upstreamStatus: res.status,
+    };
+    await routeCachePut(cacheKey, payload, BADGE_TTL_SECONDS);
+  } catch (_catchErr) {
+    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
   }
 
   return new Response(body, {

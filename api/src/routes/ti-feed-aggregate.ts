@@ -12,6 +12,7 @@
 
 import { Hono } from 'hono';
 import type { D1Database, KVNamespace } from '@cloudflare/workers-types';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 interface FeedEnv {
   BRIEFINGS_DB: D1Database;
@@ -98,15 +99,13 @@ function computeScore(item: FeedItem): number {
 
 feed.get('/feed-aggregate', async (c) => {
   const db = c.env.BRIEFINGS_DB;
-  const kv = c.env.KV_CACHE;
   const limit = Math.min(parseInt(c.req.query('limit') || '50'), 200);
   const type = c.req.query('type');
   const minScore = parseFloat(c.req.query('minScore') || '0');
   const hours = parseInt(c.req.query('hours') || '48');
 
-  // Try KV cache first
   const cacheKey = `ti:aggregate:${type || 'all'}:${hours}h:${limit}`;
-  const cached = await kv.get(cacheKey, 'json');
+  const cached = await routeCacheGet<object>(cacheKey);
   if (cached) return c.json(cached);
 
   const items: FeedItem[] = [];
@@ -234,20 +233,18 @@ feed.get('/feed-aggregate', async (c) => {
     generated_at: new Date().toISOString(),
   };
 
-  // Cache for 5 minutes
-  await kv.put(cacheKey, JSON.stringify(response), { expirationTtl: 300 });
+  c.executionCtx.waitUntil(routeCachePut(cacheKey, response, 300));
 
   return c.json(response);
 });
 
 feed.get('/feed-trending', async (c) => {
   const db = c.env.BRIEFINGS_DB;
-  const kv = c.env.KV_CACHE;
   const hours = parseInt(c.req.query('hours') || '24');
   const limit = Math.min(parseInt(c.req.query('limit') || '10'), 30);
 
   const cacheKey = `ti:trending:${hours}h`;
-  const cached = await kv.get(cacheKey, 'json');
+  const cached = await routeCacheGet<object>(cacheKey);
   if (cached) return c.json(cached);
 
   const since = new Date(Date.now() - hours * 3600000).toISOString();
@@ -313,7 +310,7 @@ feed.get('/feed-trending', async (c) => {
   });
 
   const response = { trending, period_hours: hours, generated_at: new Date().toISOString() };
-  await kv.put(cacheKey, JSON.stringify(response), { expirationTtl: 600 });
+  c.executionCtx.waitUntil(routeCachePut(cacheKey, response, 600));
 
   return c.json(response);
 });

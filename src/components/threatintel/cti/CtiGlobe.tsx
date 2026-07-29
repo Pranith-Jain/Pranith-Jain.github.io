@@ -241,27 +241,32 @@ export default function CtiGlobe({
       globe.controls().maxDistance = 500;
 
       // Track user interaction
-      container.addEventListener('mousedown', () => {
+      const onMouseDown = () => {
         userInteracting.current = true;
         lastInteraction.current = Date.now();
-      });
-      container.addEventListener('mouseup', () => {
+      };
+      const onMouseUp = () => {
         setTimeout(() => {
           userInteracting.current = false;
         }, 2000);
-      });
-      container.addEventListener('wheel', () => {
+      };
+      const onWheel = () => {
         lastInteraction.current = Date.now();
-      });
-      container.addEventListener('touchstart', () => {
+      };
+      const onTouchStart = () => {
         userInteracting.current = true;
         lastInteraction.current = Date.now();
-      });
-      container.addEventListener('touchend', () => {
+      };
+      const onTouchEnd = () => {
         setTimeout(() => {
           userInteracting.current = false;
         }, 2000);
-      });
+      };
+      container.addEventListener('mousedown', onMouseDown);
+      container.addEventListener('mouseup', onMouseUp);
+      container.addEventListener('wheel', onWheel);
+      container.addEventListener('touchstart', onTouchStart);
+      container.addEventListener('touchend', onTouchEnd);
 
       // Set initial POV
       globe.pointOfView({ lat: 20, lng: 0, altitude: 2.5 }, 0);
@@ -281,6 +286,13 @@ export default function CtiGlobe({
 
       return () => {
         resizeObserver.disconnect();
+        container.removeEventListener('mousedown', onMouseDown);
+        container.removeEventListener('mouseup', onMouseUp);
+        container.removeEventListener('wheel', onWheel);
+        container.removeEventListener('touchstart', onTouchStart);
+        container.removeEventListener('touchend', onTouchEnd);
+        globeRef.current?._destructor?.();
+        globeRef.current = null;
       };
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to initialize globe');

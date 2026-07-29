@@ -3,8 +3,7 @@ import type { Env } from '../env';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { safeIso } from '../lib/safe-date';
 import { CYBERCRIME_SOURCES, type CybercrimeSource } from '../lib/cybercrime-sources';
-import { shouldWriteLastGood } from '../lib/lastgood-debounce';
-import { readLastGood } from '../lib/lastgood';
+import { readLastGood, writeLastGood } from '../lib/lastgood';
 import { fetchAFDatamarkets } from '../lib/andreafortuna-feeds';
 
 /**
@@ -286,17 +285,12 @@ export async function fetchCybercrime(
 
   if (afOk && kv) {
     executionCtx?.waitUntil(
-      (async () => {
-        if (await shouldWriteLastGood('cybercrime:af-datamarkets')) {
-          await kv.put(
-            AF_DATAMARKETS_LASTGOOD_KEY,
-            JSON.stringify({ items: afItems, refreshed_at: new Date().toISOString() }),
-            {
-              expirationTtl: LASTGOOD_TTL_SECONDS,
-            }
-          );
-        }
-      })()
+      writeLastGood(
+        { KV_CACHE: kv },
+        AF_DATAMARKETS_LASTGOOD_KEY,
+        { items: afItems, refreshed_at: new Date().toISOString() },
+        { ttlSeconds: LASTGOOD_TTL_SECONDS, keyPrefix: '' }
+      )
     );
   } else if (!afOk && kv) {
     try {

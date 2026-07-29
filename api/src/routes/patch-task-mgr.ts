@@ -52,8 +52,6 @@ export interface MaintenanceWindow {
 }
 
 const KV_PREFIX = 'ptm:v1';
-const INDEX_CACHE_KEY = 'https://ptm-index-cache.internal/v1';
-const INDEX_CACHE_TTL = 30;
 
 function makeId(): string {
   return Date.now().toString(36) + '-' + crypto.randomUUID().slice(0, 8);
@@ -63,12 +61,10 @@ async function loadAll<T>(env: Env, type: string): Promise<T[]> {
   const kv = env.KV_CACHE;
   if (!kv) return [];
   try {
-    const cacheKey = `${INDEX_CACHE_KEY}/${type}`;
-    const cached = await kv.get(cacheKey);
-    if (cached) return JSON.parse(cached) as T[];
+    const blob = await kv.get(`${KV_PREFIX}:${type}:all`, 'json');
+    if (blob) return blob as T[];
     const idsRaw = await kv.get(`${KV_PREFIX}:${type}:index`);
     const ids: string[] = idsRaw ? JSON.parse(idsRaw) : [];
-    // One bulk read per 100 ids instead of one get per id.
     const values = await kvBulkGetText(
       kv,
       ids.map((id) => `${KV_PREFIX}:${type}:${id}`)
@@ -78,20 +74,16 @@ async function loadAll<T>(env: Env, type: string): Promise<T[]> {
       const raw = values.get(`${KV_PREFIX}:${type}:${id}`) ?? null;
       if (raw) results.push(JSON.parse(raw) as T);
     }
-    await kv.put(cacheKey, JSON.stringify(results), { expirationTtl: INDEX_CACHE_TTL });
     return results;
   } catch {
     return [];
   }
 }
 
-async function saveAll<T>(env: Env, type: string, items: T[], getId: (item: T) => string): Promise<void> {
+async function saveAll<T>(env: Env, type: string, items: T[]): Promise<void> {
   const kv = env.KV_CACHE;
   if (!kv) return;
-  const ids = items.map(getId);
-  await kv.put(`${KV_PREFIX}:${type}:index`, JSON.stringify(ids));
-  for (const item of items) await kv.put(`${KV_PREFIX}:${type}:${getId(item)}`, JSON.stringify(item));
-  await kv.delete(`${INDEX_CACHE_KEY}/${type}`);
+  await kv.put(`${KV_PREFIX}:${type}:all`, JSON.stringify(items));
 }
 
 // ── Patches ──────────────────────────────────────────────────────────
@@ -109,15 +101,10 @@ export async function ptmListPatches(c: Context<{ Bindings: Env }>): Promise<Res
 }
 
 export async function ptmGetPatch(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 500);
-  const raw = await kv.get(`${KV_PREFIX}:patches:${c.req.param('id')}`);
-  if (!raw) return c.json({ error: 'Not found' }, 404);
-  try {
-    return c.json(JSON.parse(raw));
-  } catch {
-    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
-  }
+  const items = await loadAll<PatchAdvisory>(c.env, 'patches');
+  const item = items.find((i) => i.id === c.req.param('id'));
+  if (!item) return c.json({ error: 'Not found' }, 404);
+  return c.json(item);
 }
 
 export async function ptmCreatePatch(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -126,26 +113,20 @@ export async function ptmCreatePatch(c: Context<{ Bindings: Env }>): Promise<Res
   const patch: PatchAdvisory = { ...body, id: makeId(), created_at: now, updated_at: now };
   const items = await loadAll<PatchAdvisory>(c.env, 'patches');
   items.push(patch);
-  await saveAll(c.env, 'patches', items, (p) => p.id);
+  await saveAll(c.env, 'patches', items);
   return c.json(patch, 201);
 }
 
 export async function ptmUpdatePatch(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 500);
   const id = c.req.param('id');
-  const raw = await kv.get(`${KV_PREFIX}:patches:${id}`);
-  if (!raw) return c.json({ error: 'Not found' }, 404);
-  let existing: PatchAdvisory;
-  try {
-    existing = JSON.parse(raw) as PatchAdvisory;
-  } catch {
-    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
-  }
+  if (!id) return c.json({ error: 'id required' }, 400);
+  const items = await loadAll<PatchAdvisory>(c.env, 'patches');
+  const idx = items.findIndex((i) => i.id === id);
+  if (idx === -1) return c.json({ error: 'Not found' }, 404);
   const body = await c.req.json<Partial<PatchAdvisory>>();
-  const updated: PatchAdvisory = { ...existing, ...body, id: existing.id, updated_at: new Date().toISOString() };
-  await kv.put(`${KV_PREFIX}:patches:${id}`, JSON.stringify(updated));
-  await kv.delete(`${INDEX_CACHE_KEY}/patches`);
+  const updated = { ...items[idx], ...body, id, updated_at: new Date().toISOString() } as PatchAdvisory;
+  items[idx] = updated;
+  await saveAll(c.env, 'patches', items);
   return c.json(updated);
 }
 
@@ -153,7 +134,7 @@ export async function ptmDeletePatch(c: Context<{ Bindings: Env }>): Promise<Res
   const id = c.req.param('id');
   const items = await loadAll<PatchAdvisory>(c.env, 'patches');
   const filtered = items.filter((p) => p.id !== id);
-  await saveAll(c.env, 'patches', filtered, (p) => p.id);
+  await saveAll(c.env, 'patches', filtered);
   return c.json({ deleted: id });
 }
 
@@ -168,15 +149,10 @@ export async function ptmListWindows(c: Context<{ Bindings: Env }>): Promise<Res
 }
 
 export async function ptmGetWindow(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 500);
-  const raw = await kv.get(`${KV_PREFIX}:windows:${c.req.param('id')}`);
-  if (!raw) return c.json({ error: 'Not found' }, 404);
-  try {
-    return c.json(JSON.parse(raw));
-  } catch {
-    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
-  }
+  const items = await loadAll<MaintenanceWindow>(c.env, 'windows');
+  const item = items.find((i) => i.id === c.req.param('id'));
+  if (!item) return c.json({ error: 'Not found' }, 404);
+  return c.json(item);
 }
 
 export async function ptmCreateWindow(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -185,26 +161,20 @@ export async function ptmCreateWindow(c: Context<{ Bindings: Env }>): Promise<Re
   const mw: MaintenanceWindow = { ...body, id: makeId(), created_at: now, updated_at: now };
   const items = await loadAll<MaintenanceWindow>(c.env, 'windows');
   items.push(mw);
-  await saveAll(c.env, 'windows', items, (w) => w.id);
+  await saveAll(c.env, 'windows', items);
   return c.json(mw, 201);
 }
 
 export async function ptmUpdateWindow(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 500);
   const id = c.req.param('id');
-  const raw = await kv.get(`${KV_PREFIX}:windows:${id}`);
-  if (!raw) return c.json({ error: 'Not found' }, 404);
-  let existing: MaintenanceWindow;
-  try {
-    existing = JSON.parse(raw) as MaintenanceWindow;
-  } catch {
-    return c.json({ error: 'Not found' }, 404, { 'Cache-Control': 'no-store' });
-  }
+  if (!id) return c.json({ error: 'id required' }, 400);
+  const items = await loadAll<MaintenanceWindow>(c.env, 'windows');
+  const idx = items.findIndex((i) => i.id === id);
+  if (idx === -1) return c.json({ error: 'Not found' }, 404);
   const body = await c.req.json<Partial<MaintenanceWindow>>();
-  const updated: MaintenanceWindow = { ...existing, ...body, id: existing.id, updated_at: new Date().toISOString() };
-  await kv.put(`${KV_PREFIX}:windows:${id}`, JSON.stringify(updated));
-  await kv.delete(`${INDEX_CACHE_KEY}/windows`);
+  const updated = { ...items[idx], ...body, id, updated_at: new Date().toISOString() } as MaintenanceWindow;
+  items[idx] = updated;
+  await saveAll(c.env, 'windows', items);
   return c.json(updated);
 }
 
@@ -212,7 +182,7 @@ export async function ptmDeleteWindow(c: Context<{ Bindings: Env }>): Promise<Re
   const id = c.req.param('id');
   const items = await loadAll<MaintenanceWindow>(c.env, 'windows');
   const filtered = items.filter((w) => w.id !== id);
-  await saveAll(c.env, 'windows', filtered, (w) => w.id);
+  await saveAll(c.env, 'windows', filtered);
   return c.json({ deleted: id });
 }
 

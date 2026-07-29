@@ -332,8 +332,8 @@ asm.get('/scan', async (c) => {
 asm.get('/changes', async (c) => {
   const db = c.env.BRIEFINGS_DB;
   const domain = c.req.query('domain');
-  const hours = parseInt(c.req.query('hours') || '168');
-  const limit = Math.min(parseInt(c.req.query('limit') || '50'), 200);
+  const hours = Math.max(Number(c.req.query('hours')) || 168, 1);
+  const limit = Math.min(Math.max(Number(c.req.query('limit')) || 50, 1), 200);
 
   const since = new Date(Date.now() - hours * 3600000).toISOString();
 
@@ -366,7 +366,7 @@ asm.get('/assets', async (c) => {
   const domain = c.req.query('domain');
   const type = c.req.query('type');
   const status = c.req.query('status');
-  const limit = Math.min(parseInt(c.req.query('limit') || '100'), 500);
+  const limit = Math.min(Math.max(Number(c.req.query('limit')) || 100, 1), 500);
 
   let query = `
     SELECT a.*, d.domain

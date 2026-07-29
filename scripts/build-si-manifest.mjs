@@ -292,14 +292,14 @@ walkRefs(join(SI, '.github', 'skills'));
 
 
 
-// ─── SCRIPTS (PowerShell + detection authoring manifests) ────────────
+// ─── SCRIPTS (detection-manifest assets only — PS1 removed for Safe Browsing) ───
 const scriptsOut = join(OUT, 'scripts');
 ensureDir(scriptsOut);
 const scriptFiles = [];
 
-// detection-authoring: Deploy-CustomDetections.ps1 + example-manifest.json
+// detection-authoring: example-manifest.json only (PS1 removed)
 const deploySrc = join(SI, '.github', 'skills', 'detection-authoring');
-for (const f of ['Deploy-CustomDetections.ps1', 'example-manifest.json']) {
+for (const f of ['example-manifest.json']) {
   const fp = join(deploySrc, f);
   if (!existsSync(fp)) continue;
   const text = readFileSync(fp, 'utf8');
@@ -308,19 +308,9 @@ for (const f of ['Deploy-CustomDetections.ps1', 'example-manifest.json']) {
   scriptFiles.push({ name: outName, sizeBytes: text.length });
 }
 
-// mitre-coverage-report: Invoke-MitreScan.ps1
-const mitreSrc = join(SI, '.github', 'skills', 'mitre-coverage-report');
-for (const f of ['Invoke-MitreScan.ps1']) {
-  const fp = join(mitreSrc, f);
-  if (!existsSync(fp)) continue;
-  const text = readFileSync(fp, 'utf8');
-  writeFileSync(join(scriptsOut, f), text);
-  scriptFiles.push({ name: f, sizeBytes: text.length });
-}
-
-// sentinel-ingestion-report: Invoke-IngestionScan.ps1 + SKILL-drilldown.md
+// sentinel-ingestion-report: SKILL-drilldown.md only (PS1 removed)
 const ingSrc = join(SI, '.github', 'skills', 'sentinel-ingestion-report');
-for (const f of ['Invoke-IngestionScan.ps1', 'SKILL-drilldown.md']) {
+for (const f of ['SKILL-drilldown.md']) {
   const fp = join(ingSrc, f);
   if (!existsSync(fp)) continue;
   const text = readFileSync(fp, 'utf8');

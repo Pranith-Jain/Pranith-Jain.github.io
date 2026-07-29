@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const CACHE_TTL = 3600;
 
@@ -15,8 +16,8 @@ interpolRouter.get('/interpol/red-notices', async (c) => {
   const page = Number(c.req.query('page')) || 1;
 
   const cacheKey = `interpol:red:${name ?? ''}:${forename ?? ''}:${nationality ?? ''}:${page}`;
-  const cached = await c.env.KV_CACHE?.get(cacheKey, 'json');
-  if (cached) return c.json({ ...(cached as object), cached: true });
+  const cached = await routeCacheGet<object>(cacheKey);
+  if (cached) return c.json({ ...cached, cached: true });
 
   try {
     const params = new URLSearchParams();
@@ -44,8 +45,7 @@ interpolRouter.get('/interpol/red-notices', async (c) => {
       cached: false,
     };
 
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_TTL }));
+    c.executionCtx.waitUntil(routeCachePut(cacheKey, body, CACHE_TTL));
     return c.json(body);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));

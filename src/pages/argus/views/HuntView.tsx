@@ -137,10 +137,13 @@ function DetectionsTab({ actors, search, sourceFilter, setSourceFilter, expanded
   setSourceFilter: (s: string | null) => void;
   expanded: Record<string, boolean>; toggleExpand: (id: string) => void;
 }) {
-  const allDetections: (Detection & { actorId: string; actorName: string; nation: string })[] = [];
-  actors.forEach(a => a.detections.forEach(d => {
-    allDetections.push({ ...d, actorId: a.id, actorName: a.name, nation: a.country });
-  }));
+  const allDetections = useMemo(() => {
+    const out: (Detection & { actorId: string; actorName: string; nation: string })[] = [];
+    actors.forEach(a => a.detections.forEach(d => {
+      out.push({ ...d, actorId: a.id, actorName: a.name, nation: a.country });
+    }));
+    return out;
+  }, [actors]);
 
   const sources = useMemo(() => [...new Set(allDetections.map(d => d.source))].sort(), [allDetections]);
 

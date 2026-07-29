@@ -62,12 +62,18 @@ export interface OgStats {
 export interface OgImageData {
   title: string;
   subtitle: string;
-  type: 'blog' | 'briefing' | 'research' | 'default';
+  type: 'blog' | 'briefing' | 'research' | 'page' | 'default';
   date?: string;
   tags?: string[];
   /** Briefing-only stats strip. When present (and type==='briefing'), the
    *  stats row replaces the generic tag row in the same vertical slot. */
   stats?: OgStats;
+  /** Optional override for the top type badge (defaults to the per-type label).
+   *  Page cards use this to show a section-aware badge like "DFIR TOOLKIT". */
+  badge?: string;
+  /** Optional override for the footer product family (defaults to per-type).
+   *  Page cards use this to brand the card with the right product surface. */
+  product?: string;
 }
 
 /** Render the briefing stats strip (numbers + labels) into the y≈470 band that
@@ -104,6 +110,7 @@ export function generateOgSvg(data: OgImageData): string {
     blog: { primary: '#6366f1', secondary: '#818cf8', badge: '#4f46e5' },
     briefing: { primary: '#2c3ee5', secondary: '#435ef1', badge: '#1e3aaf' },
     research: { primary: '#0ea5e9', secondary: '#38bdf8', badge: '#0284c7' },
+    page: { primary: '#2c3ee5', secondary: '#435ef1', badge: '#1e3aaf' },
     default: { primary: '#2c3ee5', secondary: '#435ef1', badge: '#1e3aaf' },
   };
   // `default` is a literal key always present in accentMap; assert it so
@@ -116,8 +123,28 @@ export function generateOgSvg(data: OgImageData): string {
     blog: 'BLOG POST',
     briefing: 'THREAT BRIEFING',
     research: 'RESEARCH',
+    page: 'SECURITY TOOLS',
     default: 'SECURITY TOOLS',
   };
+
+  // Product family shown in the footer brand slot — keeps each dynamic card
+  // consistent with the branded surface cards (generate-og-png.mjs). Briefings
+  // + research belong to PANOPTICON (the threat-intel platform); blog posts sit
+  // under the CRUCIBLE tools brand. Page cards override this per-section via
+  // `data.product`. Previously hardcoded to "CRUCIBLE" for every type, which
+  // mislabeled every threat briefing.
+  const productLabel: Record<string, string> = {
+    blog: 'CRUCIBLE',
+    briefing: 'PANOPTICON',
+    research: 'PANOPTICON',
+    page: 'CRUCIBLE',
+    default: 'CRUCIBLE',
+  };
+
+  // Per-card overrides win over the per-type defaults so page cards can carry a
+  // section-aware badge ("DFIR TOOLKIT") and product family ("PANOPTICON").
+  const badgeText = data.badge ?? typeLabel[type] ?? 'PRANITH JAIN';
+  const productText = data.product ?? productLabel[type] ?? 'CRUCIBLE';
 
   // Wrap title
   const titleLines = wrapTitle(truncate(title, 80), 38);
@@ -171,8 +198,8 @@ export function generateOgSvg(data: OgImageData): string {
   <rect x="0" y="0" width="6" height="${HEIGHT}" fill="${accent.primary}"/>
 
   <!-- Type badge -->
-  <rect x="80" y="140" rx="4" ry="4" width="${typeLabel[type]?.length ? typeLabel[type].length * 13.5 + 24 : 120}" height="36" fill="${accent.badge}"/>
-  <text x="92" y="165" fill="white" font-family="'SF Mono', 'Fira Code', 'Cascadia Code', monospace" font-size="16" font-weight="700" letter-spacing="2">${esc(typeLabel[type] ?? 'PRANITH JAIN')}</text>
+  <rect x="80" y="140" rx="4" ry="4" width="${badgeText.length * 13.5 + 24}" height="36" fill="${accent.badge}"/>
+  <text x="92" y="165" fill="white" font-family="'SF Mono', 'Fira Code', 'Cascadia Code', monospace" font-size="16" font-weight="700" letter-spacing="2">${esc(badgeText)}</text>
 
   <!-- Title: one text element, one tspan per wrapped line; the first tspan
        dy=0 anchors at titleY, the rest step down by 68px. -->
@@ -200,7 +227,7 @@ export function generateOgSvg(data: OgImageData): string {
   <!-- Logo mark -->
   <rect x="1060" y="588" rx="6" ry="6" width="36" height="36" fill="${accent.primary}"/>
   <text x="1078" y="614" text-anchor="middle" fill="white" font-family="'Inter', system-ui, sans-serif" font-size="16" font-weight="800">PJ</text>
-  <text x="1108" y="612" fill="#64748b" font-family="'SF Mono', 'Fira Code', monospace" font-size="14" font-weight="500">CRUCIBLE</text>
+  <text x="1108" y="612" fill="#64748b" font-family="'SF Mono', 'Fira Code', monospace" font-size="14" font-weight="500">${esc(productText)}</text>
 </svg>`;
 }
 

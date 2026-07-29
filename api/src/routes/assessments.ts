@@ -60,15 +60,19 @@ async function loadAll(env: Env): Promise<Assessment[]> {
         /* fall through */
       }
     }
-    const list = await kv.list({ prefix: KV_PREFIX + ':' });
-    // One bulk read per 100 keys instead of one get per key.
-    const values = await kvBulkGetText(
-      kv,
-      list.keys.map((k) => k.name)
-    );
-    const results = list.keys.map((key) => {
+    const idsRaw = await kv.get(`${KV_PREFIX}:index`);
+    let keys: string[];
+    if (idsRaw) {
+      const ids: string[] = JSON.parse(idsRaw);
+      keys = ids.map((id) => `${KV_PREFIX}:${id}`);
+    } else {
+      const list = await kv.list({ prefix: KV_PREFIX + ':' });
+      keys = list.keys.map((k) => k.name).filter((n) => n !== `${KV_PREFIX}:index`);
+    }
+    const values = await kvBulkGetText(kv, keys);
+    const results = keys.map((key) => {
       try {
-        const raw = values.get(key.name) ?? null;
+        const raw = values.get(key) ?? null;
         return raw ? (JSON.parse(raw) as Assessment) : null;
       } catch (_catchErr) {
         console.error('loadAll failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
@@ -87,7 +91,7 @@ async function loadAll(env: Env): Promise<Assessment[]> {
       );
     }
     return sorted;
-  } catch (e) {
+  } catch {
     return [];
   }
 }
@@ -95,10 +99,13 @@ async function loadAll(env: Env): Promise<Assessment[]> {
 async function save(env: Env, assessment: Assessment): Promise<void> {
   const kv = env.KV_CACHE;
   if (!kv) return;
-  // Assessments are durable intelligence products — persist indefinitely.
-  // (KV rejects expirationTtl:0 at runtime; omit the option to never expire.)
   await kv.put(`${KV_PREFIX}:${assessment.id}`, JSON.stringify(assessment));
-  // Invalidate the cached index so the next loadAll picks up the change
+  const idsRaw = await kv.get(`${KV_PREFIX}:index`);
+  const ids: string[] = idsRaw ? JSON.parse(idsRaw) : [];
+  if (!ids.includes(assessment.id)) {
+    ids.push(assessment.id);
+    await kv.put(`${KV_PREFIX}:index`, JSON.stringify(ids));
+  }
   const cache = cacheApi();
   if (cache) safeNullLog('cache-delete-index', cache.delete(INDEX_CACHE_KEY));
 }
@@ -269,6 +276,12 @@ export async function assessmentDeleteHandler(c: Context<{ Bindings: Env }>): Pr
     if (!kv) return c.json({ error: 'assessment storage not configured' }, 503);
     const id = c.req.param('id');
     await kv.delete(`${KV_PREFIX}:${id}`);
+    const idsRaw = await kv.get(`${KV_PREFIX}:index`);
+    if (idsRaw) {
+      const ids: string[] = JSON.parse(idsRaw);
+      const filtered = ids.filter((i) => i !== id);
+      await kv.put(`${KV_PREFIX}:index`, JSON.stringify(filtered));
+    }
     const cache = cacheApi();
     if (cache) {
       safeNullLog('cache-delete-index', cache.delete(INDEX_CACHE_KEY));

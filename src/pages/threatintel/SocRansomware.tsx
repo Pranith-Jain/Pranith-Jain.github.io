@@ -38,6 +38,8 @@ interface RansomwareResponse {
   victims: RansomwareVictim[];
 }
 
+const EMPTY_VICTIMS: RansomwareVictim[] = [];
+
 function colorForSector(s: string): string {
   return CHART_SECTOR[s] ?? '#94a3b8';
 }
@@ -89,7 +91,7 @@ export default function SocRansomware(): JSX.Element {
     return () => ctrl.abort();
   }, [load]);
 
-  const victims = data?.victims ?? [];
+  const victims = useMemo(() => data?.victims ?? EMPTY_VICTIMS, [data]);
 
   /* ─── KPIs ─────────────────────────────────────────────────────── */
   const kpis = useMemo(() => {

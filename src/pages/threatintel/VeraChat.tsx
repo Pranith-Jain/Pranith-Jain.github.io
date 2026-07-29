@@ -308,12 +308,31 @@ export default function VeraChat(): JSX.Element {
   const fetchSessions = useCallback(async () => {
     setLoadingSessions(true);
     try {
-      const res = await fetch('/api/v1/copilot/chat/sessions', {
+      const res = await fetch('/api/v1/agents/chat/sessions', {
         headers: adminAuthHeaders(),
       });
       if (res.ok) {
         const data = await res.json();
-        setSessions(data.sessions ?? []);
+        const raw = data.sessions ?? [];
+        setSessions(
+          raw.map(
+            (s: {
+              id: string;
+              preview?: string;
+              message_count?: number;
+              title?: string;
+              messageCount?: number;
+              created_at: string;
+              updated_at: string;
+            }) => ({
+              id: s.id,
+              title: s.title ?? s.preview ?? 'Untitled',
+              messageCount: s.messageCount ?? s.message_count ?? 0,
+              created_at: s.created_at,
+              updated_at: s.updated_at,
+            })
+          )
+        );
       }
     } catch {
       /* ignore */
@@ -324,7 +343,7 @@ export default function VeraChat(): JSX.Element {
 
   const loadSession = useCallback(async (id: string) => {
     try {
-      const res = await fetch(`/api/v1/copilot/chat/${encodeURIComponent(id)}`, {
+      const res = await fetch(`/api/v1/agents/chat/${encodeURIComponent(id)}`, {
         headers: adminAuthHeaders(),
       });
       if (!res.ok) return;
@@ -357,7 +376,7 @@ export default function VeraChat(): JSX.Element {
   const deleteSession = useCallback(
     async (id: string) => {
       try {
-        const res = await fetch(`/api/v1/copilot/chat/${encodeURIComponent(id)}`, {
+        const res = await fetch(`/api/v1/agents/chat/${encodeURIComponent(id)}`, {
           method: 'DELETE',
           headers: adminAuthHeaders(),
         });
@@ -416,7 +435,7 @@ export default function VeraChat(): JSX.Element {
     const storedId = sessionStorage.getItem('vera_session_id');
     if (storedId) {
       setSessionId(storedId);
-      fetch(`/api/v1/copilot/chat/${encodeURIComponent(storedId)}`, { headers: adminAuthHeaders() })
+      fetch(`/api/v1/agents/chat/${encodeURIComponent(storedId)}`, { headers: adminAuthHeaders() })
         .then((r) => (r.ok ? r.json() : null))
         .then((data) => {
           if (!data?.messages) return;
@@ -443,7 +462,7 @@ export default function VeraChat(): JSX.Element {
     const ac = new AbortController();
     abortControllerRef.current = ac;
     try {
-      const streamRes = await fetch(`/api/v1/copilot/chat/${encodeURIComponent(sid)}/stream`, {
+      const streamRes = await fetch(`/api/v1/agents/chat/${encodeURIComponent(sid)}/stream`, {
         headers: adminAuthHeaders(),
         signal: ac.signal,
       });
@@ -564,11 +583,11 @@ export default function VeraChat(): JSX.Element {
       abortControllerRef.current = ac;
 
       try {
-        const res = await fetch('/api/v1/copilot/chat', {
+        const res = await fetch('/api/v1/agents/chat', {
           method: 'POST',
           signal: AbortSignal.timeout(30_000),
           headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
-          body: JSON.stringify({ sessionId, query: q.trim() }),
+          body: JSON.stringify({ sessionId, mode: veraMode, role, query: q.trim() }),
         });
         if (!res.ok) {
           const err = await res.json();
@@ -578,7 +597,7 @@ export default function VeraChat(): JSX.Element {
         setSessionId(newId);
         sessionStorage.setItem('vera_session_id', newId);
 
-        const streamRes = await fetch(`/api/v1/copilot/chat/${encodeURIComponent(newId)}/stream`, {
+        const streamRes = await fetch(`/api/v1/agents/chat/${encodeURIComponent(newId)}/stream`, {
           headers: adminAuthHeaders(),
           signal: ac.signal,
         });
@@ -648,7 +667,7 @@ export default function VeraChat(): JSX.Element {
         setAgentSteps([]);
       }
     },
-    [sessionId, streaming]
+    [sessionId, streaming, veraMode, role]
   );
   submitChatRef.current = submitChat;
 
@@ -658,7 +677,7 @@ export default function VeraChat(): JSX.Element {
     if (!sessionId || !streaming) return;
     abortControllerRef.current?.abort();
     try {
-      await fetch(`/api/v1/copilot/chat/${encodeURIComponent(sessionId)}/cancel`, {
+      await fetch(`/api/v1/agents/chat/${encodeURIComponent(sessionId)}/cancel`, {
         method: 'POST',
         headers: adminAuthHeaders(),
         signal: AbortSignal.timeout(5000),

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const NVD_API = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
 const NVD_UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
@@ -57,18 +58,12 @@ async function loadCvssMap(env: Env): Promise<Map<string, CvssEntry>> {
   const map = new Map<string, CvssEntry>();
 
   // Check KV cache first
-  if (env.KV_CACHE) {
-    try {
-      const cached = await env.KV_CACHE.get(CVSS_CACHE_KEY, 'json');
-      if (cached && typeof cached === 'object') {
-        for (const [id, entry] of Object.entries(cached as Record<string, { score: number; severity: string }>)) {
-          map.set(id, entry);
-        }
-        return map;
-      }
-    } catch {
-      // fall through to fetch
+  const cachedCvss = await routeCacheGet<Record<string, { score: number; severity: string }>>(CVSS_CACHE_KEY);
+  if (cachedCvss && typeof cachedCvss === 'object') {
+    for (const [id, entry] of Object.entries(cachedCvss)) {
+      map.set(id, entry);
     }
+    return map;
   }
 
   const headers: Record<string, string> = {
@@ -108,13 +103,11 @@ async function loadCvssMap(env: Env): Promise<Map<string, CvssEntry>> {
         }
       }
 
-      if (env.KV_CACHE) {
-        const obj: Record<string, CvssEntry> = {};
-        map.forEach((v, k) => {
-          obj[k] = v;
-        });
-        await env.KV_CACHE.put(CVSS_CACHE_KEY, JSON.stringify(obj), { expirationTtl: CVSS_CACHE_TTL });
-      }
+      const obj: Record<string, CvssEntry> = {};
+      map.forEach((v, k) => {
+        obj[k] = v;
+      });
+      routeCachePut(CVSS_CACHE_KEY, obj, CVSS_CACHE_TTL).catch(() => {});
     }
   } catch (err) {
     console.error('NVD CVSS enrichment failed:', err instanceof Error ? err.message : String(err));

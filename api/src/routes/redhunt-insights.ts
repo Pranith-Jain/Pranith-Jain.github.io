@@ -20,11 +20,12 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const UPSTREAM_URL = 'https://research.redhuntlabs.com/api/latest.json';
 const CACHE_TTL_SECONDS = 300; // 5 min — fresh enough to feel "live", cheap enough for the free plan
 const BROWSER_TTL_SECONDS = 30; // browser hits /api/v1/redhunt-insights every 60s; 30s stops a thrash
-const KV_KEY = 'redhunt-insights:v1';
+const CACHE_KEY = 'redhunt-insights:v1';
 const USER_AGENT =
   'pranithjain.qzz.io RedHunt Insights mirror (+https://pranithjain.qzz.io/threatintel/redhunt-insights)';
 
@@ -72,65 +73,40 @@ const CACHE_FALLBACK: CachedPayload = {
 };
 
 export async function getRedHuntInsightsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.KV_CACHE;
-  // 1) Try KV first.
-  if (kv) {
-    try {
-      const raw = await kv.get(CACHE_KEY_FOR_KV());
-      if (raw) {
-        const parsed = JSON.parse(raw) as CachedPayload;
-        const ageSec = (Date.now() - Date.parse(parsed.fetched_at)) / 1000;
-        if (ageSec < CACHE_TTL_SECONDS && parsed.ok) {
-          return c.json(parsed, 200, {
-            'cache-control': `public, max-age=${BROWSER_TTL_SECONDS}`,
-            'x-cache': 'hit-kv-fresh',
-            'x-cache-age-s': Math.round(ageSec).toString(),
-          });
-        }
-        // Stale — revalidate in the background; serve the stale snapshot now
-        // so the page still loads instantly when the upstream is slow.
-        c.executionCtx.waitUntil(refreshUpstream(kv));
-        return c.json(parsed, 200, {
-          'cache-control': `public, max-age=${BROWSER_TTL_SECONDS}`,
-          'x-cache': 'hit-kv-stale',
-          'x-cache-age-s': Math.round(ageSec).toString(),
-        });
-      }
-    } catch (_catchErr) {
-      console.error(
-        'getRedHuntInsightsHandler failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
-      /* KV read failed — fall through to a direct fetch. */
+  const cached = await routeCacheGet<CachedPayload>(CACHE_KEY);
+  if (cached) {
+    const ageSec = (Date.now() - Date.parse(cached.fetched_at)) / 1000;
+    if (ageSec < CACHE_TTL_SECONDS && cached.ok) {
+      return c.json(cached, 200, {
+        'cache-control': `public, max-age=${BROWSER_TTL_SECONDS}`,
+        'x-cache': 'hit-fresh',
+        'x-cache-age-s': Math.round(ageSec).toString(),
+      });
     }
+    c.executionCtx.waitUntil(refreshUpstream());
+    return c.json(cached, 200, {
+      'cache-control': `public, max-age=${BROWSER_TTL_SECONDS}`,
+      'x-cache': 'hit-stale',
+      'x-cache-age-s': Math.round(ageSec).toString(),
+    });
   }
-  // 2) Cold path: fetch + write to KV.
-  const payload = await fetchAndCache(kv);
+  const payload = await fetchAndCache();
   return c.json(payload, payload.ok ? 200 : 502, {
     'cache-control': `public, max-age=${BROWSER_TTL_SECONDS}`,
     'x-cache': payload.ok ? 'miss' : 'error',
   });
 }
 
-function CACHE_KEY_FOR_KV(): string {
-  return KV_KEY;
-}
-
-async function refreshUpstream(kv: KVNamespace): Promise<void> {
+async function refreshUpstream(): Promise<void> {
   try {
-    const payload = await fetchAndCache(kv);
-    if (!payload.ok) {
-      // Don't overwrite the stale payload on transient failure.
-      return;
-    }
-    await kv.put(CACHE_KEY_FOR_KV(), JSON.stringify(payload), { expirationTtl: CACHE_TTL_SECONDS * 2 });
+    const payload = await fetchAndCache();
+    if (!payload.ok) return;
   } catch (_catchErr) {
     console.error('refreshUpstream failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    /* swallow — caller already has the stale snapshot. */
   }
 }
 
-async function fetchAndCache(kv: KVNamespace | undefined): Promise<CachedPayload> {
+async function fetchAndCache(): Promise<CachedPayload> {
   try {
     const res = await fetch(UPSTREAM_URL, {
       headers: { accept: 'application/json', 'user-agent': USER_AGENT },
@@ -140,7 +116,6 @@ async function fetchAndCache(kv: KVNamespace | undefined): Promise<CachedPayload
       return { ...CACHE_FALLBACK, error: `upstream HTTP ${res.status}` };
     }
     const data = (await res.json()) as UpstreamPayload;
-    // Sanity check: the payload should have trends and latest_secrets.
     if (!data || typeof data !== 'object' || !data.trends || !Array.isArray(data.latest_secrets)) {
       return { ...CACHE_FALLBACK, error: 'upstream payload missing required fields' };
     }
@@ -150,15 +125,7 @@ async function fetchAndCache(kv: KVNamespace | undefined): Promise<CachedPayload
       ok: true,
       data,
     };
-    if (kv) {
-      // Fire-and-forget; errors here don't block the response.
-      try {
-        await kv.put(CACHE_KEY_FOR_KV(), JSON.stringify(payload), { expirationTtl: CACHE_TTL_SECONDS * 2 });
-      } catch (_catchErr) {
-        console.error('fetchAndCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-        /* KV write failed — not fatal. */
-      }
-    }
+    routeCachePut(CACHE_KEY, payload, CACHE_TTL_SECONDS * 2).catch(() => {});
     return payload;
   } catch (e) {
     console.error('fetchAndCache failed:', e instanceof Error ? e.message : String(e));

@@ -589,7 +589,7 @@ function BreachTab() {
       <ToolForm
         title="HIBP Password Check"
         description="Check if a password has been pwned (k-anonymity)"
-        inputs={[{ name: 'password', placeholder: 'Password to check', required: true, type: 'password' }]}
+        inputs={[{ name: 'password', placeholder: 'Password to check', required: true, type: 'text' }]}
         onRun={(p) =>
           hibpPass.run(() =>
             apiGet(`/api/v1/darknet-intel/hibp/password?password=${encodeURIComponent(p.password ?? '')}`)

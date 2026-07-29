@@ -11,7 +11,7 @@
 import type { Env } from './env';
 import { generateOgSvg } from './og-image';
 import { loadOgData } from './og-data';
-import { matchOgImagePath, type OgImageType } from './og-path';
+import { matchOgImagePath, matchOgPagePath, type OgImageType } from './og-path';
 import { svgToPng } from './og-raster';
 import { workerRateLimit, rateLimitResponse, callerIp } from './lib/worker-rate-limit';
 
@@ -23,6 +23,7 @@ const ASSET_ORIGIN = 'https://og-assets.internal';
 const FALLBACK: Record<OgImageType, string> = {
   briefing: '/og-threatintel.png',
   blog: '/og-image.png',
+  page: '/og-image.png',
 };
 
 /** Global-KV TTL for a rendered card. Cards are slug-stable, so a long TTL
@@ -53,36 +54,31 @@ async function staticFallback(env: Env, type: OgImageType): Promise<Response> {
  * show no card). Never throws.
  */
 export async function handleOgImage(request: Request, env: Env, url: URL, ctx: ExecutionContext): Promise<Response> {
-  const matched = matchOgImagePath(url.pathname);
-  if (!matched) return new Response('not found', { status: 404 });
-  const { type, slug } = matched;
+  // Two card shapes: entity cards (/og-image/(briefing|blog)/<slug>.png) and the
+  // generic per-page card (/og-image/page.png?p=<path>). Resolve both to a
+  // (type, slug) pair the rest of the pipeline caches + renders uniformly.
+  const entity = matchOgImagePath(url.pathname);
+  const pagePath = entity ? null : matchOgPagePath(url);
+  if (!entity && pagePath === null) return new Response('not found', { status: 404 });
+  const type: OgImageType = entity ? entity.type : 'page';
+  const slug = entity ? entity.slug : pagePath!;
+  // Page slugs are route paths (contain '/'); encode so the cache key stays a
+  // single clean segment. No-op for briefing/blog slugs (already url-safe).
+  const keySlug = encodeURIComponent(slug);
 
   const rl = await workerRateLimit('og', callerIp(request), OG_LIMIT);
   if (!rl.allowed) return rateLimitResponse(rl);
 
-  // v2: bumped when the OG card design changed (slate → navy) so previously
-  // cached slate cards are not served after deploy. Bump on any card redesign.
-  const cacheKey = new Request(`https://og-png.internal/v2/${type}/${slug}.png`);
+  // v3: bumped for the per-page card rollout + brand refresh so previously
+  // cached cards re-render. Bump on any card redesign.
+  const cacheKey = new Request(`https://og-png.internal/v3/${type}/${keySlug}.png`);
   const cached = await caches.default.match(cacheKey);
   if (cached) return cached;
 
-  // Global KV cache. The Cache-API entry above is per-colo, so a crawler in a
-  // cold colo would otherwise re-run the resvg-wasm rasterisation — whose
-  // cold-start (wasm instantiate + 2 font fetches + render) can exceed the
-  // Worker CPU budget and return HTTP 503, which X/LinkedIn read as "no card"
-  // (the isolate is killed before the static fallback can run). KV is global,
-  // so once ANY colo has rendered the card, every colo serves these bytes with
-  // one cheap read and zero rasterisation. Rewritten on every successful render.
-  const kvKey = `og:png:v2:${type}:${slug}`;
-  if (env.KV_CACHE) {
-    const kvPng = (await env.KV_CACHE.get(kvKey, 'arrayBuffer').catch(() => null)) as ArrayBuffer | null;
-    if (kvPng && kvPng.byteLength > 0) {
-      const res = pngResponse(kvPng, true);
-      // Warm the per-colo Cache-API too, so repeat crawls in this colo skip KV.
-      ctx.waitUntil(caches.default.put(cacheKey, res.clone()).catch(() => {}));
-      return res;
-    }
-  }
+  const kvKey = `og:png:v3:${type}:${keySlug}`;
+  const pngCacheReq = new Request(`https://og-png-cache.internal/v1/${encodeURIComponent(kvKey)}`);
+  const cachedPng = await caches.default.match(pngCacheReq);
+  if (cachedPng) return cachedPng;
 
   try {
     const data = await loadOgData(env, type, slug);
@@ -90,14 +86,16 @@ export async function handleOgImage(request: Request, env: Env, url: URL, ctx: E
     const png = await svgToPng(env, generateOgSvg(data));
     const res = pngResponse(png, true);
     ctx.waitUntil(caches.default.put(cacheKey, res.clone()).catch((e) => console.warn('og-cache put failed:', e)));
-    // Publish to global KV so other colos serve it without re-rasterising.
-    if (env.KV_CACHE) {
-      ctx.waitUntil(
-        env.KV_CACHE.put(kvKey, png as unknown as ArrayBuffer, { expirationTtl: OG_KV_TTL_SECONDS }).catch((e) =>
-          console.warn('og-kv put failed:', e)
+    ctx.waitUntil(
+      caches.default
+        .put(
+          pngCacheReq,
+          new Response(png, {
+            headers: { 'content-type': 'image/png', 'cache-control': `public, max-age=${OG_KV_TTL_SECONDS}` },
+          })
         )
-      );
-    }
+        .catch((e) => console.warn('og-cache put failed:', e))
+    );
     return res;
   } catch (err) {
     console.error('og-image render failed:', err instanceof Error ? err.message : String(err));

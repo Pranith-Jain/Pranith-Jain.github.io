@@ -9,6 +9,7 @@ import type {
   IocCorrelationResponse,
 } from './types';
 import { GP_FEEDS, gpWarmKey, GLOBAL_PULSE_CACHE, CACHE_TTL, GP_RESPONSE_KEY, GP_RESPONSE_TTL } from './config';
+import { routeCacheGet, routeCachePut } from '../../lib/route-cache';
 import { listBriefings } from '../../lib/briefing-builder';
 import { readKvJson } from './shared';
 import { signInternalToken } from '../../lib/internal-token';
@@ -95,16 +96,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
 
   const kv = c.env.KV_CACHE;
 
-  // Global full-response cache (KV is global; the Cache-API above is per-colo).
-  // A reader in a colo that hasn't built the response recently serves the last
-  // successful build with ONE cheap KV read instead of re-running the whole
-  // multi-source build — which on a cold cache can exceed the Free-plan
-  // 50-subrequest cap (and CPU budget) and return HTTP 503. Rewritten by the
-  // background build below.
-  if (!force && kv) {
-    const kvBody = await kv.get(GP_RESPONSE_KEY);
-    if (kvBody) {
-      // Warm the per-colo Cache-API so repeat crawls in this colo skip KV.
+  if (!force) {
+    const cachedBody = await routeCacheGet<unknown>(GP_RESPONSE_KEY);
+    if (cachedBody) {
+      const kvBody = JSON.stringify(cachedBody);
       c.executionCtx.waitUntil(
         cache.put(cacheReq, new Response(kvBody, { headers: { 'content-type': 'application/json' } })).catch(() => {})
       );
@@ -254,12 +249,13 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     syncLayers[e.kind] = (syncLayers[e.kind] ?? 0) + 1;
   }
 
-  const json = JSON.stringify({
+  const payload = {
     generated_at: new Date().toISOString(),
     total_events: allEvents.length,
     events: allEvents,
     layers: syncLayers,
-  });
+  };
+  const json = JSON.stringify(payload);
   const response = new Response(json, {
     headers: {
       'content-type': 'application/json',
@@ -268,10 +264,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     },
   });
   c.executionCtx.waitUntil(
-    Promise.all([
-      cache.put(cacheReq, response.clone()),
-      kv ? kv.put(GP_RESPONSE_KEY, json, { expirationTtl: GP_RESPONSE_TTL }).catch(() => {}) : Promise.resolve(),
-    ])
+    Promise.all([cache.put(cacheReq, response.clone()), routeCachePut(GP_RESPONSE_KEY, payload, GP_RESPONSE_TTL)])
   );
 
   // ── Background build for external fetchers (earthquakes, flights, etc.) ──
@@ -900,12 +893,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           },
         });
         await cache.put(cacheReq, response.clone());
-        // Publish to global KV so readers in other colos serve it cheaply (see
-        // the read at the top of this handler) instead of each colo re-running
-        // the build. Best-effort: a KV write failure must not lose the build.
-        if (kv) {
-          await kv.put(GP_RESPONSE_KEY, json, { expirationTtl: GP_RESPONSE_TTL }).catch(() => {});
-        }
+        await routeCachePut(GP_RESPONSE_KEY, result, GP_RESPONSE_TTL);
 
         // NOTE: global-pulse does NOT write the warm keys. A Worker can't fetch
         // its own public endpoints (loopback fails), so this handler's direct-

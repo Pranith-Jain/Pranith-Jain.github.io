@@ -1292,17 +1292,38 @@ export function TelegramFeedPanel(): JSX.Element {
   useEffect(() => {
     const ac = new AbortController();
     (async () => {
-      try {
-        const res = await fetch('/api/v1/telegram-feed', {
-          signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]),
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const json = (await res.json()) as TelegramFeedResponse;
-        setData(json);
-      } catch (e) {
-        console.error('handler failed:', e instanceof Error ? e.message : String(e));
-        if ((e as Error).name !== 'AbortError') setError((e as Error).message);
-      } finally {
+      // Cold-cache scrapes of telegram.me can exceed a single short timeout
+      // (per-channel 12s × ~10 channels), so allow a generous window and retry
+      // once — the backend populates its Cache API in waitUntil, so the second
+      // attempt usually hits warm cache and returns instantly.
+      const ATTEMPTS = 2;
+      let lastErr: unknown = null;
+      for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
+        if (ac.signal.aborted) return;
+        try {
+          const res = await fetch('/api/v1/telegram-feed', {
+            signal: AbortSignal.any([ac.signal, AbortSignal.timeout(30_000)]),
+          });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const json = (await res.json()) as TelegramFeedResponse;
+          setData(json);
+          setError(null);
+          setLoading(false);
+          return;
+        } catch (e) {
+          lastErr = e;
+          if (ac.signal.aborted) return;
+          const msg = e instanceof Error ? e.message : String(e);
+          const retryable =
+            (e as Error).name === 'TimeoutError' || /timed out|timeout|network|fetch failed|load failed/i.test(msg);
+          if (attempt < ATTEMPTS - 1 && retryable) continue;
+        }
+      }
+      if (!ac.signal.aborted) {
+        if (lastErr) {
+          console.error('handler failed:', lastErr instanceof Error ? lastErr.message : String(lastErr));
+          if ((lastErr as Error).name !== 'AbortError') setError((lastErr as Error).message);
+        }
         setLoading(false);
       }
     })();

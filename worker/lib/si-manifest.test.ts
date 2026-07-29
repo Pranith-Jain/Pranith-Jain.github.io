@@ -349,12 +349,11 @@ function makeScriptsFixture() {
     license: 'MIT',
     count: 2,
     scripts: [
-      { name: 'Deploy-CustomDetections.ps1', sizeBytes: 13365 },
       { name: 'example-detection-manifest.json', sizeBytes: 1979 },
+      { name: 'sentinel-ingestion-drilldown.md', sizeBytes: 4200 },
     ],
   });
-  // Scripts are stored as raw text (not JSON).
-  data.set('/data/si/scripts/Deploy-CustomDetections.ps1', '# PowerShell deploy script\nWrite-Host "deploy"');
+  data.set('/data/si/scripts/example-detection-manifest.json', '{ "displayName": "test rule" }');
   const assets = {
     fetch: vi.fn(async (req: Request) => {
       const path = new URL(req.url).pathname;
@@ -370,13 +369,9 @@ function makeScriptsFixture() {
 describe('loadScriptsIndex / getScript', () => {
   beforeEach(() => clearDocsCache());
 
-  it('lists the 5 known scripts (3 PS1 + 1 manifest + 1 drilldown)', async () => {
+  it('lists the known scripts (detection manifests + drilldown)', async () => {
     const { data } = makeScriptsFixture() as unknown as { data: Map<string, unknown> };
-    // We can't easily inject the same data twice; the real-fixture test would
-    // require the worker's dist/data/si/scripts-index.json. So this test is
-    // for the SHAPE of the response: it has source/license/count/scripts keys.
     void data;
-    // Use the actual public/data/si/scripts-index.json if it exists.
     const realIndex = '/Users/pranith/Documents/portfolio/public/data/si/scripts-index.json';
     if (typeof require !== 'undefined' && (await import('node:fs/promises')).default) {
       try {
@@ -386,9 +381,8 @@ describe('loadScriptsIndex / getScript', () => {
         expect(idx.count).toBeGreaterThan(0);
         expect(idx.scripts).toBeInstanceOf(Array);
         const names = idx.scripts.map((s: { name: string }) => s.name);
-        expect(names).toContain('Deploy-CustomDetections.ps1');
-        expect(names).toContain('Invoke-MitreScan.ps1');
-        expect(names).toContain('Invoke-IngestionScan.ps1');
+        expect(names).toContain('example-detection-manifest.json');
+        expect(names).toContain('sentinel-ingestion-drilldown.md');
       } catch {
         // dist may not be built in test env — skip silently.
       }
@@ -404,9 +398,9 @@ describe('loadScriptsIndex / getScript', () => {
 
   it('returns a script body for a known name', async () => {
     const assets = makeScriptsFixture();
-    const body = await getScript(assets, 'Deploy-CustomDetections.ps1');
+    const body = await getScript(assets, 'example-detection-manifest.json');
     expect(body).not.toBeNull();
-    expect(body!.body).toContain('Write-Host');
+    expect(body!.body).toContain('displayName');
     expect(body!.sizeBytes).toBeGreaterThan(0);
   });
 

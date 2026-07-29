@@ -55,6 +55,8 @@ interface SecretLeaksResponse {
   };
 }
 
+const EMPTY_LEAKS: LeakEntry[] = [];
+
 // Severity → icon mapping (colour lives in the canonical SEVERITY_TONE table).
 const SEV_ICON: Record<Severity, typeof ShieldAlert> = {
   critical: ShieldX,
@@ -123,8 +125,8 @@ export default function SecretLeaks(): JSX.Element {
     };
   }, [refreshKey]);
 
-  const leaks = data?.leaks ?? [];
-  const providers = [...new Set(leaks.map((l) => l.provider))].sort();
+  const leaks = useMemo(() => data?.leaks ?? EMPTY_LEAKS, [data]);
+  const providers = useMemo(() => [...new Set(leaks.map((l) => l.provider))].sort(), [leaks]);
   const stats = data
     ? {
         totalSecrets: data.total_secrets,

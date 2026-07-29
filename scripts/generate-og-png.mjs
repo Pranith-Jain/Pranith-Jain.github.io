@@ -29,11 +29,11 @@ const CARDS = [
     slug: 'og-image',
     label: 'home',
     accent: '#2c3ee5', accent2: '#5a78f2', accentText: '#a1b6fb',
-    eyebrow: 'SECURITY TOOLS · THREAT INTEL · DFIR',
+    eyebrow: 'DFIR TOOLS · LIVE THREAT INTEL · OSINT',
     headline: ['Browser-side DFIR tooling &', 'a live threat-intel platform'],
     accentFrom: 1,
-    features: '90+ DFIR tools · 100+ threat intel feeds · no signup',
-    stats: [['90+', 'tools'], ['100+', 'feeds'], ['free', 'no signup']],
+    features: '90+ DFIR tools · 145+ intel feeds · edge-hosted · no signup',
+    stats: [['90+', 'tools'], ['145+', 'feeds'], ['free', 'no signup']],
     footer: 'pranithjain.qzz.io  ·  CRUCIBLE  ·  PANOPTICON',
   },
   {
@@ -52,10 +52,10 @@ const CARDS = [
     label: 'PANOPTICON (/threatintel)',
     accent: '#2c3ee5', accent2: '#5a78f2', accentText: '#a1b6fb',
     eyebrow: 'PANOPTICON · THREAT INTEL PLATFORM',
-    headline: ['Live intelligence from', '100+ public feeds'],
+    headline: ['Live intelligence from', '145+ public feeds'],
     accentFrom: 1,
-    features: 'Ransomware leaks · CVEs · dark web · actor tracking',
-    stats: [['100+', 'feeds'], ['18', 'correlated'], ['free', 'no login']],
+    features: 'Ransomware leaks · CVE × CISA KEV · IOC correlation · dark web',
+    stats: [['145+', 'feeds'], ['24/7', 'live'], ['free', 'no login']],
     footer: 'pranithjain.qzz.io/threatintel  ·  edge-hosted',
   },
   {
@@ -138,6 +138,14 @@ function buildSvg(c) {
   <text x="108" y="102" text-anchor="middle" font-size="24" font-weight="800" fill="#ffffff">PJ</text>
   <text x="152" y="92" font-size="27" font-weight="800" letter-spacing="0.5" fill="#ffffff">pranithjain.qzz.io</text>
   <text x="153" y="116" font-size="13" font-weight="700" letter-spacing="3" fill="${c.accentText}">BUILT ON CLOUDFLARE WORKERS</text>
+
+  <!-- live indicator pill (top-right) -->
+  <g>
+    <rect x="1016" y="66" width="104" height="36" rx="18" fill="#34d399" fill-opacity="0.12" stroke="#34d399" stroke-opacity="0.45" stroke-width="1.5"/>
+    <circle cx="1040" cy="84" r="5.5" fill="#34d399"/>
+    <circle cx="1040" cy="84" r="9" fill="none" stroke="#34d399" stroke-opacity="0.35" stroke-width="1.5"/>
+    <text x="1056" y="90" font-size="15" font-weight="800" letter-spacing="2.5" fill="#6ee7b7">LIVE</text>
+  </g>
 
   <!-- section eyebrow -->
   <text x="80" y="208" font-size="18" font-weight="800" letter-spacing="4" fill="${c.accentText}">${esc(c.eyebrow)}</text>

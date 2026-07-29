@@ -327,16 +327,6 @@ export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise
 
   // If no leaks found, return empty result — never fabricate demo data.
 
-  // Cache in KV
-  if (kv) {
-    try {
-      await kv.put(kvKey, JSON.stringify(response), { expirationTtl: 3600 });
-    } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      /* quota */
-    }
-  }
-
   const res = new Response(JSON.stringify(response), {
     headers: {
       'content-type': 'application/json',

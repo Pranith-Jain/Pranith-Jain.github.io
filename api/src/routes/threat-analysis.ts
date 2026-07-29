@@ -26,7 +26,8 @@ Return ONLY valid JSON with these fields:
   "impact": "Brief assessment of potential impact",
   "recommended_actions": ["action1", "action2"],
   "related_ttps": ["MITRE TTP if identifiable, else null"],
-  "context": "1-2 sentences of geopolitical/cyber context"
+  "context": "1-2 sentences of geopolitical/cyber context",
+  "tweet": "A single tweet-ready line (max 280 chars) summarizing this threat for a security audience. Include 1-2 hashtags (#ThreatIntel, #CyberSecurity, etc). Punchy and specific."
 }
 No markdown. No explanation outside the JSON.`;
 
@@ -41,7 +42,8 @@ Return ONLY valid JSON with these fields:
   "key_actors": ["Notable threat actors or groups if relevant"],
   "active_conflicts": ["Active conflicts or tensions"],
   "recommended_posture": "Recommended security posture for organizations with exposure to this region",
-  "trend": "improving|stable|deteriorating"
+  "trend": "improving|stable|deteriorating",
+  "tweet": "A single tweet-ready line (max 280 chars) summarizing this country's threat profile for a security audience. Include 1-2 hashtags (#ThreatIntel, #CyberSecurity, etc). Punchy and specific."
 }
 No markdown. No explanation outside the JSON.`;
 
@@ -54,7 +56,8 @@ Return ONLY valid JSON with these fields:
   "risk_level": "critical|high|medium|low|unknown",
   "confidence": "high|medium|low",
   "possibleAttribution": "Known threat actor or campaign if attributable, else null",
-  "recommendedActions": ["action1", "action2"]
+  "recommendedActions": ["action1", "action2"],
+  "tweet": "A single tweet-ready line (max 280 chars) summarizing this indicator assessment for a security audience. Include 1-2 hashtags (#ThreatIntel, #CyberSecurity, etc). Punchy and specific."
 }
 No markdown. No explanation outside the JSON.`;
 
@@ -72,7 +75,8 @@ Return ONLY valid JSON with these fields:
   "attribution": "Threat actor attribution if identifiable, else null",
   "recommendations": ["recommendation1", "recommendation2"],
   "sources_cited": ["source1", "source2"],
-  "quality_assessment": "Assessment of the research quality — methodology, evidence, timeliness"
+  "quality_assessment": "Assessment of the research quality — methodology, evidence, timeliness",
+  "tweet": "A single tweet-ready line (max 280 chars) summarizing this research for a security audience. Include 1-2 hashtags (#ThreatIntel, #CyberSecurity, etc). Punchy and specific."
 }
 No markdown. No explanation outside the JSON.`;
 

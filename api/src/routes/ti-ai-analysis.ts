@@ -13,6 +13,7 @@
 
 import { Hono } from 'hono';
 import type { D1Database, KVNamespace, Ai } from '@cloudflare/workers-types';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 import { runCompletion } from '../case-study/generation/ai-client';
 
 interface AiEnv {
@@ -91,7 +92,6 @@ async function runAiPrompt(
 
 ai.post('/analyze', async (c) => {
   const db = c.env.BRIEFINGS_DB;
-  const kv = c.env.KV_CACHE;
 
   const body = await c.req.json<{ indicator: string; type?: string }>();
 
@@ -100,7 +100,7 @@ ai.post('/analyze', async (c) => {
   }
 
   const cacheKey = `ti:ai:analyze:${body.indicator}`;
-  const cached = await kv.get(cacheKey, 'json');
+  const cached = await routeCacheGet<object>(cacheKey);
   if (cached) return c.json(cached);
 
   const context = await gatherIndicatorContext(db, body.indicator);
@@ -193,7 +193,7 @@ Respond in JSON format:
     };
   }
 
-  await kv.put(cacheKey, JSON.stringify(analysis), { expirationTtl: 3600 });
+  c.executionCtx.waitUntil(routeCachePut(cacheKey, analysis, 3600));
   return c.json(analysis);
 });
 

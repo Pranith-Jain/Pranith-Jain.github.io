@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { generateOgSvg } from '../../worker/og-image';
-import { matchOgImagePath } from '../../worker/og-path';
-import { resolveOg } from '../../worker/og-rewriter';
+import { matchOgImagePath, matchOgPagePath, pageCardUrl } from '../../worker/og-path';
+import { resolveOg, ogMetaForPath } from '../../worker/og-rewriter';
 
 /**
  * Pins the OG-image card pipeline:
@@ -54,6 +54,19 @@ describe('generateOgSvg', () => {
     expect(svg).toContain('A &amp; B &lt;script&gt;');
     expect(svg).not.toContain('<script>');
   });
+
+  it('renders a page card with section-aware badge + product overrides', () => {
+    const svg = generateOgSvg({
+      title: 'CVE Check',
+      subtitle: 'A free DFIR tool on pranithjain.qzz.io.',
+      type: 'page',
+      badge: 'DFIR TOOLKIT',
+      product: 'PANOPTICON',
+    });
+    expect(svg).toContain('DFIR TOOLKIT');
+    expect(svg).toContain('PANOPTICON');
+    expect(svg).toContain('CVE Check');
+  });
 });
 
 describe('matchOgImagePath', () => {
@@ -74,6 +87,46 @@ describe('matchOgImagePath', () => {
   });
 });
 
+describe('matchOgPagePath', () => {
+  it('decodes the route path from the ?p= param', () => {
+    expect(matchOgPagePath(new URL('https://x/api/v1/og-image/page.png?p=%2Fdfir%2Fcve'))).toBe('/dfir/cve');
+    expect(matchOgPagePath(new URL('https://x/api/v1/og-image/page.png?p=%2Fabout'))).toBe('/about');
+  });
+
+  it.each([
+    'https://x/api/v1/og-image/page.png', // missing ?p=
+    'https://x/api/v1/og-image/page.png?p=dfir', // not site-relative
+    'https://x/api/v1/og-image/briefing/foo.png?p=%2Fdfir', // wrong pathname
+  ])('rejects %s', (u) => {
+    expect(matchOgPagePath(new URL(u))).toBeNull();
+  });
+});
+
+describe('pageCardUrl', () => {
+  it('round-trips a route path through the page-card URL', () => {
+    const url = new URL(`https://x${pageCardUrl('/threatintel/feeds/threatfeeds')}`);
+    expect(matchOgPagePath(url)).toBe('/threatintel/feeds/threatfeeds');
+  });
+});
+
+describe('ogMetaForPath', () => {
+  it('derives a unique title + section branding for a deep tool page', () => {
+    const meta = ogMetaForPath('/dfir/cve');
+    expect(meta?.title).toContain('CVE');
+    expect(meta?.badge).toBe('DFIR TOOLKIT');
+    expect(meta?.product).toBe('CRUCIBLE');
+  });
+
+  it('brands threat-intel pages as PANOPTICON', () => {
+    expect(ogMetaForPath('/threatintel/telegram')?.product).toBe('PANOPTICON');
+    expect(ogMetaForPath('/threatintel/telegram')?.badge).toBe('THREAT INTEL');
+  });
+
+  it('returns null for the home page (keeps the static home card)', () => {
+    expect(ogMetaForPath('/')).toBeNull();
+  });
+});
+
 describe('resolveOg dynamic image wiring', () => {
   it('points a blog page at its dynamic card', async () => {
     const env = { CASE_STUDIES: { get: async () => ({ title: 'Post', excerpt: 'x' }) } };
@@ -88,5 +141,26 @@ describe('resolveOg dynamic image wiring', () => {
       env as never
     );
     expect(og?.image).toBe('/api/v1/og-image/briefing/daily-2026-06-12.png');
+  });
+
+  it('gives a deep tool page its OWN unique page card (not the section card)', async () => {
+    const og = await resolveOg(new URL('https://pranithjain.qzz.io/dfir/cve'), {} as never);
+    expect(og?.image).toBe('/api/v1/og-image/page.png?p=%2Fdfir%2Fcve');
+    expect(og?.title).toContain('CVE');
+  });
+
+  it('gives two sibling pages DIFFERENT cards', async () => {
+    const a = await resolveOg(new URL('https://pranithjain.qzz.io/dfir/cve'), {} as never);
+    const b = await resolveOg(new URL('https://pranithjain.qzz.io/dfir/asn'), {} as never);
+    expect(a?.image).not.toBe(b?.image);
+  });
+
+  it('keeps the static branded card for a surface route (/dfir)', async () => {
+    const og = await resolveOg(new URL('https://pranithjain.qzz.io/dfir'), {} as never);
+    expect(og?.image).toContain('/og-dfir.png');
+  });
+
+  it('returns null for the home page (keeps index.html home card)', async () => {
+    expect(await resolveOg(new URL('https://pranithjain.qzz.io/'), {} as never)).toBeNull();
   });
 });

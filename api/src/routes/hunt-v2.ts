@@ -13,6 +13,7 @@ import { ctLogs } from '../lib/crt-sh';
 import { safeNullLog } from '../lib/safe-catch';
 import { detectType } from '../lib/indicator';
 import type { Indicator } from '../providers/types';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 import { isCircuitOpen, recordProviderFailure, recordProviderSuccess } from '../lib/circuit-breaker';
 import type { ProviderResult, ProviderId } from '../providers/types';
 import { ADAPTERS, buildProviderEnv, PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS } from '../providers';
@@ -337,29 +338,27 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
     ]);
 
     // Run RDAP/CT separately so they can't crash the whole response.
-    // RDAP results are cached in KV to avoid registry rate limits.
+    // RDAP results are cached in the per-colo Cache API to avoid registry rate limits.
     const rdapCacheKey = `hunt-rdap:${q}`;
     let whois: Record<string, unknown> | null = null;
-    if (type === 'domain' && c.env.KV_CACHE) {
+    if (type === 'domain') {
       try {
-        const cached = await c.env.KV_CACHE.get(rdapCacheKey, 'json');
+        const cached = await routeCacheGet<Record<string, unknown>>(rdapCacheKey);
         if (cached) {
-          whois = cached as Record<string, unknown>;
+          whois = cached;
         } else {
           whois = (await safeNullLog('rdap-lookup', rdapLookup(q)).catch(() => null)) as unknown as Record<
             string,
             unknown
           > | null;
           if (whois && Object.keys(whois).length > 0) {
-            await c.env.KV_CACHE.put(rdapCacheKey, JSON.stringify(whois), { expirationTtl: 3600 });
+            c.executionCtx.waitUntil(routeCachePut(rdapCacheKey, whois, 3600));
           }
         }
       } catch (_catchErr) {
         console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         whois = null;
       }
-    } else if (type === 'domain') {
-      whois = (await safeNullLog('rdap-lookup', rdapLookup(q)).catch(() => null)) as Record<string, unknown> | null;
     }
     const certs = type === 'domain' ? await ctLogs(q).catch(() => []) : [];
 

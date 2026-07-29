@@ -37,6 +37,14 @@
   <text x="152" y="92" font-size="27" font-weight="800" letter-spacing="0.5" fill="#ffffff">pranithjain.qzz.io</text>
   <text x="153" y="116" font-size="13" font-weight="700" letter-spacing="3" fill="#bae6fd">BUILT ON CLOUDFLARE WORKERS</text>
 
+  <!-- live indicator pill (top-right) -->
+  <g>
+    <rect x="1016" y="66" width="104" height="36" rx="18" fill="#34d399" fill-opacity="0.12" stroke="#34d399" stroke-opacity="0.45" stroke-width="1.5"/>
+    <circle cx="1040" cy="84" r="5.5" fill="#34d399"/>
+    <circle cx="1040" cy="84" r="9" fill="none" stroke="#34d399" stroke-opacity="0.35" stroke-width="1.5"/>
+    <text x="1056" y="90" font-size="15" font-weight="800" letter-spacing="2.5" fill="#6ee7b7">LIVE</text>
+  </g>
+
   <!-- section eyebrow -->
   <text x="80" y="208" font-size="18" font-weight="800" letter-spacing="4" fill="#bae6fd">SCOUT · RECON SCANNER</text>
 

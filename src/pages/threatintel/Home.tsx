@@ -197,8 +197,7 @@ export default function ThreatIntelHome(): JSX.Element {
       icon={<Shield size={28} />}
       title="Threat Intel"
       description="Live threat intelligence - ransomware activity, threat actors, IOCs, CVEs, dark web monitoring, and social media feeds."
-      maxWidthClass="max-w-full"
-      className="py-0"
+      maxWidthClass="max-w-7xl"
     >
       <ThreatIntelStructuredData />
       <BreadcrumbListSchema
@@ -216,7 +215,7 @@ export default function ThreatIntelHome(): JSX.Element {
       {/* surface-card + tone-tinted 1px hairline replaces the old
           224px blurred brand wash. Same hierarchy, none of the
           AI-decorative feel. */}
-      <section className="surface-elevated relative p-6 sm:p-10 lg:p-12">
+      <section className="surface-elevated relative mt-8 p-6 sm:mt-10 sm:p-10 lg:p-12">
         <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-px w-12 bg-rose-500/60" />
 
         {/* Status ribbon - pulse + uptime + feed scope. The .live-pulse
@@ -335,7 +334,7 @@ export default function ThreatIntelHome(): JSX.Element {
 
       {/* ── Search results (when typing) ─────────────────────── */}
       {isSearching && (
-        <section className="animate-fade-in-up">
+        <section className="mt-8 animate-fade-in-up sm:mt-10">
           <div className="font-mono text-xs text-slate-500 mb-4">
             {searchResults?.length ?? 0} {searchResults?.length === 1 ? 'match' : 'matches'} for &ldquo;{query.trim()}
             &rdquo;
@@ -376,7 +375,7 @@ export default function ThreatIntelHome(): JSX.Element {
       {!isSearching && (
         <>
           {/* ── Quick access - always visible, no scrolling needed */}
-          <section>
+          <section className="mt-8 sm:mt-10">
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 {
@@ -439,7 +438,7 @@ export default function ThreatIntelHome(): JSX.Element {
 
           {/* ── Live Intelligence - open by default: live proof the platform
                 is working belongs above the fold on the threat-intel hub. */}
-          <details open className="group surface-card">
+          <details open className="group surface-card mt-8 sm:mt-10">
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
               <div className="flex items-center gap-2">
                 <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -463,7 +462,7 @@ export default function ThreatIntelHome(): JSX.Element {
           {/* ── Explore by topic - open by default: these category cards are
                 the hub's primary navigation, so they shouldn't be hidden behind
                 a collapsed summary on landing. Secondary sections stay collapsed. */}
-          <details open className="group surface-card">
+          <details open className="group surface-card mt-8 sm:mt-10">
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
               <div>
                 <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">Explore by topic</h2>
@@ -525,7 +524,7 @@ export default function ThreatIntelHome(): JSX.Element {
           </details>
 
           {/* ── Collapsible: Getting started */}
-          <details className="group surface-card">
+          <details className="group surface-card mt-8 sm:mt-10">
             <summary className="flex items-center justify-between cursor-pointer p-4 sm:p-5 select-none">
               <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">New here?</h2>
               <ArrowRight
@@ -569,7 +568,7 @@ export default function ThreatIntelHome(): JSX.Element {
           </details>
 
           {/* ── Full catalog link */}
-          <div className="flex justify-center">
+          <div className="mt-8 flex justify-center sm:mt-10">
             <Link
               to="/threatintel/catalog"
               className="surface-card inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium text-slate-700 hover:border-rose-300 hover:text-rose-600 dark:text-slate-300 dark:hover:border-rose-600 dark:hover:text-rose-400"

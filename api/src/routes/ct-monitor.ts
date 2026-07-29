@@ -267,8 +267,8 @@ export async function ctCertsHandler(c: Context<{ Bindings: Env }>): Promise<Res
 
   await ensureTables(db);
 
-  const limit = Math.min(parseInt(c.req.query('limit') ?? '100'), 500);
-  const days = parseInt(c.req.query('days') ?? '30');
+  const limit = Math.min(Math.max(Number(c.req.query('limit')) || 100, 1), 500);
+  const days = Math.max(Number(c.req.query('days')) || 30, 1);
 
   const rows = await db
     .prepare(

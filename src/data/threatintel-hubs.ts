@@ -1151,6 +1151,15 @@ export const HUB_META: readonly HubMeta[] = [
         badge: 'live',
       },
       {
+        path: '/threatintel/cyberpulse',
+        tabId: 'cyberpulse',
+        label: 'CyberPulse',
+        desc: 'Live breach/leak/intel incident tracker - ransomware, leaks, extortion, supply chain from X, Telegram, Reddit, Bluesky.',
+        compVar: 'CyberPulse',
+        badge: 'live',
+        keywords: ['cyberpulse', 'breach', 'leak', 'incident', 'ransomware', 'extortion'],
+      },
+      {
         path: '/threatintel/predictive/threat-pulse',
         tabId: 'threat-pulse',
         label: 'Threat Pulse',

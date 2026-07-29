@@ -1,15 +1,1 @@
-{
-  "slug": "deadlock-pasello-2026-07-28",
-  "title": "Pasello",
-  "group": "Deadlock",
-  "discovered": "2026-07-28T14:50:54.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IT",
-  "sizeBytes": 0,
-  "description": "Pasello Trattamenti Termici Srl , an Italian specialist company for the heat treatment of metal alloys.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"deadlock-pasello-2026-07-28","title":"Pasello","group":"Deadlock","discovered":"2026-07-28T14:50:54.000Z","category":"ransomware","severity":"critical","country":"IT","sizeBytes":0,"description":"Pasello Trattamenti Termici Srl , an Italian specialist company for the heat treatment of metal alloys.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

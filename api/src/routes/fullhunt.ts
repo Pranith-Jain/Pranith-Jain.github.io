@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const CACHE_TTL = 600;
 
@@ -15,8 +16,8 @@ fullhuntRouter.get('/fullhunt/domain', async (c) => {
   }
 
   const cacheKey = `fullhunt:domain:${domain}`;
-  const cached = await c.env.KV_CACHE?.get(cacheKey, 'json');
-  if (cached) return c.json({ ...(cached as object), cached: true });
+  const cached = await routeCacheGet<object>(cacheKey);
+  if (cached) return c.json({ ...cached, cached: true });
 
   try {
     const res = await fetch(`https://api.fullhunt.io/api/v1/domain/${encodeURIComponent(domain)}/details`, {
@@ -32,9 +33,7 @@ fullhuntRouter.get('/fullhunt/domain', async (c) => {
     const data = await res.json();
     const body = { domain, results: data, generated_at: new Date().toISOString(), cached: false };
 
-    if (c.env.KV_CACHE) {
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_TTL }));
-    }
+    c.executionCtx.waitUntil(routeCachePut(cacheKey, body, CACHE_TTL));
     return c.json(body);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));

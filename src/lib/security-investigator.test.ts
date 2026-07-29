@@ -156,23 +156,23 @@ describe('createSiClient', () => {
   it('listScripts() returns the scripts index', async () => {
     const fetchMock = makeFetchMock((u) => {
       expect(u).toBe('/api/v1/si/scripts');
-      return makeJsonResponse({ total: 5, returned: 5, scripts: [{ name: 'Deploy-CustomDetections.ps1', sizeBytes: 12597 }] });
+      return makeJsonResponse({ total: 3, returned: 3, scripts: [{ name: 'example-detection-manifest.json', sizeBytes: 1979 }] });
     });
     const out = await createSiClient({ fetch: fetchMock }).listScripts();
-    expect(out.total).toBe(5);
-    expect(out.scripts[0].name).toContain('.ps1');
+    expect(out.total).toBe(3);
+    expect(out.scripts[0].name).toContain('.json');
   });
 
   it('getScript() returns the body as text', async () => {
     const fetchMock = makeFetchMock((u) => {
-      expect(u).toBe('/api/v1/si/scripts/Invoke-MitreScan.ps1');
-      return new Response('# PowerShell script body', {
+      expect(u).toBe('/api/v1/si/scripts/sentinel-ingestion-drilldown.md');
+      return new Response('# Drilldown guide body', {
         status: 200,
-        headers: { 'Content-Type': 'text/plain; charset=utf-8', 'X-SI-Bytes': '23' },
+        headers: { 'Content-Type': 'text/plain; charset=utf-8', 'X-SI-Bytes': '22' },
       });
     });
-    const out = await createSiClient({ fetch: fetchMock }).getScript('Invoke-MitreScan.ps1');
-    expect(out.body).toBe('# PowerShell script body');
-    expect(out.bytes).toBe(23);
+    const out = await createSiClient({ fetch: fetchMock }).getScript('sentinel-ingestion-drilldown.md');
+    expect(out.body).toBe('# Drilldown guide body');
+    expect(out.bytes).toBe(22);
   });
 });

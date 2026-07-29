@@ -43,8 +43,6 @@ export interface GrcEvidenceItem {
 }
 
 const KV_PREFIX = 'grc:v1';
-const INDEX_CACHE_KEY = 'https://grc-index-cache.internal/v1';
-const INDEX_CACHE_TTL = 30;
 
 function makeId(): string {
   return Date.now().toString(36) + '-' + crypto.randomUUID().slice(0, 8);
@@ -123,13 +121,10 @@ async function loadAll<T>(env: Env, type: string): Promise<T[]> {
   const kv = env.KV_CACHE;
   if (!kv) return [];
   try {
-    const indexKey = `${INDEX_CACHE_KEY}/${type}`;
-    const cached = await kv.get(indexKey);
-    if (cached) return JSON.parse(cached) as T[];
-    const listKey = `${KV_PREFIX}:${type}:index`;
-    const idsRaw = await kv.get(listKey);
+    const blob = await kv.get(`${KV_PREFIX}:${type}:all`, 'json');
+    if (blob) return blob as T[];
+    const idsRaw = await kv.get(`${KV_PREFIX}:${type}:index`);
     const ids: string[] = idsRaw ? JSON.parse(idsRaw) : [];
-    // One bulk read per 100 ids instead of one get per id.
     const values = await kvBulkGetText(
       kv,
       ids.map((id) => `${KV_PREFIX}:${type}:${id}`)
@@ -139,39 +134,29 @@ async function loadAll<T>(env: Env, type: string): Promise<T[]> {
       const raw = values.get(`${KV_PREFIX}:${type}:${id}`) ?? null;
       if (raw) results.push(JSON.parse(raw) as T);
     }
-    await kv.put(indexKey, JSON.stringify(results), { expirationTtl: INDEX_CACHE_TTL });
     return results;
   } catch {
     return [];
   }
 }
 
-async function saveAll<T>(env: Env, type: string, items: T[], getId: (item: T) => string): Promise<void> {
+async function saveAll<T>(env: Env, type: string, items: T[]): Promise<void> {
   const kv = env.KV_CACHE;
   if (!kv) return;
-  const ids = items.map(getId);
-  await kv.put(`${KV_PREFIX}:${type}:index`, JSON.stringify(ids));
-  for (const item of items) await kv.put(`${KV_PREFIX}:${type}:${getId(item)}`, JSON.stringify(item));
-  await kv.delete(`${INDEX_CACHE_KEY}/${type}`);
+  await kv.put(`${KV_PREFIX}:${type}:all`, JSON.stringify(items));
 }
 
 async function readOne<T>(env: Env, type: string, id: string): Promise<T | null> {
-  const kv = env.KV_CACHE;
-  if (!kv) return null;
-  const raw = await kv.get(`${KV_PREFIX}:${type}:${id}`);
-  if (!raw) return null;
-  try {
-    return JSON.parse(raw) as T;
-  } catch {
-    return null;
-  }
+  const items = await loadAll<T & { id: string }>(env, type);
+  return items.find((i) => i.id === id) ?? null;
 }
 
-async function writeOne<T>(env: Env, type: string, item: T, id: string): Promise<void> {
-  const kv = env.KV_CACHE;
-  if (!kv) return;
-  await kv.put(`${KV_PREFIX}:${type}:${id}`, JSON.stringify(item));
-  await kv.delete(`${INDEX_CACHE_KEY}/${type}`);
+async function writeOne<T>(env: Env, type: string, item: T & { id: string }): Promise<void> {
+  const items = await loadAll<T & { id: string }>(env, type);
+  const idx = items.findIndex((i) => i.id === item.id);
+  if (idx >= 0) items[idx] = item;
+  else items.push(item);
+  await saveAll(env, type, items);
 }
 
 // ── Frameworks ───────────────────────────────────────────────────────
@@ -179,7 +164,7 @@ async function writeOne<T>(env: Env, type: string, item: T, id: string): Promise
 export async function grcListFrameworks(c: Context<{ Bindings: Env }>): Promise<Response> {
   const frameworks = await loadAll<GrcFramework>(c.env, 'frameworks');
   if (frameworks.length === 0) {
-    await saveAll(c.env, 'frameworks', DEFAULT_FRAMEWORKS, (f) => f.id);
+    await saveAll(c.env, 'frameworks', DEFAULT_FRAMEWORKS);
     return c.json(DEFAULT_FRAMEWORKS);
   }
   return c.json(frameworks);
@@ -196,7 +181,7 @@ export async function grcUpdateFramework(c: Context<{ Bindings: Env }>): Promise
   if (!existing) return c.json({ error: 'Framework not found' }, 404);
   const body = await c.req.json<Partial<GrcFramework>>();
   const updated: GrcFramework = { ...existing, ...body, id: existing.id, updated_at: new Date().toISOString() };
-  await writeOne(c.env, 'frameworks', updated, updated.id);
+  await writeOne(c.env, 'frameworks', updated);
   return c.json(updated);
 }
 
@@ -220,13 +205,13 @@ export async function grcCreateControl(c: Context<{ Bindings: Env }>): Promise<R
   const control: GrcControl = { ...body, id: makeId(), evidence_count: 0, status: body.status ?? 'not_assessed' };
   const controls = await loadAll<GrcControl>(c.env, 'controls');
   controls.push(control);
-  await saveAll(c.env, 'controls', controls, (ctrl) => ctrl.id);
+  await saveAll(c.env, 'controls', controls);
 
   const fw = await readOne<GrcFramework>(c.env, 'frameworks', control.framework_id);
   if (fw) {
     fw.control_count = controls.filter((c) => c.framework_id === control.framework_id).length;
     fw.updated_at = new Date().toISOString();
-    await writeOne(c.env, 'frameworks', fw, fw.id);
+    await writeOne(c.env, 'frameworks', fw);
   }
   return c.json(control, 201);
 }
@@ -236,7 +221,7 @@ export async function grcUpdateControl(c: Context<{ Bindings: Env }>): Promise<R
   if (!existing) return c.json({ error: 'Control not found' }, 404);
   const body = await c.req.json<Partial<GrcControl>>();
   const updated: GrcControl = { ...existing, ...body, id: existing.id };
-  await writeOne(c.env, 'controls', updated, updated.id);
+  await writeOne(c.env, 'controls', updated);
 
   if (body.status) {
     const controls = await loadAll<GrcControl>(c.env, 'controls');
@@ -246,7 +231,7 @@ export async function grcUpdateControl(c: Context<{ Bindings: Env }>): Promise<R
       const passed = fc.filter((c) => c.status === 'pass').length;
       fw.compliance_pct = fc.length > 0 ? clampPct((passed / fc.length) * 100) : 0;
       fw.updated_at = new Date().toISOString();
-      await writeOne(c.env, 'frameworks', fw, fw.id);
+      await writeOne(c.env, 'frameworks', fw);
     }
   }
   return c.json(updated);
@@ -257,13 +242,13 @@ export async function grcDeleteControl(c: Context<{ Bindings: Env }>): Promise<R
   if (!control) return c.json({ error: 'Control not found' }, 404);
   const controls = await loadAll<GrcControl>(c.env, 'controls');
   const filtered = controls.filter((ctrl) => ctrl.id !== control.id);
-  await saveAll(c.env, 'controls', filtered, (ctrl) => ctrl.id);
+  await saveAll(c.env, 'controls', filtered);
 
   const fw = await readOne<GrcFramework>(c.env, 'frameworks', control.framework_id);
   if (fw) {
     fw.control_count = filtered.filter((c) => c.framework_id === control.framework_id).length;
     fw.updated_at = new Date().toISOString();
-    await writeOne(c.env, 'frameworks', fw, fw.id);
+    await writeOne(c.env, 'frameworks', fw);
   }
   return c.json({ deleted: control.id });
 }
@@ -294,12 +279,12 @@ export async function grcCreateEvidence(c: Context<{ Bindings: Env }>): Promise<
   const item: GrcEvidenceItem = { ...body, id: makeId() };
   const items = await loadAll<GrcEvidenceItem>(c.env, 'evidence');
   items.push(item);
-  await saveAll(c.env, 'evidence', items, (e) => e.id);
+  await saveAll(c.env, 'evidence', items);
 
   const ctrl = await readOne<GrcControl>(c.env, 'controls', item.control_id);
   if (ctrl) {
     ctrl.evidence_count = items.filter((e) => e.control_id === item.control_id).length;
-    await writeOne(c.env, 'controls', ctrl, ctrl.id);
+    await writeOne(c.env, 'controls', ctrl);
   }
   return c.json(item, 201);
 }
@@ -309,7 +294,7 @@ export async function grcUpdateEvidence(c: Context<{ Bindings: Env }>): Promise<
   if (!existing) return c.json({ error: 'Evidence not found' }, 404);
   const body = await c.req.json<Partial<GrcEvidenceItem>>();
   const updated: GrcEvidenceItem = { ...existing, ...body, id: existing.id };
-  await writeOne(c.env, 'evidence', updated, updated.id);
+  await writeOne(c.env, 'evidence', updated);
   return c.json(updated);
 }
 
@@ -318,12 +303,12 @@ export async function grcDeleteEvidence(c: Context<{ Bindings: Env }>): Promise<
   if (!item) return c.json({ error: 'Evidence not found' }, 404);
   const items = await loadAll<GrcEvidenceItem>(c.env, 'evidence');
   const filtered = items.filter((e) => e.id !== item.id);
-  await saveAll(c.env, 'evidence', filtered, (e) => e.id);
+  await saveAll(c.env, 'evidence', filtered);
 
   const ctrl = await readOne<GrcControl>(c.env, 'controls', item.control_id);
   if (ctrl) {
     ctrl.evidence_count = filtered.filter((e) => e.control_id === item.control_id).length;
-    await writeOne(c.env, 'controls', ctrl, ctrl.id);
+    await writeOne(c.env, 'controls', ctrl);
   }
   return c.json({ deleted: item.id });
 }
