@@ -54,7 +54,6 @@ const ROUTES = [
   // ── Landings (4) ───────────────────────────────────────────────
   '/dfir',
   '/dfir/catalog',
-  '/dfir/vs',
   '/radar',
   '/threatintel',
   '/threatintel/catalog',
@@ -273,7 +272,6 @@ const ROUTES = [
   '/dfir/medusa-scan',
   '/dfir/graphql-audit',
   '/dfir/osv-scan',
-  '/dfir/wordpress-sim',
 
   // ── DFIR: STIX (2) — 0 API calls ──────────────────────────────
   '/dfir/stix',
@@ -286,7 +284,6 @@ const ROUTES = [
 
   // ── DFIR: dark web workbench (2) — 0 API calls ────────────────
   '/dfir/pgp-tool',
-  '/dfir/tor-gateway',
 
   // ── DFIR: investigator workbenches (6) — 0 API calls ──────────
   '/dfir/domain-investigator',
@@ -315,7 +312,6 @@ const ROUTES = [
   '/dfir/phone-hub',
   '/dfir/weather-osint',
   '/dfir/infostealer-intel',
-  '/dfir/rhysida-intrusion',
 
   // ── DFIR: AI agent tools (4) — 0 API calls ────────────────────
   '/dfir/agent-suite',
@@ -345,7 +341,6 @@ const ROUTES = [
   '/threatintel/external/cerast',
   '/threatintel/external/threatmon',
   '/dfir/winreg',
-  '/dfir/fleet-map',
   '/dfir/url-preview',
   '/dfir/subdomain-takeover',
   '/dfir/extract',

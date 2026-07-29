@@ -167,11 +167,8 @@ describe('dfir-hubs (DFIR catalog registry)', () => {
     const STANDALONE_ROUTES = new Set([
       '/dfir/attack-chains',
       '/dfir/attack-surface',
-      '/dfir/fleet-map',
       '/dfir/phishing-identity',
       '/dfir/ransomware-killchain',
-      '/dfir/rhysida-intrusion',
-      '/dfir/wordpress-sim',
       '/dfir/traceix',
       '/dfir/winreg',
     ]);

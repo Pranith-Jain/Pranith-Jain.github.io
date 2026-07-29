@@ -1173,13 +1173,6 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Encrypted secret sharing - AES-GCM in-browser, burn after reading, zero-knowledge server.',
         compVar: 'OneTimeSecret',
       },
-      {
-        path: '/dfir/tor-gateway',
-        tabId: 'tor-gateway',
-        label: 'Tor Gateway',
-        desc: 'Browser-routed Tor gateway for safe .onion lookups.',
-        compVar: 'TorGateway',
-      },
     ],
   },
   {

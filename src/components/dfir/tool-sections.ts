@@ -1121,13 +1121,6 @@ export const SECTIONS: Section[] = [
         desc: 'Encrypt · Decrypt · Sign · Verify · Generate keys · OpenPGP.js · 100% client-side',
         icon: Lock,
       },
-      {
-        path: '/dfir/tor-gateway',
-        useCase: 'Generate a clearnet link to access a .onion service.',
-        label: 'Tor Gateway',
-        desc: '.onion → Tor2web / Tor.link / Onion.ws gateway links · paste .onion address → get 6 gateway URLs',
-        icon: Globe2,
-      },
     ],
   },
   {

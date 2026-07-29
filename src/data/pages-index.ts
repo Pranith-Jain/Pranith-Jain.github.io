@@ -329,14 +329,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
     keywords: ['catalog', 'directory', 'browse', 'all tools', 'overview'],
   },
-  {
-    path: '/dfir/vs',
-    label: 'DFIR toolkit vs VirusTotal, ANY.RUN, Hybrid Analysis, URLScan',
-    description: 'Side-by-side comparison of the DFIR toolkit with hosted sandboxes and URL scanners.',
-    sectionLabel: 'DFIR · Overview',
-    group: 'dfir',
-    keywords: ['comparison', 'versus', 'alternative', 'virustotal', 'any.run', 'hybrid analysis', 'urlscan'],
-  },
   // Triage / dispatcher
   {
     path: '/dfir',
@@ -1444,13 +1436,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
-    path: '/dfir/tor-gateway',
-    label: 'Tor Gateway',
-    description: 'Tor / .onion gateway - route a fetch through Tor to reach onion services.',
-    sectionLabel: 'DFIR · Operations',
-    group: 'dfir',
-  },
-  {
     path: '/dfir/vuln-toolkit',
     label: 'Vulnerability Toolkit',
     description: 'Curated vulnerability toolkit - exploitation references, lab environments, and reports.',
@@ -1713,33 +1698,6 @@ const DFIR_PAGES: readonly PageEntry[] = [
     sectionLabel: 'DFIR · Detection Chokepoints',
     group: 'dfir',
     keywords: ['masquerade', 'impersonation', 'brand-abuse', 'favicon', 'domain-squatting'],
-  },
-  {
-    path: '/dfir/fleet-map',
-    label: 'UK Threat Map - Fleet Simulation',
-    description:
-      'National-scale attack surface simulation: 300 organisations across the UK, modelling SSL-VPN, Citrix, VMware Horizon, RDP, and WordPress exposure from 2018\u20132025.',
-    sectionLabel: 'DFIR \u00b7 Simulation',
-    group: 'dfir',
-    keywords: ['simulation', 'fleet', 'uk', 'threat-map', 'ssl-vpn', 'citrix', 'rdp', 'wordpress', 'long-watch'],
-  },
-  {
-    path: '/dfir/wordpress-sim',
-    label: 'WordPress Server - Attack Simulation',
-    description:
-      'Single-server attack simulation: a LAMP-stack WordPress box exposed to the internet from 2018\u20132025, with configurable defensive controls.',
-    sectionLabel: 'DFIR \u00b7 Simulation',
-    group: 'dfir',
-    keywords: ['simulation', 'wordpress', 'lamp', 'sql-injection', 'brute-force', 'ddos', 'cve', 'waf', 'long-watch'],
-  },
-  {
-    path: '/dfir/rhysida-intrusion',
-    label: 'Anatomy of a Rhysida Intrusion',
-    description:
-      'A real Rhysida kill chain mapped to MITRE ATT&CK - 24 stages across all 12 tactics, from no-MFA VPN login through Zerologon to domain-wide encryption.',
-    sectionLabel: 'DFIR \u00b7 Simulation',
-    group: 'dfir',
-    keywords: ['simulation', 'rhysida', 'ransomware', 'zerologon', 'dcsync', 'ntds'],
   },
   {
     path: '/dfir/ai-threats',
