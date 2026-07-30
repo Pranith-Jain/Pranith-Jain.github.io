@@ -87,3 +87,13 @@ export const GP_RESPONSE_KEY = 'gp:response:v3';
 // per-colo Cache-API entry; reusing it here made the KV entry expire ~5 min after
 // each build, leaving the WS live feed empty for ~55 min of every hour.
 export const GP_RESPONSE_TTL = 7200;
+// Long-lived copy of the last SUCCESSFUL full build (written only by the
+// background build, which is the only path that populates the external-fetcher
+// layers: c2_tracker, supply_chain_attacks, blocklist, briefing, cisa_advisory).
+// On a cache miss the sync build can only see warm-KV slices + 3 direct feeds, so
+// those background-only layers render as 0 during cold-cache windows. The handler
+// serves this last-good response instead whenever it populates more layers than
+// the partial sync build (stale-if-error), so a cold cache or a CPU-killed
+// background build never blanks half the map for the whole TTL.
+export const GP_LAST_GOOD_KEY = 'gp:last-good:v1';
+export const GP_LAST_GOOD_TTL = 43200;

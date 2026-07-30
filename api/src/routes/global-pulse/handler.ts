@@ -8,7 +8,16 @@ import type {
   ActorTimelineResponse,
   IocCorrelationResponse,
 } from './types';
-import { GP_FEEDS, gpWarmKey, GLOBAL_PULSE_CACHE, CACHE_TTL, GP_RESPONSE_KEY, GP_RESPONSE_TTL } from './config';
+import {
+  GP_FEEDS,
+  gpWarmKey,
+  GLOBAL_PULSE_CACHE,
+  CACHE_TTL,
+  GP_RESPONSE_KEY,
+  GP_RESPONSE_TTL,
+  GP_LAST_GOOD_KEY,
+  GP_LAST_GOOD_TTL,
+} from './config';
 import { routeCacheGet, routeCachePut } from '../../lib/route-cache';
 import { listBriefings } from '../../lib/briefing-builder';
 import { readKvJson } from './shared';
@@ -248,12 +257,36 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     syncLayers[e.kind] = (syncLayers[e.kind] ?? 0) + 1;
   }
 
-  const payload = {
+  const syncPayload = {
     generated_at: new Date().toISOString(),
     total_events: allEvents.length,
     events: allEvents,
     layers: syncLayers,
   };
+
+  // Stale-if-error guard: the sync build above only sees warm-KV slices + the 3
+  // direct feeds, so the background-only layers (c2_tracker, supply_chain_attacks,
+  // blocklist, briefing, cisa_advisory) are absent here and would render as 0 on
+  // the page during cold-cache windows. If a recent FULL build is available and
+  // populates more layers than this partial sync build, serve it instead. The
+  // background build below still refreshes the cache, so staleness is bounded by
+  // one build cycle — a cold cache or a CPU-killed background build never blanks
+  // half the map for the whole GP_RESPONSE_TTL.
+  const nonZeroLayers = (l: unknown): number =>
+    l && typeof l === 'object'
+      ? Object.values(l as Record<string, unknown>).filter((n) => typeof n === 'number' && n > 0).length
+      : 0;
+  let payload: typeof syncPayload | GlobalPulseResponse = syncPayload;
+  const lastGood = await routeCacheGet<GlobalPulseResponse>(GP_LAST_GOOD_KEY);
+  if (
+    lastGood &&
+    Array.isArray(lastGood.events) &&
+    lastGood.layers &&
+    nonZeroLayers(lastGood.layers) > nonZeroLayers(syncLayers)
+  ) {
+    payload = lastGood;
+  }
+
   const json = JSON.stringify(payload);
   const response = new Response(json, {
     headers: {
@@ -863,6 +896,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         });
         await cache.put(cacheReq, response.clone());
         await routeCachePut(GP_RESPONSE_KEY, result, GP_RESPONSE_TTL);
+        // Long-lived last-good copy for the stale-if-error guard on the sync path.
+        // Only written here (the sole path that populates the external-fetcher
+        // layers), so it always holds a full map.
+        await routeCachePut(GP_LAST_GOOD_KEY, result, GP_LAST_GOOD_TTL);
 
         // NOTE: global-pulse does NOT write the warm keys. A Worker can't fetch
         // its own public endpoints (loopback fails), so this handler's direct-
