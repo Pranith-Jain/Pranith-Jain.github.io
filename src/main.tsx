@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
+import { ToastProvider } from './components/ui/Toast.tsx';
 import './index.css';
 
 const rootElement = document.getElementById('root');
@@ -13,7 +14,9 @@ if (!rootElement) {
 const tree = (
   <React.StrictMode>
     <ErrorBoundary>
-      <App />
+      <ToastProvider>
+        <App />
+      </ToastProvider>
     </ErrorBoundary>
   </React.StrictMode>
 );
