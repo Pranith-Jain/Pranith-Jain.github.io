@@ -81,6 +81,7 @@ export interface CaseStudyEnv {
   GROQ_API_KEY?: string;
   GOOGLE_AI_STUDIO_API_KEY?: string;
   NVIDIA_API_KEY?: string;
+  INFRON_API_KEY?: string;
   /** Free VulnCheck Community token. Absent = VulnCheck KEV runner is a no-op. */
   VULNCHECK_API_TOKEN?: string;
   SITE_URL?: string;
@@ -376,6 +377,7 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
         getDedup: memGet,
         groqKey: env.GROQ_API_KEY,
         googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
+        infronKey: env.INFRON_API_KEY,
         trendingContext,
         alreadyCoveredTopics,
       }),
@@ -456,7 +458,8 @@ export async function generateSocialForPost(slug: string, env: CaseStudyEnv, now
       now,
       env.GROQ_API_KEY,
       env.GOOGLE_AI_STUDIO_API_KEY,
-      env.NVIDIA_API_KEY as string | undefined
+      env.NVIDIA_API_KEY as string | undefined,
+      env.INFRON_API_KEY
     );
     await env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
   } catch (err) {
@@ -489,6 +492,7 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
         now: n,
         groqKey: env.GROQ_API_KEY,
         googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
+        infronKey: env.INFRON_API_KEY,
         validationEnv,
         // Cache reference-URL liveness across publishes when a cache binding
         // exists — one KV blob read + write per generation, vs. re-probing

@@ -434,6 +434,7 @@ async function generateWithValidation(
   groqKey?: string,
   googleKey?: string,
   nvidiaKey?: string,
+  infronKey?: string,
   maxTokens = 1200
 ): Promise<{ text: string; quality: SocialQuality }> {
   let lastText = '';
@@ -451,7 +452,7 @@ async function generateWithValidation(
     const result = await runCompletion(
       ai,
       { system, user: prompt, temperature: 0.7, maxTokens },
-      { googleKey, groqKey, nvidiaKey, quality: true, preferGroq: true }
+      { infronKey, googleKey, groqKey, nvidiaKey, quality: true, preferGroq: true }
     );
 
     lastText = platform === 'twitter' ? tidySocial(result.text) : tidyLinkedin(result.text);
@@ -634,7 +635,8 @@ async function generateInstagramFromSource(
   ai: Ai,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  infronKey?: string
 ): Promise<{ caption: string; quality?: SocialQuality; slides: Awaited<ReturnType<typeof buildCarouselSlides>> }> {
   const [captionRes, slides] = await Promise.all([
     generateWithValidation(
@@ -646,9 +648,10 @@ async function generateInstagramFromSource(
       groqKey,
       googleKey,
       nvidiaKey,
+      infronKey,
       1200
     ).catch(() => ({ text: '', quality: undefined as SocialQuality | undefined })),
-    buildCarouselSlides(post, { ai, groqKey, googleKey, nvidiaKey }).catch(() => [] as ContentSlide[]),
+    buildCarouselSlides(post, { ai, groqKey, googleKey, nvidiaKey, infronKey }).catch(() => [] as ContentSlide[]),
   ]);
   return { caption: captionRes.text.slice(0, 2200), quality: captionRes.quality, slides };
 }
@@ -748,7 +751,8 @@ async function generateTwitterFromSource(
   now: Date,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  infronKey?: string
 ): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
   const factNote = extractVerifiedFacts(src.body);
   const { text, quality } = await generateWithValidation(
@@ -760,6 +764,7 @@ async function generateTwitterFromSource(
     groqKey,
     googleKey,
     nvidiaKey,
+    infronKey,
     1500
   );
   return { twitter: text, generatedAt: now.toISOString(), _validation: { quality } };
@@ -771,7 +776,8 @@ async function generateLinkedinFromSource(
   now: Date,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  infronKey?: string
 ): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
   const factNote = extractVerifiedFacts(src.body);
   const { text, quality } = await generateWithValidation(
@@ -783,6 +789,7 @@ async function generateLinkedinFromSource(
     groqKey,
     googleKey,
     nvidiaKey,
+    infronKey,
     2000
   );
   return { linkedin: text, generatedAt: now.toISOString(), _validation: { quality } };
@@ -795,6 +802,7 @@ async function generateSocialFromSource(
   groqKey?: string,
   googleKey?: string,
   nvidiaKey?: string,
+  infronKey?: string,
   post?: Post
 ): Promise<SocialContent> {
   const factNote = extractVerifiedFacts(src.body);
@@ -809,6 +817,7 @@ async function generateSocialFromSource(
       groqKey,
       googleKey,
       nvidiaKey,
+      infronKey,
       1500
     ),
     generateWithValidation(
@@ -820,16 +829,17 @@ async function generateSocialFromSource(
       groqKey,
       googleKey,
       nvidiaKey,
+      infronKey,
       2000
     ),
     post
-      ? generateInstagramFromSource(src, post, ai, groqKey, googleKey, nvidiaKey)
+      ? generateInstagramFromSource(src, post, ai, groqKey, googleKey, nvidiaKey, infronKey)
       : Promise.resolve({
           caption: '',
           quality: undefined as SocialQuality | undefined,
           slides: [] as Awaited<ReturnType<typeof buildCarouselSlides>>,
         }),
-    generateHookVariants(src, ai, groqKey, googleKey, nvidiaKey, src.performanceNote),
+    generateHookVariants(src, ai, groqKey, googleKey, nvidiaKey, infronKey, src.performanceNote),
   ]);
 
   const ig = igRes.status === 'fulfilled' ? igRes.value : { caption: '', quality: undefined, slides: [] };
@@ -859,6 +869,7 @@ export async function generateSocialContent(
   groqKey?: string,
   googleKey?: string,
   nvidiaKey?: string,
+  infronKey?: string,
   performanceNote?: string,
   hookHint?: string
 ): Promise<SocialContent> {
@@ -868,7 +879,7 @@ export async function generateSocialContent(
     src.body =
       src.body +
       `\n\nCRITICAL — Lead with this hook verbatim:\n"${hookHint}"\nBuild the rest of the post around this angle.\n`;
-  return generateSocialFromSource(src, ai, now, groqKey, googleKey, nvidiaKey, post);
+  return generateSocialFromSource(src, ai, now, groqKey, googleKey, nvidiaKey, infronKey, post);
 }
 
 export async function generateTwitterContent(
@@ -877,9 +888,10 @@ export async function generateTwitterContent(
   now: Date,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  infronKey?: string
 ): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
-  return generateTwitterFromSource(postToSource(post), ai, now, groqKey, googleKey, nvidiaKey);
+  return generateTwitterFromSource(postToSource(post), ai, now, groqKey, googleKey, nvidiaKey, infronKey);
 }
 
 export async function generateLinkedinContent(
@@ -888,9 +900,10 @@ export async function generateLinkedinContent(
   now: Date,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  infronKey?: string
 ): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
-  return generateLinkedinFromSource(postToSource(post), ai, now, groqKey, googleKey, nvidiaKey);
+  return generateLinkedinFromSource(postToSource(post), ai, now, groqKey, googleKey, nvidiaKey, infronKey);
 }
 
 // ── New Public API (accept raw content) ──────────────────────────────────
@@ -902,7 +915,8 @@ export async function generateSocialFromCandidate(
   now: Date,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  infronKey?: string
 ): Promise<SocialContent> {
   const prospectiveSlug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
   const src: SocialSource = {
@@ -911,7 +925,7 @@ export async function generateSocialFromCandidate(
     body: formatEvidenceText(candidate.evidence),
     hashtags: buildHashtags({ type: candidate.type, title: candidate.title, evidence: candidate.evidence }),
   };
-  return generateSocialFromSource(src, ai, now, groqKey, googleKey, nvidiaKey);
+  return generateSocialFromSource(src, ai, now, groqKey, googleKey, nvidiaKey, infronKey);
 }
 
 /** Generate Twitter from a candidate's evidence. */
@@ -921,7 +935,8 @@ export async function generateTwitterFromCandidate(
   now: Date,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  infronKey?: string
 ): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
   const prospectiveSlug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
   const src: SocialSource = {
@@ -930,7 +945,7 @@ export async function generateTwitterFromCandidate(
     body: formatEvidenceText(candidate.evidence),
     hashtags: buildHashtags({ type: candidate.type, title: candidate.title, evidence: candidate.evidence }),
   };
-  return generateTwitterFromSource(src, ai, now, groqKey, googleKey, nvidiaKey);
+  return generateTwitterFromSource(src, ai, now, groqKey, googleKey, nvidiaKey, infronKey);
 }
 
 /** Generate LinkedIn from a candidate's evidence. */
@@ -940,7 +955,8 @@ export async function generateLinkedinFromCandidate(
   now: Date,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  infronKey?: string
 ): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
   const prospectiveSlug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
   const src: SocialSource = {
@@ -949,7 +965,7 @@ export async function generateLinkedinFromCandidate(
     body: formatEvidenceText(candidate.evidence),
     hashtags: buildHashtags({ type: candidate.type, title: candidate.title, evidence: candidate.evidence }),
   };
-  return generateLinkedinFromSource(src, ai, now, groqKey, googleKey, nvidiaKey);
+  return generateLinkedinFromSource(src, ai, now, groqKey, googleKey, nvidiaKey, infronKey);
 }
 
 /** Generate social content from user-provided notes/text. */
@@ -959,9 +975,10 @@ export async function generateSocialFromNotes(
   now: Date,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  infronKey?: string
 ): Promise<SocialContent> {
-  return generateSocialFromSource(notes, ai, now, groqKey, googleKey, nvidiaKey);
+  return generateSocialFromSource(notes, ai, now, groqKey, googleKey, nvidiaKey, infronKey);
 }
 
 /** Generate Twitter from user-provided notes/text. */
@@ -971,9 +988,10 @@ export async function generateTwitterFromNotes(
   now: Date,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  infronKey?: string
 ): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
-  return generateTwitterFromSource(notes, ai, now, groqKey, googleKey, nvidiaKey);
+  return generateTwitterFromSource(notes, ai, now, groqKey, googleKey, nvidiaKey, infronKey);
 }
 
 /** Generate LinkedIn from user-provided notes/text. */
@@ -983,7 +1001,8 @@ export async function generateLinkedinFromNotes(
   now: Date,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  infronKey?: string
 ): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
-  return generateLinkedinFromSource(notes, ai, now, groqKey, googleKey, nvidiaKey);
+  return generateLinkedinFromSource(notes, ai, now, groqKey, googleKey, nvidiaKey, infronKey);
 }

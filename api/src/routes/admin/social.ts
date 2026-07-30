@@ -221,6 +221,7 @@ socialRouter.post('/social/:slug', async (c) => {
       c.env.GROQ_API_KEY,
       c.env.GOOGLE_AI_STUDIO_API_KEY,
       c.env.NVIDIA_API_KEY as string | undefined,
+      c.env.INFRON_API_KEY,
       performanceNote
     );
     await c.env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
@@ -249,6 +250,7 @@ socialRouter.post('/social/:slug/use-hook', async (c) => {
       c.env.GROQ_API_KEY,
       c.env.GOOGLE_AI_STUDIO_API_KEY,
       c.env.NVIDIA_API_KEY as string | undefined,
+      c.env.INFRON_API_KEY,
       undefined,
       hook
     );
@@ -346,7 +348,8 @@ socialRouter.post('/social/:slug/twitter', async (c) => {
       new Date(),
       c.env.GROQ_API_KEY,
       c.env.GOOGLE_AI_STUDIO_API_KEY,
-      c.env.NVIDIA_API_KEY as string | undefined
+      c.env.NVIDIA_API_KEY as string | undefined,
+      c.env.INFRON_API_KEY
     );
     await c.env.CASE_STUDIES.put(csKvKeys.socialTwitter(slug), twitter);
     return c.json({ ok: true, platform: 'twitter', content: twitter, generatedAt });
@@ -372,7 +375,8 @@ socialRouter.post('/social/:slug/linkedin', async (c) => {
       new Date(),
       c.env.GROQ_API_KEY,
       c.env.GOOGLE_AI_STUDIO_API_KEY,
-      c.env.NVIDIA_API_KEY as string | undefined
+      c.env.NVIDIA_API_KEY as string | undefined,
+      c.env.INFRON_API_KEY
     );
     await c.env.CASE_STUDIES.put(csKvKeys.socialLinkedin(slug), linkedin);
     return c.json({ ok: true, platform: 'linkedin', content: linkedin, generatedAt });

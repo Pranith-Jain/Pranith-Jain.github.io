@@ -73,6 +73,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             now,
             groqKey: c.env.GROQ_API_KEY,
             googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+            infronKey: c.env.INFRON_API_KEY,
           });
           await putDraft(c.env.CASE_STUDIES, post);
           result.blog = { slug: post.slug, title: post.title, status: 'draft' };
@@ -84,7 +85,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             now,
             c.env.GROQ_API_KEY,
             c.env.GOOGLE_AI_STUDIO_API_KEY,
-            c.env.NVIDIA_API_KEY as string | undefined
+            c.env.NVIDIA_API_KEY as string | undefined,
+            c.env.INFRON_API_KEY
           );
           result.linkedin = { content: linkedin, generatedAt, validation: _validation };
         } else if (fmt === 'twitter') {
@@ -95,7 +97,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
             now,
             c.env.GROQ_API_KEY,
             c.env.GOOGLE_AI_STUDIO_API_KEY,
-            c.env.NVIDIA_API_KEY as string | undefined
+            c.env.NVIDIA_API_KEY as string | undefined,
+            c.env.INFRON_API_KEY
           );
           result.twitter = { content: twitter, generatedAt, validation: _validation };
         } else {

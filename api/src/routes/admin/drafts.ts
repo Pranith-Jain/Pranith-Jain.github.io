@@ -261,6 +261,7 @@ draftsRouter.post('/drafts/:slug/regenerate', async (c) => {
       groqKey: c.env.GROQ_API_KEY,
       googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
       nvidiaKey: c.env.NVIDIA_API_KEY as string | undefined,
+      infronKey: c.env.INFRON_API_KEY,
       notes: body.notes,
     });
     // If the LLM produced a different slug, remove the old draft first

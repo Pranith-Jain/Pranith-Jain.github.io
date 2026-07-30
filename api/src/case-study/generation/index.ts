@@ -52,7 +52,8 @@ async function verifyFacts(
   ai: Ai,
   groqKey?: string,
   googleKey?: string,
-  nvidiaKey?: string
+  nvidiaKey?: string,
+  infronKey?: string
 ): Promise<VerifiedFacts | null> {
   try {
     const result = await runCompletion(
@@ -63,7 +64,7 @@ async function verifyFacts(
         maxTokens: 1500,
         temperature: 0.1,
       },
-      { googleKey, groqKey, nvidiaKey, quality: true, preferGroq: true }
+      { infronKey, googleKey, groqKey, nvidiaKey, quality: true, preferGroq: true }
     );
 
     const text = result.text.trim();
@@ -221,6 +222,7 @@ export interface GeneratePostDeps {
   googleKey?: string;
   /** NVIDIA API key for NVIDIA completion fallback. */
   nvidiaKey?: string;
+  infronKey?: string;
   /**
    * Optional threat-intel provider keys for layer-2 IOC validation
    * (VT/AbuseIPDB/abuse.ch). When any are set, every extracted IOC is
@@ -260,11 +262,11 @@ export interface GeneratePostDeps {
 }
 
 export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
-  const { candidate, ai, now, groqKey, googleKey, nvidiaKey, notes } = deps;
+  const { candidate, ai, now, groqKey, googleKey, nvidiaKey, infronKey, notes } = deps;
 
   // ── Step 1: Verify facts before writing ──────────────────────────────
   // Extract structured facts from evidence to ground the content generation.
-  const verifiedFacts = await verifyFacts(candidate.evidence, ai, groqKey, googleKey, nvidiaKey);
+  const verifiedFacts = await verifyFacts(candidate.evidence, ai, groqKey, googleKey, nvidiaKey, infronKey);
 
   const sources = extractSources(candidate.evidence);
 
@@ -306,7 +308,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
   const completion = await runCompletion(
     ai,
     { system, user: user + factNote + outlineNote + notesBlock },
-    { googleKey, groqKey, nvidiaKey, quality: true, preferGroq: true }
+    { infronKey, googleKey, groqKey, nvidiaKey, quality: true, preferGroq: true }
   );
 
   const factsText = JSON.stringify(candidate.evidence);
@@ -333,7 +335,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
           `Be specific and substantive (no thin sections, no repeated sentences, cite real sources). ` +
           `Only reference facts/CVEs present in the GROUND TRUTH DATA above; mark any historical CVE as context, not a finding.`,
       },
-      { googleKey, groqKey, nvidiaKey, quality: true, preferGroq: true }
+      { infronKey, googleKey, groqKey, nvidiaKey, quality: true, preferGroq: true }
     );
     processed = postProcess({ type: candidate.type, raw: repair.text, factsText });
   }
@@ -401,8 +403,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
         await deps.aiImages.put(slug, 'body1', bodyBytes);
         bodyWithImages = injectBodyImage(finalBody, `/api/v1/blog-image/${slug}/body1`, candidate.title);
       }
-    } catch {
-    }
+    } catch {}
   }
 
   return {

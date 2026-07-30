@@ -49,6 +49,7 @@ export async function generateHookVariants(
   groqKey?: string,
   googleKey?: string,
   nvidiaKey?: string,
+  infronKey?: string,
   performanceNote?: string
 ): Promise<string[]> {
   try {
@@ -65,7 +66,7 @@ export async function generateHookVariants(
         temperature: 0.9,
         maxTokens: 400,
       },
-      { groqKey, googleKey, nvidiaKey, quality: true, preferGroq: true }
+      { infronKey, groqKey, googleKey, nvidiaKey, quality: true, preferGroq: true }
     );
     return parseHooks(res.text);
   } catch {

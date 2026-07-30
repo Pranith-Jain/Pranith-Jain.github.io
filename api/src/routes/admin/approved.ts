@@ -44,6 +44,7 @@ approvedRouter.post('/approved/:id/publish-now', async (c) => {
       groqKey: c.env.GROQ_API_KEY,
       googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
       nvidiaKey: c.env.NVIDIA_API_KEY as string | undefined,
+      infronKey: c.env.INFRON_API_KEY,
     });
     const postIndex = await putPost(c.env.CASE_STUDIES, post);
 

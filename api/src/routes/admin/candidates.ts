@@ -126,6 +126,7 @@ candidatesRouter.post('/candidates/:key/generate', async (c) => {
           now,
           groqKey: c.env.GROQ_API_KEY,
           googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY,
+          infronKey: c.env.INFRON_API_KEY,
         });
         await putDraft(c.env.CASE_STUDIES, post);
         result.blog = { slug: post.slug, title: post.title, status: 'draft' };
@@ -142,7 +143,8 @@ candidatesRouter.post('/candidates/:key/generate', async (c) => {
           now,
           c.env.GROQ_API_KEY,
           c.env.GOOGLE_AI_STUDIO_API_KEY,
-          c.env.NVIDIA_API_KEY as string | undefined
+          c.env.NVIDIA_API_KEY as string | undefined,
+          c.env.INFRON_API_KEY
         );
         await c.env.CASE_STUDIES.put(csKvKeys.socialCandidateLinkedin(key), linkedin);
         result.linkedin = { content: linkedin, generatedAt, validation: _validation };
@@ -153,7 +155,8 @@ candidatesRouter.post('/candidates/:key/generate', async (c) => {
           now,
           c.env.GROQ_API_KEY,
           c.env.GOOGLE_AI_STUDIO_API_KEY,
-          c.env.NVIDIA_API_KEY as string | undefined
+          c.env.NVIDIA_API_KEY as string | undefined,
+          c.env.INFRON_API_KEY
         );
         await c.env.CASE_STUDIES.put(csKvKeys.socialCandidateTwitter(key), twitter);
         result.twitter = { content: twitter, generatedAt, validation: _validation };

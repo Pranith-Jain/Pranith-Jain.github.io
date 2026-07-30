@@ -9,6 +9,7 @@ export interface AgenticTrendsDeps {
   getDedup: (stableKey: string) => Promise<DedupRecord | null>;
   groqKey?: string;
   googleKey?: string;
+  infronKey?: string;
   /** Optional real trending data to ground the LLM response (recent CVEs,
    *  ransomware victims, breach headlines, etc.). When absent the LLM
    *  hallucinates from training data, producing similar output every day. */
