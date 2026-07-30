@@ -62,9 +62,12 @@ All pages use: `px-4 sm:px-8`
 ### Surface Classes (from index.css)
 
 ```css
-.surface-card    /* rounded-xl, shadow-e1, dark:bg-slate-900/60 */
-.surface-raised  /* rounded-xl, shadow-e2, dark:bg-slate-900/70 */
-.card-hover      /* hover:-translate-y-0.5, hover:shadow-e2 */
+.surface-base     /* radius-card (8px), hairline border, no shadow — flat resting surface */
+.surface-card     /* radius-card (8px), hairline border, shadow-e1 — the default card */
+.surface-elevated /* radius-panel (10px), hairline border, shadow-e2 — emphasized / hero */
+.glass            /* translucent panel (no radius), white/70 → surface-100/60 */
+.chrome-glass     /* translucent + blur(12px) — sticky header / sidebar chrome */
+.card-hover       /* hover: lift -2px + shadow-e2 — pair with any surface above */
 ```
 
 ### Card Padding Standards
@@ -136,10 +139,10 @@ className = 'group surface-card p-4 transition hover:-translate-y-0.5 hover:bord
 
 ## Typography
 
-### Type Scale (from tailwind.config.js)
+### Type Scale (from `src/index.css` `@theme` — Tailwind v4 CSS-first, no config file)
 
 ```
-eyebrow   → 0.6875rem (11px) + 0.16em tracking (uppercase labels)
+eyebrow   → 0.6875rem (11px) + 0.2em tracking (uppercase labels)
 meta      → 0.75rem (12px) (captions, footnotes, metadata)
 tool      → 0.8125rem (13px) (card descriptions, tile text)
 mini      → 0.6875rem (11px) (plain labels, no tracking)
@@ -186,42 +189,40 @@ All cards using `hover:shadow-*` should pick **one** option:
 
 **Standardize on `hover:shadow-e2`** — don't mix.
 
-## Dark Mode Guidelines (Geist-consolidated, 2026-06-19)
+## Dark Mode Guidelines
 
-**Three surfaces, one source of truth.** The previous 7+ hex values
-(`#12121a`, `#0e0e15`, `#0a0a0f`, `#1e2030`, `#15151f`, `#0f0f16`,
-`#0c1222`) made card-on-card-on-input read as horizontal rows of
-varying gray. Now there is exactly one fill per intent, applied to
-every Tailwind `bg-*` utility via the same CSS override. Use the
+**Three surfaces, one source of truth.** The dark chrome is a
+navy-tinted surface ladder anchored on `--bg-base: #070b1c`. There is
+exactly one fill per intent, applied to every Tailwind `bg-*` utility
+via the same CSS override (all tokens live in `src/index.css`). Use the
 `surface-*` classes and the `--input-200` var instead of hardcoding
 hexes in component classes.
 
-| Intent                    | CSS var         | Hex       | Notes                                   |
-| ------------------------- | --------------- | --------- | --------------------------------------- |
-| Page background           | `--surface-100` | `#0a0a0a` | **True neutral** (R=G=B). No blue cast. |
-| Card / resting surface    | `--surface-200` | `#161616` | +12 lift from page                      |
-| Raised / hover / popover  | `--surface-300` | `#1f1f1f` | +9 lift from card                       |
-| Input / inset well        | `--input-200`   | `#0e0e0e` | one step below card                     |
-| Hairline border (default) | `--border-400`  | 12% white | visible edge, not a hairline ghost      |
-| Hairline border (hover)   | `--border-500`  | 18% white |                                         |
-| Hairline border (active)  | `--border-600`  | 28% white |                                         |
+| Intent                    | CSS var         | Dark value (RGB) | Hex       |
+| ------------------------- | --------------- | ---------------- | --------- |
+| Page background           | `--bg-base`     | —                | `#070b1c` |
+| Base canvas surface       | `--surface-100` | `12 17 36`       | `#0c1124` |
+| Card / resting surface    | `--surface-200` | `18 25 46`       | `#12192e` |
+| Raised / hover / popover  | `--surface-300` | `28 37 60`       | `#1c253c` |
+| Input / inset well        | `--input-200`   | `11 15 32`       | `#0b0f20` |
+| Hairline border (default) | `--border-400`  | 8% white         | —         |
+| Hairline border (hover)   | `--border-500`  | 14% white        | —         |
+| Hairline border (active)  | `--border-600`  | 22% white        | —         |
 
-**Why neutral, not blue-tinted?** The previous family (`#0a0a0f`,
-`#12121a`, `#1c1c26`, `#1e2030`) was "slight blue tint" (R<G<B on
-every step), which read as a flat wall of dark blue. The brand-blue
-(`#2c3ee5`) compounded with the chrome tint, so the page never felt
-black. The fix: pull all the blue out of the chrome. Every dark
-surface is now R=G=B (true grayscale). The brand-blue and rose-500/600
-are the only chromatic notes; the chrome stays monochrome so the
-accents read as accents, not as ambient. This matches Vercel admin,
-Linear, and most production admin panels — which all use a
-near-black neutral, not a "themed" black.
+**Why navy-tinted, not neutral?** The ladder is tinted into the navy
+family so cards read as one palette with the deep-navy page base
+(`#070b1c`) instead of neutral-gray panels floating on a blue canvas.
+Blue stays dominant (B > G > R) and brightness steps up as surfaces
+elevate. The light theme mirrors the same ladder in reverse
+(`--surface-100` white → `--surface-300` slate-100). The brand-blue
+(`#2c3ee5`) and rose-500/600 remain the only saturated accents; the
+chrome stays a quiet navy so accents read as accents, not as ambient.
 
 ### Page background
 
 The page bg lives on `html.dark` (the body). No per-page `dark:bg-*`
 override on the Layout or hero — the body already paints
-`#0a0a0a`. Children render on `surface-200` (cards), `input-200`
+`#070b1c` (`--bg-base`). Children render on `surface-200` (cards), `input-200`
 (inputs), or transparent (the page shows through).
 
 ### Hero / page anchor
@@ -241,11 +242,12 @@ top-left corner of the hero card:
 
 | Class             | Use                          | Dark bg              | Dark border    |
 | ----------------- | ---------------------------- | -------------------- | -------------- |
-| `.surface-card`   | Default resting card         | surface-200          | border-400 8%  |
-| `.surface-raised` | Emphasized / interactive     | surface-200          | border-500 14% |
-| `.surface-glass`  | Hero / overlay (translucent) | surface-200/50       | border-400 8%  |
-| `.chrome-glass`   | Sticky header / sidebar      | surface-100/85       | border-400 8%  |
-| `.card-hover`     | Pairs with the above         | surface-300 on hover | border-500 14% |
+| `.surface-base`   | Flat resting surface         | surface-200          | border-400 8%  |
+| `.surface-card`   | Default card (shadow-e1)     | surface-200/60       | border-400 8%  |
+| `.surface-elevated` | Emphasized / hero (shadow-e2) | surface-200/80    | border-400 8%  |
+| `.glass`          | Translucent overlay panel    | surface-100/60       | 10% white      |
+| `.chrome-glass`   | Sticky header / sidebar      | surface-100/60 + blur | border-400 8% |
+| `.card-hover`     | Pairs with the above         | lift + shadow-e2     | border-500 14% |
 
 ### Per-card color (DFIR / threatintel)
 
@@ -277,7 +279,7 @@ input on the page.
 
 The legacy override table is preserved below for any code that still
 uses `bg-slate-50` etc. The intent is to migrate everything to
-`surface-card` / `surface-raised` / `input-200`.
+`surface-card` / `surface-elevated` / `input-200`.
 
 - **Opaque surfaces** (main content): `dark:bg-slate-900` (now `surface-200`)
 - **Translucent overlays** (floating, secondary): `dark:bg-slate-900/40` or `/60`
@@ -349,7 +351,7 @@ Creates 40ms offset between grid items (e.g., tiles assemble in sequence).
 
 ### Fade-in Animation
 
-Class: `.animate-fade-in-up` (defined in tailwind.config.js)
+Class: `.animate-fade-in-up` (defined in `src/index.css`)
 Used on sections to create smooth entry (opacity + translateY).
 
 ### Standard Transitions
@@ -406,8 +408,8 @@ Before committing new threat intel pages:
 
 Adopted from the Hunt.io glossary/PEAK surface — restraint and density,
 not literal skin. See `docs/HUNTIO-AUDIT-2026-06-18.md` for the full
-audit. Token additions live in `tailwind.config.js`; the prose utility
-lives in `src/index.css`.
+audit. Token additions and the prose utility both live in `src/index.css`
+(Tailwind v4 CSS-first — there is no `tailwind.config.js`).
 
 ### Radius tokens
 
