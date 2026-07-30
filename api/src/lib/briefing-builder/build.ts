@@ -8,7 +8,18 @@ import { normalizeGroup } from '../group-normalize';
 import { computeDailyWindow, computeLiveDailyWindow } from '../briefing-window';
 import { fetchCveFeedHighSeverity, type CveFeedEntry } from '../../routes/cve-recent';
 import { BRIEFING_MAX_AGE_DAYS, IOC_FEED_SOURCES } from './config';
-import { withLastGood, fetchKev, fetchNvdRecent, fetchCirclRecent, fetchNvdByIds, fetchFeedResilient } from './feeds';
+import {
+  withLastGood,
+  fetchKev,
+  fetchNvdRecent,
+  fetchCirclRecent,
+  fetchNvdByIds,
+  fetchFeedResilient,
+  fetchMaliciousPackages,
+  fetchDailyHuntIocFamilies,
+  type MaliciousPackageEntry,
+  type DailyHuntIocFamily,
+} from './feeds';
 import {
   isoDate,
   isoYearWeek,
@@ -77,6 +88,8 @@ export async function buildBriefing(
     mtiCveItems,
     cvefeedItems,
     webamonIntel,
+    malpkgEntries,
+    dailyHuntFamilies,
   ] = await Promise.all([
     wrap(withLastGood(mtiEnv, 'briefing-kev', fetchKev), [] as KevEntry[]),
     fetchFeedResilient(mtiEnv, 'urlhaus'),
@@ -123,6 +136,8 @@ export async function buildBriefing(
     mtiEnv?.WEBAMON_API_KEY
       ? getCampaignIntel(mtiEnv).catch(() => null as WebamonCampaignIntel | null)
       : Promise.resolve(null as WebamonCampaignIntel | null),
+    fetchMaliciousPackages(mtiEnv).catch(() => [] as MaliciousPackageEntry[]),
+    fetchDailyHuntIocFamilies(mtiEnv).catch(() => [] as DailyHuntIocFamily[]),
   ]);
   let degraded = !kevR.ok && !nvdR.ok;
   const kev = kevR.v;
@@ -373,6 +388,78 @@ export async function buildBriefing(
     });
   }
 
+  // ── OSSF Malicious Packages ──────────────────────────────────────────
+  // The ossf/malicious-packages repo is a curated mirror of npm/PyPI/RubyGems/
+  // Maven/Go/crates.io malware reports. The Contents API gives us package-name
+  // directories (not individual OSV records), so each finding is "package X in
+  // ecosystem Y is listed as malicious" — analysts click through for the
+  // version-range detail. No publish date on the directory listing, so these
+  // are not window-filtered (the catalog is cumulative, not a time-series).
+  const malpkgFindings: BriefingFinding[] = [];
+  const malpkgByEco: Record<string, number> = {};
+  for (const p of malpkgEntries) {
+    malpkgByEco[p.ecosystem] = (malpkgByEco[p.ecosystem] ?? 0) + 1;
+    malpkgFindings.push({
+      id: `malpkg-${p.ecosystem}-${p.name}`.replace(/[^a-z0-9-]/gi, '-').slice(0, 80),
+      title: `${p.name} (${p.ecosystem})`,
+      description: `Malicious package listed in the OpenSSF malicious-packages directory. Review version ranges and installation provenance.`,
+      severity: 'high',
+      source: 'ossf/malicious-packages',
+      source_url: p.ossf_url,
+      mitre_techniques: [],
+    });
+  }
+  if (malpkgFindings.length > 0) {
+    const ecoBreakdown = Object.entries(malpkgByEco)
+      .sort((a, b) => b[1] - a[1])
+      .map(([eco, n]) => `${eco} (${n})`)
+      .join(', ');
+    sections.push({
+      id: 'malicious-packages',
+      title: 'Malicious packages (OpenSSF)',
+      count: malpkgFindings.length,
+      blurb: `Supply-chain threats from the ossf/malicious-packages curated directory. ${malpkgFindings.length} packages across ${Object.keys(malpkgByEco).length} ecosystems: ${ecoBreakdown}.`,
+      findings: malpkgFindings,
+    });
+  }
+
+  // ── Daily-Hunt IOC families ──────────────────────────────────────────
+  // TheRavenFile/Daily-Hunt is a knowledge base of IOC families (ransomware,
+  // malware, APT, C2, phishing, stealer). Each family file contains raw
+  // indicators (hashes, IPs, domains) plus MITRE technique references. The
+  // build script (scripts/build-threat-intel.mjs) slices these into per-slug
+  // JSON with a slim index entry. We surface the families as findings so
+  // analysts can pivot to the full indicator list via the threat-intel
+  // vertical (ti_get_ioc MCP tool / /api/v1/threat-intel/iocs/:slug).
+  const dailyHuntFindings: BriefingFinding[] = [];
+  const dhByCategory: Record<string, number> = {};
+  for (const f of dailyHuntFamilies) {
+    dhByCategory[f.category] = (dhByCategory[f.category] ?? 0) + 1;
+    const techs = f.mitreTechniques?.slice(0, 8) ?? [];
+    dailyHuntFindings.push({
+      id: `dh-${f.slug}`.slice(0, 80),
+      title: `${f.family} (${f.category})`,
+      description: f.description || `${f.family} — ${f.indicatorCount} indicators tracked. Category: ${f.category}.`,
+      severity: f.category === 'ransomware' || f.category === 'apt' ? 'high' : 'medium',
+      source: 'Daily-Hunt',
+      source_url: `https://github.com/TheRavenFile/Daily-Hunt`,
+      mitre_techniques: techs,
+    });
+  }
+  if (dailyHuntFindings.length > 0) {
+    const catBreakdown = Object.entries(dhByCategory)
+      .sort((a, b) => b[1] - a[1])
+      .map(([cat, n]) => `${cat} (${n})`)
+      .join(', ');
+    sections.push({
+      id: 'daily-hunt-ioc-families',
+      title: 'IOC families (Daily-Hunt)',
+      count: dailyHuntFindings.length,
+      blurb: `Threat-actor and malware-family IOC catalogs from TheRavenFile/Daily-Hunt. ${dailyHuntFindings.length} families across ${Object.keys(dhByCategory).length} categories: ${catBreakdown}. Pivot to the threat-intel vertical for full indicator lists.`,
+      findings: dailyHuntFindings,
+    });
+  }
+
   const stats = buildStats(findings, sections, iocsRawTotal, ransomwareFindings.length);
   const summaryArgs = {
     type,
@@ -391,6 +478,7 @@ export async function buildBriefing(
     : await buildLlmExecutiveSummary(summaryArgs, opts.env);
   const techniqueSet = new Set<string>();
   for (const f of findings) for (const t of f.mitre_techniques) techniqueSet.add(t);
+  for (const f of dailyHuntFindings) for (const t of f.mitre_techniques) techniqueSet.add(t);
 
   const sources: string[] = [];
   if (findings.some((f) => f.source === 'CISA KEV')) sources.push('CISA KEV');
@@ -399,6 +487,8 @@ export async function buildBriefing(
   if (findings.some((f) => f.source === 'MyThreatIntel')) sources.push('MyThreatIntel');
   if (ransomwareFindings.length > 0) sources.push('ransomware.live');
   if (webamonFindings.length > 0) sources.push('Webamon');
+  if (malpkgFindings.length > 0) sources.push('ossf/malicious-packages');
+  if (dailyHuntFindings.length > 0) sources.push('Daily-Hunt');
   sources.push(...iocSources);
 
   const ioc_dump = buildIocDump(iocs, iocsRawTotal);

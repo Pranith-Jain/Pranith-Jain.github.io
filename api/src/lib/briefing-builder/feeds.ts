@@ -5,6 +5,23 @@ import { readLastGood, writeLastGood } from '../lastgood';
 import { NVD_UA, NVD_API, KEV_FEED, LASTGOOD_TTL_SEC, nvdHeaders } from './config';
 import type { KevDoc, KevEntry, NvdCve, NvdResponse } from './types';
 
+export interface MaliciousPackageEntry {
+  name: string;
+  ecosystem: string;
+  ossf_url: string;
+}
+
+export interface DailyHuntIocFamily {
+  slug: string;
+  family: string;
+  category: 'ransomware' | 'malware' | 'apt' | 'c2' | 'phishing' | 'stealer' | 'other';
+  aliases: string[];
+  firstSeen: string | null;
+  mitreTechniques: string[];
+  indicatorCount: number;
+  description: string;
+}
+
 export async function withLastGood<T>(env: Env | undefined, cacheKey: string, live: () => Promise<T>): Promise<T> {
   try {
     const v = await live();
@@ -233,6 +250,64 @@ export async function fetchFeedResilient(env: Env | undefined, source: SourceId)
     } catch {
       /* lastgood fallback failed — return empty */
     }
+    return [];
+  }
+}
+
+/* ─── OSSF Malicious Packages ──────────────────────────────────────────── */
+// Fetches the package-name listing from the ossf/malicious-packages GitHub
+// repo (Contents API). Each ecosystem is a separate directory; we fetch all
+// in parallel and flatten. No per-package OSV detail (deferred — analysts
+// click through to GitHub). Uses GITHUB_TOKEN if available to bump the
+// anonymous 60/hr cap to 5000/hr.
+
+const OSSF_ECOSYSTEMS = ['npm', 'pypi', 'rubygems', 'maven', 'go', 'crates.io'] as const;
+const OSSF_GH_BASE = 'https://api.github.com/repos/ossf/malicious-packages/contents/osv/malicious';
+
+export async function fetchMaliciousPackages(env?: Env): Promise<MaliciousPackageEntry[]> {
+  const ghToken = env?.GITHUB_TOKEN;
+  const results = await Promise.allSettled(
+    OSSF_ECOSYSTEMS.map(async (eco) => {
+      const res = await fetchResilient(
+        `${OSSF_GH_BASE}/${eco}`,
+        {
+          headers: {
+            Accept: 'application/vnd.github.v3+json',
+            'User-Agent': 'pranithjain-briefing/1.0',
+            ...(ghToken ? { Authorization: `Bearer ${ghToken}` } : {}),
+          },
+        },
+        { attempts: 2, timeoutMs: 10_000 }
+      );
+      if (!res.ok) return [];
+      const raw = (await res.json()) as Array<{ name: string; type: string; html_url: string }>;
+      return raw
+        .filter((e) => e.type === 'dir' && e.name && !e.name.startsWith('.'))
+        .map((e) => ({
+          name: e.name,
+          ecosystem: eco,
+          ossf_url:
+            e.html_url ??
+            `https://github.com/ossf/malicious-packages/tree/main/osv/malicious/${eco}/${encodeURIComponent(e.name)}`,
+        }));
+    })
+  );
+  return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
+}
+
+/* ─── Daily-Hunt IOC families (via threat-intel manifest) ──────────────── */
+// Daily-Hunt IOC families are replicated into public/data/threat-intel/ by
+// the weekly sync (scripts/sync-threat-intel.mjs → build-threat-intel.mjs).
+// We read the slim index via env.ASSETS — no public internet hop, no
+// subrequest budget cost (ASSETS is a binding, not a fetch).
+
+export async function fetchDailyHuntIocFamilies(env?: Env): Promise<DailyHuntIocFamily[]> {
+  if (!env?.ASSETS) return [];
+  try {
+    const { loadTiIndex } = await import('../threat-intel-manifest');
+    const idx = await loadTiIndex(env.ASSETS);
+    return idx.iocIndex ?? [];
+  } catch {
     return [];
   }
 }
