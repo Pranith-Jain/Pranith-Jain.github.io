@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
-import { Shield, AlertTriangle, Cloud, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
+import { Shield, AlertTriangle, Cloud, Anchor, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 
-type Tab = 'cyber' | 'deepfake' | 'disaster';
+type Tab = 'cyber' | 'deepfake' | 'disaster' | 'maritime';
 
 interface DbIndexSummary {
-  counts: { cyber: number; deepfake: number; disaster: number };
+  counts: { cyber: number; deepfake: number; disaster: number; maritime: number };
   source: string;
   license: string;
   generatedAt: string;
@@ -100,6 +100,7 @@ const TAB_CONFIG: { id: Tab; label: string; icon: typeof Shield; color: string }
   { id: 'cyber', label: 'OT/ICS Cyber', icon: Shield, color: 'text-rose-600 dark:text-rose-400' },
   { id: 'deepfake', label: 'Deepfake & GenAI', icon: AlertTriangle, color: 'text-violet-600 dark:text-violet-400' },
   { id: 'disaster', label: 'Global Disaster', icon: Cloud, color: 'text-amber-600 dark:text-amber-400' },
+  { id: 'maritime', label: 'Maritime Cyber', icon: Anchor, color: 'text-cyan-600 dark:text-cyan-400' },
 ];
 
 function Expandable({
@@ -119,7 +120,9 @@ function Expandable({
       <button onClick={() => setOpen(!open)} className="flex w-full items-center justify-between px-4 py-3 text-left">
         <span className="text-sm font-semibold text-slate-900 dark:text-white">
           {title}
-          {count !== undefined && <span className="ml-2 text-xs font-normal text-slate-500 dark:text-slate-400">({count})</span>}
+          {count !== undefined && (
+            <span className="ml-2 text-xs font-normal text-slate-500 dark:text-slate-400">({count})</span>
+          )}
         </span>
         {open ? (
           <ChevronUp size={16} className="text-slate-500 dark:text-slate-400" />
@@ -143,8 +146,16 @@ export default function DailyBriefs() {
   const cyberBriefs = useMemo(() => indexData?.briefs?.filter((b) => b.type === 'cyber') ?? [], [indexData]);
   const deepfakeBriefs = useMemo(() => indexData?.briefs?.filter((b) => b.type === 'deepfake') ?? [], [indexData]);
   const disasterBriefs = useMemo(() => indexData?.briefs?.filter((b) => b.type === 'disaster') ?? [], [indexData]);
+  const maritimeBriefs = useMemo(() => indexData?.briefs?.filter((b) => b.type === 'maritime') ?? [], [indexData]);
 
-  const currentList = tab === 'cyber' ? cyberBriefs : tab === 'deepfake' ? deepfakeBriefs : disasterBriefs;
+  const currentList =
+    tab === 'cyber'
+      ? cyberBriefs
+      : tab === 'deepfake'
+        ? deepfakeBriefs
+        : tab === 'disaster'
+          ? disasterBriefs
+          : maritimeBriefs;
 
   const currentDate = useMemo(() => {
     if (selectedDate) return selectedDate;
@@ -230,7 +241,9 @@ export default function DailyBriefs() {
 
       {/* Content */}
       {briefLoading || isLoading ? (
-        <div className="flex items-center justify-center py-20 text-slate-500 dark:text-slate-400">Loading brief...</div>
+        <div className="flex items-center justify-center py-20 text-slate-500 dark:text-slate-400">
+          Loading brief...
+        </div>
       ) : !brief ? (
         <div className="flex flex-col items-center justify-center py-20 text-slate-500 dark:text-slate-400">
           <AlertTriangle size={40} className="mb-3 opacity-40" />

@@ -18,7 +18,7 @@ const ROOT = process.cwd();
 const STAGING = join(ROOT, 'daily-briefs-staging');
 const OUT = join(ROOT, 'public', 'data', 'daily-briefs');
 
-const BRIEF_TYPES = ['cyber', 'deepfake', 'disaster'];
+const BRIEF_TYPES = ['cyber', 'deepfake', 'disaster', 'maritime'];
 
 // ─── HTML helpers ────────────────────────────────────────────────────────
 
@@ -434,8 +434,8 @@ if (existsSync(indexPath)) {
 }
 const existingBriefs = new Map((existingIndex.briefs ?? []).map((b) => [`${b.type}:${b.date}`, b]));
 
-const parsers = { cyber: parseCyberBrief, deepfake: parseDeepfakeBrief, disaster: parseDisasterBrief };
-const briefCounts = { cyber: 0, deepfake: 0, disaster: 0 };
+const parsers = { cyber: parseCyberBrief, deepfake: parseDeepfakeBrief, disaster: parseDisasterBrief, maritime: parseCyberBrief };
+const briefCounts = { cyber: 0, deepfake: 0, disaster: 0, maritime: 0 };
 const mergedBriefs = new Map(existingBriefs);
 
 for (const type of BRIEF_TYPES) {

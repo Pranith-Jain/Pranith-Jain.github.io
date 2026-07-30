@@ -20,7 +20,7 @@ async function loadDbMod() {
   return await import('../lib/daily-briefs-manifest');
 }
 
-const VALID_TYPES = ['cyber', 'deepfake', 'disaster'] as const;
+const VALID_TYPES = ['cyber', 'deepfake', 'disaster', 'maritime'] as const;
 
 interface DbIndex {
   source: string;

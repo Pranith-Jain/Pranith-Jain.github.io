@@ -2,10 +2,11 @@
 /**
  * Sync Daily Briefs from agentic-ai-daily-reports.netlify.app.
  *
- * Fetches HTML from three endpoints into daily-briefs-staging/:
+ * Fetches HTML from four endpoints into daily-briefs-staging/:
  *   - /cyber     → OT/ICS Cyber Threat Intelligence
  *   - /deepfake  → DeepFake and Generative AI Intelligence
  *   - /disaster  → Global Disaster Intelligence
+ *   - /maritime  → Maritime Cyber Threat Intelligence
  *
  * After sync, run `node scripts/build-daily-briefs.mjs` to parse
  * the HTML into structured JSON under public/data/daily-briefs/.
@@ -16,7 +17,7 @@ import { join } from 'node:path';
 const ROOT = process.cwd();
 const STAGING = join(ROOT, 'daily-briefs-staging');
 
-const BRIEF_TYPES = ['cyber', 'deepfake', 'disaster'];
+const BRIEF_TYPES = ['cyber', 'deepfake', 'disaster', 'maritime'];
 const BASE_URL = 'https://agentic-ai-daily-reports.netlify.app';
 
 function ensureStaging() {
