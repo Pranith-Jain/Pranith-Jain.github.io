@@ -422,7 +422,12 @@ export class InvestigatorAgentDO {
     if (stepNum === 1) {
       // Build orchestration plan on step 1
       try {
-        const plan = await buildOrchestratorPlan(state.query, state.queryType, { groqKey, googleKey, nvidiaKey });
+        const plan = await buildOrchestratorPlan(state.query, state.queryType, {
+          infronKey,
+          groqKey,
+          googleKey,
+          nvidiaKey,
+        });
         if (plan.specialistCalls.length > 0 && plan.specialistCalls[0]) {
           currentRole = plan.specialistCalls[0].role;
           state.currentSpecialist = currentRole;
@@ -457,7 +462,16 @@ export class InvestigatorAgentDO {
       // Run independent specialists' first step concurrently. Returns null (fall
       // back to the sequential path above) when <2 specialists are independent
       // or on any error, so this is purely additive.
-      const burst = await this.tryParallelBurst(state, ai, groqKey, googleKey, nvidiaKey, allTools, workingMemory);
+      const burst = await this.tryParallelBurst(
+        state,
+        ai,
+        groqKey,
+        googleKey,
+        nvidiaKey,
+        infronKey,
+        allTools,
+        workingMemory
+      );
       if (burst) return burst;
     } else if (currentRole) {
       // Check if current specialist's exit conditions have fired
@@ -524,6 +538,7 @@ export class InvestigatorAgentDO {
         state.maxSteps,
         specialistTools,
         {
+          infronKey,
           groqKey,
           googleKey,
           nvidiaKey,
@@ -595,7 +610,12 @@ export class InvestigatorAgentDO {
       step.completedAt = new Date().toISOString();
 
       // ── OBSERVE ──────────────────────────────────────────────────────
-      const observation = await observeStep(ai, stepNum, plan.reasoning, results, { groqKey, googleKey, nvidiaKey });
+      const observation = await observeStep(ai, stepNum, plan.reasoning, results, {
+        infronKey,
+        groqKey,
+        googleKey,
+        nvidiaKey,
+      });
       step.observation = observation.observation;
       step.observerFindings = {
         iocs: observation.iocs,
@@ -626,6 +646,7 @@ export class InvestigatorAgentDO {
       state.maxSteps,
       availableTools,
       {
+        infronKey,
         groqKey,
         googleKey,
         nvidiaKey,
@@ -677,7 +698,12 @@ export class InvestigatorAgentDO {
     step.results = results;
     step.completedAt = new Date().toISOString();
 
-    const observation = await observeStep(ai, stepNum, plan.reasoning, results, { groqKey, googleKey, nvidiaKey });
+    const observation = await observeStep(ai, stepNum, plan.reasoning, results, {
+      infronKey,
+      groqKey,
+      googleKey,
+      nvidiaKey,
+    });
     step.observation = observation.observation;
     step.observerFindings = {
       iocs: observation.iocs,
@@ -711,6 +737,7 @@ export class InvestigatorAgentDO {
     groqKey: string | undefined,
     googleKey: string | undefined,
     nvidiaKey: string | undefined,
+    infronKey: string | undefined,
     allTools: ReturnType<typeof buildToolRegistry>,
     workingMemory: WorkingMemory
   ): Promise<AgentState | null> {
@@ -726,7 +753,7 @@ export class InvestigatorAgentDO {
       }
       if (burst.length < 2) return null;
 
-      const opts = { groqKey, googleKey, nvidiaKey };
+      const opts = { infronKey, groqKey, googleKey, nvidiaKey };
       const executor: SpecialistExecutor = {
         plan: (role, tools, steps, sn, ms) => {
           const prompt = getSpecialistPrompt(role, tools, sn, ms, state.query, steps);
@@ -973,6 +1000,7 @@ export class InvestigatorAgentDO {
         recordCompletion(synthTracker, model, inputText, outputText, role);
 
       const result = await synthesizeReport(ai, state.query, state.queryType, state.steps, {
+        infronKey,
         groqKey,
         googleKey,
         nvidiaKey,
@@ -1003,6 +1031,7 @@ export class InvestigatorAgentDO {
 
       try {
         const qa = await verifyReport(ai, state.query, state.queryType, result.report, state.steps, {
+          infronKey,
           groqKey,
           googleKey,
           nvidiaKey,
@@ -1058,6 +1087,7 @@ export class InvestigatorAgentDO {
             state.queryType,
             state.steps,
             {
+              infronKey,
               groqKey,
               googleKey,
               nvidiaKey,
@@ -1071,6 +1101,7 @@ export class InvestigatorAgentDO {
 
           // Re-verify the corrected report
           const qa2 = await verifyReport(ai, state.query, state.queryType, correctedProse, state.steps, {
+            infronKey,
             groqKey,
             googleKey,
             nvidiaKey,
