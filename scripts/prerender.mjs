@@ -549,6 +549,21 @@ const ROUTES = [
   // ── Detection Chokepoints: unified hub ─
 
   // ── ThreatIntel: hub pages (11) — Suspense-wrapped tabs, prerendered chrome ─
+
+  // ── Previously shell-only static pages (SEO/CWV: crawlable first paint) ─
+  '/argus',
+  '/threat-intel',
+  '/dfir/agent-history',
+  '/dfir/csrf-poc',
+  '/dfir/detection-chokepoints',
+  '/dfir/one-time-secret',
+  '/dfir/xss-payloads',
+  '/threatintel/alerts',
+  '/threatintel/apt-actors',
+  '/threatintel/aptmap',
+  '/threatintel/estate',
+  '/threatintel/infra/ai-honeypot',
+  '/threatintel/tools/kev-catalog',
 ];
 
 const SHELL_PATH = resolve(ROOT, 'dist/index.html');
