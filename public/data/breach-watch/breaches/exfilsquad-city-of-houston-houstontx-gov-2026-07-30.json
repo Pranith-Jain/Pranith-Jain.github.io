@@ -1,0 +1,15 @@
+{
+  "slug": "exfilsquad-city-of-houston-houstontx-gov-2026-07-30",
+  "title": "City of Houston (houstontx.gov)",
+  "group": "exfilsquad",
+  "discovered": "2026-07-30T09:32:20.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

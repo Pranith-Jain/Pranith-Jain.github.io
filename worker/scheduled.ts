@@ -170,6 +170,12 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // reached, so gp:warm:* expired and the map lost every warmed layer.
           if (env.FEEDS_QUEUE) {
             await enqueueGpFeeds(env.FEEDS_QUEUE, csNow.getUTCHours()).catch(logCronFail('gp-warm-enqueue'));
+            // Live-IOC feed slices — same reasoning. The queue consumer warms each
+            // source in its own invocation (own budget). Without this the compose-
+            // on-read path falls back to the budget-limited synchronous fan-out,
+            // which starves every source past the first ~11 — the "16 unreachable"
+            // blocklists (blocklist-de, cinsscore, threatview, certpl, bitwire…).
+            await enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue'));
           }
 
           // === Daily Briefs sync (every 6 hours) ==============================
@@ -516,9 +522,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             refreshSocialMetricsNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('social-metrics'))
           );
           fireAndForget.push(runTelegramArchive(env as unknown as ApiEnv).catch(logCronFail('telegram-archive')));
-          if (env.FEEDS_QUEUE) {
-            fireAndForget.push(enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue')));
-          }
+          // enqueueAllFeeds moved to the TOP of this hourly handler (see above).
           fireAndForget.push(
             warmIntelBundles(env as unknown as ApiEnv)
               .then((r) =>

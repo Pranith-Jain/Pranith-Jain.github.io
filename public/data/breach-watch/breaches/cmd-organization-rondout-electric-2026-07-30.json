@@ -1,0 +1,15 @@
+{
+  "slug": "cmd-organization-rondout-electric-2026-07-30",
+  "title": "Rondout Electric",
+  "group": "cmd organization",
+  "discovered": "2026-07-30T11:55:51.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Rondout Electric Inc. is a leading electrical contracting company with over 50 years of experience, specializing in a wide range of projects including health care facilities, schools, industrial complexes, and public sector projects. With a dedicated team of approximately 100 employees, they are known for their disciplined approach to ensuring projects are completed safely, on time, and within budget. The company has built long-standing relationships with clients who appreciate their commitment to integrity and customer satisfaction. Based in Highland, NY, Rondout Electric serves clients across the eastern part of New York State.",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

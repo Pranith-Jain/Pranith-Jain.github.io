@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-delkart-industries-pvt-2026-07-30",
+  "title": "Delkart Industries Pvt",
+  "group": "thegentlemen",
+  "discovered": "2026-07-30T06:49:56.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "delkartindustries.com zoominfo.com/c/delkart-industries-pvt-ltd/471455561 Delkart Industries is an Indian manufacturing company established in 2017, specializing in custom felts, automobile carpets, and noise and thermal insulation parts. The company serves the automotive, home appliance, robotics, and industrial sectors with high-quality, customized solutions. With multiple manufacturing plants across India and IATF 16949 / ISO 9001 certifications, it ensures reliability, innovation, and trusted partnerships with leading global brands",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

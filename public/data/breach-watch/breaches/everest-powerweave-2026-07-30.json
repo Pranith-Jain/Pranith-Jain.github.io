@@ -1,0 +1,15 @@
+{
+  "slug": "everest-powerweave-2026-07-30",
+  "title": "Powerweave",
+  "group": "everest",
+  "discovered": "2026-07-30T09:24:17.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "2 posts - 6d",
+  "source_url": "https://www.ransomlook.io/screenshots/everest/Powerweave.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-angel-hotel-2026-07-30",
+  "title": "Angel Hotel",
+  "group": "thegentlemen",
+  "discovered": "2026-07-30T06:48:13.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "angelpershore.co.uk zoominfo.com/c/angel-hotel/1153643926 The Angel, Pershore is a historic Tudor-origin hotel and restaurant located in the heart of the market town of Pershore, Worcestershire, near the River Avon. It serves as a premier venue offering farm-to-table dining with locally sourced produce, comfortable accommodation, and a charming atmosphere. Beyond hospitality, the establishment is a vibrant community hub, regularly hosting live music, festivals, and popular annual events like Bonfire Night fireworks.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Hospitality",
+  "references": ["ransomware.live"]
+}

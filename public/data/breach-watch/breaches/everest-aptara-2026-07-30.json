@@ -1,0 +1,15 @@
+{
+  "slug": "everest-aptara-2026-07-30",
+  "title": "Aptara",
+  "group": "everest",
+  "discovered": "2026-07-30T09:24:19.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "2 posts - Jul 22",
+  "source_url": "https://www.ransomlook.io/screenshots/everest/Aptara.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

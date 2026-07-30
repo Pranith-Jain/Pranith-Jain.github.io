@@ -1,0 +1,15 @@
+{
+  "slug": "gunra-siam-stabilizers-and-chemicals-co-ltd-ssc-2026-07-30",
+  "title": "Siam Stabilizers and Chemicals Co., Ltd. / SSC",
+  "group": "gunra",
+  "discovered": "2026-07-30T08:25:13.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "TH",
+  "sizeBytes": 0,
+  "description": "Sector: chemical additives and heat stabilizer | Revenue: US$ 20,000,000",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}
