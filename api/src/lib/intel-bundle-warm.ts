@@ -156,11 +156,11 @@ export async function warmIntelBundles(env: Env, options: WarmOptions = {}): Pro
         // at the warmer boundary regardless of what extractLlm does
         // internally. Kept as belt-and-suspenders against any future
         // regression in extract-llm.
-        extractLlmFn(report.title, report.body, entities, env, { findingsCount }).catch((err) => {
+        extractLlmFn(report.title, report.body, entities, env, { findingsCount }).catch(() => {
           return { ...EMPTY_LLM_ENTITIES, ran: false, partial: false };
         }),
       ]);
-      const logRejected = (idx: 0 | 1 | 2, stage: string) => {
+      const logRejected = (idx: 0 | 1 | 2, _stage: string) => {
         const s = settled[idx];
         if (s.status === 'rejected') {
         }
@@ -171,7 +171,8 @@ export async function warmIntelBundles(env: Env, options: WarmOptions = {}): Pro
         settled[0].status === 'fulfilled'
           ? settled[0].value
           : { enrichments: [], partial: true, overflow: [], freshSubrequests: 0, droppedSubrequests: 0 };
-      const cveEnrichments: Map<string, CveEnrichment> = settled[1].status === 'fulfilled' ? settled[1].value : new Map();
+      const cveEnrichments: Map<string, CveEnrichment> =
+        settled[1].status === 'fulfilled' ? settled[1].value : new Map();
       const llmEntities =
         settled[2].status === 'fulfilled' ? settled[2].value : { ...EMPTY_LLM_ENTITIES, ran: false, partial: false };
       const built = await buildStixBundle(report, entities, bulk, cveEnrichments, llmEntities);

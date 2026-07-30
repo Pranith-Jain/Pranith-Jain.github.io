@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, internalError, notFound } from '../lib/api-error';
+import { badRequest, internalError } from '../lib/api-error';
 
 interface SavedRule {
   id: string;
@@ -82,9 +82,7 @@ export async function copilotRulesListHandler(c: Context<{ Bindings: Env }>): Pr
         .bind(type)
         .all<SavedRule>();
     } else {
-      rows = await db
-        .prepare('SELECT * FROM copilot_saved_rules ORDER BY created_at DESC LIMIT 50')
-        .all<SavedRule>();
+      rows = await db.prepare('SELECT * FROM copilot_saved_rules ORDER BY created_at DESC LIMIT 50').all<SavedRule>();
     }
     return c.json({ rules: rows.results ?? [] });
   } catch (e) {

@@ -175,7 +175,7 @@ export async function ctiMutateHandler(c: Context<{ Bindings: Env }>) {
   let body: Record<string, unknown>;
   try {
     body = await c.req.json<Record<string, unknown>>();
-  } catch (e) {
+  } catch {
     return c.json({ error: 'invalid_json_body' }, 400, { 'Cache-Control': 'no-store' });
   }
   const input = String(body.input || '');

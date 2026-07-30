@@ -65,19 +65,17 @@ export async function planNextStep(
 
   const input: CompletionInput = { system, user, maxTokens: 1200, temperature: 0.2 };
 
-  let lastErr: unknown;
   for (let attempt = 0; attempt <= MAX_PARSE_RETRIES; attempt++) {
-      const { text } = await runCompletion(ai, input, {
-        groqKey: opts.groqKey,
-        nvidiaKey: opts.nvidiaKey,
-        quality: queryType === 'actor' || queryType === 'ransomware' || queryType === 'campaign',
-        role: 'planner',
-        recordUsage: opts.recordUsage,
-      });
+    const { text } = await runCompletion(ai, input, {
+      groqKey: opts.groqKey,
+      nvidiaKey: opts.nvidiaKey,
+      quality: queryType === 'actor' || queryType === 'ransomware' || queryType === 'campaign',
+      role: 'planner',
+      recordUsage: opts.recordUsage,
+    });
     try {
       return parsePlannerOutput(text);
-    } catch (err) {
-      lastErr = err;
+    } catch {
       if (attempt < MAX_PARSE_RETRIES) {
         input.user = `${user}\n\nIMPORTANT: Respond with ONLY valid JSON.`;
       }

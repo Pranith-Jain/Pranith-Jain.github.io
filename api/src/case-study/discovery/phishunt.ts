@@ -48,7 +48,7 @@ export async function discoverPhishuntHunts(deps: DiscoverPhishuntDeps): Promise
   let results: PhishuntResult[] = [];
   try {
     results = await deps.fetchPhishunt();
-  } catch (err) {
+  } catch {
     return [];
   }
 

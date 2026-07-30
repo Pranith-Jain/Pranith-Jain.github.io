@@ -22,7 +22,7 @@ export async function discoverRansomware(deps: DiscoverRansomwareDeps): Promise<
   let victims: Victim[] = [];
   try {
     victims = await deps.fetchVictims();
-  } catch (err) {
+  } catch {
     return [];
   }
 

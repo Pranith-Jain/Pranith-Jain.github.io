@@ -88,7 +88,7 @@ const MATRIX: MatrixRow[] = [
   },
   {
     domain: 'Observability & auditing',
-    foundation: 'Comprehensive action logs; request IDs link actions to triggers',
+    foundation: 'Full action logs; request IDs link actions to triggers',
     enterprise: 'Immutable audit trails; distributed tracing (OpenTelemetry)',
     advanced: 'Real-time SIEM streaming; full input→output provenance chains',
     practice:
@@ -836,7 +836,9 @@ export default function ZeroTrustAiAgents(): JSX.Element {
                 <span className="text-eyebrow font-mono uppercase tracking-[0.18em] text-brand-700 dark:text-brand-300">
                   Phase {phase.num}
                 </span>
-                <span className="text-eyebrow font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">·</span>
+                <span className="text-eyebrow font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+                  ·
+                </span>
                 <h3 className="font-display font-bold text-slate-900 dark:text-slate-100 text-base">{phase.title}</h3>
               </div>
               <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{phase.detail}</p>

@@ -99,7 +99,7 @@ export async function discoverActors(deps: DiscoverActorsDeps): Promise<Candidat
           }
         }
       }
-    } catch (err) {
+    } catch {
     }
   }
 

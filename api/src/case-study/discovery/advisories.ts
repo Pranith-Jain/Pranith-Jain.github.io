@@ -49,7 +49,7 @@ export async function discoverAdvisories(deps: DiscoverAdvisoriesDeps): Promise<
           status: 'pending',
         });
       }
-    } catch (err) {
+    } catch {
     }
   }
   return out;

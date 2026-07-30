@@ -28,7 +28,7 @@ export default function DomainInvestigator(): JSX.Element {
       backTo="/dfir"
       icon={<Globe size={28} />}
       title="Domain Security Investigator"
-      description="Comprehensive domain security analysis - DNS, reputation, web security, attack surface, and full automated scans. Pick the depth you need."
+      description="Domain security analysis - DNS, reputation, web security, attack surface, and full automated scans. Pick the depth you need."
     >
       <Tabs
         tabs={TABS.map((t) => ({ id: t.id, label: t.label }))}

@@ -172,15 +172,13 @@ async function callAi(
     try {
       const text = await callGroq(groqKey, system, user, maxTokens);
       return { text, model: `groq:${GROQ_MODEL}` };
-    } catch (e) {
-    }
+    } catch {}
   }
   if (nvidiaKey) {
     try {
       const text = await callNvidia(nvidiaKey, system, user, maxTokens, 0.2);
       return { text, model: 'nvidia:minimaxai/minimax-m2.7' };
-    } catch (e) {
-    }
+    } catch {}
   }
   const text = await callWorkersAI(ai, system, user, maxTokens);
   return { text, model: '@cf/meta/llama-3.3-70b-instruct-fp8-fast' };

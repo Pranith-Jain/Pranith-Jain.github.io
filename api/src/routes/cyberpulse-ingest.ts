@@ -1209,7 +1209,7 @@ async function fetchSocialBreachFeed(items?: XFeedItem[], fetched?: boolean): Pr
     if (feedItems.length === 0) {
     }
     return feedItems.map(xFeedItemToRawPost).filter((p): p is RawPost => p !== null);
-  } catch (e) {
+  } catch {
     return [];
   }
 }

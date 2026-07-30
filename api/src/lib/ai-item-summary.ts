@@ -114,7 +114,7 @@ export async function generateItemSummary(item: ItemInput, env: Env): Promise<st
       }
     }
     return text;
-  } catch (err) {
+  } catch {
     return null;
   }
 }

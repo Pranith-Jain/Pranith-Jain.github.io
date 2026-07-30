@@ -30,8 +30,6 @@ const FILTER_SIZES: Record<string, { bits: number; hashes: number }> = {
   hash: { bits: 300000, hashes: 4 },
 };
 
-const KV_PREFIX = 'bloom:';
-
 // Per-colo Cache API for filter entries. Filters are rebuilt on cache miss,
 // so a 300s per-colo cache spares redundant rebuilds on every /bloom/:type,
 // /bloom/check, and especially /bloom/stats (which reads one key per filter
@@ -160,8 +158,6 @@ export async function bloomFilterHandler(c: Context<{ Bindings: Env }>): Promise
 
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ error: 'KV not available' }, 503);
-
-  const cacheKey = `${KV_PREFIX}${type}`;
 
   // Try cached filter (per-colo Cache API → KV)
   const cached = await readFilterEntry(kv, type);

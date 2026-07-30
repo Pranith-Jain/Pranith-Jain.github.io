@@ -65,8 +65,7 @@ export async function reverseImageSearchHandler(c: Context<{ Bindings: Env }>): 
     if (cached) {
       return c.json(await cached.json(), 200, { 'cache-control': `public, max-age=${CACHE_TTL}` });
     }
-  } catch (e) {
-  }
+  } catch {}
 
   const engines = buildEngineUrls(url);
   const categories: Record<string, string[]> = {};
@@ -83,8 +82,7 @@ export async function reverseImageSearchHandler(c: Context<{ Bindings: Env }>): 
     reachable = resp.ok;
     contentType = resp.headers.get('content-type') ?? undefined;
     contentLength = resp.headers.get('content-length') ? Number(resp.headers.get('content-length')) : undefined;
-  } catch (e) {
-  }
+  } catch {}
 
   const result = {
     input: { url, reachable, content_type: contentType, content_length: contentLength },

@@ -20,7 +20,7 @@ export async function safeNull<T>(promise: Promise<T>): Promise<T | null> {
 export async function safeNullLog<T>(label: string, promise: Promise<T>): Promise<T | null> {
   try {
     return await promise;
-  } catch (err) {
+  } catch {
     return null;
   }
 }
@@ -80,7 +80,7 @@ export async function kvPutSafe(
     // so call-sites stay typed; the runtime accepts all four shapes.
     await ns.put(key, value as unknown as string, options as never);
     return true;
-  } catch (err) {
+  } catch {
     return false;
   }
 }

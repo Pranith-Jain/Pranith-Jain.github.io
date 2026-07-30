@@ -99,8 +99,7 @@ export async function resolveQueryIds(env: Env): Promise<QueryIds> {
         if (isValidQid(stored.userTweetsAndReplies)) qids.userTweetsAndReplies = stored.userTweetsAndReplies.trim();
         if (isValidQid(stored.searchTimeline)) qids.searchTimeline = stored.searchTimeline.trim();
       }
-    } catch (e) {
-    }
+    } catch {}
   }
   qidCache = { value: qids, expires: Date.now() + QID_CACHE_TTL_MS };
   return qids;
@@ -323,8 +322,7 @@ export async function resolveAuthCookies(env: Env): Promise<AuthCookies> {
           };
         }
       }
-    } catch (e) {
-    }
+    } catch {}
   }
   return readAuthCookies(env);
 }

@@ -25,7 +25,7 @@ export async function fetchRecentVictims(fetchImpl: typeof globalThis.fetch = gl
         postedAt: e.discovered.replace(' ', 'T'),
         url: e.link ? `https://www.ransomlook.io${e.link.startsWith('/') ? '' : '/'}${e.link}` : undefined,
       }));
-  } catch (err) {
+  } catch {
     return [];
   }
 }

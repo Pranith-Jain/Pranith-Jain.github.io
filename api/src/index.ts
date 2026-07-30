@@ -747,6 +747,22 @@ app.use('/api/v1/daily-briefs/*', looseValidation());
 app.use('/api/v1/daily-briefs/*', rateLimit);
 app.route('/api/v1', dailyBriefsRouter);
 
+// ── Webamon DTB (public, no auth — read-only intelligence briefs) ────────
+app.use(
+  '/api/v1/webamon-dtb/*',
+  cors({
+    origin: (_, c) => getSiteUrl(c.env as { SITE_URL?: string }),
+    allowHeaders: ['Content-Type'],
+    allowMethods: ['GET', 'OPTIONS'],
+    maxAge: 300,
+  })
+);
+app.use('/api/v1/webamon-dtb/*', requestId);
+app.use('/api/v1/webamon-dtb/*', csrfGuard);
+app.use('/api/v1/webamon-dtb/*', looseValidation());
+app.use('/api/v1/webamon-dtb/*', rateLimit);
+app.route('/api/v1', webamonDtbRouter);
+
 app.use(
   '/api/v1/*',
   cors({
@@ -2009,10 +2025,7 @@ app.route('/api/v1', ossFeedsRouter);
 // CVE/KEV/IOC/sector briefs served from public/data/threat-intel/ via env.ASSETS.
 app.route('/api/v1', threatIntelRouter);
 
-// (daily-briefs routes registered before global auth — see public routes section above)
-
-// Webamon Daily Threat Brief — campaign intelligence from webamon-org/Daily-Threat-Brief (Apache-2.0).
-app.route('/api/v1', webamonDtbRouter);
+// (daily-briefs + webamon-dtb routes registered before global auth — see public routes section above)
 
 // WinReg DFIR vertical — Windows Registry forensic artifact reference.
 // Data from github.com/dfir-scripts/dfir-scripts.github.io (MIT).

@@ -3596,6 +3596,15 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/webamon-dtb',
+    label: 'Webamon DTB',
+    description:
+      'Web asset monitoring daily threat briefings - tracked campaigns, KPIs, infrastructure movements, and phishing clusters.',
+    sectionLabel: 'Threat Intel · Infra',
+    group: 'threatintel',
+    keywords: ['webamon', 'dtb', 'daily threat briefing', 'phishing', 'web asset monitoring'],
+  },
+  {
     path: '/threatintel/infra/domain',
     label: 'Domain',
     description: 'Domain monitoring and tracking.',

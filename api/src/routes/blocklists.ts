@@ -42,8 +42,7 @@ async function readAllFromKv(kv: KVNamespace | undefined): Promise<BlocklistAll 
       );
       return all;
     }
-  } catch (e) {
-  }
+  } catch {}
   return null;
 }
 

@@ -367,7 +367,7 @@ export async function extractLlm(
     ]);
     text = result.text;
     modelUsed = result.modelUsed;
-  } catch (err) {
+  } catch {
     return { ...EMPTY_LLM_ENTITIES, ran: true, partial: true };
   }
 

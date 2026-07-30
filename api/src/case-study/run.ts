@@ -614,7 +614,7 @@ export async function refreshSocialMetricsNow(env: CaseStudyEnv, now: Date) {
   if (env.BRIEFINGS_DB) {
     try {
       const { refreshContentPerformance } = await import('./analytics/content-performance');
-      const result = await refreshContentPerformance(env.BRIEFINGS_DB, env.CASE_STUDIES);
+      await refreshContentPerformance(env.BRIEFINGS_DB, env.CASE_STUDIES);
     } catch {
       // D1 unavailable — content performance refresh is non-critical
     }

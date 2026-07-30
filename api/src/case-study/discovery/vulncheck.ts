@@ -72,7 +72,7 @@ export async function discoverVulnCheckKev(deps: DiscoverVulnCheckDeps): Promise
         status: 'pending',
       });
     }
-  } catch (err) {
+  } catch {
   }
   return out;
 }

@@ -80,7 +80,7 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
         }
       })
     );
-    for (const { name, cands, error, ms } of batchResults) {
+    for (const { name, cands, error } of batchResults) {
       if (error) {
         byTopicSelected[name] = 0;
         continue;

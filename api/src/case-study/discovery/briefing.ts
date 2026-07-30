@@ -116,7 +116,7 @@ export async function discoverBriefing(deps: DiscoverDeps): Promise<Candidate[]>
         status: 'pending',
       },
     ];
-  } catch (err) {
+  } catch {
     return [];
   }
 }

@@ -112,7 +112,6 @@ export async function runRetentionSweep(
   let total = 0;
 
   for (const p of policy) {
-    const t0 = Date.now();
     try {
       // Always run a count first so we have a number to return, even on dry-run.
       // This is one extra round-trip on the hot path but lets us report stats.

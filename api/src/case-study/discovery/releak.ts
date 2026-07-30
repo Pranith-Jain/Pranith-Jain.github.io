@@ -48,7 +48,7 @@ export async function discoverReleaks(deps: DiscoverReleakDeps): Promise<Candida
   let rows: ReleakRow[] = [];
   try {
     rows = await deps.fetchReleaks();
-  } catch (err) {
+  } catch {
     return [];
   }
 

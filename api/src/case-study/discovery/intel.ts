@@ -69,7 +69,7 @@ export async function discoverIntel(deps: DiscoverDeps): Promise<Candidate[]> {
           status: 'pending',
         });
       }
-    } catch (err) {
+    } catch {
     }
   }
   return out;

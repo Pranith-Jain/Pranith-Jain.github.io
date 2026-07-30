@@ -215,7 +215,7 @@ export async function riskRegisterCreateHandler(c: Context<{ Bindings: Env }>): 
   let body: any;
   try {
     body = await c.req.json();
-  } catch (e) {
+  } catch {
     return c.json({ error: 'invalid_json_body' }, 400);
   }
 
@@ -253,7 +253,7 @@ export async function riskRegisterUpdateHandler(c: Context<{ Bindings: Env }>): 
   let body: any;
   try {
     body = await c.req.json();
-  } catch (e) {
+  } catch {
     return c.json({ error: 'invalid_json_body' }, 400);
   }
 

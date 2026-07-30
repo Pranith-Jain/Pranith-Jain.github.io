@@ -476,7 +476,7 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
       });
     }
     return candidates;
-  } catch (err) {
+  } catch {
     return [];
   }
 }

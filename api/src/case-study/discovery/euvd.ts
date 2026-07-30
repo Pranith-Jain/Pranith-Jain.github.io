@@ -59,7 +59,7 @@ export async function discoverEuvd(deps: DiscoverEuvdDeps): Promise<Candidate[]>
         status: 'pending',
       });
     }
-  } catch (err) {
+  } catch {
   }
   return out;
 }

@@ -83,7 +83,7 @@ async function listJobs(db: D1Database): Promise<FeedJob[]> {
   const cached = await readJobsCached();
   if (cached) return cached;
   const { results } = await db.prepare(`SELECT * FROM ${FEED_JOBS_TABLE} ORDER BY created_at DESC`).all<FeedJob>();
-  const jobs = (results ?? []).map((r) => ({ ...r, tags: JSON.parse(r.tags as unknown as string ?? '[]') }));
+  const jobs = (results ?? []).map((r) => ({ ...r, tags: JSON.parse((r.tags as unknown as string) ?? '[]') }));
   await writeJobsCache(jobs);
   return jobs;
 }
@@ -464,9 +464,7 @@ export async function getFeedJobsHistoryAllHandler(c: Context<{ Bindings: Env }>
  * Runs at most 1 job per tick to stay within the 50-subrequest limit.
  * Saves fetched IOCs to graph_nodes D1 table.
  */
-export async function autoRunFeedJobs(
-  db: D1Database
-): Promise<{ ran: number; saved: number; skipped: number }> {
+export async function autoRunFeedJobs(db: D1Database): Promise<{ ran: number; saved: number; skipped: number }> {
   const jobs = await listJobs(db);
   const nowMs = Date.now();
   const due = jobs.filter((j) => {
@@ -545,8 +543,7 @@ export async function autoRunFeedJobs(
           // Track in IOC lifecycle table
           const lt = nodeType === 'ip' ? 'ipv4' : nodeType;
           safeNull(recordIocObservation(db, trimmed, lt, 50, [`feed:${job.name}`]));
-        } catch (nodeErr) {
-        }
+        } catch {}
       }
     }
 

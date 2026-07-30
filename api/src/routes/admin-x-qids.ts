@@ -35,7 +35,7 @@ async function readStoredQids(kv: KVNamespace): Promise<StoredQids | null> {
   try {
     const raw = await kv.get(X_QIDS_KV_KEY);
     return raw ? (JSON.parse(raw) as StoredQids) : null;
-  } catch (e) {
+  } catch {
     return null;
   }
 }
@@ -58,11 +58,9 @@ export async function getXQidsHandler(c: AdminCtx): Promise<Response> {
   };
   const source: 'kv' | 'default' = Object.values(overridden).some(Boolean) ? 'kv' : 'default';
 
-  return c.json(
-    { source, qids: effective, overridden, updatedAt: stored?.updatedAt ?? null },
-    200,
-    { 'cache-control': 'no-store' }
-  );
+  return c.json({ source, qids: effective, overridden, updatedAt: stored?.updatedAt ?? null }, 200, {
+    'cache-control': 'no-store',
+  });
 }
 
 /** POST /api/v1/admin/x-qids - merge provided IDs over current, persist all four. */

@@ -128,7 +128,7 @@ export async function generateAiImage(ai: Ai, prompt: string): Promise<Uint8Arra
       if (img instanceof Uint8Array) return img;
     }
     return null;
-  } catch (err) {
+  } catch {
     return null;
   }
 }

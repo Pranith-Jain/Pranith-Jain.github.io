@@ -1,11 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { requireAdmin } from '../lib/admin-auth';
-import {
-  X_COOKIES_KV_KEY,
-  validateXCookiesShape,
-  type StoredXCookies,
-} from '../lib/twitter-auth-graphql';
+import { X_COOKIES_KV_KEY, validateXCookiesShape, type StoredXCookies } from '../lib/twitter-auth-graphql';
 
 /**
  * Admin-managed X (Twitter) session cookies.
@@ -37,7 +33,7 @@ async function readStored(kv: KVNamespace): Promise<StoredXCookies | null> {
     const raw = await kv.get(X_COOKIES_KV_KEY);
     if (!raw) return null;
     return JSON.parse(raw) as StoredXCookies;
-  } catch (e) {
+  } catch {
     return null;
   }
 }

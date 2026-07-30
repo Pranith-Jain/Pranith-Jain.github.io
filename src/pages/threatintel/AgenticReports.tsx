@@ -44,7 +44,7 @@ export default function AgenticReports(): JSX.Element {
       backLabel="back to threat intel"
       icon={<Zap className="h-6 w-6" />}
       title="Agentic Reports"
-      description="Cross-source correlated threat intelligence analyses. Each report synthesizes multiple upstream sources into a comprehensive analysis with executive summary, detection rules, IOCs, TTPs, and recommended actions."
+      description="Cross-source correlated threat intelligence analyses. Each report synthesizes multiple upstream sources into a single analysis with executive summary, detection rules, IOCs, TTPs, and recommended actions."
       maxWidthClass="max-w-6xl"
     >
       {/* Search */}
@@ -92,7 +92,9 @@ export default function AgenticReports(): JSX.Element {
                   {t}
                 </span>
               ))}
-              {r.tags.length > 5 && <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{r.tags.length - 5}</span>}
+              {r.tags.length > 5 && (
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{r.tags.length - 5}</span>
+              )}
             </div>
           </button>
         ))}

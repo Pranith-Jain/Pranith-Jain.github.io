@@ -156,8 +156,7 @@ export async function saveCampaignHandler(c: Context<{ Bindings: Env }>): Promis
     // Cap at 200 so the index stays small and a single bad import can't
     // grow it unbounded. Older entries remain readable by direct ID lookup.
     await writeIndex(kv, index.slice(0, 200));
-  } catch (err) {
-  }
+  } catch {}
   await invalidateCampaignCaches(validated.id);
 
   return c.json({ id: validated.id, saved_at: validated.saved_at }, 201, { 'cache-control': 'no-store' });
@@ -213,8 +212,7 @@ export async function deleteCampaignHandler(c: Context<{ Bindings: Env }>): Prom
       kv,
       index.filter((e) => e.id !== id)
     );
-  } catch (err) {
-  }
+  } catch {}
   await invalidateCampaignCaches(id);
   return c.json({ ok: true, id }, 200);
 }

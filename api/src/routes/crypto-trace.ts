@@ -442,9 +442,8 @@ export async function cryptoTraceHandler(c: Context<{ Bindings: Env }>): Promise
     ]);
     const evmResults = evmSettled[0];
     results = evmResults
-      .map((r, i) => {
+      .map((r) => {
         if (r.status === 'fulfilled') return r.value;
-        const chain = EVM_CHAINS[i]?.label ?? 'unknown';
         return null;
       })
       .filter((x): x is ChainResult => x !== null);

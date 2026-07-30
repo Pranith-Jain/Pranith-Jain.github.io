@@ -186,7 +186,7 @@ export async function discoverCves(deps: DiscoverDeps): Promise<Candidate[]> {
         status: 'pending',
       });
     }
-  } catch (err) {
+  } catch {
   }
 
   return candidates;

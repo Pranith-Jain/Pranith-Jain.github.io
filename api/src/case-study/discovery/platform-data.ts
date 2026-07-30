@@ -99,7 +99,7 @@ export async function discoverFromTelegramLeaks(deps: PlatformDataDeps): Promise
       });
     }
     return candidates;
-  } catch (err) {
+  } catch {
     return [];
   }
 }
@@ -159,7 +159,7 @@ export async function discoverFromTrendingIocs(deps: PlatformDataDeps): Promise<
       });
     }
     return candidates;
-  } catch (err) {
+  } catch {
     return [];
   }
 }
@@ -255,7 +255,7 @@ export async function discoverFromThreatPulse(deps: PlatformDataDeps): Promise<C
       });
     }
     return candidates;
-  } catch (err) {
+  } catch {
     return [];
   }
 }

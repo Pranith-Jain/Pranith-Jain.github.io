@@ -401,7 +401,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
         await deps.aiImages.put(slug, 'body1', bodyBytes);
         bodyWithImages = injectBodyImage(finalBody, `/api/v1/blog-image/${slug}/body1`, candidate.title);
       }
-    } catch (err) {
+    } catch {
     }
   }
 

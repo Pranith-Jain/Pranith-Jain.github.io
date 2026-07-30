@@ -85,7 +85,6 @@ export function createRssRunner(config: RssRunnerConfig) {
   return async (deps: RssRunnerDeps): Promise<Candidate[]> => {
     const out: Candidate[] = [];
     const cutoff = deps.now.getTime() - config.windowMs;
-    let feedsOk = 0;
     for (const feed of config.feeds) {
       try {
         const r = await deps.fetch(feed, {
@@ -95,7 +94,6 @@ export function createRssRunner(config: RssRunnerConfig) {
           },
         });
         if (!r.ok) continue;
-        feedsOk += 1;
         const xml = await r.text();
         const feedHost = new URL(feed).hostname.replace(/^www\./, '');
         for (const item of parseRssItems(xml, deps.now)) {
@@ -120,7 +118,7 @@ export function createRssRunner(config: RssRunnerConfig) {
             status: 'pending',
           });
         }
-      } catch (err) {
+      } catch {
       }
     }
     return out;

@@ -937,7 +937,7 @@ export const SECTIONS: Section[] = [
       },
       {
         path: '/dfir/verdikt-ai',
-        useCase: 'Combine IOC enrichment with AI analysis for comprehensive verdicts.',
+        useCase: 'Combine IOC enrichment with AI analysis for higher-confidence verdicts.',
         label: 'VERDIKT-AI IOC + AI Analysis',
         desc: 'IP/domain/URL/hash → multi-source enrichment + AI narrative · MITRE mapping · detection queries',
         icon: Shield,
