@@ -680,6 +680,15 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'Webamon',
       },
       {
+        path: '/threatintel/webamon-dtb',
+        tabId: 'webamon-dtb',
+        label: 'Webamon Daily Threat Brief',
+        desc: 'Daily campaign intelligence - phishing/malware estate tracking, domain growth, takedowns, infra rotation, emerging clusters.',
+        compVar: 'WebamonDtb',
+        badge: 'new',
+        keywords: ['webamon', 'dtb', 'phishing', 'campaign', 'takedown', 'daily brief'],
+      },
+      {
         path: '/threatintel/infra/domain',
         tabId: 'domain',
         label: 'Domain Monitor',
