@@ -36,6 +36,7 @@ export async function planNextStep(
   maxSteps: number,
   tools: AgentTool[],
   opts: {
+    infronKey?: string;
     groqKey?: string;
     nvidiaKey?: string;
     googleKey?: string;
@@ -67,6 +68,7 @@ export async function planNextStep(
 
   for (let attempt = 0; attempt <= MAX_PARSE_RETRIES; attempt++) {
     const { text } = await runCompletion(ai, input, {
+      infronKey: opts.infronKey,
       groqKey: opts.groqKey,
       nvidiaKey: opts.nvidiaKey,
       quality: queryType === 'actor' || queryType === 'ransomware' || queryType === 'campaign',

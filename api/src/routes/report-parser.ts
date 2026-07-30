@@ -258,7 +258,7 @@ function extractEntities(text: string): {
 /** Use multi-provider LLM for intelligent extraction. */
 async function extractWithAI(
   text: string,
-  env: { NVIDIA_API_KEY?: string; GROQ_API_KEY?: string; GOOGLE_AI_STUDIO_API_KEY?: string }
+  env: { INFRON_API_KEY?: string; NVIDIA_API_KEY?: string; GROQ_API_KEY?: string; GOOGLE_AI_STUDIO_API_KEY?: string }
 ): Promise<{
   actors: Array<{ name: string; context?: string }>;
   malware: Array<{ name: string; context?: string }>;
@@ -301,6 +301,7 @@ Rules:
         temperature: 0.1,
       },
       {
+        infronKey: env.INFRON_API_KEY,
         nvidiaKey: env.NVIDIA_API_KEY,
         groqKey: env.GROQ_API_KEY,
         googleKey: env.GOOGLE_AI_STUDIO_API_KEY,

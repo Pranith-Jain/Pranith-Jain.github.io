@@ -122,6 +122,7 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
           temperature: 0.3,
         },
         {
+          infronKey: env.INFRON_API_KEY,
           googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
           groqKey: env.GROQ_API_KEY,
           nvidiaKey: env.NVIDIA_API_KEY as string | undefined,
@@ -136,9 +137,7 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
       // Empty/near-empty completion — the classic reasoning-model symptom when
       // max_completion_tokens is exhausted on the internal trace. Log it so the
       // cause isn't lost behind the generic 503.
-      console.error(
-        `generateAiSummary[${input.surface}] short output (${text.length} chars) from ${result.modelUsed}`
-      );
+      console.error(`generateAiSummary[${input.surface}] short output (${text.length} chars) from ${result.modelUsed}`);
       return null;
     }
 
@@ -177,10 +176,7 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
     // worker log is the ONLY place the real cause (provider exhaustion, auth,
     // timeout, parse failure) surfaces. Keep returning null so the caller still
     // degrades gracefully, but make the failure diagnosable.
-    console.error(
-      `generateAiSummary[${input.surface}] failed:`,
-      err instanceof Error ? err.message : String(err)
-    );
+    console.error(`generateAiSummary[${input.surface}] failed:`, err instanceof Error ? err.message : String(err));
     return null;
   }
 }

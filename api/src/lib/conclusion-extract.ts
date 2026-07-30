@@ -71,7 +71,7 @@ async function tryExtract(system: string, context: string, env: Env): Promise<Co
           maxTokens: 2000,
           temperature: 0.3,
         },
-        { googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY }
+        { infronKey: env.INFRON_API_KEY, googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY }
       ),
       timeout,
     ]);

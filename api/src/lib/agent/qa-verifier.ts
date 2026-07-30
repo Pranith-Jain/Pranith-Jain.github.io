@@ -43,6 +43,7 @@ export async function verifyReport(
   originalReport: string,
   steps: AgentStep[],
   opts: {
+    infronKey?: string;
     groqKey?: string;
     nvidiaKey?: string;
     googleKey?: string;
@@ -51,7 +52,7 @@ export async function verifyReport(
 ): Promise<QaResult> {
   // Use ensemble mode when 2+ providers are available (any of Gemini/Groq/NVIDIA).
   // This runs QA on multiple models and takes the consensus for higher accuracy.
-  const availableProviders = [opts.googleKey, opts.groqKey, opts.nvidiaKey].filter(Boolean).length;
+  const availableProviders = [opts.infronKey, opts.googleKey, opts.groqKey, opts.nvidiaKey].filter(Boolean).length;
   if (availableProviders >= 2) {
     try {
       const ensemble = await ensembleVerifyReport(ai, query, queryType, originalReport, steps, opts);
@@ -78,6 +79,7 @@ async function singleModelVerifyReport(
   originalReport: string,
   steps: AgentStep[],
   opts: {
+    infronKey?: string;
     groqKey?: string;
     nvidiaKey?: string;
     googleKey?: string;
@@ -101,6 +103,7 @@ async function singleModelVerifyReport(
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
       const result = await runCompletion(ai, input, {
+        infronKey: opts.infronKey,
         groqKey: opts.groqKey,
         nvidiaKey: opts.nvidiaKey,
         googleKey: opts.googleKey,

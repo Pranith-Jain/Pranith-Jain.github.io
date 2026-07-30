@@ -91,6 +91,7 @@ export async function generateItemSummary(item: ItemInput, env: Env): Promise<st
         env.AI,
         { system: SYSTEM_PROMPT, user: buildUserPrompt(item), maxTokens: 120, temperature: 0.2 },
         {
+          infronKey: env.INFRON_API_KEY,
           googleKey: env.GOOGLE_AI_STUDIO_API_KEY,
           groqKey: env.GROQ_API_KEY,
           nvidiaKey: env.NVIDIA_API_KEY as string | undefined,

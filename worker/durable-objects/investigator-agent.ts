@@ -352,6 +352,7 @@ export class InvestigatorAgentDO {
     const groqKey = apiEnv.GROQ_API_KEY;
     const googleKey = apiEnv.GOOGLE_AI_STUDIO_API_KEY;
     const nvidiaKey = apiEnv.NVIDIA_API_KEY;
+    const infronKey = apiEnv.INFRON_API_KEY;
     const tokenSecret = this.env.INTERNAL_TOKEN_SECRET;
     if (!tokenSecret) throw new Error('INTERNAL_TOKEN_SECRET not configured');
     const internalToken = await signInternalToken('investigator-do', tokenSecret);
@@ -390,6 +391,7 @@ export class InvestigatorAgentDO {
         groqKey,
         googleKey,
         nvidiaKey,
+        infronKey,
         stepNum,
         stepStart,
         'Budget exceeded — synthesizing with collected data.'
@@ -399,7 +401,17 @@ export class InvestigatorAgentDO {
     // ── DECIDE (pre-plan) ─────────────────────────────────────────────
     const exit = evaluateCtiExit(view);
     if (exit) {
-      return await this.doSynthesize(state, ai, groqKey, googleKey, nvidiaKey, stepNum, stepStart, exit.reason);
+      return await this.doSynthesize(
+        state,
+        ai,
+        groqKey,
+        googleKey,
+        nvidiaKey,
+        infronKey,
+        stepNum,
+        stepStart,
+        exit.reason
+      );
     }
 
     // ── SPECIALIST MESH ───────────────────────────────────────────────
@@ -470,6 +482,7 @@ export class InvestigatorAgentDO {
             groqKey,
             googleKey,
             nvidiaKey,
+            infronKey,
             stepNum,
             stepStart,
             `All specialists complete (${specialistCheck.reason}). Synthesizing.`
@@ -520,7 +533,17 @@ export class InvestigatorAgentDO {
       );
 
       if (plan.shouldSynthesize) {
-        return await this.doSynthesize(state, ai, groqKey, googleKey, nvidiaKey, stepNum, stepStart, plan.reasoning);
+        return await this.doSynthesize(
+          state,
+          ai,
+          groqKey,
+          googleKey,
+          nvidiaKey,
+          infronKey,
+          stepNum,
+          stepStart,
+          plan.reasoning
+        );
       }
 
       // Apply specialist-specific guardrails
@@ -550,6 +573,7 @@ export class InvestigatorAgentDO {
           groqKey,
           googleKey,
           nvidiaKey,
+          infronKey,
           stepNum,
           stepStart,
           'No valid tools for specialist'
@@ -611,13 +635,33 @@ export class InvestigatorAgentDO {
     );
 
     if (plan.shouldSynthesize) {
-      return await this.doSynthesize(state, ai, groqKey, googleKey, nvidiaKey, stepNum, stepStart, plan.reasoning);
+      return await this.doSynthesize(
+        state,
+        ai,
+        groqKey,
+        googleKey,
+        nvidiaKey,
+        infronKey,
+        stepNum,
+        stepStart,
+        plan.reasoning
+      );
     }
 
     const validToolNames = new Set(availableTools.map((t) => t.name));
     const toolCalls = filterCtiToolCalls(plan.toolCalls, view, validToolNames);
     if (toolCalls.length === 0) {
-      return await this.doSynthesize(state, ai, groqKey, googleKey, nvidiaKey, stepNum, stepStart, plan.reasoning);
+      return await this.doSynthesize(
+        state,
+        ai,
+        groqKey,
+        googleKey,
+        nvidiaKey,
+        infronKey,
+        stepNum,
+        stepStart,
+        plan.reasoning
+      );
     }
 
     const step: AgentStep = {
@@ -894,6 +938,7 @@ export class InvestigatorAgentDO {
     groqKey: string | undefined,
     googleKey: string | undefined,
     nvidiaKey: string | undefined,
+    infronKey: string | undefined,
     stepNum: number,
     stepStart: string,
     planReasoning: string

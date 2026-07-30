@@ -98,9 +98,15 @@ export interface Env {
    *  set, Gemini is tried first before Groq/Workers AI. */
   GOOGLE_AI_STUDIO_API_KEY?: string;
   /** Groq free-tier API key (set via `wrangler secret put GROQ_API_KEY`).
-   *  Optional — case-study generation uses Groq as the quality primary when
-   *  set, and falls back to Workers AI when unset/unavailable. */
+   *  Optional — used as the fallback LLM provider when Infron is unavailable. */
   GROQ_API_KEY?: string;
+  /** Infron API key (set via `wrangler secret put INFRON_API_KEY`).
+   *  Infron (https://infron.ai) is an OpenAI-compatible routing platform that
+   *  provides access to free models (sapiens/agnes-2.0-flash:free,
+   *  deepseek/deepseek-v4-flash:free, etc.). When set, Infron is the DEFAULT
+   *  LLM provider for the agent, briefing summaries, and AI summaries.
+   *  Falls back to Groq → Gemini → NVIDIA → Workers AI. */
+  INFRON_API_KEY?: string;
   /** Free VulnCheck Community token (`wrangler secret put VULNCHECK_API_TOKEN`).
    *  Powers the `vulncheck` IP-intel provider, CVE-lookup exploitation enrichment,
    *  and the report engine's VulnCheck source. Optional — those degrade cleanly

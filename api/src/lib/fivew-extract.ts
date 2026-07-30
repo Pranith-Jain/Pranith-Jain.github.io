@@ -72,7 +72,7 @@ async function tryExtract(system: string, input: string, env: Env): Promise<Five
       runCompletion(
         env.AI,
         { system, user: `REPORT:\n\n${input}`, maxTokens: 350, temperature: 0.2 },
-        { googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY }
+        { infronKey: env.INFRON_API_KEY, googleKey: env.GOOGLE_AI_STUDIO_API_KEY, groqKey: env.GROQ_API_KEY }
       ),
       timeout,
     ]);

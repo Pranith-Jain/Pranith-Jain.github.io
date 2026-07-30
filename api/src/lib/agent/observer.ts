@@ -32,6 +32,7 @@ export async function observeStep(
   plan: string,
   results: AgentToolResult[],
   opts: {
+    infronKey?: string;
     groqKey?: string;
     nvidiaKey?: string;
     googleKey?: string;
@@ -71,6 +72,7 @@ Analyze these results. What was found? Extract exact values into keyFacts/iocs/a
 
     for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
       const { text } = await runCompletion(ai, input, {
+        infronKey: opts.infronKey,
         groqKey: opts.groqKey,
         nvidiaKey: opts.nvidiaKey,
         quality: false,

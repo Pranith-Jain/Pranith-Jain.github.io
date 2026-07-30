@@ -29,6 +29,9 @@ export interface InvestigationCost {
 
 /** Cost per 1K tokens (approximate, as of 2026-07). */
 const COST_PER_1K: Record<string, number> = {
+  'infron:sapiens/agnes-2.0-flash:free': 0,
+  'infron:deepseek/deepseek-v4-flash:free': 0,
+  'infron:meta/llama-3.2-11b-vision-instruct:free': 0,
   'groq:openai/gpt-oss-120b': 0.0006,
   'groq:llama-3.3-70b-versatile': 0.00059,
   'groq:llama-3.1-8b-instant': 0.00005,

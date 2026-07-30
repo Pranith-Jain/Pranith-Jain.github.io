@@ -31,6 +31,7 @@ export async function ensembleVerifyReport(
   originalReport: string,
   steps: AgentStep[],
   opts: {
+    infronKey?: string;
     groqKey?: string;
     nvidiaKey?: string;
     googleKey?: string;
@@ -54,14 +55,16 @@ Verify every claim in the report against the collected data. Flag hallucinations
 
   // Run QA on every available provider in parallel (ensemble grows with the
   // number of configured keys — Gemini/Groq/NVIDIA — for stronger consensus).
-  const models: Array<{ provider: 'groq' | 'gemini' | 'nvidia'; label: string }> = [];
+  const models: Array<{ provider: 'groq' | 'gemini' | 'nvidia' | 'infron'; label: string }> = [];
   if (opts.googleKey) models.push({ provider: 'gemini', label: 'gemini' });
   if (opts.groqKey) models.push({ provider: 'groq', label: 'groq' });
   if (opts.nvidiaKey) models.push({ provider: 'nvidia', label: 'nvidia' });
+  if (opts.infronKey) models.push({ provider: 'infron', label: 'infron' });
 
   const results = await Promise.allSettled(
     models.map(async (m) => {
       const result = await runCompletion(ai, input, {
+        infronKey: opts.infronKey,
         groqKey: opts.groqKey,
         nvidiaKey: opts.nvidiaKey,
         googleKey: opts.googleKey,

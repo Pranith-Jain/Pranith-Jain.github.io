@@ -1,6 +1,21 @@
 /**
- * LLM client — multi-provider with fallback chain: Groq → Google Gemini → NVIDIA.
+ * LLM client — multi-provider with fallback chain: Infron → Groq → Google Gemini → NVIDIA.
+ *
+ * Infron (https://infron.ai) is the DEFAULT provider — an OpenAI-compatible
+ * routing platform with free models (sapiens/agnes-2.0-flash:free for agent
+ * workflows, deepseek/deepseek-v4-flash:free for summaries). Groq is the
+ * fallback when Infron is unavailable or rate-limited.
  */
+
+const INFRON_URL = 'https://llm.onerouter.pro/v1/chat/completions';
+// Agnes-2.0-Flash: no stated daily limit, tool calling + JSON mode, ranked 9th
+// on Claw-Eval for agent capabilities. Best default for agent + general use.
+const INFRON_MODEL: string = 'sapiens/agnes-2.0-flash:free';
+// DeepSeek V4 Flash: fast, strong reasoning — used for quality/summary calls.
+const INFRON_MODEL_QUALITY: string = 'deepseek/deepseek-v4-flash:free';
+// Llama 3.2 11B Vision: 200 req/day, reliable fallback within Infron.
+const INFRON_MODEL_FALLBACK: string = 'meta/llama-3.2-11b-vision-instruct:free';
+const INFRON_TIMEOUT_MS = 20_000;
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODEL: string = 'openai/gpt-oss-120b';
@@ -42,6 +57,7 @@ export interface CompletionOutput {
 }
 
 export interface CompletionOpts {
+  infronKey?: string;
   groqKey?: string;
   nvidiaKey?: string;
   googleKey?: string;
@@ -49,7 +65,7 @@ export interface CompletionOpts {
   role?: string;
   preferGroq?: boolean;
   /** Skip directly to a specific provider (e.g. 'gemini' for large-context QA). */
-  preferProvider?: 'groq' | 'gemini' | 'nvidia';
+  preferProvider?: 'infron' | 'groq' | 'gemini' | 'nvidia';
   /** With preferProvider: use ONLY that provider, no fall-through. Used by the
    *  ensemble QA so each parallel call makes exactly one provider fetch instead
    *  of walking the whole chain (keeps subrequests bounded on the free plan). */
@@ -196,6 +212,45 @@ async function runGroq(key: string, input: CompletionInput, model?: string): Pro
   return text;
 }
 
+async function runInfron(key: string, input: CompletionInput, model: string): Promise<string> {
+  let res: Response;
+  try {
+    const body: Record<string, unknown> = {
+      model,
+      messages: [
+        { role: 'system', content: input.system },
+        { role: 'user', content: input.user },
+      ],
+      max_tokens: input.maxTokens ?? 4000,
+      temperature: input.temperature ?? 0.5,
+    };
+    res = await fetch(INFRON_URL, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(INFRON_TIMEOUT_MS),
+    });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`runInfron request failed: ${msg}`);
+    throw new Error(`infron request failed: ${msg}`);
+  }
+  if (res.status === 429) {
+    console.error('runInfron rate limited (429)');
+    throw new RateLimitError('infron rate limited (429)');
+  }
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    const msg = `infron HTTP ${res.status}${body ? `: ${body.slice(0, 200)}` : ''}`;
+    console.error(`runInfron ${msg}`);
+    throw new Error(msg);
+  }
+  const j = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
+  const text = j?.choices?.[0]?.message?.content;
+  if (typeof text !== 'string' || !text.trim()) throw new Error('infron empty response');
+  return text;
+}
+
 async function runGemini(key: string, input: CompletionInput): Promise<string> {
   const url = `${GOOGLE_GEMINI_URL}/${GEMINI_MODEL}:generateContent?key=${key}`;
   try {
@@ -263,17 +318,24 @@ export async function runCompletion(
   opts: CompletionOpts = {}
 ): Promise<CompletionOutput> {
   const errors: string[] = [];
+  const infronKey = opts.infronKey;
   const groqKey = opts.groqKey;
   const health = await getProviderHealth();
   const inputText = `${input.system}\n${input.user}`;
   const usageRole = opts.role ?? 'completion';
 
-  // When preferProvider is set, try that provider first (or exclusively)
-  const providers: Array<'groq' | 'gemini' | 'nvidia'> = opts.preferProvider
+  // Build provider order. Infron is the DEFAULT (free models, agent-optimized).
+  // preferGroq bumps Groq ahead of Infron for callers that specifically want
+  // Groq's streaming/reasoning (synthesizer, ai-summary). preferProvider
+  // overrides the whole order.
+  const allProviders = ['infron', 'groq', 'gemini', 'nvidia'] as const;
+  const providers: Array<(typeof allProviders)[number]> = opts.preferProvider
     ? opts.exclusiveProvider
       ? [opts.preferProvider]
-      : [opts.preferProvider, ...(['groq', 'gemini', 'nvidia'] as const).filter((p) => p !== opts.preferProvider)]
-    : ['groq', 'gemini', 'nvidia'];
+      : [opts.preferProvider, ...allProviders.filter((p) => p !== opts.preferProvider)]
+    : opts.preferGroq
+      ? ['groq', 'infron', 'gemini', 'nvidia']
+      : ['infron', 'groq', 'gemini', 'nvidia'];
 
   for (const provider of providers) {
     // Skip providers that are rate-limited or circuit-broken
@@ -282,7 +344,30 @@ export async function runCompletion(
       continue;
     }
 
-    if (provider === 'groq' && groqKey) {
+    if (provider === 'infron' && infronKey) {
+      // Quality calls (briefing summaries, landscape reports) use DeepSeek V4
+      // Flash for stronger reasoning; default calls use Agnes-2.0-Flash for
+      // agent/tool-calling workflows. Fallback to Llama 3.2 Vision (200/day).
+      const infronModels = opts.quality
+        ? [INFRON_MODEL_QUALITY, INFRON_MODEL, INFRON_MODEL_FALLBACK]
+        : [INFRON_MODEL, INFRON_MODEL_FALLBACK, INFRON_MODEL_QUALITY];
+      for (const model of infronModels) {
+        const startMs = Date.now();
+        try {
+          const text = await runInfron(infronKey, input, model);
+          if (health) await health.recordSuccess('infron', Date.now() - startMs);
+          opts.recordUsage?.(`infron:${model}`, inputText, text, usageRole);
+          return { text, modelUsed: `infron:${model}` };
+        } catch (err) {
+          const errMsg = err instanceof Error ? err.message : String(err);
+          console.error(`runCompletion infron:${model} failed: ${errMsg.slice(0, 200)}`);
+          errors.push(`infron:${model}: ${errMsg.slice(0, 80)}`);
+          if (isRequestTooLarge(err)) break;
+          if (health) await health.recordFailure('infron', isRateLimited(err));
+          if (isAuthError(err)) break;
+        }
+      }
+    } else if (provider === 'groq' && groqKey) {
       const groqModels = [GROQ_MODEL, GROQ_MODEL_FALLBACK, GROQ_MODEL_DEEP, 'llama-3.1-8b-instant'];
       for (const model of groqModels) {
         const startMs = Date.now();
@@ -435,6 +520,24 @@ export async function runCompletionStream(
   onToken: (token: string) => void
 ): Promise<CompletionOutput> {
   const health = await getProviderHealth();
+  // Try Infron first (non-streaming — Infron SSE streaming is supported but
+  // the synthesizer's token-by-token UX is not critical for free models).
+  if (opts.infronKey && (!health || (await health.isProviderHealthy('infron')))) {
+    const startMs = Date.now();
+    try {
+      const text = await runInfron(opts.infronKey, input, INFRON_MODEL);
+      if (health) await health.recordSuccess('infron', Date.now() - startMs);
+      onToken(text);
+      opts.recordUsage?.(`infron:${INFRON_MODEL}`, `${input.system}\n${input.user}`, text, opts.role ?? 'completion');
+      return { text, modelUsed: `infron:${INFRON_MODEL}` };
+    } catch (err) {
+      console.error(
+        `runCompletionStream infron failed: ${(err instanceof Error ? err.message : String(err)).slice(0, 120)}`
+      );
+      if (health) await health.recordFailure('infron', isRateLimited(err));
+      // fall through to Groq streaming, then the whole-text chain
+    }
+  }
   if (opts.groqKey && (!health || (await health.isProviderHealthy('groq')))) {
     const startMs = Date.now();
     try {

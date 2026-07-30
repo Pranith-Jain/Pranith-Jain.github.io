@@ -34,6 +34,7 @@ export async function synthesizeReport(
   queryType: string,
   steps: AgentStep[],
   opts: {
+    infronKey?: string;
     groqKey?: string;
     googleKey?: string;
     nvidiaKey?: string;
@@ -94,6 +95,7 @@ export async function synthesizeReport(
   const input: CompletionInput = { system, user, maxTokens: useMinimal ? 2000 : 8000, temperature: 0.3 };
 
   const completionOpts = {
+    infronKey: opts.infronKey,
     googleKey: opts.googleKey,
     groqKey: opts.groqKey,
     nvidiaKey: opts.nvidiaKey,
