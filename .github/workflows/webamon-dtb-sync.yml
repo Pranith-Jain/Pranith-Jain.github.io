@@ -1,17 +1,17 @@
-name: Daily Briefs sync (daily)
+name: Webamon DTB sync (daily)
 
-# Fetches OT/ICS cyber, deepfake, and disaster intelligence briefs from
-# agentic-ai-daily-reports.netlify.app, rebuilds the public/data/daily-briefs/
-# manifest, commits directly to main, and deploys. Fully automated.
-# Runs daily at 06:00 UTC.
+# Fetches new Webamon Daily Threat Briefs from GitHub, rebuilds the
+# public/data/webamon-dtb/ manifest, commits directly to main, and deploys.
+# Fully automated — no PR, no manual steps.
+# Runs daily at 13:00 UTC (briefs publish ~12:00 UTC).
 
 on:
   schedule:
-    - cron: "0 6 * * *"
+    - cron: "0 13 * * *"
   workflow_dispatch: {}
 
 concurrency:
-  group: db-sync
+  group: wdtb-sync
   cancel-in-progress: false
 
 permissions:
@@ -42,16 +42,16 @@ jobs:
         working-directory: api
         run: npm ci --legacy-peer-deps
 
-      - name: Sync briefs (cyber + deepfake + disaster)
-        run: node scripts/sync-daily-briefs.mjs
+      - name: Sync Webamon DTB
+        run: node scripts/sync-webamon-dtb.mjs
 
       - name: Build manifest
-        run: node scripts/build-daily-briefs.mjs
+        run: node scripts/build-webamon-dtb.mjs
 
       - name: Check for changes
         id: changes
         run: |
-          git add public/data/daily-briefs/
+          git add public/data/webamon-dtb/
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No new briefs — skipping deploy."
@@ -64,7 +64,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(daily-briefs): sync intelligence briefs $(date -u +%Y-%m-%d)"
+          git commit -m "chore(wdtb): sync Webamon Daily Threat Brief $(date -u +%Y-%m-%d)"
           git push origin main
 
       # ── Deploy (only when data changed) ─────────────────────────────
@@ -91,6 +91,6 @@ jobs:
         if: steps.changes.outputs.changed == 'true' && env.CLOUDFLARE_API_TOKEN != ''
         run: |
           sleep 8
-          code=$(curl -s -o /dev/null -w "%{http_code}" "https://pranithjain.qzz.io/api/v1/daily-briefs/")
-          echo "/api/v1/daily-briefs/ -> HTTP $code"
-          test "$code" = "200" || { echo "::error::daily-briefs endpoint returned HTTP $code"; exit 1; }
+          code=$(curl -s -o /dev/null -w "%{http_code}" "https://pranithjain.qzz.io/api/v1/webamon-dtb/latest")
+          echo "/api/v1/webamon-dtb/latest -> HTTP $code"
+          test "$code" = "200" || { echo "::error::webamon-dtb endpoint returned HTTP $code"; exit 1; }

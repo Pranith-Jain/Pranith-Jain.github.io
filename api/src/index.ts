@@ -1023,6 +1023,7 @@ import {
 import { siEdgeToolsRouter } from './routes/si-edge-tools';
 import { threatIntelRouter } from './routes/threat-intel-edge-tools';
 import { dailyBriefsRouter } from './routes/daily-briefs-edge-tools';
+import { webamonDtbRouter } from './routes/webamon-dtb';
 import { aiThreatsRouter } from './routes/ai-threats-edge-tools';
 import { ossFeedsRouter } from './routes/oss-feeds-edge-tools';
 import { winRegRouter } from './routes/winreg-edge-tools';
@@ -2009,6 +2010,9 @@ app.route('/api/v1', ossFeedsRouter);
 app.route('/api/v1', threatIntelRouter);
 
 // (daily-briefs routes registered before global auth — see public routes section above)
+
+// Webamon Daily Threat Brief — campaign intelligence from webamon-org/Daily-Threat-Brief (Apache-2.0).
+app.route('/api/v1', webamonDtbRouter);
 
 // WinReg DFIR vertical — Windows Registry forensic artifact reference.
 // Data from github.com/dfir-scripts/dfir-scripts.github.io (MIT).

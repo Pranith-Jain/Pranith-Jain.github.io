@@ -1,0 +1,35 @@
+{
+  "source": "github.com/webamon-org/Daily-Threat-Brief",
+  "license": "Apache-2.0",
+  "generatedAt": "2026-07-30",
+  "counts": { "briefs": 3 },
+  "briefs": [
+    {
+      "date": "2026-07-30",
+      "title": "Webamon Daily Threat Brief — Thursday, 30 July 2026",
+      "tlp": "CLEAR",
+      "kpiCount": 6,
+      "campaignCount": 0,
+      "movementCount": 4,
+      "sizeBytes": 5084
+    },
+    {
+      "date": "2026-07-29",
+      "title": "Webamon Daily Threat Brief — Wednesday, 29 July 2026",
+      "tlp": "CLEAR",
+      "kpiCount": 6,
+      "campaignCount": 0,
+      "movementCount": 4,
+      "sizeBytes": 4412
+    },
+    {
+      "date": "2026-07-28",
+      "title": "Webamon Daily Threat Brief — Tuesday, 28 July 2026",
+      "tlp": "CLEAR",
+      "kpiCount": 6,
+      "campaignCount": 0,
+      "movementCount": 4,
+      "sizeBytes": 5348
+    }
+  ]
+}

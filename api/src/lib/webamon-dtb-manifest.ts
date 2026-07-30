@@ -1,0 +1,1 @@
+../../../worker/lib/webamon-dtb-manifest.ts

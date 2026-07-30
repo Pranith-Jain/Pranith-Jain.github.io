@@ -34,6 +34,13 @@ import {
 } from './lib/threat-intel-manifest';
 import { loadDbIndex, getDbBrief, filterBriefs, dbCacheStats, type DbBriefType } from './lib/daily-briefs-manifest';
 import {
+  loadWdtbIndex,
+  getWdtbBrief,
+  getWdtbLatest,
+  filterWdtbBriefs,
+  wdtbCacheStats,
+} from './lib/webamon-dtb-manifest';
+import {
   loadWinRegIndex,
   getWinRegArtifact,
   filterArtifacts,
@@ -2337,6 +2344,81 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             license: idx.license,
             generatedAt: idx.generatedAt,
             cache: dbCacheStats(),
+          });
+        }
+      );
+
+      // ── Webamon Daily Threat Brief (WDTB) tools ───────────────────
+      // Campaign intelligence from webamon-org/Daily-Threat-Brief (Apache-2.0).
+      // Phishing/malware estate tracking: domain growth, takedowns, infra
+      // rotation, lure refreshes, emerging clusters.
+
+      this.tools(
+        'wdtb_list_briefs',
+        'List available Webamon Daily Threat Briefs. Returns dates and metadata (KPI count, campaign count, movement count). Use wdtb_get_brief to retrieve the full brief.',
+        {
+          dateFrom: z.string().optional().describe('Start date filter (YYYY-MM-DD)'),
+          dateTo: z.string().optional().describe('End date filter (YYYY-MM-DD)'),
+          keyword: z.string().optional().describe('Case-insensitive substring match against brief title'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max briefs to return (default 50)'),
+        },
+        async ({ dateFrom, dateTo, keyword, limit }) => {
+          const idx = await loadWdtbIndex(ASSETS);
+          const briefs = filterWdtbBriefs(idx, { dateFrom, dateTo, keyword, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.counts.briefs,
+            returned: briefs.length,
+            source: idx.source,
+            license: idx.license,
+            briefs,
+          });
+        }
+      );
+
+      this.tools(
+        'wdtb_get_brief',
+        'Return the full Webamon Daily Threat Brief for a given date. Includes estate stats, KPIs (new domains, takedowns, infra changes), notable movements (growth/takedown/rotation/lure-refresh), campaigns worth a look, and emerging clusters. Use wdtb_list_briefs to discover dates.',
+        {
+          date: z.string().describe('Brief date (YYYY-MM-DD). Get available dates from wdtb_list_briefs.'),
+        },
+        async ({ date }) => {
+          const body = await getWdtbBrief(ASSETS, date);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'brief_not_found',
+              date,
+              hint: 'Call wdtb_list_briefs to see available dates.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'wdtb_latest',
+        'Return the most recent Webamon Daily Threat Brief. Includes estate stats, KPIs, notable movements, campaigns, and emerging clusters.',
+        {},
+        async () => {
+          const body = await getWdtbLatest(ASSETS);
+          if (!body) {
+            return untrustedToolResult({ error: 'no_briefs_available' });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'wdtb_stats',
+        'Return cache + manifest stats for the Webamon DTB data: index loaded, body-cache sizes and hit ratios.',
+        {},
+        async () => {
+          const idx = await loadWdtbIndex(ASSETS);
+          return untrustedToolResult({
+            counts: idx.counts,
+            source: idx.source,
+            license: idx.license,
+            generatedAt: idx.generatedAt,
+            cache: wdtbCacheStats(),
           });
         }
       );
