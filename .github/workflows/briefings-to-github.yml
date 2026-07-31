@@ -1,0 +1,50 @@
+name: Export briefings to GitHub
+
+on:
+  schedule:
+    - cron: '0 1 * * *' # 01:00 UTC daily (after the 00:30 briefing build)
+  workflow_dispatch:
+
+concurrency:
+  group: briefings-export
+  cancel-in-progress: true
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Export briefings from D1
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: node scripts/export-briefings-to-github.mjs --days 30
+
+      - name: Push to daily-threat-brief repo
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          cd briefings-out
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GH_PAT}@github.com/Pranith-Jain/daily-threat-brief.git"
+          git fetch origin main --depth=1 2>/dev/null || true
+          git checkout -B main
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: sync briefings $(date -u +%Y-%m-%d)"
+            git push -f origin main
+          fi
