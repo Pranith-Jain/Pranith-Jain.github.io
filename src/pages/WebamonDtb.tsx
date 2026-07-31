@@ -12,13 +12,6 @@ import {
   ChevronUp,
 } from 'lucide-react';
 
-interface WdtbIndexSummary {
-  source: string;
-  license: string;
-  generatedAt: string;
-  counts: { briefs: number };
-}
-
 interface WdtbIndexEntry {
   date: string;
   title: string;
@@ -78,8 +71,12 @@ function CollapsibleCard({
 export default function WebamonDtb() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  const { data: indexData, loading: indexLoading } = useDataFetch<WdtbIndexSummary & { briefs: WdtbIndexEntry[] }>({
-    url: '/api/v1/webamon-dtb/',
+  const { data: indexData, loading: indexLoading } = useDataFetch<{
+    total: number;
+    returned: number;
+    briefs: WdtbIndexEntry[];
+  }>({
+    url: '/api/v1/webamon-dtb/briefs',
   });
 
   const briefs = useMemo(() => indexData?.briefs ?? [], [indexData]);
@@ -112,7 +109,7 @@ export default function WebamonDtb() {
             >
               webamon-org/Daily-Threat-Brief
             </a>{' '}
-            &middot; Apache-2.0 &middot; {indexData?.counts?.briefs ?? 0} briefs
+            &middot; Apache-2.0 &middot; {indexData?.total ?? 0} briefs
           </p>
         </div>
         {briefs.length > 0 && (
