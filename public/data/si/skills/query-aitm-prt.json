@@ -1,5 +1,0 @@
-{
-  "slug": "query/aitm-prt",
-  "name": "query-aitm-prt",
-  "bodyMarkdown": "# AiTM Device PRT Enrollment Detection Query\n\n**Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Low\n**Techniques:** T1098.005 | **Log Sources:** Entra ID AuditLogs\n\n```kql\nAuditLogs\n| where TimeGenerated > ago(1h)\n| where OperationName == \"Add registered users to device\"\n| where ResultType == 0\n| where tostring(InitiatedBy) !has \"Dsreg\" and tostring(InitiatedBy) !has \"DeviceRegistrationClient\" and tostring(InitiatedBy) !has \"Dalvik\"\n| project TimeGenerated, OperationName, ResultType, InitiatedBy, TargetResources\n| sort by TimeGenerated desc\n```"
-}

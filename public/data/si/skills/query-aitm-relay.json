@@ -1,5 +1,0 @@
-{
-  "slug": "query/aitm-relay",
-  "name": "query-aitm-relay",
-  "bodyMarkdown": "# AiTM WebSocket Relay Detection Query\n\n**Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Low\n**Techniques:** T1539, T1078.004 | **Log Sources:** Entra ID SigninLogs\n\n```kql\nSigninLogs\n| where TimeGenerated > ago(1h)\n| where ResultType == 0\n| where UserAgent has_any (\"node\", \"axios\", \"undici\", \"node-fetch\")\n| where AppDisplayName has_any (\"OfficeHome\", \"Microsoft Authentication Broker\", \"Microsoft Graph\", \"Microsoft Exchange Online\")\n| project TimeGenerated, UserPrincipalName, AppDisplayName, UserAgent, IPAddress, ResultType\n| sort by TimeGenerated desc\n```"
-}
