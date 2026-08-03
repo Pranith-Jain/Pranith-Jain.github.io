@@ -94,3 +94,6 @@ signature-base-replication/
 # Local-only download artifacts (page-as-html from edge cache or scraper)
 /Threat*
 .mimocode/
+
+# Webamon DTB sync staging output
+webamon-dtb-staging/
