@@ -62,10 +62,17 @@ jobs:
       - name: Commit to main
         if: steps.changes.outputs.changed == 'true'
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(wdtb): sync Webamon Daily Threat Brief $(date -u +%Y-%m-%d)"
-          git push origin main
+          # Auto/data commits: skip husky/lint-staged (they can reformat the
+          # generated minified JSON back to HEAD and make the commit empty,
+          # which aborts the whole run). Re-check emptiness ourselves.
+          if git diff --cached --quiet HEAD; then
+            echo "Nothing to commit after all."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git commit --no-verify -m "chore(wdtb): sync Webamon Daily Threat Brief $(date -u +%Y-%m-%d)"
+            git push origin main
+          fi
 
       # ── Deploy (only when data changed) ─────────────────────────────
       - name: Typecheck
