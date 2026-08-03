@@ -98,6 +98,9 @@ signature-base-replication/
 # Webamon DTB sync staging output
 webamon-dtb-staging/
 
+# PCMedicalist feed sync staging output (4.6MB/day raw digests)
+pcmedicalist-staging/
+
 # secrets-regex module is a tracked source file, not a credential
 !api/src/lib/secrets-regex.ts
 

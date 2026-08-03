@@ -1,0 +1,1 @@
+../../../worker/lib/pcmedicalist-manifest.ts

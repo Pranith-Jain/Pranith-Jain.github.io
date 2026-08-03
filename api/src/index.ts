@@ -1011,6 +1011,7 @@ import { webamonDtbRouter } from './routes/webamon-dtb';
 import { aiThreatsRouter } from './routes/ai-threats-edge-tools';
 import { ossFeedsRouter } from './routes/oss-feeds-edge-tools';
 import { winRegRouter } from './routes/winreg-edge-tools';
+import { pcmedicalistRouter } from './routes/pcmedicalist';
 import { sigBaseRouter } from './routes/sigbase-edge-tools';
 import { breachWatchRouter } from './routes/breach-watch-edge-tools';
 import { osintRouter } from './routes/osint-edge-tools';
@@ -2001,6 +2002,11 @@ app.route('/api/v1', dailyBriefsRouter);
 
 // Webamon Daily Threat Brief — campaign intelligence from webamon-org/Daily-Threat-Brief (Apache-2.0).
 app.route('/api/v1', webamonDtbRouter);
+
+// PCMedicalist Intelligence Feed — daily security-intel digest (slim mirror
+// in public/data/pcmedicalist/ + live deep-dive day feed proxy). Data from
+// github.com/PCMedicalist/pcmedicalist-intellegence-feed (CC BY 4.0).
+app.route('/api/v1', pcmedicalistRouter);
 
 // WinReg DFIR vertical — Windows Registry forensic artifact reference.
 // Data from github.com/dfir-scripts/dfir-scripts.github.io (MIT).

@@ -37,6 +37,7 @@ const McpCatalog = lazy(() => import('./pages/McpCatalog'));
 const Status = lazy(() => import('./pages/Status'));
 const DailyBriefs = lazy(() => import('./pages/DailyBriefs'));
 const WebamonDtb = lazy(() => import('./pages/WebamonDtb'));
+const PcMedicalist = lazy(() => import('./pages/threatintel/PcMedicalist'));
 const AIThreats = lazy(() => import('./pages/AIThreats'));
 const OssFeeds = lazy(() => import('./pages/OssFeeds'));
 const WinReg = lazy(() => import('./pages/WinReg'));
@@ -405,6 +406,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/status', Component: Status },
   { path: '/daily-briefs', Component: DailyBriefs },
   { path: '/threatintel/webamon-dtb', Component: WebamonDtb },
+  { path: '/threatintel/pcmedicalist', Component: PcMedicalist },
   { path: '/dfir/ai-threats', Component: AIThreats },
   { path: '/dfir/oss-feeds', Component: OssFeeds },
   { path: '/dfir/winreg', Component: WinReg },

@@ -3623,6 +3623,15 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     keywords: ['webamon', 'dtb', 'daily threat briefing', 'phishing', 'web asset monitoring'],
   },
   {
+    path: '/threatintel/pcmedicalist',
+    label: 'PCMedicalist Feed',
+    description:
+      'Daily security-intel digest from the PCMedicalist Intelligence Network - 38+ feeds deduplicated into an 11-layer taxonomy with trust scoring, CVE tracking, and AI-security coverage.',
+    sectionLabel: 'Threat Intel · Infra',
+    group: 'threatintel',
+    keywords: ['pcmedicalist', 'digest', 'cve', 'kev', 'ai security', 'vulnerability intel', 'daily brief'],
+  },
+  {
     path: '/threatintel/infra/domain',
     label: 'Domain',
     description: 'Domain monitoring and tracking.',

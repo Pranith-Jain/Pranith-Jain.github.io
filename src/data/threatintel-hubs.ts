@@ -689,6 +689,15 @@ export const HUB_META: readonly HubMeta[] = [
         keywords: ['webamon', 'dtb', 'phishing', 'campaign', 'takedown', 'daily brief'],
       },
       {
+        path: '/threatintel/pcmedicalist',
+        tabId: 'pcmedicalist',
+        label: 'PCMedicalist Feed',
+        desc: 'Daily security-intel digest from the PCMedicalist Intelligence Network - 38+ feeds deduplicated into an 11-layer taxonomy with trust scoring and CVE tracking.',
+        compVar: 'PcMedicalist',
+        badge: 'new',
+        keywords: ['pcmedicalist', 'digest', 'cve', 'kev', 'ai security', 'vulnerability intel', 'daily brief'],
+      },
+      {
         path: '/threatintel/infra/domain',
         tabId: 'domain',
         label: 'Domain Monitor',

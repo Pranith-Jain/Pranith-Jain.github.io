@@ -48,6 +48,14 @@ import {
   type WinRegListOptions,
 } from './lib/winreg-manifest';
 import {
+  loadPcmIndex,
+  getPcmDigest,
+  getPcmLatest,
+  filterPcmDigests,
+  searchPcmItems,
+  pcmCacheStats,
+} from './lib/pcmedicalist-manifest';
+import {
   loadSigBaseIndex,
   getSigBaseYara,
   getSigBaseIoc,
@@ -1727,6 +1735,128 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             license: idx.license,
             replicatedAt: idx.replicatedAt,
             cache: winRegCacheStats(),
+          });
+        }
+      );
+
+      // ── PCMedicalist feed tools ────────────────────────────────────
+      // Daily security-intel digest from the PCMedicalist Intelligence
+      // Network. Slim static mirror in public/data/pcmedicalist/
+      // (index + per-day top-items bodies) + a live deep-dive search
+      // over the full ~4.6MB day feed via the /api/v1/pcmedicalist proxy.
+      // Source: github.com/PCMedicalist/pcmedicalist-intellegence-feed
+      // License: CC BY 4.0 (attribution via in-data "source" field satisfies)
+
+      this.tools(
+        'pcm_list_digests',
+        'List PCMedicalist Intelligence Feed digests. Filter by date range or keyword. Each entry has date, run metrics (feeds/items raw vs deduped), and per-layer counts.',
+        {
+          dateFrom: z.string().optional().describe('YYYY-MM-DD — only digests on or after this date'),
+          dateTo: z.string().optional().describe('YYYY-MM-DD — only digests on or before this date'),
+          keyword: z.string().optional().describe('Case-insensitive match against layer names/counts'),
+          limit: z.number().int().min(1).max(500).optional().describe('Max digests to return (default 50)'),
+        },
+        async ({ dateFrom, dateTo, keyword, limit }) => {
+          const idx = await loadPcmIndex(ASSETS);
+          const digests = filterPcmDigests(idx, {
+            dateFrom: dateFrom ?? undefined,
+            dateTo: dateTo ?? undefined,
+            keyword: keyword ?? undefined,
+            limit: limit ?? 50,
+          });
+          return untrustedToolResult({
+            totalDigests: idx.counts.digests,
+            returned: digests.length,
+            source: idx.source,
+            sourceUrl: idx.sourceUrl,
+            license: idx.license,
+            digests,
+          });
+        }
+      );
+
+      this.tools(
+        'pcm_get_digest',
+        'Return a single PCMedicalist Intelligence Feed digest body for a date: run summary, the two generated social posts, and the top items per intelligence layer (11-layer taxonomy).',
+        {
+          date: z.string().describe('Digest date, YYYY-MM-DD. Get these from pcm_list_digests.'),
+        },
+        async ({ date }) => {
+          const digest = await getPcmDigest(ASSETS, date);
+          if (!digest) {
+            return untrustedToolResult({
+              error: 'digest_not_found',
+              date,
+              hint: 'Call pcm_list_digests to see available dates.',
+            });
+          }
+          return untrustedToolResult(digest);
+        }
+      );
+
+      this.tools(
+        'pcm_get_latest_digest',
+        'Return the most recent PCMedicalist Intelligence Feed digest: run summary + social posts + top items per layer.',
+        {},
+        async () => {
+          const digest = await getPcmLatest(ASSETS);
+          if (!digest) {
+            return untrustedToolResult({
+              error: 'no_digests',
+              hint: 'The mirror is empty; run the sync/build scripts.',
+            });
+          }
+          return untrustedToolResult(digest);
+        }
+      );
+
+      this.tools(
+        'pcm_search_items',
+        'Search items within a PCMedicalist digest body. Filters against the mirrored top-items per layer (capped): filter by layer id, keyword, CVE, or limit.',
+        {
+          date: z.string().describe('Digest date, YYYY-MM-DD.'),
+          layer: z
+            .number()
+            .int()
+            .min(1)
+            .max(11)
+            .optional()
+            .describe(
+              'Intelligence layer id (1 Standards, 3 Cryptography, 5 Security News, 6 Vendor Research, 8 Vulnerability Intel, 10 AI Security, ...)'
+            ),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against title/summary/source/category'),
+          cve: z.string().optional().describe('CVE id to match against the item cves array'),
+          limit: z.number().int().min(1).max(200).optional().describe('Max items to return (default 50)'),
+        },
+        async ({ date, layer, keyword, cve, limit }) => {
+          const digest = await getPcmDigest(ASSETS, date);
+          if (!digest) {
+            return untrustedToolResult({
+              error: 'digest_not_found',
+              hint: 'Call pcm_list_digests to see available dates.',
+            });
+          }
+          const items = searchPcmItems(digest, { layer, keyword, cve, limit: limit ?? 50 });
+          return untrustedToolResult({ date, returned: items.length, items });
+        }
+      );
+
+      this.tools(
+        'pcm_stats',
+        'Return cache + manifest stats for the PCMedicalist feed: digest counts, latest date, and LRU body-cache hit/miss ratios.',
+        {},
+        async () => {
+          const idx = await loadPcmIndex(ASSETS);
+          return untrustedToolResult({
+            source: idx.source,
+            sourceUrl: idx.sourceUrl,
+            license: idx.license,
+            counts: idx.counts,
+            latestDate: idx.digests[0]?.date ?? null,
+            cache: pcmCacheStats(),
           });
         }
       );

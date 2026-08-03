@@ -1,0 +1,109 @@
+name: PCMedicalist feed sync (daily)
+
+# Fetches new PCMedicalist Intelligence Feed digests from GitHub, rebuilds
+# the public/data/pcmedicalist/ slim manifest, commits directly to main,
+# and deploys. Fully automated — no PR, no manual steps.
+# Runs daily at 08:30 UTC (upstream publishes ~08:00 + 16:00 UTC, digest
+# index is updated on push).
+
+on:
+  schedule:
+    - cron: "30 8 * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: pcmedicalist-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-fund || npm install --no-fund
+
+      - name: Install api deps
+        working-directory: api
+        run: npm ci --legacy-peer-deps
+
+      - name: Sync PCMedicalist feed
+        run: node scripts/sync-pcmedicalist.mjs
+
+      - name: Build manifest
+        run: node scripts/build-pcmedicalist.mjs
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git add public/data/pcmedicalist/
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No new digests — skipping deploy."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit to main
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          # Auto/data commits: skip husky/lint-staged (they can reformat the
+          # generated minified JSON back to HEAD and make the commit empty,
+          # which aborts the whole run). Re-check emptiness ourselves.
+          if git diff --cached --quiet HEAD; then
+            echo "Nothing to commit after all."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git commit --no-verify -m "chore(pcmedicalist): sync intelligence feed digest $(date -u +%Y-%m-%d)"
+            git push origin main
+          fi
+
+      # ── Deploy (only when data changed) ─────────────────────────────
+      - name: Typecheck
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          npx tsc --noEmit -p tsconfig.json
+          npx tsc --noEmit -p api/tsconfig.json
+          npx tsc --noEmit -p api/tsconfig.worker.json
+
+      - name: Build
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run build
+
+      - name: Budget check
+        if: steps.changes.outputs.changed == 'true'
+        run: node scripts/check-budgets.mjs
+
+      - name: Deploy to Cloudflare Workers
+        if: steps.changes.outputs.changed == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler deploy
+
+      - name: Smoke test
+        if: steps.changes.outputs.changed == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          sleep 8
+          # The /api/v1/pcmedicalist/* endpoints are key-gated (external-only auth);
+          # the manifest is served publicly via ASSETS, so smoke the data file.
+          code=$(curl -s -o /dev/null -w "%{http_code}" "https://pranithjain.qzz.io/data/pcmedicalist/index.json")
+          echo "/data/pcmedicalist/index.json -> HTTP $code"
+          test "$code" = "200" || { echo "::error::pcmedicalist data file returned HTTP $code"; exit 1; }
+          digests=$(curl -s "https://pranithjain.qzz.io/data/pcmedicalist/index.json" | python3 -c "import json,sys; print(json.load(sys.stdin)['counts']['digests'])" 2>/dev/null || echo 0)
+          echo "digests on live site: $digests"
+          test "$digests" -ge 1 || { echo "::error::expected at least 1 digest, got $digests"; exit 1; }
