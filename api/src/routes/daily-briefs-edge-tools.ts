@@ -26,7 +26,7 @@ interface DbIndex {
   source: string;
   license: string;
   generatedAt: string;
-  counts: { cyber: number; deepfake: number; disaster: number };
+  counts: { cyber: number; deepfake: number; disaster: number; maritime: number };
   briefs: { type: string; date: string; sizeBytes: number }[];
 }
 

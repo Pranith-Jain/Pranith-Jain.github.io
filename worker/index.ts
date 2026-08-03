@@ -178,7 +178,9 @@ export default {
         if (url.pathname === '/data/daily-briefs/index.json') {
           kvKey = 'db:index';
         } else {
-          const m = url.pathname.match(/^\/data\/daily-briefs\/(cyber|deepfake|disaster)\/(\d{4}-\d{2}-\d{2})\.json$/);
+          const m = url.pathname.match(
+            /^\/data\/daily-briefs\/(cyber|deepfake|disaster|maritime)\/(\d{4}-\d{2}-\d{2})\.json$/
+          );
           if (m) kvKey = `db:body:${m[1]}:${m[2]}`;
         }
         if (kvKey) {

@@ -1994,9 +1994,9 @@ app.route('/api/v1', ossFeedsRouter);
 // CVE/KEV/IOC/sector briefs served from public/data/threat-intel/ via env.ASSETS.
 app.route('/api/v1', threatIntelRouter);
 
-// (daily-briefs + webamon-dtb routes registered before global auth — see public routes section above)
-
 // Daily Briefs — AI-generated intelligence briefs (cyber/deepfake/disaster/maritime).
+// Served under the global /api/v1/* 'external-only' auth: same-origin SPA requests
+// pass through without a key; external callers need an API key.
 app.route('/api/v1', dailyBriefsRouter);
 
 // Webamon Daily Threat Brief — campaign intelligence from webamon-org/Daily-Threat-Brief (Apache-2.0).

@@ -1,0 +1,268 @@
+{
+  "type": "disaster",
+  "date": "2026-08-02",
+  "overallThreat": "HIGH",
+  "executiveSummary": "Major wildfires across Greece, France, and Spain have driven mass evacuations, with reporting indicating roughly a third of a million people displaced and fresh evacuation orders continuing near Athens and the Atlantic coast of France. View Article Supporting Report In the U.S. Pacific Northwest, a fast-moving wildfire in the Spokane, Washington area triggered thousands of evacuations, power shutoffs, and structural losses under extreme heat and wind. View Article A strong earthquake in Kyushu, Japan caused fatalities and injuries, damaged infrastructure, ignited fires, and prompted evacuation advisories for more than 260,000 people. View Article Severe flooding in South and Central Texas caused fatalities and widespread water rescues; additional flooding and rescues were reported in West Virginia with emergency declarations and sheltering. View Article Supporting Report Typhoon Noul prompted large-scale preemptive relocations in Guangdong and Hong Kong and widespread transport disruption ahead of and during landfall. View Article Extreme heat advisories across the Western United States are compounding wildfire behavior and public health risk in already-affected regions. View Article An IFRC listing signals a reported major earthquake emergency in Venezuela with severe urban damage and urgent needs; however, open-source detail is limited and severity remains uncertain. Source",
+  "dashboard": {
+    "kpis": [
+      { "value": "9", "label": "High-Priority (ESCALATE) Events" },
+      { "value": "1.3M+ (cumulative)", "label": "Populations Under Evacuation/Relocation/Advisory" },
+      { "value": "S. Europe • W. Pacific • U.S.", "label": "Regions Most Impacted" },
+      { "value": "Extreme Heat + Wildfire", "label": "Compound Hazards" },
+      { "value": "Wildfire • Flood • Earthquake • Typhoon • Heat", "label": "Active Hazards" },
+      {
+        "value": "Greece • France • Spain • Japan • China (GD/HK) • USA",
+        "label": "Countries/Regions with Notable Impact"
+      },
+      { "value": "Evacuation • SAR • Shelter • Power • Transport", "label": "Operational Themes" },
+      { "value": "", "label": "Primary Articles and Reports" },
+      { "value": "", "label": "Floods, Seismic, and Typhoon" }
+    ]
+  },
+  "topEvents": [
+    {
+      "title": "Southern Europe Wildfire Complex – Greece, France, Spain (and western Türkiye)",
+      "severity": "escalate",
+      "text": "Fresh evacuations in Attica and along France’s Atlantic coast; reporting suggests ~330k displaced regionally with prolonged return restrictions in some communes. Firefighter fatalities reported; numbers vary across sources. View Article Supporting Report Supporting Report",
+      "sources": [
+        { "url": "https://apnews.com/article/726b55a6fe6c51de1fb086b437eb28de", "label": "View Article" },
+        { "url": "https://apnews.com/article/d770fe5962f37470afb569aa459e3f0e", "label": "Supporting Report" },
+        {
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/7/30/aje-onl-nf_dramatic-sea-rescue-as-firefighters-die-in-greece-290726",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Pacific Northwest Wildfires – Spokane, WA and Eastern Oregon, USA",
+      "severity": "escalate",
+      "text": "Spokane’s fire crossed the Spokane River into residential areas under extreme heat; Eastern Oregon fire forced long I‑84 closure and Level 3 evacuation of Huntington. Spokane Article Oregon Article",
+      "sources": [
+        { "url": "https://apnews.com/article/dc8e1ecf2e24c06958f8b723859fc1e1", "label": "Spokane Article" },
+        { "url": "https://apnews.com/article/f44665d325f08eb67d0ac44efa6eb0ae", "label": "Oregon Article" }
+      ]
+    },
+    {
+      "title": "Kyushu, Japan – Earthquake Impacts",
+      "severity": "escalate",
+      "text": "Multi-sector impacts with damaged roads/bridges; prioritization of SAR, medical surge, and shelter coordination remains critical. View Article",
+      "sources": [{ "url": "https://apnews.com/article/09e6f40acbcc96053946c9c104e7a242", "label": "View Article" }]
+    },
+    {
+      "title": "Texas, United States – Flooding Sequence",
+      "severity": "escalate",
+      "text": "South Texas flooding prompted county-level disaster declarations and multiple rescues; Hill Country flash floods caused deaths and recurrent rescues in previously impacted communities. South Texas Article Hill Country Article",
+      "sources": [
+        { "url": "https://apnews.com/article/1e9b9ddbdd2a8963cccc707aee0d362e", "label": "South Texas Article" },
+        { "url": "https://apnews.com/article/d949081a5f152b93b9d458a9cc69b7af", "label": "Hill Country Article" }
+      ]
+    },
+    {
+      "title": "West Virginia, United States – Flash Flooding",
+      "severity": "escalate",
+      "text": "Emergency declarations, shelters, and rescues followed torrential rain and flash flooding across multiple communities. AP Report Supporting Report",
+      "sources": [
+        { "url": "https://apnews.com/article/919eb8602f8954b99c517ac4fae1cd64", "label": "AP Report" },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/jul/23/national-guard-west-virginia-flash-floods",
+          "label": "Supporting Report"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [
+    {
+      "title": "Southern Europe Wildfire Complex – Greece, France, Spain (and western Türkiye)",
+      "severity": "escalate",
+      "text": "Fresh evacuations in Attica and along France’s Atlantic coast; reporting suggests ~330k displaced regionally with prolonged return restrictions in some communes. Firefighter fatalities reported; numbers vary across sources. View Article Supporting Report Supporting Report",
+      "sources": [
+        { "url": "https://apnews.com/article/726b55a6fe6c51de1fb086b437eb28de", "label": "View Article" },
+        { "url": "https://apnews.com/article/d770fe5962f37470afb569aa459e3f0e", "label": "Supporting Report" },
+        {
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/7/30/aje-onl-nf_dramatic-sea-rescue-as-firefighters-die-in-greece-290726",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Pacific Northwest Wildfires – Spokane, WA and Eastern Oregon, USA",
+      "severity": "escalate",
+      "text": "Spokane’s fire crossed the Spokane River into residential areas under extreme heat; Eastern Oregon fire forced long I‑84 closure and Level 3 evacuation of Huntington. Spokane Article Oregon Article",
+      "sources": [
+        { "url": "https://apnews.com/article/dc8e1ecf2e24c06958f8b723859fc1e1", "label": "Spokane Article" },
+        { "url": "https://apnews.com/article/f44665d325f08eb67d0ac44efa6eb0ae", "label": "Oregon Article" }
+      ]
+    },
+    {
+      "title": "Kyushu, Japan – Earthquake Impacts",
+      "severity": "escalate",
+      "text": "Multi-sector impacts with damaged roads/bridges; prioritization of SAR, medical surge, and shelter coordination remains critical. View Article",
+      "sources": [{ "url": "https://apnews.com/article/09e6f40acbcc96053946c9c104e7a242", "label": "View Article" }]
+    },
+    {
+      "title": "Texas, United States – Flooding Sequence",
+      "severity": "escalate",
+      "text": "South Texas flooding prompted county-level disaster declarations and multiple rescues; Hill Country flash floods caused deaths and recurrent rescues in previously impacted communities. South Texas Article Hill Country Article",
+      "sources": [
+        { "url": "https://apnews.com/article/1e9b9ddbdd2a8963cccc707aee0d362e", "label": "South Texas Article" },
+        { "url": "https://apnews.com/article/d949081a5f152b93b9d458a9cc69b7af", "label": "Hill Country Article" }
+      ]
+    },
+    {
+      "title": "West Virginia, United States – Flash Flooding",
+      "severity": "escalate",
+      "text": "Emergency declarations, shelters, and rescues followed torrential rain and flash flooding across multiple communities. AP Report Supporting Report",
+      "sources": [
+        { "url": "https://apnews.com/article/919eb8602f8954b99c517ac4fae1cd64", "label": "AP Report" },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/jul/23/national-guard-west-virginia-flash-floods",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Typhoon Noul – Guangdong & Hong Kong",
+      "severity": "escalate",
+      "text": "Authorities relocated >715,000 residents; airport and rail services curtailed with storm impacts across the Pearl River Delta. View Article",
+      "sources": [{ "url": "https://apnews.com/article/fb42a4499529b3d33a76df23c09ecbb6", "label": "View Article" }]
+    },
+    {
+      "title": "Missouri, United States – Severe/Flash Flooding",
+      "severity": "escalate",
+      "text": "Catastrophic flooding across multiple regions; >200 children and staff airlifted from a flooded camp after building collapse. State of Emergency Airlift Rescue",
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/us-news/2026/jul/10/missouri-state-of-emergency-floods",
+          "label": "State of Emergency"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/jul/11/missouri-flooding-airlift-rescue",
+          "label": "Airlift Rescue"
+        }
+      ]
+    },
+    {
+      "title": "Western United States – Extreme Heat Wave",
+      "severity": "escalate",
+      "text": "Dangerous heat across multiple states heightening wildfire danger and health risks for evacuees and responders. View Article",
+      "sources": [{ "url": "https://apnews.com/article/594390d448a480564ec7db6b15b5fffc", "label": "View Article" }]
+    },
+    {
+      "title": "Venezuela – Reported Earthquake Emergency (Unconfirmed Severity)",
+      "severity": "escalate",
+      "text": "IFRC listing references mass casualties and severe urban damage; independent corroboration remains limited in open sources at time of reporting. IFRC Listing",
+      "sources": [{ "url": "https://www.ifrc.org/emergencies/all", "label": "IFRC Listing" }]
+    },
+    {
+      "title": "Colorado, United States – Rapid Wildfire Spread (Early July)",
+      "severity": "escalate",
+      "text": "A fast-growing fire forced evacuations and destroyed homes amid hot, dry, and windy conditions. View Article MONITOR",
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/amp/news/2026/7/3/thousands-forced-to-evacuate-in-colorado-as-wildfire-spreads",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "monitorEvents": [
+    {
+      "title": "Western United States – Heat Wave (Compounding Risk)",
+      "severity": "monitor",
+      "text": "Heat warnings across multiple states; monitor for health impacts and new wildfire ignitions, including areas already under evacuation. View Article",
+      "sources": [{ "url": "https://apnews.com/article/594390d448a480564ec7db6b15b5fffc", "label": "View Article" }]
+    },
+    {
+      "title": "Kyrgyzstan – Flash Flood DREF Activation",
+      "severity": "monitor",
+      "text": "IFRC opened a DREF for flash floods, indicating localized needs though public operational detail remains limited in the listing. IFRC Appeals",
+      "sources": [{ "url": "https://www.ifrc.org/appeals?disaster_type%5B0%5D=55", "label": "IFRC Appeals" }]
+    },
+    {
+      "title": "Near Paris, France – Wildfire Disruption (Mid-July)",
+      "severity": "monitor",
+      "text": "Evacuations near Paris with disrupted train lines and motorway as fires impacted mobility corridors. View Article",
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/amp/news/2026/7/13/wildfires-near-paris-force-evacuations-disrupt-train-lines-and-motorway",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Philadelphia, United States – Severe Microburst Storms",
+      "severity": "monitor",
+      "text": "Structural damage, flooded streets, downed power lines, and evacuations from damaged housing; disaster emergency declared for the city. View Article",
+      "sources": [{ "url": "https://apnews.com/article/d08236ed44fed3eb744cd38562154e00", "label": "View Article" }]
+    },
+    {
+      "title": "Kentucky, United States – Statewide Flooding (Late June)",
+      "severity": "monitor",
+      "text": "Flooding caused fatalities and left residents stranded; dozens of water rescues and evacuations reported amid transport damage. CNN Transcript",
+      "sources": [
+        { "url": "https://transcripts.cnn.com/show/cnr/date/2026-06-29/segment/20", "label": "CNN Transcript" }
+      ]
+    },
+    {
+      "title": "Western Europe – Evacuation Returns and Ongoing Fire Ops",
+      "severity": "monitor",
+      "text": "Tens of thousands of evacuees allowed to return in southwest France while other European fires continued to prompt evacuations and strain resources. View Article",
+      "sources": [{ "url": "https://apnews.com/article/de0bfabe2249153afc0e16da2f7e02f3", "label": "View Article" }]
+    },
+    {
+      "title": "Minnesota, United States – Wildfire Smoke and Evacuations",
+      "severity": "monitor",
+      "text": "Reports of evacuations and smoke-related community health risks; open-source article link provides limited event-specific detail—verify locally. Source Threat Dashboard Active Hazards Wildfire • Flood • Earthquake • Typhoon • Heat Multi-region, multi-hazard operations in progress Countries/Regions with Notable Impact Greece • France • Spain • Japan • China (GD/HK) • USA Cross-border coordination required Operational Themes Evacuation • SAR • Shelter • Power • Transport Sustained logistics, WASH, and protection needs Source References Primary Articles and Reports • Southern Europe wildfires (multiple): AP (Aug 2) , AP (Jul 29) , AP (Jul 29) , AP (Jul 28) , Guardian , Al Jazeera • Spokane wildfire: AP (Aug 2) • Eastern Oregon wildfire: AP (Jul 27) • Colorado wildfire: Al Jazeera Floods, Seismic, and Typhoon • Japan earthquake (Kyushu): AP (Jul 28) • Texas floods: AP (Jul 15) , AP (Jul 18) , Guardian • West Virginia floods: AP (Jul 22) , Guardian • Missouri floods: Guardian (Jul 10) , Guardian (Jul 11) • Typhoon Noul: AP (Jul 25) • Western U.S. heat wave: AP (Aug 1) • IFRC listings: Emergencies , Appeals Note: Reporting windows differ across sources; some figures reflect advisories or temporary relocations and may overlap across dates/locations. This briefing was generated from AI-assisted analysis of publicly available reporting. Links are provided to original sources for verification and operational use.",
+      "sources": [
+        { "url": "https://www.accuweather.com/en/news/blogs-and-webinars", "label": "Source" },
+        { "url": "https://apnews.com/article/726b55a6fe6c51de1fb086b437eb28de", "label": "AP (Aug 2)" },
+        { "url": "https://apnews.com/article/d770fe5962f37470afb569aa459e3f0e", "label": "AP (Jul 29)" },
+        { "url": "https://apnews.com/article/13b3173c427388881108c58510312993", "label": "AP (Jul 29)" },
+        { "url": "https://apnews.com/article/0880421447ebd9ad4d2e505b37c54181", "label": "AP (Jul 28)" },
+        {
+          "url": "https://www.theguardian.com/world/2026/jul/28/france-bordeaux-lacanau-evacuation-wildfires-madrid-spain",
+          "label": "Guardian"
+        },
+        {
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/7/30/aje-onl-nf_dramatic-sea-rescue-as-firefighters-die-in-greece-290726",
+          "label": "Al Jazeera"
+        },
+        { "url": "https://apnews.com/article/dc8e1ecf2e24c06958f8b723859fc1e1", "label": "AP (Aug 2)" },
+        { "url": "https://apnews.com/article/f44665d325f08eb67d0ac44efa6eb0ae", "label": "AP (Jul 27)" },
+        {
+          "url": "https://www.aljazeera.com/amp/news/2026/7/3/thousands-forced-to-evacuate-in-colorado-as-wildfire-spreads",
+          "label": "Al Jazeera"
+        },
+        { "url": "https://apnews.com/article/09e6f40acbcc96053946c9c104e7a242", "label": "AP (Jul 28)" },
+        { "url": "https://apnews.com/article/1e9b9ddbdd2a8963cccc707aee0d362e", "label": "AP (Jul 15)" },
+        { "url": "https://apnews.com/article/d949081a5f152b93b9d458a9cc69b7af", "label": "AP (Jul 18)" },
+        { "url": "https://www.theguardian.com/us-news/2026/jul/15/texas-rain-flooding", "label": "Guardian" },
+        { "url": "https://apnews.com/article/919eb8602f8954b99c517ac4fae1cd64", "label": "AP (Jul 22)" },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/jul/23/national-guard-west-virginia-flash-floods",
+          "label": "Guardian"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/jul/10/missouri-state-of-emergency-floods",
+          "label": "Guardian (Jul 10)"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/jul/11/missouri-flooding-airlift-rescue",
+          "label": "Guardian (Jul 11)"
+        },
+        { "url": "https://apnews.com/article/fb42a4499529b3d33a76df23c09ecbb6", "label": "AP (Jul 25)" },
+        { "url": "https://apnews.com/article/594390d448a480564ec7db6b15b5fffc", "label": "AP (Aug 1)" },
+        { "url": "https://www.ifrc.org/emergencies/all", "label": "Emergencies" },
+        { "url": "https://www.ifrc.org/appeals?disaster_type%5B0%5D=55", "label": "Appeals" }
+      ]
+    }
+  ],
+  "outlook72h": "Southern Europe wildfires: Continued flare-ups likely where heat and wind persist; expect rolling evacuations, degraded air quality, and constrained returns to affected communes. U.S. Pacific Northwest: Elevated fire behavior possible under lingering heat and gusty conditions; anticipate additional evacuation notices and intermittent transport/power disruptions. Texas/Appalachia: Localized heavy rain could trigger new flash flood advisories in saturated basins; prioritize low-water crossings and known flood-prone neighborhoods. Japan (Kyushu): Aftershocks possible; prioritize structural assessments of bridges/overpasses, hospital capacity monitoring, and shelter management for evacuees. South China/Hong Kong: Residual flooding and landslide risk in steep terrain post-typhoon; monitor power restoration and transport normalization timelines.",
+  "regionalTrends": [
+    "Heat–Fire Coupling: Prolonged heatwaves across southern Europe and the western U.S. are amplifying ignition potential, drying fuels, and sustaining large fire perimeters. View Article",
+    "Flash Flood Recurrence: Short-duration, high-intensity rainfall is repeatedly overwhelming drainage in Texas Hill Country and Appalachia, producing rapid rescue needs and infrastructure washouts. View Article",
+    "Coastal Storm Preparedness: Early relocations and transport curtailment ahead of Typhoon Noul limited exposure in dense urban areas, though landslide and secondary flooding risks persist post-landfall. View Article",
+    "Seismic Urban Risk: The Kyushu event underscores life-safety risks in complex urban systems where simultaneous fires, blackouts, and damaged bridges complicate access and response. View Article"
+  ],
+  "rawMarkdown": "Global Disaster AI Intelligence Brief Global Disaster AI Intelligence Brief Generated: Sunday, August 02, 2026 Classification: Publicly Available Information Situation Overview Overall Threat Level HIGH Primary Drivers Mega-wildfires in southern Europe, US wildfire emergencies, East Asia seismic/typhoon hazards, US inland flooding Decision Legend ESCALATE MONITOR IGNORE High-Priority (ESCALATE) Events 9 Converging wildfire, flood, earthquake, and typhoon risks Populations Under Evacuation/Relocation/Advisory 1.3M+ (cumulative) Southern Europe wildfires ~330k • Source | Japan quake advisories ~260k • Source | Typhoon Noul relocations 715k • Source Regions Most Impacted S. Europe • W. Pacific • U.S. Concentration in Greece/France/Spain, Japan, Pacific NW & Texas Compound Hazards Extreme Heat + Wildfire Heat dome driving fire spread and health risk • Source Executive Summary Major wildfires across Greece, France, and Spain have driven mass evacuations, with reporting indicating roughly a third of a million people displaced and fresh evacuation orders continuing near Athens and the Atlantic coast of France. View Article Supporting Report In the U.S. Pacific Northwest, a fast-moving wildfire in the Spokane, Washington area triggered thousands of evacuations, power shutoffs, and structural losses under extreme heat and wind. View Article A strong earthquake in Kyushu, Japan caused fatalities and injuries, damaged infrastructure, ignited fires, and prompted evacuation advisories for more than 260,000 people. View Article Severe flooding in South and Central Texas caused fatalities and widespread water rescues; additional flooding and rescues were reported in West Virginia with emergency declarations and sheltering. View Article Supporting Report Typhoon Noul prompted large-scale preemptive relocations in Guangdong and Hong Kong and widespread transport disruption ahead of and during landfall. View Article Extreme heat advisories across the Western United States are compounding wildfire behavior and public health risk in already-affected regions. View Article An IFRC listing signals a reported major earthquake emergency in Venezuela with severe urban damage and urgent needs; however, open-source detail is limited and severity remains uncertain. Source Key Findings Southern Europe’s wildfire complex remains the most consequential ongoing humanitarian displacement in this cycle, with estimates around 330,000 people affected and renewed evacuations near Athens and Bordeaux. View Article Spokane, Washington’s urban-interface fire necessitated grid safety shutoffs and rapid evacuations, highlighting vulnerability of critical services during heat-driven fire weather. View Article Interstate 84 closures and intermittent shutdowns in eastern Oregon underscore high-impact transport disruption from large wildfires in sparsely resourced corridors. View Article Japan’s Kyushu earthquake produced multi-sector impacts (casualties, fires, blackouts, damaged bridges/roads) and large-scale evacuation advisories in dense urban areas. View Article Texas and West Virginia floods show repeating high-intensity rainfall leading to rapid water rescues, bridge washouts, and temporary shelters—especially in communities with recent flood histories. View Article Typhoon Noul-triggered relocations over 700,000 people and mass air cancellations, reinforcing the value of pre-landfall displacement to reduce casualty risk. View Article Extreme heat across the Western U.S. is a compounding driver that increases ignition potential, accelerates fire spread, and elevates health risks for evacuees and responders. View Article Top Five Critical Events (Priority) Southern Europe Wildfire Complex – Greece, France, Spain ESCALATE Mass evacuations Extreme heat Operational impact: Displacement scale, sustained air/ground firefighting, tourist area closures Reporting indicates ~330,000 people displaced since initial outbreaks; fresh evacuations ordered near Athens and along France’s Atlantic coast. Reporting on fatalities varies; firefighter deaths confirmed in Greece. View Article Supporting Report Spokane, Washington, United States – Urban-Interface Wildfire ESCALATE Power shutoffs Residential losses Operational impact: Evacuations, PSPS, structure protection, extreme heat exposure Thousands evacuated; some structures lost; fire crossed the Spokane River with zero/low containment under high winds and heat. View Article Kyushu, Japan – Earthquake with Casualties and Advisories ESCALATE Multi-sector damage Evacuation advisories Operational impact: SAR, hospital surge, road/bridge inspections, power restoration At least three fatalities, dozens injured or missing, >260,000 under evacuation advisories; fires and blackouts reported. View Article Guangdong & Hong Kong – Typhoon Noul Relocations ESCALATE 715k relocated Transport disruption Operational impact: Mass sheltering, airport/rail disruption, flood/landslide risk Hundreds of thousands preemptively relocated; hundreds of flights canceled; heavy rain and strong winds on landfall. View Article Texas, United States – Flooding and Flash Flood Emergencies ESCALATE Water rescues Fatalities Operational impact: High-water rescue ops, sheltering, road closures, repeat-impact communities South Texas declared disasters across dozens of counties; Central Texas flash floods caused multiple deaths and >200 rescues. View Article Supporting Report Humanitarian Impact Displacement: Southern Europe wildfires have driven approximately 330,000 people from homes and campsites; France alone reported >220,000 displaced at peak. View Article Supporting Report Casualties: Confirmed deaths in Greece during wildfire response and fatalities linked to Texas flooding; casualty counts vary across reports. View Article Supporting Report Evacuation advisories and sheltering: >260,000 advised to evacuate in Kyushu, Japan; large-scale relocations for Typhoon Noul. View Article Supporting Report Vulnerable groups: Evacuated tourists and families along France’s Atlantic coast and Greek islands; rapid-onset flooding re-impacted previously affected Texas Hill Country communities. View Article Supporting Report Unconfirmed severe earthquake impact in Venezuela with reported urban collapses and urgent medical needs; independent open-source corroboration remains limited. Source Infrastructure Concerns Transport: A 70-mile stretch of I-84 closed in eastern Oregon; intermittent closures expected as fire activity continues. View Article Energy: Public safety power shutoffs (PSPS) and grid strain in Spokane under wildfire conditions and extreme heat. View Article Aviation: Hundreds of typhoon-related flight cancellations in Guangdong/Hong Kong; cascading delays likely in adjacent hubs. View Article Urban damage: Japan quake triggered fires, blackouts, and structural damage to roads/bridges; damage assessments and inspections ongoing. View Article France/Greece wildfires: Road closures, tourist site evacuations, and access disruption in coastal and peri-urban zones; industrial district near Megara at risk. View Article Regional and Hazard Trends Heat–Fire Coupling: Prolonged heatwaves across southern Europe and the western U.S. are amplifying ignition potential, drying fuels, and sustaining large fire perimeters. View Article Flash Flood Recurrence: Short-duration, high-intensity rainfall is repeatedly overwhelming drainage in Texas Hill Country and Appalachia, producing rapid rescue needs and infrastructure washouts. View Article Coastal Storm Preparedness: Early relocations and transport curtailment ahead of Typhoon Noul limited exposure in dense urban areas, though landslide and secondary flooding risks persist post-landfall. View Article Seismic Urban Risk: The Kyushu event underscores life-safety risks in complex urban systems where simultaneous fires, blackouts, and damaged bridges complicate access and response. View Article Next 72-Hour Outlook Southern Europe wildfires: Continued flare-ups likely where heat and wind persist; expect rolling evacuations, degraded air quality, and constrained returns to affected communes. U.S. Pacific Northwest: Elevated fire behavior possible under lingering heat and gusty conditions; anticipate additional evacuation notices and intermittent transport/power disruptions. Texas/Appalachia: Localized heavy rain could trigger new flash flood advisories in saturated basins; prioritize low-water crossings and known flood-prone neighborhoods. Japan (Kyushu): Aftershocks possible; prioritize structural assessments of bridges/overpasses, hospital capacity monitoring, and shelter management for evacuees. South China/Hong Kong: Residual flooding and landslide risk in steep terrain post-typhoon; monitor power restoration and transport normalization timelines. Recommended Monitoring Priorities Wildfire perimeter growth and re-ignitions in Attica (Greece) and Gironde/Provence (France); triggers: new evacuation orders, highway closures, critical facility threats. Source Spokane-area structure protection and PSPS zones; triggers: containment changes, hospital surge/evacuation, additional substations de-energized. Source I-84 eastern Oregon corridor status; triggers: two-way traffic restoration, smoke visibility thresholds, extended detours affecting supply chains. Source Kyushu earthquake aftershock advisories and shelter occupancy; triggers: hospital capacity alerts, bridge closure lists, prolonged blackouts. Source Texas Hill Country and South Texas hydrology; triggers: flash flood emergencies, swift-water rescue load, new county disaster declarations. Source Post-typhoon slope stability in Guangdong/Hong Kong; triggers: red/yellow rainstorm warnings, rail line service restoration, secondary evacuation advisories. Source Event Cards by Decision Level ESCALATE Southern Europe Wildfire Complex – Greece, France, Spain (and western Türkiye) ESCALATE Mass evacuations Fatalities (varied reports) Indicators: mass displacement, homes destroyed, roads cut, extreme heat Confidence: High Fresh evacuations in Attica and along France’s Atlantic coast; reporting suggests ~330k displaced regionally with prolonged return restrictions in some communes. Firefighter fatalities reported; numbers vary across sources. View Article Supporting Report Supporting Report Pacific Northwest Wildfires – Spokane, WA and Eastern Oregon, USA ESCALATE Evacuations Transport disruption Indicators: PSPS, homes threatened/lost, I-84 closure (~70 mi) Confidence: High Spokane’s fire crossed the Spokane River into residential areas under extreme heat; Eastern Oregon fire forced long I‑84 closure and Level 3 evacuation of Huntington. Spokane Article Oregon Article Kyushu, Japan – Earthquake Impacts ESCALATE Casualties Blackouts & fires Indicators: deaths, injuries, missing, advisories >260k Confidence: High Multi-sector impacts with damaged roads/bridges; prioritization of SAR, medical surge, and shelter coordination remains critical. View Article Texas, United States – Flooding Sequence ESCALATE Water rescues Fatalities Indicators: disaster declarations, evacuations, warnings Confidence: High South Texas flooding prompted county-level disaster declarations and multiple rescues; Hill Country flash floods caused deaths and recurrent rescues in previously impacted communities. South Texas Article Hill Country Article West Virginia, United States – Flash Flooding ESCALATE State of emergency Water rescues Indicators: mudslides, rapidly rising water, missing persons Confidence: High Emergency declarations, shelters, and rescues followed torrential rain and flash flooding across multiple communities. AP Report Supporting Report Typhoon Noul – Guangdong & Hong Kong ESCALATE Mass relocations Flight cancellations Indicators: preemptive evacuations, heavy rain, strong winds Confidence: High Authorities relocated >715,000 residents; airport and rail services curtailed with storm impacts across the Pearl River Delta. View Article Missouri, United States – Severe/Flash Flooding ESCALATE State of emergency Airlift rescues Indicators: catastrophic flooding, building collapse, children at risk Confidence: High Catastrophic flooding across multiple regions; >200 children and staff airlifted from a flooded camp after building collapse. State of Emergency Airlift Rescue Western United States – Extreme Heat Wave ESCALATE Public health risk Fire weather Indicators: widespread warnings, compounding active fires Confidence: High Dangerous heat across multiple states heightening wildfire danger and health risks for evacuees and responders. View Article Venezuela – Reported Earthquake Emergency (Unconfirmed Severity) ESCALATE Low detail Potential SAR/medical needs Indicators: collapsed buildings, urgent aid needs (reported) Confidence: Moderate IFRC listing references mass casualties and severe urban damage; independent corroboration remains limited in open sources at time of reporting. IFRC Listing Colorado, United States – Rapid Wildfire Spread (Early July) ESCALATE Evacuations Homes destroyed Indicators: 2,200 evacuees, fast growth Confidence: High A fast-growing fire forced evacuations and destroyed homes amid hot, dry, and windy conditions. View Article MONITOR Western United States – Heat Wave (Compounding Risk) MONITOR Public warnings Fire weather Confidence: High Heat warnings across multiple states; monitor for health impacts and new wildfire ignitions, including areas already under evacuation. View Article Kyrgyzstan – Flash Flood DREF Activation MONITOR Humanitarian operation Confidence: Moderate IFRC opened a DREF for flash floods, indicating localized needs though public operational detail remains limited in the listing. IFRC Appeals Near Paris, France – Wildfire Disruption (Mid-July) MONITOR Evacuations Transport disruption Confidence: Moderate Evacuations near Paris with disrupted train lines and motorway as fires impacted mobility corridors. View Article Philadelphia, United States – Severe Microburst Storms MONITOR Shelter needs Power outages Confidence: High Structural damage, flooded streets, downed power lines, and evacuations from damaged housing; disaster emergency declared for the city. View Article Kentucky, United States – Statewide Flooding (Late June) MONITOR Rescues Bridge/road damage Confidence: Moderate Flooding caused fatalities and left residents stranded; dozens of water rescues and evacuations reported amid transport damage. CNN Transcript Western Europe – Evacuation Returns and Ongoing Fire Ops MONITOR Roads reopening Residual threats Confidence: Moderate Tens of thousands of evacuees allowed to return in southwest France while other European fires continued to prompt evacuations and strain resources. View Article Minnesota, United States – Wildfire Smoke and Evacuations MONITOR Low detail link Air quality risk Confidence: Low–Moderate Reports of evacuations and smoke-related community health risks; open-source article link provides limited event-specific detail—verify locally. Source Threat Dashboard Active Hazards Wildfire • Flood • Earthquake • Typhoon • Heat Multi-region, multi-hazard operations in progress Countries/Regions with Notable Impact Greece • France • Spain • Japan • China (GD/HK) • USA Cross-border coordination required Operational Themes Evacuation • SAR • Shelter • Power • Transport Sustained logistics, WASH, and protection needs Source References Primary Articles and Reports • Southern Europe wildfires (multiple): AP (Aug 2) , AP (Jul 29) , AP (Jul 29) , AP (Jul 28) , Guardian , Al Jazeera • Spokane wildfire: AP (Aug 2) • Eastern Oregon wildfire: AP (Jul 27) • Colorado wildfire: Al Jazeera Floods, Seismic, and Typhoon • Japan earthquake (Kyushu): AP (Jul 28) • Texas floods: AP (Jul 15) , AP (Jul 18) , Guardian • West Virginia floods: AP (Jul 22) , Guardian • Missouri floods: Guardian (Jul 10) , Guardian (Jul 11) • Typhoon Noul: AP (Jul 25) • Western U.S. heat wave: AP (Aug 1) • IFRC listings: Emergencies , Appeals Note: Reporting windows differ across sources; some figures reflect advisories or temporary relocations and may overlap across dates/locations. This briefing was generated from AI-assisted analysis of publicly available reporting. Links are provided to original sources for verification and operational use."
+}

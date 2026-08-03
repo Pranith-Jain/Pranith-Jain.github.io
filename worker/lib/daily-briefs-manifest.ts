@@ -17,7 +17,7 @@
  * Bodies cached on demand with a 100-entry LRU.
  */
 
-export type DbBriefType = 'cyber' | 'deepfake' | 'disaster';
+export type DbBriefType = 'cyber' | 'deepfake' | 'disaster' | 'maritime';
 
 export interface DbIndexEntry {
   type: DbBriefType;
@@ -29,7 +29,7 @@ export interface DbIndex {
   source: string;
   license: string;
   generatedAt: string;
-  counts: { cyber: number; deepfake: number; disaster: number };
+  counts: { cyber: number; deepfake: number; disaster: number; maritime: number };
   briefs: DbIndexEntry[];
 }
 
