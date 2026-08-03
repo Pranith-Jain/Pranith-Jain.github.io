@@ -82,7 +82,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
     <Modal open onClose={onClose} title={body.filename} size="lg">
       <div className="space-y-4 max-h-[70vh] overflow-y-auto">
         <div className="flex flex-wrap items-center gap-2">
-          {body.tags.map((t) => (
+          {(body.tags ?? []).map((t) => (
             <span key={t} className={`font-mono text-micro font-bold px-2 py-0.5 rounded border ${tagColor(t)}`}>
               {t}
             </span>
@@ -92,7 +92,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
               needs LOKI/THOR external vars
             </span>
           )}
-          {body.score !== null && (
+          {body.score != null && (
             <span className="font-mono text-micro font-bold px-2 py-0.5 rounded border text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-slate-200 dark:border-slate-700">
               score {body.score}
             </span>
@@ -105,7 +105,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
           </p>
         )}
         <div className="space-y-2">
-          {body.rules.map((r) => (
+          {(body.rules ?? []).map((r) => (
             <div key={r.name} className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-lg p-3">
               <div className="font-mono text-xs font-semibold text-brand-600 dark:text-brand-400 mb-1">{r.name}</div>
               {r.meta.description && (

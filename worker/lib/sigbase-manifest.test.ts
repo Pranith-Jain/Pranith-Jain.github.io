@@ -199,6 +199,26 @@ describe('sigbase-manifest', () => {
     expect(await getSigBaseIoc(assets as unknown as Fetcher, 'nope')).toBeNull();
   });
 
+  it('enriches a rule body with index metadata it is missing (tags/author/score)', async () => {
+    const { assets, data } = makeAssetsFixture();
+    data.set('/data/sigbase/yara/apt_apt28.json', {
+      slug: 'apt_apt28',
+      filename: 'apt_apt28.yar',
+      source: 'github.com/Neo23x0/signature-base',
+      license: 'Detection Rule License 1.1',
+      headerComment: 'Yara Rule Set',
+      rules: [{ name: 'APT28_CHOPSTICK', meta: {} }],
+      body: 'rule APT28_CHOPSTICK {}',
+    });
+    const body = await getSigBaseYara(assets as unknown as Fetcher, 'apt_apt28');
+    expect(body?.tags).toEqual(['apt']);
+    expect(body?.author).toBe('Florian Roth (Nextron Systems)');
+    expect(body?.date).toBe('2015-06-02');
+    expect(body?.score).toBe(60);
+    expect(body?.externalVars).toBe(false);
+    expect(body?.ruleCount).toBe(2);
+  });
+
   it('tracks cache stats for both caches', async () => {
     const { assets } = makeAssetsFixture();
     await getSigBaseYara(assets as unknown as Fetcher, 'apt_apt28');
@@ -206,6 +226,6 @@ describe('sigbase-manifest', () => {
     const stats = sigBaseCacheStats();
     expect(stats.yara.size).toBe(1);
     expect(stats.iocs.size).toBe(1);
-    expect(stats.indexLoaded).toBe(false);
+    expect(stats.indexLoaded).toBe(true);
   });
 });

@@ -163,8 +163,37 @@ export async function loadSigBaseIndex(assets: Fetcher, opts: { forceRefresh?: b
 export async function getSigBaseYara(assets: Fetcher, slug: string): Promise<SigBaseYaraBody | null> {
   const hit = trackHit(yaraBodyCache, slug);
   if (hit) return hit;
+  // Per-slug bodies ship without the index metadata (tags, author, date,
+  // score, externalVars) — re-merge it from the index so every consumer
+  // (REST, MCP, SPA modal) gets the complete entry shape.
+  let entry: SigBaseYaraIndexEntry | undefined;
+  try {
+    const idx = await loadSigBaseIndex(assets);
+    entry = idx.yaraIndex.find((y) => y.slug === slug);
+  } catch {
+    entry = undefined;
+  }
   const body = await fetchJson<SigBaseYaraBody>(assets, `${DATA_PREFIX}/yara/${slug}.json`);
   if (!body) return null;
+  if (entry) {
+    body.slug = entry.slug;
+    body.filename = entry.filename;
+    body.identifier = entry.identifier;
+    body.ruleCount = entry.ruleCount;
+    body.tags = entry.tags;
+    body.author = entry.author;
+    body.date = entry.date;
+    body.score = entry.score;
+    body.externalVars = entry.externalVars;
+    body.sizeBytes = entry.sizeBytes;
+  } else {
+    body.tags = body.tags ?? [];
+    body.author = body.author ?? null;
+    body.date = body.date ?? null;
+    body.score = body.score ?? null;
+    body.externalVars = body.externalVars ?? false;
+    body.ruleCount = body.rules?.length ?? 0;
+  }
   return recordHit(yaraBodyCache, slug, body);
 }
 
