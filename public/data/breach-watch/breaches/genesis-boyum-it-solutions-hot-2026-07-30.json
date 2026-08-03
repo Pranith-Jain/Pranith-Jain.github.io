@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-boyum-it-solutions-hot-2026-07-30",
+  "title": "Boyum IT Solutions (HOT!)",
+  "group": "genesis",
+  "discovered": "2026-07-30T21:26:26.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DK",
+  "sizeBytes": 0,
+  "description": "A provider of IT services",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

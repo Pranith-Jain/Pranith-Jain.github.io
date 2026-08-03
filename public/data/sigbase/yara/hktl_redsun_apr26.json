@@ -1,0 +1,22 @@
+{
+  "slug": "hktl_redsun_apr26",
+  "filename": "hktl_redsun_apr26.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "HKTL_RedSun_Privilege_Escalation_Apr26",
+      "meta": {
+        "description": "Detects RedSun hacktool used for privilege escalation through Microsoft Defender.",
+        "author": "Jonathan Peters (cod3nym)",
+        "date": "2026-04-16",
+        "reference": "https://github.com/Nightmare-Eclipse/RedSun",
+        "hash": "57a70c383feb9af60b64ab6768a1ca1b3f7394b8c5ffdbfafc8e988d63935120",
+        "score": "80",
+        "id": "64f86635-cf8c-5c65-b821-2d12e8ee9cdb"
+      }
+    }
+  ],
+  "body": "rule HKTL_RedSun_Privilege_Escalation_Apr26 {\n   meta:\n      description = \"Detects RedSun hacktool used for privilege escalation through Microsoft Defender.\"\n      author = \"Jonathan Peters (cod3nym)\"\n      date = \"2026-04-16\"\n      reference = \"https://github.com/Nightmare-Eclipse/RedSun\"\n      hash = \"57a70c383feb9af60b64ab6768a1ca1b3f7394b8c5ffdbfafc8e988d63935120\"\n      score = 80\n      id = \"64f86635-cf8c-5c65-b821-2d12e8ee9cdb\"\n   strings:\n      $x1 = \"\\\\??\\\\pipe\\\\REDSUN\" wide\n      $x2 = \"The red sun shall prevail.\\n\" ascii fullword\n      $x3 = \"\\\\RedSun.pdb\" ascii\n\n      $s1 = \"\\\\System32\\\\TieringEngineService.exe\" wide\n      $s2 = \"SERIOUSLYMSFT\" wide\n      $s3 = \"*H+H$!ELIF-TSET-SURIVITNA-DRADNATS-RACIE$}7)CC7)^P(45XZP\\\\4[PA@%P!O5X\" ascii\n   condition:\n      uint16(0) == 0x5a4d\n      and (\n         1 of ($x*)\n         or 2 of ($s*)\n      )\n      or 3 of them\n}\n"
+}

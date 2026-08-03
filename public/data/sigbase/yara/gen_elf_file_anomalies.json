@@ -1,0 +1,22 @@
+{
+  "slug": "gen_elf_file_anomalies",
+  "filename": "gen_elf_file_anomalies.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_ELF_LNX_UPX_Compressed_File",
+      "meta": {
+        "description": "Detects a suspicious ELF binary with UPX compression",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2018-12-12",
+        "score": "40",
+        "hash1": "038ff8b2fef16f8ee9d70e6c219c5f380afe1a21761791e8cbda21fa4d09fdb4",
+        "id": "078937de-59b3-538e-a5c3-57f4e6050212"
+      }
+    }
+  ],
+  "body": "\nrule SUSP_ELF_LNX_UPX_Compressed_File {\n   meta:\n      description = \"Detects a suspicious ELF binary with UPX compression\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2018-12-12\"\n      score = 40\n      hash1 = \"038ff8b2fef16f8ee9d70e6c219c5f380afe1a21761791e8cbda21fa4d09fdb4\"\n      id = \"078937de-59b3-538e-a5c3-57f4e6050212\"\n   strings:\n      $s1 = \"PROT_EXEC|PROT_WRITE failed.\" fullword ascii\n      $s2 = \"$Id: UPX\" fullword ascii\n      $s3 = \"$Info: This file is packed with the UPX executable packer\" ascii\n\n      $fp1 = \"check your UCL installation !\"\n   condition:\n      uint16(0) == 0x457f and filesize < 2000KB and\n      filesize > 30KB and 2 of ($s*)\n      and not 1 of ($fp*)\n}\n"
+}

@@ -1,0 +1,62 @@
+{
+  "slug": "apt_turbo_campaign",
+  "filename": "apt_turbo_campaign.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "apt_nix_elf_derusbi",
+      "meta": {
+        "description": "Detects Derusbi Backdoor ELF",
+        "author": "Fidelis Cybersecurity",
+        "date": "2016/02/29",
+        "modified": "2023-05-04",
+        "reference": "https://github.com/fideliscyber/indicators/tree/master/FTA-1021",
+        "id": "c825c5d6-1c2f-5ee7-871e-4be3f41d73f7"
+      }
+    },
+    {
+      "name": "apt_nix_elf_derusbi_kernelModule",
+      "meta": {
+        "description": "Detects Derusbi Backdoor ELF Kernel Module",
+        "author": "Fidelis Cybersecurity",
+        "date": "2016/02/29",
+        "modified": "2023-05-04",
+        "reference": "https://github.com/fideliscyber/indicators/tree/master/FTA-1021",
+        "id": "98196ffc-8a6f-5edc-a688-eeb449410b72"
+      }
+    },
+    {
+      "name": "apt_nix_elf_Derusbi_Linux_SharedMemCreation",
+      "meta": {
+        "description": "Detects Derusbi Backdoor ELF Shared Memory Creation",
+        "author": "Fidelis Cybersecurity",
+        "date": "2016/02/29",
+        "reference": "https://github.com/fideliscyber/indicators/tree/master/FTA-1021",
+        "id": "068b7bea-853d-57e8-a9fe-8b451dbc7582"
+      }
+    },
+    {
+      "name": "apt_nix_elf_Derusbi_Linux_Strings",
+      "meta": {
+        "description": "Detects Derusbi Backdoor ELF Strings",
+        "author": "Fidelis Cybersecurity",
+        "date": "2016/02/29",
+        "reference": "https://github.com/fideliscyber/indicators/tree/master/FTA-1021",
+        "id": "06717cc9-678d-5912-a671-65605b9c9968"
+      }
+    },
+    {
+      "name": "apt_win_exe_trojan_derusbi",
+      "meta": {
+        "description": "Detects Derusbi Backdoor Win32",
+        "author": "Fidelis Cybersecurity",
+        "date": "2016/02/29",
+        "reference": "https://github.com/fideliscyber/indicators/tree/master/FTA-1021",
+        "id": "6e7fecfa-f801-59b2-a394-df4c368011b7"
+      }
+    }
+  ],
+  "body": "rule apt_nix_elf_derusbi {\n   meta:\n      description = \"Detects Derusbi Backdoor ELF\"\n      author = \"Fidelis Cybersecurity\"\n      date = \"2016/02/29\"\n      modified = \"2023-05-04\"\n      reference = \"https://github.com/fideliscyber/indicators/tree/master/FTA-1021\"\n      id = \"c825c5d6-1c2f-5ee7-871e-4be3f41d73f7\"\n   strings:\n      $s1 = \"LxMain\"\n      $s2 = \"execve\"\n      $s3 = \"kill\"\n      $s4 = \"cp -a %s %s\"\n      $s5 = \"%s &\"\n      $s6 = \"dbus-daemon\"\n      $s7 = \"--noprofile\"\n      $s8 = \"--norc\"\n      $s9 = \"TERM=vt100\"\n      $s10 = \"/proc/%u/cmdline\"\n      $s11 = \"loadso\"\n      $s12 = \"/proc/self/exe\"\n      $s13 = \"Proxy-Connection: Keep-Alive\"\n      $s14 = \"Connection: Keep-Alive\"\n      $s15 = \"CONNECT %s\"\n      $s16 = \"HOST: %s:%d\"\n      $s17 = \"User-Agent: Mozilla/4.0\"\n      $s18 = \"Proxy-Authorization: Basic %s\"\n      $s19 = \"Server: Apache\"\n      $s20 = \"Proxy-Authenticate\"\n      $s21 = \"gettimeofday\"\n      $s22 = \"pthread_create\"\n      $s23 = \"pthread_join\"\n      $s24 = \"pthread_mutex_init\"\n      $s25 = \"pthread_mutex_destroy\"\n      $s26 = \"pthread_mutex_lock\"\n      $s27 = \"getsockopt\"\n      $s28 = \"socket\"\n      $s29 = \"setsockopt\"\n      $s30 = \"select\"\n      $s31 = \"bind\"\n      $s32 = \"shutdown\"\n      $s33 = \"listen\"\n      $s34 = \"opendir\"\n      $s35 = \"readdir\"\n      $s36 = \"closedir\"\n      $s37 = \"rename\"\n   condition:\n      uint32(0) == 0x464c457f and all of them\n}\n\nrule apt_nix_elf_derusbi_kernelModule\n{\n   meta:\n      description = \"Detects Derusbi Backdoor ELF Kernel Module\"\n      author = \"Fidelis Cybersecurity\"\n      date = \"2016/02/29\"\n      modified = \"2023-05-04\"\n      reference = \"https://github.com/fideliscyber/indicators/tree/master/FTA-1021\"\n      id = \"98196ffc-8a6f-5edc-a688-eeb449410b72\"\n   strings:\n      $s1 = \"__this_module\"\n      $s2 = \"init_module\"\n      $s3 = \"unhide_pid\"\n      $s4 = \"is_hidden_pid\"\n      $s5 = \"clear_hidden_pid\"\n      $s6 = \"hide_pid\"\n      $s7 = \"license\"\n      $s8 = \"description\"\n      $s9 = \"srcversion=\"\n      $s10 = \"depends=\"\n      $s12 = \"vermagic=\"\n      $s13 = \"current_task\"\n      $s14 = \"sock_release\"\n      $s15 = \"module_layout\"\n      $s16 = \"init_uts_ns\"\n      $s17 = \"init_net\"\n      $s18 = \"init_task\"\n      $s19 = \"filp_open\"\n      $s20 = \"__netlink_kernel_create\"\n      $s21 = \"kfree_skb\"\n   condition:\n      uint32(0) == 0x464c457f and all of them\n}\n\nrule apt_nix_elf_Derusbi_Linux_SharedMemCreation {\n   meta:\n      description = \"Detects Derusbi Backdoor ELF Shared Memory Creation\"\n      author = \"Fidelis Cybersecurity\"\n      date = \"2016/02/29\"\n      reference = \"https://github.com/fideliscyber/indicators/tree/master/FTA-1021\"\n      id = \"068b7bea-853d-57e8-a9fe-8b451dbc7582\"\n   strings:\n      $byte1 = { B6 03 00 00 ?? 40 00 00 00 ?? 0D 5F 01 82 }\n   condition:\n      uint32(0) == 0x464C457F and any of them\n}\n\nrule apt_nix_elf_Derusbi_Linux_Strings {\n   meta:\n      description = \"Detects Derusbi Backdoor ELF Strings\"\n      author = \"Fidelis Cybersecurity\"\n      date = \"2016/02/29\"\n      reference = \"https://github.com/fideliscyber/indicators/tree/master/FTA-1021\"\n      id = \"06717cc9-678d-5912-a671-65605b9c9968\"\n   strings:\n      $a1 = \"loadso\" wide ascii fullword\n      $a2 = \"\\nuname -a\\n\\n\" wide ascii\n      $a3 = \"/dev/shm/.x11.id\" wide ascii\n      $a4 = \"LxMain64\" wide ascii nocase\n      $a5 = \"# \\\\u@\\\\h:\\\\w \\\\$ \" wide ascii\n      $b1 = \"0123456789abcdefghijklmnopqrstuvwxyz\" wide\n      $b2 = \"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ\" wide\n      $b3 = \"ret %d\" wide fullword\n      $b4 = \"uname -a\\n\\n\" wide ascii\n      $b5 = \"/proc/%u/cmdline\" wide ascii\n      $b6 = \"/proc/self/exe\" wide ascii\n      $b7 = \"cp -a %s %s\" wide ascii\n      $c1 = \"/dev/pts/4\" wide ascii fullword\n      $c2 = \"/tmp/1408.log\" wide ascii fullword\n   condition:\n      uint32(0) == 0x464C457F and\n      (\n         (1 of ($a*) and 4 of ($b*) ) or\n         (1 of ($a*) and 1 of ($c*)) or\n         2 of ($a*) or\n         all of ($b*)\n      )\n}\n\nrule apt_win_exe_trojan_derusbi {\n   meta:\n      description = \"Detects Derusbi Backdoor Win32\"\n      author = \"Fidelis Cybersecurity\"\n      date = \"2016/02/29\"\n      reference = \"https://github.com/fideliscyber/indicators/tree/master/FTA-1021\"\n      id = \"6e7fecfa-f801-59b2-a394-df4c368011b7\"\n   strings:\n      $sa_4 = \"HOST: %s:%d\"\n      $sa_6 = \"User-Agent: Mozilla\"\n      $sa_7 = \"Proxy-Connection: Keep-Alive\"\n      $sa_8 = \"Connection: Keep-Alive\"\n      $sa_9 = \"Server: Apache\"\n      $sa_12 = \"ZwUnloadDriver\"\n      $sa_13 = \"ZwLoadDriver\"\n      $sa_18 = \"_time64\"\n      $sa_19 = \"DllRegisterServer\"\n      $sa_20 = \"DllUnregisterServer\"\n      $sa_21 = { 8b [5] 8b ?? d3 ?? 83 ?? 08 30 [5] 40 3b [5] 72 } // Decode Driver\n\n      $sb_1 = \"PCC_CMD_PACKET\"\n      $sb_2 = \"PCC_CMD\"\n      $sb_3 = \"PCC_BASEMOD\"\n      $sb_4 = \"PCC_PROXY\"\n      $sb_5 = \"PCC_SYS\"\n      $sb_6 = \"PCC_PROCESS\"\n      $sb_7 = \"PCC_FILE\"\n      $sb_8 = \"PCC_SOCK\"\n\n      $sc_1 = \"bcdedit -set testsigning\" wide ascii\n      $sc_2 = \"update.microsoft.com\" wide ascii\n      $sc_3 = \"_crt_debugger_hook\" wide ascii\n      $sc_4 = \"ue8G5\" wide ascii\n\n      /* $sd_1 = \"NET\" wide ascii */ /* disabled due to performance reasons */\n      $sd_2 = \"\\\\\\\\.\\\\pipe\\\\%s\" wide ascii\n      $sd_3 = \".dat\" wide ascii\n      $sd_4 = \"CONNECT %s:%d\" wide ascii\n      $sd_5 = \"\\\\Device\\\\\" wide ascii\n\n      $se_1 = \"-%s-%04d\" wide ascii\n      $se_2 = \"-%04d\" wide ascii\n      /* $se_3 = \"FAL\" wide ascii */ /* disabled due to performance reasons */\n      /* $se_4 = \"OK\" wide ascii */ /* disabled due to performance reasons */\n      $se_5 = \"2.03\" wide ascii\n      /* $se_6 = \"XXXXXXXXXXXXXXX\" wide ascii */ /* disabled due to memory usage reasons */\n\n   condition:\n      uint16(0) == 0x5A4D and (\n         all of ($sa_*) or\n         (\n            (8 of ($sa_*)) and (\n               (5 of ($sb_*)) or\n               (3 of ($sc_*)) or\n               (all of ($sd_*)) or\n               ( 1 of ($sc_*) and all of ($se_*) )\n            )\n         )\n      )\n}\n"
+}

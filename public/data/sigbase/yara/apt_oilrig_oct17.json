@@ -1,0 +1,60 @@
+{
+  "slug": "apt_oilrig_oct17",
+  "filename": "apt_oilrig_oct17.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-10-18\n   Identifier: OilRig\n   Reference: https://researchcenter.paloaltonetworks.com/2017/10/unit42-oilrig-group-steps-attacks-new-delivery-documents-new-injector-trojan/",
+  "rules": [
+    {
+      "name": "OilRig_Strings_Oct17",
+      "meta": {
+        "description": "Detects strings from OilRig malware and malicious scripts",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://researchcenter.paloaltonetworks.com/2017/10/unit42-oilrig-group-steps-attacks-new-delivery-documents-new-injector-trojan/",
+        "date": "2017-10-18",
+        "modified": "2022-12-21",
+        "id": "edf7c7ca-0c58-5507-8d99-83078ff8947a"
+      }
+    },
+    {
+      "name": "OilRig_ISMAgent_Campaign_Samples1",
+      "meta": {
+        "description": "Detects OilRig malware from Unit 42 report in October 2017",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/JQVfFP",
+        "date": "2017-10-18",
+        "hash1": "119c64a8b35bd626b3ea5f630d533b2e0e7852a4c59694125ff08f9965b5f9cc",
+        "hash2": "0ccb2117c34e3045a4d2c0d193f1963c8c0e8566617ed0a561546c932d1a5c0c",
+        "id": "237fe7af-a2ab-51ae-bc96-3af46b08622a"
+      }
+    },
+    {
+      "name": "OilRig_ISMAgent_Campaign_Samples2",
+      "meta": {
+        "description": "Detects OilRig malware from Unit 42 report in October 2017",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/JQVfFP",
+        "date": "2017-10-18",
+        "hash1": "fcad263d0fe2b418db05f47d4036f0b42aaf201c9b91281dfdcb3201b298e4f4",
+        "hash2": "33c187cfd9e3b68c3089c27ac64a519ccc951ccb3c74d75179c520f54f11f647",
+        "id": "08771b23-1d0e-5da7-b42c-005ed257e2d1"
+      }
+    },
+    {
+      "name": "OilRig_ISMAgent_Campaign_Samples3",
+      "meta": {
+        "description": "Detects OilRig malware from Unit 42 report in October 2017",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/JQVfFP",
+        "date": "2017-10-18",
+        "hash1": "a9f1375da973b229eb649dc3c07484ae7513032b79665efe78c0e55a6e716821",
+        "id": "e26510bd-d183-566a-a185-ebed7a81401c"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-10-18\n   Identifier: OilRig\n   Reference: https://researchcenter.paloaltonetworks.com/2017/10/unit42-oilrig-group-steps-attacks-new-delivery-documents-new-injector-trojan/\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule OilRig_Strings_Oct17 {\n   meta:\n      description = \"Detects strings from OilRig malware and malicious scripts\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://researchcenter.paloaltonetworks.com/2017/10/unit42-oilrig-group-steps-attacks-new-delivery-documents-new-injector-trojan/\"\n      date = \"2017-10-18\"\n      modified = \"2022-12-21\"\n      id = \"edf7c7ca-0c58-5507-8d99-83078ff8947a\"\n   strings:\n      $x1 = \"%localappdata%\\\\srvHealth.exe\" fullword wide ascii\n      $x2 = \"%localappdata%\\\\srvBS.txt\" fullword wide ascii\n      $x3 = \"Agent Injector\\\\PolicyConverter\\\\Inner\\\\obj\\\\Release\\\\Inner.pdb\" ascii\n      $x4 = \"Agent Injector\\\\PolicyConverter\\\\Joiner\\\\obj\\\\Release\\\\Joiner.pdb\" ascii\n      $s3 = \".LoadDll(\\\"Run\\\", arg, \\\"C:\\\\\\\\Windows\\\\\\\\\" ascii\n   condition:\n      filesize < 800KB and 1 of them\n}\n\n/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-10-18\n   Identifier: OilRig\n   Reference: https://goo.gl/JQVfFP\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nimport \"pe\"\n\nrule OilRig_ISMAgent_Campaign_Samples1 {\n   meta:\n      description = \"Detects OilRig malware from Unit 42 report in October 2017\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/JQVfFP\"\n      date = \"2017-10-18\"\n      hash1 = \"119c64a8b35bd626b3ea5f630d533b2e0e7852a4c59694125ff08f9965b5f9cc\"\n      hash2 = \"0ccb2117c34e3045a4d2c0d193f1963c8c0e8566617ed0a561546c932d1a5c0c\"\n      id = \"237fe7af-a2ab-51ae-bc96-3af46b08622a\"\n   strings:\n      $s1 = \"###$$$TVqQAAMAAAAEAAAA\" ascii\n      $s2 = \"C:\\\\Users\\\\J-Win-7-32-Vm\\\\Desktop\\\\error.jpg\" fullword wide\n      $s3 = \"$DATA = [System.Convert]::FromBase64String([IO.File]::ReadAllText('%Base%'));[io.file]::WriteAllBytes(\" ascii\n      $s4 = \" /c echo powershell > \" fullword wide ascii\n      $s5 = \"\\\\Libraries\\\\servicereset.exe\" wide\n      $s6 = \"%DestFolder%\" fullword wide ascii\n   condition:\n      uint16(0) == 0xcfd0 and filesize < 3000KB and 2 of them\n}\n\nrule OilRig_ISMAgent_Campaign_Samples2 {\n   meta:\n      description = \"Detects OilRig malware from Unit 42 report in October 2017\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/JQVfFP\"\n      date = \"2017-10-18\"\n      hash1 = \"fcad263d0fe2b418db05f47d4036f0b42aaf201c9b91281dfdcb3201b298e4f4\"\n      hash2 = \"33c187cfd9e3b68c3089c27ac64a519ccc951ccb3c74d75179c520f54f11f647\"\n      id = \"08771b23-1d0e-5da7-b42c-005ed257e2d1\"\n   strings:\n      $x1 = \"PolicyConverter.exe\" fullword wide\n      $x2 = \"SrvHealth.exe\" fullword wide\n      $x3 = \"srvBS.txt\" fullword wide\n\n      $s1 = \"{a3538ba3-5cf7-43f0-bc0e-9b53a98e1643}, PublicKeyToken=3e56350693f7355e\" fullword wide\n      $s2 = \"C:\\\\Windows\\\\Microsoft.NET\\\\Framework\\\\v2.0.50727\\\\RegAsm.exe\" fullword wide\n   condition:\n      uint16(0) == 0x5a4d and filesize < 700KB and ( 2 of ($x*) or 3 of them )\n}\n\nrule OilRig_ISMAgent_Campaign_Samples3 {\n   meta:\n      description = \"Detects OilRig malware from Unit 42 report in October 2017\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/JQVfFP\"\n      date = \"2017-10-18\"\n      hash1 = \"a9f1375da973b229eb649dc3c07484ae7513032b79665efe78c0e55a6e716821\"\n      id = \"e26510bd-d183-566a-a185-ebed7a81401c\"\n   strings:\n      $x1 = \"cmd /c schtasks /query /tn TimeUpdate > NUL 2>&1\" ascii\n      $x2 = \"schtasks /create /sc minute /mo 0002 /tn TimeUpdate /tr\" fullword ascii\n      $x3 = \"-c  SampleDomain.com -m scheduleminutes\" fullword ascii\n      $x4 = \".ntpupdateserver.com\" fullword ascii\n      $x5 = \".msoffice365update.com\" fullword ascii\n\n      $s1 = \"out.exe\" fullword ascii\n      $s2 = \"\\\\Win32Project1\\\\Release\\\\Win32Project1.pdb\" ascii\n      $s3 = \"C:\\\\windows\\\\system32\\\\cmd.exe /c (\" ascii\n      $s4 = \"Content-Disposition: form-data; name=\\\"file\\\"; filename=\\\"a.a\\\"\" fullword ascii\n      $s5 = \"Agent configured successfully\" fullword ascii\n      $s6 = \"\\\\runlog*\" ascii\n      $s7 = \"can not specify username!!\" fullword ascii\n      $s8 = \"Agent can not be configured\" fullword ascii\n      $s9 = \"%08lX%04hX%04hX%02hhX%02hhX%02hhX%02hhX%02hhX%02hhX%02hhX%02hhX\" fullword ascii\n      $s10 = \"!!! can not create output file !!!\" fullword ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 400KB and (\n         pe.imphash() == \"538805ecd776b9a42e71aebf94fde1b1\" or\n         pe.imphash() == \"861ac226fbe8c99a2c43ff451e95da97\" or\n         ( 1 of ($x*) or 3 of them )\n      )\n}"
+}

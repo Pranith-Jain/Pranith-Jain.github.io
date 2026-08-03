@@ -1,0 +1,36 @@
+{
+  "slug": "gen_hta_anomalies",
+  "filename": "gen_hta_anomalies.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-06-20\n   Identifier: HTA Anomalies\n   Reference: Internal Research",
+  "rules": [
+    {
+      "name": "HTA_with_WScript_Shell",
+      "meta": {
+        "description": "Detects WScript Shell in HTA",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://twitter.com/msftmmpc/status/877396932758560768",
+        "date": "2017-06-21",
+        "score": "80",
+        "hash1": "ca7b653cf41e980c44311b2cd701ed666f8c1dbc",
+        "id": "2faf74b1-c19c-53f0-ad08-be9caf5640bc"
+      }
+    },
+    {
+      "name": "HTA_Embedded",
+      "meta": {
+        "description": "Detects an embedded HTA file",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://twitter.com/msftmmpc/status/877396932758560768",
+        "date": "2017-06-21",
+        "score": "50",
+        "hash1": "ca7b653cf41e980c44311b2cd701ed666f8c1dbc",
+        "id": "04d4c718-9dd6-5528-8712-61c9f2a16139"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-06-20\n   Identifier: HTA Anomalies\n   Reference: Internal Research\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule HTA_with_WScript_Shell {\n   meta:\n      description = \"Detects WScript Shell in HTA\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/msftmmpc/status/877396932758560768\"\n      date = \"2017-06-21\"\n      score = 80\n      hash1 = \"ca7b653cf41e980c44311b2cd701ed666f8c1dbc\"\n      id = \"2faf74b1-c19c-53f0-ad08-be9caf5640bc\"\n   strings:\n      $s1 = \"<hta:application windowstate=\\\"minimize\\\"/>\"\n      $s2 = \"<script>var b=new ActiveXObject(\\\"WScript.Shell\\\");\" ascii\n   condition:\n      all of them\n}\n\nrule HTA_Embedded {\n   meta:\n      description = \"Detects an embedded HTA file\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/msftmmpc/status/877396932758560768\"\n      date = \"2017-06-21\"\n      score = 50\n      hash1 = \"ca7b653cf41e980c44311b2cd701ed666f8c1dbc\"\n      id = \"04d4c718-9dd6-5528-8712-61c9f2a16139\"\n   strings:\n      $s1 = \"<hta:application windowstate=\\\"minimize\\\"/>\"\n   condition:\n      $s1 and not $s1 in (0..50000)\n}\n"
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "expl_adselfservice_cve_2021_40539",
+  "filename": "expl_adselfservice_cve_2021_40539.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [],
+  "body": "\nrule LOG_EXPL_ADSelfService_CVE_2021_40539_ADSLOG_Sep21 : LOG {\n   meta:\n      description = \"Detects suspicious log lines produeced during the exploitation of ADSelfService vulnerability CVE-2021-40539\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://us-cert.cisa.gov/ncas/alerts/aa21-259a\"\n      date = \"2021-09-20\"\n      score = 70\n      id = \"156317c6-e726-506d-8b07-4f74dae2807f\"\n   strings:\n      $x1 = \"Java traceback errors that include references to NullPointerException in addSmartCardConfig or getSmartCardConfig\" ascii wide\n   condition:\n      filesize < 50MB and 1 of them\n}\n\nrule LOG_EXPL_ADSelfService_CVE_2021_40539_WebLog_Sep21_1 : LOG {\n   meta:\n      description = \"Detects suspicious log lines produeced during the exploitation of ADSelfService vulnerability CVE-2021-40539\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://us-cert.cisa.gov/ncas/alerts/aa21-259a\"\n      date = \"2021-09-20\"\n      score = 60\n      id = \"015957a6-8778-5836-af94-6e6d3838f693\"\n   strings:\n      $x1 = \"/ServletApi/../RestApi/LogonCustomization\" ascii wide\n      $x2 = \"/ServletApi/../RestAPI/Connection\" ascii wide\n   condition:\n      filesize < 50MB and 1 of them\n}\n"
+}

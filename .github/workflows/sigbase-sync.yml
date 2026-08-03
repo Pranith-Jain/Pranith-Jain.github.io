@@ -1,0 +1,72 @@
+name: Signature-Base upstream sync (weekly)
+
+# Re-fetches the Neo23x0/signature-base content from upstream and
+# rebuilds the public/data/sigbase/ manifest. If the data changed, opens
+# a PR with the diff so a human can review + merge.
+
+on:
+  schedule:
+    # Tuesdays 06:00 UTC (keeps it off the Monday SI sync).
+    - cron: "0 6 * * 2"
+  workflow_dispatch: {}
+
+concurrency:
+  group: sigbase-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-fund || npm install --no-fund
+
+      - name: Sync upstream
+        run: node scripts/sync-sigbase.mjs
+
+      - name: Build manifest
+        run: node scripts/build-sigbase-manifest.mjs
+
+      - name: Show diff stat
+        run: |
+          echo "=== public/data/sigbase/ changed files ==="
+          git status --short public/data/sigbase/ | head -40
+          echo "=== replication folder size ==="
+          du -sh signature-base-replication/ || true
+
+      - name: Open PR if data changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(sigbase): sync from Neo23x0/signature-base"
+          title: "Signature-Base upstream sync — ${{ github.event.schedule || 'manual' }}"
+          body: |
+            Automated weekly sync from
+            [Neo23x0/signature-base](https://github.com/Neo23x0/signature-base).
+
+            Re-runs `scripts/sync-sigbase.mjs` (sparse git clone) and
+            `scripts/build-sigbase-manifest.mjs` (manifest rebuild). Review the
+            diff in `public/data/sigbase/` and merge if the upstream content is
+            what we want.
+
+            Trigger: `${{ github.event_name }}`
+            Run:     `${{ github.run_id }}`
+          branch: chore/sigbase-upstream-sync
+          delete-branch: true
+          add-paths: |
+            public/data/sigbase/
+            signature-base-replication/

@@ -1,0 +1,32 @@
+{
+  "slug": "crime_ransom_ragna_locker",
+  "filename": "crime_ransom_ragna_locker.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_RANSOM_Ragna_Locker_Apr20_1",
+      "meta": {
+        "description": "Detects Ragna Locker Ransomware",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://otx.alienvault.com/indicator/file/c2bd70495630ed8279de0713a010e5e55f3da29323b59ef71401b12942ba52f6",
+        "date": "2020-04-27",
+        "hash1": "c2bd70495630ed8279de0713a010e5e55f3da29323b59ef71401b12942ba52f6",
+        "id": "67164cb4-73b7-5c4e-88f9-42379b88c641"
+      }
+    },
+    {
+      "name": "MAL_Ransom_Ragnarlocker_July_2020_1",
+      "meta": {
+        "description": "Detects Ragnarlocker by strings (July 2020)",
+        "author": "Arkbird_SOLG",
+        "reference": "https://twitter.com/JAMESWT_MHT/status/1288797666688851969",
+        "date": "2020-07-30",
+        "hash1": "04c9cc0d1577d5ee54a4e2d4dd12f17011d13703cdd0e6efd46718d14fd9aa87",
+        "id": "60e09057-d9f8-5e89-8f47-c5dda32806c6"
+      }
+    }
+  ],
+  "body": "import \"pe\"\n\nrule MAL_RANSOM_Ragna_Locker_Apr20_1 {\n   meta:\n      description = \"Detects Ragna Locker Ransomware\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://otx.alienvault.com/indicator/file/c2bd70495630ed8279de0713a010e5e55f3da29323b59ef71401b12942ba52f6\"\n      date = \"2020-04-27\"\n      hash1 = \"c2bd70495630ed8279de0713a010e5e55f3da29323b59ef71401b12942ba52f6\"\n      id = \"67164cb4-73b7-5c4e-88f9-42379b88c641\"\n   strings:\n      $x1 = \"---RAGNAR SECRET---\" ascii\n      $xc1 = { 0D 0A 25 73 0D 0A 0D 0A 25 73 0D 0A 25 73 0D 0A\n               25 73 0D 0A 0D 0A 25 73 0D 0A 00 00 2E 00 72 00\n               61 00 67 00 6E 00 61 00 72 00 5F }\n      $xc2 = { 00 2D 00 66 00 6F 00 72 00 63 00 65 00 00 00 00\n               00 57 00 69 00 6E 00 53 00 74 00 61 00 30 00 5C\n               00 44 00 65 00 66 00 61 00 75 00 6C 00 74 00 00\n               00 5C 00 6E 00 6F 00 74 00 65 00 70 00 61 00 64\n               00 2E 00 65 00 78 00 65 00 }\n\n      $s1 = \"bootfont.bin\" wide fullword\n\n      $sc2 = { 00 57 00 69 00 6E 00 64 00 6F 00 77 00 73 00 00\n               00 57 00 69 00 6E 00 64 00 6F 00 77 00 73 00 2E\n               00 6F 00 6C 00 64 00 00 00 54 00 6F 00 72 00 20\n               00 62 00 72 00 6F 00 77 00 73 00 65 00 72 00 }\n\n      $op1 = { c7 85 58 ff ff ff 55 00 6b 00 c7 85 5c ff ff ff }\n      $op2 = { 50 c7 85 7a ff ff ff 5c }\n      $op3 = { 8b 75 08 8a 84 0d 20 ff ff ff ff 45 08 32 06 8b }\n   condition:\n      uint16(0) == 0x5a4d and\n      filesize < 200KB and\n      1 of ($x*) or 4 of them\n}\n\nrule MAL_Ransom_Ragnarlocker_July_2020_1 {\n   meta:\n      description = \"Detects Ragnarlocker by strings (July 2020)\"\n      author = \"Arkbird_SOLG\"\n      reference = \"https://twitter.com/JAMESWT_MHT/status/1288797666688851969\"\n      date = \"2020-07-30\"\n      hash1 = \"04c9cc0d1577d5ee54a4e2d4dd12f17011d13703cdd0e6efd46718d14fd9aa87\"\n      id = \"60e09057-d9f8-5e89-8f47-c5dda32806c6\"\n   strings:\n      $f1 = \"bootfont.bin\" fullword wide\n      $f2 = \"bootmgr.efi\" fullword wide\n      $f3 = \"bootsect.bak\" fullword wide\n      $r1 = \"$!.txt\" fullword wide\n      $r2 = \"---BEGIN KEY R_R---\" fullword ascii\n      $r3 = \"!$R4GN4R_\" wide\n      $r4 = \"RAGNRPW\" fullword ascii /* parser */\n      $r5 = \"---END KEY R_R---\" fullword ascii\n      $a1 = \"+RhRR!-uD8'O&Wjq1_P#Rw<9Oy?n^qSP6N{BngxNK!:TG*}\\\\|W]o?/]H*8z;26X0\" fullword ascii    \n      $a2 = \"\\\\\\\\.\\\\PHYSICALDRIVE%d\" fullword wide /* parse disks */\n      $a3 = \"WinSta0\\\\Default\" fullword wide /* Token ref */\n      $a4 = \"%s-%s-%s-%s-%s\" fullword wide /* GUID parser*/\n      $a5 = \"SOFTWARE\\\\Microsoft\\\\Cryptography\" fullword wide /* Ref crypto used */\n      $c1 = \"-backup\" fullword wide\n      $c2 = \"-force\" fullword wide\n      $c3 = \"-vmback\" fullword wide\n      $c4 = \"-list\" fullword wide\n      $s1 = \".ragn@r_\" wide /* ref */\n      $s2 = \"\\\\notepad.exe\" wide /* Show ransom note to the victim*/\n      $s3 = \"Opera Software\" fullword wide  /* Don't touch browsers for contact him*/\n      $s4 = \"Tor browser\" fullword wide /*Ref ransom note*/\n   condition:\n      uint16(0) == 0x5a4d and filesize < 30KB and ( pe.imphash() == \"2c2aab89a4cba444cf2729e2ed61ed4f\" and ( (2 of ($f*)) and (3 of ($r*)) and (4 of ($a*)) and (2 of ($c*)) and (2 of ($s*)) ) )\n}"
+}

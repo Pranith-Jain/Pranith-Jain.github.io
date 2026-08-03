@@ -341,6 +341,7 @@ const ROUTES = [
   '/threatintel/external/cerast',
   '/threatintel/external/threatmon',
   '/dfir/winreg',
+  '/dfir/sigbase',
   '/dfir/url-preview',
   '/dfir/subdomain-takeover',
   '/dfir/extract',

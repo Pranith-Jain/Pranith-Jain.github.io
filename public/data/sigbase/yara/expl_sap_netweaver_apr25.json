@@ -1,0 +1,22 @@
+{
+  "slug": "expl_sap_netweaver_apr25",
+  "filename": "expl_sap_netweaver_apr25.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_WEBSHELL_Cmd_Indicator_Apr25",
+      "meta": {
+        "description": "Detects a pattern which is often related to web shell activity",
+        "reference": "https://regex101.com/r/N6oZ2h/2",
+        "author": "Florian Roth",
+        "date": "2025-04-25",
+        "modified": "2025-05-07",
+        "score": "60",
+        "id": "eeeebfbc-9418-5ff4-b45f-8d96a9e7e4a8"
+      }
+    }
+  ],
+  "body": "\nrule APT_SAP_NetWeaver_Exploitation_Activity_Apr25_1 : SCRIPT {\n   meta:\n      description = \"Detects forensic artefacts related to exploitation activity of SAP NetWeaver CVE-2025-31324\"\n      reference = \"https://reliaquest.com/blog/threat-spotlight-reliaquest-uncovers-vulnerability-behind-sap-netweaver-compromise/\"\n      author = \"Florian Roth\"\n      date = \"2025-04-25\"\n      score = 70\n      id = \"1ad16960-f059-57cd-97ba-58f2be6ca3f8\"\n   strings:\n      $x01 = \"/helper.jsp?cmd=\" ascii wide\n      $x02 = \"/cache.jsp?cmd=\" ascii wide\n   condition:\n      filesize < 20MB and 1 of them\n}\n\nrule APT_SAP_NetWeaver_Exploitation_Activity_Apr25_2 : SCRIPT {\n   meta:\n      description = \"Detects forensic artefacts related to exploitation activity of SAP NetWeaver CVE-2025-31324\"\n      reference = \"https://reliaquest.com/blog/threat-spotlight-reliaquest-uncovers-vulnerability-behind-sap-netweaver-compromise/\"\n      author = \"Florian Roth\"\n      date = \"2025-04-25\"\n      score = 70\n      id = \"3b7d3f94-88a9-5686-8a23-ac4040c0e6c1\"\n   strings:\n      $x03 = \"MSBuild.exe c:\\\\programdata\\\\\" ascii wide\n   condition:\n      filesize < 20MB and 1 of them\n}\n\nrule SUSP_WEBSHELL_Cmd_Indicator_Apr25 {\n   meta:\n      description = \"Detects a pattern which is often related to web shell activity\"\n      reference = \"https://regex101.com/r/N6oZ2h/2\"\n      author = \"Florian Roth\"\n      date = \"2025-04-25\"\n      modified = \"2025-05-07\"\n      score = 60\n      id = \"eeeebfbc-9418-5ff4-b45f-8d96a9e7e4a8\"\n   strings:\n      $xr01 = /\\.(asp|aspx|jsp|php)\\?cmd=[a-z0-9%+\\-\\/\\.]{3,20} HTTP\\/1\\.[01][\"']? 200/\n   condition:\n      1 of them\n}\n"
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "gen_hunting_susp_rar",
+  "filename": "gen_hunting_susp_rar.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Threat Hunting Rule - note the score of 40 > Notice",
+  "rules": [
+    {
+      "name": "SUSP_RAR_Single_Doc_File",
+      "meta": {
+        "description": "Detects suspicious RAR files that contain nothing but a single .doc file",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2020-07-11",
+        "score": "40",
+        "id": "92dc3a5d-d12c-56d3-8531-25b3da1e1595"
+      }
+    }
+  ],
+  "body": "/* Threat Hunting Rule - note the score of 40 > Notice */\n\nrule SUSP_RAR_Single_Doc_File {\n   meta:\n      description = \"Detects suspicious RAR files that contain nothing but a single .doc file\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2020-07-11\"\n      score = 40\n      id = \"92dc3a5d-d12c-56d3-8531-25b3da1e1595\"\n   strings:\n      $s1 = \".doc\"\n   condition:\n      uint16(0) == 0x6152 and\n      filesize < 4000KB and\n      $s1 at (\n         uint16(5) +  // header size\n         uint16(uint16(5)+5) +  // rar header size\n         uint16(uint16(5) + uint16(uint16(5)+5) + 5)  // rar block size\n         - 9  // offset\n      ) and (\n         // single rar block for a single doc file\n         uint16(5) +  // header size\n         uint16(uint16(5)+5) +  // rar header size\n         uint16(uint16(5) + uint16(uint16(5)+5) + 5) +  // rar block size\n         uint32(uint16(5) + uint16(uint16(5)+5) + 7)  // raw data size\n         > filesize-8\n      )\n}\n"
+}

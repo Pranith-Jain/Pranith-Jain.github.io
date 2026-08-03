@@ -1,0 +1,22 @@
+{
+  "slug": "crime_nkminer",
+  "filename": "crime_nkminer.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2018-01-09\n   Identifier: NK Miner Malware\n   Reference: https://goo.gl/PChE1z",
+  "rules": [
+    {
+      "name": "NK_Miner_Malware_Jan18_1",
+      "meta": {
+        "description": "Detects Noth Korean Monero Miner mentioned in AlienVault report",
+        "author": "Florian Roth (Nextron Systems) (original rule by Chris Doman)",
+        "reference": "https://goo.gl/PChE1z",
+        "date": "2018-01-09",
+        "hash1": "0024e32c0199ded445c0b968601f21cc92fc0c534d2642f2dd64c1c978ff01f3",
+        "hash2": "42300b6a09f183ae167d7a11d9c6df21d022a5f02df346350d3d875d557d3b76",
+        "id": "40f53c36-9e14-5307-9740-e6f514afc7ec"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2018-01-09\n   Identifier: NK Miner Malware\n   Reference: https://goo.gl/PChE1z\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule NK_Miner_Malware_Jan18_1 {\n   meta:\n      description = \"Detects Noth Korean Monero Miner mentioned in AlienVault report\"\n      author = \"Florian Roth (Nextron Systems) (original rule by Chris Doman)\"\n      reference = \"https://goo.gl/PChE1z\"\n      date = \"2018-01-09\"\n      hash1 = \"0024e32c0199ded445c0b968601f21cc92fc0c534d2642f2dd64c1c978ff01f3\"\n      hash2 = \"42300b6a09f183ae167d7a11d9c6df21d022a5f02df346350d3d875d557d3b76\"\n      id = \"40f53c36-9e14-5307-9740-e6f514afc7ec\"\n   strings:\n      $x0 = \"c:\\\\users\\\\jawhar\\\\documents\\\\\" ascii\n      $x1 = \"C:\\\\Users\\\\Jawhar\\\\documents\\\\\" ascii\n      $x2 = \"The number of processors on this computer is {0}.\" fullword wide\n      $x3 = { 00 00 1F 43 00 3A 00 5C 00 4E 00 65 00 77 00 44\n              00 69 00 72 00 65 00 63 00 74 00 6F 00 72 00 79\n              00 00 }\n      $x4 = \"Le fichier Hello txt n'existe pas\" fullword wide\n      $x5 = \"C:\\\\NewDirectory2\\\\info2\" fullword wide\n\n      /* Incorported from Chris Doman's rule - https://goo.gl/PChE1z*/\n      $a = \"82e999fb-a6e0-4094-aa1f-1a306069d1a5\" ascii\n      $b = \"4JUdGzvrMFDWrUUwY3toJATSeNwjn54LkCnKBPRzDuhzi5vSepHfUckJNxRL2gjkNrSqtCoRUrEDAgRwsQvVCjZbRy5YeFCqgoUMnzumvS\" ascii\n      $c = \"barjuok.ryongnamsan.edu.kp\" wide ascii\n      $d = \"C:\\\\SoftwaresInstall\\\\soft\" wide ascii\n      $e = \"C:\\\\Windows\\\\Sys64\\\\intelservice.exe\" wide ascii\n      $f = \"C:\\\\Windows\\\\Sys64\\\\updater.exe\" wide ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 30KB and 1 of them\n}\n"
+}

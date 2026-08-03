@@ -1,0 +1,22 @@
+{
+  "slug": "mal_etoroloro_nodepackage_dec25",
+  "filename": "mal_etoroloro_nodepackage_dec25.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_Etoroloro_Malicious_NodePackage_Dec25",
+      "meta": {
+        "description": "Detects malicious component of node package named Etoroloro",
+        "reference": "Internal Research",
+        "author": "Pezier Pierre-Henri",
+        "date": "2025-12-12",
+        "score": "80",
+        "hash": "f08c5b748c91dd45fd73c5e85920f656e361d94b869e2147410b2b528c6ae78f",
+        "id": "4c271502-68c6-5d20-85ea-c7f7628e417a"
+      }
+    }
+  ],
+  "body": "\nrule MAL_Etoroloro_Malicious_NodePackage_Dec25 {\n   meta:\n      description = \"Detects malicious component of node package named Etoroloro\"\n      reference = \"Internal Research\"\n      author = \"Pezier Pierre-Henri\"\n      date = \"2025-12-12\"\n      score = 80\n      hash = \"f08c5b748c91dd45fd73c5e85920f656e361d94b869e2147410b2b528c6ae78f\"\n      id = \"4c271502-68c6-5d20-85ea-c7f7628e417a\"\n   strings:\n      $s1 = \"DLLSideload.\"\n      $s2 = \"Failed to expand path:\" wide\n      $op1 = {\n         41 0f af c0           // imul    eax, r8d\n         48 8d 52 01           // lea     rdx, [rdx+1]\n         0f b6 c9              // movzx   ecx, cl\n         45 69 c0 35 d4 04 00  // imul    r8d, 4D435h\n         03 c1                 // add     eax, ecx\n         0f b6 0a              // movzx   ecx, byte ptr [rdx]\n         84 c9                 // test    cl, cl\n         75 e5                 // jnz     short loc_1800022C0\n      }\n   condition:\n      uint16(0) == 0x5a4d\n      and (all of ($s*) or $op1)\n}\n\n"
+}

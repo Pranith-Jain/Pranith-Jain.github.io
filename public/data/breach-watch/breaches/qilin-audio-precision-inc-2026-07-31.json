@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-audio-precision-inc-2026-07-31",
+  "title": "Audio Precision, Inc",
+  "group": "qilin",
+  "discovered": "2026-07-31T01:59:36.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Manufacturing",
+  "source_url": "https://www.ransomlook.io/screenshots/qilin/Audio Precision, Inc.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

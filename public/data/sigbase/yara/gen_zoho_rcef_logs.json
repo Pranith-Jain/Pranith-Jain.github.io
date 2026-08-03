@@ -1,0 +1,21 @@
+{
+  "slug": "gen_zoho_rcef_logs",
+  "filename": "gen_zoho_rcef_logs.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "EXPL_Zoho_RCE_Fix_Lines_Dec21_1",
+      "meta": {
+        "description": "Detects lines in log lines of Zoho products that indicate RCE fixes (silent removal of evidence)",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://twitter.com/cyb3rops/status/1467784104930385923",
+        "date": "2021-12-06",
+        "score": "65",
+        "id": "633287e3-a377-5b3c-8520-a7790168eff5"
+      }
+    }
+  ],
+  "body": "\nrule EXPL_Zoho_RCE_Fix_Lines_Dec21_1 {\n   meta:\n      description = \"Detects lines in log lines of Zoho products that indicate RCE fixes (silent removal of evidence)\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/cyb3rops/status/1467784104930385923\"\n      date = \"2021-12-06\"\n      score = 65\n      id = \"633287e3-a377-5b3c-8520-a7790168eff5\"\n   strings:\n      // we look for the RCE Fixes\n      $s1 = \"RCEF=\"\n\n      // we try to find a line which states that the attack is active (compromised host)\n      $sa1 = \"\\\"attackStatus\\\"\\\\:\\\"active\\\"\"\n      $sa2 = \"\\\"attackStatus\\\":\\\"active\\\"\"\n\n      // we try to find a line in which the RCE fix deleted a file (compromised host)\n      $sd1 = \"deletedCount\"\n      $sd_fp1 = \"\\\"deletedCount\\\"\\\\:0\"\n      $sd_fp2 = \"\\\"deletedCount\\\":0\"\n   condition:\n      filesize < 6MB and $s1 and (\n         1 of ($sa*) or \n         ( $sd1 and not 1 of ($sd_fp*) )\n      )\n}\n"
+}

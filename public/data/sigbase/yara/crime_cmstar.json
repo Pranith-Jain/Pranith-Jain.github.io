@@ -1,0 +1,21 @@
+{
+  "slug": "crime_cmstar",
+  "filename": "crime_cmstar.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "ce_enfal_cmstar_debug_msg",
+      "meta": {
+        "author": "rfalcone",
+        "description": "Detects the static debug strings within CMSTAR",
+        "reference": "http://goo.gl/JucrP9",
+        "hash": "9b9cc7e2a2481b0472721e6b87f1eba4faf2d419d1e2c115a91ab7e7e6fc7f7c",
+        "date": "5/10/2015",
+        "id": "2c483f20-4fa8-5246-9dcb-8868db64b6e3"
+      }
+    }
+  ],
+  "body": "\nrule ce_enfal_cmstar_debug_msg {\n\tmeta:\n\t\tauthor = \"rfalcone\"\n\t\tdescription = \"Detects the static debug strings within CMSTAR\"\n\t\treference = \"http://goo.gl/JucrP9\"\n\t\thash = \"9b9cc7e2a2481b0472721e6b87f1eba4faf2d419d1e2c115a91ab7e7e6fc7f7c\"\n\t\tdate = \"5/10/2015\"\n\t\tid = \"2c483f20-4fa8-5246-9dcb-8868db64b6e3\"\n\tstrings:\n\t\t$d1 = \"EEE\\x0d\\x0a\" fullword\n\t\t$d2 = \"TKE\\x0d\\x0a\" fullword\n\t\t$d3 = \"VPE\\x0d\\x0a\" fullword\n\t\t$d4 = \"VPS\\x0d\\x0a\" fullword\n\t\t$d5 = \"WFSE\\x0d\\x0a\" fullword\n\t\t$d6 = \"WFSS\\x0d\\x0a\" fullword\n\t\t$d7 = \"CM**\\x0d\\x0a\" fullword\n\tcondition:\n\t\tuint16(0) == 0x5a4d and all of ($d*)\n}"
+}

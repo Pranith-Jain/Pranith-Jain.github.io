@@ -1,0 +1,158 @@
+{
+  "slug": "spy_regin_fiveeyes",
+  "filename": "spy_regin_fiveeyes.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n\tAuthor: Florian Roth\n\tDate: 2014-11-23\n\tIdentifier: Regin\n\n\tWarning: Don't use this rule set without excluding the false positive hashes listed in\n\t         the file falsepositive-hashes.txt",
+  "rules": [
+    {
+      "name": "Regin_APT_KernelDriver_Generic_A",
+      "meta": {
+        "description": "Generic rule for Regin APT kernel driver Malware - Symantec http://t.co/qu53359Cb2",
+        "author": "@Malwrsignatures - included in APT Scanner THOR",
+        "date": "23.11.14",
+        "hash1": "187044596bc1328efa0ed636d8aa4a5c",
+        "hash2": "06665b96e293b23acc80451abb413e50",
+        "hash3": "d240f06e98c8d3e647cbf4d442d79475",
+        "id": "4cea1d45-b797-51b2-baa7-e66c8c0206ea"
+      }
+    },
+    {
+      "name": "Regin_APT_KernelDriver_Generic_B",
+      "meta": {
+        "description": "Generic rule for Regin APT kernel driver Malware - Symantec http://t.co/qu53359Cb2",
+        "author": "@Malwrsignatures - included in APT Scanner THOR",
+        "date": "23.11.14",
+        "hash1": "ffb0b9b5b610191051a7bdf0806e1e47",
+        "hash2": "bfbe8c3ee78750c3a520480700e440f8",
+        "hash3": "b29ca4f22ae7b7b25f79c1d4a421139d",
+        "hash4": "06665b96e293b23acc80451abb413e50",
+        "hash5": "2c8b9d2885543d7ade3cae98225e263b",
+        "hash6": "4b6b86c7fec1c574706cecedf44abded",
+        "hash7": "187044596bc1328efa0ed636d8aa4a5c",
+        "hash8": "d240f06e98c8d3e647cbf4d442d79475",
+        "hash9": "6662c390b2bbbd291ec7987388fc75d7",
+        "hash10": "1c024e599ac055312a4ab75b3950040a",
+        "hash11": "ba7bb65634ce1e30c1e5415be3d1db1d",
+        "hash12": "b505d65721bb2453d5039a389113b566",
+        "hash13": "b269894f434657db2b15949641a67532",
+        "id": "14f31b2d-4753-54e8-891a-e28689ba57db"
+      }
+    },
+    {
+      "name": "Regin_APT_KernelDriver_Generic_C",
+      "meta": {
+        "description": "Generic rule for Regin APT kernel driver Malware - Symantec http://t.co/qu53359Cb2",
+        "author": "@Malwrsignatures - included in APT Scanner THOR",
+        "date": "23.11.14",
+        "hash1": "e0895336617e0b45b312383814ec6783556d7635",
+        "hash2": "732298fa025ed48179a3a2555b45be96f7079712",
+        "id": "2006b3f0-abd1-5274-8b18-75368671e062"
+      }
+    },
+    {
+      "name": "Regin_sig_svcsstat",
+      "meta": {
+        "description": "Detects svcstat from Regin report - file svcsstat.exe_sample",
+        "author": "@MalwrSignatures",
+        "date": "26.11.14",
+        "hash": "5164edc1d54f10b7cb00a266a1b52c623ab005e2",
+        "id": "0cb493d7-c7f1-54c4-9805-d9894bf399da"
+      }
+    },
+    {
+      "name": "Regin_Sample_1",
+      "meta": {
+        "description": "Semiautomatically generated YARA rule - file-3665415_sys",
+        "author": "Florian Roth",
+        "date": "25.11.14",
+        "score": "70",
+        "hash": "773d7fab06807b5b1bc2d74fa80343e83593caf2",
+        "id": "13478652-155f-52ba-af16-53f27c92e052"
+      }
+    },
+    {
+      "name": "Regin_Sample_2",
+      "meta": {
+        "description": "Auto-generated rule - file hiddenmod_hookdisk_and_kdbg_8949d000.bin",
+        "author": "@MalwrSignatures",
+        "date": "26.11.14",
+        "hash": "a7b285d4b896b66fce0ebfcd15db53b3a74a0400",
+        "id": "1091a598-e964-5f67-9267-531d66831bee"
+      }
+    },
+    {
+      "name": "Regin_Sample_3",
+      "meta": {
+        "description": "Detects Regin Backdoor sample fe1419e9dde6d479bd7cda27edd39fafdab2668d498931931a2769b370727129",
+        "author": "@Malwrsignatures",
+        "date": "27.11.14",
+        "hash": "fe1419e9dde6d479bd7cda27edd39fafdab2668d498931931a2769b370727129",
+        "id": "eefc174f-4b17-5c90-8478-3eaaf80e9a78"
+      }
+    },
+    {
+      "name": "Regin_Sample_Set_2",
+      "meta": {
+        "description": "Auto-generated rule - file SHF-000052 and ndisips.sys",
+        "author": "@MalwrSignatures",
+        "date": "26.11.14",
+        "hash1": "8487a961c8244004c9276979bb4b0c14392fc3b8",
+        "hash2": "bcf3461d67b39a427c83f9e39b9833cfec977c61",
+        "id": "0b21091d-413e-54dd-83d1-5d824fb013f2"
+      }
+    },
+    {
+      "name": "Regin_Sample_Set_1",
+      "meta": {
+        "description": "Detects Regin Backdoor sample",
+        "author": "@MalwrSignatures",
+        "date": "27.11.14",
+        "modified": "2023-01-06",
+        "hash1": "4139149552b0322f2c5c993abccc0f0d1b38db4476189a9f9901ac0d57a656be",
+        "hash2": "e420d0cf7a7983f78f5a15e6cb460e93c7603683ae6c41b27bf7f2fa34b2d935",
+        "id": "b0f24a0b-10e7-5549-a300-516df8644cb0"
+      }
+    },
+    {
+      "name": "apt_regin_legspin",
+      "meta": {
+        "copyright": "Kaspersky Lab",
+        "description": "Rule to detect Regin's Legspin module",
+        "version": "1.0",
+        "last_modified": "2015-01-22",
+        "modified": "2023-01-27",
+        "reference": "https://securelist.com/blog/research/68438/an-analysis-of-regins-hopscotch-and-legspin/",
+        "md5": "29105f46e4d33f66fee346cfd099d1cc",
+        "id": "2abd3605-d9bf-53f0-8521-ac8dc18d9fce"
+      }
+    },
+    {
+      "name": "apt_regin_hopscotch",
+      "meta": {
+        "copyright": "Kaspersky Lab",
+        "description": "Rule to detect Regin's Hopscotch module",
+        "version": "1.0",
+        "last_modified": "2015-01-22",
+        "modified": "2023-01-27",
+        "reference": "https://securelist.com/blog/research/68438/an-analysis-of-regins-hopscotch-and-legspin/",
+        "md5": "6c34031d7a5fc2b091b623981a8ae61c",
+        "id": "907042ba-8e64-5ca7-9a83-70c28af1ab99"
+      }
+    },
+    {
+      "name": "Regin_Related_Malware",
+      "meta": {
+        "description": "Malware Sample - maybe Regin related",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "score": "70",
+        "reference": "VT Analysis",
+        "date": "2015-06-03",
+        "hash": "76c355bfeb859a347e38da89e3d30a6ff1f94229",
+        "id": "9377dd52-244f-5289-a2a3-88b6377b2dd2"
+      }
+    }
+  ],
+  "body": "/*\n\tYara Rule Set\n\tAuthor: Florian Roth\n\tDate: 2014-11-23\n\tIdentifier: Regin\n\n\tWarning: Don't use this rule set without excluding the false positive hashes listed in\n\t         the file falsepositive-hashes.txt\n\n*/\n\n/* REGIN ---------------------------------------------------------------------------------- */\n\nrule Regin_APT_KernelDriver_Generic_A {\n\tmeta:\n\t\tdescription = \"Generic rule for Regin APT kernel driver Malware - Symantec http://t.co/qu53359Cb2\"\n\t\tauthor = \"@Malwrsignatures - included in APT Scanner THOR\"\n\t\tdate = \"23.11.14\"\n\t\thash1 = \"187044596bc1328efa0ed636d8aa4a5c\"\n\t\thash2 = \"06665b96e293b23acc80451abb413e50\"\n\t\thash3 = \"d240f06e98c8d3e647cbf4d442d79475\"\n\t\tid = \"4cea1d45-b797-51b2-baa7-e66c8c0206ea\"\n\tstrings:\n\t\t$m0 = { 4d 5a 90 00 03 00 00 00 04 00 00 00 ff ff 00 00 b8 }\n\t\t$m1 = { 0e 1f ba 0e 00 b4 09 cd 21 b8 01 4c cd 21 54 68 69 73 20 70 72 6f 67 72 61 6d 20 63 61 6e 6e 6f 74 20 62 65 20 72 75 6e 20 69 6e 20 44 4f 53 20 6d 6f 64 65 2e }\n\n\t\t$s0 = \"atapi.sys\" fullword wide\n\t\t$s1 = \"disk.sys\" fullword wide\n\t\t$s3 = \"h.data\" fullword ascii\n\t\t$s4 = \"\\\\system32\" ascii\n\t\t$s5 = \"\\\\SystemRoot\" ascii\n\t\t$s6 = \"system\" fullword ascii\n\t\t$s7 = \"temp\" fullword ascii\n\t\t$s8 = \"windows\" fullword ascii\n\n\t\t$x1 = \"LRich6\" fullword ascii\n\t\t$x2 = \"KeServiceDescriptorTable\" fullword ascii\n\tcondition:\n\t\tuint16(0) == 0x5a4d and $m0 at 0 and $m1 and\n\t\tall of ($s*) and 1 of ($x*)\n}\n\nrule Regin_APT_KernelDriver_Generic_B {\n\tmeta:\n\t\tdescription = \"Generic rule for Regin APT kernel driver Malware - Symantec http://t.co/qu53359Cb2\"\n\t\tauthor = \"@Malwrsignatures - included in APT Scanner THOR\"\n\t\tdate = \"23.11.14\"\n\t\thash1 = \"ffb0b9b5b610191051a7bdf0806e1e47\"\n\t\thash2 = \"bfbe8c3ee78750c3a520480700e440f8\"\n\t\thash3 = \"b29ca4f22ae7b7b25f79c1d4a421139d\"\n\t\thash4 = \"06665b96e293b23acc80451abb413e50\"\n\t\thash5 = \"2c8b9d2885543d7ade3cae98225e263b\"\n\t\thash6 = \"4b6b86c7fec1c574706cecedf44abded\"\n\t\thash7 = \"187044596bc1328efa0ed636d8aa4a5c\"\n\t\thash8 = \"d240f06e98c8d3e647cbf4d442d79475\"\n\t\thash9 = \"6662c390b2bbbd291ec7987388fc75d7\"\n\t\thash10 = \"1c024e599ac055312a4ab75b3950040a\"\n\t\thash11 = \"ba7bb65634ce1e30c1e5415be3d1db1d\"\n\t\thash12 = \"b505d65721bb2453d5039a389113b566\"\n\t\thash13 = \"b269894f434657db2b15949641a67532\"\n\t\tid = \"14f31b2d-4753-54e8-891a-e28689ba57db\"\n\tstrings:\n\t\t$m0 = { 4d 5a 90 00 03 00 00 00 04 00 00 00 ff ff 00 00 b8 }\n\t\t$s1 = { 0e 1f ba 0e 00 b4 09 cd 21 b8 01 4c cd 21 54 68 69 73 20 70 72 6f 67 72 61 6d 20 63 61 6e 6e 6f 74 20 62 65 20 72 75 6e 20 69 6e 20 44 4f 53 20 6d 6f 64 65 2e }\n\t\t$s2 = \"H.data\" fullword ascii nocase\n\t\t$s3 = \"INIT\" fullword ascii\n\t\t$s4 = \"ntoskrnl.exe\" fullword ascii\n\n\t\t$v1 = \"\\\\system32\" ascii\n\t\t$v2 = \"\\\\SystemRoot\" ascii\n\t\t$v3 = \"KeServiceDescriptorTable\" fullword ascii\n\n\t\t$w1 = \"\\\\system32\" ascii\n\t\t$w2 = \"\\\\SystemRoot\" ascii\n\t\t$w3 = \"LRich6\" fullword ascii\n\n\t\t$x1 = \"_snprintf\" ascii\n\t\t$x2 = \"_except_handler3\" ascii\n\n\t\t$y1 = \"mbstowcs\" fullword ascii\n\t\t$y2 = \"wcstombs\" fullword ascii\n\t\t$y3 = \"KeGetCurrentIrql\" fullword ascii\n\n\t\t$z1 = \"wcscpy\" fullword ascii\n\t\t$z2 = \"ZwCreateFile\" fullword ascii\n\t\t$z3 = \"ZwQueryInformationFile\" fullword ascii\n\t\t$z4 = \"wcslen\" fullword ascii\n\t\t$z5 = \"atoi\" fullword ascii\n\tcondition:\n\t\tuint16(0) == 0x5a4d and\n\t\t$m0 at 0 and all of ($s*) and\n\t\t( all of ($v*) or all of ($w*) or all of ($x*) or all of ($y*) or all of ($z*) )\n\t\tand filesize < 20KB\n}\n\nrule Regin_APT_KernelDriver_Generic_C {\n\tmeta:\n\t\tdescription = \"Generic rule for Regin APT kernel driver Malware - Symantec http://t.co/qu53359Cb2\"\n\t\tauthor = \"@Malwrsignatures - included in APT Scanner THOR\"\n\t\tdate = \"23.11.14\"\n\t\thash1 = \"e0895336617e0b45b312383814ec6783556d7635\"\n\t\thash2 = \"732298fa025ed48179a3a2555b45be96f7079712\"\n\t\tid = \"2006b3f0-abd1-5274-8b18-75368671e062\"\n\tstrings:\n\t\t$m0 = { 4d 5a 90 00 03 00 00 00 04 00 00 00 ff ff 00 00 b8 }\n\n\t\t$s0 = \"KeGetCurrentIrql\" fullword ascii\n\t\t$s1 = \"5.2.3790.0 (srv03_rtm.030324-2048)\" fullword wide\n\t\t$s2 = \"usbclass\" fullword wide\n\n\t\t$x1 = \"PADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDING\" ascii\n\t\t$x2 = \"Universal Serial Bus Class Driver\" fullword wide\n\t\t$x3 = \"5.2.3790.0\" fullword wide\n\n\t\t$y1 = \"LSA Shell\" fullword wide\n\t\t$y2 = \"0Richw\" fullword ascii\n\tcondition:\n\t\tuint16(0) == 0x5a4d and\n\t\t$m0 at 0 and all of ($s*) and\n\t\t( all of ($x*) or all of ($y*) )\n\t\tand filesize < 20KB\n}\n\n/* Update 27.11.14 */\n\nrule Regin_sig_svcsstat {\n\tmeta:\n\t\tdescription = \"Detects svcstat from Regin report - file svcsstat.exe_sample\"\n\t\tauthor = \"@MalwrSignatures\"\n\t\tdate = \"26.11.14\"\n\t\thash = \"5164edc1d54f10b7cb00a266a1b52c623ab005e2\"\n\t\tid = \"0cb493d7-c7f1-54c4-9805-d9894bf399da\"\n\tstrings:\n\t\t$s0 = \"Service Control Manager\" fullword ascii\n\t\t$s1 = \"_vsnwprintf\" ascii\n\t\t$s2 = \"Root Agency\" fullword ascii\n\t\t$s3 = \"Root Agency0\" fullword ascii\n\t\t$s4 = \"StartServiceCtrlDispatcherA\" fullword ascii\n\t\t$s5 = \"\\\\\\\\?\\\\UNC\" fullword wide\n\t\t$s6 = \"%ls%ls\" fullword wide\n\tcondition:\n\t\tall of them and filesize < 15KB and filesize > 10KB\n}\n\nrule Regin_Sample_1 {\n   meta:\n      description = \"Semiautomatically generated YARA rule - file-3665415_sys\"\n      author = \"Florian Roth\"\n      date = \"25.11.14\"\n      score = 70\n      hash = \"773d7fab06807b5b1bc2d74fa80343e83593caf2\"\n      id = \"13478652-155f-52ba-af16-53f27c92e052\"\n   strings:\n      $s0 = \"Getting PortName/Identifier failed - %x\" fullword ascii\n      $s1 = \"SerialAddDevice - error creating new devobj [%#08lx]\" fullword ascii\n      $s2 = \"External Naming Failed - Status %x\" fullword ascii\n      $s3 = \"------- Same multiport - different interrupts\" fullword ascii\n      $s4 = \"%x occurred prior to the wait - starting the\" fullword ascii\n      $s5 = \"'user registry info - userPortIndex: %d\" fullword ascii\n      $s6 = \"Could not report legacy device - %x\" fullword ascii\n      $s7 = \"entering SerialGetPortInfo\" fullword ascii\n      $s8 = \"'user registry info - userPort: %x\" fullword ascii\n      $s9 = \"IoOpenDeviceRegistryKey failed - %x \" fullword ascii\n      $s10 = \"Kernel debugger is using port at address %X\" fullword ascii\n      $s12 = \"Release - freeing multi context\" fullword ascii\n      $s13 = \"Serial driver will not load port\" fullword ascii\n      $s14 = \"'user registry info - userAddressSpace: %d\" fullword ascii\n      $s15 = \"SerialAddDevice: Enumeration request, returning NO_MORE_ENTRIES\" fullword ascii\n      $s20 = \"'user registry info - userIndexed: %d\" fullword ascii\n\n      $fp1 = \"Enter SerialBuildResourceList\" ascii fullword\n   condition:\n      all of them and filesize < 110KB and filesize > 80KB and not $fp1\n}\n\nrule Regin_Sample_2 {\n\tmeta:\n\t\tdescription = \"Auto-generated rule - file hiddenmod_hookdisk_and_kdbg_8949d000.bin\"\n\t\tauthor = \"@MalwrSignatures\"\n\t\tdate = \"26.11.14\"\n\t\thash = \"a7b285d4b896b66fce0ebfcd15db53b3a74a0400\"\n\t\tid = \"1091a598-e964-5f67-9267-531d66831bee\"\n\tstrings:\n\t\t$s0 = \"\\\\SYSTEMROOT\\\\system32\\\\lsass.exe\" wide\n\t\t$s1 = \"atapi.sys\" fullword wide\n\t\t$s2 = \"disk.sys\" fullword wide\n\t\t$s3 = \"IoGetRelatedDeviceObject\" fullword ascii\n\t\t$s4 = \"HAL.dll\" fullword ascii\n\t\t$s5 = \"\\\\Registry\\\\Machine\\\\System\\\\CurrentControlSet\\\\Services\" ascii\n\t\t$s6 = \"PsGetCurrentProcessId\" fullword ascii\n\t\t$s7 = \"KeGetCurrentIrql\" fullword ascii\n\t\t$s8 = \"\\\\REGISTRY\\\\Machine\\\\System\\\\CurrentControlSet\\\\Control\\\\Session Manager\" wide\n\t\t$s9 = \"KeSetImportanceDpc\" fullword ascii\n\t\t$s10 = \"KeQueryPerformanceCounter\" fullword ascii\n\t\t$s14 = \"KeInitializeEvent\" fullword ascii\n\t\t$s15 = \"KeDelayExecutionThread\" fullword ascii\n\t\t$s16 = \"KeInitializeTimerEx\" fullword ascii\n\t\t$s18 = \"PsLookupProcessByProcessId\" fullword ascii\n\t\t$s19 = \"ExReleaseFastMutexUnsafe\" fullword ascii\n\t\t$s20 = \"ExAcquireFastMutexUnsafe\" fullword ascii\n\tcondition:\n\t\tall of them and filesize < 40KB and filesize > 30KB\n}\n\nrule Regin_Sample_3 {\n\tmeta:\n\t\tdescription = \"Detects Regin Backdoor sample fe1419e9dde6d479bd7cda27edd39fafdab2668d498931931a2769b370727129\"\n\t\tauthor = \"@Malwrsignatures\"\n\t\tdate = \"27.11.14\"\n\t\thash = \"fe1419e9dde6d479bd7cda27edd39fafdab2668d498931931a2769b370727129\"\n\t\tid = \"eefc174f-4b17-5c90-8478-3eaaf80e9a78\"\n\tstrings:\n\t\t$s0 = \"Service Pack x\" fullword wide\n\t\t$s1 = \"\\\\REGISTRY\\\\MACHINE\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\" wide\n\t\t$s2 = \"\\\\REGISTRY\\\\Machine\\\\Software\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\HotFix\" wide\n\t\t$s3 = \"mntoskrnl.exe\" fullword wide\n\t\t$s4 = \"\\\\REGISTRY\\\\Machine\\\\System\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management\" wide\n\t\t$s5 = \"Memory location: 0x%p, size 0x%08x\" wide fullword\n\t\t$s6 = \"Service Pack\" fullword wide\n\t\t$s7 = \".sys\" fullword wide\n\t\t$s8 = \".dll\" fullword wide\n\n\t\t$s10 = \"\\\\REGISTRY\\\\Machine\\\\Software\\\\Microsoft\\\\Updates\" wide\n\t\t$s11 = \"IoGetRelatedDeviceObject\" fullword ascii\n\t\t$s12 = \"VMEM.sys\" fullword ascii\n\t\t$s13 = \"RtlGetVersion\" fullword wide\n\t\t$s14 = \"ntkrnlpa.exe\" fullword ascii\n\tcondition:\n\t\tuint32(0) == 0xfedcbafe and all of ($s*) and filesize > 160KB and filesize < 200KB\n}\n\nrule Regin_Sample_Set_2 {\n\tmeta:\n\t\tdescription = \"Auto-generated rule - file SHF-000052 and ndisips.sys\"\n\t\tauthor = \"@MalwrSignatures\"\n\t\tdate = \"26.11.14\"\n\t\thash1 = \"8487a961c8244004c9276979bb4b0c14392fc3b8\"\n\t\thash2 = \"bcf3461d67b39a427c83f9e39b9833cfec977c61\"\n\t\tid = \"0b21091d-413e-54dd-83d1-5d824fb013f2\"\n\tstrings:\n\t\t$s0 = \"HAL.dll\" fullword ascii\n\t\t$s1 = \"IoGetDeviceObjectPointer\" fullword ascii\n\t\t$s2 = \"MaximumPortsServiced\" fullword wide\n\t\t$s3 = \"KeGetCurrentIrql\" fullword ascii\n\t\t$s4 = \"ntkrnlpa.exe\" fullword ascii\n\t\t$s5 = \"\\\\REGISTRY\\\\Machine\\\\System\\\\CurrentControlSet\\\\Control\\\\Session Manager\" wide\n\t\t$s6 = \"ConnectMultiplePorts\" fullword wide\n\t\t$s7 = \"\\\\SYSTEMROOT\" wide\n\t\t$s8 = \"IoWriteErrorLogEntry\" fullword ascii\n\t\t$s9 = \"KeQueryPerformanceCounter\" fullword ascii\n\t\t$s10 = \"KeServiceDescriptorTable\" fullword ascii\n\t\t$s11 = \"KeRemoveEntryDeviceQueue\" fullword ascii\n\t\t$s12 = \"SeSinglePrivilegeCheck\" fullword ascii\n\t\t$s13 = \"KeInitializeEvent\" fullword ascii\n\t\t$s14 = \"IoBuildDeviceIoControlRequest\" fullword ascii\n\t\t$s15 = \"KeRemoveDeviceQueue\" fullword ascii\n\t\t$s16 = \"IofCompleteRequest\" fullword ascii\n\t\t$s17 = \"KeInitializeSpinLock\" fullword ascii\n\t\t$s18 = \"MmIsNonPagedSystemAddressValid\" fullword ascii\n\t\t$s19 = \"IoCreateDevice\" fullword ascii\n\t\t$s20 = \"KefReleaseSpinLockFromDpcLevel\" fullword ascii\n\tcondition:\n\t\tfilesize < 40KB and filesize > 30KB and all of them\n}\n\nrule Regin_Sample_Set_1 {\n\tmeta:\n\t\tdescription = \"Detects Regin Backdoor sample\"\n\t\tauthor = \"@MalwrSignatures\"\n\t\tdate = \"27.11.14\"\n\t\tmodified = \"2023-01-06\"\n\t\thash1 = \"4139149552b0322f2c5c993abccc0f0d1b38db4476189a9f9901ac0d57a656be\"\n\t\thash2 = \"e420d0cf7a7983f78f5a15e6cb460e93c7603683ae6c41b27bf7f2fa34b2d935\"\n\t\tid = \"b0f24a0b-10e7-5549-a300-516df8644cb0\"\n\tstrings:\n\t\t$hd = { fe ba dc fe }\n\n\t\t$s0 = \"d%ls%ls\" fullword wide\n\t\t$s1 = \"\\\\\\\\?\\\\UNC\" fullword wide\n\t\t$s2 = \"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\" fullword wide\n\t\t$s4 = \"SYSTEM\\\\CurrentControlSet\\\\Control\\\\Class\\\\{4D36E972-E325-11CE-BFC1-08002BE10318}\" fullword wide\n\t\t$s5 = \"System\\\\CurrentControlSet\\\\Services\\\\Tcpip\\\\Linkage\" wide fullword\n\t\t$s6 = \"\\\\\\\\.\\\\Global\\\\%s\" fullword wide\n\t\t$s7 = \"temp\" fullword wide\n\t\t$s8 = \"\\\\\\\\.\\\\%s\" fullword wide\n\t\t$s9 = \"Memory location: 0x%p, size 0x%08x\" fullword wide\n\n\t\t$s10 = \"sscanf\" fullword ascii\n\t\t$s11 = \"disp.dll\" fullword ascii\n\t\t$s12 = \"%x:%x:%x:%x:%x:%x:%x:%x%c\" fullword ascii\n\t\t$s13 = \"%d.%d.%d.%d%c\" fullword ascii\n\t\t$s14 = \"imagehlp.dll\" fullword ascii\n\t\t$s15 = \"%hd %d\" fullword ascii\n\tcondition:\n\t\t( $hd at 0 ) and all of ($s*) and filesize < 450KB and filesize > 360KB\n}\n\nrule apt_regin_legspin {\n\tmeta:\n\t    copyright = \"Kaspersky Lab\"\n\t    description = \"Rule to detect Regin's Legspin module\"\n\t    version = \"1.0\"\n\t    last_modified = \"2015-01-22\"\n\t\tmodified = \"2023-01-27\"\n\t    reference = \"https://securelist.com/blog/research/68438/an-analysis-of-regins-hopscotch-and-legspin/\"\n\t    md5 = \"29105f46e4d33f66fee346cfd099d1cc\"\n\t    id = \"2abd3605-d9bf-53f0-8521-ac8dc18d9fce\"\n\tstrings:\n\t    $a1=\"sharepw\"\n\t    $a2=\"reglist\"\n\t    $a3=\"logdump\"\n\t    $a4=\"Name:\" wide\n\t    $a5=\"Phys Avail:\"\n\t    $a6=\"cmd.exe\" wide\n\t    $a7=\"ping.exe\" wide\n\t    $a8=\"millisecs\"\n\tcondition:\n\t    uint16(0) == 0x5A4D and all of ($a*)\n}\n\nrule apt_regin_hopscotch {\n\tmeta:\n\t    copyright = \"Kaspersky Lab\"\n\t    description = \"Rule to detect Regin's Hopscotch module\"\n\t    version = \"1.0\"\n\t    last_modified = \"2015-01-22\"\n\t\tmodified = \"2023-01-27\"\n\t    reference = \"https://securelist.com/blog/research/68438/an-analysis-of-regins-hopscotch-and-legspin/\"\n\t    md5 = \"6c34031d7a5fc2b091b623981a8ae61c\"\n\t    id = \"907042ba-8e64-5ca7-9a83-70c28af1ab99\"\n\tstrings:\n\t    $a1=\"AuthenticateNetUseIpc\"\n\t    $a2=\"Failed to authenticate to\"\n\t    $a3=\"Failed to disconnect from\"\n\t    $a4=\"%S\\\\ipc$\" wide\n\t    $a5=\"Not deleting...\"\n\t    $a6=\"CopyServiceToRemoteMachine\"\n\t    $a7=\"DH Exchange failed\"\n\t    $a8=\"ConnectToNamedPipes\"\n\tcondition:\n\t    uint16(0) == 0x5A4D  and all of ($a*)\n}\n\nrule Regin_Related_Malware {\n\tmeta:\n\t\tdescription = \"Malware Sample - maybe Regin related\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tscore = 70\n\t\treference = \"VT Analysis\"\n\t\tdate = \"2015-06-03\"\n\t\thash = \"76c355bfeb859a347e38da89e3d30a6ff1f94229\"\n\t\tid = \"9377dd52-244f-5289-a2a3-88b6377b2dd2\"\n\tstrings:\n\t\t$s1 = \"%c%s%c -p %d -e %d -pv -c \\\"~~[%x] s; .%c%c%s %s /u %s_%d.dmp; q\\\"\" fullword wide /* score: '22.015' */\n\n\t\t$s0 = \"Software\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\HotFix\" fullword wide /* PEStudio Blacklist: os */ /* score: '26.02' */\n\t\t$s2 = \"%x:%x:%x:%x:%x:%x:%x:%x%c\" fullword ascii /* score: '13.01' */\n\t\t$s3 = \"disp.dll\" fullword ascii /* score: '11.01' */\n\t\t$s4 = \"msvcrtd.dll\" fullword ascii /* score: '11.005' */\n\t\t$s5 = \"%d.%d.%d.%d%c\" fullword ascii /* score: '11.0' */\n\t\t$s6 = \"%ls_%08x\" fullword wide /* score: '8.0' */\n\t\t$s8 = \"d%ls%ls\" fullword wide /* score: '7.005' */\n\t\t$s9 = \"Memory location: 0x%p, size 0x%08x\" fullword wide /* score: '6.025' */\n\tcondition:\n\t\t$s1 or 3 of ($s*)\n}\n"
+}

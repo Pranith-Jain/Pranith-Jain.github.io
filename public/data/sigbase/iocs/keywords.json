@@ -1,0 +1,24 @@
+{
+  "slug": "keywords",
+  "title": "Malicious Keywords",
+  "type": "keyword",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "entryCount": 14,
+  "entries": [
+    { "value": "WCESERVICE", "category": null },
+    { "value": "WCE_SERVICE", "category": null },
+    { "value": "WCE SERVICE", "category": null },
+    { "value": "eo.oe.kiwi", "category": null },
+    { "value": "<3 eo.oe", "category": null },
+    { "value": "mimilib", "category": null },
+    { "value": "privilege::debug", "category": null },
+    { "value": "sekurlsa::LogonPasswords", "category": null },
+    { "value": "sekurlsa::logonpasswords", "category": null },
+    { "value": "%COMSPEC% /C start %COMSPEC% /C \\\\WINDOWS\\\\Temp", "category": null },
+    { "value": "wscript.exe /b /nologo /E:javascript", "category": null },
+    { "value": "ysoserial-0.", "category": null },
+    { "value": "Powersploit", "category": null },
+    { "value": "Invoke-Mimikatz", "category": null }
+  ]
+}

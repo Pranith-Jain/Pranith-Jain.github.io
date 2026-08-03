@@ -1,0 +1,50 @@
+{
+  "date": "2026-08-01",
+  "title": "Webamon Daily Threat Brief — Saturday, 01 August 2026",
+  "tlp": "CLEAR",
+  "estate": { "campaignsTracked": 75, "uniqueDomains": 390939, "percentOnline": 84.1 },
+  "kpis": [
+    { "value": "26", "label": "campaigns with activity" },
+    { "value": "2017", "label": "new malicious domains observed" },
+    { "value": "897", "label": "domains taken offline (NXDOMAIN, double-checked)" },
+    { "value": "63", "label": "infrastructure changes (new IPs / ASNs / cert issuers)" },
+    { "value": "2785", "label": "new page-title lures" },
+    { "value": "136", "label": "emerging clusters live on the radar" }
+  ],
+  "movements": [
+    {
+      "category": "growth",
+      "title": "Fastest-growing",
+      "url": null,
+      "detail": "[Rolling sqllq.com subdomain phishing](https://intel.webamon.com/campaigns/2f41c3bbec077af4f1c44fff61a425759f949713) added 591 new domains — active registration and rotation in progress."
+    },
+    {
+      "category": "takedown",
+      "title": "Takedowns",
+      "url": null,
+      "detail": "453 domains in the same estate now resolve NXDOMAIN — takedowns/expiry confirmed by double-checked DNS."
+    },
+    {
+      "category": "infra-rotation",
+      "title": "Infra rotation",
+      "url": null,
+      "detail": "[ClickFix Fake-Cloudflare Challenge Malware Delivery](https://intel.webamon.com/campaigns/8d53e1ff4ffa544dbb1bf36efcab0b540f03c3fd) moved onto 17 new IPs across 3 new ASNs — evasion or re-hosting behaviour; refresh blocklists."
+    },
+    {
+      "category": "lure-refresh",
+      "title": "Lure refresh",
+      "url": null,
+      "detail": "[Chinese Cloaking Loader (Xitong Jiazai)](https://intel.webamon.com/campaigns/76bd6849c9cef9b4d8a305c8102ba5bcacb94e7a) deployed 1,112 new page titles — content templates are being cycled."
+    }
+  ],
+  "campaigns": [],
+  "clusters": {
+    "summary": null,
+    "entries": [
+      { "type": "ssl cluster", "domains": 5865, "growth": 351, "sample": "007mansion[.]com" },
+      { "type": "ssl cluster", "domains": 8221, "growth": 228, "sample": "2rnkablo[.]com" }
+    ]
+  },
+  "sourceUrl": "https://github.com/webamon-org/Daily-Threat-Brief/tree/main/2026-08-01",
+  "rawMarkdown": "# 🛡️ Webamon Daily Threat Brief — Saturday, 01 August 2026\n\n**TLP:CLEAR** · Estate: 75 campaigns tracked · 390,939 unique domains · 84.1% online\n\nAutomated campaign intelligence from Webamon. Here's what our sensors saw across tracked phishing and malware-delivery estates in the last 24 hours.\n\n## 📊 By the numbers (last 24h)\n\n- **26** campaigns with activity\n- **2,017** new malicious domains observed\n- **897** domains taken offline (NXDOMAIN, double-checked)\n- **63** infrastructure changes (new IPs / ASNs / cert issuers)\n- **2,785** new page-title lures\n- **136** emerging clusters live on the radar\n\nEstate liveness: online 330,185 (84.1%) · offline 62,362 (15.9%) · unchecked 2,386\n\n## 🔍 What moved today\n\n🔺 **Fastest-growing** — [Rolling sqllq.com subdomain phishing](https://intel.webamon.com/campaigns/2f41c3bbec077af4f1c44fff61a425759f949713) added 591 new domains — active registration and rotation in progress.\n\n🔻 **Takedowns** — 453 domains in the same estate now resolve NXDOMAIN — takedowns/expiry confirmed by double-checked DNS.\n\n🔁 **Infra rotation** — [ClickFix Fake-Cloudflare Challenge Malware Delivery](https://intel.webamon.com/campaigns/8d53e1ff4ffa544dbb1bf36efcab0b540f03c3fd) moved onto 17 new IPs across 3 new ASNs — evasion or re-hosting behaviour; refresh blocklists.\n\n🎭 **Lure refresh** — [Chinese Cloaking Loader (Xitong Jiazai)](https://intel.webamon.com/campaigns/76bd6849c9cef9b4d8a305c8102ba5bcacb94e7a) deployed 1,112 new page titles — content templates are being cycled.\n\n## 🎯 Campaigns worth a look\n\n**[0149 Mark Six Lottery Nav Portal Network](https://intel.webamon.com/campaigns/cd297b7a0cb7f208666ce1210e28aab7c30898ca)** — 422 new domains and two new IPs (117.187.133.33, 183.60.255.95) across a 6,994-domain, 100%-online estate.\n\n**[Brazilian Fake-Content Cloaking Bet Funnel](https://intel.webamon.com/campaigns/e1ec191ef7e8615ee4165e99c6c375a56afd1683)** — 185 new domains, 702 new lures and 9 infra changes; cloaked content swapping at pace.\n\n**[Gambling Infra ASN+SSL Pair (.vip/.cc)](https://intel.webamon.com/campaigns/c89bdabcb2cb4ae583fa4c4baf6e635675e59834)** — 97 new domains against 307 offline; churn rather than growth.\n\n## 📡 On the radar — emerging clusters\n\n136 clusters are live (25 critical, 111 high) — unattributed infrastructure large enough to promote to tracked campaigns. Sharpest 24h growth:\n\n    tech cluster — 5,322 domains, +377 in a day (01014949[.]com)\n    ssl cluster — 5,865 domains, +351 (007mansion[.]com)\n    ssl cluster — 8,221 domains, +228 (2rnkablo[.]com)\n\nSee the full brief and every tracked campaign live in the Webamon console → intel.webamon.com/campaigns\n\nFull Pdf Brief is available daily from 12:00UTC on our DTB Github Repo → https://github.com/webamon-org/Daily-Threat-Brief\n\n---\n\n*Generated from Webamon campaign intelligence · TLP:CLEAR · Full daily brief and live feeds at [intel.webamon.com](https://intel.webamon.com)*\n"
+}

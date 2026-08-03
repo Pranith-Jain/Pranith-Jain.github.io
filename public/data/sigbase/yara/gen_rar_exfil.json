@@ -1,0 +1,22 @@
+{
+  "slug": "gen_rar_exfil",
+  "filename": "gen_rar_exfil.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_RAR_NtdsDIT",
+      "meta": {
+        "description": "Detects suspicious RAR file that contains ntds.dit or SAM export",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.cybereason.com/blog/operation-soft-cell-a-worldwide-campaign-against-telecommunications-providers",
+        "date": "2019-12-16",
+        "modified": "2022-11-15",
+        "score": "70",
+        "id": "da9e160f-3213-5027-bb0f-bf80ab3d5318"
+      }
+    }
+  ],
+  "body": "\nrule SUSP_RAR_NtdsDIT {\n   meta:\n      description = \"Detects suspicious RAR file that contains ntds.dit or SAM export\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.cybereason.com/blog/operation-soft-cell-a-worldwide-campaign-against-telecommunications-providers\"\n      date = \"2019-12-16\"\n      modified = \"2022-11-15\" // only synced the name with our internal rule\n      score = 70\n      id = \"da9e160f-3213-5027-bb0f-bf80ab3d5318\"\n   strings:\n      $x1 = \"ntds.dit0\" ascii fullword\n      $x2 = { 0? 53 41 4D 30 01 00 03 }  // SAM0\n      $x3 = { 0? 73 61 6D 30 01 00 03 }  // sam0\n   condition:\n      uint32(0) == 0x21726152 // Rar!\n      and 1 of them\n}\n"
+}

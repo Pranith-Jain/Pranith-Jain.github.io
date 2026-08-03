@@ -1,0 +1,22 @@
+{
+  "slug": "gen_javascript_powershell",
+  "filename": "gen_javascript_powershell.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "Malware_JS_powershell_obfuscated",
+      "meta": {
+        "description": "Unspecified malware - file rechnung_3.js",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2017-03-24",
+        "hash1": "3af15a2d60f946e0c4338c84bd39880652f676dc884057a96a10d7f802215760",
+        "id": "7995dd3a-5942-5c48-9e50-64f4964249a7"
+      }
+    }
+  ],
+  "body": "\nrule Malware_JS_powershell_obfuscated {\n   meta:\n      description = \"Unspecified malware - file rechnung_3.js\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2017-03-24\"\n      hash1 = \"3af15a2d60f946e0c4338c84bd39880652f676dc884057a96a10d7f802215760\"\n      id = \"7995dd3a-5942-5c48-9e50-64f4964249a7\"\n   strings:\n      $x1 = \"po\\\" + \\\"wer\\\" + \\\"sh\\\" + \\\"e\\\" + \\\"ll\\\";\" fullword ascii\n   condition:\n      filesize < 30KB and 1 of them\n}\n"
+}

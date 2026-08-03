@@ -1,0 +1,275 @@
+{
+  "slug": "gen_suspicious_strings",
+  "filename": "gen_suspicious_strings.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "Ping_Command_in_EXE",
+      "meta": {
+        "description": "Detects an suspicious ping command execution in an executable",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2016-11-03",
+        "score": "60",
+        "id": "937ab622-fbcf-5a31-a3ff-af2584484140"
+      }
+    },
+    {
+      "name": "GoogleBot_UserAgent",
+      "meta": {
+        "description": "Detects the GoogleBot UserAgent String in an Executable",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2017-01-27",
+        "score": "65",
+        "id": "621532ac-fc0b-5118-84b0-eac110693320"
+      }
+    },
+    {
+      "name": "Gen_Net_LocalGroup_Administrators_Add_Command",
+      "meta": {
+        "description": "Detects an executable that contains a command to add a user account to the local administrators group",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2017-07-08",
+        "id": "9f6095fc-6d9f-5814-b407-f320191fd912"
+      }
+    },
+    {
+      "name": "Suspicious_Script_Running_from_HTTP",
+      "meta": {
+        "description": "Detects a suspicious",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.hybrid-analysis.com/sample/a112274e109c5819d54aa8de89b0e707b243f4929a83e77439e3ff01ed218a35?environmentId=100",
+        "score": "50",
+        "date": "2017-08-20",
+        "id": "9ba84e9c-a32b-5f66-8d50-75344599cafc"
+      }
+    },
+    {
+      "name": "VBS_dropper_script_Dec17_1",
+      "meta": {
+        "description": "Detects a supicious VBS script that drops an executable",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2018-01-01",
+        "score": "80",
+        "id": "60f23d32-0737-501f-bf1c-1ca32af62efc"
+      }
+    },
+    {
+      "name": "SUSP_Microsoft_Copyright_String_Anomaly_2",
+      "meta": {
+        "description": "Detects Floxif Malware",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2018-05-11",
+        "score": "60",
+        "hash1": "de055a89de246e629a8694bde18af2b1605e4b9b493c7e4aef669dd67acf5085",
+        "id": "3257aff0-b923-5e56-b67c-fa676341a102"
+      }
+    },
+    {
+      "name": "SUSP_LNK_File_AppData_Roaming",
+      "meta": {
+        "description": "Detects a suspicious link file that references to AppData Roaming",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.fireeye.com/blog/threat-research/2018/05/deep-dive-into-rig-exploit-kit-delivering-grobios-trojan.html",
+        "date": "2018-05-16",
+        "score": "50",
+        "id": "d905e58f-ae2e-5dc2-b206-d0435b023df0"
+      }
+    },
+    {
+      "name": "SUSP_LNK_File_PathTraversal",
+      "meta": {
+        "description": "Detects a suspicious link file that references a file multiple folders lower than the link itself",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.fireeye.com/blog/threat-research/2018/05/deep-dive-into-rig-exploit-kit-delivering-grobios-trojan.html",
+        "date": "2018-05-16",
+        "score": "40",
+        "id": "f4f6709f-9c4d-5f0c-9826-97444d282adc"
+      }
+    },
+    {
+      "name": "SUSP_Script_Obfuscation_Char_Concat",
+      "meta": {
+        "description": "Detects strings found in sample from CN group repo leak in October 2018",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://twitter.com/JaromirHorejsi/status/1047084277920411648",
+        "date": "2018-10-04",
+        "hash1": "b30cc10e915a23c7273f0838297e0d2c9f4fc0ac1f56100eef6479c9d036c12b",
+        "id": "6d3bfdfd-ef8f-5740-ac1f-5835c7ce0f43"
+      }
+    },
+    {
+      "name": "SUSP_PowerShell_IEX_Download_Combo",
+      "meta": {
+        "description": "Detects strings found in sample from CN group repo leak in October 2018",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://twitter.com/JaromirHorejsi/status/1047084277920411648",
+        "date": "2018-10-04",
+        "hash1": "13297f64a5f4dd9b08922c18ab100d3a3e6fdeab82f60a4653ab975b8ce393d5",
+        "id": "1dfedcb0-345c-548c-85ac-3c1e78bfd9e2"
+      }
+    },
+    {
+      "name": "SUSP_Win32dll_String",
+      "meta": {
+        "description": "Detects suspicious string in executables",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://medium.com/@Sebdraven/apt-sidewinder-changes-theirs-ttps-to-install-their-backdoor-f92604a2739",
+        "date": "2018-10-24",
+        "hash1": "7bd7cec82ee98feed5872325c2f8fd9f0ea3a2f6cd0cd32bcbe27dbbfd0d7da1",
+        "id": "b1c78386-c23d-5138-942a-3da90e5802cc"
+      }
+    },
+    {
+      "name": "SUSP_Modified_SystemExeFileName_in_File",
+      "meta": {
+        "description": "Detecst a variant of a system file name often used by attackers to cloak their activity",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.symantec.com/blogs/threat-intelligence/seedworm-espionage-group",
+        "date": "2018-12-11",
+        "score": "65",
+        "hash1": "5723f425e0c55c22c6b8bb74afb6b506943012c33b9ec1c928a71307a8c5889a",
+        "hash2": "f1f11830b60e6530b680291509ddd9b5a1e5f425550444ec964a08f5f0c1a44e",
+        "id": "97d91e1b-49b8-504e-9e9c-6cfb7c2afe41"
+      }
+    },
+    {
+      "name": "SUSP_JAVA_Class_with_VBS_Content",
+      "meta": {
+        "description": "Detects a JAVA class file with strings known from VBS files",
+        "author": "Florian Roth",
+        "reference": "https://www.menlosecurity.com/blog/a-jar-full-of-problems-for-financial-services-companies",
+        "date": "2019-01-03",
+        "modified": "2025-03-20",
+        "score": "70",
+        "hash1": "e0112efb63f2b2ac3706109a233963c19750b4df0058cc5b9d3fa1f1280071eb",
+        "id": "472cbeaf-28e7-51a2-b2e6-96c1d9d05b26"
+      }
+    },
+    {
+      "name": "SUSP_RAR_with_PDF_Script_Obfuscation",
+      "meta": {
+        "description": "Detects RAR file with suspicious .pdf extension prefix to trick users",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2019-04-06",
+        "hash1": "b629b46b009a1c2306178e289ad0a3d9689d4b45c3d16804599f23c90c6bca5b",
+        "id": "a3d2f5e9-3052-551b-8b2c-abcdd1ac2e48"
+      }
+    },
+    {
+      "name": "SUSP_Netsh_PortProxy_Command",
+      "meta": {
+        "description": "Detects a suspicious command line with netsh and the portproxy command",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://docs.microsoft.com/en-us/windows-server/networking/technologies/netsh/netsh-interface-portproxy",
+        "date": "2019-04-20",
+        "score": "65",
+        "hash1": "9b33a03e336d0d02750a75efa1b9b6b2ab78b00174582a9b2cb09cd828baea09",
+        "id": "cbbd2042-572c-5283-bd45-e745b36733ad"
+      }
+    },
+    {
+      "name": "SUSP_DropperBackdoor_Keywords",
+      "meta": {
+        "description": "Detects suspicious keywords that indicate a backdoor",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://blog.talosintelligence.com/2019/04/dnspionage-brings-out-karkoff.html",
+        "date": "2019-04-24",
+        "hash1": "cd4b9d0f2d1c0468750855f0ed352c1ed6d4f512d66e0e44ce308688235295b5",
+        "id": "2942ba6d-a533-5954-bfcf-417262e2fac2"
+      }
+    },
+    {
+      "name": "SUSP_SFX_cmd",
+      "meta": {
+        "description": "Detects suspicious SFX as used by Gamaredon group",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2018-09-27",
+        "hash1": "965129e5d0c439df97624347534bc24168935e7a71b9ff950c86faae3baec403",
+        "id": "87e75fe6-c2d7-5cb4-9432-7c37dbfe94b8"
+      }
+    },
+    {
+      "name": "SUSP_XMRIG_Reference",
+      "meta": {
+        "description": "Detects an executable with a suspicious XMRIG crypto miner reference",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://twitter.com/itaitevet/status/1141677424045953024",
+        "date": "2019-06-20",
+        "score": "70",
+        "id": "0a7324ce-90dc-5e6a-b22a-c29eccf324e9"
+      }
+    },
+    {
+      "name": "SUSP_Just_EICAR",
+      "meta": {
+        "description": "Just an EICAR test file - this is boring but users asked for it",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://2016.eicar.org/85-0-Download.html",
+        "date": "2019-03-24",
+        "score": "40",
+        "hash1": "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f",
+        "id": "e5eedd77-36e2-56a0-be0c-2553043c225a"
+      }
+    },
+    {
+      "name": "SUSP_PDB_Path_Keywords",
+      "meta": {
+        "description": "Detects suspicious PDB paths",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://twitter.com/stvemillertime/status/1179832666285326337?s=20",
+        "date": "2019-10-04",
+        "id": "cbd9b331-58bb-5b29-88a2-5c19f12893a9"
+      }
+    },
+    {
+      "name": "SUSP_Disable_ETW_Jun20_1",
+      "meta": {
+        "description": "Detects method to disable ETW in ENV vars before executing a program",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://gist.github.com/Cyb3rWard0g/a4a115fd3ab518a0e593525a379adee3",
+        "date": "2020-06-06",
+        "id": "ea5dee09-959e-5ef2-8f84-5497bdef0a05"
+      }
+    },
+    {
+      "name": "SUSP_PE_Discord_Attachment_Oct21_1",
+      "meta": {
+        "description": "Detects suspicious executable with reference to a Discord attachment (often used for malware hosting on a legitimate FQDN)",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2021-10-12",
+        "score": "70",
+        "id": "7c217350-4a35-505d-950d-1bc989c14bc2"
+      }
+    },
+    {
+      "name": "SUSP_Encoded_Discord_Attachment_Oct21_1",
+      "meta": {
+        "description": "Detects suspicious encoded URL to a Discord attachment (often used for malware hosting on a legitimate FQDN)",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2021-10-12",
+        "score": "70",
+        "id": "06c086f4-8b79-5506-9e3f-b5d099106157"
+      }
+    }
+  ],
+  "body": "\nrule Ping_Command_in_EXE {\n   meta:\n      description = \"Detects an suspicious ping command execution in an executable\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2016-11-03\"\n      score = 60\n      id = \"937ab622-fbcf-5a31-a3ff-af2584484140\"\n   strings:\n      $x1 = \"cmd /c ping 127.0.0.1 -n \" ascii\n   condition:\n      uint16(0) == 0x5a4d and all of them\n}\n\nrule GoogleBot_UserAgent {\n   meta:\n      description = \"Detects the GoogleBot UserAgent String in an Executable\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2017-01-27\"\n      score = 65\n      id = \"621532ac-fc0b-5118-84b0-eac110693320\"\n   strings:\n      $x1 = \"Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\" fullword ascii\n\n      $fp1 = \"McAfee, Inc.\" wide\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 500KB and $x1 and not 1 of ($fp*) )\n}\n\nrule Gen_Net_LocalGroup_Administrators_Add_Command {\n   meta:\n      description = \"Detects an executable that contains a command to add a user account to the local administrators group\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2017-07-08\"\n      id = \"9f6095fc-6d9f-5814-b407-f320191fd912\"\n   strings:\n      $x1 = /net localgroup administrators [a-zA-Z0-9]{1,16} \\/add/ nocase ascii\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 400KB and 1 of them )\n}\n\nrule Suspicious_Script_Running_from_HTTP {\n   meta:\n      description = \"Detects a suspicious \"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.hybrid-analysis.com/sample/a112274e109c5819d54aa8de89b0e707b243f4929a83e77439e3ff01ed218a35?environmentId=100\"\n      score = 50\n      date = \"2017-08-20\"\n      id = \"9ba84e9c-a32b-5f66-8d50-75344599cafc\"\n   strings:\n      $s1 = \"cmd /C script:http://\" ascii nocase\n      $s2 = \"cmd /C script:https://\" ascii nocase\n      $s3 = \"cmd.exe /C script:http://\" ascii nocase\n      $s4 = \"cmd.exe /C script:https://\" ascii nocase\n   condition:\n      1 of them\n}\n\nrule ReconCommands_in_File : FILE {\n   meta:\n      description = \"Detects various recon commands in a single file\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/haroonmeer/status/939099379834658817\"\n      date = \"2017-12-11\"\n      score = 40\n      id = \"62d59913-5dbd-512c-98ea-044bbb9ac2da\"\n   strings:\n      $ = \"tasklist\"\n      $ = \"net time\"\n      $ = \"systeminfo\"\n      $ = \"whoami\"\n      $ = \"nbtstat\"\n      $ = \"net start\"\n      $ = \"qprocess\"\n      $ = \"nslookup\"\n   condition:\n      filesize < 5KB and 4 of them\n}\n\nrule VBS_dropper_script_Dec17_1 {\n   meta:\n      description = \"Detects a supicious VBS script that drops an executable\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2018-01-01\"\n      score = 80\n      id = \"60f23d32-0737-501f-bf1c-1ca32af62efc\"\n   strings:\n      $s1 = \"TVpTAQEAAAAEAA\" // 14 samples in goodware archive\n      $s2 = \"TVoAAAAAAAAAAA\" // 26 samples in goodware archive\n      $s3 = \"TVqAAAEAAAAEAB\" // 75 samples in goodware archive\n      $s4 = \"TVpQAAIAAAAEAA\" // 168 samples in goodware archive\n      $s5 = \"TVqQAAMAAAAEAA\" // 28,529 samples in goodware archive\n\n      $a1 = \"= CreateObject(\\\"Wscript.Shell\\\")\" fullword ascii\n   condition:\n      filesize < 600KB and $a1 and 1 of ($s*)\n}\n\nrule SUSP_PDB_Strings_Keylogger_Backdoor : HIGHVOL {\n   meta:\n      description = \"Detects PDB strings used in backdoors or keyloggers\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2018-03-23\"\n      score = 65\n      id = \"190daadb-0de6-5665-a241-95c374dbda47\"\n   strings:\n      $ = \"\\\\Release\\\\PrivilegeEscalation\"\n      $ = \"\\\\Release\\\\KeyLogger\"\n      $ = \"\\\\Debug\\\\PrivilegeEscalation\"\n      $ = \"\\\\Debug\\\\KeyLogger\"\n      $ = \"Backdoor\\\\KeyLogger_\"\n      $ = \"\\\\ShellCode\\\\Debug\\\\\"\n      $ = \"\\\\ShellCode\\\\Release\\\\\"\n      $ = \"\\\\New Backdoor\"\n   condition:\n      uint16(0) == 0x5a4d and filesize < 1000KB\n      and 1 of them\n}\n\nrule SUSP_Microsoft_Copyright_String_Anomaly_2 {\n   meta:\n      description = \"Detects Floxif Malware\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2018-05-11\"\n      score = 60\n      hash1 = \"de055a89de246e629a8694bde18af2b1605e4b9b493c7e4aef669dd67acf5085\"\n      id = \"3257aff0-b923-5e56-b67c-fa676341a102\"\n   strings:\n      $s1 = \"Microsoft(C) Windows(C) Operating System\" fullword wide\n   condition:\n      uint16(0) == 0x5a4d and filesize < 200KB and 1 of them\n}\n\nrule SUSP_LNK_File_AppData_Roaming {\n   meta:\n      description = \"Detects a suspicious link file that references to AppData Roaming\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.fireeye.com/blog/threat-research/2018/05/deep-dive-into-rig-exploit-kit-delivering-grobios-trojan.html\"\n      date = \"2018-05-16\"\n      score = 50\n      id = \"d905e58f-ae2e-5dc2-b206-d0435b023df0\"\n   strings:\n      $s2 = \"AppData\" fullword wide\n      $s3 = \"Roaming\" fullword wide\n      /* .exe\\x00C:\\Users\\ */\n      $s4 = { 00 2E 00 65 00 78 00 65 00 2E 00 43 00 3A 00 5C\n              00 55 00 73 00 65 00 72 00 73 00 5C }\n   condition:\n      uint16(0) == 0x004c and uint32(4) == 0x00021401 and (\n         filesize < 1KB and\n         all of them\n      )\n}\n\nrule SUSP_LNK_File_PathTraversal {\n   meta:\n      description = \"Detects a suspicious link file that references a file multiple folders lower than the link itself\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.fireeye.com/blog/threat-research/2018/05/deep-dive-into-rig-exploit-kit-delivering-grobios-trojan.html\"\n      date = \"2018-05-16\"\n      score = 40\n      id = \"f4f6709f-9c4d-5f0c-9826-97444d282adc\"\n   strings:\n      $s1 = \"..\\\\..\\\\..\\\\..\\\\..\\\\\"\n   condition:\n      uint16(0) == 0x004c and uint32(4) == 0x00021401 and (\n         filesize < 1KB and\n         all of them\n      )\n}\n\nrule SUSP_Script_Obfuscation_Char_Concat {\n   meta:\n      description = \"Detects strings found in sample from CN group repo leak in October 2018\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/JaromirHorejsi/status/1047084277920411648\"\n      date = \"2018-10-04\"\n      hash1 = \"b30cc10e915a23c7273f0838297e0d2c9f4fc0ac1f56100eef6479c9d036c12b\"\n      id = \"6d3bfdfd-ef8f-5740-ac1f-5835c7ce0f43\"\n   strings:\n      $s1 = \"\\\"c\\\" & \\\"r\\\" & \\\"i\\\" & \\\"p\\\" & \\\"t\\\"\" ascii\n   condition:\n      1 of them\n}\n\nrule SUSP_PowerShell_IEX_Download_Combo {\n   meta:\n      description = \"Detects strings found in sample from CN group repo leak in October 2018\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/JaromirHorejsi/status/1047084277920411648\"\n      date = \"2018-10-04\"\n      hash1 = \"13297f64a5f4dd9b08922c18ab100d3a3e6fdeab82f60a4653ab975b8ce393d5\"\n      id = \"1dfedcb0-345c-548c-85ac-3c1e78bfd9e2\"\n   strings:\n      $x1 = \"IEX ((new-object net.webclient).download\" ascii nocase\n\n      $fp1 = \"chocolatey.org\"\n      $fp2 = \"Remote Desktop in the Appveyor\"\n      $fp3 = \"/appveyor/\" ascii\n   condition:\n      $x1 and not 1 of ($fp*)\n}\n\nrule SUSP_Win32dll_String {\n   meta:\n      description = \"Detects suspicious string in executables\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://medium.com/@Sebdraven/apt-sidewinder-changes-theirs-ttps-to-install-their-backdoor-f92604a2739\"\n      date = \"2018-10-24\"\n      hash1 = \"7bd7cec82ee98feed5872325c2f8fd9f0ea3a2f6cd0cd32bcbe27dbbfd0d7da1\"\n      id = \"b1c78386-c23d-5138-942a-3da90e5802cc\"\n   strings:\n      $s1 = \"win32dll.dll\" fullword ascii\n   condition:\n      filesize < 60KB and all of them\n}\n\nrule SUSP_Modified_SystemExeFileName_in_File {\n   meta:\n      description = \"Detecst a variant of a system file name often used by attackers to cloak their activity\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.symantec.com/blogs/threat-intelligence/seedworm-espionage-group\"\n      date = \"2018-12-11\"\n      score = 65\n      hash1 = \"5723f425e0c55c22c6b8bb74afb6b506943012c33b9ec1c928a71307a8c5889a\"\n      hash2 = \"f1f11830b60e6530b680291509ddd9b5a1e5f425550444ec964a08f5f0c1a44e\"\n      id = \"97d91e1b-49b8-504e-9e9c-6cfb7c2afe41\"\n   strings:\n      $s1 = \"svchosts.exe\" fullword wide\n   condition:\n      uint16(0) == 0x5a4d and filesize < 200KB and 1 of them\n}\n\nrule SUSP_JAVA_Class_with_VBS_Content {\n   meta:\n      description = \"Detects a JAVA class file with strings known from VBS files\"\n      author = \"Florian Roth\"\n      reference = \"https://www.menlosecurity.com/blog/a-jar-full-of-problems-for-financial-services-companies\"\n      date = \"2019-01-03\"\n      modified = \"2025-03-20\"\n      score = 70\n      hash1 = \"e0112efb63f2b2ac3706109a233963c19750b4df0058cc5b9d3fa1f1280071eb\"\n      id = \"472cbeaf-28e7-51a2-b2e6-96c1d9d05b26\"\n   strings:\n      $a1 = \"java/lang/String\" ascii\n\n      $s1 = \".vbs\" ascii\n      $s2 = \"createNewFile\" fullword ascii\n      $s3 = \"wscript\" fullword ascii nocase\n\n      $fp1 = \"com/smm/\"\n      $fp2 = \"install\"\n   condition:\n      ( uint16(0) == 0xfeca or uint16(0) == 0xfacf or uint32(0) == 0xbebafeca ) \n      and filesize < 100KB \n      and $a1 \n      and all of ($s*)\n      and not 1 of ($fp*)\n}\n\nrule SUSP_RAR_with_PDF_Script_Obfuscation {\n   meta:\n      description = \"Detects RAR file with suspicious .pdf extension prefix to trick users\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2019-04-06\"\n      hash1 = \"b629b46b009a1c2306178e289ad0a3d9689d4b45c3d16804599f23c90c6bca5b\"\n      id = \"a3d2f5e9-3052-551b-8b2c-abcdd1ac2e48\"\n   strings:\n      $s1 = \".pdf.vbe\" ascii\n      $s2 = \".pdf.vbs\" ascii\n      $s3 = \".pdf.ps1\" ascii\n      $s4 = \".pdf.bat\" ascii\n      $s5 = \".pdf.exe\" ascii\n   condition:\n      uint32(0) == 0x21726152 and 1 of them\n}\n\nrule SUSP_Netsh_PortProxy_Command {\n   meta:\n      description = \"Detects a suspicious command line with netsh and the portproxy command\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://docs.microsoft.com/en-us/windows-server/networking/technologies/netsh/netsh-interface-portproxy\"\n      date = \"2019-04-20\"\n      score = 65\n      hash1 = \"9b33a03e336d0d02750a75efa1b9b6b2ab78b00174582a9b2cb09cd828baea09\"\n      id = \"cbbd2042-572c-5283-bd45-e745b36733ad\"\n   strings:\n      $x1 = \"netsh interface portproxy add v4tov4 listenport=\" ascii\n   condition:\n      1 of them\n}\n\nrule SUSP_DropperBackdoor_Keywords {\n   meta:\n      description = \"Detects suspicious keywords that indicate a backdoor\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://blog.talosintelligence.com/2019/04/dnspionage-brings-out-karkoff.html\"\n      date = \"2019-04-24\"\n      hash1 = \"cd4b9d0f2d1c0468750855f0ed352c1ed6d4f512d66e0e44ce308688235295b5\"\n      id = \"2942ba6d-a533-5954-bfcf-417262e2fac2\"\n   strings:\n      $x4 = \"DropperBackdoor\" fullword wide ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 1000KB and 1 of them\n}\n\nrule SUSP_SFX_cmd {\n   meta:\n      description = \"Detects suspicious SFX as used by Gamaredon group\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2018-09-27\"\n      hash1 = \"965129e5d0c439df97624347534bc24168935e7a71b9ff950c86faae3baec403\"\n      id = \"87e75fe6-c2d7-5cb4-9432-7c37dbfe94b8\"\n   strings:\n      $s1 = /RunProgram=\\\"hidcon:[a-zA-Z0-9]{1,16}.cmd/ fullword ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 2000KB and 1 of them\n}\n\nrule SUSP_XMRIG_Reference {\n   meta:\n      description = \"Detects an executable with a suspicious XMRIG crypto miner reference\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/itaitevet/status/1141677424045953024\"\n      date = \"2019-06-20\"\n      score = 70\n      id = \"0a7324ce-90dc-5e6a-b22a-c29eccf324e9\"\n   strings:\n      $x1 = \"\\\\xmrig\\\\\" ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 2000KB and 1 of them\n}\n\nrule SUSP_Just_EICAR {\n   meta:\n      description = \"Just an EICAR test file - this is boring but users asked for it\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"http://2016.eicar.org/85-0-Download.html\"\n      date = \"2019-03-24\"\n      score = 40\n      hash1 = \"275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f\"\n      id = \"e5eedd77-36e2-56a0-be0c-2553043c225a\"\n   strings:\n      $s1 = \"X5O!P%@AP[4\\\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*\" fullword ascii\n   condition:\n      uint16(0) == 0x3558 and filesize < 70 and $s1 at 0\n}\n\nrule SUSP_PDB_Path_Keywords {\n   meta:\n      description = \"Detects suspicious PDB paths\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/stvemillertime/status/1179832666285326337?s=20\"\n      date = \"2019-10-04\"\n      id = \"cbd9b331-58bb-5b29-88a2-5c19f12893a9\"\n   strings:\n      $ = \"Debug\\\\Shellcode\" ascii\n      $ = \"Release\\\\Shellcode\" ascii\n      $ = \"Debug\\\\ShellCode\" ascii\n      $ = \"Release\\\\ShellCode\" ascii\n      $ = \"Debug\\\\shellcode\" ascii\n      $ = \"Release\\\\shellcode\" ascii\n      $ = \"shellcode.pdb\" nocase ascii\n      $ = \"\\\\ShellcodeLauncher\" ascii\n      $ = \"\\\\ShellCodeLauncher\" ascii\n      $ = \"Fucker.pdb\" ascii\n      $ = \"\\\\AVFucker\\\\\" ascii\n      $ = \"ratTest.pdb\" ascii\n      $ = \"Debug\\\\CVE_\" ascii\n      $ = \"Release\\\\CVE_\" ascii\n      $ = \"Debug\\\\cve_\" ascii\n      $ = \"Release\\\\cve_\" ascii\n   condition:\n      uint16(0) == 0x5a4d and 1 of them\n}\n\nrule SUSP_Disable_ETW_Jun20_1 {\n   meta:\n      description = \"Detects method to disable ETW in ENV vars before executing a program\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://gist.github.com/Cyb3rWard0g/a4a115fd3ab518a0e593525a379adee3\"\n      date = \"2020-06-06\"\n      id = \"ea5dee09-959e-5ef2-8f84-5497bdef0a05\"\n   strings:\n      $x1 = \"set COMPlus_ETWEnabled=0\" ascii wide fullword\n      $x2 = \"$env:COMPlus_ETWEnabled=0\" ascii wide fullword\n\n      $s1 = \"Software\\\\Microsoft.NETFramework\" ascii wide\n      $sa1 = \"/v ETWEnabled\" ascii wide fullword \n      $sa2 = \" /d 0\" ascii wide\n      $sb4 = \"-Name ETWEnabled\"\n      $sb5 = \" -Value 0 \"\n   condition:\n      1 of ($x*) or 3 of them \n}\n\nrule SUSP_PE_Discord_Attachment_Oct21_1 {\n   meta:\n      description = \"Detects suspicious executable with reference to a Discord attachment (often used for malware hosting on a legitimate FQDN)\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2021-10-12\"\n      score = 70\n      id = \"7c217350-4a35-505d-950d-1bc989c14bc2\"\n   strings:\n      $x1 = \"https://cdn.discordapp.com/attachments/\" ascii wide\n   condition:\n      uint16(0) == 0x5a4d\n      and filesize < 5000KB \n      and 1 of them\n}\n\nrule SUSP_Encoded_Discord_Attachment_Oct21_1 {\n   meta:\n      description = \"Detects suspicious encoded URL to a Discord attachment (often used for malware hosting on a legitimate FQDN)\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2021-10-12\"\n      score = 70\n      id = \"06c086f4-8b79-5506-9e3f-b5d099106157\"\n   strings:\n      /* base64 encoded forms */\n      $enc_b01 = \"Y2RuLmRpc2NvcmRhcHAuY29tL2F0dGFjaG1lbnRz\" ascii wide\n      $enc_b02 = \"Nkbi5kaXNjb3JkYXBwLmNvbS9hdHRhY2htZW50c\" ascii wide\n      $enc_b03 = \"jZG4uZGlzY29yZGFwcC5jb20vYXR0YWNobWVudH\" ascii wide\n      $enc_b04 = \"AGMAZABuAC4AZABpAHMAYwBvAHIAZABhAHAAcAAuAGMAbwBtAC8AYQB0AHQAYQBjAGgAbQBlAG4AdABz\" ascii wide\n      $enc_b05 = \"BjAGQAbgAuAGQAaQBzAGMAbwByAGQAYQBwAHAALgBjAG8AbQAvAGEAdAB0AGEAYwBoAG0AZQBuAHQAc\" ascii wide\n      $enc_b06 = \"AYwBkAG4ALgBkAGkAcwBjAG8AcgBkAGEAcABwAC4AYwBvAG0ALwBhAHQAdABhAGMAaABtAGUAbgB0AH\" ascii wide\n\n      /* hex encoded forms */\n      $enc_h01 = \"63646E2E646973636F72646170702E636F6D2F6174746163686D656E7473\" ascii wide\n      $enc_h02 = \"63646e2e646973636f72646170702e636f6d2f6174746163686d656e7473\" ascii wide\n\n      /* reversed string */\n      $enc_r01 = \"stnemhcatta/moc.ppadrocsid.ndc\" ascii wide\n   condition:\n      filesize < 5000KB and 1 of them\n}\n"
+}

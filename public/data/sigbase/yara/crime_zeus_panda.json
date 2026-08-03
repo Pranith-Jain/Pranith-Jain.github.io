@@ -1,0 +1,22 @@
+{
+  "slug": "crime_zeus_panda",
+  "filename": "crime_zeus_panda.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-08-04\n   Identifier: Zeus Panda\n   Reference: https://cyberwtf.files.wordpress.com/2017/07/panda-whitepaper.pdf",
+  "rules": [
+    {
+      "name": "Zeus_Panda",
+      "meta": {
+        "description": "Detects ZEUS Panda Malware",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://cyberwtf.files.wordpress.com/2017/07/panda-whitepaper.pdf",
+        "date": "2017-08-04",
+        "hash1": "bd956b2e81731874995b9b92e20f75dbf67ac5f12f9daa194525e1b673c7f83c",
+        "id": "2786b1e0-37af-5595-a24b-56ef3cb928a7"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-08-04\n   Identifier: Zeus Panda\n   Reference: https://cyberwtf.files.wordpress.com/2017/07/panda-whitepaper.pdf\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule Zeus_Panda {\n   meta:\n      description = \"Detects ZEUS Panda Malware\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://cyberwtf.files.wordpress.com/2017/07/panda-whitepaper.pdf\"\n      date = \"2017-08-04\"\n      hash1 = \"bd956b2e81731874995b9b92e20f75dbf67ac5f12f9daa194525e1b673c7f83c\"\n      id = \"2786b1e0-37af-5595-a24b-56ef3cb928a7\"\n   strings:\n      $x1 = \"SER32.dll\" fullword ascii\n      $x2 = \"/c start \\\"\\\" \\\"%s\\\"\" fullword wide\n      $x3 = \"del /F \\\"%s\\\"\" fullword ascii\n\n      $s1 = \"bcdfghklmnpqrstvwxz\" fullword ascii\n      $s2 = \"=> -,0;\" fullword ascii\n      $s3 = \"Yahoo! Slurp\" fullword ascii\n      $s4 = \"ZTNHGET ^&\" fullword ascii\n      $s5 = \"MSIE 9\" fullword ascii\n      $s6 = \"%s%08x.%s\" fullword wide\n   condition:\n      uint16(0) == 0x5a4d and filesize < 400KB and ( 2 of ($x*) or 4 of them )\n}"
+}

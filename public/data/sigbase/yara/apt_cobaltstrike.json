@@ -1,0 +1,54 @@
+{
+  "slug": "apt_cobaltstrike",
+  "filename": "apt_cobaltstrike.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "LICENSE\n   Copyright (C) 2015 JPCERT Coordination Center. All Rights Reserved.\n\n   Redistribution and use in source and binary forms, with or without\n   modification, are permitted provided that the following conditions are met:\n\n   1. Redistributions of source code must retain the above copyright notice,\n      this list of conditions and the following acknowledgments and disclaimers.\n   2. Redistributions in binary form must reproduce the above copyright notice,\n      this list of conditions and the following acknowledgments and disclaimers\n      in the documentation and/or other materials provided with the distribution.\n   3. Products derived from this software may not include \"JPCERT Coordination\n      Center\" in the name of such derived product, nor shall \"JPCERT\n      Coordination Center\"  be used to endorse or promote products derived\n      from this software without prior written permission. For written\n      permission, please contact pr@jpcert.or.jp.\n\n   ACKNOWLEDGMENTS AND DISCLAIMERS\n   Copyright (C) 2015 JPCERT Coordination Center\n\n   This software is based upon work funded and supported by the Ministry of\n   Economy, Trade and Industry.\n\n   Any opinions, findings and conclusions or recommendations expressed in this\n   software are those of the author(s) and do not necessarily reflect the views\n   of the Ministry of Economy, Trade and Industry.\n\n   NO WARRANTY. THIS JPCERT COORDINATION CENTER SOFTWARE IS FURNISHED ON\n   AN \"AS-IS\" BASIS. JPCERT COORDINATION CENTER MAKES NO WARRANTIES OF\n   ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT\n   NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,\n   EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE SOFTWARE. JPCERT\n   COORDINATION CENTER DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH\n   RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.\n\n   This software has been approved for public release and unlimited distribution.",
+  "rules": [
+    {
+      "name": "APT_CobaltStrike_Beacon_Indicator",
+      "meta": {
+        "description": "Detects CobaltStrike beacons",
+        "author": "JPCERT",
+        "reference": "https://github.com/JPCERTCC/aa-tools/blob/master/cobaltstrikescan.py",
+        "date": "2018-11-09",
+        "id": "8508c7a0-0131-59b1-b537-a6d1c6cb2b35"
+      }
+    },
+    {
+      "name": "HKTL_CobaltStrike_Beacon_Strings",
+      "meta": {
+        "author": "Elastic",
+        "description": "Identifies strings used in Cobalt Strike Beacon DLL",
+        "reference": "https://www.elastic.co/blog/detecting-cobalt-strike-with-memory-signatures",
+        "date": "2021-03-16",
+        "id": "af558aa2-a3dc-5a7a-bc74-42bb2246091c"
+      }
+    },
+    {
+      "name": "HKTL_CobaltStrike_Beacon_XOR_Strings",
+      "meta": {
+        "author": "Elastic",
+        "description": "Identifies XOR'd strings used in Cobalt Strike Beacon DLL",
+        "reference": "https://www.elastic.co/blog/detecting-cobalt-strike-with-memory-signatures",
+        "date": "2021-03-16",
+        "modified": "2026-05-26",
+        "xor_s1": "%02d/%02d/%02d %02d:%02d:%02d",
+        "xor_s2": "Started service %s on %s",
+        "xor_s3": "%s as %s\\\\%s: %d",
+        "id": "359160a8-cf1c-58a8-bf7f-c09a8d661308"
+      }
+    },
+    {
+      "name": "HKTL_CobaltStrike_Beacon_4_2_Decrypt",
+      "meta": {
+        "author": "Elastic",
+        "description": "Identifies deobfuscation routine used in Cobalt Strike Beacon DLL version 4.2",
+        "reference": "https://www.elastic.co/blog/detecting-cobalt-strike-with-memory-signatures",
+        "date": "2021-03-16",
+        "id": "63b71eef-0af5-5765-b957-ccdc9dde053b"
+      }
+    }
+  ],
+  "body": "/*\n   LICENSE\n   Copyright (C) 2015 JPCERT Coordination Center. All Rights Reserved.\n\n   Redistribution and use in source and binary forms, with or without\n   modification, are permitted provided that the following conditions are met:\n\n   1. Redistributions of source code must retain the above copyright notice,\n      this list of conditions and the following acknowledgments and disclaimers.\n   2. Redistributions in binary form must reproduce the above copyright notice,\n      this list of conditions and the following acknowledgments and disclaimers\n      in the documentation and/or other materials provided with the distribution.\n   3. Products derived from this software may not include \"JPCERT Coordination\n      Center\" in the name of such derived product, nor shall \"JPCERT\n      Coordination Center\"  be used to endorse or promote products derived\n      from this software without prior written permission. For written\n      permission, please contact pr@jpcert.or.jp.\n\n   ACKNOWLEDGMENTS AND DISCLAIMERS\n   Copyright (C) 2015 JPCERT Coordination Center\n\n   This software is based upon work funded and supported by the Ministry of\n   Economy, Trade and Industry.\n\n   Any opinions, findings and conclusions or recommendations expressed in this\n   software are those of the author(s) and do not necessarily reflect the views\n   of the Ministry of Economy, Trade and Industry.\n\n   NO WARRANTY. THIS JPCERT COORDINATION CENTER SOFTWARE IS FURNISHED ON\n   AN \"AS-IS\" BASIS. JPCERT COORDINATION CENTER MAKES NO WARRANTIES OF\n   ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT\n   NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,\n   EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE SOFTWARE. JPCERT\n   COORDINATION CENTER DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH\n   RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.\n\n   This software has been approved for public release and unlimited distribution.\n*/\n\nrule APT_CobaltStrike_Beacon_Indicator {\n   meta:\n      description = \"Detects CobaltStrike beacons\"\n      author = \"JPCERT\"\n      reference = \"https://github.com/JPCERTCC/aa-tools/blob/master/cobaltstrikescan.py\"\n      date = \"2018-11-09\"\n      id = \"8508c7a0-0131-59b1-b537-a6d1c6cb2b35\"\n   strings:\n      $v1 = { 73 70 72 6E 67 00 }\n      $v2 = { 69 69 69 69 69 69 69 69 }\n   condition:\n      uint16(0) == 0x5a4d and filesize < 300KB and all of them\n}\n\nrule HKTL_CobaltStrike_Beacon_Strings {\n   meta:\n      author = \"Elastic\"\n      description = \"Identifies strings used in Cobalt Strike Beacon DLL\"\n      reference = \"https://www.elastic.co/blog/detecting-cobalt-strike-with-memory-signatures\"\n      date = \"2021-03-16\"\n      id = \"af558aa2-a3dc-5a7a-bc74-42bb2246091c\"\n   strings:\n      $s1 = \"%02d/%02d/%02d %02d:%02d:%02d\"\n      $s2 = \"Started service %s on %s\"\n      $s3 = \"%s as %s\\\\%s: %d\"\n   condition:\n      2 of them\n}\n\nrule HKTL_CobaltStrike_Beacon_XOR_Strings {\n   meta:\n      author = \"Elastic\"\n      description = \"Identifies XOR'd strings used in Cobalt Strike Beacon DLL\"\n      reference = \"https://www.elastic.co/blog/detecting-cobalt-strike-with-memory-signatures\"\n      date = \"2021-03-16\"\n      modified = \"2026-05-26\"\n      /* Used for beacon config decoding in THOR */\n      xor_s1 = \"%02d/%02d/%02d %02d:%02d:%02d\"\n      xor_s2 = \"Started service %s on %s\"\n      xor_s3 = \"%s as %s\\\\%s: %d\"\n      id = \"359160a8-cf1c-58a8-bf7f-c09a8d661308\"\n   strings:\n      $s1 = \"%02d/%02d/%02d %02d:%02d:%02d\" xor(0x01-0xff)\n      $s2 = \"Started service %s on %s\" xor(0x01-0xff)\n      $s3 = \"%s as %s\\\\%s: %d\" xor(0x01-0xff)\n\n      $fp1 = \"MalwareRemovalTool\" ascii wide\n      $fp2 = \"advanced malware removal tool\" ascii wide\n   condition:\n      2 of ($s*) and not 1 of ($fp*)\n}\n\nrule HKTL_CobaltStrike_Beacon_4_2_Decrypt {\n   meta:\n      author = \"Elastic\"\n      description = \"Identifies deobfuscation routine used in Cobalt Strike Beacon DLL version 4.2\"\n      reference = \"https://www.elastic.co/blog/detecting-cobalt-strike-with-memory-signatures\"\n      date = \"2021-03-16\"\n      id = \"63b71eef-0af5-5765-b957-ccdc9dde053b\"\n   strings:\n      $a_x64 = { 4C 8B 53 08 45 8B 0A 45 8B 5A 04 4D 8D 52 08 45 85 C9 75 05 45 85 DB 74 33 45 3B CB 73 E6 49 8B F9 4C 8B 03 }\n      $a_x86 = { 8B 46 04 8B 08 8B 50 04 83 C0 08 89 55 08 89 45 0C 85 C9 75 04 85 D2 74 23 3B CA 73 E6 8B 06 8D 3C 08 33 D2 }\n   condition:\n      any of them\n}\n\nrule HKTL_Win_CobaltStrike: Commodity {\n   meta:\n      author = \"threatintel@volexity.com\"\n      date = \"2021-05-25\"\n      description = \"The CobaltStrike malware family.\"\n      hash = \"b041efb8ba2a88a3d172f480efa098d72eef13e42af6aa5fb838e6ccab500a7c\"\n      reference = \"https://www.volexity.com/blog/2021/05/27/suspected-apt29-operation-launches-election-fraud-themed-phishing-campaigns/\"\n      id = \"113ba304-261f-5c59-bc56-57515c239b6d\"\n   strings:\n      $s1 = \"%s (admin)\" fullword\n      $s2 = { 48 54 54 50 2F 31 2E 31 20 32 30 30 20 4F 4B 0D 0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 61 70 70 6C 69 63 61 74 69 6F 6E 2F 6F 63 74 65 74 2D 73 74 72 65 61 6D 0D 0A 43 6F 6E 74 65 6E 74 2D 4C 65 6E 67 74 68 3A 20 25 64 0D 0A 0D 0A 00 }\n      $s3 = \"%02d/%02d/%02d %02d:%02d:%02d\" fullword\n      $s4 = \"%s as %s\\\\%s: %d\" fullword\n      $s5 = \"%s&%s=%s\" fullword\n      $s6 = \"rijndael\" fullword\n      $s7 = \"(null)\"\n   condition:\n      all of them\n}\n"
+}

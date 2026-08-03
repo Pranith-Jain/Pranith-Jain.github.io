@@ -1,0 +1,85 @@
+{
+  "slug": "crime_nansh0u",
+  "filename": "crime_nansh0u.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "YARA Rule Set\n   Author: Florian Roth\n   Date: 2019-05-31\n   Identifier: Nansh0u\n   Reference: https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/\n   License = CC BY-NC 4.0 https://creativecommons.org/licenses/by-nc/4.0/",
+  "rules": [
+    {
+      "name": "HKTL_CN_ProcHook_May19_1",
+      "meta": {
+        "description": "Detects hacktool used by Chinese threat groups",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/",
+        "date": "2019-05-31",
+        "hash1": "02ebdc1ff6075c15a44711ccd88be9d6d1b47607fea17bef7e5e17f8da35293e",
+        "id": "ae4e2613-8254-5ea6-af88-2f08ebe4da33"
+      }
+    },
+    {
+      "name": "SUSP_PDB_CN_Threat_Actor_May19_1",
+      "meta": {
+        "description": "Detects PDB path user name used by Chinese threat actors",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/",
+        "date": "2019-05-31",
+        "score": "65",
+        "hash1": "01c3882e8141a25abe37bb826ab115c52fd3d109c4a1b898c0c78cee8dac94b4",
+        "id": "fc6969ed-5fc1-5b3b-9659-c6fc1c9e2f9c"
+      }
+    },
+    {
+      "name": "MAL_Ramnit_May19_1",
+      "meta": {
+        "description": "Detects Ramnit malware",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/",
+        "date": "2019-05-31",
+        "hash1": "d7ec3fcd80b3961e5bab97015c91c843803bb915c13a4a35dfb5e9bdf556c6d3",
+        "id": "f8fa3557-556e-5680-9f1a-2ecf118ade75"
+      }
+    },
+    {
+      "name": "MAL_Parite_Malware_May19_1",
+      "meta": {
+        "description": "Detects Parite malware",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/",
+        "date": "2019-05-31",
+        "score": "80",
+        "hash1": "c9d8852745e81f3bfc09c0a3570d018ae8298af675e3c6ee81ba5b594ff6abb8",
+        "hash2": "8d47b08504dcf694928e12a6aa372e7fa65d0d6744429e808ff8e225aefa5af2",
+        "hash3": "285e3f21dd1721af2352196628bada81050e4829fb1bb3f8757a45c221737319",
+        "hash4": "b987dcc752d9ceb3b0e6cd4370c28567be44b789e8ed8a90c41aa439437321c5",
+        "id": "f4c9da17-9894-5243-828a-827accb0bac5"
+      }
+    },
+    {
+      "name": "MAL_Parite_Malware_May19_2",
+      "meta": {
+        "description": "Detects Parite malware based on Imphash",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/",
+        "date": "2019-05-31",
+        "hash1": "c9d8852745e81f3bfc09c0a3570d018ae8298af675e3c6ee81ba5b594ff6abb8",
+        "hash2": "8d47b08504dcf694928e12a6aa372e7fa65d0d6744429e808ff8e225aefa5af2",
+        "hash3": "285e3f21dd1721af2352196628bada81050e4829fb1bb3f8757a45c221737319",
+        "hash4": "b987dcc752d9ceb3b0e6cd4370c28567be44b789e8ed8a90c41aa439437321c5",
+        "id": "33970268-610c-5abf-9e9e-83dae0c81064"
+      }
+    },
+    {
+      "name": "EXPL_Strings_CVE_POC_May19_1",
+      "meta": {
+        "description": "Detects strings used in CVE POC noticed in May 2019",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/",
+        "date": "2019-05-31",
+        "score": "80",
+        "hash1": "01c3882e8141a25abe37bb826ab115c52fd3d109c4a1b898c0c78cee8dac94b4",
+        "id": "df11e0b1-e907-5a24-a3e7-0e78acb379f7"
+      }
+    }
+  ],
+  "body": "/*\n   YARA Rule Set\n   Author: Florian Roth\n   Date: 2019-05-31\n   Identifier: Nansh0u\n   Reference: https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/\n   License = CC BY-NC 4.0 https://creativecommons.org/licenses/by-nc/4.0/\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\n\nimport \"pe\"\n\nrule MAL_XMR_Miner_May19_1 : HIGHVOL {\n   meta:\n      description = \"Detects Monero Crypto Coin Miner\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/\"\n      date = \"2019-05-31\"\n      score = 85\n      hash1 = \"d6df423efb576f167bc28b3c08d10c397007ba323a0de92d1e504a3f490752fc\"\n      id = \"233d1d47-de67-55a9-ae7e-46b5dd34e6ce\"\n   strings:\n      $x1 = \"donate.ssl.xmrig.com\" fullword ascii\n      $x2 = \"* COMMANDS     'h' hashrate, 'p' pause, 'r' resume\" fullword ascii\n\n      $s1 = \"[%s] login error code: %d\" fullword ascii\n      $s2 = \"\\\\\\\\?\\\\pipe\\\\uv\\\\%p-%lu\" fullword ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 14000KB and (\n         pe.imphash() == \"25d9618d1e16608cd5d14d8ad6e1f98e\" or\n         1 of ($x*) or\n         2 of them\n      )\n}\n\nrule HKTL_CN_ProcHook_May19_1 {\n   meta:\n      description = \"Detects hacktool used by Chinese threat groups\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/\"\n      date = \"2019-05-31\"\n      hash1 = \"02ebdc1ff6075c15a44711ccd88be9d6d1b47607fea17bef7e5e17f8da35293e\"\n      id = \"ae4e2613-8254-5ea6-af88-2f08ebe4da33\"\n   condition:\n      uint16(0) == 0x5a4d and filesize < 300KB and\n      pe.imphash() == \"343d580dd50ee724746a5c28f752b709\"\n}\n\n\nrule SUSP_PDB_CN_Threat_Actor_May19_1 {\n   meta:\n      description = \"Detects PDB path user name used by Chinese threat actors\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/\"\n      date = \"2019-05-31\"\n      score = 65\n      hash1 = \"01c3882e8141a25abe37bb826ab115c52fd3d109c4a1b898c0c78cee8dac94b4\"\n      id = \"fc6969ed-5fc1-5b3b-9659-c6fc1c9e2f9c\"\n   strings:\n      $x1 = \"C:\\\\Users\\\\zcg\\\\Desktop\\\\\" ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 400KB and 1 of them\n}\n\nrule MAL_Ramnit_May19_1 {\n   meta:\n      description = \"Detects Ramnit malware\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/\"\n      date = \"2019-05-31\"\n      hash1 = \"d7ec3fcd80b3961e5bab97015c91c843803bb915c13a4a35dfb5e9bdf556c6d3\"\n      id = \"f8fa3557-556e-5680-9f1a-2ecf118ade75\"\n   condition:\n      uint16(0) == 0x5a4d and filesize < 300KB\n      and pe.imphash() == \"500cd02578808f964519eb2c85153046\"\n}\n\nrule MAL_Parite_Malware_May19_1 {\n   meta:\n      description = \"Detects Parite malware\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/\"\n      date = \"2019-05-31\"\n      score = 80\n      hash1 = \"c9d8852745e81f3bfc09c0a3570d018ae8298af675e3c6ee81ba5b594ff6abb8\"\n      hash2 = \"8d47b08504dcf694928e12a6aa372e7fa65d0d6744429e808ff8e225aefa5af2\"\n      hash3 = \"285e3f21dd1721af2352196628bada81050e4829fb1bb3f8757a45c221737319\"\n      hash4 = \"b987dcc752d9ceb3b0e6cd4370c28567be44b789e8ed8a90c41aa439437321c5\"\n      id = \"f4c9da17-9894-5243-828a-827accb0bac5\"\n   strings:\n      $s1 = \"taskkill /im cmd.exe /f\" fullword ascii\n      $s2 = \"LOADERX64.dll\" fullword ascii\n\n      $x1 = \"\\\\dllhot.exe\" ascii\n      $x2 = \"dllhot.exe --auto --any --forever --keepalive\" fullword ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 10000KB and ( 1 of ($x*) or 2 of them )\n}\n\nrule MAL_Parite_Malware_May19_2 {\n   meta:\n      description = \"Detects Parite malware based on Imphash\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/\"\n      date = \"2019-05-31\"\n      hash1 = \"c9d8852745e81f3bfc09c0a3570d018ae8298af675e3c6ee81ba5b594ff6abb8\"\n      hash2 = \"8d47b08504dcf694928e12a6aa372e7fa65d0d6744429e808ff8e225aefa5af2\"\n      hash3 = \"285e3f21dd1721af2352196628bada81050e4829fb1bb3f8757a45c221737319\"\n      hash4 = \"b987dcc752d9ceb3b0e6cd4370c28567be44b789e8ed8a90c41aa439437321c5\"\n      id = \"33970268-610c-5abf-9e9e-83dae0c81064\"\n   condition:\n      uint16(0) == 0x5a4d and filesize < 18000KB and (\n         pe.imphash() == \"b132a2719be01a6ef87d9939d785e19e\" or\n         pe.imphash() == \"78f4f885323ffee9f8fa011455d0523d\"\n      )\n}\n\nrule EXPL_Strings_CVE_POC_May19_1 {\n   meta:\n      description = \"Detects strings used in CVE POC noticed in May 2019\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.guardicore.com/2019/05/nansh0u-campaign-hackers-arsenal-grows-stronger/\"\n      date = \"2019-05-31\"\n      score = 80\n      hash1 = \"01c3882e8141a25abe37bb826ab115c52fd3d109c4a1b898c0c78cee8dac94b4\"\n      id = \"df11e0b1-e907-5a24-a3e7-0e78acb379f7\"\n   strings:\n      $x1 = \"\\\\Debug\\\\poc_cve_20\" ascii\n      $x2 = \"\\\\Release\\\\poc_cve_20\" ascii\n      $x3 = \"alloc fake fail: %x!\" fullword ascii\n      $x4 = \"Allocate fake tagWnd fail!\" fullword ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 400KB and 1 of them\n}\n"
+}

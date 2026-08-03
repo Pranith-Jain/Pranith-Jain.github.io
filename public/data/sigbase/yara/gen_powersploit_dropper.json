@@ -1,0 +1,21 @@
+{
+  "slug": "gen_powersploit_dropper",
+  "filename": "gen_powersploit_dropper.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "HKTL_PowerSploit",
+      "meta": {
+        "description": "Detects default strings used by PowerSploit to establish persistence",
+        "author": "Markus Neis",
+        "reference": "https://www.hybrid-analysis.com/sample/16937e76db6d88ed0420ee87317424af2d4e19117fe12d1364fee35aa2fadb75?environmentId=100",
+        "date": "2018-06-23",
+        "hash1": "16937e76db6d88ed0420ee87317424af2d4e19117fe12d1364fee35aa2fadb75",
+        "id": "8cb0753c-c5bb-56fc-b492-4e785f4bdaf4"
+      }
+    }
+  ],
+  "body": "rule HKTL_PowerSploit {\n   meta:\n      description = \"Detects default strings used by PowerSploit to establish persistence\"\n      author = \"Markus Neis\"\n      reference = \"https://www.hybrid-analysis.com/sample/16937e76db6d88ed0420ee87317424af2d4e19117fe12d1364fee35aa2fadb75?environmentId=100\" /*MuddyWater*/\n      date = \"2018-06-23\"\n      hash1 = \"16937e76db6d88ed0420ee87317424af2d4e19117fe12d1364fee35aa2fadb75\"\n      id = \"8cb0753c-c5bb-56fc-b492-4e785f4bdaf4\"\n   strings:\n      $ps = \"function\" nocase ascii wide\n      $s1 = \"/Create /RU system /SC ONLOGON\" ascii wide\n      $s2 = \"SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run\" ascii wide\n   condition:\n      all of them\n}\n"
+}

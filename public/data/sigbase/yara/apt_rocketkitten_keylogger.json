@@ -1,0 +1,24 @@
+{
+  "slug": "apt_rocketkitten_keylogger",
+  "filename": "apt_rocketkitten_keylogger.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n\tAuthor: Florian Roth\n\tDate: 2015-09-01\n\tIdentifier: Rocket Kitten Keylogger",
+  "rules": [
+    {
+      "name": "RocketKitten_Keylogger",
+      "meta": {
+        "description": "Detects Keylogger used in Rocket Kitten APT",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/SjQhlp",
+        "date": "2015-09-01",
+        "super_rule": "1",
+        "hash1": "1c9e519dca0468a87322bebe2a06741136de7969a4eb3efda0ab8db83f0807b4",
+        "hash2": "495a15f9f30d6f6096a97c2bd8cc5edd4d78569b8d541b1d5a64169f8109bc5b",
+        "id": "558341db-a30d-586e-8efc-0fff1d8f94a1"
+      }
+    }
+  ],
+  "body": "/*\n\tYara Rule Set\n\tAuthor: Florian Roth\n\tDate: 2015-09-01\n\tIdentifier: Rocket Kitten Keylogger\n*/\n\nrule RocketKitten_Keylogger {\n\tmeta:\n\t\tdescription = \"Detects Keylogger used in Rocket Kitten APT\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\treference = \"https://goo.gl/SjQhlp\"\n\t\tdate = \"2015-09-01\"\n\t\tsuper_rule = 1\n\t\thash1 = \"1c9e519dca0468a87322bebe2a06741136de7969a4eb3efda0ab8db83f0807b4\"\n\t\thash2 = \"495a15f9f30d6f6096a97c2bd8cc5edd4d78569b8d541b1d5a64169f8109bc5b\"\n\t\tid = \"558341db-a30d-586e-8efc-0fff1d8f94a1\"\n\tstrings:\n\t\t$x1 = \"\\\\Release\\\\CWoolger.pdb\" ascii\n\t\t$x2 = \"WoolenLoger\\\\obj\\\\x86\\\\Release\" ascii\n\t\t$x3 = \"D:\\\\Yaser Logers\\\\\"\n\t\t\n\t\t$z1 = \"woolger\" fullword wide\n\n\t\t$s1 = \"oShellLink.TargetPath = \\\"\" fullword ascii\n\t\t$s2 = \"wscript.exe \" fullword ascii\n\t\t$s3 = \"strSTUP = WshShell.SpecialFolders(\\\"Startup\\\")\" fullword ascii\n\t\t$s4 = \"[CapsLock]\" fullword ascii\n\tcondition:\n\t\t/* File detection */\n\t\t(uint16(0) == 0x5a4d and filesize < 200KB and (1 of ($x*) or ($z1 and 2 of ($s*)))) or\n\t\t/* Memory detection */\n\t\t($z1 and all of ($s*)) \n}\n"
+}

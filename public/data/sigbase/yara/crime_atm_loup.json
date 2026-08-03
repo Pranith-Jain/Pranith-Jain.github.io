@@ -1,0 +1,21 @@
+{
+  "slug": "crime_atm_loup",
+  "filename": "crime_atm_loup.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "slightly modified by Florian Roth - removed the nocase statements for lower memory usage",
+  "rules": [
+    {
+      "name": "ATM_Malware_Loup",
+      "meta": {
+        "description": "Detects ATM Malware Loup",
+        "author": "Frank Boldewin (@r3c0nst)",
+        "reference": "https://twitter.com/r3c0nst/status/1295275546780327936",
+        "date": "2020-08-17",
+        "hash": "6c9e9f78963ab3e7acb43826906af22571250dc025f9e7116e0201b805dc1196",
+        "id": "2215a93f-d854-5f9b-b5cd-53962c45db08"
+      }
+    }
+  ],
+  "body": "/* slightly modified by Florian Roth - removed the nocase statements for lower memory usage */\n\nrule ATM_Malware_Loup {\n\tmeta:\n\t\tdescription = \"Detects ATM Malware Loup\"\n\t\tauthor = \"Frank Boldewin (@r3c0nst)\"\n\t\treference = \"https://twitter.com/r3c0nst/status/1295275546780327936\"\n\t\tdate = \"2020-08-17\"\n\t\thash = \"6c9e9f78963ab3e7acb43826906af22571250dc025f9e7116e0201b805dc1196\"\n\t\t\n\t\tid = \"2215a93f-d854-5f9b-b5cd-53962c45db08\"\n\tstrings:\n\t\t$String1 = \"C:\\\\Users\\\\muham\\\\source\\\\repos\\\\loup\\\\Debug\\\\loup.pdb\" ascii /* nocase */\n\t\t$String2 = \"CurrencyDispenser1\" ascii /* nocase */\n\t\t$Code = {50 68 C0 D4 01 00 8D 4D E8 51 68 2E 01 00 00 0F B7 55 08 52 E8} // Dispense\n\t\t\n\tcondition:\n\t\tuint16(0) == 0x5A4D and filesize < 100KB and all of ($String*) and $Code\n}"
+}

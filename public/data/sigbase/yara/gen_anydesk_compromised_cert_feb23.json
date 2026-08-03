@@ -1,0 +1,54 @@
+{
+  "slug": "gen_anydesk_compromised_cert_feb23",
+  "filename": "gen_anydesk_compromised_cert_feb23.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "PUA_AnyDesk_Compromised_Certificate_Revoked_Jan24",
+      "meta": {
+        "description": "Detects binaries signed with a compromised signing certificate of AnyDesk (philandro Software GmbH, 0DBF152DEAF0B981A8A938D53F769DB8) after it was revoked. This is not a threat detection. It detects an outdated version of AnyDesk that was signed with a certificate that has been revoked.",
+        "date": "2024-02-05",
+        "author": "Florian Roth",
+        "reference": "https://anydesk.com/en/public-statement",
+        "score": "50",
+        "id": "eeefc9a5-1416-544b-b95e-c063000a4028"
+      }
+    },
+    {
+      "name": "SUSP_AnyDesk_Compromised_Certificate_Jan24_1",
+      "meta": {
+        "description": "Detects binaries signed with a compromised signing certificate of AnyDesk that aren't AnyDesk itself (philandro Software GmbH, 0DBF152DEAF0B981A8A938D53F769DB8; strict version)",
+        "date": "2024-02-02",
+        "author": "Florian Roth",
+        "reference": "https://anydesk.com/en/public-statement",
+        "score": "75",
+        "id": "8d172b04-f7f7-54df-b30c-3ee17d3cca12"
+      }
+    },
+    {
+      "name": "SUSP_AnyDesk_Compromised_Certificate_Jan24_2",
+      "meta": {
+        "description": "Detects binaries signed with a compromised signing certificate of AnyDesk that aren't AnyDesk itself (philandro Software GmbH, 0DBF152DEAF0B981A8A938D53F769DB8; permissive version)",
+        "date": "2024-02-02",
+        "author": "Florian Roth",
+        "reference": "https://anydesk.com/en/public-statement",
+        "score": "65",
+        "id": "a41af8d8-ebdf-5a2f-8cf5-abd4587bdfc5"
+      }
+    },
+    {
+      "name": "SUSP_AnyDesk_Compromised_Certificate_Jan24_3",
+      "meta": {
+        "description": "Detects binaries signed with a compromised signing certificate of AnyDesk after it was revoked (philandro Software GmbH, 0DBF152DEAF0B981A8A938D53F769DB8; version that uses dates for validation)",
+        "date": "2024-02-02",
+        "author": "Florian Roth",
+        "reference": "https://anydesk.com/en/public-statement",
+        "score": "75",
+        "id": "9610e61c-25d7-53e8-ba3f-b78b3d108aa3"
+      }
+    }
+  ],
+  "body": "import \"pe\"\n\nrule PUA_AnyDesk_Compromised_Certificate_Revoked_Jan24 {\n   meta:\n      description = \"Detects binaries signed with a compromised signing certificate of AnyDesk (philandro Software GmbH, 0DBF152DEAF0B981A8A938D53F769DB8) after it was revoked. This is not a threat detection. It detects an outdated version of AnyDesk that was signed with a certificate that has been revoked.\"\n      date = \"2024-02-05\"\n      author = \"Florian Roth\"\n      reference = \"https://anydesk.com/en/public-statement\"\n      score = 50\n      id = \"eeefc9a5-1416-544b-b95e-c063000a4028\"\n   condition:\n      uint16(0) == 0x5a4d \n      and for any i in (0 .. pe.number_of_signatures) : (\n         pe.signatures[i].issuer contains \"DigiCert Trusted G4 Code Signing RSA4096 SHA384 2021 CA1\" and\n         pe.signatures[i].serial == \"0d:bf:15:2d:ea:f0:b9:81:a8:a9:38:d5:3f:76:9d:b8\"\n      )\n}\n\nrule SUSP_AnyDesk_Compromised_Certificate_Jan24_1 {\n   meta:\n      description = \"Detects binaries signed with a compromised signing certificate of AnyDesk that aren't AnyDesk itself (philandro Software GmbH, 0DBF152DEAF0B981A8A938D53F769DB8; strict version)\"\n      date = \"2024-02-02\"\n      author = \"Florian Roth\"\n      reference = \"https://anydesk.com/en/public-statement\"\n      score = 75\n      id = \"8d172b04-f7f7-54df-b30c-3ee17d3cca12\"\n   strings:\n      $a1 = \"AnyDesk Software GmbH\" wide\n   condition:\n      uint16(0) == 0x5a4d \n      and not $a1\n      and for any i in (0 .. pe.number_of_signatures) : (\n         pe.signatures[i].issuer contains \"DigiCert Trusted G4 Code Signing RSA4096 SHA384 2021 CA1\" and\n         pe.signatures[i].serial == \"0d:bf:15:2d:ea:f0:b9:81:a8:a9:38:d5:3f:76:9d:b8\"\n      )\n}\n\nrule SUSP_AnyDesk_Compromised_Certificate_Jan24_2 {\n   meta:\n      description = \"Detects binaries signed with a compromised signing certificate of AnyDesk that aren't AnyDesk itself (philandro Software GmbH, 0DBF152DEAF0B981A8A938D53F769DB8; permissive version)\"\n      date = \"2024-02-02\"\n      author = \"Florian Roth\"\n      reference = \"https://anydesk.com/en/public-statement\"\n      score = 65\n      id = \"a41af8d8-ebdf-5a2f-8cf5-abd4587bdfc5\"\n   strings:\n      $sc1 = { 0D BF 15 2D EA F0 B9 81 A8 A9 38 D5 3F 76 9D B8 }\n      $s2 = \"DigiCert Trusted G4 Code Signing RSA4096 SHA384 2021 CA1\"\n\n      $f1 = \"AnyDesk Software GmbH\" wide\n   condition:\n      uint16(0) == 0x5a4d\n      and filesize < 20000KB\n      and all of ($s*)\n      and not 1 of ($f*)\n}\n\nrule SUSP_AnyDesk_Compromised_Certificate_Jan24_3 {\n   meta:\n      description = \"Detects binaries signed with a compromised signing certificate of AnyDesk after it was revoked (philandro Software GmbH, 0DBF152DEAF0B981A8A938D53F769DB8; version that uses dates for validation)\"\n      date = \"2024-02-02\"\n      author = \"Florian Roth\"\n      reference = \"https://anydesk.com/en/public-statement\"\n      score = 75\n      id = \"9610e61c-25d7-53e8-ba3f-b78b3d108aa3\"\n   condition:\n      uint16(0) == 0x5a4d and\n      for any i in (0 .. pe.number_of_signatures) : (\n         pe.signatures[i].issuer contains \"DigiCert Trusted G4 Code Signing RSA4096 SHA384 2021 CA1\" and\n         pe.signatures[i].serial == \"0d:bf:15:2d:ea:f0:b9:81:a8:a9:38:d5:3f:76:9d:b8\" and\n         // valid after Monday, January 29, 2024 0:00:00\n         (\n            pe.signatures[i].not_before > 1706486400 // certificate validity starts after it was revoked\n            or pe.timestamp > 1706486400 // PE was created after it was revoked\n         )\n      )\n}\n"
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "gen_regsrv32_issue",
+  "filename": "gen_regsrv32_issue.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "moved to yara_mixed_ext_vars.yar",
+  "rules": [],
+  "body": "/* moved to yara_mixed_ext_vars.yar */\n"
+}

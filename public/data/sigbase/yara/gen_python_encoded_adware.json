@@ -1,0 +1,22 @@
+{
+  "slug": "gen_python_encoded_adware",
+  "filename": "gen_python_encoded_adware.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "gen_python_encoded_adware",
+      "meta": {
+        "description": "Encoded Python payload for adware",
+        "author": "John Lambert @JohnLaTwC",
+        "date": "2018-03-07",
+        "modified": "2023-01-06",
+        "hash": "5d7239be779367e69d2e63ffd9dc6e2a1f79c4e5c6c725e8c5e59a44c0ab2fff",
+        "reference": "https://twitter.com/JohnLaTwC/status/949048002466914304",
+        "id": "7b4b422b-c960-5ab3-a6a7-a30e416efdec"
+      }
+    }
+  ],
+  "body": "rule gen_python_encoded_adware\n{\n    meta: \n        description = \"Encoded Python payload for adware\"\n        author = \"John Lambert @JohnLaTwC\"\n        date = \"2018-03-07\"\n        modified = \"2023-01-06\"\n        hash = \"5d7239be779367e69d2e63ffd9dc6e2a1f79c4e5c6c725e8c5e59a44c0ab2fff\"\n        reference = \"https://twitter.com/JohnLaTwC/status/949048002466914304\"\n        \n        id = \"7b4b422b-c960-5ab3-a6a7-a30e416efdec\"\n    strings:\n        $r1 = \"=__import__(\\\"base64\\\").b64decode\"\n        /* $r2 = \")))))\" */\n        $s1 = \"bytes(map(lambda\"\n        $s2 = \"[1]^\"\n    condition:\n        filesize < 100KB\n        and @r1 < 100\n        // and @r2 > (filesize - 30)\n        and all of them\n}\n"
+}

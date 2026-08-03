@@ -1,0 +1,21 @@
+{
+  "slug": "gen_vcruntime140_dll_sideloading",
+  "filename": "gen_vcruntime140_dll_sideloading.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_VCRuntime_Sideloading_Indicators_Aug23",
+      "meta": {
+        "description": "Detects indicators of .NET based malware sideloading as VCRUNTIME140 with .NET DLL imports",
+        "author": "Jonathan Peters",
+        "date": "2023-08-30",
+        "hash": "b4bc73dfe9a781e2fee4978127cb9257bc2ffd67fc2df00375acf329d191ffd6",
+        "score": "75",
+        "id": "00400122-1343-5051-af31-880a3ef1745d"
+      }
+    }
+  ],
+  "body": "import \"pe\" \n\nrule SUSP_VCRuntime_Sideloading_Indicators_Aug23 {\n   meta:\n      description = \"Detects indicators of .NET based malware sideloading as VCRUNTIME140 with .NET DLL imports\"\n      author = \"Jonathan Peters\"\n      date = \"2023-08-30\"\n      hash = \"b4bc73dfe9a781e2fee4978127cb9257bc2ffd67fc2df00375acf329d191ffd6\"\n      score = 75\n      id = \"00400122-1343-5051-af31-880a3ef1745d\"\n   condition:\n      (filename == \"VCRUNTIME140.dll\" or filename == \"vcruntime140.dll\")\n      and pe.imports(\"mscoree.dll\", \"_CorDllMain\")\n}\n\n// rule SUSP_VCRuntime_Sideloading_Indicators_1_Aug23 {\n//    meta:\n//       description = \"Detects indicators of .NET based malware sideloading as an unsigned VCRUNTIME140\"\n//       author = \"Jonathan Peters\"\n//       date = \"2023-08-30\"\n//       hash = \"b4bc73dfe9a781e2fee4978127cb9257bc2ffd67fc2df00375acf329d191ffd6\"\n//       score = 75\n//    strings:\n//       $fp1 = \"Wine builtin DLL\" ascii\n//    condition:\n//       (filename == \"VCRUNTIME140.dll\" or filename == \"vcruntime140.dll\")\n//       and not pe.number_of_signatures == 0\n//       and not pe.signatures[0].issuer contains \"Microsoft Corporation\"\n//       and not $fp1\n// }\n"
+}

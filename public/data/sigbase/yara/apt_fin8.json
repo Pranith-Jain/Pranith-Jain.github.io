@@ -1,0 +1,20 @@
+{
+  "slug": "apt_fin8",
+  "filename": "apt_fin8.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "Shellcode_APIHashing_FIN8",
+      "meta": {
+        "description": "Detects FIN8 Shellcode APIHashing",
+        "author": "Frank Boldewin (@r3c0nst)",
+        "date": "2021-03-16",
+        "reference": "https://www.bitdefender.com/files/News/CaseStudies/study/394/Bitdefender-PR-Whitepaper-BADHATCH-creat5237-en-EN.pdf",
+        "id": "bca5601c-2998-545b-8dd0-ec3c861e6291"
+      }
+    }
+  ],
+  "body": "rule Shellcode_APIHashing_FIN8 {\n\tmeta:\n\t\tdescription = \"Detects FIN8 Shellcode APIHashing\"\n\t\tauthor = \"Frank Boldewin (@r3c0nst)\"\n\t\tdate = \"2021-03-16\"\n\t\treference = \"https://www.bitdefender.com/files/News/CaseStudies/study/394/Bitdefender-PR-Whitepaper-BADHATCH-creat5237-en-EN.pdf\"\n\n\t\tid = \"bca5601c-2998-545b-8dd0-ec3c861e6291\"\n\tstrings:\n\t\t$APIHashing32bit1 = {81 F7 99 5D 52 69 81 F3 30 D7 00 AB} \n\t\t$APIHashing32bit2 = {68 F2 55 03 88 68 65 19 6D 1E} \n\t\t$APIHashing32bit3 = {68 9B 59 27 21 C1 E9 17 33 4C 24 10 68 37 5C 32 F4} \n\t\t\n\t\t$APIHashing64bit1 = {49 BF 65 19 6D 1E F2 55 03 88 49 BE 37 5C 32 F4 9B 59 27 21} \n\t\t$APIHashing64bit2 = {48 B8 99 5D 52 69 30 D7 00 AB}\n\t\t\n\tcondition:\n\t\tall of ($APIHashing32bit*) or all of ($APIHashing64bit*)\n}"
+}

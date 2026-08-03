@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-audio-precision-inc-2026-07-30",
+  "title": "Audio Precision, Inc",
+  "group": "Qilin",
+  "discovered": "2026-07-30T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "United States",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated in ransomware attack",
+  "source_url": "https://recentbreaches.com/breach/audio-precision-inc-qilin-2026-07",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["RecentBreaches.com"]
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "mal_netsha",
+  "filename": "mal_netsha.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [],
+  "body": "import \"pe\"\n\nrule MAL_Neshta_Generic : HIGHVOL {\n   meta:\n      description = \"Detects Neshta malware\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2018-01-15\"\n      modified = \"2021-04-14\"\n      hash1 = \"27c67eb1378c2fd054c6649f92ec8ee9bfcb6f790224036c974f6c883c46f586\"\n      hash1 = \"0283c0f02307adc4ee46c0382df4b5d7b4eb80114fbaf5cb7fe5412f027d165e\"\n      hash2 = \"b7f8233dafab45e3abbbb4f3cc76e6860fae8d5337fb0b750ea20058b56b0efb\"\n      hash3 = \"1954e06fc952a5a0328774aaf07c23970efd16834654793076c061dffb09a7eb\"\n      id = \"9a3b8369-7e19-5c21-9eba-0bb81507696a\"\n   strings:\n      $x1 = \"the best. Fuck off all the rest.\"\n      $x2 = \"! Best regards 2 Tommy Salo. [Nov-2005] yours [Dziadulja Apanas]\" fullword ascii\n\n      $s1 = \"Neshta\" ascii fullword\n      $s2 = \"Made in Belarus. \" ascii fullword\n\n      $op1 = { 85 c0 93 0f 85 62 ff ff ff 5e 5b 89 ec 5d c2 04 }\n      $op2 = { e8 e5 f1 ff ff 8b c3 e8 c6 ff ff ff 85 c0 75 0c }\n      $op3 = { eb 02 33 db 8b c3 5b c3 53 85 c0 74 15 ff 15 34 }\n\n      $sop1 = { e8 3c 2a ff ff b8 ff ff ff 7f eb 3e 83 7d 0c 00 }\n      $sop2 = { 2b c7 50 e8 a4 40 ff ff ff b6 88 }\n   condition:\n      uint16(0) == 0x5a4d and\n      filesize < 3000KB and (\n         1 of ($x*) or \n         all of ($s*) or \n         3 of them or \n         pe.imphash() == \"9f4693fc0c511135129493f2161d1e86\"\n      )\n}\n"
+}

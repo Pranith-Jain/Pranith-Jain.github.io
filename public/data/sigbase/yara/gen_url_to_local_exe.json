@@ -1,0 +1,22 @@
+{
+  "slug": "gen_url_to_local_exe",
+  "filename": "gen_url_to_local_exe.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "URL_File_Local_EXE",
+      "meta": {
+        "description": "Detects an .url file that points to a local executable",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://twitter.com/malwareforme/status/915300883012870144",
+        "date": "2017-10-04",
+        "score": "60",
+        "id": "8b157e98-7b69-5649-b1d8-40bd6b685bf6"
+      }
+    }
+  ],
+  "body": "rule URL_File_Local_EXE {\n   meta:\n      description = \"Detects an .url file that points to a local executable\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/malwareforme/status/915300883012870144\"\n      date = \"2017-10-04\"\n      score = 60\n      id = \"8b157e98-7b69-5649-b1d8-40bd6b685bf6\"\n   strings:\n      $s1 = \"[InternetShortcut]\" ascii wide fullword\n      $s2 = /URL=file:\\/\\/\\/C:\\\\[^\\n]{1,50}\\.exe/\n   condition:\n      filesize < 400 and all of them\n}\n"
+}

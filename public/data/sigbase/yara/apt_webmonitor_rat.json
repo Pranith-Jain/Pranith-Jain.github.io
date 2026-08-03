@@ -1,0 +1,23 @@
+{
+  "slug": "apt_webmonitor_rat",
+  "filename": "apt_webmonitor_rat.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_WebMonitor_RAT",
+      "meta": {
+        "description": "Detects WebMonitor RAT",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://researchcenter.paloaltonetworks.com/2018/04/unit42-say-cheese-webmonitor-rat-comes-c2-service-c2aas/",
+        "date": "2018-04-13",
+        "hash1": "27aaad8a7b3fd53d99077a9202e8bed05696c843ed2485bea6eb9e33a1c273ac",
+        "hash2": "05111c305028b5d822ecd12de9879560223c42860cc9d448c47886c236648607",
+        "id": "5378f22e-4bba-50e7-8374-5135e980e06b"
+      }
+    }
+  ],
+  "body": "rule MAL_WebMonitor_RAT {\n   meta:\n      description = \"Detects WebMonitor RAT\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://researchcenter.paloaltonetworks.com/2018/04/unit42-say-cheese-webmonitor-rat-comes-c2-service-c2aas/\"\n      date = \"2018-04-13\"\n      hash1 = \"27aaad8a7b3fd53d99077a9202e8bed05696c843ed2485bea6eb9e33a1c273ac\"\n      hash2 = \"05111c305028b5d822ecd12de9879560223c42860cc9d448c47886c236648607\"\n      id = \"5378f22e-4bba-50e7-8374-5135e980e06b\"\n   strings:\n      $x1 = \"send_keylog_stream_start\" fullword wide\n      $x2 = \"KEYLOG_STREAM_STOP\" fullword wide\n\n      $s1 = \"SHELL_EXEC\" fullword wide\n      $s2 = \"send_shell_exec\" fullword wide\n      $s3 = \"send_connections_get\" fullword wide\n\n      $a1 = \"Select * from Win32_PerfRawData_PerfProc_Process where IDProcess = '\" fullword wide\n      $a2 = \"Select * from Win32_Process WHERE handle =\" fullword wide\n      $a3 = \"Select * from Win32_Process where ProcessId=\" fullword wide\n      $a4 = \"Select * from Win32_ComputerSystem\" fullword wide\n      $a5 = \"The service is in the process of being continued\" fullword wide\n      $a6 = \"tcpdump\" fullword wide\n      $a7 = \"memdump\" fullword wide\n      $a8 = \"<val1>Processor</val1>\" fullword wide\n      $a9 = \"Win32 share process\" fullword wide\n   condition:\n      uint16(0) == 0x5a4d and filesize < 1000KB and (\n         1 of ($x*) or\n         ( 2 of ($s*) and 2 of ($a*) ) or\n         7 of them\n      )\n}\n"
+}

@@ -1,0 +1,60 @@
+{
+  "slug": "apt_casper",
+  "filename": "apt_casper.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "Casper_Backdoor_x86",
+      "meta": {
+        "description": "Casper French Espionage Malware - Win32/ProxyBot.B - x86 Payload http://goo.gl/VRJNLo",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://goo.gl/VRJNLo",
+        "date": "2015-03-05",
+        "modified": "2023-01-27",
+        "hash": "f4c39eddef1c7d99283c7303c1835e99d8e498b0",
+        "score": "80",
+        "id": "9e54f00c-74a7-56cc-87e5-8dec1233cbb5"
+      }
+    },
+    {
+      "name": "Casper_EXE_Dropper",
+      "meta": {
+        "description": "Casper French Espionage Malware - Win32/ProxyBot.B - Dropper http://goo.gl/VRJNLo",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://goo.gl/VRJNLo",
+        "date": "2015/03/05",
+        "hash": "e4cc35792a48123e71a2c7b6aa904006343a157a",
+        "score": "80",
+        "id": "a901d045-6f9b-57e8-8347-6f78178b7231"
+      }
+    },
+    {
+      "name": "Casper_Included_Strings",
+      "meta": {
+        "description": "Casper French Espionage Malware - String Match in File - http://goo.gl/VRJNLo",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://goo.gl/VRJNLo",
+        "date": "2015/03/06",
+        "score": "50",
+        "id": "34ba474d-0858-534a-8f32-db5a709e8814"
+      }
+    },
+    {
+      "name": "Casper_SystemInformation_Output",
+      "meta": {
+        "description": "Casper French Espionage Malware - System Info Output - http://goo.gl/VRJNLo",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://goo.gl/VRJNLo",
+        "date": "2015/03/06",
+        "score": "70",
+        "id": "aaae200c-7ef1-52eb-be5b-36e0ad29ecef"
+      }
+    }
+  ],
+  "body": "\n/* State-sponsored Casper Malware Rules by @4nc4p - attribution and analysis by @pinkflawd @r00tbsd @circl_lu */\n\nrule Casper_Backdoor_x86 {\n   meta:\n      description = \"Casper French Espionage Malware - Win32/ProxyBot.B - x86 Payload http://goo.gl/VRJNLo\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"http://goo.gl/VRJNLo\"\n      date = \"2015-03-05\"\n      modified = \"2023-01-27\"\n      hash = \"f4c39eddef1c7d99283c7303c1835e99d8e498b0\"\n      score = 80\n      id = \"9e54f00c-74a7-56cc-87e5-8dec1233cbb5\"\n   strings:\n      $s1 = \"\\\"svchost.exe\\\"\" fullword wide\n      $s2 = \"firefox.exe\" fullword ascii\n      $s3 = \"\\\"Host Process for Windows Services\\\"\" fullword wide\n\n      $x1 = \"\\\\Users\\\\*\" ascii\n      $x2 = \"\\\\Roaming\\\\Mozilla\\\\Firefox\\\\Profiles\\\\*\" ascii\n      $x3 = \"\\\\Mozilla\\\\Firefox\\\\Profiles\\\\*\" ascii\n      $x4 = \"\\\\Documents and Settings\\\\*\" ascii\n\n      $y1 = \"%s; %S=%S\" fullword wide\n      $y2 = \"%s; %s=%s\" fullword ascii\n      $y3 = \"Cookie: %s=%s\" fullword ascii\n      $y4 = \"http://%S:%d\" fullword wide\n\n      $z1 = \"http://google.com/\" ascii\n      $z2 = \"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; MALC)\" fullword ascii\n      $z3 = \"Operating System\\\"\" fullword wide\n   condition:\n      ( filesize < 250KB and all of ($s*) ) or\n      ( 3 of ($x*) and 2 of ($y*) and 2 of ($z*) )\n}\n\nrule Casper_EXE_Dropper {\n\tmeta:\n\t\tdescription = \"Casper French Espionage Malware - Win32/ProxyBot.B - Dropper http://goo.gl/VRJNLo\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\treference = \"http://goo.gl/VRJNLo\"\n\t\tdate = \"2015/03/05\"\n\t\thash = \"e4cc35792a48123e71a2c7b6aa904006343a157a\"\n\t\tscore = 80\n\t\tid = \"a901d045-6f9b-57e8-8347-6f78178b7231\"\n\tstrings:\n\t\t$s0 = \"<Command>\" fullword ascii\n\t\t$s1 = \"</Command>\" fullword ascii\n\t\t$s2 = \"\\\" /d \\\"\" fullword ascii\n\t\t$s4 = \"'%s' %s\" fullword ascii\n\t\t$s5 = \"nKERNEL32.DLL\" fullword wide\n\t\t$s6 = \"@ReturnValue\" fullword wide\n\t\t$s7 = \"ID: 0x%x\" fullword ascii\n\t\t$s8 = \"Name: %S\" fullword ascii\n\tcondition:\n\t\t7 of them\n}\n\nrule Casper_Included_Strings {\n\tmeta:\n\t\tdescription = \"Casper French Espionage Malware - String Match in File - http://goo.gl/VRJNLo\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\treference = \"http://goo.gl/VRJNLo\"\n\t\tdate = \"2015/03/06\"\n\t\tscore = 50\n\t\tid = \"34ba474d-0858-534a-8f32-db5a709e8814\"\n\tstrings:\n\t\t$a0 = \"cmd.exe /C FOR /L %%i IN (1,1,%d) DO IF EXIST\"\n\t\t$a1 = \"& SYSTEMINFO) ELSE EXIT\"\n\n\t\t$c1 = \"domcommon.exe\" wide fullword\t\t\t\t\t\t\t// File Name\n\t\t$c2 = \"jpic.gov.sy\" fullword \t\t\t\t\t\t\t\t// C2 Server\n\t\t$c3 = \"aiomgr.exe\" wide fullword\t\t\t\t\t\t\t// File Name\n\t\t$c4 = \"perfaudio.dat\" fullword\t\t\t\t\t\t\t\t// Temp File Name\n\t\t$c5 = \"Casper_DLL.dll\" fullword\t\t\t\t\t\t\t\t// Name\n\t\t$c6 = { 7B 4B 59 DE 37 4A 42 26 59 98 63 C6 2D 0F 57 40 } \t// Decryption Key\n\t\t$c7 = \"{4216567A-4512-9825-7745F856}\" fullword \t\t\t\t// Mutex\n\tcondition:\n\t\tall of ($a*) or\n\t\tuint16(0) == 0x5a4d and ( 1 of ($c*) )\n}\n\nrule Casper_SystemInformation_Output {\n\tmeta:\n\t\tdescription = \"Casper French Espionage Malware - System Info Output - http://goo.gl/VRJNLo\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\treference = \"http://goo.gl/VRJNLo\"\n\t\tdate = \"2015/03/06\"\n\t\tscore = 70\n\t\tid = \"aaae200c-7ef1-52eb-be5b-36e0ad29ecef\"\n\tstrings:\n\t\t$a0 = \"***** SYSTEM INFORMATION ******\"\n\t\t$a1 = \"***** SECURITY INFORMATION ******\"\n\t\t$a2 = \"Antivirus: \"\n\t\t$a3 = \"Firewall: \"\n\t\t$a4 = \"***** EXECUTION CONTEXT ******\"\n\t\t$a5 = \"Identity: \"\n\t\t$a6 = \"<CONFIG TIMESTAMP=\"\n\tcondition:\n\t\tall of them\n}\n"
+}

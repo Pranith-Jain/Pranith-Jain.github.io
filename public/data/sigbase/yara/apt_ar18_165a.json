@@ -1,0 +1,64 @@
+{
+  "slug": "apt_ar18_165a",
+  "filename": "apt_ar18_165a.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "APT_HiddenCobra_enc_PK_header",
+      "meta": {
+        "author": "NCCIC trusted 3rd party - Edit: Tobias Michalski",
+        "incident": "10135536",
+        "date": "2018-04-12",
+        "category": "hidden_cobra",
+        "family": "TYPEFRAME",
+        "hash0": "3229a6cea658b1b3ca5ca9ad7b40d8d4",
+        "reference": "https://www.us-cert.gov/ncas/analysis-reports/AR18-165A",
+        "description": "Hidden Cobra - Detects trojan with encrypted header",
+        "id": "5d7001b3-162c-5a97-a740-1b8e33d4aa9e"
+      }
+    },
+    {
+      "name": "APT_HiddenCobra_import_obfuscation_2",
+      "meta": {
+        "author": "NCCIC trusted 3rd party - Edit: Tobias Michalski",
+        "incident": "10135536",
+        "date": "2018-04-12",
+        "category": "hidden_cobra",
+        "family": "TYPEFRAME",
+        "hash0": "bfb41bc0c3856aa0a81a5256b7b8da51",
+        "reference": "https://www.us-cert.gov/ncas/analysis-reports/AR18-165A",
+        "description": "Hidden Cobra - Detects remote access trojan",
+        "id": "bc139580-a55b-514f-8a4e-ca1402ce3ad9"
+      }
+    },
+    {
+      "name": "APT_NK_AR18_165A_HiddenCobra_import_deob",
+      "meta": {
+        "author": "NCCIC trusted 3rd party - Edit: Tobias Michalski",
+        "incident": "10135536",
+        "date": "2018-04-12",
+        "category": "hidden_cobra",
+        "family": "TYPEFRAME",
+        "md5": "e48fe20eblf5a5887f2ac631fed9ed63",
+        "reference": "https://www.us-cert.gov/ncas/analysis-reports/AR18-165A",
+        "description": "Hidden Cobra - Detects installed proxy module as a service",
+        "id": "f403d589-be35-57a7-9675-f92657c11acc"
+      }
+    },
+    {
+      "name": "APT_NK_AR18_165A_1",
+      "meta": {
+        "description": "Detects APT malware from AR18-165A report by US CERT",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.us-cert.gov/ncas/analysis-reports/AR18-165A",
+        "date": "2018-06-15",
+        "hash1": "089e49de61701004a5eff6de65476ed9c7632b6020c2c0f38bb5761bca897359",
+        "id": "45f5205d-7f69-5646-aef8-f95d139f9720"
+      }
+    }
+  ],
+  "body": "\nrule APT_HiddenCobra_enc_PK_header {\n   meta:\n      author = \"NCCIC trusted 3rd party - Edit: Tobias Michalski\"\n      incident = \"10135536\"\n      date = \"2018-04-12\"\n      category = \"hidden_cobra\"\n      family = \"TYPEFRAME\"\n      hash0 = \"3229a6cea658b1b3ca5ca9ad7b40d8d4\"\n      reference = \"https://www.us-cert.gov/ncas/analysis-reports/AR18-165A\"\n      description = \"Hidden Cobra - Detects trojan with encrypted header\"\n      id = \"5d7001b3-162c-5a97-a740-1b8e33d4aa9e\"\n   strings:\n      $s0 = { 5f a8 80 c5 a0 87 c7 f0 9e e6 }\n      $s1 = { 95 f1 6e 9c 3f c1 2c 88 a0 5a }\n      $s2 = { ae 1d af 74 c0 f5 e1 02 50 10 }\n   condition:\n      (uint16(0) == 0x5A4D and uint16(uint32(0x3c)) == 0x4550) and any of them\n}\n\nrule APT_HiddenCobra_import_obfuscation_2 {\n   meta:\n      author = \"NCCIC trusted 3rd party - Edit: Tobias Michalski\"\n      incident = \"10135536\"\n      date = \"2018-04-12\"\n      category = \"hidden_cobra\"\n      family = \"TYPEFRAME\"\n      hash0 = \"bfb41bc0c3856aa0a81a5256b7b8da51\"\n      reference = \"https://www.us-cert.gov/ncas/analysis-reports/AR18-165A\"\n      description = \"Hidden Cobra - Detects remote access trojan\"\n      id = \"bc139580-a55b-514f-8a4e-ca1402ce3ad9\"\n   strings:\n      $s0 = {A6 D6 02 EB 4E B2 41 EB C3 EF 1F}\n      $s1 = {B6 DF 01 FD 48 B5 }\n      $s2 = {B6 D5 0E F3 4E B5 }\n      $s3 = {B7 DF 0E EE }\n      $s4 = {B6 DF 03 FC }\n      $s5 = {A7 D3 03 FC }\n  condition:\n      (uint16(0) == 0x5A4D and uint16(uint32(0x3c)) == 0x4550) and all of them\n}\n\nrule APT_NK_AR18_165A_HiddenCobra_import_deob {\n   meta:\n      author = \"NCCIC trusted 3rd party - Edit: Tobias Michalski\"\n      incident = \"10135536\"\n      date = \"2018-04-12\"\n      category = \"hidden_cobra\"\n      family = \"TYPEFRAME\"\n      md5 = \"ae769e62fef4a1709c12c9046301aa5d\"\n      md5 = \"e48fe20eblf5a5887f2ac631fed9ed63\"\n      reference = \"https://www.us-cert.gov/ncas/analysis-reports/AR18-165A\"\n      description = \"Hidden Cobra - Detects installed proxy module as a service\"\n      id = \"f403d589-be35-57a7-9675-f92657c11acc\"\n   strings:\n      $ = { 8a 01 3c 62 7c 0a 3c 79 7f 06 b2 db 2a d0 88 11 8a 41 01 41 84 c0 75 e8}\n      $ = { 8A 08 80 F9 62 7C 0B 80 F9 79 7F 06 82 DB 2A D1 88 10 8A 48 01 40 84 C9 75 E6}\n   condition:\n      (uint16(0) == 0x5A4D and uint16(uint32(0x3c)) == 0x4550) and any of them\n}\n\nrule APT_NK_AR18_165A_1 {\n   meta:\n      description = \"Detects APT malware from AR18-165A report by US CERT\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.us-cert.gov/ncas/analysis-reports/AR18-165A\"\n      date = \"2018-06-15\"\n      hash1 = \"089e49de61701004a5eff6de65476ed9c7632b6020c2c0f38bb5761bca897359\"\n      id = \"45f5205d-7f69-5646-aef8-f95d139f9720\"\n   strings:\n      $s1 = \"netsh.exe advfirewall firewall add rule name=\\\"PortOpenning\\\" dir=in protocol=tcp localport=%d action=allow enable=yes\" fullword wide\n      $s2 = \"netsh.exe firewall add portopening TCP %d \\\"PortOpenning\\\" enable\" fullword wide\n   condition:\n      uint16(0) == 0x5a4d and filesize < 2000KB and 1 of them\n}\n"
+}

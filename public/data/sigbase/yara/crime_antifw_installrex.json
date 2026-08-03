@@ -1,0 +1,22 @@
+{
+  "slug": "crime_antifw_installrex",
+  "filename": "crime_antifw_installrex.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "PUP_InstallRex_AntiFWb",
+      "meta": {
+        "description": "Malware InstallRex / AntiFW",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "date": "2015-05-13",
+        "hash": "bb5607cd2ee51f039f60e32cf7edc4e21a2d95cd",
+        "score": "55",
+        "id": "b327527e-8b88-5292-933b-102bd76df4eb"
+      }
+    }
+  ],
+  "body": "\nrule PUP_InstallRex_AntiFWb {\n\tmeta:\n\t\tdescription = \"Malware InstallRex / AntiFW\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tdate = \"2015-05-13\"\n\t\thash = \"bb5607cd2ee51f039f60e32cf7edc4e21a2d95cd\"\n\t\tscore = 55\n\t\tid = \"b327527e-8b88-5292-933b-102bd76df4eb\"\n\tstrings:\n\t\t$s4 = \"Error %u while loading TSU.DLL %ls\" fullword ascii\n\t\t$s7 = \"GetModuleFileName() failed => %u\" fullword ascii\n\t\t$s8 = \"TSULoader.exe\" fullword wide\n\t\t$s15 = \"\\\\StringFileInfo\\\\%04x%04x\\\\Arguments\" wide\n\t\t$s17 = \"Tsu%08lX.dll\" fullword wide\n\tcondition:\n\t\tuint16(0) == 0x5a4d and all of them\n}\n"
+}

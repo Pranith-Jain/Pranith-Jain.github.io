@@ -1,0 +1,238 @@
+{
+  "slug": "apt_nk_andariel_jul24",
+  "filename": "apt_nk_andariel_jul24.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_APT_NK_Andariel_ScheduledTask_Loader",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects a scheduled task loader used by Andariel",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "80",
+        "id": "0c32758b-480c-5784-b28f-cee85d038850"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_KaosRAT_Yamabot",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects the KaosRAT variant",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "70",
+        "id": "cdde69cd-1b38-52f5-8552-cef2cf4ad69c"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_TriFaux_EasyRAT_JUPITER",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects a variant of the EasyRAT malware family",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "80",
+        "id": "8bd72287-59da-53cf-9015-66149303e59f"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_CutieDrop_MagicRAT",
+      "meta": {
+        "author": "CISA.gov (modified by Florian Roth, Nextron Systems)",
+        "description": "Detects the MagicRAT variant used by Andariel",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "80",
+        "id": "104244de-83fb-5112-a2b6-e20d38a6ced6"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_HHSD_FileTransferTool",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects a variant of the HHSD File Transfer Tool",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "modified": "2025-07-09",
+        "score": "70",
+        "id": "46b6dbaf-1272-5bbd-a586-5e48ba6c5022"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_Atharvan_3RAT",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects a variant of the Atharvan 3RAT malware family",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "80",
+        "id": "9ff6998a-a2dd-5671-bd3f-ee69561f71ef"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_LilithRAT_Variant",
+      "meta": {
+        "author": "CISA.gov (modified by Florian Roth, Nextron Systems)",
+        "description": "Detects a variant of the Lilith RAT malware family",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "modified": "2024-07-26",
+        "score": "80",
+        "id": "916a289b-db7b-5f09-9d3e-589c3f09101d"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_SocksTroy_Strings_OpCodes",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects a variant of the SocksTroy malware family",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "80",
+        "id": "9e7fb6ba-771e-5cae-a0d5-c0b95ee6d4e9"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_Agni",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects samples of the Agni malware family",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "80",
+        "id": "ffe3f427-c10a-5ad4-ab29-c0d9b576c30f"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_GoLang_Validalpha_Handshake",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects a variant of the GoLang Validalpha malware",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "75",
+        "id": "51dafa43-9da0-569a-9123-7e9800284046"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_GoLang_Validalpha_Tasks",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects a variant of the GoLang Validalpha malware",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "80",
+        "id": "caa67a79-3ea6-5910-971c-f311722570ff"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_GoLang_Validalpha_BlackString",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects a variant of the GoLang Validalpha malware based on a file path found in the samples",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "90",
+        "id": "36f46a1d-69b6-5c99-9a54-6a14d62d2721"
+      }
+    },
+    { "name": "MAL_APT_NK_INDICATOR_EXE_Packed_VMProtect", "meta": {} },
+    { "name": "MAL_APT_NK_INDICATOR_EXE_Packed_Themida", "meta": {} },
+    {
+      "name": "MAL_APT_NK_Andariel_ELF_Backdoor_Fipps",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects a Linux backdoor named Fipps used by Andariel",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "80",
+        "id": "040bca78-8b7e-5397-8a2b-1ddeed59eea3"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_BindShell",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects a BindShell used by Andariel",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "modified": "2026-01-29",
+        "score": "50",
+        "id": "3f6d83da-cea5-5e12-b0ba-93ace09d3d5c"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_Grease2",
+      "meta": {
+        "author": "CISA.gov (modified by Florian Roth, Nextron Systems)",
+        "description": "Detects the Grease2 malware family used by Andariel",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "modified": "2024-07-26",
+        "score": "80",
+        "id": "4defbe08-b3c6-5ab9-9a57-cec57ff42d9a"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_NoPineapple_Dtrack_Unpacked",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects the Dtrack variant used by Andariel",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "80",
+        "id": "6ccaf24b-c110-5788-a792-fa7f39fb18f7"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_DTrack_Unpacked",
+      "meta": {
+        "author": "CISA.gov (modified by Florian Roth, Nextron Systems)",
+        "description": "Detects DTrack variant used by Andariel",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "modified": "2024-07-26",
+        "score": "75",
+        "id": "0c161275-2b2e-51a4-9e08-c118fb4c8671"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_Andariel_TigerRAT_Crowdsourced_Rule",
+      "meta": {
+        "author": "CISA.gov (modified by Florian Roth, Nextron Systems)",
+        "description": "Detects the Tiger RAT variant used by Andariel",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "modified": "2024-07-26",
+        "score": "75",
+        "id": "6be65222-7d3c-5ff5-a9c7-d91dcf1deaa6"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_WIN_Tiger_RAT_Auto",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects the Tiger RAT variant used by Andariel",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "75",
+        "id": "4579af62-52be-5f5f-a577-16ec50297c05"
+      }
+    },
+    {
+      "name": "MAL_APT_NK_WIN_DTrack_Auto",
+      "meta": {
+        "author": "CISA.gov",
+        "description": "Detects DTrack variant used by Andariel",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a",
+        "date": "2024-07-25",
+        "score": "75",
+        "id": "1b40c685-beba-50fa-b484-c1526577cb23"
+      }
+    }
+  ],
+  "body": "import \"pe\"\n\nrule MAL_APT_NK_Andariel_ScheduledTask_Loader {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects a scheduled task loader used by Andariel\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 80\n      id = \"0c32758b-480c-5784-b28f-cee85d038850\"\n   strings:\n      $obfuscation1 = { B8 02 00 00 00 48 6B C0 00 B9 CD FF 00 00 66 89 8C 04 60 01 00 00 B8 02 00 00 00 48 6B C0 01 B9 CC FF 00 00 66 89 8C 04 60 01 00 00 B8 02 00 00 00 48 6B C0 02 B9 8D FF 00 00 66 89 8C 04 60 01 00 00 B8 02 00 00 00 48 6B C0 03 B9 9A FF 00 00 66 89 8C 04 60 01 00 00 B8 02 00 00 00 48 6B C0 04 B9 8C FF 00 00 66 89 8C 04 60 01 00 00 B8 02 00 00 00 48 6B C0 05 B9 8A FF 00 00 66 89 8C 04 60 01 00 00 B8 02 00 00 00 48 6B C0 06 33 C9 66 89 8C 04 60 01 00 00 }\n      $obfuscation2 = { 48 6B C0 02 C6 44 04 20 BA B8 01 00 00 00 48 6B C0 03 C6 44 04 20 9A B8 01 00 00 00 48 6B C0 04 C6 44 04 20 8B B8 01 00 00 00 48 6B C0 05 C6 44 04 20 8A B8 01 00 00 00 48 6B C0 06 C6 44 04 20 9C B8 01 00 00 00 }\n      $obfuscation3 = { 48 6B C0 00 C6 44 04 20 A8 B8 01 00 00 00 48 6B C0 01 C6 44 04 20 9A B8 01 00 00 00 48 6B C0 02 C6 44 04 20 93 B8 01 00 00 00 48 6B C0 03 C6 44 04 20 96 B8 01 00 00 00 48 6B C0 04 C6 44 04 20 B9 B8 01 00 00 00 48 6B C0 05 C6 44 04 20 9A B8 01 00 00 00 48 6B C0 06 C6 44 04 20 8B B8 01 00 00 00 48 6B C0 07 C6 44 04 20 9E B8 01 00 00 00 48 6B C0 08 C6 44 04 20 9A B8 01 00 00 00 48 6B C0 09 C6 44 04 20 8D B8 01 00 00 00 48 6B C0 0A C6 44 04 20 BC B8 01 00 00 00 }\n   condition:\n      uint16(0) == 0x5A4D\n      and $obfuscation1 and $obfuscation2 and $obfuscation3\n}\n\nrule MAL_APT_NK_Andariel_KaosRAT_Yamabot {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects the KaosRAT variant\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 70\n      id = \"cdde69cd-1b38-52f5-8552-cef2cf4ad69c\"\n   strings:\n      $str1 = \"/kaos/\"\n      $str2 = \"Abstand [\"\n      $str3 = \"] anwenden\"\n      $str4 = \"cmVjYXB0Y2hh\"\n      $str5 = \"/bin/sh\"\n      $str6 = \"utilities.CIpaddress\"\n      $str7 = \"engine.NewEgg\"\n      $str8 = \"%s%04x%s%s%s\"\n      $str9 = \"Y2FwdGNoYV9zZXNzaW9u\"\n      $str10 = \"utilities.EierKochen\"\n      $str11 = \"kandidatKaufhaus\"\n   condition:\n      3 of them\n}\n\nrule MAL_APT_NK_TriFaux_EasyRAT_JUPITER {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects a variant of the EasyRAT malware family\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 80\n      id = \"8bd72287-59da-53cf-9015-66149303e59f\"\n   strings:\n      $InitOnce = \"InitOnceExecuteOnce\"\n      $BREAK = { 0D 00 0A 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 2D 00 0D 00 0A }\n      $Bytes = \"4C,$00,$00,$00,$01,$14,$02,$00,$00,$00,$00,$00,$C0,$00,$00,$00,$00,$00,$00,\" wide\n   condition:\n      uint16(0) == 0x5a4d\n      and all of them\n}\n\nrule MAL_APT_NK_Andariel_CutieDrop_MagicRAT {\n   meta:\n      author = \"CISA.gov (modified by Florian Roth, Nextron Systems)\"\n      description = \"Detects the MagicRAT variant used by Andariel\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 80\n      id = \"104244de-83fb-5112-a2b6-e20d38a6ced6\"\n   strings:\n      // I removed the 'wide' from the strings because the samples don't contain the strings\n      // UTF-16 formatted and there's no indication that they ever will be, F.R.\n\n      $config_os_w = \"os/windows\" ascii\n      $config_os_l = \"os/linux\" ascii\n      $config_os_m = \"os/mac\" ascii\n      $config_comp_msft = \"company/microsoft\" ascii\n      $config_comp_orcl = \"company/oracle\" ascii\n      $POST_field_1 = \"session=\" ascii\n      $POST_field_2 = \"type=\" ascii\n      // $POST_field_3 = \"id=\" ascii wide  // disabled this string because it's too short\n      $command_misspelled = \"renmae\" ascii\n   condition:\n      uint16(0) == 0x5a4d\n      and 7 of them\n}\n\nrule MAL_APT_NK_Andariel_HHSD_FileTransferTool {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects a variant of the HHSD File Transfer Tool\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      modified = \"2025-07-09\"\n      score = 70\n      id = \"46b6dbaf-1272-5bbd-a586-5e48ba6c5022\"\n   strings:\n      // 30 4D C7                xor     [rbp+buffer_v41+3], cl\n      // 81 7D C4 22 C0 78 00    cmp      dword ptr [rbp+buffer_v41], 78C022h\n      // 44 88 83 00 01 00 00    mov      [rbx+100h], r8b\n      $handshake = { 30 ?? ?? 81 7? ?? 22 C0 78 00 4? 88 }\n\n      // B1 14                   mov     cl, 14h\n      // C7 45 F7 14 00 41 00    mov      [rbp+57h+Src], 410014h\n      // C7 45 FB 7A 00 7F 00    mov      [rbp+57h+var_5C], 7F007Ah\n      // C7 45 FF 7B 00 63 00    mov     [rbp+57h+var_58], 63007Bh\n      // C7 45 03 7A 00 34 00    mov      [rbp+57h+var_54], 34007Ah\n      // C7 45 07 51 00 66 00    mov      [rbp+57h+var_50], 660051h\n      // C7 45 0B 66 00 7B 00    mov      [rbp+57h+var_4C], 7B0066h\n      // C7 45 0F 66 00 00 00    mov      [rbp+57h+var_48], 66h ; 'f'\n      $err_xor_str = { 14 C7 [2] 14 00 41 00 C7 [2] 7A 00 7F 00 C7 [2] 7B 00 63 00 C7 [2] 7A 00 34 00 }\n\n      // 41 02 D0                add     dl, r8b\n      // 44 02 DA                add     r11b, dl\n      // 3C 1F                   cmp     al, 1Fh\n      // $buf_add_cmp_1f = { 4? 02 ?? 4? 02 ?? 3? 1F }      removed due to 1 byte atom\n      // B9 8D 10 B7 F8          mov     ecx, 0F8B7108Dh\n      // E8 F1 BA FF FF          call    sub_140001280\n      $hash_call_loadlib = { B? 8D 10 B7 F8 E8 }\n      $hash_call_unk = { B? 91 B8 F6 88 E8 }\n   condition:\n      uint16(0) == 0x5a4d\n      and 1 of ($handshake, $err_xor_str)\n      and 1 of ($hash_call_*)\n      or 2 of ($handshake, $err_xor_str)\n}\n\nrule MAL_APT_NK_Andariel_Atharvan_3RAT {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects a variant of the Atharvan 3RAT malware family\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 80\n      id = \"9ff6998a-a2dd-5671-bd3f-ee69561f71ef\"\n   strings:\n      $3RAT = \"D:\\\\rang\\\\TOOL\\\\3RAT\"\n      $atharvan = \"Atharvan_dll.pdb\"\n   condition:\n      uint16(0) == 0x5a4d\n      and 1 of them\n}\n\nrule MAL_APT_NK_Andariel_LilithRAT_Variant {\n   meta:\n      author = \"CISA.gov (modified by Florian Roth, Nextron Systems)\"\n      description = \"Detects a variant of the Lilith RAT malware family\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      modified = \"2024-07-26\"\n      score = 80\n      id = \"916a289b-db7b-5f09-9d3e-589c3f09101d\"\n   strings:\n      // I removed the 'wide' from the strings because the samples don't contain the strings\n      // UTF-16 formatted and there's no indication that they ever will be, F.R.\n\n      // The following are strings seen in the open source version of Lilith\n      $lilith_1 = \"Initiate a CMD session first.\" ascii\n      $lilith_2 = \"CMD is not open\" ascii\n      $lilith_3 = \"Couldn't write command\" ascii\n      $lilith_4 = \"Couldn't write to CMD: CMD not open\" ascii\n\n      // The following are strings that appear to be unique to the Unnamed Trojan based on Lilith\n      $unique_1 = \"Upload Error!\" ascii\n      $unique_2 = \"ERROR: Downloading is already running!\" ascii\n      $unique_3 = \"ERROR: Unable to open file:\" ascii\n      $unique_4 = \"General error\" ascii\n      $unique_5 = \"CMD error\" ascii\n      $unique_6 = \"killing self\" ascii\n   condition:\n      // I refactored the condition to make it more generic, F.R.\n      uint16(0) == 0x5a4d\n      and filesize < 150KB\n      and (\n         all of ($lilith_*)\n         or 4 of ($unique_*)\n         or 1 of ($lilith_4, $unique_2)  // both strings are very specific - let's use them as a unique indicator, F.R.\n      )\n}\n\nrule MAL_APT_NK_Andariel_SocksTroy_Strings_OpCodes {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects a variant of the SocksTroy malware family\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 80\n      id = \"9e7fb6ba-771e-5cae-a0d5-c0b95ee6d4e9\"\n   strings:\n      $strHost = \"-host\" wide\n      $strAuth = \"-auth\" wide\n      $SocksTroy = \"SocksTroy\"\n      $cOpCodeCheck = { 81 E? A0 00 00 00 0F 84 ?? ?? ?? ?? 83 E? 03 74 ?? 83 E? 02 74 ?? 83 F? 0B }\n   condition:\n      uint16(0) == 0x5a4d and (\n         1 of ($str*)\n         and all of ($c*)\n         or all of ($Socks*)\n      )\n}\n\nrule MAL_APT_NK_Andariel_Agni {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects samples of the Agni malware family\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 80\n      id = \"ffe3f427-c10a-5ad4-ab29-c0d9b576c30f\"\n   strings:\n      $xor = { 34 ?? 88 01 48 8D 49 01 0F B6 01 84 C0 75 F1 }\n      $stackstrings = { C7 44 24 [5-10] C7 44 24 [5] C7 44 24 [5-10] C7 44 24 [5-10] C7 44 24 }\n   condition:\n      uint16(0) == 0x5a4d\n      and #xor > 100\n      and #stackstrings > 5\n}\n\nrule MAL_APT_NK_Andariel_GoLang_Validalpha_Handshake {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects a variant of the GoLang Validalpha malware\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 75\n      id = \"51dafa43-9da0-569a-9123-7e9800284046\"\n   strings:\n      $ = { 66 C7 00 AB CD C6 40 02 EF ?? 03 00 00 00 48 89 C1 ?? 03 00 00 00 }\n   condition:\n      all of them\n}\n\nrule MAL_APT_NK_Andariel_GoLang_Validalpha_Tasks {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects a variant of the GoLang Validalpha malware\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 80\n      id = \"caa67a79-3ea6-5910-971c-f311722570ff\"\n   strings:\n      $ = \"main.ScreenMonitThread\"\n      $ = \"main.CmdShell\"\n      $ = \"main.GetAllFoldersAndFiles\"\n      $ = \"main.SelfDelete\"\n   condition:\n      all of them\n}\n\nrule MAL_APT_NK_Andariel_GoLang_Validalpha_BlackString {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects a variant of the GoLang Validalpha malware based on a file path found in the samples\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 90\n      id = \"36f46a1d-69b6-5c99-9a54-6a14d62d2721\"\n   strings:\n      $ = \"I:/01___Tools/02__RAT/Black\"\n   condition:\n      uint16(0) == 0x5A4D and all of them\n}\n\n/* yeah, YOLO ... triggers on a lot of stuff - we don't do that here to not freak out the users for no reason\nrule MAL_APT_NK_INDICATOR_EXE_Packed_VMProtect {\n        strings:\n        $s1 = \".vmp0\" fullword ascii\n        $s2 = \".vmp1\" fullword ascii\n    condition:\n        uint16(0) == 0x5a4d and all of them or\n        for any i in (0 .. pe.number_of_sections) : (\n            (\n                pe.sections[i].name == \".vmp0\" or\n                pe.sections[i].name == \".vmp1\"\n            )\n        )\n}\n\nrule MAL_APT_NK_INDICATOR_EXE_Packed_Themida {\n        strings:\n        $s1 = \".themida\" fullword ascii\n    condition:\n        uint16(0) == 0x5a4d and all of them or\n        for any i in (0 .. pe.number_of_sections) : (\n            (\n                pe.sections[i].name == \".themida\"\n            )\n        )\n}\n*/\n\nrule MAL_APT_NK_Andariel_ELF_Backdoor_Fipps {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects a Linux backdoor named Fipps used by Andariel\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 80\n      id = \"040bca78-8b7e-5397-8a2b-1ddeed59eea3\"\n   strings:\n      $a = \"found mac address\"\n      $b = \"RecvThread\"\n      $c = \"OpenSSL-1.0.0-fipps\"\n      $d = \"Disconnected!\"\n   condition:\n      uint32(0) == 0x464c457f\n      and all of them\n}\n\nrule MAL_APT_NK_Andariel_BindShell {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects a BindShell used by Andariel\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      modified = \"2026-01-29\"\n      score = 50  // prone to FPs\n      id = \"3f6d83da-cea5-5e12-b0ba-93ace09d3d5c\"\n   strings:\n      $str_comspec = \"COMSPEC\"\n      $str_consolewindow = \"GetConsoleWindow\"\n      $str_ShowWindow = \"ShowWindow\"\n      $str_WSASocketA = \"WSASocketA\"\n      $str_CreateProcessA = \"CreateProcessA\"\n      $str_port = { B9 4D 05 00 00 89 }\n   condition:\n      uint16(0) == 0x5A4D\n      and all of them\n}\n\nrule MAL_APT_NK_Andariel_Grease2 {\n   meta:\n      author = \"CISA.gov (modified by Florian Roth, Nextron Systems)\"\n      description = \"Detects the Grease2 malware family used by Andariel\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      modified = \"2024-07-26\"\n      score = 80\n      id = \"4defbe08-b3c6-5ab9-9a57-cec57ff42d9a\"\n   strings:\n      /* I bet this was an error and fixed the strings - I allow you to kick my butt when I'm wrong\n      $str_rdpconf = \"c: \\\\windows\\\\temp\\\\RDPConf.exe\" fullword nocase\n      $str_rdpwinst = \"c: \\\\windows\\\\temp\\\\RDPWInst.exe\" fullword nocase\n      */\n      $str_rdpconf = \"emp\\\\RDPConf.exe\"  // I removed the beginning of the string because the spaces looked like an error and I don't want to use nocase here, F.R.\n      $str_rdpwinst = \"emp\\\\RDPWInst.exe\"\n      $str_net_user = \"net user\"\n      $str_admins_add = \"net localgroup administrators\"\n   condition:\n      uint16(0) == 0x5A4D and\n      all of them\n}\n\nrule MAL_APT_NK_Andariel_NoPineapple_Dtrack_Unpacked {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects the Dtrack variant used by Andariel\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 80\n      id = \"6ccaf24b-c110-5788-a792-fa7f39fb18f7\"\n   strings:\n      $str_nopineapple = \"< No Pineapple! >\"\n      $str_qt_library = \"Qt 5.12.10\"\n      $str_xor = { 8B 10 83 F6 ?? 83 FA 01 77 }\n   condition:\n      uint16(0) == 0x5A4D\n      and all of them\n}\n\nrule MAL_APT_NK_Andariel_DTrack_Unpacked {\n   meta:\n      author = \"CISA.gov (modified by Florian Roth, Nextron Systems)\"\n      description = \"Detects DTrack variant used by Andariel\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      modified = \"2024-07-26\"\n      score = 75\n      id = \"0c161275-2b2e-51a4-9e08-c118fb4c8671\"\n   strings:\n      $x_str_cmd_4 = \"/c systeminfo > \\\"%s\\\" & tasklist > \\\"%s\\\" & netstat -naop tcp > \\\"%s\\\"\" wide\n      $x_str_cmd_2 = \"/c ping -n 3 127.0.01 > NUL % echo EEE > \\\"%s\\\"\" wide\n\n      $str_mutex = \"MTX_Global\"\n      $str_cmd_1 = \"/c net use \\\\\\\\\" wide\n      $str_cmd_3 = \"/c move /y %s \\\\\\\\\" wide\n   condition:\n      // I changed the condition here because there are two strings which are highly specific and unique, F.R.\n      uint16(0) == 0x5A4D\n      and (\n         1 of ($x*)\n         or 3 of them\n      )\n}\n\nrule MAL_APT_NK_Andariel_TigerRAT_Crowdsourced_Rule {\n   meta:\n      author = \"CISA.gov (modified by Florian Roth, Nextron Systems)\"\n      description = \"Detects the Tiger RAT variant used by Andariel\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      modified = \"2024-07-26\"\n      score = 75\n      id = \"6be65222-7d3c-5ff5-a9c7-d91dcf1deaa6\"\n   strings:\n      $m1 = \".?AVModuleKeyLogger@@\" fullword ascii\n      $m2 = \".?AVModulePortForwarder@@\" fullword ascii\n      $m3 = \".?AVModuleScreenCapture@@\" fullword ascii\n      $m4 = \".?AVModuleShell@@\" fullword ascii\n\n      $s1 = \"\\\\x9891-009942-xnopcopie.dat\" fullword wide\n      $s2 = \"(%02d : %02d-%02d %02d:%02d:%02d)--- %s[Clipboard]\" fullword ascii\n      $s3 = \"[%02d : %02d-%02d %02d:%02d:%02d]--- %s[Title]\" fullword ascii\n      $s4 = \"del \\\"%s\\\"%s \\\"%s\\\" goto \" ascii\n   // $s5 = \"[<<]\" fullword ascii  // we don't need that short string and the rule probably doesn't lose anything without it, F.R.\n   condition:\n      uint16(0) == 0x5a4d and (\n         all of ($s*) or (\n            all of ($m*) and 1 of ($s*)\n         )\n         or (\n            2 of ($m*) and 2 of ($s*)\n         )\n      )\n}\n\nrule MAL_APT_NK_WIN_Tiger_RAT_Auto {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects the Tiger RAT variant used by Andariel\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 75\n      id = \"4579af62-52be-5f5f-a577-16ec50297c05\"\n   strings:\n      $sequence_0 = { 33 c0 89 44 24 38 89 44 24 30 44 8b cf 45 33 c0 }\n      // n = 5, score = 200\n      //   33c0                 | jmp                 5\n      //   89442438             | dec                 eax\n      //   89442430             | mov                 eax, ecx\n      //   448bcf               | movzx               eax, byte ptr [eax]\n      //   4533c0               | dec                 eax\n\n      $sequence_1 = { 41 b9 01 00 00 00 48 8b d6 48 8b cb e8 ?? ?? ?? ?? }\n      // n = 4, score = 200\n      //   41b901000000         | dec                 eax\n      //   488bd6                | mov                 eax, dword ptr [ecx]\n      //   488bcb               | jmp                 8\n      //   e8????????           |                     \n\n      $sequence_2 = { 48 81 ec 90 05 00 00 8b 01 89 85 c8 04 00 00 8b 41 04 }\n      // n = 4, score = 200\n      //   4881ec90050000       | test                eax, eax\n      //   8b01                 | jns                 0x16\n      //   8985c8040000         | dec                 eax\n      //   8b4104               | mov                 eax, dword ptr [ecx]\n\n      $sequence_3 = { 48 8b 01 ff 10 48 8b 4f 08 4c 8d 4c 24 30 }\n      // n = 4, score = 200\n      //   488b01               | mov                 edx, esi\n      //   ff10                 | dec                 eax\n      //   488b4f08             | mov                 ecx, ebx\n      //   4c8d4c2430           | inc                 ecx\n\n      $sequence_4 = { 48 8b 01 ff 10 48 8b 4e 18 48 8b 01 }\n      // n = 4, score = 200\n      //   488b01               | dec                 eax\n      //   ff10                 | cmp                 dword ptr [ecx + 0x18], 0x10\n      //   488b4e18             | dec                 eax\n      //   488b01               | sub                 esp, 0x590\n\n      $sequence_5 = { 48 81 ec a0 00 00 00 33 c0 48 8b d9 48 8d 4c 24 32 }\n      // n = 4, score = 200\n      //   4881eca0000000       | mov                 eax, dword ptr [ecx]\n      //   33c0                 | mov                 dword ptr [ebp + 0x4c8], eax\n      //   488bd9               | mov                 eax, dword ptr [ecx + 4]\n      //   488d4c2432           | mov                 dword ptr [ebp + 0x4d0], eax\n\n      $sequence_6 = { 48 8b 01 eb 03 48 8b c1 0f b6 00 }\n      // n = 4, score = 200\n      //   488b01               | inc                 ecx\n      //   eb03                 | mov                 ebx, dword ptr [ebp + ebp]\n      //   488bc1               | inc                 ecx\n      //   0fb600               | movups              xmmword ptr [edi], xmm0\n\n      $sequence_7 = { 48 8b 01 8b 10 89 51 24 44 8b 41 24 45 85 c0 }\n      // n = 5, score = 200\n      //   488b01               | sub                 esp, 0x30\n      //   8b10                 | dec                 ecx\n      //   895124               | mov                 ebx, eax\n      //   448b4124             | dec                 eax\n      //   4585c0               | mov                 ecx, eax\n\n      $sequence_8 = { 4c 8d 0d 31 eb 00 00 c1 e9 18 c1 e8 08 41 bf 00 00 00 80 }\n      // n = 4, score = 100\n      //   4c8d0d31eb0000       | jne                 0x1e6\n      //   c1e918               | dec                 eax\n      //   c1e808               | lea                 ecx, [0xbda0]\n      //   41bf00000080         | dec                 esp\n\n      $sequence_9 = { 48 8b d8 48 85 c0 75 2d ff 15 ?? ?? ?? ?? 83 f8 57 0f 85 e0 01 00 00 48 8d 0d a0 bd 00 00 }\n      // n = 7, score = 100\n      //   488bd8               | dec                 eax\n      //   4885c0               | mov                 ebx, eax\n      //   752d                 | dec                 eax\n      //   ff15????????         |                     \n      //   83f857               | test                eax, eax\n      //   0f85e0010000         | jne                 0x2f\n      //   488d0da0bd0000       | cmp                  eax, 0x57\n\n      $sequence_10 = { 75 d4 48 8d 1d 7f 6c 01 00 48 8b 4b f8 48 85 c9 74 0b }\n      // n = 5, score = 100\n      //   75d4                 | lea                 ecx, [0xeb31]\n      //   488d1d7f6c0100       | shr                 ecx, 0x18\n      //   488b4bf8             | shr                 eax, 8\n      //   4885c9               | inc                 ecx\n      //   740b                 | mov                 edi, 0x80000000\n\n      $sequence_11 = { 0f 85 d9 00 00 00 48 8d 15 d0 c9 00 00 41 b8 10 20 01 00 48 8b cd e8 ?? ?? ?? ?? eb 6b b9 f4 ff ff ff }\n      // n = 7, score = 100\n      //   0f85d9000000         | jne                 0xffffffd6\n      //   488d15d0c90000       | dec                 eax\n      //   41b810200100         | lea                 ebx, [0x16c7f]\n      //   488bcd               | dec                 eax\n      //   e8????????           |                     \n      //   eb6b                 | mov                 ecx, dword ptr [ebx - 8]\n      //   b9f4ffffff           | dec                 eax\n\n      $sequence_12 = { 48 89 0d ?? ?? ?? ?? 48 89 05 ?? ?? ?? ?? 48 8d 05 ae 61 00 00 48 89 05 ?? ?? ?? ?? 48 8d 05 a0 55 00 00 48 89 05 ?? ?? ?? ?? }\n      // n = 6, score = 100\n      //    48890d????????       |                     \n      //   488905????????       |                     \n      //   488d05ae610000       | test                ecx, ecx\n      //   488905????????       |                     \n      //   488d05a0550000       | je                  0x10\n      //   488905????????       |                     \n\n      $sequence_13 = { 8b cf e8 ?? ?? ?? ?? 48 8b 7c 24 48 85 c0 0f 84 40 03 00 00 48 8d 05 60 25 01 00 }\n      // n = 6, score = 100\n      //   8bcf                  | mov                 eax, 0x12010\n      //   e8????????           |                     \n      //   488b7c2448           | dec                 eax\n      //   85c0                 | mov                 ecx, ebp\n      //   0f8440030000         | jmp                 0x83\n      //   488d0560250100       | mov                 ecx, 0xfffffff4\n\n      $sequence_14 = { ff 15 ?? ?? ?? ?? 8b 05 ?? ?? ?? ?? 23 05 ?? ?? ?? ?? ba 02 00 00 00 33 c9 89 05 ?? ?? ?? ?? 8b 05 ?? ?? ?? ?? }\n      // n = 7, score = 100\n      //   ff15????????         |                     \n      //   8b05????????         |                     \n      //   2305????????         |                     \n      //   ba02000000           | dec                 eax\n      //   33c9                 | lea                 eax, [0x61ae]\n      //   8905????????         |                     \n      //   8b05????????         |                     \n\n      $sequence_15 = { 48 83 ec 30 49 8b d8 e8 ?? ?? ?? ?? 48 8b c8 48 85 c0 }\n   // n = 5, score = 100\n   //   4883ec30             | jne                 0xdf\n   //   498bd8               | dec                 eax\n   //   e8????????           |                     \n   //   488bc8               | lea                 edx, [0xc9d0]\n   //   4885c0               | inc                 ecx\n   condition:\n      filesize < 600KB and 7 of them\n}\n\nrule MAL_APT_NK_WIN_DTrack_Auto {\n   meta:\n      author = \"CISA.gov\"\n      description = \"Detects DTrack variant used by Andariel\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-207a\"\n      date = \"2024-07-25\"\n      score = 75\n      id = \"1b40c685-beba-50fa-b484-c1526577cb23\"\n   strings:\n      $sequence_0 = { 52 8b 45 08 50 e8 ?? ?? ?? ?? 83 c4 14 8b 4d 10 51 }\n      // n = 7, score = 400\n      //   52                   | push                edx\n      //   8b4508               | mov                 eax, dword ptr [ebp + 8]\n      //   50                   | push                eax\n      //   e8????????           |                     \n      //   83c414               | add                 esp, 0x14\n      //   8b4d10               | mov                 ecx, dword ptr [ebp + 0x10]\n      //   51                   | push                ecx\n\n      $sequence_1 = { 3a 41 01 75 23 83 85 4c f6 ff ff 02 83 85 50 f6 ff ff 02 80 bd 4a f6 ff ff 00 75 ae c7 85 44 f6 ff ff 00 00 00 00 }\n      // n = 7, score = 300\n      //   3a4101               | cmp                 al, byte ptr [ecx + 1]\n      //    7523                 | jne                 0x25\n      //   83854cf6ffff02       | add                 dword ptr [ebp - 0x9b4], 2\n      //   838550f6ffff02       | add                 dword ptr [ebp - 0x9b0], 2\n      //   80bd4af6ffff00       | cmp                 byte ptr [ebp - 0x9b6], 0\n      //   75ae                 | jne                 0xffffffb0\n      //   c78544f6ffff00000000     | mov     dword ptr [ebp - 0x9bc], 0\n\n      $sequence_2 = { 50 ff 15 ?? ?? ?? ?? a3 ?? ?? ?? ?? 68 ?? ?? ?? ?? e8 ?? ?? ?? ?? 83 c4 04 50 }\n      // n = 7, score = 300\n      //   50                   | push                eax\n      //   ff15????????         |                     \n      //   a3????????           |                     \n      //   68????????           |                     \n      //   e8????????           |                     \n      //   83c404               | add                 esp, 4\n      //   50                   | push                eax\n\n      $sequence_3 = { 8d 8d d4 fa ff ff 51 e8 ?? ?? ?? ?? 83 c4 08 8b 15 ?? ?? ?? ?? }\n      // n = 5, score = 300\n      //   8d8dd4faffff         | lea                 ecx, [ebp - 0x52c]\n      //   51                   | push                ecx\n      //   e8????????           |                     \n      //   83c408               | add                 esp, 8\n      //   8b15????????         |                     \n\n      $sequence_4 = { 88 55 f5 6a 5c 8b 45 0c 50 e8 ?? ?? ?? ?? }\n      // n = 5, score = 300\n      //   8855f5               | mov                 byte ptr [ebp - 0xb], dl\n      //   6a5c                 | push                0x5c\n      //   8b450c               | mov                 eax, dword ptr [ebp + 0xc]\n      //   50                   | push                eax\n      //   e8????????           |                     \n\n      $sequence_5 = { 51 e8 ?? ?? ?? ?? 83 c4 10 8b 55 8c 52 }\n      // n = 5, score = 300\n      //   51                   | push                ecx\n      //   e8????????           |                     \n      //   83c410               | add                 esp, 0x10\n      //   8b558c                | mov                 edx, dword ptr [ebp - 0x74]\n      //   52                   | push                edx\n\n      $sequence_6 = { 8b 4d 0c 51 68 ?? ?? ?? ?? 8d 95 60 ea ff ff 52 e8 ?? ?? ?? ?? }\n      // n = 6, score = 300\n      //   8b4d0c               | mov                 ecx, dword ptr [ebp + 0xc]\n      //   51                   | push                ecx\n      //   68????????           |                     \n      //   8d9560eaffff         | lea                 edx, [ebp - 0x15a0]\n      //   52                   | push                edx\n      //   e8????????           |                     \n\n      $sequence_7 = { 83 c0 01 89 45 f4 83 7d f4 20 7d 2c 8b 4d f8 }\n      // n = 5, score = 300\n      //   83c001               | add                 eax, 1\n      //   8945f4               | mov                 dword ptr [ebp - 0xc], eax\n      //   837df420             | cmp                 dword ptr [ebp - 0xc], 0x20\n      //   7d2c                 | jge                 0x2e\n      //   8b4df8               | mov                 ecx, dword ptr [ebp - 8]\n\n      $sequence_8 = { 83 c0 01 89 85 6c f6 ff ff 8b 8d 70 f6 ff ff 8a 11 }\n      // n = 4, score = 300\n      //   83c001               | add                 eax, 1\n      //   89856cf6ffff         | mov                 dword ptr [ebp - 0x994], eax\n      //   8b8d70f6ffff         | mov                 ecx, dword ptr [ebp - 0x990]\n      //   8a11                 | mov                 dl, byte ptr [ecx]\n\n      $sequence_9 = { 03 55 f0 0f b6 02 0f b6 4d f7 33 c1 0f b6 55 fc 33 c2 }\n      // n = 6, score = 200\n      //   0355f0               | add                 edx, dword ptr [ebp - 0x10]\n      //   0fb602               | movzx               eax, byte ptr [edx]\n      //   0fb64df7             | movzx               ecx, byte ptr [ebp - 9]\n      //   33c1                 | xor                 eax, ecx\n      //    0fb655fc             | movzx               edx, byte ptr [ebp - 4]\n      //   33c2                 | xor                 eax, edx\n\n      $sequence_10 = { d1 e9 89 4d f8 8b 55 18 89 55 fc c7 45 f0 00 00 00 00 }\n      // n = 5, score = 200\n      //   d1e9                 | shr                 ecx, 1\n      //   894df8               | mov                 dword ptr [ebp - 8], ecx\n      //   8b5518               | mov                 edx, dword ptr [ebp + 0x18]\n      //   8955fc               | mov                 dword ptr [ebp - 4], edx\n      //   c745f000000000       | mov                 dword ptr [ebp - 0x10], 0\n\n      $sequence_11 = { 8b 4d f0 3b 4d 10 0f 8d 90 00 00 00 8b 55 08 03 55 f0 0f b6 02 }\n      // n = 6, score = 200\n      //   8b4df0               | mov                 ecx, dword ptr [ebp - 0x10]\n      //   3b4d10               | cmp                 ecx, dword ptr [ebp + 0x10]\n      //   0f8d90000000         | jge                 0x96\n      //   8b5508               | mov                 edx, dword ptr [ebp + 8]\n      //   0355f0               | add                 edx, dword ptr [ebp - 0x10]\n      //   0fb602               | movzx               eax, byte ptr [edx]\n\n      $sequence_12 = { 89 4d 14 8b 45 f8 c1 e0 18 8b 4d fc c1 e9 08 0b c1 }\n      // n = 6, score = 200\n      //   894d14               | mov                 dword ptr [ebp + 0x14], ecx\n      //   8b45f8               | mov                 eax, dword ptr [ebp - 8]\n      //   c1e018               | shl                 eax, 0x18\n      //   8b4dfc               | mov                 ecx, dword ptr [ebp - 4]\n      //   c1e908               | shr                 ecx, 8\n      //   0bc1                 | or                  eax, ecx\n\n      $sequence_13 = { 0b c1 89 45 18 8b 55 14 89 55 f8 }\n      // n = 4, score = 200\n      //   0bc1                 | or                  eax, ecx\n      //   894518               | mov                 dword ptr [ebp + 0x18], eax\n      //   8b5514               | mov                 edx, dword ptr [ebp + 0x14]\n      //   8955f8               | mov                 dword ptr [ebp - 8], edx\n\n      $sequence_14 = { 8b 55 14 89 55 f8 8b 45 18 89 45 fc e9 ?? ?? ?? ?? 8b e5 }\n   // n = 6, score = 200\n   //   8b5514               | mov                 edx, dword ptr [ebp + 0x14]\n   //   8955f8               | mov                 dword ptr [ebp - 8], edx\n   //   8b4518               | mov                 eax, dword ptr [ebp + 0x18]\n   //   8945fc               | mov                 dword ptr [ebp - 4], eax\n   //   e9????????           |                     \n   //   8be5                 | mov                 esp, ebp\n   condition:\n      filesize < 1700KB and 7 of them\n}\n"
+}

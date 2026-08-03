@@ -353,6 +353,14 @@ export const HUB_META: readonly HubMeta[] = [
         desc: 'Windows Registry Forensic Artifact Reference - 292 artifacts, 16 categories, 10 hive types, 77 MITRE techniques.',
         compVar: 'WinRegPage',
       },
+      {
+        path: '/dfir/sigbase',
+        tabId: 'sigbase',
+        label: 'Signature-Base YARA + IOCs',
+        desc: 'Neo23x0 signature-base - 746 YARA rule files (5,784 rules) + 4 IOC lists (hashes, C2, filenames, keywords).',
+        compVar: 'SigBasePage',
+        keywords: ['yara', 'ioc', 'signature', 'rule', 'hash', 'c2'],
+      },
     ],
   },
   {

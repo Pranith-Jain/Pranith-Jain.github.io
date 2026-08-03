@@ -1,0 +1,55 @@
+{
+  "slug": "gen_onenote_phish",
+  "filename": "gen_onenote_phish.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_Email_Suspicious_OneNote_Attachment_Jan23_1",
+      "meta": {
+        "description": "Detects suspicious OneNote attachment that embeds suspicious payload, e.g. an executable (FPs possible if the PE is attached separately)",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2023-01-27",
+        "score": "65",
+        "id": "492b74c2-3b81-5dff-9244-8528565338c6"
+      }
+    },
+    {
+      "name": "SUSP_Email_Suspicious_OneNote_Attachment_Jan23_2",
+      "meta": {
+        "description": "Detects suspicious OneNote attachment that has a file name often used in phishing attacks",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2023-01-27",
+        "score": "65",
+        "id": "f8c58c73-2404-5ce6-8e8f-99b0dad84ad0"
+      }
+    },
+    {
+      "name": "SUSP_OneNote_Embedded_FileDataStoreObject_Type_Jan23_1",
+      "meta": {
+        "description": "Detects suspicious embedded file types in OneNote files",
+        "author": "Florian Roth",
+        "reference": "https://blog.didierstevens.com/",
+        "date": "2023-01-27",
+        "modified": "2023-02-27",
+        "score": "65",
+        "id": "b8ea8c7b-052f-5a97-9577-99903462ea84"
+      }
+    },
+    {
+      "name": "SUSP_OneNote_Embedded_FileDataStoreObject_Type_Jan23_2",
+      "meta": {
+        "description": "Detects suspicious embedded file types in OneNote files",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://blog.didierstevens.com/",
+        "date": "2023-01-27",
+        "score": "65",
+        "id": "0664d202-ab4c-57b6-91ee-ea21ac08909e"
+      }
+    }
+  ],
+  "body": "\nrule SUSP_Email_Suspicious_OneNote_Attachment_Jan23_1 {\n   meta:\n      description = \"Detects suspicious OneNote attachment that embeds suspicious payload, e.g. an executable (FPs possible if the PE is attached separately)\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2023-01-27\"\n      score = 65\n      id = \"492b74c2-3b81-5dff-9244-8528565338c6\"\n   strings:\n      /* OneNote FileDataStoreObject GUID https://blog.didierstevens.com/ */\n      $ge1 = \"5xbjvWUmEUWkxI1NC3qer\"\n      $ge2 = \"cW471lJhFFpMSNTQt6nq\"\n      $ge3 = \"nFuO9ZSYRRaTEjU0Lep6s\"\n\n      /* PE file DOS header */\n      $sp1 = \"VGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1vZG\"\n      $sp2 = \"RoaXMgcHJvZ3JhbSBjYW5ub3QgYmUgcnVuIGluIERPUyBtb2Rl\"\n      $sp3 = \"UaGlzIHByb2dyYW0gY2Fubm90IGJlIHJ1biBpbiBET1MgbW9kZ\"\n      $sp4 = \"VGhpcyBwcm9ncmFtIG11c3QgYmUgcnVuIHVuZGVy\"\n      $sp5 = \"RoaXMgcHJvZ3JhbSBtdXN0IGJlIHJ1biB1bmRlc\"\n      $sp6 = \"UaGlzIHByb2dyYW0gbXVzdCBiZSBydW4gdW5kZX\"\n      /* @echo off */\n      $se1 = \"QGVjaG8gb2Zm\"\n      $se2 = \"BlY2hvIG9mZ\"\n      $se3 = \"AZWNobyBvZm\"\n      /* <HTA:APPLICATION */\n      $se4 = \"PEhUQTpBUFBMSUNBVElPTi\"\n      $se5 = \"xIVEE6QVBQTElDQVRJT04g\"\n      $se6 = \"8SFRBOkFQUExJQ0FUSU9OI\"\n      /* LNK file magic header */\n      $se7 = \"TAAAAAEUAg\"\n      $se8 = \"wAAAABFAIA\"\n      $se9 = \"MAAAAARQCA\"\n   condition:\n      filesize < 5MB\n      and 1 of ($ge*)\n      and 1 of ($s*)\n}\n\nrule SUSP_Email_Suspicious_OneNote_Attachment_Jan23_2 {\n   meta:\n      description = \"Detects suspicious OneNote attachment that has a file name often used in phishing attacks\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2023-01-27\"\n      score = 65\n      id = \"f8c58c73-2404-5ce6-8e8f-99b0dad84ad0\"\n   strings:\n      /* .one\\n\\n5FJce */\n      $hc1 = { 2E 6F 6E 65 22 0D 0A 0D 0A 35 46 4A 63 65 }\n\n      $x01 = \" attachment; filename=\\\"Invoice\" nocase\n      $x02 = \" attachment; filename=\\\"ORDER\" nocase\n      $x03 = \" attachment; filename=\\\"PURCHASE\" nocase\n      $x04 = \" attachment; filename=\\\"SHIP\" nocase\n   condition:\n      filesize < 5MB \n      and $hc1 \n      and 1 of ($x*)\n}\n\nrule SUSP_OneNote_Embedded_FileDataStoreObject_Type_Jan23_1 {\n   meta:\n      description = \"Detects suspicious embedded file types in OneNote files\"\n      author = \"Florian Roth\"\n      reference = \"https://blog.didierstevens.com/\"\n      date = \"2023-01-27\"\n      modified = \"2023-02-27\"\n      score = 65\n      id = \"b8ea8c7b-052f-5a97-9577-99903462ea84\"\n   strings:\n      /* GUID FileDataStoreObject https://blog.didierstevens.com/ */\n      $x1 = { e7 16 e3 bd 65 26 11 45 a4 c4 8d 4d 0b 7a 9e ac \n              ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??\n              ?? ?? ?? ?? 4d 5a } // PE\n      $x2 = { e7 16 e3 bd 65 26 11 45 a4 c4 8d 4d 0b 7a 9e ac \n              ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??\n              ?? ?? ?? ?? [0-4] 40 65 63 68 6f } // @echo off\n      $x3 = { e7 16 e3 bd 65 26 11 45 a4 c4 8d 4d 0b 7a 9e ac \n              ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??\n              ?? ?? ?? ?? [0-4] 40 45 43 48 4f } // @ECHO OFF\n      $x4 = { e7 16 e3 bd 65 26 11 45 a4 c4 8d 4d 0b 7a 9e ac \n              ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??\n              ?? ?? ?? ?? [0-4] 4F 6E 20 45 } // On Error Resume\n      $x5 = { e7 16 e3 bd 65 26 11 45 a4 c4 8d 4d 0b 7a 9e ac \n              ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??\n              ?? ?? ?? ?? [0-4] 6F 6E 20 65 } // on error resume\n      $x6 = { e7 16 e3 bd 65 26 11 45 a4 c4 8d 4d 0b 7a 9e ac\n              ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??\n              ?? ?? ?? ?? 4c 00 00 00 } // LNK file\n      $x7 = { e7 16 e3 bd 65 26 11 45 a4 c4 8d 4d 0b 7a 9e ac\n              ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??\n              ?? ?? ?? ?? 49 54 53 46 } // CHM file\n      $x8 = { e7 16 e3 bd 65 26 11 45 a4 c4 8d 4d 0b 7a 9e ac\n              ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??\n              ?? ?? ?? ?? [6-200] 3C 68 74 61 3A } // hta:\n      $x9 = { e7 16 e3 bd 65 26 11 45 a4 c4 8d 4d 0b 7a 9e ac\n              ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??\n              ?? ?? ?? ?? [6-200] 3C 48 54 41 3A } // HTA:\n      $x10 = { e7 16 e3 bd 65 26 11 45 a4 c4 8d 4d 0b 7a 9e ac\n              ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??\n              ?? ?? ?? ?? [6-200] 3C 6A 6F 62 20 } // WSF file \"<job \"\n   condition:\n      filesize < 10MB and 1 of them\n}\n\nrule SUSP_OneNote_Embedded_FileDataStoreObject_Type_Jan23_2 {\n   meta:\n      description = \"Detects suspicious embedded file types in OneNote files\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://blog.didierstevens.com/\"\n      date = \"2023-01-27\"\n      score = 65\n      id = \"0664d202-ab4c-57b6-91ee-ea21ac08909e\"\n   strings:\n      /* GUID FileDataStoreObject https://blog.didierstevens.com/ */\n      $a1 = { 00 e7 16 e3 bd 65 26 11 45 a4 c4 8d 4d 0b 7a 9e ac }\n\n      $s1 = \"<HTA:APPLICATION \"\n   condition:\n      filesize < 5MB\n      and $a1 \n      and 1 of ($s*)\n}\n"
+}

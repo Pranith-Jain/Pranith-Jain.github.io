@@ -1,0 +1,69 @@
+{
+  "slug": "apt_woolengoldfish",
+  "filename": "apt_woolengoldfish.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Operation WoolenGoldfish Rules (Trendmicro Report)\n\tv0.1 25.03.2015\n\n\tThese rules detect 26 of the samples mentioned in the report\n\tReference: http://blog.trendmicro.com/trendlabs-security-intelligence/operation-woolen-goldfish-when-kittens-go-phishing/\n\n\tTested against 20GB goodware sample archiv - pls report back false positives\n\ton LOKI's github page https://github.com/Neo23x0/Loki/issues",
+  "rules": [
+    {
+      "name": "WoolenGoldfish_Sample_1",
+      "meta": {
+        "description": "Detects a operation Woolen-Goldfish sample - http://goo.gl/NpJpVZ",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://goo.gl/NpJpVZ",
+        "date": "2015/03/25",
+        "score": "60",
+        "hash": "7ad0eb113bc575363a058f4bf21dbab8c8f7073a",
+        "id": "923de51a-8422-5318-95f5-79613d2d642e"
+      }
+    },
+    {
+      "name": "WoolenGoldfish_Generic_1",
+      "meta": {
+        "description": "Detects a operation Woolen-Goldfish sample - http://goo.gl/NpJpVZ",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://goo.gl/NpJpVZ",
+        "date": "2015/03/25",
+        "score": "90",
+        "super_rule": "1",
+        "hash0": "5d334e0cb4ff58859e91f9e7f1c451ffdc7544c3",
+        "hash1": "d5b2b30fe2d4759c199e3659d561a50f88a7fb2e",
+        "hash2": "a42f1ad2360833baedd2d5f59354c4fc3820c475",
+        "id": "351f5ee5-c0ec-51b6-9953-2b64e3e74b09"
+      }
+    },
+    {
+      "name": "WoolenGoldfish_Generic_2",
+      "meta": {
+        "description": "Detects a operation Woolen-Goldfish sample - http://goo.gl/NpJpVZ",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://goo.gl/NpJpVZ",
+        "date": "2015/03/25",
+        "score": "90",
+        "hash1": "47b1c9caabe3ae681934a33cd6f3a1b311fd7f9f",
+        "hash2": "62172eee1a4591bde2658175dd5b8652d5aead2a",
+        "hash3": "7fef48e1303e40110798dfec929ad88f1ad4fbd8",
+        "hash4": "c1edf6e3a271cf06030cc46cbd90074488c05564",
+        "id": "930b928f-ff32-56b2-9e3c-dd80036ff7ef"
+      }
+    },
+    {
+      "name": "WoolenGoldfish_Generic_3",
+      "meta": {
+        "description": "Detects a operation Woolen-Goldfish sample - http://goo.gl/NpJpVZ",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://goo.gl/NpJpVZ",
+        "date": "2015/03/25",
+        "score": "90",
+        "hash1": "86222ef166474e53f1eb6d7e6701713834e6fee7",
+        "hash2": "e8dbcde49c7f760165ebb0cb3452e4f1c24981f5",
+        "id": "5c227d24-624c-5fb5-a2ea-a971fda8bfba"
+      }
+    }
+  ],
+  "body": "/*\n\tOperation WoolenGoldfish Rules (Trendmicro Report)\n\tv0.1 25.03.2015\n\n\tThese rules detect 26 of the samples mentioned in the report\n\tReference: http://blog.trendmicro.com/trendlabs-security-intelligence/operation-woolen-goldfish-when-kittens-go-phishing/\n\n\tTested against 20GB goodware sample archiv - pls report back false positives\n\ton LOKI's github page https://github.com/Neo23x0/Loki/issues\n\n*/\n\nrule WoolenGoldfish_Sample_1 {\n\tmeta:\n\t\tdescription = \"Detects a operation Woolen-Goldfish sample - http://goo.gl/NpJpVZ\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\treference = \"http://goo.gl/NpJpVZ\"\n\t\tdate = \"2015/03/25\"\n\t\tscore = 60\n\t\thash = \"7ad0eb113bc575363a058f4bf21dbab8c8f7073a\"\n\t\tid = \"923de51a-8422-5318-95f5-79613d2d642e\"\n\tstrings:\n\t\t$s1 = \"Cannot execute (%d)\" fullword ascii\n\t\t$s16 = \"SvcName\" fullword ascii\n\tcondition:\n\t\tall of them\n}\n\nrule WoolenGoldfish_Generic_1 {\n\tmeta:\n\t\tdescription = \"Detects a operation Woolen-Goldfish sample - http://goo.gl/NpJpVZ\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\treference = \"http://goo.gl/NpJpVZ\"\n\t\tdate = \"2015/03/25\"\n\t\tscore = 90\n\t\tsuper_rule = 1\n\t\thash0 = \"5d334e0cb4ff58859e91f9e7f1c451ffdc7544c3\"\n\t\thash1 = \"d5b2b30fe2d4759c199e3659d561a50f88a7fb2e\"\n\t\thash2 = \"a42f1ad2360833baedd2d5f59354c4fc3820c475\"\n\t\tid = \"351f5ee5-c0ec-51b6-9953-2b64e3e74b09\"\n\tstrings:\n\t\t$x0 = \"Users\\\\Wool3n.H4t\\\\\"\n\t\t$x1 = \"C-CPP\\\\CWoolger\"\n\t\t$x2 = \"NTSuser.exe\" fullword wide\n\n\t\t$s1 = \"107.6.181.116\" fullword wide\n\t\t$s2 = \"oShellLink.Hotkey = \\\"CTRL+SHIFT+F\\\"\" fullword\n\t\t$s3 = \"set WshShell = WScript.CreateObject(\\\"WScript.Shell\\\")\" fullword\n\t\t$s4 = \"oShellLink.IconLocation = \\\"notepad.exe, 0\\\"\" fullword\n\t\t$s5 = \"set oShellLink = WshShell.CreateShortcut(strSTUP & \\\"\\\\WinDefender.lnk\\\")\" fullword\n\t\t$s6 = \"wlg.dat\" fullword\n\t\t$s7 = \"woolger\" fullword wide\n\t\t$s8 = \"[Enter]\" fullword\n\t\t$s9 = \"[Control]\" fullword\n\tcondition:\n\t\t( 1 of ($x*) and 2 of ($s*) ) or\n\t\t( 6 of ($s*) )\n}\n\nrule WoolenGoldfish_Generic_2 {\n\tmeta:\n\t\tdescription = \"Detects a operation Woolen-Goldfish sample - http://goo.gl/NpJpVZ\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\treference = \"http://goo.gl/NpJpVZ\"\n\t\tdate = \"2015/03/25\"\n\t\tscore = 90\n\t\thash1 = \"47b1c9caabe3ae681934a33cd6f3a1b311fd7f9f\"\n\t\thash2 = \"62172eee1a4591bde2658175dd5b8652d5aead2a\"\n\t\thash3 = \"7fef48e1303e40110798dfec929ad88f1ad4fbd8\"\n\t\thash4 = \"c1edf6e3a271cf06030cc46cbd90074488c05564\"\n\t\tid = \"930b928f-ff32-56b2-9e3c-dd80036ff7ef\"\n\tstrings:\n\t\t$s0 = \"modules\\\\exploits\\\\littletools\\\\agent_wrapper\\\\release\" ascii\n\tcondition:\n\t\tall of them\n}\n\nrule WoolenGoldfish_Generic_3 {\n\tmeta:\n\t\tdescription = \"Detects a operation Woolen-Goldfish sample - http://goo.gl/NpJpVZ\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\treference = \"http://goo.gl/NpJpVZ\"\n\t\tdate = \"2015/03/25\"\n\t\tscore = 90\n\t\thash1 = \"86222ef166474e53f1eb6d7e6701713834e6fee7\"\n\t\thash2 = \"e8dbcde49c7f760165ebb0cb3452e4f1c24981f5\"\n\t\tid = \"5c227d24-624c-5fb5-a2ea-a971fda8bfba\"\n\tstrings:\n\t\t$x1 = \"... get header FATAL ERROR !!!  %d bytes read > header_size\" fullword ascii\n\t\t$x2 = \"index.php?c=%S&r=%x&u=1&t=%S\" fullword wide\n\t\t$x3 = \"connect_back_tcp_channel#do_connect:: Error resolving connect back hostname\" fullword ascii\n\n\t\t$s0 = \"kernel32.dll GetProcAddressLoadLibraryAws2_32.dll\" fullword ascii\n\t\t$s1 = \"Content-Type: multipart/form-data; boundary=%S\" fullword wide\n\t\t$s2 = \"Attempting to unlock uninitialized lock!\" fullword ascii\n\t\t$s4 = \"unable to load kernel32.dll\" fullword ascii\n\t\t$s5 = \"index.php?c=%S&r=%x\" fullword wide\n\t\t$s6 = \"%s len:%d \" fullword ascii\n\t\t$s7 = \"Encountered error sending syscall response to client\" fullword ascii\n\t\t$s9 = \"/info.dat\" fullword ascii\n\t\t$s10 = \"Error entering thread lock\" fullword ascii\n\t\t$s11 = \"Error exiting thread lock\" fullword ascii\n\t\t$s12 = \"connect_back_tcp_channel_init:: socket() failed\" fullword ascii\n\tcondition:\n\t\t( 1 of ($x*) ) or\n\t\t( 8 of ($s*) )\n}\n"
+}

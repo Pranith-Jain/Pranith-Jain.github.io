@@ -1,0 +1,21 @@
+{
+  "slug": "expl_lnk_zdi_can_25373",
+  "filename": "expl_lnk_zdi_can_25373.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "EXT_EXPL_ZTH_LNK_EXPLOIT_A",
+      "meta": {
+        "author": "Peter Girnus",
+        "description": "This YARA file detects padded LNK files designed to exploit ZDI-CAN-25373.",
+        "reference": "https://www.trendmicro.com/en_us/research/25/c/windows-shortcut-zero-day-exploit.html",
+        "date": "2025-03-18",
+        "score": "75",
+        "id": "14788504-64e3-533b-ad21-00a3462a33cc"
+      }
+    }
+  ],
+  "body": "rule EXT_EXPL_ZTH_LNK_EXPLOIT_A\n{\n    meta:\n        author = \"Peter Girnus\"\n        description = \"This YARA file detects padded LNK files designed to exploit ZDI-CAN-25373.\"\n        reference = \"https://www.trendmicro.com/en_us/research/25/c/windows-shortcut-zero-day-exploit.html\"\n        date = \"2025-03-18\"\n        score = 75\n        id = \"14788504-64e3-533b-ad21-00a3462a33cc\"\n    strings:\n        $spoof_a = {20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00 20 00}\n        $spoof_b = {09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00 09 00}\n        $spoof_c = {0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00 0A 00}\n        $spoof_d = {0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00 0D 00}\n        $spoof_e = {11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00 11 00}\n        $spoof_f = {12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00 12 00}\n        $spoof_g = {13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00 13 00}\n        $spoof_h = {0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00 0D 00 0A 00}\n    \n    condition:\n        uint32(0) == 0x4C and uint32(4) == 0x21401\n        and any of ($spoof_*)\n}"
+}

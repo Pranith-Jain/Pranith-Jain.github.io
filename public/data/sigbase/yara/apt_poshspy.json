@@ -1,0 +1,21 @@
+{
+  "slug": "apt_poshspy",
+  "filename": "apt_poshspy.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-07-15\n   Identifier: APT29 POSHSPY\n   Reference: https://www.fireeye.com/blog/threat-research/2017/03/dissecting_one_ofap.html",
+  "rules": [
+    {
+      "name": "POSHSPY_Malware",
+      "meta": {
+        "description": "Detects",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.fireeye.com/blog/threat-research/2017/03/dissecting_one_ofap.html",
+        "date": "2017-07-15",
+        "id": "7e908efc-0023-5be1-9871-8bfbf8b9e53a"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-07-15\n   Identifier: APT29 POSHSPY\n   Reference: https://www.fireeye.com/blog/threat-research/2017/03/dissecting_one_ofap.html\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule POSHSPY_Malware {\n   meta:\n      description = \"Detects\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.fireeye.com/blog/threat-research/2017/03/dissecting_one_ofap.html\"\n      date = \"2017-07-15\"\n      id = \"7e908efc-0023-5be1-9871-8bfbf8b9e53a\"\n   strings:\n      $x1 = \"function sWP($cN, $pN, $aK, $aI)\" fullword ascii\n      $x2 = \"$aeK = [byte[]] (0x69, 0x87, 0x0b, 0xf2\" ascii\n      $x3 = \"(('variant', 'excretions', 'accumulators', 'winslow', 'whistleable', 'len',\"\n      $x4 = \"$cPairKey = \\\"BwIAAACkAABSU0EyAAQAAAEAA\"\n      $x5 = \"$exeRes = exePldRoutine\"\n      $x6 = \"ZgB1AG4AYwB0AGkAbwBuACAAcAB1AHIAZgBDAHIA\"\n   condition:\n      1 of them\n}\n"
+}

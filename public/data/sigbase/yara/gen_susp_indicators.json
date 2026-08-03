@@ -1,0 +1,9 @@
+{
+  "slug": "gen_susp_indicators",
+  "filename": "gen_susp_indicators.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [],
+  "body": "import \"pe\"\n\nrule SUSP_ENV_Folder_Root_File_Jan23_1 : SCRIPT {\n   meta:\n      description = \"Detects suspicious file path pointing to the root of a folder easily accessible via environment variables\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2023-01-11\"\n      score = 70\n      id = \"6067d822-5c1b-5b86-863c-fdcfa37da665\"\n   strings:\n      $xr1 = /%([Aa]pp[Dd]ata|APPDATA)%\\\\[A-Za-z0-9_\\-]{1,20}\\.[a-zA-Z0-9]{1,4}[^\\\\]/ wide ascii\n      $xr2 = /%([Pp]ublic|PUBLIC)%\\\\[A-Za-z0-9_\\-]{1,20}\\.[a-zA-Z0-9]{1,4}[^\\\\]/ wide ascii\n      $xr4 = /%([Pp]rogram[Dd]ata|PROGRAMDATA)%\\\\[A-Za-z0-9_\\-]{1,20}\\.[a-zA-Z0-9]{1,4}[^\\\\]/ wide ascii\n\n      $fp1 = \"perl -MCPAN \" ascii\n      $fp2 = \"CCleaner\" ascii\n   condition:\n      filesize < 20MB and 1 of ($x*)\n      and not 1 of ($fp*)\n      and not pe.number_of_signatures > 0\n}\n"
+}

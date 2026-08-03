@@ -1,0 +1,21 @@
+{
+  "slug": "crime_locky",
+  "filename": "crime_locky.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n\tAuthor: Florian Roth\n\tDate: 2016-02-17\n\tIdentifier: Locky",
+  "rules": [
+    {
+      "name": "Locky_Ransomware",
+      "meta": {
+        "description": "Detects Locky Ransomware (matches also on Win32/Kuluoz)",
+        "author": "Florian Roth (Nextron Systems) (with the help of binar.ly)",
+        "reference": "https://goo.gl/qScSrE",
+        "date": "2016-02-17",
+        "hash": "5e945c1d27c9ad77a2b63ae10af46aee7d29a6a43605a9bfbf35cebbcff184d8",
+        "id": "ce61e01e-a9ce-54f4-bd2d-8acf1d5fbc30"
+      }
+    }
+  ],
+  "body": "/*\n\tYara Rule Set\n\tAuthor: Florian Roth\n\tDate: 2016-02-17\n\tIdentifier: Locky\n*/\n\nrule Locky_Ransomware {\n\tmeta:\n\t\tdescription = \"Detects Locky Ransomware (matches also on Win32/Kuluoz)\"\n\t\tauthor = \"Florian Roth (Nextron Systems) (with the help of binar.ly)\"\n\t\treference = \"https://goo.gl/qScSrE\"\n\t\tdate = \"2016-02-17\"\n\t\thash = \"5e945c1d27c9ad77a2b63ae10af46aee7d29a6a43605a9bfbf35cebbcff184d8\"\n\t\tid = \"ce61e01e-a9ce-54f4-bd2d-8acf1d5fbc30\"\n\tstrings:\n\t\t$o1 = { 45 b8 99 f7 f9 0f af 45 b8 89 45 b8 } // address=0x4144a7\n\t\t$o2 = { 2b 0a 0f af 4d f8 89 4d f8 c7 45 } // address=0x413863\n\tcondition:\n\t\tall of ($o*)\n}\n"
+}

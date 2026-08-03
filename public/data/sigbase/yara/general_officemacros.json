@@ -1,0 +1,55 @@
+{
+  "slug": "general_officemacros",
+  "filename": "general_officemacros.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "Office_AutoOpen_Macro",
+      "meta": {
+        "description": "Detects an Microsoft Office file that contains the AutoOpen Macro function",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "date": "2015-05-28",
+        "score": "40",
+        "hash1": "4d00695d5011427efc33c9722c61ced2",
+        "hash2": "63f6b20cb39630b13c14823874bd3743",
+        "hash3": "66e67c2d84af85a569a04042141164e6",
+        "hash4": "a3035716fe9173703941876c2bde9d98",
+        "hash5": "7c06cab49b9332962625b16f15708345",
+        "hash6": "bfc30332b7b91572bfe712b656ea8a0c",
+        "hash7": "25285b8fe2c41bd54079c92c1b761381",
+        "id": "9774d96c-4d15-5a54-8fe2-e06372d9c4ec"
+      }
+    },
+    {
+      "name": "Office_as_MHTML",
+      "meta": {
+        "description": "Detects an Microsoft Office saved as a MHTML file (false positives are possible but rare; many matches on CVE-2012-0158)",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "date": "2015-05-28",
+        "score": "40",
+        "reference": "https://www.trustwave.com/Resources/SpiderLabs-Blog/Malicious-Macros-Evades-Detection-by-Using-Unusual-File-Format/",
+        "hash1": "8391d6992bc037a891d2e91fd474b91bd821fe6cb9cfc62d1ee9a013b18eca80",
+        "hash2": "1ff3573fe995f35e70597c75d163bdd9bed86e2238867b328ccca2a5906c4eef",
+        "hash3": "d44a76120a505a9655f0224c6660932120ef2b72fee4642bab62ede136499590",
+        "hash4": "5b8019d339907ab948a413d2be4bdb3e5fdabb320f5edc726dc60b4c70e74c84",
+        "id": "21c0c3da-7295-54ad-9947-557a3180af3a"
+      }
+    },
+    {
+      "name": "Docm_in_PDF",
+      "meta": {
+        "description": "Detects an embedded DOCM in PDF combined with OpenAction",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2017-05-15",
+        "id": "08dfdfda-8ea5-530d-b89b-560415855080"
+      }
+    }
+  ],
+  "body": "\nrule Office_AutoOpen_Macro {\n\tmeta:\n\t\tdescription = \"Detects an Microsoft Office file that contains the AutoOpen Macro function\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tdate = \"2015-05-28\"\n\t\tscore = 40\n\t\thash1 = \"4d00695d5011427efc33c9722c61ced2\"\n\t\thash2 = \"63f6b20cb39630b13c14823874bd3743\"\n\t\thash3 = \"66e67c2d84af85a569a04042141164e6\"\n\t\thash4 = \"a3035716fe9173703941876c2bde9d98\"\n\t\thash5 = \"7c06cab49b9332962625b16f15708345\"\n\t\thash6 = \"bfc30332b7b91572bfe712b656ea8a0c\"\n\t\thash7 = \"25285b8fe2c41bd54079c92c1b761381\"\n\t\tid = \"9774d96c-4d15-5a54-8fe2-e06372d9c4ec\"\n\tstrings:\n\t\t$s1 = \"AutoOpen\" ascii fullword\n\t\t$s2 = \"Macros\" wide fullword\n\tcondition:\n\t\t(\n\t\t\tuint32be(0) == 0xd0cf11e0 or \t// DOC, PPT, XLS\n\t\t\tuint32be(0) == 0x504b0304\t\t// DOCX, PPTX, XLSX (PKZIP)\n\t\t)\n\t\tand all of ($s*) and filesize < 300000\n}\n\nrule Office_as_MHTML {\n\tmeta:\n\t\tdescription = \"Detects an Microsoft Office saved as a MHTML file (false positives are possible but rare; many matches on CVE-2012-0158)\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tdate = \"2015-05-28\"\n\t\tscore = 40\n\t\treference = \"https://www.trustwave.com/Resources/SpiderLabs-Blog/Malicious-Macros-Evades-Detection-by-Using-Unusual-File-Format/\"\n\t\thash1 = \"8391d6992bc037a891d2e91fd474b91bd821fe6cb9cfc62d1ee9a013b18eca80\"\n\t\thash2 = \"1ff3573fe995f35e70597c75d163bdd9bed86e2238867b328ccca2a5906c4eef\"\n\t\thash3 = \"d44a76120a505a9655f0224c6660932120ef2b72fee4642bab62ede136499590\"\n\t\thash4 = \"5b8019d339907ab948a413d2be4bdb3e5fdabb320f5edc726dc60b4c70e74c84\"\n\t\tid = \"21c0c3da-7295-54ad-9947-557a3180af3a\"\n\tstrings:\n\t\t$s1 = \"Content-Transfer-Encoding: base64\" ascii fullword\n\t\t$s2 = \"Content-Type: application/x-mso\" ascii fullword\n\n\t\t$x1 = \"QWN0aXZlTWltZQA\" ascii \t// Base64 encoded 'ActiveMime'\n\t\t$x2 = \"0M8R4KGxGuE\" ascii \t\t// Base64 encoded office header D0CF11E0A1B11AE1..\n\tcondition:\n\t\tuint32be(0) == 0x4d494d45 // \"MIME\" header\n\t\tand all of ($s*) and 1 of ($x*)\n}\n\nrule Docm_in_PDF {\n   meta:\n      description = \"Detects an embedded DOCM in PDF combined with OpenAction\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2017-05-15\"\n      id = \"08dfdfda-8ea5-530d-b89b-560415855080\"\n   strings:\n      $a1 = /<<\\/Names\\[\\([\\w]{1,12}.docm\\)/ ascii\n      $a2 = \"OpenAction\" ascii fullword\n      $a3 = \"JavaScript\" ascii fullword\n   condition:\n      uint32(0) == 0x46445025 and all of them\n}\n"
+}

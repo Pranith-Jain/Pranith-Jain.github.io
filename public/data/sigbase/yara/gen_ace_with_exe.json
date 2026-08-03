@@ -1,0 +1,20 @@
+{
+  "slug": "gen_ace_with_exe",
+  "filename": "gen_ace_with_exe.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "ACE_Containing_EXE",
+      "meta": {
+        "author": "Florian Roth (Nextron Systems) - based on Nick Hoffman' rule - Morphick Inc",
+        "description": "Looks for ACE Archives containing an exe/scr file",
+        "date": "2015-09-09",
+        "score": "50",
+        "id": "0756f0e7-39f1-572d-a77d-1f7826332360"
+      }
+    }
+  ],
+  "body": "\nrule ACE_Containing_EXE {\n    meta:\n        author = \"Florian Roth (Nextron Systems) - based on Nick Hoffman' rule - Morphick Inc\"\n        description = \"Looks for ACE Archives containing an exe/scr file\"\n        date = \"2015-09-09\"\n        score = 50\n        id = \"0756f0e7-39f1-572d-a77d-1f7826332360\"\n    strings:\n        $header = { 2a 2a 41 43 45 2a 2a }\n        $extensions1 = \".exe\" \n        $extensions2 = \".EXE\"\n        $extensions3 = \".scr\"\n        $extensions4 = \".SCR\"\n    condition:\n        $header at 7 and for\n        any of ($extensions*): (\n            $ in (81..(81+uint16(79)))\n        )\n}\n\n\n"
+}

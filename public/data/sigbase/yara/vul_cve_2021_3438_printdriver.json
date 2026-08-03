@@ -1,0 +1,22 @@
+{
+  "slug": "vul_cve_2021_3438_printdriver",
+  "filename": "vul_cve_2021_3438_printdriver.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "VULN_PrinterDriver_PrivEsc_CVE_2021_3438_Jul21",
+      "meta": {
+        "description": "Detects affected drivers with PE timestamps older than the date of the initial report",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://labs.sentinelone.com/cve-2021-3438-16-years-in-hiding-millions-of-printers-worldwide-vulnerable/",
+        "date": "2021-07-20",
+        "score": "70",
+        "hash1": "7cc9ba2df7b9ea6bb17ee342898edd7f54703b93b6ded6a819e83a7ee9f938b4",
+        "id": "34cd648a-3e3f-5832-8abe-18507931eb3d"
+      }
+    }
+  ],
+  "body": "\nimport \"pe\"\n\nrule VULN_PrinterDriver_PrivEsc_CVE_2021_3438_Jul21 {\n   meta:\n      description = \"Detects affected drivers with PE timestamps older than the date of the initial report\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://labs.sentinelone.com/cve-2021-3438-16-years-in-hiding-millions-of-printers-worldwide-vulnerable/\"\n      date = \"2021-07-20\"\n      score = 70\n      hash1 = \"7cc9ba2df7b9ea6bb17ee342898edd7f54703b93b6ded6a819e83a7ee9f938b4\"\n      id = \"34cd648a-3e3f-5832-8abe-18507931eb3d\"\n   strings:\n      $s1 = \"This String is from Device Driver@@@@@ !!!\" ascii \n      $s2 = \"\\\\DosDevices\\\\ssportc\" wide fullword\n   condition:\n      uint16(0) == 0x5a4d\n      and filesize < 400KB\n      and all of ($s*)\n      /* date of the initial report by SentinelOne */\n      and 1613606400 >= pe.timestamp\n}\n"
+}

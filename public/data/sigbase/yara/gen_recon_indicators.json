@@ -1,0 +1,33 @@
+{
+  "slug": "gen_recon_indicators",
+  "filename": "gen_recon_indicators.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "Recon_Commands_Windows_Gen1",
+      "meta": {
+        "description": "Detects a set of reconnaissance commands on Windows systems",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/MSJCxP",
+        "date": "2017-07-10",
+        "score": "60",
+        "id": "bc95265c-780d-5451-bd12-d14495877e46"
+      }
+    },
+    {
+      "name": "SUSP_Recon_Outputs_Jun20_1",
+      "meta": {
+        "description": "Detects outputs of many different commands often used for reconnaissance purposes",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://securelist.com/cycldek-bridging-the-air-gap/97157/",
+        "date": "2020-06-04",
+        "score": "60",
+        "id": "ec3759aa-212f-52ce-9f38-636accd35749"
+      }
+    }
+  ],
+  "body": "\n/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-07-10\n   Identifier: Hacking Attempts\n   Reference: https://blogs.rsa.com/wp-content/uploads/2017/07/Fig8-netstat_dropped_more.png\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule Recon_Commands_Windows_Gen1 {\n   meta:\n      description = \"Detects a set of reconnaissance commands on Windows systems\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2017-07-10\"\n      score = 60\n      reference = \"https://goo.gl/MSJCxP\"\n      id = \"bc95265c-780d-5451-bd12-d14495877e46\"\n   strings:\n      $s1 = \"netstat -an\" ascii\n      $s2 = \"net view\" ascii fullword\n      $s3 = \"net user\" ascii fullword\n      $s4 = \"whoami\" ascii\n      $s5 = \"tasklist /v\" ascii\n      $s6 = \"systeminfo\" ascii\n      $s7 = \"net localgroup administrators\" ascii\n      $s8 = \"net user administrator\" ascii\n      $s9 = \"regedit -e \" ascii\n      $s10 = \"tasklist /svc\" ascii\n      $s11 = \"regsvr32 /s /u \" ascii\n      $s12 = \"CreateObject(\\\"WScript.Shell\\\").RegWrite\" ascii\n      $s13 = \"bitsadmin /rawreturn /transfer getfile\" ascii\n      $s14 = \"wmic qfe list full\" ascii\n      $s15 = \"schtasks.exe /create \" ascii nocase\n      $s16 = \"wmic share get\" ascii\n      $s17 = \"wmic nteventlog get\" ascii\n      $s18 = \"wevtutil cl \" ascii\n      $s19 = \"sc query type= service\" ascii\n      $s20 = \"arp -a \" ascii\n\n      $fp1 = \"avdapp.dll\" fullword wide\n      $fp2 = \"keyword.command.batchfile\" ascii\n      $fp3 = \".sublime-settings\" ascii\n   condition:\n      filesize < 1000KB and 4 of them\n      and not 1 of ($fp*)\n}\n\nrule SUSP_Recon_Outputs_Jun20_1 {\n   meta:\n      description = \"Detects outputs of many different commands often used for reconnaissance purposes\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://securelist.com/cycldek-bridging-the-air-gap/97157/\"\n      date = \"2020-06-04\"\n      score = 60\n      id = \"ec3759aa-212f-52ce-9f38-636accd35749\"\n   strings:\n      /* ipconfig /all */\n      $s1 = \". . . . : Yes\" ascii \n      /* ping */\n      $s2 = \"with 32 bytes of data:\" ascii\n      /* arp -a */\n      $s3 = \"ff-ff-ff-ff-ff-ff     static\" ascii\n      /* netstat */ \n      $s4 = \"  TCP    0.0.0.0:445\" ascii \n      /* tasklist */ \n      $s5 = \"System Idle Process\" ascii\n   condition:\n      filesize < 150KB and\n      4 of them\n}\n"
+}

@@ -1,1 +1,15 @@
-{"slug":"section9-net-br-2026-07-26","title":"******.net.br","group":"Section9","discovered":"2026-07-26T18:50:15.000Z","category":"data_breach","severity":"high","country":"BR","sizeBytes":0,"description":"TAX","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}
+{
+  "slug": "section9-net-br-2026-07-26",
+  "title": "******.net.br",
+  "group": "Section9",
+  "discovered": "2026-07-26T18:50:15.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/0077a163-f01b-449a-9aea-1e6d59b11547",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}

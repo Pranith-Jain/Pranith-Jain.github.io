@@ -1,0 +1,9 @@
+{
+  "slug": "expl_cve_2022_41040_proxynoshell",
+  "filename": "expl_cve_2022_41040_proxynoshell.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [],
+  "body": "\nrule EXPL_Exchange_ProxyNotShell_Patterns_CVE_2022_41040_Oct22_1 : SCRIPT {\n   meta:\n      description = \"Detects successful ProxyNotShell exploitation attempts in log files (attempt to identify the attack before the official release of detailed information)\"\n      author = \"Florian Roth (Nextron Systems)\"\n      score = 75\n      old_rule_name = \"EXPL_Exchange_ProxyNoShell_Patterns_CVE_2022_41040_Oct22_1\"\n      reference = \"https://github.com/kljunowsky/CVE-2022-41040-POC\"\n      date = \"2022-10-11\"\n      modified = \"2023-03-15\"\n      id = \"d2812fcd-0a20-5bbd-a9e1-9cca1ed58aa3\"\n   strings:\n      $sr1 = / \\/autodiscover\\/autodiscover\\.json[^\\n]{1,300}owershell/ nocase ascii\n\n      $sa1 = \" 200 \"\n\n      $fp1 = \" 444 \"\n      $fp2 = \" 404 \"\n      $fp2b = \" 401 \" /* Unauthorized */\n      $fp3 = \"GET /owa/ &Email=autodiscover/autodiscover.json%3F@test.com&ClientId=\" ascii /* Nessus */\n      $fp4 = \"@test.com/owa/?&Email=autodiscover/autodiscover.json%3F@test.com\" ascii /* Nessus */\n   condition:\n      $sr1\n      and 1 of ($sa*)\n      and not 1 of ($fp*)\n}\n"
+}

@@ -1,0 +1,22 @@
+{
+  "slug": "crime_dexter_trojan",
+  "filename": "crime_dexter_trojan.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "Dexter_Malware",
+      "meta": {
+        "description": "Detects the Dexter Trojan/Agent http://goo.gl/oBvy8b",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://goo.gl/oBvy8b",
+        "date": "2015/02/10",
+        "score": "70",
+        "id": "8be328ec-ba29-50ba-8d35-e2c4dfcae45e"
+      }
+    }
+  ],
+  "body": "rule Dexter_Malware {\n\tmeta:\n\t\tdescription = \"Detects the Dexter Trojan/Agent http://goo.gl/oBvy8b\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\treference = \"http://goo.gl/oBvy8b\"\n\t\tdate = \"2015/02/10\"\n\t\tscore = 70\n\t\tid = \"8be328ec-ba29-50ba-8d35-e2c4dfcae45e\"\n\tstrings:\n\t\t$s0 = \"Java Security Plugin\" fullword wide\n\t\t$s1 = \"%s\\\\%s\\\\%s.exe\" fullword wide\n\t\t$s2 = \"Sun Java Security Plugin\" fullword wide\n\t\t$s3 = \"\\\\Internet Explorer\\\\iexplore.exe\" wide\n\tcondition:\n\t\tall of them\n}"
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "gen_cert_payloads",
+  "filename": "gen_cert_payloads.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_certificate_payload",
+      "meta": {
+        "description": "Detects payloads that pretend to be certificates",
+        "date": "2018/08/02",
+        "author": "Didier Stevens, Florian Roth",
+        "reference": "https://blog.nviso.be/2018/08/02/powershell-inside-a-certificate-part-3/",
+        "score": "50",
+        "id": "6f1fe410-591a-5a59-a683-67cad9777dfe"
+      }
+    }
+  ],
+  "body": "rule SUSP_certificate_payload {\n   meta:\n      description = \"Detects payloads that pretend to be certificates\"\n      date = \"2018/08/02\"\n      author = \"Didier Stevens, Florian Roth\"\n      reference = \"https://blog.nviso.be/2018/08/02/powershell-inside-a-certificate-part-3/\"\n      score = 50\n      id = \"6f1fe410-591a-5a59-a683-67cad9777dfe\"\n   strings:\n      $re1 = \"-----BEGIN CERTIFICATE-----\"\n\n      $fp1 = \"replace it with the PEM-encoded root certificate\"\n   condition:\n      uint32(0) == 0x2D2D2D2D\n      and $re1 at 0\n      /* not 'M' at position 29, which is after the BEGIN CERTIFICATE header plus line break */\n      /* \\r\\n */\n      and not uint8(29) == 0x4D\n      /* \\n */\n      and not uint8(28) == 0x4D\n      and not 1 of ($fp*)\n}\n"
+}

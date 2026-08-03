@@ -1,0 +1,99 @@
+{
+  "slug": "react_pocs_indicators_dec25",
+  "filename": "react_pocs_indicators_dec25.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "EXPL_React_Server_CVE_2025_55182_POC_Dec25",
+      "meta": {
+        "description": "Detects in-memory webshell indicators related to the proof-of-concept code for the React Server Remote Code Execution Vulnerability (CVE-2025-55182)",
+        "author": "Florian Roth",
+        "reference": "https://x.com/pyn3rd/status/1996840827897954542/photo/1",
+        "date": "2025-12-05",
+        "score": "70",
+        "id": "1ad38541-1477-5c07-9975-318357bcb9b8"
+      }
+    },
+    {
+      "name": "SUSP_WEBSHELL_LOG_Signatures_Dec25",
+      "meta": {
+        "description": "Detects indicators related simple webshells that use the same exec/cmd pattern",
+        "author": "Florian Roth",
+        "reference": "https://x.com/pyn3rd/status/1996840827897954542/photo/1",
+        "date": "2025-12-05",
+        "score": "60",
+        "id": "8b97ba37-b503-5bcf-be94-76eec8b3d5cd"
+      }
+    },
+    {
+      "name": "EXPL_RCE_React_Server_CVE_2025_55182_POC_Dec25",
+      "meta": {
+        "description": "Detects RCE indicators related to the proof-of-concept code for the React Server Remote Code Execution Vulnerability (CVE-2025-55182)",
+        "author": "Florian Roth",
+        "reference": "https://www.youtube.com/watch?v=MmdwakT-Ve8",
+        "date": "2025-12-05",
+        "score": "70",
+        "id": "fdd661a9-0532-5246-b744-0c1a9632d1cd"
+      }
+    },
+    {
+      "name": "EXPL_RCE_React_Server_Next_JS_CVE_2025_66478_Tracebacks_Dec25",
+      "meta": {
+        "description": "Detects traceback indicators caused by the exploitation of the React Server Remote Code Execution Vulnerability (CVE-2025-55182) in Next.js applications (CVE-2025-66478). This can also be caused by vulnerability scanning.",
+        "author": "Florian Roth",
+        "reference": "Internal Research",
+        "date": "2025-12-05",
+        "score": "55",
+        "id": "45d9b392-2237-590f-842f-27d549207a09"
+      }
+    },
+    {
+      "name": "EXPL_RCE_React_Server_Next_JS_CVE_2025_66478_Errors_Dec25",
+      "meta": {
+        "description": "Detects error messages caused by the exploitation of the React Server Remote Code Execution Vulnerability (CVE-2025-55182) in Next.js applications (CVE-2025-66478). This can also be caused by vulnerability scanning.",
+        "author": "Florian Roth",
+        "reference": "https://github.com/Malayke/Next.js-RSC-RCE-Scanner-CVE-2025-66478",
+        "date": "2025-12-05",
+        "score": "65",
+        "id": "6baeb522-6299-56a2-be27-21c6b668439b"
+      }
+    },
+    {
+      "name": "EXPL_SUSP_JS_POC_Dec25",
+      "meta": {
+        "description": "Detects RCE indicators related to the proof-of-concept code for the React Server Remote Code Execution Vulnerability (CVE-2025-55182) but could be used in other JavaScript based PoC code as well",
+        "author": "Florian Roth",
+        "reference": "https://github.com/msanft/CVE-2025-55182/blob/main/poc.py",
+        "date": "2025-12-05",
+        "modified": "2025-12-06",
+        "score": "70",
+        "id": "114c83f8-b798-5db9-a054-a6148dde7d5a"
+      }
+    },
+    {
+      "name": "EXPL_SUSP_JS_POC_RSC_Detector_Payloads_Dec25",
+      "meta": {
+        "description": "Detects RCE indicators related to the proof-of-concept code for the React Server Remote Code Execution Vulnerability (CVE-2025-55182) as used in the RSC Detector browser extension but could be used in other JavaScript based PoC code as well",
+        "author": "Florian Roth",
+        "reference": "https://github.com/mrknow001/RSC_Detector",
+        "date": "2025-12-06",
+        "score": "70",
+        "id": "98887e97-2dd4-5777-9fab-02805035de14"
+      }
+    },
+    {
+      "name": "EXPL_SUSP_JS_Exploitation_Payloads_Dec25",
+      "meta": {
+        "description": "Detects RCE indicators related to the exploitation attempts of the React Server Remote Code Execution Vulnerability (CVE-2025-55182) as observed in the wild",
+        "author": "Florian Roth",
+        "reference": "https://www.greynoise.io/blog/cve-2025-55182-react2shell-opportunistic-exploitation-in-the-wild-what-the-greynoise-observation-grid-is-seeing-so-far",
+        "date": "2025-12-06",
+        "score": "70",
+        "id": "91220a9b-bb97-5fdf-b14d-fac36d6bed3a"
+      }
+    }
+  ],
+  "body": "rule EXPL_React_Server_CVE_2025_55182_POC_Dec25 {\n   meta:\n      description = \"Detects in-memory webshell indicators related to the proof-of-concept code for the React Server Remote Code Execution Vulnerability (CVE-2025-55182)\"\n      author = \"Florian Roth\"\n      reference = \"https://x.com/pyn3rd/status/1996840827897954542/photo/1\"\n      date = \"2025-12-05\"\n      score = 70\n      id = \"1ad38541-1477-5c07-9975-318357bcb9b8\"\n   strings:\n      $xs1 = \"{const cmd=p.query.cmd;if(!cmd)(s.writeHead(400);\"\n\n      $s1 = \";if(p.pathname==\"\n      $s2 = \".writeHead(400);\"\n      $s3 = \".writeHead(200,{'Content-Type':\"\n      $s4 = \".execSync(\"\n      $s5 = \",stdio:'pipe'})\"\n   condition:\n      1 of ($x*)\n      or all of ($s*)\n}\n\nrule SUSP_WEBSHELL_LOG_Signatures_Dec25 {\n   meta:\n      description = \"Detects indicators related simple webshells that use the same exec/cmd pattern\"\n      author = \"Florian Roth\"\n      reference = \"https://x.com/pyn3rd/status/1996840827897954542/photo/1\"\n      date = \"2025-12-05\"\n      score = 60\n      id = \"8b97ba37-b503-5bcf-be94-76eec8b3d5cd\"\n   strings:\n      $xa1 = \"/exec?cmd=ls\"\n      $xa2 = \"/exec?cmd=whoami\"\n      $xa3 = \"/exec?cmd=id\"\n      $xa4 = \"/exec?cmd=uname%20-a\"\n   condition:\n      1 of them\n      // not XML\n      and not uint16(0) == 0x3c3f\n}\n\nrule EXPL_RCE_React_Server_CVE_2025_55182_POC_Dec25 {\n   meta:\n      description = \"Detects RCE indicators related to the proof-of-concept code for the React Server Remote Code Execution Vulnerability (CVE-2025-55182)\"\n      author = \"Florian Roth\"\n      reference = \"https://www.youtube.com/watch?v=MmdwakT-Ve8\"\n      date = \"2025-12-05\"\n      score = 70\n      id = \"fdd661a9-0532-5246-b744-0c1a9632d1cd\"\n   strings:\n      $s1 = \"process.mainModule.require('child_process').execSync(\"\n      $s2 = \"$1:constructor:constructor\"\n   condition:\n      all of them\n      // not XML\n      and not uint16(0) == 0x3c3f\n}\n\nrule EXPL_RCE_React_Server_Next_JS_CVE_2025_66478_Tracebacks_Dec25 {\n   meta:\n      description = \"Detects traceback indicators caused by the exploitation of the React Server Remote Code Execution Vulnerability (CVE-2025-55182) in Next.js applications (CVE-2025-66478). This can also be caused by vulnerability scanning.\"\n      author = \"Florian Roth\"\n      reference = \"Internal Research\"\n      date = \"2025-12-05\"\n      score = 55\n      id = \"45d9b392-2237-590f-842f-27d549207a09\"\n   strings:\n      $s1 = \"Unexpected end of form\"\n      $s2 = \"/next-server/app-page.runtime.dev.js:2:457\"\n      $s3 = \"/app-page.runtime.dev.js:2:472\"\n   condition:\n      all of them\n}\n\nrule EXPL_RCE_React_Server_Next_JS_CVE_2025_66478_Errors_Dec25 {\n   meta:\n      description = \"Detects error messages caused by the exploitation of the React Server Remote Code Execution Vulnerability (CVE-2025-55182) in Next.js applications (CVE-2025-66478). This can also be caused by vulnerability scanning.\"\n      author = \"Florian Roth\"\n      reference = \"https://github.com/Malayke/Next.js-RSC-RCE-Scanner-CVE-2025-66478\"\n      date = \"2025-12-05\"\n      score = 65\n      id = \"6baeb522-6299-56a2-be27-21c6b668439b\"\n   strings:\n      $s1 = \"[Error: NEXT_REDIRECT]\"\n      $s2 = \"digest: 'uid=0(root) gid=0(root)\"\n   condition:\n      all of them\n}\n\nrule EXPL_SUSP_JS_POC_Dec25 {\n   meta:\n      description = \"Detects RCE indicators related to the proof-of-concept code for the React Server Remote Code Execution Vulnerability (CVE-2025-55182) but could be used in other JavaScript based PoC code as well\"\n      author = \"Florian Roth\"\n      reference = \"https://github.com/msanft/CVE-2025-55182/blob/main/poc.py\"\n      date = \"2025-12-05\"\n      modified = \"2025-12-06\"\n      score = 70\n      id = \"114c83f8-b798-5db9-a054-a6148dde7d5a\"\n   strings:\n      $xr1 = /process\\.mainModule\\.require\\([\"']child_process[\"']\\).{5,40}\\([\"'](whoami|powershell|\\/bin\\/sh|\\/bin\\/bash|wget|curl|cat \\/etc\\/passwd|uname|id[\"'])/\n   condition:\n      1 of them\n      // not XML\n      and not uint16(0) == 0x3c3f\n}\n\nrule EXPL_SUSP_JS_POC_RSC_Detector_Payloads_Dec25 {\n   meta:\n      description = \"Detects RCE indicators related to the proof-of-concept code for the React Server Remote Code Execution Vulnerability (CVE-2025-55182) as used in the RSC Detector browser extension but could be used in other JavaScript based PoC code as well\"\n      author = \"Florian Roth\"\n      reference = \"https://github.com/mrknow001/RSC_Detector\"\n      date = \"2025-12-06\"\n      score = 70\n      id = \"98887e97-2dd4-5777-9fab-02805035de14\"\n   strings:\n      $s1 = \"process.mainModule.require('child_process').execSync(\"\n      $s2 = \").toString('base64');\"\n\n      // harmless test cases - we only want to match real command execution attempts\n      $f1 = \"echo vulnerability_test\"\n   condition:\n      all of ($s*)\n      and not 1 of ($f*)\n}\n\nrule EXPL_SUSP_JS_Exploitation_Payloads_Dec25 {\n   meta:\n      description = \"Detects RCE indicators related to the exploitation attempts of the React Server Remote Code Execution Vulnerability (CVE-2025-55182) as observed in the wild\"\n      author = \"Florian Roth\"\n      reference = \"https://www.greynoise.io/blog/cve-2025-55182-react2shell-opportunistic-exploitation-in-the-wild-what-the-greynoise-observation-grid-is-seeing-so-far\"\n      date = \"2025-12-06\"\n      score = 70\n      id = \"91220a9b-bb97-5fdf-b14d-fac36d6bed3a\"\n   strings:\n      $a1 = \"process.mainModule.require('child_process')\"\n\n      $x1 = \".execSync('powershell -enc SQBFAFgAIAA\"\n\n      $sa1 = \".execSync('powershell\"\n      $sa2 = \".execSync('curl \"\n      $sa3 = \".execSync('wget \"\n\n      $sb01 = \" -e \"\n      $sb02 = \" -ec \"\n      $sb03 = \" -en \"\n      $sb04 = \" -enc \"\n      $sb05 = \" -enco \"\n      $sb06 = \" -encodedcommand \"\n      $sb07 = \" | bash\"\n      $sb08 = \" | sh\"\n      $sb09 = \"|bash\"\n      $sb10 = \"|sh\"\n\n      $sc1 = \").DownloadString(\" ascii wide base64\n      $sc2 = \"IEX (New-Object \" ascii wide base64\n   condition:\n      $a1\n      and (\n         1 of ($x*)\n         or (\n            1 of ($sa*)\n            and 1 of ($sb*)\n         )\n         or 1 of ($sc*)\n      )\n}\n"
+}

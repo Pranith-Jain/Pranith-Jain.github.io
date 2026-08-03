@@ -1,0 +1,46 @@
+{
+  "slug": "apt_eqgrp_sparc_sbz_apr23",
+  "filename": "apt_eqgrp_sparc_sbz_apr23.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_ELF_SPARC_Hunting_SBZ_Obfuscation",
+      "meta": {
+        "description": "This rule is UNTESTED against a large dataset and is for hunting purposes only.",
+        "author": "netadr, modified by Florian Roth to avoid elf module import",
+        "reference": "https://netadr.github.io/blog/a-quick-glimpse-sbz/",
+        "date": "2023-04-02",
+        "modified": "2023-05-08",
+        "score": "60",
+        "id": "15ee9a66-d823-508c-a14c-2c6ff45f47e5"
+      }
+    },
+    {
+      "name": "SUSP_ELF_SPARC_Hunting_SBZ_UniqueStrings",
+      "meta": {
+        "description": "This rule is UNTESTED against a large dataset and is for hunting purposes only.",
+        "author": "netadr, modified by Florian Roth for performance reasons",
+        "reference": "https://netadr.github.io/blog/a-quick-glimpse-sbz/",
+        "date": "2023-04-02",
+        "modified": "2023-05-08",
+        "score": "60",
+        "id": "d2f70d10-412e-5e83-ba4f-eac251012dc1"
+      }
+    },
+    {
+      "name": "SUSP_ELF_SPARC_Hunting_SBZ_ModuleStruct",
+      "meta": {
+        "description": "This rule is UNTESTED against a large dataset and is for hunting purposes only.",
+        "author": "netadr, modified by Florian Roth for FP reduction reasons",
+        "reference": "https://netadr.github.io/blog/a-quick-glimpse-sbz/",
+        "date": "2023-04-02",
+        "modified": "2023-05-08",
+        "score": "60",
+        "id": "909746f1-44f5-597b-bdb2-2a1396d4b8c7"
+      }
+    }
+  ],
+  "body": "\nrule SUSP_ELF_SPARC_Hunting_SBZ_Obfuscation {\n   meta:\n   description = \"This rule is UNTESTED against a large dataset and is for hunting purposes only.\"\n   author = \"netadr, modified by Florian Roth to avoid elf module import\"\n   reference = \"https://netadr.github.io/blog/a-quick-glimpse-sbz/\"\n   date = \"2023-04-02\"\n   modified = \"2023-05-08\"\n   score = 60\n\n   id = \"15ee9a66-d823-508c-a14c-2c6ff45f47e5\"\n   strings:\n      // xor g3, 0x47, o5\n      // xor o5, g1, o5\n      // xor g2, o5, o5\n      $xor_block = { 9A 18 E0 47 9A 1B 40 01 9A 18 80 0D }\n\n      $a1 = \"SUNW_\"\n\n   condition:\n      uint32be(0) == 0x7f454c46\n      and $a1\n      and $xor_block\n}\n\nrule SUSP_ELF_SPARC_Hunting_SBZ_UniqueStrings {\n   meta:\n      description = \"This rule is UNTESTED against a large dataset and is for hunting purposes only.\"\n      author = \"netadr, modified by Florian Roth for performance reasons\"\n      reference = \"https://netadr.github.io/blog/a-quick-glimpse-sbz/\"\n      date = \"2023-04-02\"\n      modified = \"2023-05-08\"\n      score = 60\n\n      id = \"d2f70d10-412e-5e83-ba4f-eac251012dc1\"\n   strings:\n      $s1 = \"<%u>[%s] Event #%u: \"\n      /* $s2 = \"ofn\" */\n      $s2 = \"lprc:%08X\" ascii fullword\n\n      // suggested by https://twitter.com/adulau/status/1553401532514766848\n      $s3 = \"diuXxobB\" \n      $s4 = \"CHM_FW\"\n\n   condition:\n      2 of ($*)\n}\n\nrule SUSP_ELF_SPARC_Hunting_SBZ_ModuleStruct {\n   meta:\n      description = \"This rule is UNTESTED against a large dataset and is for hunting purposes only.\"\n      author = \"netadr, modified by Florian Roth for FP reduction reasons\"\n      reference = \"https://netadr.github.io/blog/a-quick-glimpse-sbz/\"\n      date = \"2023-04-02\"\n      modified = \"2023-05-08\"\n      score = 60\n\n      id = \"909746f1-44f5-597b-bdb2-2a1396d4b8c7\"\n   strings:\n      $be = { 02 02 00 00 01 C1 00 07 }\n      $le = { 02 02 00 00 07 00 C1 01 }\n\n   condition:\n      uint32be(0) == 0x7f454c46 and ( $be or $le )\n}\n\n"
+}

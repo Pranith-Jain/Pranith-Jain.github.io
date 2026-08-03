@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**262 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**271 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -157,6 +157,10 @@
 - `username_generate_patterns` - Generate username variations for typosquatting detection and OSINT. Returns common patterns: leetspeak, double letters, prefix/suffix variations, dot/underscore/hyphen separators, number suffixes.
 - `username_scrape_profiles` - Scrape profile metadata (display name, bio, avatar, follower counts) from platforms where the username is found. Returns rich profile data, not just found/not-found.
 - `virushee_check` - Check a file hash (MD5/SHA1/SHA256) against the Virushee multi-engine AV database. Returns detection ratio and per-engine results. No API key required.
+- `wdtb_get_brief` - Return the full Webamon Daily Threat Brief for a given date. Includes estate stats, KPIs (new domains, takedowns, infra changes), notable movements (growth/takedown/rotation/lure-refresh), campaigns worth a look, and emerging clusters. Use wdtb_list_briefs to discover dates.
+- `wdtb_latest` - Return the most recent Webamon Daily Threat Brief. Includes estate stats, KPIs, notable movements, campaigns, and emerging clusters.
+- `wdtb_list_briefs` - List available Webamon Daily Threat Briefs. Returns dates and metadata (KPI count, campaign count, movement count). Use wdtb_get_brief to retrieve the full brief.
+- `wdtb_stats` - Return cache + manifest stats for the Webamon DTB data: index loaded, body-cache sizes and hit ratios.
 - `webamon_campaign_changes` - Webamon per-campaign change events — the daily-digest feed. For each campaign: new domains, IPs, ASNs, cert issuers, page titles, and domains that went offline / came online within the window. Powers the "by the numbers" estate brief. Requires WEBAMON_API_KEY secret.
 - `webamon_campaign_intel` - Webamon aggregated daily-brief digest in one call: global stats + top campaigns by 24h delta + change events in the window + emerging clusters, rolled up into "by the numbers" totals (new domains, takedowns, infra changes, new lure titles). Requires WEBAMON_API_KEY secret.
 - `webamon_campaign_stats` - Webamon global estate rollup — total tracked campaigns, unique domains, online percentage, and aggregate activity. The headline numbers for the campaign-intelligence estate. Requires WEBAMON_API_KEY secret.
@@ -164,10 +168,6 @@
 - `webamon_clusters` - Webamon emerging fingerprint clusters — groups of domains sharing a fingerprint (links/ssl/dom/domains/asn/scripts/tech) not yet promoted to tracked campaigns. Returns severity (critical/high/watch), unique-domain count, 24h delta, and the seed_query to pivot into search. Requires WEBAMON_API_KEY secret.
 - `whoxy_reverse_whois` - Reverse WHOIS lookup via whoxy.com — find all domains associated with an email, owner name, company, or keyword. Searches 705M+ WHOIS records. Returns domain names, registrant info, and dates. Requires WHOXY_API_KEY secret.
 - `wifi_investigation` - Investigate a wireless network by BSSID (MAC address) or SSID (network name). Returns OUI vendor lookup, MAC bit analysis (privacy/multicast), default SSID detection, WiGLE.net links, and security flags for rogue AP detection.
-- `winreg_get_artifact` - Return the full body of a single Windows Registry forensic artifact by slug. Includes registry keys, description, forensic value, parsers, and MITRE mapping. Use winreg_list_artifacts first to discover slugs.
-- `winreg_list_artifacts` - List Windows Registry forensic artifacts from the WinReg DFIR reference. Filter by category, hive, MITRE technique, or free-text keyword.
-- `winreg_list_categories` - List the Windows Registry artifact categories in the WinReg DFIR reference. Returns category keys, names, descriptions, and artifact counts.
-- `winreg_stats` - Return cache + manifest stats for the WinReg DFIR data: artifact counts, hive types, MITRE technique coverage, and LRU body-cache hit/miss ratios.
 - `ws_add_connection` - Define a relationship between two subjects in a workspace.
 - `ws_add_finding` - Log a finding with source, trust score, and confidence in a workspace.
 - `ws_add_subject` - Register a subject (entity) in a workspace investigation.
@@ -281,6 +281,21 @@
 - `extract_iocs_from_image` - Fetch an image and run Workers AI vision over it to extract IOCs that are only visible in screenshots (IPs, domains, URLs, hashes, CVEs, emails). Returns the OCR text + the per-IOC confidence band.
 - `extract_ttps` - Extract MITRE ATT&CK techniques from a free-text threat report. Returns technique IDs, tactic labels, confidence (high/medium/low), and the supporting evidence string. Combines a deterministic keyword scanner with an LLM pass and merges the results.
 - `parse_threat_report` - Parse a threat intelligence report or article to extract structured data: IOCs (IPs, domains, URLs, hashes), threat actors, malware families, MITRE ATT&CK techniques, CVEs, targeted sectors, and an executive summary. Use this when analyzing threat reports, blog posts, or incident write-ups.
+
+### sigbase (5)
+
+- `sigbase_get_ioc` - Return the entries of a single IOC list by slug: hashes (md5/sha1/sha256 + comment), C2 domains/IPs, filename regexes (with score + false-positive exclusion), or malicious keywords. Optional keyword filter narrows entries.
+- `sigbase_get_rule` - Return the full YARA source of a single rule file by slug, plus its parsed rule blocks (name + meta: description, author, reference, date, hash, score, id). Use sigbase_list_rules first to discover slugs. Bodies include the header comment and the raw .yar text.
+- `sigbase_list_iocs` - List the IOC lists in the Neo23x0 signature-base feed (hashes, C2 servers, filenames, keywords). Returns entry counts per list. Use sigbase_get_ioc to fetch entries.
+- `sigbase_list_rules` - List YARA rule files from the Neo23x0 signature-base feed. Filter by category tag (apt, malware, expl, gen, thr...), author, or free-text keyword. Each file contains 1+ rules with metadata (description, author, date, score, references).
+- `sigbase_stats` - Return cache + manifest stats for the Signature-Base data: YARA file/rule counts, IOC list/entry counts, external-variable rule files, and LRU body-cache hit/miss ratios.
+
+### winreg (4)
+
+- `winreg_get_artifact` - Return the full body of a single Windows Registry forensic artifact by slug. Includes registry keys, description, forensic value, parsers, and MITRE mapping. Use winreg_list_artifacts first to discover slugs.
+- `winreg_list_artifacts` - List Windows Registry forensic artifacts from the WinReg DFIR reference. Filter by category, hive, MITRE technique, or free-text keyword.
+- `winreg_list_categories` - List the Windows Registry artifact categories in the WinReg DFIR reference. Returns category keys, names, descriptions, and artifact counts.
+- `winreg_stats` - Return cache + manifest stats for the WinReg DFIR data: artifact counts, hive types, MITRE technique coverage, and LRU body-cache hit/miss ratios.
 
 ### cve (3)
 

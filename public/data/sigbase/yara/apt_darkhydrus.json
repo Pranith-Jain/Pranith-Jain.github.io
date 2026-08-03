@@ -1,0 +1,59 @@
+{
+  "slug": "apt_darkhydrus",
+  "filename": "apt_darkhydrus.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2018-07-28\n   Identifier: DarkHydrus\n   Reference: https://researchcenter.paloaltonetworks.com/2018/07/unit42-new-threat-actor-group-darkhydrus-targets-middle-east-government/",
+  "rules": [
+    {
+      "name": "APT_DarkHydrus_Jul18_1",
+      "meta": {
+        "description": "Detects strings found in malware samples in APT report in DarkHydrus",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://researchcenter.paloaltonetworks.com/2018/07/unit42-new-threat-actor-group-darkhydrus-targets-middle-east-government/",
+        "date": "2018-07-28",
+        "hash1": "99541ab28fc3328e25723607df4b0d9ea0a1af31b58e2da07eff9f15c4e6565c",
+        "id": "fbd001c0-43c9-5429-84d6-7f62eadd8ff3"
+      }
+    },
+    {
+      "name": "APT_DarkHydrus_Jul18_2",
+      "meta": {
+        "description": "Detects strings found in malware samples in APT report in DarkHydrus",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://researchcenter.paloaltonetworks.com/2018/07/unit42-new-threat-actor-group-darkhydrus-targets-middle-east-government/",
+        "date": "2018-07-28",
+        "hash1": "b2571e3b4afbce56da8faa726b726eb465f2e5e5ed74cf3b172b5dd80460ad81",
+        "id": "1a21cbbf-f7e1-56eb-973b-35c1a811e210"
+      }
+    },
+    {
+      "name": "APT_DarkHydrus_Jul18_3",
+      "meta": {
+        "description": "Detects strings found in malware samples in APT report in DarkHydrus",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://researchcenter.paloaltonetworks.com/2018/07/unit42-new-threat-actor-group-darkhydrus-targets-middle-east-government/",
+        "date": "2018-07-28",
+        "hash1": "c8b3d4b6acce6b6655e17255ef7a214651b7fc4e43f9964df24556343393a1a3",
+        "id": "1f766b49-3173-5f8a-ba52-a9ce9000be79"
+      }
+    },
+    {
+      "name": "HKTL_Unlicensed_CobaltStrike_EICAR_Jul18_5",
+      "meta": {
+        "description": "Detects strings found in CobaltStrike shellcode",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://researchcenter.paloaltonetworks.com/2018/07/unit42-new-threat-actor-group-darkhydrus-targets-middle-east-government/",
+        "date": "2018-07-28",
+        "modified": "2021-06-17",
+        "hash1": "cec36e8ed65ac6f250c05b4a17c09f58bb80c19b73169aaf40fa15c8d3a9a6a1",
+        "id": "d52536b8-dd6b-59be-8761-d22b6a279114"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2018-07-28\n   Identifier: DarkHydrus\n   Reference: https://researchcenter.paloaltonetworks.com/2018/07/unit42-new-threat-actor-group-darkhydrus-targets-middle-east-government/\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nimport \"pe\"\n\nrule APT_DarkHydrus_Jul18_1 {\n   meta:\n      description = \"Detects strings found in malware samples in APT report in DarkHydrus\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://researchcenter.paloaltonetworks.com/2018/07/unit42-new-threat-actor-group-darkhydrus-targets-middle-east-government/\"\n      date = \"2018-07-28\"\n      hash1 = \"99541ab28fc3328e25723607df4b0d9ea0a1af31b58e2da07eff9f15c4e6565c\"\n      id = \"fbd001c0-43c9-5429-84d6-7f62eadd8ff3\"\n   strings:\n      $x1 = \"Z:\\\\devcenter\\\\aggressor\\\\\" ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 600KB and (\n         pe.imphash() == \"d3666d1cde4790b22b44ec35976687fb\" or\n         1 of them\n      )\n}\n\nrule APT_DarkHydrus_Jul18_2 {\n   meta:\n      description = \"Detects strings found in malware samples in APT report in DarkHydrus\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://researchcenter.paloaltonetworks.com/2018/07/unit42-new-threat-actor-group-darkhydrus-targets-middle-east-government/\"\n      date = \"2018-07-28\"\n      hash1 = \"b2571e3b4afbce56da8faa726b726eb465f2e5e5ed74cf3b172b5dd80460ad81\"\n      id = \"1a21cbbf-f7e1-56eb-973b-35c1a811e210\"\n   strings:\n      $s4 = \"windir\" fullword ascii /* Goodware String - occured 47 times */\n      $s6 = \"temp.dll\" fullword ascii /* Goodware String - occured 3 times */\n      $s7 = \"libgcj-12.dll\" fullword ascii /* Goodware String - occured 3 times */\n      $s8 = \"%s\\\\System32\\\\%s\" fullword ascii /* Goodware String - occured 4 times */\n      $s9 = \"StartW\" fullword ascii /* Goodware String - occured 5 times */\n   condition:\n      uint16(0) == 0x5a4d and filesize < 40KB and all of them\n}\n\nrule APT_DarkHydrus_Jul18_3 {\n   meta:\n      description = \"Detects strings found in malware samples in APT report in DarkHydrus\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://researchcenter.paloaltonetworks.com/2018/07/unit42-new-threat-actor-group-darkhydrus-targets-middle-east-government/\"\n      date = \"2018-07-28\"\n      hash1 = \"c8b3d4b6acce6b6655e17255ef7a214651b7fc4e43f9964df24556343393a1a3\"\n      id = \"1f766b49-3173-5f8a-ba52-a9ce9000be79\"\n   strings:\n      $s2 = \"Ws2_32.dll\" fullword ascii\n      $s3 = \"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/5.0)\" fullword ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 100KB and (\n         pe.imphash() == \"478eacfbe2b201dabe63be53f34148a5\" or\n         all of them\n      )\n}\n\nrule HKTL_Unlicensed_CobaltStrike_EICAR_Jul18_5 {\n   meta:\n      description = \"Detects strings found in CobaltStrike shellcode\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://researchcenter.paloaltonetworks.com/2018/07/unit42-new-threat-actor-group-darkhydrus-targets-middle-east-government/\"\n      date = \"2018-07-28\"\n      modified = \"2021-06-17\"\n      hash1 = \"cec36e8ed65ac6f250c05b4a17c09f58bb80c19b73169aaf40fa15c8d3a9a6a1\"\n      id = \"d52536b8-dd6b-59be-8761-d22b6a279114\"\n   strings:\n      $x1 = \"X5O!P%@AP[4\\\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n\n      $s1 = \"X5O!P%@AP[4\\\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*\" fullword ascii\n      $s2 = \"libgcj-12.dll\" fullword ascii /* Goodware String - occured 3 times */\n   condition:\n      uint16(0) == 0x5a4d and filesize < 900KB and (\n         pe.imphash() == \"829da329ce140d873b4a8bde2cbfaa7e\" or\n         all of ($s*) or\n         $x1\n      )\n}\n\n"
+}

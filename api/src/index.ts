@@ -1011,6 +1011,7 @@ import { webamonDtbRouter } from './routes/webamon-dtb';
 import { aiThreatsRouter } from './routes/ai-threats-edge-tools';
 import { ossFeedsRouter } from './routes/oss-feeds-edge-tools';
 import { winRegRouter } from './routes/winreg-edge-tools';
+import { sigBaseRouter } from './routes/sigbase-edge-tools';
 import { breachWatchRouter } from './routes/breach-watch-edge-tools';
 import { osintRouter } from './routes/osint-edge-tools';
 import { reportsRouter } from './routes/reports-edge-tools';
@@ -2005,6 +2006,10 @@ app.route('/api/v1', webamonDtbRouter);
 // Data from github.com/dfir-scripts/dfir-scripts.github.io (MIT).
 // Upstream: https://dfir-scripts.github.io/registry/
 app.route('/api/v1', winRegRouter);
+
+// Signature-Base — YARA rule set + IOC lists from
+// github.com/Neo23x0/signature-base (Detection Rule License 1.1).
+app.route('/api/v1', sigBaseRouter);
 
 // Breach Watch — live breach/leak data from 6 free public trackers
 // (ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com +

@@ -1,0 +1,174 @@
+{
+  "slug": "apt_pulsesecure",
+  "filename": "apt_pulsesecure.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Copyright 2021 by FireEye, Inc.\n\n    The 2-Clause BSD License\n\n    Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n    1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n    2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.",
+  "rules": [
+    {
+      "name": "FE_Webshell_PL_ATRIUM_1",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "hash": "ca0175d86049fa7c796ea06b413857a3",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "b2663343-0bae-5215-a443-866ab8626bff"
+      }
+    },
+    {
+      "name": "FE_Trojan_SH_ATRIUM_1",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "hash": "a631b7a8a11e6df3fccb21f4d34dbd8a",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "c49441f4-a138-534c-a858-a7462ed865c9"
+      }
+    },
+    {
+      "name": "FE_APT_Webshell_PL_HARDPULSE",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "hash": "980cba9e82faf194edb6f3cc20dc73ff",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "f9a2922e-6b8e-5f92-a947-3215ee8883ac"
+      }
+    },
+    {
+      "name": "FE_APT_Trojan_Linux32_LOCKPICK_1",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "hash": "e8bfd3f5a2806104316902bbe1195ee8",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "00c09378-25a0-55f1-8d93-7b22d98bd8c2"
+      }
+    },
+    {
+      "name": "FE_APT_Trojan_Linux32_PACEMAKER",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "hash": "d7881c4de4d57828f7e1cab15687274b",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "459e26f1-4ea9-56dd-ad71-0ed2c7499aea"
+      }
+    },
+    {
+      "name": "FE_APT_Trojan_Linux_PACEMAKER",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "hash": "d7881c4de4d57828f7e1cab15687274b",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "5a20260a-5389-57da-956c-97063fed5015"
+      }
+    },
+    {
+      "name": "FE_APT_Webshell_PL_PULSECHECK_1",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "sha256": "a1dcdf62aafc36dd8cf64774dea80d79fb4e24ba2a82adf4d944d9186acd1cc1",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "f375fdd8-567b-569b-85f4-af54a35d2a93"
+      }
+    },
+    {
+      "name": "FE_APT_Trojan_PL_PULSEJUMP_1",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "hash": "91ee23ee24e100ba4a943bb4c15adb4c",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "690cc347-e60f-5cac-b65d-367ecee69251"
+      }
+    },
+    {
+      "name": "FE_APT_Trojan_PL_QUIETPULSE",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "hash": "00575bec8d74e221ff6248228c509a16",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "4c49eef7-b8fa-55d5-8fb8-8964f6f50003"
+      }
+    },
+    {
+      "name": "FE_APT_Trojan_PL_RADIALPULSE_1",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "sha256": "d72daafedf41d484f7f9816f7f076a9249a6808f1899649b7daa22c0447bb37b",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "1fab6d2f-96e8-5def-a93e-2bddd04e7ec8"
+      }
+    },
+    {
+      "name": "FE_APT_Trojan_PL_RADIALPULSE_2",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "hash": "4a2a7cbc1c8855199a27a7a7b51d0117",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "dc941935-aec7-54b6-a278-f1453b9785df"
+      }
+    },
+    {
+      "name": "FE_APT_Trojan_PL_RADIALPULSE_3",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "hash": "4a2a7cbc1c8855199a27a7a7b51d0117",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "8a597521-c873-5bcc-85e6-5a0a061fffb7"
+      }
+    },
+    {
+      "name": "FE_APT_Backdoor_Linux32_SLOWPULSE_1",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "sha256": "cd09ec795a8f4b6ced003500a44d810f49943514e2f92c81ab96c33e1c0fbd68",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "dd35257f-5b6f-55a6-a709-873ded1f4b72"
+      }
+    },
+    {
+      "name": "FE_APT_Backdoor_Linux32_SLOWPULSE_2",
+      "meta": {
+        "author": "Strozfriedberg",
+        "date": "2021-04-16",
+        "sha256": "cd09ec795a8f4b6ced003500a44d810f49943514e2f92c81ab96c33e1c0fbd68",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html"
+      }
+    },
+    {
+      "name": "FE_APT_Webshell_PL_STEADYPULSE_1",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-04-16",
+        "sha256": "168976797d5af7071df257e91fcc31ce1d6e59c72ca9e2f50c8b5b3177ad83cc",
+        "description": "Detects samples mentioned in PulseSecure report",
+        "reference": "https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html",
+        "id": "49457fbb-9288-565f-909d-e8228c21c1e4"
+      }
+    }
+  ],
+  "body": "/*\n    Copyright 2021 by FireEye, Inc.\n\n    The 2-Clause BSD License\n\n    Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n    1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n    2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n*/\n\nrule FE_Webshell_PL_ATRIUM_1\n{\n    meta:\n        author = \"Mandiant\"\n        date = \"2021-04-16\"\n        hash = \"ca0175d86049fa7c796ea06b413857a3\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"\n        id = \"b2663343-0bae-5215-a443-866ab8626bff\"\n    strings:\n        $s1 = \"CGI::param(\"\n        $s2 = \"system(\"\n        $s3 = /if[\\x09\\x20]{0,32}\\(CGI::param\\([\\x22\\x27]\\w{1,64}[\\x22\\x27]\\)\\)\\s{0,128}\\{[\\x09\\x20]{0,32}print [\\x22\\x27]Cache-Control: no-cache\\\\n[\\x22\\x27][\\x09\\x20]{0,32};\\s{0,128}print [\\x22\\x27]Content-type: text\\/html\\\\n\\\\n[\\x22\\x27][\\x09\\x20]{0,32};\\s{0,128}my \\$\\w{1,64}[\\x09\\x20]{0,32}=[\\x09\\x20]{0,32}CGI::param\\([\\x22\\x27]\\w{1,64}[\\x22\\x27]\\)[\\x09\\x20]{0,32};\\s{0,128}system\\([\\x22\\x27]\\$/\n    condition:\n        all of them\n}\n\nrule FE_Trojan_SH_ATRIUM_1\n{\n    meta:\n        author = \"Mandiant\"\n        date = \"2021-04-16\"\n        hash = \"a631b7a8a11e6df3fccb21f4d34dbd8a\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"\n        id = \"c49441f4-a138-534c-a858-a7462ed865c9\"\n    strings:\n        $s1 = \"CGI::param(\"\n        $s2 = \"Cache-Control: no-cache\"\n        $s3 = \"system(\"\n        $s4 = /sed -i [^\\r\\n]{1,128}CGI::param\\([^\\r\\n]{1,128}print[\\x20\\x09]{1,32}[^\\r\\n]{1,128}Cache-Control: no-cache[^\\r\\n]{1,128}print[\\x20\\x09]{1,32}[^\\r\\n]{1,128}Content-type: text\\/html[^\\r\\n]{1,128}my [^\\r\\n]{1,128}=[\\x09\\x20]{0,32}CGI::param\\([^\\r\\n]{1,128}system\\(/\n    condition:\n        all of them\n}\nrule FE_APT_Webshell_PL_HARDPULSE \n{ \n    meta: \n        author = \"Mandiant\"  \n        date = \"2021-04-16\"      \n        hash = \"980cba9e82faf194edb6f3cc20dc73ff\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"\n        id = \"f9a2922e-6b8e-5f92-a947-3215ee8883ac\"\n    strings: \n        $r1 = /if[\\x09\\x20]{0,32}\\(\\$\\w{1,64}[\\x09\\x20]{1,32}eq[\\x09\\x20]{1,32}[\\x22\\x27]\\w{1,64}[\\x22\\x27]\\)\\s{0,128}\\{\\s{1,128}my[\\x09\\x20]{1,32}\\$\\w{1,64}[\\x09\\x20]{0,32}\\x3b\\s{1,128}unless[\\x09\\x20]{0,32}\\(open\\(\\$\\w{1,64},[\\x09\\x20]{0,32}\\$\\w{1,64}\\)\\)\\s{0,128}\\{\\s{1,128}goto[\\x09\\x20]{1,32}\\w{1,64}[\\x09\\x20]{0,32}\\x3b\\s{1,128}return[\\x09\\x20]{1,32}0[\\x09\\x20]{0,32}\\x3b\\s{0,128}\\}/ \n        $r2 = /open[\\x09\\x20]{0,32}\\(\\*\\w{1,64}[\\x09\\x20]{0,32},[\\x09\\x20]{0,32}[\\x22\\x27]>/ \n        $r3 = /if[\\x09\\x20]{0,32}\\(\\$\\w{1,64}[\\x09\\x20]{1,32}eq[\\x09\\x20]{1,32}[\\x22\\x27]\\w{1,64}[\\x22\\x27]\\)\\s{0,128}\\{\\s{1,128}print[\\x09\\x20]{0,32}[\\x22\\x27]Content-type/ \n        $s1 = \"CGI::request_method()\" \n        $s2 = \"CGI::param(\" \n        $s3 = \"syswrite(\" \n        $s4 = \"print $_\" \n    condition: \n        all of them \n} \nrule FE_APT_Trojan_Linux32_LOCKPICK_1\n{\n    meta:\n        author = \"Mandiant\"\n        date = \"2021-04-16\"\n        hash = \"e8bfd3f5a2806104316902bbe1195ee8\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"\n        id = \"00c09378-25a0-55f1-8d93-7b22d98bd8c2\"\n    strings:\n        $sb1 = { 83 ?? 63 0F 84 [4] 8B 45 ?? 83 ?? 01 89 ?? 24 89 44 24 04 E8 [4] 85 C0 }\n        $sb2 = { 83 [2] 63 74 ?? 89 ?? 24 04 89 ?? 24 E8 [4] 83 [2] 01 85 C0 0F [5] EB 00 8B ?? 04 83 F8 02 7? ?? 83 E8 01 C1 E0 02 83 C0 00 89 44 24 08 8D 83 [4] 89 44 24 04 8B ?? 89 04 24 E8 }\n    condition:\n        ((uint32(0) == 0x464c457f) and (uint8(4) == 1)) and (@sb1[1] < @sb2[1])\n}\nrule FE_APT_Trojan_Linux32_PACEMAKER \n{ \n    meta: \n        author = \"Mandiant\"  \n        date = \"2021-04-16\"   \n        hash = \"d7881c4de4d57828f7e1cab15687274b\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"\n        id = \"459e26f1-4ea9-56dd-ad71-0ed2c7499aea\"\n    strings: \n        $s1 = \"\\x00/proc/%d/mem\\x00\" \n        $s2 = \"\\x00/proc/%s/maps\\x00\" \n        $s3 = \"\\x00/proc/%s/cmdline\\x00\" \n        $sb1 = { C7 44 24 08 10 00 00 00 C7 44 24 04 00 00 00 00 8D 45 E0 89 04 24 E8 [4] 8B 45 F4 83 C0 0B C7 44 24 08 10 00 00 00 89 44 24 04 8D 45 E0 89 04 24 E8 [4] 8D 45 E0 89 04 24 E8 [4] 85 C0 74 ?? 8D 45 E0 89 04 24 E8 [4] 85 C0 74 ?? 8D 45 E0 89 04 24 E8 [4] EB } \n        $sb2 = { 8B 95 [4] B8 [4] 8D 8D [4] 89 4C 24 10 8D 8D [4] 89 4C 24 0C 89 54 24 08 89 44 24 04 8D 85 [4] 89 04 24 E8 [4] C7 44 24 08 02 00 00 00 C7 44 24 04 00 00 00 00 8B 45 ?? 89 04 24 E8 [4] 89 45 ?? 8D 85 [4] 89 04 24 E8 [4] 89 44 24 08 8D 85 [4] 89 44 24 04 8B 45 ?? 89 04 24 E8 [4] 8B 45 ?? 89 45 ?? C7 45 ?? 00 00 00 00 [0-16] 83 45 ?? 01 8B 45 ?? 3B 45 0C } \n    condition: \n        ((uint32(0) == 0x464c457f) and (uint8(4) == 1)) and all of them \n} \nrule FE_APT_Trojan_Linux_PACEMAKER \n{ \n    meta: \n        author = \"Mandiant\"  \n        date = \"2021-04-16\"     \n        hash = \"d7881c4de4d57828f7e1cab15687274b\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"\n        id = \"5a20260a-5389-57da-956c-97063fed5015\"\n    strings: \n        $s1 = \"\\x00Name:%s || Pwd:%s || AuthNum:%s\\x0a\\x00\" \n        $s2 = \"\\x00/proc/%d/mem\\x00\" \n        $s3 = \"\\x00/proc/%s/maps\\x00\" \n        $s4 = \"\\x00/proc/%s/cmdline\\x00\" \n    condition: \n        (uint32(0) == 0x464c457f) and all of them \n}\nrule FE_APT_Webshell_PL_PULSECHECK_1 \n{ \n    meta: \n        author = \"Mandiant\" \n        date = \"2021-04-16\"  \n        sha256 = \"a1dcdf62aafc36dd8cf64774dea80d79fb4e24ba2a82adf4d944d9186acd1cc1\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"\n        id = \"f375fdd8-567b-569b-85f4-af54a35d2a93\"\n    strings: \n        $r1 = /while[\\x09\\x20]{0,32}\\(<\\w{1,64}>\\)[\\x09\\x20]{0,32}\\{\\s{1,256}\\$\\w{1,64}[\\x09\\x20]{0,32}\\.=[\\x09\\x20]{0,32}\\$_;\\s{0,256}\\}/ \n        $s1 = \"use Crypt::RC4;\" \n        $s2 = \"use MIME::Base64\" \n        $s3 = \"MIME::Base64::decode(\" \n        $s4 = \"popen(\" \n        $s5 = \" .= $_;\" \n        $s6 = \"print MIME::Base64::encode(RC4(\" \n        $s7 = \"HTTP_X_\" \n    condition: \n        $s1 and $s2 and (@s3[1] < @s4[1]) and (@s4[1] < @s5[1]) and (@s5[1] < @s6[1]) and (#s7 > 2) and $r1 \n} \nrule FE_APT_Trojan_PL_PULSEJUMP_1\n{\n    meta:\n        author = \"Mandiant\"\n        date = \"2021-04-16\"\n        hash = \"91ee23ee24e100ba4a943bb4c15adb4c\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"\n        id = \"690cc347-e60f-5cac-b65d-367ecee69251\"\n    strings:\n        $s1 = \"open(\"\n        $s2 = \">>/tmp/\"\n        $s3 = \"syswrite(\"\n        $s4 = /\\}[\\x09\\x20]{0,32}elsif[\\x09\\x20]{0,32}\\([\\x09\\x20]{0,32}\\$\\w{1,64}[\\x09\\x20]{1,32}eq[\\x09\\x20]{1,32}[\\x22\\x27](Radius|Samba|AD)[\\x22\\x27][\\x09\\x20]{0,32}\\)\\s{0,128}\\{\\s{0,128}@\\w{1,64}[\\x09\\x20]{0,32}=[\\x09\\x20]{0,32}&/\n    condition:\n        all of them\n}\nrule FE_APT_Trojan_PL_QUIETPULSE \n{\n    meta: \n        author = \"Mandiant\"  \n        date = \"2021-04-16\"       \n        hash = \"00575bec8d74e221ff6248228c509a16\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"\n        id = \"4c49eef7-b8fa-55d5-8fb8-8964f6f50003\"\n    strings: \n        $s1 = /open[\\x09\\x20]{0,32}\\(\\*STDOUT[\\x09\\x20]{0,32},[\\x09\\x20]{0,32}[\\x22\\x27]>&CLIENT[\\x22\\x27]\\)/ \n        $s2 = /open[\\x09\\x20]{0,32}\\(\\*STDERR[\\x09\\x20]{0,32},[\\x09\\x20]{0,32}[\\x22\\x27]>&CLIENT[\\x22\\x27]\\)/ \n        $s3 = /socket[\\x09\\x20]{0,32}\\(SERVER[\\x09\\x20]{0,32},[\\x09\\x20]{0,32}PF_UNIX[\\x09\\x20]{0,32},[\\x09\\x20]{0,32}SOCK_STREAM[\\x09\\x20]{0,32},[\\x09\\x20]{0,32}0[\\x09\\x20]{0,32}\\)[\\x09\\x20]{0,32};\\s{0,128}unlink/ \n        $s4 = /bind[\\x09\\x20]{0,32}\\([\\x09\\x20]{0,32}SERVER[\\x09\\x20]{0,32},[\\x09\\x20]{0,32}sockaddr_un\\(/ \n        $s5 = /listen[\\x09\\x20]{0,32}\\([\\x09\\x20]{0,32}SERVER[\\x09\\x20]{0,32},[\\x09\\x20]{0,32}SOMAXCONN[\\x09\\x20]{0,32}\\)[\\x09\\x20]{0,32};/ \n        $s6 = /my[\\x09\\x20]{1,32}\\$\\w{1,64}[\\x09\\x20]{0,32}=[\\x09\\x20]{0,32}fork\\([\\x09\\x20]{0,32}\\)[\\x09\\x20]{0,32};\\s{1,128}if[\\x09\\x20]{0,32}\\([\\x09\\x20]{0,32}\\$\\w{1,64}[\\x09\\x20]{0,32}==[\\x09\\x20]{0,32}0[\\x09\\x20]{0,32}\\)[\\x09\\x20]{0,32}\\{\\s{1,128}exec\\(/ \n    condition: \n        all of them \n} \nrule FE_APT_Trojan_PL_RADIALPULSE_1 \n{\n    meta: \n        author = \"Mandiant\" \n        date = \"2021-04-16\"       \n        sha256 = \"d72daafedf41d484f7f9816f7f076a9249a6808f1899649b7daa22c0447bb37b\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"        \n        id = \"1fab6d2f-96e8-5def-a93e-2bddd04e7ec8\"\n    strings: \n        $s1 = \"->getRealmInfo()->{name}\" \n        $s2 = /open\\(\\*fd,[\\x09\\x20]{0,32}[\\x22\\x27]>>/ \n        $s3 = /syswrite\\(\\*fd,[\\x09\\x20]{0,32}[\\x22\\x27]realm=\\$/ \n        $s4 = /syswrite\\(\\*fd,[\\x09\\x20]{0,32}[\\x22\\x27]username=\\$/ \n        $s5 = /syswrite\\(\\*fd,[\\x09\\x20]{0,32}[\\x22\\x27]password=\\$/ \n    condition: \n        (@s1[1] < @s2[1]) and (@s2[1] < @s3[1]) and $s4 and $s5 \n} \nrule FE_APT_Trojan_PL_RADIALPULSE_2 \n{ \n    meta: \n        author = \"Mandiant\"  \n        date = \"2021-04-16\"       \n        hash = \"4a2a7cbc1c8855199a27a7a7b51d0117\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"\n        id = \"dc941935-aec7-54b6-a278-f1453b9785df\"\n    strings: \n        $s1 = \"open(*fd,\" \n        $s2 = \"syswrite(*fd,\" \n        $s3 = \"close(*fd);\" \n        $s4 = /open\\(\\*fd,[\\x09\\x20]{0,32}[\\x22\\x27]>>\\/tmp\\/[\\w.]{1,128}[\\x22\\x27]\\);[\\x09\\x20]{0,32}syswrite\\(\\*fd,[\\x09\\x20]{0,32}/ \n        $s5 = /syswrite\\(\\*fd,[\\x09\\x20]{0,32}[\\x22\\x27][\\w]{1,128}=\\$\\w{1,128} ?[\\x22\\x27],[\\x09\\x20]{0,32}5000\\)/ \n    condition: \n        all of them \n} \nrule FE_APT_Trojan_PL_RADIALPULSE_3 \n{ \n    meta: \n        author = \"Mandiant\"  \n        date = \"2021-04-16\"  \n        hash = \"4a2a7cbc1c8855199a27a7a7b51d0117\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"\n        id = \"8a597521-c873-5bcc-85e6-5a0a061fffb7\"\n    strings: \n        $s1 = \"open(*fd,\" \n        $s2 = \"syswrite(*fd,\" \n        $s3 = \"close(*fd);\" \n        $s4 = /open\\(\\*fd,[\\x09\\x20]{0,32}[\\x22\\x27]>>\\/tmp\\/dsstartssh\\.statementcounters[\\x22\\x27]\\);[\\x09\\x20]{0,32}syswrite\\(\\*fd,[\\x09\\x20]{0,32}/ \n        $s5 = /syswrite\\(\\*fd,[\\x09\\x20]{0,32}[\\x22\\x27][\\w]{1,128}=\\$username ?[\\x22\\x27],[\\x09\\x20]{0,32}\\d{4}\\)/ \n    condition: \n        all of them \n} \nrule FE_APT_Backdoor_Linux32_SLOWPULSE_1 \n{ \n    meta: \n        author = \"Mandiant\" \n        date = \"2021-04-16\"\n        sha256 = \"cd09ec795a8f4b6ced003500a44d810f49943514e2f92c81ab96c33e1c0fbd68\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"        \n        id = \"dd35257f-5b6f-55a6-a709-873ded1f4b72\"\n    strings: \n        $sb1 = {FC b9 [4] e8 00 00 00 00 5? 8d b? [4] 8b} \n        $sb2 = {f3 a6 0f 85 [4] b8 03 00 00 00 5? 5? 5?} \n        $sb3 = {9c 60 e8 00 00 00 00 5? 8d [5] 85 ?? 0f 8?} \n        $sb4 = {89 13 8b 51 04 89 53 04 8b 51 08 89 53 08} \n        $sb5 = {8d [5] b9 [4] f3 a6 0f 8?} \n    condition: \n        ((uint32(0) == 0x464c457f) and (uint8(4) == 1)) and all of them \n}\n\n/* TOO SLOW \nrule FE_APT_Backdoor_Linux32_SLOWPULSE_2\n{ \n    meta: \n        author = \"Strozfriedberg\" \n        date = \"2021-04-16\"\n        sha256 = \"cd09ec795a8f4b6ced003500a44d810f49943514e2f92c81ab96c33e1c0fbd68\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"        \n    strings: \n        $sig = /[\\x20-\\x7F]{16}([\\x20-\\x7F\\x00]+)\\x00.{1,32}\\xE9.{3}\\xFF\\x00+[\\x20-\\x7F][\\x20-\\x7F\\x00]{16}/ \n\n        // TOI_MAGIC_STRING \n        $exc1 = /\\xED\\xC3\\x02\\xE9\\x98\\x56\\xE5\\x0C/ \n    condition:\n        uint32(0) == 0x464C457F and (1 of ($sig*)) and (not (1 of ($exc*)))\n}\n*/\n\nrule FE_APT_Webshell_PL_STEADYPULSE_1\n{  \n    meta:  \n        author = \"Mandiant\"  \n        date = \"2021-04-16\"      \n        sha256 = \"168976797d5af7071df257e91fcc31ce1d6e59c72ca9e2f50c8b5b3177ad83cc\"\n        description = \"Detects samples mentioned in PulseSecure report\"\n        reference = \"https://www.fireeye.com/blog/threat-research/2021/04/suspected-apt-actors-leverage-bypass-techniques-pulse-secure-zero-day.html\"     \n        id = \"49457fbb-9288-565f-909d-e8228c21c1e4\"\n    strings:  \n        $s1 = \"parse_parameters\" \n        $s2 = \"s/\\\\+/ /g\"  \n        $s3 = \"s/%(..)/pack(\"  \n        $s4 = \"MIME::Base64::encode($\"  \n        $s5 = \"$|=1;\" \n        $s6 = \"RC4(\" \n        $s7 = \"$FORM{'cmd'}\" \n    condition:  \n        all of them  \n}"
+}

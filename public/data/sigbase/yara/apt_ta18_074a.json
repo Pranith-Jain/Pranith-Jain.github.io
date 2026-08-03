@@ -1,0 +1,46 @@
+{
+  "slug": "apt_ta18_074a",
+  "filename": "apt_ta18_074A.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: DHS NCCIC Hunt and Incident Response Team (revised by Florian Roth)\n   Date: 2018-03-16\n   Identifier: TA18-074A\n   Reference: https://www.us-cert.gov/ncas/alerts/TA18-074A",
+  "rules": [
+    {
+      "name": "WEBSHELL_Z_Webshell_2",
+      "meta": {
+        "description": "Detection for the z_webshell",
+        "author": "DHS NCCIC Hunt and Incident Response Team",
+        "date": "2018/01/25",
+        "old_rule_name": "z_webshell",
+        "md5": "2C9095C965A55EFC46E16B86F9B7D6C6",
+        "id": "9a54925f-de10-567f-a1ea-5e7522b47dfd"
+      }
+    },
+    {
+      "name": "TA18_074A_screen",
+      "meta": {
+        "description": "Detects malware mentioned in TA18-074A",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.us-cert.gov/ncas/alerts/TA18-074A",
+        "date": "2018-03-16",
+        "hash1": "2f159b71183a69928ba8f26b76772ec504aefeac71021b012bd006162e133731",
+        "id": "789ee5e5-83c3-5137-a078-ff230dbf8fcd"
+      }
+    },
+    {
+      "name": "TA18_074A_scripts",
+      "meta": {
+        "description": "Detects malware mentioned in TA18-074A",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.us-cert.gov/ncas/alerts/TA18-074A",
+        "date": "2018-03-16",
+        "modified": "2022-08-18",
+        "hash1": "2f159b71183a69928ba8f26b76772ec504aefeac71021b012bd006162e133731",
+        "id": "4c786098-c5f4-529b-8732-03183dfa94b5"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: DHS NCCIC Hunt and Incident Response Team (revised by Florian Roth)\n   Date: 2018-03-16\n   Identifier: TA18-074A\n   Reference: https://www.us-cert.gov/ncas/alerts/TA18-074A\n*/\n\nrule WEBSHELL_Z_Webshell_2 {\n   meta:\n      description = \"Detection for the z_webshell\"\n      author = \"DHS NCCIC Hunt and Incident Response Team\"\n      date = \"2018/01/25\"\n      old_rule_name = \"z_webshell\"\n      md5 =  \"2C9095C965A55EFC46E16B86F9B7D6C6\"\n      id = \"9a54925f-de10-567f-a1ea-5e7522b47dfd\"\n   strings:\n      $webshell_name = \"public string z_progname =\" nocase ascii wide\n      $webshell_password = \"public string Password =\" nocase ascii wide\n   condition:\n      ( uint32(0) == 0x2040253c or uint32(0) == 0x7073613c )\n      and filesize < 100KB\n      and 2 of ($webshell_*)\n}\n\n/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2018-03-16\n   Identifier: TA18-074A\n   Reference: https://www.us-cert.gov/ncas/alerts/TA18-074A\n*/\n\nrule TA18_074A_screen {\n   meta:\n      description = \"Detects malware mentioned in TA18-074A\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.us-cert.gov/ncas/alerts/TA18-074A\"\n      date = \"2018-03-16\"\n      hash1 = \"2f159b71183a69928ba8f26b76772ec504aefeac71021b012bd006162e133731\"\n      id = \"789ee5e5-83c3-5137-a078-ff230dbf8fcd\"\n   strings:\n      $s1 = \"screen.exe\" fullword wide\n      $s2 = \"PlatformInvokeUSER32\" fullword ascii\n      $s3 = \"GetDesktopImageF\" fullword ascii\n      $s4 = \"PlatformInvokeGDI32\" fullword ascii\n      $s5 = \"Too many arguments, going to store in current dir\" fullword wide\n   condition:\n      uint16(0) == 0x5a4d and filesize < 60KB and 3 of them\n}\n\nrule TA18_074A_scripts {\n   meta:\n      description = \"Detects malware mentioned in TA18-074A\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.us-cert.gov/ncas/alerts/TA18-074A\"\n      date = \"2018-03-16\"\n      modified = \"2022-08-18\"\n      hash1 = \"2f159b71183a69928ba8f26b76772ec504aefeac71021b012bd006162e133731\"\n      id = \"4c786098-c5f4-529b-8732-03183dfa94b5\"\n   strings:\n      $s1 = \"Running -s cmd /c query user on \" ascii\n   condition:\n      filesize < 600KB and 1 of them\n}\n"
+}

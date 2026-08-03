@@ -1,0 +1,171 @@
+{
+  "slug": "apt_waterbear",
+  "filename": "apt_waterbear.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-06-23\n   Identifier: Waterbear\n   Reference: https://goo.gl/L9g9eR",
+  "rules": [
+    {
+      "name": "Waterbear_1_Jun17",
+      "meta": {
+        "description": "Detects malware from Operation Waterbear",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/L9g9eR",
+        "date": "2017-06-23",
+        "hash1": "dd3676f478ee6f814077a12302d38426760b0701bb629f413f7bf2ec71319db5",
+        "id": "2202506a-6009-5321-a8b2-df3bff51d06f"
+      }
+    },
+    {
+      "name": "Waterbear_2_Jun17",
+      "meta": {
+        "description": "Detects malware from Operation Waterbear",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/L9g9eR",
+        "date": "2017-06-23",
+        "hash1": "dcb5c350af76c590002a8ea00b01d862b4d89cccbec3908bfe92fdf25eaa6ea4",
+        "id": "d3178f01-90a8-5a82-9c95-40bf8e9b567f"
+      }
+    },
+    {
+      "name": "Waterbear_4_Jun17",
+      "meta": {
+        "description": "Detects malware from Operation Waterbear",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/L9g9eR",
+        "date": "2017-06-23",
+        "hash1": "2e9cb7cadb3478edc9ef714ca4ddebb45e99d35386480e12792950f8a7a766e1",
+        "id": "c7941f92-12ee-5d57-b58e-c8caf74ca6ba"
+      }
+    },
+    {
+      "name": "Waterbear_5_Jun17",
+      "meta": {
+        "description": "Detects malware from Operation Waterbear",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/L9g9eR",
+        "date": "2017-06-23",
+        "modified": "2023-01-07",
+        "hash1": "d3678cd9744b3aedeba23a03a178be5b82d5f8059a86f816007789a9dd06dc7d",
+        "id": "f92fe6d5-0afa-50a1-bdcf-c6dd78aa6809"
+      }
+    },
+    {
+      "name": "Waterbear_6_Jun17",
+      "meta": {
+        "description": "Detects malware from Operation Waterbear",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/L9g9eR",
+        "date": "2017-06-23",
+        "hash1": "409cd490feb40d08eb33808b78d52c00e1722eee163b60635df6c6fe2c43c230",
+        "id": "86d203be-2d3a-54f2-b851-9080d5be36f5"
+      }
+    },
+    {
+      "name": "Waterbear_7_Jun17",
+      "meta": {
+        "description": "Detects malware from Operation Waterbear",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/L9g9eR",
+        "date": "2017-06-23",
+        "hash1": "6891aa78524e442f4dda66dff51db9798e1f92e6fefcdf21eb870b05b0293134",
+        "id": "4613df5b-495e-5738-9b7f-ac8ff586cd17"
+      }
+    },
+    {
+      "name": "Waterbear_8_Jun17",
+      "meta": {
+        "description": "Detects malware from Operation Waterbear",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/L9g9eR",
+        "date": "2017-06-23",
+        "modified": "2023-01-07",
+        "hash1": "5dba8ddf05cb204ef320a72a0c031e55285202570d7883f2ff65135ec35b3dd0",
+        "id": "5ebeda22-ad67-5715-b42f-9b4bb5dcde94"
+      }
+    },
+    {
+      "name": "Waterbear_9_Jun17",
+      "meta": {
+        "description": "Detects malware from Operation Waterbear",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/L9g9eR",
+        "date": "2017-06-23",
+        "hash1": "fc74d2434d48b316c9368d3f90fea19d76a20c09847421d1469268a32f59664c",
+        "id": "727cdb55-ede5-5520-9aa9-5a265b5aeba1"
+      }
+    },
+    {
+      "name": "Waterbear_10_Jun17",
+      "meta": {
+        "description": "Detects malware from Operation Waterbear",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/L9g9eR",
+        "date": "2017-06-23",
+        "hash1": "3b1e67e0e86d912d7bc6dee5b0f801260350e8ce831c93c3e9cfe5a39e766f41",
+        "id": "1219c3e6-1001-5075-b7fc-e0d8a7de6a65"
+      }
+    },
+    {
+      "name": "Waterbear_11_Jun17",
+      "meta": {
+        "description": "Detects malware from Operation Waterbear",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/L9g9eR",
+        "date": "2017-06-23",
+        "hash1": "b046b2e2569636c2fc3683a0da8cfad25ff47bc304145be0f282a969c7397ae8",
+        "id": "d7eb7561-c84e-5149-920c-35ad225ca8a9"
+      }
+    },
+    {
+      "name": "Waterbear_12_Jun17",
+      "meta": {
+        "description": "Detects malware from Operation Waterbear",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/L9g9eR",
+        "date": "2017-06-23",
+        "hash1": "15d9db2c90f56cd02be38e7088db8ec00fc603508ec888b4b85d60d970966585",
+        "id": "cc0a071c-c409-57a2-80c5-dd93ca7db339"
+      }
+    },
+    {
+      "name": "Waterbear_13_Jun17",
+      "meta": {
+        "description": "Detects malware from Operation Waterbear",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/L9g9eR",
+        "date": "2017-06-23",
+        "super_rule": "1",
+        "hash1": "734e5972ab5ac1e9bc5470c666a55e0d2bd57c4e2ea2da11dc9bf56fb2ea6f23",
+        "hash2": "8bde3f71575aa0d5f5a095d9d0ea10eceadba38be888e10d3ca3776f7b361fe7",
+        "hash3": "c4b3b0a7378bfc3824d4178fd7fb29475c42ab874d69abdfb4898d0bcd4f8ce1",
+        "id": "425aaed4-879e-5caf-808b-14de98f628e8"
+      }
+    },
+    {
+      "name": "Waterbear_14_Jun17",
+      "meta": {
+        "description": "Detects malware from Operation Waterbear",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/L9g9eR",
+        "date": "2017-06-23",
+        "hash1": "00a1068645dbe982a9aa95e7b8202a588989cd37de2fa1b344abbc0102c27d05",
+        "hash2": "53330a80b3c4f74f3f10a8621dbef4cd2427723e8b98c5b7aed58229d0c292ba",
+        "hash3": "bdcb23a82ac4eb1bc9254d77d92b6f294d45501aaea678a3d21c8b188e31e68b",
+        "id": "515d9400-3e2e-5ee5-a7dd-b313125c6482"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-06-23\n   Identifier: Waterbear\n   Reference: https://goo.gl/L9g9eR\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule Waterbear_1_Jun17 {\n   meta:\n      description = \"Detects malware from Operation Waterbear\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/L9g9eR\"\n      date = \"2017-06-23\"\n      hash1 = \"dd3676f478ee6f814077a12302d38426760b0701bb629f413f7bf2ec71319db5\"\n      id = \"2202506a-6009-5321-a8b2-df3bff51d06f\"\n   strings:\n      $s1 = \"\\\\Release\\\\svc.pdb\" ascii\n      $s2 = \"svc.dll\" fullword ascii\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 100KB and all of them )\n}\n\nrule Waterbear_2_Jun17 {\n   meta:\n      description = \"Detects malware from Operation Waterbear\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/L9g9eR\"\n      date = \"2017-06-23\"\n      hash1 = \"dcb5c350af76c590002a8ea00b01d862b4d89cccbec3908bfe92fdf25eaa6ea4\"\n      id = \"d3178f01-90a8-5a82-9c95-40bf8e9b567f\"\n   strings:\n      $s1 = \"downloading movie\" fullword ascii\n      $s2 = \"name=\\\"test.exe\\\"/>\" fullword ascii\n      $s3 = \"<description>Test Application</description>\" fullword ascii\n      $s4 = \"UI look 2003\" fullword wide\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 1000KB and all of them )\n}\n\nrule Waterbear_4_Jun17 {\n   meta:\n      description = \"Detects malware from Operation Waterbear\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/L9g9eR\"\n      date = \"2017-06-23\"\n      hash1 = \"2e9cb7cadb3478edc9ef714ca4ddebb45e99d35386480e12792950f8a7a766e1\"\n      id = \"c7941f92-12ee-5d57-b58e-c8caf74ca6ba\"\n   strings:\n      $x1 = \"User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;)\" fullword ascii\n\n      $s1 = \"Wininet.dll InternetOpenA InternetConnectA HttpOpenRequestA HttpSendRequestA HttpQueryInfoA InternetReadFile InternetCloseHandle\" fullword ascii\n      $s2 = \"read from pipe:%s\" fullword ascii\n      $s3 = \"delete pipe\" fullword ascii\n      $s4 = \"cmdcommand:%s\" fullword ascii\n      $s5 = \"%s /c del %s\" fullword ascii\n      $s6 = \"10.0.0.250\" fullword ascii\n      $s7 = \"Vista/2008\" fullword ascii\n      $s8 = \"%02X%02X%02X%02X%02X%02X%04X\" fullword ascii\n      $s9 = \"UNKOWN\" fullword ascii\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 300KB and 3 of them )\n}\n\nrule Waterbear_5_Jun17 {\n   meta:\n      description = \"Detects malware from Operation Waterbear\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/L9g9eR\"\n      date = \"2017-06-23\"\n      modified = \"2023-01-07\"\n      hash1 = \"d3678cd9744b3aedeba23a03a178be5b82d5f8059a86f816007789a9dd06dc7d\"\n      id = \"f92fe6d5-0afa-50a1-bdcf-c6dd78aa6809\"\n   strings:\n      $a1 = \"ICESWORD\" fullword ascii\n      $a2 = \"klog.dat\" fullword ascii\n\n      $s1 = \"\\\\cswbse.dll\" ascii\n      $s2 = \"WIRESHARK\" fullword ascii\n      $s3 = \"default_zz|\" fullword ascii\n      $s4 = \"%c4%u-%.2u-%.2u %.2u:%.2u\" fullword ascii\n      $s5 = \"1111%c%s\" fullword ascii\n   condition:\n      ( uint16(0) == 0x3d53 and filesize < 100KB and ( all of ($a*) or 3 of them ) )\n}\n\nrule Waterbear_6_Jun17 {\n   meta:\n      description = \"Detects malware from Operation Waterbear\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/L9g9eR\"\n      date = \"2017-06-23\"\n      hash1 = \"409cd490feb40d08eb33808b78d52c00e1722eee163b60635df6c6fe2c43c230\"\n      id = \"86d203be-2d3a-54f2-b851-9080d5be36f5\"\n   strings:\n      $s1 = \"svcdll.dll\" fullword ascii\n      $s2 = \"log.log\" fullword ascii\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 60KB and all of them )\n}\n\nrule Waterbear_7_Jun17 {\n   meta:\n      description = \"Detects malware from Operation Waterbear\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/L9g9eR\"\n      date = \"2017-06-23\"\n      hash1 = \"6891aa78524e442f4dda66dff51db9798e1f92e6fefcdf21eb870b05b0293134\"\n      id = \"4613df5b-495e-5738-9b7f-ac8ff586cd17\"\n   strings:\n      $s1 = \"Bluthmon.exe\" fullword wide\n      $s2 = \"Motomon.exe\" fullword wide\n      $s3 = \"%d.%s%d%d%d\" fullword ascii\n      $s4 = \"mywishes.hlp\" fullword ascii\n      $s5 = \"filemon.rtf\" fullword ascii\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 80KB and all of them )\n}\n\nrule Waterbear_8_Jun17 {\n   meta:\n      description = \"Detects malware from Operation Waterbear\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/L9g9eR\"\n      date = \"2017-06-23\"\n      modified = \"2023-01-07\"\n      hash1 = \"bd06f6117a0abf1442826179f6f5e1932047b4a6c14add9149e8288ab4a902c3\"\n      hash1 = \"5dba8ddf05cb204ef320a72a0c031e55285202570d7883f2ff65135ec35b3dd0\"\n      id = \"5ebeda22-ad67-5715-b42f-9b4bb5dcde94\"\n   strings:\n      $s1 = \"Update.dll\" fullword ascii\n      $s2 = \"ADVPACK32.DLL\" fullword wide\n      $s3 = \"\\\\Registry\\\\Machine\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\\" ascii\n      $s4 = \"\\\\drivers\\\\sftst.sys\" ascii\n      $s5 = \"\\\\\\\\.\\\\SFilter\" fullword ascii\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 40KB and all of them )\n}\n\nrule Waterbear_9_Jun17 {\n   meta:\n      description = \"Detects malware from Operation Waterbear\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/L9g9eR\"\n      date = \"2017-06-23\"\n      hash1 = \"fc74d2434d48b316c9368d3f90fea19d76a20c09847421d1469268a32f59664c\"\n      id = \"727cdb55-ede5-5520-9aa9-5a265b5aeba1\"\n   strings:\n      $s1 = \"ADVPACK32.DLL\" fullword wide\n      $s2 = \"ADVPACK32\" fullword wide\n\n      $a1 = \"U2_Dll.dll\" fullword ascii\n\n      $b1 = \"ProUpdate\" fullword ascii\n      $b2 = \"Update.dll\" fullword ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 30KB and all of ($s*) and ( $a1 or all of ($b*) )\n}\n\nrule Waterbear_10_Jun17 {\n   meta:\n      description = \"Detects malware from Operation Waterbear\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/L9g9eR\"\n      date = \"2017-06-23\"\n      hash1 = \"3b1e67e0e86d912d7bc6dee5b0f801260350e8ce831c93c3e9cfe5a39e766f41\"\n      id = \"1219c3e6-1001-5075-b7fc-e0d8a7de6a65\"\n   strings:\n      $s1 = \"ADVPACK32.DLL\" fullword wide\n      $s5 = \"ADVPACK32\" fullword wide\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 30KB and all of them )\n}\n\n\nrule Waterbear_11_Jun17 {\n   meta:\n      description = \"Detects malware from Operation Waterbear\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/L9g9eR\"\n      date = \"2017-06-23\"\n      hash1 = \"b046b2e2569636c2fc3683a0da8cfad25ff47bc304145be0f282a969c7397ae8\"\n      id = \"d7eb7561-c84e-5149-920c-35ad225ca8a9\"\n   strings:\n      $s1 = \"/Pages/%u.asp\" fullword wide\n      $s2 = \"NVIDIA Corporation.\" fullword wide\n      $s3 = \"tqxbLc|fP_{eOY{eOX{eO\" fullword ascii\n      $s4 = \"Copyright (C) 2005\" fullword wide\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 1000KB and all of them )\n}\n\nrule Waterbear_12_Jun17 {\n   meta:\n      description = \"Detects malware from Operation Waterbear\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/L9g9eR\"\n      date = \"2017-06-23\"\n      hash1 = \"15d9db2c90f56cd02be38e7088db8ec00fc603508ec888b4b85d60d970966585\"\n      id = \"cc0a071c-c409-57a2-80c5-dd93ca7db339\"\n   strings:\n      $s1 = \"O_PROXY\" fullword ascii\n      $s2 = \"XMODIFY\" fullword ascii\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 2000KB and all of them )\n}\n\nrule Waterbear_13_Jun17 {\n   meta:\n      description = \"Detects malware from Operation Waterbear\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/L9g9eR\"\n      date = \"2017-06-23\"\n      super_rule = 1\n      hash1 = \"734e5972ab5ac1e9bc5470c666a55e0d2bd57c4e2ea2da11dc9bf56fb2ea6f23\"\n      hash2 = \"8bde3f71575aa0d5f5a095d9d0ea10eceadba38be888e10d3ca3776f7b361fe7\"\n      hash3 = \"c4b3b0a7378bfc3824d4178fd7fb29475c42ab874d69abdfb4898d0bcd4f8ce1\"\n      id = \"425aaed4-879e-5caf-808b-14de98f628e8\"\n   strings:\n      $s1 = \"%WINDIR%\\\\PCHealth\\\\HelpCtr\\\\Binaries\\\\pchsvc.dll\" fullword ascii\n      $s2 = \"brnew.exe\" fullword ascii\n      $s3 = \"ChangeServiceConfig failed (%d)\" fullword ascii\n      $s4 = \"Proxy %d:%s %d\" fullword ascii\n      $s5 = \"win9807.tmp\" fullword ascii\n      $s7 = \"Service stopped successfully\" fullword ascii\n      $s8 = \"current dns:%s\" fullword ascii\n      $s9 = \"%c%u|%u|%u|%u|%u|\" fullword ascii\n      $s10 = \"[-]send %d: \" fullword ascii\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 300KB and 4 of them )\n}\n\nrule Waterbear_14_Jun17 {\n   meta:\n      description = \"Detects malware from Operation Waterbear\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/L9g9eR\"\n      date = \"2017-06-23\"\n      hash1 = \"00a1068645dbe982a9aa95e7b8202a588989cd37de2fa1b344abbc0102c27d05\"\n      hash2 = \"53330a80b3c4f74f3f10a8621dbef4cd2427723e8b98c5b7aed58229d0c292ba\"\n      hash3 = \"bdcb23a82ac4eb1bc9254d77d92b6f294d45501aaea678a3d21c8b188e31e68b\"\n      id = \"515d9400-3e2e-5ee5-a7dd-b313125c6482\"\n   strings:\n      $s1 = \"my.com/msg/util/sgthash\" fullword ascii\n      $s2 = \"C:\\\\recycled\" fullword ascii\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 8000KB and all of them )\n}\n"
+}

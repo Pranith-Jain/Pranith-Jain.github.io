@@ -1,0 +1,20 @@
+{
+  "slug": "apt_ham_tofu_chches",
+  "filename": "apt_ham_tofu_chches.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "Tofu_Backdoor",
+      "meta": {
+        "description": "Detects Tofu Trojan",
+        "author": "Cylance",
+        "reference": "https://www.cylance.com/en_us/blog/the-deception-project-a-new-japanese-centric-threat.html",
+        "date": "2017-02-28",
+        "id": "03848366-f139-5352-959d-390992d96296"
+      }
+    }
+  ],
+  "body": "\n/*\n   Yara Rule Set\n   Author: Cylance\n   Date: 2017-02-28\n   Identifier: Jap Threat\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule Tofu_Backdoor {\n   meta:\n      description = \"Detects Tofu Trojan\"\n      author = \"Cylance\"\n      reference = \"https://www.cylance.com/en_us/blog/the-deception-project-a-new-japanese-centric-threat.html\"\n      date = \"2017-02-28\"\n      id = \"03848366-f139-5352-959d-390992d96296\"\n   strings:\n   \t$a = \"Cookies: Sym1.0\"\n   \t$b = \"\\\\\\\\.\\\\pipe\\\\1[12345678]\"\n   \t$c = {66 0F FC C1 0F 11 40 D0 0F 10 40 D0 66 0F EF C2 0F 11 40 D0 0F 10 40 E0}\n   condition:\n   \t$a or $b or $c\n}\n"
+}

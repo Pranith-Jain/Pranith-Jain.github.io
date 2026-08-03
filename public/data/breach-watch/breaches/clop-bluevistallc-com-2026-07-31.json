@@ -1,0 +1,15 @@
+{
+  "slug": "clop-bluevistallc-com-2026-07-31",
+  "title": "BLUEVISTALLC.COM",
+  "group": "clop",
+  "discovered": "2026-07-31T00:36:35.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/screenshots/clop/BLUEVISTALLCCOM.png",
+  "groupAliases": ["Cl0p"],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

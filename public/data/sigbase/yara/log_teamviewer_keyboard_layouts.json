@@ -1,0 +1,36 @@
+{
+  "slug": "log_teamviewer_keyboard_layouts",
+  "filename": "log_teamviewer_keyboard_layouts.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "LOG_TeamViewer_Connect_Chinese_Keyboard_Layout",
+      "meta": {
+        "description": "Detects a suspicious TeamViewer log entry stating that the remote systems had a Chinese keyboard layout",
+        "author": "Florian Roth (Nextron Systems)",
+        "date": "2019-10-12",
+        "modified": "2020-12-16",
+        "score": "60",
+        "limit": "Logscan",
+        "reference": "https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-input-locales-for-windows-language-packs",
+        "id": "f901818b-5150-540f-b645-686c12784a38"
+      }
+    },
+    {
+      "name": "LOG_TeamViewer_Connect_Russian_Keyboard_Layout",
+      "meta": {
+        "description": "Detects a suspicious TeamViewer log entry stating that the remote systems had a Russian keyboard layout",
+        "author": "Florian Roth (Nextron Systems)",
+        "date": "2019-10-12",
+        "modified": "2022-12-07",
+        "score": "60",
+        "limit": "Logscan",
+        "reference": "https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-input-locales-for-windows-language-packs",
+        "id": "360a1cca-2a64-5fd8-bcde-f49e1b17281e"
+      }
+    }
+  ],
+  "body": "\nrule LOG_TeamViewer_Connect_Chinese_Keyboard_Layout {\n   meta:\n      description = \"Detects a suspicious TeamViewer log entry stating that the remote systems had a Chinese keyboard layout\"\n      author = \"Florian Roth (Nextron Systems)\"\n      date = \"2019-10-12\"\n      modified = \"2020-12-16\"\n      score = 60\n      limit = \"Logscan\"\n      reference = \"https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-input-locales-for-windows-language-packs\"\n      id = \"f901818b-5150-540f-b645-686c12784a38\"\n   strings:\n      /* Source has Chinese simplified keyboard layout */\n      $x1 = \"Changing keyboard layout to: 0804\" ascii\n      $x2 = \"Changing keyboard layout to: 042a\"\n      /* Avoiding Chinese to Chinese support cases */\n      $fp1 = \"Changing keyboard layout to: 08040804\" ascii\n      $fp2 = \"Changing keyboard layout to: 042a042a\" ascii\n   condition:\n      ( #x1 + #x2 ) > ( #fp1 + #fp2 )\n}\n\nrule LOG_TeamViewer_Connect_Russian_Keyboard_Layout {\n   meta:\n      description = \"Detects a suspicious TeamViewer log entry stating that the remote systems had a Russian keyboard layout\"\n      author = \"Florian Roth (Nextron Systems)\"\n      date = \"2019-10-12\"\n      modified = \"2022-12-07\"\n      score = 60\n      limit = \"Logscan\"\n      reference = \"https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-input-locales-for-windows-language-packs\"\n      id = \"360a1cca-2a64-5fd8-bcde-f49e1b17281e\"\n   strings:\n      /* Source has Russian keyboard layout */\n      $x1 = \"Changing keyboard layout to: 0419\" ascii\n      /* Avoiding Russian to Russian support cases */\n      $fp1 = \"Changing keyboard layout to: 04190419\" ascii\n   condition:\n      #x1 > #fp1\n}\n"
+}

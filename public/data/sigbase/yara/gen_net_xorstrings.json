@@ -1,0 +1,22 @@
+{
+  "slug": "gen_net_xorstrings",
+  "filename": "gen_net_xorstrings.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MSIL_SUSP_OBFUSC_XorStringsNet",
+      "meta": {
+        "description": "Detects XorStringsNET string encryption, and other obfuscators derived from it",
+        "author": "dr4k0nia",
+        "version": "1.0",
+        "reference": "https://github.com/dr4k0nia/yara-rules",
+        "score": "75",
+        "date": "26/03/2023",
+        "id": "f0724ca6-4bfe-5b88-9396-a58aa7461fd6"
+      }
+    }
+  ],
+  "body": "\nrule MSIL_SUSP_OBFUSC_XorStringsNet {\n    meta:\n        description = \"Detects XorStringsNET string encryption, and other obfuscators derived from it\"\n        author = \"dr4k0nia\"\n        version = \"1.0\"\n        reference = \"https://github.com/dr4k0nia/yara-rules\"\n        score = 75\n        date = \"26/03/2023\"\n        id = \"f0724ca6-4bfe-5b88-9396-a58aa7461fd6\"\n    strings:\n        $pattern = { 06 1E 58 07 8E 69 FE 17 }\n\n        // .NET marker\n        $a1 = \"_CorDllMain\" ascii\n        $a2 = \"_CorExeMain\" ascii\n        $a3 = \"mscorlib\" ascii fullword\n        $a4 = \".cctor\" ascii fullword\n        $a5 = \"System.Private.Corlib\" ascii\n        $a6 = \"<Module>\" ascii fullword\n        $a7 = \"<PrivateImplementationsDetails{\" ascii\n    condition:\n        uint16(0) == 0x5a4d\n        and filesize < 25MB\n        and $pattern \n        and 2 of ($a*)\n}\n\n"
+}

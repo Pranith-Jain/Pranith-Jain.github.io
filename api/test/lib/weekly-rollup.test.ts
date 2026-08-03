@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import {
   aggregateWeeklyFromDailies,
   mergeWeeklyWithDailies,
@@ -269,5 +269,51 @@ describe('weeklyUndercountsDailies', () => {
     };
     const db = fakeDb([weekly]);
     expect(await weeklyUndercountsDailies(db, 'weekly-2026-W22', '2026-05-25', '2026-05-31')).toBe(false);
+  });
+});
+
+// ---- buildBriefing weekly rollup-first (subrequest budget) ---------------
+// Regression for the 2026-08-03 fix: the weekly build previously ran the full
+// live fan-out (~45-50 subrequests) and blew the free-plan 50-subrequest cap
+// (Cloudflare aborted with HTTP 503 → no row persisted; see
+// docs/loops/briefing-cron-safety.md). Now it reads the D1 daily rollup FIRST
+// and, when the dailies cover the window, builds from the rollup alone — so
+// NO network fetches should happen at all.
+
+describe('buildBriefing weekly rollup-first', () => {
+  it('assembles the weekly from the daily rollup with zero network fetches', async () => {
+    const { buildBriefing } = await import('../../src/lib/briefing-builder');
+    // Rich dailies covering the W22 window (2026-05-25 → 2026-05-31).
+    const dailies = [
+      dailyBody('2026-05-25', [cve('CVE-2026-1001', 'critical', 9.8)], [rw('rhino: Alpha — claimed by clop')], 220, [
+        'NVD',
+        'ransomware.live',
+      ]),
+      dailyBody('2026-05-26', [cve('CVE-2026-1002', 'high', 7.5)], [rw('rhino: Beta — claimed by clop')], 180, [
+        'NVD',
+        'ransomware.live',
+      ]),
+      dailyBody('2026-05-27', [], [rw('rhino: Gamma — claimed by lockbit')], 0, ['ransomware.live']),
+    ];
+    const db = fakeDb(dailies.map(dailyRow));
+    const env = { BRIEFINGS_DB: db } as never;
+    const fetchSpy = vi.spyOn(globalThis, 'fetch');
+
+    const result = await buildBriefing('weekly', new Date('2026-06-01T00:00:00.000Z'), { env });
+
+    // Assembled from the rollup — the three dailies land merged.
+    expect(result.slug).toBe('weekly-2026-W22');
+    expect(result.range_start).toBe('2026-05-25');
+    expect(result.stats.findings).toBe(5);
+    expect(result.stats.cves).toBe(2);
+    expect(result.stats.iocs).toBe(400);
+    expect(result.stats.ransomware_victims).toBe(3);
+    const rwSection = result.sections.find((s) => s.id === 'ransomware-activity');
+    expect(rwSection?.findings.length).toBe(3);
+    expect(rwSection?.blurb).toContain('Most active groups: clop (2), lockbit (1)');
+    expect(result.sources).toEqual(expect.arrayContaining(['NVD', 'ransomware.live']));
+    // No network fan-out — the whole 503-triggering live fetch is skipped.
+    expect(fetchSpy).not.toHaveBeenCalled();
+    fetchSpy.mockRestore();
   });
 });

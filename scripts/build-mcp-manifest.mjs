@@ -48,6 +48,8 @@ const CATEGORY_HINTS = [
   { match: /^(get_geo|get_company|get_ip_geo|geo)/, cat: 'infra' },
   { match: /^(hr_|hudson)/, cat: 'hudson' },
   { match: /^(si_|security_investigator)/, cat: 'si' },
+  { match: /^(winreg_)/, cat: 'winreg' },
+  { match: /^(sigbase_)/, cat: 'sigbase' },
   { match: /^(passive_dns)/, cat: 'pdns' },
   { match: /^(ioc_watchlist)/, cat: 'watchlist' },
   { match: /^(notebook)/, cat: 'notebook' },

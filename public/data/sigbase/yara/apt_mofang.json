@@ -1,0 +1,28 @@
+{
+  "slug": "apt_mofang",
+  "filename": "apt_mofang.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "shimrat",
+      "meta": {
+        "description": "Detects ShimRat and the ShimRat loader",
+        "author": "Yonathan Klijnsma (yonathan.klijnsma@fox-it.com)",
+        "date": "20/11/2015",
+        "id": "21431895-1180-5552-8e82-1589992ffa1d"
+      }
+    },
+    {
+      "name": "shimratreporter",
+      "meta": {
+        "description": "Detects ShimRatReporter",
+        "author": "Yonathan Klijnsma (yonathan.klijnsma@fox-it.com)",
+        "date": "20/11/2015",
+        "id": "01688b3c-2f06-518f-939d-4d65529be5ae"
+      }
+    }
+  ],
+  "body": "rule shimrat {\n   meta:\n      description = \"Detects ShimRat and the ShimRat loader\"\n      author = \"Yonathan Klijnsma (yonathan.klijnsma@fox-it.com)\"\n      date = \"20/11/2015\"\n      id = \"21431895-1180-5552-8e82-1589992ffa1d\"\n   strings:\n      $dll = \".dll\"\n      $dat = \".dat\"\n      $headersig = \"QWERTYUIOPLKJHG\"\n      $datasig = \"MNBVCXZLKJHGFDS\"\n      $datamarker1 = \"Data$$00\"\n      $datamarker2 = \"Data$$01%c%sData\"\n      $cmdlineformat = \"ping localhost -n 9 /c %s > nul\"\n      $demoproject_keyword1 = \"Demo\"\n      $demoproject_keyword2 = \"Win32App\"\n      $comspec = \"COMSPEC\"\n      $shim_func1 = \"ShimMain\"\n      $shim_func2 = \"NotifyShims\"\n      $shim_func3 = \"GetHookAPIs\"\n   condition:\n      ($dll and $dat and $headersig and $datasig) or\n      ($datamarker1 and $datamarker2) or\n      ($cmdlineformat and $demoproject_keyword1 and $demoproject_keyword2 and $comspec) or\n      ($dll and $dat and $shim_func1 and $shim_func2 and $shim_func3)\n}\n\nrule shimratreporter {\n   meta:\n      description = \"Detects ShimRatReporter\"\n      author = \"Yonathan Klijnsma (yonathan.klijnsma@fox-it.com)\"\n      date = \"20/11/2015\"\n      id = \"01688b3c-2f06-518f-939d-4d65529be5ae\"\n   strings:\n      $IpInfo = \"IP-INFO\"\n      $NetworkInfo = \"Network-INFO\"\n      $OsInfo = \"OS-INFO\"\n      $ProcessInfo = \"Process-INFO\"\n      $BrowserInfo = \"Browser-INFO\"\n      $QueryUserInfo = \"QueryUser-INFO\"\n      $UsersInfo = \"Users-INFO\"\n      $SoftwareInfo = \"Software-INFO\"\n      $AddressFormat = \"%02X-%02X-%02X-%02X-%02X-%02X\"\n      $proxy_str = \"(from environment) = %s\"\n      $netuserfun = \"NetUserEnum\"\n      $networkparams = \"GetNetworkParams\"\n   condition:\n      all of them\n}\n"
+}

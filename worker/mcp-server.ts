@@ -48,6 +48,15 @@ import {
   type WinRegListOptions,
 } from './lib/winreg-manifest';
 import {
+  loadSigBaseIndex,
+  getSigBaseYara,
+  getSigBaseIoc,
+  filterYara,
+  filterIocs as filterSigBaseIocs,
+  searchIocEntries as searchSigBaseIocEntries,
+  sigBaseCacheStats,
+} from './lib/sigbase-manifest';
+import {
   loadAiThreatsIndex,
   getAiThreat,
   filterThreats,
@@ -1718,6 +1727,155 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             license: idx.license,
             replicatedAt: idx.replicatedAt,
             cache: winRegCacheStats(),
+          });
+        }
+      );
+
+      // ── Signature-Base tools ───────────────────────────────────────
+      // YARA rule set + IOC lists from Neo23x0/signature-base (DRL 1.1).
+      // 746 rule files / 5784 rules + 4 IOC lists (hashes, C2, filenames,
+      // keywords). Data ships in public/data/sigbase/ built by
+      // scripts/build-sigbase-manifest.mjs from the upstream repo
+      // github.com/Neo23x0/signature-base.
+
+      this.tools(
+        'sigbase_list_rules',
+        'List YARA rule files from the Neo23x0 signature-base feed. Filter by category tag (apt, malware, expl, gen, thr...), author, or free-text keyword. Each file contains 1+ rules with metadata (description, author, date, score, references).',
+        {
+          tag: z
+            .string()
+            .optional()
+            .describe(
+              'Category tag from the filename prefix (apt, malware, expl, gen, thr, cve, webshell, yara_mixed, etc.)'
+            ),
+          author: z.string().optional().describe('Filter by author (case-insensitive substring, e.g. "Florian Roth")'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against slug, filename, identifier, author, or tags'),
+          externalVars: z
+            .boolean()
+            .optional()
+            .describe('When true, only return rule files that need LOKI/THOR external variables'),
+          limit: z.number().int().min(1).max(746).optional().describe('Max rule files to return (default 50)'),
+        },
+        async ({ tag, author, keyword, externalVars, limit }) => {
+          const idx = await loadSigBaseIndex(ASSETS);
+          const rules = filterYara(idx, { tag, author, keyword, externalVars, limit: limit ?? 50 });
+          return untrustedToolResult({
+            total: idx.counts.yaraFiles,
+            totalRules: idx.counts.yaraRules,
+            returned: rules.length,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            rules,
+          });
+        }
+      );
+
+      this.tools(
+        'sigbase_get_rule',
+        'Return the full YARA source of a single rule file by slug, plus its parsed rule blocks (name + meta: description, author, reference, date, hash, score, id). Use sigbase_list_rules first to discover slugs. Bodies include the header comment and the raw .yar text.',
+        {
+          slug: z
+            .string()
+            .describe('Rule file slug, e.g. "apt_apt28" or "gen_mimikatz". Get these from sigbase_list_rules.'),
+        },
+        async ({ slug }) => {
+          const body = await getSigBaseYara(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'rule_not_found',
+              slug,
+              hint: 'Call sigbase_list_rules to see available slugs.',
+            });
+          }
+          return untrustedToolResult({
+            slug: body.slug,
+            filename: body.filename,
+            source: body.source,
+            license: body.license,
+            headerComment: body.headerComment,
+            rules: body.rules.map((r) => ({ name: r.name, meta: r.meta })),
+            externalVars: body.externalVars,
+            body: body.body,
+          });
+        }
+      );
+
+      this.tools(
+        'sigbase_list_iocs',
+        'List the IOC lists in the Neo23x0 signature-base feed (hashes, C2 servers, filenames, keywords). Returns entry counts per list. Use sigbase_get_ioc to fetch entries.',
+        {
+          type: z.enum(['hash', 'c2', 'filename', 'keyword']).optional().describe('Restrict to a single IOC type'),
+          keyword: z.string().optional().describe('Case-insensitive substring match against list slug or title'),
+          limit: z.number().int().min(1).max(10).optional().describe('Max lists to return (default 10)'),
+        },
+        async ({ type, keyword, limit }) => {
+          const idx = await loadSigBaseIndex(ASSETS);
+          const lists = filterSigBaseIocs(idx, { type, keyword, limit: limit ?? 10 });
+          return untrustedToolResult({
+            total: idx.counts.iocFiles,
+            totalEntries: idx.counts.iocEntries,
+            returned: lists.length,
+            source: idx.source,
+            license: idx.license,
+            lists,
+          });
+        }
+      );
+
+      this.tools(
+        'sigbase_get_ioc',
+        'Return the entries of a single IOC list by slug: hashes (md5/sha1/sha256 + comment), C2 domains/IPs, filename regexes (with score + false-positive exclusion), or malicious keywords. Optional keyword filter narrows entries.',
+        {
+          slug: z
+            .string()
+            .describe(
+              'IOC list slug: "hash-iocs", "c2-iocs", "filename-iocs", or "keywords". Get these from sigbase_list_iocs.'
+            ),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against value, comment, or category'),
+          limit: z.number().int().min(1).max(5000).optional().describe('Max entries to return (default 1000)'),
+        },
+        async ({ slug, keyword, limit }) => {
+          const body = await getSigBaseIoc(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'ioc_list_not_found',
+              slug,
+              hint: 'Call sigbase_list_iocs to see available slugs.',
+            });
+          }
+          const entries = searchSigBaseIocEntries(body, keyword, limit ?? 1000);
+          return untrustedToolResult({
+            slug: body.slug,
+            title: body.title,
+            type: body.type,
+            source: body.source,
+            license: body.license,
+            total: body.entryCount,
+            returned: entries.length,
+            entries,
+          });
+        }
+      );
+
+      this.tools(
+        'sigbase_stats',
+        'Return cache + manifest stats for the Signature-Base data: YARA file/rule counts, IOC list/entry counts, external-variable rule files, and LRU body-cache hit/miss ratios.',
+        {},
+        async () => {
+          const idx = await loadSigBaseIndex(ASSETS);
+          return untrustedToolResult({
+            counts: idx.counts,
+            source: idx.source,
+            license: idx.license,
+            replicatedAt: idx.replicatedAt,
+            cache: sigBaseCacheStats(),
           });
         }
       );

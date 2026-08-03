@@ -74,6 +74,112 @@ export async function buildBriefing(
   const startMs = rangeStart.getTime();
   const endMs = rangeEnd.getTime();
 
+  // ── Weekly rollup-first (free-plan subrequest budget) ─────────────────
+  // The weekly build used to run the FULL live fan-out (~45-50 subrequests:
+  // 7-day NVD pagination + up to 15 individual KEV CVE lookups + the 9-source
+  // ransomware merge + 4 IOC feeds + OSSF + Webamon + LLM) and THEN merged
+  // the daily rollup into it. On the free plan the invocation cap is 50, and
+  // the weekly cron ALSO runs landscape sync + the TI dashboard build +
+  // watchlist digest in the same invocation — so the build blew the cap,
+  // Cloudflare aborted it with HTTP 503, and no row was ever persisted (the
+  // hourly heal failed the same way; e.g. weekly-2026-W31 was missing while
+  // all 7 of its dailies were rich).
+  //
+  // Fix: for weekly builds, read the D1 daily rollup FIRST. When the dailies
+  // cover the window with real data, assemble the weekly from the rollup
+  // alone (D1 reads only — ~0 subrequests) and skip the live fan-out. The
+  // live path stays as the fallback for a window with no/missing dailies.
+  const weeklyRollup =
+    type === 'weekly' && opts.env?.BRIEFINGS_DB
+      ? await aggregateWeeklyFromDailies(
+          opts.env.BRIEFINGS_DB,
+          isoDate(rangeStart),
+          isoDate(new Date(rangeEnd.getTime() - 86400_000))
+        ).catch(() => null)
+      : null;
+  const rollupUsable =
+    weeklyRollup !== null &&
+    weeklyRollup.dailyCount > 0 &&
+    (weeklyRollup.findings.length > 0 || weeklyRollup.iocsTotal > 0);
+
+  if (rollupUsable) {
+    const r = weeklyRollup!;
+    const findings = r.findings;
+    const rwFindings = r.ransomwareFindings;
+    const iocSources = r.sources.filter((s) => IOC_FEED_SOURCES.has(s));
+    const sections = buildSections(findings);
+    const groupCounts = new Map<string, number>();
+    if (rwFindings.length > 0) {
+      for (const f of rwFindings) {
+        const m = /claimed by\s+([^(]+?)(?:\s*\(.*\))?\s*$/.exec(f.title);
+        if (m?.[1]) {
+          const g = m[1].trim();
+          groupCounts.set(g, (groupCounts.get(g) ?? 0) + 1);
+        }
+      }
+      const topGroups = [...groupCounts.entries()]
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3)
+        .map(([group, count]) => `${group} (${count})`)
+        .join(', ');
+      sections.push({
+        id: 'ransomware-activity',
+        title: 'Ransomware activity (ransomware.live + peers)',
+        count: rwFindings.length,
+        blurb: `Victim claims rolled up from the ${r.dailyCount} daily briefings covering this window${
+          topGroups ? `. Most active groups: ${topGroups}.` : ''
+        }`,
+        findings: rwFindings,
+      });
+    }
+    const ransomwareGroups = [...groupCounts.entries()].map(([group, count]) => ({ group, count })).slice(0, 12);
+    const stats = buildStats(findings, sections, r.iocsTotal, rwFindings.length);
+    const executive_summary = await buildLlmExecutiveSummary(
+      {
+        type,
+        range_label: rangeLabel,
+        findings,
+        iocs: r.iocBuckets,
+        iocsRawTotal: r.iocsTotal,
+        iocSources,
+        ransomwareGroups,
+        ransomwareSectors: [],
+        ransomwareTotal: rwFindings.length,
+      },
+      opts.env
+    );
+    const techniqueSet = new Set<string>();
+    for (const f of findings) for (const t of f.mitre_techniques) techniqueSet.add(t);
+    const sources: string[] = [];
+    if (findings.some((f) => f.source === 'CISA KEV')) sources.push('CISA KEV');
+    if (findings.some((f) => f.source === 'NVD')) sources.push('NVD');
+    if (findings.some((f) => f.source === 'cvefeed.io')) sources.push('cvefeed.io');
+    if (findings.some((f) => f.source === 'MyThreatIntel')) sources.push('MyThreatIntel');
+    if (rwFindings.length > 0) sources.push('ransomware.live');
+    if (findings.some((f) => f.source === 'Webamon')) sources.push('Webamon');
+    if (findings.some((f) => f.source === 'ossf/malicious-packages')) sources.push('ossf/malicious-packages');
+    if (findings.some((f) => f.source === 'Daily-Hunt')) sources.push('Daily-Hunt');
+    sources.push(...iocSources);
+    const ioc_dump = buildIocDump(r.iocBuckets, r.iocsTotal);
+    return {
+      slug,
+      type,
+      title,
+      date: dateLabel,
+      date_range: rangeLabel,
+      range_start: isoDate(rangeStart),
+      range_end: isoDate(new Date(rangeEnd.getTime() - 86400_000)),
+      generated_at: new Date().toISOString(),
+      executive_summary,
+      stats,
+      sections,
+      iocs: r.iocBuckets,
+      ...(ioc_dump ? { ioc_dump } : {}),
+      mitre_techniques: Array.from(techniqueSet).sort(),
+      sources,
+    };
+  }
+
   const wrap = <T>(p: Promise<T>, fallback: T) =>
     p.then((v) => ({ ok: true, v })).catch(() => ({ ok: false, v: fallback }));
   const mtiEnv = opts.env;
@@ -279,12 +385,8 @@ export async function buildBriefing(
     return dayA < dayB ? 1 : -1;
   });
 
-  if (type === 'weekly' && opts.env?.BRIEFINGS_DB) {
-    const rollup = await aggregateWeeklyFromDailies(
-      opts.env.BRIEFINGS_DB,
-      isoDate(rangeStart),
-      isoDate(new Date(rangeEnd.getTime() - 86400_000))
-    );
+  if (type === 'weekly' && weeklyRollup) {
+    const rollup = weeklyRollup;
     if (rollup.dailyCount > 0) {
       const merged = mergeWeeklyWithDailies(
         { findings, ransomwareFindings, iocsRawTotal, iocBuckets: iocs, sources: iocSources },

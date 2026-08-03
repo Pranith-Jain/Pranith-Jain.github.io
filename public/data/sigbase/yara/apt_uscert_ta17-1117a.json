@@ -1,0 +1,67 @@
+{
+  "slug": "apt_uscert_ta17-1117a",
+  "filename": "apt_uscert_ta17-1117a.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-04-27\n   Identifier: US CERT TA17-117A - APT10\n   Reference: https://www.us-cert.gov/ncas/alerts/TA17-117A",
+  "rules": [
+    {
+      "name": "Dropper_DeploysMalwareViaSideLoading",
+      "meta": {
+        "description": "Detects a dropper used to deploy an implant via side loading. This dropper has specifically been observed deploying REDLEAVES & PlugX",
+        "author": "USG",
+        "reference": "https://www.us-cert.gov/ncas/alerts/TA17-117A",
+        "true_positive": "5262cb9791df50fafcb2fbd5f93226050b51efe400c2924eecba97b7ce437481: drops REDLEAVES. 6392e0701a77ea25354b1f40f5b867a35c0142abde785a66b83c9c8d2c14c0c3: drops plugx.",
+        "id": "2e7cdedd-2358-5d71-a3ec-73dec442d840"
+      }
+    },
+    {
+      "name": "REDLEAVES_DroppedFile_ImplantLoader_Starburn",
+      "meta": {
+        "description": "Detects the DLL responsible for loading and deobfuscating the DAT file containing shellcode and core REDLEAVES RAT",
+        "author": "USG",
+        "reference": "https://www.us-cert.gov/ncas/alerts/TA17-117A",
+        "true_positive": "7f8a867a8302fe58039a6db254d335ae",
+        "id": "976f42b1-58c9-554b-97e6-130a657507e2"
+      }
+    },
+    {
+      "name": "REDLEAVES_DroppedFile_ObfuscatedShellcodeAndRAT_handkerchief",
+      "meta": {
+        "description": "Detects obfuscated .dat file containing shellcode and core REDLEAVES RAT",
+        "author": "USG",
+        "reference": "https://www.us-cert.gov/ncas/alerts/TA17-117A",
+        "true_positive": "fb0c714cd2ebdcc6f33817abe7813c36",
+        "id": "51a28529-1084-5f24-9369-6427e8d51d9d"
+      }
+    },
+    {
+      "name": "REDLEAVES_CoreImplant_UniqueStrings",
+      "meta": {
+        "description": "Strings identifying the core REDLEAVES RAT in its deobfuscated state",
+        "reference": "https://www.us-cert.gov/ncas/alerts/TA17-117A",
+        "author": "USG",
+        "date": "2018-12-20",
+        "modified": "2024-04-17",
+        "id": "fd4d4804-f7d9-549d-8f63-5f409d6180f9"
+      }
+    },
+    {
+      "name": "PLUGX_RedLeaves",
+      "meta": {
+        "author": "US-CERT Code Analysis Team",
+        "date": "2017-04-03",
+        "reference": "https://www.us-cert.gov/ncas/alerts/TA17-117A",
+        "incident": "10118538",
+        "md5_1": "598FF82EA4FB52717ACAFB227C83D474",
+        "md5_2": "7D10708A518B26CC8C3CBFBAA224E032",
+        "md5_3": "AF406D35C77B1E0DF17F839E36BCE630",
+        "md5_4": "6EB9E889B091A5647F6095DCD4DE7C83",
+        "md5_5": "566291B277534B63EAFC938CDAAB8A399E41AF7D",
+        "description": "Detects specific RedLeaves and PlugX binaries",
+        "id": "ede8ad8f-31cf-5314-9777-bddd60e499f2"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-04-27\n   Identifier: US CERT TA17-117A - APT10\n   Reference: https://www.us-cert.gov/ncas/alerts/TA17-117A\n*/\n\nrule Dropper_DeploysMalwareViaSideLoading {\n    meta:\n        description = \"Detects a dropper used to deploy an implant via side loading. This dropper has specifically been observed deploying REDLEAVES & PlugX\"\n        author = \"USG\"\n        reference = \"https://www.us-cert.gov/ncas/alerts/TA17-117A\"\n        true_positive = \"5262cb9791df50fafcb2fbd5f93226050b51efe400c2924eecba97b7ce437481: drops REDLEAVES. 6392e0701a77ea25354b1f40f5b867a35c0142abde785a66b83c9c8d2c14c0c3: drops plugx. \"\n        id = \"2e7cdedd-2358-5d71-a3ec-73dec442d840\"\n    strings:\n        $UniqueString = {2e 6c 6e 6b [0-14] 61 76 70 75 69 2e 65 78 65} // \".lnk\" near \"avpui.exe\"\n        $PsuedoRandomStringGenerator = {b9 1a [0-6] f7 f9 46 80 c2 41 88 54 35 8b 83 fe 64} // Unique function that generates a 100 character pseudo random string.\n    condition:\n        any of them\n}\n\nrule REDLEAVES_DroppedFile_ImplantLoader_Starburn {\n    meta:\n        description = \"Detects the DLL responsible for loading and deobfuscating the DAT file containing shellcode and core REDLEAVES RAT\"\n        author = \"USG\"\n        reference = \"https://www.us-cert.gov/ncas/alerts/TA17-117A\"\n        true_positive = \"7f8a867a8302fe58039a6db254d335ae\" // StarBurn.dll\n        id = \"976f42b1-58c9-554b-97e6-130a657507e2\"\n    strings:\n        $XOR_Loop = {32 0c 3a 83 c2 02 88 0e 83 fa 08 [4-14] 32 0c 3a 83 c2 02 88 0e 83 fa 10} // Deobfuscation loop\n    condition:\n        any of them\n}\n\nrule REDLEAVES_DroppedFile_ObfuscatedShellcodeAndRAT_handkerchief {\n    meta:\n        description = \"Detects obfuscated .dat file containing shellcode and core REDLEAVES RAT\"\n        author = \"USG\"\n        reference = \"https://www.us-cert.gov/ncas/alerts/TA17-117A\"\n        true_positive = \"fb0c714cd2ebdcc6f33817abe7813c36\" // handkerchief.dat\n        id = \"51a28529-1084-5f24-9369-6427e8d51d9d\"\n    strings:\n        $RedleavesStringObfu = {73 64 65 5e 60 74 75 74 6c 6f 60 6d 5e 6d 64 60 77 64 72 5e 65 6d 6d 6c 60 68 6f 2f 65 6d 6d} // This is 'red_autumnal_leaves_dllmain.dll' XOR'd with 0x01\n    condition:\n        any of them\n}\n\nrule REDLEAVES_CoreImplant_UniqueStrings {\n    meta:\n        description = \"Strings identifying the core REDLEAVES RAT in its deobfuscated state\"\n        reference = \"https://www.us-cert.gov/ncas/alerts/TA17-117A\"\n        author = \"USG\"\n        date = \"2018-12-20\"\n        modified = \"2024-04-17\"\n        id = \"fd4d4804-f7d9-549d-8f63-5f409d6180f9\"\n    strings:\n        $unique2 = \"RedLeavesSCMDSimulatorMutex\" nocase wide ascii\n        $unique4 = \"red_autumnal_leaves_dllmain.dll\" wide ascii\n        $unique7 = \"\\\\NamePipe_MoreWindows\" wide ascii\n    condition:\n        not uint32(0) == 0x66676572 // not regf (registry hives)\n        and any of them\n}\n\nrule PLUGX_RedLeaves {\n    meta:\n        author = \"US-CERT Code Analysis Team\"\n        date = \"03.04.2017\"\n        reference = \"https://www.us-cert.gov/ncas/alerts/TA17-117A\"\n        incident = \"10118538\"\n        date = \"2017-04-03\"\n        MD5_1 = \"598FF82EA4FB52717ACAFB227C83D474\"\n        MD5_2 = \"7D10708A518B26CC8C3CBFBAA224E032\"\n        MD5_3 = \"AF406D35C77B1E0DF17F839E36BCE630\"\n        MD5_4 = \"6EB9E889B091A5647F6095DCD4DE7C83\"\n        MD5_5 = \"566291B277534B63EAFC938CDAAB8A399E41AF7D\"\n        description = \"Detects specific RedLeaves and PlugX binaries\"\n        id = \"ede8ad8f-31cf-5314-9777-bddd60e499f2\"\n    strings:\n        $s0 = { 80343057403D2FD0010072F433C08BFF80343024403D2FD0010072F4 }\n        $s1 = \"C:\\\\Users\\\\user\\\\Desktop\\\\my_OK_2014\\\\bit9\\\\runsna\\\\Release\\\\runsna.pdb\"\n        $s2 = \"d:\\\\work\\\\plug4.0(shellcode)\"\n        $s3 = \"\\\\shellcode\\\\shellcode\\\\XSetting.h\"\n        $s4 = { 42AFF4276A45AA58474D4C4BE03D5B395566BEBCBDEDE9972872C5C4C5498228 }\n        $s5 = { 8AD32AD002D180C23830140E413BCB7CEF6A006A006A00566A006A00 }\n        $s6 = { EB055F8BC7EB05E8F6FFFFFF558BEC81ECC8040000535657 }\n        $s7 = { 8A043233C932043983C10288043283F90A7CF242890D18AA00103BD37CE2891514AA00106A006A006A0056 }\n        $s8 = { 293537675A402A333557B05E04D09CB05EB3ADA4A4A40ED0B7DAB7935F5B5B08 }\n        $s9 = \"RedLeavesCMDSimulatorMutex\"\n    condition:\n        $s0 or $s1 or $s2 and $s3 or $s4 or $s5 or $s6 or $s7 or $s8 or $s9\n}\n"
+}

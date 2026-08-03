@@ -1,0 +1,20 @@
+{
+  "slug": "apt_backspace",
+  "filename": "apt_backspace.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Author: Bit Byte Bitten\nDate: 5/14/2015",
+  "rules": [
+    {
+      "name": "apt_backspace",
+      "meta": {
+        "description": "Detects APT backspace",
+        "author": "Bit Byte Bitten",
+        "date": "2015-05-14",
+        "hash": "6cbfeb7526de65eb2e3c848acac05da1e885636d17c1c45c62ad37e44cd84f99",
+        "id": "3da3337d-b6d3-5661-b43e-535e06817303"
+      }
+    }
+  ],
+  "body": "/*\nAuthor: Bit Byte Bitten\nDate: 5/14/2015\n*/\n\nrule apt_backspace{\n\tmeta:\n\t\tdescription = \"Detects APT backspace\"\n\t\tauthor = \"Bit Byte Bitten\"\n\t\tdate = \"2015-05-14\"\n\t\thash = \"6cbfeb7526de65eb2e3c848acac05da1e885636d17c1c45c62ad37e44cd84f99\"\n\t\tid = \"3da3337d-b6d3-5661-b43e-535e06817303\"\n\tstrings:\n\t\t$s1 = \"!! Use Splice Socket !!\"\n\t\t$s2 = \"User-Agent: SJZJ (compatible; MSIE 6.0; Win32)\"\n\t\t$s3 = \"g_nAV=%d,hWnd:0x%X,className:%s,Title:%s,(%d,%d,%d,%d),BOOL=%d\"\n\tcondition:\n\t\tuint16(0) == 0x5a4d and all of them\n}"
+}

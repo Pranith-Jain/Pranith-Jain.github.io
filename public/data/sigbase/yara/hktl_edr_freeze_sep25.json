@@ -1,0 +1,28 @@
+{
+  "slug": "hktl_edr_freeze_sep25",
+  "filename": "hktl_edr_freeze_sep25.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "HKTL_EDR_Freeze_Sep25_2",
+      "meta": {
+        "description": "Detects EDR-Freeze hacktool",
+        "author": "Florian Roth",
+        "reference": "https://github.com/TwoSevenOneT/EDR-Freeze",
+        "date": "2025-09-30",
+        "score": "80",
+        "hash1": "193ca17f574fa5e23866560170425f83696f78e83dabd7e831dd7827a69283fd",
+        "hash2": "36a17919a97732f1ddc31b421c6ebb0c535924f895d7caaff04a5da908c42f76",
+        "hash3": "394b768bfd3506a9ee6b7bbe6f87c40fb23c28f7919a2a9eb333b27db635eafe",
+        "hash4": "a8ec07f006a9068ce5f068b3bb61b0649481b6b26203b8eb4308c53ff1d1bf8d",
+        "hash5": "d485017fb20c5a8fe38a6dbf896d4cbce485ff53a6cfe0e1440a1818b2d303ee",
+        "hash6": "d989ebd417e6fae60a544e43bfc0ee63f5d9352ce0059b95ed4e7e18efbc5d0b",
+        "hash7": "e2b2dd0984e52112965392471f6a09020eb8380aa53d48d2fb4dd3aaa7edae9b",
+        "id": "e3fd5815-71c4-5510-bfb4-82203d81cc78"
+      }
+    }
+  ],
+  "body": "rule HKTL_EDR_Freeze_Sep25_2 {\n   meta:\n      description = \"Detects EDR-Freeze hacktool\"\n      author = \"Florian Roth\"\n      reference = \"https://github.com/TwoSevenOneT/EDR-Freeze\"\n      date = \"2025-09-30\"\n      score = 80\n      hash1 = \"193ca17f574fa5e23866560170425f83696f78e83dabd7e831dd7827a69283fd\"\n      hash2 = \"36a17919a97732f1ddc31b421c6ebb0c535924f895d7caaff04a5da908c42f76\"\n      hash3 = \"394b768bfd3506a9ee6b7bbe6f87c40fb23c28f7919a2a9eb333b27db635eafe\"\n      hash4 = \"a8ec07f006a9068ce5f068b3bb61b0649481b6b26203b8eb4308c53ff1d1bf8d\"\n      hash5 = \"d485017fb20c5a8fe38a6dbf896d4cbce485ff53a6cfe0e1440a1818b2d303ee\"\n      hash6 = \"d989ebd417e6fae60a544e43bfc0ee63f5d9352ce0059b95ed4e7e18efbc5d0b\"\n      hash7 = \"e2b2dd0984e52112965392471f6a09020eb8380aa53d48d2fb4dd3aaa7edae9b\"\n      id = \"e3fd5815-71c4-5510-bfb4-82203d81cc78\"\n   strings:\n      $x1 = \"EDR-Freeze.exe <TargetPID> <SleepTime>\" wide fullword\n      $x2 = \"Successfully created PPL process with PID:\" wide fullword\n      $x3 = \"\\\\EDR-Freeze.pdb\" ascii\n\n      $sa1 = \"C:\\\\Windows\\\\System32\\\\WerFaultSecure.exe\" wide fullword  /* String occurs 2 times in goodware */\n      $sa2 = \"Failed to create dump files: \" wide fullword\n\n      $sb1 = \" /encfile\" wide fullword\n      $sb2 = \" /pid\" wide fullword\n      $sb3 = \" /tid\" wide fullword\n      $sb4 = \" /cancel\" wide fullword\n   condition:\n      uint16(0) == 0x5a4d\n      and filesize < 1000KB\n      and (\n         1 of ($x*)\n         or all of ($sa*)\n         or all of ($sb*)\n      ) or 6 of them\n}\n"
+}

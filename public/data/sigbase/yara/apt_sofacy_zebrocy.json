@@ -1,0 +1,20 @@
+{
+  "slug": "apt_sofacy_zebrocy",
+  "filename": "apt_sofacy_zebrocy.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "apt28_win_zebrocy_golang_loader_modified",
+      "meta": {
+        "description": "Detects unpacked modified APT28/Sofacy Zebrocy Golang.",
+        "author": "@VK_Intel",
+        "date": "2018-12-25",
+        "reference": "https://www.vkremez.com/2018/12/lets-learn-progression-of-apt28sofacy.html",
+        "id": "cce9ba6c-954c-5b13-a058-cdf7895d63fc"
+      }
+    }
+  ],
+  "body": "rule apt28_win_zebrocy_golang_loader_modified {\n   meta:\n      description = \"Detects unpacked modified APT28/Sofacy Zebrocy Golang.\"\n      author = \"@VK_Intel\"\n      date = \"2018-12-25\"\n      reference = \"https://www.vkremez.com/2018/12/lets-learn-progression-of-apt28sofacy.html\"\n      id = \"cce9ba6c-954c-5b13-a058-cdf7895d63fc\"\n   strings:\n      // Go build\n      $go = { 47 6f 20 62 75 69 6c 64 20 49 44 3a 20 }\n      $init = { 6d 61 69 6e 2e 69 6e 69 74 }\n      $main = \"main\" ascii wide fullword\n      $scr_git = {67 69 74 68 75 62 2e 63 6f 6d 2f 6b 62 69 6e 61}\n      $s0 = \"os/exec.(*Cmd).Run\" fullword ascii\n      $s1 = \"net/http.(*http2clientConnReadLoop).processHeaders\" fullword ascii\n      $s2 = \"os.MkdirAll\" fullword ascii\n      $s3 = \"os.Getenv\" fullword ascii\n      $s4 = \"os.Create\" fullword ascii\n      $s5 = \"io/ioutil.WriteFile\" fullword ascii\n   condition:\n      uint16(0) == 0x5a4d and $go and $init and all of ($s*) and #main > 10 and #scr_git > 5\n}\n"
+}

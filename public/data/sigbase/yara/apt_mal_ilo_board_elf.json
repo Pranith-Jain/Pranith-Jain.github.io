@@ -1,0 +1,21 @@
+{
+  "slug": "apt_mal_ilo_board_elf",
+  "filename": "apt_mal_ilo_board_elf.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "APT_MAL_HP_iLO_Firmware_Dec21_1",
+      "meta": {
+        "description": "Detects suspicios ELF files with sections as described in malicious iLO Board analysis by AmnPardaz in December 2021",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://threats.amnpardaz.com/en/2021/12/28/implant-arm-ilobleed-a/",
+        "date": "2021-12-28",
+        "score": "80",
+        "id": "7f5fa905-07a3-55da-b644-c5ab882b4a9d"
+      }
+    }
+  ],
+  "body": "\nrule APT_MAL_HP_iLO_Firmware_Dec21_1 {\n   meta:\n      description = \"Detects suspicios ELF files with sections as described in malicious iLO Board analysis by AmnPardaz in December 2021\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://threats.amnpardaz.com/en/2021/12/28/implant-arm-ilobleed-a/\"\n      date = \"2021-12-28\"\n      score = 80\n      id = \"7f5fa905-07a3-55da-b644-c5ab882b4a9d\"\n   strings:\n      $s1 = \".newelf.elf.text\" ascii\n      $s2 = \".newelf.elf.libc.so.data\" ascii\n      $s3 = \".newelf.elf.Initial.stack\" ascii\n      $s4 = \".newelf.elf.libevlog.so.data\" ascii\n   condition:\n      filesize < 5MB and 2 of them or \n      all of them\n}\n"
+}

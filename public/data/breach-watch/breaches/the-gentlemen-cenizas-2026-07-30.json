@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-cenizas-2026-07-30",
+  "title": "Cenizas",
+  "group": "the gentlemen",
+  "discovered": "2026-07-30T16:18:26.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "cenizas.cl zoominfo.com/c/cenizas/430439098 Grupo Minero Las Cenizas, a prominent medium-scale mining company in Chile with over four decades of industry experience. The company specializes in the production of copper fines and cathodes. Its main mining operations and facilities are strategically located in Cabildo, Taltal, and Franke, Chile",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

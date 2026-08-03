@@ -1,0 +1,22 @@
+{
+  "slug": "mal_lnx_plague",
+  "filename": "mal_lnx_plague.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_LNX_PLAGUE_BACKDOOR_Jul25",
+      "meta": {
+        "description": "Detects Plague backdoor ELF binaries, related to PAM authentication alteration.",
+        "reference": "Internal Research",
+        "author": "Pezier Pierre-Henri",
+        "date": "2025-07-25",
+        "score": "80",
+        "hash": "7c3ada3f63a32f4727c62067d13e40bcb9aa9cbec8fb7e99a319931fc5a9332e",
+        "id": "2c2e9030-fcef-58c9-9ed2-798560b8b384"
+      }
+    }
+  ],
+  "body": "rule MAL_LNX_PLAGUE_BACKDOOR_Jul25 {\n   meta:\n      description = \"Detects Plague backdoor ELF binaries, related to PAM authentication alteration.\"\n      reference = \"Internal Research\"\n      author = \"Pezier Pierre-Henri\"\n      date = \"2025-07-25\"\n      score = 80\n      hash = \"14b0c90a2eff6b94b9c5160875fcf29aff15dcfdfd3402d953441d9b0dca8b39\"\n      hash = \"7c3ada3f63a32f4727c62067d13e40bcb9aa9cbec8fb7e99a319931fc5a9332e\"\n      id = \"2c2e9030-fcef-58c9-9ed2-798560b8b384\"\n   strings:\n      $s1 = \"decrypt_phrase\"\n      $s2 = \"init_phrases\"\n\n      $x1 = \"captured_password\"\n      $x2 = \"updateklog\"\n      $x3 = \"init_cred_structs\"\n\n      $xop1 = {\n         48 8b [4] 00    // mov     rax, cs:_ent_ptr\n         8b 00           // mov     eax, [rax]\n         3d ca b2 e9 f1  // cmp     eax, 0F1E9B2CAh\n         74              // jz      short loc_4586\n      }\n   condition:\n      uint32be(0) == 0x7f454c46\n      and filesize < 1MB\n      and 2 of them\n}\n\n"
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "webshell_xsl_transform",
+  "filename": "webshell_xsl_transform.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "WEBSHELL_ASPX_XslTransform_Aug21",
+      "meta": {
+        "author": "Max Altgelt",
+        "reference": "https://gist.github.com/JohnHammond/cdae03ca5bc2a14a735ad0334dcb93d6",
+        "date": "2020-02-23",
+        "description": "Detects an ASPX webshell utilizing XSL Transformations",
+        "id": "44254084-a717-59e6-a3ac-eca3c1c864a8"
+      }
+    }
+  ],
+  "body": "rule WEBSHELL_ASPX_XslTransform_Aug21 {\n   meta:\n      author = \"Max Altgelt\"\n      reference = \"https://gist.github.com/JohnHammond/cdae03ca5bc2a14a735ad0334dcb93d6\"\n      date = \"2020-02-23\"\n      description = \"Detects an ASPX webshell utilizing XSL Transformations\"\n      id = \"44254084-a717-59e6-a3ac-eca3c1c864a8\"\n   strings:\n      $csharpshell = \"Language=\\\"C#\\\"\" nocase\n\n      $x1 = \"<root>1</root>\"\n      $x2 = \".LoadXml(System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(\"\n\n      $s1 = \"XsltSettings.TrustedXslt\"\n      $s2 = \"Xml.XmlUrlResolver\"\n      $s3 = \"FromBase64String(Request[\\\"\"\n   condition:\n      filesize < 500KB and $csharpshell and (1 of ($x*) or all of ($s*))\n}\n"
+}

@@ -1,0 +1,32 @@
+{
+  "slug": "vuln_paloalto_cve_2024_3400_apr24",
+  "filename": "vuln_paloalto_cve_2024_3400_apr24.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "EXPL_PaloAlto_CVE_2024_3400_Apr24_1",
+      "meta": {
+        "description": "Detects characteristics of the exploit code used in attacks against Palo Alto GlobalProtect CVE-2024-3400",
+        "author": "Florian Roth",
+        "reference": "https://www.volexity.com/blog/2024/04/12/zero-day-exploitation-of-unauthenticated-remote-code-execution-vulnerability-in-globalprotect-cve-2024-3400/",
+        "date": "2024-04-15",
+        "score": "70",
+        "id": "1bcf0415-5351-5e09-ab93-496e8dc47c92"
+      }
+    },
+    {
+      "name": "SUSP_PY_Import_Statement_Apr24_1",
+      "meta": {
+        "description": "Detects suspicious Python import statement and socket usage often found in Python reverse shells",
+        "author": "Florian Roth",
+        "reference": "https://www.volexity.com/blog/2024/04/12/zero-day-exploitation-of-unauthenticated-remote-code-execution-vulnerability-in-globalprotect-cve-2024-3400/",
+        "date": "2024-04-15",
+        "score": "65",
+        "id": "8e05f9a1-40a8-5d01-9e45-8779b0ff7a45"
+      }
+    }
+  ],
+  "body": "\nrule APT_UTA028_ForensicArtefacts_PaloAlto_CVE_2024_3400_Apr24_1 : SCRIPT {\n   meta:\n      description = \"Detects forensic artefacts of APT UTA028 as found in a campaign exploiting the Palo Alto CVE-2024-3400 vulnerability\"\n      author = \"Florian Roth\"\n      reference = \"https://www.volexity.com/blog/2024/04/12/zero-day-exploitation-of-unauthenticated-remote-code-execution-vulnerability-in-globalprotect-cve-2024-3400/\"\n      date = \"2024-04-15\"\n      modified = \"2024-04-18\"\n      score = 70\n      id = \"32cf18ff-784d-5849-87f8-14ede7315188\"\n   strings:\n      $x1 = \"cmd = base64.b64decode(rst.group\"\n      $x2 = \"f.write(\\\"/*\\\"+output+\\\"*/\\\")\"\n\n      $x3 = \"* * * * * root wget -qO- http://\"\n      $x4 = \"rm -f /var/appweb/sslvpndocs/global-protect/*.css\"\n\n      $x5a = \"failed to unmarshal session(../\" // https://security.paloaltonetworks.com/CVE-2024-3400\n      $x5b = \"failed to unmarshal session(./../\" // customer data\n\n      $x6 = \"rm -rf /opt/panlogs/tmp/device_telemetry/minute/*\" base64\n      $x7 = \"$(uname -a) > /var/\" base64\n   condition:\n      1 of them\n}\n\nrule EXPL_PaloAlto_CVE_2024_3400_Apr24_1 {\n   meta:\n      description = \"Detects characteristics of the exploit code used in attacks against Palo Alto GlobalProtect CVE-2024-3400\"\n      author = \"Florian Roth\"\n      reference = \"https://www.volexity.com/blog/2024/04/12/zero-day-exploitation-of-unauthenticated-remote-code-execution-vulnerability-in-globalprotect-cve-2024-3400/\"\n      date = \"2024-04-15\"\n      score = 70\n      id = \"1bcf0415-5351-5e09-ab93-496e8dc47c92\"\n   strings:\n      $x1 = \"SESSID=../../../../opt/panlogs/\"\n      $x2 = \"SESSID=./../../../../opt/panlogs/\"\n      \n      $sa1 = \"SESSID=../../../../\"\n      $sa2 = \"SESSID=./../../../../\"\n      \n      $sb2 = \"${IFS}\"\n   condition:\n      1 of ($x*)\n      or (1 of ($sa*) and $sb2)\n}\n\nrule SUSP_LNX_Base64_Download_Exec_Apr24 : SCRIPT {\n   meta:\n      description = \"Detects suspicious base64 encoded shell commands used for downloading and executing further stages\"\n      author = \"Paul Hager\"\n      date = \"2024-04-18\"\n      reference = \"Internal Research\"\n      score = 75\n      id = \"df8dddef-3c49-500c-abc8-7f7de5aa69ae\"\n   strings:\n      $sa1 = \"curl http\" base64\n      $sa2 = \"wget http\" base64\n      \n      $sb1 = \"chmod 777 \" base64\n      $sb2 = \"/tmp/\" base64\n   condition:\n      1 of ($sa*)\n      and all of ($sb*)\n}\n\nrule SUSP_PY_Import_Statement_Apr24_1 {\n   meta:\n      description = \"Detects suspicious Python import statement and socket usage often found in Python reverse shells\"\n      author = \"Florian Roth\"\n      reference = \"https://www.volexity.com/blog/2024/04/12/zero-day-exploitation-of-unauthenticated-remote-code-execution-vulnerability-in-globalprotect-cve-2024-3400/\"\n      date = \"2024-04-15\"\n      score = 65\n      id = \"8e05f9a1-40a8-5d01-9e45-8779b0ff7a45\"\n   strings:\n      $x1 = \"import sys,socket,os,pty;s=socket.socket(\"\n   condition:\n      1 of them\n}\n\nrule SUSP_LNX_Base64_Exec_Apr24 : SCRIPT {\n   meta:\n      description = \"Detects suspicious base64 encoded shell commands (as seen in Palo Alto CVE-2024-3400 exploitation)\"\n      author = \"Christian Burkard\"\n      date = \"2024-04-18\"\n      modified = \"2025-03-21\"\n      reference = \"Internal Research\"\n      score = 75\n      id = \"2da3d050-86b0-5903-97eb-c5f39ce4f3a3\"\n   strings:\n      $s1 = \"curl http://\" base64\n      $s2 = \"wget http://\" base64\n      $s3 = \";chmod 777 \" base64\n      // $s4 = \"/tmp/\" base64 // prone to FPs\n      \n      $mirai = \"country=\"\n\n      $fp1 = \"<html\"\n      $fp2 = \"<?xml\"\n   condition:\n      filesize < 800KB\n      and 1 of ($s*) \n      and not $mirai\n      and not 1 of ($fp*)\n}\n"
+}

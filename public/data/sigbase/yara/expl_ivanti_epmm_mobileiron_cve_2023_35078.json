@@ -1,0 +1,45 @@
+{
+  "slug": "expl_ivanti_epmm_mobileiron_cve_2023_35078",
+  "filename": "expl_ivanti_epmm_mobileiron_cve_2023_35078.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "LOG_EXPL_Ivanti_EPMM_MobileIron_Core_CVE_2023_35078_Jul23_1",
+      "meta": {
+        "description": "Detects the successful exploitation of Ivanti Endpoint Manager Mobile (EPMM) / MobileIron Core CVE-2023-35078",
+        "author": "Florian Roth",
+        "reference": "Ivanti Endpoint Manager Mobile (EPMM) CVE-2023-35078 - Analysis Guidance",
+        "date": "2023-07-25",
+        "score": "75",
+        "id": "44cca0b5-3851-5786-82fd-ce3ccb566453"
+      }
+    },
+    {
+      "name": "MAL_WAR_Ivanti_EPMM_MobileIron_Mi_War_Aug23",
+      "meta": {
+        "description": "Detects WAR file found in the Ivanti EPMM / MobileIron Core compromises exploiting CVE-2023-35078",
+        "author": "Florian Roth",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-213a",
+        "date": "2023-08-01",
+        "score": "85",
+        "hash1": "6255c75e2e52d779da39367e7a7d4b8d1b3c9c61321361952dcc05819251a127",
+        "id": "cd16cf29-a90d-5c3f-b66f-e9264dbf79fb"
+      }
+    },
+    {
+      "name": "MAL_WAR_Ivanti_EPMM_MobileIron_LogClear_JAVA_Aug23",
+      "meta": {
+        "description": "Detects LogClear.class found in the Ivanti EPMM / MobileIron Core compromises exploiting CVE-2023-35078",
+        "author": "Florian Roth",
+        "reference": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-213a",
+        "date": "2023-08-01",
+        "score": "80",
+        "hash1": "deb381c25d7a511b9eb936129eeba2c0341cff7f4bd2168b05e40ab2ee89225e",
+        "id": "e1ef3bf3-0107-5ba6-a49f-71e079851a4f"
+      }
+    }
+  ],
+  "body": "\nrule LOG_EXPL_Ivanti_EPMM_MobileIron_Core_CVE_2023_35078_Jul23_1 {\n   meta:\n      description = \"Detects the successful exploitation of Ivanti Endpoint Manager Mobile (EPMM) / MobileIron Core CVE-2023-35078\"\n      author = \"Florian Roth\"\n      reference = \"Ivanti Endpoint Manager Mobile (EPMM) CVE-2023-35078 - Analysis Guidance\"\n      date = \"2023-07-25\"\n      score = 75\n      id = \"44cca0b5-3851-5786-82fd-ce3ccb566453\"\n   strings:\n      $xr1 = /\\/mifs\\/aad\\/api\\/v2\\/[^\\n]{1,300} 200 [1-9][0-9]{0,60} /\n   condition:\n      $xr1\n}\n\nrule MAL_WAR_Ivanti_EPMM_MobileIron_Mi_War_Aug23 {\n   meta:\n      description = \"Detects WAR file found in the Ivanti EPMM / MobileIron Core compromises exploiting CVE-2023-35078\"\n      author = \"Florian Roth\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-213a\"\n      date = \"2023-08-01\"\n      score = 85\n      hash1 = \"6255c75e2e52d779da39367e7a7d4b8d1b3c9c61321361952dcc05819251a127\"\n      id = \"cd16cf29-a90d-5c3f-b66f-e9264dbf79fb\"\n   strings:\n      $s1 = \"logsPaths.txt\" ascii fullword\n      $s2 = \"keywords.txtFirefox\" ascii\n   condition:\n      uint16(0) == 0x4b50 and\n      filesize < 20KB and\n      all of them\n}\n\nrule MAL_WAR_Ivanti_EPMM_MobileIron_LogClear_JAVA_Aug23 {\n   meta:\n      description = \"Detects LogClear.class found in the Ivanti EPMM / MobileIron Core compromises exploiting CVE-2023-35078\"\n      author = \"Florian Roth\"\n      reference = \"https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-213a\"\n      date = \"2023-08-01\"\n      score = 80\n      hash1 = \"deb381c25d7a511b9eb936129eeba2c0341cff7f4bd2168b05e40ab2ee89225e\"\n      id = \"e1ef3bf3-0107-5ba6-a49f-71e079851a4f\"\n   strings:\n      $s1 = \"logsPaths.txt\" ascii fullword\n      $s2 = \"log file: %s, not read\" ascii fullword\n      $s3 = \"/tmp/.time.tmp\" ascii fullword\n      $s4 = \"readKeywords\" ascii fullword\n      $s5 = \"\\\"----------------  ----------------\" ascii fullword\n   condition:\n      uint16(0) == 0xfeca and\n      filesize < 20KB and\n      4 of them or all of them\n}\n"
+}

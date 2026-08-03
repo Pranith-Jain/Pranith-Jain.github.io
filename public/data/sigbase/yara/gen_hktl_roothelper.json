@@ -1,0 +1,21 @@
+{
+  "slug": "gen_hktl_roothelper",
+  "filename": "gen_hktl_roothelper.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "EXT_SUSP_OBFUSC_macOS_RootHelper_Obfuscated",
+      "meta": {
+        "author": "im0prtp3",
+        "description": "Yara for the public tool 'roothelper'. Used by XCSSET (https://gist.github.com/NullArray/f39b026b9e0d19f1e17390a244d679ec)",
+        "reference": "https://twitter.com/imp0rtp3/status/1401912205621202944",
+        "date": "2021-06-07",
+        "score": "65",
+        "id": "7ff91c00-8178-525c-bb41-d09cf7cda588"
+      }
+    }
+  ],
+  "body": "\nrule EXT_SUSP_OBFUSC_macOS_RootHelper_Obfuscated {\n\tmeta:\n\t\tauthor = \"im0prtp3\"\n\t\tdescription = \"Yara for the public tool 'roothelper'. Used by XCSSET (https://gist.github.com/NullArray/f39b026b9e0d19f1e17390a244d679ec)\"\n\t\treference = \"https://twitter.com/imp0rtp3/status/1401912205621202944\"\n\t\tdate = \"2021-06-07\"\n\t\tscore = 65\n\t\tid = \"7ff91c00-8178-525c-bb41-d09cf7cda588\"\n\tstrings:\n\t\t$a1 = \"E: neither argv[0] nor $_ works.\" fullword\n\t\t\n\t\t// Debug Strings - only available when compiled as debug \n\t\t$b1 = \"shll=%s\\n\" fullword\n\t\t$b2 = \"argv[%d]=%.60s\\n\" fullword\n\t\t$b3 = \"getenv(%s)=%s\\n\" fullword\n\t\t$b4 = \"argc=%d\\n\" fullword\n\t\t$b5 = \"argv=<null>\\n\" fullword\n\t\t\n\t\t$c1 = \"%s%s%s: %s\\n\" fullword\n\t\t$c2 = \"x%lx\" fullword\n\t\t$c3 = \"=%lu %d\" fullword\n\t\t$c4 = \"%lu %d%c\" fullword\n\t\t\n\t\t// Function names\n\t\t$f1 = \"rmarg\"\n\t\t$f2 = \"chkenv\"\n\t\t$f3 = \"untraceable\"\n\t\t$f4 = \"arc4\"\n\t\t/* $f5 = \"xsh\" fullword */\n\t\t$f6 = \"stte\"\n\t\t$f7 = \"with_file\"\n\n\t\t// \"key\" function\n\t\t$opcodes_1 = { 99 F7 7D ?? 4C 63 C2 42 0F B6 14 01 0F B6 3D } \n\t\t// \"stte\" function\n\t\t$opcodes_2 = { C6 [3] 00 00 00 C6 [3] 00 00 00 C6 [3] 00 00 00 8A 05 [2] 00 00 0F B6 [3] 00 00 89 CA } \n\t\t// \"chkenv\" function\n\t\t$opcodes_3 = { E8 [2] FF FF\t8B 85 ?? F? FF FF 2B 85 ?? F? FF FF\t83 ?? 01 89 85 ?? F? FF FF E9 ?? 00 00 00 } \n\n\t\t// \"rmarg\" function\n\t\t$weak_opcodes_1 = {48 8B 45 ?? 48 8B 00 48 3B 45 ??\t0F 95 C1 88 4D ??} \n\t\t$weak_opcodes_2 = {\t48 8B 45 ??\t48 83 38 ??\t0F 95 C1 88 4D ?? } // rmarg\n\n\tcondition:\n\t\t( uint32(0) == 0xfeedface or uint32(0) == 0xcefaedfe or uint32(0) == 0xfeedfacf or uint32(0) == 0xcffaedfe or uint32(0) == 0xcafebabe or uint32(0) == 0xbebafeca ) and (\n\t\t\t$a1 or \n\t\t\t3 of ($b*) or \n\t\t\t5 of ($f*) or \n\t\t\tall of ($opcodes*) or \n\t\t\t( 2 of ($b*) and ( 2 of ($c*) or 2 of ($opcodes*) ) ) or\n\t\t\t( 3 of ($c*) and 4 of ($f*) ) or\n\t\t\t( 2 of ($opcodes*) and ( all of ($weak_opcodes*) or 3 of ($c*) ) )\n\t\t)\n}\n"
+}

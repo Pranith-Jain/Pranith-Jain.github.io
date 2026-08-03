@@ -1,0 +1,34 @@
+{
+  "slug": "mal_npm_supply_chain_mar26",
+  "filename": "mal_npm_supply_chain_mar26.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_NPM_SupplyChain_Attack_Mar26",
+      "meta": {
+        "description": "Detects package.json which include the malicious plain-crypto-js package as dependency",
+        "author": "Marius Benthin",
+        "date": "2026-03-31",
+        "reference": "https://www.stepsecurity.io/blog/axios-compromised-on-npm-malicious-versions-drop-remote-access-trojan",
+        "hash": "5e3e89c7351f385e36bb70286866a62957cc1aaab195539edb8c7bb62968a137",
+        "score": "80",
+        "id": "88e7af97-f7c1-591e-960c-d5296da94066"
+      }
+    },
+    {
+      "name": "SUSP_JS_Dropper_Mar26",
+      "meta": {
+        "description": "Detects suspicious JavaScript dropper used in plain-crypto-js supply chain attacks",
+        "author": "Marius Benthin",
+        "date": "2026-03-31",
+        "reference": "https://www.stepsecurity.io/blog/axios-compromised-on-npm-malicious-versions-drop-remote-access-trojan",
+        "hash": "e10b1fa84f1d6481625f741b69892780140d4e0e7769e7491e5f4d894c2e0e09",
+        "score": "70",
+        "id": "456a52c2-9cbf-572f-9a5b-b8d74183e3f4"
+      }
+    }
+  ],
+  "body": "rule MAL_NPM_SupplyChain_Attack_Mar26 {\n   meta:\n      description = \"Detects package.json which include the malicious plain-crypto-js package as dependency\"\n      author = \"Marius Benthin\"\n      date = \"2026-03-31\"\n      reference = \"https://www.stepsecurity.io/blog/axios-compromised-on-npm-malicious-versions-drop-remote-access-trojan\"\n      hash = \"5e3e89c7351f385e36bb70286866a62957cc1aaab195539edb8c7bb62968a137\"\n      score = 80\n      id = \"88e7af97-f7c1-591e-960c-d5296da94066\"\n   strings:\n      $s1 = \"\\\"dependencies\\\":\"\n      // This is the specific malicious package that was added to the npm registry, which is a typo-squatting of the popular crypto-js package\n      $s2 = { 22 70 6C 61 69 6E 2D 63 72 79 70 74 6F 2D 6A 73 22 3A [0-3] 22 [0-2] 34 2E 32 2E }  // \"plain-crypto-js\": \"^4.2.\"\n   condition:\n      filesize < 10KB\n      and all of them\n}\n\nrule SUSP_JS_Dropper_Mar26 {\n   meta:\n      description = \"Detects suspicious JavaScript dropper used in plain-crypto-js supply chain attacks\"\n      author = \"Marius Benthin\"\n      date = \"2026-03-31\"\n      reference = \"https://www.stepsecurity.io/blog/axios-compromised-on-npm-malicious-versions-drop-remote-access-trojan\"\n      hash = \"e10b1fa84f1d6481625f741b69892780140d4e0e7769e7491e5f4d894c2e0e09\"\n      score = 70\n      id = \"456a52c2-9cbf-572f-9a5b-b8d74183e3f4\"\n   strings:\n      $sa1 = \"Buffer.from(\"\n      $sa2 = \"FileSync(\"\n      $sa3 = \".replaceAll(\"\n\n      $sb1 = \".arch()\"\n      $sb2 = \".platform()\"\n      $sb3 = \".release()\"\n      $sb4 = \".type()\"\n   condition:\n      filesize < 10KB\n      and all of ($sa*)\n      and 2 of ($sb*)\n}\n"
+}

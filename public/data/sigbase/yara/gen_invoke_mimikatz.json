@@ -1,0 +1,22 @@
+{
+  "slug": "gen_invoke_mimikatz",
+  "filename": "gen_invoke_mimikatz.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n\tAuthor: Florian Roth\n\tDate: 2016-07-19\n\tIdentifier: Invoke-Mimikatz",
+  "rules": [
+    {
+      "name": "Invoke_Mimikatz",
+      "meta": {
+        "description": "Detects Invoke-Mimikatz String",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://github.com/clymb3r/PowerShell/tree/master/Invoke-Mimikatz",
+        "date": "2016-08-03",
+        "hash1": "f1a499c23305684b9b1310760b19885a472374a286e2f371596ab66b77f6ab67",
+        "id": "37de51a6-e1bb-5ee7-9b7f-8fe17b3697b5"
+      }
+    }
+  ],
+  "body": "/*\n\tYara Rule Set\n\tAuthor: Florian Roth\n\tDate: 2016-07-19\n\tIdentifier: Invoke-Mimikatz\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule Invoke_Mimikatz {\n\tmeta:\n\t\tdescription = \"Detects Invoke-Mimikatz String\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\treference = \"https://github.com/clymb3r/PowerShell/tree/master/Invoke-Mimikatz\"\n\t\tdate = \"2016-08-03\"\n\t\thash1 = \"f1a499c23305684b9b1310760b19885a472374a286e2f371596ab66b77f6ab67\"\n\t\tid = \"37de51a6-e1bb-5ee7-9b7f-8fe17b3697b5\"\n\tstrings:\n\t\t$x2 = \"TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAEAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm\" ascii\n      $x3 = \"Write-BytesToMemory -Bytes $Shellcode1 -MemoryAddress $GetCommandLineWAddrTemp\" fullword ascii\n\tcondition:\n      1 of them\n}\n"
+}

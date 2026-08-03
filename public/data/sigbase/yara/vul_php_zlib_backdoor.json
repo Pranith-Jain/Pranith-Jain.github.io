@@ -1,0 +1,20 @@
+{
+  "slug": "vul_php_zlib_backdoor",
+  "filename": "vul_php_zlib_backdoor.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "VULN_PHP_Hack_Backdoored_Zlib_Zerodium_Mar21_1",
+      "meta": {
+        "description": "Detects backdoored PHP zlib version",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.bleepingcomputer.com/news/security/phps-git-server-hacked-to-add-backdoors-to-php-source-code/",
+        "date": "2021-03-29",
+        "id": "5e0ab8f8-776a-52b0-b5be-ff1d34bccfd1"
+      }
+    }
+  ],
+  "body": "\nrule VULN_PHP_Hack_Backdoored_Zlib_Zerodium_Mar21_1 {\n   meta:\n      description = \"Detects backdoored PHP zlib version\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.bleepingcomputer.com/news/security/phps-git-server-hacked-to-add-backdoors-to-php-source-code/\"\n      date = \"2021-03-29\"\n      id = \"5e0ab8f8-776a-52b0-b5be-ff1d34bccfd1\"\n   strings:\n      $x1 = \"REMOVETHIS: sold to zerodium, mid 2017\" fullword ascii\n      $x2 = \"HTTP_USER_AGENTT\" ascii fullword\n   condition:\n      filesize < 3000KB and\n      all of them\n}\n"
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "gen_susp_cmd_var_expansion",
+  "filename": "gen_susp_cmd_var_expansion.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_CMD_Var_Expansion",
+      "meta": {
+        "description": "Detects Office droppers that include a variable expansion string",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://twitter.com/asfakian/status/1044859525675843585",
+        "date": "2018-09-26",
+        "score": "60",
+        "id": "3f3ebea0-1d33-513d-b32b-9d87607525e8"
+      }
+    }
+  ],
+  "body": "\nrule SUSP_CMD_Var_Expansion {\n   meta:\n      description = \"Detects Office droppers that include a variable expansion string\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/asfakian/status/1044859525675843585\"\n      date = \"2018-09-26\"\n      score = 60\n      id = \"3f3ebea0-1d33-513d-b32b-9d87607525e8\"\n   strings:\n      $a1 = \" /V:ON\" ascii wide fullword\n   condition:\n      uint16(0) == 0xcfd0 and filesize < 500KB and $a1\n}\n"
+}

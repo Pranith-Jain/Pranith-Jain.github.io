@@ -1,0 +1,22 @@
+{
+  "slug": "mal_kernel_regphantom_mar26",
+  "filename": "mal_kernel_regphantom_mar26.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_Kernel_RegPhantom_Mar26",
+      "meta": {
+        "description": "Detects RegPhantom, a kernel-mode rootkit that allow attacker to inject arbitrary code from unprivileged user-mode into kernel-mode and execute it.",
+        "author": "Pezier Pierre-Henri (Nextron Systems)",
+        "date": "2026-03-19",
+        "reference": "Internal Research",
+        "hash": "006e08f1b8cad821f7849c282dc11d317e76ce66a5bcd84053dd5e7752e0606f",
+        "score": "80",
+        "id": "aa8963b5-3053-52a4-a84f-2fc02d03275e"
+      }
+    }
+  ],
+  "body": "rule MAL_Kernel_RegPhantom_Mar26 {\n   meta:\n      description = \"Detects RegPhantom, a kernel-mode rootkit that allow attacker to inject arbitrary code from unprivileged user-mode into kernel-mode and execute it.\"\n      author = \"Pezier Pierre-Henri (Nextron Systems)\"\n      date = \"2026-03-19\"\n      reference = \"Internal Research\"\n      hash = \"006e08f1b8cad821f7849c282dc11d317e76ce66a5bcd84053dd5e7752e0606f\"\n      score = 80\n      id = \"aa8963b5-3053-52a4-a84f-2fc02d03275e\"\n   strings:\n      $s1 = \"CmRegisterCallback\" fullword\n      $s2 = \"PsSetCreateThreadNotifyRoutine\" fullword\n\n      $o1 = {\n         // xor decrypt\n         48 8b 09     // mov     rcx, [rcx]\n         0f b6 14 08  // movzx   edx, byte ptr [rax+rcx]\n         4c 31 c2     // xor     rdx, r8\n         88 14 08     // mov     [rax+rcx], dl\n      }\n      $o2 = {\n         // Command selector\n         c6 01 01     // mov     byte ptr [rcx], 1\n         48 83 38 77  // cmp     qword ptr [rax], 77h\n         0f 94 c0     // setz    al\n         24 01        // and     al, 1\n      }\n   condition:\n      uint16(0) == 0x5a4d\n      and all of them\n}\n\n"
+}

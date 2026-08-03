@@ -1,0 +1,44 @@
+{
+  "slug": "apt_apt19",
+  "filename": "apt_apt19.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "Beacon_K5om",
+      "meta": {
+        "description": "Detects Meterpreter Beacon - file K5om.dll",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.fireeye.com/blog/threat-research/2017/06/phished-at-the-request-of-counsel.html",
+        "date": "2017-06-07",
+        "hash1": "e3494fd2cc7e9e02cff76841630892e4baed34a3e1ef2b9ae4e2608f9a4d7be9",
+        "id": "9354d20a-d798-55bf-a735-820f21d4a861"
+      }
+    },
+    {
+      "name": "FE_LEGALSTRIKE_MACRO",
+      "meta": {
+        "version": ".1",
+        "filetype": "MACRO",
+        "author": "Ian.Ahl@fireeye.com @TekDefense - modified by Florian Roth",
+        "date": "2017-06-02",
+        "description": "This rule is designed to identify macros with the specific encoding used in the sample 30f149479c02b741e897cdb9ecd22da7.",
+        "id": "eb15e5aa-16e5-5c07-a293-ad15c0c09d8e"
+      }
+    },
+    {
+      "name": "FE_LEGALSTRIKE_RTF",
+      "meta": {
+        "version": ".1",
+        "filetype": "MACRO",
+        "author": "joshua.kim@FireEye. - modified by Florian Roth",
+        "date": "2017-06-02",
+        "description": "Rtf Phishing Campaign leveraging the CVE 2017-0199 exploit, to point to the domain 2bunnyDOTcom",
+        "id": "b62ceffa-445f-517e-b86b-56e47876c6c0"
+      }
+    }
+  ],
+  "body": "\n/*\n   Yara Rule Set\n   Author: Ian.Ahl@fireeye.com @TekDefense, modified by Florian Roth\n   Date: 2017-06-05\n   Identifier: APT19\n   Reference: https://www.fireeye.com/blog/threat-research/2017/06/phished-at-the-request-of-counsel.html\n*/\n\nrule Beacon_K5om {\n   meta:\n      description = \"Detects Meterpreter Beacon - file K5om.dll\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.fireeye.com/blog/threat-research/2017/06/phished-at-the-request-of-counsel.html\"\n      date = \"2017-06-07\"\n      hash1 = \"e3494fd2cc7e9e02cff76841630892e4baed34a3e1ef2b9ae4e2608f9a4d7be9\"\n      id = \"9354d20a-d798-55bf-a735-820f21d4a861\"\n   strings:\n      $x1 = \"IEX (New-Object Net.Webclient).DownloadString('http://127.0.0.1:%u/'); %s\" fullword ascii\n      $x2 = \"powershell -nop -exec bypass -EncodedCommand \\\"%s\\\"\" fullword ascii\n      $x3 = \"%d is an x86 process (can't inject x64 content)\" fullword ascii\n\n      $s1 = \"Could not open process token: %d (%u)\" fullword ascii\n      $s2 = \"0fd00b.dll\" fullword ascii\n      $s3 = \"%s.4%08x%08x%08x%08x%08x.%08x%08x%08x%08x%08x%08x%08x.%08x%08x%08x%08x%08x%08x%08x.%08x%08x%08x%08x%08x%08x%08x.%x%x.%s\" fullword ascii\n      $s4 = \"Could not connect to pipe (%s): %d\" fullword ascii\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 600KB and ( 1 of ($x*) or 3 of them ) )\n}\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule FE_LEGALSTRIKE_MACRO {\n   meta:\n      version=\".1\"\n      filetype=\"MACRO\"\n      author=\"Ian.Ahl@fireeye.com @TekDefense - modified by Florian Roth\"\n      date=\"2017-06-02\"\n      description=\"This rule is designed to identify macros with the specific encoding used in the sample 30f149479c02b741e897cdb9ecd22da7.\"\n      id = \"eb15e5aa-16e5-5c07-a293-ad15c0c09d8e\"\n   strings:\n      // OBSFUCATION\n      $ob1 = \"ChrW(114) & ChrW(101) & ChrW(103) & ChrW(115) & ChrW(118) & ChrW(114) & ChrW(51) & ChrW(50) & ChrW(46) & ChrW(101)\" ascii wide\n      // wscript\n      $wsobj1 = \"Set Obj = CreateObject(\\\"WScript.Shell\\\")\" ascii wide\n      $wsobj2 = \"Obj.Run \" ascii wide\n   condition:\n      all of them\n}\n\nrule FE_LEGALSTRIKE_RTF {\n   meta:\n      version=\".1\"\n      filetype=\"MACRO\"\n      author=\"joshua.kim@FireEye. - modified by Florian Roth\"\n      date=\"2017-06-02\"\n      description=\"Rtf Phishing Campaign leveraging the CVE 2017-0199 exploit, to point to the domain 2bunnyDOTcom\"\n      id = \"b62ceffa-445f-517e-b86b-56e47876c6c0\"\n   strings:\n      $lnkinfo = \"4c0069006e006b0049006e0066006f\"\n      $encoded1 = \"4f4c45324c696e6b\"\n      $encoded2 = \"52006f006f007400200045006e007400720079\"\n      $encoded3 = \"4f0062006a0049006e0066006f\"\n      $encoded4 = \"4f006c0065\"\n      $datastore = \"\\\\*\\\\datastore\"\n   condition:\n      uint32be(0) == 0x7B5C7274 and all of them\n}\n"
+}

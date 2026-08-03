@@ -1,0 +1,21 @@
+{
+  "slug": "vul_cve_2021_386471_omi",
+  "filename": "vul_cve_2021_386471_omi.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "VULN_LNX_OMI_RCE_CVE_2021_386471_Sep21",
+      "meta": {
+        "description": "Detects a Linux OMI version vulnerable to CVE-2021-38647 (OMIGOD) which enables an unauthenticated RCE",
+        "author": "Christian Burkard",
+        "date": "2021-09-16",
+        "reference": "https://www.wiz.io/blog/secret-agent-exposes-azure-customers-to-unauthorized-code-execution",
+        "score": "50",
+        "id": "ca49f0cc-ea33-559c-bd4f-306a01315fce"
+      }
+    }
+  ],
+  "body": "rule VULN_LNX_OMI_RCE_CVE_2021_386471_Sep21 {\n   meta:\n      description = \"Detects a Linux OMI version vulnerable to CVE-2021-38647 (OMIGOD) which enables an unauthenticated RCE\"\n      author = \"Christian Burkard\"\n      date = \"2021-09-16\"\n      reference = \"https://www.wiz.io/blog/secret-agent-exposes-azure-customers-to-unauthorized-code-execution\"\n      score = 50\n      id = \"ca49f0cc-ea33-559c-bd4f-306a01315fce\"\n   strings:\n      $a1 = \"/opt/omi/bin/omiagent\" ascii fullword\n      \n      $s1 = \"OMI-1.6.8-0 - \" ascii\n      $s2 = \"OMI-1.6.6-0 - \" ascii\n      $s3 = \"OMI-1.6.4-1 - \" ascii\n      $s4 = \"OMI-1.6.4-0 - \" ascii\n      $s5 = \"OMI-1.6.2-0 - \" ascii\n      $s6 = \"OMI-1.6.1-0 - \" ascii\n      $s7 = \"OMI-1.5.0-0 - \" ascii\n      $s8 = \"OMI-1.4.4-0 - \" ascii\n      $s9 = \"OMI-1.4.3-2 - \" ascii\n      $s10 = \"OMI-1.4.3-1 - \" ascii\n      $s11 = \"OMI-1.4.3-0 - \" ascii\n      $s12 = \"OMI-1.4.2-5 - \" ascii\n      $s13 = \"OMI-1.4.2-4 - \" ascii\n      $s14 = \"OMI-1.4.2-3 - \" ascii\n      $s15 = \"OMI-1.4.2-2 - \" ascii\n      $s16 = \"OMI-1.4.2-1 - \" ascii\n      $s17 = \"OMI-1.4.1-1 - \" ascii\n      $s18 = \"OMI-1.4.1-0 - \" ascii\n      $s19 = \"OMI-1.4.0-6 - \" ascii\n      // older versions are no longer supported by current openssl\n      // and are from before 2018\n   condition:\n      uint32be(0) == 0x7f454c46\n      and $a1\n      and 1 of ($s*)\n}\n"
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "apt_f5_bigip_expl_payloads",
+  "filename": "apt_f5_bigip_expl_payloads.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_Payload_F5_BIG_IP_Exploitations_Jul20_1",
+      "meta": {
+        "description": "Detects code found in report on exploits against CVE-2020-5902 F5 BIG-IP vulnerability by NCC group",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://research.nccgroup.com/2020/07/05/rift-f5-networks-k52145254-tmui-rce-vulnerability-cve-2020-5902-intelligence/",
+        "date": "2020-06-07",
+        "score": "75",
+        "id": "57705ba1-c0ad-5ca6-8539-44d9da6b5942"
+      }
+    }
+  ],
+  "body": "\nrule MAL_Payload_F5_BIG_IP_Exploitations_Jul20_1 {\n   meta:\n      description = \"Detects code found in report on exploits against CVE-2020-5902 F5 BIG-IP vulnerability by NCC group\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://research.nccgroup.com/2020/07/05/rift-f5-networks-k52145254-tmui-rce-vulnerability-cve-2020-5902-intelligence/\"\n      date = \"2020-06-07\"\n      score = 75\n      id = \"57705ba1-c0ad-5ca6-8539-44d9da6b5942\"\n   strings:\n      $x1 = \"rm -f /etc/ld.so.preload\" ascii fullword\n      $x2 = \"echo \\\"* * * * * $LDR\" ascii\n      $x3 = \".sh -o /tmp/in.sh\" ascii\n      $x4 = \"chmod a+x /etc/.modules/.tmp\" ascii\n      $x5 = \"chmod +x /var/log/F5-logcheck\"\n\n      $s1 = \"ulimit -n 65535\" ascii fullword\n      $s2 = \"-s /usr/bin/wget \" ascii\n      $s3 = \".sh | sh\" ascii\n   condition:\n      filesize < 300KB and\n      ( 1 of ($x*) or 3 of them )\n}\n"
+}

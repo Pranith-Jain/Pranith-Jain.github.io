@@ -1,0 +1,21 @@
+{
+  "slug": "apt_ru_crywiper",
+  "filename": "apt_ru_crywiper.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "APT_CryWiper_Dec22",
+      "meta": {
+        "description": "Detects CryWiper malware samples",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://securelist-ru.translate.goog/novyj-troyanec-crywiper/106114/?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en",
+        "date": "2022-12-05",
+        "score": "75",
+        "id": "d56ccf4e-30ba-5308-ad68-ffc2ae5a1718"
+      }
+    }
+  ],
+  "body": "\nrule APT_CryWiper_Dec22 {\n   meta:\n      description = \"Detects CryWiper malware samples\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://securelist-ru.translate.goog/novyj-troyanec-crywiper/106114/?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en\"\n      date = \"2022-12-05\"\n      score = 75\n      id = \"d56ccf4e-30ba-5308-ad68-ffc2ae5a1718\"\n   strings:\n      $x1 = \"Software\\\\Sysinternals\\\\BrowserUpdate\"\n\n      $sx1 = \"taskkill.exe /f /im MSExchange*\"\n\n      $s1 = \"SYSTEM\\\\CurrentControlSet\\\\Control\\\\Terminal Server\" ascii\n      $s2 = \"fDenyTSConnections\" ascii\n   condition:\n      1 of ($x*) or all of ($s*)\n}\n"
+}

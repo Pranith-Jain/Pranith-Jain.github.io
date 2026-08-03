@@ -1,0 +1,21 @@
+{
+  "slug": "expl_libcue_cve_2023_43641",
+  "filename": "expl_libcue_cve_2023_43641.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_EXPL_LIBCUE_CVE_2023_43641_Oct23_1",
+      "meta": {
+        "author": "Florian Roth",
+        "description": "Detects a suspicious .cue file that could be an exploitation attempt of libcue vulnerability CVE-2023-43641",
+        "reference": "https://github.com/github/securitylab/blob/main/SecurityExploits/libcue/track_set_index_CVE-2023-43641/README.md",
+        "date": "2023-10-27",
+        "score": "70",
+        "id": "34fcf80c-adcd-55c0-9fb4-261d20f61fa6"
+      }
+    }
+  ],
+  "body": "\nrule SUSP_EXPL_LIBCUE_CVE_2023_43641_Oct23_1 {\n   meta:\n      author = \"Florian Roth\"\n      description = \"Detects a suspicious .cue file that could be an exploitation attempt of libcue vulnerability CVE-2023-43641\"\n      reference = \"https://github.com/github/securitylab/blob/main/SecurityExploits/libcue/track_set_index_CVE-2023-43641/README.md\"\n      date = \"2023-10-27\"\n      score = 70\n      id = \"34fcf80c-adcd-55c0-9fb4-261d20f61fa6\"\n   strings:\n      $a1 = \"TRACK \"\n      $a2 = \"FILE \"\n\n      $s1 = \"INDEX 4294\"\n   condition:\n      filesize < 100KB and all of them\n}\n"
+}

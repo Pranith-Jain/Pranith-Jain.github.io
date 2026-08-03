@@ -1,0 +1,51 @@
+{
+  "slug": "crime_icedid",
+  "filename": "crime_icedid.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_IcedID_Fake_GZIP_Bokbot_202104",
+      "meta": {
+        "author": "Thomas Barabosch, Telekom Security",
+        "date": "2021-04-20",
+        "description": "Detects fake gzip provided by CC",
+        "reference": "https://www.telekom.com/en/blog/group/article/let-s-set-ice-on-fire-hunting-and-detecting-icedid-infections-627240",
+        "id": "538d84d8-aff2-571c-ba60-102f18262434"
+      }
+    },
+    {
+      "name": "MAL_IcedID_GZIP_LDR_202104",
+      "meta": {
+        "author": "Thomas Barabosch, Telekom Security",
+        "date": "2021-04-12",
+        "modified": "2023-01-27",
+        "description": "2021 initial Bokbot / Icedid loader for fake GZIP payloads",
+        "reference": "https://www.telekom.com/en/blog/group/article/let-s-set-ice-on-fire-hunting-and-detecting-icedid-infections-627240",
+        "id": "fbf578e7-c318-5f67-82df-f93232362a23"
+      }
+    },
+    {
+      "name": "MAL_IcedId_Core_LDR_202104",
+      "meta": {
+        "author": "Thomas Barabosch, Telekom Security",
+        "date": "2021-04-13",
+        "description": "2021 loader for Bokbot / Icedid core (license.dat)",
+        "reference": "https://www.telekom.com/en/blog/group/article/let-s-set-ice-on-fire-hunting-and-detecting-icedid-infections-627240",
+        "id": "f096e18d-3a31-5236-b3c3-0df39b408d9a"
+      }
+    },
+    {
+      "name": "MAL_IceId_Core_202104",
+      "meta": {
+        "author": "Thomas Barabosch, Telekom Security",
+        "date": "2021-04-12",
+        "description": "2021 Bokbot / Icedid core",
+        "reference": "https://www.telekom.com/en/blog/group/article/let-s-set-ice-on-fire-hunting-and-detecting-icedid-infections-627240",
+        "id": "526a73da-415f-58fe-bb5f-4c3df6b2e647"
+      }
+    }
+  ],
+  "body": "rule MAL_IcedID_Fake_GZIP_Bokbot_202104 {\n   meta:\n      author = \"Thomas Barabosch, Telekom Security\"\n      date = \"2021-04-20\"\n      description = \"Detects fake gzip provided by CC\"\n      reference = \"https://www.telekom.com/en/blog/group/article/let-s-set-ice-on-fire-hunting-and-detecting-icedid-infections-627240\"\n      id = \"538d84d8-aff2-571c-ba60-102f18262434\"\n   strings:\n      $gzip = {1f 8b 08 08 00 00 00 00 00 00 75 70 64 61 74 65}\n   condition:\n      $gzip at 0\n}\n\nrule MAL_IcedID_GZIP_LDR_202104 {\n   meta:\n      author = \"Thomas Barabosch, Telekom Security\"\n      date = \"2021-04-12\"\n      modified = \"2023-01-27\"\n      description = \"2021 initial Bokbot / Icedid loader for fake GZIP payloads\"\n      reference = \"https://www.telekom.com/en/blog/group/article/let-s-set-ice-on-fire-hunting-and-detecting-icedid-infections-627240\"\n      id = \"fbf578e7-c318-5f67-82df-f93232362a23\"\n   strings:\n      $internal_name = \"loader_dll_64.dll\" fullword\n\n      $string0 = \"_gat=\" wide\n      $string1 = \"_ga=\" wide\n      $string2 = \"_gid=\" wide\n      $string4 = \"_io=\" wide\n      $string5 = \"GetAdaptersInfo\" fullword\n      $string6 = \"WINHTTP.dll\" fullword\n      $string7 = \"DllRegisterServer\" fullword\n      $string8 = \"PluginInit\" fullword\n      $string9 = \"POST\" wide fullword\n      $string10 = \"aws.amazon.com\" wide fullword\n   condition:\n      uint16(0) == 0x5a4d and\n      filesize < 5000KB and \n      ( $internal_name or all of ($s*) )\n      or all of them\n}\n\nrule MAL_IcedId_Core_LDR_202104 {\n   meta:\n      author = \"Thomas Barabosch, Telekom Security\"\n      date = \"2021-04-13\"\n      description = \"2021 loader for Bokbot / Icedid core (license.dat)\"\n      reference = \"https://www.telekom.com/en/blog/group/article/let-s-set-ice-on-fire-hunting-and-detecting-icedid-infections-627240\"\n      id = \"f096e18d-3a31-5236-b3c3-0df39b408d9a\"\n   strings:\n      $internal_name = \"sadl_64.dll\" fullword\n\n      $string0 = \"GetCommandLineA\" fullword\n      $string1 = \"LoadLibraryA\" fullword\n      $string2 = \"ProgramData\" fullword\n      $string3 = \"SHLWAPI.dll\" fullword\n      $string4 = \"SHGetFolderPathA\" fullword\n      $string5 = \"DllRegisterServer\" fullword\n      $string6 = \"update\" fullword\n      $string7 = \"SHELL32.dll\" fullword\n      $string8 = \"CreateThread\" fullword\n   condition:\n      uint16(0) == 0x5a4d and\n      filesize < 5000KB and \n      ( $internal_name and 5 of them )\n      or all of them\n}\n\nrule MAL_IceId_Core_202104 {\n   meta:\n      author = \"Thomas Barabosch, Telekom Security\"\n      date = \"2021-04-12\"\n      description = \"2021 Bokbot / Icedid core\"\n      reference = \"https://www.telekom.com/en/blog/group/article/let-s-set-ice-on-fire-hunting-and-detecting-icedid-infections-627240\"\n      id = \"526a73da-415f-58fe-bb5f-4c3df6b2e647\"\n   strings:\n      $internal_name = \"fixed_loader64.dll\" fullword\n\n      $string0 = \"mail_vault\" wide fullword\n      $string1 = \"ie_reg\" wide fullword\n      $string2 = \"outlook\" wide fullword\n      $string3 = \"user_num\" wide fullword\n      $string4 = \"cred\" wide fullword\n      $string5 = \"Authorization: Basic\" fullword\n      $string6 = \"VaultOpenVault\" fullword\n      $string7 = \"sqlite3_free\" fullword\n      $string8 = \"cookie.tar\" fullword\n      $string9 = \"DllRegisterServer\" fullword\n      $string10 = \"PT0S\" wide\n   condition:\n      uint16(0) == 0x5a4d and\n      filesize < 5000KB and \n      ( $internal_name or all of ($s*) )\n      or all of them\n}\n"
+}

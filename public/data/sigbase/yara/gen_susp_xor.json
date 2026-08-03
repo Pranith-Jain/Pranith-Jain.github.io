@@ -1,0 +1,22 @@
+{
+  "slug": "gen_susp_xor",
+  "filename": "gen_susp_xor.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "requires YARA 3.8 or higher",
+  "rules": [
+    {
+      "name": "SUSP_XORed_URL_In_EXE",
+      "meta": {
+        "description": "Detects an XORed URL in an executable",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://twitter.com/stvemillertime/status/1237035794973560834",
+        "date": "2020-03-09",
+        "modified": "2022-09-16",
+        "score": "50",
+        "id": "f83991c8-f2d9-5583-845a-d105034783ab"
+      }
+    }
+  ],
+  "body": "/* requires YARA 3.8 or higher */\nimport \"pe\"\n\nrule SUSP_XORed_URL_In_EXE {\n   meta:\n      description = \"Detects an XORed URL in an executable\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/stvemillertime/status/1237035794973560834\"\n      date = \"2020-03-09\"\n      modified = \"2022-09-16\"\n      score = 50\n      id = \"f83991c8-f2d9-5583-845a-d105034783ab\"\n   strings:\n      $s1 = \"http://\" xor\n      $s2 = \"https://\" xor\n      $f1 = \"http://\" ascii\n      $f2 = \"https://\" ascii\n\n      $fp01 = \"3Com Corporation\" ascii  /* old driver */\n      $fp02 = \"bootloader.jar\" ascii  /* DeepGit */\n      $fp03 = \"AVAST Software\" ascii wide\n      $fp04 = \"smartsvn\" wide ascii fullword\n      $fp05 = \"Avira Operations GmbH\" wide fullword\n      $fp06 = \"Perl Dev Kit\" wide fullword\n      $fp07 = \"Digiread\" wide fullword\n      $fp08 = \"Avid Editor\" wide fullword\n      $fp09 = \"Digisign\" wide fullword\n      $fp10 = \"Microsoft Corporation\" wide fullword\n      $fp11 = \"Microsoft Code Signing\" ascii wide\n      $fp12 = \"XtraProxy\" wide fullword\n      $fp13 = \"A Sophos Company\" wide\n      $fp14 = \"http://crl3.digicert.com/\" ascii\n      $fp15 = \"http://crl.sectigo.com/SectigoRSACodeSigningCA.crl\" ascii\n      $fp16 = \"HitmanPro.Alert\" wide fullword\n   condition:\n      uint16(0) == 0x5a4d and\n      filesize < 2000KB and (\n         ( $s1 and #s1 > #f1 ) or\n         ( $s2 and #s2 > #f2 )\n      )\n      and not 1 of ($fp*)\n      and not pe.number_of_signatures > 0\n}\n\n"
+}

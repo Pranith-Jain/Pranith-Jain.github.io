@@ -1,0 +1,22 @@
+{
+  "slug": "expl_outlook_cve_2024_21413",
+  "filename": "expl_outlook_cve_2024_21413.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "EXPL_CVE_2024_21413_Microsoft_Outlook_RCE_Feb24",
+      "meta": {
+        "description": "Detects emails that contain signs of a method to exploit CVE-2024-21413 in Microsoft Outlook",
+        "author": "X__Junior, Florian Roth",
+        "reference": "https://github.com/xaitax/CVE-2024-21413-Microsoft-Outlook-Remote-Code-Execution-Vulnerability/",
+        "date": "2024-02-17",
+        "modified": "2024-02-19",
+        "score": "75",
+        "id": "4512ca7b-0755-565e-84f1-596552949aa5"
+      }
+    }
+  ],
+  "body": "\nrule EXPL_CVE_2024_21413_Microsoft_Outlook_RCE_Feb24 {\n   meta:\n      description = \"Detects emails that contain signs of a method to exploit CVE-2024-21413 in Microsoft Outlook\"\n      author = \"X__Junior, Florian Roth\"\n      reference = \"https://github.com/xaitax/CVE-2024-21413-Microsoft-Outlook-Remote-Code-Execution-Vulnerability/\"\n      date = \"2024-02-17\"\n      modified = \"2024-02-19\"\n      score = 75\n      id = \"4512ca7b-0755-565e-84f1-596552949aa5\"\n   strings:\n      $a1 = \"Subject: \"\n      $a2 = \"Received: \"\n\n      $xr1 = /file:\\/\\/\\/\\\\\\\\[^\"']{6,600}\\.(docx|txt|pdf|xlsx|pptx|odt|etc|jpg|png|gif|bmp|tiff|svg|mp4|avi|mov|wmv|flv|mkv|mp3|wav|aac|flac|ogg|wma|exe|msi|bat|cmd|ps1|zip|rar|7z|targz|iso|dll|sys|ini|cfg|reg|html|css|java|py|c|cpp|db|sql|mdb|accdb|sqlite|eml|pst|ost|mbox|htm|php|asp|jsp|xml|ttf|otf|woff|woff2|rtf|chm|hta|js|lnk|vbe|vbs|wsf|xls|xlsm|xltm|xlt|doc|docm|dot|dotm)!/\n   condition:\n      filesize < 1000KB\n      and all of ($a*)\n      and 1 of ($xr*)\n}\n"
+}

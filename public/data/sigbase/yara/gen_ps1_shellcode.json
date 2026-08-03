@@ -1,0 +1,21 @@
+{
+  "slug": "gen_ps1_shellcode",
+  "filename": "gen_ps1_shellcode.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "Base64_PS1_Shellcode",
+      "meta": {
+        "description": "Detects Base64 encoded PS1 Shellcode",
+        "author": "Nick Carr, David Ledbetter",
+        "reference": "https://twitter.com/ItsReallyNick/status/1062601684566843392",
+        "date": "2018-11-14",
+        "score": "65",
+        "id": "7c3cec3b-a192-5bfd-b4f1-22b1afeb717e"
+      }
+    }
+  ],
+  "body": "rule Base64_PS1_Shellcode {\n   meta:\n      description = \"Detects Base64 encoded PS1 Shellcode\"\n      author = \"Nick Carr, David Ledbetter\"\n      reference = \"https://twitter.com/ItsReallyNick/status/1062601684566843392\"\n      date = \"2018-11-14\"\n      score = 65\n      id = \"7c3cec3b-a192-5bfd-b4f1-22b1afeb717e\"\n   strings:\n      $substring = \"AAAAYInlM\"\n      $pattern1 = \"/OiCAAAAYInlM\"\n      $pattern2 = \"/OiJAAAAYInlM\"\n   condition:\n      $substring and 1 of ($p*)\n}\n"
+}

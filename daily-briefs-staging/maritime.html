@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maritime Cyber Threat Intelligence Brief - Thursday, July 30, 2026</title>
+<style>
+:root{
+    --bg:#0f1720;
+    --panel:#111c28;
+    --header:#0b1620;
+    --text:#d7e2ee;
+    --muted:#9fb2c6;
+    --accent:#44c0e3;
+    --accent-2:#3aa0c2;
+    --border:#1e2b38;
+    --ok:#2fbf71;
+    --warn:#f0a000;
+    --crit:#f15249;
+    --link:#7fd1ff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,"Helvetica Neue",Arial,sans-serif;line-height:1.45}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1180px;margin:0 auto;padding:20px}
+.header{
+    background:linear-gradient(180deg,rgba(14,28,40,.9),rgba(12,22,32,.9)), radial-gradient(1200px 600px at 80% -50%, rgba(68,192,227,.12), transparent);
+    border-bottom:1px solid var(--border);
+    padding:28px 20px 22px 20px;
+    margin:0 0 18px 0;
+}
+.masthead{display:flex;flex-direction:column;gap:8px}
+.masthead h1{margin:0;font-size:1.8rem;color:#e8f3ff;letter-spacing:.3px}
+.masthead .sub{color:var(--muted);font-size:.98rem}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.badge{border:1px solid var(--border);background:#0f1a25;color:var(--muted);padding:6px 10px;font-size:.78rem;border-radius:999px}
+.level{padding:6px 12px;border-radius:999px;font-weight:600}
+.level.high{background:rgba(240,160,0,.15);border:1px solid #c88500;color:#ffcf6a}
+.level.critical{background:rgba(241,82,73,.16);border:1px solid #c2514a;color:#ff9b94}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px 16px;margin:14px 0}
+.panel h2{margin:0 0 10px 0;font-size:1.1rem;color:#e6f1ff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media (max-width:980px){.grid,.grid-3,.grid-4{grid-template-columns:1fr}}
+.card{background:#0f1a25;border:1px solid var(--border);border-radius:10px;padding:12px 12px}
+.kpi{display:flex;justify-content:space-between;align-items:center}
+.kpi .label{color:var(--muted);font-size:.82rem}
+.kpi .value{font-weight:700;font-size:1.2rem;color:#e9f4ff}
+.kpi .pill{font-size:.72rem;color:#96aebe;background:#0c1a25;border:1px solid var(--border);padding:3px 8px;border-radius:999px}
+.section-title{margin:18px 0 8px 0;color:#e6f1ff}
+.source-link{display:inline-block;margin-left:8px;font-size:.84rem;color:#9ed9ff}
+.source-link::after{content:" ↗";font-size:.8em;color:#78cafd}
+.note{color:var(--muted);font-size:.92rem}
+.list.compact, .compact{margin:6px 0 0 0;padding:0 0 0 18px}
+.compact li{margin:4px 0}
+.tag{display:inline-block;background:#0e1b26;border:1px solid var(--border);color:#b9c9da;font-size:.75rem;padding:3px 8px;border-radius:999px;margin:0 6px 6px 0}
+.status{font-size:.75rem;font-weight:700;padding:4px 8px;border-radius:6px;border:1px solid var(--border)}
+.st-escalate{background:rgba(241,82,73,.1);border-color:#8f3a35;color:#ffaba6}
+.st-monitor{background:rgba(240,160,0,.12);border-color:#8f6a1f;color:#ffd691}
+.st-ignore{background:rgba(47,191,113,.12);border-color:#2f9c67;color:#9be6bf}
+.event{background:#0e1a25;border:1px solid var(--border);border-radius:10px;padding:14px;margin:10px 0}
+.event h4{margin:0 0 6px 0;color:#e9f4ff}
+.event .meta{color:var(--muted);font-size:.82rem;margin-bottom:8px}
+.event .meta .sep{margin:0 6px;color:#365067}
+.section-divider{height:1px;background:linear-gradient(90deg,transparent, #243241, transparent);margin:16px 0}
+ul.key-points{margin:0;padding:0 0 0 18px}
+ul.key-points li{margin:6px 0}
+.priority{border-left:4px solid var(--accent);background:#0e1a24;border:1px solid var(--border);border-radius:10px;padding:12px}
+.priority .head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:6px}
+.priority .num{font-weight:800;color:#a8eaff;font-size:.9rem}
+.priority .lvl{font-size:.75rem;padding:4px 8px;border-radius:999px;border:1px solid var(--border)}
+.lvl-high{background:rgba(240,160,0,.1);color:#ffd28a}
+.lvl-critical{background:rgba(241,82,73,.1);color:#ffb0ab}
+.small{font-size:.88rem;color:#c6d6e6}
+.em{color:#e8f3ff}
+h3{margin:14px 0 8px 0}
+.summary-item{
+    background:#162331;
+    border-left:4px solid var(--accent);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:12px 16px;
+    margin-bottom:12px;
+    color:var(--text);
+}
+footer{margin:26px 0 10px 0;color:#90a7bd;font-size:.86rem;border-top:1px solid var(--border);padding-top:12px}
+
+/* Print */
+@media print{
+    .header{border:none;box-shadow:none}
+    a.source-link::after{content:""}
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="container masthead">
+    <h1>Maritime Cyber Threat Intelligence Brief</h1>
+    <div class="sub">Open Source Intelligence Assessment · Focus: cyber threats to vessels, ports, maritime OT/ICS, navigation systems, offshore infrastructure, and maritime supply chains</div>
+    <div class="badges">
+      <span class="badge">Publication Date: Thursday, July 30, 2026</span>
+      <span class="badge">Report Type: OSINT</span>
+      <span class="level high">Overall Threat Level: HIGH</span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="panel">
+    <h2>Executive Summary</h2>
+    <div class="summary-item">
+      Immediate priority: U.S. MARAD advisory 2026-007 highlights persistent cyber and data-security risks from foreign-manufactured port equipment (including remotely accessible ship-to-shore cranes) and logistics platforms, warranting near-term defensive review and segmentation checks across terminal OT networks.
+      <a href="https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence"
+         target="_blank" rel="noopener noreferrer" class="source-link">Maritime Advisory</a>
+    </div>
+    <p>
+      Available reporting indicates an elevated maritime cyber risk environment driven by: (1) an active U.S. maritime advisory on foreign-manufactured port equipment and data platforms; (2) broadened U.S. agency warnings that Iran-linked actors are targeting a wider set of OT vendors; (3) allied advisories (as reported) on Russian operations against edge network devices; (4) evidence of GNSS/GPS interference affecting vessel approach traffic near U.S. ports; and (5) a major logistics ransomware event demonstrating supply-chain sensitivity to cyber disruption.
+    </p>
+    <ul class="compact">
+      <li>Government maritime advisory emphasizes exposure pathways in port OT and crane ecosystems and prescribes concrete mitigations such as segmentation, MFA, secure file transfer, monitoring, and recovery planning
+        <a href="https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence" target="_blank" rel="noopener noreferrer" class="source-link">Maritime Advisory</a>
+      </li>
+      <li>U.S. agencies reportedly expanded an Iran-linked OT alert to include Schneider Electric and Siemens ecosystems alongside Rockwell/Allen‑Bradley, citing malicious project file interactions and operator HMI/SCADA display manipulation risks
+        <a href="https://therecord.media/federal-agencies-broaden-alert-on-iran-linked-ot-attacks" target="_blank" rel="noopener noreferrer" class="source-link">Source</a>
+      </li>
+      <li>Multinational warning (via reporting) on Russian FSB Center 16-linked actors abusing poorly secured routers (scanning, SNMP misuse, TFTP config theft, exploitation of known Cisco flaws) is operationally relevant to vessel and terminal edge networks
+        <a href="https://www.securityweek.com/us-allies-warn-of-russian-cyberattacks-targeting-critical-infrastructure-routers/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </li>
+      <li>GNSS interference near Los Angeles/Long Beach caused AIS position jumps and at least one AIS outage; while likely benign testing, the incident underscores navigational resilience gaps in dense traffic schemes
+        <a href="https://gcaptain.com/gps-interference-off-california-offers-warning-for-global-shipping/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </li>
+      <li>Ransomware disruption at Nichirei Logistics in Japan impacted cold-chain deliveries, reinforcing systemic risk to time-sensitive maritime logistics dependencies
+        <a href="https://therecord.media/nichirei-japan-food-logistics-cyberattack-recovery" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
+      </li>
+    </ul>
+    <p>
+      The collected intelligence supports an assessment that maritime operators should prioritize hardening of port OT and edge networking, review vendor and remote-access dependencies, and enhance PNT/AIS cross-checking procedures. Current reporting suggests no confirmed maritime-specific destructive OT compromise this period; however, exposure and tradecraft reported across sectors are directly applicable to maritime environments. Confidence in this assessment is medium to high given the government advisory and corroborated reporting.
+    </p>
+  </section>
+
+  <section class="panel">
+    <h2>Maritime Threat Dashboard</h2>
+    <div class="grid-4">
+      <div class="card kpi"><div>
+          <div class="label">Overall Maritime Cyber Threat Level</div>
+          <div class="value">HIGH</div>
+        </div><span class="pill">Assessed</span></div>
+      <div class="card kpi"><div>
+          <div class="label">Total Intelligence Records Analyzed</div>
+          <div class="value">6</div>
+        </div><span class="pill">Inputs</span></div>
+      <div class="card kpi"><div>
+          <div class="label">Unique Maritime Intelligence Events</div>
+          <div class="value">5</div>
+        </div><span class="pill">De‑duplicated</span></div>
+      <div class="card kpi"><div>
+          <div class="label">ESCALATE Events</div>
+          <div class="value" style="color:#ffb1ab">1</div>
+        </div><span class="pill">Critical focus</span></div>
+      <div class="card kpi"><div>
+          <div class="label">MONITOR Events</div>
+          <div class="value" style="color:#ffd28a">4</div>
+        </div><span class="pill">Watch</span></div>
+      <div class="card kpi"><div>
+          <div class="label">Active/Recent Incidents</div>
+          <div class="value">1</div>
+        </div><span class="pill">Supply chain</span></div>
+      <div class="card kpi"><div>
+          <div class="label">Navigation-Related Threats</div>
+          <div class="value">1</div>
+        </div><span class="pill">GNSS/AIS</span></div>
+      <div class="card kpi"><div>
+          <div class="label">OT/ICS-Relevant Threats</div>
+          <div class="value">2</div>
+        </div><span class="pill">Industrial</span></div>
+    </div>
+    <div class="note">Metrics reflect merged duplicate reporting (unique events) and counts only where supported by supplied sources.</div>
+  </section>
+
+  <section class="panel">
+    <h2>Key Findings</h2>
+    <ul class="key-points">
+      <li>MARAD Advisory 2026-007 elevates port OT risk posture, citing foreign-manufactured cranes and logistics platforms as vectors for cyber exploitation and data collection; concrete mitigations are provided.
+        <a href="https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence" target="_blank" rel="noopener noreferrer" class="source-link">Maritime Advisory</a>
+      </li>
+      <li>U.S. agencies reportedly broadened an Iran-linked OT alert to include Schneider Electric and Siemens ecosystems; observed behaviors include malicious interactions with project files and HMI/SCADA display manipulation.
+        <a href="https://therecord.media/federal-agencies-broaden-alert-on-iran-linked-ot-attacks" target="_blank" rel="noopener noreferrer" class="source-link">Source</a>
+      </li>
+      <li>Allied warning (as reported) highlights continued Russian operations against critical infrastructure routers via scanning, SNMP misuse, TFTP abuse, and exploitation of known Cisco flaws—relevant to vessel and port edge networks.
+        <a href="https://www.securityweek.com/us-allies-warn-of-russian-cyberattacks-targeting-critical-infrastructure-routers/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </li>
+      <li>GNSS interference near LA/Long Beach produced AIS anomalies; although likely from testing, it demonstrates operational fragility of PNT-dependent approaches in busy traffic.
+        <a href="https://gcaptain.com/gps-interference-off-california-offers-warning-for-global-shipping/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </li>
+      <li>Ransomware at Nichirei Logistics disrupted cold-chain deliveries in Japan; maritime logistics and intermodal dependencies face knock-on risks from similar IT incidents.
+        <a href="https://therecord.media/nichirei-japan-food-logistics-cyberattack-recovery" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Top Five Priority Threats</h2>
+    <div class="grid">
+      <div class="priority">
+        <div class="head">
+          <div><span class="num">#1</span> <span class="em">MARAD 2026-007: Foreign-Manufactured Port Equipment Risks</span></div>
+          <span class="lvl lvl-critical">CRITICAL</span>
+        </div>
+        <div class="small">
+          Maritime domain: Ports and terminals · Why it matters: Potential remote access, data collection, and OT exploitation pathways via ship-to-shore cranes and logistics platforms. Operational impact: Terminal operations disruption; sensitive data exposure. Recommended attention: Immediate segmentation and remote-access review; validate PLC/VLAN integrity; enable MFA and monitoring. Confidence: High.
+        </div>
+        <div class="section-divider"></div>
+        <a href="https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence" target="_blank" rel="noopener noreferrer" class="source-link">Maritime Advisory</a>
+      </div>
+      <div class="priority">
+        <div class="head">
+          <div><span class="num">#2</span> <span class="em">Broadened Iran-Linked Targeting of OT Vendors</span></div>
+          <span class="lvl lvl-high">HIGH</span>
+        </div>
+        <div class="small">
+          Maritime domain: Port and offshore OT relevance · Why it matters: Reported targeting spans PLCs/HMI/SCADA, including Schneider Electric and Siemens, increasing exposure for maritime ICS. Impact: Potential false operator indications, loss of view, and process disruption. Attention: Remove internet exposure of OT assets; validate project file integrity; restrict remote vendor access; enhance HMI/SCADA monitoring. Confidence: Medium.
+        </div>
+        <div class="section-divider"></div>
+        <a href="https://therecord.media/federal-agencies-broaden-alert-on-iran-linked-ot-attacks" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </div>
+      <div class="priority">
+        <div class="head">
+          <div><span class="num">#3</span> <span class="em">Russian Activity Against Critical Infrastructure Routers</span></div>
+          <span class="lvl lvl-high">HIGH</span>
+        </div>
+        <div class="small">
+          Maritime domain: Vessels, ports, offshore connectivity · Why it matters: Edge device compromise enables footholds into maritime IT/OT. Impact: Loss of network integrity, pivot paths toward OT, comms disruption. Attention: Patch known flaws, disable/limit SNMP v1/v2c, restrict TFTP, enforce MFA on remote services, monitor config drift. Confidence: Medium.
+        </div>
+        <div class="section-divider"></div>
+        <a href="https://www.securityweek.com/us-allies-warn-of-russian-cyberattacks-targeting-critical-infrastructure-routers/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </div>
+      <div class="priority">
+        <div class="head">
+          <div><span class="num">#4</span> <span class="em">GNSS/AIS Disruptions Near Major U.S. Port Complex</span></div>
+          <span class="lvl lvl-high">HIGH</span>
+        </div>
+        <div class="small">
+          Maritime domain: Navigation and traffic approaches · Why it matters: Position jumps and AIS outages degrade situational awareness in dense traffic schemes. Impact: Increased collision/grounding risk; pilotage and VTS coordination strain. Attention: Cross-check PNT with radar/visual/terrestrial aids, enable ECDIS integrity alerts, brief bridge teams. Confidence: Medium.
+        </div>
+        <div class="section-divider"></div>
+        <a href="https://gcaptain.com/gps-interference-off-california-offers-warning-for-global-shipping/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </div>
+      <div class="priority">
+        <div class="head">
+          <div><span class="num">#5</span> <span class="em">Cold-Chain Logistics Ransomware Disruption (Japan)</span></div>
+          <span class="lvl lvl-high">HIGH</span>
+        </div>
+        <div class="small">
+          Maritime domain: Intermodal logistics interfaces · Why it matters: Time-sensitive perishables and port throughput rely on upstream cold-chain capacity. Impact: Delivery delays, cargo spoilage risk, booking and trucking knock-ons. Attention: Review third-party access, backups, and incident response with cold-chain partners; validate EDI/API dependencies. Confidence: Medium.
+        </div>
+        <div class="section-divider"></div>
+        <a href="https://therecord.media/nichirei-japan-food-logistics-cyberattack-recovery" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Maritime Operational Relevance Assessment</h2>
+    <ul class="compact">
+      <li>Port operations: Reported MARAD advisory indicates elevated risk pathways via foreign-manufactured cranes and logistics systems that interface with terminal OT. Analytical judgment: ports should assume discoverable remote-access paths and data-exfiltration potential until segmented and verified.</li>
+      <li>Vessel navigation: GNSS anomalies, even when benign, can rapidly degrade bridge team situational awareness and ECDIS route confidence during high-density approaches; AIS position “jumps” risk VTS and collision-avoidance confusion.</li>
+      <li>Shipboard/port OT: Broadened Iran-linked OT targeting and router exploitation tradecraft are directly applicable to maritime ICS environments that still expose vendor remote access or unpatched gateways.</li>
+      <li>Logistics continuity: Ransomware affecting a major cold-chain operator highlights intermodal dependencies—ports relying on just-in-time refrigerated flows may experience berth and yard inefficiencies during upstream outages.</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Port and Terminal Cyber Activity</h2>
+    <p>Government advisory 2026-007 urges segmentation, MFA, monitoring, secure file transfer, and recovery planning for port equipment and networks—particularly ship-to-shore cranes and logistics platforms. These measures directly reduce lateral movement and remote exploitation risk.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Vessel and Shipboard System Security</h2>
+    <ul class="compact">
+      <li>Edge networking risk: Reported Russian TTPs against routers (scanning, SNMP/TFTP misuse, exploitation of known flaws) threaten vessel firewalls/routers used for remote maintenance and satcom backhaul.</li>
+      <li>Navigation integrity: The LA/Long Beach GNSS interference event underscores the need for cross-checking PNT sources and preparing for temporary AIS/GNSS loss during approaches and pilotage.</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Navigation, GPS, GNSS, AIS, and ECDIS Threat Watch</h2>
+    <p>Confirmed GNSS interference produced AIS anomalies near Los Angeles/Long Beach; testing was cited as likely cause. No evidence of malicious spoofing in the supplied reporting, but the operational effect on PNT-dependent workflows is material and recurrent in busy approaches.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Maritime OT and ICS Assessment</h2>
+    <ul class="compact">
+      <li>Broadened OT targeting reportedly includes Schneider Electric and Siemens ecosystems in addition to Rockwell/Allen‑Bradley, emphasizing exposure of internet-facing PLCs, HMI/SCADA, and project files.</li>
+      <li>Potential impacts include false indications on operator consoles (loss of view), process disruptions, and safety margin erosion where OT/IT boundaries are weak or vendor remote access is persistent.</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Offshore Energy and Undersea Infrastructure</h2>
+    <p>No direct offshore or undersea cable incidents reported in the supplied sources. However, the reported cross-sector OT and router targeting tradecraft is technically applicable to offshore platforms and shore-based support facilities.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Maritime Communications and Satellite Systems</h2>
+    <p>Edge device exploitation targeting routers could affect maritime satcom gateways and remote services used by vessels and terminals. Priority controls include disabling legacy SNMP versions, restricting management interfaces, and monitoring for unauthorized configuration changes.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Maritime Supply Chain and Logistics Risks</h2>
+    <p>The Nichirei Logistics incident shows how ransomware at a large cold-chain operator can ripple into port scheduling, yard operations, and perishables handling. Maritime planners should validate alternatives and temperature-controlled storage contingencies during upstream ICT outages.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Threat Actor and Campaign Activity</h2>
+    <ul class="compact">
+      <li>Iran-linked OT activity reportedly expanding to multiple vendor ecosystems; behaviors include malicious project-file interactions and HMI/SCADA data manipulation (source reporting).
+        <a href="https://therecord.media/federal-agencies-broaden-alert-on-iran-linked-ot-attacks" target="_blank" rel="noopener noreferrer" class="source-link">Source</a>
+      </li>
+      <li>Russian FSB Center 16-linked operations reportedly target poorly secured routers using scanning, SNMP abuse, and exploitation of known flaws (as reported).
+        <a href="https://www.securityweek.com/us-allies-warn-of-russian-cyberattacks-targeting-critical-infrastructure-routers/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Vulnerability and CVE Watch</h2>
+    <p>No specific CVEs cited in the supplied reporting. Router exploitation references “known Cisco flaws” without identifiers; operators should review current vendor advisories and apply security updates accordingly.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Affected Vendors and Technologies</h2>
+    <ul class="compact">
+      <li>Port equipment and logistics platforms: PRC-manufactured ship-to-shore cranes; LOGINK; Nuctech (per MARAD advisory).
+        <a href="https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence" target="_blank" rel="noopener noreferrer" class="source-link">Maritime Advisory</a>
+      </li>
+      <li>Industrial OT ecosystems: Schneider Electric; Siemens; Rockwell/Allen‑Bradley (reported exposure relevance).
+        <a href="https://therecord.media/federal-agencies-broaden-alert-on-iran-linked-ot-attacks" target="_blank" rel="noopener noreferrer" class="source-link">Source</a>
+      </li>
+      <li>Networking: Cisco routers and other edge devices (as reported).
+        <a href="https://www.securityweek.com/us-allies-warn-of-russian-cyberattacks-targeting-critical-infrastructure-routers/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Affected Maritime Sectors</h2>
+    <ul class="compact">
+      <li>Ports and terminals (OT/ICS, cranes, terminal networks)</li>
+      <li>Vessel operations (edge networking, navigation resilience)</li>
+      <li>Intermodal logistics (cold-chain, scheduling, EDI/API dependencies)</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>TTPs and MITRE ATT&amp;CK-Style Observations</h2>
+    <ul class="compact">
+      <li>Internet-wide scanning of exposed routers and services (initial access reconnaissance)</li>
+      <li>Abuse of SNMP and TFTP for configuration theft and device control (credential/config access)</li>
+      <li>Exploitation of known flaws in network devices (exploitation of public-facing applications)</li>
+      <li>Malicious interaction with ICS project files; manipulation of HMI/SCADA displays (loss of view; operator deception)</li>
+      <li>GNSS interference causing AIS anomalies (operational impact; no malicious attribution established in reporting)</li>
+    </ul>
+    <div class="note">Formal technique identifiers were not provided in sources; mappings above are descriptive and based on reported behaviors.</div>
+  </section>
+
+  <section class="panel">
+    <h2>Safety, Environmental, and Operational Impact</h2>
+    <ul class="compact">
+      <li>Navigation safety: AIS/GNSS anomalies increase collision/grounding risk during approaches and pilotage.</li>
+      <li>Terminal operations: Port OT exposure could enable process disruption or data exfiltration, impacting crane operations and yard flow.</li>
+      <li>Supply chain: Ransomware in upstream logistics can delay cargo and increase spoilage risk for perishables.</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Regulatory and Government Advisory Watch</h2>
+    <ul class="compact">
+      <li>U.S. MARAD Advisory 2026-007: Foreign adversarial technological, physical, and cyber influence—explicit mitigations for port IT/OT and crane systems.
+        <a href="https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence" target="_blank" rel="noopener noreferrer" class="source-link">Maritime Advisory</a>
+      </li>
+      <li>Broadened U.S. agency alert on Iran-linked OT attacks (reported by Recorded Future News).
+        <a href="https://therecord.media/federal-agencies-broaden-alert-on-iran-linked-ot-attacks" target="_blank" rel="noopener noreferrer" class="source-link">Source</a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Defensive Mitigation Priorities</h2>
+    <ul class="compact">
+      <li>Port OT segmentation and access control: Enforce VLAN/zone separation between cranes, terminal OT, and corporate IT; validate PLC and VLAN integrity; restrict remote access; require MFA for all administrative paths. (Explicit per advisory)
+        <a href="https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence" target="_blank" rel="noopener noreferrer" class="source-link">Maritime Advisory</a>
+      </li>
+      <li>Harden edge networking on vessels and terminals: Patch known router flaws; disable/limit SNMP v1/v2c; restrict TFTP; disable unused management services; monitor configuration drift and unusual outbound connections. (Derived from reported tradecraft)
+        <a href="https://www.securityweek.com/us-allies-warn-of-russian-cyberattacks-targeting-critical-infrastructure-routers/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </li>
+      <li>Reduce OT internet exposure: Remove direct internet access to PLC/HMI/SCADA; broker vendor maintenance via jump hosts with MFA; validate project file integrity; increase logging/alerting for HMI value and mode changes. (Supported by reporting)
+        <a href="https://therecord.media/federal-agencies-broaden-alert-on-iran-linked-ot-attacks" target="_blank" rel="noopener noreferrer" class="source-link">Source</a>
+      </li>
+      <li>Navigation resilience: Train bridge teams for PNT anomalies; cross-check with radar/visual/terrestrial aids; configure ECDIS integrity/RAIM alerts; maintain procedures for AIS loss during approaches. (Derived from incident reporting)
+        <a href="https://gcaptain.com/gps-interference-off-california-offers-warning-for-global-shipping/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </li>
+      <li>Supply-chain continuity: Validate vendor IR plans and offline backups; test EDI/API failover with cold-chain and trucking partners; pre-plan alternate storage for perishables. (Derived from incident reporting)
+        <a href="https://therecord.media/nichirei-japan-food-logistics-cyberattack-recovery" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Next 72-Hour Maritime Cyber Outlook</h2>
+    <ul class="compact">
+      <li>Analysts should monitor for follow-on discussion and local implementation of MARAD 2026-007 controls across U.S. terminals; near-term segmentation and remote-access checks are likely to surface configuration gaps. Confidence: High.
+        <a href="https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence" target="_blank" rel="noopener noreferrer" class="source-link">Maritime Advisory</a>
+      </li>
+      <li>Continued reporting is likely on cross-sector OT targeting attributed to Iran-linked actors; maritime ICS operators should expect renewed vendor outreach and detections related to project-file integrity and HMI anomalies. Confidence: Medium.
+        <a href="https://therecord.media/federal-agencies-broaden-alert-on-iran-linked-ot-attacks" target="_blank" rel="noopener noreferrer" class="source-link">Source</a>
+      </li>
+      <li>Network edge exploitation attempts against exposed routers may persist; watch for scanning spikes and SNMP/TFTP misuse in vessel and terminal networks. Confidence: Medium.
+        <a href="https://www.securityweek.com/us-allies-warn-of-russian-cyberattacks-targeting-critical-infrastructure-routers/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </li>
+      <li>GNSS interference/testing advisories may produce intermittent PNT degradation; the immediate risk to navigation awareness remains manageable with cross-check procedures. Confidence: Medium.
+        <a href="https://gcaptain.com/gps-interference-off-california-offers-warning-for-global-shipping/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </li>
+      <li>Additional disclosures may emerge around third-party logistics incidents; ports should prepare for data exchange or booking slowdowns tied to upstream partners. Confidence: Medium.
+        <a href="https://therecord.media/nichirei-japan-food-logistics-cyberattack-recovery" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
+      </li>
+    </ul>
+    <div class="note">This outlook is an evidence-based assessment and not a prediction of certainty.</div>
+  </section>
+
+  <section class="panel">
+    <h2>Intelligence Event Cards</h2>
+
+    <h3><span class="status st-escalate">C:ESCALATE</span></h3>
+    <div class="event">
+      <h4>MARAD 2026-007: Foreign Adversarial Technological, Physical, and Cyber Influence</h4>
+      <div class="meta">
+        Threat Level: CRITICAL <span class="sep">|</span> Confidence: High <span class="sep">|</span>
+        Publication: 2026-04-24 <span class="sep">|</span> Source: U.S. Maritime Administration (Government)
+      </div>
+      <ul class="compact">
+        <li>Assessment: Advisory warns that foreign-manufactured port equipment, networks, operating systems, software, and infrastructure (notably ship-to-shore cranes, LOGINK, Nuctech) may enable cyber exploitation or sensitive-data collection affecting maritime IT and OT.</li>
+        <li>Maritime Domains: Ports and terminals</li>
+        <li>Operational Impact: Potential terminal disruption; data exposure; increased lateral movement opportunities into OT</li>
+        <li>Safety Impact: Possible</li>
+        <li>Supply Chain Impact: Confirmed relevance to maritime logistics visibility and continuity</li>
+        <li>Mitigations (per advisory): Segmentation; MFA; monitoring; secure file transfer; recovery planning; verify PLC and VLAN integrity</li>
+        <li>Regulatory/Advisory Reference: MARAD 2026‑007</li>
+      </ul>
+      <div><em>Article:</em> 2026-007-Worldwide-Worldwide-Foreign Adversarial Technological, Physical, and Cyber Influence —
+        <a href="https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence" target="_blank" rel="noopener noreferrer" class="source-link">View Advisory</a>
+      </div>
+    </div>
+
+    <h3><span class="status st-monitor">B:MONITOR</span></h3>
+    <div class="event">
+      <h4>Broadened U.S. Alert on Iran-Linked OT Targeting</h4>
+      <div class="meta">
+        Threat Level: HIGH <span class="sep">|</span> Confidence: Medium <span class="sep">|</span>
+        Publication: 2026-07-22 <span class="sep">|</span> Source: The Record from Recorded Future News (News)
+      </div>
+      <ul class="compact">
+        <li>Assessment: Reporting indicates expansion of observed targeting beyond Rockwell/Allen‑Bradley to Schneider Electric, Siemens, and possibly others; includes malicious project-file interactions and HMI/SCADA display manipulation causing operational disruption.</li>
+        <li>Maritime Relevance: Directly applicable to port/offshore ICS operators using these vendors.</li>
+        <li>Potential Impacts: Loss of view; operator deception; process disruption; financial loss.</li>
+        <li>Mitigation Focus: Remove internet-exposed OT assets; enforce vendor remote-access controls with MFA; integrity-check project files; enhance HMI telemetry.</li>
+      </ul>
+      <div><em>Article:</em> Federal agencies broaden alert on Iran-linked OT attacks —
+        <a href="https://therecord.media/federal-agencies-broaden-alert-on-iran-linked-ot-attacks" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </div>
+    </div>
+
+    <div class="event">
+      <h4>Russian Activity Targeting Critical Infrastructure Routers</h4>
+      <div class="meta">
+        Threat Level: HIGH <span class="sep">|</span> Confidence: Medium <span class="sep">|</span>
+        Publication: 2026-07-14 <span class="sep">|</span> Source: SecurityWeek (News)
+      </div>
+      <ul class="compact">
+        <li>Assessment: Multinational advisory (as reported) links FSB Center 16 to operations against routers via scanning, SNMP abuse, TFTP configuration theft, and exploitation of known Cisco flaws.</li>
+        <li>Maritime Relevance: Impacts vessel and terminal edge devices, potentially enabling pivots toward OT networks and disrupting communications.</li>
+        <li>TTPs Observed: Internet-wide scanning; abuse of network management protocols; leveraging known vulnerabilities.</li>
+        <li>Mitigation Focus: Patch management; disable/limit legacy SNMP; restrict TFTP; harden remote management; monitor config changes.</li>
+      </ul>
+      <div><em>Article:</em> US, Allies Warn of Russian Cyberattacks Targeting Critical Infrastructure Routers —
+        <a href="https://www.securityweek.com/us-allies-warn-of-russian-cyberattacks-targeting-critical-infrastructure-routers/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </div>
+    </div>
+
+    <div class="event">
+      <h4>GNSS Interference Impacting Approaches to LA/Long Beach</h4>
+      <div class="meta">
+        Threat Level: HIGH <span class="sep">|</span> Confidence: Medium <span class="sep">|</span>
+        Publication: 2026-07-01 <span class="sep">|</span> Source: gCaptain (Maritime Industry)
+      </div>
+      <ul class="compact">
+        <li>Assessment: Multiple vessels experienced GPS/GNSS anomalies including AIS position jumps and at least one AIS outage; Harbor Safety Committee minutes cited a GPS testing event as the likely cause.</li>
+        <li>Navigation Impact: Confirmed degradation of PNT-dependent situational awareness; malicious activity not established.</li>
+        <li>Mitigation Focus: Cross-validate navigation data; enable ECDIS/RAIM alerts; rehearse PNT-loss procedures with bridge teams and pilots.</li>
+      </ul>
+      <div><em>Article:</em> GPS Interference Off California Offers Warning for Global Shipping —
+        <a href="https://gcaptain.com/gps-interference-off-california-offers-warning-for-global-shipping/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </div>
+    </div>
+
+    <div class="event">
+      <h4>Nichirei Logistics Cyberattack Recovery (Japan)</h4>
+      <div class="meta">
+        Threat Level: HIGH <span class="sep">|</span> Confidence: Medium <span class="sep">|</span>
+        Publication: 2026-07-22 <span class="sep">|</span> Source: The Record from Recorded Future News (News)
+      </div>
+      <ul class="compact">
+        <li>Assessment: RansomHouse claimed responsibility; attack disrupted food deliveries and impacted warehouse operations; some servers held personal data.</li>
+        <li>Maritime Relevance: Upstream cold-chain disruptions can affect port flows, reefer operations, and trucking turn-times.</li>
+        <li>Mitigation Focus: Validate partner IR readiness; review EDI/API dependencies and rate-limit strategies; ensure offline backups and restore tests.</li>
+      </ul>
+      <div><em>Article:</em> Japanese food logistics giant recovers as extortion group claims cyberattack —
+        <a href="https://therecord.media/nichirei-japan-food-logistics-cyberattack-recovery" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
+      </div>
+    </div>
+
+    <h3><span class="status st-ignore">A:IGNORE</span></h3>
+    <div class="note">No IGNORE-level events identified in the supplied data.</div>
+  </section>
+
+  <section class="panel">
+    <h2>Source Reference Section</h2>
+    <ul class="compact">
+      <li>U.S. Maritime Administration: 2026-007-Worldwide-Worldwide-Foreign Adversarial Technological, Physical, and Cyber Influence (2026-04-24)
+        <a href="https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence" target="_blank" rel="noopener noreferrer" class="source-link">View Advisory</a>
+      </li>
+      <li>The Record (Recorded Future News): Federal agencies broaden alert on Iran-linked OT attacks (2026-07-22)
+        <a href="https://therecord.media/federal-agencies-broaden-alert-on-iran-linked-ot-attacks" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </li>
+      <li>SecurityWeek: US, Allies Warn of Russian Cyberattacks Targeting Critical Infrastructure Routers (2026-07-14)
+        <a href="https://www.securityweek.com/us-allies-warn-of-russian-cyberattacks-targeting-critical-infrastructure-routers/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </li>
+      <li>gCaptain: GPS Interference Off California Offers Warning for Global Shipping (2026-07-01)
+        <a href="https://gcaptain.com/gps-interference-off-california-offers-warning-for-global-shipping/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+      </li>
+      <li>The Record (Recorded Future News): Japanese food logistics giant recovers as extortion group claims cyberattack (2026-07-22)
+        <a href="https://therecord.media/nichirei-japan-food-logistics-cyberattack-recovery" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    This briefing was generated using AI-assisted analysis of open-source maritime cyber threat intelligence. Analytical assessments and outlook judgments should be reviewed by qualified human analysts. Source links are provided for validation and further investigation.
+  </footer>
+</main>
+</body>
+</html>

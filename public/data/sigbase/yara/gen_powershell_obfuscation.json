@@ -1,0 +1,52 @@
+{
+  "slug": "gen_powershell_obfuscation",
+  "filename": "gen_powershell_obfuscation.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-06-22\n   Identifier: ISESteroids\n   Reference: https://twitter.com/danielhbohannon/status/877953970437844993",
+  "rules": [
+    {
+      "name": "PowerShell_ISESteroids_Obfuscation",
+      "meta": {
+        "description": "Detects PowerShell ISESteroids obfuscation",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://twitter.com/danielhbohannon/status/877953970437844993",
+        "date": "2017-06-23",
+        "id": "d686c4de-28fd-5d77-91d4-dde5661b75cd"
+      }
+    },
+    {
+      "name": "SUSP_Obfuscted_PowerShell_Code",
+      "meta": {
+        "description": "Detects obfuscated PowerShell Code",
+        "date": "2018-12-13",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://twitter.com/silv0123/status/1073072691584880640",
+        "id": "e2d8fc9e-ce2b-5118-8305-0d5839561d4f"
+      }
+    },
+    {
+      "name": "SUSP_PowerShell_Caret_Obfuscation_2",
+      "meta": {
+        "description": "Detects powershell keyword obfuscated with carets",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2019-07-20",
+        "id": "976e261a-029c-5703-835f-a235c5657471"
+      }
+    },
+    {
+      "name": "SUSP_OBFUSC_PowerShell_True_Jun20_1",
+      "meta": {
+        "description": "Detects indicators often found in obfuscated PowerShell scripts. Note: This detection is based on common characteristics typically associated with the mentioned threats, must be considered a clue and does not conclusively prove maliciousness.",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://github.com/corneacristian/mimikatz-bypass/",
+        "date": "2020-06-27",
+        "score": "75",
+        "id": "e9bb870b-ad72-57d3-beff-2f84a81490eb"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-06-22\n   Identifier: ISESteroids\n   Reference: https://twitter.com/danielhbohannon/status/877953970437844993\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule PowerShell_ISESteroids_Obfuscation {\n   meta:\n      description = \"Detects PowerShell ISESteroids obfuscation\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/danielhbohannon/status/877953970437844993\"\n      date = \"2017-06-23\"\n      id = \"d686c4de-28fd-5d77-91d4-dde5661b75cd\"\n   strings:\n      $x1 = \"/\\\\/===\\\\__\" ascii\n      $x2 = \"${__/\\\\/==\" ascii\n      $x3 = \"Catch { }\" fullword ascii\n      $x4 = \"\\\\_/=} ${_\" ascii\n   condition:\n      2 of them\n}\n\nrule SUSP_Obfuscted_PowerShell_Code {\n   meta:\n      description = \"Detects obfuscated PowerShell Code\"\n      date = \"2018-12-13\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/silv0123/status/1073072691584880640\"\n      id = \"e2d8fc9e-ce2b-5118-8305-0d5839561d4f\"\n   strings:\n      $s1 = \"').Invoke(\" ascii\n      $s2 = \"(\\\"{1}{0}\\\"\" ascii\n      $s3 = \"{0}\\\" -f\" ascii\n   condition:\n      #s1 > 11 and #s2 > 10 and #s3 > 10\n}\n\nrule SUSP_PowerShell_Caret_Obfuscation_2 {\n   meta:\n      description = \"Detects powershell keyword obfuscated with carets\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2019-07-20\"\n      id = \"976e261a-029c-5703-835f-a235c5657471\"\n   strings:\n      $r1 = /p[\\^]?o[\\^]?w[\\^]?e[\\^]?r[\\^]?s[\\^]?h[\\^]?e[\\^]?l\\^l/ ascii wide nocase fullword\n      $r2 = /p\\^o[\\^]?w[\\^]?e[\\^]?r[\\^]?s[\\^]?h[\\^]?e[\\^]?l[\\^]?l/ ascii wide nocase fullword\n   condition:\n      1 of them\n}\n\nrule SUSP_OBFUSC_PowerShell_True_Jun20_1 {\n   meta:\n      description = \"Detects indicators often found in obfuscated PowerShell scripts. Note: This detection is based on common characteristics typically associated with the mentioned threats, must be considered a clue and does not conclusively prove maliciousness.\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://github.com/corneacristian/mimikatz-bypass/\"\n      date = \"2020-06-27\"\n      score = 75\n      id = \"e9bb870b-ad72-57d3-beff-2f84a81490eb\"\n   strings:\n      $ = \"${t`rue}\" ascii nocase\n      $ = \"${tr`ue}\" ascii nocase\n      $ = \"${tru`e}\" ascii nocase\n      $ = \"${t`ru`e}\" ascii nocase\n      $ = \"${tr`u`e}\" ascii nocase\n      $ = \"${t`r`ue}\" ascii nocase\n      $ = \"${t`r`u`e}\" ascii nocase\n   condition:\n      filesize < 6000KB and 1 of them\n}\n"
+}

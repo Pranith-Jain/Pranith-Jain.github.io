@@ -1,0 +1,47 @@
+{
+  "slug": "apt_netwire_rat",
+  "filename": "apt_netwire_rat.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2018-01-05\n   Identifier: NetWire\n   Reference: https://pastebin.com/8qaiyPxs",
+  "rules": [
+    {
+      "name": "Susp_Indicators_EXE",
+      "meta": {
+        "description": "Detects packed NullSoft Inst EXE with characteristics of NetWire RAT",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://pastebin.com/8qaiyPxs",
+        "date": "2018-01-05",
+        "score": "60",
+        "hash1": "6de7f0276afa633044c375c5c630740af51e29b6a6f17a64fbdd227c641727a4",
+        "id": "b4015c24-d18e-51eb-9854-8cc0e6dba4d0"
+      }
+    },
+    {
+      "name": "Suspicious_BAT_Strings",
+      "meta": {
+        "description": "Detects a string also used in Netwire RAT auxilliary",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "score": "60",
+        "reference": "https://pastebin.com/8qaiyPxs",
+        "date": "2018-01-05",
+        "id": "5fe28555-96c8-54da-b047-7d0a7532a6d2"
+      }
+    },
+    {
+      "name": "Malicious_BAT_Strings",
+      "meta": {
+        "description": "Detects a string also used in Netwire RAT auxilliary",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "score": "60",
+        "reference": "https://pastebin.com/8qaiyPxs",
+        "date": "2018-01-05",
+        "id": "6e197d05-62eb-535d-8cd6-db8550e51588"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2018-01-05\n   Identifier: NetWire\n   Reference: https://pastebin.com/8qaiyPxs\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule Susp_Indicators_EXE {\n   meta:\n      description = \"Detects packed NullSoft Inst EXE with characteristics of NetWire RAT\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://pastebin.com/8qaiyPxs\"\n      date = \"2018-01-05\"\n      score = 60\n      hash1 = \"6de7f0276afa633044c375c5c630740af51e29b6a6f17a64fbdd227c641727a4\"\n      id = \"b4015c24-d18e-51eb-9854-8cc0e6dba4d0\"\n   strings:\n      $s1 = \"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\"\n      $s2 = \"Error! Bad token or internal error\" fullword ascii\n      $s3 = \"CRYPTBASE\" fullword ascii\n      $s4 = \"UXTHEME\" fullword ascii\n      $s5 = \"PROPSYS\" fullword ascii\n      $s6 = \"APPHELP\" fullword ascii\n   condition:\n   uint16(0) == 0x5A4D and uint32(uint32(0x3c)) == 0x4550 and filesize < 700KB and all of them\n}\n\nrule Suspicious_BAT_Strings {\n   meta:\n      description = \"Detects a string also used in Netwire RAT auxilliary\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      score = 60\n      reference = \"https://pastebin.com/8qaiyPxs\"\n      date = \"2018-01-05\"\n      id = \"5fe28555-96c8-54da-b047-7d0a7532a6d2\"\n   strings:\n      $s1 = \"ping 192.0.2.2 -n 1\" ascii\n   condition:\n      filesize < 600KB and 1 of them\n}\n\nrule Malicious_BAT_Strings {\n   meta:\n      description = \"Detects a string also used in Netwire RAT auxilliary\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      score = 60\n      reference = \"https://pastebin.com/8qaiyPxs\"\n      date = \"2018-01-05\"\n      id = \"6e197d05-62eb-535d-8cd6-db8550e51588\"\n   strings:\n      $s1 = \"call :deleteSelf&exit /b\"\n   condition:\n      filesize < 600KB and 1 of them\n}\n"
+}

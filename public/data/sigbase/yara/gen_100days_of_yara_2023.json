@@ -1,0 +1,135 @@
+{
+  "slug": "gen_100days_of_yara_2023",
+  "filename": "gen_100days_of_yara_2023.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_LNK_Embedded_WordDoc",
+      "meta": {
+        "author": "Greg Lesnewich",
+        "description": "check for LNK files with indications of the Word program or an embedded doc",
+        "date": "2023-01-02",
+        "version": "1.0",
+        "hash": "120ca851663ef0ebef585d716c9e2ba67bd4870865160fec3b853156be1159c5",
+        "daysofyara": "2/100",
+        "id": "9677d41a-9d29-510c-98cd-122dc0ca9606"
+      }
+    },
+    {
+      "name": "SUSP_LNK_SmallScreenSize",
+      "meta": {
+        "author": "Greg Lesnewich",
+        "description": "check for LNKs that have a screen buffer size and WindowSize dimensions of 1x1",
+        "date": "2023-01-01",
+        "version": "1.0",
+        "daysofyara": "1/100",
+        "id": "6194a76b-36d6-51d1-8d53-2e11172e29d2"
+      }
+    },
+    {
+      "name": "MAL_Janicab_LNK",
+      "meta": {
+        "author": "Greg Lesnewich",
+        "description": "detect LNK files used in Janicab infection chain",
+        "date": "2023-01-01",
+        "version": "1.0",
+        "hash": "f4610b65eba977b3d13eba5da0e38788a9e796a3e9775dd2b8e37b3085c2e1af",
+        "daysofyara": "1/100",
+        "id": "c21844d3-eeee-530e-a69c-b7f604616f0b"
+      }
+    },
+    {
+      "name": "SUSP_ELF_Invalid_Version",
+      "meta": {
+        "desc": "Identify ELF file that has mangled header info.",
+        "author": "@shellcromancer",
+        "version": "0.1",
+        "score": "55",
+        "last_modified": "2023.01.01",
+        "reference": "https://tmpout.sh/1/1.html",
+        "hash": "05379bbf3f46e05d385bbd853d33a13e7e5d7d50",
+        "id": "5bd97fdd-0912-5f9b-877c-91fff9b98dea"
+      }
+    },
+    {
+      "name": "MAL_ELF_TorchTriton",
+      "meta": {
+        "author": "Silas Cutler",
+        "description": "Detection for backdoor (TorchTriton) distributed with a nightly build of PyTorch",
+        "date": "2023-01-02",
+        "version": "1.0",
+        "hash": "2385b29489cd9e35f92c072780f903ae2e517ed422eae67246ae50a5cc738a0e",
+        "reference": "https://www.bleepingcomputer.com/news/security/pytorch-discloses-malicious-dependency-chain-compromise-over-holidays/",
+        "daysofyara": "2/100",
+        "id": "85e98ee7-30bf-554f-a0ac-9df263e6dfe4"
+      }
+    },
+    {
+      "name": "MAL_GOLDBACKDOOR_LNK",
+      "meta": {
+        "author": "Greg Lesnewich",
+        "date": "2023-01-02",
+        "version": "1.0",
+        "hash": "120ca851663ef0ebef585d716c9e2ba67bd4870865160fec3b853156be1159c5",
+        "reference": "https://stairwell.com/wp-content/uploads/2022/04/Stairwell-threat-report-The-ink-stained-trail-of-GOLDBACKDOOR.pdf",
+        "daysofyara": "2/100",
+        "id": "9a80f875-4843-535c-9f2b-b04da55713b1"
+      }
+    },
+    {
+      "name": "MAL_EXE_LockBit_v2",
+      "meta": {
+        "author": "Silas Cutler, modified by Florian Roth",
+        "description": "Detection for LockBit version 2.x from 2011",
+        "date": "2023-01-01",
+        "modified": "2023-01-06",
+        "version": "1.0",
+        "score": "80",
+        "hash": "00260c390ffab5734208a7199df0e4229a76261c3f5b7264c4515acb8eb9c2f8",
+        "daysofyara": "1/100",
+        "id": "a2c27110-e63b-5f93-88a0-98c12811e8b4"
+      }
+    },
+    {
+      "name": "MAL_EXE_PrestigeRansomware",
+      "meta": {
+        "author": "Silas Cutler, modfied by Florian Roth",
+        "description": "Detection for Prestige Ransomware",
+        "date": "2023-01-04",
+        "modified": "2023-01-06",
+        "version": "1.0",
+        "score": "80",
+        "reference": "https://www.microsoft.com/en-us/security/blog/2022/10/14/new-prestige-ransomware-impacts-organizations-in-ukraine-and-poland/",
+        "hash": "5fc44c7342b84f50f24758e39c8848b2f0991e8817ef5465844f5f2ff6085a57",
+        "daysofyara": "4/100",
+        "id": "5ac8033a-8b15-5abe-89d5-018a4fef9ab5"
+      }
+    },
+    {
+      "name": "MAL_EXE_RoyalRansomware",
+      "meta": {
+        "author": "Silas Cutler, modfied by Florian Roth",
+        "description": "Detection for Royal Ransomware seen Dec 2022",
+        "date": "2023-01-03",
+        "version": "1.0",
+        "hash": "a8384c9e3689eb72fa737b570dbb53b2c3d103c62d46747a96e1e1becf14dfea",
+        "daysofyara": "3/100",
+        "id": "f83316f7-b8c4-5907-a38e-80535215e7ef"
+      }
+    },
+    {
+      "name": "MAL_PY_Dimorf",
+      "meta": {
+        "author": "Silas Cutler",
+        "description": "Detection for Dimorf ransomeware",
+        "date": "2023-01-03",
+        "version": "1.0",
+        "reference": "https://github.com/Ort0x36/Dimorf",
+        "id": "78b53433-6926-58cd-8ec0-2195af803aab"
+      }
+    }
+  ],
+  "body": "import \"pe\"\n\nrule SUSP_LNK_Embedded_WordDoc {\n\tmeta:\n\t\tauthor = \"Greg Lesnewich\"\n\t\tdescription = \"check for LNK files with indications of the Word program or an embedded doc\"\n\t\tdate = \"2023-01-02\"\n\t\tversion = \"1.0\"\n\t\thash = \"120ca851663ef0ebef585d716c9e2ba67bd4870865160fec3b853156be1159c5\"\n\t\tDaysofYARA = \"2/100\"\n\n\t\tid = \"9677d41a-9d29-510c-98cd-122dc0ca9606\"\n\tstrings:\n\t\t$doc_header = {D0 CF 11 E0 A1 B1 1A E1}\n\t\t$icon_loc = \"C:\\\\Program Files\\\\Microsoft Office\\\\Office16\\\\WINWORD.exe\" ascii wide\n\tcondition:\n\t\tuint32be(0x0) == 0x4C000000 and\n\t\tfilesize > 10KB and\n\t\tany of them\n}\n\nrule SUSP_LNK_SmallScreenSize {\n\tmeta:\n\t\tauthor = \"Greg Lesnewich\"\n\t\tdescription = \"check for LNKs that have a screen buffer size and WindowSize dimensions of 1x1\"\n\t\tdate = \"2023-01-01\"\n\t\tversion = \"1.0\"\n\t\tDaysofYARA = \"1/100\"\n\n\t\tid = \"6194a76b-36d6-51d1-8d53-2e11172e29d2\"\n\tstrings:\n\t\t$dimensions = {02 00 00 A0 ?? 00 ?? ?? 01 00 01 00 01}\n\t\t// struct ConsoleDataBlock sConsoleDataBlock\n\t\t// uint32 Size\n\t\t// uint32 Signature\n\t\t// enum FillAttributes\n\t\t// enum PopupFillAttributes\n\t\t// uint16 ScreenBufferSizeX\n\t\t// uint16 ScreenBufferSizeY\n\t\t// uint16 WindowSizeX\n\t\t// uint16 WindowSizeY\n\tcondition:\n\t\tuint32be(0x0) == 0x4c000000 and all of them\n}\n\nrule MAL_Janicab_LNK {\n\tmeta:\n\t\tauthor = \"Greg Lesnewich\"\n\t\tdescription = \"detect LNK files used in Janicab infection chain\"\n\t\tdate = \"2023-01-01\"\n\t\tversion = \"1.0\"\n\t\thash = \"0c7e8427ee61672568983e51bf03e0bcf6f2e9c01d2524d82677b20264b23a3f\"\n\t\thash = \"22ede766fba7551ad0b71ef568d0e5022378eadbdff55c4a02b42e63fcb3b17c\"\n\t\thash = \"4920e6506ca557d486e6785cb5f7e4b0f4505709ffe8c30070909b040d3c3840\"\n\t\thash = \"880607cc2da4c3213ea687dabd7707736a879cc5f2f1d4accf79821e4d24d870\"\n\t\thash = \"f4610b65eba977b3d13eba5da0e38788a9e796a3e9775dd2b8e37b3085c2e1af\"\n\t\tDaysofYARA = \"1/100\"\n\n\t\tid = \"c21844d3-eeee-530e-a69c-b7f604616f0b\"\n\tstrings:\n\t\t$j_pdf1 = \"%PDF-1.5\" ascii wide\n\t\t$j_cmd = \"\\\\Windows\\\\System32\\\\cmd.exe\" ascii wide\n\t\t$j_pdf_stream = \"endstream\" ascii wide\n\t\t$j_pdb_obj = \"endobj\" ascii wide\n\t\t$dimensions = {02 00 00 A0 ?? 00 ?? ?? 01 00 01 00 01}\n\tcondition:\n\t\tuint32be(0x0) == 0x4C000000 and $dimensions and 2 of ($j_*)\n}\n\nrule SUSP_ELF_Invalid_Version {\n   meta:\n      desc = \"Identify ELF file that has mangled header info.\"\n      author = \"@shellcromancer\"\n      version = \"0.1\"\n      score = 55\n      last_modified = \"2023.01.01\"\n      reference = \"https://n0.lol/ebm/1.html\"\n      reference = \"https://tmpout.sh/1/1.html\"\n      hash = \"05379bbf3f46e05d385bbd853d33a13e7e5d7d50\"\n      id = \"5bd97fdd-0912-5f9b-877c-91fff9b98dea\"\n   condition:\n      (\n         uint32(0) == 0x464c457f\n         and uint8(0x6) > 1 // ELF Version is greater value than in spec.\n      )\n}\n\nrule MAL_ELF_TorchTriton {\n\tmeta:\n\t\tauthor = \"Silas Cutler\"\n\t\tdescription = \"Detection for backdoor (TorchTriton) distributed with a nightly build of PyTorch\"\n\t\tdate = \"2023-01-02\"\n\t\tversion = \"1.0\"\n\t\thash = \"2385b29489cd9e35f92c072780f903ae2e517ed422eae67246ae50a5cc738a0e\"\n\t\treference = \"https://www.bleepingcomputer.com/news/security/pytorch-discloses-malicious-dependency-chain-compromise-over-holidays/\"\n\t\tDaysofYARA = \"2/100\"\n\n\t\tid = \"85e98ee7-30bf-554f-a0ac-9df263e6dfe4\"\n\tstrings:\n\t\t$error = \"failed to send packet\"\n\t\t$aes_key = \"gIdk8tzrHLOM)mPY-R)QgG[;yRXYCZFU\"\n\t\t$aes_iv = \"?BVsNqL]S.Ni\"\n\t\t\t// std::vector<std::__cxx11::basic_string<char> > splitIntoDomains(const string&, const string&, const string&)\n\t\t$func01 = \"splitIntoDomains(\"\n\t\t$func02 = \"packageForTransport\"\n\t\t$func03 = \"gatherFiles\"\n\t\t\t// void sendFile(const string&, const string&, int, int, const string&)\n\t\t$func04 = \"void sendFile(\"\n\t\t//enc Domain\n\t\t$domain = \"&z-%`-(*\"\n\tcondition:\n\t\tuint32(0) == 0x464c457f and (\n\t\t\t(all of ($aes_*)) or\n\t\t\t(all of ($func*) and $error) or\n\t\t\t($domain and 2 of them)\n\t\t\t)\n}\n\nrule MAL_GOLDBACKDOOR_LNK {\n\tmeta:\n\t\tauthor = \"Greg Lesnewich\"\n\t\tdate = \"2023-01-02\"\n\t\tversion = \"1.0\"\n\t\thash = \"120ca851663ef0ebef585d716c9e2ba67bd4870865160fec3b853156be1159c5\"\n\t\treference = \"https://stairwell.com/wp-content/uploads/2022/04/Stairwell-threat-report-The-ink-stained-trail-of-GOLDBACKDOOR.pdf\"\n\t\tDaysofYARA = \"2/100\"\n\n\t\tid = \"9a80f875-4843-535c-9f2b-b04da55713b1\"\n\tstrings:\n\t\t$doc_header = {D0 CF 11 E0 A1 B1 1A E1}\n\t\t$doc_icon_loc = \"C:\\\\Program Files\\\\Microsoft Office\\\\Office16\\\\WINWORD.exe\" ascii wide\n\t\t$script_apionedrivecom_hex_enc_str = \"6170692e6f6e6564726976652e636f6d\" wide\n\t\t$script_kernel32dll_hex_enc_str = \"6b65726e656c33322e646c6c\" wide\n\t\t$script_GlobalAlloc_hex_enc_str = \"476c6f62616c416c6c6f63\" wide\n\t\t$script_VirtualProtect_hex_enc_str = \"5669727475616c50726f74656374\" wide\n\t\t$script_WriteByte_hex_enc_str = \"577269746542797465\" wide\n\t\t$script_CreateThread_hex_enc_str = \"437265617465546872656164\" wide\n\tcondition:\n\t\tuint32be(0x0) == 0x4C000000 and\n\t\t1 of ($doc*) and\n\t\t2 of ($script*)\n}\n\nrule MAL_EXE_LockBit_v2\n{\n\tmeta:\n\t\tauthor = \"Silas Cutler, modified by Florian Roth\"\n\t\tdescription = \"Detection for LockBit version 2.x from 2011\"\n\t\tdate = \"2023-01-01\"\n      modified = \"2023-01-06\"\n\t\tversion = \"1.0\"\n      score = 80\n\t\thash = \"00260c390ffab5734208a7199df0e4229a76261c3f5b7264c4515acb8eb9c2f8\"\n\t\tDaysofYARA = \"1/100\"\n\n\t\tid = \"a2c27110-e63b-5f93-88a0-98c12811e8b4\"\n\tstrings:\n\t\t$s_ransom_note01 = \"that is located in every encrypted folder.\" wide\n\t\t$s_ransom_note02 = \"Would you like to earn millions of dollars?\" wide\n\n\t\t$x_ransom_tox = \"3085B89A0C515D2FB124D645906F5D3DA5CB97CEBEA975959AE4F95302A04E1D709C3C4AE9B7\" wide\n\t\t$x_ransom_url = \"http://lockbitapt6vx57t3eeqjofwgcglmutr3a35nygvokja5uuccip4ykyd.onion\" wide\n\n\t\t$s_str1 = \"Active:[ %d [                  Completed:[ %d\" wide\n\t\t$x_str2 = \"\\\\LockBit_Ransomware.hta\" wide ascii\n      $s_str2 = \"Ransomware.hta\" wide ascii\n\tcondition:\n\t\tuint16(0) == 0x5A4D and ( 1 of ($x*) or 2 of them ) or 3 of them\n}\n\nrule MAL_EXE_PrestigeRansomware {\n\tmeta:\n\t\tauthor = \"Silas Cutler, modfied by Florian Roth\"\n\t\tdescription = \"Detection for Prestige Ransomware\"\n\t\tdate = \"2023-01-04\"\n      modified = \"2023-01-06\"\n\t\tversion = \"1.0\"\n      score = 80\n\t\treference = \"https://www.microsoft.com/en-us/security/blog/2022/10/14/new-prestige-ransomware-impacts-organizations-in-ukraine-and-poland/\"\n\t\thash = \"5fc44c7342b84f50f24758e39c8848b2f0991e8817ef5465844f5f2ff6085a57\"\n\t\tDaysofYARA = \"4/100\"\n\n\t\tid = \"5ac8033a-8b15-5abe-89d5-018a4fef9ab5\"\n\tstrings:\n\t\t$x_ransom_email = \"Prestige.ranusomeware@Proton.me\" wide\n\t\t$x_reg_ransom_note = \"C:\\\\Windows\\\\System32\\\\reg.exe add HKCR\\\\enc\\\\shell\\\\open\\\\command /ve /t REG_SZ /d \\\"C:\\\\Windows\\\\Notepad.exe C:\\\\Users\\\\Public\\\\README\\\" /f\" wide\n\n\t\t$ransom_message01 = \"To decrypt all the data, you will need to purchase our decryption software.\" wide\n\t\t$ransom_message02 = \"Contact us {}. In the letter, type your ID = {:X}.\" wide\n\t\t$ransom_message03 = \"- Do not try to decrypt your data using third party software, it may cause permanent data loss.\" wide\n\t\t$ransom_message04 = \"- Do not modify or rename encrypted files. You will lose them.\" wide\n\tcondition:\n\t\tuint16(0) == 0x5A4D and \n\t\t\t(1 of ($x*) or 2 of them or pe.imphash() == \"a32bbc5df4195de63ea06feb46cd6b55\")\n}\n\nrule MAL_EXE_RoyalRansomware {\n\tmeta:\n\t\tauthor = \"Silas Cutler, modfied by Florian Roth\"\n\t\tdescription = \"Detection for Royal Ransomware seen Dec 2022\"\n\t\tdate = \"2023-01-03\"\n\t\tversion = \"1.0\"\n\t\thash = \"a8384c9e3689eb72fa737b570dbb53b2c3d103c62d46747a96e1e1becf14dfea\"\n\t\tDaysofYARA = \"3/100\"\n\n\t\tid = \"f83316f7-b8c4-5907-a38e-80535215e7ef\"\n\tstrings:\n\t\t$x_ext = \".royal_\" wide\n\t\t$x_fname = \"royal_dll.dll\"\n\t\t$s_readme = \"README.TXT\" wide\n\t\t$s_cli_flag01 = \"-networkonly\" wide\n\t\t$s_cli_flag02 = \"-localonly\" wide\n\t\t$x_ransom_msg01 = \"If you are reading this, it means that your system were hit by Royal ransomware.\"\n\t\t$x_ransom_msg02 = \"Try Royal today and enter the new era of data security!\"\n\t\t$x_onion_site = \"http://royal2xthig3ou5hd7zsliqagy6yygk2cdelaxtni2fyad6dpmpxedid.onion/\"\n\tcondition:\n\t\tuint16(0) == 0x5A4D and \n\t\t( \n         2 of ($x*) or\n\t\t   5 of them\n\t\t)\n}\n\nrule MAL_PY_Dimorf {\n\tmeta:\n\t\tauthor = \"Silas Cutler\"\n\t\tdescription = \"Detection for Dimorf ransomeware\"\n\t\tdate = \"2023-01-03\"\n\t\tversion = \"1.0\"\n\t\treference = \"https://github.com/Ort0x36/Dimorf\"\n\n\t\tid = \"78b53433-6926-58cd-8ec0-2195af803aab\"\n\tstrings:\n\t\t$func01 = \"def find_and_encrypt\"\n\t\t$func02 = \"def check_os\"\n\t\t\n\t\t$comment01 = \"checks if the user has permission on the file.\"\n\t\t$misc01 = \"log_dimorf.log\"\n\t\t$misc02 = \".dimorf\"\n\tcondition:\n\t\tall of them\n}\n"
+}

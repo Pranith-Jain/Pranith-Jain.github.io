@@ -1,0 +1,22 @@
+{
+  "slug": "htkl_blue_hammer_tool",
+  "filename": "htkl_blue_hammer_tool.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "HKTL_BlueHammer_Apr26",
+      "meta": {
+        "author": "AzizFarghly (Nextron-Systems)",
+        "description": "Detects Nightmare-Eclipse/BlueHammer (FunnyApp), a Windows local privilege escalation PoC that abuses a Defender signature-update RPC and a junction/symlink race to leak the SAM hive and derive NTLM hashes - giving an unprivileged user full SYSTEM-level credential access.",
+        "date": "2026-04-07",
+        "reference": "https://github.com/Nightmare-Eclipse/BlueHammer",
+        "hash": "c9bec499db6a0a2165bcd2a211c8887e5fadf954eb9a2e5d3c6ca833e4a5ef64",
+        "score": "90",
+        "id": "595bf733-b287-5048-88e2-b88caffc7a5d"
+      }
+    }
+  ],
+  "body": "rule HKTL_BlueHammer_Apr26 {\n   meta:\n      author = \"AzizFarghly (Nextron-Systems)\"\n      description = \"Detects Nightmare-Eclipse/BlueHammer (FunnyApp), a Windows local privilege escalation PoC that abuses a Defender signature-update RPC and a junction/symlink race to leak the SAM hive and derive NTLM hashes - giving an unprivileged user full SYSTEM-level credential access.\"\n      date = \"2026-04-07\"\n      reference = \"https://github.com/Nightmare-Eclipse/BlueHammer\"\n      hash = \"6514f56223999eb86a19ea9f2abbfb0f407934a1a0694ffb94a8ea37113073f4\"\n      hash = \"93008c42764b74b759678fd376abd90696f74af408600727b6649286d8424270\"\n      hash = \"b25e903988e530df00658ff3ad6d180e43d6660b705ad6d0def4a29ee1167e52\"\n      hash = \"82eb727e2a2b3334a70fa2d357ba4f44dc989a650a6a18222dd5d1bb1444b496\"\n      hash = \"b33f3f31c83fc655952fab73d72b673b92ed4f205daee56444903201316cfc4a\"\n      hash = \"c6baa5ec9ea2c2802a90acad5a53453d176a02e04a31ac8e9b7b34b5e3329b84\"\n      hash = \"552dba31a446e96416738d84d4366503c397ba508a732719531c89a41abf3704\"\n      hash = \"c9bec499db6a0a2165bcd2a211c8887e5fadf954eb9a2e5d3c6ca833e4a5ef64\"\n      score = 90\n      id = \"595bf733-b287-5048-88e2-b88caffc7a5d\"\n   strings:\n      $x1 = \"Junction created %ws => %ws\"\n      $x2 = \"connect to windows defender RPC port !!!\"\n\n      $s1 = \"\\\\System32\\\\Config\\\\SAM\" wide\n      $s2 = \"IMpService77BDAF73-B396-481F-9042-AD358843EC24\" wide\n      $s3 = \"ServerMpUpdateEngineSignature\"\n\n      $op1 = { 8D 47 02 66 89 43 0C 66 C7 43 0E 02 00 48 8B C7 48 D1 E8 66 44 89 7C 43 12 }\n   condition:\n      uint16(0) == 0x5A4D\n      and filesize < 7MB\n      and (\n         1 of ($x*)\n         or all of ($s*)\n         or $op1\n      )\n      or 3 of them\n}\n"
+}

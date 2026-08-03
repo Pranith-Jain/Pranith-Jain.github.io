@@ -1,0 +1,146 @@
+{
+  "slug": "apt_putterpanda",
+  "filename": "apt_putterpanda.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "APT_Malware_PutterPanda_Rel",
+      "meta": {
+        "description": "Detects an APT malware related to PutterPanda",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "score": "70",
+        "reference": "VT Analysis",
+        "date": "2015-06-03",
+        "hash": "5367e183df155e3133d916f7080ef973f7741d34",
+        "id": "980922cb-edfb-50ab-a102-a8168aa2b0e0"
+      }
+    },
+    {
+      "name": "APT_Malware_PutterPanda_Rel_2",
+      "meta": {
+        "description": "APT Malware related to PutterPanda Group",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "score": "70",
+        "reference": "VT Analysis",
+        "date": "2015-06-03",
+        "hash": "f97e01ee04970d1fc4d988a9e9f0f223ef2a6381",
+        "id": "3eef8869-45d6-57a4-a182-c5349b034cf4"
+      }
+    },
+    {
+      "name": "APT_Malware_PutterPanda_PSAPI",
+      "meta": {
+        "description": "Detects a malware related to Putter Panda",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "score": "70",
+        "reference": "VT Analysis",
+        "date": "2015-06-03",
+        "hash": "f93a7945a33145bb6c106a51f08d8f44eab1cdf5",
+        "id": "e074ab8a-2ca4-579e-aaef-cdfb9c64b21b"
+      }
+    },
+    {
+      "name": "APT_Malware_PutterPanda_WUAUCLT",
+      "meta": {
+        "description": "Detects a malware related to Putter Panda",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "score": "70",
+        "reference": "VT Analysis",
+        "date": "2015-06-03",
+        "hash": "fd5ca5a2d444865fa8320337467313e4026b9f78",
+        "id": "5c8e0629-b5f2-5933-8c74-c49b756aaf18"
+      }
+    },
+    {
+      "name": "APT_Malware_PutterPanda_Gen1",
+      "meta": {
+        "description": "Detects a malware",
+        "author": "YarGen Rule Generator",
+        "reference": "not set",
+        "date": "2015-06-03",
+        "super_rule": "1",
+        "hash0": "bf1d385e637326a63c4d2f253dc211e6a5436b6a",
+        "hash1": "76459bcbe072f9c29bb9703bc72c7cd46a692796",
+        "hash2": "e105a7a3a011275002aec4b930c722e6a7ef52ad",
+        "id": "5e7910e7-3f33-50fb-a87f-bf0bbf8a2797"
+      }
+    },
+    {
+      "name": "Malware_MsUpdater_String_in_EXE",
+      "meta": {
+        "description": "MSUpdater String in Executable",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "score": "50",
+        "reference": "VT Analysis",
+        "date": "2015-06-03",
+        "hash": "b1a2043b7658af4d4c9395fa77fde18ccaf549bb",
+        "id": "c7da9e1e-3a8d-54b6-b102-0e1095d99cc4"
+      }
+    },
+    {
+      "name": "APT_Malware_PutterPanda_MsUpdater_3",
+      "meta": {
+        "description": "Detects Malware related to PutterPanda - MSUpdater",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "score": "70",
+        "reference": "VT Analysis",
+        "date": "2015-06-03",
+        "hash": "464149ff23f9c7f4ab2f5cadb76a4f41f969bed0",
+        "id": "917ab081-ee91-5eda-82eb-4731563a1933"
+      }
+    },
+    {
+      "name": "APT_Malware_PutterPanda_MsUpdater_1",
+      "meta": {
+        "description": "Detects Malware related to PutterPanda - MSUpdater",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "score": "70",
+        "reference": "VT Analysis",
+        "date": "2015-06-03",
+        "hash": "b55072b67543f58c096571c841a560c53d72f01a",
+        "id": "3c65b668-52c2-5cd5-ba02-4f190e08d46c"
+      }
+    },
+    {
+      "name": "APT_Malware_PutterPanda_MsUpdater_2",
+      "meta": {
+        "description": "Detects Malware related to PutterPanda - MSUpdater",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "score": "70",
+        "reference": "VT Analysis",
+        "date": "2015-06-03",
+        "hash": "365b5537e3495f8ecfabe2597399b1f1226879b1",
+        "id": "e9188a14-5c0c-551c-bdca-9f770f42935a"
+      }
+    },
+    {
+      "name": "APT_Malware_PutterPanda_Gen4",
+      "meta": {
+        "description": "Detects Malware related to PutterPanda",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "score": "70",
+        "reference": "VT Analysis",
+        "date": "2015-06-03",
+        "super_rule": "1",
+        "hash0": "71a8378fa8e06bcf8ee9f019c807c6bfc58dca0c",
+        "hash1": "8fdd6e5ed9d69d560b6fdd5910f80e0914893552",
+        "hash2": "3c4a762175326b37035a9192a981f7f4cc2aa5f0",
+        "hash3": "598430b3a9b5576f03cc4aed6dc2cd8a43324e1e",
+        "hash4": "6522b81b38747f4aa09c98fdaedaed4b00b21689",
+        "id": "0b6ce725-6932-5432-acd5-ee3593ac7bd8"
+      }
+    }
+  ],
+  "body": "rule APT_Malware_PutterPanda_Rel {\n\tmeta:\n\t\tdescription = \"Detects an APT malware related to PutterPanda\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tscore = 70\n\t\treference = \"VT Analysis\"\n\t\tdate = \"2015-06-03\"\n\t\thash = \"5367e183df155e3133d916f7080ef973f7741d34\"\n\t\tid = \"980922cb-edfb-50ab-a102-a8168aa2b0e0\"\n\tstrings:\n\t\t$x0 = \"app.stream-media.net\" fullword ascii /* score: '12.03' */\n\t\t$x1 = \"File %s does'nt exist or is forbidden to acess!\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '16.035' */\n\n\t\t$s6 = \"GetProcessAddresss of pHttpQueryInfoA Failed!\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '32.02' */\n\t\t$s7 = \"Connect %s error!\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '16.04' */\n\t\t$s9 = \"Download file %s successfully!\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '14.03' */\n\t\t$s10 = \"index.tmp\" fullword ascii /* score: '14.03' */\n\t\t$s11 = \"Execute PE Successfully\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '13.03' */\n\t\t$s13 = \"aa/22/success.xml\" fullword ascii /* score: '12.005' */\n\t\t$s16 = \"aa/22/index.asp\" fullword ascii /* score: '11.02' */\n\t\t$s18 = \"File %s a Non-Pe File\" fullword ascii /* score: '8.04' */\n\t\t$s19 = \"SendRequset error!\" fullword ascii /* score: '8.04' */\n\t\t$s20 = \"filelist[%d]=%s\" fullword ascii /* score: '7.015' */\n\tcondition:\n\t\t( uint16(0) == 0x5a4d and 1 of ($x*) ) or ( 4 of ($s*) )\n}\n\n\nrule APT_Malware_PutterPanda_Rel_2 {\n\tmeta:\n\t\tdescription = \"APT Malware related to PutterPanda Group\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tscore = 70\n\t\treference = \"VT Analysis\"\n\t\tdate = \"2015-06-03\"\n\t\thash = \"f97e01ee04970d1fc4d988a9e9f0f223ef2a6381\"\n\t\tid = \"3eef8869-45d6-57a4-a182-c5349b034cf4\"\n\tstrings:\n\t\t$s0 = \"http://update.konamidata.com/test/zl/sophos/td/result/rz.dat?\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '28.01' */\n\t\t$s1 = \"http://update.konamidata.com/test/zl/sophos/td/index.dat?\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '28.01' */\n\t\t$s2 = \"Mozilla/4.0 (Compatible; MSIE 6.0;)\" fullword ascii /* PEStudio Blacklist: agent */ /* score: '20.03' */\n\t\t$s3 = \"Internet connect error:%d\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '14.035' */\n\t\t$s4 = \"Proxy-Authorization:Basic\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '14.02' */\n\t\t$s5 = \"HttpQueryInfo failed:%d\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '13.015' */\n\t\t$s6 = \"read file error:%d\" fullword ascii /* score: '11.04' */\n\t\t$s7 = \"downdll.dll\" fullword ascii /* score: '11.025' */\n\t\t$s8 = \"rz.dat\" fullword ascii /* score: '10.005' */\n\t\t$s9 = \"Invalid url\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '9.03' */\n\t\t$s10 = \"Create file failed\" fullword ascii /* score: '8.045' */\n\t\t$s11 = \"myAgent\" fullword ascii /* score: '8.025' */\n\t\t$s12 = \"%s%s%d%d\" fullword ascii /* score: '8.005' */\n\t\t$s13 = \"down file success\" fullword ascii /* score: '7.035' */\n\t\t$s15 = \"error!\" fullword ascii /* score: '6.04' */\n\t\t$s18 = \"Avaliable data:%u bytes\" fullword ascii /* score: '5.025' */\n\tcondition:\n\t\tuint16(0) == 0x5a4d and 6 of them\n}\n\nrule APT_Malware_PutterPanda_PSAPI {\n\tmeta:\n\t\tdescription = \"Detects a malware related to Putter Panda\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tscore = 70\n\t\treference = \"VT Analysis\"\n\t\tdate = \"2015-06-03\"\n\t\thash = \"f93a7945a33145bb6c106a51f08d8f44eab1cdf5\"\n\t\tid = \"e074ab8a-2ca4-579e-aaef-cdfb9c64b21b\"\n\tstrings:\n\t\t$s0 = \"LOADER ERROR\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '12.03' */\n\t\t$s1 = \"The procedure entry point %s could not be located in the dynamic link library %s\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '8.045' */\n\t\t$s2 = \"psapi.dll\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '5' */ /* Goodware String - occured 54 times */\n\t\t$s3 = \"urlmon.dll\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '5' */ /* Goodware String - occured 471 times */\n\t\t$s4 = \"WinHttpGetProxyForUrl\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '5' */ /* Goodware String - occured 179 times */\n\tcondition:\n\t\tuint16(0) == 0x5a4d and filesize < 300KB and all of them\n}\n\nrule APT_Malware_PutterPanda_WUAUCLT {\n\tmeta:\n\t\tdescription = \"Detects a malware related to Putter Panda\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tscore = 70\n\t\treference = \"VT Analysis\"\n\t\tdate = \"2015-06-03\"\n\t\thash = \"fd5ca5a2d444865fa8320337467313e4026b9f78\"\n\t\tid = \"5c8e0629-b5f2-5933-8c74-c49b756aaf18\"\n\tstrings:\n\t\t$x0 = \"WUAUCLT.EXE\" fullword wide /* PEStudio Blacklist: strings */ /* score: '20.01' */\n\t\t$x1 = \"%s\\\\tmp%d.exe\" fullword ascii /* score: '14.01' */\n\t\t$x2 = \"Microsoft Corporation. All rights reserved.\" fullword wide /* score: '8.04' */\n\n\t\t$s1 = \"Microsoft Windows Operating System\" fullword wide /* PEStudio Blacklist: strings */ /* score: '5' */ /* Goodware String - occured 4 times */\n\t\t$s2 = \"InternetQueryOptionA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '5' */ /* Goodware String - occured 166 times */\n\t\t$s3 = \"LookupPrivilegeValueA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '5' */ /* Goodware String - occured 336 times */\n\t\t$s4 = \"WNetEnumResourceA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '5' */ /* Goodware String - occured 29 times */\n\t\t$s5 = \"HttpSendRequestExA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '5' */ /* Goodware String - occured 87 times */\n\t\t$s6 = \"PSAPI.DLL\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '5' */ /* Goodware String - occured 420 times */\n\t\t$s7 = \"Microsoft(R) Windows(R) Operating System\" fullword wide /* PEStudio Blacklist: strings */ /* score: '5' */ /* Goodware String - occured 128 times */\n\t\t$s8 = \"CreatePipe\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '5' */ /* Goodware String - occured 222 times */\n\t\t$s9 = \"EnumProcessModules\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '5' */ /* Goodware String - occured 410 times */\n\tcondition:\n\t\tall of ($x*) or\n\t\t(1 of ($x*) and all of ($s*) )\n}\n\nrule APT_Malware_PutterPanda_Gen1 {\n\tmeta:\n\t\tdescription = \"Detects a malware \"\n\t\tauthor = \"YarGen Rule Generator\"\n\t\treference = \"not set\"\n\t\tdate = \"2015-06-03\"\n\t\tsuper_rule = 1\n\t\thash0 = \"bf1d385e637326a63c4d2f253dc211e6a5436b6a\"\n\t\thash1 = \"76459bcbe072f9c29bb9703bc72c7cd46a692796\"\n\t\thash2 = \"e105a7a3a011275002aec4b930c722e6a7ef52ad\"\n\t\tid = \"5e7910e7-3f33-50fb-a87f-bf0bbf8a2797\"\n\tstrings:\n\t\t$s1 = \"%s%duserid=%dthreadid=%dgroupid=%d\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '22.02' */\n\t\t$s2 = \"ssdpsvc.dll\" fullword ascii /* score: '11.00' */\n\t\t$s3 = \"Fail %s \" fullword ascii /* score: '10.04' */\n\t\t$s4 = \"%s%dpara1=%dpara2=%dpara3=%d\" fullword ascii /* score: '10.01' */\n\t\t$s5 = \"LsaServiceInit\" fullword ascii /* score: '7.03' */\n\t\t$s6 = \"%-8d Fs %-12s Bs \" fullword ascii /* score: '5.04' */\n\t\t$s7 = \"Microsoft DH SChannel Cryptographic Provider\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '5.00' */ /* Goodware String - occured 5 times */\n\tcondition:\n\t\tuint16(0) == 0x5a4d and filesize < 1000KB and 5 of them\n}\n\nrule Malware_MsUpdater_String_in_EXE {\n\tmeta:\n\t\tdescription = \"MSUpdater String in Executable\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tscore = 50\n\t\treference = \"VT Analysis\"\n\t\tdate = \"2015-06-03\"\n\t\thash = \"b1a2043b7658af4d4c9395fa77fde18ccaf549bb\"\n\t\tid = \"c7da9e1e-3a8d-54b6-b102-0e1095d99cc4\"\n\tstrings:\n\t\t$x1 = \"msupdate.exe\" fullword wide /* PEStudio Blacklist: strings */ /* score: '20.01' */\n\t\t// $x2 = \"msupdate\" fullword wide /* PEStudio Blacklist: strings */ /* score: '13.01' */\n\t\t$x3 = \"msupdater.exe\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '20.02' */\n\t\t$x4 = \"msupdater32.exe\" fullword ascii\n\t\t$x5 = \"msupdater32.exe\" fullword wide\n\t\t$x6 = \"msupdate.pif\" fullword ascii\n\n\t\t$fp1 = \"_msupdate_\" wide /* False Positive */\n\t\t$fp2 = \"_msupdate_\" ascii /* False Positive */\n\t\t$fp3 = \"/kies\" wide\n\tcondition:\n\t\tuint16(0) == 0x5a4d and filesize < 500KB and ( 1 of ($x*) ) and not ( 1 of ($fp*) )\n}\n\nrule APT_Malware_PutterPanda_MsUpdater_3 {\n\tmeta:\n\t\tdescription = \"Detects Malware related to PutterPanda - MSUpdater\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tscore = 70\n\t\treference = \"VT Analysis\"\n\t\tdate = \"2015-06-03\"\n\t\thash = \"464149ff23f9c7f4ab2f5cadb76a4f41f969bed0\"\n\t\tid = \"917ab081-ee91-5eda-82eb-4731563a1933\"\n\tstrings:\n\t\t$s0 = \"msupdater.exe\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '20.02' */\n\t\t$s1 = \"Explorer.exe \\\"\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '16.05' */\n\t\t$s2 = \"FAVORITES.DAT\" fullword ascii /* score: '11.02' */\n\t\t$s4 = \"COMSPEC\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.82' */ /* Goodware String - occured 178 times */\n\tcondition:\n\t\tuint16(0) == 0x5a4d and 3 of them\n}\n\nrule APT_Malware_PutterPanda_MsUpdater_1 {\n\tmeta:\n\t\tdescription = \"Detects Malware related to PutterPanda - MSUpdater\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tscore = 70\n\t\treference = \"VT Analysis\"\n\t\tdate = \"2015-06-03\"\n\t\thash = \"b55072b67543f58c096571c841a560c53d72f01a\"\n\t\tid = \"3c65b668-52c2-5cd5-ba02-4f190e08d46c\"\n\tstrings:\n\t\t$x0 = \"msupdate.exe\" fullword wide /* PEStudio Blacklist: strings */ /* score: '20.01' */\n\t\t$x1 = \"msupdate\" fullword wide /* PEStudio Blacklist: strings */ /* score: '13.01' */\n\n\t\t$s1 = \"Microsoft Corporation. All rights reserved.\" fullword wide /* score: '8.04' */\n\t\t$s2 = \"Automatic Updates\" fullword wide /* PEStudio Blacklist: strings */ /* score: '4.98' */ /* Goodware String - occured 22 times */\n\t\t$s3 = \"VirtualProtectEx\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.93' */ /* Goodware String - occured 68 times */\n\t\t$s4 = \"Invalid parameter\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.93' */ /* Goodware String - occured 69 times */\n\t\t$s5 = \"VirtualAllocEx\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.91' */ /* Goodware String - occured 95 times */\n\t\t$s6 = \"WriteProcessMemory\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.87' */ /* Goodware String - occured 131 times */\n\tcondition:\n\t\t( uint16(0) == 0x5a4d and 1 of ($x*) and 4 of ($s*) ) or\n\t\t( 1 of ($x*) and all of ($s*) )\n}\n\nrule APT_Malware_PutterPanda_MsUpdater_2 {\n\tmeta:\n\t\tdescription = \"Detects Malware related to PutterPanda - MSUpdater\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tscore = 70\n\t\treference = \"VT Analysis\"\n\t\tdate = \"2015-06-03\"\n\t\thash = \"365b5537e3495f8ecfabe2597399b1f1226879b1\"\n\t\tid = \"e9188a14-5c0c-551c-bdca-9f770f42935a\"\n\tstrings:\n\t\t$s0 = \"winsta0\\\\default\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.99' */ /* Goodware String - occured 6 times */\n\t\t$s1 = \"EXPLORER.EXE\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.98' */ /* Goodware String - occured 22 times */\n\t\t$s2 = \"WNetEnumResourceA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.97' */ /* Goodware String - occured 29 times */\n\t\t$s3 = \"explorer.exe\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.97' */ /* Goodware String - occured 31 times */\n\t\t$s4 = \"CreateProcessAsUserA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.91' */ /* Goodware String - occured 86 times */\n\t\t$s5 = \"HttpSendRequestExA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.91' */ /* Goodware String - occured 87 times */\n\t\t$s6 = \"HttpEndRequestA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.91' */ /* Goodware String - occured 91 times */\n\t\t$s7 = \"GetModuleBaseNameA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.88' */ /* Goodware String - occured 121 times */\n\t\t$s8 = \"GetModuleFileNameExA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.86' */ /* Goodware String - occured 144 times */\n\t\t$s9 = \"HttpSendRequestA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.85' */ /* Goodware String - occured 154 times */\n\t\t$s10 = \"HttpOpenRequestA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.84' */ /* Goodware String - occured 159 times */\n\t\t$s11 = \"InternetConnectA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.82' */ /* Goodware String - occured 183 times */\n\t\t$s12 = \"Process32Next\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.80' */ /* Goodware String - occured 204 times */\n\t\t$s13 = \"Process32First\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.79' */ /* Goodware String - occured 210 times */\n\t\t$s14 = \"CreatePipe\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.78' */ /* Goodware String - occured 222 times */\n\t\t$s15 = \"EnumProcesses\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.73' */ /* Goodware String - occured 273 times */\n\t\t$s16 = \"LookupPrivilegeValueA\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.66' */ /* Goodware String - occured 336 times */\n\t\t$s17 = \"PeekNamedPipe\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.65' */ /* Goodware String - occured 347 times */\n\t\t$s18 = \"EnumProcessModules\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.59' */ /* Goodware String - occured 410 times */\n\t\t$s19 = \"PSAPI.DLL\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '4.58' */ /* Goodware String - occured 420 times */\n\t\t$s20 = \"SPSSSQ\" fullword ascii /* score: '4.51' */\n\tcondition:\n\t\tuint16(0) == 0x5a4d and filesize < 220KB and all of them\n}\n\nrule APT_Malware_PutterPanda_Gen4 {\n\tmeta:\n\t\tdescription = \"Detects Malware related to PutterPanda\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tscore = 70\n\t\treference = \"VT Analysis\"\n\t\tdate = \"2015-06-03\"\n\t\tsuper_rule = 1\n\t\thash0 = \"71a8378fa8e06bcf8ee9f019c807c6bfc58dca0c\"\n\t\thash1 = \"8fdd6e5ed9d69d560b6fdd5910f80e0914893552\"\n\t\thash2 = \"3c4a762175326b37035a9192a981f7f4cc2aa5f0\"\n\t\thash3 = \"598430b3a9b5576f03cc4aed6dc2cd8a43324e1e\"\n\t\thash4 = \"6522b81b38747f4aa09c98fdaedaed4b00b21689\"\n\t\tid = \"0b6ce725-6932-5432-acd5-ee3593ac7bd8\"\n\tstrings:\n\t\t$x1 = \"rz.dat\" fullword ascii /* score: '10.00' */\n\n\t\t$s0 = \"Mozilla/4.0 (Compatible; MSIE 6.0;)\" fullword ascii /* PEStudio Blacklist: agent */ /* score: '20.03' */\n\t\t$s1 = \"Internet connect error:%d\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '14.04' */\n\t\t$s2 = \"Proxy-Authorization:Basic \" fullword ascii /* PEStudio Blacklist: strings */ /* score: '14.02' */\n\t\t$s5 = \"Invalid url\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '9.03' */\n\t\t$s6 = \"Create file failed\" fullword ascii /* score: '8.04' */\n\t\t$s7 = \"myAgent\" fullword ascii /* score: '8.03' */\n\n\t\t$z1 = \"%s%s%d%d\" fullword ascii /* score: '8.00' */\n\t\t$z2 = \"HttpQueryInfo failed:%d\" fullword ascii /* PEStudio Blacklist: strings */ /* score: '13.02' */\n\t\t$z3 = \"read file error:%d\" fullword ascii /* score: '11.04' */\n\t\t$z4 = \"down file success\" fullword ascii /* score: '7.04' */\n\t\t$z5 = \"kPStoreCreateInstance\" fullword ascii /* score: '5.03' */\n\t\t$z6 = \"Avaliable data:%u bytes\" fullword ascii /* score: '5.03' */\n\t\t$z7 = \"abe2869f-9b47-4cd9-a358-c22904dba7f7\" fullword ascii /* PEStudio Blacklist: guid */ /* score: '5.00' */ /* Goodware String - occured 2 times */\n\tcondition:\n\t\tfilesize < 300KB and\n\t\t(\n\t\t\t( uint16(0) == 0x5a4d and $x1 and 3 of ($s*) ) or\n\t\t\t( 3 of ($s*) and 4 of ($z*) )\n\t\t)\n}\n"
+}

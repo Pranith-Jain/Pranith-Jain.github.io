@@ -89,6 +89,7 @@ agent/dfir-ai-skills/
 # committed because the canonical source of truth is the public/data/si/
 # build output, which is itself committed.
 security-investigator-replication/
+signature-base-replication/
 
 # Local-only download artifacts (page-as-html from edge cache or scraper)
 /Threat*

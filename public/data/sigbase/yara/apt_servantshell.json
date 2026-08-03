@@ -1,0 +1,21 @@
+{
+  "slug": "apt_servantshell",
+  "filename": "apt_servantshell.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "Servantshell",
+      "meta": {
+        "author": "Arbor Networks ASERT Nov 2015",
+        "description": "Detects Servantshell malware",
+        "date": "2017-02-02",
+        "reference": "https://tinyurl.com/jmp7nrs",
+        "score": "70",
+        "id": "f41e9191-0be1-59f7-9be4-e39c8a37b2c5"
+      }
+    }
+  ],
+  "body": "rule Servantshell {\n   meta:\n      author = \"Arbor Networks ASERT Nov 2015\"\n      description = \"Detects Servantshell malware\"\n      date = \"2017-02-02\"\n      reference = \"https://tinyurl.com/jmp7nrs\"\n      score = 70\n      id = \"f41e9191-0be1-59f7-9be4-e39c8a37b2c5\"\n   strings:\n      $string1 = \"SelfDestruction.cpp\"\n      $string2 = \"SvtShell.cpp\"\n      $string3 = \"InitServant\"\n      $string4 = \"DeinitServant\"\n      $string5 = \"CheckDT\"\n   condition:\n      uint16(0) == 0x5a4d and all of them\n}\n"
+}

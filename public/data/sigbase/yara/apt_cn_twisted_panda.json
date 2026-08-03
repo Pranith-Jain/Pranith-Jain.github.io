@@ -1,0 +1,73 @@
+{
+  "slug": "apt_cn_twisted_panda",
+  "filename": "apt_cn_twisted_panda.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "APT_CN_TwistedPanda_loader",
+      "meta": {
+        "author": "Check Point Research",
+        "description": "Detects loader used by TwistedPanda",
+        "date": "2022-04-14",
+        "reference": "https://research.checkpoint.com/2022/twisted-panda-chinese-apt-espionage-operation-against-russians-state-owned-defense-institutes/",
+        "score": "80",
+        "hash1": "5b558c5fcbed8544cb100bd3db3c04a70dca02eec6fedffd5e3dcecb0b04fba0",
+        "hash2": "efa754450f199caae204ca387976e197d95cdc7e83641444c1a5a91b58ba6198",
+        "id": "a10f6019-f069-579c-b112-18537a7d8fd8"
+      }
+    },
+    {
+      "name": "APT_CN_TwistedPanda_SPINNER_1",
+      "meta": {
+        "author": "Check Point Research",
+        "description": "Detects the obfuscated variant of SPINNER payload used by TwistedPanda",
+        "date": "2022-04-14",
+        "reference": "https://research.checkpoint.com/2022/twisted-panda-chinese-apt-espionage-operation-against-russians-state-owned-defense-institutes/",
+        "score": "80",
+        "hash1": "a9fb7bb40de8508606a318866e0e5ff79b98f314e782f26c7044622939dfde81",
+        "id": "0b44013d-0caa-5ea2-ab08-e2a6a5732c03"
+      }
+    },
+    {
+      "name": "APT_CN_TwistedPanda_SPINNER_2",
+      "meta": {
+        "author": "Check Point Research",
+        "description": "Detects an older variant of SPINNER payload used by TwistedPanda",
+        "date": "2022-04-14",
+        "reference": "https://research.checkpoint.com/2022/twisted-panda-chinese-apt-espionage-operation-against-russians-state-owned-defense-institutes/",
+        "score": "80",
+        "hash1": "28ecd1127bac08759d018787484b1bd16213809a2cc414514dc1ea87eb4c5ab8",
+        "id": "bbbf3af1-127f-5d32-967f-bdb94311d1d6"
+      }
+    },
+    {
+      "name": "APT_CN_TwistedPanda_64bit_Loader",
+      "meta": {
+        "author": "Check Point Research",
+        "description": "Detects the 64bit Loader DLL used by TwistedPanda",
+        "date": "2022-04-14",
+        "reference": "https://research.checkpoint.com/2022/twisted-panda-chinese-apt-espionage-operation-against-russians-state-owned-defense-institutes/",
+        "score": "80",
+        "hash1": "e0d4ef7190ff50e6ad2a2403c87cc37254498e8cc5a3b2b8798983b1b3cdc94f",
+        "id": "2172dd33-204b-5a05-ad26-534a0c1d7a17"
+      }
+    },
+    {
+      "name": "APT_CN_TwistedPanda_droppers",
+      "meta": {
+        "author": "Check Point Research",
+        "description": "Detects droppers used by TwistedPanda",
+        "date": "2022-04-14",
+        "reference": "https://research.checkpoint.com/2022/twisted-panda-chinese-apt-espionage-operation-against-russians-state-owned-defense-institutes/",
+        "score": "80",
+        "hash1": "59dea38da6e515af45d6df68f8959601e2bbf0302e35b7989e741e9aba2f0291",
+        "hash2": "8b04479fdf22892cdfebd6e6fbed180701e036806ed0ddbe79f0b29f73449248",
+        "hash3": "f29a0cda6e56fc0e26efa3b6628c6bcaa0819a3275a10e9da2a8517778152d66",
+        "id": "f61c8b97-5870-5837-942f-f1650870960a"
+      }
+    }
+  ],
+  "body": "rule APT_CN_TwistedPanda_loader {\n   meta:\n      author = \"Check Point Research\"\n      description = \"Detects loader used by TwistedPanda\"\n      date = \"2022-04-14\"\n      reference = \"https://research.checkpoint.com/2022/twisted-panda-chinese-apt-espionage-operation-against-russians-state-owned-defense-institutes/\"\n      score = 80\n      hash1 = \"5b558c5fcbed8544cb100bd3db3c04a70dca02eec6fedffd5e3dcecb0b04fba0\"\n      hash2 = \"efa754450f199caae204ca387976e197d95cdc7e83641444c1a5a91b58ba6198\"\n      \n      id = \"a10f6019-f069-579c-b112-18537a7d8fd8\"\n   strings:\n      \n      // 6A 40                                   push    40h ; '@'\n      // 68 00 30 00 00                          push    3000h\n      $seq1 = { 6A 40 68 00 30 00 00 }\n      \n      // 6A 00                                   push    0               ; lpOverlapped\n      // 50                                      push    eax             ; lpNumberOfBytesRead\n      // 6A 14                                   push    14h             ; nNumberOfBytesToRead\n      // 8D ?? ?? ?? ?? ??                       lea     eax, [ebp+Buffer]\n      // 50                                      push    eax             ; lpBuffer\n        // 53                                      push    ebx             ; hFile\n      // FF 15 04 D0 4C 70                       call    ds:ReadFile\n      $seq2 = { 6A 00 50 6A 14 8D ?? ?? ?? ?? ?? 50 53 FF }\n      // 6A 00                                   push    0\n      // 6A 00                                   push    0\n      // 6A 03                                   push    3\n      // 6A 00                                   push    0\n      // 6A 03                                   push    3\n      // 68 00 00 00 80                          push    80000000h\n      $seq3 = { 6A 00 6A 00 6A 03 6A 00 6A 03 68 00 00 00 80 }\n            \n      // Decryption sequence\n      $decryption = { 8B C? [2-3] F6 D? 1A C? [4-6] 30 0? ?? 4? }\n \n   condition:\n      // MZ signature at offset 0 and ...\n      uint16(0) == 0x5A4D and\n        \n      // ... PE signature at offset stored in MZ header at 0x3C\n      uint32(uint32(0x3C)) == 0x00004550 and \n      filesize < 3000KB and all of ($seq*) and $decryption\n}\n\nrule APT_CN_TwistedPanda_SPINNER_1 {\n   meta:\n      author = \"Check Point Research\"\n      description = \"Detects the obfuscated variant of SPINNER payload used by TwistedPanda\"\n      date = \"2022-04-14\"\n      reference = \"https://research.checkpoint.com/2022/twisted-panda-chinese-apt-espionage-operation-against-russians-state-owned-defense-institutes/\"\n      score = 80\n      hash1 = \"a9fb7bb40de8508606a318866e0e5ff79b98f314e782f26c7044622939dfde81\"\n      \n      id = \"0b44013d-0caa-5ea2-ab08-e2a6a5732c03\"\n   strings:\n      // C7 ?? ?? ?? 00 00 00                                mov     dword ptr [eax+??], ??\n      // C7 ?? ?? ?? 00 00 00                                mov     dword ptr [eax+??], ??\n      // C6                                                  mov     byte ptr [eax], 0\n      $config_init = { C7 ?? ?? ?? 00 00 00 C7 ?? ?? ?? 00 00 00 C6 }\n      $c2_cmd_1 = { 01 00 03 10}\n      $c2_cmd_2 = { 02 00 01 10}\n      $c2_cmd_3 = { 01 00 01 10}\n      // 8D 83 ?? ?? ?? ??                                   lea     eax, xor_key[ebx]\n      // 80 B3 ?? ?? ?? ?? ??                                xor     xor_key[ebx], 50h\n      // 89 F1                                               mov     ecx, esi        ; this\n      // 6A 01                                               push    1               ; Size\n      // 50                                                  push    eax             ; Src\n      // E8 ?? ?? ?? ??                                      call    str_append\n      // 80 B3 ?? ?? ?? ?? ??                                xor     xor_key[ebx], 50h\n      $decryption = { 8D 83 [4] 80 B3 [5] 89 F1 6A 01 50 E8 [4] 80 B3 }\n \n   condition:\n      // MZ signature at offset 0 and ...\n      uint16(0) == 0x5A4D and\n        \n      // ... PE signature at offset stored in MZ header at 0x3C\n      uint32(uint32(0x3C)) == 0x00004550 and \n      filesize < 3000KB  and #config_init > 10 and 2 of ($c2_cmd_*) and $decryption\n}\n\nrule APT_CN_TwistedPanda_SPINNER_2 {\n   meta:\n      author = \"Check Point Research\"\n      description = \"Detects an older variant of SPINNER payload used by TwistedPanda\"\n      date = \"2022-04-14\"\n      reference = \"https://research.checkpoint.com/2022/twisted-panda-chinese-apt-espionage-operation-against-russians-state-owned-defense-institutes/\"\n      score = 80\n      hash1 = \"28ecd1127bac08759d018787484b1bd16213809a2cc414514dc1ea87eb4c5ab8\"\n      \n      id = \"bbbf3af1-127f-5d32-967f-bdb94311d1d6\"\n   strings:\n      // C7 ?? ?? ?? 00 00 00                                mov     dword ptr [eax+??], ??\n      // C7 ?? ?? ?? 00 00 00                                mov     dword ptr [eax+??], ??\n      // C6                                                  mov     byte ptr [eax], 0\n      $config_init = { C7 [3] 00 00 00 C7 [3] 00 00 00 C6 }\n      $c2_cmd_1 = { 01 00 03 10 }\n      $c2_cmd_2 = { 02 00 01 10 }\n      $c2_cmd_3 = { 01 00 01 10 }\n      $c2_cmd_4 = { 01 00 00 10 }\n      $c2_cmd_5 = { 02 00 00 10 }\n      // 80 B3 ?? ?? ?? ?? ??                    xor     ds:dd_encrypted_url[ebx], 50h\n      // 8D BB ?? ?? ?? ??                       lea     edi, dd_encrypted_url[ebx]\n      // 8B 56 14                                mov     edx, [esi+14h]\n      // 8B C2                                   mov     eax, edx\n      // 8B 4E 10                                mov     ecx, [esi+10h]\n      // 2B C1                                   sub     eax, ecx\n      // 83 F8 01                                cmp     eax, 1\n      $decryption = { 80 B3 [5] 8D BB [4] 8B 56 14 8B C2 8B 4E 10 2B C1 83 F8 01 }\n \n   condition:\n      // MZ signature at offset 0 and ...\n      uint16(0) == 0x5A4D and\n        \n      // ... PE signature at offset stored in MZ header at 0x3C\n      uint32(uint32(0x3C)) == 0x00004550 and \n      filesize < 3000KB  and #config_init > 10 and 2 of ($c2_cmd_*) and $decryption\n}\n\nrule APT_CN_TwistedPanda_64bit_Loader {\n   meta:\n      author = \"Check Point Research\"\n      description = \"Detects the 64bit Loader DLL used by TwistedPanda\"\n      date = \"2022-04-14\"      \n      reference = \"https://research.checkpoint.com/2022/twisted-panda-chinese-apt-espionage-operation-against-russians-state-owned-defense-institutes/\"\n      score = 80\n      hash1 = \"e0d4ef7190ff50e6ad2a2403c87cc37254498e8cc5a3b2b8798983b1b3cdc94f\"\n      \n      id = \"2172dd33-204b-5a05-ad26-534a0c1d7a17\"\n   strings:\n      // 48 8D ?? ?? ?? ?? ?? ?? ??              lea     rdx, ds:2[rdx*2]\n      // 48 8B C1                                mov     rax, rcx\n      // 48 81 ?? ?? ?? ?? ??                    cmp     rdx, 1000h\n      // 72 ??                                   jb      short loc_7FFDF0BA1B48\n      $path_check = { 48 8D [6] 48 8B ?? 48 81 [5] 72 }\n      // 48 8B D0                                mov     rdx, rax        ; lpBuffer\n      // 41 B8 F0 16 00 00                       mov     r8d, 16F0h      ; nNumberOfBytesToRead\n      // 48 8B CF                                mov     rcx, rdi        ; hFile\n      // 48 8B D8                                mov     rbx, rax\n      // FF ?? ?? ?? ??                          call    cs:ReadFile\n      $shellcode_read = { 48 8B D0 41 B8 F0 16 00 00 48 8B CF 48 8B D8 FF} \n      // BA F0 16 00 00                          mov     edx, 16F0h      ; dwSize\n      // 44 8D 4E 40                             lea     r9d, [rsi+40h]  ; flProtect\n      // 33 C9                                   xor     ecx, ecx        ; lpAddress\n      // 41 B8 00 30 00 00                       mov     r8d, 3000h      ; flAllocationType\n      // FF ?? ?? ?? ?? ??                       call    cs:VirtualAlloc\n     $shellcode_allocate = { BA F0 16 00 00 44 8D 4E 40 33 C9 41 B8 00 30 00 00 FF }\n   condition:\n      // MZ signature at offset 0 and ...\n      uint16(0) == 0x5A4D and\n        \n      // ... PE signature at offset stored in MZ header at 0x3C\n      uint32(uint32(0x3C)) == 0x00004550 and \n      filesize < 3000KB  and $path_check and $shellcode_allocate and $shellcode_read\n}\n\nrule APT_CN_TwistedPanda_droppers {\n   meta:\n      author = \"Check Point Research\"\n      description = \"Detects droppers used by TwistedPanda\"\n      date = \"2022-04-14\"\n      reference = \"https://research.checkpoint.com/2022/twisted-panda-chinese-apt-espionage-operation-against-russians-state-owned-defense-institutes/\"\n      score = 80\n      hash1 = \"59dea38da6e515af45d6df68f8959601e2bbf0302e35b7989e741e9aba2f0291\"\n      hash2 = \"8b04479fdf22892cdfebd6e6fbed180701e036806ed0ddbe79f0b29f73449248\"\n      hash3 = \"f29a0cda6e56fc0e26efa3b6628c6bcaa0819a3275a10e9da2a8517778152d66\"\n      \n      id = \"f61c8b97-5870-5837-942f-f1650870960a\"\n   strings:\n     // 81 FA ?? ?? ?? ??                                   cmp     edx, 4BED1896h\n     // 75 ??                                               jnz     short loc_140001829\n     // E8 ?? ?? ?? ??                                      call    sub_1400019D0\n     // 48 89 05 ?? ?? ?? ??                                mov     cs:qword_14001ED38, rax\n     // E? ?? ?? ?? ??                                      jmp     loc_1400018DD\n      $switch_control = { 81 FA [4] 75 ?? E8 [4] 48 89 05 [4] E? }\n     // 41 0F ?? ??                                         movsx   edx, byte ptr [r9]\n     // 44 ?? ??                                            or      r8d, edx\n     // 41 ?? ?? 03                                         rol     r8d, 3\n     // 41 81 ?? ?? ?? ?? ??                                xor     r8d, 0EF112233h\n     // 41 ?? ??                                            mov     eax, r10d\n      $byte_manipulation = { 41 0F [2] 44 [2] 41 [2] 03 41 81 [5] 41 }\n     // %public%\n     $stack_strings_1 = { 25 00 70 00 }\n     $stack_strings_2 = { 75 00 62 00 }\n     $stack_strings_3 = { 6C 00 69 00 }\n     $stack_strings_4 = { 63 00 25 00 }\n   condition:\n      // MZ signature at offset 0 and ...\n      uint16(0) == 0x5A4D and\n        \n      // ... PE signature at offset stored in MZ header at 0x3C\n      uint32(uint32(0x3C)) == 0x00004550 and \n      filesize < 3000KB  and #switch_control > 8 and all of ($stack_strings_*) and $byte_manipulation\n}\n"
+}

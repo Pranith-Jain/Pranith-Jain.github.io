@@ -1,0 +1,32 @@
+{
+  "slug": "apt_sofacy_hospitality",
+  "filename": "apt_sofacy_hospitality.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "APT28_HospitalityMalware_document",
+      "meta": {
+        "description": "Yara Rule for APT28_Hospitality_Malware document identification",
+        "author": "CSE CybSec Enterprise - Z-Lab",
+        "reference": "http://csecybsec.com/download/zlab/APT28_Hospitality_Malware_report.pdf",
+        "last_updated": "2017-10-02",
+        "tlp": "white",
+        "id": "722e80ef-d729-5887-9853-cd06128f506d"
+      }
+    },
+    {
+      "name": "APT28_HospitalityMalware_mvtband_file",
+      "meta": {
+        "description": "Yara Rule for mvtband.dll malware",
+        "author": "CSE CybSec Enterprise - Z-Lab",
+        "reference": "http://csecybsec.com/download/zlab/APT28_Hospitality_Malware_report.pdf",
+        "last_updated": "2017-10-02",
+        "tlp": "white",
+        "id": "f9e34c77-38b3-513e-bb29-148ac7058596"
+      }
+    }
+  ],
+  "body": "import \"pe\"\n\nrule APT28_HospitalityMalware_document {\n   meta:\n      description = \"Yara Rule for APT28_Hospitality_Malware document identification\"\n      author = \"CSE CybSec Enterprise - Z-Lab\"\n      reference = \"http://csecybsec.com/download/zlab/APT28_Hospitality_Malware_report.pdf\"\n      last_updated = \"2017-10-02\"\n      tlp = \"white\"\n      id = \"722e80ef-d729-5887-9853-cd06128f506d\"\n   strings:\n      /* this string identifies the malicious payload */\n      $a = {75 52 B9 ED 1B D6 83 0F DB 24 CA 87 4F 5F 25 36 BF 66 BA}\n      /* this string identifies the document */\n      $b = {EC 3B 6D 74 5B C5 95 F3 9E 24 5B FE 4A 64 C7 09 CE 07 C9 58 4E 62 3B}\n   condition:\n      all of them and filesize > 75KB and filesize < 82KB\n}\n\nrule APT28_HospitalityMalware_mvtband_file {\n   meta:\n      description = \"Yara Rule for mvtband.dll malware\"\n      author = \"CSE CybSec Enterprise - Z-Lab\"\n      reference = \"http://csecybsec.com/download/zlab/APT28_Hospitality_Malware_report.pdf\"\n      last_updated = \"2017-10-02\"\n      tlp = \"white\"\n      id = \"f9e34c77-38b3-513e-bb29-148ac7058596\"\n   strings:\n      $a = \"DGMNOEP\"\n      $b = {C7 45 94 0A 25 73 30 8D 45 94}  // two significant instructions\n   condition:\n      all of them and pe.sections[2].raw_data_size == 0\n}"
+}

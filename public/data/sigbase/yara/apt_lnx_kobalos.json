@@ -1,0 +1,36 @@
+{
+  "slug": "apt_lnx_kobalos",
+  "filename": "apt_lnx_kobalos.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "APT_MAL_LNX_Kobalos",
+      "meta": {
+        "description": "Kobalos malware",
+        "author": "Marc-Etienne M.Leveille",
+        "date": "2020-11-02",
+        "reference": "https://www.welivesecurity.com/2021/02/02/kobalos-complex-linux-threat-high-performance-computing-infrastructure/",
+        "source": "https://github.com/eset/malware-ioc/",
+        "license": "BSD 2-Clause",
+        "version": "1",
+        "id": "dfa47e30-c093-57f6-af01-72a2534cc6f4"
+      }
+    },
+    {
+      "name": "APT_MAL_LNX_Kobalos_SSH_Credential_Stealer",
+      "meta": {
+        "description": "Kobalos SSH credential stealer seen in OpenSSH client",
+        "author": "Marc-Etienne M.Leveille",
+        "date": "2020-11-02",
+        "reference": "https://www.welivesecurity.com/2021/02/02/kobalos-complex-linux-threat-high-performance-computing-infrastructure/",
+        "source": "https://github.com/eset/malware-ioc/",
+        "license": "BSD 2-Clause",
+        "version": "1",
+        "id": "0f923f92-c5d8-500d-9a2e-634ca7945c5c"
+      }
+    }
+  ],
+  "body": "// For feedback or questions contact us at: github@eset.com\n// https://github.com/eset/malware-ioc/\n//\n// These YARA rules are provided to the community under the two-clause BSD\n// license as follows:\n//\n// Copyright (c) 2020, ESET\n// All rights reserved.\n//\n// Redistribution and use in source and binary forms, with or without\n// modification, are permitted provided that the following conditions are met:\n//\n// 1. Redistributions of source code must retain the above copyright notice, this\n// list of conditions and the following disclaimer.\n//\n// 2. Redistributions in binary form must reproduce the above copyright notice,\n// this list of conditions and the following disclaimer in the documentation\n// and/or other materials provided with the distribution.\n//\n// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n//\n\nrule APT_MAL_LNX_Kobalos {\n    meta:\n        description = \"Kobalos malware\"\n        author = \"Marc-Etienne M.Leveille\"\n        date = \"2020-11-02\"\n        reference = \"https://www.welivesecurity.com/2021/02/02/kobalos-complex-linux-threat-high-performance-computing-infrastructure/\"\n        source = \"https://github.com/eset/malware-ioc/\"\n        license = \"BSD 2-Clause\"\n        version = \"1\"\n\n        id = \"dfa47e30-c093-57f6-af01-72a2534cc6f4\"\n    strings:\n        $encrypted_strings_sizes = {\n            05 00 00 00 09 00 00 00  04 00 00 00 06 00 00 00\n            08 00 00 00 08 00 00 00  02 00 00 00 02 00 00 00\n            01 00 00 00 01 00 00 00  05 00 00 00 07 00 00 00\n            05 00 00 00 05 00 00 00  05 00 00 00 0A 00 00 00\n        }\n        $password_md5_digest = { 3ADD48192654BD558A4A4CED9C255C4C }\n        $rsa_512_mod_header = { 10 11 02 00 09 02 00 }\n        $strings_rc4_key = { AE0E05090F3AC2B50B1BC6E91D2FE3CE }\n\n    condition:\n        uint16(0) == 0x457f and /* modification by Florian Roth to avoid false posirives */\n        any of them\n}\n\nrule APT_MAL_LNX_Kobalos_SSH_Credential_Stealer {\n    meta:\n        description = \"Kobalos SSH credential stealer seen in OpenSSH client\"\n        author = \"Marc-Etienne M.Leveille\"\n        date = \"2020-11-02\"\n        reference = \"https://www.welivesecurity.com/2021/02/02/kobalos-complex-linux-threat-high-performance-computing-infrastructure/\"\n        source = \"https://github.com/eset/malware-ioc/\"\n        license = \"BSD 2-Clause\"\n        version = \"1\"\n\n        id = \"0f923f92-c5d8-500d-9a2e-634ca7945c5c\"\n    strings:\n        $ = \"user: %.128s host: %.128s port %05d user: %.128s password: %.128s\"\n\n    condition:\n        uint16(0) == 0x457f and /* modification by Florian Roth to avoid false posirives */\n        any of them\n}"
+}

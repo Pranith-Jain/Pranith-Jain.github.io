@@ -1,0 +1,24 @@
+{
+  "slug": "gen_chaos_payload",
+  "filename": "gen_chaos_payload.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-07-15\n   Identifier: CHAOS\n   Reference: https://github.com/tiagorlampert/CHAOS",
+  "rules": [
+    {
+      "name": "CHAOS_Payload",
+      "meta": {
+        "description": "Detects a CHAOS back connect payload",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://github.com/tiagorlampert/CHAOS",
+        "date": "2017-07-15",
+        "score": "80",
+        "hash1": "0962fcfcb1b52df148720c2112b036e75755f09279e3ebfce1636739af9b4448",
+        "hash2": "5c3553345f824b7b6de09ccb67d834e428b8df17443d98816471ca28f5a11424",
+        "id": "5057bc68-9bf8-54b4-88a1-d0c0cba62fa0"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-07-15\n   Identifier: CHAOS\n   Reference: https://github.com/tiagorlampert/CHAOS\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule CHAOS_Payload {\n   meta:\n      description = \"Detects a CHAOS back connect payload\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://github.com/tiagorlampert/CHAOS\"\n      date = \"2017-07-15\"\n      score = 80\n      hash1 = \"0962fcfcb1b52df148720c2112b036e75755f09279e3ebfce1636739af9b4448\"\n      hash2 = \"5c3553345f824b7b6de09ccb67d834e428b8df17443d98816471ca28f5a11424\"\n      id = \"5057bc68-9bf8-54b4-88a1-d0c0cba62fa0\"\n   strings:\n      $x1 = { 2F 43 48 41 4F 53 00 02 73 79 6E 63 2F 61 74 6F 6D 69 63 }\n   condition:\n      ( uint16(0) == 0x5a4d and filesize < 15000KB and all of them )\n}"
+}

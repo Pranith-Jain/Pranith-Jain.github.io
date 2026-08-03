@@ -1,0 +1,60 @@
+{
+  "slug": "apt_ruag",
+  "filename": "apt_ruag.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n  Author: Florian Roth\n  Date: 2016-05-23\n  Identifier: Swiss RUAG APT Case\n  Reference: https://www.govcert.admin.ch/blog/22/technical-report-about-the-ruag-espionage-case",
+  "rules": [
+    {
+      "name": "RUAG_Tavdig_Malformed_Executable",
+      "meta": {
+        "description": "Detects an embedded executable with a malformed header - known from Tavdig malware",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/N5MEj0",
+        "score": "60",
+        "id": "da6357d4-0cdb-5f30-9919-59858963cc41"
+      }
+    },
+    {
+      "name": "RUAG_Bot_Config_File",
+      "meta": {
+        "description": "Detects a specific config file used by malware in RUAG APT case",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/N5MEj0",
+        "score": "60",
+        "id": "aa3d5f9e-0b23-5180-9e52-a7d705712747"
+      }
+    },
+    {
+      "name": "RUAG_Cobra_Malware",
+      "meta": {
+        "description": "Detects a malware mentioned in the RUAG Case called Carbon/Cobra",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/N5MEj0",
+        "score": "60",
+        "id": "dd2d591f-6f56-5c31-9f3c-3aa7d174c9a0"
+      }
+    },
+    {
+      "name": "RUAG_Cobra_Config_File",
+      "meta": {
+        "description": "Detects a config text file used by malware Cobra in RUAG case",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/N5MEj0",
+        "score": "60",
+        "id": "b3899d95-acc9-55ca-9025-edecce755ca6"
+      }
+    },
+    {
+      "name": "RUAG_Exfil_Config_File",
+      "meta": {
+        "description": "Detects a config text file used in data exfiltration in RUAG case",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/N5MEj0",
+        "score": "60",
+        "id": "7057bc7b-7f8c-5db8-b7f3-f6c33487b122"
+      }
+    }
+  ],
+  "body": "/*\n  Yara Rule Set\n  Author: Florian Roth\n  Date: 2016-05-23\n  Identifier: Swiss RUAG APT Case\n  Reference: https://www.govcert.admin.ch/blog/22/technical-report-about-the-ruag-espionage-case\n*/\n\nrule RUAG_Tavdig_Malformed_Executable {\n  meta:\n    description = \"Detects an embedded executable with a malformed header - known from Tavdig malware\"\n    author = \"Florian Roth (Nextron Systems)\"\n    reference = \"https://goo.gl/N5MEj0\"\n    score = 60\n    id = \"da6357d4-0cdb-5f30-9919-59858963cc41\"\n  condition:\n    uint16(0) == 0x5a4d and /* MZ Header */\n    uint32(uint32(0x3C)) == 0x0000AD0B /* malformed PE header > 0x0bad */\n}\n\nrule RUAG_Bot_Config_File {\n  meta:\n    description = \"Detects a specific config file used by malware in RUAG APT case\"\n    author = \"Florian Roth (Nextron Systems)\"\n    reference = \"https://goo.gl/N5MEj0\"\n    score = 60\n    id = \"aa3d5f9e-0b23-5180-9e52-a7d705712747\"\n  strings:\n    $s1 = \"[CONFIG]\" ascii\n    $s2 = \"name = \" ascii\n    $s3 = \"exe = cmd.exe\" ascii\n  condition:\n    uint32(0) == 0x4e4f435b and $s1 at 0 and $s2 and $s3 and filesize < 160\n}\n\nrule RUAG_Cobra_Malware {\n  meta:\n    description = \"Detects a malware mentioned in the RUAG Case called Carbon/Cobra\"\n    author = \"Florian Roth (Nextron Systems)\"\n    reference = \"https://goo.gl/N5MEj0\"\n    score = 60\n    id = \"dd2d591f-6f56-5c31-9f3c-3aa7d174c9a0\"\n  strings:\n    $s1 = \"\\\\Cobra\\\\Release\\\\Cobra.pdb\" ascii\n  condition:\n    uint16(0) == 0x5a4d and $s1\n}\n\nrule RUAG_Cobra_Config_File {\n  meta:\n    description = \"Detects a config text file used by malware Cobra in RUAG case\"\n    author = \"Florian Roth (Nextron Systems)\"\n    reference = \"https://goo.gl/N5MEj0\"\n    score = 60\n    id = \"b3899d95-acc9-55ca-9025-edecce755ca6\"\n  strings:\n    $h1 = \"[NAME]\" ascii\n\n    $s1 = \"object_id=\" ascii\n    $s2 = \"[TIME]\" ascii fullword\n    $s3 = \"lastconnect\" ascii\n    $s4 = \"[CW_LOCAL]\" ascii fullword\n    $s5 = \"system_pipe\" ascii\n    $s6 = \"user_pipe\" ascii\n    $s7 = \"[TRANSPORT]\" ascii\n    $s8 = \"run_task_system\" ascii\n    $s9 = \"[WORKDATA]\" ascii\n    $s10 = \"address1\" ascii\n  condition:\n    uint32(0) == 0x4d414e5b and $h1 at 0 and 8 of ($s*) and filesize < 5KB\n}\n\nrule RUAG_Exfil_Config_File {\n  meta:\n    description = \"Detects a config text file used in data exfiltration in RUAG case\"\n    author = \"Florian Roth (Nextron Systems)\"\n    reference = \"https://goo.gl/N5MEj0\"\n    score = 60\n    id = \"7057bc7b-7f8c-5db8-b7f3-f6c33487b122\"\n  strings:\n    $h1 = \"[TRANSPORT]\" ascii\n\n    $s1 = \"system_pipe\" ascii\n    $s2 = \"spstatus\" ascii\n    $s3 = \"adaptable\" ascii\n    $s4 = \"post_frag\" ascii\n    $s5 = \"pfsgrowperiod\" ascii\n  condition:\n    uint32(0) == 0x4152545b and $h1 at 0 and all of ($s*) and filesize < 1KB\n}\n"
+}

@@ -1,0 +1,36 @@
+{
+  "slug": "apt_carbon_paper_turla",
+  "filename": "apt_carbon_paper_turla.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "generic_carbon",
+      "meta": {
+        "author": "ESET Research",
+        "date": "2017-03-30",
+        "description": "Turla Carbon malware",
+        "reference": "https://www.welivesecurity.com/2017/03/30/carbon-paper-peering-turlas-second-stage-backdoor/",
+        "source": "https://github.com/eset/malware-ioc/",
+        "contact": "github@eset.com",
+        "license": "BSD 2-Clause",
+        "id": "efdc0d16-a974-5c00-a401-391d60f3081e"
+      }
+    },
+    {
+      "name": "carbon_metadata",
+      "meta": {
+        "author": "ESET Research",
+        "date": "2017-03-30",
+        "description": "Turla Carbon malware",
+        "reference": "https://www.welivesecurity.com/2017/03/30/carbon-paper-peering-turlas-second-stage-backdoor/",
+        "source": "https://github.com/eset/malware-ioc/",
+        "contact": "github@eset.com",
+        "license": "BSD 2-Clause",
+        "id": "976b6a7d-00bf-5d0f-baf9-84fc5dbd21a2"
+      }
+    }
+  ],
+  "body": "// For feedback or questions contact us at: github@eset.com\n// https://github.com/eset/malware-ioc/\n//\n// These yara rules are provided to the community under the two-clause BSD\n// license as follows:\n//\n// Copyright (c) 2017, ESET\n// All rights reserved.\n//\n// Redistribution and use in source and binary forms, with or without\n// modification, are permitted provided that the following conditions are met:\n//\n// 1. Redistributions of source code must retain the above copyright notice, this\n// list of conditions and the following disclaimer.\n//\n// 2. Redistributions in binary form must reproduce the above copyright notice,\n// this list of conditions and the following disclaimer in the documentation\n// and/or other materials provided with the distribution.\n//\n// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n//\nimport \"pe\"\n\nrule generic_carbon\n{\n  meta:\n    author      = \"ESET Research\"\n    date        = \"2017-03-30\"\n    description = \"Turla Carbon malware\"\n    reference   = \"https://www.welivesecurity.com/2017/03/30/carbon-paper-peering-turlas-second-stage-backdoor/\"\n    source = \"https://github.com/eset/malware-ioc/\"\n    contact = \"github@eset.com\"\n    license = \"BSD 2-Clause\"\n\n    id = \"efdc0d16-a974-5c00-a401-391d60f3081e\"\n  strings:\n    $s1 = \"ModStart\"\n    $t1 = \"STOP|OK\"\n    $t2 = \"STOP|KILL\"\n\n  condition:\n    (uint16(0) == 0x5a4d) and (1 of ($s*)) and (1 of ($t*))\n}\n\nrule carbon_metadata\n{\n  meta:\n    author      = \"ESET Research\"\n    date        = \"2017-03-30\"\n    description = \"Turla Carbon malware\"\n    reference   = \"https://www.welivesecurity.com/2017/03/30/carbon-paper-peering-turlas-second-stage-backdoor/\"\n    source = \"https://github.com/eset/malware-ioc/\"\n    contact = \"github@eset.com\"\n    license = \"BSD 2-Clause\"\n\n    id = \"976b6a7d-00bf-5d0f-baf9-84fc5dbd21a2\"\n   condition:\n      (pe.version_info[\"InternalName\"] contains \"SERVICE.EXE\" or\n       pe.version_info[\"InternalName\"] contains \"MSIMGHLP.DLL\" or\n       pe.version_info[\"InternalName\"] contains \"MSXIML.DLL\")\n       and pe.version_info[\"CompanyName\"] contains \"Microsoft Corporation\"\n}\n"
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "vuln_proxynotshell_cve_2022_41040",
+  "filename": "vuln_proxynotshell_cve_2022_41040.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "LOG_ProxyNotShell_POC_CVE_2022_41040_Nov22",
+      "meta": {
+        "description": "Detects logs generated after a successful exploitation using the PoC code against CVE-2022-41040 and CVE-2022-41082 (aka ProxyNotShell) in Microsoft Exchange servers",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://github.com/testanull/ProxyNotShell-PoC",
+        "date": "2022-11-17",
+        "score": "70",
+        "id": "1e47d124-3103-5bf5-946f-b1bb69ff2c8e"
+      }
+    }
+  ],
+  "body": "\nrule LOG_ProxyNotShell_POC_CVE_2022_41040_Nov22 {\n   meta:\n      description = \"Detects logs generated after a successful exploitation using the PoC code against CVE-2022-41040 and CVE-2022-41082 (aka ProxyNotShell) in Microsoft Exchange servers\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://github.com/testanull/ProxyNotShell-PoC\"\n      date = \"2022-11-17\"\n      score = 70\n      id = \"1e47d124-3103-5bf5-946f-b1bb69ff2c8e\"\n   strings:\n      $aa1 = \" POST \" ascii wide\n      $aa2 = \" GET \" ascii wide\n\n      $ab1 = \" 200 \" ascii wide\n\n      $s01 = \"/autodiscover.json x=a\" ascii wide\n      $s02 = \"/autodiscover/admin@localhost/\" ascii wide\n   condition:\n      1 of ($aa*) and $ab1 and 1 of ($s*)\n}\n"
+}

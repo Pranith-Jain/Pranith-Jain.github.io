@@ -1,0 +1,61 @@
+{
+  "slug": "configured_vulns_ext_vars",
+  "filename": "configured_vulns_ext_vars.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "VULN_Linux_Sudoers_Commands",
+      "meta": {
+        "description": "Detects sudoers config with commands which might allow privilege escalation to root",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Arnim Rupp",
+        "reference": "https://gtfobins.github.io/",
+        "date": "2022-11-22",
+        "modified": "2024-04-15",
+        "score": "50",
+        "id": "221d90c8-e70e-5214-a03b-57ecabcdd480"
+      }
+    },
+    {
+      "name": "VULN_Linux_NFS_Exports",
+      "meta": {
+        "description": "Detects insecure /etc/exports NFS config which might allow privilege escalation to root or other users. The parameter insecure allows any non-root user to mount NFS shares via e.g. an SSH-tunnel. With no_root_squash SUID root binaries are allowed.",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "reference": "https://www.errno.fr/nfs_privesc.html",
+        "author": "Arnim Rupp",
+        "date": "2022-11-22",
+        "score": "50",
+        "id": "4b7d81d8-1ae1-5fcf-a91c-271477a839db",
+        "filename": "="
+      }
+    },
+    {
+      "name": "SUSP_AES_Key_in_MySql_History",
+      "meta": {
+        "description": "Detects AES key outside of key management in .mysql_history",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Arnim Rupp",
+        "date": "2022-11-22",
+        "score": "50",
+        "id": "28acef39-8606-5d3d-b395-0d8db13f6c9c",
+        "filename": "="
+      }
+    },
+    {
+      "name": "VULN_Slapd_Conf_with_Default_Password",
+      "meta": {
+        "description": "Detects an openldap slapd.conf with the default password test123",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Arnim Rupp",
+        "date": "2022-11-22",
+        "reference": "https://www.openldap.org/doc/admin21/slapdconfig.html",
+        "score": "70",
+        "id": "1d1319da-125b-5373-88f1-27a23c85729e",
+        "filename": "="
+      }
+    }
+  ],
+  "body": "\n/* \n\tRules which detect vulnerabilities in configuration files.\n\tExternal variables are used so they only work with YARA scanners, that pass them on (e.g. Thor, Loki and Spyre)\n*/\n\n\nrule VULN_Linux_Sudoers_Commands {\n\tmeta:\n\t\tdescription = \"Detects sudoers config with commands which might allow privilege escalation to root\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Arnim Rupp\"\n\t\treference = \"https://gtfobins.github.io/\"\n\t\tdate = \"2022-11-22\"\n\t\tmodified = \"2024-04-15\"\n\t\tscore = 50\n\t\tid = \"221d90c8-e70e-5214-a03b-57ecabcdd480\"\n\tstrings:\n\t\t$command1 = \"/sh \" ascii\n\t\t$command2 = \"/bash \" ascii\n\t\t$command3 = \"/ksh \" ascii\n\t\t$command4 = \"/csh \" ascii\n\t\t$command5 = \"/tcpdump \" ascii\n\t\t//$command6 = \"/cat \" ascii\n\t\t//$command7 = \"/head \" ascii\n\t\t$command8 = \"/nano \" ascii\n\t\t$command9 = \"/pico \" ascii\n\t\t$command10 = \"/rview \" ascii\n\t\t$command11 = \"/vi \" ascii\n\t\t$command12 = \"/vim \" ascii\n\t\t$command13 = \"/rvi \" ascii\n\t\t$command14 = \"/rvim \" ascii\n\t\t//$command15 = \"/more \" ascii\n\t\t$command16 = \"/less \" ascii\n\t\t$command17 = \"/dd \" ascii\n\t\t/* $command18 = \"/mount \" ascii prone to FPs */ \n\n\tcondition:\n\t\t( filename == \"sudoers\" or filepath contains \"/etc/sudoers.d\" ) and \n\t\tany of ($command*)\n}\n\nrule VULN_Linux_NFS_Exports {\n\tmeta:\n\t\tdescription = \"Detects insecure /etc/exports NFS config which might allow privilege escalation to root or other users. The parameter insecure allows any non-root user to mount NFS shares via e.g. an SSH-tunnel. With no_root_squash SUID root binaries are allowed.\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\treference = \"https://www.errno.fr/nfs_privesc.html\"\n\t\tauthor = \"Arnim Rupp\"\n\t\tdate = \"2022-11-22\"\n\t\tscore = 50\n\t\tid = \"4b7d81d8-1ae1-5fcf-a91c-271477a839db\"\n\tstrings:\n\t\t// line has to start with / to avoid triggering on #-comment lines\n\t\t$conf1 = /\\n\\/.{2,200}?\\binsecure\\b/ ascii\n\t\t$conf2 = /\\n\\/.{2,200}?\\bno_root_squash\\b/ ascii\n\n\tcondition:\n\t\tfilename == \"exports\" and \n\t\tfilepath contains \"/etc\" and \n\t\tany of ($conf*)\n}\n\nrule SUSP_AES_Key_in_MySql_History {\n\tmeta:\n\t\tdescription = \"Detects AES key outside of key management in .mysql_history\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Arnim Rupp\"\n\t\tdate = \"2022-11-22\"\n\t\tscore = 50\n\t\tid = \"28acef39-8606-5d3d-b395-0d8db13f6c9c\"\n\tstrings:\n\t\t$c1 = /\\bAES_(DE|EN)CRYPT\\(.{1,128}?,.??('|\").{1,128}?('|\")\\)/ ascii\n\t\t$c2 = /\\baes_(de|en)crypt\\(.{1,128}?,.??('|\").{1,128}?('|\")\\)/ ascii\n\n\tcondition:\n\t\tfilename == \".mysql_history\" and \n\t\tany of ($c*)\n}\n\nrule VULN_Slapd_Conf_with_Default_Password {\n\tmeta:\n\t\tdescription = \"Detects an openldap slapd.conf with the default password test123\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Arnim Rupp\"\n\t\tdate = \"2022-11-22\"\n\t\treference = \"https://www.openldap.org/doc/admin21/slapdconfig.html\"\n\t\tscore = 70\n\t\tid = \"1d1319da-125b-5373-88f1-27a23c85729e\"\n\tstrings:\n\t\t/* \\nrootpw \\{SSHA\\}fsAEyxlFOtvZBwPLAF68zpUhth8lERoR */\n\t\t$c1 = { 0A 72 6f 6f 74 70 77 20 7b 53 53 48 41 7d 66 73 41 45 79 78 6c 46 4f 74 76 5a 42 77 50 4c 41 46 36 38 7a 70 55 68 74 68 38 6c 45 52 6f 52 }\n\n\tcondition:\n\t\tfilename == \"slapd.conf\" and \n\t\tany of ($c*)\n}\n\nrule VULN_Unencrypted_SSH_Private_Key : T1552_004 {\n    meta:\n        description = \"Detects unencrypted SSH private keys with DSA, RSA, ECDSA and ED25519 of openssh or Putty\"\n        license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n        author = \"Arnim Rupp\"\n        date = \"2023-01-06\"\n        reference = \"https://attack.mitre.org/techniques/T1552/004/\"\n        score = 50\n        id = \"84b279fc-99c8-5101-b2d8-5c7adbaf753f\"\n    strings:\n        /*\n            -----BEGIN RSA PRIVATE KEY-----\n            MII\n        */\n        $openssh_rsa = { 2d 2d 2d 2d 2d 42 45 47 49 4e 20 52 53 41 20 50 52 49 56 41 54 45 20 4b 45 59 2d 2d 2d 2d 2d 0a 4d 49 49 }\n\n        /*\n            -----BEGIN DSA PRIVATE KEY-----\n            MIIBvAIBAAKBgQ\n        */\n        $openssh_dsa = { 2d 2d 2d 2d 2d 42 45 47 49 4e 20 44 53 41 20 50 52 49 56 41 54 45 20 4b 45 59 2d 2d 2d 2d 2d 0a 4d 49 49 42 76 41 49 42 41 41 4b 42 67 51 }\n\n        /*\n            -----BEGIN EC PRIVATE KEY-----\n            M\n        */\n        $openssh_ecdsa = { 2d 2d 2d 2d 2d 42 45 47 49 4e 20 45 43 20 50 52 49 56 41 54 45 20 4b 45 59 2d 2d 2d 2d 2d 0a 4d }\n\n        /*\n            -----BEGIN OPENSSH PRIVATE KEY-----\n            b3BlbnNzaC1rZXktdjEAAAAABG5vbmU\n\n            base64 contains: openssh-key-v1.....none\n        */\n        $openssh_ed25519 = { 2d 2d 2d 2d 2d 42 45 47 49 4e 20 4f 50 45 4e 53 53 48 20 50 52 49 56 41 54 45 20 4b 45 59 2d 2d 2d 2d 2d 0a 62 33 42 6c 62 6e 4e 7a 61 43 31 72 5a 58 6b 74 64 6a 45 41 41 41 41 41 42 47 35 76 62 6d 55 }\n\n        $putty_start = \"PuTTY-User-Key-File\" ascii\n        $putty_noenc = \"Encryption: none\" ascii\n\n    condition:\n        /*\n            limit to folders and filenames which are known to contain ssh keys to avoid triggering on all those\n            private keys for SSL, signing, ... which might be important but aren't usually used for lateral\n            movement => bad signal noise ratio\n        */\n        (\n            filepath contains \"ssh\" or\n            filepath contains \"SSH\" or\n            filepath contains \"utty\" or\n            filename contains \"ssh\" or\n            filename contains \"SSH\" or\n            filename contains \"id_\" or\n            filename contains \"id2_\" or\n            filename contains \".ppk\" or\n            filename contains \".PPK\" or\n            filename contains \"utty\"\n        )\n        and\n        (\n            $openssh_dsa     at 0 or\n            $openssh_rsa     at 0 or\n            $openssh_ecdsa   at 0 or\n            $openssh_ed25519 at 0 or\n            (\n                $putty_start at 0 and\n                $putty_noenc\n            )\n        )\n        and not filepath contains \"/root/\"\n        and not filename contains \"ssh_host_\"\n}\n\n\nrule VULN_Unencrypted_SSH_Private_Key_Root_Folder : T1552_004 {\n    meta:\n        description = \"Detects unencrypted SSH private keys with DSA, RSA, ECDSA and ED25519 of openssh or Putty\"\n        license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n        author = \"Arnim Rupp\"\n        date = \"2023-01-06\"\n        reference = \"https://attack.mitre.org/techniques/T1552/004/\"\n        score = 65\n        id = \"9e6a03a1-d95f-5de7-a6c0-a2e77486007c\"\n    strings:\n        /*\n            -----BEGIN RSA PRIVATE KEY-----\n            MII\n        */\n        $openssh_rsa = { 2d 2d 2d 2d 2d 42 45 47 49 4e 20 52 53 41 20 50 52 49 56 41 54 45 20 4b 45 59 2d 2d 2d 2d 2d 0a 4d 49 49 }\n\n        /*\n            -----BEGIN DSA PRIVATE KEY-----\n            MIIBvAIBAAKBgQ\n        */\n        $openssh_dsa = { 2d 2d 2d 2d 2d 42 45 47 49 4e 20 44 53 41 20 50 52 49 56 41 54 45 20 4b 45 59 2d 2d 2d 2d 2d 0a 4d 49 49 42 76 41 49 42 41 41 4b 42 67 51 }\n\n        /*\n            -----BEGIN EC PRIVATE KEY-----\n            M\n        */\n        $openssh_ecdsa = { 2d 2d 2d 2d 2d 42 45 47 49 4e 20 45 43 20 50 52 49 56 41 54 45 20 4b 45 59 2d 2d 2d 2d 2d 0a 4d }\n\n        /*\n            -----BEGIN OPENSSH PRIVATE KEY-----\n            b3BlbnNzaC1rZXktdjEAAAAABG5vbmU\n\n            base64 contains: openssh-key-v1.....none\n        */\n        $openssh_ed25519 = { 2d 2d 2d 2d 2d 42 45 47 49 4e 20 4f 50 45 4e 53 53 48 20 50 52 49 56 41 54 45 20 4b 45 59 2d 2d 2d 2d 2d 0a 62 33 42 6c 62 6e 4e 7a 61 43 31 72 5a 58 6b 74 64 6a 45 41 41 41 41 41 42 47 35 76 62 6d 55 }\n\n        $putty_start = \"PuTTY-User-Key-File\" ascii\n        $putty_noenc = \"Encryption: none\" ascii\n\n    condition:\n        /*\n            limit to folders and filenames which are known to contain ssh keys to avoid triggering on all those\n            private keys for SSL, signing, ... which might be important but aren't usually used for lateral\n            movement => bad signal noise ratio\n        */\n        (\n            filepath contains \"ssh\" or\n            filepath contains \"SSH\" or\n            filepath contains \"utty\" or\n            filename contains \"ssh\" or\n            filename contains \"SSH\" or\n            filename contains \"id_\" or\n            filename contains \"id2_\" or\n            filename contains \".ppk\" or\n            filename contains \".PPK\" or\n            filename contains \"utty\"\n        )\n        and\n        (\n            $openssh_dsa     at 0 or\n            $openssh_rsa     at 0 or\n            $openssh_ecdsa   at 0 or\n            $openssh_ed25519 at 0 or\n            (\n                $putty_start at 0 and\n                $putty_noenc\n            )\n        )\n        and filepath contains \"/root/\"\n        and not filename contains \"ssh_host_\"\n}\n"
+}

@@ -1,0 +1,22 @@
+{
+  "slug": "pua_cryptocoin_miner",
+  "filename": "pua_cryptocoin_miner.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "PUA_CryptoMiner_Jan19_1",
+      "meta": {
+        "description": "Detects Crypto Miner strings",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2019-01-31",
+        "score": "80",
+        "hash1": "ede858683267c61e710e367993f5e589fcb4b4b57b09d023a67ea63084c54a05",
+        "id": "aebfdce9-c2dd-5f24-aa25-071e1a961239"
+      }
+    }
+  ],
+  "body": "\nrule CoinMiner_Strings : SCRIPT HIGHVOL {\n   meta:\n      description = \"Detects mining pool protocol string in Executable\"\n      author = \"Florian Roth (Nextron Systems)\"\n      score = 60\n      reference = \"https://minergate.com/faq/what-pool-address\"\n      date = \"2018-01-04\"\n      modified = \"2021-10-26\"\n      nodeepdive = 1\n      id = \"ac045f83-5f32-57a9-8011-99a2658a0e05\"\n   strings:\n      $sa1 = \"stratum+tcp://\" ascii\n      $sa2 = \"stratum+udp://\" ascii\n      $sb1 = \"\\\"normalHashing\\\": true,\"\n   condition:\n      filesize < 3000KB and 1 of them\n}\n\nrule CoinHive_Javascript_MoneroMiner : HIGHVOL {\n   meta:\n      description = \"Detects CoinHive - JavaScript Crypto Miner\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      score = 50\n      reference = \"https://coinhive.com/documentation/miner\"\n      date = \"2018-01-04\"\n      id = \"4f40c342-fcdc-5c73-a3cf-7b2ed438eaaf\"\n   strings:\n      $s2 = \"CoinHive.CONFIG.REQUIRES_AUTH\" fullword ascii\n   condition:\n      filesize < 65KB and 1 of them\n}\n\nrule PUA_CryptoMiner_Jan19_1 {\n   meta:\n      description = \"Detects Crypto Miner strings\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2019-01-31\"\n      score = 80\n      hash1 = \"ede858683267c61e710e367993f5e589fcb4b4b57b09d023a67ea63084c54a05\"\n      id = \"aebfdce9-c2dd-5f24-aa25-071e1a961239\"\n   strings:\n      $s1 = \"Stratum notify: invalid Merkle branch\" fullword ascii\n      $s2 = \"-t, --threads=N       number of miner threads (default: number of processors)\" fullword ascii\n      $s3 = \"User-Agent: cpuminer/\" ascii\n      $s4 = \"hash > target (false positive)\" fullword ascii\n      $s5 = \"thread %d: %lu hashes, %s khash/s\" fullword ascii\n   condition:\n      filesize < 1000KB and 1 of them\n}\n\nrule PUA_Crypto_Mining_CommandLine_Indicators_Oct21 : SCRIPT {\n   meta:\n      description = \"Detects command line parameters often used by crypto mining software\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.poolwatch.io/coin/monero\"\n      date = \"2021-10-24\"\n      score = 65\n      id = \"afe5a63a-08c3-5cb7-b4b1-b996068124b7\"\n   strings:\n      $s01 = \" --cpu-priority=\"\n      $s02 = \"--donate-level=0\"\n      $s03 = \" -o pool.\"\n      $s04 = \" -o stratum+tcp://\"\n      $s05 = \" --nicehash\"\n      $s06 = \" --algo=rx/0 \"\n\n      /* base64 encoded: --donate-level= */\n      $se1 = \"LS1kb25hdGUtbGV2ZWw9\"\n      $se2 = \"0tZG9uYXRlLWxldmVsP\"\n      $se3 = \"tLWRvbmF0ZS1sZXZlbD\"\n\n      /* \n         base64 encoded:\n         stratum+tcp:// \n         stratum+udp:// \n      */\n      $se4 = \"c3RyYXR1bSt0Y3A6Ly\"\n      $se5 = \"N0cmF0dW0rdGNwOi8v\"\n      $se6 = \"zdHJhdHVtK3RjcDovL\"\n      $se7 = \"c3RyYXR1bSt1ZHA6Ly\"\n      $se8 = \"N0cmF0dW0rdWRwOi8v\"\n      $se9 = \"zdHJhdHVtK3VkcDovL\"\n   condition:\n      filesize < 5000KB and 1 of them\n}\n"
+}

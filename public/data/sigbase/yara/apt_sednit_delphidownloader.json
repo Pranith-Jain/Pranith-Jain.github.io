@@ -1,0 +1,38 @@
+{
+  "slug": "apt_sednit_delphidownloader",
+  "filename": "apt_sednit_delphidownloader.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2018-04-24\n   Identifier: Sednit Delphi Downloader\n   Reference: https://www.welivesecurity.com/2018/04/24/sednit-update-analysis-zebrocy/",
+  "rules": [
+    {
+      "name": "MAL_Sednit_DelphiDownloader_Apr18_2",
+      "meta": {
+        "description": "Detects malware from Sednit Delphi Downloader report",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.welivesecurity.com/2018/04/24/sednit-update-analysis-zebrocy/",
+        "date": "2018-04-24",
+        "hash1": "53aef1e8b281a00dea41387a24664655986b58d61d39cfbde7e58d8c2ca3efda",
+        "hash2": "657c83297cfcc5809e89098adf69c206df95aee77bfc1292898bbbe1c44c9dc4",
+        "hash3": "5427ecf4fa37e05a4fbab8a31436f2e94283a832b4e60a3475182001b9739182",
+        "hash4": "0458317893575568681c86b83e7f9c916540f0f58073b386d4419517c57dcb8f",
+        "hash5": "72aa4905598c9fb5a1e3222ba8daa3efb52bbff09d89603ab0911e43e15201f3",
+        "id": "6ccd2f21-de44-52fb-912e-d3ecbe57e389"
+      }
+    },
+    {
+      "name": "MAL_Sednit_DelphiDownloader_Apr18_3",
+      "meta": {
+        "description": "Detects malware from Sednit Delphi Downloader report",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.welivesecurity.com/2018/04/24/sednit-update-analysis-zebrocy/",
+        "date": "2018-04-24",
+        "modified": "2023-01-06",
+        "hash1": "ecb835d03060db1ea3496ceca2d79d7c4c6c671c9907e0b0e73bf8d3371fa931",
+        "hash2": "e355a327479dcc4e71a38f70450af02411125c5f101ba262e8df99f9f0fef7b6",
+        "id": "2200fbdc-3600-51d4-a273-dc7fd4127c05"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2018-04-24\n   Identifier: Sednit Delphi Downloader\n   Reference: https://www.welivesecurity.com/2018/04/24/sednit-update-analysis-zebrocy/\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule MAL_Sednit_DelphiDownloader_Apr18_2 {\n   meta:\n      description = \"Detects malware from Sednit Delphi Downloader report\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.welivesecurity.com/2018/04/24/sednit-update-analysis-zebrocy/\"\n      date = \"2018-04-24\"\n      hash1 = \"53aef1e8b281a00dea41387a24664655986b58d61d39cfbde7e58d8c2ca3efda\"\n      hash2 = \"657c83297cfcc5809e89098adf69c206df95aee77bfc1292898bbbe1c44c9dc4\"\n      hash3 = \"5427ecf4fa37e05a4fbab8a31436f2e94283a832b4e60a3475182001b9739182\"\n      hash4 = \"0458317893575568681c86b83e7f9c916540f0f58073b386d4419517c57dcb8f\"\n      hash5 = \"72aa4905598c9fb5a1e3222ba8daa3efb52bbff09d89603ab0911e43e15201f3\"\n      id = \"6ccd2f21-de44-52fb-912e-d3ecbe57e389\"\n   strings:\n      $s1 = \"2D444F574E4C4F41445F53544152542D\" ascii /* hex encoded string '-DOWNLOAD_START-' */\n      $s2 = \"55504C4F41445F414E445F455845435554455F46494C45\" ascii /* hex encoded string 'UPLOAD_AND_EXECUTE_FILE' */\n      $s3 = \"4D6F7A696C6C612076352E31202857696E646F7773204E5420362E313B2072763A362E302E3129204765636B6F2F32303130303130312046697265666F782F36\" ascii /* hex encoded string 'Mozilla v5.1 (Windows NT 6.1; rv:6.0.1) Gecko/20100101 Firefox/6.0.1' */\n      $s4 = \"41646F62654461696C79557064617465\" ascii /* hex encoded string 'AdobeDailyUpdate' */\n      $s5 = \"53595354454D494E464F2026205441534B4C495354\" ascii /* hex encoded string 'SYSTEMINFO & TASKLIST' */\n      $s6 = \"6373727376632E657865\" ascii /* hex encoded string 'csrsvc.exe' */\n      $s7 = \"536F6674776172655C4D6963726F736F66745C57696E646F77735C43757272656E7456657273696F6E5C52756E\" ascii /* hex encoded string 'Software\\Microsoft\\Windows\\CurrentVersion\\Run' */\n      $s8 = \"5C536F6674776172655C4D6963726F736F66745C57696E646F7773204E545C43757272656E7456657273696F6E\" ascii /* hex encoded string '\\Software\\Microsoft\\Windows NT\\CurrentVersion' */\n      $s9 = \"5C536F6674776172655C4D6963726F736F66745C57696E646F77735C43757272656E7456657273696F6E\" ascii /* hex encoded string '\\Software\\Microsoft\\Windows\\CurrentVersion' */\n      $s0 = \"2D444F574E4C4F41445F53544152542D\" ascii /* hex encoded string '-DOWNLOAD_START-' */\n\n      $fp1 = \"<key name=\\\"profiles\\\">\"\n   condition:\n      filesize < 4000KB and 1 of ($s*) and not 1 of ($fp*)\n}\n\nrule MAL_Sednit_DelphiDownloader_Apr18_3 {\n   meta:\n      description = \"Detects malware from Sednit Delphi Downloader report\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.welivesecurity.com/2018/04/24/sednit-update-analysis-zebrocy/\"\n      date = \"2018-04-24\"\n      modified = \"2023-01-06\"\n      hash1 = \"ecb835d03060db1ea3496ceca2d79d7c4c6c671c9907e0b0e73bf8d3371fa931\"\n      hash2 = \"e355a327479dcc4e71a38f70450af02411125c5f101ba262e8df99f9f0fef7b6\"\n      id = \"2200fbdc-3600-51d4-a273-dc7fd4127c05\"\n   strings:\n      $ = \"Processor Level: \" fullword ascii\n      $ = \"CONNECTION ERROR\" fullword ascii\n      $ = \"FILE_EXECUTE_AND_KILL_MYSELF\" ascii\n      $ = \"-KILL_PROCESS-\" ascii\n      $ = \"-FILE_EXECUTE-\" ascii\n      $ = \"-DOWNLOAD_ERROR-\" ascii\n      $ = \"CMD_EXECUTE\" fullword ascii\n      $ = \"\\\\Interface\\\\Office\\\\{31E12FE8-937F-1E32-871D-B1C9AOEF4D4}\\\\\" ascii\n      $ = \"Mozilla/3.0 (compatible; Indy Library)\" fullword ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 2000KB and 3 of them\n}\n"
+}

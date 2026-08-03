@@ -1,0 +1,20 @@
+{
+  "slug": "gen_osx_pyagent_persistence",
+  "filename": "gen_osx_pyagent_persistence.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "Persistence_Agent_MacOS",
+      "meta": {
+        "description": "Detects a Python agent that establishes persistence on macOS",
+        "author": "John Lambert @JohnLaTwC",
+        "reference": "https://ghostbin.com/paste/mz5nf",
+        "hash": "4288a81779a492b5b02bad6e90b2fa6212fa5f8ee87cc5ec9286ab523fc02446 cec7be2126d388707907b4f9d681121fd1e3ca9f828c029b02340ab1331a5524 e1cf136be50c4486ae8f5e408af80b90229f3027511b4beed69495a042af95be",
+        "id": "9c69af3c-ee85-58ac-8b78-66760addc117"
+      }
+    }
+  ],
+  "body": "rule Persistence_Agent_MacOS {\n    meta:\n        description = \"Detects a Python agent that establishes persistence on macOS\"\n        author = \"John Lambert @JohnLaTwC\"\n        reference = \"https://ghostbin.com/paste/mz5nf\"\n        hash = \"4288a81779a492b5b02bad6e90b2fa6212fa5f8ee87cc5ec9286ab523fc02446 cec7be2126d388707907b4f9d681121fd1e3ca9f828c029b02340ab1331a5524 e1cf136be50c4486ae8f5e408af80b90229f3027511b4beed69495a042af95be\"\n\n        id = \"9c69af3c-ee85-58ac-8b78-66760addc117\"\n    strings:\n        $h1 = \"#!/usr/bin/env python\"\n        $s_1= \"<plist\" ascii fullword\n        $s_2= \"ProgramArguments\" ascii fullword\n        $s_3= \"Library\" ascii fullword\n        $sinterval_1= \"StartInterval\" ascii fullword\n        $sinterval_2= \"RunAtLoad\" ascii fullword\n\n        //<plist\n        $e_1 = /(AHAAbABpAHMAdA|cGxpc3|PABwAGwAaQBzAHQA|PHBsaXN0|wAcABsAGkAcwB0A|xwbGlzd)/ ascii\n\n        //ProgramArguments\n        $e_2 =/(AAcgBvAGcAcgBhAG0AQQByAGcAdQBtAGUAbgB0AHMA|AHIAbwBnAHIAYQBtAEEAcgBnAHUAbQBlAG4AdABzA|Byb2dyYW1Bcmd1bWVudH|cm9ncmFtQXJndW1lbnRz|UAByAG8AZwByAGEAbQBBAHIAZwB1AG0AZQBuAHQAcw|UHJvZ3JhbUFyZ3VtZW50c)/ ascii\n        //Library\n        $e_4 = /(AGkAYgByAGEAcgB5A|aWJyYXJ5|TABpAGIAcgBhAHIAeQ|TGlicmFye|wAaQBiAHIAYQByAHkA|xpYnJhcn)/ ascii\n\n        //StartInterval\n        $einterval_a = /(AHQAYQByAHQASQBuAHQAZQByAHYAYQBsA|dGFydEludGVydmFs|MAdABhAHIAdABJAG4AdABlAHIAdgBhAGwA|N0YXJ0SW50ZXJ2YW|U3RhcnRJbnRlcnZhb|UwB0AGEAcgB0AEkAbgB0AGUAcgB2AGEAbA)/ ascii\n        $einterval_b = /(AHUAbgBBAHQATABvAGEAZA|dW5BdExvYW|IAdQBuAEEAdABMAG8AYQBkA|J1bkF0TG9hZ|UgB1AG4AQQB0AEwAbwBhAGQA|UnVuQXRMb2Fk)/ ascii\n\n    condition:\n        uint32(0) == 0x752f2123\n        and $h1 at 0\n        and filesize < 120KB\n        and\n        (\n            (all of ($s_*) and 1 of ($sinterval*))\n            or\n            (all of ($e_*) and 1 of ($einterval*))\n        )\n\n}\n"
+}

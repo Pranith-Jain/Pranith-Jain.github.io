@@ -1,0 +1,22 @@
+{
+  "slug": "gen_khepri",
+  "filename": "gen_khepri.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "HKTL_Khepri_Beacon_Sep21_1",
+      "meta": {
+        "description": "Detects Khepri C2 framework beacons",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://github.com/geemion/Khepri/",
+        "date": "2021-09-08",
+        "score": "90",
+        "hash1": "86c48679db5f4c085fd741ebec5235bc6cf0cdf8ef2d98fd8a689ceb5088f431",
+        "id": "b2c8aaf7-7953-55a3-8499-565800fa01f1"
+      }
+    }
+  ],
+  "body": "\nrule HKTL_Khepri_Beacon_Sep21_1 {\n   meta:\n      description = \"Detects Khepri C2 framework beacons\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://github.com/geemion/Khepri/\"\n      date = \"2021-09-08\"\n      score = 90\n      hash1 = \"86c48679db5f4c085fd741ebec5235bc6cf0cdf8ef2d98fd8a689ceb5088f431\"\n      id = \"b2c8aaf7-7953-55a3-8499-565800fa01f1\"\n   strings:\n      $x1 = \"NT %d.%d Build %d  ProductType:%s\" ascii fullword\n\n      /* c2.CMDPARAM.cmd */\n      $xe1 = \"YzIuQ01EUEFSQU0uY21k\" ascii\n      $xe2 = \"MyLkNNRFBBUkFNLmNtZ\" ascii\n      $xe3 = \"jMi5DTURQQVJBTS5jbW\" ascii\n      \n      $sx1 = \"c2.ProcessItem.user\" ascii fullword\n      $sx2 = \"c2.CMDPARAM.cmd\" ascii fullword\n      $sx3 = \"c2.DownLoadFile.file_path\" ascii fullword\n\n      $sa1 = \"file size zero\"\n      $sa2 = \"cmd.exe /c \"\n      $sa3 = \"error parse param\"\n      $sa4 = \"innet_ip\"\n\n      $op1 = { c3 b9 b4 98 49 00 87 01 5d c3 b8 b8 98 49 00 c3 8b ff }\n      $op2 = { 8b f1 80 3d 58 97 49 00 00 0f 85 96 00 00 00 33 c0 40 b9 50 97 49 00 87 01 33 db }\n      $op3 = { 90 d5 0c 43 00 34 0d 43 00 ea 0c 43 00 7e 0d 43 00 b6 0d 43 00 cc }\n      $op4 = { 69 c0 ff 00 00 00 8b 4d c0 23 88 40 7c 49 00 89 4d c0 8b 45 cc 0b 45 c0 89 45 cc 8b 45 d0 }\n   condition:\n      ( uint16(0) == 0x5a4d or uint32be(0) == 0x7f454c46 ) and\n      filesize < 2000KB and (\n         1 of ($x*) or\n         2 of ($sx*) or\n         all of ($sa*) or \n         3 of ($op*)\n      ) or (\n         filesize < 10MB \n         and 1 of ($xe*)\n      ) \n      or 5 of them\n}\n"
+}

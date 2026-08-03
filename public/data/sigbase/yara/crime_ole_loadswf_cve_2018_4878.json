@@ -1,0 +1,27 @@
+{
+  "slug": "crime_ole_loadswf_cve_2018_4878",
+  "filename": "crime_ole_loadswf_cve_2018_4878.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "crime_ole_loadswf_cve_2018_4878",
+      "meta": {
+        "description": "Detects CVE-2018-4878",
+        "vuln_type": "Remote Code Execution",
+        "vuln_impact": "Use-after-free",
+        "affected_versions": "Adobe Flash 28.0.0.137 and earlier versions",
+        "mitigation0": "Implement Protected View for Office documents",
+        "mitigation1": "Disable Adobe Flash",
+        "weaponization": "Embedded in Microsoft Office first payloads",
+        "actor": "Purported North Korean actors",
+        "reference": "hxxps://www[.]krcert[.]or[.kr/data/secNoticeView.do?bulletin_writing_sequence=26998",
+        "author": "Vitali Kremez, Flashpoint",
+        "version": "1.1",
+        "id": "44797bbc-693b-5fcb-a4a4-4ebf3f4da725"
+      }
+    }
+  ],
+  "body": "\nrule crime_ole_loadswf_cve_2018_4878 {\n   meta:\n      description = \"Detects CVE-2018-4878\"\n      vuln_type = \"Remote Code Execution\"\n      vuln_impact = \"Use-after-free\"\n      affected_versions = \"Adobe Flash 28.0.0.137 and earlier versions\"\n      mitigation0 = \"Implement Protected View for Office documents\"\n      mitigation1 = \"Disable Adobe Flash\"\n      weaponization = \"Embedded in Microsoft Office first payloads\"\n      actor = \"Purported North Korean actors\"\n      reference = \"hxxps://www[.]krcert[.]or[.kr/data/secNoticeView.do?bulletin_writing_sequence=26998\"\n      author = \"Vitali Kremez, Flashpoint\"\n      version = \"1.1\"\n      id = \"44797bbc-693b-5fcb-a4a4-4ebf3f4da725\"\n   strings:\n      // EMBEDDED FLASH OBJECT BIN HEADER\n      $header = \"rdf:RDF\" wide ascii\n      // OBJECT APPLICATION TYPE TITLE\n      $title = \"Adobe Flex\" wide ascii\n      // PDB PATH\n      $pdb = \"F:\\\\work\\\\flash\\\\obfuscation\\\\loadswf\\\\src\" wide ascii\n      // LOADER STRINGS\n      $s0 = \"URLRequest\" wide ascii\n      $s1 = \"URLLoader\" wide ascii\n      $s2 = \"loadswf\" wide ascii\n      $s3 = \"myUrlReqest\" wide ascii\n   condition:\n      filesize < 500KB and all of ($header*) and\n      all of ($title*) and 3 of ($s*) or all of ($pdb*) and all of ($header*) and 1 of ($s*)\n}\n"
+}

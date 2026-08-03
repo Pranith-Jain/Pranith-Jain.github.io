@@ -1,0 +1,48 @@
+{
+  "slug": "expl_outlook_cve_2023_23397",
+  "filename": "expl_outlook_cve_2023_23397.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_EXPL_Msg_CVE_2023_23397_Mar23",
+      "meta": {
+        "description": "MSG file with a PidLidReminderFileParameter property, potentially exploiting CVE-2023-23397",
+        "author": "delivr.to, modified by Florian Roth, Nils Kuhnert, Arnim Rupp, marcin@ulikowski.pl",
+        "date": "2023-03-15",
+        "modified": "2024-12-03",
+        "score": "60",
+        "reference": "https://www.mdsec.co.uk/2023/03/exploiting-cve-2023-23397-microsoft-outlook-elevation-of-privilege-vulnerability/",
+        "hash": "eedae202980c05697a21a5c995d43e1905c4b25f8ca2fff0c34036bc4fd321fa",
+        "id": "0a4d7bbe-1e17-5240-ad0f-29511752b267"
+      }
+    },
+    {
+      "name": "EXPL_SUSP_Outlook_CVE_2023_23397_Exfil_IP_Mar23",
+      "meta": {
+        "description": "Detects suspicious .msg file with a PidLidReminderFileParameter property exploiting CVE-2023-23397 (modified delivr.to rule - more specific = less FPs but limited to exfil using IP addresses, not FQDNs)",
+        "author": "delivr.to, Florian Roth, Nils Kuhnert, Arnim Rupp, marcin@ulikowski.pl",
+        "date": "2023-03-15",
+        "modified": "2023-03-18",
+        "score": "75",
+        "reference": "https://www.mdsec.co.uk/2023/03/exploiting-cve-2023-23397-microsoft-outlook-elevation-of-privilege-vulnerability/",
+        "hash": "e7a1391dd53f349094c1235760ed0642519fd87baf740839817d47488b9aef02",
+        "id": "d85bf1d9-aebe-5f8c-9dd4-c509f64e221a"
+      }
+    },
+    {
+      "name": "EXPL_SUSP_Outlook_CVE_2023_23397_SMTP_Mail_Mar23",
+      "meta": {
+        "author": "Nils Kuhnert",
+        "date": "2023-03-17",
+        "modified": "2023-03-24",
+        "description": "Detects suspicious *.eml files that include TNEF content that possibly exploits CVE-2023-23397. Lower score than EXPL_SUSP_Outlook_CVE_2023_23397_Exfil_IP_Mar23 as we're only looking for UNC prefix.",
+        "score": "60",
+        "reference": "https://twitter.com/wdormann/status/1636491612686622723",
+        "id": "922fae73-520d-5659-8331-f242c7c55810"
+      }
+    }
+  ],
+  "body": "rule SUSP_EXPL_Msg_CVE_2023_23397_Mar23 {\n   meta:\n      description = \"MSG file with a PidLidReminderFileParameter property, potentially exploiting CVE-2023-23397\"\n      author = \"delivr.to, modified by Florian Roth, Nils Kuhnert, Arnim Rupp, marcin@ulikowski.pl\"\n      date = \"2023-03-15\"\n      modified = \"2024-12-03\"\n      score = 60\n      reference = \"https://www.mdsec.co.uk/2023/03/exploiting-cve-2023-23397-microsoft-outlook-elevation-of-privilege-vulnerability/\"\n      hash = \"47fee24586cd2858cfff2dd7a4e76dc95eb44c8506791ccc2d59c837786eafe3\"\n      hash = \"582442ee950d546744f2fa078adb005853a453e9c7f48c6c770e6322a888c2cf\"\n      hash = \"6c0087a5cbccb3c776a471774d1df10fe46b0f0eb11db6a32774eb716e1b7909\"\n      hash = \"7fb7a2394e03cc4a9186237428a87b16f6bf1b66f2724aea1ec6a56904e5bfad\"\n      hash = \"eedae202980c05697a21a5c995d43e1905c4b25f8ca2fff0c34036bc4fd321fa\"\n      id = \"0a4d7bbe-1e17-5240-ad0f-29511752b267\"\n   strings:\n      /* https://interoperability.blob.core.windows.net/files/MS-OXPROPS/%5bMS-OXPROPS%5d.pdf */\n      /* PSETID_Appointment */\n      $psetid_app = { 02 20 06 00 00 00 00 00 C0 00 00 00 00 00 00 46 }\n      /* PSETID_Meeting */\n      $psetid_meeting = { 90 DA D8 6E 0B 45 1B 10 98 DA 00 AA 00 3F 13 05 }\n      /* PSETID Task */\n      $psetid_task = { 03 20 06 00 00 00 00 00 c0 00 00 00 00 00 00 46 }\n\n      /* PidLidReminderFileParameter */\n      $rfp = { 1F 85 00 00 }\n      /* \\\\ UNC path prefix - wide formatted */\n      $u1 = { 00 00 5C 00 5C 00 }\n      /* not MSI */\n      $fp_msi1 = {84 10 0C 00 00 00 00 00 C0 00 00 00 00 00 00 46}\n      /* not ASD */\n      $fp_asd = \"theme/theme1.xml\"\n   condition:\n      uint32be(0) == 0xD0CF11E0\n      and uint32be(4) == 0xA1B11AE1\n      and 1 of ($psetid*)\n      and $rfp\n      and $u1\n      and not 1 of ($fp*)\n}\n\nrule EXPL_SUSP_Outlook_CVE_2023_23397_Exfil_IP_Mar23 {\n   meta:\n      description = \"Detects suspicious .msg file with a PidLidReminderFileParameter property exploiting CVE-2023-23397 (modified delivr.to rule - more specific = less FPs but limited to exfil using IP addresses, not FQDNs)\"\n      author = \"delivr.to, Florian Roth, Nils Kuhnert, Arnim Rupp, marcin@ulikowski.pl\"\n      date = \"2023-03-15\"\n      modified = \"2023-03-18\"\n      score = 75\n      reference = \"https://www.mdsec.co.uk/2023/03/exploiting-cve-2023-23397-microsoft-outlook-elevation-of-privilege-vulnerability/\"\n      hash = \"47fee24586cd2858cfff2dd7a4e76dc95eb44c8506791ccc2d59c837786eafe3\"\n      hash = \"582442ee950d546744f2fa078adb005853a453e9c7f48c6c770e6322a888c2cf\"\n      hash = \"6c0087a5cbccb3c776a471774d1df10fe46b0f0eb11db6a32774eb716e1b7909\"\n      hash = \"7fb7a2394e03cc4a9186237428a87b16f6bf1b66f2724aea1ec6a56904e5bfad\"\n      hash = \"eedae202980c05697a21a5c995d43e1905c4b25f8ca2fff0c34036bc4fd321fa\"\n      hash = \"e7a1391dd53f349094c1235760ed0642519fd87baf740839817d47488b9aef02\"\n      id = \"d85bf1d9-aebe-5f8c-9dd4-c509f64e221a\"\n   strings:\n      /* https://interoperability.blob.core.windows.net/files/MS-OXPROPS/%5bMS-OXPROPS%5d.pdf */\n      /* PSETID_Appointment */\n      $psetid_app = { 02 20 06 00 00 00 00 00 C0 00 00 00 00 00 00 46 }\n      /* PSETID_Meeting */\n      $psetid_meeting = { 90 DA D8 6E 0B 45 1B 10 98 DA 00 AA 00 3F 13 05 }\n      /* PSETID Task */\n      $psetid_task = { 03 20 06 00 00 00 00 00 c0 00 00 00 00 00 00 46 }\n      /* PidLidReminderFileParameter */\n      $rfp = { 1F 85 00 00 }\n      /* \\\\ + IP UNC path prefix - wide formatted */\n      $u1 = { 5C 00 5C 00 (3? 00 2E|3? 00 3? 00 2E|3? 00 3? 00 3? 00 2E) 00 (3? 00 2E|3? 00 3? 00 2E|3? 00 3? 00 3? 00 2E) 00 (3? 00 2E|3? 00 3? 00 2E|3? 00 3? 00 3? 00 2E) 00 (3? 00 3? 00 3? 00|3? 00 3? 00|3? 00) }\n      /* \\\\ + IP UNC path prefix - regular/ascii formatted for Transport Neutral Encapsulation Format */\n      $u2 = { 00 5C 5C (3? 2E|3? 3? 2E|3? 3? 3? 2E) (3? 2E|3? 3? 2E|3? 3? 3? 2E) (3? 2E|3? 3? 2E|3? 3? 3? 2E) (3? 3? 3?|3? 3?|3?) }\n      /* not MSI */\n      $fp_msi1 = {84 10 0C 00 00 00 00 00 C0 00 00 00 00 00 00 46}\n   condition:\n      (\n         uint16(0) == 0xCFD0 and 1 of ($psetid*)\n         or\n         uint32be(0) == 0x789F3E22\n      )\n      and any of ( $u* )\n      and $rfp\n      and not 1 of ($fp*)\n}\n\nrule EXPL_SUSP_Outlook_CVE_2023_23397_SMTP_Mail_Mar23 {\n   meta:\n      author = \"Nils Kuhnert\"\n      date = \"2023-03-17\"\n      modified = \"2023-03-24\"\n      description = \"Detects suspicious *.eml files that include TNEF content that possibly exploits CVE-2023-23397. Lower score than EXPL_SUSP_Outlook_CVE_2023_23397_Exfil_IP_Mar23 as we're only looking for UNC prefix.\"\n      score = 60\n      reference = \"https://twitter.com/wdormann/status/1636491612686622723\"\n      id = \"922fae73-520d-5659-8331-f242c7c55810\"\n   strings:\n      // From:\n      $mail1 = { 0A 46 72 6F 6D 3A 20 }\n      // To: \n      $mail2 = { 0A 54 6F 3A }\n      // Received:\n      $mail3 = { 0A 52 65 63 65 69 76 65 64 3A }\n\n      // Indicates that attachment is TNEF\n      $tnef1 = \"Content-Type: application/ms-tnef\" ascii\n      $tnef2 = \"\\x78\\x9f\\x3e\\x22\" base64\n\n      // Check if it's an IPM.Task or IPM.Appointment\n      $ipm1 = \"IPM.Task\" base64\n      $ipm2 = \"IPM.Appointment\" base64\n\n      // UNC prefix in TNEF\n      $unc = \"\\x00\\x00\\x00\\x5c\\x5c\" base64\n   condition:\n      all of ($mail*) and all of ($tnef*) and 1 of ($ipm*) and $unc\n}\n"
+}

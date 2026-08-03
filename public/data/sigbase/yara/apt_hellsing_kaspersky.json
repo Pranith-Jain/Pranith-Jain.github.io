@@ -1,0 +1,81 @@
+{
+  "slug": "apt_hellsing_kaspersky",
+  "filename": "apt_hellsing_kaspersky.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "apt_hellsing_implantstrings",
+      "meta": {
+        "version": "1.0",
+        "filetype": "PE",
+        "author": "Costin Raiu, Kaspersky Lab",
+        "copyright": "Kaspersky Lab",
+        "date": "2015-04-07",
+        "description": "detection for Hellsing implants",
+        "id": "00aa5885-ae79-5d68-8587-13d3e8965630"
+      }
+    },
+    {
+      "name": "apt_hellsing_installer",
+      "meta": {
+        "version": "1.0",
+        "filetype": "PE",
+        "author": "Costin Raiu, Kaspersky Lab",
+        "copyright": "Kaspersky Lab",
+        "date": "2015-04-07",
+        "description": "detection for Hellsing xweber/msger installers",
+        "id": "0aca838e-813a-59ee-8a04-7d2f4e854075"
+      }
+    },
+    {
+      "name": "apt_hellsing_proxytool",
+      "meta": {
+        "version": "1.0",
+        "filetype": "PE",
+        "author": "Costin Raiu, Kaspersky Lab",
+        "copyright": "Kaspersky Lab",
+        "date": "2015-04-07",
+        "description": "detection for Hellsing proxy testing tool",
+        "id": "54454f07-11a9-5456-b489-9a9610e53123"
+      }
+    },
+    {
+      "name": "apt_hellsing_xkat",
+      "meta": {
+        "version": "1.0",
+        "filetype": "PE",
+        "author": "Costin Raiu, Kaspersky Lab",
+        "date": "2015-04-07",
+        "description": "detection for Hellsing xKat tool",
+        "id": "c831ce04-8fb2-5790-8aaf-c88b370835ac"
+      }
+    },
+    {
+      "name": "apt_hellsing_msgertype2",
+      "meta": {
+        "version": "1.0",
+        "filetype": "PE",
+        "author": "Costin Raiu, Kaspersky Lab",
+        "copyright": "Kaspersky Lab",
+        "date": "2015-04-07",
+        "description": "detection for Hellsing msger type 2 implants",
+        "id": "98f151de-c1c2-56c1-8c64-5d1f437e0742"
+      }
+    },
+    {
+      "name": "apt_hellsing_irene",
+      "meta": {
+        "version": "1.0",
+        "filetype": "PE",
+        "author": "Costin Raiu, Kaspersky Lab",
+        "copyright": "Kaspersky Lab",
+        "date": "2015-04-07",
+        "description": "detection for Hellsing msger irene installer",
+        "id": "b57d1a10-4e5c-511f-b98c-8ce7d766c227"
+      }
+    }
+  ],
+  "body": "\nrule apt_hellsing_implantstrings { \n\tmeta:\n\t\tversion = \"1.0\"\n\t\tfiletype = \"PE\"\n\t\tauthor = \"Costin Raiu, Kaspersky Lab\" \n\t\tcopyright = \"Kaspersky Lab\"\n\t\tdate = \"2015-04-07\"\n\t\tdescription = \"detection for Hellsing implants\"\n\t\tid = \"00aa5885-ae79-5d68-8587-13d3e8965630\"\n\tstrings: \n\t\t$a1 = \"the file uploaded failed !\"\n\t\t$a2 = \"ping 127.0.0.1\"\n\t\t$b1 = \"the file downloaded failed !\"\n\t\t$b2 = \"common.asp\"\n\t\t$c = \"xweber_server.exe\" \n\t\t$d = \"action=\"\n\t\t$debugpath1 = \"d:\\\\Hellsing\\\\release\\\\msger\\\\\" nocase \n\t\t$debugpath2 = \"d:\\\\hellsing\\\\sys\\\\xrat\\\\\" nocase \n\t\t$debugpath3 = \"D:\\\\Hellsing\\\\release\\\\exe\\\\\" nocase \n\t\t$debugpath4 = \"d:\\\\hellsing\\\\sys\\\\xkat\\\\\" nocase \n\t\t$debugpath5 = \"e:\\\\Hellsing\\\\release\\\\clare\" nocase \n\t\t$debugpath6 = \"e:\\\\Hellsing\\\\release\\\\irene\\\\\" nocase \n\t\t$debugpath7 = \"d:\\\\hellsing\\\\sys\\\\irene\\\\\" nocase\n\t\t$e = \"msger_server.dll\" \n\t\t$f = \"ServiceMain\"\n\tcondition:\n\t\tuint16(0) == 0x5a4d and (all of ($a*)) or (all of ($b*)) or ($c and $d) or (any of ($debugpath*)) or ($e and $f) and filesize < 500000\n}\n\nrule apt_hellsing_installer { \n\tmeta:\n\t\tversion = \"1.0\"\n\t\tfiletype = \"PE\"\n\t\tauthor = \"Costin Raiu, Kaspersky Lab\"\n\t\tcopyright = \"Kaspersky Lab\"\n\t\tdate = \"2015-04-07\"\n\t\tdescription = \"detection for Hellsing xweber/msger installers\"\n\t\tid = \"0aca838e-813a-59ee-8a04-7d2f4e854075\"\n\tstrings: \n\t\t$cmd = \"cmd.exe /c ping 127.0.0.1 -n 5&cmd.exe /c del /a /f \\\"%s\\\"\"\n\t\t$a1 = \"xweber_install_uac.exe\"\n\t\t$a2 = \"system32\\\\cmd.exe\" wide\n\t\t$a4 = \"S11SWFOrVwR9UlpWRVZZWAR0U1aoBHFTUl2oU1Y=\"\n\t\t$a5 = \"S11SWFOrVwR9dnFTUgRUVlNHWVdXBFpTVgRdUlpWRVZZWARdUqhZVlpFR1kEUVNSXahTVgRaU1YEUVNSXahTVl1SWwRZValdVFFZUqgQBF1SWlZFVllYBFRTVqg=\" \n\t\t$a6 = \"7dqm2ODf5N/Y2N/m6+br3dnZpunl44g=\" $a7=\"vd/m7OXd2ai/5u7a59rr7Ki45drcqMPl5t/c5dqIZw==\"\n\t\t$a8 = \"vd/m7OXd2ai/usPl5qjY2uXp69nZqO7l2qjf5u7a59rr7Kjf5tzr2u7n6euo4+Xm39zl2qju5dqo4+Xm39zl2t/m7ajr19vf2OPr39rj5eaZmqbs5OSINjl2tyI\"\n\t\t$a9 = \"C:\\\\Windows\\\\System32\\\\sysprep\\\\sysprep.exe\" wide \n\t\t$a10 = \"%SystemRoot%\\\\system32\\\\cmd.exe\" wide \n\t\t$a11 = \"msger_install.dll\"\n\t\t$a12 = {00 65 78 2E 64 6C 6C 00}\n\tcondition:\n\t\tuint16(0) == 0x5a4d and ($cmd and (2 of ($a*))) and filesize < 500000\n}\n\nrule apt_hellsing_proxytool { \n\tmeta:\n\t\tversion = \"1.0\"\n\t\tfiletype = \"PE\"\n\t\tauthor = \"Costin Raiu, Kaspersky Lab\"\n\t\tcopyright = \"Kaspersky Lab\"\n\t\tdate = \"2015-04-07\"\n\t\tdescription = \"detection for Hellsing proxy testing tool\"\n\t\tid = \"54454f07-11a9-5456-b489-9a9610e53123\"\n\tstrings: \n\t\t$a1 = \"PROXY_INFO: automatic proxy url => %s\"\n\t\t$a2 = \"PROXY_INFO: connection type => %d\"\n\t\t$a3 = \"PROXY_INFO: proxy server => %s\"\n\t\t$a4 = \"PROXY_INFO: bypass list => %s\"\n\t\t$a5 = \"InternetQueryOption failed with GetLastError() %d\"\n\t\t$a6 = \"D:\\\\Hellsing\\\\release\\\\exe\\\\exe\\\\\" nocase\n\tcondition:\n\t\tuint16(0) == 0x5a4d and (2 of ($a*)) and filesize < 300000\n}\n\nrule apt_hellsing_xkat { \n\tmeta:\n\t\tversion = \"1.0\"\n\t\tfiletype = \"PE\"\n\t\tauthor = \"Costin Raiu, Kaspersky Lab\" copyright = \"Kaspersky Lab\"\n\t\tdate = \"2015-04-07\"\n\t\tdescription = \"detection for Hellsing xKat tool\"\n\t\tid = \"c831ce04-8fb2-5790-8aaf-c88b370835ac\"\n\tstrings: \n\t\t$a1 = \"\\\\Dbgv.sys\" $a2=\"XKAT_BIN\" $a3=\"release sys file error.\"\n\t\t$a4 = \"driver_load error. \"\n\t\t$a5 = \"driver_create error.\"\n\t\t$a6 = \"delete file:%s error.\" \n\t\t$a7 = \"delete file:%s ok.\"\n\t\t$a8 = \"kill pid:%d error.\"\n\t\t$a9 = \"kill pid:%d ok.\"\n\t\t$a10 = \"-pid-delete\"\n\t\t$a11 = \"kill and delete pid:%d error.\"\n\t\t$a12 = \"kill and delete pid:%d ok.\"\n\tcondition:\n\t\tuint16(0) == 0x5a4d and (6 of ($a*)) and filesize < 300000\n}\n\nrule apt_hellsing_msgertype2 { \n\tmeta:\n\t\tversion = \"1.0\"\n\t\tfiletype = \"PE\"\n\t\tauthor = \"Costin Raiu, Kaspersky Lab\"\n\t\tcopyright = \"Kaspersky Lab\"\n\t\tdate = \"2015-04-07\"\n\t\tdescription = \"detection for Hellsing msger type 2 implants\"\n\t\tid = \"98f151de-c1c2-56c1-8c64-5d1f437e0742\"\n\tstrings: \n\t\t$a1 = \"%s\\\\system\\\\%d.txt\"\n\t\t$a2 = \"_msger\" \n\t\t$a3 = \"http://%s/lib/common.asp?action=user_login&uid=%s&lan=%s&host=%s&os=%s&proxy=%s\"\n\t\t$a4 = \"http://%s/data/%s.1000001000\" \n\t\t$a5 = \"/lib/common.asp?action=user_upload&file=\"\n\t\t$a6 = \"%02X-%02X-%02X-%02X-%02X-%02X\"\n\tcondition:\n\t\tuint16(0) == 0x5a4d and (4 of ($a*)) and filesize < 500000\n}\n\nrule apt_hellsing_irene { \n\tmeta:\n\t\tversion = \"1.0\"\n\t\tfiletype = \"PE\"\n\t\tauthor = \"Costin Raiu, Kaspersky Lab\"\n\t\tcopyright = \"Kaspersky Lab\"\n\t\tdate = \"2015-04-07\"\n\t\tdescription = \"detection for Hellsing msger irene installer\"\n\t\tid = \"b57d1a10-4e5c-511f-b98c-8ce7d766c227\"\n\tstrings: \n\t\t$a1 = \"\\\\Drivers\\\\usbmgr.tmp\" wide\n\t\t$a2 = \"\\\\Drivers\\\\usbmgr.sys\" wide\n\t\t$a3 = \"common_loadDriver CreateFile error!\"\n\t\t$a4 = \"common_loadDriver StartService error && GetLastError():%d!\"\n\t\t$a5 = \"irene\" wide\n\t\t$a6 = \"aPLib v0.43 - the smaller the better\" \n\tcondition:\n\t\tuint16(0) == 0x5a4d and (4 of ($a*)) and filesize < 500000\n}\n"
+}

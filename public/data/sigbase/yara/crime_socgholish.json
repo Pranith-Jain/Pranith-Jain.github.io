@@ -1,0 +1,20 @@
+{
+  "slug": "crime_socgholish",
+  "filename": "crime_socgholish.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SocGholish_JS_22_02_2022",
+      "meta": {
+        "description": "Detects SocGholish fake update Javascript files 22.02.2022",
+        "author": "Wojciech Cieślak",
+        "date": "2022-02-22",
+        "hash": "d08a2350df5abbd8fd530cff8339373e",
+        "id": "68d2dbb7-0079-527a-92c7-450c3dd953b3"
+      }
+    }
+  ],
+  "body": "rule MAL_ZIP_SocGholish_Mar21_1 : zip js socgholish {\n    meta:\n        description = \"Triggers on small zip files with typical SocGholish JS files in it\"\n        author = \"Nils Kuhnert\"\n        date = \"2021-03-29\"\n        hash = \"4f6566c145be5046b6be6a43c64d0acae38cada5eb49b2f73135b3ac3d6ba770\"\n        hash = \"54f756fbf8c20c76af7c9f538ff861690800c622d1c9db26eb3afedc50835b09\"\n        hash = \"dfdbec1846b74238ba3cfb8c7580c64a0fa8b14b6ed2b0e0e951cc6a9202dd8d\"\n        id = \"da35eefd-b34d-59cd-8afc-da9c78ace96e\"\n    strings:\n        $a1 = /\\.[a-z0-9]{6}\\.js/ ascii\n        $a2 = \"Chrome\" ascii\n        $a3 = \"Opera\" ascii\n\n        $b1 = \"Firefox.js\" ascii\n        $b2 = \"Edge.js\" ascii\n    condition:\n        uint16(0) == 0x4b50 and filesize < 1600 and (\n            2 of ($a*) or\n            any of ($b*)\n        )\n}\n\n/* modified rule: too many matches with 'try' */\nrule EXT_MAL_JS_SocGholish_Mar21_1 : js socgholish {\n    meta:\n        description = \"Triggers on SocGholish JS files\"\n        author = \"Nils Kuhnert\"\n        date = \"2021-03-29\"\n        modified = \"2023-01-02\"\n        hash = \"7ccbdcde5a9b30f8b2b866a5ca173063dec7bc92034e7cf10e3eebff017f3c23\"\n        hash = \"f6d738baea6802cbbb3ae63b39bf65fbd641a1f0d2f0c819a8c56f677b97bed1\"\n        hash = \"c7372ffaf831ad963c0a9348beeaadb5e814ceeb878a0cc7709473343d63a51c\"\n        id = \"3ed7d2da-569b-5851-a821-4a3cda3e13ce\"\n    strings:\n        /* $try = \"try\" ascii */\n\n        $s1 = \"new ActiveXObject('Scripting.FileSystemObject');\" ascii\n        $s2 = \"['DeleteFile']\" ascii\n        $s3 = \"['WScript']['ScriptFullName']\" ascii\n        $s4 = \"['WScript']['Sleep'](1000)\" ascii\n        $s5 = \"new ActiveXObject('MSXML2.XMLHTTP')\" ascii\n        $s6 = \"this['eval']\" ascii\n        $s7 = \"String['fromCharCode']\"\n        $s8 = \"2), 16),\" ascii\n        $s9 = \"= 103,\" ascii\n        $s10 = \"'00000000'\" ascii\n    condition:\n        //$try in (0 .. 10) and \n        filesize > 3KB and filesize < 5KB and 8 of ($s*)\n}\n\nrule SocGholish_JS_22_02_2022 {\n    meta:\n        description = \"Detects SocGholish fake update Javascript files 22.02.2022\"\n        author = \"Wojciech Cieślak\"\n        date = \"2022-02-22\"\n        hash = \"3e14d04da9cc38f371961f6115f37c30\"\n        hash = \"dffa20158dcc110366f939bd137515c3\"\n        hash = \"afee3af324951b1840c789540d5c8bff\"\n        hash = \"c04a1625efec27fb6bbef9c66ca8372b\"\n        hash = \"d08a2350df5abbd8fd530cff8339373e\"\n    \n        id = \"68d2dbb7-0079-527a-92c7-450c3dd953b3\"\n    strings:\n        $s1 = \"encodeURIComponent(''+\" ascii\n        $s2 = \"['open']('POST',\" ascii \n        $s3 = \"new ActiveXObject('MSXML2.XMLHTTP');\" ascii\n    \n    condition:\n        filesize < 5KB and all of them\n}\n\n"
+}

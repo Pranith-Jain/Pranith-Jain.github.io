@@ -1,0 +1,23 @@
+{
+  "slug": "mal_go_modbus",
+  "filename": "mal_go_modbus.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_Go_Modbus_Jul24_1",
+      "meta": {
+        "description": "Detects characteristics reported by Dragos for FrostyGoop ICS malware",
+        "author": "Florian Roth",
+        "reference": "https://hub.dragos.com/hubfs/Reports/Dragos-FrostyGoop-ICS-Malware-Intel-Brief-0724_.pdf",
+        "date": "2024-07-23",
+        "modified": "2024-07-24",
+        "score": "75",
+        "hash1": "5d2e4fd08f81e3b2eb2f3eaae16eb32ae02e760afc36fa17f4649322f6da53fb",
+        "id": "4a1e6bbe-d743-5394-b207-e417b64fa76d"
+      }
+    }
+  ],
+  "body": "\nrule MAL_Go_Modbus_Jul24_1 {\n   meta:\n      description = \"Detects characteristics reported by Dragos for FrostyGoop ICS malware\"\n      author = \"Florian Roth\"\n      reference = \"https://hub.dragos.com/hubfs/Reports/Dragos-FrostyGoop-ICS-Malware-Intel-Brief-0724_.pdf\"\n      date = \"2024-07-23\"\n      modified = \"2024-07-24\"\n      score = 75\n      hash1 = \"5d2e4fd08f81e3b2eb2f3eaae16eb32ae02e760afc36fa17f4649322f6da53fb\"\n      id = \"4a1e6bbe-d743-5394-b207-e417b64fa76d\"\n   strings:\n      $a1 = \"Go build\"\n\n      $sa1 = \"github.com/rolfl/modbus\"\n\n      $sb1 = \"main.TaskList.executeCommand\"\n      $sb2 = \"main.TargetList.getTargetIpList\"\n      $sb3 = \"main.TaskList.getTaskIpList\"\n      $sb4 = \"main.CycleInfo\" fullword\n   condition:\n      filesize < 30MB\n      and (\n         $sa1\n         and 3 of ($sb*)\n      )\n      or 4 of them\n}\n"
+}

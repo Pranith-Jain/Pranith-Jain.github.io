@@ -1,0 +1,21 @@
+{
+  "slug": "webshell_regeorg",
+  "filename": "webshell_regeorg.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "REGEORG_Tuneller_generic",
+      "meta": {
+        "author": "Mandiant",
+        "date": "2021-12-20",
+        "date_modified": "2021-12-20",
+        "hash": "ba22992ce835dadcd06bff4ab7b162f9",
+        "reference": "https://www.mandiant.com/resources/unc3524-eye-spy-email",
+        "id": "a87979b7-2732-5a32-b3f3-a815a58b6589"
+      }
+    }
+  ],
+  "body": "rule REGEORG_Tuneller_generic {\n    meta:\n        author = \"Mandiant\"\n        date = \"2021-12-20\"\n        date_modified = \"2021-12-20\"\n        hash = \"ba22992ce835dadcd06bff4ab7b162f9\"\n        reference = \"https://www.mandiant.com/resources/unc3524-eye-spy-email\"\n        id = \"a87979b7-2732-5a32-b3f3-a815a58b6589\"\n    strings:\n        $s1 = \"System.Net.IPEndPoint\"\n        $s2 = \"Response.AddHeader\"\n        $s3 = \"Request.InputStream.Read\"\n        $s4 = \"Request.Headers.Get\"\n        $s5 = \"Response.Write\"\n        $s6 = \"System.Buffer.BlockCopy\"\n        $s7 = \"Response.BinaryWrite\"\n        $s8 = \"SocketException soex\"\n    condition:\n        filesize < 1MB and 7 of them\n}"
+}

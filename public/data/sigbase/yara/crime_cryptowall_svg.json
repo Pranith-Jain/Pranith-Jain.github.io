@@ -1,0 +1,26 @@
+{
+  "slug": "crime_cryptowall_svg",
+  "filename": "crime_cryptowall_svg.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SVG_LoadURL",
+      "meta": {
+        "description": "Detects a tiny SVG file that loads an URL (as seen in CryptoWall malware infections)",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://goo.gl/psjCCc",
+        "date": "2015-05-24",
+        "hash1": "ac8ef9df208f624be9c7e7804de55318",
+        "hash2": "3b9e67a38569ebe8202ac90ad60c52e0",
+        "hash3": "7e2be5cc785ef7711282cea8980b9fee",
+        "hash4": "4e2c6f6b3907ec882596024e55c2b58b",
+        "score": "50",
+        "id": "c3d4c95f-ef8b-52ff-9cf9-d66d9b99a490"
+      }
+    }
+  ],
+  "body": "\nrule SVG_LoadURL {\n\tmeta:\n\t\tdescription = \"Detects a tiny SVG file that loads an URL (as seen in CryptoWall malware infections)\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\treference = \"http://goo.gl/psjCCc\"\n\t\tdate = \"2015-05-24\"\n\t\thash1 = \"ac8ef9df208f624be9c7e7804de55318\"\n\t\thash2 = \"3b9e67a38569ebe8202ac90ad60c52e0\"\n\t\thash3 = \"7e2be5cc785ef7711282cea8980b9fee\"\n\t\thash4 = \"4e2c6f6b3907ec882596024e55c2b58b\"\n\t\tscore = 50\n\t\tid = \"c3d4c95f-ef8b-52ff-9cf9-d66d9b99a490\"\n\tstrings:\n\t\t$s1 = \"</svg>\" nocase\n\t\t$s2 = \"<script>\" nocase\n\t\t$s3 = \"location.href='http\" nocase\n\tcondition:\n\t\tall of ($s*) and filesize < 600\n}\n\n\t\t\n\t\t"
+}

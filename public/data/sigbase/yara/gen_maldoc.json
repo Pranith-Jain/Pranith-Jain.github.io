@@ -1,0 +1,22 @@
+{
+  "slug": "gen_maldoc",
+  "filename": "gen_maldoc.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_Doc_WindowsInstaller_Call_Feb22_1",
+      "meta": {
+        "author": "Nils Kuhnert",
+        "date": "2022-02-26",
+        "description": "Triggers on docfiles executing windows installer. Used for deploying ThinBasic scripts.",
+        "tlp": "white",
+        "reference": "https://inquest.net/blog/2022/02/24/dangerously-thinbasic",
+        "reference2": "https://twitter.com/threatinsight/status/1497355737844133895",
+        "id": "8f2e8f91-74e0-5574-9c0a-1479d6114212"
+      }
+    }
+  ],
+  "body": "rule SUSP_Doc_WindowsInstaller_Call_Feb22_1 {\n    meta:\n        author = \"Nils Kuhnert\"\n        date = \"2022-02-26\"\n        description = \"Triggers on docfiles executing windows installer. Used for deploying ThinBasic scripts.\"\n        tlp = \"white\"\n        reference = \"https://inquest.net/blog/2022/02/24/dangerously-thinbasic\"\n        reference2 = \"https://twitter.com/threatinsight/status/1497355737844133895\"\n        id = \"8f2e8f91-74e0-5574-9c0a-1479d6114212\"\n    strings:\n        $ = \"WindowsInstaller.Installer$\"\n        $ = \"CreateObject\"\n        $ = \"InstallProduct\"\n    condition:\n        uint32be(0) == 0xd0cf11e0 and all of them\n}\n"
+}

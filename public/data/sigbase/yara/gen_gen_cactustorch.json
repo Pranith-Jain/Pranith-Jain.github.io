@@ -1,0 +1,24 @@
+{
+  "slug": "gen_gen_cactustorch",
+  "filename": "gen_gen_cactustorch.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-07-31\n   Identifier: CactusTorch\n   Reference: https://github.com/mdsecactivebreach/CACTUSTORCH",
+  "rules": [
+    {
+      "name": "CACTUSTORCH",
+      "meta": {
+        "description": "Detects CactusTorch Hacktool",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://github.com/mdsecactivebreach/CACTUSTORCH",
+        "date": "2017-07-31",
+        "hash1": "314e6d7d863878b6dca46af165e7f08fedd42c054d7dc3828dc80b86a3a9b98c",
+        "hash2": "0305aa32d5f8484ca115bb4888880729af7f33ac99594ec1aa3c65644e544aea",
+        "hash3": "a52d802e34ac9d7d3539019d284b04ded3b8e197d5e3b38ed61f523c3d68baa7",
+        "id": "75606b9e-97d5-5b8b-87f5-69b7e415b73c"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-07-31\n   Identifier: CactusTorch\n   Reference: https://github.com/mdsecactivebreach/CACTUSTORCH\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule CACTUSTORCH {\n   meta:\n      description = \"Detects CactusTorch Hacktool\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://github.com/mdsecactivebreach/CACTUSTORCH\"\n      date = \"2017-07-31\"\n      hash1 = \"314e6d7d863878b6dca46af165e7f08fedd42c054d7dc3828dc80b86a3a9b98c\"\n      hash2 = \"0305aa32d5f8484ca115bb4888880729af7f33ac99594ec1aa3c65644e544aea\"\n      hash3 = \"a52d802e34ac9d7d3539019d284b04ded3b8e197d5e3b38ed61f523c3d68baa7\"\n      id = \"75606b9e-97d5-5b8b-87f5-69b7e415b73c\"\n   strings:\n      $x1 = \"$payload = shellcode(%options[\\\"listener\\\"], \\\"true\\\", \\\"x86\\\");\" fullword ascii\n      $x2 = \"Copy the base64 encoded payload into the code variable below.\" fullword ascii\n      $x3 = \" CACTUSTORCH Payload\" ascii\n      $x4 = \"ms.Write transform.TransformFinalBlock(enc.GetBytes_4(b), 0, length), 0, ((length / 4) * 3)\" fullword ascii\n      $x5 = \"' Author: Vincent Yiu (@vysecurity)\" fullword ascii\n      $x6 = \"Dim binary : binary = \\\"rundll32.exe\\\"\" fullword ascii\n\n      $a1 = \"code = code & \\\"\" ascii\n      $a2 = \"serialized_obj = serialized_obj & \\\"\" ascii\n\n      $s1 = \"binary = \\\"rundll32.exe\\\"\" fullword ascii\n      $s2 = \"EL.DataType = \\\"bin.hex\\\"\" fullword ascii\n      $s3 = \"Set stm = CreateObject(\\\"System.IO.MemoryStream\\\")\" fullword ascii\n      $s4 = \"var binary = \\\"rundll32.exe\\\";\" fullword ascii\n      $s5 = \"var serialized_obj = \\\"\" ascii\n   condition:\n      ( filesize < 800KB and\n         (\n            1 of ($x*) or\n            ( 1 of ($a*) and 1 of ($s*) )\n         )\n      ) or ( 3 of them )\n}\n"
+}

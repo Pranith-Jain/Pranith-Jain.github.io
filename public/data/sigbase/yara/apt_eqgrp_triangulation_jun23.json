@@ -1,0 +1,21 @@
+{
+  "slug": "apt_eqgrp_triangulation_jun23",
+  "filename": "apt_eqgrp_triangulation_jun23.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "APT_Equation_Group_Op_Triangulation_TriangleDB_Implant_Jun23_1",
+      "meta": {
+        "description": "Detects TriangleDB implant found being used in Operation Triangulation on iOS devices (maybe also used on macOS systems)",
+        "author": "Florian Roth",
+        "reference": "https://securelist.com/triangledb-triangulation-implant/110050/",
+        "date": "2023-06-21",
+        "score": "80",
+        "id": "d81a5103-41c8-5dba-a560-8fb5514f6c0a"
+      }
+    }
+  ],
+  "body": "\nrule APT_Equation_Group_Op_Triangulation_TriangleDB_Implant_Jun23_1 {\n   meta:\n      description = \"Detects TriangleDB implant found being used in Operation Triangulation on iOS devices (maybe also used on macOS systems)\"\n      author = \"Florian Roth\"\n      reference = \"https://securelist.com/triangledb-triangulation-implant/110050/\"\n      date = \"2023-06-21\"\n      score = 80\n      id = \"d81a5103-41c8-5dba-a560-8fb5514f6c0a\"\n   strings:\n      $s1 = \"unmungeHexString\" ascii fullword\n      $s2 = \"CRPwrInfo\" ascii fullword\n      $s3 = \"CRConfig\" ascii fullword\n      $s4 = \"CRXConfigureDBServer\" ascii fullword\n   condition:\n      ( uint16(0) == 0xfacf and filesize < 30MB and $s1 and 2 of them ) \n      or all of them\n}\n"
+}

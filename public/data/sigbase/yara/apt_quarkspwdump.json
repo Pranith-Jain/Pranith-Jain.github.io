@@ -1,0 +1,28 @@
+{
+  "slug": "apt_quarkspwdump",
+  "filename": "apt_quarkspwdump.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "QuarksPwDump_Gen",
+      "meta": {
+        "description": "Detects all QuarksPWDump versions",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "date": "2015-09-29",
+        "score": "80",
+        "hash1": "2b86e6aea37c324ce686bd2b49cf5b871d90f51cec24476daa01dd69543b54fa",
+        "hash2": "87e4c76cd194568e65287f894b4afcef26d498386de181f568879dde124ff48f",
+        "hash3": "a59be92bf4cce04335bd1a1fcf08c1a94d5820b80c068b3efe13e2ca83d857c9",
+        "hash4": "c5cbb06caa5067fdf916e2f56572435dd40439d8e8554d3354b44f0fd45814ab",
+        "hash5": "677c06db064ee8d8777a56a641f773266a4d8e0e48fbf0331da696bea16df6aa",
+        "hash6": "d3a1eb1f47588e953b9759a76dfa3f07a3b95fab8d8aa59000fd98251d499674",
+        "hash7": "8a81b3a75e783765fe4335a2a6d1e126b12e09380edc4da8319efd9288d88819",
+        "id": "7de4f59e-6cf5-5ad7-ae1f-8532d9e80c9e"
+      }
+    }
+  ],
+  "body": "\nrule QuarksPwDump_Gen {\n\tmeta:\n\t\tdescription = \"Detects all QuarksPWDump versions\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\tdate = \"2015-09-29\"\n\t\tscore = 80\n\t\thash1 = \"2b86e6aea37c324ce686bd2b49cf5b871d90f51cec24476daa01dd69543b54fa\"\n\t\thash2 = \"87e4c76cd194568e65287f894b4afcef26d498386de181f568879dde124ff48f\"\n\t\thash3 = \"a59be92bf4cce04335bd1a1fcf08c1a94d5820b80c068b3efe13e2ca83d857c9\"\n\t\thash4 = \"c5cbb06caa5067fdf916e2f56572435dd40439d8e8554d3354b44f0fd45814ab\"\n\t\thash5 = \"677c06db064ee8d8777a56a641f773266a4d8e0e48fbf0331da696bea16df6aa\"\n\t\thash6 = \"d3a1eb1f47588e953b9759a76dfa3f07a3b95fab8d8aa59000fd98251d499674\"\n\t\thash7 = \"8a81b3a75e783765fe4335a2a6d1e126b12e09380edc4da8319efd9288d88819\"\n\t\tid = \"7de4f59e-6cf5-5ad7-ae1f-8532d9e80c9e\"\n\tstrings:\n\t\t$s1 = \"OpenProcessToken() error: 0x%08X\" fullword ascii\n\t\t$s2 = \"%d dumped\" fullword ascii\n\t\t$s3 = \"AdjustTokenPrivileges() error: 0x%08X\" fullword ascii\n\t\t$s4 = \"\\\\SAM-%u.dmp\" ascii\n\tcondition:\n\t\tall of them\n}\n"
+}

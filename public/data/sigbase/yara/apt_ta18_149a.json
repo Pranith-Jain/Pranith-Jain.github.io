@@ -1,0 +1,46 @@
+{
+  "slug": "apt_ta18_149a",
+  "filename": "apt_ta18_149A.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2018-05-30\n   Identifier: TA-18-149A\n   Reference: https://www.us-cert.gov/ncas/alerts/TA18-149A",
+  "rules": [
+    {
+      "name": "APT_TA18_149A_Joanap_Sample1",
+      "meta": {
+        "description": "Detects malware from TA18-149A report by US-CERT",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.us-cert.gov/ncas/alerts/TA18-149A",
+        "date": "2018-05-30",
+        "hash1": "ea46ed5aed900cd9f01156a1cd446cbb3e10191f9f980e9f710ea1c20440c781",
+        "id": "a3a4f9a6-367d-5d99-bffb-f4ff03fa4a09"
+      }
+    },
+    {
+      "name": "APT_TA18_149A_Joanap_Sample2",
+      "meta": {
+        "description": "Detects malware from TA18-149A report by US-CERT",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.us-cert.gov/ncas/alerts/TA18-149A",
+        "date": "2018-05-30",
+        "hash1": "077d9e0e12357d27f7f0c336239e961a7049971446f7a3f10268d9439ef67885",
+        "id": "9f4e6e6c-ee2b-5fa3-bf85-5a1652b38c52"
+      }
+    },
+    {
+      "name": "APT_TA18_149A_Joanap_Sample3",
+      "meta": {
+        "description": "Detects malware from TA18-149A report by US-CERT",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.us-cert.gov/ncas/alerts/TA18-149A",
+        "date": "2018-05-30",
+        "hash1": "a1c483b0ee740291b91b11e18dd05f0a460127acfc19d47b446d11cd0e26d717",
+        "id": "1c2551bc-01dd-5b30-a4cc-703a868cde73"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2018-05-30\n   Identifier: TA-18-149A\n   Reference: https://www.us-cert.gov/ncas/alerts/TA18-149A\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nimport \"pe\"\n\nrule APT_TA18_149A_Joanap_Sample1 {\n   meta:\n      description = \"Detects malware from TA18-149A report by US-CERT\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.us-cert.gov/ncas/alerts/TA18-149A\"\n      date = \"2018-05-30\"\n      hash1 = \"ea46ed5aed900cd9f01156a1cd446cbb3e10191f9f980e9f710ea1c20440c781\"\n      id = \"a3a4f9a6-367d-5d99-bffb-f4ff03fa4a09\"\n   strings:\n      $x1 = \"cmd.exe /q /c net share adnim$\" ascii\n      $x2 = \"\\\\\\\\%s\\\\adnim$\\\\system32\\\\%s\" fullword ascii\n      $s1 = \"SMB_Dll.dll\" fullword ascii\n      $s2 = \"%s User or Password is not correct!\" fullword ascii\n      $s3 = \"perfw06.dat\" fullword ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 300KB and (\n         pe.imphash() == \"f0087d7b90876a2769f2229c6789fcf3\" or\n         1 of ($x*) or\n         2 of them\n      )\n}\n\nrule APT_TA18_149A_Joanap_Sample2 {\n   meta:\n      description = \"Detects malware from TA18-149A report by US-CERT\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.us-cert.gov/ncas/alerts/TA18-149A\"\n      date = \"2018-05-30\"\n      hash1 = \"077d9e0e12357d27f7f0c336239e961a7049971446f7a3f10268d9439ef67885\"\n      id = \"9f4e6e6c-ee2b-5fa3-bf85-5a1652b38c52\"\n   strings:\n      $s1 = \"%SystemRoot%\\\\system32\\\\svchost.exe -k Wmmvsvc\" fullword ascii\n      $s2 = \"%SystemRoot%\\\\system32\\\\svchost.exe -k SCardPrv\" fullword ascii\n      $s3 = \"%SystemRoot%\\\\system32\\\\Wmmvsvc.dll\" fullword ascii\n      $s4 = \"%SystemRoot%\\\\system32\\\\scardprv.dll\" fullword ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 600KB and (\n         pe.imphash() == \"e8cd12071a8e823ebc434c8ee3e23203\" or\n         2 of them\n      )\n}\n\nrule APT_TA18_149A_Joanap_Sample3 {\n   meta:\n      description = \"Detects malware from TA18-149A report by US-CERT\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.us-cert.gov/ncas/alerts/TA18-149A\"\n      date = \"2018-05-30\"\n      hash1 = \"a1c483b0ee740291b91b11e18dd05f0a460127acfc19d47b446d11cd0e26d717\"\n      id = \"1c2551bc-01dd-5b30-a4cc-703a868cde73\"\n   strings:\n      $s1 = \"mssvcdll.dll\" fullword ascii\n      $s2 = \"https://www.google.com/index.html\" fullword ascii\n      $s3 = \"LOGINDLG\" fullword wide\n      $s4 = \"rundll\" fullword ascii\n      $s5 = \"%%s\\\\%%s%%0%dd.%%s\" fullword ascii\n      $s6 = \"%%s\\\\%%s%%0%dd\" fullword ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 200KB and (\n         pe.imphash() == \"f6f7b2e00921129d18061822197111cd\" or\n         3 of them\n      )\n}\n"
+}

@@ -1,0 +1,22 @@
+{
+  "slug": "gen_transformed_strings",
+  "filename": "gen_transformed_strings.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n\tAuthor: Florian Roth\n\tDate: 2016-07-31\n\tIdentifier: Transformed Strings",
+  "rules": [
+    {
+      "name": "Typical_Malware_String_Transforms",
+      "meta": {
+        "description": "Detects typical strings in a reversed or otherwise modified form",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2016-07-31",
+        "score": "60",
+        "id": "86f348b5-0564-5d83-bbea-4f4a5f62fd30"
+      }
+    }
+  ],
+  "body": "/*\n\tYara Rule Set\n\tAuthor: Florian Roth\n\tDate: 2016-07-31\n\tIdentifier: Transformed Strings\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule Typical_Malware_String_Transforms {\n\tmeta:\n\t\tdescription = \"Detects typical strings in a reversed or otherwise modified form\"\n\t\tlicense = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n\t\tauthor = \"Florian Roth (Nextron Systems)\"\n\t\treference = \"Internal Research\"\n\t\tdate = \"2016-07-31\"\n\t\tscore = 60\n\t\tid = \"86f348b5-0564-5d83-bbea-4f4a5f62fd30\"\n\tstrings:\n\t\t/* Executables */\n\t\t$e1 = \"exe.tsohcvs\" fullword ascii\n\t\t$e2 = \"exe.ssasl\" fullword ascii\n\t\t$e3 = \"exe.rerolpxe\" fullword ascii\n\t\t$e4 = \"exe.erolpxei\" fullword ascii\n\t\t$e5 = \"exe.23lldnur\" fullword ascii\n\t\t$e6 = \"exe.dmc\" fullword ascii\n\t\t$e7 = \"exe.llikksat\" fullword ascii\n\n\t\t/* Libraries */\n\t\t$l1 = \"lld.23lenreK\" fullword ascii\n\t\t$l2 = \"lld.ESABLENREK\" fullword ascii\n\t\t$l3 = \"lld.esabtpyrc\" fullword ascii\n\t\t$l4 = \"lld.trcvsm\" fullword ascii\n\t\t$l5 = \"LLD.LLDTN\" fullword ascii\n\n\t\t/* Imports */\n\t\t$i1 = \"paeHssecorPteG\" fullword ascii\n\t\t$i2 = \"sserddAcorPteG\" fullword ascii\n\t\t$i3 = \"AyrarbiLdaoL\" fullword ascii\n\t\t$i4 = \"AssecorPetaerC\" fullword ascii\n\n\t\t/* Registry */\n\t\t$r1 = \"teSlortnoCtnerruC\" fullword ascii\n\t\t$r2 = \"nuR\\\\noisreVtnerruC\" fullword ascii\n\n\t\t/* Folders */\n\t\t$f1 = \"\\\\23metsys\\\\\" ascii\n\t\t$f2 = \"\\\\23metsyS\\\\\" ascii\n\t\t$f3 = \"niB.elcyceR$\" fullword ascii\n\t\t$f4 = \"%tooRmetsyS%\" fullword ascii\n\n\t\t/* False Positives */\n\t\t$fp1 = \"Application Impact Telemetry Static Analyzer\" fullword wide\n\tcondition:\n\t\t( uint16(0) == 0x5a4d and 1 of them and not 1 of ($fp*) )\n}\n"
+}

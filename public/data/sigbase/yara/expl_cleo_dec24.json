@@ -1,0 +1,113 @@
+{
+  "slug": "expl_cleo_dec24",
+  "filename": "expl_cleo_dec24.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_EXPL_Cleo_Exploitation_Log_Indicators_Dec24_1",
+      "meta": {
+        "author": "X__Junior",
+        "description": "Detects indicators found in logs during and after Cleo software exploitation (as reported by Huntress in December 2024)",
+        "reference": "https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild",
+        "hash1": "786951478a0fc5db24f6e1d8dcc5eaa8880dbd928da97828a61f1f1f0f21e21d",
+        "date": "2024-12-10",
+        "score": "75",
+        "id": "81daf184-4c38-5d84-899b-9d0de2f39934"
+      }
+    },
+    {
+      "name": "SUSP_EXPL_Cleo_Exploitation_Log_Indicators_Dec24_2",
+      "meta": {
+        "author": "X__Junior",
+        "description": "Detects indicators found in logs during and after Cleo software exploitation (as reported by Huntress in December 2024)",
+        "reference": "https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild",
+        "date": "2024-12-10",
+        "score": "70",
+        "id": "d215d4a0-1726-58d4-90df-8ec6102effe1"
+      }
+    },
+    {
+      "name": "EXPL_Cleo_Exploitation_XML_Indicators_Dec24",
+      "meta": {
+        "description": "Detects XML used during and after Cleo software exploitation (as reported by Huntress in December 2024)",
+        "author": "Florian Roth",
+        "reference": "https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild",
+        "date": "2024-12-10",
+        "score": "70",
+        "id": "622633af-aa7a-5bf9-a59c-6590535d86a4"
+      }
+    },
+    {
+      "name": "SUSP_EXPL_Cleo_Exploitation_XML_Indicators_Dec24_1",
+      "meta": {
+        "author": "X__Junior",
+        "description": "Detects XML used during and after Cleo software exploitation (as reported by Huntress in December 2024)",
+        "reference": "https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild",
+        "hash1": "b103f708e85416fc6d7af9605da4b57b3abe42fb9c6c9ec0f539b4c877580bd2",
+        "date": "2024-12-10",
+        "score": "70",
+        "id": "b30ca09f-b84c-5de8-9bf7-9f3269f32c1f"
+      }
+    },
+    {
+      "name": "SUSP_EXPL_Cleo_Exploitation_XML_Indicators_Dec24_2",
+      "meta": {
+        "author": "X__Junior",
+        "description": "Detects XML used during and after Cleo software exploitation (as reported by Huntress in December 2024)",
+        "reference": "https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild",
+        "date": "2024-12-10",
+        "score": "70",
+        "id": "a71c71f3-d36f-5c27-b150-e678bccf2dba"
+      }
+    },
+    {
+      "name": "SUSP_EXPL_JAR_Indicators_Dec24",
+      "meta": {
+        "description": "Detects characteristics of JAR files used during Cleo software exploitation (as reported by Huntress in December 2024)",
+        "author": "Florian Roth",
+        "reference": "https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild",
+        "date": "2024-12-10",
+        "score": "70",
+        "id": "4e8f6aa8-9efd-5fcf-b795-5042d4ba1708"
+      }
+    },
+    {
+      "name": "EXPL_Cleo_Exploitation_JAVA_Payloads_Dec24_1_1",
+      "meta": {
+        "description": "Detects characteristics of JAVA files used during Cleo software exploitation (as reported by Huntress in December 2024) - files Cli, ScSlot, Slot, SrvSlot",
+        "author": "Florian Roth",
+        "reference": "https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild",
+        "date": "2024-12-10",
+        "score": "75",
+        "hash1": "0c57b317b572d071afd8ccdb844dd6f117e20f818c6031d7ba8adcbd32be0617",
+        "id": "2940ddad-3dba-594a-9111-e4741d6ff39b"
+      }
+    },
+    {
+      "name": "EXPL_Cleo_Exploitation_JAVA_Payloads_Dec24_2",
+      "meta": {
+        "description": "Detects characteristics of JAVA files used during Cleo software exploitation (as reported by Huntress in December 2024) - file Proc",
+        "author": "Florian Roth",
+        "reference": "https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild",
+        "date": "2024-12-10",
+        "score": "75",
+        "hash1": "1ba95af21bac45db43ebf02f87ecedde802c7de4d472f33e74ee0a5b5015a726",
+        "id": "bd575454-7fd0-566d-94e5-ec1368675108"
+      }
+    },
+    {
+      "name": "EXPL_Cleo_Exploitation_JAVA_Payloads_Dec24_3",
+      "meta": {
+        "description": "Detects characteristics of JAR files used during Cleo software exploitation",
+        "author": "X__Junior",
+        "reference": "https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild",
+        "date": "2024-12-10",
+        "score": "75",
+        "id": "5c227bb9-0731-5955-a758-6fe86ecc2d86"
+      }
+    }
+  ],
+  "body": "\nrule EXPL_Cleo_Exploitation_Log_Indicators_Dec24 : SCRIPT {\n   meta:\n      description = \"Detects indicators found in logs during and after Cleo software exploitation (as reported by Huntress in December 2024)\"\n      author = \"Florian Roth\"\n      reference = \"https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild\"\n      date = \"2024-12-10\"\n      score = 75\n      id = \"385042a9-fc8c-5b50-975f-3436a16e6861\"\n   strings:\n      $x1 = \"Note: Processing autorun file 'autorun\\\\health\" ascii wide\n      $x2 = \"60282967-dc91-40ef-a34c-38e992509c2c.xml\" ascii wide\n      $x3 = \"<Detail level=\\\"1\\\">Executing 'cmd.exe /c \\\"powershell -NonInteractive -EncodedCommand \" ascii wide\n   condition:\n      1 of them\n}\n\nrule SUSP_EXPL_Cleo_Exploitation_Log_Indicators_Dec24_1 {\n   meta:\n      author = \"X__Junior\"\n      description = \"Detects indicators found in logs during and after Cleo software exploitation (as reported by Huntress in December 2024)\"\n      reference = \"https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild\"\n      hash1 = \"786951478a0fc5db24f6e1d8dcc5eaa8880dbd928da97828a61f1f1f0f21e21d\"\n      date = \"2024-12-10\"\n      score = 75\n      id = \"81daf184-4c38-5d84-899b-9d0de2f39934\"\n   strings:\n      $sa1 = \"<Thread type=\\\"AutoRun\\\" action=\" ascii\n      $sa2 = \"<Mark date=\" ascii\n      $sa3 = \"<Event>\" ascii\n      $sa4 = \"<Command text\" ascii\n\n      $sb1 = \"[System.Net.WebRequest]::create\" ascii\n      $sb2 = \"Invoke-RestMethod\" ascii\n      $sb3 = \"Invoke-WebRequest\" ascii\n      $sb4 = \"iwr \" ascii\n      $sb5 = \"Net.WebClient\" ascii\n      $sb6 = \"Resume-BitsTransfer\" ascii\n      $sb7 = \"Start-BitsTransfer\" ascii\n      $sb8 = \"wget \" ascii\n      $sb9 = \"WinHttp.WinHttpRequest\" ascii\n      $sb10 = \".DownloadFile(\" ascii\n      $sb11 = \".DownloadString(\" ascii\n      $sb12 = \"Bypass\" nocase ascii\n      $sb13 = \"-EncodedCommand\" ascii\n      $sb14 = \"-windowstyle hidden\" ascii\n      $sb15 = \" -enc \" ascii\n   condition:\n      filesize < 1MB\n      and all of ($sa*)\n      and 1 of ($sb*)\n}\n\nrule SUSP_EXPL_Cleo_Exploitation_Log_Indicators_Dec24_2 {\n   meta:\n      author = \"X__Junior\"\n      description = \"Detects indicators found in logs during and after Cleo software exploitation (as reported by Huntress in December 2024)\"\n      reference = \"https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild\"\n      date = \"2024-12-10\"\n      score = 70\n      id = \"d215d4a0-1726-58d4-90df-8ec6102effe1\"\n   strings:\n      $sa1 = \"<Thread type=\\\"AutoRun\\\" action=\" ascii\n      $sa2 = \"<Mark date=\" ascii\n      $sa3 = \"<Event>\" ascii\n      $sa4 = \"<Command text\" ascii\n\n      $sb1 = \"wscript\" ascii\n      $sb2 = \"cscript\" ascii\n      $sb3 = \"mshta\" ascii\n      $sb4 = \"certutil\" ascii\n      $sb5 = \"pwsh\" ascii\n      $sb6 = \"curl\" ascii\n      $sb7 = \"msiexec\" ascii\n      $sb8 = \"taskkill\" ascii\n      $sb9 = \"regsvr32\" ascii\n      $sb10 = \"rundll32\" ascii\n      $sb11 = \"bitsadmin\" ascii\n      $sb12 = \"whoami\" ascii\n      $sb13 = \"bcdedit\" ascii\n      $sb14 = \"systeminfo\" ascii\n      $sb15 = \"reg \" ascii\n      $sb16 = \"schtasks\" ascii\n      // $sb17 = \"query\" ascii\n   condition:\n      filesize < 1MB\n      and all of ($sa*)\n      and 1 of ($sb*)\n}\n\nrule EXPL_Cleo_Exploitation_XML_Indicators_Dec24 {\n   meta:\n      description = \"Detects XML used during and after Cleo software exploitation (as reported by Huntress in December 2024)\"\n      author = \"Florian Roth\"\n      reference = \"https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild\"\n      date = \"2024-12-10\"\n      score = 70\n      id = \"622633af-aa7a-5bf9-a59c-6590535d86a4\"\n   strings:\n      $x1 = \"<Host alias=\\\"60282967-dc91-40ef-a34c-38e992509c2c\\\" application=\\\"\\\" \" ascii\n      \n      $s1 = \"<Commands>SYSTEM cmd.exe /c \" ascii\n      $a1 = \"<Action actiontype=\\\"Commands\\\" \" ascii\n   condition:\n      filesize < 50KB and (\n         1 of ($x*)\n         or 2 of them\n      )\n}\n\n\nrule SUSP_EXPL_Cleo_Exploitation_XML_Indicators_Dec24_1 {\n   meta:\n      author = \"X__Junior\"\n      description = \"Detects XML used during and after Cleo software exploitation (as reported by Huntress in December 2024)\"\n      reference = \"https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild\"\n      hash1 = \"b103f708e85416fc6d7af9605da4b57b3abe42fb9c6c9ec0f539b4c877580bd2\"\n      date = \"2024-12-10\"\n      score = 70\n      id = \"b30ca09f-b84c-5de8-9bf7-9f3269f32c1f\"\n   strings:\n      $sa1 = \"<Action actiontype=\\\"Commands\\\"\" ascii\n      $sa2 = \"<?xml version=\" ascii\n      $sa3 = \"<Runninglocalrequired>\" ascii\n      $sa4 = \"<Autostartup>\" ascii\n\n      $sb1 = \"[System.Net.WebRequest]::create\" ascii\n      $sb2 = \"Invoke-RestMethod\" ascii\n      $sb3 = \"Invoke-WebRequest\" ascii\n      $sb4 = \"iwr \" ascii\n      $sb5 = \"Net.WebClient\" ascii\n      $sb6 = \"Resume-BitsTransfer\" ascii\n      $sb7 = \"Start-BitsTransfer\" ascii\n      $sb8 = \"wget \" ascii\n      $sb9 = \"WinHttp.WinHttpRequest\" ascii\n      $sb10 = \".DownloadFile(\" ascii\n      $sb11 = \".DownloadString(\" ascii\n      $sb12 = \"Bypass\" nocase ascii\n      $sb13 = \"-EncodedCommand\" ascii\n      $sb14 = \"-windowstyle hidden\" ascii\n      $sb15 = \" -enc \" ascii\n   condition:\n      filesize < 10KB\n      and all of ($sa*)\n      and 1 of ($sb*)\n}\n\nrule SUSP_EXPL_Cleo_Exploitation_XML_Indicators_Dec24_2 {\n   meta:\n      author = \"X__Junior\"\n      description = \"Detects XML used during and after Cleo software exploitation (as reported by Huntress in December 2024)\"\n      reference = \"https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild\"\n      date = \"2024-12-10\"\n      score = 70\n      id = \"a71c71f3-d36f-5c27-b150-e678bccf2dba\"\n   strings:\n      $sa1 = \"<Action actiontype=\\\"Commands\\\"\" ascii\n      $sa2 = \"<?xml version=\" ascii\n      $sa3 = \"<Runninglocalrequired>\" ascii\n      $sa4 = \"<Autostartup>\" ascii\n\n      $sb1 = \"wscript\" ascii\n      $sb2 = \"cscript\" ascii\n      $sb3 = \"mshta\" ascii\n      $sb4 = \"certutil\" ascii\n      $sb5 = \"pwsh\" ascii\n      $sb6 = \"curl\" ascii\n      $sb7 = \"msiexec\" ascii\n      $sb8 = \"taskkill\" ascii\n      $sb9 = \"regsvr32\" ascii\n      $sb10 = \"rundll32\" ascii\n      $sb11 = \"bitsadmin\" ascii\n      $sb12 = \"whoami\" ascii\n      $sb13 = \"bcdedit\" ascii\n      $sb14 = \"systeminfo\" ascii\n      $sb15 = \"reg \" ascii\n      $sb16 = \"schtasks\" ascii\n      // $sb17 = \"query\" ascii\n   condition:\n      filesize < 10KB\n      and all of ($sa*)\n      and 1 of ($sb*)\n}\n\nrule EXPL_Cleo_Exploitation_PS1_Indicators_Dec24 : SCRIPT {\n   meta:\n      description = \"Detects encoded and decoded PowerShell loader used during Cleo software exploitation (as reported by Huntress in December 2024)\"\n      author = \"Florian Roth\"\n      reference = \"https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild\"\n      date = \"2024-12-10\"\n      score = 75\n      id = \"491cda57-0ad0-5ddc-90cb-48411eef2f2e\"\n   strings:\n      $xe1 = \"Start-Process -WindowStyle Hidden -FilePath jre\\\\bin\\\\java.exe\" base64 ascii wide\n      $xe2 = \"$f=\\\"cleo.\" base64 ascii wide\n      $xe3 = \"<Detail level=\\\"1\\\">Executing 'cmd.exe /c \\\"powershell -NonInteractive -EncodedCommand \" base64 ascii wide\n\n      $x1 = \"$f=\\\"cleo.\" ascii wide\n      $x2 = \"<Detail level=\\\"1\\\">Executing 'cmd.exe /c \\\"powershell -NonInteractive -EncodedCommand \" ascii wide\n   condition:\n      1 of them\n}\n\nrule SUSP_EXPL_JAR_Indicators_Dec24 {\n   meta:\n      description = \"Detects characteristics of JAR files used during Cleo software exploitation (as reported by Huntress in December 2024)\"\n      author = \"Florian Roth\"\n      reference = \"https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild\"\n      date = \"2024-12-10\"\n      score = 70\n      id = \"4e8f6aa8-9efd-5fcf-b795-5042d4ba1708\"\n   strings:\n      $s1 = \"TLS v3 \" ascii\n      $s2 = \"java/util/Base64$Decoder\" ascii\n      $s3 = \"AES/CBC/NoPadding\" ascii\n      $s4 = \"getenv\" ascii\n      $s5 = \"ava/util/zip/ZipInputStream\" ascii\n   condition:\n      uint16(0) == 0xfeca\n      and filesize < 20KB\n      and all of them\n}\n\nrule EXPL_Cleo_Exploitation_JAVA_Payloads_Dec24_1_1 {\n   meta:\n      description = \"Detects characteristics of JAVA files used during Cleo software exploitation (as reported by Huntress in December 2024) - files Cli, ScSlot, Slot, SrvSlot\"\n      author = \"Florian Roth\"\n      reference = \"https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild\"\n      date = \"2024-12-10\"\n      score = 75\n      hash1 = \"0c57b317b572d071afd8ccdb844dd6f117e20f818c6031d7ba8adcbd32be0617\"\n      id = \"2940ddad-3dba-594a-9111-e4741d6ff39b\"\n   strings:\n      $a1 = \"java/lang/StringBuffer\"\n\n      $x1 = \"Start-Sleep 3;del \" ascii\n      $x2 = \"sleep 3;rm -f '\" ascii\n      $x3 = \"powershell -Noninteractive -EncodedCommand \" ascii\n      $x4 = \"runDelFileCmd\" ascii fullword\n   condition:\n      uint16(0) == 0xfeca\n      and filesize < 50KB\n      and $a1\n      and 1 of ($x*)\n}\n\nrule EXPL_Cleo_Exploitation_JAVA_Payloads_Dec24_2 {\n   meta:\n      description = \"Detects characteristics of JAVA files used during Cleo software exploitation (as reported by Huntress in December 2024) - file Proc\"\n      author = \"Florian Roth\"\n      reference = \"https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild\"\n      date = \"2024-12-10\"\n      score = 75\n      hash1 = \"1ba95af21bac45db43ebf02f87ecedde802c7de4d472f33e74ee0a5b5015a726\"\n      id = \"bd575454-7fd0-566d-94e5-ec1368675108\"\n   strings:\n      $s1 = \"Timeout getting pipe-data\" ascii fullword\n      $s2 = \"Ftprootpath\" ascii fullword\n      $s3 = \"Rest cmd=\" ascii fullword\n      $s4 = \"writeToProc\" ascii fullword\n   condition:\n      uint16(0) == 0xfeca\n      and filesize < 30KB\n      and 3 of them\n}\n\nrule EXPL_Cleo_Exploitation_JAVA_Payloads_Dec24_3 {\n   meta:\n      description = \"Detects characteristics of JAR files used during Cleo software exploitation\"\n      author = \"X__Junior\"\n      reference = \"https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild\"\n      date = \"2024-12-10\"\n      score = 75\n      id = \"5c227bb9-0731-5955-a758-6fe86ecc2d86\"\n   strings:\n      $a1 = \"java/lang/String\" ascii\n\n      $s1 = \"#lsz#\" ascii\n      $s2 = \"#dbg#\" ascii\n      $s3 = \"#ll#\" ascii\n      $s4 = \"SvZipDataOverflow=%d OpNotConf=\" ascii\n   condition:\n      uint16(0) == 0xfeca\n      and filesize < 20KB\n      and 3 of ($s*) and $a1\n}"
+}

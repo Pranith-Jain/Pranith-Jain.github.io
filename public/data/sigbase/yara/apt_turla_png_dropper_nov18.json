@@ -1,0 +1,32 @@
+{
+  "slug": "apt_turla_png_dropper_nov18",
+  "filename": "apt_turla_png_dropper_nov18.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "turla_png_dropper",
+      "meta": {
+        "author": "Ben Humphrey",
+        "description": "Detects the PNG Dropper used by the Turla group",
+        "reference": "https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2018/november/turla-png-dropper-is-back/",
+        "date": "2018/11/23",
+        "hash1": "6ed939f59476fd31dc4d99e96136e928fbd88aec0d9c59846092c0e93a3c0e27",
+        "id": "459f17c8-0eae-5736-8c7c-286625dc158f"
+      }
+    },
+    {
+      "name": "turla_png_reg_enum_payload",
+      "meta": {
+        "author": "Ben Humphrey",
+        "description": "Payload that has most recently been dropped by the Turla PNG Dropper",
+        "reference": "https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2018/november/turla-png-dropper-is-back/",
+        "date": "2018/11/23",
+        "hash1": "fea27eb2e939e930c8617dcf64366d1649988f30555f6ee9cd09fe54e4bc22b3",
+        "id": "413bb315-3c01-56ab-92db-00342a11438a"
+      }
+    }
+  ],
+  "body": "import \"pe\"\n\nrule turla_png_dropper {\n    meta:\n        author = \"Ben Humphrey\"\n        description = \"Detects the PNG Dropper used by the Turla group\"\n        reference = \"https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2018/november/turla-png-dropper-is-back/\"\n        date = \"2018/11/23\"\n        hash1 = \"6ed939f59476fd31dc4d99e96136e928fbd88aec0d9c59846092c0e93a3c0e27\"\n        id = \"459f17c8-0eae-5736-8c7c-286625dc158f\"\n    strings:\n        $api0 = \"GdiplusStartup\"\n        $api1 = \"GdipAlloc\"\n        $api2 = \"GdipCreateBitmapFromStreamICM\"\n        $api3 = \"GdipBitmapLockBits\"\n        $api4 = \"GdipGetImageWidth\"\n        $api5 = \"GdipGetImageHeight\"\n        $api6 = \"GdiplusShutdown\"\n        $code32 = {\n            8B 46 3C               // mov     eax, [esi+3Ch]\n            B9 0B 01 00 00         // mov     ecx, 10Bh\n            66 39 4C 30 18         // cmp     [eax+esi+18h], cx\n            8B 44 30 28            // mov     eax, [eax+esi+28h]\n            6A 00                  // push    0\n            B9 AF BE AD DE         // mov     ecx, 0DEADBEAFh\n            51                     // push    ecx\n            51                     // push    ecx\n            03 C6                  // add     eax, esi\n            56                     // push    esi\n            FF D0                  // call eax\n        }\n\n        $code64 = {\n            48 63 43 3C            // movsxd rax, dword ptr [rbx+3Ch]\n            B9 0B 01 00 00         // mov ecx, 10Bh\n            BA AF BE AD DE         // mov edx, 0DEADBEAFh\n            66 39 4C 18 18         // cmp [rax+rbx+18h], cx\n            8B 44 18 28            // mov eax, [rax+rbx+28h]\n            45 33 C9               // xor r9d, r9d\n            44 8B C2               // mov r8d, edx\n            48 8B CB               // mov rcx, rbx\n            48 03 C3               // add rax, rbx\n            FF D0                  // call rax\n        }\n        condition:\n        (uint16(0) == 0x5A4D and uint16(uint32(0x3c)) == 0x4550) and\n        all of ($api*) and\n        1 of ($code*)\n}\n\nrule turla_png_reg_enum_payload {\n    meta:\n        author = \"Ben Humphrey\"\n        description = \"Payload that has most recently been dropped by the Turla PNG Dropper\"\n        reference = \"https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2018/november/turla-png-dropper-is-back/\"\n        date = \"2018/11/23\"\n        hash1 = \"fea27eb2e939e930c8617dcf64366d1649988f30555f6ee9cd09fe54e4bc22b3\"\n        id = \"413bb315-3c01-56ab-92db-00342a11438a\"\n    strings:\n        $crypt00 = \"Microsoft Software Key Storage Provider\" wide\n        $crypt01 = \"ChainingModeCBC\" wide\n        /* $crypt02 = \"AES\" wide */ /* disabled due to performance reasons */\n    condition:\n        (uint16(0) == 0x5A4D and uint16(uint32(0x3c)) == 0x4550) and\n        pe.imports(\"advapi32.dll\", \"StartServiceCtrlDispatcherA\") and\n        pe.imports(\"advapi32.dll\", \"RegEnumValueA\") and\n        pe.imports(\"advapi32.dll\", \"RegEnumKeyExA\") and\n        pe.imports(\"ncrypt.dll\", \"NCryptOpenStorageProvider\") and\n        pe.imports(\"ncrypt.dll\", \"NCryptEnumKeys\") and\n        pe.imports(\"ncrypt.dll\", \"NCryptOpenKey\") and\n        pe.imports(\"ncrypt.dll\", \"NCryptDecrypt\") and\n        pe.imports(\"ncrypt.dll\", \"BCryptGenerateSymmetricKey\") and\n        pe.imports(\"ncrypt.dll\", \"BCryptGetProperty\") and\n        pe.imports(\"ncrypt.dll\", \"BCryptDecrypt\") and\n        pe.imports(\"ncrypt.dll\", \"BCryptEncrypt\") and\n        all of them\n}\n"
+}

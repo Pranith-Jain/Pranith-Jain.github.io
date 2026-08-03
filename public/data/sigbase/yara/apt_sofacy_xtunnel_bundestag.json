@@ -1,0 +1,72 @@
+{
+  "slug": "apt_sofacy_xtunnel_bundestag",
+  "filename": "apt_sofacy_xtunnel_bundestag.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "apt_sofacy_xtunnel",
+      "meta": {
+        "author": "Claudio Guarnieri",
+        "description": "Sofacy Malware - German Bundestag",
+        "score": "75",
+        "id": "aef091b5-cedf-5443-ab61-8b2dbc7e77fd"
+      }
+    },
+    {
+      "name": "Winexe_RemoteExec",
+      "meta": {
+        "description": "Winexe tool for remote execution (also used by Sofacy group)",
+        "author": "Florian Roth (Nextron Systems), Robert Simmons",
+        "reference": "http://dokumente.linksfraktion.de/inhalt/report-orig.pdf",
+        "date": "2015-06-19",
+        "modified": "2021-02-11",
+        "hash1": "5130f600cd9a9cdc82d4bad938b20cbd2f699aadb76e7f3f1a93602330d9997d",
+        "hash2": "d19dfdbe747e090c5aa2a70cc10d081ac1aa88f360c3f378288a3651632c4429",
+        "score": "70",
+        "id": "5079557a-0461-5b04-b0f2-4265bf7ec041"
+      }
+    },
+    {
+      "name": "Sofacy_Mal2",
+      "meta": {
+        "description": "Sofacy Group Malware Sample 2",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://dokumente.linksfraktion.de/inhalt/report-orig.pdf",
+        "date": "2015-06-19",
+        "hash": "566ab945f61be016bfd9e83cc1b64f783b9b8deb891e6d504d3442bc8281b092",
+        "score": "70",
+        "id": "1547cc67-7d7c-5ec9-816c-15b7d523376a"
+      }
+    },
+    {
+      "name": "Sofacy_Mal3",
+      "meta": {
+        "description": "Sofacy Group Malware Sample 3",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://dokumente.linksfraktion.de/inhalt/report-orig.pdf",
+        "date": "2015-06-19",
+        "modified": "2023-01-06",
+        "hash": "5f6b2a0d1d966fc4f1ed292b46240767f4acb06c13512b0061b434ae2a692fa1",
+        "score": "70",
+        "id": "67d002ef-4ed9-54ce-a6ef-49b7f3b951e2"
+      }
+    },
+    {
+      "name": "Sofacy_Bundestag_Batch",
+      "meta": {
+        "description": "Sofacy Bundestags APT Batch Script",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://dokumente.linksfraktion.de/inhalt/report-orig.pdf",
+        "date": "2015-06-19",
+        "score": "70",
+        "id": "869dafec-1387-5640-b608-b84cf0d43342"
+      }
+    }
+  ],
+  "body": "import \"pe\"\n\nrule apt_sofacy_xtunnel {\n    meta:\n        author = \"Claudio Guarnieri\"\n        description = \"Sofacy Malware - German Bundestag\"\n        score = 75\n        id = \"aef091b5-cedf-5443-ab61-8b2dbc7e77fd\"\n    strings:\n        $xaps = \":\\\\PROJECT\\\\XAPS_\"\n        $variant11 = \"XAPS_OBJECTIVE.dll\" $variant12 = \"start\"\n        $variant21 = \"User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0\"\n        $variant22 = \"is you live?\"\n        $mix1 = \"176.31.112.10\"\n        $mix2 = \"error in select, errno %d\" $mix3 = \"no msg\"\n        $mix4 = \"is you live?\"\n        $mix5 = \"127.0.0.1\"\n        $mix6 = \"err %d\"\n        $mix7 = \"i`m wait\"\n        $mix8 = \"hello\"\n        $mix9 = \"OpenSSL 1.0.1e 11 Feb 2013\" $mix10 = \"Xtunnel.exe\"\n    condition:\n        ((uint16(0) == 0x5A4D) or (uint16(0) == 0xCFD0)) and (($xaps) or (all of ($variant1*)) or (all of ($variant2*)) or (6 of ($mix*)))\n}\n\nrule Winexe_RemoteExec {\n   meta:\n      description = \"Winexe tool for remote execution (also used by Sofacy group)\"\n      author = \"Florian Roth (Nextron Systems), Robert Simmons\"\n      reference = \"http://dokumente.linksfraktion.de/inhalt/report-orig.pdf\"\n      date = \"2015-06-19\"\n      modified = \"2021-02-11\"\n      hash1 = \"5130f600cd9a9cdc82d4bad938b20cbd2f699aadb76e7f3f1a93602330d9997d\"\n      hash2 = \"d19dfdbe747e090c5aa2a70cc10d081ac1aa88f360c3f378288a3651632c4429\"\n      score = 70\n      id = \"5079557a-0461-5b04-b0f2-4265bf7ec041\"\n   strings:\n      $s1 = \"error Cannot LogonUser(%s,%s,%s) %d\" ascii fullword\n      $s2 = \"error Cannot ImpersonateNamedPipeClient %d\" ascii fullword\n      $s3 = \"\\\\\\\\.\\\\pipe\\\\ahexec\" fullword ascii\n      $s4 = \"\\\\\\\\.\\\\pipe\\\\wmcex\" fullword ascii\n      $s5 = \"implevel\" fullword ascii\n   condition:\n   uint16(0) == 0x5a4d and filesize < 115KB and (\n      3 of them or\n      pe.imphash() == \"2f8a475933ac82b8e09eaf26b396b54d\"\n   )\n}\n\nrule Sofacy_Mal2 {\n    meta:\n        description = \"Sofacy Group Malware Sample 2\"\n        license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n        reference = \"http://dokumente.linksfraktion.de/inhalt/report-orig.pdf\"\n        date = \"2015-06-19\"\n        hash = \"566ab945f61be016bfd9e83cc1b64f783b9b8deb891e6d504d3442bc8281b092\"\n        score = 70\n        id = \"1547cc67-7d7c-5ec9-816c-15b7d523376a\"\n    strings:\n        $x1 = \"PROJECT\\\\XAPS_OBJECTIVE_DLL\\\\\" ascii\n        $x2 = \"XAPS_OBJECTIVE.dll\" fullword ascii\n\n        $s1 = \"i`m wait\" fullword ascii\n    condition:\n        uint16(0) == 0x5a4d and ( 1 of ($x*) ) and $s1\n}\n\nrule Sofacy_Mal3 {\n    meta:\n        description = \"Sofacy Group Malware Sample 3\"\n        license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n        reference = \"http://dokumente.linksfraktion.de/inhalt/report-orig.pdf\"\n        date = \"2015-06-19\"\n        modified = \"2023-01-06\"\n        hash = \"5f6b2a0d1d966fc4f1ed292b46240767f4acb06c13512b0061b434ae2a692fa1\"\n        score = 70\n        id = \"67d002ef-4ed9-54ce-a6ef-49b7f3b951e2\"\n    strings:\n        $s1 = \"shell\\\\open\\\\command=\\\"System Volume Information\\\\USBGuard.exe\\\" install\" fullword ascii\n        $s2 = \".?AVAgentModuleRemoteKeyLogger@@\" fullword ascii\n        $s3 = \"<font size=4 color=red>process isn't exist</font>\" fullword ascii\n        $s4 = \"<font size=4 color=red>process is exist</font>\" fullword ascii\n        $s5 = \".winnt.check-fix.com\" ascii\n        $s6 = \".update.adobeincorp.com\" ascii\n        $s7 = \".microsoft.checkwinframe.com\" ascii\n        $s8 = \"adobeincorp.com\" fullword wide\n        $s9 = \"# EXC: HttpSender - Cannot create Get Channel!\" fullword ascii\n\n        $x1 = \"User-Agent: Mozilla/5.0 (Windows NT 6.2; WOW64; rv:20.0) Gecko/20100101 Firefox/\" wide\n        $x2 = \"User-Agent: Mozilla/5.0 (Windows NT 6.; WOW64; rv:20.0) Gecko/20100101 Firefox/2\" wide\n        $x3 = \"C:\\\\Windows\\\\System32\\\\cmd.exe\" fullword wide\n    condition:\n        uint16(0) == 0x5a4d and filesize < 300KB and (\n            2 of ($s*) or\n            ( 1 of ($s*) and all of ($x*) )\n        )\n}\n\nrule Sofacy_Bundestag_Batch {\n    meta:\n        description = \"Sofacy Bundestags APT Batch Script\"\n        license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n        reference = \"http://dokumente.linksfraktion.de/inhalt/report-orig.pdf\"\n        date = \"2015-06-19\"\n        score = 70\n        id = \"869dafec-1387-5640-b608-b84cf0d43342\"\n    strings:\n        $s1 = \"for %%G in (.pdf, .xls, .xlsx, .doc, .docx)\" ascii\n        $s2 = \"cmd /c copy\"\n        $s3 = \"forfiles\"\n    condition:\n        filesize < 10KB and 2 of them\n}\n"
+}

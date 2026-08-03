@@ -1,0 +1,32 @@
+{
+  "slug": "expl_keepass_cve_2023_24055",
+  "filename": "expl_keepass_cve_2023_24055.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "EXPL_Keepass_CVE_2023_24055_Jan23",
+      "meta": {
+        "description": "Detects suspicious entries in the Keepass configuration file, which could be indicator of the exploitation of CVE-2023-24055",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://github.com/alt3kx/CVE-2023-24055_PoC",
+        "date": "2023-01-25",
+        "score": "75",
+        "id": "2c031919-da19-5fd0-b21a-2e83679ad1e3"
+      }
+    },
+    {
+      "name": "SUSP_Keepass_CVE_2023_24055_Jan23",
+      "meta": {
+        "description": "Detects suspicious triggers defined in the Keepass configuration file, which could be indicator of the exploitation of CVE-2023-24055",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://github.com/alt3kx/CVE-2023-24055_PoC",
+        "date": "2023-01-25",
+        "score": "60",
+        "id": "4ff1a93f-f7f0-528d-9e07-402e321a0ffe"
+      }
+    }
+  ],
+  "body": "\nrule EXPL_Keepass_CVE_2023_24055_Jan23 {\n   meta:\n      description = \"Detects suspicious entries in the Keepass configuration file, which could be indicator of the exploitation of CVE-2023-24055\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://github.com/alt3kx/CVE-2023-24055_PoC\"\n      date = \"2023-01-25\"\n      score = 75\n      id = \"2c031919-da19-5fd0-b21a-2e83679ad1e3\"\n   strings:\n      $a1 = \"<TriggerCollection xmlns:xsi=\" ascii wide\n\n      $x1 = \"<Parameter>KeePass XML (2.x)</Parameter>\"\n      $x2 = \"::ReadAllBytes(\"\n      $x3 = \" -Method \"\n      $x4 = \" bypass \"\n      $x5 = \"powershell\" nocase ascii wide fullword\n   condition:\n      filesize < 200KB and $a1 and 1 of ($x*)\n}\n\nrule SUSP_Keepass_CVE_2023_24055_Jan23 {\n   meta:\n      description = \"Detects suspicious triggers defined in the Keepass configuration file, which could be indicator of the exploitation of CVE-2023-24055\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://github.com/alt3kx/CVE-2023-24055_PoC\"\n      date = \"2023-01-25\"\n      score = 60\n      id = \"4ff1a93f-f7f0-528d-9e07-402e321a0ffe\"\n   strings:\n      $a1 = \"<TriggerCollection xmlns:xsi=\" ascii wide\n\n      $s1 = \"<Action>\" ascii wide\n      $s2 = \"<Parameter>\" ascii wide\n   condition:\n      filesize < 200KB and $a1 and all of ($s*)\n}\n"
+}

@@ -1,0 +1,22 @@
+{
+  "slug": "gen_wmi_implant",
+  "filename": "gen_wmi_implant.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-03-24\n   Identifier: WMImplant",
+  "rules": [
+    {
+      "name": "WMImplant",
+      "meta": {
+        "description": "Auto-generated rule - file WMImplant.ps1",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.fireeye.com/blog/threat-research/2017/03/wmimplant_a_wmi_ba.html",
+        "date": "2017-03-24",
+        "hash1": "860d7c237c2395b4f51b8c9bd0ee6cab06af38fff60ce3563d160d50c11d2f78",
+        "id": "18dadc55-e12f-5c4c-9e11-27dc2d6c8dd2"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-03-24\n   Identifier: WMImplant\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule WMImplant {\n   meta:\n      description = \"Auto-generated rule - file WMImplant.ps1\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.fireeye.com/blog/threat-research/2017/03/wmimplant_a_wmi_ba.html\"\n      date = \"2017-03-24\"\n      hash1 = \"860d7c237c2395b4f51b8c9bd0ee6cab06af38fff60ce3563d160d50c11d2f78\"\n      id = \"18dadc55-e12f-5c4c-9e11-27dc2d6c8dd2\"\n   strings:\n      $x1 = \"Invoke-ProcessPunisher -Creds $RemoteCredential\" fullword ascii\n      $x2 = \"$Target -query \\\"SELECT * FROM Win32_NTLogEvent WHERE (logfile='security')\" ascii\n      $x3 = \"WMImplant -Creds\" fullword ascii\n      $x4 = \"-Download -RemoteFile C:\\\\passwords.txt\" ascii\n      $x5 = \"-Command 'powershell.exe -command \\\"Enable-PSRemoting\" fullword ascii\n      $x6 = \"Invoke-WMImplant\" fullword ascii\n   condition:\n      1 of them\n}\n"
+}

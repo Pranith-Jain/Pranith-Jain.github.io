@@ -1,0 +1,23 @@
+{
+  "slug": "mal_win_go_backorder_loader",
+  "filename": "mal_win_go_backorder_loader.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_BACKORDER_LOADER_WIN_Go_Jan23",
+      "meta": {
+        "description": "Detects the BACKORDER loader compiled in GO which download and executes a second stage payload from a remote server.",
+        "author": "Arda Buyukkaya (modified by Florian Roth)",
+        "date": "2025-01-23",
+        "reference": "EclecticIQ",
+        "score": "80",
+        "tags": "loader, golang, BACKORDER, malware, windows",
+        "hash": "70c91ffdc866920a634b31bf4a070fb3c3f947fc9de22b783d6f47a097fec2d8",
+        "id": "90a82f2c-be92-5d0b-b47e-f47db2b15867"
+      }
+    }
+  ],
+  "body": "rule MAL_BACKORDER_LOADER_WIN_Go_Jan23 {\n   meta:\n      description = \"Detects the BACKORDER loader compiled in GO which download and executes a second stage payload from a remote server.\"\n      author = \"Arda Buyukkaya (modified by Florian Roth)\"\n      date = \"2025-01-23\"\n      reference = \"EclecticIQ\"\n      score = 80\n      tags = \"loader, golang, BACKORDER, malware, windows\"\n      hash = \"70c91ffdc866920a634b31bf4a070fb3c3f947fc9de22b783d6f47a097fec2d8\"\n      id = \"90a82f2c-be92-5d0b-b47e-f47db2b15867\"\n   strings:\n      $GoBuildId = \"Go build\" ascii\n      // Debug symbols commonly seen in BACKORDER loader\n      $x_DebugSymbol_1 = \"C:/updatescheck/main.go\"\n      $x_DebugSymbol_2 = \"C:/Users/IEUser/Desktop/Majestic/\"\n      // Function name patterns observed in BACKORDER loader\n      $s_FunctionName_1 = \"main.getUpdates.func\"\n      $s_FunctionName_2 = \"main.obt_zip\"\n      $s_FunctionName_3 = \"main.obtener_zip\"\n      $s_FunctionName_4 = \"main.get_zip\"\n      $s_FunctionName_5 = \"main.show_pr0gressbar\"\n      $s_FunctionName_6 = \"main.pr0cess\"\n   condition:\n      uint16(0) == 0x5a4d\n      and filesize < 10MB\n      and $GoBuildId\n      and (\n         1 of ($x*)\n         or 3 of them\n      )\n}\n"
+}

@@ -1,0 +1,50 @@
+{
+  "slug": "gen_phish_attachments",
+  "filename": "gen_phish_attachments.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "SUSP_ZIP_LNK_PhishAttachment_Pattern_Jun22_1",
+      "meta": {
+        "description": "Detects suspicious tiny ZIP files with phishing attachment characteristics",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2022-06-23",
+        "score": "65",
+        "hash1": "4edb41f4645924d8a73e7ac3e3f39f4db73e38f356bc994ad7d03728cd799a48",
+        "hash2": "c4fec375b44efad2d45c49f30133efbf6921ce82dbb2d1a980f69ea6383b0ab4",
+        "hash3": "9c70eeac97374213355ea8fa019a0e99e0e57c8efc43daa3509f9f98fa71c8e4",
+        "hash4": "ddc20266e38a974a28af321ab82eedaaf51168fbcc63ac77883d8be5200dcaf9",
+        "hash5": "b59788ae984d9e70b4f7f5a035b10e6537063f15a010652edd170fc6a7e1ea2f",
+        "id": "3537c4ea-a51d-5100-97d7-71a24da5ff43"
+      }
+    },
+    {
+      "name": "SUSP_ZIP_ISO_PhishAttachment_Pattern_Jun22_1",
+      "meta": {
+        "description": "Detects suspicious small base64 encoded ZIP files (MIME email attachments) with .iso files as content as often used in phishing attacks",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2022-06-23",
+        "score": "65",
+        "id": "638541a6-d2d4-513e-978c-9d1b9f5e3b71"
+      }
+    },
+    {
+      "name": "SUSP_Archive_Phishing_Attachment_Characteristics_Jun22_1",
+      "meta": {
+        "description": "Detects characteristics of suspicious file names or double extensions often found in phishing mail attachments",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://twitter.com/0xtoxin/status/1540524891623014400?s=12&t=IQ0OgChk8tAIdTHaPxh0Vg",
+        "date": "2022-06-29",
+        "score": "65",
+        "hash1": "caaa5c5733fca95804fffe70af82ee505a8ca2991e4cc05bc97a022e5f5b331c",
+        "hash2": "a746d8c41609a70ce10bc69d459f9abb42957cc9626f2e83810c1af412cb8729",
+        "id": "3cb8c371-f40b-5773-84d1-3bce37da529e"
+      }
+    }
+  ],
+  "body": "\nrule SUSP_ZIP_LNK_PhishAttachment_Pattern_Jun22_1 {\n   meta:\n      description = \"Detects suspicious tiny ZIP files with phishing attachment characteristics\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2022-06-23\"\n      score = 65\n      hash1 = \"4edb41f4645924d8a73e7ac3e3f39f4db73e38f356bc994ad7d03728cd799a48\"\n      hash2 = \"c4fec375b44efad2d45c49f30133efbf6921ce82dbb2d1a980f69ea6383b0ab4\"\n      hash3 = \"9c70eeac97374213355ea8fa019a0e99e0e57c8efc43daa3509f9f98fa71c8e4\"\n      hash4 = \"ddc20266e38a974a28af321ab82eedaaf51168fbcc63ac77883d8be5200dcaf9\"\n      hash5 = \"b59788ae984d9e70b4f7f5a035b10e6537063f15a010652edd170fc6a7e1ea2f\"\n      id = \"3537c4ea-a51d-5100-97d7-71a24da5ff43\"\n   strings:\n      $sl1 = \".lnk\" \n   condition:\n      uint16(0) == 0x4b50 and \n      filesize < 2KB and \n      $sl1 in (filesize-256..filesize)\n}\n\nrule SUSP_ZIP_ISO_PhishAttachment_Pattern_Jun22_1 {\n   meta:\n      description = \"Detects suspicious small base64 encoded ZIP files (MIME email attachments) with .iso files as content as often used in phishing attacks\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2022-06-23\"\n      score = 65\n      id = \"638541a6-d2d4-513e-978c-9d1b9f5e3b71\"\n   strings:\n      $pkzip_base64_1 = { 0A 55 45 73 44 42 }\n      $pkzip_base64_2 = { 0A 55 45 73 44 42 }\n      $pkzip_base64_3 = { 0A 55 45 73 48 43 }\n\n      $iso_1 = \"Lmlzb1BL\"\n      $iso_2 = \"5pc29QS\"\n      $iso_3 = \"uaXNvUE\"\n   condition:\n      filesize < 2000KB and 1 of ($pk*) and 1 of ($iso*)\n}\n\nrule SUSP_Archive_Phishing_Attachment_Characteristics_Jun22_1 {\n   meta:\n      description = \"Detects characteristics of suspicious file names or double extensions often found in phishing mail attachments\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://twitter.com/0xtoxin/status/1540524891623014400?s=12&t=IQ0OgChk8tAIdTHaPxh0Vg\"\n      date = \"2022-06-29\"\n      score = 65\n      hash1 = \"caaa5c5733fca95804fffe70af82ee505a8ca2991e4cc05bc97a022e5f5b331c\"\n      hash2 = \"a746d8c41609a70ce10bc69d459f9abb42957cc9626f2e83810c1af412cb8729\"\n      id = \"3cb8c371-f40b-5773-84d1-3bce37da529e\"\n   strings:\n      $sa01 = \"INVOICE.exePK\" ascii\n      $sa02 = \"PAYMENT.exePK\" ascii\n      $sa03 = \"REQUEST.exePK\" ascii\n      $sa04 = \"ORDER.exePK\" ascii\n      $sa05 = \"invoice.exePK\" ascii\n      $sa06 = \"payment.exePK\" ascii\n      $sa07 = \"_request.exePK\" ascii\n      $sa08 = \"_order.exePK\" ascii\n      $sa09 = \"-request.exePK\" ascii\n      $sa10 = \"-order.exePK\" ascii\n      $sa11 = \" request.exePK\" ascii\n      $sa12 = \" order.exePK\" ascii\n      $sa14 = \".doc.exePK\" ascii\n      $sa15 = \".docx.exePK\" ascii\n      $sa16 = \".xls.exePK\" ascii\n      $sa17 = \".xlsx.exePK\" ascii\n      $sa18 = \".pdf.exePK\" ascii\n      $sa19 = \".ppt.exePK\" ascii\n      $sa20 = \".pptx.exePK\" ascii\n      $sa21 = \".rtf.exePK\" ascii\n      $sa22 = \".txt.exePK\" ascii\n\n      $sb01 = \"SU5WT0lDRS5leGVQS\"\n      $sb02 = \"lOVk9JQ0UuZXhlUE\"\n      $sb03 = \"JTlZPSUNFLmV4ZVBL\"\n      $sb04 = \"UEFZTUVOVC5leGVQS\"\n      $sb05 = \"BBWU1FTlQuZXhlUE\"\n      $sb06 = \"QQVlNRU5ULmV4ZVBL\"\n      $sb07 = \"UkVRVUVTVC5leGVQS\"\n      $sb08 = \"JFUVVFU1QuZXhlUE\"\n      $sb09 = \"SRVFVRVNULmV4ZVBL\"\n      $sb10 = \"T1JERVIuZXhlUE\"\n      $sb11 = \"9SREVSLmV4ZVBL\"\n      $sb12 = \"PUkRFUi5leGVQS\"\n      $sb13 = \"aW52b2ljZS5leGVQS\"\n      $sb14 = \"ludm9pY2UuZXhlUE\"\n      $sb15 = \"pbnZvaWNlLmV4ZVBL\"\n      $sb16 = \"cGF5bWVudC5leGVQS\"\n      $sb17 = \"BheW1lbnQuZXhlUE\"\n      $sb18 = \"wYXltZW50LmV4ZVBL\"\n      $sb19 = \"X3JlcXVlc3QuZXhlUE\"\n      $sb20 = \"9yZXF1ZXN0LmV4ZVBL\"\n      $sb21 = \"fcmVxdWVzdC5leGVQS\"\n      $sb22 = \"X29yZGVyLmV4ZVBL\"\n      $sb23 = \"9vcmRlci5leGVQS\"\n      $sb24 = \"fb3JkZXIuZXhlUE\"\n      $sb25 = \"LXJlcXVlc3QuZXhlUE\"\n      $sb26 = \"1yZXF1ZXN0LmV4ZVBL\"\n      $sb27 = \"tcmVxdWVzdC5leGVQS\"\n      $sb28 = \"LW9yZGVyLmV4ZVBL\"\n      $sb29 = \"1vcmRlci5leGVQS\"\n      $sb30 = \"tb3JkZXIuZXhlUE\"\n      $sb31 = \"IHJlcXVlc3QuZXhlUE\"\n      $sb32 = \"ByZXF1ZXN0LmV4ZVBL\"\n      $sb33 = \"gcmVxdWVzdC5leGVQS\"\n      $sb34 = \"IG9yZGVyLmV4ZVBL\"\n      $sb35 = \"BvcmRlci5leGVQS\"\n      $sb36 = \"gb3JkZXIuZXhlUE\"\n      $sb37 = \"LmRvYy5leGVQS\"\n      $sb38 = \"5kb2MuZXhlUE\"\n      $sb39 = \"uZG9jLmV4ZVBL\"\n      $sb40 = \"LmRvY3guZXhlUE\"\n      $sb41 = \"5kb2N4LmV4ZVBL\"\n      $sb42 = \"uZG9jeC5leGVQS\"\n      $sb43 = \"Lnhscy5leGVQS\"\n      $sb44 = \"54bHMuZXhlUE\"\n      $sb45 = \"ueGxzLmV4ZVBL\"\n      $sb46 = \"Lnhsc3guZXhlUE\"\n      $sb47 = \"54bHN4LmV4ZVBL\"\n      $sb48 = \"ueGxzeC5leGVQS\"\n      $sb49 = \"LnBkZi5leGVQS\"\n      $sb50 = \"5wZGYuZXhlUE\"\n      $sb51 = \"ucGRmLmV4ZVBL\"\n      $sb52 = \"LnBwdC5leGVQS\"\n      $sb53 = \"5wcHQuZXhlUE\"\n      $sb54 = \"ucHB0LmV4ZVBL\"\n      $sb55 = \"LnBwdHguZXhlUE\"\n      $sb56 = \"5wcHR4LmV4ZVBL\"\n      $sb57 = \"ucHB0eC5leGVQS\"\n      $sb58 = \"LnJ0Zi5leGVQS\"\n      $sb59 = \"5ydGYuZXhlUE\"\n      $sb60 = \"ucnRmLmV4ZVBL\"\n      $sb61 = \"LnR4dC5leGVQS\"\n      $sb62 = \"50eHQuZXhlUE\"\n      $sb63 = \"udHh0LmV4ZVBL\"\n   condition:\n      uint16(0) == 0x4b50 and 1 of ($sa*) or 1 of ($sb*)\n}\n"
+}

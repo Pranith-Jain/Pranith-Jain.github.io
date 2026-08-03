@@ -1,0 +1,34 @@
+{
+  "slug": "apt_volttyphoon_versamem",
+  "filename": "apt_volttyphoon_versamem.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "WEBSHELL_JAVA_VersaMem_JAR_Aug24_1",
+      "meta": {
+        "description": "Detects VersaMem Java webshell samples (as used by Volt Typhoon)",
+        "author": "blacklotuslabs (modified by Florian Roth and X__Junior)",
+        "reference": "https://x.com/ryanaraine/status/1828440883315999117",
+        "date": "2024-08-27",
+        "modified": "2024-08-29",
+        "score": "75",
+        "id": "9b666e61-cfa8-58b3-a362-772cd907c57c"
+      }
+    },
+    {
+      "name": "WEBSHELL_JAVA_VersaMem_JAR_Aug24_2",
+      "meta": {
+        "description": "Detects VersaMem Java webshell samples (as used by Volt Typhoon)",
+        "author": "Florian Roth",
+        "reference": "https://x.com/craiu/status/1828687700884336990",
+        "date": "2024-08-29",
+        "score": "75",
+        "hash1": "4bcedac20a75e8f8833f4725adfc87577c32990c3783bf6c743f14599a176c37",
+        "id": "5ca598ed-5d0a-563d-a5e8-f8229af2c949"
+      }
+    }
+  ],
+  "body": "\nrule WEBSHELL_JAVA_VersaMem_JAR_Aug24_1 {\n   meta:\n      description = \"Detects VersaMem Java webshell samples (as used by Volt Typhoon)\"\n      author = \"blacklotuslabs (modified by Florian Roth and X__Junior)\"\n      reference = \"https://x.com/ryanaraine/status/1828440883315999117\"\n      date = \"2024-08-27\"\n      modified = \"2024-08-29\"\n      score = 75\n      id = \"9b666e61-cfa8-58b3-a362-772cd907c57c\"\n   strings:\n      $sa1 = \"com.versa.vnms.ui.TestMain\"\n      $sa2 = \"captureLoginPasswordCode\"\n      $sa3 = \"com/versa/vnms/ui/services/impl/VersaAuthenticationServiceImpl\"\n      $sa4 = \"/tmp/.temp.data\"\n      $sa5 = \"getInsertCode\"\n      $sa6 = \"VersaMem\"\n      $sa7 = \"Versa-Auth\"\n\n      $sb1 = \"/tmp/.java_pid\"\n      $sb2 = {2f 75 73 72 2f 62 69 6e 2f 70 67 72 65 70 01 00 02 2d 66 01 00 25 6f 72 67 2e 61 70 61 63 68 65 2e 63 61 74 61 6c 69 6e 61 2e 73 74 61 72 74 75 70 2e 42 6f 6f 74 73 74 72 61 70 07}\n   condition:\n      filesize < 5MB and ( 3 of them or all of ($sb*) )\n}\n\n\nrule WEBSHELL_JAVA_VersaMem_JAR_Aug24_2 {\n   meta:\n      description = \"Detects VersaMem Java webshell samples (as used by Volt Typhoon)\"\n      author = \"Florian Roth\"\n      reference = \"https://x.com/craiu/status/1828687700884336990\"\n      date = \"2024-08-29\"\n      score = 75\n      hash1 = \"4bcedac20a75e8f8833f4725adfc87577c32990c3783bf6c743f14599a176c37\"\n      id = \"5ca598ed-5d0a-563d-a5e8-f8229af2c949\"\n   strings:\n      $x1 = \"tomcat_memShell\" ascii\n      $x2 = \"versa/vnms/ui/config/\" ascii fullword\n   condition:\n      uint16(0) == 0x4b50\n      and filesize < 3000KB\n      and 1 of them\n}\n"
+}

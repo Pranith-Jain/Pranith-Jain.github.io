@@ -1,0 +1,21 @@
+{
+  "slug": "crime_mal_ransom_wadharma",
+  "filename": "crime_mal_ransom_wadharma.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_Ransomware_Wadhrama",
+      "meta": {
+        "description": "Detects Wadhrama Ransomware via Imphash",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "Internal Research",
+        "date": "2019-04-07",
+        "hash1": "557c68e38dce7ea10622763c10a1b9f853c236b3291cd4f9b32723e8714e5576",
+        "id": "f7de40e9-fe22-5f14-abc6-f6611a4382ac"
+      }
+    }
+  ],
+  "body": "import \"pe\"\n\nrule MAL_Ransomware_Wadhrama {\n   meta:\n      description = \"Detects Wadhrama Ransomware via Imphash\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"Internal Research\"\n      date = \"2019-04-07\"\n      hash1 = \"557c68e38dce7ea10622763c10a1b9f853c236b3291cd4f9b32723e8714e5576\"\n      id = \"f7de40e9-fe22-5f14-abc6-f6611a4382ac\"\n   condition:\n      uint16(0) == 0x5a4d and pe.imphash() == \"f86dec4a80961955a89e7ed62046cc0e\"\n}\n"
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "apt_venom_linux_rootkit",
+  "filename": "apt_venom_linux_rootkit.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-01-10\n   Identifier: Venom Rootkit",
+  "rules": [
+    {
+      "name": "Venom_Rootkit",
+      "meta": {
+        "description": "Venom Linux Rootkit",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://security.web.cern.ch/security/venom.shtml",
+        "date": "2017-01-12",
+        "id": "fedc6fa9-7dfb-5e54-a7bf-9a16f96d6886"
+      }
+    }
+  ],
+  "body": "/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-01-10\n   Identifier: Venom Rootkit\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule Venom_Rootkit {\n   meta:\n      description = \"Venom Linux Rootkit\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://security.web.cern.ch/security/venom.shtml\"\n      date = \"2017-01-12\"\n      id = \"fedc6fa9-7dfb-5e54-a7bf-9a16f96d6886\"\n   strings:\n      $s1 = \"%%VENOM%CTRL%MODE%%\" ascii fullword\n      $s2 = \"%%VENOM%OK%OK%%\" ascii fullword\n      $s3 = \"%%VENOM%WIN%WN%%\" ascii fullword\n      $s4 = \"%%VENOM%AUTHENTICATE%%\" ascii fullword\n      $s5 = \". entering interactive shell\" ascii fullword\n      $s6 = \". processing ltun request\" ascii fullword\n      $s7 = \". processing rtun request\" ascii fullword\n      $s8 = \". processing get request\" ascii fullword\n      $s9 = \". processing put request\" ascii fullword\n      $s10 = \"venom by mouzone\" ascii fullword\n      $s11 = \"justCANTbeSTOPPED\" ascii fullword\n   condition:\n      filesize < 4000KB and 2 of them\n}\n"
+}

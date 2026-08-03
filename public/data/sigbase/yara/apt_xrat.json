@@ -1,0 +1,23 @@
+{
+  "slug": "apt_xrat",
+  "filename": "apt_xrat.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "xRAT_1",
+      "meta": {
+        "description": "Detects Patchwork malware",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://goo.gl/Pg3P4W",
+        "date": "2017-12-11",
+        "hash1": "92be93ec4cbe76182404af0b180871fbbfa3c7b34e4df6745dbcde480b8b4b3b",
+        "hash2": "f1a45adcf907e660ec848c6086e28c9863b7b70d0d38417dd05a4261973c955a",
+        "id": "170c926a-2020-5269-85b8-6fe9ad28ef76"
+      }
+    }
+  ],
+  "body": "\n/*\n   Yara Rule Set\n   Author: Florian Roth\n   Date: 2017-12-11\n   Identifier: Patchwork\n   Reference: https://goo.gl/Pg3P4W\n*/\n\n/* Rule Set ----------------------------------------------------------------- */\n\nrule xRAT_1 {\n   meta:\n      description = \"Detects Patchwork malware\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://goo.gl/Pg3P4W\"\n      date = \"2017-12-11\"\n      hash1 = \"92be93ec4cbe76182404af0b180871fbbfa3c7b34e4df6745dbcde480b8b4b3b\"\n      hash2 = \"f1a45adcf907e660ec848c6086e28c9863b7b70d0d38417dd05a4261973c955a\"\n      id = \"170c926a-2020-5269-85b8-6fe9ad28ef76\"\n   strings:\n      $x1 = \"\\\" -CHECK & PING -n 2 127.0.0.1 & EXIT\" fullword wide\n      $x2 = \"xClient.Core.Elevation\" fullword ascii\n      $x3 = \">> Welcome to MAX-Shell :Session created\" fullword wide\n      $x4 = \"xClient.Properties.Resources.resources\" fullword ascii\n      $x5 = \"<description>My UAC Compatible application</description>\" fullword ascii\n\n      $s1 = \"ping -n 20 localhost > nul\" fullword wide\n      $s2 = \"DownloadAndExecute\" fullword ascii\n      $s3 = \"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36\" fullword wide\n      $s4 = \"Client.exe\" fullword ascii\n      $s5 = \"Microsoft -Defender\" fullword wide\n      $s6 = \"Microsoft- Defender\" fullword wide\n      $s7 = \"set_RunHidden\" fullword ascii\n   condition:\n      uint16(0) == 0x5a4d and filesize < 1000KB and (\n         1 of ($x*) or\n         3 of them\n      )\n}"
+}

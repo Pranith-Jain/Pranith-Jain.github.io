@@ -41,6 +41,22 @@ no CVE/KEV findings); it self-corrects on a later tick via gate 2. For an
 immediate full rebuild, use `POST /api/v1/briefings/build?type=daily` (admin
 token) — a dedicated request with a fresh 50-subrequest budget.
 
+**Weekly = rollup-first (added 2026-08-03).** The weekly build used to run the
+FULL live fan-out (~45–50 subrequests: 7-day NVD pagination + up to 15 individual
+KEV CVE lookups + the 9-source ransomware merge + 4 IOC feeds + OSSF + Webamon +
+LLM) and THEN merge the daily rollup in. But the weekly cron (`45 0 * * 1`) runs
+the briefing build + landscape sync + TI-dashboard build + watchlist digest in
+ONE invocation — so the build blew the free-plan 50-subrequest cap, Cloudflare
+aborted it with HTTP 503, and no row persisted (the hourly heal failed the same
+way; e.g. `weekly-2026-W31` was missing while all 7 dailies were rich).
+
+Now `buildBriefing('weekly')` reads the D1 daily rollup FIRST
+(`aggregateWeeklyFromDailies`) and, when the dailies cover the window with real
+data, assembles the weekly from the rollup alone — D1 reads only, ~0 subrequests —
+skipping the live fan-out entirely. The live path remains the fallback for a
+window with no/missing dailies. Do NOT reintroduce the weekly live fan-out first;
+the rollup is the source of truth for a weekly.
+
 ## Guardrails
 
 **Type:** Hardened with anti-gaming rules

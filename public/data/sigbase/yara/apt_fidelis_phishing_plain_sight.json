@@ -1,0 +1,31 @@
+{
+  "slug": "apt_fidelis_phishing_plain_sight",
+  "filename": "apt_fidelis_phishing_plain_sight.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "Fidelis_Advisory_Purchase_Order_pps",
+      "meta": {
+        "description": "Detects a string found in a malicious document named Purchase_Order.pps",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://goo.gl/ZjJyti",
+        "date": "2015-06-09",
+        "id": "205c4cda-6874-5455-8eb9-b63fb09b13fd"
+      }
+    },
+    {
+      "name": "Fidelis_Advisory_cedt370",
+      "meta": {
+        "description": "Detects a string found in memory of malware cedt370r(3).exe",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "http://goo.gl/ZjJyti",
+        "date": "2015-06-09",
+        "id": "b5ebf2d7-e3e4-5b3b-a082-417da9c7fda6"
+      }
+    }
+  ],
+  "body": "\nrule Fidelis_Advisory_Purchase_Order_pps {\n    meta:\n        description = \"Detects a string found in a malicious document named Purchase_Order.pps\"\n        license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n        reference = \"http://goo.gl/ZjJyti\"\n        date = \"2015-06-09\"\n        id = \"205c4cda-6874-5455-8eb9-b63fb09b13fd\"\n    strings:\n        $s0 = \"Users\\\\Gozie\\\\Desktop\\\\Purchase-Order.gif\" ascii\n    condition:\n        all of them\n}\n\nrule Fidelis_Advisory_cedt370 {\n    meta:\n        description = \"Detects a string found in memory of malware cedt370r(3).exe\"\n        author = \"Florian Roth (Nextron Systems)\"\n        reference = \"http://goo.gl/ZjJyti\"\n        date = \"2015-06-09\"\n        id = \"b5ebf2d7-e3e4-5b3b-a082-417da9c7fda6\"\n    strings:\n        $s0 = \"PO.exe\" ascii fullword\n        $s1 = \"Important.exe\" ascii fullword\n        $s2 = \"&username=\" ascii fullword\n        $s3 = \"Browsers.txt\" ascii fullword\n    condition:\n        all of them\n}\n"
+}

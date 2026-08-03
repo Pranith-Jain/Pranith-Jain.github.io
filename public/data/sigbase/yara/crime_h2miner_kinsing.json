@@ -1,0 +1,19 @@
+{
+  "slug": "crime_h2miner_kinsing",
+  "filename": "crime_h2miner_kinsing.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "crime_h2miner_kinsing",
+      "meta": {
+        "description": "Rule to find Kinsing malware",
+        "author": "Tony Lambert, Red Canary",
+        "date": "2020-06-09",
+        "id": "1cabca0d-7134-517e-b82e-f2b20b4d1c34"
+      }
+    }
+  ],
+  "body": "rule crime_h2miner_kinsing\n{\n    meta:\n        description = \"Rule to find Kinsing malware\"\n        author = \"Tony Lambert, Red Canary\"\n        date = \"2020-06-09\"\n        id = \"1cabca0d-7134-517e-b82e-f2b20b4d1c34\"\n    strings:\n        $s1 = \"-iL $INPUT --rate $RATE -p$PORT -oL $OUTPUT\"\n        $s2 = \"libpcap\"\n        $s3 = \"main.backconnect\"\n        $s4 = \"main.masscan\"\n        $s5 = \"main.checkHealth\"\n        $s6 = \"main.redisBrute\"\n        $s7 = \"ActiveC2CUrl\"\n        $s8 = \"main.RC4\"\n        $s9 = \"main.runTask\"\n    condition:\n        (uint32(0) == 0x464C457F) and filesize > 1MB and all of them \n}\n"
+}

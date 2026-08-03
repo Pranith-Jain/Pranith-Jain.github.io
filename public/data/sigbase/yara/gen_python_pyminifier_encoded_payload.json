@@ -1,0 +1,22 @@
+{
+  "slug": "gen_python_pyminifier_encoded_payload",
+  "filename": "gen_python_pyminifier_encoded_payload.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "gen_python_pyminifier_encoded_payload",
+      "meta": {
+        "description": "Detects python code encoded by pyminifier. Used by the Machete malware as researched by ESET",
+        "author": "John Lambert @JohnLaTwC",
+        "date": "2019-12-16",
+        "reference": "https://www.welivesecurity.com/wp-content/uploads/2019/08/ESET_Machete.pdf",
+        "reference2": "https://github.com/liftoff/pyminifier",
+        "hash": "b454179c13cb4727ae06cc9cd126c3379e2aded5c293af0234ac3312bf9bdad2",
+        "id": "d7297e6a-e1c7-57dd-a57f-a3b67face2f3"
+      }
+    }
+  ],
+  "body": "rule gen_python_pyminifier_encoded_payload\n{\n    meta:\n        description = \"Detects python code encoded by pyminifier. Used by the Machete malware as researched by ESET\"\n        author = \"John Lambert @JohnLaTwC\"\n        date = \"2019-12-16\"\n        reference = \"https://www.welivesecurity.com/wp-content/uploads/2019/08/ESET_Machete.pdf\"\n        reference2 = \"https://github.com/liftoff/pyminifier\"\n        hash = \"01df8765ea35db382d1dd67a502bf1d9647d8fe818ec31abff41c7e41c2816c0\"\n        hash = \"15d201152a9465497a0f9dd6939e48315b358702c5e2a3c506ad436bb8816da7\"\n        hash = \"ab91f76394ddf866cc0b315d862a19b57ded93be5dfc2dd0a81e6a43d0c5f301\"\n        hash = \"b67256906d976aafb6071d23d1b3f59a1696f26b25ff4713b9342d41e656dfba\"\n        hash = \"d5664c70f3543f306f765ea35e22829dbea66aec729e8e11edea9806d0255b7e\"\n        hash = \"dd2b0e2c2cb8a83574248bda54ce472899b22eb602e8ebecafcce2c4355177fe\"\n        hash = \"ed76bd136f40a23aeffe0aba02f13b9fea3428c19b715aafa6ea9be91e4006ca\"\n\n        hash = \"b454179c13cb4727ae06cc9cd126c3379e2aded5c293af0234ac3312bf9bdad2\"\n\n        id = \"d7297e6a-e1c7-57dd-a57f-a3b67face2f3\"\n    strings:\n        $s1 = \"exec(zlib.decompress(base64.b64decode('eJ\"\n        $s2 = \"base64\" fullword\n        $s3 = \"zlib\" fullword\n\n    condition:\n    \tfilesize < 20KB\n        and uint32be(0) == 0x696d706f // import\n        and all of them\n}\n"
+}

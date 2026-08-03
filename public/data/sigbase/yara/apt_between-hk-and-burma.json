@@ -1,0 +1,100 @@
+{
+  "slug": "apt_between-hk-and-burma",
+  "filename": "apt_between-hk-and-burma.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "dubseven_file_set",
+      "meta": {
+        "author": "Matt Brooks, @cmatthewbrooks",
+        "date": "2016/04/18",
+        "score": "75",
+        "description": "Searches for service files loading UP007",
+        "id": "5b0a9cb9-aeef-5508-8854-51ad846b22c5"
+      }
+    },
+    {
+      "name": "dubseven_dropper_registry_checks",
+      "meta": {
+        "author": "Matt Brooks, @cmatthewbrooks",
+        "date": "2016/04/18",
+        "score": "75",
+        "description": "Searches for registry keys checked for by the dropper",
+        "id": "8369cdbb-53b8-5dc5-9181-fd49747042a7"
+      }
+    },
+    {
+      "name": "dubseven_dropper_dialog_remains",
+      "meta": {
+        "author": "Matt Brooks, @cmatthewbrooks",
+        "date": "2016/04/18",
+        "score": "75",
+        "description": "Searches for related dialog remnants. How rude.",
+        "id": "6029ea74-26fc-57d1-aaed-be1ea2138844"
+      }
+    },
+    {
+      "name": "maindll_mutex",
+      "meta": {
+        "author": "Matt Brooks, @cmatthewbrooks",
+        "date": "2016/04/18",
+        "score": "75",
+        "description": "Matches on the maindll mutex",
+        "id": "7a89dae3-9e03-5803-9729-78e6e65e91d3"
+      }
+    },
+    {
+      "name": "SLServer_dialog_remains",
+      "meta": {
+        "author": "Matt Brooks, @cmatthewbrooks / modified by Florian Roth",
+        "date": "2016/04/18",
+        "score": "75",
+        "description": "Searches for related dialog remnants.",
+        "id": "cf199d25-ce5e-52c2-88de-32a48dee4c6f"
+      }
+    },
+    {
+      "name": "SLServer_mutex",
+      "meta": {
+        "author": "Matt Brooks, @cmatthewbrooks",
+        "date": "2016/04/18",
+        "score": "75",
+        "description": "Searches for the mutex.",
+        "id": "decdefd0-fe20-5adf-9d8c-0e2b954481a0"
+      }
+    },
+    {
+      "name": "SLServer_command_and_control",
+      "meta": {
+        "author": "Matt Brooks, @cmatthewbrooks",
+        "date": "2016/04/18",
+        "score": "75",
+        "description": "Searches for the C2 server.",
+        "id": "e4fcda6c-1c9f-5b58-8b07-8d1a0dc4eaf6"
+      }
+    },
+    {
+      "name": "SLServer_campaign_code",
+      "meta": {
+        "author": "Matt Brooks, @cmatthewbrooks",
+        "date": "2016/04/18",
+        "score": "75",
+        "description": "Searches for the related campaign code.",
+        "id": "672f506e-0cc1-5b09-873b-c3d206486bac"
+      }
+    },
+    {
+      "name": "SLServer_unknown_string",
+      "meta": {
+        "author": "Matt Brooks, @cmatthewbrooks",
+        "date": "2016/04/18",
+        "score": "75",
+        "description": "Searches for a unique string.",
+        "id": "00341604-480f-59aa-9c18-009e7b53928e"
+      }
+    }
+  ],
+  "body": "rule dubseven_file_set\n{\n\tmeta:\n\t\tauthor = \"Matt Brooks, @cmatthewbrooks\"\n\t\tdate = \"2016/04/18\"\n\t\tscore = 75\n\t\tdescription = \"Searches for service files loading UP007\"\n\n\t\tid = \"5b0a9cb9-aeef-5508-8854-51ad846b22c5\"\n\tstrings:\n\t\t$file1 = \"\\\\Microsoft\\\\Internet Explorer\\\\conhost.exe\"\n\t\t$file2 = \"\\\\Microsoft\\\\Internet Explorer\\\\dll2.xor\"\n\t\t$file3 = \"\\\\Microsoft\\\\Internet Explorer\\\\HOOK.DLL\"\n\t\t$file4 = \"\\\\Microsoft\\\\Internet Explorer\\\\main.dll\"\n\t\t$file5 = \"\\\\Microsoft\\\\Internet Explorer\\\\nvsvc.exe\"\n\t\t$file6 = \"\\\\Microsoft\\\\Internet Explorer\\\\SBieDll.dll\"\n\t\t$file7 = \"\\\\Microsoft\\\\Internet Explorer\\\\mon\"\n\t\t$file8 = \"\\\\Microsoft\\\\Internet Explorer\\\\runas.exe\"\n\n\tcondition:\n\t\t//MZ header\n\t\tuint16(0) == 0x5A4D and\n\n\t\t//PE signature\n\t\tuint32(uint32(0x3C)) == 0x00004550 and\n\n\t\t//Just a few of these as they differ\n\t\t3 of ($file*)\n}\n\nrule dubseven_dropper_registry_checks\n{\n\tmeta:\n\t\tauthor = \"Matt Brooks, @cmatthewbrooks\"\n\t\tdate = \"2016/04/18\"\n\t\tscore = 75\n\t\tdescription = \"Searches for registry keys checked for by the dropper\"\n\n\t\tid = \"8369cdbb-53b8-5dc5-9181-fd49747042a7\"\n\tstrings:\n\t\t$reg1 = \"SOFTWARE\\\\360Safe\\\\Liveup\"\n\t\t$reg2 = \"Software\\\\360safe\"\n\t\t$reg3 = \"SOFTWARE\\\\kingsoft\\\\Antivirus\"\n\t\t$reg4 = \"SOFTWARE\\\\Avira\\\\Avira Destop\"\n\t\t$reg5 = \"SOFTWARE\\\\rising\\\\RAV\"\n\t\t$reg6 = \"SOFTWARE\\\\JiangMin\"\n\t\t$reg7 = \"SOFTWARE\\\\Micropoint\\\\Anti-Attack\"\n\n\tcondition:\n\t\t//MZ header\n\t\tuint16(0) == 0x5A4D and\n\n\t\t//PE signature\n\t\tuint32(uint32(0x3C)) == 0x00004550 and\n\n\t\tall of ($reg*)\n}\n\nrule dubseven_dropper_dialog_remains\n{\n\tmeta:\n\t\tauthor = \"Matt Brooks, @cmatthewbrooks\"\n\t\tdate = \"2016/04/18\"\n\t\tscore = 75\n\t\tdescription = \"Searches for related dialog remnants. How rude.\"\n\n\t\tid = \"6029ea74-26fc-57d1-aaed-be1ea2138844\"\n\tstrings:\n\t\t$dia1 = \"fuckMessageBox 1.0\" wide\n\t\t$dia2 = \"Rundll 1.0\" wide\n\n\tcondition:\n\t\t//MZ header\n\t\tuint16(0) == 0x5A4D and\n\n\t\t//PE signature\n\t\tuint32(uint32(0x3C)) == 0x00004550 and\n\n\t\tany of them\n}\n\n\nrule maindll_mutex\n{\n\tmeta:\n\t\tauthor = \"Matt Brooks, @cmatthewbrooks\"\n\t\tdate = \"2016/04/18\"\n\t\tscore = 75\n\t\tdescription = \"Matches on the maindll mutex\"\n\n\t\tid = \"7a89dae3-9e03-5803-9729-78e6e65e91d3\"\n\tstrings:\n\t\t$mutex = \"h31415927tttt\"\n\n\tcondition:\n\t\t//MZ header\n\t\tuint16(0) == 0x5A4D and\n\n\t\t//PE signature\n\t\tuint32(uint32(0x3C)) == 0x00004550 and\n\n\t\t$mutex\n}\n\n\nrule SLServer_dialog_remains\n{\n\tmeta:\n\t\tauthor = \"Matt Brooks, @cmatthewbrooks / modified by Florian Roth\"\n\t\tdate = \"2016/04/18\"\n\t\tscore = 75\n\t\tdescription = \"Searches for related dialog remnants.\"\n\n\t\tid = \"cf199d25-ce5e-52c2-88de-32a48dee4c6f\"\n\tstrings:\n\t\t$slserver = \"SLServer\" wide fullword\n\n\t\t$fp1 = \"Dell Inc.\" wide fullword\n\t\t$fp2 = \"ScriptLogic Corporation\" wide\n\n\t\t$extra1 = \"SLSERVER\" wide fullword\n\t\t$extra2 = \"\\\\SLServer.pdb\" ascii\n\n\tcondition:\n\t\t//MZ header\n\t\tuint16(0) == 0x5A4D and\n\n\t\t//PE signature\n\t\tuint32(uint32(0x3C)) == 0x00004550 and\n\n\t\t// Reduce false positives\n\t\tnot 1 of ($fp*) and\n\t\t1 of ($extra*) and\n\n\t\t$slserver\n}\n\nrule SLServer_mutex\n{\n\tmeta:\n\t\tauthor = \"Matt Brooks, @cmatthewbrooks\"\n\t\tdate = \"2016/04/18\"\n\t\tscore = 75\n\t\tdescription = \"Searches for the mutex.\"\n\n\t\tid = \"decdefd0-fe20-5adf-9d8c-0e2b954481a0\"\n\tstrings:\n\t\t$mutex = \"M&GX^DSF&DA@F\"\n\n\tcondition:\n\t\t//MZ header\n\t\tuint16(0) == 0x5A4D and\n\n\t\t//PE signature\n\t\tuint32(uint32(0x3C)) == 0x00004550 and\n\n\t\t$mutex\n}\n\nrule SLServer_command_and_control\n{\n\tmeta:\n\t\tauthor = \"Matt Brooks, @cmatthewbrooks\"\n\t\tdate = \"2016/04/18\"\n\t\tscore = 75\n\t\tdescription = \"Searches for the C2 server.\"\n\n\t\tid = \"e4fcda6c-1c9f-5b58-8b07-8d1a0dc4eaf6\"\n\tstrings:\n\t\t$c2 = \"safetyssl.security-centers.com\"\n\n\tcondition:\n\t\t//MZ header\n\t\tuint16(0) == 0x5A4D and\n\n\t\t//PE signature\n\t\tuint32(uint32(0x3C)) == 0x00004550 and\n\n\t\t$c2\n}\n\nrule SLServer_campaign_code\n{\n\tmeta:\n\t\tauthor = \"Matt Brooks, @cmatthewbrooks\"\n\t\tdate = \"2016/04/18\"\n\t\tscore = 75\n\t\tdescription = \"Searches for the related campaign code.\"\n\n\t\tid = \"672f506e-0cc1-5b09-873b-c3d206486bac\"\n\tstrings:\n\t\t$campaign = \"wthkdoc0106\"\n\n\tcondition:\n\t\t//MZ header\n\t\tuint16(0) == 0x5A4D and\n\n\t\t//PE signature\n\t\tuint32(uint32(0x3C)) == 0x00004550 and\n\n\t\t$campaign\n}\n\nrule SLServer_unknown_string\n{\n\tmeta:\n\t\tauthor = \"Matt Brooks, @cmatthewbrooks\"\n\t\tdate = \"2016/04/18\"\n\t\tscore = 75\n\t\tdescription = \"Searches for a unique string.\"\n\n\t\tid = \"00341604-480f-59aa-9c18-009e7b53928e\"\n\tstrings:\n\t\t$string = \"test-b7fa835a39\"\n\n\tcondition:\n\t\t//MZ header\n\t\tuint16(0) == 0x5A4D and\n\n\t\t//PE signature\n\t\tuint32(uint32(0x3C)) == 0x00004550 and\n\n\t\t$string\n}\n"
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "gen_susp_strings_in_ole",
+  "filename": "gen_susp_strings_in_ole.yar",
+  "source": "github.com/Neo23x0/signature-base",
+  "license": "Detection Rule License 1.1",
+  "headerComment": "",
+  "rules": [
+    {
+      "name": "MAL_RTF_Embedded_OLE_PE",
+      "meta": {
+        "description": "Detects a suspicious string often used in PE files in a hex encoded object stream",
+        "license": "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE",
+        "author": "Florian Roth (Nextron Systems)",
+        "reference": "https://www.nextron-systems.com/2018/01/22/creating-yara-rules-detect-embedded-exe-files-ole-objects/",
+        "date": "2018-01-22",
+        "modified": "2023-11-25",
+        "score": "65",
+        "id": "20044f08-9574-5baf-b91e-47613e490d62"
+      }
+    }
+  ],
+  "body": "\nrule MAL_RTF_Embedded_OLE_PE {\n   meta:\n      description = \"Detects a suspicious string often used in PE files in a hex encoded object stream\"\n      license = \"Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE\"\n      author = \"Florian Roth (Nextron Systems)\"\n      reference = \"https://www.nextron-systems.com/2018/01/22/creating-yara-rules-detect-embedded-exe-files-ole-objects/\"\n      date = \"2018-01-22\"\n      modified = \"2023-11-25\"\n      score = 65\n      id = \"20044f08-9574-5baf-b91e-47613e490d62\"\n   strings:\n      /* Hex encoded strings */\n      /* This program cannot be run in DOS mode */\n      $a1 = \"546869732070726f6772616d2063616e6e6f742062652072756e20696e20444f53206d6f6465\" ascii\n      /* KERNEL32.dll */\n      $a2 = \"4b45524e454c33322e646c6c\" ascii\n      /* C:\\fakepath\\ */\n      $a3 = \"433a5c66616b65706174685c\" ascii\n      /* DOS Magic Header */\n      $m3 = \"4d5a40000100000006000000ffff\"\n      $m2 = \"4d5a50000200000004000f00ffff\"\n      $m1 = \"4d5a90000300000004000000ffff\"\n   condition:\n      uint32be(0) == 0x7B5C7274 /* RTF */\n      and 1 of them\n}\n"
+}

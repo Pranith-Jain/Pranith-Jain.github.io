@@ -40,6 +40,7 @@ const WebamonDtb = lazy(() => import('./pages/WebamonDtb'));
 const AIThreats = lazy(() => import('./pages/AIThreats'));
 const OssFeeds = lazy(() => import('./pages/OssFeeds'));
 const WinReg = lazy(() => import('./pages/WinReg'));
+const SigBase = lazy(() => import('./pages/SigBase'));
 const Aptmap = lazy(() => import('./pages/Aptmap'));
 const ETDAActors = lazy(() => import('./pages/ETDAActors'));
 const Traceix = lazy(() => import('./pages/Traceix'));
@@ -407,6 +408,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/ai-threats', Component: AIThreats },
   { path: '/dfir/oss-feeds', Component: OssFeeds },
   { path: '/dfir/winreg', Component: WinReg },
+  { path: '/dfir/sigbase', Component: SigBase },
   { path: '/dfir/traceix', Component: Traceix },
   { path: '/dfir/whoxy', Component: Whoxy },
   { path: '/threatintel/apt-actors', Component: ETDAActors },
@@ -798,6 +800,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/dfir/username-osint', to: '/dfir/username-investigator' },
   { path: '/dfir/identity-lookup', to: '/dfir/username-investigator' },
   { path: '/winreg', to: '/dfir/winreg' },
+  { path: '/sigbase', to: '/dfir/sigbase' },
   { path: '/traceix', to: '/dfir/traceix' },
   { path: '/whoxy', to: '/dfir/whoxy' },
   { path: '/threatintel/research-hub/campaign-gen', to: '/threatintel/campaigns/generator' },
