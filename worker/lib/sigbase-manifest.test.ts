@@ -126,7 +126,7 @@ describe('sigbase-manifest', () => {
     expect(idx.counts.yaraFiles).toBe(2);
     expect(idx.counts.yaraRules).toBe(3);
     expect(idx.counts.iocEntries).toBe(5);
-    expect(idx.yaraIndex[0].slug).toBe('apt_apt28');
+    expect(idx.yaraIndex[0]!.slug).toBe('apt_apt28');
     expect(assets.fetch).toHaveBeenCalledTimes(1);
   });
 
@@ -138,7 +138,7 @@ describe('sigbase-manifest', () => {
   it('fetches and caches a YARA rule body', async () => {
     const { assets } = makeAssetsFixture();
     const body = await getSigBaseYara(assets as unknown as Fetcher, 'apt_apt28');
-    expect(body?.rules[0].name).toBe('APT28_CHOPSTICK');
+    expect(body?.rules[0]!.name).toBe('APT28_CHOPSTICK');
     expect(body?.body).toContain('rule APT28_CHOPSTICK');
     const again = await getSigBaseYara(assets as unknown as Fetcher, 'apt_apt28');
     expect(again).toBe(body);
@@ -188,7 +188,7 @@ describe('sigbase-manifest', () => {
 
     const dark = searchIocEntries(body!, 'dark');
     expect(dark.length).toBe(1);
-    expect(dark[0].type).toBe('sha256');
+    expect(dark[0]!.type).toBe('sha256');
 
     const md5s = searchIocEntries(body!, undefined);
     expect(md5s.length).toBe(3);

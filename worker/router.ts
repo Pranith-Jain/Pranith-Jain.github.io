@@ -513,6 +513,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/traceix', '/__prerendered/dfir__traceix'],
   ['/dfir/whoxy', '/__prerendered/dfir__whoxy'],
   ['/dfir/winreg', '/__prerendered/dfir__winreg'],
+  ['/dfir/sigbase', '/__prerendered/dfir__sigbase'],
   // ── Standalone SPA pages ──────────────────────────────────────
   ['/threatintel/external/cerast', '/__prerendered/threatintel__external__cerast'],
   ['/threatintel/external/threatmon', '/__prerendered/threatintel__external__threatmon'],
