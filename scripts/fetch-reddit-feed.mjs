@@ -38,6 +38,9 @@ const COOLDOWN_MS = 90_000;
 // whole (shared GitHub runner pool). Abort fast instead of grinding through
 // every sub and burning the run — the last-good feed stays on the branch.
 const MASS_THROTTLE_ABORT_AFTER = 3;
+// Hard ceiling for a run. A partially-throttled IP (some subs 429 with long
+// cooldowns) can grind past every sane window; publish what we have instead.
+const MAX_RUN_MS = 14 * 60_000;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -181,6 +184,7 @@ async function buildFeed() {
 
   const queue = [...SUBS];
   let consecutiveFails = 0;
+  const startedAt = Date.now();
   async function worker() {
     while (queue.length > 0) {
       const spec = queue.shift();
@@ -198,7 +202,14 @@ async function buildFeed() {
       }
       subStatus.push({ name: spec.name, label: spec.label, topic: normalizeTopic(spec.topic), ok: r.ok, count: r.items.length });
       allItems.push(...r.items);
-      if (queue.length > 0) await sleep(DELAY_BETWEEN_MS);
+      if (queue.length > 0) {
+        if (Date.now() - startedAt >= MAX_RUN_MS && allItems.length > 0) {
+          warnings.push('time budget reached — publishing partial feed');
+          queue.length = 0;
+        } else {
+          await sleep(DELAY_BETWEEN_MS);
+        }
+      }
     }
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
