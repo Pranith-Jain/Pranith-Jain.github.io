@@ -30,10 +30,14 @@ const MAX_POSTS_PER_SUB = 100;
 const MAX_POST_AGE_DAYS = 7;
 const MAX_TEXT_LEN = 400;
 const FETCH_TIMEOUT_MS = 15_000;
-const DELAY_BETWEEN_MS = 60_000;
-const MAX_RETRIES = 2;
-const RETRY_BASE_MS = 60_000;
-const COOLDOWN_MS = 60_000;
+const DELAY_BETWEEN_MS = 45_000;
+const MAX_RETRIES = 1;
+const RETRY_BASE_MS = 90_000;
+const COOLDOWN_MS = 90_000;
+// If the first few subs ALL 429, the runner IP is throttled by Reddit as a
+// whole (shared GitHub runner pool). Abort fast instead of grinding through
+// every sub and burning the run — the last-good feed stays on the branch.
+const MASS_THROTTLE_ABORT_AFTER = 3;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -149,14 +153,10 @@ async function fetchSub(spec) {
         },
       });
       if (r.status === 429) {
-        const retryAfter = Number(r.headers.get('retry-after')) || 0;
-        if (retryAfter > 0) {
-          console.log(`  r/${spec.name} 429 — Retry-After: ${retryAfter}s, cooling down`);
-          await sleep(retryAfter * 1000);
-        } else {
-          console.log(`  r/${spec.name} 429 — cooling down ${COOLDOWN_MS / 1000}s`);
-          await sleep(COOLDOWN_MS);
-        }
+        const retryAfter = Math.min(Number(r.headers.get('retry-after')) || 0, 300);
+        const wait = retryAfter > 0 ? retryAfter * 1000 : COOLDOWN_MS + Math.random() * 30_000;
+        console.log(`  r/${spec.name} 429 — Retry-After: ${retryAfter}s, cooling down ${Math.round(wait / 1000)}s`);
+        await sleep(wait);
         continue;
       }
       if (!r.ok) return { ok: false, items: [], error: `HTTP ${r.status}` };
@@ -180,12 +180,22 @@ async function buildFeed() {
   const allItems = [];
 
   const queue = [...SUBS];
+  let consecutiveFails = 0;
   async function worker() {
     while (queue.length > 0) {
       const spec = queue.shift();
       if (!spec) return;
       const r = await fetchSub(spec);
-      if (!r.ok) warnings.push(`could not fetch r/${spec.name} (${r.error})`);
+      if (!r.ok) {
+        consecutiveFails++;
+        warnings.push(`could not fetch r/${spec.name} (${r.error})`);
+        if (consecutiveFails >= MASS_THROTTLE_ABORT_AFTER && allItems.length === 0) {
+          warnings.push('mass 429 — runner IP throttled by Reddit; aborting to keep last-good data');
+          queue.length = 0; // drain: stop fetching the remaining subs
+        }
+      } else {
+        consecutiveFails = 0;
+      }
       subStatus.push({ name: spec.name, label: spec.label, topic: normalizeTopic(spec.topic), ok: r.ok, count: r.items.length });
       allItems.push(...r.items);
       if (queue.length > 0) await sleep(DELAY_BETWEEN_MS);

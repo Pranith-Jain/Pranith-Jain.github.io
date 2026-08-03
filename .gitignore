@@ -103,3 +103,6 @@ webamon-dtb-staging/
 
 # Briefing export output (transient, pushed to daily-threat-brief by CI)
 briefings-out/
+
+# Reddit feed artifact — published to the reddit-feed-data branch by CI, not committed
+reddit-feed.json

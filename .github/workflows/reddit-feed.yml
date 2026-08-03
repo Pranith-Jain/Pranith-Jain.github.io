@@ -10,6 +10,12 @@ on:
     - cron: '*/30 * * * *'
   workflow_dispatch:
 
+# Runner IPs get throttled by Reddit; never run two fetches at once (a
+# throttled run grinding through subs while a second starts doubles the load).
+concurrency:
+  group: reddit-feed
+  cancel-in-progress: true
+
 # Needed to push the built feed to the reddit-feed-data branch.
 permissions:
   contents: write
@@ -22,7 +28,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       - name: Build feed JSON
         run: node scripts/fetch-reddit-feed.mjs
       - name: Publish to reddit-feed-data branch
