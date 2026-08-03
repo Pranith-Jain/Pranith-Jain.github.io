@@ -100,3 +100,6 @@ webamon-dtb-staging/
 
 # secrets-regex module is a tracked source file, not a credential
 !api/src/lib/secrets-regex.ts
+
+# Briefing export output (transient, pushed to daily-threat-brief by CI)
+briefings-out/

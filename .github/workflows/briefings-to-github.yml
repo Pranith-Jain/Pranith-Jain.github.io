@@ -28,23 +28,31 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: node scripts/export-briefings-to-github.mjs --days 30
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "::error::CLOUDFLARE_API_TOKEN is not set"; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "::error::CLOUDFLARE_ACCOUNT_ID is not set"; exit 1; }
+          node scripts/export-briefings-to-github.mjs --days 30
 
       - name: Push to daily-threat-brief repo
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-          cd briefings-out
-          git init
+          set -euo pipefail
+          test -n "$GH_PAT" || { echo "::error::GH_PAT secret is not set"; exit 1; }
+          # Clone the existing repo and commit exports only under briefings/ so
+          # scripts/, workflows/ and history are preserved (NO force push).
+          rm -rf /tmp/dtb-sync
+          git clone --depth 1 "https://x-access-token:${GH_PAT}@github.com/Pranith-Jain/daily-threat-brief.git" /tmp/dtb-sync
+          rm -rf /tmp/dtb-sync/briefings
+          mkdir -p /tmp/dtb-sync/briefings
+          cp -R briefings-out/. /tmp/dtb-sync/briefings/
+          cd /tmp/dtb-sync
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git remote add origin "https://x-access-token:${GH_PAT}@github.com/Pranith-Jain/daily-threat-brief.git"
-          git fetch origin main --depth=1 2>/dev/null || true
-          git checkout -B main
           git add -A
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore: sync briefings $(date -u +%Y-%m-%d)"
-            git push -f origin main
+            git commit -m "chore: sync PANOPTICON briefings $(date -u +%Y-%m-%d)"
+            git push origin main
           fi
