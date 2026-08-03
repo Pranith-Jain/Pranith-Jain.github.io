@@ -206,6 +206,15 @@ const PORTFOLIO_PAGES: readonly PageEntry[] = [
     keywords: ['registry', 'forensic', 'artifact', 'windows', 'dfir', 'regripper', 'recmd'],
   },
   {
+    path: '/sigbase',
+    label: 'Signature-Base YARA + IOCs',
+    description:
+      'Neo23x0 signature-base YARA rule set (746 rule files, 5,784 rules) plus 4 IOC lists (hashes, C2, filenames, keywords) - DRL 1.1.',
+    sectionLabel: 'Portfolio',
+    group: 'portfolio',
+    keywords: ['yara', 'ioc', 'signature', 'rule', 'hash', 'c2', 'loki', 'thor', 'malware'],
+  },
+  {
     path: '/traceix',
     label: 'Traceix Hash Lookup',
     description:
@@ -730,6 +739,15 @@ const DFIR_PAGES: readonly PageEntry[] = [
     description: '292 registry forensic artifacts across 16 categories, mapped to MITRE ATT&CK.',
     sectionLabel: 'DFIR · Investigate',
     group: 'dfir',
+  },
+  {
+    path: '/dfir/sigbase',
+    label: 'Signature-Base YARA + IOCs',
+    description:
+      'Neo23x0 signature-base - 746 YARA rule files (5,784 rules) + 4 IOC lists (hashes, C2, filenames, keywords), DRL 1.1.',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+    keywords: ['yara', 'ioc', 'signature', 'rule', 'hash', 'c2', 'loki', 'thor'],
   },
   {
     path: '/dfir/notebooks',
