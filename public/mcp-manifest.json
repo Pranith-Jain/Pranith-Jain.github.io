@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schemas/manifest/v1.json",
   "name": "DFIR-ThreatIntel-MCP",
   "version": "1.0.0",
-  "description": "DFIR + Threat Intel MCP server. 271 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
+  "description": "DFIR + Threat Intel MCP server. 276 tools across IOC check, CVE/KEV, actor enrichment, domain/ASN/WHOIS pivots, ransomware + breach monitoring, phishing analysis, supply-chain attacks, YARA/Sigma authoring, MITRE ATT&CK extraction, Hudson Rock infostealer search, passive DNS, IOC watchlists, investigation notebooks, shift handover, prompt vault, and the full SCStelz/security-investigator playbook library (KQL queries, skills, automations, knowledge-base docs).",
   "transport": "streamable-http",
   "endpoint": "https://pranithjain.qzz.io/api/mcp",
   "auth": {
@@ -16,8 +16,8 @@
       "listChanged": false
     }
   },
-  "toolCount": 271,
-  "generatedAt": "2026-08-03T09:02:36.015Z",
+  "toolCount": 276,
+  "generatedAt": "2026-08-03T15:51:53.354Z",
   "tools": [
     {
       "name": "ai_threats_get",
@@ -758,6 +758,31 @@
       "name": "passive_dns_reverse",
       "description": "Reverse passive DNS lookup: find all domains that historically resolved to a given IP. Reads from accumulated D1 cache.",
       "category": "pdns"
+    },
+    {
+      "name": "pcm_get_digest",
+      "description": "Return a single PCMedicalist Intelligence Feed digest body for a date: run summary, the two generated social posts, and the top items per intelligence layer (11-layer taxonomy).",
+      "category": "other"
+    },
+    {
+      "name": "pcm_get_latest_digest",
+      "description": "Return the most recent PCMedicalist Intelligence Feed digest: run summary + social posts + top items per layer.",
+      "category": "other"
+    },
+    {
+      "name": "pcm_list_digests",
+      "description": "List PCMedicalist Intelligence Feed digests. Filter by date range or keyword. Each entry has date, run metrics (feeds/items raw vs deduped), and per-layer counts.",
+      "category": "other"
+    },
+    {
+      "name": "pcm_search_items",
+      "description": "Search items within a PCMedicalist digest body. Filters against the mirrored top-items per layer (capped): filter by layer id, keyword, CVE, or limit.",
+      "category": "other"
+    },
+    {
+      "name": "pcm_stats",
+      "description": "Return cache + manifest stats for the PCMedicalist feed: digest counts, latest date, and LRU body-cache hit/miss ratios.",
+      "category": "other"
     },
     {
       "name": "phone_osint",

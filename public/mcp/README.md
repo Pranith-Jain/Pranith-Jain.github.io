@@ -1,6 +1,6 @@
 # DFIR-ThreatIntel MCP - tool catalog
 
-**271 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
+**276 tools** | live at `https://pranithjain.qzz.io/api/mcp` (streamable HTTP).
 
 ## Quick start
 
@@ -14,7 +14,7 @@
 
 ## Tools by category
 
-### other (163)
+### other (168)
 
 - `ai_threats_get` - Return the full entry body for an AI-capable threat actor — includes full brief, aliases, raw TTP markdown, reported/activity dates, and MITRE technique IDs. Use ai_threats_list first to discover slugs.
 - `ai_threats_list` - List AI-capable threat actors from the Cybershujin tracker (79 entries, MIT). Each entry documents real-world confirmed use of AI/LLMs by threat actors. Filter by table (main/deepfake), category, TTP, or keyword.
@@ -113,6 +113,11 @@
 - `oss_feeds_get_category` - Return all feeds in a specific category with full URLs. Use oss_feeds_list first to discover category names.
 - `oss_feeds_list` - List open-source threat intel feeds from the curated catalog (145+ feeds, BSD-3-Clause). Filter by vendor, category, status, or keyword. Each entry shows vendor, description, category, and feed status.
 - `oss_feeds_stats` - Return cache + manifest stats for the OSS Feed Registry: total feeds, category breakdown, status breakdown, cache state.
+- `pcm_get_digest` - Return a single PCMedicalist Intelligence Feed digest body for a date: run summary, the two generated social posts, and the top items per intelligence layer (11-layer taxonomy).
+- `pcm_get_latest_digest` - Return the most recent PCMedicalist Intelligence Feed digest: run summary + social posts + top items per layer.
+- `pcm_list_digests` - List PCMedicalist Intelligence Feed digests. Filter by date range or keyword. Each entry has date, run metrics (feeds/items raw vs deduped), and per-layer counts.
+- `pcm_search_items` - Search items within a PCMedicalist digest body. Filters against the mirrored top-items per layer (capped): filter by layer id, keyword, CVE, or limit.
+- `pcm_stats` - Return cache + manifest stats for the PCMedicalist feed: digest counts, latest date, and LRU body-cache hit/miss ratios.
 - `phone_osint` - Investigate a phone number — E.164 parsing, carrier/line-type detection, country lookup, messaging platform checks (WhatsApp/Telegram), breach exposure, and Google dorks. Returns structured JSON with parsed phone details, lookup URLs, and security flags.
 - `poc_scan` - Search GitHub for public exploit/PoC repositories for a CVE. Returns repo URLs, star counts, language, age, and whether the repo has actual code. Bypasses GitHub 1000-result limit via monthly pagination.
 - `reports_get` - Return the full details of a single report entry by slug. Use reports_list first to discover slugs.
