@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-sms-sme-com-2026-08-03",
+  "title": "sms-sme.com",
+  "group": "lockbit5",
+  "discovered": "2026-08-03T05:08:31.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "RO",
+  "sizeBytes": 0,
+  "description": "SMS-SME is a global leader in marine cargo access and securing equipment, specializing in RORO equip...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

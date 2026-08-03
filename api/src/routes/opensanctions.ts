@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { kvBackedGet, kvBackedPut } from '../lib/route-cache';
 
 const CACHE_TTL = 1800;
 
@@ -12,8 +13,8 @@ opensanctionsRouter.get('/opensanctions/search', async (c) => {
   if (!q || q.length > 500) return c.json({ error: 'q parameter required (max 500 chars)' }, 400);
 
   const cacheKey = `opensanctions:search:${q}:${limit}`;
-  const cached = await c.env.KV_CACHE?.get(cacheKey, 'json');
-  if (cached) return c.json({ ...(cached as object), cached: true });
+  const { value: cached } = await kvBackedGet<Record<string, unknown>>(c.env.KV_CACHE, cacheKey, CACHE_TTL);
+  if (cached) return c.json({ ...cached, cached: true });
 
   try {
     const url = `https://api.opensanctions.org/search/default?q=${encodeURIComponent(q)}&limit=${limit}`;
@@ -30,9 +31,7 @@ opensanctionsRouter.get('/opensanctions/search', async (c) => {
     const data = await res.json();
     const body = { query: q, results: data, generated_at: new Date().toISOString(), cached: false };
 
-    if (c.env.KV_CACHE) {
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_TTL }));
-    }
+    if (c.env.KV_CACHE) c.executionCtx.waitUntil(kvBackedPut(c.env.KV_CACHE, cacheKey, body, CACHE_TTL));
     return c.json(body);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
@@ -66,8 +65,8 @@ opensanctionsRouter.get('/opensanctions/entity', async (c) => {
 
 opensanctionsRouter.get('/opensanctions/stats', async (c) => {
   const cacheKey = 'opensanctions:stats';
-  const cached = await c.env.KV_CACHE?.get(cacheKey, 'json');
-  if (cached) return c.json({ ...(cached as object), cached: true });
+  const { value: cached } = await kvBackedGet<Record<string, unknown>>(c.env.KV_CACHE, cacheKey, 3600);
+  if (cached) return c.json({ ...cached, cached: true });
 
   try {
     const res = await fetch('https://api.opensanctions.org/statistics', {
@@ -84,7 +83,7 @@ opensanctionsRouter.get('/opensanctions/stats', async (c) => {
     const body = { statistics: data, generated_at: new Date().toISOString(), cached: false };
 
     if (c.env.KV_CACHE) {
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: 3600 }));
+      c.executionCtx.waitUntil(kvBackedPut(c.env.KV_CACHE, cacheKey, body, 3600));
     }
     return c.json(body);
   } catch (e) {

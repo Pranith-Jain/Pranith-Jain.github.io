@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-precision-concrete-pumping-2026-07-31",
+  "title": "Precision Concrete Pumping",
+  "group": "thegentlemen",
+  "discovered": "2026-07-31T18:25:53.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "precisionconcretepump.com zoominfo.com/c/precision-concrete-pumping-inc/356699459 Precision Concrete Pumping, Inc. is an MBE-certified concrete pumping company established in 1988, with branches across New York and New Jersey. The company specializes in providing high-quality concrete pumping services, including boom pumps, line pumps, and telebelts, utilizing a modern fleet of Putzmeister and Schwing equipment. With over 25 years of experience, they serve commercial, industrial, and municipal projects throughout the Northeast, ensuring reliable performance and exceptional customer service",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

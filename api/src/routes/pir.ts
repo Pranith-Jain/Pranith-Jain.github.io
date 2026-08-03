@@ -667,6 +667,54 @@ const ALERT_KV_PREFIX = 'pir-alert:v1';
 const ALERT_ACTIVE_KEY = `${ALERT_KV_PREFIX}:active`;
 const MAX_ALERTS_STORED = 200;
 
+// Per-colo L1 shadow for the active-alerts blob. The list endpoint reads
+// this on every page load; shadowing collapses that to ~1 KV read per colo
+// per window. Writes (ack/ack-all) invalidate the shadow so the UI never
+// shows stale acknowledgement state for more than the request that wrote it.
+const PIR_ALERTS_SHADOW = new Request('https://pir-alerts-shadow.internal/v1/active');
+const PIR_ALERTS_SHADOW_TTL = 60; // 60s — short; ack state should feel live
+
+async function readPirAlertsShadowed(kv: KVNamespace | undefined | null): Promise<PirAlert[] | null> {
+  const cache = (caches as unknown as { default: Cache }).default;
+  try {
+    const hit = await cache.match(PIR_ALERTS_SHADOW);
+    if (hit) return (await hit.json()) as PirAlert[] | null;
+  } catch {
+    /* fall through to KV */
+  }
+  if (!kv) return null;
+  const raw = (await safeNullLog('kv-get-pir-alerts-shadowed', kv.get(ALERT_ACTIVE_KEY, 'json'))) as PirAlert[] | null;
+  if (raw) {
+    try {
+      await cache.put(
+        PIR_ALERTS_SHADOW,
+        new Response(JSON.stringify(raw), {
+          headers: { 'content-type': 'application/json', 'cache-control': `max-age=${PIR_ALERTS_SHADOW_TTL}` },
+        })
+      );
+    } catch {
+      /* best-effort shadow */
+    }
+  }
+  return raw;
+}
+
+async function writePirAlertsShadowed(
+  kv: KVNamespace | undefined | null,
+  alerts: PirAlert[],
+  ttlSeconds = 604800
+): Promise<void> {
+  if (!kv) return;
+  await kv.put(ALERT_ACTIVE_KEY, JSON.stringify(alerts), { expirationTtl: ttlSeconds });
+  // Invalidate the L1 shadow so the next read sees the fresh value
+  // immediately (ack state should feel live).
+  try {
+    await (caches as unknown as { default: Cache }).default.delete(PIR_ALERTS_SHADOW);
+  } catch {
+    /* best-effort */
+  }
+}
+
 /**
  * Detect PIR-level collection health alerts. Pure logic (no Hono) so it can
  * be called directly from both the HTTP handler and the cron scheduler.
@@ -711,13 +759,12 @@ export async function detectPirAlerts(env: Pick<Env, 'KV_CACHE'>): Promise<{ tot
   // Only WRITE when there is genuinely a new alert id: the hourly cron otherwise
   // re-persists an identical set every run, burning the Free-plan write budget.
   if (alerts.length > 0 && env.KV_CACHE) {
-    const existing = (await safeNullLog('kv-get-pir-active', env.KV_CACHE.get(ALERT_ACTIVE_KEY, 'json'))) as
-      PirAlert[] | null;
+    const existing = await readPirAlertsShadowed(env.KV_CACHE);
     const seen = new Set((existing ?? []).map((a) => a.id));
     const fresh = alerts.filter((a) => !seen.has(a.id));
     if (fresh.length > 0) {
       const merged = [...fresh, ...(existing ?? [])].slice(0, MAX_ALERTS_STORED);
-      await env.KV_CACHE.put(ALERT_ACTIVE_KEY, JSON.stringify(merged), { expirationTtl: 604800 });
+      await writePirAlertsShadowed(env.KV_CACHE, merged);
     }
   }
 
@@ -752,7 +799,7 @@ export async function pirAlertListHandler(c: Context<{ Bindings: Env }>): Promis
     const includeAcknowledged = c.req.query('include_acknowledged') === 'true';
     const kv = c.env.KV_CACHE;
     if (!kv) return c.json({ generated_at: new Date().toISOString(), total: 0, alerts: [] });
-    const raw = (await safeNullLog('kv-get-pir-list', kv.get(ALERT_ACTIVE_KEY, 'json'))) as PirAlert[] | null;
+    const raw = await readPirAlertsShadowed(kv);
     const alerts = raw ?? [];
     const filtered = includeAcknowledged ? alerts : alerts.filter((a) => !a.acknowledged);
     return c.json({
@@ -773,7 +820,7 @@ export async function pirAlertAckHandler(c: Context<{ Bindings: Env }>): Promise
     const alertId = c.req.param('id');
     const kv = c.env.KV_CACHE;
     if (!kv) return c.json({ error: 'KV not available' }, 503);
-    const raw = await safeNullLog('kv-get-pir-ack-detail', kv.get(ALERT_ACTIVE_KEY, 'json'));
+    const raw = await readPirAlertsShadowed(kv);
     const alerts: PirAlert[] = (raw as PirAlert[]) ?? [];
     const alert = alerts.find((a) => a.id === alertId);
     if (!alert) return c.json({ error: 'Alert not found' }, 404);
@@ -792,7 +839,7 @@ export async function pirAlertAckHandler(c: Context<{ Bindings: Env }>): Promise
     };
     const idx = alerts.indexOf(alert);
     alerts[idx] = updated;
-    await kv.put(ALERT_ACTIVE_KEY, JSON.stringify(alerts), { expirationTtl: 604800 });
+    await writePirAlertsShadowed(kv, alerts);
     return c.json({ acknowledged: true, alert: updated });
   } catch (e) {
     console.error('pirAlertAckHandler failed:', e instanceof Error ? e.message : String(e));
@@ -807,11 +854,11 @@ export async function pirAlertAckAllHandler(c: Context<{ Bindings: Env }>): Prom
   try {
     const kv = c.env.KV_CACHE;
     if (!kv) return c.json({ error: 'KV not available' }, 503);
-    const raw = await safeNullLog('kv-get-pir-ack-all', kv.get(ALERT_ACTIVE_KEY, 'json'));
+    const raw = await readPirAlertsShadowed(kv);
     const alerts: PirAlert[] = (raw as PirAlert[]) ?? [];
     if (alerts.length === 0) return c.json({ acknowledged: 0 });
     const updated = alerts.map((a) => (a.acknowledged ? a : { ...a, acknowledged: true }));
-    await kv.put(ALERT_ACTIVE_KEY, JSON.stringify(updated), { expirationTtl: 604800 });
+    await writePirAlertsShadowed(kv, updated);
     return c.json({ acknowledged: updated.filter((a) => !a.acknowledged).length });
   } catch (e) {
     console.error('pirAlertAckAllHandler failed:', e instanceof Error ? e.message : String(e));

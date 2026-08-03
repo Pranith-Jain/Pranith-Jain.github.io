@@ -1,0 +1,15 @@
+{
+  "slug": "booba-team-ura-group-2026-07-31",
+  "title": "URA Group",
+  "group": "booba team",
+  "discovered": "2026-07-31T15:44:13.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Website: uragroup.com\nStolen data: 5 GB",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

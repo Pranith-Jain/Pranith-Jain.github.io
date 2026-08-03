@@ -1,0 +1,15 @@
+{
+  "slug": "booba-project-betz-industries-2026-07-31",
+  "title": "Betz Industries",
+  "group": "Booba Project",
+  "discovered": "2026-07-31T12:50:13.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Industrial Machinery Manufacturing Stolen data: 7 GB.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

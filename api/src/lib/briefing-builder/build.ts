@@ -34,6 +34,7 @@ import {
   severityFromCvss,
   deriveMitreTechniques,
   withinRange,
+  normalizeVictimKey,
   aggregateWeeklyFromDailies,
   mergeWeeklyWithDailies,
   safeJsonParse,
@@ -266,9 +267,18 @@ export async function buildBriefing(
     }
   }
   const kevFindings = kevWindow.map((k) => findingFromKev(k, nvdMap.get(k.cveID)));
-  const kevIds = new Set(kevFindings.map((f) => f.id));
+  const kevIds = new Set(kevFindings.map((f) => f.id.toUpperCase()));
+  // NVD pagination can hand back the same CVE on consecutive pages; the
+  // cross-source sets below are case-insensitive, so make the within-source
+  // dedup case-insensitive too (nvdFindings may otherwise ship duplicates).
+  const seenNvd = new Set(kevIds);
   const nvdFindings = nvdRecent
-    .filter((c) => !kevIds.has(c.id))
+    .filter((c) => {
+      const id = c.id.toUpperCase();
+      if (seenNvd.has(id)) return false;
+      seenNvd.add(id);
+      return true;
+    })
     .map(findingFromNvd)
     .filter((f) => f.severity === 'critical' || f.severity === 'high');
   const existingCveIds = new Set([...kevFindings, ...nvdFindings].map((f) => f.id.toUpperCase()));
@@ -360,7 +370,10 @@ export async function buildBriefing(
     const group = normalizeGroup(v.group);
     if (!group || group === 'unknown') continue;
     const day = discovered.slice(0, 10);
-    const dedupeKey = `${group}|${victim.toLowerCase()}|${day}`;
+    // Semantic victim key (strip punctuation/suffixes/casing drift) so the
+    // same claim reported by two trackers with slightly different spellings
+    // collapses to one entry — matches the weekly rollup's dedup key.
+    const dedupeKey = `${group}|${normalizeVictimKey(victim)}|${day}`;
     if (seenRwVictim.has(dedupeKey)) continue;
     seenRwVictim.add(dedupeKey);
     const desc = v.description?.trim();

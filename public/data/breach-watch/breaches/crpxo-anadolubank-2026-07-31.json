@@ -1,0 +1,15 @@
+{
+  "slug": "crpxo-anadolubank-2026-07-31",
+  "title": "ANADOLUBANK",
+  "group": "CRPxO",
+  "discovered": "2026-07-31T23:51:52.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "Sector: Banking | Data leaked: 0.4 GB",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

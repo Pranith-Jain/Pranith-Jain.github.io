@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-salama-medicals-distributors-private-2026-07-31",
+  "title": "Salama Medicals Distributors Private",
+  "group": "thegentlemen",
+  "discovered": "2026-07-31T18:29:44.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TZ",
+  "sizeBytes": 0,
+  "description": "salamapharma.co.tz zoominfo.com/c/salama-medicals-distributors-private-ltd/356160819 Salama Pharmaceuticals Limited is Tanzania’s leading importer and distributor of pharmaceuticals, medical devices, and surgical equipment. Headquartered in Dar es Salaam, the company operates a large multi-warehouse distribution network to serve healthcare facilities across the country. Dedicated to enhancing healthcare outcomes, Salama Pharma focuses on supplying quality medical products and supporting the modernization of healthcare operations in the East African region",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

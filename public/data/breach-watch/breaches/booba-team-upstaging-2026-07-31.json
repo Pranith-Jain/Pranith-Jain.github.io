@@ -1,0 +1,15 @@
+{
+  "slug": "booba-team-upstaging-2026-07-31",
+  "title": "Upstaging",
+  "group": "booba team",
+  "discovered": "2026-07-31T15:44:14.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Entertainment Providers\nWebsite:\nwww.upstaging.com\nStolen data: 10 GB\nPiece of data below:\nFile: Edwards_Michael.pdf",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

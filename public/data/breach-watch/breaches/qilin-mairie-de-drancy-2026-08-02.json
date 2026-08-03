@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-mairie-de-drancy-2026-08-02",
+  "title": "Mairie de Drancy",
+  "group": "qilin",
+  "discovered": "2026-08-02T16:29:59.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Government & Defense",
+  "references": ["ransomware.live"]
+}

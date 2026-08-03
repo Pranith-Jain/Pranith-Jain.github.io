@@ -701,7 +701,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           if (new Date().getUTCHours() === 6) {
             try {
               if (env.BRIEFINGS_DB) {
-                const deleted = await cleanupLeakEntries(env.BRIEFINGS_DB, 90);
+                const deleted = await cleanupLeakEntries(env.BRIEFINGS_DB, 7);
                 if (deleted > 0) {
                   console.log(JSON.stringify({ job: 'leak-cleanup', deleted }));
                 }

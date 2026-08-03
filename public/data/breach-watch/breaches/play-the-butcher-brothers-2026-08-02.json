@@ -1,0 +1,15 @@
+{
+  "slug": "play-the-butcher-brothers-2026-08-02",
+  "title": "The Butcher Brothers",
+  "group": "play",
+  "discovered": "2026-08-02T16:50:35.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/screenshots/play/The Butcher Brothers.png",
+  "groupAliases": ["PlayCrypt"],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

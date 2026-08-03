@@ -9,6 +9,7 @@ import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-ap
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { readXClaimsCache } from './x-claims';
 import { normalizeGroup } from '../lib/group-normalize';
+import { normalizeVictimKey } from '../lib/briefing-builder/aggregate';
 
 /**
  * Recent ransomware leak-site posts via Ransomlook.io's free `/api/recent`
@@ -538,7 +539,11 @@ function mergeVictims(...lists: RansomwareVictim[][]): RansomwareVictim[] {
     // normalizeGroup is idempotent — every fetcher above already calls it, but
     // applying it here too means a future caller that forgets the step still
     // gets a stable dedupe. The 1st occurrence (source-priority order) wins.
-    return `${normalizeGroup(v.group)}|${v.victim.toLowerCase().trim()}|${day}`;
+    // normalizeVictimKey collapses tracker spelling variants ("Encore
+    // Enterprises, Inc." vs "Encore-Enterprises-Inc.") so a victim claimed by
+    // the same group the same day appears once in the list and in briefings.
+    const victim = normalizeVictimKey(v.victim);
+    return `${normalizeGroup(v.group)}|${victim || v.victim.toLowerCase().trim()}|${day}`;
   };
   // Insert in source-priority order. Earlier lists win ties — call sites pass
   // Ransomlook first because its entries carry screen_url which the UI inlines.

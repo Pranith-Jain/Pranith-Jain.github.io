@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-nigeria-asa-international-com-2026-08-02",
+  "title": "nigeria.asa-international.com",
+  "group": "krybit",
+  "discovered": "2026-08-02T14:24:27.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "NG",
+  "sizeBytes": 0,
+  "description": "ASHA Microfinance Bank Limited (ASA Nigeria) is a Nigerian for-profit deposit-taking microfinance institution, a fully l...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

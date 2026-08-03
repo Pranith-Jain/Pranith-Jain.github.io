@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-premier-fiduciary-2026-07-31",
+  "title": "Premier Fiduciary",
+  "group": "thegentlemen",
+  "discovered": "2026-07-31T18:26:34.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "premierfiduciary.com zoominfo.com/c/premier-fiduciary/346765473 Premier Fiduciary is a global corporate and fiduciary services provider specializing in tailored solutions for private wealth clients, family offices, and investment managers. The company offers comprehensive services, including fund administration, trustee services, corporate setup, and regulatory compliance, with a strong presence in key financial hubs like Singapore and Hong Kong. Their mission is to build long-term relationships based on trust, delivering high-quality, holistic financial and administrative support to protect and grow client legacies",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

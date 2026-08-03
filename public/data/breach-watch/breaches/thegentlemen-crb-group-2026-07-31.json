@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-crb-group-2026-07-31",
+  "title": "CRB group",
+  "group": "thegentlemen",
+  "discovered": "2026-07-31T18:27:36.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "crbgroup.com zoominfo.com/c/crb-group-gmbh/23317692 CRB is a leading global provider of sustainable engineering, architecture, construction, and consulting solutions, primarily serving the life sciences and food & beverage industries. Headquartered in Kansas City, Missouri, the company specializes in designing and building advanced facilities, such as cell and gene therapy laboratories and high-quality food manufacturing plants. With a strong international presence, CRB is dedicated to delivering innovative, safe, and efficient infrastructure that improves patient outcomes and advances scientific breakthroughs worldwide",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

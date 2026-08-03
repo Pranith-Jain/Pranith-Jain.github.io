@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-quantinuum-com-2026-08-01",
+  "title": "quantinuum.com",
+  "group": "incransom",
+  "discovered": "2026-08-01T16:29:42.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Quantinuum is a quantum computing company that develops advanced quantum computers, software, and cybersecurity solutions to solve complex scientific and industrial challenges. The company provides full-stack quantum technologies for areas such as materials science, drug discovery, encryption, artificial intelligence, and optimization, helping enterprises and researchers accelerate innovation through quantum computing.\r \r \r The leak dates back to pre-IPO. \r \r QUANTINUUM deliberately withheld this information from investors.\r \r The exact amount of stolen data will be revealed after publishing.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

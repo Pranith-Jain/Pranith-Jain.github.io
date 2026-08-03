@@ -1,0 +1,15 @@
+{
+  "slug": "gammax-aguaseo-aguaseo-is-a-panamanian-organization-dedicated-to-maintaining-cleanliness-in-the-province-of-col-n-it-pro",
+  "title": "AguAseo\nAguAseo is a Panamanian organization dedicated to maintaining cleanliness in the province of Colón. It provides solid waste collection and cleaning of...",
+  "group": "Gammax",
+  "discovered": "2026-07-31T18:09:55.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "http://gammax6w3dkfdjfrjthtmqzsioue52vzy6lz54qy6jcvmogfpubutjyd.onion/post/B48A6eknv0j8w2yJQLVCr3C4GH8DJF6x",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["CTI.FYI"]
+}

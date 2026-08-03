@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-sirsa-it-2026-08-03",
+  "title": "sirsa.it",
+  "group": "lockbit5",
+  "discovered": "2026-08-03T05:09:04.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "SIRSA operates in the field of processing and molding plastic materials, offering concrete, safe, an...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

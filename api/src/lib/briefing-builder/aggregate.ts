@@ -1,6 +1,7 @@
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../../env';
 import { type IocEntry } from '../ioc-feed-parsers';
+import { normalizeGroup } from '../group-normalize';
 import { runCompletion } from '../../case-study/generation/ai-client';
 import { findUngroundedCves, detectSlop } from '../ai-output-validator';
 import { fenceUntrusted, neutralizeUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../prompt-fence';
@@ -101,7 +102,11 @@ export function withinRange(timestamp: string | undefined, startMs: number, endM
 }
 
 function stripVictimNoise(lower: string): string {
-  let s = lower.replace(/\s+/g, ' ').trim();
+  // Trackers alternate between "Encore Enterprises, Inc." and
+  // "Encore-Enterprises-Inc." — treat hyphens/underscores as spaces so the
+  // suffix/descriptor stripping below applies to both spellings and the
+  // semantic dedup key collapses them.
+  let s = lower.replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim();
   for (let pass = 0; pass < 2; pass += 1) {
     for (const desc of VICTIM_TRAILING_DESCRIPTORS) {
       const escaped = desc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -501,12 +506,33 @@ function dedupeCveFindings(findings: BriefingFinding[]): BriefingFinding[] {
   return [...byId.values()];
 }
 
-function dedupeFindingsById(findings: BriefingFinding[]): BriefingFinding[] {
+/**
+ * Semantic ransomware dedup. The `f.id` for ransomware findings is built from
+ * a slugified victim name (`rw-<group>-<victim-slug-40>-<day>`), which is
+ * fragile across daily heal runs: the same victim can appear as "Acme Corp"
+ * in one build and "Acme Corp." in another, producing different slugs and
+ * slipping past a plain by-id dedup. This extracts a stable key from the
+ * finding's structured fields (group from the title, victim from the title,
+ * day from the id suffix) using `normalizeVictimKey` so punctuation/casing
+ * drift collapses to the same key. Falls back to `f.id` when extraction fails.
+ */
+function dedupeRansomwareFindings(findings: BriefingFinding[]): BriefingFinding[] {
   const seen = new Set<string>();
   const out: BriefingFinding[] = [];
   for (const f of findings) {
-    if (seen.has(f.id)) continue;
-    seen.add(f.id);
+    let key = f.id;
+    // Title format: "${victim} — claimed by ${group}${location}"
+    const m = /^(.+?)\s+—\s+claimed by\s+([^(]+?)(?:\s*\(.*\))?\s*$/.exec(f.title);
+    if (m?.[1] && m?.[2]) {
+      const victim = normalizeVictimKey(m[1]);
+      const group = normalizeGroup(m[2].trim());
+      const day = f.id.slice(-10);
+      if (victim && group && /^\d{4}-\d{2}-\d{2}$/.test(day)) {
+        key = `rw-${group}-${victim}-${day}`;
+      }
+    }
+    if (seen.has(key)) continue;
+    seen.add(key);
     out.push(f);
   }
   return out;
@@ -536,7 +562,7 @@ export function mergeWeeklyWithDailies(live: WeeklyMergeInput, rollup: WeeklyDai
   if (rollup.dailyCount === 0) return live;
   return {
     findings: dedupeCveFindings([...live.findings, ...rollup.findings]),
-    ransomwareFindings: dedupeFindingsById([...live.ransomwareFindings, ...rollup.ransomwareFindings]),
+    ransomwareFindings: dedupeRansomwareFindings([...live.ransomwareFindings, ...rollup.ransomwareFindings]),
     iocsRawTotal: Math.max(live.iocsRawTotal, rollup.iocsTotal),
     iocBuckets: mergeIocBuckets(live.iocBuckets, rollup.iocBuckets),
     sources: [...new Set([...live.sources, ...rollup.sources])],
@@ -558,8 +584,8 @@ export async function aggregateWeeklyFromDailies(
   const cveFindings: BriefingFinding[] = [];
   const ransomwareFindings: BriefingFinding[] = [];
   const sources = new Set<string>();
-  let iocsTotal = 0;
   let iocBuckets: BriefingIocBuckets = { urls: [], domains: [], ipv4s: [], hashes: [] };
+  let maxDailyRawTotal = 0;
   for (const row of rows) {
     const b = safeJsonParse<Briefing | null>(row.body, null);
     if (!b) continue;
@@ -569,13 +595,22 @@ export async function aggregateWeeklyFromDailies(
         else cveFindings.push(f);
       }
     }
-    iocsTotal += b.stats?.iocs ?? 0;
     if (b.iocs) iocBuckets = mergeIocBuckets(iocBuckets, b.iocs);
+    // The stored buckets may have been trimmed by capBriefingForStorage on a
+    // very large day; rawTotal holds that day's pre-trim unique count. Keep
+    // the largest so the weekly total never undercounts a capped day.
+    maxDailyRawTotal = Math.max(maxDailyRawTotal, b.ioc_dump?.rawTotal ?? b.stats?.iocs ?? 0);
     for (const s of b.sources ?? []) sources.add(s);
   }
+  // IOC total is the count of the MERGED (deduped) buckets, not the sum of
+  // per-daily stats — the same indicator can appear in multiple daily
+  // briefings within a weekly window, and summing `stats.iocs` double-counts.
+  const mergedIocCount =
+    iocBuckets.urls.length + iocBuckets.domains.length + iocBuckets.ipv4s.length + iocBuckets.hashes.length;
+  const iocsTotal = Math.max(mergedIocCount, maxDailyRawTotal);
   return {
     findings: dedupeCveFindings(cveFindings),
-    ransomwareFindings: dedupeFindingsById(ransomwareFindings),
+    ransomwareFindings: dedupeRansomwareFindings(ransomwareFindings),
     iocsTotal,
     iocBuckets,
     sources: [...sources],

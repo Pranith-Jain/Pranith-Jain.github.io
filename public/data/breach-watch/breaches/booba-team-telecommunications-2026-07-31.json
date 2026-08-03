@@ -1,0 +1,15 @@
+{
+  "slug": "booba-team-telecommunications-2026-07-31",
+  "title": "Telecommunications",
+  "group": "booba team",
+  "discovered": "2026-07-31T15:44:17.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Telecommunications\nWebsite:\nwww.telewave.com\nStolen data: 37 GB\nTelewave.io will exhibit at Booth #1146 at APCO 2026 – Association of Public Safety Communications Officials in San Antonio, Texas! They will have what to tell about.\nDownload here\nhttp://d77tnb4bkmj3e366msrzllnwsi2t5e54e4yqh7zm7y5hlfwugnwzswad.onion/telewave.com/",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

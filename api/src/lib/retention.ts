@@ -53,6 +53,10 @@ export const RETENTION_POLICY: RetentionPolicy[] = [
   { table: 'telegram_discovered_channels', column: 'discovered_at', format: 'iso' },
   { table: 'telegram_leak_entries', column: 'discovered_at', format: 'iso' },
 
+  // Breach-forum status snapshots (hourly cron appends ~670 rows/hour;
+  // without a sweep this table alone would pin the 500 MB free-tier cap).
+  { table: 'breach_forum_status', column: 'observed_at', format: 'iso' },
+
   // CT monitor
   { table: 'ct_certs', column: 'first_seen', format: 'iso' },
 

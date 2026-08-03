@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-chemco-systems-2026-07-31",
+  "title": "Chemco Systems",
+  "group": "thegentlemen",
+  "discovered": "2026-07-31T18:22:07.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "chemcosystems.net zoominfo.com/c/chemco-systems-lp/39588004 Chemco Systems is a world leader in the design and manufacturing of bulk chemical storage, handling, and feed systems for air and water pollution treatment, operating since 1980. The company provides tailored engineering, fabrication, and installation services, delivering innovative and cost-effective solutions without compromising safety or quality. With decades of industry experience, Chemco Systems is committed to superior product reliability, efficient customer service, and the continuous professional growth of its team",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

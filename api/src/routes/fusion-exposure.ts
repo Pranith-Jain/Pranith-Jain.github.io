@@ -59,13 +59,83 @@ function clamp(n: number): number {
 
 const GITLAB_CSV = 'https://gitlab.com/exploit-database/exploitdb/-/raw/main/files_exploits.csv';
 
+/**
+ * L1-shadowed read of a single CVE's cached EPSS data (keyed `cve:<id>`).
+ * The fusion-exposure loop reads one of these per CVE in the recent list
+ * (often 50+), so without an L1 each request burned N KV reads. EPSS scores
+ * are stable for ~24h, so a 1h per-colo shadow is safe.
+ */
+async function readEpssCache(env: Env, cveId: string): Promise<unknown | null> {
+  const key = `cve:${cveId}`;
+  const cache = (caches as unknown as { default: Cache }).default;
+  const shadowReq = new Request(`https://epss-cache.internal/v1/${encodeURIComponent(cveId)}`);
+  try {
+    const hit = await cache.match(shadowReq);
+    if (hit) return await hit.json();
+  } catch {
+    /* fall through to KV */
+  }
+  if (!env.KV_CACHE) return null;
+  try {
+    const raw = await env.KV_CACHE.get(key, 'text');
+    if (raw) {
+      let parsed: unknown = null;
+      try {
+        parsed = JSON.parse(raw);
+      } catch {
+        return null;
+      }
+      try {
+        await cache.put(
+          shadowReq,
+          new Response(raw, {
+            headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=3600' },
+          })
+        );
+      } catch {
+        /* best-effort shadow */
+      }
+      return parsed;
+    }
+  } catch {
+    /* skip EPSS enrichment */
+  }
+  return null;
+}
+
 async function fetchExploitIndex(env: Env): Promise<Map<string, number>> {
   const cacheKey = 'fusion:exploit-index:v1';
+  // L1: per-colo Cache-API shadow. The exploit index flips only when the
+  // GitLab CSV changes (rare); a 1h shadow collapses repeated reads to
+  // ~1 KV read per colo per hour instead of one per fusion-exposure request.
+  const cache = (caches as unknown as { default: Cache }).default;
+  const shadowReq = new Request(`https://fusion-cache.internal/v1/${cacheKey}`);
+  try {
+    const hit = await cache.match(shadowReq);
+    if (hit) {
+      const parsed = (await hit.json()) as [string, number][];
+      return new Map(parsed);
+    }
+  } catch {
+    /* fall through to KV */
+  }
   try {
     const cached = await env.KV_CACHE?.get(cacheKey);
     if (cached) {
       const parsed = JSON.parse(cached) as [string, number][];
-      return new Map(parsed);
+      const map = new Map(parsed);
+      // Write-through to L1 so the next read in this colo skips KV.
+      try {
+        await cache.put(
+          shadowReq,
+          new Response(JSON.stringify(parsed), {
+            headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=3600' },
+          })
+        );
+      } catch {
+        /* best-effort shadow */
+      }
+      return map;
     }
   } catch {
     /* fall through */
@@ -90,6 +160,17 @@ async function fetchExploitIndex(env: Env): Promise<Map<string, number>> {
 
   try {
     await env.KV_CACHE?.put(cacheKey, JSON.stringify([...exploitByCve]), { expirationTtl: 21600 });
+    // Write-through the L1 shadow so the next request in this colo is a hit.
+    try {
+      await cache.put(
+        shadowReq,
+        new Response(JSON.stringify([...exploitByCve]), {
+          headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=3600' },
+        })
+      );
+    } catch {
+      /* best-effort shadow */
+    }
   } catch {
     /* non-fatal */
   }
@@ -180,9 +261,9 @@ export async function fusionExposureHandler(c: Context<{ Bindings: Env }>): Prom
     let epssScoreVal: number | null = null;
     const epssSignals: string[] = ['EPSS not cached'];
     try {
-      const cveData = await c.env.KV_CACHE?.get(`cve:${cve.id}`);
+      const cveData = await readEpssCache(c.env, cve.id);
       if (cveData) {
-        const parsed = JSON.parse(cveData) as { epss?: { score: number; percentile: number } };
+        const parsed = cveData as { epss?: { score: number; percentile: number } };
         if (parsed.epss?.score != null) {
           epssScoreVal = parsed.epss.score;
           epssPercentileVal = parsed.epss.percentile;

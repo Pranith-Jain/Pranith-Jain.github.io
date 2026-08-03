@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-delkartindustries-com-2026-08-02",
+  "title": "delkartindustries.com",
+  "group": "lockbit5",
+  "discovered": "2026-08-02T23:27:58.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Delkart Industries Limited specializes in manufacturing high-quality custom felts, automobile carpet...",
+  "source_url": "https://www.ransomlook.io/screenshots/lockbit5/delkartindustriescom.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

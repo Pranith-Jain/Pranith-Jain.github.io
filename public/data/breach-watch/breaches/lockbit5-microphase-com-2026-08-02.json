@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-microphase-com-2026-08-02",
+  "title": "microphase.com",
+  "group": "lockbit5",
+  "discovered": "2026-08-02T23:27:56.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Microphase Corporation is an innovative and trusted customer-driven supplier of advanced electronic...",
+  "source_url": "https://www.ransomlook.io/screenshots/lockbit5/microphasecom.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

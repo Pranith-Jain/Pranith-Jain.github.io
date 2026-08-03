@@ -1,0 +1,15 @@
+{
+  "slug": "inc-ransom-quantinuum-com-2026-08-02",
+  "title": "quantinuum.com",
+  "group": "inc ransom",
+  "discovered": "2026-08-02T16:50:10.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/screenshots/inc ransom/quantinuumcom.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

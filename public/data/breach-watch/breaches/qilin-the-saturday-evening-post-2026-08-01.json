@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-the-saturday-evening-post-2026-08-01",
+  "title": "The Saturday Evening Post",
+  "group": "qilin",
+  "discovered": "2026-08-01T13:54:45.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

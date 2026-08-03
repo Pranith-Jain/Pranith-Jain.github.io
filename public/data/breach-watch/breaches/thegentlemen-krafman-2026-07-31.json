@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-krafman-2026-07-31",
+  "title": "Krafman",
+  "group": "thegentlemen",
+  "discovered": "2026-07-31T18:29:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "SE",
+  "sizeBytes": 0,
+  "description": "krafman.se Krafman (operated by Krafguard AB) is a Swedish credit reporting and debt collection service provider licensed and supervised by the Swedish Authority for Privacy Protection (IMY). The platform offers fast, on-demand credit checks for both businesses and private individuals without registering the number of inquiries made. It also provides free basic company searches, active credit monitoring with automatic updates, and transparent pricing with no hidden subscription fees",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

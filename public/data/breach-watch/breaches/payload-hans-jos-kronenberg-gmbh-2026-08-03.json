@@ -1,0 +1,15 @@
+{
+  "slug": "payload-hans-jos-kronenberg-gmbh-2026-08-03",
+  "title": "Hans & Jos. Kronenberg GmbH",
+  "group": "payload",
+  "discovered": "2026-08-03T04:54:58.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "Hans & Jos. Kronenberg GmbH is a German company founded in 1932 and based in Bergisch Gladbach. It specializes in the development and manufacturing of high-quality components for the elevator industry and mechanical engineering, including door locks, switches, control panels, and LED lighting.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

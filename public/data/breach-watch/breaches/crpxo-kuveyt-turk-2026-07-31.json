@@ -1,0 +1,15 @@
+{
+  "slug": "crpxo-kuveyt-turk-2026-07-31",
+  "title": "KUVEYT TURK",
+  "group": "CRPxO",
+  "discovered": "2026-07-31T23:52:13.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "TR",
+  "sizeBytes": 0,
+  "description": "Sector: Banking | Data leaked: 0.8 GB",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

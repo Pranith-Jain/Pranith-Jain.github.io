@@ -1,0 +1,15 @@
+{
+  "slug": "gammax-mtco-mahmoud-altaheni-partners-trading-co-2026-08-01",
+  "title": "MTCO (Mahmoud Altaheni & Partners Trading Co)",
+  "group": "Gammax",
+  "discovered": "2026-08-01T09:53:07.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "SA",
+  "sizeBytes": 0,
+  "description": "MTCO (Mahmoud Altaheni & Partners Trading Company) operates in Saudi Arabia (KSA) and the GCC with 15+ years’ industry experience, established in ...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

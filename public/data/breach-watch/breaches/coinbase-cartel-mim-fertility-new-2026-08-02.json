@@ -1,0 +1,15 @@
+{
+  "slug": "coinbase-cartel-mim-fertility-new-2026-08-02",
+  "title": "MIM Fertility NEW",
+  "group": "coinbase cartel",
+  "discovered": "2026-08-02T16:50:01.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Healthcare Software - $10.5 Million",
+  "source_url": "https://www.ransomlook.io/screenshots/coinbase cartel/MIM Fertility NEW.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

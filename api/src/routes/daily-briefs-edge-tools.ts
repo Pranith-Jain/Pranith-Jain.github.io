@@ -16,6 +16,18 @@ import { badRequest, internalError, notFound } from '../lib/api-error';
 const KV_INDEX_KEY = 'db:index';
 const KV_BODY_PREFIX = 'db:body';
 
+// L1 per-colo Cache-API shadow for the index + bodies. The index flips only
+// on the daily cron sync; bodies are immutable per (type,date). A 10-min
+// shadow TTL collapses repeated reads to ~1 KV read per colo per window.
+const DB_INDEX_SHADOW_TTL = 600;
+const DB_BODY_SHADOW_TTL = 3600;
+function dbIndexShadowReq(): Request {
+  return new Request(`https://db-cache.internal/v1/${KV_INDEX_KEY}`);
+}
+function dbBodyShadowReq(type: string, date: string): Request {
+  return new Request(`https://db-cache.internal/v1/${KV_BODY_PREFIX}:${type}:${date}`);
+}
+
 async function loadDbMod() {
   return await import('../lib/daily-briefs-manifest');
 }
@@ -31,14 +43,42 @@ interface DbIndex {
 }
 
 async function loadIndex(kv?: KVNamespace, assets?: Fetcher): Promise<DbIndex | null> {
+  // L1: per-colo Cache-API shadow (free, no KV quota). The index only
+  // changes on the daily cron, so a 10-min shadow is safe.
+  const cache = (caches as unknown as { default: Cache }).default;
   if (kv) {
+    try {
+      const hit = await cache.match(dbIndexShadowReq());
+      if (hit) {
+        const idx = (await hit.json()) as DbIndex;
+        if (idx?.briefs && idx.briefs.length > 0) return idx;
+      }
+    } catch {
+      /* fall through to KV */
+    }
     try {
       const raw = await kv.get(KV_INDEX_KEY, 'json');
       if (raw && typeof raw === 'object' && 'briefs' in (raw as DbIndex)) {
         const idx = raw as DbIndex;
         // If KV has a non-empty index, use it. If KV is empty (stale/cleared),
         // fall through to ASSETS which has the committed static manifest.
-        if (idx.briefs && idx.briefs.length > 0) return idx;
+        if (idx.briefs && idx.briefs.length > 0) {
+          // Write-through so the next read in this colo skips KV.
+          try {
+            await cache.put(
+              dbIndexShadowReq(),
+              new Response(JSON.stringify(idx), {
+                headers: {
+                  'content-type': 'application/json',
+                  'cache-control': `public, max-age=${DB_INDEX_SHADOW_TTL}`,
+                },
+              })
+            );
+          } catch {
+            /* best-effort shadow */
+          }
+          return idx;
+        }
       }
     } catch {
       /* fall through */
@@ -58,9 +98,31 @@ async function loadIndex(kv?: KVNamespace, assets?: Fetcher): Promise<DbIndex | 
 
 async function loadBriefBody(kv?: KVNamespace, assets?: Fetcher, type?: string, date?: string): Promise<any | null> {
   if (kv && type && date) {
+    // L1: per-colo Cache-API shadow. Bodies are immutable per (type,date),
+    // so a 1h shadow is safe and collapses repeated reads.
+    const cache = (caches as unknown as { default: Cache }).default;
+    const shadowReq = dbBodyShadowReq(type, date);
+    try {
+      const hit = await cache.match(shadowReq);
+      if (hit) return await hit.json();
+    } catch {
+      /* fall through to KV */
+    }
     try {
       const raw = await kv.get(`${KV_BODY_PREFIX}:${type}:${date}`, 'json');
-      if (raw) return raw;
+      if (raw) {
+        try {
+          await cache.put(
+            shadowReq,
+            new Response(JSON.stringify(raw), {
+              headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${DB_BODY_SHADOW_TTL}` },
+            })
+          );
+        } catch {
+          /* best-effort shadow */
+        }
+        return raw;
+      }
     } catch {
       /* fall through */
     }

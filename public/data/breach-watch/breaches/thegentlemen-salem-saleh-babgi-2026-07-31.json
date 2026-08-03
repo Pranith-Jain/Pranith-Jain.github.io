@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-salem-saleh-babgi-2026-07-31",
+  "title": "Salem Saleh Babgi",
+  "group": "thegentlemen",
+  "discovered": "2026-07-31T18:29:58.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "SA",
+  "sizeBytes": 0,
+  "description": "babgi.com.sa zoominfo.com/c/salem-saleh-babgi-co-ltd/372739058 Babgi Group, founded in 1978 by Sheikh Salem Saleh Babgi, is a major Saudi Arabian conglomerate with over 1,900 employees and revenues exceeding $7.4 billion. The group operates primarily in the automotive sector (as an exclusive dealer for brands like Toyota, Lexus, and MG), trading, and contracting. Guided by a vision of sustainable economic growth, it focuses on delivering high-quality standards, advanced management practices, and community-driven services across the Kingdom",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

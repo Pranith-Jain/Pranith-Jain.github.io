@@ -1,0 +1,15 @@
+{
+  "slug": "cmd-organization-stewart-belland-associates-inc-2026-07-31",
+  "title": "Stewart Belland & Associates Inc.",
+  "group": "cmd organization",
+  "discovered": "2026-07-31T16:54:26.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Stewart Belland & Associates Inc. (SBA) is a Civil Enforcement Agency licensed by the Province of Alberta. Operating since 1996, under the Alberta Civil Enforcement Act and Regulations, as a Civil Enforcement Agency we are legislated to enforce Civil Warrants.\n\nSBA retains the services of Provincial Licensed Bailiffs, who follow a compressive Rule of Conduct, in performing their functions throughout all jurisdictions within the Province of Alberta.",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

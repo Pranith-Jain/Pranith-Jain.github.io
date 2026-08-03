@@ -1,0 +1,15 @@
+{
+  "slug": "play-cambridge-management-2026-08-02",
+  "title": "Cambridge Management",
+  "group": "play",
+  "discovered": "2026-08-02T16:50:33.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/screenshots/play/Cambridge Management.png",
+  "groupAliases": ["PlayCrypt"],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

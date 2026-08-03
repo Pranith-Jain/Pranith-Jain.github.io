@@ -36,7 +36,8 @@ function dailyBody(
   cves: BriefingFinding[],
   rwFindings: BriefingFinding[],
   iocs: number,
-  sources: string[]
+  sources: string[],
+  iocEntries?: BriefingIocBuckets
 ): Briefing {
   const sections = [
     { id: 'critical-other', title: 'CVEs', count: cves.length, blurb: '', findings: cves },
@@ -75,7 +76,7 @@ function dailyBody(
       ransomware_victims: rwFindings.length,
     },
     sections,
-    iocs: emptyBuckets(),
+    iocs: iocEntries ?? emptyBuckets(),
     mitre_techniques: [],
     sources,
   };
@@ -191,20 +192,30 @@ describe('mergeWeeklyWithDailies', () => {
 // ---- aggregateWeeklyFromDailies (db-reading) ----------------------------
 
 describe('aggregateWeeklyFromDailies', () => {
-  it('unions CVEs across the week, sums IOC counts, and separates ransomware', async () => {
+  it('unions CVEs across the week, dedupes IOC buckets, and separates ransomware', async () => {
+    // Both days carry the SAME url, domain, and hash — the rollup must not
+    // double-count them (regression: the old code summed per-day stats.iocs).
+    const sharedBuckets: BriefingIocBuckets = {
+      urls: [{ type: 'url', value: 'http://evil-a.example' }],
+      domains: [{ type: 'domain', value: 'mal-a.example' }],
+      ipv4s: [{ type: 'ipv4', value: '1.2.3.4' }],
+      hashes: [{ type: 'hash', value: 'aa11' }],
+    };
     const d25 = dailyBody(
       '2026-05-25',
       [cve('CVE-2026-1', 'high', 7.5), cve('CVE-2026-2', 'critical', 9.1)],
       [rw('rw-x-2026-05-25')],
-      1000,
-      ['NVD', 'URLhaus']
+      4,
+      ['NVD', 'URLhaus'],
+      sharedBuckets
     );
     const d26 = dailyBody(
       '2026-05-26',
       [cve('CVE-2026-1', 'high', 7.5), cve('CVE-2026-3', 'high', 8.0)],
       [rw('rw-y-2026-05-26')],
-      1200,
-      ['NVD', 'ThreatFox']
+      4,
+      ['NVD', 'ThreatFox'],
+      sharedBuckets
     );
     const db = fakeDb([dailyRow(d25), dailyRow(d26)]);
 
@@ -213,9 +224,34 @@ describe('aggregateWeeklyFromDailies', () => {
     expect(rollup.dailyCount).toBe(2);
     // CVE-2026-1 appears both days → counted once. Total unique CVEs = 3.
     expect(rollup.findings.map((f) => f.id.toUpperCase()).sort()).toEqual(['CVE-2026-1', 'CVE-2026-2', 'CVE-2026-3']);
-    expect(rollup.iocsTotal).toBe(2200); // 1000 + 1200
+    // Merged buckets are deduped: 4 distinct indicators (not 4 + 4 = 8).
+    expect(rollup.iocsTotal).toBe(4);
+    expect(rollup.iocBuckets.urls).toHaveLength(1);
+    expect(rollup.iocBuckets.domains).toHaveLength(1);
+    expect(rollup.iocBuckets.ipv4s).toHaveLength(1);
+    expect(rollup.iocBuckets.hashes).toHaveLength(1);
     expect(rollup.ransomwareFindings.map((f) => f.id).sort()).toEqual(['rw-x-2026-05-25', 'rw-y-2026-05-26']);
     expect(rollup.sources.sort()).toEqual(['NVD', 'ThreatFox', 'URLhaus']);
+  });
+
+  it('never undercounts a day whose stored buckets were trimmed by capBriefingForStorage', async () => {
+    // Day A: buckets survived storage (1 entry). Day B: buckets were trimmed
+    // to empty by the 2MB cap, but stats.iocs (the pre-trim unique count)
+    // still says 1200. The rollup must report at least the largest single-day
+    // unique count — not the 1 merged bucket.
+    const dA = dailyBody('2026-05-25', [cve('CVE-2026-1', 'high', 7.5)], [], 1, ['NVD'], {
+      urls: [{ type: 'url', value: 'http://evil-a.example' }],
+      domains: [],
+      ipv4s: [],
+      hashes: [],
+    });
+    const dB = dailyBody('2026-05-26', [cve('CVE-2026-2', 'high', 7.5)], [], 1200, ['NVD']);
+    const db = fakeDb([dailyRow(dA), dailyRow(dB)]);
+
+    const rollup = await aggregateWeeklyFromDailies(db, '2026-05-25', '2026-05-31');
+
+    expect(rollup.iocsTotal).toBe(1200);
+    expect(rollup.iocBuckets.urls).toHaveLength(1);
   });
 
   it('returns an empty rollup (dailyCount 0) when no dailies exist in the window', async () => {
@@ -306,7 +342,11 @@ describe('buildBriefing weekly rollup-first', () => {
     expect(result.range_start).toBe('2026-05-25');
     expect(result.stats.findings).toBe(5);
     expect(result.stats.cves).toBe(2);
-    expect(result.stats.iocs).toBe(400);
+    // Regression: the weekly IOC total is NOT the sum of daily counts (that
+    // double-counts indicators the same across dailies). These fixture dailies
+    // carry no IOC buckets, so the deduped count falls back to the largest
+    // single-day raw total (max(220, 180, 0) = 220) instead of 400.
+    expect(result.stats.iocs).toBe(220);
     expect(result.stats.ransomware_victims).toBe(3);
     const rwSection = result.sections.find((s) => s.id === 'ransomware-activity');
     expect(rwSection?.findings.length).toBe(3);

@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-countrymotors-com-mx-2026-08-02",
+  "title": "countrymotors.com.mx",
+  "group": "krybit",
+  "discovered": "2026-08-02T13:54:52.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "MX",
+  "sizeBytes": 0,
+  "description": "Country Motos S.A. de C.V. (also known as Country Motors or Country Honda) is a Mexican motorcycle dealership and multi-...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["ransomware.live"]
+}

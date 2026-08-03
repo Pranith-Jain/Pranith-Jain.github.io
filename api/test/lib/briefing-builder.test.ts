@@ -13,7 +13,9 @@ import {
   resolveCirclCveId,
   resolveCirclPublished,
   resolveCirclBaseScore,
+  mergeWeeklyWithDailies,
   type Briefing,
+  type BriefingFinding,
 } from '../../src/lib/briefing-builder';
 import { bucketIocs, buildIocDump } from '../../src/lib/briefing-builder/aggregate';
 import { readLastGood, writeLastGood } from '../../src/lib/lastgood';
@@ -197,6 +199,18 @@ describe('normalizeVictimKey', () => {
 
   it('handles compounded suffixes (descriptor + corporate)', () => {
     expect(normalizeVictimKey('Acme Corp. all data')).toBe('acme');
+  });
+
+  it('collapses hyphenated victim spellings (the weekly dup regression)', () => {
+    // Trackers alternate spellings: "Encore Enterprises, Inc." vs
+    // "Encore-Enterprises-Inc." — the raw-lowercase dedup key kept both,
+    // so the weekly briefing showed the same victim twice.
+    expect(normalizeVictimKey('Encore Enterprises, Inc.')).toBe(normalizeVictimKey('Encore-Enterprises-Inc.'));
+    expect(normalizeVictimKey('INTERTRUST AUSTRALIA PTY LTD')).toBe(normalizeVictimKey('INTERTRUST-AUSTRALIA-PTY-LTD'));
+    expect(normalizeVictimKey('Asset Flooring Group Australia')).toBe(
+      normalizeVictimKey('Asset-Flooring-Group-Australia')
+    );
+    expect(normalizeVictimKey('Moses & Singer')).toBe(normalizeVictimKey('Moses--Singer'));
   });
 });
 
@@ -576,5 +590,147 @@ describe('buildIocDump', () => {
     expect(dump).toBeDefined();
     expect(dump!.count).toBe(100);
     expect(dump!.content.split('\n')).toHaveLength(100);
+  });
+});
+
+/**
+ * Regression: duplicate ransomware findings in the weekly merge. The finding
+ * `id` embeds a slugified victim name truncated to 40 chars, so the same
+ * victim reported with slightly different spelling/punctuation across daily
+ * heal runs produced different ids and BOTH survived the old by-id dedup.
+ */
+describe('mergeWeeklyWithDailies — semantic ransomware dedup', () => {
+  const rwFinding = (id: string, title: string): BriefingFinding => ({
+    id,
+    title,
+    description: title,
+    severity: 'high',
+    source: 'ransomware.live',
+    mitre_techniques: [],
+  });
+
+  it('collapses same victim+group+day with punctuation/casing drift', () => {
+    const live: BriefingFinding[] = [rwFinding('rw-lockbit-acme-corp-2026-07-01', 'Acme Corp — claimed by LockBit')];
+    const rollup: BriefingFinding[] = [
+      // Different slug (trailing period + uppercase victim) — same claim.
+      rwFinding('rw-lockbit-acme-corp-2026-07-01', 'Acme Corp. — claimed by LockBit'),
+      // Different day — legitimately distinct.
+      rwFinding('rw-lockbit-acme-corp-2026-07-02', 'Acme Corp — claimed by LockBit'),
+    ];
+    const merged = mergeWeeklyWithDailies(
+      {
+        findings: [],
+        ransomwareFindings: live,
+        iocsRawTotal: 0,
+        iocBuckets: { urls: [], domains: [], ipv4s: [], hashes: [] },
+        sources: [],
+      },
+      {
+        findings: [],
+        ransomwareFindings: rollup,
+        iocsTotal: 0,
+        iocBuckets: { urls: [], domains: [], ipv4s: [], hashes: [] },
+        sources: [],
+        dailyCount: 2,
+      }
+    );
+    expect(merged.ransomwareFindings).toHaveLength(2);
+    expect(merged.ransomwareFindings.map((f) => f.id).sort()).toEqual([
+      'rw-lockbit-acme-corp-2026-07-01',
+      'rw-lockbit-acme-corp-2026-07-02',
+    ]);
+  });
+
+  it('collapses corporate-suffix drift (LLC vs bare name)', () => {
+    const merged = mergeWeeklyWithDailies(
+      {
+        findings: [],
+        ransomwareFindings: [rwFinding('rw-a-b-2026-07-01', 'Foo Bar LLC — claimed by BlackCat')],
+        iocsRawTotal: 0,
+        iocBuckets: { urls: [], domains: [], ipv4s: [], hashes: [] },
+        sources: [],
+      },
+      {
+        findings: [],
+        ransomwareFindings: [rwFinding('rw-a-b-2026-07-01', 'Foo Bar — claimed by BlackCat')],
+        iocsTotal: 0,
+        iocBuckets: { urls: [], domains: [], ipv4s: [], hashes: [] },
+        sources: [],
+        dailyCount: 1,
+      }
+    );
+    expect(merged.ransomwareFindings).toHaveLength(1);
+  });
+
+  it('dedupes CVEs case-insensitively and prefers the copy with a CVSS score', () => {
+    const merged = mergeWeeklyWithDailies(
+      {
+        findings: [
+          { id: 'cve-2026-1111', title: 'x', description: '', severity: 'high', source: 'NVD', mitre_techniques: [] },
+        ],
+        ransomwareFindings: [],
+        iocsRawTotal: 0,
+        iocBuckets: { urls: [], domains: [], ipv4s: [], hashes: [] },
+        sources: [],
+      },
+      {
+        findings: [
+          {
+            id: 'CVE-2026-1111',
+            title: 'x',
+            description: '',
+            severity: 'critical',
+            cvss: 9.8,
+            source: 'cvefeed.io',
+            mitre_techniques: [],
+          },
+        ],
+        ransomwareFindings: [],
+        iocsTotal: 0,
+        iocBuckets: { urls: [], domains: [], ipv4s: [], hashes: [] },
+        sources: [],
+        dailyCount: 1,
+      }
+    );
+    expect(merged.findings).toHaveLength(1);
+    // The by-id dedup keeps the FIRST occurrence but upgrades to the copy
+    // carrying a CVSS score — so cvefeed.io's uppercase id + cvss wins.
+    expect(merged.findings[0]!.id).toBe('CVE-2026-1111');
+    expect(merged.findings[0]!.cvss).toBe(9.8);
+  });
+
+  it('merges IOC buckets without duplicates across dailies', () => {
+    const merged = mergeWeeklyWithDailies(
+      {
+        findings: [],
+        ransomwareFindings: [],
+        iocsRawTotal: 2,
+        iocBuckets: {
+          urls: [{ type: 'url', value: 'http://a.example' }],
+          domains: [{ type: 'domain', value: 'a.example' }],
+          ipv4s: [],
+          hashes: [],
+        },
+        sources: ['URLhaus'],
+      },
+      {
+        findings: [],
+        ransomwareFindings: [],
+        iocsTotal: 2,
+        iocBuckets: {
+          urls: [
+            { type: 'url', value: 'http://a.example' },
+            { type: 'url', value: 'http://b.example' },
+          ],
+          domains: [],
+          ipv4s: [],
+          hashes: [],
+        },
+        sources: ['ThreatFox'],
+        dailyCount: 3,
+      }
+    );
+    expect(merged.iocBuckets.urls).toHaveLength(2);
+    expect(merged.sources).toEqual(['URLhaus', 'ThreatFox']);
   });
 });

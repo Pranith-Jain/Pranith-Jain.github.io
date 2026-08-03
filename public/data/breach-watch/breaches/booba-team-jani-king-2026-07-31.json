@@ -1,0 +1,15 @@
+{
+  "slug": "booba-team-jani-king-2026-07-31",
+  "title": "Jani-King",
+  "group": "booba team",
+  "discovered": "2026-07-31T15:44:12.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Facilities Services\nWebsite:\nwww.janiking.com\nStolen data: 12 GB.",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

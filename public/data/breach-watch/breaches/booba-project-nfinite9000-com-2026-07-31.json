@@ -1,0 +1,15 @@
+{
+  "slug": "booba-project-nfinite9000-com-2026-07-31",
+  "title": "nfinite9000.com/",
+  "group": "Booba Project",
+  "discovered": "2026-07-31T18:09:33.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "http://d77tnb4bkmj3e366msrzllnwsi2t5e54e4yqh7zm7y5hlfwugnwzswad.onion/nfinite9000.com",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["CTI.FYI"]
+}

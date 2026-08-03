@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-adventusasia-com-2026-08-02",
+  "title": "adventusasia.com",
+  "group": "lockbit5",
+  "discovered": "2026-08-02T23:28:01.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Adventus is a Top-Rated Information and Communications Technology (ICT) Solutions and Services Provi...",
+  "source_url": "https://www.ransomlook.io/screenshots/lockbit5/adventusasiacom.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

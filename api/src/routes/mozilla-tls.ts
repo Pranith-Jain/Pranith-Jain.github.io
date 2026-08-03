@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { kvBackedGet, kvBackedPut } from '../lib/route-cache';
 
 const CACHE_TTL = 3600;
 
@@ -10,8 +11,8 @@ mozillaTlsRouter.get('/mozilla-tls/scan', async (c) => {
   if (!url) return c.json({ error: 'url parameter required' }, 400);
 
   const cacheKey = `mozilla:tls:${url}`;
-  const cached = await c.env.KV_CACHE?.get(cacheKey, 'json');
-  if (cached) return c.json({ ...(cached as object), cached: true });
+  const { value: cached } = await kvBackedGet<Record<string, unknown>>(c.env.KV_CACHE, cacheKey, CACHE_TTL);
+  if (cached) return c.json({ ...cached, cached: true });
 
   try {
     const res = await fetch(`https://tls-observatory.services.mozilla.com/api/v1/scan?url=${encodeURIComponent(url)}`, {
@@ -24,8 +25,7 @@ mozillaTlsRouter.get('/mozilla-tls/scan', async (c) => {
     const data = await res.json();
     const body = { url, results: data, generated_at: new Date().toISOString(), cached: false };
 
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_TTL }));
+    if (c.env.KV_CACHE) c.executionCtx.waitUntil(kvBackedPut(c.env.KV_CACHE, cacheKey, body, CACHE_TTL));
     return c.json(body);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));

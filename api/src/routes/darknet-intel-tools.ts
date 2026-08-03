@@ -3,9 +3,6 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 
 const UA = 'pranithjain-threatintel/1.0';
-const CACHE_SHORT = 300;
-const CACHE_MED = 600;
-const CACHE_LONG = 1800;
 
 // ── Per-IP rate limiter (in-memory, per-isolate) ──────────────────────
 // Prevents a single client from overwhelming upstream APIs. 30 req/min/IP
@@ -103,9 +100,6 @@ darknetIntelRouter.get('/darknet-intel/greynoise/ip', async (c) => {
   const ip = c.req.query('ip');
   if (!ip) return c.json({ error: 'ip parameter required' }, 400);
   const key = c.env.GREYNOISE_API_KEY;
-  const cacheKey = `gn:ip:${ip}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const headers: Record<string, string> = { Accept: 'application/json' };
     if (key) headers['key'] = key;
@@ -116,8 +110,6 @@ darknetIntelRouter.get('/darknet-intel/greynoise/ip', async (c) => {
     if (!res.ok) return c.json({ error: `GreyNoise upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ip, ...data, provider: 'greynoise', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_SHORT }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'GreyNoise unreachable' }, 502);
@@ -156,9 +148,6 @@ darknetIntelRouter.get('/darknet-intel/pulsedive/indicator', async (c) => {
   const type = c.req.query('type');
   const value = c.req.query('value');
   if (!type || !value) return c.json({ error: 'type and value parameters required' }, 400);
-  const cacheKey = `pd:ind:${type}:${value}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     let url = `https://pulsedive.com/api/v3.php?query=indicator&type=${encodeURIComponent(type)}&value=${encodeURIComponent(value)}`;
     const key = c.env.PULSEDIVE_API_KEY;
@@ -167,8 +156,6 @@ darknetIntelRouter.get('/darknet-intel/pulsedive/indicator', async (c) => {
     if (!res.ok) return c.json({ error: `Pulsedive upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { type, value, ...data, provider: 'pulsedive', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_MED }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'Pulsedive unreachable' }, 502);
@@ -212,9 +199,6 @@ darknetIntelRouter.get('/darknet-intel/pulsedive/explore', async (c) => {
 darknetIntelRouter.get('/darknet-intel/vulners/id', async (c) => {
   const id = c.req.query('id');
   if (!id) return c.json({ error: 'id parameter required (CVE, EDB, GHSA)' }, 400);
-  const cacheKey = `vuln:id:${id}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     let url = `https://vulners.com/api/v3/search/id/?id=${encodeURIComponent(id)}`;
     const key = c.env.VULNERS_API_KEY;
@@ -223,8 +207,6 @@ darknetIntelRouter.get('/darknet-intel/vulners/id', async (c) => {
     if (!res.ok) return c.json({ error: `Vulners upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { id, ...data, provider: 'vulners', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_LONG }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'Vulners unreachable' }, 502);
@@ -384,9 +366,6 @@ darknetIntelRouter.get('/darknet-intel/abuseipdb/check', async (c) => {
   const key = c.env.ABUSEIPDB_API_KEY;
   if (!key)
     return c.json({ error: 'ABUSEIPDB_API_KEY not configured', docs: 'wrangler secret put ABUSEIPDB_API_KEY' }, 503);
-  const cacheKey = `abuseipdb:check:${ip}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const res = await fetch(
       `https://api.abuseipdb.com/api/v2/check?ipAddress=${encodeURIComponent(ip)}&maxAgeInDays=90`,
@@ -398,8 +377,6 @@ darknetIntelRouter.get('/darknet-intel/abuseipdb/check', async (c) => {
     if (!res.ok) return c.json({ error: `AbuseIPDB upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ip, ...data, provider: 'abuseipdb', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_MED }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'AbuseIPDB unreachable' }, 502);
@@ -430,9 +407,6 @@ darknetIntelRouter.get('/darknet-intel/abuseipdb/reports', async (c) => {
 darknetIntelRouter.get('/darknet-intel/abuseipdb/blacklist', async (c) => {
   const key = c.env.ABUSEIPDB_API_KEY;
   if (!key) return c.json({ error: 'ABUSEIPDB_API_KEY not configured' }, 503);
-  const cacheKey = 'abuseipdb:blacklist';
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const confidence = c.req.query('confidence') ?? '90';
     const limit = c.req.query('limit') ?? '10000';
@@ -446,8 +420,6 @@ darknetIntelRouter.get('/darknet-intel/abuseipdb/blacklist', async (c) => {
     if (!res.ok) return c.json({ error: `AbuseIPDB upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ...data, provider: 'abuseipdb', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_LONG }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'AbuseIPDB unreachable' }, 502);
@@ -477,9 +449,6 @@ darknetIntelRouter.get('/darknet-intel/abuseipdb/check-block', async (c) => {
 darknetIntelRouter.get('/darknet-intel/ransomware/group', async (c) => {
   const name = c.req.query('name');
   if (!name) return c.json({ error: 'name parameter required' }, 400);
-  const cacheKey = `rw:group:${name}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const res = await fetch(`https://api.ransomware.live/v2/group/${encodeURIComponent(name)}`, {
       signal: AbortSignal.timeout(10000),
@@ -493,8 +462,6 @@ darknetIntelRouter.get('/darknet-intel/ransomware/group', async (c) => {
       generated_at: new Date().toISOString(),
       cached: false,
     };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_MED }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'ransomware.live unreachable' }, 502);
@@ -534,9 +501,6 @@ darknetIntelRouter.get('/darknet-intel/ransomware/search', async (c) => {
 darknetIntelRouter.get('/darknet-intel/ransomware/country', async (c) => {
   const code = c.req.query('code');
   if (!code) return c.json({ error: 'code parameter required (ISO 3166-1 alpha-2)' }, 400);
-  const cacheKey = `rw:country:${code}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const res = await fetch(`https://api.ransomware.live/v2/country/${encodeURIComponent(code)}`, {
       signal: AbortSignal.timeout(10000),
@@ -550,8 +514,6 @@ darknetIntelRouter.get('/darknet-intel/ransomware/country', async (c) => {
       generated_at: new Date().toISOString(),
       cached: false,
     };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_MED }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'ransomware.live unreachable' }, 502);
@@ -561,9 +523,6 @@ darknetIntelRouter.get('/darknet-intel/ransomware/country', async (c) => {
 darknetIntelRouter.get('/darknet-intel/ransomware/sector', async (c) => {
   const sector = c.req.query('sector');
   if (!sector) return c.json({ error: 'sector parameter required (e.g. healthcare, finance)' }, 400);
-  const cacheKey = `rw:sector:${sector}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const res = await fetch(`https://api.ransomware.live/v2/sector/${encodeURIComponent(sector)}`, {
       signal: AbortSignal.timeout(10000),
@@ -577,8 +536,6 @@ darknetIntelRouter.get('/darknet-intel/ransomware/sector', async (c) => {
       generated_at: new Date().toISOString(),
       cached: false,
     };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_MED }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'ransomware.live unreachable' }, 502);
@@ -586,16 +543,11 @@ darknetIntelRouter.get('/darknet-intel/ransomware/sector', async (c) => {
 });
 
 darknetIntelRouter.get('/darknet-intel/ransomware/ransomlook-groups', async (c) => {
-  const cacheKey = 'rw:rl:groups';
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const res = await fetch('https://www.ransomlook.io/api/groups', { signal: AbortSignal.timeout(10000) });
     if (!res.ok) return c.json({ error: `ransomlook upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ...data, provider: 'ransomlook', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_LONG }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'ransomlook unreachable' }, 502);
@@ -603,16 +555,11 @@ darknetIntelRouter.get('/darknet-intel/ransomware/ransomlook-groups', async (c) 
 });
 
 darknetIntelRouter.get('/darknet-intel/ransomware/ransomlook-recent', async (c) => {
-  const cacheKey = 'rw:rl:recent';
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const res = await fetch('https://www.ransomlook.io/api/recent', { signal: AbortSignal.timeout(10000) });
     if (!res.ok) return c.json({ error: `ransomlook upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ...data, provider: 'ransomlook', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_SHORT }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'ransomlook unreachable' }, 502);
@@ -624,9 +571,6 @@ darknetIntelRouter.get('/darknet-intel/ransomware/ransomlook-recent', async (c) 
 darknetIntelRouter.get('/darknet-intel/hibp/breach', async (c) => {
   const name = c.req.query('name');
   if (!name) return c.json({ error: 'name parameter required (breach name)' }, 400);
-  const cacheKey = `hibp:breach:${name}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const headers: Record<string, string> = { 'User-Agent': UA };
     const key = c.env.HIBP_API_KEY;
@@ -639,8 +583,6 @@ darknetIntelRouter.get('/darknet-intel/hibp/breach', async (c) => {
     if (!res.ok) return c.json({ error: `HIBP upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ...data, provider: 'hibp', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_LONG }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'HIBP unreachable' }, 502);
@@ -648,9 +590,6 @@ darknetIntelRouter.get('/darknet-intel/hibp/breach', async (c) => {
 });
 
 darknetIntelRouter.get('/darknet-intel/hibp/latest', async (c) => {
-  const cacheKey = 'hibp:latest';
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const headers: Record<string, string> = { 'User-Agent': UA };
     const key = c.env.HIBP_API_KEY;
@@ -668,8 +607,6 @@ darknetIntelRouter.get('/darknet-intel/hibp/latest', async (c) => {
       generated_at: new Date().toISOString(),
       cached: false,
     };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_LONG }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'HIBP unreachable' }, 502);
@@ -677,9 +614,6 @@ darknetIntelRouter.get('/darknet-intel/hibp/latest', async (c) => {
 });
 
 darknetIntelRouter.get('/darknet-intel/hibp/data-classes', async (c) => {
-  const cacheKey = 'hibp:dataclasses';
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const headers: Record<string, string> = { 'User-Agent': UA };
     const key = c.env.HIBP_API_KEY;
@@ -697,8 +631,6 @@ darknetIntelRouter.get('/darknet-intel/hibp/data-classes', async (c) => {
       generated_at: new Date().toISOString(),
       cached: false,
     };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_LONG }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'HIBP unreachable' }, 502);
@@ -751,9 +683,6 @@ darknetIntelRouter.get('/darknet-intel/hibp/password', async (c) => {
 
 darknetIntelRouter.get('/darknet-intel/abusech/threatfox-iocs', async (c) => {
   const days = parseInt(c.req.query('days') ?? '3', 10);
-  const cacheKey = `abusech:tf:iocs:${days}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const res = await fetch('https://threatfox-api.abuse.ch/api/v1/', {
       method: 'POST',
@@ -764,8 +693,6 @@ darknetIntelRouter.get('/darknet-intel/abusech/threatfox-iocs', async (c) => {
     if (!res.ok) return c.json({ error: `ThreatFox upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { days, ...data, provider: 'threatfox', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_SHORT }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'ThreatFox unreachable' }, 502);
@@ -870,9 +797,6 @@ darknetIntelRouter.get('/darknet-intel/abusech/urlhaus-tag', async (c) => {
 darknetIntelRouter.get('/darknet-intel/abusech/bazaar-hash', async (c) => {
   const hash = c.req.query('hash');
   if (!hash) return c.json({ error: 'hash parameter required (MD5, SHA1, or SHA256)' }, 400);
-  const cacheKey = `bazaar:hash:${hash}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const res = await fetch('https://mb-api.abuse.ch/api/v1/', {
       method: 'POST',
@@ -883,8 +807,6 @@ darknetIntelRouter.get('/darknet-intel/abusech/bazaar-hash', async (c) => {
     if (!res.ok) return c.json({ error: `MalwareBazaar upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { hash, ...data, provider: 'malwarebazaar', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_LONG }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'MalwareBazaar unreachable' }, 502);
@@ -892,9 +814,6 @@ darknetIntelRouter.get('/darknet-intel/abusech/bazaar-hash', async (c) => {
 });
 
 darknetIntelRouter.get('/darknet-intel/abusech/bazaar-recent', async (c) => {
-  const cacheKey = 'bazaar:recent';
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const res = await fetch('https://mb-api.abuse.ch/api/v1/?query=get_recent&selector=100', {
       signal: AbortSignal.timeout(15000),
@@ -902,8 +821,6 @@ darknetIntelRouter.get('/darknet-intel/abusech/bazaar-recent', async (c) => {
     if (!res.ok) return c.json({ error: `MalwareBazaar upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ...data, provider: 'malwarebazaar', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_SHORT }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'MalwareBazaar unreachable' }, 502);
@@ -934,9 +851,6 @@ darknetIntelRouter.get('/darknet-intel/abusech/bazaar-tag', async (c) => {
 darknetIntelRouter.get('/darknet-intel/otx/ip', async (c) => {
   const ip = c.req.query('ip');
   if (!ip) return c.json({ error: 'ip parameter required' }, 400);
-  const cacheKey = `otx:ip:${ip}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const headers: Record<string, string> = { Accept: 'application/json' };
     const key = c.env.OTX_API_KEY;
@@ -948,8 +862,6 @@ darknetIntelRouter.get('/darknet-intel/otx/ip', async (c) => {
     if (!res.ok) return c.json({ error: `OTX upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ip, ...data, provider: 'otx', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_MED }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'OTX unreachable' }, 502);
@@ -959,9 +871,6 @@ darknetIntelRouter.get('/darknet-intel/otx/ip', async (c) => {
 darknetIntelRouter.get('/darknet-intel/otx/domain', async (c) => {
   const domain = c.req.query('domain');
   if (!domain) return c.json({ error: 'domain parameter required' }, 400);
-  const cacheKey = `otx:domain:${domain}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const headers: Record<string, string> = { Accept: 'application/json' };
     const key = c.env.OTX_API_KEY;
@@ -976,8 +885,6 @@ darknetIntelRouter.get('/darknet-intel/otx/domain', async (c) => {
     if (!res.ok) return c.json({ error: `OTX upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { domain, ...data, provider: 'otx', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_MED }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'OTX unreachable' }, 502);
@@ -987,9 +894,6 @@ darknetIntelRouter.get('/darknet-intel/otx/domain', async (c) => {
 darknetIntelRouter.get('/darknet-intel/otx/hash', async (c) => {
   const hash = c.req.query('hash');
   if (!hash) return c.json({ error: 'hash parameter required' }, 400);
-  const cacheKey = `otx:hash:${hash}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const headers: Record<string, string> = { Accept: 'application/json' };
     const key = c.env.OTX_API_KEY;
@@ -1001,8 +905,6 @@ darknetIntelRouter.get('/darknet-intel/otx/hash', async (c) => {
     if (!res.ok) return c.json({ error: `OTX upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { hash, ...data, provider: 'otx', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_MED }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'OTX unreachable' }, 502);
@@ -1012,9 +914,6 @@ darknetIntelRouter.get('/darknet-intel/otx/hash', async (c) => {
 darknetIntelRouter.get('/darknet-intel/otx/cve', async (c) => {
   const cve = c.req.query('cve');
   if (!cve) return c.json({ error: 'cve parameter required (e.g. CVE-2024-3094)' }, 400);
-  const cacheKey = `otx:cve:${cve}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const headers: Record<string, string> = { Accept: 'application/json' };
     const key = c.env.OTX_API_KEY;
@@ -1026,8 +925,6 @@ darknetIntelRouter.get('/darknet-intel/otx/cve', async (c) => {
     if (!res.ok) return c.json({ error: `OTX upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { cve, ...data, provider: 'otx', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_LONG }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'OTX unreachable' }, 502);
@@ -1045,9 +942,6 @@ darknetIntelRouter.get('/darknet-intel/hybrid/search', async (c) => {
       { error: 'HYBRID_ANALYSIS_API_KEY not configured', docs: 'wrangler secret put HYBRID_ANALYSIS_API_KEY' },
       503
     );
-  const cacheKey = `hybrid:search:${hash}`;
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const res = await fetch(`https://www.hybrid-analysis.com/api/v2/search/hash?hash=${encodeURIComponent(hash)}`, {
       headers: { 'api-key': key, Accept: 'application/json' },
@@ -1056,8 +950,6 @@ darknetIntelRouter.get('/darknet-intel/hybrid/search', async (c) => {
     if (!res.ok) return c.json({ error: `Hybrid Analysis upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { hash, ...data, provider: 'hybrid-analysis', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_LONG }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'Hybrid Analysis unreachable' }, 502);
@@ -1067,9 +959,6 @@ darknetIntelRouter.get('/darknet-intel/hybrid/search', async (c) => {
 darknetIntelRouter.get('/darknet-intel/hybrid/feed', async (c) => {
   const key = c.env.HYBRID_ANALYSIS_API_KEY;
   if (!key) return c.json({ error: 'HYBRID_ANALYSIS_API_KEY not configured' }, 503);
-  const cacheKey = 'hybrid:feed';
-  const cached = (await c.env.KV_CACHE?.get(cacheKey, 'json')) as Record<string, unknown> | null;
-  if (cached) return c.json({ ...(cached as object), cached: true });
   try {
     const res = await fetch('https://www.hybrid-analysis.com/api/v2/feed/latest', {
       headers: { 'api-key': key, Accept: 'application/json' },
@@ -1078,8 +967,6 @@ darknetIntelRouter.get('/darknet-intel/hybrid/feed', async (c) => {
     if (!res.ok) return c.json({ error: `Hybrid Analysis upstream ${res.status}` }, 502);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ...data, provider: 'hybrid-analysis', generated_at: new Date().toISOString(), cached: false };
-    if (c.env.KV_CACHE)
-      c.executionCtx.waitUntil(c.env.KV_CACHE.put(cacheKey, JSON.stringify(body), { expirationTtl: CACHE_SHORT }));
     return c.json(body);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'Hybrid Analysis unreachable' }, 502);

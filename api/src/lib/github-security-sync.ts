@@ -207,6 +207,18 @@ export async function syncGitHubAdvisories(env: Env): Promise<SyncResult> {
     meta.rateLimited = result.rateLimited;
     if (env.KV_CACHE) {
       await env.KV_CACHE.put(GHSA_META_KV_KEY, JSON.stringify(meta), { expirationTtl: GHSA_KV_TTL_S });
+      // Write-through the L1 shadow so readers see the fresh meta immediately.
+      try {
+        const cache = (caches as unknown as { default: Cache }).default;
+        await cache.put(
+          new Request(`https://ghsa-cache.internal/v1/${GHSA_META_KV_KEY}`),
+          new Response(JSON.stringify(meta), {
+            headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${GHSA_FRESH_TTL_S}` },
+          })
+        );
+      } catch {
+        /* best-effort shadow */
+      }
     }
     return {
       ok: false,
@@ -230,6 +242,28 @@ export async function syncGitHubAdvisories(env: Env): Promise<SyncResult> {
       await env.KV_CACHE.put(GHSA_KV_KEY, body, { expirationTtl: GHSA_KV_TTL_S });
     }
     await env.KV_CACHE.put(GHSA_META_KV_KEY, JSON.stringify(meta), { expirationTtl: GHSA_KV_TTL_S });
+    // Write-through the L1 shadows so readers see fresh data immediately
+    // (the cron runs once/day; without this a colo would serve stale
+    // shadowed data for up to GHSA_FRESH_TTL_S after a sync).
+    try {
+      const cache = (caches as unknown as { default: Cache }).default;
+      await Promise.all([
+        cache.put(
+          new Request(`https://ghsa-cache.internal/v1/${GHSA_KV_KEY}`),
+          new Response(body, {
+            headers: { 'content-type': 'text/plain', 'cache-control': `public, max-age=${GHSA_FRESH_TTL_S}` },
+          })
+        ),
+        cache.put(
+          new Request(`https://ghsa-cache.internal/v1/${GHSA_META_KV_KEY}`),
+          new Response(JSON.stringify(meta), {
+            headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${GHSA_FRESH_TTL_S}` },
+          })
+        ),
+      ]);
+    } catch {
+      /* best-effort shadow */
+    }
   }
   return { ok: true, total: advisories.length };
 }
@@ -245,13 +279,58 @@ export async function readCachedRecentAdvisories(env: Env): Promise<{
   if (!kv) {
     return { payload: GHSA_SEED, ageSeconds: Infinity, ok: false, meta: null };
   }
-  const raw = await kv.get(GHSA_KV_KEY, 'text');
+  // L1: per-colo Cache-API shadow. The advisories list + meta only flip on
+  // the daily cron sync, so a 6h shadow TTL (matching GHSA_FRESH_TTL_S)
+  // collapses repeated reads to ~1 KV read per colo per window. KV remains
+  // the cross-colo source of truth; the shadow is write-through on miss.
+  const cache = (caches as unknown as { default: Cache }).default;
+  const payloadReq = new Request(`https://ghsa-cache.internal/v1/${GHSA_KV_KEY}`);
+  const metaReq = new Request(`https://ghsa-cache.internal/v1/${GHSA_META_KV_KEY}`);
+  let raw: string | null = null;
+  try {
+    const hit = await cache.match(payloadReq);
+    if (hit) raw = await hit.text();
+  } catch {
+    /* fall through to KV */
+  }
+  if (raw === null) {
+    raw = await kv.get(GHSA_KV_KEY, 'text');
+    if (raw) {
+      try {
+        await cache.put(
+          payloadReq,
+          new Response(raw, {
+            headers: { 'content-type': 'text/plain', 'cache-control': `public, max-age=${GHSA_FRESH_TTL_S}` },
+          })
+        );
+      } catch {
+        /* best-effort shadow */
+      }
+    }
+  }
   if (!raw) {
     return { payload: GHSA_SEED, ageSeconds: Infinity, ok: false, meta: null };
   }
   let meta: GhsaMeta | null = null;
   try {
-    meta = (await kv.get(GHSA_META_KV_KEY, 'json')) as GhsaMeta | null;
+    const metaHit = await cache.match(metaReq);
+    if (metaHit) {
+      meta = (await metaHit.json()) as GhsaMeta | null;
+    } else {
+      meta = (await kv.get(GHSA_META_KV_KEY, 'json')) as GhsaMeta | null;
+      if (meta) {
+        try {
+          await cache.put(
+            metaReq,
+            new Response(JSON.stringify(meta), {
+              headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${GHSA_FRESH_TTL_S}` },
+            })
+          );
+        } catch {
+          /* best-effort shadow */
+        }
+      }
+    }
   } catch {
     /* ignore */
   }
