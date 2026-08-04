@@ -3,6 +3,7 @@ import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
 import { Button } from '../components/ui/Button';
 import { Spinner } from '../components/ui/Spinner';
+import { DataTable, type DataTableColumn } from '../components/ui/DataTable';
 import { Search, Globe, AlertTriangle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -169,67 +170,66 @@ export default function Whoxy() {
                 Domains ({data.domains.length})
               </h2>
               {data.domains.length > 0 ? (
-                <div className="overflow-x-auto -mx-4">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                        <th className="text-left px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">
-                          Domain
-                        </th>
-                        <th className="text-left px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">
-                          Registrant
-                        </th>
-                        <th className="text-left px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">
-                          Company
-                        </th>
-                        <th className="text-left px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">
-                          Created
-                        </th>
-                        <th className="text-left px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">
-                          Expires
-                        </th>
-                        <th className="text-left px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">
-                          History
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.domains.map((d, i) => (
-                        <tr
-                          key={i}
-                          className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] last:border-0"
-                        >
-                          <td className="px-4 py-2 font-mono text-sm text-brand-600 dark:text-brand-400">
-                            <a
-                              href={`https://${d.domain_name}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="hover:underline transition-colors"
-                            >
-                              {d.domain_name}
-                            </a>
-                          </td>
-                          <td className="px-4 py-2 text-sm text-slate-700 dark:text-slate-300">
-                            {d.registrant_name || <span className="text-muted">-</span>}
-                          </td>
-                          <td className="px-4 py-2 text-sm text-slate-700 dark:text-slate-300">
-                            {d.company_name || <span className="text-muted">-</span>}
-                          </td>
-                          <td className="px-4 py-2 text-mini text-muted font-mono">{d.creation_date || '-'}</td>
-                          <td className="px-4 py-2 text-mini text-muted font-mono">{d.expiry_date || '-'}</td>
-                          <td className="px-4 py-2">
-                            <Link
-                              to={`/dfir/whois-history?domain=${encodeURIComponent(d.domain_name)}`}
-                              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
-                            >
-                              WHOIS History
-                            </Link>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <DataTable
+                  columns={
+                    [
+                      {
+                        key: 'domain',
+                        header: 'Domain',
+                        sortValue: (d) => d.domain_name,
+                        render: (d) => (
+                          <a
+                            href={`https://${d.domain_name}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-mono text-sm text-brand-600 dark:text-brand-400 hover:underline transition-colors"
+                          >
+                            {d.domain_name}
+                          </a>
+                        ),
+                      },
+                      {
+                        key: 'registrant',
+                        header: 'Registrant',
+                        sortValue: (d) => d.registrant_name ?? '',
+                        render: (d) => d.registrant_name || <span className="text-muted">-</span>,
+                      },
+                      {
+                        key: 'company',
+                        header: 'Company',
+                        sortValue: (d) => d.company_name ?? '',
+                        render: (d) => d.company_name || <span className="text-muted">-</span>,
+                      },
+                      {
+                        key: 'created',
+                        header: 'Created',
+                        sortValue: (d) => d.creation_date ?? '',
+                        render: (d) => <span className="text-mini text-muted font-mono">{d.creation_date || '-'}</span>,
+                      },
+                      {
+                        key: 'expires',
+                        header: 'Expires',
+                        sortValue: (d) => d.expiry_date ?? '',
+                        render: (d) => <span className="text-mini text-muted font-mono">{d.expiry_date || '-'}</span>,
+                      },
+                      {
+                        key: 'history',
+                        header: 'History',
+                        render: (d) => (
+                          <Link
+                            to={`/dfir/whois-history?domain=${encodeURIComponent(d.domain_name)}`}
+                            className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                          >
+                            WHOIS History
+                          </Link>
+                        ),
+                      },
+                    ] as DataTableColumn<DomainResult>[]
+                  }
+                  rows={data.domains}
+                  rowKey={(d, i) => `${d.domain_name}-${i}`}
+                  className="-mx-4"
+                />
               ) : (
                 <p className="text-sm text-muted py-2">No domains found for this search.</p>
               )}
