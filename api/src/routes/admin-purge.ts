@@ -18,7 +18,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { requireAdmin } from '../lib/admin-auth';
-import { badRequest, internalError, serviceUnavailable } from '../lib/api-error';
+import { badRequest, internalError, serviceUnavailable, badGateway } from '../lib/api-error';
 import { auditAdminAction } from '../lib/admin-audit';
 import { safeNullLog } from '../lib/safe-catch';
 import { z } from 'zod';

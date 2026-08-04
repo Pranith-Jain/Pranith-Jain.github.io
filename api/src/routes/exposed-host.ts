@@ -22,7 +22,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { PRIVATE_IPV4, isPrivateIpv6 } from '../lib/ssrf-guard';
-import { badRequest, internalError } from '../lib/api-error';
+import { badRequest, internalError, forbidden } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 // ── Types ────────────────────────────────────────────────────────
