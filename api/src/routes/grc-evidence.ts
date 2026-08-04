@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { kvBulkGetText } from '../lib/safe-catch';
 
 export interface GrcFramework {
@@ -172,13 +173,13 @@ export async function grcListFrameworks(c: Context<{ Bindings: Env }>): Promise<
 
 export async function grcGetFramework(c: Context<{ Bindings: Env }>): Promise<Response> {
   const fw = await readOne<GrcFramework>(c.env, 'frameworks', c.req.param('id')!);
-  if (!fw) return c.json({ error: 'Framework not found' }, 404);
+  if (!fw) return notFound(c, 'Framework not found');
   return c.json(fw);
 }
 
 export async function grcUpdateFramework(c: Context<{ Bindings: Env }>): Promise<Response> {
   const existing = await readOne<GrcFramework>(c.env, 'frameworks', c.req.param('id')!);
-  if (!existing) return c.json({ error: 'Framework not found' }, 404);
+  if (!existing) return notFound(c, 'Framework not found');
   const body = await c.req.json<Partial<GrcFramework>>();
   const updated: GrcFramework = { ...existing, ...body, id: existing.id, updated_at: new Date().toISOString() };
   await writeOne(c.env, 'frameworks', updated);
@@ -196,7 +197,7 @@ export async function grcListControls(c: Context<{ Bindings: Env }>): Promise<Re
 
 export async function grcGetControl(c: Context<{ Bindings: Env }>): Promise<Response> {
   const ctrl = await readOne<GrcControl>(c.env, 'controls', c.req.param('id')!);
-  if (!ctrl) return c.json({ error: 'Control not found' }, 404);
+  if (!ctrl) return notFound(c, 'Control not found');
   return c.json(ctrl);
 }
 
@@ -218,7 +219,7 @@ export async function grcCreateControl(c: Context<{ Bindings: Env }>): Promise<R
 
 export async function grcUpdateControl(c: Context<{ Bindings: Env }>): Promise<Response> {
   const existing = await readOne<GrcControl>(c.env, 'controls', c.req.param('id')!);
-  if (!existing) return c.json({ error: 'Control not found' }, 404);
+  if (!existing) return notFound(c, 'Control not found');
   const body = await c.req.json<Partial<GrcControl>>();
   const updated: GrcControl = { ...existing, ...body, id: existing.id };
   await writeOne(c.env, 'controls', updated);
@@ -239,7 +240,7 @@ export async function grcUpdateControl(c: Context<{ Bindings: Env }>): Promise<R
 
 export async function grcDeleteControl(c: Context<{ Bindings: Env }>): Promise<Response> {
   const control = await readOne<GrcControl>(c.env, 'controls', c.req.param('id')!);
-  if (!control) return c.json({ error: 'Control not found' }, 404);
+  if (!control) return notFound(c, 'Control not found');
   const controls = await loadAll<GrcControl>(c.env, 'controls');
   const filtered = controls.filter((ctrl) => ctrl.id !== control.id);
   await saveAll(c.env, 'controls', filtered);
@@ -270,7 +271,7 @@ export async function grcListEvidence(c: Context<{ Bindings: Env }>): Promise<Re
 
 export async function grcGetEvidence(c: Context<{ Bindings: Env }>): Promise<Response> {
   const item = await readOne<GrcEvidenceItem>(c.env, 'evidence', c.req.param('id')!);
-  if (!item) return c.json({ error: 'Evidence not found' }, 404);
+  if (!item) return notFound(c, 'Evidence not found');
   return c.json(item);
 }
 
@@ -291,7 +292,7 @@ export async function grcCreateEvidence(c: Context<{ Bindings: Env }>): Promise<
 
 export async function grcUpdateEvidence(c: Context<{ Bindings: Env }>): Promise<Response> {
   const existing = await readOne<GrcEvidenceItem>(c.env, 'evidence', c.req.param('id')!);
-  if (!existing) return c.json({ error: 'Evidence not found' }, 404);
+  if (!existing) return notFound(c, 'Evidence not found');
   const body = await c.req.json<Partial<GrcEvidenceItem>>();
   const updated: GrcEvidenceItem = { ...existing, ...body, id: existing.id };
   await writeOne(c.env, 'evidence', updated);
@@ -300,7 +301,7 @@ export async function grcUpdateEvidence(c: Context<{ Bindings: Env }>): Promise<
 
 export async function grcDeleteEvidence(c: Context<{ Bindings: Env }>): Promise<Response> {
   const item = await readOne<GrcEvidenceItem>(c.env, 'evidence', c.req.param('id')!);
-  if (!item) return c.json({ error: 'Evidence not found' }, 404);
+  if (!item) return notFound(c, 'Evidence not found');
   const items = await loadAll<GrcEvidenceItem>(c.env, 'evidence');
   const filtered = items.filter((e) => e.id !== item.id);
   await saveAll(c.env, 'evidence', filtered);

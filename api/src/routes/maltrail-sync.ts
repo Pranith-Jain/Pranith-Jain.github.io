@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { kvBulkGetText } from '../lib/safe-catch';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 
@@ -100,7 +101,7 @@ async function writeSkeletonIndex(kv: KVNamespace, slugs: string[]): Promise<voi
 
 export async function maltrailSyncHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not configured' }, 500);
+  if (!kv) return internalError(c, 'KV not configured');
 
   let files: Array<{ name: string; size?: number; type?: string }>;
   try {
@@ -109,12 +110,12 @@ export async function maltrailSyncHandler(c: Context<{ Bindings: Env }>): Promis
       signal: AbortSignal.timeout(15_000),
     });
     if (!res.ok) {
-      return c.json({ error: `github contents API: ${res.status}` }, 502);
+      return badGateway(c, `github contents API: ${res.status}`);
     }
     files = (await res.json()) as Array<{ name: string; size?: number; type?: string }>;
   } catch (err) {
     console.error('maltrailSyncHandler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: `maltrail list fetch: ${(err as Error).message}` }, 502);
+    return badGateway(c, `maltrail list fetch: ${(err as Error).message}`);
   }
 
   const aptFiles = (Array.isArray(files) ? files : []).filter((f) => f.type === 'file' && APT_FILE_RE.test(f.name));
@@ -277,11 +278,11 @@ const SLUG_PARAM_RE = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
 export async function getSkeletonActorHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not configured' }, 500);
+  if (!kv) return internalError(c, 'KV not configured');
   const slug = (c.req.param('slug') ?? '').toLowerCase();
-  if (!SLUG_PARAM_RE.test(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!SLUG_PARAM_RE.test(slug)) return badRequest(c, 'invalid slug');
   const raw = await kv.get(`${SKELETON_KEY_PREFIX}${slug}`);
-  if (!raw) return c.json({ error: 'skeleton not found' }, 404);
+  if (!raw) return notFound(c, 'skeleton not found');
   try {
     return c.json(JSON.parse(raw), 200, { 'cache-control': 'public, max-age=300' });
   } catch (_catchErr) {
@@ -289,6 +290,6 @@ export async function getSkeletonActorHandler(c: Context<{ Bindings: Env }>): Pr
       'getSkeletonActorHandler failed:',
       _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
     );
-    return c.json({ error: 'corrupted record' }, 500);
+    return internalError(c, 'corrupted record');
   }
 }

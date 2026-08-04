@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 /**
  * AI Rule Generator — generates detection rules in multiple formats.
@@ -1305,14 +1306,14 @@ export async function ruleGeneratorHandler(c: Context<{ Bindings: Env }>): Promi
     const body = await c.req.json<GenerateRequest>();
 
     if (!body.type || !VALID_TYPES.includes(body.type)) {
-      return c.json({ error: `type must be one of: ${VALID_TYPES.join(', ')}` }, 400);
+      return badRequest(c, `type must be one of: ${VALID_TYPES.join(', ')}`);
     }
-    if (!body.description) return c.json({ error: 'description is required' }, 400);
+    if (!body.description) return badRequest(c, 'description is required');
     if (body.description.length > MAX_DESCRIPTION_LENGTH) {
-      return c.json({ error: `description too long (max ${MAX_DESCRIPTION_LENGTH} chars)` }, 400);
+      return badRequest(c, `description too long (max ${MAX_DESCRIPTION_LENGTH} chars)`);
     }
     if (body.strings && body.strings.length > MAX_STRINGS) {
-      return c.json({ error: `too many strings (max ${MAX_STRINGS})` }, 400);
+      return badRequest(c, `too many strings (max ${MAX_STRINGS})`);
     }
 
     const complexity = body.complexity ?? 'standard';
@@ -1366,7 +1367,7 @@ export async function ruleGeneratorHandler(c: Context<{ Bindings: Env }>): Promi
     return c.json(result, 200, { 'Cache-Control': 'no-store' });
   } catch (err) {
     console.error('Rule generator error:', err);
-    return c.json({ error: 'Generation failed', details: err instanceof Error ? err.message : String(err) }, 500);
+    return internalError(c, err);
   }
 }
 
@@ -1375,9 +1376,9 @@ export async function ruleValidateHandler(c: Context<{ Bindings: Env }>): Promis
     const body = await c.req.json<{ type: RuleType; rule: string }>();
 
     if (!body.type || !VALID_TYPES.includes(body.type)) {
-      return c.json({ error: `type must be one of: ${VALID_TYPES.join(', ')}` }, 400);
+      return badRequest(c, `type must be one of: ${VALID_TYPES.join(', ')}`);
     }
-    if (!body.rule) return c.json({ error: 'rule is required' }, 400);
+    if (!body.rule) return badRequest(c, 'rule is required');
 
     const validation = validateRule(body.type, body.rule);
     const ruleName = extractRuleName(body.type, body.rule);
@@ -1444,6 +1445,6 @@ export async function ruleValidateHandler(c: Context<{ Bindings: Env }>): Promis
     });
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: 'Validation failed', details: err instanceof Error ? err.message : String(err) }, 500);
+    return internalError(c, err);
   }
 }

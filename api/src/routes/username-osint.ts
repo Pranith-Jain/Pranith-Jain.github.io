@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 /**
  * Username OSINT — check 200+ platforms for a given username.
@@ -833,10 +834,10 @@ async function checkPlatform(username: string, platform: PlatformCheck): Promise
 
 export async function usernameOsnitHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const raw = c.req.query('username')?.trim();
-  if (!raw) return c.json({ error: 'missing username' }, 400);
+  if (!raw) return badRequest(c, 'missing username');
   const username = raw;
-  if (username.length < 2 || username.length > 64) return c.json({ error: 'username must be 2-64 chars' }, 400);
-  if (!/^[a-zA-Z0-9._-]+$/.test(username)) return c.json({ error: 'username can only contain a-z, 0-9, ., _, -' }, 400);
+  if (username.length < 2 || username.length > 64) return badRequest(c, 'username must be 2-64 chars');
+  if (!/^[a-zA-Z0-9._-]+$/.test(username)) return badRequest(c, 'username can only contain a-z, 0-9, ., _, -');
 
   // Optional platform filter
   const platformFilter = c.req
@@ -847,7 +848,7 @@ export async function usernameOsnitHandler(c: Context<{ Bindings: Env }>): Promi
     ? PLATFORMS.filter((p) => platformFilter.includes(p.id))
     : PLATFORMS.filter((p) => !CLOUD_BLOCKED.has(p.id)).slice(0, MAX_PLATFORMS);
 
-  if (platforms.length === 0) return c.json({ error: 'no matching platforms' }, 400);
+  if (platforms.length === 0) return badRequest(c, 'no matching platforms');
 
   // Edge cache
   const edgeCache = (caches as unknown as { default: Cache }).default;
@@ -984,9 +985,9 @@ function generatePatterns(username: string): PatternResult[] {
 
 export async function usernamePatternsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const raw = c.req.query('username')?.trim();
-  if (!raw) return c.json({ error: 'missing username' }, 400);
+  if (!raw) return badRequest(c, 'missing username');
   const username = raw;
-  if (username.length < 2 || username.length > 64) return c.json({ error: 'username must be 2-64 chars' }, 400);
+  if (username.length < 2 || username.length > 64) return badRequest(c, 'username must be 2-64 chars');
 
   const patterns = generatePatterns(username);
 
@@ -1099,9 +1100,9 @@ const SCRAPE_PLATFORMS: Array<{
 
 export async function usernameProfileHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const raw = c.req.query('username')?.trim();
-  if (!raw) return c.json({ error: 'missing username' }, 400);
+  if (!raw) return badRequest(c, 'missing username');
   const username = raw;
-  if (username.length < 2 || username.length > 64) return c.json({ error: 'username must be 2-64 chars' }, 400);
+  if (username.length < 2 || username.length > 64) return badRequest(c, 'username must be 2-64 chars');
 
   // Edge cache
   const edgeCache = (caches as unknown as { default: Cache }).default;

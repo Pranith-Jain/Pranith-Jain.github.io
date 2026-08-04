@@ -125,7 +125,7 @@ siEdgeToolsRouter.post('/si/parse', async (c) => {
   try {
     body = await c.req.json();
   } catch (e) {
-    return c.json({ error: 'invalid_json_body' }, 400);
+    return badRequest(c, 'invalid_json_body');
   }
   const parsed = ParseRequestSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
@@ -150,7 +150,7 @@ siEdgeToolsRouter.post('/si/mailscope', async (c) => {
   try {
     body = await c.req.json();
   } catch (e) {
-    return c.json({ error: 'invalid_json_body' }, 400);
+    return badRequest(c, 'invalid_json_body');
   }
   const parsed = MailScopeRequestSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
@@ -190,7 +190,7 @@ siEdgeToolsRouter.post('/si/shiftlog', requireAdminRole(), async (c) => {
   try {
     body = await c.req.json();
   } catch (e) {
-    return c.json({ error: 'invalid_json_body' }, 400);
+    return badRequest(c, 'invalid_json_body');
   }
   const parsed = ShiftLogCreateSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
@@ -223,7 +223,7 @@ siEdgeToolsRouter.patch('/si/shiftlog/:id', requireAdminRole(), async (c) => {
   try {
     body = await c.req.json();
   } catch (e) {
-    return c.json({ error: 'invalid_json_body' }, 400);
+    return badRequest(c, 'invalid_json_body');
   }
   const parsed = ShiftLogUpdateSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
@@ -244,7 +244,7 @@ siEdgeToolsRouter.post('/si/shiftlog/:id/close', requireAdminRole(), async (c) =
   try {
     body = await c.req.json();
   } catch (e) {
-    return c.json({ error: 'invalid_json_body' }, 400);
+    return badRequest(c, 'invalid_json_body');
   }
   const endedAt = (body as { endedAt?: string })?.endedAt;
   try {
@@ -264,7 +264,7 @@ siEdgeToolsRouter.post('/si/hypos', async (c) => {
   try {
     body = await c.req.json();
   } catch (e) {
-    return c.json({ error: 'invalid_json_body' }, 400);
+    return badRequest(c, 'invalid_json_body');
   }
   const parsed = HyposRequestSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
@@ -322,7 +322,7 @@ siEdgeToolsRouter.post('/si/promptvault', requireAdminRole(), async (c) => {
   try {
     body = await c.req.json();
   } catch (e) {
-    return c.json({ error: 'invalid_json_body' }, 400);
+    return badRequest(c, 'invalid_json_body');
   }
   const parsed = PromptVaultCreateSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);
@@ -342,7 +342,7 @@ siEdgeToolsRouter.post('/si/promptvault/:slug/rate', requireAdminRole(), async (
   try {
     body = await c.req.json();
   } catch (e) {
-    return c.json({ error: 'invalid_json_body' }, 400);
+    return badRequest(c, 'invalid_json_body');
   }
   const parsed = PromptVaultRateSchema.safeParse(body);
   if (!parsed.success) return badRequest(c, `invalid_body: ${parsed.error.message}`);

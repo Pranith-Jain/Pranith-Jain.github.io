@@ -329,7 +329,7 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
         next = new URL(location, current);
       } catch (_catchErr) {
         console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-        return c.json({ error: 'upstream redirect to malformed url' }, 502);
+        return badGateway(c, 'upstream redirect to malformed url');
       }
       if (next.protocol !== 'http:' && next.protocol !== 'https:') {
         return forbidden(c, `upstream redirect to unsupported protocol: ${next.protocol}`);
@@ -338,27 +338,24 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
         return forbidden(c, `upstream redirect to non-allow-listed host: ${next.hostname}`);
       }
       current = next;
-      if (hop === 4) return c.json({ error: 'too many redirects' }, 502);
+      if (hop === 4) return badGateway(c, 'too many redirects');
     }
-    if (!upstream) return c.json({ error: 'upstream fetch failed' }, 502);
+    if (!upstream) return badGateway(c, 'upstream fetch failed');
     if (upstream.status === 429) {
       const retryAfter = upstream.headers.get('retry-after') ?? '60';
-      return c.json({ error: 'upstream_rate_limited', upstream: parsed.hostname, upstream_status: 429 }, 429, {
-        'retry-after': retryAfter,
-        'cache-control': 'no-store',
-      });
+      return tooManyRequests(c, 'upstream_rate_limited', { windowSeconds: parseInt(retryAfter, 10) || 60 });
     }
     if (!upstream.ok) {
-      return c.json({ error: `upstream ${upstream.status}` }, 502);
+      return badGateway(c, `upstream ${upstream.status}`);
     }
     const MAX_FEED_BYTES = 512 * 1024;
     const contentLength = Number(upstream.headers.get('content-length') ?? '0');
     if (contentLength > MAX_FEED_BYTES) {
-      return c.json({ error: 'upstream response too large', max_bytes: MAX_FEED_BYTES }, 502);
+      return badGateway(c, 'upstream response too large');
     }
     const body = await upstream.text();
     if (body.length > MAX_FEED_BYTES) {
-      return c.json({ error: 'upstream response too large', max_bytes: MAX_FEED_BYTES }, 502);
+      return badGateway(c, 'upstream response too large');
     }
     // Never echo the upstream content-type verbatim: this endpoint is
     // same-origin, and an allow-listed raw-content host (e.g.
@@ -379,6 +376,6 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
     });
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: safeErrorMessage(c.env as unknown as Record<string, unknown>, err) }, 502);
+    return badGateway(c, safeErrorMessage(c.env as unknown as Record<string, unknown>, err));
   }
 }

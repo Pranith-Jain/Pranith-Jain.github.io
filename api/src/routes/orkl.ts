@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 const ORKL_BASE = 'https://orkl.eu/api/v1';
@@ -13,7 +14,7 @@ interface OrklApiResponse {
 
 export async function orklSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const query = (c.req.query('query') ?? '').trim();
-  if (!query) return c.json({ error: 'query parameter required' }, 400, { 'cache-control': 'no-store' });
+  if (!query) return badRequest(c, 'query parameter required');
 
   const limit = Math.min(Math.max(1, parseInt(c.req.query('limit') ?? '20', 10) || 20), 50);
   const full = c.req.query('full') === 'true';
@@ -30,7 +31,7 @@ export async function orklSearchHandler(c: Context<{ Bindings: Env }>): Promise<
       { headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' } },
       { attempts: 2, timeoutMs: 10_000 }
     );
-    if (!res.ok) return c.json({ error: `orkl upstream ${res.status}` }, 502, { 'cache-control': 'no-store' });
+    if (!res.ok) return badGateway(c, `orkl upstream ${res.status}`);
     const body = (await res.json()) as OrklApiResponse;
     const response = new Response(JSON.stringify(body), {
       status: 200,
@@ -40,16 +41,14 @@ export async function orklSearchHandler(c: Context<{ Bindings: Env }>): Promise<
     return response;
   } catch (e) {
     console.error('orklSearchHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'orkl unreachable' }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, e instanceof Error ? e.message : 'orkl unreachable');
   }
 }
 
 export async function orklEntryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const uuid = c.req.param('uuid') ?? '';
   if (!uuid || !/^[0-9a-f-]{36}$/i.test(uuid))
-    return c.json({ error: 'valid uuid parameter required' }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'valid uuid parameter required');
 
   const cache = caches.default;
   const cacheKey = `https://orkl-cache.internal/entry/${uuid}`;
@@ -62,7 +61,7 @@ export async function orklEntryHandler(c: Context<{ Bindings: Env }>): Promise<R
       { headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' } },
       { attempts: 2, timeoutMs: 10_000 }
     );
-    if (!res.ok) return c.json({ error: `orkl upstream ${res.status}` }, 502, { 'cache-control': 'no-store' });
+    if (!res.ok) return badGateway(c, `orkl upstream ${res.status}`);
     const body = (await res.json()) as OrklApiResponse;
     const response = new Response(JSON.stringify(body), {
       status: 200,
@@ -72,9 +71,7 @@ export async function orklEntryHandler(c: Context<{ Bindings: Env }>): Promise<R
     return response;
   } catch (e) {
     console.error('orklEntryHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'orkl unreachable' }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, e instanceof Error ? e.message : 'orkl unreachable');
   }
 }
 
@@ -90,7 +87,7 @@ export async function orklInfoHandler(c: Context<{ Bindings: Env }>): Promise<Re
       { headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' } },
       { attempts: 2, timeoutMs: 10_000 }
     );
-    if (!res.ok) return c.json({ error: `orkl upstream ${res.status}` }, 502, { 'cache-control': 'no-store' });
+    if (!res.ok) return badGateway(c, `orkl upstream ${res.status}`);
     const body = (await res.json()) as OrklApiResponse;
     const response = new Response(JSON.stringify(body), {
       status: 200,
@@ -100,8 +97,6 @@ export async function orklInfoHandler(c: Context<{ Bindings: Env }>): Promise<Re
     return response;
   } catch (e) {
     console.error('orklInfoHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'orkl unreachable' }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, e instanceof Error ? e.message : 'orkl unreachable');
   }
 }
