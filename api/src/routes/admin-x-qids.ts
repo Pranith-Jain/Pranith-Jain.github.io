@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { requireAdmin } from '../lib/admin-auth';
 import {
   X_QIDS_KV_KEY,
@@ -46,7 +47,7 @@ export async function getXQidsHandler(c: AdminCtx): Promise<Response> {
   if ('error' in gate) return gate.error;
 
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV_CACHE not bound' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV_CACHE not bound');
 
   const stored = await readStoredQids(kv);
   const effective = await resolveQueryIds(c.env);
@@ -69,13 +70,13 @@ export async function setXQidsHandler(c: AdminCtx): Promise<Response> {
   if ('error' in gate) return gate.error;
 
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV_CACHE not bound' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV_CACHE not bound');
 
   let body: Partial<QueryIds>;
   try {
     body = (await c.req.json()) as Partial<QueryIds>;
   } catch {
-    return c.json({ error: 'invalid JSON body' }, 400);
+    return badRequest(c, 'invalid JSON body');
   }
 
   const merged: QueryIds = { ...(await resolveQueryIds(c.env)) };
@@ -84,7 +85,7 @@ export async function setXQidsHandler(c: AdminCtx): Promise<Response> {
     if (raw === undefined) continue;
     const val = String(raw).trim();
     if (val === '') continue;
-    if (!isValidQid(val)) return c.json({ error: `invalid query ID for ${field}` }, 400);
+    if (!isValidQid(val)) return badRequest(c, `invalid query ID for ${field}`);
     merged[field] = val;
   }
 
@@ -101,7 +102,7 @@ export async function clearXQidsHandler(c: AdminCtx): Promise<Response> {
   if ('error' in gate) return gate.error;
 
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV_CACHE not bound' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV_CACHE not bound');
 
   await kv.delete(X_QIDS_KV_KEY);
   invalidateQidCache();

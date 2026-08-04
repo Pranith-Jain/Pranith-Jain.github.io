@@ -224,6 +224,7 @@ const DarkWebPlaybook = lazy(() => import('./pages/threatintel/DarkWebPlaybook')
 const DarknetIntel = lazy(() => import('./pages/DarknetIntel'));
 const OnionWatch = lazy(() => import('./pages/dfir/OnionWatch'));
 const DarknetMarketsTimeline = lazy(() => import('./pages/threatintel/DarknetMarketsTimeline'));
+const DarknetList = lazy(() => import('./pages/threatintel/DarknetList'));
 const DeepDarkCTI = lazy(() => import('./pages/threatintel/DeepDarkCTI'));
 const Detections = lazy(() => import('./pages/threatintel/Detections'));
 const DisarmFramework = lazy(() => import('./pages/threatintel/DisarmFramework'));
@@ -593,6 +594,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/campaigns/reference', Component: CampaignsReference },
   { path: '/threatintel/darkweb/watch', Component: DarkWeb },
   { path: '/threatintel/darkweb/markets', Component: DarknetMarketsTimeline },
+  { path: '/threatintel/darkweb/darknetlist', Component: DarknetList },
   { path: '/threatintel/breach-hub', Component: BreachHub },
   { path: '/threatintel/darkweb/deepdark', Component: DeepDarkCTI },
   { path: '/threatintel/darkweb/crime', Component: CyberCrime },
@@ -751,7 +753,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/threatintel/tools/stix', to: '/threatintel/tools/stix-hub' },
   { path: '/threatintel/tools/stix-ip-export', to: '/threatintel/tools/stix-hub' },
   { path: '/threatintel/darkweb/ransom-report', to: '/threatintel/ransomware-hub' },
-  { path: '/threatintel/darkweb/ransom-activity', to: '/threatintel/ransomware-hub' },
+  { path: '/threatintel/darkweb/ransom-activity', to: '/threatintel/ransomware-hub?tab=activity' },
   { path: '/threatintel/darkweb/ransom-map', to: '/threatintel/ransomware-hub' },
   { path: '/threatintel/darkweb/ransomwhere', to: '/threatintel/ransomware-hub' },
   { path: '/threatintel/tools/investigations', to: '/threatintel/investigation-suite' },
@@ -877,7 +879,7 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string; preserveQuery?: boole
   { path: '/threatintel/deepdarkcti', to: '/threatintel/darkweb/deepdark' },
   { path: '/threatintel/re-leaks', to: '/threatintel/darkweb/leaks' },
   { path: '/threatintel/ransomware-map', to: '/threatintel/darkweb/ransom-map' },
-  { path: '/threatintel/ransomware-activity', to: '/threatintel/darkweb/ransom-activity' },
+  { path: '/threatintel/ransomware-activity', to: '/threatintel/ransomware-hub?tab=activity' },
   { path: '/threatintel/ransom-report', to: '/threatintel/darkweb/ransom-report' },
   { path: '/threatintel/negotiations', to: '/threatintel/darkweb/ransom-activity?tab=negotiations' },
   { path: '/threatintel/ransomwhere', to: '/threatintel/darkweb/ransomwhere' },

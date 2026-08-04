@@ -17,7 +17,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, internalError } from '../lib/api-error';
+import { badRequest, internalError, serviceUnavailable } from '../lib/api-error';
 import { z } from 'zod';
 import { safeNullLog } from '../lib/safe-catch';
 
@@ -59,7 +59,7 @@ export async function submitFeedbackHandler(c: Context<{ Bindings: Env }>): Prom
   if (!slug) return badRequest(c, 'briefing slug required');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   const body = await safeNullLog('parse-body-briefing-feedback', c.req.json());
   const parsed = feedbackSchema.safeParse(body);
@@ -98,7 +98,7 @@ export async function getFeedbackHandler(c: Context<{ Bindings: Env }>): Promise
   if (!slug) return badRequest(c, 'briefing slug required');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   try {
     const results = await db
@@ -154,7 +154,7 @@ export async function submitAnnotationHandler(c: Context<{ Bindings: Env }>): Pr
   if (!slug) return badRequest(c, 'briefing slug required');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   const body = await safeNullLog('parse-body-briefing-annotation', c.req.json());
   const parsed = annotationSchema.safeParse(body);
@@ -197,7 +197,7 @@ export async function getAnnotationsHandler(c: Context<{ Bindings: Env }>): Prom
   if (!slug) return badRequest(c, 'briefing slug required');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   try {
     const results = await db
@@ -230,7 +230,7 @@ export async function getAnnotationsHandler(c: Context<{ Bindings: Env }>): Prom
  */
 export async function feedbackSummaryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   try {
     // Get counts by action type

@@ -140,7 +140,7 @@ A second data vertical replicating the SI pattern (`public/data/threat-intel/`, 
 **Files**:
 
 - `worker/lib/threat-intel-manifest.ts` — LRU loader + filter helpers + priority scoring
-- `worker/lib/threat-intel-manifest.test.ts` — 37 unit tests
+- `worker/lib/threat-intel-manifest.test.ts` — 52 unit tests
 - `scripts/sync-threat-intel.mjs` — NVD + CISA KEV + Daily-Hunt fetch
 - `scripts/build-threat-intel.mjs` — normalize + score + slice into per-slug JSON
 - `worker/mcp-server.ts` — 7 `ti_*` tool registrations
@@ -160,7 +160,43 @@ node scripts/build-threat-intel.mjs  # slices into public/data/threat-intel/
 
 **To rebuild**: `node scripts/sync-threat-intel.mjs && node scripts/build-threat-intel.mjs`
 
-**Tests**: 37 vitest tests in `worker/lib/threat-intel-manifest.test.ts`
+**Tests**: 52 vitest tests in `worker/lib/threat-intel-manifest.test.ts`
+
+### Darknetlist — Tor Site Directory (darknetlist.is)
+
+A live directory of Tor-accessible sites from [darknetlist.is](https://darknetlist.is/),
+integrated as a sub-vertical of the threat-intel platform. A scanner on the
+upstream server walks the list through a fresh SOCKS circuit every 30 minutes
+and rewrites the page with whatever responded. 108 sites across 9 categories
+(markets, search, forums, news, security, comms, crypto, tools, AI), each with
+live up/down status, onion URLs, response codes, and fingerprints.
+
+**3 MCP tools** (registered on `DFIR_MCP`):
+`ti_list_darknet`, `ti_get_darknet_site`, `ti_get_darknet_category`
+
+**5 REST routes** under `/api/v1/threat-intel/darknet/*`:
+`GET /darknet`, `GET /darknet/sites`, `GET /darknet/sites/:slug`,
+`GET /darknet/categories`, `GET /darknet/categories/:category`
+
+**1 SPA route** at `/threatintel/darkweb/darknetlist`.
+
+**Files**:
+
+- `scripts/sync-darknetlist.mjs` — fetch + parse darknetlist.is HTML into staging JSON
+- `scripts/build-darknetlist.mjs` — slice staging into `public/data/threat-intel/darknet/`
+- `worker/lib/threat-intel-manifest.ts` — darknet types + loader + filter helpers (same file)
+- `worker/mcp-server.ts` — 3 `ti_*darknet*` tool registrations
+- `api/src/routes/threat-intel-edge-tools.ts` — 5 darknet REST route handlers
+- `src/pages/threatintel/DarknetList.tsx` — SPA page at `/threatintel/darkweb/darknetlist`
+- `public/data/threat-intel/darknet/` — generated manifest tree (index + categories + sites)
+
+**To rebuild**: `node scripts/sync-darknetlist.mjs && node scripts/build-darknetlist.mjs`
+
+**Data layout**:
+
+- `public/data/threat-intel/darknet/index.json` — slim index (categories + sites)
+- `public/data/threat-intel/darknet/categories/<id>.json` — 9 category bodies with sites
+- `public/data/threat-intel/darknet/sites/<dwd-id>.json` — 108 per-site bodies
 
 ## WinReg DFIR — Windows Registry Forensic Artifact Reference
 

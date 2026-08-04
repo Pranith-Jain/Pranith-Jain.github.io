@@ -11,6 +11,7 @@
  */
 
 import { Hono } from 'hono';
+import { badRequest, unauthorized, conflict } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 import { createUser, loginUser, validateSession, deleteSession } from '../lib/user-auth';
 
@@ -37,10 +38,10 @@ function setSessionCookie(token: string): string {
 auth.post('/register', async (c) => {
   const body = await c.req.json<{ email: string; password: string; display_name?: string }>();
   if (!body.email || !body.password) {
-    return c.json({ error: 'Email and password required' }, 400);
+    return badRequest(c, 'Email and password required');
   }
   if (body.password.length < 8) {
-    return c.json({ error: 'Password must be at least 8 characters' }, 400);
+    return badRequest(c, 'Password must be at least 8 characters');
   }
 
   const result = await createUser(c.env.BRIEFINGS_DB, {
@@ -50,7 +51,7 @@ auth.post('/register', async (c) => {
   });
 
   if ('error' in result) {
-    return c.json({ error: result.error }, 409);
+    return conflict(c, result.error);
   }
 
   c.header('Set-Cookie', setSessionCookie(result.token));
@@ -60,12 +61,12 @@ auth.post('/register', async (c) => {
 auth.post('/login', async (c) => {
   const body = await c.req.json<{ email: string; password: string }>();
   if (!body.email || !body.password) {
-    return c.json({ error: 'Email and password required' }, 400);
+    return badRequest(c, 'Email and password required');
   }
 
   const result = await loginUser(c.env.BRIEFINGS_DB, body.email, body.password);
   if ('error' in result) {
-    return c.json({ error: result.error }, 401);
+    return unauthorized(c, result.error);
   }
 
   c.header('Set-Cookie', setSessionCookie(result.token));

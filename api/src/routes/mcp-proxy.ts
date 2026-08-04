@@ -28,7 +28,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { unauthorized } from '../lib/api-error';
+import { unauthorized, badRequest, badGateway } from '../lib/api-error';
 
 const MCP_URL = 'https://mcp.ti-mindmap-hub.com/mcp';
 // 25s matches the client-side timeout in src/lib/ti-mindmap-mcp.ts.
@@ -58,10 +58,10 @@ export async function mcpProxyHandler(c: Context<{ Bindings: Env }>): Promise<Re
     body = (await c.req.json()) as ProxyRequest;
   } catch (_catchErr) {
     console.error('mcpProxyHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
+    return badRequest(c, 'invalid JSON body');
   }
   if (!body.method || typeof body.method !== 'string') {
-    return c.json({ error: 'bad_request', message: 'missing method' }, 400);
+    return badRequest(c, 'missing method');
   }
   if (body.method === 'initialize' && !body.apiKey) {
     return unauthorized(c, 'apiKey required for the initialize call (no session yet)');
@@ -74,14 +74,14 @@ export async function mcpProxyHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // client also sanitises, but defense in depth.
   if (body.apiKey) {
     if (body.apiKey.length < 8 || body.apiKey.length > 256) {
-      return c.json({ error: 'bad_request', message: 'apiKey length out of range' }, 400);
+      return badRequest(c, 'apiKey length out of range');
     }
     for (let i = 0; i < body.apiKey.length; i++) {
       const cc = body.apiKey.charCodeAt(i);
       // Allow printable ASCII only -- the upstream HTTP layer rejects
       // anything else with a ByteString conversion error.
       if (cc < 0x20 || cc > 0x7e) {
-        return c.json({ error: 'bad_request', message: `apiKey contains non-ASCII character at index ${i}` }, 400);
+        return badRequest(c, `apiKey contains non-ASCII character at index ${i}`);
       }
     }
   }
@@ -128,7 +128,7 @@ export async function mcpProxyHandler(c: Context<{ Bindings: Env }>): Promise<Re
         504
       );
     }
-    return c.json({ error: 'upstream_error', message: msg }, 502);
+    return badGateway(c, msg);
   }
   clearTimeout(timer);
 

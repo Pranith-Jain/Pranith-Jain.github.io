@@ -14,6 +14,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { runReportAnalyzer, type AnalyzerInput, type AnalyzerOutput } from '../lib/report-analyzer';
 
 const CACHE_TTL = 0; // never cache — the point of this endpoint is fresh analysis
@@ -24,16 +25,16 @@ export async function reportAnalyzerHandler(c: Context<{ Bindings: Env }>): Prom
     body = await c.req.json<AnalyzerInput>();
   } catch (_catchErr) {
     console.error('reportAnalyzerHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
+    return badRequest(c, 'invalid JSON body');
   }
   if (!body.text && !body.url) {
-    return c.json({ error: 'bad_request', message: 'requires text or url' }, 400);
+    return badRequest(c, 'requires text or url');
   }
   if (body.text && body.text.length > 80_000) {
-    return c.json({ error: 'bad_request', message: 'text exceeds 80KB' }, 413);
+    return payloadTooLarge(c, 'text exceeds 80KB');
   }
   if (body.imageUrls && body.imageUrls.length > 8) {
-    return c.json({ error: 'bad_request', message: 'max 8 imageUrls' }, 400);
+    return badRequest(c, 'max 8 imageUrls');
   }
 
   try {
@@ -42,6 +43,6 @@ export async function reportAnalyzerHandler(c: Context<{ Bindings: Env }>): Prom
   } catch (e) {
     console.error('reportAnalyzerHandler failed:', e instanceof Error ? e.message : String(e));
     const msg = e instanceof Error ? e.message : String(e);
-    return c.json({ error: 'analysis_failed', message: msg }, 502);
+    return badGateway(c, msg);
   }
 }

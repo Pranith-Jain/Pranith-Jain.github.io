@@ -276,6 +276,13 @@ export const SECTIONS: Section[] = [
         icon: Shield,
         badge: 'new',
       },
+      {
+        to: '/threatintel/darkweb/darknetlist',
+        label: 'Darknet Directory',
+        desc: 'Live Tor site directory from darknetlist.is - 108 sites across 9 categories (markets, forums, news, security, comms, crypto, tools, AI) with up/down status, onion URLs, and fingerprints.',
+        icon: Globe,
+        badge: 'live',
+      },
     ],
   },
 ];

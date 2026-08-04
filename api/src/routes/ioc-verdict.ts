@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { detectType } from '../lib/indicator';
 import type { Indicator, ProviderResult, ProviderId } from '../providers/types';
 import { ADAPTERS, buildProviderEnv, PROVIDER_LABELS, PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS } from '../providers';
@@ -212,7 +213,7 @@ async function callNvidia(
 export async function iocExplainHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<VerdictExplainRequest>();
-    if (!body.indicator?.trim()) return c.json({ error: 'missing indicator' }, 400);
+    if (!body.indicator?.trim()) return badRequest(c, 'missing indicator');
 
     const { type, composite, results } = await runProviders(body.indicator.trim(), c.env);
     const evidence = extractEvidence(results);
@@ -251,17 +252,17 @@ export async function iocExplainHandler(c: Context<{ Bindings: Env }>): Promise<
     );
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: err instanceof Error ? err.message : 'internal error' }, 500);
+    return internalError(c, err instanceof Error ? err.message : 'internal error');
   }
 }
 
 export async function iocRuleHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<RuleGenRequest>();
-    if (!body.indicator?.trim()) return c.json({ error: 'missing indicator' }, 400);
+    if (!body.indicator?.trim()) return badRequest(c, 'missing indicator');
     const format: RuleFormat = body.format ?? 'kql';
     if (!['kql', 'sigma', 'yara'].includes(format)) {
-      return c.json({ error: 'unsupported format. Use kql, sigma, or yara.' }, 400);
+      return badRequest(c, 'unsupported format. Use kql, sigma, or yara.');
     }
 
     const { type, composite, results } = await runProviders(body.indicator.trim(), c.env);
@@ -304,6 +305,6 @@ export async function iocRuleHandler(c: Context<{ Bindings: Env }>): Promise<Res
     );
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: err instanceof Error ? err.message : 'internal error' }, 500);
+    return internalError(c, err instanceof Error ? err.message : 'internal error');
   }
 }

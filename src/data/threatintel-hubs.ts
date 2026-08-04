@@ -508,6 +508,13 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'DarknetMarketsTimeline',
       },
       {
+        path: '/threatintel/darkweb/darknetlist',
+        tabId: 'darknetlist',
+        label: 'Darknet Directory',
+        desc: 'Live Tor site directory from darknetlist.is - 108 sites across 9 categories with up/down status and onion URLs.',
+        compVar: 'DarknetList',
+      },
+      {
         path: '/threatintel/darkweb/forums',
         tabId: 'forums',
         label: 'Breach Forums',

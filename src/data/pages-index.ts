@@ -3343,6 +3343,15 @@ const THREATINTEL_PAGES: readonly PageEntry[] = [
     group: 'threatintel',
   },
   {
+    path: '/threatintel/darkweb/darknetlist',
+    label: 'Darknet Directory',
+    description:
+      'Live Tor site directory from darknetlist.is - 108 sites across 9 categories (markets, forums, news, security, comms, crypto, tools, AI) with up/down status, onion URLs, and fingerprints.',
+    sectionLabel: 'Threat Intel · Dark Web',
+    group: 'threatintel',
+    keywords: ['darknetlist', 'tor', 'onion', 'directory', 'markets', 'forums', 'status'],
+  },
+  {
     path: '/threatintel/darkweb/recon',
     label: 'Dark Web Recon',
     description:

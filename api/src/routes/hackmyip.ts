@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 
 const HM_BASE = 'https://hackmyip.com/api/breach';
 const CACHE_TTL_SECONDS = 3600;
@@ -9,10 +10,10 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export async function hackMyIpBreachHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const email = c.req.query('email');
   if (!email) {
-    return c.json({ error: 'email parameter required' }, 400);
+    return badRequest(c, 'email parameter required');
   }
   if (!EMAIL_RE.test(email)) {
-    return c.json({ error: 'invalid email format' }, 400);
+    return badRequest(c, 'invalid email format');
   }
 
   const cacheKeyStr = `https://hm-cache.internal/v1-${encodeURIComponent(email)}`;
@@ -28,7 +29,7 @@ export async function hackMyIpBreachHandler(c: Context<{ Bindings: Env }>): Prom
       },
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `HackMyIP upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `HackMyIP upstream ${res.status}`);
 
     let data: unknown;
     try {
@@ -38,7 +39,7 @@ export async function hackMyIpBreachHandler(c: Context<{ Bindings: Env }>): Prom
         'hackMyIpBreachHandler failed:',
         _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
       );
-      return c.json({ error: 'HackMyIP returned invalid JSON' }, 502);
+      return badGateway(c, 'HackMyIP returned invalid JSON');
     }
     const body = JSON.stringify({
       email,
@@ -57,6 +58,6 @@ export async function hackMyIpBreachHandler(c: Context<{ Bindings: Env }>): Prom
     return response;
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'HackMyIP unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'HackMyIP unreachable');
   }
 }

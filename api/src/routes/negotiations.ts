@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { fetchRlUpstream } from './ransomwarelive';
 import { fetchMtiSource, type MtiGroup, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
 import { safeNullLog } from '../lib/safe-catch';
@@ -213,10 +214,10 @@ export async function negotiationTranscriptHandler(c: Context<{ Bindings: Env }>
   const group = c.req.param('group') ?? '';
   const id = c.req.param('id') ?? '';
   if (!/^[\w .-]{1,64}$/.test(group) || !/^[\w.-]{1,64}$/.test(id)) {
-    return c.json({ error: 'bad_params' }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'bad_params');
   }
   if (group === '.' || group === '..' || id === '.' || id === '..') {
-    return c.json({ error: 'bad_params' }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'bad_params');
   }
 
   const cache = (caches as unknown as { default: Cache }).default;
@@ -236,17 +237,17 @@ export async function negotiationTranscriptHandler(c: Context<{ Bindings: Env }>
       'negotiationTranscriptHandler failed:',
       _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
     );
-    return c.json({ error: 'upstream_unreachable' }, 502, { 'cache-control': 'no-store' });
+    return badGateway(c, 'upstream_unreachable');
   }
   if (!upstream.ok) {
-    return c.json({ error: 'not_found' }, upstream.status === 404 ? 404 : 502, { 'cache-control': 'no-store' });
+    return upstream.status === 404 ? notFound(c, 'not_found') : badGateway(c, 'not_found');
   }
   let json: unknown;
   try {
     json = await upstream.json();
   } catch (_catchErr) {
     console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'upstream_not_json' }, 502, { 'cache-control': 'no-store' });
+    return badGateway(c, 'upstream_not_json');
   }
   const response = c.json({ source: 'Casualtek/Ransomchats', group, ...(rec(json) ? json : { raw: json }) }, 200, {
     'cache-control': `public, max-age=${TRANSCRIPT_CACHE_TTL}`,

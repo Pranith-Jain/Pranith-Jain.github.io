@@ -38,8 +38,14 @@ jobs:
       - name: Sync upstream (NVD + CISA KEV + Daily-Hunt + awesome-lists)
         run: node scripts/sync-threat-intel.mjs
 
+      - name: Sync darknetlist.is directory
+        run: node scripts/sync-darknetlist.mjs
+
       - name: Build manifest
         run: node scripts/build-threat-intel.mjs
+
+      - name: Build darknetlist manifest
+        run: node scripts/build-darknetlist.mjs
 
       - name: Show diff stat
         run: |
@@ -58,15 +64,18 @@ jobs:
 
             Re-runs `scripts/sync-threat-intel.mjs` (NVD recent + CISA KEV +
             Daily-Hunt sparse git clone + mthcht/awesome-lists detection CSVs)
-            and `scripts/build-threat-intel.mjs` (manifest rebuild). Review the
-            diff in `public/data/threat-intel/` and merge if the data looks
-            correct.
+            and `scripts/build-threat-intel.mjs` (manifest rebuild). Also syncs
+            the darknetlist.is Tor site directory
+            (`scripts/sync-darknetlist.mjs` + `scripts/build-darknetlist.mjs`).
+            Review the diff in `public/data/threat-intel/` and merge if the
+            data looks correct.
 
             Sources:
             - NVD (recent CVEs, last 7 days)
             - CISA Known Exploited Vulnerabilities catalog
             - TheRavenFile/Daily-Hunt (IOC family files)
             - mthcht/awesome-lists (SOC/DFIR detection-list CSVs)
+            - darknetlist.is (Tor site directory, 108 sites across 9 categories)
 
             Trigger: `${{ github.event_name }}`
             Run:     `${{ github.run_id }}`

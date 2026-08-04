@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 /**
@@ -42,15 +43,15 @@ export async function stopForumSpamHandler(c: Context<{ Bindings: Env }>): Promi
   let kind: 'ip' | 'email';
   let value: string;
   if (ip) {
-    if (!IP_RE.test(ip)) return c.json({ error: 'invalid_ip' }, 400, { 'cache-control': 'no-store' });
+    if (!IP_RE.test(ip)) return badRequest(c, 'invalid_ip');
     kind = 'ip';
     value = ip;
   } else if (email) {
-    if (!EMAIL_RE.test(email)) return c.json({ error: 'invalid_email' }, 400, { 'cache-control': 'no-store' });
+    if (!EMAIL_RE.test(email)) return badRequest(c, 'invalid_email');
     kind = 'email';
     value = email;
   } else {
-    return c.json({ error: 'ip or email parameter required' }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'ip or email parameter required');
   }
 
   const cache = (caches as unknown as { default: Cache }).default;
@@ -65,13 +66,11 @@ export async function stopForumSpamHandler(c: Context<{ Bindings: Env }>): Promi
       { headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' } },
       { attempts: 3, timeoutMs: 12_000 }
     );
-    if (!res.ok) return c.json({ error: `stopforumspam upstream ${res.status}` }, 502, { 'cache-control': 'no-store' });
+    if (!res.ok) return badGateway(c, `stopforumspam upstream ${res.status}`);
     data = (await res.json()) as SfsResponse;
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'stopforumspam unreachable' }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, e instanceof Error ? e.message : 'stopforumspam unreachable');
   }
 
   const field = (kind === 'ip' ? data.ip : data.email) ?? {};

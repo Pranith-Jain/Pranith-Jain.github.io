@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const CACHE_TTL = 3600;
@@ -8,7 +9,7 @@ export const fbiWantedRouter = new Hono<{ Bindings: Env }>();
 
 fbiWantedRouter.get('/fbi-wanted/search', async (c) => {
   const q = c.req.query('q');
-  if (!q || q.length > 200) return c.json({ error: 'q parameter required (max 200 chars)' }, 400);
+  if (!q || q.length > 200) return badRequest(c, 'q parameter required (max 200 chars)');
 
   const cacheKey = `fbi:wanted:${q}`;
   const cached = await routeCacheGet<object>(cacheKey);
@@ -20,7 +21,7 @@ fbiWantedRouter.get('/fbi-wanted/search', async (c) => {
       signal: AbortSignal.timeout(15000),
     });
 
-    if (!res.ok) return c.json({ error: `FBI upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `FBI upstream ${res.status}`);
 
     const data = await res.json();
     const body = { query: q, results: data, generated_at: new Date().toISOString(), cached: false };
@@ -29,7 +30,7 @@ fbiWantedRouter.get('/fbi-wanted/search', async (c) => {
     return c.json(body);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'FBI API unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'FBI API unreachable');
   }
 });
 
@@ -51,7 +52,7 @@ fbiWantedRouter.get('/fbi-wanted/list', async (c) => {
       signal: AbortSignal.timeout(15000),
     });
 
-    if (!res.ok) return c.json({ error: `FBI upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `FBI upstream ${res.status}`);
 
     const data = await res.json();
     const body = {
@@ -67,6 +68,6 @@ fbiWantedRouter.get('/fbi-wanted/list', async (c) => {
     return c.json(body);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'FBI API unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'FBI API unreachable');
   }
 });

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { parseInfraQuery, buildOverpassQuery, nominatimGeocode, quickBbox } from '../lib/infra-parser';
 
 /**
@@ -62,8 +63,8 @@ async function parseBody(c: Context<{ Bindings: Env }>): Promise<string> {
 
 export async function infraSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const query = (await parseBody(c)).trim();
-  if (!query) return c.json({ error: 'missing query' }, 400);
-  if (query.length > 300) return c.json({ error: 'query too long (max 300 chars)' }, 400);
+  if (!query) return badRequest(c, 'missing query');
+  if (query.length > 300) return badRequest(c, 'query too long (max 300 chars)');
 
   // Edge cache
   const edgeCache = (caches as unknown as { default: Cache }).default;
@@ -77,7 +78,7 @@ export async function infraSearchHandler(c: Context<{ Bindings: Env }>): Promise
   // Parse query
   const parsed = parseInfraQuery(query);
   if (parsed.types.length === 0) {
-    return c.json({ error: 'could not identify infrastructure type from query', query, parsed }, 400);
+    return badRequest(c, 'could not identify infrastructure type from query');
   }
 
   // Resolve bbox — try quick lookup first, then Nominatim
@@ -106,7 +107,7 @@ export async function infraSearchHandler(c: Context<{ Bindings: Env }>): Promise
   // Build and execute Overpass query
   const overpassQl = buildOverpassQuery(parsed);
   if (!overpassQl) {
-    return c.json({ error: 'failed to build Overpass query' }, 500);
+    return internalError(c, 'failed to build Overpass query');
   }
 
   // Try multiple Overpass instances (primary may rate-limit)
@@ -150,7 +151,7 @@ export async function infraSearchHandler(c: Context<{ Bindings: Env }>): Promise
   }
 
   if (!overpassData.elements) {
-    return c.json({ error: `Overpass API failed: ${lastError || 'all instances unavailable'}` }, 502);
+    return badGateway(c, `Overpass API failed: ${lastError || 'all instances unavailable'}`);
   }
 
   // Transform results

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { runCompletion } from '../case-study/generation/ai-client';
 
 /**
@@ -163,10 +164,10 @@ export async function fplensAnalyzeHandler(c: Context<{ Bindings: Env }>) {
     body = (await c.req.json()) as FpLensRequest;
   } catch (_catchErr) {
     console.error('fplensAnalyzeHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'invalid_json', message: 'request body must be JSON' }, 400);
+    return badRequest(c, 'request body must be JSON');
   }
   if (!body.rule || typeof body.rule !== 'string' || body.rule.trim().length === 0) {
-    return c.json({ error: 'missing_rule', message: 'rule is required' }, 400);
+    return badRequest(c, 'rule is required');
   }
   const rule = clamp(body.rule, MAX_RULE_LENGTH);
   const hits = clamp(body.sample_hits, MAX_SAMPLES_LENGTH);
@@ -201,7 +202,7 @@ export async function fplensAnalyzeHandler(c: Context<{ Bindings: Env }>) {
     ]);
     const text = llmOut.text?.trim();
     if (!text) {
-      return c.json({ error: 'empty_response', message: 'LLM returned no text' }, 502);
+      return badGateway(c, 'LLM returned no text');
     }
     const parsed = extractJson(text);
     const result = normalizeFpLensResult(parsed);
@@ -210,9 +211,9 @@ export async function fplensAnalyzeHandler(c: Context<{ Bindings: Env }>) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
     const msg = err instanceof Error ? err.message : String(err);
     if (msg === 'fplens-timeout') {
-      return c.json({ error: 'timeout', message: 'FP analysis timed out' }, 504);
+      return badGateway(c, 'FP analysis timed out');
     }
     console.error('fplens analyze failed:', msg);
-    return c.json({ error: 'analysis_failed', message: msg }, 500);
+    return internalError(c, msg);
   }
 }

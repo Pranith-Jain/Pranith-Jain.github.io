@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import {
   resolveEntity,
   extractEntities,
@@ -13,7 +14,7 @@ import {
  */
 export async function entityResolveHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const q = c.req.query('q')?.trim();
-  if (!q) return c.json({ error: 'missing query param q' }, 400);
+  if (!q) return badRequest(c, 'missing query param q');
 
   const full = c.req.query('full') === 'true';
   const entity = resolveEntity(q);
@@ -38,7 +39,7 @@ export async function entityExtractHandler(c: Context<{ Bindings: Env }>): Promi
   try {
     const body = (await c.req.json()) as { text?: string };
     if (!body.text || !body.text.trim()) {
-      return c.json({ error: 'text body field required' }, 400);
+      return badRequest(c, 'text body field required');
     }
     const entities = extractEntities(body.text);
     return c.json(
@@ -52,7 +53,7 @@ export async function entityExtractHandler(c: Context<{ Bindings: Env }>): Promi
     );
   } catch (e) {
     console.error('entityExtractHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -63,7 +64,7 @@ export async function entityProfileHandler(c: Context<{ Bindings: Env }>): Promi
   try {
     const body = (await c.req.json()) as { ids?: string[] };
     if (!body.ids || !Array.isArray(body.ids) || body.ids.length === 0) {
-      return c.json({ error: 'ids array required' }, 400);
+      return badRequest(c, 'ids array required');
     }
     const results: Array<{ query: string; entity?: ResolvedEntity; profile?: EntityProfile; error?: string }> = [];
     for (const id of body.ids.slice(0, 20)) {
@@ -90,6 +91,6 @@ export async function entityProfileHandler(c: Context<{ Bindings: Env }>): Promi
     });
   } catch (e) {
     console.error('entityProfileHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

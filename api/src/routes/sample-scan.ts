@@ -30,6 +30,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { compositeScore } from '../lib/scoring';
 import { sseStream } from '../lib/sse';
 import { claimSseSlot, SSE_MAX_CONCURRENT } from '../lib/sse-concurrency';
@@ -160,13 +161,13 @@ async function parseInput(c: Ctx): Promise<ParsedInput | { error: Response }> {
       body = (await c.req.json()) as { hash?: string; filename?: string; size?: number };
     } catch (_catchErr) {
       console.error('parseInput failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      return { error: c.json({ error: 'invalid JSON' }, 400) };
+      return { error: badRequest(c, 'invalid JSON') };
     }
     const hash = body.hash?.trim().toLowerCase();
-    if (!hash) return { error: c.json({ error: 'missing hash' }, 400) };
+    if (!hash) return { error: badRequest(c, 'missing hash') };
     const hashType = detectHashType(hash);
     if (!hashType) {
-      return { error: c.json({ error: 'invalid hash (expected MD5/SHA-1/SHA-256)' }, 400) };
+      return { error: badRequest(c, 'invalid hash (expected MD5/SHA-1/SHA-256)') };
     }
     return { hash, hashType };
   }
@@ -177,12 +178,12 @@ async function parseInput(c: Ctx): Promise<ParsedInput | { error: Response }> {
     const hash = q.trim().toLowerCase();
     const hashType = detectHashType(hash);
     if (!hashType) {
-      return { error: c.json({ error: 'invalid hash (expected MD5/SHA-1/SHA-256)' }, 400) };
+      return { error: badRequest(c, 'invalid hash (expected MD5/SHA-1/SHA-256)') };
     }
     return { hash, hashType };
   }
 
-  return { error: c.json({ error: 'expected JSON body { hash } or ?hash=' }, 400) };
+  return { error: badRequest(c, 'expected JSON body { hash } or ?hash=') };
 }
 
 // ─── Provider fan-out (mirrors ioc-controller pattern) ────────────────────

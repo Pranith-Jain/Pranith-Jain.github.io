@@ -165,6 +165,7 @@ const PAGE_ICON_OVERRIDES: Record<string, LucideIcon> = {
   // Dark web
   '/threatintel/darkweb/watch': Globe,
   '/threatintel/darkweb/markets': StoreIcon,
+  '/threatintel/darkweb/darknetlist': Globe,
   '/threatintel/breach-hub': MessageSquare,
   '/threatintel/darkweb/deepdark': NetworkIcon,
   '/threatintel/darkweb/crime': ShoppingBagIcon,
