@@ -11,6 +11,7 @@
  */
 
 import { Hono } from 'hono';
+import { badRequest, unauthorized } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 import {
   getLeaderboard,
@@ -54,7 +55,7 @@ leaderboard.get('/', async (c) => {
 
 leaderboard.get('/me', async (c) => {
   const user = await requireUser(c);
-  if (!user) return c.json({ error: 'Unauthorized' }, 401);
+  if (!user) return unauthorized(c, 'Unauthorized');
 
   const profile = await getOrCreateProfile(c.env.BRIEFINGS_DB, user.id);
   const achievements = await getUserAchievements(c.env.BRIEFINGS_DB, user.id);
@@ -81,7 +82,7 @@ leaderboard.get('/profile/:userId', async (c) => {
 
 leaderboard.put('/profile', async (c) => {
   const user = await requireUser(c);
-  if (!user) return c.json({ error: 'Unauthorized' }, 401);
+  if (!user) return unauthorized(c, 'Unauthorized');
 
   const body = await c.req.json<{ display_name?: string; avatar_url?: string; bio?: string }>();
   await updateProfile(c.env.BRIEFINGS_DB, user.id, body);
@@ -98,7 +99,7 @@ leaderboard.get('/achievements', async (c) => {
 
 leaderboard.get('/achievements/me', async (c) => {
   const user = await requireUser(c);
-  if (!user) return c.json({ error: 'Unauthorized' }, 401);
+  if (!user) return unauthorized(c, 'Unauthorized');
 
   const achievements = await getUserAchievements(c.env.BRIEFINGS_DB, user.id);
   return c.json({ achievements });
@@ -106,11 +107,11 @@ leaderboard.get('/achievements/me', async (c) => {
 
 leaderboard.post('/activity', async (c) => {
   const user = await requireUser(c);
-  if (!user) return c.json({ error: 'Unauthorized' }, 401);
+  if (!user) return unauthorized(c, 'Unauthorized');
 
   const body = await c.req.json<{ action: string; metadata?: Record<string, unknown> }>();
   if (!body.action) {
-    return c.json({ error: 'Action required' }, 400);
+    return badRequest(c, 'Action required');
   }
 
   const result = await recordActivity(c.env.BRIEFINGS_DB, user.id, body.action, body.metadata);

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, serviceUnavailable } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 
 /**
@@ -170,7 +171,7 @@ async function fetchCertificates(domain: string): Promise<CrtShCert[]> {
 /** GET /api/v1/ct-monitor/watched */
 export async function ctWatchedListHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   await ensureTables(db);
 
@@ -185,7 +186,7 @@ export async function ctWatchedListHandler(c: Context<{ Bindings: Env }>): Promi
 /** POST /api/v1/ct-monitor/watch */
 export async function ctWatchAddHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   const body = await c.req.json<{
     domain: string;
@@ -193,13 +194,13 @@ export async function ctWatchAddHandler(c: Context<{ Bindings: Env }>): Promise<
   }>();
 
   if (!body.domain) {
-    return c.json({ error: 'domain is required' }, 400);
+    return badRequest(c, 'domain is required');
   }
 
   // Validate domain
   const domain = body.domain.toLowerCase().trim();
   if (!/^[a-z0-9-]+\.[a-z]{2,}$/.test(domain)) {
-    return c.json({ error: 'invalid domain format' }, 400);
+    return badRequest(c, 'invalid domain format');
   }
 
   const alertTypes = body.alert_types ?? ['new_subdomain', 'suspicious_name', 'wildcard'];
@@ -239,10 +240,10 @@ export async function ctWatchAddHandler(c: Context<{ Bindings: Env }>): Promise<
 /** DELETE /api/v1/ct-monitor/watch/:domain */
 export async function ctWatchRemoveHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   const domain = c.req.param('domain')?.toLowerCase();
-  if (!domain) return c.json({ error: 'domain required' }, 400);
+  if (!domain) return badRequest(c, 'domain required');
 
   await ensureTables(db);
 
@@ -255,10 +256,10 @@ export async function ctWatchRemoveHandler(c: Context<{ Bindings: Env }>): Promi
 /** GET /api/v1/ct-monitor/certs?domain=example.com */
 export async function ctCertsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   const domain = c.req.query('domain')?.toLowerCase();
-  if (!domain) return c.json({ error: 'domain query param required' }, 400);
+  if (!domain) return badRequest(c, 'domain query param required');
 
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(`https://ct-monitor-cache.internal/v1?domain=${encodeURIComponent(domain)}`);

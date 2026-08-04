@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeJsonBody } from '../lib/safe-body';
-import { badRequest, notFound } from '../lib/api-error';
+import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 
 // ── Types ──────────────────────────────────────────────────────────────
@@ -82,7 +82,7 @@ function rowToEntry(row: Record<string, unknown>): NotebookEntry {
 
 export async function listNotebooksHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureNotebookTables(db);
 
   const status = c.req.query('status');
@@ -114,7 +114,7 @@ export async function listNotebooksHandler(c: Context<{ Bindings: Env }>): Promi
 
 export async function getNotebookHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureNotebookTables(db);
 
   const id = c.req.param('id');
@@ -137,7 +137,7 @@ export async function getNotebookHandler(c: Context<{ Bindings: Env }>): Promise
 
 export async function createNotebookHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureNotebookTables(db);
 
   const parsed = await safeJsonBody<{
@@ -176,7 +176,7 @@ export async function createNotebookHandler(c: Context<{ Bindings: Env }>): Prom
 
 export async function updateNotebookHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureNotebookTables(db);
 
   const id = c.req.param('id');
@@ -222,7 +222,7 @@ export async function updateNotebookHandler(c: Context<{ Bindings: Env }>): Prom
 
 export async function deleteNotebookHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureNotebookTables(db);
 
   const id = c.req.param('id');
@@ -238,7 +238,7 @@ export async function deleteNotebookHandler(c: Context<{ Bindings: Env }>): Prom
 
 export async function addEntryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureNotebookTables(db);
 
   const notebookId = c.req.param('id');
@@ -282,7 +282,7 @@ export async function addEntryHandler(c: Context<{ Bindings: Env }>): Promise<Re
 
 export async function updateEntryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureNotebookTables(db);
 
   const entryId = c.req.param('entryId');
@@ -327,7 +327,7 @@ export async function updateEntryHandler(c: Context<{ Bindings: Env }>): Promise
 
 export async function deleteEntryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureNotebookTables(db);
 
   const entryId = c.req.param('entryId');
@@ -349,7 +349,7 @@ export async function deleteEntryHandler(c: Context<{ Bindings: Env }>): Promise
 
 export async function notebookStatsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureNotebookTables(db);
 
   const nbCount = await db.prepare('SELECT COUNT(*) as total FROM investigation_notebooks').first<{ total: number }>();

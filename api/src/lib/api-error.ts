@@ -46,7 +46,7 @@ function headers(extra?: Record<string, string>): Record<string, string> {
  * sites so the migration is a one-line search-and-replace.
  */
 export function respondError(
-  c: Context<{ Bindings: Env }>,
+  c: Context,
   code: string,
   message: string,
   status: ContentfulStatusCode,
@@ -56,13 +56,13 @@ export function respondError(
 }
 
 /** 400 Bad Request — malformed input */
-export function badRequest(c: Context<{ Bindings: Env }>, message = 'bad request'): Response {
+export function badRequest(c: Context, message = 'bad request'): Response {
   return c.json({ error: 'bad_request', message } as ApiErrorBody, 400, headers());
 }
 
 /** 400 with per-field error map */
 export function validationError(
-  c: Context<{ Bindings: Env }>,
+  c: Context,
   fields: Record<string, string>,
   message = 'validation failed'
 ): Response {
@@ -70,28 +70,28 @@ export function validationError(
 }
 
 /** 401 Unauthorized — missing or invalid credentials */
-export function unauthorized(c: Context<{ Bindings: Env }>, message = 'unauthorized'): Response {
+export function unauthorized(c: Context, message = 'unauthorized'): Response {
   return c.json({ error: 'unauthorized', message } as ApiErrorBody, 401, headers());
 }
 
 /** 403 Forbidden — authenticated but not permitted */
-export function forbidden(c: Context<{ Bindings: Env }>, message = 'forbidden'): Response {
+export function forbidden(c: Context, message = 'forbidden'): Response {
   return c.json({ error: 'forbidden', message } as ApiErrorBody, 403, headers());
 }
 
 /** 404 Not Found */
-export function notFound(c: Context<{ Bindings: Env }>, message = 'not found'): Response {
+export function notFound(c: Context, message = 'not found'): Response {
   return c.json({ error: 'not_found', message } as ApiErrorBody, 404, headers());
 }
 
 /** 409 Conflict */
-export function conflict(c: Context<{ Bindings: Env }>, message = 'conflict'): Response {
+export function conflict(c: Context, message = 'conflict'): Response {
   return c.json({ error: 'conflict', message } as ApiErrorBody, 409, headers());
 }
 
 /** 413 Payload Too Large */
 export function payloadTooLarge(
-  c: Context<{ Bindings: Env }>,
+  c: Context,
   message = 'payload too large',
   meta?: { size_bytes?: number; max_bytes?: number }
 ): Response {
@@ -100,7 +100,7 @@ export function payloadTooLarge(
 
 /** 429 Too Many Requests */
 export function tooManyRequests(
-  c: Context<{ Bindings: Env }>,
+  c: Context,
   message = 'rate limited',
   meta?: { limit?: number; windowSeconds?: number }
 ): Response {
@@ -112,18 +112,18 @@ export function tooManyRequests(
 }
 
 /** 500 Internal Server Error — masks real error in production */
-export function internalError(c: Context<{ Bindings: Env }>, err: unknown): Response {
+export function internalError(c: Context, err: unknown): Response {
   const message = safeMsg(c.env, err);
   return c.json({ error: 'internal_error', message } as ApiErrorBody, 500, headers());
 }
 
 /** 502 Bad Gateway — upstream returned an error */
-export function badGateway(c: Context<{ Bindings: Env }>, message = 'upstream error'): Response {
+export function badGateway(c: Context, message = 'upstream error'): Response {
   return c.json({ error: 'bad_gateway', message } as ApiErrorBody, 502, headers());
 }
 
 /** 503 Service Unavailable — upstream dependency failed */
-export function serviceUnavailable(c: Context<{ Bindings: Env }>, message = 'service unavailable'): Response {
+export function serviceUnavailable(c: Context, message = 'service unavailable'): Response {
   return c.json({ error: 'service_unavailable', message } as ApiErrorBody, 503, headers());
 }
 
@@ -140,7 +140,7 @@ export function serviceUnavailable(c: Context<{ Bindings: Env }>, message = 'ser
  * 'briefings database') surfaced in the response message so operators
  * can debug from the response body alone.
  */
-export function requireDb(c: Context<{ Bindings: Env }>, name = 'database'): D1Database | null | Response {
+export function requireDb(c: Context, name = 'database'): D1Database | null | Response {
   const db = c.env.BRIEFINGS_DB;
   if (!db) {
     return serviceUnavailable(c, `${name} is not configured on this deployment`);
@@ -148,7 +148,7 @@ export function requireDb(c: Context<{ Bindings: Env }>, name = 'database'): D1D
   return db;
 }
 
-export function requireKv(c: Context<{ Bindings: Env }>, name = 'cache'): KVNamespace | null | Response {
+export function requireKv(c: Context, name = 'cache'): KVNamespace | null | Response {
   const kv = c.env.KV_CACHE;
   if (!kv) {
     return serviceUnavailable(c, `${name} is not configured on this deployment`);
