@@ -4,25 +4,22 @@ import { pageCardUrl } from './og-path';
 import type { Env } from './env';
 
 /**
- * Build-time-generated per-route OG title/description map, derived from each
- * page component's `DataPageLayout` / `PageMeta` props (see
- * `scripts/build-og-overrides.mjs`). Regenerated on every `prebuild`.
+ * Per-route OG title/description resolution.
  *
  * Precedence (see `findOgOverride` / `ogMetaForPath`):
  *   1. Hand-tuned `OG_OVERRIDES` exact match (polished copy, hand-written)
- *   2. This generated map (component-authored title/description)
- *   3. `OG_OVERRIDES` prefix match (section branding)
- *   4. `deriveOgFromPath` (mechanical slug-derived fallback)
+ *   2. `OG_OVERRIDES` prefix match (section branding)
+ *   3. `deriveOgFromPath` (mechanical slug-derived fallback)
  *
- * The generated map fills the ~400-route gap between the 18 hand-tuned
- * entries and the slug-derived fallback, so deep links share the rich,
- * page-specific description the component already declares instead of a
- * generic "a free DFIR tool on pranithjain.qzz.io" card.
+ * NOTE: a build-time-generated per-route map (`og-overrides.generated.json`,
+ * produced by `scripts/build-og-overrides.mjs`) previously sat at precedence
+ * level 2, filling the ~400-route gap between the hand-tuned entries and the
+ * slug-derived fallback. The generator script was never committed, so the
+ * import broke the build. It has been removed for now; deep links fall back
+ * to the slug-derived description (always ≥55 chars, X-card-valid). Restore
+ * the generated map by committing `scripts/build-og-overrides.mjs`, adding it
+ * to `prebuild`, and re-adding the import + `generated` lookup in `ogMetaForPath`.
  */
-import generatedOverridesRaw from './og-overrides.generated.json';
-
-/** Cast the JSON import to a per-route override map (keyed by pathname). */
-const generatedOverrides = generatedOverridesRaw as unknown as Record<string, OgOverride>;
 
 /**
  * L1-shadowed read of a blog post record from CASE_STUDIES KV.
@@ -401,23 +398,19 @@ export interface OgPageMeta {
  *
  * Title/description precedence:
  *   1. Hand-tuned `OG_OVERRIDES` exact match (polished copy)
- *   2. Generated map exact match (component-authored title/description)
- *   3. `deriveOgFromPath` (mechanical slug-derived fallback)
- *   4. `OG_OVERRIDES` prefix match (section branding)
+ *   2. `deriveOgFromPath` (mechanical slug-derived fallback)
+ *   3. `OG_OVERRIDES` prefix match (section branding)
  * Returns null only for the home page (which keeps the static home card).
  */
 export function ogMetaForPath(pathname: string): OgPageMeta | null {
   const exact = OG_OVERRIDES[pathname];
-  const generated = generatedOverrides[pathname] as OgOverride | undefined;
   const override = findOgOverride(pathname);
   const derived = deriveOgFromPath(pathname);
-  // Treat empty/too-short generated descriptions as missing so they fall
-  // through to the derived (slug-based) description, which is always ≥55
-  // chars. X's card validator requires 55–200 chars; many generated
-  // overrides have empty or short descriptions (no PageMeta description prop).
-  const genDesc = generated?.description && generated.description.length >= 55 ? generated.description : undefined;
-  const title = exact?.title ?? generated?.title ?? derived?.title ?? override?.title;
-  const description = exact?.description ?? genDesc ?? derived?.description ?? override?.description;
+  // The generated per-route map previously sat between `exact` and `derived`
+  // here. It was removed (see file header) — deep links now fall through to
+  // the slug-derived title/description, which is always ≥55 chars (X-card-valid).
+  const title = exact?.title ?? derived?.title ?? override?.title;
+  const description = exact?.description ?? derived?.description ?? override?.description;
   if (!title || !description) return null;
 
   const first = pathname.split('/').filter(Boolean)[0] ?? '';
