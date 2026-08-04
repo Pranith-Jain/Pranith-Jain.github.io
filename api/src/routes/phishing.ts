@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
 import { parseHeaders, parseAuthResults, extractUrls } from '../lib/email-parse';
 import { phishingScore } from '../lib/phishing-score';
 import { urlhaus } from '../providers/urlhaus';
@@ -30,10 +31,10 @@ export async function phishingAnalyzeHandler(c: Context<{ Bindings: Env }>) {
   const parsed = (c as Context & { parsed?: string }).parsed;
   const text = parsed !== undefined ? parsed : await c.req.text();
   if (!text || text.trim().length === 0) {
-    return c.json({ error: 'empty body' }, 400);
+    return badRequest(c, 'empty body');
   }
   if (new Blob([text]).size > MAX_BODY_BYTES) {
-    return c.json({ error: 'body too large (max 64KB)' }, 413);
+    return payloadTooLarge(c, 'body too large (max 64KB)');
   }
 
   const headers = parseHeaders(text);

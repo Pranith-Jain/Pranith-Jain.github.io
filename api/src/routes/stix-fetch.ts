@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
 import { ATTACK_ID_INDEX } from '../data/attack-id-index';
 
 /**
@@ -98,7 +99,7 @@ export interface StixFetchResponse {
 
 export async function stixFetchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const raw = (c.req.query('id') ?? '').trim();
-  if (!raw) return c.json({ error: 'missing id' }, 400);
+  if (!raw) return badRequest(c, 'missing id');
 
   // Resolve the lookup. Accept BOTH a STIX id (<type>--<uuid>) and a MITRE
   // ATT&CK external id (T1566.001 / S0001 / G0016 / M1049 / TA0001 / DS0009
@@ -161,9 +162,7 @@ export async function stixFetchHandler(c: Context<{ Bindings: Env }>): Promise<R
       );
     }
     if (settled.every((r) => r.status !== 200)) {
-      return c.json({ error: 'mitre_taxii_unreachable', statuses: settled.map((r) => r.status) }, 502, {
-        'cache-control': 'no-store',
-      });
+      return badGateway(c, 'mitre_taxii_unreachable');
     }
   }
 

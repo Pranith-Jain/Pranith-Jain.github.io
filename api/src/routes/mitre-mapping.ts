@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const MITRE_SYSTEM = `You are a MITRE ATT&CK framework expert. Map the given threat intelligence to relevant ATT&CK techniques.
@@ -29,7 +30,7 @@ interface MitreMappingRequest {
 export async function mitreMappingHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<MitreMappingRequest>();
-    if (!body.text?.trim()) return c.json({ error: 'missing text' }, 400);
+    if (!body.text?.trim()) return badRequest(c, 'missing text');
 
     const user = [body.title ? `Title: ${body.title}` : '', `Content:\n${body.text.slice(0, 4000)}`]
       .filter(Boolean)
@@ -51,6 +52,6 @@ export async function mitreMappingHandler(c: Context<{ Bindings: Env }>): Promis
     return c.json({ mapping, model, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('mitre-mapping error:', e);
-    return c.json({ error: 'mapping failed' }, 500);
+    return internalError(c, 'mapping failed');
   }
 }

@@ -10,6 +10,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
 import { safeJsonBody } from '../lib/safe-body';
 import { queryOsvBatch, type OsvPkgQuery } from '../lib/supply-chain/osv';
 
@@ -22,12 +23,12 @@ export async function osvScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
   const pkgs = Array.isArray(body.packages) ? body.packages.slice(0, MAX_PKGS) : [];
-  if (pkgs.length === 0) return c.json({ error: 'no_packages' }, 400);
+  if (pkgs.length === 0) return badRequest(c, 'no_packages');
 
   const batch = await queryOsvBatch(pkgs, { signal: AbortSignal.timeout(25_000) });
   // Upstream-unreachable: the shared client returns every package with status 'error'.
   if (pkgs.length > 0 && batch.results.every((r) => r.status === 'error')) {
-    return c.json({ error: 'osv_unreachable' }, 502);
+    return badGateway(c, 'osv_unreachable');
   }
 
   // Re-shape the normalized envelope back to the FROZEN wire contract (legacy

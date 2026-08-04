@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
 import { searchByUsername } from '../../../worker/lib/hudsonrock';
 
 /**
@@ -830,10 +831,10 @@ async function tryNumVerify(digits: string, env: Env): Promise<Record<string, st
 
 export async function phoneOsintHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const raw = c.req.query('phone')?.trim();
-  if (!raw) return c.json({ error: 'missing phone parameter' }, 400);
+  if (!raw) return badRequest(c, 'missing phone parameter');
 
   const parsed = parsePhone(raw);
-  if (!parsed) return c.json({ error: 'invalid or unsupported phone number format' }, 400);
+  if (!parsed) return badRequest(c, 'invalid or unsupported phone number format');
 
   const edgeCache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(`https://phone-osint.internal/v1?p=${parsed.digits}`);

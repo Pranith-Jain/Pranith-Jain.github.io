@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 /**
@@ -156,7 +157,7 @@ export async function packageVerdictHandler(c: Context<{ Bindings: Env }>): Prom
     if (ref) {
       const parts = ref.split(':');
       if (parts.length !== 2) {
-        return c.json({ error: 'invalid ref format; expected ecosystem:package (e.g. npm:lodash)' }, 400);
+        return badRequest(c, 'invalid ref format; expected ecosystem:package (e.g. npm:lodash)');
       }
       ecosystem = normalizeEco(parts[0] ?? '');
       packageName = parts[1] ?? '';
@@ -166,7 +167,7 @@ export async function packageVerdictHandler(c: Context<{ Bindings: Env }>): Prom
     }
 
     if (!ecosystem || !packageName) {
-      return c.json({ error: 'missing required params: ecosystem + package, or ref' }, 400);
+      return badRequest(c, 'missing required params: ecosystem + package, or ref');
     }
 
     const githubToken = c.env.GITHUB_TOKEN;

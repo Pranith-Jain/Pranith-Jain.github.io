@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const RESEARCH_SYSTEM = `You are a senior threat intelligence researcher producing a weekly research digest. Given a list of research articles/posts, produce a curated weekly report.
@@ -31,7 +32,7 @@ interface ResearchDigestRequest {
 export async function researchDigestHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<ResearchDigestRequest>();
-    if (!body.articles?.length) return c.json({ error: 'no articles' }, 400);
+    if (!body.articles?.length) return badRequest(c, 'no articles');
 
     const list = body.articles
       .slice(0, 40)
@@ -55,6 +56,6 @@ export async function researchDigestHandler(c: Context<{ Bindings: Env }>): Prom
     return c.json({ digest, model, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('research-digest error:', e);
-    return c.json({ error: 'digest generation failed' }, 500);
+    return internalError(c, 'digest generation failed');
   }
 }

@@ -225,7 +225,7 @@ export async function saveObservableHandler(c: Context<{ Bindings: Env }>): Prom
     last_checked_at: now_,
   };
 
-  if (entries.length >= MAX_ENTRIES) return c.json({ error: 'observable DB is full' }, 507);
+  if (entries.length >= MAX_ENTRIES) return serviceUnavailable(c, 'observable DB is full');
   entries.push(entry);
   await saveAll(kv, entries);
   return c.json({ entry, updated: false }, 201);
@@ -306,7 +306,7 @@ export async function addObservableNoteHandler(c: Context<{ Bindings: Env }>): P
   };
   const entry = { ...entries[idx]! } as ObservableEntry;
   if (entry.notes.length >= MAX_NOTES_PER_ENTRY)
-    return c.json({ error: 'note limit reached for this observable' }, 507);
+    return serviceUnavailable(c, 'note limit reached for this observable');
   entry.notes = [...entry.notes, note];
   entry.updated_at = now();
   entries[idx] = entry;

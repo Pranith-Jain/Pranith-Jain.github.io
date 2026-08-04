@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
 import { lookupHandle } from '../lib/scrapedintel';
 
 const MIN_QUERY_LEN = 2;
@@ -15,10 +16,10 @@ const MAX_QUERY_LEN = 80; // upstream's own /api/search limit
 export async function scrapedintelUsernamesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const q = (c.req.query('q') ?? '').trim();
   if (q.length < MIN_QUERY_LEN) {
-    return c.json({ error: `query must be at least ${MIN_QUERY_LEN} characters` }, 400);
+    return badRequest(c, `query must be at least ${MIN_QUERY_LEN} characters`);
   }
   if (q.length > MAX_QUERY_LEN) {
-    return c.json({ error: `query too long (max ${MAX_QUERY_LEN} chars)` }, 400);
+    return badRequest(c, `query too long (max ${MAX_QUERY_LEN} chars)`);
   }
 
   const out = await lookupHandle(q, c.env);
