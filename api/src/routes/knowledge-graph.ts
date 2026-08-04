@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { internalError } from '../lib/api-error';
+import { badRequest, internalError } from '../lib/api-error';
 import { buildKnowledgeGraph } from '../lib/knowledge-graph';
 import { runAi, parseJson } from '../lib/ai';
 
