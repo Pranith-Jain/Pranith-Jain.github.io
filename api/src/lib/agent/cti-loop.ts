@@ -96,6 +96,20 @@ const noBannedTools: Guardrail<CtiLoopView, AgentToolCall> = {
   filter: (calls) => calls.filter((tc) => !BANNED_TOOLS.has(tc.tool)),
 };
 
+/**
+ * Drop tools with a high recent failure rate (from D1-backed tool-health stats).
+ * Preventive — stops the planner from proposing a tool that's been failing this
+ * session/colo, before it wastes a step. The degraded set is injected by the
+ * caller (the DO reads it from observability.selectDegradedTools); an empty
+ * set (the default) disables the guardrail so the parity test is unaffected.
+ */
+function noDegradedTools(degraded: Set<string>): Guardrail<CtiLoopView, AgentToolCall> {
+  return {
+    name: 'no-degraded-tools',
+    filter: (calls) => (degraded.size === 0 ? [...calls] : calls.filter((tc) => !degraded.has(tc.tool))),
+  };
+}
+
 /** Cap the batch at MAX_TOOLS_PER_STEP (structural form of the prompt rule). */
 const maxToolsPerStep: Guardrail<CtiLoopView, AgentToolCall> = {
   name: 'max-tools-per-step',
@@ -107,13 +121,28 @@ const maxToolsPerStep: Guardrail<CtiLoopView, AgentToolCall> = {
 /**
  * Build the CTI loop engine for the current step. The tool registry varies per
  * invocation, so valid tool names are injected here rather than baked in.
+ *
+ * `degradedTools` (optional) is the set of tools with a high recent failure
+ * rate (from observability.selectDegradedTools). When non-empty, a
+ * `no-degraded-tools` guardrail drops them before the planner's calls reach
+ * execution — preventive rather than advisory. Defaults to empty so callers
+ * that don't supply it (incl. the parity test) are unaffected.
  */
-export function buildCtiLoopEngine(validToolNames: Set<string>): LoopEngine<CtiLoopView, AgentToolCall> {
+export function buildCtiLoopEngine(
+  validToolNames: Set<string>,
+  degradedTools: Set<string> = new Set()
+): LoopEngine<CtiLoopView, AgentToolCall> {
   return new LoopEngine<CtiLoopView, AgentToolCall>({
     goal: 'Produce an analyst-grade CTI report from collected, enriched, and analyzed data.',
     maxIterations: (v) => v.maxSteps,
     exitConditions: [maxIterationsReached, nearLimitWithData, enoughResults],
-    guardrails: [noUnknownTools(validToolNames), noDuplicateToolArgs, noBannedTools, maxToolsPerStep],
+    guardrails: [
+      noUnknownTools(validToolNames),
+      noDuplicateToolArgs,
+      noBannedTools,
+      noDegradedTools(degradedTools),
+      maxToolsPerStep,
+    ],
   });
 }
 
@@ -147,29 +176,31 @@ export const MIN_OK_RESULTS_FOR_SYNTHESIS = 3;
 
 /**
  * Filter the planner's proposed tool calls through every guardrail
- * (unknown → duplicate → banned → max-per-step).
+ * (unknown → duplicate → banned → degraded → max-per-step).
  */
 export function filterCtiToolCalls(
   calls: readonly AgentToolCall[],
   view: CtiLoopView,
-  validToolNames: Set<string>
+  validToolNames: Set<string>,
+  degradedTools: Set<string> = new Set()
 ): AgentToolCall[] {
-  return buildCtiLoopEngine(validToolNames).applyGuardrails(calls, view);
+  return buildCtiLoopEngine(validToolNames, degradedTools).applyGuardrails(calls, view);
 }
 
 /**
  * Compute the tool calls the guardrails dropped from a proposed batch — the
  * complement of {@link filterCtiToolCalls}. Returned in proposed order so the
  * observer/planner can see which intents were silently rejected (unknown tool,
- * duplicate args, banned dump tool, or beyond the per-step cap) and re-propose
- * the legitimate ones on the next turn.
+ * duplicate args, banned dump tool, degraded, or beyond the per-step cap) and
+ * re-propose the legitimate ones on the next turn.
  */
 export function getDroppedCalls(
   calls: readonly AgentToolCall[],
   view: CtiLoopView,
-  validToolNames: Set<string>
+  validToolNames: Set<string>,
+  degradedTools: Set<string> = new Set()
 ): AgentToolCall[] {
-  const survived = filterCtiToolCalls(calls, view, validToolNames);
+  const survived = filterCtiToolCalls(calls, view, validToolNames, degradedTools);
   const survivedKeys = new Set(survived.map((tc) => `${tc.tool}:${JSON.stringify(tc.args ?? {})}`));
   return calls.filter((tc) => !survivedKeys.has(`${tc.tool}:${JSON.stringify(tc.args ?? {})}`));
 }

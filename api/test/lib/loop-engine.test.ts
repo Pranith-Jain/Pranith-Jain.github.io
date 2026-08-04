@@ -293,3 +293,64 @@ describe('getDroppedCalls — surfacing guardrail-rejected intent (fix #3)', () 
     }
   });
 });
+
+describe('noDegradedTools guardrail — preventive tool gating (fix #5)', () => {
+  const valid = new Set(['check_ioc', 'lookup_cve', 'enrich_actor', 'unified_search']);
+  const view: CtiLoopView = { stepNum: 1, maxSteps: 6, steps: [] };
+
+  it('drops degraded tools when a non-empty degraded set is supplied', () => {
+    const degraded = new Set(['check_ioc']); // check_ioc is failing this session
+    const proposed: AgentToolCall[] = [
+      { tool: 'check_ioc', args: { ioc: 'a' }, reasoning: 'degraded — should drop' },
+      { tool: 'lookup_cve', args: { cve: 'b' }, reasoning: 'healthy — should keep' },
+    ];
+    const survived = filterCtiToolCalls(proposed, view, valid, degraded);
+    expect(survived.map((c) => c.tool)).toEqual(['lookup_cve']);
+  });
+
+  it('keeps all tools when degraded set is empty (default — parity with old behavior)', () => {
+    const proposed: AgentToolCall[] = [
+      { tool: 'check_ioc', args: { ioc: 'a' }, reasoning: '1' },
+      { tool: 'lookup_cve', args: { cve: 'b' }, reasoning: '2' },
+    ];
+    // No 4th arg = default empty degraded set = no degradation gating.
+    const survived = filterCtiToolCalls(proposed, view, valid);
+    expect(survived).toHaveLength(2);
+  });
+
+  it('degraded tools appear in getDroppedCalls (surfaced, not silently sliced)', () => {
+    const degraded = new Set(['enrich_actor']);
+    const proposed: AgentToolCall[] = [
+      { tool: 'check_ioc', args: { ioc: 'a' }, reasoning: 'keep' },
+      { tool: 'enrich_actor', args: { actor: 'x' }, reasoning: 'degraded — drop' },
+    ];
+    const dropped = getDroppedCalls(proposed, view, valid, degraded);
+    expect(dropped).toHaveLength(1);
+    expect(dropped[0]!.tool).toBe('enrich_actor');
+  });
+
+  it('multiple degraded tools are all dropped', () => {
+    const degraded = new Set(['check_ioc', 'enrich_actor']);
+    const proposed: AgentToolCall[] = [
+      { tool: 'check_ioc', args: { ioc: 'a' }, reasoning: '1' },
+      { tool: 'enrich_actor', args: { actor: 'x' }, reasoning: '2' },
+      { tool: 'lookup_cve', args: { cve: 'b' }, reasoning: '3' },
+    ];
+    const survived = filterCtiToolCalls(proposed, view, valid, degraded);
+    expect(survived.map((c) => c.tool)).toEqual(['lookup_cve']);
+  });
+
+  it('degraded gating runs before the max-tools-per-step cap (order matters)', () => {
+    // If a degraded tool is first, it is dropped first, so the cap does not
+    // waste a slot on it.
+    const degraded = new Set(['check_ioc']);
+    const proposed: AgentToolCall[] = [
+      { tool: 'check_ioc', args: { ioc: 'a' }, reasoning: 'degraded' },
+      { tool: 'lookup_cve', args: { cve: 'b' }, reasoning: 'keep 1' },
+      { tool: 'enrich_actor', args: { actor: 'c' }, reasoning: 'keep 2' },
+    ];
+    const survived = filterCtiToolCalls(proposed, view, valid, degraded);
+    // check_ioc dropped (degraded), then cap keeps first 2 of the rest.
+    expect(survived.map((c) => c.tool)).toEqual(['lookup_cve', 'enrich_actor']);
+  });
+});
