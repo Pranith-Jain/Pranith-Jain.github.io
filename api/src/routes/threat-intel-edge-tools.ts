@@ -19,7 +19,7 @@
  */
 import { Hono } from 'hono';
 import type { Env } from '../env';
-import { badRequest, internalError, notFound } from '../lib/api-error';
+import { badRequest, internalError, notFound, badGateway, serviceUnavailable } from '../lib/api-error';
 
 async function loadTiMod() {
   return await import('../lib/threat-intel-manifest');
@@ -345,15 +345,15 @@ const SEARCH_TIMEOUT_MS = 20_000;
 
 threatIntelRouter.get('/threat-intel/search/otx', async (c) => {
   const q = c.req.query('q');
-  if (!q) return c.json({ error: 'missing q parameter' }, 400);
+  if (!q) return badRequest(c, 'missing q parameter');
   const apiKey = c.env.OTX_API_KEY;
-  if (!apiKey) return c.json({ error: 'OTX_API_KEY not configured', results: [] });
+  if (!apiKey) return serviceUnavailable(c, 'OTX_API_KEY not configured');
   try {
     const res = await fetch(`https://otx.alienvault.com/api/v1/search/pulses?q=${encodeURIComponent(q)}&limit=20`, {
       headers: { 'X-OTX-API-KEY': apiKey, accept: 'application/json' },
       signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS),
     });
-    if (!res.ok) return c.json({ error: `OTX returned ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `OTX returned ${res.status}`);
     const data = (await res.json()) as {
       results?: Array<{
         id: string;
@@ -379,13 +379,13 @@ threatIntelRouter.get('/threat-intel/search/otx', async (c) => {
     return c.json({ query: q, total: pulses.length, pulses });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 });
 
 threatIntelRouter.get('/threat-intel/search/threatfox', async (c) => {
   const q = c.req.query('q');
-  if (!q) return c.json({ error: 'missing q parameter' }, 400);
+  if (!q) return badRequest(c, 'missing q parameter');
   try {
     const res = await fetch('https://threatfox-api.abuse.ch/api/v1/', {
       method: 'POST',
@@ -393,7 +393,7 @@ threatIntelRouter.get('/threat-intel/search/threatfox', async (c) => {
       body: JSON.stringify({ query: 'search_ioc', search_term: q }),
       signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS),
     });
-    if (!res.ok) return c.json({ error: `ThreatFox returned ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ThreatFox returned ${res.status}`);
     const data = (await res.json()) as {
       query_status: string;
       data?: Array<{
@@ -408,7 +408,7 @@ threatIntelRouter.get('/threat-intel/search/threatfox', async (c) => {
       }>;
     };
     if (data.query_status === 'no_data') return c.json({ query: q, total: 0, iocs: [] });
-    if (data.query_status !== 'ok') return c.json({ error: `query_status: ${data.query_status}` }, 502);
+    if (data.query_status !== 'ok') return badGateway(c, `query_status: ${data.query_status}`);
     const iocs = (data.data ?? []).slice(0, 100).map((i) => ({
       ioc_type: i.ioc_type,
       ioc_value: i.ioc,
@@ -422,13 +422,13 @@ threatIntelRouter.get('/threat-intel/search/threatfox', async (c) => {
     return c.json({ query: q, total: iocs.length, iocs });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 });
 
 threatIntelRouter.get('/threat-intel/search/malwarebazaar', async (c) => {
   const q = c.req.query('q');
-  if (!q) return c.json({ error: 'missing q parameter' }, 400);
+  if (!q) return badRequest(c, 'missing q parameter');
   try {
     let res = await fetch('https://mb-api.abuse.ch/api/v1/', {
       method: 'POST',
@@ -452,7 +452,7 @@ threatIntelRouter.get('/threat-intel/search/malwarebazaar', async (c) => {
       data = (await res.json()) as typeof data;
     }
     if (data.query_status === 'no_results') return c.json({ query: q, search_mode: mode, total: 0, samples: [] });
-    if (data.query_status !== 'ok') return c.json({ error: `query_status: ${data.query_status}` }, 502);
+    if (data.query_status !== 'ok') return badGateway(c, `query_status: ${data.query_status}`);
     const samples = (data.data ?? []).map((s) => ({
       sha256: s.sha256_hash,
       file_name: s.file_name,
@@ -463,20 +463,20 @@ threatIntelRouter.get('/threat-intel/search/malwarebazaar', async (c) => {
     return c.json({ query: q, search_mode: mode, total: samples.length, samples });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 });
 
 threatIntelRouter.get('/threat-intel/search/ransomware-live', async (c) => {
   const q = c.req.query('q');
-  if (!q) return c.json({ error: 'missing q parameter' }, 400);
+  if (!q) return badRequest(c, 'missing q parameter');
   const headers = { 'User-Agent': 'pranithjain-dfir/1.0', accept: 'application/json' };
   try {
     const groupsRes = await fetch('https://api.ransomware.live/v2/groups', {
       headers,
       signal: AbortSignal.timeout(15_000),
     });
-    if (!groupsRes.ok) return c.json({ error: `ransomware.live returned ${groupsRes.status}` }, 502);
+    if (!groupsRes.ok) return badGateway(c, `ransomware.live returned ${groupsRes.status}`);
     const allGroups = (await groupsRes.json()) as Array<{ name: string }>;
     const matched = allGroups.filter((g) => (g.name ?? '').toLowerCase().includes(q.toLowerCase())).slice(0, 5);
     if (!matched.length) return c.json({ query: q, total: 0, groups: [] });
@@ -513,7 +513,7 @@ threatIntelRouter.get('/threat-intel/search/ransomware-live', async (c) => {
     return c.json({ query: q, total: details.length, groups: details });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 });
 

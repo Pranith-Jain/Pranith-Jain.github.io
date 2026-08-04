@@ -24,3 +24,5 @@ export type { SkeletonVariant } from './Skeleton';
 export { Kbd } from './Kbd';
 
 export { SeverityBadge, SeverityDot } from '../SeverityBadge';
+
+export { Input, Textarea, Select, Field } from './Input';
