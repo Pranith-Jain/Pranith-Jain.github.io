@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { kvBulkGetText } from '../lib/safe-catch';
 
 export type PatchSeverity = 'critical' | 'important' | 'moderate' | 'low';
@@ -103,7 +104,7 @@ export async function ptmListPatches(c: Context<{ Bindings: Env }>): Promise<Res
 export async function ptmGetPatch(c: Context<{ Bindings: Env }>): Promise<Response> {
   const items = await loadAll<PatchAdvisory>(c.env, 'patches');
   const item = items.find((i) => i.id === c.req.param('id'));
-  if (!item) return c.json({ error: 'Not found' }, 404);
+  if (!item) return notFound(c, 'Not found');
   return c.json(item);
 }
 
@@ -119,10 +120,10 @@ export async function ptmCreatePatch(c: Context<{ Bindings: Env }>): Promise<Res
 
 export async function ptmUpdatePatch(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
   const items = await loadAll<PatchAdvisory>(c.env, 'patches');
   const idx = items.findIndex((i) => i.id === id);
-  if (idx === -1) return c.json({ error: 'Not found' }, 404);
+  if (idx === -1) return notFound(c, 'Not found');
   const body = await c.req.json<Partial<PatchAdvisory>>();
   const updated = { ...items[idx], ...body, id, updated_at: new Date().toISOString() } as PatchAdvisory;
   items[idx] = updated;
@@ -151,7 +152,7 @@ export async function ptmListWindows(c: Context<{ Bindings: Env }>): Promise<Res
 export async function ptmGetWindow(c: Context<{ Bindings: Env }>): Promise<Response> {
   const items = await loadAll<MaintenanceWindow>(c.env, 'windows');
   const item = items.find((i) => i.id === c.req.param('id'));
-  if (!item) return c.json({ error: 'Not found' }, 404);
+  if (!item) return notFound(c, 'Not found');
   return c.json(item);
 }
 
@@ -167,10 +168,10 @@ export async function ptmCreateWindow(c: Context<{ Bindings: Env }>): Promise<Re
 
 export async function ptmUpdateWindow(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
   const items = await loadAll<MaintenanceWindow>(c.env, 'windows');
   const idx = items.findIndex((i) => i.id === id);
-  if (idx === -1) return c.json({ error: 'Not found' }, 404);
+  if (idx === -1) return notFound(c, 'Not found');
   const body = await c.req.json<Partial<MaintenanceWindow>>();
   const updated = { ...items[idx], ...body, id, updated_at: new Date().toISOString() } as MaintenanceWindow;
   items[idx] = updated;

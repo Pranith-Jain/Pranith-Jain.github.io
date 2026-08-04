@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { fetchTransfers, type TracerChain } from '../lib/chain-sources';
 import { clusterCommonInputs, fetchBtcTxsRaw, type CoInputCluster } from '../lib/chain-sources/btc';
 import {
@@ -256,7 +257,7 @@ export async function tracerLabelHandler(c: Context<{ Bindings: Env }>): Promise
 export async function tracerLabelAddHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const input = (c as Context<{ Bindings: Env }> & { parsed: TracerLabelAddInput }).parsed;
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'label store unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'label store unavailable');
   const stored = await insertUserLabel(
     db,
     input.chain,
@@ -319,7 +320,7 @@ export async function tracerCalldataHandler(c: Context<{ Bindings: Env }>): Prom
 export async function tracerGraphSaveHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const input = (c as Context<{ Bindings: Env }> & { parsed: TracerGraphSaveInput }).parsed;
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'graph store unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'graph store unavailable');
   const now = new Date().toISOString();
   const row: TracerGraphRow = {
     id: crypto.randomUUID(),
@@ -337,21 +338,21 @@ export async function tracerGraphSaveHandler(c: Context<{ Bindings: Env }>): Pro
 
 export async function tracerGraphListHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'graph store unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'graph store unavailable');
   return c.json({ graphs: await listTracerGraphs(db) }, 200);
 }
 
 export async function tracerGraphGetHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'graph store unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'graph store unavailable');
   const row = await getTracerGraph(db, c.req.param('id') ?? '');
-  if (!row) return c.json({ error: 'not found' }, 404);
+  if (!row) return notFound(c, 'not found');
   return c.json(row, 200);
 }
 
 export async function tracerGraphDeleteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'graph store unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'graph store unavailable');
   await deleteTracerGraph(db, c.req.param('id') ?? '');
   return c.json({ ok: true }, 200);
 }

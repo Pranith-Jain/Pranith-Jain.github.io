@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../../lib/api-error';
 import { getAi } from '../../lib/ai-binding';
 import { safeJsonBody } from '../../lib/safe-body';
 import { getDedup, touchDedup } from '../../case-study/storage/dedup';
@@ -44,8 +45,8 @@ scheduleRouter.post('/schedule/:candidateId/publish-now', async (c) => {
   const candidateId = c.req.param('candidateId');
   const schedule = await getSchedule(c.env.CASE_STUDIES);
   const slot = schedule.find((s) => s.candidateId === candidateId);
-  if (!slot) return c.json({ error: 'slot not found' }, 404);
-  if (slot.status !== 'pending') return c.json({ error: `slot status is ${slot.status}, not pending` }, 400);
+  if (!slot) return notFound(c, 'slot not found');
+  if (slot.status !== 'pending') return badRequest(c, `slot status is ${slot.status}, not pending`);
 
   const candidate = await getApproved(c.env.CASE_STUDIES, candidateId);
   if (!candidate) {
@@ -54,7 +55,7 @@ scheduleRouter.post('/schedule/:candidateId/publish-now', async (c) => {
       await markSlotStatus(c.env.CASE_STUDIES, candidateId, 'published', { publishedSlug: dedup.publishedSlug });
       return c.json({ ok: true, slug: dedup.publishedSlug, title: dedup.publishedSlug });
     }
-    return c.json({ error: `approved candidate not found: ${candidateId}` }, 404);
+    return notFound(c, `approved candidate not found: ${candidateId}`);
   }
 
   const now = new Date();
@@ -88,7 +89,7 @@ scheduleRouter.post('/schedule/:candidateId/publish-now', async (c) => {
     return c.json({ ok: true, slug: post.slug, title: post.title });
   } catch (err) {
     console.error('schedule-publish-now failed:', err);
-    return c.json({ error: 'publish_failed' }, 500);
+    return internalError(c, 'publish_failed');
   }
 });
 
@@ -103,13 +104,13 @@ scheduleRouter.post('/schedule/:candidateId/reschedule', async (c) => {
   if ('error' in parsed) return parsed.error;
   const slotAt = parsed.value?.slotAt;
   if (!slotAt || Number.isNaN(Date.parse(slotAt))) {
-    return c.json({ error: 'valid slotAt (ISO 8601) required' }, 400);
+    return badRequest(c, 'valid slotAt (ISO 8601) required');
   }
   const schedule = await getSchedule(c.env.CASE_STUDIES);
   const slot = schedule.find((s) => s.candidateId === candidateId);
-  if (!slot) return c.json({ error: 'slot not found' }, 404);
+  if (!slot) return notFound(c, 'slot not found');
   if (slot.status === 'published' || slot.status === 'draft' || slot.status === 'publishing') {
-    return c.json({ error: `cannot reschedule a ${slot.status} slot` }, 400);
+    return badRequest(c, `cannot reschedule a ${slot.status} slot`);
   }
   const iso = new Date(slotAt).toISOString();
   await markSlotStatus(c.env.CASE_STUDIES, candidateId, 'pending', { slotAt: iso, error: undefined });

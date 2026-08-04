@@ -177,7 +177,7 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
           'stealerParserHandler failed:',
           _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
         );
-        return c.json({ error: 'invalid JSON' }, 400);
+        return badRequest(c, 'invalid JSON');
       }
       const parsed = stealerParserJsonSchema.safeParse(body);
       if (!parsed.success) {
@@ -203,9 +203,9 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
         } catch (e) {
           console.error('handler failed:', e instanceof Error ? e.message : String(e));
           if (e instanceof SsrfError) {
-            return c.json({ error: 'blocked', message: e.detail }, 400);
+            return badRequest(c, e.detail);
           }
-          return c.json({ error: 'Failed to fetch URL' }, 400);
+          return badRequest(c, 'Failed to fetch URL');
         }
       }
     } else if (contentType.includes('text/plain')) {
@@ -223,11 +223,11 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
     }
 
     if (!text) {
-      return c.json({ error: 'No text provided' }, 400);
+      return badRequest(c, 'No text provided');
     }
 
     if (text.length > MAX_TEXT_LENGTH) {
-      return c.json({ error: `Text too long (max ${MAX_TEXT_LENGTH} chars)` }, 400);
+      return badRequest(c, `Text too long (max ${MAX_TEXT_LENGTH} chars)`);
     }
 
     const warnings: string[] = [];
@@ -342,6 +342,6 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
     return c.json(result, 200, { 'Cache-Control': 'no-store' });
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: 'Parsing failed', details: err instanceof Error ? err.message : String(err) }, 500);
+    return internalError(c, err);
   }
 }

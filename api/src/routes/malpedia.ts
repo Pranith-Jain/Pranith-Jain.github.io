@@ -1,12 +1,13 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 const MALPEDIA_BASE = 'https://malpedia.caad.fkie.fraunhofer.de';
 
 export async function malpediaActorHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const name = c.req.query('q');
   if (!name || !name.trim()) {
-    return c.json({ error: 'missing query param q' }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'missing query param q');
   }
 
   const actorSlug = name
@@ -19,25 +20,23 @@ export async function malpediaActorHandler(c: Context<{ Bindings: Env }>): Promi
       signal: AbortSignal.timeout(10_000),
     });
     if (res.status === 404) {
-      return c.json({ ok: false, error: 'actor not found' }, 404, { 'cache-control': 'public, max-age=3600' });
+      return notFound(c, 'actor not found');
     }
     if (!res.ok) {
-      return c.json({ error: `malpedia: ${res.status}` }, 502, { 'cache-control': 'no-store' });
+      return badGateway(c, `malpedia: ${res.status}`);
     }
     const data = await res.json();
     return c.json({ ok: true, data }, 200, { 'cache-control': 'public, max-age=3600' });
   } catch (err) {
     console.error('malpediaActorHandler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: err instanceof Error ? err.message : String(err) }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, err instanceof Error ? err.message : String(err));
   }
 }
 
 export async function malpediaFamilyHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const name = c.req.query('q');
   if (!name || !name.trim()) {
-    return c.json({ error: 'missing query param q' }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'missing query param q');
   }
 
   const familySlug = name
@@ -50,25 +49,23 @@ export async function malpediaFamilyHandler(c: Context<{ Bindings: Env }>): Prom
       signal: AbortSignal.timeout(10_000),
     });
     if (res.status === 404) {
-      return c.json({ ok: false, error: 'family not found' }, 404, { 'cache-control': 'public, max-age=3600' });
+      return notFound(c, 'family not found');
     }
     if (!res.ok) {
-      return c.json({ error: `malpedia: ${res.status}` }, 502, { 'cache-control': 'no-store' });
+      return badGateway(c, `malpedia: ${res.status}`);
     }
     const data = await res.json();
     return c.json({ ok: true, data }, 200, { 'cache-control': 'public, max-age=3600' });
   } catch (err) {
     console.error('malpediaFamilyHandler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: err instanceof Error ? err.message : String(err) }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, err instanceof Error ? err.message : String(err));
   }
 }
 
 export async function malpediaSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const q = c.req.query('q');
   if (!q || !q.trim()) {
-    return c.json({ error: 'missing query param q' }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'missing query param q');
   }
 
   const query = q.trim().toLowerCase();
@@ -117,8 +114,6 @@ export async function malpediaSearchHandler(c: Context<{ Bindings: Env }>): Prom
     });
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: err instanceof Error ? err.message : String(err) }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, err instanceof Error ? err.message : String(err));
   }
 }

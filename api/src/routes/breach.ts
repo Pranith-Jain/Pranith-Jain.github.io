@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 const HIBP_RANGE = 'https://api.pwnedpasswords.com/range';
 const XON_BASE = 'https://api.xposedornot.com/v1';
@@ -745,10 +746,10 @@ async function queryLcDomain(domain: string): Promise<BreachDomainEntry[]> {
 export async function breachRangeHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const prefix = c.req.query('prefix');
   if (!prefix) {
-    return c.json({ error: 'missing_param' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'missing_param');
   }
   if (!PREFIX_RE.test(prefix)) {
-    return c.json({ error: 'invalid_prefix' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'invalid_prefix');
   }
 
   try {
@@ -762,9 +763,7 @@ export async function breachRangeHandler(c: Context<{ Bindings: Env }>): Promise
     });
 
     if (!upstream.ok) {
-      return c.json({ error: `upstream_${upstream.status}` }, 502, {
-        'Cache-Control': 'no-store',
-      });
+      return badGateway(c, `upstream_${upstream.status}`);
     }
 
     const body = await upstream.text();
@@ -777,9 +776,7 @@ export async function breachRangeHandler(c: Context<{ Bindings: Env }>): Promise
     });
   } catch (_catchErr) {
     console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'upstream_error' }, 502, {
-      'Cache-Control': 'no-store',
-    });
+    return badGateway(c, 'upstream_error');
   }
 }
 
@@ -792,10 +789,10 @@ export async function breachRangeHandler(c: Context<{ Bindings: Env }>): Promise
 export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const email = c.req.query('email');
   if (!email) {
-    return c.json({ error: 'missing_param' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'missing_param');
   }
   if (!EMAIL_RE.test(email)) {
-    return c.json({ error: 'invalid_email' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'invalid_email');
   }
 
   const sources = await Promise.allSettled([
@@ -824,9 +821,7 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
   // breach DBs were unreachable.
   const primaryRejected = sources[0]?.status === 'rejected' && sources[1]?.status === 'rejected';
   if (primaryRejected) {
-    return c.json({ error: 'upstream_error', message: 'breach upstreams unavailable' }, 502, {
-      'Cache-Control': 'no-store',
-    });
+    return badGateway(c, 'breach upstreams unavailable');
   }
 
   const breaches: BreachEntry[] = [];
@@ -862,10 +857,10 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
 export async function breachDomainHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = c.req.query('domain');
   if (!domain) {
-    return c.json({ error: 'missing_param' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'missing_param');
   }
   if (!DOMAIN_RE.test(domain)) {
-    return c.json({ error: 'invalid_domain' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'invalid_domain');
   }
 
   const sources = await Promise.allSettled([
@@ -888,9 +883,7 @@ export async function breachDomainHandler(c: Context<{ Bindings: Env }>): Promis
   // See breachEmailHandler — 502 when both primary upstreams reject.
   const primaryRejected = sources[0]?.status === 'rejected' && sources[1]?.status === 'rejected';
   if (primaryRejected) {
-    return c.json({ error: 'upstream_error', message: 'breach upstreams unavailable' }, 502, {
-      'Cache-Control': 'no-store',
-    });
+    return badGateway(c, 'breach upstreams unavailable');
   }
 
   const breaches: BreachDomainEntry[] = [];

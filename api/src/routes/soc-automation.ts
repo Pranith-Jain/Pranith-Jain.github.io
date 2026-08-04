@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { kvBulkGetText } from '../lib/safe-catch';
 
 export type PlaybookTrigger =
@@ -115,7 +116,7 @@ export async function socListPlaybooks(c: Context<{ Bindings: Env }>): Promise<R
 export async function socGetPlaybook(c: Context<{ Bindings: Env }>): Promise<Response> {
   const items = await loadAll<Playbook>(c.env, 'playbooks');
   const item = items.find((i) => i.id === c.req.param('id'));
-  if (!item) return c.json({ error: 'Not found' }, 404);
+  if (!item) return notFound(c, 'Not found');
   return c.json(item);
 }
 
@@ -138,10 +139,10 @@ export async function socCreatePlaybook(c: Context<{ Bindings: Env }>): Promise<
 
 export async function socUpdatePlaybook(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
   const items = await loadAll<Playbook>(c.env, 'playbooks');
   const idx = items.findIndex((i) => i.id === id);
-  if (idx === -1) return c.json({ error: 'Not found' }, 404);
+  if (idx === -1) return notFound(c, 'Not found');
   const body = await c.req.json<Partial<Playbook>>();
   const updated = { ...items[idx], ...body, id, updated_at: new Date().toISOString() } as Playbook;
   items[idx] = updated;
@@ -161,10 +162,10 @@ export async function socDeletePlaybook(c: Context<{ Bindings: Env }>): Promise<
 
 export async function socExecutePlaybook(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
   const playbooks = await loadAll<Playbook>(c.env, 'playbooks');
   const pbIdx = playbooks.findIndex((p) => p.id === id);
-  if (pbIdx === -1) return c.json({ error: 'Not found' }, 404);
+  if (pbIdx === -1) return notFound(c, 'Not found');
   const playbook = playbooks[pbIdx]!;
   if (!playbook.actions) playbook.actions = [];
   const runId = makeId();
@@ -253,7 +254,7 @@ export async function socListRuns(c: Context<{ Bindings: Env }>): Promise<Respon
 export async function socGetRun(c: Context<{ Bindings: Env }>): Promise<Response> {
   const items = await loadAll<PlaybookRun>(c.env, 'runs');
   const item = items.find((i) => i.id === c.req.param('id'));
-  if (!item) return c.json({ error: 'Not found' }, 404);
+  if (!item) return notFound(c, 'Not found');
   return c.json(item);
 }
 

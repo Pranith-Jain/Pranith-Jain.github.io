@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { safeErrorMessage } from '../lib/error';
 import { assertPublicHost } from '../lib/ssrf-guard';
 
@@ -330,17 +331,17 @@ function feedsOf(links: ParsedLink[], base: string): { title?: string; url: stri
 
 export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
   const raw = c.req.query('url');
-  if (!raw) return c.json({ error: 'missing url' }, 400);
+  if (!raw) return badRequest(c, 'missing url');
 
   let parsed: URL;
   try {
     parsed = new URL(raw);
   } catch (_catchErr) {
     console.error('urlPreviewHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'invalid url' }, 400);
+    return badRequest(c, 'invalid url');
   }
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
-    return c.json({ error: 'unsupported protocol' }, 400);
+    return badRequest(c, 'unsupported protocol');
   }
 
   // Resolve A + AAAA and refuse any private/reserved answer (complete
@@ -371,9 +372,7 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
         finalHostCheck = await assertPublicHost(nextHost);
       } catch (_catchErr) {
         console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-        return c.json({ error: 'redirect_target_invalid', url: parsed.toString(), final_url: currentUrl }, 502, {
-          'Cache-Control': 'no-store',
-        });
+        return badGateway(c, 'redirect_target_invalid');
       }
       if (!finalHostCheck.ok) {
         return c.json<UrlPreviewResponse>(
@@ -399,17 +398,14 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
       } as RequestInit);
     } catch (err) {
       console.error('handler failed:', err instanceof Error ? err.message : String(err));
-      return c.json({ error: safeErrorMessage(c.env as never, err) }, 502, { 'Cache-Control': 'no-store' });
+      return badGateway(c, safeErrorMessage(c.env as never, err));
     }
 
     // Surface upstream rate-limit so the client can back off rather than
     // get a generic 502. Pass through the upstream Retry-After if given.
     if (finalRes.status === 429) {
       const retryAfter = finalRes.headers.get('retry-after') ?? '60';
-      return c.json({ error: 'upstream_rate_limited', upstream: parsed.hostname, upstream_status: 429 }, 429, {
-        'retry-after': retryAfter,
-        'cache-control': 'no-store',
-      });
+      return tooManyRequests(c, 'upstream_rate_limited');
     }
 
     if (finalRes.status >= 300 && finalRes.status < 400) {

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { assertPublicHost } from '../lib/ssrf-guard';
 import { safeNull } from '../lib/safe-catch';
 
@@ -453,18 +454,18 @@ export interface WebScanResponse {
 
 export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const raw = (c.req.query('url') ?? '').trim();
-  if (!raw) return c.json({ error: 'missing url' }, 400);
-  if (raw.length > 2_000) return c.json({ error: 'url too long' }, 400);
+  if (!raw) return badRequest(c, 'missing url');
+  if (raw.length > 2_000) return badRequest(c, 'url too long');
 
   let parsed: URL;
   try {
     parsed = new URL(raw);
   } catch (_catchErr) {
     console.error('webScanHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'invalid url' }, 400);
+    return badRequest(c, 'invalid url');
   }
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
-    return c.json({ error: 'unsupported protocol' }, 400);
+    return badRequest(c, 'unsupported protocol');
   }
 
   const cache = (caches as unknown as { default: Cache }).default;
@@ -497,9 +498,7 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
         currentHostCheck = await assertPublicHost(nextHost);
       } catch (_catchErr) {
         console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-        return c.json({ error: 'redirect_target_invalid', url: parsed.toString(), final_url: finalUrl }, 502, {
-          'Cache-Control': 'no-store',
-        });
+        return badGateway(c, 'redirect_target_invalid');
       }
       if (!currentHostCheck.ok) {
         const body: WebScanResponse = {
@@ -533,7 +532,7 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
       clearTimeout(timer);
     } catch (_catchErr) {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      return c.json({ error: 'fetch failed' }, 502);
+      return badGateway(c, 'fetch failed');
     }
 
     if (mainRes.status >= 300 && mainRes.status < 400) {

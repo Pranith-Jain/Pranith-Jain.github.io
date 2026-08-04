@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { kvBackedGet, kvBackedPut } from '../lib/route-cache';
 
 const CACHE_TTL = 3600;
@@ -8,7 +9,7 @@ export const mozillaTlsRouter = new Hono<{ Bindings: Env }>();
 
 mozillaTlsRouter.get('/mozilla-tls/scan', async (c) => {
   const url = c.req.query('url');
-  if (!url) return c.json({ error: 'url parameter required' }, 400);
+  if (!url) return badRequest(c, 'url parameter required');
 
   const cacheKey = `mozilla:tls:${url}`;
   const { value: cached } = await kvBackedGet<Record<string, unknown>>(c.env.KV_CACHE, cacheKey, CACHE_TTL);
@@ -20,7 +21,7 @@ mozillaTlsRouter.get('/mozilla-tls/scan', async (c) => {
       signal: AbortSignal.timeout(20000),
     });
 
-    if (!res.ok) return c.json({ error: `Mozilla TLS upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Mozilla TLS upstream ${res.status}`);
 
     const data = await res.json();
     const body = { url, results: data, generated_at: new Date().toISOString(), cached: false };
@@ -29,13 +30,13 @@ mozillaTlsRouter.get('/mozilla-tls/scan', async (c) => {
     return c.json(body);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Mozilla TLS unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Mozilla TLS unreachable');
   }
 });
 
 mozillaTlsRouter.get('/mozilla-tls/result', async (c) => {
   const scanId = c.req.query('scanId');
-  if (!scanId) return c.json({ error: 'scanId parameter required' }, 400);
+  if (!scanId) return badRequest(c, 'scanId parameter required');
 
   try {
     const res = await fetch(
@@ -46,11 +47,11 @@ mozillaTlsRouter.get('/mozilla-tls/result', async (c) => {
       }
     );
 
-    if (!res.ok) return c.json({ error: `Mozilla TLS upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Mozilla TLS upstream ${res.status}`);
     const data = await res.json();
     return c.json({ scanId, results: data, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Mozilla TLS unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Mozilla TLS unreachable');
   }
 });
