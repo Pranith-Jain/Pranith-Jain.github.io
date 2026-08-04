@@ -133,6 +133,29 @@ jobs:
         working-directory: api
         run: npx vitest run test/lib test/case-study test/health.test.ts
 
+  # Secret scan — catches API keys / tokens committed to source or history.
+  # Allowlisted files (.env.example, docs, upstream data) are in .gitleaks.toml.
+  # Runs on every push/PR to main. Uses gitleaks/gitleaks-action which scans
+  # the full git diff of the PR (or the new commits on a push to main).
+  secrets:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history so gitleaks can scan all commits in the push, not
+          # just the working tree. Without this, only the final tree is
+          # scanned and a secret that was added-then-removed in the same PR
+          # would be missed.
+          fetch-depth: 0
+      - name: gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          # The action reads .gitleaks.toml from the repo root by default.
+          # GITHUB_TOKEN is auto-provided; the action uses it only for PR
+          # comment posting, not for scanning.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build:
     name: Build + budget check
     runs-on: ubuntu-latest

@@ -221,6 +221,14 @@ const CHECKS = [
     },
   },
 
+  // ─── MCP server liveness ───────────────────────────────────────────────
+  // /api/mcp is key-gated (DfirMcpServer DO). Without a Bearer key it must
+  // return 401 — that proves the route is wired, the DO is reachable, and the
+  // auth gate is intact. A 500/502 here means the DO binding or migration is
+  // broken post-deploy. (A full tools/list handshake needs a key + JSON-RPC
+  // POST; the 401 is the cheap keyless canary.)
+  { name: 'mcp/auth-gate (401 no key)', path: '/api/mcp', status: 401 },
+
   // ─── Negative / fail-soft cases ─────────────────────────────────────────
   { name: 'unknown route', path: '/api/v1/__no_such_route__', status: 404 },
   { name: 'cve/lookup missing id', path: '/api/v1/cve/lookup', status: [400, 404] },

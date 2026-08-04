@@ -1,0 +1,48 @@
+# Gitleaks config — secret scanning for the pranith-jain-portfolio repo.
+#
+# Strategy: use gitleaks' default rule set (covers AWS/GCP/Azure/Stripe/Slack/
+# GitHub PAT/private keys/generic high-entropy) but allowlist the files that
+# legitimately contain key NAMES (not values):
+#
+#   - .env.example        — every key is an empty string or a placeholder
+#   - .env.example.bak    — same, if it ever exists
+#   - docs/API_KEYS.md    — documents which providers need keys (names only)
+#   - docs/ENVIRONMENT_VARIABLES.md — same
+#   - public/data/**      — replicated upstream data (MIT/AGPL), not our secrets
+#   - security-investigator-replication/** — upstream SI content (MIT)
+#   - signature-base-replication/**       — upstream YARA rules
+#   - migrations/**        — D1 schema, no secrets
+#   - *.generated.*        — build output
+#   - dist/**, .ssr-build/**, node_modules/** — build artifacts
+#
+# The allowlist uses path globs so a real secret accidentally committed to
+# .env (no extension) or a source file is still caught.
+
+title = "pranith-jain-portfolio secret scan"
+
+[allowlist]
+description = "Allowlist files that contain key names or upstream data, not real secrets"
+paths = [
+  '''\.env\.example$''',
+  '''\.env\.example\.bak$''',
+  '''docs/API_KEYS\.md$''',
+  '''docs/ENVIRONMENT_VARIABLES\.md$''',
+  '''docs/free/.*''',
+  '''public/data/.*''',
+  '''security-investigator-replication/.*''',
+  '''signature-base-replication/.*''',
+  '''migrations/.*''',
+  '''\.generated\.''',
+  '''dist/.*''',
+  '''\.ssr-build/.*''',
+  '''node_modules/.*''',
+  '''package-lock\.json$''',
+  '''skills-lock\.json$''',
+  # The .agents/skills/ bundle is vendored ECC content (MIT/CC0 skills), not
+  # our code — scanning it just produces noise about example tokens in skill
+  # documentation.
+  '''\.agents/skills/.*''',
+  # Loop/skill docs may quote example env var names.
+  '''docs/loops/.*''',
+  '''docs/decisions/.*''',
+]

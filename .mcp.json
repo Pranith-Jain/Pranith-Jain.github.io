@@ -3,6 +3,10 @@
     "playwright": {
       "command": "npx",
       "args": ["-y", "@playwright/mcp@0.0.78"]
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest"]
     }
   }
 }

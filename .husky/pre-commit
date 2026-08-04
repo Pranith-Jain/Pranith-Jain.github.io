@@ -1,1 +1,12 @@
 npx lint-staged
+
+# Secret scan — catches API keys / tokens committed to source. Allowlisted
+# files (.env.example, docs, upstream data) are in .gitleaks.toml. Runs on
+# staged files only via `gitleaks protect --staged`.
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged --redact --config .gitleaks.toml
+elif npx --no-install gitleaks >/dev/null 2>&1; then
+  npx --no-install gitleaks protect --staged --redact --config .gitleaks.toml
+else
+  echo "gitleaks not installed — skipping secret scan (install: brew install gitleaks)"
+fi
