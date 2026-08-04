@@ -109,3 +109,4 @@ briefings-out/
 
 # Reddit feed artifact — published to the reddit-feed-data branch by CI, not committed
 reddit-feed.json
+og-overrides.generated.json
