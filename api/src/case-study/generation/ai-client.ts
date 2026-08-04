@@ -70,6 +70,8 @@ export interface CompletionOpts {
    *  ensemble QA so each parallel call makes exactly one provider fetch instead
    *  of walking the whole chain (keeps subrequests bounded on the free plan). */
   exclusiveProvider?: boolean;
+  /** Skip this provider entirely (e.g. QA must not grade the model that generated the report). */
+  excludeProvider?: 'infron' | 'groq' | 'gemini' | 'nvidia';
   /** Invoked on success with the model + prompt/response text for cost tracking. */
   recordUsage?: (model: string, inputText: string, outputText: string, role: string) => void;
 }
@@ -337,7 +339,13 @@ export async function runCompletion(
       ? ['groq', 'infron', 'gemini', 'nvidia']
       : ['infron', 'groq', 'gemini', 'nvidia'];
 
-  for (const provider of providers) {
+  // Judge-independence guard: never let QA grade the model that generated the
+  // report being verified. excludeProvider drops that provider from the chain
+  // entirely so a different model runs the verification pass.
+  const filteredProviders = opts.excludeProvider ? providers.filter((p) => p !== opts.excludeProvider) : providers;
+  const providersToTry = filteredProviders.length > 0 ? filteredProviders : providers;
+
+  for (const provider of providersToTry) {
     // Skip providers that are rate-limited or circuit-broken
     if (health && !(await health.isProviderHealthy(provider))) {
       errors.push(`${provider}: skipped (rate-limited or circuit-broken)`);

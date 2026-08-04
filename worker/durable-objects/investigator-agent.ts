@@ -4,7 +4,7 @@ import type { Env as ApiEnv } from '../../api/src/env';
 import type { AgentState, AgentStep, AgentToolResult, AgentToolCall, IocEntry } from '../../api/src/lib/agent/types';
 import { buildToolRegistry } from '../../api/src/lib/agent/tools';
 import { planNextStep } from '../../api/src/lib/agent/planner';
-import { evaluateCtiExit, filterCtiToolCalls, canSynthesizeNow } from '../../api/src/lib/agent/cti-loop';
+import { evaluateCtiExit, filterCtiToolCalls, canSynthesizeNow, getDroppedCalls } from '../../api/src/lib/agent/cti-loop';
 import { observeStep } from '../../api/src/lib/agent/observer';
 import { synthesizeReport, splitSynthOutput } from '../../api/src/lib/agent/synthesizer';
 import { verifyReport } from '../../api/src/lib/agent/qa-verifier';
@@ -500,6 +500,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
 
       const validToolNames = new Set(specialistTools.map((t) => t.name));
       let toolCalls = filterCtiToolCalls(plan.toolCalls, view, validToolNames);
+      const droppedCalls = getDroppedCalls(plan.toolCalls, view, validToolNames);
       toolCalls = applySpecialistGuardrails(currentRole, toolCalls, view);
 
       if (toolCalls.length === 0) {
@@ -538,6 +539,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         results: [],
         status: 'running',
         startedAt: stepStart,
+        droppedCalls: droppedCalls.length > 0 ? droppedCalls : undefined,
       };
 
       const results = await this.executeTools(toolCalls, specialistTools);
@@ -560,6 +562,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         keyFacts: observation.keyFacts,
         confidence: observation.confidence,
         gaps: observation.gaps,
+        provenance: observation.provenance,
       };
       step.nextAction = 'continue';
       step.status = 'done';
@@ -609,6 +612,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
 
     const validToolNames = new Set(availableTools.map((t) => t.name));
     const toolCalls = filterCtiToolCalls(plan.toolCalls, view, validToolNames);
+    const droppedCalls = getDroppedCalls(plan.toolCalls, view, validToolNames);
     if (toolCalls.length === 0) {
       return await this.doSynthesize(
         state,
@@ -630,6 +634,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       results: [],
       status: 'running',
       startedAt: stepStart,
+      droppedCalls: droppedCalls.length > 0 ? droppedCalls : undefined,
     };
 
     const results = await this.executeTools(toolCalls, availableTools);
@@ -652,6 +657,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       keyFacts: observation.keyFacts,
       confidence: observation.confidence,
       gaps: observation.gaps,
+      provenance: observation.provenance,
     };
     step.nextAction = 'continue';
     step.status = 'done';
@@ -932,12 +938,23 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       });
 
       try {
+        // JUDGE-INDEPENDENCE: extract the provider that generated the report and
+        // exclude it from the QA provider chain so the judge is never the same
+        // model as the generator. modelUsed is shaped "provider:model".
+        const generatorProvider = result.modelUsed.split(':')[0] as
+          | 'infron'
+          | 'groq'
+          | 'gemini'
+          | 'nvidia'
+          | undefined;
+
         const qa = await verifyReport(ai, state.query, state.queryType, result.report, state.steps, {
           infronKey,
           groqKey,
           googleKey,
           nvidiaKey,
           recordUsage,
+          excludeProvider: generatorProvider,
         });
 
         let finalReport = result.report;
@@ -955,9 +972,19 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
           reason: 'Initial synthesis + QA',
         });
 
+        // BOUNDED REPAIR LOOP: at most ONE self-correction retry. retryCount=1
+        // means shouldRetry returns false on any subsequent call, so this block
+        // runs at most once per investigation.
         if (
           qa.qualityScore >= 0 &&
-          shouldRetry(qa.qualityScore, qa.flaggedClaims.length, qa.missingFacts.length, stepNum, state.maxSteps)
+          shouldRetry(
+            qa.qualityScore,
+            qa.flaggedClaims.length,
+            qa.missingFacts.length,
+            stepNum,
+            state.maxSteps,
+            1 // retryCount — this is the (only) allowed retry
+          )
         ) {
           this.broadcastToWatchers({
             type: 'step',
@@ -990,12 +1017,21 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
 
           const { report: correctedProse, actionCard: correctedCard } = splitSynthOutput(correctedText);
 
+          // QA2 also excludes the generator (the corrected synthesizer's provider)
+          // so the second verification is judge-independent of the rewrite.
+          const correctedProvider = correctedModel.split(':')[0] as
+            | 'infron'
+            | 'groq'
+            | 'gemini'
+            | 'nvidia'
+            | undefined;
           const qa2 = await verifyReport(ai, state.query, state.queryType, correctedProse, state.steps, {
             infronKey,
             groqKey,
             googleKey,
             nvidiaKey,
             recordUsage,
+            excludeProvider: correctedProvider,
           });
 
           versioned = addVersion(versioned, correctedProse, {
@@ -1005,7 +1041,10 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
           });
 
           if (qa2.qualityScore > qa.qualityScore) {
-            finalReport = qa2.verifiedReport;
+            // Use the SYNTHESIZER's corrected prose (qa2.verifiedReport ===
+            // correctedProse now that QA only flags, never rewrites). The
+            // synthesizer owns all rewriting via the self-correction prompt.
+            finalReport = correctedProse;
             finalActionCard = correctedCard ?? result.actionCard;
             finalModelUsed = `${result.modelUsed} → QA:${qa.modelUsed} → retry:${correctedModel} → QA:${qa2.modelUsed}`;
             finalQa = {
@@ -1015,6 +1054,9 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
             };
             qaStep.observation = `QA complete (with self-correction). Score improved: ${qa.qualityScore}→${qa2.qualityScore}/100.`;
           } else {
+            // NO-IMPROVEMENT EXIT: keep the original report. The retry did not
+            // help, so we discard the corrected version and stop — the loop is
+            // bounded and will not retry again (retryCount cap).
             qaStep.observation = `QA complete. Self-correction did not improve (${qa.qualityScore}→${qa2.qualityScore}). Keeping original.`;
           }
         } else {
@@ -1126,6 +1168,15 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       const db = (this.env as unknown as ApiEnv).BRIEFINGS_DB;
       if (db) {
         const mem = this.buildWorkingMemory(state);
+        // MEMORY-ADMISSION GATE: only persist findings from investigations that
+        // passed QA (qualityScore >= 70) AND only LLM-confirmed keyFacts (not
+        // heuristic fallback stubs). Agent-inferred or fallback-sourced facts
+        // must not become ground-truth memory for the next investigation.
+        const qualityScore = state.qa?.qualityScore ?? 0;
+        const llmKeyFacts = state.steps
+          .filter((s) => s.observerFindings?.provenance === 'llm')
+          .flatMap((s) => s.observerFindings?.keyFacts ?? [])
+          .slice(0, 10);
         await saveInvestigationMemory(db, {
           query: state.query,
           queryType: state.queryType,
@@ -1133,8 +1184,11 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
           actors: mem.actors,
           mitre: mem.mitre.map((m) => m.id),
           cves: mem.cves,
-          keyFindings: mem.keyFacts.slice(0, 10),
-          qualityScore: state.qa?.qualityScore ?? 0,
+          // Persist LLM-confirmed keyFacts only when QA passed; otherwise persist
+          // an empty array so the investigation is recorded (for history) but its
+          // unverified facts don't contaminate future investigations.
+          keyFindings: qualityScore >= 70 ? llmKeyFacts : [],
+          qualityScore,
           modelUsed: state.modelUsed ?? '',
           completedAt: state.completedAt,
         });

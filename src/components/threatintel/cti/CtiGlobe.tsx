@@ -103,8 +103,8 @@ export default function CtiGlobe({
         .width(w)
         .height(h)
         // Globe appearance
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
-        .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+        .globeImageUrl('/textures/earth-night.jpg')
+        .bumpImageUrl('/textures/earth-topology.png')
         .backgroundImageUrl('')
         .backgroundColor('rgba(0,0,0,0)')
         // Atmosphere

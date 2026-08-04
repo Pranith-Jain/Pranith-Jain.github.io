@@ -469,8 +469,11 @@ export default function GlobalPulse(): JSX.Element {
   // Auto-pan for 3D globe
   const [autoPan, setAutoPan] = useState(false);
 
-  // Day/night terminator polygon for 2D map overlay
-  const terminatorPolygon = useMemo(() => {
+  // Day/night terminator polygon for 2D map overlay. Recomputed every 5min
+  // so the night shadow tracks the sun's actual position (the terminator
+  // drifts ~1°/4min; 5min keeps it visually accurate without re-rendering
+  // the polygon on every frame).
+  const computeTerminator = useCallback((): [number, number][] => {
     const now = new Date();
     const dayOfYear = Math.floor((now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86400000);
     const hourUTC = now.getUTCHours() + now.getUTCMinutes() / 60;
@@ -504,6 +507,11 @@ export default function GlobalPulse(): JSX.Element {
 
     return polygon;
   }, []);
+  const [terminatorPolygon, setTerminatorPolygon] = useState<[number, number][]>(computeTerminator);
+  useEffect(() => {
+    const id = setInterval(() => setTerminatorPolygon(computeTerminator()), 5 * 60 * 1000);
+    return () => clearInterval(id);
+  }, [computeTerminator]);
 
   const load = useCallback(async (forceRefresh = false) => {
     const myId = ++loadIdRef.current;

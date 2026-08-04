@@ -20,6 +20,14 @@ export interface ObserverOutput {
   mitre: string[];
   confidence: 'high' | 'medium' | 'low';
   gaps: string[];
+  /**
+   * Provenance of this observation. 'llm' = produced by the observer LLM pass;
+   * 'fallback' = produced by the deterministic heuristic stub (LLM unavailable,
+   * all tools errored, or parse failure). Downstream consumers (working memory,
+   * persistent memory) must NOT treat 'fallback' keyFacts as analyst-confirmed —
+   * they are heuristic extractions (score/verdict/items.length) only.
+   */
+  provenance: 'llm' | 'fallback';
 }
 
 /**
@@ -45,7 +53,7 @@ export async function observeStep(
   // Skip LLM call if all tools errored — nothing to analyze
   const allErrored = results.length > 0 && results.every((r) => r.status === 'error');
   if (allErrored) {
-    return fallback;
+    return { ...fallback, provenance: 'fallback' };
   }
 
   try {
@@ -82,6 +90,14 @@ Analyze these results. What was found? Extract exact values into keyFacts/iocs/a
 
       const parsed = parseWithErrors(text, ObserverOutputSchema);
       if (parsed.ok) {
+        // Track whether the LLM actually produced keyFacts/gaps or whether we
+        // silently substituted the heuristic fallback. If either was empty and
+        // we filled from the fallback, provenance is 'fallback' so downstream
+        // memory persistence knows these facts are heuristic, not analyst-confirmed.
+        const usedFallbackForKeyFacts = parsed.data.keyFacts.length === 0 && fallback.keyFacts.length > 0;
+        const usedFallbackForGaps = parsed.data.gaps.length === 0 && fallback.gaps.length > 0;
+        const provenance: 'llm' | 'fallback' =
+          usedFallbackForKeyFacts || usedFallbackForGaps ? 'fallback' : 'llm';
         return {
           observation: parsed.data.observation || fallback.observation,
           keyFacts: parsed.data.keyFacts.length > 0 ? parsed.data.keyFacts : fallback.keyFacts,
@@ -92,6 +108,7 @@ Analyze these results. What was found? Extract exact values into keyFacts/iocs/a
           mitre: parsed.data.mitre,
           confidence: parsed.data.confidence,
           gaps: parsed.data.gaps.length > 0 ? parsed.data.gaps : fallback.gaps,
+          provenance,
         };
       }
 
@@ -100,9 +117,9 @@ Analyze these results. What was found? Extract exact values into keyFacts/iocs/a
         input.user = `${user}\n\nIMPORTANT: Respond with ONLY valid JSON matching the required schema. Errors to fix:\n${lastErrors}`;
       }
     }
-    return fallback;
+    return { ...fallback, provenance: 'fallback' };
   } catch {
-    return fallback;
+    return { ...fallback, provenance: 'fallback' };
   }
 }
 
@@ -141,5 +158,6 @@ function deterministicObserve(results: AgentToolResult[]): ObserverOutput {
     mitre: [],
     confidence: 'medium',
     gaps: [],
+    provenance: 'fallback',
   };
 }

@@ -36,6 +36,8 @@ export async function ensembleVerifyReport(
     nvidiaKey?: string;
     googleKey?: string;
     recordUsage?: (model: string, inputText: string, outputText: string, role: string) => void;
+    /** Provider that generated the report — excluded so the judge differs from the generator. */
+    excludeProvider?: 'infron' | 'groq' | 'gemini' | 'nvidia';
   }
 ): Promise<EnsembleQaResult> {
   const dataSummary = buildCompactSummary(steps);
@@ -55,11 +57,13 @@ Verify every claim in the report against the collected data. Flag hallucinations
 
   // Run QA on every available provider in parallel (ensemble grows with the
   // number of configured keys — Gemini/Groq/NVIDIA — for stronger consensus).
+  // Judge-independence: skip the provider that generated the report so no
+  // model grades its own output.
   const models: Array<{ provider: 'groq' | 'gemini' | 'nvidia' | 'infron'; label: string }> = [];
-  if (opts.googleKey) models.push({ provider: 'gemini', label: 'gemini' });
-  if (opts.groqKey) models.push({ provider: 'groq', label: 'groq' });
-  if (opts.nvidiaKey) models.push({ provider: 'nvidia', label: 'nvidia' });
-  if (opts.infronKey) models.push({ provider: 'infron', label: 'infron' });
+  if (opts.googleKey && opts.excludeProvider !== 'gemini') models.push({ provider: 'gemini', label: 'gemini' });
+  if (opts.groqKey && opts.excludeProvider !== 'groq') models.push({ provider: 'groq', label: 'groq' });
+  if (opts.nvidiaKey && opts.excludeProvider !== 'nvidia') models.push({ provider: 'nvidia', label: 'nvidia' });
+  if (opts.infronKey && opts.excludeProvider !== 'infron') models.push({ provider: 'infron', label: 'infron' });
 
   const results = await Promise.allSettled(
     models.map(async (m) => {
@@ -103,7 +107,9 @@ Verify every claim in the report against the collected data. Flag hallucinations
     // Single model result
     const { data, model } = successful[0]!;
     return {
-      verifiedReport: applyCorrections(data, originalReport),
+      // JUDGE-INDEPENDENCE: QA flags only — never rewrites prose. The
+      // synthesizer's self-correction prompt owns all rewriting.
+      verifiedReport: originalReport,
       flaggedClaims: data.flagged_claims.map((f) => `[${f.reason}] ${f.claim}: ${f.evidence}`),
       missingFacts: data.missing_facts.map((f) => `[${f.source}] ${f.fact}`),
       qualityScore: Math.min(100, Math.max(0, data.quality_score)),
@@ -145,34 +151,13 @@ Verify every claim in the report against the collected data. Flag hallucinations
   const bestModel = successful.sort((a, b) => b.data.quality_score - a.data.quality_score)[0]!;
 
   return {
-    verifiedReport: applyCorrections(bestModel.data, originalReport),
+    verifiedReport: originalReport,
     flaggedClaims: [...allFlagged.values()].map((f) => `[${f.reason}] ${f.claim}: ${f.evidence}`),
     missingFacts: [...allMissing.values()].map((f) => `[${f.source}] ${f.fact}`),
     qualityScore: Math.min(100, Math.max(0, avgScore)),
     modelUsed: successful.map((s) => s.model).join(' + '),
     consensusStrength,
   };
-}
-
-function applyCorrections(data: QaOutputValidated, originalReport: string): string {
-  let report = originalReport;
-  if (data.corrections.length > 0) {
-    for (const c of data.corrections) {
-      if (c.original && c.corrected && c.original !== c.corrected) {
-        report = report.replaceAll(c.original, c.corrected);
-      }
-    }
-  }
-  if (data.missing_facts.length > 0) {
-    const high = data.missing_facts.filter((f) => f.importance === 'high');
-    if (high.length > 0) {
-      report += '\n\n### Additional Intelligence (from QA verification)\n';
-      for (const f of high) {
-        report += `- ${f.fact} [Source: ${f.source}]\n`;
-      }
-    }
-  }
-  return report;
 }
 
 function buildCompactSummary(steps: AgentStep[]): string {

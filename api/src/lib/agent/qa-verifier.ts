@@ -197,82 +197,20 @@ ${dataSummary || 'No data collected — all tools failed or returned empty.'}
 Verify every claim in the report against the collected data. Flag hallucinations, add missing facts, correct errors.`;
 }
 
-/** Apply QA corrections to the report. Assumes data is already validated. */
+/** Apply QA corrections to the report.
+ *
+ * JUDGE-INDEPENDENCE CONTRACT: QA must only FLAG, never REWRITE. The synthesizer's
+ * self-correction prompt receives `flaggedClaims` / `missingFacts` and owns all
+ * rewriting. Earlier versions of this function did `replaceAll(c.original,
+ * c.corrected)` on the prose — that let the judge author report content (substring
+ * collisions, structured-block corruption) and blurred the line between verify
+ * and generate. The report is now returned UNCHANGED; callers consume the flags.
+ */
 function applyCorrections(data: QaOutputValidated, originalReport: string, modelUsed: string): QaResult {
   const flaggedClaims = data.flagged_claims.map((f) => `[${f.reason}] ${f.claim}: ${f.evidence}`);
   const missingFacts = data.missing_facts.map((f) => `[${f.source}] ${f.fact}`);
-
-  // Preserve the structured blocks (report-header, handoff, action-card).
-  // These are machine-parseable, not free text — textual corrections would
-  // munge them. We strip them, run QA on the prose only, then re-append.
-  const REPORT_HEADER_RE = /^```report-header\s*\n[\s\S]*?\n```\s*\n?/;
-  const HANDOFF_RE = /\n*\n:::handoff\s*\n[\s\S]*?\n:::\s*$/;
-  const ACTION_CARD_RE = /\n*\n```action-card\s*\n[\s\S]*?\n```\s*$/;
-
-  const headerMatch = originalReport.match(REPORT_HEADER_RE);
-  let stripped = originalReport;
-  let headerPrefix = '';
-  if (headerMatch && headerMatch.index !== undefined) {
-    headerPrefix = stripped.slice(0, headerMatch.index + headerMatch[0].length);
-    stripped = stripped.slice(headerMatch.index + headerMatch[0].length);
-  }
-
-  let suffix = '';
-  const cardMatch = stripped.match(ACTION_CARD_RE);
-  if (cardMatch && cardMatch.index !== undefined) {
-    suffix = stripped.slice(cardMatch.index) + suffix;
-    stripped = stripped.slice(0, cardMatch.index);
-  }
-  const handoffMatch = stripped.match(HANDOFF_RE);
-  let cardSuffix = '';
-  if (handoffMatch && handoffMatch.index !== undefined) {
-    cardSuffix = stripped.slice(handoffMatch.index) + suffix;
-    stripped = stripped.slice(0, handoffMatch.index);
-  } else {
-    cardSuffix = suffix;
-  }
-  const proseOnly = stripped;
-
-  // Apply corrections to the prose only (replaceAll for multi-occurrence fixes)
-  let verifiedReport = proseOnly;
-  if (data.corrections.length > 0) {
-    for (const c of data.corrections) {
-      if (c.original && c.corrected && c.original !== c.corrected) {
-        verifiedReport = verifiedReport.replaceAll(c.original, c.corrected);
-      }
-    }
-  }
-
-  // If there are missing facts, append them as a "Additional Intelligence" section
-  if (data.missing_facts.length > 0) {
-    const highImportance = data.missing_facts.filter((f) => f.importance === 'high');
-    if (highImportance.length > 0) {
-      verifiedReport += '\n\n### Additional Intelligence (from QA verification)\n';
-      for (const f of highImportance) {
-        verifiedReport += `- ${f.fact} [Source: ${f.source}]\n`;
-      }
-    }
-  }
-
-  // If hallucinations were found, add inline markers and a summary disclaimer
-  const hallucinations = data.flagged_claims.filter((f) => f.reason === 'hallucinated');
-  if (hallucinations.length > 0) {
-    for (const h of hallucinations) {
-      if (h.claim && verifiedReport.includes(h.claim)) {
-        verifiedReport = verifiedReport.replaceAll(h.claim, `[UNVERIFIED] ${h.claim}`);
-      }
-    }
-    verifiedReport +=
-      '\n\n---\n**QA Note:** ' +
-      hallucinations.length +
-      ' claim(s) marked `[UNVERIFIED]` could not be verified against collected data and may be based on general knowledge rather than investigation findings.';
-  }
-
-  // Re-prepend the structured header and re-append the action-card JSON block
-  verifiedReport = headerPrefix + verifiedReport + cardSuffix;
-
   return {
-    verifiedReport,
+    verifiedReport: originalReport,
     flaggedClaims,
     missingFacts,
     qualityScore: Math.min(100, Math.max(0, data.quality_score)),
