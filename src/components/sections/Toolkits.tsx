@@ -130,7 +130,7 @@ export function Toolkits() {
                   </span>
                 ))}
               </div>
-              <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 dark:group-hover:text-brand-400">
+              <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 group-hover:text-brand-700 dark:text-brand-400 dark:group-hover:text-brand-300 transition-colors">
                 <span>{app.cta}</span>
                 <ArrowUpRight
                   className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
