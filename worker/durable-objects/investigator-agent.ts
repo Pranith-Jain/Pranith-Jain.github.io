@@ -4,7 +4,12 @@ import type { Env as ApiEnv } from '../../api/src/env';
 import type { AgentState, AgentStep, AgentToolResult, AgentToolCall, IocEntry } from '../../api/src/lib/agent/types';
 import { buildToolRegistry } from '../../api/src/lib/agent/tools';
 import { planNextStep } from '../../api/src/lib/agent/planner';
-import { evaluateCtiExit, filterCtiToolCalls, canSynthesizeNow, getDroppedCalls } from '../../api/src/lib/agent/cti-loop';
+import {
+  evaluateCtiExit,
+  filterCtiToolCalls,
+  canSynthesizeNow,
+  getDroppedCalls,
+} from '../../api/src/lib/agent/cti-loop';
 import { observeStep } from '../../api/src/lib/agent/observer';
 import { synthesizeReport, splitSynthOutput } from '../../api/src/lib/agent/synthesizer';
 import { verifyReport } from '../../api/src/lib/agent/qa-verifier';
@@ -34,7 +39,7 @@ import {
   type WorkingMemory,
 } from '../../api/src/lib/agent/agent-framework';
 import { getCachedResult, setCachedResult } from '../../api/src/lib/agent/agent-cache';
-import { suggestAlternative } from '../../api/src/lib/agent/tool-retry';
+import { suggestAlternative, nextActionsFor } from '../../api/src/lib/agent/tool-retry';
 import { saveInvestigationMemory } from '../../api/src/lib/agent/investigation-memory';
 import {
   createCostTracker,
@@ -130,6 +135,15 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
   private costTrackers = new Map<string, InvestigationCost>();
   private degradedToolsCache: { at: number; note: string } | null = null;
   private calibrationHintCache: { at: number; hint: string } | null = null;
+  /**
+   * Transient working-memory cache keyed by investigation id. Invalidated when
+   * the step count changes (state.steps.push), so the 4 call sites that need
+   * working memory (pre-plan, self-correction, memory-save, + private method)
+   * reuse one rebuild per alarm invocation instead of rebuilding 4×. Not
+   * serialized — a cache miss falls through to rebuildWorkingMemory, which is
+   * the cross-alarm recovery path.
+   */
+  private workingMemoryCache = new Map<string, { stepCount: number; mem: WorkingMemory }>();
   private connectionAgentIds = new Map<string, string>();
   private ipConnections = new Map<string, number>();
 
@@ -752,11 +766,19 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
           status: 'error',
           error: `Unknown tool: ${call.tool}`,
           durationMs: 0,
+          nextActions: [],
         };
 
       const cached = await getCachedResult(call.tool, call.args);
       if (cached !== null) {
-        return { tool: call.tool, args: call.args, status: 'ok', data: cached, durationMs: 0 };
+        return {
+          tool: call.tool,
+          args: call.args,
+          status: 'ok',
+          data: cached,
+          durationMs: 0,
+          nextActions: nextActionsFor(call.tool, 'ok'),
+        };
       }
 
       const start = Date.now();
@@ -783,7 +805,14 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         ]);
 
         await setCachedResult(call.tool, call.args, data);
-        return { tool: call.tool, args: call.args, status: 'ok', data, durationMs: Date.now() - start };
+        return {
+          tool: call.tool,
+          args: call.args,
+          status: 'ok',
+          data,
+          durationMs: Date.now() - start,
+          nextActions: nextActionsFor(call.tool, 'ok'),
+        };
       } catch (err) {
         const alt = suggestAlternative(call, allToolNames, calledKeys);
         if (alt) {
@@ -799,7 +828,14 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
                 }),
               ]).finally(() => clearTimeout(altTimer));
               await setCachedResult(alt.tool, alt.args, altData);
-              return { tool: alt.tool, args: alt.args, status: 'ok', data: altData, durationMs: Date.now() - altStart };
+              return {
+                tool: alt.tool,
+                args: alt.args,
+                status: 'ok',
+                data: altData,
+                durationMs: Date.now() - altStart,
+                nextActions: nextActionsFor(alt.tool, 'ok'),
+              };
             } catch {
               // Alt also failed — fall through to error
             }
@@ -813,6 +849,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
           status: 'error',
           error: err instanceof Error ? err.message : String(err),
           durationMs: Date.now() - start,
+          nextActions: nextActionsFor(call.tool, 'error'),
         };
       }
     });
@@ -822,7 +859,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       results.push(
         s.status === 'fulfilled'
           ? s.value
-          : { tool: 'unknown', args: {}, status: 'error', error: 'Promise rejected', durationMs: 0 }
+          : { tool: 'unknown', args: {}, status: 'error', error: 'Promise rejected', durationMs: 0, nextActions: [] }
       );
     }
     return results;
@@ -941,12 +978,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         // JUDGE-INDEPENDENCE: extract the provider that generated the report and
         // exclude it from the QA provider chain so the judge is never the same
         // model as the generator. modelUsed is shaped "provider:model".
-        const generatorProvider = result.modelUsed.split(':')[0] as
-          | 'infron'
-          | 'groq'
-          | 'gemini'
-          | 'nvidia'
-          | undefined;
+        const generatorProvider = result.modelUsed.split(':')[0] as 'infron' | 'groq' | 'gemini' | 'nvidia' | undefined;
 
         const qa = await verifyReport(ai, state.query, state.queryType, result.report, state.steps, {
           infronKey,
@@ -1019,12 +1051,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
 
           // QA2 also excludes the generator (the corrected synthesizer's provider)
           // so the second verification is judge-independent of the rewrite.
-          const correctedProvider = correctedModel.split(':')[0] as
-            | 'infron'
-            | 'groq'
-            | 'gemini'
-            | 'nvidia'
-            | undefined;
+          const correctedProvider = correctedModel.split(':')[0] as 'infron' | 'groq' | 'gemini' | 'nvidia' | undefined;
           const qa2 = await verifyReport(ai, state.query, state.queryType, correctedProse, state.steps, {
             infronKey,
             groqKey,

@@ -74,6 +74,15 @@ export interface AgentToolResult {
   data?: unknown;
   error?: string;
   durationMs: number;
+  /**
+   * Per-tool follow-up hints surfaced to the observer/planner (observation
+   * contract). On success these are the natural next enrichment steps for
+   * the tool's domain (e.g. check_ioc → correlate_iocs, enrich_actor); on
+   * error they are the documented alternatives (mirrors tool-retry.ts).
+   * Deterministic — never LLM-derived — so the observer gets a stable handle
+   * for "what to do next" without parsing raw JSON.
+   */
+  nextActions?: string[];
 }
 
 export interface AgentState {

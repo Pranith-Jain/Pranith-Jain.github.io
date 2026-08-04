@@ -91,6 +91,15 @@ async function runSingleSpecialist(
       const calls = executor.guard
         ? executor.guard(role, plan.toolCalls, { stepNum, maxSteps, steps })
         : plan.toolCalls;
+      // Capture the tool calls the guardrails dropped so the planner can
+      // re-propose legitimate intents next turn (e.g. a third tool dropped
+      // by the per-step cap) instead of silently losing them.
+      const droppedCalls =
+        executor.guard && calls.length < plan.toolCalls.length
+          ? plan.toolCalls.filter(
+              (tc) => !calls.some((c) => c.tool === tc.tool && JSON.stringify(c.args) === JSON.stringify(tc.args))
+            )
+          : undefined;
       if (calls.length === 0) break;
 
       const step: AgentStep = {
@@ -100,6 +109,7 @@ async function runSingleSpecialist(
         results: [],
         status: 'running',
         startedAt: new Date().toISOString(),
+        ...(droppedCalls && droppedCalls.length > 0 ? { droppedCalls } : {}),
       };
 
       step.results = await executor.execute(calls, specialistTools);

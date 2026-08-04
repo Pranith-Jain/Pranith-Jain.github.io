@@ -190,8 +190,11 @@ function parseJsonArray<T>(val: unknown): T[] {
  * This is a query-level guard against substring contamination (e.g. searching
  * for "1.2.3.4" must not match a stored "10.1.2.3.45"). A normalized junction
  * table is the long-term fix; this prevents contamination without a migration.
+ *
+ * Exported for unit testing — the exact-value matching contract must not
+ * silently regress to bare `LIKE '%ioc%'` substring matching.
  */
-function jsonEscapeForLike(value: string): string {
+export function jsonEscapeForLike(value: string): string {
   return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/%/g, '\\%').replace(/_/g, '\\_');
 }
 

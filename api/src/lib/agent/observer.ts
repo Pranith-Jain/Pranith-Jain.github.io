@@ -62,7 +62,8 @@ export async function observeStep(
       .map((r) => {
         const status = r.status === 'ok' ? 'OK' : `ERROR: ${r.error}`;
         const data = r.data ? summarizeToolResult(r.tool, r.data, 1000) : '(no data)';
-        return `- ${r.tool}(${JSON.stringify(r.args)}): ${status}\n  ${data}`;
+        const next = r.nextActions && r.nextActions.length > 0 ? `\n  next_actions: ${r.nextActions.join(', ')}` : '';
+        return `- ${r.tool}(${JSON.stringify(r.args)}): ${status}\n  ${data}${next}`;
       })
       .join('\n');
 
@@ -96,8 +97,7 @@ Analyze these results. What was found? Extract exact values into keyFacts/iocs/a
         // memory persistence knows these facts are heuristic, not analyst-confirmed.
         const usedFallbackForKeyFacts = parsed.data.keyFacts.length === 0 && fallback.keyFacts.length > 0;
         const usedFallbackForGaps = parsed.data.gaps.length === 0 && fallback.gaps.length > 0;
-        const provenance: 'llm' | 'fallback' =
-          usedFallbackForKeyFacts || usedFallbackForGaps ? 'fallback' : 'llm';
+        const provenance: 'llm' | 'fallback' = usedFallbackForKeyFacts || usedFallbackForGaps ? 'fallback' : 'llm';
         return {
           observation: parsed.data.observation || fallback.observation,
           keyFacts: parsed.data.keyFacts.length > 0 ? parsed.data.keyFacts : fallback.keyFacts,
