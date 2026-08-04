@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, serviceUnavailable } from '../lib/api-error';
 import { computeConfidence, SOURCE_RELIABILITY_REGISTRY, type ConfidenceScore } from '../lib/confidence';
 import { readLastGood, writeLastGood } from '../lib/lastgood';
 import { FEED_STATUS_CACHE_KEY } from './feed-status';
@@ -519,7 +520,7 @@ export async function pirDetailHandler(c: Context<{ Bindings: Env }>): Promise<R
   const lg = await readLastGood<Pir[]>(c.env, LASTGOOD_KEY);
   const pirs = lg ?? DEFAULT_PIRS;
   const pir = pirs.find((p) => p.id === id);
-  if (!pir) return c.json({ error: 'PIR not found' }, 404);
+  if (!pir) return notFound(c, 'PIR not found');
   return c.json(pir);
 }
 
@@ -549,7 +550,7 @@ export async function pirCreateHandler(c: Context<{ Bindings: Env }>): Promise<R
   try {
     const body = await c.req.json<Omit<Pir, 'id' | 'created_at' | 'updated_at'>>();
     if (!body.title || !body.consumer || !body.decision) {
-      return c.json({ error: 'title, consumer, and decision are required' }, 400);
+      return badRequest(c, 'title, consumer, and decision are required');
     }
     const now = new Date().toISOString();
     const pir: Pir = {
@@ -574,7 +575,7 @@ export async function pirCreateHandler(c: Context<{ Bindings: Env }>): Promise<R
     return c.json({ ok: true, pir }, 201);
   } catch (e) {
     console.error('pirCreateHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -587,7 +588,7 @@ export async function pirUpdateHandler(c: Context<{ Bindings: Env }>): Promise<R
     const body = await c.req.json<Partial<Omit<Pir, 'id' | 'created_at' | 'updated_at'>>>();
     const pirs = await loadPirs(c.env);
     const idx = pirs.findIndex((p) => p.id === id);
-    if (idx === -1) return c.json({ error: 'PIR not found' }, 404);
+    if (idx === -1) return notFound(c, 'PIR not found');
     const existing = pirs[idx]!;
     const updated: Pir = {
       ...existing,
@@ -601,7 +602,7 @@ export async function pirUpdateHandler(c: Context<{ Bindings: Env }>): Promise<R
     return c.json({ ok: true, pir: updated });
   } catch (e) {
     console.error('pirUpdateHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -613,13 +614,13 @@ export async function pirDeleteHandler(c: Context<{ Bindings: Env }>): Promise<R
     const id = c.req.param('id');
     const pirs = await loadPirs(c.env);
     const idx = pirs.findIndex((p) => p.id === id);
-    if (idx === -1) return c.json({ error: 'PIR not found' }, 404);
+    if (idx === -1) return notFound(c, 'PIR not found');
     pirs.splice(idx, 1);
     await savePirs(c.env, pirs);
     return c.json({ ok: true, deleted: id });
   } catch (e) {
     console.error('pirDeleteHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -655,7 +656,7 @@ export async function pirRoutingHandler(c: Context<{ Bindings: Env }>): Promise<
     );
   } catch (e) {
     console.error('pirRoutingHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -785,7 +786,7 @@ export async function pirAlertHandler(c: Context<{ Bindings: Env }>): Promise<Re
     });
   } catch (e) {
     console.error('pirAlertHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -808,7 +809,7 @@ export async function pirAlertListHandler(c: Context<{ Bindings: Env }>): Promis
     });
   } catch (e) {
     console.error('pirAlertListHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -819,11 +820,11 @@ export async function pirAlertAckHandler(c: Context<{ Bindings: Env }>): Promise
   try {
     const alertId = c.req.param('id');
     const kv = c.env.KV_CACHE;
-    if (!kv) return c.json({ error: 'KV not available' }, 503);
+    if (!kv) return serviceUnavailable(c, 'KV not available');
     const raw = await readPirAlertsShadowed(kv);
     const alerts: PirAlert[] = (raw as PirAlert[]) ?? [];
     const alert = alerts.find((a) => a.id === alertId);
-    if (!alert) return c.json({ error: 'Alert not found' }, 404);
+    if (!alert) return notFound(c, 'Alert not found');
     const updated: PirAlert = {
       id: alert.id,
       pir_id: alert.pir_id,
@@ -843,7 +844,7 @@ export async function pirAlertAckHandler(c: Context<{ Bindings: Env }>): Promise
     return c.json({ acknowledged: true, alert: updated });
   } catch (e) {
     console.error('pirAlertAckHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -853,7 +854,7 @@ export async function pirAlertAckHandler(c: Context<{ Bindings: Env }>): Promise
 export async function pirAlertAckAllHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const kv = c.env.KV_CACHE;
-    if (!kv) return c.json({ error: 'KV not available' }, 503);
+    if (!kv) return serviceUnavailable(c, 'KV not available');
     const raw = await readPirAlertsShadowed(kv);
     const alerts: PirAlert[] = (raw as PirAlert[]) ?? [];
     if (alerts.length === 0) return c.json({ acknowledged: 0 });
@@ -865,7 +866,7 @@ export async function pirAlertAckAllHandler(c: Context<{ Bindings: Env }>): Prom
     return c.json({ acknowledged: newlyAcknowledged });
   } catch (e) {
     console.error('pirAlertAckAllHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -904,6 +905,6 @@ export async function pirRelevantHandler(c: Context<{ Bindings: Env }>): Promise
     return c.json({ query: c.req.query('q'), results }, 200, { 'Cache-Control': 'public, max-age=120' });
   } catch (e) {
     console.error('pirRelevantHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

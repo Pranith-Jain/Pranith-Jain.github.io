@@ -1,4 +1,5 @@
 import type { Context } from 'hono';
+import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 import {
   addWatch,
   listWatches,
@@ -38,22 +39,22 @@ export async function iocWatchlistCreateHandler(c: Context): Promise<Response> {
     notes?: string;
   };
 
-  if (!body.indicator?.trim()) return c.json({ error: 'indicator required' }, 400);
+  if (!body.indicator?.trim()) return badRequest(c, 'indicator required');
   if (!body.indicator_type || !VALID_TYPES.has(body.indicator_type)) {
-    return c.json({ error: `indicator_type must be one of: ${[...VALID_TYPES].join(', ')}` }, 400);
+    return badRequest(c, `indicator_type must be one of: ${[...VALID_TYPES].join(', ')}`);
   }
   if (body.alert_channel && !VALID_CHANNELS.has(body.alert_channel)) {
-    return c.json({ error: `alert_channel must be one of: ${[...VALID_CHANNELS].join(', ')}` }, 400);
+    return badRequest(c, `alert_channel must be one of: ${[...VALID_CHANNELS].join(', ')}`);
   }
   if (body.tlp && !VALID_TLP.has(body.tlp)) {
-    return c.json({ error: `tlp must be one of: ${[...VALID_TLP].join(', ')}` }, 400);
+    return badRequest(c, `tlp must be one of: ${[...VALID_TLP].join(', ')}`);
   }
   if (body.min_confidence !== undefined && (body.min_confidence < 0 || body.min_confidence > 100)) {
-    return c.json({ error: 'min_confidence must be 0-100' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'min_confidence must be 0-100');
   }
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const entry = await addWatch(db, {
     indicator: body.indicator,
@@ -73,12 +74,12 @@ export async function iocWatchlistCreateHandler(c: Context): Promise<Response> {
 export async function iocWatchlistListHandler(c: Context): Promise<Response> {
   const type = c.req.query('type');
   if (type && !VALID_TYPES.has(type)) {
-    return c.json({ error: `type must be one of: ${[...VALID_TYPES].join(', ')}` }, 400);
+    return badRequest(c, `type must be one of: ${[...VALID_TYPES].join(', ')}`);
   }
   const limit = Math.min(parseInt(c.req.query('limit') ?? '100', 10) || 100, 500);
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const watches = await listWatches(db, { type: type as IocType | undefined, limit });
   return c.json({ watches, count: watches.length });
@@ -87,26 +88,26 @@ export async function iocWatchlistListHandler(c: Context): Promise<Response> {
 export async function iocWatchlistGetHandler(c: Context): Promise<Response> {
   const idParam = c.req.param('id');
   const id = idParam ? parseInt(idParam, 10) : NaN;
-  if (isNaN(id)) return c.json({ error: 'invalid id' }, 400);
+  if (isNaN(id)) return badRequest(c, 'invalid id');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const watch = await getWatch(db, id);
-  if (!watch) return c.json({ error: 'not found' }, 404);
+  if (!watch) return notFound(c, 'not found');
   return c.json(watch);
 }
 
 export async function iocWatchlistDeleteHandler(c: Context): Promise<Response> {
   const idParam = c.req.param('id');
   const id = idParam ? parseInt(idParam, 10) : NaN;
-  if (isNaN(id)) return c.json({ error: 'invalid id' }, 400);
+  if (isNaN(id)) return badRequest(c, 'invalid id');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const removed = await removeWatch(db, id);
-  if (!removed) return c.json({ error: 'not found' }, 404);
+  if (!removed) return notFound(c, 'not found');
   return c.json({ deleted: true });
 }
 
@@ -114,14 +115,14 @@ export async function iocWatchlistAlertsHandler(c: Context): Promise<Response> {
   const watchIdRaw = c.req.query('watch_id');
   const watchId = watchIdRaw ? parseInt(watchIdRaw, 10) : undefined;
   if (watchId !== undefined && isNaN(watchId)) {
-    return c.json({ error: 'invalid watch_id' }, 400);
+    return badRequest(c, 'invalid watch_id');
   }
   const indicator = c.req.query('indicator');
   const since = c.req.query('since');
   const limit = Math.min(parseInt(c.req.query('limit') ?? '50', 10) || 50, 200);
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const alerts = await listAlerts(db, { watchId, indicator, since, limit });
   return c.json({ alerts, count: alerts.length });
@@ -129,7 +130,7 @@ export async function iocWatchlistAlertsHandler(c: Context): Promise<Response> {
 
 export async function iocWatchlistStatsHandler(c: Context): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const stats = await getWatchlistStats(db);
   return c.json(stats);

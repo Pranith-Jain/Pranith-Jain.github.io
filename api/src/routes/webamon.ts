@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { ContentfulStatusCode } from 'hono/utils/http-status';
 import type { Env } from '../env';
 import { badRequest, notFound, internalError, badGateway } from '../lib/api-error';
+import { badRequest, notFound, internalError, badGateway } from '../lib/api-error';
 
 const WEBAMON_SEARCH = 'https://search.webamon.com';
 const TIMEOUT = 20_000;
@@ -81,7 +82,7 @@ async function webamonFetch(path: string, retries = 2): Promise<Response | null>
 
 export async function webamonSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const search = c.req.query('search')?.trim();
-  if (!search) return c.json({ error: 'missing search query' }, 400);
+  if (!search) return badRequest(c, 'missing search query');
   const results =
     c.req.query('results') ??
     'domain.name,page_title,meta.risk_score,fingerprint.tech,fingerprint.asn,resolved_url,tag,sub_domain';
@@ -101,10 +102,10 @@ export async function webamonSearchHandler(c: Context<{ Bindings: Env }>): Promi
     } else if (!res && attempt < 2) {
       await new Promise((r) => setTimeout(r, 600 * attempt));
     } else {
-      return c.json({ error: 'webamon upstream error', upstream_status: res?.status ?? 502 }, 502);
+      return badGateway(c, `webamon upstream error (status ${res?.status ?? 502})`);
     }
   }
-  return c.json({ error: 'webamon upstream error' }, 502);
+  return badGateway(c, 'webamon upstream error');
 }
 
 /* ─── Scan (public via search.webamon.com/scan) ──────────────────────────── */
@@ -112,9 +113,9 @@ export async function webamonSearchHandler(c: Context<{ Bindings: Env }>): Promi
 export async function webamonScanHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = (await c.req.json<{ submission_url?: string }>().catch(() => ({}))) as { submission_url?: string };
-    if (!body.submission_url) return c.json({ error: 'missing submission_url' }, 400);
+    if (!body.submission_url) return badRequest(c, 'missing submission_url');
     const res = await webamonFetch(`/scan?submission_url=${encodeURIComponent(body.submission_url)}`);
-    if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
+    if (!res) return badGateway(c, 'webamon upstream unreachable');
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
@@ -131,9 +132,9 @@ export async function webamonScanHandler(c: Context<{ Bindings: Env }>): Promise
 export async function webamonReportsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const q = c.req.query('q') ?? '';
-    if (!q) return c.json({ error: 'missing search query (q)' }, 400);
+    if (!q) return badRequest(c, 'missing search query (q)');
     const res = await webamonFetch(`/search?lucene_query=${encodeURIComponent(q)}&index=scans&size=20`);
-    if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
+    if (!res) return badGateway(c, 'webamon upstream unreachable');
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
@@ -151,7 +152,7 @@ export async function webamonReportHandler(c: Context<{ Bindings: Env }>): Promi
     const res = await webamonFetch(
       `/search?lucene_query=${encodeURIComponent(`report_id:"${id}"`)}&index=scans&results=domain.name,page_title,report_id,meta,resolved_url,tag,sub_domain,certificate,server,cookie,technology,resource,page_links,page_scripts,fingerprint,monitor,dom,scan_status,scan_time,submission_url,submission_utc,completion_utc,errors,feed,engine_id,resolved_domain,resolved_sub_domain,resolved_tld,save_resources,source,tld,domain_name&size=1`
     );
-    if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
+    if (!res) return badGateway(c, 'webamon upstream unreachable');
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
@@ -168,9 +169,9 @@ export async function webamonReportHandler(c: Context<{ Bindings: Env }>): Promi
 export async function webamonScreenshotHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const id = c.req.param('id');
-    if (!id) return c.json({ error: 'missing report id' }, 400);
+    if (!id) return badRequest(c, 'missing report id');
     const res = await webamonFetch(`/screenshot?report_id=${encodeURIComponent(id)}`);
-    if (!res) return c.json({ error: 'screenshot not found' }, 404);
+    if (!res) return notFound(c, 'screenshot not found');
     const data = await res.json();
     const screenshot = (data as { report?: { screenshot?: string } })?.report?.screenshot;
     if (screenshot) {
@@ -183,7 +184,7 @@ export async function webamonScreenshotHandler(c: Context<{ Bindings: Env }>): P
         headers: { 'content-type': 'image/png', 'cache-control': 'public, max-age=86400' },
       });
     }
-    return c.json({ error: 'no screenshot in response' }, 404);
+    return notFound(c, 'no screenshot in response');
   } catch (err) {
     console.error('webamonScreenshotHandler failed:', err instanceof Error ? err.message : String(err));
     return c.json(
@@ -198,11 +199,11 @@ export async function webamonScreenshotHandler(c: Context<{ Bindings: Env }>): P
 export async function webamonDomainHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const name = c.req.param('name');
-    if (!name) return c.json({ error: 'missing domain name' }, 400);
+    if (!name) return badRequest(c, 'missing domain name');
     const res = await webamonFetch(
       `/search?search=${encodeURIComponent(name)}&results=domain.name,resolved_url,page_title,meta.risk_score,meta.report_id,fingerprint.asn,fingerprint.tech,tag,sub_domain&size=20`
     );
-    if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
+    if (!res) return badGateway(c, 'webamon upstream unreachable');
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
@@ -220,7 +221,7 @@ export async function webamonServerHandler(c: Context<{ Bindings: Env }>): Promi
     const res = await webamonFetch(
       `/search?lucene_query=${encodeURIComponent(`ip:${ip}`)}&index=servers&results=ip,domain.name&size=20`
     );
-    if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
+    if (!res) return badGateway(c, 'webamon upstream unreachable');
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
@@ -238,11 +239,11 @@ export async function webamonResourceHandler(c: Context<{ Bindings: Env }>): Pro
     const res = await webamonFetch(
       `/search?lucene_query=${encodeURIComponent(`sha256:${sha256}`)}&index=resources&size=20`
     );
-    if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
+    if (!res) return badGateway(c, 'webamon upstream unreachable');
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (_catchErr) {
     console.error('webamonResourceHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'internal_error', message: 'resource handler failed' }, 500);
+    return internalError(c, 'resource handler failed');
   }
 }

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, internalError } from '../lib/api-error';
 import { requireAdmin } from '../lib/admin-auth';
 import type { TelegramFeedItem } from './telegram-feed';
 import { fetchHtml, fetchTelegramFeed, parseChannelHtml } from './telegram-feed';
@@ -527,7 +528,7 @@ export async function scrapeWatchedChannels(
 
 export async function telegramLeakSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'D1 not configured' }, 500);
+  if (!db) return internalError(c, 'D1 not configured');
 
   const q = c.req.query('q');
   const channel = c.req.query('channel');
@@ -572,13 +573,13 @@ export async function telegramLeakSearchHandler(c: Context<{ Bindings: Env }>): 
     );
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'query failed' }, 500);
+    return internalError(c, e instanceof Error ? e.message : 'query failed');
   }
 }
 
 export async function telegramDiscoveredChannelsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'D1 not configured' }, 500);
+  if (!db) return internalError(c, 'D1 not configured');
 
   const reviewed = c.req.query('reviewed');
   let sql = 'SELECT * FROM telegram_discovered_channels';
@@ -600,13 +601,13 @@ export async function telegramDiscoveredChannelsHandler(c: Context<{ Bindings: E
     return c.json({ channels: results }, 200, { 'Cache-Control': 'public, max-age=60' });
   } catch (e) {
     console.error('telegramDiscoveredChannelsHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'query failed' }, 500);
+    return internalError(c, e instanceof Error ? e.message : 'query failed');
   }
 }
 
 export async function telegramWatchedChannelsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'D1 not configured' }, 500);
+  if (!db) return internalError(c, 'D1 not configured');
 
   try {
     const { results } = await db
@@ -615,7 +616,7 @@ export async function telegramWatchedChannelsHandler(c: Context<{ Bindings: Env 
     return c.json({ channels: results }, 200);
   } catch (e) {
     console.error('telegramWatchedChannelsHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'query failed' }, 500);
+    return internalError(c, e instanceof Error ? e.message : 'query failed');
   }
 }
 
@@ -624,11 +625,11 @@ export async function telegramApproveChannelHandler(c: Context<{ Bindings: Env }
   if ('error' in gate) return gate.error;
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'D1 not configured' }, 500);
+  if (!db) return internalError(c, 'D1 not configured');
 
   const body = (await c.req.json()) as { handle?: string; category?: string };
   const handle = body.handle;
-  if (!handle) return c.json({ error: 'handle required' }, 400);
+  if (!handle) return badRequest(c, 'handle required');
 
   const category = body.category || 'auto-discovered';
 
@@ -663,7 +664,7 @@ export async function telegramApproveChannelHandler(c: Context<{ Bindings: Env }
     return c.json({ ok: true, handle, category }, 200);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'failed' }, 500);
+    return internalError(c, e instanceof Error ? e.message : 'failed');
   }
 }
 
@@ -680,11 +681,11 @@ export async function telegramRejectChannelHandler(c: Context<{ Bindings: Env }>
   if ('error' in gate) return gate.error;
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'D1 not configured' }, 500);
+  if (!db) return internalError(c, 'D1 not configured');
 
   const body = (await c.req.json()) as { handle?: string };
   const handle = body.handle;
-  if (!handle) return c.json({ error: 'handle required' }, 400);
+  if (!handle) return badRequest(c, 'handle required');
 
   try {
     const res = await db
@@ -719,7 +720,7 @@ export async function telegramRejectChannelHandler(c: Context<{ Bindings: Env }>
     return c.json({ ok: true, handle, rows: res.meta?.changes ?? 0 }, 200);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'failed' }, 500);
+    return internalError(c, e instanceof Error ? e.message : 'failed');
   }
 }
 
@@ -727,7 +728,7 @@ export async function telegramRejectChannelHandler(c: Context<{ Bindings: Env }>
 
 export async function telegramLeakStatsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'D1 not configured' }, 500);
+  if (!db) return internalError(c, 'D1 not configured');
 
   try {
     const [total, severityDist, topChannels, topDomains, recent24h] = await Promise.all([
@@ -791,7 +792,7 @@ export async function telegramLeakStatsHandler(c: Context<{ Bindings: Env }>): P
     );
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'stats failed' }, 500);
+    return internalError(c, e instanceof Error ? e.message : 'stats failed');
   }
 }
 
@@ -810,7 +811,7 @@ export async function cleanupLeakEntries(db: D1Database, maxAgeDays = 30): Promi
 export async function telegramLeakScanTriggerHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
   const kv = c.env.KV_CACHE;
-  if (!db) return c.json({ error: 'D1 not configured' }, 500);
+  if (!db) return internalError(c, 'D1 not configured');
 
   try {
     const feed = await fetchTelegramFeed(kv, c.env);
@@ -824,7 +825,7 @@ export async function telegramLeakScanTriggerHandler(c: Context<{ Bindings: Env 
     });
   } catch (e) {
     console.error('telegramLeakScanTriggerHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -832,7 +833,7 @@ export async function telegramLeakScanTriggerHandler(c: Context<{ Bindings: Env 
 
 export async function telegramLeakGeoHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'D1 not configured' }, 500);
+  if (!db) return internalError(c, 'D1 not configured');
 
   try {
     const rows = (await db
@@ -926,6 +927,6 @@ export async function telegramLeakGeoHandler(c: Context<{ Bindings: Env }>): Pro
     );
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'geo failed' }, 500);
+    return internalError(c, e instanceof Error ? e.message : 'geo failed');
   }
 }
