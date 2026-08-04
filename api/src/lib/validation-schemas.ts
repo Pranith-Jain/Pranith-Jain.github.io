@@ -700,21 +700,25 @@ export const noveltyBatchSchema = z.object({
 
 // Handler (campaign-lifecycle.ts) reads indicators[] as OBJECTS {value,type,...}
 // (required) + name?/actor?.
-export const campaignAnalyzeSchema = z.object({
-  indicators: z
-    .array(
-      z.object({
-        value: z.string().min(1).max(2048),
-        type: z.string().min(1).max(20),
-        first_seen: z.string().max(40).optional(),
-        score: z.number().optional(),
-      })
-    )
-    .min(1, 'indicators array required')
-    .max(500),
-  name: z.string().max(200).optional(),
-  actor: z.string().max(200).optional(),
-});
+export const campaignAnalyzeSchema = z
+  .object({
+    indicators: z
+      .array(
+        z.object({
+          value: z.string().min(1).max(2048),
+          type: z.string().min(1).max(20),
+          first_seen: z.string().max(40).optional(),
+          score: z.number().optional(),
+        })
+      )
+      .max(500)
+      .default([]),
+    name: z.string().max(200).optional(),
+    actor: z.string().max(200).optional(),
+  })
+  .refine((data) => (data.indicators && data.indicators.length > 0) || data.actor, {
+    message: 'indicators array or actor required',
+  });
 
 export const threatIntelEntityExtractSchema = z.object({
   text: z.string().min(1).max(100_000, 'text too long'),

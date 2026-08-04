@@ -302,16 +302,31 @@ export function calculateCampaignMetrics(campaign: Campaign): Campaign['metrics'
 /** POST /api/v1/threat-intel/campaign/analyze */
 export async function campaignAnalyzeHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const body = await c.req.json<{
-    indicators: Array<{ value: string; type: string; first_seen: string; score: number }>;
+    indicators?: Array<{ value: string; type: string; first_seen?: string; score?: number }>;
     name?: string;
     actor?: string;
   }>();
 
-  if (!body.indicators || body.indicators.length === 0) {
-    return c.json({ error: 'indicators array required' }, 400, { 'Cache-Control': 'no-store' });
+  // Normalize indicators: default missing first_seen/score so the tool's
+  // {value, type}-only shape (from analyze_campaign in tools.ts) is accepted.
+  // When called with just an actor and no IOCs, produce an actor-based
+  // campaign skeleton instead of 400ing — the agent often analyzes a campaign
+  // by actor name before IOCs are collected.
+  const rawIndicators = body.indicators ?? [];
+  const indicators = rawIndicators.map((i) => ({
+    value: i.value,
+    type: i.type,
+    first_seen: i.first_seen ?? new Date().toISOString(),
+    score: i.score ?? 50,
+  }));
+
+  if (indicators.length === 0 && !body.actor) {
+    return c.json({ error: 'indicators array or actor required' }, 400, { 'Cache-Control': 'no-store' });
   }
 
-  const phases = detectCampaignPhases(body.indicators);
+  const phases = detectCampaignPhases(indicators);
+  // Normalize 'ipv4'/'ipv6' (what the tool sends) to 'ip' (what the handler filters on).
+  const ipIndicators = indicators.filter((i) => i.type === 'ip' || i.type === 'ipv4' || i.type === 'ipv6');
   const campaign: Campaign = {
     campaign_id: crypto.randomUUID(),
     name: body.name ?? `Campaign-${Date.now()}`,
@@ -319,10 +334,10 @@ export async function campaignAnalyzeHandler(c: Context<{ Bindings: Env }>): Pro
     phases,
     current_phase: phases[phases.length - 1]?.phase ?? 'unknown',
     indicators: {
-      ips: body.indicators.filter((i) => i.type === 'ip').map((i) => i.value),
-      domains: body.indicators.filter((i) => i.type === 'domain').map((i) => i.value),
-      hashes: body.indicators.filter((i) => i.type === 'hash').map((i) => i.value),
-      urls: body.indicators.filter((i) => i.type === 'url').map((i) => i.value),
+      ips: ipIndicators.map((i) => i.value),
+      domains: indicators.filter((i) => i.type === 'domain').map((i) => i.value),
+      hashes: indicators.filter((i) => i.type === 'hash').map((i) => i.value),
+      urls: indicators.filter((i) => i.type === 'url').map((i) => i.value),
       emails: [],
     },
     attribution: {
@@ -339,7 +354,7 @@ export async function campaignAnalyzeHandler(c: Context<{ Bindings: Env }>): Pro
     },
     related_campaigns: [],
     metrics: {
-      total_indicators: body.indicators.length,
+      total_indicators: indicators.length,
       unique_sectors_targeted: 0,
       unique_regions_targeted: 0,
       estimated_victims: 0,
@@ -352,8 +367,8 @@ export async function campaignAnalyzeHandler(c: Context<{ Bindings: Env }>): Pro
       phase: p.phase,
       indicators: p.indicators,
     })),
-    first_seen: body.indicators[0]?.first_seen ?? new Date().toISOString(),
-    last_seen: body.indicators[body.indicators.length - 1]?.first_seen ?? new Date().toISOString(),
+    first_seen: indicators[0]?.first_seen ?? new Date().toISOString(),
+    last_seen: indicators[indicators.length - 1]?.first_seen ?? new Date().toISOString(),
     confidence: 70,
     sources: ['analysis'],
   };
