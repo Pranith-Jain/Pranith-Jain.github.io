@@ -6,6 +6,7 @@ import { sanitizeAiHtml } from '../../lib/sanitize-html';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BookText, Bug, ExternalLink, FileCode, Gauge, Loader2, Copy, Check, ChevronDown } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
+import { Input } from '../../components/ui/Input';
 import { prioritise, TIER_LABELS, TIER_STYLES, TIER_BARS } from '../../lib/dfir/cve-priority';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 import { SEVERITY_TONE, type Severity } from '../../components/severity';
@@ -205,13 +206,13 @@ export default function CveLookup(): JSX.Element {
       <form onSubmit={onSubmit} className="mb-10">
         <div className="flex gap-2">
           <div className="flex-1 relative">
-            <input
+            <Input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="CVE-2021-44228"
               aria-label="CVE ID to look up"
-              className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40 dark:focus:border-brand-400"
+              className="focus-visible:ring-2 focus-visible:ring-brand-500/40"
             />
           </div>
           <button
