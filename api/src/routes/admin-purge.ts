@@ -88,12 +88,12 @@ export async function purgeCacheHandler(c: Context<{ Bindings: Env }>): Promise<
 
     if (!res.ok) {
       const text = await res.text();
-      return c.json({ error: 'purge_failed', message: `CF API ${res.status}: ${text.slice(0, 200)}` }, 502);
+      return badGateway(c, `CF API ${res.status}: ${text.slice(0, 200)}`);
     }
 
     const cfResult = (await res.json()) as { success: boolean; errors: unknown[] };
     if (!cfResult.success) {
-      return c.json({ error: 'purge_failed', message: JSON.stringify(cfResult.errors) }, 502);
+      return badGateway(c, JSON.stringify(cfResult.errors));
     }
 
     auditAdminAction(c, 'cache_purge', {

@@ -70,7 +70,7 @@ export async function copilotPivotHandler(c: Context<{ Bindings: Env }>): Promis
       responseSources?: Array<{ name: string }>;
     }>();
     const query = body.query?.trim();
-    if (!query) return c.json({ error: 'bad_request', message: 'query required' }, 400);
+    if (!query) return badRequest(c, 'query required');
 
     const queryType = body.queryType ?? 'generic';
     const responseContent = body.responseContent ?? query;
@@ -121,6 +121,6 @@ export async function copilotPivotHandler(c: Context<{ Bindings: Env }>): Promis
     return c.json(response);
   } catch (e) {
     console.error('copilotPivotHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: 'internal', message: 'Pivot generation failed' }, 500);
+    return internalError(c, 'Pivot generation failed');
   }
 }

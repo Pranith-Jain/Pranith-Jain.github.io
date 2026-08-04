@@ -33,14 +33,14 @@ export async function ctiParseHandler(c: Context<{ Bindings: Env }>) {
     );
   }
   if (new Blob([text]).size > MAX_BODY_BYTES) {
-    return c.json({ error: 'bundle too large (max 1MB)' }, 413);
+    return payloadTooLarge(c, 'bundle too large (max 1MB)');
   }
   let bundle: unknown;
   try {
     bundle = JSON.parse(text);
   } catch (_catchErr) {
     console.error('ctiParseHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'invalid JSON', hint: 'request body must be a STIX 2.1 bundle in JSON form' }, 400);
+    return badRequest(c, 'invalid JSON: request body must be a STIX 2.1 bundle in JSON form');
   }
   // Quick shape check before handing to the parser, so users get a clear message.
   if (

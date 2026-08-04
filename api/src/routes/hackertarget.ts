@@ -24,7 +24,7 @@ function makeHandler(endpoint: string, cacheKeyPrefix: string) {
   return async (c: Context<{ Bindings: Env }>): Promise<Response> => {
     const q = c.req.query('q');
     if (!q || q.length > 200)
-      return c.json({ error: 'q parameter required (max 200)' }, 400, { 'Cache-Control': 'no-store' });
+      return badRequest(c, 'q parameter required (max 200)');
 
     const cacheUrl = `https://hackertarget-cache.internal/v2-${cacheKeyPrefix}-${encodeURIComponent(q)}`;
     const cacheReq = new Request(cacheUrl);
@@ -78,9 +78,7 @@ function makeHandler(endpoint: string, cacheKeyPrefix: string) {
           { 'Cache-Control': 'no-store' }
         );
       }
-      return c.json({ error: e instanceof Error ? e.message : 'HackerTarget unreachable' }, 502, {
-        'Cache-Control': 'no-store',
-      });
+      return badGateway(c, e instanceof Error ? e.message : 'HackerTarget unreachable');
     }
   };
 }

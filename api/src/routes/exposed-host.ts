@@ -200,10 +200,10 @@ export async function exposedHostHandler(c: Context<{ Bindings: Env }>): Promise
 
   // Block private IPs
   if (ipv4Match && PRIVATE_IPV4.test(ip)) {
-    return c.json({ error: 'blocked', message: 'Cannot scan private/reserved IP ranges' }, 403);
+    return forbidden(c, 'Cannot scan private/reserved IP ranges');
   }
   if (ipv6Match && isPrivateIpv6(ip)) {
-    return c.json({ error: 'blocked', message: 'Cannot scan private/reserved IP ranges' }, 403);
+    return forbidden(c, 'Cannot scan private/reserved IP ranges');
   }
 
   const start = Date.now();
