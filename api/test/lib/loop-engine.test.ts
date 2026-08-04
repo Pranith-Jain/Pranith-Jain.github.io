@@ -3,6 +3,7 @@ import type { AgentStep, AgentToolCall } from '../../src/lib/agent/types';
 import {
   evaluateCtiExit,
   filterCtiToolCalls,
+  getDroppedCalls,
   countOkResults,
   BANNED_TOOLS,
   MAX_TOOLS_PER_STEP,
@@ -204,5 +205,91 @@ describe('CTI guardrails — new structural enforcement (banned + max-per-step)'
     const got = filterCtiToolCalls(proposed, view, valid);
     expect(got).toHaveLength(MAX_TOOLS_PER_STEP);
     expect(got.map((c) => c.tool)).toEqual(['check_ioc', 'lookup_cve']);
+  });
+});
+
+describe('getDroppedCalls — surfacing guardrail-rejected intent (fix #3)', () => {
+  const valid = new Set([...BANNED_TOOLS, 'check_ioc', 'lookup_cve', 'enrich_actor', 'unified_search']);
+  const view: CtiLoopView = { stepNum: 1, maxSteps: 6, steps: [] };
+
+  it('returns the calls dropped by the max-tools-per-step cap', () => {
+    const proposed: AgentToolCall[] = [
+      { tool: 'check_ioc', args: { ioc: 'a' }, reasoning: '1' },
+      { tool: 'lookup_cve', args: { cve: 'b' }, reasoning: '2' },
+      { tool: 'enrich_actor', args: { actor: 'c' }, reasoning: '3 — dropped by cap' },
+    ];
+    const survived = filterCtiToolCalls(proposed, view, valid);
+    const dropped = getDroppedCalls(proposed, view, valid);
+    expect(survived).toHaveLength(MAX_TOOLS_PER_STEP);
+    expect(dropped).toHaveLength(1);
+    expect(dropped[0]!.tool).toBe('enrich_actor');
+    expect(dropped[0]!.args).toEqual({ actor: 'c' });
+  });
+
+  it('returns calls dropped as unknown tools', () => {
+    const proposed: AgentToolCall[] = [
+      { tool: 'check_ioc', args: {}, reasoning: 'ok' },
+      { tool: 'not_a_real_tool', args: {}, reasoning: 'unknown' },
+    ];
+    const dropped = getDroppedCalls(proposed, view, valid);
+    expect(dropped).toHaveLength(1);
+    expect(dropped[0]!.tool).toBe('not_a_real_tool');
+  });
+
+  it('returns calls dropped as banned dump tools', () => {
+    const proposed: AgentToolCall[] = [
+      { tool: 'check_ioc', args: { ioc: 'a' }, reasoning: 'ok' },
+      { tool: 'get_live_iocs', args: {}, reasoning: 'banned dump' },
+    ];
+    const dropped = getDroppedCalls(proposed, view, valid);
+    expect(dropped).toHaveLength(1);
+    expect(dropped[0]!.tool).toBe('get_live_iocs');
+  });
+
+  it('returns calls dropped as duplicate args (prior step)', () => {
+    const steps: AgentStep[] = [
+      {
+        stepNumber: 1,
+        plan: 'p',
+        toolCalls: [],
+        status: 'done',
+        results: [{ tool: 'check_ioc', args: { ioc: '1.1.1.1' }, status: 'ok', durationMs: 1 }],
+      },
+    ];
+    const viewWithPrior: CtiLoopView = { stepNum: 2, maxSteps: 6, steps };
+    const proposed: AgentToolCall[] = [
+      { tool: 'check_ioc', args: { ioc: '1.1.1.1' }, reasoning: 'dup of prior step' },
+      { tool: 'lookup_cve', args: { cve: 'x' }, reasoning: 'new' },
+    ];
+    const dropped = getDroppedCalls(proposed, viewWithPrior, valid);
+    expect(dropped).toHaveLength(1);
+    expect(dropped[0]!.tool).toBe('check_ioc');
+  });
+
+  it('returns empty when nothing is dropped', () => {
+    const proposed: AgentToolCall[] = [
+      { tool: 'check_ioc', args: { ioc: 'a' }, reasoning: '1' },
+      { tool: 'lookup_cve', args: { cve: 'b' }, reasoning: '2' },
+    ];
+    const dropped = getDroppedCalls(proposed, view, valid);
+    expect(dropped).toHaveLength(0);
+  });
+
+  it('is the exact complement of filterCtiToolCalls (no call in both)', () => {
+    const proposed: AgentToolCall[] = [
+      { tool: 'check_ioc', args: { ioc: 'a' }, reasoning: '1' },
+      { tool: 'lookup_cve', args: { cve: 'b' }, reasoning: '2' },
+      { tool: 'enrich_actor', args: { actor: 'c' }, reasoning: '3 — cap' },
+      { tool: 'get_live_iocs', args: {}, reasoning: '4 — banned' },
+      { tool: 'ghost', args: {}, reasoning: '5 — unknown' },
+    ];
+    const survived = filterCtiToolCalls(proposed, view, valid);
+    const dropped = getDroppedCalls(proposed, view, valid);
+    // Every proposed call is in exactly one of the two sets.
+    expect(survived.length + dropped.length).toBe(proposed.length);
+    const survivedKeys = new Set(survived.map((c) => `${c.tool}:${JSON.stringify(c.args)}`));
+    for (const d of dropped) {
+      expect(survivedKeys.has(`${d.tool}:${JSON.stringify(d.args)}`)).toBe(false);
+    }
   });
 });
