@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const QUALITY_SYSTEM = `You are a source reliability analyst. Assess the quality of the given feed sources based on their output.
@@ -29,7 +30,7 @@ interface QualityRequest {
 export async function feedQualityHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<QualityRequest>();
-    if (!body.sources?.length) return c.json({ error: 'no sources' }, 400);
+    if (!body.sources?.length) return badRequest(c, 'no sources');
 
     const sourceList = body.sources
       .map(
@@ -54,6 +55,6 @@ export async function feedQualityHandler(c: Context<{ Bindings: Env }>): Promise
     return c.json({ quality, model, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('feed-quality error:', e);
-    return c.json({ error: 'quality assessment failed' }, 500);
+    return internalError(c, 'quality assessment failed');
   }
 }

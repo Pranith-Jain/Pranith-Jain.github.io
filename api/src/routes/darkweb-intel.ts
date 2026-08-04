@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const DARKWEB_SYSTEM = `You are a dark web intelligence analyst. Given a list of dark web monitoring items (leak site posts, forum discussions, marketplace listings), produce a structured intelligence brief.
@@ -36,7 +37,7 @@ interface DarkwebRequest {
 export async function darkwebIntelHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<DarkwebRequest>();
-    if (!body.items?.length) return c.json({ error: 'no items' }, 400);
+    if (!body.items?.length) return badRequest(c, 'no items');
 
     const list = body.items
       .slice(0, 30)
@@ -62,6 +63,6 @@ export async function darkwebIntelHandler(c: Context<{ Bindings: Env }>): Promis
     return c.json({ intel, model, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('darkweb-intel error:', e);
-    return c.json({ error: 'analysis failed' }, 500);
+    return internalError(c, 'analysis failed');
   }
 }

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 /**
  * Web-Check style domain analysis — HTTP probe, SSL/TLS inspection,
@@ -166,12 +167,12 @@ const BODY_FINGERPRINTS: Array<{ pattern: RegExp; category: string; name: string
 
 export async function domainWebcheckHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const raw = c.req.query('domain')?.trim().toLowerCase();
-  if (!raw) return c.json({ error: 'missing domain' }, 400);
+  if (!raw) return badRequest(c, 'missing domain');
   const domain = raw
     .replace(/^https?:\/\//, '')
     .replace(/\/.*$/, '')
     .replace(/:\d+$/, '');
-  if (!DOMAIN_RE.test(domain)) return c.json({ error: 'invalid domain' }, 400);
+  if (!DOMAIN_RE.test(domain)) return badRequest(c, 'invalid domain');
 
   // Edge cache
   const edgeCache = (caches as unknown as { default: Cache }).default;

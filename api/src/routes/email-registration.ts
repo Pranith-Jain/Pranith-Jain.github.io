@@ -13,6 +13,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 const FETCH_TIMEOUT_MS = 8_000;
 const CACHE_TTL_SECONDS = 30 * 60;
@@ -1019,7 +1020,7 @@ const PLATFORMS: PlatformDef[] = [
 
 export async function emailRegistrationHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const rawEmail = c.req.query('email')?.trim().toLowerCase();
-  if (!rawEmail || !rawEmail.includes('@')) return c.json({ error: 'valid email required' }, 400);
+  if (!rawEmail || !rawEmail.includes('@')) return badRequest(c, 'valid email required');
   const email = rawEmail;
 
   const platformFilter = c.req
@@ -1030,7 +1031,7 @@ export async function emailRegistrationHandler(c: Context<{ Bindings: Env }>): P
     ? PLATFORMS.filter((p) => platformFilter.includes(p.id))
     : PLATFORMS.slice(0, MAX_PLATFORMS);
 
-  if (platforms.length === 0) return c.json({ error: 'no matching platforms' }, 400);
+  if (platforms.length === 0) return badRequest(c, 'no matching platforms');
 
   // Edge cache
   const edgeCache = (caches as unknown as { default: Cache }).default;
