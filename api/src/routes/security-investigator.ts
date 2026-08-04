@@ -401,7 +401,7 @@ export async function siScriptHandler(c: Context<{ Bindings: Env }>) {
   const assets = (c.env as unknown as { ASSETS?: Fetcher }).ASSETS;
   if (!assets) return internalError(c, 'no_assets_binding');
   const body = await mod.getScript(assets, name);
-  if (!body) return notFound(c, 'script_not_found);
+  if (!body) return notFound(c, 'script_not_found');
   // Detect content-type from filename extension for the convenience GET.
   const isMarkdown = name.endsWith('.md');
   const isJson = name.endsWith('.json');
