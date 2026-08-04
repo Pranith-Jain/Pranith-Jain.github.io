@@ -463,6 +463,7 @@ export default function GlobalPulse(): JSX.Element {
   const [severityFilter, setSeverityFilter] = useState<Set<string>>(new Set(['critical', 'high', 'medium', 'low']));
   const [ctiFilter, setCtiFilter] = useState<'all' | 'ransomware' | 'cve' | 'ioc'>('all');
   const loadIdRef = useRef(0);
+  const abortRef = useRef<AbortController | null>(null);
 
   // WebSocket real-time updates
   const { connected: wsConnected, generatedAt: wsGeneratedAt } = useGlobalPulse();
@@ -511,10 +512,19 @@ export default function GlobalPulse(): JSX.Element {
 
   const load = useCallback(async (forceRefresh = false) => {
     const myId = ++loadIdRef.current;
+    // Abort the previous in-flight fetch so a fast succession of refreshes
+    // (WS push + poll firing together, or the user mashing refresh) doesn't
+    // leave orphaned requests whose late responses could race the winner.
+    // loadIdRef already guards setData, but aborting saves the network cost.
+    abortRef.current?.abort();
+    const ctrl = new AbortController();
+    abortRef.current = ctrl;
     setLoading(true);
     setError(null);
     try {
-      const r = await fetch(forceRefresh ? '/api/v1/global-pulse?force=1' : '/api/v1/global-pulse');
+      const r = await fetch(forceRefresh ? '/api/v1/global-pulse?force=1' : '/api/v1/global-pulse', {
+        signal: ctrl.signal,
+      });
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const json: GlobalPulseResponse = await r.json();
 
@@ -526,10 +536,14 @@ export default function GlobalPulse(): JSX.Element {
         } catch {}
       }
     } catch (e) {
+      // AbortError is expected when a newer refresh superseded this one —
+      // not a real error, don't surface it to the UI.
+      if (e instanceof DOMException && e.name === 'AbortError') return;
       console.error('GlobalPulse load failed:', e instanceof Error ? e.message : String(e));
       if (loadIdRef.current === myId) setError((e as Error).message);
     } finally {
       if (loadIdRef.current === myId) setLoading(false);
+      if (abortRef.current === ctrl) abortRef.current = null;
     }
   }, []);
   const [searchQuery, setSearchQuery] = useState('');
@@ -701,6 +715,12 @@ export default function GlobalPulse(): JSX.Element {
       console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
       /* ignore */
     }
+  }, []);
+  // Abort any in-flight refresh on unmount so a late response doesn't
+  // attempt setState on a gone component (loadIdRef already guards it, but
+  // aborting also saves the network + parse cost).
+  useEffect(() => {
+    return () => abortRef.current?.abort();
   }, []);
   useEffect(() => {
     load();

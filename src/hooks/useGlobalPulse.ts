@@ -32,7 +32,7 @@ function buildWsUrl(path: string): string {
   return `${protocol}//${host}${path}`;
 }
 
-export function useGlobalPulse(): GlobalPulseState {
+export function useGlobalPulse(trackEvents = false): GlobalPulseState {
   const [events, setEvents] = useState<PulseSnapshot[]>([]);
   const [generatedAt, setGeneratedAt] = useState('');
   const eventsRef = useRef(events);
@@ -41,24 +41,29 @@ export function useGlobalPulse(): GlobalPulseState {
   const url = useMemo(() => buildWsUrl('/api/v1/ws/global-pulse'), []);
 
   const { connected } = useWebSocket<GlobalPulseMessage>(url, {
-    onMessage: useCallback((msg: GlobalPulseMessage) => {
-      if (msg.type === 'snapshot') {
-        setEvents(msg.events);
-        setGeneratedAt(msg.generated_at);
-      } else if (msg.type === 'update') {
-        setEvents((prev) => {
-          const next = prev.filter((e) => !msg.removed.includes(e.id));
-          const existingIds = new Set(next.map((e) => e.id));
-          for (const added of msg.added) {
-            if (!existingIds.has(added.id)) {
-              next.push(added);
-            }
+    onMessage: useCallback(
+      (msg: GlobalPulseMessage) => {
+        if (msg.type === 'snapshot') {
+          if (trackEvents) setEvents(msg.events);
+          setGeneratedAt(msg.generated_at);
+        } else if (msg.type === 'update') {
+          if (trackEvents) {
+            setEvents((prev) => {
+              const next = prev.filter((e) => !msg.removed.includes(e.id));
+              const existingIds = new Set(next.map((e) => e.id));
+              for (const added of msg.added) {
+                if (!existingIds.has(added.id)) {
+                  next.push(added);
+                }
+              }
+              return next;
+            });
           }
-          return next;
-        });
-        setGeneratedAt(msg.generated_at);
-      }
-    }, []),
+          setGeneratedAt(msg.generated_at);
+        }
+      },
+      [trackEvents]
+    ),
     reconnect: true,
     maxReconnectAttempts: 10,
   });
