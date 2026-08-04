@@ -156,3 +156,20 @@ export function filterCtiToolCalls(
 ): AgentToolCall[] {
   return buildCtiLoopEngine(validToolNames).applyGuardrails(calls, view);
 }
+
+/**
+ * Compute the tool calls the guardrails dropped from a proposed batch — the
+ * complement of {@link filterCtiToolCalls}. Returned in proposed order so the
+ * observer/planner can see which intents were silently rejected (unknown tool,
+ * duplicate args, banned dump tool, or beyond the per-step cap) and re-propose
+ * the legitimate ones on the next turn.
+ */
+export function getDroppedCalls(
+  calls: readonly AgentToolCall[],
+  view: CtiLoopView,
+  validToolNames: Set<string>
+): AgentToolCall[] {
+  const survived = filterCtiToolCalls(calls, view, validToolNames);
+  const survivedKeys = new Set(survived.map((tc) => `${tc.tool}:${JSON.stringify(tc.args ?? {})}`));
+  return calls.filter((tc) => !survivedKeys.has(`${tc.tool}:${JSON.stringify(tc.args ?? {})}`));
+}

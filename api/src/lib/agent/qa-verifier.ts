@@ -48,6 +48,12 @@ export async function verifyReport(
     nvidiaKey?: string;
     googleKey?: string;
     recordUsage?: (model: string, inputText: string, outputText: string, role: string) => void;
+    /**
+     * Provider that GENERATED the report being verified. Excluded from the QA
+     * provider chain so the judge is never the same model as the generator
+     * (judge-independence: a model must not grade its own output).
+     */
+    excludeProvider?: 'infron' | 'groq' | 'gemini' | 'nvidia';
   }
 ): Promise<QaResult> {
   // Use ensemble mode when 2+ providers are available (any of Gemini/Groq/NVIDIA).
@@ -84,6 +90,7 @@ async function singleModelVerifyReport(
     nvidiaKey?: string;
     googleKey?: string;
     recordUsage?: (model: string, inputText: string, outputText: string, role: string) => void;
+    excludeProvider?: 'infron' | 'groq' | 'gemini' | 'nvidia';
   }
 ): Promise<QaResult> {
   // Build a compact summary of all collected data for fact-checking
@@ -110,6 +117,7 @@ async function singleModelVerifyReport(
         quality: true,
         role: 'qa-verifier',
         preferProvider: 'gemini', // Gemini has 1M context — best for long report verification
+        excludeProvider: opts.excludeProvider, // judge-independence: never grade the generator
         recordUsage: opts.recordUsage,
       });
       modelUsed = result.modelUsed;

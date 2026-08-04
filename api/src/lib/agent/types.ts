@@ -53,9 +53,18 @@ export interface AgentStep {
     keyFacts: string[];
     confidence?: 'high' | 'medium' | 'low';
     gaps: string[];
+    /** 'llm' = observer LLM produced these findings; 'fallback' = heuristic stub. */
+    provenance?: 'llm' | 'fallback';
   };
   /** Whether the agent decided to continue or synthesize */
   nextAction?: 'continue' | 'synthesize';
+  /**
+   * Tool calls the planner proposed but the guardrails dropped (unknown
+   * tools, duplicate args, banned dump tools, or calls beyond the per-step
+   * cap). Surfaced to the observer/planner so a dropped intent isn't a silent
+   * gap.
+   */
+  droppedCalls?: AgentToolCall[];
 }
 
 export interface AgentToolResult {

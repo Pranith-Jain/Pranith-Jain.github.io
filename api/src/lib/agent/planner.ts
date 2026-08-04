@@ -50,6 +50,11 @@ export async function planNextStep(
   // Build working memory string from accumulated steps
   const memStr = opts.workingMemory ? memoryToPrompt(opts.workingMemory) : buildMemoryFromSteps(steps);
 
+  // Surface guardrail-dropped calls so the planner can re-propose legitimate
+  // intents next turn (e.g. a third tool dropped by the per-step cap).
+  const droppedNote = droppedCallsNote(steps);
+  const memWithDropped = droppedNote ? `${memStr}\n${droppedNote}` : memStr;
+
   // System prompt: agent identity, constraints, reasoning framework (stable)
   const system = buildPlannerSystemPrompt(tools.length, maxSteps, queryType);
 
@@ -59,7 +64,7 @@ export async function planNextStep(
     queryType,
     currentStep,
     maxSteps,
-    memStr,
+    memWithDropped,
     toolDescriptions,
     opts.specialistContext
   );
@@ -114,6 +119,20 @@ function buildMemoryFromSteps(steps: AgentStep[]): string {
   }
 
   return lines.join('\n');
+}
+
+/**
+ * Build a compact note listing tool calls the guardrails dropped in prior
+ * steps, so the planner can re-propose legitimate intents (e.g. a third tool
+ * dropped by the per-step cap) instead of silently losing them.
+ */
+function droppedCallsNote(steps: AgentStep[]): string {
+  const allDropped = steps
+    .filter((s) => s.droppedCalls && s.droppedCalls.length > 0)
+    .flatMap((s) => s.droppedCalls!.map((c) => ({ step: s.stepNumber, ...c })));
+  if (allDropped.length === 0) return '';
+  const lines = allDropped.map((c) => `  • step ${c.step}: ${c.tool}(${JSON.stringify(c.args ?? {})})`);
+  return `Dropped tool calls (guardrail-rejected; re-propose if still needed):\n${lines.join('\n')}`;
 }
 
 function parsePlannerOutput(raw: string): PlannerOutput {
