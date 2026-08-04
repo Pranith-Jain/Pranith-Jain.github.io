@@ -1,19 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
-import {
-  Activity,
-  ExternalLink,
-  Fingerprint,
-  Globe,
-  RefreshCw,
-  Search,
-  Shield,
-  ShieldAlert,
-  ShieldOff,
-  Star,
-  Zap,
-} from 'lucide-react';
+import { Activity, ExternalLink, Fingerprint, Globe, RefreshCw, Search, ShieldOff, Star, Zap } from 'lucide-react';
 
 interface DarknetSite {
   slug: string;
@@ -25,8 +13,8 @@ interface DarknetSite {
   totalMirrors: number;
   recommended: boolean;
   isOnion: boolean;
-  url?: string | null;
-  onion?: string | null;
+  url: string | null;
+  onion: string | null;
   latencyMs?: number | null;
   httpCode?: string | null;
   pageSize?: string | null;
@@ -60,36 +48,72 @@ interface DarknetIndex {
   sites: DarknetSite[];
 }
 
-const CATEGORY_META: Record<string, { label: string; icon: typeof Shield; color: string }> = {
-  markets: { label: 'Markets', icon: ShieldAlert, color: 'text-rose-600 dark:text-rose-400' },
-  search: { label: 'Search', icon: Search, color: 'text-sky-600 dark:text-sky-400' },
-  forums: { label: 'Forums', icon: Globe, color: 'text-violet-600 dark:text-violet-400' },
-  news: { label: 'News', icon: Globe, color: 'text-amber-600 dark:text-amber-400' },
-  security: { label: 'Security', icon: Shield, color: 'text-emerald-600 dark:text-emerald-400' },
-  communications: { label: 'Comms', icon: Globe, color: 'text-cyan-600 dark:text-cyan-400' },
-  crypto: { label: 'Crypto', icon: Zap, color: 'text-orange-600 dark:text-orange-400' },
-  tools: { label: 'Tools', icon: Shield, color: 'text-indigo-600 dark:text-indigo-400' },
-  ai: { label: 'AI', icon: Activity, color: 'text-fuchsia-600 dark:text-fuchsia-400' },
+const CATEGORY_META: Record<string, { label: string; color: string; pill: string }> = {
+  markets: {
+    label: 'Markets',
+    color: 'text-rose-600 dark:text-rose-400',
+    pill: 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  },
+  search: {
+    label: 'Search',
+    color: 'text-sky-600 dark:text-sky-400',
+    pill: 'border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-300',
+  },
+  forums: {
+    label: 'Forums',
+    color: 'text-violet-600 dark:text-violet-400',
+    pill: 'border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300',
+  },
+  news: {
+    label: 'News',
+    color: 'text-amber-600 dark:text-amber-400',
+    pill: 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  },
+  security: {
+    label: 'Security',
+    color: 'text-emerald-600 dark:text-emerald-400',
+    pill: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  },
+  communications: {
+    label: 'Comms',
+    color: 'text-cyan-600 dark:text-cyan-400',
+    pill: 'border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  },
+  crypto: {
+    label: 'Crypto',
+    color: 'text-orange-600 dark:text-orange-400',
+    pill: 'border-orange-500/30 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+  },
+  tools: {
+    label: 'Tools',
+    color: 'text-indigo-600 dark:text-indigo-400',
+    pill: 'border-indigo-500/30 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300',
+  },
+  ai: {
+    label: 'AI',
+    color: 'text-fuchsia-600 dark:text-fuchsia-400',
+    pill: 'border-fuchsia-500/30 bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300',
+  },
 };
 
 function StatusBadge({ status }: { status: DarknetSite['status'] }) {
   if (status === 'up') {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:text-emerald-300">
-        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> ONLINE
+      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-micro font-mono rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> ONLINE
       </span>
     );
   }
   if (status === 'down') {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full border border-rose-500/30 bg-rose-500/10 px-2 py-0.5 text-xs font-medium text-rose-700 dark:text-rose-300">
-        <span className="h-1.5 w-1.5 rounded-full bg-rose-500" /> DOWN
+      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-micro font-mono rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300">
+        <span className="w-1.5 h-1.5 rounded-full bg-rose-500" /> DOWN
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 rounded-full border border-slate-500/30 bg-slate-500/10 px-2 py-0.5 text-xs font-medium text-slate-600 dark:text-slate-400">
-      <span className="h-1.5 w-1.5 rounded-full bg-slate-500" /> UNKNOWN
+    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 text-micro font-mono rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500">
+      <span className="w-1.5 h-1.5 rounded-full bg-slate-400" /> UNKNOWN
     </span>
   );
 }
@@ -97,70 +121,79 @@ function StatusBadge({ status }: { status: DarknetSite['status'] }) {
 function SiteCard({ site }: { site: DarknetSite }) {
   const catMeta = CATEGORY_META[site.category] ?? {
     label: site.category,
-    icon: Globe,
-    color: 'text-muted',
+    color: 'text-slate-500',
+    pill: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500',
   };
-  const safeUrl = site.url ? sanitizeUrl(site.url) : null;
+  const safeUrl = sanitizeUrl(site.url);
 
   return (
-    <div className="group relative flex flex-col gap-2 rounded-lg border border-[rgb(var(--border-300))] bg-card p-4 transition-colors hover:border-[rgb(var(--border-400))]">
-      <div className="flex items-start justify-between gap-2">
+    <div
+      className={`rounded-xl border p-4 transition hover:shadow-e1 ${
+        site.status === 'down'
+          ? 'border-rose-200 dark:border-rose-800/40 bg-rose-50/30 dark:bg-rose-900/5'
+          : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))]/50'
+      }`}
+    >
+      <div className="flex items-start justify-between gap-2 mb-1.5">
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <h3 className="truncate font-semibold text-foreground">{site.name}</h3>
+          <div className="flex items-center gap-2 flex-wrap">
+            <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">{site.name}</h3>
             {site.recommended && (
-              <span className="inline-flex items-center gap-0.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 dark:text-amber-300">
-                <Star className="h-3 w-3" /> REC
+              <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-micro font-mono rounded border border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300">
+                <Star className="w-2.5 h-2.5" /> REC
               </span>
             )}
           </div>
-          <div className="mt-0.5 flex items-center gap-2 text-xs text-muted">
-            <span className={`inline-flex items-center gap-1 ${catMeta.color}`}>
-              <catMeta.icon className="h-3 w-3" />
-              {catMeta.label}
-            </span>
-            {site.dwdId && <span className="font-mono">{site.dwdId}</span>}
+          <div className="flex items-center gap-2 text-mini text-slate-500 mt-0.5">
+            <span className={`font-mono ${catMeta.color}`}>{catMeta.label}</span>
+            {site.dwdId && <span className="font-mono opacity-60">{site.dwdId}</span>}
           </div>
         </div>
         <StatusBadge status={site.status} />
       </div>
 
-      {safeUrl && (
+      {/* Onion URL — the primary value the user asked to surface */}
+      {safeUrl ? (
         <a
           href={safeUrl}
           target="_blank"
           rel="noopener noreferrer nofollow"
-          className="flex items-center gap-1 truncate text-xs text-sky-600 hover:underline dark:text-sky-400"
+          className="flex items-center gap-1 mt-1 mb-2 text-xs text-rose-600 dark:text-rose-400 hover:underline"
+          title={site.url ?? undefined}
         >
-          <ExternalLink className="h-3 w-3 shrink-0" />
+          <ExternalLink className="w-3 h-3 shrink-0" />
           <span className="truncate font-mono">{site.onion ?? site.url}</span>
         </a>
-      )}
+      ) : site.onion ? (
+        <div className="flex items-center gap-1 mt-1 mb-2 text-xs text-slate-400">
+          <ShieldOff className="w-3 h-3 shrink-0" />
+          <span className="truncate font-mono">{site.onion}</span>
+        </div>
+      ) : null}
 
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
-        <span className="inline-flex items-center gap-1">
-          <Activity className="h-3 w-3" />
+      <div className="flex items-center gap-2 flex-wrap text-mini text-slate-500 dark:text-slate-400">
+        <span className="flex items-center gap-1">
+          <Activity className="w-2.5 h-2.5" />
           {site.upMirrors}/{site.totalMirrors} mirrors
         </span>
         {site.latencyMs != null && (
-          <span className="inline-flex items-center gap-1">
-            <Zap className="h-3 w-3" />
+          <span className="flex items-center gap-1">
+            <Zap className="w-2.5 h-2.5" />
             {site.latencyMs}ms
           </span>
         )}
-        {site.httpCode && site.httpCode !== 'n/a' && (
-          <span className="font-mono">HTTP {site.httpCode}</span>
-        )}
+        {site.httpCode && site.httpCode !== 'n/a' && <span className="font-mono">HTTP {site.httpCode}</span>}
         {site.pageSize && <span>{site.pageSize}</span>}
         {site.fingerprint && (
-          <span className="inline-flex items-center gap-1 font-mono">
-            <Fingerprint className="h-3 w-3" />
+          <span className="flex items-center gap-1 font-mono">
+            <Fingerprint className="w-2.5 h-2.5" />
             {site.fingerprint}
           </span>
         )}
         {site.isOnion && (
-          <span className="inline-flex items-center gap-1 text-violet-600 dark:text-violet-400">
-            <ShieldOff className="h-3 w-3" />.onion
+          <span className="flex items-center gap-1 text-violet-600 dark:text-violet-400">
+            <ShieldOff className="w-2.5 h-2.5" />
+            .onion
           </span>
         )}
       </div>
@@ -184,7 +217,6 @@ export default function DarknetList(): JSX.Element {
       const res = await fetch('/api/v1/threat-intel/darknet');
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = (await res.json()) as DarknetIndex;
-      // Fetch full site list with details
       const sitesRes = await fetch('/api/v1/threat-intel/darknet/sites?limit=500');
       if (sitesRes.ok) {
         const sitesJson = (await sitesRes.json()) as { sites: DarknetSite[] };
@@ -210,7 +242,7 @@ export default function DarknetList(): JSX.Element {
       if (statusFilter !== 'all' && s.status !== statusFilter) return false;
       if (recommendedOnly && !s.recommended) return false;
       if (needle) {
-        const hay = `${s.name} ${s.dwdId ?? ''} ${s.category}`.toLowerCase();
+        const hay = `${s.name} ${s.dwdId ?? ''} ${s.category} ${s.onion ?? ''} ${s.url ?? ''}`.toLowerCase();
         if (!hay.includes(needle)) return false;
       }
       return true;
@@ -220,9 +252,7 @@ export default function DarknetList(): JSX.Element {
   const categoryCounts = useMemo(() => {
     if (!data) return new Map<string, number>();
     const m = new Map<string, number>();
-    for (const s of data.sites) {
-      m.set(s.category, (m.get(s.category) ?? 0) + 1);
-    }
+    for (const s of data.sites) m.set(s.category, (m.get(s.category) ?? 0) + 1);
     return m;
   }, [data]);
 
@@ -230,29 +260,29 @@ export default function DarknetList(): JSX.Element {
     <DataPageLayout
       backTo="/threatintel/darkweb"
       backLabel="Dark Web"
-      icon={<Globe className="h-5 w-5" />}
+      icon={<Globe size={28} />}
       title="Darknet Directory"
       description={
-        <span>
+        <>
           A live directory of Tor-accessible sites from{' '}
           <a
             href="https://darknetlist.is/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sky-600 hover:underline dark:text-sky-400"
+            className="text-rose-600 dark:text-rose-400 hover:underline"
           >
             darknetlist.is
           </a>
           . A scanner walks the list through a fresh SOCKS circuit every 30 minutes.
-        </span>
+        </>
       }
       headerExtra={
         <button
           onClick={load}
           disabled={loading}
-          className="inline-flex items-center gap-1.5 rounded-md border border-[rgb(var(--border-300))] px-3 py-1.5 text-sm font-medium text-muted transition-colors hover:bg-muted/50 disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-meta font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30 hover:text-rose-600 dark:hover:text-rose-400 transition-colors disabled:opacity-50"
         >
-          <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           Refresh
         </button>
       }
@@ -262,32 +292,39 @@ export default function DarknetList(): JSX.Element {
     >
       {data && (
         <>
-          {/* Stats bar */}
-          <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-            <StatCard label="Sites" value={data.counts.sites} />
-            <StatCard label="Online" value={data.counts.up} tone="emerald" />
-            <StatCard label="Down" value={data.counts.down} tone="rose" />
-            <StatCard label="Recommended" value={data.counts.recommended} tone="amber" />
-            <StatCard label=".onion" value={data.counts.onion} tone="violet" />
-            <StatCard label="Categories" value={data.counts.categories} />
+          {/* Stats */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 mb-5">
+            {[
+              { label: 'Sites', value: data.counts.sites, cls: 'text-slate-500' },
+              { label: 'Online', value: data.counts.up, cls: 'text-emerald-600 dark:text-emerald-400' },
+              { label: 'Down', value: data.counts.down, cls: 'text-rose-600 dark:text-rose-400' },
+              { label: 'Recommended', value: data.counts.recommended, cls: 'text-amber-600 dark:text-amber-400' },
+              { label: '.onion', value: data.counts.onion, cls: 'text-violet-600 dark:text-violet-400' },
+              { label: 'Categories', value: data.counts.categories, cls: 'text-slate-500' },
+            ].map(({ label, value, cls }) => (
+              <div key={label} className="surface-card/50 shadow-e1 p-2.5">
+                <div className="text-mini uppercase tracking-wider mb-0.5 text-slate-500">{label}</div>
+                <div className={`text-lg font-bold ${cls}`}>{value}</div>
+              </div>
+            ))}
           </div>
 
-          {/* Filters */}
-          <div className="mb-4 flex flex-wrap items-center gap-2">
-            <div className="relative flex-1 min-w-[200px]">
-              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+          {/* Search + filters */}
+          <div className="flex flex-col sm:flex-row gap-3 mb-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
               <input
                 type="text"
+                placeholder="Search site name, DWD ID, category, or .onion address…"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search sites by name, DWD ID, or category…"
-                className="w-full rounded-md border border-[rgb(var(--border-300))] bg-card py-2 pl-9 pr-3 text-sm text-foreground placeholder:text-muted focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500"
               />
             </div>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as 'all' | 'up' | 'down')}
-              className="rounded-md border border-[rgb(var(--border-300))] bg-card px-3 py-2 text-sm text-foreground focus:border-sky-500 focus:outline-none"
+              className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
             >
               <option value="all">All status</option>
               <option value="up">Online only</option>
@@ -295,42 +332,70 @@ export default function DarknetList(): JSX.Element {
             </select>
             <button
               onClick={() => setRecommendedOnly((v) => !v)}
-              className={`inline-flex items-center gap-1.5 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
+              className={`px-3 py-2 rounded-xl text-sm font-mono border flex items-center gap-1.5 transition ${
                 recommendedOnly
                   ? 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
-                  : 'border-[rgb(var(--border-300))] text-muted hover:bg-muted/50'
+                  : 'border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-amber-500/30'
               }`}
             >
-              <Star className="h-4 w-4" />
+              <Star className="w-3.5 h-3.5" />
               Recommended
             </button>
           </div>
 
-          {/* Category tabs */}
-          <div className="mb-4 flex flex-wrap gap-1.5">
-            <CategoryTab
-              active={category === 'all'}
+          {/* Category pills */}
+          <div className="flex flex-wrap items-center gap-1.5 mb-4">
+            <span className="text-xs text-slate-500 mr-1 font-mono">category:</span>
+            <button
               onClick={() => setCategory('all')}
-              label="All"
-              count={data.sites.length}
-            />
-            {data.categories.map((cat) => (
-              <CategoryTab
-                key={cat.id}
-                active={category === cat.id}
-                onClick={() => setCategory(cat.id)}
-                label={CATEGORY_META[cat.id]?.label ?? cat.title}
-                count={categoryCounts.get(cat.id) ?? 0}
-              />
-            ))}
+              className={`px-2 py-1 rounded text-xs font-mono font-medium border transition ${
+                category === 'all'
+                  ? 'border-rose-500/60 bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/30'
+              }`}
+            >
+              All <span className="opacity-60">{data.sites.length}</span>
+            </button>
+            {data.categories.map((cat) => {
+              const meta = CATEGORY_META[cat.id];
+              const active = category === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setCategory(cat.id)}
+                  className={`px-2 py-1 rounded text-xs font-mono font-medium border transition ${
+                    active
+                      ? (meta?.pill ?? 'border-rose-500/60 bg-rose-500/10 text-rose-600')
+                      : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-slate-400'
+                  }`}
+                >
+                  {meta?.label ?? cat.title} <span className="opacity-60">{categoryCounts.get(cat.id) ?? 0}</span>
+                </button>
+              );
+            })}
+            {(category !== 'all' || statusFilter !== 'all' || recommendedOnly || query) && (
+              <button
+                onClick={() => {
+                  setCategory('all');
+                  setStatusFilter('all');
+                  setRecommendedOnly(false);
+                  setQuery('');
+                }}
+                className="text-xs text-rose-600 dark:text-rose-400 hover:underline ml-2"
+              >
+                clear
+              </button>
+            )}
           </div>
 
-          {/* Results */}
-          <div className="mb-2 text-sm text-muted">
-            Showing {filtered.length} of {data.sites.length} sites
+          {/* Results count + rebuilt time */}
+          <div className="flex items-center justify-between mb-3 text-xs text-slate-500 dark:text-slate-400 font-mono">
+            <span>
+              Showing {filtered.length} of {data.sites.length} sites
+            </span>
             {data.rebuiltAt && (
-              <span className="ml-2">
-                · rebuilt{' '}
+              <span>
+                rebuilt{' '}
                 {new Date(data.rebuiltAt).toLocaleString(undefined, {
                   dateStyle: 'medium',
                   timeStyle: 'short',
@@ -339,72 +404,23 @@ export default function DarknetList(): JSX.Element {
             )}
           </div>
 
+          {/* Site grid */}
           {filtered.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-[rgb(var(--border-300))] p-12 text-center text-muted">
-              No sites match your filters.
-            </div>
+            <div className="text-center py-12 text-slate-500 font-mono text-sm">No sites match your filters</div>
           ) : (
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((site) => (
                 <SiteCard key={site.slug} site={site} />
               ))}
             </div>
           )}
+
+          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs text-slate-500 dark:text-slate-400 font-mono">
+            Source: darknetlist.is · {data.counts.sites} sites across {data.counts.categories} categories · scanned
+            every 30 min via fresh SOCKS circuit
+          </div>
         </>
       )}
     </DataPageLayout>
-  );
-}
-
-function StatCard({
-  label,
-  value,
-  tone,
-}: {
-  label: string;
-  value: number;
-  tone?: 'emerald' | 'rose' | 'amber' | 'violet';
-}) {
-  const toneClass =
-    tone === 'emerald'
-      ? 'text-emerald-600 dark:text-emerald-400'
-      : tone === 'rose'
-        ? 'text-rose-600 dark:text-rose-400'
-        : tone === 'amber'
-          ? 'text-amber-600 dark:text-amber-400'
-          : tone === 'violet'
-            ? 'text-violet-600 dark:text-violet-400'
-            : 'text-foreground';
-  return (
-    <div className="rounded-lg border border-[rgb(var(--border-300))] bg-card p-3">
-      <div className={`text-2xl font-bold ${toneClass}`}>{value}</div>
-      <div className="text-xs text-muted">{label}</div>
-    </div>
-  );
-}
-
-function CategoryTab({
-  active,
-  onClick,
-  label,
-  count,
-}: {
-  active: boolean;
-  onClick: () => void;
-  label: string;
-  count: number;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium transition-colors ${
-        active
-          ? 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300'
-          : 'border-[rgb(var(--border-300))] text-muted hover:bg-muted/50'
-      }`}
-    >
-      {label}
-      <span className="rounded-full bg-muted/50 px-1.5 text-xs">{count}</span>
-    </button>
   );
 }

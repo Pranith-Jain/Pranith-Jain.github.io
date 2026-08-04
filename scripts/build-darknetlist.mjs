@@ -78,6 +78,8 @@ for (const site of staged.sites) {
     totalMirrors: site.totalMirrors,
     recommended: site.recommended,
     isOnion: body.isOnion,
+    url: body.url,
+    onion: body.onion,
   });
 }
 

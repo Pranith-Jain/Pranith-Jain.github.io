@@ -127,6 +127,8 @@ export interface TiDarknetSiteIndexEntry {
   totalMirrors: number;
   recommended: boolean;
   isOnion: boolean;
+  url: string | null;
+  onion: string | null;
 }
 
 export interface TiDarknetSiteBody extends TiDarknetSiteIndexEntry {
