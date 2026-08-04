@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { IocChip } from '../../components/dfir/IocChip';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { api } from '../../lib/api-client';
 import { Clock, TrendingUp, TrendingDown, Minus, Search, Loader2, Activity, Database, Shield } from 'lucide-react';
 
@@ -195,66 +196,79 @@ export default function IocLifecycle(): JSX.Element {
       {searchType === 'trending' && trending.length > 0 && (
         <div className="surface-card/40 shadow-e1 overflow-hidden animate-fade-in-up">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left">
-                  {['Indicator', 'Type', 'Status', 'Trend', 'Score', 'Obs', 'Last Seen'].map((h) => (
-                    <th
-                      key={h}
-                      scope="col"
-                      className="px-4 py-3 text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400"
-                    >
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {trending.map((ioc) => {
-                  const T = TREND_ICON[ioc.trend] ?? Minus;
-                  return (
-                    <tr
-                      key={ioc.indicator}
-                      className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.2)]"
-                    >
-                      <td className="px-4 py-2.5 max-w-[200px]">
-                        <IocChip
-                          value={ioc.indicator}
-                          bare
-                          size="sm"
-                          pivots={false}
-                          truncate={40}
-                          className="min-w-0"
-                        />
-                      </td>
-                      <td className="px-4 py-2.5">
-                        <span className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500">
-                          {ioc.indicator_type}
-                        </span>
-                      </td>
-                      <td className="px-4 py-2.5">
-                        <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${STATUS_BADGE[ioc.status]}`}>
-                          {ioc.status}
-                        </span>
-                      </td>
-                      <td className="px-4 py-2.5">
-                        <T size={14} className={TREND_COLOR[ioc.trend]} />
-                      </td>
-                      <td className="px-4 py-2.5">
-                        <div className="w-20">
-                          <div className="text-xs font-mono mb-0.5">{ioc.current_score}</div>
-                          <ScoreBar score={ioc.current_score} />
-                        </div>
-                      </td>
-                      <td className="px-4 py-2.5 text-xs font-mono text-slate-500">{ioc.observation_count}</td>
-                      <td className="px-4 py-2.5 text-xs font-mono text-slate-500 dark:text-slate-400">
+            <DataTable
+              columns={
+                [
+                  {
+                    key: 'indicator',
+                    header: 'Indicator',
+                    sortValue: (ioc: IocLifecycle) => ioc.indicator,
+                    render: (ioc) => (
+                      <IocChip value={ioc.indicator} bare size="sm" pivots={false} truncate={40} className="min-w-0" />
+                    ),
+                  },
+                  {
+                    key: 'type',
+                    header: 'Type',
+                    sortValue: (ioc: IocLifecycle) => ioc.indicator_type,
+                    render: (ioc) => (
+                      <span className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500">
+                        {ioc.indicator_type}
+                      </span>
+                    ),
+                  },
+                  {
+                    key: 'status',
+                    header: 'Status',
+                    sortValue: (ioc: IocLifecycle) => ioc.status,
+                    render: (ioc) => (
+                      <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${STATUS_BADGE[ioc.status]}`}>
+                        {ioc.status}
+                      </span>
+                    ),
+                  },
+                  {
+                    key: 'trend',
+                    header: 'Trend',
+                    render: (ioc) => {
+                      const T = TREND_ICON[ioc.trend] ?? Minus;
+                      return <T size={14} className={TREND_COLOR[ioc.trend]} />;
+                    },
+                  },
+                  {
+                    key: 'score',
+                    header: 'Score',
+                    sortValue: (ioc: IocLifecycle) => ioc.current_score,
+                    render: (ioc) => (
+                      <div className="w-20">
+                        <div className="text-xs font-mono mb-0.5">{ioc.current_score}</div>
+                        <ScoreBar score={ioc.current_score} />
+                      </div>
+                    ),
+                  },
+                  {
+                    key: 'obs',
+                    header: 'Obs',
+                    align: 'right',
+                    sortValue: (ioc: IocLifecycle) => ioc.observation_count,
+                    render: (ioc) => <span className="text-xs font-mono text-slate-500">{ioc.observation_count}</span>,
+                  },
+                  {
+                    key: 'last_seen',
+                    header: 'Last Seen',
+                    sortValue: (ioc: IocLifecycle) => ioc.last_seen_hours_ago,
+                    render: (ioc) => (
+                      <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                         {ioc.last_seen_hours_ago < 1 ? 'Just now' : `${ioc.last_seen_hours_ago}h ago`}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                      </span>
+                    ),
+                  },
+                ] as DataTableColumn<IocLifecycle>[]
+              }
+              rows={trending}
+              rowKey={(ioc) => ioc.indicator}
+              rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.2)]'}
+            />
           </div>
         </div>
       )}
@@ -275,20 +289,28 @@ export default function IocLifecycle(): JSX.Element {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
             <div>
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">First Seen</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                First Seen
+              </div>
               <div className="text-sm">{new Date(lifecycle.first_seen).toLocaleString()}</div>
             </div>
             <div>
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Last Seen</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Last Seen
+              </div>
               <div className="text-sm">{new Date(lifecycle.last_seen).toLocaleString()}</div>
             </div>
             <div>
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Peak</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Peak
+              </div>
               <div className="text-sm font-mono">{lifecycle.peak_score}</div>
               <ScoreBar score={lifecycle.peak_score} />
             </div>
             <div>
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Current</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Current
+              </div>
               <div className="text-sm font-mono">{lifecycle.current_score}</div>
               <ScoreBar score={lifecycle.current_score} />
             </div>
@@ -310,7 +332,9 @@ export default function IocLifecycle(): JSX.Element {
               </div>
             </div>
             <div>
-              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">Tags</div>
+              <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+                Tags
+              </div>
               <div className="flex flex-wrap gap-1">
                 {lifecycle.tags.map((t) => (
                   <span
@@ -344,7 +368,9 @@ function StatCard({
     <div className="surface-card/40 shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-1.5">
         {icon && <span className={color ?? 'text-slate-500 dark:text-slate-400'}>{icon}</span>}
-        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</span>
+        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          {label}
+        </span>
       </div>
       <div className={`text-2xl font-display font-bold ${color ?? 'text-slate-900 dark:text-white'}`}>
         {(value ?? 0).toLocaleString()}

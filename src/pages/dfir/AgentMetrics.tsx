@@ -1,5 +1,6 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { adminAuthHeaders } from '../../lib/admin-token';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 
 const RelationshipGraph = lazy(() => import('../../components/dfir/RelationshipGraph'));
 
@@ -170,40 +171,47 @@ export default function AgentMetrics(): JSX.Element {
           Top Tools (latency / success)
         </h3>
         <div className="surface-card overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left font-mono text-micro uppercase tracking-wider text-slate-500">
-                <th scope="col" className="px-3 py-2">
-                  Tool
-                </th>
-                <th scope="col" className="px-3 py-2 text-right">
-                  Calls
-                </th>
-                <th scope="col" className="px-3 py-2 text-right">
-                  Avg ms
-                </th>
-                <th scope="col" className="px-3 py-2 text-right">
-                  Success
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.topTools.map((t) => (
-                <tr key={t.tool} className="border-b border-slate-100 dark:border-[rgb(var(--border-400)/0.5)]">
-                  <td className="px-3 py-1.5 font-mono text-slate-800 dark:text-slate-200">{t.tool}</td>
-                  <td className="px-3 py-1.5 text-right tabular-nums">{t.count}</td>
-                  <td className="px-3 py-1.5 text-right tabular-nums">{t.avgDurationMs}</td>
-                  <td
-                    className={`px-3 py-1.5 text-right tabular-nums font-semibold ${
-                      t.successRate < 50 ? 'text-rose-600' : t.successRate < 80 ? 'text-amber-600' : 'text-emerald-600'
-                    }`}
-                  >
-                    {t.successRate}%
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <DataTable
+            columns={
+              [
+                {
+                  key: 'tool',
+                  header: 'Tool',
+                  sortValue: (t: (typeof data.topTools)[number]) => t.tool,
+                  render: (t) => <span className="font-mono text-slate-800 dark:text-slate-200">{t.tool}</span>,
+                },
+                {
+                  key: 'count',
+                  header: 'Calls',
+                  align: 'right',
+                  sortValue: (t: (typeof data.topTools)[number]) => t.count,
+                  render: (t) => <span className="tabular-nums">{t.count}</span>,
+                },
+                {
+                  key: 'avgDurationMs',
+                  header: 'Avg ms',
+                  align: 'right',
+                  sortValue: (t: (typeof data.topTools)[number]) => t.avgDurationMs,
+                  render: (t) => <span className="tabular-nums">{t.avgDurationMs}</span>,
+                },
+                {
+                  key: 'successRate',
+                  header: 'Success',
+                  align: 'right',
+                  sortValue: (t: (typeof data.topTools)[number]) => t.successRate,
+                  render: (t) => (
+                    <span
+                      className={`tabular-nums font-semibold ${t.successRate < 50 ? 'text-rose-600' : t.successRate < 80 ? 'text-amber-600' : 'text-emerald-600'}`}
+                    >
+                      {t.successRate}%
+                    </span>
+                  ),
+                },
+              ] as DataTableColumn<(typeof data.topTools)[number]>[]
+            }
+            rows={data.topTools}
+            rowKey={(t) => t.tool}
+          />
         </div>
       </div>
 

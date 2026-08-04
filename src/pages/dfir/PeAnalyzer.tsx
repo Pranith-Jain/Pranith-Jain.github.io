@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Binary, Upload, Loader2 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { fileTooLarge, yieldToPaint } from '../../lib/dfir/file-guard';
 
 const MACHINE: Record<number, string> = {
@@ -249,45 +250,44 @@ export default function PeAnalyzer(): JSX.Element {
           <div className="font-mono text-mini text-muted">mitigations: {pe.flags.join(' · ') || 'none detected'}</div>
 
           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto">
-            <table className="w-full text-mini font-mono">
-              <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
-                <tr>
-                  {['Section', 'VirtualSize', 'RawSize', 'Entropy', 'Flags'].map((h) => (
-                    <th
-                      key={h}
-                      scope="col"
-                      className="text-left px-2 py-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
-                    >
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {pe.sections.map((s, i) => (
-                  <tr key={i}>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
-                      {s.name}
-                    </td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
-                      {s.vsize}
-                    </td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
-                      {s.rsize}
-                    </td>
-                    <td
-                      className={`px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] ${s.entropy >= 7.2 ? 'text-rose-600 dark:text-rose-400 font-bold' : ''}`}
-                    >
-                      {s.entropy}
-                      {s.entropy >= 7.2 ? ' !packed?' : ''}
-                    </td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
-                      {s.flags}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <DataTable
+              columns={
+                [
+                  {
+                    key: 'name',
+                    header: 'Section',
+                    sortValue: (s: (typeof pe.sections)[number]) => s.name,
+                    render: (s) => s.name,
+                  },
+                  {
+                    key: 'vsize',
+                    header: 'VirtualSize',
+                    sortValue: (s: (typeof pe.sections)[number]) => s.vsize,
+                    render: (s) => s.vsize,
+                  },
+                  {
+                    key: 'rsize',
+                    header: 'RawSize',
+                    sortValue: (s: (typeof pe.sections)[number]) => s.rsize,
+                    render: (s) => s.rsize,
+                  },
+                  {
+                    key: 'entropy',
+                    header: 'Entropy',
+                    sortValue: (s: (typeof pe.sections)[number]) => s.entropy,
+                    render: (s) => (
+                      <span className={s.entropy >= 7.2 ? 'text-rose-600 dark:text-rose-400 font-bold' : ''}>
+                        {s.entropy}
+                        {s.entropy >= 7.2 ? ' !packed?' : ''}
+                      </span>
+                    ),
+                  },
+                  { key: 'flags', header: 'Flags', render: (s) => s.flags },
+                ] as DataTableColumn<(typeof pe.sections)[number]>[]
+              }
+              rows={pe.sections}
+              rowKey={(s, i) => `${s.name}-${i}`}
+            />
           </div>
 
           {pe.imports.map((im) => (
