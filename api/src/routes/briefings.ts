@@ -183,7 +183,7 @@ export async function todayBriefingHandler(c: Context<{ Bindings: Env }>) {
   const yesterday = new Date(now.getTime() - 86400_000);
   const slug = `daily-${yesterday.toISOString().slice(0, 10)}`;
   const briefing = await readBriefing(db, slug);
-  if (!briefing) return c.json({ error: 'not yet generated', slug }, 404);
+  if (!briefing) return notFound(c, 'not yet generated');
   const res = c.json(ensureIocDump(enrichBriefingWithTags(briefing)), 200, {
     'cache-control': BRIEFINGS_CC,
     'last-modified': new Date().toUTCString(),
@@ -589,7 +589,7 @@ export async function deleteBriefingHandler(c: AdminCtx) {
     return c.json({ ok: true, slug, deleted: !!existed }, 200);
   } catch (err) {
     console.error('delete briefing failed:', err);
-    return c.json({ error: 'delete failed', slug }, 500);
+    return internalError(c, 'delete failed');
   }
 }
 
@@ -661,7 +661,7 @@ export async function briefingIocsTxtHandler(c: Context<{ Bindings: Env }>) {
   const hydrated = ensureIocDump(briefing);
   const dump = hydrated.ioc_dump;
   if (!dump || dump.count === 0) {
-    return c.json({ error: 'no_iocs_in_briefing', slug, message: 'this briefing has no in-window IOCs' }, 404);
+    return notFound(c, 'this briefing has no in-window IOCs');
   }
   const filename = `${slug}-iocs.txt`;
   const body = `# ${briefing.title}\n# generated_at: ${briefing.generated_at}\n# count: ${dump.count} unique indicators\n\n${dump.content}\n`;

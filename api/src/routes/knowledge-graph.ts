@@ -48,7 +48,7 @@ export async function knowledgeGraphHandler(c: Context<{ Bindings: Env }>): Prom
     if (body.campaigns?.length) lines.push(`Campaigns: ${body.campaigns.join(', ')}`);
     if (body.ttps?.length) lines.push(`TTPs: ${body.ttps.join(', ')}`);
     if (body.context) lines.push(`Context: ${body.context}`);
-    if (!lines.length) return c.json({ error: 'no input data' }, 400);
+    if (!lines.length) return badRequest(c, 'no input data');
 
     const prompt = lines.join('\n');
     const ai = c.env.AI;
@@ -67,7 +67,7 @@ export async function knowledgeGraphHandler(c: Context<{ Bindings: Env }>): Prom
     return c.json({ graph, model, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('knowledgeGraphHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 

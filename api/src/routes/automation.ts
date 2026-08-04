@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 // Canonical producer keys — readers previously hardcoded stale v11/v8 and
 // returned a confident `no_data` for live indicators (see watch-engine).
 import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
@@ -222,10 +223,10 @@ export async function automationRunHandler(c: Context<{ Bindings: Env }>): Promi
   try {
     const { target } = await c.req.json<{ target: string }>();
     if (!target || target.trim().length === 0) {
-      return c.json({ error: 'target is required' }, 400);
+      return badRequest(c, 'target is required');
     }
     if (target.length > 500) {
-      return c.json({ error: 'target too long' }, 400);
+      return badRequest(c, 'target too long');
     }
 
     const { workflow, tasks } = buildWorkflow(target);
@@ -241,6 +242,6 @@ export async function automationRunHandler(c: Context<{ Bindings: Env }>): Promi
     return c.json(result, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
     console.error('automationRunHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

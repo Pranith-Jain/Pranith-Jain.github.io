@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const CAMPAIGN_SYSTEM = `You are a threat intelligence campaign tracker. Given a collection of related threat articles/events, construct a campaign timeline and analysis.
@@ -37,7 +38,7 @@ interface CampaignRequest {
 export async function campaignTrackerHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<CampaignRequest>();
-    if (!body.events?.length) return c.json({ error: 'no events' }, 400);
+    if (!body.events?.length) return badRequest(c, 'no events');
 
     const eventList = body.events
       .map(
@@ -62,6 +63,6 @@ export async function campaignTrackerHandler(c: Context<{ Bindings: Env }>): Pro
     return c.json({ campaign, model, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('campaign-tracker error:', e);
-    return c.json({ error: 'campaign analysis failed' }, 500);
+    return internalError(c, 'campaign analysis failed');
   }
 }

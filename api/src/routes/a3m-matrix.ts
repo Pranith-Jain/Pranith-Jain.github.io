@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 const A3M_URL = 'https://www.cyberriskevaluator.com/A3M_Matrix_Agentic_AI_Attack_Matrix.html';
@@ -73,13 +74,13 @@ export async function a3mMatrixHandler(c: Context<{ Bindings: Env }>): Promise<R
   }
 
   if (!html) {
-    return c.json({ error: 'Failed to fetch A3M Matrix' }, 502);
+    return badGateway(c, 'Failed to fetch A3M Matrix');
   }
 
   const matrix = parseA3mHtml(html);
 
   if (matrix.length === 0) {
-    return c.json({ error: 'Failed to parse A3M Matrix HTML' }, 502);
+    return badGateway(c, 'Failed to parse A3M Matrix HTML');
   }
 
   const totalTechs = matrix.reduce((sum, t) => sum + t.techniques.length, 0);

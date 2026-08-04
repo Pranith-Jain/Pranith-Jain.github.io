@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 /**
@@ -185,10 +186,10 @@ export async function actorUsernamesHandler(c: Context<{ Bindings: Env }>): Prom
   const mode: MatchMode = modeParam === 'exact' || modeParam === 'prefix' ? modeParam : 'substring';
 
   if (rawQ.length < MIN_QUERY_LEN) {
-    return c.json({ error: `query must be at least ${MIN_QUERY_LEN} characters` }, 400);
+    return badRequest(c, `query must be at least ${MIN_QUERY_LEN} characters`);
   }
   if (rawQ.length > 64) {
-    return c.json({ error: 'query too long (max 64 chars)' }, 400);
+    return badRequest(c, 'query too long (max 64 chars)');
   }
 
   const cache = (caches as unknown as { default: Cache }).default;

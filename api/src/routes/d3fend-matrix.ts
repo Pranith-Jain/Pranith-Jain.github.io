@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 const D3FEND_MATRIX_URL = 'https://d3fend.mitre.org/api/matrix.json';
@@ -80,13 +81,13 @@ export async function d3fendMatrixHandler(c: Context<{ Bindings: Env }>): Promis
   }
 
   if (!data || !Array.isArray(data)) {
-    return c.json({ error: 'Failed to fetch D3FEND matrix' }, 502);
+    return badGateway(c, 'Failed to fetch D3FEND matrix');
   }
 
   const matrix = parseD3fendMatrix(data);
 
   if (matrix.length === 0) {
-    return c.json({ error: 'Failed to parse D3FEND matrix' }, 502);
+    return badGateway(c, 'Failed to parse D3FEND matrix');
   }
 
   const totalTechs = matrix.reduce((sum, t) => sum + t.techniques.length, 0);

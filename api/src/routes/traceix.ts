@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 const TRACEIX_BASE = 'https://ai.perkinsfund.org';
 
@@ -12,11 +13,11 @@ export const traceixRouter = new Hono<{ Bindings: Env }>();
 traceixRouter.get('/traceix/lookup', async (c) => {
   const hash = c.req.query('hash');
   if (!hash || !isValidSha256(hash)) {
-    return c.json({ error: 'invalid_hash', message: 'Expected a 64-character hex SHA-256 hash' }, 400);
+    return badRequest(c, 'Expected a 64-character hex SHA-256 hash');
   }
   const apiKey = c.env.TRACEIX_API_KEY;
   if (!apiKey) {
-    return c.json({ error: 'not_configured', message: 'TRACEIX_API_KEY not set' }, 503);
+    return serviceUnavailable(c, 'TRACEIX_API_KEY not set');
   }
   try {
     const res = await fetch(`${TRACEIX_BASE}/api/v1/traceix/av/lookup`, {

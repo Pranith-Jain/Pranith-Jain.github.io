@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const INTEL_SYSTEM = `You are a senior CTI analyst specializing in geopolitical and cyber-threat intelligence. Given a country name and optionally a list of recent threat events, produce a comprehensive threat intelligence brief.
@@ -28,7 +29,7 @@ interface CountryIntelRequest {
 export async function countryIntelHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<CountryIntelRequest>();
-    if (!body.country?.trim()) return c.json({ error: 'missing country' }, 400);
+    if (!body.country?.trim()) return badRequest(c, 'missing country');
 
     const lines = [`Country: ${body.country}`];
     if (body.events?.length) {
@@ -54,6 +55,6 @@ export async function countryIntelHandler(c: Context<{ Bindings: Env }>): Promis
     return c.json({ intel, model, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('country-intel error:', e);
-    return c.json({ error: 'analysis failed' }, 500);
+    return internalError(c, 'analysis failed');
   }
 }

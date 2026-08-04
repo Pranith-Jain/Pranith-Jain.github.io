@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { checkAddress, type SanctionsCheck } from '../lib/ofac-sanctions';
 import { checkScamSniffer, loadScamSnifferSet, type ScamSnifferCheck } from '../lib/scamsniffer';
 import { getAddressContext, getRecentTransfers, type AddressContext, type TokenTransfer } from '../lib/blockscout';
@@ -395,8 +396,8 @@ async function fetchSolana(address: string): Promise<ChainResult> {
 
 export async function cryptoTraceHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const address = (c.req.query('address') ?? '').trim();
-  if (!address) return c.json({ error: 'missing address' }, 400);
-  if (address.length > 100) return c.json({ error: 'address too long' }, 400);
+  if (!address) return badRequest(c, 'missing address');
+  if (address.length > 100) return badRequest(c, 'address too long');
 
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(`https://crypto-trace-cache.internal/v1?a=${address}`);

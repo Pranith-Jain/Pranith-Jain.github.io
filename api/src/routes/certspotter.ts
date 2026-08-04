@@ -1,11 +1,12 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 const CACHE_TTL_SECONDS = 3600;
 
 export async function certspotterSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = c.req.query('domain') || c.req.query('q');
-  if (!domain || domain.length > 200) return c.json({ error: 'domain parameter required (max 200)' }, 400);
+  if (!domain || domain.length > 200) return badRequest(c, 'domain parameter required (max 200)');
 
   const cacheKey = `https://certspotter-cache.internal/v1-${encodeURIComponent(domain)}`;
   const cacheReq = new Request(cacheKey);
@@ -17,7 +18,7 @@ export async function certspotterSearchHandler(c: Context<{ Bindings: Env }>): P
       `https://api.certspotter.com/v1/issuances?domain=${encodeURIComponent(domain)}&include_subdomains=true&expand=dns_names`,
       { headers: { accept: 'application/json' }, signal: AbortSignal.timeout(10000) }
     );
-    if (!res.ok) return c.json({ error: `CertSpotter upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `CertSpotter upstream ${res.status}`);
 
     const data = (await res.json()) as Array<{ dns_names?: string[] }>;
     const subdomains = new Set<string>();
@@ -36,6 +37,6 @@ export async function certspotterSearchHandler(c: Context<{ Bindings: Env }>): P
     return response;
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'CertSpotter unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'CertSpotter unreachable');
   }
 }

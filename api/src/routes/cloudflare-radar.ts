@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 const CACHE_TTL_SECONDS = 86400;
 
@@ -12,8 +13,8 @@ interface RadarDomain {
 
 export async function radarDomainHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = c.req.query('domain');
-  if (!domain || domain.length > 200) return c.json({ error: 'domain parameter required' }, 400);
-  if (!c.env.CF_API_TOKEN) return c.json({ error: 'CF_API_TOKEN not configured' }, 503);
+  if (!domain || domain.length > 200) return badRequest(c, 'domain parameter required');
+  if (!c.env.CF_API_TOKEN) return serviceUnavailable(c, 'CF_API_TOKEN not configured');
 
   const cacheUrl = `https://radar-cache.internal/v1-domain-${encodeURIComponent(domain)}`;
   const cacheReq = new Request(cacheUrl);
@@ -55,6 +56,6 @@ export async function radarDomainHandler(c: Context<{ Bindings: Env }>): Promise
     return response;
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Cloudflare Radar unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Cloudflare Radar unreachable');
   }
 }

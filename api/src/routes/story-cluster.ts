@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const CLUSTER_SYSTEM = `You are a deduplication engine for security news. Given a list of articles, identify groups covering the same underlying incident/story.
@@ -28,7 +29,7 @@ interface ClusterRequest {
 export async function storyClusterHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<ClusterRequest>();
-    if (!body.articles?.length) return c.json({ error: 'no articles' }, 400);
+    if (!body.articles?.length) return badRequest(c, 'no articles');
 
     const list = body.articles
       .slice(0, 60)
@@ -51,6 +52,6 @@ export async function storyClusterHandler(c: Context<{ Bindings: Env }>): Promis
     return c.json({ clusters, model, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('story-cluster error:', e);
-    return c.json({ error: 'clustering failed' }, 500);
+    return internalError(c, 'clustering failed');
   }
 }

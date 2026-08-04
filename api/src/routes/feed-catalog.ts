@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 interface FeedCatalogEntry {
   vendor: string;
@@ -39,7 +40,7 @@ export async function feedCatalogHandler(c: Context<{ Bindings: Env }>): Promise
       cf: { cacheTtl: 3000, cacheEverything: true },
     });
     if (!res.ok) {
-      return c.json({ error: 'failed to fetch feed catalog' }, 502);
+      return badGateway(c, 'failed to fetch feed catalog');
     }
     const text = await res.text();
 
@@ -91,6 +92,6 @@ export async function feedCatalogHandler(c: Context<{ Bindings: Env }>): Promise
     });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: String(e) }, 500);
+    return internalError(c, String(e));
   }
 }

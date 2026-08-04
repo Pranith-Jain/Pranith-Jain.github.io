@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { buildSummary, FEED_SOURCES, type SourceId } from '../lib/ioc-feed-parsers';
 import { safeErrorMessage } from '../lib/error';
 
@@ -51,7 +52,7 @@ export async function iocFeedSummaryHandler(c: Context<{ Bindings: Env }>) {
       );
     }
     if (!upstream.ok) {
-      return c.json({ error: `upstream ${upstream.status} from ${feed.url}` }, 502);
+      return badGateway(c, `upstream ${upstream.status} from ${feed.url}`);
     }
 
     const rawBody = await upstream.text();
@@ -62,6 +63,6 @@ export async function iocFeedSummaryHandler(c: Context<{ Bindings: Env }>) {
     });
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: safeErrorMessage(c.env as unknown as Record<string, unknown>, err) }, 502);
+    return badGateway(c, safeErrorMessage(c.env as unknown as Record<string, unknown>, err));
   }
 }

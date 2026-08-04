@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 interface CdnDetectResult {
   ip: string;
@@ -19,11 +20,11 @@ interface CdnDetectResult {
  */
 export async function cdnDetectHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const ip = c.req.query('ip');
-  if (!ip) return c.json({ error: 'missing ip' }, 400);
+  if (!ip) return badRequest(c, 'missing ip');
 
   const clean = ip.trim();
   if (!/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(clean)) {
-    return c.json({ error: 'invalid IPv4 address' }, 400);
+    return badRequest(c, 'invalid IPv4 address');
   }
 
   try {
@@ -102,6 +103,6 @@ export async function cdnDetectHandler(c: Context<{ Bindings: Env }>): Promise<R
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: `CDN detection failed: ${err instanceof Error ? err.message : String(err)}` }, 502);
+    return badGateway(c, `CDN detection failed: ${err instanceof Error ? err.message : String(err)}`);
   }
 }

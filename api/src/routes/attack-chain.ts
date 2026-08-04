@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 
 /**
@@ -413,11 +414,11 @@ export async function attackChainHandler(c: Context<{ Bindings: Env }>): Promise
   }>();
 
   if (!body.indicators || body.indicators.length === 0) {
-    return c.json({ error: 'indicators array required' }, 400);
+    return badRequest(c, 'indicators array required');
   }
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const chain = await reconstructAttackChain(db, body.indicators, {
     actors: body.actors,

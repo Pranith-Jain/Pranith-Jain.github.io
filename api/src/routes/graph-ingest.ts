@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import type { LiveIoc } from './live-iocs';
 import { fetchTelegramFeed } from './telegram-feed';
 import { fetchRansomwareRecent } from './ransomware-recent';
@@ -251,12 +252,12 @@ export async function runGraphIngest(
 
 export async function graphIngestManualHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const source = (c.req.query('source') ?? 'all') as SourceName;
   const validSources: SourceName[] = ['all', 'ioc', 'phishing', 'telegram', 'ransomware'];
   if (!validSources.includes(source)) {
-    return c.json({ error: `invalid source. valid: ${validSources.join(', ')}` }, 400);
+    return badRequest(c, `invalid source. valid: ${validSources.join(', ')}`);
   }
 
   const startMs = Date.now();

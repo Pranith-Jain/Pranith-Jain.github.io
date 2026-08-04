@@ -10,6 +10,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { generateAiSummary, type SummaryInput } from '../lib/ai-summary';
 
 const CACHE_TTL = 3600; // 1 hour
@@ -23,11 +24,11 @@ export async function aiSummaryHandler(c: Context<{ Bindings: Env }>): Promise<R
   const parsed = (c as Context & { parsed?: SummaryInput }).parsed;
   const body: SummaryInput = parsed ?? (await c.req.json<SummaryInput>().catch(() => ({}) as SummaryInput));
   if (!body) {
-    return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
+    return badRequest(c, 'invalid JSON body');
   }
 
   if (!body.surface || !body.date || !Array.isArray(body.items) || body.items.length === 0) {
-    return c.json({ error: 'bad_request', message: 'requires surface, date, and non-empty items[]' }, 400);
+    return badRequest(c, 'requires surface, date, and non-empty items[]');
   }
 
   // Cap items to prevent LLM cost explosion.
@@ -50,7 +51,7 @@ export async function aiSummaryHandler(c: Context<{ Bindings: Env }>): Promise<R
 
   const result = await generateAiSummary(body, c.env);
   if (!result) {
-    return c.json({ error: 'unavailable', message: 'AI summary generation failed' }, 503);
+    return serviceUnavailable(c, 'AI summary generation failed');
   }
 
   // Cache the result.

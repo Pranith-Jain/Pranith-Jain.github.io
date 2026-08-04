@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runCompletion } from '../case-study/generation/ai-client';
 import { detectSlop } from '../lib/ai-output-validator';
 
@@ -96,7 +97,7 @@ export async function irPlaybookHandler(c: Context<{ Bindings: Env }>): Promise<
     body = await c.req.json();
   } catch (_catchErr) {
     console.error('irPlaybookHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'bad_request', message: 'invalid JSON' }, 400);
+    return badRequest(c, 'invalid JSON');
   }
 
   const incidentType = body.incident_type?.trim().toLowerCase();
@@ -185,6 +186,6 @@ export async function irPlaybookHandler(c: Context<{ Bindings: Env }>): Promise<
     return c.json(response, 200, { 'cache-control': 'public, max-age=3600' });
   } catch (err) {
     console.error(JSON.stringify({ job: 'ir-playbook', error: err instanceof Error ? err.message : String(err) }));
-    return c.json({ error: 'generation_failed', message: 'Failed to generate playbook' }, 503);
+    return serviceUnavailable(c, 'Failed to generate playbook');
   }
 }

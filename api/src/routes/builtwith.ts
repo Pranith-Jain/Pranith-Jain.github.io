@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 
 // ==============================
@@ -349,11 +350,11 @@ function detectTechnologies(headers: Headers, body: string): DetectedTech[] {
 
 export async function builtwithHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = (c.req.query('domain') ?? '').trim().toLowerCase();
-  if (!domain) return c.json({ error: 'missing domain parameter' }, 400);
+  if (!domain) return badRequest(c, 'missing domain parameter');
 
   // Validate domain format
   if (!/^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z]{2,})+$/.test(domain)) {
-    return c.json({ error: 'invalid domain format' }, 400);
+    return badRequest(c, 'invalid domain format');
   }
 
   try {
@@ -430,7 +431,7 @@ export async function builtwithHandler(c: Context<{ Bindings: Env }>): Promise<R
     // one). Fail closed with a generic 400 — don't echo the blocked IP/internal
     // detail back to the caller (no SSRF oracle).
     if (err instanceof SsrfError) {
-      return c.json({ error: 'domain resolves to a disallowed host', domain }, 400, { 'Cache-Control': 'no-store' });
+      return badRequest(c, 'domain resolves to a disallowed host');
     }
     const message = err instanceof Error ? err.message : 'Unknown error';
     // A fetch failure (DNS, TLS, timeout) means we genuinely couldn't reach the

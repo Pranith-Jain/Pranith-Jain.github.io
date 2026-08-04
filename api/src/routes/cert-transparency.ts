@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 interface CertEntry {
   name_value: string;
@@ -25,13 +26,13 @@ interface CertTransparencyResult {
  */
 export async function certTransparencyHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = c.req.query('domain');
-  if (!domain) return c.json({ error: 'missing domain' }, 400);
+  if (!domain) return badRequest(c, 'missing domain');
 
   const clean = domain
     .replace(/^(https?:\/\/)/, '')
     .replace(/\/.*$/, '')
     .trim();
-  if (!clean || clean.includes(' ')) return c.json({ error: 'invalid domain' }, 400);
+  if (!clean || clean.includes(' ')) return badRequest(c, 'invalid domain');
 
   try {
     const url = `https://crt.sh/?q=${encodeURIComponent(clean)}&output=json`;
