@@ -133,7 +133,7 @@ export async function upsertNode(
   const id = node.id ?? `${node.type}:${node.value}`;
   const now = new Date().toISOString();
 
-  const existing = await db.prepare('SELECT * FROM graph_nodes WHERE id = ?').bind(id).first<GraphNode>();
+  const existing = await db.prepare('SELECT id, type, value, properties, first_seen, last_seen, confidence, sources FROM graph_nodes WHERE id = ?').bind(id).first<GraphNode>();
 
   if (existing) {
     // Merge properties and update — existing.properties / sources are D1
@@ -220,7 +220,7 @@ export async function upsertEdge(
   const id = edge.id ?? `${edge.source_id}->${edge.relationship}->${edge.target_id}`;
   const now = new Date().toISOString();
 
-  const existing = await db.prepare('SELECT * FROM graph_edges WHERE id = ?').bind(id).first<GraphEdge>();
+  const existing = await db.prepare('SELECT id, source_id, target_id, relationship, confidence, evidence, first_seen, last_seen FROM graph_edges WHERE id = ?').bind(id).first<GraphEdge>();
 
   if (existing) {
     const parseEvidence = (raw: unknown): GraphEdge['evidence'] => {
@@ -287,7 +287,7 @@ export async function upsertEdge(
  * Find a node by value (fuzzy match on type + value).
  */
 export async function findNode(db: D1Database, type: NodeType, value: string): Promise<GraphNode | null> {
-  return db.prepare('SELECT * FROM graph_nodes WHERE type = ? AND value = ?').bind(type, value).first<GraphNode>();
+  return db.prepare('SELECT id, type, value, properties, first_seen, last_seen, confidence, sources FROM graph_nodes WHERE type = ? AND value = ?').bind(type, value).first<GraphNode>();
 }
 
 /**
@@ -373,7 +373,7 @@ export async function shortestPath(
     if (current.nodeId === endId) {
       // Found path - fetch full node data
       const nodes = await Promise.all(
-        current.path.map((id) => db.prepare('SELECT * FROM graph_nodes WHERE id = ?').bind(id).first<GraphNode>())
+        current.path.map((id) => db.prepare('SELECT id, type, value, properties, first_seen, last_seen, confidence, sources FROM graph_nodes WHERE id = ?').bind(id).first<GraphNode>())
       );
 
       return {
@@ -446,12 +446,12 @@ export async function neighborhood(
       visitedNodes.add(nodeId);
 
       // Fetch node
-      const node = await db.prepare('SELECT * FROM graph_nodes WHERE id = ?').bind(nodeId).first<GraphNode>();
+      const node = await db.prepare('SELECT id, type, value, properties, first_seen, last_seen, confidence, sources FROM graph_nodes WHERE id = ?').bind(nodeId).first<GraphNode>();
       if (node) nodes.push(node);
 
       // Fetch edges
       const edgeRows = await db
-        .prepare(`SELECT * FROM graph_edges WHERE source_id = ? OR target_id = ?`)
+        .prepare(`SELECT id, source_id, target_id, relationship, confidence, evidence, first_seen, last_seen FROM graph_edges WHERE source_id = ? OR target_id = ?`)
         .bind(nodeId, nodeId)
         .all<GraphEdge>();
 
@@ -475,8 +475,8 @@ export async function neighborhood(
  */
 export async function detectCommunities(db: D1Database, minSize: number = 3): Promise<GraphCluster[]> {
   // Get all nodes and edges
-  const allNodes = await db.prepare('SELECT * FROM graph_nodes').all<GraphNode>();
-  const allEdges = await db.prepare('SELECT * FROM graph_edges').all<GraphEdge>();
+  const allNodes = await db.prepare('SELECT id, type, value, properties, first_seen, last_seen, confidence, sources FROM graph_nodes').all<GraphNode>();
+  const allEdges = await db.prepare('SELECT id, source_id, target_id, relationship, confidence, evidence, first_seen, last_seen FROM graph_edges').all<GraphEdge>();
 
   const adjacency = new Map<string, Set<string>>();
   for (const node of allNodes.results ?? []) {
@@ -769,7 +769,7 @@ export async function graphCrossReportHandler(c: Context<{ Bindings: Env }>): Pr
     const batch = nodeIds.slice(i, i + BATCH);
     const ph = batch.map(() => '?').join(',');
     const eRes = await db
-      .prepare(`SELECT * FROM graph_edges WHERE source_id IN (${ph}) AND target_id IN (${ph})`)
+      .prepare(`SELECT id, source_id, target_id, relationship, confidence, evidence, first_seen, last_seen FROM graph_edges WHERE source_id IN (${ph}) AND target_id IN (${ph})`)
       .bind(...batch, ...batch)
       .all<GraphEdge>();
     if (eRes.results) edges.push(...eRes.results);

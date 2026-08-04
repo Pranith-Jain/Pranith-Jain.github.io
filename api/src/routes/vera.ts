@@ -405,6 +405,8 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
                 error: errMsg,
                 modelUsed: state.modelUsed,
                 toolsUsed,
+                selfEval: state.selfEval,
+                qa: state.qa,
               })
             );
 

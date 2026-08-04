@@ -170,13 +170,13 @@ function rowToInvestigation(row: Record<string, unknown>): Omit<Investigation, '
 }
 
 async function loadFullInvestigation(db: D1Database, id: string): Promise<Investigation | null> {
-  const row = await db.prepare('SELECT * FROM investigations WHERE id = ?').bind(id).first();
+  const row = await db.prepare('SELECT id, title, description, status, tlp, tags, created_at, updated_at FROM investigations WHERE id = ?').bind(id).first();
   if (!row) return null;
   const base = rowToInvestigation(row as Record<string, unknown>);
   const [observables, tasks, timeline] = await Promise.all([
-    db.prepare('SELECT * FROM investigation_observables WHERE investigation_id = ? ORDER BY created_at').bind(id).all(),
-    db.prepare('SELECT * FROM investigation_tasks WHERE investigation_id = ? ORDER BY created_at').bind(id).all(),
-    db.prepare('SELECT * FROM investigation_timeline WHERE investigation_id = ? ORDER BY created_at').bind(id).all(),
+    db.prepare('SELECT id, investigation_id, value, type, description, tags, created_at FROM investigation_observables WHERE investigation_id = ? ORDER BY created_at').bind(id).all(),
+    db.prepare('SELECT id, investigation_id, title, description, status, created_at FROM investigation_tasks WHERE investigation_id = ? ORDER BY created_at').bind(id).all(),
+    db.prepare('SELECT id, investigation_id, type, message, created_at FROM investigation_timeline WHERE investigation_id = ? ORDER BY created_at').bind(id).all(),
   ]);
   return {
     ...base,
@@ -187,7 +187,7 @@ async function loadFullInvestigation(db: D1Database, id: string): Promise<Invest
 }
 
 async function loadAllInvestigations(db: D1Database): Promise<Investigation[]> {
-  const rows = await db.prepare('SELECT * FROM investigations ORDER BY updated_at DESC').all();
+  const rows = await db.prepare('SELECT id, title, description, status, tlp, tags, created_at, updated_at FROM investigations ORDER BY updated_at DESC').all();
   if (!rows.results?.length) return [];
 
   const bases = rows.results.map((r) => rowToInvestigation(r as Record<string, unknown>));
@@ -199,15 +199,15 @@ async function loadAllInvestigations(db: D1Database): Promise<Investigation[]> {
   const toBind = ids;
   const [obsResult, tasksResult, tlResult] = await Promise.all([
     db
-      .prepare(`SELECT * FROM investigation_observables WHERE investigation_id IN (${placeholder}) ORDER BY created_at`)
+      .prepare(`SELECT id, investigation_id, value, type, description, tags, created_at FROM investigation_observables WHERE investigation_id IN (${placeholder}) ORDER BY created_at`)
       .bind(...toBind)
       .all(),
     db
-      .prepare(`SELECT * FROM investigation_tasks WHERE investigation_id IN (${placeholder}) ORDER BY created_at`)
+      .prepare(`SELECT id, investigation_id, title, description, status, created_at FROM investigation_tasks WHERE investigation_id IN (${placeholder}) ORDER BY created_at`)
       .bind(...toBind)
       .all(),
     db
-      .prepare(`SELECT * FROM investigation_timeline WHERE investigation_id IN (${placeholder}) ORDER BY created_at`)
+      .prepare(`SELECT id, investigation_id, type, message, created_at FROM investigation_timeline WHERE investigation_id IN (${placeholder}) ORDER BY created_at`)
       .bind(...toBind)
       .all(),
   ]);
@@ -346,7 +346,7 @@ export async function updateInvestigationHandler(c: Context<{ Bindings: Env }>):
   const body = parsed.value;
   await ensureTables(db);
 
-  const existing = await db.prepare('SELECT * FROM investigations WHERE id = ?').bind(id).first();
+  const existing = await db.prepare('SELECT id, title, description, status, tlp, tags, created_at, updated_at FROM investigations WHERE id = ?').bind(id).first();
   if (!existing) return notFound(c, 'investigation not found');
 
   const inv = rowToInvestigation(existing as Record<string, unknown>);
@@ -471,7 +471,7 @@ export async function removeObservableHandler(c: Context<{ Bindings: Env }>): Pr
   await ensureTables(db);
 
   const obs = await db
-    .prepare('SELECT * FROM investigation_observables WHERE id = ? AND investigation_id = ?')
+    .prepare('SELECT id, investigation_id, value, type, description, tags, created_at FROM investigation_observables WHERE id = ? AND investigation_id = ?')
     .bind(obsId, id)
     .first();
   if (!obs) return notFound(c, 'observable not found');
@@ -549,7 +549,7 @@ export async function updateTaskHandler(c: Context<{ Bindings: Env }>): Promise<
   await ensureTables(db);
 
   const taskRow = await db
-    .prepare('SELECT * FROM investigation_tasks WHERE id = ? AND investigation_id = ?')
+    .prepare('SELECT id, investigation_id, title, description, status, created_at FROM investigation_tasks WHERE id = ? AND investigation_id = ?')
     .bind(taskId, id)
     .first();
   if (!taskRow) return notFound(c, 'task not found');

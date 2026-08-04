@@ -36,6 +36,7 @@ import { adminAuthHeaders } from '../../lib/admin-token';
 import { buildReport, pollReport, type Report, type Progress } from '../../lib/threatintel/report-client';
 import { exportReportPdf } from '../../lib/threatintel/report-pdf';
 import { ReportView } from '../../components/threatintel/ReportView';
+import { SelfEvalScorecard, type SelfEvalResult } from '../../components/threatintel/SelfEvalScorecard';
 import { PivotSuggestions } from '../../components/threatintel/PivotSuggestions';
 import { DetectionGenerate } from '../../components/threatintel/DetectionGenerate';
 import { BulkIocInput } from '../../components/threatintel/BulkIocInput';
@@ -267,6 +268,7 @@ export default function Copilot(): JSX.Element {
   const [streaming, setStreaming] = useState(false);
   const [agentSteps, setAgentSteps] = useState<AgentStep[]>([]);
   const [streamingContent, setStreamingContent] = useState('');
+  const [selfEval, setSelfEval] = useState<SelfEvalResult | null>(null);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sessions, setSessions] = useState<SessionItem[]>([]);
@@ -319,6 +321,7 @@ export default function Copilot(): JSX.Element {
     setStreaming(false);
     setAgentSteps([]);
     setStreamingContent('');
+    setSelfEval(null);
     setError(null);
     setEditingIndex(null);
     sessionStorage.removeItem('copilot_session_id');
@@ -447,6 +450,8 @@ export default function Copilot(): JSX.Element {
                 sources: d.sources,
                 _meta: d._meta,
               };
+              if (d.selfEval) setSelfEval(d.selfEval as SelfEvalResult);
+              else setSelfEval(null);
               setChatMessages((prev) => {
                 const next = [...prev];
                 const last = next[next.length - 1];
@@ -993,6 +998,9 @@ export default function Copilot(): JSX.Element {
                                 ) : null;
                               })()}
                               <DetectionGenerate context={msg.content ?? ''} />
+                              {selfEval && i === chatMessages.length - 1 && (
+                                <SelfEvalScorecard selfEval={selfEval} />
+                              )}
                             </>
                           )}
                         </div>

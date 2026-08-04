@@ -15,6 +15,7 @@ import {
 import { observeStep } from '../../api/src/lib/agent/observer';
 import { synthesizeReport, splitSynthOutput } from '../../api/src/lib/agent/synthesizer';
 import { verifyReport } from '../../api/src/lib/agent/qa-verifier';
+import { selfEvaluateReport } from '../../api/src/lib/agent/self-eval';
 import { signInternalToken } from '../../api/src/lib/internal-token';
 import {
   buildOrchestratorPlan,
@@ -1199,6 +1200,33 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         state.report = result.report;
         state.actionCard = result.actionCard;
         state.modelUsed = result.modelUsed;
+      }
+
+      // ── Self-evaluation (5-axis scorecard) ──────────────────────────
+      // Runs after QA verification. Additive — never blocks delivery.
+      try {
+        const selfEval = await selfEvaluateReport(
+          ai,
+          state.query,
+          state.queryType,
+          state.report ?? result.report,
+          state.steps,
+          {
+            infronKey,
+            groqKey,
+            nvidiaKey,
+            googleKey,
+            recordUsage,
+          }
+        );
+        if (selfEval) {
+          state.selfEval = selfEval;
+          qaStep.observation =
+            (qaStep.observation ? qaStep.observation + ' ' : '') +
+            `Self-eval: ${selfEval.overallScore}/5 (${selfEval.modelUsed}). Top gap: ${selfEval.topGap.slice(0, 100)}`;
+        }
+      } catch (selfEvalErr) {
+        console.error('self-eval failed:', selfEvalErr instanceof Error ? selfEvalErr.message : String(selfEvalErr));
       }
 
       const toolCounts = new Map<string, number>();

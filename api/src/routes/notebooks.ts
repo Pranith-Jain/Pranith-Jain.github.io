@@ -89,7 +89,7 @@ export async function listNotebooksHandler(c: Context<{ Bindings: Env }>): Promi
   const limit = Math.min(Number(c.req.query('limit') ?? '50'), 200);
   const offset = Number(c.req.query('offset') ?? '0');
 
-  let query = 'SELECT * FROM investigation_notebooks';
+  let query = 'SELECT id, title, description, status, tags, severity, created_at, updated_at FROM investigation_notebooks';
   const params: unknown[] = [];
   if (status) {
     query += ' WHERE status = ?';
@@ -119,13 +119,13 @@ export async function getNotebookHandler(c: Context<{ Bindings: Env }>): Promise
 
   const id = c.req.param('id');
   const row = await db
-    .prepare('SELECT * FROM investigation_notebooks WHERE id = ?')
+    .prepare('SELECT id, title, description, status, tags, severity, created_at, updated_at FROM investigation_notebooks WHERE id = ?')
     .bind(id)
     .first<Record<string, unknown>>();
   if (!row) return notFound(c, 'notebook not found');
 
   const entries = await db
-    .prepare('SELECT * FROM notebook_entries WHERE notebook_id = ? ORDER BY pinned DESC, created_at DESC')
+    .prepare('SELECT id, notebook_id, entry_type, content, metadata, pinned, created_at, updated_at FROM notebook_entries WHERE notebook_id = ? ORDER BY pinned DESC, created_at DESC')
     .bind(id)
     .all<Record<string, unknown>>();
 
@@ -168,7 +168,7 @@ export async function createNotebookHandler(c: Context<{ Bindings: Env }>): Prom
     .run();
 
   const row = await db
-    .prepare('SELECT * FROM investigation_notebooks WHERE id = ?')
+    .prepare('SELECT id, title, description, status, tags, severity, created_at, updated_at FROM investigation_notebooks WHERE id = ?')
     .bind(id)
     .first<Record<string, unknown>>();
   return c.json({ notebook: rowToNotebook(row!) }, 201);
@@ -181,7 +181,7 @@ export async function updateNotebookHandler(c: Context<{ Bindings: Env }>): Prom
 
   const id = c.req.param('id');
   const existing = await db
-    .prepare('SELECT * FROM investigation_notebooks WHERE id = ?')
+    .prepare('SELECT id, title, description, status, tags, severity, created_at, updated_at FROM investigation_notebooks WHERE id = ?')
     .bind(id)
     .first<Record<string, unknown>>();
   if (!existing) return notFound(c, 'notebook not found');
@@ -214,7 +214,7 @@ export async function updateNotebookHandler(c: Context<{ Bindings: Env }>): Prom
     .run();
 
   const row = await db
-    .prepare('SELECT * FROM investigation_notebooks WHERE id = ?')
+    .prepare('SELECT id, title, description, status, tags, severity, created_at, updated_at FROM investigation_notebooks WHERE id = ?')
     .bind(id)
     .first<Record<string, unknown>>();
   return c.json({ notebook: rowToNotebook(row!) });
@@ -276,7 +276,7 @@ export async function addEntryHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // Touch the notebook's updated_at
   await db.prepare('UPDATE investigation_notebooks SET updated_at = ? WHERE id = ?').bind(now, notebookId).run();
 
-  const row = await db.prepare('SELECT * FROM notebook_entries WHERE id = ?').bind(id).first<Record<string, unknown>>();
+  const row = await db.prepare('SELECT id, notebook_id, entry_type, content, metadata, pinned, created_at, updated_at FROM notebook_entries WHERE id = ?').bind(id).first<Record<string, unknown>>();
   return c.json({ entry: rowToEntry(row!) }, 201);
 }
 
@@ -287,7 +287,7 @@ export async function updateEntryHandler(c: Context<{ Bindings: Env }>): Promise
 
   const entryId = c.req.param('entryId');
   const existing = await db
-    .prepare('SELECT * FROM notebook_entries WHERE id = ?')
+    .prepare('SELECT id, notebook_id, entry_type, content, metadata, pinned, created_at, updated_at FROM notebook_entries WHERE id = ?')
     .bind(entryId)
     .first<Record<string, unknown>>();
   if (!existing) return notFound(c, 'entry not found');
@@ -319,7 +319,7 @@ export async function updateEntryHandler(c: Context<{ Bindings: Env }>): Promise
     .run();
 
   const row = await db
-    .prepare('SELECT * FROM notebook_entries WHERE id = ?')
+    .prepare('SELECT id, notebook_id, entry_type, content, metadata, pinned, created_at, updated_at FROM notebook_entries WHERE id = ?')
     .bind(entryId)
     .first<Record<string, unknown>>();
   return c.json({ entry: rowToEntry(row!) });
@@ -332,7 +332,7 @@ export async function deleteEntryHandler(c: Context<{ Bindings: Env }>): Promise
 
   const entryId = c.req.param('entryId');
   const existing = await db
-    .prepare('SELECT * FROM notebook_entries WHERE id = ?')
+    .prepare('SELECT id, notebook_id, entry_type, content, metadata, pinned, created_at, updated_at FROM notebook_entries WHERE id = ?')
     .bind(entryId)
     .first<Record<string, unknown>>();
   if (!existing) return notFound(c, 'entry not found');

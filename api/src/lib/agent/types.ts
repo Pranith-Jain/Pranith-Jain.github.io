@@ -152,6 +152,8 @@ export interface AgentState {
       deletions: number;
     };
   };
+  /** 5-axis self-evaluation scorecard (accuracy, completeness, clarity, actionability, conciseness). */
+  selfEval?: import('./self-eval').SelfEvalResult;
 }
 
 /** Structured log entry for the investigation loop. */

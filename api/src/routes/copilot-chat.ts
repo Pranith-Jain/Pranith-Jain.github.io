@@ -354,6 +354,8 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
                       total_items: state.sources.reduce((n, s) => n + s.items, 0),
                     }
                   : undefined,
+                selfEval: state.selfEval,
+                qa: state.qa,
               })
             );
 
