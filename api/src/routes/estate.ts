@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { serviceUnavailable } from '../lib/api-error';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -82,7 +83,7 @@ const DATA_TYPES = [
 export const estateRoutes = app
   .get('/config', async (c) => {
     const db = c.env.BRIEFINGS_DB;
-    if (!db) return c.json({ error: 'DB unavailable' }, 503);
+    if (!db) return serviceUnavailable(c, 'DB unavailable');
     const row = await db.prepare('SELECT * FROM estate_config WHERE id = ?').bind('default').first();
     if (!row) {
       return c.json({
@@ -105,7 +106,7 @@ export const estateRoutes = app
   })
   .put('/config', async (c) => {
     const db = c.env.BRIEFINGS_DB;
-    if (!db) return c.json({ error: 'DB unavailable' }, 503);
+    if (!db) return serviceUnavailable(c, 'DB unavailable');
     const body = await c.req.json();
     const sector = String(body.sector ?? '');
     const subSector = String(body.sub_sector ?? '');
@@ -138,7 +139,7 @@ export const estateRoutes = app
 
   .get('/assets', async (c) => {
     const db = c.env.BRIEFINGS_DB;
-    if (!db) return c.json({ error: 'DB unavailable' }, 503);
+    if (!db) return serviceUnavailable(c, 'DB unavailable');
     const type = c.req.query('type');
     const rows = type
       ? await db.prepare('SELECT * FROM estate_assets WHERE asset_type = ? ORDER BY created_at DESC').bind(type).all()
@@ -157,7 +158,7 @@ export const estateRoutes = app
   })
   .post('/assets', async (c) => {
     const db = c.env.BRIEFINGS_DB;
-    if (!db) return c.json({ error: 'DB unavailable' }, 503);
+    if (!db) return serviceUnavailable(c, 'DB unavailable');
     const body = await c.req.json();
     const id = crypto.randomUUID();
     const assetType = String(body.asset_type ?? 'other');
@@ -185,7 +186,7 @@ export const estateRoutes = app
   })
   .delete('/assets/:id', async (c) => {
     const db = c.env.BRIEFINGS_DB;
-    if (!db) return c.json({ error: 'DB unavailable' }, 503);
+    if (!db) return serviceUnavailable(c, 'DB unavailable');
     await db.prepare('DELETE FROM estate_assets WHERE id = ?').bind(c.req.param('id')).run();
     return c.json({ ok: true });
   })
@@ -194,7 +195,7 @@ export const estateRoutes = app
 
   .get('/alerts', async (c) => {
     const db = c.env.BRIEFINGS_DB;
-    if (!db) return c.json({ error: 'DB unavailable' }, 503);
+    if (!db) return serviceUnavailable(c, 'DB unavailable');
     const limit = Math.min(Number(c.req.query('limit')) || 50, 200);
     const severity = c.req.query('severity');
     const type = c.req.query('type');
@@ -232,7 +233,7 @@ export const estateRoutes = app
   })
   .post('/alerts', async (c) => {
     const db = c.env.BRIEFINGS_DB;
-    if (!db) return c.json({ error: 'DB unavailable' }, 503);
+    if (!db) return serviceUnavailable(c, 'DB unavailable');
     const body = await c.req.json();
     const id = crypto.randomUUID();
     await db
@@ -261,19 +262,19 @@ export const estateRoutes = app
   })
   .post('/alerts/:id/read', async (c) => {
     const db = c.env.BRIEFINGS_DB;
-    if (!db) return c.json({ error: 'DB unavailable' }, 503);
+    if (!db) return serviceUnavailable(c, 'DB unavailable');
     await db.prepare('UPDATE alert_feeds SET read = 1 WHERE id = ?').bind(c.req.param('id')).run();
     return c.json({ ok: true });
   })
   .post('/alerts/:id/dismiss', async (c) => {
     const db = c.env.BRIEFINGS_DB;
-    if (!db) return c.json({ error: 'DB unavailable' }, 503);
+    if (!db) return serviceUnavailable(c, 'DB unavailable');
     await db.prepare('UPDATE alert_feeds SET dismissed = 1 WHERE id = ?').bind(c.req.param('id')).run();
     return c.json({ ok: true });
   })
   .get('/alerts/stats', async (c) => {
     const db = c.env.BRIEFINGS_DB;
-    if (!db) return c.json({ error: 'DB unavailable' }, 503);
+    if (!db) return serviceUnavailable(c, 'DB unavailable');
     const total = await db.prepare('SELECT COUNT(*) as c FROM alert_feeds WHERE dismissed = 0').first();
     const unread = await db.prepare('SELECT COUNT(*) as c FROM alert_feeds WHERE dismissed = 0 AND read = 0').first();
     const bySeverity = await db

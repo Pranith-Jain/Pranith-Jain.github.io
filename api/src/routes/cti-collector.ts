@@ -13,6 +13,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, internalError, serviceUnavailable } from '../lib/api-error';
 import { runFullCollection, getIocStats, applyDecayScoring, sweepStaleData } from '../lib/cti-collector';
 import { generatePredictions, getRecentPredictions } from '../lib/cti-prediction';
 import {
@@ -28,7 +29,7 @@ import {
 
 export async function ctiCollectHandler(c: Context<{ Bindings: Env }>) {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
   const result = await runFullCollection(db, c.env.ABUSECH_AUTH_KEY);
   return c.json(result);
 }
@@ -37,7 +38,7 @@ export async function ctiCollectHandler(c: Context<{ Bindings: Env }>) {
 
 export async function ctiStatsHandler(c: Context<{ Bindings: Env }>) {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
   const stats = await getIocStats(db);
   return c.json(stats);
 }
@@ -46,7 +47,7 @@ export async function ctiStatsHandler(c: Context<{ Bindings: Env }>) {
 
 export async function ctiIocsHandler(c: Context<{ Bindings: Env }>) {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   const type = c.req.query('type') || '';
   const source = c.req.query('source') || '';
@@ -108,7 +109,7 @@ export async function ctiIocsHandler(c: Context<{ Bindings: Env }>) {
 
 export async function ctiNewsHandler(c: Context<{ Bindings: Env }>) {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   const source = c.req.query('source') || '';
   const limit = Math.min(Math.max(Number(c.req.query('limit')) || 50, 1), 200);
@@ -144,7 +145,7 @@ export async function ctiNewsHandler(c: Context<{ Bindings: Env }>) {
 
 export async function ctiPredictionsGetHandler(c: Context<{ Bindings: Env }>) {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
   const limit = Math.min(Math.max(Number(c.req.query('limit')) || 10, 1), 100);
   const predictions = await getRecentPredictions(db, limit);
   return c.json({ predictions });
@@ -153,8 +154,8 @@ export async function ctiPredictionsGetHandler(c: Context<{ Bindings: Env }>) {
 export async function ctiPredictionsPostHandler(c: Context<{ Bindings: Env }>) {
   const db = c.env.BRIEFINGS_DB;
   const ai = c.env.AI;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
-  if (!ai) return c.json({ error: 'AI binding unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
+  if (!ai) return serviceUnavailable(c, 'AI binding unavailable');
 
   const body = await c.req.json<{ count?: number; focus_sector?: string; focus_region?: string }>().catch(() => ({}));
   const result = await generatePredictions(db, ai, body, {
@@ -169,17 +170,17 @@ export async function ctiPredictionsPostHandler(c: Context<{ Bindings: Env }>) {
 export async function ctiMutateHandler(c: Context<{ Bindings: Env }>) {
   const db = c.env.BRIEFINGS_DB;
   const ai = c.env.AI;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
-  if (!ai) return c.json({ error: 'AI binding unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
+  if (!ai) return serviceUnavailable(c, 'AI binding unavailable');
 
   let body: Record<string, unknown>;
   try {
     body = await c.req.json<Record<string, unknown>>();
   } catch {
-    return c.json({ error: 'invalid_json_body' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'invalid_json_body');
   }
   const input = String(body.input || '');
-  if (!input) return c.json({ error: 'input is required' }, 400);
+  if (!input) return badRequest(c, 'input is required');
 
   try {
     const keys = { groqKey: c.env.GROQ_API_KEY, googleKey: c.env.GOOGLE_AI_STUDIO_API_KEY };
@@ -199,13 +200,13 @@ export async function ctiMutateHandler(c: Context<{ Bindings: Env }>) {
     return c.json({ seed, variants });
   } catch (e) {
     console.error('ctiMutateHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'mutation failed' }, 500, { 'Cache-Control': 'no-store' });
+    return internalError(c, e instanceof Error ? e.message : 'mutation failed');
   }
 }
 
 export async function ctiMutationsHandler(c: Context<{ Bindings: Env }>) {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   const seedId = c.req.query('seed_id');
   if (seedId) {
@@ -223,7 +224,7 @@ export async function ctiMutationsHandler(c: Context<{ Bindings: Env }>) {
 
 export async function ctiDecayHandler(c: Context<{ Bindings: Env }>) {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
   const result = await applyDecayScoring(db);
   return c.json(result);
 }
@@ -232,7 +233,7 @@ export async function ctiDecayHandler(c: Context<{ Bindings: Env }>) {
 
 export async function ctiSweepHandler(c: Context<{ Bindings: Env }>) {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
   const days = parseInt(c.req.query('days') || '30') || 30;
   const result = await sweepStaleData(db, days);
   return c.json({ days, ...result });

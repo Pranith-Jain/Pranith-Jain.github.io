@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, serviceUnavailable } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 
 /**
@@ -235,10 +236,10 @@ function rowToLifecycle(row: IocLifecycleRow): IocLifecycle {
 /** GET /api/v1/ioc-lifecycle?indicator=<ioc> */
 export async function iocLifecycleHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const indicator = c.req.query('indicator');
-  if (!indicator) return c.json({ error: 'missing indicator' }, 400);
+  if (!indicator) return badRequest(c, 'missing indicator');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(`https://ioc-lifecycle-cache.internal/v1?indicator=${encodeURIComponent(indicator)}`);
@@ -278,7 +279,7 @@ export async function iocLifecycleHandler(c: Context<{ Bindings: Env }>): Promis
 /** GET /api/v1/ioc-lifecycle/trending */
 export async function iocLifecycleTrendingHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request('https://ioc-lifecycle-cache.internal/v1/trending');
@@ -324,7 +325,7 @@ export async function iocLifecycleTrendingHandler(c: Context<{ Bindings: Env }>)
 /** GET /api/v1/ioc-lifecycle/stats */
 export async function iocLifecycleStatsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request('https://ioc-lifecycle-cache.internal/v1/stats');

@@ -9,6 +9,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound } from '../lib/api-error';
 
 function uuid(): string {
   return crypto.randomUUID();
@@ -34,7 +35,7 @@ export async function getSavedReport(c: Context<{ Bindings: Env }>): Promise<Res
   const id = c.req.param('id');
   const db = c.env.BRIEFINGS_DB!;
   const row = await db.prepare('SELECT * FROM saved_reports WHERE id = ?').bind(id).first();
-  if (!row) return c.json({ error: 'not_found' }, 404);
+  if (!row) return notFound(c, 'not_found');
   return c.json(row);
 }
 
@@ -45,10 +46,10 @@ export async function saveReport(c: Context<{ Bindings: Env }>): Promise<Respons
     body = await c.req.json();
   } catch (_catchErr) {
     console.error('saveReport failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'bad_request', message: 'invalid JSON' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'invalid JSON');
   }
   if (!body.reportJson) {
-    return c.json({ error: 'bad_request', message: 'reportJson required' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'reportJson required');
   }
 
   let report: Record<string, unknown>;
@@ -56,9 +57,7 @@ export async function saveReport(c: Context<{ Bindings: Env }>): Promise<Respons
     report = JSON.parse(body.reportJson);
   } catch (_catchErr) {
     console.error('saveReport failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'bad_request', message: 'reportJson is not valid JSON' }, 400, {
-      'Cache-Control': 'no-store',
-    });
+    return badRequest(c, 'reportJson is not valid JSON');
   }
 
   const id = uuid();
@@ -94,7 +93,7 @@ export async function deleteSavedReport(c: Context<{ Bindings: Env }>): Promise<
 export async function correlateIocs(c: Context<{ Bindings: Env }>): Promise<Response> {
   const body = await c.req.json<{ iocs: string[] }>();
   if (!body.iocs || !Array.isArray(body.iocs) || body.iocs.length === 0) {
-    return c.json({ error: 'bad_request', message: 'iocs array required' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'iocs array required');
   }
 
   const db = c.env.BRIEFINGS_DB!;

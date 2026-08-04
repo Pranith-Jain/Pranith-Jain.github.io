@@ -10,6 +10,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 import { safeJsonBody } from '../lib/safe-body';
 import { parseBooleanQuery } from '../lib/tg-boolean-search';
 import type { D1Database } from '@cloudflare/workers-types';
@@ -38,7 +39,7 @@ async function ensureTables(db: D1Database): Promise<void> {
 
 export async function tgBooleanSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const q = c.req.query('q') || '';
   const mode = c.req.query('mode') || 'boolean';
@@ -127,7 +128,7 @@ export async function tgBooleanSearchHandler(c: Context<{ Bindings: Env }>): Pro
 
 export async function tgTimelineHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const q = c.req.query('q') || '';
   const channel = c.req.query('channel');
@@ -189,7 +190,7 @@ export async function tgTimelineHandler(c: Context<{ Bindings: Env }>): Promise<
 
 export async function tgSavedSearchesListHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureTables(db);
 
   const { results } = await db.prepare('SELECT * FROM tg_saved_searches ORDER BY updated_at DESC').all();
@@ -199,7 +200,7 @@ export async function tgSavedSearchesListHandler(c: Context<{ Bindings: Env }>):
 
 export async function tgSavedSearchCreateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureTables(db);
 
   const body = await safeJsonBody<{
@@ -211,7 +212,7 @@ export async function tgSavedSearchCreateHandler(c: Context<{ Bindings: Env }>):
     date_range?: string;
   }>(c, { maxBytes: 4096 });
   if ('error' in body) return body.error;
-  if (!body.value.name || !body.value.query) return c.json({ error: 'name and query required' }, 400);
+  if (!body.value.name || !body.value.query) return badRequest(c, 'name and query required');
 
   const id = genId('tgs');
   const b = body.value;
@@ -239,11 +240,11 @@ export async function tgSavedSearchCreateHandler(c: Context<{ Bindings: Env }>):
 
 export async function tgSavedSearchDeleteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureTables(db);
 
   const id = c.req.param('id');
   const result = await db.prepare('DELETE FROM tg_saved_searches WHERE id = ?').bind(id).run();
-  if ((result.meta?.changes ?? 0) === 0) return c.json({ error: 'not found' }, 404);
+  if ((result.meta?.changes ?? 0) === 0) return notFound(c, 'not found');
   return c.json({ success: true });
 }

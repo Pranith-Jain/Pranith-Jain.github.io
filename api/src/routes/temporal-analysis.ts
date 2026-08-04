@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, serviceUnavailable } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 
 /**
@@ -489,10 +490,10 @@ export async function predictIocDormancy(
 /** GET /api/v1/temporal/timeline?indicator=... */
 export async function temporalTimelineHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const indicator = c.req.query('indicator');
-  if (!indicator) return c.json({ error: 'indicator required' }, 400);
+  if (!indicator) return badRequest(c, 'indicator required');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const timeline = await buildIocTimeline(db, indicator);
   if (!timeline) {
@@ -505,7 +506,7 @@ export async function temporalTimelineHandler(c: Context<{ Bindings: Env }>): Pr
 /** GET /api/v1/temporal/campaigns */
 export async function temporalCampaignsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const windowHours = parseInt(c.req.query('window') ?? '24');
   const minIndicators = parseInt(c.req.query('min') ?? '3');
@@ -527,7 +528,7 @@ export async function temporalCampaignsHandler(c: Context<{ Bindings: Env }>): P
 /** GET /api/v1/temporal/velocity */
 export async function temporalVelocityHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   // Validate against the fixed set — an unknown value would interpolate as the
   // string "undefined" into a datetime() modifier downstream (malformed-SQL
@@ -547,10 +548,10 @@ export async function temporalVelocityHandler(c: Context<{ Bindings: Env }>): Pr
 /** GET /api/v1/temporal/predict?indicator=... */
 export async function temporalPredictHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const indicator = c.req.query('indicator');
-  if (!indicator) return c.json({ error: 'indicator required' }, 400);
+  if (!indicator) return badRequest(c, 'indicator required');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const prediction = await predictIocDormancy(db, indicator);
   if (!prediction) {

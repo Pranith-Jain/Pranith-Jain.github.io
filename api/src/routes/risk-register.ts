@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, internalError, notFound, serviceUnavailable } from '../lib/api-error';
 import { safeNullLog, kvBulkGetText } from '../lib/safe-catch';
 
 export type RiskLevel = 'none' | 'low' | 'medium' | 'high' | 'critical';
@@ -203,11 +204,11 @@ export async function riskRegisterListHandler(c: Context<{ Bindings: Env }>): Pr
 
 export async function riskRegisterGetHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
   const raw = await kv.get(`${KV_PREFIX}:${id}`);
-  if (!raw) return c.json({ error: 'not found' }, 404);
+  if (!raw) return notFound(c, 'not found');
   return c.json(JSON.parse(raw) as RiskRegisterEntry);
 }
 
@@ -216,7 +217,7 @@ export async function riskRegisterCreateHandler(c: Context<{ Bindings: Env }>): 
   try {
     body = await c.req.json();
   } catch {
-    return c.json({ error: 'invalid_json_body' }, 400);
+    return badRequest(c, 'invalid_json_body');
   }
 
   const now = new Date().toISOString();
@@ -249,18 +250,18 @@ export async function riskRegisterCreateHandler(c: Context<{ Bindings: Env }>): 
 
 export async function riskRegisterUpdateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
   let body: any;
   try {
     body = await c.req.json();
   } catch {
-    return c.json({ error: 'invalid_json_body' }, 400);
+    return badRequest(c, 'invalid_json_body');
   }
 
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
   const raw = await kv.get(`${KV_PREFIX}:${id}`);
-  if (!raw) return c.json({ error: 'not found' }, 404);
+  if (!raw) return notFound(c, 'not found');
 
   const existing = JSON.parse(raw) as RiskRegisterEntry;
   const updated: RiskRegisterEntry = {
@@ -277,9 +278,9 @@ export async function riskRegisterUpdateHandler(c: Context<{ Bindings: Env }>): 
 
 export async function riskRegisterDeleteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
   const ok = await remove(c.env, id);
-  if (!ok) return c.json({ error: 'delete failed' }, 500);
+  if (!ok) return internalError(c, 'delete failed');
   return c.json({ ok: true });
 }
 

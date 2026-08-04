@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, internalError, notFound, serviceUnavailable } from '../lib/api-error';
 import { safeNullLog, kvBulkGetText } from '../lib/safe-catch';
 
 export type AssessmentStatus = 'draft' | 'review' | 'published' | 'archived';
@@ -128,7 +129,7 @@ export async function assessmentCreateHandler(c: Context<{ Bindings: Env }>): Pr
       related_pirs?: string[];
     }>();
     if (!body.title || !body.type || !body.topic || !body.body) {
-      return c.json({ error: 'title, type, topic, and body are required' }, 400);
+      return badRequest(c, 'title, type, topic, and body are required');
     }
     const now = new Date().toISOString();
     const assessment: Assessment = {
@@ -151,7 +152,7 @@ export async function assessmentCreateHandler(c: Context<{ Bindings: Env }>): Pr
     return c.json({ ok: true, assessment }, 201);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -176,7 +177,7 @@ export async function assessmentListHandler(c: Context<{ Bindings: Env }>): Prom
     });
   } catch (e) {
     console.error('assessmentListHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -186,7 +187,7 @@ export async function assessmentListHandler(c: Context<{ Bindings: Env }>): Prom
 export async function assessmentDetailHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const kv = c.env.KV_CACHE;
-    if (!kv) return c.json({ error: 'assessment storage not configured' }, 503);
+    if (!kv) return serviceUnavailable(c, 'assessment storage not configured');
     const id = c.req.param('id');
     const cacheKey = `https://assessment-detail-cache.internal/v1/${id}`;
     const cache = cacheApi();
@@ -203,7 +204,7 @@ export async function assessmentDetailHandler(c: Context<{ Bindings: Env }>): Pr
       }
     }
     const raw = await kv.get(`${KV_PREFIX}:${id}`);
-    if (!raw) return c.json({ error: 'assessment not found' }, 404);
+    if (!raw) return notFound(c, 'assessment not found');
     const assessment = JSON.parse(raw) as Assessment;
     if (cache) {
       safeNullLog(
@@ -217,7 +218,7 @@ export async function assessmentDetailHandler(c: Context<{ Bindings: Env }>): Pr
     return c.json(assessment);
   } catch (e) {
     console.error('assessmentDetailHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -227,10 +228,10 @@ export async function assessmentDetailHandler(c: Context<{ Bindings: Env }>): Pr
 export async function assessmentUpdateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const kv = c.env.KV_CACHE;
-    if (!kv) return c.json({ error: 'assessment storage not configured' }, 503);
+    if (!kv) return serviceUnavailable(c, 'assessment storage not configured');
     const id = c.req.param('id');
     const raw = await kv.get(`${KV_PREFIX}:${id}`);
-    if (!raw) return c.json({ error: 'assessment not found' }, 404);
+    if (!raw) return notFound(c, 'assessment not found');
 
     const existing = JSON.parse(raw) as Assessment;
     const body = await c.req.json<Partial<Assessment>>();
@@ -263,7 +264,7 @@ export async function assessmentUpdateHandler(c: Context<{ Bindings: Env }>): Pr
     return c.json({ ok: true, assessment: updated });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -273,7 +274,7 @@ export async function assessmentUpdateHandler(c: Context<{ Bindings: Env }>): Pr
 export async function assessmentDeleteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const kv = c.env.KV_CACHE;
-    if (!kv) return c.json({ error: 'assessment storage not configured' }, 503);
+    if (!kv) return serviceUnavailable(c, 'assessment storage not configured');
     const id = c.req.param('id');
     await kv.delete(`${KV_PREFIX}:${id}`);
     const idsRaw = await kv.get(`${KV_PREFIX}:index`);
@@ -293,6 +294,6 @@ export async function assessmentDeleteHandler(c: Context<{ Bindings: Env }>): Pr
     return c.json({ ok: true, deleted: id });
   } catch (e) {
     console.error('assessmentDeleteHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
