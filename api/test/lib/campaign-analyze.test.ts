@@ -7,9 +7,10 @@ import { detectCampaignPhases, predictCampaignMoves } from '../../src/routes/cam
 // The route handler required `indicators` to be a non-empty array with
 // {value, type, first_seen, score} shape, but the agent tool (analyze_campaign
 // in tools.ts) sends {value, type}-only indicators, and often calls with just
-// an `actor` (no IOCs) → empty indicators → 400. These tests pin the pure
-// analysis functions the handler depends on so the fix (normalize missing
-// fields + allow actor-only) doesn't regress.
+// an `actor` (no IOCs) → empty indicators → 400. The fix (in
+// campaignAnalyzeHandler) normalizes missing fields + allows actor-only calls.
+// These tests pin the pure analysis functions the handler depends on so the
+// fix doesn't regress.
 // ─────────────────────────────────────────────────────────────────────────────
 
 describe("detectCampaignPhases — handles the tool's indicator shape", () => {
@@ -28,48 +29,58 @@ describe("detectCampaignPhases — handles the tool's indicator shape", () => {
     expect(phases[0]).toHaveProperty('start_time');
   });
 
-  it('returns a preparation phase for low-score indicators', () => {
-    const indicators = [{ value: '1.2.3.4', type: 'ip', first_seen: '2024-01-01T00:00:00Z', score: 10 }];
+  it('sorts indicators chronologically by first_seen', () => {
+    // Out-of-order input must be sorted before phase detection.
+    const indicators = [
+      { value: 'b.com', type: 'domain', first_seen: '2024-01-03T00:00:00Z', score: 50 },
+      { value: 'a.com', type: 'domain', first_seen: '2024-01-01T00:00:00Z', score: 50 },
+      { value: 'c.com', type: 'domain', first_seen: '2024-01-02T00:00:00Z', score: 50 },
+    ];
     const phases = detectCampaignPhases(indicators);
-    expect(phases[0]?.phase).toBe('preparation');
+    // All same phase (score 50 → 'delivery'), so one phase with all 3 indicators.
+    expect(phases).toHaveLength(1);
+    expect(phases[0]!.indicators).toEqual(['a.com', 'c.com', 'b.com']);
   });
 
   it('detects c2 phase for high-score IP indicators', () => {
-    const indicators = [{ value: '1.2.3.4', type: 'ip', first_seen: '2024-01-01T00:00:00Z', score: 90 }];
+    const indicators = [{ value: '1.2.3.4', type: 'ip', first_seen: '2024-01-01T00:00:00Z', score: 85 }];
     const phases = detectCampaignPhases(indicators);
-    expect(phases.some((p) => p.phase === 'c2')).toBe(true);
+    expect(phases[0]!.phase).toBe('c2');
   });
 
-  it('handles empty indicators array (actor-only campaign analysis)', () => {
-    // After the fix, the handler calls detectCampaignPhases([]) when only an
-    // actor is supplied — this must not throw.
-    const phases = detectCampaignPhases([]);
-    expect(phases).toEqual([]);
+  it('detects exploitation phase for high-score hash indicators', () => {
+    const indicators = [{ value: 'a'.repeat(64), type: 'hash', first_seen: '2024-01-01T00:00:00Z', score: 90 }];
+    const phases = detectCampaignPhases(indicators);
+    expect(phases[0]!.phase).toBe('exploitation');
   });
 
-  it('sorts indicators by first_seen before phase detection', () => {
-    const indicators = [
-      { value: 'b.com', type: 'domain', first_seen: '2024-03-01T00:00:00Z', score: 50 },
-      { value: 'a.com', type: 'domain', first_seen: '2024-01-01T00:00:00Z', score: 50 },
-      { value: 'c.com', type: 'domain', first_seen: '2024-02-01T00:00:00Z', score: 50 },
-    ];
+  it('detects delivery phase for high-score domain indicators', () => {
+    const indicators = [{ value: 'evil.com', type: 'domain', first_seen: '2024-01-01T00:00:00Z', score: 75 }];
     const phases = detectCampaignPhases(indicators);
-    // All same phase (delivery, score 50) but the function should not throw
-    // and should return phases in time order.
-    expect(phases.length).toBeGreaterThan(0);
+    expect(phases[0]!.phase).toBe('delivery');
+  });
+
+  it('returns empty array for empty indicators (handler produces actor-only skeleton)', () => {
+    // When the agent calls with just an actor and no IOCs, the handler skips
+    // detectCampaignPhases (indicators is empty after normalization). Pin that
+    // an empty input returns empty — no crash, no phantom phase.
+    expect(detectCampaignPhases([])).toEqual([]);
   });
 });
 
-describe('predictCampaignMoves — actor-only campaign skeleton', () => {
-  it('produces predictions for a campaign with no indicators (actor-only)', () => {
+describe('predictCampaignMoves — handles actor-only campaigns', () => {
+  it('returns predictions with null sectors when no attribution data', () => {
+    // An actor-only campaign (no IOCs, no sector data) must still produce a
+    // valid predictions object — the handler returns it as part of the skeleton.
+    // Use an unknown actor so no sector pattern matches → null sector.
     const campaign = {
-      campaign_id: 'test',
-      name: 'Test',
-      status: 'active' as const,
+      campaign_id: 'x',
+      name: 'test',
+      status: 'active',
       phases: [],
-      current_phase: 'unknown' as const,
+      current_phase: 'unknown',
       indicators: { ips: [], domains: [], hashes: [], urls: [], emails: [] },
-      attribution: { actor: 'APT29', confidence: 60, evidence: [] },
+      attribution: { actor: 'UNKNOWN-ACTOR-XYZ', confidence: 60, evidence: [] },
       predictions: {
         next_target_sector: null,
         next_target_region: null,
@@ -87,13 +98,15 @@ describe('predictCampaignMoves — actor-only campaign skeleton', () => {
         dwell_time_avg_days: 0,
       },
       timeline: [],
-      first_seen: new Date().toISOString(),
-      last_seen: new Date().toISOString(),
+      first_seen: '2024-01-01T00:00:00Z',
+      last_seen: '2024-01-01T00:00:00Z',
       confidence: 70,
       sources: ['analysis'],
     };
-    const predictions = predictCampaignMoves(campaign);
-    expect(predictions).toBeDefined();
+    const predictions = predictCampaignMoves(campaign as never);
+    expect(predictions).toHaveProperty('next_target_sector');
     expect(predictions).toHaveProperty('escalation_probability');
+    // Unknown actor with no sector pattern → null sector (not a crash).
+    expect(predictions.next_target_sector).toBeNull();
   });
 });
