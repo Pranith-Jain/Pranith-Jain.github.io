@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest } from '../lib/api-error';
 import { buildGraph, type GraphResponse } from '../lib/relationship-graph';
 import { safeNullLog } from '../lib/safe-catch';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';

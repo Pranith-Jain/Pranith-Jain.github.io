@@ -1,0 +1,1 @@
+../../../worker/lib/si-manifest.ts
