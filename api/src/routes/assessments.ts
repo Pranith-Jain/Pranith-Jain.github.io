@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound, serviceUnavailable } from '../lib/api-error';
 import { safeNullLog, kvBulkGetText } from '../lib/safe-catch';
 
@@ -38,7 +39,7 @@ function cacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
   } catch (_catchErr) {
-    console.error('cacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('cacheApi failed', _catchErr);
     return null;
   }
 }
@@ -57,7 +58,7 @@ async function loadAll(env: Env): Promise<Assessment[]> {
         const r = await cache.match(INDEX_CACHE_KEY);
         if (r) return (await r.json()) as Assessment[];
       } catch (_catchErr) {
-        console.error('loadAll failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('loadAll failed', _catchErr);
         /* fall through */
       }
     }
@@ -76,7 +77,7 @@ async function loadAll(env: Env): Promise<Assessment[]> {
         const raw = values.get(key) ?? null;
         return raw ? (JSON.parse(raw) as Assessment) : null;
       } catch (_catchErr) {
-        console.error('loadAll failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('loadAll failed', _catchErr);
         return null;
       }
     });
@@ -151,7 +152,7 @@ export async function assessmentCreateHandler(c: Context<{ Bindings: Env }>): Pr
     await save(c.env, assessment);
     return c.json({ ok: true, assessment }, 201);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -176,7 +177,7 @@ export async function assessmentListHandler(c: Context<{ Bindings: Env }>): Prom
       results: assessments.slice(0, limit),
     });
   } catch (e) {
-    console.error('assessmentListHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('assessmentListHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -217,7 +218,7 @@ export async function assessmentDetailHandler(c: Context<{ Bindings: Env }>): Pr
     }
     return c.json(assessment);
   } catch (e) {
-    console.error('assessmentDetailHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('assessmentDetailHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -263,7 +264,7 @@ export async function assessmentUpdateHandler(c: Context<{ Bindings: Env }>): Pr
     await save(c.env, updated);
     return c.json({ ok: true, assessment: updated });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -293,7 +294,7 @@ export async function assessmentDeleteHandler(c: Context<{ Bindings: Env }>): Pr
     }
     return c.json({ ok: true, deleted: id });
   } catch (e) {
-    console.error('assessmentDeleteHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('assessmentDeleteHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

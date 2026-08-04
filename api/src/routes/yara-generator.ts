@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 /**
@@ -151,7 +152,7 @@ async function callNvidia(nvidiaKey: string, input: LlmInput): Promise<{ text: s
       const text = j?.choices?.[0]?.message?.content;
       if (typeof text === 'string' && text.trim()) return { text, model };
     } catch (_catchErr) {
-      console.error('callNvidia failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('callNvidia failed', _catchErr);
       /* try next model */
     }
   }
@@ -174,7 +175,7 @@ async function runLlm(
       if (msg.includes('rate') || msg.includes('429')) {
         // rate-limited — fall through to next provider
       } else {
-        console.error('runLlm groq failed:', err instanceof Error ? err.message : String(err));
+        logError('runLlm groq failed', err);
       }
     }
   }
@@ -185,7 +186,7 @@ async function runLlm(
       const { text, model: nvidiaModel } = await callNvidia(nvidiaKey, input);
       return { text, modelUsed: `nvidia:${nvidiaModel}` };
     } catch (err) {
-      console.error('runLlm nvidia failed:', err instanceof Error ? err.message : String(err));
+      logError('runLlm nvidia failed', err);
     }
   }
 
@@ -197,7 +198,7 @@ async function runLlm(
         const text = await runWorkersAi(aiClient, model, input);
         return { text, modelUsed: model };
       } catch (err) {
-        console.error('handler failed:', err instanceof Error ? err.message : String(err));
+        logError('handler failed', err);
         const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
         if (msg.includes('rate') || msg.includes('429') || msg.includes('quota')) {
           throw new Error('AI rate-limited/quota exceeded — try again later or configure GROQ_API_KEY');
@@ -441,7 +442,7 @@ function validateDlpSyntax(rule: string): { valid: boolean; errors: string[]; wa
       }
     }
   } catch (_catchErr) {
-    console.error('validateDlpSyntax failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('validateDlpSyntax failed', _catchErr);
     if (!rule.includes('pattern') && !rule.includes('regex') && !rule.includes('match')) {
       errors.push('Invalid JSON or missing pattern definitions');
     }
@@ -594,7 +595,7 @@ function extractRuleName(type: RuleType, rule: string): string {
         const json = JSON.parse(rule);
         if (json.name) return json.name.replace(/\s+/g, '_').toLowerCase();
       } catch (_catchErr) {
-        console.error('extractRuleName failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('extractRuleName failed', _catchErr);
         /* ok */
       }
       return 'generated_dlp_rule';
@@ -1366,7 +1367,7 @@ export async function ruleGeneratorHandler(c: Context<{ Bindings: Env }>): Promi
 
     return c.json(result, 200, { 'Cache-Control': 'no-store' });
   } catch (err) {
-    console.error('Rule generator error:', err);
+    logError('Rule generator error:', err);
     return internalError(c, err);
   }
 }
@@ -1444,7 +1445,7 @@ export async function ruleValidateHandler(c: Context<{ Bindings: Env }>): Promis
       analysis,
     });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return internalError(c, err);
   }
 }

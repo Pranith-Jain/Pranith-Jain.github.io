@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 import { fetchIocCorrelation } from './ioc-correlation';
@@ -274,7 +275,7 @@ async function loadDetectionFiredSet(env: Env): Promise<Set<string>> {
           }
           return null;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           return null;
         }
       });

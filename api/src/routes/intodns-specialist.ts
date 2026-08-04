@@ -25,6 +25,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, badGateway } from '../lib/api-error';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
@@ -103,7 +104,7 @@ async function cachedJsonFetch(
       });
     }
   } catch (_catchErr) {
-    console.error('cachedJsonFetch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('cachedJsonFetch failed', _catchErr);
   }
 
   const url = `${UPSTREAM_BASE}${upstreamPath}${upstreamPath.includes('?') ? '&' : '?'}domain=${encodeURIComponent(domain)}`;
@@ -114,7 +115,7 @@ async function cachedJsonFetch(
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return handleUpstreamError(c, err, domain);
   }
 
@@ -132,7 +133,7 @@ async function cachedJsonFetch(
     };
     await routeCachePut(cacheKey, payload, CACHE_TTL_SECONDS);
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
   }
 
   try {
@@ -143,7 +144,7 @@ async function cachedJsonFetch(
       'X-Intodns-Endpoint': endpointTag,
     });
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     // Upstream returned non-JSON; pass it through with a content-type set
     return new Response(body, {
       status: 200,
@@ -238,7 +239,7 @@ export async function intodnsBadgeHandler(c: Context<{ Bindings: Env }>): Promis
       });
     }
   } catch (_catchErr) {
-    console.error('intodnsBadgeHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('intodnsBadgeHandler failed', _catchErr);
   }
 
   const url = `${UPSTREAM_BASE}/badge/${encodeURIComponent(v.domain)}`;
@@ -249,7 +250,7 @@ export async function intodnsBadgeHandler(c: Context<{ Bindings: Env }>): Promis
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return handleUpstreamError(c, err, v.domain);
   }
   if (res.status === 429) return handleRateLimit(c, res, v.domain);
@@ -265,7 +266,7 @@ export async function intodnsBadgeHandler(c: Context<{ Bindings: Env }>): Promis
     };
     await routeCachePut(cacheKey, payload, BADGE_TTL_SECONDS);
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
   }
 
   return new Response(body, {
@@ -329,7 +330,7 @@ export async function intodnsDebugEmailHandler(c: Context<{ Bindings: Env }>): P
       signal: AbortSignal.timeout(15_000), // longer for the LLM scoring inside intodns
     });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return c.json(
       {
         error: 'intodns upstream fetch failed',
@@ -360,7 +361,7 @@ export async function intodnsDebugEmailHandler(c: Context<{ Bindings: Env }>): P
       'X-Intodns-Endpoint': 'debug-email',
     });
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return new Response(body, { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
 }

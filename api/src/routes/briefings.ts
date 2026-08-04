@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import {
   BRIEFING_MAX_AGE_DAYS,
   buildBriefing,
@@ -145,7 +146,7 @@ export async function listBriefingsHandler(c: Context<{ Bindings: Env }>) {
     if (!skipCache) c.executionCtx.waitUntil(cache.put(key, res.clone()));
     return res;
   } catch (err) {
-    console.error('listBriefingsHandler error:', err instanceof Error ? err.message : String(err));
+    logError('listBriefingsHandler error', err);
     return internalError(c, err);
   }
 }
@@ -311,7 +312,7 @@ export async function backfillBriefingsHandler(c: AdminCtx) {
       const result = await writeBriefing(db, briefing, { skipIfExists: !force });
       (result.written ? writtenDaily : skippedDaily).push(briefing.slug);
     } catch (err) {
-      console.error('backfill daily failed:', err);
+      logError('backfill daily failed:', err);
       failures.push({ kind: 'daily', offset: i, error: 'build failed' });
     }
   }
@@ -323,7 +324,7 @@ export async function backfillBriefingsHandler(c: AdminCtx) {
       const result = await writeBriefing(db, briefing, { skipIfExists: !force });
       (result.written ? writtenWeekly : skippedWeekly).push(briefing.slug);
     } catch (err) {
-      console.error('backfill weekly failed:', err);
+      logError('backfill weekly failed:', err);
       failures.push({ kind: 'weekly', offset: i, error: 'build failed' });
     }
   }
@@ -547,7 +548,7 @@ export async function sweepBriefingsHandler(c: AdminCtx) {
     const result = await sweepOldBriefings(db, maxAge);
     return c.json({ ok: true, max_age_days: maxAge, ...result }, 200);
   } catch (err) {
-    console.error('sweep failed:', err);
+    logError('sweep failed:', err);
     return c.json(
       {
         error: 'sweep failed',
@@ -588,7 +589,7 @@ export async function deleteBriefingHandler(c: AdminCtx) {
     await purgeBriefingDetailCache(slug);
     return c.json({ ok: true, slug, deleted: !!existed }, 200);
   } catch (err) {
-    console.error('delete briefing failed:', err);
+    logError('delete briefing failed:', err);
     return internalError(c, 'delete failed');
   }
 }
@@ -625,7 +626,7 @@ export async function pruneEmptyBriefingsHandler(c: AdminCtx) {
     }
     return c.json({ ok: true, deleted: slugs }, 200);
   } catch (err) {
-    console.error('prune-empty failed:', err);
+    logError('prune-empty failed:', err);
     return internalError(c, err);
   }
 }

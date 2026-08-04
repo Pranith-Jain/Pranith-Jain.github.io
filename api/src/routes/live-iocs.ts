@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { isBenign, refang, scoreConfidence } from '../lib/ioc-normalize';
 import type { D1Database, Queue } from '@cloudflare/workers-types';
 import { safeNullLog } from '../lib/safe-catch';
@@ -166,7 +167,7 @@ async function fetchText(url: string): Promise<string | null> {
     if (firstNonWs.startsWith('<!DOCTYPE') || firstNonWs.startsWith('<html')) return null;
     return text;
   } catch (_catchErr) {
-    console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchText failed', _catchErr);
     return null;
   }
 }
@@ -206,7 +207,7 @@ async function fetchTextDiag(
     }
     return { ok: true, status: res.status, bytes: text.length, duration_ms: Date.now() - t0 };
   } catch (e) {
-    console.error('fetchTextDiag failed:', e instanceof Error ? e.message : String(e));
+    logError('fetchTextDiag failed', e);
     return { ok: false, error: e instanceof Error ? e.message.slice(0, 120) : 'unknown', duration_ms: Date.now() - t0 };
   }
 }
@@ -662,7 +663,7 @@ const webamonCampaignsSource: FeedSource = {
       const capped = items.slice(0, PER_FEED_CAP);
       return { items: capped, sources: [{ id, ok: true, count: capped.length }] };
     } catch (err) {
-      console.error('webamonCampaignsSource failed:', err instanceof Error ? err.message : String(err));
+      logError('webamonCampaignsSource failed', err);
       return { items: [], sources: [{ id, ok: false, count: 0 }] };
     }
   },
@@ -1013,7 +1014,7 @@ async function finalizeLiveIocs(
         sources.push({ id: 'feed-scheduler', ok: true, count, newest_observation: newest });
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* non-fatal */
     }
   }
@@ -1193,7 +1194,7 @@ async function isEnqueueCoolingDown(kv: KVNamespace | undefined): Promise<boolea
     try {
       if (await cache.match(ENQUEUE_COOLDOWN_SHADOW)) return true;
     } catch (_catchErr) {
-      console.error('isEnqueueCoolingDown failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('isEnqueueCoolingDown failed', _catchErr);
       /* fall through to KV */
     }
   }
@@ -1205,7 +1206,7 @@ async function isEnqueueCoolingDown(kv: KVNamespace | undefined): Promise<boolea
         new Response('1', { headers: { 'cache-control': `max-age=${ENQUEUE_COOLDOWN_SECONDS}` } })
       );
     } catch (_catchErr) {
-      console.error('isEnqueueCoolingDown failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('isEnqueueCoolingDown failed', _catchErr);
       /* best-effort — a miss just falls back to KV next time */
     }
   }
@@ -1382,7 +1383,7 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
             });
             await cache.put(cacheReq, fresh);
           } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            logError('handler failed', _catchErr);
             /* revalidation failure is non-fatal */
           }
         })()

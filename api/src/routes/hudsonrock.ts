@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, badGateway, serviceUnavailable } from '../lib/api-error';
 import {
   searchByEmails,
@@ -123,7 +124,7 @@ export async function hudsonRockSearchHandler(c: Context<{ Bindings: Env }>): Pr
       c
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
@@ -174,7 +175,7 @@ export async function hudsonRockDomainHandler(c: Context<{ Bindings: Env }>): Pr
       c
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
@@ -199,7 +200,7 @@ export async function hudsonRockDomainOverviewHandler(c: Context<{ Bindings: Env
       c
     );
   } catch (e) {
-    console.error('hudsonRockDomainOverviewHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('hudsonRockDomainOverviewHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
@@ -230,7 +231,7 @@ export async function hudsonRockDiscoveryHandler(c: Context<{ Bindings: Env }>):
       c
     );
   } catch (e) {
-    console.error('hudsonRockDiscoveryHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('hudsonRockDiscoveryHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
@@ -251,7 +252,7 @@ export async function hudsonRockAssessmentHandler(c: Context<{ Bindings: Env }>)
     const data = await thirdPartyRiskAssessment(c.env, domain);
     return successResponse({ domain, assessment: data, generated_at: new Date().toISOString() }, cacheKey, c);
   } catch (e) {
-    console.error('hudsonRockAssessmentHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('hudsonRockAssessmentHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
@@ -271,7 +272,7 @@ export async function hudsonRockInfectionAnalysisHandler(c: Context<{ Bindings: 
     const data = await infectionAnalysis(c.env, stealer);
     return successResponse({ stealer, analysis: data.data, generated_at: new Date().toISOString() }, cacheKey, c);
   } catch (e) {
-    console.error('hudsonRockInfectionAnalysisHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('hudsonRockInfectionAnalysisHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
@@ -303,7 +304,7 @@ export async function hudsonRockUsernameHandler(c: Context<{ Bindings: Env }>): 
       c
     );
   } catch (e) {
-    console.error('hudsonRockUsernameHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('hudsonRockUsernameHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
@@ -335,7 +336,7 @@ export async function hudsonRockIpHandler(c: Context<{ Bindings: Env }>): Promis
       c
     );
   } catch (e) {
-    console.error('hudsonRockIpHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('hudsonRockIpHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
@@ -348,7 +349,7 @@ export async function hudsonRockAccountHandler(c: Context<{ Bindings: Env }>): P
     const data = await getAccount(c.env);
     return c.json({ account: data, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('hudsonRockAccountHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('hudsonRockAccountHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }

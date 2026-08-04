@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 const HIBP_RANGE = 'https://api.pwnedpasswords.com/range';
@@ -227,7 +228,7 @@ async function queryBreachVipEmail(email: string): Promise<BreachEntry[]> {
     if (!data.results || data.results.length === 0) return [];
     return groupBreachVipResults(data.results);
   } catch (_catchErr) {
-    console.error('queryBreachVipEmail failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('queryBreachVipEmail failed', _catchErr);
     return [];
   }
 }
@@ -259,7 +260,7 @@ async function queryBreachVipDomain(domain: string): Promise<BreachDomainEntry[]
       source: 'breachvip' as const,
     }));
   } catch (_catchErr) {
-    console.error('queryBreachVipDomain failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('queryBreachVipDomain failed', _catchErr);
     return [];
   }
 }
@@ -325,7 +326,7 @@ async function queryLeakIx(q: string): Promise<BreachEntry[]> {
       source: 'leakix' as const,
     }));
   } catch (_catchErr) {
-    console.error('queryLeakIx failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('queryLeakIx failed', _catchErr);
     return [];
   }
 }
@@ -349,7 +350,7 @@ async function queryProxyNova(q: string): Promise<BreachEntry[]> {
         ]
       : [];
   } catch (_catchErr) {
-    console.error('queryProxyNova failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('queryProxyNova failed', _catchErr);
     return [];
   }
 }
@@ -383,7 +384,7 @@ async function queryHudsonRockEmail(email: string): Promise<BreachEntry[]> {
       source: 'hudsonrock' as const,
     }));
   } catch (_catchErr) {
-    console.error('queryHudsonRockEmail failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('queryHudsonRockEmail failed', _catchErr);
     return [];
   }
 }
@@ -431,7 +432,7 @@ async function queryHudsonRockDomain(domain: string): Promise<BreachDomainEntry[
       },
     ];
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return [];
   }
 }
@@ -479,7 +480,7 @@ async function queryProjectDiscovery(email: string): Promise<BreachEntry[]> {
       },
     ];
   } catch (_catchErr) {
-    console.error('queryProjectDiscovery failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('queryProjectDiscovery failed', _catchErr);
     return [];
   }
 }
@@ -517,7 +518,7 @@ async function queryProjectDiscoveryDomain(domain: string): Promise<BreachDomain
       },
     ];
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return [];
   }
 }
@@ -594,7 +595,7 @@ async function queryThrowaway(email: string): Promise<ThrowawayResponse | null> 
     if (!res.ok) return null;
     return (await res.json()) as ThrowawayResponse;
   } catch (_catchErr) {
-    console.error('queryThrowaway failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('queryThrowaway failed', _catchErr);
     return null;
   }
 }
@@ -614,7 +615,7 @@ async function queryRapid(email: string): Promise<RapidResponse | null> {
     if (!res.ok) return null;
     return (await res.json()) as RapidResponse;
   } catch (_catchErr) {
-    console.error('queryRapid failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('queryRapid failed', _catchErr);
     return null;
   }
 }
@@ -775,7 +776,7 @@ export async function breachRangeHandler(c: Context<{ Bindings: Env }>): Promise
       },
     });
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return badGateway(c, 'upstream_error');
   }
 }

@@ -19,6 +19,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { detectType, type IndicatorType } from '../lib/indicator';
 import { extract, type ExtractedEntities } from '../lib/extract';
 import { enrichBulk, type BulkEnrichResult } from '../lib/enrich-bulk';
@@ -128,7 +129,7 @@ async function publishStatusSnapshot(
       })
     );
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* best-effort; feed-status falls back to 'cold' */
   }
 }
@@ -276,7 +277,7 @@ export async function intelBundleHandler(c: Context<{ Bindings: Env }>): Promise
         300
       );
     } catch (_catchErr) {
-      console.error('intelBundleHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('intelBundleHandler failed', _catchErr);
       // Corrupt row — fall through to recompute below.
     }
   }
@@ -367,7 +368,7 @@ export async function intelBundlePostHandler(c: Context<{ Bindings: Env }>): Pro
   try {
     parsed = await c.req.json();
   } catch (_catchErr) {
-    console.error('intelBundlePostHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('intelBundlePostHandler failed', _catchErr);
     return jsonResponse(c, { error: 'invalid_json' }, 400);
   }
   const body = parseBundlePostBody(parsed);
@@ -397,7 +398,7 @@ export async function intelBundlePostHandler(c: Context<{ Bindings: Env }>): Pro
         300
       );
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* corrupt row — recompute below */
     }
   }
@@ -543,7 +544,7 @@ export async function buildBundleFromReport(
       })),
     ]);
   } catch (err) {
-    console.error('STIX build enrichment phase failed:', err);
+    logError('STIX build enrichment phase failed:', err);
     throw new BundleBuildError('enrichment_failed');
   }
 
@@ -551,7 +552,7 @@ export async function buildBundleFromReport(
   try {
     built = await buildStixBundle(report, entities, bulk, cveEnrichments, llmEntities);
   } catch (err) {
-    console.error('STIX build bundle assembly failed:', err);
+    logError('STIX build bundle assembly failed:', err);
     throw new BundleBuildError('build_failed');
   }
 
@@ -593,7 +594,7 @@ export async function intelBundleBuildHandler(c: Context<{ Bindings: Env }>): Pr
       inputUrl = fetched.url;
     }
   } catch (err) {
-    console.error('intelBundleBuildHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('intelBundleBuildHandler failed', err);
     if (err instanceof SsrfError) {
       return jsonResponse(c, { error: 'ssrf_blocked', detail: 'blocked' }, 400);
     }
@@ -631,7 +632,7 @@ export async function intelBundleBuildHandler(c: Context<{ Bindings: Env }>): Pr
   try {
     built = await buildBundleFromReport(c, report, preIocs);
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     if (err instanceof BundleBuildError) {
       return jsonResponse(c, { error: err.code }, 502);
     }
@@ -674,7 +675,7 @@ export async function intelBundleByIdHandler(c: Context<{ Bindings: Env }>): Pro
       300
     );
   } catch (_catchErr) {
-    console.error('intelBundleByIdHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('intelBundleByIdHandler failed', _catchErr);
     return jsonResponse(c, { error: 'corrupt_view_json' }, 500);
   }
 }

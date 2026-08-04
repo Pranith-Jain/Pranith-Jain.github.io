@@ -32,6 +32,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, badGateway } from '../lib/api-error';
 import { runCompletion } from '../case-study/generation/ai-client';
 import { fenceUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../lib/prompt-fence';
@@ -109,7 +110,7 @@ export async function intodnsSnapshotHandler(c: Context<{ Bindings: Env }>): Pro
   try {
     res = await fetch(url, { headers, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return c.json(
       {
         error: 'intodns upstream fetch failed',
@@ -152,7 +153,7 @@ export async function intodnsSnapshotHandler(c: Context<{ Bindings: Env }>): Pro
     };
     await routeCachePut(cacheKey, payload, SNAPSHOT_TTL_SECONDS);
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
   }
 
   const responseHeaders = new Headers({
@@ -286,7 +287,7 @@ export async function intodnsExplainHandler(c: Context<{ Bindings: Env }>): Prom
       explanation = null;
     }
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     degraded = true;
     degradationReason = err instanceof Error ? err.message : String(err);
   }
@@ -303,7 +304,7 @@ export async function intodnsExplainHandler(c: Context<{ Bindings: Env }>): Prom
       };
       await routeCachePut(explainCacheKey, payload, EXPLAIN_TTL_SECONDS);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
     }
   }
 
@@ -355,7 +356,7 @@ async function fetchSnapshotJson(domain: string, env: Env): Promise<SnapshotResu
       return { ok: true, status: 200, body: cached.body, fetchedAt: cached.fetchedAt };
     }
   } catch (_catchErr) {
-    console.error('fetchSnapshotJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchSnapshotJson failed', _catchErr);
   }
 
   const headers: Record<string, string> = {
@@ -371,7 +372,7 @@ async function fetchSnapshotJson(domain: string, env: Env): Promise<SnapshotResu
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
   } catch (err) {
-    console.error('fetchSnapshotJson failed:', err instanceof Error ? err.message : String(err));
+    logError('fetchSnapshotJson failed', err);
     return {
       ok: false,
       status: 502,
@@ -405,7 +406,7 @@ async function fetchSnapshotJson(domain: string, env: Env): Promise<SnapshotResu
     };
     await routeCachePut(`intodns:snapshot:v1:json:${domain}`, payload, SNAPSHOT_TTL_SECONDS);
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
   }
 
   return { ok: true, status: 200, body, fetchedAt };

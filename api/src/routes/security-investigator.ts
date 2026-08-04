@@ -28,6 +28,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError } from '../lib/api-error';
 
 const DATA_PREFIX = '/data/si';
@@ -376,7 +377,7 @@ export async function siScriptsHandler(c: Context<{ Bindings: Env }>) {
       'Cache-Control': 'public, max-age=300, s-maxage=3600',
     });
   } catch (e) {
-    console.error('siScriptsHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('siScriptsHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -521,7 +522,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
     try {
       manifest = flattenRowsManifest(parseMiniYaml(skill.svgWidgetsYaml));
     } catch (e) {
-      console.error('siRenderHandler failed:', e instanceof Error ? e.message : String(e));
+      logError('siRenderHandler failed', e);
       return badRequest(c, e instanceof Error ? e.message : String(e));
     }
   } else {
@@ -532,7 +533,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
       try {
         manifest = parseMiniYaml(text) as RenderManifest;
       } catch (e) {
-        console.error('handler failed:', e instanceof Error ? e.message : String(e));
+        logError('handler failed', e);
         return badRequest(c, e instanceof Error ? e.message : String(e));
       }
     } else {
@@ -556,7 +557,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
         try {
           manifest = parseMiniYaml(body.manifestYaml) as RenderManifest;
         } catch (e) {
-          console.error('handler failed:', e instanceof Error ? e.message : String(e));
+          logError('handler failed', e);
           return badRequest(c, e instanceof Error ? e.message : String(e));
         }
       } else if (body.manifest) {
@@ -584,7 +585,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
         return badRequest(c, 'data_must_be_object');
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logError('handler failed', e);
       return badRequest(c, e instanceof Error ? e.message : String(e));
     }
   }
@@ -609,7 +610,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
           },
         });
       } catch (e) {
-        console.error('handler failed:', e instanceof Error ? e.message : String(e));
+        logError('handler failed', e);
         return internalError(c, e instanceof Error ? e.message : String(e));
       }
     }
@@ -635,7 +636,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
       'Cache-Control': 'public, max-age=300, s-maxage=3600',
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

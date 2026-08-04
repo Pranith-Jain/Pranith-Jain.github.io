@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge, forbidden } from '../lib/api-error';
 import { requireAdmin, safeEqual } from '../lib/admin-auth';
 
@@ -56,7 +57,7 @@ async function getFile(token: string, fileId: string): Promise<TelegramFile | nu
     const data = (await res.json()) as { ok: boolean; result?: TelegramFile };
     return data.result ?? null;
   } catch (_catchErr) {
-    console.error('getFile failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('getFile failed', _catchErr);
     return null;
   }
 }
@@ -69,7 +70,7 @@ async function downloadFile(token: string, filePath: string): Promise<string | n
     if (!res.ok) return null;
     return await res.text();
   } catch (_catchErr) {
-    console.error('downloadFile failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('downloadFile failed', _catchErr);
     return null;
   }
 }
@@ -129,7 +130,7 @@ async function setBotCommands(token: string): Promise<void> {
       signal: AbortSignal.timeout(5000),
     });
   } catch (_catchErr) {
-    console.error('setBotCommands failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('setBotCommands failed', _catchErr);
     /* non-critical */
   }
 }
@@ -143,7 +144,7 @@ async function sendMessage(token: string, chatId: number, text: string): Promise
       signal: AbortSignal.timeout(8000),
     });
   } catch (_catchErr) {
-    console.error('sendMessage failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('sendMessage failed', _catchErr);
     /* best-effort */
   }
 }
@@ -305,7 +306,7 @@ export async function telegramLeakBotWebhookHandler(c: Context<{ Bindings: Env }
             statsText += `📡 Active channels: <b>${channelCount?.n ?? 0}</b>\n`;
             statsText += `🔍 Unreviewed discovered channels: <b>${discCount?.n ?? 0}</b>\n`;
           } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            logError('handler failed', _catchErr);
             statsText += 'Database unavailable\n';
           }
         } else {
@@ -336,7 +337,7 @@ export async function telegramLeakBotWebhookStatusHandler(c: Context<{ Bindings:
     const data = (await res.json()) as Record<string, unknown>;
     return c.json(data);
   } catch (e) {
-    console.error('telegramLeakBotWebhookStatusHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('telegramLeakBotWebhookStatusHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'failed');
   }
 }
@@ -367,7 +368,7 @@ export async function telegramLeakBotRegisterHandler(c: Context<{ Bindings: Env 
     }
     return c.json(data);
   } catch (e) {
-    console.error('telegramLeakBotRegisterHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('telegramLeakBotRegisterHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'failed');
   }
 }

@@ -17,6 +17,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { kvBulkGetText } from '../lib/safe-catch';
 import { badRequest, internalError, notFound, serviceUnavailable } from '../lib/api-error';
 
@@ -65,7 +66,7 @@ export async function watchlistActorsListHandler(c: Context<{ Bindings: Env }>):
 
     return c.json({ actors, suggestions: ACTOR_EXAMPLES });
   } catch (e) {
-    console.error('watchlistActorsListHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('watchlistActorsListHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -105,7 +106,7 @@ export async function watchlistActorsAddHandler(c: Context<{ Bindings: Env }>): 
 
     return c.json({ id, actor_name: name, ok: true }, 201);
   } catch (e) {
-    console.error('watchlistActorsAddHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('watchlistActorsAddHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -122,7 +123,7 @@ export async function watchlistActorsDeleteHandler(c: Context<{ Bindings: Env }>
     await db.prepare('UPDATE actor_watchlist SET active = 0 WHERE id = ?').bind(id).run();
     return c.json({ ok: true });
   } catch (e) {
-    console.error('watchlistActorsDeleteHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('watchlistActorsDeleteHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -153,7 +154,7 @@ export async function watchlistActorActivityHandler(c: Context<{ Bindings: Env }
       victims: victims ?? [],
     });
   } catch (e) {
-    console.error('watchlistActorActivityHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('watchlistActorActivityHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -267,7 +268,7 @@ export async function watchlistDigestGenerateHandler(c: Context<{ Bindings: Env 
 
     return c.json({ digest, actor_count: entries.length });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }
@@ -321,7 +322,7 @@ export async function watchlistDigestsListHandler(c: Context<{ Bindings: Env }>)
 
     return c.json(result);
   } catch (e) {
-    console.error('watchlistDigestsListHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('watchlistDigestsListHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -425,6 +426,6 @@ export async function runWeeklyWatchlistDigest(db: D1Database, kv: KVNamespace):
       await kv.put('digest:weekly:index', JSON.stringify(weeks.slice(0, 20))).catch(() => {});
     }
   } catch (e) {
-    console.error('watchlist-digest: failed', e instanceof Error ? e.message : String(e));
+    logError('watchlist-digest: failed', e);
   }
 }

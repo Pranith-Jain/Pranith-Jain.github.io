@@ -1,4 +1,5 @@
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { indexDocument } from '../lib/rag-embedder';
 
 const FETCH_TIMEOUT = 15_000;
@@ -84,12 +85,12 @@ export async function indexCveCorpus(env: Env): Promise<{ indexed: number; error
         });
         indexed += n;
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         errors++;
       }
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     errors++;
   }
 
@@ -148,12 +149,12 @@ export async function indexActorKb(env: Env): Promise<{ indexed: number; errors:
         });
         indexed += n;
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         errors++;
       }
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     errors++;
   }
 
@@ -209,12 +210,12 @@ export async function indexRansomwareClaims(env: Env): Promise<{ indexed: number
         });
         indexed += n;
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         errors++;
       }
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     errors++;
   }
 
@@ -283,12 +284,12 @@ export async function indexBreachCorpus(env: Env): Promise<{ indexed: number; er
         });
         indexed += n;
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         errors++;
       }
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     errors++;
   }
 
@@ -310,7 +311,7 @@ export async function indexAllCorpora(env: Env): Promise<{
     try {
       return await fn();
     } catch (_catchErr) {
-      console.error('indexAllCorpora failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('indexAllCorpora failed', _catchErr);
       return { indexed: 0, errors: 1 };
     }
   };

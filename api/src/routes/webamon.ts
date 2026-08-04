@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { ContentfulStatusCode } from 'hono/utils/http-status';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway } from '../lib/api-error';
 import { cachedJson } from '../lib/route-cache';
 
@@ -70,7 +71,7 @@ async function webamonFetch(path: string, retries = 2): Promise<Response | null>
       clearTimeout(timer);
       if (res.ok || res.status !== 429) return res;
     } catch (_catchErr) {
-      console.error('webamonFetch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('webamonFetch failed', _catchErr);
       /* noop */
     }
     if (attempt < retries) await new Promise((r) => setTimeout(r, 800 * attempt));
@@ -120,7 +121,7 @@ export async function webamonScanHandler(c: Context<{ Bindings: Env }>): Promise
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
-    console.error('webamonScanHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('webamonScanHandler failed', err);
     return c.json(
       { error: 'internal_error', message: err instanceof Error ? err.message : 'scan handler failed' },
       500
@@ -139,7 +140,7 @@ export async function webamonReportsHandler(c: Context<{ Bindings: Env }>): Prom
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
-    console.error('webamonReportsHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('webamonReportsHandler failed', err);
     return c.json(
       { error: 'internal_error', message: err instanceof Error ? err.message : 'reports handler failed' },
       500
@@ -157,7 +158,7 @@ export async function webamonReportHandler(c: Context<{ Bindings: Env }>): Promi
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
-    console.error('webamonReportHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('webamonReportHandler failed', err);
     return c.json(
       { error: 'internal_error', message: err instanceof Error ? err.message : 'report handler failed' },
       500
@@ -187,7 +188,7 @@ export async function webamonScreenshotHandler(c: Context<{ Bindings: Env }>): P
     }
     return notFound(c, 'no screenshot in response');
   } catch (err) {
-    console.error('webamonScreenshotHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('webamonScreenshotHandler failed', err);
     return c.json(
       { error: 'internal_error', message: err instanceof Error ? err.message : 'screenshot handler failed' },
       500
@@ -208,7 +209,7 @@ export async function webamonDomainHandler(c: Context<{ Bindings: Env }>): Promi
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
-    console.error('webamonDomainHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('webamonDomainHandler failed', err);
     return c.json(
       { error: 'internal_error', message: err instanceof Error ? err.message : 'domain handler failed' },
       500
@@ -226,7 +227,7 @@ export async function webamonServerHandler(c: Context<{ Bindings: Env }>): Promi
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
-    console.error('webamonServerHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('webamonServerHandler failed', err);
     return c.json(
       { error: 'internal_error', message: err instanceof Error ? err.message : 'server handler failed' },
       500
@@ -244,7 +245,7 @@ export async function webamonResourceHandler(c: Context<{ Bindings: Env }>): Pro
     const data = await res.json();
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (_catchErr) {
-    console.error('webamonResourceHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('webamonResourceHandler failed', _catchErr);
     return internalError(c, 'resource handler failed');
   }
 }

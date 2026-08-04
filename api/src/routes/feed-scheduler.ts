@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { safeJsonBody } from '../lib/safe-body';
 import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 import { ensureGraphTables, upsertNode, type NodeType } from './threat-graph';
@@ -46,7 +47,7 @@ function cacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
   } catch (_catchErr) {
-    console.error('cacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('cacheApi failed', _catchErr);
     return null;
   }
 }
@@ -58,7 +59,7 @@ async function readJobsCached(): Promise<FeedJob[] | null> {
     const r = await cache.match(JOBS_CACHE_KEY);
     return r ? ((await r.json()) as FeedJob[]) : null;
   } catch (_catchErr) {
-    console.error('readJobsCached failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readJobsCached failed', _catchErr);
     return null;
   }
 }
@@ -74,7 +75,7 @@ async function writeJobsCache(jobs: FeedJob[]): Promise<void> {
       })
     );
   } catch (_catchErr) {
-    console.error('writeJobsCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('writeJobsCache failed', _catchErr);
     /* best-effort */
   }
 }
@@ -286,7 +287,7 @@ export async function createFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
   try {
     new URL(body.source_url);
   } catch (_catchErr) {
-    console.error('createFeedJobHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('createFeedJobHandler failed', _catchErr);
     return badRequest(c, 'Invalid source_url');
   }
 
@@ -336,7 +337,7 @@ export async function updateFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
     try {
       new URL(body.source_url);
     } catch (_catchErr) {
-      console.error('updateFeedJobHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('updateFeedJobHandler failed', _catchErr);
       return badRequest(c, 'Invalid source_url');
     }
     job.source_url = body.source_url;
@@ -417,7 +418,7 @@ export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<
 
     return c.json({ job, run: history });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     const errMsg = err instanceof Error ? err.message : String(err);
     job.last_status = 'error';
     job.last_error = errMsg;
@@ -521,7 +522,7 @@ export async function autoRunFeedJobs(db: D1Database): Promise<{ ran: number; sa
           new URL(trimmed);
           nodeType = 'url';
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           /* skip */
         }
       } else if (job.parser === 'plaintext-hashes') {
@@ -551,7 +552,7 @@ export async function autoRunFeedJobs(db: D1Database): Promise<{ ran: number; sa
     job.last_item_count = lines.length;
     job.last_error = null;
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     job.last_status = 'error';
     job.last_error = err instanceof Error ? err.message : String(err);
     job.last_item_count = 0;

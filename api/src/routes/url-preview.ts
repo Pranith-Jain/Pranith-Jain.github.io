@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 import { safeErrorMessage } from '../lib/error';
 import { assertPublicHost } from '../lib/ssrf-guard';
@@ -66,7 +67,7 @@ async function fetchUrlscan(finalUrl: string, env: Env): Promise<UrlPreviewRespo
   try {
     host = new URL(finalUrl).hostname;
   } catch (_catchErr) {
-    console.error('fetchUrlscan failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchUrlscan failed', _catchErr);
     return undefined;
   }
   const q = `page.url:"${finalUrl.replace(/"/g, '\\"')}" OR page.domain:${host}`;
@@ -104,7 +105,7 @@ async function fetchUrlscan(finalUrl: string, env: Env): Promise<UrlPreviewRespo
         : undefined,
     };
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return undefined;
   }
 }
@@ -214,7 +215,7 @@ function decodeEntities(s: string): string {
         try {
           return String.fromCodePoint(cp);
         } catch (_catchErr) {
-          console.error('decodeEntities failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('decodeEntities failed', _catchErr);
           return whole;
         }
       }
@@ -269,7 +270,7 @@ function absUrl(href: string | undefined, base: string): string | undefined {
   try {
     return new URL(href, base).toString();
   } catch (_catchErr) {
-    console.error('absUrl failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('absUrl failed', _catchErr);
     return undefined;
   }
 }
@@ -337,7 +338,7 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
   try {
     parsed = new URL(raw);
   } catch (_catchErr) {
-    console.error('urlPreviewHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('urlPreviewHandler failed', _catchErr);
     return badRequest(c, 'invalid url');
   }
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
@@ -371,7 +372,7 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
         const nextHost = new URL(currentUrl).hostname;
         finalHostCheck = await assertPublicHost(nextHost);
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         return badGateway(c, 'redirect_target_invalid');
       }
       if (!finalHostCheck.ok) {
@@ -397,7 +398,7 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
         cf: { resolveOverride: finalHostCheck.pinIp },
       } as RequestInit);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logError('handler failed', err);
       return badGateway(c, safeErrorMessage(c.env as never, err));
     }
 
@@ -416,7 +417,7 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
         if (next.protocol !== 'http:' && next.protocol !== 'https:') break;
         currentUrl = next.toString();
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         break; // invalid redirect target URL
       }
       continue;

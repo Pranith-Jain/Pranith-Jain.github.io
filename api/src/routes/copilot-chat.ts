@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound, serviceUnavailable } from '../lib/api-error';
 import type { AgentState } from '../lib/agent/types';
 import { detectType } from '../lib/report/subject-resolver';
@@ -156,7 +157,7 @@ export async function copilotChatListHandler(c: Context<{ Bindings: Env }>): Pro
       .filter((s) => s.messageCount > 0);
     return c.json({ sessions });
   } catch (e) {
-    console.error('copilotChatListHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('copilotChatListHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -237,7 +238,7 @@ export async function copilotChatHandler(c: Context<{ Bindings: Env }>): Promise
 
     return c.json({ sessionId: session.id, agentId, isNewSession });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }
@@ -337,7 +338,7 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
               try {
                 await saveSession(db, session);
               } catch (_catchErr) {
-                console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+                logError('handler failed', _catchErr);
               }
             }
 
@@ -363,14 +364,14 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
             try {
               controller.close();
             } catch (_catchErr) {
-              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+              logError('handler failed', _catchErr);
             }
             return;
           }
 
           scheduleNext(hasNew ? 400 : Math.min(pollDelay * 1.5, MAX_POLL_DELAY));
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           scheduleNext(pollDelay);
         }
       };
@@ -393,7 +394,7 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
           try {
             controller.close();
           } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            logError('handler failed', _catchErr);
           }
         }
       }, 120_000);
@@ -412,7 +413,7 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
         try {
           controller.close();
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
         }
       }, { once: true });
 
@@ -454,7 +455,7 @@ export async function copilotChatCancelHandler(c: Context<{ Bindings: Env }>): P
 
     return c.json({ cancelled: true });
   } catch (e) {
-    console.error('copilotChatCancelHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('copilotChatCancelHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -474,7 +475,7 @@ export async function copilotChatDeleteHandler(c: Context<{ Bindings: Env }>): P
     await db.prepare('DELETE FROM copilot_sessions WHERE id = ?').bind(sessionId).run();
     return c.json({ deleted: true });
   } catch (e) {
-    console.error('copilotChatDeleteHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('copilotChatDeleteHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -499,7 +500,7 @@ export async function copilotChatHistoryHandler(c: Context<{ Bindings: Env }>): 
       updated_at: session.updated_at,
     });
   } catch (e) {
-    console.error('copilotChatHistoryHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('copilotChatHistoryHandler failed', e);
     return internalError(c, e);
   }
 }
