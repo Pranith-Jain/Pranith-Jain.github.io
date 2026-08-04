@@ -6,6 +6,8 @@ interface PulseSnapshot {
   timestamp: string;
 }
 
+import { DurableObject } from 'cloudflare:workers';
+import type { Env } from '../env';
 import {
   GLOBAL_PULSE_CACHE as GP_CACHE_KEY,
   GP_RESPONSE_KEY as GP_KV_KEY,
@@ -13,20 +15,16 @@ import {
 
 const MAX_CONNECTIONS = 50;
 
-export class GlobalPulseDO {
-  private ctx: DurableObjectState;
-  private env: unknown;
+// Extends the platform DurableObject base class so `this.ctx` and `this.env`
+// are inherited (typed DurableObjectState and Env respectively). The previous
+// `private env: unknown` forced a cast at every use site.
+export class GlobalPulseDO extends DurableObject<Env> {
   private sessions = new Map<string, WebSocket>();
   private lastSnapshot = new Map<string, PulseSnapshot>();
   private ipConnections = new Map<string, number>();
   private lastGeneratedAt = '';
 
-  constructor(ctx: DurableObjectState, env: unknown) {
-    this.ctx = ctx;
-    this.env = env;
-  }
-
-  async fetch(request: Request): Promise<Response> {
+  override async fetch(request: Request): Promise<Response> {
     if (request.headers.get('upgrade') !== 'websocket') {
       return new Response('Expected WebSocket upgrade', { status: 426 });
     }
@@ -84,7 +82,7 @@ export class GlobalPulseDO {
     return new Response(null, { status: 101, webSocket: client });
   }
 
-  async alarm(): Promise<void> {
+  override async alarm(): Promise<void> {
     await this.pollFeeds();
     if (this.sessions.size > 0) {
       const next = new Date(Date.now() + 30_000);
@@ -108,7 +106,7 @@ export class GlobalPulseDO {
         bodyText = await cached.text();
       } else {
         // KV fallback — global, so any colo can read the last successful build.
-        const kv = (this.env as { KV_CACHE?: KVNamespace }).KV_CACHE;
+        const kv = this.env.KV_CACHE;
         if (kv) {
           bodyText = await kv.get(GP_KV_KEY, 'text');
         }

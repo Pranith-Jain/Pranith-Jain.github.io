@@ -1,3 +1,6 @@
+import { DurableObject } from 'cloudflare:workers';
+import type { Env } from '../env';
+
 interface FeedSnapshot {
   type: string;
   total: number;
@@ -19,20 +22,13 @@ const CACHE_KEYS = [
 // DO stays well within Cloudflare's CPU/subrequest limits.
 const MAX_CONNECTIONS = 50;
 
-export class LiveFeedDO {
-  private ctx: DurableObjectState;
-  private env: unknown;
+export class LiveFeedDO extends DurableObject<Env> {
   private sessions = new Map<string, WebSocket>();
   private lastSnapshots = new Map<string, FeedSnapshot>();
   /** Per-IP connection tracking for abuse prevention. */
   private ipConnections = new Map<string, number>();
 
-  constructor(ctx: DurableObjectState, env: unknown) {
-    this.ctx = ctx;
-    this.env = env;
-  }
-
-  async fetch(request: Request): Promise<Response> {
+  override async fetch(request: Request): Promise<Response> {
     if (request.headers.get('upgrade') !== 'websocket') {
       return new Response('Expected WebSocket upgrade', { status: 426 });
     }
@@ -99,7 +95,7 @@ export class LiveFeedDO {
     return new Response(null, { status: 101, webSocket: client });
   }
 
-  async alarm(): Promise<void> {
+  override async alarm(): Promise<void> {
     await this.pollFeeds();
     if (this.sessions.size > 0) {
       const next = new Date(Date.now() + 30_000);

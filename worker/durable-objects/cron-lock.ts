@@ -1,3 +1,4 @@
+import { DurableObject } from 'cloudflare:workers';
 import type { Env } from '../env';
 
 /**
@@ -26,14 +27,13 @@ interface Lease {
 
 const DEFAULT_TTL_MS = 10 * 60_000;
 
-export class CronLockDO {
-  private ctx: DurableObjectState;
-
-  constructor(ctx: DurableObjectState, _env: Env) {
-    this.ctx = ctx;
-  }
-
-  async fetch(request: Request): Promise<Response> {
+// Extends the platform DurableObject base class so `this.ctx` (DurableObjectState)
+// and `this.env` (Env) are inherited — no hand-written constructor needed.
+// The legacy `class FooDO { constructor(ctx, env) { this.ctx = ctx; ... } }`
+// pattern loses type safety on `this.env` and risks drifting from the platform
+// base class lifecycle hooks.
+export class CronLockDO extends DurableObject<Env> {
+  override async fetch(request: Request): Promise<Response> {
     let body: { op?: string; cron?: string; ttlMs?: number; token?: string };
     try {
       body = (await request.json()) as typeof body;
@@ -116,7 +116,7 @@ export class CronLockDO {
    * accumulate. `lease:` keys (only present on the global instance, which has no
    * alarm) are never reached here.
    */
-  async alarm(): Promise<void> {
+  override async alarm(): Promise<void> {
     const now = Date.now();
     const counters = await this.ctx.storage.list<{ expiresAt: number }>({ prefix: 'count:' });
     let liveCounters = 0;

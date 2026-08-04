@@ -1,6 +1,6 @@
+import { DurableObject } from 'cloudflare:workers';
 import type { Env } from '../env';
 import { advance, initState, type ReportState } from '../../api/src/lib/report/pipeline';
-import type { Env as ApiEnv } from '../../api/src/env';
 import type { TemplateId, Tlp } from '../../api/src/lib/report/types';
 
 const MAX_REPORT_WS_CONNECTIONS = 5;
@@ -10,20 +10,18 @@ const MAX_REPORT_WS_CONNECTIONS = 5;
  * subrequest budget), persists the state, and reschedules until the report is
  * done/errored — then writes the finished Report to the D1 `reports` table.
  */
-export class ReportBuilderDO {
-  private ctx: DurableObjectState;
-  private env: Env;
+// Extends the platform DurableObject base class so `this.ctx` and `this.env`
+// are inherited (typed DurableObjectState and Env). The previous hand-written
+// constructor + `this.env as unknown as ApiEnv` double-casts were noise —
+// `Env` (worker/env.ts) re-exports `ApiEnv` (api/src/env.ts), so they are the
+// same type and the casts were unnecessary.
+export class ReportBuilderDO extends DurableObject<Env> {
   private sessions = new Map<string, WebSocket>();
   /** Tracks which reportId each WebSocket session is watching. */
   private sessionReportIds = new Map<string, string>();
   private ipConnections = new Map<string, number>();
 
-  constructor(ctx: DurableObjectState, env: Env) {
-    this.ctx = ctx;
-    this.env = env;
-  }
-
-  async fetch(request: Request): Promise<Response> {
+  override async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
 
     // WebSocket upgrade — real-time progress streaming
@@ -125,15 +123,15 @@ export class ReportBuilderDO {
     }
   }
 
-  async alarm(): Promise<void> {
+  override async alarm(): Promise<void> {
     const all = await this.ctx.storage.list<ReportState>({ prefix: 'state:' });
     let anyPending = false;
     for (const [key, state] of all) {
       if (state.phase === 'done' || state.phase === 'error') continue;
       try {
         const next = await advance(state, {
-          env: this.env as unknown as ApiEnv,
-          write: { ai: (this.env as unknown as ApiEnv).AI, groqKey: (this.env as unknown as ApiEnv).GROQ_API_KEY, googleKey: (this.env as unknown as ApiEnv).GOOGLE_AI_STUDIO_API_KEY },
+          env: this.env,
+          write: { ai: this.env.AI, groqKey: this.env.GROQ_API_KEY, googleKey: this.env.GOOGLE_AI_STUDIO_API_KEY },
         });
         await this.ctx.storage.put(key, next);
 
@@ -179,7 +177,7 @@ export class ReportBuilderDO {
   }
 
   private async persist(state: ReportState): Promise<void> {
-    const db = (this.env as unknown as ApiEnv).BRIEFINGS_DB;
+    const db = this.env.BRIEFINGS_DB;
     if (!db) return;
     const status = state.phase === 'done' ? 'done' : state.phase === 'error' ? 'error' : 'building';
     const json = state.phase === 'done' && state.report ? JSON.stringify(state.report) : null;

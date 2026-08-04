@@ -1,3 +1,4 @@
+import { DurableObject } from 'cloudflare:workers';
 import type { Env } from '../env';
 import { pinnedFetchFollow } from '../../api/src/lib/ssrf-guard';
 
@@ -102,18 +103,11 @@ interface CrawlState {
   backupPatterns: string[];
 }
 
-export class RadarCrawlerDO {
-  private ctx: DurableObjectState;
-  private env: Env;
+export class RadarCrawlerDO extends DurableObject<Env> {
   private sessions = new Set<WebSocket>();
   private ipConnections = new Map<string, number>();
 
-  constructor(ctx: DurableObjectState, env: Env) {
-    this.ctx = ctx;
-    this.env = env;
-  }
-
-  async fetch(request: Request): Promise<Response> {
+  override async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
 
     if (request.headers.get('upgrade') === 'websocket') {
@@ -258,7 +252,7 @@ export class RadarCrawlerDO {
     }
   }
 
-  async alarm(): Promise<void> {
+  override async alarm(): Promise<void> {
     const state = await this.ctx.storage.get<CrawlState>('state');
     if (!state || state.status === 'done' || state.status === 'error') return;
 
