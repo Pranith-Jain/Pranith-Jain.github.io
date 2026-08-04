@@ -166,7 +166,8 @@ export default function Watches(): JSX.Element {
       error={error}
       onRetry={fetchData}
       headerExtra={
-        <button type="button"
+        <button
+          type="button"
           onClick={() => setShowForm(!showForm)}
           className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2 text-sm transition-colors"
         >
@@ -184,7 +185,10 @@ export default function Watches(): JSX.Element {
               <span className="text-xs font-normal text-slate-500">({watches.length})</span>
             </h2>
             <div className="relative ml-auto max-w-48">
-              <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search
+                size={12}
+                className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              />
               <input
                 type="text"
                 value={search}
@@ -202,7 +206,9 @@ export default function Watches(): JSX.Element {
             <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-600 px-4 py-10 text-center">
               <Bell size={32} className="mx-auto mb-2 text-slate-300 dark:text-slate-500" />
               <p className="text-sm text-slate-500 font-mono">No watches configured yet.</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-mono">Click "New Watch" to get started.</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-mono">
+                Click "New Watch" to get started.
+              </p>
             </div>
           ) : (
             watches
@@ -254,13 +260,15 @@ export default function Watches(): JSX.Element {
                         />
                       </div>
                       <div className="flex items-center gap-2">
-                        <button type="button"
+                        <button
+                          type="button"
                           onClick={() => handleUpdate(watch.id)}
                           className="px-3 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded text-xs hover:bg-rose-700 transition-colors"
                         >
                           Save
                         </button>
-                        <button type="button"
+                        <button
+                          type="button"
                           onClick={cancelEdit}
                           className="px-3 py-1.5 border border-slate-300 dark:border-slate-600 rounded text-xs font-mono text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                         >
@@ -296,7 +304,8 @@ export default function Watches(): JSX.Element {
                         </div>
                       </div>
                       <div className="flex items-center gap-1">
-                        <button type="button"
+                        <button
+                          type="button"
                           onClick={() => startEdit(watch)}
                           aria-label="Edit watch"
                           className="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
@@ -317,7 +326,8 @@ export default function Watches(): JSX.Element {
                             <path d="m15 5 4 4" />
                           </svg>
                         </button>
-                        <button type="button"
+                        <button
+                          type="button"
                           onClick={() => handleDelete(watch.id)}
                           aria-label="Delete watch"
                           className="p-1.5 rounded hover:bg-rose-50 dark:hover:bg-rose-900/20 text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
@@ -408,7 +418,8 @@ export default function Watches(): JSX.Element {
                     className="w-full px-3 py-2 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
                   />
                 </div>
-                <button type="button"
+                <button
+                  type="button"
                   onClick={() => void handleCreate()}
                   disabled={submitting || !form.label || !form.value || !form.webhook}
                   className="w-full py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors flex items-center justify-center gap-2 text-sm"
@@ -425,7 +436,9 @@ export default function Watches(): JSX.Element {
             <h3 className="font-display font-semibold text-sm flex items-center gap-2 mb-3">
               <AlertTriangle size={14} className="text-amber-500" />
               Recent Alerts
-              <button type="button"
+              <button
+                aria-label="Refresh"
+                type="button"
                 onClick={fetchData}
                 className="ml-auto text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
               >
@@ -442,11 +455,15 @@ export default function Watches(): JSX.Element {
                       <span className={`text-micro font-mono uppercase tracking-wider ${TYPE_COLORS[alert.type]}`}>
                         {TYPE_LABELS[alert.type]}
                       </span>
-                      <span className="text-micro text-slate-500 dark:text-slate-400">{new Date(alert.matched_at).toLocaleString()}</span>
+                      <span className="text-micro text-slate-500 dark:text-slate-400">
+                        {new Date(alert.matched_at).toLocaleString()}
+                      </span>
                     </div>
                     <p className="text-sm font-medium truncate">{alert.label}</p>
                     <p className="text-mini font-mono text-emerald-600 dark:text-emerald-400 truncate">{alert.match}</p>
-                    {alert.detail && <p className="text-micro text-slate-500 dark:text-slate-400 truncate mt-0.5">{alert.detail}</p>}
+                    {alert.detail && (
+                      <p className="text-micro text-slate-500 dark:text-slate-400 truncate mt-0.5">{alert.detail}</p>
+                    )}
                   </div>
                 ))
               )}

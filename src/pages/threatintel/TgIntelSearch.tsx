@@ -354,6 +354,7 @@ function TgIntelSearch() {
             )}
           </div>
           <button
+            aria-label="Search"
             type="submit"
             className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
           >

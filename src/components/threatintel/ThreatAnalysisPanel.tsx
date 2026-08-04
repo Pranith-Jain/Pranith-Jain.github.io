@@ -162,6 +162,7 @@ export function ThreatAnalysisPanel({
             {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
           <button
+            aria-label="Close"
             type="button"
             onClick={onClose}
             className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
@@ -398,7 +399,13 @@ function PanelShareRow({ analysis, title }: { analysis: AnalysisResult; title: s
   const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
   const tweet = (analysis as unknown as Record<string, unknown>).tweet as string | undefined;
   const summary =
-    'summary' in analysis ? analysis.summary : 'executive_summary' in analysis ? analysis.executive_summary : 'assessment' in analysis ? analysis.assessment : title;
+    'summary' in analysis
+      ? analysis.summary
+      : 'executive_summary' in analysis
+        ? analysis.executive_summary
+        : 'assessment' in analysis
+          ? analysis.assessment
+          : title;
   const shareText = tweet || summary || `AI threat analysis: ${title}`;
   return (
     <div className="pt-3 border-t border-brand-500/10">

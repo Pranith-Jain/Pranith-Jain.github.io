@@ -563,6 +563,7 @@ export default function ObservableDb(): JSX.Element {
                         className="flex-1 px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-mini font-mono focus:outline-none focus:border-rose-500"
                       />
                       <button
+                        aria-label="Add"
                         type="submit"
                         disabled={!tagDraft.trim()}
                         className="px-2 py-1.5 bg-rose-600 dark:bg-rose-500 text-white rounded text-micro font-mono disabled:opacity-30"
@@ -592,7 +593,9 @@ export default function ObservableDb(): JSX.Element {
                         </button>
                       </span>
                     ))}
-                    {selected.tags.length === 0 && <span className="text-slate-500 dark:text-slate-400 text-micro italic">No tags</span>}
+                    {selected.tags.length === 0 && (
+                      <span className="text-slate-500 dark:text-slate-400 text-micro italic">No tags</span>
+                    )}
                   </div>
                 </div>
 
@@ -614,7 +617,9 @@ export default function ObservableDb(): JSX.Element {
 
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-slate-500 dark:text-slate-400 text-micro">Notes ({selected.notes.length})</span>
+                    <span className="text-slate-500 dark:text-slate-400 text-micro">
+                      Notes ({selected.notes.length})
+                    </span>
                   </div>
                   <form onSubmit={(e) => void addNote(e)} className="flex gap-2 mb-2">
                     <input
@@ -632,6 +637,7 @@ export default function ObservableDb(): JSX.Element {
                       className="w-20 px-2 py-1.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-micro font-mono focus:outline-none focus:border-rose-500"
                     />
                     <button
+                      aria-label="Add"
                       type="submit"
                       disabled={!noteText.trim()}
                       className="px-2 py-1.5 bg-rose-600 dark:bg-rose-500 text-white rounded text-micro font-mono disabled:opacity-30"
@@ -664,7 +670,9 @@ export default function ObservableDb(): JSX.Element {
                           </button>
                         </div>
                       ))}
-                    {selected.notes.length === 0 && <span className="text-slate-500 dark:text-slate-400 text-micro italic">No notes</span>}
+                    {selected.notes.length === 0 && (
+                      <span className="text-slate-500 dark:text-slate-400 text-micro italic">No notes</span>
+                    )}
                   </div>
                 </div>
               </div>

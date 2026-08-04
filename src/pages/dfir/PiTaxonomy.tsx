@@ -246,7 +246,9 @@ export default function PiTaxonomy() {
         </div>
       )}
 
-      {visibleCards.length === 0 && <div className="text-center py-12 text-slate-500 dark:text-slate-400">No results for "{search}"</div>}
+      {visibleCards.length === 0 && (
+        <div className="text-center py-12 text-slate-500 dark:text-slate-400">No results for "{search}"</div>
+      )}
 
       {/* Footer */}
       <div className="mt-8 pt-6 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-center">
@@ -301,7 +303,9 @@ function Card({ cat, node, onClick }: { cat: Category; node: TaxonomyNode; onCli
       )}
       <div className="flex items-center justify-between mt-3 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]/50">
         <span className="text-mini text-slate-500 dark:text-slate-400">{node.ideas?.length ?? 0} ideas</span>
-        {cat !== 'inputs' && <span className="text-mini text-slate-500 dark:text-slate-400">{node.examples?.length ?? 0} prompts</span>}
+        {cat !== 'inputs' && (
+          <span className="text-mini text-slate-500 dark:text-slate-400">{node.examples?.length ?? 0} prompts</span>
+        )}
         <span className="text-mini text-brand-500 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
           View →
         </span>
@@ -336,6 +340,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
             </span>
           </div>
           <button
+            aria-label="Close"
             onClick={onClose}
             className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
           >

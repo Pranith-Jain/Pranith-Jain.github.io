@@ -100,6 +100,7 @@ export function PostAnalysisButton({ title, description, source, compact }: Post
             </div>
             <div className="flex items-center gap-1">
               <button
+                aria-label="Refresh"
                 onClick={fetchAnalysis}
                 disabled={loading}
                 className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"

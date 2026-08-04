@@ -71,7 +71,11 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
             </p>
           </div>
         </div>
-        <button onClick={onClose} className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200">
+        <button
+          aria-label="Close"
+          onClick={onClose}
+          className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200"
+        >
           <X size={14} />
         </button>
       </div>

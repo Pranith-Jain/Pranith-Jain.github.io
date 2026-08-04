@@ -196,6 +196,7 @@ export default function BloomFilter(): JSX.Element {
             <Database size={14} className="text-brand-600 dark:text-brand-400" /> Filter Status
           </h2>
           <button
+            aria-label="Refresh"
             onClick={fetchStats}
             className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 transition-colors"
           >

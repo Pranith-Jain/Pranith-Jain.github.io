@@ -89,13 +89,18 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
         </div>
         <div className="flex items-center gap-1">
           <button
+            aria-label="Refresh"
             onClick={fetchIntel}
             disabled={loading}
             className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
-          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200">
+          <button
+            aria-label="Close"
+            onClick={onClose}
+            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200"
+          >
             <X size={14} />
           </button>
         </div>
@@ -214,7 +219,7 @@ export function CountryIntelPanel({ country, events, onClose }: CountryIntelPane
 function CountryShareRow({ intel, country }: { intel: CountryIntel; country: string }) {
   const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
   const shareText =
-    (intel as unknown as Record<string, unknown>).tweet as string ||
+    ((intel as unknown as Record<string, unknown>).tweet as string) ||
     intel.executive_summary ||
     `${country} threat level: ${intel.overall_threat_level} #ThreatIntel #CyberSecurity`;
   return (
