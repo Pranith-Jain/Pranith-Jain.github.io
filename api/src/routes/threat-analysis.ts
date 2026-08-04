@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODEL = 'openai/gpt-oss-120b';
@@ -271,7 +272,7 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
   try {
     const body = await c.req.json<ThreatAnalysisRequest>();
     if (!body.type) {
-      return c.json({ error: 'missing type field' }, 400);
+      return badRequest(c, 'missing type field');
     }
 
     let system: string;
@@ -300,7 +301,7 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
         maxTokens = 2000;
         break;
       default:
-        return c.json({ error: `unknown type: ${body.type}` }, 400);
+        return badRequest(c, `unknown type: ${body.type}`);
     }
 
     const key = c.env.GROQ_API_KEY;
@@ -337,9 +338,9 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
     const msg = e instanceof Error ? e.message : String(e);
     if (msg.includes('rate-limited')) {
-      return c.json({ error: 'rate-limited', message: 'Groq API rate limit exceeded' }, 429);
+      return tooManyRequests(c, 'Groq API rate limit exceeded');
     }
     console.error('threat-analysis error:', msg);
-    return c.json({ error: 'analysis failed', message: msg }, 500);
+    return internalError(c, msg);
   }
 }

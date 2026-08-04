@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { safeErrorMessage } from '../lib/error';
 
@@ -108,19 +109,15 @@ export async function ransomwareLiveHandler(c: Context<{ Bindings: Env }>): Prom
   const spec: ResourceSpec | undefined = RESOURCES[resource];
 
   if (!spec) {
-    return c.json({ error: 'unknown_resource', allowed: Object.keys(RESOURCES) }, 404, {
-      'cache-control': 'no-store',
-    });
+    return notFound(c, 'unknown_resource');
   }
   if (spec.argRequired && !arg) {
-    return c.json({ error: 'arg_required', resource }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'arg_required');
   }
 
   const apiKey = c.env.RANSOMWARELIVE_API_KEY;
   if (!apiKey) {
-    return c.json({ error: 'not_configured', detail: 'RANSOMWARELIVE_API_KEY secret is not set' }, 503, {
-      'cache-control': 'no-store',
-    });
+    return serviceUnavailable(c, 'RANSOMWARELIVE_API_KEY secret is not set');
   }
 
   const cache = (caches as unknown as { default: Cache }).default;
@@ -161,7 +158,7 @@ export async function ransomwareLiveHandler(c: Context<{ Bindings: Env }>): Prom
     body = await upstream.json();
   } catch (_catchErr) {
     console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'upstream_not_json' }, 502, { 'cache-control': 'no-store' });
+    return badGateway(c, 'upstream_not_json');
   }
 
   const response = c.json({ resource, arg: arg ?? null, fetched_at: new Date().toISOString(), data: body }, 200, {

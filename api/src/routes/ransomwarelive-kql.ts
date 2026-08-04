@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 
 /**
  * KQL hunting-query scraper for ransomware.live.
@@ -201,7 +202,7 @@ export async function kqlIndexHandler(c: Context<{ Bindings: Env }>): Promise<Re
 
   const html = await fetchPage(`${SITE_BASE}/kql`);
   if (!html) {
-    return c.json({ error: 'upstream_unreachable' }, 502, { 'cache-control': 'no-store' });
+    return badGateway(c, 'upstream_unreachable');
   }
 
   const queries = parseKqlIndex(html);
@@ -222,7 +223,7 @@ export async function kqlIndexHandler(c: Context<{ Bindings: Env }>): Promise<Re
 export async function kqlViewHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id') ?? '';
   if (!/^\d{1,4}$/.test(id)) {
-    return c.json({ error: 'bad_id' }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'bad_id');
   }
 
   const cache = (caches as unknown as { default: Cache }).default;
@@ -232,12 +233,12 @@ export async function kqlViewHandler(c: Context<{ Bindings: Env }>): Promise<Res
 
   const html = await fetchPage(`${SITE_BASE}/kql/view/${id}`);
   if (!html) {
-    return c.json({ error: 'upstream_unreachable' }, 502, { 'cache-control': 'no-store' });
+    return badGateway(c, 'upstream_unreachable');
   }
 
   const detail = parseKqlView(html, id);
   if (!detail) {
-    return c.json({ error: 'parse_failed' }, 502, { 'cache-control': 'no-store' });
+    return badGateway(c, 'parse_failed');
   }
 
   const response = c.json(detail, 200, { 'cache-control': `public, max-age=${CACHE_TTL}` });

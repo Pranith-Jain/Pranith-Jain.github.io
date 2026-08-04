@@ -12,6 +12,7 @@
  */
 
 import { Hono } from 'hono';
+import { badRequest } from '../lib/api-error';
 import type { D1Database, KVNamespace, Ai } from '@cloudflare/workers-types';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 import { runCompletion } from '../case-study/generation/ai-client';
@@ -97,7 +98,7 @@ ai.post('/analyze', async (c) => {
   const body = await c.req.json<{ indicator: string; type?: string }>();
 
   if (!body.indicator) {
-    return c.json({ error: 'indicator required' }, 400);
+    return badRequest(c, 'indicator required');
   }
 
   const cacheKey = `ti:ai:analyze:${body.indicator}`;
@@ -202,7 +203,7 @@ ai.post('/summarize', async (c) => {
   const body = await c.req.json<{ text: string; type?: string }>();
 
   if (!body.text) {
-    return c.json({ error: 'text required' }, 400);
+    return badRequest(c, 'text required');
   }
 
   const prompt = `Summarize this threat intelligence data concisely. Focus on:
@@ -249,7 +250,7 @@ ai.post('/risk-score', async (c) => {
   const body = await c.req.json<{ indicators: string[]; context?: string }>();
 
   if (!body.indicators || body.indicators.length === 0) {
-    return c.json({ error: 'indicators array required' }, 400);
+    return badRequest(c, 'indicators array required');
   }
 
   const indicatorData = await Promise.all(
@@ -314,7 +315,7 @@ ai.post('/hunt', async (c) => {
   const body = await c.req.json<{ scenario: string; platform?: string }>();
 
   if (!body.scenario) {
-    return c.json({ error: 'scenario required' }, 400);
+    return badRequest(c, 'scenario required');
   }
 
   const platform = body.platform || 'microsoft';

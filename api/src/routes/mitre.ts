@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 
 const MITRE_ATTCK_API = 'https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json';
 
@@ -82,12 +83,12 @@ async function fetchMitreData(): Promise<MitreStixObject[]> {
 export async function mitreTechniqueHandler(c: Context<{ Bindings: Env }>) {
   const q = c.req.query('technique') ?? c.req.query('t') ?? c.req.query('q');
   if (!q) {
-    return c.json({ error: 'missing technique param (e.g. T1566 or T1566.001)' }, 400);
+    return badRequest(c, 'missing technique param (e.g. T1566 or T1566.001)');
   }
 
   const techniqueId = q.toUpperCase();
   if (!techniqueId.match(/^T\d{4}(\.\d{3})?$/)) {
-    return c.json({ error: 'invalid technique ID (expected T1234 or T1234.001)' }, 400);
+    return badRequest(c, 'invalid technique ID (expected T1234 or T1234.001)');
   }
 
   let objects: MitreStixObject[];
@@ -111,7 +112,7 @@ export async function mitreTechniqueHandler(c: Context<{ Bindings: Env }>) {
       );
     }
     if (err instanceof Error) console.warn('mitre fetch failed:', err.message);
-    return c.json({ error: 'mitre_unreachable' }, 502);
+    return badGateway(c, 'mitre_unreachable');
   }
 
   // Prefer an EXACT external_id match (e.g. 'T1059') — it's unambiguous and
@@ -126,7 +127,7 @@ export async function mitreTechniqueHandler(c: Context<{ Bindings: Env }>) {
     );
 
   if (!technique) {
-    return c.json({ error: 'technique not found' }, 404);
+    return notFound(c, 'technique not found');
   }
 
   const tactic = technique.kill_chain_phases?.[0]?.phase_name ?? null;

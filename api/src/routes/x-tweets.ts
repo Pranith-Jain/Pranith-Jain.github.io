@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 import { fetchUserTimeline, TwitterRateLimited, type TwitterTimelineResponse } from '../lib/twitter-graphql';
 
 /**
@@ -22,7 +23,7 @@ function staleCacheKey(handle: string): Request {
 export async function xTweetsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const handleRaw = (c.req.query('handle') ?? '').trim().replace(/^@/, '');
   if (!HANDLE_RE.test(handleRaw)) {
-    return c.json({ error: 'invalid handle (1-15 chars, A-Za-z0-9_)' }, 400);
+    return badRequest(c, 'invalid handle (1-15 chars, A-Za-z0-9_)');
   }
   const countRaw = Number(c.req.query('count') ?? '40');
   const count = Number.isFinite(countRaw) ? Math.max(5, Math.min(40, Math.floor(countRaw))) : 40;
@@ -63,8 +64,8 @@ export async function xTweetsHandler(c: Context<{ Bindings: Env }>): Promise<Res
       /* fall through */
     }
     if (err instanceof TwitterRateLimited) {
-      return c.json({ error: 'rate-limited', retry_after: err.retryAfter }, 429);
+      return tooManyRequests(c, 'rate-limited', { windowSeconds: 60 });
     }
-    return c.json({ error: 'upstream error' }, 502);
+    return badGateway(c, 'upstream error');
   }
 }

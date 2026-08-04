@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 import { requireAdmin } from '../lib/admin-auth';
 import { X_COOKIES_KV_KEY, validateXCookiesShape, type StoredXCookies } from '../lib/twitter-auth-graphql';
 
@@ -44,7 +45,7 @@ export async function getXCookiesHandler(c: AdminCtx): Promise<Response> {
   if ('error' in gate) return gate.error;
 
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV_CACHE not bound' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV_CACHE not bound');
 
   const stored = await readStored(kv);
   const kvValid = !!stored && !validateXCookiesShape(stored.authToken ?? '', stored.ct0 ?? '');
@@ -77,13 +78,13 @@ export async function setXCookiesHandler(c: AdminCtx): Promise<Response> {
   if ('error' in gate) return gate.error;
 
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV_CACHE not bound' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV_CACHE not bound');
 
   let body: { authToken?: string; ct0?: string; bearer?: string };
   try {
     body = (await c.req.json()) as typeof body;
   } catch {
-    return c.json({ error: 'invalid JSON body' }, 400);
+    return badRequest(c, 'invalid JSON body');
   }
 
   const authToken = (body.authToken ?? '').trim();
@@ -91,7 +92,7 @@ export async function setXCookiesHandler(c: AdminCtx): Promise<Response> {
   const bearer = (body.bearer ?? '').trim();
 
   const shapeErr = validateXCookiesShape(authToken, ct0);
-  if (shapeErr) return c.json({ error: shapeErr }, 400);
+  if (shapeErr) return badRequest(c, shapeErr);
 
   const stored: StoredXCookies = {
     authToken,
@@ -114,7 +115,7 @@ export async function clearXCookiesHandler(c: AdminCtx): Promise<Response> {
   if ('error' in gate) return gate.error;
 
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV_CACHE not bound' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV_CACHE not bound');
 
   await kv.delete(X_COOKIES_KV_KEY);
 

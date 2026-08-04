@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 
 const PD_BASE = 'https://api.projectdiscovery.io/v1/leaks/stats/email';
 const CACHE_TTL_SECONDS = 3600;
@@ -9,10 +10,10 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export async function projectDiscoveryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const email = c.req.query('email');
   if (!email) {
-    return c.json({ error: 'email parameter required' }, 400);
+    return badRequest(c, 'email parameter required');
   }
   if (!EMAIL_RE.test(email)) {
-    return c.json({ error: 'invalid email format' }, 400);
+    return badRequest(c, 'invalid email format');
   }
 
   const cacheKeyStr = `https://pd-cache.internal/v1-${encodeURIComponent(email)}`;
@@ -28,7 +29,7 @@ export async function projectDiscoveryHandler(c: Context<{ Bindings: Env }>): Pr
       },
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `ProjectDiscovery upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ProjectDiscovery upstream ${res.status}`);
 
     const data = await res.json();
     const body = JSON.stringify({
@@ -49,6 +50,6 @@ export async function projectDiscoveryHandler(c: Context<{ Bindings: Env }>): Pr
     return response;
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'ProjectDiscovery unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'ProjectDiscovery unreachable');
   }
 }

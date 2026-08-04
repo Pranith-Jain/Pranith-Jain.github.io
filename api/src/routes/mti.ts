@@ -16,6 +16,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 import {
   fetchMtiSource,
   fetchMtiDns,
@@ -55,14 +56,12 @@ interface MtiLastGood {
 export async function mtiHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const sourceParam = (c.req.query('source') ?? 'iocs').trim();
   if (!isMtiSource(sourceParam)) {
-    return c.json({ error: 'unknown_source', allowed: MTI_SOURCES }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'unknown_source');
   }
   const source: MtiSource = sourceParam;
 
   if (!c.env.MYTHREATINTEL_API_TOKEN) {
-    return c.json({ error: 'not_configured', detail: 'MYTHREATINTEL_API_TOKEN secret is not set' }, 503, {
-      'cache-control': 'no-store',
-    });
+    return serviceUnavailable(c, 'MYTHREATINTEL_API_TOKEN secret is not set');
   }
 
   const q = c.req.query('q') ?? '';
@@ -197,14 +196,10 @@ const DOMAIN_RE = /^(?=.{1,253}$)([a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{
 export async function mtiDnsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = (c.req.query('domain') ?? '').trim().toLowerCase();
   if (!DOMAIN_RE.test(domain)) {
-    return c.json({ error: 'invalid_domain', detail: 'expected an apex domain like company.com' }, 400, {
-      'cache-control': 'no-store',
-    });
+    return badRequest(c, 'expected an apex domain like company.com');
   }
   if (!c.env.MYTHREATINTEL_API_TOKEN) {
-    return c.json({ error: 'not_configured', detail: 'MYTHREATINTEL_API_TOKEN secret is not set' }, 503, {
-      'cache-control': 'no-store',
-    });
+    return serviceUnavailable(c, 'MYTHREATINTEL_API_TOKEN secret is not set');
   }
 
   // Light input hygiene: allowlist chars, cap length — these are forwarded

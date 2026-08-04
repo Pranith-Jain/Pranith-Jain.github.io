@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 import { safeNullLog } from '../lib/safe-catch';
 
 /**
@@ -104,14 +105,14 @@ export async function noveltyHandler(c: Context<{ Bindings: Env }>): Promise<Res
   try {
     const text = c.req.query('q')?.trim();
     if (!text || text.length < 3) {
-      return c.json({ error: 'q param required (min 3 chars)' }, 400);
+      return badRequest(c, 'q param required (min 3 chars)');
     }
     const markSeen = c.req.query('mark') === '1';
     const result = await checkNovelty(c.env, text, markSeen);
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=60' });
   } catch (e) {
     console.error('noveltyHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -124,12 +125,12 @@ export async function noveltyBatchHandler(c: Context<{ Bindings: Env }>): Promis
   try {
     const body = await c.req.json<{ texts: string[]; mark_seen?: boolean }>();
     if (!Array.isArray(body.texts) || body.texts.length === 0) {
-      return c.json({ error: 'texts[] required' }, 400);
+      return badRequest(c, 'texts[] required');
     }
     const results = await Promise.all(body.texts.map((t) => checkNovelty(c.env, t, body.mark_seen ?? false)));
     return c.json({ results });
   } catch (e) {
     console.error('noveltyBatchHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
