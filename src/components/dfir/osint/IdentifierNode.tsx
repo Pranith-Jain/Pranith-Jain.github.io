@@ -54,7 +54,14 @@ export function IdentifierNode({ data }: { data: IdentifierNodeData }): JSX.Elem
       <Handle type="target" position={Position.Top} className="!bg-slate-400" />
       <div className="flex items-center gap-2">
         {data.customIconUrl ? (
-          <img loading="lazy" src={data.customIconUrl} alt="" className="w-4 h-4 rounded object-cover" />
+          <img
+            loading="lazy"
+            src={data.customIconUrl}
+            alt=""
+            width={16}
+            height={16}
+            className="w-4 h-4 rounded object-cover"
+          />
         ) : (
           <Icon size={16} className="text-brand-600 dark:text-brand-400" />
         )}

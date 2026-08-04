@@ -20,6 +20,12 @@
 
     <!-- Theme and Security -->
     <meta name="theme-color" content="#2c3ee5" />
+
+    <!-- Performance: preconnect to the API origin so the first fetch
+         (IOC check, threat-intel lookup) skips DNS + TLS handshake.
+         The SPA calls /api/v1/* on pranithjain.qzz.io from every tool page. -->
+    <link rel="preconnect" href="https://pranithjain.qzz.io" crossorigin />
+    <link rel="dns-prefetch" href="https://pranithjain.qzz.io" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
