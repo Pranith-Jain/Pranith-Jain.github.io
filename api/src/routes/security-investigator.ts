@@ -28,6 +28,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError } from '../lib/api-error';
 
 const DATA_PREFIX = '/data/si';
 
@@ -116,15 +117,13 @@ interface SiIndex {
 export async function siIndexHandler(c: Context<{ Bindings: Env }>) {
   const idx = await fetchJson<SiIndex>(c.env, `${DATA_PREFIX}/index.json`);
   if (!idx)
-    return c.json({ error: 'si_index_missing', message: 'public/data/si/index.json not found' }, 404, {
-      'Cache-Control': 'no-store',
-    });
+    return notFound(c, 'public/data/si/index.json not found');
   return c.json(idx, 200, { 'Cache-Control': 'public, max-age=300, s-maxage=3600' });
 }
 
 export async function siSkillsHandler(c: Context<{ Bindings: Env }>) {
   const idx = await fetchJson<SiIndex>(c.env, `${DATA_PREFIX}/index.json`);
-  if (!idx) return c.json({ error: 'si_index_missing' }, 404, { 'Cache-Control': 'no-store' });
+  if (!idx) return notFound(c, 'si_index_missing');
   const { category, keyword, limit } = c.req.query();
   const cap = Math.min(Number(limit) || 100, 100);
   const needle = keyword?.toLowerCase();
@@ -145,12 +144,10 @@ export async function siSkillsHandler(c: Context<{ Bindings: Env }>) {
 
 export async function siSkillHandler(c: Context<{ Bindings: Env }>) {
   const slug = c.req.param('slug');
-  if (!slug) return c.json({ error: 'missing_slug' }, 400, { 'Cache-Control': 'no-store' });
+  if (!slug) return badRequest(c, 'missing_slug');
   const body = await fetchJson<Record<string, unknown>>(c.env, `${DATA_PREFIX}/skills/${safeFilename(slug)}.json`);
   if (!body)
-    return c.json({ error: 'skill_not_found', message: `no skill with slug "${slug}"` }, 404, {
-      'Cache-Control': 'no-store',
-    });
+    return notFound(c, `no skill with slug "${slug}"`);
   // ?stream=true returns the bodyMarkdown as text/markdown stream (no
   // JSON envelope), and ?from_line / ?max_lines select a slice. Useful
   // for large skills (threat-pulse ~100KB) when the client only needs
@@ -179,7 +176,7 @@ export async function siSkillHandler(c: Context<{ Bindings: Env }>) {
 
 export async function siQueriesHandler(c: Context<{ Bindings: Env }>) {
   const idx = await fetchJson<SiIndex>(c.env, `${DATA_PREFIX}/index.json`);
-  if (!idx) return c.json({ error: 'si_index_missing' }, 404, { 'Cache-Control': 'no-store' });
+  if (!idx) return notFound(c, 'si_index_missing');
   const { domain, keyword, limit } = c.req.query();
   const cap = Math.min(Number(limit) || 100, 200);
   const needle = keyword?.toLowerCase();
@@ -201,26 +198,20 @@ export async function siQueriesHandler(c: Context<{ Bindings: Env }>) {
 export async function siQueryHandler(c: Context<{ Bindings: Env }>) {
   const domain = c.req.param('domain');
   const file = c.req.param('file');
-  if (!domain || !file) return c.json({ error: 'missing_params' }, 400, { 'Cache-Control': 'no-store' });
+  if (!domain || !file) return badRequest(c, 'missing_params');
   // threat-intelligence queries have a month in the path: threat-intelligence/2026-04/foo
   // The REST route collapses that to domain="threat-intelligence" and file="2026-04__foo" or
   // we can use a wildcard catch-all. The simpler shape is /queries?slug=... — see below.
-  return c.json({ error: 'use_query_by_slug', message: 'use GET /api/v1/si/query?slug=...' }, 404, {
-    'Cache-Control': 'no-store',
-  });
+  return notFound(c, 'use GET /api/v1/si/query?slug=...');
 }
 
 export async function siQueryBySlugHandler(c: Context<{ Bindings: Env }>) {
   const slug = c.req.query('slug');
   if (!slug)
-    return c.json({ error: 'missing_slug', message: 'pass ?slug=cloud/aitm_threat_detection' }, 400, {
-      'Cache-Control': 'no-store',
-    });
+    return badRequest(c, 'pass ?slug=cloud/aitm_threat_detection');
   const body = await fetchJson<Record<string, unknown>>(c.env, `${DATA_PREFIX}/queries/${safeFilename(slug)}.json`);
   if (!body)
-    return c.json({ error: 'query_not_found', message: `no query with slug "${slug}"` }, 404, {
-      'Cache-Control': 'no-store',
-    });
+    return notFound(c, `no query with slug "${slug}"`);
   if (c.req.query('stream') === 'true') {
     const text = String(body.bodyMarkdown ?? '');
     const slice = sliceMarkdownLines(
@@ -245,7 +236,7 @@ export async function siQueryBySlugHandler(c: Context<{ Bindings: Env }>) {
 
 export async function siAutomationsHandler(c: Context<{ Bindings: Env }>) {
   const idx = await fetchJson<SiIndex>(c.env, `${DATA_PREFIX}/index.json`);
-  if (!idx) return c.json({ error: 'si_index_missing' }, 404, { 'Cache-Control': 'no-store' });
+  if (!idx) return notFound(c, 'si_index_missing');
   return c.json({ total: idx.automations.length, automations: idx.automations }, 200, {
     'Cache-Control': 'public, max-age=300, s-maxage=3600',
   });
@@ -253,9 +244,9 @@ export async function siAutomationsHandler(c: Context<{ Bindings: Env }>) {
 
 export async function siAutomationHandler(c: Context<{ Bindings: Env }>) {
   const slug = c.req.param('slug');
-  if (!slug) return c.json({ error: 'missing_slug' }, 400, { 'Cache-Control': 'no-store' });
+  if (!slug) return badRequest(c, 'missing_slug');
   const body = await fetchJson<Record<string, unknown>>(c.env, `${DATA_PREFIX}/automations/${slug}.json`);
-  if (!body) return c.json({ error: 'automation_not_found' }, 404, { 'Cache-Control': 'no-store' });
+  if (!body) return notFound(c, 'automation_not_found');
   return c.json(body, 200, { 'Cache-Control': 'public, max-age=300, s-maxage=3600' });
 }
 
@@ -266,15 +257,15 @@ interface DocsIndex {
 
 export async function siDocsHandler(c: Context<{ Bindings: Env }>) {
   const idx = await fetchJson<DocsIndex>(c.env, `${DATA_PREFIX}/docs-index.json`);
-  if (!idx) return c.json({ error: 'docs_index_missing' }, 404, { 'Cache-Control': 'no-store' });
+  if (!idx) return notFound(c, 'docs_index_missing');
   return c.json(idx, 200, { 'Cache-Control': 'public, max-age=300, s-maxage=3600' });
 }
 
 export async function siDocHandler(c: Context<{ Bindings: Env }>) {
   const slug = c.req.param('slug');
-  if (!slug) return c.json({ error: 'missing_slug' }, 400, { 'Cache-Control': 'no-store' });
+  if (!slug) return badRequest(c, 'missing_slug');
   const text = await fetchText(c.env, `${DATA_PREFIX}/docs/${slug}.md`);
-  if (text === null) return c.json({ error: 'doc_not_found' }, 404, { 'Cache-Control': 'no-store' });
+  if (text === null) return notFound(c, 'doc_not_found');
   // Get title from index
   const idx = await fetchJson<DocsIndex>(c.env, `${DATA_PREFIX}/docs-index.json`);
   const entry = idx?.docs.find((d) => d.slug === slug);
@@ -346,10 +337,10 @@ export async function siRefListHandler(c: Context<{ Bindings: Env }>) {
 
 export async function siRefHandler(c: Context<{ Bindings: Env }>) {
   const name = c.req.param('name');
-  if (!name) return c.json({ error: 'missing_name' }, 400, { 'Cache-Control': 'no-store' });
+  if (!name) return badRequest(c, 'missing_name');
   const clean = name.replace(/\.json$/, '');
   const v = await fetchJson<unknown>(c.env, `${DATA_PREFIX}/ref/${clean}.json`);
-  if (v === null) return c.json({ error: 'ref_not_found' }, 404, { 'Cache-Control': 'no-store' });
+  if (v === null) return notFound(c, 'ref_not_found');
   return c.json({ name: clean, data: v, bytes: JSON.stringify(v).length }, 200, {
     'Cache-Control': 'public, max-age=300, s-maxage=3600',
   });
@@ -357,7 +348,7 @@ export async function siRefHandler(c: Context<{ Bindings: Env }>) {
 
 export async function siRoutingPromptHandler(c: Context<{ Bindings: Env }>) {
   const text = await fetchText(c.env, `${DATA_PREFIX}/routing-prompt.md`);
-  if (text === null) return c.json({ error: 'routing_prompt_missing' }, 404, { 'Cache-Control': 'no-store' });
+  if (text === null) return notFound(c, 'routing_prompt_missing');
   return c.json({ bytes: text.length, promptMarkdown: text }, 200, {
     'Cache-Control': 'public, max-age=300, s-maxage=3600',
   });
@@ -378,7 +369,7 @@ export async function siScriptsHandler(c: Context<{ Bindings: Env }>) {
     }>;
   };
   const assets = (c.env as unknown as { ASSETS?: Fetcher }).ASSETS;
-  if (!assets) return c.json({ error: 'no_assets_binding' }, 500, { 'Cache-Control': 'no-store' });
+  if (!assets) return internalError(c, 'no_assets_binding');
   try {
     const idx = await mod.loadScriptsIndex(assets);
     return c.json({ total: idx.count, returned: idx.scripts.length, scripts: idx.scripts }, 200, {
@@ -386,9 +377,7 @@ export async function siScriptsHandler(c: Context<{ Bindings: Env }>) {
     });
   } catch (e) {
     console.error('siScriptsHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: 'scripts_index_failed', message: e instanceof Error ? e.message : String(e) }, 500, {
-      'Cache-Control': 'no-store',
-    });
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -400,19 +389,19 @@ export async function siScriptsHandler(c: Context<{ Bindings: Env }>) {
  */
 export async function siScriptHandler(c: Context<{ Bindings: Env }>) {
   const name = c.req.param('name');
-  if (!name) return c.json({ error: 'missing_name' }, 400, { 'Cache-Control': 'no-store' });
+  if (!name) return badRequest(c, 'missing_name');
   // Path-traversal guard: no slashes, no parent refs.
   if (name.includes('/') || name.includes('\\') || name.includes('..')) {
-    return c.json({ error: 'invalid_name' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'invalid_name');
   }
   const spec = ['..', '..', '..', 'worker', 'lib', 'si-manifest'].join('/');
   const mod = (await import(/* @vite-ignore */ spec)) as {
     getScript(assets: Fetcher, name: string): Promise<{ name: string; body: string; sizeBytes: number } | null>;
   };
   const assets = (c.env as unknown as { ASSETS?: Fetcher }).ASSETS;
-  if (!assets) return c.json({ error: 'no_assets_binding' }, 500, { 'Cache-Control': 'no-store' });
+  if (!assets) return internalError(c, 'no_assets_binding');
   const body = await mod.getScript(assets, name);
-  if (!body) return c.json({ error: 'script_not_found', name }, 404, { 'Cache-Control': 'no-store' });
+  if (!body) return notFound(c, 'script_not_found');
   // Detect content-type from filename extension for the convenience GET.
   const isMarkdown = name.endsWith('.md');
   const isJson = name.endsWith('.json');
@@ -533,9 +522,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
       manifest = flattenRowsManifest(parseMiniYaml(skill.svgWidgetsYaml));
     } catch (e) {
       console.error('siRenderHandler failed:', e instanceof Error ? e.message : String(e));
-      return c.json({ error: 'yaml_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, {
-        'Cache-Control': 'no-store',
-      });
+      return badRequest(c, e instanceof Error ? e.message : String(e));
     }
   } else {
     // POST or GET with body — accept JSON or YAML.
@@ -546,16 +533,14 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
         manifest = parseMiniYaml(text) as RenderManifest;
       } catch (e) {
         console.error('handler failed:', e instanceof Error ? e.message : String(e));
-        return c.json({ error: 'yaml_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, {
-          'Cache-Control': 'no-store',
-        });
+        return badRequest(c, e instanceof Error ? e.message : String(e));
       }
     } else {
       let body: any;
       try {
         body = await c.req.json();
       } catch {
-        return c.json({ error: 'invalid_json_body' }, 400, { 'Cache-Control': 'no-store' });
+        return badRequest(c, 'invalid_json_body');
       }
       if (!body || typeof body !== 'object') {
         return c.json(
@@ -572,14 +557,12 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
           manifest = parseMiniYaml(body.manifestYaml) as RenderManifest;
         } catch (e) {
           console.error('handler failed:', e instanceof Error ? e.message : String(e));
-          return c.json({ error: 'yaml_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, {
-            'Cache-Control': 'no-store',
-          });
+          return badRequest(c, e instanceof Error ? e.message : String(e));
         }
       } else if (body.manifest) {
         manifest = body.manifest as RenderManifest;
       } else {
-        return c.json({ error: 'missing_manifest' }, 400, { 'Cache-Control': 'no-store' });
+        return badRequest(c, 'missing_manifest');
       }
       if (body.data && typeof body.data === 'object') {
         data = body.data as Record<string, unknown>;
@@ -594,17 +577,15 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
         // Reject prototype-pollution payloads
         const keys = Object.keys(parsed);
         if (keys.some((k) => k === '__proto__' || k === 'constructor' || k === 'prototype')) {
-          return c.json({ error: 'invalid_data' }, 400, { 'Cache-Control': 'no-store' });
+          return badRequest(c, 'invalid_data');
         }
         data = parsed as Record<string, unknown>;
       } else if (parsed !== null) {
-        return c.json({ error: 'data_must_be_object' }, 400, { 'Cache-Control': 'no-store' });
+        return badRequest(c, 'data_must_be_object');
       }
     } catch (e) {
       console.error('handler failed:', e instanceof Error ? e.message : String(e));
-      return c.json({ error: 'data_parse_failed', message: e instanceof Error ? e.message : String(e) }, 400, {
-        'Cache-Control': 'no-store',
-      });
+      return badRequest(c, e instanceof Error ? e.message : String(e));
     }
   }
 
@@ -629,9 +610,7 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
         });
       } catch (e) {
         console.error('handler failed:', e instanceof Error ? e.message : String(e));
-        return c.json({ error: 'png_render_failed', message: e instanceof Error ? e.message : String(e) }, 500, {
-          'Cache-Control': 'no-store',
-        });
+        return internalError(c, e instanceof Error ? e.message : String(e));
       }
     }
     // SVG-with-slug or explicit format=svg returns image/svg+xml.
@@ -657,8 +636,6 @@ export async function siRenderHandler(c: Context<{ Bindings: Env }>) {
     });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: 'render_failed', message: e instanceof Error ? e.message : String(e) }, 500, {
-      'Cache-Control': 'no-store',
-    });
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
