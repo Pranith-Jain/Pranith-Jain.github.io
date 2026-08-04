@@ -24,6 +24,7 @@
 import { Hono } from 'hono';
 import { z } from 'zod';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound } from '../lib/api-error';
 import { requireAdminRole } from '../lib/auth';
 
@@ -139,7 +140,7 @@ siEdgeToolsRouter.post('/si/parse', async (c) => {
     });
     return c.json(result);
   } catch (e) {
-    console.error('loadPromptVaultMod failed:', e instanceof Error ? e.message : String(e));
+    logError('loadPromptVaultMod failed', e);
     return internalError(c, `parse_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -159,7 +160,7 @@ siEdgeToolsRouter.post('/si/mailscope', async (c) => {
     const result = mod.siParseEmailHeaders(parsed.data.headers, { maxChars: parsed.data.maxChars });
     return c.json(result);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `mailscope_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -180,7 +181,7 @@ siEdgeToolsRouter.get('/si/shiftlog', async (c) => {
     });
     return c.json({ entries: list, count: list.length });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `shiftlog_list_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -199,7 +200,7 @@ siEdgeToolsRouter.post('/si/shiftlog', requireAdminRole(), async (c) => {
     const entry = await mod.shiftlogCreate(c.env, parsed.data);
     return c.json(entry, 201);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `shiftlog_create_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -212,7 +213,7 @@ siEdgeToolsRouter.get('/si/shiftlog/:id', async (c) => {
     if (!entry) return notFound(c, 'shiftlog_entry_not_found');
     return c.json(entry);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `shiftlog_get_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -233,7 +234,7 @@ siEdgeToolsRouter.patch('/si/shiftlog/:id', requireAdminRole(), async (c) => {
     if (!entry) return notFound(c, 'shiftlog_entry_not_found');
     return c.json(entry);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `shiftlog_update_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -253,7 +254,7 @@ siEdgeToolsRouter.post('/si/shiftlog/:id/close', requireAdminRole(), async (c) =
     if (!entry) return notFound(c, 'shiftlog_entry_not_found');
     return c.json(entry);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `shiftlog_close_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -273,7 +274,7 @@ siEdgeToolsRouter.post('/si/hypos', async (c) => {
     const result = await mod.siHyposGenerate(parsed.data, { ASSETS: c.env.ASSETS });
     return c.json(result);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `hypos_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -284,7 +285,7 @@ siEdgeToolsRouter.get('/si/promptvault-categories', async (c) => {
     const mod = await loadPromptVaultMod();
     return c.json({ categories: mod.promptVaultCategories() });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `promptvault_categories_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -299,7 +300,7 @@ siEdgeToolsRouter.get('/si/promptvault', async (c) => {
     const list = await mod.promptVaultList(c.env, { category, tag, q, limit });
     return c.json({ entries: list, count: list.length });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `promptvault_list_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -312,7 +313,7 @@ siEdgeToolsRouter.get('/si/promptvault/:slug', async (c) => {
     if (!p) return notFound(c, 'prompt_not_found');
     return c.json(p);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `promptvault_get_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -331,7 +332,7 @@ siEdgeToolsRouter.post('/si/promptvault', requireAdminRole(), async (c) => {
     const p = await mod.promptVaultCreate(c.env, parsed.data);
     return c.json(p, 201);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `promptvault_create_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -352,7 +353,7 @@ siEdgeToolsRouter.post('/si/promptvault/:slug/rate', requireAdminRole(), async (
     if (!p) return notFound(c, 'prompt_not_found');
     return c.json(p);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `promptvault_rate_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

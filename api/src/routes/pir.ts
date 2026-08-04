@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, serviceUnavailable } from '../lib/api-error';
 import { computeConfidence, SOURCE_RELIABILITY_REGISTRY, type ConfidenceScore } from '../lib/confidence';
 import { readLastGood, writeLastGood } from '../lib/lastgood';
@@ -429,7 +430,7 @@ async function buildFreshSourceKeys(): Promise<{ fresh: Set<string>; statuses: R
       }
     }
   } catch (_catchErr) {
-    console.error('buildFreshSourceKeys failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('buildFreshSourceKeys failed', _catchErr);
     /* best-effort */
   }
   if (!cacheWarm) {
@@ -494,7 +495,7 @@ export async function pirListHandler(c: Context<{ Bindings: Env }>): Promise<Res
       }
     }
   } catch (_catchErr) {
-    console.error('pirListHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('pirListHandler failed', _catchErr);
     /* best-effort */
   }
 
@@ -574,7 +575,7 @@ export async function pirCreateHandler(c: Context<{ Bindings: Env }>): Promise<R
     await savePirs(c.env, pirs);
     return c.json({ ok: true, pir }, 201);
   } catch (e) {
-    console.error('pirCreateHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('pirCreateHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -601,7 +602,7 @@ export async function pirUpdateHandler(c: Context<{ Bindings: Env }>): Promise<R
     await savePirs(c.env, pirs);
     return c.json({ ok: true, pir: updated });
   } catch (e) {
-    console.error('pirUpdateHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('pirUpdateHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -619,7 +620,7 @@ export async function pirDeleteHandler(c: Context<{ Bindings: Env }>): Promise<R
     await savePirs(c.env, pirs);
     return c.json({ ok: true, deleted: id });
   } catch (e) {
-    console.error('pirDeleteHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('pirDeleteHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -639,7 +640,7 @@ export async function pirRoutingHandler(c: Context<{ Bindings: Env }>): Promise<
         if (body.rows) for (const r of body.rows) sourceStatuses[r.id] = r.status;
       }
     } catch (_catchErr) {
-      console.error('pirRoutingHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('pirRoutingHandler failed', _catchErr);
       /* best-effort */
     }
 
@@ -655,7 +656,7 @@ export async function pirRoutingHandler(c: Context<{ Bindings: Env }>): Promise<
       { 'Cache-Control': 'public, max-age=120' }
     );
   } catch (e) {
-    console.error('pirRoutingHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('pirRoutingHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -785,7 +786,7 @@ export async function pirAlertHandler(c: Context<{ Bindings: Env }>): Promise<Re
       alerts: result.alerts,
     });
   } catch (e) {
-    console.error('pirAlertHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('pirAlertHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -808,7 +809,7 @@ export async function pirAlertListHandler(c: Context<{ Bindings: Env }>): Promis
       results: filtered.slice(0, limit),
     });
   } catch (e) {
-    console.error('pirAlertListHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('pirAlertListHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -843,7 +844,7 @@ export async function pirAlertAckHandler(c: Context<{ Bindings: Env }>): Promise
     await writePirAlertsShadowed(kv, alerts);
     return c.json({ acknowledged: true, alert: updated });
   } catch (e) {
-    console.error('pirAlertAckHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('pirAlertAckHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -865,7 +866,7 @@ export async function pirAlertAckAllHandler(c: Context<{ Bindings: Env }>): Prom
     await writePirAlertsShadowed(kv, updated);
     return c.json({ acknowledged: newlyAcknowledged });
   } catch (e) {
-    console.error('pirAlertAckAllHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('pirAlertAckAllHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -904,7 +905,7 @@ export async function pirRelevantHandler(c: Context<{ Bindings: Env }>): Promise
     }
     return c.json({ query: c.req.query('q'), results }, 200, { 'Cache-Control': 'public, max-age=120' });
   } catch (e) {
-    console.error('pirRelevantHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('pirRelevantHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError } from '../lib/api-error';
 import { requireAdmin } from '../lib/admin-auth';
 import type { TelegramFeedItem } from './telegram-feed';
@@ -508,7 +509,7 @@ export async function scrapeWatchedChannels(
     try {
       await db.batch(updateStmts);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* non-fatal — last_scraped is best-effort */
     }
   }
@@ -572,7 +573,7 @@ export async function telegramLeakSearchHandler(c: Context<{ Bindings: Env }>): 
       { 'Cache-Control': 'public, max-age=60' }
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e instanceof Error ? e.message : 'query failed');
   }
 }
@@ -600,7 +601,7 @@ export async function telegramDiscoveredChannelsHandler(c: Context<{ Bindings: E
       .all();
     return c.json({ channels: results }, 200, { 'Cache-Control': 'public, max-age=60' });
   } catch (e) {
-    console.error('telegramDiscoveredChannelsHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('telegramDiscoveredChannelsHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : 'query failed');
   }
 }
@@ -615,7 +616,7 @@ export async function telegramWatchedChannelsHandler(c: Context<{ Bindings: Env 
       .all();
     return c.json({ channels: results }, 200);
   } catch (e) {
-    console.error('telegramWatchedChannelsHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('telegramWatchedChannelsHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : 'query failed');
   }
 }
@@ -654,7 +655,7 @@ export async function telegramApproveChannelHandler(c: Context<{ Bindings: Env }
               await kv.put('tg:custom-channels:v1', JSON.stringify(existing));
             }
           } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            logError('handler failed', _catchErr);
             /* non-critical */
           }
         })()
@@ -663,7 +664,7 @@ export async function telegramApproveChannelHandler(c: Context<{ Bindings: Env }
 
     return c.json({ ok: true, handle, category }, 200);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e instanceof Error ? e.message : 'failed');
   }
 }
@@ -710,7 +711,7 @@ export async function telegramRejectChannelHandler(c: Context<{ Bindings: Env }>
               await kv.put('tg:custom-channels:v1', JSON.stringify(next));
             }
           } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            logError('handler failed', _catchErr);
             /* non-critical */
           }
         })()
@@ -719,7 +720,7 @@ export async function telegramRejectChannelHandler(c: Context<{ Bindings: Env }>
 
     return c.json({ ok: true, handle, rows: res.meta?.changes ?? 0 }, 200);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e instanceof Error ? e.message : 'failed');
   }
 }
@@ -770,7 +771,7 @@ export async function telegramLeakStatsHandler(c: Context<{ Bindings: Env }>): P
           }
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* skip malformed */
       }
     }
@@ -791,7 +792,7 @@ export async function telegramLeakStatsHandler(c: Context<{ Bindings: Env }>): P
       { 'Cache-Control': 'public, max-age=120' }
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e instanceof Error ? e.message : 'stats failed');
   }
 }
@@ -824,7 +825,7 @@ export async function telegramLeakScanTriggerHandler(c: Context<{ Bindings: Env 
       channels_discovered: result.channels_discovered,
     });
   } catch (e) {
-    console.error('telegramLeakScanTriggerHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('telegramLeakScanTriggerHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -880,7 +881,7 @@ export async function telegramLeakGeoHandler(c: Context<{ Bindings: Env }>): Pro
         const ip = dnsData.Answer?.[0]?.data;
         if (ip && /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(ip)) resolved.push({ domain, ip });
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* skip */
       }
     }
@@ -910,7 +911,7 @@ export async function telegramLeakGeoHandler(c: Context<{ Bindings: Env }>): Pro
           }
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* skip */
       }
     }
@@ -926,7 +927,7 @@ export async function telegramLeakGeoHandler(c: Context<{ Bindings: Env }>): Pro
       { 'Cache-Control': 'public, max-age=300' }
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e instanceof Error ? e.message : 'geo failed');
   }
 }

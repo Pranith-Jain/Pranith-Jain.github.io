@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import { getSiteUrl } from '../lib/site-config';
 import { cachedJson } from '../lib/route-cache';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 
 function corsHeaders(c: Context): Record<string, string> {
   return {
@@ -84,7 +85,7 @@ export async function ironsightAlertsHandler(c: Context) {
       corsHeaders(c)
     );
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return c.json(
       { status: 'CLEAR', activeCount: 0, alerts: [], lastChecked: new Date().toISOString(), error: 'fetch failed' },
       200,
@@ -167,7 +168,7 @@ export async function ironsightFlightsHandler(c: Context) {
       corsHeaders(c)
     );
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return c.json(
       { total: 0, military: 0, flights: [], source: 'adsb.lol', error: 'fetch failed' },
       200,
@@ -228,7 +229,7 @@ export async function ironsightStrikesHandler(c: Context) {
           });
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         continue;
       }
     }
@@ -244,7 +245,7 @@ export async function ironsightStrikesHandler(c: Context) {
     deduped.sort((a, b) => new Date(String(b.date)).getTime() - new Date(String(a.date)).getTime());
     return c.json(deduped.slice(0, 25), 200, corsHeaders(c));
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return c.json([], 200, corsHeaders(c));
   }
 }
@@ -296,7 +297,7 @@ export async function ironsightRegionalHandler(c: Context) {
               : 'CLEAR';
         alerts.push({ name: country, flag, color, events, level });
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         alerts.push({ name: country, flag, color, events: [], level: 'CLEAR' });
       }
     }
@@ -304,7 +305,7 @@ export async function ironsightRegionalHandler(c: Context) {
     alerts.sort((a, b) => (order[a.level] ?? 4) - (order[b.level] ?? 4));
     return c.json({ alerts, updated: new Date().toISOString() }, 200, corsHeaders(c));
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return c.json({ alerts: [], updated: new Date().toISOString() }, 200, corsHeaders(c));
   }
 }
@@ -350,14 +351,14 @@ export async function ironsightMarketsHandler(c: Context) {
           const pct = prev ? Math.round(((price - prev) / prev) * 10000) / 100 : 0;
           return { symbol: s.symbol, name: s.name, price: Math.round(price * 100) / 100, change, changePercent: pct };
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           return { symbol: s.symbol, name: s.name, price: 0, change: 0, changePercent: 0, error: true };
         }
       })
     );
     return c.json(results, 200, corsHeaders(c));
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return c.json([], 200, corsHeaders(c));
   }
 }
@@ -400,7 +401,7 @@ export async function ironsightCryptoHandler(c: Context) {
     ];
     return c.json(result, 200, corsHeaders(c));
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return c.json([], 200, corsHeaders(c));
   }
 }
@@ -446,13 +447,13 @@ export async function ironsightPolymarketHandler(c: Context) {
           });
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         continue;
       }
     }
     return c.json({ markets: results, count: results.length, updated: new Date().toISOString() }, 200, corsHeaders(c));
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return c.json({ markets: [], count: 0, updated: new Date().toISOString() }, 200, corsHeaders(c));
   }
 }
@@ -530,7 +531,7 @@ export async function ironsightFiresHandler(c: Context) {
       corsHeaders(c)
     );
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return c.json(
       {
         total: 0,

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import { pinnedFetch, pinnedFetchFollow } from '../lib/ssrf-guard';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
@@ -22,7 +23,7 @@ function radarCacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
   } catch (_catchErr) {
-    console.error('radarCacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('radarCacheApi failed', _catchErr);
     return null;
   }
 }
@@ -34,7 +35,7 @@ async function readRadarScanShadow(id: string): Promise<RadarScanResult | null> 
     if (!hit) return null;
     return (await hit.json()) as RadarScanResult;
   } catch (_catchErr) {
-    console.error('readRadarScanShadow failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readRadarScanShadow failed', _catchErr);
     return null;
   }
 }
@@ -49,7 +50,7 @@ async function writeRadarScanShadow(id: string, value: RadarScanResult): Promise
       })
     );
   } catch (_catchErr) {
-    console.error('writeRadarScanShadow failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('writeRadarScanShadow failed', _catchErr);
     /* best-effort */
   }
 }
@@ -66,7 +67,7 @@ async function readRadarListShadow(): Promise<Array<{
     if (!hit) return null;
     return (await hit.json()) as Array<{ id: string; target: string; scannedAt: string; status: number }>;
   } catch (_catchErr) {
-    console.error('readRadarListShadow failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readRadarListShadow failed', _catchErr);
     return null;
   }
 }
@@ -83,7 +84,7 @@ async function writeRadarListShadow(
       })
     );
   } catch (_catchErr) {
-    console.error('writeRadarListShadow failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('writeRadarListShadow failed', _catchErr);
     /* best-effort */
   }
 }
@@ -183,7 +184,7 @@ async function dnsLookup(domain: string): Promise<RadarScanResult['dns']> {
       if (!res.ok) return null;
       return (await res.json()) as { Answer?: { name: string; type: number; data: string; TTL: number }[] };
     } catch (_catchErr) {
-      console.error('dnsLookup failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('dnsLookup failed', _catchErr);
       return null;
     }
   };
@@ -274,7 +275,7 @@ function extractJsFiles(html: string, baseUrl: string): RadarScanResult['js_file
     try {
       src = new URL(src, baseUrl).href;
     } catch (_catchErr) {
-      console.error('extractJsFiles failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('extractJsFiles failed', _catchErr);
       continue;
     }
     files.push({ url: src, size: 0, type: 'application/javascript' });
@@ -533,7 +534,7 @@ function extractQueryParameters(html: string, baseUrl: string): string[] {
     const u = new URL(baseUrl);
     u.searchParams.forEach((_v, k) => params.add(k));
   } catch (_catchErr) {
-    console.error('extractQueryParameters failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('extractQueryParameters failed', _catchErr);
     /* skip */
   }
   return [...params];
@@ -579,7 +580,7 @@ function extractDomains(html: string, baseDomain: string): string[] {
         domains.add(host);
       }
     } catch (_catchErr) {
-      console.error('extractDomains failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('extractDomains failed', _catchErr);
       /* skip */
     }
   }
@@ -764,7 +765,7 @@ function extractBackupFiles(html: string, baseUrl: string): string[] {
         try {
           urls.add(new URL(m[1], baseUrl).href);
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           /* skip */
         }
       }
@@ -809,7 +810,7 @@ function extractDebugEndpoints(html: string, baseUrl: string): string[] {
       try {
         found.push(new URL(ep, baseUrl).href);
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* skip */
       }
     }
@@ -884,7 +885,7 @@ function extractSourceMaps(html: string, baseUrl: string): string[] {
       try {
         maps.add(m[1].startsWith('http') ? m[1] : new URL(m[1], baseUrl).href);
       } catch (_catchErr) {
-        console.error('extractSourceMaps failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('extractSourceMaps failed', _catchErr);
         /* skip */
       }
     }
@@ -895,7 +896,7 @@ function extractSourceMaps(html: string, baseUrl: string): string[] {
       try {
         maps.add(m[1].startsWith('http') ? m[1] : new URL(m[1], baseUrl).href);
       } catch (_catchErr) {
-        console.error('extractSourceMaps failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('extractSourceMaps failed', _catchErr);
         /* skip */
       }
     }
@@ -1004,7 +1005,7 @@ async function fetchRobotsTxt(domain: string): Promise<string[]> {
       if (m[1]) paths.push(`sitemap:${m[1]}`);
     }
   } catch (_catchErr) {
-    console.error('fetchRobotsTxt failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchRobotsTxt failed', _catchErr);
     /* skip */
   }
   return paths;
@@ -1029,7 +1030,7 @@ async function fetchSitemapUrls(domain: string): Promise<string[]> {
       if (urls.length >= 200) break;
     }
   } catch (_catchErr) {
-    console.error('fetchSitemapUrls failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchSitemapUrls failed', _catchErr);
     /* skip */
   }
   return urls;
@@ -1061,7 +1062,7 @@ async function fetchSubdomainsViaCT(domain: string): Promise<string[]> {
     }
     return [...subs].slice(0, 500);
   } catch (_catchErr) {
-    console.error('fetchSubdomainsViaCT failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchSubdomainsViaCT failed', _catchErr);
     return [];
   }
 }
@@ -1091,7 +1092,7 @@ async function checkS3Buckets(domain: string): Promise<RadarScanResult['aws_asse
         results.push({ type: 'S3 Bucket', url, status: res.status });
       }
     } catch (_catchErr) {
-      console.error('checkS3Buckets failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('checkS3Buckets failed', _catchErr);
       /* skip */
     }
   });
@@ -1134,7 +1135,7 @@ export async function radarScanHandler(c: Context<{ Bindings: Env }>) {
     const u = rawUrl.includes('://') ? rawUrl : `https://${rawUrl}`;
     target = new URL(u);
   } catch (_catchErr) {
-    console.error('radarScanHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('radarScanHandler failed', _catchErr);
     return badRequest(c, 'invalid url');
   }
 
@@ -1217,7 +1218,7 @@ export async function radarScanHandler(c: Context<{ Bindings: Env }>) {
         const fullUrl = new URL(path, target.href).href;
         if (!scannedUrls.includes(fullUrl)) scannedUrls.push(fullUrl);
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* skip */
       }
     }
@@ -1335,7 +1336,7 @@ export async function radarScanHandler(c: Context<{ Bindings: Env }>) {
 
     return c.json({ ...result, crawlId: id });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     const msg = err instanceof Error ? err.message : String(err);
     return badGateway(c, `scan failed: ${msg}`);
   }

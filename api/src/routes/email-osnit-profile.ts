@@ -16,6 +16,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 
 interface EmailProfile {
@@ -84,7 +85,7 @@ async function lookupGravatar(email: string): Promise<EmailProfile['gravatar']> 
       }
     }
   } catch (_catchErr) {
-    console.error('lookupGravatar failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('lookupGravatar failed', _catchErr);
     /* fallback: avatar only */
   }
 
@@ -94,7 +95,7 @@ async function lookupGravatar(email: string): Promise<EmailProfile['gravatar']> 
     const imgRes = await fetch(avatarUrl, { method: 'HEAD', signal: AbortSignal.timeout(3000) });
     hasAvatar = imgRes.ok;
   } catch (_catchErr) {
-    console.error('lookupGravatar failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('lookupGravatar failed', _catchErr);
     /* */
   }
 
@@ -153,7 +154,7 @@ async function lookupGitHub(email: string): Promise<EmailProfile['github']> {
       result.location = userData.location || null;
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* fallback */
   }
 
@@ -190,7 +191,7 @@ async function lookupBreach(email: string): Promise<EmailProfile['breach']> {
       }
     }
   } catch (_catchErr) {
-    console.error('lookupBreach failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('lookupBreach failed', _catchErr);
     /* fallback */
   }
 
@@ -228,7 +229,7 @@ async function lookupReputation(email: string): Promise<EmailProfile['reputation
       result.details = data.details || {};
     }
   } catch (_catchErr) {
-    console.error('lookupReputation failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('lookupReputation failed', _catchErr);
     /* fallback */
   }
 
@@ -251,7 +252,7 @@ async function lookupDns(email: string): Promise<EmailProfile['dns']> {
     const mxData = (await mxRes.json()) as { Answer?: Array<{ data: string }> };
     result.mx = (mxData.Answer || []).map((a) => a.data.replace(/\d+\s+/, ''));
   } catch (_catchErr) {
-    console.error('lookupDns failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('lookupDns failed', _catchErr);
     /* */
   }
 
@@ -265,7 +266,7 @@ async function lookupDns(email: string): Promise<EmailProfile['dns']> {
     result.spf = txts.find((t) => t.startsWith('v=spf1')) || null;
     result.dmarc = null; // DMARC is _dmarc.domain
   } catch (_catchErr) {
-    console.error('lookupDns failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('lookupDns failed', _catchErr);
     /* */
   }
 
@@ -278,7 +279,7 @@ async function lookupDns(email: string): Promise<EmailProfile['dns']> {
     const dmarcTxts = (dmarcData.Answer || []).map((a) => a.data.replace(/"/g, ''));
     result.dmarc = dmarcTxts.find((t) => t.startsWith('v=DMARC1')) || null;
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* */
   }
 
@@ -305,7 +306,7 @@ async function lookupPgp(email: string): Promise<EmailProfile['pgp']> {
       }
     }
   } catch (_catchErr) {
-    console.error('lookupPgp failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('lookupPgp failed', _catchErr);
     /* fallback */
   }
 
@@ -409,7 +410,7 @@ async function lookupBehindTheEmail(email: string, apiKey: string): Promise<BTER
     const data = (await res.json()) as { data?: { profile?: BTEResult } };
     return data.data?.profile || null;
   } catch (_catchErr) {
-    console.error('lookupBehindTheEmail failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('lookupBehindTheEmail failed', _catchErr);
     return null;
   }
 }

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict } from '../lib/api-error';
 import { requireAdmin } from '../lib/admin-auth';
 import { safeNullLog, kvBulkGetText } from '../lib/safe-catch';
@@ -750,7 +751,7 @@ export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<Te
         }
       }
     } catch (_catchErr) {
-      console.error('fetchTelegramFeed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('fetchTelegramFeed failed', _catchErr);
       /* KV unavailable, skip custom channels */
     }
   }
@@ -929,7 +930,7 @@ export async function readBumpValue(env: Env): Promise<string | null> {
       return v || null;
     }
   } catch (_catchErr) {
-    console.error('readBumpValue failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readBumpValue failed', _catchErr);
     /* fall through to KV */
   }
   const fresh = env.KV_CACHE ? await safeNullLog('kv-get-tg-bump', env.KV_CACHE.get('tg:custom-channels:bump')) : null;
@@ -941,7 +942,7 @@ export async function readBumpValue(env: Env): Promise<string | null> {
       new Response(fresh ?? '', { headers: { 'cache-control': `max-age=${BUMP_SHADOW_TTL}` } })
     );
   } catch (_catchErr) {
-    console.error('readBumpValue failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readBumpValue failed', _catchErr);
     /* swallow */
   }
   return fresh;
@@ -1062,7 +1063,7 @@ export async function telegramCustomChannelsPostHandler(c: Context<{ Bindings: E
 
     return c.json({ ok: true, channel: { handle, name } }, 201);
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return internalError(c, 'failed to save custom channel');
   }
 }

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { tooManyRequests } from '../lib/api-error';
 import { classifySector, type Sector } from '../lib/sector-classifier';
 import { safeIsoOr } from '../lib/safe-date';
@@ -283,7 +284,7 @@ async function fetchRansomfeedVictims(): Promise<RansomwareVictim[]> {
     }
     return items;
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return [];
   }
 }
@@ -343,7 +344,7 @@ async function fetchRansomwatchVictims(): Promise<RansomwareVictim[]> {
     }
     return out;
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return [];
   }
 }
@@ -398,7 +399,7 @@ async function fetchRansomwareLiveVictims(): Promise<RansomwareVictim[]> {
     }
     return out;
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return [];
   }
 }
@@ -470,7 +471,7 @@ async function fetchCtiFyiVictims(): Promise<RansomwareVictim[]> {
     }
     return out;
   } catch (_catchErr) {
-    console.error('fetchCtiFyiVictims failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchCtiFyiVictims failed', _catchErr);
     return [];
   }
 }
@@ -602,7 +603,7 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
         clearTimeout(timer);
         return res;
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         return null;
       }
     })(),
@@ -651,7 +652,7 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
         });
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* upstream unreachable — fall through; secondary may still have data */
   }
 
@@ -812,7 +813,7 @@ async function readRansomwareLastGood(env: Env): Promise<ResponseBody | null> {
     const hit = await cache.match(lastgoodShadowKey);
     if (hit) return (await hit.json()) as ResponseBody;
   } catch (_catchErr) {
-    console.error('readRansomwareLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readRansomwareLastGood failed', _catchErr);
     /* fall through to KV */
   }
   try {
@@ -836,7 +837,7 @@ async function readRansomwareLastGood(env: Env): Promise<ResponseBody | null> {
     }
     return null;
   } catch (_catchErr) {
-    console.error('readRansomwareLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readRansomwareLastGood failed', _catchErr);
     return null;
   }
 }

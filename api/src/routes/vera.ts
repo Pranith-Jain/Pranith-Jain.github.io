@@ -20,6 +20,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound, serviceUnavailable } from '../lib/api-error';
 import { detectType } from '../lib/report/subject-resolver';
 import { trackEvent, visitorCountry } from '../lib/analytics';
@@ -161,7 +162,7 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
     try {
       body = await c.req.json();
     } catch (_catchErr) {
-      console.error('veraChatHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('veraChatHandler failed', _catchErr);
       return badRequest(c, 'Invalid JSON body');
     }
 
@@ -259,7 +260,7 @@ export async function veraChatHandler(c: Context<{ Bindings: Env }>): Promise<Re
       201
     );
   } catch (e) {
-    console.error('vera chat handler failed:', e instanceof Error ? e.message : String(e));
+    logError('vera chat handler failed', e);
     return internalError(c, e);
   }
 }
@@ -393,7 +394,7 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
               try {
                 await saveSession(db, session);
               } catch (_catchErr) {
-                console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+                logError('handler failed', _catchErr);
                 /* non-fatal */
               }
             }
@@ -414,12 +415,12 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
             try {
               controller.close();
             } catch (_catchErr) {
-              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+              logError('handler failed', _catchErr);
               /* already closed */
             }
           }
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           /* poll */
         }
       }, 700);
@@ -436,7 +437,7 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
         try {
           controller.close();
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           /* already closed */
         }
       });
@@ -474,7 +475,7 @@ export async function veraChatHistoryHandler(c: Context<{ Bindings: Env }>): Pro
       updated_at: session.updated_at,
     });
   } catch (e) {
-    console.error('vera chat history handler failed:', e instanceof Error ? e.message : String(e));
+    logError('vera chat history handler failed', e);
     return internalError(c, e);
   }
 }
@@ -524,7 +525,7 @@ export async function veraSessionsListHandler(c: Context<{ Bindings: Env }>): Pr
 
     return c.json({ sessions }, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
-    console.error('vera sessions list handler failed:', e instanceof Error ? e.message : String(e));
+    logError('vera sessions list handler failed', e);
     return internalError(c, e);
   }
 }
@@ -548,7 +549,7 @@ export async function veraChatDeleteHandler(c: Context<{ Bindings: Env }>): Prom
     await db.prepare('DELETE FROM vera_sessions WHERE id = ?').bind(sessionId).run();
     return c.json({ deleted: true });
   } catch (e) {
-    console.error('vera chat delete handler failed:', e instanceof Error ? e.message : String(e));
+    logError('vera chat delete handler failed', e);
     return internalError(c, e);
   }
 }
@@ -582,7 +583,7 @@ export async function veraChatCancelHandler(c: Context<{ Bindings: Env }>): Prom
 
     return c.json({ cancelled: true });
   } catch (e) {
-    console.error('vera chat cancel handler failed:', e instanceof Error ? e.message : String(e));
+    logError('vera chat cancel handler failed', e);
     return internalError(c, e);
   }
 }

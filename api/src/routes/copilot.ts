@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError } from '../lib/api-error';
 import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
 import { safeNullLog } from '../lib/safe-catch';
@@ -58,7 +59,7 @@ export async function readCache<T>(key: string): Promise<T | null> {
     const cached = await cache.match(new Request(key));
     if (cached) return (await cached.json()) as T;
   } catch (_catchErr) {
-    console.error('readCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readCache failed', _catchErr);
     /* miss */
   }
   return null;
@@ -505,7 +506,7 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
         ];
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* cvedb optional */
     }
     return [];
@@ -562,7 +563,7 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
         }
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* ransomware KB optional */
     }
 
@@ -583,7 +584,7 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
         });
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* malpedia optional */
     }
 
@@ -618,7 +619,7 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
         }
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* wikipedia direct page miss */
     }
     // Fallback: search Wikipedia for related pages
@@ -648,7 +649,7 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
           }
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* wikipedia search failed */
       }
     }
@@ -676,7 +677,7 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
         });
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* RL profile optional */
     }
 
@@ -736,7 +737,7 @@ export async function gatherLiveEnrichment(query: string, queryType: QueryType, 
         }
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* breach lookup optional */
     }
   }
@@ -1039,7 +1040,7 @@ export async function callWorkersAi(env: Env, system: string, user: string): Pro
       const text = extractWorkersAiText(res);
       if (text) return text;
     } catch (_catchErr) {
-      console.error('callWorkersAi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('callWorkersAi failed', _catchErr);
       continue;
     }
   }
@@ -1128,7 +1129,7 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
           if (results.length > 0) ragContext = formatRetrievedContext(results);
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         // RAG is additive — failure is non-fatal
       }
 
@@ -1203,7 +1204,7 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
 
       return c.json(response, 200, { 'Cache-Control': 'no-store' });
     } catch (e) {
-      console.error('copilot investigate failed:', e instanceof Error ? e.message : String(e));
+      logError('copilot investigate failed', e);
       return internalError(c, e);
     }
   };

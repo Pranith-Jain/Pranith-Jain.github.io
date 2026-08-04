@@ -9,6 +9,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, serviceUnavailable } from '../lib/api-error';
 import type { AgentState } from '../lib/agent/types';
 import { trackEvent, visitorCountry } from '../lib/analytics';
@@ -36,7 +37,7 @@ async function atomicAgentIncr(c: Context<{ Bindings: Env }>, keyId: string, buc
     const data = (await res.json()) as { count?: number };
     return typeof data.count === 'number' ? data.count : null;
   } catch (_catchErr) {
-    console.error('atomicAgentIncr failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('atomicAgentIncr failed', _catchErr);
     return null;
   }
 }
@@ -111,7 +112,7 @@ export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Pr
 
     return c.json({ id, queryType, maxSteps, status: 'running' }, 201);
   } catch (err) {
-    console.error('agentInvestigateHandler error:', err);
+    logError('agentInvestigateHandler error:', err);
     return internalError(c, err);
   }
 }
@@ -194,12 +195,12 @@ export async function agentStreamHandler(c: Context<{ Bindings: Env }>): Promise
             try {
               controller.close();
             } catch (_catchErr) {
-              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+              logError('handler failed', _catchErr);
               /* already closed */
             }
           }
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           /* poll error, retry next tick */
         }
       }, 500);
@@ -212,7 +213,7 @@ export async function agentStreamHandler(c: Context<{ Bindings: Env }>): Promise
           try {
             controller.close();
           } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            logError('handler failed', _catchErr);
             /* already closed */
           }
         }
@@ -321,7 +322,7 @@ export async function agentDeleteHandler(c: Context<{ Bindings: Env }>): Promise
       const stub = doNamespace.get(doId);
       await stub.fetch(`https://agent/delete?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
     } catch (_catchErr) {
-      console.error('agentDeleteHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('agentDeleteHandler failed', _catchErr);
       // DO might not exist — non-fatal
     }
   }
@@ -389,7 +390,7 @@ export async function agentDebugLlmHandler(c: Context<{ Bindings: Env }>): Promi
             };
           }
         } catch (e) {
-          console.error('handler failed:', e instanceof Error ? e.message : String(e));
+          logError('handler failed', e);
           results.providers = {
             ...(results.providers as Record<string, unknown>),
             [`workers-ai:${model.split('/').pop()}`]: {
@@ -400,7 +401,7 @@ export async function agentDebugLlmHandler(c: Context<{ Bindings: Env }>): Promi
         }
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logError('handler failed', e);
       results.workersAiError = e instanceof Error ? e.message : String(e);
     }
   } else {
@@ -436,7 +437,7 @@ export async function agentDebugLlmHandler(c: Context<{ Bindings: Env }>): Promi
         },
       };
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logError('handler failed', e);
       results.providers = {
         ...(results.providers as Record<string, unknown>),
         groq: { status: 'error', error: e instanceof Error ? e.message : String(e) },
@@ -475,7 +476,7 @@ export async function agentDebugLlmHandler(c: Context<{ Bindings: Env }>): Promi
         },
       };
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logError('handler failed', e);
       results.providers = {
         ...(results.providers as Record<string, unknown>),
         nvidia: { status: 'error', error: e instanceof Error ? e.message : String(e) },
@@ -496,7 +497,7 @@ export async function agentDebugLlmHandler(c: Context<{ Bindings: Env }>): Promi
     });
     results.fullChain = { status: 'ok', modelUsed: r.modelUsed, response: r.text.slice(0, 50) };
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     results.fullChain = { status: 'error', error: e instanceof Error ? e.message : String(e) };
   }
 
