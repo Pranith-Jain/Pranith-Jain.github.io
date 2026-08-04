@@ -148,7 +148,7 @@ export interface OgOverride {
  *  be poisoned by a request arriving on a non-canonical host. */
 const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
 
-const OG_CACHE_VERSION = 'v6';
+const OG_CACHE_VERSION = 'v7';
 
 /**
  * Clamp a string so its UTF-8 byte length stays within `maxBytes`. Some
@@ -435,7 +435,8 @@ export function ogMetaForPath(pathname: string): OgPageMeta | null {
           ? 'ARGUS'
           : 'CRUCIBLE';
 
-  return { title, description, badge, product };
+  // Byte-clamp to X/Twitter card limits (some validators count UTF-8 bytes).
+  return { title: clampToBytes(title, 70), description: clampToBytes(description, 200), badge, product };
 }
 
 /**
@@ -557,8 +558,8 @@ function deriveOgFromPath(pathname: string): OgOverride | null {
   const title =
     segments.length > 1 ? `${titlePart} · ${sectionLabel} · pranithjain.qzz.io` : `${titlePart} · pranithjain.qzz.io`;
   const description = `${titlePart} — a free ${sectionLabel} tool on pranithjain.qzz.io. Browser-side security analysis, no signup required.`;
-
-  return { title, description };
+  // Byte-clamp to X/Twitter card limits (some validators count UTF-8 bytes).
+  return { title: clampToBytes(title, 70), description: clampToBytes(description, 200) };
 }
 
 /* ── Blog structured data ─────────────────────────────────────────────────
