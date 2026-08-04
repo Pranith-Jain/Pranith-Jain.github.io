@@ -9,6 +9,8 @@ import {
   filterCtiToolCalls,
   canSynthesizeNow,
   getDroppedCalls,
+  MAX_TOOL_FAILURES_PER_SESSION,
+  shouldBanTool,
 } from '../../api/src/lib/agent/cti-loop';
 import { observeStep } from '../../api/src/lib/agent/observer';
 import { synthesizeReport, splitSynthOutput } from '../../api/src/lib/agent/synthesizer';
@@ -136,6 +138,14 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
   private degradedToolsCache: { at: number; note: string; set: Set<string> } | null = null;
   private calibrationHintCache: { at: number; hint: string } | null = null;
   /**
+   * Session-scoped tool-failure tracker (fix #7). After MAX_TOOL_FAILURES_PER_SESSION
+   * consecutive failures of the same tool within one investigation, the tool is
+   * added to sessionBannedTools and preventively dropped by the noDegradedTools
+   * guardrail on subsequent steps. Reset when a new investigation starts.
+   */
+  private sessionToolFailures = new Map<string, number>();
+  private sessionBannedTools = new Set<string>();
+  /**
    * Transient working-memory cache keyed by investigation id. Invalidated when
    * the step count changes (state.steps.push), so the 4 call sites that need
    * working memory (pre-plan, self-correction, memory-save, + private method)
@@ -192,6 +202,8 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         rolePreamble: body.rolePreamble,
         responseFormat: body.responseFormat,
       };
+      // Reset session-scoped tool-failure state for the new investigation (fix #7).
+      this.resetSessionToolState();
       this.setState({ investigation: state });
       await registerInvestigation(body.query, body.id);
       await this.schedule(0.1, 'runStep');
@@ -808,6 +820,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         ]);
 
         await setCachedResult(call.tool, call.args, data);
+        this.resetToolFailure(call.tool);
         return {
           tool: call.tool,
           args: call.args,
@@ -831,6 +844,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
                 }),
               ]).finally(() => clearTimeout(altTimer));
               await setCachedResult(alt.tool, alt.args, altData);
+              this.resetToolFailure(alt.tool);
               return {
                 tool: alt.tool,
                 args: alt.args,
@@ -846,13 +860,20 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         }
 
         console.error('handler failed:', err instanceof Error ? err.message : String(err));
+        // Session-banned-tool stop condition (fix #7): track consecutive
+        // failures per tool. After MAX_TOOL_FAILURES_PER_SESSION, ban it for
+        // the rest of this investigation so the noDegradedTools guardrail
+        // drops it preventively on subsequent steps.
+        this.recordToolFailure(call.tool);
         return {
           tool: call.tool,
           args: call.args,
           status: 'error',
           error: err instanceof Error ? err.message : String(err),
           durationMs: Date.now() - start,
-          nextActions: nextActionsFor(call.tool, 'error'),
+          nextActions: this.sessionBannedTools.has(call.tool)
+            ? nextActionsFor(call.tool, 'error').filter((t) => !this.sessionBannedTools.has(t))
+            : nextActionsFor(call.tool, 'error'),
         };
       }
     });
@@ -901,7 +922,35 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       console.error('degradedToolsSet failed:', err instanceof Error ? err.message : String(err));
     }
     this.degradedToolsCache = { at: now, note: '', set };
+    // Union with session-banned tools (fix #7) so the noDegradedTools guardrail
+    // drops them preventively on subsequent steps.
+    for (const t of this.sessionBannedTools) set.add(t);
     return set;
+  }
+
+  /**
+   * Record a tool failure for the session-banned-tool stop condition (fix #7).
+   * After MAX_TOOL_FAILURES_PER_SESSION consecutive failures of the same tool,
+   * ban it for the rest of this investigation. A success resets the counter.
+   */
+  private recordToolFailure(tool: string): void {
+    const count = (this.sessionToolFailures.get(tool) ?? 0) + 1;
+    this.sessionToolFailures.set(tool, count);
+    if (shouldBanTool(count) && !this.sessionBannedTools.has(tool)) {
+      this.sessionBannedTools.add(tool);
+      console.warn(`Tool ${tool} banned for session after ${count} failures.`);
+    }
+  }
+
+  /** Reset a tool's failure counter on success (consecutive-failure semantics). */
+  private resetToolFailure(tool: string): void {
+    this.sessionToolFailures.delete(tool);
+  }
+
+  /** Reset session-scoped tool-failure state (called when a new investigation starts). */
+  private resetSessionToolState(): void {
+    this.sessionToolFailures.clear();
+    this.sessionBannedTools.clear();
   }
 
   private async calibrationHint(): Promise<string> {

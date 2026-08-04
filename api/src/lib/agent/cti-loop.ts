@@ -204,3 +204,15 @@ export function getDroppedCalls(
   const survivedKeys = new Set(survived.map((tc) => `${tc.tool}:${JSON.stringify(tc.args ?? {})}`));
   return calls.filter((tc) => !survivedKeys.has(`${tc.tool}:${JSON.stringify(tc.args ?? {})}`));
 }
+
+/** Max consecutive failures of the same tool before it is banned for the session (fix #7). */
+export const MAX_TOOL_FAILURES_PER_SESSION = 3;
+
+/**
+ * Pure decision: should a tool be banned for the session after this many
+ * consecutive failures? Extracted from the DO's stateful tracker so the
+ * threshold is testable and pinned independently of the DO.
+ */
+export function shouldBanTool(consecutiveFailures: number, threshold: number = MAX_TOOL_FAILURES_PER_SESSION): boolean {
+  return consecutiveFailures >= threshold;
+}

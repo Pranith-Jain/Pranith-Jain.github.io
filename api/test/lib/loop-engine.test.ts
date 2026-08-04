@@ -7,6 +7,8 @@ import {
   countOkResults,
   BANNED_TOOLS,
   MAX_TOOLS_PER_STEP,
+  shouldBanTool,
+  MAX_TOOL_FAILURES_PER_SESSION,
   type CtiLoopView,
 } from '../../src/lib/agent/cti-loop';
 import { LoopEngine } from '../../src/lib/agent/loop-engine';
@@ -352,5 +354,35 @@ describe('noDegradedTools guardrail — preventive tool gating (fix #5)', () => 
     const survived = filterCtiToolCalls(proposed, view, valid, degraded);
     // check_ioc dropped (degraded), then cap keeps first 2 of the rest.
     expect(survived.map((c) => c.tool)).toEqual(['lookup_cve', 'enrich_actor']);
+  });
+});
+
+describe('shouldBanTool — session-banned-tool stop condition (fix #7)', () => {
+  it('does not ban a tool with fewer than the threshold failures', () => {
+    expect(shouldBanTool(0)).toBe(false);
+    expect(shouldBanTool(1)).toBe(false);
+    expect(shouldBanTool(2)).toBe(false);
+  });
+
+  it('bans a tool at the threshold (>=)', () => {
+    expect(shouldBanTool(3)).toBe(true);
+    expect(shouldBanTool(4)).toBe(true);
+    expect(shouldBanTool(10)).toBe(true);
+  });
+
+  it('uses MAX_TOOL_FAILURES_PER_SESSION as the default threshold', () => {
+    expect(MAX_TOOL_FAILURES_PER_SESSION).toBe(3);
+    expect(shouldBanTool(MAX_TOOL_FAILURES_PER_SESSION)).toBe(true);
+    expect(shouldBanTool(MAX_TOOL_FAILURES_PER_SESSION - 1)).toBe(false);
+  });
+
+  it('respects a custom threshold', () => {
+    expect(shouldBanTool(2, 5)).toBe(false);
+    expect(shouldBanTool(5, 5)).toBe(true);
+    expect(shouldBanTool(7, 5)).toBe(true);
+  });
+
+  it('threshold 0 bans immediately (edge case)', () => {
+    expect(shouldBanTool(0, 0)).toBe(true);
   });
 });
