@@ -327,8 +327,12 @@ export async function fetchMaliciousPackages(
   const seen = new Set<string>();
   const out: MaliciousPackageEntry[] = [];
   const fileResults = await Promise.allSettled(
-    commits.map((c) =>
-      fetchResilient(`${OSSF_GH_BASE}/commits/${c.sha}`, { headers }, { attempts: 2, timeoutMs: 10_000 }).then(
+    commits.map((c) => {
+      // Defense in depth: c.sha comes from the GitHub API response, but
+      // validate it's a hex SHA before interpolating into the URL so a
+      // compromised upstream can't inject path traversal / query params.
+      if (!/^[0-9a-f]{7,40}$/i.test(c.sha)) return Promise.resolve({ sha: c.sha, date: c.commit?.author?.date ?? '', files: [] as Array<{ filename: string; status: string }> });
+      return fetchResilient(`${OSSF_GH_BASE}/commits/${c.sha}`, { headers }, { attempts: 2, timeoutMs: 10_000 }).then(
         async (r) => {
           if (!r.ok)
             return {
@@ -339,8 +343,8 @@ export async function fetchMaliciousPackages(
           const body = (await r.json()) as { files?: Array<{ filename: string; status: string }> };
           return { sha: c.sha, date: c.commit?.author?.date ?? '', files: body.files ?? [] };
         }
-      )
-    )
+      );
+    })
   );
   for (const r of fileResults) {
     if (r.status !== 'fulfilled') continue;
@@ -358,7 +362,7 @@ export async function fetchMaliciousPackages(
       out.push({
         name: pkg,
         ecosystem: eco,
-        ossf_url: `https://github.com/ossf/malicious-packages/tree/main/osv/malicious/${eco}/${encodeURIComponent(pkg)}`,
+        ossf_url: `https://github.com/ossf/malicious-packages/tree/main/osv/malicious/${encodeURIComponent(eco)}/${encodeURIComponent(pkg)}`,
         publishedAt: date || undefined,
       });
     }

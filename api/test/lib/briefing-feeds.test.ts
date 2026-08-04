@@ -18,7 +18,7 @@ describe('fetchMaliciousPackages — windowed to newly-disclosed packages', () =
 
   it('extracts newly-added packages from commit file lists in the window', async () => {
     const fetchMock = vi.spyOn(globalThis, 'fetch')
-      .mockResolvedValueOnce(new Response(commitsList(['abc123', 'def456']), { status: 200 }))
+      .mockResolvedValueOnce(new Response(commitsList(['abc1234', 'def4567']), { status: 200 }))
       .mockResolvedValueOnce(new Response(commitFiles([{ eco: 'npm', pkg: 'evil-pkg-a', status: 'added' }, { eco: 'npm', pkg: 'evil-pkg-b', status: 'added' }]), { status: 200 }))
       .mockResolvedValueOnce(new Response(commitFiles([{ eco: 'pypi', pkg: 'bad-py-pkg', status: 'added' }, { eco: 'npm', pkg: 'evil-pkg-a', status: 'modified' }]), { status: 200 }));
     const out = await fetchMaliciousPackages(undefined, { since, until });
@@ -42,7 +42,7 @@ describe('fetchMaliciousPackages — windowed to newly-disclosed packages', () =
 
   it('ignores paths outside osv/malicious/<eco>/<pkg>/', async () => {
     vi.spyOn(globalThis, 'fetch')
-      .mockResolvedValueOnce(new Response(commitsList(['abc']), { status: 200 }))
+      .mockResolvedValueOnce(new Response(commitsList(['abc1234']), { status: 200 }))
       .mockResolvedValueOnce(new Response(JSON.stringify({ files: [{ filename: 'osv/malicious/.id-allocator', status: 'modified' }, { filename: 'README.md', status: 'modified' }, { filename: 'osv/malicious/npm/real-pkg/MAL-1.json', status: 'added' }, { filename: 'osv/malicious/unknown-eco/pkg/MAL-2.json', status: 'added' }] }), { status: 200 }));
     const out = await fetchMaliciousPackages(undefined, { since, until });
     expect(out).toHaveLength(1);
@@ -52,7 +52,7 @@ describe('fetchMaliciousPackages — windowed to newly-disclosed packages', () =
 
   it('survives a per-commit file-list failure', async () => {
     vi.spyOn(globalThis, 'fetch')
-      .mockResolvedValueOnce(new Response(commitsList(['ok', 'bad']), { status: 200 }))
+      .mockResolvedValueOnce(new Response(commitsList(['0a1b2c3', '1d2e3f4']), { status: 200 }))
       .mockResolvedValueOnce(new Response(commitFiles([{ eco: 'npm', pkg: 'good', status: 'added' }]), { status: 200 }))
       .mockResolvedValueOnce(new Response('forbidden', { status: 403 }));
     const out = await fetchMaliciousPackages(undefined, { since, until });
