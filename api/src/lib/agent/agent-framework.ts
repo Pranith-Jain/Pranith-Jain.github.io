@@ -295,6 +295,27 @@ export function memoryToPrompt(mem: WorkingMemory): string {
 // ── System/User Prompt Templates ───────────────────────────────────────────
 
 /**
+ * Per-query-type collection strategy. Only the relevant branch is injected into
+ * the planner system prompt (context-budget fix #6) — previously all four
+ * branches were inlined on every call regardless of query type.
+ */
+function getCollectionStrategy(queryType: string): string {
+  const qt = queryType.toLowerCase();
+  const header =
+    'Map your query type to the collection priorities below. These are the data points the synthesizer needs to fill the Zeltser CTI report sections — every gap here becomes a missing section or a lower confidence score.';
+  if (qt === 'actor' || qt === 'ransomware' || qt === 'campaign') {
+    return `${header}\n\n- Actor / ransomware queries: actor profile + aliases, TTPs (MITRE), associated malware, C2 infrastructure (IPs/domains), victim sectors + regions, timeline of activity, known CVEs exploited`;
+  }
+  if (qt === 'cve' || qt === 'vulnerability' || qt === 'vuln') {
+    return `${header}\n\n- CVE queries: CVSS + vector, EPSS, CISA KEV status + date, affected products/versions, exploit status, threat actors exploiting it, patch URL, ransomware use`;
+  }
+  if (qt === 'ioc' || qt === 'ip' || qt === 'domain' || qt === 'hash' || qt === 'url') {
+    return `${header}\n\n- IOC queries (IP/domain/hash/url): reputation verdict, ASN + geo, co-hosted domains, passive DNS, related IOCs, first/last seen, associated actor/malware, MITRE techniques observed`;
+  }
+  return `${header}\n\n- General: always seek MITRE ATT&CK mapping, Diamond Model vertices, and at least one independent corroboration source for high confidence`;
+}
+
+/**
  * System prompt for the planner — defines agent identity and constraints.
  * This is STABLE across all investigations.
  */
@@ -320,12 +341,7 @@ You think like a Tier-1 SOC intelligence analyst. Your job is to:
 </constraints>
 
 <collection_strategy>
-Map your query type to the collection priorities below. These are the data points the synthesizer needs to fill the Zeltser CTI report sections — every gap here becomes a missing section or a lower confidence score.
-
-- Actor / ransomware queries: actor profile + aliases, TTPs (MITRE), associated malware, C2 infrastructure (IPs/domains), victim sectors + regions, timeline of activity, known CVEs exploited
-- CVE queries: CVSS + vector, EPSS, CISA KEV status + date, affected products/versions, exploit status, threat actors exploiting it, patch URL, ransomware use
-- IOC queries (IP/domain/hash/url): reputation verdict, ASN + geo, co-hosted domains, passive DNS, related IOCs, first/last seen, associated actor/malware, MITRE techniques observed
-- General: always seek MITRE ATT&CK mapping, Diamond Model vertices, and at least one independent corroboration source for high confidence
+${getCollectionStrategy(queryType)}
 </collection_strategy>
 
 <reasoning_framework>
