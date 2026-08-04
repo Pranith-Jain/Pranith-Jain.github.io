@@ -411,8 +411,13 @@ export function ogMetaForPath(pathname: string): OgPageMeta | null {
   const generated = generatedOverrides[pathname] as OgOverride | undefined;
   const override = findOgOverride(pathname);
   const derived = deriveOgFromPath(pathname);
+  // Treat empty/too-short generated descriptions as missing so they fall
+  // through to the derived (slug-based) description, which is always ≥55
+  // chars. X's card validator requires 55–200 chars; many generated
+  // overrides have empty or short descriptions (no PageMeta description prop).
+  const genDesc = generated?.description && generated.description.length >= 55 ? generated.description : undefined;
   const title = exact?.title ?? generated?.title ?? derived?.title ?? override?.title;
-  const description = exact?.description ?? generated?.description ?? derived?.description ?? override?.description;
+  const description = exact?.description ?? genDesc ?? derived?.description ?? override?.description;
   if (!title || !description) return null;
 
   const first = pathname.split('/').filter(Boolean)[0] ?? '';

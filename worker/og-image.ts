@@ -57,6 +57,10 @@ export interface OgStats {
   cves?: number;
   critical?: number;
   high?: number;
+  /** Extra shareable metrics surfaced for briefing cards. */
+  iocs?: number;
+  kevs?: number;
+  ransomware?: number;
 }
 
 export interface OgImageData {
@@ -77,20 +81,30 @@ export interface OgImageData {
 }
 
 /** Render the briefing stats strip (numbers + labels) into the y≈470 band that
- *  otherwise holds the tag chips. Returns '' when there are no positive stats. */
+ *  otherwise holds the tag chips. Returns '' when there are no positive stats.
+ *
+ *  Priority order (most shareable first, capped at 4 cells): critical,
+ *  ransomware victims, IOCs, KEVs, then CVEs/high/findings as fillers. This
+ *  makes a daily card lead with "12 CRITICAL · 8 victims · 1,482 IOCs" rather
+ *  than the generic findings count. */
 function renderStats(stats: OgStats, accentSecondary: string): string {
-  const cells: Array<{ value: number; label: string; color: string }> = [];
-  if (stats.findings && stats.findings > 0)
-    cells.push({ value: stats.findings, label: 'FINDINGS', color: accentSecondary });
-  if (stats.cves && stats.cves > 0) cells.push({ value: stats.cves, label: 'CVEs', color: accentSecondary });
-  if (stats.critical && stats.critical > 0) cells.push({ value: stats.critical, label: 'CRITICAL', color: '#fb7185' });
-  if (stats.high && stats.high > 0) cells.push({ value: stats.high, label: 'HIGH', color: '#fbbf24' });
+  const all: Array<{ value: number; label: string; color: string; priority: number }> = [];
+  const push = (value: number | undefined, label: string, color: string, priority: number) => {
+    if (value && value > 0) all.push({ value, label, color, priority });
+  };
+  push(stats.critical, 'CRITICAL', '#fb7185', 0);
+  push(stats.ransomware, 'VICTIMS', '#f43f5e', 1);
+  push(stats.iocs, 'IOCs', accentSecondary, 2);
+  push(stats.kevs, 'KEVs', accentSecondary, 3);
+  push(stats.cves, 'CVEs', accentSecondary, 4);
+  push(stats.high, 'HIGH', '#fbbf24', 5);
+  push(stats.findings, 'FINDINGS', accentSecondary, 6);
+  const cells = all.sort((a, b) => a.priority - b.priority).slice(0, 4);
   if (cells.length === 0) return '';
   return cells
-    .slice(0, 4)
     .map((cell, i) => {
       const x = 80 + i * 180;
-      return `<text x="${x}" y="492" fill="${cell.color}" font-family="'Hanken Grotesk', 'Inter', sans-serif" font-size="40" font-weight="800">${cell.value}</text>
+      return `<text x="${x}" y="492" fill="${cell.color}" font-family="'Hanken Grotesk', 'Inter', sans-serif" font-size="40" font-weight="800">${cell.value.toLocaleString()}</text>
       <text x="${x + 2}" y="514" fill="#64748b" font-family="'SF Mono', monospace" font-size="13" font-weight="600" letter-spacing="2">${esc(cell.label)}</text>`;
     })
     .join('\n      ');
