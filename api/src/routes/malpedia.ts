@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { cachedJson } from '../lib/route-cache';
 
 const MALPEDIA_BASE = 'https://malpedia.caad.fkie.fraunhofer.de';
 
@@ -14,23 +15,17 @@ export async function malpediaActorHandler(c: Context<{ Bindings: Env }>): Promi
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9.-]/g, '-');
-  try {
+
+  return cachedJson(c, `malpedia:actor:${actorSlug}`, 3600, async () => {
     const res = await fetch(`${MALPEDIA_BASE}/api/get/actor/${encodeURIComponent(actorSlug)}`, {
       headers: { Accept: 'application/json' },
       signal: AbortSignal.timeout(10_000),
     });
-    if (res.status === 404) {
-      return notFound(c, 'actor not found');
-    }
-    if (!res.ok) {
-      return badGateway(c, `malpedia: ${res.status}`);
-    }
+    if (res.status === 404) throw new Error('not_found: actor not found');
+    if (!res.ok) throw new Error(`malpedia: ${res.status}`);
     const data = await res.json();
-    return c.json({ ok: true, data }, 200, { 'cache-control': 'public, max-age=3600' });
-  } catch (err) {
-    console.error('malpediaActorHandler failed:', err instanceof Error ? err.message : String(err));
-    return badGateway(c, err instanceof Error ? err.message : String(err));
-  }
+    return { ok: true, data };
+  });
 }
 
 export async function malpediaFamilyHandler(c: Context<{ Bindings: Env }>): Promise<Response> {

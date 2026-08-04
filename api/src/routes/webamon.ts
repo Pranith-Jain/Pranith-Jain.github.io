@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { ContentfulStatusCode } from 'hono/utils/http-status';
 import type { Env } from '../env';
 import { badRequest, notFound, internalError, badGateway } from '../lib/api-error';
+import { cachedJson } from '../lib/route-cache';
 
 const WEBAMON_SEARCH = 'https://search.webamon.com';
 const TIMEOUT = 20_000;
@@ -90,21 +91,22 @@ export async function webamonSearchHandler(c: Context<{ Bindings: Env }>): Promi
 
   const upstream = `/search?search=${encodeURIComponent(search)}&results=${encodeURIComponent(results)}&size=${size}&from=${from}`;
 
-  for (let attempt = 1; attempt <= 2; attempt++) {
-    const res = await webamonFetch(upstream);
-    if (res && res.ok) {
-      const data = (await res.json()) as WebamonSearchResponse;
-      return c.json(data, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
+  return cachedJson(c, `webamon:search:${upstream}`, CACHE_TTL, async () => {
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      const res = await webamonFetch(upstream);
+      if (res && res.ok) {
+        return (await res.json()) as WebamonSearchResponse;
+      }
+      if (res && res.status !== 429 && res.status >= 500 && attempt < 2) {
+        await new Promise((r) => setTimeout(r, 600 * attempt));
+      } else if (!res && attempt < 2) {
+        await new Promise((r) => setTimeout(r, 600 * attempt));
+      } else {
+        throw new Error(`webamon upstream error (status ${res?.status ?? 502})`);
+      }
     }
-    if (res && res.status !== 429 && res.status >= 500 && attempt < 2) {
-      await new Promise((r) => setTimeout(r, 600 * attempt));
-    } else if (!res && attempt < 2) {
-      await new Promise((r) => setTimeout(r, 600 * attempt));
-    } else {
-      return badGateway(c, `webamon upstream error (status ${res?.status ?? 502})`);
-    }
-  }
-  return badGateway(c, 'webamon upstream error');
+    throw new Error('webamon upstream error');
+  });
 }
 
 /* ─── Scan (public via search.webamon.com/scan) ──────────────────────────── */
