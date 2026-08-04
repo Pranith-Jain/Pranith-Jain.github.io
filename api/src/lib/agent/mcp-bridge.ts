@@ -63,11 +63,7 @@ import {
 } from '../si-manifest';
 
 // WinReg manifest (292 Windows registry forensic artifacts)
-import {
-  loadWinRegIndex,
-  getWinRegArtifact,
-  filterArtifacts,
-} from '../winreg-manifest';
+import { loadWinRegIndex, getWinRegArtifact, filterArtifacts } from '../winreg-manifest';
 
 // Traceix (SHA-256 AV reputation lookup)
 import { traceixLookup } from '../traceix';
@@ -124,12 +120,38 @@ export function bridgeMcpTools(
     description:
       'List CVEs from the threat-intel vertical (NVD + CISA KEV). CVEs are enriched with priority scoring (CVSS + KEV + recency). Filter by severity, KEV-only, vendor, recency, or keyword.',
     params: [
-      { name: 'severity', type: 'enum', description: 'Filter by CVSS v3 severity: critical, high, medium, low, unknown', required: false, enum: ['critical', 'high', 'medium', 'low', 'unknown'] },
-      { name: 'kevOnly', type: 'boolean', description: 'Only return CVEs in CISA Known Exploited Vulnerabilities catalog', required: false },
-      { name: 'vendor', type: 'string', description: 'Case-insensitive substring match against vendor field', required: false },
-      { name: 'daysBack', type: 'number', description: 'Only CVEs published within this many days (1-365)', required: false },
+      {
+        name: 'severity',
+        type: 'enum',
+        description: 'Filter by CVSS v3 severity: critical, high, medium, low, unknown',
+        required: false,
+        enum: ['critical', 'high', 'medium', 'low', 'unknown'],
+      },
+      {
+        name: 'kevOnly',
+        type: 'boolean',
+        description: 'Only return CVEs in CISA Known Exploited Vulnerabilities catalog',
+        required: false,
+      },
+      {
+        name: 'vendor',
+        type: 'string',
+        description: 'Case-insensitive substring match against vendor field',
+        required: false,
+      },
+      {
+        name: 'daysBack',
+        type: 'number',
+        description: 'Only CVEs published within this many days (1-365)',
+        required: false,
+      },
       { name: 'minPriority', type: 'number', description: 'Minimum priority score (0-100)', required: false },
-      { name: 'keyword', type: 'string', description: 'Case-insensitive match against CVE ID / vendor / product / description', required: false },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Case-insensitive match against CVE ID / vendor / product / description',
+        required: false,
+      },
       { name: 'limit', type: 'number', description: 'Max CVEs to return (default 50, max 200)', required: false },
     ],
     execute: async (args) => {
@@ -149,8 +171,11 @@ export function bridgeMcpTools(
 
   add({
     name: 'ti_get_cve',
-    description: 'Return the full CVE body with CVSS vector, CWE IDs, references, and LLM summary/recommended action. Use ti_list_cves first to discover CVE IDs.',
-    params: [{ name: 'cveId', type: 'string', description: 'CVE ID, e.g. "CVE-2026-1001". Case-insensitive.', required: true }],
+    description:
+      'Return the full CVE body with CVSS vector, CWE IDs, references, and LLM summary/recommended action. Use ti_list_cves first to discover CVE IDs.',
+    params: [
+      { name: 'cveId', type: 'string', description: 'CVE ID, e.g. "CVE-2026-1001". Case-insensitive.', required: true },
+    ],
     execute: async (args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
       return getTiCve(assets, args.cveId as string);
@@ -159,7 +184,8 @@ export function bridgeMcpTools(
 
   add({
     name: 'ti_list_kev',
-    description: 'Return the CISA Known Exploited Vulnerabilities (KEV) snapshot — actively exploited CVEs with required actions and due dates.',
+    description:
+      'Return the CISA Known Exploited Vulnerabilities (KEV) snapshot — actively exploited CVEs with required actions and due dates.',
     params: [
       { name: 'vendor', type: 'string', description: 'Filter by vendor (case-insensitive substring)', required: false },
       { name: 'limit', type: 'number', description: 'Max KEV entries (default 100, max 500)', required: false },
@@ -177,8 +203,19 @@ export function bridgeMcpTools(
     name: 'ti_list_iocs',
     description: 'List IOC families (ransomware, malware, APT, C2, phishing, stealers) from the threat-intel vertical.',
     params: [
-      { name: 'category', type: 'enum', description: 'Filter by category', required: false, enum: ['ransomware', 'malware', 'apt', 'c2', 'phishing', 'stealer', 'other'] },
-      { name: 'keyword', type: 'string', description: 'Substring match against slug / family / aliases / description', required: false },
+      {
+        name: 'category',
+        type: 'enum',
+        description: 'Filter by category',
+        required: false,
+        enum: ['ransomware', 'malware', 'apt', 'c2', 'phishing', 'stealer', 'other'],
+      },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against slug / family / aliases / description',
+        required: false,
+      },
       { name: 'limit', type: 'number', description: 'Max families (default 50, max 100)', required: false },
     ],
     execute: async (args) => {
@@ -194,8 +231,11 @@ export function bridgeMcpTools(
 
   add({
     name: 'ti_get_ioc',
-    description: 'Return the full IOC family body with indicators, MITRE techniques, and context. Use ti_list_iocs first to discover family slugs.',
-    params: [{ name: 'slug', type: 'string', description: 'IOC family slug, e.g. "lockbit-4-0-ransomware"', required: true }],
+    description:
+      'Return the full IOC family body with indicators, MITRE techniques, and context. Use ti_list_iocs first to discover family slugs.',
+    params: [
+      { name: 'slug', type: 'string', description: 'IOC family slug, e.g. "lockbit-4-0-ransomware"', required: true },
+    ],
     execute: async (args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
       return getTiIoc(assets, args.slug as string);
@@ -204,8 +244,17 @@ export function bridgeMcpTools(
 
   add({
     name: 'ti_brief_sector',
-    description: 'Return a sector-specific threat brief (Financial, Healthcare, or Government) with executive summary, top threats, and recommended actions.',
-    params: [{ name: 'sector', type: 'enum', description: 'Target sector', required: true, enum: ['financial', 'healthcare', 'government'] }],
+    description:
+      'Return a sector-specific threat brief (Financial, Healthcare, or Government) with executive summary, top threats, and recommended actions.',
+    params: [
+      {
+        name: 'sector',
+        type: 'enum',
+        description: 'Target sector',
+        required: true,
+        enum: ['financial', 'healthcare', 'government'],
+      },
+    ],
     execute: async (args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
       return getTiSector(assets, args.sector as string);
@@ -214,10 +263,21 @@ export function bridgeMcpTools(
 
   add({
     name: 'ti_list_detection_lists',
-    description: 'List SOC/DFIR detection lists (suspicious named pipes, ports, user-agents, mutexes, ransomware extensions) sourced from mthcht/awesome-lists.',
+    description:
+      'List SOC/DFIR detection lists (suspicious named pipes, ports, user-agents, mutexes, ransomware extensions) sourced from mthcht/awesome-lists.',
     params: [
-      { name: 'category', type: 'string', description: 'Filter by category: windows, network, ransomware, hardware, cloud, general', required: false },
-      { name: 'keyword', type: 'string', description: 'Substring match against slug / title / description', required: false },
+      {
+        name: 'category',
+        type: 'string',
+        description: 'Filter by category: windows, network, ransomware, hardware, cloud, general',
+        required: false,
+      },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against slug / title / description',
+        required: false,
+      },
       { name: 'limit', type: 'number', description: 'Max lists (default 50, max 100)', required: false },
     ],
     execute: async (args) => {
@@ -233,7 +293,8 @@ export function bridgeMcpTools(
 
   add({
     name: 'ti_get_detection_list',
-    description: 'Return a detection list with all entries. Filter by keyword or severity. Use ti_list_detection_lists first to discover slugs.',
+    description:
+      'Return a detection list with all entries. Filter by keyword or severity. Use ti_list_detection_lists first to discover slugs.',
     params: [
       { name: 'slug', type: 'string', description: 'List slug, e.g. "suspicious-named-pipes"', required: true },
       { name: 'keyword', type: 'string', description: 'Filter entries by keyword', required: false },
@@ -254,7 +315,8 @@ export function bridgeMcpTools(
 
   add({
     name: 'ti_stats',
-    description: 'Return cache + manifest stats for the Threat Intel data: index loaded, KEV loaded, body-cache sizes and hit ratios.',
+    description:
+      'Return cache + manifest stats for the Threat Intel data: index loaded, KEV loaded, body-cache sizes and hit ratios.',
     params: [],
     execute: async () => {
       if (!assets) throw new Error('ASSETS binding unavailable');
@@ -272,11 +334,21 @@ export function bridgeMcpTools(
     description:
       'List Tor-accessible sites from the darknetlist.is directory (markets, forums, news, security, comms, crypto, tools, AI). Each site has live up/down status, onion URL, response code, and fingerprint. Filter by category, status, recommended, or keyword.',
     params: [
-      { name: 'category', type: 'string', description: 'Filter by category: markets, search, forums, news, security, communications, crypto, tools, ai', required: false },
+      {
+        name: 'category',
+        type: 'string',
+        description: 'Filter by category: markets, search, forums, news, security, communications, crypto, tools, ai',
+        required: false,
+      },
       { name: 'status', type: 'enum', description: 'Filter by live status', required: false, enum: ['up', 'down'] },
       { name: 'recommended', type: 'boolean', description: 'Only return recommended sites', required: false },
       { name: 'onionOnly', type: 'boolean', description: 'Only return .onion sites', required: false },
-      { name: 'keyword', type: 'string', description: 'Substring match against site name / DWD ID / category', required: false },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against site name / DWD ID / category',
+        required: false,
+      },
       { name: 'limit', type: 'number', description: 'Max sites (default 200, max 500)', required: false },
     ],
     execute: async (args) => {
@@ -295,8 +367,16 @@ export function bridgeMcpTools(
 
   add({
     name: 'ti_get_darknet_site',
-    description: 'Return the full site body from the darknetlist.is directory: name, DWD ID, category, onion URL, live status, mirror counts, latency, HTTP code, page size, and fingerprint.',
-    params: [{ name: 'slug', type: 'string', description: 'Site slug (DWD ID lowercased, e.g. "dwd-3c9c-715")', required: true }],
+    description:
+      'Return the full site body from the darknetlist.is directory: name, DWD ID, category, onion URL, live status, mirror counts, latency, HTTP code, page size, and fingerprint.',
+    params: [
+      {
+        name: 'slug',
+        type: 'string',
+        description: 'Site slug (DWD ID lowercased, e.g. "dwd-3c9c-715")',
+        required: true,
+      },
+    ],
     execute: async (args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
       return getDarknetSite(assets, args.slug as string);
@@ -305,8 +385,16 @@ export function bridgeMcpTools(
 
   add({
     name: 'ti_get_darknet_category',
-    description: 'Return all sites in a darknetlist.is category (markets, search, forums, news, security, communications, crypto, tools, ai) with full details.',
-    params: [{ name: 'category', type: 'string', description: 'Category ID: markets, search, forums, news, security, communications, crypto, tools, ai', required: true }],
+    description:
+      'Return all sites in a darknetlist.is category (markets, search, forums, news, security, communications, crypto, tools, ai) with full details.',
+    params: [
+      {
+        name: 'category',
+        type: 'string',
+        description: 'Category ID: markets, search, forums, news, security, communications, crypto, tools, ai',
+        required: true,
+      },
+    ],
     execute: async (args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
       return getDarknetCategory(assets, args.category as string);
@@ -319,7 +407,8 @@ export function bridgeMcpTools(
 
   add({
     name: 'si_list_skills',
-    description: 'List the 25 Security Investigator Agent Skills (Microsoft Sentinel / Defender XDR), filter by category or keyword. Each skill is a markdown playbook for a specific investigation type.',
+    description:
+      'List the 25 Security Investigator Agent Skills (Microsoft Sentinel / Defender XDR), filter by category or keyword. Each skill is a markdown playbook for a specific investigation type.',
     params: [
       { name: 'category', type: 'string', description: 'Filter by skill category', required: false },
       { name: 'keyword', type: 'string', description: 'Substring match against title / description', required: false },
@@ -338,7 +427,8 @@ export function bridgeMcpTools(
 
   add({
     name: 'si_get_skill',
-    description: 'Return the full SKILL.md body (markdown) for a Security Investigator skill slug. Use si_list_skills first to discover slugs.',
+    description:
+      'Return the full SKILL.md body (markdown) for a Security Investigator skill slug. Use si_list_skills first to discover slugs.',
     params: [{ name: 'slug', type: 'string', description: 'Skill slug, e.g. "svg-dashboard"', required: true }],
     execute: async (args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
@@ -386,9 +476,10 @@ export function bridgeMcpTools(
 
   add({
     name: 'si_list_docs',
-    description: 'List the Security Investigator knowledge-base docs (Sentinel guides, KQL cookbooks, identity protection, honeypot, ingestion cost).',
+    description:
+      'List the Security Investigator knowledge-base docs (Sentinel guides, KQL cookbooks, identity protection, honeypot, ingestion cost).',
     params: [{ name: 'keyword', type: 'string', description: 'Substring match', required: false }],
-    execute: async (args) => {
+    execute: async (_args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
       const idx = await loadDocsIndex(assets);
       return idx;
@@ -397,7 +488,8 @@ export function bridgeMcpTools(
 
   add({
     name: 'si_get_doc',
-    description: 'Return a Security Investigator knowledge-base doc body (markdown). Use si_list_docs first to discover slugs.',
+    description:
+      'Return a Security Investigator knowledge-base doc body (markdown). Use si_list_docs first to discover slugs.',
     params: [{ name: 'slug', type: 'string', description: 'Doc slug', required: true }],
     execute: async (args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
@@ -411,10 +503,16 @@ export function bridgeMcpTools(
 
   add({
     name: 'winreg_list_artifacts',
-    description: 'List Windows Registry forensic artifacts (292 total, 16 categories, 10 hive types, 77 MITRE techniques). Filter by category, hive, or keyword.',
+    description:
+      'List Windows Registry forensic artifacts (292 total, 16 categories, 10 hive types, 77 MITRE techniques). Filter by category, hive, or keyword.',
     params: [
       { name: 'category', type: 'string', description: 'Filter by category', required: false },
-      { name: 'keyword', type: 'string', description: 'Substring match against name / description / path', required: false },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against name / description / path',
+        required: false,
+      },
       { name: 'limit', type: 'number', description: 'Max artifacts (default 100, max 500)', required: false },
     ],
     execute: async (args) => {
@@ -429,7 +527,8 @@ export function bridgeMcpTools(
 
   add({
     name: 'winreg_get_artifact',
-    description: 'Return the full Windows Registry forensic artifact body: registry path, hive, category, MITRE techniques, description, and references. Use winreg_list_artifacts first to discover slugs.',
+    description:
+      'Return the full Windows Registry forensic artifact body: registry path, hive, category, MITRE techniques, description, and references. Use winreg_list_artifacts first to discover slugs.',
     params: [{ name: 'slug', type: 'string', description: 'Artifact slug', required: true }],
     execute: async (args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
@@ -443,7 +542,8 @@ export function bridgeMcpTools(
 
   add({
     name: 'traceix_lookup',
-    description: 'Look up a SHA-256 file hash against traceix.com for per-engine antivirus/reputation verdicts (Safe/Malicious/Unknown/Failed).',
+    description:
+      'Look up a SHA-256 file hash against traceix.com for per-engine antivirus/reputation verdicts (Safe/Malicious/Unknown/Failed).',
     params: [{ name: 'hash', type: 'string', description: 'SHA-256 file hash (64 hex chars)', required: true }],
     execute: async (args) => {
       if (!env.TRACEIX_API_KEY) throw new Error('TRACEIX_API_KEY not configured');
@@ -457,10 +557,17 @@ export function bridgeMcpTools(
 
   add({
     name: 'whoxy_reverse_whois',
-    description: 'Reverse WHOIS lookup against whoxy.com — find all domains registered by an email, owner name, company, or keyword (705M+ records).',
+    description:
+      'Reverse WHOIS lookup against whoxy.com — find all domains registered by an email, owner name, company, or keyword (705M+ records).',
     params: [
       { name: 'q', type: 'string', description: 'Search term (email, name, company, or keyword)', required: true },
-      { name: 'type', type: 'enum', description: 'Search type', required: false, enum: ['email', 'name', 'company', 'keyword'] },
+      {
+        name: 'type',
+        type: 'enum',
+        description: 'Search type',
+        required: false,
+        enum: ['email', 'name', 'company', 'keyword'],
+      },
     ],
     execute: async (args) => {
       if (!env.WHOXY_API_KEY) throw new Error('WHOXY_API_KEY not configured');
@@ -478,7 +585,8 @@ export function bridgeMcpTools(
 
   add({
     name: 'depx_feed',
-    description: 'List recently disclosed malicious packages from the OpenSSF Malicious Packages database. Filter by ecosystem and time window.',
+    description:
+      'List recently disclosed malicious packages from the OpenSSF Malicious Packages database. Filter by ecosystem and time window.',
     params: [
       { name: 'since', type: 'string', description: 'Time window: 7d, 14d, 30d (default 7d)', required: false },
       { name: 'ecosystem', type: 'string', description: 'Filter by ecosystem: npm, pypi, gem, etc.', required: false },
@@ -496,7 +604,8 @@ export function bridgeMcpTools(
 
   add({
     name: 'depx_check',
-    description: 'Check if a package is known-malicious (OpenSSF Malicious Packages database). Returns clean/malicious/unknown verdict.',
+    description:
+      'Check if a package is known-malicious (OpenSSF Malicious Packages database). Returns clean/malicious/unknown verdict.',
     params: [
       { name: 'ecosystem', type: 'string', description: 'Package ecosystem: npm, pypi, gem, etc.', required: true },
       { name: 'package', type: 'string', description: 'Package name', required: true },
@@ -512,7 +621,8 @@ export function bridgeMcpTools(
 
   add({
     name: 'depx_stats',
-    description: 'Return ecosystem breakdown and feed statistics for the depx supply-chain intelligence feed (30-day window).',
+    description:
+      'Return ecosystem breakdown and feed statistics for the depx supply-chain intelligence feed (30-day window).',
     params: [],
     execute: async () => apiFetch('/api/v1/depx/feed/stats'),
   });
@@ -523,9 +633,15 @@ export function bridgeMcpTools(
 
   add({
     name: 'breach_vip_search',
-    description: 'Search the BreachVIP breach database (10B+ records, 1000+ datasets) by email, username, domain, IP, phone, password, or name. Returns metadata-only entries (record count + data-class labels; raw credentials never surfaced).',
+    description:
+      'Search the BreachVIP breach database (10B+ records, 1000+ datasets) by email, username, domain, IP, phone, password, or name. Returns metadata-only entries (record count + data-class labels; raw credentials never surfaced).',
     params: [
-      { name: 'term', type: 'string', description: 'Search term (email, username, domain, IP, phone, name)', required: true },
+      {
+        name: 'term',
+        type: 'string',
+        description: 'Search term (email, username, domain, IP, phone, name)',
+        required: true,
+      },
     ],
     execute: async (args) => {
       const params = new URLSearchParams({ term: args.term as string });
