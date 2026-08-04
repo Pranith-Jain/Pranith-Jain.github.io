@@ -33,7 +33,7 @@ export async function domainHistoryHandler(c: Context<{ Bindings: Env }>): Promi
   if (!domain) return badRequest(c, 'domain parameter is required');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   try {
     // Fetch current WHOIS and store snapshot.
@@ -81,7 +81,7 @@ export async function domainChangesHandler(c: Context<{ Bindings: Env }>): Promi
   if (!domain) return badRequest(c, 'domain parameter is required');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   try {
     const history = await getWhoisHistory(db, domain);
@@ -132,7 +132,7 @@ export async function domainPivotHandler(c: Context<{ Bindings: Env }>): Promise
   }
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   try {
     // Ensure we have at least one snapshot.
@@ -176,7 +176,7 @@ export async function domainHistoryStatsHandler(c: Context<{ Bindings: Env }>): 
   if (!domain) return badRequest(c, 'domain parameter is required');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   try {
     const stats = await getWhoisStats(db, domain);
@@ -212,7 +212,7 @@ export async function domainRegistrantSearchHandler(c: Context<{ Bindings: Env }
   }
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   try {
     let query: string;
@@ -259,7 +259,7 @@ export async function domainSnapshotHandler(c: Context<{ Bindings: Env }>): Prom
   if (!domain) return badRequest(c, 'domain field is required');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database unavailable');
 
   try {
     // Try RDAP first, fall back to WHOIS TCP.
@@ -275,7 +275,7 @@ export async function domainSnapshotHandler(c: Context<{ Bindings: Env }>): Prom
     }
 
     if (rdap.error) {
-      return c.json({ error: 'lookup_failed', message: rdap.error }, 502);
+      return badGateway(c, rdap.error);
     }
 
     const result = await storeWhoisSnapshot(db, domain, rdap, source);

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import { addWatch, listWatches, removeWatch, listAlerts } from '../lib/address-watch';
 import type { CryptoWatchAddInput } from '../lib/validation-schemas';
 import { assertPublicHost } from '../lib/ssrf-guard';
@@ -7,7 +8,7 @@ import { assertPublicHost } from '../lib/ssrf-guard';
 export async function cryptoWatchAddHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const input = (c as Context<{ Bindings: Env }> & { parsed: CryptoWatchAddInput }).parsed;
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'watch store unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'watch store unavailable');
   if (input.webhook_url) {
     let url: URL;
     try {
@@ -17,13 +18,13 @@ export async function cryptoWatchAddHandler(c: Context<{ Bindings: Env }>): Prom
         'cryptoWatchAddHandler failed:',
         _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
       );
-      return c.json({ error: 'invalid webhook URL' }, 400, { 'Cache-Control': 'no-store' });
+      return badRequest(c, 'invalid webhook URL');
     }
     if (url.protocol !== 'http:' && url.protocol !== 'https:') {
-      return c.json({ error: 'webhook must be http(s)' }, 400, { 'Cache-Control': 'no-store' });
+      return badRequest(c, 'webhook must be http(s)');
     }
     const host = await assertPublicHost(url.hostname);
-    if (!host.ok) return c.json({ error: 'webhook host not allowed' }, 400);
+    if (!host.ok) return badRequest(c, 'webhook host not allowed');
   }
   await addWatch(db, {
     address: input.address,
@@ -38,20 +39,20 @@ export async function cryptoWatchAddHandler(c: Context<{ Bindings: Env }>): Prom
 
 export async function cryptoWatchListHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'watch store unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'watch store unavailable');
   return c.json({ watches: await listWatches(db) }, 200);
 }
 
 export async function cryptoWatchRemoveHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'watch store unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'watch store unavailable');
   await removeWatch(db, c.req.param('address') ?? '', c.req.param('chain') ?? '');
   return c.json({ ok: true }, 200);
 }
 
 export async function cryptoAlertsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'watch store unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'watch store unavailable');
   const address = c.req.query('address') ?? '';
   const chain = c.req.query('chain') ?? '';
   return c.json({ alerts: await listAlerts(db, address, chain) }, 200);

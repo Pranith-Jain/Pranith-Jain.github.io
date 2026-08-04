@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import { pinnedFetch, pinnedFetchFollow } from '../lib/ssrf-guard';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
@@ -1126,7 +1127,7 @@ async function checkNodeModulesExposure(baseUrl: string): Promise<string[]> {
 export async function radarScanHandler(c: Context<{ Bindings: Env }>) {
   const body = await c.req.json<{ url?: string }>().catch(() => ({ url: undefined }) as { url?: string });
   const rawUrl = body.url?.trim();
-  if (!rawUrl) return c.json({ error: 'missing url' }, 400);
+  if (!rawUrl) return badRequest(c, 'missing url');
 
   let target: URL;
   try {
@@ -1134,11 +1135,11 @@ export async function radarScanHandler(c: Context<{ Bindings: Env }>) {
     target = new URL(u);
   } catch (_catchErr) {
     console.error('radarScanHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'invalid url' }, 400);
+    return badRequest(c, 'invalid url');
   }
 
   if (!URL_RE.test(target.href)) {
-    return c.json({ error: 'only http/https urls are supported' }, 400);
+    return badRequest(c, 'only http/https urls are supported');
   }
 
   const startTime = Date.now();
@@ -1336,22 +1337,22 @@ export async function radarScanHandler(c: Context<{ Bindings: Env }>) {
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
     const msg = err instanceof Error ? err.message : String(err);
-    return c.json({ error: `scan failed: ${msg}` }, 502);
+    return badGateway(c, `scan failed: ${msg}`);
   }
 }
 
 export async function radarGetScanHandler(c: Context<{ Bindings: Env }>) {
   const id = c.req.param('id');
   if (!id || !/^[a-f0-9]{32}$/.test(id)) {
-    return c.json({ error: 'invalid scan id' }, 400);
+    return badRequest(c, 'invalid scan id');
   }
-  if (!c.env.KV_CACHE) return c.json({ error: 'storage not configured' }, 503);
+  if (!c.env.KV_CACHE) return serviceUnavailable(c, 'storage not configured');
   // Per-colo shadow first — repeat reads in the same colo (SSR + client
   // hydration + retries) hit the Cache API instead of burning KV reads.
   const shadowed = await readRadarScanShadow(id);
   if (shadowed) return c.json(shadowed);
   const data = await c.env.KV_CACHE.get<RadarScanResult>(`radar:${id}`, 'json');
-  if (!data) return c.json({ error: 'scan not found or expired' }, 404);
+  if (!data) return notFound(c, 'scan not found or expired');
   await writeRadarScanShadow(id, data);
   return c.json(data);
 }

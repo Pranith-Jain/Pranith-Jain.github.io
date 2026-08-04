@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 
 /**
@@ -570,11 +571,11 @@ export async function graphNodeHandler(c: Context<{ Bindings: Env }>): Promise<R
   const depth = Math.max(1, Math.min(isNaN(rawDepth) ? 1 : rawDepth, 3));
 
   if (!value || value.length > 500) {
-    return c.json({ error: 'valid value parameter required (max 500 chars)' }, 400);
+    return badRequest(c, 'valid value parameter required (max 500 chars)');
   }
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   await ensureGraphTables(db);
 
@@ -607,11 +608,11 @@ export async function graphPathHandler(c: Context<{ Bindings: Env }>): Promise<R
   const to = c.req.query('to');
 
   if (!from || !to) {
-    return c.json({ error: 'Both "from" and "to" parameters required' }, 400);
+    return badRequest(c, 'Both "from" and "to" parameters required');
   }
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   await ensureGraphTables(db);
 
@@ -627,7 +628,7 @@ export async function graphPathHandler(c: Context<{ Bindings: Env }>): Promise<R
 /** GET /api/v1/graph/communities — Detect threat communities */
 export async function graphCommunitiesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   await ensureGraphTables(db);
 
@@ -648,7 +649,7 @@ export async function graphCommunitiesHandler(c: Context<{ Bindings: Env }>): Pr
 /** GET /api/v1/graph/stats — Graph statistics */
 export async function graphStatsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   await ensureGraphTables(db);
 
@@ -694,7 +695,7 @@ export async function graphStatsHandler(c: Context<{ Bindings: Env }>): Promise<
  */
 export async function graphCrossReportHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const VALID_NODE_TYPES: NodeType[] = [
     'ip',

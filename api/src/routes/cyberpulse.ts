@@ -9,6 +9,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import { requireAdmin } from '../lib/admin-auth';
 import { runCyberPulseIngestion } from './cyberpulse-ingest';
 
@@ -20,7 +21,7 @@ const MAX_LIMIT = 200;
 export async function cyberpulseIncidentsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const env = c.env as unknown as Record<string, unknown>;
   const db = env.BRIEFINGS_DB as import('@cloudflare/workers-types').D1Database | undefined;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   const url = new URL(c.req.url);
   const type = url.searchParams.get('type');
@@ -103,7 +104,7 @@ export async function cyberpulseIncidentsHandler(c: Context<{ Bindings: Env }>):
 export async function cyberpulseStatsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const env = c.env as unknown as Record<string, unknown>;
   const db = env.BRIEFINGS_DB as import('@cloudflare/workers-types').D1Database | undefined;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   const url = new URL(c.req.url);
   const daysBack = Math.min(90, Math.max(1, Number(url.searchParams.get('days') ?? '30')));
@@ -196,7 +197,7 @@ export async function cyberpulseStatsHandler(c: Context<{ Bindings: Env }>): Pro
 export async function cyberpulseTrendingHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const env = c.env as unknown as Record<string, unknown>;
   const db = env.BRIEFINGS_DB as import('@cloudflare/workers-types').D1Database | undefined;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   // Trending = actors/victims with the most incidents in the last 7 days
   // that weren't present (or had fewer) in the prior 7 days
@@ -267,7 +268,7 @@ export async function cyberpulseTrendingHandler(c: Context<{ Bindings: Env }>): 
 export async function cyberpulseScanLogHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const env = c.env as unknown as Record<string, unknown>;
   const db = env.BRIEFINGS_DB as import('@cloudflare/workers-types').D1Database | undefined;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   const limit = Math.min(100, Math.max(1, Number(new URL(c.req.url).searchParams.get('limit') ?? '20')));
 
@@ -287,7 +288,7 @@ export async function cyberpulseIngestHandler(c: Context<{ Bindings: Env }>): Pr
 
   const db = (c.env as unknown as Record<string, unknown>).BRIEFINGS_DB as
     import('@cloudflare/workers-types').D1Database | undefined;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   const start = Date.now();
   try {
@@ -299,9 +300,7 @@ export async function cyberpulseIngestHandler(c: Context<{ Bindings: Env }>): Pr
     });
   } catch (e) {
     console.error('cyberpulseIngestHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ ok: false, error: e instanceof Error ? e.message : String(e) }, 500, {
-      'Cache-Control': 'no-store',
-    });
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -327,7 +326,7 @@ export async function cyberpulseScanHandler(c: Context<{ Bindings: Env }>): Prom
 
   const db = (c.env as unknown as Record<string, unknown>).BRIEFINGS_DB as
     import('@cloudflare/workers-types').D1Database | undefined;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   scanRateLimits.set(ip, now);
 
@@ -352,8 +351,6 @@ export async function cyberpulseScanHandler(c: Context<{ Bindings: Env }>): Prom
     });
   } catch (e) {
     console.error('cyberpulseScanHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ ok: false, error: e instanceof Error ? e.message : String(e) }, 500, {
-      'Cache-Control': 'no-store',
-    });
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

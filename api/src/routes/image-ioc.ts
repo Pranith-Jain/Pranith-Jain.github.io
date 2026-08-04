@@ -11,6 +11,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import { extractIocsFromImageBytes, extractIocsFromImageUrl } from '../lib/image-ioc-extract';
 import { assertPublicHost, SsrfError } from '../lib/ssrf-guard';
 
@@ -28,31 +29,31 @@ export async function imageIocHandler(c: Context<{ Bindings: Env }>): Promise<Re
       body = await c.req.json();
     } catch (_catchErr) {
       console.error('imageIocHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      return c.json({ error: 'bad_request', message: 'expected JSON {url} or image/* body' }, 400);
+      return badRequest(c, 'expected JSON {url} or image/* body');
     }
     const url = typeof body.url === 'string' ? body.url : '';
-    if (!url) return c.json({ error: 'bad_request', message: 'missing url' }, 400);
+    if (!url) return badRequest(c, 'missing url');
     let parsed: URL;
     try {
       parsed = new URL(url);
     } catch (_catchErr) {
       console.error('imageIocHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-      return c.json({ error: 'bad_request', message: 'invalid url' }, 400);
+      return badRequest(c, 'invalid url');
     }
     if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
-      return c.json({ error: 'bad_request', message: 'only http/https allowed' }, 400);
+      return badRequest(c, 'only http/https allowed');
     }
     // SSRF guard: refuse to fetch from private/reserved ranges or non-http
     // schemes. Defense-in-depth on top of the image-domain extraction.
     try {
       const check = await assertPublicHost(parsed.hostname);
       if (!check.ok) {
-        return c.json({ error: 'forbidden', message: check.error ?? 'host rejected' }, 403);
+        return forbidden(c, check.error ?? 'host rejected');
       }
     } catch (e) {
       console.error('handler failed:', e instanceof Error ? e.message : String(e));
       if (e instanceof SsrfError) {
-        return c.json({ error: 'forbidden', message: e.message }, 403);
+        return forbidden(c, e.message);
       }
       throw e;
     }
@@ -60,6 +61,6 @@ export async function imageIocHandler(c: Context<{ Bindings: Env }>): Promise<Re
     return c.json(r, 200, { 'cache-control': 'no-store' });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: 'unhandled', message: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

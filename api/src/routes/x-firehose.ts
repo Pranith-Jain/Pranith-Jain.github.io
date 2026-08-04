@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import {
   fetchAuthedTimeline,
   resolveAuthCookies,
@@ -57,7 +58,7 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
 
   const handleRaw = (c.req.query('handle') ?? '').trim().replace(/^@/, '');
   if (!HANDLE_RE.test(handleRaw)) {
-    return c.json({ error: 'invalid handle (1-15 chars, A-Za-z0-9_)' }, 400);
+    return badRequest(c, 'invalid handle (1-15 chars, A-Za-z0-9_)');
   }
 
   const countRaw = Number(c.req.query('count') ?? '25');
@@ -109,7 +110,7 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
         console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* fall through */
       }
-      return c.json({ error: 'rate-limited', retry_after: err.retryAfter ?? 'unknown' }, 429);
+      return tooManyRequests(c, 'rate-limited', { windowSeconds: 60 });
     }
     // Every other authed failure - missing cookies, expired cookies, stale
     // GraphQL query IDs (X rotates them; surfaces as HTTP 200 + errors field),
@@ -141,7 +142,7 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
             : code === 'auth_missing'
               ? 'X cookies not configured - add them in admin > X Cookies'
               : msg.slice(0, 200);
-      return c.json({ error: 'upstream error', code, detail, configured: code !== 'auth_missing' }, status);
+      return badGateway(c, 'upstream error');
     }
   }
 }
@@ -164,11 +165,11 @@ export async function xFirehoseProbeBatchHandler(c: Context<{ Bindings: Env }>):
   try {
     body = (await c.req.json()) as typeof body;
   } catch {
-    return c.json({ error: 'invalid JSON body' }, 400);
+    return badRequest(c, 'invalid JSON body');
   }
 
   const handles = (body.handles ?? []).filter((h) => HANDLE_RE.test(h)).slice(0, PROBE_BATCH_MAX);
-  if (handles.length === 0) return c.json({ error: 'no valid handles' }, 400);
+  if (handles.length === 0) return badRequest(c, 'no valid handles');
 
   const sinceDays = Number.isFinite(body.since_days) ? Math.max(1, Math.min(90, Math.floor(body.since_days!))) : 7;
   const edgeCache = (caches as unknown as { default: Cache }).default;

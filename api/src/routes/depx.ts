@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
@@ -117,7 +118,7 @@ export async function depxFeedHandler(c: Context<{ Bindings: Env }>): Promise<Re
           /* fall through */
         }
       }
-      return c.json({ error: upstreamError }, 502);
+      return badGateway(c, upstreamError);
     }
 
     const body: FeedResponse = {
@@ -148,7 +149,7 @@ export async function depxFeedHandler(c: Context<{ Bindings: Env }>): Promise<Re
     return response;
   } catch (err) {
     console.error('depxFeedHandler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: 'feed failed' }, 500);
+    return internalError(c, 'feed failed');
   }
 }
 
@@ -200,7 +201,7 @@ export async function depxFeedStatsHandler(c: Context<{ Bindings: Env }>): Promi
     return response;
   } catch (err) {
     console.error('depxFeedStatsHandler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: 'stats failed' }, 500);
+    return internalError(c, 'stats failed');
   }
 }
 
@@ -215,7 +216,7 @@ export async function depxCheckHandler(c: Context<{ Bindings: Env }>): Promise<R
     const ref = c.req.query('ref');
     if (ref) {
       const parts = ref.split(':');
-      if (parts.length !== 2) return c.json({ error: 'invalid ref; expected ecosystem:package' }, 400);
+      if (parts.length !== 2) return badRequest(c, 'invalid ref; expected ecosystem:package');
       ecosystem = (parts[0] ?? '').toLowerCase();
       packageName = parts[1] ?? '';
     } else {
@@ -223,7 +224,7 @@ export async function depxCheckHandler(c: Context<{ Bindings: Env }>): Promise<R
       packageName = (c.req.query('package') ?? '').trim();
     }
 
-    if (!ecosystem || !packageName) return c.json({ error: 'missing params' }, 400);
+    if (!ecosystem || !packageName) return badRequest(c, 'missing params');
 
     const ghToken = c.env.GITHUB_TOKEN;
     const OSV_ECO_MAP: Record<string, string> = {
@@ -334,6 +335,6 @@ export async function depxCheckHandler(c: Context<{ Bindings: Env }>): Promise<R
     );
   } catch (err) {
     console.error('depxCheckHandler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: 'check failed' }, 500);
+    return internalError(c, 'check failed');
   }
 }

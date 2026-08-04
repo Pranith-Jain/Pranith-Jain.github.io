@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import {
   fetchSearchTimeline,
   resolveAuthCookies,
@@ -48,10 +49,10 @@ export async function xSearchHandler(c: Context<{ Bindings: Env }>): Promise<Res
 
   const query = (c.req.query('q') ?? '').trim();
   if (!query) {
-    return c.json({ error: 'missing required query parameter: q' }, 400);
+    return badRequest(c, 'missing required query parameter: q');
   }
   if (query.length > MAX_QUERY_LEN) {
-    return c.json({ error: `query too long (max ${MAX_QUERY_LEN} chars)` }, 400);
+    return badRequest(c, `query too long (max ${MAX_QUERY_LEN} chars)`);
   }
 
   const countRaw = Number(c.req.query('count') ?? '20');
@@ -80,7 +81,7 @@ export async function xSearchHandler(c: Context<{ Bindings: Env }>): Promise<Res
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
     if (err instanceof XAuthMissingError) {
-      return c.json({ error: 'service unavailable', configured: false }, 503);
+      return serviceUnavailable(c, 'service unavailable');
     }
     if (err instanceof XAuthRateLimitedError) {
       try {
@@ -95,11 +96,11 @@ export async function xSearchHandler(c: Context<{ Bindings: Env }>): Promise<Res
         console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
         /* fall through */
       }
-      return c.json({ error: 'rate-limited', retry_after: err.retryAfter ?? 'unknown' }, 429);
+      return tooManyRequests(c, 'rate-limited', { windowSeconds: 60 });
     }
     if (err instanceof XAuthInvalidError) {
-      return c.json({ error: 'service unavailable', status: err.status }, 401);
+      return unauthorized(c, 'service unavailable');
     }
-    return c.json({ error: 'upstream error' }, 502);
+    return badGateway(c, 'upstream error');
   }
 }
