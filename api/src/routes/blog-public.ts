@@ -1,5 +1,6 @@
 import type { Hono } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 import type { Post, PostIndexEntry } from '../case-study/types';
 import { kv } from '../case-study/kv-keys';
 import { renderMarkdown } from '../case-study/rendering/markdown';
@@ -40,7 +41,7 @@ export function registerBlogRoutes(app: Hono<{ Bindings: Env }>): void {
 
   app.get('/api/v1/blog/posts/:slug', async (c) => {
     const slug = c.req.param('slug');
-    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    if (!validSlug(slug)) return badRequest(c, 'invalid slug');
 
     // Same fix as the list endpoint: no read-through caches.default (it made
     // a DELETED post keep 200-ing from cache for ~24h). One KV read; rely on

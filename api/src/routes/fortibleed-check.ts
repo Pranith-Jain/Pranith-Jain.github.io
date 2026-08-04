@@ -10,6 +10,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 
 interface FortiGateResult {
   target: string;
@@ -186,7 +187,7 @@ export async function fortibleedCheckHandler(c: Context<{ Bindings: Env }>): Pro
 
 export async function fortibleedBatchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const body = (await c.req.json()) as { targets: string[] };
-  if (!body.targets?.length) return c.json({ error: 'targets array required' }, 400);
+  if (!body.targets?.length) return badRequest(c, 'targets array required');
 
   const results = await Promise.all(body.targets.slice(0, 10).map((t) => detectFortiGate(t)));
   return c.json({ results, total: results.length });

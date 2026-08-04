@@ -17,6 +17,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 import {
   gitHubSecurityRecentHandler,
   gitHubSecurityRecentMetaHandler,
@@ -118,7 +119,7 @@ export async function gitHubSecurityHandler(c: Context<{ Bindings: Env }>): Prom
   }
 
   if (!query && !cve && !ghsa && !ecosystem && !packageQuery && !recent) {
-    return c.json({ error: 'missing query parameter (q, cve, ghsa, ecosystem, package, or recent=true)' }, 400);
+    return badRequest(c, 'missing query parameter (q, cve, ghsa, ecosystem, package, or recent=true)');
   }
 
   const githubToken = c.env.GITHUB_TOKEN;
@@ -199,9 +200,7 @@ export async function gitHubSecurityHandler(c: Context<{ Bindings: Env }>): Prom
       const message = rateLimited
         ? 'GitHub Security API rate limit exceeded. Set GITHUB_TOKEN to raise the limit to 5,000 req/hr.'
         : `GitHub Security API returned ${lastStatus}.`;
-      return c.json({ error: message, status: lastStatus, rate_limited: rateLimited }, rateLimited ? 429 : 502, {
-        'Cache-Control': 'no-store',
-      });
+      return rateLimited ? tooManyRequests(c, message) : badGateway(c, message);
     }
 
     return c.json(buildResponse(advisories, actualQuery || '', queryType), 200, {

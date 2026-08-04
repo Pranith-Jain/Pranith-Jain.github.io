@@ -16,6 +16,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 
 interface EmailProfile {
   email: string;
@@ -563,7 +564,7 @@ export async function emailOsnitProfileHandler(c: Context<{ Bindings: Env }>): P
 
 export async function emailOsnitBulkHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const body = (await c.req.json()) as { emails: string[] };
-  if (!body.emails?.length) return c.json({ error: 'emails array required' }, 400);
+  if (!body.emails?.length) return badRequest(c, 'emails array required');
 
   const results = await Promise.all(
     body.emails.slice(0, 10).map(async (email) => {

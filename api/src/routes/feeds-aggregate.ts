@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { safeIso } from '../lib/safe-date';
 import { buildMtiRansomwareRss, MTI_RANSOMWARE_FEED_PATH } from './mti-ransomware-rss';
@@ -716,14 +717,14 @@ export async function aggregateFeeds(
 
 export async function feedsAggregateHandler(c: Context<{ Bindings: Env }>) {
   const urlsParam = c.req.query('urls');
-  if (!urlsParam) return c.json({ error: 'missing urls param' }, 400);
+  if (!urlsParam) return badRequest(c, 'missing urls param');
 
   const urls = urlsParam
     .split(',')
     .map((u) => u.trim())
     .filter(Boolean)
     .slice(0, MAX_FEEDS);
-  if (urls.length === 0) return c.json({ error: 'no valid urls' }, 400);
+  if (urls.length === 0) return badRequest(c, 'no valid urls');
 
   const limit = Math.min(parseInt(c.req.query('limit') ?? `${DEFAULT_LIMIT}`, 10) || DEFAULT_LIMIT, MAX_LIMIT);
   const perSource = Math.min(

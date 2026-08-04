@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const IOC_SYSTEM = `You are an expert threat intelligence analyst. Extract ALL indicators of compromise (IOCs) from the given text.
@@ -33,7 +34,7 @@ interface IocExtractionRequest {
 export async function iocExtractionHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<IocExtractionRequest>();
-    if (!body.text?.trim()) return c.json({ error: 'missing text' }, 400);
+    if (!body.text?.trim()) return badRequest(c, 'missing text');
 
     const user = [
       body.title ? `Title: ${body.title}` : '',
@@ -59,6 +60,6 @@ export async function iocExtractionHandler(c: Context<{ Bindings: Env }>): Promi
     return c.json({ analysis, model, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('ioc-extraction error:', e);
-    return c.json({ error: 'extraction failed' }, 500);
+    return internalError(c, 'extraction failed');
   }
 }

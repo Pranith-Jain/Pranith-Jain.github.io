@@ -82,9 +82,7 @@ export async function breachForumStatusHandler(c: Context<{ Bindings: Env }>): P
 
   const db = c.env.BRIEFINGS_DB;
   if (!db) {
-    return c.json({ error: 'service_unavailable', message: 'database not configured' }, 503, {
-      'Cache-Control': 'no-store, max-age=0',
-    });
+    return serviceUnavailable(c, 'database not configured');
   }
 
   const [deltas, totalRow] = await Promise.all([
