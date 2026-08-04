@@ -1,5 +1,6 @@
 import type { PulseEvent } from './types';
 import { COUNTRY_COORDS } from './geo';
+import { logError } from '../../lib/logger';
 
 /* ─── USGS Earthquakes ──────────────────────────────────────────────────── */
 
