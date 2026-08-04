@@ -330,8 +330,12 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
     .replace(/<meta\s+property="og:url"\s+content="[^"]*"/i, `<meta property="og:url" content="${u}"`)
     .replace(/<meta\s+name="twitter:url"\s+content="[^"]*"/i, `<meta name="twitter:url" content="${u}"`);
   if (override) {
-    const t = escapeAttr(override.title);
-    const d = escapeAttr(override.description);
+    // Escape first, THEN clamp — HTML entity escaping (e.g. ' → &#39;) expands
+    // the string by up to 4 bytes per char, so clamping the raw string leaves
+    // the escaped output over the byte limit. Clamp the escaped string so the
+    // final meta content attribute stays within X/Twitter card limits.
+    const t = clampToBytes(escapeAttr(override.title), 70);
+    const d = clampToBytes(escapeAttr(override.description), 200);
     out = out
       .replace(/<title>[^<]*<\/title>/i, `<title>${t}</title>`)
       .replace(/<meta\s+name="description"\s+content="[^"]*"/i, `<meta name="description" content="${d}"`)
