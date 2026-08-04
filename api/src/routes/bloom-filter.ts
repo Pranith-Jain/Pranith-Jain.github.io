@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 import { safeNullLog } from '../lib/safe-catch';
 
@@ -157,7 +158,7 @@ export async function bloomFilterHandler(c: Context<{ Bindings: Env }>): Promise
   }
 
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   // Try cached filter (per-colo Cache API → KV)
   const cached = await readFilterEntry(kv, type);
@@ -178,7 +179,7 @@ export async function bloomFilterHandler(c: Context<{ Bindings: Env }>): Promise
 
   // Build fresh filter
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not available');
 
   const { filter, count } = await buildFilter(db, type, config);
   const data = filter.toBase64();
@@ -215,7 +216,7 @@ export async function bloomCheckHandler(c: Context<{ Bindings: Env }>): Promise<
   const body = await c.req.json<{ indicator: string; type?: string }>();
 
   if (!body.indicator) {
-    return c.json({ error: 'indicator is required' }, 400);
+    return badRequest(c, 'indicator is required');
   }
 
   const indicator = body.indicator.toLowerCase().trim();
@@ -232,11 +233,11 @@ export async function bloomCheckHandler(c: Context<{ Bindings: Env }>): Promise<
   const type = detectedType;
   const config = FILTER_SIZES[type as keyof typeof FILTER_SIZES];
   if (!config) {
-    return c.json({ error: 'Invalid type' }, 400);
+    return badRequest(c, 'Invalid type');
   }
 
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const cached = await readFilterEntry(kv, type);
 
@@ -267,7 +268,7 @@ export async function bloomCheckHandler(c: Context<{ Bindings: Env }>): Promise<
 /** GET /api/v1/bloom/stats — Filter statistics */
 export async function bloomStatsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const stats: Record<string, unknown> = {};
 

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 import { pinnedFetch, SsrfError } from '../lib/ssrf-guard';
 import { safeNull } from '../lib/safe-catch';
 
@@ -12,7 +13,7 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
   }>();
 
   if (!baseUrl || !apiKey || !endpoint) {
-    return c.json({ error: 'missing baseUrl, apiKey, or endpoint' }, 400);
+    return badRequest(c, 'missing baseUrl, apiKey, or endpoint');
   }
 
   let url = `${baseUrl.replace(/\/$/, '')}/${endpoint.replace(/^\//, '')}`;
@@ -30,10 +31,10 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
     parsed = new URL(url);
   } catch (_catchErr) {
     console.error('mispProxyHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'invalid baseUrl/endpoint' }, 400);
+    return badRequest(c, 'invalid baseUrl/endpoint');
   }
   if (parsed.protocol !== 'https:') {
-    return c.json({ error: 'baseUrl must use https' }, 400);
+    return badRequest(c, 'baseUrl must use https');
   }
 
   let response: Response;
@@ -54,9 +55,9 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
     if (err instanceof SsrfError) {
-      return c.json({ error: err.detail }, err.status as 400 | 403 | 502);
+      return respondError(c, 'error', err.detail, err.status as 400 | 403 | 502);
     }
-    return c.json({ error: 'upstream fetch failed' }, 502);
+    return badGateway(c, 'upstream fetch failed');
   }
 
   let body: unknown;
@@ -65,7 +66,7 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
   } catch (_catchErr) {
     console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     if (response.body) safeNull(response.body.cancel());
-    return c.json({ error: 'MISP returned invalid JSON' }, 502, { 'cache-control': 'no-store' });
+    return badGateway(c, 'MISP returned invalid JSON');
   }
   return c.json(body, response.ok ? 200 : 502, {
     'cache-control': 'no-store',

@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const CACHE_TTL = 3600;
@@ -35,7 +36,7 @@ interpolRouter.get('/interpol/red-notices', async (c) => {
       signal: AbortSignal.timeout(15000),
     });
 
-    if (!res.ok) return c.json({ error: `Interpol upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Interpol upstream ${res.status}`);
 
     const data = await res.json();
     const body = {
@@ -49,13 +50,13 @@ interpolRouter.get('/interpol/red-notices', async (c) => {
     return c.json(body);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Interpol API unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Interpol API unreachable');
   }
 });
 
 interpolRouter.get('/interpol/red-notices/:noticeId', async (c) => {
   const noticeId = c.req.param('noticeId');
-  if (!noticeId) return c.json({ error: 'noticeId parameter required' }, 400);
+  if (!noticeId) return badRequest(c, 'noticeId parameter required');
 
   try {
     const res = await fetch(`https://ws-public.interpol.int/notices/v1/red/${encodeURIComponent(noticeId)}`, {
@@ -63,13 +64,13 @@ interpolRouter.get('/interpol/red-notices/:noticeId', async (c) => {
       signal: AbortSignal.timeout(10000),
     });
 
-    if (res.status === 404) return c.json({ error: 'notice not found' }, 404);
-    if (!res.ok) return c.json({ error: `Interpol upstream ${res.status}` }, 502);
+    if (res.status === 404) return notFound(c, 'notice not found');
+    if (!res.ok) return badGateway(c, `Interpol upstream ${res.status}`);
 
     const data = await res.json();
     return c.json({ notice: data, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Interpol API unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Interpol API unreachable');
   }
 });

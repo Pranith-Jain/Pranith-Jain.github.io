@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 import {
   torStatus,
   torFetchOnion,
@@ -19,7 +20,7 @@ export async function torStatusHandler(c: Context<{ Bindings: Env }>) {
 
 export async function torFetchOnionHandler(c: Context<{ Bindings: Env }>) {
   const url = c.req.query('url');
-  if (!url) return c.json({ error: 'missing_url', message: '?url= parameter is required' }, 400);
+  if (!url) return badRequest(c, '?url= parameter is required');
   const gateway = parseInt(c.req.query('gateway') ?? '0', 10);
   const r = await torFetchOnion(url, isNaN(gateway) ? 0 : Math.min(Math.max(gateway, 0), 3));
   return c.json(r);
@@ -27,7 +28,7 @@ export async function torFetchOnionHandler(c: Context<{ Bindings: Env }>) {
 
 export async function torScrapeOnionHandler(c: Context<{ Bindings: Env }>) {
   const url = c.req.query('url');
-  if (!url) return c.json({ error: 'missing_url', message: '?url= parameter is required' }, 400);
+  if (!url) return badRequest(c, '?url= parameter is required');
   const gateway = parseInt(c.req.query('gateway') ?? '0', 10);
   const r = await torScrapeOnion(url, isNaN(gateway) ? 0 : Math.min(Math.max(gateway, 0), 3));
   return c.json(r);
@@ -35,7 +36,7 @@ export async function torScrapeOnionHandler(c: Context<{ Bindings: Env }>) {
 
 export async function torSearchOnionHandler(c: Context<{ Bindings: Env }>) {
   const q = c.req.query('q');
-  if (!q) return c.json({ error: 'missing_q', message: '?q= parameter is required' }, 400);
+  if (!q) return badRequest(c, '?q= parameter is required');
   const limit = parseInt(c.req.query('limit') ?? '20', 10);
   const r = await torSearchOnion(q, isNaN(limit) ? 20 : Math.min(Math.max(limit, 1), 100));
   return c.json({ query: q, count: r.length, results: r });
@@ -60,7 +61,7 @@ export async function torExitNodesHandler(c: Context<{ Bindings: Env }>) {
 
 export async function torExitCheckHandler(c: Context<{ Bindings: Env }>) {
   const ip = c.req.query('ip');
-  if (!ip) return c.json({ error: 'missing_ip', message: '?ip= parameter is required' }, 400);
+  if (!ip) return badRequest(c, '?ip= parameter is required');
   try {
     const r = await torExitCheck(ip, c.env.KV_CACHE);
     return c.json(r);
@@ -83,7 +84,7 @@ export async function torExitDetailsHandler(c: Context<{ Bindings: Env }>) {
 
 export async function onionLookupHandler(c: Context<{ Bindings: Env }>) {
   const address = c.req.query('address');
-  if (!address) return c.json({ error: 'missing_address', message: '?address= parameter is required' }, 400);
+  if (!address) return badRequest(c, '?address= parameter is required');
   try {
     const r = await onionLookup(address);
     return c.json(r);
@@ -114,7 +115,7 @@ export async function onionLookupHandler(c: Context<{ Bindings: Env }>) {
 
 export async function btcAbuseCheckHandler(c: Context<{ Bindings: Env }>) {
   const address = c.req.query('address');
-  if (!address) return c.json({ error: 'missing_address', message: '?address= parameter is required' }, 400);
+  if (!address) return badRequest(c, '?address= parameter is required');
   const r = await btcAbuseCheck(address, c.env.CHAINABUSE_API_KEY);
   return c.json(r);
 }

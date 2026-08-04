@@ -40,6 +40,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 import { getSiteUrl } from '../lib/site-config';
 import { safeErrorMessage } from '../lib/error';
 
@@ -541,7 +542,7 @@ export async function rssAggregateHandler(c: Context<{ Bindings: Env }>): Promis
   const requested = c.req.query('source');
   const sources = requested ? SOURCES.filter((s) => s.id === requested) : SOURCES;
   if (requested && sources.length === 0) {
-    return c.json({ error: 'unknown_source', valid: SOURCES.map((s) => s.id) }, 400);
+    return badRequest(c, 'unknown_source');
   }
 
   // Fan out in parallel; one bad source doesn't fail the aggregate.
@@ -625,11 +626,11 @@ export async function rssSourcesHandler(c: Context<{ Bindings: Env }>): Promise<
 async function singleSourceHandler(c: Context<{ Bindings: Env }>, sourceId: string): Promise<Response> {
   const source = SOURCE_BY_ID[sourceId];
   if (!source) {
-    return c.json({ error: 'unknown_source', valid: SOURCES.map((s) => s.id) }, 400);
+    return badRequest(c, 'unknown_source');
   }
   const { feed, error } = await loadOneSource(c.env, source);
   if (!feed) {
-    return c.json({ error: 'upstream_unavailable', message: error }, 502, { 'cache-control': 'no-store' });
+    return badGateway(c, error);
   }
   return c.json(feed, 200, {
     'cache-control': feed.stale ? 'public, max-age=30, s-maxage=60' : 'public, max-age=60, s-maxage=300',
@@ -640,7 +641,7 @@ async function singleSourceHandler(c: Context<{ Bindings: Env }>, sourceId: stri
 async function passthroughHandler(c: Context<{ Bindings: Env }>, sourceId: string): Promise<Response> {
   const source = SOURCE_BY_ID[sourceId];
   if (!source) {
-    return c.json({ error: 'unknown_source', valid: SOURCES.map((s) => s.id) }, 400);
+    return badRequest(c, 'unknown_source');
   }
   try {
     const res = await fetch(source.upstream, {
@@ -661,8 +662,6 @@ async function passthroughHandler(c: Context<{ Bindings: Env }>, sourceId: strin
     });
   } catch (e) {
     console.error('passthroughHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: 'upstream_unavailable', message: safeErrorMessage(c.env, e) }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, safeErrorMessage(c.env, e));
   }
 }

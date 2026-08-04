@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 import { runCompletion, RateLimitError } from '../case-study/generation/ai-client';
 import { safeJsonBody } from '../lib/safe-body';
 
@@ -200,10 +201,10 @@ export async function campaignGeneratorHandler(c: Context<{ Bindings: Env }>): P
 
   const totalChars = actor.length + sector.length + ttps.length + notes.length + iocs.join('\n').length;
   if (totalChars === 0) {
-    return c.json({ error: 'empty input — provide actor, ttps, iocs, sector or notes' }, 400);
+    return badRequest(c, 'empty input — provide actor, ttps, iocs, sector or notes');
   }
   if (totalChars > MAX_INPUT_CHARS) {
-    return c.json({ error: `input too long (${totalChars}/${MAX_INPUT_CHARS} chars)` }, 400);
+    return badRequest(c, `input too long (${totalChars}/${MAX_INPUT_CHARS} chars)`);
   }
 
   const userPrompt = buildUserPrompt({ actor, sector, ttps, notes, iocs });
@@ -226,9 +227,9 @@ export async function campaignGeneratorHandler(c: Context<{ Bindings: Env }>): P
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
     if (err instanceof RateLimitError) {
-      return c.json({ error: 'AI rate limited — try again in a few minutes', detail: err.message }, 429);
+      return tooManyRequests(c, 'AI rate limited — try again in a few minutes');
     }
-    return c.json({ error: 'campaign generation failed', detail: (err as Error).message }, 502);
+    return badGateway(c, 'campaign generation failed');
   }
 
   const json = extractBalancedJson(completionText);
@@ -243,11 +244,11 @@ export async function campaignGeneratorHandler(c: Context<{ Bindings: Env }>): P
     modelParsed = JSON.parse(json);
   } catch (_catchErr) {
     console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'model JSON malformed', raw: json.slice(0, 1000), model_used: modelUsed }, 502);
+    return badGateway(c, 'model JSON malformed');
   }
   const doc = validate(modelParsed);
   if (!doc) {
-    return c.json({ error: 'model output failed schema validation', raw: modelParsed, model_used: modelUsed }, 502);
+    return badGateway(c, 'model output failed schema validation');
   }
 
   return c.json(

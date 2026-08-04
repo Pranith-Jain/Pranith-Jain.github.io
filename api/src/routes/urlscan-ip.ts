@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 
 interface UrlscanResult {
   task?: { url?: string; domain?: string; uuid?: string; screenshotURL?: string };
@@ -25,10 +26,10 @@ interface UrlscanSearchResponse {
 
 export async function urlscanIpHandler(c: Context<{ Bindings: Env }>) {
   const ip = c.req.query('ip');
-  if (!ip) return c.json({ error: 'missing ip parameter' }, 400, { 'Cache-Control': 'no-store' });
+  if (!ip) return badRequest(c, 'missing ip parameter');
 
   if (!/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(ip)) {
-    return c.json({ error: 'invalid IP format' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'invalid IP format');
   }
 
   const apiKey = c.env.URLSCAN_API_KEY;
@@ -46,7 +47,7 @@ export async function urlscanIpHandler(c: Context<{ Bindings: Env }>) {
       });
     }
     if (!res.ok) {
-      return c.json({ error: `URLScan API returned ${res.status}` }, 502);
+      return badGateway(c, `URLScan API returned ${res.status}`);
     }
 
     const json: UrlscanSearchResponse = await res.json();
@@ -70,8 +71,6 @@ export async function urlscanIpHandler(c: Context<{ Bindings: Env }>) {
     return c.json({ ip, total: json.total ?? 0, results });
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: err instanceof Error ? err.message : 'Unknown error' }, 502, {
-      'Cache-Control': 'no-store',
-    });
+    return badGateway(c, err instanceof Error ? err.message : 'Unknown error');
   }
 }

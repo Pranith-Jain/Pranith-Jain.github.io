@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 
 const MALTRAIL_RAW = 'https://raw.githubusercontent.com/stamparm/maltrail/master/trails/static/malware';
 const MALTRAIL_API = 'https://api.github.com/repos/stamparm/maltrail/contents/trails/static/malware';
@@ -61,7 +62,7 @@ export async function maltrailListHandler(c: Context<{ Bindings: Env }>): Promis
     if (!res.ok) {
       // No stale entry to serve (the only way to get one is a prior
       // success). Surface the upstream error.
-      return c.json({ error: `github: ${res.status}` }, 502, { 'cache-control': 'no-store' });
+      return badGateway(c, `github: ${res.status}`);
     }
 
     const files = (await res.json()) as Array<{ name: string; path: string; size: number; type: string }>;
@@ -86,18 +87,14 @@ export async function maltrailListHandler(c: Context<{ Bindings: Env }>): Promis
     return c.json(body, 200, { 'cache-control': 'public, max-age=3600' });
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: err instanceof Error ? err.message : String(err) }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, err instanceof Error ? err.message : String(err));
   }
 }
 
 export async function maltrailFetchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const trail = c.req.query('trail');
   if (!trail || !trail.trim()) {
-    return c.json({ error: 'missing query param trail (e.g. ?trail=apt_lazarus.txt)' }, 400, {
-      'cache-control': 'no-store',
-    });
+    return badRequest(c, 'missing query param trail (e.g. ?trail=apt_lazarus.txt)');
   }
 
   const filename = trail.trim();
@@ -109,10 +106,10 @@ export async function maltrailFetchHandler(c: Context<{ Bindings: Env }>): Promi
       signal: AbortSignal.timeout(20_000),
     });
     if (res.status === 404) {
-      return c.json({ ok: false, error: 'trail file not found' }, 404, { 'cache-control': 'public, max-age=3600' });
+      return notFound(c, 'trail file not found');
     }
     if (!res.ok) {
-      return c.json({ error: `maltrail: ${res.status}` }, 502, { 'cache-control': 'no-store' });
+      return badGateway(c, `maltrail: ${res.status}`);
     }
 
     const text = await res.text();
@@ -144,8 +141,6 @@ export async function maltrailFetchHandler(c: Context<{ Bindings: Env }>): Promi
     );
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: err instanceof Error ? err.message : String(err) }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, err instanceof Error ? err.message : String(err));
   }
 }

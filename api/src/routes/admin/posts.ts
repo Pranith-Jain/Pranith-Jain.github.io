@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, conflict } from '../../lib/api-error';
 import { safeJsonBody } from '../../lib/safe-body';
 import { putPost, listPostIndex, removePost } from '../../case-study/storage/posts';
 import { getSchedule, setSchedule } from '../../case-study/storage/schedule';
@@ -18,7 +19,7 @@ postsRouter.get('/posts', async (c) => {
 
 postsRouter.post('/posts/:slug/unpublish', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
   await removePost(c.env.CASE_STUDIES, slug);
   // Clean up schedule slots referencing this slug
   const schedule = await getSchedule(c.env.CASE_STUDIES);
@@ -49,19 +50,19 @@ postsRouter.post('/posts/manual', async (c) => {
   if ('error' in parsed) return parsed.error;
   const { type, title, body, tags, sources, iocs } = parsed.value;
 
-  if (!TYPES.includes(type)) return c.json({ error: 'invalid type' }, 400);
-  if (!title || !body) return c.json({ error: 'title and body required' }, 400);
+  if (!TYPES.includes(type)) return badRequest(c, 'invalid type');
+  if (!title || !body) return badRequest(c, 'title and body required');
   if (sources) {
     for (let i = 0; i < sources.length; i++) {
       const s = sources[i];
-      if (!s || typeof s.url !== 'string') return c.json({ error: `sources[${i}].url must be a string` }, 400);
+      if (!s || typeof s.url !== 'string') return badRequest(c, `sources[${i}].url must be a string`);
       try {
         const u = new URL(s.url);
         if (u.protocol !== 'https:' && u.protocol !== 'http:') throw new Error();
         if (!u.hostname.includes('.')) throw new Error();
       } catch (_catchErr) {
         console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-        return c.json({ error: `sources[${i}].url is not a valid HTTP URL: ${s.url}` }, 400);
+        return badRequest(c, `sources[${i}].url is not a valid HTTP URL: ${s.url}`);
       }
     }
   }
@@ -79,7 +80,7 @@ postsRouter.post('/posts/manual', async (c) => {
   while ((await c.env.CASE_STUDIES.get(csKvKeys.post(slug))) !== null) {
     slug = `${baseSlug}-${suffix}`.slice(0, 80);
     suffix += 1;
-    if (suffix > 50) return c.json({ error: 'too many slug collisions' }, 409);
+    if (suffix > 50) return conflict(c, 'too many slug collisions');
   }
 
   const now = new Date().toISOString();
