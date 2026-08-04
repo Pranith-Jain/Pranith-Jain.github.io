@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeErrorMessage } from '../lib/error';
-import { badRequest, forbidden } from '../lib/api-error';
+import { badGateway, tooManyRequests, badRequest, forbidden } from '../lib/api-error';
 
 const TIMEOUT_MS = 10_000;
 
