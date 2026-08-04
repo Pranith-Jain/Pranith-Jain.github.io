@@ -148,7 +148,7 @@ export interface OgOverride {
  *  be poisoned by a request arriving on a non-canonical host. */
 const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
 
-const OG_CACHE_VERSION = 'v5';
+const OG_CACHE_VERSION = 'v6';
 
 /**
  * Clamp a string so its UTF-8 byte length stays within `maxBytes`. Some
@@ -458,7 +458,7 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
         const SUFFIX = ' · pranithjain.qzz.io';
         const maxTitle = 70 - Buffer.byteLength(SUFFIX, 'utf8');
         const rawTitle = clampToBytes(post.title, maxTitle);
-        const description = clampToBytes(post.excerpt || OG_OVERRIDES['/blog']!.description, 200);
+        const description = clampToBytes(post.excerpt || OG_OVERRIDES['/blog']!.description, 199);
         return {
           title: `${rawTitle}${SUFFIX}`,
           description,
@@ -487,7 +487,7 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
           const rawTitle = clampToBytes(briefing.title, maxTitle);
           const description = clampToBytes(
             briefing.executive_summary || OG_OVERRIDES['/threatintel']!.description,
-            200
+            199
           );
           return {
             title: `${rawTitle}${SUFFIX}`,
