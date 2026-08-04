@@ -1,3 +1,4 @@
+import { Agent, type Connection } from 'agents';
 import type { Env } from '../env';
 import type { Env as ApiEnv } from '../../api/src/env';
 import type { AgentState, AgentStep, AgentToolResult, AgentToolCall, IocEntry } from '../../api/src/lib/agent/types';
@@ -38,7 +39,6 @@ import { saveInvestigationMemory } from '../../api/src/lib/agent/investigation-m
 import {
   createCostTracker,
   isOverBudget,
-  costSummary,
   recordCompletion,
   type InvestigationCost,
 } from '../../api/src/lib/agent/cost-tracker';
@@ -50,23 +50,16 @@ import { createVersionedReport, addVersion, getVersionDiff } from '../../api/src
 function truncateData(data: unknown, maxChars: number): unknown {
   const json = JSON.stringify(data);
   if (json.length <= maxChars) return data;
-  // Truncate and try to re-parse. If the cut point breaks the JSON, just
-  // return a summary string instead of broken JSON.
   const truncated = json.slice(0, maxChars);
   try {
     return JSON.parse(truncated);
   } catch (_catchErr) {
     console.error('truncateData failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    // JSON is broken at the cut point — return a safe string summary
     return { _truncated: true, _original_chars: json.length, _preview: truncated.slice(0, 500) };
   }
 }
 
-/**
- * Map a specialist finding to an action-card IOC entry type. Returns null for
- * finding kinds that aren't IOC-table material (techniques, campaigns, generic
- * intel) so they're excluded from the IOC list.
- */
+/** Map a specialist finding to an action-card IOC entry type. */
 function classifyFindingIocType(f: SpecialistFinding): IocEntry['type'] | null {
   switch (f.type) {
     case 'actor':
@@ -91,44 +84,66 @@ function classifyFindingIocType(f: SpecialistFinding): IocEntry['type'] | null {
 }
 
 /**
- * Alarm-driven autonomous investigator agent. Each `alarm()` runs ONE
- * planning+execution cycle, persists state, and reschedules until the
- * investigation is complete (synthesized) or errored.
+ * Agent<Env, State> state shape. One DO instance per investigation (callers
+ * route via `INVESTIGATOR_AGENT.idFromName(investigationId)`), so this holds
+ * a single investigation's state.
  *
- * Same pattern as ReportBuilderDO: the alarm gives each step its own
- * subrequest budget so the agent can run for minutes without hitting
- * Worker CPU limits.
+ * `costTracker` is non-serializable (accumulates token usage), so it lives in
+ * a private field, not `this.state`. The SDK's `setState` persists + broadcasts
+ * serializable state; the cost tracker is ephemeral per-instance.
+ */
+interface InvestigatorAgentState {
+  /** The investigation state. `null` before POST /investigate creates it. */
+  investigation: AgentState | null;
+}
+
+/**
+ * Autonomous investigator agent built on the Cloudflare Agents SDK
+ * (`Agent<Env, State>`).
+ *
+ * Each DO instance serves ONE investigation (callers route via
+ * `INVESTIGATOR_AGENT.idFromName(investigationId)`), matching the pre-port
+ * routing. The Agents SDK provides:
+ *   - `this.state` / `this.setState()` — SQLite-backed persistence (replaces
+ *     `ctx.storage.put/get('state:*')`)
+ *   - `this.schedule(when, callbackName)` — replaces `ctx.storage.setAlarm()`
+ *   - `onConnect` / `onMessage` / `onClose` — managed WebSocket lifecycle
+ *     (replaces the manual `sessions`/`sessionAgentIds`/`ipConnections` Maps)
+ *   - `this.getConnections()` + `conn.send()` — replaces manual `broadcast()`
+ *
+ * The alarm-per-step pattern is preserved: each `runStep()` runs ONE
+ * planning+execution cycle, persists state, and reschedules via
+ * `this.schedule(0.1, 'runStep')` until the investigation is complete. This
+ * keeps each step within the Worker subrequest/CPU budget so the agent can
+ * run for minutes.
+ *
+ * The `LoopEngine` / `cti-loop.ts` decision logic is unchanged — this class
+ * only owns the runtime shell (state, scheduling, WebSocket, HTTP routes).
+ * The parity test (`api/test/lib/loop-engine.test.ts`) is unaffected.
  */
 const MAX_AGENT_WS_CONNECTIONS = 10;
+const MAX_WS_PER_IP = 5;
 
-export class InvestigatorAgentDO {
-  private ctx: DurableObjectState;
-  private env: Env;
-  private sessions = new Map<string, WebSocket>();
-  /** Tracks which agentId each WebSocket session is watching. */
-  private sessionAgentIds = new Map<string, string>();
-  private ipConnections = new Map<string, number>();
-  /** Per-investigation cost trackers. */
+export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
+  initialState = { investigation: null } as InvestigatorAgentState;
+
   private costTrackers = new Map<string, InvestigationCost>();
-  /** Cached degraded-tools note for adaptive tool selection (5-min TTL). */
   private degradedToolsCache: { at: number; note: string } | null = null;
-  /** Cached confidence-calibration hint (10-min TTL). */
   private calibrationHintCache: { at: number; hint: string } | null = null;
+  private connectionAgentIds = new Map<string, string>();
+  private ipConnections = new Map<string, number>();
 
-  constructor(ctx: DurableObjectState, env: Env) {
-    this.ctx = ctx;
-    this.env = env;
-  }
-
-  async fetch(request: Request): Promise<Response> {
+  /** Called for every non-WebSocket HTTP request to this DO instance.
+   *
+   *  The Agents SDK base `fetch()` detects WebSocket upgrades and routes them
+   *  to `onConnect`/`onMessage`/`onClose` automatically — `onRequest` only
+   *  sees plain HTTP. The 13 call sites (`agent.ts`, `vera.ts`,
+   *  `copilot-chat.ts`, `tie-enrich.ts`) all use `idFromName(investigationId)`
+   *  + `stub.fetch(...)`, so each investigation gets its own DO instance and
+   *  this handler serves that one investigation's HTTP routes. */
+  async onRequest(request: Request): Promise<Response> {
     const url = new URL(request.url);
 
-    // WebSocket upgrade — real-time step streaming
-    if (request.headers.get('upgrade') === 'websocket') {
-      return this.handleWebSocketUpgrade(request);
-    }
-
-    // POST /investigate — start a new investigation
     if (url.pathname === '/investigate' && request.method === 'POST') {
       const body = (await request.json()) as {
         id: string;
@@ -140,7 +155,6 @@ export class InvestigatorAgentDO {
         rolePreamble?: string;
         responseFormat?: string;
       };
-      // Check for duplicate investigation
       const existingId = await checkDuplicate(body.query);
       if (existingId) {
         return Response.json({ id: existingId, status: 'running', duplicate: true });
@@ -164,188 +178,138 @@ export class InvestigatorAgentDO {
         rolePreamble: body.rolePreamble,
         responseFormat: body.responseFormat,
       };
-      await this.ctx.storage.put(`state:${body.id}`, state);
-      await this.persist(state);
-      // Register for dedup tracking
+      this.setState({ investigation: state });
       await registerInvestigation(body.query, body.id);
-      // Kick off the first step immediately
-      await this.ctx.storage.setAlarm(Date.now() + 1);
+      await this.schedule(0.1, 'runStep');
       return Response.json({ id: body.id, status: 'running' });
     }
 
-    // GET /state — poll current investigation state (kept for SSE backward compat)
     if (url.pathname === '/state') {
       const id = url.searchParams.get('id') ?? '';
-      const state = await this.ctx.storage.get<AgentState>(`state:${id}`);
-      return state ? Response.json(state) : Response.json({ error: 'not found' }, { status: 404 });
+      const state = this.state.investigation;
+      if (!state || state.id !== id) return Response.json({ error: 'not found' }, { status: 404 });
+      return Response.json(state);
     }
 
-    // DELETE /cancel — mark an investigation as cancelled
     if (url.pathname === '/cancel' && request.method === 'DELETE') {
       const id = url.searchParams.get('id') ?? '';
       if (!id) return Response.json({ error: 'id required' }, { status: 400 });
-      const state = await this.ctx.storage.get<AgentState>(`state:${id}`);
-      if (!state) return Response.json({ error: 'not found' }, { status: 404 });
+      const state = this.state.investigation;
+      if (!state || state.id !== id) return Response.json({ error: 'not found' }, { status: 404 });
       if (state.status === 'running') {
         state.status = 'error';
         state.error = 'Cancelled by user';
         state.completedAt = new Date().toISOString();
-        await this.ctx.storage.put(`state:${id}`, state);
+        this.setState({ investigation: state });
         await this.persist(state);
         this.broadcast({ type: 'error', error: 'Cancelled by user', agentId: id });
       }
       return Response.json({ ok: true, status: state.status });
     }
 
-    // DELETE /delete — clean up DO storage
     if (url.pathname === '/delete' && request.method === 'DELETE') {
       const id = url.searchParams.get('id') ?? '';
-      if (id) await this.ctx.storage.delete(`state:${id}`);
+      if (id) this.setState({ investigation: null });
       return Response.json({ ok: true });
     }
 
     return new Response('not found', { status: 404 });
   }
 
-  private handleWebSocketUpgrade(request: Request): Response {
-    if (this.sessions.size >= MAX_AGENT_WS_CONNECTIONS) {
-      return new Response('Too many connections', { status: 429 });
+  /** Called when a new WebSocket connection is established. The SDK base
+   *  `fetch()` already accepted the upgrade; this fires per connection. */
+  override async onConnect(conn: Connection, ctx: { request: Request }): Promise<void> | void {
+    if (this.getConnections().size >= MAX_AGENT_WS_CONNECTIONS) {
+      conn.close(1013, 'Too many connections');
+      return;
     }
-
-    const clientIp = request.headers.get('cf-connecting-ip') ?? 'unknown';
+    const clientIp = ctx.request.headers.get('cf-connecting-ip') ?? 'unknown';
     const ipCount = this.ipConnections.get(clientIp) ?? 0;
-    if (ipCount >= 5) {
-      return new Response('Too many connections from this IP', { status: 429 });
+    if (ipCount >= MAX_WS_PER_IP) {
+      conn.close(1013, 'Too many connections from this IP');
+      return;
     }
-
-    const pair = new WebSocketPair();
-    const client = pair[0];
-    const server = pair[1];
-    const sessionId = crypto.randomUUID();
-
-    this.sessions.set(sessionId, server);
     this.ipConnections.set(clientIp, ipCount + 1);
-    server.accept();
-
-    // Listen for subscription: {"agentId":"xxx"}
-    server.addEventListener('message', (event) => {
-      try {
-        const msg = JSON.parse(String(event.data));
-        if (typeof msg.agentId === 'string') {
-          this.sessionAgentIds.set(sessionId, msg.agentId);
-        }
-      } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-        // Ignore malformed messages
-      }
-    });
-
-    let cleaned = false;
-    const cleanup = () => {
-      if (cleaned) return;
-      cleaned = true;
-      this.sessions.delete(sessionId);
-      const agentId = this.sessionAgentIds.get(sessionId);
-      this.sessionAgentIds.delete(sessionId);
-      const remaining = this.ipConnections.get(clientIp) ?? 1;
-      if (remaining <= 1) this.ipConnections.delete(clientIp);
-      else this.ipConnections.set(clientIp, remaining - 1);
-      // Evict the cost tracker for the agent this session was watching so
-      // abandoned/crashed investigations don't leak memory. Completed
-      // investigations delete their own entry (line ~906), but a client
-      // disconnecting mid-investigation would otherwise leave it behind.
-      if (agentId) this.costTrackers.delete(agentId);
-    };
-    server.addEventListener('close', cleanup);
-    server.addEventListener('error', cleanup);
-
-    server.send(JSON.stringify({ type: 'connected' }));
-
-    return new Response(null, { status: 101, webSocket: client });
+    conn.send(JSON.stringify({ type: 'connected' }));
   }
 
-  /** Broadcast a message to WebSocket clients watching this agent. */
-  private broadcast(msg: unknown): void {
-    if (this.sessions.size === 0) return;
+  override async onMessage(conn: Connection, message: string | ArrayBuffer | ArrayBufferView): Promise<void> | void {
+    try {
+      const msg = JSON.parse(typeof message === 'string' ? message : new TextDecoder().decode(message));
+      if (typeof msg.agentId === 'string') {
+        this.connectionAgentIds.set(conn.id, msg.agentId);
+      }
+    } catch (_catchErr) {
+      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    }
+  }
+
+  override async onClose(conn: Connection): Promise<void> | void {
+    this.connectionAgentIds.delete(conn.id);
+  }
+
+  private broadcastToWatchers(msg: unknown): void {
+    const conns = [...this.getConnections()];
+    if (conns.length === 0) return;
     const payload = JSON.stringify(msg);
     const msgAgentId = (msg as Record<string, unknown>).agentId;
-    for (const [id, ws] of this.sessions) {
-      const watching = this.sessionAgentIds.get(id);
+    for (const conn of conns) {
+      const watching = this.connectionAgentIds.get(conn.id);
       if (watching && watching !== msgAgentId) continue;
       try {
-        ws.send(payload);
+        conn.send(payload);
       } catch (_catchErr) {
         console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-        this.sessions.delete(id);
-        this.sessionAgentIds.delete(id);
       }
     }
   }
 
-  async alarm(): Promise<void> {
-    const all = await this.ctx.storage.list<AgentState>({ prefix: 'state:' });
-    let anyPending = false;
+  /** Scheduled step callback — runs one investigation cycle. Invoked by
+   *  `this.schedule(0.1, 'runStep')`. Each invocation runs ONE
+   *  planning+execution cycle, persists state, and reschedules until the
+   *  investigation is complete (synthesized) or errored. */
+  async runStep(): Promise<void> {
+    const state = this.state.investigation;
+    if (!state || state.status !== 'running') return;
 
-    for (const [key, state] of all) {
-      if (state.status !== 'running') continue;
-      anyPending = true;
+    try {
+      const next = await this.advanceOneStep(state);
+      this.setState({ investigation: next });
 
-      try {
-        const next = await this.advanceOneStep(state);
-        await this.ctx.storage.put(key, next);
-
-        // Push the new step to WebSocket clients in real-time
-        if (next.steps.length > state.steps.length) {
-          const newStep = next.steps[next.steps.length - 1];
-          this.broadcast({ type: 'step', step: newStep });
-        }
-
-        if (next.status === 'done' || next.status === 'error') {
-          await this.persist(next);
-          this.broadcast({
-            type: next.status,
-            report: next.report,
-            error: next.error,
-            modelUsed: next.modelUsed,
-            qa: next.qa,
-            actionCard: next.actionCard,
-            sources: next.sources,
-            reportVersioning: next.reportVersioning,
-            cost: next.cost,
-            priorIntelligence: next.priorIntelligence,
-          });
-        } else {
-          // Schedule next step with a small delay to avoid burst
-          await this.ctx.storage.setAlarm(Date.now() + 100);
-        }
-      } catch (err) {
-        const errMsg = err instanceof Error ? err.message : String(err);
-        console.error(`agent ${state.id}: step failed`, errMsg);
-        state.status = 'error';
-        state.error = errMsg;
-        state.completedAt = new Date().toISOString();
-        await this.ctx.storage.put(key, state);
-        await this.persist(state);
-        this.broadcast({ type: 'error', error: errMsg });
+      if (next.steps.length > state.steps.length) {
+        const newStep = next.steps[next.steps.length - 1];
+        this.broadcast({ type: 'step', step: newStep });
       }
-    }
 
-    if (anyPending) {
-      const remaining = await this.ctx.storage.list<AgentState>({ prefix: 'state:' });
-      const stillRunning = [...remaining.values()].some((s) => s.status === 'running');
-      if (stillRunning) await this.ctx.storage.setAlarm(Date.now() + 100);
+      if (next.status === 'done' || next.status === 'error') {
+        await this.persist(next);
+        this.broadcast({
+          type: next.status,
+          report: next.report,
+          error: next.error,
+          modelUsed: next.modelUsed,
+          qa: next.qa,
+          actionCard: next.actionCard,
+          sources: next.sources,
+          reportVersioning: next.reportVersioning,
+          cost: next.cost,
+          priorIntelligence: next.priorIntelligence,
+        });
+      } else {
+        await this.schedule(0.1, 'runStep');
+      }
+    } catch (err) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      console.error(`agent ${state.id}: step failed`, errMsg);
+      state.status = 'error';
+      state.error = errMsg;
+      state.completedAt = new Date().toISOString();
+      this.setState({ investigation: state });
+      await this.persist(state);
+      this.broadcast({ type: 'error', error: errMsg });
     }
   }
 
-  /**
-   * Execute one planning+execution cycle. This is the core agent loop:
-   * 1. PLAN: LLM decides which tools to call (using specialist-specific prompt)
-   * 2. ACT: Execute tools in parallel
-   * 3. OBSERVE: Summarize results
-   * 4. DECIDE: Continue with current specialist, switch specialist, or synthesize
-   *
-   * Uses working memory to carry intelligence across steps for better reasoning.
-   */
   private async advanceOneStep(state: AgentState): Promise<AgentState> {
     const apiEnv = this.env as unknown as ApiEnv;
     const ai = apiEnv.AI;
@@ -358,7 +322,6 @@ export class InvestigatorAgentDO {
     const internalToken = await signInternalToken('investigator-do', tokenSecret);
     const allTools = buildToolRegistry(this.env.SELF, undefined, { 'x-internal-token': internalToken });
 
-    // Filter tools by allowedTools if set (from Vera role/mode config)
     const allowedTools = state.allowedTools;
     const availableTools =
       allowedTools && allowedTools.length > 0 ? allTools.filter((t) => allowedTools.includes(t.name)) : allTools;
@@ -367,23 +330,14 @@ export class InvestigatorAgentDO {
     const stepStart = new Date().toISOString();
     const view = { stepNum, maxSteps: state.maxSteps, steps: state.steps };
 
-    // ── WORKING MEMORY ────────────────────────────────────────────────
-    // Build or restore working memory from previous steps.
-    // This carries IOCs, MITRE techniques, key facts, and gaps across steps
-    // so the planner has full context for better tool selection.
     const workingMemory = this.buildWorkingMemory(state);
-
-    // Adaptive tool selection: planner hint for tools with high recent failure.
     const degradedNote = await this.degradedToolsNote();
 
-    // ── COST TRACKING ────────────────────────────────────────────────
-    // Track token usage and costs per investigation.
     const costTracker = this.costTrackers.get(state.id) ?? createCostTracker();
     this.costTrackers.set(state.id, costTracker);
     const recordUsage = (model: string, inputText: string, outputText: string, role: string) =>
       recordCompletion(costTracker, model, inputText, outputText, role);
 
-    // Check budget before proceeding
     if (isOverBudget(costTracker)) {
       return await this.doSynthesize(
         state,
@@ -398,7 +352,6 @@ export class InvestigatorAgentDO {
       );
     }
 
-    // ── DECIDE (pre-plan) ─────────────────────────────────────────────
     const exit = evaluateCtiExit(view);
     if (exit) {
       return await this.doSynthesize(
@@ -414,13 +367,9 @@ export class InvestigatorAgentDO {
       );
     }
 
-    // ── SPECIALIST MESH ───────────────────────────────────────────────
-    // On step 1: build orchestrator plan and select first specialist.
-    // On subsequent steps: check current specialist's exit conditions and switch.
     let currentRole: SpecialistRole | undefined = state.currentSpecialist as SpecialistRole | undefined;
 
     if (stepNum === 1) {
-      // Build orchestration plan on step 1
       try {
         const plan = await buildOrchestratorPlan(state.query, state.queryType, {
           infronKey,
@@ -434,11 +383,8 @@ export class InvestigatorAgentDO {
         }
       } catch (_catchErr) {
         console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-        // Orchestrator failure — fall through to monolithic planner
       }
 
-      // Cross-investigation memory: look up related past investigations and
-      // build a prior-intelligence note for the planner (closed feedback loop).
       if (!state.priorIntelligence) {
         try {
           const db = (this.env as unknown as ApiEnv).BRIEFINGS_DB;
@@ -455,13 +401,9 @@ export class InvestigatorAgentDO {
           }
         } catch (_catchErr) {
           console.error('memory lookup failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-          // Non-fatal — proceed without prior intelligence
         }
       }
 
-      // Run independent specialists' first step concurrently. Returns null (fall
-      // back to the sequential path above) when <2 specialists are independent
-      // or on any error, so this is purely additive.
       const burst = await this.tryParallelBurst(
         state,
         ai,
@@ -474,7 +416,6 @@ export class InvestigatorAgentDO {
       );
       if (burst) return burst;
     } else if (currentRole) {
-      // Check if current specialist's exit conditions have fired
       const specialistCheck = checkSpecialistExit(
         currentRole,
         state.steps,
@@ -485,11 +426,9 @@ export class InvestigatorAgentDO {
       );
       if (specialistCheck.shouldSwitch) {
         if (specialistCheck.nextRole) {
-          // Switch to next specialist
           currentRole = specialistCheck.nextRole;
           state.currentSpecialist = currentRole;
         } else {
-          // No more specialists — synthesize
           return await this.doSynthesize(
             state,
             ai,
@@ -505,12 +444,10 @@ export class InvestigatorAgentDO {
       }
     }
 
-    // ── PLAN (specialist-aware) ──────────────────────────────────────
     let specialistTools = allTools;
     let specialistPrompt = '';
 
     if (currentRole) {
-      // Use specialist's tool subset and planner prompt
       specialistTools = getToolsForSpecialist(currentRole, allTools);
       specialistPrompt = getSpecialistPrompt(
         currentRole,
@@ -521,7 +458,6 @@ export class InvestigatorAgentDO {
         state.steps
       );
 
-      // Add specialist context to the planner
       const specialistContext =
         (specialistPrompt
           ? `\n<specialist_role>${SPECIALIST_REGISTRY[currentRole].label}</specialist_role>\n<specialist_instructions>${specialistPrompt}</specialist_instructions>`
@@ -537,14 +473,7 @@ export class InvestigatorAgentDO {
         stepNum,
         state.maxSteps,
         specialistTools,
-        {
-          infronKey,
-          groqKey,
-          googleKey,
-          nvidiaKey,
-          specialistContext,
-          workingMemory,
-        }
+        { infronKey, groqKey, googleKey, nvidiaKey, specialistContext, workingMemory }
       );
 
       if (plan.shouldSynthesize) {
@@ -561,13 +490,11 @@ export class InvestigatorAgentDO {
         );
       }
 
-      // Apply specialist-specific guardrails
       const validToolNames = new Set(specialistTools.map((t) => t.name));
       let toolCalls = filterCtiToolCalls(plan.toolCalls, view, validToolNames);
       toolCalls = applySpecialistGuardrails(currentRole, toolCalls, view);
 
       if (toolCalls.length === 0) {
-        // No valid tools for this specialist — switch or synthesize
         const specialistCheck = checkSpecialistExit(
           currentRole,
           state.steps,
@@ -579,7 +506,6 @@ export class InvestigatorAgentDO {
         if (specialistCheck.shouldSwitch && specialistCheck.nextRole) {
           currentRole = specialistCheck.nextRole;
           state.currentSpecialist = currentRole;
-          // Re-plan with next specialist's tools on this same step
           return await this.advanceOneStep({ ...state, currentStep: stepNum - 1 });
         }
         return await this.doSynthesize(
@@ -595,7 +521,6 @@ export class InvestigatorAgentDO {
         );
       }
 
-      // ── ACT ──────────────────────────────────────────────────────────
       const step: AgentStep = {
         stepNumber: stepNum,
         plan: `[${SPECIALIST_REGISTRY[currentRole].label}] ${plan.reasoning}`,
@@ -609,7 +534,6 @@ export class InvestigatorAgentDO {
       step.results = results;
       step.completedAt = new Date().toISOString();
 
-      // ── OBSERVE ──────────────────────────────────────────────────────
       const observation = await observeStep(ai, stepNum, plan.reasoning, results, {
         infronKey,
         groqKey,
@@ -636,7 +560,6 @@ export class InvestigatorAgentDO {
       return state;
     }
 
-    // ── FALLBACK: monolithic planner (no specialist matched) ──────────
     const plan = await planNextStep(
       ai,
       state.query,
@@ -724,13 +647,6 @@ export class InvestigatorAgentDO {
     return state;
   }
 
-  /**
-   * Run a contiguous prefix of independent specialists concurrently for their
-   * first step. Only specialists whose tool sets don't overlap any
-   * already-selected specialist are included (stops at the first overlap, so no
-   * specialist is skipped). Returns the updated state, or null to fall back to
-   * the sequential path. Purely additive — any error returns null.
-   */
   private async tryParallelBurst(
     state: AgentState,
     ai: ApiEnv['AI'],
@@ -785,8 +701,6 @@ export class InvestigatorAgentDO {
       }
       state.steps.push(...newSteps);
       state.currentStep = sn;
-      // Continue the chain from the last burst specialist; the next alarm's
-      // checkSpecialistExit advances to the following specialist.
       state.currentSpecialist = burst[burst.length - 1];
       state.usedParallelBurst = true;
       return state;
@@ -799,7 +713,6 @@ export class InvestigatorAgentDO {
     }
   }
 
-  /** Execute tool calls in parallel, collecting results. Uses cache for repeat calls. */
   private async executeTools(
     calls: AgentToolCall[],
     tools: ReturnType<typeof buildToolRegistry>
@@ -820,7 +733,6 @@ export class InvestigatorAgentDO {
           durationMs: 0,
         };
 
-      // Check cache first — skip API call if we have a fresh result
       const cached = await getCachedResult(call.tool, call.args);
       if (cached !== null) {
         return { tool: call.tool, args: call.args, status: 'ok', data: cached, durationMs: 0 };
@@ -828,7 +740,6 @@ export class InvestigatorAgentDO {
 
       const start = Date.now();
       try {
-        // Per-tool timeout: 20s for most tools, 40s for heavy fan-outs
         const isHeavyFanout = [
           'enrich_actor',
           'check_ioc',
@@ -850,12 +761,9 @@ export class InvestigatorAgentDO {
           }),
         ]);
 
-        // Cache successful results for future calls
         await setCachedResult(call.tool, call.args, data);
-
         return { tool: call.tool, args: call.args, status: 'ok', data, durationMs: Date.now() - start };
       } catch (err) {
-        // Tool retry: try an alternative tool if available
         const alt = suggestAlternative(call, allToolNames, calledKeys);
         if (alt) {
           const altTool = toolMap.get(alt.tool);
@@ -899,19 +807,10 @@ export class InvestigatorAgentDO {
     return results;
   }
 
-  /**
-   * Build working memory from the current state's steps. Delegates to the
-   * shared pure helper so the reconstruction logic is unit-testable.
-   */
   private buildWorkingMemory(state: AgentState): WorkingMemory {
     return rebuildWorkingMemory(state.steps);
   }
 
-  /**
-   * Adaptive tool selection: return a planner hint listing tools with a high
-   * recent failure rate (from historical metrics) so the agent deprioritizes
-   * them. Cached for 5 minutes to avoid a D1 read per step.
-   */
   private async degradedToolsNote(): Promise<string> {
     const now = Date.now();
     if (this.degradedToolsCache && now - this.degradedToolsCache.at < 5 * 60 * 1000) {
@@ -934,11 +833,6 @@ export class InvestigatorAgentDO {
     return note;
   }
 
-  /**
-   * Confidence calibration: return a synthesizer hint built from historical
-   * confidence-accuracy stats, so the agent calibrates confidence honestly.
-   * Cached for 10 minutes.
-   */
   private async calibrationHint(): Promise<string> {
     const now = Date.now();
     if (this.calibrationHintCache && now - this.calibrationHintCache.at < 10 * 60 * 1000) {
@@ -958,7 +852,6 @@ export class InvestigatorAgentDO {
     return hint;
   }
 
-  /** Synthesize the final report and mark the investigation done. Streams progress to WebSocket clients. */
   private async doSynthesize(
     state: AgentState,
     ai: ApiEnv['AI'],
@@ -979,14 +872,12 @@ export class InvestigatorAgentDO {
       startedAt: stepStart,
     };
 
-    // Stream synthesis progress to WebSocket clients
     this.broadcast({
       type: 'step',
       step: { ...synthesizeStep, observation: 'Synthesizing report from collected data…' },
     });
 
     try {
-      // Assess data quality before synthesis
       const totalOk = state.steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0);
       const totalErr = state.steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'error').length, 0);
       const emptyResults = state.steps.reduce(
@@ -1010,9 +901,6 @@ export class InvestigatorAgentDO {
         recordUsage,
       });
 
-      // ── QA PHASE ─────────────────────────────────────────────────────
-      // Run the QA verifier to fact-check the report against collected data.
-      // This catches hallucinations, adds missing facts, and scores quality.
       const qaStepNum = stepNum + 1;
       const qaStep: AgentStep = {
         stepNumber: qaStepNum,
@@ -1023,7 +911,6 @@ export class InvestigatorAgentDO {
         startedAt: new Date().toISOString(),
       };
 
-      // Stream QA progress
       this.broadcast({
         type: 'step',
         step: { ...qaStep, observation: 'Running QA verification against collected data…' },
@@ -1038,10 +925,6 @@ export class InvestigatorAgentDO {
           recordUsage,
         });
 
-        // ── SELF-CORRECTION LOOP ──────────────────────────────────────
-        // If QA score is low and there are fixable issues, re-synthesize
-        // with the QA feedback and re-verify. Max 1 retry to avoid loops.
-        // Skip if QA returned -1 (providers exhausted — retrying won't help).
         let finalReport = result.report;
         let finalActionCard = result.actionCard;
         let finalModelUsed = `${result.modelUsed} → QA:${qa.modelUsed}`;
@@ -1051,7 +934,6 @@ export class InvestigatorAgentDO {
           missingFacts: qa.missingFacts,
         };
 
-        // Track report versions so the self-correction before/after is auditable.
         let versioned = addVersion(createVersionedReport(state.id), result.report, {
           qualityScore: qa.qualityScore,
           modelUsed: qa.modelUsed,
@@ -1062,7 +944,6 @@ export class InvestigatorAgentDO {
           qa.qualityScore >= 0 &&
           shouldRetry(qa.qualityScore, qa.flaggedClaims.length, qa.missingFacts.length, stepNum, state.maxSteps)
         ) {
-          // Stream self-correction progress
           this.broadcast({
             type: 'step',
             step: { ...qaStep, observation: `QA score ${qa.qualityScore}/100 — running self-correction…` },
@@ -1072,15 +953,10 @@ export class InvestigatorAgentDO {
           const memStr = memoryToPrompt(workingMem);
           const correctionPrompt = buildSelfCorrectionPrompt(
             result.report,
-            {
-              flaggedClaims: qa.flaggedClaims,
-              missingFacts: qa.missingFacts,
-              qualityNotes: '',
-            },
+            { flaggedClaims: qa.flaggedClaims, missingFacts: qa.missingFacts, qualityNotes: '' },
             memStr
           );
 
-          // Re-synthesize with the correction prompt appended
           const { report: correctedText, modelUsed: correctedModel } = await synthesizeReport(
             ai,
             state.query,
@@ -1099,7 +975,6 @@ export class InvestigatorAgentDO {
 
           const { report: correctedProse, actionCard: correctedCard } = splitSynthOutput(correctedText);
 
-          // Re-verify the corrected report
           const qa2 = await verifyReport(ai, state.query, state.queryType, correctedProse, state.steps, {
             infronKey,
             groqKey,
@@ -1108,14 +983,12 @@ export class InvestigatorAgentDO {
             recordUsage,
           });
 
-          // Record the corrected draft as version 2 (whether or not it wins).
           versioned = addVersion(versioned, correctedProse, {
             qualityScore: qa2.qualityScore,
             modelUsed: qa2.modelUsed,
             reason: 'Self-correction retry',
           });
 
-          // Use the corrected version only if it scored higher
           if (qa2.qualityScore > qa.qualityScore) {
             finalReport = qa2.verifiedReport;
             finalActionCard = correctedCard ?? result.actionCard;
@@ -1136,15 +1009,12 @@ export class InvestigatorAgentDO {
               : `QA complete. Score: ${qa.qualityScore}/100. Flagged: ${qa.flaggedClaims.length} claims. Missing: ${qa.missingFacts.length} facts.`;
         }
 
-        // Use the verified report (hallucinations removed, facts added).
-        // Re-split the QA'd text so we can carry the action card through state.
         const { report: proseOnly, actionCard: qaCard } = splitSynthOutput(finalReport);
         state.report = proseOnly;
         state.actionCard = qaCard ?? finalActionCard;
         state.modelUsed = finalModelUsed;
         state.qa = finalQa;
 
-        // Surface the version history + compact diff when a correction happened.
         if (versioned.versions.length > 1) {
           const diff = getVersionDiff(versioned, 1, versioned.currentVersion);
           state.reportVersioning = {
@@ -1171,17 +1041,14 @@ export class InvestigatorAgentDO {
         qaStep.completedAt = new Date().toISOString();
       } catch (qaErr) {
         console.error('handler failed:', qaErr instanceof Error ? qaErr.message : String(qaErr));
-        // QA failure is non-fatal — keep the original report
         qaStep.observation = `QA failed: ${qaErr instanceof Error ? qaErr.message : String(qaErr)}. Original report preserved.`;
         qaStep.status = 'error';
         qaStep.completedAt = new Date().toISOString();
-        // The synthesizer already split; carry the action card through.
         state.report = result.report;
         state.actionCard = result.actionCard;
         state.modelUsed = result.modelUsed;
       }
 
-      // Derive source badges from tool results
       const toolCounts = new Map<string, number>();
       for (const s of state.steps) {
         for (const r of s.results) {
@@ -1198,16 +1065,11 @@ export class InvestigatorAgentDO {
         }))
         .sort((a, b) => b.items - a.items);
 
-      // Derive the relationship graph deterministically from tool results and
-      // attach it to the action card for the UI (no LLM involved → no hallucination).
       if (state.actionCard) {
         const graph = extractGraphFromSteps(state.steps);
         if (graph.nodes.length > 0) state.actionCard.graph = graph;
       }
 
-      // Extract typed findings from all tool results (orchestrator's
-      // extractFindings, previously dead code) and merge tool-grounded IOCs into
-      // the action card, deduped against whatever the synthesizer emitted.
       const findings: SpecialistFinding[] = [];
       const seenFinding = new Set<string>();
       for (const s of state.steps) {
@@ -1246,7 +1108,6 @@ export class InvestigatorAgentDO {
         llmCalls: synthTracker.entries.length,
       };
 
-      // Save investigation memory for cross-session context
       const db = (this.env as unknown as ApiEnv).BRIEFINGS_DB;
       if (db) {
         const mem = this.buildWorkingMemory(state);
@@ -1263,12 +1124,9 @@ export class InvestigatorAgentDO {
           completedAt: state.completedAt,
         });
 
-        // Grow the cross-investigation knowledge graph from this investigation's
-        // entities + relationships.
         const { extractKnowledgeGraph, recordKnowledgeGraph } = await import('../../api/src/lib/agent/knowledge-graph');
         await recordKnowledgeGraph(db, extractKnowledgeGraph(state.steps));
 
-        // Record metrics for observability
         const { recordMetrics } = await import('../../api/src/lib/agent/observability');
         const durationMs = new Date(state.completedAt).getTime() - new Date(state.startedAt).getTime();
         const toolsUsed = [...new Set(state.steps.flatMap((s) => s.results.map((r) => r.tool)))];
@@ -1300,8 +1158,6 @@ export class InvestigatorAgentDO {
           completedAt: state.completedAt,
         });
 
-        // Record confidence calibration — predicted verdict confidence vs the
-        // QA-derived actual outcome. Feeds getCalibrationStats accuracy tracking.
         const { recordCalibration } = await import('../../api/src/lib/agent/confidence-calibration');
         const predictedConfidence = state.actionCard?.verdict.confidence ?? 'medium';
         const calScore = state.qa?.qualityScore ?? 0;
@@ -1315,7 +1171,6 @@ export class InvestigatorAgentDO {
         });
       }
 
-      // Clean up cost tracker
       this.costTrackers.delete(state.id);
     } catch (err) {
       console.error('handler failed:', err instanceof Error ? err.message : String(err));
@@ -1330,13 +1185,10 @@ export class InvestigatorAgentDO {
     return state;
   }
 
-  /** Persist agent state to D1 for history and polling. */
   private async persist(state: AgentState): Promise<void> {
     const db = (this.env as unknown as ApiEnv).BRIEFINGS_DB;
     if (!db) return;
 
-    // Truncate tool result data to keep D1 rows manageable. Full data stays
-    // in the in-memory state for the synthesizer, but D1 only needs summaries.
     const trimmedSteps = state.steps.map((s) => ({
       ...s,
       results: s.results.map((r) => ({
