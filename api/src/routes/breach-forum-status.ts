@@ -19,10 +19,10 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest } from '../lib/api-error';
-import { trackEvent, visitorCountry } from '../lib/analytics';
-import { readRecentDeltas, type StatusDelta } from '../lib/breach-forum-status';
-import { safeNullLog } from '../lib/safe-catch';
+import { badRequest, serviceUnavailable } from '../lib/api-error';
+import { trackEvent, visitorCountry, serviceUnavailable } from '../lib/analytics';
+import { readRecentDeltas, type StatusDelta, serviceUnavailable } from '../lib/breach-forum-status';
+import { safeNullLog, serviceUnavailable } from '../lib/safe-catch';
 
 const CACHE_TTL_SECONDS = 600;
 const MAX_LIMIT = 500;
