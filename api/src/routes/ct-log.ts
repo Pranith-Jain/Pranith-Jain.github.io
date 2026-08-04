@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
+import { cachedJson } from '../lib/route-cache';
 
 interface CrtShCert {
   id: number;
@@ -211,6 +212,16 @@ export async function ctLogHandler(c: Context<{ Bindings: Env }>): Promise<Respo
   const minValidityDays = c.req.query('min_validity_days');
   const maxValidityDays = c.req.query('max_validity_days');
   const suspiciousOnly = c.req.query('suspicious') === 'true';
+
+  // Cache-API first (free, per-colo, no KV). Keyed on target + filters so
+  // repeated lookups for the same domain are instant. crt.sh is slow (2-10s)
+  // and rate-limits aggressively — caching is essential.
+  const CACHE_TTL = 3600; // 1h
+  const cacheKey = `ct-log:${target}:${issuerFilter ?? ''}:${minValidityDays ?? ''}:${maxValidityDays ?? ''}:${suspiciousOnly ? 1 : 0}`;
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheReq = new Request(`https://ct-log-cache.internal/v1/${encodeURIComponent(cacheKey)}`);
+  const cached = await cache.match(cacheReq);
+  if (cached) return new Response(cached.body, cached);
 
   try {
     const rawCerts = await fetchCrtSh(target);
