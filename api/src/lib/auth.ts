@@ -82,6 +82,18 @@ const EXEMPT_PATHS = new Set([
   '/api/v1/telegram-leaks/bot-webhook',
   '/api/v1/telegram-leaks/register-webhook',
   '/api/v1/csp-report', // CSP violation reports — POST from browsers, no auth needed
+  // RSS feeds — must be public so RSS readers (Feedly, Inoreader, etc.) can
+  // subscribe. RSS clients cannot send same-origin headers or API keys.
+  '/api/v1/briefings/rss',
+  '/api/v1/feeds/abuse-rss',
+  '/api/v1/threatsignal/rss',
+  '/api/v1/threatsignal/rss.xml',
+  '/api/v1/opensourcemalware/rss',
+  '/api/v1/opensourcemalware/rss.xml',
+  '/api/v1/rss/aggregate',
+  '/api/v1/rss/sources',
+  '/api/v1/feeds/mti-ransomware',
+  '/api/v1/feeds/ransomware-merged',
   // Darknet Intel tools — read-only, same-origin frontend tools (no sensitive data)
   '/api/v1/darknet-intel/sources',
   '/api/v1/darknet-intel/greynoise/ip',
