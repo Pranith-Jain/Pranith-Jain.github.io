@@ -630,7 +630,7 @@ async function singleSourceHandler(c: Context<{ Bindings: Env }>, sourceId: stri
   }
   const { feed, error } = await loadOneSource(c.env, source);
   if (!feed) {
-    return badGateway(c, error);
+    return badGateway(c, error ?? 'upstream unavailable');
   }
   return c.json(feed, 200, {
     'cache-control': feed.stale ? 'public, max-age=30, s-maxage=60' : 'public, max-age=60, s-maxage=300',
