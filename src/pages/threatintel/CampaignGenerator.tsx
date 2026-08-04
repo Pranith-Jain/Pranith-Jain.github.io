@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { ShareBar } from '../../components/intel/ShareBar';
 import {
   Sparkles,
   Loader2,
@@ -502,6 +503,15 @@ export default function CampaignGenerator(): JSX.Element {
           {result.campaign.summary && (
             <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-4">{result.campaign.summary}</p>
           )}
+
+          <div className="mb-5 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <ShareBar
+              shareText={result.campaign.summary?.split('\n')[0]?.slice(0, 200) || `Campaign: ${result.campaign.campaign_name}`}
+              title={`Campaign: ${result.campaign.campaign_name}`}
+              size="sm"
+              label="Share:"
+            />
+          </div>
 
           {result.campaign.actor_context && (
             <div className="mb-5">

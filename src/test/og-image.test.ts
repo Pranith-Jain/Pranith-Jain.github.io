@@ -43,6 +43,21 @@ describe('generateOgSvg', () => {
     expect(svg).toContain('CRITICAL');
   });
 
+  it('prioritises IOCs / KEVs / ransomware victims over the findings count in the stats strip', () => {
+    const svg = generateOgSvg({
+      title: 'T',
+      subtitle: 'S',
+      type: 'briefing',
+      stats: { findings: 40, cves: 12, critical: 2, high: 9, iocs: 1482, kevs: 4, ransomware: 8 },
+    });
+    expect(svg).toContain('CRITICAL');
+    expect(svg).toContain('VICTIMS');
+    expect(svg).toContain('IOCs');
+    expect(svg).toContain('KEVs');
+    expect(svg).not.toContain('FINDINGS');
+    expect(svg).toContain('>1,482<');
+  });
+
   it('falls back to tag chips for blogs (no stats strip)', () => {
     const svg = generateOgSvg({ title: 'T', subtitle: 'S', type: 'blog', tags: ['detection', 'workers'] });
     expect(svg).toContain('detection');

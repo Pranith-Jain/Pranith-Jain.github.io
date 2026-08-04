@@ -69,13 +69,14 @@ export async function handleOgImage(request: Request, env: Env, url: URL, ctx: E
   const rl = await workerRateLimit('og', callerIp(request), OG_LIMIT);
   if (!rl.allowed) return rateLimitResponse(rl);
 
-  // v3: bumped for the per-page card rollout + brand refresh so previously
+  // v4: bumped for the richer briefing OG stats strip (IOCs / KEVs /
+  // ransomware victims now surface alongside critical/high) so previously
   // cached cards re-render. Bump on any card redesign.
-  const cacheKey = new Request(`https://og-png.internal/v3/${type}/${keySlug}.png`);
+  const cacheKey = new Request(`https://og-png.internal/v4/${type}/${keySlug}.png`);
   const cached = await caches.default.match(cacheKey);
   if (cached) return cached;
 
-  const kvKey = `og:png:v3:${type}:${keySlug}`;
+  const kvKey = `og:png:v4:${type}:${keySlug}`;
   const pngCacheReq = new Request(`https://og-png-cache.internal/v1/${encodeURIComponent(kvKey)}`);
   const cachedPng = await caches.default.match(pngCacheReq);
   if (cachedPng) return cachedPng;

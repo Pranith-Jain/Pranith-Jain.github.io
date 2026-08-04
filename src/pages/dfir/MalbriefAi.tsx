@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
+import { ShareBar } from '../../components/intel/ShareBar';
 import {
   Bug,
   Loader2,
@@ -290,6 +291,14 @@ export default function MalbriefAi(): JSX.Element {
                   <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
                     {result.summary}
                   </p>
+                  <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                    <ShareBar
+                      shareText={result.summary.split('\n').find((l) => l.trim())?.slice(0, 200) || (result.classification ? `MALBRIEF-AI: ${result.classification}` : 'MALBRIEF-AI malware analysis')}
+                      title="MALBRIEF-AI malware analysis"
+                      size="sm"
+                      label="Share:"
+                    />
+                  </div>
                 </div>
               )}
 

@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
+import { ShareBar } from '../../components/intel/ShareBar';
 import {
   Clock,
   Loader2,
@@ -385,6 +386,15 @@ export default function ChronoAi(): JSX.Element {
                     No timeline events parsed. Raw summary below.
                   </p>
                 )}
+              </div>
+
+              <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                <ShareBar
+                  shareText={result.summary?.split('\n').find((l) => l.trim())?.slice(0, 200) || 'CHRONO-AI timeline reconstruction'}
+                  title="CHRONO-AI timeline"
+                  size="sm"
+                  label="Share:"
+                />
               </div>
 
               {result.summary && result.timeline.length === 0 && (

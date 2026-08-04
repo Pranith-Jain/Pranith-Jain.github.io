@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Sparkles, AlertTriangle, ExternalLink, Copy, Check, Trash2 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { ShareBar } from '../../components/intel/ShareBar';
 
 interface KillChainStep {
   phase: string;
@@ -245,6 +246,15 @@ export default function CampaignDetail(): JSX.Element {
           {data.campaign.summary && (
             <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-4">{data.campaign.summary}</p>
           )}
+
+          <div className="mb-5 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+            <ShareBar
+              shareText={data.campaign.summary?.split('\n')[0]?.slice(0, 200) || `Campaign: ${data.campaign.campaign_name}`}
+              title={`Campaign: ${data.campaign.campaign_name}`}
+              size="sm"
+              label="Share:"
+            />
+          </div>
 
           {data.campaign.actor_context && (
             <div className="mb-5">

@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
+import { ShareBar } from '../../components/intel/ShareBar';
 import {
   Shield,
   Loader2,
@@ -358,6 +359,14 @@ export default function VerdiktAi(): JSX.Element {
                   <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
                     {result.narrative}
                   </p>
+                  <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                    <ShareBar
+                      shareText={result.narrative.split('\n').find((l) => l.trim())?.slice(0, 200) || `VERDIKT-AI analysis: ${result.iocValue}`}
+                      title={`VERDIKT-AI analysis: ${result.iocValue}`}
+                      size="sm"
+                      label="Share:"
+                    />
+                  </div>
                 </div>
               )}
 

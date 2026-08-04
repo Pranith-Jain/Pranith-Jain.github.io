@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { ShareBar } from '../../components/intel/ShareBar';
 import {
   Sparkles,
   Loader2,
@@ -356,6 +357,14 @@ export default function InsightAi(): JSX.Element {
                   <pre className="bg-slate-50 dark:bg-[rgb(var(--input-200))] rounded-xl p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-[rgb(var(--border-400))] whitespace-pre-wrap max-h-[600px] overflow-y-auto">
                     {result}
                   </pre>
+                </div>
+                <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
+                  <ShareBar
+                    shareText={result.split('\n').find((l) => l.trim())?.slice(0, 200) || 'INSIGHT-AI runbook'}
+                    title="INSIGHT-AI runbook"
+                    size="sm"
+                    label="Share:"
+                  />
                 </div>
               </div>
             </>
