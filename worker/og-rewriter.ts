@@ -406,9 +406,17 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
     try {
       const post = await readBlogPostShadowed<{ title?: string; excerpt?: string }>(env, m[1]!);
       if (post?.title) {
+        // Clamp to X/Twitter card limits: title ≤70, description ≤200 chars.
+        // The `· pranithjain.qzz.io` suffix (23 chars) is reserved first so a
+        // long post title doesn't push the combined title over 70 and get
+        // truncated awkwardly by the crawler.
+        const SUFFIX = ' · pranithjain.qzz.io';
+        const maxTitle = 70 - SUFFIX.length; // 47 chars for the post title
+        const rawTitle = post.title.length > maxTitle ? post.title.slice(0, maxTitle - 1).trimEnd() + '…' : post.title;
+        const description = (post.excerpt || OG_OVERRIDES['/blog']!.description).slice(0, 200);
         return {
-          title: `${post.title} · pranithjain.qzz.io`,
-          description: post.excerpt?.slice(0, 280) || OG_OVERRIDES['/blog']!.description,
+          title: `${rawTitle}${SUFFIX}`,
+          description,
           image,
         };
       }
@@ -428,9 +436,15 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
       try {
         const briefing = await readBriefing(env.BRIEFINGS_DB, b[1]!);
         if (briefing) {
+          // Clamp to X/Twitter card limits: title ≤70, description ≤200.
+          const SUFFIX = ' · pranithjain.qzz.io';
+          const maxTitle = 70 - SUFFIX.length;
+          const rawTitle =
+            briefing.title.length > maxTitle ? briefing.title.slice(0, maxTitle - 1).trimEnd() + '…' : briefing.title;
+          const description = (briefing.executive_summary || OG_OVERRIDES['/threatintel']!.description).slice(0, 200);
           return {
-            title: `${briefing.title} · pranithjain.qzz.io`,
-            description: (briefing.executive_summary || '').slice(0, 280) || OG_OVERRIDES['/threatintel']!.description,
+            title: `${rawTitle}${SUFFIX}`,
+            description,
             image,
           };
         }
