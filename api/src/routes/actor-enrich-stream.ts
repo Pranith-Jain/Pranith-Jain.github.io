@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import { sseStream } from '../lib/sse';
 import { claimSseSlot } from '../lib/sse-concurrency';
 import { safeJsonBody } from '../lib/safe-body';

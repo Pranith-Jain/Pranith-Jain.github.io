@@ -7,7 +7,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { requireAdmin, safeEqual } from '../lib/admin-auth';
 import { generateApiKey, revokeApiKey, listApiKeys } from '../lib/auth';
-import { badRequest, internalError, forbidden } from '../lib/api-error';
+import { badRequest, internalError, forbidden, unauthorized, notFound } from '../lib/api-error';
 import { safeNullLog } from '../lib/safe-catch';
 import { auditAdminAction } from '../lib/admin-audit';
 import { z } from 'zod';
