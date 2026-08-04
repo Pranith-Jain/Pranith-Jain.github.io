@@ -49,7 +49,7 @@ describe('rate limiter', () => {
     await seedRateLimit(ip, 30);
 
     let nextCalled = false;
-    const res = await rateLimit(makeCtx('https://x/api/v1/cti/parse', 'POST', ip), async () => {
+    const res = await rateLimit(makeCtx('https://api.example.com/api/v1/cti/parse', 'POST', ip), async () => {
       nextCalled = true;
     });
     expect(nextCalled).toBe(false);
@@ -75,7 +75,7 @@ describe('rate limiter', () => {
     // 429 from the global limiter before the admin token check — the
     // brute-force guard on BRIEFINGS_ADMIN_TOKEN.
     let nextCalled = false;
-    const res = await rateLimit(makeCtx('https://x/api/v1/briefings/build?type=daily', 'POST', ip), async () => {
+    const res = await rateLimit(makeCtx('https://api.example.com/api/v1/briefings/build?type=daily', 'POST', ip), async () => {
       nextCalled = true;
     });
     expect(nextCalled).toBe(false);
@@ -106,20 +106,20 @@ describe('rate limiter — keyed callers get 4x headroom', () => {
 
   it('keyed caller passes the keyless limit (30)', async () => {
     await seedRateLimit('198.51.100.50', 30);
-    const { res, nextCalled } = await run('https://x/api/v1/ioc/check', 'GET', '198.51.100.50', true);
+    const { res, nextCalled } = await run('https://api.example.com/api/v1/ioc/check', 'GET', '198.51.100.50', true);
     expect(nextCalled).toBe(true);
     expect(res).toBeUndefined();
   });
 
   it('keyless caller IS blocked at 30 on the same endpoint', async () => {
     await seedRateLimit('198.51.100.52', 30);
-    const { res } = await run('https://x/api/v1/ioc/check', 'GET', '198.51.100.52', false);
+    const { res } = await run('https://api.example.com/api/v1/ioc/check', 'GET', '198.51.100.52', false);
     expect(res?.status).toBe(429);
   });
 
   it('keyed caller is blocked at the keyed limit (120)', async () => {
     await seedRateLimit('198.51.100.51', 120);
-    const { res } = await run('https://x/api/v1/ioc/check', 'GET', '198.51.100.51', true);
+    const { res } = await run('https://api.example.com/api/v1/ioc/check', 'GET', '198.51.100.51', true);
     expect(res?.status).toBe(429);
     const body = (await res!.json()) as Record<string, unknown>;
     expect(body.limit).toBe(120);
