@@ -74,7 +74,7 @@ export function DataTable<T>({
       className={`overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] ${className}`}
     >
       <table className="w-full text-sm">
-        <thead className="bg-slate-50 text-left text-micro font-mono uppercase tracking-wider text-slate-500 dark:bg-[rgb(var(--surface-200))]/60">
+        <thead className="sticky top-0 z-10 bg-slate-50/95 text-left text-micro font-mono uppercase tracking-wider text-slate-500 backdrop-blur-sm dark:bg-[rgb(var(--surface-200))]/95">
           <tr>
             {columns.map((col) => {
               const active = sort?.key === col.key;

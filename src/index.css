@@ -297,6 +297,14 @@
       box-shadow: var(--shadow-e2);
       border-color: #cbd5e1;
     }
+    /* Keyboard focus parity with hover — interactive cards (links wrapped in
+       surface-card card-hover) must show a visible focus ring so keyboard users
+       can track their position. Matches the global :focus-visible outline. */
+    &:focus-visible {
+      outline: 2px solid var(--color-brand-400);
+      outline-offset: 2px;
+      border-color: var(--color-brand-400);
+    }
   }
 
   .dark .card-hover:hover {
@@ -593,5 +601,80 @@
   .text-mini {
     font-size: 12px;
     line-height: 1.25;
+  }
+}
+
+/* ─── Print styles ───────────────────────────────────────────────────────────
+   CTI reports, IOC tables, and actor profiles are prime print-to-PDF use cases
+   for analysts. Hide chrome (sidebar, header, bottom nav, CTAs) and expand the
+   main content to full width. */
+@media print {
+  /* Hide non-essential chrome */
+  header,
+  aside,
+  nav,
+  [aria-label='Bottom navigation'],
+  [aria-label='Sidebar'],
+  .no-print,
+  button[type='button'],
+  .back-to-top,
+  #skip-to-content {
+    display: none !important;
+  }
+
+  /* Expand main content to full width */
+  main,
+  #main-content {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Force light theme for print (dark backgrounds waste ink) */
+  html {
+    color-scheme: light;
+  }
+  .dark {
+    --surface-100: 255 255 255;
+    --surface-200: 248 250 252;
+    --surface-300: 241 245 249;
+    --border-400: 0 0 0 / 0.1;
+    --border-500: 15 23 42 / 0.15;
+    --muted: 71 85 105;
+    background: white !important;
+    color: #0f172a !important;
+  }
+
+  /* Ensure links show their URL (analyst context) */
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.75rem;
+    color: #64748b;
+    word-break: break-all;
+  }
+
+  /* Avoid breaking rows across pages */
+  tr,
+  li,
+  .surface-card {
+    page-break-inside: avoid;
+  }
+
+  /* Show all details/accordions expanded in print */
+  details {
+    open: true;
+  }
+  details > *:not(summary) {
+    display: block !important;
+  }
+
+  /* Remove shadows (they don't print) and use hairline borders */
+  .surface-card,
+  .shadow-e1,
+  .shadow-e2,
+  .shadow-e3 {
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
   }
 }
