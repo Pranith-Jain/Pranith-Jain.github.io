@@ -8,6 +8,8 @@ import { useLastVisit, isNewSince, useFocusTrap } from '../../hooks';
 import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
 import { rssFeeds } from '../../data/rssFeeds';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { usePostSummaries } from '../../components/intel/usePostSummaries';
+import { PostSummary } from '../../components/intel/PostSummary';
 
 // Use the same shape as before so we minimise downstream churn.
 type FeedItem = AggregatedFeedItem & { source: string; pubDate: string };
@@ -1351,6 +1353,19 @@ export function TelegramFeedPanel(): JSX.Element {
     return data.items.filter((it) => isNewSince(it.datetime, lastVisit)).length;
   }, [data, lastVisit]);
 
+  // Per-post AI summaries for the visible messages. Public surface (matches
+  // the page-level AiSummaryCard) so every visitor gets the one-line take.
+  const postSummaries = usePostSummaries({
+    surface: 'Cybersec Telegram firehose',
+    items: filteredItems.slice(0, 60).map((it) => ({
+      id: it.permalink,
+      title: it.channel_name,
+      body: it.text,
+      source: it.channel_name,
+    })),
+    requireAdmin: false,
+  });
+
   useEffect(() => {
     if (!data) return;
     const id = window.setTimeout(markVisited, 1500);
@@ -1537,6 +1552,7 @@ export function TelegramFeedPanel(): JSX.Element {
                 <p className="text-meta font-mono text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap break-words">
                   {highlightTelegramText(it.text, watchlist)}
                 </p>
+                <PostSummary text={postSummaries.get(it.permalink)} />
               </li>
             );
           })}

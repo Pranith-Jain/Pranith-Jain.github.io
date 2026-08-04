@@ -3,6 +3,7 @@ import { sanitizeUrl } from '../../lib/sanitize-url';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Copy, ExternalLink, Globe, Search } from 'lucide-react';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 interface DDCEntry {
   name: string;
@@ -166,6 +167,22 @@ export default function DeepDarkCTI(): JSX.Element {
               </span>
             )}
           </p>
+
+          {/* Page-level AI summary across the visible directory entries.
+              Public (requireAdmin={false}) so every visitor sees it. The
+              directory is intelligence-about (actors, malware, attack types),
+              so the summary surfaces the threat-landscape shape, not content. */}
+          {filtered.length > 0 && (
+            <AiSummaryCard
+              surface="deepdarkCTI Index"
+              items={filtered.slice(0, 30).map((e) => ({
+                title: e.name,
+                body: `${e.category} · ${e.actor ?? ''} · ${e.attack_type ?? ''} · ${e.notes ?? ''}`,
+                source: e.category,
+              }))}
+              requireAdmin={false}
+            />
+          )}
 
           {/* Aggregate STIX 2.1 view of the directory - extraction yield is
                 low (mostly forum/market metadata), but actor + attack_type

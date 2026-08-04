@@ -116,6 +116,7 @@ export default function RedditFirehose(): JSX.Element {
       body: `${it.title} ${it.text ?? ''}`,
       source: it.author,
     })),
+    requireAdmin: false,
   });
 
   const newCount = useMemo(() => {
@@ -245,6 +246,22 @@ export default function RedditFirehose(): JSX.Element {
         />
       )}
 
+      {/* Page-level AI summary across the visible Reddit posts. Public
+          (requireAdmin={false}) so every visitor sees it. Placed outside
+          DataState so it survives a transient empty-filter state — mirrors
+          the XFirehose / CyberPulse placement. */}
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="Reddit Firehose"
+          items={filtered.slice(0, 30).map((it) => ({
+            title: it.title,
+            body: `${it.title} ${it.text ?? ''}`,
+            source: it.author,
+          }))}
+          requireAdmin={false}
+        />
+      )}
+
       <DataState
         loading={loading}
         error={error}
@@ -255,15 +272,6 @@ export default function RedditFirehose(): JSX.Element {
         onRetry={() => setRefreshKey((k) => k + 1)}
         rows={8}
       >
-        <AiSummaryCard
-          surface="Reddit Firehose"
-          items={filtered.slice(0, 30).map((it) => ({
-            title: it.title,
-            body: `${it.title} ${it.text ?? ''}`,
-            source: it.author,
-          }))}
-          requireAdmin={false}
-        />
         <ul className="space-y-2">
           {filtered.slice(0, visible).map((it, i) => (
             <li key={`${it.link}-${i}`} className="surface-card p-3">

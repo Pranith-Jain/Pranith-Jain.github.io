@@ -3,6 +3,7 @@ import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Copy, ExternalLink, History, Newspaper, Radio, RefreshCw, ShieldAlert } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { DataPageLayout } from '../../components/DataPageLayout';
 
 /**
@@ -419,6 +420,19 @@ export default function BreachForums(): JSX.Element {
             {coverageData.items.length} headlines · {coverageData.sources.filter((s) => s.ok).length}/
             {coverageData.sources.length} sources OK
           </p>
+        )}
+        {/* Page-level AI summary across the visible OSINT breach headlines.
+            Public (requireAdmin={false}) so every visitor sees it. */}
+        {coverageData && coverageData.items.length > 0 && (
+          <AiSummaryCard
+            surface="Breach OSINT coverage"
+            items={coverageData.items.slice(0, 30).map((it) => ({
+              title: it.title,
+              body: it.snippet,
+              source: it.source_name || it.source_id,
+            }))}
+            requireAdmin={false}
+          />
         )}
         <DataState
           loading={coverageLoading}

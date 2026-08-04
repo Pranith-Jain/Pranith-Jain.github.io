@@ -6,6 +6,9 @@ import { useDebounce } from '../../hooks/useDebounce';
 import { relativeAgo } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useLastVisit, isNewSince } from '../../hooks';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { usePostSummaries } from '../../components/intel/usePostSummaries';
+import { PostSummary } from '../../components/intel/PostSummary';
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -276,6 +279,19 @@ export default function TelegramFirehose(): JSX.Element {
   const visible = filtered.slice(0, PAGE_SIZE);
   const newCount = items.filter((it) => isNewSince(it.ts, lastVisit)).length;
 
+  // Per-post AI summaries for the visible firehose rows. Public surface so
+  // every visitor sees the one-line take (matches the page-level card).
+  const postSummaries = usePostSummaries({
+    surface: 'Telegram Firehose',
+    items: visible.slice(0, 60).map((it) => ({
+      id: it.id,
+      title: it.title,
+      body: it.body,
+      source: it.channel,
+    })),
+    requireAdmin: false,
+  });
+
   // ----------------- Render -----------------
   const toggleSource = (s: Source) => {
     setSourceFilter((prev) => {
@@ -423,6 +439,21 @@ export default function TelegramFirehose(): JSX.Element {
         )}
       </section>
 
+      {/* Page-level AI summary across the visible firehose items. Public
+          (requireAdmin={false}) so every visitor sees it. Placed outside
+          DataState so it survives a transient empty-filter state. */}
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="Telegram Firehose"
+          items={visible.slice(0, 30).map((it) => ({
+            title: it.title,
+            body: it.body,
+            source: it.channel,
+          }))}
+          requireAdmin={false}
+        />
+      )}
+
       {/* Items */}
       <DataState
         loading={anyLoading && items.length === 0}
@@ -435,7 +466,7 @@ export default function TelegramFirehose(): JSX.Element {
         </p>
         <ul className="space-y-2">
           {visible.map((it) => (
-            <FirehoseRow key={it.id} item={it} />
+            <FirehoseRow key={it.id} item={it} postSummary={postSummaries.get(it.id)} />
           ))}
         </ul>
         {filtered.length > visible.length && (
@@ -452,7 +483,7 @@ export default function TelegramFirehose(): JSX.Element {
 /*  Row                                                                */
 /* ------------------------------------------------------------------ */
 
-function FirehoseRow({ item }: { item: FirehoseItem }): JSX.Element {
+function FirehoseRow({ item, postSummary }: { item: FirehoseItem; postSummary?: string }): JSX.Element {
   return (
     <li
       className={`rounded-xl border bg-white dark:bg-[rgb(var(--surface-200))] shadow-e1 p-3 ${
@@ -488,6 +519,7 @@ function FirehoseRow({ item }: { item: FirehoseItem }): JSX.Element {
             <p className="font-mono text-sm font-semibold text-slate-900 dark:text-slate-100">{item.title}</p>
           )}
           {item.body && <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 line-clamp-2">{item.body}</p>}
+          <PostSummary text={postSummary} />
           <div className="flex flex-wrap gap-2 mt-1.5 text-micro font-mono text-slate-500">
             {Object.entries(item.meta).map(([k, v]) => (
               <span key={k}>
