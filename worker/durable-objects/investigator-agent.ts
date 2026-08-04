@@ -133,7 +133,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
   override initialState = { investigation: null } as InvestigatorAgentState;
 
   private costTrackers = new Map<string, InvestigationCost>();
-  private degradedToolsCache: { at: number; note: string } | null = null;
+  private degradedToolsCache: { at: number; note: string; set: Set<string> } | null = null;
   private calibrationHintCache: { at: number; hint: string } | null = null;
   /**
    * Transient working-memory cache keyed by investigation id. Invalidated when
@@ -513,8 +513,9 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       }
 
       const validToolNames = new Set(specialistTools.map((t) => t.name));
-      let toolCalls = filterCtiToolCalls(plan.toolCalls, view, validToolNames);
-      const droppedCalls = getDroppedCalls(plan.toolCalls, view, validToolNames);
+      const degradedTools = await this.degradedToolsSet();
+      let toolCalls = filterCtiToolCalls(plan.toolCalls, view, validToolNames, degradedTools);
+      const droppedCalls = getDroppedCalls(plan.toolCalls, view, validToolNames, degradedTools);
       toolCalls = applySpecialistGuardrails(currentRole, toolCalls, view);
 
       if (toolCalls.length === 0) {
@@ -625,8 +626,9 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
     }
 
     const validToolNames = new Set(availableTools.map((t) => t.name));
-    const toolCalls = filterCtiToolCalls(plan.toolCalls, view, validToolNames);
-    const droppedCalls = getDroppedCalls(plan.toolCalls, view, validToolNames);
+    const degradedTools = await this.degradedToolsSet();
+    const toolCalls = filterCtiToolCalls(plan.toolCalls, view, validToolNames, degradedTools);
+    const droppedCalls = getDroppedCalls(plan.toolCalls, view, validToolNames, degradedTools);
     if (toolCalls.length === 0) {
       return await this.doSynthesize(
         state,
@@ -705,6 +707,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       if (burst.length < 2) return null;
 
       const opts = { infronKey, groqKey, googleKey, nvidiaKey };
+      const degradedTools = await this.degradedToolsSet();
       const executor: SpecialistExecutor = {
         plan: (role, tools, steps, sn, ms) => {
           const prompt = getSpecialistPrompt(role, tools, sn, ms, state.query, steps);
@@ -721,7 +724,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         observe: (sn, reasoning, results) => observeStep(ai, sn, reasoning, results, opts),
         guard: (role, calls, view) => {
           const valid = new Set(getToolsForSpecialist(role, allTools).map((t) => t.name));
-          return applySpecialistGuardrails(role, filterCtiToolCalls(calls, view, valid), view);
+          return applySpecialistGuardrails(role, filterCtiToolCalls(calls, view, valid, degradedTools), view);
         },
       };
 
@@ -870,25 +873,35 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
   }
 
   private async degradedToolsNote(): Promise<string> {
+    const set = await this.degradedToolsSet();
+    if (set.size === 0) return '';
+    return `\n<degraded_tools>Deprioritize these tools (high recent failure rate): ${[...set].join(', ')}. Prefer alternatives when available.</degraded_tools>`;
+  }
+
+  /**
+   * Return the cached set of degraded tools (high recent failure rate from D1
+   * tool-health stats). Used both for the prompt note (degradedToolsNote)
+   * and to gate tools out of the valid set preventively (filterCtiToolCalls).
+   * Cached for 5 min to avoid re-querying D1 every step.
+   */
+  private async degradedToolsSet(): Promise<Set<string>> {
     const now = Date.now();
     if (this.degradedToolsCache && now - this.degradedToolsCache.at < 5 * 60 * 1000) {
-      return this.degradedToolsCache.note;
+      return this.degradedToolsCache.set;
     }
-    let note = '';
+    let set = new Set<string>();
     try {
       const db = (this.env as unknown as ApiEnv).BRIEFINGS_DB;
       if (db) {
         const { getToolHealth, selectDegradedTools } = await import('../../api/src/lib/agent/observability');
         const degraded = selectDegradedTools(await getToolHealth(db));
-        if (degraded.length > 0) {
-          note = `\n<degraded_tools>Deprioritize these tools (high recent failure rate): ${degraded.join(', ')}. Prefer alternatives when available.</degraded_tools>`;
-        }
+        set = new Set(degraded);
       }
     } catch (err) {
-      console.error('degradedToolsNote failed:', err instanceof Error ? err.message : String(err));
+      console.error('degradedToolsSet failed:', err instanceof Error ? err.message : String(err));
     }
-    this.degradedToolsCache = { at: now, note };
-    return note;
+    this.degradedToolsCache = { at: now, note: '', set };
+    return set;
   }
 
   private async calibrationHint(): Promise<string> {
@@ -932,7 +945,10 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
 
     this.broadcastToWatchers({
       type: 'step',
-      step: { ...synthesizeStep, observation: 'Synthesizing report from collected data…' },
+      step: {
+        ...synthesizeStep,
+        observation: `Synthesizing report from ${state.steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0)} tool results across ${state.steps.length} step(s)…`,
+      },
     });
 
     try {
@@ -971,7 +987,10 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
 
       this.broadcastToWatchers({
         type: 'step',
-        step: { ...qaStep, observation: 'Running QA verification against collected data…' },
+        step: {
+          ...qaStep,
+          observation: `Fact-checking report against ${state.steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0)} collected data points…`,
+        },
       });
 
       try {
