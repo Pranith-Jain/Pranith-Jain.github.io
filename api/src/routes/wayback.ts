@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 import { safeNullLog } from '../lib/safe-catch';
 
 /**
@@ -99,8 +100,8 @@ function transientStatus(s: number): boolean {
 
 export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const target = (c.req.query('url') ?? '').trim();
-  if (!target) return c.json({ error: 'missing url' }, 400, { 'Cache-Control': 'no-store' });
-  if (target.length > 2_000) return c.json({ error: 'url too long' }, 400, { 'Cache-Control': 'no-store' });
+  if (!target) return badRequest(c, 'missing url');
+  if (target.length > 2_000) return badRequest(c, 'url too long');
 
   const limitRaw = c.req.query('limit');
   const limit = Math.min(Math.max(parseInt(limitRaw ?? '200', 10) || 200, 1), 1000);

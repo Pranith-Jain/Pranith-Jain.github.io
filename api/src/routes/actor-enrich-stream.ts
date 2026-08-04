@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 import { sseStream } from '../lib/sse';
 import { claimSseSlot } from '../lib/sse-concurrency';
 import { safeJsonBody } from '../lib/safe-body';
@@ -166,14 +167,14 @@ interface StreamEvent {
 export async function actorEnrichOtxStreamHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const otxKey = c.env.OTX_API_KEY;
   if (!otxKey) {
-    return c.json({ error: 'OTX not configured' }, 503, { 'cache-control': 'no-store' });
+    return serviceUnavailable(c, 'OTX not configured');
   }
 
   // Cap concurrent streams per IP (defensive — SSE producers do upstream burn).
   const ip = c.req.header('cf-connecting-ip') ?? 'anon';
   const slot = await claimSseSlot(c, ip);
   if (!slot) {
-    return c.json({ error: 'too many concurrent streams' }, 429, { 'cache-control': 'no-store' });
+    return tooManyRequests(c, 'too many concurrent streams');
   }
 
   const parsed = await safeJsonBody<{ actors?: unknown; limit?: unknown }>(c, { maxBytes: 32 * 1024, maxDepth: 6 });
@@ -198,7 +199,7 @@ export async function actorEnrichOtxStreamHandler(c: Context<{ Bindings: Env }>)
     actors.push({ slug, name, aliases: aliases as string[] | undefined });
   }
   if (actors.length === 0) {
-    return c.json({ error: 'no valid actors in body' }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'no valid actors in body');
   }
 
   const limitRaw = typeof body.limit === 'number' ? body.limit : DEFAULT_LIMIT;

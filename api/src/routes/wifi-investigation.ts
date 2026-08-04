@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 
 const CACHE_TTL_SECONDS = 3600;
 
@@ -3831,11 +3832,11 @@ export async function wifiInvestigationHandler(c: Context<{ Bindings: Env }>): P
   const ssid = c.req.query('ssid')?.trim();
 
   if (!bssid && !ssid) {
-    return c.json({ error: 'Either bssid or ssid query parameter is required' }, 400);
+    return badRequest(c, 'Either bssid or ssid query parameter is required');
   }
 
   if (bssid && ssid) {
-    return c.json({ error: 'Provide either bssid or ssid, not both' }, 400);
+    return badRequest(c, 'Provide either bssid or ssid, not both');
   }
 
   if (bssid && !isValidMac(bssid)) {

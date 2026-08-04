@@ -12,6 +12,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 import { generateItemSummary, type ItemInput } from '../lib/ai-item-summary';
 
 interface ItemSummaryBody {
@@ -28,11 +29,11 @@ export async function aiItemSummaryHandler(c: Context<{ Bindings: Env }>): Promi
     body = await c.req.json<ItemSummaryBody>();
   } catch (_catchErr) {
     console.error('aiItemSummaryHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
+    return badRequest(c, 'invalid JSON body');
   }
 
   if (!Array.isArray(body.items) || body.items.length === 0) {
-    return c.json({ error: 'bad_request', message: 'requires non-empty items[]' }, 400);
+    return badRequest(c, 'requires non-empty items[]');
   }
 
   // Cap to bound LLM cost + subrequests. Drop malformed entries (no id/title).
@@ -41,7 +42,7 @@ export async function aiItemSummaryHandler(c: Context<{ Bindings: Env }>): Promi
     .slice(0, MAX_ITEMS);
 
   if (items.length === 0) {
-    return c.json({ error: 'bad_request', message: 'items need string id + title' }, 400);
+    return badRequest(c, 'items need string id + title');
   }
 
   const summaries: Record<string, string> = {};

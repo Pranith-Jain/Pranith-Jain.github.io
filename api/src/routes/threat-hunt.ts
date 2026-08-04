@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 
 interface HuntTarget {
   value: string;
@@ -11,7 +12,7 @@ interface HuntTarget {
 export async function threatHuntHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
   const q = (c.req.query('q') ?? '').trim().toLowerCase();
-  if (!q || q.length < 3) return c.json({ error: 'query too short' }, 400);
+  if (!q || q.length < 3) return badRequest(c, 'query too short');
 
   try {
     // Auto-detect type
@@ -58,6 +59,6 @@ export async function threatHuntHandler(c: Context<{ Bindings: Env }>): Promise<
     );
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'hunt failed' }, 500);
+    return internalError(c, e instanceof Error ? e.message : 'hunt failed');
   }
 }

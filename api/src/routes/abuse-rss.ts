@@ -7,6 +7,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 import { getSiteUrl } from '../lib/site-config';
 import { FEED_SOURCES, buildSummary, type IocEntry, type SourceId } from '../lib/ioc-feed-parsers';
 
@@ -43,7 +44,7 @@ function entryToItem(entry: IocEntry, sourceName: string, siteUrl: string): stri
 export async function abuseRssHandler(c: Context<{ Bindings: Env }>) {
   const sourceParam = c.req.query('source') as SourceId | undefined;
   if (!sourceParam || !SUPPORTED.includes(sourceParam)) {
-    return c.json({ error: `unsupported source; valid: ${SUPPORTED.join(', ')}` }, 400);
+    return badRequest(c, `unsupported source; valid: ${SUPPORTED.join(', ')}`);
   }
   const meta = FEED_SOURCES[sourceParam];
 
@@ -63,13 +64,13 @@ export async function abuseRssHandler(c: Context<{ Bindings: Env }>) {
       );
     }
     if (!upstream.ok) {
-      return c.json({ error: `upstream ${upstream.status} for ${sourceParam}` }, 502);
+      return badGateway(c, `upstream ${upstream.status} for ${sourceParam}`);
     }
     const body = await upstream.text();
     entries = buildSummary(sourceParam, body).entries;
   } catch (err) {
     console.error('abuseRssHandler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: err instanceof Error ? err.message : 'fetch failed' }, 502);
+    return badGateway(c, err instanceof Error ? err.message : 'fetch failed');
   }
 
   const limited = entries.slice(0, 50);

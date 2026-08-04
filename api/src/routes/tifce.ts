@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 import { fetchIocCorrelation } from './ioc-correlation';
 import { fetchLiveIocs, type LiveIocsResponse, type LiveIoc, type LiveSource } from './live-iocs';
@@ -48,7 +49,7 @@ export async function feedQualityHandler(c: Context<{ Bindings: Env }>): Promise
 
   const db = c.env.BRIEFINGS_DB;
   if (!db) {
-    return c.json({ error: 'database not configured' }, 503);
+    return serviceUnavailable(c, 'database not configured');
   }
 
   // Best-effort fan-in. fetchIocCorrelation and fetchLiveIocs each have
@@ -61,9 +62,7 @@ export async function feedQualityHandler(c: Context<{ Bindings: Env }>): Promise
   ]);
 
   if (!live) {
-    return c.json({ error: 'live-IOC stream unavailable; cannot evaluate feed quality' }, 503, {
-      'Cache-Control': 'public, max-age=60',
-    });
+    return serviceUnavailable(c, 'live-IOC stream unavailable; cannot evaluate feed quality');
   }
 
   const tpSet = await loadTpIndicatorSet(db);

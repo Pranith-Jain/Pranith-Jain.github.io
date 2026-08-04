@@ -7,7 +7,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { requireAdmin, safeEqual } from '../lib/admin-auth';
 import { generateApiKey, revokeApiKey, listApiKeys } from '../lib/auth';
-import { badRequest, internalError } from '../lib/api-error';
+import { badRequest, internalError, forbidden } from '../lib/api-error';
 import { safeNullLog } from '../lib/safe-catch';
 import { auditAdminAction } from '../lib/admin-audit';
 import { z } from 'zod';
@@ -45,7 +45,7 @@ const clearSessionCookie = `${SESSION_COOKIE}=; HttpOnly; Secure; SameSite=Stric
  */
 export async function createSessionHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const required = c.env.ADMIN_TOKEN;
-  if (!required) return c.json({ error: 'admin endpoint disabled' }, 403);
+  if (!required) return forbidden(c, 'admin endpoint disabled');
 
   const body = await safeNullLog('parse-body-admin-session', c.req.json());
   const token = body?.token;
@@ -53,7 +53,7 @@ export async function createSessionHandler(c: Context<{ Bindings: Env }>): Promi
     return badRequest(c, 'token field required');
   }
   if (!safeEqual(token, required)) {
-    return c.json({ error: 'unauthorized', message: 'invalid admin token' }, 401);
+    return unauthorized(c, 'invalid admin token');
   }
 
   auditAdminAction(c, 'api_key_create', { keyId: 'session', label: 'session-cookie', role: 'admin' });
@@ -138,7 +138,7 @@ export async function revokeApiKeyHandler(c: Context<{ Bindings: Env }>): Promis
 
   try {
     const revoked = await revokeApiKey(db, keyId);
-    if (!revoked) return c.json({ error: 'not_found', message: 'key not found or already revoked' }, 404);
+    if (!revoked) return notFound(c, 'key not found or already revoked');
     auditAdminAction(c, 'api_key_revoke', { keyId });
     return c.json({ ok: true }, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {

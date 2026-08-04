@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 import { TAKEOVER_FINGERPRINTS, type TakeoverFingerprint } from '../lib/takeover-fingerprints';
 import { assertPublicHost, pinnedFetch, SsrfError } from '../lib/ssrf-guard';
 
@@ -21,8 +22,8 @@ interface TakeoverResult {
 
 export async function takeoverCheckHandler(c: Context<{ Bindings: Env }>) {
   const raw = c.req.query('domain')?.trim().toLowerCase();
-  if (!raw) return c.json({ error: 'missing domain' }, 400);
-  if (!DOMAIN_RE.test(raw)) return c.json({ error: 'invalid domain' }, 400);
+  if (!raw) return badRequest(c, 'missing domain');
+  if (!DOMAIN_RE.test(raw)) return badRequest(c, 'invalid domain');
 
   const result: TakeoverResult = {
     domain: raw,

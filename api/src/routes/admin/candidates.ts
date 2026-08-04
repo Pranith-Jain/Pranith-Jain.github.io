@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import type { KVNamespace } from '@cloudflare/workers-types';
 import type { Env } from '../../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../../lib/api-error';
 import { safeJsonBody } from '../../lib/safe-body';
 import { getAi } from '../../lib/ai-binding';
 import { listAllCandidates, listCandidates, getCandidate, deleteCandidate } from '../../case-study/storage/candidates';
@@ -63,7 +64,7 @@ candidatesRouter.post('/candidates/:id/approve', async (c) => {
       }
     }
   }
-  if (!found || !foundType) return c.json({ error: `not found: ${id}` }, 404);
+  if (!found || !foundType) return notFound(c, `not found: `);
   await approve(c.env.CASE_STUDIES, found);
   await deleteCandidate(c.env.CASE_STUDIES, foundType, id);
   return c.json({ ok: true, approved: id });
@@ -112,7 +113,7 @@ candidatesRouter.post('/candidates/:key/generate', async (c) => {
       if (candidate) break;
     }
   }
-  if (!candidate) return c.json({ error: `candidate not found: ${key}` }, 404);
+  if (!candidate) return notFound(c, `candidate not found: `);
 
   const now = new Date();
   const result: Record<string, unknown> = {};
