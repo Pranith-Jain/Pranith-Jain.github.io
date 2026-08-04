@@ -1,4 +1,5 @@
 import type { Context } from 'hono';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import {
   queryPassiveDns,
   reverseLookup,
@@ -22,12 +23,12 @@ import {
 
 export async function passiveDnsLookupHandler(c: Context): Promise<Response> {
   const query = c.req.query('query')?.trim();
-  if (!query) return c.json({ error: 'query parameter required' }, 400);
-  if (query.length > 253) return c.json({ error: 'query too long' }, 400);
+  if (!query) return badRequest(c, 'query parameter required');
+  if (query.length > 253) return badRequest(c, 'query too long');
 
   const force = c.req.query('force') === '1';
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const env: PassiveDnsEnv = {
     VT_API_KEY: c.env.VT_API_KEY,
@@ -40,10 +41,10 @@ export async function passiveDnsLookupHandler(c: Context): Promise<Response> {
 
 export async function passiveDnsReverseHandler(c: Context): Promise<Response> {
   const ip = c.req.query('ip')?.trim();
-  if (!ip) return c.json({ error: 'ip parameter required' }, 400);
+  if (!ip) return badRequest(c, 'ip parameter required');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const results = await reverseLookup(db, ip);
   return c.json({ ip, domains: results, count: results.length });
@@ -51,16 +52,16 @@ export async function passiveDnsReverseHandler(c: Context): Promise<Response> {
 
 export async function passiveDnsOverlapHandler(c: Context): Promise<Response> {
   const domainsParam = c.req.query('domains')?.trim();
-  if (!domainsParam) return c.json({ error: 'domains parameter required (comma-separated)' }, 400);
+  if (!domainsParam) return badRequest(c, 'domains parameter required (comma-separated)');
 
   const domains = domainsParam
     .split(',')
     .map((d) => d.trim())
     .filter(Boolean);
-  if (domains.length < 2) return c.json({ error: 'at least 2 domains required' }, 400);
+  if (domains.length < 2) return badRequest(c, 'at least 2 domains required');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   const results = await findInfrastructureOverlap(db, domains);
   return c.json({ domains, overlaps: results, count: results.length });
@@ -68,7 +69,7 @@ export async function passiveDnsOverlapHandler(c: Context): Promise<Response> {
 
 export async function passiveDnsStatsHandler(c: Context): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
 
   await ensurePassiveDnsTables(db);
   const stats = await getPassiveDnsStats(db);

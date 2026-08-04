@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { requireAdmin } from '../lib/admin-auth';
 import { safeNullLog } from '../lib/safe-catch';
 
@@ -136,14 +137,14 @@ export async function saveCampaignHandler(c: Context<{ Bindings: Env }>): Promis
   const gate = requireAdmin(c);
   if ('error' in gate) return gate.error;
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not configured' }, 500);
+  if (!kv) return internalError(c, 'KV not configured');
 
   let body: unknown;
   try {
     body = await c.req.json();
   } catch (_catchErr) {
     console.error('saveCampaignHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'invalid JSON body' }, 400);
+    return badRequest(c, 'invalid JSON body');
   }
   const validated = validateCampaignBody(body);
   if ('error' in validated) return c.json(validated, 400);
@@ -179,22 +180,22 @@ export async function listCampaignsHandler(c: Context<{ Bindings: Env }>): Promi
 
 export async function getCampaignHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not configured' }, 500);
+  if (!kv) return internalError(c, 'KV not configured');
   const id = c.req.param('id') ?? '';
-  if (!ID_RE.test(id)) return c.json({ error: 'invalid id' }, 400);
+  if (!ID_RE.test(id)) return badRequest(c, 'invalid id');
   const cache = campaignsCache();
   const req = detailCacheReq(id);
   const hit = await safeNullLog('cache-match-campaign-detail', cache.match(req));
   if (hit) return new Response(hit.body, hit);
   const raw = await kv.get(`campaign:${id}`);
-  if (!raw) return c.json({ error: 'campaign not found' }, 404);
+  if (!raw) return notFound(c, 'campaign not found');
   try {
     const resp = c.json(JSON.parse(raw), 200, { 'cache-control': 'public, max-age=300' });
     c.executionCtx.waitUntil(cache.put(req, resp.clone()));
     return resp;
   } catch (_catchErr) {
     console.error('getCampaignHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'corrupted campaign record' }, 500);
+    return internalError(c, 'corrupted campaign record');
   }
 }
 
@@ -202,9 +203,9 @@ export async function deleteCampaignHandler(c: Context<{ Bindings: Env }>): Prom
   const gate = requireAdmin(c);
   if ('error' in gate) return gate.error;
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not configured' }, 500);
+  if (!kv) return internalError(c, 'KV not configured');
   const id = c.req.param('id') ?? '';
-  if (!ID_RE.test(id)) return c.json({ error: 'invalid id' }, 400);
+  if (!ID_RE.test(id)) return badRequest(c, 'invalid id');
   await kv.delete(`campaign:${id}`);
   try {
     const index = await readIndex(kv);

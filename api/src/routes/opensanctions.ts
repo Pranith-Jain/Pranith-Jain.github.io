@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { kvBackedGet, kvBackedPut } from '../lib/route-cache';
 
 const CACHE_TTL = 1800;
@@ -10,7 +11,7 @@ opensanctionsRouter.get('/opensanctions/search', async (c) => {
   const q = c.req.query('q');
   const limit = Math.min(Number(c.req.query('limit')) || 20, 100);
 
-  if (!q || q.length > 500) return c.json({ error: 'q parameter required (max 500 chars)' }, 400);
+  if (!q || q.length > 500) return badRequest(c, 'q parameter required (max 500 chars)');
 
   const cacheKey = `opensanctions:search:${q}:${limit}`;
   const { value: cached } = await kvBackedGet<Record<string, unknown>>(c.env.KV_CACHE, cacheKey, CACHE_TTL);
@@ -26,7 +27,7 @@ opensanctionsRouter.get('/opensanctions/search', async (c) => {
       signal: AbortSignal.timeout(15000),
     });
 
-    if (!res.ok) return c.json({ error: `OpenSanctions upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `OpenSanctions upstream ${res.status}`);
 
     const data = await res.json();
     const body = { query: q, results: data, generated_at: new Date().toISOString(), cached: false };
@@ -35,13 +36,13 @@ opensanctionsRouter.get('/opensanctions/search', async (c) => {
     return c.json(body);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'OpenSanctions unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'OpenSanctions unreachable');
   }
 });
 
 opensanctionsRouter.get('/opensanctions/entity', async (c) => {
   const id = c.req.query('id');
-  if (!id) return c.json({ error: 'id parameter required' }, 400);
+  if (!id) return badRequest(c, 'id parameter required');
 
   try {
     const res = await fetch(`https://api.opensanctions.org/entities/${encodeURIComponent(id)}`, {
@@ -52,14 +53,14 @@ opensanctionsRouter.get('/opensanctions/entity', async (c) => {
       signal: AbortSignal.timeout(10000),
     });
 
-    if (res.status === 404) return c.json({ error: 'entity not found' }, 404);
-    if (!res.ok) return c.json({ error: `OpenSanctions upstream ${res.status}` }, 502);
+    if (res.status === 404) return notFound(c, 'entity not found');
+    if (!res.ok) return badGateway(c, `OpenSanctions upstream ${res.status}`);
 
     const data = await res.json();
     return c.json({ entity: data, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'OpenSanctions unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'OpenSanctions unreachable');
   }
 });
 
@@ -77,7 +78,7 @@ opensanctionsRouter.get('/opensanctions/stats', async (c) => {
       signal: AbortSignal.timeout(10000),
     });
 
-    if (!res.ok) return c.json({ error: `OpenSanctions upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `OpenSanctions upstream ${res.status}`);
 
     const data = await res.json();
     const body = { statistics: data, generated_at: new Date().toISOString(), cached: false };
@@ -88,6 +89,6 @@ opensanctionsRouter.get('/opensanctions/stats', async (c) => {
     return c.json(body);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'OpenSanctions unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'OpenSanctions unreachable');
   }
 });

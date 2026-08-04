@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge, forbidden } from '../lib/api-error';
 import { requireAdmin, safeEqual } from '../lib/admin-auth';
 
 interface TelegramUpdate {
@@ -213,7 +214,7 @@ async function processLeakFile(
 
 export async function telegramLeakBotWebhookHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const token = c.env.TELEGRAM_BOT_TOKEN;
-  if (!token) return c.json({ error: 'bot not configured' }, 503);
+  if (!token) return serviceUnavailable(c, 'bot not configured');
 
   // Validate Telegram webhook secret_token. When registering the webhook
   // via `setWebhook`, we pass `secret_token=<TELEGRAM_WEBHOOK_SECRET>`.
@@ -223,11 +224,11 @@ export async function telegramLeakBotWebhookHandler(c: Context<{ Bindings: Env }
   // configured, refuse to process updates rather than accepting forged ones.
   const webhookSecret = c.env.TELEGRAM_WEBHOOK_SECRET;
   if (!webhookSecret) {
-    return c.json({ error: 'webhook secret not configured' }, 503, { 'Cache-Control': 'no-store' });
+    return serviceUnavailable(c, 'webhook secret not configured');
   }
   const provided = c.req.header('x-telegram-bot-api-secret-token') ?? '';
   if (!safeEqual(provided, webhookSecret)) {
-    return c.json({ error: 'forbidden' }, 403, { 'Cache-Control': 'no-store' });
+    return forbidden(c, 'forbidden');
   }
 
   // Parse defensively: a malformed body must not surface as a 500 (which
@@ -241,7 +242,7 @@ export async function telegramLeakBotWebhookHandler(c: Context<{ Bindings: Env }
       'telegramLeakBotWebhookHandler failed:',
       _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
     );
-    return c.json({ error: 'invalid JSON' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'invalid JSON');
   }
 
   // Handle chat join immediately (fast path).
@@ -326,7 +327,7 @@ export async function telegramLeakBotWebhookHandler(c: Context<{ Bindings: Env }
 
 export async function telegramLeakBotWebhookStatusHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const token = c.env.TELEGRAM_BOT_TOKEN;
-  if (!token) return c.json({ ok: false, error: 'bot not configured' }, 503);
+  if (!token) return serviceUnavailable(c, 'bot not configured');
 
   try {
     const res = await fetch(`https://api.telegram.org/bot${token}/getWebhookInfo`, {
@@ -336,17 +337,15 @@ export async function telegramLeakBotWebhookStatusHandler(c: Context<{ Bindings:
     return c.json(data);
   } catch (e) {
     console.error('telegramLeakBotWebhookStatusHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ ok: false, error: e instanceof Error ? e.message : 'failed' }, 502, {
-      'Cache-Control': 'no-store',
-    });
+    return badGateway(c, e instanceof Error ? e.message : 'failed');
   }
 }
 
 export async function telegramLeakBotRegisterHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const token = c.env.TELEGRAM_BOT_TOKEN;
   const webhookUrl = c.req.query('url');
-  if (!token) return c.json({ error: 'bot not configured' }, 503);
-  if (!webhookUrl) return c.json({ error: 'url query param required' }, 400);
+  if (!token) return serviceUnavailable(c, 'bot not configured');
+  if (!webhookUrl) return badRequest(c, 'url query param required');
 
   const gate = requireAdmin(c);
   if ('error' in gate) return gate.error;
@@ -369,6 +368,6 @@ export async function telegramLeakBotRegisterHandler(c: Context<{ Bindings: Env 
     return c.json(data);
   } catch (e) {
     console.error('telegramLeakBotRegisterHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'failed' }, 502, { 'Cache-Control': 'no-store' });
+    return badGateway(c, e instanceof Error ? e.message : 'failed');
   }
 }

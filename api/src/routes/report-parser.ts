@@ -2,7 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 import { reportParserJsonSchema, rawLogTextSchema } from '../lib/validation-schemas';
-import { validationError } from '../lib/api-error';
+import { validationError, badRequest, internalError, respondError } from '../lib/api-error';
 import { fenceUntrusted, UNTRUSTED_DATA_SYSTEM_NOTE } from '../lib/prompt-fence';
 import { runCompletion } from '../case-study/generation/ai-client';
 
@@ -353,7 +353,7 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
           'reportParserHandler failed:',
           _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
         );
-        return c.json({ error: 'invalid JSON' }, 400);
+        return badRequest(c, 'invalid JSON');
       }
       const parsed = reportParserJsonSchema.safeParse(body);
       if (!parsed.success) {
@@ -377,10 +377,10 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
           parsedUrl = new URL(sourceUrl);
         } catch (_catchErr) {
           console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-          return c.json({ error: 'Invalid URL' }, 400);
+          return badRequest(c, 'Invalid URL');
         }
         if (parsedUrl.protocol !== 'https:' && parsedUrl.protocol !== 'http:') {
-          return c.json({ error: 'URL must be http(s)' }, 400);
+          return badRequest(c, 'URL must be http(s)');
         }
         try {
           const res = await pinnedFetchFollow(parsedUrl.toString(), {
@@ -388,11 +388,11 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
             headers: { 'User-Agent': 'Mozilla/5.0 (compatible; threat-intel-parser/1.0)' },
           });
           if (!res.ok) {
-            return c.json({ error: `Failed to fetch URL: ${res.status}` }, 400);
+            return badRequest(c, `Failed to fetch URL: ${res.status}`);
           }
           const cl = res.headers.get('content-length');
           if (cl && Number(cl) > MAX_TEXT_LENGTH) {
-            return c.json({ error: 'Remote content too large' }, 400);
+            return badRequest(c, 'Remote content too large');
           }
           // Stream-read with a hard byte cap. `await res.text()` would buffer an
           // arbitrarily large upstream body into memory (DoS) — reachable via
@@ -418,9 +418,9 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
         } catch (err) {
           console.error('handler failed:', err instanceof Error ? err.message : String(err));
           if (err instanceof SsrfError) {
-            return c.json({ error: err.detail }, err.status as 400 | 403 | 502);
+            return respondError(c, 'error', err.detail, err.status as 400 | 403 | 502);
           }
-          return c.json({ error: 'Failed to fetch URL (timeout or network error)' }, 400);
+          return badRequest(c, 'Failed to fetch URL (timeout or network error)');
         }
       }
     } else if (contentType.includes('text/plain')) {
@@ -438,11 +438,11 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
     }
 
     if (!text) {
-      return c.json({ error: 'No text provided. Send { text: "..." } or { url: "https://..." }' }, 400);
+      return badRequest(c, 'No text provided. Send { text: "..." } or { url: "https://..." }');
     }
 
     if (text.length > MAX_TEXT_LENGTH) {
-      return c.json({ error: `Text too long (${text.length} chars, max ${MAX_TEXT_LENGTH})` }, 400);
+      return badRequest(c, `Text too long (${text.length} chars, max ${MAX_TEXT_LENGTH})`);
     }
 
     // Run regex extraction (fast, always available)
@@ -527,7 +527,7 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
     });
   } catch (err) {
     console.error('Report parser error:', err);
-    return c.json({ error: 'Extraction failed', details: err instanceof Error ? err.message : String(err) }, 500);
+    return internalError(c, err);
   }
 }
 

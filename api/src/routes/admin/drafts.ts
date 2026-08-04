@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../../env';
+import { badRequest, notFound } from '../../lib/api-error';
 import { safeJsonBody } from '../../lib/safe-body';
 import { getAi } from '../../lib/ai-binding';
 import { listDraftIndex, getDraft, approveDraft, rejectDraft, putDraft } from '../../case-study/storage/drafts';
@@ -30,9 +31,9 @@ draftsRouter.get('/drafts', async (c) => {
 
 draftsRouter.get('/drafts/:slug', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
   const draft = await getDraft(c.env.CASE_STUDIES, slug);
-  if (!draft) return c.json({ error: 'not found' }, 404);
+  if (!draft) return notFound(c, 'not found');
   // Render markdown server-side so the admin preview matches exactly
   // what visitors will see post-approval (same sanitiser + linkify pass).
   const bodyHtml = renderMarkdown(draft.body);
@@ -41,10 +42,10 @@ draftsRouter.get('/drafts/:slug', async (c) => {
 
 draftsRouter.post('/drafts/:slug/approve', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
   const now = new Date();
   const promoted = await approveDraft(c.env.CASE_STUDIES, slug, now);
-  if (!promoted) return c.json({ error: 'not found' }, 404);
+  if (!promoted) return notFound(c, 'not found');
   // Refresh RSS so the new post shows up in the feed immediately, same
   // as the auto-publish flow does.
   const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: getSiteUrl(c.env) });
@@ -71,7 +72,7 @@ draftsRouter.post('/drafts/:slug/approve', async (c) => {
 
 draftsRouter.post('/drafts/:slug/reject', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
   // Clean up the schedule slot the publisher parked this draft under.
   // The draft Post carries the original candidateId; without this the
   // slot stays `status: 'draft'` pointing at nothing, and the next
@@ -93,14 +94,14 @@ draftsRouter.post('/drafts/:slug/reject', async (c) => {
  */
 draftsRouter.post('/drafts/:slug/edit', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
   const draft = await getDraft(c.env.CASE_STUDIES, slug);
-  if (!draft) return c.json({ error: 'draft not found' }, 404);
+  if (!draft) return notFound(c, 'draft not found');
 
   const parsed = await safeJsonBody<{ body?: string; title?: string }>(c, { maxBytes: 256 * 1024 });
   if ('error' in parsed) return parsed.error;
   const { body, title } = parsed.value ?? {};
-  if (!body && !title) return c.json({ error: 'at least body or title required' }, 400);
+  if (!body && !title) return badRequest(c, 'at least body or title required');
 
   const factsText = JSON.stringify(draft.sources ?? {});
   const out = postProcess({ type: draft.type, raw: body ?? draft.body, factsText });
@@ -155,9 +156,9 @@ draftsRouter.post('/drafts/:slug/edit', async (c) => {
  */
 draftsRouter.post('/drafts/:slug/regenerate', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
   const draft = await getDraft(c.env.CASE_STUDIES, slug);
-  if (!draft) return c.json({ error: 'draft not found' }, 404);
+  if (!draft) return notFound(c, 'draft not found');
 
   const parsed = await safeJsonBody<{ mode?: 'fix' | 'rewrite'; notes?: string }>(c, { maxBytes: 4096 });
   const body = 'value' in parsed ? parsed.value : {};
