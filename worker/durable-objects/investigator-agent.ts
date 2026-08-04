@@ -125,7 +125,7 @@ const MAX_AGENT_WS_CONNECTIONS = 10;
 const MAX_WS_PER_IP = 5;
 
 export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
-  initialState = { investigation: null } as InvestigatorAgentState;
+  override initialState = { investigation: null } as InvestigatorAgentState;
 
   private costTrackers = new Map<string, InvestigationCost>();
   private degradedToolsCache: { at: number; note: string } | null = null;
@@ -141,7 +141,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
    *  `copilot-chat.ts`, `tie-enrich.ts`) all use `idFromName(investigationId)`
    *  + `stub.fetch(...)`, so each investigation gets its own DO instance and
    *  this handler serves that one investigation's HTTP routes. */
-  async onRequest(request: Request): Promise<Response> {
+  override async onRequest(request: Request): Promise<Response> {
     const url = new URL(request.url);
 
     if (url.pathname === '/investigate' && request.method === 'POST') {
@@ -202,7 +202,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         state.completedAt = new Date().toISOString();
         this.setState({ investigation: state });
         await this.persist(state);
-        this.broadcast({ type: 'error', error: 'Cancelled by user', agentId: id });
+        this.broadcastToWatchers({ type: 'error', error: 'Cancelled by user', agentId: id });
       }
       return Response.json({ ok: true, status: state.status });
     }
@@ -218,8 +218,8 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
 
   /** Called when a new WebSocket connection is established. The SDK base
    *  `fetch()` already accepted the upgrade; this fires per connection. */
-  override async onConnect(conn: Connection, ctx: { request: Request }): Promise<void> | void {
-    if (this.getConnections().size >= MAX_AGENT_WS_CONNECTIONS) {
+  override async onConnect(conn: Connection, ctx: { request: Request }): Promise<void> {
+    if ([...this.getConnections()].length >= MAX_AGENT_WS_CONNECTIONS) {
       conn.close(1013, 'Too many connections');
       return;
     }
@@ -233,7 +233,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
     conn.send(JSON.stringify({ type: 'connected' }));
   }
 
-  override async onMessage(conn: Connection, message: string | ArrayBuffer | ArrayBufferView): Promise<void> | void {
+  override async onMessage(conn: Connection, message: string | ArrayBuffer | ArrayBufferView): Promise<void> {
     try {
       const msg = JSON.parse(typeof message === 'string' ? message : new TextDecoder().decode(message));
       if (typeof msg.agentId === 'string') {
@@ -244,7 +244,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
     }
   }
 
-  override async onClose(conn: Connection): Promise<void> | void {
+  override async onClose(conn: Connection): Promise<void> {
     this.connectionAgentIds.delete(conn.id);
   }
 
@@ -278,12 +278,12 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
 
       if (next.steps.length > state.steps.length) {
         const newStep = next.steps[next.steps.length - 1];
-        this.broadcast({ type: 'step', step: newStep });
+        this.broadcastToWatchers({ type: 'step', step: newStep });
       }
 
       if (next.status === 'done' || next.status === 'error') {
         await this.persist(next);
-        this.broadcast({
+        this.broadcastToWatchers({
           type: next.status,
           report: next.report,
           error: next.error,
@@ -306,7 +306,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       state.completedAt = new Date().toISOString();
       this.setState({ investigation: state });
       await this.persist(state);
-      this.broadcast({ type: 'error', error: errMsg });
+      this.broadcastToWatchers({ type: 'error', error: errMsg });
     }
   }
 
@@ -872,7 +872,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       startedAt: stepStart,
     };
 
-    this.broadcast({
+    this.broadcastToWatchers({
       type: 'step',
       step: { ...synthesizeStep, observation: 'Synthesizing report from collected data…' },
     });
@@ -897,7 +897,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         nvidiaKey,
         dataQuality: { totalOk, totalErr, emptyResults },
         calibrationHint: await this.calibrationHint(),
-        onToken: (token) => this.broadcast({ type: 'token', token }),
+        onToken: (token) => this.broadcastToWatchers({ type: 'token', token }),
         recordUsage,
       });
 
@@ -911,7 +911,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         startedAt: new Date().toISOString(),
       };
 
-      this.broadcast({
+      this.broadcastToWatchers({
         type: 'step',
         step: { ...qaStep, observation: 'Running QA verification against collected data…' },
       });
@@ -944,7 +944,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
           qa.qualityScore >= 0 &&
           shouldRetry(qa.qualityScore, qa.flaggedClaims.length, qa.missingFacts.length, stepNum, state.maxSteps)
         ) {
-          this.broadcast({
+          this.broadcastToWatchers({
             type: 'step',
             step: { ...qaStep, observation: `QA score ${qa.qualityScore}/100 — running self-correction…` },
           });

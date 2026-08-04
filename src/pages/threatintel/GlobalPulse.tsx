@@ -42,7 +42,6 @@ import { synthesizeArcs, deriveKpis } from '../../components/threatintel/cti/geo
 import { ThreatAnalysisPanel } from '../../components/threatintel/ThreatAnalysisPanel';
 import { CountryIntelPanel } from '../../components/threatintel/CountryIntelPanel';
 import { useGlobalPulse } from '../../hooks/useGlobalPulse';
-import { useActivityTracker } from '../../hooks/useActivityTracker';
 
 const PulseMap = lazy(() => import('./PulseMap'));
 const CtiGlobe = lazy(() => import('../../components/threatintel/cti/CtiGlobe'));
@@ -467,9 +466,6 @@ export default function GlobalPulse(): JSX.Element {
 
   // WebSocket real-time updates
   const { connected: wsConnected, generatedAt: wsGeneratedAt } = useGlobalPulse();
-
-  // Activity tracking for gamification
-  useActivityTracker();
 
   // Auto-pan for 3D globe
   const [autoPan, setAutoPan] = useState(false);
