@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 import { safeJsonBody } from '../lib/safe-body';
 import type { D1Database } from '@cloudflare/workers-types';
 
@@ -101,7 +102,7 @@ function rowToWs(row: Record<string, unknown>) {
 
 export async function listWorkspacesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureWorkspaceTables(db);
 
   const status = c.req.query('status');
@@ -125,7 +126,7 @@ export async function listWorkspacesHandler(c: Context<{ Bindings: Env }>): Prom
 
 export async function createWorkspaceHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureWorkspaceTables(db);
 
   const body = await safeJsonBody<{
@@ -136,7 +137,7 @@ export async function createWorkspaceHandler(c: Context<{ Bindings: Env }>): Pro
     tags?: string[];
   }>(c, { maxBytes: 8192 });
   if ('error' in body) return body.error;
-  if (!body.value.title) return c.json({ error: 'title required' }, 400);
+  if (!body.value.title) return badRequest(c, 'title required');
 
   const id = genId('ws');
   const now = new Date().toISOString();
@@ -166,12 +167,12 @@ export async function createWorkspaceHandler(c: Context<{ Bindings: Env }>): Pro
 
 export async function getWorkspaceHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureWorkspaceTables(db);
 
   const id = c.req.param('id');
   const ws = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(id).first();
-  if (!ws) return c.json({ error: 'workspace not found' }, 404);
+  if (!ws) return notFound(c, 'workspace not found');
 
   const subjects = (await db.prepare('SELECT * FROM ws_subjects WHERE workspace_id = ?').bind(id).all()).results;
   const connections = (await db.prepare('SELECT * FROM ws_connections WHERE workspace_id = ?').bind(id).all()).results;
@@ -185,7 +186,7 @@ export async function getWorkspaceHandler(c: Context<{ Bindings: Env }>): Promis
 
 export async function updateWorkspaceHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureWorkspaceTables(db);
 
   const id = c.req.param('id');
@@ -211,7 +212,7 @@ export async function updateWorkspaceHandler(c: Context<{ Bindings: Env }>): Pro
     values.push(JSON.stringify(b.metadata));
   }
 
-  if (sets.length === 0) return c.json({ error: 'no fields to update' }, 400);
+  if (sets.length === 0) return badRequest(c, 'no fields to update');
   sets.push("updated_at = strftime('%Y-%m-%dT%H:%M:%SZ', 'now')");
   values.push(id);
 
@@ -220,13 +221,13 @@ export async function updateWorkspaceHandler(c: Context<{ Bindings: Env }>): Pro
     .bind(...values)
     .run();
   const row = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(id).first();
-  if (!row) return c.json({ error: 'workspace not found' }, 404);
+  if (!row) return notFound(c, 'workspace not found');
   return c.json(rowToWs(row));
 }
 
 export async function deleteWorkspaceHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   await ensureWorkspaceTables(db);
 
   const id = c.req.param('id');
@@ -235,7 +236,7 @@ export async function deleteWorkspaceHandler(c: Context<{ Bindings: Env }>): Pro
   await db.prepare('DELETE FROM ws_connections WHERE workspace_id = ?').bind(id).run();
   await db.prepare('DELETE FROM ws_subjects WHERE workspace_id = ?').bind(id).run();
   const result = await db.prepare('DELETE FROM investigation_workspaces WHERE id = ?').bind(id).run();
-  if ((result.meta?.changes ?? 0) === 0) return c.json({ error: 'workspace not found' }, 404);
+  if ((result.meta?.changes ?? 0) === 0) return notFound(c, 'workspace not found');
   return c.json({ success: true });
 }
 
@@ -243,7 +244,7 @@ export async function deleteWorkspaceHandler(c: Context<{ Bindings: Env }>): Pro
 
 export async function listSubjectsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   const wsId = c.req.param('id');
   const { results } = await db.prepare('SELECT * FROM ws_subjects WHERE workspace_id = ?').bind(wsId).all();
   return c.json({ subjects: results, count: results.length });
@@ -251,7 +252,7 @@ export async function listSubjectsHandler(c: Context<{ Bindings: Env }>): Promis
 
 export async function createSubjectHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   const wsId = c.req.param('id');
   const body = await safeJsonBody<{
     label: string;
@@ -265,7 +266,7 @@ export async function createSubjectHandler(c: Context<{ Bindings: Env }>): Promi
     first_seen?: string;
   }>(c, { maxBytes: 4096 });
   if ('error' in body) return body.error;
-  if (!body.value.label || !body.value.subject_type) return c.json({ error: 'label and subject_type required' }, 400);
+  if (!body.value.label || !body.value.subject_type) return badRequest(c, 'label and subject_type required');
 
   const id = genId('sub');
   const b = body.value;
@@ -299,7 +300,7 @@ export async function createSubjectHandler(c: Context<{ Bindings: Env }>): Promi
 
 export async function listConnectionsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   const wsId = c.req.param('id');
   const { results } = await db.prepare('SELECT * FROM ws_connections WHERE workspace_id = ?').bind(wsId).all();
   return c.json({ connections: results, count: results.length });
@@ -307,7 +308,7 @@ export async function listConnectionsHandler(c: Context<{ Bindings: Env }>): Pro
 
 export async function createConnectionHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   const wsId = c.req.param('id');
   const body = await safeJsonBody<{
     from_subject_id: string;
@@ -319,9 +320,7 @@ export async function createConnectionHandler(c: Context<{ Bindings: Env }>): Pr
   if ('error' in body) return body.error;
   const b = body.value;
   if (!b.from_subject_id || !b.to_subject_id || !b.relationship)
-    return c.json({ error: 'from_subject_id, to_subject_id, relationship required' }, 400, {
-      'Cache-Control': 'no-store',
-    });
+    return badRequest(c, 'from_subject_id, to_subject_id, relationship required');
 
   const id = genId('conn');
   await db
@@ -342,7 +341,7 @@ export async function createConnectionHandler(c: Context<{ Bindings: Env }>): Pr
 
 export async function listFindingsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   const wsId = c.req.param('id');
   const { results } = await db.prepare('SELECT * FROM ws_findings WHERE workspace_id = ?').bind(wsId).all();
   return c.json({ findings: results, count: results.length });
@@ -350,7 +349,7 @@ export async function listFindingsHandler(c: Context<{ Bindings: Env }>): Promis
 
 export async function createFindingHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   const wsId = c.req.param('id');
   const body = await safeJsonBody<{
     description: string;
@@ -362,7 +361,7 @@ export async function createFindingHandler(c: Context<{ Bindings: Env }>): Promi
     tags?: string[];
   }>(c, { maxBytes: 8192 });
   if ('error' in body) return body.error;
-  if (!body.value.description) return c.json({ error: 'description required' }, 400);
+  if (!body.value.description) return badRequest(c, 'description required');
 
   const id = genId('fnd');
   const b = body.value;
@@ -394,7 +393,7 @@ export async function createFindingHandler(c: Context<{ Bindings: Env }>): Promi
 
 export async function listTimelineHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   const wsId = c.req.param('id');
   const { results } = await db
     .prepare('SELECT * FROM ws_timeline WHERE workspace_id = ? ORDER BY event_date')
@@ -405,7 +404,7 @@ export async function listTimelineHandler(c: Context<{ Bindings: Env }>): Promis
 
 export async function addTimelineHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   const wsId = c.req.param('id');
   const body = await safeJsonBody<{
     event_date: string;
@@ -414,8 +413,7 @@ export async function addTimelineHandler(c: Context<{ Bindings: Env }>): Promise
     subject_id?: string;
   }>(c, { maxBytes: 4096 });
   if ('error' in body) return body.error;
-  if (!body.value.event_date || !body.value.description)
-    return c.json({ error: 'event_date and description required' }, 400, { 'Cache-Control': 'no-store' });
+  if (!body.value.event_date || !body.value.description) return badRequest(c, 'event_date and description required');
 
   const b = body.value;
   const result = await db
@@ -451,7 +449,7 @@ export async function exposureScoreHandler(c: Context<{ Bindings: Env }>): Promi
   const body = await safeJsonBody<Record<string, unknown>>(c, { maxBytes: 16384 });
   if ('error' in body) return body.error;
   const b = body.value;
-  if (!b.target) return c.json({ error: 'target required' }, 400);
+  if (!b.target) return badRequest(c, 'target required');
 
   const dimensions: Array<{ name: string; score: number; weight: number; signals: string[] }> = [];
 
@@ -558,7 +556,7 @@ export async function exposureScoreHandler(c: Context<{ Bindings: Env }>): Promi
     dimensions.push({ name: 'Threat Intel', score, weight: 0.2, signals });
   }
 
-  if (!dimensions.length) return c.json({ error: 'at least one dimension required' }, 400);
+  if (!dimensions.length) return badRequest(c, 'at least one dimension required');
 
   const totalWeight = dimensions.reduce((s, d) => s + d.weight, 0);
   const compositeScore = Math.round(dimensions.reduce((s, d) => s + d.score * d.weight, 0) / totalWeight);
@@ -585,7 +583,7 @@ export async function exportStixCtiHandler(c: Context<{ Bindings: Env }>): Promi
     default_tlp?: string;
   }>(c, { maxBytes: 65536 });
   if ('error' in body) return body.error;
-  if (!body.value.indicators?.length) return c.json({ error: 'indicators array required' }, 400);
+  if (!body.value.indicators?.length) return badRequest(c, 'indicators array required');
 
   const now = new Date().toISOString();
   const objects: Record<string, unknown>[] = [];
@@ -647,7 +645,7 @@ export async function renderGraphHandler(c: Context<{ Bindings: Env }>): Promise
   const body = await safeJsonBody<Record<string, unknown>>(c, { maxBytes: 32768 });
   if ('error' in body) return body.error;
   const b = body.value;
-  if (!b.nodes && !b.events && !b.dimensions) return c.json({ error: 'nodes, events, or dimensions required' }, 400);
+  if (!b.nodes && !b.events && !b.dimensions) return badRequest(c, 'nodes, events, or dimensions required');
 
   if (b.type === 'timeline' || b.events) {
     const events = (b.events || []) as Array<{ date: string; description: string }>;
@@ -710,9 +708,9 @@ const PHASES = ['acquire', 'enrich', 'assess', 'deliver', 'complete'] as const;
 
 export async function workflowStateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   const ws = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(c.req.param('id')).first();
-  if (!ws) return c.json({ error: 'workspace not found' }, 404);
+  if (!ws) return notFound(c, 'workspace not found');
   const phaseIdx = PHASES.indexOf(ws.phase as (typeof PHASES)[number]);
   return c.json({
     workspaceId: ws.id,
@@ -731,10 +729,10 @@ export async function workflowStateHandler(c: Context<{ Bindings: Env }>): Promi
 
 export async function workflowAdvanceHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   const id = c.req.param('id');
   const ws = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(id).first();
-  if (!ws) return c.json({ error: 'workspace not found' }, 404);
+  if (!ws) return notFound(c, 'workspace not found');
   const idx = PHASES.indexOf(ws.phase as (typeof PHASES)[number]);
   if (idx >= PHASES.length - 1) return c.json({ workspace: rowToWs(ws), nextPhase: ws.phase });
   const next = PHASES[idx + 1];
@@ -750,10 +748,10 @@ export async function workflowAdvanceHandler(c: Context<{ Bindings: Env }>): Pro
 
 export async function workflowSummaryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   const id = c.req.param('id');
   const ws = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(id).first();
-  if (!ws) return c.json({ error: 'workspace not found' }, 404);
+  if (!ws) return notFound(c, 'workspace not found');
   const subjects =
     (await db.prepare('SELECT COUNT(*) as c FROM ws_subjects WHERE workspace_id = ?').bind(id).first())?.c ?? 0;
   const findings =
@@ -765,10 +763,10 @@ export async function workflowSummaryHandler(c: Context<{ Bindings: Env }>): Pro
 
 export async function exportWorkspaceHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not available' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not available');
   const id = c.req.param('id');
   const ws = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(id).first();
-  if (!ws) return c.json({ error: 'workspace not found' }, 404);
+  if (!ws) return notFound(c, 'workspace not found');
 
   const subjects = (await db.prepare('SELECT * FROM ws_subjects WHERE workspace_id = ?').bind(id).all()).results;
   const connections = (await db.prepare('SELECT * FROM ws_connections WHERE workspace_id = ?').bind(id).all()).results;

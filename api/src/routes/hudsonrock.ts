@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, badGateway, serviceUnavailable } from '../lib/api-error';
 import {
   searchByEmails,
   searchByDomain,
@@ -68,8 +69,8 @@ function successResponse(body: object, cacheKey: string, ctx: Context<{ Bindings
 
 export async function hudsonRockSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const email = c.req.query('email');
-  if (!email) return c.json({ error: 'email parameter required' }, 400);
-  if (!EMAIL_RE.test(email)) return c.json({ error: 'invalid email format' }, 400);
+  if (!email) return badRequest(c, 'email parameter required');
+  if (!EMAIL_RE.test(email)) return badRequest(c, 'invalid email format');
 
   const cacheKey = `https://hr-cache.internal/v3-email-${encodeURIComponent(email)}`;
   const cached = await cacheGet(cacheKey);
@@ -103,7 +104,7 @@ export async function hudsonRockSearchHandler(c: Context<{ Bindings: Env }>): Pr
       headers: { accept: 'application/json', 'user-agent': 'pranithjain.qzz.io DFIR toolkit' },
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `Hudson Rock upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Hudson Rock upstream ${res.status}`);
 
     const data = (await res.json()) as { data: HRStealerEntry[] };
     const entries = Array.isArray(data?.data) ? data.data : [];
@@ -123,7 +124,7 @@ export async function hudsonRockSearchHandler(c: Context<{ Bindings: Env }>): Pr
     );
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
 
@@ -131,8 +132,8 @@ export async function hudsonRockSearchHandler(c: Context<{ Bindings: Env }>): Pr
 
 export async function hudsonRockDomainHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = c.req.query('domain');
-  if (!domain) return c.json({ error: 'domain parameter required' }, 400);
-  if (!DOMAIN_RE.test(domain)) return c.json({ error: 'invalid domain format' }, 400);
+  if (!domain) return badRequest(c, 'domain parameter required');
+  if (!DOMAIN_RE.test(domain)) return badRequest(c, 'invalid domain format');
 
   const cacheKey = `https://hr-cache.internal/v3-domain-${encodeURIComponent(domain)}`;
   const cached = await cacheGet(cacheKey);
@@ -165,7 +166,7 @@ export async function hudsonRockDomainHandler(c: Context<{ Bindings: Env }>): Pr
       headers: { accept: 'application/json', 'user-agent': 'pranithjain.qzz.io DFIR toolkit' },
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `Hudson Rock upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Hudson Rock upstream ${res.status}`);
     const data = await res.json();
     return successResponse(
       { api_version: 'v2', domain, found: true, data, generated_at: new Date().toISOString() },
@@ -174,7 +175,7 @@ export async function hudsonRockDomainHandler(c: Context<{ Bindings: Env }>): Pr
     );
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
 
@@ -182,9 +183,9 @@ export async function hudsonRockDomainHandler(c: Context<{ Bindings: Env }>): Pr
 
 export async function hudsonRockDomainOverviewHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = c.req.query('domain');
-  if (!domain) return c.json({ error: 'domain parameter required' }, 400);
-  if (!DOMAIN_RE.test(domain)) return c.json({ error: 'invalid domain format' }, 400);
-  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+  if (!domain) return badRequest(c, 'domain parameter required');
+  if (!DOMAIN_RE.test(domain)) return badRequest(c, 'invalid domain format');
+  if (!hasV3Key(c.env)) return serviceUnavailable(c, 'requires HUDSONROCK_API_KEY (v3 only)');
 
   const cacheKey = `https://hr-cache.internal/v3-overview-${encodeURIComponent(domain)}`;
   const cached = await cacheGet(cacheKey);
@@ -199,7 +200,7 @@ export async function hudsonRockDomainOverviewHandler(c: Context<{ Bindings: Env
     );
   } catch (e) {
     console.error('hudsonRockDomainOverviewHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
 
@@ -207,9 +208,9 @@ export async function hudsonRockDomainOverviewHandler(c: Context<{ Bindings: Env
 
 export async function hudsonRockDiscoveryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = c.req.query('domain');
-  if (!domain) return c.json({ error: 'domain parameter required' }, 400);
-  if (!DOMAIN_RE.test(domain)) return c.json({ error: 'invalid domain format' }, 400);
-  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+  if (!domain) return badRequest(c, 'domain parameter required');
+  if (!DOMAIN_RE.test(domain)) return badRequest(c, 'invalid domain format');
+  if (!hasV3Key(c.env)) return serviceUnavailable(c, 'requires HUDSONROCK_API_KEY (v3 only)');
 
   const cacheKey = `https://hr-cache.internal/v3-discovery-${encodeURIComponent(domain)}`;
   const cached = await cacheGet(cacheKey);
@@ -230,7 +231,7 @@ export async function hudsonRockDiscoveryHandler(c: Context<{ Bindings: Env }>):
     );
   } catch (e) {
     console.error('hudsonRockDiscoveryHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
 
@@ -238,9 +239,9 @@ export async function hudsonRockDiscoveryHandler(c: Context<{ Bindings: Env }>):
 
 export async function hudsonRockAssessmentHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = c.req.query('domain');
-  if (!domain) return c.json({ error: 'domain parameter required' }, 400);
-  if (!DOMAIN_RE.test(domain)) return c.json({ error: 'invalid domain format' }, 400);
-  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+  if (!domain) return badRequest(c, 'domain parameter required');
+  if (!DOMAIN_RE.test(domain)) return badRequest(c, 'invalid domain format');
+  if (!hasV3Key(c.env)) return serviceUnavailable(c, 'requires HUDSONROCK_API_KEY (v3 only)');
 
   const cacheKey = `https://hr-cache.internal/v3-assess-${encodeURIComponent(domain)}`;
   const cached = await cacheGet(cacheKey);
@@ -251,7 +252,7 @@ export async function hudsonRockAssessmentHandler(c: Context<{ Bindings: Env }>)
     return successResponse({ domain, assessment: data, generated_at: new Date().toISOString() }, cacheKey, c);
   } catch (e) {
     console.error('hudsonRockAssessmentHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
 
@@ -259,8 +260,8 @@ export async function hudsonRockAssessmentHandler(c: Context<{ Bindings: Env }>)
 
 export async function hudsonRockInfectionAnalysisHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const stealer = c.req.query('stealer');
-  if (!stealer) return c.json({ error: 'stealer parameter required' }, 400);
-  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+  if (!stealer) return badRequest(c, 'stealer parameter required');
+  if (!hasV3Key(c.env)) return serviceUnavailable(c, 'requires HUDSONROCK_API_KEY (v3 only)');
 
   const cacheKey = `https://hr-cache.internal/v3-infection-${encodeURIComponent(stealer)}`;
   const cached = await cacheGet(cacheKey);
@@ -271,7 +272,7 @@ export async function hudsonRockInfectionAnalysisHandler(c: Context<{ Bindings: 
     return successResponse({ stealer, analysis: data.data, generated_at: new Date().toISOString() }, cacheKey, c);
   } catch (e) {
     console.error('hudsonRockInfectionAnalysisHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
 
@@ -279,8 +280,8 @@ export async function hudsonRockInfectionAnalysisHandler(c: Context<{ Bindings: 
 
 export async function hudsonRockUsernameHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const username = c.req.query('username');
-  if (!username) return c.json({ error: 'username parameter required' }, 400);
-  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+  if (!username) return badRequest(c, 'username parameter required');
+  if (!hasV3Key(c.env)) return serviceUnavailable(c, 'requires HUDSONROCK_API_KEY (v3 only)');
 
   const cacheKey = `https://hr-cache.internal/v3-username-${encodeURIComponent(username)}`;
   const cached = await cacheGet(cacheKey);
@@ -303,7 +304,7 @@ export async function hudsonRockUsernameHandler(c: Context<{ Bindings: Env }>): 
     );
   } catch (e) {
     console.error('hudsonRockUsernameHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
 
@@ -311,8 +312,8 @@ export async function hudsonRockUsernameHandler(c: Context<{ Bindings: Env }>): 
 
 export async function hudsonRockIpHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const ip = c.req.query('ip');
-  if (!ip) return c.json({ error: 'ip parameter required' }, 400);
-  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+  if (!ip) return badRequest(c, 'ip parameter required');
+  if (!hasV3Key(c.env)) return serviceUnavailable(c, 'requires HUDSONROCK_API_KEY (v3 only)');
 
   const cacheKey = `https://hr-cache.internal/v3-ip-${encodeURIComponent(ip)}`;
   const cached = await cacheGet(cacheKey);
@@ -335,19 +336,19 @@ export async function hudsonRockIpHandler(c: Context<{ Bindings: Env }>): Promis
     );
   } catch (e) {
     console.error('hudsonRockIpHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }
 
 // ─── Account info (v3 only) ────────────────────────────────────────────────
 
 export async function hudsonRockAccountHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  if (!hasV3Key(c.env)) return c.json({ error: 'requires HUDSONROCK_API_KEY (v3 only)' }, 503);
+  if (!hasV3Key(c.env)) return serviceUnavailable(c, 'requires HUDSONROCK_API_KEY (v3 only)');
   try {
     const data = await getAccount(c.env);
     return c.json({ account: data, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('hudsonRockAccountHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Hudson Rock unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Hudson Rock unreachable');
   }
 }

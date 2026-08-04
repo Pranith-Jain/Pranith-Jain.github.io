@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../../env';
+import { badRequest, notFound, serviceUnavailable, internalError } from '../../lib/api-error';
 import { safeJsonBody } from '../../lib/safe-body';
 import { getAi } from '../../lib/ai-binding';
 import {
@@ -33,7 +34,7 @@ export const socialRouter = new Hono<{ Bindings: Env }>();
 
 socialRouter.get('/social-schedule/:slug', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
   const schedule = await getSocialSchedule(c.env.CASE_STUDIES, slug);
   return c.json({ schedule });
 });
@@ -41,8 +42,8 @@ socialRouter.get('/social-schedule/:slug', async (c) => {
 socialRouter.post('/social-schedule/:slug/:platform/mark-posted', async (c) => {
   const slug = c.req.param('slug');
   const platform = c.req.param('platform');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
-  if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
+  if (!isSocialPlatform(platform)) return badRequest(c, 'platform must be twitter, linkedin, or instagram');
   const schedule = await markSocialPosted(c.env.CASE_STUDIES, slug, platform);
   return c.json({ ok: true, schedule });
 });
@@ -50,8 +51,8 @@ socialRouter.post('/social-schedule/:slug/:platform/mark-posted', async (c) => {
 socialRouter.post('/social-schedule/:slug/:platform/approve', async (c) => {
   const slug = c.req.param('slug');
   const platform = c.req.param('platform');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
-  if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
+  if (!isSocialPlatform(platform)) return badRequest(c, 'platform must be twitter, linkedin, or instagram');
 
   const socialKey =
     platform === 'twitter'
@@ -78,7 +79,7 @@ socialRouter.post('/social-schedule/:slug/:platform/approve', async (c) => {
   let scheduledAt: string | undefined;
   const at = parsed.value?.scheduledAt ?? '';
   if (at !== '') {
-    if (Number.isNaN(Date.parse(at))) return c.json({ error: 'invalid scheduledAt' }, 400);
+    if (Number.isNaN(Date.parse(at))) return badRequest(c, 'invalid scheduledAt');
     scheduledAt = new Date(at).toISOString();
   } else {
     scheduledAt = new Date().toISOString();
@@ -90,8 +91,8 @@ socialRouter.post('/social-schedule/:slug/:platform/approve', async (c) => {
 socialRouter.post('/social-schedule/:slug/:platform/unapprove', async (c) => {
   const slug = c.req.param('slug');
   const platform = c.req.param('platform');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
-  if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
+  if (!isSocialPlatform(platform)) return badRequest(c, 'platform must be twitter, linkedin, or instagram');
   const schedule = await unapproveSocialPlatform(c.env.CASE_STUDIES, slug, platform);
   return c.json({ ok: true, schedule });
 });
@@ -141,8 +142,8 @@ socialRouter.get('/social-analytics', async (c) => {
 socialRouter.post('/social-metrics/:slug/:platform', async (c) => {
   const slug = c.req.param('slug');
   const platform = c.req.param('platform');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
-  if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
+  if (!isSocialPlatform(platform)) return badRequest(c, 'platform must be twitter, linkedin, or instagram');
   const parsed = await safeJsonBody<{
     impressions?: number;
     likes?: number;
@@ -177,20 +178,20 @@ socialRouter.post('/social-metrics/:slug/:platform', async (c) => {
 socialRouter.post('/social-schedule/:slug/:platform', async (c) => {
   const slug = c.req.param('slug');
   const platform = c.req.param('platform');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
-  if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter, linkedin, or instagram' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
+  if (!isSocialPlatform(platform)) return badRequest(c, 'platform must be twitter, linkedin, or instagram');
   type ScheduleStatus = 'pending' | 'approved' | 'posted' | 'failed';
   const parsed = await safeJsonBody<{ scheduledAt?: string; status?: ScheduleStatus }>(c, { maxBytes: 1024 });
   if ('error' in parsed) return parsed.error;
   const patch: { scheduledAt?: string; status?: ScheduleStatus } = {};
   if (parsed.value && 'scheduledAt' in parsed.value) {
     const at = parsed.value.scheduledAt ?? '';
-    if (at !== '' && Number.isNaN(Date.parse(at))) return c.json({ error: 'invalid scheduledAt' }, 400);
+    if (at !== '' && Number.isNaN(Date.parse(at))) return badRequest(c, 'invalid scheduledAt');
     patch.scheduledAt = at === '' ? undefined : new Date(at).toISOString();
   }
   const ALLOWED_STATUS: ScheduleStatus[] = ['pending', 'approved', 'posted', 'failed'];
   if (parsed.value?.status !== undefined) {
-    if (!ALLOWED_STATUS.includes(parsed.value.status)) return c.json({ error: 'invalid status' }, 400);
+    if (!ALLOWED_STATUS.includes(parsed.value.status)) return badRequest(c, 'invalid status');
     patch.status = parsed.value.status;
   }
   const schedule = await upsertSocialSchedule(c.env.CASE_STUDIES, slug, platform, patch);
@@ -200,9 +201,9 @@ socialRouter.post('/social-schedule/:slug/:platform', async (c) => {
 // ─── Social content generation (combined Twitter + LinkedIn) ──────────
 socialRouter.post('/social/:slug', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
   const post = await getPostOrDraft(c.env, slug);
-  if (!post) return c.json({ error: 'post not found' }, 404);
+  if (!post) return notFound(c, 'post not found');
 
   let performanceNote: string | undefined;
   try {
@@ -228,19 +229,19 @@ socialRouter.post('/social/:slug', async (c) => {
     return c.json({ ok: true, social });
   } catch (err) {
     console.error('social generation failed:', err);
-    return c.json({ error: 'social_generation_failed' }, 500);
+    return internalError(c, 'social_generation_failed');
   }
 });
 
 // ─── A/B hook selection — regenerate social copy with a chosen hook ──
 socialRouter.post('/social/:slug/use-hook', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
   const { hook } = await c.req.json<{ hook?: string }>();
-  if (!hook || typeof hook !== 'string') return c.json({ error: 'hook required' }, 400);
+  if (!hook || typeof hook !== 'string') return badRequest(c, 'hook required');
 
   const post = await getPostOrDraft(c.env, slug);
-  if (!post) return c.json({ error: 'post not found' }, 404);
+  if (!post) return notFound(c, 'post not found');
 
   try {
     const social = await generateSocialContent(
@@ -258,7 +259,7 @@ socialRouter.post('/social/:slug/use-hook', async (c) => {
     return c.json({ ok: true, social });
   } catch (err) {
     console.error('use-hook regeneration failed:', err);
-    return c.json({ error: 'hook_regeneration_failed' }, 500);
+    return internalError(c, 'hook_regeneration_failed');
   }
 });
 
@@ -294,7 +295,7 @@ socialRouter.get('/social/carousel/:slug/:file', async (c) => {
   const fileMatch = fileParam.match(/^(\d+)\.png$/);
   if (!fileMatch) return c.notFound();
   const i = Number(fileMatch[1]);
-  if (!validSlug(slug)) return c.json({ error: 'bad slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'bad slug');
   const social = await c.env.CASE_STUDIES.get<SocialContent>(`social:${slug}`, 'json');
   const slides = social?.carousel?.slides;
   if (!slides || i < 0 || i >= slides.length || !slides[i]) return c.notFound();
@@ -307,7 +308,7 @@ socialRouter.get('/social/carousel/:slug/:file', async (c) => {
 
 socialRouter.get('/social/:slug', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
   const [combined, twitter, linkedin] = await Promise.all([
     c.env.CASE_STUDIES.get<SocialContent>(csKvKeys.social(slug), 'json'),
     c.env.CASE_STUDIES.get<string>(csKvKeys.socialTwitter(slug)),
@@ -319,13 +320,13 @@ socialRouter.get('/social/:slug', async (c) => {
     linkedin: linkedin ?? combined?.linkedin ?? '',
     generatedAt: combined?.generatedAt ?? new Date().toISOString(),
   };
-  if (!social.twitter && !social.linkedin) return c.json({ error: 'not found' }, 404);
+  if (!social.twitter && !social.linkedin) return notFound(c, 'not found');
   return c.json({ ok: true, social });
 });
 
 socialRouter.delete('/social/:slug', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
   await Promise.all([
     c.env.CASE_STUDIES.delete(csKvKeys.social(slug)),
     c.env.CASE_STUDIES.delete(csKvKeys.socialTwitter(slug)),
@@ -337,9 +338,9 @@ socialRouter.delete('/social/:slug', async (c) => {
 // ─── Individual social platform generation ────────────────────────────
 socialRouter.post('/social/:slug/twitter', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
   const post = await getPostOrDraft(c.env, slug);
-  if (!post) return c.json({ error: 'post not found' }, 404);
+  if (!post) return notFound(c, 'post not found');
 
   try {
     const { twitter, generatedAt } = await generateTwitterContent(
@@ -364,9 +365,9 @@ socialRouter.post('/social/:slug/twitter', async (c) => {
 
 socialRouter.post('/social/:slug/linkedin', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
   const post = await getPostOrDraft(c.env, slug);
-  if (!post) return c.json({ error: 'post not found' }, 404);
+  if (!post) return notFound(c, 'post not found');
 
   try {
     const { linkedin, generatedAt } = await generateLinkedinContent(
@@ -392,10 +393,10 @@ socialRouter.post('/social/:slug/linkedin', async (c) => {
 // ─── Post to social platforms ──────────────────────────────────────
 socialRouter.post('/social/:slug/post-twitter', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
 
   const social = await c.env.CASE_STUDIES.get<string>(csKvKeys.socialTwitter(slug));
-  if (!social) return c.json({ error: 'no_twitter_content', hint: 'generate social content first' }, 400);
+  if (!social) return badRequest(c, 'no_twitter_content — generate social content first');
 
   const image = await fetchOgCardPng(c.env, 'blog', slug);
   const result = await postToTwitter(
@@ -422,10 +423,10 @@ socialRouter.post('/social/:slug/post-twitter', async (c) => {
 
 socialRouter.post('/social/:slug/post-linkedin', async (c) => {
   const slug = c.req.param('slug');
-  if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+  if (!validSlug(slug)) return badRequest(c, 'invalid slug');
 
   if (!c.env.LINKEDIN_ACCESS_TOKEN) {
-    return c.json({ ok: false, platform: 'linkedin', error: 'linkedin_token_missing' }, 503);
+    return serviceUnavailable(c, 'linkedin_token_missing');
   }
 
   const image = await fetchOgCardPng(c.env, 'blog', slug);
@@ -433,8 +434,7 @@ socialRouter.post('/social/:slug/post-linkedin', async (c) => {
   const social = await c.env.CASE_STUDIES.get<string>(csKvKeys.socialLinkedin(slug));
   if (!social) {
     const combined = await c.env.CASE_STUDIES.get<SocialContent>(csKvKeys.social(slug), 'json');
-    if (!combined?.linkedin)
-      return c.json({ error: 'no_linkedin_content', hint: 'generate social content first' }, 400);
+    if (!combined?.linkedin) return badRequest(c, 'no_linkedin_content — generate social content first');
     const result = await postToLinkedin(combined.linkedin, c.env.LINKEDIN_ACCESS_TOKEN, image);
     if (!result.ok) {
       notifySocialFailed(c.env as unknown as WebhookEnv, slug, 'linkedin', result.error ?? 'unknown').catch((err) =>
