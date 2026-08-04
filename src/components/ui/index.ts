@@ -22,3 +22,5 @@ export { Skeleton, SkeletonCard, SkeletonTable } from './Skeleton';
 export type { SkeletonVariant } from './Skeleton';
 
 export { Kbd } from './Kbd';
+
+export { SeverityBadge, SeverityDot } from '../SeverityBadge';
