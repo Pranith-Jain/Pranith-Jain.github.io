@@ -147,10 +147,8 @@ Verify every claim in the report against the collected data. Flag hallucinations
     }
   }
 
-  // Use the report from the model with the highest score for corrections
-  const bestModel = successful.sort((a, b) => b.data.quality_score - a.data.quality_score)[0]!;
-
   return {
+    // JUDGE-INDEPENDENCE: QA flags only — never rewrites prose.
     verifiedReport: originalReport,
     flaggedClaims: [...allFlagged.values()].map((f) => `[${f.reason}] ${f.claim}: ${f.evidence}`),
     missingFacts: [...allMissing.values()].map((f) => `[${f.source}] ${f.fact}`),
