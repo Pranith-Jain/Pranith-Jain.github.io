@@ -6,6 +6,51 @@ const MAX_JS_ANALYSIS = 50;
 const MAX_WS_CONNECTIONS = 5;
 const ALARM_INTERVAL_MS = 150;
 const DEFAULT_DELAY_MS = 200;
+// Upper bound on any single .text() buffer from a crawled/external response.
+// The Worker memory limit is 128 MB; a malicious or huge page could OOM the
+// isolate before parsing. 5 MB is well above any legitimate HTML/JS/sitemap
+// while keeping a hard ceiling. Checked against Content-Length when present
+// and enforced by reading the stream with a cap otherwise.
+const MAX_FETCH_BYTES = 5_000_000;
+
+/**
+ * Read a response body as text with a hard byte ceiling. Guards against
+ * unbounded `await res.text()` on crawled/external responses (radar scans
+ * arbitrary user-supplied URLs). If Content-Length exceeds the cap the
+ * response is rejected without buffering; otherwise the stream is read with
+ * a running byte count and truncated/aborted at the cap.
+ */
+async function fetchTextBounded(res: Response, max = MAX_FETCH_BYTES): Promise<string> {
+  const cl = Number(res.headers.get('content-length') ?? 0);
+  if (cl && cl > max) {
+    throw new Error(`response too large: Content-Length ${cl} > ${max}`);
+  }
+  // Stream-read with a cap so chunked/unknown-length responses are bounded too.
+  const reader = res.body?.getReader();
+  if (!reader) return '';
+  const decoder = new TextDecoder();
+  let received = 0;
+  let out = '';
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    received += value.byteLength;
+    if (received > max) {
+      // Truncate the final chunk to the cap and stop reading.
+      const keep = value.subarray(0, max - (received - value.byteLength));
+      out += decoder.decode(keep, { stream: false });
+      try {
+        await reader.cancel();
+      } catch {
+        /* ignore */
+      }
+      break;
+    }
+    out += decoder.decode(value, { stream: true });
+  }
+  out += decoder.decode();
+  return out;
+}
 
 interface CrawlState {
   id: string;
@@ -281,7 +326,7 @@ export class RadarCrawlerDO {
         return; // non-HTML, skip silently
       }
 
-      const html = await res.text();
+      const html = await fetchTextBounded(res);
       const respHeaders: Record<string, string> = {};
       res.headers.forEach((v, k) => {
         respHeaders[k.toLowerCase()] = v;
@@ -337,7 +382,7 @@ export class RadarCrawlerDO {
         headers: { 'user-agent': 'Mozilla/5.0 (compatible; security-research)' },
       });
       if (!res.ok) return;
-      const content = await res.text();
+      const content = await fetchTextBounded(res);
       state.visited.push(robotsUrl);
 
       // Extract Disallow paths
@@ -390,7 +435,7 @@ export class RadarCrawlerDO {
         headers: { 'user-agent': 'Mozilla/5.0 (compatible; security-research)' },
       });
       if (!res.ok) return;
-      const content = await res.text();
+      const content = await fetchTextBounded(res);
       state.visited.push(sitemapUrl);
 
       // Extract <loc> URLs
@@ -934,7 +979,7 @@ export class RadarCrawlerDO {
         const res = await pinnedFetchFollow(jsUrl, {
           headers: { 'user-agent': 'Mozilla/5.0', accept: '*/*' },
         });
-        const js = await res.text();
+        const js = await fetchTextBounded(res);
         this.analyzeJsContent(js, jsUrl, state);
       } catch (_catchErr) {
         console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));

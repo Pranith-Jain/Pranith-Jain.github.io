@@ -6,6 +6,14 @@
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
+	// Workers Logs + Traces with head-based sampling. The cron fan-out and IOC
+	// enrichment paths are high-volume; 0.1 keeps dashboard visibility without
+	// the cost of ingesting every invocation. Tunable if a specific incident
+	// needs full fidelity (bump to 1.0 temporarily, then revert).
+	"observability": {
+		"enabled": true,
+		"head_sampling_rate": 0.1
+	},
 	"workers_dev": false,
 	"preview_urls": false,
 	"assets": {

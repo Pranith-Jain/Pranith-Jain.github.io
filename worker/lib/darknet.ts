@@ -26,6 +26,48 @@ const CHAINABUSE_API = 'https://api.chainabuse.com/v0/reports';
 
 const UA = 'pranithjain-threatintel-mcp/1.0';
 
+// Upper bound on any single .text() buffer from a tor2web gateway or Ahmia
+// search response. Onion pages via gateways are untrusted and unbounded — a
+// malicious/huge page could OOM the isolate (128 MB limit) before parsing.
+// 5 MB is well above any legitimate HTML search/scrape result.
+const MAX_FETCH_BYTES = 5_000_000;
+
+/**
+ * Read a response body as text with a hard byte ceiling. Guards against
+ * unbounded `await res.text()` on tor2web/Ahmia responses. If Content-Length
+ * exceeds the cap the response is rejected without buffering; otherwise the
+ * stream is read with a running byte count and truncated at the cap.
+ */
+async function fetchTextBounded(res: Response, max = MAX_FETCH_BYTES): Promise<string> {
+  const cl = Number(res.headers.get('content-length') ?? 0);
+  if (cl && cl > max) {
+    throw new Error(`response too large: Content-Length ${cl} > ${max}`);
+  }
+  const reader = res.body?.getReader();
+  if (!reader) return '';
+  const decoder = new TextDecoder();
+  let received = 0;
+  let out = '';
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    received += value.byteLength;
+    if (received > max) {
+      const keep = value.subarray(0, max - (received - value.byteLength));
+      out += decoder.decode(keep, { stream: false });
+      try {
+        await reader.cancel();
+      } catch {
+        /* ignore */
+      }
+      break;
+    }
+    out += decoder.decode(value, { stream: true });
+  }
+  out += decoder.decode();
+  return out;
+}
+
 // ─── Tor: Types ───────────────────────────────────────────────────────────
 
 export interface TorStatusResult {
@@ -182,7 +224,7 @@ export async function torFetchOnion(
     headers: { 'User-Agent': UA, Accept: 'text/html,*/*' },
     redirect: 'follow',
   });
-  const html = await res.text();
+  const html = await fetchTextBounded(res);
   return { html, statusCode: res.status, fetchedVia: `${hostname}.${gw}` };
 }
 
@@ -195,7 +237,7 @@ export async function torScrapeOnion(onionUrl: string, gatewayIndex = 0): Promis
     headers: { 'User-Agent': UA, Accept: 'text/html,*/*' },
     redirect: 'follow',
   });
-  const html = await res.text();
+  const html = await fetchTextBounded(res);
   const { title, links, bodyText } = parseHtmlBasic(html);
   return {
     url: hostname,
@@ -217,7 +259,7 @@ export async function torSearchOnion(query: string, limit = 20): Promise<AhmiaRe
     },
   });
   if (!res.ok) throw new Error(`Ahmia search failed: HTTP ${res.status}`);
-  const html = await res.text();
+  const html = await fetchTextBounded(res);
 
   const results: AhmiaResult[] = [];
 
