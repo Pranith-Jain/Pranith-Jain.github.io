@@ -30,6 +30,10 @@ interface PulseMapProps {
   markers: MarkerData[];
   onMarkerClick?: (marker: MarkerData) => void;
   terminatorPolygon?: [number, number][];
+  /** Optional focus point (lat, lng) — pans the projection center so the
+   *  2D map mirrors the 3D globe's focus behaviour when an event is
+   *  selected in the feed. */
+  focus?: { lat: number; lng: number } | null;
 }
 
 const SEVERITY_RADIUS: Record<string, number> = {
@@ -109,7 +113,7 @@ const KIND_LABELS: Record<string, string> = {
   cyberpulse: 'CyberPulse Incident',
 };
 
-export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: PulseMapProps): JSX.Element {
+export default function PulseMap({ markers, onMarkerClick, terminatorPolygon, focus }: PulseMapProps): JSX.Element {
   const [isDark, setIsDark] = useState(false);
   const [hoveredMarker, setHoveredMarker] = useState<MarkerData | null>(null);
   const [selectedMarker, setSelectedMarker] = useState<MarkerData | null>(null);
@@ -127,6 +131,15 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: 
   }, []);
 
   const topMarkers = useMemo(() => markers.slice(0, 300), [markers]);
+
+  // Projection center: default to [0, 20] (Africa/Europe-centric world view).
+  // When a focus point is provided (user clicked an event in the feed),
+  // pan the projection center to it so the 2D map mirrors the 3D globe's
+  // focus behaviour. Clamp latitude to ±75° so Mercator doesn't distort
+  // past the point of usefulness near the poles.
+  const center: [number, number] = focus
+    ? [Math.max(-180, Math.min(180, focus.lng)), Math.max(-75, Math.min(75, focus.lat))]
+    : [0, 20];
 
   // Theme colors
   const landFill = isDark ? '#1a2332' : '#e5e7eb';
@@ -148,7 +161,7 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: 
         projection="geoMercator"
         projectionConfig={{
           scale: 140,
-          center: [0, 20],
+          center,
         }}
         width={900}
         height={460}
@@ -178,10 +191,10 @@ export default function PulseMap({ markers, onMarkerClick, terminatorPolygon }: 
             points={terminatorPolygon
               .map(([lng, lat]) => {
                 // Manual Mercator projection matching ComposableMap config
-                // scale=140, center=[0,20], translate=[450,230]
+                // scale=140, center=<dynamic>, translate=[450,230]
                 const scale = 140;
-                const centerLat = 20;
-                const centerLng = 0;
+                const centerLat = center[1];
+                const centerLng = center[0];
                 const latRad = (lat * Math.PI) / 180;
                 const clatRad = (centerLat * Math.PI) / 180;
                 const x = 450 + ((scale * ((lng - centerLng) * Math.PI)) / 180) * Math.cos(clatRad);
