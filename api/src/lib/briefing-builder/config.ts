@@ -11,7 +11,12 @@ export function nvdHeaders(apiKey?: string): Record<string, string> {
 
 export const KEV_FEED = 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json';
 
-export const LASTGOOD_TTL_SEC = 60 * 60 * 24 * 14;
+// 5 days. NVD/KEV data for a past day is stable after ~48h, and briefings
+// only ever query the last ~5 days. The previous 14-day TTL kept up to 14
+// per-date-range `briefing-nvd?s=…&e=…` keys (~1 MB each) resident in KV
+// (~14 MB). 5 days caps that at ~5 keys (~5 MB) while still covering the
+// full briefing window + a safety margin for re-runs.
+export const LASTGOOD_TTL_SEC = 60 * 60 * 24 * 5;
 
 export const CATEGORY_RULES: CategoryRule[] = [
   {
