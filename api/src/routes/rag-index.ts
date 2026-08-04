@@ -70,7 +70,7 @@ export async function ragIndexHandler(c: Context<{ Bindings: Env }>): Promise<Re
 
 export async function ragQueryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const q = c.req.query('q')?.trim();
-  if (!q) return c.json({ error: 'q query param required' }, 400);
+  if (!q) return badRequest(c, 'q query param required');
 
   const typeFilter = c.req.query('type');
   const topK = Math.min(20, parseInt(c.req.query('topK') ?? '8', 10));

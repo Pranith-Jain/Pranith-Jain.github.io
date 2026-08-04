@@ -52,7 +52,7 @@ function isEcosystem(s: string | undefined): s is Ecosystem {
 export async function maliciousPackagesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const ecoQ = c.req.query('ecosystem') ?? 'npm';
   if (!isEcosystem(ecoQ)) {
-    return c.json({ error: `invalid ecosystem; supported: ${ECOSYSTEMS.join(', ')}` }, 400);
+    return badRequest(c, `invalid ecosystem; supported: `);
   }
   const ecosystem = ecoQ;
 

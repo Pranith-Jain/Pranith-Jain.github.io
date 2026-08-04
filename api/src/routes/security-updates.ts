@@ -219,7 +219,7 @@ export async function securityUpdatesHandler(c: Context<{ Bindings: Env }>): Pro
   const product = c.req.query('product')?.trim();
 
   if (!query && !vendor) {
-    return c.json({ error: 'missing query parameter (q or vendor)' }, 400);
+    return badRequest(c, 'missing query parameter (q or vendor)');
   }
 
   const searchQuery = query || vendor || '';

@@ -56,7 +56,7 @@ async function sha256Hex(input: string): Promise<string> {
 export async function reverseImageSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const url = c.req.query('url');
   if (!url || !isValidHttpUrl(url)) {
-    return c.json({ error: 'A valid HTTP/HTTPS image URL is required (query param: url)' }, 400);
+    return badRequest(c, 'A valid HTTP/HTTPS image URL is required (query param: url)');
   }
 
   const key = new Request(`https://ris.internal/v1/${await sha256Hex(url)}`);

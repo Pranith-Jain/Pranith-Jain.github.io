@@ -223,6 +223,6 @@ export async function correlateHandler(c: Context<{ Bindings: Env }>): Promise<R
     );
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

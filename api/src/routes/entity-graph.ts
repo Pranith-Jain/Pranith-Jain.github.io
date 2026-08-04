@@ -212,7 +212,7 @@ export function registerEntityGraphRoute(router: Hono<any>): void {
       return response;
     } catch (err) {
       console.error('entityGraphHandler failed:', err instanceof Error ? err.message : String(err));
-      return c.json({ error: 'entity graph failed' }, 500);
+      return internalError(c, 'entity graph failed');
     }
   });
 }

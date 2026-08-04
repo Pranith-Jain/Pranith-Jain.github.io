@@ -203,7 +203,7 @@ export async function fusionExposureHandler(c: Context<{ Bindings: Env }>): Prom
   const cves = recent?.cves ?? [];
 
   if (cves.length === 0) {
-    return c.json({ error: 'No CVE data available' }, 503);
+    return serviceUnavailable(c, 'No CVE data available');
   }
 
   const exploitIndex = await fetchExploitIndex(c.env);

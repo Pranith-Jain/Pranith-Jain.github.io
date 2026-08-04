@@ -13,7 +13,7 @@ const KV_TTL = 6 * 60 * 60;
 export async function relationshipGraphHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const query = c.req.query('q');
   if (!query || !query.trim()) {
-    return c.json({ error: 'missing query param q' }, 400);
+    return badRequest(c, 'missing query param q');
   }
 
   const depthParam = c.req.query('depth');

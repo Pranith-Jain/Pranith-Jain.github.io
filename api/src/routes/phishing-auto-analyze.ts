@@ -73,7 +73,7 @@ const SUSPICIOUS_KEYWORDS = [
 
 export async function phishingAnalyzeAutoHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const url = (c.req.query('url') ?? '').trim();
-  if (!url) return c.json({ error: 'url query param required' }, 400);
+  if (!url) return badRequest(c, 'url query param required');
 
   try {
     // pinnedFetch: SSRF guard on the attacker-controlled URL. Browser UA so

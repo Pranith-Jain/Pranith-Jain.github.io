@@ -310,7 +310,5 @@ export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<
     }
   }
 
-  return c.json({ error: 'ransomlook unreachable', detail: 'failed to fetch /api/recent' }, 502, {
-    'cache-control': 'no-store',
-  });
+  return badGateway(c, 'ransomlook unreachable: failed to fetch /api/recent');
 }

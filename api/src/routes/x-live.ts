@@ -307,7 +307,7 @@ export async function xLiveHandler(c: Context<{ Bindings: Env }>): Promise<Respo
     csv = await fetchTweetFeed();
   } catch (err) {
     console.error('xLiveHandler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: `TweetFeed fetch failed: ${(err as Error).message}` }, 502);
+    return badGateway(c, `TweetFeed fetch failed: ${(err as Error).message}`);
   }
 
   // Parse the CSV, dedupe by status ID, filter to the time window, sort newest-first.

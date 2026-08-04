@@ -20,7 +20,7 @@ function slugify(s: string): string {
 export async function actorCvesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const name = (c.req.query('name') ?? c.req.query('slug') ?? '').trim();
   if (!name) {
-    return c.json({ error: 'missing query param name or slug' }, 400);
+    return badRequest(c, 'missing query param name or slug');
   }
   const aliasesRaw = c.req.query('aliases') ?? '';
   const aliases = aliasesRaw

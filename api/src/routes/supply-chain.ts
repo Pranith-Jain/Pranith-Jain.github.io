@@ -13,7 +13,7 @@ export async function depsDevPackageHandler(c: Context<{ Bindings: Env }>): Prom
   const system = (c.req.query('system') ?? '').trim().toLowerCase();
   const name = (c.req.query('name') ?? '').trim();
   const version = c.req.query('version')?.trim() || undefined;
-  if (!system || !name) return c.json({ error: 'missing system or name' }, 400);
+  if (!system || !name) return badRequest(c, 'missing system or name');
 
   const key = `sc:depsdev:${system}:${name}:${version ?? '*'}`;
   const cached = await routeCacheGet<object>(key);

@@ -81,7 +81,7 @@ function buildSelectExpression(select?: string[]): string {
 
 export async function stixBundlesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database_unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database_unavailable');
 
   const query = parsePostgrestQuery(
     new URLSearchParams(c.req.query() as Record<string, string>),

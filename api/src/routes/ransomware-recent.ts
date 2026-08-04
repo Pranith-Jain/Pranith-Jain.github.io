@@ -984,10 +984,7 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
       c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
       return response;
     }
-    return c.json({ error: 'upstream_rate_limited', upstream: 'www.ransomlook.io', upstream_status: 429 }, 429, {
-      'retry-after': rateLimited.retryAfter,
-      'cache-control': 'no-store',
-    });
+    return tooManyRequests(c, 'upstream_rate_limited');
   }
 
   let finalBody = body;

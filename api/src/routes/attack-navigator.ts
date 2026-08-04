@@ -93,7 +93,7 @@ export async function attackNavigatorHandler(c: Context<{ Bindings: Env }>): Pro
         });
       }
     }
-    return c.json({ error: 'Failed to fetch MITRE ATT&CK data' }, 502);
+    return badGateway(c, 'Failed to fetch MITRE ATT&CK data');
   }
 
   const objects = (mitreData as { objects: Array<Record<string, unknown>> }).objects;

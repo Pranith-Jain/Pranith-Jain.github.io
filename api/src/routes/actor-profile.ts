@@ -71,7 +71,7 @@ function slugify(s: string): string {
 
 export async function actorProfileHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const name = (c.req.query('name') ?? '').trim();
-  if (!name) return c.json({ error: 'missing query param name' }, 400);
+  if (!name) return badRequest(c, 'missing query param name');
 
   const aliasesRaw = c.req.query('aliases') ?? '';
   const softwareRaw = c.req.query('software') ?? '';

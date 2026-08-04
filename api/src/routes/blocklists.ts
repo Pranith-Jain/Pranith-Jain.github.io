@@ -102,5 +102,5 @@ export async function blocklistMetaHandler(c: Context<{ Bindings: Env }>): Promi
       'Cache-Control': 'public, max-age=60',
     });
   }
-  return c.json({ ok: false, error: 'no blocklist data' }, 503);
+  return serviceUnavailable(c, 'no blocklist data');
 }

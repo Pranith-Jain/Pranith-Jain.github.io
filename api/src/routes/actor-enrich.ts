@@ -71,7 +71,7 @@ function parseActorFromFilename(name: string): string {
 export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const name = c.req.query('name');
   if (!name || !name.trim()) {
-    return c.json({ error: 'missing query param name' }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'missing query param name');
   }
 
   const aliasesRaw = c.req.query('aliases') ?? '';

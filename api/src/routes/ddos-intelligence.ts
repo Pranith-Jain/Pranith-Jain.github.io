@@ -157,7 +157,7 @@ export async function ddosDashboardHandler(c: Context<{ Bindings: Env }>): Promi
 
 export async function ddosBotnetLookupHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const q = c.req.query('q') || '';
-  if (!q) return c.json({ error: 'q parameter required' }, 400);
+  if (!q) return badRequest(c, 'q parameter required');
 
   const feodo = await fetchFeodoTracker();
   const matches = feodo.filter((b) => b.ip.includes(q) || b.malware.toLowerCase().includes(q.toLowerCase()));

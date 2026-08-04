@@ -97,7 +97,7 @@ worldIntelRouter.get('/world-intel/space-weather', async (c) => {
 worldIntelRouter.get('/world-intel/news', async (c) => {
   try {
     const q = c.req.query('q');
-    if (!q) return c.json({ error: 'missing q parameter' }, 400);
+    if (!q) return badRequest(c, 'missing q parameter');
     const limit = Math.min(100, Math.max(1, Number(c.req.query('limit') ?? 30)));
     const data = await fetchGdeltSearch(q, limit);
     return c.json(data);

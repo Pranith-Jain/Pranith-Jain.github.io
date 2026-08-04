@@ -395,7 +395,7 @@ export async function openDirectoryScanHandler(c: Context<{ Bindings: Env }>): P
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
     if (e instanceof SsrfError) {
-      return c.json({ error: 'blocked', message: e.detail, blockedIp: e.blockedIp }, e.status as 400 | 403 | 502 | 503);
+      return respondError(c, 'blocked', e.detail, e.status as 400 | 403 | 502 | 503);
     }
     return internalError(c, e);
   }

@@ -92,7 +92,7 @@ async function queryUrlhaus(hash: string): Promise<SandboxResult | null> {
 export async function sandboxLookupHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const hash = c.req.query('hash')?.trim();
   if (!hash || !HASH_RE.test(hash)) {
-    return c.json({ error: 'bad_request', message: 'valid MD5, SHA-1, or SHA-256 hash required' }, 400);
+    return badRequest(c, 'valid MD5, SHA-1, or SHA-256 hash required');
   }
 
   const results = await Promise.all([
