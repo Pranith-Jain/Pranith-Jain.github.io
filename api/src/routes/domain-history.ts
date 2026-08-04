@@ -17,7 +17,7 @@ import type { Env } from '../env';
 import { rdapLookup } from '../lib/rdap';
 import { whoisTcpLookup } from '../lib/whois-tcp';
 import { storeWhoisSnapshot, getWhoisHistory, pivotDomains, getWhoisStats } from '../lib/whois-history';
-import { badRequest, internalError } from '../lib/api-error';
+import { badRequest, internalError, serviceUnavailable, badGateway } from '../lib/api-error';
 import { safeNullLog } from '../lib/safe-catch';
 
 /**

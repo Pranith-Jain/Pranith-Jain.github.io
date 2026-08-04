@@ -1,4 +1,5 @@
 import type { Context } from 'hono';
+import { badRequest, badGateway, internalError, serviceUnavailable } from '../lib/api-error';
 
 interface Env {
   ABUSECH_AUTH_KEY?: string;
