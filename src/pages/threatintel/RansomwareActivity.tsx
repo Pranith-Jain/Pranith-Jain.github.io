@@ -14,7 +14,7 @@ import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/Clust
  * ransomwatch, ransomware.live, Andrea Fortuna); the panel dedupes by
  * (group + victim + day) and surfaces ~60 most recent rows.
  */
-export default function RansomwareActivity(): JSX.Element {
+export default function RansomwareActivity({ embedded = false }: { embedded?: boolean } = {}): JSX.Element {
   return (
     <DataPageLayout
       backTo="/threatintel"
@@ -83,10 +83,7 @@ export default function RansomwareActivity(): JSX.Element {
           </p>
           <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
             Refreshed hourly from upstream. See also{' '}
-            <Link
-              to="/threatintel/ransomware-hub"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
-            >
+            <Link to="/threatintel/ransomware-hub" className="text-rose-600 dark:text-rose-400 hover:underline">
               ransomware negotiations
             </Link>{' '}
             (demand vs. paid + transcripts).
@@ -95,13 +92,15 @@ export default function RansomwareActivity(): JSX.Element {
       }
       headerExtra={
         <div className="space-y-4">
-          <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
+          {!embedded && <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />}
           <div className="flex flex-wrap items-center gap-3">
             <LiveFreshnessPill tone="live" />
             <LiveIndicator label="Live · ransomware telemetry" note="hourly from 6 trackers" size="md" />
           </div>
         </div>
       }
+      hideHeader={embedded}
+      className={embedded ? '!py-4' : undefined}
     >
       <RansomwareActivityPanel />
     </DataPageLayout>

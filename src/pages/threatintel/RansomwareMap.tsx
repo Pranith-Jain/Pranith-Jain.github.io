@@ -216,7 +216,7 @@ function colourFor(count: number, max: number): string {
 
 const REFRESH_INTERVAL_MS = 300_000;
 
-export default function RansomwareMap(): JSX.Element {
+export default function RansomwareMap({ embedded = false }: { embedded?: boolean } = {}): JSX.Element {
   const [data, setData] = useState<RansomwareMapResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -324,10 +324,14 @@ export default function RansomwareMap(): JSX.Element {
       maxWidthClass="max-w-6xl"
       accentClass="text-rose-600 dark:text-rose-400"
       headerExtra={
-        <div className="mt-4">
-          <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
-        </div>
+        !embedded && (
+          <div className="mt-4">
+            <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
+          </div>
+        )
       }
+      hideHeader={embedded}
+      className={embedded ? '!py-4' : undefined}
     >
       {data && (
         <>

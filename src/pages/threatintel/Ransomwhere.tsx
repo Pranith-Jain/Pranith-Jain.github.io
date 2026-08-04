@@ -71,7 +71,7 @@ function chip(active: boolean): string {
   }`;
 }
 
-export default function Ransomwhere(): JSX.Element {
+export default function Ransomwhere({ embedded = false }: { embedded?: boolean } = {}): JSX.Element {
   const [data, setData] = useState<RansomwhereResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -132,7 +132,7 @@ export default function Ransomwhere(): JSX.Element {
   const headerExtra =
     data && !error ? (
       <div className="space-y-2">
-        <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />
+        {!embedded && <ClusterTabs tabs={RANSOMWARE_TABS} ariaLabel="Ransomware intel" />}
         {data.stale && (
           <p className="text-micro font-mono text-amber-600 dark:text-amber-400">
             ! showing cached data (upstream temporarily unavailable)
@@ -176,6 +176,8 @@ export default function Ransomwhere(): JSX.Element {
       error={error}
       empty={!loading && !error && !!data && filtered.length === 0}
       emptyMessage="No wallets match the filter."
+      hideHeader={embedded}
+      className={embedded ? '!py-4' : undefined}
     >
       <div className="grid gap-3 lg:grid-cols-2">
         {filtered.slice(0, 600).map((w) => (
@@ -184,7 +186,8 @@ export default function Ransomwhere(): JSX.Element {
             className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3"
           >
             <div className="flex items-start justify-between gap-2">
-              <button type="button"
+              <button
+                type="button"
                 onClick={() => setFamily(w.family)}
                 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug text-left hover:text-rose-600 dark:hover:text-rose-400"
                 title="Filter by this family"

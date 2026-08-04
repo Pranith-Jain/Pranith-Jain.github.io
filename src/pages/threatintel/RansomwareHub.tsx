@@ -60,9 +60,9 @@ export default function RansomwareHub(): JSX.Element {
       <div role="tabpanel">
         <Suspense fallback={<TabLoader />}>
           {activeTab === 'report' && <RansomReport embedded />}
-          {activeTab === 'activity' && <RansomwareActivity />}
-          {activeTab === 'map' && <RansomwareMap />}
-          {activeTab === 'ransomwhere' && <Ransomwhere />}
+          {activeTab === 'activity' && <RansomwareActivity embedded />}
+          {activeTab === 'map' && <RansomwareMap embedded />}
+          {activeTab === 'ransomwhere' && <Ransomwhere embedded />}
         </Suspense>
       </div>
     </DataPageLayout>
