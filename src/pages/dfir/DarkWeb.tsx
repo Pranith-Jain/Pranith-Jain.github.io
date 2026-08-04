@@ -789,10 +789,12 @@ interface RansomwareVictim {
   source_url: string;
   /** Clearnet URL for a screenshot of the .onion leak page (Ransomlook-rehosted). */
   screen_url?: string;
-  /** Which of the four trackers surfaced this victim. */
+  /** Which of the trackers surfaced this victim. */
   origin?: RansomwareOrigin;
   /** ISO-3166 country (only set when upstream provided it; mythreatintel today). */
   country?: string;
+  /** Sector classification (backend classifies from victim name + description). */
+  sector?: string;
 }
 
 const ORIGIN_PILL: Record<RansomwareOrigin, { label: string; cls: string; tooltip: string }> = {
@@ -1079,6 +1081,14 @@ export function RansomwareActivityPanel(): JSX.Element {
                         title={`Country attributed by upstream: ${v.country}`}
                       >
                         {v.country}
+                      </span>
+                    )}
+                    {v.sector && (
+                      <span
+                        className="text-micro font-mono uppercase tracking-wider px-1 py-0.5 rounded border border-indigo-500/30 bg-indigo-500/10 text-indigo-600 dark:text-indigo-300"
+                        title={`Sector classification: ${v.sector}`}
+                      >
+                        {v.sector}
                       </span>
                     )}
                   </div>

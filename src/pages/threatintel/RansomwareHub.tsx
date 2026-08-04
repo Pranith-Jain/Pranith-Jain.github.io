@@ -1,5 +1,6 @@
 import { TabLoader } from '../../components/ui/TabLoader';
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 import { ShieldAlert } from 'lucide-react';
@@ -19,7 +20,23 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
 ];
 
 export default function RansomwareHub(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('report');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const validTabs = new Set<TabId>(['report', 'activity', 'map', 'ransomwhere']);
+  const tabParam = searchParams.get('tab') as TabId | null;
+  const [activeTab, setActiveTab] = useState<TabId>(
+    tabParam && validTabs.has(tabParam) ? tabParam : 'report'
+  );
+
+  // Sync tab changes to the URL so deep-links and back/forward work.
+  useEffect(() => {
+    const current = searchParams.get('tab') ?? 'report';
+    if (current !== activeTab) {
+      const next = new URLSearchParams(searchParams);
+      if (activeTab === 'report') next.delete('tab');
+      else next.set('tab', activeTab);
+      setSearchParams(next, { replace: true });
+    }
+  }, [activeTab, searchParams, setSearchParams]);
 
   return (
     <DataPageLayout
