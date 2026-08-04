@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../../lib/api-error';
 import { getAi } from '../../lib/ai-binding';
 import { unapprove, listApproved, getApproved } from '../../case-study/storage/approved';
 import { touchDedup } from '../../case-study/storage/dedup';

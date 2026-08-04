@@ -300,6 +300,60 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
     return forbidden(c, `host not in allow-list: ${parsed.hostname}`);
   }
 
+  // Cache-API first (free, no KV quota). Keyed on the full URL so repeated
+  // requests for the same feed skip the upstream fetch entirely.
+  const CACHE_TTL = 300; // 5min
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheReq = new Request(`https://feed-proxy-cache.internal/v1?u=${encodeURIComponent(url)}`);
+  const cached = await cache.match(cacheReq);
+  if (cached) {
+    // SWR: serve immediately, refresh in background if older than 80%.
+    const cacheDate = cached.headers.get('date');
+    const age = cacheDate ? (Date.now() - new Date(cacheDate).getTime()) / 1000 : 0;
+    if (age > CACHE_TTL * 0.8) {
+      c.executionCtx.waitUntil(
+        (async () => {
+          try {
+            // Re-fetch in background — same redirect/validation logic.
+            // We don't re-run the full handler; just re-fetch the upstream
+            // and update the cache. If it fails, the stale copy stays.
+            const res = await fetch(parsed.toString(), {
+              redirect: 'manual',
+              headers: {
+                'user-agent':
+                  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
+                accept: 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.5',
+              },
+              signal: AbortSignal.timeout(TIMEOUT_MS),
+            });
+            if (res.ok) {
+              const body = await res.text();
+              if (body.length <= 512 * 1024) {
+                const upstreamCt = (res.headers.get('content-type') ?? '').toLowerCase();
+                const safeCt = /(?:xml|rss|atom|json)/.test(upstreamCt)
+                  ? (upstreamCt.split(';')[0]?.trim() ?? 'text/plain; charset=utf-8')
+                  : 'text/plain; charset=utf-8';
+                await cache.put(
+                  cacheReq,
+                  new Response(body, {
+                    headers: {
+                      'content-type': safeCt,
+                      'x-content-type-options': 'nosniff',
+                      'cache-control': `public, max-age=${CACHE_TTL}`,
+                    },
+                  })
+                );
+              }
+            }
+          } catch {
+            /* non-fatal */
+          }
+        })()
+      );
+    }
+    return new Response(cached.body, cached);
+  }
+
   try {
     // Manual redirect handling: an allow-listed host with an open redirect
     // (Google News, Reddit, raw.githubusercontent, …) could otherwise bounce
@@ -366,14 +420,18 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
     const safeCt = /(?:xml|rss|atom|json)/.test(upstreamCt)
       ? (upstreamCt.split(';')[0]?.trim() ?? 'text/plain; charset=utf-8')
       : 'text/plain; charset=utf-8';
-    return new Response(body, {
+    const response = new Response(body, {
       status: 200,
       headers: {
         'content-type': safeCt,
         'x-content-type-options': 'nosniff',
-        'cache-control': 'public, max-age=300', // 5min cache hint
+        'cache-control': `public, max-age=${CACHE_TTL}`,
       },
     });
+    // Write-through to the Cache-API so the next request for the same URL
+    // is a cache hit (free, no KV).
+    c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
+    return response;
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
     return badGateway(c, safeErrorMessage(c.env as unknown as Record<string, unknown>, err));

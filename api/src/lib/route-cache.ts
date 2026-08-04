@@ -1,4 +1,6 @@
 import type { KVNamespace } from '@cloudflare/workers-types';
+import type { Context } from 'hono';
+import type { Env } from '../env';
 
 const CACHE_BASE = 'https://route-cache.internal/v1';
 
@@ -104,4 +106,80 @@ export function kvBackedPut(
     else return Promise.all([l1, l2]).then(() => undefined);
   }
   return l1;
+}
+
+/**
+ * Cache-first + stale-while-revalidate response helper for Hono routes.
+ *
+ * The pattern every route handler wants:
+ *   1. Check the per-colo Cache API (free, no KV quota).
+ *   2. If cached AND fresh (< ttl * 0.8): serve immediately.
+ *   3. If cached BUT stale (> ttl * 0.8): serve immediately + refresh in
+ *      the background via `executionCtx.waitUntil`.
+ *   4. If not cached: fetch from upstream, cache, serve.
+ *
+ * This uses ZERO KV reads/writes — the Cache API is per-colo and free.
+ * The trade-off: a cold colo (first visitor in a region) still hits the
+ * upstream, but every subsequent visitor in that colo gets an instant
+ * cache hit. For routes that need cross-colo durability, use `kvBackedGet`
+ * / `kvBackedPut` instead.
+ *
+ * @example
+ *   return cachedJson(c, 'cve-recent:v1', 300, async () => {
+ *     const res = await fetch('https://upstream/api');
+ *     return res.json();
+ *   });
+ */
+export async function cachedJson<T>(
+  c: Context<{ Bindings: Env }>,
+  key: string,
+  ttlSeconds: number,
+  fetcher: () => Promise<T>
+): Promise<Response> {
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheReq = new Request(`${CACHE_BASE}/${encodeURIComponent(key)}`);
+
+  // 1. Check the per-colo Cache API.
+  const cached = await cache.match(cacheReq);
+  if (cached) {
+    const cacheDate = cached.headers.get('date');
+    const age = cacheDate ? (Date.now() - new Date(cacheDate).getTime()) / 1000 : 0;
+
+    // 3. Stale-while-revalidate: serve immediately, refresh in background.
+    if (age > ttlSeconds * 0.8) {
+      c.executionCtx.waitUntil(
+        (async () => {
+          try {
+            const fresh = await fetcher();
+            const resp = new Response(JSON.stringify(fresh), {
+              headers: {
+                'content-type': 'application/json',
+                'cache-control': `public, max-age=${ttlSeconds}, stale-while-revalidate=${ttlSeconds * 4}`,
+              },
+            });
+            await cache.put(cacheReq, resp);
+          } catch {
+            /* non-fatal — the stale copy stays */
+          }
+        })()
+      );
+    }
+    return new Response(cached.body, cached);
+  }
+
+  // 4. Cold cache — fetch from upstream, cache, serve.
+  try {
+    const data = await fetcher();
+    const response = c.json(data, 200, {
+      'cache-control': `public, max-age=${ttlSeconds}, stale-while-revalidate=${ttlSeconds * 4}`,
+    });
+    c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
+    return response;
+  } catch (e) {
+    return c.json(
+      { error: 'upstream_fetch_failed', message: e instanceof Error ? e.message : String(e) },
+      502,
+      { 'cache-control': 'no-store' }
+    );
+  }
 }

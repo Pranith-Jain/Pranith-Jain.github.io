@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../../lib/api-error';
 
 export const runRouter = new Hono<{ Bindings: Env }>();
 

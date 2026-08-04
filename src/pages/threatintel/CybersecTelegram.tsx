@@ -4,6 +4,7 @@ import { RefreshCw, Send } from 'lucide-react';
 import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { TelegramFeedPanel } from '../dfir/DarkWeb';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 interface TelegramAggItem {
   text: string;
@@ -97,6 +98,22 @@ export default function CybersecTelegram(): JSX.Element {
         </>
       }
     >
+      {/* Page-level AI summary across the visible Telegram messages.
+          Mirrors the XFirehose / RedditFirehose / CyberPulse pattern: a single
+          LLM pass over the top ~30 messages, cached per (surface, date) on
+          the edge. Public (requireAdmin={false}) so every visitor sees it. */}
+      {items.length > 0 && (
+        <AiSummaryCard
+          surface="Cybersec Telegram firehose"
+          items={items.slice(0, 30).map((it) => ({
+            title: it.channel_name ?? '(unnamed channel)',
+            body: it.text,
+            source: it.channel_name ?? '',
+          }))}
+          requireAdmin={false}
+        />
+      )}
+
       {/* Aggregate STIX 2.1 view across the visible Telegram messages.
           Telegram messages individually are too short to extract from; pooling
           the top ~40 captures the actors / malware / CVEs / IoCs of the day. */}
