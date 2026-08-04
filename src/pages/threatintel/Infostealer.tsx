@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { BookText, Bug, Copy, ExternalLink, KeyRound, Network, Radio, Send, ShoppingCart } from 'lucide-react';
 import { INFOSTEALER_FAMILIES } from '../../data/threatintel/infostealer-families';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
@@ -826,51 +827,64 @@ export default function Infostealer(): JSX.Element {
                   return <p className="font-mono text-meta text-slate-500">No articles in this category.</p>;
                 }
                 return (
-                  <ul className="grid gap-3 md:grid-cols-2">
-                    {filtered.map((a) => (
-                      <li key={a.link} className="surface-card p-3">
-                        <a
-                          href={sanitizeUrl(a.link)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline block mb-1 transition-colors"
-                        >
-                          {a.title}
-                        </a>
-                        {a.description && (
-                          <p className="font-mono text-mini text-muted line-clamp-2 mb-1">{a.description}</p>
-                        )}
-                        <div className="flex items-center gap-2 text-micro font-mono text-slate-500 dark:text-slate-400">
-                          <ExternalLink size={10} />
-                          <span
-                            className={`rounded border px-1 py-0.5 ${
-                              a.source === 'blog'
-                                ? 'border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                                : a.source === 'report'
-                                  ? 'border-violet-500/30 bg-violet-500/10 text-violet-600 dark:text-violet-400'
-                                  : a.source === 'technique'
-                                    ? 'border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400'
-                                    : 'border-slate-400/30 bg-slate-400/10 text-slate-500'
-                            }`}
+                  <>
+                    {/* AI summary of the visible infostealer articles. Public
+                        surface so every visitor sees the analyst take. */}
+                    <AiSummaryCard
+                      surface="Infostealer articles"
+                      items={filtered.slice(0, 30).map((a) => ({
+                        title: a.title,
+                        body: a.description,
+                        source: a.source,
+                      }))}
+                      requireAdmin={false}
+                    />
+                    <ul className="grid gap-3 md:grid-cols-2">
+                      {filtered.map((a) => (
+                        <li key={a.link} className="surface-card p-3">
+                          <a
+                            href={sanitizeUrl(a.link)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline block mb-1 transition-colors"
                           >
-                            {a.source === 'blog'
-                              ? 'Blog'
-                              : a.source === 'report'
-                                ? 'Report'
-                                : a.source === 'technique'
-                                  ? 'Technique'
-                                  : 'Article'}
-                          </span>
-                          {a.pubDate && (
-                            <>
-                              <span>·</span>
-                              <span>{a.pubDate}</span>
-                            </>
+                            {a.title}
+                          </a>
+                          {a.description && (
+                            <p className="font-mono text-mini text-muted line-clamp-2 mb-1">{a.description}</p>
                           )}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+                          <div className="flex items-center gap-2 text-micro font-mono text-slate-500 dark:text-slate-400">
+                            <ExternalLink size={10} />
+                            <span
+                              className={`rounded border px-1 py-0.5 ${
+                                a.source === 'blog'
+                                  ? 'border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                                  : a.source === 'report'
+                                    ? 'border-violet-500/30 bg-violet-500/10 text-violet-600 dark:text-violet-400'
+                                    : a.source === 'technique'
+                                      ? 'border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400'
+                                      : 'border-slate-400/30 bg-slate-400/10 text-slate-500'
+                              }`}
+                            >
+                              {a.source === 'blog'
+                                ? 'Blog'
+                                : a.source === 'report'
+                                  ? 'Report'
+                                  : a.source === 'technique'
+                                    ? 'Technique'
+                                    : 'Article'}
+                            </span>
+                            {a.pubDate && (
+                              <>
+                                <span>·</span>
+                                <span>{a.pubDate}</span>
+                              </>
+                            )}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
                 );
               })()}
             </>

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { Shield, Server, Search, Bug, Globe, Database, ExternalLink } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 interface AggregatedFeed {
   id: string;
@@ -160,6 +161,19 @@ export default function AggregatedFeeds() {
       emptyMessage="No feeds match the current filters."
       maxWidthClass="max-w-6xl"
     >
+      {/* AI summary across the visible aggregated IOC feeds. Public surface so
+          every visitor sees the landscape take. */}
+      {(filteredFeeds?.length ?? 0) > 0 && (
+        <AiSummaryCard
+          surface="Aggregated IOC feeds"
+          items={filteredFeeds!.slice(0, 30).map((f) => ({
+            title: f.name,
+            body: `${f.category} · ${f.description} · ${f.ioc_count ?? '?'} IOCs · ${f.sample_entries.slice(0, 5).join(', ')}`,
+            source: f.category,
+          }))}
+          requireAdmin={false}
+        />
+      )}
       <div className="grid gap-4">
         {filteredFeeds?.map((feed) => {
           const meta = (CATEGORY_META[feed.category] ?? CATEGORY_META.collected)!;

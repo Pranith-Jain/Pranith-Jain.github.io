@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 import { Globe, Loader2, Pause, Play, RefreshCw, X, Skull } from 'lucide-react';
 
@@ -335,6 +336,19 @@ export default function RansomwareMap({ embedded = false }: { embedded?: boolean
     >
       {data && (
         <>
+          {/* AI summary of the ransomware victim distribution by country.
+              Public surface so every visitor sees the landscape take. */}
+          {data.countries.length > 0 && (
+            <AiSummaryCard
+              surface="Ransomware victim map"
+              items={data.countries.slice(0, 30).map((c) => ({
+                title: c.country,
+                body: `${c.victim_count} victims · groups: ${c.groups.join(', ')} · top: ${c.top_victims.slice(0, 5).join(', ')}`,
+                source: c.country,
+              }))}
+              requireAdmin={false}
+            />
+          )}
           <header className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-muted mb-6">
             <span>
               <span

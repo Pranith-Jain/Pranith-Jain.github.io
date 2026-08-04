@@ -2,6 +2,7 @@ import { useState, useCallback, useRef } from 'react';
 import { BookOpen, Calendar, FileText, Globe, Loader2, Search, User, Hash } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 interface ThreatActor {
   main_name: string;
@@ -246,6 +247,17 @@ export default function Orkl(): JSX.Element {
           {/* Results list */}
           {results !== null && results.length > 0 && (
             <div className={`space-y-2 ${selected ? 'lg:col-span-1' : 'lg:col-span-3'}`}>
+              {/* AI summary of the visible ORKL search results. Public surface
+                  so every visitor sees the analyst take on the matched reports. */}
+              <AiSummaryCard
+                surface="ORKL threat-intel reports"
+                items={results.slice(0, 30).map((e) => ({
+                  title: e.llm_title || e.title || 'Untitled',
+                  body: `${e.authors ?? ''} · ${(e.threat_actors ?? []).map((ta) => ta.main_name).join(', ') || 'no actors'} · ${(e.report_names ?? []).join(', ') || 'no reports'}`,
+                  source: e.authors ?? 'ORKL',
+                }))}
+                requireAdmin={false}
+              />
               <div className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                 {results.length} result{results.length !== 1 ? 's' : ''}
               </div>
