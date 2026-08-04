@@ -1,0 +1,42 @@
+{
+  "id": "ai",
+  "title": "AI",
+  "description": "tor-only large language models and assistants",
+  "siteCount": 2,
+  "mirrorCount": 2,
+  "upCount": 0,
+  "sites": [
+    {
+      "slug": "dwd-b3bb-536",
+      "name": "Dig AI",
+      "dwdId": "DWD-B3BB-536",
+      "status": "down",
+      "upMirrors": 0,
+      "totalMirrors": 1,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id.onion",
+      "onion": "digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id",
+      "latencyMs": null,
+      "httpCode": "n/a",
+      "pageSize": "78kb",
+      "fingerprint": "66ADCF08"
+    },
+    {
+      "slug": "dwd-227e-207",
+      "name": "Water AI",
+      "dwdId": "DWD-227E-207",
+      "status": "down",
+      "upMirrors": 0,
+      "totalMirrors": 1,
+      "recommended": false,
+      "isOnion": true,
+      "url": "http://waterai3wed3yfynca342ixczmc5bnbspriwngon2gtgcglapyeovxad.onion",
+      "onion": "waterai3wed3yfynca342ixczmc5bnbspriwngon2gtgcglapyeovxad",
+      "latencyMs": null,
+      "httpCode": "n/a",
+      "pageSize": "115kb",
+      "fingerprint": "D03DE63B"
+    }
+  ]
+}

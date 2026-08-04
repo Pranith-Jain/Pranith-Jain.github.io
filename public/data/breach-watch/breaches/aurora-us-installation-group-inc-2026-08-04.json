@@ -1,0 +1,15 @@
+{
+  "slug": "aurora-us-installation-group-inc-2026-08-04",
+  "title": "US Installation Group, Inc.",
+  "group": "aurora",
+  "discovered": "2026-08-04T05:51:32.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Founded by Bruce DeLuca in Boca Raton, Florida, USIG operates through 15+ legal entities under MRS Holdings, performing over 100,000 installations annually across 33 markets in 14 states.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

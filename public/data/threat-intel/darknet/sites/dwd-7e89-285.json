@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-7e89-285",
+  "name": "Anonymity Papers",
+  "dwdId": "DWD-7E89-285",
+  "category": "security",
+  "url": "http://7fa6xlti5joarlmkuhjaifa47ukgcwz6tfndgax45ocyn4rixm632jid.onion/anonbib/index.html",
+  "onion": "7fa6xlti5joarlmkuhjaifa47ukgcwz6tfndgax45ocyn4rixm632jid.onion/anonbib/index.html",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "83kb",
+  "fingerprint": "8C00CB6C",
+  "recommended": false,
+  "isOnion": true
+}

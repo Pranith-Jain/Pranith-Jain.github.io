@@ -2,7 +2,6 @@ import type { Context } from 'hono';
 import type { ContentfulStatusCode } from 'hono/utils/http-status';
 import type { Env } from '../env';
 import { badRequest, notFound, internalError, badGateway } from '../lib/api-error';
-import { badRequest, notFound, internalError, badGateway } from '../lib/api-error';
 
 const WEBAMON_SEARCH = 'https://search.webamon.com';
 const TIMEOUT = 20_000;

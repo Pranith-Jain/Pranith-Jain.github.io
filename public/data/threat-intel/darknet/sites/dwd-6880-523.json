@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-6880-523",
+  "name": "NY Times",
+  "dwdId": "DWD-6880-523",
+  "category": "news",
+  "url": "http://www.nytimesn7cgmftshazwhfgzm37qxb44r64ytbb2dj3x62d2lljsciiyd.onion/",
+  "onion": "www.nytimesn7cgmftshazwhfgzm37qxb44r64ytbb2dj3x62d2lljsciiyd.onion/",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "59kb",
+  "fingerprint": "B1F9E445",
+  "recommended": false,
+  "isOnion": true
+}

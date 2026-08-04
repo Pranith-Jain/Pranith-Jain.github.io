@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-25f2-286",
+  "name": "RiseUp",
+  "dwdId": "DWD-25F2-286",
+  "category": "communications",
+  "url": "http://vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion/about-us/index.en.html",
+  "onion": "vww6ybal4bd7szmgncyruucpgfkqahzddi37ktceo3ah7ngmcopnpyyd.onion/about-us/index.en.html",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "12kb",
+  "fingerprint": "330ECEF1",
+  "recommended": false,
+  "isOnion": true
+}

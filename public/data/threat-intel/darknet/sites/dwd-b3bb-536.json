@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-b3bb-536",
+  "name": "Dig AI",
+  "dwdId": "DWD-B3BB-536",
+  "category": "ai",
+  "url": "http://digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id.onion",
+  "onion": "digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "78kb",
+  "fingerprint": "66ADCF08",
+  "recommended": false,
+  "isOnion": true
+}

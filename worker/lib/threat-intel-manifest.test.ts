@@ -21,12 +21,19 @@ import {
   tiCacheStats,
   _resetTiCacheForTests,
   severityFromScore,
+  loadDarknetIndex,
+  getDarknetSite,
+  getDarknetCategory,
+  filterDarknetSites,
   type TiIndex,
   type TiCveBody,
   type TiIocBody,
   type TiSectorBody,
   type TiKevEntry,
   type TiDetectionListBody,
+  type TiDarknetIndex,
+  type TiDarknetSiteBody,
+  type TiDarknetCategoryBody,
 } from './threat-intel-manifest';
 
 function makeAssetsFixture() {
@@ -179,6 +186,87 @@ function makeAssetsFixture() {
     },
   ];
   data.set('/data/threat-intel/cves/kev.json', kev);
+
+  // ─── Darknet directory fixture (darknetlist.is) ───────────────────
+  const darknetIdx: TiDarknetIndex = {
+    source: 'darknetlist.is',
+    url: 'https://darknetlist.is/',
+    description: 'A free directory of Tor-accessible sites.',
+    rebuiltAt: '2026-08-04T11:25:06Z',
+    syncedAt: '2026-08-04T12:00:00Z',
+    counts: { categories: 2, sites: 3, up: 2, down: 1, recommended: 1, onion: 3 },
+    categories: [
+      {
+        id: 'markets',
+        title: 'MARKETS',
+        description: 'active market venues and their mirrors',
+        siteCount: 2,
+        mirrorCount: 2,
+        upCount: 1,
+      },
+      {
+        id: 'forums',
+        title: 'FORUMS',
+        description: 'discussion and community hubs',
+        siteCount: 1,
+        mirrorCount: 1,
+        upCount: 1,
+      },
+    ],
+    sites: [
+      {
+        slug: 'dwd-3c9c-715',
+        name: 'Allure',
+        dwdId: 'DWD-3C9C-715',
+        category: 'markets',
+        status: 'up',
+        upMirrors: 1,
+        totalMirrors: 1,
+        recommended: false,
+        isOnion: true,
+      },
+      {
+        slug: 'dwd-3e7a-775',
+        name: 'Dark Matter',
+        dwdId: 'DWD-3E7A-775',
+        category: 'markets',
+        status: 'down',
+        upMirrors: 0,
+        totalMirrors: 3,
+        recommended: true,
+        isOnion: true,
+      },
+      {
+        slug: 'dwd-2e2e-079',
+        name: 'Ark Forum',
+        dwdId: 'DWD-2E2E-079',
+        category: 'forums',
+        status: 'up',
+        upMirrors: 1,
+        totalMirrors: 1,
+        recommended: false,
+        isOnion: true,
+      },
+    ],
+  };
+  data.set('/data/threat-intel/darknet/index.json', darknetIdx);
+
+  const darknetSite: TiDarknetSiteBody = {
+    ...darknetIdx.sites[0]!,
+    url: 'http://c5lpbpiufttwjm4daqb6kiyaspwbyedgnshhayhomksf65ebp2ckaeqd.onion',
+    onion: 'c5lpbpiufttwjm4daqb6kiyaspwbyedgnshhayhomksf65ebp2ckaeqd',
+    latencyMs: 2158,
+    httpCode: '200',
+    pageSize: '77kb',
+    fingerprint: '4BAFDC5B',
+  };
+  data.set('/data/threat-intel/darknet/sites/dwd-3c9c-715.json', darknetSite);
+
+  const darknetCategory: TiDarknetCategoryBody = {
+    ...darknetIdx.categories[0]!,
+    sites: [darknetSite],
+  };
+  data.set('/data/threat-intel/darknet/categories/markets.json', darknetCategory);
 
   const assets = {
     fetch: vi.fn(async (req: Request) => {
@@ -528,5 +616,142 @@ describe('tiCacheStats', () => {
     const s = tiCacheStats();
     expect(s.kevLoaded).toBe(true);
     expect(s.kevAgeMs).toBeGreaterThanOrEqual(0);
+  });
+});
+
+describe('loadDarknetIndex', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('fetches and caches the darknet index', async () => {
+    const { assets } = makeAssetsFixture();
+    const a = await loadDarknetIndex(assets);
+    const b = await loadDarknetIndex(assets);
+    expect(a).toBe(b);
+    expect(a.source).toBe('darknetlist.is');
+    expect(a.counts.sites).toBe(3);
+    expect(a.counts.categories).toBe(2);
+    expect((assets.fetch as unknown as { mock: { calls: unknown[] } }).mock.calls.length).toBe(1);
+  });
+
+  it('throws when the darknet index is missing', async () => {
+    const assets = { fetch: vi.fn(async () => new Response('not found', { status: 404 })) } as unknown as Fetcher;
+    await expect(loadDarknetIndex(assets)).rejects.toThrow(/Darknet directory manifest not found/);
+  });
+});
+
+describe('getDarknetSite', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('returns a site body for a known slug', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getDarknetSite(assets, 'dwd-3c9c-715');
+    expect(body).not.toBeNull();
+    expect(body!.name).toBe('Allure');
+    expect(body!.url).toContain('.onion');
+    expect(body!.httpCode).toBe('200');
+    expect(body!.fingerprint).toBe('4BAFDC5B');
+  });
+
+  it('returns null for an unknown slug', async () => {
+    const { assets } = makeAssetsFixture();
+    expect(await getDarknetSite(assets, 'nope')).toBeNull();
+  });
+
+  it('caches site bodies on subsequent calls', async () => {
+    const { assets } = makeAssetsFixture();
+    await getDarknetSite(assets, 'dwd-3c9c-715');
+    await getDarknetSite(assets, 'dwd-3c9c-715');
+    const stats = tiCacheStats();
+    expect(stats.darknet.sites.size).toBe(1);
+    expect(stats.darknet.sites.hits).toBe(1);
+    expect(stats.darknet.sites.misses).toBe(1);
+  });
+});
+
+describe('getDarknetCategory', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('returns a category body with sites for a known category', async () => {
+    const { assets } = makeAssetsFixture();
+    const body = await getDarknetCategory(assets, 'markets');
+    expect(body).not.toBeNull();
+    expect(body!.title).toBe('MARKETS');
+    expect(body!.sites).toHaveLength(1);
+    expect(body!.sites[0]!.name).toBe('Allure');
+  });
+
+  it('returns null for an unknown category', async () => {
+    const { assets } = makeAssetsFixture();
+    expect(await getDarknetCategory(assets, 'nope')).toBeNull();
+  });
+});
+
+describe('filterDarknetSites', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('returns all sites with no filters', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDarknetIndex(assets);
+    expect(filterDarknetSites(idx)).toHaveLength(3);
+  });
+
+  it('filters by category', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDarknetIndex(assets);
+    expect(filterDarknetSites(idx, { category: 'markets' })).toHaveLength(2);
+    expect(filterDarknetSites(idx, { category: 'forums' })).toHaveLength(1);
+    expect(filterDarknetSites(idx, { category: 'news' })).toHaveLength(0);
+  });
+
+  it('filters by status', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDarknetIndex(assets);
+    expect(filterDarknetSites(idx, { status: 'up' })).toHaveLength(2);
+    expect(filterDarknetSites(idx, { status: 'down' })).toHaveLength(1);
+  });
+
+  it('filters by recommendedOnly', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDarknetIndex(assets);
+    expect(filterDarknetSites(idx, { recommendedOnly: true })).toHaveLength(1);
+    expect(filterDarknetSites(idx, { recommendedOnly: true })[0]!.name).toBe('Dark Matter');
+  });
+
+  it('filters by keyword across name/dwdId/category', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDarknetIndex(assets);
+    expect(filterDarknetSites(idx, { keyword: 'allure' })).toHaveLength(1);
+    expect(filterDarknetSites(idx, { keyword: 'dwd-3e7a' })).toHaveLength(1);
+    expect(filterDarknetSites(idx, { keyword: 'forums' })).toHaveLength(1);
+    expect(filterDarknetSites(idx, { keyword: 'nonexistent' })).toHaveLength(0);
+  });
+
+  it('respects limit', async () => {
+    const { assets } = makeAssetsFixture();
+    const idx = await loadDarknetIndex(assets);
+    expect(filterDarknetSites(idx, { limit: 2 })).toHaveLength(2);
+    expect(filterDarknetSites(idx, { limit: 1 })).toHaveLength(1);
+  });
+});
+
+describe('tiCacheStats (darknet)', () => {
+  beforeEach(() => _resetTiCacheForTests());
+
+  it('reports darknet index loaded after loadDarknetIndex', async () => {
+    const { assets } = makeAssetsFixture();
+    await loadDarknetIndex(assets);
+    const s = tiCacheStats();
+    expect(s.darknet.indexLoaded).toBe(true);
+    expect(s.darknet.indexAgeMs).toBeGreaterThanOrEqual(0);
+  });
+
+  it('reports darknet site cache hits/misses', async () => {
+    const { assets } = makeAssetsFixture();
+    await getDarknetSite(assets, 'dwd-3c9c-715');
+    await getDarknetSite(assets, 'dwd-3c9c-715');
+    const s = tiCacheStats();
+    expect(s.darknet.sites.size).toBe(1);
+    expect(s.darknet.sites.hits).toBe(1);
+    expect(s.darknet.sites.misses).toBe(1);
   });
 });

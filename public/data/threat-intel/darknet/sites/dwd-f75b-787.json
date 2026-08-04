@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-f75b-787",
+  "name": "TorBox",
+  "dwdId": "DWD-F75B-787",
+  "category": "communications",
+  "url": "http://torbox36ijlcevujx7mjb4oiusvwgvmue7jfn2cvutwa6kl6to3uyqad.onion/",
+  "onion": "torbox36ijlcevujx7mjb4oiusvwgvmue7jfn2cvutwa6kl6to3uyqad.onion/",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "149kb",
+  "fingerprint": "D746EB06",
+  "recommended": false,
+  "isOnion": true
+}

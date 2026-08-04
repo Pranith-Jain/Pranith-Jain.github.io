@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-09ef-018",
+  "name": "Insurgeon's Blog",
+  "dwdId": "DWD-09EF-018",
+  "category": "news",
+  "url": "http://z7735okcy6gggduobp6vjfcgwz4ss5eeduww7iw2agjmfgpjlnquezqd.onion/",
+  "onion": "z7735okcy6gggduobp6vjfcgwz4ss5eeduww7iw2agjmfgpjlnquezqd.onion/",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "22kb",
+  "fingerprint": "F0B83208",
+  "recommended": false,
+  "isOnion": true
+}

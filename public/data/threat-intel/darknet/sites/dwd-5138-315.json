@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-5138-315",
+  "name": "FairTrade",
+  "dwdId": "DWD-5138-315",
+  "category": "crypto",
+  "url": "http://fairfffoxrgxgi6tkcaxhxre2hpwiuf6autt75ianjkvmcn65dxxydad.onion",
+  "onion": "fairfffoxrgxgi6tkcaxhxre2hpwiuf6autt75ianjkvmcn65dxxydad",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "79kb",
+  "fingerprint": "48A674E3",
+  "recommended": false,
+  "isOnion": true
+}

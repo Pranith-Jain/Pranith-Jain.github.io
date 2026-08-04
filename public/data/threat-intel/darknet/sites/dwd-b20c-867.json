@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-b20c-867",
+  "name": "Null World",
+  "dwdId": "DWD-B20C-867",
+  "category": "security",
+  "url": "http://oqampqzctgkbq2yizpqdxlywidwgplilk3ccbhcxqm7gf6erafpkpjad.onion",
+  "onion": "oqampqzctgkbq2yizpqdxlywidwgplilk3ccbhcxqm7gf6erafpkpjad",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "51kb",
+  "fingerprint": "C90A19E1",
+  "recommended": false,
+  "isOnion": true
+}

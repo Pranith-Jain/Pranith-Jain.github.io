@@ -1,0 +1,15 @@
+{
+  "slug": "anubis-cameron-regional-medical-center-2026-08-03",
+  "title": "Cameron Regional Medical Center",
+  "group": "anubis",
+  "discovered": "2026-08-03T18:21:07.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Patient and employee data breach at a healthcare provider.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

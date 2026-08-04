@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-db3f-377",
+  "name": "StartPage",
+  "dwdId": "DWD-DB3F-377",
+  "category": "search",
+  "url": "http://startpagel6srwcjlue4zgq3zevrujfaow726kjytqbbjyrswwmjzcqd.onion/",
+  "onion": "startpagel6srwcjlue4zgq3zevrujfaow726kjytqbbjyrswwmjzcqd.onion/",
+  "status": "up",
+  "upMirrors": 1,
+  "totalMirrors": 1,
+  "latencyMs": 1139,
+  "httpCode": "200",
+  "pageSize": "115kb",
+  "fingerprint": "77CDE5C3",
+  "recommended": false,
+  "isOnion": true
+}

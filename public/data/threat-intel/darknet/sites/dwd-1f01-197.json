@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-1f01-197",
+  "name": "Endchan",
+  "dwdId": "DWD-1F01-197",
+  "category": "forums",
+  "url": "http://enxx3byspwsdo446jujc52ucy2pf5urdbhqw3kbsfhlfjwmbpj5smdad.onion/",
+  "onion": "enxx3byspwsdo446jujc52ucy2pf5urdbhqw3kbsfhlfjwmbpj5smdad.onion/",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "190kb",
+  "fingerprint": "24E9DF88",
+  "recommended": false,
+  "isOnion": true
+}

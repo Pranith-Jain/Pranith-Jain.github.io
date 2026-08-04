@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-6c9b-192",
+  "name": "Catharsis",
+  "dwdId": "DWD-6C9B-192",
+  "category": "markets",
+  "url": "http://catharibrmbuat2is36fef24gqf3rzcmkdy6llybjyxzrqthzx7o3oyd.onion",
+  "onion": "catharibrmbuat2is36fef24gqf3rzcmkdy6llybjyxzrqthzx7o3oyd",
+  "status": "up",
+  "upMirrors": 1,
+  "totalMirrors": 1,
+  "latencyMs": 1342,
+  "httpCode": "200",
+  "pageSize": "87kb",
+  "fingerprint": "A799C570",
+  "recommended": false,
+  "isOnion": true
+}

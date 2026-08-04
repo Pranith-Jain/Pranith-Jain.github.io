@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-4732-377",
+  "name": "TorChat",
+  "dwdId": "DWD-4732-377",
+  "category": "forums",
+  "url": "http://torchatquqvgnhnkbwumyfzbkmgzsediphahyhce7j6drixbmguhthid.onion",
+  "onion": "torchatquqvgnhnkbwumyfzbkmgzsediphahyhce7j6drixbmguhthid",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "119kb",
+  "fingerprint": "083418E0",
+  "recommended": false,
+  "isOnion": true
+}

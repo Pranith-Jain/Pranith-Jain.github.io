@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-f9ae-145",
+  "name": "DarkDotWeb",
+  "dwdId": "DWD-F9AE-145",
+  "category": "news",
+  "url": "http://dacfvdnmq74nony36wvm7iofmj4jedbhexfsclmrzajn5guuqafibbqd.onion",
+  "onion": "dacfvdnmq74nony36wvm7iofmj4jedbhexfsclmrzajn5guuqafibbqd",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "20kb",
+  "fingerprint": "86DF1FFB",
+  "recommended": true,
+  "isOnion": true
+}

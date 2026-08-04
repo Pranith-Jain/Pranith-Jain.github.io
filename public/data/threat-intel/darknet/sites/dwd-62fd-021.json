@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-62fd-021",
+  "name": "The OpSec Manual (by Mikoyan Gurevich)",
+  "dwdId": "DWD-62FD-021",
+  "category": "security",
+  "url": "http://jqibjqqagao3peozxfs53tr6aecoyvctumfsc2xqniu4xgcrksal2iqd.onion/",
+  "onion": "jqibjqqagao3peozxfs53tr6aecoyvctumfsc2xqniu4xgcrksal2iqd.onion/",
+  "status": "up",
+  "upMirrors": 1,
+  "totalMirrors": 1,
+  "latencyMs": 526,
+  "httpCode": "200",
+  "pageSize": "106kb",
+  "fingerprint": "15093D7E",
+  "recommended": false,
+  "isOnion": true
+}

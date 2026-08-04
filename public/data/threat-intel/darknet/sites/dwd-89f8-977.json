@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-89f8-977",
+  "name": "Market of Eden",
+  "dwdId": "DWD-89F8-977",
+  "category": "markets",
+  "url": "http://eden666otrbusyiopuvynvvdbzay2pqgsru6fymjlnukmizum4hewwad.onion",
+  "onion": "eden666otrbusyiopuvynvvdbzay2pqgsru6fymjlnukmizum4hewwad",
+  "status": "up",
+  "upMirrors": 1,
+  "totalMirrors": 1,
+  "latencyMs": 688,
+  "httpCode": "200",
+  "pageSize": "163kb",
+  "fingerprint": "29BE5716",
+  "recommended": false,
+  "isOnion": true
+}

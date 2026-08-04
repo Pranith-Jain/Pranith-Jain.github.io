@@ -29,6 +29,10 @@ import {
   filterLists,
   searchListEntries,
   tiCacheStats,
+  loadDarknetIndex,
+  getDarknetSite,
+  getDarknetCategory,
+  filterDarknetSites,
   type TiSeverity,
   type TiIocIndexEntry,
 } from './lib/threat-intel-manifest';
@@ -2565,6 +2569,94 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
             returned: entries.length,
             entries,
           });
+        }
+      );
+
+      // ── Threat Intel — Darknet directory (darknetlist.is) ──────────
+      // A Tor site directory replicated from darknetlist.is. 108 sites
+      // across 9 categories, each with live up/down status, onion URLs,
+      // response codes, and fingerprints. Data ships in
+      // public/data/threat-intel/darknet/.
+
+      this.tools(
+        'ti_list_darknet',
+        'List Tor-accessible sites from the darknetlist.is directory (markets, forums, news, security, comms, crypto, tools, AI). Each site has live up/down status, onion URL, response code, and fingerprint. Filter by category, status, recommended, or keyword.',
+        {
+          category: z
+            .string()
+            .optional()
+            .describe('Filter by category: markets, search, forums, news, security, communications, crypto, tools, ai'),
+          status: z
+            .enum(['up', 'down'])
+            .optional()
+            .describe('Filter by live status (up = responding, down = unreachable)'),
+          recommended: z.boolean().optional().describe('Only return sites marked as recommended by darknetlist.is'),
+          onionOnly: z.boolean().optional().describe('Only return .onion sites (exclude clearnet mirrors)'),
+          keyword: z
+            .string()
+            .optional()
+            .describe('Case-insensitive substring match against site name / DWD ID / category'),
+          limit: z.number().int().min(1).max(500).optional().describe('Max sites to return (default 200)'),
+        },
+        async ({ category, status, recommended, onionOnly, keyword, limit }) => {
+          const idx = await loadDarknetIndex(ASSETS);
+          const sites = filterDarknetSites(idx, {
+            category,
+            status,
+            recommendedOnly: recommended,
+            onionOnly,
+            keyword,
+            limit: limit ?? 200,
+          });
+          return untrustedToolResult({
+            source: idx.source,
+            rebuiltAt: idx.rebuiltAt,
+            counts: idx.counts,
+            returned: sites.length,
+            sites,
+          });
+        }
+      );
+
+      this.tools(
+        'ti_get_darknet_site',
+        'Return the full site body from the darknetlist.is directory: name, DWD ID, category, onion URL, clearnet URL (if any), live status, mirror counts, latency, HTTP code, page size, and fingerprint. Use ti_list_darknet first to discover site slugs (DWD IDs).',
+        {
+          slug: z
+            .string()
+            .describe('Site slug (DWD ID lowercased, e.g. "dwd-3c9c-715"). Get these from ti_list_darknet.'),
+        },
+        async ({ slug }) => {
+          const body = await getDarknetSite(ASSETS, slug);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'darknet_site_not_found',
+              slug,
+              hint: 'Call ti_list_darknet to see available site slugs.',
+            });
+          }
+          return untrustedToolResult(body);
+        }
+      );
+
+      this.tools(
+        'ti_get_darknet_category',
+        'Return all sites in a darknetlist.is category (markets, search, forums, news, security, communications, crypto, tools, ai) with full details: onion URLs, status, latency, HTTP codes, fingerprints.',
+        {
+          category: z
+            .string()
+            .describe('Category ID: markets, search, forums, news, security, communications, crypto, tools, ai'),
+        },
+        async ({ category }) => {
+          const body = await getDarknetCategory(ASSETS, category);
+          if (!body) {
+            return untrustedToolResult({
+              error: 'darknet_category_not_found',
+              category,
+              hint: 'Valid categories: markets, search, forums, news, security, communications, crypto, tools, ai.',
+            });
+          }
+          return untrustedToolResult(body);
         }
       );
 

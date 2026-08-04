@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-f0ba-554",
+  "name": "SuprBay",
+  "dwdId": "DWD-F0BA-554",
+  "category": "forums",
+  "url": "http://suprbaydvdcaynfo4dgdzgxb4zuso7rftlil5yg5kqjefnw4wq4ulcad.onion",
+  "onion": "suprbaydvdcaynfo4dgdzgxb4zuso7rftlil5yg5kqjefnw4wq4ulcad",
+  "status": "up",
+  "upMirrors": 1,
+  "totalMirrors": 1,
+  "latencyMs": 2136,
+  "httpCode": "200",
+  "pageSize": "191kb",
+  "fingerprint": "22E2AD29",
+  "recommended": false,
+  "isOnion": true
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-21fb-838",
+  "name": "Wasabi Wallet",
+  "dwdId": "DWD-21FB-838",
+  "category": "crypto",
+  "url": "http://wasabiukrxmkdgve5kynjztuovbg43uxcbcxn6y2okcrsg7gb6jdmbad.onion/",
+  "onion": "wasabiukrxmkdgve5kynjztuovbg43uxcbcxn6y2okcrsg7gb6jdmbad.onion/",
+  "status": "up",
+  "upMirrors": 1,
+  "totalMirrors": 1,
+  "latencyMs": 1071,
+  "httpCode": "200",
+  "pageSize": "77kb",
+  "fingerprint": "FDA11FC9",
+  "recommended": false,
+  "isOnion": true
+}

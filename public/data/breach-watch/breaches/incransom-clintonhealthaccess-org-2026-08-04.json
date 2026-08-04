@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-clintonhealthaccess-org-2026-08-04",
+  "title": "clintonhealthaccess.org",
+  "group": "incransom",
+  "discovered": "2026-08-04T02:24:44.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "This Clinton foundation sponsors the sterilization of women in Africa and South America.\r With the help of this foundation, organs harvested criminally by transplant surgeons from people in Third World countries are legalized to improve the quality of life of the rich in capitalist countries, including the United States.\r We have irrefutable evidence of their secret accounts, including transactions in cryptocurrency, from which transplanted organs were purchased to replace Bill Clinton's wife, Hillary Clinton.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

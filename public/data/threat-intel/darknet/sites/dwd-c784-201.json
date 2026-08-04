@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-c784-201",
+  "name": "Query",
+  "dwdId": "DWD-C784-201",
+  "category": "forums",
+  "url": "http://ruc4i7xn5qu5uc7fu2sc34r6xl55xhgvxbcs56t4ayvbqo2fmp4pehqd.onion/",
+  "onion": "ruc4i7xn5qu5uc7fu2sc34r6xl55xhgvxbcs56t4ayvbqo2fmp4pehqd.onion/",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "125kb",
+  "fingerprint": "9AC5AA51",
+  "recommended": false,
+  "isOnion": true
+}

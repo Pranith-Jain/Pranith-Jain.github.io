@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-9880-545",
+  "name": "Dutch National Police",
+  "dwdId": "DWD-9880-545",
+  "category": "news",
+  "url": "http://tcecdnp2fhyxlcrjoyc2eimdjosr65hweut6y7r2u6b5y75yuvbkvfyd.onion/",
+  "onion": "tcecdnp2fhyxlcrjoyc2eimdjosr65hweut6y7r2u6b5y75yuvbkvfyd.onion/",
+  "status": "up",
+  "upMirrors": 1,
+  "totalMirrors": 1,
+  "latencyMs": 1161,
+  "httpCode": "200",
+  "pageSize": "158kb",
+  "fingerprint": "5484A6BE",
+  "recommended": false,
+  "isOnion": true
+}

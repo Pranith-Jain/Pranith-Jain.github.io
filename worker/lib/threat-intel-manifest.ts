@@ -112,6 +112,63 @@ export interface TiDetectionListBody extends TiDetectionListIndexEntry {
   entries: TiDetectionListEntry[];
 }
 
+// ─── Darknet directory (darknetlist.is) ─────────────────────────────────
+
+export type TiDarknetCategory =
+  'markets' | 'search' | 'forums' | 'news' | 'security' | 'communications' | 'crypto' | 'tools' | 'ai';
+
+export interface TiDarknetSiteIndexEntry {
+  slug: string;
+  name: string;
+  dwdId: string | null;
+  category: string;
+  status: 'up' | 'down' | 'unknown';
+  upMirrors: number;
+  totalMirrors: number;
+  recommended: boolean;
+  isOnion: boolean;
+}
+
+export interface TiDarknetSiteBody extends TiDarknetSiteIndexEntry {
+  url: string | null;
+  onion: string | null;
+  latencyMs: number | null;
+  httpCode: string | null;
+  pageSize: string | null;
+  fingerprint: string | null;
+}
+
+export interface TiDarknetCategoryIndexEntry {
+  id: string;
+  title: string;
+  description: string;
+  siteCount: number;
+  mirrorCount: number;
+  upCount: number;
+}
+
+export interface TiDarknetCategoryBody extends TiDarknetCategoryIndexEntry {
+  sites: TiDarknetSiteBody[];
+}
+
+export interface TiDarknetIndex {
+  source: string;
+  url: string;
+  description: string;
+  rebuiltAt: string;
+  syncedAt: string;
+  counts: {
+    categories: number;
+    sites: number;
+    up: number;
+    down: number;
+    recommended: number;
+    onion: number;
+  };
+  categories: TiDarknetCategoryIndexEntry[];
+  sites: TiDarknetSiteIndexEntry[];
+}
+
 export interface TiIndex {
   source: string;
   license: string;
@@ -122,6 +179,7 @@ export interface TiIndex {
   iocIndex: TiIocIndexEntry[];
   listsIndex: TiDetectionListIndexEntry[];
   sectors: TiSectorEntry[];
+  darknet?: TiDarknetIndex;
 }
 
 export interface TiCveBody extends TiCveIndexEntry {
@@ -165,6 +223,8 @@ const cveBodyCache: BodyCache<TiCveBody> = { map: new Map(), hits: 0, misses: 0 
 const iocBodyCache: BodyCache<TiIocBody> = { map: new Map(), hits: 0, misses: 0 };
 const sectorBodyCache: BodyCache<TiSectorBody> = { map: new Map(), hits: 0, misses: 0 };
 const listBodyCache: BodyCache<TiDetectionListBody> = { map: new Map(), hits: 0, misses: 0 };
+const darknetSiteCache: BodyCache<TiDarknetSiteBody> = { map: new Map(), hits: 0, misses: 0 };
+const darknetCategoryCache: BodyCache<TiDarknetCategoryBody> = { map: new Map(), hits: 0, misses: 0 };
 let cachedIndex: TiIndex | null = null;
 let cachedIndexAt: number | null = null;
 let cachedKev: TiKevEntry[] | null = null;
@@ -251,6 +311,55 @@ export async function getTiList(assets: Fetcher, slug: string): Promise<TiDetect
   const body = await fetchJson<TiDetectionListBody>(assets, `${DATA_PREFIX}/lists/${safeFilename(key)}.json`);
   if (!body) return null;
   return recordHit(listBodyCache, key, body);
+}
+
+// ─── Darknet directory (darknetlist.is) ───────────────────────────────
+//
+// The darknet directory is a separate manifest tree under
+// /data/threat-intel/darknet/. It has its own index + per-category and
+// per-site bodies. We load the darknet index lazily (separate from the
+// main TiIndex) because it changes every 30 minutes upstream and is
+// fetched on a different sync cadence.
+
+let cachedDarknetIndex: TiDarknetIndex | null = null;
+let cachedDarknetIndexAt: number | null = null;
+
+export async function loadDarknetIndex(
+  assets: Fetcher,
+  opts: { forceRefresh?: boolean } = {}
+): Promise<TiDarknetIndex> {
+  if (cachedDarknetIndex && !opts.forceRefresh) return cachedDarknetIndex;
+  const idx = await fetchJson<TiDarknetIndex>(assets, `${DATA_PREFIX}/darknet/index.json`);
+  if (!idx) {
+    throw new Error(
+      `Darknet directory manifest not found at ${DATA_PREFIX}/darknet/index.json — ` +
+        'did the build run? Run `node scripts/sync-darknetlist.mjs && node scripts/build-darknetlist.mjs`.'
+    );
+  }
+  cachedDarknetIndex = idx;
+  cachedDarknetIndexAt = Date.now();
+  return idx;
+}
+
+export async function getDarknetSite(assets: Fetcher, slug: string): Promise<TiDarknetSiteBody | null> {
+  const key = slug.toLowerCase();
+  const hit = trackHit(darknetSiteCache, key);
+  if (hit) return hit;
+  const body = await fetchJson<TiDarknetSiteBody>(assets, `${DATA_PREFIX}/darknet/sites/${safeFilename(key)}.json`);
+  if (!body) return null;
+  return recordHit(darknetSiteCache, key, body);
+}
+
+export async function getDarknetCategory(assets: Fetcher, category: string): Promise<TiDarknetCategoryBody | null> {
+  const key = category.toLowerCase();
+  const hit = trackHit(darknetCategoryCache, key);
+  if (hit) return hit;
+  const body = await fetchJson<TiDarknetCategoryBody>(
+    assets,
+    `${DATA_PREFIX}/darknet/categories/${safeFilename(key)}.json`
+  );
+  if (!body) return null;
+  return recordHit(darknetCategoryCache, key, body);
 }
 
 export async function loadKevSnapshot(assets: Fetcher, opts: { forceRefresh?: boolean } = {}): Promise<TiKevEntry[]> {
@@ -386,6 +495,36 @@ export function searchListEntries(
   return out;
 }
 
+// ─── Darknet directory filter helpers ─────────────────────────────────
+
+export interface TiListDarknetOptions {
+  category?: string;
+  status?: 'up' | 'down';
+  recommendedOnly?: boolean;
+  onionOnly?: boolean;
+  keyword?: string;
+  limit?: number;
+}
+
+export function filterDarknetSites(idx: TiDarknetIndex, opts: TiListDarknetOptions = {}): TiDarknetSiteIndexEntry[] {
+  const { category, status, recommendedOnly, onionOnly, keyword, limit = 200 } = opts;
+  const needle = keyword?.toLowerCase();
+  const out: TiDarknetSiteIndexEntry[] = [];
+  for (const s of idx.sites) {
+    if (category && s.category !== category) continue;
+    if (status && s.status !== status) continue;
+    if (recommendedOnly && !s.recommended) continue;
+    if (onionOnly && !s.isOnion) continue;
+    if (needle) {
+      const hay = `${s.name} ${s.dwdId ?? ''} ${s.category}`.toLowerCase();
+      if (!hay.includes(needle)) continue;
+    }
+    out.push(s);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
 // ─── Priority scoring ───────────────────────────────────────────────────
 
 /**
@@ -439,6 +578,12 @@ export function tiCacheStats(): {
   iocs: { size: number; hits: number; misses: number };
   sectors: { size: number; hits: number; misses: number };
   lists: { size: number; hits: number; misses: number };
+  darknet: {
+    indexLoaded: boolean;
+    indexAgeMs: number | null;
+    sites: { size: number; hits: number; misses: number };
+    categories: { size: number; hits: number; misses: number };
+  };
 } {
   return {
     indexLoaded: cachedIndex !== null,
@@ -449,6 +594,16 @@ export function tiCacheStats(): {
     iocs: { size: iocBodyCache.map.size, hits: iocBodyCache.hits, misses: iocBodyCache.misses },
     sectors: { size: sectorBodyCache.map.size, hits: sectorBodyCache.hits, misses: sectorBodyCache.misses },
     lists: { size: listBodyCache.map.size, hits: listBodyCache.hits, misses: listBodyCache.misses },
+    darknet: {
+      indexLoaded: cachedDarknetIndex !== null,
+      indexAgeMs: cachedDarknetIndexAt ? Date.now() - cachedDarknetIndexAt : null,
+      sites: { size: darknetSiteCache.map.size, hits: darknetSiteCache.hits, misses: darknetSiteCache.misses },
+      categories: {
+        size: darknetCategoryCache.map.size,
+        hits: darknetCategoryCache.hits,
+        misses: darknetCategoryCache.misses,
+      },
+    },
   };
 }
 
@@ -457,14 +612,20 @@ export function _resetTiCacheForTests(): void {
   iocBodyCache.map.clear();
   sectorBodyCache.map.clear();
   listBodyCache.map.clear();
+  darknetSiteCache.map.clear();
+  darknetCategoryCache.map.clear();
   cveBodyCache.hits = cveBodyCache.misses = 0;
   iocBodyCache.hits = iocBodyCache.misses = 0;
   sectorBodyCache.hits = sectorBodyCache.misses = 0;
   listBodyCache.hits = listBodyCache.misses = 0;
+  darknetSiteCache.hits = darknetSiteCache.misses = 0;
+  darknetCategoryCache.hits = darknetCategoryCache.misses = 0;
   cachedIndex = null;
   cachedIndexAt = null;
   cachedKev = null;
   cachedKevAt = null;
+  cachedDarknetIndex = null;
+  cachedDarknetIndexAt = null;
 }
 
 export { severityFromScore };

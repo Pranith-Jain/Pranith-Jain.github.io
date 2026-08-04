@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-0c13-728",
+  "name": "TorZon",
+  "dwdId": "DWD-0C13-728",
+  "category": "markets",
+  "url": "http://trzm.cc",
+  "onion": "trzm.cc",
+  "status": "up",
+  "upMirrors": 7,
+  "totalMirrors": 12,
+  "latencyMs": null,
+  "httpCode": "200",
+  "pageSize": "46kb",
+  "fingerprint": "F8B083B6",
+  "recommended": false,
+  "isOnion": false
+}

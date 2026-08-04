@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-wd-masonry-concrete-2026-08-04",
+  "title": "WD Masonry & Concrete",
+  "group": "qilin",
+  "discovered": "2026-08-04T12:56:16.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

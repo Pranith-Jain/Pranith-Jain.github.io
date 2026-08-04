@@ -249,6 +249,97 @@ threatIntelRouter.get('/threat-intel/lists/:slug', async (c) => {
   }
 });
 
+// ─── Darknet directory (darknetlist.is) ────────────────────────────────
+//
+// A Tor site directory replicated from darknetlist.is. 108 sites across
+// 9 categories (markets, search, forums, news, security, comms, crypto,
+// tools, AI), each with live up/down status, onion URLs, response codes,
+// and fingerprints. Data ships in public/data/threat-intel/darknet/.
+
+threatIntelRouter.get('/threat-intel/darknet', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadDarknetIndex(c.env.ASSETS);
+    return c.json({
+      source: idx.source,
+      url: idx.url,
+      description: idx.description,
+      rebuiltAt: idx.rebuiltAt,
+      syncedAt: idx.syncedAt,
+      counts: idx.counts,
+      categories: idx.categories,
+    });
+  } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    return internalError(c, `ti_darknet_index_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/darknet/sites', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadDarknetIndex(c.env.ASSETS);
+    const category = c.req.query('category');
+    const statusRaw = c.req.query('status');
+    const status = statusRaw === 'up' || statusRaw === 'down' ? statusRaw : undefined;
+    const recommendedOnly = c.req.query('recommended') === 'true';
+    const onionOnly = c.req.query('onion_only') === 'true';
+    const keyword = c.req.query('q');
+    const limitRaw = c.req.query('limit');
+    const limit = limitRaw ? Math.min(500, Math.max(1, Number(limitRaw) || 200)) : undefined;
+
+    const sites = mod.filterDarknetSites(idx, {
+      category: category || undefined,
+      status,
+      recommendedOnly: recommendedOnly || undefined,
+      onionOnly: onionOnly || undefined,
+      keyword: keyword || undefined,
+      limit,
+    });
+    return c.json({ total: idx.counts.sites, returned: sites.length, sites });
+  } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    return internalError(c, `ti_darknet_sites_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/darknet/sites/:slug', async (c) => {
+  const slug = c.req.param('slug');
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.getDarknetSite(c.env.ASSETS, slug);
+    if (!body) return notFound(c, `darknet_site_not_found: ${slug}`);
+    return c.json(body);
+  } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    return internalError(c, `ti_darknet_site_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/darknet/categories', async (c) => {
+  try {
+    const mod = await loadTiMod();
+    const idx = await mod.loadDarknetIndex(c.env.ASSETS);
+    return c.json({ categories: idx.categories });
+  } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    return internalError(c, `ti_darknet_categories_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
+threatIntelRouter.get('/threat-intel/darknet/categories/:category', async (c) => {
+  const category = c.req.param('category').toLowerCase();
+  try {
+    const mod = await loadTiMod();
+    const body = await mod.getDarknetCategory(c.env.ASSETS, category);
+    if (!body) return notFound(c, `darknet_category_not_found: ${category}`);
+    return c.json(body);
+  } catch (e) {
+    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    return internalError(c, `ti_darknet_category_failed: ${e instanceof Error ? e.message : String(e)}`);
+  }
+});
+
 // ─── Live enrichment search routes ──────────────────────────────────────
 const SEARCH_TIMEOUT_MS = 20_000;
 

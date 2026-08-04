@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-cc77-067",
+  "name": "Cloak",
+  "dwdId": "DWD-CC77-067",
+  "category": "forums",
+  "url": "http://cloak2yayxbqywine5h5qytcbave7bpe6o4u2wfqkay4u2hmjisdtvad.onion",
+  "onion": "cloak2yayxbqywine5h5qytcbave7bpe6o4u2wfqkay4u2hmjisdtvad",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "86kb",
+  "fingerprint": "C790F51B",
+  "recommended": false,
+  "isOnion": true
+}

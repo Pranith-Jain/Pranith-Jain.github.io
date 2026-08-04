@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-59ac-943",
+  "name": "Dig",
+  "dwdId": "DWD-59AC-943",
+  "category": "search",
+  "url": "http://digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id.onion/",
+  "onion": "digdig2nugjpszzmqe5ep2bk7lqfpdlyrkojsx2j6kzalnrqtwedr3id.onion/",
+  "status": "up",
+  "upMirrors": 1,
+  "totalMirrors": 1,
+  "latencyMs": 1904,
+  "httpCode": "200",
+  "pageSize": "190kb",
+  "fingerprint": "2D7C6898",
+  "recommended": false,
+  "isOnion": true
+}

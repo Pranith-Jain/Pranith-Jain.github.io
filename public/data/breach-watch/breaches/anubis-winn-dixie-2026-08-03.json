@@ -1,0 +1,15 @@
+{
+  "slug": "anubis-winn-dixie-2026-08-03",
+  "title": "Winn-Dixie",
+  "group": "anubis",
+  "discovered": "2026-08-03T17:52:08.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Inside a multibillion-dollar retail giant.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["ransomware.live"]
+}

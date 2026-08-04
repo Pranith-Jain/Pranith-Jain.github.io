@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-20c6-732",
+  "name": "Feather Wallet",
+  "dwdId": "DWD-20C6-732",
+  "category": "crypto",
+  "url": "http://featherdvtpi7ckdbkb2yxjfwx3oyvr3xjz3oo4rszylfzjdg6pbm3id.onion/",
+  "onion": "featherdvtpi7ckdbkb2yxjfwx3oyvr3xjz3oo4rszylfzjdg6pbm3id.onion/",
+  "status": "up",
+  "upMirrors": 1,
+  "totalMirrors": 1,
+  "latencyMs": 2121,
+  "httpCode": "200",
+  "pageSize": "21kb",
+  "fingerprint": "E5C7A121",
+  "recommended": false,
+  "isOnion": true
+}

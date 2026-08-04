@@ -1,0 +1,15 @@
+{
+  "slug": "orova-ultra-fame-2026-08-04",
+  "title": "Ultra Fame",
+  "group": "Orova",
+  "discovered": "2026-08-04T12:26:54.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "TW",
+  "sizeBytes": 0,
+  "description": "As PCB design continues to evolve in complexity and customization, we believe that outstanding circuit layouts are built on a strong engineering foundation and a deep understanding of our clients’ needs. From simple double-layer boards to advanced multi-layer high-speed signal boards, we approach every project with professionalism and deliver reliable, high-quality layouts our clients can count on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

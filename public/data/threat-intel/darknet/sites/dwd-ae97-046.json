@@ -1,0 +1,17 @@
+{
+  "slug": "dwd-ae97-046",
+  "name": "Ramble",
+  "dwdId": "DWD-AE97-046",
+  "category": "forums",
+  "url": "http://rambleeeqrhty6s5jgefdfdtc6tfgg4jj6svr4jpgk4wjtg3qshwbaad.onion/",
+  "onion": "rambleeeqrhty6s5jgefdfdtc6tfgg4jj6svr4jpgk4wjtg3qshwbaad.onion/",
+  "status": "down",
+  "upMirrors": 0,
+  "totalMirrors": 1,
+  "latencyMs": null,
+  "httpCode": "n/a",
+  "pageSize": "44kb",
+  "fingerprint": "930CECB9",
+  "recommended": false,
+  "isOnion": true
+}
