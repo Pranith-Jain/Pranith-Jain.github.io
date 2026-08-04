@@ -4,7 +4,7 @@ import type { Env as ApiEnv } from '../../api/src/env';
 import type { AgentState, AgentStep, AgentToolResult, AgentToolCall, IocEntry } from '../../api/src/lib/agent/types';
 import { buildToolRegistry } from '../../api/src/lib/agent/tools';
 import { planNextStep } from '../../api/src/lib/agent/planner';
-import { evaluateCtiExit, filterCtiToolCalls } from '../../api/src/lib/agent/cti-loop';
+import { evaluateCtiExit, filterCtiToolCalls, canSynthesizeNow } from '../../api/src/lib/agent/cti-loop';
 import { observeStep } from '../../api/src/lib/agent/observer';
 import { synthesizeReport, splitSynthOutput } from '../../api/src/lib/agent/synthesizer';
 import { verifyReport } from '../../api/src/lib/agent/qa-verifier';
@@ -476,7 +476,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         { infronKey, groqKey, googleKey, nvidiaKey, specialistContext, workingMemory }
       );
 
-      if (plan.shouldSynthesize) {
+      if (plan.shouldSynthesize && canSynthesizeNow(view)) {
         return await this.doSynthesize(
           state,
           ai,
@@ -488,6 +488,14 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
           stepStart,
           plan.reasoning
         );
+      }
+
+      // MINIMUM-DATA FLOOR: the planner asked to synthesize but we don't yet
+      // have enough successful tool results (and we're not at the step ceiling).
+      // Override the planner and force another tool call so the report isn't thin.
+      if (plan.shouldSynthesize && !canSynthesizeNow(view)) {
+        plan.shouldSynthesize = false;
+        // Fall through to the tool-execution path below.
       }
 
       const validToolNames = new Set(specialistTools.map((t) => t.name));
@@ -523,7 +531,9 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
 
       const step: AgentStep = {
         stepNumber: stepNum,
-        plan: `[${SPECIALIST_REGISTRY[currentRole].label}] ${plan.reasoning}`,
+        plan: `[${SPECIALIST_REGISTRY[currentRole].label}] ${plan.reasoning}${
+          plan.parseRetries && plan.parseRetries > 0 ? ` (planner parse retries: ${plan.parseRetries})` : ''
+        }`,
         toolCalls,
         results: [],
         status: 'running',
@@ -578,7 +588,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       }
     );
 
-    if (plan.shouldSynthesize) {
+    if (plan.shouldSynthesize && canSynthesizeNow(view)) {
       return await this.doSynthesize(
         state,
         ai,
@@ -590,6 +600,11 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         stepStart,
         plan.reasoning
       );
+    }
+
+    // MINIMUM-DATA FLOOR: override early synthesis when there isn't enough data yet.
+    if (plan.shouldSynthesize && !canSynthesizeNow(view)) {
+      plan.shouldSynthesize = false;
     }
 
     const validToolNames = new Set(availableTools.map((t) => t.name));

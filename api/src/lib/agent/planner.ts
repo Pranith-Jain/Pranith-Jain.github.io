@@ -66,6 +66,7 @@ export async function planNextStep(
 
   const input: CompletionInput = { system, user, maxTokens: 1200, temperature: 0.2 };
 
+  let parseRetries = 0;
   for (let attempt = 0; attempt <= MAX_PARSE_RETRIES; attempt++) {
     const { text } = await runCompletion(ai, input, {
       infronKey: opts.infronKey,
@@ -76,14 +77,17 @@ export async function planNextStep(
       recordUsage: opts.recordUsage,
     });
     try {
-      return parsePlannerOutput(text);
+      const parsed = parsePlannerOutput(text);
+      parsed.parseRetries = parseRetries;
+      return parsed;
     } catch {
       if (attempt < MAX_PARSE_RETRIES) {
+        parseRetries++;
         input.user = `${user}\n\nIMPORTANT: Respond with ONLY valid JSON.`;
       }
     }
   }
-  return { reasoning: 'Planner failure — synthesizing.', toolCalls: [], shouldSynthesize: true };
+  return { reasoning: 'Planner failure — synthesizing.', toolCalls: [], shouldSynthesize: true, parseRetries };
 }
 
 /**

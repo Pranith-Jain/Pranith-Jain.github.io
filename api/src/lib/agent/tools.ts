@@ -1263,10 +1263,224 @@ export function buildToolRegistry(
   ];
 }
 
+/**
+ * Produce a compact, structured summary of a tool result for the observer LLM.
+ *
+ * Per the agent-harness observation contract, every tool response fed to the
+ * planner/observer should carry a one-line `summary` plus the key fields the
+ * LLM needs to decide the next action — not a raw JSON blob truncated mid-
+ * array. This switch dispatches on the tool name and extracts the fields that
+ * matter for that tool's domain; unknown tools fall back to bounded JSON.
+ *
+ * The output is always a string (for prompt embedding) and always ≤ maxLen.
+ */
 export function summarizeToolResult(tool: string, result: unknown, maxLen = 2000): string {
-  const json = JSON.stringify(result, null, 2);
+  const summary = toolSummary(tool, result);
+  if (summary.length <= maxLen) return summary;
+  return summary.slice(0, maxLen) + `\n... [truncated, ${summary.length} chars total]`;
+}
+
+/**
+ * Per-tool structured extractor. Returns a compact string of the form:
+ *   `<one-line verdict> | <key=value> ... | raw: <bounded json>`
+ * The leading verdict line is what the observer needs to decide the next
+ * action without parsing the full payload; the trailing raw slice preserves
+ * detail for fields the extractor does not know about.
+ */
+function toolSummary(tool: string, result: unknown): string {
+  if (!result || typeof result !== 'object') {
+    return String(result ?? '(no data)');
+  }
+  const data = result as Record<string, unknown>;
+  const parts: string[] = [];
+
+  // ── Shared verdict/score extraction (most reputation/enrichment tools) ──
+  const verdict = pickVerdict(data);
+  const score = pickScore(data);
+  const items = pickArray(data, ['items', 'results', 'records', 'iocs', 'indicators', 'providers', 'sources']);
+
+  switch (tool) {
+    // ── IOC reputation / deep enrichment ─────────────────────────────────
+    case 'check_ioc':
+    case 'enrich_ioc_deep':
+    case 'maltiverse_verify':
+    case 'lookup_tre_ge': {
+      parts.push(verdict ? `verdict=${verdict}` : 'verdict=unknown');
+      if (score !== null) parts.push(`score=${score}`);
+      if (data.malicious === true) parts.push('malicious=true');
+      if (typeof data.asn === 'string') parts.push(`asn=${data.asn}`);
+      if (typeof data.country === 'string') parts.push(`geo=${data.country}`);
+      if (items) parts.push(`providers=${items.length}`);
+      return (
+        parts.join(' | ') +
+        rawTail(data, ['verdict', 'score', 'malicious', 'asn', 'country', 'items', 'results', 'providers'])
+      );
+    }
+
+    // ── Vulnerability intel ──────────────────────────────────────────────
+    case 'lookup_cve':
+    case 'lookup_cisa_kev': {
+      const cvss = (data.cvss as Record<string, unknown> | undefined)?.score ?? data.cvssScore;
+      const epss = (data.epss as Record<string, unknown> | undefined)?.score ?? data.epssScore;
+      parts.push(data.kev === true ? 'kev=listed' : 'kev=no');
+      if (cvss !== undefined && cvss !== null) parts.push(`cvss=${cvss}`);
+      if (epss !== undefined && epss !== null) parts.push(`epss=${epss}`);
+      if (typeof data.exploit_status === 'string') parts.push(`exploit=${data.exploit_status}`);
+      if (Array.isArray(data.threat_actors) && data.threat_actors.length)
+        parts.push(`actors=${data.threat_actors.length}`);
+      return parts.join(' | ') + rawTail(data, ['kev', 'cvss', 'epss', 'exploit_status', 'threat_actors', 'patch_url']);
+    }
+
+    // ── Actor / ransomware profiling ────────────────────────────────────
+    case 'enrich_actor':
+    case 'get_ransomware_group_profile':
+    case 'search_malpedia':
+    case 'actor_timeline': {
+      const name = data.name ?? data.actor ?? data.group;
+      if (typeof name === 'string') parts.push(`actor=${name}`);
+      const malware = pickArray(data, ['malware', 'malware_families', 'tools']);
+      if (malware) parts.push(`malware=${malware.length}`);
+      const mitre = pickArray(data, ['mitre', 'techniques', 'ttps', 'attack_patterns']);
+      if (mitre) parts.push(`mitre=${mitre.length}`);
+      const aliases = pickArray(data, ['aliases', 'also_known_as', 'names']);
+      if (aliases) parts.push(`aliases=${aliases.length}`);
+      return (
+        parts.join(' | ') + rawTail(data, ['name', 'actor', 'malware', 'mitre', 'techniques', 'aliases', 'description'])
+      );
+    }
+
+    // ── Domain / host / DNS intel ───────────────────────────────────────
+    case 'lookup_domain':
+    case 'lookup_dns':
+    case 'lookup_reverse_dns':
+    case 'lookup_ipinfo':
+    case 'lookup_asn':
+    case 'lookup_builtwith':
+    case 'lookup_certificate_transparency': {
+      if (typeof data.domain === 'string') parts.push(`domain=${data.domain}`);
+      if (typeof data.ip === 'string') parts.push(`ip=${data.ip}`);
+      if (typeof data.asn === 'string' || typeof data.asn === 'number') parts.push(`asn=${data.asn}`);
+      if (typeof data.registrar === 'string') parts.push(`registrar=${data.registrar}`);
+      if (typeof data.created === 'string') parts.push(`created=${data.created}`);
+      if (items) parts.push(`records=${items.length}`);
+      return (
+        parts.join(' | ') +
+        rawTail(data, ['domain', 'ip', 'asn', 'registrar', 'created', 'records', 'items', 'results'])
+      );
+    }
+
+    // ── Hash / sample analysis ──────────────────────────────────────────
+    case 'sample_scan':
+    case 'traceix_lookup': {
+      parts.push(verdict ? `verdict=${verdict}` : 'verdict=unknown');
+      if (typeof data.malicious === 'boolean') parts.push(`malicious=${data.malicious}`);
+      const detections = pickArray(data, ['detections', 'scans', 'engines']);
+      if (detections) parts.push(`detections=${detections.length}`);
+      return parts.join(' | ') + rawTail(data, ['verdict', 'malicious', 'detections', 'scans', 'engines']);
+    }
+
+    // ── Search / feed / list tools ──────────────────────────────────────
+    case 'unified_search':
+    case 'darkweb_multi_search':
+    case 'cyber_news':
+    case 'get_cyber_crime_news':
+    case 'get_ransomware_activity':
+    case 'get_victim_releaks':
+    case 'breach_disclosures_recent':
+    case 'get_threat_pulse': {
+      if (items) parts.push(`results=${items.length}`);
+      if (typeof data.total === 'number') parts.push(`total=${data.total}`);
+      const first = items && items.length > 0 ? items[0] : null;
+      if (first && typeof first === 'object') {
+        const title = (first as Record<string, unknown>).title ?? (first as Record<string, unknown>).name;
+        if (typeof title === 'string') parts.push(`top="${title.slice(0, 80)}"`);
+      }
+      return parts.join(' | ') + rawTail(data, ['items', 'results', 'total', 'records']);
+    }
+
+    // ── Relationship / correlation ──────────────────────────────────────
+    case 'get_relationships':
+    case 'correlate_iocs':
+    case 'cross_correlate':
+    case 'cross_campaign_correlate': {
+      const rels = pickArray(data, ['relationships', 'correlations', 'edges', 'links']);
+      if (rels) parts.push(`relationships=${rels.length}`);
+      const nodes = pickArray(data, ['nodes', 'iocs', 'entities']);
+      if (nodes) parts.push(`nodes=${nodes.length}`);
+      return parts.join(' | ') + rawTail(data, ['relationships', 'correlations', 'edges', 'nodes', 'iocs']);
+    }
+
+    default: {
+      // Unknown tool — best-effort generic summary, then bounded raw JSON.
+      if (verdict) parts.push(`verdict=${verdict}`);
+      if (score !== null) parts.push(`score=${score}`);
+      if (items) parts.push(`items=${items.length}`);
+      const header = parts.length > 0 ? parts.join(' | ') + ' | ' : '';
+      return header + `raw: ${boundedJson(data, 1200)}`;
+    }
+  }
+}
+
+/** Extract a human-readable verdict from common field names. */
+function pickVerdict(data: Record<string, unknown>): string | null {
+  for (const k of ['verdict', 'status', 'classification', 'reputation', 'threat']) {
+    const v = data[k];
+    if (typeof v === 'string' && v.length > 0 && v.length < 40) return v;
+  }
+  if (data.malicious === true) return 'malicious';
+  if (data.malicious === false) return 'benign';
+  return null;
+}
+
+/** Extract a numeric score from common field names. */
+function pickScore(data: Record<string, unknown>): number | null {
+  for (const k of ['score', 'confidence_score', 'risk_score', 'threat_score', 'abuse_score']) {
+    const v = data[k];
+    if (typeof v === 'number') return v;
+  }
+  return null;
+}
+
+/** Return the first array found under any of the candidate keys. */
+function pickArray(data: Record<string, unknown>, keys: string[]): unknown[] | null {
+  for (const k of keys) {
+    if (Array.isArray(data[k]) && data[k].length > 0) return data[k] as unknown[];
+  }
+  return null;
+}
+
+/**
+ * Append a bounded raw-JSON tail for fields the per-tool extractor didn't
+ * surface. Omits the `omit` keys so the tail carries only new detail.
+ */
+function rawTail(data: Record<string, unknown>, omit: string[]): string {
+  const pruned: Record<string, unknown> = {};
+  const omitSet = new Set(omit);
+  let size = 0;
+  for (const [k, v] of Object.entries(data)) {
+    if (omitSet.has(k)) continue;
+    // Skip large nested arrays/objects — they blow the budget and the count
+    // is already surfaced by the header.
+    if (Array.isArray(v) && v.length > 5) {
+      pruned[k] = `[${v.length} items]`;
+    } else if (v && typeof v === 'object') {
+      pruned[k] = '{...}';
+    } else {
+      pruned[k] = v;
+    }
+    size++;
+    if (size >= 12) break; // cap the tail breadth
+  }
+  const json = JSON.stringify(pruned);
+  if (json.length <= 2) return ''; // empty object
+  return ` | raw: ${json.slice(0, 800)}`;
+}
+
+/** Bounded JSON stringification for the unknown-tool fallback. */
+function boundedJson(data: unknown, maxLen: number): string {
+  const json = JSON.stringify(data, null, 0);
   if (json.length <= maxLen) return json;
-  return json.slice(0, maxLen) + `\n... [truncated, ${json.length} chars total]`;
+  return json.slice(0, maxLen) + `... [+${json.length - maxLen} chars]`;
 }
 
 export function describeTools(tools: AgentTool[]): string {
