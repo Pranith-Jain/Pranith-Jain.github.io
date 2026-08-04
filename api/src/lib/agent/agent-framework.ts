@@ -551,14 +551,22 @@ Write the complete revised report. Start with the \`\`\`report-header JSON block
 
 /**
  * Determine if a self-correction retry is worthwhile.
+ *
+ * Bounded repair loop: at most ONE retry per investigation. The caller tracks
+ * `retryCount` (0 = first pass, 1 = already retried once). A second retry is
+ * never allowed — the loop must terminate so a degrading model cannot spin.
  */
 export function shouldRetry(
   qualityScore: number,
   flaggedClaims: number,
   missingFacts: number,
   step: number,
-  maxSteps: number
+  maxSteps: number,
+  retryCount = 0
 ): boolean {
+  // Hard cap: one self-correction retry per investigation. No second pass.
+  if (retryCount >= 1) return false;
+
   // Don't retry if we're already at max steps (no budget for another synthesis)
   if (step >= maxSteps - 1) return false;
 

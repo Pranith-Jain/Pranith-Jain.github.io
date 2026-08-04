@@ -13,6 +13,7 @@
 
 import type { AnalystRole } from './stix-translator';
 import { ROLE_DISPLAY_NAMES, ROLE_DESCRIPTIONS } from './stix-translator';
+import { BANNED_TOOLS } from './cti-loop';
 
 export type { AnalystRole };
 export { ROLE_DISPLAY_NAMES, ROLE_DESCRIPTIONS };
@@ -20,9 +21,17 @@ export { ROLE_DISPLAY_NAMES, ROLE_DESCRIPTIONS };
 /**
  * Tool access per role. Controls which MCP tools each persona may invoke.
  * Empty = full set (all tools available).
+ *
+ * BANNED_TOOLS (broad dump tools the planner must never call) are filtered out
+ * here from a single source of truth (cti-loop.ts) so the per-role allow-list
+ * and the loop-engine guardrail can never drift apart.
  */
+function filterBanned(tools: string[]): string[] {
+  return tools.filter((t) => !BANNED_TOOLS.has(t));
+}
+
 export const ROLE_TOOLS: Record<AnalystRole, string[]> = {
-  ciso: [
+  ciso: filterBanned([
     'unified_search',
     'lookup_cve',
     'lookup_cisa_kev',
@@ -34,8 +43,8 @@ export const ROLE_TOOLS: Record<AnalystRole, string[]> = {
     'cyber_news',
     'get_trending_iocs',
     'get_feed_status',
-  ],
-  detection: [
+  ]),
+  detection: filterBanned([
     'check_ioc',
     'lookup_cve',
     'lookup_cisa_kev',
@@ -52,8 +61,8 @@ export const ROLE_TOOLS: Record<AnalystRole, string[]> = {
     'si_get_skill',
     'si_get_doc',
     'si_kql_to_ah_url',
-  ],
-  ir: [
+  ]),
+  ir: filterBanned([
     'check_ioc',
     'lookup_cve',
     'analyze_phishing_email',
@@ -72,8 +81,8 @@ export const ROLE_TOOLS: Record<AnalystRole, string[]> = {
     'lookup_domain',
     'lookup_asn',
     'scan_website',
-  ],
-  cti: [
+  ]),
+  cti: filterBanned([
     'enrich_actor',
     'search_malpedia',
     'lookup_cve',
@@ -99,7 +108,7 @@ export const ROLE_TOOLS: Record<AnalystRole, string[]> = {
     'get_today_briefing',
     'ti_brief_sector',
     'get_feed_status',
-  ],
+  ]),
 };
 
 /**

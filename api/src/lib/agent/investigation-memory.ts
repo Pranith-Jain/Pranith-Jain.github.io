@@ -69,12 +69,21 @@ export async function lookupMemory(
   try {
     const results: InvestigationMemoryEntry[] = [];
 
+    // EXACT-VALUE matching (not substring). The iocs/actors/cves columns store
+    // JSON arrays, so we match against the quoted JSON value boundary to avoid
+    // substring collisions (e.g. searching for "1.2.3.4" must NOT match a stored
+    // "10.1.2.3.45"). For the iocs column (array of {type,value,confidence}),
+    // we match `"value":"<ioc>"`; for actors/cves (string arrays), `"<value>"`.
+    // This is a query-level fix — a normalized junction table (migration) is
+    // the long-term plan, but this prevents contamination without a schema change.
+
     // Search by IOCs
     if (indicators.iocs && indicators.iocs.length > 0) {
       for (const ioc of indicators.iocs.slice(0, 5)) {
+        const escaped = jsonEscapeForLike(ioc);
         const { results: rows } = await db
           .prepare(`SELECT * FROM investigation_memory WHERE iocs LIKE ? ORDER BY completed_at DESC LIMIT 3`)
-          .bind(`%${ioc}%`)
+          .bind(`%"value":"${escaped}"%`)
           .all<Record<string, unknown>>();
         for (const row of rows) {
           results.push(rowToEntry(row));
@@ -85,9 +94,10 @@ export async function lookupMemory(
     // Search by actors
     if (indicators.actors && indicators.actors.length > 0) {
       for (const actor of indicators.actors.slice(0, 3)) {
+        const escaped = jsonEscapeForLike(actor);
         const { results: rows } = await db
           .prepare(`SELECT * FROM investigation_memory WHERE actors LIKE ? ORDER BY completed_at DESC LIMIT 3`)
-          .bind(`%${actor}%`)
+          .bind(`%"${escaped}"%`)
           .all<Record<string, unknown>>();
         for (const row of rows) {
           results.push(rowToEntry(row));
@@ -98,9 +108,10 @@ export async function lookupMemory(
     // Search by CVEs
     if (indicators.cves && indicators.cves.length > 0) {
       for (const cve of indicators.cves.slice(0, 3)) {
+        const escaped = jsonEscapeForLike(cve);
         const { results: rows } = await db
           .prepare(`SELECT * FROM investigation_memory WHERE cves LIKE ? ORDER BY completed_at DESC LIMIT 3`)
-          .bind(`%${cve}%`)
+          .bind(`%"${escaped}"%`)
           .all<Record<string, unknown>>();
         for (const row of rows) {
           results.push(rowToEntry(row));
@@ -166,6 +177,22 @@ function parseJsonArray<T>(val: unknown): T[] {
     }
   }
   return [];
+}
+
+/**
+ * Escape a value for safe embedding inside a JSON-string LIKE pattern.
+ *
+ * The iocs/actors/cves columns store JSON arrays, so we match against the
+ * quoted value boundary (`"value":"<ioc>"` or `"<actor>"`). This function
+ * escapes the characters that would break JSON string parsing or SQLite LIKE
+ * matching (backslash, double-quote, and the LIKE wildcards % and _).
+ *
+ * This is a query-level guard against substring contamination (e.g. searching
+ * for "1.2.3.4" must not match a stored "10.1.2.3.45"). A normalized junction
+ * table is the long-term fix; this prevents contamination without a migration.
+ */
+function jsonEscapeForLike(value: string): string {
+  return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/%/g, '\\%').replace(/_/g, '\\_');
 }
 
 /**

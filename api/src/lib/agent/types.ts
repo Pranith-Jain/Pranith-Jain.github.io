@@ -156,6 +156,12 @@ export interface PlannerOutput {
   toolCalls: AgentToolCall[];
   /** Whether the agent has enough info to synthesize */
   shouldSynthesize: boolean;
+  /**
+   * Number of JSON-parse retries the planner needed (0 = first attempt parsed
+   * cleanly). Surfaced in telemetry so model degradation (more malformed JSON)
+   * is observable instead of hidden inside the planner's internal retry loop.
+   */
+  parseRetries?: number;
 }
 
 // ── Synthesizer output ───────────────────────────────────────────────────

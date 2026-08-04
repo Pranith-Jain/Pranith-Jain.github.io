@@ -283,10 +283,10 @@ const OSSF_GH_BASE = 'https://api.github.com/repos/ossf/malicious-packages';
  * exact set of packages disclosed in the window.
  *
  * Subrequest budget: 1 commits-list call + N per-commit file-list calls
- * (capped at `MAX_COMMITS`). Worst case ~1 + 15 = 16 subrequests, well
- * within the free-plan 50/invocation cap.
+ * (capped at `MAX_COMMITS`). Worst case ~1 + 5 = 6 subrequests, keeping
+ * the daily build's total fan-out safely under the free-plan 50 cap.
  */
-const MAX_COMMITS = 15;
+const MAX_COMMITS = 5;
 
 export async function fetchMaliciousPackages(
   env?: Env,

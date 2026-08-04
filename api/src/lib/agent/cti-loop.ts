@@ -128,6 +128,24 @@ export function evaluateCtiExit(view: CtiLoopView): ExitResult | null {
 }
 
 /**
+ * Minimum-data floor: the prompt says "a defensible report requires at least 3
+ * successful tool calls". The exit conditions only enforce this near the step
+ * ceiling (`nearLimitWithData`), so a model that sets `shouldSynthesize: true`
+ * after 1–2 tool calls would otherwise end the investigation early with a thin
+ * report. This guard blocks early synthesis unless we're at the max-iteration
+ * ceiling (where there's no budget left anyway).
+ *
+ * Returns true when synthesis is ALLOWED (enough data, or no budget left).
+ */
+export function canSynthesizeNow(view: CtiLoopView): boolean {
+  if (view.stepNum >= view.maxSteps) return true; // at the ceiling — must synthesize
+  return countOkResults(view.steps) >= MIN_OK_RESULTS_FOR_SYNTHESIS;
+}
+
+/** Minimum successful tool results required before allowing voluntary synthesis. */
+export const MIN_OK_RESULTS_FOR_SYNTHESIS = 3;
+
+/**
  * Filter the planner's proposed tool calls through every guardrail
  * (unknown → duplicate → banned → max-per-step).
  */
