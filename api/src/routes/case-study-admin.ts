@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { requireAdminMiddleware } from '../lib/admin-auth';
 import { safeJsonBody } from '../lib/safe-body';
 import { getAi } from '../lib/ai-binding';
@@ -38,8 +39,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     if ('error' in parsed) return parsed.error;
     const { title, content, formats: rawFormats, type } = parsed.value;
 
-    if (!title?.trim()) return c.json({ error: 'title is required' }, 400);
-    if (!content?.trim()) return c.json({ error: 'content is required' }, 400);
+    if (!title?.trim()) return badRequest(c, 'title is required');
+    if (!content?.trim()) return badRequest(c, 'content is required');
 
     const formats = rawFormats ?? ['linkedin', 'twitter'];
     const now = new Date();

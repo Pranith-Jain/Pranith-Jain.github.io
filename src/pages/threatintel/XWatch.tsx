@@ -828,7 +828,14 @@ export default function XWatch(): JSX.Element {
                               rel="noopener noreferrer"
                               className="block rounded overflow-hidden border border-slate-200 dark:border-[rgb(var(--border-400))]"
                             >
-                              <img src={m.url} alt={m.type} loading="lazy" className="w-full h-32 object-cover" />
+                              <img
+                                src={m.url}
+                                alt={m.type}
+                                loading="lazy"
+                                width={400}
+                                height={128}
+                                className="w-full h-32 object-cover"
+                              />
                             </a>
                           ))}
                         </div>

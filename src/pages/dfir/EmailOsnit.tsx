@@ -128,7 +128,14 @@ export default function EmailOsnit() {
           {/* Header + Risk */}
           <div className="flex items-center gap-4 p-4 surface-card">
             {profile.gravatar.avatarUrl ? (
-              <img loading="lazy" src={profile.gravatar.avatarUrl} alt="" className="w-12 h-12 rounded-full" />
+              <img
+                loading="lazy"
+                src={profile.gravatar.avatarUrl}
+                alt=""
+                width={48}
+                height={48}
+                className="w-12 h-12 rounded-full"
+              />
             ) : (
               <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] flex items-center justify-center">
                 <User size={20} className="text-slate-500 dark:text-slate-400" />

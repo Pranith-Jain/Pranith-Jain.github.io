@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const ALERT_SYSTEM = `You are a threat alert engine. Given a user's watchlist keywords and a batch of recent events, identify matches and assess relevance.
@@ -27,7 +28,7 @@ interface AlertCheckRequest {
 export async function alertCheckHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<AlertCheckRequest>();
-    if (!body.keywords?.length) return c.json({ error: 'no keywords' }, 400);
+    if (!body.keywords?.length) return badRequest(c, 'no keywords');
     if (!body.events?.length) return c.json({ alerts: [], total_checked: 0, alert_count: 0 });
 
     const eventList = body.events
@@ -51,6 +52,6 @@ export async function alertCheckHandler(c: Context<{ Bindings: Env }>): Promise<
     return c.json({ ...result, model, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('alert-check error:', e);
-    return c.json({ error: 'alert check failed' }, 500);
+    return internalError(c, 'alert check failed');
   }
 }

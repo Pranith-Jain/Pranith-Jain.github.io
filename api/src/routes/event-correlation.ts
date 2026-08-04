@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const CORRELATE_SYSTEM = `You are a CTI correlation engine. Given a list of recent threat events, identify related events that likely belong to the same campaign, actor, or incident.
@@ -36,7 +37,7 @@ interface CorrelateRequest {
 export async function eventCorrelationHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const body = await c.req.json<CorrelateRequest>();
-    if (!body.events?.length) return c.json({ error: 'no events' }, 400);
+    if (!body.events?.length) return badRequest(c, 'no events');
 
     const eventList = body.events
       .slice(0, 30)
@@ -59,6 +60,6 @@ export async function eventCorrelationHandler(c: Context<{ Bindings: Env }>): Pr
     return c.json({ correlation, model, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('event-correlation error:', e);
-    return c.json({ error: 'correlation failed' }, 500);
+    return internalError(c, 'correlation failed');
   }
 }

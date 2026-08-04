@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { resolveAllStandard, resolveRecord } from '../lib/dns';
 import { rdapLookup } from '../lib/rdap';
 import { ctLogs } from '../lib/crt-sh';
@@ -42,8 +43,8 @@ const COMMON_DKIM_SELECTORS = [
 
 export async function domainLookupHandler(c: Context<{ Bindings: Env }>) {
   const raw = c.req.query('domain')?.trim().toLowerCase();
-  if (!raw) return c.json({ error: 'missing domain' }, 400);
-  if (!DOMAIN_RE.test(raw)) return c.json({ error: 'invalid domain' }, 400);
+  if (!raw) return badRequest(c, 'missing domain');
+  if (!DOMAIN_RE.test(raw)) return badRequest(c, 'invalid domain');
 
   const dmarcDomain = `_dmarc.${raw}`;
   const bimiDomain = `default._bimi.${raw}`;

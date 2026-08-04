@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 const FEED_JSON_URL = 'https://ai-honeypots.com/feeds/iocs.json';
 const CACHE_TTL = 30 * 60;
@@ -59,7 +60,7 @@ export async function aiHoneypotFeedHandler(c: Context<{ Bindings: Env }>): Prom
       signal: AbortSignal.timeout(15_000),
       headers: { 'user-agent': 'pranithjain-dfir/1.0' },
     });
-    if (!res.ok) return c.json({ error: `Upstream returned ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Upstream returned ${res.status}`);
     const data = (await res.json()) as HoneypotFeedResponse;
     const response = c.json(data, 200, {
       'Cache-Control': `public, max-age=${CACHE_TTL}`,
@@ -69,6 +70,6 @@ export async function aiHoneypotFeedHandler(c: Context<{ Bindings: Env }>): Prom
     return response;
   } catch (e) {
     console.error('aiHoneypotFeedHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Fetch failed' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Fetch failed');
   }
 }
