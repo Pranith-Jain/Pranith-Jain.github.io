@@ -601,7 +601,7 @@ export default function BlogPost() {
                   {post.iocs.map((i, k) => (
                     <li key={`${i.type}-${i.value}-${k}`}>
                       <Link
-                        to={`/dfir/ioc-check?q=${encodeURIComponent(i.value)}`}
+                        to={`/dfir/ioc-check?indicator=${encodeURIComponent(i.value)}`}
                         className="text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:underline"
                       >
                         [{i.type}] {i.value}
