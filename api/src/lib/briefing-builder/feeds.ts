@@ -9,6 +9,12 @@ export interface MaliciousPackageEntry {
   name: string;
   ecosystem: string;
   ossf_url: string;
+  /** ISO timestamp of the advisory's first appearance in the OSSF repo
+   * (the commit date that added the package directory). Used to window
+   * daily/weekly briefings to "newly disclosed" packages only. */
+  publishedAt?: string;
+  /** Short advisory summary when available from the commit's OSV file. */
+  summary?: string;
 }
 
 export interface DailyHuntIocFamily {
@@ -262,37 +268,102 @@ export async function fetchFeedResilient(env: Env | undefined, source: SourceId)
 // anonymous 60/hr cap to 5000/hr.
 
 const OSSF_ECOSYSTEMS = ['npm', 'pypi', 'rubygems', 'maven', 'go', 'crates.io'] as const;
-const OSSF_GH_BASE = 'https://api.github.com/repos/ossf/malicious-packages/contents/osv/malicious';
+const OSSF_GH_BASE = 'https://api.github.com/repos/ossf/malicious-packages';
 
-export async function fetchMaliciousPackages(env?: Env): Promise<MaliciousPackageEntry[]> {
+/**
+ * Fetch malicious packages newly disclosed in the OSSF malicious-packages
+ * repo within `[since, until)`. Uses the GitHub Commits API on the
+ * `osv/malicious` path with `since`/`until`, then fetches each commit's
+ * file list to extract the package directories that were *added* in that
+ * window.
+ *
+ * Why commits and not the Contents API: the Contents API returns the full
+ * cumulative directory listing with no per-package date, so a daily briefing
+ * would surface the entire catalog every day. The Commits API gives us the
+ * exact set of packages disclosed in the window.
+ *
+ * Subrequest budget: 1 commits-list call + N per-commit file-list calls
+ * (capped at `MAX_COMMITS`). Worst case ~1 + 15 = 16 subrequests, well
+ * within the free-plan 50/invocation cap.
+ */
+const MAX_COMMITS = 15;
+
+export async function fetchMaliciousPackages(
+  env?: Env,
+  window?: { since: Date; until: Date }
+): Promise<MaliciousPackageEntry[]> {
   const ghToken = env?.GITHUB_TOKEN;
-  const results = await Promise.allSettled(
-    OSSF_ECOSYSTEMS.map(async (eco) => {
-      const res = await fetchResilient(
-        `${OSSF_GH_BASE}/${eco}`,
-        {
-          headers: {
-            Accept: 'application/vnd.github.v3+json',
-            'User-Agent': 'pranithjain-briefing/1.0',
-            ...(ghToken ? { Authorization: `Bearer ${ghToken}` } : {}),
-          },
-        },
-        { attempts: 2, timeoutMs: 10_000 }
-      );
-      if (!res.ok) return [];
-      const raw = (await res.json()) as Array<{ name: string; type: string; html_url: string }>;
-      return raw
-        .filter((e) => e.type === 'dir' && e.name && !e.name.startsWith('.'))
-        .map((e) => ({
-          name: e.name,
-          ecosystem: eco,
-          ossf_url:
-            e.html_url ??
-            `https://github.com/ossf/malicious-packages/tree/main/osv/malicious/${eco}/${encodeURIComponent(e.name)}`,
-        }));
-    })
+  const headers: Record<string, string> = {
+    Accept: 'application/vnd.github.v3+json',
+    'User-Agent': 'pranithjain-briefing/1.0',
+  };
+  if (ghToken) headers.Authorization = `Bearer ${ghToken}`;
+
+  // No window → return empty (the cumulative catalog is not useful in a
+  // time-boxed briefing; callers that want the full catalog use the depx
+  // feed / threat-intel vertical instead).
+  if (!window) return [];
+
+  const sinceIso = window.since.toISOString();
+  const untilIso = window.until.toISOString();
+  const commitsUrl =
+    `${OSSF_GH_BASE}/commits?path=osv/malicious&since=${encodeURIComponent(sinceIso)}` +
+    `&until=${encodeURIComponent(untilIso)}&per_page=${MAX_COMMITS}`;
+
+  let commits: Array<{ sha: string; commit?: { author?: { date?: string } } }> = [];
+  try {
+    const res = await fetchResilient(commitsUrl, { headers }, { attempts: 2, timeoutMs: 10_000 });
+    if (!res.ok) return [];
+    commits = (await res.json()) as typeof commits;
+    if (!Array.isArray(commits)) return [];
+  } catch {
+    return [];
+  }
+  if (commits.length === 0) return [];
+
+  // Fetch each commit's file list in parallel to extract added package dirs.
+  // Path shape: osv/malicious/<ecosystem>/<package>/MAL-*.json
+  const ecoSet = new Set(OSSF_ECOSYSTEMS);
+  const seen = new Set<string>();
+  const out: MaliciousPackageEntry[] = [];
+  const fileResults = await Promise.allSettled(
+    commits.map((c) =>
+      fetchResilient(`${OSSF_GH_BASE}/commits/${c.sha}`, { headers }, { attempts: 2, timeoutMs: 10_000 }).then(
+        async (r) => {
+          if (!r.ok)
+            return {
+              sha: c.sha,
+              date: c.commit?.author?.date ?? '',
+              files: [] as Array<{ filename: string; status: string }>,
+            };
+          const body = (await r.json()) as { files?: Array<{ filename: string; status: string }> };
+          return { sha: c.sha, date: c.commit?.author?.date ?? '', files: body.files ?? [] };
+        }
+      )
+    )
   );
-  return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
+  for (const r of fileResults) {
+    if (r.status !== 'fulfilled') continue;
+    const { date, files } = r.value;
+    for (const f of files) {
+      const parts = f.filename.split('/');
+      // osv/malicious/<eco>/<pkg>/MAL-*.json  →  parts[2]=eco, parts[3]=pkg
+      if (parts.length < 5 || parts[0] !== 'osv' || parts[1] !== 'malicious') continue;
+      const eco = parts[2];
+      const pkg = parts[3];
+      if (!eco || !ecoSet.has(eco as (typeof OSSF_ECOSYSTEMS)[number]) || !pkg || pkg.startsWith('.')) continue;
+      const key = `${eco}|${pkg}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push({
+        name: pkg,
+        ecosystem: eco,
+        ossf_url: `https://github.com/ossf/malicious-packages/tree/main/osv/malicious/${eco}/${encodeURIComponent(pkg)}`,
+        publishedAt: date || undefined,
+      });
+    }
+  }
+  return out;
 }
 
 /* ─── Daily-Hunt IOC families (via threat-intel manifest) ──────────────── */
@@ -301,12 +372,29 @@ export async function fetchMaliciousPackages(env?: Env): Promise<MaliciousPackag
 // We read the slim index via env.ASSETS — no public internet hop, no
 // subrequest budget cost (ASSETS is a binding, not a fetch).
 
-export async function fetchDailyHuntIocFamilies(env?: Env): Promise<DailyHuntIocFamily[]> {
+export async function fetchDailyHuntIocFamilies(
+  env?: Env,
+  window?: { since: Date; until: Date }
+): Promise<DailyHuntIocFamily[]> {
   if (!env?.ASSETS) return [];
   try {
     const { loadTiIndex } = await import('../threat-intel-manifest');
     const idx = await loadTiIndex(env.ASSETS);
-    return idx.iocIndex ?? [];
+    const all = idx.iocIndex ?? [];
+    if (!window) return all;
+    // Daily-Hunt families are a cumulative knowledge base. For a time-boxed
+    // briefing, keep only families whose `firstSeen` (the earliest date
+    // parsed from the upstream markdown) falls inside the window. Families
+    // with no parseable firstSeen are reference material, not daily intel,
+    // and are excluded from daily/weekly briefings.
+    const startMs = window.since.getTime();
+    const endMs = window.until.getTime();
+    return all.filter((f) => {
+      if (!f.firstSeen) return false;
+      const t = Date.parse(f.firstSeen);
+      if (Number.isNaN(t)) return false;
+      return t >= startMs && t < endMs;
+    });
   } catch {
     return [];
   }

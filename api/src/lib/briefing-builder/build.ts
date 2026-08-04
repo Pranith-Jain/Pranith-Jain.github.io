@@ -243,8 +243,8 @@ export async function buildBriefing(
     mtiEnv?.WEBAMON_API_KEY
       ? getCampaignIntel(mtiEnv).catch(() => null as WebamonCampaignIntel | null)
       : Promise.resolve(null as WebamonCampaignIntel | null),
-    fetchMaliciousPackages(mtiEnv).catch(() => [] as MaliciousPackageEntry[]),
-    fetchDailyHuntIocFamilies(mtiEnv).catch(() => [] as DailyHuntIocFamily[]),
+    fetchMaliciousPackages(mtiEnv, { since: rangeStart, until: rangeEnd }).catch(() => [] as MaliciousPackageEntry[]),
+    fetchDailyHuntIocFamilies(mtiEnv, { since: rangeStart, until: rangeEnd }).catch(() => [] as DailyHuntIocFamily[]),
   ]);
   let degraded = !kevR.ok && !nvdR.ok;
   const kev = kevR.v;
@@ -503,21 +503,22 @@ export async function buildBriefing(
     });
   }
 
-  // ── OSSF Malicious Packages ──────────────────────────────────────────
+  // ── OSSF Malicious Packages (windowed) ───────────────────────────────
   // The ossf/malicious-packages repo is a curated mirror of npm/PyPI/RubyGems/
-  // Maven/Go/crates.io malware reports. The Contents API gives us package-name
-  // directories (not individual OSV records), so each finding is "package X in
-  // ecosystem Y is listed as malicious" — analysts click through for the
-  // version-range detail. No publish date on the directory listing, so these
-  // are not window-filtered (the catalog is cumulative, not a time-series).
+  // Maven/Go/crates.io malware reports. fetchMaliciousPackages now uses the
+  // GitHub Commits API on the `osv/malicious` path with since/until, so each
+  // finding is a package whose advisory directory was *added* in this
+  // briefing window — not the full cumulative catalog. Analysts click
+  // through for the version-range detail.
   const malpkgFindings: BriefingFinding[] = [];
   const malpkgByEco: Record<string, number> = {};
   for (const p of malpkgEntries) {
     malpkgByEco[p.ecosystem] = (malpkgByEco[p.ecosystem] ?? 0) + 1;
+    const added = p.publishedAt ? ` First disclosed ${p.publishedAt.slice(0, 10)}.` : '';
     malpkgFindings.push({
       id: `malpkg-${p.ecosystem}-${p.name}`.replace(/[^a-z0-9-]/gi, '-').slice(0, 80),
       title: `${p.name} (${p.ecosystem})`,
-      description: `Malicious package listed in the OpenSSF malicious-packages directory. Review version ranges and installation provenance.`,
+      description: `Newly disclosed malicious package in the OpenSSF malicious-packages directory.${added} Review version ranges and installation provenance.`,
       severity: 'high',
       source: 'ossf/malicious-packages',
       source_url: p.ossf_url,
@@ -533,19 +534,21 @@ export async function buildBriefing(
       id: 'malicious-packages',
       title: 'Malicious packages (OpenSSF)',
       count: malpkgFindings.length,
-      blurb: `Supply-chain threats from the ossf/malicious-packages curated directory. ${malpkgFindings.length} packages across ${Object.keys(malpkgByEco).length} ecosystems: ${ecoBreakdown}.`,
+      blurb: `Supply-chain threats newly disclosed in the ossf/malicious-packages directory during this window. ${malpkgFindings.length} packages across ${Object.keys(malpkgByEco).length} ecosystems: ${ecoBreakdown}.`,
       findings: malpkgFindings,
     });
   }
 
-  // ── Daily-Hunt IOC families ──────────────────────────────────────────
+  // ── Daily-Hunt IOC families (windowed) ───────────────────────────────
   // TheRavenFile/Daily-Hunt is a knowledge base of IOC families (ransomware,
   // malware, APT, C2, phishing, stealer). Each family file contains raw
   // indicators (hashes, IPs, domains) plus MITRE technique references. The
   // build script (scripts/build-threat-intel.mjs) slices these into per-slug
-  // JSON with a slim index entry. We surface the families as findings so
-  // analysts can pivot to the full indicator list via the threat-intel
-  // vertical (ti_get_ioc MCP tool / /api/v1/threat-intel/iocs/:slug).
+  // JSON with a slim index entry carrying a `firstSeen` (earliest date parsed
+  // from the upstream markdown). For a time-boxed briefing we surface only
+  // families whose firstSeen falls inside the window — the full catalog is
+  // reference material, not daily intel, and is browsable via the
+  // threat-intel vertical (ti_get_ioc MCP tool / /api/v1/threat-intel/iocs/:slug).
   const dailyHuntFindings: BriefingFinding[] = [];
   const dhByCategory: Record<string, number> = {};
   for (const f of dailyHuntFamilies) {
@@ -570,7 +573,7 @@ export async function buildBriefing(
       id: 'daily-hunt-ioc-families',
       title: 'IOC families (Daily-Hunt)',
       count: dailyHuntFindings.length,
-      blurb: `Threat-actor and malware-family IOC catalogs from TheRavenFile/Daily-Hunt. ${dailyHuntFindings.length} families across ${Object.keys(dhByCategory).length} categories: ${catBreakdown}. Pivot to the threat-intel vertical for full indicator lists.`,
+      blurb: `Threat-actor and malware-family IOC catalogs from TheRavenFile/Daily-Hunt whose firstSeen falls in this window. ${dailyHuntFindings.length} families across ${Object.keys(dhByCategory).length} categories: ${catBreakdown}. Pivot to the threat-intel vertical for full indicator lists.`,
       findings: dailyHuntFindings,
     });
   }
