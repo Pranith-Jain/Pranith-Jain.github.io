@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, badGateway, serviceUnavailable, notFound } from '../lib/api-error';
 
 const UA = 'pranithjain-threatintel/1.0';
 
@@ -98,7 +99,7 @@ darknetIntelRouter.use('/darknet-intel/*', async (c, next) => {
 
 darknetIntelRouter.get('/darknet-intel/greynoise/ip', async (c) => {
   const ip = c.req.query('ip');
-  if (!ip) return c.json({ error: 'ip parameter required' }, 400);
+  if (!ip) return badRequest(c, 'ip parameter required');
   const key = c.env.GREYNOISE_API_KEY;
   try {
     const headers: Record<string, string> = { Accept: 'application/json' };
@@ -107,18 +108,18 @@ darknetIntelRouter.get('/darknet-intel/greynoise/ip', async (c) => {
       headers,
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `GreyNoise upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `GreyNoise upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ip, ...data, provider: 'greynoise', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'GreyNoise unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'GreyNoise unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/greynoise/check', async (c) => {
   const ip = c.req.query('ip');
-  if (!ip) return c.json({ error: 'ip parameter required' }, 400);
+  if (!ip) return badRequest(c, 'ip parameter required');
   try {
     const headers: Record<string, string> = { Accept: 'application/json' };
     const key = c.env.GREYNOISE_API_KEY;
@@ -127,7 +128,7 @@ darknetIntelRouter.get('/darknet-intel/greynoise/check', async (c) => {
       headers,
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `GreyNoise upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `GreyNoise upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown> as Record<string, unknown>;
     return c.json({
       ip,
@@ -138,7 +139,7 @@ darknetIntelRouter.get('/darknet-intel/greynoise/check', async (c) => {
       generated_at: new Date().toISOString(),
     });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'GreyNoise unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'GreyNoise unreachable');
   }
 });
 
@@ -147,50 +148,50 @@ darknetIntelRouter.get('/darknet-intel/greynoise/check', async (c) => {
 darknetIntelRouter.get('/darknet-intel/pulsedive/indicator', async (c) => {
   const type = c.req.query('type');
   const value = c.req.query('value');
-  if (!type || !value) return c.json({ error: 'type and value parameters required' }, 400);
+  if (!type || !value) return badRequest(c, 'type and value parameters required');
   try {
     let url = `https://pulsedive.com/api/v3.php?query=indicator&type=${encodeURIComponent(type)}&value=${encodeURIComponent(value)}`;
     const key = c.env.PULSEDIVE_API_KEY;
     if (key) url += `&key=${encodeURIComponent(key)}`;
     const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
-    if (!res.ok) return c.json({ error: `Pulsedive upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Pulsedive upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { type, value, ...data, provider: 'pulsedive', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'Pulsedive unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Pulsedive unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/pulsedive/search', async (c) => {
   const q = c.req.query('q');
-  if (!q) return c.json({ error: 'q parameter required' }, 400);
+  if (!q) return badRequest(c, 'q parameter required');
   try {
     let url = `https://pulsedive.com/api/v3.php?query=search&value=${encodeURIComponent(q)}`;
     const key = c.env.PULSEDIVE_API_KEY;
     if (key) url += `&key=${encodeURIComponent(key)}`;
     const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
-    if (!res.ok) return c.json({ error: `Pulsedive upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Pulsedive upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ query: q, ...data, provider: 'pulsedive', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'Pulsedive unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Pulsedive unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/pulsedive/explore', async (c) => {
   const indicator = c.req.query('indicator');
-  if (!indicator) return c.json({ error: 'indicator parameter required' }, 400);
+  if (!indicator) return badRequest(c, 'indicator parameter required');
   try {
     let url = `https://pulsedive.com/api/v3.php?query=explore&value=${encodeURIComponent(indicator)}&filter_risk=all`;
     const key = c.env.PULSEDIVE_API_KEY;
     if (key) url += `&key=${encodeURIComponent(key)}`;
     const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
-    if (!res.ok) return c.json({ error: `Pulsedive upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Pulsedive upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ indicator, ...data, provider: 'pulsedive', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'Pulsedive unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Pulsedive unreachable');
   }
 });
 
@@ -198,18 +199,18 @@ darknetIntelRouter.get('/darknet-intel/pulsedive/explore', async (c) => {
 
 darknetIntelRouter.get('/darknet-intel/vulners/id', async (c) => {
   const id = c.req.query('id');
-  if (!id) return c.json({ error: 'id parameter required (CVE, EDB, GHSA)' }, 400);
+  if (!id) return badRequest(c, 'id parameter required (CVE, EDB, GHSA)');
   try {
     let url = `https://vulners.com/api/v3/search/id/?id=${encodeURIComponent(id)}`;
     const key = c.env.VULNERS_API_KEY;
     if (key) url += `&apiKey=${encodeURIComponent(key)}`;
     const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
-    if (!res.ok) return c.json({ error: `Vulners upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Vulners upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { id, ...data, provider: 'vulners', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'Vulners unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Vulners unreachable');
   }
 });
 
@@ -219,7 +220,7 @@ darknetIntelRouter.post('/darknet-intel/vulners/search', async (c) => {
     limit?: number;
   };
   const query = body.query;
-  if (!query) return c.json({ error: 'query field required in JSON body' }, 400);
+  if (!query) return badRequest(c, 'query field required in JSON body');
   const limit = Math.min(body.limit ?? 20, 100);
   try {
     const headers: Record<string, string> = { 'Content-Type': 'application/json' };
@@ -231,11 +232,11 @@ darknetIntelRouter.post('/darknet-intel/vulners/search', async (c) => {
       body: JSON.stringify({ query, fields: ['id', 'title', 'type', 'cvss', 'vhref', 'description'], limit }),
       signal: AbortSignal.timeout(15000),
     });
-    if (!res.ok) return c.json({ error: `Vulners upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Vulners upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ query, limit, ...data, provider: 'vulners', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'Vulners unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Vulners unreachable');
   }
 });
 
@@ -245,7 +246,7 @@ darknetIntelRouter.post('/darknet-intel/vulners/exploit', async (c) => {
     limit?: number;
   };
   const query = body.query;
-  if (!query) return c.json({ error: 'query field required in JSON body' }, 400);
+  if (!query) return badRequest(c, 'query field required in JSON body');
   const limit = Math.min(body.limit ?? 20, 100);
   try {
     const headers: Record<string, string> = { 'Content-Type': 'application/json' };
@@ -262,11 +263,11 @@ darknetIntelRouter.post('/darknet-intel/vulners/exploit', async (c) => {
       }),
       signal: AbortSignal.timeout(15000),
     });
-    if (!res.ok) return c.json({ error: `Vulners upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Vulners upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ query, limit, ...data, provider: 'vulners', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'Vulners unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Vulners unreachable');
   }
 });
 
@@ -274,9 +275,9 @@ darknetIntelRouter.post('/darknet-intel/vulners/exploit', async (c) => {
 
 darknetIntelRouter.get('/darknet-intel/intelx/search', async (c) => {
   const q = c.req.query('q');
-  if (!q) return c.json({ error: 'q parameter required' }, 400);
+  if (!q) return badRequest(c, 'q parameter required');
   const key = c.env.INTELX_API_KEY;
-  if (!key) return c.json({ error: 'INTELX_API_KEY not configured', docs: 'wrangler secret put INTELX_API_KEY' }, 503);
+  if (!key) return serviceUnavailable(c, 'INTELX_API_KEY not configured (wrangler secret put INTELX_API_KEY)');
   try {
     const res = await fetch(
       `https://2.intelx.io/intelligent/search?term=${encodeURIComponent(q)}&key=${key}&maxresults=20&media=0`,
@@ -284,7 +285,7 @@ darknetIntelRouter.get('/darknet-intel/intelx/search', async (c) => {
         signal: AbortSignal.timeout(15000),
       }
     );
-    if (!res.ok) return c.json({ error: `IntelligenceX upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `IntelligenceX upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({
       query: q,
@@ -294,32 +295,32 @@ darknetIntelRouter.get('/darknet-intel/intelx/search', async (c) => {
       generated_at: new Date().toISOString(),
     });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'IntelligenceX unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'IntelligenceX unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/intelx/results', async (c) => {
   const id = c.req.query('id');
-  if (!id) return c.json({ error: 'id parameter required (search_id from intelx/search)' }, 400);
+  if (!id) return badRequest(c, 'id parameter required (search_id from intelx/search)');
   const key = c.env.INTELX_API_KEY;
-  if (!key) return c.json({ error: 'INTELX_API_KEY not configured' }, 503);
+  if (!key) return serviceUnavailable(c, 'INTELX_API_KEY not configured');
   try {
     const res = await fetch(`https://2.intelx.io/intelligent/search/result?id=${id}&key=${key}&limit=50`, {
       signal: AbortSignal.timeout(15000),
     });
-    if (!res.ok) return c.json({ error: `IntelligenceX upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `IntelligenceX upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ search_id: id, ...data, provider: 'intelx', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'IntelligenceX unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'IntelligenceX unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/intelx/phonebook', async (c) => {
   const q = c.req.query('q');
-  if (!q) return c.json({ error: 'q parameter required' }, 400);
+  if (!q) return badRequest(c, 'q parameter required');
   const key = c.env.INTELX_API_KEY;
-  if (!key) return c.json({ error: 'INTELX_API_KEY not configured' }, 503);
+  if (!key) return serviceUnavailable(c, 'INTELX_API_KEY not configured');
   try {
     const res = await fetch(
       `https://2.intelx.io/phonebook/search?term=${encodeURIComponent(q)}&key=${key}&maxresults=20`,
@@ -327,7 +328,7 @@ darknetIntelRouter.get('/darknet-intel/intelx/phonebook', async (c) => {
         signal: AbortSignal.timeout(15000),
       }
     );
-    if (!res.ok) return c.json({ error: `IntelligenceX upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `IntelligenceX upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({
       query: q,
@@ -337,24 +338,24 @@ darknetIntelRouter.get('/darknet-intel/intelx/phonebook', async (c) => {
       generated_at: new Date().toISOString(),
     });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'IntelligenceX unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'IntelligenceX unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/intelx/phonebook-results', async (c) => {
   const id = c.req.query('id');
-  if (!id) return c.json({ error: 'id parameter required (search_id from intelx/phonebook)' }, 400);
+  if (!id) return badRequest(c, 'id parameter required (search_id from intelx/phonebook)');
   const key = c.env.INTELX_API_KEY;
-  if (!key) return c.json({ error: 'INTELX_API_KEY not configured' }, 503);
+  if (!key) return serviceUnavailable(c, 'INTELX_API_KEY not configured');
   try {
     const res = await fetch(`https://2.intelx.io/phonebook/search/result?id=${id}&key=${key}&limit=50`, {
       signal: AbortSignal.timeout(15000),
     });
-    if (!res.ok) return c.json({ error: `IntelligenceX upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `IntelligenceX upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ search_id: id, ...data, provider: 'intelx', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'IntelligenceX unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'IntelligenceX unreachable');
   }
 });
 
@@ -362,10 +363,10 @@ darknetIntelRouter.get('/darknet-intel/intelx/phonebook-results', async (c) => {
 
 darknetIntelRouter.get('/darknet-intel/abuseipdb/check', async (c) => {
   const ip = c.req.query('ip');
-  if (!ip) return c.json({ error: 'ip parameter required' }, 400);
+  if (!ip) return badRequest(c, 'ip parameter required');
   const key = c.env.ABUSEIPDB_API_KEY;
   if (!key)
-    return c.json({ error: 'ABUSEIPDB_API_KEY not configured', docs: 'wrangler secret put ABUSEIPDB_API_KEY' }, 503);
+    return serviceUnavailable(c, 'ABUSEIPDB_API_KEY not configured (wrangler secret put ABUSEIPDB_API_KEY)');
   try {
     const res = await fetch(
       `https://api.abuseipdb.com/api/v2/check?ipAddress=${encodeURIComponent(ip)}&maxAgeInDays=90`,
@@ -374,20 +375,20 @@ darknetIntelRouter.get('/darknet-intel/abuseipdb/check', async (c) => {
         signal: AbortSignal.timeout(10000),
       }
     );
-    if (!res.ok) return c.json({ error: `AbuseIPDB upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `AbuseIPDB upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ip, ...data, provider: 'abuseipdb', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'AbuseIPDB unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'AbuseIPDB unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/abuseipdb/reports', async (c) => {
   const ip = c.req.query('ip');
-  if (!ip) return c.json({ error: 'ip parameter required' }, 400);
+  if (!ip) return badRequest(c, 'ip parameter required');
   const key = c.env.ABUSEIPDB_API_KEY;
-  if (!key) return c.json({ error: 'ABUSEIPDB_API_KEY not configured' }, 503);
+  if (!key) return serviceUnavailable(c, 'ABUSEIPDB_API_KEY not configured');
   try {
     const res = await fetch(
       `https://api.abuseipdb.com/api/v2/reports?ipAddress=${encodeURIComponent(ip)}&maxAgeInDays=90&limit=100`,
@@ -396,17 +397,17 @@ darknetIntelRouter.get('/darknet-intel/abuseipdb/reports', async (c) => {
         signal: AbortSignal.timeout(10000),
       }
     );
-    if (!res.ok) return c.json({ error: `AbuseIPDB upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `AbuseIPDB upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ ip, ...data, provider: 'abuseipdb', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'AbuseIPDB unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'AbuseIPDB unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/abuseipdb/blacklist', async (c) => {
   const key = c.env.ABUSEIPDB_API_KEY;
-  if (!key) return c.json({ error: 'ABUSEIPDB_API_KEY not configured' }, 503);
+  if (!key) return serviceUnavailable(c, 'ABUSEIPDB_API_KEY not configured');
   try {
     const confidence = c.req.query('confidence') ?? '90';
     const limit = c.req.query('limit') ?? '10000';
@@ -417,30 +418,30 @@ darknetIntelRouter.get('/darknet-intel/abuseipdb/blacklist', async (c) => {
         signal: AbortSignal.timeout(15000),
       }
     );
-    if (!res.ok) return c.json({ error: `AbuseIPDB upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `AbuseIPDB upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ...data, provider: 'abuseipdb', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'AbuseIPDB unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'AbuseIPDB unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/abuseipdb/check-block', async (c) => {
   const network = c.req.query('network');
-  if (!network) return c.json({ error: 'network parameter required (CIDR, e.g. 118.208.0.0/16)' }, 400);
+  if (!network) return badRequest(c, 'network parameter required (CIDR, e.g. 118.208.0.0/16)');
   const key = c.env.ABUSEIPDB_API_KEY;
-  if (!key) return c.json({ error: 'ABUSEIPDB_API_KEY not configured' }, 503);
+  if (!key) return serviceUnavailable(c, 'ABUSEIPDB_API_KEY not configured');
   try {
     const res = await fetch(`https://api.abuseipdb.com/api/v2/check-block?network=${encodeURIComponent(network)}`, {
       headers: { Key: key, Accept: 'application/json' },
       signal: AbortSignal.timeout(15000),
     });
-    if (!res.ok) return c.json({ error: `AbuseIPDB upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `AbuseIPDB upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ network, ...data, provider: 'abuseipdb', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'AbuseIPDB unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'AbuseIPDB unreachable');
   }
 });
 
@@ -448,12 +449,12 @@ darknetIntelRouter.get('/darknet-intel/abuseipdb/check-block', async (c) => {
 
 darknetIntelRouter.get('/darknet-intel/ransomware/group', async (c) => {
   const name = c.req.query('name');
-  if (!name) return c.json({ error: 'name parameter required' }, 400);
+  if (!name) return badRequest(c, 'name parameter required');
   try {
     const res = await fetch(`https://api.ransomware.live/v2/group/${encodeURIComponent(name)}`, {
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `ransomware.live upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ransomware.live upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = {
       group: name,
@@ -464,48 +465,48 @@ darknetIntelRouter.get('/darknet-intel/ransomware/group', async (c) => {
     };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'ransomware.live unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'ransomware.live unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/ransomware/victims', async (c) => {
   const name = c.req.query('name');
-  if (!name) return c.json({ error: 'name parameter required (group name)' }, 400);
+  if (!name) return badRequest(c, 'name parameter required (group name)');
   try {
     const res = await fetch(`https://api.ransomware.live/v2/group/${encodeURIComponent(name)}/victims`, {
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `ransomware.live upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ransomware.live upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ group: name, ...data, provider: 'ransomware.live', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'ransomware.live unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'ransomware.live unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/ransomware/search', async (c) => {
   const q = c.req.query('q');
-  if (!q) return c.json({ error: 'q parameter required' }, 400);
+  if (!q) return badRequest(c, 'q parameter required');
   try {
     const res = await fetch(`https://api.ransomware.live/v2/search/${encodeURIComponent(q)}`, {
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `ransomware.live upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ransomware.live upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ query: q, ...data, provider: 'ransomware.live', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'ransomware.live unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'ransomware.live unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/ransomware/country', async (c) => {
   const code = c.req.query('code');
-  if (!code) return c.json({ error: 'code parameter required (ISO 3166-1 alpha-2)' }, 400);
+  if (!code) return badRequest(c, 'code parameter required (ISO 3166-1 alpha-2)');
   try {
     const res = await fetch(`https://api.ransomware.live/v2/country/${encodeURIComponent(code)}`, {
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `ransomware.live upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ransomware.live upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = {
       country: code,
@@ -516,18 +517,18 @@ darknetIntelRouter.get('/darknet-intel/ransomware/country', async (c) => {
     };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'ransomware.live unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'ransomware.live unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/ransomware/sector', async (c) => {
   const sector = c.req.query('sector');
-  if (!sector) return c.json({ error: 'sector parameter required (e.g. healthcare, finance)' }, 400);
+  if (!sector) return badRequest(c, 'sector parameter required (e.g. healthcare, finance)');
   try {
     const res = await fetch(`https://api.ransomware.live/v2/sector/${encodeURIComponent(sector)}`, {
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `ransomware.live upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ransomware.live upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = {
       sector,
@@ -538,31 +539,31 @@ darknetIntelRouter.get('/darknet-intel/ransomware/sector', async (c) => {
     };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'ransomware.live unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'ransomware.live unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/ransomware/ransomlook-groups', async (c) => {
   try {
     const res = await fetch('https://www.ransomlook.io/api/groups', { signal: AbortSignal.timeout(10000) });
-    if (!res.ok) return c.json({ error: `ransomlook upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ransomlook upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ...data, provider: 'ransomlook', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'ransomlook unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'ransomlook unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/ransomware/ransomlook-recent', async (c) => {
   try {
     const res = await fetch('https://www.ransomlook.io/api/recent', { signal: AbortSignal.timeout(10000) });
-    if (!res.ok) return c.json({ error: `ransomlook upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ransomlook upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ...data, provider: 'ransomlook', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'ransomlook unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'ransomlook unreachable');
   }
 });
 
@@ -570,7 +571,7 @@ darknetIntelRouter.get('/darknet-intel/ransomware/ransomlook-recent', async (c) 
 
 darknetIntelRouter.get('/darknet-intel/hibp/breach', async (c) => {
   const name = c.req.query('name');
-  if (!name) return c.json({ error: 'name parameter required (breach name)' }, 400);
+  if (!name) return badRequest(c, 'name parameter required (breach name)');
   try {
     const headers: Record<string, string> = { 'User-Agent': UA };
     const key = c.env.HIBP_API_KEY;
@@ -579,13 +580,13 @@ darknetIntelRouter.get('/darknet-intel/hibp/breach', async (c) => {
       headers,
       signal: AbortSignal.timeout(10000),
     });
-    if (res.status === 404) return c.json({ error: 'breach not found', name }, 404);
-    if (!res.ok) return c.json({ error: `HIBP upstream ${res.status}` }, 502);
+    if (res.status === 404) return notFound(c, 'breach not found');
+    if (!res.ok) return badGateway(c, `HIBP upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ...data, provider: 'hibp', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'HIBP unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'HIBP unreachable');
   }
 });
 
@@ -598,7 +599,7 @@ darknetIntelRouter.get('/darknet-intel/hibp/latest', async (c) => {
       headers,
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `HIBP upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `HIBP upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = {
       breaches: data,
@@ -609,7 +610,7 @@ darknetIntelRouter.get('/darknet-intel/hibp/latest', async (c) => {
     };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'HIBP unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'HIBP unreachable');
   }
 });
 
@@ -622,7 +623,7 @@ darknetIntelRouter.get('/darknet-intel/hibp/data-classes', async (c) => {
       headers,
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `HIBP upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `HIBP upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = {
       data_classes: data,
@@ -633,13 +634,13 @@ darknetIntelRouter.get('/darknet-intel/hibp/data-classes', async (c) => {
     };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'HIBP unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'HIBP unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/hibp/password', async (c) => {
   const password = c.req.query('password');
-  if (!password) return c.json({ error: 'password parameter required' }, 400);
+  if (!password) return badRequest(c, 'password parameter required');
   try {
     const encoder = new TextEncoder();
     const data = encoder.encode(password);
@@ -655,7 +656,7 @@ darknetIntelRouter.get('/darknet-intel/hibp/password', async (c) => {
       headers: { 'User-Agent': UA },
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok && res.status !== 404) return c.json({ error: `HIBP upstream ${res.status}` }, 502);
+    if (!res.ok && res.status !== 404) return badGateway(c, `HIBP upstream ${res.status}`);
     const text = await res.text();
     const lines = text.split('\r\n');
     let count = 0;
@@ -675,7 +676,7 @@ darknetIntelRouter.get('/darknet-intel/hibp/password', async (c) => {
       generated_at: new Date().toISOString(),
     });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'HIBP unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'HIBP unreachable');
   }
 });
 
@@ -690,18 +691,18 @@ darknetIntelRouter.get('/darknet-intel/abusech/threatfox-iocs', async (c) => {
       body: JSON.stringify({ query: 'get_iocs', days: Math.min(Math.max(days, 1), 30) }),
       signal: AbortSignal.timeout(15000),
     });
-    if (!res.ok) return c.json({ error: `ThreatFox upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ThreatFox upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { days, ...data, provider: 'threatfox', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'ThreatFox unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'ThreatFox unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/abusech/threatfox-search', async (c) => {
   const q = c.req.query('q');
-  if (!q) return c.json({ error: 'q parameter required (IP, domain, hash, or URL)' }, 400);
+  if (!q) return badRequest(c, 'q parameter required (IP, domain, hash, or URL)');
   try {
     const res = await fetch('https://threatfox-api.abuse.ch/api/v1/', {
       method: 'POST',
@@ -709,17 +710,17 @@ darknetIntelRouter.get('/darknet-intel/abusech/threatfox-search', async (c) => {
       body: JSON.stringify({ query: 'search_ioc', search_term: q }),
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `ThreatFox upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ThreatFox upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ query: q, ...data, provider: 'threatfox', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'ThreatFox unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'ThreatFox unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/abusech/threatfox-tag', async (c) => {
   const tag = c.req.query('tag');
-  if (!tag) return c.json({ error: 'tag parameter required (e.g. Cobalt Strike, Emotet)' }, 400);
+  if (!tag) return badRequest(c, 'tag parameter required (e.g. Cobalt Strike, Emotet)');
   const limit = Math.min(parseInt(c.req.query('limit') ?? '50', 10), 500);
   try {
     const res = await fetch('https://threatfox-api.abuse.ch/api/v1/', {
@@ -728,17 +729,17 @@ darknetIntelRouter.get('/darknet-intel/abusech/threatfox-tag', async (c) => {
       body: JSON.stringify({ query: 'taginfo', tag, limit }),
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `ThreatFox upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ThreatFox upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ tag, limit, ...data, provider: 'threatfox', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'ThreatFox unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'ThreatFox unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/abusech/threatfox-malware', async (c) => {
   const malware = c.req.query('malware');
-  if (!malware) return c.json({ error: 'malware parameter required (Malpedia name)' }, 400);
+  if (!malware) return badRequest(c, 'malware parameter required (Malpedia name)');
   try {
     const res = await fetch('https://threatfox-api.abuse.ch/api/v1/', {
       method: 'POST',
@@ -746,18 +747,18 @@ darknetIntelRouter.get('/darknet-intel/abusech/threatfox-malware', async (c) => 
       body: JSON.stringify({ query: 'malwareinfo', malware }),
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `ThreatFox upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ThreatFox upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ malware, ...data, provider: 'threatfox', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'ThreatFox unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'ThreatFox unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/abusech/urlhaus', async (c) => {
   const url = c.req.query('url');
   const host = c.req.query('host');
-  if (!url && !host) return c.json({ error: 'url or host parameter required' }, 400);
+  if (!url && !host) return badRequest(c, 'url or host parameter required');
   try {
     const body: Record<string, string> = {};
     if (url) body.url = url;
@@ -768,17 +769,17 @@ darknetIntelRouter.get('/darknet-intel/abusech/urlhaus', async (c) => {
       body: JSON.stringify(body),
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `URLhaus upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `URLhaus upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ ...data, provider: 'urlhaus', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'URLhaus unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'URLhaus unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/abusech/urlhaus-tag', async (c) => {
   const tag = c.req.query('tag');
-  if (!tag) return c.json({ error: 'tag parameter required' }, 400);
+  if (!tag) return badRequest(c, 'tag parameter required');
   try {
     const res = await fetch('https://urlhaus-api.abuse.ch/v1/tag/', {
       method: 'POST',
@@ -786,17 +787,17 @@ darknetIntelRouter.get('/darknet-intel/abusech/urlhaus-tag', async (c) => {
       body: JSON.stringify({ tag }),
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `URLhaus upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `URLhaus upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ tag, ...data, provider: 'urlhaus', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'URLhaus unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'URLhaus unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/abusech/bazaar-hash', async (c) => {
   const hash = c.req.query('hash');
-  if (!hash) return c.json({ error: 'hash parameter required (MD5, SHA1, or SHA256)' }, 400);
+  if (!hash) return badRequest(c, 'hash parameter required (MD5, SHA1, or SHA256)');
   try {
     const res = await fetch('https://mb-api.abuse.ch/api/v1/', {
       method: 'POST',
@@ -804,12 +805,12 @@ darknetIntelRouter.get('/darknet-intel/abusech/bazaar-hash', async (c) => {
       body: `query=get_info&${hash.length === 64 ? 'sha256_hash' : hash.length === 40 ? 'sha1_hash' : 'md5_hash'}=${encodeURIComponent(hash)}`,
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `MalwareBazaar upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `MalwareBazaar upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { hash, ...data, provider: 'malwarebazaar', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'MalwareBazaar unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'MalwareBazaar unreachable');
   }
 });
 
@@ -818,18 +819,18 @@ darknetIntelRouter.get('/darknet-intel/abusech/bazaar-recent', async (c) => {
     const res = await fetch('https://mb-api.abuse.ch/api/v1/?query=get_recent&selector=100', {
       signal: AbortSignal.timeout(15000),
     });
-    if (!res.ok) return c.json({ error: `MalwareBazaar upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `MalwareBazaar upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ...data, provider: 'malwarebazaar', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'MalwareBazaar unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'MalwareBazaar unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/abusech/bazaar-tag', async (c) => {
   const tag = c.req.query('tag');
-  if (!tag) return c.json({ error: 'tag parameter required' }, 400);
+  if (!tag) return badRequest(c, 'tag parameter required');
   const limit = Math.min(parseInt(c.req.query('limit') ?? '50', 10), 1000);
   try {
     const res = await fetch('https://mb-api.abuse.ch/api/v1/', {
@@ -838,11 +839,11 @@ darknetIntelRouter.get('/darknet-intel/abusech/bazaar-tag', async (c) => {
       body: `query=get_taginfo&tag=${encodeURIComponent(tag)}&limit=${limit}`,
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `MalwareBazaar upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `MalwareBazaar upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     return c.json({ tag, limit, ...data, provider: 'malwarebazaar', generated_at: new Date().toISOString() });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'MalwareBazaar unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'MalwareBazaar unreachable');
   }
 });
 
@@ -850,7 +851,7 @@ darknetIntelRouter.get('/darknet-intel/abusech/bazaar-tag', async (c) => {
 
 darknetIntelRouter.get('/darknet-intel/otx/ip', async (c) => {
   const ip = c.req.query('ip');
-  if (!ip) return c.json({ error: 'ip parameter required' }, 400);
+  if (!ip) return badRequest(c, 'ip parameter required');
   try {
     const headers: Record<string, string> = { Accept: 'application/json' };
     const key = c.env.OTX_API_KEY;
@@ -859,18 +860,18 @@ darknetIntelRouter.get('/darknet-intel/otx/ip', async (c) => {
       headers,
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `OTX upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `OTX upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ip, ...data, provider: 'otx', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'OTX unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'OTX unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/otx/domain', async (c) => {
   const domain = c.req.query('domain');
-  if (!domain) return c.json({ error: 'domain parameter required' }, 400);
+  if (!domain) return badRequest(c, 'domain parameter required');
   try {
     const headers: Record<string, string> = { Accept: 'application/json' };
     const key = c.env.OTX_API_KEY;
@@ -882,18 +883,18 @@ darknetIntelRouter.get('/darknet-intel/otx/domain', async (c) => {
         signal: AbortSignal.timeout(10000),
       }
     );
-    if (!res.ok) return c.json({ error: `OTX upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `OTX upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { domain, ...data, provider: 'otx', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'OTX unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'OTX unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/otx/hash', async (c) => {
   const hash = c.req.query('hash');
-  if (!hash) return c.json({ error: 'hash parameter required' }, 400);
+  if (!hash) return badRequest(c, 'hash parameter required');
   try {
     const headers: Record<string, string> = { Accept: 'application/json' };
     const key = c.env.OTX_API_KEY;
@@ -902,18 +903,18 @@ darknetIntelRouter.get('/darknet-intel/otx/hash', async (c) => {
       headers,
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `OTX upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `OTX upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { hash, ...data, provider: 'otx', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'OTX unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'OTX unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/otx/cve', async (c) => {
   const cve = c.req.query('cve');
-  if (!cve) return c.json({ error: 'cve parameter required (e.g. CVE-2024-3094)' }, 400);
+  if (!cve) return badRequest(c, 'cve parameter required (e.g. CVE-2024-3094)');
   try {
     const headers: Record<string, string> = { Accept: 'application/json' };
     const key = c.env.OTX_API_KEY;
@@ -922,12 +923,12 @@ darknetIntelRouter.get('/darknet-intel/otx/cve', async (c) => {
       headers,
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `OTX upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `OTX upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { cve, ...data, provider: 'otx', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'OTX unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'OTX unreachable');
   }
 });
 
@@ -935,7 +936,7 @@ darknetIntelRouter.get('/darknet-intel/otx/cve', async (c) => {
 
 darknetIntelRouter.get('/darknet-intel/hybrid/search', async (c) => {
   const hash = c.req.query('hash');
-  if (!hash) return c.json({ error: 'hash parameter required' }, 400);
+  if (!hash) return badRequest(c, 'hash parameter required');
   const key = c.env.HYBRID_ANALYSIS_API_KEY;
   if (!key)
     return c.json(
@@ -947,29 +948,29 @@ darknetIntelRouter.get('/darknet-intel/hybrid/search', async (c) => {
       headers: { 'api-key': key, Accept: 'application/json' },
       signal: AbortSignal.timeout(15000),
     });
-    if (!res.ok) return c.json({ error: `Hybrid Analysis upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Hybrid Analysis upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { hash, ...data, provider: 'hybrid-analysis', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'Hybrid Analysis unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Hybrid Analysis unreachable');
   }
 });
 
 darknetIntelRouter.get('/darknet-intel/hybrid/feed', async (c) => {
   const key = c.env.HYBRID_ANALYSIS_API_KEY;
-  if (!key) return c.json({ error: 'HYBRID_ANALYSIS_API_KEY not configured' }, 503);
+  if (!key) return serviceUnavailable(c, 'HYBRID_ANALYSIS_API_KEY not configured');
   try {
     const res = await fetch('https://www.hybrid-analysis.com/api/v2/feed/latest', {
       headers: { 'api-key': key, Accept: 'application/json' },
       signal: AbortSignal.timeout(15000),
     });
-    if (!res.ok) return c.json({ error: `Hybrid Analysis upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Hybrid Analysis upstream ${res.status}`);
     const data = (await res.json()) as Record<string, unknown>;
     const body = { ...data, provider: 'hybrid-analysis', generated_at: new Date().toISOString(), cached: false };
     return c.json(body);
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : 'Hybrid Analysis unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Hybrid Analysis unreachable');
   }
 });
 

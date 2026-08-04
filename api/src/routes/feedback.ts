@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict } from '../lib/api-error';
 import { safeNullLog, kvBulkGetText } from '../lib/safe-catch';
 
 export type FeedbackTarget = 'copilot' | 'briefing' | 'pir' | 'finding' | 'ioc' | 'assessment';
@@ -51,13 +52,13 @@ export async function feedbackCreateHandler(c: Context<{ Bindings: Env }>): Prom
     const validRatings: FeedbackRating[] = ['useful', 'not_useful', 'actioned', 'accurate', 'inaccurate', 'no_value'];
 
     if (!validTargets.includes(body.target_type)) {
-      return c.json({ error: `invalid target_type. must be one of: ${validTargets.join(', ')}` }, 400);
+      return badRequest(c, `invalid target_type. must be one of: ${validTargets.join(', ')}`);
     }
     if (!validRatings.includes(body.rating)) {
-      return c.json({ error: `invalid rating. must be one of: ${validRatings.join(', ')}` }, 400);
+      return badRequest(c, `invalid rating. must be one of: ${validRatings.join(', ')}`);
     }
     if (!body.target_id || body.target_id.trim().length === 0) {
-      return c.json({ error: 'target_id is required' }, 400);
+      return badRequest(c, 'target_id is required');
     }
 
     const feedback: Feedback = {
@@ -71,7 +72,7 @@ export async function feedbackCreateHandler(c: Context<{ Bindings: Env }>): Prom
     };
 
     const kv = c.env.KV_CACHE;
-    if (!kv) return c.json({ error: 'feedback storage not configured' }, 503);
+    if (!kv) return serviceUnavailable(c, 'feedback storage not configured');
 
     // Store individual feedback item
     const itemKey = `${KV_PREFIX}:${feedback.id}`;
@@ -104,7 +105,7 @@ export async function feedbackCreateHandler(c: Context<{ Bindings: Env }>): Prom
     return c.json({ ok: true, feedback, aggregate: agg }, 201);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -176,7 +177,7 @@ export async function feedbackListHandler(c: Context<{ Bindings: Env }>): Promis
     const limit = Math.min(100, parseInt(c.req.query('limit') ?? '50', 10));
 
     const kv = c.env.KV_CACHE;
-    if (!kv) return c.json({ error: 'feedback storage not configured' }, 503, { 'Cache-Control': 'no-store' });
+    if (!kv) return serviceUnavailable(c, 'feedback storage not configured');
 
     let feedbacks = await loadAllFeedback(kv);
     if (targetType) feedbacks = feedbacks.filter((fb) => fb.target_type === targetType);
@@ -188,7 +189,7 @@ export async function feedbackListHandler(c: Context<{ Bindings: Env }>): Promis
     });
   } catch (e) {
     console.error('feedbackListHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500, { 'Cache-Control': 'no-store' });
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -201,10 +202,10 @@ export async function feedbackAggregateHandler(c: Context<{ Bindings: Env }>): P
     const targetType = c.req.query('target_type') as FeedbackTarget;
     const targetId = c.req.query('target_id');
     if (!targetType || !targetId) {
-      return c.json({ error: 'target_type and target_id query params required' }, 400, { 'Cache-Control': 'no-store' });
+      return badRequest(c, 'target_type and target_id query params required');
     }
     const kv = c.env.KV_CACHE;
-    if (!kv) return c.json({ error: 'feedback storage not configured' }, 503, { 'Cache-Control': 'no-store' });
+    if (!kv) return serviceUnavailable(c, 'feedback storage not configured');
     const aggKey = `${KV_PREFIX}:agg:${targetType}:${targetId}`;
     const raw = await kv.get(aggKey);
     if (!raw) return c.json({ total: 0, overall_score: null });
@@ -212,7 +213,7 @@ export async function feedbackAggregateHandler(c: Context<{ Bindings: Env }>): P
     return c.json(agg);
   } catch (e) {
     console.error('feedbackAggregateHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500, { 'Cache-Control': 'no-store' });
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
 
@@ -222,13 +223,13 @@ export async function feedbackAggregateHandler(c: Context<{ Bindings: Env }>): P
 export async function feedbackDeleteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const kv = c.env.KV_CACHE;
-    if (!kv) return c.json({ error: 'feedback storage not configured' }, 503);
+    if (!kv) return serviceUnavailable(c, 'feedback storage not configured');
     const authHeader = c.req.header('authorization');
-    if (!authHeader) return c.json({ error: 'unauthorized', message: 'missing authorization header' }, 401);
+    if (!authHeader) return unauthorized(c, 'missing authorization header');
     const id = c.req.param('id');
     const itemKey = `${KV_PREFIX}:${id}`;
     const raw = await kv.get(itemKey);
-    if (!raw) return c.json({ error: 'feedback not found' }, 404);
+    if (!raw) return notFound(c, 'feedback not found');
 
     const fb = JSON.parse(raw) as Feedback;
     await kv.delete(itemKey);
@@ -253,6 +254,6 @@ export async function feedbackDeleteHandler(c: Context<{ Bindings: Env }>): Prom
     return c.json({ ok: true, deleted: id });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

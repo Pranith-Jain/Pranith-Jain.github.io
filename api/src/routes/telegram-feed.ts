@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict } from '../lib/api-error';
 import { requireAdmin } from '../lib/admin-auth';
 import { safeNullLog, kvBulkGetText } from '../lib/safe-catch';
 
@@ -1025,14 +1026,14 @@ export async function telegramCustomChannelsPostHandler(c: Context<{ Bindings: E
   const gate = requireAdmin(c);
   if ('error' in gate) return gate.error;
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not configured' }, 500);
+  if (!kv) return internalError(c, 'KV not configured');
 
   const body = (await c.req.json()) as { handle?: string; name?: string };
   const handle = body.handle?.trim().replace(/^@/, '') ?? '';
   const name = (body.name?.trim() || handle) ?? '';
 
   if (!handle || !/^[a-zA-Z][a-zA-Z0-9_]{3,31}$/.test(handle)) {
-    return c.json({ error: 'invalid handle — must be 4-32 alphanumeric chars, starting with a letter' }, 400);
+    return badRequest(c, 'invalid handle — must be 4-32 alphanumeric chars, starting with a letter');
   }
 
   try {
@@ -1040,7 +1041,7 @@ export async function telegramCustomChannelsPostHandler(c: Context<{ Bindings: E
     const channels: CustomChannelEntry[] = raw ? JSON.parse(raw) : [];
 
     if (channels.some((ch) => ch.handle.toLowerCase() === handle.toLowerCase())) {
-      return c.json({ error: 'channel already added' }, 409);
+      return conflict(c, 'channel already added');
     }
 
     channels.push({ handle, name, added_at: new Date().toISOString() });
@@ -1062,7 +1063,7 @@ export async function telegramCustomChannelsPostHandler(c: Context<{ Bindings: E
     return c.json({ ok: true, channel: { handle, name } }, 201);
   } catch (_catchErr) {
     console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'failed to save custom channel' }, 500);
+    return internalError(c, 'failed to save custom channel');
   }
 }
 
@@ -1070,17 +1071,17 @@ export async function telegramCustomChannelsDeleteHandler(c: Context<{ Bindings:
   const gate = requireAdmin(c);
   if ('error' in gate) return gate.error;
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not configured' }, 500);
+  if (!kv) return internalError(c, 'KV not configured');
 
   const handle = c.req.param('handle')?.trim().replace(/^@/, '');
-  if (!handle) return c.json({ error: 'missing handle' }, 400);
+  if (!handle) return badRequest(c, 'missing handle');
 
   try {
     const raw = await kv.get(CUSTOM_CHANNELS_KV_KEY);
     const channels: CustomChannelEntry[] = raw ? JSON.parse(raw) : [];
     const filtered = channels.filter((ch) => ch.handle.toLowerCase() !== handle.toLowerCase());
     if (filtered.length === channels.length) {
-      return c.json({ error: 'channel not found' }, 404);
+      return notFound(c, 'channel not found');
     }
     await kv.put(CUSTOM_CHANNELS_KV_KEY, JSON.stringify(filtered));
     await kv.put('tg:custom-channels:bump', Date.now().toString());
@@ -1099,7 +1100,7 @@ export async function telegramCustomChannelsDeleteHandler(c: Context<{ Bindings:
       'telegramCustomChannelsDeleteHandler failed:',
       _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
     );
-    return c.json({ error: 'failed to delete custom channel' }, 500);
+    return internalError(c, 'failed to delete custom channel');
   }
 }
 
@@ -1171,17 +1172,17 @@ export async function telegramBotRegisterHandler(c: Context<{ Bindings: Env }>):
   const gate = requireAdmin(c);
   if ('error' in gate) return gate.error;
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not configured' }, 500);
+  if (!kv) return internalError(c, 'KV not configured');
 
   const body = (await c.req.json()) as { handle?: string; chat_id?: number };
   const handle = body.handle?.trim().replace(/^@/, '').toLowerCase();
   const chatId = body.chat_id;
 
   if (!handle || !chatId) {
-    return c.json({ error: 'handle and chat_id are required' }, 400);
+    return badRequest(c, 'handle and chat_id are required');
   }
   if (!/^[a-zA-Z][a-zA-Z0-9_]{3,31}$/.test(handle)) {
-    return c.json({ error: 'invalid handle' }, 400);
+    return badRequest(c, 'invalid handle');
   }
 
   try {
@@ -1199,6 +1200,6 @@ export async function telegramBotRegisterHandler(c: Context<{ Bindings: Env }>):
       'telegramBotRegisterHandler failed:',
       _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
     );
-    return c.json({ error: 'failed to register channel' }, 500);
+    return internalError(c, 'failed to register channel');
   }
 }

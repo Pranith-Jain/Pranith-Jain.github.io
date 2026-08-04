@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 /**
@@ -41,14 +42,14 @@ const LEAKS_CACHE_TTL = 3600;
 
 export async function pdLeaksHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const q = (c.req.query('q') ?? '').trim().toLowerCase();
-  if (!q) return c.json({ error: 'q parameter required (email or domain)' }, 400, { 'cache-control': 'no-store' });
+  if (!q) return badRequest(c, 'q parameter required (email or domain)');
 
   const kind: 'email' | 'domain' = q.includes('@') ? 'email' : 'domain';
   if (kind === 'email' && !EMAIL_RE.test(q)) {
-    return c.json({ error: 'invalid email format' }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'invalid email format');
   }
   if (kind === 'domain' && !DOMAIN_RE.test(q)) {
-    return c.json({ error: 'invalid domain format' }, 400, { 'cache-control': 'no-store' });
+    return badRequest(c, 'invalid domain format');
   }
 
   const cache = (caches as unknown as { default: Cache }).default;
@@ -65,14 +66,12 @@ export async function pdLeaksHandler(c: Context<{ Bindings: Env }>): Promise<Res
       { attempts: 3, timeoutMs: 12_000 }
     );
     if (!res.ok) {
-      return c.json({ error: `ProjectDiscovery upstream ${res.status}` }, 502, { 'cache-control': 'no-store' });
+      return badGateway(c, `ProjectDiscovery upstream ${res.status}`);
     }
     data = await res.json();
   } catch (e) {
     console.error('pdLeaksHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'ProjectDiscovery unreachable' }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, e instanceof Error ? e.message : 'ProjectDiscovery unreachable');
   }
 
   const response = new Response(JSON.stringify({ query: q, kind, generated_at: new Date().toISOString(), data }), {
@@ -98,14 +97,10 @@ interface ChaosResponse {
 export async function pdSubdomainsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = (c.req.query('domain') ?? '').trim().toLowerCase();
   if (!DOMAIN_RE.test(domain)) {
-    return c.json({ error: 'invalid_domain', detail: 'expected an apex domain like example.com' }, 400, {
-      'cache-control': 'no-store',
-    });
+    return badRequest(c, 'expected an apex domain like example.com');
   }
   if (!c.env.PDCP_API_KEY) {
-    return c.json({ error: 'not_configured', detail: 'PDCP_API_KEY secret is not set' }, 503, {
-      'cache-control': 'no-store',
-    });
+    return serviceUnavailable(c, 'PDCP_API_KEY secret is not set');
   }
 
   const cache = (caches as unknown as { default: Cache }).default;
@@ -145,9 +140,7 @@ export async function pdSubdomainsHandler(c: Context<{ Bindings: Env }>): Promis
     chaos = (await res.json()) as ChaosResponse;
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Chaos unreachable' }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, e instanceof Error ? e.message : 'Chaos unreachable');
   }
 
   const all = Array.isArray(chaos.subdomains) ? chaos.subdomains : [];
@@ -257,9 +250,7 @@ export async function pdCvesHandler(c: Context<{ Bindings: Env }>): Promise<Resp
     text = null;
   }
   if (!text) {
-    return c.json({ error: 'catalog_unavailable', detail: 'could not fetch nuclei-templates cves.json' }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, 'could not fetch nuclei-templates cves.json');
   }
 
   const all = parseCves(text);
@@ -385,9 +376,7 @@ async function fetchSsvc(cveUpper: string): Promise<Ssvc | null> {
 export async function pdCveDetailHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cve = (c.req.query('cve') ?? '').trim().toLowerCase();
   if (!CVE_ID_RE.test(cve)) {
-    return c.json({ error: 'invalid_cve', detail: 'expected a CVE id like CVE-2024-3400' }, 400, {
-      'cache-control': 'no-store',
-    });
+    return badRequest(c, 'expected a CVE id like CVE-2024-3400');
   }
   const cveUpper = cve.toUpperCase();
 
@@ -404,17 +393,15 @@ export async function pdCveDetailHandler(c: Context<{ Bindings: Env }>): Promise
       { attempts: 2, timeoutMs: 12_000 }
     );
     if (res.status === 404) {
-      return c.json({ error: 'not_found', cve: cveUpper }, 404, { 'cache-control': 'no-store' });
+      return notFound(c, `CVE not found: `);
     }
     if (!res.ok) {
-      return c.json({ error: `cvedb upstream ${res.status}`, cve: cveUpper }, 502, { 'cache-control': 'no-store' });
+      return badGateway(c, `cvedb upstream ${res.status}`);
     }
     d = (await res.json()) as CvedbResponse;
   } catch (e) {
     console.error('pdCveDetailHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'cvedb unreachable' }, 502, {
-      'cache-control': 'no-store',
-    });
+    return badGateway(c, e instanceof Error ? e.message : 'cvedb unreachable');
   }
 
   // CISA Vulnrichment SSVC (optional — null when CISA hasn't enriched the CVE).
