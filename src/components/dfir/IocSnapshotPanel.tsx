@@ -68,14 +68,14 @@ const CARDS: CardSpec[] = [
     title: 'Malware samples',
     Icon: FileWarning,
     accent: 'orange',
-    pivot: (e) => `/dfir/ioc-check?q=${encodeURIComponent(e.value)}`,
+    pivot: (e) => `/dfir/ioc-check?indicator=${encodeURIComponent(e.value)}`,
   },
   {
     key: 'threatfox',
     title: 'IOCs by type',
     Icon: Crosshair,
     accent: 'amber',
-    pivot: (e) => `/dfir/ioc-check?q=${encodeURIComponent(e.value)}`,
+    pivot: (e) => `/dfir/ioc-check?indicator=${encodeURIComponent(e.value)}`,
   },
   {
     key: 'openphish',

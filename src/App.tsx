@@ -359,7 +359,10 @@ const ArgusPage = lazy(() => import('./pages/Argus'));
 function DfirFileRedirect() {
   const [params] = useSearchParams();
   const hash = params.get('h');
-  const target = hash ? `/dfir/ioc-check?indicator=${encodeURIComponent(hash)}` : '/dfir/ioc-check';
+  // Target /dfir/ioc-investigate directly. /dfir/ioc-check is itself a
+  // preserveQuery redirect to /dfir/ioc-investigate, so routing through it
+  // would chain two client-side redirects for every legacy /dfir/file link.
+  const target = hash ? `/dfir/ioc-investigate?indicator=${encodeURIComponent(hash)}` : '/dfir/ioc-investigate';
   return <Navigate to={target} replace />;
 }
 

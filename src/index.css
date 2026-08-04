@@ -197,6 +197,22 @@
   .dark ::selection {
     background-color: rgb(109 139 247 / 0.32);
   }
+
+  /* <details>/<summary> disclosure widgets use a custom chevron in the
+     markup (e.g. threatintel Home, DFIR home, IOC panels). Suppress the
+     native UA triangle so users don't see a double indicator, and reset
+     the summary's default padding/list-style so the custom layout owns
+     the box. Affects 28+ pages that render <summary>. */
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    display: none;
+    content: '';
+  }
 }
 
 @layer components {
