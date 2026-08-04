@@ -136,7 +136,7 @@ export class ProviderCache {
           headers: { 'cache-control': `public, max-age=${ttl}` },
         });
         if (cache)
-          safeNullLog('cache-put-provider', cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp));
+          void safeNullLog('cache-put-provider', cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp));
         return { ...cached, cached: true };
       }
       return cached;
@@ -161,7 +161,10 @@ export class ProviderCache {
       const cacheResp = new Response(JSON.stringify(data), {
         headers: { 'cache-control': `public, max-age=${ttl}` },
       });
-      safeNullLog('cache-put-provider-set', cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp));
+      // Await so callers that `await cache.set(...)` (and tests) see the
+      // write complete before a subsequent read. Production callers that
+      // want fire-and-forget can wrap this in executionCtx.waitUntil.
+      await safeNullLog('cache-put-provider-set', cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp));
     }
   }
 
@@ -180,7 +183,7 @@ export class ProviderCache {
     // Purge from per-colo cache
     const cache = this.cacheApi();
     if (cache) {
-      safeNullLog('cache-delete-provider', cache.delete(new Request(this.cacheUrl(provider, indicator))));
+      void safeNullLog('cache-delete-provider', cache.delete(new Request(this.cacheUrl(provider, indicator))));
     }
   }
 
