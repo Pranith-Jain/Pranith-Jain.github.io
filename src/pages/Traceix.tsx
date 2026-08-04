@@ -3,6 +3,7 @@ import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
 import { Button } from '../components/ui/Button';
 import { Spinner } from '../components/ui/Spinner';
+import { DataTable, type DataTableColumn } from '../components/ui/DataTable';
 import { Search, Shield, Hash, AlertTriangle } from 'lucide-react';
 
 interface AvResult {
@@ -167,43 +168,42 @@ export default function Traceix() {
                 Engine Results ({data.avResults.length})
               </h2>
               {data.avResults.length > 0 ? (
-                <div className="overflow-x-auto -mx-4">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                        <th className="text-left px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">
-                          Engine
-                        </th>
-                        <th className="text-left px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">
-                          Type
-                        </th>
-                        <th className="text-right px-4 py-2 font-mono text-mini uppercase tracking-wider text-muted">
-                          Verdict
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.avResults.map((r, i) => (
-                        <tr
-                          key={i}
-                          className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] last:border-0"
-                        >
-                          <td className="px-4 py-2 text-sm text-slate-900 dark:text-slate-100 font-medium">
-                            {r.engine}
-                          </td>
-                          <td className="px-4 py-2 text-mini text-muted">{r.engine_type}</td>
-                          <td className="px-4 py-2 text-right">
-                            <span
-                              className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${VERDICT_STYLE[r.verdict] ?? VERDICT_STYLE.Unknown}`}
-                            >
-                              {r.verdict}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <DataTable
+                  columns={
+                    [
+                      {
+                        key: 'engine',
+                        header: 'Engine',
+                        sortValue: (r) => r.engine,
+                        render: (r) => (
+                          <span className="text-sm text-slate-900 dark:text-slate-100 font-medium">{r.engine}</span>
+                        ),
+                      },
+                      {
+                        key: 'engine_type',
+                        header: 'Type',
+                        sortValue: (r) => r.engine_type,
+                        render: (r) => <span className="text-mini text-muted">{r.engine_type}</span>,
+                      },
+                      {
+                        key: 'verdict',
+                        header: 'Verdict',
+                        align: 'right',
+                        sortValue: (r) => r.verdict,
+                        render: (r) => (
+                          <span
+                            className={`text-micro font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${VERDICT_STYLE[r.verdict] ?? VERDICT_STYLE.Unknown}`}
+                          >
+                            {r.verdict}
+                          </span>
+                        ),
+                      },
+                    ] as DataTableColumn<AvResult>[]
+                  }
+                  rows={data.avResults}
+                  rowKey={(r, i) => `${r.engine}-${i}`}
+                  className="-mx-4"
+                />
               ) : (
                 <p className="text-sm text-muted py-2">No AV results found for this hash.</p>
               )}

@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { api } from '../lib/api-client';
+import { DataTable, type DataTableColumn } from '../components/ui/DataTable';
 import { memoryCache } from '../infrastructure/cache/memory-cache';
 import { DataPageLayout } from '../components/DataPageLayout';
 
@@ -611,68 +612,71 @@ export default function TiDashboard() {
             <div>
               {filteredVulns.length === 0 && <EmptyMsg message="No vulnerabilities match the current filters." />}
               {filteredVulns.length > 0 && (
-                <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                        <th className="text-left p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                          CVE
-                        </th>
-                        <th className="text-left p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                          Product
-                        </th>
-                        <th className="text-left p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                          CVSS
-                        </th>
-                        <th className="text-left p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                          Severity
-                        </th>
-                        <th className="text-left p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                          Status
-                        </th>
-                        <th className="text-left p-3 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                          Remediation
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {filteredVulns.map((vuln, idx) => (
-                        <tr
-                          key={idx}
-                          className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 last:border-0 hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))]"
-                        >
-                          <td className="p-3">
-                            <code className="text-xs font-mono text-brand-600 dark:text-brand-400">{vuln.cve}</code>
-                          </td>
-                          <td className="p-3">
-                            <div className="text-slate-900 dark:text-slate-100 font-medium">{vuln.product}</div>
-                            <div className="text-xs text-slate-500 dark:text-slate-400">{vuln.vendor}</div>
-                          </td>
-                          <td className="p-3">
-                            <span className={`font-mono font-bold ${cvssColor(vuln.cvss)}`}>{vuln.cvss}</span>
-                          </td>
-                          <td className="p-3">
-                            <span
-                              className={`text-xs font-mono px-2 py-0.5 rounded border ${severityPill(vuln.severity)}`}
-                            >
-                              {vuln.severity}
-                            </span>
-                          </td>
-                          <td className="p-3">
-                            <span
-                              className={`text-xs font-mono px-2 py-0.5 rounded border ${exploitColor(vuln.exploitation_status)}`}
-                            >
-                              {vuln.exploitation_status}
-                            </span>
-                          </td>
-                          <td className="p-3 text-xs text-slate-500 dark:text-slate-400 max-w-[280px]">
-                            {vuln.remediation}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <DataTable
+                  columns={
+                    [
+                      {
+                        key: 'cve',
+                        header: 'CVE',
+                        sortValue: (v) => v.cve,
+                        render: (v) => (
+                          <code className="text-xs font-mono text-brand-600 dark:text-brand-400">{v.cve}</code>
+                        ),
+                      },
+                      {
+                        key: 'product',
+                        header: 'Product',
+                        sortValue: (v) => v.product,
+                        render: (v) => (
+                          <div>
+                            <div className="text-slate-900 dark:text-slate-100 font-medium">{v.product}</div>
+                            <div className="text-xs text-slate-500 dark:text-slate-400">{v.vendor}</div>
+                          </div>
+                        ),
+                      },
+                      {
+                        key: 'cvss',
+                        header: 'CVSS',
+                        sortValue: (v) => v.cvss,
+                        render: (v) => <span className={`font-mono font-bold ${cvssColor(v.cvss)}`}>{v.cvss}</span>,
+                      },
+                      {
+                        key: 'severity',
+                        header: 'Severity',
+                        sortValue: (v) => v.severity,
+                        render: (v) => (
+                          <span className={`text-xs font-mono px-2 py-0.5 rounded border ${severityPill(v.severity)}`}>
+                            {v.severity}
+                          </span>
+                        ),
+                      },
+                      {
+                        key: 'status',
+                        header: 'Status',
+                        sortValue: (v) => v.exploitation_status,
+                        render: (v) => (
+                          <span
+                            className={`text-xs font-mono px-2 py-0.5 rounded border ${exploitColor(v.exploitation_status)}`}
+                          >
+                            {v.exploitation_status}
+                          </span>
+                        ),
+                      },
+                      {
+                        key: 'remediation',
+                        header: 'Remediation',
+                        render: (v) => (
+                          <span className="text-xs text-slate-500 dark:text-slate-400 max-w-[280px] block">
+                            {v.remediation}
+                          </span>
+                        ),
+                      },
+                    ] as DataTableColumn<(typeof filteredVulns)[number]>[]
+                  }
+                  rows={filteredVulns}
+                  rowKey={(v, i) => `${v.cve}-${i}`}
+                  rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--hover-100))]'}
+                />
               )}
             </div>
           )}
