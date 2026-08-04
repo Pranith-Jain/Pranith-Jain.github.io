@@ -224,6 +224,8 @@ function makeAssetsFixture() {
         totalMirrors: 1,
         recommended: false,
         isOnion: true,
+        url: null,
+        onion: null,
       },
       {
         slug: 'dwd-3e7a-775',
@@ -235,6 +237,8 @@ function makeAssetsFixture() {
         totalMirrors: 3,
         recommended: true,
         isOnion: true,
+        url: null,
+        onion: null,
       },
       {
         slug: 'dwd-2e2e-079',
@@ -246,6 +250,8 @@ function makeAssetsFixture() {
         totalMirrors: 1,
         recommended: false,
         isOnion: true,
+        url: null,
+        onion: null,
       },
     ],
   };

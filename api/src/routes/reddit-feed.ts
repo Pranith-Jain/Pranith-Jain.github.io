@@ -121,7 +121,31 @@ export async function redditFeedHandler(c: Context<{ Bindings: Env }>): Promise<
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(REDDIT_FEED_CACHE_KEY);
   const cached = await cache.match(cacheKey);
-  if (cached) return new Response(cached.body, cached);
+  if (cached) {
+    // Stale-while-revalidate: serve immediately, refresh in background if
+    // older than 80% of TTL. The feed is read from ASSETS (bundled JSON), so
+    // a cold read is ~2s — SWR keeps it instant for every visitor.
+    const cacheDate = cached.headers.get('date');
+    const age = cacheDate ? (Date.now() - new Date(cacheDate).getTime()) / 1000 : 0;
+    if (age > CACHE_TTL * 0.8) {
+      c.executionCtx.waitUntil(
+        (async () => {
+          try {
+            const body = await fetchRedditFeed(c.env as unknown as { ASSETS: Fetcher });
+            if (body.items.length > 0) {
+              const fresh = c.json(body, 200, {
+                'Cache-Control': `public, max-age=${CACHE_TTL}, stale-while-revalidate=${CACHE_TTL * 4}`,
+              });
+              await cache.put(cacheKey, fresh);
+            }
+          } catch {
+            /* non-fatal */
+          }
+        })()
+      );
+    }
+    return new Response(cached.body, cached);
+  }
 
   const body = await fetchRedditFeed(c.env as unknown as { ASSETS: Fetcher });
   const cacheable = body.items.length > 0;

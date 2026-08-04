@@ -396,7 +396,31 @@ export async function xFeedHandler(c: Context<{ Bindings: Env }>): Promise<Respo
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(X_FEED_CACHE_KEY);
   const cached = await cache.match(cacheKey);
-  if (cached) return new Response(cached.body, cached);
+  if (cached) {
+    // Stale-while-revalidate: serve the cached copy immediately, then
+    // refresh in the background if it's older than 80% of the TTL. The
+    // x-feed fetches 16 Bluesky/Mastodon handles (CONCURRENCY=4) which
+    // takes ~14s cold — SWR keeps the page fast for every visitor after
+    // the first.
+    const cacheDate = cached.headers.get('date');
+    const age = cacheDate ? (Date.now() - new Date(cacheDate).getTime()) / 1000 : 0;
+    if (age > CACHE_TTL * 0.8) {
+      c.executionCtx.waitUntil(
+        (async () => {
+          try {
+            const body = await fetchXFeed();
+            const fresh = c.json(body, 200, {
+              'Cache-Control': `public, max-age=${CACHE_TTL}, stale-while-revalidate=${CACHE_TTL * 4}`,
+            });
+            await cache.put(cacheKey, fresh);
+          } catch {
+            /* non-fatal — the stale copy stays */
+          }
+        })()
+      );
+    }
+    return new Response(cached.body, cached);
+  }
 
   const body = await fetchXFeed();
   const response = c.json(body, 200, {

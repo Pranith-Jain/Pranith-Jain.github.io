@@ -1,5 +1,6 @@
 import { TabLoader } from '../../components/ui/TabLoader';
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Radio } from 'lucide-react';
 
@@ -10,13 +11,30 @@ const XWatch = lazy(() => import('./XWatch'));
 type TabId = 'firehose' | 'live' | 'watch';
 
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
-  { id: 'firehose', label: 'FIREHOSE', desc: 'Bulk X/Twitter post ingestion and search' },
-  { id: 'live', label: 'LIVE STREAM', desc: 'Real-time X/Twitter stream monitoring' },
+  { id: 'firehose', label: 'FIREHOSE', desc: 'Bluesky + Mastodon cybersec researcher feed (16 accounts)' },
+  { id: 'live', label: 'LIVE STREAM', desc: 'Real-time X/Twitter stream monitoring via TweetFeed' },
   { id: 'watch', label: 'WATCH', desc: 'Saved X/Twitter watch lists and alerts' },
 ];
 
+const VALID_TABS = new Set<TabId>(['firehose', 'live', 'watch']);
+
 export default function XHub(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('firehose');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tabParam = searchParams.get('tab') as TabId | null;
+  const [activeTab, setActiveTab] = useState<TabId>(
+    tabParam && VALID_TABS.has(tabParam) ? tabParam : 'firehose'
+  );
+
+  // Sync tab changes to the URL so deep-links and back/forward work.
+  useEffect(() => {
+    const current = searchParams.get('tab') ?? 'firehose';
+    if (current !== activeTab) {
+      const next = new URLSearchParams(searchParams);
+      if (activeTab === 'firehose') next.delete('tab');
+      else next.set('tab', activeTab);
+      setSearchParams(next, { replace: true });
+    }
+  }, [activeTab, searchParams, setSearchParams]);
 
   return (
     <DataPageLayout
