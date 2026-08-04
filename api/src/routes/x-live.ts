@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badGateway } from '../lib/api-error';
 import { readLastGood, writeLastGood } from '../lib/lastgood';
 
 /**
