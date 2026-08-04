@@ -48,7 +48,7 @@ export function registerBlogRoutes(app: Hono<{ Bindings: Env }>): void {
     // a short response Cache-Control so a delete/unpublish reflects fast.
     const post = (await c.env.CASE_STUDIES.get(kv.post(slug), 'json')) as Post | null;
     if (!post) {
-      return c.json({ error: 'not found' }, 404, { 'cache-control': 'no-store' });
+      return notFound(c, 'not found');
     }
     // The post body is LLM output built from scraped, attacker-influenceable
     // sources. Sanitize server-side and hand the client safe HTML so it never

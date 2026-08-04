@@ -32,7 +32,7 @@ approvedRouter.post('/approved/:id/unapprove', async (c) => {
 approvedRouter.post('/approved/:id/publish-now', async (c) => {
   const id = c.req.param('id');
   const candidate = await getApproved(c.env.CASE_STUDIES, id);
-  if (!candidate) return c.json({ error: `approved candidate not found: ${id}` }, 404);
+  if (!candidate) return notFound(c, `approved candidate not found: ${id}`);
 
   const env = c.env as unknown as CaseStudyEnv;
   const now = new Date();

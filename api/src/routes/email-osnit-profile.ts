@@ -419,7 +419,7 @@ async function lookupBehindTheEmail(email: string, apiKey: string): Promise<BTER
 export async function emailOsnitProfileHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const email = c.req.query('email') || '';
   if (!email || !email.includes('@')) {
-    return c.json({ error: 'Valid email address required' }, 400, { 'Cache-Control': 'no-store' });
+    return badRequest(c, 'Valid email address required');
   }
 
   const cleanEmail = email.toLowerCase().trim();

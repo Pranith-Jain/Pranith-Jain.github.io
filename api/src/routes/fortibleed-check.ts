@@ -179,7 +179,7 @@ async function fetchCertInfo(target: string, port: number): Promise<string | nul
 
 export async function fortibleedCheckHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const target = c.req.query('target') || '';
-  if (!target) return c.json({ error: 'target parameter required' }, 400, { 'Cache-Control': 'no-store' });
+  if (!target) return badRequest(c, 'target parameter required');
 
   const result = await detectFortiGate(target);
   return c.json(result);

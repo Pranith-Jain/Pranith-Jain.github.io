@@ -25,5 +25,5 @@ runRouter.post('/run/:stage', async (c) => {
     const result = await runTelegramArchive(c.env as never);
     return c.json({ ok: true, stage, result });
   }
-  return c.json({ ok: false, error: `unknown stage: ${stage}` }, 400);
+  return badRequest(c, `unknown stage: ${stage}`);
 });
