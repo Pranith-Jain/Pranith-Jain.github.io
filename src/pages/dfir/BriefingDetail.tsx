@@ -666,6 +666,25 @@ export default function BriefingDetail(): JSX.Element {
     return parts.join('\n');
   }, [briefing]);
 
+  const stats = briefing?.stats ?? { findings: 0, sections: 0, cves: 0, kevs: 0, iocs: 0, critical: 0, high: 0, medium: 0, low: 0, ransomware_victims: 0 };
+  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const shareTitle = briefing?.title ?? '';
+
+  const shareText = useMemo(() => {
+    if (!briefing) return '';
+    const parts: string[] = [];
+    const crit = stats.critical > 0 ? `${stats.critical} critical` : null;
+    const high = stats.high > 0 ? `${stats.high} high` : null;
+    const sev = [crit, high].filter(Boolean).join(', ');
+    if (sev) parts.push(`\u{1F6A8} ${sev} severity`);
+    if (stats.cves > 0) parts.push(`${stats.cves} new CVEs`);
+    if (stats.kevs > 0) parts.push(`${stats.kevs} CISA KEV`);
+    if (stats.ransomware_victims > 0) parts.push(`${stats.ransomware_victims} ransomware victims`);
+    if (stats.iocs > 0) parts.push(`${stats.iocs.toLocaleString()} IOCs`);
+    const headline = parts.length > 0 ? parts.join(' \u00b7 ') + '.' : '';
+    return `${briefing.title} \u2014 ${briefing.date_range}.\n${headline}\nFull briefing + IOC dump \u2193`;
+  }, [briefing, stats]);
+
   if (loading) {
     return (
       <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 font-mono text-sm text-slate-500">
@@ -693,23 +712,6 @@ export default function BriefingDetail(): JSX.Element {
     );
   }
 
-  const stats = briefing.stats;
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
-  const shareTitle = briefing.title;
-
-  const shareText = useMemo(() => {
-    const parts: string[] = [];
-    const crit = stats.critical > 0 ? `${stats.critical} critical` : null;
-    const high = stats.high > 0 ? `${stats.high} high` : null;
-    const sev = [crit, high].filter(Boolean).join(', ');
-    if (sev) parts.push(`\u{1F6A8} ${sev} severity`);
-    if (stats.cves > 0) parts.push(`${stats.cves} new CVEs`);
-    if (stats.kevs > 0) parts.push(`${stats.kevs} CISA KEV`);
-    if (stats.ransomware_victims > 0) parts.push(`${stats.ransomware_victims} ransomware victims`);
-    if (stats.iocs > 0) parts.push(`${stats.iocs.toLocaleString()} IOCs`);
-    const headline = parts.length > 0 ? parts.join(' \u00b7 ') + '.' : '';
-    return `${briefing.title} \u2014 ${briefing.date_range}.\n${headline}\nFull briefing + IOC dump \u2193`;
-  }, [briefing.title, briefing.date_range, stats]);
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-white">
       <BackLink to="/threatintel">back</BackLink>
