@@ -15,6 +15,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import type { AnalyzerOutput } from '../lib/report-analyzer';
 import { buildAnalyticsReport } from '../lib/analytics-report-builder';
 
@@ -40,15 +41,15 @@ export async function analyticsReportHandler(c: Context<{ Bindings: Env }>): Pro
     body = await c.req.json<AnalyticsReportBody>();
   } catch (_catchErr) {
     console.error('analyticsReportHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
+    return badRequest(c, 'invalid JSON body');
   }
 
   if (!body.title || !body.analyses || body.analyses.length === 0) {
-    return c.json({ error: 'bad_request', message: 'requires title and at least one analysis' }, 400);
+    return badRequest(c, 'requires title and at least one analysis');
   }
 
   if (body.analyses.length > 25) {
-    return c.json({ error: 'bad_request', message: 'max 25 analyses per report' }, 413);
+    return payloadTooLarge(c, 'max 25 analyses per report');
   }
 
   try {
@@ -72,6 +73,6 @@ export async function analyticsReportHandler(c: Context<{ Bindings: Env }>): Pro
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
     const msg = e instanceof Error ? e.message : String(e);
-    return c.json({ error: 'build_failed', message: msg }, 500);
+    return internalError(c, msg);
   }
 }

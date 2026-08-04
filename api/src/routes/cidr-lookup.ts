@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 
 interface CidrEntry {
   cidr: string;
@@ -23,7 +24,7 @@ interface CidrLookupResult {
  */
 export async function cidrLookupHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const query = c.req.query('ip') ?? c.req.query('asn') ?? c.req.query('domain');
-  if (!query) return c.json({ error: 'missing ip, asn, or domain param' }, 400);
+  if (!query) return badRequest(c, 'missing ip, asn, or domain param');
 
   const clean = query.trim().toLowerCase();
 
@@ -44,7 +45,7 @@ export async function cidrLookupHandler(c: Context<{ Bindings: Env }>): Promise<
     searchUrl = `https://bgp.he.net/dns/${encodeURIComponent(clean)}/json`;
     queryType = 'domain';
   } else {
-    return c.json({ error: 'unrecognized input — use IP, ASN (ASxxxx), or domain' }, 400);
+    return badRequest(c, 'unrecognized input — use IP, ASN (ASxxxx), or domain');
   }
 
   try {
@@ -54,7 +55,7 @@ export async function cidrLookupHandler(c: Context<{ Bindings: Env }>): Promise<
     });
 
     if (!res.ok) {
-      return c.json({ error: `bgp.he.net returned ${res.status}` }, 502);
+      return badGateway(c, `bgp.he.net returned ${res.status}`);
     }
 
     const data = (await res.json()) as Array<{
@@ -95,6 +96,6 @@ export async function cidrLookupHandler(c: Context<{ Bindings: Env }>): Promise<
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: `CIDR lookup failed: ${err instanceof Error ? err.message : String(err)}` }, 502);
+    return badGateway(c, `CIDR lookup failed: ${err instanceof Error ? err.message : String(err)}`);
   }
 }

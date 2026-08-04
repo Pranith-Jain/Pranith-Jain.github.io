@@ -28,6 +28,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { detectType } from '../lib/indicator';
 import { signInternalToken } from '../lib/internal-token';
 
@@ -87,8 +88,8 @@ async function timeIt<T>(
 
 export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const ind = (c.req.query('indicator') ?? c.req.query('q') ?? '').trim();
-  if (!ind) return c.json({ error: 'missing indicator' }, 400);
-  if (ind.length > 2000) return c.json({ error: 'indicator too long' }, 400);
+  if (!ind) return badRequest(c, 'missing indicator');
+  if (ind.length > 2000) return badRequest(c, 'indicator too long');
 
   // Allow opt-in to *trigger* a real webamon scan (writes, expensive,
   // rate-limited). Off by default — default behaviour is to read the public
@@ -96,14 +97,14 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
   const triggerWebamonScan = (c.req.query('trigger') ?? '').toLowerCase().split(',').includes('scan');
 
   const t = detectType(ind) as IndicatorType;
-  if (t === 'unknown') return c.json({ error: 'unrecognized indicator type' }, 400);
+  if (t === 'unknown') return badRequest(c, 'unrecognized indicator type');
 
   const enc = encodeURIComponent(ind);
   const env = c.env;
   const self = (env as unknown as { SELF?: Fetcher }).SELF;
   const tokenSecret = env.INTERNAL_TOKEN_SECRET;
   if (!tokenSecret) {
-    return c.json({ error: 'internal_token_not_configured' }, 503);
+    return serviceUnavailable(c, 'internal_token_not_configured');
   }
   const token = await signInternalToken('api-enrich-deep', tokenSecret);
 

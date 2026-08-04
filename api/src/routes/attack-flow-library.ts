@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
@@ -292,9 +293,7 @@ async function loadFlowBundle(c: Context<{ Bindings: Env }>, entry: FlowEntry): 
   // Guard against an oversized body before parsing.
   const lenHeader = parseInt(res.headers.get('content-length') ?? '', 10);
   if (Number.isFinite(lenHeader) && lenHeader > MAX_BUNDLE_BYTES) {
-    return c.json({ error: 'Attack Flow bundle too large', source: SOURCE, source_url: SOURCE_URL }, 502, {
-      'Cache-Control': 'no-store',
-    });
+    return badGateway(c, 'Attack Flow bundle too large');
   }
 
   let parsed: { type?: unknown; id?: unknown; spec_version?: unknown; objects?: unknown };
@@ -302,9 +301,7 @@ async function loadFlowBundle(c: Context<{ Bindings: Env }>, entry: FlowEntry): 
     parsed = (await res.json()) as typeof parsed;
   } catch (_catchErr) {
     console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'Attack Flow bundle not valid JSON', source: SOURCE, source_url: SOURCE_URL }, 502, {
-      'Cache-Control': 'no-store',
-    });
+    return badGateway(c, 'Attack Flow bundle not valid JSON');
   }
 
   const rawObjects = Array.isArray(parsed.objects) ? (parsed.objects as unknown[]).slice(0, MAX_BUNDLE_OBJECTS) : [];
@@ -366,9 +363,7 @@ export async function attackFlowLibraryHandler(c: Context<{ Bindings: Env }>): P
       full.flows.find((f) => f.name.toLowerCase() === wanted) ??
       full.flows.find((f) => f.filename.toLowerCase() === wanted);
     if (!entry) {
-      return c.json({ error: 'flow not found', flow: flowParam, source: SOURCE, source_url: SOURCE_URL }, 404, {
-        'Cache-Control': 'no-store',
-      });
+      return notFound(c, 'flow not found');
     }
     return loadFlowBundle(c, entry);
   }

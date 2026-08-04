@@ -28,6 +28,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { parsePostgrestQuery } from '../lib/postgrest-filter';
 
 const ACTIONABLE_IOCS_TABLE = 'actionable_iocs';
@@ -224,7 +225,7 @@ async function queryIocs(
 /** GET /api/v1/actionable_iocs */
 export async function actionableIocsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database_unavailable' }, 503);
+  if (!db) return serviceUnavailable(c, 'database_unavailable');
 
   const query = parsePostgrestQuery(
     new URLSearchParams(c.req.query() as Record<string, string>),
@@ -237,14 +238,14 @@ export async function actionableIocsHandler(c: Context<{ Bindings: Env }>): Prom
 export function createIocTypeHandler(iocType: string) {
   return async (c: Context<{ Bindings: Env }>): Promise<Response> => {
     const db = c.env.BRIEFINGS_DB;
-    if (!db) return c.json({ error: 'database_unavailable' }, 503);
+    if (!db) return serviceUnavailable(c, 'database_unavailable');
 
     if (!VALID_IOC_TYPES.has(iocType)) {
-      return c.json({ error: `unknown ioc_type "${iocType}"` }, 400);
+      return badRequest(c, `unknown ioc_type "${iocType}"`);
     }
 
     const viewName = IOC_TYPE_VIEWS[iocType];
-    if (!viewName) return c.json({ error: `no view for type "${iocType}"` }, 400);
+    if (!viewName) return badRequest(c, `no view for type "${iocType}"`);
 
     const query = parsePostgrestQuery(
       new URLSearchParams(c.req.query() as Record<string, string>),

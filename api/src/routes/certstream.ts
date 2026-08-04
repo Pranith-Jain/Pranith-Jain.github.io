@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 
 /**
  * CertStream-style live Certificate Transparency feed.
@@ -82,12 +83,12 @@ function dedupeDnsNames(raw: string | undefined, fallback: string | undefined): 
 
 export async function certStreamHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const keyword = (c.req.query('keyword') ?? c.req.query('q') ?? '').trim();
-  if (!keyword) return c.json({ error: 'missing keyword' }, 400);
+  if (!keyword) return badRequest(c, 'missing keyword');
   if (keyword.length > MAX_KEYWORD_LEN) {
-    return c.json({ error: `keyword too long (max ${MAX_KEYWORD_LEN})` }, 400);
+    return badRequest(c, `keyword too long (max ${MAX_KEYWORD_LEN})`);
   }
   if (!KEYWORD_RE.test(keyword)) {
-    return c.json({ error: 'invalid keyword (letters, digits, . _ - % * only)' }, 400);
+    return badRequest(c, 'invalid keyword (letters, digits, . _ - % * only)');
   }
   const sinceRaw = Number(c.req.query('since') ?? '0');
   const since = Number.isFinite(sinceRaw) && sinceRaw > 0 ? Math.floor(sinceRaw) : 0;

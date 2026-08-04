@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { virustotal } from '../providers/virustotal';
 import { hybridanalysis } from '../providers/hybridanalysis';
 import { malwarebazaar } from '../providers/malwarebazaar';
@@ -28,20 +29,20 @@ export async function fileAnalyzeHandler(c: Context<{ Bindings: Env }>) {
   // buffer an unbounded request body before we get to discard it.
   const raw = await c.req.text();
   if (new Blob([raw]).size > MAX_BODY_BYTES) {
-    return c.json({ error: 'body too large (max 4KB)' }, 413);
+    return payloadTooLarge(c, 'body too large (max 4KB)');
   }
   let parsed: RequestBody;
   try {
     parsed = JSON.parse(raw) as RequestBody;
   } catch (_catchErr) {
     console.error('fileAnalyzeHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'invalid JSON' }, 400);
+    return badRequest(c, 'invalid JSON');
   }
 
   const hash = parsed.hash?.trim().toLowerCase();
-  if (!hash) return c.json({ error: 'missing hash' }, 400);
+  if (!hash) return badRequest(c, 'missing hash');
   const hashType = detectHashType(hash);
-  if (!hashType) return c.json({ error: 'invalid hash (expected MD5/SHA-1/SHA-256)' }, 400);
+  if (!hashType) return badRequest(c, 'invalid hash (expected MD5/SHA-1/SHA-256)');
 
   const env: ProviderEnv = {
     VT_API_KEY: c.env.VT_API_KEY ?? '',

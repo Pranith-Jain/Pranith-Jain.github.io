@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { queryCorpus } from '../lib/rag-embedder';
 import { findUngroundedCves, findInvalidMitreIds } from '../lib/ai-output-validator';
 
@@ -244,7 +245,7 @@ export async function achHandler(c: Context<{ Bindings: Env }>): Promise<Respons
     const body = await c.req.json<{ topic: string }>();
     const topic = body.topic?.trim();
     if (!topic || topic.length < 3) {
-      return c.json({ error: 'topic is required (min 3 chars)' }, 400);
+      return badRequest(c, 'topic is required (min 3 chars)');
     }
 
     const { corpus, sources } = await gatherAchContext(c.env, topic);
@@ -253,7 +254,7 @@ export async function achHandler(c: Context<{ Bindings: Env }>): Promise<Respons
     const system = buildAchSystemPrompt();
     const user = buildAchUserPrompt(topic, corpus, sources);
     const raw = await callLlm(c.env, system, user);
-    if (!raw) return c.json({ error: 'LLM returned empty response' }, 502);
+    if (!raw) return badGateway(c, 'LLM returned empty response');
 
     // Parse JSON from LLM response — handle potential markdown wrapping
     let parsed: Omit<AchResponse, 'topic' | 'generated_at' | 'model_used'>;
@@ -261,7 +262,7 @@ export async function achHandler(c: Context<{ Bindings: Env }>): Promise<Respons
     if (jsonMatch) {
       parsed = JSON.parse(jsonMatch[0]);
     } else {
-      return c.json({ error: 'LLM response was not valid JSON', raw }, 502);
+      return badGateway(c, 'LLM response was not valid JSON');
     }
 
     // Validate grounding: check for hallucinated CVEs and invalid ATT&CK IDs
@@ -283,6 +284,6 @@ export async function achHandler(c: Context<{ Bindings: Env }>): Promise<Respons
     return c.json(response, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

@@ -5,21 +5,20 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { readBriefing } from '../lib/briefing-builder/build';
 import { renderBriefingMarkdown } from '../lib/briefing-markdown-renderer';
 
 export async function briefingRenderHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const slug = c.req.param('slug');
-  if (!slug) return c.json({ error: 'bad_request', message: 'missing slug' }, 400, { 'Cache-Control': 'no-store' });
+  if (!slug) return badRequest(c, 'missing slug');
   try {
     const db = c.env.BRIEFINGS_DB;
     if (!db)
-      return c.json({ error: 'unavailable', message: 'BRIEFINGS_DB not bound' }, 503, { 'Cache-Control': 'no-store' });
+      return serviceUnavailable(c, 'BRIEFINGS_DB not bound');
     const briefing = await readBriefing(db, slug);
     if (!briefing)
-      return c.json({ error: 'not_found', message: `briefing ${slug} not found` }, 404, {
-        'Cache-Control': 'no-store',
-      });
+      return notFound(c, `briefing ${slug} not found`);
     const md = renderBriefingMarkdown(briefing);
     // Return JSON so MCP's apiFetch (which always calls res.json()) can
     // consume it.
@@ -27,6 +26,6 @@ export async function briefingRenderHandler(c: Context<{ Bindings: Env }>): Prom
   } catch (e) {
     console.error('briefingRenderHandler failed:', e instanceof Error ? e.message : String(e));
     const msg = e instanceof Error ? e.message : String(e);
-    return c.json({ error: 'render_failed', message: msg }, 500, { 'Cache-Control': 'no-store' });
+    return internalError(c, msg);
   }
 }

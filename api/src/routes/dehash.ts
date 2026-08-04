@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const CACHE_TTL = 86400;
@@ -20,11 +21,11 @@ function detectHashType(hash: string): HashAlgorithm | null {
 
 dehashRouter.get('/dehash', async (c) => {
   const hash = c.req.query('hash');
-  if (!hash) return c.json({ error: 'hash parameter required' }, 400);
+  if (!hash) return badRequest(c, 'hash parameter required');
 
   const hashType = detectHashType(hash);
   if (!hashType) {
-    return c.json({ error: 'unsupported hash type — must be md5/sha1/sha256/sha384/sha512 hex string' }, 400);
+    return badRequest(c, 'unsupported hash type — must be md5/sha1/sha256/sha384/sha512 hex string');
   }
 
   const cacheKey = `dehash:${hash}`;
@@ -43,7 +44,7 @@ dehashRouter.get('/dehash', async (c) => {
       c.executionCtx.waitUntil(routeCachePut(cacheKey, body, CACHE_TTL));
       return c.json(body);
     }
-    if (!res.ok) return c.json({ error: `Dehash.lt upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Dehash.lt upstream ${res.status}`);
 
     const data = await res.json();
     const body = {
@@ -59,6 +60,6 @@ dehashRouter.get('/dehash', async (c) => {
     return c.json(body);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Dehash.lt unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Dehash.lt unreachable');
   }
 });

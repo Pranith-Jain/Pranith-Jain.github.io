@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { safeErrorMessage } from '../lib/error';
 
 const ASN_RE = /^(?:AS)?(\d{1,10})$/i;
@@ -46,9 +47,9 @@ function isV6(prefix: string): boolean {
 
 export async function asnLookupHandler(c: Context<{ Bindings: Env }>) {
   const raw = c.req.query('asn');
-  if (!raw) return c.json({ error: 'missing asn' }, 400);
+  if (!raw) return badRequest(c, 'missing asn');
   const m = raw.match(ASN_RE);
-  if (!m || !m[1]) return c.json({ error: 'invalid asn (expected AS15169 or 15169)' }, 400);
+  if (!m || !m[1]) return badRequest(c, 'invalid asn (expected AS15169 or 15169)');
   const num = parseInt(m[1], 10);
 
   try {
@@ -61,7 +62,7 @@ export async function asnLookupHandler(c: Context<{ Bindings: Env }>) {
     ]);
 
     if (!overviewRes.ok) {
-      return c.json({ error: `upstream ${overviewRes.status}` }, 502, { 'Cache-Control': 'no-store' });
+      return badGateway(c, `upstream ${overviewRes.status}`);
     }
     const overview = (await overviewRes.json()) as RipeAsOverview;
     const prefixes = prefixesRes.ok
@@ -101,6 +102,6 @@ export async function asnLookupHandler(c: Context<{ Bindings: Env }>) {
     return c.json(body, 200, { 'Cache-Control': 'public, max-age=86400' });
   } catch (err) {
     console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: safeErrorMessage(c.env as never, err) }, 502, { 'Cache-Control': 'no-store' });
+    return badGateway(c, safeErrorMessage(c.env as never, err));
   }
 }

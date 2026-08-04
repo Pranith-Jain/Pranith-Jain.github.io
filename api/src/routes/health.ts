@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { getSiteUrl } from '../lib/site-config';
 import { healthDetailedHandler } from './health-detailed';
 import { featuresHandler } from './features';
@@ -50,7 +51,7 @@ health.get('/api/v1/health/d1', async (c) => {
     await db.prepare('SELECT 1').first();
     return c.json({ status: 'ok', latency_ms: Date.now() - start }, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
-    return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
+    return serviceUnavailable(c, e instanceof Error ? e.message : 'unknown');
   }
 });
 
@@ -62,7 +63,7 @@ health.get('/api/v1/health/kv', async (c) => {
     await kv.get('__health_check__');
     return c.json({ status: 'ok', latency_ms: Date.now() - start }, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
-    return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
+    return serviceUnavailable(c, e instanceof Error ? e.message : 'unknown');
   }
 });
 
@@ -79,7 +80,7 @@ health.get('/api/v1/health/ai', async (c) => {
       'Cache-Control': 'no-store',
     });
   } catch (e) {
-    return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
+    return serviceUnavailable(c, e instanceof Error ? e.message : 'unknown');
   }
 });
 
@@ -91,7 +92,7 @@ health.get('/api/v1/health/vectorize', async (c) => {
     await vec.query(new Array(768).fill(0), { topK: 1 });
     return c.json({ status: 'ok', latency_ms: Date.now() - start }, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
-    return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
+    return serviceUnavailable(c, e instanceof Error ? e.message : 'unknown');
   }
 });
 

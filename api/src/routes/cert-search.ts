@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 
 /**
  * Certificate Transparency log search via SSLMate's Cert Spotter API.
@@ -67,9 +68,9 @@ export async function certSearchHandler(c: Context<{ Bindings: Env }>): Promise<
   // Accept `q` as an alias for `domain` — the page's deep-links and
   // FullSpectrum use ?q=, the form uses ?domain=. One handler, both.
   const domain = (c.req.query('domain') ?? c.req.query('q') ?? '').trim().toLowerCase();
-  if (!domain) return c.json({ error: 'missing domain' }, 400);
+  if (!domain) return badRequest(c, 'missing domain');
   if (!DOMAIN_RE.test(domain)) {
-    return c.json({ error: 'invalid domain (expected fqdn like example.com)' }, 400);
+    return badRequest(c, 'invalid domain (expected fqdn like example.com)');
   }
   const includeSubdomains = c.req.query('include_subdomains') !== '0';
 
@@ -121,9 +122,9 @@ export async function certSearchHandler(c: Context<{ Bindings: Env }>): Promise<
   }
   if (raw.length === 0 && lastStatus !== 0 && lastStatus !== 200) {
     if (lastStatus === 429) {
-      return c.json({ error: 'cert-spotter rate-limited upstream — try again shortly', upstream_status: 429 }, 429);
+      return tooManyRequests(c, 'cert-spotter rate-limited upstream — try again shortly');
     }
-    return c.json({ error: 'cert-spotter upstream error', upstream_status: lastStatus }, 502);
+    return badGateway(c, 'cert-spotter upstream error');
   }
 
   // Aggregate
