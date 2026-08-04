@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Cloud, ExternalLink, Target } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 interface ExternalRef {
   source_name: string;
@@ -154,6 +155,19 @@ export default function CloudThreatLandscape(): JSX.Element {
       empty={!loading && !error && !!data && filtered.length === 0}
       emptyMessage="No entries match the filter."
     >
+      {/* Page-level AI summary across the visible cloud threat entries.
+          Public (requireAdmin={false}) so every visitor sees it. */}
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="Wiz Cloud Threat Landscape"
+          items={filtered.slice(0, 30).map((inc) => ({
+            title: inc.name,
+            body: `${inc.type} · ${inc.objective} · ${inc.description}`,
+            source: inc.type,
+          }))}
+          requireAdmin={false}
+        />
+      )}
       <div className="grid gap-3 lg:grid-cols-2">
         {filtered.slice(0, 600).map((inc) => {
           const primaryRef = inc.external_refs.map((r) => safeHref(r.url)).find((h): h is string => Boolean(h));

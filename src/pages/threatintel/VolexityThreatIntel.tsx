@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Users, ExternalLink, FileCode, ChevronDown, ChevronRight, Loader2 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 interface RuleFile {
   name: string;
@@ -385,6 +386,19 @@ export default function VolexityThreatIntel(): JSX.Element {
       empty={!loading && !error && !!data && filtered.length === 0}
       emptyMessage="No research folders match the filter."
     >
+      {/* Page-level AI summary across the visible Volexity research folders.
+          Public (requireAdmin={false}) so every visitor sees it. */}
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="Volexity APT IOCs"
+          items={filtered.slice(0, 30).map((f) => ({
+            title: f.label,
+            body: `${f.year} · ${f.date} · ${f.rule_files.length} rule(s)${f.has_indicators ? ' · has indicators' : ''}`,
+            source: f.year,
+          }))}
+          requireAdmin={false}
+        />
+      )}
       <div className="grid gap-2">
         {filtered.map((folder) => (
           <FolderRow key={folder.name} folder={folder} />

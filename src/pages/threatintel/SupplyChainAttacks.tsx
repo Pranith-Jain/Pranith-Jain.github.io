@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AlertOctagon, ExternalLink, ShieldAlert } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 interface AffectedEntity {
   name: string;
@@ -182,6 +183,19 @@ export default function SupplyChainAttacks(): JSX.Element {
       empty={!loading && !error && !!data && filtered.length === 0}
       emptyMessage="No incidents match the filter."
     >
+      {/* Page-level AI summary across the visible supply-chain incidents.
+          Public (requireAdmin={false}) so every visitor sees it. */}
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="Supply-chain attack incidents"
+          items={filtered.slice(0, 30).map((inc) => ({
+            title: inc.title,
+            body: `${inc.summary} · ecosystems: ${inc.ecosystems.join(', ')} · vectors: ${inc.attack_vectors.join(', ')} · affected: ${inc.affected_entities.map((e) => e.name).join(', ')}`,
+            source: inc.status,
+          }))}
+          requireAdmin={false}
+        />
+      )}
       <div className="grid gap-3 lg:grid-cols-2">
         {filtered.slice(0, 400).map((inc) => {
           const titleHref = safeHref(inc.url);

@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 import { SEVERITY_TONE, SEVERITY_BAR } from '../../components/severity';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import {
   Activity,
   AlertTriangle,
@@ -496,6 +497,20 @@ export default function SecretLeaks(): JSX.Element {
                 Page {page} of {totalPages}
               </span>
             </div>
+
+            {/* Page-level AI summary across the visible leaked secrets.
+                Public (requireAdmin={false}) so every visitor sees it. */}
+            {filtered.length > 0 && (
+              <AiSummaryCard
+                surface="Secret Leaks"
+                items={filtered.slice(0, 30).map((l) => ({
+                  title: `${l.provider} key in ${l.repo}`,
+                  body: `${l.severity} severity · ${l.secretCount} secret(s) · ${l.file} · owner ${l.owner}`,
+                  source: l.provider,
+                }))}
+                requireAdmin={false}
+              />
+            )}
 
             {paged.length === 0 ? (
               <div className="text-center py-12">

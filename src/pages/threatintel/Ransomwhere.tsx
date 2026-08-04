@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Bitcoin, ExternalLink, Search } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 interface Wallet {
   address: string;
@@ -179,6 +180,19 @@ export default function Ransomwhere({ embedded = false }: { embedded?: boolean }
       hideHeader={embedded}
       className={embedded ? '!py-4' : undefined}
     >
+      {/* Page-level AI summary across the visible ransomware wallets.
+          Public (requireAdmin={false}) so every visitor sees it. */}
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="Ransomware crypto wallets"
+          items={filtered.slice(0, 30).map((w) => ({
+            title: `${w.family || 'unattributed'} wallet`,
+            body: `${w.blockchain} · ${USD.format(w.balance_usd)} across ${NUM.format(w.transactions)} txns · first seen ${fmtDate(w.first_seen)}`,
+            source: w.family,
+          }))}
+          requireAdmin={false}
+        />
+      )}
       <div className="grid gap-3 lg:grid-cols-2">
         {filtered.slice(0, 600).map((w) => (
           <div

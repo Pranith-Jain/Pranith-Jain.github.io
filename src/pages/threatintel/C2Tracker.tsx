@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Radar, RefreshCw } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 interface C2Entry {
   ip: string;
@@ -104,6 +105,19 @@ export default function C2Tracker(): JSX.Element {
     >
       {data && (
         <div className="space-y-6">
+          {/* Page-level AI summary across the visible C2 entries.
+              Public (requireAdmin={false}) so every visitor sees it. */}
+          {filtered.length > 0 && (
+            <AiSummaryCard
+              surface="C2 Infrastructure Tracker"
+              items={filtered.slice(0, 30).map((entry) => ({
+                title: `${entry.framework} C2: ${entry.ip}`,
+                body: entry.context ?? `${entry.framework} C2 server observed by ${entry.sources.join(', ')}`,
+                source: entry.framework,
+              }))}
+              requireAdmin={false}
+            />
+          )}
           {/* Source Summary */}
           <section className="surface-card p-4">
             <div className="flex flex-wrap items-baseline justify-between gap-3 mb-4">

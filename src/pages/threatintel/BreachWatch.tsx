@@ -5,6 +5,7 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
 import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 type BwCategory = 'ransomware' | 'data_breach' | 'combo_list' | 'source_code' | 'credential_leak' | 'other';
 type BwSeverity = 'critical' | 'high' | 'medium' | 'low' | 'unknown';
@@ -627,6 +628,20 @@ export default function BreachWatch(): JSX.Element {
               {loading && <Loader2 size={11} className="inline animate-spin ml-1" />}
             </p>
           </div>
+
+          {/* Page-level AI summary across the visible breach entries.
+              Public (requireAdmin={false}) so every visitor sees it. */}
+          {breaches.length > 0 && (
+            <AiSummaryCard
+              surface="Breach Watch"
+              items={breaches.slice(0, 30).map((b) => ({
+                title: b.title,
+                body: `${b.group} · ${b.category} · ${b.severity} · ${b.country ?? 'unknown'}`,
+                source: b.group,
+              }))}
+              requireAdmin={false}
+            />
+          )}
 
           {/* Breach list */}
           {loading && index && (
