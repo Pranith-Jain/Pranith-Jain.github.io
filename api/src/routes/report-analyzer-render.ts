@@ -13,6 +13,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import type { AnalyzerOutput } from '../lib/report-analyzer';
 import { renderReportMarkdown } from '../lib/report-analyzer-markdown';
 
@@ -30,11 +31,11 @@ export async function reportAnalyzerRenderHandler(c: Context<{ Bindings: Env }>)
       'reportAnalyzerRenderHandler failed:',
       _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
     );
-    return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
+    return badRequest(c, 'invalid JSON body');
   }
 
   if (!body.output) {
-    return c.json({ error: 'bad_request', message: 'requires output field' }, 400);
+    return badRequest(c, 'requires output field');
   }
 
   try {
@@ -51,6 +52,6 @@ export async function reportAnalyzerRenderHandler(c: Context<{ Bindings: Env }>)
   } catch (e) {
     console.error('reportAnalyzerRenderHandler failed:', e instanceof Error ? e.message : String(e));
     const msg = e instanceof Error ? e.message : String(e);
-    return c.json({ error: 'render_failed', message: msg }, 500);
+    return internalError(c, msg);
   }
 }

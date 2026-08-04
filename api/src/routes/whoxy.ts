@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 
 const WHOXY_BASE = 'https://api.whoxy.com';
 
@@ -10,16 +11,16 @@ whoxyRouter.get('/whoxy/reverse', async (c) => {
   const searchType = (c.req.query('type') ?? 'email') as 'email' | 'name' | 'company' | 'keyword';
 
   if (!query || !query.trim()) {
-    return c.json({ error: 'missing_query', message: 'Provide ?q=<search term>' }, 400);
+    return badRequest(c, 'Provide ?q=<search term>');
   }
 
   if (!['email', 'name', 'company', 'keyword'].includes(searchType)) {
-    return c.json({ error: 'invalid_type', message: 'type must be email, name, company, or keyword' }, 400);
+    return badRequest(c, 'type must be email, name, company, or keyword');
   }
 
   const apiKey = c.env.WHOXY_API_KEY;
   if (!apiKey) {
-    return c.json({ error: 'not_configured', message: 'WHOXY_API_KEY not set' }, 503);
+    return serviceUnavailable(c, 'WHOXY_API_KEY not set');
   }
 
   const identifierParam = searchType === 'keyword' ? 'keyword' : searchType;

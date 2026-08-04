@@ -12,6 +12,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { generateAiSummary, type SummaryInput } from '../lib/ai-summary';
 import { neutralizeUntrusted } from '../lib/prompt-fence';
 
@@ -35,7 +36,7 @@ export async function unifiedSearchSummarizeHandler(c: Context<{ Bindings: Env }
       'unifiedSearchSummarizeHandler failed:',
       _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
     );
-    return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
+    return badRequest(c, 'invalid JSON body');
   }
 
   const q = (body.q ?? '').trim();
@@ -51,7 +52,7 @@ export async function unifiedSearchSummarizeHandler(c: Context<{ Bindings: Env }
     }
   }
   if (issues.length > 0) {
-    return c.json({ error: 'bad_request', message: 'validation failed', issues }, 400);
+    return badRequest(c, 'validation failed');
   }
 
   // Cap items to bound LLM cost (the validate() schema also enforces max 50).
@@ -81,7 +82,7 @@ export async function unifiedSearchSummarizeHandler(c: Context<{ Bindings: Env }
   };
   const result = await generateAiSummary(input, c.env);
   if (!result) {
-    return c.json({ error: 'unavailable', message: 'AI summary generation failed' }, 503);
+    return serviceUnavailable(c, 'AI summary generation failed');
   }
 
   try {

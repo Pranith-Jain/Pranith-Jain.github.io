@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { runCompletion } from '../case-study/generation/ai-client';
 import { findInvalidMitreIds } from '../lib/ai-output-validator';
 
@@ -59,11 +60,11 @@ export async function huntingQueryHandler(c: Context<{ Bindings: Env }>): Promis
     body = await c.req.json();
   } catch (_catchErr) {
     console.error('huntingQueryHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'bad_request', message: 'invalid JSON' }, 400);
+    return badRequest(c, 'invalid JSON');
   }
 
   const threat = body.threat?.trim();
-  if (!threat) return c.json({ error: 'bad_request', message: 'threat description required' }, 400);
+  if (!threat) return badRequest(c, 'threat description required');
 
   const platforms = (body.platforms ?? ['Splunk', 'KQL', 'Sigma', 'Elastic']).slice(0, 7);
   const userPrompt = `Threat: ${threat}\n\nGenerate hunting queries for: ${platforms.join(', ')}`;
@@ -129,6 +130,6 @@ export async function huntingQueryHandler(c: Context<{ Bindings: Env }>): Promis
     return c.json(response, 200, { 'cache-control': 'public, max-age=3600' });
   } catch (err) {
     console.error(JSON.stringify({ job: 'hunting-queries', error: err instanceof Error ? err.message : String(err) }));
-    return c.json({ error: 'generation_failed', message: 'Failed to generate hunting queries' }, 503);
+    return serviceUnavailable(c, 'Failed to generate hunting queries');
   }
 }

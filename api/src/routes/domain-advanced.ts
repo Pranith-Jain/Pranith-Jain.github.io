@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 
 // ── Domain Reputation ─────────────────────────────────────────────────────
 
@@ -108,7 +109,7 @@ export async function domainRepHandler(c: Context<{ Bindings: Env }>): Promise<R
   const ip = c.req.query('ip')?.trim();
 
   if (!domain && !ip) {
-    return c.json({ error: 'domain or ip parameter required' }, 400);
+    return badRequest(c, 'domain or ip parameter required');
   }
 
   const target = domain || ip!;
@@ -337,12 +338,12 @@ export async function domainMonitorHandler(c: Context<{ Bindings: Env }>): Promi
   const domain = c.req.query('domain')?.trim().toLowerCase();
 
   if (!domain) {
-    return c.json({ error: 'domain parameter required' }, 400);
+    return badRequest(c, 'domain parameter required');
   }
 
   // Basic domain validation
   if (!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z]{2,})+$/.test(domain)) {
-    return c.json({ error: 'invalid domain format' }, 400);
+    return badRequest(c, 'invalid domain format');
   }
 
   try {

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { safeErrorMessage } from '../lib/error';
 import { aggregateHostIntel, isValidIpv4 } from '../lib/host-intel';
 
@@ -9,8 +10,8 @@ import { aggregateHostIntel, isValidIpv4 } from '../lib/host-intel';
  */
 export async function hostIntelHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const ip = c.req.query('ip')?.trim();
-  if (!ip) return c.json({ error: 'missing ip' }, 400);
-  if (!isValidIpv4(ip)) return c.json({ error: 'invalid ipv4' }, 400);
+  if (!ip) return badRequest(c, 'missing ip');
+  if (!isValidIpv4(ip)) return badRequest(c, 'invalid ipv4');
 
   try {
     const result = await aggregateHostIntel(
@@ -22,6 +23,6 @@ export async function hostIntelHandler(c: Context<{ Bindings: Env }>): Promise<R
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=1800' });
   } catch (err) {
     console.error('hostIntelHandler failed:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: safeErrorMessage(c.env as never, err) }, 502, { 'Cache-Control': 'no-store' });
+    return badGateway(c, safeErrorMessage(c.env as never, err));
   }
 }

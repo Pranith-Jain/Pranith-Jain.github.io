@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { kvBulkGetText } from '../lib/safe-catch';
 
 export interface RansomScenario {
@@ -145,7 +146,7 @@ export async function ransomList(c: Context<{ Bindings: Env }>): Promise<Respons
 export async function ransomGet(c: Context<{ Bindings: Env }>): Promise<Response> {
   const items = await loadAll(c.env);
   const item = items.find((i) => i.id === c.req.param('id'));
-  if (!item) return c.json({ error: 'Not found' }, 404);
+  if (!item) return notFound(c, 'Not found');
   return c.json(item);
 }
 
@@ -180,10 +181,10 @@ export async function ransomCreate(c: Context<{ Bindings: Env }>): Promise<Respo
 
 export async function ransomUpdate(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
   const items = await loadAll(c.env);
   const idx = items.findIndex((i) => i.id === id);
-  if (idx === -1) return c.json({ error: 'Not found' }, 404);
+  if (idx === -1) return notFound(c, 'Not found');
   const body = await c.req.json<Partial<RansomScenario>>();
   const merged = { ...items[idx], ...body, id, updated_at: new Date().toISOString() } as RansomScenario;
   const recomputed = computeCosts(merged);

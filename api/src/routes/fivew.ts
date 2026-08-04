@@ -9,6 +9,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { extractFiveW, type FiveW } from '../lib/fivew-extract';
 
 const CACHE_TTL = 300;
@@ -24,14 +25,14 @@ export async function fivewHandler(c: Context<{ Bindings: Env }>): Promise<Respo
     body = await c.req.json();
   } catch (_catchErr) {
     console.error('fivewHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return c.json({ error: 'bad_request', message: 'invalid JSON body' }, 400);
+    return badRequest(c, 'invalid JSON body');
   }
   const text = typeof body.text === 'string' ? body.text : '';
   if (text.trim().length < 100) {
-    return c.json({ error: 'bad_request', message: 'text must be at least 100 characters' }, 400);
+    return badRequest(c, 'text must be at least 100 characters');
   }
   if (text.length > 50_000) {
-    return c.json({ error: 'bad_request', message: 'text exceeds 50KB limit' }, 413);
+    return payloadTooLarge(c, 'text exceeds 50KB limit');
   }
 
   const key = cacheKey(text);

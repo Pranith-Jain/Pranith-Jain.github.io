@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { kvBackedGet, kvBackedPut } from '../lib/route-cache';
 
 const CACHE_TTL = 86400;
@@ -8,7 +9,7 @@ export const virusheeRouter = new Hono<{ Bindings: Env }>();
 
 virusheeRouter.get('/virushee/check', async (c) => {
   const hash = c.req.query('hash');
-  if (!hash || hash.length > 128) return c.json({ error: 'hash parameter required (max 128 chars)' }, 400);
+  if (!hash || hash.length > 128) return badRequest(c, 'hash parameter required (max 128 chars)');
 
   const cacheKey = `virushee:${hash}`;
   const { value: cached } = await kvBackedGet<Record<string, unknown>>(c.env.KV_CACHE, cacheKey, CACHE_TTL);
@@ -25,7 +26,7 @@ virusheeRouter.get('/virushee/check', async (c) => {
       if (c.env.KV_CACHE) c.executionCtx.waitUntil(kvBackedPut(c.env.KV_CACHE, cacheKey, body, CACHE_TTL));
       return c.json(body);
     }
-    if (!res.ok) return c.json({ error: `Virushee upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `Virushee upstream ${res.status}`);
 
     const data = await res.json();
     const body = { hash, results: data, generated_at: new Date().toISOString(), cached: false };
@@ -34,6 +35,6 @@ virusheeRouter.get('/virushee/check', async (c) => {
     return c.json(body);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'Virushee unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'Virushee unreachable');
   }
 });

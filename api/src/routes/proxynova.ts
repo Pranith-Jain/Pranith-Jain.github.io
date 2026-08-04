@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 
 interface ProxyNovaResponse {
   count: number;
@@ -10,7 +11,7 @@ const CACHE_TTL_SECONDS = 3600;
 
 export async function proxyNovaSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const q = c.req.query('q');
-  if (!q || q.length > 200) return c.json({ error: 'q parameter required (max 200 chars)' }, 400);
+  if (!q || q.length > 200) return badRequest(c, 'q parameter required (max 200 chars)');
 
   const cacheKeyStr = `https://proxynova-cache.internal/v1-${encodeURIComponent(q)}`;
   const cacheReq = new Request(cacheKeyStr);
@@ -25,7 +26,7 @@ export async function proxyNovaSearchHandler(c: Context<{ Bindings: Env }>): Pro
       },
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `ProxyNova upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `ProxyNova upstream ${res.status}`);
 
     const data = (await res.json()) as ProxyNovaResponse;
     const body = JSON.stringify({
@@ -41,6 +42,6 @@ export async function proxyNovaSearchHandler(c: Context<{ Bindings: Env }>): Pro
     return response;
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'ProxyNova unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'ProxyNova unreachable');
   }
 }

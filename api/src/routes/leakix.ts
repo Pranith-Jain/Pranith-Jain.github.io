@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 
 interface LeakIxResult {
   ip?: string;
@@ -13,7 +14,7 @@ const CACHE_TTL_SECONDS = 3600;
 
 export async function leakIxSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const q = c.req.query('q');
-  if (!q || q.length > 200) return c.json({ error: 'q parameter required (max 200 chars)' }, 400);
+  if (!q || q.length > 200) return badRequest(c, 'q parameter required (max 200 chars)');
 
   const cacheKeyStr = `https://leakix-cache.internal/v1-${encodeURIComponent(q)}`;
   const cacheReq = new Request(cacheKeyStr);
@@ -28,7 +29,7 @@ export async function leakIxSearchHandler(c: Context<{ Bindings: Env }>): Promis
       },
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `LeakIX upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `LeakIX upstream ${res.status}`);
 
     const data = (await res.json()) as LeakIxResult[];
     const body = JSON.stringify({
@@ -44,6 +45,6 @@ export async function leakIxSearchHandler(c: Context<{ Bindings: Env }>): Promis
     return response;
   } catch (e) {
     console.error('leakIxSearchHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'LeakIX unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'LeakIX unreachable');
   }
 }

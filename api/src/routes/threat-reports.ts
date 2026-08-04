@@ -9,6 +9,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 
 // ── Country data ──
 
@@ -382,7 +383,7 @@ export async function threatReportCountryHandler(c: Context<{ Bindings: Env }>):
   const data = COUNTRY_THREAT_DATA[country];
   if (!data) {
     const available = Object.keys(COUNTRY_THREAT_DATA).map((k) => ({ code: k, name: COUNTRY_THREAT_DATA[k]!.name }));
-    return c.json({ error: `Country code "${country}" not found`, available });
+    return notFound(c, `Country code "${country}" not found`);
   }
   return c.json({
     type: 'country',
@@ -397,7 +398,7 @@ export async function threatReportIndustryHandler(c: Context<{ Bindings: Env }>)
   const data = INDUSTRY_THREAT_DATA[industry];
   if (!data) {
     const available = Object.keys(INDUSTRY_THREAT_DATA).map((k) => ({ slug: k, name: INDUSTRY_THREAT_DATA[k]!.name }));
-    return c.json({ error: `Industry "${industry}" not found`, available });
+    return notFound(c, `Industry "${industry}" not found`);
   }
   return c.json({
     type: 'industry',
@@ -410,7 +411,7 @@ export async function threatReportIndustryHandler(c: Context<{ Bindings: Env }>)
 
 export async function threatReportExternalHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = c.req.query('domain') || '';
-  if (!domain) return c.json({ error: 'domain parameter required' }, 400);
+  if (!domain) return badRequest(c, 'domain parameter required');
 
   const assessment = await generateThreatAssessment(domain);
   return c.json({

@@ -1,11 +1,12 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 
 const CACHE_TTL_SECONDS = 3600;
 
 export async function inquestSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const q = c.req.query('q');
-  if (!q || q.length > 200) return c.json({ error: 'q parameter required (max 200)' }, 400);
+  if (!q || q.length > 200) return badRequest(c, 'q parameter required (max 200)');
 
   const cacheKey = `https://inquest-cache.internal/v1-${encodeURIComponent(q)}`;
   const cacheReq = new Request(cacheKey);
@@ -17,7 +18,7 @@ export async function inquestSearchHandler(c: Context<{ Bindings: Env }>): Promi
       headers: { accept: 'application/json', 'user-agent': 'pranithjain.qzz.io DFIR toolkit' },
       signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) return c.json({ error: `InQuest upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `InQuest upstream ${res.status}`);
 
     const data = (await res.json()) as { data?: unknown };
     const rawResults = data?.data ?? [];
@@ -31,6 +32,6 @@ export async function inquestSearchHandler(c: Context<{ Bindings: Env }>): Promi
     return response;
   } catch (e) {
     console.error('inquestSearchHandler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'InQuest unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'InQuest unreachable');
   }
 }

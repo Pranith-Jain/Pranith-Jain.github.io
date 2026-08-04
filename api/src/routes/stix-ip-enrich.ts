@@ -10,6 +10,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 
 const INTERNAL = 'https://self.internal';
 
@@ -215,9 +216,7 @@ export async function stixIpEnrichHandler(c: Context<{ Bindings: Env }>): Promis
   const tlp = (c.req.query('tlp')?.trim().toUpperCase() ?? 'GREEN') as string;
 
   if (!ip || !isValidIp(ip)) {
-    return c.json({ error: 'invalid_ip', hint: 'Pass a valid IPv4 or IPv6 address.' }, 400, {
-      'Cache-Control': 'no-store',
-    });
+    return badRequest(c, 'invalid_ip: Pass a valid IPv4 or IPv6 address.');
   }
 
   const self = (c.env as Env).SELF;
@@ -291,13 +290,11 @@ export async function stixIpEnrichBatchHandler(c: Context<{ Bindings: Env }>): P
       'stixIpEnrichBatchHandler failed:',
       _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
     );
-    return c.json({ error: 'invalid_json', hint: 'Request body must be JSON with { ips: string[] }.' }, 400);
+    return badRequest(c, 'invalid_json: Request body must be JSON with { ips: string[] }.');
   }
 
   if (!Array.isArray(body.ips) || body.ips.length === 0 || body.ips.length > 8) {
-    return c.json({ error: 'invalid_ips', hint: 'Pass 1-8 IP addresses in the ips array.' }, 400, {
-      'Cache-Control': 'no-store',
-    });
+    return badRequest(c, 'invalid_ips: Pass 1-8 IP addresses in the ips array.');
   }
 
   const tlp = (typeof body.tlp === 'string' ? body.tlp.toUpperCase() : 'GREEN') as string;

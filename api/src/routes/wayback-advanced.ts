@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 
 interface WaybackEntry {
   timestamp: string;
@@ -219,10 +220,10 @@ export async function waybackAdvancedHandler(c: Context<{ Bindings: Env }>): Pro
   const filter = (c.req.query('filter') ?? 'all') as 'html' | 'js' | 'css' | 'all';
   const includeSuspicious = c.req.query('include_suspicious') === 'true';
 
-  if (!domain) return c.json({ error: 'missing domain parameter' }, 400);
+  if (!domain) return badRequest(c, 'missing domain parameter');
 
   if (!/^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z]{2,})+$/.test(domain)) {
-    return c.json({ error: 'invalid domain format' }, 400);
+    return badRequest(c, 'invalid domain format');
   }
 
   let startDate: string | undefined;
@@ -257,9 +258,7 @@ export async function waybackAdvancedHandler(c: Context<{ Bindings: Env }>): Pro
     });
 
     if (!res.ok) {
-      return c.json({ error: 'Wayback CDX lookup failed', message: `Upstream returned ${res.status}` }, 502, {
-        'Cache-Control': 'no-store',
-      });
+      return badGateway(c, `Wayback CDX lookup failed: Upstream returned ${res.status}`);
     }
 
     const rawEntries = parseCdxResponse(await res.json());

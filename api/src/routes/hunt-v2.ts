@@ -8,6 +8,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { rdapLookup } from '../lib/rdap';
 import { ctLogs } from '../lib/crt-sh';
 import { safeNullLog } from '../lib/safe-catch';
@@ -320,10 +321,10 @@ function computeScore(
 export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
   const q = (c.req.query('q') ?? '').trim().toLowerCase();
-  if (!q || q.length < 3) return c.json({ error: 'query too short' }, 400);
+  if (!q || q.length < 3) return badRequest(c, 'query too short');
 
   const type = detectType(q);
-  if (type === 'unknown') return c.json({ error: 'unrecognized indicator type' }, 400);
+  if (type === 'unknown') return badRequest(c, 'unrecognized indicator type');
 
   const indicator: Indicator = { type, value: q };
 
@@ -391,6 +392,6 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
     return c.json(response, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'hunt v2 failed' }, 500);
+    return internalError(c, e instanceof Error ? e.message : 'hunt v2 failed');
   }
 }

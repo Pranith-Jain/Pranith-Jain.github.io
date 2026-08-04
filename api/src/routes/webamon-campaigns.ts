@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import {
   listCampaigns,
   getCampaignStats,
@@ -16,11 +17,11 @@ const CACHE_TTL = 300;
 type Ctx = Context<{ Bindings: Env }>;
 
 function notConfigured(c: Ctx): Response {
-  return c.json({ error: 'not_configured', message: 'WEBAMON_API_KEY not set' }, 503);
+  return serviceUnavailable(c, 'WEBAMON_API_KEY not set');
 }
 
 function upstreamError(c: Ctx): Response {
-  return c.json({ error: 'webamon upstream error', message: 'pro.webamon.com unreachable or rejected the key' }, 502);
+  return badGateway(c, 'pro.webamon.com unreachable or rejected the key');
 }
 
 function ok(c: Ctx, body: unknown): Response {
@@ -60,7 +61,7 @@ export async function webamonCampaignStatsHandler(c: Ctx): Promise<Response> {
 export async function webamonCampaignDomainsHandler(c: Ctx): Promise<Response> {
   if (!c.env.WEBAMON_API_KEY) return notConfigured(c);
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'missing campaign id' }, 400);
+  if (!id) return badRequest(c, 'missing campaign id');
   const body = await listCampaignDomains(c.env, id, {
     size: intParam(c, 'size', 500, 100),
     from: Number(c.req.query('from')) || 0,

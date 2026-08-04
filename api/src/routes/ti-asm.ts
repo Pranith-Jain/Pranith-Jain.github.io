@@ -13,6 +13,7 @@
  */
 
 import { Hono } from 'hono';
+import { badRequest, conflict } from '../lib/api-error';
 import type { D1Database, KVNamespace } from '@cloudflare/workers-types';
 
 interface AsmEnv {
@@ -178,7 +179,7 @@ asm.post('/domains', async (c) => {
   const body = await c.req.json<{ domain: string }>();
 
   if (!body.domain || !/^[a-zA-Z0-9][a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(body.domain)) {
-    return c.json({ error: 'Invalid domain' }, 400);
+    return badRequest(c, 'Invalid domain');
   }
 
   // Check if already exists
@@ -188,7 +189,7 @@ asm.post('/domains', async (c) => {
     .first<{ id: string }>();
 
   if (existing) {
-    return c.json({ error: 'Domain already monitored' }, 409);
+    return conflict(c, 'Domain already monitored');
   }
 
   const id = crypto.randomUUID();
@@ -210,7 +211,7 @@ asm.get('/scan', async (c) => {
   const domain = c.req.query('domain');
 
   if (!domain) {
-    return c.json({ error: 'domain parameter required' }, 400);
+    return badRequest(c, 'domain parameter required');
   }
 
   // Get or create domain record
