@@ -4,6 +4,27 @@ import { pageCardUrl } from './og-path';
 import type { Env } from './env';
 
 /**
+ * Build-time-generated per-route OG title/description map, derived from each
+ * page component's `DataPageLayout` / `PageMeta` props (see
+ * `scripts/build-og-overrides.mjs`). Regenerated on every `prebuild`.
+ *
+ * Precedence (see `findOgOverride` / `ogMetaForPath`):
+ *   1. Hand-tuned `OG_OVERRIDES` exact match (polished copy, hand-written)
+ *   2. This generated map (component-authored title/description)
+ *   3. `OG_OVERRIDES` prefix match (section branding)
+ *   4. `deriveOgFromPath` (mechanical slug-derived fallback)
+ *
+ * The generated map fills the ~400-route gap between the 18 hand-tuned
+ * entries and the slug-derived fallback, so deep links share the rich,
+ * page-specific description the component already declares instead of a
+ * generic "a free DFIR tool on pranithjain.qzz.io" card.
+ */
+import generatedOverridesRaw from './og-overrides.generated.json';
+
+/** Cast the JSON import to a per-route override map (keyed by pathname). */
+const generatedOverrides = generatedOverridesRaw as unknown as Record<string, OgOverride>;
+
+/**
  * L1-shadowed read of a blog post record from CASE_STUDIES KV.
  *
  * `resolveOg` and `resolveBlogJsonLd` both read the same `posts:<slug>` on
@@ -127,7 +148,28 @@ export interface OgOverride {
  *  be poisoned by a request arriving on a non-canonical host. */
 const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
 
-const OG_CACHE_VERSION = 'v4';
+const OG_CACHE_VERSION = 'v5';
+
+/**
+ * Clamp a string so its UTF-8 byte length stays within `maxBytes`. Some
+ * social-preview validators (and X's crawler in some modes) count bytes, not
+ * codepoints — an em-dash (—) is 1 char but 3 bytes. Slicing by `.length`
+ * leaves multi-byte titles over the byte limit. This trims on codepoints but
+ * re-checks the byte length, appending an ellipsis (3 bytes) when truncated.
+ */
+function clampToBytes(s: string, maxBytes: number): string {
+  if (Buffer.byteLength(s, 'utf8') <= maxBytes) return s;
+  const ELLIPSIS = '…';
+  const ellipsisBytes = Buffer.byteLength(ELLIPSIS, 'utf8');
+  // Walk back codepoint-by-codepoint until (trimmed + ellipsis) fits.
+  const chars = [...s];
+  let trimmed = chars.join('');
+  while (Buffer.byteLength(trimmed, 'utf8') + ellipsisBytes > maxBytes && chars.length > 0) {
+    chars.pop();
+    trimmed = chars.join('');
+  }
+  return trimmed.trimEnd() + ELLIPSIS;
+}
 export const OG_CACHE_TTL_SECONDS = 86400;
 
 export const OG_OVERRIDES: Record<string, OgOverride> = {
@@ -357,17 +399,20 @@ export interface OgPageMeta {
  * dynamic page-card generator (worker/og-data.ts) renders a card whose text
  * matches the meta tags the rewriter serves for the same URL.
  *
- * Title/description precedence: an exact OG_OVERRIDES entry (hand-written copy)
- * wins, then the path-derived unique title/description, then a prefix-match
- * section override. Returns null only for the home page (which keeps the
- * static home card from index.html).
+ * Title/description precedence:
+ *   1. Hand-tuned `OG_OVERRIDES` exact match (polished copy)
+ *   2. Generated map exact match (component-authored title/description)
+ *   3. `deriveOgFromPath` (mechanical slug-derived fallback)
+ *   4. `OG_OVERRIDES` prefix match (section branding)
+ * Returns null only for the home page (which keeps the static home card).
  */
 export function ogMetaForPath(pathname: string): OgPageMeta | null {
   const exact = OG_OVERRIDES[pathname];
+  const generated = generatedOverrides[pathname] as OgOverride | undefined;
   const override = findOgOverride(pathname);
   const derived = deriveOgFromPath(pathname);
-  const title = exact?.title ?? derived?.title ?? override?.title;
-  const description = exact?.description ?? derived?.description ?? override?.description;
+  const title = exact?.title ?? generated?.title ?? derived?.title ?? override?.title;
+  const description = exact?.description ?? generated?.description ?? derived?.description ?? override?.description;
   if (!title || !description) return null;
 
   const first = pathname.split('/').filter(Boolean)[0] ?? '';
@@ -406,14 +451,14 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
     try {
       const post = await readBlogPostShadowed<{ title?: string; excerpt?: string }>(env, m[1]!);
       if (post?.title) {
-        // Clamp to X/Twitter card limits: title ≤70, description ≤200 chars.
-        // The `· pranithjain.qzz.io` suffix (23 chars) is reserved first so a
-        // long post title doesn't push the combined title over 70 and get
-        // truncated awkwardly by the crawler.
+        // Clamp to X/Twitter card limits: title ≤70, description ≤200 BYTES
+        // (some validators count UTF-8 bytes, not codepoints — em-dashes are
+        // 3 bytes). The `· pranithjain.qzz.io` suffix is reserved first so a
+        // long post title doesn't push the combined title over the limit.
         const SUFFIX = ' · pranithjain.qzz.io';
-        const maxTitle = 70 - SUFFIX.length; // 47 chars for the post title
-        const rawTitle = post.title.length > maxTitle ? post.title.slice(0, maxTitle - 1).trimEnd() + '…' : post.title;
-        const description = (post.excerpt || OG_OVERRIDES['/blog']!.description).slice(0, 200);
+        const maxTitle = 70 - Buffer.byteLength(SUFFIX, 'utf8');
+        const rawTitle = clampToBytes(post.title, maxTitle);
+        const description = clampToBytes(post.excerpt || OG_OVERRIDES['/blog']!.description, 200);
         return {
           title: `${rawTitle}${SUFFIX}`,
           description,
@@ -436,12 +481,14 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
       try {
         const briefing = await readBriefing(env.BRIEFINGS_DB, b[1]!);
         if (briefing) {
-          // Clamp to X/Twitter card limits: title ≤70, description ≤200.
+          // Clamp to X/Twitter card limits: title ≤70, description ≤200 BYTES.
           const SUFFIX = ' · pranithjain.qzz.io';
-          const maxTitle = 70 - SUFFIX.length;
-          const rawTitle =
-            briefing.title.length > maxTitle ? briefing.title.slice(0, maxTitle - 1).trimEnd() + '…' : briefing.title;
-          const description = (briefing.executive_summary || OG_OVERRIDES['/threatintel']!.description).slice(0, 200);
+          const maxTitle = 70 - Buffer.byteLength(SUFFIX, 'utf8');
+          const rawTitle = clampToBytes(briefing.title, maxTitle);
+          const description = clampToBytes(
+            briefing.executive_summary || OG_OVERRIDES['/threatintel']!.description,
+            200
+          );
           return {
             title: `${rawTitle}${SUFFIX}`,
             description,
