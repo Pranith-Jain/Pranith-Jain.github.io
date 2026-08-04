@@ -291,6 +291,73 @@
     border-color: rgb(var(--border-400));
   }
 
+  /* Standardized keyboard-hint styling. Use <kbd className="kbd"> or the
+     <Kbd> component — replaces the 4+ hand-rolled kbd styles across the app. */
+  .kbd {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.0625rem 0.375rem;
+    border-radius: 0.25rem;
+    border: 1px solid rgb(var(--border-400));
+    background: rgb(var(--surface-200));
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    line-height: var(--text-micro--line-height);
+    color: rgb(var(--muted));
+    white-space: nowrap;
+  }
+
+  /* Semantic severity utilities — use these instead of raw text-rose-600 /
+     text-amber-500 so severity colors come from one place (the --color-severity-*
+     tokens above). Tailwind v4 generates these from the @theme namespace, but
+     the token names don't map to the standard color-<shade> pattern, so we
+     expose them as explicit utilities. */
+  .text-severity-critical {
+    color: var(--color-severity-critical);
+  }
+  .text-severity-high {
+    color: var(--color-severity-high);
+  }
+  .text-severity-medium {
+    color: var(--color-severity-medium);
+  }
+  .text-severity-low {
+    color: var(--color-severity-low);
+  }
+  .text-severity-info {
+    color: var(--color-severity-info);
+  }
+  .bg-severity-critical {
+    background-color: var(--color-severity-critical);
+  }
+  .bg-severity-high {
+    background-color: var(--color-severity-high);
+  }
+  .bg-severity-medium {
+    background-color: var(--color-severity-medium);
+  }
+  .bg-severity-low {
+    background-color: var(--color-severity-low);
+  }
+  .bg-severity-info {
+    background-color: var(--color-severity-info);
+  }
+  .border-severity-critical {
+    border-color: var(--color-severity-critical);
+  }
+  .border-severity-high {
+    border-color: var(--color-severity-high);
+  }
+  .border-severity-medium {
+    border-color: var(--color-severity-medium);
+  }
+  .border-severity-low {
+    border-color: var(--color-severity-low);
+  }
+  .border-severity-info {
+    border-color: var(--color-severity-info);
+  }
+
   .card-hover {
     &:hover {
       translate: 0 -2px;
