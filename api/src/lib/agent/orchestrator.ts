@@ -7,22 +7,16 @@
  * and switches when exit conditions fire.
  */
 
-import type { Ai } from '@cloudflare/workers-types';
-import type { AgentStep, AgentTool, AgentState, AgentToolCall, AgentToolResult } from './types';
+import type { AgentStep, AgentTool, AgentToolCall, AgentToolResult } from './types';
 import {
   type SpecialistRole,
   type OrchestratorPlan,
   type SpecialistDispatch,
-  type SpecialistResult,
   type SpecialistFinding,
   type SpecialistView,
   SPECIALIST_REGISTRY,
   getSpecialistsForQueryType,
-  getToolsForSpecialist,
 } from './specialist-types';
-import { planNextStep } from './planner';
-import { observeStep } from './observer';
-import { evaluateCtiExit } from './cti-loop';
 
 /**
  * Build an orchestration plan: which specialists to call, in what order,
@@ -116,183 +110,7 @@ export function applySpecialistGuardrails(
   return filtered;
 }
 
-/**
- * Run a single specialist agent for a fixed number of steps.
- * Returns the steps it executed and any findings extracted.
- */
-export async function runSpecialist(
-  ai: Ai,
-  dispatch: SpecialistDispatch,
-  tools: AgentTool[],
-  opts: { infronKey?: string; groqKey?: string; googleKey?: string; nvidiaKey?: string }
-): Promise<SpecialistResult> {
-  const specialistTools = getToolsForSpecialist(dispatch.role, tools);
-  const steps: AgentStep[] = [];
-  const findings: SpecialistFinding[] = [];
-
-  let synthesizing = false;
-
-  for (let stepNum = 1; stepNum <= dispatch.maxSteps && !synthesizing; stepNum++) {
-    const view = { stepNum, maxSteps: dispatch.maxSteps, steps };
-
-    // Check specialist-specific exit conditions
-    const specialistCheck = checkSpecialistExit(dispatch.role, steps, stepNum, dispatch.maxSteps, dispatch.queryType);
-    if (specialistCheck.shouldSwitch) {
-      synthesizing = true;
-      break;
-    }
-
-    // Also check global exit conditions
-    const exit = evaluateCtiExit(view);
-    if (exit) {
-      synthesizing = true;
-      break;
-    }
-
-    // Plan next step using the specialist's tool subset
-    const plan = await planNextStep(
-      ai,
-      dispatch.query,
-      dispatch.queryType,
-      steps,
-      stepNum,
-      dispatch.maxSteps,
-      specialistTools,
-      opts
-    );
-
-    if (plan.shouldSynthesize) {
-      synthesizing = true;
-      break;
-    }
-
-    // Apply guardrails
-    const toolCalls = applySpecialistGuardrails(dispatch.role, plan.toolCalls, view);
-
-    if (toolCalls.length === 0) {
-      synthesizing = true;
-      break;
-    }
-
-    // Execute tools in parallel
-    const results = await executeToolsForRole(toolCalls, specialistTools);
-
-    // Observe results
-    const observation = await observeStep(ai, stepNum, plan.reasoning, results, opts);
-
-    const step: AgentStep = {
-      stepNumber: stepNum,
-      plan: plan.reasoning,
-      toolCalls,
-      results,
-      status: 'done',
-      startedAt: new Date().toISOString(),
-      completedAt: new Date().toISOString(),
-      observation: observation.observation,
-      nextAction: 'continue',
-    };
-
-    steps.push(step);
-
-    // Extract findings from successful results
-    for (const r of results) {
-      if (r.status === 'ok' && r.data) {
-        findings.push(...extractFindings(r, dispatch.role, stepNum));
-      }
-    }
-  }
-
-  return { role: dispatch.role, steps, findings, report: null, error: null };
-}
-
-/**
- * Merge results from multiple specialists into a single agent state.
- * Deduplicates findings, resolves conflicts, and produces a unified report.
- */
-export function mergeSpecialistResults(
-  query: string,
-  queryType: string,
-  results: SpecialistResult[],
-  existingState?: Partial<AgentState>
-): AgentState {
-  const seen = new Set<string>();
-  const allFindings: SpecialistFinding[] = [];
-  const allSteps: AgentStep[] = [];
-
-  for (const r of results) {
-    allSteps.push(...r.steps);
-    for (const f of r.findings) {
-      const key = `${f.type}:${f.value}`;
-      if (!seen.has(key)) {
-        seen.add(key);
-        allFindings.push(f);
-      }
-    }
-  }
-
-  return {
-    id: existingState?.id ?? '',
-    query,
-    queryType,
-    status: 'done',
-    steps: allSteps,
-    currentStep: allSteps.length,
-    maxSteps: existingState?.maxSteps ?? 10,
-    report: null,
-    modelUsed: existingState?.modelUsed ?? null,
-    startedAt: existingState?.startedAt ?? new Date().toISOString(),
-    completedAt: new Date().toISOString(),
-    error: null,
-  };
-}
-
 // ── Helpers ───────────────────────────────────────────────────────────────
-
-async function executeToolsForRole(calls: AgentToolCall[], tools: AgentTool[]): Promise<AgentToolResult[]> {
-  const toolMap = new Map(tools.map((t) => [t.name, t]));
-  const results: AgentToolResult[] = [];
-
-  const promises = calls.map(async (call): Promise<AgentToolResult> => {
-    const tool = toolMap.get(call.tool);
-    if (!tool) {
-      return { tool: call.tool, args: call.args, status: 'error', error: `Unknown tool: ${call.tool}`, durationMs: 0 };
-    }
-    const start = Date.now();
-    try {
-      const timeoutMs = ['enrich_actor', 'check_ioc', 'enrich_ioc_deep', 'unified_search', 'cross_correlate'].includes(
-        call.tool
-      )
-        ? 40_000
-        : 20_000;
-      let timer: ReturnType<typeof setTimeout> | undefined;
-      const data = await Promise.race([
-        tool.execute(call.args).finally(() => clearTimeout(timer)),
-        new Promise<never>((_, reject) => {
-          timer = setTimeout(() => reject(new Error(`Timeout (${timeoutMs / 1000}s)`)), timeoutMs);
-        }),
-      ]);
-      return { tool: call.tool, args: call.args, status: 'ok', data, durationMs: Date.now() - start };
-    } catch (err) {
-      return {
-        tool: call.tool,
-        args: call.args,
-        status: 'error',
-        error: err instanceof Error ? err.message : String(err),
-        durationMs: Date.now() - start,
-      };
-    }
-  });
-
-  const settled = await Promise.allSettled(promises);
-  for (const s of settled) {
-    results.push(
-      s.status === 'fulfilled'
-        ? s.value
-        : { tool: 'unknown', args: {}, status: 'error', error: 'Promise rejected', durationMs: 0 }
-    );
-  }
-  return results;
-}
 
 export function extractFindings(
   result: AgentToolResult,
