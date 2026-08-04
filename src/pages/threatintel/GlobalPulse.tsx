@@ -525,7 +525,7 @@ export default function GlobalPulse(): JSX.Element {
     setLoading(true);
     setError(null);
     try {
-      const r = await fetch(forceRefresh ? '/api/v1/global-pulse?force=1' : '/api/v1/global-pulse', {
+      const r = await fetch(forceRefresh ? '/api/v1/global-pulse?force=1' : '/api/v1/global-pulse?v=2', {
         signal: ctrl.signal,
       });
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
