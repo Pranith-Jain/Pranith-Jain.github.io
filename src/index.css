@@ -100,15 +100,10 @@
 
   html:not(.dark) {
     color-scheme: light;
-    /* Faint brand-tinted top glow so light mode has the same atmospheric
-       depth as dark (which gets a navy radial). Geometric radial, not a
-       decorative blur - mirrors the dark --bg-glow approach. */
-    --bg-glow: radial-gradient(120% 70% at 50% 0%, rgba(67, 94, 241, 0.06) 0%, rgba(67, 94, 241, 0) 55%);
-  }
-
-  html:not(.dark) body {
-    background-image: var(--bg-glow);
-    background-repeat: no-repeat;
+    /* Light mode uses a flat white canvas. The previous brand-tinted radial
+       glow at the top of the page was a decorative stage-light overlay;
+       the dark-mode navy radial is subtle enough to keep, but the light
+       version read as an AI-slop ambient spotlight. */
   }
 
   :root {
