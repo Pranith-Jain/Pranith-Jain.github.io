@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { internalError } from '../lib/api-error';
 
 /**
  * Cross-correlation intelligence engine.

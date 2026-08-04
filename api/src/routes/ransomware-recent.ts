@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { tooManyRequests } from '../lib/api-error';
 import { classifySector, type Sector } from '../lib/sector-classifier';
 import { safeIsoOr } from '../lib/safe-date';
 import { fetchMythreatintelRansomwareVictims } from '../lib/mythreatintel-parser';

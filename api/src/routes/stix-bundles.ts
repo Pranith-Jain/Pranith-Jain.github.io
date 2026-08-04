@@ -20,6 +20,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { serviceUnavailable } from '../lib/api-error';
 import { parsePostgrestQuery } from '../lib/postgrest-filter';
 
 const STIX_BUNDLES_TABLE = 'intel_bundles';

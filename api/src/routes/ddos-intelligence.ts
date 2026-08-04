@@ -12,6 +12,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest } from '../lib/api-error';
 
 interface DDoSBotnet {
   ip: string;

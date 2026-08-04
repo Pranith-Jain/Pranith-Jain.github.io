@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest } from '../lib/api-error';
 
 /**
  * Reverse lookup: actor → CVEs they are known to exploit.

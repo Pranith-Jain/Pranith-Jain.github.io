@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { serviceUnavailable } from '../lib/api-error';
 import { BLOCKLIST_KV_ALL_KEY, buildBlocklists } from '../lib/blocklist-builder';
 import { safeNullLog } from '../lib/safe-catch';
 

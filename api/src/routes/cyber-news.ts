@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badGateway } from '../lib/api-error';
 import { fetchCyberNews, type FeedTier } from '../lib/cyber-news-feeds';
 
 const VALID_TIERS = new Set([1, 2, 3, 4, 5]);

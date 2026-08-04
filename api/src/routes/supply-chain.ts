@@ -3,6 +3,7 @@
 // HERE (per-colo Cache API), never in the lib fns. See design §8.3.
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest } from '../lib/api-error';
 import { fetchDepsDev } from '../lib/supply-chain/depsdev';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 

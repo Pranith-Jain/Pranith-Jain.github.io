@@ -1,4 +1,5 @@
 import type { Hono } from 'hono';
+import { internalError } from '../lib/api-error';
 import { writeLastGood } from '../lib/lastgood';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 import { RANSOMWARE_SLUGS } from '../lib/ransomware-slugs';

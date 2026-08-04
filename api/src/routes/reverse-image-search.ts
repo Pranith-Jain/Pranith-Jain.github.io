@@ -7,6 +7,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest } from '../lib/api-error';
 
 const CACHE_TTL = 3600;
 

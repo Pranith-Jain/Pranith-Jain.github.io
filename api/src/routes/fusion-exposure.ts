@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { serviceUnavailable } from '../lib/api-error';
 import { selfFetchJson } from '../lib/self-fetch';
 import { fetchResilient } from '../lib/fetch-resilient';
 

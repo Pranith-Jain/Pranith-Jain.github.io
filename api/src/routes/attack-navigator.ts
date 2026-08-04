@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badGateway } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 const CACHE_TTL_SECONDS = 24 * 60 * 60; // 24h — MITRE data changes rarely

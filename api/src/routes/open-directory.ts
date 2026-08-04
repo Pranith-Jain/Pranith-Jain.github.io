@@ -18,7 +18,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
-import { badRequest, internalError } from '../lib/api-error';
+import { badRequest,internalError,respondError } from '../lib/api-error';
 import { z } from 'zod';
 import { safeNull, safeNullLog } from '../lib/safe-catch';
 
