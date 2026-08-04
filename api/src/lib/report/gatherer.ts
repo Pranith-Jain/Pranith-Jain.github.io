@@ -241,6 +241,7 @@ export const FETCHERS: Record<string, Fetcher> = {
     if (!ctx.env.RANSOMWARELIVE_API_KEY) {
       // Silent-empty honesty (§7.6/P1 #4): a missing key looks identical to
       // "group has no CVEs" — emit telemetry so it is not silently swallowed.
+      console.warn(`kev-cves: skipping — RANSOMWARELIVE_API_KEY not configured for ${ctx.subject.canonical}`);
       return base(src, 'empty');
     }
     try {

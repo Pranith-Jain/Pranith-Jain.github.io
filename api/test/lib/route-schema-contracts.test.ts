@@ -181,8 +181,8 @@ const CASES: Case[] = [
   {
     name: 'passiveDnsSchema (query)',
     schema: S.passiveDnsSchema,
-    valid: { q: 'example.com' },
-    invalid: {}, // q required
+    valid: { query: 'example.com' },
+    invalid: {}, // query required
   },
   {
     name: 'githubSecuritySchema (query)',

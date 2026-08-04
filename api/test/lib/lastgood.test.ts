@@ -37,13 +37,29 @@ function makeEnv(kv: FakeKV | null) {
   return { KV_CACHE: kv } as unknown as Parameters<typeof readLastGood>[0];
 }
 
-beforeEach(() => {
+beforeEach(async () => {
   // Each test starts with a fresh debounce window so a previous test's
   // successful write doesn't suppress the next one.
   vi.useRealTimers();
   // The debounce helper uses request-scoped storage; we can't easily clear
   // that between tests, so we exercise the debounce path by passing
   // `force: true` for the first write of each key.
+  // Clear the per-colo Cache-API shadow so a previous test's write-through
+  // doesn't mask a KV miss/error in the next test (the shadow is shared
+  // across the whole worker in miniflare).
+  try {
+    await (caches as unknown as { default: Cache }).default.delete(
+      new Request('https://lastgood-cache.internal/v1/kev')
+    );
+    await (caches as unknown as { default: Cache }).default.delete(
+      new Request('https://lastgood-cache.internal/v1/shadowkey')
+    );
+    await (caches as unknown as { default: Cache }).default.delete(
+      new Request('https://lastgood-cache.internal/v1/wt')
+    );
+  } catch {
+    /* best-effort */
+  }
 });
 
 describe('readLastGood', () => {
