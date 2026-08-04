@@ -84,7 +84,7 @@ export const estateRoutes = app
   .get('/config', async (c) => {
     const db = c.env.BRIEFINGS_DB;
     if (!db) return serviceUnavailable(c, 'DB unavailable');
-    const row = await db.prepare('SELECT * FROM estate_config WHERE id = ?').bind('default').first();
+    const row = await db.prepare('SELECT id, sector, sub_sector, region, tech_stack, priorities, data_types, created_at, updated_at FROM estate_config WHERE id = ?').bind('default').first();
     if (!row) {
       return c.json({
         sector: '',
@@ -142,8 +142,8 @@ export const estateRoutes = app
     if (!db) return serviceUnavailable(c, 'DB unavailable');
     const type = c.req.query('type');
     const rows = type
-      ? await db.prepare('SELECT * FROM estate_assets WHERE asset_type = ? ORDER BY created_at DESC').bind(type).all()
-      : await db.prepare('SELECT * FROM estate_assets ORDER BY created_at DESC').all();
+      ? await db.prepare('SELECT id, asset_type, value, label, tags, criticality, metadata, created_at, updated_at FROM estate_assets WHERE asset_type = ? ORDER BY created_at DESC').bind(type).all()
+      : await db.prepare('SELECT id, asset_type, value, label, tags, criticality, metadata, created_at, updated_at FROM estate_assets ORDER BY created_at DESC').all();
     const assets = (rows.results ?? []).map((r) => {
       const row = r as unknown as EstateAssetRow;
       return {
@@ -201,7 +201,7 @@ export const estateRoutes = app
     const type = c.req.query('type');
     const unread = c.req.query('unread');
 
-    let sql = 'SELECT * FROM alert_feeds WHERE dismissed = 0';
+    let sql = 'SELECT id, title, source_url, dismissed, created_at FROM alert_feeds WHERE dismissed = 0';
     const params: unknown[] = [];
     if (severity) {
       sql += ' AND severity = ?';

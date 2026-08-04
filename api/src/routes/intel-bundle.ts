@@ -67,7 +67,7 @@ interface IntelBundleRow {
 
 async function readBundle(db: D1Database, sourceId: string, itemRef: string): Promise<IntelBundleRow | null> {
   const row = await db
-    .prepare('SELECT * FROM intel_bundles WHERE source_id = ? AND item_ref = ? LIMIT 1')
+    .prepare('SELECT id, source_id, item_ref, report_id, title, published_at, extracted_hash, bundle_json, view_json, created_at, updated_at, ioc_count, actor_count, malware_count FROM intel_bundles WHERE source_id = ? AND item_ref = ? LIMIT 1')
     .bind(sourceId, itemRef)
     .first<IntelBundleRow>();
   return row ?? null;

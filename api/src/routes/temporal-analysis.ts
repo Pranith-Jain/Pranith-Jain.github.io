@@ -77,7 +77,7 @@ export interface KillChainPhase {
  * Build a timeline for a specific IOC.
  */
 export async function buildIocTimeline(db: D1Database, indicator: string): Promise<TemporalIoc | null> {
-  const row = await db.prepare('SELECT * FROM ioc_lifecycle WHERE indicator = ?').bind(indicator).first<{
+  const row = await db.prepare('SELECT indicator, indicator_type, first_seen, last_seen, peak_score, current_score, observation_count, sources_seen, last_sources, decay_rate, tags, created_at, updated_at FROM ioc_lifecycle WHERE indicator = ?').bind(indicator).first<{
     indicator: string;
     indicator_type: string;
     first_seen: string;
@@ -406,7 +406,7 @@ export async function predictIocDormancy(
   confidence: number;
   factors: string[];
 } | null> {
-  const row = await db.prepare('SELECT * FROM ioc_lifecycle WHERE indicator = ?').bind(indicator).first<{
+  const row = await db.prepare('SELECT indicator, indicator_type, first_seen, last_seen, peak_score, current_score, observation_count, sources_seen, last_sources, decay_rate, tags, created_at, updated_at FROM ioc_lifecycle WHERE indicator = ?').bind(indicator).first<{
     indicator: string;
     indicator_type: string;
     first_seen: string;

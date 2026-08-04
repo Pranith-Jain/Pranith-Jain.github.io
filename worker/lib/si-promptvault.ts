@@ -354,7 +354,7 @@ export async function promptVaultList(
     binds.push(q, q, q);
   }
   const where = conds.length ? `WHERE ${conds.join(' AND ')}` : '';
-  const sql = `SELECT * FROM promptvault_entries ${where} ORDER BY updated_at DESC LIMIT ${limit}`;
+  const sql = `SELECT id, slug, title, category, tags, author, version, body, rating_sum, rating_count, downloads, created_at, updated_at FROM promptvault_entries ${where} ORDER BY updated_at DESC LIMIT ${limit}`;
   const res = (await db
     .prepare(sql)
     .bind(...binds)
@@ -367,7 +367,7 @@ export async function promptVaultGet(env: EnvWithDb, slug: string): Promise<Prom
   if (!db) throw new Error('BRIEFINGS_DB D1 binding missing');
   await ensureSchema(db);
   await ensureSeed(db);
-  const row = await db.prepare('SELECT * FROM promptvault_entries WHERE slug = ?1').bind(slug).first();
+  const row = await db.prepare('SELECT id, slug, title, category, tags, author, version, body, rating_sum, rating_count, downloads, created_at, updated_at FROM promptvault_entries WHERE slug = ?1').bind(slug).first();
   if (!row) return null;
   // Increment downloads (best-effort, fire-and-forget).
   void db
@@ -427,7 +427,7 @@ export async function promptVaultRate(env: EnvWithDb, input: RatePromptInput): P
   }
   await ensureSchema(db);
   await ensureSeed(db);
-  const existing = await db.prepare('SELECT * FROM promptvault_entries WHERE slug = ?1').bind(input.slug).first();
+  const existing = await db.prepare('SELECT id, slug, title, category, tags, author, version, body, rating_sum, rating_count, downloads, created_at, updated_at FROM promptvault_entries WHERE slug = ?1').bind(input.slug).first();
   if (!existing) return null;
   await db
     .prepare(
@@ -435,7 +435,7 @@ export async function promptVaultRate(env: EnvWithDb, input: RatePromptInput): P
     )
     .bind(input.rating, new Date().toISOString(), input.slug)
     .run();
-  const updated = await db.prepare('SELECT * FROM promptvault_entries WHERE slug = ?1').bind(input.slug).first();
+  const updated = await db.prepare('SELECT id, slug, title, category, tags, author, version, body, rating_sum, rating_count, downloads, created_at, updated_at FROM promptvault_entries WHERE slug = ?1').bind(input.slug).first();
   return updated ? rowToEntry(updated as Record<string, unknown>) : null;
 }
 

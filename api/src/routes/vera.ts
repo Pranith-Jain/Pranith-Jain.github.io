@@ -106,7 +106,7 @@ async function ensureTable(db: D1Database): Promise<void> {
 }
 
 async function loadSession(db: D1Database, id: string): Promise<VeraSession | null> {
-  const row = await db.prepare('SELECT * FROM vera_sessions WHERE id = ?').bind(id).first<{
+  const row = await db.prepare('SELECT id, mode, messages_json, created_at, updated_at, role FROM vera_sessions WHERE id = ?').bind(id).first<{
     id: string;
     mode: string;
     messages_json: string;

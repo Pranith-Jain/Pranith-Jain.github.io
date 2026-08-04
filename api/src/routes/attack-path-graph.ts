@@ -75,7 +75,7 @@ export async function attackPathGraphHandler(c: Context<{ Bindings: Env }>): Pro
   try {
     // Load ASM domains + assets
     const domains = await db.prepare('SELECT id, domain FROM asm_domains').all<AsmDomain>();
-    const assets = await db.prepare('SELECT * FROM asm_assets').all<AsmAsset>();
+    const assets = await db.prepare('SELECT id, domain_id, type, value, metadata, first_seen, last_seen, status FROM asm_assets').all<AsmAsset>();
 
     if (!assets.results || assets.results.length === 0) {
       return c.json(generateDemoGraph());

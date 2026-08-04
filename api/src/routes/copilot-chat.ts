@@ -95,7 +95,7 @@ async function ensureTable(db: D1Database): Promise<void> {
 }
 
 async function loadSession(db: D1Database, id: string): Promise<ChatSession | null> {
-  const row = await db.prepare('SELECT * FROM copilot_sessions WHERE id = ?').bind(id).first<{
+  const row = await db.prepare('SELECT id, title, messages_json, created_at, updated_at FROM copilot_sessions WHERE id = ?').bind(id).first<{
     id: string;
     title: string;
     messages_json: string;

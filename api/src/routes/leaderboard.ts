@@ -92,7 +92,7 @@ leaderboard.put('/profile', async (c) => {
 });
 
 leaderboard.get('/achievements', async (c) => {
-  const { results } = await c.env.BRIEFINGS_DB.prepare('SELECT * FROM achievements ORDER BY category, tier').all();
+  const { results } = await c.env.BRIEFINGS_DB.prepare('SELECT id, category, tier, title, description, icon, points, created_at FROM achievements ORDER BY category, tier').all();
 
   return c.json({ achievements: results || [] });
 });

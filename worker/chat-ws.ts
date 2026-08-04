@@ -101,7 +101,7 @@ export async function handleChatWebSocket(request: Request, env: Env): Promise<R
 
       // Load or create session
       if (msg.sessionId) {
-        const row = await db!.prepare('SELECT * FROM copilot_sessions WHERE id = ?').bind(msg.sessionId).first<{
+        const row = await db!.prepare('SELECT id, title, messages_json, created_at, updated_at FROM copilot_sessions WHERE id = ?').bind(msg.sessionId).first<{
           id: string;
           messages_json: string;
           created_at: string;

@@ -78,11 +78,11 @@ export async function copilotRulesListHandler(c: Context<{ Bindings: Env }>): Pr
     let rows: D1Result<SavedRule>;
     if (type) {
       rows = await db
-        .prepare('SELECT * FROM copilot_saved_rules WHERE rule_type = ? ORDER BY created_at DESC LIMIT 50')
+        .prepare('SELECT id, session_id, rule_type, rule_name, rule_content, description, context, created_at FROM copilot_saved_rules WHERE rule_type = ? ORDER BY created_at DESC LIMIT 50')
         .bind(type)
         .all<SavedRule>();
     } else {
-      rows = await db.prepare('SELECT * FROM copilot_saved_rules ORDER BY created_at DESC LIMIT 50').all<SavedRule>();
+      rows = await db.prepare('SELECT id, session_id, rule_type, rule_name, rule_content, description, context, created_at FROM copilot_saved_rules ORDER BY created_at DESC LIMIT 50').all<SavedRule>();
     }
     return c.json({ rules: rows.results ?? [] });
   } catch (e) {

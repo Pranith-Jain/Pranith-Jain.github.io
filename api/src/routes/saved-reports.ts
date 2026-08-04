@@ -34,7 +34,7 @@ export async function listSavedReports(c: Context<{ Bindings: Env }>): Promise<R
 export async function getSavedReport(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
   const db = c.env.BRIEFINGS_DB!;
-  const row = await db.prepare('SELECT * FROM saved_reports WHERE id = ?').bind(id).first();
+  const row = await db.prepare('SELECT id, title, source_url, source_text, report_json, text_length, elapsed_ms, ioc_count, ttp_count, cve_count, created_at FROM saved_reports WHERE id = ?').bind(id).first();
   if (!row) return notFound(c, 'not_found');
   return c.json(row);
 }

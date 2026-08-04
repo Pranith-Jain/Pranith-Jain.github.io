@@ -215,7 +215,7 @@ export async function shiftlogGet(env: EnvWithDb, id: string): Promise<ShiftLogE
   const db = env.BRIEFINGS_DB;
   if (!db) throw new Error('BRIEFINGS_DB D1 binding missing');
   await ensureSchema(db);
-  const row = await db.prepare('SELECT * FROM shiftlog_entries WHERE id = ?1').bind(id).first();
+  const row = await db.prepare('SELECT id, shift, author, started_at, ended_at, open_cases, iocs, escalations, notes, created_at, updated_at FROM shiftlog_entries WHERE id = ?1').bind(id).first();
   return row ? rowToEntry(row) : null;
 }
 
@@ -241,7 +241,7 @@ export async function shiftlogList(
     conds.push('ended_at IS NULL');
   }
   const where = conds.length ? `WHERE ${conds.join(' AND ')}` : '';
-  const sql = `SELECT * FROM shiftlog_entries ${where} ORDER BY started_at DESC LIMIT ${limit}`;
+  const sql = `SELECT id, shift, author, started_at, ended_at, open_cases, iocs, escalations, notes, created_at, updated_at FROM shiftlog_entries ${where} ORDER BY started_at DESC LIMIT ${limit}`;
   const res = await db
     .prepare(sql)
     .bind(...binds)

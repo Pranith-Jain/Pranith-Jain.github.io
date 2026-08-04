@@ -110,7 +110,7 @@ export async function tgBooleanSearchHandler(c: Context<{ Bindings: Env }>): Pro
   // Fetch
   const { results } = await db
     .prepare(
-      `SELECT * FROM telegram_leak_entries ${whereClause} ORDER BY discovered_at ${orderClause} LIMIT ? OFFSET ?`
+      `SELECT id, channel_handle, message_link, message_text, leak_type, credential_count, file_url, file_name, domains_found, severity, discovered_at, raw_content FROM telegram_leak_entries ${whereClause} ORDER BY discovered_at ${orderClause} LIMIT ? OFFSET ?`
     )
     .bind(...params, limit, offset)
     .all();
@@ -193,7 +193,7 @@ export async function tgSavedSearchesListHandler(c: Context<{ Bindings: Env }>):
   if (!db) return serviceUnavailable(c, 'database not available');
   await ensureTables(db);
 
-  const { results } = await db.prepare('SELECT * FROM tg_saved_searches ORDER BY updated_at DESC').all();
+  const { results } = await db.prepare('SELECT id, name, query, mode, filters, sort_order, date_range, created_at, updated_at FROM tg_saved_searches ORDER BY updated_at DESC').all();
 
   return c.json({ searches: results });
 }
@@ -234,7 +234,7 @@ export async function tgSavedSearchCreateHandler(c: Context<{ Bindings: Env }>):
     )
     .run();
 
-  const row = await db.prepare('SELECT * FROM tg_saved_searches WHERE id = ?').bind(id).first();
+  const row = await db.prepare('SELECT id, name, query, mode, filters, sort_order, date_range, created_at, updated_at FROM tg_saved_searches WHERE id = ?').bind(id).first();
   return c.json(row, 201);
 }
 

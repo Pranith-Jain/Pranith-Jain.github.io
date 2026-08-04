@@ -131,7 +131,7 @@ export async function recordIocObservation(
   // (b) the next observation re-merges from the live row. A proper fix would
   // use json_insert in SQL, but D1's JSON1 support is limited.
   const existing = await db
-    .prepare('SELECT * FROM ioc_lifecycle WHERE indicator = ?')
+    .prepare('SELECT indicator, indicator_type, first_seen, last_seen, peak_score, current_score, observation_count, sources_seen, last_sources, decay_rate, tags, created_at, updated_at FROM ioc_lifecycle WHERE indicator = ?')
     .bind(indicator)
     .first<IocLifecycleRow>();
 
@@ -249,7 +249,7 @@ export async function iocLifecycleHandler(c: Context<{ Bindings: Env }>): Promis
   await ensureTable(db);
 
   const row = await db
-    .prepare('SELECT * FROM ioc_lifecycle WHERE indicator = ?')
+    .prepare('SELECT indicator, indicator_type, first_seen, last_seen, peak_score, current_score, observation_count, sources_seen, last_sources, decay_rate, tags, created_at, updated_at FROM ioc_lifecycle WHERE indicator = ?')
     .bind(indicator)
     .first<IocLifecycleRow>();
 
@@ -295,7 +295,7 @@ export async function iocLifecycleTrendingHandler(c: Context<{ Bindings: Env }>)
   const validatedType = type && VALID_TYPES.includes(type) ? type : null;
 
   let query = `
-    SELECT * FROM ioc_lifecycle
+    SELECT indicator, indicator_type, first_seen, last_seen, peak_score, current_score, observation_count, sources_seen, last_sources, decay_rate, tags, created_at, updated_at FROM ioc_lifecycle
     WHERE last_seen > datetime('now', '-24 hours')
   `;
   const params: unknown[] = [];

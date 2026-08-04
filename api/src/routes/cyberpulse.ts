@@ -86,7 +86,7 @@ export async function cyberpulseIncidentsHandler(c: Context<{ Bindings: Env }>):
   const total = countResult?.total ?? 0;
 
   const { results } = await db
-    .prepare(`SELECT * FROM cyberpulse_incidents ${where} ORDER BY discovered_at DESC LIMIT ? OFFSET ?`)
+    .prepare(`SELECT id, incident_type, severity, victim_name, victim_domain, victim_sector, victim_country, threat_actor, threat_actor_aliases, title, description, data_types_leaked, records_count, data_volume, source_platform, source_url, source_handle, source_text, source_author, source_avatar, confidence, classification_method, discovered_at, reported_at, updated_at, dedup_hash, duplicate_of, tags, mitre_techniques, source_likes, source_retweets, source_replies, source_views FROM cyberpulse_incidents ${where} ORDER BY discovered_at DESC LIMIT ? OFFSET ?`)
     .bind(...binds, limit, offset)
     .all();
 
@@ -273,7 +273,7 @@ export async function cyberpulseScanLogHandler(c: Context<{ Bindings: Env }>): P
   const limit = Math.min(100, Math.max(1, Number(new URL(c.req.url).searchParams.get('limit') ?? '20')));
 
   const { results } = await db
-    .prepare('SELECT * FROM cyberpulse_scan_log ORDER BY scanned_at DESC LIMIT ?')
+    .prepare('SELECT id, source, handle, query, scanned_at, items_found, incidents_created, incidents_deduped, duration_ms, error FROM cyberpulse_scan_log ORDER BY scanned_at DESC LIMIT ?')
     .bind(limit)
     .all();
 

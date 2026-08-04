@@ -83,7 +83,7 @@ orgs.get('/:slug', async (c) => {
   if (!user) return unauthorized(c, 'Unauthorized');
 
   const slug = c.req.param('slug');
-  const org = await c.env.BRIEFINGS_DB.prepare('SELECT * FROM organizations WHERE slug = ?').bind(slug).first();
+  const org = await c.env.BRIEFINGS_DB.prepare('SELECT id, name, slug, description, avatar_url, created_by, created_at, updated_at FROM organizations WHERE slug = ?').bind(slug).first();
 
   if (!org) {
     return notFound(c, 'Organization not found');

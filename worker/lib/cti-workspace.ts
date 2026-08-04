@@ -116,7 +116,7 @@ export async function workspaceGet(env: WorkspaceEnv, id: string): Promise<Works
   const row = await db
     .prepare(
       `
-    SELECT * FROM investigation_workspaces WHERE id = ?
+    SELECT id, title, description, target, target_type, phase, status, exposure_score, exposure_label, tags, metadata, created_at, updated_at FROM investigation_workspaces WHERE id = ?
   `
     )
     .bind(id)
@@ -147,7 +147,7 @@ export async function workspaceList(
   const db = env.BRIEFINGS_DB;
   if (!db) return [];
 
-  let query = 'SELECT * FROM investigation_workspaces';
+  let query = 'SELECT id, title, description, target, target_type, phase, status, exposure_score, exposure_label, tags, metadata, created_at, updated_at FROM investigation_workspaces';
   const params: string[] = [];
 
   if (opts?.status) {
@@ -318,7 +318,7 @@ export async function subjectList(env: WorkspaceEnv, workspaceId: string): Promi
   if (!db) return [];
 
   const { results } = await db
-    .prepare('SELECT * FROM ws_subjects WHERE workspace_id = ? ORDER BY created_at')
+    .prepare('SELECT id, workspace_id, subject_type, label, value, confidence, trust_score, verified, aliases, notes, first_seen, created_at FROM ws_subjects WHERE workspace_id = ? ORDER BY created_at')
     .bind(workspaceId)
     .all();
 
@@ -393,7 +393,7 @@ export async function connectionList(env: WorkspaceEnv, workspaceId: string): Pr
   if (!db) return [];
 
   const { results } = await db
-    .prepare('SELECT * FROM ws_connections WHERE workspace_id = ? ORDER BY created_at')
+    .prepare('SELECT id, workspace_id, from_subject_id, to_subject_id, relationship, strength, notes, created_at FROM ws_connections WHERE workspace_id = ? ORDER BY created_at')
     .bind(workspaceId)
     .all();
 
@@ -480,7 +480,7 @@ export async function findingList(env: WorkspaceEnv, workspaceId: string): Promi
   if (!db) return [];
 
   const { results } = await db
-    .prepare('SELECT * FROM ws_findings WHERE workspace_id = ? ORDER BY created_at')
+    .prepare('SELECT id, workspace_id, subject_id, finding_type, weight, description, source_url, source_reliability, confidence, trust_score, collection_method, tags, validated, created_at FROM ws_findings WHERE workspace_id = ? ORDER BY created_at')
     .bind(workspaceId)
     .all();
 
@@ -549,7 +549,7 @@ export async function timelineList(env: WorkspaceEnv, workspaceId: string): Prom
   if (!db) return [];
 
   const { results } = await db
-    .prepare('SELECT * FROM ws_timeline WHERE workspace_id = ? ORDER BY event_date')
+    .prepare('SELECT id, workspace_id, event_date, event_type, description, subject_id, created_at FROM ws_timeline WHERE workspace_id = ? ORDER BY event_date')
     .bind(workspaceId)
     .all();
 

@@ -536,7 +536,7 @@ export async function telegramLeakSearchHandler(c: Context<{ Bindings: Env }>): 
   const limit = Math.min(Number(c.req.query('limit')) || 50, 200);
   const offset = Number(c.req.query('offset')) || 0;
 
-  let sql = 'SELECT * FROM telegram_leak_entries WHERE 1=1';
+  let sql = 'SELECT id, channel_handle, message_link, message_text, leak_type, credential_count, file_url, file_name, domains_found, severity, discovered_at, raw_content FROM telegram_leak_entries WHERE 1=1';
   const binds: unknown[] = [];
 
   if (q) {
@@ -582,7 +582,7 @@ export async function telegramDiscoveredChannelsHandler(c: Context<{ Bindings: E
   if (!db) return internalError(c, 'D1 not configured');
 
   const reviewed = c.req.query('reviewed');
-  let sql = 'SELECT * FROM telegram_discovered_channels';
+  let sql = 'SELECT id, handle, source_message, discovered_at, reviewed, added_to_watch FROM telegram_discovered_channels';
   const binds: unknown[] = [];
 
   if (reviewed === 'true') {
@@ -611,7 +611,7 @@ export async function telegramWatchedChannelsHandler(c: Context<{ Bindings: Env 
 
   try {
     const { results } = await db
-      .prepare('SELECT * FROM telegram_watched_channels WHERE active = 1 ORDER BY last_leak_found DESC')
+      .prepare('SELECT handle, title, category, discovered_from, added_by, added_at, last_scraped, last_leak_found, message_count, leak_count, active, tags FROM telegram_watched_channels WHERE active = 1 ORDER BY last_leak_found DESC')
       .all();
     return c.json({ channels: results }, 200);
   } catch (e) {

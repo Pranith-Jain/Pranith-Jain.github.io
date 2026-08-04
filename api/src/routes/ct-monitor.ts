@@ -175,7 +175,7 @@ export async function ctWatchedListHandler(c: Context<{ Bindings: Env }>): Promi
 
   await ensureTables(db);
 
-  const rows = await db.prepare('SELECT * FROM ct_watch ORDER BY last_checked DESC').all<WatchConfig>();
+  const rows = await db.prepare('SELECT domain, alert_types, added_at, last_checked, cert_count FROM ct_watch ORDER BY last_checked DESC').all<WatchConfig>();
 
   return c.json({
     watched: rows.results ?? [],
@@ -273,7 +273,7 @@ export async function ctCertsHandler(c: Context<{ Bindings: Env }>): Promise<Res
 
   const rows = await db
     .prepare(
-      `SELECT * FROM ct_certs
+      `SELECT id, domain, common_name, names, issuer, not_before, not_after, serial, first_seen FROM ct_certs
        WHERE domain = ? AND first_seen > datetime('now', '-${days} days')
        ORDER BY first_seen DESC
        LIMIT ?`

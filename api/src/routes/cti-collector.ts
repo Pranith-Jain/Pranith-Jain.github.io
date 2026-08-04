@@ -122,7 +122,7 @@ export async function ctiNewsHandler(c: Context<{ Bindings: Env }>) {
   }
 
   const rows = await db
-    .prepare(`SELECT * FROM cti_news ${where} ORDER BY fetched_at DESC LIMIT ?`)
+    .prepare(`SELECT id, title, url, summary, source, published, tags, fetched_at FROM cti_news ${where} ORDER BY fetched_at DESC LIMIT ?`)
     .bind(...params, String(limit))
     .all();
 
