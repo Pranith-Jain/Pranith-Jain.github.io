@@ -65,7 +65,7 @@ export default function AbuseRep(): JSX.Element {
             href="https://www.stopforumspam.org"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             Stop Forum Spam
           </a>{' '}
@@ -88,7 +88,7 @@ export default function AbuseRep(): JSX.Element {
         <button
           type="submit"
           disabled={loading || !input.trim()}
-          className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/70 disabled:opacity-50"
+          className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/70 disabled:opacity-50 transition-colors"
         >
           {loading ? <Loader2 size={13} className="animate-spin" /> : <ShieldAlert size={13} />} look up
         </button>

@@ -1,24 +1,38 @@
 import { useState, useMemo } from 'react';
 import {
-  Crosshair, ExternalLink, Search, Database, Filter,
-  ChevronDown, ChevronRight, AlertTriangle, Target, Grid, BookOpen,
-  GitBranch, Copy, Star, Check
+  Crosshair,
+  ExternalLink,
+  Search,
+  Database,
+  Filter,
+  ChevronDown,
+  ChevronRight,
+  AlertTriangle,
+  Target,
+  Grid,
+  BookOpen,
+  GitBranch,
+  Copy,
+  Star,
+  Check,
 } from 'lucide-react';
 import type { Actor, Detection } from '../types';
 import { NATION_PALETTE } from '../data/countries';
 
-interface Props { actors: Actor[]; }
+interface Props {
+  actors: Actor[];
+}
 
 type Tab = 'detections' | 'ttp-matrix' | 'ioc' | 'sector-pivot' | 'repos';
 
 // Tabs use a lucide icon only — the previous emoji set was the
 // "emoji icons in nav" AI tell.
 const TABS: { key: Tab; label: string; icon: typeof Database }[] = [
-  { key: 'detections',   label: 'Detections',      icon: Database },
-  { key: 'ttp-matrix',   label: 'TTP × APT Matrix', icon: Grid },
-  { key: 'ioc',          label: 'IOC Search',       icon: Search },
-  { key: 'sector-pivot', label: 'Sector Pivot',     icon: Target },
-  { key: 'repos',        label: 'Repositories',     icon: BookOpen },
+  { key: 'detections', label: 'Detections', icon: Database },
+  { key: 'ttp-matrix', label: 'TTP × APT Matrix', icon: Grid },
+  { key: 'ioc', label: 'IOC Search', icon: Search },
+  { key: 'sector-pivot', label: 'Sector Pivot', icon: Target },
+  { key: 'repos', label: 'Repositories', icon: BookOpen },
 ];
 
 const TACTIC_ORDER = [
@@ -39,14 +53,62 @@ const TACTIC_ORDER = [
 ];
 
 const REPOS = [
-  { name: 'SigmaHQ/sigma', url: 'https://github.com/SigmaHQ/sigma', description: 'Generic signature format for SIEM systems', lang: 'Sigma', stars: 8200 },
-  { name: 'elastic/detection-rules', url: 'https://github.com/elastic/detection-rules', description: 'Elastic Security detection rules', lang: 'KQL', stars: 5100 },
-  { name: 'splunk/security_content', url: 'https://github.com/splunk/security_content', description: 'Splunk security analytics use cases', lang: 'SPL', stars: 1800 },
-  { name: 'chainguard-dev/malcontent', url: 'https://github.com/chainguard-dev/malcontent', description: 'Cross-platform malware scanner', lang: 'Multi', stars: 1200 },
-  { name: 'fireeye/red_team_tool_countermeasures', url: 'https://github.com/fireeye/red_team_tool_countermeasures', description: 'YARA rules for detecting red team tools', lang: 'YARA', stars: 1100 },
-  { name: 'threathunter-dev/threathunter', url: 'https://github.com/threathunter-dev/threathunter', description: 'Threat hunting queries for Splunk/Elastic', lang: 'KQL', stars: 450 },
-  { name: 'microsoft/Microsoft-365-Defender-Hunting-Queries', url: 'https://github.com/microsoft/Microsoft-365-Defender-Hunting-Queries', description: 'M365 Defender hunting queries', lang: 'KQL', stars: 1800 },
-  { name: 'SigmaHQ/detection-rules', url: 'https://github.com/SigmaHQ/detection-rules', description: 'Sigma detection rules collection', lang: 'Sigma', stars: 6800 },
+  {
+    name: 'SigmaHQ/sigma',
+    url: 'https://github.com/SigmaHQ/sigma',
+    description: 'Generic signature format for SIEM systems',
+    lang: 'Sigma',
+    stars: 8200,
+  },
+  {
+    name: 'elastic/detection-rules',
+    url: 'https://github.com/elastic/detection-rules',
+    description: 'Elastic Security detection rules',
+    lang: 'KQL',
+    stars: 5100,
+  },
+  {
+    name: 'splunk/security_content',
+    url: 'https://github.com/splunk/security_content',
+    description: 'Splunk security analytics use cases',
+    lang: 'SPL',
+    stars: 1800,
+  },
+  {
+    name: 'chainguard-dev/malcontent',
+    url: 'https://github.com/chainguard-dev/malcontent',
+    description: 'Cross-platform malware scanner',
+    lang: 'Multi',
+    stars: 1200,
+  },
+  {
+    name: 'fireeye/red_team_tool_countermeasures',
+    url: 'https://github.com/fireeye/red_team_tool_countermeasures',
+    description: 'YARA rules for detecting red team tools',
+    lang: 'YARA',
+    stars: 1100,
+  },
+  {
+    name: 'threathunter-dev/threathunter',
+    url: 'https://github.com/threathunter-dev/threathunter',
+    description: 'Threat hunting queries for Splunk/Elastic',
+    lang: 'KQL',
+    stars: 450,
+  },
+  {
+    name: 'microsoft/Microsoft-365-Defender-Hunting-Queries',
+    url: 'https://github.com/microsoft/Microsoft-365-Defender-Hunting-Queries',
+    description: 'M365 Defender hunting queries',
+    lang: 'KQL',
+    stars: 1800,
+  },
+  {
+    name: 'SigmaHQ/detection-rules',
+    url: 'https://github.com/SigmaHQ/detection-rules',
+    description: 'Sigma detection rules collection',
+    lang: 'Sigma',
+    stars: 6800,
+  },
 ];
 
 export function HuntView({ actors }: Props) {
@@ -55,7 +117,7 @@ export function HuntView({ actors }: Props) {
   const [sourceFilter, setSourceFilter] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
-  const toggleExpand = (id: string) => setExpanded(e => ({ ...e, [id]: !e[id] }));
+  const toggleExpand = (id: string) => setExpanded((e) => ({ ...e, [id]: !e[id] }));
 
   return (
     <div className="absolute inset-0 flex flex-col">
@@ -71,7 +133,8 @@ export function HuntView({ actors }: Props) {
             </span>
           </div>
           <p className="text-[12px] text-slate-500 dark:text-slate-400 mb-3">
-            Hand-tuned KQL and CrowdStrike CQL queries. Pair with the TTP × APT matrix and sector pivot to triage exposure.
+            Hand-tuned KQL and CrowdStrike CQL queries. Pair with the TTP × APT matrix and sector pivot to triage
+            exposure.
           </p>
 
           <div className="flex items-center gap-3 flex-wrap">
@@ -94,10 +157,13 @@ export function HuntView({ actors }: Props) {
 
             {/* Search */}
             <div className="relative ml-auto">
-              <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search
+                size={12}
+                className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              />
               <input
                 value={search}
-                onChange={e => setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search titles, platforms…"
                 className="w-52 h-7 pl-7 pr-2.5 rounded-md bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-[12px] text-slate-600 dark:text-slate-400 placeholder:text-slate-500 dark:text-slate-400 focus:outline-none focus:border-accent/50"
               />
@@ -110,20 +176,21 @@ export function HuntView({ actors }: Props) {
       <div className="flex-1 overflow-y-auto">
         <div className="max-w-7xl mx-auto p-4">
           {tab === 'detections' && (
-            <DetectionsTab actors={actors} search={search} sourceFilter={sourceFilter} setSourceFilter={setSourceFilter} expanded={expanded} toggleExpand={toggleExpand} />
+            <DetectionsTab
+              actors={actors}
+              search={search}
+              sourceFilter={sourceFilter}
+              setSourceFilter={setSourceFilter}
+              expanded={expanded}
+              toggleExpand={toggleExpand}
+            />
           )}
-          {tab === 'ttp-matrix' && (
-            <TTPMatrixTab actors={actors} expanded={expanded} toggleExpand={toggleExpand} />
-          )}
-          {tab === 'ioc' && (
-            <IOCTab actors={actors} search={search} />
-          )}
+          {tab === 'ttp-matrix' && <TTPMatrixTab actors={actors} expanded={expanded} toggleExpand={toggleExpand} />}
+          {tab === 'ioc' && <IOCTab actors={actors} search={search} />}
           {tab === 'sector-pivot' && (
             <SectorPivotTab actors={actors} search={search} expanded={expanded} toggleExpand={toggleExpand} />
           )}
-          {tab === 'repos' && (
-            <ReposTab search={search} />
-          )}
+          {tab === 'repos' && <ReposTab search={search} />}
         </div>
       </div>
     </div>
@@ -132,27 +199,39 @@ export function HuntView({ actors }: Props) {
 
 /* ── Detections Tab ────────────────────────────────────────────── */
 
-function DetectionsTab({ actors, search, sourceFilter, setSourceFilter, expanded, toggleExpand }: {
-  actors: Actor[]; search: string; sourceFilter: string | null;
+function DetectionsTab({
+  actors,
+  search,
+  sourceFilter,
+  setSourceFilter,
+  expanded,
+  toggleExpand,
+}: {
+  actors: Actor[];
+  search: string;
+  sourceFilter: string | null;
   setSourceFilter: (s: string | null) => void;
-  expanded: Record<string, boolean>; toggleExpand: (id: string) => void;
+  expanded: Record<string, boolean>;
+  toggleExpand: (id: string) => void;
 }) {
   const allDetections = useMemo(() => {
     const out: (Detection & { actorId: string; actorName: string; nation: string })[] = [];
-    actors.forEach(a => a.detections.forEach(d => {
-      out.push({ ...d, actorId: a.id, actorName: a.name, nation: a.country });
-    }));
+    actors.forEach((a) =>
+      a.detections.forEach((d) => {
+        out.push({ ...d, actorId: a.id, actorName: a.name, nation: a.country });
+      })
+    );
     return out;
   }, [actors]);
 
-  const sources = useMemo(() => [...new Set(allDetections.map(d => d.source))].sort(), [allDetections]);
+  const sources = useMemo(() => [...new Set(allDetections.map((d) => d.source))].sort(), [allDetections]);
 
   const filtered = useMemo(() => {
     let items = allDetections;
-    if (sourceFilter) items = items.filter(d => d.source === sourceFilter);
+    if (sourceFilter) items = items.filter((d) => d.source === sourceFilter);
     if (search) {
       const q = search.toLowerCase();
-      items = items.filter(d => d.title.toLowerCase().includes(q) || d.actorName.toLowerCase().includes(q));
+      items = items.filter((d) => d.title.toLowerCase().includes(q) || d.actorName.toLowerCase().includes(q));
     }
     return items;
   }, [allDetections, sourceFilter, search]);
@@ -170,8 +249,8 @@ function DetectionsTab({ actors, search, sourceFilter, setSourceFilter, expanded
         >
           All ({allDetections.length})
         </button>
-        {sources.map(s => {
-          const count = allDetections.filter(d => d.source === s).length;
+        {sources.map((s) => {
+          const count = allDetections.filter((d) => d.source === s).length;
           return (
             <button
               key={s}
@@ -203,7 +282,11 @@ function DetectionsTab({ actors, search, sourceFilter, setSourceFilter, expanded
               onClick={() => toggleExpand(key)}
               className="w-full flex items-center gap-3 p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-all duration-200 hover:-translate-y-px"
             >
-              {isOpen ? <ChevronDown size={12} className="text-slate-500 dark:text-slate-400 shrink-0" /> : <ChevronRight size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />}
+              {isOpen ? (
+                <ChevronDown size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
+              ) : (
+                <ChevronRight size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
+              )}
               <span
                 className="h-5 w-7 rounded flex items-center justify-center text-[9px] font-mono font-semibold shrink-0"
                 style={{ background: `${n?.color ?? '#555'}22`, color: n?.color ?? '#888' }}
@@ -223,7 +306,7 @@ function DetectionsTab({ actors, search, sourceFilter, setSourceFilter, expanded
                     href={d.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[11px] text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1"
+                    className="text-[11px] text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 transition-colors"
                   >
                     <ExternalLink size={10} /> View detection rule
                   </a>
@@ -239,9 +322,14 @@ function DetectionsTab({ actors, search, sourceFilter, setSourceFilter, expanded
 
 /* ── TTP × APT Matrix Tab ─────────────────────────────────────── */
 
-function TTPMatrixTab({ actors, expanded, toggleExpand }: {
+function TTPMatrixTab({
+  actors,
+  expanded,
+  toggleExpand,
+}: {
   actors: Actor[];
-  expanded: Record<string, boolean>; toggleExpand: (id: string) => void;
+  expanded: Record<string, boolean>;
+  toggleExpand: (id: string) => void;
 }) {
   const [tacticFilter, setTacticFilter] = useState<string | null>(null);
   const [copiedCell, setCopiedCell] = useState<string | null>(null);
@@ -249,9 +337,9 @@ function TTPMatrixTab({ actors, expanded, toggleExpand }: {
   // Build matrix: tactic → technique → actors using it
   const matrix = useMemo(() => {
     const map = new Map<string, Map<string, string[]>>();
-    
-    actors.forEach(actor => {
-      actor.ttps.forEach(ttp => {
+
+    actors.forEach((actor) => {
+      actor.ttps.forEach((ttp) => {
         if (!map.has(ttp.tactic)) map.set(ttp.tactic, new Map());
         const tacticMap = map.get(ttp.tactic)!;
         if (!tacticMap.has(ttp.id)) tacticMap.set(ttp.id, []);
@@ -264,17 +352,17 @@ function TTPMatrixTab({ actors, expanded, toggleExpand }: {
 
   const tactics = useMemo(() => {
     const t = [...matrix.keys()];
-    return TACTIC_ORDER.filter(tactic => t.includes(tactic));
+    return TACTIC_ORDER.filter((tactic) => t.includes(tactic));
   }, [matrix]);
 
   const filteredTactics = useMemo(() => {
     if (!tacticFilter) return tactics;
-    return tactics.filter(t => t === tacticFilter);
+    return tactics.filter((t) => t === tacticFilter);
   }, [tactics, tacticFilter]);
 
   const totalTechniques = useMemo(() => {
     let count = 0;
-    matrix.forEach(m => count += m.size);
+    matrix.forEach((m) => (count += m.size));
     return count;
   }, [matrix]);
 
@@ -313,7 +401,7 @@ function TTPMatrixTab({ actors, expanded, toggleExpand }: {
         >
           All Tactics
         </button>
-        {tactics.map(t => {
+        {tactics.map((t) => {
           const techniqueCount = matrix.get(t)?.size ?? 0;
           return (
             <button
@@ -334,8 +422,10 @@ function TTPMatrixTab({ actors, expanded, toggleExpand }: {
         <table className="w-full text-[11px]">
           <thead>
             <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <th className="text-left p-2 text-slate-500 dark:text-slate-400 font-medium sticky left-0 bg-white dark:bg-[rgb(var(--surface-200))]">Technique</th>
-              {actors.map(actor => (
+              <th className="text-left p-2 text-slate-500 dark:text-slate-400 font-medium sticky left-0 bg-white dark:bg-[rgb(var(--surface-200))]">
+                Technique
+              </th>
+              {actors.map((actor) => (
                 <th key={actor.id} className="p-2 text-center min-w-[40px]">
                   <div className="flex flex-col items-center gap-0.5">
                     <span
@@ -351,7 +441,7 @@ function TTPMatrixTab({ actors, expanded, toggleExpand }: {
             </tr>
           </thead>
           <tbody>
-            {filteredTactics.map(tactic => {
+            {filteredTactics.map((tactic) => {
               const techniques = matrix.get(tactic);
               if (!techniques) return null;
               return (
@@ -359,8 +449,10 @@ function TTPMatrixTab({ actors, expanded, toggleExpand }: {
                   <td className="p-2 font-mono text-[10px] text-slate-500 dark:text-slate-400 sticky left-0 bg-white dark:bg-[rgb(var(--surface-200))] capitalize">
                     {tactic.replace(/-/g, ' ')}
                   </td>
-                  {actors.map(actor => {
-                    const techniquesForActor = [...techniques.entries()].filter(([, actorIds]) => actorIds.includes(actor.id));
+                  {actors.map((actor) => {
+                    const techniquesForActor = [...techniques.entries()].filter(([, actorIds]) =>
+                      actorIds.includes(actor.id)
+                    );
                     return (
                       <td key={actor.id} className="p-1 text-center">
                         {techniquesForActor.length > 0 ? (
@@ -376,7 +468,9 @@ function TTPMatrixTab({ actors, expanded, toggleExpand }: {
                               </button>
                             ))}
                             {techniquesForActor.length > 2 && (
-                              <span className="text-[8px] text-slate-500 dark:text-slate-400">+{techniquesForActor.length - 2}</span>
+                              <span className="text-[8px] text-slate-500 dark:text-slate-400">
+                                +{techniquesForActor.length - 2}
+                              </span>
                             )}
                           </div>
                         ) : (
@@ -395,7 +489,7 @@ function TTPMatrixTab({ actors, expanded, toggleExpand }: {
       {/* Technique Detail List */}
       <div className="space-y-2 mt-6">
         <h3 className="text-[13px] font-semibold text-slate-700 dark:text-slate-200">Technique Details</h3>
-        {filteredTactics.map(tactic => {
+        {filteredTactics.map((tactic) => {
           const techniques = matrix.get(tactic);
           if (!techniques) return null;
           return (
@@ -404,14 +498,23 @@ function TTPMatrixTab({ actors, expanded, toggleExpand }: {
                 onClick={() => toggleExpand(`tactic-${tactic}`)}
                 className="w-full flex items-center gap-3 p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-all duration-200"
               >
-                {expanded[`tactic-${tactic}`] ? <ChevronDown size={12} className="text-slate-500 dark:text-slate-400" /> : <ChevronRight size={12} className="text-slate-500 dark:text-slate-400" />}
-                <span className="text-[12px] font-semibold text-slate-700 dark:text-slate-200 capitalize">{tactic.replace(/-/g, ' ')}</span>
+                {expanded[`tactic-${tactic}`] ? (
+                  <ChevronDown size={12} className="text-slate-500 dark:text-slate-400" />
+                ) : (
+                  <ChevronRight size={12} className="text-slate-500 dark:text-slate-400" />
+                )}
+                <span className="text-[12px] font-semibold text-slate-700 dark:text-slate-200 capitalize">
+                  {tactic.replace(/-/g, ' ')}
+                </span>
                 <span className="text-[10px] text-slate-500 dark:text-slate-400">({techniques.size} techniques)</span>
               </button>
               {expanded[`tactic-${tactic}`] && (
                 <div className="px-3 pb-3 pt-0 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                   {[...techniques.entries()].map(([tid, actorIds]) => (
-                    <div key={tid} className="py-2 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/30 last:border-0">
+                    <div
+                      key={tid}
+                      className="py-2 border-b border-slate-100 dark:border-[rgb(var(--border-400))]/30 last:border-0"
+                    >
                       <div className="flex items-center gap-2">
                         <span className="font-mono text-[10px] text-rose-600 dark:text-rose-400">{tid}</span>
                         <span className="text-[11px] text-slate-600 dark:text-slate-400">
@@ -444,21 +547,22 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
 
   const allSectors = useMemo(() => {
     const s = new Set<string>();
-    actors.forEach(a => a.sectors.forEach(sec => s.add(sec)));
+    actors.forEach((a) => a.sectors.forEach((sec) => s.add(sec)));
     return [...s].sort();
   }, [actors]);
 
   const filtered = useMemo(() => {
     let items = actors;
-    if (sectorFilter) items = items.filter(a => a.sectors.includes(sectorFilter));
+    if (sectorFilter) items = items.filter((a) => a.sectors.includes(sectorFilter));
     if (search) {
       const q = search.toLowerCase();
-      items = items.filter(a =>
-        a.malware.some(m => m.name.toLowerCase().includes(q)) ||
-        a.cves.some(c => c.id.toLowerCase().includes(q)) ||
-        a.ttps.some(t => t.id.toLowerCase().includes(q) || t.name.toLowerCase().includes(q)) ||
-        a.name.toLowerCase().includes(q) ||
-        a.sectors.some(s => s.toLowerCase().includes(q))
+      items = items.filter(
+        (a) =>
+          a.malware.some((m) => m.name.toLowerCase().includes(q)) ||
+          a.cves.some((c) => c.id.toLowerCase().includes(q)) ||
+          a.ttps.some((t) => t.id.toLowerCase().includes(q) || t.name.toLowerCase().includes(q)) ||
+          a.name.toLowerCase().includes(q) ||
+          a.sectors.some((s) => s.toLowerCase().includes(q))
       );
     }
     return items;
@@ -478,7 +582,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
           >
             All sectors
           </button>
-          {allSectors.map(s => (
+          {allSectors.map((s) => (
             <button
               key={s}
               onClick={() => setSectorFilter(s)}
@@ -492,7 +596,7 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
         </div>
 
         <div className="flex items-center gap-1">
-          {(['all', 'malware', 'cve', 'ttp'] as const).map(type => (
+          {(['all', 'malware', 'cve', 'ttp'] as const).map((type) => (
             <button
               key={type}
               onClick={() => setTypeFilter(type)}
@@ -525,22 +629,30 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
             </tr>
           </thead>
           <tbody>
-            {filtered.map(a => {
+            {filtered.map((a) => {
               const n = NATION_PALETTE[a.country];
               return (
-                <tr key={a.id} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors">
+                <tr
+                  key={a.id}
+                  className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
+                >
                   <td className="p-2.5">
                     <div className="flex items-center gap-2">
                       <span className="h-2 w-2 rounded-full shrink-0" style={{ background: n?.color }} />
                       <span className="text-slate-600 dark:text-slate-400 font-medium">{a.name}</span>
-                      {a.apt && <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{a.apt}</span>}
+                      {a.apt && (
+                        <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{a.apt}</span>
+                      )}
                     </div>
                   </td>
                   {(typeFilter === 'all' || typeFilter === 'malware') && (
                     <td className="p-2.5">
                       <div className="flex flex-wrap gap-1">
-                        {a.malware.map(m => (
-                          <span key={m.name} className="px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 text-[10px] border border-purple-500/20">
+                        {a.malware.map((m) => (
+                          <span
+                            key={m.name}
+                            className="px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 text-[10px] border border-purple-500/20"
+                          >
                             {m.name}
                           </span>
                         ))}
@@ -550,8 +662,11 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
                   {(typeFilter === 'all' || typeFilter === 'cve') && (
                     <td className="p-2.5">
                       <div className="flex flex-wrap gap-1">
-                        {a.cves.slice(0, 3).map(c => (
-                          <span key={c.id} className="px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 text-[10px] font-mono border border-red-500/20">
+                        {a.cves.slice(0, 3).map((c) => (
+                          <span
+                            key={c.id}
+                            className="px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 text-[10px] font-mono border border-red-500/20"
+                          >
                             {c.id}
                           </span>
                         ))}
@@ -564,8 +679,11 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
                   {(typeFilter === 'all' || typeFilter === 'ttp') && (
                     <td className="p-2.5">
                       <div className="flex flex-wrap gap-1">
-                        {a.ttps.slice(0, 3).map(t => (
-                          <span key={t.id} className="px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400 text-[10px] font-mono border border-blue-500/20">
+                        {a.ttps.slice(0, 3).map((t) => (
+                          <span
+                            key={t.id}
+                            className="px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-400 text-[10px] font-mono border border-brand-500/20"
+                          >
                             {t.id}
                           </span>
                         ))}
@@ -577,8 +695,11 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
                   )}
                   <td className="p-2.5">
                     <div className="flex flex-wrap gap-1">
-                      {a.sectors.slice(0, 3).map(s => (
-                        <span key={s} className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 text-[10px] border border-slate-200 dark:border-[rgb(var(--border-400))] capitalize">
+                      {a.sectors.slice(0, 3).map((s) => (
+                        <span
+                          key={s}
+                          className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 text-[10px] border border-slate-200 dark:border-[rgb(var(--border-400))] capitalize"
+                        >
                           {s}
                         </span>
                       ))}
@@ -605,15 +726,22 @@ function IOCTab({ actors, search }: { actors: Actor[]; search: string }) {
 
 /* ── Sector Pivot Tab ──────────────────────────────────────────── */
 
-function SectorPivotTab({ actors, search, expanded, toggleExpand }: {
-  actors: Actor[]; search: string;
-  expanded: Record<string, boolean>; toggleExpand: (id: string) => void;
+function SectorPivotTab({
+  actors,
+  search,
+  expanded,
+  toggleExpand,
+}: {
+  actors: Actor[];
+  search: string;
+  expanded: Record<string, boolean>;
+  toggleExpand: (id: string) => void;
 }) {
   const sectorData = useMemo(() => {
     const map = new Map<string, { actors: Actor[]; totalTTPs: number; totalCVEs: number; totalMalware: number }>();
-    
-    actors.forEach(actor => {
-      actor.sectors.forEach(sector => {
+
+    actors.forEach((actor) => {
+      actor.sectors.forEach((sector) => {
         if (!map.has(sector)) map.set(sector, { actors: [], totalTTPs: 0, totalCVEs: 0, totalMalware: 0 });
         const data = map.get(sector)!;
         data.actors.push(actor);
@@ -631,9 +759,8 @@ function SectorPivotTab({ actors, search, expanded, toggleExpand }: {
   const filtered = useMemo(() => {
     if (!search) return sectorData;
     const q = search.toLowerCase();
-    return sectorData.filter(s =>
-      s.sector.toLowerCase().includes(q) ||
-      s.actors.some(a => a.name.toLowerCase().includes(q))
+    return sectorData.filter(
+      (s) => s.sector.toLowerCase().includes(q) || s.actors.some((a) => a.name.toLowerCase().includes(q))
     );
   }, [sectorData, search]);
 
@@ -678,9 +805,15 @@ function SectorPivotTab({ actors, search, expanded, toggleExpand }: {
             onClick={() => toggleExpand(`sector-${sector}`)}
             className="w-full flex items-center gap-3 p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-all duration-200"
           >
-            {expanded[`sector-${sector}`] ? <ChevronDown size={12} className="text-slate-500 dark:text-slate-400" /> : <ChevronRight size={12} className="text-slate-500 dark:text-slate-400" />}
+            {expanded[`sector-${sector}`] ? (
+              <ChevronDown size={12} className="text-slate-500 dark:text-slate-400" />
+            ) : (
+              <ChevronRight size={12} className="text-slate-500 dark:text-slate-400" />
+            )}
             <Target size={14} className="text-rose-600 dark:text-rose-400" />
-            <span className="text-[13px] font-semibold text-slate-700 dark:text-slate-200 capitalize flex-1">{sector.replace(/-/g, ' ')}</span>
+            <span className="text-[13px] font-semibold text-slate-700 dark:text-slate-200 capitalize flex-1">
+              {sector.replace(/-/g, ' ')}
+            </span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))]">
               {sectorActors.length} actor{sectorActors.length !== 1 ? 's' : ''}
             </span>
@@ -690,14 +823,17 @@ function SectorPivotTab({ actors, search, expanded, toggleExpand }: {
               <span>{totalMalware} malware</span>
             </div>
           </button>
-          
+
           {expanded[`sector-${sector}`] && (
             <div className="px-3 pb-3 pt-0 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
               <div className="mt-2 space-y-2">
-                {sectorActors.map(actor => {
+                {sectorActors.map((actor) => {
                   const n = NATION_PALETTE[actor.country];
                   return (
-                    <div key={actor.id} className="flex items-center gap-2 p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-300))]/50">
+                    <div
+                      key={actor.id}
+                      className="flex items-center gap-2 p-2 rounded bg-slate-50 dark:bg-[rgb(var(--surface-300))]/50"
+                    >
                       <span
                         className="h-4 w-6 rounded flex items-center justify-center text-[8px] font-mono font-semibold shrink-0"
                         style={{ background: `${n?.color ?? '#555'}22`, color: n?.color ?? '#888' }}
@@ -705,7 +841,9 @@ function SectorPivotTab({ actors, search, expanded, toggleExpand }: {
                         {actor.country}
                       </span>
                       <span className="text-[12px] text-slate-600 dark:text-slate-400 font-medium">{actor.name}</span>
-                      {actor.apt && <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{actor.apt}</span>}
+                      {actor.apt && (
+                        <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{actor.apt}</span>
+                      )}
                       <span className="text-[10px] text-slate-500 dark:text-slate-400 ml-auto">
                         {actor.ttps.length} TTPs · {actor.cves.length} CVEs
                       </span>
@@ -727,16 +865,15 @@ function ReposTab({ search }: { search: string }) {
   const filtered = useMemo(() => {
     if (!search) return REPOS;
     const q = search.toLowerCase();
-    return REPOS.filter(r =>
-      r.name.toLowerCase().includes(q) ||
-      r.description.toLowerCase().includes(q) ||
-      r.lang.toLowerCase().includes(q)
+    return REPOS.filter(
+      (r) =>
+        r.name.toLowerCase().includes(q) || r.description.toLowerCase().includes(q) || r.lang.toLowerCase().includes(q)
     );
   }, [search]);
 
   const langColors: Record<string, string> = {
     Sigma: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
-    KQL: 'text-blue-400 bg-blue-500/10 border-blue-500/20',
+    KQL: 'text-brand-400 bg-brand-500/10 border-brand-500/20',
     SPL: 'text-amber-400 bg-amber-500/10 border-amber-500/20',
     YARA: 'text-red-400 bg-red-500/10 border-red-500/20',
     Multi: 'text-purple-400 bg-purple-500/10 border-purple-500/20',
@@ -745,13 +882,11 @@ function ReposTab({ search }: { search: string }) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between mb-4">
-        <span className="text-[12px] text-slate-500 dark:text-slate-400">
-          {filtered.length} repositories
-        </span>
+        <span className="text-[12px] text-slate-500 dark:text-slate-400">{filtered.length} repositories</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {filtered.map(repo => (
+        {filtered.map((repo) => (
           <a
             key={repo.name}
             href={repo.url}
@@ -767,14 +902,17 @@ function ReposTab({ search }: { search: string }) {
                     {repo.name}
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-                  {repo.description}
-                </p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">{repo.description}</p>
               </div>
-              <ExternalLink size={12} className="text-slate-400 group-hover:text-rose-600 dark:group-hover:text-rose-400 shrink-0 mt-1 transition-colors" />
+              <ExternalLink
+                size={12}
+                className="text-slate-400 group-hover:text-rose-600 dark:group-hover:text-rose-400 shrink-0 mt-1 transition-colors"
+              />
             </div>
             <div className="flex items-center gap-3 mt-3">
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium border ${langColors[repo.lang] ?? 'text-slate-400 bg-slate-500/10 border-slate-500/20'}`}>
+              <span
+                className={`px-2 py-0.5 rounded-full text-[10px] font-medium border ${langColors[repo.lang] ?? 'text-slate-400 bg-slate-500/10 border-slate-500/20'}`}
+              >
                 {repo.lang}
               </span>
               <span className="text-[10px] text-slate-500 dark:text-slate-400 flex items-center gap-1">

@@ -19,7 +19,7 @@ interface HuntingResult {
 
 const SIEM_COLORS: Record<string, string> = {
   Splunk: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
-  KQL: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
+  KQL: 'bg-blue-100 text-brand-800 dark:bg-blue-900/30 dark:text-brand-300',
   Sigma: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
   Elastic: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   YARA: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',

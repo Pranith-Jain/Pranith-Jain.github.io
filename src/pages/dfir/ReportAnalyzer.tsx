@@ -930,7 +930,7 @@ function TtpsTab({ ttp, filter, setFilter }: { ttp: TtpHit[]; filter: string; se
                       href={`https://attack.mitre.org/techniques/${t.id}/`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-sm text-brand-600 dark:text-brand-400 hover:underline"
+                      className="font-mono text-sm text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                     >
                       {t.id}
                     </a>
@@ -998,7 +998,7 @@ function CvesTab({
                 href={`https://nvd.nist.gov/vuln/detail/${c.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                className="font-mono text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
               >
                 {c.id} <ExternalLink className="h-3 w-3" />
               </a>
@@ -1714,7 +1714,7 @@ function HeatmapTab({ ttp }: { ttp: TtpHit[] }) {
                 <span className="w-24 truncate font-mono text-slate-500 dark:text-slate-400">{tactic}</span>
                 <div className="flex-1 h-2 bg-slate-100 dark:bg-[rgb(var(--surface-200))] rounded overflow-hidden">
                   <div
-                    className="h-full bg-blue-500 dark:bg-blue-400 rounded transition-all"
+                    className="h-full bg-brand-500 dark:bg-brand-400 rounded transition-all"
                     style={{ width: `${pct}%` }}
                   />
                 </div>
@@ -1741,7 +1741,7 @@ function SourceTab({ url, data }: { url: string; data: AnalyzerOutput }) {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-brand-600 dark:text-brand-400 hover:underline"
+            className="inline-flex items-center gap-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] px-2 py-1 font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             <ExternalLink className="h-3 w-3" /> {url}
           </a>

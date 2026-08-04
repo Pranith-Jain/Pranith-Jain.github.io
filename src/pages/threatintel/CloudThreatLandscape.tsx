@@ -112,7 +112,7 @@ export default function CloudThreatLandscape(): JSX.Element {
         href="https://www.wiz.io/feed/cloud-threats-landscape"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-rose-600 dark:text-rose-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
       >
         Wiz Research
       </a>{' '}
@@ -169,7 +169,7 @@ export default function CloudThreatLandscape(): JSX.Element {
                       href={primaryRef}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-rose-600 dark:hover:text-rose-400"
+                      className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                     >
                       {inc.name} <ExternalLink size={12} className="inline align-baseline opacity-60" />
                     </a>
@@ -224,7 +224,7 @@ export default function CloudThreatLandscape(): JSX.Element {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
+                        className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                         title={ref.source_name}
                       >
                         {ref.source_name || 'source'}
@@ -249,7 +249,7 @@ export default function CloudThreatLandscape(): JSX.Element {
             href={data.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-rose-600 dark:hover:text-rose-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             {data.source}
           </a>{' '}

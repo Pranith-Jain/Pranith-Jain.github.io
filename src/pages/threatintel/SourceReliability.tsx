@@ -17,7 +17,7 @@ interface SourceResponse {
 
 const RELIABILITY_COLORS: Record<string, string> = {
   A: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-900',
-  B: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-900',
+  B: 'bg-blue-100 dark:bg-blue-900/30 text-brand-700 dark:text-brand-300 border-brand-300 dark:border-blue-900',
   C: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-900',
   D: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-300 dark:border-orange-900',
   E: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-900',

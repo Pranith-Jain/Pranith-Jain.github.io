@@ -135,7 +135,6 @@ export default function TelegramSettings(): JSX.Element {
       backTo="/threatintel/telegram-monitor"
       description="Add public Telegram channels to monitor. Enter the channel handle without the @ prefix."
     >
-
       {/* Bot Status Section */}
       <div className="mb-8 surface-card p-5">
         <h2 className="font-display font-semibold text-sm mb-3 flex items-center gap-2">
@@ -168,7 +167,7 @@ export default function TelegramSettings(): JSX.Element {
                 type="button"
                 onClick={pollBot}
                 disabled={polling || !botStatus.configured}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600 text-white text-xs font-mono hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600 text-white text-xs font-mono hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {polling ? <Loader2 size={12} className="animate-spin" /> : <Radio size={12} />}
                 Poll now
@@ -176,7 +175,7 @@ export default function TelegramSettings(): JSX.Element {
               <button
                 type="button"
                 onClick={loadBotStatus}
-                className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-rose-600"
+                className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-rose-600 transition-colors"
               >
                 <RefreshCw size={10} /> refresh
               </button>
@@ -214,7 +213,7 @@ export default function TelegramSettings(): JSX.Element {
           <button
             type="submit"
             disabled={adding || !handle.trim()}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-600 text-white text-sm font-mono hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-600 text-white text-sm font-mono hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {adding ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
             Add
@@ -236,7 +235,7 @@ export default function TelegramSettings(): JSX.Element {
         <button
           type="button"
           onClick={load}
-          className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-rose-600"
+          className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-rose-600 transition-colors"
         >
           <RefreshCw size={12} /> refresh
         </button>
@@ -274,7 +273,7 @@ export default function TelegramSettings(): JSX.Element {
                   href={`https://telegram.me/s/${ch.handle}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1.5 text-slate-500 hover:text-rose-600"
+                  className="rounded border border-slate-200 dark:border-[rgb(var(--border-400))] p-1.5 text-slate-500 hover:text-rose-600 transition-colors"
                   aria-label="Preview channel"
                 >
                   <ExternalLink size={12} />

@@ -189,7 +189,7 @@ export default function OssFeeds() {
                     href={feed.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-0.5 inline-flex items-center gap-1 font-mono text-micro text-brand-600 dark:text-brand-400 hover:underline break-all"
+                    className="mt-0.5 inline-flex items-center gap-1 font-mono text-micro text-brand-600 dark:text-brand-400 hover:underline break-all transition-colors"
                   >
                     {feed.url}
                     <ExternalLink size={10} />

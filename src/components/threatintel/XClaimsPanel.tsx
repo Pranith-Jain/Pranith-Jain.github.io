@@ -137,7 +137,7 @@ export function XClaimsPanel() {
                     href={sanitizeUrl(r.source_url)}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="shrink-0 text-slate-500 dark:text-slate-400 hover:text-brand-500"
+                    className="shrink-0 text-slate-500 dark:text-slate-400 hover:text-brand-500 transition-colors"
                     aria-label="source post"
                   >
                     <ExternalLink size={14} />
@@ -165,7 +165,7 @@ export function XClaimsPanel() {
                     href={sanitizeUrl(b.source_url)}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="shrink-0 text-slate-500 dark:text-slate-400 hover:text-brand-500"
+                    className="shrink-0 text-slate-500 dark:text-slate-400 hover:text-brand-500 transition-colors"
                     aria-label="source post"
                   >
                     <ExternalLink size={14} />

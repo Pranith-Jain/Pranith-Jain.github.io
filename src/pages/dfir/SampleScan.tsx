@@ -394,7 +394,7 @@ export default function SampleScan(): JSX.Element {
             type="button"
             disabled={!hashInput.trim() || busy}
             onClick={onHashSubmit}
-            className="inline-flex items-center gap-2 rounded bg-brand-600 px-4 py-2 font-mono text-meta font-semibold text-white hover:bg-brand-700 disabled:opacity-30 dark:bg-brand-500"
+            className="inline-flex items-center gap-2 rounded bg-brand-600 px-4 py-2 font-mono text-meta font-semibold text-white hover:bg-brand-700 disabled:opacity-30 dark:bg-brand-500 transition-colors"
           >
             {busy ? <Loader2 size={14} className="animate-spin" /> : <Fingerprint size={14} />}
             {phase === 'hashing' ? 'Hashing…' : phase === 'streaming' ? 'Scanning…' : 'Scan hash'}
@@ -560,7 +560,7 @@ export default function SampleScan(): JSX.Element {
                     href={s.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-mono text-meta font-semibold text-brand-600 hover:underline dark:text-brand-400"
+                    className="inline-flex items-center gap-1 font-mono text-meta font-semibold text-brand-600 hover:underline dark:text-brand-400 transition-colors"
                   >
                     {s.name}
                     <ExternalLink size={10} />

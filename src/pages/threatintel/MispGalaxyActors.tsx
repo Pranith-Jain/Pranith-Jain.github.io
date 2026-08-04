@@ -109,7 +109,7 @@ export default function MispGalaxyActors(): JSX.Element {
         href="https://github.com/MISP/misp-galaxy"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-rose-600 dark:text-rose-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
       >
         MISP Galaxy
       </a>{' '}
@@ -127,7 +127,11 @@ export default function MispGalaxyActors(): JSX.Element {
           </p>
         )}
         <div className="relative max-w-md">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+          <Search
+            size={14}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+            aria-hidden="true"
+          />
           <input
             type="search"
             value={query}
@@ -234,7 +238,7 @@ export default function MispGalaxyActors(): JSX.Element {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline truncate"
+                        className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline truncate transition-colors"
                       >
                         {ref} <ExternalLink size={10} className="inline align-baseline opacity-60" />
                       </a>
@@ -258,7 +262,7 @@ export default function MispGalaxyActors(): JSX.Element {
             href={data.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-rose-600 dark:hover:text-rose-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             {data.source}
           </a>{' '}

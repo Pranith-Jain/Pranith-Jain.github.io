@@ -74,7 +74,7 @@ const SECTION_COLORS: Record<string, string> = {
   writeups: 'text-indigo-600 dark:text-indigo-400 border-indigo-500/30 bg-indigo-500/10',
   cybercrime: 'text-rose-600 dark:text-rose-400 border-rose-500/30 bg-rose-500/10',
   correlation: 'text-teal-600 dark:text-teal-400 border-teal-500/30 bg-teal-500/10',
-  breaches: 'text-blue-600 dark:text-blue-400 border-blue-500/30 bg-blue-500/10',
+  breaches: 'text-brand-600 dark:text-brand-400 border-brand-500/30 bg-brand-500/10',
   malware: 'text-emerald-600 dark:text-emerald-400 border-emerald-500/30 bg-emerald-500/10',
 };
 
@@ -269,7 +269,7 @@ export default function UnifiedSearch(): JSX.Element {
                   href={sanitizeUrl(p.path) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded border border-rose-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-rose-700 hover:border-rose-500/60 hover:bg-rose-50 dark:bg-[rgb(var(--surface-200))] dark:text-rose-300 dark:hover:bg-rose-950/30"
+                  className="inline-flex items-center gap-1.5 rounded border border-rose-500/30 bg-white px-2.5 py-1.5 text-mini font-mono text-rose-700 hover:border-rose-500/60 hover:bg-rose-50 dark:bg-[rgb(var(--surface-200))] dark:text-rose-300 dark:hover:bg-rose-950/30 transition-colors"
                   title={p.desc}
                 >
                   {p.label}
@@ -438,7 +438,10 @@ export default function UnifiedSearch(): JSX.Element {
                               </span>
                             )}
                           </div>
-                          <ExternalLink size={12} className="shrink-0 mt-1 text-slate-500 dark:text-slate-400 group-hover:text-rose-500" />
+                          <ExternalLink
+                            size={12}
+                            className="shrink-0 mt-1 text-slate-500 dark:text-slate-400 group-hover:text-rose-500"
+                          />
                         </a>
                       ) : (
                         <div>

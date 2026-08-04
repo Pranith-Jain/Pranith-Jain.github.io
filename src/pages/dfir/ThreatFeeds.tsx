@@ -492,7 +492,7 @@ export default function ThreatFeeds(): JSX.Element {
                 href={sanitizeUrl(item.link) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
               >
                 {item.title || '(untitled)'} <ExternalLink size={11} />
               </a>

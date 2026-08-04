@@ -1,4 +1,16 @@
-import { X, ExternalLink, Shield, Bug, Crosshair, Calendar, Users, Building2, Network, Target, FileText } from 'lucide-react';
+import {
+  X,
+  ExternalLink,
+  Shield,
+  Bug,
+  Crosshair,
+  Calendar,
+  Users,
+  Building2,
+  Network,
+  Target,
+  FileText,
+} from 'lucide-react';
 import type { Actor } from '../types';
 import { NATION_PALETTE } from '../data/countries';
 import { cn } from '../lib';
@@ -21,7 +33,10 @@ export function Dossier({ actor, onClose }: Props) {
       aria-label={`${actor.name} dossier`}
     >
       {/* Header */}
-      <div className="sticky top-0 z-10 backdrop-blur border-b" style={{ background: 'var(--ink-900)', borderColor: 'var(--edge)', opacity: 0.95 }}>
+      <div
+        className="sticky top-0 z-10 backdrop-blur border-b"
+        style={{ background: 'var(--ink-900)', borderColor: 'var(--edge)', opacity: 0.95 }}
+      >
         <div className="flex items-start gap-3 p-4">
           <span
             className="h-10 w-10 rounded-lg shrink-0 flex items-center justify-center font-mono text-sm font-semibold"
@@ -39,12 +54,20 @@ export function Dossier({ actor, onClose }: Props) {
               {actor.aka.slice(0, 4).join(' · ')}
             </div>
             <div className="mt-2 flex items-center gap-3 text-[12px] text-slate-600 dark:text-slate-400">
-              <span className="flex items-center gap-1.5"><Building2 size={12} /> {actor.agency}</span>
-              <span className="flex items-center gap-1.5"><Calendar size={12} /> {actor.active_since}–{actor.last_seen}</span>
+              <span className="flex items-center gap-1.5">
+                <Building2 size={12} /> {actor.agency}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Calendar size={12} /> {actor.active_since}–{actor.last_seen}
+              </span>
               <span className="chip chip-gold capitalize">{actor.motivation}</span>
             </div>
           </div>
-          <button onClick={onClose} className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100" aria-label="Close">
+          <button
+            onClick={onClose}
+            className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 transition-colors"
+            aria-label="Close"
+          >
             <X size={18} />
           </button>
         </div>
@@ -62,11 +85,21 @@ export function Dossier({ actor, onClose }: Props) {
           <SectionHeader Icon={Target}>Targets & sectors</SectionHeader>
           <div className="space-y-2">
             <div className="flex flex-wrap gap-1.5">
-              {actor.sectors.map(s => <span key={s} className="chip">{s}</span>)}
+              {actor.sectors.map((s) => (
+                <span key={s} className="chip">
+                  {s}
+                </span>
+              ))}
             </div>
-            <div className="text-[12px] text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider mt-2">Countries</div>
+            <div className="text-[12px] text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider mt-2">
+              Countries
+            </div>
             <div className="flex flex-wrap gap-1.5">
-              {actor.targets.map(t => <span key={t} className="chip chip-violet">{t}</span>)}
+              {actor.targets.map((t) => (
+                <span key={t} className="chip chip-violet">
+                  {t}
+                </span>
+              ))}
             </div>
           </div>
         </section>
@@ -76,7 +109,7 @@ export function Dossier({ actor, onClose }: Props) {
           <section>
             <SectionHeader Icon={Target}>Sector heat</SectionHeader>
             <div className="space-y-1.5">
-              {actor.sector_scores.map(s => (
+              {actor.sector_scores.map((s) => (
                 <div key={s.sector} className="flex items-center gap-2">
                   <span className="w-28 text-[12px] text-slate-600 dark:text-slate-400 capitalize">{s.sector}</span>
                   <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-[rgb(var(--surface-300))] overflow-hidden">
@@ -88,7 +121,9 @@ export function Dossier({ actor, onClose }: Props) {
                       }}
                     />
                   </div>
-                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 w-8 text-right">{s.score}</span>
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 w-8 text-right">
+                    {s.score}
+                  </span>
                 </div>
               ))}
             </div>
@@ -99,17 +134,23 @@ export function Dossier({ actor, onClose }: Props) {
         <section>
           <SectionHeader Icon={Crosshair}>MITRE ATT&CK ({actor.ttps.length})</SectionHeader>
           <div className="grid grid-cols-1 gap-1">
-            {actor.ttps.map(t => (
+            {actor.ttps.map((t) => (
               <a
                 key={t.id}
                 href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}`}
-                target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] group"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] group transition-colors"
               >
                 <span className="font-mono text-[11px] text-brand-600 dark:text-brand-400 w-20 shrink-0">{t.id}</span>
                 <span className="text-[12.5px] text-slate-900 dark:text-slate-100 flex-1">{t.name}</span>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{t.tactic}</span>
-                <ExternalLink size={11} className="text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100" />
+                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  {t.tactic}
+                </span>
+                <ExternalLink
+                  size={11}
+                  className="text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100"
+                />
               </a>
             ))}
           </div>
@@ -120,8 +161,11 @@ export function Dossier({ actor, onClose }: Props) {
           <section>
             <SectionHeader Icon={Bug}>Malware families ({actor.malware.length})</SectionHeader>
             <div className="grid grid-cols-1 gap-1">
-              {actor.malware.map(m => (
-                <div key={m.name} className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]">
+              {actor.malware.map((m) => (
+                <div
+                  key={m.name}
+                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))]"
+                >
                   <span className="text-[13px] text-slate-900 dark:text-slate-100">{m.name}</span>
                   <span className="chip chip-cyan ml-auto">{m.type}</span>
                   <span className="chip">{m.platform}</span>
@@ -136,16 +180,19 @@ export function Dossier({ actor, onClose }: Props) {
           <section>
             <SectionHeader Icon={Shield}>Exploited CVEs ({actor.cves.length})</SectionHeader>
             <div className="grid grid-cols-1 gap-1">
-              {actor.cves.map(c => (
+              {actor.cves.map((c) => (
                 <a
                   key={c.id}
                   href={`https://nvd.nist.gov/vuln/detail/${c.id}`}
-                  target="_blank" rel="noreferrer"
-                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] group"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] group transition-colors"
                 >
                   <span className="font-mono text-[12px] text-amber-600 dark:text-amber-400">{c.id}</span>
                   <span className="text-[12.5px] text-slate-900 dark:text-slate-100 flex-1">{c.product}</span>
-                  <span className={cn('chip', c.cvss >= 9 ? 'chip-red' : c.cvss >= 7 ? 'chip-gold' : '')}>CVSS {c.cvss}</span>
+                  <span className={cn('chip', c.cvss >= 9 ? 'chip-red' : c.cvss >= 7 ? 'chip-gold' : '')}>
+                    CVSS {c.cvss}
+                  </span>
                 </a>
               ))}
             </div>
@@ -157,15 +204,24 @@ export function Dossier({ actor, onClose }: Props) {
           <section>
             <SectionHeader Icon={Network}>Campaigns ({actor.campaigns.length})</SectionHeader>
             <div className="space-y-2">
-              {actor.campaigns.map(c => (
-                <div key={c.name} className="p-3 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))]">
+              {actor.campaigns.map((c) => (
+                <div
+                  key={c.name}
+                  className="p-3 rounded-lg bg-slate-50 dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))]"
+                >
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-[13.5px] font-medium text-slate-900 dark:text-slate-100">{c.name}</span>
-                    <span className="text-[10.5px] font-mono text-slate-500 dark:text-slate-400 ml-auto">{c.start} → {c.end}</span>
+                    <span className="text-[10.5px] font-mono text-slate-500 dark:text-slate-400 ml-auto">
+                      {c.start} → {c.end}
+                    </span>
                   </div>
                   <p className="text-[12.5px] text-slate-600 dark:text-slate-400 leading-relaxed">{c.summary}</p>
                   <div className="flex flex-wrap gap-1.5 mt-2">
-                    {c.sectors.map(s => <span key={s} className="chip">{s}</span>)}
+                    {c.sectors.map((s) => (
+                      <span key={s} className="chip">
+                        {s}
+                      </span>
+                    ))}
                     <span className="chip chip-green ml-auto">via {c.source}</span>
                   </div>
                 </div>
@@ -179,12 +235,13 @@ export function Dossier({ actor, onClose }: Props) {
           <section>
             <SectionHeader Icon={Crosshair}>Hunt queries ({actor.hunt_queries.length})</SectionHeader>
             <div className="space-y-1.5">
-              {actor.hunt_queries.map(h => (
+              {actor.hunt_queries.map((h) => (
                 <a
                   key={h.title}
                   href={h.url}
-                  target="_blank" rel="noreferrer"
-                  className="block p-2.5 rounded-md hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] border border-transparent hover:border-slate-200 dark:border-[rgb(var(--border-400))]"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block p-2.5 rounded-md hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] border border-transparent hover:border-slate-200 dark:border-[rgb(var(--border-400))] transition-colors"
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-[13px] text-slate-900 dark:text-slate-100">{h.title}</span>
@@ -203,8 +260,11 @@ export function Dossier({ actor, onClose }: Props) {
           <section>
             <SectionHeader Icon={Users}>Indictments & sanctions</SectionHeader>
             <div className="space-y-1.5">
-              {actor.members.map(m => (
-                <div key={m.name} className="flex items-center gap-2 p-2 rounded-md bg-slate-50 dark:bg-[rgb(var(--surface-300))]">
+              {actor.members.map((m) => (
+                <div
+                  key={m.name}
+                  className="flex items-center gap-2 p-2 rounded-md bg-slate-50 dark:bg-[rgb(var(--surface-300))]"
+                >
                   <span className="text-[12.5px] text-slate-900 dark:text-slate-100 flex-1">{m.name}</span>
                   <span className="text-[11.5px] text-slate-500 dark:text-slate-400">{m.role}</span>
                   <span className={cn('chip', m.status === 'indicted' ? 'chip-red' : 'chip-gold')}>{m.status}</span>
@@ -218,12 +278,13 @@ export function Dossier({ actor, onClose }: Props) {
         <section>
           <SectionHeader Icon={FileText}>Sources</SectionHeader>
           <ul className="space-y-1">
-            {actor.sources.map(s => (
+            {actor.sources.map((s) => (
               <li key={s.url}>
                 <a
                   href={s.url}
-                  target="_blank" rel="noreferrer"
-                  className="flex items-center gap-2 text-[12.5px] text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 text-[12.5px] text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 transition-colors"
                 >
                   <ExternalLink size={11} /> {s.label}
                 </a>

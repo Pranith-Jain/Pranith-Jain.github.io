@@ -204,7 +204,7 @@ export default function DetectionChokepoints(): JSX.Element {
             href={sanitizeUrl('https://github.com/iimp0ster/detection-chokepoints') || undefined}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
           >
             iimp0ster/detection-chokepoints <ExternalLink size={11} />
           </a>{' '}
@@ -216,7 +216,11 @@ export default function DetectionChokepoints(): JSX.Element {
       {/* Filters */}
       <div className="space-y-3 mb-6">
         <div className="relative">
-          <Target size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+          <Target
+            size={14}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+            aria-hidden="true"
+          />
           <input
             type="text"
             value={query}
@@ -337,7 +341,7 @@ export default function DetectionChokepoints(): JSX.Element {
               href={sanitizeUrl(c.url) || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-micro font-mono text-slate-400 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+              className="text-micro font-mono text-slate-400 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5 transition-colors"
             >
               upstream reference <ExternalLink size={10} />
             </a>
@@ -436,7 +440,7 @@ export default function DetectionChokepoints(): JSX.Element {
                 href={sanitizeUrl('https://github.com/iimp0ster/detection-chokepoints') || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
               >
                 iimp0ster/detection-chokepoints <ExternalLink size={11} />
               </a>

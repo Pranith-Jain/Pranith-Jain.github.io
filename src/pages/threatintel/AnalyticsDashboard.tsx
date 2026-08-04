@@ -202,7 +202,7 @@ export default function AnalyticsDashboard(): JSX.Element {
           <button
             type="button"
             onClick={handleRefresh}
-            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
           >
             <RefreshCw size={11} /> refresh
           </button>
@@ -462,7 +462,7 @@ export default function AnalyticsDashboard(): JSX.Element {
             href="https://dash.cloudflare.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             Cloudflare dashboard
           </a>{' '}

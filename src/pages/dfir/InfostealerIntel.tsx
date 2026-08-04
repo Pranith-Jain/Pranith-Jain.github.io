@@ -139,7 +139,7 @@ function fmtDateTime(s: string): string {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  employee: 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30',
+  employee: 'bg-brand-500/10 text-brand-700 dark:text-brand-300 border-brand-500/30',
   user: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
   third_party: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30',
   client: 'bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-500/30',
@@ -351,7 +351,7 @@ export default function InfostealerIntel(): JSX.Element {
                 {entry.employee_at?.length ? (
                   <>
                     <span className="text-slate-500 dark:text-slate-400">·</span>
-                    <span className="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400">
+                    <span className="inline-flex items-center gap-1 text-xs text-brand-600 dark:text-brand-400">
                       <Building2 className="w-3 h-3" />
                       {entry.employee_at.join(', ')}
                     </span>
@@ -396,7 +396,7 @@ export default function InfostealerIntel(): JSX.Element {
               <OverviewCard
                 label="Compromised Employees"
                 value={overviewResult.overview.compromised_employees}
-                accent="text-blue-600 dark:text-blue-400"
+                accent="text-brand-600 dark:text-brand-400"
               />
               <OverviewCard
                 label="Compromised Users"
@@ -450,7 +450,7 @@ export default function InfostealerIntel(): JSX.Element {
                     href={infectionResult.analysis.likely_infection_url}
                     target="_blank"
                     rel="noopener"
-                    className="text-brand-600 dark:text-brand-400 hover:underline break-all inline-flex items-center gap-1"
+                    className="text-brand-600 dark:text-brand-400 hover:underline break-all inline-flex items-center gap-1 transition-colors"
                   >
                     {infectionResult.analysis.likely_infection_url} <ExternalLink className="w-3 h-3" />
                   </a>
@@ -471,7 +471,9 @@ export default function InfostealerIntel(): JSX.Element {
                         )}
                       </div>
                       <div className="pb-3">
-                        <div className="text-xs text-slate-500 dark:text-slate-400 mb-0.5">{fmtDateTime(step.timestamp)}</div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400 mb-0.5">
+                          {fmtDateTime(step.timestamp)}
+                        </div>
                         <div className="font-mono text-xs text-brand-600 dark:text-brand-400 break-all">{step.url}</div>
                         <div className="text-muted text-xs mt-0.5">{step.notes}</div>
                       </div>
@@ -497,7 +499,7 @@ export default function InfostealerIntel(): JSX.Element {
           href="https://docs.hudsonrock.com/"
           target="_blank"
           rel="noopener"
-          className="hover:text-slate-600 dark:hover:text-slate-300 inline-flex items-center gap-1"
+          className="hover:text-slate-600 dark:hover:text-slate-300 inline-flex items-center gap-1 transition-colors"
         >
           Docs <ExternalLink className="w-3 h-3" />
         </a>

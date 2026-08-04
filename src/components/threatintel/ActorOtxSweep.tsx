@@ -166,7 +166,7 @@ export default function ActorOtxSweep({ actors, limit = 10 }: Props) {
         {running ? (
           <button
             onClick={cancel}
-            className="text-xs px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+            className="text-xs px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
           >
             cancel
           </button>
@@ -174,7 +174,7 @@ export default function ActorOtxSweep({ actors, limit = 10 }: Props) {
           <button
             onClick={start}
             disabled={actors.length === 0}
-            className="text-xs px-3 py-1.5 rounded bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white disabled:opacity-40 disabled:cursor-not-allowed"
+            className="text-xs px-3 py-1.5 rounded bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
             run sweep ({actors.length} candidate{actors.length === 1 ? '' : 's'})
           </button>

@@ -393,7 +393,9 @@ export default function CampaignGenerator(): JSX.Element {
               rows={5}
               className="w-full rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 text-sm font-mono focus:border-rose-500 focus:outline-none"
             />
-            <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-1">{iocList.length} parsed · max 30</div>
+            <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-1">
+              {iocList.length} parsed · max 30
+            </div>
           </div>
           <div>
             <label
@@ -506,7 +508,9 @@ export default function CampaignGenerator(): JSX.Element {
 
           <div className="mb-5 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
             <ShareBar
-              shareText={result.campaign.summary?.split('\n')[0]?.slice(0, 200) || `Campaign: ${result.campaign.campaign_name}`}
+              shareText={
+                result.campaign.summary?.split('\n')[0]?.slice(0, 200) || `Campaign: ${result.campaign.campaign_name}`
+              }
               title={`Campaign: ${result.campaign.campaign_name}`}
               size="sm"
               label="Share:"
@@ -554,7 +558,7 @@ export default function CampaignGenerator(): JSX.Element {
                       href={`https://attack.mitre.org/techniques/${m.id.replace('.', '/')}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono font-semibold text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
+                      className="font-mono font-semibold text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors"
                     >
                       {m.id} <ExternalLink size={9} />
                     </a>{' '}

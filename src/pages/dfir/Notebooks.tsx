@@ -49,7 +49,7 @@ interface Stats {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  open: 'bg-blue-100 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300',
+  open: 'bg-blue-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-300',
   investigating: 'bg-amber-100 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300',
   resolved: 'bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300',
   archived: 'bg-slate-100 dark:bg-slate-500/15 text-slate-600 dark:text-slate-400',
@@ -57,7 +57,7 @@ const STATUS_COLORS: Record<string, string> = {
 
 const SEVERITY_COLORS: Record<string, string> = {
   info: 'bg-slate-100 dark:bg-slate-500/15 text-slate-600 dark:text-slate-400',
-  low: 'bg-blue-100 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300',
+  low: 'bg-blue-100 dark:bg-brand-500/15 text-brand-700 dark:text-brand-300',
   medium: 'bg-amber-100 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300',
   high: 'bg-orange-100 dark:bg-orange-500/15 text-orange-700 dark:text-orange-300',
   critical: 'bg-rose-100 dark:bg-rose-500/15 text-rose-700 dark:text-rose-300',

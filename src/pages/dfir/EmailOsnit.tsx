@@ -110,7 +110,7 @@ export default function EmailOsnit() {
           <button
             type="submit"
             disabled={loading}
-            className="px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50"
+            className="px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : 'Resolve'}
           </button>
@@ -184,7 +184,7 @@ export default function EmailOsnit() {
                     href={profile.github.profileUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-600 dark:text-brand-400 hover:underline text-mini flex items-center gap-1"
+                    className="text-brand-600 dark:text-brand-400 hover:underline text-mini flex items-center gap-1 transition-colors"
                   >
                     View profile <ExternalLink size={8} />
                   </a>
@@ -342,7 +342,7 @@ export default function EmailOsnit() {
           >
             <div className="flex flex-wrap gap-2">
               {profile.social.linkedinHint && (
-                <span className="text-micro font-mono px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+                <span className="text-micro font-mono px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-brand-700 dark:text-brand-300">
                   LinkedIn likely
                 </span>
               )}

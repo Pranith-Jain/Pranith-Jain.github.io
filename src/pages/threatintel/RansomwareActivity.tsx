@@ -28,7 +28,7 @@ export default function RansomwareActivity({ embedded = false }: { embedded?: bo
               href="https://www.ransomlook.io/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               Ransomlook
             </a>
@@ -37,7 +37,7 @@ export default function RansomwareActivity({ embedded = false }: { embedded?: bo
               href="https://t.me/mythreatintel"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               mythreatintel
             </a>
@@ -46,7 +46,7 @@ export default function RansomwareActivity({ embedded = false }: { embedded?: bo
               href="https://www.ransomfeed.it/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               ransomfeed.it
             </a>
@@ -55,7 +55,7 @@ export default function RansomwareActivity({ embedded = false }: { embedded?: bo
               href="https://ransomwatch.telemetry.ltd/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               ransomwatch
             </a>
@@ -64,7 +64,7 @@ export default function RansomwareActivity({ embedded = false }: { embedded?: bo
               href="https://www.ransomware.live/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               ransomware.live
             </a>
@@ -73,7 +73,7 @@ export default function RansomwareActivity({ embedded = false }: { embedded?: bo
               href="https://ctifeeds.andreafortuna.org/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               Andrea Fortuna
             </a>

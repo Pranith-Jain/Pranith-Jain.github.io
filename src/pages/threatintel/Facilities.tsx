@@ -893,7 +893,7 @@ export default function Facilities({ bare }: FacilitiesProps): JSX.Element {
                               href={`https://www.google.com/maps?q=${f.lat},${f.lng}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 mt-2 text-xs font-mono text-rose-500 hover:text-rose-600"
+                              className="inline-flex items-center gap-1 mt-2 text-xs font-mono text-rose-500 hover:text-rose-600 transition-colors"
                               onClick={(e) => e.stopPropagation()}
                             >
                               Open in Maps <ExternalLink size={10} />

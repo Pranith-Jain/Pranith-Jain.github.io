@@ -14,7 +14,7 @@ interface AttributionAssessment {
 
 const LEVEL_BADGE: Record<string, string> = {
   'almost-certain': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
-  probable: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
+  probable: 'bg-blue-100 text-brand-800 dark:bg-blue-900/30 dark:text-brand-300',
   'reasonably-likely': 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
   possible: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
   doubtful: 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
@@ -79,7 +79,8 @@ export default function AttributionFramework(): JSX.Element {
             className="w-full bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
           />
         </div>
-        <button type="button"
+        <button
+          type="button"
           onClick={() => void handleAssess()}
           disabled={loading || !indicators.trim()}
           className="mt-3 w-full px-5 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
@@ -116,7 +117,8 @@ export default function AttributionFramework(): JSX.Element {
             </div>
           </div>
           <div className="surface-card-faint shadow-e1 overflow-hidden">
-            <button type="button"
+            <button
+              type="button"
               onClick={() => setExpandedEvidence(!expandedEvidence)}
               className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.2)] transition-colors"
             >

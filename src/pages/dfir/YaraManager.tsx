@@ -421,13 +421,15 @@ function RansomwareIntelPanels(): JSX.Element {
                   <span className="text-muted truncate flex-1 min-w-0" title={a.victim}>
                     {a.victim}
                   </span>
-                  {a.date && <span className="text-slate-500 dark:text-slate-400 text-micro">{a.date.slice(0, 10)}</span>}
+                  {a.date && (
+                    <span className="text-slate-500 dark:text-slate-400 text-micro">{a.date.slice(0, 10)}</span>
+                  )}
                   {a.url && (
                     <a
                       href={sanitizeUrl(a.url) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+                      className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5 transition-colors"
                     >
                       <ExternalLink size={9} />
                     </a>

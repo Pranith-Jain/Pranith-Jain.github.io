@@ -236,7 +236,7 @@ export default function TieEnrich() {
           <button
             type="submit"
             disabled={loading || !ioc.trim()}
-            className="flex items-center gap-2 rounded-xl bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-xl bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700 disabled:opacity-50 transition-colors"
           >
             <Search size={16} />
             {loading ? 'Enriching...' : deep ? 'Deep Enrich' : 'Enrich'}

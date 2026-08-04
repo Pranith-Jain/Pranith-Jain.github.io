@@ -156,7 +156,9 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
             ))}
           </span>
         </span>
-        {folder.date && <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">{folder.date}</span>}
+        {folder.date && (
+          <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">{folder.date}</span>
+        )}
       </button>
 
       {open && (
@@ -172,7 +174,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
+                    className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors"
                   >
                     <FileCode size={12} /> {rf.name}
                   </a>
@@ -214,7 +216,9 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
                     </span>
                   ))}
                 {data.count === 0 && (
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">no indicator CSV in this folder</span>
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                    no indicator CSV in this folder
+                  </span>
                 )}
               </div>
 
@@ -268,7 +272,7 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 mt-2"
+                      className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 mt-2 transition-colors"
                     >
                       raw iocs.csv <ExternalLink size={12} />
                     </a>
@@ -331,7 +335,7 @@ export default function VolexityThreatIntel(): JSX.Element {
         href="https://github.com/volexity/threat-intel"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-rose-600 dark:text-rose-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
       >
         threat-intel
       </a>{' '}
@@ -394,7 +398,7 @@ export default function VolexityThreatIntel(): JSX.Element {
             href={safeHref(data.source_url) ?? '#'}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-rose-600 dark:hover:text-rose-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             {data.source}
           </a>{' '}

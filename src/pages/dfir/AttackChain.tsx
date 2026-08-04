@@ -30,7 +30,7 @@ const TACTIC_COLORS: Record<string, string> = {
   TA0004: 'bg-amber-600',
   TA0005: 'bg-emerald-500',
   TA0006: 'bg-teal-500',
-  TA0007: 'bg-blue-500',
+  TA0007: 'bg-brand-500',
   TA0008: 'bg-indigo-500',
   TA0009: 'bg-purple-500',
   TA0011: 'bg-pink-500',
@@ -294,7 +294,9 @@ export default function AttackChain(): JSX.Element {
                   >
                     <div>
                       <div className="text-sm font-medium">{rec.action}</div>
-                      <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">{rec.technique}</div>
+                      <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">
+                        {rec.technique}
+                      </div>
                     </div>
                     <span
                       className={`text-micro font-mono px-1.5 py-0.5 rounded border ${SEVERITY_TONE[rec.priority]}`}

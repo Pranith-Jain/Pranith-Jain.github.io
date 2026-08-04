@@ -185,7 +185,7 @@ export default function UrlPreview(): JSX.Element {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             <Eye size={16} className="inline mr-2" />
             Preview
@@ -220,7 +220,7 @@ export default function UrlPreview(): JSX.Element {
               href={sanitizeUrl(result.final_url)}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline font-mono text-sm break-all flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline font-mono text-sm break-all flex items-center gap-1 transition-colors"
             >
               {result.final_url}
               <ExternalLink size={12} className="flex-shrink-0" />
@@ -319,7 +319,7 @@ export default function UrlPreview(): JSX.Element {
                       href={sanitizeUrl(result.favicon)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-brand-600 dark:text-brand-400 hover:underline"
+                      className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                     >
                       favicon
                     </a>
@@ -346,7 +346,7 @@ export default function UrlPreview(): JSX.Element {
                           href={sanitizeUrl(f.url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-brand-600 dark:text-brand-400 hover:underline break-all"
+                          className="text-brand-600 dark:text-brand-400 hover:underline break-all transition-colors"
                         >
                           {f.title || f.type} <ExternalLink size={10} className="inline" />
                         </a>
@@ -367,7 +367,7 @@ export default function UrlPreview(): JSX.Element {
                   href={sanitizeUrl(result.urlscan.result)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                  className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
                 >
                   open scan <ExternalLink size={12} />
                 </a>
@@ -450,7 +450,7 @@ export default function UrlPreview(): JSX.Element {
                 href={sanitizeUrl(result.canonical)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-600 dark:text-brand-400 hover:underline font-mono text-sm break-all"
+                className="text-brand-600 dark:text-brand-400 hover:underline font-mono text-sm break-all transition-colors"
               >
                 {result.canonical}
               </a>

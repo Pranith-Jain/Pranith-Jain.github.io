@@ -258,7 +258,7 @@ export default function PiTaxonomy() {
             href="https://github.com/Arcanum-Sec/arc_pi_taxonomy"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             Arcanum PI Taxonomy
           </a>{' '}
@@ -342,7 +342,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
           <button
             aria-label="Close"
             onClick={onClose}
-            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             <X size={16} />
           </button>
@@ -424,7 +424,7 @@ function DetailModal({ cat, node, onClose }: { cat: Category; node: TaxonomyNode
               href="https://github.com/Arcanum-Sec/arc_pi_taxonomy"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs text-brand-500 hover:underline"
+              className="inline-flex items-center gap-1.5 text-xs text-brand-500 hover:underline transition-colors"
             >
               <ExternalLink size={12} /> View on GitHub
             </a>

@@ -312,7 +312,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
             href="https://www.dread.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             Dread
           </a>
@@ -321,7 +321,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
             href="https://tortaxi.info"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             TorTaxi
           </a>
@@ -442,7 +442,7 @@ export default function DarknetMarketsTimeline(): JSX.Element {
                         href={sanitizeUrl(m.url)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-0.5"
+                        className="text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-0.5 transition-colors"
                       >
                         <ExternalLink className="w-2.5 h-2.5" /> onion
                       </a>

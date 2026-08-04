@@ -185,7 +185,7 @@ export default function HostGraphView(): JSX.Element {
         <button
           type="submit"
           disabled={!query.trim() || inputKind === 'unknown'}
-          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
+          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
         >
           <Search size={14} />
           Pivot
@@ -248,7 +248,9 @@ function Row({ label, value, mono = true }: { label: string; value: React.ReactN
   return (
     <div className="grid grid-cols-1 sm:grid-cols-[8rem_1fr] gap-y-1 gap-x-4 py-1.5 text-sm">
       <span className="text-xs font-mono uppercase tracking-wider text-slate-500">{label}</span>
-      <span className={mono ? 'font-mono' : ''}>{value || <span className="text-slate-500 dark:text-slate-400">-</span>}</span>
+      <span className={mono ? 'font-mono' : ''}>
+        {value || <span className="text-slate-500 dark:text-slate-400">-</span>}
+      </span>
     </div>
   );
 }
@@ -293,7 +295,7 @@ function IpView({ data, input }: { data: IpData; input: string }): JSX.Element {
           value={
             data.abuse_contact ? (
               <a
-                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
                 href={`mailto:${data.abuse_contact}`}
               >
                 <Mail size={12} />
@@ -320,7 +322,9 @@ function AsnView({ data, input }: { data: AsData; input: number }): JSX.Element 
             </div>
             <div className="text-sm text-slate-500">
               {data.name && <span>{data.name}</span>}
-              {data.descr && data.descr !== data.name && <span className="ml-2 text-slate-500 dark:text-slate-400">· {data.descr}</span>}
+              {data.descr && data.descr !== data.name && (
+                <span className="ml-2 text-slate-500 dark:text-slate-400">· {data.descr}</span>
+              )}
             </div>
           </div>
         </div>
@@ -335,7 +339,7 @@ function AsnView({ data, input }: { data: AsData; input: number }): JSX.Element 
           value={
             data.abuse_contact ? (
               <a
-                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
                 href={`mailto:${data.abuse_contact}`}
               >
                 <Mail size={12} />
@@ -380,7 +384,7 @@ function PrefixView({ data, input }: { data: PrefixData; input: string }): JSX.E
           value={
             data.abuse_contact ? (
               <a
-                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
                 href={`mailto:${data.abuse_contact}`}
               >
                 <Mail size={12} />
@@ -403,7 +407,7 @@ function PrefixView({ data, input }: { data: PrefixData; input: string }): JSX.E
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                    className="font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
                   >
                     <ExternalLink size={10} />
                     {href}

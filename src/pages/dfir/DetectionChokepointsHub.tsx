@@ -721,7 +721,7 @@ export default function DetectionChokepointsHub() {
             href={sanitizeUrl('https://github.com/iimp0ster/detection-chokepoints') || undefined}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
           >
             iimp0ster/detection-chokepoints <ExternalLink size={11} />
           </a>{' '}

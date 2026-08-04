@@ -209,7 +209,7 @@ export default function OneTimeSecret() {
             <button
               onClick={handleCreate}
               disabled={status === 'encrypting' || status === 'uploading'}
-              className="px-4 py-2 text-xs font-mono rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50"
+              className="px-4 py-2 text-xs font-mono rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
             >
               {status === 'encrypting' ? 'Encrypting...' : status === 'uploading' ? 'Storing...' : 'Generate Link'}
             </button>

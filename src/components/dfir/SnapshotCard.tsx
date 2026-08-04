@@ -29,7 +29,7 @@ const ACCENT_BORDER: Record<SnapshotAccent, string> = {
   amber: 'border-amber-500/30',
   fuchsia: 'border-fuchsia-500/30',
   orange: 'border-orange-500/30',
-  blue: 'border-blue-500/30',
+  blue: 'border-brand-500/30',
 };
 
 const ACCENT_TEXT: Record<SnapshotAccent, string> = {
@@ -40,7 +40,7 @@ const ACCENT_TEXT: Record<SnapshotAccent, string> = {
   amber: 'text-amber-600 dark:text-amber-400',
   fuchsia: 'text-fuchsia-600 dark:text-fuchsia-400',
   orange: 'text-orange-600 dark:text-orange-400',
-  blue: 'text-blue-600 dark:text-blue-400',
+  blue: 'text-brand-600 dark:text-brand-400',
 };
 
 interface Props {

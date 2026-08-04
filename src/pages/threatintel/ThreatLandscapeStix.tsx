@@ -131,16 +131,18 @@ export default function ThreatLandscapeStix(): JSX.Element {
         description="PostgREST-style query interface for STIX 2.1 intelligence bundles. Filter by threat actor, malware, sector, country, CVE, and more."
         headerExtra={
           <div className="flex gap-2">
-            <button type="button"
+            <button
+              type="button"
               onClick={addFilter}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
             >
               <Filter size={12} /> Add Filter
             </button>
-            <button type="button"
+            <button
+              type="button"
               onClick={exportAsJson}
               disabled={!data?.length}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 transition-colors"
             >
               <Download size={12} /> Export JSON
             </button>
@@ -171,9 +173,10 @@ export default function ThreatLandscapeStix(): JSX.Element {
               onChange={(e) => setLimit(e.target.value)}
               className="w-20 text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
             />
-            <button type="button"
+            <button
+              type="button"
               onClick={fetchData}
-              className="text-xs flex items-center gap-1 px-3 py-1.5 rounded bg-rose-600 text-white hover:bg-rose-700"
+              className="text-xs flex items-center gap-1 px-3 py-1.5 rounded bg-rose-600 text-white hover:bg-rose-700 transition-colors"
             >
               <Search size={12} /> Query
             </button>
@@ -181,7 +184,8 @@ export default function ThreatLandscapeStix(): JSX.Element {
 
           {/* Filter builder */}
           <div>
-            <button type="button"
+            <button
+              type="button"
               onClick={() => setShowFilters(!showFilters)}
               className="text-xs flex items-center gap-1 text-slate-500"
             >
@@ -220,7 +224,8 @@ export default function ThreatLandscapeStix(): JSX.Element {
                       className="text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))] min-w-[200px]"
                       placeholder="Value"
                     />
-                    <button type="button"
+                    <button
+                      type="button"
                       onClick={() => removeFilter(i)}
                       className="text-xs px-2 py-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded"
                     >

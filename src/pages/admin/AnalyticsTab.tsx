@@ -343,7 +343,7 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
                     href={`/blog/${p.slug}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline"
+                    className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline transition-colors"
                     aria-label={`Open blog post ${p.slug}`}
                   >
                     {p.slug}
@@ -371,7 +371,7 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
                       href={p.postUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-slate-600 dark:text-slate-400 hover:underline"
+                      className="text-xs text-slate-600 dark:text-slate-400 hover:underline transition-colors"
                       aria-label={`View ${p.platform} post for ${p.slug}`}
                     >
                       View

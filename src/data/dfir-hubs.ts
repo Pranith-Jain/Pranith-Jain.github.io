@@ -778,7 +778,7 @@ export const HUB_META: readonly HubMeta[] = [
     label: 'Detection Engineering',
     blurb: 'Author, convert, and test detection rules - Sigma, KQL, SPL, YARA, ATT&CK mapping, hunting queries.',
     icon: Shield,
-    tone: 'text-blue-700 dark:text-blue-300 border-blue-500/30 bg-blue-500/10',
+    tone: 'text-brand-700 dark:text-brand-300 border-brand-500/30 bg-brand-500/10',
     pages: [
       {
         path: '/dfir/rule-converter',
@@ -881,7 +881,7 @@ export const HUB_META: readonly HubMeta[] = [
     label: 'Cloud Security',
     blurb: 'IAM, network, secrets, and configuration analysis for AWS, GCP, Azure, and Kubernetes.',
     icon: Cloud,
-    tone: 'text-blue-700 dark:text-blue-300 border-blue-500/30 bg-blue-500/10',
+    tone: 'text-brand-700 dark:text-brand-300 border-brand-500/30 bg-brand-500/10',
     pages: [
       {
         path: '/dfir/iam-hub',

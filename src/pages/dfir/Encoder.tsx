@@ -112,7 +112,7 @@ export default function Encoder(): JSX.Element {
               <button
                 type="button"
                 onClick={reset}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
               >
                 <RotateCw size={11} /> reset
               </button>
@@ -138,7 +138,7 @@ export default function Encoder(): JSX.Element {
           <button
             type="button"
             onClick={addStep}
-            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
           >
             <Plus size={11} /> add pass
           </button>
@@ -168,7 +168,9 @@ export default function Encoder(): JSX.Element {
                   <X size={11} />
                 </button>
               )}
-              {idx < chain.length - 1 && <ArrowRight size={12} className="text-slate-500 dark:text-slate-400" aria-hidden="true" />}
+              {idx < chain.length - 1 && (
+                <ArrowRight size={12} className="text-slate-500 dark:text-slate-400" aria-hidden="true" />
+              )}
             </div>
           ))}
         </div>
@@ -185,7 +187,7 @@ export default function Encoder(): JSX.Element {
               <button
                 type="button"
                 onClick={sendToDecoder}
-                className="inline-flex items-center gap-1.5 text-mini font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
+                className="inline-flex items-center gap-1.5 text-mini font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20 transition-colors"
                 title="Round-trip: decode this back via /dfir/codec"
               >
                 <ArrowRight size={11} /> round-trip in Decoder

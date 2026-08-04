@@ -168,7 +168,7 @@ export default function InfraSearch(): JSX.Element {
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="px-5 py-2.5 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
+            className="px-5 py-2.5 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
           >
             <Search size={16} className="inline mr-2" />
             Search

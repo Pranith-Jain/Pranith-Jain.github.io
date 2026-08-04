@@ -172,7 +172,7 @@ export default function LlmThreatAtlas(): JSX.Element {
         href="https://mr-akuma.github.io/llm-threat-coverage-atlas.html"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-rose-600 dark:text-rose-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
       >
         LLM Threat Coverage Atlas
       </a>
@@ -188,7 +188,11 @@ export default function LlmThreatAtlas(): JSX.Element {
   const headerExtra = (
     <div className="space-y-3">
       <div className="relative max-w-md">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+        <Search
+          size={14}
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+          aria-hidden="true"
+        />
         <input
           type="search"
           value={query}
@@ -215,7 +219,8 @@ export default function LlmThreatAtlas(): JSX.Element {
 
       <div className="flex flex-wrap gap-1.5">
         {ALL_TIERS.map((tier) => (
-          <button type="button"
+          <button
+            type="button"
             key={tier}
             onClick={() => setActiveTier(activeTier === tier ? 'all' : tier)}
             className={chip(activeTier === tier)}
@@ -311,7 +316,8 @@ export default function LlmThreatAtlas(): JSX.Element {
                       {arch}
                     </span>
                   ))}
-                  <button type="button"
+                  <button
+                    type="button"
                     onClick={() => {
                       const next = expanded ? null : item.id;
                       setExpandedId(next);
@@ -410,7 +416,7 @@ export default function LlmThreatAtlas(): JSX.Element {
             href={SOURCE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-rose-600 dark:hover:text-rose-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             JSON source
           </a>{' '}

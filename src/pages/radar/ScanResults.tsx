@@ -403,7 +403,7 @@ function EndpointsPanel({ data }: { data: ScanData }) {
             <span
               className={`inline-flex items-center rounded px-1.5 py-0.5 text-micro font-bold ${
                 ep.method === 'GET'
-                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+                  ? 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-400'
                   : ep.method === 'POST'
                     ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
                     : 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400'
@@ -482,7 +482,7 @@ function VulnerabilitiesPanel({ data }: { data: ScanData }) {
         ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400'
         : s === 'medium'
           ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
-          : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400';
+          : 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-400';
   return (
     <div className="space-y-2">
       {vulns.map((v, i) => (
@@ -905,7 +905,8 @@ export default function ScanResults() {
                 onClick={() => setActiveTab('secrets')}
                 className={`flex flex-1 items-center justify-center gap-1.5 border-b-2 px-3 py-3 text-xs font-semibold transition-colors ${activeTab === 'secrets' ? 'border-brand-500 text-brand-600 dark:text-brand-400' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
               >
-                <Shield className="h-3.5 w-3.5" /> Keys & Secrets <LockKeyhole className="h-3 w-3 text-slate-500 dark:text-slate-400" />
+                <Shield className="h-3.5 w-3.5" /> Keys & Secrets{' '}
+                <LockKeyhole className="h-3 w-3 text-slate-500 dark:text-slate-400" />
               </button>
             </div>
             <nav className="flex flex-col p-1">

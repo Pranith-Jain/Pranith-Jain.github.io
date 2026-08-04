@@ -217,7 +217,7 @@ export default function InfostealerDetail(): JSX.Element {
               href={family.malpediaUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-rose-600 dark:text-rose-400"
+              className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-rose-600 dark:text-rose-400 transition-colors"
             >
               <ExternalLink size={12} /> Malpedia
             </a>
@@ -251,14 +251,16 @@ export default function InfostealerDetail(): JSX.Element {
                   <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                     {s.family}
                   </span>
-                  {s.file_type && <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{s.file_type}</span>}
+                  {s.file_type && (
+                    <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{s.file_type}</span>
+                  )}
                 </div>
                 <div className="flex items-center gap-2">
                   <a
                     href={sanitizeUrl(s.url)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline break-all flex-1 min-w-0"
+                    className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline break-all flex-1 min-w-0 transition-colors"
                   >
                     <code>{s.sha256.slice(0, 32)}…</code>
                   </a>
@@ -315,7 +317,9 @@ export default function InfostealerDetail(): JSX.Element {
                     <Copy size={11} />
                   </button>
                 </div>
-                {x.observed_at && <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{x.observed_at}</p>}
+                {x.observed_at && (
+                  <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{x.observed_at}</p>
+                )}
               </li>
             ))}
           </ul>

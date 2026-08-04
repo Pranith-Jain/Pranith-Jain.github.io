@@ -28,7 +28,7 @@ function renderInline(text: string): JSX.Element {
             <a
               key={i}
               href={`#report-src-${cite[1]}`}
-              className="text-brand-600 dark:text-brand-400 hover:underline align-super text-micro"
+              className="text-brand-600 dark:text-brand-400 hover:underline align-super text-micro transition-colors"
             >
               [{cite[1]}]
             </a>
@@ -128,14 +128,14 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
           <div className="flex gap-2 mt-4">
             <button
               onClick={onExportPdf}
-              className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/50"
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/50 transition-colors"
             >
               <FileDown size={13} /> Export PDF
             </button>
             {onExportMd && (
               <button
                 onClick={onExportMd}
-                className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/50"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/50 transition-colors"
               >
                 <FileText size={13} /> .md
               </button>
@@ -249,7 +249,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
                     href={s.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-600 dark:text-brand-400 hover:underline"
+                    className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                   >
                     {s.name}
                   </a>

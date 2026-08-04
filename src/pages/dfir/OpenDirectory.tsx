@@ -99,7 +99,10 @@ export default function OpenDirectory(): JSX.Element {
       {/* Search */}
       <form onSubmit={onSubmit} className="flex gap-2 mb-8">
         <div className="relative flex-1">
-          <FolderOpen size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+          <FolderOpen
+            size={16}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+          />
           <input
             type="text"
             value={url}
@@ -111,7 +114,7 @@ export default function OpenDirectory(): JSX.Element {
         <button
           type="submit"
           disabled={loading || !url.trim()}
-          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
+          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
         >
           {loading ? <Clock size={14} className="animate-spin" /> : <Search size={14} />}
           {loading ? 'Scanning…' : 'Scan'}

@@ -103,11 +103,11 @@ export default function ActorUsernames(): JSX.Element {
       backTo="/threatintel/actors/hub"
       description={`Search ~${stats?.total_usernames?.toLocaleString() ?? '291k'} usernames scraped from cybercrime forums to see which boards a handle appears on.`}
     >
-        {stats && corpus && (
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
-            {stats.forums.length} forums ({corpus.active} active · {corpus.dead} defunct)
-          </p>
-        )}
+      {stats && corpus && (
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+          {stats.forums.length} forums ({corpus.active} active · {corpus.dead} defunct)
+        </p>
+      )}
 
       <form onSubmit={submit} className="surface-card p-4 mb-6">
         <div className="flex items-center gap-3">
@@ -124,7 +124,7 @@ export default function ActorUsernames(): JSX.Element {
           </div>
           <button
             type="submit"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/70"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/70 transition-colors"
           >
             search
           </button>

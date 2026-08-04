@@ -125,7 +125,7 @@ export const SOURCE_META: Record<string, SourceMeta> = {
   },
   'cps-collected': {
     label: 'CPS Collected',
-    color: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
+    color: 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300',
   },
   'blocklist-de': {
     label: 'Blocklist.de',
@@ -143,7 +143,7 @@ export const SOURCE_META: Record<string, SourceMeta> = {
   },
   'bbcan177-ips': {
     label: 'BBcan177 IPs',
-    color: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
+    color: 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300',
   },
   'bbcan177-dnsbl': {
     label: 'BBcan177 DNSBL',

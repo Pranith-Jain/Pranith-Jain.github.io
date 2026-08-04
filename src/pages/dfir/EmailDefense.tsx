@@ -98,7 +98,11 @@ export default function EmailDefense(): JSX.Element {
           className="flex flex-wrap gap-2"
         >
           <div className="relative flex-1 min-w-[220px]">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+            <Search
+              size={14}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              aria-hidden="true"
+            />
             <input
               type="text"
               value={domain}
@@ -111,7 +115,7 @@ export default function EmailDefense(): JSX.Element {
           <button
             type="submit"
             disabled={loading || !domain.trim()}
-            className="text-sm font-mono px-3 py-2 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1.5"
+            className="text-sm font-mono px-3 py-2 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1.5 transition-colors"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             {loading ? 'Looking up' : 'Check'}
@@ -322,7 +326,7 @@ export default function EmailDefense(): JSX.Element {
               href="https://datatracker.ietf.org/doc/html/rfc7489"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               RFC 7489 - Domain-based Message Authentication, Reporting &amp; Conformance (DMARC)
               <ExternalLink size={11} aria-hidden="true" />
@@ -333,7 +337,7 @@ export default function EmailDefense(): JSX.Element {
               href="https://www.cisa.gov/news-events/news/binding-operational-directive-18-01"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               CISA BOD 18-01 - DMARC enforcement requirements
               <ExternalLink size={11} aria-hidden="true" />
@@ -344,7 +348,7 @@ export default function EmailDefense(): JSX.Element {
               href="https://datatracker.ietf.org/doc/html/rfc8461"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               RFC 8461 - SMTP MTA Strict Transport Security (MTA-STS)
               <ExternalLink size={11} aria-hidden="true" />

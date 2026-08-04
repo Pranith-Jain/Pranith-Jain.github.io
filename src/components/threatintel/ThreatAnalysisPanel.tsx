@@ -190,7 +190,7 @@ export function ThreatAnalysisPanel({
               <button
                 type="button"
                 onClick={fetchAnalysis}
-                className="mt-2 text-xs font-mono text-brand-400 hover:underline"
+                className="mt-2 text-xs font-mono text-brand-400 hover:underline transition-colors"
               >
                 Retry
               </button>

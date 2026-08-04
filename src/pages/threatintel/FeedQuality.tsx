@@ -190,7 +190,7 @@ export default function FeedQuality(): JSX.Element {
           <span>Scored hourly · cached 1h at the edge</span>
           <span>·</span>
           <a
-            className="underline decoration-dotted hover:text-rose-600 dark:hover:text-rose-400"
+            className="underline decoration-dotted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             href="https://zenodo.org/records/18208974"
             target="_blank"
             rel="noopener noreferrer"
@@ -199,7 +199,7 @@ export default function FeedQuality(): JSX.Element {
           </a>
           <span>·</span>
           <a
-            className="underline decoration-dotted hover:text-rose-600 dark:hover:text-rose-400"
+            className="underline decoration-dotted hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             href="https://github.com/cyb3rmik3/KQL-threat-hunting-queries/tree/main/TIFCE"
             target="_blank"
             rel="noopener noreferrer"
@@ -341,7 +341,7 @@ function FilterBar({
         <button
           type="button"
           onClick={onRefresh}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 transition-colors"
         >
           <RefreshCw size={12} /> refresh
         </button>
@@ -402,7 +402,7 @@ function FeedRow({
       <button
         type="button"
         onClick={onToggle}
-        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--input-200)/0.4)] text-left"
+        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--input-200)/0.4)] text-left transition-colors"
         aria-expanded={expanded}
       >
         <span

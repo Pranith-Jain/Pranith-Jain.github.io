@@ -84,7 +84,11 @@ export default function UsernameOsnit(): JSX.Element {
       <section className="surface-card p-4 mb-6">
         <form onSubmit={onSubmit} className="flex gap-2">
           <div className="relative flex-1 min-w-[220px]">
-            <Users size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+            <Users
+              size={14}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              aria-hidden="true"
+            />
             <input
               type="text"
               value={input}
@@ -99,7 +103,7 @@ export default function UsernameOsnit(): JSX.Element {
           <button
             type="submit"
             disabled={!valid || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             <Search size={16} className="inline mr-2" />
             Search
@@ -180,7 +184,9 @@ export default function UsernameOsnit(): JSX.Element {
           {/* Not Found */}
           {filter === 'all' && notFound.length > 0 && (
             <section className="surface-card p-6">
-              <h2 className="font-display font-bold text-xl mb-4 text-slate-500 dark:text-slate-400">Not Found ({notFound.length})</h2>
+              <h2 className="font-display font-bold text-xl mb-4 text-slate-500 dark:text-slate-400">
+                Not Found ({notFound.length})
+              </h2>
               <div className="flex flex-wrap gap-1.5">
                 {notFound.map((r) => (
                   <span
@@ -197,7 +203,9 @@ export default function UsernameOsnit(): JSX.Element {
           {/* Category Breakdown */}
           {Object.keys(result.summary).length > 0 && (
             <section className="surface-card p-6">
-              <h2 className="font-display font-bold text-xl mb-4 text-slate-500 dark:text-slate-400">Category Breakdown</h2>
+              <h2 className="font-display font-bold text-xl mb-4 text-slate-500 dark:text-slate-400">
+                Category Breakdown
+              </h2>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(result.summary)
                   .sort((a, b) => b[1] - a[1])

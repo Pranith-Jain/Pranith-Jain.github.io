@@ -565,8 +565,10 @@ export default function FeedScheduler(): JSX.Element {
                         </h3>
                         {job.last_status === 'ok' && <CheckCircle2 size={12} className="text-emerald-500 shrink-0" />}
                         {job.last_status === 'error' && <XCircle size={12} className="text-rose-500 shrink-0" />}
-                        {isRunning && <Loader2 size={12} className="animate-spin text-blue-500 shrink-0" />}
-                        {job.last_status === null && <Clock size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />}
+                        {isRunning && <Loader2 size={12} className="animate-spin text-brand-500 shrink-0" />}
+                        {job.last_status === null && (
+                          <Clock size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
+                        )}
                       </div>
                       <p className="text-mini font-mono text-slate-500 mt-0.5 truncate max-w-xl">{job.source_url}</p>
                       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1.5 text-micro font-mono text-slate-500 dark:text-slate-400">

@@ -57,7 +57,7 @@ interface Investigation {
 
 const STATUS_COLORS: Record<string, string> = {
   open: 'bg-slate-200 dark:bg-[rgb(var(--surface-300))] text-muted',
-  'in-progress': 'bg-blue-500/15 text-blue-600 dark:text-blue-400',
+  'in-progress': 'bg-brand-500/15 text-brand-600 dark:text-brand-400',
   closed: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
 };
 
@@ -379,7 +379,7 @@ function InvestigationsPage(): JSX.Element {
             <button
               type="button"
               onClick={exportJson}
-              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
+              className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
             >
               <FileDown size={11} /> JSON
             </button>
@@ -541,13 +541,13 @@ function InvestigationsPage(): JSX.Element {
                         <button
                           type="button"
                           onClick={() => void updateTask(t.id, 'in-progress')}
-                          className="text-micro font-mono text-blue-500 hover:underline"
+                          className="text-micro font-mono text-brand-500 hover:underline"
                         >
                           start
                         </button>
                       )}
                       {t.status === 'in-progress' && (
-                        <span className="text-micro font-mono text-blue-500 flex items-center gap-1">
+                        <span className="text-micro font-mono text-brand-500 flex items-center gap-1">
                           <Clock size={10} /> in progress
                         </span>
                       )}
@@ -720,7 +720,7 @@ function InvestigationsPage(): JSX.Element {
             <button
               type="submit"
               disabled={!createForm.title.trim()}
-              className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-meta font-semibold rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400"
+              className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-meta font-semibold rounded disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
             >
               Create
             </button>

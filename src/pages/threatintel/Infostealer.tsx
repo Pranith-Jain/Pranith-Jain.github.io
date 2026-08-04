@@ -377,12 +377,17 @@ export default function Infostealer(): JSX.Element {
       }
       maxWidthClass="max-w-6xl"
     >
-      <div role="tablist" aria-label="Tabs" className="flex flex-wrap gap-2 mb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div
+        role="tablist"
+        aria-label="Tabs"
+        className="flex flex-wrap gap-2 mb-4 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
+      >
         {TABS.map((t) => {
           const Icon = t.icon;
           return (
             <button
-              key={t.id} role="tab"
+              key={t.id}
+              role="tab"
               type="button"
               onClick={() => setTab(t.id)}
               className={`inline-flex items-center gap-1.5 px-3 py-2 font-mono text-meta border-b-2 -mb-px ${
@@ -454,7 +459,7 @@ export default function Infostealer(): JSX.Element {
                   href={sanitizeUrl(m.url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline break-all"
+                  className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline break-all transition-colors"
                 >
                   {m.title}
                 </a>
@@ -468,7 +473,9 @@ export default function Infostealer(): JSX.Element {
                 </button>
               </div>
               {m.description && <p className="font-mono text-mini text-slate-500 mt-1 line-clamp-2">{m.description}</p>}
-              {m.published && <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{m.published}</p>}
+              {m.published && (
+                <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{m.published}</p>
+              )}
             </li>
           ))}
           {markets && markets.length === 0 && (
@@ -523,14 +530,16 @@ export default function Infostealer(): JSX.Element {
                 <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-micro uppercase text-rose-700 dark:text-rose-300">
                   {s.family}
                 </span>
-                {s.file_type && <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{s.file_type}</span>}
+                {s.file_type && (
+                  <span className="font-mono text-micro text-slate-500 dark:text-slate-400">{s.file_type}</span>
+                )}
               </div>
               <div className="flex items-center gap-2 mt-1">
                 <a
                   href={sanitizeUrl(s.url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline break-all"
+                  className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline break-all transition-colors"
                 >
                   {s.sha256.slice(0, 32)}…
                 </a>
@@ -579,7 +588,9 @@ export default function Infostealer(): JSX.Element {
                   <Copy size={11} />
                 </button>
               </div>
-              {x.observed_at && <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{x.observed_at}</p>}
+              {x.observed_at && (
+                <p className="font-mono text-micro text-slate-500 dark:text-slate-400 mt-1">{x.observed_at}</p>
+              )}
             </li>
           ))}
           {c2 && c2.length === 0 && (
@@ -610,7 +621,9 @@ export default function Infostealer(): JSX.Element {
                   <span className="text-micro font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-1.5 py-0.5">
                     {fam.firstSeen}
                   </span>
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{fam.platforms.join('/')}</span>
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                    {fam.platforms.join('/')}
+                  </span>
                 </div>
               </summary>
               <div className="px-4 pb-4 border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-3 space-y-3">
@@ -619,7 +632,8 @@ export default function Infostealer(): JSX.Element {
                 <div className="flex flex-wrap gap-1.5">
                   {fam.capabilities.map((c) => (
                     <span
-                      key={c} role="tab"
+                      key={c}
+                      role="tab"
                       className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted"
                     >
                       {c}
@@ -632,7 +646,8 @@ export default function Infostealer(): JSX.Element {
                     <span className="text-micro font-mono uppercase tracking-wider text-slate-500">Actors:</span>
                     {fam.actors.map((a) => (
                       <Link
-                        key={a} role="tab"
+                        key={a}
+                        role="tab"
                         to={`/threatintel/actors/${a.toLowerCase().replace(/\s+/g, '-')}`}
                         className="text-mini font-mono px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
                       >
@@ -648,7 +663,7 @@ export default function Infostealer(): JSX.Element {
                       href={fam.malpediaUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline"
+                      className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                     >
                       Malpedia <ExternalLink size={11} />
                     </a>
@@ -751,13 +766,15 @@ export default function Infostealer(): JSX.Element {
                             {s.keyword}
                           </span>
                           <span className="text-muted truncate">{s.source}</span>
-                          {s.when && <span className="text-slate-500 dark:text-slate-400 text-micro">{s.when.slice(0, 10)}</span>}
+                          {s.when && (
+                            <span className="text-slate-500 dark:text-slate-400 text-micro">{s.when.slice(0, 10)}</span>
+                          )}
                           {s.link && (
                             <a
                               href={sanitizeUrl(s.link)}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="ml-auto text-rose-600 dark:text-rose-400 hover:underline"
+                              className="ml-auto text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                             >
                               open ↗
                             </a>
@@ -788,7 +805,8 @@ export default function Infostealer(): JSX.Element {
               <div className="flex flex-wrap gap-1.5 mb-4">
                 {(['all', 'blog', 'report', 'technique'] as const).map((src) => (
                   <button
-                    key={src} role="tab"
+                    key={src}
+                    role="tab"
                     type="button"
                     onClick={() => setArticleSource(src)}
                     className={`text-mini font-mono px-2 py-1 rounded border ${
@@ -815,7 +833,7 @@ export default function Infostealer(): JSX.Element {
                           href={sanitizeUrl(a.link)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline block mb-1"
+                          className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline block mb-1 transition-colors"
                         >
                           {a.title}
                         </a>

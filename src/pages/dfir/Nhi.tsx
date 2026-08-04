@@ -327,21 +327,21 @@ export default function Nhi(): JSX.Element {
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <button
               onClick={add}
-              className="text-sm font-mono px-3 py-1.5 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 inline-flex items-center gap-1.5"
+              className="text-sm font-mono px-3 py-1.5 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 inline-flex items-center gap-1.5 transition-colors"
             >
               <Plus size={14} /> Add NHI
             </button>
             <button
               onClick={exportMd}
               disabled={items.length === 0}
-              className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-50 inline-flex items-center gap-1.5"
+              className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
             >
               <Download size={13} /> Export markdown
             </button>
             <button
               onClick={reset}
               disabled={items.length === 0}
-              className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 disabled:opacity-50 inline-flex items-center gap-1.5"
+              className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
             >
               <RotateCcw size={13} /> Reset all
             </button>
@@ -541,7 +541,7 @@ export default function Nhi(): JSX.Element {
               href="https://owasp.org/www-project-non-human-identities-top-10/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               OWASP Non-Human Identities Top 10 (2025)
               <ExternalLink size={11} aria-hidden="true" />
@@ -552,7 +552,7 @@ export default function Nhi(): JSX.Element {
               href="https://spiffe.io/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               SPIFFE - workload identity standard
               <ExternalLink size={11} aria-hidden="true" />

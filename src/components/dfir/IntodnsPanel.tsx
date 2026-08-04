@@ -254,7 +254,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
           href={CITATIONS.liveReport(snapshot.domain)}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex shrink-0 items-center gap-1 rounded border border-slate-200 px-2.5 py-1 text-mini font-mono text-slate-700 hover:border-slate-300 hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:text-slate-300 dark:hover:border-slate-600 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
+          className="inline-flex shrink-0 items-center gap-1 rounded border border-slate-200 px-2.5 py-1 text-mini font-mono text-slate-700 hover:border-slate-300 hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:text-slate-300 dark:hover:border-slate-600 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
         >
           view full <ExternalLink size={9} aria-hidden="true" />
         </a>
@@ -317,7 +317,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
               href={CITATIONS.liveReport(snapshot.domain)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 inline-flex items-center gap-1 text-mini font-mono text-brand-600 hover:underline dark:text-brand-400"
+              className="mt-2 inline-flex items-center gap-1 text-mini font-mono text-brand-600 hover:underline dark:text-brand-400 transition-colors"
             >
               {(snapshot.issues?.length ?? 0) - issues.length} more in full report <ExternalLink size={9} />
             </a>
@@ -351,7 +351,7 @@ export function IntodnsPanel({ domain, title = 'IntoDNS.ai grade' }: IntodnsPane
             href={CITATIONS.methodology}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline-offset-2 hover:underline dark:text-slate-400"
+            className="underline-offset-2 hover:underline dark:text-slate-400 transition-colors"
           >
             methodology
           </a>

@@ -306,7 +306,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' | 'radar' | 'argu
             target="_blank"
             rel="noopener noreferrer"
             aria-label="github (opens in new tab)"
-            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-slate-900 dark:hover:text-slate-100"
+            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
           >
             github
           </a>

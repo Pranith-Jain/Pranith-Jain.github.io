@@ -214,7 +214,7 @@ export function AiSummaryCard({
               <button
                 type="button"
                 onClick={fetchSummary}
-                className="flex items-center gap-1.5 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                className="flex items-center gap-1.5 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
               >
                 <RefreshCw size={12} /> Retry
               </button>

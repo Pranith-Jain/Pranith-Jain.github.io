@@ -23,7 +23,7 @@ interface ThreatMonResponse {
 }
 
 const STATS = [
-  { value: '~2.18B', label: 'Compromised Users', color: 'text-blue-500 dark:text-blue-400' },
+  { value: '~2.18B', label: 'Compromised Users', color: 'text-brand-500 dark:text-brand-400' },
   { value: '~10.47B', label: 'Leaked Credentials', color: 'text-emerald-500 dark:text-emerald-400' },
   { value: '~4.09B', label: 'Infected Devices', color: 'text-purple-500 dark:text-purple-400' },
   { value: '~357.81M', label: 'Affected Services', color: 'text-rose-500 dark:text-rose-400' },
@@ -155,7 +155,8 @@ export default function ThreatMonInfostealer() {
                 ThreatMon IntelHub is protected by Cloudflare managed challenge. Server-side API access is restricted -
                 use their platform to search.
               </p>
-              <button type="button"
+              <button
+                type="button"
                 onClick={openThreatMon}
                 className="px-6 py-2.5 rounded-xl bg-rose-600 dark:bg-rose-500 text-white font-semibold text-sm hover:brightness-110 transition-all inline-flex items-center gap-2 shadow-e1 hover:shadow-e1"
               >
@@ -258,7 +259,7 @@ export default function ThreatMonInfostealer() {
             </p>
             <ul className="space-y-1.5 ml-4">
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" /> Newly leaked corporate credentials
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-500 shrink-0" /> Newly leaked corporate credentials
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0" /> Infected devices linked to your
@@ -276,7 +277,7 @@ export default function ThreatMonInfostealer() {
                 href="https://intelhub.threatmon.io/infostealer-investigation"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 font-medium"
+                className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 font-medium transition-colors"
               >
                 Open ThreatMon IntelHub <ExternalLink className="h-3 w-3" />
               </a>

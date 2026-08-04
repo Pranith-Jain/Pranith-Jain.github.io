@@ -21,7 +21,7 @@ interface McpManifest {
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-  si: 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800',
+  si: 'bg-blue-50 dark:bg-blue-950/40 text-brand-700 dark:text-brand-300 border-blue-200 dark:border-blue-800',
   domain: 'bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800',
   hudson:
     'bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-800',
@@ -192,7 +192,8 @@ export default function McpToolsExplorer() {
           className={`${INPUT} pl-9 pr-3`}
         />
         {query && (
-          <button type="button"
+          <button
+            type="button"
             onClick={() => setQuery('')}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
           >

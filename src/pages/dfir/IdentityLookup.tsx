@@ -73,7 +73,7 @@ function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform
               href={profile.profileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               {profile.profileUrl} <ExternalLink size={9} />
             </a>
@@ -183,7 +183,7 @@ export default function IdentityLookup(): JSX.Element {
           <button
             type="submit"
             disabled={!validQuery || running}
-            className="text-sm font-mono px-3 py-2 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1.5"
+            className="text-sm font-mono px-3 py-2 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1.5 transition-colors"
           >
             {running ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             {running ? `Searching (${doneCount}/${PLATFORMS.length})` : 'Search'}

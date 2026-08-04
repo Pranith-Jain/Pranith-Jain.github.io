@@ -279,7 +279,7 @@ export default function ActorKb(): JSX.Element {
                   href={sanitizeUrl(selected.url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-meta font-mono px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
+                  className="inline-flex items-center gap-1 text-meta font-mono px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10 transition-colors"
                 >
                   {selected.attackId} <ExternalLink size={11} />
                 </a>
@@ -328,7 +328,7 @@ export default function ActorKb(): JSX.Element {
                               target="_blank"
                               rel="noopener noreferrer"
                               title={tech.name}
-                              className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+                              className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                             >
                               {tech.id} {tech.name}
                             </a>
@@ -360,7 +360,7 @@ export default function ActorKb(): JSX.Element {
                                 href={`https://malpedia.caad.fkie.fraunhofer.de/details/${m.type === 'actor' ? 'actor' : 'win'}.${m.name.toLowerCase().replace(/[^a-z0-9]/g, '_')}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-rose-500/30 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10 inline-flex items-center gap-1"
+                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-rose-500/30 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10 inline-flex items-center gap-1 transition-colors"
                               >
                                 {m.name} <ExternalLink size={10} />
                               </a>
@@ -380,7 +380,7 @@ export default function ActorKb(): JSX.Element {
                                 href={`/api/v1/maltrail/fetch?trail=${encodeURIComponent(t.filename)}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40 inline-flex items-center gap-1"
+                                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
                               >
                                 {t.displayName} <ExternalLink size={10} />
                               </a>
@@ -400,7 +400,7 @@ export default function ActorKb(): JSX.Element {
                                 href={`https://otx.alienvault.com/pulse/${p.id}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="block text-mini font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+                                className="block text-mini font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                               >
                                 <span className="text-slate-900 dark:text-slate-100">{p.name}</span>
                                 {p.author && <span className="ml-2 text-slate-500">by {p.author}</span>}
@@ -544,7 +544,7 @@ export default function ActorKb(): JSX.Element {
                   href={`/api/v1/maltrail/fetch?trail=${encodeURIComponent(sk.maltrail_file)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-1.5 inline-flex items-center gap-1 text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
+                  className="mt-1.5 inline-flex items-center gap-1 text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                   title={`Maltrail trail file: ${sk.maltrail_file}`}
                 >
                   <Bug size={9} /> {sk.maltrail_file}

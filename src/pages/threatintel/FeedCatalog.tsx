@@ -199,7 +199,7 @@ export default function FeedCatalog() {
                       href={sanitizeUrl(entry.raw_url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1"
+                      className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1 transition-colors"
                       title="Open feed URL"
                     >
                       <ExternalLink className="w-4 h-4" />

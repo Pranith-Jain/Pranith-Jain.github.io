@@ -287,7 +287,8 @@ export default function OsintCountryMap(): JSX.Element {
             className="w-full pl-9 pr-4 py-2 surface-card text-sm text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-slate-400 dark:focus:border-slate-500"
           />
           {query && (
-            <button type="button"
+            <button
+              type="button"
               onClick={() => setQuery('')}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
             >
@@ -339,7 +340,8 @@ export default function OsintCountryMap(): JSX.Element {
                   <div className="p-4 text-sm text-slate-500 text-center">No countries match "{query}"</div>
                 ) : (
                   filteredCountries.map((c) => (
-                    <button type="button"
+                    <button
+                      type="button"
                       key={c.alpha2}
                       onClick={() => {
                         handleSelect(c.alpha2);
@@ -348,7 +350,9 @@ export default function OsintCountryMap(): JSX.Element {
                       className="w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] flex items-center gap-2"
                     >
                       <span className="text-slate-500">{c.name}</span>
-                      <span className="text-xs text-slate-500 dark:text-slate-400 ml-auto">{c.resources.length} resources</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 ml-auto">
+                        {c.resources.length} resources
+                      </span>
                     </button>
                   ))
                 )}
@@ -368,7 +372,8 @@ export default function OsintCountryMap(): JSX.Element {
                       {selectedResources.length} of {selectedCountry.resources.length} resources
                     </p>
                   </div>
-                  <button type="button"
+                  <button
+                    type="button"
                     onClick={() => handleSelect(null)}
                     className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 p-1"
                   >
@@ -384,7 +389,8 @@ export default function OsintCountryMap(): JSX.Element {
                       if (count === 0) return null;
                       const active = activeCategories.has(cat);
                       return (
-                        <button type="button"
+                        <button
+                          type="button"
                           key={cat}
                           onClick={() => {
                             const next = new Set(activeCategories);
@@ -462,7 +468,7 @@ export default function OsintCountryMap(): JSX.Element {
             href="https://github.com/wddadk/OSINT-for-countries"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted hover:text-slate-800 dark:hover:text-slate-200 underline"
+            className="text-muted hover:text-slate-800 dark:hover:text-slate-200 underline transition-colors"
           >
             wddadk/OSINT-for-countries
           </a>{' '}
@@ -471,7 +477,7 @@ export default function OsintCountryMap(): JSX.Element {
             href="https://map.wddadk.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted hover:text-slate-800 dark:hover:text-slate-200 underline"
+            className="text-muted hover:text-slate-800 dark:hover:text-slate-200 underline transition-colors"
           >
             map.wddadk.com
           </a>
@@ -498,7 +504,8 @@ function ResourceRow({ resource }: { resource: OsintCountryResource }): JSX.Elem
           {CATEGORY_LABELS[resource.category] ?? resource.category}
         </span>
       </div>
-      <button type="button"
+      <button
+        type="button"
         onClick={() => {
           navigator.clipboard.writeText(resource.url);
           setCopied(true);

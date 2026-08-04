@@ -146,7 +146,8 @@ export default function DarkWebRecon(): JSX.Element {
       headerExtra={
         <div className="flex flex-wrap gap-1.5">
           {TABS.map((t) => (
-            <button type="button"
+            <button
+              type="button"
               key={t.id}
               onClick={() => {
                 setTab(t.id);
@@ -178,7 +179,8 @@ export default function DarkWebRecon(): JSX.Element {
             placeholder={activeTab.placeholder}
             className="flex-1 [background:rgb(var(--surface-200)/0.6)] border border-[rgb(var(--border-500))] rounded-xl px-4 py-2.5 text-slate-900 dark:text-slate-200 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-transparent text-sm"
           />
-          <button type="button"
+          <button
+            type="button"
             onClick={handleSearch}
             disabled={loading || !input.trim()}
             className="flex items-center gap-2 px-4 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:bg-slate-700 disabled:text-slate-500 rounded-xl text-sm font-medium text-white transition-colors"
@@ -223,7 +225,7 @@ function OnionSearchResults({ data }: { data: { query: string; count: number; re
               href={r.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-medium text-sm flex items-center gap-1"
+              className="text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-medium text-sm flex items-center gap-1 transition-colors"
             >
               {r.title || 'Untitled'}
               <ExternalLink className="w-3 h-3 flex-shrink-0" />
@@ -346,7 +348,9 @@ function BtcAbuseResults({ data }: { data: ChainAbuseResult }) {
       <div className="flex items-center gap-2">
         <span
           className={`px-2 py-0.5 rounded text-xs font-medium ${
-            data.count > 0 ? 'bg-rose-500/10 text-rose-700 dark:text-rose-300' : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+            data.count > 0
+              ? 'bg-rose-500/10 text-rose-700 dark:text-rose-300'
+              : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
           }`}
         >
           {data.count > 0 ? `${data.count} report${data.count !== 1 ? 's' : ''}` : 'No reports'}

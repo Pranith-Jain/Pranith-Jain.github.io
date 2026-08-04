@@ -295,7 +295,7 @@ export default function PersonalSecurity(): JSX.Element {
             href={sanitizeUrl('https://github.com/lissy93/personal-security-checklist') || undefined}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
           >
             Lissy93&apos;s Personal Security Checklist
             <ExternalLink size={11} aria-hidden="true" />
@@ -305,7 +305,7 @@ export default function PersonalSecurity(): JSX.Element {
             href={sanitizeUrl('https://digital-defense.io/') || undefined}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
           >
             Digital Defense
             <ExternalLink size={11} aria-hidden="true" />
@@ -404,13 +404,13 @@ export default function PersonalSecurity(): JSX.Element {
       <div className="flex flex-wrap gap-2 mb-6">
         <button
           onClick={downloadMd}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 transition-colors"
         >
           <Download size={13} /> Export markdown
         </button>
         <button
           onClick={reset}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5 transition-colors"
         >
           <RotateCcw size={13} /> Reset
         </button>
@@ -502,8 +502,8 @@ export default function PersonalSecurity(): JSX.Element {
             - half-done or untested (counts 0.5×)
           </li>
           <li>
-            <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES.gap.cls}`}>gap</span>{' '}
-            - known not done, on the to-do list
+            <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES.gap.cls}`}>gap</span> -
+            known not done, on the to-do list
           </li>
           <li>
             <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES.na.cls}`}>n/a</span> -
@@ -523,7 +523,7 @@ export default function PersonalSecurity(): JSX.Element {
               href={sanitizeUrl('https://github.com/lissy93/personal-security-checklist') || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Lissy93 - Personal Security Checklist (300+ tips, CC0)
               <ExternalLink size={11} aria-hidden="true" />
@@ -534,7 +534,7 @@ export default function PersonalSecurity(): JSX.Element {
               href={sanitizeUrl('https://digital-defense.io/') || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Digital Defense - interactive personal security checklist
               <ExternalLink size={11} aria-hidden="true" />
@@ -545,7 +545,7 @@ export default function PersonalSecurity(): JSX.Element {
               href={sanitizeUrl('https://ssd.eff.org/') || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               EFF Surveillance Self-Defense
               <ExternalLink size={11} aria-hidden="true" />
@@ -556,7 +556,7 @@ export default function PersonalSecurity(): JSX.Element {
               href={sanitizeUrl('https://www.cisa.gov/cybersecurity') || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               CISA - Cybersecurity Resources
               <ExternalLink size={11} aria-hidden="true" />
@@ -595,7 +595,7 @@ function ItemRow({ item, state, cycle }: { item: CheckItem; state: State; cycle:
               href={sanitizeUrl(r.href) || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               {r.label}
               <ExternalLink size={9} aria-hidden="true" />

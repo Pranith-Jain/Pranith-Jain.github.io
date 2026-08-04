@@ -8,7 +8,7 @@ const SEVERITY_COLORS: Record<string, string> = {
   Russia: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   Iran: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   'North Korea': 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300',
-  NATO: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
+  NATO: 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300',
   'Middle East': 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   Israel: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
   Unknown: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
@@ -68,7 +68,7 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
             <button
               type="button"
               onClick={onClose}
-              className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xl leading-none"
+              className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xl leading-none transition-colors"
             >
               ×
             </button>
@@ -125,7 +125,7 @@ function AptGroupDetail({ group, onClose }: { group: AptGroup; onClose: () => vo
                     href={l}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 break-all"
+                    className="text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 break-all transition-colors"
                   >
                     <ExternalLink size={10} /> {l}
                   </a>
@@ -264,7 +264,7 @@ export default function AptTracker(): JSX.Element {
           href="https://onuroktay14.github.io/APTTracker/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-rose-600 dark:text-rose-400 hover:underline"
+          className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
         >
           APT Tracker
         </a>{' '}

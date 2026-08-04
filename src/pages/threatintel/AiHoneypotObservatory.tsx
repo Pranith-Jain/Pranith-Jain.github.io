@@ -73,7 +73,7 @@ const CATEGORY_CONFIG: Record<string, { label: string; color: string; icon: type
   },
   'SCANNER-ENUM': {
     label: 'Scanner (Enum)',
-    color: 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20',
+    color: 'bg-brand-500/10 text-brand-700 dark:text-brand-400 border-brand-500/20',
     icon: Wifi,
     description: 'Multi-persona enumerators systematically mapping AI service surfaces',
   },
@@ -231,7 +231,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
         <StatCard
           label="Categories"
           value={Object.keys(summary?.by_category ?? {}).length}
-          color="text-blue-700 dark:text-blue-400"
+          color="text-brand-700 dark:text-brand-400"
         />
         <StatCard
           label="Window"
@@ -250,7 +250,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
             href={DASHBOARD_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-600 dark:text-blue-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             ai-honeypots.com
           </a>
@@ -263,7 +263,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
             href={`${DASHBOARD_URL}/feeds/iocs.json`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+            className="text-xs text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1 transition-colors"
           >
             <ExternalLink className="w-3 h-3" /> JSON Feed
           </a>
@@ -271,7 +271,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
             href={`${DASHBOARD_URL}/feeds/stix.json`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+            className="text-xs text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1 transition-colors"
           >
             <ExternalLink className="w-3 h-3" /> STIX 2.1
           </a>
@@ -279,7 +279,7 @@ export default function AiHoneypotObservatory(): JSX.Element {
             href={`${DASHBOARD_URL}/feeds/misp/manifest.json`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+            className="text-xs text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1 transition-colors"
           >
             <ExternalLink className="w-3 h-3" /> MISP
           </a>
@@ -287,11 +287,12 @@ export default function AiHoneypotObservatory(): JSX.Element {
             href={DASHBOARD_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+            className="text-xs text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1 transition-colors"
           >
             <ExternalLink className="w-3 h-3" /> Dashboard
           </a>
-          <button type="button"
+          <button
+            type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
             className="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700"
           >
@@ -315,12 +316,13 @@ export default function AiHoneypotObservatory(): JSX.Element {
               const cfg = CATEGORY_CONFIG[cat];
               const Icon = cfg?.icon ?? Shield;
               return (
-                <button type="button"
+                <button
+                  type="button"
                   key={cat}
                   onClick={() => setCategoryFilter(categoryFilter === cat ? '' : cat)}
                   className={`p-3 rounded-xl border text-left transition-colors ${
                     categoryFilter === cat
-                      ? 'border-blue-500/50 bg-blue-500/10'
+                      ? 'border-brand-500/50 bg-brand-500/10'
                       : 'border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-slate-300 dark:hover:border-[rgb(var(--border-500))]'
                   }`}
                 >
@@ -358,7 +360,8 @@ export default function AiHoneypotObservatory(): JSX.Element {
           <option value="low">Low</option>
         </select>
         {(categoryFilter || confidenceFilter || searchQuery) && (
-          <button type="button"
+          <button
+            type="button"
             onClick={() => {
               setCategoryFilter('');
               setConfidenceFilter('');

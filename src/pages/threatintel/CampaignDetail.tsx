@@ -249,7 +249,9 @@ export default function CampaignDetail(): JSX.Element {
 
           <div className="mb-5 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
             <ShareBar
-              shareText={data.campaign.summary?.split('\n')[0]?.slice(0, 200) || `Campaign: ${data.campaign.campaign_name}`}
+              shareText={
+                data.campaign.summary?.split('\n')[0]?.slice(0, 200) || `Campaign: ${data.campaign.campaign_name}`
+              }
               title={`Campaign: ${data.campaign.campaign_name}`}
               size="sm"
               label="Share:"
@@ -297,7 +299,7 @@ export default function CampaignDetail(): JSX.Element {
                       href={`https://attack.mitre.org/techniques/${m.id.replace('.', '/')}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono font-semibold text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
+                      className="font-mono font-semibold text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors"
                     >
                       {m.id} <ExternalLink size={9} />
                     </a>{' '}

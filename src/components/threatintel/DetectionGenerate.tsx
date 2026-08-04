@@ -5,7 +5,7 @@ import { adminAuthHeaders } from '../../lib/admin-token';
 type RuleType = 'yara' | 'sigma' | 'kql' | 'splunk';
 const RULE_TYPES: { id: RuleType; label: string; color: string }[] = [
   { id: 'yara', label: 'YARA', color: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' },
-  { id: 'sigma', label: 'Sigma', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' },
+  { id: 'sigma', label: 'Sigma', color: 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300' },
   { id: 'kql', label: 'KQL', color: 'bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300' },
   { id: 'splunk', label: 'Splunk SPL', color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' },
 ];
@@ -142,14 +142,14 @@ export function DetectionGenerate({ context }: DetectionGenerateProps) {
                 <button
                   onClick={handleSave}
                   disabled={saving || saved}
-                  className="rounded bg-white/90 p-1 text-slate-500 dark:text-slate-400 hover:text-brand-600 disabled:opacity-50 dark:bg-[rgb(var(--surface-200))/0.9]"
+                  className="rounded bg-white/90 p-1 text-slate-500 dark:text-slate-400 hover:text-brand-600 disabled:opacity-50 dark:bg-[rgb(var(--surface-200))/0.9] transition-colors"
                   aria-label="Save rule"
                 >
                   {saved ? <Check size={12} className="text-emerald-500" /> : <Save size={12} />}
                 </button>
                 <button
                   onClick={handleCopy}
-                  className="rounded bg-white/90 p-1 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:bg-[rgb(var(--surface-200))/0.9]"
+                  className="rounded bg-white/90 p-1 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:bg-[rgb(var(--surface-200))/0.9] transition-colors"
                   aria-label="Copy rule"
                 >
                   {copied ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}

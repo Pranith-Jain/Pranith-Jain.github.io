@@ -263,7 +263,7 @@ export default function RuleConverter(): JSX.Element {
         <button
           type="button"
           onClick={loadSample}
-          className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+          className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           load {FORMAT_LABELS[from]} example
         </button>
@@ -320,7 +320,9 @@ export default function RuleConverter(): JSX.Element {
                         <div className="text-meta font-medium text-slate-900 dark:text-slate-100 leading-tight">
                           {s.label}
                         </div>
-                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5 truncate">{s.description}</div>
+                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5 truncate">
+                          {s.description}
+                        </div>
                       </button>
                     </li>
                   ))}

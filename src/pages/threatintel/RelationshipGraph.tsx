@@ -276,7 +276,7 @@ export default function RelationshipGraphPage(): JSX.Element {
           <button
             type="submit"
             disabled={loading || !query.trim()}
-            className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2"
+            className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             {loading ? 'Exploring…' : 'Explore'}
@@ -285,7 +285,7 @@ export default function RelationshipGraphPage(): JSX.Element {
             <button
               type="button"
               onClick={clearGraph}
-              className="px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-sm"
+              className="px-3 py-2 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] font-mono text-sm transition-colors"
             >
               Clear
             </button>

@@ -11,7 +11,7 @@ const SEV_COLORS: Record<string, string> = {
   high: 'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800/50',
   medium:
     'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800/50',
-  low: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800/50',
+  low: 'text-brand-600 dark:text-brand-400 bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800/50',
 };
 
 export default function IocFeedsPage(): JSX.Element {
@@ -61,7 +61,7 @@ export default function IocFeedsPage(): JSX.Element {
             href="https://the-hunters-ledger.com/ioc-feeds/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             The Hunter's Ledger
           </a>{' '}
@@ -84,7 +84,8 @@ export default function IocFeedsPage(): JSX.Element {
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-6">
-        <button type="button"
+        <button
+          type="button"
           onClick={() => setActiveSev(null)}
           className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeSev
@@ -95,7 +96,8 @@ export default function IocFeedsPage(): JSX.Element {
           All ({IOC_FEEDS.length})
         </button>
         {SEVERITIES.map((sev) => (
-          <button type="button"
+          <button
+            type="button"
             key={sev}
             onClick={() => setActiveSev(activeSev === sev ? null : sev)}
             className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
@@ -110,71 +112,74 @@ export default function IocFeedsPage(): JSX.Element {
       </div>
 
       <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
-        <div className="overflow-x-auto"><table className="w-full text-left font-mono text-xs">
-          <thead>
-            <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]">
-              <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider">Severity</th>
-              <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider">Feed</th>
-              <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider">Tags</th>
-              <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider text-right">IOCs</th>
-              <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map((feed) => (
-              <tr
-                key={feed.id}
-                className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)] transition-colors"
-              >
-                <td className="px-4 py-3">
-                  <span
-                    className={`inline-flex items-center gap-1 text-micro font-semibold px-2 py-0.5 rounded border uppercase tracking-wider ${SEV_COLORS[feed.severity]}`}
-                  >
-                    {feed.severity === 'critical' && <AlertTriangle size={9} />}
-                    {feed.severity === 'high' && <Shield size={9} />}
-                    {feed.severity}
-                  </span>
-                </td>
-                <td className="px-4 py-3">
-                  <span className="text-slate-900 dark:text-slate-100">{feed.title}</span>
-                  <span className="text-slate-500 ml-2">· {feed.date}</span>
-                </td>
-                <td className="px-4 py-3">
-                  <div className="flex flex-wrap gap-1">
-                    {feed.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-micro px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </td>
-                <td className="px-4 py-3 text-right text-slate-700 dark:text-slate-300">{feed.iocCount}</td>
-                <td className="px-4 py-3 text-right">
-                  <div className="flex items-center justify-end gap-1.5">
-                    <button type="button"
-                      onClick={() => copyUrl(feed)}
-                      className="inline-flex items-center gap-1 text-micro px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
-                    >
-                      {copiedId === feed.id ? 'copied' : <Filter size={9} />}
-                      {copiedId === feed.id ? 'Copied' : 'Copy URL'}
-                    </button>
-                    <a
-                      href={sanitizeUrl(feed.downloadUrl)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-micro px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
-                    >
-                      <Download size={9} /> Download
-                    </a>
-                  </div>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left font-mono text-xs">
+            <thead>
+              <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]">
+                <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider">Severity</th>
+                <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider">Feed</th>
+                <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider">Tags</th>
+                <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider text-right">IOCs</th>
+                <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider text-right">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table></div>
+            </thead>
+            <tbody>
+              {filtered.map((feed) => (
+                <tr
+                  key={feed.id}
+                  className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)] transition-colors"
+                >
+                  <td className="px-4 py-3">
+                    <span
+                      className={`inline-flex items-center gap-1 text-micro font-semibold px-2 py-0.5 rounded border uppercase tracking-wider ${SEV_COLORS[feed.severity]}`}
+                    >
+                      {feed.severity === 'critical' && <AlertTriangle size={9} />}
+                      {feed.severity === 'high' && <Shield size={9} />}
+                      {feed.severity}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className="text-slate-900 dark:text-slate-100">{feed.title}</span>
+                    <span className="text-slate-500 ml-2">· {feed.date}</span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex flex-wrap gap-1">
+                      {feed.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-micro px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-right text-slate-700 dark:text-slate-300">{feed.iocCount}</td>
+                  <td className="px-4 py-3 text-right">
+                    <div className="flex items-center justify-end gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => copyUrl(feed)}
+                        className="inline-flex items-center gap-1 text-micro px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                      >
+                        {copiedId === feed.id ? 'copied' : <Filter size={9} />}
+                        {copiedId === feed.id ? 'Copied' : 'Copy URL'}
+                      </button>
+                      <a
+                        href={sanitizeUrl(feed.downloadUrl)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-micro px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                      >
+                        <Download size={9} /> Download
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {filtered.length === 0 && (

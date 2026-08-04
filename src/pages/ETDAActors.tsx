@@ -390,7 +390,7 @@ export default function ETDAActorsPage() {
                                 href={op.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-brand-400 hover:underline inline-flex items-center gap-1"
+                                className="text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
                               >
                                 {op.title} <ExternalLink className="w-3 h-3" />
                               </a>
@@ -426,7 +426,7 @@ export default function ETDAActorsPage() {
                     href={detailData.mitreLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-mono text-xs text-brand-400 hover:underline"
+                    className="inline-flex items-center gap-1 font-mono text-xs text-brand-400 hover:underline transition-colors"
                   >
                     <ExternalLink className="w-3 h-3" /> MITRE ATT&CK {detailData.mitreId}
                   </a>
@@ -445,7 +445,7 @@ export default function ETDAActorsPage() {
                             href={url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-mono text-xs text-brand-400 hover:underline inline-flex items-center gap-1"
+                            className="font-mono text-xs text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
                           >
                             <ExternalLink className="w-3 h-3" /> {new URL(url).hostname}
                           </a>

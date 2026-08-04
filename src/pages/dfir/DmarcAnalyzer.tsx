@@ -317,7 +317,7 @@ export default function DmarcAnalyzer(): JSX.Element {
             href="https://www.dmarclabsds1.xyz/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             DMARC Labs
           </a>
@@ -398,7 +398,7 @@ export default function DmarcAnalyzer(): JSX.Element {
               <h2 className="text-lg font-display font-bold">{report.domain}</h2>
               <button
                 onClick={exportCsv}
-                className="inline-flex items-center gap-2 text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                className="inline-flex items-center gap-2 text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
               >
                 <Download size={14} /> Export CSV
               </button>

@@ -289,7 +289,7 @@ export default function Owasp(): JSX.Element {
               href={sanitizeUrl(l.reference) || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
             >
               {l.label}
             </a>

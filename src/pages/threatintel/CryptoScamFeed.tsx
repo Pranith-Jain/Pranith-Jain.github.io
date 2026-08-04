@@ -109,7 +109,7 @@ export default function CryptoScamFeed(): JSX.Element {
           href="https://github.com/spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-rose-600 dark:text-rose-400 hover:underline"
+          className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
         >
           spmedia/Crypto-Scam-and-Crypto-Phishing-Threat-Intel-Feed
         </a>{' '}
@@ -179,7 +179,7 @@ export default function CryptoScamFeed(): JSX.Element {
             type="button"
             onClick={copyBlocklist}
             disabled={filtered.length === 0}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-50 transition-colors"
             title="Copy filtered domains as a newline-separated blocklist"
           >
             {copied ? <Check size={12} /> : <Copy size={12} />} {copied ? 'copied' : 'copy blocklist'}

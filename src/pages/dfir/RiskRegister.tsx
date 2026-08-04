@@ -80,7 +80,7 @@ const RISK_COLORS: Record<RiskLevel, { text: string; chip: string; bar: string }
 
 const STATUS_TONES: Record<RiskStatus, string> = {
   identified: 'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-400',
-  assessed: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
+  assessed: 'bg-blue-100 dark:bg-blue-900/30 text-brand-700 dark:text-brand-300',
   treatment: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   monitoring: 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300',
   accepted: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300',
@@ -284,7 +284,7 @@ export default function RiskRegister(): JSX.Element {
             type="button"
             onClick={fetchData}
             disabled={loading}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={11} className="animate-spin" /> : <RefreshCw size={11} />}
           </button>
@@ -382,7 +382,7 @@ export default function RiskRegister(): JSX.Element {
                 type="button"
                 onClick={handleCreate}
                 disabled={!form.title}
-                className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50"
+                className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
               >
                 Create
               </button>
@@ -418,7 +418,9 @@ export default function RiskRegister(): JSX.Element {
                   >
                     {entry.priority_score}
                   </span>
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 uppercase mt-0.5">priority</span>
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 uppercase mt-0.5">
+                    priority
+                  </span>
                 </div>
 
                 {/* Info */}
@@ -435,7 +437,9 @@ export default function RiskRegister(): JSX.Element {
                     <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${statusTone} shrink-0`}>
                       {entry.status}
                     </span>
-                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">{entry.category}</span>
+                    <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">
+                      {entry.category}
+                    </span>
                   </div>
                   <div className="flex items-center gap-3 text-micro text-slate-500 mt-0.5">
                     <span>inherent: {entry.inherent_level}</span>
@@ -522,7 +526,8 @@ export default function RiskRegister(): JSX.Element {
                           {entry.fair.sle_most_likely.toLocaleString()}
                         </div>
                         <div>
-                          <span className="text-slate-500 dark:text-slate-400">ARO:</span> {entry.fair.annual_occurrences}x/yr
+                          <span className="text-slate-500 dark:text-slate-400">ARO:</span>{' '}
+                          {entry.fair.annual_occurrences}x/yr
                         </div>
                         <div>
                           <span className="text-slate-500 dark:text-slate-400">ALE:</span>{' '}

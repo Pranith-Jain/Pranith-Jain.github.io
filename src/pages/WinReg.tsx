@@ -47,7 +47,7 @@ interface ArtifactBody {
 
 const HIVE_COLORS: Record<string, string> = {
   NTUSER: 'text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-950/40 border-green-300 dark:border-green-800',
-  SOFTWARE: 'text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/40 border-blue-300 dark:border-blue-800',
+  SOFTWARE: 'text-brand-700 dark:text-brand-300 bg-blue-50 dark:bg-blue-950/40 border-brand-300 dark:border-blue-800',
   SYSTEM: 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
   SAM: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
   SECURITY:
@@ -123,7 +123,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
                   href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}/`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-mono text-micro font-bold text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border border-orange-300 dark:border-orange-800 px-2 py-0.5 rounded hover:bg-orange-100 dark:hover:bg-orange-950/60"
+                  className="inline-flex items-center gap-1 font-mono text-micro font-bold text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border border-orange-300 dark:border-orange-800 px-2 py-0.5 rounded hover:bg-orange-100 dark:hover:bg-orange-950/60 transition-colors"
                 >
                   {t} <ExternalLink size={10} />
                 </a>
@@ -154,7 +154,7 @@ function ArtifactDetail({ body, onClose }: { body: ArtifactBody; onClose: () => 
             href={body.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             {body.source}
           </a>{' '}
@@ -212,7 +212,7 @@ export default function WinReg() {
             href="https://dfir-scripts.github.io/registry/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             dfir-scripts.github.io/registry
           </a>{' '}
@@ -325,7 +325,9 @@ export default function WinReg() {
                       </span>
                     ))}
                     {art.techniques.length > 3 && (
-                      <span className="font-mono text-micro text-slate-500 dark:text-slate-400">+{art.techniques.length - 3}</span>
+                      <span className="font-mono text-micro text-slate-500 dark:text-slate-400">
+                        +{art.techniques.length - 3}
+                      </span>
                     )}
                   </div>
                 )}
@@ -346,7 +348,7 @@ export default function WinReg() {
             href="https://dfir-scripts.github.io/registry/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             dfir-scripts.github.io
           </a>{' '}
@@ -356,7 +358,7 @@ export default function WinReg() {
           MITRE ATT&CK.
           <br />
           File hash enrichment via{' '}
-          <a href="/dfir/traceix" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <a href="/dfir/traceix" className="text-brand-600 dark:text-brand-400 hover:underline transition-colors">
             Traceix
           </a>{' '}
           (PCEF /{' '}
@@ -364,7 +366,7 @@ export default function WinReg() {
             href="https://traceix.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             traceix.com
           </a>

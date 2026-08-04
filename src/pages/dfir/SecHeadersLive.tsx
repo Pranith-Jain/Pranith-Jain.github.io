@@ -133,12 +133,15 @@ export default function SecHeadersLive(): JSX.Element {
             href={CITATIONS.apiDocs}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5 transition-colors"
           >
             IntoDNS.ai <ExternalLink size={10} aria-hidden="true" />
           </a>
           . For paste-your-own-headers analysis, see{' '}
-          <a href="/dfir/sec-headers-live" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <a
+            href="/dfir/sec-headers-live"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
+          >
             the offline analyzer
           </a>
           .
@@ -156,7 +159,7 @@ export default function SecHeadersLive(): JSX.Element {
         <button
           type="submit"
           disabled={!valid || loading}
-          className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+          className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
         >
           {loading ? (
             <Loader2 size={16} className="inline animate-spin" />
@@ -259,7 +262,7 @@ export default function SecHeadersLive(): JSX.Element {
                   href={CITATIONS.generate}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+                  className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5 transition-colors"
                 >
                   IntoDNS.ai generator <ExternalLink size={9} />
                 </a>

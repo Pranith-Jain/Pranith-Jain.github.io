@@ -51,7 +51,7 @@ const CATEGORY_META: Record<string, { label: string; icon: typeof Shield; color:
   collected: {
     label: 'Collected IOCs',
     icon: Database,
-    color: 'text-blue-600 dark:text-blue-500 border-blue-500/30 bg-blue-100 dark:bg-blue-500/10',
+    color: 'text-brand-600 dark:text-brand-500 border-brand-500/30 bg-blue-100 dark:bg-brand-500/10',
   },
 };
 
@@ -187,7 +187,7 @@ export default function AggregatedFeeds() {
                       href={sanitizeUrl(feed.url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1"
+                      className="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1 transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />
                     </a>

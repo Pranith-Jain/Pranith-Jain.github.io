@@ -474,7 +474,7 @@ export default function WeatherOsint(): JSX.Element {
                 href={`https://www.google.com/maps?q=${result.lat},${result.lon}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
               >
                 Google Maps <ExternalLink size={11} />
               </a>
@@ -482,7 +482,7 @@ export default function WeatherOsint(): JSX.Element {
                 href={`https://www.google.com/search?q=weather+${encodeURIComponent(result.location)}+${encodeURIComponent(result.country)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
               >
                 Google Weather Search <ExternalLink size={11} />
               </a>
@@ -490,7 +490,7 @@ export default function WeatherOsint(): JSX.Element {
                 href={`https://www.windy.com/${result.lat}/${result.lon}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
               >
                 Windy.com (radar) <ExternalLink size={11} />
               </a>
@@ -498,7 +498,7 @@ export default function WeatherOsint(): JSX.Element {
                 href={`https://zoom.earth/#view=${result.lat},${result.lon},12z`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
               >
                 Zoom Earth (satellite) <ExternalLink size={11} />
               </a>

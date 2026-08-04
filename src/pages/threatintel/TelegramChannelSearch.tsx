@@ -145,7 +145,7 @@ export default function TelegramChannelSearch(): JSX.Element {
         <button
           type="submit"
           disabled={loading || !input.trim()}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-600 text-white text-sm font-mono hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-600 text-white text-sm font-mono hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
           Search
@@ -259,7 +259,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                   href={sanitizeUrl(`https://telegram.me/s/${r.handle}`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
                 >
                   <ExternalLink size={11} /> telegram.me/s/{r.handle}
                 </a>
@@ -267,7 +267,7 @@ export default function TelegramChannelSearch(): JSX.Element {
                   href={sanitizeUrl(r.tgstat_url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
                 >
                   tgstat
                 </a>

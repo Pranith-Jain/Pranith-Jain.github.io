@@ -279,7 +279,7 @@ export default function MitreMatrix(): JSX.Element {
               href="https://navigator.ipurple.team/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               iPurple ATT&CK Navigator <ExternalLink className="w-3 h-3" />
             </a>
@@ -328,7 +328,11 @@ export default function MitreMatrix(): JSX.Element {
         {/* Search + coverage toolbar */}
         <div className="flex flex-wrap items-center gap-2 mb-8">
           <div className="relative flex-1 min-w-[260px] max-w-md">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+            <Search
+              size={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              aria-hidden="true"
+            />
             <input
               type="text"
               value={query}

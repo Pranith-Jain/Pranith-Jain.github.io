@@ -380,7 +380,7 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
             href="https://www.ransomware.live"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             ransomware.live
           </a>
@@ -437,7 +437,7 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/70 disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/70 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={13} className="animate-spin" /> : <ShieldAlert size={13} />} build report
           </button>
@@ -538,7 +538,7 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
                             href={sanitizeUrl(`https://nvd.nist.gov/vuln/detail/${v.CVE}`) || undefined}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-mono text-meta text-rose-600 dark:text-rose-400 hover:underline"
+                            className="font-mono text-meta text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                           >
                             {v.CVE}
                           </a>

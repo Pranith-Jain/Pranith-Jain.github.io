@@ -421,14 +421,14 @@ export default function Tracer(): JSX.Element {
             placeholder="Min amount"
           />
           <button
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 dark:bg-brand-500 p-2 font-mono font-semibold text-white hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-30"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 dark:bg-brand-500 p-2 font-mono font-semibold text-white hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-30 transition-colors"
             onClick={onSeed}
             disabled={loading || !seed.trim()}
           >
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null} Trace
           </button>
           <button
-            className="flex w-full items-center justify-center gap-2 rounded border border-amber-600 p-2 text-xs text-amber-600 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950 disabled:opacity-40"
+            className="flex w-full items-center justify-center gap-2 rounded border border-amber-600 p-2 text-xs text-amber-600 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950 disabled:opacity-40 transition-colors"
             disabled={!graph}
             onClick={findCashOut}
           >
@@ -436,7 +436,7 @@ export default function Tracer(): JSX.Element {
           </button>
           <div className="grid grid-cols-2 gap-2">
             <button
-              className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40"
+              className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 transition-colors"
               disabled={!graph}
               onClick={() => {
                 setTraceTitle(`${chain}:${seed.slice(0, 10)}`);
@@ -446,7 +446,7 @@ export default function Tracer(): JSX.Element {
               Save trace
             </button>
             <button
-              className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               onClick={loadList}
             >
               Load…
@@ -454,21 +454,21 @@ export default function Tracer(): JSX.Element {
           </div>
           <div className="grid grid-cols-3 gap-2">
             <button
-              className="rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40"
+              className="rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 transition-colors"
               disabled={!graph}
               onClick={() => void exportTrace('json')}
             >
               JSON
             </button>
             <button
-              className="rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40"
+              className="rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 transition-colors"
               disabled={!graph}
               onClick={() => void exportTrace('csv')}
             >
               CSV
             </button>
             <button
-              className="rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40"
+              className="rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 transition-colors"
               disabled={!graph}
               onClick={() => void exportTrace('png')}
             >
@@ -483,7 +483,7 @@ export default function Tracer(): JSX.Element {
                   {savedList.map((sv) => (
                     <li key={sv.id}>
                       <button
-                        className="w-full truncate text-left hover:text-brand-600 dark:hover:text-brand-400"
+                        className="w-full truncate text-left hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                         onClick={() => void loadTrace(sv.id)}
                       >
                         {sv.title} <span className="text-slate-500">({sv.chain})</span>
@@ -541,20 +541,20 @@ export default function Tracer(): JSX.Element {
               ) : null}
               <div className="flex flex-col gap-2 pt-2">
                 <button
-                  className="rounded bg-brand-600 p-2 text-xs hover:bg-brand-700"
+                  className="rounded bg-brand-600 p-2 text-xs hover:bg-brand-700 transition-colors"
                   onClick={() => void expand(selected.address, selected.chain, graph)}
                 >
                   Expand this node
                 </button>
                 <button
-                  className="flex items-center justify-center gap-1 rounded bg-emerald-700 p-2 text-xs hover:bg-emerald-600"
+                  className="flex items-center justify-center gap-1 rounded bg-emerald-700 p-2 text-xs hover:bg-emerald-600 transition-colors"
                   onClick={() => confirmHopsTo(selected.id)}
                 >
                   <Check className="h-3 w-3" /> Confirm hops
                 </button>
                 {sanitizeHttpUrl(selected.explorer_url) ? (
                   <a
-                    className="flex items-center justify-center gap-1 rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+                    className="flex items-center justify-center gap-1 rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     href={sanitizeHttpUrl(selected.explorer_url)}
                     target="_blank"
                     rel="noreferrer"
@@ -563,7 +563,7 @@ export default function Tracer(): JSX.Element {
                   </a>
                 ) : null}
                 <button
-                  className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                   onClick={() => void pinToInvestigation(selected.address, 'crypto-address')}
                 >
                   Pin to investigation
@@ -581,14 +581,14 @@ export default function Tracer(): JSX.Element {
                           {e.tx_hash.slice(0, 14)}…
                         </span>
                         <button
-                          className="rounded border border-slate-300 dark:border-slate-600 px-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40"
+                          className="rounded border border-slate-300 dark:border-slate-600 px-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 transition-colors"
                           disabled={selected.chain === 'btc' || selected.chain === 'solana' || calldataLoading}
                           onClick={() => void inspectCalldata(e.tx_hash, selected.chain)}
                         >
                           Inspect calldata
                         </button>
                         <button
-                          className="rounded border border-slate-300 dark:border-slate-600 px-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800"
+                          className="rounded border border-slate-300 dark:border-slate-600 px-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                           onClick={() => void pinToInvestigation(e.tx_hash, 'tx-hash')}
                         >
                           pin
@@ -647,7 +647,7 @@ export default function Tracer(): JSX.Element {
                       <li key={c.address} className="flex items-center justify-between gap-2">
                         <span className="truncate font-mono text-micro">{c.address}</span>
                         <button
-                          className="rounded border border-slate-300 dark:border-slate-600 px-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800"
+                          className="rounded border border-slate-300 dark:border-slate-600 px-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                           onClick={() => setSeed(c.address)}
                         >
                           seed
@@ -668,14 +668,14 @@ export default function Tracer(): JSX.Element {
                       href={d.webUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="rounded border border-slate-300 dark:border-slate-600 px-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800"
+                      className="rounded border border-slate-300 dark:border-slate-600 px-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     >
                       {d.label}
                     </a>
                   ))}
                 </div>
                 <button
-                  className="mt-1 w-full rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="mt-1 w-full rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                   onClick={() => void runUnifiedSearch(selected.address)}
                 >
                   Run unified search
@@ -685,7 +685,7 @@ export default function Tracer(): JSX.Element {
                 ) : null}
                 {selected.chain === 'evm' && !selected.label && !ensName ? (
                   <button
-                    className="mt-1 w-full rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800"
+                    className="mt-1 w-full rounded border border-slate-300 dark:border-slate-600 p-1 text-micro hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     onClick={() => void resolveEns(selected.address)}
                   >
                     Resolve ENS
@@ -703,7 +703,7 @@ export default function Tracer(): JSX.Element {
                         {links.map((l) => (
                           <li key={l.label}>
                             <a
-                              className="text-micro text-brand-600 dark:text-brand-400 hover:underline"
+                              className="text-micro text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                               href={l.apiPath}
                               target="_blank"
                               rel="noreferrer"
@@ -722,13 +722,13 @@ export default function Tracer(): JSX.Element {
               <div className="border-t border-slate-200 dark:border-slate-700 pt-2">
                 <div className="grid grid-cols-2 gap-2">
                   <button
-                    className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+                    className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     onClick={watchAddress}
                   >
                     Watch address
                   </button>
                   <button
-                    className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+                    className="rounded border border-slate-300 dark:border-slate-600 p-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     onClick={loadAlerts}
                   >
                     Load alerts
@@ -783,7 +783,7 @@ export default function Tracer(): JSX.Element {
             <button
               type="submit"
               disabled={!traceTitle.trim()}
-              className="px-3 py-1.5 rounded bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
+              className="px-3 py-1.5 rounded bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40 transition-colors"
             >
               Save
             </button>

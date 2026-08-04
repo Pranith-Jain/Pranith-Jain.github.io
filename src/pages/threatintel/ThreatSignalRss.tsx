@@ -255,7 +255,7 @@ export default function ThreatSignalRss(): JSX.Element {
             href="https://www.threatsignal.in/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             ThreatSignal
           </a>
@@ -264,7 +264,7 @@ export default function ThreatSignalRss(): JSX.Element {
             href="https://opensourcemalware.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             OpenSourceMalware
           </a>
@@ -273,7 +273,7 @@ export default function ThreatSignalRss(): JSX.Element {
             href="https://ctrlaltintel.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             Ctrl-Alt-Intel
           </a>
@@ -282,7 +282,7 @@ export default function ThreatSignalRss(): JSX.Element {
             href="https://research.checkpoint.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             Check Point Research
           </a>
@@ -291,7 +291,7 @@ export default function ThreatSignalRss(): JSX.Element {
             href="https://unit42.paloaltonetworks.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             Unit 42
           </a>
@@ -300,7 +300,7 @@ export default function ThreatSignalRss(): JSX.Element {
             href="https://www.elastic.co/security-labs"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             Elastic Security Labs
           </a>
@@ -309,7 +309,7 @@ export default function ThreatSignalRss(): JSX.Element {
             href="https://www.volexity.com/blog/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             Volexity
           </a>
@@ -404,7 +404,10 @@ export default function ThreatSignalRss(): JSX.Element {
                       <AlertTriangle size={9} /> stale
                     </span>
                   )}
-                  <ExternalLink size={10} className="ml-auto text-slate-500 dark:text-slate-400 group-hover:text-rose-500" />
+                  <ExternalLink
+                    size={10}
+                    className="ml-auto text-slate-500 dark:text-slate-400 group-hover:text-rose-500"
+                  />
                 </div>
                 <div className="flex items-center gap-3 text-micro font-mono text-slate-500 dark:text-slate-400">
                   <span>{stats?.count ?? 0} posts</span>
@@ -428,7 +431,10 @@ export default function ThreatSignalRss(): JSX.Element {
         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white/50 dark:bg-[rgb(var(--surface-200))]/30 p-3 mb-4 flex flex-col gap-2">
           <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
-              <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search
+                size={12}
+                className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              />
               <input
                 type="text"
                 value={query}
@@ -565,10 +571,13 @@ function PostCard({ item, summary }: { item: RssItem; summary?: string }): JSX.E
           href={sanitizeUrl(item.link)}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 inline-flex items-center gap-1"
+          className="flex-1 font-semibold text-slate-900 dark:text-slate-100 text-sm leading-snug group-hover:text-rose-600 dark:group-hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
         >
           {item.title}
-          <ExternalLink size={12} className="text-slate-500 dark:text-slate-400 group-hover:text-rose-500 shrink-0 mt-0.5" />
+          <ExternalLink
+            size={12}
+            className="text-slate-500 dark:text-slate-400 group-hover:text-rose-500 shrink-0 mt-0.5"
+          />
         </a>
         <PostAnalysisButton
           title={item.title}
@@ -606,7 +615,9 @@ function PostCard({ item, summary }: { item: RssItem; summary?: string }): JSX.E
           <Clock size={9} />
           {relativeDate(item.pubDate)}
         </span>
-        {item.author && <span className="text-micro font-mono text-slate-500 dark:text-slate-400">· {item.author}</span>}
+        {item.author && (
+          <span className="text-micro font-mono text-slate-500 dark:text-slate-400">· {item.author}</span>
+        )}
         <span className="ml-auto inline-flex items-center gap-0.5 text-micro font-mono text-slate-500 dark:text-slate-400 group-hover:text-rose-500">
           read <ChevronRight size={10} />
         </span>

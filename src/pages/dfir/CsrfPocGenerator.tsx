@@ -38,7 +38,7 @@ const DEFAULT_FIELDS: CsrfField[] = [
 
 const METHOD_COLORS: Record<Method, string> = {
   GET: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300',
-  POST: 'bg-blue-500/15 text-blue-700 dark:text-blue-300',
+  POST: 'bg-brand-500/15 text-brand-700 dark:text-brand-300',
   PUT: 'bg-amber-500/15 text-amber-700 dark:text-amber-300',
   DELETE: 'bg-rose-500/15 text-rose-700 dark:text-rose-300',
   PATCH: 'bg-purple-500/15 text-purple-700 dark:text-purple-300',
@@ -318,12 +318,12 @@ export default function CsrfPocGenerator(): JSX.Element {
           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] p-4">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold flex items-center gap-2">
-                <FileCode size={14} className="text-blue-500" /> Form Fields
+                <FileCode size={14} className="text-brand-500" /> Form Fields
               </h3>
               <button
                 type="button"
                 onClick={addField}
-                className="text-xs px-2 py-1 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 hover:bg-blue-500/20"
+                className="text-xs px-2 py-1 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 transition-colors"
               >
                 + Add Field
               </button>
@@ -400,14 +400,14 @@ export default function CsrfPocGenerator(): JSX.Element {
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="flex items-center gap-1 text-xs px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))]"
+                  className="flex items-center gap-1 text-xs px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-200))] hover:bg-slate-200 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                 >
                   <Copy size={12} /> {copied ? 'Copied!' : 'Copy'}
                 </button>
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="flex items-center gap-1 text-xs px-2 py-1 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 hover:bg-blue-500/20"
+                  className="flex items-center gap-1 text-xs px-2 py-1 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 transition-colors"
                 >
                   <Download size={12} /> Download
                 </button>

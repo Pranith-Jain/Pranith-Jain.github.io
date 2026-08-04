@@ -44,7 +44,7 @@ const FORUM_COLORS: Record<string, string> = {
   cracked: 'border-violet-500/40 bg-violet-500/10 text-violet-600 dark:text-violet-400',
   hackforums: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400',
   dread: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
-  telegram: 'border-blue-500/40 bg-blue-500/10 text-blue-600 dark:text-blue-400',
+  telegram: 'border-brand-500/40 bg-brand-500/10 text-brand-600 dark:text-brand-400',
   raidforums: 'border-amber-500/40 bg-amber-500/10 text-amber-600 dark:text-amber-400',
   nulled: 'border-slate-500/40 bg-slate-500/10 text-slate-600 dark:text-slate-400',
 };
@@ -166,7 +166,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
             href="https://threatactorusernames.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             ScrapedIntel
           </a>{' '}
@@ -206,7 +206,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
           </div>
           <button
             type="submit"
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-4 py-2.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/70"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-4 py-2.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/70 transition-colors"
           >
             <Search size={14} /> Search
           </button>
@@ -219,7 +219,8 @@ export default function ScrapedIntelUsernames(): JSX.Element {
           <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-2">Quick Search</h3>
           <div className="flex flex-wrap gap-2">
             {QUICK_SEARCHES.map((q) => (
-              <button type="button"
+              <button
+                type="button"
                 key={q}
                 onClick={() => {
                   setInput(q);
@@ -248,15 +249,17 @@ export default function ScrapedIntelUsernames(): JSX.Element {
             )}
           </p>
           <div className="ml-auto flex gap-2">
-            <button type="button"
+            <button
+              type="button"
               onClick={exportCsv}
-              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted"
+              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted transition-colors"
             >
               <Download size={12} /> CSV
             </button>
-            <button type="button"
+            <button
+              type="button"
               onClick={exportJson}
-              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted"
+              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted transition-colors"
             >
               <Download size={12} /> JSON
             </button>
@@ -264,7 +267,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
               href={`https://threatactorusernames.com/search?q=${encodeURIComponent(data.query)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted"
+              className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 text-muted transition-colors"
             >
               <ExternalLink size={12} /> Upstream
             </a>
@@ -310,7 +313,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                   <div className="mt-2 pt-2 border-t border-slate-100 dark:border-[rgb(var(--border-400))]/50 opacity-0 group-hover:opacity-100 transition-opacity">
                     <a
                       href={`/dfir/agent-suite?query=Investigate+actor+${encodeURIComponent(m.username)}`}
-                      className="inline-flex items-center gap-1 text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline"
+                      className="inline-flex items-center gap-1 text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                     >
                       <Bot size={12} /> Investigate with Agent
                     </a>
@@ -364,7 +367,7 @@ export default function ScrapedIntelUsernames(): JSX.Element {
                     href={data.source_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline hover:text-rose-500"
+                    className="underline hover:text-rose-500 transition-colors"
                   >
                     {data.source}
                   </a>

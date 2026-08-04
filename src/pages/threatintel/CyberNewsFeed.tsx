@@ -32,7 +32,7 @@ const TIER_LABELS: Record<number, { label: string; color: string }> = {
   },
   3: {
     label: 'Research',
-    color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border-blue-200 dark:border-blue-800',
+    color: 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-400 border-blue-200 dark:border-blue-800',
   },
   4: {
     label: 'Vendor',
@@ -75,7 +75,8 @@ export default function CyberNewsFeed(): JSX.Element {
             className="w-full pl-9 pr-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-sm"
           />
         </div>
-        <button type="button"
+        <button
+          type="button"
           onClick={refetch}
           disabled={loading}
           className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl text-sm flex items-center gap-1.5 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
@@ -86,7 +87,8 @@ export default function CyberNewsFeed(): JSX.Element {
       </div>
 
       <div className="flex flex-wrap gap-1.5">
-        <button type="button"
+        <button
+          type="button"
           onClick={() => setActiveTier(null)}
           className={`px-2.5 py-1 rounded-xl text-xs font-medium border transition-colors ${
             activeTier === null
@@ -98,7 +100,8 @@ export default function CyberNewsFeed(): JSX.Element {
           All Tiers
         </button>
         {Object.entries(TIER_LABELS).map(([tier, { label, color }]) => (
-          <button type="button"
+          <button
+            type="button"
             key={tier}
             onClick={() => setActiveTier(activeTier === Number(tier) ? null : Number(tier))}
             className={`px-2.5 py-1 rounded-xl text-xs font-medium border transition-colors ${

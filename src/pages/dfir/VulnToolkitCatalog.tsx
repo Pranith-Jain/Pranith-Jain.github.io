@@ -1128,7 +1128,7 @@ const VULN_COLUMNS: DataTableColumn<VulnEntry>[] = [
             href={a.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+            className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5 transition-colors"
           >
             {a.label} <ExternalLink size={8} />
           </a>

@@ -61,7 +61,7 @@ export default function MalpediaPage(): JSX.Element {
           href="https://malpedia.caad.fkie.fraunhofer.de/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-rose-600 dark:text-rose-400 hover:underline"
+          className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
         >
           Fraunhofer FKIE Malpedia
         </a>{' '}
@@ -232,7 +232,7 @@ export default function MalpediaPage(): JSX.Element {
                       href={sanitizeUrl(ref) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-meta font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 break-all"
+                      className="text-meta font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 break-all transition-colors"
                     >
                       {ref} <ExternalLink size={10} />
                     </a>

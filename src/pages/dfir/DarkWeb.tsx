@@ -315,10 +315,7 @@ export default function DarkWeb(): JSX.Element {
       headerExtra={
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           Per-source widgets -{' '}
-          <Link
-            to="/threatintel/ransomware-hub"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
-          >
+          <Link to="/threatintel/ransomware-hub" className="text-brand-600 dark:text-brand-400 hover:underline">
             ransomware activity
           </Link>
           ,{' '}
@@ -366,7 +363,7 @@ export default function DarkWeb(): JSX.Element {
             <button
               type="button"
               onClick={toggleAllSources}
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
             >
               {allSourcesOn ? 'clear all' : 'select all'}
             </button>
@@ -436,7 +433,7 @@ export default function DarkWeb(): JSX.Element {
             <button
               type="submit"
               disabled={!newTerm.trim()}
-              className="inline-flex items-center gap-1 px-3 py-2 bg-brand-600 dark:bg-brand-500 text-white text-sm font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+              className="inline-flex items-center gap-1 px-3 py-2 bg-brand-600 dark:bg-brand-500 text-white text-sm font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
             >
               <Plus size={14} /> Track
             </button>
@@ -592,7 +589,7 @@ export default function DarkWeb(): JSX.Element {
             href="https://github.com/fastfire/deepdarkCTI"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             deepdarkCTI
           </a>{' '}
@@ -704,7 +701,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
                   href={b.domain ? `https://haveibeenpwned.com/PwnedWebsites#${b.name}` : '#'}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400"
+                  className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
                   {b.title}
                 </a>
@@ -764,7 +761,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="full HIBP list (opens in new tab)"
-            className="hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+            className="hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
           >
             full HIBP list <ExternalLink size={10} />
           </a>
@@ -1060,7 +1057,7 @@ export function RansomwareActivityPanel(): JSX.Element {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${v.victim} (opens in new tab)`}
-                      className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 break-words"
+                      className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 break-words transition-colors"
                     >
                       {v.victim}
                     </a>
@@ -1115,7 +1112,7 @@ export function RansomwareActivityPanel(): JSX.Element {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="full Ransomlook feed (opens in new tab)"
-            className="hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+            className="hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
           >
             full Ransomlook feed <ExternalLink size={10} />
           </a>
@@ -1514,7 +1511,7 @@ export function TelegramFeedPanel(): JSX.Element {
                     href={sanitizeUrl(it.permalink) || undefined}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                    className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
                     title={it.channel_blurb}
                   >
                     {it.channel_name}

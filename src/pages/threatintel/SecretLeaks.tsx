@@ -193,7 +193,7 @@ export default function SecretLeaks(): JSX.Element {
             href="https://x3r0day.me/WebShame/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             WebShame
           </a>

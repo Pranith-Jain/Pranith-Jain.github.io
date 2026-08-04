@@ -36,7 +36,7 @@ interface Community {
 }
 
 const TYPE_BADGE: Record<string, string> = {
-  ip: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
+  ip: 'bg-blue-100 text-brand-800 dark:bg-blue-900/30 dark:text-brand-300',
   domain: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   hash: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
   url: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
@@ -351,7 +351,9 @@ function StatCard({ label, value, icon }: { label: string; value: string | numbe
     <div className="surface-card/40 shadow-e1 p-4">
       <div className="flex items-center gap-2 mb-1.5">
         {icon && <span className="text-brand-600 dark:text-brand-400">{icon}</span>}
-        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</span>
+        <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          {label}
+        </span>
       </div>
       <div className="text-2xl font-display font-bold">
         {typeof value === 'number' ? value.toLocaleString() : value}

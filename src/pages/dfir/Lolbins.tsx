@@ -68,7 +68,11 @@ export default function Lolbins(): JSX.Element {
       {/* Filters */}
       <div className="space-y-3 mb-6">
         <div className="relative">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+          <Search
+            size={14}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+            aria-hidden="true"
+          />
           <input
             type="text"
             value={query}
@@ -184,7 +188,7 @@ export default function Lolbins(): JSX.Element {
                 href={sanitizeUrl(b.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-auto text-micro font-mono text-slate-400 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+                className="ml-auto text-micro font-mono text-slate-400 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5 transition-colors"
               >
                 source <ExternalLink size={10} />
               </a>
@@ -238,7 +242,7 @@ export default function Lolbins(): JSX.Element {
               href="https://lolbas-project.github.io/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               LOLBAS - Windows binaries, scripts and libraries
               <ExternalLink size={11} aria-hidden="true" />
@@ -249,7 +253,7 @@ export default function Lolbins(): JSX.Element {
               href="https://gtfobins.github.io/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               GTFOBins - Unix binaries used to bypass restrictions
               <ExternalLink size={11} aria-hidden="true" />
@@ -260,7 +264,7 @@ export default function Lolbins(): JSX.Element {
               href="https://www.loobins.io/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               LOOBins - macOS living-off-the-land
               <ExternalLink size={11} aria-hidden="true" />

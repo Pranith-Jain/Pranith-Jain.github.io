@@ -142,7 +142,7 @@ export function McpKeyBar({ className = '' }: { className?: string }): JSX.Eleme
                 href="https://ti-mindmap-hub.com/settings"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-600 dark:text-brand-400 hover:underline"
+                className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
               >
                 ti-mindmap-hub.com/settings ↗
               </a>
@@ -190,7 +190,7 @@ function KeyForm(props: {
         <button
           type="submit"
           disabled={!props.draft.trim()}
-          className="rounded border border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/40 px-2 py-1 font-mono text-xs text-brand-700 dark:text-brand-300 hover:bg-brand-100 disabled:opacity-50"
+          className="rounded border border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/40 px-2 py-1 font-mono text-xs text-brand-700 dark:text-brand-300 hover:bg-brand-100 disabled:opacity-50 transition-colors"
         >
           <Key className="inline h-3 w-3 mr-1" /> save &amp; probe
         </button>

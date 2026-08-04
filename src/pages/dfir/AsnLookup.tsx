@@ -114,7 +114,7 @@ export default function AsnLookup(): JSX.Element {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             <Network size={16} className="inline mr-2" />
             Lookup
@@ -166,7 +166,7 @@ export default function AsnLookup(): JSX.Element {
                   <a
                     key={email}
                     href={`mailto:${email}`}
-                    className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                    className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                   >
                     {email}
                   </a>

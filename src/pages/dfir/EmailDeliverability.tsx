@@ -206,7 +206,7 @@ export default function EmailDeliverability(): JSX.Element {
             href={CITATIONS.apiDocs}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+            className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5 transition-colors"
           >
             IntoDNS.ai /api/debug-email <ExternalLink size={10} aria-hidden="true" />
           </a>
@@ -234,7 +234,7 @@ export default function EmailDeliverability(): JSX.Element {
           <button
             type="submit"
             disabled={loading || !rawEml.trim()}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Mail size={14} />}
             {loading ? 'Analyzing…' : 'Analyze'}
@@ -252,7 +252,7 @@ export default function EmailDeliverability(): JSX.Element {
           <button
             type="button"
             onClick={onSample}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted font-mono text-sm rounded-xl hover:border-slate-300"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted font-mono text-sm rounded-xl hover:border-slate-300 transition-colors"
           >
             <Sparkles size={14} aria-hidden="true" />
             use sample
@@ -260,7 +260,7 @@ export default function EmailDeliverability(): JSX.Element {
           <button
             type="button"
             onClick={onClear}
-            className="ml-auto px-3 py-2.5 text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+            className="ml-auto px-3 py-2.5 text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
           >
             clear
           </button>

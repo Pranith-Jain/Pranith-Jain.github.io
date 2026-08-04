@@ -175,7 +175,7 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
         <button
           type="button"
           onClick={copyBundle}
-          className="ml-auto text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-500"
+          className="ml-auto text-micro font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 text-slate-500 transition-colors"
         >
           {copied ? <Check size={10} className="inline" /> : <Copy size={10} className="inline" />} Copy JSON
         </button>
@@ -227,7 +227,7 @@ function StixObjectTableImpl({ bundle }: { bundle: StixBundle }): JSX.Element {
                                   href={ref.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="text-brand-600 hover:underline"
+                                  className="text-brand-600 hover:underline transition-colors"
                                 >
                                   {ref.source_name}:{ref.external_id}
                                 </a>

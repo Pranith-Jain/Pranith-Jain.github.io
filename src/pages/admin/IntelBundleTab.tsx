@@ -210,7 +210,7 @@ function Result({ data }: { data: InspectShape }) {
                 href={`https://attack.mitre.org/techniques/${a.mitreId.replace('.', '/')}/`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                className="text-mini font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
               >
                 {a.name} · {a.mitreId}
               </a>
@@ -264,7 +264,7 @@ function Result({ data }: { data: InspectShape }) {
           href={`/api/v1/intel-bundle/${encodeURIComponent(data.bundleId)}/export.stix.json`}
           download={`${data.bundleId}.stix.json`}
           rel="noopener"
-          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
         >
           Download STIX
         </a>

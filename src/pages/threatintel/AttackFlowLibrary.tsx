@@ -142,7 +142,7 @@ export default function AttackFlowLibrary(): JSX.Element {
         href="https://center-for-threat-informed-defense.github.io/attack-flow/"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-rose-600 dark:text-rose-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
       >
         Center for Threat-Informed Defense
       </a>{' '}
@@ -235,7 +235,7 @@ export default function AttackFlowLibrary(): JSX.Element {
                           href={l.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
+                          className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors"
                         >
                           {l.label} <ExternalLink size={10} className="opacity-60" />
                         </a>
@@ -267,7 +267,9 @@ export default function AttackFlowLibrary(): JSX.Element {
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug">{flow.name}</h3>
                 {flow.size > 0 && (
-                  <span className="shrink-0 text-micro font-mono text-slate-500 dark:text-slate-400">{fmtSize(flow.size)}</span>
+                  <span className="shrink-0 text-micro font-mono text-slate-500 dark:text-slate-400">
+                    {fmtSize(flow.size)}
+                  </span>
                 )}
               </div>
 
@@ -284,7 +286,7 @@ export default function AttackFlowLibrary(): JSX.Element {
                     href={ghHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
+                    className="text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
                     title="View .afb source on GitHub"
                   >
                     GitHub <ExternalLink size={10} className="opacity-60" />
@@ -303,7 +305,7 @@ export default function AttackFlowLibrary(): JSX.Element {
             href={data.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-rose-600 dark:hover:text-rose-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             {data.source}
           </a>{' '}

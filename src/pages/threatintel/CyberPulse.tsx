@@ -49,7 +49,7 @@ const SEVERITY_COLORS: Record<string, string> = {
   critical: 'bg-red-500/20 text-red-700 dark:text-red-400 border-red-500/30',
   high: 'bg-orange-500/20 text-orange-700 dark:text-orange-400 border-orange-500/30',
   medium: 'bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 border-yellow-500/30',
-  low: 'bg-blue-500/20 text-blue-700 dark:text-blue-400 border-blue-500/30',
+  low: 'bg-brand-500/20 text-brand-700 dark:text-brand-400 border-brand-500/30',
   info: 'bg-slate-500/20 text-slate-700 dark:text-slate-400 border-slate-500/30',
 };
 
@@ -306,9 +306,10 @@ export default function CyberPulse(): JSX.Element {
           placeholder="Period"
         />
         {hasFilters && (
-          <button type="button"
+          <button
+            type="button"
             onClick={clearFilters}
-            className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-1"
+            className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-1 transition-colors"
           >
             <X className="w-3 h-3" /> Clear
           </button>
@@ -322,7 +323,8 @@ export default function CyberPulse(): JSX.Element {
             </span>
           )}
           <span className="text-xs text-slate-600 dark:text-slate-500">{total.toLocaleString()} incidents</span>
-          <button type="button"
+          <button
+            type="button"
             onClick={async () => {
               if (scanning) return;
               setScanning(true);
@@ -345,12 +347,13 @@ export default function CyberPulse(): JSX.Element {
               }
             }}
             disabled={scanning}
-            className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-brand-700 dark:text-brand-300 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors disabled:opacity-50"
           >
             {scanning ? <Loader2 className="w-3 h-3 animate-spin" /> : <Search className="w-3 h-3" />}
             {scanning ? 'Scanning…' : 'Scan now'}
           </button>
-          <button type="button"
+          <button
+            type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
             className="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700"
           >
@@ -394,7 +397,8 @@ export default function CyberPulse(): JSX.Element {
           ))}
           {hasMore && (
             <div className="text-center py-4">
-              <button type="button"
+              <button
+                type="button"
                 onClick={() => {
                   const ctrl = new AbortController();
                   fetch(
@@ -411,7 +415,7 @@ export default function CyberPulse(): JSX.Element {
                       setHasMore(d.has_more);
                     });
                 }}
-                className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+                className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300"
               >
                 Load more...
               </button>
@@ -429,10 +433,11 @@ export default function CyberPulse(): JSX.Element {
               </h3>
               <div className="space-y-2">
                 {stats.by_type.map((t) => (
-                  <button type="button"
+                  <button
+                    type="button"
                     key={t.incident_type}
                     onClick={() => setTypeFilter(typeFilter === t.incident_type ? '' : t.incident_type)}
-                    className={`w-full flex items-center justify-between px-2 py-1.5 rounded text-xs transition-colors ${typeFilter === t.incident_type ? 'bg-blue-500/20 text-blue-600 dark:text-blue-400' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-400'}`}
+                    className={`w-full flex items-center justify-between px-2 py-1.5 rounded text-xs transition-colors ${typeFilter === t.incident_type ? 'bg-brand-500/20 text-brand-600 dark:text-brand-400' : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-400'}`}
                   >
                     <span className="flex items-center gap-1.5">
                       <span
@@ -455,7 +460,8 @@ export default function CyberPulse(): JSX.Element {
               </h3>
               <div className="space-y-1.5">
                 {trending.trending_actors.map((a) => (
-                  <button type="button"
+                  <button
+                    type="button"
                     key={a.name}
                     onClick={() => setTypeFilter('')}
                     className="w-full flex items-center justify-between px-2 py-1 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-400"
@@ -507,7 +513,7 @@ export default function CyberPulse(): JSX.Element {
                       className="flex-1 flex flex-col items-center justify-end self-stretch"
                       title={`${d.day}: ${d.count}`}
                     >
-                      <div className="w-full bg-blue-500/40 rounded-t" style={{ height: barPx }} />
+                      <div className="w-full bg-brand-500/40 rounded-t" style={{ height: barPx }} />
                       <span className="text-micro text-slate-600 dark:text-slate-500 font-mono leading-none mt-0.5">
                         {d.day.slice(5)}
                       </span>
@@ -548,9 +554,10 @@ function FilterSelect({
   const [open, setOpen] = useState(false);
   return (
     <div className="relative">
-      <button type="button"
+      <button
+        type="button"
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-1 px-2 py-1 text-xs rounded border ${value ? 'border-blue-500/50 text-blue-600 dark:text-blue-400 bg-blue-500/10' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-400'}`}
+        className={`flex items-center gap-1 px-2 py-1 text-xs rounded border ${value ? 'border-brand-500/50 text-brand-600 dark:text-brand-400 bg-brand-500/10' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-400'}`}
       >
         {value ? (options[value] ?? value) : placeholder}
         <ChevronDown className="w-3 h-3" />
@@ -559,7 +566,8 @@ function FilterSelect({
         <>
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
           <div className="absolute z-20 mt-1 left-0 bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded shadow-e3 max-h-48 overflow-auto min-w-[120px]">
-            <button type="button"
+            <button
+              type="button"
               onClick={() => {
                 onChange('');
                 setOpen(false);
@@ -569,13 +577,14 @@ function FilterSelect({
               All
             </button>
             {Object.entries(options).map(([k, v]) => (
-              <button type="button"
+              <button
+                type="button"
                 key={k}
                 onClick={() => {
                   onChange(k);
                   setOpen(false);
                 }}
-                className={`block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 ${value === k ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-slate-700 dark:text-slate-300'}`}
+                className={`block w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 ${value === k ? 'text-brand-600 dark:text-brand-400 font-semibold' : 'text-slate-700 dark:text-slate-300'}`}
               >
                 {v}
               </button>
@@ -665,7 +674,7 @@ function IncidentCard({ incident: inc, postSummary }: { incident: Incident; post
                 href={inc.source_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+                className="text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 transition-colors"
               >
                 <ExternalLink className="w-3 h-3" />
               </a>

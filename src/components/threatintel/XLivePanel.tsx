@@ -137,7 +137,7 @@ export function XLivePanel({
                       href={sanitizeUrl(t.url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-auto text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+                      className="ml-auto text-micro font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5 transition-colors"
                       title={t.created_at}
                     >
                       {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />

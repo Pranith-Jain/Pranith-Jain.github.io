@@ -316,7 +316,11 @@ export default function ExternalResources(): JSX.Element {
       {/* Search */}
       <section className="surface-card p-4 mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+          <Search
+            size={16}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+            aria-hidden="true"
+          />
           <input
             type="search"
             value={query}
@@ -415,7 +419,7 @@ export default function ExternalResources(): JSX.Element {
                 href={sanitizeUrl(r.url)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 min-w-0 break-words"
+                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 min-w-0 break-words transition-colors"
               >
                 {r.name} <ExternalLink size={12} className="opacity-60 shrink-0" />
               </a>
@@ -501,7 +505,7 @@ export default function ExternalResources(): JSX.Element {
           <button
             type="button"
             onClick={signOut}
-            className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+            className="inline-flex items-center gap-1.5 text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             title="Forget admin token"
           >
             <LogOut size={11} /> sign out
@@ -549,7 +553,7 @@ export default function ExternalResources(): JSX.Element {
             <button
               type="submit"
               disabled={!tokenDraft.trim()}
-              className="px-3 py-1.5 rounded bg-rose-600 text-white text-tool font-semibold hover:bg-rose-500 disabled:opacity-40"
+              className="px-3 py-1.5 rounded bg-rose-600 text-white text-tool font-semibold hover:bg-rose-500 disabled:opacity-40 transition-colors"
             >
               Sign in
             </button>
@@ -721,7 +725,7 @@ function AddResourceCard({
           <button
             type="submit"
             disabled={busy || !name.trim() || !url.trim()}
-            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded bg-rose-600 dark:bg-rose-500 text-white font-semibold disabled:opacity-40 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center justify-center gap-1.5"
+            className="text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded bg-rose-600 dark:bg-rose-500 text-white font-semibold disabled:opacity-40 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center justify-center gap-1.5 transition-colors"
           >
             {busy && <Loader2 size={12} className="animate-spin" />}
             {busy ? 'Saving…' : 'Save resource'}
@@ -772,7 +776,7 @@ function DeleteButton({
       disabled={busy}
       aria-label={`Delete ${name}`}
       title="Delete from the live catalog"
-      className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 sm:p-1 rounded text-rose-500 hover:text-rose-700 hover:bg-rose-500/10 disabled:opacity-40"
+      className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 sm:p-1 rounded text-rose-500 hover:text-rose-700 hover:bg-rose-500/10 disabled:opacity-40 transition-colors"
     >
       {busy ? <Loader2 size={12} className="animate-spin" /> : <Trash2 size={12} />}
     </button>

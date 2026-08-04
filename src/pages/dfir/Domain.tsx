@@ -122,7 +122,7 @@ export default function Domain(): JSX.Element {
           <button
             type="submit"
             disabled={!valid || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             <Search size={16} className="inline mr-2" />
             Look up
@@ -200,7 +200,7 @@ export default function Domain(): JSX.Element {
                   href={`https://crt.sh/?q=${encodeURIComponent(`%.${result.domain}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-meta text-brand-600 dark:text-brand-400 hover:underline font-mono inline-flex items-center gap-1"
+                  className="text-meta text-brand-600 dark:text-brand-400 hover:underline font-mono inline-flex items-center gap-1 transition-colors"
                 >
                   <ExternalLink size={11} /> View full crt.sh results
                 </a>
@@ -282,7 +282,7 @@ export default function Domain(): JSX.Element {
                               href={hit.resolved_url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="font-mono text-brand-600 dark:text-brand-400 hover:underline truncate ml-2 inline-flex items-center gap-1"
+                              className="font-mono text-brand-600 dark:text-brand-400 hover:underline truncate ml-2 inline-flex items-center gap-1 transition-colors"
                             >
                               {hit.resolved_url} <ExternalLink size={10} />
                             </a>
@@ -319,7 +319,7 @@ export default function Domain(): JSX.Element {
               <div className="mt-3 pt-3 border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
                 <a
                   href={`/threatintel/webamon?q=${encodeURIComponent(`domain.name:${result.domain}`)}`}
-                  className="text-meta text-brand-600 dark:text-brand-400 hover:underline font-mono inline-flex items-center gap-1"
+                  className="text-meta text-brand-600 dark:text-brand-400 hover:underline font-mono inline-flex items-center gap-1 transition-colors"
                 >
                   <Search size={11} /> Full Webamon search <ExternalLink size={10} />
                 </a>

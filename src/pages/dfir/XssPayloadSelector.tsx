@@ -634,14 +634,14 @@ export default function XssPayloadSelector(): JSX.Element {
           <button
             type="button"
             onClick={copySelected}
-            className="ml-auto text-xs px-2 py-1 rounded bg-purple-500/10 text-purple-600 dark:text-purple-400 hover:bg-purple-500/20"
+            className="ml-auto text-xs px-2 py-1 rounded bg-purple-500/10 text-purple-600 dark:text-purple-400 hover:bg-purple-500/20 transition-colors"
           >
             {copiedId === 'selected' ? 'Copied!' : 'Copy Selected'}
           </button>
           <button
             type="button"
             onClick={downloadSelected}
-            className="text-xs px-2 py-1 rounded bg-purple-500/10 text-purple-600 dark:text-purple-400 hover:bg-purple-500/20"
+            className="text-xs px-2 py-1 rounded bg-purple-500/10 text-purple-600 dark:text-purple-400 hover:bg-purple-500/20 transition-colors"
           >
             <Download size={12} className="inline mr-1" />
             Download

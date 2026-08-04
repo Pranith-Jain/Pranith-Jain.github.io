@@ -194,7 +194,7 @@ export function IocSnapshotPanel(): JSX.Element {
                   href={`https://abuse.ch/${c.key === 'openphish' ? '' : c.key + '/'}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+                  className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5 transition-colors"
                 >
                   source <ExternalLink size={9} />
                 </a>

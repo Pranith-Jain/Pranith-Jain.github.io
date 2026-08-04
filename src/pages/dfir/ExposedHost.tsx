@@ -79,7 +79,7 @@ interface ArtifactEntry {
 
 const TAG_COLORS: Record<string, string> = {
   tor: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300',
-  vpn: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
+  vpn: 'bg-blue-100 dark:bg-blue-900/30 text-brand-700 dark:text-brand-300',
   proxy: 'bg-sky-100 dark:bg-sky-500/10 text-sky-700 dark:text-sky-300',
   hosting: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
   scanner: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
@@ -174,7 +174,7 @@ export default function ExposedHostView(): JSX.Element {
         <button
           type="submit"
           disabled={loading || !ip.trim()}
-          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
+          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
         >
           {loading ? <Clock size={14} className="animate-spin" /> : <Search size={14} />}
           {loading ? 'Scanning…' : 'Analyze'}
@@ -221,7 +221,7 @@ export default function ExposedHostView(): JSX.Element {
                 </span>
               )}
               {result.isVpn && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-mono bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-mono bg-blue-100 dark:bg-blue-900/30 text-brand-700 dark:text-brand-300">
                   <Wifi size={10} /> VPN {result.privacyService && `(${result.privacyService})`}
                 </span>
               )}
@@ -384,7 +384,7 @@ export default function ExposedHostView(): JSX.Element {
                   className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]"
                 >
                   <span className="text-sm font-semibold flex items-center gap-2">
-                    <Globe size={14} className="text-blue-500" /> Hostnames ({result.hostnames.length})
+                    <Globe size={14} className="text-brand-500" /> Hostnames ({result.hostnames.length})
                   </span>
                   {expandedSection === 'hostnames' ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                 </button>
@@ -460,7 +460,10 @@ export default function ExposedHostView(): JSX.Element {
                       {previewArtifact.risk}
                     </span>
                   </div>
-                  <button onClick={() => setPreviewArtifact(null)} className="text-slate-500 dark:text-slate-400 hover:text-slate-600">
+                  <button
+                    onClick={() => setPreviewArtifact(null)}
+                    className="text-slate-500 dark:text-slate-400 hover:text-slate-600"
+                  >
                     remove
                   </button>
                 </div>

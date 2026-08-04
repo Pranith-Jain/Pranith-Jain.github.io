@@ -147,7 +147,10 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
           <div className="fixed left-1/2 top-1/2 z-50 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-xl border border-slate-200 bg-white p-5 shadow-xl dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
             <div className="mb-3 flex items-center justify-between">
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200">Bulk IOC Investigation</h3>
-              <button onClick={() => setOpen(false)} className="text-slate-500 dark:text-slate-400 hover:text-slate-600">
+              <button
+                onClick={() => setOpen(false)}
+                className="text-slate-500 dark:text-slate-400 hover:text-slate-600"
+              >
                 <X size={16} />
               </button>
             </div>
@@ -167,7 +170,7 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
                 {(() => {
                   const counts: Record<string, { count: number; color: string }> = {};
                   const typeColors: Record<string, string> = {
-                    ip: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+                    ip: 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300',
                     domain: 'bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300',
                     hash: 'bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300',
                     cve: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
@@ -231,7 +234,9 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
                       <span className="font-mono text-slate-700 dark:text-slate-300">{r.value}</span>
                       <span className="text-slate-500 dark:text-slate-400">({r.score})</span>
                       {r.tags.length > 0 && (
-                        <span className="truncate text-slate-500 dark:text-slate-400">{r.tags.slice(0, 2).join(', ')}</span>
+                        <span className="truncate text-slate-500 dark:text-slate-400">
+                          {r.tags.slice(0, 2).join(', ')}
+                        </span>
                       )}
                     </div>
                   ))
@@ -253,14 +258,14 @@ export function BulkIocInput({ onSubmit }: BulkIocInputProps) {
               <button
                 onClick={handleEnrich}
                 disabled={parsed.length === 0 || enriching}
-                className="rounded-xl border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-600 hover:border-brand-400 hover:text-brand-600 disabled:opacity-50 dark:border-[rgb(var(--border-400))] dark:text-slate-400"
+                className="rounded-xl border border-slate-200 px-3 py-1.5 font-mono text-xs text-slate-600 hover:border-brand-400 hover:text-brand-600 disabled:opacity-50 dark:border-[rgb(var(--border-400))] dark:text-slate-400 transition-colors"
               >
                 {enriching ? <Loader2 size={11} className="animate-spin" /> : 'Enrich'}
               </button>
               <button
                 onClick={handleInvestigate}
                 disabled={parsed.length === 0 || enriching}
-                className="rounded-xl bg-brand-600 px-3 py-1.5 font-mono text-xs text-white hover:bg-brand-700 disabled:opacity-50"
+                className="rounded-xl bg-brand-600 px-3 py-1.5 font-mono text-xs text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
               >
                 Investigate {parsed.length > 0 ? `(${parsed.length} IOCs)` : ''}
               </button>

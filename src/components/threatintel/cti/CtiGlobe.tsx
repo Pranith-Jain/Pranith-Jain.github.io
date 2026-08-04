@@ -406,7 +406,7 @@ export default function CtiGlobe({
         <div className="absolute inset-0 flex items-center justify-center bg-[#0a0f1a]">
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
-              <div className="w-16 h-16 rounded-full border-2 border-blue-500/20" />
+              <div className="w-16 h-16 rounded-full border-2 border-brand-500/20" />
               <div className="absolute inset-0 w-16 h-16 rounded-full border-2 border-transparent border-t-blue-500 animate-spin" />
             </div>
             <div className="text-center">

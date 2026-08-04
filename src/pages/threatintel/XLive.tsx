@@ -234,7 +234,7 @@ export default function XLive(): JSX.Element {
               href="https://github.com/0xDanielLopez/TweetFeed"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               TweetFeed
             </a>{' '}
@@ -243,7 +243,7 @@ export default function XLive(): JSX.Element {
               href="https://github.com/FixTweet/FxTwitter"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               fxtwitter
             </a>{' '}
@@ -332,7 +332,7 @@ export default function XLive(): JSX.Element {
                         href={sanitizeUrl(t.url) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="ml-auto text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-0.5"
+                        className="ml-auto text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-0.5 transition-colors"
                         title={t.created_at}
                       >
                         {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />

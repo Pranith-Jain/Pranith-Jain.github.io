@@ -277,7 +277,7 @@ function DnsScanPanel(): JSX.Element {
           <button
             type="submit"
             disabled={loading || !domain.trim()}
-            className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/70 disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/70 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={13} className="animate-spin" /> : <Globe size={13} />}
             {loading ? 'scanning…' : 'scan'}
@@ -506,7 +506,10 @@ export default function MyThreatIntel(): JSX.Element {
         {view === 'records' && (
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
-              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search
+                size={16}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              />
               <input
                 type="search"
                 value={query}
@@ -610,7 +613,7 @@ export default function MyThreatIntel(): JSX.Element {
                                 href={safeUrl || undefined}
                                 target="_blank"
                                 rel="noreferrer noopener"
-                                className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline break-all"
+                                className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline break-all transition-colors"
                               >
                                 {text.length > 48 ? text.slice(0, 45) + '…' : text} <ExternalLink size={11} />
                               </a>

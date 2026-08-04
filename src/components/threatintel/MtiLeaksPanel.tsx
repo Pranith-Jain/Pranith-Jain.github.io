@@ -247,7 +247,7 @@ export function MtiLeaksPanel(): JSX.Element {
                       href={safeUrl}
                       target="_blank"
                       rel="noopener noreferrer nofollow"
-                      className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                      className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
                       title={safeUrl}
                     >
                       source <ExternalLink size={9} aria-hidden="true" />

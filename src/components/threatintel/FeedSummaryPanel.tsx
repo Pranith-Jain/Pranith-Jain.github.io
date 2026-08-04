@@ -74,7 +74,7 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
         <button
           aria-label="Close"
           onClick={onClose}
-          className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200"
+          className="p-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-200 transition-colors"
         >
           <X size={14} />
         </button>
@@ -142,7 +142,7 @@ export function FeedSummaryPanel({ entries, sectionLabels, onClose }: FeedSummar
                       href={sanitizeUrl(e.link) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-medium text-slate-700 dark:text-slate-200 hover:text-brand-500 dark:hover:text-brand-400 leading-snug"
+                      className="text-xs font-medium text-slate-700 dark:text-slate-200 hover:text-brand-500 dark:hover:text-brand-400 leading-snug transition-colors"
                     >
                       {e.title}
                     </a>

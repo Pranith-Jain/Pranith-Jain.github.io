@@ -464,7 +464,9 @@ export default function TiDashboard() {
                         {story.impact_assessment}
                       </span>
                     </div>
-                    <span className="text-slate-500 dark:text-slate-400 shrink-0 mt-1">{expandedStories[idx] ? '▲' : '▼'}</span>
+                    <span className="text-slate-500 dark:text-slate-400 shrink-0 mt-1">
+                      {expandedStories[idx] ? '▲' : '▼'}
+                    </span>
                   </button>
                   {expandedStories[idx] && (
                     <div className="px-5 pb-5 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
@@ -508,7 +510,7 @@ export default function TiDashboard() {
                             href={getSourceUrl(srcId)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40 px-2 py-0.5 rounded hover:opacity-80"
+                            className="text-xs font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40 px-2 py-0.5 rounded hover:opacity-80 transition-colors"
                             title={getSourceTitle(srcId)}
                           >
                             {srcId}
@@ -593,7 +595,7 @@ export default function TiDashboard() {
                         href={getSourceUrl(srcId)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40 px-2 py-0.5 rounded hover:opacity-80"
+                        className="text-xs font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40 px-2 py-0.5 rounded hover:opacity-80 transition-colors"
                       >
                         {srcId}
                       </a>
@@ -719,7 +721,7 @@ export default function TiDashboard() {
                         href={getSourceUrl(srcId)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40 px-2 py-0.5 rounded hover:opacity-80"
+                        className="text-xs font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40 px-2 py-0.5 rounded hover:opacity-80 transition-colors"
                       >
                         {srcId}
                       </a>

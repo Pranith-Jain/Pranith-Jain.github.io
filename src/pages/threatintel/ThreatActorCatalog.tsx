@@ -73,7 +73,8 @@ export default function ThreatActorCatalog(): JSX.Element {
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-6">
-        <button type="button"
+        <button
+          type="button"
           onClick={() => setActiveType(null)}
           className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeType
@@ -84,7 +85,8 @@ export default function ThreatActorCatalog(): JSX.Element {
           All ({THREAT_ACTORS.length})
         </button>
         {ALL_TYPES.map((t) => (
-          <button type="button"
+          <button
+            type="button"
             key={t}
             onClick={() => setActiveType(activeType === t ? null : t)}
             className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
@@ -190,7 +192,7 @@ function ActorCard({
             {actor.ttps.map((t) => (
               <span
                 key={t}
-                className="text-micro font-mono px-2 py-0.5 rounded border border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300"
+                className="text-micro font-mono px-2 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300"
               >
                 {t}
               </span>
@@ -240,7 +242,9 @@ function ActorCard({
 function Section({ title, children }: { title: string; children: React.ReactNode }): JSX.Element {
   return (
     <div className="mb-3">
-      <h4 className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">{title}</h4>
+      <h4 className="text-micro font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+        {title}
+      </h4>
       <div className="flex flex-wrap gap-1.5">{children}</div>
     </div>
   );

@@ -97,7 +97,7 @@ interface RoutingResponse {
 const STATUS_COLORS: Record<string, string> = {
   active: 'text-emerald-600 dark:text-emerald-400',
   paused: 'text-amber-600 dark:text-amber-400',
-  completed: 'text-blue-600 dark:text-blue-400',
+  completed: 'text-brand-600 dark:text-brand-400',
   archived: 'text-slate-500 dark:text-slate-400',
 };
 const CATEGORIES = [
@@ -637,7 +637,9 @@ export default function PirDashboard(): JSX.Element {
                   {a.severity}
                 </span>
                 <span className="flex-1">{a.message}</span>
-                <span className="text-slate-500 dark:text-slate-400 shrink-0">{new Date(a.triggered_at).toLocaleString()}</span>
+                <span className="text-slate-500 dark:text-slate-400 shrink-0">
+                  {new Date(a.triggered_at).toLocaleString()}
+                </span>
                 <button
                   type="button"
                   onClick={() => handleAcknowledge(a.id)}
@@ -689,8 +691,12 @@ export default function PirDashboard(): JSX.Element {
                             style={{ width: `${r.widthPct}%` }}
                           />
                         </div>
-                        <span className="w-16 text-right font-mono text-slate-500 dark:text-slate-400">{r.effective_cadence_hours}h</span>
-                        <span className="w-12 text-right font-mono text-slate-500 dark:text-slate-400">{r.pir_count} PIRs</span>
+                        <span className="w-16 text-right font-mono text-slate-500 dark:text-slate-400">
+                          {r.effective_cadence_hours}h
+                        </span>
+                        <span className="w-12 text-right font-mono text-slate-500 dark:text-slate-400">
+                          {r.pir_count} PIRs
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -997,7 +1003,9 @@ export default function PirDashboard(): JSX.Element {
                           <div className="mt-3">
                             <div className="flex gap-4 mb-2">
                               <div>
-                                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5">Freshness</p>
+                                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5">
+                                  Freshness
+                                </p>
                                 <div className="flex items-center gap-1.5">
                                   <div className="w-12 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-1.5">
                                     <div
@@ -1009,7 +1017,9 @@ export default function PirDashboard(): JSX.Element {
                                 </div>
                               </div>
                               <div>
-                                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5">Confidence</p>
+                                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5">
+                                  Confidence
+                                </p>
                                 <div className="flex items-center gap-1.5">
                                   <div className="w-12 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-1.5">
                                     <div
@@ -1023,7 +1033,9 @@ export default function PirDashboard(): JSX.Element {
                                 </div>
                               </div>
                               <div>
-                                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5">Composite</p>
+                                <p className="text-micro font-mono text-slate-500 dark:text-slate-400 mb-0.5">
+                                  Composite
+                                </p>
                                 <div className="flex items-center gap-1.5">
                                   <div className="w-12 bg-slate-200 dark:bg-[rgb(var(--surface-300))] rounded-full h-1.5">
                                     <div

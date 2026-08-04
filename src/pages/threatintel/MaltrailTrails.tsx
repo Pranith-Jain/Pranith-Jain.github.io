@@ -86,7 +86,7 @@ export default function MaltrailTrails(): JSX.Element {
             href="https://github.com/stamparm/maltrail"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             stamparm/maltrail
           </a>{' '}

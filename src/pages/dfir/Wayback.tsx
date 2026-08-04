@@ -212,7 +212,7 @@ export default function Wayback(): JSX.Element {
             href="https://web.archive.org/web/*/example.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             archive.org's calendar view
           </a>
@@ -229,7 +229,11 @@ export default function Wayback(): JSX.Element {
           className="flex flex-wrap gap-2"
         >
           <div className="relative flex-1 min-w-[280px]">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+            <Search
+              size={14}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              aria-hidden="true"
+            />
             <input
               type="url"
               value={url}
@@ -243,7 +247,7 @@ export default function Wayback(): JSX.Element {
           <button
             type="submit"
             disabled={loading || !url.trim() || inCooldown}
-            className="text-sm font-mono px-3 py-2 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1.5"
+            className="text-sm font-mono px-3 py-2 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1.5 transition-colors"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <History size={14} />}
             {loading ? 'Loading' : inCooldown ? `Cooldown ${cooldownRemaining}s` : 'Lookup'}
@@ -360,7 +364,7 @@ export default function Wayback(): JSX.Element {
                           href={snapshotUrl(s.timestamp, s.original)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                          className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
                         >
                           view <ExternalLink size={10} />
                         </a>
@@ -384,7 +388,7 @@ export default function Wayback(): JSX.Element {
                   href={`https://web.archive.org/web/*/${url}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-brand-600 dark:text-brand-400 hover:underline"
+                  className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                 >
                   archive.org's calendar view
                 </a>
@@ -435,7 +439,7 @@ function Stat({ label, value, url }: { label: string; value: string; url?: strin
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-slate-800 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+          className="text-slate-800 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
         >
           {value} <ExternalLink size={10} />
         </a>

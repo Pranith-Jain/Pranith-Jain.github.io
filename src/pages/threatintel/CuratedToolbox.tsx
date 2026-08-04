@@ -198,7 +198,7 @@ export default function CuratedToolbox(): JSX.Element {
             href="https://start.me/p/gGj8gn/mastering-threat-intelligence-platforms"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             Harun Seker’s Mastering Threat Intelligence Platforms
           </a>{' '}
@@ -288,7 +288,7 @@ export default function CuratedToolbox(): JSX.Element {
                   href={data.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-rose-600 dark:text-rose-400 hover:underline truncate"
+                  className="text-rose-600 dark:text-rose-400 hover:underline truncate transition-colors"
                 >
                   start.me
                 </a>
@@ -371,7 +371,7 @@ function SectionCard({
                     href={t.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 hover:underline"
+                    className="text-sm font-medium text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 hover:underline transition-colors"
                   >
                     {t.title}
                   </a>

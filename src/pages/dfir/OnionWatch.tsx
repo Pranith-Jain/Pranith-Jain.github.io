@@ -230,7 +230,7 @@ export default function OnionWatch(): JSX.Element {
               href="https://www.ransomlook.io"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:no-underline"
+              className="underline hover:no-underline transition-colors"
             >
               status.ransomlook.io
             </a>
@@ -241,7 +241,11 @@ export default function OnionWatch(): JSX.Element {
       {/* Filters */}
       <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[rgb(var(--surface-100))] shadow-e1 p-4 mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+          <Search
+            size={16}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+            aria-hidden="true"
+          />
           <input
             type="search"
             value={query}
@@ -281,7 +285,7 @@ export default function OnionWatch(): JSX.Element {
               type="button"
               onClick={copyAllReachable}
               disabled={visibleGroups.length === 0}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/60 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/60 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               title="Copy every visible mirror URL, one per line"
             >
               {copiedKey === '__all__' ? <Check size={11} /> : <Copy size={11} />}
@@ -451,7 +455,7 @@ export default function OnionWatch(): JSX.Element {
               href={sanitizeUrl(data.source_url) || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline inline-flex items-center gap-1"
+              className="hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Ransomlook.io <ExternalLink size={9} />
             </a>{' '}

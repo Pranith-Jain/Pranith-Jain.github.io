@@ -204,7 +204,7 @@ export default function GoogleDorks(): JSX.Element {
           <button
             type="submit"
             disabled={status === 'loading' || !query.trim()}
-            className="px-4 py-2.5 rounded-xl bg-brand-600 text-white font-medium text-sm hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2"
+            className="px-4 py-2.5 rounded-xl bg-brand-600 text-white font-medium text-sm hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2 transition-colors"
           >
             {status === 'loading' ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             Search
@@ -262,7 +262,7 @@ export default function GoogleDorks(): JSX.Element {
                       href={sanitizeUrl(r.link) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 font-medium text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 break-words"
+                      className="inline-flex items-center gap-1.5 font-medium text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 break-words transition-colors"
                     >
                       {r.title || r.displayedLink || r.link}
                       <ExternalLink size={12} className="opacity-60 shrink-0" />

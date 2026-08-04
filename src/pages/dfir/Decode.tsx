@@ -190,7 +190,7 @@ export default function Decode(): JSX.Element {
                 <button
                   type="button"
                   onClick={sendToExtractor}
-                  className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
+                  className="inline-flex items-center gap-1 text-xs font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20 transition-colors"
                   title="Send decoded output to IOC Extractor"
                 >
                   <Search size={11} /> extract IOCs →

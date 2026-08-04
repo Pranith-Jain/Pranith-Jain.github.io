@@ -411,7 +411,7 @@ export default function TelegramHub(): JSX.Element {
                                 href={sanitizeUrl(c.tgstat_url) ?? '#'}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="font-mono text-sm font-semibold text-rose-700 dark:text-rose-300 hover:underline flex items-center gap-1"
+                                className="font-mono text-sm font-semibold text-rose-700 dark:text-rose-300 hover:underline flex items-center gap-1 transition-colors"
                               >
                                 @{c.handle}
                                 <ExternalLink size={11} />

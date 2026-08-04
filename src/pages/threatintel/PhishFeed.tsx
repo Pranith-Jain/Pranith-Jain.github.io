@@ -187,7 +187,8 @@ export default function PhishFeed(): JSX.Element {
           <option value="openphish">OpenPhish</option>
           <option value="phishtank">PhishTank</option>
         </select>
-        <button type="button"
+        <button
+          type="button"
           onClick={() => setVerifiedOnly(!verifiedOnly)}
           className={`px-3 py-2 rounded-xl border text-xs font-medium flex items-center gap-1.5 transition ${
             verifiedOnly
@@ -197,7 +198,8 @@ export default function PhishFeed(): JSX.Element {
         >
           <Shield className="w-3.5 h-3.5" /> Verified only
         </button>
-        <button type="button"
+        <button
+          type="button"
           onClick={() => refetch()}
           className="px-3 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
@@ -209,7 +211,8 @@ export default function PhishFeed(): JSX.Element {
       <div className="flex items-center gap-3 mb-4">
         <span className="text-xs text-slate-500 font-mono">sort:</span>
         {(['first_seen', 'domain', 'source'] as const).map((k) => (
-          <button type="button"
+          <button
+            type="button"
             key={k}
             onClick={() => setSortKey(k)}
             className={`px-2 py-1 rounded text-xs font-mono border transition ${
@@ -231,9 +234,10 @@ export default function PhishFeed(): JSX.Element {
           <option value="hosts">Hosts file</option>
           <option value="adblock">AdBlock / uBO</option>
         </select>
-        <button type="button"
+        <button
+          type="button"
           onClick={doExport}
-          className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5"
+          className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 transition-colors"
         >
           <Download className="w-3.5 h-3.5" /> Export ({filtered.length})
         </button>
@@ -268,7 +272,7 @@ export default function PhishFeed(): JSX.Element {
                   href={sanitizeUrl(u.url)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 min-w-0 truncate text-slate-700 dark:text-slate-300 hover:text-rose-600 dark:hover:text-rose-400 flex items-center gap-1"
+                  className="flex-1 min-w-0 truncate text-slate-700 dark:text-slate-300 hover:text-rose-600 dark:hover:text-rose-400 flex items-center gap-1 transition-colors"
                 >
                   {u.url} <ExternalLink className="w-3 h-3 shrink-0" />
                 </a>
@@ -296,7 +300,9 @@ export default function PhishFeed(): JSX.Element {
                 >
                   {u.source}
                 </span>
-                {u.first_seen && <span className="text-slate-500 dark:text-slate-400 shrink-0">{relativeAgo(u.first_seen)}</span>}
+                {u.first_seen && (
+                  <span className="text-slate-500 dark:text-slate-400 shrink-0">{relativeAgo(u.first_seen)}</span>
+                )}
               </div>
             );
           })}
@@ -314,7 +320,8 @@ export default function PhishFeed(): JSX.Element {
           <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-3">Targeted Brands (PhishTank)</h3>
           <div className="space-y-1.5">
             {targetBreakdown.map(([brand, count]) => (
-              <button type="button"
+              <button
+                type="button"
                 key={brand}
                 onClick={() => setQuery(brand === query ? '' : brand)}
                 className={`w-full flex items-center gap-2 text-xs px-2 py-1 rounded transition ${

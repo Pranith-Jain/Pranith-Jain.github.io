@@ -322,7 +322,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
                             href={a.mitre_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline lowercase tracking-normal"
+                            className="px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline lowercase tracking-normal transition-colors"
                             title={`MITRE ${a.mitre_id} · ${a.mitre_name}`}
                           >
                             {a.slug}
@@ -366,7 +366,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
                   href={sanitizeUrl(c.reference) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline mt-2"
+                  className="inline-flex items-center gap-1 text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline mt-2 transition-colors"
                 >
                   primary reference <ExternalLink size={9} />
                 </a>
@@ -419,7 +419,7 @@ export default function CveList({ bare }: CveListProps): JSX.Element {
               href="https://nvd.nist.gov/vuln/search"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               nvd.nist.gov/vuln/search
             </a>

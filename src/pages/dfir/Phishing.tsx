@@ -217,7 +217,7 @@ export default function Phishing(): JSX.Element {
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="w-full sm:w-auto px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center justify-center gap-2 transition-colors"
           >
             <ScanText size={16} /> Analyze
           </button>
@@ -246,7 +246,7 @@ export default function Phishing(): JSX.Element {
                 <button
                   type="button"
                   onClick={sendToExtractor}
-                  className="inline-flex items-center gap-1.5 text-mini font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
+                  className="inline-flex items-center gap-1.5 text-mini font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20 transition-colors"
                   title="Send the raw email body to the IOC Extractor for full URL/IP/domain/hash extraction"
                 >
                   <Search size={11} /> extract IOCs from raw →

@@ -229,7 +229,7 @@ export default function DailyBriefs() {
               onClick={() => setSelectedDate(d)}
               className={`whitespace-nowrap rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
                 currentDate === d
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-brand-600 text-white'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
               }`}
             >
@@ -438,7 +438,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
                 href={`https://attack.mitre.org/techniques/${id.split('.')[0]}/`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-xs font-mono text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+                className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-xs font-mono text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition-colors"
               >
                 {id} <ExternalLink size={10} />
               </a>
@@ -467,7 +467,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
               <a
                 key={i}
                 href={`/dfir/cve?cve=${cve}`}
-                className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-1 text-xs font-mono text-blue-700 hover:bg-blue-100 dark:bg-blue-950/40 dark:text-blue-300 dark:hover:bg-blue-950/60"
+                className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-1 text-xs font-mono text-brand-700 hover:bg-blue-100 dark:bg-blue-950/40 dark:text-brand-300 dark:hover:bg-blue-950/60 transition-colors"
               >
                 {cve} <ExternalLink size={10} />
               </a>
@@ -511,7 +511,7 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-micro text-blue-600 hover:underline dark:text-blue-400"
+                        className="inline-flex items-center gap-1 text-micro text-brand-600 hover:underline dark:text-brand-400 transition-colors"
                       >
                         {s.label || s.url.slice(0, 50)} <ExternalLink size={10} />
                       </a>
@@ -616,7 +616,7 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-micro text-blue-600 hover:underline dark:text-blue-400"
+                        className="inline-flex items-center gap-1 text-micro text-brand-600 hover:underline dark:text-brand-400 transition-colors"
                       >
                         {s.label || s.url.slice(0, 50)} <ExternalLink size={10} />
                       </a>
@@ -733,7 +733,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
                           href={s.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-micro text-blue-600 hover:underline dark:text-blue-400"
+                          className="inline-flex items-center gap-1 text-micro text-brand-600 hover:underline dark:text-brand-400 transition-colors"
                         >
                           {s.label || s.url.slice(0, 50)} <ExternalLink size={10} />
                         </a>
@@ -769,7 +769,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-micro text-blue-600 hover:underline dark:text-blue-400"
+                        className="inline-flex items-center gap-1 text-micro text-brand-600 hover:underline dark:text-brand-400 transition-colors"
                       >
                         {s.label || s.url.slice(0, 50)} <ExternalLink size={10} />
                       </a>
@@ -804,7 +804,7 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-micro text-blue-600 hover:underline dark:text-blue-400"
+                        className="inline-flex items-center gap-1 text-micro text-brand-600 hover:underline dark:text-brand-400 transition-colors"
                       >
                         {s.label || s.url.slice(0, 50)} <ExternalLink size={10} />
                       </a>

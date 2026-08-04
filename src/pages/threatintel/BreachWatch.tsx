@@ -141,7 +141,9 @@ function BreachCard({
         </div>
       </div>
       <div className="flex items-center justify-between mt-2">
-        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">{CATEGORY_LABELS[entry.category] ?? entry.category}</span>
+        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+          {CATEGORY_LABELS[entry.category] ?? entry.category}
+        </span>
         <PostAnalysisButton
           title={entry.title}
           source={entry.group}
@@ -188,7 +190,7 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
         <button
           type="button"
           onClick={onClose}
-          className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+          className="text-mini font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
         >
           close
         </button>
@@ -256,7 +258,7 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
               href={sanitizeUrl(body.source_url) || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-sm font-mono text-rose-600 dark:text-rose-400 hover:underline"
+              className="inline-flex items-center gap-1 text-sm font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               source <ExternalLink size={11} />
             </a>
@@ -272,7 +274,7 @@ function BreachDetail({ slug, onClose }: { slug: string; onClose: () => void }):
                       href={sanitizeUrl(r) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline break-all"
+                      className="text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline break-all transition-colors"
                     >
                       {r} <ExternalLink size={9} className="inline" />
                     </a>
@@ -433,7 +435,7 @@ export default function BreachWatch(): JSX.Element {
               href="https://ransomware.live"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               ransomware.live
             </a>
@@ -442,7 +444,7 @@ export default function BreachWatch(): JSX.Element {
               href="https://ransomlook.io"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               ransomlook.io
             </a>
@@ -451,7 +453,7 @@ export default function BreachWatch(): JSX.Element {
               href="https://darkfield.orizon.one"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               Darkfield
             </a>
@@ -460,7 +462,7 @@ export default function BreachWatch(): JSX.Element {
               href="https://recentbreaches.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               RecentBreaches
             </a>
@@ -469,7 +471,7 @@ export default function BreachWatch(): JSX.Element {
               href="https://cti.fyi"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               CTI.FYI
             </a>
@@ -478,7 +480,7 @@ export default function BreachWatch(): JSX.Element {
               href="https://xposedornot.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               XposedOrNot
             </a>
@@ -551,7 +553,10 @@ export default function BreachWatch(): JSX.Element {
           {/* Search + filters */}
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <div className="relative flex-1 min-w-[200px] max-w-sm">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search
+                size={14}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              />
               <input
                 type="text"
                 value={searchQuery}
@@ -652,7 +657,7 @@ export default function BreachWatch(): JSX.Element {
                 type="button"
                 onClick={loadMore}
                 disabled={loadingMore}
-                className="text-mini font-mono px-4 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 bg-white dark:bg-[rgb(var(--surface-200))] disabled:opacity-40 inline-flex items-center gap-2"
+                className="text-mini font-mono px-4 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 bg-white dark:bg-[rgb(var(--surface-200))] disabled:opacity-40 inline-flex items-center gap-2 transition-colors"
               >
                 {loadingMore && <Loader2 size={12} className="animate-spin" />}
                 Load more

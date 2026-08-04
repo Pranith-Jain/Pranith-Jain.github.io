@@ -287,7 +287,7 @@ export default function StixViewer(): JSX.Element {
               <button
                 type="submit"
                 disabled={fetching || !stixId.trim()}
-                className="px-2 py-1.5 rounded bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs disabled:opacity-50 inline-flex items-center gap-1"
+                className="px-2 py-1.5 rounded bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs disabled:opacity-50 inline-flex items-center gap-1 transition-colors"
               >
                 {fetching ? <Loader2 size={11} className="animate-spin" /> : 'fetch'}
               </button>
@@ -306,7 +306,7 @@ export default function StixViewer(): JSX.Element {
                     href={`https://attack.mitre.org/techniques/${fetchedFrom.attackId.replace(/\./, '/')}/`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline inline-flex items-center gap-0.5"
+                    className="hover:underline inline-flex items-center gap-0.5 transition-colors"
                   >
                     · {fetchedFrom.attackId} <ExternalLink size={9} />
                   </a>
@@ -324,14 +324,14 @@ export default function StixViewer(): JSX.Element {
                 <button
                   type="button"
                   onClick={loadSample}
-                  className="inline-flex items-center gap-1 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                  className="inline-flex items-center gap-1 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                 >
                   <FileJson size={12} /> sample
                 </button>
                 <button
                   type="button"
                   onClick={clearAll}
-                  className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+                  className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 >
                   <Trash2 size={12} /> clear
                 </button>
@@ -448,7 +448,7 @@ export default function StixViewer(): JSX.Element {
                   <button
                     type="button"
                     onClick={loadSample}
-                    className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
+                    className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                   >
                     <FileJson size={14} /> load demo bundle
                   </button>

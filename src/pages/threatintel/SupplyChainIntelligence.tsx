@@ -176,7 +176,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             href="https://github.com/ossf/malicious-packages"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             OpenSSF
           </a>
@@ -185,7 +185,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             href="https://osv.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             OSV
           </a>
@@ -194,7 +194,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
             href="https://github.com/projectdiscovery/depx"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             depx
           </a>
@@ -234,10 +234,11 @@ export default function SupplyChainIntelligence(): JSX.Element {
             onKeyDown={(e) => e.key === 'Enter' && checkVerdict()}
             className="flex-1 px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-rose-500 font-mono"
           />
-          <button type="button"
+          <button
+            type="button"
             onClick={checkVerdict}
             disabled={!query.trim() || verdictLoading}
-            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 text-sm flex items-center gap-2"
+            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 text-sm flex items-center gap-2 transition-colors"
           >
             {verdictLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Shield className="w-4 h-4" />}
             Check
@@ -282,7 +283,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
                   href={verdict.registry_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="ml-auto text-xs text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1"
+                  className="ml-auto text-xs text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 transition-colors"
                 >
                   View on registry <ExternalLink className="w-3 h-3" />
                 </a>
@@ -296,7 +297,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
                     href={`https://github.com/ossf/malicious-packages/blob/main/osv/${verdict.package_ecosystem}/${verdict.package_name}/${id}.json`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-2 py-0.5 text-micro font-mono rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline"
+                    className="px-2 py-0.5 text-micro font-mono rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline transition-colors"
                   >
                     {id}
                   </a>
@@ -331,7 +332,8 @@ export default function SupplyChainIntelligence(): JSX.Element {
         {/* Ecosystem tabs */}
         <div className="flex flex-wrap gap-1.5 mb-4">
           {ECOSYSTEMS.map((e) => (
-            <button type="button"
+            <button
+              type="button"
               key={e.id}
               onClick={() => setOssfEco(e.id)}
               className={`px-3 py-1.5 rounded-xl border text-xs font-medium transition ${
@@ -398,7 +400,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
               href="https://github.com/ossf/malicious-packages"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               ossf/malicious-packages
             </a>

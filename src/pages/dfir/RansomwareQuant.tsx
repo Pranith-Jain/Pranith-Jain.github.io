@@ -247,7 +247,7 @@ export default function RansomwareQuant(): JSX.Element {
             </button>
             <button
               type="submit"
-              className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
             >
               Calculate
             </button>
@@ -277,7 +277,9 @@ export default function RansomwareQuant(): JSX.Element {
                 >
                   {fmt(s.total_impact)}
                 </span>
-                <span className="text-micro text-slate-500 dark:text-slate-400">{s.estimated_downtime_hours}h downtime</span>
+                <span className="text-micro text-slate-500 dark:text-slate-400">
+                  {s.estimated_downtime_hours}h downtime
+                </span>
               </div>
               <div className="mt-1 w-full h-1 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
                 <div
@@ -330,7 +332,7 @@ export default function RansomwareQuant(): JSX.Element {
                 </div>
                 <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] p-2.5">
                   <div className="text-micro font-mono text-slate-500 dark:text-slate-400">Insurance Recovers</div>
-                  <div className="text-sm font-bold font-mono text-blue-600 dark:text-blue-400">
+                  <div className="text-sm font-bold font-mono text-brand-600 dark:text-brand-400">
                     {fmt(selected.insurance_recovery)}
                   </div>
                 </div>
@@ -410,31 +412,39 @@ export default function RansomwareQuant(): JSX.Element {
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-micro font-mono">
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">Revenue/yr:</span> {fmt(selected.annual_revenue)}
+                    <span className="text-slate-500 dark:text-slate-400">Revenue/yr:</span>{' '}
+                    {fmt(selected.annual_revenue)}
                   </div>
                   <div>
                     <span className="text-slate-500 dark:text-slate-400">Ransom:</span> {fmt(selected.ransom_demand)}
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">PII records:</span> {selected.pii_records.toLocaleString()}
+                    <span className="text-slate-500 dark:text-slate-400">PII records:</span>{' '}
+                    {selected.pii_records.toLocaleString()}
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">Insurance:</span> {fmt(selected.cyber_insurance_coverage)}
+                    <span className="text-slate-500 dark:text-slate-400">Insurance:</span>{' '}
+                    {fmt(selected.cyber_insurance_coverage)}
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">Deductible:</span> {fmt(selected.insurance_deductible)}
+                    <span className="text-slate-500 dark:text-slate-400">Deductible:</span>{' '}
+                    {fmt(selected.insurance_deductible)}
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">IR cost/hr:</span> {fmt(selected.hourly_incident_response_cost)}
+                    <span className="text-slate-500 dark:text-slate-400">IR cost/hr:</span>{' '}
+                    {fmt(selected.hourly_incident_response_cost)}
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">Data volume:</span> {selected.data_volume_gb} GB
+                    <span className="text-slate-500 dark:text-slate-400">Data volume:</span> {selected.data_volume_gb}{' '}
+                    GB
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">IP at risk:</span> {fmt(selected.ip_value_at_risk)}
+                    <span className="text-slate-500 dark:text-slate-400">IP at risk:</span>{' '}
+                    {fmt(selected.ip_value_at_risk)}
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400">Fine/record:</span> {fmt(selected.regulatory_fine_per_record)}
+                    <span className="text-slate-500 dark:text-slate-400">Fine/record:</span>{' '}
+                    {fmt(selected.regulatory_fine_per_record)}
                   </div>
                 </div>
               </div>

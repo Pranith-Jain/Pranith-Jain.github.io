@@ -201,7 +201,11 @@ export default function Socmint(): JSX.Element {
       <section className="surface-card p-4 mb-6">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+            <Search
+              size={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              aria-hidden="true"
+            />
             <input
               type="text"
               value={input}
@@ -323,7 +327,7 @@ export default function Socmint(): JSX.Element {
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 hover:border-brand-500/40"
+                          className="block rounded border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] px-3 py-2 hover:border-brand-500/40 transition-colors"
                         >
                           <PivotInner pivot={p} url={url} internal={false} />
                         </a>

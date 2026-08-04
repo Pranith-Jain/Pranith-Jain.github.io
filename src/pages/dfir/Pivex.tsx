@@ -42,7 +42,7 @@ interface GraphApiResponse {
 }
 
 const ENTITY_COLORS: Record<string, string> = {
-  ip: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
+  ip: 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300',
   domain: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   certificate: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   asn: 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300',
@@ -78,7 +78,7 @@ const ENTITY_BG: Record<string, string> = {
 };
 
 const ENTITY_ICON_COLORS: Record<string, string> = {
-  ip: 'text-blue-600 dark:text-blue-400',
+  ip: 'text-brand-600 dark:text-brand-400',
   domain: 'text-emerald-600 dark:text-emerald-400',
   certificate: 'text-amber-600 dark:text-amber-400',
   asn: 'text-purple-600 dark:text-purple-400',

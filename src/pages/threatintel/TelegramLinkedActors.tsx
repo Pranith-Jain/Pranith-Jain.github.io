@@ -358,7 +358,7 @@ export default function TelegramLinkedActors(): JSX.Element {
           <button
             type="submit"
             disabled={searchLoading || !input.trim()}
-            className="text-mini font-mono px-3 py-1.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20 disabled:opacity-50 inline-flex items-center gap-1"
+            className="text-mini font-mono px-3 py-1.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20 disabled:opacity-50 inline-flex items-center gap-1 transition-colors"
           >
             {searchLoading ? <Loader2 size={12} className="animate-spin" /> : <Search size={12} />} pivot
           </button>
@@ -529,7 +529,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
             href={sanitizeUrl(`https://telegram.me/s/${pivot.handle}`)}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
+            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
           >
             <ExternalLink size={11} /> telegram.me/s/{pivot.handle}
           </a>
@@ -537,7 +537,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
             <button
               type="button"
               onClick={onClearFilter}
-              className="text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+              className="text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
             >
               clear
             </button>
@@ -640,7 +640,7 @@ function PivotCard({ pivot, onClearFilter }: { pivot: HandlePivot; onClearFilter
                       href={sanitizeUrl(l.message_link)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-500 hover:text-rose-600"
+                      className="text-slate-500 hover:text-rose-600 transition-colors"
                     >
                       <ExternalLink size={10} />
                     </a>

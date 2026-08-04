@@ -123,7 +123,8 @@ function ResultRow({ result }: { result: WebamonResult }) {
 
   return (
     <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl bg-white dark:bg-[rgb(var(--surface-200))] overflow-hidden">
-      <button type="button"
+      <button
+        type="button"
         onClick={() => setExpanded(!expanded)}
         className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
       >
@@ -424,7 +425,8 @@ function JsonBlock({ data, label }: { data: Record<string, unknown>; label: stri
   const [open, setOpen] = useState(false);
   return (
     <div className="surface-card overflow-hidden">
-      <button type="button"
+      <button
+        type="button"
         onClick={() => setOpen(!open)}
         className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
       >
@@ -434,7 +436,9 @@ function JsonBlock({ data, label }: { data: Record<string, unknown>; label: stri
           <ChevronRight size={14} className="text-slate-500 dark:text-slate-400" />
         )}
         <span className="font-mono text-tool font-semibold text-slate-700 dark:text-slate-300">{label}</span>
-        <span className="text-mini text-slate-500 dark:text-slate-400 font-mono">{Object.keys(data).length} fields</span>
+        <span className="text-mini text-slate-500 dark:text-slate-400 font-mono">
+          {Object.keys(data).length} fields
+        </span>
       </button>
       {open && (
         <pre className="text-mini font-mono text-muted bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-4 overflow-x-auto max-h-96">
@@ -529,7 +533,8 @@ function SearchTab() {
         <div className="mt-2 flex flex-wrap gap-2">
           {SEARCH_EXAMPLES.map((ex) => (
             <button
-              key={ex} role="tab"
+              key={ex}
+              role="tab"
               type="button"
               onClick={() => {
                 setQuery(ex);
@@ -561,7 +566,11 @@ function SearchTab() {
           <div className="flex items-center justify-between mb-4 text-sm text-slate-500 dark:text-slate-400 font-mono">
             <span>
               {data.total_hits.toLocaleString()} result{data.total_hits !== 1 ? 's' : ''}
-              {data.search_string ? <span className="text-slate-500 dark:text-slate-400"> for &quot;{data.search_string}&quot;</span> : ''}
+              {data.search_string ? (
+                <span className="text-slate-500 dark:text-slate-400"> for &quot;{data.search_string}&quot;</span>
+              ) : (
+                ''
+              )}
             </span>
             {pagination && data.total_hits > PAGE_SIZE && (
               <span>
@@ -711,7 +720,7 @@ function SandboxTab() {
           <button
             type="submit"
             disabled={!url.trim() || submitting}
-            className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2"
+            className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2 transition-colors"
           >
             {submitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
             {submitting ? 'Submitting…' : 'Scan'}
@@ -799,7 +808,8 @@ function SandboxTab() {
                         <div className="space-y-2 max-h-60 overflow-y-auto">
                           {r.certificate.map((c, i) => (
                             <div
-                              key={i} role="tab"
+                              key={i}
+                              role="tab"
                               className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1"
                             >
                               <div className="font-semibold text-slate-700 dark:text-slate-300">
@@ -833,7 +843,8 @@ function SandboxTab() {
                         <div className="space-y-2 max-h-60 overflow-y-auto">
                           {r.server.map((s, i) => (
                             <div
-                              key={i} role="tab"
+                              key={i}
+                              role="tab"
                               className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 p-3 text-mini font-mono space-y-1"
                             >
                               {s.ip && <div className="font-semibold text-slate-700 dark:text-slate-300">{s.ip}</div>}
@@ -874,7 +885,8 @@ function SandboxTab() {
                             <tbody>
                               {r.cookie.map((c, i) => (
                                 <tr
-                                  key={i} role="tab"
+                                  key={i}
+                                  role="tab"
                                   className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50"
                                 >
                                   <td className="py-1 pr-2 text-slate-700 dark:text-slate-300 break-all">
@@ -900,13 +912,16 @@ function SandboxTab() {
                         <div className="flex flex-wrap gap-1.5">
                           {r.technology.map((t, i) => (
                             <span
-                              key={i} role="tab"
+                              key={i}
+                              role="tab"
                               className="inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-mini font-mono text-muted border border-slate-200 dark:border-[rgb(var(--border-400))]"
                             >
                               <Tag size={10} />
                               {t.name}
                               {t.version && <span className="text-slate-500 dark:text-slate-400">v{t.version}</span>}
-                              {t.category && <span className="text-slate-500 dark:text-slate-400 text-micro">({t.category})</span>}
+                              {t.category && (
+                                <span className="text-slate-500 dark:text-slate-400 text-micro">({t.category})</span>
+                              )}
                             </span>
                           ))}
                         </div>
@@ -932,7 +947,8 @@ function SandboxTab() {
                             <tbody>
                               {r.resource.map((res, i) => (
                                 <tr
-                                  key={i} role="tab"
+                                  key={i}
+                                  role="tab"
                                   className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50"
                                 >
                                   <td className="py-1 pr-3 text-slate-700 dark:text-slate-300 break-all">
@@ -1000,7 +1016,9 @@ function SandboxTab() {
                                   {m.status}
                                 </span>
                               )}
-                              {m.last_checked && <span className="text-slate-500 dark:text-slate-400">{m.last_checked}</span>}
+                              {m.last_checked && (
+                                <span className="text-slate-500 dark:text-slate-400">{m.last_checked}</span>
+                              )}
                             </div>
                           ))}
                         </div>
@@ -1068,7 +1086,8 @@ function SandboxTab() {
             })()}
 
           {reportId && !screenshotUrl && !screenshotLoading && (
-            <button type="button"
+            <button
+              type="button"
               onClick={() => loadScreenshot(reportId)}
               className="px-4 py-2 rounded-xl text-sm font-mono bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40 transition-colors inline-flex items-center gap-2"
             >
@@ -1170,7 +1189,8 @@ function InfraTab() {
               const active = mode === m.key;
               return (
                 <button
-                  key={m.key} role="tab"
+                  key={m.key}
+                  role="tab"
                   type="button"
                   onClick={() => setMode(m.key)}
                   className={`px-3 py-2.5 text-meta font-mono flex items-center gap-1.5 transition-colors ${
@@ -1264,7 +1284,7 @@ export default function Webamon(): JSX.Element {
             href="https://webamon.co.uk"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             Webamon
           </a>
@@ -1273,13 +1293,18 @@ export default function Webamon(): JSX.Element {
       </div>
 
       {/* Tab bar */}
-      <div role="tablist" aria-label="Tabs" className="flex gap-1 mb-8 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div
+        role="tablist"
+        aria-label="Tabs"
+        className="flex gap-1 mb-8 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
+      >
         {TABS.map((t) => {
           const Icon = t.icon;
           const active = tab === t.key;
           return (
             <button
-              key={t.key} role="tab"
+              key={t.key}
+              role="tab"
               type="button"
               onClick={() => setTab(t.key)}
               className={`flex items-center gap-2 px-4 py-3 text-tool font-mono font-semibold border-b-2 transition-colors ${

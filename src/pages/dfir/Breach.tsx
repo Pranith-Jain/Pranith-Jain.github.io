@@ -37,7 +37,7 @@ const SOURCE_LABELS: Record<string, string> = {
 
 const SOURCE_COLORS: Record<string, string> = {
   xposedornot: 'bg-violet-500/10 text-violet-700 dark:text-violet-300 border-violet-500/30',
-  leakcheck: 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30',
+  leakcheck: 'bg-brand-500/10 text-brand-700 dark:text-brand-300 border-brand-500/30',
   leakix: 'bg-cyan-500/10 text-sky-700 dark:text-sky-300 border-cyan-500/30',
   proxynova: 'bg-orange-500/10 text-orange-700 dark:text-orange-300 border-orange-500/30',
   hudsonrock: 'bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/30',
@@ -301,7 +301,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
               href="https://github.com/sslboard/throwaway"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+              className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
             >
               throwaway <ExternalLink size={9} />
             </a>
@@ -309,7 +309,7 @@ function VerificationCard({ verification }: { verification: EmailVerification })
               href="https://github.com/umuterturk/email-verifier"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+              className="inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
             >
               rapid-verifier <ExternalLink size={9} />
             </a>
@@ -496,7 +496,7 @@ function PasswordTab(): JSX.Element {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
           >
             Check
           </button>
@@ -540,7 +540,7 @@ function PasswordTab(): JSX.Element {
                     href="https://haveibeenpwned.com/Passwords"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                    className="inline-flex items-center gap-1 text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                   >
                     Learn more at HIBP
                     <ExternalLink size={12} />
@@ -562,7 +562,7 @@ function PasswordTab(): JSX.Element {
                     href="https://haveibeenpwned.com/Passwords"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                    className="inline-flex items-center gap-1 text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                   >
                     haveibeenpwned.com/Passwords
                     <ExternalLink size={12} />
@@ -701,7 +701,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
           <button
             type="submit"
             disabled={!isValid || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
           >
             Check
           </button>
@@ -941,7 +941,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
           <button
             type="submit"
             disabled={!isValid || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 whitespace-nowrap transition-colors"
           >
             Check
           </button>

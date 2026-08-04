@@ -58,7 +58,7 @@ export default function StixBundleBrowser(): JSX.Element {
             href="https://the-hunters-ledger.com/stix/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             The Hunter's Ledger
           </a>{' '}
@@ -93,7 +93,8 @@ export default function StixBundleBrowser(): JSX.Element {
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-6">
-        <button type="button"
+        <button
+          type="button"
           onClick={() => setActiveSev(null)}
           className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeSev
@@ -104,7 +105,8 @@ export default function StixBundleBrowser(): JSX.Element {
           All ({STIX_BUNDLES.length})
         </button>
         {SEVERITIES.map((sev) => (
-          <button type="button"
+          <button
+            type="button"
             key={sev}
             onClick={() => setActiveSev(activeSev === sev ? null : sev)}
             className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${

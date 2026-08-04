@@ -478,7 +478,7 @@ function InfostealerView({ data }: { data: unknown }): JSX.Element {
                   href={website.startsWith('http') ? website : `https://${website}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-micro text-rose-600 dark:text-rose-400 hover:underline mt-1 block truncate"
+                  className="font-mono text-micro text-rose-600 dark:text-rose-400 hover:underline mt-1 block truncate transition-colors"
                 >
                   {website}
                 </a>
@@ -575,7 +575,7 @@ function YaraRules({ group, onBack }: { group: string; onBack: () => void }): JS
       <button
         type="button"
         onClick={onBack}
-        className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline mb-2"
+        className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline mb-2 transition-colors"
       >
         ← back to groups
       </button>
@@ -682,7 +682,7 @@ function IocValues({ group, onBack }: { group: string; onBack: () => void }): JS
       <button
         type="button"
         onClick={onBack}
-        className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline mb-2"
+        className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline mb-2 transition-colors"
       >
         ← back to groups
       </button>
@@ -835,7 +835,7 @@ function KqlDetail2({ id, onBack }: { id: string; onBack: () => void }): JSX.Ele
       <button
         type="button"
         onClick={onBack}
-        className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline mb-2"
+        className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline mb-2 transition-colors"
       >
         ← back to KQL index
       </button>
@@ -997,12 +997,15 @@ export default function RansomwareLive(): JSX.Element {
             href="https://www.ransomware.live"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             ransomware.live
           </a>
           . For victim reporting, activity feeds, and payment tracking, see{' '}
-          <a href="/threatintel/ransomware-hub" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <a
+            href="/threatintel/ransomware-hub"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
+          >
             Ransomware Hub
           </a>
           .
@@ -1038,7 +1041,7 @@ export default function RansomwareLive(): JSX.Element {
                 type="button"
                 onClick={refresh}
                 disabled={loading}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-50 transition-colors"
                 aria-label={`Refresh ${active.label}`}
               >
                 <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh

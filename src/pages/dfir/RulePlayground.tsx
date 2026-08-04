@@ -143,13 +143,13 @@ export default function RulePlayground(): JSX.Element {
       <div className="flex flex-wrap gap-1.5 mb-4">
         <button
           onClick={loadYara}
-          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           Load YARA sample
         </button>
         <button
           onClick={loadSigma}
-          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           Load Sigma sample
         </button>
@@ -332,7 +332,7 @@ export default function RulePlayground(): JSX.Element {
               href="https://yara.readthedocs.io/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               YARA documentation
               <ExternalLink size={11} aria-hidden="true" />
@@ -343,7 +343,7 @@ export default function RulePlayground(): JSX.Element {
               href="https://github.com/SigmaHQ/sigma-specification"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Sigma specification (SigmaHQ)
               <ExternalLink size={11} aria-hidden="true" />

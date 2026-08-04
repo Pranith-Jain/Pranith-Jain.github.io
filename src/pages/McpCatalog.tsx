@@ -224,7 +224,7 @@ export default function McpCatalogPage(): JSX.Element {
           </div>
           <a
             href="/mcp-manifest.json"
-            className="inline-flex items-center gap-1 text-meta text-brand-600 dark:text-brand-400 hover:underline"
+            className="inline-flex items-center gap-1 text-meta text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             Manifest <ExternalLink className="h-3.5 w-3.5" />
           </a>

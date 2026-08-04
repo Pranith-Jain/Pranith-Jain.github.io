@@ -45,7 +45,7 @@ const FRAMEWORK_COLORS: Record<string, string> = {
 };
 
 const SOURCE_COLORS: Record<string, string> = {
-  c2intel: 'bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/30',
+  c2intel: 'bg-brand-500/15 text-brand-700 dark:text-brand-300 border-brand-500/30',
   threatfox: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
 };
 
@@ -134,14 +134,16 @@ export default function C2Tracker(): JSX.Element {
             </div>
             {/* Framework filter */}
             <div className="flex flex-wrap gap-2">
-              <button type="button"
+              <button
+                type="button"
                 onClick={() => setFilter('all')}
                 className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === 'all' ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'}`}
               >
                 All <span className="opacity-60">· {data.count}</span>
               </button>
               {frameworks.map((fw) => (
-                <button type="button"
+                <button
+                  type="button"
                   key={fw}
                   onClick={() => setFilter(fw)}
                   className={`text-xs font-mono px-2.5 py-1 rounded border transition-colors ${filter === fw ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'}`}

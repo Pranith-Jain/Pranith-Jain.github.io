@@ -65,7 +65,7 @@ export default function Traceix() {
             href="https://traceix.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             traceix.com
           </a>{' '}
@@ -74,7 +74,7 @@ export default function Traceix() {
             href="https://perkinsfund.org"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             Perkins Fund (PCEF)
           </a>
@@ -223,7 +223,7 @@ export default function Traceix() {
             href="https://traceix.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             traceix.com
           </a>{' '}
@@ -232,7 +232,7 @@ export default function Traceix() {
             href="https://perkinsfund.org"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             Perkins Fund (PCEF)
           </a>
@@ -243,7 +243,7 @@ export default function Traceix() {
             href="https://docs.perkinsfund.org/readme/traceix-endpoints/traceix.md"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             docs.perkinsfund.org
           </a>

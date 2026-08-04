@@ -70,7 +70,7 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
               href={project.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400"
+              className="inline-flex items-center gap-1.5 text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition-colors"
               aria-label={`View ${project.title} on GitHub`}
             >
               <Github className="w-3.5 h-3.5" aria-hidden="true" />
@@ -92,7 +92,7 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
               href={project.externalUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-brand-700 hover:underline dark:text-brand-400"
+              className="inline-flex items-center gap-1.5 text-brand-700 hover:underline dark:text-brand-400 transition-colors"
               aria-label={`Open ${project.title} live demo`}
             >
               <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
@@ -135,7 +135,9 @@ export function Projects({ projects }: ProjectsProps) {
             <div className="text-eyebrow font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
               Case Studies
             </div>
-            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">· {publishedCaseStudies.length} published</span>
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+              · {publishedCaseStudies.length} published
+            </span>
           </div>
 
           {/* Timeline layout */}
@@ -197,7 +199,9 @@ export function Projects({ projects }: ProjectsProps) {
                         </span>
                       ))}
                       {cs.tags.length > 4 && (
-                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{cs.tags.length - 4}</span>
+                        <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                          +{cs.tags.length - 4}
+                        </span>
                       )}
                     </div>
                   )}

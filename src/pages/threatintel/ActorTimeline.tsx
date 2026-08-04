@@ -205,7 +205,7 @@ export default function ActorTimeline(): JSX.Element {
                             href={sanitizeUrl(g.mitre.url)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline"
+                            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline transition-colors"
                           >
                             MITRE {g.mitre.id} · {g.mitre.name} <ExternalLink size={9} />
                           </a>
@@ -261,7 +261,7 @@ export default function ActorTimeline(): JSX.Element {
                               href={sanitizeUrl(ref) || undefined}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="hover:underline hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
+                              className="hover:underline hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
                               title={ref}
                             >
                               {host} <ExternalLink size={9} />

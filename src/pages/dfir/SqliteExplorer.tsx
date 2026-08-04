@@ -151,7 +151,7 @@ export default function SqliteExplorer(): JSX.Element {
               <button
                 type="button"
                 onClick={runSql}
-                className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 font-mono text-meta"
+                className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 font-mono text-meta transition-colors"
               >
                 Run
               </button>

@@ -32,7 +32,7 @@ const TACTIC_COLORS: Record<string, string> = {
     'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300 border-slate-300 dark:border-[rgb(var(--border-400))]',
   'Resource Development': 'bg-slate-100 text-slate-700 dark:bg-[rgb(var(--surface-300))] dark:text-slate-300',
   'Initial Access':
-    'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 border-blue-300 dark:border-blue-800',
+    'bg-blue-100 text-brand-700 dark:bg-blue-900/40 dark:text-brand-300 border-brand-300 dark:border-blue-800',
   Execution:
     'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300 border-orange-300 dark:border-orange-800',
   Persistence:
@@ -497,7 +497,9 @@ export default function AttmapAi(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Sparkles size={14} className="text-slate-500 dark:text-slate-400" />
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Input</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Input
+              </span>
             </div>
 
             <div className="flex flex-wrap gap-2 mb-4">

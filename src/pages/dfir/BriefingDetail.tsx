@@ -212,7 +212,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
                 href={`https://nvd.nist.gov/vuln/detail/${cve}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-micro font-mono px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline"
+                className="text-micro font-mono px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline transition-colors"
                 title={`Look up ${cve} on NVD`}
               >
                 {cve}
@@ -256,7 +256,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
             href={sanitizeUrl(finding.source_url) || undefined}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline ml-auto"
+            className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline ml-auto transition-colors"
           >
             details <ExternalLink size={11} />
           </a>
@@ -565,7 +565,7 @@ function LandscapeReportView({ briefing }: { briefing: LandscapeReport }): JSX.E
                         href={sanitizeUrl(f.source_url) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline ml-auto"
+                        className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline ml-auto transition-colors"
                       >
                         details <ExternalLink size={11} />
                       </a>
@@ -666,7 +666,18 @@ export default function BriefingDetail(): JSX.Element {
     return parts.join('\n');
   }, [briefing]);
 
-  const stats = briefing?.stats ?? { findings: 0, sections: 0, cves: 0, kevs: 0, iocs: 0, critical: 0, high: 0, medium: 0, low: 0, ransomware_victims: 0 };
+  const stats = briefing?.stats ?? {
+    findings: 0,
+    sections: 0,
+    cves: 0,
+    kevs: 0,
+    iocs: 0,
+    critical: 0,
+    high: 0,
+    medium: 0,
+    low: 0,
+    ransomware_victims: 0,
+  };
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
   const shareTitle = briefing?.title ?? '';
 
@@ -760,6 +771,7 @@ export default function BriefingDetail(): JSX.Element {
         <a
           href={`/api/v1/briefings/${briefing.slug}/print`}
           target="_blank"
+          rel="noopener noreferrer"
           className="mt-3 inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:bg-brand-500/5 transition-colors"
         >
           <svg

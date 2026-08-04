@@ -55,7 +55,7 @@ const TAG_COLORS: Record<string, string> = {
   apt: 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800',
   malware: 'text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-950/40 border-red-300 dark:border-red-800',
   expl: 'text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 border-orange-300 dark:border-orange-800',
-  gen: 'text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/40 border-blue-300 dark:border-blue-800',
+  gen: 'text-brand-700 dark:text-brand-300 bg-blue-50 dark:bg-blue-950/40 border-brand-300 dark:border-blue-800',
   thr: 'text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/40 border-purple-300 dark:border-purple-800',
   cve: 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800',
   webshell: 'text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 border-teal-300 dark:border-teal-800',
@@ -116,7 +116,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
                   href={r.meta.reference}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-brand-600 dark:text-brand-400 hover:underline mt-1"
+                  className="inline-flex items-center gap-1 text-xs text-brand-600 dark:text-brand-400 hover:underline mt-1 transition-colors"
                 >
                   {r.meta.reference.slice(0, 80)}
                   {r.meta.reference.length > 80 ? '…' : ''} <ExternalLink size={10} />
@@ -145,7 +145,7 @@ function RuleDetail({ body, onClose }: { body: YaraBody; onClose: () => void }) 
             href="https://github.com/Neo23x0/signature-base"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             {body.source}
           </a>{' '}
@@ -210,7 +210,7 @@ export default function SigBase() {
             href="https://github.com/Neo23x0/signature-base"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             Neo23x0/signature-base
           </a>{' '}
@@ -274,7 +274,7 @@ export default function SigBase() {
                 href={`/api/v1/sigbase/iocs/${i.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${CARD} inline-flex items-center gap-2 px-3 py-2 text-xs hover:border-brand-400 dark:hover:border-brand-600`}
+                className={`${CARD} inline-flex items-center gap-2 px-3 py-2 text-xs hover:border-brand-400 dark:hover:border-brand-600 transition-colors`}
               >
                 <Hash size={12} className="text-brand-500" />
                 <span className="font-semibold text-slate-700 dark:text-slate-200">{i.title}</span>
@@ -341,7 +341,7 @@ export default function SigBase() {
             href="https://github.com/Neo23x0/signature-base"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             Neo23x0/signature-base
           </a>{' '}
@@ -350,7 +350,7 @@ export default function SigBase() {
             href="https://github.com/Neo23x0/Loki"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             LOKI
           </a>{' '}

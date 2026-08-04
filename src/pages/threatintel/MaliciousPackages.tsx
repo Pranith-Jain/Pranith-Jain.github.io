@@ -155,7 +155,7 @@ export default function MaliciousPackages(): JSX.Element {
         href="https://github.com/ossf/malicious-packages"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-rose-600 dark:text-rose-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
       >
         ossf/malicious-packages
       </a>{' '}
@@ -195,7 +195,7 @@ export default function MaliciousPackages(): JSX.Element {
                   href={registryLink(p)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-0.5"
+                  className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-0.5 transition-colors"
                   title={`Open ${p.ecosystem} registry`}
                 >
                   registry <ExternalLink size={9} />
@@ -204,7 +204,7 @@ export default function MaliciousPackages(): JSX.Element {
                   href={p.ossf_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-0.5"
+                  className="text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-0.5 transition-colors"
                   title="OSSF malicious-packages OSV record"
                 >
                   OSSF <ExternalLink size={9} />

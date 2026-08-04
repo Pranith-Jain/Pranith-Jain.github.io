@@ -24,8 +24,8 @@ const TYPE_COLORS: Record<string, string> = {
   AWACS: 'text-purple-400',
   JSTARS: 'text-purple-400',
   'Aerial Tanker': 'text-cyan-400',
-  'Strategic Airlift': 'text-blue-400',
-  'Tactical Transport': 'text-blue-400',
+  'Strategic Airlift': 'text-brand-400',
+  'Tactical Transport': 'text-brand-400',
   'Fighter (F-35)': 'text-red-400',
   'Fighter (F-16)': 'text-red-400',
   'Fighter (F-15)': 'text-red-400',
@@ -93,14 +93,20 @@ export default function MilitaryFlights() {
                 <span className={`text-tool font-mono font-bold ${TYPE_COLORS[f.type] || 'text-cyan-400'}`}>
                   {f.callsign || f.icao24}
                 </span>
-                {f.aircraftType && <span className="text-mini text-slate-500 dark:text-slate-400 font-mono">{f.aircraftType}</span>}
+                {f.aircraftType && (
+                  <span className="text-mini text-slate-500 dark:text-slate-400 font-mono">{f.aircraftType}</span>
+                )}
                 {f.squawk === '7700' && (
                   <span className="text-mini font-bold px-1 py-0.5 rounded bg-red-900/30 text-red-400">EMERG</span>
                 )}
               </div>
               <div className="text-right">
-                <div className={`text-mini ${TYPE_COLORS[f.type] || 'text-slate-500 dark:text-slate-400'}`}>{f.type}</div>
-                <div className="text-mini text-slate-500 dark:text-slate-400 font-mono">{f.altitude.toLocaleString()}ft</div>
+                <div className={`text-mini ${TYPE_COLORS[f.type] || 'text-slate-500 dark:text-slate-400'}`}>
+                  {f.type}
+                </div>
+                <div className="text-mini text-slate-500 dark:text-slate-400 font-mono">
+                  {f.altitude.toLocaleString()}ft
+                </div>
               </div>
             </div>
           ))

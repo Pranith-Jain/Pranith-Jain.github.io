@@ -387,7 +387,7 @@ export default function AgentMap(): JSX.Element {
               href="https://owasp.org/www-project-top-10-for-large-language-model-applications/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               OWASP LLM Top 10 - LLM06 Excessive Agency, LLM02 Sensitive Information Disclosure
               <ExternalLink size={11} aria-hidden="true" />
@@ -398,7 +398,7 @@ export default function AgentMap(): JSX.Element {
               href="https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Invariant Labs - Tool Poisoning attacks against MCP
               <ExternalLink size={11} aria-hidden="true" />

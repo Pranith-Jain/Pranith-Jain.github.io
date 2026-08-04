@@ -65,7 +65,7 @@ const EVIDENCE_STATUS_TONES: Record<string, string> = {
 };
 
 const FRAMEWORKS_COLORS: Record<string, string> = {
-  soc2: 'bg-blue-500',
+  soc2: 'bg-brand-500',
   iso27001: 'bg-violet-500',
   nist: 'bg-emerald-500',
   pci: 'bg-rose-500',
@@ -298,7 +298,7 @@ export default function GrcEvidence(): JSX.Element {
                   type="button"
                   onClick={fetchAll}
                   disabled={loading}
-                  className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-300 inline-flex items-center gap-1.5 disabled:opacity-50"
+                  className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-300 inline-flex items-center gap-1.5 disabled:opacity-50 transition-colors"
                 >
                   <RefreshCw size={11} /> Refresh
                 </button>
@@ -339,11 +339,15 @@ export default function GrcEvidence(): JSX.Element {
                             {ctrl.status}
                           </span>
                           <span className="text-micro text-slate-500 dark:text-slate-400">{ctrl.category}</span>
-                          {ctrl.owner && <span className="text-micro text-slate-500 dark:text-slate-400">Owner: {ctrl.owner}</span>}
+                          {ctrl.owner && (
+                            <span className="text-micro text-slate-500 dark:text-slate-400">Owner: {ctrl.owner}</span>
+                          )}
                         </div>
                       </div>
                       <div className="flex items-center gap-1 shrink-0">
-                        <span className="text-micro text-slate-500 dark:text-slate-400">{ctrl.evidence_count} evidence</span>
+                        <span className="text-micro text-slate-500 dark:text-slate-400">
+                          {ctrl.evidence_count} evidence
+                        </span>
                         <select
                           value={ctrl.status}
                           onClick={(e) => e.stopPropagation()}
@@ -362,7 +366,9 @@ export default function GrcEvidence(): JSX.Element {
                       <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] px-4 py-3 space-y-3 bg-slate-50/50 dark:bg-[rgb(var(--surface-100))]/50">
                         <p className="text-mini text-slate-500 font-mono">{ctrl.description}</p>
                         {ctrl.notes && (
-                          <p className="text-micro text-slate-500 dark:text-slate-400 font-mono italic">Notes: {ctrl.notes}</p>
+                          <p className="text-micro text-slate-500 dark:text-slate-400 font-mono italic">
+                            Notes: {ctrl.notes}
+                          </p>
                         )}
 
                         <div className="flex items-center justify-between mt-2">
@@ -379,7 +385,9 @@ export default function GrcEvidence(): JSX.Element {
                         </div>
 
                         {ctrlEvidence.length === 0 && (
-                          <p className="text-micro text-slate-500 dark:text-slate-400 font-mono italic">No evidence collected yet.</p>
+                          <p className="text-micro text-slate-500 dark:text-slate-400 font-mono italic">
+                            No evidence collected yet.
+                          </p>
                         )}
                         {ctrlEvidence.map((ev) => (
                           <div

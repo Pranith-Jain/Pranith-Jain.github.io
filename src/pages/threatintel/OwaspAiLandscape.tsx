@@ -122,7 +122,7 @@ function NodeRow({ node, depth, defaultOpen }: { node: OwaspNode; depth: number;
                 href={node.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`font-medium ${isLeaf ? 'text-base text-slate-900 dark:text-slate-50' : 'text-base text-slate-900 dark:text-slate-50'} hover:text-rose-600 dark:hover:text-rose-400 hover:underline`}
+                className={`font-medium ${isLeaf ? 'text-base text-slate-900 dark:text-slate-50' : 'text-base text-slate-900 dark:text-slate-50'} hover:text-rose-600 dark:hover:text-rose-400 hover:underline transition-colors`}
               >
                 {node.title}
               </a>
@@ -141,7 +141,7 @@ function NodeRow({ node, depth, defaultOpen }: { node: OwaspNode; depth: number;
                 href={node.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-auto text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
+                className="ml-auto text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 aria-label="Open external"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
@@ -253,7 +253,7 @@ export default function OwaspAiLandscape(): JSX.Element {
             href="https://github.com/RicoKomenda/owasp-ai-security-visualizer"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             RicoKomenda/owasp-ai-security-visualizer
           </a>
@@ -352,7 +352,7 @@ export default function OwaspAiLandscape(): JSX.Element {
                   href={data.source}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-rose-600 dark:text-rose-400 hover:underline truncate"
+                  className="text-rose-600 dark:text-rose-400 hover:underline truncate transition-colors"
                 >
                   data.json
                 </a>

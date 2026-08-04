@@ -307,7 +307,7 @@ export default function LinuxTriage(): JSX.Element {
             <button
               type="button"
               onClick={pipeToExtractor}
-              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+              className="text-meta font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
             >
               <FileSearch size={11} /> Extract IOCs →
             </button>

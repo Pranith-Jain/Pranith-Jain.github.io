@@ -712,7 +712,7 @@ function Diamond(): JSX.Element {
           <button
             type="submit"
             disabled={autoFilling || !autoFillIndicator.trim()}
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded border border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-sm font-mono font-semibold hover:bg-emerald-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded border border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-sm font-mono font-semibold hover:bg-emerald-500/25 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {autoFilling ? <Loader2 size={14} className="animate-spin" /> : <Wand2 size={14} />}
             {autoFilling ? 'filling…' : 'Auto-fill'}
@@ -730,21 +730,21 @@ function Diamond(): JSX.Element {
             <button
               type="button"
               onClick={loadSample}
-              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center"
+              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center transition-colors"
             >
               Load sample
             </button>
             <button
               type="button"
               onClick={exportMd}
-              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1.5 transition-colors"
             >
               <Download size={12} /> Export markdown
             </button>
             <button
               type="button"
               onClick={reset}
-              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5"
+              className="text-xs font-mono px-3 py-2 sm:px-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5 transition-colors"
             >
               <RotateCcw size={12} /> Reset
             </button>
@@ -837,7 +837,7 @@ function Diamond(): JSX.Element {
               href="https://apps.dtic.mil/sti/citations/ADA586960"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Caltagirone, Pendergast &amp; Betz - The Diamond Model of Intrusion Analysis (2013)
               <ExternalLink size={11} aria-hidden="true" />
@@ -848,7 +848,7 @@ function Diamond(): JSX.Element {
               href="https://www.activeresponse.org/the-diamond-model/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               ActiveResponse - Diamond Model overview &amp; examples
               <ExternalLink size={11} aria-hidden="true" />

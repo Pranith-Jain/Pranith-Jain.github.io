@@ -133,7 +133,7 @@ export default function DisarmFramework(): JSX.Element {
         href="https://github.com/DISARMFoundation/DISARMframeworks"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-rose-600 dark:text-rose-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
       >
         DISARM
       </a>{' '}
@@ -205,7 +205,7 @@ export default function DisarmFramework(): JSX.Element {
                       href={primaryRef}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-rose-600 dark:hover:text-rose-400"
+                      className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                     >
                       {entry.external_id && (
                         <span className="font-mono text-rose-600 dark:text-rose-400 mr-1.5">{entry.external_id}</span>
@@ -261,7 +261,7 @@ export default function DisarmFramework(): JSX.Element {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline"
+                        className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                         title={ref.source_name}
                       >
                         {label}
@@ -286,7 +286,7 @@ export default function DisarmFramework(): JSX.Element {
             href={data.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-rose-600 dark:hover:text-rose-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             {data.source}
           </a>{' '}

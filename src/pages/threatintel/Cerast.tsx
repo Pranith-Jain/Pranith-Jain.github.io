@@ -277,7 +277,7 @@ export default function Cerast() {
                 href="https://search.cerast-intelligence.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 font-medium"
+                className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 font-medium transition-colors"
               >
                 Open Cerast Intelligence <ExternalLink className="h-3 w-3" />
               </a>

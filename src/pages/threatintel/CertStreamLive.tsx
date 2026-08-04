@@ -198,7 +198,7 @@ export default function CertStreamLive(): JSX.Element {
             type="button"
             onClick={start}
             disabled={!keyword.trim()}
-            className="inline-flex items-center justify-center gap-1.5 rounded bg-rose-600 px-3 py-2 text-xs font-mono font-semibold text-white hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="inline-flex items-center justify-center gap-1.5 rounded bg-rose-600 px-3 py-2 text-xs font-mono font-semibold text-white hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
             <Play size={12} /> Start stream
           </button>
@@ -332,7 +332,7 @@ export default function CertStreamLive(): JSX.Element {
                         href={it.crtsh_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
+                        className="text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                         title="Open on crt.sh"
                       >
                         <ExternalLink size={12} />

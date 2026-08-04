@@ -108,7 +108,7 @@ export function Spotlight({ open, onClose, onSelect }: Props) {
           <button
             aria-label="Close"
             onClick={onClose}
-            className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100"
+            className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 transition-colors"
           >
             <X size={16} />
           </button>

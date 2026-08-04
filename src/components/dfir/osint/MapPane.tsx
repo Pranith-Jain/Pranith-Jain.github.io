@@ -83,14 +83,14 @@ export function MapPane({
               <div className="mt-2 flex gap-3">
                 <button
                   type="button"
-                  className="text-xs font-medium text-brand-600 hover:text-brand-700 hover:underline"
+                  className="text-xs font-medium text-brand-600 hover:text-brand-700 hover:underline transition-colors"
                   onClick={() => onEditPin(p.id)}
                 >
                   Edit
                 </button>
                 <button
                   type="button"
-                  className="text-xs font-medium text-rose-600 hover:text-rose-700 hover:underline"
+                  className="text-xs font-medium text-rose-600 hover:text-rose-700 hover:underline transition-colors"
                   onClick={() => onDeletePin(p.id)}
                 >
                   Delete pin

@@ -519,7 +519,7 @@ export default function IocCheck(): JSX.Element {
                   type="button"
                   onClick={exportBulkCsv}
                   disabled={bulkRunning}
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1 transition-colors"
                 >
                   <FileDown size={11} /> CSV
                 </button>
@@ -527,7 +527,7 @@ export default function IocCheck(): JSX.Element {
                   type="button"
                   onClick={exportBulkJson}
                   disabled={bulkRunning}
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1 transition-colors"
                 >
                   <FileDown size={11} /> JSON
                 </button>
@@ -535,7 +535,7 @@ export default function IocCheck(): JSX.Element {
                   <a
                     href={`/api/v1/intel-bundle/${stixBundleId}/export.stix.json`}
                     download={`${stixBundleId}.stix.json`}
-                    className="text-mini font-mono px-2 py-1 rounded border border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10 inline-flex items-center gap-1"
+                    className="text-mini font-mono px-2 py-1 rounded border border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10 inline-flex items-center gap-1 transition-colors"
                   >
                     <FileDown size={11} /> STIX
                   </a>
@@ -704,7 +704,7 @@ export default function IocCheck(): JSX.Element {
             <button
               type="submit"
               disabled={!canSubmit}
-              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
             >
               <Search size={16} className="inline mr-2" />
               Check
@@ -721,7 +721,7 @@ export default function IocCheck(): JSX.Element {
                   href={redirectPivot.path}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
+                  className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded transition-colors"
                 >
                   {redirectPivot.label} <ExternalLink size={12} aria-hidden="true" />
                 </a>
@@ -956,7 +956,7 @@ export default function IocCheck(): JSX.Element {
           <button
             type="button"
             onClick={runCheck}
-            className="shrink-0 text-xs font-mono px-3 py-1.5 rounded border border-rose-400/60 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
+            className="shrink-0 text-xs font-mono px-3 py-1.5 rounded border border-rose-400/60 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10 transition-colors"
           >
             retry
           </button>

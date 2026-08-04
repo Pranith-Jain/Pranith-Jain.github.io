@@ -111,7 +111,7 @@ const CHAT_STARTERS = [
 
 const TYPE_BADGES: Record<string, { label: string; color: string }> = {
   cve: { label: 'CVE', color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' },
-  ip: { label: 'IP', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' },
+  ip: { label: 'IP', color: 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300' },
   domain: { label: 'Domain', color: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300' },
   hash: { label: 'Hash', color: 'bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300' },
   actor: { label: 'Actor', color: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' },
@@ -189,7 +189,7 @@ function renderMarkdown(safeMd: string): string {
   return html;
 }
 
-const ACCENT_STEPS = ['bg-rose-600', 'bg-blue-500', 'bg-violet-500', 'bg-amber-500', 'bg-rose-500', 'bg-emerald-500'];
+const ACCENT_STEPS = ['bg-rose-600', 'bg-brand-500', 'bg-violet-500', 'bg-amber-500', 'bg-rose-500', 'bg-emerald-500'];
 
 function StepIndicator({ steps, currentStep }: { steps: AgentStep[]; currentStep: number }) {
   if (steps.length === 0) return null;
@@ -744,7 +744,8 @@ export default function Copilot(): JSX.Element {
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Top bar */}
         <div className="flex items-center gap-3 border-b border-slate-200 bg-white/80 px-4 py-2.5 backdrop-blur-lg dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))/0.8]">
-          <button type="button"
+          <button
+            type="button"
             onClick={() => setSidebarOpen((p) => !p)}
             className="flex h-7 w-7 items-center justify-center rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 hover:text-rose-600 lg:hidden dark:hover:bg-[rgb(var(--surface-300))]"
             aria-label="Toggle sidebar"
@@ -777,9 +778,10 @@ export default function Copilot(): JSX.Element {
           <div className="flex items-center gap-1.5">
             {mode === 'chat' && hasMessages && (
               <>
-                <button type="button"
+                <button
+                  type="button"
                   onClick={exportConversation}
-                  className="flex h-7 w-7 items-center justify-center rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 hover:text-rose-600 dark:hover:bg-[rgb(var(--surface-300))]"
+                  className="flex h-7 w-7 items-center justify-center rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 hover:text-rose-600 dark:hover:bg-[rgb(var(--surface-300))] transition-colors"
                   aria-label="Export conversation"
                 >
                   <Download size={13} />
@@ -811,7 +813,8 @@ export default function Copilot(): JSX.Element {
                   </p>
                   <div className="flex flex-wrap items-center justify-center gap-2">
                     {QUERY_EXAMPLES.map((ex) => (
-                      <button type="button"
+                      <button
+                        type="button"
                         key={ex.label}
                         onClick={() => {
                           setQuery(ex.query);
@@ -819,13 +822,15 @@ export default function Copilot(): JSX.Element {
                         }}
                         className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200"
                       >
-                        <span className="text-slate-500 dark:text-slate-400">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
+                        <span className="text-slate-500 dark:text-slate-400">{ex.desc}:</span>{' '}
+                        <span className="font-mono">{ex.label}</span>
                       </button>
                     ))}
                   </div>
                   <div className="flex flex-wrap justify-center gap-1.5">
                     {CHAT_STARTERS.slice(0, 4).map((starter) => (
-                      <button type="button"
+                      <button
+                        type="button"
                         key={starter}
                         onClick={() => {
                           setQuery(starter);
@@ -862,7 +867,8 @@ export default function Copilot(): JSX.Element {
                           <div className="rounded-2xl bg-rose-600 px-4 py-2.5 text-sm text-white shadow-sm">
                             {msg.content}
                           </div>
-                          <button type="button"
+                          <button
+                            type="button"
                             onClick={() => handleEditMessage(i)}
                             className="absolute -left-7 top-1/2 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-100"
                             aria-label="Edit message"
@@ -898,9 +904,12 @@ export default function Copilot(): JSX.Element {
                                     style={{ animationDelay: '300ms' }}
                                   />
                                 </div>
-                                <span className="font-mono text-xs text-slate-500 dark:text-slate-400">Investigating</span>
+                                <span className="font-mono text-xs text-slate-500 dark:text-slate-400">
+                                  Investigating
+                                </span>
                               </div>
-                              <button type="button"
+                              <button
+                                type="button"
                                 onClick={cancelInvestigation}
                                 className="inline-flex items-center gap-1 rounded-md border border-rose-200 bg-rose-50 px-2 py-1 text-mini font-mono text-rose-600 transition-colors hover:bg-rose-100 dark:border-rose-800/50 dark:bg-rose-950/20 dark:text-rose-400"
                                 aria-label="Cancel investigation"
@@ -925,12 +934,15 @@ export default function Copilot(): JSX.Element {
                           <div className="mt-2 flex items-center justify-between border-t border-slate-100 pt-2 dark:border-[rgb(var(--border-400))]">
                             <div className="flex items-center gap-2">
                               {msg.model_used && (
-                                <span className="font-mono text-mini text-slate-500 dark:text-slate-400">via {msg.model_used}</span>
+                                <span className="font-mono text-mini text-slate-500 dark:text-slate-400">
+                                  via {msg.model_used}
+                                </span>
                               )}
                             </div>
                             {msg.content && (
                               <div className="flex items-center gap-1.5">
-                                <button type="button"
+                                <button
+                                  type="button"
                                   onClick={() => {
                                     navigator.clipboard
                                       .writeText(msg.content)
@@ -1062,7 +1074,8 @@ export default function Copilot(): JSX.Element {
                     className="h-14 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-14 text-base text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-white dark:placeholder:text-slate-500"
                     disabled={loading || !!progress}
                   />
-                  <button type="button"
+                  <button
+                    type="button"
                     onClick={() => submit(query)}
                     aria-label="Submit query"
                     disabled={loading || !!progress || !query.trim()}
@@ -1079,7 +1092,8 @@ export default function Copilot(): JSX.Element {
                     <span className="font-mono">
                       <AlertTriangle size={14} className="mr-1 inline" /> {error}
                     </span>
-                    <button type="button"
+                    <button
+                      type="button"
                       onClick={() => submit(query)}
                       className="shrink-0 rounded border border-rose-400/60 px-3 py-1 font-mono text-xs text-rose-700 hover:bg-rose-500/10 dark:text-rose-300"
                     >
@@ -1096,7 +1110,8 @@ export default function Copilot(): JSX.Element {
                   </p>
                   <div className="flex flex-wrap justify-center gap-2">
                     {QUERY_EXAMPLES.map((ex) => (
-                      <button type="button"
+                      <button
+                        type="button"
                         key={ex.label}
                         onClick={() => {
                           setQuery(ex.query);
@@ -1104,7 +1119,8 @@ export default function Copilot(): JSX.Element {
                         }}
                         className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-200"
                       >
-                        <span className="text-slate-500 dark:text-slate-400">{ex.desc}:</span> <span className="font-mono">{ex.label}</span>
+                        <span className="text-slate-500 dark:text-slate-400">{ex.desc}:</span>{' '}
+                        <span className="font-mono">{ex.label}</span>
                       </button>
                     ))}
                   </div>
@@ -1237,7 +1253,8 @@ export default function Copilot(): JSX.Element {
                     </details>
 
                     <div className="flex flex-wrap gap-2">
-                      <button type="button"
+                      <button
+                        type="button"
                         onClick={async () => {
                           if (!result) return;
                           setSaving(true);
@@ -1274,7 +1291,8 @@ export default function Copilot(): JSX.Element {
                       >
                         <Save size={12} /> {saved ? 'Saved' : saving ? 'Saving…' : 'Save as Assessment'}
                       </button>
-                      <button type="button"
+                      <button
+                        type="button"
                         onClick={() => {
                           const blob = new Blob([result.narrative], { type: 'text/markdown' });
                           const url = URL.createObjectURL(blob);
@@ -1288,7 +1306,8 @@ export default function Copilot(): JSX.Element {
                       >
                         <FileText size={12} /> download .md
                       </button>
-                      <button type="button"
+                      <button
+                        type="button"
                         onClick={() => void investigate(query)}
                         className="inline-flex items-center gap-1.5 rounded border border-slate-200 px-3 py-2 font-mono text-xs transition-colors hover:border-rose-500/40 dark:border-[rgb(var(--border-400))]"
                       >
@@ -1333,7 +1352,8 @@ export default function Copilot(): JSX.Element {
                   className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-4 pr-12 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-300))] dark:text-white dark:placeholder:text-slate-500"
                   disabled={streaming}
                 />
-                <button type="button"
+                <button
+                  type="button"
                   onClick={() => {
                     if (query.trim()) {
                       const q = query;
@@ -1438,7 +1458,8 @@ function FollowUpSuggestions({
   return (
     <div className="mt-3 flex flex-wrap gap-1.5 border-t border-slate-100 pt-3 dark:border-[rgb(var(--border-400))]">
       {suggestions.map((s) => (
-        <button type="button"
+        <button
+          type="button"
           key={s}
           onClick={() => onSubmit(s)}
           className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-mini font-mono text-slate-500 transition-colors hover:border-rose-400 hover:text-rose-600 dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))] dark:text-slate-400 dark:hover:border-rose-400 dark:hover:text-rose-400"
@@ -1500,14 +1521,16 @@ function SessionSidebar({
         <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-[rgb(var(--border-400))]">
           <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">Conversations</h2>
           <div className="flex items-center gap-1">
-            <button type="button"
+            <button
+              type="button"
               onClick={onNew}
               className="flex items-center gap-1 rounded-xl px-2 py-1 text-xs font-mono text-slate-500 hover:text-rose-600 transition-colors"
             >
               <Plus size={13} />
               New
             </button>
-            <button type="button"
+            <button
+              type="button"
               onClick={onClose}
               className="rounded-xl p-1 text-slate-500 dark:text-slate-400 hover:text-slate-600 transition-colors"
               aria-label="Close sidebar"
@@ -1523,7 +1546,9 @@ function SessionSidebar({
             </div>
           )}
           {!loading && sessions.length === 0 && (
-            <div className="px-4 py-8 text-center font-mono text-xs text-slate-500 dark:text-slate-400">No conversations yet</div>
+            <div className="px-4 py-8 text-center font-mono text-xs text-slate-500 dark:text-slate-400">
+              No conversations yet
+            </div>
           )}
           {!loading &&
             sessions.map((s) => (
@@ -1545,7 +1570,8 @@ function SessionSidebar({
                     </span>
                   </div>
                 </div>
-                <button type="button"
+                <button
+                  type="button"
                   onClick={(e) => {
                     e.stopPropagation();
                     onDelete(s.id);
@@ -1563,10 +1589,13 @@ function SessionSidebar({
         <div className="border-t border-slate-100 p-3 dark:border-[rgb(var(--border-400))]">
           {onModeChange && mode && (
             <div className="mb-2">
-              <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">Mode</label>
+              <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">
+                Mode
+              </label>
               <div className="flex gap-1">
                 {(['chat', 'quick', 'report'] as const).map((m) => (
-                  <button type="button"
+                  <button
+                    type="button"
                     key={m}
                     onClick={() => onModeChange(m)}
                     className={`flex-1 rounded px-2 py-1 text-xs font-mono transition-colors ${
@@ -1583,7 +1612,9 @@ function SessionSidebar({
           )}
           {role && roles && onRoleChange && (
             <div className="mb-2">
-              <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">Role</label>
+              <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">
+                Role
+              </label>
               <select
                 value={role}
                 onChange={(e) => onRoleChange(e.target.value as AnalystRole)}
@@ -1600,7 +1631,9 @@ function SessionSidebar({
           <div className="flex gap-2">
             {onTemplateChange && (
               <div className="flex-1">
-                <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">Template</label>
+                <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">
+                  Template
+                </label>
                 <select
                   value={template}
                   onChange={(e) => onTemplateChange(e.target.value)}
@@ -1614,7 +1647,9 @@ function SessionSidebar({
             )}
             {onTlpChange && (
               <div className="flex-1">
-                <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">TLP</label>
+                <label className="mb-1 block text-mini font-mono font-medium text-slate-500 dark:text-slate-400">
+                  TLP
+                </label>
                 <select
                   value={tlp}
                   onChange={(e) => onTlpChange(e.target.value)}

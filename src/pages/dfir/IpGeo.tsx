@@ -158,7 +158,7 @@ export default function IpGeo(): JSX.Element {
             href="https://ip-api.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             ip-api.com
           </a>{' '}
@@ -206,7 +206,7 @@ export default function IpGeo(): JSX.Element {
             <button
               type="submit"
               disabled={loading || !ip.trim()}
-              className="px-4 py-2 rounded bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2"
+              className="px-4 py-2 rounded bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
               {loading ? 'looking up…' : 'lookup'}
@@ -311,7 +311,7 @@ export default function IpGeo(): JSX.Element {
               href={sanitizeUrl(data.reputation.source_url) || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 mt-3"
+              className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 mt-3 transition-colors"
             >
               full report on {data.reputation.source} <ExternalLink size={10} />
             </a>
@@ -351,7 +351,7 @@ export default function IpGeo(): JSX.Element {
                           href={`https://www.openstreetmap.org/?mlat=${data.geo.lat}&mlon=${data.geo.lon}#map=8/${data.geo.lat}/${data.geo.lon}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                          className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
                         >
                           {data.geo.lat.toFixed(2)}, {data.geo.lon.toFixed(2)} <ExternalLink size={10} />
                         </a>
@@ -424,7 +424,7 @@ export default function IpGeo(): JSX.Element {
                 href={sanitizeUrl(data.geo.source_url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:underline"
+                className="hover:underline transition-colors"
               >
                 {data.geo.source}
               </a>{' '}

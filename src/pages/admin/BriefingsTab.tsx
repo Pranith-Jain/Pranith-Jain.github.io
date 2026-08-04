@@ -339,7 +339,7 @@ export default function BriefingsTab() {
               force
                 ? 'border border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-200 hover:bg-rose-50 dark:hover:bg-rose-900/30'
                 : 'border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]'
-            }`}
+            } transition-colors`}
           >
             {backfilling ? 'Backfilling…' : 'Run backfill'}
           </button>
@@ -394,7 +394,7 @@ export default function BriefingsTab() {
           <button
             onClick={runSweep}
             disabled={sweeping}
-            className="px-4 py-1.5 border border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-200 rounded text-sm hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50"
+            className="px-4 py-1.5 border border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-200 rounded text-sm hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50 transition-colors"
           >
             {sweeping ? 'Sweeping…' : 'Run sweep'}
           </button>
@@ -421,7 +421,7 @@ export default function BriefingsTab() {
               onClick={pruneEmpty}
               disabled={pruning || !anyEmpty}
               title={anyEmpty ? 'Delete all empty daily/weekly briefings' : 'No empty briefings to prune'}
-              className="px-3 py-1 border border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-200 rounded text-sm hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-40"
+              className="px-3 py-1 border border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-200 rounded text-sm hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-40 transition-colors"
             >
               {pruning ? 'Pruning…' : 'Delete all empty'}
             </button>

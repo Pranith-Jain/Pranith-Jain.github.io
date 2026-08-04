@@ -105,7 +105,8 @@ interface PivotResult {
 
 const CHANGE_COLORS: Record<string, string> = {
   registrant: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/20 border-rose-200 dark:border-rose-800/50',
-  registrar: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800/50',
+  registrar:
+    'text-brand-600 dark:text-brand-400 bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800/50',
   nameservers:
     'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800/50',
   status:
@@ -437,7 +438,7 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
                       href={`https://${d.domain}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-500 dark:text-slate-400 hover:text-brand-600"
+                      className="text-slate-500 dark:text-slate-400 hover:text-brand-600 transition-colors"
                     >
                       <ExternalLink size={12} />
                     </a>
@@ -474,7 +475,9 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
                 <div key={change.id} className={`p-3 rounded-xl border ${colorClass}`}>
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-xs font-semibold uppercase">{change.change_type}</span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400 ml-auto">{formatDateTime(change.detected_at)}</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400 ml-auto">
+                      {formatDateTime(change.detected_at)}
+                    </span>
                   </div>
                   <div className="text-sm grid grid-cols-1 sm:grid-cols-2 gap-1">
                     <div className="line-through text-slate-500 dark:text-slate-400 font-mono text-xs break-all">
@@ -564,7 +567,10 @@ export default function AssetIntel(): JSX.Element {
       <form onSubmit={onSubmit} className="mb-8">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <ScanLine size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+            <ScanLine
+              size={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+            />
             <input
               type="text"
               value={input}
@@ -576,7 +582,7 @@ export default function AssetIntel(): JSX.Element {
           <button
             type="submit"
             disabled={!qtype || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2 transition-colors"
           >
             {loading ? <RefreshCw size={16} className="animate-spin" /> : <Search size={16} />}
             {loading ? 'Scanning…' : 'Scan'}

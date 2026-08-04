@@ -190,7 +190,8 @@ export default function StixIpExport() {
                 <option value="RED">TLP:RED</option>
               </select>
             </div>
-            <button type="button"
+            <button
+              type="button"
               onClick={isBatch ? enrichBatch : enrichSingle}
               disabled={loading || !ipInput.trim()}
               className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-xl bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50 transition-colors"
@@ -263,19 +264,22 @@ export default function StixIpExport() {
                               href={`https://nvd.nist.gov/vuln/detail/${v}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-rose-600 dark:text-rose-400 hover:underline mr-2"
+                              className="text-rose-600 dark:text-rose-400 hover:underline mr-2 transition-colors"
                             >
                               {v}
                             </a>
                           ))}
                           {r.shodan_vulns.length > 5 && (
-                            <span className="text-slate-500 dark:text-slate-400">+{r.shodan_vulns.length - 5} more</span>
+                            <span className="text-slate-500 dark:text-slate-400">
+                              +{r.shodan_vulns.length - 5} more
+                            </span>
                           )}
                         </div>
                       )}
                       {r.phantomcandle_malicious_family && (
                         <div className="col-span-2 text-red-600 dark:text-red-400">
-                          <span className="text-slate-500 dark:text-slate-400">Threat:</span> {r.phantomcandle_malicious_family}
+                          <span className="text-slate-500 dark:text-slate-400">Threat:</span>{' '}
+                          {r.phantomcandle_malicious_family}
                           {r.phantomcandle_campaign ? ` (${r.phantomcandle_campaign})` : ''}
                           {r.phantomcandle_category ? ` · cat:${r.phantomcandle_category}` : ''}
                           {r.phantomcandle_risk_level ? ` · risk:${r.phantomcandle_risk_level}` : ''}
@@ -298,14 +302,16 @@ export default function StixIpExport() {
                     </p>
                   </div>
                   <div className="flex gap-2">
-                    <button type="button"
+                    <button
+                      type="button"
                       onClick={copyJson}
                       className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-500))] text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
                     >
                       {copied ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
                       {copied ? 'Copied' : 'Copy JSON'}
                     </button>
-                    <button type="button"
+                    <button
+                      type="button"
                       onClick={() =>
                         downloadStixJson(bundle, `stix-ip-export-${new Date().toISOString().slice(0, 10)}.json`)
                       }

@@ -519,14 +519,14 @@ export default function MedusaScanner(): JSX.Element {
                   <button
                     type="button"
                     onClick={handleExport}
-                    className="text-meta font-mono text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                    className="text-meta font-mono text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
                   >
                     <Download size={12} /> JSON
                   </button>
                   <button
                     type="button"
                     onClick={handleCopyJson}
-                    className="text-meta font-mono text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                    className="text-meta font-mono text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
                   >
                     {copied ? <Check size={12} /> : <Copy size={12} />} {copied ? 'Copied' : 'Copy'}
                   </button>

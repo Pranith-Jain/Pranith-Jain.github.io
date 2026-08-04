@@ -131,7 +131,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
               href={report.externalUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
+              className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               source <ExternalLink className="h-3 w-3" />
             </a>
@@ -170,7 +170,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
+                        className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors"
                       >
                         {s.title} <ExternalLink className="h-2.5 w-2.5" />
                       </a>
@@ -327,7 +327,7 @@ function ReportDetail({ report }: { report: AgenticReport }) {
                         href={`https://attack.mitre.org/techniques/${t.id}/`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-mono text-rose-600 dark:text-rose-400 hover:underline"
+                        className="font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                       >
                         {t.id}
                       </a>

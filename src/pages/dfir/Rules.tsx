@@ -38,7 +38,7 @@ interface RulesResponse {
 }
 
 const TYPE_COLOURS: Record<string, string> = {
-  Sigma: 'bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/30',
+  Sigma: 'bg-brand-500/15 text-brand-700 dark:text-brand-300 border-brand-500/30',
   YARA: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
   Elastic: 'bg-cyan-500/15 text-sky-700 dark:text-sky-300 border-cyan-500/30',
   'Splunk SPL': 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
@@ -243,7 +243,7 @@ export default function Rules(): JSX.Element {
                       href={s.rules_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-brand-500/40 bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-300 hover:border-brand-500/70"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-brand-500/40 bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-300 hover:border-brand-500/70 transition-colors"
                     >
                       <FileCode size={11} /> browse rules
                     </a>
@@ -251,7 +251,7 @@ export default function Rules(): JSX.Element {
                       href={s.commits_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 transition-colors"
                     >
                       <GitCommit size={11} /> commits
                     </a>
@@ -259,7 +259,7 @@ export default function Rules(): JSX.Element {
                       href={s.repo_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 transition-colors"
                     >
                       <ExternalLink size={11} /> repo
                     </a>
@@ -268,7 +268,7 @@ export default function Rules(): JSX.Element {
                         href={s.homepage}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-muted hover:border-brand-500/40 transition-colors"
                       >
                         <ExternalLink size={11} /> live site
                       </a>
@@ -322,7 +322,7 @@ export default function Rules(): JSX.Element {
               href="https://github.com/Pranith-Jain/Pranith-Jain.github.io/issues"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
+              className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
             >
               GitHub
             </a>

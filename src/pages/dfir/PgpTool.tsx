@@ -208,7 +208,7 @@ export default function PgpTool() {
           <button
             onClick={generateKey}
             disabled={status === 'working'}
-            className="px-4 py-2 text-xs font-mono rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50"
+            className="px-4 py-2 text-xs font-mono rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
           >
             {status === 'working' ? 'Generating...' : 'Generate Key Pair'}
           </button>
@@ -246,7 +246,7 @@ export default function PgpTool() {
           <button
             onClick={run}
             disabled={status === 'working'}
-            className="px-4 py-2 text-xs font-mono rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50"
+            className="px-4 py-2 text-xs font-mono rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
           >
             {status === 'working' ? 'Processing...' : mode.charAt(0).toUpperCase() + mode.slice(1)}
           </button>

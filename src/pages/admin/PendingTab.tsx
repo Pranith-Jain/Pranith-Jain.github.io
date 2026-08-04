@@ -298,7 +298,7 @@ export default function PendingTab() {
                                       target="_blank"
                                       rel="noopener noreferrer"
                                       title={u}
-                                      className="text-blue-600 dark:text-blue-400 hover:underline truncate"
+                                      className="text-brand-600 dark:text-brand-400 hover:underline truncate transition-colors"
                                     >
                                       {hostOf(u)}
                                     </a>
@@ -401,7 +401,7 @@ function GenerateBtn({
       title={title}
       className={
         base +
-        'border-blue-200 dark:border-blue-700/60 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:border-blue-300 dark:hover:border-blue-600/80'
+        'border-blue-200 dark:border-blue-700/60 text-brand-700 dark:text-brand-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:border-brand-300 dark:hover:border-brand-600/80'
       }
     >
       {label}
@@ -438,7 +438,7 @@ function SocialPreviewPanel({ preview, onClose }: { preview: SocialPreview; onCl
           </button>
           <button
             onClick={onClose}
-            className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+            className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
           >
             Close
           </button>

@@ -207,7 +207,7 @@ export default function FusionExposure(): JSX.Element {
             type="button"
             onClick={fetchData}
             disabled={loading}
-            className="ml-auto text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="ml-auto text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={11} className="animate-spin" /> : <RefreshCw size={11} />}
             {loading ? 'loading' : 'refresh'}
@@ -223,7 +223,9 @@ export default function FusionExposure(): JSX.Element {
           {kevFilter && <span className="text-rose-500">KEV only</span>}
           {exploitFilter && <span className="text-orange-500">exploit only</span>}
           {minScore > 0 && <span>min score: {minScore}</span>}
-          <span className="text-slate-500 dark:text-slate-400">· {data.generated_at.slice(0, 16).replace('T', ' ')}</span>
+          <span className="text-slate-500 dark:text-slate-400">
+            · {data.generated_at.slice(0, 16).replace('T', ' ')}
+          </span>
         </div>
       )}
 
@@ -247,7 +249,9 @@ export default function FusionExposure(): JSX.Element {
                   >
                     {item.fusion_score}
                   </span>
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 uppercase mt-0.5">score</span>
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 uppercase mt-0.5">
+                    score
+                  </span>
                 </div>
 
                 {/* Fusion score bar */}

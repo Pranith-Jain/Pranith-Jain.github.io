@@ -152,7 +152,11 @@ export default function UsernamePivot(): JSX.Element {
           className="flex flex-wrap gap-2"
         >
           <div className="relative flex-1 min-w-[220px]">
-            <AtSign size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+            <AtSign
+              size={14}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              aria-hidden="true"
+            />
             <input
               type="text"
               value={username}
@@ -167,7 +171,7 @@ export default function UsernamePivot(): JSX.Element {
           <button
             type="submit"
             disabled={!validUsername || running}
-            className="text-sm font-mono px-3 py-2 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1.5"
+            className="text-sm font-mono px-3 py-2 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1.5 transition-colors"
           >
             {running ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
             {running ? 'Scanning' : 'Scan'}
@@ -255,7 +259,7 @@ export default function UsernamePivot(): JSX.Element {
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline break-all inline-flex items-center gap-1"
+                      className="text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline break-all inline-flex items-center gap-1 transition-colors"
                     >
                       {url} <ExternalLink size={10} />
                     </a>

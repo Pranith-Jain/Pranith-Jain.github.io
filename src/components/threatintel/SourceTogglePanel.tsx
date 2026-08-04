@@ -48,14 +48,14 @@ export function SourceTogglePanel({
           <button
             type="button"
             onClick={onEnableAll}
-            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
           >
             enable all ({allFeedIds.length})
           </button>
           <button
             type="button"
             onClick={onDisableAll}
-            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40"
+            className="text-micro font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 transition-colors"
           >
             disable all
           </button>

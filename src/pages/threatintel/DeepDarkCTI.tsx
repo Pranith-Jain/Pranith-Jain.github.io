@@ -96,7 +96,7 @@ export default function DeepDarkCTI(): JSX.Element {
             href="https://github.com/fastfire/deepdarkCTI"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             fastfire/deepdarkCTI
           </a>{' '}
@@ -209,7 +209,7 @@ export default function DeepDarkCTI(): JSX.Element {
                         href={sanitizeUrl(e.url) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-1 inline-flex items-center gap-1 font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline break-all"
+                        className="mt-1 inline-flex items-center gap-1 font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline break-all transition-colors"
                       >
                         {e.url}
                         <ExternalLink size={10} className="shrink-0" />
@@ -227,12 +227,14 @@ export default function DeepDarkCTI(): JSX.Element {
                   </button>
                 </div>
                 <div className="mt-1.5 flex items-center gap-2">
-                  <span className="font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">{e.category}</span>
+                  <span className="font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    {e.category}
+                  </span>
                   <a
                     href={`https://github.com/fastfire/deepdarkCTI/blob/main/${e.source_file}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-micro text-slate-500 dark:text-slate-400 hover:text-rose-500"
+                    className="font-mono text-micro text-slate-500 dark:text-slate-400 hover:text-rose-500 transition-colors"
                   >
                     {e.source_file}
                   </a>

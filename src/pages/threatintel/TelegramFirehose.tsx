@@ -501,7 +501,7 @@ function FirehoseRow({ item }: { item: FirehoseItem }): JSX.Element {
             href={sanitizeUrl(item.link)}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 shrink-0"
+            className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 shrink-0 transition-colors"
           >
             <ExternalLink size={11} /> open
           </a>

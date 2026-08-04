@@ -124,7 +124,11 @@ export default function CveResourcesCatalog(): JSX.Element {
       {/* Search + pricing toggles */}
       <section className="surface-card p-4 mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+          <Search
+            size={16}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+            aria-hidden="true"
+          />
           <input
             type="search"
             value={query}
@@ -154,7 +158,7 @@ export default function CveResourcesCatalog(): JSX.Element {
             <button
               type="button"
               onClick={clearAll}
-              className="sm:ml-auto text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
+              className="sm:ml-auto text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
             >
               clear filters
             </button>
@@ -200,7 +204,7 @@ export default function CveResourcesCatalog(): JSX.Element {
                 href={sanitizeUrl(r.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
               >
                 {r.name} <ExternalLink size={12} className="opacity-60" />
               </a>
@@ -247,7 +251,7 @@ export default function CveResourcesCatalog(): JSX.Element {
                   href={sanitizeUrl(r.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                   title="Source repository"
                 >
                   <Github size={10} /> source

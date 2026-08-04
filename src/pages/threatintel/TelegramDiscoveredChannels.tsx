@@ -147,7 +147,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
               type="button"
               onClick={saveToken}
               disabled={!token.trim()}
-              className="text-mini font-mono px-3 py-1.5 rounded border border-rose-500/40 text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 disabled:opacity-40"
+              className="text-mini font-mono px-3 py-1.5 rounded border border-rose-500/40 text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 disabled:opacity-40 transition-colors"
             >
               save
             </button>
@@ -215,7 +215,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                         href={sanitizeUrl(ch.source_message)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline"
+                        className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                       >
                         <ExternalLink size={10} /> source
                       </a>

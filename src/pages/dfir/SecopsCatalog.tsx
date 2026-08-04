@@ -26,7 +26,7 @@ const CATEGORY_PILL: Record<Category, string> = {
   'detection-engineering': 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
   'email-security': 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300',
   'network-security': 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300',
-  'cloud-security': 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
+  'cloud-security': 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300',
   appsec: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   'secrets-iam': 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   'pentest-redteam': 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
@@ -141,7 +141,11 @@ export default function SecopsCatalog(): JSX.Element {
       {/* Search + summary */}
       <section className="surface-card p-4 mb-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+          <Search
+            size={16}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+            aria-hidden="true"
+          />
           <input
             type="search"
             value={query}
@@ -173,7 +177,7 @@ export default function SecopsCatalog(): JSX.Element {
             <button
               type="button"
               onClick={clearAll}
-              className="sm:ml-auto text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline"
+              className="sm:ml-auto text-mini font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
             >
               clear filters
             </button>
@@ -220,7 +224,7 @@ export default function SecopsCatalog(): JSX.Element {
                 href={sanitizeUrl(t.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
               >
                 {t.name} <ExternalLink size={12} className="opacity-60" />
               </a>
@@ -256,7 +260,7 @@ export default function SecopsCatalog(): JSX.Element {
                   href={sanitizeUrl(t.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                   title="Source repository"
                 >
                   <Github size={10} /> source

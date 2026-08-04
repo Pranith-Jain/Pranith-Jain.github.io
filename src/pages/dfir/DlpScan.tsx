@@ -344,7 +344,7 @@ export default function DlpScan(): JSX.Element {
               href="https://github.com/mazen160/secrets-patterns-db"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               secrets-patterns-db · curated regex DB for secret detection
               <ExternalLink size={11} aria-hidden="true" />
@@ -355,7 +355,7 @@ export default function DlpScan(): JSX.Element {
               href="https://github.com/gitleaks/gitleaks"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               gitleaks · open-source secrets detection
               <ExternalLink size={11} aria-hidden="true" />
@@ -366,7 +366,7 @@ export default function DlpScan(): JSX.Element {
               href="https://learn.microsoft.com/en-us/purview/sit-defn-credit-card-number"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Microsoft Purview · Sensitive Information Type definitions (reference for confidence tiers)
               <ExternalLink size={11} aria-hidden="true" />

@@ -274,14 +274,14 @@ export default function ReportComposer(): JSX.Element {
             type="button"
             onClick={() => handleExport('docx')}
             disabled={exporting !== null}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-medium disabled:opacity-50"
           >
             <FileType2 size={14} /> {exporting === 'docx' ? 'Building…' : 'DOCX'}
           </button>
           <button
             type="button"
             onClick={resetAll}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-xs font-mono"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-xs font-mono transition-colors"
             title="Discard and start fresh"
           >
             <RotateCcw size={14} />
@@ -405,7 +405,7 @@ export default function ReportComposer(): JSX.Element {
             <button
               type="button"
               onClick={addFinding}
-              className="inline-flex items-center gap-1 px-2 py-1 text-xs font-mono rounded bg-brand-500/10 text-brand-300 hover:bg-brand-500/20"
+              className="inline-flex items-center gap-1 px-2 py-1 text-xs font-mono rounded bg-brand-500/10 text-brand-300 hover:bg-brand-500/20 transition-colors"
             >
               <Plus size={12} /> Add
             </button>
@@ -465,7 +465,7 @@ export default function ReportComposer(): JSX.Element {
             <button
               type="button"
               onClick={addIoc}
-              className="inline-flex items-center gap-1 px-2 py-1 text-xs font-mono rounded bg-brand-500/10 text-brand-300 hover:bg-brand-500/20"
+              className="inline-flex items-center gap-1 px-2 py-1 text-xs font-mono rounded bg-brand-500/10 text-brand-300 hover:bg-brand-500/20 transition-colors"
             >
               <Plus size={12} /> Add
             </button>
@@ -528,7 +528,7 @@ export default function ReportComposer(): JSX.Element {
             <button
               type="button"
               onClick={addSection}
-              className="inline-flex items-center gap-1 px-2 py-1 text-xs font-mono rounded bg-brand-500/10 text-brand-300 hover:bg-brand-500/20"
+              className="inline-flex items-center gap-1 px-2 py-1 text-xs font-mono rounded bg-brand-500/10 text-brand-300 hover:bg-brand-500/20 transition-colors"
             >
               <Plus size={12} /> Add section
             </button>
@@ -600,7 +600,7 @@ export default function ReportComposer(): JSX.Element {
             <button
               type="button"
               onClick={addSource}
-              className="inline-flex items-center gap-1 px-2 py-1 text-xs font-mono rounded bg-brand-500/10 text-brand-300 hover:bg-brand-500/20"
+              className="inline-flex items-center gap-1 px-2 py-1 text-xs font-mono rounded bg-brand-500/10 text-brand-300 hover:bg-brand-500/20 transition-colors"
             >
               <Plus size={12} /> Add
             </button>

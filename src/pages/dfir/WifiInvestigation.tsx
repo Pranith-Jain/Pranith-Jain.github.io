@@ -332,7 +332,7 @@ export default function WifiInvestigation(): JSX.Element {
                     href={l.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+                    className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
                   >
                     {l.service} <ExternalLink size={9} className="opacity-60" />
                   </a>
@@ -378,7 +378,7 @@ export default function WifiInvestigation(): JSX.Element {
                     href={l.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+                    className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
                   >
                     {l.service} <ExternalLink size={9} className="opacity-60" />
                   </a>
@@ -442,7 +442,7 @@ export default function WifiInvestigation(): JSX.Element {
                   href={l.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 min-w-0 break-words"
+                  className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 min-w-0 break-words transition-colors"
                 >
                   {l.service} <ExternalLink size={12} className="opacity-60 shrink-0" />
                 </a>

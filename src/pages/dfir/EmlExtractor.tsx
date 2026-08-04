@@ -168,7 +168,7 @@ export default function EmlExtractor(): JSX.Element {
             type="button"
             onClick={pipeToExtractor}
             disabled={!input.trim()}
-            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 text-slate-700 dark:text-slate-300"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 transition-colors"
           >
             <FileSearch size={14} />
             Extract IOCs →

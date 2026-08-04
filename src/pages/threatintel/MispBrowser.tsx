@@ -516,7 +516,7 @@ export default function MispBrowser() {
           <button
             type="button"
             onClick={disconnect}
-            className="px-3 py-1.5 text-mini font-mono rounded-xl border border-rose-300 dark:border-rose-700 text-rose-600 dark:text-rose-400 hover:border-rose-500"
+            className="px-3 py-1.5 text-mini font-mono rounded-xl border border-rose-300 dark:border-rose-700 text-rose-600 dark:text-rose-400 hover:border-rose-500 transition-colors"
           >
             Disconnect
           </button>

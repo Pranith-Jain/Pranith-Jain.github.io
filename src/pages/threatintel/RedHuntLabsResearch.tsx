@@ -42,7 +42,7 @@ const TABS: { id: TabId; label: string; icon: typeof Wrench; count: number }[] =
 // recon / osint, vulnerability scanner, and conference.
 const TAG_PILL: Record<string, string> = {
   docker: 'border-sky-300 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300',
-  k8s: 'border-blue-300 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300',
+  k8s: 'border-brand-300 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/40 text-brand-700 dark:text-brand-300',
   firebase:
     'border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300',
   aws: 'border-orange-300 dark:border-orange-800 bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300',
@@ -112,7 +112,7 @@ function ToolRow({
               href={tool.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 hover:underline"
+              className="font-medium text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 hover:underline transition-colors"
             >
               {tool.name}
             </a>
@@ -139,7 +139,7 @@ function ToolRow({
               href={tool.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-auto text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
+              className="ml-auto text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
               aria-label="Open on GitHub"
             >
               <ExternalLink className="h-3.5 w-3.5" />
@@ -301,7 +301,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
             href="https://research.redhuntlabs.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             research.redhuntlabs.com
           </a>{' '}
@@ -399,7 +399,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
               href="https://research.redhuntlabs.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline truncate"
+              className="text-rose-600 dark:text-rose-400 hover:underline truncate transition-colors"
             >
               research.redhuntlabs.com
             </a>
@@ -490,7 +490,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
                   <li key={c.label}>
                     <a
                       href={c.href}
-                      className="inline-flex items-center gap-1.5 text-rose-600 dark:text-rose-400 hover:underline"
+                      className="inline-flex items-center gap-1.5 text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                     >
                       <Mail className="h-3.5 w-3.5" />
                       {c.value}
@@ -510,7 +510,7 @@ export default function RedHuntLabsResearch(): JSX.Element {
                         href={s.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-rose-600 dark:text-rose-400 hover:underline"
+                        className="inline-flex items-center gap-1.5 text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                       >
                         <Icon className="h-3.5 w-3.5" />
                         {s.label}

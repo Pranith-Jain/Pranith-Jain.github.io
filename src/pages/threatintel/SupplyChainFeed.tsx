@@ -60,7 +60,12 @@ interface CheckResponse {
 
 const ECOSYSTEMS = [
   { id: 'npm', label: 'npm', color: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300', icon: 'N' },
-  { id: 'pypi', label: 'PyPI', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300', icon: 'Py' },
+  {
+    id: 'pypi',
+    label: 'PyPI',
+    color: 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300',
+    icon: 'Py',
+  },
   { id: 'go', label: 'Go', color: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300', icon: 'Go' },
   {
     id: 'maven',
@@ -196,10 +201,11 @@ export default function SupplyChainFeed(): JSX.Element {
               disabled={checkLoading}
             />
           </div>
-          <button type="button"
+          <button
+            type="button"
             onClick={handleCheck}
             disabled={checkLoading || !checkInput.trim()}
-            className="flex h-10 items-center gap-1.5 rounded-xl bg-rose-600 px-4 text-sm font-medium text-white hover:bg-rose-700 disabled:opacity-40"
+            className="flex h-10 items-center gap-1.5 rounded-xl bg-rose-600 px-4 text-sm font-medium text-white hover:bg-rose-700 disabled:opacity-40 transition-colors"
           >
             {checkLoading ? <Loader2 size={14} className="animate-spin" /> : <Shield size={14} />}
             Check
@@ -213,7 +219,7 @@ export default function SupplyChainFeed(): JSX.Element {
       <div className="flex flex-wrap items-start gap-4 mb-6">
         {/* Stats */}
         <div className="flex gap-3">
-          <StatPill label="Total" value={String(totalFeed)} color="text-blue-600 dark:text-blue-400" />
+          <StatPill label="Total" value={String(totalFeed)} color="text-brand-600 dark:text-brand-400" />
           {Object.entries(ecoBreakdown)
             .sort((a, b) => b[1] - a[1])
             .slice(0, 4)
@@ -232,7 +238,8 @@ export default function SupplyChainFeed(): JSX.Element {
 
         {/* Ecosystem filter */}
         <div className="flex flex-wrap gap-1.5 ml-auto">
-          <button type="button"
+          <button
+            type="button"
             onClick={() => setEcoFilter(null)}
             className={`rounded-full px-2.5 py-1 text-mini font-mono transition-colors ${
               !ecoFilter
@@ -243,7 +250,8 @@ export default function SupplyChainFeed(): JSX.Element {
             All
           </button>
           {ECOSYSTEMS.map((eco) => (
-            <button type="button"
+            <button
+              type="button"
               key={eco.id}
               onClick={() => setEcoFilter(eco.id)}
               className={`rounded-full px-2.5 py-1 text-mini font-mono transition-colors ${
@@ -253,7 +261,8 @@ export default function SupplyChainFeed(): JSX.Element {
               {eco.label}
             </button>
           ))}
-          <button type="button"
+          <button
+            type="button"
             onClick={fetchFeed}
             className="flex items-center gap-1 rounded-full px-2 py-1 text-mini text-slate-500 dark:text-slate-400 hover:text-rose-600 transition-colors"
             aria-label="Refresh"
@@ -419,7 +428,7 @@ function VerdictCard({ result }: { result: CheckResult }) {
           href={result.registry_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-2 inline-flex items-center gap-1 text-mini font-mono text-rose-600 hover:text-rose-700"
+          className="mt-2 inline-flex items-center gap-1 text-mini font-mono text-rose-600 hover:text-rose-700 transition-colors"
         >
           <ExternalLink size={10} />
           View on registry

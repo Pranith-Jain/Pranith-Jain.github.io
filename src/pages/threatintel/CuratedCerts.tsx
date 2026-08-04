@@ -202,7 +202,7 @@ export default function CuratedCerts(): JSX.Element {
             href="https://start.me/p/xb2ReR/free-certification-courses-by-syberseeker"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             Syberseeker’s Free Certification Courses
           </a>{' '}
@@ -292,7 +292,7 @@ export default function CuratedCerts(): JSX.Element {
                   href={data.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-rose-600 dark:text-rose-400 hover:underline truncate"
+                  className="text-rose-600 dark:text-rose-400 hover:underline truncate transition-colors"
                 >
                   start.me
                 </a>
@@ -375,7 +375,7 @@ function SectionCard({
                     href={t.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 hover:underline"
+                    className="text-sm font-medium text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 hover:underline transition-colors"
                   >
                     {t.title}
                   </a>

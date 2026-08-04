@@ -418,7 +418,9 @@ export default function ScheduleTab() {
                         View
                       </a>
                     )}
-                    {s.status === 'draft' && <span className="text-micro text-slate-500 dark:text-slate-400">Awaiting approval</span>}
+                    {s.status === 'draft' && (
+                      <span className="text-micro text-slate-500 dark:text-slate-400">Awaiting approval</span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -456,7 +458,7 @@ export default function ScheduleTab() {
             <button
               type="submit"
               disabled={!rescheduleAt}
-              className="px-3 py-1.5 rounded bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
+              className="px-3 py-1.5 rounded bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40 transition-colors"
             >
               Reschedule
             </button>

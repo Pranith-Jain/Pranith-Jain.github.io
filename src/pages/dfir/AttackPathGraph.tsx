@@ -407,11 +407,15 @@ export default function AttackPathGraph(): JSX.Element {
                     <div className="text-micro text-slate-500 dark:text-slate-400">
                       {p.hop_count} hops · {p.hops[0]} → {p.hops[p.hops.length - 1]}
                     </div>
-                    <div className="text-micro text-slate-500 dark:text-slate-400 mt-0.5 truncate">{p.hops.join(' → ')}</div>
+                    <div className="text-micro text-slate-500 dark:text-slate-400 mt-0.5 truncate">
+                      {p.hops.join(' → ')}
+                    </div>
                   </button>
                 ))}
                 {data.paths.length > 15 && (
-                  <p className="text-center text-micro text-slate-500 dark:text-slate-400 pt-1">+{data.paths.length - 15} more paths</p>
+                  <p className="text-center text-micro text-slate-500 dark:text-slate-400 pt-1">
+                    +{data.paths.length - 15} more paths
+                  </p>
                 )}
                 {data.paths.length === 0 && (
                   <p className="text-center text-micro text-slate-500 dark:text-slate-400 py-4">
@@ -440,7 +444,9 @@ export default function AttackPathGraph(): JSX.Element {
                   </div>
                 ))}
                 {data.choke_points.length === 0 && (
-                  <p className="text-center text-micro text-slate-500 dark:text-slate-400 py-2">No choke points identified.</p>
+                  <p className="text-center text-micro text-slate-500 dark:text-slate-400 py-2">
+                    No choke points identified.
+                  </p>
                 )}
               </div>
             </div>
@@ -480,7 +486,7 @@ export default function AttackPathGraph(): JSX.Element {
           <button
             type="button"
             onClick={fetchData}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700"
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 transition-colors"
           >
             <RefreshCw size={11} /> Refresh
           </button>

@@ -237,7 +237,7 @@ export default function Analyze(): JSX.Element {
           <button
             type="submit"
             disabled={!input.trim() || detectedType === 'unknown' || streaming}
-            className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2"
+            className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2 transition-colors"
           >
             {streaming ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
             {streaming ? 'Analyzing…' : 'Analyze'}
@@ -351,14 +351,14 @@ export default function Analyze(): JSX.Element {
               <button
                 type="button"
                 onClick={exportCsv}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
               >
                 <FileDown size={11} /> CSV
               </button>
               <button
                 type="button"
                 onClick={exportJson}
-                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
+                className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
               >
                 <FileDown size={11} /> JSON
               </button>
@@ -415,7 +415,9 @@ export default function Analyze(): JSX.Element {
                         <td className="px-3 py-2.5">
                           {r.status === 'ok' && <CheckCircle2 size={14} className="text-emerald-500" />}
                           {r.status === 'error' && <XCircle size={14} className="text-rose-500" />}
-                          {r.status === 'unsupported' && <MinusCircle size={14} className="text-slate-500 dark:text-slate-400" />}
+                          {r.status === 'unsupported' && (
+                            <MinusCircle size={14} className="text-slate-500 dark:text-slate-400" />
+                          )}
                         </td>
                         <td className="px-3 py-2.5">
                           <VerdictChip verdict={r.verdict} />
@@ -476,7 +478,9 @@ export default function Analyze(): JSX.Element {
                               </span>
                             ))}
                             {r.tags.length > 3 && (
-                              <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{r.tags.length - 3}</span>
+                              <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                                +{r.tags.length - 3}
+                              </span>
                             )}
                           </div>
                         </td>
@@ -545,7 +549,8 @@ export default function Analyze(): JSX.Element {
               <XCircle size={12} className="text-rose-500" /> {errorCount} error
             </span>
             <span className="inline-flex items-center gap-1">
-              <MinusCircle size={12} className="text-slate-500 dark:text-slate-400" /> {results.length - supportedCount} unsupported
+              <MinusCircle size={12} className="text-slate-500 dark:text-slate-400" /> {results.length - supportedCount}{' '}
+              unsupported
             </span>
             <span className="text-slate-500 dark:text-slate-400">
               {eligible.length} providers eligible for {detectedType}

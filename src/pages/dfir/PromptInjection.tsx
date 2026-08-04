@@ -295,7 +295,7 @@ export default function PromptInjection(): JSX.Element {
           </h2>
           <button
             onClick={exportRedTeam}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
           >
             <Download size={11} /> Export filtered as JSON
           </button>
@@ -520,7 +520,7 @@ export default function PromptInjection(): JSX.Element {
               href="https://owasp.org/www-project-top-10-for-large-language-model-applications/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               OWASP Top 10 for LLM Applications
               <ExternalLink size={11} aria-hidden="true" />
@@ -531,7 +531,7 @@ export default function PromptInjection(): JSX.Element {
               href="https://arxiv.org/abs/2302.12173"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Greshake et al., "Not what you've signed up for"
               <ExternalLink size={11} aria-hidden="true" />
@@ -542,7 +542,7 @@ export default function PromptInjection(): JSX.Element {
               href="https://arxiv.org/abs/2306.05499"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Liu et al., "Prompt Injection Attack Against LLM-Integrated Apps"
               <ExternalLink size={11} aria-hidden="true" />
@@ -553,7 +553,7 @@ export default function PromptInjection(): JSX.Element {
               href="https://embracethered.com/blog/posts/2024/the-dangers-of-unicode-tags-in-llms/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Goodside / Embrace the Red - Invisible Unicode-tag injection
               <ExternalLink size={11} aria-hidden="true" />

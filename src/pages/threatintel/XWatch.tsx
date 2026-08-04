@@ -309,8 +309,7 @@ export default function XWatch(): JSX.Element {
     })
       .then(async (r) => {
         const body = (await r.json()) as
-          | FirehoseResponse
-          | { error: string; hint?: string; status?: number; code?: string; detail?: string };
+          FirehoseResponse | { error: string; hint?: string; status?: number; code?: string; detail?: string };
         if (cancelled) return;
         if (!r.ok || 'error' in body) {
           // Surface the specific upstream cause so the operator knows whether
@@ -599,7 +598,7 @@ export default function XWatch(): JSX.Element {
             type="button"
             onClick={addHandle}
             disabled={!addInput.trim()}
-            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-40"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 disabled:opacity-40 transition-colors"
           >
             <Plus size={11} /> add
           </button>
@@ -682,7 +681,7 @@ export default function XWatch(): JSX.Element {
                 href={`https://x.com/${active}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-0.5"
+                className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-0.5 transition-colors"
               >
                 open on x.com <ExternalLink size={9} />
               </a>
@@ -809,7 +808,7 @@ export default function XWatch(): JSX.Element {
                           href={sanitizeUrl(t.url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="ml-auto text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-0.5"
+                          className="ml-auto text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-0.5 transition-colors"
                           title={t.created_at}
                         >
                           {formatTimeAgo(t.created_at_ms || t.created_at)} <ExternalLink size={9} />

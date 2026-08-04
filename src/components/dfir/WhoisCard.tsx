@@ -67,7 +67,7 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
               <dd>
                 <a
                   href={`mailto:${rdap.registrar_abuse_email}`}
-                  className="text-brand-600 dark:text-brand-400 hover:underline"
+                  className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                 >
                   {rdap.registrar_abuse_email}
                 </a>
@@ -88,7 +88,7 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
                   href={rdap.registrar_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
+                  className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                 >
                   ICANN Registrar <ExternalLink size={10} />
                 </a>
@@ -130,7 +130,7 @@ export function WhoisCard({ rdap }: { rdap: DomainLookupResponse['rdap'] }): JSX
                       href={statusUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:underline"
+                      className="hover:underline transition-colors"
                       title={statusUrl}
                     >
                       {statusName}

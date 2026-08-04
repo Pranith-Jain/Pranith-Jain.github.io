@@ -28,7 +28,7 @@ export function IdentifierNode({ data }: { data: IdentifierNodeData }): JSX.Elem
           type="button"
           aria-label="Edit identifier"
           title="Edit identifier"
-          className="absolute -top-2 -right-7 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-brand-600 text-white shadow hover:bg-brand-700"
+          className="absolute -top-2 -right-7 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-brand-600 text-white shadow hover:bg-brand-700 transition-colors"
           onClick={(e) => {
             e.stopPropagation();
             data.onEdit?.();
@@ -42,7 +42,7 @@ export function IdentifierNode({ data }: { data: IdentifierNodeData }): JSX.Elem
           type="button"
           aria-label="Delete identifier"
           title="Delete identifier"
-          className="absolute -top-2 -right-2 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-rose-600 text-white shadow hover:bg-rose-700"
+          className="absolute -top-2 -right-2 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-rose-600 text-white shadow hover:bg-rose-700 transition-colors"
           onClick={(e) => {
             e.stopPropagation();
             data.onDelete?.();

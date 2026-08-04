@@ -358,7 +358,7 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks, to
             <button
               type="button"
               onClick={closeMobileMenu}
-              className="mb-1 inline-flex items-center justify-end gap-1.5 rounded-xl px-4 py-2 text-sm font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="mb-1 inline-flex items-center justify-end gap-1.5 rounded-xl px-4 py-2 text-sm font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 transition-colors"
               aria-label="Close navigation menu"
             >
               Close

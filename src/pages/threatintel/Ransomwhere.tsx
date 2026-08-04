@@ -121,7 +121,7 @@ export default function Ransomwhere({ embedded = false }: { embedded?: boolean }
         href="https://ransomwhe.re/"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-rose-600 dark:text-rose-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
       >
         Ransomwhere
       </a>{' '}
@@ -236,7 +236,7 @@ export default function Ransomwhere({ embedded = false }: { embedded?: boolean }
             href={safeHref(data.source_url) ?? '#'}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-rose-600 dark:hover:text-rose-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             {data.source}
           </a>{' '}
@@ -245,7 +245,7 @@ export default function Ransomwhere({ embedded = false }: { embedded?: boolean }
             href={safeHref(data.dataset_url) ?? '#'}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-rose-600 dark:hover:text-rose-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             Zenodo dataset <ExternalLink size={10} className="inline align-baseline opacity-60" />
           </a>{' '}

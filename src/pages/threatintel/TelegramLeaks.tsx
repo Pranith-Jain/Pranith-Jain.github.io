@@ -123,7 +123,7 @@ export default function TelegramLeaks(): JSX.Element {
         />
         <button
           type="submit"
-          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1"
+          className="text-mini font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 inline-flex items-center gap-1 transition-colors"
         >
           <Search size={11} /> search
         </button>
@@ -221,7 +221,7 @@ export default function TelegramLeaks(): JSX.Element {
                   href={sanitizeUrl(entry.message_link)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline ml-auto"
+                  className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline ml-auto transition-colors"
                 >
                   <ExternalLink size={10} /> source
                 </a>

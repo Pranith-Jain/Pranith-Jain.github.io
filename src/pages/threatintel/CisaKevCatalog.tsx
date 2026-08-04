@@ -240,7 +240,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
           {
             label: 'With CVSS',
             value: filtered.filter((v) => v.cvss_score != null).length,
-            color: 'text-blue-600 dark:text-blue-400',
+            color: 'text-brand-600 dark:text-brand-400',
           },
           { label: 'Showing', value: filtered.length, color: 'text-rose-600 dark:text-rose-400' },
         ].map((kpi) => (
@@ -356,7 +356,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                       href={`https://nvd.nist.gov/vuln/detail/${v.cve_id}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-rose-600 dark:text-rose-400 hover:underline font-mono text-xs"
+                      className="text-rose-600 dark:text-rose-400 hover:underline font-mono text-xs transition-colors"
                     >
                       {v.cve_id}
                     </a>
@@ -462,7 +462,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
             href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             cisa.gov <ExternalLink size={11} className="inline" />
           </a>
@@ -470,7 +470,8 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
       }
       headerExtra={
         <div className="flex items-center gap-2 mt-2">
-          <button type="button"
+          <button
+            type="button"
             onClick={() => downloadCsv(filtered)}
             className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-xl border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/70 transition-colors"
           >

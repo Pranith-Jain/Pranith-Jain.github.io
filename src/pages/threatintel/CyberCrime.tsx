@@ -46,7 +46,7 @@ interface CybercrimeResponse {
 }
 
 const CATEGORY_PILL: Record<Category, string> = {
-  'law-enforcement': 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
+  'law-enforcement': 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300',
   'crypto-crime': 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   news: 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted',
   breaches: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
@@ -275,7 +275,7 @@ export default function CyberCrime(): JSX.Element {
                   href={sanitizeUrl(it.url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 break-words"
+                  className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 break-words transition-colors"
                 >
                   {it.title} <ExternalLink size={11} className="inline ml-0.5 opacity-60" />
                 </a>

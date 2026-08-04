@@ -19,7 +19,7 @@ export const SEVERITY_COLORS: Record<Severity, string> = {
   high: 'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800/50',
   medium:
     'text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-950/30 border-yellow-200 dark:border-yellow-800/50',
-  low: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800/50',
+  low: 'text-brand-600 dark:text-brand-400 bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800/50',
 };
 
 export const STIX_BUNDLES: StixBundleEntry[] = [

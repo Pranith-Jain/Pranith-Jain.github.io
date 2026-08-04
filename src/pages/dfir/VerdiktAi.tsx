@@ -228,7 +228,9 @@ export default function VerdiktAi(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">IOC Value</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">required</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                required
+              </span>
             </div>
             <div className="relative">
               <input
@@ -361,7 +363,12 @@ export default function VerdiktAi(): JSX.Element {
                   </p>
                   <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                     <ShareBar
-                      shareText={result.narrative.split('\n').find((l) => l.trim())?.slice(0, 200) || `VERDIKT-AI analysis: ${result.iocValue}`}
+                      shareText={
+                        result.narrative
+                          .split('\n')
+                          .find((l) => l.trim())
+                          ?.slice(0, 200) || `VERDIKT-AI analysis: ${result.iocValue}`
+                      }
                       title={`VERDIKT-AI analysis: ${result.iocValue}`}
                       size="sm"
                       label="Share:"
@@ -402,7 +409,7 @@ export default function VerdiktAi(): JSX.Element {
                     {result.detectionQueries.map((q, i) => (
                       <div key={i}>
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                          <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300">
                             {q.siem}
                           </span>
                           <CopyButton value={q.query} />

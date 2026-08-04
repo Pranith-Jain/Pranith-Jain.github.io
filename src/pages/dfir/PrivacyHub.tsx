@@ -29,7 +29,7 @@ const STATUS_STYLES: Record<CheckStatus, { label: string; cls: string }> = {
 };
 
 const REGIME_STYLES: Record<RegimeId, string> = {
-  gdpr: 'bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/30',
+  gdpr: 'bg-brand-500/15 text-brand-700 dark:text-brand-300 border-brand-500/30',
   ccpa: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
   dpdp: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
   'hipaa-privacy': 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
@@ -215,13 +215,13 @@ export default function PrivacyHub(): JSX.Element {
       <div className="flex flex-wrap gap-2 mb-6">
         <button
           onClick={downloadMd}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 transition-colors"
         >
           <Download size={13} /> Export markdown
         </button>
         <button
           onClick={reset}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5 transition-colors"
         >
           <RotateCcw size={13} /> Reset
         </button>
@@ -334,7 +334,7 @@ export default function PrivacyHub(): JSX.Element {
                 href={sanitizeUrl(l.href) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
               >
                 {l.label}
                 <ExternalLink size={11} aria-hidden="true" />

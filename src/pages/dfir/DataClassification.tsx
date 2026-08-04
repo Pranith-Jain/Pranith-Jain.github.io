@@ -131,19 +131,19 @@ export default function DataClassification(): JSX.Element {
         <div className="flex gap-2">
           <button
             onClick={addDataset}
-            className="text-sm font-mono px-3 py-1.5 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 inline-flex items-center gap-1.5"
+            className="text-sm font-mono px-3 py-1.5 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 inline-flex items-center gap-1.5 transition-colors"
           >
             <Plus size={13} /> Add dataset
           </button>
           <button
             onClick={exportMd}
-            className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5"
+            className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 transition-colors"
           >
             <Download size={13} /> Export markdown
           </button>
           <button
             onClick={reset}
-            className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5"
+            className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5 transition-colors"
           >
             <RotateCcw size={13} /> Reset
           </button>
@@ -501,7 +501,7 @@ export default function DataClassification(): JSX.Element {
               href="https://csrc.nist.gov/glossary/term/data_classification"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               NIST glossary - Data Classification
               <ExternalLink size={11} aria-hidden="true" />

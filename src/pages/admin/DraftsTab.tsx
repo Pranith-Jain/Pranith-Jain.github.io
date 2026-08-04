@@ -479,7 +479,7 @@ function DraftPreviewPanel({
           )}
           <button
             onClick={onClose}
-            className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300"
+            className="text-xs text-slate-600 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300 transition-colors"
           >
             Close
           </button>
@@ -515,7 +515,9 @@ function DraftPreviewPanel({
         <>
           <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-1">{post.title}</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-            <span className="font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1.5">Excerpt</span>
+            <span className="font-mono text-micro uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1.5">
+              Excerpt
+            </span>
             {post.excerpt}
           </p>
           <div
@@ -525,7 +527,7 @@ function DraftPreviewPanel({
               '[&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-slate-900 dark:[&_h2]:text-slate-100 [&_h2]:mt-5 [&_h2]:mb-2 ' +
               '[&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-slate-900 dark:[&_h3]:text-slate-100 [&_h3]:mt-4 [&_h3]:mb-2 ' +
               '[&_p]:mb-3 ' +
-              '[&_a]:text-blue-600 dark:[&_a]:text-blue-400 [&_a]:underline [&_a:hover]:text-blue-700 dark:[&_a:hover]:text-blue-300 ' +
+              '[&_a]:text-brand-600 dark:[&_a]:text-brand-400 [&_a]:underline [&_a:hover]:text-brand-700 dark:[&_a:hover]:text-brand-300 ' +
               '[&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3 ' +
               '[&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3 ' +
               '[&_li]:mb-1 ' +
@@ -566,14 +568,14 @@ function DraftPreviewPanel({
             <button
               onClick={onApprove}
               disabled={approveBusy || rejectBusy}
-              className="px-3 py-1.5 border border-emerald-200 dark:border-emerald-700 rounded text-sm text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
+              className="px-3 py-1.5 border border-emerald-200 dark:border-emerald-700 rounded text-sm text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50 transition-colors"
             >
               {approveBusy ? 'Approving…' : 'Approve & publish'}
             </button>
             <button
               onClick={onReject}
               disabled={approveBusy || rejectBusy || !!regenBusy}
-              className="px-3 py-1.5 border border-rose-200 dark:border-rose-900 rounded text-sm text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50"
+              className="px-3 py-1.5 border border-rose-200 dark:border-rose-900 rounded text-sm text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50 transition-colors"
             >
               {rejectBusy ? 'Rejecting…' : 'Reject & delete'}
             </button>
@@ -696,7 +698,7 @@ function RegenMenu({
       <button
         onClick={() => setOpen((o) => !o)}
         disabled={disabled}
-        className="px-2 py-1 border border-blue-200 dark:border-blue-800 rounded text-xs text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 disabled:opacity-50"
+        className="px-2 py-1 border border-blue-200 dark:border-blue-800 rounded text-xs text-brand-700 dark:text-brand-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 disabled:opacity-50"
         title={`Regenerate ${slug}`}
       >
         {busy ? '…' : 'Regen'}

@@ -141,7 +141,9 @@ function MiniLineChart({
   }, [series]);
 
   if (points.length === 0) {
-    return <div className="flex h-20 items-center justify-center text-xs text-slate-500 dark:text-slate-400">no data</div>;
+    return (
+      <div className="flex h-20 items-center justify-center text-xs text-slate-500 dark:text-slate-400">no data</div>
+    );
   }
   const pathD = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(' ');
   const fillD = `${pathD} L 100 100 L 0 100 Z`;
@@ -362,7 +364,7 @@ export default function RedHuntInsights(): JSX.Element {
             href="https://research.redhuntlabs.com/internet-insights"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             research.redhuntlabs.com/internet-insights
           </a>{' '}
@@ -559,22 +561,24 @@ export default function RedHuntInsights(): JSX.Element {
                 <summary className="cursor-pointer text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 font-mono">
                   show numeric table ({topDomainsEntries.length} domains)
                 </summary>
-                <div className="overflow-x-auto"><table className="mt-2 w-full text-left">
-                  <thead className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    <tr>
-                      <th className="py-1">Domain</th>
-                      <th className="py-1 text-right">Subdomains</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {topDomainsEntries.map(([d, c]) => (
-                      <tr key={d} className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
-                        <td className="py-1 font-mono text-slate-700 dark:text-slate-300">{d}</td>
-                        <td className="py-1 text-right font-mono tabular-nums text-muted">{c.toLocaleString()}</td>
+                <div className="overflow-x-auto">
+                  <table className="mt-2 w-full text-left">
+                    <thead className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      <tr>
+                        <th className="py-1">Domain</th>
+                        <th className="py-1 text-right">Subdomains</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table></div>
+                    </thead>
+                    <tbody>
+                      {topDomainsEntries.map(([d, c]) => (
+                        <tr key={d} className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
+                          <td className="py-1 font-mono text-slate-700 dark:text-slate-300">{d}</td>
+                          <td className="py-1 text-right font-mono tabular-nums text-muted">{c.toLocaleString()}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </details>
             )}
           </div>
@@ -787,7 +791,7 @@ export default function RedHuntInsights(): JSX.Element {
                 href="https://research.redhuntlabs.com/internet-insights"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-rose-600 dark:text-rose-400 hover:underline"
+                className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
               >
                 research.redhuntlabs.com/internet-insights
               </a>{' '}

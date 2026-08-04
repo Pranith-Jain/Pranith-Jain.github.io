@@ -32,7 +32,7 @@ const TYPE_ICONS: Record<ActorType, React.ReactNode> = {
 };
 
 const TYPE_COLORS: Record<ActorType, string> = {
-  apt: 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800',
+  apt: 'bg-blue-50 dark:bg-blue-950/40 text-brand-700 dark:text-brand-300 border-blue-200 dark:border-blue-800',
   cybercrime:
     'bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-800',
   ransomware: 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800',
@@ -50,7 +50,8 @@ const STATUS_PILL: Record<string, string> = {
   dormant: 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800',
   defunct:
     'bg-slate-100 dark:bg-[rgb(var(--surface-200))] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700',
-  unknown: 'bg-slate-50 dark:bg-[rgb(var(--surface-100))] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700',
+  unknown:
+    'bg-slate-50 dark:bg-[rgb(var(--surface-100))] text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700',
 };
 
 const COUNTRY_FLAGS: Record<string, string> = {
@@ -131,7 +132,9 @@ function ActorCard({
                 </span>
               ))}
               {!isExpanded && actor.aliases.length > 3 && (
-                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">+{actor.aliases.length - 3}</span>
+                <span className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                  +{actor.aliases.length - 3}
+                </span>
               )}
             </div>
           )}
@@ -178,7 +181,9 @@ function ActorCard({
                     {m}
                   </button>
                 ))}
-                {actor.malware.length === 0 && <span className="text-xs text-slate-500 dark:text-slate-400 italic">None listed</span>}
+                {actor.malware.length === 0 && (
+                  <span className="text-xs text-slate-500 dark:text-slate-400 italic">None listed</span>
+                )}
               </div>
             </div>
             <div>
@@ -194,7 +199,9 @@ function ActorCard({
                     {t}
                   </span>
                 ))}
-                {actor.tools.length === 0 && <span className="text-xs text-slate-500 dark:text-slate-400 italic">None listed</span>}
+                {actor.tools.length === 0 && (
+                  <span className="text-xs text-slate-500 dark:text-slate-400 italic">None listed</span>
+                )}
               </div>
             </div>
           </div>
@@ -270,7 +277,7 @@ function ActorCard({
                     href={`https://attack.mitre.org/groups/${g}/`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline"
+                    className="inline-flex items-center gap-1 text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                   >
                     {g} <ExternalLink className="h-3 w-3" />
                   </a>
@@ -292,14 +299,16 @@ function ActorCard({
                     href={`https://t.me/${h}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-mono text-sky-600 dark:text-sky-400 hover:underline"
+                    className="text-xs font-mono text-sky-600 dark:text-sky-400 hover:underline transition-colors"
                   >
                     @{h}
                   </a>
                 ))}
               </div>
               {actor.telegram_handles_source && (
-                <p className="text-micro text-slate-500 dark:text-slate-400 mt-1">Source: {actor.telegram_handles_source.join('; ')}</p>
+                <p className="text-micro text-slate-500 dark:text-slate-400 mt-1">
+                  Source: {actor.telegram_handles_source.join('; ')}
+                </p>
               )}
             </div>
           )}
@@ -493,7 +502,8 @@ export default function ActorProfiles() {
             );
           })}
         {(activeStatus || activeCountry) && (
-          <button type="button"
+          <button
+            type="button"
             onClick={() => {
               setActiveStatus(null);
               setActiveCountry(null);
@@ -512,7 +522,8 @@ export default function ActorProfiles() {
             Filtered by:
           </span>
           {activeMalware && (
-            <button type="button"
+            <button
+              type="button"
               onClick={() => setActiveMalware(null)}
               className="inline-flex items-center gap-1 text-mini font-mono bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 rounded-full px-2 py-0.5"
             >
@@ -520,7 +531,8 @@ export default function ActorProfiles() {
             </button>
           )}
           {activeSector && (
-            <button type="button"
+            <button
+              type="button"
               onClick={() => setActiveSector(null)}
               className="inline-flex items-center gap-1 text-mini font-mono bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 rounded-full px-2 py-0.5"
             >

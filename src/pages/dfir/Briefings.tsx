@@ -357,7 +357,7 @@ export default function Briefings(): JSX.Element {
             href="/api/v1/briefings/rss"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             RSS 2.0 feed
           </a>{' '}

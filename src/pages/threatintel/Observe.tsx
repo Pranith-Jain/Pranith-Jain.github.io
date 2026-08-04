@@ -87,7 +87,7 @@ const ENTITY_COLORS: Record<string, string> = {
   cve: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 border-amber-200 dark:border-amber-800',
   malware:
     'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 border-purple-200 dark:border-purple-800',
-  ip: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 border-blue-200 dark:border-blue-800',
+  ip: 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300 border-blue-200 dark:border-blue-800',
   domain: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300 border-cyan-200 dark:border-cyan-800',
   hash: 'bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300 border-violet-200 dark:border-violet-800',
 };
@@ -212,7 +212,8 @@ export default function Observe(): JSX.Element {
             className="w-full pl-9 pr-14 py-2.5 bg-slate-50 dark:bg-[rgb(var(--input-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
             disabled={loading}
           />
-          <button type="button"
+          <button
+            type="button"
             onClick={() => fetchObserve(query)}
             disabled={loading || !query.trim()}
             className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded bg-rose-600 dark:bg-rose-500 hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-30 disabled:cursor-not-allowed text-white transition-colors"
@@ -256,7 +257,9 @@ export default function Observe(): JSX.Element {
                   <p className="text-sm text-muted">
                     {data.entity.label}
                     {data.entity.aliases.length > 0 && (
-                      <span className="ml-2 text-slate-500 dark:text-slate-400">aliases: {data.entity.aliases.join(', ')}</span>
+                      <span className="ml-2 text-slate-500 dark:text-slate-400">
+                        aliases: {data.entity.aliases.join(', ')}
+                      </span>
                     )}
                   </p>
                 )}
@@ -285,7 +288,8 @@ export default function Observe(): JSX.Element {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* IOC Enrichment */}
             <div className="surface-card">
-              <button type="button"
+              <button
+                type="button"
                 onClick={() => {
                   setShowIocDetail(!showIocDetail);
                   if (!showIocDetail && !iocVerdicts) loadIocDetail();
@@ -326,7 +330,9 @@ export default function Observe(): JSX.Element {
                         </div>
                       ))}
                       {iocVerdicts.length > 15 && (
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">+{iocVerdicts.length - 15} more</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                          +{iocVerdicts.length - 15} more
+                        </p>
                       )}
                     </div>
                   )}

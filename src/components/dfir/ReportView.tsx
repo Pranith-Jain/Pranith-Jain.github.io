@@ -309,9 +309,9 @@ const SEVERITY_COLORS: Record<Severity, { bg: string; text: string; ring: string
   },
   low: {
     bg: 'bg-blue-50 dark:bg-blue-950/40',
-    text: 'text-blue-700 dark:text-blue-300',
+    text: 'text-brand-700 dark:text-brand-300',
     ring: 'ring-blue-300 dark:ring-blue-800',
-    pill: 'bg-blue-500 text-white',
+    pill: 'bg-brand-500 text-white',
   },
   info: {
     bg: 'bg-slate-50 dark:bg-[rgb(var(--surface-200))]',
@@ -330,7 +330,7 @@ const TLP_COLORS: Record<string, string> = {
 
 const STAKEHOLDER_META: Record<Stakeholder, { label: string; color: string }> = {
   cti: { label: 'CTI', color: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300' },
-  soc: { label: 'SOC', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' },
+  soc: { label: 'SOC', color: 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300' },
   ir: { label: 'IR', color: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' },
   vuln: { label: 'VMGT', color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' },
   redteam: { label: 'RED', color: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300' },
@@ -581,7 +581,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
       case 'MEDIUM':
         return 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300';
       case 'LOW':
-        return 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300';
+        return 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300';
       default:
         return 'bg-slate-100 text-slate-600 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400';
     }
@@ -694,7 +694,7 @@ function CveMetaCard({ card }: { card: ReportActionCard }): JSX.Element | null {
             href={card.patch_url}
             target="_blank"
             rel="noreferrer"
-            className="ml-auto inline-flex items-center gap-1 px-2 py-0.5 rounded text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline"
+            className="ml-auto inline-flex items-center gap-1 px-2 py-0.5 rounded text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             Vendor advisory <ExternalLink size={9} />
           </a>
@@ -760,8 +760,8 @@ function IocTable({ iocs }: { iocs: ReportIoc[] }): JSX.Element | null {
   // Type-color map - gives the "Type" column a quick visual signal that
   // matches the indicator's nature (file hash = rose, domain = cyan, etc.).
   const typeColor: Record<string, string> = {
-    ipv4: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
-    ipv6: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+    ipv4: 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300',
+    ipv6: 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300',
     domain: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300',
     url: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
     hash: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
@@ -875,7 +875,7 @@ function MitreTable({ mitre }: { mitre: ReportMitre[] }): JSX.Element | null {
   const detColor: Record<string, string> = {
     yara: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
     sigma: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
-    kql: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+    kql: 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300',
     splunk: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
     none: 'bg-slate-100 text-slate-500 dark:bg-[rgb(var(--surface-300))] dark:text-slate-400',
   };
@@ -919,7 +919,7 @@ function MitreTable({ mitre }: { mitre: ReportMitre[] }): JSX.Element | null {
                       href={`https://attack.mitre.org/techniques/${m.id.replace('.', '/')}/`}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+                      className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5 transition-colors"
                     >
                       {m.id} <ExternalLink size={9} />
                     </a>
@@ -1195,7 +1195,7 @@ function NextActionsBar({
                 type="button"
                 disabled={!!loading || !query}
                 onClick={() => runAction('hunting_queries', onGenerateHuntingQueries)}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-blue-300 dark:border-blue-700 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-mini font-mono hover:bg-blue-100 dark:hover:bg-blue-900/40 disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-brand-300 dark:border-blue-700 bg-blue-50 dark:bg-blue-950/40 text-brand-700 dark:text-brand-300 text-mini font-mono hover:bg-blue-100 dark:hover:bg-blue-900/40 disabled:opacity-50"
               >
                 {loading === 'hunting_queries' ? (
                   <Loader2 size={11} className="animate-spin" />
@@ -1220,7 +1220,7 @@ function NextActionsBar({
               <button
                 type="button"
                 onClick={downloadNavigatorLayer}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-purple-300 dark:border-purple-700 bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 text-mini font-mono hover:bg-purple-100 dark:hover:bg-purple-900/40"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded border border-purple-300 dark:border-purple-700 bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 text-mini font-mono hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors"
               >
                 <MapIcon size={11} />
                 Export MITRE Navigator Layer
@@ -1353,7 +1353,7 @@ function NextActionsBar({
             <button
               type="submit"
               disabled={!drillText.trim()}
-              className="px-3 py-1.5 rounded bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40"
+              className="px-3 py-1.5 rounded bg-brand-600 text-white text-tool font-semibold hover:bg-brand-500 disabled:opacity-40 transition-colors"
             >
               Ask Copilot
             </button>

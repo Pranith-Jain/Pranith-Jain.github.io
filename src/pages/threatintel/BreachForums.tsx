@@ -316,7 +316,7 @@ export default function BreachForums(): JSX.Element {
                           href={sanitizeUrl(r.url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
+                          className="font-mono text-mini text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors"
                         >
                           OSINT coverage <ExternalLink size={9} />
                         </a>
@@ -437,7 +437,7 @@ export default function BreachForums(): JSX.Element {
                       href={sanitizeUrl(it.link) || '#'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
+                      className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors"
                     >
                       {it.title} <ExternalLink size={10} />
                     </a>
@@ -486,7 +486,7 @@ export default function BreachForums(): JSX.Element {
                       href={sanitizeUrl(it.link) || '#'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
+                      className="font-display font-semibold text-sm text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors"
                     >
                       {it.title} <ExternalLink size={10} />
                     </a>

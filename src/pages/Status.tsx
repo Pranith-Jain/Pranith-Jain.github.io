@@ -208,7 +208,7 @@ export default function StatusPage(): JSX.Element {
                         href={r.api_path}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400"
+                        className="inline-flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                       >
                         {r.api_path} <ExternalLink size={12} />
                       </a>

@@ -421,7 +421,7 @@ export default function Blog() {
               href="/blog/rss.xml"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline font-semibold"
+              className="text-brand-600 dark:text-brand-400 hover:underline font-semibold transition-colors"
             >
               RSS
             </a>{' '}

@@ -55,7 +55,7 @@ interface WorkflowSummary {
 }
 
 const PHASES = [
-  { id: 'acquire', label: 'Acquire', icon: Search, color: 'text-blue-600 dark:text-blue-400' },
+  { id: 'acquire', label: 'Acquire', icon: Search, color: 'text-brand-600 dark:text-brand-400' },
   { id: 'enrich', label: 'Enrich', icon: Network, color: 'text-violet-600 dark:text-violet-400' },
   { id: 'assess', label: 'Assess', icon: BarChart3, color: 'text-amber-600 dark:text-amber-400' },
   { id: 'deliver', label: 'Deliver', icon: FileText, color: 'text-emerald-600 dark:text-emerald-400' },
@@ -423,7 +423,7 @@ export default function Workspaces() {
             </button>
             <button
               type="submit"
-              className="px-4 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400"
+              className="px-4 py-1.5 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 transition-colors"
             >
               Create
             </button>

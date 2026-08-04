@@ -168,14 +168,14 @@ export default function WebLogAnalyzer(): JSX.Element {
                 <button
                   type="button"
                   onClick={pipeToExtractor}
-                  className="px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1"
+                  className="px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1 transition-colors"
                 >
                   <FileSearch size={11} /> Extract IOCs →
                 </button>
                 <button
                   type="button"
                   onClick={download}
-                  className="px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+                  className="px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
                 >
                   export CSV
                 </button>

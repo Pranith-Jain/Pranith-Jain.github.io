@@ -198,7 +198,7 @@ export default function ToolsCategory(): JSX.Element {
                   href={ex.profileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 shrink-0"
+                  className="text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 shrink-0 transition-colors"
                 >
                   View <ExternalLink size={9} />
                 </a>

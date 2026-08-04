@@ -200,13 +200,13 @@ export default function Grc(): JSX.Element {
       <div className="flex flex-wrap gap-2 mb-6">
         <button
           onClick={exportMd}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 transition-colors"
         >
           <Download size={13} /> Export markdown
         </button>
         <button
           onClick={reset}
-          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5"
+          className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1.5 transition-colors"
         >
           <RotateCcw size={13} /> Reset all
         </button>
@@ -530,7 +530,7 @@ export default function Grc(): JSX.Element {
               href="https://www.nist.gov/cyberframework"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               NIST Cybersecurity Framework 2.0
               <ExternalLink size={11} aria-hidden="true" />
@@ -541,7 +541,7 @@ export default function Grc(): JSX.Element {
               href="https://www.iso.org/standard/27001"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               ISO/IEC 27001:2022
               <ExternalLink size={11} aria-hidden="true" />
@@ -552,7 +552,7 @@ export default function Grc(): JSX.Element {
               href="https://www.iso.org/standard/81230.html"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               ISO/IEC 42001:2023 - AI Management System
               <ExternalLink size={11} aria-hidden="true" />
@@ -563,7 +563,7 @@ export default function Grc(): JSX.Element {
               href="https://www.cisecurity.org/controls/v8"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               CIS Critical Security Controls v8
               <ExternalLink size={11} aria-hidden="true" />
@@ -574,7 +574,7 @@ export default function Grc(): JSX.Element {
               href="https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               AICPA SOC 2 Trust Services Criteria
               <ExternalLink size={11} aria-hidden="true" />
@@ -585,7 +585,7 @@ export default function Grc(): JSX.Element {
               href="https://www.soc-cmm.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               SOC-CMM - SOC Capability Maturity Model
               <ExternalLink size={11} aria-hidden="true" />

@@ -87,7 +87,8 @@ const CHANGE_ICONS: Record<string, typeof Users> = {
 
 const CHANGE_COLORS: Record<string, string> = {
   registrant: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/20 border-rose-200 dark:border-rose-800/50',
-  registrar: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800/50',
+  registrar:
+    'text-brand-600 dark:text-brand-400 bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800/50',
   nameservers:
     'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800/50',
   status:
@@ -232,7 +233,7 @@ export default function WhoisHistory(): JSX.Element {
         <button
           type="submit"
           disabled={loading || !query.trim()}
-          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2"
+          className="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
         >
           {loading ? <RefreshCw size={14} className="animate-spin" /> : <Search size={14} />}
           {loading ? 'Looking up…' : 'Search'}
@@ -411,7 +412,9 @@ export default function WhoisHistory(): JSX.Element {
                       <div className="flex items-center gap-2 mb-2">
                         <Icon size={14} />
                         <span className="text-xs font-semibold uppercase">{change.change_type}</span>
-                        <span className="text-xs text-slate-500 dark:text-slate-400 ml-auto">{formatDateTime(change.detected_at)}</span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400 ml-auto">
+                          {formatDateTime(change.detected_at)}
+                        </span>
                       </div>
                       <div className="text-sm grid grid-cols-1 sm:grid-cols-2 gap-1">
                         <div className="line-through text-slate-500 dark:text-slate-400 font-mono text-xs break-all">
@@ -440,7 +443,9 @@ export default function WhoisHistory(): JSX.Element {
                       Found <span className="font-bold text-brand-600">{pivots.total_found}</span> related domains
                       sharing registrant attributes with <span className="font-mono">{pivots.target}</span>
                     </p>
-                    <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{pivots.query_time_ms}ms</span>
+                    <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                      {pivots.query_time_ms}ms
+                    </span>
                   </div>
                   <div className="space-y-2">
                     {pivots.related_domains.map((d) => {
@@ -456,7 +461,7 @@ export default function WhoisHistory(): JSX.Element {
                               href={`https://${d.domain}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-slate-500 dark:text-slate-400 hover:text-brand-600"
+                              className="text-slate-500 dark:text-slate-400 hover:text-brand-600 transition-colors"
                             >
                               <ExternalLink size={12} />
                             </a>
@@ -466,7 +471,9 @@ export default function WhoisHistory(): JSX.Element {
                               {d.match_reason.replace(/_/g, ' ')}
                             </span>
                             <span className="text-slate-500 dark:text-slate-400">{d.match_value}</span>
-                            {d.current_registrar && <span className="text-slate-500 dark:text-slate-400">via {d.current_registrar}</span>}
+                            {d.current_registrar && (
+                              <span className="text-slate-500 dark:text-slate-400">via {d.current_registrar}</span>
+                            )}
                           </div>
                         </div>
                       );

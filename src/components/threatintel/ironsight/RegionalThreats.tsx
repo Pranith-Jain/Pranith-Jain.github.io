@@ -18,7 +18,7 @@ interface CountryAlert {
 
 const LEVEL_CONFIG: Record<string, { color: string; label: string }> = {
   CLEAR: { color: 'text-emerald-400', label: 'CLEAR' },
-  MONITORING: { color: 'text-blue-400', label: 'MONITOR' },
+  MONITORING: { color: 'text-brand-400', label: 'MONITOR' },
   ALERT: { color: 'text-amber-400', label: 'ALERT' },
   CRITICAL: { color: 'text-red-400', label: 'CRITICAL' },
 };
@@ -111,7 +111,7 @@ export default function RegionalThreats() {
                     >
                       <div className="flex items-start gap-1.5">
                         <span
-                          className={`w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 ${event.severity === 'critical' ? 'bg-red-400' : event.severity === 'high' ? 'bg-orange-400' : event.severity === 'medium' ? 'bg-amber-400' : 'bg-blue-400'}`}
+                          className={`w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 ${event.severity === 'critical' ? 'bg-red-400' : event.severity === 'high' ? 'bg-orange-400' : event.severity === 'medium' ? 'bg-amber-400' : 'bg-brand-400'}`}
                         />
                         <div className="min-w-0 flex-1">
                           <p className="text-mini text-slate-700 dark:text-slate-200 leading-tight line-clamp-1">

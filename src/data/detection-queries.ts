@@ -156,7 +156,7 @@ export const FORMAT_ICONS: Record<QueryFormat, LucideIcon> = {
 };
 
 export const FORMAT_COLORS: Record<QueryFormat, string> = {
-  KQL: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 border-blue-300 dark:border-blue-800',
+  KQL: 'bg-blue-100 text-brand-800 dark:bg-blue-900/40 dark:text-brand-300 border-brand-300 dark:border-blue-800',
   Sigma:
     'bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300 border-purple-300 dark:border-purple-800',
   XQL: 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300 border-green-300 dark:border-green-800',

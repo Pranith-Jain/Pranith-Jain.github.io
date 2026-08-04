@@ -192,13 +192,13 @@ export default function Tabletop(): JSX.Element {
         <div className="flex flex-wrap gap-2 mt-3">
           <button
             onClick={reroll}
-            className="text-sm font-mono px-3 py-1.5 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 inline-flex items-center gap-1.5"
+            className="text-sm font-mono px-3 py-1.5 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 inline-flex items-center gap-1.5 transition-colors"
           >
             <Shuffle size={13} /> Re-roll
           </button>
           <button
             onClick={exportMd}
-            className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5"
+            className="text-sm font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 inline-flex items-center gap-1.5 transition-colors"
           >
             <Download size={13} /> Export markdown
           </button>
@@ -302,7 +302,7 @@ export default function Tabletop(): JSX.Element {
             href="https://www.cisa.gov/resources-tools/services/cisa-tabletop-exercise-packages"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             CISA Tabletop Exercise Packages (CTEPs)
           </a>

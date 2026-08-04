@@ -325,7 +325,7 @@ export default function MultiSearch(): JSX.Element {
               <button
                 type="button"
                 onClick={reset}
-                className="p-3 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500"
+                className="p-3 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500 transition-colors"
                 aria-label="Reset"
                 title="Reset"
               >
@@ -391,7 +391,7 @@ export default function MultiSearch(): JSX.Element {
           type="button"
           onClick={selectAllReady}
           disabled={filteredPlatforms.length === 0}
-          className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-xs font-mono disabled:opacity-40"
+          className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-xs font-mono disabled:opacity-40 transition-colors"
         >
           Select all
         </button>
@@ -399,7 +399,7 @@ export default function MultiSearch(): JSX.Element {
           type="button"
           onClick={selectNone}
           disabled={filteredPlatforms.length === 0}
-          className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-xs font-mono disabled:opacity-40"
+          className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-xs font-mono disabled:opacity-40 transition-colors"
         >
           Deselect all
         </button>
@@ -407,7 +407,7 @@ export default function MultiSearch(): JSX.Element {
           <button
             type="button"
             onClick={clearOverrides}
-            className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-xs font-mono text-amber-600 dark:text-amber-400"
+            className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-xs font-mono text-amber-600 dark:text-amber-400 transition-colors"
             title={`${manualOverrides.size} manual override${manualOverrides.size === 1 ? '' : 's'} active - click to clear`}
           >
             Clear {manualOverrides.size} override{manualOverrides.size === 1 ? '' : 's'}
@@ -600,7 +600,7 @@ function PlatformCard({
         <button
           type="button"
           onClick={copy}
-          className="p-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500"
+          className="p-1.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] text-slate-500 transition-colors"
           aria-label="Copy URL"
           title="Copy URL"
         >

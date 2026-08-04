@@ -244,7 +244,8 @@ export default function EstateConfig() {
               placeholder="Add technology (e.g. AWS, Azure, Kubernetes)"
               className="flex-1 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-100))] px-3 py-2 text-sm text-slate-900 dark:text-slate-100"
             />
-            <button type="button"
+            <button
+              type="button"
               onClick={() => addTech(techInput)}
               className="px-3 py-2 rounded-xl bg-amber-600 text-white text-sm font-medium hover:bg-amber-700"
             >
@@ -258,7 +259,8 @@ export default function EstateConfig() {
                 className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 text-xs font-medium"
               >
                 {t}
-                <button type="button"
+                <button
+                  type="button"
                   onClick={() => setConfig((prev) => ({ ...prev, tech_stack: prev.tech_stack.filter((x) => x !== t) }))}
                   className="hover:text-red-500"
                 >
@@ -271,7 +273,8 @@ export default function EstateConfig() {
           <h3 className="font-semibold text-sm uppercase tracking-wider text-slate-500 mt-6 mb-3">Data Types</h3>
           <div className="flex flex-wrap gap-2">
             {DATA_TYPES.map((dt) => (
-              <button type="button"
+              <button
+                type="button"
                 key={dt.id}
                 onClick={() => toggleDataType(dt.id)}
                 className={`px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${
@@ -287,10 +290,11 @@ export default function EstateConfig() {
         </div>
       </div>
 
-      <button type="button"
+      <button
+        type="button"
         onClick={saveConfig}
         disabled={saving}
-        className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 disabled:opacity-50"
+        className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 disabled:opacity-50 transition-colors"
       >
         <Save size={16} /> {saving ? 'Saving...' : saved ? 'Saved!' : 'Save Configuration'}
       </button>
@@ -335,9 +339,10 @@ export default function EstateConfig() {
             <option value="medium">Medium</option>
             <option value="low">Low</option>
           </select>
-          <button type="button"
+          <button
+            type="button"
             onClick={addAsset}
-            className="inline-flex items-center gap-1 px-4 py-2 rounded-xl bg-amber-600 text-white text-sm font-medium hover:bg-amber-700"
+            className="inline-flex items-center gap-1 px-4 py-2 rounded-xl bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 transition-colors"
           >
             <Plus size={16} /> Add
           </button>
@@ -376,7 +381,8 @@ export default function EstateConfig() {
                     </div>
                     <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">{a.value}</div>
                   </div>
-                  <button type="button"
+                  <button
+                    type="button"
                     onClick={() => deleteAsset(a.id)}
                     className="p-1.5 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 text-slate-500 dark:text-slate-400 hover:text-red-500"
                   >

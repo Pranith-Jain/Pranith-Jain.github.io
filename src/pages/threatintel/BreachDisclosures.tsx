@@ -81,7 +81,7 @@ export default function BreachDisclosures(): JSX.Element {
               href="https://mythreatintel.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               MyThreatIntel
             </a>{' '}
@@ -90,7 +90,7 @@ export default function BreachDisclosures(): JSX.Element {
               href="https://haveibeenpwned.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               Have I Been Pwned
             </a>{' '}
@@ -164,10 +164,7 @@ export default function BreachDisclosures(): JSX.Element {
                   return true;
                 })
                 .map((item, i) => (
-                  <li
-                    key={`${item.link}-${i}`}
-                    className="surface-card p-3 hover:border-rose-500/40 transition-colors"
-                  >
+                  <li key={`${item.link}-${i}`} className="surface-card p-3 hover:border-rose-500/40 transition-colors">
                     <a
                       href={sanitizeUrl(item.link) || undefined}
                       target="_blank"
@@ -179,11 +176,17 @@ export default function BreachDisclosures(): JSX.Element {
                         <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors flex-1 min-w-0">
                           {item.title ?? '(untitled)'}
                         </span>
-                        <ExternalLink size={11} className="text-slate-500 dark:text-slate-400 shrink-0" aria-hidden="true" />
+                        <ExternalLink
+                          size={11}
+                          className="text-slate-500 dark:text-slate-400 shrink-0"
+                          aria-hidden="true"
+                        />
                       </div>
                       <div className="text-mini font-mono text-slate-500 flex items-center gap-2 flex-wrap">
                         {item.source && <span className="text-rose-600 dark:text-rose-400">{item.source}</span>}
-                        {item.pubDate && <span className="text-slate-500 dark:text-slate-400">{formatRelativeTime(item.pubDate)}</span>}
+                        {item.pubDate && (
+                          <span className="text-slate-500 dark:text-slate-400">{formatRelativeTime(item.pubDate)}</span>
+                        )}
                       </div>
                     </a>
                     <div className="mt-2">

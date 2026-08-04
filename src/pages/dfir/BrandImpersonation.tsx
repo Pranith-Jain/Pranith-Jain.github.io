@@ -60,7 +60,7 @@ function Group({ title, items }: { title: string; items: string[] }) {
             target="_blank"
             rel="noopener noreferrer"
             title="Check certificate transparency for this variant"
-            className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:border-brand-500/40"
+            className="font-mono text-mini px-1.5 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors"
           >
             {d}
           </a>

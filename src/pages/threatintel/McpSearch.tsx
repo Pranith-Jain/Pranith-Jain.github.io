@@ -21,7 +21,7 @@ export default function McpSearch(): JSX.Element {
             href="https://ti-mindmap-hub.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             ti-mindmap-hub.com
           </a>
@@ -42,7 +42,7 @@ export default function McpSearch(): JSX.Element {
                 href="https://ti-mindmap-hub.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:no-underline"
+                className="underline hover:no-underline transition-colors"
               >
                 ti-mindmap-hub.com
               </a>
@@ -67,7 +67,7 @@ export default function McpSearch(): JSX.Element {
             href="https://docs.ti-mindmap-hub.com/mcp/server/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 hover:text-rose-600 dark:hover:text-rose-400"
+            className="inline-flex items-center gap-1.5 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             <Github className="h-3 w-3 text-slate-500 dark:text-slate-400" />
             MCP Docs

@@ -172,7 +172,7 @@ export default function OsvScanner(): JSX.Element {
             href="https://osv.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             OSV.dev
           </a>{' '}
@@ -277,7 +277,7 @@ export default function OsvScanner(): JSX.Element {
                       href={`https://osv.dev/vulnerability/${v.id}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                      className="font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
                     >
                       {v.id} <ExternalLink size={11} />
                     </a>

@@ -478,7 +478,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           href={v.source_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0"
+                          className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0 transition-colors"
                           title={v.victim}
                         >
                           {v.victim}
@@ -543,7 +543,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                             href={m.permalink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0"
+                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0 transition-colors"
                           >
                             {m.channel_name}
                           </a>
@@ -613,7 +613,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                             href={sanitizeUrl(it.link)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0"
+                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0 transition-colors"
                             title={it.title}
                           >
                             {it.title}
@@ -679,7 +679,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                             href={sanitizeUrl(it.link)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0"
+                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0 transition-colors"
                             title={it.title}
                           >
                             {it.title}
@@ -743,7 +743,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                             href={sanitizeUrl(it.link)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0"
+                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0 transition-colors"
                             title={it.title}
                           >
                             {it.title}

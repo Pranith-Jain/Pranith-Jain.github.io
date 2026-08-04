@@ -87,7 +87,7 @@ export default function PhishingWordlists(): JSX.Element {
             href="https://github.com/spmedia/PhishingSecLists"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             spmedia/PhishingSecLists
           </a>{' '}
@@ -123,7 +123,10 @@ export default function PhishingWordlists(): JSX.Element {
           <section className="surface-card p-4 mb-4">
             <div className="flex items-center gap-3">
               <div className="relative flex-1">
-                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+                <Search
+                  size={16}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+                />
                 <input
                   type="search"
                   value={query}
@@ -137,7 +140,7 @@ export default function PhishingWordlists(): JSX.Element {
                 type="button"
                 onClick={copyList}
                 disabled={filtered.length === 0}
-                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-rose-500/40 disabled:opacity-50 transition-colors"
               >
                 {copied ? <Check size={12} /> : <Copy size={12} />} {copied ? 'copied' : 'copy'}
               </button>

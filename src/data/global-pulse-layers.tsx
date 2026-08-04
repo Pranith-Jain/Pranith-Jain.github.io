@@ -331,8 +331,8 @@ export const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     label: 'X/Bluesky',
     shortLabel: 'X',
     icon: <AtSign size={14} />,
-    color: 'text-blue-600 dark:text-blue-400',
-    bgColor: 'bg-blue-500/10 border-blue-500/20',
+    color: 'text-brand-600 dark:text-brand-400',
+    bgColor: 'bg-brand-500/10 border-brand-500/20',
     group: 'social',
   },
   tech_news: {

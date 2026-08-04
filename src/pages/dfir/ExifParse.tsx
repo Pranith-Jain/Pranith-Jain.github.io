@@ -221,7 +221,7 @@ export default function ExifParse(): JSX.Element {
                   href={gpsLink(lat, lon)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                  className="inline-flex items-center gap-1 text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                 >
                   <MapPin size={12} />
                   View on OpenStreetMap

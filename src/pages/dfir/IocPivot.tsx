@@ -225,7 +225,7 @@ export default function IocPivot(): JSX.Element {
         <button
           type="submit"
           disabled={streaming || !input.trim()}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-xl disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
         >
           {streaming && <Loader2 size={14} className="animate-spin" />}
           {streaming ? 'enriching…' : 'pivot'}
@@ -358,7 +358,7 @@ export default function IocPivot(): JSX.Element {
                     <a
                       href={`/api/v1/intel-bundle/${encodeURIComponent(stixBundleId)}/export.stix.json`}
                       download={`${stixBundleId}.stix.json`}
-                      className="text-mini font-mono px-2 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10 inline-flex items-center gap-1"
+                      className="text-mini font-mono px-2 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10 inline-flex items-center gap-1 transition-colors"
                     >
                       <FileDown size={11} /> STIX
                     </a>
@@ -382,7 +382,7 @@ export default function IocPivot(): JSX.Element {
                   <button
                     type="button"
                     onClick={pipeToExtractor}
-                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                    className="text-mini font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
                   >
                     <FileSearch size={11} /> Extract IOCs →
                   </button>

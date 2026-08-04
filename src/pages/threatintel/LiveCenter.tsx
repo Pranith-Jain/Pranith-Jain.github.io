@@ -387,7 +387,7 @@ export default function LiveCenter(): JSX.Element {
                           href={tool.detail.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline"
+                          className="inline-flex items-center gap-1.5 text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                         >
                           <ExternalLink size={11} /> {tool.detail.url.replace(/^https?:\/\//, '')}
                         </a>

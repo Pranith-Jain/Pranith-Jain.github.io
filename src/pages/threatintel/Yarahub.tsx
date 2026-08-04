@@ -142,7 +142,7 @@ export default function Yarahub(): JSX.Element {
             href="https://yaraify.abuse.ch/yarahub/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             YARAhub
           </a>{' '}
@@ -168,7 +168,7 @@ export default function Yarahub(): JSX.Element {
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2"
+              className="px-5 py-3 bg-rose-600 dark:bg-rose-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-rose-700 dark:hover:bg-rose-400 inline-flex items-center gap-2 transition-colors"
             >
               {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
               Search
@@ -276,7 +276,7 @@ export default function Yarahub(): JSX.Element {
                 href={`https://yaraify.abuse.ch/yarahub/#${contentName}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
+                className="text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
               >
                 <ExternalLink size={11} /> YARAhub
               </a>
@@ -326,7 +326,7 @@ export default function Yarahub(): JSX.Element {
             href="https://yaraify.abuse.ch/yarahub/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             View on YARAhub <ExternalLink size={10} className="inline" />
           </a>

@@ -429,72 +429,74 @@ function IocsTab(props: { iocs: ExtractedIoc[]; apiKey: string; mcpStatus: McpSt
           cross-check on TI-Mindmap-Hub
         </button>
       </div>
-      <div className="overflow-x-auto"><table className="w-full text-sm">
-        <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          <tr>
-            <th className="text-left px-4 py-2">Value</th>
-            <th className="text-left px-4 py-2">Type</th>
-            <th className="text-left px-4 py-2">Confidence</th>
-            <th className="text-left px-4 py-2">Source</th>
-            <th className="text-left px-4 py-2">TI-Mindmap-Hub</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
-          {iocs.slice(0, 50).map((i, idx) => {
-            const er = enrichments[i.value];
-            return (
-              <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)]">
-                <td
-                  className="px-4 py-2 font-mono text-xs text-slate-700 dark:text-slate-300 truncate max-w-md"
-                  title={i.value}
-                >
-                  {i.value}
-                </td>
-                <td className="px-4 py-2">
-                  <span
-                    className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${IOC_PILL[i.kind]}`}
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <tr>
+              <th className="text-left px-4 py-2">Value</th>
+              <th className="text-left px-4 py-2">Type</th>
+              <th className="text-left px-4 py-2">Confidence</th>
+              <th className="text-left px-4 py-2">Source</th>
+              <th className="text-left px-4 py-2">TI-Mindmap-Hub</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+            {iocs.slice(0, 50).map((i, idx) => {
+              const er = enrichments[i.value];
+              return (
+                <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)]">
+                  <td
+                    className="px-4 py-2 font-mono text-xs text-slate-700 dark:text-slate-300 truncate max-w-md"
+                    title={i.value}
                   >
-                    {i.kind}
-                  </span>
-                </td>
-                <td className="px-4 py-2">
-                  <span
-                    className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[i.confidence_band]}`}
-                  >
-                    {i.confidence_band} · {fmtConfidence(i.confidence)}
-                  </span>
-                </td>
-                <td className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 font-mono">{i.source}</td>
-                <td className="px-4 py-2 text-xs">
-                  {!er ? (
-                    <span className="text-slate-400 dark:text-slate-400 font-mono">-</span>
-                  ) : er.loading ? (
-                    <span className="inline-flex items-center gap-1 font-mono text-slate-500">
-                      <Loader2 className="h-3 w-3 animate-spin" /> searching…
+                    {i.value}
+                  </td>
+                  <td className="px-4 py-2">
+                    <span
+                      className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${IOC_PILL[i.kind]}`}
+                    >
+                      {i.kind}
                     </span>
-                  ) : er.error ? (
-                    <span className="font-mono text-rose-600 dark:text-rose-400" title={er.error}>
-                      error
+                  </td>
+                  <td className="px-4 py-2">
+                    <span
+                      className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[i.confidence_band]}`}
+                    >
+                      {i.confidence_band} · {fmtConfidence(i.confidence)}
                     </span>
-                  ) : er.hit ? (
-                    <span className="inline-flex items-center gap-1.5">
-                      <span
-                        className={`rounded border px-1.5 py-0.5 font-mono ${(er.hit.total_reports ?? er.hit.reports?.length ?? 0) > 0 ? 'text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40' : 'text-muted border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]'}`}
-                      >
-                        {er.hit.total_reports ?? er.hit.reports?.length ?? 0} report
-                        {(er.hit.total_reports ?? er.hit.reports?.length ?? 0) === 1 ? '' : 's'}
+                  </td>
+                  <td className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 font-mono">{i.source}</td>
+                  <td className="px-4 py-2 text-xs">
+                    {!er ? (
+                      <span className="text-slate-400 dark:text-slate-400 font-mono">-</span>
+                    ) : er.loading ? (
+                      <span className="inline-flex items-center gap-1 font-mono text-slate-500">
+                        <Loader2 className="h-3 w-3 animate-spin" /> searching…
                       </span>
-                      {er.hit.last_seen && (
-                        <span className="font-mono text-slate-500 dark:text-slate-400">last {er.hit.last_seen}</span>
-                      )}
-                    </span>
-                  ) : null}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table></div>
+                    ) : er.error ? (
+                      <span className="font-mono text-rose-600 dark:text-rose-400" title={er.error}>
+                        error
+                      </span>
+                    ) : er.hit ? (
+                      <span className="inline-flex items-center gap-1.5">
+                        <span
+                          className={`rounded border px-1.5 py-0.5 font-mono ${(er.hit.total_reports ?? er.hit.reports?.length ?? 0) > 0 ? 'text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/40' : 'text-muted border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]'}`}
+                        >
+                          {er.hit.total_reports ?? er.hit.reports?.length ?? 0} report
+                          {(er.hit.total_reports ?? er.hit.reports?.length ?? 0) === 1 ? '' : 's'}
+                        </span>
+                        {er.hit.last_seen && (
+                          <span className="font-mono text-slate-500 dark:text-slate-400">last {er.hit.last_seen}</span>
+                        )}
+                      </span>
+                    ) : null}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       {iocs.length > 50 && (
         <p className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]">
           Showing first 50 of {iocs.length} indicators.
@@ -508,45 +510,50 @@ function TtpsTab({ ttp }: { ttp: TtpHit[] }): JSX.Element {
   if (ttp.length === 0) return <EmptyTab msg="No MITRE ATT&CK techniques were extracted." />;
   return (
     <div className="surface-card overflow-hidden">
-      <div className="overflow-x-auto"><table className="w-full text-sm">
-        <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          <tr>
-            <th className="text-left px-4 py-2">Technique</th>
-            <th className="text-left px-4 py-2">ID</th>
-            <th className="text-left px-4 py-2">Tactic</th>
-            <th className="text-left px-4 py-2">Confidence</th>
-            <th className="text-left px-4 py-2">Evidence</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
-          {ttp.map((t, idx) => (
-            <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)]">
-              <td className="px-4 py-2 text-slate-900 dark:text-slate-100 font-medium">{t.name}</td>
-              <td className="px-4 py-2 font-mono text-xs">
-                <a
-                  href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}/`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-rose-600 dark:text-rose-400 hover:underline"
-                >
-                  {t.id}
-                </a>
-              </td>
-              <td className="px-4 py-2 text-xs text-muted">{t.tactic}</td>
-              <td className="px-4 py-2">
-                <span
-                  className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[t.confidence]}`}
-                >
-                  {t.confidence}
-                </span>
-              </td>
-              <td className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 max-w-md truncate" title={t.evidence}>
-                {t.evidence}
-              </td>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <tr>
+              <th className="text-left px-4 py-2">Technique</th>
+              <th className="text-left px-4 py-2">ID</th>
+              <th className="text-left px-4 py-2">Tactic</th>
+              <th className="text-left px-4 py-2">Confidence</th>
+              <th className="text-left px-4 py-2">Evidence</th>
             </tr>
-          ))}
-        </tbody>
-      </table></div>
+          </thead>
+          <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+            {ttp.map((t, idx) => (
+              <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.5)]">
+                <td className="px-4 py-2 text-slate-900 dark:text-slate-100 font-medium">{t.name}</td>
+                <td className="px-4 py-2 font-mono text-xs">
+                  <a
+                    href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}/`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
+                  >
+                    {t.id}
+                  </a>
+                </td>
+                <td className="px-4 py-2 text-xs text-muted">{t.tactic}</td>
+                <td className="px-4 py-2">
+                  <span
+                    className={`text-micro font-mono uppercase tracking-wider rounded border px-1.5 py-0.5 ${CONFIDENCE_PILL[t.confidence]}`}
+                  >
+                    {t.confidence}
+                  </span>
+                </td>
+                <td
+                  className="px-4 py-2 text-xs text-slate-500 dark:text-slate-400 max-w-md truncate"
+                  title={t.evidence}
+                >
+                  {t.evidence}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
@@ -729,7 +736,7 @@ function McpSearchPanel(props: { apiKey: string; status: McpStatus }): JSX.Eleme
         <button
           type="submit"
           disabled={disabled}
-          className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-500/40 bg-rose-600 dark:bg-rose-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-rose-700 disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 rounded border border-rose-300 dark:border-rose-500/40 bg-rose-600 dark:bg-rose-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-rose-700 disabled:opacity-50 transition-colors"
         >
           {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Search className="h-3.5 w-3.5" />}
           search
@@ -1040,7 +1047,7 @@ export default function AIReportShowcase(): JSX.Element {
             href={sample.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
+            className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors"
           >
             {sample.url}
             <ExternalLink className="h-3 w-3" />

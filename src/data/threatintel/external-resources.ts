@@ -101,7 +101,7 @@ export const TAG_PILL: Record<ResourceTag, string> = {
   c2: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   phishing: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   osint: 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300',
-  dfir: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
+  dfir: 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300',
   darkweb: 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300',
   vulnerability: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   'ai-security': 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300',

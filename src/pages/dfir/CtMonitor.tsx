@@ -26,7 +26,7 @@ interface CertInfo {
 }
 
 const ALERT_BADGE: Record<string, string> = {
-  new_subdomain: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
+  new_subdomain: 'bg-blue-100 text-brand-800 dark:bg-blue-900/30 dark:text-brand-300',
   suspicious_name: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
   wildcard: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
   ca_change: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
@@ -225,7 +225,9 @@ export default function CtMonitor(): JSX.Element {
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-display font-bold text-sm flex items-center gap-2">
               <Globe size={14} className="text-brand-600 dark:text-brand-400" /> Certs{' '}
-              {selectedDomain && <span className="font-mono text-xs text-slate-500 dark:text-slate-400">· {selectedDomain}</span>}
+              {selectedDomain && (
+                <span className="font-mono text-xs text-slate-500 dark:text-slate-400">· {selectedDomain}</span>
+              )}
             </h2>
             {selectedDomain && (
               <button
@@ -303,7 +305,9 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
       {expanded && (
         <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))] text-xs space-y-2">
           <div>
-            <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Names</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Names
+            </span>
             <div className="mt-1 flex flex-wrap gap-1">
               {cert.names.map((n, i) => (
                 <span
@@ -317,16 +321,22 @@ function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) 
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Valid From</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Valid From
+              </span>
               <div>{new Date(cert.not_before).toLocaleDateString()}</div>
             </div>
             <div>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Valid Until</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Valid Until
+              </span>
               <div>{new Date(cert.not_after).toLocaleDateString()}</div>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Serial</span>
+            <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Serial
+            </span>
             <code className="text-micro font-mono text-slate-600 dark:text-slate-300 truncate">{cert.serial}</code>
             <CopyButton value={cert.serial} />
           </div>

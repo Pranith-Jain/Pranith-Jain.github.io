@@ -113,7 +113,7 @@ export default function CertSearch(): JSX.Element {
             href="https://sslmate.com/certspotter/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             SSLMate Cert Spotter
           </a>
@@ -164,7 +164,7 @@ export default function CertSearch(): JSX.Element {
             <button
               type="submit"
               disabled={loading || !domain.trim()}
-              className="px-4 py-2 rounded bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2"
+              className="px-4 py-2 rounded bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400 text-white font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 transition-colors"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
               {loading ? 'searching…' : 'search'}
@@ -242,7 +242,10 @@ export default function CertSearch(): JSX.Element {
               <CopyChip value={allNamesBlob} label={`copy ${filteredNames.length}`} />
             </div>
             <div className="relative mb-3">
-              <Filter size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Filter
+                size={12}
+                className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              />
               <input
                 type="search"
                 value={filter}
@@ -317,7 +320,7 @@ export default function CertSearch(): JSX.Element {
               href={sanitizeUrl(data.source_url) || undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline inline-flex items-center gap-1"
+              className="hover:underline inline-flex items-center gap-1 transition-colors"
             >
               {data.source} <ExternalLink size={9} />
             </a>{' '}

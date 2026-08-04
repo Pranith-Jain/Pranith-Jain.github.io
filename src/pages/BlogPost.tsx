@@ -634,7 +634,7 @@ export default function BlogPost() {
                       href="https://x.com/Npj8448"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                      className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                     >
                       X/Twitter
                     </a>
@@ -642,7 +642,7 @@ export default function BlogPost() {
                       href="https://linkedin.com/in/pranithjain"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                      className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                     >
                       LinkedIn
                     </a>
@@ -661,7 +661,7 @@ export default function BlogPost() {
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-brand-600 dark:text-brand-400 hover:underline font-medium"
+                        className="text-brand-600 dark:text-brand-400 hover:underline font-medium transition-colors"
                       >
                         {s.title || s.url}
                       </a>

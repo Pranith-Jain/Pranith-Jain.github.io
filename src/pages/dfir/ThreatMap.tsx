@@ -627,7 +627,9 @@ export default function ThreatMap(): JSX.Element {
                           className="block rounded border border-amber-400/30 hover:border-brand-500/40 bg-white dark:bg-[rgb(var(--surface-200))] px-3 py-2 transition-colors"
                         >
                           <div className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">{ip}</div>
-                          <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5">sources: {sources.join(', ')}</div>
+                          <div className="text-mini font-mono text-slate-500 dark:text-slate-400 mt-0.5">
+                            sources: {sources.join(', ')}
+                          </div>
                         </Link>
                       </li>
                     ))}
@@ -835,7 +837,7 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${r.name} (opens in new tab)`}
-                  className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 truncate"
+                  className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 truncate transition-colors"
                 >
                   {r.name}
                 </a>

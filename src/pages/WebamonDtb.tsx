@@ -105,7 +105,7 @@ export default function WebamonDtb() {
               href="https://github.com/webamon-org/Daily-Threat-Brief"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 hover:underline dark:text-blue-400"
+              className="text-brand-600 hover:underline dark:text-brand-400 transition-colors"
             >
               webamon-org/Daily-Threat-Brief
             </a>{' '}
@@ -188,7 +188,7 @@ export default function WebamonDtb() {
                               href={m.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-blue-600 hover:underline dark:text-blue-400"
+                              className="text-brand-600 hover:underline dark:text-brand-400 transition-colors"
                             >
                               {m.title}
                             </a>
@@ -214,7 +214,7 @@ export default function WebamonDtb() {
                       href={c.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:underline dark:text-blue-400"
+                      className="inline-flex items-center gap-1 text-sm font-medium text-brand-600 hover:underline dark:text-brand-400 transition-colors"
                     >
                       {c.name} <ExternalLink size={12} />
                     </a>
@@ -257,7 +257,7 @@ export default function WebamonDtb() {
               href={brief.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-500 hover:underline"
+              className="text-brand-500 hover:underline transition-colors"
             >
               View on GitHub
             </a>

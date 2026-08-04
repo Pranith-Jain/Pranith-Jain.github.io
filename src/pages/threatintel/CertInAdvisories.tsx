@@ -157,9 +157,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
           }
         }}
         className={`flex items-center gap-1 font-mono text-xs uppercase tracking-wider ${
-          active
-            ? 'text-rose-600 dark:text-rose-400'
-            : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+          active ? 'text-rose-600 dark:text-rose-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
         }`}
       >
         {label}
@@ -241,7 +239,8 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
           <option value="medium">Medium</option>
           <option value="low">Low</option>
         </select>
-        <button type="button"
+        <button
+          type="button"
           onClick={() => refetch()}
           className="px-3 py-2 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-sm flex items-center gap-2"
         >
@@ -252,17 +251,19 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
       {/* Export row */}
       <div className="flex items-center gap-3 mb-4">
         <div className="flex-1" />
-        <button type="button"
+        <button
+          type="button"
           onClick={exportJSON}
           disabled={!data}
-          className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50"
+          className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50 transition-colors"
         >
           <Download className="w-3.5 h-3.5" /> JSON
         </button>
-        <button type="button"
+        <button
+          type="button"
           onClick={exportCSV}
           disabled={!data}
-          className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50"
+          className="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-slate-400 dark:hover:border-slate-600 text-xs flex items-center gap-1.5 disabled:opacity-50 transition-colors"
         >
           <Download className="w-3.5 h-3.5" /> CSV
         </button>
@@ -278,7 +279,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
             href="https://www.cert-in.org.in/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-slate-700 dark:hover:text-slate-300 flex items-center gap-1"
+            className="hover:text-slate-700 dark:hover:text-slate-300 flex items-center gap-1 transition-colors"
           >
             Source: cert-in.org.in <ExternalLink className="w-3 h-3" />
           </a>
@@ -315,7 +316,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
                       href={adv.detail_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1"
+                      className="text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 transition-colors"
                     >
                       {adv.id} <ExternalLink className="w-3 h-3" />
                     </a>
@@ -341,7 +342,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
                             href={`https://nvd.nist.gov/vuln/detail/${cve}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-mono text-xs text-rose-600 dark:text-rose-400 hover:underline"
+                            className="font-mono text-xs text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                           >
                             {cve}
                           </a>

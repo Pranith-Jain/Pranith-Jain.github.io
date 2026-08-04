@@ -250,7 +250,7 @@ export default function ActorDetail(): JSX.Element {
                         href={`https://otx.alienvault.com/pulse/${p.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-brand-600 dark:text-brand-400 hover:underline"
+                        className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                       >
                         {p.name}
                       </a>
@@ -288,7 +288,7 @@ export default function ActorDetail(): JSX.Element {
                           href={`https://attack.mitre.org/techniques/${t.id.replace('.', '/')}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+                          className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
                         >
                           {t.id}
                           {t.count ? ` (${t.count})` : ''}
@@ -318,7 +318,7 @@ export default function ActorDetail(): JSX.Element {
               href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40"
+              className="text-xs font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 transition-colors"
             >
               {t}
             </a>
@@ -336,7 +336,7 @@ export default function ActorDetail(): JSX.Element {
                   href={r}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                  className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
                 >
                   {r} <ExternalLink size={10} />
                 </a>

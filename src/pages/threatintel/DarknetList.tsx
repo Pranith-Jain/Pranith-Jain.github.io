@@ -158,7 +158,7 @@ function SiteCard({ site }: { site: DarknetSite }) {
           href={safeUrl}
           target="_blank"
           rel="noopener noreferrer nofollow"
-          className="flex items-center gap-1 mt-1 mb-2 text-xs text-rose-600 dark:text-rose-400 hover:underline"
+          className="flex items-center gap-1 mt-1 mb-2 text-xs text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           title={site.url ?? undefined}
         >
           <ExternalLink className="w-3 h-3 shrink-0" />
@@ -269,7 +269,7 @@ export default function DarknetList(): JSX.Element {
             href="https://darknetlist.is/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             darknetlist.is
           </a>

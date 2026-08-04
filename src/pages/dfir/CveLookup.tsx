@@ -217,7 +217,7 @@ export default function CveLookup(): JSX.Element {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-xl disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
           >
             <BookText size={16} className="inline mr-2" />
             Lookup
@@ -794,7 +794,7 @@ export default function CveLookup(): JSX.Element {
                           href={sanitizeUrl(url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm text-brand-600 dark:text-brand-400 hover:underline break-all font-mono flex items-center gap-1"
+                          className="text-sm text-brand-600 dark:text-brand-400 hover:underline break-all font-mono flex items-center gap-1 transition-colors"
                         >
                           {url}
                           <ExternalLink size={11} className="shrink-0" />

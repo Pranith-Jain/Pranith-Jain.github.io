@@ -255,7 +255,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
             href="https://insiderthreatmatrix.org"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
+            className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             Forscie Limited
           </a>
@@ -266,7 +266,10 @@ export default function InsiderThreatMatrix(): JSX.Element {
         <>
           <div className="flex flex-wrap items-center gap-3">
             <div className="relative flex-1 min-w-[200px]">
-              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search
+                size={16}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              />
               <input
                 type="search"
                 value={search}
@@ -290,14 +293,17 @@ export default function InsiderThreatMatrix(): JSX.Element {
           const open = expanded.has(cat.id);
           return (
             <div key={cat.id} className="surface-card overflow-hidden">
-              <button type="button"
+              <button
+                type="button"
                 onClick={() => toggle(cat.id)}
                 className="w-full flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.6)] transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <span className={`text-xs font-mono font-bold px-2 py-1 rounded ${cat.color}`}>{cat.id}</span>
                   <span className="font-display font-bold text-base">{cat.name}</span>
-                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{cat.techniques.length}</span>
+                  <span className="text-mini font-mono text-slate-500 dark:text-slate-400">
+                    {cat.techniques.length}
+                  </span>
                 </div>
                 {open ? (
                   <ChevronDown size={16} className="text-slate-500 dark:text-slate-400" />
@@ -337,7 +343,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
           href="https://insiderthreatmatrix.org"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-rose-600 dark:text-rose-400 hover:underline"
+          className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
         >
           insiderthreatmatrix.org
         </a>{' '}
@@ -346,7 +352,7 @@ export default function InsiderThreatMatrix(): JSX.Element {
           href="https://github.com/forscie/insider-threat-matrix"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-rose-600 dark:text-rose-400 hover:underline"
+          className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
         >
           GitHub
         </a>

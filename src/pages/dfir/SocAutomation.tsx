@@ -259,7 +259,7 @@ export default function SocAutomation(): JSX.Element {
                 </button>
                 <button
                   type="submit"
-                  className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
+                  className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5 transition-colors"
                 >
                   Create
                 </button>

@@ -368,7 +368,9 @@ export default function CvePrioritizer(): JSX.Element {
                     </button>
                   ) : null
                 )}
-                <span className="text-mini font-mono text-slate-500 dark:text-slate-400 ml-2">{sortedRows.length} CVE(s)</span>
+                <span className="text-mini font-mono text-slate-500 dark:text-slate-400 ml-2">
+                  {sortedRows.length} CVE(s)
+                </span>
                 {filterVerdict && (
                   <button
                     type="button"
@@ -383,14 +385,14 @@ export default function CvePrioritizer(): JSX.Element {
                 <button
                   type="button"
                   onClick={exportCsv}
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
                 >
                   <FileDown size={11} /> CSV
                 </button>
                 <button
                   type="button"
                   onClick={exportJson}
-                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                  className="text-mini font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 transition-colors"
                 >
                   <FileDown size={11} /> JSON
                 </button>
@@ -408,7 +410,10 @@ export default function CvePrioritizer(): JSX.Element {
                 <article key={r.id} className="surface-card p-4">
                   <header className="flex items-start gap-2.5">
                     {r.loading ? (
-                      <Loader2 size={16} className="mt-0.5 flex-shrink-0 animate-spin text-slate-500 dark:text-slate-400" />
+                      <Loader2
+                        size={16}
+                        className="mt-0.5 flex-shrink-0 animate-spin text-slate-500 dark:text-slate-400"
+                      />
                     ) : (
                       <st.Icon size={16} className={`mt-0.5 flex-shrink-0 ${st.text}`} />
                     )}
@@ -437,7 +442,9 @@ export default function CvePrioritizer(): JSX.Element {
                             <span className="text-micro font-mono text-slate-500 dark:text-slate-400">/100</span>
                           </span>
                         )}
-                        {r.loading && <span className="text-mini font-mono text-slate-500 dark:text-slate-400">enriching…</span>}
+                        {r.loading && (
+                          <span className="text-mini font-mono text-slate-500 dark:text-slate-400">enriching…</span>
+                        )}
                         {r.error && <span className="text-mini font-mono text-rose-500">{r.error}</span>}
                       </div>
 
@@ -525,7 +532,7 @@ export default function CvePrioritizer(): JSX.Element {
                                 href={sanitizeUrl(r.data.ghsa.url) || undefined}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-brand-600 dark:text-brand-400 hover:underline"
+                                className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                               >
                                 {r.data.ghsa.id}
                               </a>
@@ -551,7 +558,7 @@ export default function CvePrioritizer(): JSX.Element {
                               href={`/threatintel/actor-kb?q=${encodeURIComponent(ac)}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-rose-600 dark:text-rose-400 hover:underline mr-2"
+                              className="text-rose-600 dark:text-rose-400 hover:underline mr-2 transition-colors"
                             >
                               {ac}
                             </a>

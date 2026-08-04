@@ -162,7 +162,7 @@ export default function KillChain(): JSX.Element {
       <div className="flex justify-end gap-2 mb-3">
         <button
           onClick={allOpen ? collapseAll : expandAll}
-          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+          className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
         >
           {allOpen ? 'Collapse all' : 'Expand all'}
         </button>
@@ -187,7 +187,7 @@ export default function KillChain(): JSX.Element {
               href="https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               Lockheed Martin · Cyber Kill Chain
               <ExternalLink size={11} aria-hidden="true" />
@@ -198,7 +198,7 @@ export default function KillChain(): JSX.Element {
               href="https://attack.mitre.org/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               MITRE ATT&amp;CK
               <ExternalLink size={11} aria-hidden="true" />

@@ -80,7 +80,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
 
   const iocTypeColor = (type: string) => {
     const colors: Record<string, string> = {
-      ipv4: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+      ipv4: 'bg-blue-100 text-brand-700 dark:bg-blue-900/30 dark:text-brand-300',
       ipv6: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
       domain: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
       url: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
@@ -106,16 +106,18 @@ export default function ThreatLandscapeIocs(): JSX.Element {
         description="PostgREST-style IOC query interface. Filter by type, validity, source. Use seq_id for incremental sync."
         headerExtra={
           <div className="flex gap-2">
-            <button type="button"
+            <button
+              type="button"
               onClick={fetchData}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
             >
               <RefreshCw size={12} /> Refresh
             </button>
-            <button type="button"
+            <button
+              type="button"
               onClick={exportAsJson}
               disabled={!data?.length}
-              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40"
+              className="text-xs flex items-center gap-1 px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 transition-colors"
             >
               <Download size={12} /> Export JSON
             </button>
@@ -124,7 +126,8 @@ export default function ThreatLandscapeIocs(): JSX.Element {
       >
         {/* Tab selector */}
         <div className="mb-3 flex gap-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-          <button type="button"
+          <button
+            type="button"
             onClick={() => {
               setActiveTab('all');
               setIocType('');
@@ -133,7 +136,8 @@ export default function ThreatLandscapeIocs(): JSX.Element {
           >
             All IOCs
           </button>
-          <button type="button"
+          <button
+            type="button"
             onClick={() => {
               setActiveTab('type');
             }}
@@ -173,9 +177,10 @@ export default function ThreatLandscapeIocs(): JSX.Element {
             onChange={(e) => setLimit(e.target.value)}
             className="w-20 text-xs px-2 py-1 rounded border border-slate-300 dark:border-[rgb(var(--border-500))] bg-white dark:bg-[rgb(var(--surface-200))]"
           />
-          <button type="button"
+          <button
+            type="button"
             onClick={fetchData}
-            className="text-xs flex items-center gap-1 px-3 py-1.5 rounded bg-rose-600 text-white hover:bg-rose-700"
+            className="text-xs flex items-center gap-1 px-3 py-1.5 rounded bg-rose-600 text-white hover:bg-rose-700 transition-colors"
           >
             <Search size={12} /> Query
           </button>
@@ -185,8 +190,10 @@ export default function ThreatLandscapeIocs(): JSX.Element {
         {activeTab === 'type' && !iocType && (
           <div className="mb-4 flex flex-wrap gap-2">
             {IOC_TYPES.map((t) => (
-              <button type="button"
-                key={t} role="tab"
+              <button
+                type="button"
+                key={t}
+                role="tab"
                 onClick={() => setIocType(t)}
                 className={`text-xs px-3 py-1.5 rounded-full border ${iocTypeColor(t)}`}
               >

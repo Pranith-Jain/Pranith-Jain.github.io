@@ -66,7 +66,7 @@ export default function Whoxy() {
             href="https://www.whoxy.com/reverse-whois/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             whoxy.com
           </a>{' '}
@@ -204,7 +204,7 @@ export default function Whoxy() {
                               href={`https://${d.domain_name}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="hover:underline"
+                              className="hover:underline transition-colors"
                             >
                               {d.domain_name}
                             </a>
@@ -247,7 +247,7 @@ export default function Whoxy() {
             href="https://www.whoxy.com/reverse-whois/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
+            className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
           >
             whoxy.com
           </a>{' '}

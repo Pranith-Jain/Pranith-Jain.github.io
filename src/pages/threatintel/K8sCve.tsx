@@ -108,7 +108,7 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
         href="https://kubernetes.io/docs/reference/issues-security/official-cve-feed/"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-rose-600 dark:text-rose-400 hover:underline"
+        className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
       >
         kubernetes.io
       </a>{' '}
@@ -158,7 +158,7 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
                       href={recordHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-rose-600 dark:hover:text-rose-400"
+                      className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                     >
                       {cve.title} <ExternalLink size={12} className="inline align-baseline opacity-60" />
                     </a>
@@ -189,7 +189,9 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
                   </Link>
                 ))}
                 {cve.published && (
-                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-auto">{fmtDate(cve.published)}</span>
+                  <span className="text-micro font-mono text-slate-500 dark:text-slate-400 ml-auto">
+                    {fmtDate(cve.published)}
+                  </span>
                 )}
               </div>
 
@@ -203,7 +205,7 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
                     href={issueHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1"
+                    className="text-micro font-mono text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors"
                   >
                     <GitBranch size={12} /> tracking issue
                   </a>
@@ -221,7 +223,7 @@ export default function K8sCve({ bare = false }: { bare?: boolean } = {}): JSX.E
             href={data.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-rose-600 dark:hover:text-rose-400"
+            className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
             {data.source}
           </a>{' '}

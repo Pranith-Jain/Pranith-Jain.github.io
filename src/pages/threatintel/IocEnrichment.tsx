@@ -246,7 +246,7 @@ export default function IocEnrichment(): JSX.Element {
               href={source.docsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 mt-3 text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+              className="inline-flex items-center gap-1 mt-3 text-mini font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
             >
               <ExternalLink size={11} /> {source.label} docs
             </a>

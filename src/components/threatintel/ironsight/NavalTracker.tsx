@@ -15,7 +15,7 @@ interface NavalVessel {
 }
 
 const NAVY_COLORS: Record<string, string> = {
-  'US Navy': 'text-blue-400',
+  'US Navy': 'text-brand-400',
   'Royal Navy': 'text-sky-400',
   'French Navy': 'text-indigo-400',
   'Israeli Navy': 'text-cyan-400',
@@ -224,7 +224,7 @@ export default function NavalTracker() {
     <div className="surface-card p-4">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <Anchor size={16} className="text-blue-400" />
+          <Anchor size={16} className="text-brand-400" />
           <h3 className="text-tool font-bold font-mono text-slate-700 dark:text-slate-200">NAVAL TRACKER</h3>
         </div>
         <span className="text-mini font-mono text-slate-500 dark:text-slate-400">{SHIPS.length} vessels · OSINT</span>

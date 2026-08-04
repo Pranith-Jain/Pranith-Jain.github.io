@@ -296,7 +296,7 @@ export default function Watches(): JSX.Element {
                             href={watch.webhook}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-1 hover:text-rose-600 dark:hover:text-rose-400"
+                            className="flex items-center gap-1 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                           >
                             <ExternalLink size={10} /> webhook
                           </a>
@@ -440,7 +440,7 @@ export default function Watches(): JSX.Element {
                 aria-label="Refresh"
                 type="button"
                 onClick={fetchData}
-                className="ml-auto text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                className="ml-auto text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
               >
                 <RefreshCw size={12} />
               </button>

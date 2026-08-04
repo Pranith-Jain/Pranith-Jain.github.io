@@ -74,7 +74,8 @@ export default function ThreatIntelReports(): JSX.Element {
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-6">
-        <button type="button"
+        <button
+          type="button"
           onClick={() => setActiveSev(null)}
           className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
             !activeSev
@@ -85,7 +86,8 @@ export default function ThreatIntelReports(): JSX.Element {
           All ({REPORTS.length})
         </button>
         {SEVERITIES.map((sev) => (
-          <button type="button"
+          <button
+            type="button"
             key={sev}
             onClick={() => setActiveSev(activeSev === sev ? null : sev)}
             className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors ${
@@ -207,7 +209,7 @@ function ReportCard({
                     key={i}
                     className={`text-micro font-mono px-2 py-0.5 rounded border ${
                       det.type === 'sigma'
-                        ? 'border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300'
+                        ? 'border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300'
                         : det.type === 'yara'
                           ? 'border-purple-500/30 bg-purple-500/10 text-purple-700 dark:text-purple-300'
                           : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
@@ -224,7 +226,7 @@ function ReportCard({
             href={sanitizeUrl(report.sourceUrl)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline"
+            className="inline-flex items-center gap-1.5 text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
           >
             Read full report <ExternalLink size={11} />
           </a>

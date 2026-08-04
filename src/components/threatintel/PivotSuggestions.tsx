@@ -39,7 +39,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   actor: 'text-rose-600 bg-rose-50 dark:text-rose-400 dark:bg-rose-950/20',
   cve: 'text-amber-600 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/20',
   malware: 'text-violet-600 bg-violet-50 dark:text-violet-400 dark:bg-violet-950/20',
-  ioc: 'text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/20',
+  ioc: 'text-brand-600 bg-blue-50 dark:text-brand-400 dark:bg-blue-950/20',
   campaign: 'text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950/20',
   sector: 'text-sky-600 bg-sky-50 dark:text-sky-400 dark:bg-sky-950/20',
   technique: 'text-indigo-600 bg-indigo-50 dark:text-indigo-400 dark:bg-indigo-950/20',
@@ -125,7 +125,7 @@ export function PivotSuggestions({
         <span className="font-mono text-mini text-amber-600 dark:text-amber-400">{error}</span>
         <button
           onClick={fetchPivots}
-          className="ml-auto font-mono text-mini text-brand-600 hover:text-brand-700 dark:text-brand-400"
+          className="ml-auto font-mono text-mini text-brand-600 hover:text-brand-700 dark:text-brand-400 transition-colors"
         >
           retry
         </button>

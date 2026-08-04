@@ -74,7 +74,7 @@ function MapControls({ onToggleDark }: { onToggleDark: () => void }) {
       </button>
       <button
         onClick={onToggleDark}
-        className="bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-1 text-xs font-mono shadow hover:bg-slate-50 dark:hover:bg-slate-700"
+        className="bg-white dark:bg-[rgb(var(--surface-300))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded px-2 py-1 text-xs font-mono shadow hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
         title="Toggle dark map tiles"
       >
         Tiles
@@ -194,7 +194,7 @@ export default function InfraMap({
                   href={r.tags.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-mini text-brand-600 hover:underline mt-1 block"
+                  className="text-mini text-brand-600 hover:underline mt-1 block transition-colors"
                 >
                   Website ↗
                 </a>

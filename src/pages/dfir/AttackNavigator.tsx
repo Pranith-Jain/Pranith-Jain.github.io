@@ -346,7 +346,7 @@ export default function AttackNavigator(): JSX.Element {
                     href="https://red.anthropic.com/2026/attack-navigator/navigator"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-600 dark:text-brand-400 hover:underline"
+                    className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                   >
                     Anthropic LLM ATT&amp;CK research
                   </a>
@@ -359,7 +359,7 @@ export default function AttackNavigator(): JSX.Element {
                     href="https://www.cyberriskevaluator.com/A3M_Matrix_Agentic_AI_Attack_Matrix.html"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-600 dark:text-brand-400 hover:underline"
+                    className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                   >
                     A3M Matrix - Agentic AI Attack Matrix
                   </a>
@@ -372,7 +372,7 @@ export default function AttackNavigator(): JSX.Element {
                     href="https://d3fend.mitre.org/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-600 dark:text-brand-400 hover:underline"
+                    className="text-brand-600 dark:text-brand-400 hover:underline transition-colors"
                   >
                     MITRE D3FEND™
                   </a>
@@ -421,7 +421,11 @@ export default function AttackNavigator(): JSX.Element {
         {/* Toolbar */}
         <div className="flex flex-wrap items-center gap-2 mb-6 mt-6">
           <div className="relative flex-1 min-w-[260px] max-w-md">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" aria-hidden="true" />
+            <Search
+              size={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              aria-hidden="true"
+            />
             <input
               type="text"
               value={query}
@@ -514,7 +518,9 @@ export default function AttackNavigator(): JSX.Element {
                         <div className="text-micro font-mono font-bold leading-tight text-slate-900 dark:text-slate-100">
                           {tactic.name}
                         </div>
-                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">{tacticCount} techniques</div>
+                        <div className="text-micro font-mono text-slate-500 dark:text-slate-400 mt-0.5">
+                          {tacticCount} techniques
+                        </div>
                       </a>
                     </div>
 
@@ -648,7 +654,9 @@ export default function AttackNavigator(): JSX.Element {
                       <span className="font-mono font-semibold">{selectedScore.count.toLocaleString()}</span>
                     </div>
                     <div className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] pt-2 mt-2">
-                      <div className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400 mb-1">ARiES Risk Score</div>
+                      <div className="text-micro font-mono uppercase text-slate-500 dark:text-slate-400 mb-1">
+                        ARiES Risk Score
+                      </div>
                       <div className="flex justify-between">
                         <span className="text-slate-500">Raw mean:</span>
                         <span className="font-mono font-semibold">{selectedScore.raw_mean.toFixed(1)}</span>

@@ -83,7 +83,7 @@ export default function DarkWebOsintTools(): JSX.Element {
               href="https://github.com/apurvsinghgautam/dark-web-osint-tools"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               dark-web-osint-tools
             </a>{' '}
@@ -92,7 +92,7 @@ export default function DarkWebOsintTools(): JSX.Element {
               href="https://github.com/apurvsinghgautam/robin"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-rose-600 dark:text-rose-400 hover:underline"
+              className="text-rose-600 dark:text-rose-400 hover:underline transition-colors"
             >
               Robin
             </a>{' '}
@@ -146,7 +146,7 @@ export default function DarkWebOsintTools(): JSX.Element {
                 <button
                   type="button"
                   onClick={clearAll}
-                  className="sm:ml-auto text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline"
+                  className="sm:ml-auto text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
                 >
                   clear filters
                 </button>
@@ -168,7 +168,7 @@ export default function DarkWebOsintTools(): JSX.Element {
                 href={sanitizeUrl(t.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1"
+                className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 inline-flex items-center gap-1 transition-colors"
               >
                 {t.name} <ExternalLink size={12} className="opacity-60" />
               </a>
@@ -200,7 +200,7 @@ export default function DarkWebOsintTools(): JSX.Element {
                   href={sanitizeUrl(t.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
+                  className="sm:ml-auto inline-flex items-center gap-1 text-micro font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                   title="Source repository"
                 >
                   <Github size={10} /> source

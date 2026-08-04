@@ -340,7 +340,7 @@ export default function XFirehose(): JSX.Element {
                         href={url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`inline-flex items-center gap-1 text-mini font-mono px-2 py-1 rounded border ${TOPIC_PILL[h.topic]} hover:opacity-90`}
+                        className={`inline-flex items-center gap-1 text-mini font-mono px-2 py-1 rounded border ${TOPIC_PILL[h.topic]} hover:opacity-90 transition-colors`}
                       >
                         {h.platform === 'bluesky' ? 'BS' : 'M'} {h.name} <ExternalLink size={10} />
                       </a>

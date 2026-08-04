@@ -119,7 +119,11 @@ export default function SocradarTools() {
       title="Tactical Radar Free Tools"
       description="DDoS intelligence, FortiGate breach check, healthcare breach tracking."
     >
-      <div role="tablist" aria-label="Tabs" className="flex gap-1 mb-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
+      <div
+        role="tablist"
+        aria-label="Tabs"
+        className="flex gap-1 mb-6 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
+      >
         {(
           [
             ['ddos', 'DDoS Intelligence', Activity],
@@ -128,8 +132,10 @@ export default function SocradarTools() {
             ['reports', 'Threat Reports', Shield],
           ] as const
         ).map(([id, label, Icon]) => (
-          <button type="button"
-            key={id} role="tab"
+          <button
+            type="button"
+            key={id}
+            role="tab"
             onClick={() => setTab(id)}
             className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-mono font-semibold border-b-2 transition-colors ${
               tab === id
@@ -241,7 +247,10 @@ function DDoSPanel() {
           {/* Search */}
           <div className="flex gap-2">
             <div className="flex-1 relative">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search
+                size={14}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              />
               <input
                 type="text"
                 value={searchQ}
@@ -302,7 +311,7 @@ function DDoSPanel() {
                           href={b.urlhausLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1"
+                          className="text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 transition-colors"
                         >
                           URLhaus <ExternalLink size={8} />
                         </a>
@@ -375,7 +384,7 @@ function FortiBleedPanel() {
           <button
             type="submit"
             disabled={loading}
-            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50"
+            className="px-4 py-2 bg-rose-600 dark:bg-rose-500 text-white font-mono text-sm font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : 'Check'}
           </button>
@@ -447,7 +456,7 @@ function FortiBleedPanel() {
                 href={`https://nvd.nist.gov/vuln/detail/${result.vulnerability}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1"
+                className="text-mini font-mono text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 transition-colors"
               >
                 View on NVD <ExternalLink size={8} />
               </a>
@@ -568,7 +577,10 @@ function HealthcarePanel() {
 
           <div className="flex gap-2">
             <div className="flex-1 relative">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search
+                size={14}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+              />
               <input
                 type="text"
                 value={searchQ}
@@ -693,8 +705,10 @@ function ThreatReportsPanel() {
               ['external', 'External Assessment'],
             ] as const
           ).map(([t, label]) => (
-            <button type="button"
-              key={t} role="tab"
+            <button
+              type="button"
+              key={t}
+              role="tab"
               onClick={() => setReportType(t)}
               className={`px-3 py-1.5 rounded text-mini font-mono font-semibold border transition-colors ${
                 reportType === t
@@ -771,10 +785,11 @@ function ThreatReportsPanel() {
               />
             </div>
           )}
-          <button type="button"
+          <button
+            type="button"
             onClick={handleGenerate}
             disabled={loading || (reportType === 'external' && !domain)}
-            className="px-4 py-1.5 bg-rose-600 dark:bg-rose-500 text-white text-mini font-mono font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50"
+            className="px-4 py-1.5 bg-rose-600 dark:bg-rose-500 text-white text-mini font-mono font-semibold rounded hover:bg-rose-700 dark:hover:bg-rose-400 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={12} className="animate-spin" /> : 'Generate'}
           </button>
@@ -805,7 +820,8 @@ function ThreatReportsPanel() {
               <div className="flex flex-wrap gap-1">
                 {((data.country as ThreatReportCountry).topActors || []).map((a) => (
                   <span
-                    key={a} role="tab"
+                    key={a}
+                    role="tab"
                     className="text-micro font-mono px-1.5 py-0.5 rounded bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300"
                   >
                     {a}
@@ -818,7 +834,8 @@ function ThreatReportsPanel() {
               <div className="flex flex-wrap gap-1">
                 {((data.country as ThreatReportCountry).topMalware || []).map((m) => (
                   <span
-                    key={m} role="tab"
+                    key={m}
+                    role="tab"
                     className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300"
                   >
                     {m}
@@ -831,7 +848,8 @@ function ThreatReportsPanel() {
               <div className="flex flex-wrap gap-1">
                 {((data.country as ThreatReportCountry).criticalSectors || []).map((s) => (
                   <span
-                    key={s} role="tab"
+                    key={s}
+                    role="tab"
                     className="text-micro font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300"
                   >
                     {s}
@@ -885,7 +903,8 @@ function ThreatReportsPanel() {
               <div className="flex flex-wrap gap-1">
                 {((data.industry as ThreatReportIndustry).topActors || []).map((a) => (
                   <span
-                    key={a} role="tab"
+                    key={a}
+                    role="tab"
                     className="text-micro font-mono px-1.5 py-0.5 rounded bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300"
                   >
                     {a}

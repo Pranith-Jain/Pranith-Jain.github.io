@@ -153,7 +153,9 @@ export function RulesSnapshotPanel(): JSX.Element {
               showNewBadge={false}
               watchCount={watched}
               watchTerms={watchlist}
-              rightAction={<span className="text-slate-500 dark:text-slate-400">{bucketed[c.key]!.length} commits</span>}
+              rightAction={
+                <span className="text-slate-500 dark:text-slate-400">{bucketed[c.key]!.length} commits</span>
+              }
               loading={!data && !err}
               error={err ?? undefined}
             >
@@ -178,7 +180,7 @@ export function RulesSnapshotPanel(): JSX.Element {
                           href={sanitizeUrl(cm.link)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0 inline-flex items-center gap-1"
+                          className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0 inline-flex items-center gap-1 transition-colors"
                           title={`${decodeHtml(cm.title)} - ${cm.source_label}`}
                         >
                           <GitCommit size={9} className="opacity-50 shrink-0" />
@@ -196,7 +198,7 @@ export function RulesSnapshotPanel(): JSX.Element {
                   href={`https://github.com/search?q=${encodeURIComponent(c.title)}+rules&type=repositories`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-auto pt-2 text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+                  className="mt-auto pt-2 text-micro font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5 transition-colors"
                 >
                   more {c.title.split(' ')[0]!.toLowerCase()} repos <ExternalLink size={9} />
                 </a>
