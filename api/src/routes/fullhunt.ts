@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { badRequest, badGateway, serviceUnavailable } from '../lib/api-error';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const CACHE_TTL = 600;
@@ -8,11 +9,11 @@ export const fullhuntRouter = new Hono<{ Bindings: Env }>();
 
 fullhuntRouter.get('/fullhunt/domain', async (c) => {
   const domain = c.req.query('domain');
-  if (!domain) return c.json({ error: 'domain parameter required' }, 400);
+  if (!domain) return badRequest(c, 'domain parameter required');
 
   const key = c.env.FULLHUNT_API_KEY;
   if (!key) {
-    return c.json({ error: 'FULLHUNT_API_KEY not configured', docs: 'wrangler secret put FULLHUNT_API_KEY' }, 503);
+    return serviceUnavailable(c, 'FULLHUNT_API_KEY not configured (wrangler secret put FULLHUNT_API_KEY)');
   }
 
   const cacheKey = `fullhunt:domain:${domain}`;
@@ -26,9 +27,9 @@ fullhuntRouter.get('/fullhunt/domain', async (c) => {
     });
 
     if (res.status === 401 || res.status === 403) {
-      return c.json({ error: 'FullHunt API key rejected — check FULLHUNT_API_KEY' }, 502);
+      return badGateway(c, 'FullHunt API key rejected — check FULLHUNT_API_KEY');
     }
-    if (!res.ok) return c.json({ error: `FullHunt upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `FullHunt upstream ${res.status}`);
 
     const data = await res.json();
     const body = { domain, results: data, generated_at: new Date().toISOString(), cached: false };
@@ -37,16 +38,16 @@ fullhuntRouter.get('/fullhunt/domain', async (c) => {
     return c.json(body);
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'FullHunt unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'FullHunt unreachable');
   }
 });
 
 fullhuntRouter.get('/fullhunt/host', async (c) => {
   const host = c.req.query('host');
-  if (!host) return c.json({ error: 'host parameter required' }, 400);
+  if (!host) return badRequest(c, 'host parameter required');
 
   const key = c.env.FULLHUNT_API_KEY;
-  if (!key) return c.json({ error: 'FULLHUNT_API_KEY not configured' }, 503);
+  if (!key) return serviceUnavailable(c, 'FULLHUNT_API_KEY not configured');
 
   try {
     const res = await fetch(`https://api.fullhunt.io/api/v1/host/${encodeURIComponent(host)}`, {
@@ -54,21 +55,21 @@ fullhuntRouter.get('/fullhunt/host', async (c) => {
       signal: AbortSignal.timeout(15000),
     });
 
-    if (!res.ok) return c.json({ error: `FullHunt upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `FullHunt upstream ${res.status}`);
     const data = await res.json();
     return c.json({ host, results: data, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'FullHunt unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'FullHunt unreachable');
   }
 });
 
 fullhuntRouter.get('/fullhunt/subdomains', async (c) => {
   const domain = c.req.query('domain');
-  if (!domain) return c.json({ error: 'domain parameter required' }, 400);
+  if (!domain) return badRequest(c, 'domain parameter required');
 
   const key = c.env.FULLHUNT_API_KEY;
-  if (!key) return c.json({ error: 'FULLHUNT_API_KEY not configured' }, 503);
+  if (!key) return serviceUnavailable(c, 'FULLHUNT_API_KEY not configured');
 
   try {
     const res = await fetch(`https://api.fullhunt.io/api/v1/domain/${encodeURIComponent(domain)}/subdomains`, {
@@ -76,11 +77,11 @@ fullhuntRouter.get('/fullhunt/subdomains', async (c) => {
       signal: AbortSignal.timeout(15000),
     });
 
-    if (!res.ok) return c.json({ error: `FullHunt upstream ${res.status}` }, 502);
+    if (!res.ok) return badGateway(c, `FullHunt upstream ${res.status}`);
     const data = await res.json();
     return c.json({ domain, results: data, generated_at: new Date().toISOString() });
   } catch (e) {
     console.error('handler failed:', e instanceof Error ? e.message : String(e));
-    return c.json({ error: e instanceof Error ? e.message : 'FullHunt unreachable' }, 502);
+    return badGateway(c, e instanceof Error ? e.message : 'FullHunt unreachable');
   }
 });

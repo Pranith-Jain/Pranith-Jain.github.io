@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, conflict, serviceUnavailable } from '../lib/api-error';
 import { safeJsonBody } from '../lib/safe-body';
 import { requireAdmin } from '../lib/admin-auth';
 import { safeNullLog } from '../lib/safe-catch';
@@ -146,7 +147,7 @@ export async function createExternalResourceHandler(c: AdminCtx) {
   if ('error' in auth) return auth.error;
 
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV_CACHE not bound' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV_CACHE not bound');
 
   // Size + depth-guarded JSON read. Each external-resource entry is a small
   // bag of strings (name/url/kind/description/why); 8 KB is plenty.
@@ -160,27 +161,27 @@ export async function createExternalResourceHandler(c: AdminCtx) {
   const description = trim(body.description, 600);
   const why = trim(body.why, 600);
 
-  if (!name) return c.json({ error: 'name is required' }, 400);
-  if (!url) return c.json({ error: 'url is required' }, 400);
+  if (!name) return badRequest(c, 'name is required');
+  if (!url) return badRequest(c, 'url is required');
   if (!ALLOWED_KINDS.has(kindRaw)) {
-    return c.json({ error: `kind must be one of: ${[...ALLOWED_KINDS].join(', ')}` }, 400);
+    return badRequest(c, `kind must be one of: ${[...ALLOWED_KINDS].join(', ')}`);
   }
   try {
     const u = new URL(url);
     if (u.protocol !== 'http:' && u.protocol !== 'https:') {
-      return c.json({ error: 'url must use http or https' }, 400);
+      return badRequest(c, 'url must use http or https');
     }
   } catch (_catchErr) {
     console.error(
       'createExternalResourceHandler failed:',
       _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
     );
-    return c.json({ error: 'url is malformed' }, 400);
+    return badRequest(c, 'url is malformed');
   }
 
   const items = await readDynamic(kv);
   if (items.length >= MAX_ENTRIES) {
-    return c.json({ error: `dynamic catalog is full (${MAX_ENTRIES} entries); delete one first` }, 400);
+    return badRequest(c, `dynamic catalog is full (${MAX_ENTRIES} entries); delete one first`);
   }
 
   // Reject exact-URL duplicates against the existing dynamic set so the
@@ -188,7 +189,7 @@ export async function createExternalResourceHandler(c: AdminCtx) {
   // The frontend already de-dupes against static + dynamic at render time;
   // this guard is the server-side belt-and-braces.
   if (items.some((it) => it.url === url)) {
-    return c.json({ error: 'this URL is already in the dynamic catalog' }, 409);
+    return conflict(c, 'this URL is already in the dynamic catalog');
   }
 
   const entry: ExternalResource = {
@@ -212,14 +213,14 @@ export async function deleteExternalResourceHandler(c: AdminCtx) {
   if ('error' in auth) return auth.error;
 
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV_CACHE not bound' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV_CACHE not bound');
 
   const id = c.req.param('id');
-  if (!id || !/^[a-z0-9-]+$/.test(id)) return c.json({ error: 'invalid id' }, 400);
+  if (!id || !/^[a-z0-9-]+$/.test(id)) return badRequest(c, 'invalid id');
 
   const items = await readDynamic(kv);
   const next = items.filter((it) => it.id !== id);
-  if (next.length === items.length) return c.json({ error: 'not found' }, 404);
+  if (next.length === items.length) return notFound(c, 'not found');
 
   await writeDynamic(kv, next);
   return c.json({ ok: true, deleted: id });
