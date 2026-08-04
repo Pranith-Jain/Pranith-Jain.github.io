@@ -110,7 +110,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       return new Response(kvBody, {
         headers: {
           'content-type': 'application/json',
-          'cache-control': `public, max-age=${CACHE_TTL}`,
+          'cache-control': `public, max-age=${CACHE_TTL}, s-maxage=${CACHE_TTL}`,
           'access-control-allow-origin': '*',
         },
       });
@@ -291,7 +291,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
   const response = new Response(json, {
     headers: {
       'content-type': 'application/json',
-      'cache-control': `public, max-age=${CACHE_TTL}`,
+      'cache-control': `public, max-age=${CACHE_TTL}, s-maxage=${CACHE_TTL}`,
       'access-control-allow-origin': '*',
     },
   });
@@ -890,7 +890,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         const response = new Response(json, {
           headers: {
             'content-type': 'application/json',
-            'cache-control': `public, max-age=${CACHE_TTL}`,
+            'cache-control': `public, max-age=${CACHE_TTL}, s-maxage=${CACHE_TTL}`,
             'access-control-allow-origin': '*',
           },
         });
