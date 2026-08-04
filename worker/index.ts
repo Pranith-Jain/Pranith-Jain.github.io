@@ -184,7 +184,35 @@ export default {
           if (m) kvKey = `db:body:${m[1]}:${m[2]}`;
         }
         if (kvKey) {
-          const kvData = (await env.KV_CACHE.get(kvKey, 'json')) as { briefs?: unknown[] } | null;
+          // L1: per-colo Cache-API shadow. /data/daily-briefs/* is a public read
+          // path hit on every page load of the daily-briefs UI; shadowing
+          // collapses repeated reads to ~1 KV read per colo per window. The
+          // index flips only on the daily cron; bodies are immutable per
+          // (type,date), so a 10-min shadow is safe.
+          const cache = (caches as unknown as { default: Cache }).default;
+          const shadowReq = new Request(`https://db-data-cache.internal/v1/${encodeURIComponent(kvKey)}`);
+          let kvData: { briefs?: unknown[] } | null = null;
+          try {
+            const hit = await cache.match(shadowReq);
+            if (hit) kvData = (await hit.json()) as { briefs?: unknown[] } | null;
+          } catch {
+            /* fall through to KV */
+          }
+          if (kvData === null) {
+            kvData = (await env.KV_CACHE.get(kvKey, 'json')) as { briefs?: unknown[] } | null;
+            if (kvData) {
+              try {
+                await cache.put(
+                  shadowReq,
+                  new Response(JSON.stringify(kvData), {
+                    headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=600' },
+                  })
+                );
+              } catch {
+                /* best-effort shadow */
+              }
+            }
+          }
           // For the index, skip KV if it's empty (stale/cleared) so the
           // committed static manifest in ASSETS is used as fallback.
           const useKv = kvData && (kvKey !== 'db:index' || (Array.isArray(kvData.briefs) && kvData.briefs.length > 0));

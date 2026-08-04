@@ -13,7 +13,7 @@ import type { Env } from './env';
 import type { OgImageData } from './og-image';
 import type { OgImageType } from './og-path';
 import { readBriefing } from '../api/src/lib/briefing-builder';
-import { ogMetaForPath } from './og-rewriter';
+import { ogMetaForPath, readBlogPostShadowed } from './og-rewriter';
 
 /** Minimal blog record shape in CASE_STUDIES KV (mirrors og-rewriter's read). */
 interface BlogOgRecord {
@@ -49,19 +49,24 @@ export async function loadOgData(env: Env, type: OgImageType, slug: string): Pro
       subtitle: b.executive_summary ?? '',
       type: 'briefing',
       date: b.date,
-      // stats are pre-computed on the briefing body — surface findings/CVEs and
-      // the critical/high tallies as the card's data-viz strip.
+      // stats are pre-computed on the briefing body — surface the most
+      // shareable metrics for the OG card: critical/high severity, IOC
+      // count, KEV count, and ransomware victims (analysts engage with
+      // concrete numbers like "1,482 IOCs" / "12 victims").
       stats: {
         findings: b.stats?.findings,
         cves: b.stats?.cves,
         critical: b.stats?.critical,
         high: b.stats?.high,
+        iocs: b.stats?.iocs,
+        kevs: b.stats?.kevs,
+        ransomware: b.stats?.ransomware_victims,
       },
     };
   }
 
   // blog
-  const post = (await env.CASE_STUDIES.get(`posts:${slug}`, 'json')) as BlogOgRecord | null;
+  const post = await readBlogPostShadowed<BlogOgRecord>(env, slug);
   if (!post?.title) return null;
   return {
     title: post.title,

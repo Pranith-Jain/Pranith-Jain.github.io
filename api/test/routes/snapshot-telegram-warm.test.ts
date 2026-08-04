@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { readWarmTelegram } from '../../src/routes/snapshot';
 import type { TelegramFeedResponse } from '../../src/routes/telegram-feed';
 
@@ -33,6 +33,18 @@ function kvWith(map: Record<string, unknown>): KVNamespace {
 }
 
 describe('readWarmTelegram', () => {
+  // readWarmTelegram now shadows its KV read in caches.default (per-colo L1
+  // so the snapshot aggregator doesn't burn a KV read on every request).
+  // Clear the shadow between cases so tests don't leak state.
+  beforeEach(async () => {
+    try {
+      await (caches as unknown as { default: Cache }).default.delete(
+        new Request('https://gp-warm-telegram-shadow.internal/v1')
+      );
+    } catch {
+      /* miniflare caches.default may be unavailable in some envs */
+    }
+  });
   it('reads the per-feed gp:warm:telegram slice (the key the warmer actually writes)', async () => {
     const r = await readWarmTelegram(kvWith({ 'gp:warm:telegram': feed }));
     expect(r?.items.length).toBe(1);

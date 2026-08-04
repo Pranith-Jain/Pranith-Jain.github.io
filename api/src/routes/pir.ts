@@ -857,9 +857,12 @@ export async function pirAlertAckAllHandler(c: Context<{ Bindings: Env }>): Prom
     const raw = await readPirAlertsShadowed(kv);
     const alerts: PirAlert[] = (raw as PirAlert[]) ?? [];
     if (alerts.length === 0) return c.json({ acknowledged: 0 });
+    // Count newly-acknowledged BEFORE mapping sets every `acknowledged` to true —
+    // otherwise the filter below would always return 0.
+    const newlyAcknowledged = alerts.filter((a) => !a.acknowledged).length;
     const updated = alerts.map((a) => (a.acknowledged ? a : { ...a, acknowledged: true }));
     await writePirAlertsShadowed(kv, updated);
-    return c.json({ acknowledged: updated.filter((a) => !a.acknowledged).length });
+    return c.json({ acknowledged: newlyAcknowledged });
   } catch (e) {
     console.error('pirAlertAckAllHandler failed:', e instanceof Error ? e.message : String(e));
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);

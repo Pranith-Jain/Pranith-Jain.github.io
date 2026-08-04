@@ -4,6 +4,103 @@ import { pageCardUrl } from './og-path';
 import type { Env } from './env';
 
 /**
+ * L1-shadowed read of a blog post record from CASE_STUDIES KV.
+ *
+ * `resolveOg` and `resolveBlogJsonLd` both read the same `posts:<slug>` on
+ * every blog page render — without an L1 that's 2 KV reads per page view.
+ * The per-colo Cache-API shadow collapses that to ~1 KV read per colo per
+ * TTL window. Posts are immutable once published; a 60s TTL means a
+ * delete/unpublish reflects within a minute (acceptable for OG/JSON-LD
+ * metadata, which is best-effort and never blocks the page).
+ */
+export const BLOG_POST_SHADOW_TTL = 60; // 60s — short so deletes reflect fast
+function blogPostShadowReq(slug: string): Request {
+  return new Request(`https://og-blog-post-shadow.internal/v1/${encodeURIComponent(slug)}`);
+}
+/** Safe per-colo Cache accessor — returns null when unavailable (e.g. in tests). */
+function ogCache(): Cache | null {
+  try {
+    return (caches as unknown as { default: Cache }).default;
+  } catch {
+    return null;
+  }
+}
+export async function readBlogPostShadowed<T>(env: Env, slug: string): Promise<T | null> {
+  if (!env.CASE_STUDIES) return null;
+  const cache = ogCache();
+  const shadowReq = blogPostShadowReq(slug);
+  if (cache) {
+    try {
+      const hit = await cache.match(shadowReq);
+      if (hit) return (await hit.json()) as T | null;
+    } catch {
+      /* fall through to KV */
+    }
+  }
+  let post: T | null = null;
+  try {
+    post = (await env.CASE_STUDIES.get(`posts:${slug}`, 'json')) as T | null;
+  } catch {
+    return null;
+  }
+  if (post) {
+    if (cache) {
+      try {
+        await cache.put(
+          shadowReq,
+          new Response(JSON.stringify(post), {
+            headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${BLOG_POST_SHADOW_TTL}` },
+          })
+        );
+      } catch {
+        /* best-effort shadow */
+      }
+    }
+  }
+  return post;
+}
+
+/**
+ * L1-shadowed read of the posts index (`posts:index`). Same rationale as
+ * readBlogPostShadowed — the /blog listing page renders JSON-LD from the
+ * index on every view.
+ */
+const BLOG_INDEX_SHADOW_REQ = new Request('https://og-blog-index-shadow.internal/v1');
+async function readBlogIndexShadowed<T>(env: Env): Promise<T | null> {
+  if (!env.CASE_STUDIES) return null;
+  const cache = ogCache();
+  if (cache) {
+    try {
+      const hit = await cache.match(BLOG_INDEX_SHADOW_REQ);
+      if (hit) return (await hit.json()) as T | null;
+    } catch {
+      /* fall through to KV */
+    }
+  }
+  let index: T | null = null;
+  try {
+    index = (await env.CASE_STUDIES.get('posts:index', 'json')) as T | null;
+  } catch {
+    return null;
+  }
+  if (index) {
+    if (cache) {
+      try {
+        await cache.put(
+          BLOG_INDEX_SHADOW_REQ,
+          new Response(JSON.stringify(index), {
+            headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${BLOG_POST_SHADOW_TTL}` },
+          })
+        );
+      } catch {
+        /* best-effort shadow */
+      }
+    }
+  }
+  return index;
+}
+
+/**
  * Per-route social metadata overrides. The SPA serves the same index.html
  * for every path, so without rewriting the OG tags at the edge, any social-
  * media bot that fetches `/threatintel/correlation` sees the portfolio-root
@@ -212,14 +309,31 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
       const imgAttr = escapeAttr(imgUrl);
       out = out
         .replace(/<meta\s+property="og:image"\s+content="[^"]*"/gi, `<meta property="og:image" content="${imgAttr}"`)
-        .replace(
-          /<meta\s+name="twitter:image"\s+content="[^"]*"/gi,
-          `<meta name="twitter:image" content="${imgAttr}"`
-        );
+        .replace(/<meta\s+name="twitter:image"\s+content="[^"]*"/gi, `<meta name="twitter:image" content="${imgAttr}"`);
     }
   }
   if (nonce) {
     out = out.replace(/<script>/g, `<script nonce="${nonce}">`);
+  }
+  // Strip duplicate OG/Twitter meta tags that React Helmet injects into the
+  // prerendered #root HTML. The <head> tags (rewritten above) are the
+  // authoritative set; the #root duplicates are stale build-time copies that
+  // point at the wrong URL/title and lack twitter:image. X's crawler picks
+  // up duplicate meta tags and serves no card when it sees a twitter:card
+  // without a matching twitter:image; LinkedIn reads <head> only and is
+  // unaffected. Removing the #root duplicates makes X match LinkedIn.
+  const rootIdx = out.indexOf('<div id="root"');
+  if (rootIdx !== -1) {
+    const head = out.slice(0, rootIdx);
+    let root = out.slice(rootIdx);
+    // Remove OG/Twitter meta tags + duplicate <title> from the prerendered
+    // app HTML. Helmet renders them self-closing with content="...".
+    root = root.replace(
+      /<meta\s+(?:property="og:(?:title|url|description|image|type|site_name|locale|image:(?:type|width|height|alt))"|name="twitter:(?:card|title|description|image|url|site|creator|image:alt)")[^>]*\/?>/gi,
+      ''
+    );
+    root = root.replace(/<title>[^<]*<\/title>/g, '');
+    out = head + root;
   }
   return out;
 }
@@ -268,7 +382,13 @@ export function ogMetaForPath(pathname: string): OgPageMeta | null {
             ? 'BLOG POST'
             : 'SECURITY TOOLS';
   const product =
-    first === 'threatintel' ? 'PANOPTICON' : first === 'radar' ? 'SCOUT' : first === 'threatnexus' ? 'ARGUS' : 'CRUCIBLE';
+    first === 'threatintel'
+      ? 'PANOPTICON'
+      : first === 'radar'
+        ? 'SCOUT'
+        : first === 'threatnexus'
+          ? 'ARGUS'
+          : 'CRUCIBLE';
 
   return { title, description, badge, product };
 }
@@ -284,10 +404,7 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
   if (m && env.CASE_STUDIES) {
     const image = `/api/v1/og-image/blog/${m[1]}.png`;
     try {
-      const post = (await env.CASE_STUDIES.get(`posts:${m[1]}`, 'json')) as {
-        title?: string;
-        excerpt?: string;
-      } | null;
+      const post = await readBlogPostShadowed<{ title?: string; excerpt?: string }>(env, m[1]!);
       if (post?.title) {
         return {
           title: `${post.title} · pranithjain.qzz.io`,
@@ -377,9 +494,7 @@ function deriveOgFromPath(pathname: string): OgOverride | null {
           : first.charAt(0).toUpperCase() + first.slice(1);
 
   const title =
-    segments.length > 1
-      ? `${titlePart} · ${sectionLabel} · pranithjain.qzz.io`
-      : `${titlePart} · pranithjain.qzz.io`;
+    segments.length > 1 ? `${titlePart} · ${sectionLabel} · pranithjain.qzz.io` : `${titlePart} · pranithjain.qzz.io`;
   const description = `${titlePart} — a free ${sectionLabel} tool on pranithjain.qzz.io. Browser-side security analysis, no signup required.`;
 
   return { title, description };
@@ -472,11 +587,11 @@ export async function resolveBlogJsonLd(url: URL, env: Env): Promise<string> {
   try {
     const m = /^\/blog\/([a-z0-9-]{1,200})$/.exec(url.pathname);
     if (m && m[1] !== 'index') {
-      const post = (await env.CASE_STUDIES.get(`posts:${m[1]}`, 'json')) as BlogRecord | null;
+      const post = await readBlogPostShadowed<BlogRecord>(env, m[1]!);
       return post?.title ? blogPostingLd(post) : '';
     }
     if (url.pathname === '/blog') {
-      const index = ((await env.CASE_STUDIES.get('posts:index', 'json')) as BlogRecord[] | null) ?? [];
+      const index = ((await readBlogIndexShadowed<BlogRecord[]>(env)) ?? []) as BlogRecord[];
       return index.length > 0 ? blogIndexLd(index) : '';
     }
   } catch {

@@ -176,11 +176,39 @@ function budgeted<T>(fn: () => Promise<T>, ms: number = SOURCE_BUDGET_MS): Promi
  */
 export async function readWarmTelegram(kv: KVNamespace | undefined): Promise<TelegramFeedResponse | null> {
   if (!kv) return null;
+  // L1: per-colo Cache-API shadow. The warm slice is the primary path for the
+  // telegram source in the snapshot aggregator, so shadowing collapses repeated
+  // snapshot reads to ~1 KV read per colo per window. The warmer
+  // (warmTelegramCaches) write-throughs this shadow so it stays coherent.
+  const cache = (caches as unknown as { default: Cache }).default;
+  const shadowReq = new Request('https://gp-warm-telegram-shadow.internal/v1');
+  try {
+    const hit = await cache.match(shadowReq);
+    if (hit) {
+      const warm = (await hit.json()) as TelegramFeedResponse;
+      if (warm?.items?.length || warm?.channels?.length) return warm;
+    }
+  } catch {
+    /* fall through to KV */
+  }
   const warm = (await safeNullLog(
     'kv-get-warm-telegram',
     kv.get('gp:warm:telegram', 'json')
   )) as TelegramFeedResponse | null;
-  if (warm?.items?.length || warm?.channels?.length) return warm;
+  if (warm?.items?.length || warm?.channels?.length) {
+    // Write-through so the next snapshot read in this colo skips KV.
+    try {
+      await cache.put(
+        shadowReq,
+        new Response(JSON.stringify(warm), {
+          headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=1800' },
+        })
+      );
+    } catch {
+      /* best-effort shadow */
+    }
+    return warm;
+  }
   return null;
 }
 
@@ -197,6 +225,17 @@ async function warmTelegramCaches(c: Context<{ Bindings: Env }>, body: TelegramF
     );
     const kv = c.env.KV_CACHE;
     if (kv) await kv.put(gpWarmKey('telegram'), JSON.stringify(body), { expirationTtl: 28800 });
+    // Write-through the L1 shadow so readWarmTelegram stays coherent.
+    try {
+      await cache.put(
+        new Request('https://gp-warm-telegram-shadow.internal/v1'),
+        new Response(JSON.stringify(body), {
+          headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=1800' },
+        })
+      );
+    } catch {
+      /* best-effort shadow */
+    }
   } catch (_catchErr) {
     console.error('warmTelegramCaches failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     /* best-effort */

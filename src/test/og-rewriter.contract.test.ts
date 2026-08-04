@@ -180,3 +180,61 @@ describe('credential/login surfaces served noindex (Safe Browsing mitigation)', 
     expect(await serve('/about')).toMatch(/<meta\s+name="robots"\s+content="index, follow/i);
   });
 });
+
+describe('prerendered #root duplicate-meta stripping', () => {
+  /**
+   * React Helmet injects OG/Twitter meta tags into the prerendered app HTML
+   * inside #root. These are stale build-time copies (wrong URL/title, no
+   * twitter:image) that duplicate the <head> tags the worker rewrites. X's
+   * crawler picks up the duplicates and shows no card; LinkedIn reads <head>
+   * only. The worker must strip the #root copies so only the authoritative
+   * <head> tags remain.
+   */
+  async function servePrerendered(path: string, env: any = {}): Promise<string> {
+    // Simulate a prerendered shell: app HTML (with Helmet meta tags) inside #root.
+    const prerenderedShell = indexHtml.replace(
+      '<div id="root"></div>',
+      '<div id="root"><title>Blog · Pranith Jain · Security Portfolio</title>' +
+        '<meta property="og:title" content="Blog · Pranith Jain · Security Portfolio"/>' +
+        '<meta property="og:url" content="https://pranithjain.qzz.io/blog"/>' +
+        '<meta property="og:type" content="profile"/>' +
+        '<meta name="twitter:card" content="summary_large_image"/>' +
+        '<meta name="twitter:title" content="Blog · Pranith Jain · Security Portfolio"/>' +
+        '<meta name="twitter:site" content="@pranithjain"/>' +
+        '<link rel="canonical" href="https://pranithjain.qzz.io/blog"/>' +
+        '<div>app content</div></div>'
+    );
+    const res = new Response(prerenderedShell, { headers: { 'content-type': 'text/html;charset=UTF-8' } });
+    const url = new URL(`https://pranithjain.qzz.io${path}`);
+    const out = await injectOgMeta(res, url, env, { waitUntil() {} } as any);
+    return out.text();
+  }
+
+  it('strips duplicate og:*/twitter:* meta tags from inside #root', async () => {
+    const html = await servePrerendered('/dfir', {});
+    const rootStart = html.indexOf('<div id="root"');
+    const rootHtml = html.slice(rootStart);
+    // No OG/Twitter meta tags should survive inside #root.
+    expect(rootHtml).not.toMatch(/<meta\s+property="og:/);
+    expect(rootHtml).not.toMatch(/<meta\s+name="twitter:/);
+    // The <head> tags must still be present.
+    const head = html.slice(0, rootStart);
+    expect(head).toMatch(/<meta\s+property="og:title"/);
+    expect(head).toMatch(/<meta\s+name="twitter:card"/);
+  });
+
+  it('strips the duplicate <title> from inside #root', async () => {
+    const html = await servePrerendered('/dfir', {});
+    const rootStart = html.indexOf('<div id="root"');
+    const rootHtml = html.slice(rootStart);
+    expect(rootHtml).not.toMatch(/<title>[^<]*<\/title>/);
+  });
+
+  it('preserves the canonical <link> in <head> (only strips #root copy)', async () => {
+    const html = await servePrerendered('/dfir', {});
+    const rootStart = html.indexOf('<div id="root"');
+    const head = html.slice(0, rootStart);
+    // <head> canonical must survive.
+    expect(head).toMatch(/<link\s+rel="canonical"/);
+  });
+});

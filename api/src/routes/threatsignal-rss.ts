@@ -390,11 +390,41 @@ function stripTracking(url: string): string {
 
 /* ── Cache helpers ──────────────────────────────────────────────── */
 
+// Per-colo L1 shadow for the per-source RSS feed cache. The aggregate handler
+// fans out across up to 7 sources (one KV read each); shadowing collapses
+// repeat reads to ~1 KV read per colo per source per TTL window. Feeds are
+// cached for CACHE_TTL_SECONDS; the shadow uses the same TTL so a stale
+// feed is refreshed at the same cadence as the canonical KV entry.
+const RSS_FEED_SHADOW_TTL = 600; // 10min — shorter than CACHE_TTL_SECONDS so fresh feeds surface promptly
+function rssFeedShadowReq(sourceId: string): Request {
+  return new Request(`https://rss-feed-cache.internal/v1/${encodeURIComponent(sourceId)}`);
+}
+
 async function loadCached(env: Env, sourceId: string): Promise<RssFeed | null> {
+  // L1: per-colo Cache-API shadow (free, no KV quota).
+  const cache = (caches as unknown as { default: Cache }).default;
+  try {
+    const hit = await cache.match(rssFeedShadowReq(sourceId));
+    if (hit) return (await hit.json()) as RssFeed | null;
+  } catch {
+    /* fall through to KV */
+  }
   try {
     const raw = await env.CASE_STUDIES.get(CACHE_KEY_FOR(sourceId));
     if (!raw) return null;
-    return JSON.parse(raw) as RssFeed;
+    const feed = JSON.parse(raw) as RssFeed;
+    // Write-through so the next read in this colo skips KV.
+    try {
+      await cache.put(
+        rssFeedShadowReq(sourceId),
+        new Response(JSON.stringify(feed), {
+          headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${RSS_FEED_SHADOW_TTL}` },
+        })
+      );
+    } catch {
+      /* best-effort shadow */
+    }
+    return feed;
   } catch (_catchErr) {
     console.error('loadCached failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     return null;
@@ -406,6 +436,18 @@ async function writeCached(env: Env, sourceId: string, feed: Omit<RssFeed, 'stal
     await env.CASE_STUDIES.put(CACHE_KEY_FOR(sourceId), JSON.stringify(feed), {
       expirationTtl: CACHE_TTL_SECONDS,
     });
+    // Write-through the L1 shadow so readers see the fresh feed immediately.
+    try {
+      const cache = (caches as unknown as { default: Cache }).default;
+      await cache.put(
+        rssFeedShadowReq(sourceId),
+        new Response(JSON.stringify(feed), {
+          headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${RSS_FEED_SHADOW_TTL}` },
+        })
+      );
+    } catch {
+      /* best-effort shadow */
+    }
   } catch (_catchErr) {
     console.error('writeCached failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
     // Cache write failure is non-fatal.

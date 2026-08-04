@@ -188,9 +188,37 @@ function ok(data: ScrapedIntelSearchResponse, maxAge = CACHE_TTL_SECONDS): Looku
 }
 
 async function readLastGood(kv: KVNamespace, q: string): Promise<ScrapedIntelSearchResponse | null> {
+  // L1: per-colo Cache-API shadow. The fallback read fires on every request
+  // during an upstream outage / rate-limit window; shadowing collapses that
+  // to ~1 KV read per colo per window. KV remains the cross-colo source of
+  // truth; the shadow is write-through on both the read-miss and write paths.
+  const cache = (caches as unknown as { default: Cache }).default;
+  const shadowReq = new Request(`https://scrapedintel-lastgood-shadow.internal/v1/${encodeURIComponent(q)}`);
+  try {
+    const hit = await cache.match(shadowReq);
+    if (hit) return (await hit.json()) as ScrapedIntelSearchResponse | null;
+  } catch {
+    /* fall through to KV */
+  }
   try {
     const raw = await kv.get(lastGoodKey(q));
-    return raw ? (JSON.parse(raw) as ScrapedIntelSearchResponse) : null;
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as ScrapedIntelSearchResponse;
+    // Write-through so the next read in this colo skips KV.
+    try {
+      await cache.put(
+        shadowReq,
+        new Response(JSON.stringify(parsed), {
+          headers: {
+            'content-type': 'application/json',
+            'cache-control': `public, max-age=${STALE_CACHE_TTL_SECONDS}`,
+          },
+        })
+      );
+    } catch {
+      /* best-effort shadow */
+    }
+    return parsed;
   } catch {
     return null;
   }
@@ -317,6 +345,21 @@ export async function lookupHandle(
   }
   try {
     if (kv) await kv.put(lastGoodKey(norm), body, { expirationTtl: LAST_GOOD_TTL_SECONDS });
+    // Write-through the L1 shadow so the fallback read stays coherent.
+    try {
+      const cache = (caches as unknown as { default: Cache }).default;
+      await cache.put(
+        new Request(`https://scrapedintel-lastgood-shadow.internal/v1/${encodeURIComponent(norm)}`),
+        new Response(body, {
+          headers: {
+            'content-type': 'application/json',
+            'cache-control': `public, max-age=${STALE_CACHE_TTL_SECONDS}`,
+          },
+        })
+      );
+    } catch {
+      /* best-effort shadow */
+    }
   } catch {
     /* best-effort */
   }
