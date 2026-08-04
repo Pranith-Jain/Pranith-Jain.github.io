@@ -127,7 +127,7 @@ export interface OgOverride {
  *  be poisoned by a request arriving on a non-canonical host. */
 const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
 
-const OG_CACHE_VERSION = 'v3';
+const OG_CACHE_VERSION = 'v4';
 export const OG_CACHE_TTL_SECONDS = 86400;
 
 export const OG_OVERRIDES: Record<string, OgOverride> = {
@@ -730,7 +730,7 @@ export async function injectOgMeta(
       },
     });
     const ck = new Request(
-      `https://og-html.internal/v3/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
+      `https://og-html.internal/${OG_CACHE_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
     );
     ctx.waitUntil(caches.default.put(ck, toCache).catch((e) => console.warn('og-html cache put failed:', e)));
   }
