@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { stealerParserJsonSchema, rawLogTextSchema } from '../lib/validation-schemas';
-import { validationError } from '../lib/api-error';
+import { validationError, badRequest, internalError } from '../lib/api-error';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 import { safeNull } from '../lib/safe-catch';
 
