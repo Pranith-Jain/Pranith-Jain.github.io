@@ -1,0 +1,518 @@
+{
+  "type": "maritime",
+  "date": "2026-08-04",
+  "threatLevel": "HIGH",
+  "executiveSummary": "Available reporting indicates persistent, geographically distributed GNSS interference and spoofing affecting bridge navigation and AIS integrity in the Persian Gulf/Strait of Hormuz, Baltic Sea near Gdansk, and off the U.S. West Coast. This creates a credible safety-of-navigation risk and warrants immediate bridge procedure reinforcement. Confidence: High. U.S. maritime authorities warn that foreign-manufactured port equipment and logistics platforms can introduce exploitable pathways into port IT/OT, elevating supply chain and terminal operations risk. Confidence: High. Facts from sources: MARAD reports significant, continuing GNSS interference/spoofing in the Persian Gulf/Strait of Hormuz/Gulf of Oman with safety implications Maritime Advisory . NAVCEN user reports corroborate regional GPS disruption across Arabian Sea and Persian Gulf traffic Supporting Report . NAVCEN reporting indicates GPS jamming/spoofing near Gdansk Harbor and in the Baltic Sea with position displacement; multiple systems may be affected Supporting Report . gCaptain documents GNSS interference off California with anomalous AIS tracks for commercial vessels View Article . MARAD warns that foreign-linked cranes, inspection systems, and logistics platforms (e.g., LOGINK, Nuctech, ZPMC ecosystems) may expose sensitive data and IT/OT pathways in ports Maritime Advisory . U.S. Coast Guard guidance clarifies that low physical-security risk does not equate to low cyber risk under 33 CFR Part 101 Subpart F for MTSA-regulated entities Government Advisory . Progress confirmed a zero-day in ShareFile Storage Zones Controller with emergency operational guidance and subsequent patches; maritime logistics users may be affected Vendor/Industry Report . Federal agencies broadened an alert on Iran-linked OT targeting across industrial environments, relevant to maritime OT operators View Article . Analytical assessment: The collected intelligence supports an assessment that navigation integrity risks are elevated across three regions, increasing the likelihood of loss-of-view or incorrect ECDIS inputs if bridges rely solely on GNSS/AIS. Confidence: High. Port and terminal operators should assume increased exploitation interest in connected crane and logistics ecosystems and verify compliance with Coast Guard directives. Confidence: High. Enterprise file-transfer vulnerabilities (ShareFile) continue to create supply-chain exposure pathways into maritime business operations. Confidence: Medium. Outlook: Continued reporting on GNSS anomalies in the Middle East and Baltic regions is likely over the next 72 hours; operators transiting affected areas should maintain manual cross-checks and report anomalies Maritime Advisory NAVCEN . U.S. regulatory posture on maritime cybersecurity (33 CFR Subpart F) suggests heightened scrutiny of cyber risk assumptions for MTSA-regulated vessels and facilities Government Advisory . Confidence: High.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "HIGH",
+        "label": "Overall Threat Level"
+      },
+      {
+        "value": "10",
+        "label": "Total Intelligence Records Analyzed"
+      },
+      {
+        "value": "8",
+        "label": "Unique Maritime Intelligence Events"
+      },
+      {
+        "value": "4",
+        "label": "ESCALATE Events"
+      },
+      {
+        "value": "4",
+        "label": "MONITOR Events"
+      },
+      {
+        "value": "0",
+        "label": "IGNORE Events"
+      },
+      {
+        "value": "5",
+        "label": "Navigation-Related Threats"
+      },
+      {
+        "value": "4",
+        "label": "Port/Terminal Threats"
+      },
+      {
+        "value": "3",
+        "label": "Maritime OT/ICS Threats"
+      },
+      {
+        "value": "1",
+        "label": "Vulnerabilities Reported"
+      },
+      {
+        "value": "5",
+        "label": "High-Confidence Assessments"
+      }
+    ],
+    "vendors": [],
+    "sectors": []
+  },
+  "keyFindings": [
+    "GNSS interference/spoofing is active in the Persian Gulf/Strait of Hormuz/Gulf of Oman, with safety-of-navigation implications. Maritime Advisory",
+    "Baltic Sea traffic near Gdansk continues to encounter GPS jamming/spoofing with position displacement and multi-system effects in related reports. NAVCEN GUIDE",
+    "GNSS interference off California produced anomalous AIS tracks for commercial vessels, underscoring global exposure. gCaptain",
+    "Foreign-manufactured port technologies and logistics platforms present material cyber and supply-chain risks to maritime IT/OT. MARAD Advisory",
+    "U.S. Coast Guard clarifies that low physical-security waivers do not imply low cyber risk under 33 CFR Part 101 Subpart F; reassessment is required. USCG Guidance",
+    "Enterprise ShareFile Storage Zones Controller zero-day may affect maritime logistics workflows; urgent patching and exposure review are advised. SecurityWeek",
+    "Federal alert broadened on Iran-linked OT targeting, relevant to port, shipboard, and offshore ICS/OT environments. The Record"
+  ],
+  "topThreats": [
+    {
+      "title": "1 • Middle East GNSS Interference and Spoofing",
+      "action": "Confirmed interference/spoofing degrades positional integrity in one of the world's busiest energy and cargo corridors, raising collision/grounding risk.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-004-persian-gulf-strait-hormuz-and-gulf-oman-iranian-attacks-commercial-vessels",
+          "label": "MARAD Advisory"
+        },
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "NAVCEN GUIDE"
+        }
+      ]
+    },
+    {
+      "title": "2 • Baltic Sea/Gdańsk GPS Jamming and Spoofing",
+      "action": "Spoofed positions displaced into Belarus/Kaliningrad degrade situational awareness in crowded approaches.",
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "NAVCEN GUIDE"
+        }
+      ]
+    },
+    {
+      "title": "3 • GNSS Interference off U.S. West Coast",
+      "action": "Demonstrates global exposure; anomalous AIS and GNSS off California show risk extends to major approaches.",
+      "sources": [
+        {
+          "url": "https://gcaptain.com/gps-interference-off-california-offers-warning-for-global-shipping/",
+          "label": "gCaptain"
+        }
+      ]
+    },
+    {
+      "title": "4 • Foreign-Linked Port Technologies and Logistics Platforms",
+      "action": "Potential data exposure and remote pathways into port IT/OT via cranes, scanners, and logistics platforms.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "MARAD Advisory"
+        }
+      ]
+    },
+    {
+      "title": "5 • Iran-Linked Targeting of Industrial OT (Cross-Sector)",
+      "action": "Federal alert broadening indicates persistent interest in ICS/OT environments, relevant to maritime critical infrastructure.",
+      "sources": [
+        {
+          "url": "https://therecord.media/federal-agencies-broaden-alert-on-iran-linked-ot-attacks",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Progress ShareFile Storage Zones Controller (v5.x, 6.x): Zero-day prompted shutdown guidance and later patches; investigate exposed instances and restrict internet reachability. No CVE referenced in supplied reporting. SecurityWeek"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "title": "Middle East GNSS Interference and Spoofing",
+      "severity": "escalate",
+      "text": "MARAD confirms significant GNSS interference/spoofing; NAVCEN user reports corroborate regional GPS disruption. Affected areas: Persian Gulf, Strait of Hormuz, Gulf of Oman; reports from Arabian Sea traffic Affected systems: GPS receivers, GNSS-dependent navigation, AIS, bridge systems Operational impact: Erroneous position/course/speed; increased bridge workload; reporting requirements invoked Safety impact: Confirmed safety-of-navigation risk TTPS: GNSS disruption and spoofing (behavioral) Mitigations: Voyage plans for GPS disruption; cross-validate ECDIS inputs; maintain manual navigation skills; report anomalies",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-004-persian-gulf-strait-hormuz-and-gulf-oman-iranian-attacks-commercial-vessels",
+          "label": "MARAD 2026-004"
+        },
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "NAVCEN GUIDE"
+        }
+      ],
+      "items": [
+        "Affected areas: Persian Gulf, Strait of Hormuz, Gulf of Oman; reports from Arabian Sea traffic",
+        "Affected systems: GPS receivers, GNSS-dependent navigation, AIS, bridge systems",
+        "Operational impact: Erroneous position/course/speed; increased bridge workload; reporting requirements invoked",
+        "Safety impact: Confirmed safety-of-navigation risk",
+        "TTPS: GNSS disruption and spoofing (behavioral)",
+        "Mitigations: Voyage plans for GPS disruption; cross-validate ECDIS inputs; maintain manual navigation skills; report anomalies"
+      ]
+    },
+    {
+      "title": "Baltic/Gdańsk GPS Jamming and Spoofing",
+      "severity": "escalate",
+      "text": "NAVCEN listings include reports of spoofed positions to Belarus/Kaliningrad and jamming near Gdańsk Harbor. Potential multi-system impact in related entries: AIS, GNSS compass, Sat C, Inmarsat communications Operational impact: Degraded situational awareness in coastal approaches Mitigations: GNSS-denied procedures, terrestrial/radar fixes, anomaly reporting",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "NAVCEN GUIDE"
+        }
+      ],
+      "items": [
+        "Potential multi-system impact in related entries: AIS, GNSS compass, Sat C, Inmarsat communications",
+        "Operational impact: Degraded situational awareness in coastal approaches",
+        "Mitigations: GNSS-denied procedures, terrestrial/radar fixes, anomaly reporting"
+      ]
+    },
+    {
+      "title": "GNSS Interference off California (AIS Track Anomalies)",
+      "severity": "escalate",
+      "text": "GNSS interference observed off the U.S. West Coast produced anomalous AIS tracks for commercial vessels. Affected: Container/tanker traffic; approach lanes Operational impact: Erroneous speed/course/location; risk to approach safety Mitigations: Cross-check with radar/visual/inertial; treat AIS as advisory; report to NAVCEN",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://gcaptain.com/gps-interference-off-california-offers-warning-for-global-shipping/",
+          "label": "gCaptain"
+        }
+      ],
+      "items": [
+        "Affected: Container/tanker traffic; approach lanes",
+        "Operational impact: Erroneous speed/course/location; risk to approach safety",
+        "Mitigations: Cross-check with radar/visual/inertial; treat AIS as advisory; report to NAVCEN"
+      ]
+    },
+    {
+      "title": "Foreign-Linked Port Technologies and Logistics Platforms Risk",
+      "severity": "escalate",
+      "text": "MARAD advisory highlights risks from LOGINK, Nuctech, and PRC-manufactured crane ecosystems to port IT/OT. Operational impact: Potential terminal disruption; data exposure; OT compromise pathways Supply-chain: Confirmed risk posture per advisory Mitigations: Network segmentation, remote-access control, monitoring, backup readiness, compliance with USCG directives",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "MARAD 2026-007"
+        }
+      ],
+      "items": [
+        "Operational impact: Potential terminal disruption; data exposure; OT compromise pathways",
+        "Supply-chain: Confirmed risk posture per advisory",
+        "Mitigations: Network segmentation, remote-access control, monitoring, backup readiness, compliance with USCG directives"
+      ]
+    },
+    {
+      "title": "Iran-Linked Targeting of Industrial OT (Cross-Sector Alert)",
+      "severity": "monitor",
+      "text": "Federal agencies broadened alerting on Iran-linked activity against ICS/OT environments. Systems: Industrial control systems, OT, SCADA-adjacent systems Operational impact: Potential disruption or safety consequences in maritime OT Mitigations: Reduce internet-facing OT, strengthen boundary monitoring, validate IR procedures",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://therecord.media/federal-agencies-broaden-alert-on-iran-linked-ot-attacks",
+          "label": "The Record"
+        }
+      ],
+      "items": [
+        "Systems: Industrial control systems, OT, SCADA-adjacent systems",
+        "Operational impact: Potential disruption or safety consequences in maritime OT",
+        "Mitigations: Reduce internet-facing OT, strengthen boundary monitoring, validate IR procedures"
+      ]
+    },
+    {
+      "title": "ShareFile Storage Zones Controller Zero-Day and Disruption",
+      "severity": "monitor",
+      "text": "Progress urged shutdowns/updates for affected controllers; patches released; no confirmed compromises in report. Affected products: ShareFile Storage Zones Controller (5.x/6.x) Operational impact: Potential data exfiltration or partner data-flow disruption Mitigations: Patch immediately; restrict internet exposure; review admin access/logging",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.securityweek.com/progress-confirms-zero-day-vulnerability-behind-sharefile-disruption/",
+          "label": "SecurityWeek"
+        }
+      ],
+      "items": [
+        "Affected products: ShareFile Storage Zones Controller (5.x/6.x)",
+        "Operational impact: Potential data exfiltration or partner data-flow disruption",
+        "Mitigations: Patch immediately; restrict internet exposure; review admin access/logging"
+      ]
+    },
+    {
+      "title": "USCG: 33 CFR Part 101 Subpart F Cybersecurity Guidance",
+      "severity": "monitor",
+      "text": "Low physical-security risk does not imply low cyber risk; reassess MTSA-regulated environments. Operational impact: Compliance posture; updates to assessments and plans Mitigations: Update risk assessments; ensure cyber plans cover IT and OT",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.news.uscg.mil/maritime-commons/Article/4552369/33-code-of-federal-regulations-part-101-subpart-f-cybersecurity-information-for/",
+          "label": "USCG Guidance"
+        }
+      ],
+      "items": [
+        "Operational impact: Compliance posture; updates to assessments and plans",
+        "Mitigations: Update risk assessments; ensure cyber plans cover IT and OT"
+      ]
+    },
+    {
+      "title": "MARAD 2025-007: GPS/AIS Advisory and Resources",
+      "severity": "escalate",
+      "text": "Advises on GPS disruption response, AIS limitations, and reporting procedures for maritime operators. Mitigations: Pre-departure planning for GPS disruption; do not rely solely on AIS; maintain hygiene when AIS is network-connected",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2025-007-global-us-maritime-advisory-updates-resources-and-contacts",
+          "label": "MARAD 2025-007"
+        }
+      ],
+      "items": [
+        "Mitigations: Pre-departure planning for GPS disruption; do not rely solely on AIS; maintain hygiene when AIS is network-connected"
+      ]
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "Middle East GNSS Interference and Spoofing",
+      "severity": "escalate",
+      "text": "MARAD confirms significant GNSS interference/spoofing; NAVCEN user reports corroborate regional GPS disruption. Affected areas: Persian Gulf, Strait of Hormuz, Gulf of Oman; reports from Arabian Sea traffic Affected systems: GPS receivers, GNSS-dependent navigation, AIS, bridge systems Operational impact: Erroneous position/course/speed; increased bridge workload; reporting requirements invoked Safety impact: Confirmed safety-of-navigation risk TTPS: GNSS disruption and spoofing (behavioral) Mitigations: Voyage plans for GPS disruption; cross-validate ECDIS inputs; maintain manual navigation skills; report anomalies",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-004-persian-gulf-strait-hormuz-and-gulf-oman-iranian-attacks-commercial-vessels",
+          "label": "MARAD 2026-004"
+        },
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "NAVCEN GUIDE"
+        }
+      ],
+      "items": [
+        "Affected areas: Persian Gulf, Strait of Hormuz, Gulf of Oman; reports from Arabian Sea traffic",
+        "Affected systems: GPS receivers, GNSS-dependent navigation, AIS, bridge systems",
+        "Operational impact: Erroneous position/course/speed; increased bridge workload; reporting requirements invoked",
+        "Safety impact: Confirmed safety-of-navigation risk",
+        "TTPS: GNSS disruption and spoofing (behavioral)",
+        "Mitigations: Voyage plans for GPS disruption; cross-validate ECDIS inputs; maintain manual navigation skills; report anomalies"
+      ]
+    },
+    {
+      "title": "Baltic/Gdańsk GPS Jamming and Spoofing",
+      "severity": "escalate",
+      "text": "NAVCEN listings include reports of spoofed positions to Belarus/Kaliningrad and jamming near Gdańsk Harbor. Potential multi-system impact in related entries: AIS, GNSS compass, Sat C, Inmarsat communications Operational impact: Degraded situational awareness in coastal approaches Mitigations: GNSS-denied procedures, terrestrial/radar fixes, anomaly reporting",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "NAVCEN GUIDE"
+        }
+      ],
+      "items": [
+        "Potential multi-system impact in related entries: AIS, GNSS compass, Sat C, Inmarsat communications",
+        "Operational impact: Degraded situational awareness in coastal approaches",
+        "Mitigations: GNSS-denied procedures, terrestrial/radar fixes, anomaly reporting"
+      ]
+    },
+    {
+      "title": "GNSS Interference off California (AIS Track Anomalies)",
+      "severity": "escalate",
+      "text": "GNSS interference observed off the U.S. West Coast produced anomalous AIS tracks for commercial vessels. Affected: Container/tanker traffic; approach lanes Operational impact: Erroneous speed/course/location; risk to approach safety Mitigations: Cross-check with radar/visual/inertial; treat AIS as advisory; report to NAVCEN",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://gcaptain.com/gps-interference-off-california-offers-warning-for-global-shipping/",
+          "label": "gCaptain"
+        }
+      ],
+      "items": [
+        "Affected: Container/tanker traffic; approach lanes",
+        "Operational impact: Erroneous speed/course/location; risk to approach safety",
+        "Mitigations: Cross-check with radar/visual/inertial; treat AIS as advisory; report to NAVCEN"
+      ]
+    },
+    {
+      "title": "Foreign-Linked Port Technologies and Logistics Platforms Risk",
+      "severity": "escalate",
+      "text": "MARAD advisory highlights risks from LOGINK, Nuctech, and PRC-manufactured crane ecosystems to port IT/OT. Operational impact: Potential terminal disruption; data exposure; OT compromise pathways Supply-chain: Confirmed risk posture per advisory Mitigations: Network segmentation, remote-access control, monitoring, backup readiness, compliance with USCG directives",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "MARAD 2026-007"
+        }
+      ],
+      "items": [
+        "Operational impact: Potential terminal disruption; data exposure; OT compromise pathways",
+        "Supply-chain: Confirmed risk posture per advisory",
+        "Mitigations: Network segmentation, remote-access control, monitoring, backup readiness, compliance with USCG directives"
+      ]
+    },
+    {
+      "title": "MARAD 2025-007: GPS/AIS Advisory and Resources",
+      "severity": "escalate",
+      "text": "Advises on GPS disruption response, AIS limitations, and reporting procedures for maritime operators. Mitigations: Pre-departure planning for GPS disruption; do not rely solely on AIS; maintain hygiene when AIS is network-connected",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2025-007-global-us-maritime-advisory-updates-resources-and-contacts",
+          "label": "MARAD 2025-007"
+        }
+      ],
+      "items": [
+        "Mitigations: Pre-departure planning for GPS disruption; do not rely solely on AIS; maintain hygiene when AIS is network-connected"
+      ]
+    }
+  ],
+  "escalateEvents": [
+    {
+      "title": "Middle East GNSS Interference and Spoofing",
+      "severity": "escalate",
+      "text": "MARAD confirms significant GNSS interference/spoofing; NAVCEN user reports corroborate regional GPS disruption. Affected areas: Persian Gulf, Strait of Hormuz, Gulf of Oman; reports from Arabian Sea traffic Affected systems: GPS receivers, GNSS-dependent navigation, AIS, bridge systems Operational impact: Erroneous position/course/speed; increased bridge workload; reporting requirements invoked Safety impact: Confirmed safety-of-navigation risk TTPS: GNSS disruption and spoofing (behavioral) Mitigations: Voyage plans for GPS disruption; cross-validate ECDIS inputs; maintain manual navigation skills; report anomalies",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-004-persian-gulf-strait-hormuz-and-gulf-oman-iranian-attacks-commercial-vessels",
+          "label": "MARAD 2026-004"
+        },
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "NAVCEN GUIDE"
+        }
+      ],
+      "items": [
+        "Affected areas: Persian Gulf, Strait of Hormuz, Gulf of Oman; reports from Arabian Sea traffic",
+        "Affected systems: GPS receivers, GNSS-dependent navigation, AIS, bridge systems",
+        "Operational impact: Erroneous position/course/speed; increased bridge workload; reporting requirements invoked",
+        "Safety impact: Confirmed safety-of-navigation risk",
+        "TTPS: GNSS disruption and spoofing (behavioral)",
+        "Mitigations: Voyage plans for GPS disruption; cross-validate ECDIS inputs; maintain manual navigation skills; report anomalies"
+      ]
+    },
+    {
+      "title": "Baltic/Gdańsk GPS Jamming and Spoofing",
+      "severity": "escalate",
+      "text": "NAVCEN listings include reports of spoofed positions to Belarus/Kaliningrad and jamming near Gdańsk Harbor. Potential multi-system impact in related entries: AIS, GNSS compass, Sat C, Inmarsat communications Operational impact: Degraded situational awareness in coastal approaches Mitigations: GNSS-denied procedures, terrestrial/radar fixes, anomaly reporting",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "NAVCEN GUIDE"
+        }
+      ],
+      "items": [
+        "Potential multi-system impact in related entries: AIS, GNSS compass, Sat C, Inmarsat communications",
+        "Operational impact: Degraded situational awareness in coastal approaches",
+        "Mitigations: GNSS-denied procedures, terrestrial/radar fixes, anomaly reporting"
+      ]
+    },
+    {
+      "title": "GNSS Interference off California (AIS Track Anomalies)",
+      "severity": "escalate",
+      "text": "GNSS interference observed off the U.S. West Coast produced anomalous AIS tracks for commercial vessels. Affected: Container/tanker traffic; approach lanes Operational impact: Erroneous speed/course/location; risk to approach safety Mitigations: Cross-check with radar/visual/inertial; treat AIS as advisory; report to NAVCEN",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://gcaptain.com/gps-interference-off-california-offers-warning-for-global-shipping/",
+          "label": "gCaptain"
+        }
+      ],
+      "items": [
+        "Affected: Container/tanker traffic; approach lanes",
+        "Operational impact: Erroneous speed/course/location; risk to approach safety",
+        "Mitigations: Cross-check with radar/visual/inertial; treat AIS as advisory; report to NAVCEN"
+      ]
+    },
+    {
+      "title": "Foreign-Linked Port Technologies and Logistics Platforms Risk",
+      "severity": "escalate",
+      "text": "MARAD advisory highlights risks from LOGINK, Nuctech, and PRC-manufactured crane ecosystems to port IT/OT. Operational impact: Potential terminal disruption; data exposure; OT compromise pathways Supply-chain: Confirmed risk posture per advisory Mitigations: Network segmentation, remote-access control, monitoring, backup readiness, compliance with USCG directives",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "MARAD 2026-007"
+        }
+      ],
+      "items": [
+        "Operational impact: Potential terminal disruption; data exposure; OT compromise pathways",
+        "Supply-chain: Confirmed risk posture per advisory",
+        "Mitigations: Network segmentation, remote-access control, monitoring, backup readiness, compliance with USCG directives"
+      ]
+    },
+    {
+      "title": "MARAD 2025-007: GPS/AIS Advisory and Resources",
+      "severity": "escalate",
+      "text": "Advises on GPS disruption response, AIS limitations, and reporting procedures for maritime operators. Mitigations: Pre-departure planning for GPS disruption; do not rely solely on AIS; maintain hygiene when AIS is network-connected",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2025-007-global-us-maritime-advisory-updates-resources-and-contacts",
+          "label": "MARAD 2025-007"
+        }
+      ],
+      "items": [
+        "Mitigations: Pre-departure planning for GPS disruption; do not rely solely on AIS; maintain hygiene when AIS is network-connected"
+      ]
+    }
+  ],
+  "monitorEvents": [
+    {
+      "title": "Iran-Linked Targeting of Industrial OT (Cross-Sector Alert)",
+      "severity": "monitor",
+      "text": "Federal agencies broadened alerting on Iran-linked activity against ICS/OT environments. Systems: Industrial control systems, OT, SCADA-adjacent systems Operational impact: Potential disruption or safety consequences in maritime OT Mitigations: Reduce internet-facing OT, strengthen boundary monitoring, validate IR procedures",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://therecord.media/federal-agencies-broaden-alert-on-iran-linked-ot-attacks",
+          "label": "The Record"
+        }
+      ],
+      "items": [
+        "Systems: Industrial control systems, OT, SCADA-adjacent systems",
+        "Operational impact: Potential disruption or safety consequences in maritime OT",
+        "Mitigations: Reduce internet-facing OT, strengthen boundary monitoring, validate IR procedures"
+      ]
+    },
+    {
+      "title": "ShareFile Storage Zones Controller Zero-Day and Disruption",
+      "severity": "monitor",
+      "text": "Progress urged shutdowns/updates for affected controllers; patches released; no confirmed compromises in report. Affected products: ShareFile Storage Zones Controller (5.x/6.x) Operational impact: Potential data exfiltration or partner data-flow disruption Mitigations: Patch immediately; restrict internet exposure; review admin access/logging",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.securityweek.com/progress-confirms-zero-day-vulnerability-behind-sharefile-disruption/",
+          "label": "SecurityWeek"
+        }
+      ],
+      "items": [
+        "Affected products: ShareFile Storage Zones Controller (5.x/6.x)",
+        "Operational impact: Potential data exfiltration or partner data-flow disruption",
+        "Mitigations: Patch immediately; restrict internet exposure; review admin access/logging"
+      ]
+    },
+    {
+      "title": "USCG: 33 CFR Part 101 Subpart F Cybersecurity Guidance",
+      "severity": "monitor",
+      "text": "Low physical-security risk does not imply low cyber risk; reassess MTSA-regulated environments. Operational impact: Compliance posture; updates to assessments and plans Mitigations: Update risk assessments; ensure cyber plans cover IT and OT",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.news.uscg.mil/maritime-commons/Article/4552369/33-code-of-federal-regulations-part-101-subpart-f-cybersecurity-information-for/",
+          "label": "USCG Guidance"
+        }
+      ],
+      "items": [
+        "Operational impact: Compliance posture; updates to assessments and plans",
+        "Mitigations: Update risk assessments; ensure cyber plans cover IT and OT"
+      ]
+    }
+  ],
+  "ttps": {
+    "descriptions": [
+      "GNSS disruption/spoofing causing loss of view and manipulation of navigation data (behavioral observation; no formal ATT&CK ID asserted)",
+      "OT targeting and potential use of cover groups for state-linked activity (from federal alert; no specific technique IDs provided)",
+      "Supply-chain exposure via foreign-manufactured port equipment and logistics platforms (platform/vendor risk leading to potential initial access)",
+      "Enterprise application exposure on internet-facing file transfer systems (ShareFile controllers)"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for additional GNSS anomaly reports across the Persian Gulf/Strait of Hormuz and Baltic/Gdańsk approaches; maintain heightened bridge vigilance. Confidence: High. MARAD NAVCEN Additional disclosures or patch guidance may emerge around enterprise file-transfer systems as operators complete remediation. Confidence: Medium. SecurityWeek For MTSA-regulated entities, expect continued engagement on cyber risk assessments under 33 CFR Part 101 Subpart F. Confidence: High. USCG Guidance Current evidence does not establish attribution for GNSS interference events; operators should focus on detection and procedural resilience rather than speculative actor profiling. Confidence: Medium.",
+  "relatedCves": []
+}

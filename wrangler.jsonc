@@ -126,7 +126,12 @@
 				"max_batch_size": 1,
 				"max_batch_timeout": 5,
 				"max_retries": 3,
-				"max_concurrency": 5,
+				// max_concurrency 10 (free-plan max) drains the hourly 48-message burst
+				// (25 gp:warm + 23 live-iocs feeds) in ~half the time vs 5, keeping
+				// the avg backlog/lag low. Each message is its own invocation with its
+				// own 50-subrequest budget (max_batch_size:1), so higher concurrency
+				// does NOT raise any single invocation's subrequest count.
+				"max_concurrency": 10,
 				"dead_letter_queue": "live-iocs-feeds-dlq"
 			}
 		]

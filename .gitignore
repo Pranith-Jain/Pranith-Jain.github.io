@@ -106,6 +106,9 @@ signature-base-replication/
 # Webamon DTB sync staging output
 webamon-dtb-staging/
 
+# Daily Briefs sync staging output (raw HTML from upstream, rebuilt into public/data)
+daily-briefs-staging/
+
 # PCMedicalist feed sync staging output (4.6MB/day raw digests)
 pcmedicalist-staging/
 

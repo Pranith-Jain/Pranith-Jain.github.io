@@ -1,0 +1,408 @@
+{
+  "type": "disaster",
+  "date": "2026-08-04",
+  "overallThreat": "escalate",
+  "executiveSummary": "Southwest Europe is experiencing one of its largest wildfire displacement crises in decades, with evacuations reported from 220,000 to about 360,000 across France and Spain; reporting varies by source and time. View Article Supporting Report Greece's west-of-Athens wildfires prompted fresh evacuations, sea evacuations from coastal areas, and killed two firefighting crew members in a midair collision. View Article In the U.S. Pacific Northwest, Spokane-area fires forced about 60,000 evacuations and destroyed at least 600 structures, with patients among evacuees and emergency capacity stretched. View Article A deadly landslide in Chongqing's Pengshui County, China, killed at least 41 people, with 20 still missing and 10 injured, indicating ongoing recovery and search needs. View Article Kyushu, Japan, was struck by a magnitude 7.1 earthquake, causing confirmed fatalities, injuries, structural collapse, and a tsunami advisory. Source Additional high-impact events include a fatal monastery-area landslide in Ethiopia's Amhara region and severe flooding in southern China tied to Typhoon Maysak. Supporting Report View Article Confidence is high given multiple corroborating reports from international wire services. Some figures vary across sources and time; ranges are shown where appropriate.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "10",
+        "label": "Active ESCALATE Events",
+        "trend": "Multi-country wildfires, landslides, earthquake, floods"
+      },
+      {
+        "value": "9",
+        "label": "Events on Watch (MONITOR)",
+        "trend": "Heat, drought, IFRC flood ops, typhoon watch"
+      },
+      {
+        "value": "≥380,000",
+        "label": "Confirmed/Reported Displacement",
+        "trend": "Europe 220k-360k; Spokane ~60k (reporting varies)"
+      },
+      {
+        "value": "≥100",
+        "label": "Reported Fatalities",
+        "trend": "China 41+, Ethiopia 14, China floods 39, others"
+      },
+      {
+        "value": "≥900",
+        "label": "Structures Destroyed/Damaged",
+        "trend": "Spokane ≥600; France ≥183; Colorado ≥160"
+      }
+    ]
+  },
+  "topEvents": [
+    {
+      "title": "Southwest Europe Megafires (France & Spain)",
+      "severity": "escalate",
+      "text": "One of Europe's largest wildfire evacuations in decades; 220k-360k displaced over several days; destroyed homes, transport disruption, multi-national response.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/13b3173c427388881108c58510312993",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/7/26/more-than-360000-evacuated-as-wildfires-rage-in-france-and-spain",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Greece Wildfires (West of Athens)",
+      "severity": "escalate",
+      "text": "Fresh evacuations, road access cut, multiple sea evacuations; two firefighting crew members killed in a midair collision; ongoing wind-driven spread.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/726b55a6fe6c51de1fb086b437eb28de",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Spokane, Washington (United States) Wildfires",
+      "severity": "escalate",
+      "text": "~60,000 evacuations; ≥600 structures destroyed; patients evacuated; state of emergency; strained capacity with uncontained fire spread reported early in response.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/3f70ca42599d306cf0c540df34ee50d0",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Pengshui County, Chongqing (China) Landslide",
+      "severity": "escalate",
+      "text": "At least 41 dead, 20 missing, and 10 injured after residential buildings were buried; prolonged recovery expected.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/b8ce2b34b0f18a3310cafe6d72ed71ac",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Kyushu, Japan Earthquake (M7.1)",
+      "severity": "escalate",
+      "text": "Confirmed deaths and injuries; building collapses; significant infrastructure impacts; tsunami advisory noted.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/09e6f40acbcc96053946c9c104e7a242",
+          "label": "Source"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [
+    {
+      "title": "Southwest Europe Megafires (France & Spain)",
+      "severity": "escalate",
+      "text": "People: Evacuations reported from 220,000 to about 360,000; civilian and firefighter casualties reported in the region; returns began in some areas as conditions allowed. Infrastructure: ≥183 homes destroyed in France; A63 highway disruptions; cross-border firefighting with camp closures and transport impacts. Mass evacuations Destroyed homes Cross-border ops Sources: AP News AP News (regional roundup) AP News (returns/transport) AP News Al Jazeera",
+      "chips": [
+        "Mass evacuations",
+        "Destroyed homes",
+        "Cross-border ops"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/13b3173c427388881108c58510312993",
+          "label": "AP News"
+        },
+        {
+          "url": "https://apnews.com/article/65e96b9346f28b32ac00cb7c27129bb4",
+          "label": "AP News (regional roundup)"
+        },
+        {
+          "url": "https://apnews.com/article/de0bfabe2249153afc0e16da2f7e02f3",
+          "label": "AP News (returns/transport)"
+        },
+        {
+          "url": "https://apnews.com/article/0880421447ebd9ad4d2e505b37c54181",
+          "label": "AP News"
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/7/26/more-than-360000-evacuated-as-wildfires-rage-in-france-and-spain",
+          "label": "Al Jazeera"
+        }
+      ],
+      "meta": "Hazard: Wildfire | Period: late July-early August 2026"
+    },
+    {
+      "title": "Greece Wildfires (West of Athens, incl. Porto Germeno)",
+      "severity": "escalate",
+      "text": "People: Fresh evacuations; at least two firefighting crew killed in midair collision; hospitalizations reported; some coastal evacuations by sea. Infrastructure: Road access cut in coastal areas; spread into industrial districts threatened communities. Fatalities Sea evacuations Access disruption Source: AP News",
+      "chips": [
+        "Fatalities",
+        "Sea evacuations",
+        "Access disruption"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/726b55a6fe6c51de1fb086b437eb28de",
+          "label": "AP News"
+        }
+      ],
+      "meta": "Hazard: Wildfire | Publication: 2026-08-02"
+    },
+    {
+      "title": "Spokane Area, Washington (United States) Wildfires",
+      "severity": "escalate",
+      "text": "People: ~60,000 evacuated; patients among evacuees; rapid fire spread and changing conditions. Infrastructure: ≥600 structures destroyed; power shutoffs; multiple uncontained fires strained response. State of emergency Critical infrastructure Health facility evac Sources: AP News AP News (early ops)",
+      "chips": [
+        "State of emergency",
+        "Critical infrastructure",
+        "Health facility evac"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/3f70ca42599d306cf0c540df34ee50d0",
+          "label": "AP News"
+        },
+        {
+          "url": "https://apnews.com/article/dc8e1ecf2e24c06958f8b723859fc1e1",
+          "label": "AP News (early ops)"
+        }
+      ],
+      "meta": "Hazard: Wildfire | Publication: 2026-08-02"
+    },
+    {
+      "title": "Pengshui County, Chongqing (China) Landslide",
+      "severity": "escalate",
+      "text": "People: 41 dead; 20 missing; 10 injured. Infrastructure: >10 residential buildings buried; prolonged recovery operations anticipated. High casualties Search and recovery Source: AP News",
+      "chips": [
+        "High casualties",
+        "Search and recovery"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/b8ce2b34b0f18a3310cafe6d72ed71ac",
+          "label": "AP News"
+        }
+      ],
+      "meta": "Hazard: Landslide | Publication: 2026-07-28"
+    },
+    {
+      "title": "Kyushu, Japan Earthquake (M7.1)",
+      "severity": "escalate",
+      "text": "People: ≥3 dead; ~30 injured; missing reported. Infrastructure: Shopping center collapse; factory damage; hospital admissions surge; tsunami advisory issued. Casualties Structural collapse Tsunami advisory Source: AP News",
+      "chips": [
+        "Casualties",
+        "Structural collapse",
+        "Tsunami advisory"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/09e6f40acbcc96053946c9c104e7a242",
+          "label": "AP News"
+        }
+      ],
+      "meta": "Hazard: Earthquake | Publication: 2026-07-28"
+    },
+    {
+      "title": "Amhara Region, Ethiopia Landslide",
+      "severity": "escalate",
+      "text": "People: ≥14 dead; 7 injured; additional missing; event struck a monastery gathering. Infrastructure: Site burial complicated rescue operations; disaster response mobilized. High vulnerability SAR operations Source: AP News",
+      "chips": [
+        "High vulnerability",
+        "SAR operations"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/e4949a0ebbd59fc2a5c902baef25be91",
+          "label": "AP News"
+        }
+      ],
+      "meta": "Hazard: Landslide | Publication: 2026-08-03"
+    },
+    {
+      "title": "South Texas Flooding (United States)",
+      "severity": "escalate",
+      "text": "People: High-water rescues; widening evacuation orders; at least two flood fatalities reported in Texas Hill Country. Infrastructure: Roads turned into rivers; vehicles swept away; neighborhoods flooded; disaster declaration across dozens of counties. Water rescues Evacuations Widespread damage Sources: AP News CNN Transcript",
+      "chips": [
+        "Water rescues",
+        "Evacuations",
+        "Widespread damage"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/1e9b9ddbdd2a8963cccc707aee0d362e",
+          "label": "AP News"
+        },
+        {
+          "url": "https://transcripts.cnn.com/show/cnr/date/2026-07-18/segment/22",
+          "label": "CNN Transcript"
+        }
+      ],
+      "meta": "Hazard: Flood | Publication: mid-July 2026"
+    },
+    {
+      "title": "Southern China Flooding (linked to Typhoon Maysak)",
+      "severity": "escalate",
+      "text": "People: ≥39 dead; ≥9 missing; stranded residents required evacuation. Infrastructure: Blocked roads to flood-hit villages hampered evacuation and supply delivery. High mortality Access constraints Source: CNN Transcript",
+      "chips": [
+        "High mortality",
+        "Access constraints"
+      ],
+      "sources": [
+        {
+          "url": "https://transcripts.cnn.com/show/tsiem/date/2026-07-10/segment/01",
+          "label": "CNN Transcript"
+        }
+      ],
+      "meta": "Hazard: Flood | Publication: 2026-07-10"
+    },
+    {
+      "title": "Southern Colorado, United States - Aspen Acres Fire",
+      "severity": "escalate",
+      "text": "People: Thousands evacuated. Infrastructure: ≥160 structures destroyed; smoke reduced visibility along I-25; rapid spread under extreme heat. Evacuations Transport disruption Source: Al Jazeera",
+      "chips": [
+        "Evacuations",
+        "Transport disruption"
+      ],
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/news/2026/7/3/thousands-forced-to-evacuate-in-colorado-as-wildfire-spreads",
+          "label": "Al Jazeera"
+        }
+      ],
+      "meta": "Hazard: Wildfire | Publication: 2026-07-03"
+    },
+    {
+      "title": "Western United States - Extreme Heat",
+      "severity": "escalate",
+      "text": "People: Dangerous heat affecting vulnerable populations; shelters opened for relief; heat compounding ongoing wildfire response. Infrastructure: Elevated fire risk across several states; potential for power safety shutoffs and strained services. Extreme heat Wildfire risk Source: AP News",
+      "chips": [
+        "Extreme heat",
+        "Wildfire risk"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/594390d448a480564ec7db6b15b5fffc",
+          "label": "AP News"
+        }
+      ],
+      "meta": "Hazard: Heat Wave | Publication: 2026-08-01"
+    }
+  ],
+  "monitorEvents": [
+    {
+      "title": "New Mexico, United States - Drought Conditions",
+      "severity": "monitor",
+      "text": "People: Water scarcity threatens ranching livelihoods. Infrastructure: Groundwater concerns disrupting activity; pressure on scarce water resources. Water scarcity Livelihoods Source: AP News",
+      "chips": [
+        "Water scarcity",
+        "Livelihoods"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/5ad8fcbcbef112381a6cc56ba3566002",
+          "label": "AP News"
+        }
+      ],
+      "meta": "Hazard: Drought | Publication: 2026-08-03"
+    },
+    {
+      "title": "Venezuela - IFRC Earthquake Emergency Listing",
+      "severity": "monitor",
+      "text": "People: IFRC listing signals significant humanitarian implications (injury/shelter needs possible). Infrastructure: Details limited in listing; monitor for formal operational updates. IFRC emergency Potential shelter Source: IFRC Listing",
+      "chips": [
+        "IFRC emergency",
+        "Potential shelter"
+      ],
+      "sources": [
+        {
+          "url": "https://www.ifrc.org/emergencies/all",
+          "label": "IFRC Listing"
+        }
+      ],
+      "meta": "Hazard: Earthquake | Publication: 2026-06-26"
+    },
+    {
+      "title": "IFRC Flood Operations: Bangladesh (Cox's Bazar), Côte d'Ivoire, Georgia",
+      "severity": "monitor",
+      "text": "People: Operations activated/updated for flood-affected communities; heightened risk in high-vulnerability settings. Infrastructure: Anticipated local access and service disruption; details to be confirmed in IFRC updates. IFRC DREF High vulnerability Source: IFRC Appeals",
+      "chips": [
+        "IFRC DREF",
+        "High vulnerability"
+      ],
+      "sources": [
+        {
+          "url": "https://www.ifrc.org/appeals?page=1",
+          "label": "IFRC Appeals"
+        }
+      ],
+      "meta": "Hazard: Flood | Publications: mid-late July 2026"
+    },
+    {
+      "title": "Los Angeles County, California - Fast-Moving Fire",
+      "severity": "monitor",
+      "text": "People: Evacuation orders/warnings; Red Cross shelter opened. Infrastructure: Structures threatened; damage levels under assessment. Evacuations Shelter operations Source: AP News",
+      "chips": [
+        "Evacuations",
+        "Shelter operations"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/358ee36502b056c33609afa4f3dd7f95",
+          "label": "AP News"
+        }
+      ],
+      "meta": "Hazard: Wildfire | Publication: 2026-07-11"
+    },
+    {
+      "title": "Southern Pacific Coast of Mexico - M7.3 Earthquake (Monitor)",
+      "severity": "monitor",
+      "text": "People: Strong shaking; injuries considered likely; aftershocks possible. Infrastructure: Elevated damage risk with vulnerable adobe construction in affected areas. Strong shaking Aftershocks Source: CNN Transcript",
+      "chips": [
+        "Strong shaking",
+        "Aftershocks"
+      ],
+      "sources": [
+        {
+          "url": "https://transcripts.cnn.com/show/cnc/date/2026-07-17/segment/09",
+          "label": "CNN Transcript"
+        }
+      ],
+      "meta": "Hazard: Earthquake | Publication: 2026-07-17"
+    },
+    {
+      "title": "Taiwan, Okinawa (Japan), SE China - Typhoon Preparation",
+      "severity": "monitor",
+      "text": "People: Pre-evacuation preparation, supply stockpiling; concern over serious damage. Infrastructure: Flight cancellations; parks/beaches closed; flood defenses monitored. Preparedness Transport disruption Source: CNN Transcript",
+      "chips": [
+        "Preparedness",
+        "Transport disruption"
+      ],
+      "sources": [
+        {
+          "url": "https://transcripts.cnn.com/show/tsiem/date/2026-07-10/segment/01",
+          "label": "CNN Transcript"
+        }
+      ],
+      "meta": "Hazard: Typhoon | Publication: 2026-07-10"
+    },
+    {
+      "title": "Western United States - Wildfire Season Trend",
+      "severity": "monitor",
+      "text": "People: Repeated evacuations and stress across multiple states; firefighter deaths and livestock losses reported. Infrastructure: Property loss and livelihood disruption as dozens of large fires burn. Multi-state Prolonged season Source: AP News",
+      "chips": [
+        "Multi-state",
+        "Prolonged season"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/5e3e1caed8e1752f93908e6c6fed7e43",
+          "label": "AP News"
+        }
+      ],
+      "meta": "Hazard: Wildfire trend | Publication: 2026-07-03"
+    }
+  ],
+  "outlook72h": "Wildfires (Europe): Continued operational tempo expected in France, Spain, and Greece under lingering heat and wind; flare-ups likely in large burn areas; readiness for renewed evacuations advised. Wildfires (U.S.): Elevated fire weather persists in parts of the Western U.S.; Spokane area recovery and containment operations to continue with potential for smoke and air quality impacts. Seismic (Japan): Aftershocks possible in Kyushu; prioritize structural safety assessments and monitoring of critical facilities. Landslides (China/Ethiopia): Ongoing SAR and recovery; additional slope failures possible where soils remain saturated. Flooding (South Asia/West Africa): Monsoon variability and active IFRC operations in Bangladesh, Côte d'Ivoire, and Georgia warrant continued watch for access constraints and displacement. Extreme Heat (Western U.S.): Heat advisories likely to persist locally; ensure cooling options for vulnerable populations and monitor power systems for stress.",
+  "regionalTrends": [
+    "Fire weather: Concurrent major fires across Southwest Europe and the Western U.S. reflect prolonged heat, wind, and fuel dryness driving rapid spread and large evacuations.",
+    "Hydro-meteorological risk: Seasonal extremes produced flash flooding in Texas Hill Country and deadly floods in southern China; IFRC flood operations active in Bangladesh (Cox's Bazar), Côte d'Ivoire, and Georgia.",
+    "Geomorphic hazards: Intense rainfall and unstable slopes triggered severe landslides in China and Ethiopia with high casualty counts.",
+    "Seismic risk: Significant quake impacts in Kyushu underscore potential for aftershocks and secondary hazards (e.g., collapses, localized tsunami advisories)."
+  ]
+}

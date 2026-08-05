@@ -432,14 +432,32 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // === Briefing self-heal (hourly) ================================
           // Check if expected briefings exist. Runs BEFORE the heavy I/O
           // below (fire-and-forget publisher, telegram-archive, intel-bundle
-          // warm, CTI collector, cache-warm fan-out) so the heal's own
-          // subrequests (NVD, KEV, feeds, D1 write) are guaranteed budget
-          // on the free-plan 50 subrequest cap.
+          // warm, CTI collector, cache-warm fan-out).
+          //
+          // SUBREQUEST-BUDGET GUARD: the daily heal runs the FULL live fan-out
+          // (NVD pagination + up to 15 individual CVE lookups + KEV + 4 IOC
+          // feeds + ransomware + MTI + cvefeed + webamon + OSSF commits +
+          // LLM ≈ 35-45 subrequests). The hourly invocation ALSO runs
+          // warmIntelBundles (up to 35) + runFullCollection (7-10) + publisher
+          // + telegram + watches in the SAME Worker invocation, all sharing
+          // the free-plan 50-subrequest cap. Running both blew the cap →
+          // "Too many subrequests by single Worker invocation" aborted the
+          // whole invocation and no row was persisted.
+          //
+          // Fix: when the daily heal actually rebuilds (live fan-out), set
+          // `dailyHealRan` and SKIP warmIntelBundles + runFullCollection in
+          // this invocation. Both have their own cadence (intel-bundle-warm
+          // is also on a dedicated `7 * * * *` cron; CTI collector catches
+          // up next hour) so skipping one hourly tick loses no data, but it
+          // keeps the daily heal's fan-out inside the 50-subrequest budget.
+          // The weekly heal short-circuits via the D1 rollup (≈0 subrequests)
+          // so it never trips this guard.
           //
           // Key difference from the old heal: we check the EXPECTED slug
           // by name, not just the latest row by type. The old code queried
           // "most recent weekly" which always returned W26 (rich+complete)
           // even when W27 was missing entirely, so the heal never fired.
+          let dailyHealRan = false;
           if (db) {
             try {
               const now = new Date();
@@ -483,6 +501,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                   live: true,
                 });
                 await writeBriefing(db, briefing);
+                dailyHealRan = true;
                 console.log(
                   JSON.stringify({
                     job: 'briefing-heal',
@@ -502,6 +521,15 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                 })
               );
             }
+          }
+          if (dailyHealRan) {
+            console.log(
+              JSON.stringify({
+                job: 'briefing-heal',
+                status: 'skipped-cotenants',
+                reason: 'daily heal ran live fan-out; skipping intel-bundle-warm + cti-collector this tick to stay under the 50-subrequest cap',
+              })
+            );
           }
 
           // ── Case-study publisher + Telegram archive + intel-bundle warm ─────
@@ -523,23 +551,30 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           );
           fireAndForget.push(runTelegramArchive(env as unknown as ApiEnv).catch(logCronFail('telegram-archive')));
           // enqueueAllFeeds moved to the TOP of this hourly handler (see above).
-          fireAndForget.push(
-            warmIntelBundles(env as unknown as ApiEnv)
-              .then((r) =>
-                console.log(
-                  JSON.stringify({
-                    job: 'intel-bundle-warm',
-                    built: r.built.length,
-                    failed: r.failed.length,
-                    has_more: r.hasMore,
-                    slugs: r.built,
-                    llm_ran: r.llmRan,
-                    llm_partial: r.llmPartial,
-                  })
+          // intel-bundle-warm is subrequest-heavy (up to 35). When the daily
+          // briefing heal just ran its live fan-out in this same invocation,
+          // skip it this tick to stay under the free-plan 50-subrequest cap.
+          // It also has its own dedicated `7 * * * *` cron, so skipping one
+          // hourly tick loses no data — it catches up next hour.
+          if (!dailyHealRan) {
+            fireAndForget.push(
+              warmIntelBundles(env as unknown as ApiEnv)
+                .then((r) =>
+                  console.log(
+                    JSON.stringify({
+                      job: 'intel-bundle-warm',
+                      built: r.built.length,
+                      failed: r.failed.length,
+                      has_more: r.hasMore,
+                      slugs: r.built,
+                      llm_ran: r.llmRan,
+                      llm_partial: r.llmPartial,
+                    })
+                  )
                 )
-              )
-              .catch(logCronFail('intel-bundle-warm'))
-          );
+                .catch(logCronFail('intel-bundle-warm'))
+            );
+          }
           if (csNow.getUTCHours() % 6 === 3) {
             fireAndForget.push(
               refreshVictimReleaksCache(env as unknown as ApiEnv)
@@ -603,8 +638,14 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           await Promise.allSettled(fireAndForget);
 
           // ── CTI Collector: automated IOC + news ingestion (every hour) ────
+          // Skipped this tick when the daily briefing heal just ran its live
+          // fan-out in this same invocation — runFullCollection makes 7-10
+          // upstream fetches (threatfox, urlhaus, malwarebazaar, feodo, sslbl,
+          // openphish, cisa_kev, news feeds) and would push the combined
+          // subrequest count past the free-plan 50 cap. It catches up next
+          // hour; no data is lost.
           try {
-            if (env.BRIEFINGS_DB) {
+            if (env.BRIEFINGS_DB && !dailyHealRan) {
               const ctiResult = await runFullCollection(env.BRIEFINGS_DB, env.ABUSECH_AUTH_KEY);
               console.log(
                 JSON.stringify({

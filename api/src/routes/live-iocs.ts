@@ -1170,7 +1170,13 @@ export async function composeLiveIocs(env?: Env): Promise<{ response: LiveIocsRe
 
 /** Enqueue a refresh for every registry source (one message per source). */
 export async function enqueueAllFeeds(queue: Queue<FeedQueueMessage>): Promise<void> {
-  await queue.sendBatch(FEED_SOURCE_IDS.map((id) => ({ body: { sourceId: id } })));
+  // Stagger sends (2s apart) so 23 messages don't land in the queue as a
+  // single burst that the consumer (max_concurrency 10) can't drain fast
+  // enough — a burst creates a transient backlog + avg-lag spike on the
+  // dashboard. The stagger spaces them so the consumer keeps pace.
+  await queue.sendBatch(
+    FEED_SOURCE_IDS.map((id, i) => ({ body: { sourceId: id }, delaySeconds: i * 2 }))
+  );
 }
 
 const ENQUEUE_COOLDOWN_KEY = 'live-iocs:enqueue-cooldown';

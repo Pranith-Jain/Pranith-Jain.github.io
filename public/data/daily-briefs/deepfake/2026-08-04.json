@@ -1,0 +1,887 @@
+{
+  "type": "deepfake",
+  "date": "2026-08-04",
+  "riskOutlook": "Worsening",
+  "executiveSummary": "The period saw high-urgency law-enforcement and regulatory actions alongside evidence of industrialized AI-enabled fraud. U.S. authorities charged individuals for creating AI-generated nonconsensual explicit images and seized major deepfake-nude sites, signaling stronger enforcement against synthetic sexual abuse material Source View Article . Concurrently, organized crime operations in Southeast Asia reportedly scaled phishing and social-engineering operations with deepfakes and voice cloning, contributing to global fraud losses Source Supporting Report . On the policy front, EU transparency obligations for AI-generated and manipulated content are now in force, with detailed implementation guidance and a code of practice that operationalize labeling and machine-readable marking duties Guidelines Code of Practice . In parallel, a newly listed NIST CVE affecting C2PA-related tools raises immediate provenance security concerns for organizations relying on content credentials Security Advisory . Corporate environments remain under pressure from voice-enabled social engineering. Adversaries leveraged fake IT-support calls on Microsoft Teams to deploy EtherRAT, while a dedicated platform offers AI voice agents for automated vishing at scale View Article View Article . The FBI's IC3 data further documents substantial financial harm from synthetic-media-enabled impersonation and BEC activity Supporting Report . Overall, the threat environment appears to be worsening given the volume of high-urgency incidents, the maturation of voice-focused attack infrastructure, and open provenance-security issues, even as regulatory and defensive measures advance.",
+  "keyFindings": [
+    {
+      "title": "U.S. prosecutors filed charges against individuals for AI-generated nonconsensua",
+      "summary": "U.S. prosecutors filed charges against individuals for AI-generated nonconsensual explicit images, indicating active criminal enforcement against deepfake sexual abuse. View Article"
+    },
+    {
+      "title": "DOJ seized deepfake-nude sites CFAKE.com and SOCFAKE.com under the Take It Down ",
+      "summary": "DOJ seized deepfake-nude sites CFAKE.com and SOCFAKE.com under the Take It Down Act, disrupting synthetic sexual exploitation markets. View Article"
+    },
+    {
+      "title": "Organized crime in Southeast Asia is operationalizing generative AI, real-time d",
+      "summary": "Organized crime in Southeast Asia is operationalizing generative AI, real-time deepfakes, and voice cloning to scale global fraud. Source"
+    },
+    {
+      "title": "The FBI's IC3 report confirms significant financial losses from AI-enabled imper",
+      "summary": "The FBI's IC3 report confirms significant financial losses from AI-enabled impersonation, distress scams, and BEC-style fraud. Supporting Report"
+    },
+    {
+      "title": "EU Article 50 transparency obligations now apply, requiring labeling and machine",
+      "summary": "EU Article 50 transparency obligations now apply, requiring labeling and machine-readable marking for AI-generated and manipulated content. Guidelines"
+    },
+    {
+      "title": "NIST listed a C2PA-related vulnerability (CVE-2026-48287) that could undermine t",
+      "summary": "NIST listed a C2PA-related vulnerability (CVE-2026-48287) that could undermine trust in content provenance tooling if unpatched. Security Advisory"
+    },
+    {
+      "title": "Adversaries used fake IT-support Teams calls to deliver EtherRAT, demonstrating ",
+      "summary": "Adversaries used fake IT-support Teams calls to deliver EtherRAT, demonstrating voice/social engineering as an initial-access vector. View Article"
+    },
+    {
+      "title": "A cybercrime service (ATHR) enables automated AI voice-agent vishing targeting m",
+      "summary": "A cybercrime service (ATHR) enables automated AI voice-agent vishing targeting major online services, lowering attacker barriers. View Article"
+    }
+  ],
+  "incidents": [
+    {
+      "title": "U.S. charges filed for AI-generated nonconsensual explicit images",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-05-21",
+        "Location": "United States",
+        "Media type": "Image",
+        "Threat": "Legal",
+        "Sector": "Public"
+      },
+      "summary": "Prosecutors charged two men for creating AI-generated nonconsensual explicit images, signaling direct victim harm and active enforcement under a new anti-deepfake law.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/2e0c0ab83fe967d1db1f45af90a03fc2",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "DOJ seizes deepfake-nude sites CFAKE.com and SOCFAKE.com",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-06-15",
+        "Location": "United States",
+        "Media type": "Image",
+        "Threat": "Legal",
+        "Sector": "Public"
+      },
+      "summary": "U.S. authorities seized two websites hosting AI-generated explicit deepfakes under the Take It Down Act, targeting distribution pipelines of synthetic sexual abuse material.",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Organized crime leverages generative AI and deepfakes in Southeast Asia scam compounds",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-07-21",
+        "Location": "Southeast Asia",
+        "Media type": "Multimedia",
+        "Threat": "Criminal/Financial",
+        "Sector": "Public and Finance"
+      },
+      "summary": "Reporting describes large-scale fraud ecosystems employing generative AI, real-time deepfake video, and voice cloning to enhance phishing and social-engineering effectiveness.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/7b096f2a77f73f7e1cea428db056049a",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "FBI IC3: Significant losses from AI-enabled impersonation and BEC-style fraud",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-06",
+        "Location": "United States",
+        "Media type": "Multimedia",
+        "Threat": "Financial",
+        "Sector": "Finance"
+      },
+      "summary": "The FBI's IC3 report documents widespread criminal use of synthetic media for impersonation, including distress scams and BEC-style attacks with substantial financial losses.",
+      "sources": [
+        {
+          "url": "https://www.fbi.gov/file-repository/2025_ic3report.pdf",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "AP and FRONTLINE: Global scam centers operationalize AI to accelerate fraud",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-06-30",
+        "Location": "Global",
+        "Media type": "Multimedia",
+        "Threat": "Financial",
+        "Sector": "Public"
+      },
+      "summary": "An investigation details global scam operations using AI to quicken manipulation in romance and investment frauds.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/12f549d5203abd38857c4e2f2fb1c986",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "EU transparency duties for AI-generated/manipulated content now active (Article 50)",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-07-20",
+        "Location": "European Union",
+        "Media type": "Multimedia",
+        "Threat": "Regulation",
+        "Sector": "Government"
+      },
+      "summary": "Transparency obligations for AI-generated/manipulated content began applying on 2026-08-02, imposing disclosure and machine-readable marking duties.",
+      "sources": [
+        {
+          "url": "https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems",
+          "label": "Guidelines"
+        },
+        {
+          "url": "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems",
+          "label": "Commission News"
+        }
+      ]
+    },
+    {
+      "title": "EU Code of Practice: Practical measures for labeling deepfakes and AI-generated content",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-07-21",
+        "Location": "European Union",
+        "Media type": "Multimedia",
+        "Threat": "Regulation",
+        "Sector": "Corporate"
+      },
+      "summary": "The Commission's code provides practical steps for labeling/marking AI-generated content and deepfakes, translating legal obligations into enterprise workflows.",
+      "sources": [
+        {
+          "url": "https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Cyberstalking charge tied to AI-generated nudes and impersonation",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-06-19",
+        "Location": "United States",
+        "Media type": "Social Media",
+        "Threat": "Identity Theft",
+        "Sector": "Education"
+      },
+      "summary": "A college student was allegedly targeted via fake profiles, AI-generated nudes, and fabricated statements posted online.",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/new-york-man-faces-cyberstalking-charge-after-sharing-ai-generated-nudes-online/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "NIST CVE-2026-48287: Vulnerability in C2PA-related content-authenticity tooling",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-07-16",
+        "Location": "Global",
+        "Media type": "Video",
+        "Threat": "Detection",
+        "Sector": "Corporate"
+      },
+      "summary": "A vulnerability affecting Adobe C2PA-related SDKs/tools could enable forged provenance artifacts, undermining trust in authenticity labels.",
+      "sources": [
+        {
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48287",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Fake IT-support Teams calls deliver EtherRAT via voice impersonation",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-07-06",
+        "Location": "Global",
+        "Media type": "Voice",
+        "Threat": "Criminal",
+        "Sector": "Corporate"
+      },
+      "summary": "Attackers posed as IT staff on Microsoft Teams calls to obtain access and deploy EtherRAT, using voice-based impersonation to social-engineer employees.",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/fake-it-support-calls-on-microsoft-teams-push-etherrat-malware/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "ATHR platform provides AI voice-agent automation for vishing attacks",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-04-16",
+        "Location": "Global",
+        "Media type": "Voice",
+        "Threat": "Criminal",
+        "Sector": "Corporate"
+      },
+      "summary": "A cybercrime service operationalizes AI voice agents for end-to-end vishing against accounts (e.g., Google, Microsoft, Coinbase), lowering barriers for scalable credential theft.",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/new-athr-vishing-platform-uses-ai-voice-agents-for-automated-attacks/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Deepfake voice attacks outpace defenses, raising executive-impersonation risk",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-04-27",
+        "Location": "Global",
+        "Media type": "Voice",
+        "Threat": "Fraud",
+        "Sector": "Corporate"
+      },
+      "summary": "Reporting highlights scalable voice-cloning attacks leading to fraudulent authorizations and payment fraud.",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/deepfake-voice-attacks-are-outpacing-defenses-what-security-leaders-should-know/amp/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "UK charges tied to large-scale call spoofing platform used in scams",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-07-13",
+        "Location": "United Kingdom",
+        "Media type": "Voice",
+        "Threat": "Fraud",
+        "Sector": "Other"
+      },
+      "summary": "Authorities charged suspects linked to a spoofing service allegedly facilitating over 1.8 million scam calls, enabling impersonation and fraud at scale.",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/uk-charges-suspects-linked-to-russian-coms-call-spoofing-platform/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "AI-enabled impersonation targets U.S. Secretary of State Marco Rubio",
+      "badges": [
+        "ESCALATE",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "UNKNOWN",
+        "Location": "United States",
+        "Media type": "Voice",
+        "Threat": "National Security",
+        "Sector": "Government"
+      },
+      "summary": "Reporting indicates AI-assisted impersonation of a top U.S. diplomat, potentially deceiving senior officials and contacts.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/1b3cc78464404b54e63f4eba9dd4f5a9",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Practical speech deepfake detector reports strong cross-condition generalization",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-07-30",
+        "Location": "Global",
+        "Media type": "Audio",
+        "Threat": "Detection",
+        "Sector": "Corporate"
+      },
+      "summary": "New research presents a practical speech deepfake detector showing promising generalization across heterogeneous spoofing conditions.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2607.28351",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Cross-domain audio deepfake detection method aims for robustness to new generators",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-07-29",
+        "Location": "Global",
+        "Media type": "Audio",
+        "Threat": "Detection",
+        "Sector": "Corporate"
+      },
+      "summary": "Proposed approach to improve deepfake speech detection robustness across domains and recording conditions.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2607.26472",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "FTC abstract: real-time cloned-voice liveness detection concept",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2024-03-19",
+        "Location": "United States",
+        "Media type": "Audio",
+        "Threat": "Detection",
+        "Sector": "Finance"
+      },
+      "summary": "Describes low-latency audio deepfake detection for phone and digital audio channels.",
+      "sources": [
+        {
+          "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/VoiceCloneDetection-Abstract.pdf",
+          "label": "View Abstract"
+        }
+      ]
+    },
+    {
+      "title": "Brazil study: political audio deepfake detection shows weaknesses and bias concerns",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-07-30",
+        "Location": "Brazil",
+        "Media type": "Audio",
+        "Threat": "Research",
+        "Sector": "Political"
+      },
+      "summary": "Research indicates current detectors may perform inconsistently on cloned political voices in Brazilian electoral contexts.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2607.28770",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Benchmark targets provenance-aware detection of reused scientific figures",
+      "badges": [
+        "MONITOR",
+        "Low"
+      ],
+      "fields": {
+        "Publication date": "2026-07-31",
+        "Location": "Global",
+        "Media type": "Document",
+        "Threat": "Research",
+        "Sector": "Education"
+      },
+      "summary": "Introduces a benchmark for detecting reused/transformed figures with provenance context.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2607.29124",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Stronger attack method for removing invisible image watermarks",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-07-30",
+        "Location": "Global",
+        "Media type": "Image",
+        "Threat": "Research",
+        "Sector": "Other"
+      },
+      "summary": "Paper presents an improved attack on invisible watermarks, weakening a key provenance signal.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2607.27811",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "More robust latent watermarking technique for AI-generated images",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-07-30",
+        "Location": "Global",
+        "Media type": "Image",
+        "Threat": "Technology",
+        "Sector": "Media"
+      },
+      "summary": "Research proposes a more robust latent watermark resilient to rotation and post-processing.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2607.27551",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "NIST update signals movement toward standardized deepfake evidence evaluation",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-03",
+        "Location": "United States",
+        "Media type": "Multimedia",
+        "Threat": "Detection",
+        "Sector": "Law Enforcement"
+      },
+      "summary": "NIST program update references standardization and benchmarking for forensic assessment of synthetic evidence.",
+      "sources": [
+        {
+          "url": "https://www.nist.gov/system/files/documents/2026/03/27/03_AI%20Update-March.pdf",
+          "label": "Program Update"
+        }
+      ]
+    },
+    {
+      "title": "Integrity gap found between C2PA provenance and AI watermark detection",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-03-02",
+        "Location": "Global",
+        "Media type": "Multimedia",
+        "Threat": "Detection",
+        "Sector": "Media"
+      },
+      "summary": "Demonstrates that conflicting signals between C2PA metadata and watermark detection can yield authenticated-looking fakes.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2603.02378",
+          "label": "View Paper"
+        }
+      ]
+    },
+    {
+      "title": "C2PA security found to fall short of claimed goals in research analysis",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-04-27",
+        "Location": "Global",
+        "Media type": "Multimedia",
+        "Threat": "Research",
+        "Sector": "Media"
+      },
+      "summary": "Research indicates current C2PA specifications do not fully achieve stated security objectives.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2604.24890",
+          "label": "View Paper"
+        }
+      ]
+    },
+    {
+      "title": "NIST 2024 overview: technical approaches to reduce synthetic-content risks",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2024-11-20",
+        "Location": "United States",
+        "Media type": "Multimedia",
+        "Threat": "Research",
+        "Sector": "Public"
+      },
+      "summary": "Government-backed framework outlines provenance, watermarking, detection, and auditing approaches.",
+      "sources": [
+        {
+          "url": "https://www.nist.gov/publications/reducing-risks-posed-synthetic-content-overview-technical-approaches-digital-content",
+          "label": "View Publication"
+        }
+      ]
+    },
+    {
+      "title": "OpenAI expands image provenance verification via C2PA/SynthID signals",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-05-19",
+        "Location": "Global",
+        "Media type": "Multimedia",
+        "Threat": "Technology",
+        "Sector": "Public"
+      },
+      "summary": "Public provenance verification launched for AI-generated images using C2PA metadata and SynthID watermarks.",
+      "sources": [
+        {
+          "url": "https://openai.com/index/advancing-content-provenance/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "AI deepfakes blur reality in U.S. midterm campaigns",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-03-29",
+        "Location": "United States",
+        "Media type": "Social Media",
+        "Threat": "Political",
+        "Sector": "Government"
+      },
+      "summary": "Reporting notes growing use of AI-generated political content complicating voter discernment.",
+      "sources": [
+        {
+          "url": "https://www.investing.com/news/politics-news/ai-deepfakes-blur-reality-in-2026-us-midterm-campaigns-4586491",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "CNN report signals platform features that may enable image-based deepfake abuse",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-07-10",
+        "Location": "United States",
+        "Media type": "Social Media",
+        "Threat": "Technology",
+        "Sector": "Public"
+      },
+      "summary": "Platform capability changes could lower friction for non-consensual deepfake creation from user images.",
+      "sources": [
+        {
+          "url": "https://transcripts.cnn.com/show/cnc/date/2026-07-10/segment/06",
+          "label": "View Report"
+        }
+      ]
+    },
+    {
+      "title": "Temporal-analysis method for detecting synthetic social-media videos",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-07-17",
+        "Location": "Unknown",
+        "Media type": "Video",
+        "Threat": "Detection",
+        "Sector": "Other"
+      },
+      "summary": "Research proposes temporal cues for deepfake video detection on social platforms.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2605.17573",
+          "label": "View Paper"
+        }
+      ]
+    },
+    {
+      "title": "Vishing campaign targets Microsoft 365 via attacker-controlled passkey enrollment",
+      "badges": [
+        "MONITOR",
+        "High"
+      ],
+      "fields": {
+        "Publication date": "2026-07-08",
+        "Location": "Multi-sector, global",
+        "Media type": "Voice",
+        "Threat": "Criminal",
+        "Sector": "Corporate"
+      },
+      "summary": "Phone-based social engineering coerced employees to enroll attacker-controlled passkeys, risking account takeover across sectors.",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/entra-passkey-enrollment-vishing-targets-microsoft-365-users/amp/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Report: attackers layering AI voice cloning onto Microsoft Teams social engineering",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-06-08",
+        "Location": "Global",
+        "Media type": "Voice",
+        "Threat": "Financial",
+        "Sector": "Corporate"
+      },
+      "summary": "Describes a current attack pattern where AI voice cloning augments Teams-based social engineering to compromise enterprises.",
+      "sources": [
+        {
+          "url": "https://thehackernews.com/expert-insights/2026/06/how-attackers-are-adding-ai-voice.html",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Research shows increasing automation potential for voice phishing",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-07-14",
+        "Location": "Unknown",
+        "Media type": "Voice",
+        "Threat": "Research",
+        "Sector": "Corporate"
+      },
+      "summary": "Study suggests low-cost AI voice agents can industrialize social-engineering attempts.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2607.09970",
+          "label": "View Paper"
+        }
+      ]
+    },
+    {
+      "title": "Study: humans struggle to distinguish synthetic speech in scam-like conditions",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-07-04",
+        "Location": "Unknown",
+        "Media type": "Voice",
+        "Threat": "Research",
+        "Sector": "Public"
+      },
+      "summary": "Experimental results indicate people may not reliably spot cloned voices during scam-like interactions.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2602.20061",
+          "label": "View Paper"
+        }
+      ]
+    },
+    {
+      "title": "Google adds Android protections against AI deepfake scam calls",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-06-02",
+        "Location": "Global",
+        "Media type": "Voice",
+        "Threat": "Technology",
+        "Sector": "Public"
+      },
+      "summary": "Android gains new features intended to detect or warn against scam calls that mimic trusted voices.",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/google-adds-android-protection-against-ai-deepfake-scam-calls/amp/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Human detection limits across face/voice deepfakes documented",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "UNKNOWN",
+        "Location": "Global",
+        "Media type": "Multimedia",
+        "Threat": "Research",
+        "Sector": "Other"
+      },
+      "summary": "Study indicates people do not generalize well across face and voice deepfake detection.",
+      "sources": [
+        {
+          "url": "https://www.nature.com/articles/s41598-026-59364-3",
+          "label": "View Study"
+        }
+      ]
+    },
+    {
+      "title": "Spatiotemporal deepfake video detection with forgery attribution potential",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "UNKNOWN",
+        "Location": "Global",
+        "Media type": "Video",
+        "Threat": "Research",
+        "Sector": "Other"
+      },
+      "summary": "Scientific Reports paper outlines a spatiotemporal approach with implications for detection and attribution.",
+      "sources": [
+        {
+          "url": "https://www.nature.com/articles/s41598-026-58264-w",
+          "label": "View Study"
+        }
+      ]
+    },
+    {
+      "title": "AI-generated attack ad targets sitting U.S. senator in Tennessee",
+      "badges": [
+        "MONITOR",
+        "Medium"
+      ],
+      "fields": {
+        "Publication date": "2026-07-29",
+        "Location": "Tennessee, United States",
+        "Media type": "Video",
+        "Threat": "Political",
+        "Sector": "Media"
+      },
+      "summary": "An AI-generated political attack ad was used against a sitting U.S. senator, raising election-integrity concerns.",
+      "sources": [
+        {
+          "url": "https://www.axios.com/local/nashville/2026/07/29/sen-blackburn-fights-ai-generated-attack-ad",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Freshness check: No qualifying synthetic-media items found in last 5 days (set 1)",
+      "badges": [
+        "MONITOR",
+        "Low"
+      ],
+      "fields": {
+        "Publication date": "UNKNOWN",
+        "Location": "Global",
+        "Media type": "Unknown",
+        "Threat": "Technology",
+        "Sector": "Other"
+      },
+      "summary": "The record notes a lack of qualifying recent articles within the specified timeframe from reviewed sources.",
+      "sources": []
+    },
+    {
+      "title": "Freshness check: No qualifying synthetic-media items found in last 5 days (set 2)",
+      "badges": [
+        "MONITOR",
+        "Low"
+      ],
+      "fields": {
+        "Publication date": "UNKNOWN",
+        "Location": "Global",
+        "Media type": "Unknown",
+        "Threat": "Technology",
+        "Sector": "Other"
+      },
+      "summary": "Confirms no authoritative items met the freshness and relevance thresholds after filtering duplicates and low-signal content.",
+      "sources": []
+    }
+  ],
+  "emergingTrends": [
+    "Industrialized vishing and voice cloning: Dedicated platforms and collaboration-app social engineering demonstrate scalable voice-enabled compromise.",
+    "Organized scam ecosystems: Scam compounds operationalize generative AI, real-time deepfakes, and voice cloning to increase fraud conversion.",
+    "Regulatory activation: EU transparency obligations and a practical code of practice make disclosure and labeling enforceable in the near term.",
+    "Provenance under pressure: A new C2PA-related CVE and research on C2PA integrity gaps stress the need for layered authenticity checks.",
+    "Sexual deepfakes enforcement: Seizures and charges indicate growing prosecutorial focus on synthetic sexual abuse content.",
+    "Detection research momentum: Multiple audio/video deepfake detection studies target cross-domain robustness and temporal artifacts.",
+    "Platform defenses: Mobile OS-level anti-scam call features and provenance tools add verification signals but are not fail-proof."
+  ],
+  "geographicObservations": [
+    "United States: Criminal charges for sexual deepfakes; cyberstalking case; AI-enabled impersonation of a senior official; FBI IC3 reporting; Android anti-scam measures.",
+    "European Union: Article 50 transparency obligations apply; Code of Practice provides implementation detail.",
+    "Southeast Asia: Scam compounds reportedly scaling fraud with deepfakes and voice cloning.",
+    "United Kingdom: Charges linked to a large spoofing platform enabling mass scam calls.",
+    "Brazil: Research indicates localized weaknesses in political audio deepfake detection.",
+    "Tennessee, United States: AI-generated political attack ad observed.",
+    "Global: Multiple defensive research and technology updates; provenance vulnerability affecting worldwide users."
+  ],
+  "detectionDevelopments": [
+    "EU transparency obligations and Code of Practice provide concrete labeling/marking requirements for synthetic content. Guidelines Code",
+    "NIST CVE-2026-48287 alerts to a vulnerability in C2PA-related tools that may undermine provenance. Security Advisory",
+    "OpenAI expands public provenance verification using C2PA and SynthID. View Article",
+    "Google introduces Android protections against AI deepfake scam calls. View Article",
+    "NIST program update advances standardized evaluation of deepfake evidence. Program Update",
+    "Audio/video detection research explores cross-domain robustness and temporal cues. Detector Temporal Method",
+    "Layer provenance signals. Combine C2PA manifests, watermark checks, cryptographic signing, and anomaly detection to mitigate single-signal failures. (Analyst Recommendation)",
+    "Harden voice channels. Enforce out-of-band confirmation for financial/IT requests; deploy call-risk scoring and liveness challenges for high-risk flows. (Analyst Recommendation)",
+    "Tighten MFA/passkey governance. Require ticketed approvals and identity reproofing for new authenticator enrollments; alert on sudden WebAuthn additions. (Analyst Recommendation)",
+    "EU compliance readiness. Map content types to Article 50 scope; instrument machine-readable labels; maintain auditable logs for disclosures. (Analyst Recommendation)",
+    "Patch provenance tools. Review exposure to CVE-2026-48287 and validate post-patch integrity of content-authenticity pipelines end-to-end. (Analyst Recommendation)",
+    "Forensic standardization. Align lab SOPs with NIST guidance; document tool versions, calibration data, and validation metrics for courtroom use. (Analyst Recommendation)"
+  ]
+}

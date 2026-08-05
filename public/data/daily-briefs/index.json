@@ -1,32 +1,103 @@
 {
   "source": "agentic-ai-daily-reports.netlify.app",
   "license": "MIT",
-  "generatedAt": "2026-08-04",
-  "counts": { "cyber": 7, "deepfake": 7, "disaster": 8, "maritime": 2 },
+  "generatedAt": "2026-08-05",
+  "counts": {
+    "cyber": 3,
+    "deepfake": 8,
+    "disaster": 4,
+    "maritime": 3
+  },
   "briefs": [
-    { "type": "cyber", "date": "2026-08-04", "sizeBytes": 20704 },
-    { "type": "deepfake", "date": "2026-08-03", "sizeBytes": 23052 },
-    { "type": "disaster", "date": "2026-08-03", "sizeBytes": 14751 },
-    { "type": "maritime", "date": "2026-08-03", "sizeBytes": 19922 },
-    { "type": "cyber", "date": "2026-08-02", "sizeBytes": 21393 },
-    { "type": "deepfake", "date": "2026-08-02", "sizeBytes": 30248 },
-    { "type": "disaster", "date": "2026-08-02", "sizeBytes": 33118 },
-    { "type": "maritime", "date": "2026-08-02", "sizeBytes": 13840 },
-    { "type": "cyber", "date": "2026-07-30", "sizeBytes": 21817 },
-    { "type": "cyber", "date": "2026-07-29", "sizeBytes": 19305 },
-    { "type": "deepfake", "date": "2026-07-29", "sizeBytes": 24101 },
-    { "type": "disaster", "date": "2026-07-29", "sizeBytes": 16189 },
-    { "type": "deepfake", "date": "2026-07-28", "sizeBytes": 23578 },
-    { "type": "disaster", "date": "2026-07-28", "sizeBytes": 16595 },
-    { "type": "cyber", "date": "2026-07-27", "sizeBytes": 20897 },
-    { "type": "deepfake", "date": "2026-07-25", "sizeBytes": 23903 },
-    { "type": "disaster", "date": "2026-07-25", "sizeBytes": 17411 },
-    { "type": "disaster", "date": "2026-07-24", "sizeBytes": 20257 },
-    { "type": "cyber", "date": "2026-07-23", "sizeBytes": 19432 },
-    { "type": "deepfake", "date": "2026-07-22", "sizeBytes": 23018 },
-    { "type": "disaster", "date": "2026-07-22", "sizeBytes": 18819 },
-    { "type": "disaster", "date": "2026-07-21", "sizeBytes": 20257 },
-    { "type": "cyber", "date": "2026-07-20", "sizeBytes": 37065 },
-    { "type": "deepfake", "date": "2026-07-20", "sizeBytes": 47745 }
+    {
+      "type": "cyber",
+      "date": "2026-08-05",
+      "sizeBytes": 17360
+    },
+    {
+      "type": "deepfake",
+      "date": "2026-08-04",
+      "sizeBytes": 26515
+    },
+    {
+      "type": "disaster",
+      "date": "2026-08-04",
+      "sizeBytes": 15516
+    },
+    {
+      "type": "maritime",
+      "date": "2026-08-04",
+      "sizeBytes": 26743
+    },
+    {
+      "type": "deepfake",
+      "date": "2026-08-03",
+      "sizeBytes": 23052
+    },
+    {
+      "type": "maritime",
+      "date": "2026-08-03",
+      "sizeBytes": 19922
+    },
+    {
+      "type": "cyber",
+      "date": "2026-08-02",
+      "sizeBytes": 21393
+    },
+    {
+      "type": "deepfake",
+      "date": "2026-08-02",
+      "sizeBytes": 30248
+    },
+    {
+      "type": "disaster",
+      "date": "2026-08-02",
+      "sizeBytes": 33118
+    },
+    {
+      "type": "maritime",
+      "date": "2026-08-02",
+      "sizeBytes": 13840
+    },
+    {
+      "type": "deepfake",
+      "date": "2026-07-29",
+      "sizeBytes": 24101
+    },
+    {
+      "type": "deepfake",
+      "date": "2026-07-28",
+      "sizeBytes": 23578
+    },
+    {
+      "type": "deepfake",
+      "date": "2026-07-25",
+      "sizeBytes": 23903
+    },
+    {
+      "type": "disaster",
+      "date": "2026-07-24",
+      "sizeBytes": 20257
+    },
+    {
+      "type": "deepfake",
+      "date": "2026-07-22",
+      "sizeBytes": 23018
+    },
+    {
+      "type": "disaster",
+      "date": "2026-07-21",
+      "sizeBytes": 20257
+    },
+    {
+      "type": "cyber",
+      "date": "2026-07-20",
+      "sizeBytes": 37065
+    },
+    {
+      "type": "deepfake",
+      "date": "2026-07-20",
+      "sizeBytes": 47745
+    }
   ]
 }

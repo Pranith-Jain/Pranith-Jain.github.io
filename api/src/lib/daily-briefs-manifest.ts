@@ -58,7 +58,7 @@ export interface DbCyberBrief {
   ttps: { descriptions: string[]; mitreIds: string[] };
   outlook72h: string;
   relatedCves: string[];
-  rawMarkdown: string;
+  rawMarkdown?: string;
 }
 
 export interface DbDeepfakeBrief {
@@ -77,7 +77,7 @@ export interface DbDeepfakeBrief {
   emergingTrends: string[];
   geographicObservations: string[];
   detectionDevelopments: string[];
-  rawMarkdown: string;
+  rawMarkdown?: string;
 }
 
 export interface DbDisasterBrief {
@@ -91,7 +91,7 @@ export interface DbDisasterBrief {
   monitorEvents: { title: string; severity: string; text: string; sources: { url: string; label: string }[] }[];
   outlook72h: string;
   regionalTrends: string[];
-  rawMarkdown: string;
+  rawMarkdown?: string;
 }
 
 export type DbBriefBody = DbCyberBrief | DbDeepfakeBrief | DbDisasterBrief;
