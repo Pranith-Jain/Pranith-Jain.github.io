@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import type { InputHTMLAttributes, TextareaHTMLAttributes, SelectHTMLAttributes, ReactNode } from 'react';
 
 /**
@@ -25,9 +26,12 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   mono?: boolean;
 }
 
-export function Input({ mono = true, className = '', ...props }: InputProps) {
-  return <input className={`${BASE_INPUT} ${mono ? MONO : ''} ${className}`} {...props} />;
-}
+export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+  { mono = true, className = '', ...props },
+  ref
+) {
+  return <input ref={ref} className={`${BASE_INPUT} ${mono ? MONO : ''} ${className}`} {...props} />;
+});
 
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   mono?: boolean;

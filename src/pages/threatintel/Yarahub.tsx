@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef, type FormEvent } from 'react';
+import { Input } from '../../components/ui/Input';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Search, Loader2, ExternalLink, FileDown, X, FileCode } from 'lucide-react';
 
@@ -156,13 +157,13 @@ export default function Yarahub(): JSX.Element {
           </label>
           <div className="flex gap-2">
             <div className="flex-1 relative">
-              <input
+              <Input
                 id="yara-search"
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by rule name, family, or author (e.g. MALWARE_Win_Neshta, emotet, trickbot)"
-                className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+                className="focus:border-rose-500 dark:focus:border-rose-400"
               />
             </div>
             <button

@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect, type FormEvent } from 'react';
+import { Input } from '../../components/ui/Input';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
@@ -211,14 +212,14 @@ export default function Analyze(): JSX.Element {
         </label>
         <div className="flex gap-2">
           <div className="flex-1 relative">
-            <input
+            <Input
               id="analyze-input"
               ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="IP, domain, URL, hash, or email"
-              className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-rose-500 dark:focus:border-rose-400"
+              className="focus:border-rose-500 dark:focus:border-rose-400"
             />
             {input && detectedType !== 'unknown' && (
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-rose-600 dark:text-rose-400 uppercase">

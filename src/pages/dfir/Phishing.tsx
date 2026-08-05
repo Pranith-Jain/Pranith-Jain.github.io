@@ -1,6 +1,7 @@
 import { useState, useRef, type FormEvent } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { Textarea } from '../../components/ui/Input';
 import {
   ScanText,
   Search,
@@ -203,14 +204,14 @@ export default function Phishing(): JSX.Element {
         <label htmlFor="phishing-input" className="sr-only">
           Raw email source for phishing analysis
         </label>
-        <textarea
+        <Textarea
           id="phishing-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste raw email here (View Original / Show Source from your mail client)"
           rows={6}
           aria-label="Raw email source"
-          className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm sm:text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 sm:rows-12"
+          className="sm:text-xs sm:rows-12"
           style={{ minHeight: '12rem' }}
         />
         <div className="mt-3 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
