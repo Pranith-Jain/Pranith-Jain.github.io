@@ -3,10 +3,22 @@ import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
-import { RefreshCw, ExternalLink, MessageSquare, Repeat, Heart, BarChart3, Search, Twitter } from 'lucide-react';
+import {
+  RefreshCw,
+  ExternalLink,
+  MessageSquare,
+  Repeat,
+  Heart,
+  BarChart3,
+  Search,
+  Twitter,
+  ShieldAlert,
+  Radio,
+} from 'lucide-react';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { usePostSummaries } from '../../components/intel/usePostSummaries';
 import { PostSummary } from '../../components/intel/PostSummary';
+import { XClaimsPanel } from '../../components/threatintel/XClaimsPanel';
 
 interface LiveTweet {
   id: string;
@@ -79,6 +91,7 @@ export default function XLive(): JSX.Element {
     }
   });
   const [activeHandle, setActiveHandle] = useState<string | null>(null);
+  const [category, setCategory] = useState<'all' | 'ioc'>('all');
 
   const load = (hours: number) => {
     let cancelled = false;
@@ -130,6 +143,10 @@ export default function XLive(): JSX.Element {
     const q = search.trim().toLowerCase();
     return data.items.filter((t) => {
       if (activeHandle && t.author.screen_name.toLowerCase() !== activeHandle) return false;
+      // Category filter: IOC tweets carry ioc_types; 'ioc' shows only tweets
+      // with extracted indicators. Ransomware/breach claims are surfaced via
+      // the XClaimsPanel above the feed.
+      if (category === 'ioc' && (!t.ioc_types || t.ioc_types.length === 0)) return false;
       if (!q) return true;
       return (
         t.text.toLowerCase().includes(q) ||
@@ -137,7 +154,7 @@ export default function XLive(): JSX.Element {
         t.tweetfeed_tags.some((x) => x.toLowerCase().includes(q))
       );
     });
-  }, [data, search, activeHandle]);
+  }, [data, search, activeHandle, category]);
 
   const postSummaries = usePostSummaries({
     surface: 'X Live Cybersec',
@@ -169,6 +186,30 @@ export default function XLive(): JSX.Element {
             ))}
           </select>
         </label>
+        {/* Category tabs: All / IOC tweets. Ransomware + Breach claims are
+            surfaced via the XClaimsPanel above the feed (parsed from
+            FalconFeeds/@DailyDarkWeb). */}
+        <div className="flex items-center gap-1">
+          {(
+            [
+              { id: 'all', label: 'All tweets', icon: Radio },
+              { id: 'ioc', label: 'IOC only', icon: ShieldAlert },
+            ] as const
+          ).map((c) => (
+            <button
+              key={c.id}
+              type="button"
+              onClick={() => setCategory(c.id)}
+              className={`inline-flex items-center gap-1 text-mini font-mono px-2 py-1 rounded border transition-colors ${
+                category === c.id
+                  ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+                  : 'border-slate-300 dark:border-[rgb(var(--border-400))] text-muted hover:border-rose-500/40'
+              }`}
+            >
+              <c.icon size={11} /> {c.label}
+            </button>
+          ))}
+        </div>
         <div className="relative flex-1 min-w-[200px]">
           <Search size={12} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
@@ -230,7 +271,8 @@ export default function XLive(): JSX.Element {
       description={
         <>
           <span className="block text-sm font-mono max-w-3xl leading-relaxed">
-            Chronological X tweets from cybersec IOC-posting accounts - assembled by joining{' '}
+            Live chronological X tweets from cybersec IOC-posting accounts + extracted ransomware/breach claims from
+            FalconFeeds/@DailyDarkWeb. Tweets are assembled by joining{' '}
             <a
               href="https://github.com/0xDanielLopez/TweetFeed"
               target="_blank"
@@ -271,6 +313,11 @@ export default function XLive(): JSX.Element {
       error={error}
       onRetry={() => load(sinceHours)}
     >
+      {/* Extracted ransomware + breach claims from FalconFeeds/@DailyDarkWeb.
+          Parsed server-side by /api/v1/x-claims — the free-text posts are
+          triaged into structured victim/group/country rows. */}
+      <XClaimsPanel />
+
       {!loading && data && filtered.length === 0 && (
         <p className="text-xs font-mono text-slate-500 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-4 text-center">
           {data.stale ? 'Showing cached data (upstream enrichment temporarily unavailable). ' : ''}

@@ -15,8 +15,12 @@ type TabId = 'telegram' | 'reddit' | 'x-live' | 'x-watch' | 'bluesky';
 const TABS: Array<{ id: TabId; label: string; desc: string }> = [
   { id: 'telegram', label: 'Telegram', desc: 'Cybersecurity channel firehose' },
   { id: 'reddit', label: 'Reddit', desc: '16 subreddit firehose' },
-  { id: 'x-live', label: 'X (TweetFeed)', desc: 'X/Twitter via TweetFeed with fxtwitter enrichment' },
-  { id: 'x-watch', label: 'X (Watch)', desc: 'X firehose from 70+ accounts with per-handle view' },
+  {
+    id: 'x-live',
+    label: 'X (Live)',
+    desc: 'Live X tweets + ransomware/breach claims from 70+ cybersec accounts (TweetFeed + fxtwitter, no auth needed)',
+  },
+  { id: 'x-watch', label: 'X (Profiles)', desc: 'Per-handle profile view (requires X cookies — often down)' },
   { id: 'bluesky', label: 'Bluesky & Mastodon', desc: '16 researchers across Bluesky and Mastodon' },
 ];
 
@@ -25,9 +29,7 @@ const VALID_TABS = new Set<TabId>(['telegram', 'reddit', 'x-live', 'x-watch', 'b
 export default function SocialFirehose(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const tabParam = searchParams.get('tab') as TabId | null;
-  const [activeTab, setActiveTab] = useState<TabId>(
-    tabParam && VALID_TABS.has(tabParam) ? tabParam : 'telegram'
-  );
+  const [activeTab, setActiveTab] = useState<TabId>(tabParam && VALID_TABS.has(tabParam) ? tabParam : 'telegram');
 
   // Sync tab changes to the URL so deep-links and back/forward work.
   useEffect(() => {
