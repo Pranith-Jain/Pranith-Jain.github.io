@@ -31,6 +31,8 @@ export interface DataTableProps<T> {
   empty?: ReactNode;
   className?: string;
   rowClassName?: (row: T) => string;
+  /** Click handler for rows (e.g. expandable rows, row selection). */
+  onRowClick?: (row: T) => void;
 }
 
 function alignClass(a?: 'left' | 'right' | 'center'): string {
@@ -45,6 +47,7 @@ export function DataTable<T>({
   empty,
   className = '',
   rowClassName,
+  onRowClick,
 }: DataTableProps<T>): JSX.Element {
   const [sort, setSort] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(initialSort ?? null);
 
@@ -122,6 +125,19 @@ export function DataTable<T>({
               <tr
                 key={rowKey(row, i)}
                 className={`border-t border-slate-200/70 align-top dark:border-[rgb(var(--border-400))]/70 ${rowClassName?.(row) ?? ''}`}
+                onClick={onRowClick ? () => onRowClick(row) : undefined}
+                role={onRowClick ? 'button' : undefined}
+                tabIndex={onRowClick ? 0 : undefined}
+                onKeyDown={
+                  onRowClick
+                    ? (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          onRowClick(row);
+                        }
+                      }
+                    : undefined
+                }
               >
                 {columns.map((col) => (
                   <td key={col.key} className={`px-3 py-2 ${alignClass(col.align)} ${col.className ?? ''}`}>
