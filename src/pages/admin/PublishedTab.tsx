@@ -1,4 +1,5 @@
 import { logCatch } from '../../lib/log';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   getJson,
@@ -274,92 +275,38 @@ export default function PublishedTab() {
       <SearchFilter items={posts} placeholder="Filter published posts…">
         {(filtered) => (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <tr>
-                  <th scope="col" className="py-2 pr-4">
-                    Type
-                  </th>
-                  <th scope="col" className="py-2 pr-4">
-                    Title
-                  </th>
-                  <th scope="col" className="py-2 pr-4">
-                    Published
-                  </th>
-                  <th scope="col" className="py-2 pr-4">
-                    Slug
-                  </th>
-                  <th scope="col" className="py-2 pr-4">
-                    Social
-                  </th>
-                  <th scope="col" className="py-2">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.map((p) => {
+            <DataTable
+              columns={[
+                { key: 'type', header: 'Type', sortValue: (p: typeof filtered[number]) => p.type, render: (p) => <span className="text-slate-500 dark:text-slate-400 uppercase text-xs">{p.type}</span> },
+                { key: 'title', header: 'Title', sortValue: (p: typeof filtered[number]) => p.title, render: (p) => <span className="text-slate-900 dark:text-slate-100">{p.title}</span> },
+                { key: 'publishedAt', header: 'Published', sortValue: (p: typeof filtered[number]) => p.publishedAt, render: (p) => <span className="text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">{new Date(p.publishedAt).toLocaleString()}</span> },
+                { key: 'slug', header: 'Slug', sortValue: (p: typeof filtered[number]) => p.slug, render: (p) => (
+                  <a href={`/blog/${p.slug}`} target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline transition-colors">{p.slug}</a>
+                ) },
+                { key: 'social', header: 'Social', render: (p) => {
                   const s = social[p.slug];
                   const hasTwitter = !!s?.hasTwitter;
                   const hasLinkedin = !!s?.hasLinkedin;
-                  const hasAny = hasTwitter || hasLinkedin;
-                  const isExpanded = expanded === p.slug;
                   return (
-                    <tr key={p.slug} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                      <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{p.type}</td>
-                      <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{p.title}</td>
-                      <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
-                        {new Date(p.publishedAt).toLocaleString()}
-                      </td>
-                      <td className="py-2 pr-4">
-                        <a
-                          href={`/blog/${p.slug}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline transition-colors"
-                        >
-                          {p.slug}
-                        </a>
-                      </td>
-                      <td className="py-2 pr-4">
-                        <div className="flex flex-wrap gap-1.5">
-                          <button
-                            onClick={() => generateTwitter(p.slug)}
-                            disabled={s?.loadingTwitter}
-                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/30'}`}
-                          >
-                            {s?.loadingTwitter ? '…' : hasTwitter ? 'Re-Tweet' : 'Tweet'}
-                          </button>
-                          <button
-                            onClick={() => generateLinkedin(p.slug)}
-                            disabled={s?.loadingLinkedin}
-                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/30'}`}
-                          >
-                            {s?.loadingLinkedin ? '…' : hasLinkedin ? 'Re-LinkedIn' : 'LinkedIn'}
-                          </button>
-                          {hasAny && (
-                            <button
-                              onClick={() => void viewSocial(p.slug)}
-                              className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
-                            >
-                              {isExpanded ? 'Hide' : 'View'}
-                            </button>
-                          )}
-                        </div>
-                      </td>
-                      <td className="py-2 flex gap-2">
-                        <button
-                          onClick={() => unpublish(p.slug)}
-                          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
-                        >
-                          Unpublish
-                        </button>
-                      </td>
-                    </tr>
+                    <div className="flex flex-wrap gap-1.5">
+                      <button onClick={() => generateTwitter(p.slug)} disabled={s?.loadingTwitter} className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/30'}`}>
+                        {s?.loadingTwitter ? '…' : hasTwitter ? 'Re-Tweet' : 'Tweet'}
+                      </button>
+                      <button onClick={() => generateLinkedin(p.slug)} disabled={s?.loadingLinkedin} className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/30'}`}>
+                        {s?.loadingLinkedin ? '…' : hasLinkedin ? 'Re-LinkedIn' : 'LinkedIn'}
+                      </button>
+                    </div>
                   );
-                })}
-              </tbody>
-            </table>
+                } },
+                { key: 'actions', header: 'Actions', render: (p) => (
+                  <button onClick={() => unpublish(p.slug)}  className="px-2 py-1 border border-rose-200 dark:border-rose-800 rounded text-xs text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50">
+                    'Unpublish'
+                  </button>
+                ) },
+              ] as DataTableColumn<typeof filtered[number]>[]}
+              rows={filtered}
+              rowKey={(p) => p.slug}
+            />
           </div>
         )}
       </SearchFilter>

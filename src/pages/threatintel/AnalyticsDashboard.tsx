@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import {
   AlertTriangle,
   BarChart3,
@@ -343,68 +344,24 @@ export default function AnalyticsDashboard(): JSX.Element {
           </h2>
           <div className="surface-card overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left">
-                    <th className="px-4 py-2 font-mono text-mini text-slate-500 uppercase tracking-wider">Status</th>
-                    <th className="px-4 py-2 font-mono text-mini text-slate-500 uppercase tracking-wider">Source</th>
-                    <th className="px-4 py-2 font-mono text-mini text-slate-500 uppercase tracking-wider hidden sm:table-cell">
-                      Category
-                    </th>
-                    <th className="px-4 py-2 font-mono text-mini text-slate-500 uppercase tracking-wider hidden md:table-cell">
-                      Grade
-                    </th>
-                    <th className="px-4 py-2 font-mono text-mini text-slate-500 uppercase tracking-wider hidden lg:table-cell">
-                      Age
-                    </th>
-                    <th className="px-4 py-2 font-mono text-mini text-slate-500 uppercase tracking-wider">Reason</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                  {feed.rows.map((row) => {
+              <DataTable
+                columns={[
+                  { key: 'status', header: 'Status', sortValue: (row: typeof feed.rows[number]) => row.status, render: (row) => {
                     const Icon = STATUS_ICON[row.status] ?? Clock;
-                    return (
-                      <tr
-                        key={row.id}
-                        className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] transition-colors"
-                      >
-                        <td className="px-4 py-2.5">
-                          <span className={`inline-flex items-center gap-1.5 ${STATUS_COLOR[row.status]}`}>
-                            <Icon size={14} />
-                            <span className="font-mono text-xs capitalize">{row.status}</span>
-                          </span>
-                        </td>
-                        <td className="px-4 py-2.5">
-                          {row.page_path ? (
-                            <Link
-                              to={row.page_path}
-                              className="font-mono text-sm text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
-                            >
-                              {row.label}
-                            </Link>
-                          ) : (
-                            <span className="font-mono text-sm text-slate-700 dark:text-slate-300">{row.label}</span>
-                          )}
-                        </td>
-                        <td className="px-4 py-2.5 hidden sm:table-cell">
-                          <span className="font-mono text-xs text-slate-500 capitalize">{row.category ?? '-'}</span>
-                        </td>
-                        <td className="px-4 py-2.5 hidden md:table-cell">
-                          <span className={`font-mono text-xs font-semibold ${reliabilityColor(row.admiralty_grade)}`}>
-                            {row.admiralty_grade ?? '-'}
-                          </span>
-                        </td>
-                        <td className="px-4 py-2.5 hidden lg:table-cell">
-                          <span className="font-mono text-xs text-slate-500">{formatAge(row.upstream_age_s)}</span>
-                        </td>
-                        <td className="px-4 py-2.5">
-                          <span className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">{row.reason}</span>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+                    return <span className={`inline-flex items-center gap-1.5 ${STATUS_COLOR[row.status]}`}><Icon size={14} /><span className="font-mono text-xs capitalize">{row.status}</span></span>;
+                  } },
+                  { key: 'source', header: 'Source', sortValue: (row: typeof feed.rows[number]) => row.label, render: (row) => (
+                    row.page_path ? <Link to={row.page_path} className="font-mono text-sm text-slate-900 dark:text-slate-100 hover:text-rose-600 dark:hover:text-rose-400 transition-colors">{row.label}</Link> : <span className="font-mono text-sm text-slate-700 dark:text-slate-300">{row.label}</span>
+                  ) },
+                  { key: 'category', header: 'Category', sortValue: (row: typeof feed.rows[number]) => row.category ?? '', className: 'hidden sm:table-cell', render: (row) => <span className="font-mono text-xs text-slate-500 capitalize">{row.category ?? '-'}</span> },
+                  { key: 'grade', header: 'Grade', sortValue: (row: typeof feed.rows[number]) => row.admiralty_grade ?? '', className: 'hidden md:table-cell', render: (row) => <span className={`font-mono text-xs font-semibold ${reliabilityColor(row.admiralty_grade)}`}>{row.admiralty_grade ?? '-'}</span> },
+                  { key: 'age', header: 'Age', sortValue: (row: typeof feed.rows[number]) => row.upstream_age_s ?? 0, className: 'hidden lg:table-cell', render: (row) => <span className="font-mono text-xs text-slate-500">{formatAge(row.upstream_age_s)}</span> },
+                  { key: 'reason', header: 'Reason', render: (row) => <span className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">{row.reason}</span> },
+                ] as DataTableColumn<typeof feed.rows[number]>[]}
+                rows={feed.rows}
+                rowKey={(row) => row.id}
+                rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)]'}
+              />
             </div>
           </div>
         </section>
