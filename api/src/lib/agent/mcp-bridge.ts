@@ -111,6 +111,24 @@ export function bridgeMcpTools(
     return (await res.json()) as T;
   }
 
+  // Helper: call a REST route with a non-GET method (POST/PUT/DELETE).
+  async function apiFetchWithMethod<T>(path: string, method: string, body?: unknown): Promise<T> {
+    if (!self) throw new Error('self fetcher unavailable for MCP bridge REST call');
+    const headers: Record<string, string> = { accept: 'application/json', ...(internalHeader ?? {}) };
+    const init: RequestInit = { method, headers, signal: AbortSignal.timeout(30_000) };
+    if (body !== undefined) {
+      headers['content-type'] = 'application/json';
+      init.body = JSON.stringify(body);
+    }
+    const req = new Request(`https://api.local${path}`, init);
+    const res = await self.fetch(req);
+    if (!res.ok) {
+      const text = await res.text().catch(() => '');
+      throw new Error(`API ${res.status}: ${text.slice(0, 200)}`);
+    }
+    return (await res.json()) as T;
+  }
+
   // ══════════════════════════════════════════════════════════════════════
   //  THREAT INTEL — ti_* (CVEs, KEV, IOCs, sector briefs, detection lists)
   // ══════════════════════════════════════════════════════════════════════
@@ -984,6 +1002,164 @@ export function bridgeMcpTools(
     'List all available darknet intel data sources with configuration status, API key status, tool counts, and free/paid indicators.',
     () => '/api/v1/darknet-intel/sources',
     []
+  );
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  HUDSONROCK — hr_* (infostealer leaks, stealer logs)
+  // ══════════════════════════════════════════════════════════════════════
+
+  dnGet(
+    'hr_search_email',
+    'Search for compromised credentials by email via Hudson Rock Cavalier API. Returns infostealer infections, stealer families, compromised URLs, and credential types.',
+    (a) => `/api/v1/breach/hudsonrock?email=${encodeURIComponent(String(a.email))}`,
+    [{ name: 'email', description: 'Email address to search', required: true }]
+  );
+  dnGet(
+    'hr_search_domain',
+    'Search Hudson Rock for infostealer infections targeting a domain. Returns employee credentials and machine infections.',
+    (a) => `/api/v1/hudsonrock/domain-overview?domain=${encodeURIComponent(String(a.domain))}`,
+    [{ name: 'domain', description: 'Domain name', required: true }]
+  );
+  dnGet(
+    'hr_search_username',
+    'Search Hudson Rock for compromised usernames from infostealer logs.',
+    (a) => `/api/v1/hudsonrock/username?username=${encodeURIComponent(String(a.username))}`,
+    [{ name: 'username', description: 'Username to search', required: true }]
+  );
+  dnGet(
+    'hr_search_ip',
+    'Search Hudson Rock for infections associated with an IP address.',
+    (a) => `/api/v1/hudsonrock/ip?ip=${encodeURIComponent(String(a.ip))}`,
+    [{ name: 'ip', description: 'IP address', required: true }]
+  );
+  dnGet(
+    'hr_domain_overview',
+    'Get a Hudson Rock domain overview: infected employees, machines, and credential exposure.',
+    (a) => `/api/v1/hudsonrock/domain-overview?domain=${encodeURIComponent(String(a.domain))}`,
+    [{ name: 'domain', description: 'Domain name', required: true }]
+  );
+  dnGet(
+    'hr_third_party_risk',
+    'Assess third-party risk for a domain via Hudson Rock: infected vendors, supply chain exposure.',
+    (a) => `/api/v1/hudsonrock/assessment?domain=${encodeURIComponent(String(a.domain))}`,
+    [{ name: 'domain', description: 'Domain name', required: true }]
+  );
+  dnGet(
+    'hr_infection_analysis',
+    'Analyze infostealer infections by stealer family via Hudson Rock.',
+    (a) => `/api/v1/hudsonrock/infection-analysis?stealer=${encodeURIComponent(String(a.stealer))}`,
+    [{ name: 'stealer', description: 'Stealer family name (e.g. RedLine, Raccoon)', required: true }]
+  );
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  NOTEBOOKS — notebook_* (investigation notebooks)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'notebook_create',
+    description: 'Create a new investigation notebook for tracking findings, IOCs, and notes.',
+    params: [
+      { name: 'title', type: 'string', description: 'Notebook title', required: true },
+      { name: 'description', type: 'string', description: 'Brief summary', required: false },
+    ],
+    execute: async (args) => {
+      return apiFetchWithMethod('/api/v1/notebooks', 'POST', { title: args.title, description: args.description });
+    },
+  });
+  dnGet('notebook_list', 'List investigation notebooks.', () => '/api/v1/notebooks', []);
+  dnGet(
+    'notebook_get',
+    'Get a specific investigation notebook by ID.',
+    (a) => `/api/v1/notebooks/${encodeURIComponent(String(a.id))}`,
+    [{ name: 'id', description: 'Notebook ID', required: true }]
+  );
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  WORKSPACES — ws_* (AEAD investigation workspaces)
+  // ══════════════════════════════════════════════════════════════════════
+
+  dnGet('ws_list', 'List investigation workspaces for AEAD lifecycle tracking.', () => '/api/v1/workspaces', []);
+  dnGet(
+    'ws_get',
+    'Get a specific investigation workspace by ID.',
+    (a) => `/api/v1/workspaces/${encodeURIComponent(String(a.id))}`,
+    [{ name: 'id', description: 'Workspace ID', required: true }]
+  );
+  dnGet(
+    'ws_workflow_summary',
+    'Get the workflow summary for an investigation workspace.',
+    (a) => `/api/v1/workspaces/${encodeURIComponent(String(a.id))}/workflow/summary`,
+    [{ name: 'id', description: 'Workspace ID', required: true }]
+  );
+  dnGet(
+    'ws_export_stix',
+    'Export a workspace as STIX 2.1 format.',
+    (a) => `/api/v1/workspaces/${encodeURIComponent(String(a.id))}/export?format=flat`,
+    [{ name: 'id', description: 'Workspace ID', required: true }]
+  );
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  PASSIVE DNS + IOC WATCHLIST + OSINT
+  // ══════════════════════════════════════════════════════════════════════
+
+  dnGet(
+    'passive_dns_reverse',
+    'Reverse DNS lookup: find all domains pointing to an IP via passive DNS.',
+    (a) => `/api/v1/passive-dns/reverse?ip=${encodeURIComponent(String(a.ip))}`,
+    [{ name: 'ip', description: 'IP address', required: true }]
+  );
+  dnGet(
+    'ioc_watchlist_stats',
+    'Get IOC watchlist statistics: total watched, alert counts, recent hits.',
+    () => '/api/v1/ioc-watchlist/stats',
+    []
+  );
+  dnGet(
+    'phone_osint',
+    'Phone number OSINT lookup: carrier, location, reputation, associated accounts.',
+    (a) => `/api/v1/phone-osint?phone=${encodeURIComponent(String(a.phone))}`,
+    [{ name: 'phone', description: 'Phone number (E.164 format)', required: true }]
+  );
+  dnGet(
+    'wifi_investigation',
+    'WiFi network investigation: SSID, BSSID, location, security type.',
+    (a) => `/api/v1/wifi-investigation?query=${encodeURIComponent(String(a.query))}`,
+    [{ name: 'query', description: 'SSID, BSSID, or location', required: true }]
+  );
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  CVE PoC + HEALTH + OSINT
+  // ══════════════════════════════════════════════════════════════════════
+
+  dnGet(
+    'poc_scan',
+    'Scan a CVE for public proof-of-concept exploits. Returns GitHub repos, PoC URLs, and exploit availability.',
+    (a) => `/api/v1/cve-poc-scan?id=${encodeURIComponent(String(a.cve_id))}`,
+    [{ name: 'cve_id', description: 'CVE ID, e.g. CVE-2024-3094', required: true }]
+  );
+  dnGet(
+    'cve_health',
+    'Get CVE health metrics: patch rate, exploit activity, EPSS trends across the fleet.',
+    () => '/api/v1/cve-health',
+    []
+  );
+  dnGet(
+    'reverse_image_search',
+    'Reverse image search: find where an image appears online (OSINT).',
+    (a) => `/api/v1/reverse-image-search?url=${encodeURIComponent(String(a.url))}`,
+    [{ name: 'url', description: 'Image URL', required: true }]
+  );
+  dnGet(
+    'username_generate_patterns',
+    'Generate username search patterns for OSINT investigations (name variants, leet-speak, common suffixes).',
+    (a) => `/api/v1/username-osint/patterns?username=${encodeURIComponent(String(a.username))}`,
+    [{ name: 'username', description: 'Username to generate patterns for', required: true }]
+  );
+  dnGet(
+    'username_scrape_profiles',
+    'Scrape user profiles across platforms for a username (OSINT).',
+    (a) => `/api/v1/username-osint/profile?username=${encodeURIComponent(String(a.username))}`,
+    [{ name: 'username', description: 'Username to search', required: true }]
   );
 
   return tools;

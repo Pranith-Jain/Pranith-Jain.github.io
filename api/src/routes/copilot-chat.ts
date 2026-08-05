@@ -361,6 +361,7 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
                 selfEval: state.selfEval,
                 qa: state.qa,
                 dataGaps: state.dataGaps,
+                cost: state.cost,
               })
             );
 

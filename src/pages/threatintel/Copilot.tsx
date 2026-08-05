@@ -184,6 +184,7 @@ export default function Copilot(): JSX.Element {
   const [streamingContent, setStreamingContent] = useState('');
   const [selfEval, setSelfEval] = useState<SelfEvalResult | null>(null);
   const [dataGaps, setDataGaps] = useState<ToolFailure[] | null>(null);
+  const [cost, setCost] = useState<{ usd: number; tokens: number; llmCalls: number } | null>(null);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sessions, setSessions] = useState<SessionItem[]>([]);
@@ -238,6 +239,7 @@ export default function Copilot(): JSX.Element {
     setStreamingContent('');
     setSelfEval(null);
     setDataGaps(null);
+    setCost(null);
     setError(null);
     setEditingIndex(null);
     sessionStorage.removeItem('copilot_session_id');
@@ -377,6 +379,8 @@ export default function Copilot(): JSX.Element {
               else setSelfEval(null);
               if (d.dataGaps) setDataGaps(d.dataGaps as ToolFailure[]);
               else setDataGaps(null);
+              if (d.cost) setCost(d.cost as { usd: number; tokens: number; llmCalls: number });
+              else setCost(null);
               setChatMessages((prev) => {
                 const next = [...prev];
                 const last = next[next.length - 1];
@@ -661,6 +665,8 @@ export default function Copilot(): JSX.Element {
                 else setSelfEval(null);
                 if (d.dataGaps) setDataGaps(d.dataGaps as ToolFailure[]);
                 else setDataGaps(null);
+                if (d.cost) setCost(d.cost as { usd: number; tokens: number; llmCalls: number });
+                else setCost(null);
                 setChatMessages((prev) => {
                   const next = [...prev];
                   const last = next[next.length - 1];
@@ -977,6 +983,11 @@ export default function Copilot(): JSX.Element {
                               {msg.model_used && (
                                 <span className="font-mono text-mini text-slate-500 dark:text-slate-400">
                                   via {msg.model_used}
+                                </span>
+                              )}
+                              {cost && i === chatMessages.length - 1 && (
+                                <span className="font-mono text-mini text-slate-400 dark:text-slate-500">
+                                  ${cost.usd.toFixed(4)} · {(cost.tokens / 1000).toFixed(1)}K tok · {cost.llmCalls} LLM
                                 </span>
                               )}
                             </div>
