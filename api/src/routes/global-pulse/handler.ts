@@ -294,7 +294,16 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     },
   });
   c.executionCtx.waitUntil(
-    Promise.all([cache.put(cacheReq, response.clone()), routeCachePut(GP_RESPONSE_KEY, payload, GP_RESPONSE_TTL)])
+    Promise.all([
+      cache.put(cacheReq, response.clone()),
+      routeCachePut(GP_RESPONSE_KEY, payload, GP_RESPONSE_TTL),
+      // ALSO write to KV (cross-colo) so the GlobalPulse DO's KV fallback
+      // (pollFeeds reads kv.get(GP_RESPONSE_KEY)) actually has data. Without
+      // this, the DO's KV fallback 404s and the WS live feed goes stale once
+      // the per-colo Cache-API entry (300s TTL) expires — the page shows
+      // "2 hours ago" because the DO has nothing newer to broadcast.
+      kv ? kv.put(GP_RESPONSE_KEY, json, { expirationTtl: GP_RESPONSE_TTL }) : Promise.resolve(),
+    ])
   );
 
   // ── Background build for external fetchers (botnet C2, supply chain, etc.) ──
@@ -894,10 +903,15 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         });
         await cache.put(cacheReq, response.clone());
         await routeCachePut(GP_RESPONSE_KEY, result, GP_RESPONSE_TTL);
+        // ALSO write to KV (cross-colo) so the GlobalPulse DO's KV fallback
+        // has data after the per-colo Cache-API entry expires. See the sync
+        // path above for the full rationale.
+        if (kv) await kv.put(GP_RESPONSE_KEY, JSON.stringify(result), { expirationTtl: GP_RESPONSE_TTL });
         // Long-lived last-good copy for the stale-if-error guard on the sync path.
         // Only written here (the sole path that populates the external-fetcher
         // layers), so it always holds a full map.
         await routeCachePut(GP_LAST_GOOD_KEY, result, GP_LAST_GOOD_TTL);
+        if (kv) await kv.put(GP_LAST_GOOD_KEY, JSON.stringify(result), { expirationTtl: GP_LAST_GOOD_TTL });
 
         // NOTE: global-pulse does NOT write the warm keys. A Worker can't fetch
         // its own public endpoints (loopback fails), so this handler's direct-
