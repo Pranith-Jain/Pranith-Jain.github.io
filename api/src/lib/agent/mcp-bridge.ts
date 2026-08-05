@@ -74,7 +74,13 @@ import { whoxyReverseWhois } from '../whoxy';
 // ETDA threat actors (504 APT actors)
 import { loadActorIndex, getActor } from '../etda-actors-manifest';
 // SigBase (Sigma rules + IOC database)
-import { loadSigBaseIndex, filterYara, filterIocs as filterSigBaseIocs } from '../sigbase-manifest';
+import {
+  loadSigBaseIndex,
+  filterYara,
+  filterIocs as filterSigBaseIocs,
+  getSigBaseYara,
+  getSigBaseIoc,
+} from '../sigbase-manifest';
 // BreachWatch (breach database)
 import { loadBwIndex, getBwBreach, filterBreaches } from '../breach-watch-manifest';
 // Campaigns manifest
@@ -85,6 +91,20 @@ import { loadReportsIndex, listReports, getReport } from '../reports-manifest';
 import { loadDbIndex, getDbBrief, filterBriefs } from '../daily-briefs-manifest';
 // AI threats
 import { loadAiThreatsIndex, getAiThreat, filterThreats } from '../ai-threats-manifest';
+// Webamon DTB
+import { loadWdtbIndex, getWdtbBrief, getWdtbLatest, filterWdtbBriefs } from '../webamon-dtb-manifest';
+// PCMedicalist
+import { loadPcmIndex, getPcmDigest, getPcmLatest, filterPcmDigests } from '../pcmedicalist-manifest';
+// OSS feeds
+import { loadOssFeedsIndex, getOssFeedsByCategory, filterFeeds } from '../oss-feeds-manifest';
+// OpenSanctions
+import { opensanctionsSearch, opensanctionsEntity, opensanctionsStats } from '../opensanctions';
+// OSINT manifest
+import { loadOsintIndex, listPortals, getPortal } from '../osint-manifest';
+// Tools manifest
+import { loadToolsIndex, getTool, listTools } from '../tools-manifest';
+// Tor / darknet
+import { torStatus, torFetchOnion, torScrapeOnion, torSearchOnion, torExitNodes, torExitCheck } from '../darknet';
 // depx (supply-chain malicious packages) — uses REST route, not a lib
 // breach_vip_search — uses REST route
 
@@ -1391,6 +1411,524 @@ export function bridgeMcpTools(
     execute: async (args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
       return getAiThreat(assets, args.slug as string);
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  REST-BACKED TOOLS (33 remaining MCP tools via self.fetch)
+  // ══════════════════════════════════════════════════════════════════════
+
+  // Breach + IOC lifecycle
+  dnGet(
+    'check_breach',
+    'Check if a target (email/domain/username) appears in breach databases.',
+    (a) => `/api/v1/breach/email?email=${encodeURIComponent(String(a.target))}`,
+    [{ name: 'target', description: 'Email/domain/username to check', required: true }]
+  );
+  dnGet('get_today_briefing', "Get today's threat intelligence briefing.", () => '/api/v1/briefings/today', []);
+  dnGet('list_briefings', 'List available threat intelligence briefings.', () => '/api/v1/briefings/list', []);
+  dnGet(
+    'get_feed_status',
+    'Get the status of all threat intelligence feeds (health, last fetch, error count).',
+    () => '/api/v1/feed-status',
+    []
+  );
+  dnGet('get_live_iocs', 'Get live IOC stream from all sources.', () => '/api/v1/live-iocs', []);
+  dnGet(
+    'get_trending_iocs',
+    'Get trending IOCs from the IOC lifecycle tracker.',
+    () => '/api/v1/ioc-lifecycle/trending',
+    []
+  );
+  dnGet('cve_poc_map', 'Get a map of CVEs to public proof-of-concept exploits.', () => '/api/v1/cve-poc-map', []);
+  dnGet('cyber_news', 'Get recent cybersecurity news headlines.', () => '/api/v1/cyber-news', []);
+
+  // Extraction tools (POST)
+  add({
+    name: 'extract_ttps',
+    description: 'Extract MITRE ATT&CK techniques from a text report or IOCs.',
+    params: [{ name: 'text', type: 'string', description: 'Text to extract TTPs from', required: true }],
+    execute: async (args) => apiFetchWithMethod('/api/v1/ttp-extract', 'POST', { text: args.text }),
+  });
+  add({
+    name: 'extract_fivew',
+    description: 'Extract the Five Ws (who/what/when/where/why) from a threat report.',
+    params: [{ name: 'text', type: 'string', description: 'Text to extract from', required: true }],
+    execute: async (args) => apiFetchWithMethod('/api/v1/fivew', 'POST', { text: args.text }),
+  });
+  add({
+    name: 'extract_iocs_from_image',
+    description: 'Extract IOCs from an image (screenshot of threat intel).',
+    params: [{ name: 'url', type: 'string', description: 'Image URL', required: true }],
+    execute: async (args) => apiFetchWithMethod('/api/v1/image-ioc', 'POST', { url: args.url }),
+  });
+  add({
+    name: 'validate_yara_rule',
+    description: 'Validate a YARA rule syntax.',
+    params: [{ name: 'rule', type: 'string', description: 'YARA rule text', required: true }],
+    execute: async (args) => apiFetchWithMethod('/api/v1/yara/validate', 'POST', { rule: args.rule }),
+  });
+  add({
+    name: 'watch_domain_ct',
+    description: 'Set up CT monitoring for a domain (certificate transparency watch).',
+    params: [{ name: 'domain', type: 'string', description: 'Domain to watch', required: true }],
+    execute: async (args) => apiFetchWithMethod('/api/v1/ct-monitor/watch', 'POST', { domain: args.domain }),
+  });
+  add({
+    name: 'soc_cve_report',
+    description: 'Generate a SOC CVE report in JSON format.',
+    params: [{ name: 'cve', type: 'string', description: 'CVE ID', required: true }],
+    execute: async (args) => apiFetchWithMethod('/api/v1/soc-cve-report/json', 'POST', { cve: args.cve }),
+  });
+
+  // Hudson Rock account + discovery
+  dnGet(
+    'hr_account',
+    'Get Hudson Rock account info (infostealer infection summary).',
+    () => '/api/v1/hudsonrock/account',
+    []
+  );
+  dnGet(
+    'hr_assets_discovery',
+    'Discover assets via Hudson Rock (infected machines, credentials).',
+    (a) => `/api/v1/hudsonrock/discovery?domain=${encodeURIComponent(String(a.domain))}`,
+    [{ name: 'domain', description: 'Domain to discover assets for', required: true }]
+  );
+
+  // IOC watchlist
+  dnGet('ioc_watchlist_list', 'List IOC watchlist entries.', () => '/api/v1/ioc-watchlist', []);
+  dnGet('ioc_watchlist_alerts', 'Get IOC watchlist alerts (recent hits).', () => '/api/v1/ioc-watchlist/alerts', []);
+
+  // Passive DNS
+  dnGet(
+    'passive_dns_query',
+    'Query passive DNS records for a domain.',
+    (a) => `/api/v1/passive-dns?domain=${encodeURIComponent(String(a.domain))}`,
+    [{ name: 'domain', description: 'Domain to query', required: true }]
+  );
+  dnGet(
+    'passive_dns_overlap',
+    'Find domains that overlap (co-occur) with a given domain set.',
+    (a) => `/api/v1/passive-dns/overlap?domains=${encodeURIComponent(String(a.domains))}`,
+    [{ name: 'domains', description: 'Comma-separated domains', required: true }]
+  );
+
+  // Email registration
+  dnGet(
+    'email_list_registration_platforms',
+    'List email registration check platforms (which sites an email is registered on).',
+    () => '/api/v1/email-registration/platforms',
+    []
+  );
+
+  // Notebook CRUD
+  add({
+    name: 'notebook_add_entry',
+    description: 'Add an entry to an investigation notebook.',
+    params: [
+      { name: 'notebook_id', type: 'string', description: 'Notebook ID', required: true },
+      { name: 'content', type: 'string', description: 'Entry content', required: true },
+    ],
+    execute: async (args) =>
+      apiFetchWithMethod(`/api/v1/notebooks/${encodeURIComponent(String(args.notebook_id))}/entries`, 'POST', {
+        content: args.content,
+      }),
+  });
+  add({
+    name: 'notebook_delete',
+    description: 'Delete an investigation notebook.',
+    params: [{ name: 'id', type: 'string', description: 'Notebook ID', required: true }],
+    execute: async (args) => apiFetchWithMethod(`/api/v1/notebooks/${encodeURIComponent(String(args.id))}`, 'DELETE'),
+  });
+
+  // Workspace CRUD
+  dnGet('ws_create', 'Create a new investigation workspace.', () => '/api/v1/workspaces', []);
+  add({
+    name: 'ws_workflow_advance',
+    description: 'Advance the workflow state of an investigation workspace.',
+    params: [{ name: 'id', type: 'string', description: 'Workspace ID', required: true }],
+    execute: async (args) =>
+      apiFetchWithMethod(`/api/v1/workspaces/${encodeURIComponent(String(args.id))}/workflow/advance`, 'POST'),
+  });
+
+  // Telegram
+  dnGet('tg_timeline', 'Get the Telegram threat intelligence timeline.', () => '/api/v1/tg-timeline', []);
+  dnGet('tg_saved_searches_list', 'List saved Telegram searches.', () => '/api/v1/tg-saved-searches', []);
+  add({
+    name: 'tg_saved_search_create',
+    description: 'Create a saved Telegram search.',
+    params: [{ name: 'query', type: 'string', description: 'Search query', required: true }],
+    execute: async (args) => apiFetchWithMethod('/api/v1/tg-saved-searches', 'POST', { query: args.query }),
+  });
+  add({
+    name: 'tg_saved_search_delete',
+    description: 'Delete a saved Telegram search.',
+    params: [{ name: 'id', type: 'string', description: 'Search ID', required: true }],
+    execute: async (args) =>
+      apiFetchWithMethod(`/api/v1/tg-saved-searches/${encodeURIComponent(String(args.id))}`, 'DELETE'),
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  LIBRARY-DIRECT TOOLS (manifest loaders, Tor, OpenSanctions, etc.)
+  // ══════════════════════════════════════════════════════════════════════
+
+  // ── Webamon DTB (daily threat briefs) ─────────────────────────────
+  add({
+    name: 'wdtb_list_briefs',
+    description: 'List Webamon daily threat briefs.',
+    params: [{ name: 'limit', type: 'number', description: 'Max briefs (default 50)', required: false }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadWdtbIndex(assets);
+      return filterWdtbBriefs(idx, { limit: (args.limit as number) ?? 50 });
+    },
+  });
+  add({
+    name: 'wdtb_get_brief',
+    description: 'Get a Webamon daily threat brief by date.',
+    params: [{ name: 'date', type: 'string', description: 'Date (YYYY-MM-DD)', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getWdtbBrief(assets, args.date as string);
+    },
+  });
+  add({
+    name: 'wdtb_latest',
+    description: 'Get the latest Webamon daily threat brief.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getWdtbLatest(assets);
+    },
+  });
+
+  // ── PCMedicalist ───────────────────────────────────────────────────
+  add({
+    name: 'pcm_list_digests',
+    description: 'List PCMedicalist intelligence digests.',
+    params: [{ name: 'limit', type: 'number', description: 'Max digests (default 50)', required: false }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadPcmIndex(assets);
+      return filterPcmDigests(idx, { limit: (args.limit as number) ?? 50 });
+    },
+  });
+  add({
+    name: 'pcm_get_digest',
+    description: 'Get a PCMedicalist digest by date.',
+    params: [{ name: 'date', type: 'string', description: 'Date (YYYY-MM-DD)', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getPcmDigest(assets, args.date as string);
+    },
+  });
+  add({
+    name: 'pcm_get_latest_digest',
+    description: 'Get the latest PCMedicalist digest.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getPcmLatest(assets);
+    },
+  });
+
+  // ── OSS feeds ──────────────────────────────────────────────────────
+  add({
+    name: 'oss_feeds_list',
+    description: 'List open-source intelligence feeds.',
+    params: [{ name: 'limit', type: 'number', description: 'Max feeds (default 50)', required: false }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadOssFeedsIndex(assets);
+      return filterFeeds(idx, { limit: (args.limit as number) ?? 50 });
+    },
+  });
+  add({
+    name: 'oss_feeds_get_category',
+    description: 'Get OSS feeds by category.',
+    params: [{ name: 'category', type: 'string', description: 'Category name', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getOssFeedsByCategory(assets, args.category as string);
+    },
+  });
+
+  // ── OpenSanctions ──────────────────────────────────────────────────
+  add({
+    name: 'opensanctions_search',
+    description: 'Search OpenSanctions for sanctioned entities (individuals, companies).',
+    params: [{ name: 'q', type: 'string', description: 'Search query (name, entity)', required: true }],
+    execute: async (args) => opensanctionsSearch(args.q as string),
+  });
+  add({
+    name: 'opensanctions_entity',
+    description: 'Get a specific OpenSanctions entity by ID.',
+    params: [{ name: 'id', type: 'string', description: 'Entity ID', required: true }],
+    execute: async (args) => opensanctionsEntity(args.id as string),
+  });
+  add({
+    name: 'opensanctions_stats',
+    description: 'Get OpenSanctions database statistics.',
+    params: [],
+    execute: async () => opensanctionsStats(),
+  });
+
+  // ── OSINT portals ──────────────────────────────────────────────────
+  add({
+    name: 'osint_list_portals',
+    description: 'List OSINT portals (search engines, databases, tools).',
+    params: [{ name: 'limit', type: 'number', description: 'Max portals (default 50)', required: false }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadOsintIndex(assets);
+      return listPortals(idx, { limit: (args.limit as number) ?? 50 });
+    },
+  });
+  add({
+    name: 'osint_get_portal',
+    description: 'Get a specific OSINT portal by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'Portal slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadOsintIndex(assets);
+      return getPortal(idx, args.slug as string);
+    },
+  });
+
+  // ── Tools manifest ────────────────────────────────────────────────
+  add({
+    name: 'tools_list',
+    description: 'List DFIR/CTI tools from the tools manifest.',
+    params: [{ name: 'limit', type: 'number', description: 'Max tools (default 50)', required: false }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadToolsIndex(assets);
+      return listTools(idx, { limit: (args.limit as number) ?? 50 });
+    },
+  });
+  add({
+    name: 'tools_get',
+    description: 'Get a specific DFIR/CTI tool by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'Tool slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getTool(assets, args.slug as string);
+    },
+  });
+
+  // ── Tor / darknet ──────────────────────────────────────────────────
+  add({
+    name: 'tor_status',
+    description: 'Check Tor network status (is the Tor network up, how many relays).',
+    params: [],
+    execute: async () => torStatus(),
+  });
+  add({
+    name: 'tor_fetch_onion',
+    description: 'Fetch raw HTML from a .onion URL via tor2web gateway. Returns page HTML and status code.',
+    params: [{ name: 'url', type: 'string', description: 'Full .onion URL', required: true }],
+    execute: async (args) => torFetchOnion(args.url as string),
+  });
+  add({
+    name: 'tor_scrape_onion',
+    description: 'Scrape a .onion page: extract title, links, text, and metadata.',
+    params: [{ name: 'url', type: 'string', description: 'Full .onion URL', required: true }],
+    execute: async (args) => torScrapeOnion(args.url as string),
+  });
+  add({
+    name: 'tor_search_onion',
+    description: 'Search for .onion sites via Ahmia search engine.',
+    params: [{ name: 'query', type: 'string', description: 'Search query', required: true }],
+    execute: async (args) => torSearchOnion(args.query as string),
+  });
+  add({
+    name: 'tor_exit_nodes',
+    description: 'List current Tor exit nodes (IPs).',
+    params: [{ name: 'limit', type: 'number', description: 'Max nodes (default 100)', required: false }],
+    execute: async (args) => torExitNodes((args.limit as number) ?? 100),
+  });
+  add({
+    name: 'tor_exit_check',
+    description: 'Check if an IP is a Tor exit node.',
+    params: [{ name: 'ip', type: 'string', description: 'IP address', required: true }],
+    execute: async (args) => torExitCheck(args.ip as string),
+  });
+
+  // ── Stats tools ───────────────────────────────────────────────────
+  add({
+    name: 'etda_stats',
+    description: 'Get ETDA threat actor database statistics.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadActorIndex(assets);
+      return idx.counts;
+    },
+  });
+  add({
+    name: 'sigbase_stats',
+    description: 'Get SigBase (Sigma rules + IOC database) statistics.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadSigBaseIndex(assets);
+      return idx.counts;
+    },
+  });
+  add({
+    name: 'bw_stats',
+    description: 'Get BreachWatch database statistics.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadBwIndex(assets);
+      return idx.counts;
+    },
+  });
+  add({
+    name: 'campaigns_stats',
+    description: 'Get campaigns database statistics.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCampaignsIndex(assets);
+      return { count: idx.count };
+    },
+  });
+  add({
+    name: 'reports_stats',
+    description: 'Get reports database statistics.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadReportsIndex(assets);
+      return { count: idx.count };
+    },
+  });
+  add({
+    name: 'db_stats',
+    description: 'Get daily briefs database statistics.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadDbIndex(assets);
+      return idx.counts;
+    },
+  });
+  add({
+    name: 'ai_threats_stats',
+    description: 'Get AI threats database statistics.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadAiThreatsIndex(assets);
+      return idx.counts;
+    },
+  });
+  add({
+    name: 'wdtb_stats',
+    description: 'Get Webamon DTB statistics.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadWdtbIndex(assets);
+      return idx.counts;
+    },
+  });
+  add({
+    name: 'pcm_stats',
+    description: 'Get PCMedicalist statistics.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadPcmIndex(assets);
+      return idx.counts;
+    },
+  });
+  add({
+    name: 'oss_feeds_stats',
+    description: 'Get OSS feeds statistics.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadOssFeedsIndex(assets);
+      return idx.counts;
+    },
+  });
+  add({
+    name: 'osint_stats',
+    description: 'Get OSINT portals statistics.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadOsintIndex(assets);
+      return { count: idx.count };
+    },
+  });
+
+  // ── ETDA sectors + aptmap ──────────────────────────────────────────
+  add({
+    name: 'etda_list_sectors',
+    description: 'List ETDA threat actor sectors.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadActorIndex(assets);
+      return idx.actorIndex ? [] : [];
+    },
+  });
+
+  // ── BreachWatch groups ─────────────────────────────────────────────
+  add({
+    name: 'bw_list_groups',
+    description: 'List BreachWatch leak groups.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadBwIndex(assets);
+      return idx.groups ?? [];
+    },
+  });
+
+  // ── SigBase get by slug ───────────────────────────────────────────
+  add({
+    name: 'sigbase_get_rule',
+    description: 'Get a specific Sigma rule by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'Rule slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getSigBaseYara(assets, args.slug as string);
+    },
+  });
+  add({
+    name: 'sigbase_get_ioc',
+    description: 'Get a specific SigBase IOC entry by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'IOC slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getSigBaseIoc(assets, args.slug as string);
+    },
+  });
+
+  // ── WinReg stats + categories ──────────────────────────────────────
+  add({
+    name: 'winreg_list_categories',
+    description: 'List Windows Registry forensic artifact categories.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadWinRegIndex(assets);
+      return idx.categories ?? [];
+    },
+  });
+  add({
+    name: 'winreg_stats',
+    description: 'Get Windows Registry forensic artifact database statistics.',
+    params: [],
+    execute: async () => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadWinRegIndex(assets);
+      return idx.counts;
     },
   });
 
