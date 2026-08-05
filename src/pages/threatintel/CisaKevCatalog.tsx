@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Shield, Search, Download, ExternalLink, AlertTriangle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { fetchJson } from '../../lib/fetch-helpers';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 
 interface KevEntry {
   cve_id: string;
@@ -122,8 +123,6 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
   const [ransomwareOnly, setRansomwareOnly] = useState(false);
   const [daysFilter, setDaysFilter] = useState<number | null>(null);
   const [severityFilter, setSeverityFilter] = useState<string>('');
-  const [sortCol, setSortCol] = useState<'date_added' | 'cve_id' | 'vendor_project' | 'severity'>('date_added');
-  const [sortAsc, setSortAsc] = useState(false);
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(100);
 
@@ -179,14 +178,8 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
     if (severityFilter) {
       list = list.filter((v) => v.severity === severityFilter);
     }
-    list = [...list].sort((a, b) => {
-      const av = a[sortCol] ?? '';
-      const bv = b[sortCol] ?? '';
-      const cmp = typeof av === 'number' && typeof bv === 'number' ? av - bv : String(av).localeCompare(String(bv));
-      return sortAsc ? cmp : -cmp;
-    });
     return list;
-  }, [data, query, vendorFilter, ransomwareOnly, daysFilter, severityFilter, sortCol, sortAsc]);
+  }, [data, query, vendorFilter, ransomwareOnly, daysFilter, severityFilter]);
 
   const pageCount = Math.ceil(filtered.length / pageSize);
 
@@ -218,14 +211,6 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
     }
     return counts;
   }, [filtered]);
-
-  const toggleSort = (col: typeof sortCol) => {
-    if (sortCol === col) setSortAsc(!sortAsc);
-    else {
-      setSortCol(col);
-      setSortAsc(false);
-    }
-  };
 
 
   const body = (
@@ -317,81 +302,33 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
 
       {/* Table */}
       <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50">
-              {[
-                { key: 'date_added' as const, label: 'Added' },
-                { key: 'cve_id' as const, label: 'CVE ID' },
-                { key: 'severity' as const, label: 'Severity' },
-                { key: 'vendor_project' as const, label: 'Vendor' },
-                { label: 'Product' },
-                { label: 'Vulnerability' },
-                { label: 'Due' },
-                { label: 'Ransomware' },
-              ].map((col, i) => (
-                <th
-                  key={i}
-                  className={`px-3 py-2 text-left font-medium text-slate-600 dark:text-slate-300 ${col.key ? 'cursor-pointer hover:text-slate-900 dark:hover:text-white' : ''}`}
-                  onClick={col.key ? () => toggleSort(col.key!) : undefined}
-                >
-                  {col.label}
-                  
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {pageEntries.map((v) => {
+        <DataTable
+          columns={[
+            { key: 'date_added', header: 'Added', sortValue: (v: typeof pageEntries[number]) => v.date_added, render: (v) => <span className="text-slate-500 dark:text-slate-400 whitespace-nowrap">{v.date_added}</span> },
+            { key: 'cve_id', header: 'CVE ID', sortValue: (v: typeof pageEntries[number]) => v.cve_id, render: (v) => (
+              <a href={`https://nvd.nist.gov/vuln/detail/${v.cve_id}`} target="_blank" rel="noopener noreferrer" className="text-rose-600 dark:text-rose-400 hover:underline font-mono text-xs transition-colors">{v.cve_id}</a>
+            ) },
+            { key: 'severity', header: 'Severity', sortValue: (v: typeof pageEntries[number]) => v.severity, render: (v) => (
+              <span>
+                <SeverityBadge severity={v.severity} />
+                {v.cvss_score != null && <span className="ml-1.5 text-mini text-slate-500 dark:text-slate-400 font-mono">{v.cvss_score.toFixed(1)}</span>}
+              </span>
+            ) },
+            { key: 'vendor_project', header: 'Vendor', sortValue: (v: typeof pageEntries[number]) => v.vendor_project, render: (v) => <span className="text-slate-700 dark:text-slate-300">{v.vendor_project}</span> },
+            { key: 'product', header: 'Product', sortValue: (v: typeof pageEntries[number]) => v.product, render: (v) => <span className="text-slate-700 dark:text-slate-300">{v.product}</span> },
+            { key: 'vulnerability_name', header: 'Vulnerability', sortValue: (v: typeof pageEntries[number]) => v.vulnerability_name, render: (v) => <span className="text-slate-600 dark:text-slate-400 max-w-xs truncate">{v.vulnerability_name}</span> },
+            { key: 'due_date', header: 'Due', sortValue: (v: typeof pageEntries[number]) => v.due_date ?? '', render: (v) => {
               const overdue = v.due_date && new Date(v.due_date) < new Date();
-              return (
-                <tr
-                  key={v.cve_id}
-                  className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50"
-                >
-                  <td className="px-3 py-2 text-slate-500 dark:text-slate-400 whitespace-nowrap">{v.date_added}</td>
-                  <td className="px-3 py-2">
-                    <a
-                      href={`https://nvd.nist.gov/vuln/detail/${v.cve_id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-rose-600 dark:text-rose-400 hover:underline font-mono text-xs transition-colors"
-                    >
-                      {v.cve_id}
-                    </a>
-                  </td>
-                  <td className="px-3 py-2">
-                    <SeverityBadge severity={v.severity} />
-                    {v.cvss_score != null && (
-                      <span className="ml-1.5 text-mini text-slate-500 dark:text-slate-400 font-mono">
-                        {v.cvss_score.toFixed(1)}
-                      </span>
-                    )}
-                  </td>
-                  <td className="px-3 py-2 text-slate-700 dark:text-slate-300">{v.vendor_project}</td>
-                  <td className="px-3 py-2 text-slate-700 dark:text-slate-300">{v.product}</td>
-                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-xs truncate">
-                    {v.vulnerability_name}
-                  </td>
-                  <td
-                    className={`px-3 py-2 whitespace-nowrap ${overdue ? 'text-red-600 dark:text-red-400 font-semibold' : 'text-slate-500 dark:text-slate-400'}`}
-                  >
-                    {v.due_date}
-                  </td>
-                  <td className="px-3 py-2">
-                    {v.known_ransomware_campaign_use === 'Known' ? (
-                      <span className="inline-flex items-center gap-1 text-xs font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 px-2 py-0.5 rounded-full">
-                        <AlertTriangle size={10} /> Yes
-                      </span>
-                    ) : (
-                      <span className="text-xs text-slate-500 dark:text-slate-400">No</span>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              return <span className={`whitespace-nowrap ${overdue ? 'text-red-600 dark:text-red-400 font-semibold' : 'text-slate-500 dark:text-slate-400'}`}>{v.due_date}</span>;
+            } },
+            { key: 'ransomware', header: 'Ransomware', render: (v) => v.known_ransomware_campaign_use === 'Known' ? (
+              <span className="inline-flex items-center gap-1 text-xs font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 px-2 py-0.5 rounded-full"><AlertTriangle size={10} /> Yes</span>
+            ) : <span className="text-xs text-slate-500 dark:text-slate-400">No</span> },
+          ] as DataTableColumn<typeof pageEntries[number]>[]}
+          rows={pageEntries}
+          rowKey={(v) => v.cve_id}
+          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-slate-800/50'}
+        />
 
         {/* Pagination */}
         {filtered.length > 0 && (
