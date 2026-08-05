@@ -9,6 +9,15 @@ interface StealerEntry {
   ip?: string;
 }
 
+interface MalwareScanResult {
+  malware_family?: string;
+  verdict?: 'malicious' | 'suspicious' | 'clean' | string;
+  first_seen?: string;
+  tags?: string[];
+  error?: string;
+  [key: string]: unknown;
+}
+
 interface PhoneResult {
   phone: { e164: string; digits: string; country_code: string; country_name: string; national_number: string };
   carrier: { type: string; carrier: string; confidence: string };
@@ -81,7 +90,7 @@ export default function PhoneOsintNew() {
 
   // Malware state
   const [hashInput, setHashInput] = useState('');
-  const [malwareResult, setMalwareResult] = useState<any>(null);
+  const [malwareResult, setMalwareResult] = useState<MalwareScanResult | null>(null);
   const [malwareScanning, setMalwareScanning] = useState(false);
 
   const handlePhoneScan = useCallback(async () => {
@@ -101,8 +110,8 @@ export default function PhoneOsintNew() {
         { id: Date.now().toString(), number: input, timestamp: new Date().toISOString() },
         ...prev,
       ]);
-    } catch (e: any) {
-      setError(e.message || 'Scan failed');
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : 'Scan failed');
     } finally {
       setScanning(false);
     }
@@ -115,10 +124,10 @@ export default function PhoneOsintNew() {
     try {
       const res = await fetch(`/api/v1/malware-samples?hash=${encodeURIComponent(hashInput.trim())}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
+      const data = (await res.json()) as MalwareScanResult;
       setMalwareResult(data);
-    } catch (e: any) {
-      setMalwareResult({ error: e.message || 'Scan failed' });
+    } catch (e: unknown) {
+      setMalwareResult({ error: e instanceof Error ? e.message : 'Scan failed' });
     } finally {
       setMalwareScanning(false);
     }

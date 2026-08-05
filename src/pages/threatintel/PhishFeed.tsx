@@ -180,7 +180,7 @@ export default function PhishFeed(): JSX.Element {
         </div>
         <select
           value={sourceFilter}
-          onChange={(e) => setSourceFilter(e.target.value as any)}
+          onChange={(e) => setSourceFilter(e.target.value as 'all' | 'openphish' | 'phishtank')}
           className="px-3 py-2 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-rose-500"
         >
           <option value="all">All sources</option>
@@ -227,7 +227,7 @@ export default function PhishFeed(): JSX.Element {
         <div className="flex-1" />
         <select
           value={exportFormat}
-          onChange={(e) => setExportFormat(e.target.value as any)}
+          onChange={(e) => setExportFormat(e.target.value as 'txt' | 'hosts' | 'adblock')}
           className="px-2 py-1 rounded text-xs font-mono border border-slate-300 dark:border-[rgb(var(--border-400))] bg-white dark:bg-[rgb(var(--surface-200))] text-slate-700 dark:text-slate-300 focus:outline-none focus:border-rose-500"
         >
           <option value="txt">Plain list (.txt)</option>
