@@ -154,6 +154,12 @@ export function buildSynthesizerPrompt(query: string, queryType: string, current
   const isIoc = ['ip', 'domain', 'hash', 'url'].includes(queryType);
   const isHash = queryType === 'hash';
   const isIp = queryType === 'ip';
+  const isSoc =
+    queryType === 'soc' ||
+    queryType === 'incident' ||
+    queryType === 'alert' ||
+    queryType === 'playbook' ||
+    queryType === 'detection';
 
   return `<role>You are a senior CTI analyst producing a formal, defensible cyber threat intelligence report. Your audience includes CTI analysts, SOC engineers, incident responders, vulnerability managers, red teams, security awareness teams, and executive leadership. The report must pass analytic rigor standards (ICD-203 confidence/likelihood separation, ACH consideration, Diamond Model mapping). Follow the Zeltser Cyber Threat Intelligence Report Template structure exactly.</role>
 
@@ -385,6 +391,38 @@ Include ONLY when ≥2 distinct hypotheses are both viable AND the evidence does
 **Alternative hypotheses not ruled out:** Name other candidates still viable.
 
 **What would change the assessment:** Name the specific evidence that would shift the leading hypothesis — makes the assessment falsifiable.
+
+${
+  isSoc
+    ? `## 11.5. SOC Actions & Detection Recommendations
+
+When the investigation is SOC-relevant (incident response, detection engineering, playbook automation), include this section with concrete SOC actions:
+
+### Recommended Detection Rules
+List the detection rules that should be deployed (YARA, Sigma, KQL, Splunk SPL). If generate_yara_rule or generate_hunting_queries were called, cite their output. If not, recommend specific detection logic based on the IOCs and TTPs observed.
+
+| Rule Type | Logic Summary | Platform | False Positive Risk |
+|---|---|---|---|
+| ... | ... | ... | ... |
+
+### IR Playbook Steps
+If generate_ir_playbook was called, summarize the key steps. If not, recommend 3-5 high-level IR steps based on the threat.
+
+1. **Detection** — How to detect this threat (SIEM queries, EDR rules)
+2. **Containment** — Immediate containment actions (isolate host, block IP, disable account)
+3. **Eradication** — How to remove the threat (patch, rebuild, credential reset)
+4. **Recovery** — How to restore services safely
+5. **Lessons Learned** — What to improve (detection gaps, process improvements)
+
+### SOC Automation Recommendations
+If soc_playbook tools were available, recommend specific playbook triggers and actions. If the investigation generated IOCs, recommend adding them to the IOC watchlist.
+
+- **Trigger:** alert_created / incident_created
+- **Actions:** webhook to SIEM, create ticket, add IOC to watchlist, run detection query
+
+Omit this entire section if the investigation is NOT SOC-relevant (e.g. pure threat actor profiling with no incident context).`
+    : ''
+}
 
 ## 12. About this Report
 

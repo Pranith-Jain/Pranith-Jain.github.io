@@ -1,6 +1,8 @@
 import { logCatch } from '../../lib/log';
 import { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { Bot } from 'lucide-react';
 import {
   BookOpen,
   Loader2,
@@ -64,6 +66,7 @@ const INCIDENT_TYPES: Array<{ id: string; label: string; icon: LucideIcon }> = [
 ];
 
 export default function IrPlaybooks(): JSX.Element {
+  const navigate = useNavigate();
   const [incidentType, setIncidentType] = useState('');
   const [context, setContext] = useState('');
   const [loading, setLoading] = useState(false);
@@ -206,6 +209,20 @@ export default function IrPlaybooks(): JSX.Element {
               <span className="flex items-center gap-1">
                 <Link2 size={12} /> {result.playbook.tools_used.length} tools
               </span>
+            </div>
+            <div className="mt-3 flex gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const steps = result.playbook.steps.map((s) => `${s.title}: ${s.description}`).join('\n');
+                  const tools = result.playbook.tools_used.join(', ');
+                  const query = `I generated an IR playbook for "${result.incident_type}". Investigate the threat and generate detection rules (YARA, Sigma, KQL) for the IOCs and TTPs.\n\nPlaybook: ${result.playbook.title}\nSeverity: ${result.playbook.severity}\nSteps:\n${steps}\nTools: ${tools}`;
+                  navigate(`/copilot?q=${encodeURIComponent(query)}`);
+                }}
+                className="text-xs font-mono px-3 py-1.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/50 inline-flex items-center gap-1.5"
+              >
+                <Bot size={11} /> Send to Agent
+              </button>
             </div>
           </div>
 
