@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError } from '../lib/api-error';
 import { fullDnsLookup, batchDnsLookup, wildcardProbe } from '../lib/dns-lookup';
 
@@ -16,7 +17,7 @@ dnsLookupRouter.get('/dns/lookup', async (c) => {
     const result = await fullDnsLookup(hostname);
     return c.json(result, 200, { 'cache-control': 'public, max-age=300' });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 });
@@ -26,7 +27,7 @@ dnsLookupRouter.post('/dns/batch', async (c) => {
   try {
     body = await c.req.json();
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return badRequest(c, 'invalid JSON body');
   }
   const hostnames = body.hostnames;
@@ -43,7 +44,7 @@ dnsLookupRouter.post('/dns/batch', async (c) => {
     const results = await batchDnsLookup(hostnames.map((h) => h.toLowerCase()));
     return c.json({ results, count: results.length });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 });
@@ -57,7 +58,7 @@ dnsLookupRouter.get('/dns/wildcard-probe', async (c) => {
     const result = await wildcardProbe(domain);
     return c.json(result, 200, { 'cache-control': 'public, max-age=600' });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 });

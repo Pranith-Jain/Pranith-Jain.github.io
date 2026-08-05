@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { requireAdminMiddleware } from '../lib/admin-auth';
 import { safeJsonBody } from '../lib/safe-body';
@@ -106,7 +107,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
           errors.push(`unknown format: ${fmt}`);
         }
       } catch (err) {
-        console.error('handler failed:', err instanceof Error ? err.message : String(err));
+        logError('handler failed', err);
         errors.push(`${fmt}: ${err instanceof Error ? err.message : String(err)}`);
       }
     }
@@ -147,7 +148,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
           ? { ok: true, detail: `HTTP ${r.status}` }
           : { ok: false, detail: `HTTP ${r.status}: ${body.slice(0, 120)}` };
       } catch (e) {
-        console.error('handler failed:', e instanceof Error ? e.message : String(e));
+        logError('handler failed', e);
         groqTest = { ok: false, detail: e instanceof Error ? e.message : String(e) };
       }
     }

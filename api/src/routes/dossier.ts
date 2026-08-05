@@ -11,6 +11,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound } from '../lib/api-error';
 import { detectType } from '../lib/report/subject-resolver';
 import { extractFiveW, type FiveW } from '../lib/fivew-extract';
@@ -58,7 +59,7 @@ export async function dossierHandler(c: Context<{ Bindings: Env }>): Promise<Res
     try {
       body = await c.req.json();
     } catch (_catchErr) {
-      console.error('dossierHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('dossierHandler failed', _catchErr);
       return badRequest(c, 'Invalid JSON body');
     }
 
@@ -88,7 +89,7 @@ export async function dossierHandler(c: Context<{ Bindings: Env }>): Promise<Res
         fiveW = await extractFiveW(enrichment.rawText, c.env);
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       // 5W extraction is best-effort
     }
 
@@ -104,7 +105,7 @@ export async function dossierHandler(c: Context<{ Bindings: Env }>): Promise<Res
       tlp: 'CLEAR',
     } satisfies DossierResponse);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }
@@ -166,7 +167,7 @@ async function buildCveDossier(c: Context<{ Bindings: Env }>, entity: DossierEnt
       fiveW = await extractFiveW(rawText, c.env);
     }
   } catch (_catchErr) {
-    console.error('buildCveDossier failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('buildCveDossier failed', _catchErr);
     // best-effort
   }
 
@@ -248,7 +249,7 @@ async function enrichEntity(c: Context<{ Bindings: Env }>, entity: DossierEntity
       }
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* best-effort */
   }
 

@@ -10,6 +10,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 
 const INTERNAL = 'https://self.internal';
@@ -22,7 +23,7 @@ async function selfFetch(self: Fetcher | undefined, path: string): Promise<Recor
     if (!res.ok) return null;
     return (await res.json()) as Record<string, unknown>;
   } catch (_catchErr) {
-    console.error('selfFetch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('selfFetch failed', _catchErr);
     return null;
   }
 }

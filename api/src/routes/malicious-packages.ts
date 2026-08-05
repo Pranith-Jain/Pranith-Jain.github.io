@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { writeLastGood } from '../lib/lastgood';
@@ -93,7 +94,7 @@ export async function maliciousPackagesHandler(c: Context<{ Bindings: Env }>): P
       upstreamError = `github contents ${res.status}`;
     }
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     upstreamError = `fetch failed: ${(err as Error).message}`;
   }
 
@@ -113,7 +114,7 @@ export async function maliciousPackagesHandler(c: Context<{ Bindings: Env }>): P
           );
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* stale read failed; fall through to error */
       }
     }

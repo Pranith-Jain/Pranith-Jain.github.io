@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { stealerParserJsonSchema, rawLogTextSchema } from '../lib/validation-schemas';
 import { validationError, badRequest, internalError } from '../lib/api-error';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
@@ -201,7 +202,7 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
           if (res.ok) text = await res.text();
           else if (res.body) safeNull(res.body.cancel());
         } catch (e) {
-          console.error('handler failed:', e instanceof Error ? e.message : String(e));
+          logError('handler failed', e);
           if (e instanceof SsrfError) {
             return badRequest(c, e.detail);
           }
@@ -341,7 +342,7 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
 
     return c.json(result, 200, { 'Cache-Control': 'no-store' });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return internalError(c, err);
   }
 }

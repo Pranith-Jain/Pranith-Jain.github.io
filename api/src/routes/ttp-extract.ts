@@ -15,6 +15,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { extractTTPsKeyword, extractTTPsLLM, type TtpHit } from '../lib/ttp-extract';
 import { safeNullLog } from '../lib/safe-catch';
@@ -34,7 +35,7 @@ export async function ttpExtractHandler(c: Context<{ Bindings: Env }>): Promise<
   try {
     body = await c.req.json();
   } catch (_catchErr) {
-    console.error('ttpExtractHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('ttpExtractHandler failed', _catchErr);
     return badRequest(c, 'invalid JSON body');
   }
   const text = typeof body.text === 'string' ? body.text : '';
@@ -57,7 +58,7 @@ export async function ttpExtractHandler(c: Context<{ Bindings: Env }>): Promise<
       return c.json(data, 200, { 'cache-control': `public, max-age=${CACHE_TTL}` });
     }
   } catch (_catchErr) {
-    console.error('ttpExtractHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('ttpExtractHandler failed', _catchErr);
     /* miss — proceed */
   }
 

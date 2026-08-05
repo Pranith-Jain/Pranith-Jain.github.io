@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { createCveController } from '../controllers';
 import { createKvCveRepository } from '../infrastructure/persistence/kv-cve-repository';
 import { vulncheckCve } from '../lib/vulncheck';
@@ -49,7 +50,7 @@ export async function cveSearchHandler(c: Context<{ Bindings: Env }>) {
 
       return c.json(data, 200, { 'Cache-Control': 'public, max-age=1800, s-maxage=3600' });
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       if (data) return c.json(data, 200, { 'Cache-Control': 'public, max-age=1800, s-maxage=3600' });
     }
   }

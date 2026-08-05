@@ -13,6 +13,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError, serviceUnavailable } from '../lib/api-error';
 import { runFullCollection, getIocStats, applyDecayScoring, sweepStaleData } from '../lib/cti-collector';
 import { generatePredictions, getRecentPredictions } from '../lib/cti-prediction';
@@ -199,7 +200,7 @@ export async function ctiMutateHandler(c: Context<{ Bindings: Env }>) {
 
     return c.json({ seed, variants });
   } catch (e) {
-    console.error('ctiMutateHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('ctiMutateHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : 'mutation failed');
   }
 }

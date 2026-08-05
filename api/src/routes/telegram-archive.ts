@@ -1,4 +1,5 @@
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
 import { CVE_RECENT_CACHE_KEY } from './cve-recent';
 import { MALWARE_SAMPLES_CACHE_KEY } from './malware-samples';
@@ -222,7 +223,7 @@ async function sendTo(env: Env, chatId: string, text: string): Promise<boolean> 
     });
     return r.ok; // 429 / 5xx → false
   } catch (_catchErr) {
-    console.error('sendTo failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('sendTo failed', _catchErr);
     return false;
   }
 }
@@ -252,7 +253,7 @@ export async function runTelegramArchive(env: Env): Promise<{ posted: number; sk
   try {
     state = ((await env.CASE_STUDIES.get(STATE_KEY, 'json')) as SeenState) ?? {};
   } catch (_catchErr) {
-    console.error('runTelegramArchive failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('runTelegramArchive failed', _catchErr);
     state = {};
   }
   const ts = new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
@@ -268,7 +269,7 @@ export async function runTelegramArchive(env: Env): Promise<{ posted: number; sk
     try {
       body = await hit.json();
     } catch (_catchErr) {
-      console.error('runTelegramArchive failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('runTelegramArchive failed', _catchErr);
       continue;
     }
     const seen = new Set(state[c.cat] ?? []);
@@ -295,7 +296,7 @@ export async function runTelegramArchive(env: Env): Promise<{ posted: number; sk
       try {
         body = await hit.json();
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         body = null;
       }
       if (body) {
@@ -313,7 +314,7 @@ export async function runTelegramArchive(env: Env): Promise<{ posted: number; sk
     try {
       await env.CASE_STUDIES.put(STATE_KEY, JSON.stringify(state));
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* KV write failed — items may repost next run; acceptable, non-fatal */
     }
   }

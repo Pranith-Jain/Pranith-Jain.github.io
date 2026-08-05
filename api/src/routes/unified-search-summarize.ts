@@ -12,6 +12,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { generateAiSummary, type SummaryInput } from '../lib/ai-summary';
 import { neutralizeUntrusted } from '../lib/prompt-fence';
@@ -67,7 +68,7 @@ export async function unifiedSearchSummarizeHandler(c: Context<{ Bindings: Env }
       return c.json(data, 200, { 'cache-control': `public, max-age=${CACHE_TTL}` });
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* cache miss — proceed */
   }
 
@@ -93,7 +94,7 @@ export async function unifiedSearchSummarizeHandler(c: Context<{ Bindings: Env }
       })
     );
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* best-effort cache write */
   }
 

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { writeLastGood } from '../lib/lastgood';
 
@@ -95,7 +96,7 @@ async function readLastGood(
         if (Array.isArray(parsed.urls) && parsed.urls.length > 0) return parsed.urls;
       }
     } catch (_catchErr) {
-      console.error('readLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('readLastGood failed', _catchErr);
       /* fall through to legacy */
     }
   }
@@ -106,7 +107,7 @@ async function readLastGood(
     const lg = (await lgCached.json()) as LastGoodSlice;
     return Array.isArray(lg.urls) && lg.urls.length > 0 ? lg.urls : null;
   } catch (_catchErr) {
-    console.error('readLastGood failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readLastGood failed', _catchErr);
     return null;
   }
 }
@@ -125,7 +126,7 @@ async function fetchOpenphish(): Promise<string | null> {
     if (!res.ok) return null;
     return await res.text();
   } catch (_catchErr) {
-    console.error('fetchOpenphish failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchOpenphish failed', _catchErr);
     return null;
   }
 }
@@ -148,7 +149,7 @@ async function fetchPhishtank(apiKey?: string): Promise<string | null> {
     if (!res.ok) return null;
     return await res.text();
   } catch (_catchErr) {
-    console.error('fetchPhishtank failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchPhishtank failed', _catchErr);
     return null;
   }
 }
@@ -372,7 +373,7 @@ export function brandFromUrl(rawUrl: string): string | undefined {
     const u = new URL(rawUrl);
     haystack = `${u.hostname}${u.pathname}`.toLowerCase();
   } catch (_catchErr) {
-    console.error('brandFromUrl failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('brandFromUrl failed', _catchErr);
     haystack = rawUrl.toLowerCase();
   }
   for (const { brand, patterns } of BRAND_KEYWORDS) {

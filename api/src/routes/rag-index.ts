@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
 import { indexDocument, queryCorpus } from '../lib/rag-embedder';
 
@@ -46,12 +47,12 @@ export async function indexTelegramLeaks(env: Env): Promise<{ indexed: number; e
         });
         indexed += n;
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         errors++;
       }
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     errors++;
   }
 

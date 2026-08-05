@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 /**
@@ -827,7 +828,7 @@ async function checkPlatform(username: string, platform: PlatformCheck): Promise
     }
     return { platform: platform.id, name: platform.name, category: platform.category, status: 'unknown', url };
   } catch (_catchErr) {
-    console.error('checkPlatform failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('checkPlatform failed', _catchErr);
     return { platform: platform.id, name: platform.name, category: platform.category, status: 'error', url };
   }
 }
@@ -1152,7 +1153,7 @@ export async function usernameProfileHandler(c: Context<{ Bindings: Env }>): Pro
           results.push({ platform: platform.id, name: platform.name, category: platform.category, status, url });
         }
       } catch (_catchErr) {
-        console.error('worker failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('worker failed', _catchErr);
         results.push({ platform: platform.id, name: platform.name, category: platform.category, status: 'error', url });
       }
     }

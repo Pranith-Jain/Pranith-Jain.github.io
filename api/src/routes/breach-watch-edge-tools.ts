@@ -14,6 +14,7 @@
  */
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { internalError, notFound } from '../lib/api-error';
 
 async function loadBwMod() {
@@ -35,7 +36,7 @@ breachWatchRouter.get('/breach-watch/', async (c) => {
       categories: idx.categories,
     });
   } catch (e) {
-    console.error('loadBwMod failed:', e instanceof Error ? e.message : String(e));
+    logError('loadBwMod failed', e);
     return internalError(c, `bw_index_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -67,7 +68,7 @@ breachWatchRouter.get('/breach-watch/breaches', async (c) => {
     });
     return c.json({ total: idx.counts.breaches, returned: breaches.length, breaches });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `bw_breaches_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -80,7 +81,7 @@ breachWatchRouter.get('/breach-watch/breaches/:slug', async (c) => {
     if (!body) return notFound(c, `breach_not_found: ${slug}`);
     return c.json(body);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `bw_breach_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -95,7 +96,7 @@ breachWatchRouter.get('/breach-watch/groups', async (c) => {
     const groups = mod.listGroups(idx, { keyword: keyword || undefined, minCount, limit });
     return c.json({ total: idx.groups.length, returned: groups.length, groups });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `bw_groups_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -106,7 +107,7 @@ breachWatchRouter.get('/breach-watch/stats', async (c) => {
     const idx = await mod.loadBwIndex(c.env.ASSETS);
     return c.json({ counts: idx.counts, cache: mod.bwCacheStats() });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `bw_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

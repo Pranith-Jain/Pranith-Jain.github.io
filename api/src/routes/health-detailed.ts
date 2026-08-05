@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { getBindingStatus, validateRequiredBindings, type BindingStatus } from '../../../worker/bindings';
 
 /**
@@ -46,7 +47,7 @@ export async function healthDetailedHandler(c: Context<{ Bindings: Env }>): Prom
       if (raceTimerId !== undefined) clearTimeout(raceTimerId);
       return { ok: true, latency_ms: Date.now() - start };
     } catch (e) {
-      console.error('healthDetailedHandler failed:', e instanceof Error ? e.message : String(e));
+      logError('healthDetailedHandler failed', e);
       return { ok: false, latency_ms: Date.now() - start, error: e instanceof Error ? e.message : 'unknown' };
     }
   };

@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
@@ -49,7 +50,7 @@ interpolRouter.get('/interpol/red-notices', async (c) => {
     c.executionCtx.waitUntil(routeCachePut(cacheKey, body, CACHE_TTL));
     return c.json(body);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Interpol API unreachable');
   }
 });
@@ -70,7 +71,7 @@ interpolRouter.get('/interpol/red-notices/:noticeId', async (c) => {
     const data = await res.json();
     return c.json({ notice: data, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Interpol API unreachable');
   }
 });

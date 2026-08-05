@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
 
 /**
@@ -51,7 +52,7 @@ export async function actorCvesHandler(c: Context<{ Bindings: Env }>): Promise<R
         cves = data.linked_cves ?? [];
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       // Non-fatal — return empty list
     }
   }

@@ -11,6 +11,7 @@
  */
 
 import { Hono } from 'hono';
+import { logError } from '../lib/logger';
 import type { D1Database, KVNamespace } from '@cloudflare/workers-types';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
@@ -291,7 +292,7 @@ feed.get('/feed-trending', async (c) => {
       }>();
     recentItems = result.results || [];
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     // Tables may not exist - return empty trending
   }
 

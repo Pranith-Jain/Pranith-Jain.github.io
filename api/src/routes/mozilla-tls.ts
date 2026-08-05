@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { kvBackedGet, kvBackedPut } from '../lib/route-cache';
 
@@ -29,7 +30,7 @@ mozillaTlsRouter.get('/mozilla-tls/scan', async (c) => {
     if (c.env.KV_CACHE) c.executionCtx.waitUntil(kvBackedPut(c.env.KV_CACHE, cacheKey, body, CACHE_TTL));
     return c.json(body);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Mozilla TLS unreachable');
   }
 });
@@ -51,7 +52,7 @@ mozillaTlsRouter.get('/mozilla-tls/result', async (c) => {
     const data = await res.json();
     return c.json({ scanId, results: data, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Mozilla TLS unreachable');
   }
 });

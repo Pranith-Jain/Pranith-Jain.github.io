@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 import { reportParserJsonSchema, rawLogTextSchema } from '../lib/validation-schemas';
 import { validationError, badRequest, internalError, respondError } from '../lib/api-error';
@@ -332,7 +333,7 @@ Rules:
       summary: parsed.summary ?? '',
     };
   } catch (err) {
-    console.error('AI extraction failed:', err);
+    logError('AI extraction failed:', err);
     return null;
   }
 }
@@ -376,7 +377,7 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
         try {
           parsedUrl = new URL(sourceUrl);
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           return badRequest(c, 'Invalid URL');
         }
         if (parsedUrl.protocol !== 'https:' && parsedUrl.protocol !== 'http:') {
@@ -416,7 +417,7 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
             text = buf;
           }
         } catch (err) {
-          console.error('handler failed:', err instanceof Error ? err.message : String(err));
+          logError('handler failed', err);
           if (err instanceof SsrfError) {
             return respondError(c, 'error', err.detail, err.status as 400 | 403 | 502);
           }
@@ -526,7 +527,7 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
       'Cache-Control': 'no-store', // Don't cache extraction results
     });
   } catch (err) {
-    console.error('Report parser error:', err);
+    logError('Report parser error:', err);
     return internalError(c, err);
   }
 }

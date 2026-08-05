@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
@@ -59,7 +60,7 @@ export async function iocExtractionHandler(c: Context<{ Bindings: Env }>): Promi
     const analysis = parseJson(text);
     return c.json({ analysis, model, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('ioc-extraction error:', e);
+    logError('ioc-extraction error:', e);
     return internalError(c, 'extraction failed');
   }
 }

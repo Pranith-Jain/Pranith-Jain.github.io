@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { getSiteUrl } from '../lib/site-config';
 import { safeEqual } from '../lib/admin-auth';
 import { stixId } from '../lib/uuidv5';
@@ -173,7 +174,7 @@ export async function taxiiObjectsHandler(c: Context<{ Bindings: Env }>): Promis
       }
     );
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return c.json(
       {
         title: 'Error',

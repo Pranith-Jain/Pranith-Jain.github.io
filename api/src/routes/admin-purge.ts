@@ -17,6 +17,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { requireAdmin } from '../lib/admin-auth';
 import { badRequest, internalError, serviceUnavailable, badGateway } from '../lib/api-error';
 import { auditAdminAction } from '../lib/admin-audit';
@@ -56,7 +57,7 @@ export async function purgeCacheHandler(c: Context<{ Bindings: Env }>): Promise<
         await cache.delete(new Request(url));
         purged++;
       } catch (_catchErr) {
-        console.error('purgeCacheHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('purgeCacheHandler failed', _catchErr);
         /* skip */
       }
     }
@@ -102,7 +103,7 @@ export async function purgeCacheHandler(c: Context<{ Bindings: Env }>): Promise<
     });
     return c.json({ ok: true, method: 'cf-api-v4', payload });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }

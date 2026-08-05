@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, conflict } from '../../lib/api-error';
 import { safeJsonBody } from '../../lib/safe-body';
 import { putPost, listPostIndex, removePost } from '../../case-study/storage/posts';
@@ -61,7 +62,7 @@ postsRouter.post('/posts/manual', async (c) => {
         if (u.protocol !== 'https:' && u.protocol !== 'http:') throw new Error();
         if (!u.hostname.includes('.')) throw new Error();
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         return badRequest(c, `sources[${i}].url is not a valid HTTP URL: ${s.url}`);
       }
     }

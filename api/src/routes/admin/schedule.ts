@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../../lib/api-error';
 import { getAi } from '../../lib/ai-binding';
 import { safeJsonBody } from '../../lib/safe-body';
@@ -88,7 +89,7 @@ scheduleRouter.post('/schedule/:candidateId/publish-now', async (c) => {
 
     return c.json({ ok: true, slug: post.slug, title: post.title });
   } catch (err) {
-    console.error('schedule-publish-now failed:', err);
+    logError('schedule-publish-now failed:', err);
     return internalError(c, 'publish_failed');
   }
 });

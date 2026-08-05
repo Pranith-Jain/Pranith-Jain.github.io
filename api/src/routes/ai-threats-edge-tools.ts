@@ -11,6 +11,7 @@
  */
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { internalError, notFound } from '../lib/api-error';
 
 async function loadAiMod() {
@@ -33,7 +34,7 @@ aiThreatsRouter.get('/ai-threats/', async (c) => {
       stixAvailable: idx.stixAvailable,
     });
   } catch (e) {
-    console.error('loadAiMod failed:', e instanceof Error ? e.message : String(e));
+    logError('loadAiMod failed', e);
     return internalError(c, `ai_threats_index_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -56,7 +57,7 @@ aiThreatsRouter.get('/ai-threats/entries', async (c) => {
     });
     return c.json({ total: idx.counts.total, returned: entries.length, entries });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `ai_threats_entries_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -69,7 +70,7 @@ aiThreatsRouter.get('/ai-threats/entries/:slug', async (c) => {
     if (!body) return notFound(c, `ai_threat_not_found: ${slug}`);
     return c.json(body);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `ai_threat_entry_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -88,7 +89,7 @@ aiThreatsRouter.get('/ai-threats/stats', async (c) => {
       cache,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `ai_threats_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

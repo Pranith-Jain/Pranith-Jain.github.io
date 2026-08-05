@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import { addWatch, listWatches, removeWatch, listAlerts } from '../lib/address-watch';
 import type { CryptoWatchAddInput } from '../lib/validation-schemas';

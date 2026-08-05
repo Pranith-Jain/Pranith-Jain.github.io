@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { internalError, notFound, badGateway } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
@@ -170,7 +171,7 @@ pcmedicalistRouter.get('/pcmedicalist/day/:date/search', async (c) => {
         /* fall through */
       }
     }
-    console.error('pcm day search failed:', err instanceof Error ? err.message : String(err));
+    logError('pcm day search failed', err);
     return badGateway(c, `upstream feed fetch failed: ${err instanceof Error ? err.message : String(err)}`);
   }
 });

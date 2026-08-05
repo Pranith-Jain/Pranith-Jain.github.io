@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badGateway } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
@@ -114,7 +115,7 @@ async function fetchJson<T>(url: string): Promise<T | null> {
     if (!r.ok) return null;
     return (await r.json()) as T;
   } catch (_catchErr) {
-    console.error('fetchJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchJson failed', _catchErr);
     return null;
   }
 }
@@ -257,7 +258,7 @@ export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<
               })
             );
           } catch (err) {
-            console.error('onion-watch KV cache put failed:', err instanceof Error ? err.message : String(err));
+            logError('onion-watch KV cache put failed', err);
           }
         })()
       );
@@ -306,7 +307,7 @@ export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<
         });
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* fall through to 502 */
     }
   }

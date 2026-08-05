@@ -8,6 +8,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { rdapLookup } from '../lib/rdap';
 import { ctLogs } from '../lib/crt-sh';
@@ -112,7 +113,7 @@ async function checkTelegramLeaks(db: D1Database, value: string, type: string): 
     }
     return [];
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return [];
   }
 }
@@ -143,7 +144,7 @@ async function checkHudsonRock(value: string, isEmail: boolean): Promise<BreachH
     }
     return [];
   } catch (_catchErr) {
-    console.error('checkHudsonRock failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('checkHudsonRock failed', _catchErr);
     return [];
   }
 }
@@ -171,7 +172,7 @@ async function checkHibpBreaches(value: string, type: string, env: Env): Promise
       description: `Data classes: ${b.DataClasses.join(', ')}`,
     }));
   } catch (_catchErr) {
-    console.error('checkHibpBreaches failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('checkHibpBreaches failed', _catchErr);
     return [];
   }
 }
@@ -221,7 +222,7 @@ async function runProviders(indicator: Indicator, env: Env): Promise<ProviderRes
         if (r.status === 'ok') await recordProviderSuccess(p);
         else recordProviderFailure(p);
       } catch (err) {
-        console.error('runProviders failed:', err instanceof Error ? err.message : String(err));
+        logError('runProviders failed', err);
         recordProviderFailure(p);
         collected.push({
           source: p,
@@ -357,7 +358,7 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
           }
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         whois = null;
       }
     }
@@ -391,7 +392,7 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
 
     return c.json(response, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e instanceof Error ? e.message : 'hunt v2 failed');
   }
 }

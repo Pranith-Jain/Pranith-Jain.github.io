@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 
 interface PathNode {
   id: string;
@@ -186,7 +187,7 @@ export async function attackPathGraphHandler(c: Context<{ Bindings: Env }>): Pro
 
     return c.json(buildResult(nodes, edges));
   } catch (e) {
-    console.error('attack-path-graph failed:', e instanceof Error ? e.message : String(e));
+    logError('attack-path-graph failed', e);
     return c.json(generateDemoGraph());
   }
 }

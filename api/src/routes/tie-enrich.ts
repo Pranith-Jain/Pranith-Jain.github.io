@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, serviceUnavailable } from '../lib/api-error';
 import type { AgentState } from '../lib/agent/types';
 import { signInternalToken } from '../lib/internal-token';
@@ -11,7 +12,7 @@ export async function tieEnrichHandler(c: Context<{ Bindings: Env }>): Promise<R
   try {
     body = await c.req.json<{ ioc?: string; ioc_type?: string; deep?: boolean }>();
   } catch (_catchErr) {
-    console.error('tieEnrichHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('tieEnrichHandler failed', _catchErr);
     return badRequest(c, 'Invalid JSON body');
   }
 
@@ -143,12 +144,12 @@ export async function tieEnrichStreamHandler(c: Context<{ Bindings: Env }>): Pro
             try {
               controller.close();
             } catch (_catchErr) {
-              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+              logError('handler failed', _catchErr);
               /* already closed */
             }
           }
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           /* poll error, retry next tick */
         }
       }, 500);
@@ -161,7 +162,7 @@ export async function tieEnrichStreamHandler(c: Context<{ Bindings: Env }>): Pro
           try {
             controller.close();
           } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            logError('handler failed', _catchErr);
             /* already closed */
           }
         }

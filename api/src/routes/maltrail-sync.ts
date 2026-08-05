@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { kvBulkGetText } from '../lib/safe-catch';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
@@ -90,7 +91,7 @@ async function readSkeletonIndex(kv: KVNamespace): Promise<string[]> {
     const parsed = JSON.parse(raw) as string[];
     return Array.isArray(parsed) ? parsed : [];
   } catch (_catchErr) {
-    console.error('readSkeletonIndex failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readSkeletonIndex failed', _catchErr);
     return [];
   }
 }
@@ -114,7 +115,7 @@ export async function maltrailSyncHandler(c: Context<{ Bindings: Env }>): Promis
     }
     files = (await res.json()) as Array<{ name: string; size?: number; type?: string }>;
   } catch (err) {
-    console.error('maltrailSyncHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('maltrailSyncHandler failed', err);
     return badGateway(c, `maltrail list fetch: ${(err as Error).message}`);
   }
 
@@ -174,7 +175,7 @@ export async function maltrailSyncHandler(c: Context<{ Bindings: Env }>): Promis
           record.discovered_at = now;
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         record.discovered_at = now;
       }
       updated.push(slug);
@@ -253,7 +254,7 @@ export async function listSkeletonActorsHandler(c: Context<{ Bindings: Env }>): 
       const raw = values.get(`${SKELETON_KEY_PREFIX}${slug}`) ?? null;
       return raw ? (JSON.parse(raw) as SkeletonActor) : null;
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       return null;
     }
   });

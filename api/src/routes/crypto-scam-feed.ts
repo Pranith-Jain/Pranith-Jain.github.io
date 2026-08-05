@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { readLastGood, writeLastGood } from '../lib/lastgood';
 
@@ -68,7 +69,7 @@ function toDomain(raw: string): string | null {
     try {
       s = new URL(s).hostname;
     } catch (_catchErr) {
-      console.error('toDomain failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('toDomain failed', _catchErr);
       s = s.split('://')[1] ?? s;
     }
   }
@@ -98,7 +99,7 @@ async function fetchRaw(): Promise<RawFeed | null> {
     if (!res.ok) return null;
     return (await res.json()) as RawFeed;
   } catch (_catchErr) {
-    console.error('fetchRaw failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchRaw failed', _catchErr);
     return null;
   }
 }

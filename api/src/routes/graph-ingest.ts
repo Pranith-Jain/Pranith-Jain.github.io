@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import type { LiveIoc } from './live-iocs';
 import { fetchTelegramFeed } from './telegram-feed';
@@ -39,7 +40,7 @@ async function upsertNodesOnly(
       });
       result.nodes_upserted++;
     } catch (e) {
-      console.error('upsertNodesOnly failed:', e instanceof Error ? e.message : String(e));
+      logError('upsertNodesOnly failed', e);
       result.errors.push(`node(${ent.type}:${ent.value}): ${e instanceof Error ? e.message : String(e)}`);
     }
   }
@@ -129,7 +130,7 @@ async function ingestLiveIocs(db: D1Database): Promise<IngestResult> {
     // ensureGraphTables(6) + upsertNode(18 * 2) = 42, fits with margin.
     return ingestBulkIocs(db, items, 18);
   } catch (e) {
-    console.error('ingestLiveIocs failed:', e instanceof Error ? e.message : String(e));
+    logError('ingestLiveIocs failed', e);
     return {
       nodes_upserted: 0,
       edges_created: 0,
@@ -168,7 +169,7 @@ async function ingestPhishingUrls(db: D1Database): Promise<IngestResult> {
       timestamp: new Date().toISOString(),
     });
   } catch (e) {
-    console.error('ingestPhishingUrls failed:', e instanceof Error ? e.message : String(e));
+    logError('ingestPhishingUrls failed', e);
     return { nodes_upserted: 0, edges_created: 0, errors: [`phishing: ${e instanceof Error ? e.message : String(e)}`] };
   }
 }
@@ -189,7 +190,7 @@ async function ingestTelegram(db: D1Database, maxItems: number = 30): Promise<In
     }));
     return ingestMultipleFeedItems(db, items, 'Telegram', maxItems);
   } catch (e) {
-    console.error('ingestTelegram failed:', e instanceof Error ? e.message : String(e));
+    logError('ingestTelegram failed', e);
     return { nodes_upserted: 0, edges_created: 0, errors: [`telegram: ${e instanceof Error ? e.message : String(e)}`] };
   }
 }
@@ -215,7 +216,7 @@ async function ingestRansomware(db: D1Database, env?: Env): Promise<IngestResult
     }
     return aggregated;
   } catch (e) {
-    console.error('ingestRansomware failed:', e instanceof Error ? e.message : String(e));
+    logError('ingestRansomware failed', e);
     return {
       nodes_upserted: 0,
       edges_created: 0,
@@ -265,7 +266,7 @@ export async function graphIngestManualHandler(c: Context<{ Bindings: Env }>): P
   try {
     results = await runGraphIngest(db, source, c.env);
   } catch (e) {
-    console.error('graphIngestManualHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('graphIngestManualHandler failed', e);
     return c.json(
       {
         ok: false,

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, serviceUnavailable } from '../lib/api-error';
 import { safeNullLog } from '../lib/safe-catch';
 // Canonical producer key — the watchlist `ioc_sightings` read previously
@@ -33,7 +34,7 @@ function cacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
   } catch (_catchErr) {
-    console.error('cacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('cacheApi failed', _catchErr);
     return null;
   }
 }
@@ -45,7 +46,7 @@ async function readWatchlistCached(): Promise<Watchlist | null> {
     const r = await cache.match(WATCHLIST_CACHE_KEY);
     return r ? ((await r.json()) as Watchlist) : null;
   } catch (_catchErr) {
-    console.error('readWatchlistCached failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readWatchlistCached failed', _catchErr);
     return null;
   }
 }
@@ -61,7 +62,7 @@ async function writeWatchlistCache(wl: Watchlist): Promise<void> {
       })
     );
   } catch (_catchErr) {
-    console.error('writeWatchlistCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('writeWatchlistCache failed', _catchErr);
     /* best-effort */
   }
 }
@@ -81,7 +82,7 @@ async function readCache<T>(key: string): Promise<T | null> {
     const cached = await cache.match(new Request(key));
     if (cached) return (await cached.json()) as T;
   } catch (_catchErr) {
-    console.error('readCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readCache failed', _catchErr);
     /* miss */
   }
   return null;
@@ -122,7 +123,7 @@ function iocMatchesDomain(value: string, domain: string): boolean {
     const host = new URL(v.includes('://') ? v : 'http://' + v).hostname;
     return host === domain || host.endsWith('.' + domain);
   } catch (_catchErr) {
-    console.error('iocMatchesDomain failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('iocMatchesDomain failed', _catchErr);
     return false;
   }
 }

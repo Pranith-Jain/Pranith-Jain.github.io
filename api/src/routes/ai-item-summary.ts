@@ -12,6 +12,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 import { generateItemSummary, type ItemInput } from '../lib/ai-item-summary';
 
@@ -28,7 +29,7 @@ export async function aiItemSummaryHandler(c: Context<{ Bindings: Env }>): Promi
   try {
     body = await c.req.json<ItemSummaryBody>();
   } catch (_catchErr) {
-    console.error('aiItemSummaryHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('aiItemSummaryHandler failed', _catchErr);
     return badRequest(c, 'invalid JSON body');
   }
 

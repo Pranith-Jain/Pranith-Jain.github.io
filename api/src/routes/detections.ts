@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 import { evaluateRules, type Detection, type EngineIndicator } from '../lib/detection-engine';
 import { DETECTION_RULES_PACK } from '../lib/detection-rules-pack';
@@ -61,7 +62,7 @@ export async function buildDetections(
       const body = (await cachedStream.json()) as { items?: LiveIoc[] };
       if (Array.isArray(body.items)) items = body.items;
     } catch (_catchErr) {
-      console.error('buildDetections failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('buildDetections failed', _catchErr);
       /* fall through to a fresh fetch */
     }
   }

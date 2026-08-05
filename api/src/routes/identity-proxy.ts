@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 
 export async function identityProxyHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -41,7 +42,7 @@ export async function identityProxyHandler(c: Context<{ Bindings: Env }>): Promi
 
     return c.json(null);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'upstream fetch failed');
   }
 }

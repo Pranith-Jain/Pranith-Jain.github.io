@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 
 /**
  * GET /api/v1/threat-intel/cross-campaign/correlations
@@ -47,7 +48,7 @@ export async function crossCampaignCorrelationHandler(c: Context<{ Bindings: Env
           };
           return { id: r.id, ...v };
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           return null;
         }
       })

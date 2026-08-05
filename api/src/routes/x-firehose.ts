@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import {
   fetchAuthedTimeline,
@@ -51,7 +52,7 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
       await resolveAuthCookies(c.env);
       return c.json({ ok: true, configured: true });
     } catch (_catchErr) {
-      console.error('xFirehoseHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('xFirehoseHandler failed', _catchErr);
       return c.json({ ok: false, configured: false, reason: 'service unavailable' }, 200);
     }
   }
@@ -93,7 +94,7 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
     }
     return c.json(body, 200, { 'cache-control': 'public, max-age=600, s-maxage=1800' });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     if (err instanceof XAuthRateLimitedError) {
       // Serve the stale Cache API entry, if any. Better an old payload
       // than a hard error during a transient rate-limit. (Anonymous would
@@ -107,7 +108,7 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
           });
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* fall through */
       }
       return tooManyRequests(c, 'rate-limited', { windowSeconds: 60 });

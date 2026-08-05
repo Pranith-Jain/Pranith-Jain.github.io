@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { safeJsonBody } from '../lib/safe-body';
 import { pinnedFetchFollow } from '../lib/ssrf-guard';
@@ -48,7 +49,7 @@ export async function fetchPageHandler(ctx: Context<{ Bindings: Env }>): Promise
     }
     return ctx.json({ html: text, url, contentType: res.headers.get('content-type') ?? '' });
   } catch (err) {
-    console.error('fetchPageHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('fetchPageHandler failed', err);
     return ctx.json({ error: err instanceof Error ? err.message : 'fetch failed' }, 502);
   }
 }

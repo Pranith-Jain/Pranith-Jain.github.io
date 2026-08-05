@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 
 const C2INTEL_30D = 'https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPPortC2s-30day.csv';
 const C2INTEL_90D = 'https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPPortC2s-90day.csv';
@@ -56,7 +57,7 @@ async function fetchText(url: string): Promise<string | null> {
     if (!res.ok) return null;
     return await res.text();
   } catch (_catchErr) {
-    console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchText failed', _catchErr);
     return null;
   }
 }

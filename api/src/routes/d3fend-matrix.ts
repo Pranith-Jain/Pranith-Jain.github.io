@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
@@ -76,7 +77,7 @@ export async function d3fendMatrixHandler(c: Context<{ Bindings: Env }>): Promis
     );
     if (res.ok) data = (await res.json()) as D3fendNode[];
   } catch (_catchErr) {
-    console.error('d3fendMatrixHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('d3fendMatrixHandler failed', _catchErr);
     /* fall through */
   }
 
@@ -106,7 +107,7 @@ export async function d3fendMatrixHandler(c: Context<{ Bindings: Env }>): Promis
     try {
       await kv.put(kvKey, json, { expirationTtl: 7 * 24 * 60 * 60 });
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* quota */
     }
   }

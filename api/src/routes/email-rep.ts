@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { safeErrorMessage } from '../lib/error';
 import { safeNullLog } from '../lib/safe-catch';
 import { emailrep } from '../providers/emailrep';
@@ -76,7 +77,7 @@ export async function emailRepHandler(c: Context<{ Bindings: Env }>): Promise<Re
       const body = (await cached.json()) as EmailRepResponse;
       return jsonResponse(c, { ...body, cached: true }, 200, CACHE_TTL_SECONDS);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* corrupt cache entry — fall through */
     }
   }
@@ -144,7 +145,7 @@ export async function emailRepHandler(c: Context<{ Bindings: Env }>): Promise<Re
     c.executionCtx.waitUntil(safeNullLog('cache-put-emailrep', cache.put(cacheReq, toCache)));
     return jsonResponse(c, body, 200, CACHE_TTL_SECONDS);
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return jsonResponse(
       c,
       {

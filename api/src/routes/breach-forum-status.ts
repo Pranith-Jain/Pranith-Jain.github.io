@@ -19,6 +19,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, serviceUnavailable } from '../lib/api-error';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 import { readRecentDeltas, type StatusDelta } from '../lib/breach-forum-status';
@@ -115,7 +116,7 @@ export async function breachForumStatusHandler(c: Context<{ Bindings: Env }>): P
           })
         );
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* cache writes are non-fatal */
       }
       try {
@@ -123,7 +124,7 @@ export async function breachForumStatusHandler(c: Context<{ Bindings: Env }>): P
           indexes: [visitorCountry(c.req.raw)],
         });
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* telemetry is best-effort */
       }
     })()

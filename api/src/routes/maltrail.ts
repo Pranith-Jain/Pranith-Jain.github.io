@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 
 const MALTRAIL_RAW = 'https://raw.githubusercontent.com/stamparm/maltrail/master/trails/static/malware';
@@ -86,7 +87,7 @@ export async function maltrailListHandler(c: Context<{ Bindings: Env }>): Promis
     c.executionCtx.waitUntil(edgeCache.put(MALTRAIL_LIST_CACHE_KEY, cacheable).catch(() => undefined));
     return c.json(body, 200, { 'cache-control': 'public, max-age=3600' });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return badGateway(c, err instanceof Error ? err.message : String(err));
   }
 }
@@ -140,7 +141,7 @@ export async function maltrailFetchHandler(c: Context<{ Bindings: Env }>): Promi
       { 'cache-control': 'public, max-age=3600' }
     );
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return badGateway(c, err instanceof Error ? err.message : String(err));
   }
 }

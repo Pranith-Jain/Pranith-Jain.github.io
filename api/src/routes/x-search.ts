@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import {
   fetchSearchTimeline,
@@ -42,7 +43,7 @@ export async function xSearchHandler(c: Context<{ Bindings: Env }>): Promise<Res
       await resolveAuthCookies(c.env);
       return c.json({ ok: true, configured: true });
     } catch (_catchErr) {
-      console.error('xSearchHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('xSearchHandler failed', _catchErr);
       return c.json({ ok: false, configured: false, reason: 'service unavailable' }, 200);
     }
   }
@@ -79,7 +80,7 @@ export async function xSearchHandler(c: Context<{ Bindings: Env }>): Promise<Res
     }
     return c.json(body, 200, { 'cache-control': 'public, max-age=300, s-maxage=900' });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     if (err instanceof XAuthMissingError) {
       return serviceUnavailable(c, 'service unavailable');
     }
@@ -93,7 +94,7 @@ export async function xSearchHandler(c: Context<{ Bindings: Env }>): Promise<Res
           });
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* fall through */
       }
       return tooManyRequests(c, 'rate-limited', { windowSeconds: 60 });

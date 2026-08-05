@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { kvBackedGet, kvBackedPut } from '../lib/route-cache';
 
@@ -34,7 +35,7 @@ virusheeRouter.get('/virushee/check', async (c) => {
     if (c.env.KV_CACHE) c.executionCtx.waitUntil(kvBackedPut(c.env.KV_CACHE, cacheKey, body, CACHE_TTL));
     return c.json(body);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Virushee unreachable');
   }
 });

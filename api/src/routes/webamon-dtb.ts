@@ -12,6 +12,7 @@
  */
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound } from '../lib/api-error';
 
 async function loadWdtbMod() {
@@ -31,7 +32,7 @@ webamonDtbRouter.get('/webamon-dtb/', async (c) => {
       counts: idx.counts,
     });
   } catch (e) {
-    console.error('loadWdtbMod failed:', e instanceof Error ? e.message : String(e));
+    logError('loadWdtbMod failed', e);
     return internalError(c, `wdtb_index_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -54,7 +55,7 @@ webamonDtbRouter.get('/webamon-dtb/briefs', async (c) => {
     });
     return c.json({ total: idx.counts.briefs, returned: briefs.length, briefs });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `wdtb_list_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -66,7 +67,7 @@ webamonDtbRouter.get('/webamon-dtb/latest', async (c) => {
     if (!brief) return notFound(c, 'no briefs available');
     return c.json(brief);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `wdtb_latest_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -80,7 +81,7 @@ webamonDtbRouter.get('/webamon-dtb/briefs/:date', async (c) => {
     if (!brief) return notFound(c, `no brief for ${date}`);
     return c.json(brief);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `wdtb_get_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -95,7 +96,7 @@ webamonDtbRouter.get('/webamon-dtb/stats', async (c) => {
       cache: mod.wdtbCacheStats(),
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `wdtb_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

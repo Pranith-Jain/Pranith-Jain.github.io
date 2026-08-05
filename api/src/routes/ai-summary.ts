@@ -10,6 +10,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { generateAiSummary, type SummaryInput } from '../lib/ai-summary';
 
@@ -45,7 +46,7 @@ export async function aiSummaryHandler(c: Context<{ Bindings: Env }>): Promise<R
       return c.json(data, 200, { 'cache-control': `public, max-age=${CACHE_TTL}` });
     }
   } catch (_catchErr) {
-    console.error('aiSummaryHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('aiSummaryHandler failed', _catchErr);
     /* cache miss — proceed */
   }
 
@@ -63,7 +64,7 @@ export async function aiSummaryHandler(c: Context<{ Bindings: Env }>): Promise<R
       })
     );
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* best-effort */
   }
 

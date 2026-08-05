@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
@@ -51,7 +52,7 @@ export async function mitreMappingHandler(c: Context<{ Bindings: Env }>): Promis
     const mapping = parseJson(text);
     return c.json({ mapping, model, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('mitre-mapping error:', e);
+    logError('mitre-mapping error:', e);
     return internalError(c, 'mapping failed');
   }
 }

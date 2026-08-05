@@ -12,6 +12,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
 
 interface DDoSBotnet {
@@ -61,7 +62,7 @@ async function fetchFeodoTracker(): Promise<DDoSBotnet[]> {
       urlhausLink: d.urlhaus_link || '',
     }));
   } catch (_catchErr) {
-    console.error('fetchFeodoTracker failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchFeodoTracker failed', _catchErr);
     return [];
   }
 }
@@ -86,7 +87,7 @@ async function fetchUrlhausRecent(): Promise<
       tags: u.tags || [],
     }));
   } catch (_catchErr) {
-    console.error('fetchUrlhausRecent failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchUrlhausRecent failed', _catchErr);
     return [];
   }
 }
@@ -115,7 +116,7 @@ async function fetchThreatFoxC2(): Promise<
       firstSeen: d.first_seen || '',
     }));
   } catch (_catchErr) {
-    console.error('fetchThreatFoxC2 failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchThreatFoxC2 failed', _catchErr);
     return [];
   }
 }

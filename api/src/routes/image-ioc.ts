@@ -11,6 +11,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import { extractIocsFromImageBytes, extractIocsFromImageUrl } from '../lib/image-ioc-extract';
 import { assertPublicHost, SsrfError } from '../lib/ssrf-guard';
@@ -28,7 +29,7 @@ export async function imageIocHandler(c: Context<{ Bindings: Env }>): Promise<Re
     try {
       body = await c.req.json();
     } catch (_catchErr) {
-      console.error('imageIocHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('imageIocHandler failed', _catchErr);
       return badRequest(c, 'expected JSON {url} or image/* body');
     }
     const url = typeof body.url === 'string' ? body.url : '';
@@ -37,7 +38,7 @@ export async function imageIocHandler(c: Context<{ Bindings: Env }>): Promise<Re
     try {
       parsed = new URL(url);
     } catch (_catchErr) {
-      console.error('imageIocHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('imageIocHandler failed', _catchErr);
       return badRequest(c, 'invalid url');
     }
     if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
@@ -51,7 +52,7 @@ export async function imageIocHandler(c: Context<{ Bindings: Env }>): Promise<Re
         return forbidden(c, check.error ?? 'host rejected');
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logError('handler failed', e);
       if (e instanceof SsrfError) {
         return forbidden(c, e.message);
       }
@@ -60,7 +61,7 @@ export async function imageIocHandler(c: Context<{ Bindings: Env }>): Promise<Re
     const r = await extractIocsFromImageUrl(url, c.env);
     return c.json(r, 200, { 'cache-control': 'no-store' });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

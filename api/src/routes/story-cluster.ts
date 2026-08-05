@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
@@ -51,7 +52,7 @@ export async function storyClusterHandler(c: Context<{ Bindings: Env }>): Promis
     const clusters = parseJson(text);
     return c.json({ clusters, model, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('story-cluster error:', e);
+    logError('story-cluster error:', e);
     return internalError(c, 'clustering failed');
   }
 }

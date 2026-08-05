@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { getSiteUrl } from '../lib/site-config';
 import { safeNullLog } from '../lib/safe-catch';
 import { fetchTelegramFeed, TELEGRAM_FEED_CACHE_KEY } from './telegram-feed';
@@ -28,13 +29,13 @@ async function readCachedFeed<T>(cacheKey: string, fetcher: () => Promise<T>): P
       return (await cached.json()) as T;
     }
   } catch (_catchErr) {
-    console.error('readCachedFeed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readCachedFeed failed', _catchErr);
     /* cold cache or cache lookup failed — fall through to live fetch */
   }
   try {
     return await fetcher();
   } catch (_catchErr) {
-    console.error('readCachedFeed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readCachedFeed failed', _catchErr);
     return null;
   }
 }
@@ -360,7 +361,7 @@ async function fetchXPulse(env: Env, out: Map<string, PulseEntity>): Promise<voi
       }
     }
   } catch (err) {
-    console.error('fetchXPulse failed:', err instanceof Error ? err.message : String(err));
+    logError('fetchXPulse failed', err);
     // Either cookies not configured, or transient error. Either is fine
     // — the IOC-feed-based fallback below still runs.
     if (!(err instanceof XAuthMissingError)) {
@@ -377,7 +378,7 @@ async function fetchXPulse(env: Env, out: Map<string, PulseEntity>): Promise<voi
       classifyEntities(item.text ?? '', `x:${handle}`, out);
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* swallow — already have whatever the authed path yielded */
   }
 }

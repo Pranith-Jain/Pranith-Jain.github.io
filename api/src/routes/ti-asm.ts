@@ -13,6 +13,7 @@
  */
 
 import { Hono } from 'hono';
+import { logError } from '../lib/logger';
 import { badRequest, conflict } from '../lib/api-error';
 import type { D1Database, KVNamespace } from '@cloudflare/workers-types';
 
@@ -148,7 +149,7 @@ async function resolveSubdomains(domain: string): Promise<string[]> {
         subdomains.push(`${prefix}.${domain}`);
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       // DNS resolution failed, skip
     }
   }

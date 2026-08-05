@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
@@ -69,7 +70,7 @@ export async function a3mMatrixHandler(c: Context<{ Bindings: Env }>): Promise<R
     );
     if (res.ok) html = await res.text();
   } catch (_catchErr) {
-    console.error('a3mMatrixHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('a3mMatrixHandler failed', _catchErr);
     /* fall through */
   }
 
@@ -99,7 +100,7 @@ export async function a3mMatrixHandler(c: Context<{ Bindings: Env }>): Promise<R
     try {
       await kv.put(kvKey, json, { expirationTtl: 7 * 24 * 60 * 60 });
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* quota */
     }
   }

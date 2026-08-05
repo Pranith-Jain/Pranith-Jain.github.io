@@ -7,6 +7,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
 
 const CACHE_TTL = 3600;
@@ -22,7 +23,7 @@ function isValidHttpUrl(raw: string): boolean {
     const u = new URL(raw);
     return u.protocol === 'http:' || u.protocol === 'https:';
   } catch (_catchErr) {
-    console.error('isValidHttpUrl failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('isValidHttpUrl failed', _catchErr);
     return false;
   }
 }

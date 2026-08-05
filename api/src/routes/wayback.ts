@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 import { safeNullLog } from '../lib/safe-catch';
 
@@ -139,7 +140,7 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
         return cooldownResponse(c, remain);
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* KV read blip — fail open, fall through to a real attempt. */
     }
   }
@@ -162,7 +163,7 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
           upstreamOk = true;
           break;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           // Non-JSON upstream body (IA sometimes returns HTML error pages
           // under load). Treat as transient failure so the retry can catch
           // a healthy response.
@@ -188,7 +189,7 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
       lastError = { status: res.status };
       if (!transientStatus(res.status)) break; // 4xx other than 429 — don't bother retrying.
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logError('handler failed', e);
       lastError = { message: e instanceof Error ? e.message : 'unknown' };
     }
   }

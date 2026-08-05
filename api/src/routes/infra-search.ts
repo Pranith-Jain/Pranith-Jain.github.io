@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { parseInfraQuery, buildOverpassQuery, nominatimGeocode, quickBbox } from '../lib/infra-parser';
 
@@ -139,13 +140,13 @@ export async function infraSearchHandler(c: Context<{ Bindings: Env }>): Promise
       try {
         overpassData = JSON.parse(text);
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         lastError = 'invalid JSON';
         continue;
       }
       if (overpassData.elements) break;
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logError('handler failed', err);
       lastError = err instanceof Error ? err.message : 'unknown';
     }
   }

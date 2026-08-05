@@ -1,4 +1,5 @@
 import type { Context } from 'hono';
+import { logError } from '../lib/logger';
 import { badRequest, badGateway, internalError, serviceUnavailable } from '../lib/api-error';
 
 interface Env {
@@ -36,7 +37,7 @@ export async function yaraHubListHandler(c: Context<{ Bindings: Env }>) {
     const data = await res.json();
     return c.json(data);
   } catch (err) {
-    console.error('yaraHubListHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('yaraHubListHandler failed', err);
     return internalError(c, String(err));
   }
 }
@@ -78,7 +79,7 @@ export async function yaraHubRuleHandler(c: Context<{ Bindings: Env }>) {
     }
     return c.text(text, 200, { 'content-type': 'text/plain; charset=utf-8' });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return internalError(c, String(err));
   }
 }

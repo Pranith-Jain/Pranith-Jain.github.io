@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 
 interface HuntTarget {
@@ -58,7 +59,7 @@ export async function threatHuntHandler(c: Context<{ Bindings: Env }>): Promise<
       { 'Cache-Control': 'public, max-age=30' }
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e instanceof Error ? e.message : 'hunt failed');
   }
 }

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { cachedJson } from '../lib/route-cache';
 
@@ -52,7 +53,7 @@ export async function malpediaFamilyHandler(c: Context<{ Bindings: Env }>): Prom
     const data = await res.json();
     return c.json({ ok: true, data }, 200, { 'cache-control': 'public, max-age=3600' });
   } catch (err) {
-    console.error('malpediaFamilyHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('malpediaFamilyHandler failed', err);
     return badGateway(c, err instanceof Error ? err.message : String(err));
   }
 }
@@ -108,7 +109,7 @@ export async function malpediaSearchHandler(c: Context<{ Bindings: Env }>): Prom
       'cache-control': 'public, max-age=3600',
     });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return badGateway(c, err instanceof Error ? err.message : String(err));
   }
 }

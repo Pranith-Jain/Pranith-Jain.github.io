@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { normalizeVictim } from '../lib/victim-normalize';
 import { classifySector } from '../lib/sector-classifier';
 import { optypeForGroup, type OpType } from '../lib/ransomware-optype';
@@ -125,7 +126,7 @@ async function fetchJson<T>(url: string, timeoutMs: number = FETCH_TIMEOUT_MS): 
     if (!res.ok) return null;
     return (await res.json()) as T;
   } catch (_catchErr) {
-    console.error('fetchJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchJson failed', _catchErr);
     return null;
   }
 }
@@ -386,7 +387,7 @@ export async function victimReleaksHandler(c: Context<{ Bindings: Env }>): Promi
     }
     return json(body, 'no-store');
   } catch (err) {
-    console.error('victimReleaksHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('victimReleaksHandler failed', err);
     return json(emptyReleaksResponse(err instanceof Error ? err.message : 'live run failed'), 'no-store');
   }
 }

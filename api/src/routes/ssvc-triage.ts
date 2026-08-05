@@ -12,6 +12,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound, serviceUnavailable } from '../lib/api-error';
 import { computeSsvcV, type SsvcResult, type SsvcDecision } from '../lib/ssvc-v';
 
@@ -87,7 +88,7 @@ async function enrichCve(cveId: string, env: Env): Promise<EnrichedCve | null> {
     }
     return result;
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return null;
   }
 }
@@ -119,7 +120,7 @@ export async function ssvcTriageHandler(c: Context<{ Bindings: Env }>): Promise<
     try {
       body = await c.req.json();
     } catch (_catchErr) {
-      console.error('ssvcTriageHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('ssvcTriageHandler failed', _catchErr);
       return badRequest(c, 'Invalid JSON body');
     }
 
@@ -228,7 +229,7 @@ export async function ssvcTriageHandler(c: Context<{ Bindings: Env }>): Promise<
       })),
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }
@@ -328,7 +329,7 @@ export async function ssvcStatsHandler(c: Context<{ Bindings: Env }>): Promise<R
       by_severity: bySeverity.results ?? [],
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }

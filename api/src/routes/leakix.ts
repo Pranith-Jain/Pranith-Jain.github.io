@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 
 interface LeakIxResult {
@@ -44,7 +45,7 @@ export async function leakIxSearchHandler(c: Context<{ Bindings: Env }>): Promis
     c.executionCtx.waitUntil(caches.default.put(cacheReq, response.clone()));
     return response;
   } catch (e) {
-    console.error('leakIxSearchHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('leakIxSearchHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'LeakIX unreachable');
   }
 }

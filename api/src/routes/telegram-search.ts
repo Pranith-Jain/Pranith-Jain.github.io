@@ -31,6 +31,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { safeNullLog } from '../lib/safe-catch';
 import { badGateway, validationError } from '../lib/api-error';
 import { correlateHandle, type ActorHit } from '../lib/telegram-actor-correlate';
@@ -231,7 +232,7 @@ export async function fetchTgstatSearch(query: string): Promise<string | null> {
     if (!r.ok) return null;
     return await r.text();
   } catch (_catchErr) {
-    console.error('fetchTgstatSearch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchTgstatSearch failed', _catchErr);
     return null;
   } finally {
     clearTimeout(timer);
@@ -242,7 +243,7 @@ function cache(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
   } catch (_catchErr) {
-    console.error('cache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('cache failed', _catchErr);
     return null;
   }
 }
@@ -264,7 +265,7 @@ async function readStaleSearchCache(query: string): Promise<CachedSearchPayload 
   try {
     return (await cached.json()) as CachedSearchPayload;
   } catch (_catchErr) {
-    console.error('readStaleSearchCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readStaleSearchCache failed', _catchErr);
     return null;
   }
 }
@@ -440,7 +441,7 @@ export async function telegramChannelMetaHandler(c: Context<{ Bindings: Env }>):
     });
     if (r.ok) html = await r.text();
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     html = null;
   } finally {
     clearTimeout(timer);

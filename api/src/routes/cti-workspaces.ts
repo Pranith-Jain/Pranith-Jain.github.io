@@ -108,7 +108,7 @@ export async function listWorkspacesHandler(c: Context<{ Bindings: Env }>): Prom
   const status = c.req.query('status');
   const limit = Math.min(Number(c.req.query('limit') ?? '50'), 200);
 
-  let query = 'SELECT * FROM investigation_workspaces';
+  let query = 'SELECT id, title, description, target, target_type, phase, status, exposure_score, exposure_label, tags, metadata, created_at, updated_at FROM investigation_workspaces';
   const params: unknown[] = [];
   if (status) {
     query += ' WHERE status = ?';
@@ -161,7 +161,7 @@ export async function createWorkspaceHandler(c: Context<{ Bindings: Env }>): Pro
     )
     .run();
 
-  const row = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(id).first();
+  const row = await db.prepare('SELECT id, title, description, target, target_type, phase, status, exposure_score, exposure_label, tags, metadata, created_at, updated_at FROM investigation_workspaces WHERE id = ?').bind(id).first();
   return c.json(rowToWs(row!), 201);
 }
 
@@ -171,14 +171,14 @@ export async function getWorkspaceHandler(c: Context<{ Bindings: Env }>): Promis
   await ensureWorkspaceTables(db);
 
   const id = c.req.param('id');
-  const ws = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(id).first();
+  const ws = await db.prepare('SELECT id, title, description, target, target_type, phase, status, exposure_score, exposure_label, tags, metadata, created_at, updated_at FROM investigation_workspaces WHERE id = ?').bind(id).first();
   if (!ws) return notFound(c, 'workspace not found');
 
-  const subjects = (await db.prepare('SELECT * FROM ws_subjects WHERE workspace_id = ?').bind(id).all()).results;
-  const connections = (await db.prepare('SELECT * FROM ws_connections WHERE workspace_id = ?').bind(id).all()).results;
-  const findings = (await db.prepare('SELECT * FROM ws_findings WHERE workspace_id = ?').bind(id).all()).results;
+  const subjects = (await db.prepare('SELECT id, workspace_id, subject_type, label, value, confidence, trust_score, verified, aliases, notes, first_seen, created_at FROM ws_subjects WHERE workspace_id = ?').bind(id).all()).results;
+  const connections = (await db.prepare('SELECT id, workspace_id, from_subject_id, to_subject_id, relationship, strength, notes, created_at FROM ws_connections WHERE workspace_id = ?').bind(id).all()).results;
+  const findings = (await db.prepare('SELECT id, workspace_id, subject_id, finding_type, weight, description, source_url, source_reliability, confidence, trust_score, collection_method, tags, validated, created_at FROM ws_findings WHERE workspace_id = ?').bind(id).all()).results;
   const timeline = (
-    await db.prepare('SELECT * FROM ws_timeline WHERE workspace_id = ? ORDER BY event_date').bind(id).all()
+    await db.prepare('SELECT id, workspace_id, event_date, event_type, description, subject_id, created_at FROM ws_timeline WHERE workspace_id = ? ORDER BY event_date').bind(id).all()
   ).results;
 
   return c.json({ workspace: rowToWs(ws), subjects, connections, findings, timeline });
@@ -220,7 +220,7 @@ export async function updateWorkspaceHandler(c: Context<{ Bindings: Env }>): Pro
     .prepare(`UPDATE investigation_workspaces SET ${sets.join(', ')} WHERE id = ?`)
     .bind(...values)
     .run();
-  const row = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(id).first();
+  const row = await db.prepare('SELECT id, title, description, target, target_type, phase, status, exposure_score, exposure_label, tags, metadata, created_at, updated_at FROM investigation_workspaces WHERE id = ?').bind(id).first();
   if (!row) return notFound(c, 'workspace not found');
   return c.json(rowToWs(row));
 }
@@ -246,7 +246,7 @@ export async function listSubjectsHandler(c: Context<{ Bindings: Env }>): Promis
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'database not available');
   const wsId = c.req.param('id');
-  const { results } = await db.prepare('SELECT * FROM ws_subjects WHERE workspace_id = ?').bind(wsId).all();
+  const { results } = await db.prepare('SELECT id, workspace_id, subject_type, label, value, confidence, trust_score, verified, aliases, notes, first_seen, created_at FROM ws_subjects WHERE workspace_id = ?').bind(wsId).all();
   return c.json({ subjects: results, count: results.length });
 }
 
@@ -292,7 +292,7 @@ export async function createSubjectHandler(c: Context<{ Bindings: Env }>): Promi
     )
     .run();
 
-  const row = await db.prepare('SELECT * FROM ws_subjects WHERE id = ?').bind(id).first();
+  const row = await db.prepare('SELECT id, workspace_id, subject_type, label, value, confidence, trust_score, verified, aliases, notes, first_seen, created_at FROM ws_subjects WHERE id = ?').bind(id).first();
   return c.json(row, 201);
 }
 
@@ -302,7 +302,7 @@ export async function listConnectionsHandler(c: Context<{ Bindings: Env }>): Pro
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'database not available');
   const wsId = c.req.param('id');
-  const { results } = await db.prepare('SELECT * FROM ws_connections WHERE workspace_id = ?').bind(wsId).all();
+  const { results } = await db.prepare('SELECT id, workspace_id, from_subject_id, to_subject_id, relationship, strength, notes, created_at FROM ws_connections WHERE workspace_id = ?').bind(wsId).all();
   return c.json({ connections: results, count: results.length });
 }
 
@@ -333,7 +333,7 @@ export async function createConnectionHandler(c: Context<{ Bindings: Env }>): Pr
     .bind(id, wsId, b.from_subject_id, b.to_subject_id, b.relationship, b.strength || 'confirmed', b.notes || '')
     .run();
 
-  const row = await db.prepare('SELECT * FROM ws_connections WHERE id = ?').bind(id).first();
+  const row = await db.prepare('SELECT id, workspace_id, from_subject_id, to_subject_id, relationship, strength, notes, created_at FROM ws_connections WHERE id = ?').bind(id).first();
   return c.json(row, 201);
 }
 
@@ -343,7 +343,7 @@ export async function listFindingsHandler(c: Context<{ Bindings: Env }>): Promis
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'database not available');
   const wsId = c.req.param('id');
-  const { results } = await db.prepare('SELECT * FROM ws_findings WHERE workspace_id = ?').bind(wsId).all();
+  const { results } = await db.prepare('SELECT id, workspace_id, subject_id, finding_type, weight, description, source_url, source_reliability, confidence, trust_score, collection_method, tags, validated, created_at FROM ws_findings WHERE workspace_id = ?').bind(wsId).all();
   return c.json({ findings: results, count: results.length });
 }
 
@@ -385,7 +385,7 @@ export async function createFindingHandler(c: Context<{ Bindings: Env }>): Promi
     )
     .run();
 
-  const row = await db.prepare('SELECT * FROM ws_findings WHERE id = ?').bind(id).first();
+  const row = await db.prepare('SELECT id, workspace_id, subject_id, finding_type, weight, description, source_url, source_reliability, confidence, trust_score, collection_method, tags, validated, created_at FROM ws_findings WHERE id = ?').bind(id).first();
   return c.json(row, 201);
 }
 
@@ -396,7 +396,7 @@ export async function listTimelineHandler(c: Context<{ Bindings: Env }>): Promis
   if (!db) return serviceUnavailable(c, 'database not available');
   const wsId = c.req.param('id');
   const { results } = await db
-    .prepare('SELECT * FROM ws_timeline WHERE workspace_id = ? ORDER BY event_date')
+    .prepare('SELECT id, workspace_id, event_date, event_type, description, subject_id, created_at FROM ws_timeline WHERE workspace_id = ? ORDER BY event_date')
     .bind(wsId)
     .all();
   return c.json({ timeline: results, count: results.length });
@@ -709,7 +709,7 @@ const PHASES = ['acquire', 'enrich', 'assess', 'deliver', 'complete'] as const;
 export async function workflowStateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'database not available');
-  const ws = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(c.req.param('id')).first();
+  const ws = await db.prepare('SELECT id, title, description, target, target_type, phase, status, exposure_score, exposure_label, tags, metadata, created_at, updated_at FROM investigation_workspaces WHERE id = ?').bind(c.req.param('id')).first();
   if (!ws) return notFound(c, 'workspace not found');
   const phaseIdx = PHASES.indexOf(ws.phase as (typeof PHASES)[number]);
   return c.json({
@@ -731,7 +731,7 @@ export async function workflowAdvanceHandler(c: Context<{ Bindings: Env }>): Pro
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'database not available');
   const id = c.req.param('id');
-  const ws = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(id).first();
+  const ws = await db.prepare('SELECT id, title, description, target, target_type, phase, status, exposure_score, exposure_label, tags, metadata, created_at, updated_at FROM investigation_workspaces WHERE id = ?').bind(id).first();
   if (!ws) return notFound(c, 'workspace not found');
   const idx = PHASES.indexOf(ws.phase as (typeof PHASES)[number]);
   if (idx >= PHASES.length - 1) return c.json({ workspace: rowToWs(ws), nextPhase: ws.phase });
@@ -742,7 +742,7 @@ export async function workflowAdvanceHandler(c: Context<{ Bindings: Env }>): Pro
     )
     .bind(next, id)
     .run();
-  const updated = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(id).first();
+  const updated = await db.prepare('SELECT id, title, description, target, target_type, phase, status, exposure_score, exposure_label, tags, metadata, created_at, updated_at FROM investigation_workspaces WHERE id = ?').bind(id).first();
   return c.json({ workspace: rowToWs(updated!), nextPhase: next });
 }
 
@@ -750,7 +750,7 @@ export async function workflowSummaryHandler(c: Context<{ Bindings: Env }>): Pro
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'database not available');
   const id = c.req.param('id');
-  const ws = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(id).first();
+  const ws = await db.prepare('SELECT id, title, description, target, target_type, phase, status, exposure_score, exposure_label, tags, metadata, created_at, updated_at FROM investigation_workspaces WHERE id = ?').bind(id).first();
   if (!ws) return notFound(c, 'workspace not found');
   const subjects =
     (await db.prepare('SELECT COUNT(*) as c FROM ws_subjects WHERE workspace_id = ?').bind(id).first())?.c ?? 0;
@@ -765,14 +765,14 @@ export async function exportWorkspaceHandler(c: Context<{ Bindings: Env }>): Pro
   const db = c.env.BRIEFINGS_DB;
   if (!db) return serviceUnavailable(c, 'database not available');
   const id = c.req.param('id');
-  const ws = await db.prepare('SELECT * FROM investigation_workspaces WHERE id = ?').bind(id).first();
+  const ws = await db.prepare('SELECT id, title, description, target, target_type, phase, status, exposure_score, exposure_label, tags, metadata, created_at, updated_at FROM investigation_workspaces WHERE id = ?').bind(id).first();
   if (!ws) return notFound(c, 'workspace not found');
 
-  const subjects = (await db.prepare('SELECT * FROM ws_subjects WHERE workspace_id = ?').bind(id).all()).results;
-  const connections = (await db.prepare('SELECT * FROM ws_connections WHERE workspace_id = ?').bind(id).all()).results;
-  const findings = (await db.prepare('SELECT * FROM ws_findings WHERE workspace_id = ?').bind(id).all()).results;
+  const subjects = (await db.prepare('SELECT id, workspace_id, subject_type, label, value, confidence, trust_score, verified, aliases, notes, first_seen, created_at FROM ws_subjects WHERE workspace_id = ?').bind(id).all()).results;
+  const connections = (await db.prepare('SELECT id, workspace_id, from_subject_id, to_subject_id, relationship, strength, notes, created_at FROM ws_connections WHERE workspace_id = ?').bind(id).all()).results;
+  const findings = (await db.prepare('SELECT id, workspace_id, subject_id, finding_type, weight, description, source_url, source_reliability, confidence, trust_score, collection_method, tags, validated, created_at FROM ws_findings WHERE workspace_id = ?').bind(id).all()).results;
   const timeline = (
-    await db.prepare('SELECT * FROM ws_timeline WHERE workspace_id = ? ORDER BY event_date').bind(id).all()
+    await db.prepare('SELECT id, workspace_id, event_date, event_type, description, subject_id, created_at FROM ws_timeline WHERE workspace_id = ? ORDER BY event_date').bind(id).all()
   ).results;
 
   return c.json({ workspace: rowToWs(ws), subjects, connections, findings, timeline });

@@ -9,6 +9,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound } from '../lib/api-error';
 
 function uuid(): string {
@@ -45,7 +46,7 @@ export async function saveReport(c: Context<{ Bindings: Env }>): Promise<Respons
   try {
     body = await c.req.json();
   } catch (_catchErr) {
-    console.error('saveReport failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('saveReport failed', _catchErr);
     return badRequest(c, 'invalid JSON');
   }
   if (!body.reportJson) {
@@ -56,7 +57,7 @@ export async function saveReport(c: Context<{ Bindings: Env }>): Promise<Respons
   try {
     report = JSON.parse(body.reportJson);
   } catch (_catchErr) {
-    console.error('saveReport failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('saveReport failed', _catchErr);
     return badRequest(c, 'reportJson is not valid JSON');
   }
 
@@ -161,7 +162,7 @@ export async function getTimeline(c: Context<{ Bindings: Env }>): Promise<Respon
       }));
       cves = (report.cves ?? []).slice(0, 10).map((c: { id: string }) => ({ id: c.id }));
     } catch (_catchErr) {
-      console.error('getTimeline failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('getTimeline failed', _catchErr);
       /* ignore parse errors */
     }
 

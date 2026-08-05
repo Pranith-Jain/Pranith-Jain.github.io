@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 import { cachedJson } from '../lib/route-cache';
 
@@ -183,7 +184,7 @@ async function fetchCrtSh(target: string): Promise<CrtShCert[]> {
           const data = await res.json();
           return Array.isArray(data) ? data : [];
         } catch (_catchErr) {
-          console.error('fetchCrtSh failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('fetchCrtSh failed', _catchErr);
           // crt.sh occasionally returns an HTML error page with a 200 under
           // load; treat as transient so the retry can catch a clean body.
           continue;
@@ -192,7 +193,7 @@ async function fetchCrtSh(target: string): Promise<CrtShCert[]> {
       // Non-transient upstream status (e.g. 4xx) — retrying won't help.
       if (!transientStatus(res.status)) return [];
     } catch (_catchErr) {
-      console.error('fetchCrtSh failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('fetchCrtSh failed', _catchErr);
       // AbortError (timeout) or network error — fall through to the retry.
     }
   }
@@ -322,7 +323,7 @@ export async function ctLogHandler(c: Context<{ Bindings: Env }>): Promise<Respo
       'Cache-Control': 'public, max-age=3600',
     });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return c.json(
       {
         error: 'CT log lookup failed',

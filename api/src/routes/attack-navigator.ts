@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badGateway } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
@@ -80,7 +81,7 @@ export async function attackNavigatorHandler(c: Context<{ Bindings: Env }>): Pro
       mitreData = (await res.json()) as Record<string, unknown>;
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* fall through */
   }
 
@@ -288,7 +289,7 @@ export async function attackNavigatorHandler(c: Context<{ Bindings: Env }>): Pro
       }
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* ThreatFox optional */
   }
 
@@ -320,7 +321,7 @@ export async function attackNavigatorHandler(c: Context<{ Bindings: Env }>): Pro
       }
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* URLhaus optional */
   }
 
@@ -352,7 +353,7 @@ export async function attackNavigatorHandler(c: Context<{ Bindings: Env }>): Pro
     try {
       await kv.put(kvKey, json, { expirationTtl: 7 * 24 * 60 * 60 });
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* quota */
     }
   }

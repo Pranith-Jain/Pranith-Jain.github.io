@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 
@@ -143,7 +144,7 @@ export async function upsertNode(
       try {
         return JSON.parse(raw);
       } catch (_catchErr) {
-        console.error('upsertNode failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('upsertNode failed', _catchErr);
         return {};
       }
     };
@@ -153,7 +154,7 @@ export async function upsertNode(
         const p = JSON.parse(raw);
         return Array.isArray(p) ? p : [];
       } catch (_catchErr) {
-        console.error('upsertNode failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('upsertNode failed', _catchErr);
         return [];
       }
     };
@@ -233,7 +234,7 @@ export async function upsertEdge(
             typeof x === 'object' && x !== null && 'source' in x && 'description' in x && 'timestamp' in x
         );
       } catch (_catchErr) {
-        console.error('upsertEdge failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('upsertEdge failed', _catchErr);
         return [];
       }
     };

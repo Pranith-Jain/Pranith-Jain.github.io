@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
@@ -55,7 +56,7 @@ export async function researchDigestHandler(c: Context<{ Bindings: Env }>): Prom
     const digest = parseJson(text);
     return c.json({ digest, model, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('research-digest error:', e);
+    logError('research-digest error:', e);
     return internalError(c, 'digest generation failed');
   }
 }

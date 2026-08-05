@@ -40,6 +40,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 import { getSiteUrl } from '../lib/site-config';
 import { safeErrorMessage } from '../lib/error';
@@ -369,7 +370,7 @@ function rewriteLinkOrigin(url: string, rules: RssSource['linkOriginRewrite']): 
     }
     return url;
   } catch (_catchErr) {
-    console.error('rewriteLinkOrigin failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('rewriteLinkOrigin failed', _catchErr);
     return url;
   }
 }
@@ -384,7 +385,7 @@ function stripTracking(url: string): string {
     for (const k of toDelete) u.searchParams.delete(k);
     return u.toString();
   } catch (_catchErr) {
-    console.error('stripTracking failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('stripTracking failed', _catchErr);
     return url;
   }
 }
@@ -427,7 +428,7 @@ async function loadCached(env: Env, sourceId: string): Promise<RssFeed | null> {
     }
     return feed;
   } catch (_catchErr) {
-    console.error('loadCached failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('loadCached failed', _catchErr);
     return null;
   }
 }
@@ -450,7 +451,7 @@ async function writeCached(env: Env, sourceId: string, feed: Omit<RssFeed, 'stal
       /* best-effort shadow */
     }
   } catch (_catchErr) {
-    console.error('writeCached failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('writeCached failed', _catchErr);
     // Cache write failure is non-fatal.
   }
 }
@@ -503,7 +504,7 @@ async function loadOneSource(env: Env, source: RssSource): Promise<{ feed: RssFe
     await writeCached(env, source.id, feed);
     return { feed, error: null };
   } catch (e) {
-    console.error('loadOneSource failed:', e instanceof Error ? e.message : String(e));
+    logError('loadOneSource failed', e);
     // 3) Fallback to stale cache
     if (cached) {
       return { feed: { ...cached, stale: true }, error: safeErrorMessage(env, e) };
@@ -661,7 +662,7 @@ async function passthroughHandler(c: Context<{ Bindings: Env }>, sourceId: strin
       },
     });
   } catch (e) {
-    console.error('passthroughHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('passthroughHandler failed', e);
     return badGateway(c, safeErrorMessage(c.env, e));
   }
 }

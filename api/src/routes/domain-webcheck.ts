@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 /**
@@ -307,12 +308,12 @@ async function probeHttp(domain: string): Promise<HttpProbeResult> {
         const text = await res.text();
         result.bodySnippet = text.slice(0, 50_000);
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* body read failure is non-fatal */
       }
       break;
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       result.responseTimeMs = Date.now() - start;
       break;
     }
@@ -367,7 +368,7 @@ async function probeTls(domain: string): Promise<TlsInfo> {
       hsts: hsts ?? undefined,
     };
   } catch (_catchErr) {
-    console.error('probeTls failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('probeTls failed', _catchErr);
     return {};
   }
 }
@@ -416,7 +417,7 @@ async function queryShodan(domain: string, env: Env): Promise<ShodanResult | nul
       hostnames: host.hostnames,
     };
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return null;
   }
 }

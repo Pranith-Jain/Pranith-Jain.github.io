@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
+import { cachedJson } from '../lib/route-cache';
 
 interface CidrEntry {
   cidr: string;
@@ -48,15 +49,13 @@ export async function cidrLookupHandler(c: Context<{ Bindings: Env }>): Promise<
     return badRequest(c, 'unrecognized input — use IP, ASN (ASxxxx), or domain');
   }
 
-  try {
+  return cachedJson(c, `cidr-lookup:${queryType}:${clean}`, 3600, async () => {
     const res = await fetch(searchUrl, {
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; DFIR-Portfolio/1.0)' },
       signal: AbortSignal.timeout(10000),
     });
 
-    if (!res.ok) {
-      return badGateway(c, `bgp.he.net returned ${res.status}`);
-    }
+    if (!res.ok) throw new Error(`bgp.he.net returned ${res.status}`);
 
     const data = (await res.json()) as Array<{
       cidr: string;
@@ -64,7 +63,6 @@ export async function cidrLookupHandler(c: Context<{ Bindings: Env }>): Promise<
       as_description: string;
       as_country: string;
       rir: string;
-      // For DNS lookups, the shape is different
       ip?: string;
     }>;
 
@@ -84,18 +82,13 @@ export async function cidrLookupHandler(c: Context<{ Bindings: Env }>): Promise<
       }
     }
 
-    const result: CidrLookupResult = {
+    return {
       query: clean,
       query_type: queryType,
       cidrs,
       total: cidrs.length,
       source: 'bgp.he.net',
       fetched_at: new Date().toISOString(),
-    };
-
-    return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
-  } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return badGateway(c, `CIDR lookup failed: ${err instanceof Error ? err.message : String(err)}`);
-  }
+    } as CidrLookupResult;
+  });
 }

@@ -10,6 +10,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 
 interface FortiGateResult {
@@ -117,7 +118,7 @@ async function detectFortiGate(target: string): Promise<FortiGateResult> {
             const certInfo = await fetchCertInfo(target, port);
             if (certInfo) result.details.push(`Certificate: ${certInfo}`);
           } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            logError('handler failed', _catchErr);
             /* skip */
           }
         }
@@ -125,7 +126,7 @@ async function detectFortiGate(target: string): Promise<FortiGateResult> {
         break;
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* port not reachable */
     }
   }
@@ -172,7 +173,7 @@ async function fetchCertInfo(target: string, port: number): Promise<string | nul
     });
     return res.headers.get('server') || null;
   } catch (_catchErr) {
-    console.error('fetchCertInfo failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchCertInfo failed', _catchErr);
     return null;
   }
 }

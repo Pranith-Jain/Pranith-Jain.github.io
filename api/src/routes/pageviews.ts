@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 
 /**
  * Global site view counter (D1-backed — NOT KV, so it doesn't touch the
@@ -32,7 +33,7 @@ export async function pageViewsHandler(c: Context<{ Bindings: Env }>): Promise<R
       c.executionCtx.waitUntil(cache.put(CACHE_KEY, res.clone()));
       return res;
     } catch (_catchErr) {
-      console.error('pageViewsHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('pageViewsHandler failed', _catchErr);
       return c.json({ views: 0 }, 200, { 'cache-control': 'no-store' });
     }
   }
@@ -58,7 +59,7 @@ export async function pageViewsHandler(c: Context<{ Bindings: Env }>): Promise<R
     );
     return c.json({ views }, 200, { 'cache-control': 'no-store' });
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return c.json({ views: 0 }, 200, { 'cache-control': 'no-store' });
   }
 }

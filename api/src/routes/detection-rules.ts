@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 
 /**
  * Detection-rule registry: aggregates metadata + recent commits for the major
@@ -287,7 +288,7 @@ async function fetchRepoMeta(repo: string): Promise<FetchResult<GhRepo | null>> 
     if (!res.ok) return { value: null, rate_limited: false };
     return { value: (await res.json()) as GhRepo, rate_limited: false };
   } catch (_catchErr) {
-    console.error('fetchRepoMeta failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchRepoMeta failed', _catchErr);
     return { value: null, rate_limited: false };
   }
 }
@@ -334,7 +335,7 @@ async function fetchRecentCommits(source: SourceConfig): Promise<FetchResult<Rec
     }
     return { value: out, rate_limited: false };
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return { value: [], rate_limited: false };
   }
 }

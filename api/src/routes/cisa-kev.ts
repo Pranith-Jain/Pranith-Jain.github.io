@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const NVD_API = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
@@ -110,7 +111,7 @@ async function loadCvssMap(env: Env): Promise<Map<string, CvssEntry>> {
       routeCachePut(CVSS_CACHE_KEY, obj, CVSS_CACHE_TTL).catch(() => {});
     }
   } catch (err) {
-    console.error('NVD CVSS enrichment failed:', err instanceof Error ? err.message : String(err));
+    logError('NVD CVSS enrichment failed', err);
   }
 
   return map;
@@ -247,7 +248,7 @@ export async function cisaKevHandler(c: Context<{ Bindings: Env }>): Promise<Res
       'Cache-Control': 'public, max-age=3600',
     });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return c.json(
       {
         error: 'CISA KEV lookup failed',

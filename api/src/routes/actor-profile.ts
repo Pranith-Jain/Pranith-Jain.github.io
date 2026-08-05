@@ -18,6 +18,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
 
 const INTERNAL = 'https://self.internal';
@@ -39,7 +40,7 @@ async function timeIt<T>(
     const data = await fn();
     return { source: label, ok: true, data, ms: Date.now() - t0 };
   } catch (err) {
-    console.error('timeIt failed:', err instanceof Error ? err.message : String(err));
+    logError('timeIt failed', err);
     return {
       source: label,
       ok: false,
@@ -55,7 +56,7 @@ async function selfFetch(self: Fetcher | undefined, path: string): Promise<Respo
     if (self) return await self.fetch(`${INTERNAL}${path}`);
     return await fetch(`${INTERNAL}${path}`);
   } catch (_catchErr) {
-    console.error('selfFetch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('selfFetch failed', _catchErr);
     return null;
   }
 }
@@ -129,7 +130,7 @@ export async function actorProfileHandler(c: Context<{ Bindings: Env }>): Promis
               if (!data.error) return { slug, data };
             }
           } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            logError('handler failed', _catchErr);
             /* try next slug */
           }
         }

@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError } from '../lib/api-error';
 import { buildKnowledgeGraph } from '../lib/knowledge-graph';
 import { runAi, parseJson } from '../lib/ai';
@@ -66,7 +67,7 @@ export async function knowledgeGraphHandler(c: Context<{ Bindings: Env }>): Prom
     const graph = parseJson(text);
     return c.json({ graph, model, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('knowledgeGraphHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('knowledgeGraphHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -80,7 +81,7 @@ knowledgeGraphRouter.get('/knowledge-graph', async (c) => {
     const graph = buildKnowledgeGraph(seed, maxNodes);
     return c.json(graph, 200, { 'cache-control': 'public, max-age=600' });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 });

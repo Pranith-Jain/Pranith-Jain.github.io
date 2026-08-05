@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runCompletion } from '../case-study/generation/ai-client';
 import { detectSlop } from '../lib/ai-output-validator';
@@ -96,7 +97,7 @@ export async function irPlaybookHandler(c: Context<{ Bindings: Env }>): Promise<
   try {
     body = await c.req.json();
   } catch (_catchErr) {
-    console.error('irPlaybookHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('irPlaybookHandler failed', _catchErr);
     return badRequest(c, 'invalid JSON');
   }
 

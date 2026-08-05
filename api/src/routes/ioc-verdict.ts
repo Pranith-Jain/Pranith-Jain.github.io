@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { detectType } from '../lib/indicator';
 import type { Indicator, ProviderResult, ProviderId } from '../providers/types';
@@ -102,7 +103,7 @@ async function runProviders(
           recordProviderFailure(p);
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         recordProviderFailure(p);
       }
     },
@@ -148,7 +149,7 @@ async function callAi(env: Env, system: string, user: string): Promise<string> {
         if (data?.choices?.[0]?.message?.content) return data.choices[0].message.content;
       }
     } catch (_catchErr) {
-      console.error('callAi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('callAi failed', _catchErr);
       /* fall through */
     }
   }
@@ -158,7 +159,7 @@ async function callAi(env: Env, system: string, user: string): Promise<string> {
     try {
       return await callNvidia(nvidiaKey, system, user, 2000, 0.2);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* fall through */
     }
   }
@@ -203,7 +204,7 @@ async function callNvidia(
       const text = data?.choices?.[0]?.message?.content;
       if (text?.trim()) return text;
     } catch (_catchErr) {
-      console.error('callNvidia failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('callNvidia failed', _catchErr);
       /* try next model */
     }
   }
@@ -251,7 +252,7 @@ export async function iocExplainHandler(c: Context<{ Bindings: Env }>): Promise<
       { headers: { 'cache-control': 'public, max-age=60' } }
     );
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return internalError(c, err instanceof Error ? err.message : 'internal error');
   }
 }
@@ -304,7 +305,7 @@ export async function iocRuleHandler(c: Context<{ Bindings: Env }>): Promise<Res
       { headers: { 'cache-control': 'public, max-age=60' } }
     );
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return internalError(c, err instanceof Error ? err.message : 'internal error');
   }
 }

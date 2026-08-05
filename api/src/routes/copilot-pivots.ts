@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 import { runCompletion } from '../case-study/generation/ai-client';
 import { extractEntities } from '../lib/entity-extractor';
@@ -120,7 +121,7 @@ export async function copilotPivotHandler(c: Context<{ Bindings: Env }>): Promis
     const response: PivotResult = { query, queryType, suggestions, entities };
     return c.json(response);
   } catch (e) {
-    console.error('copilotPivotHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('copilotPivotHandler failed', e);
     return internalError(c, 'Pivot generation failed');
   }
 }

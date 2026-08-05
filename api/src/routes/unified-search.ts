@@ -1,4 +1,5 @@
 import type { Context } from 'hono';
+import { logError } from '../lib/logger';
 import { lookupCve } from '../lib/cve-lookup';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 import { rankSections } from '../lib/search/rank';
@@ -63,7 +64,7 @@ async function readCachedJson<T>(cacheKey: string): Promise<T | null> {
     const cached = await cache.match(new Request(cacheKey));
     if (cached) return (await cached.json()) as T;
   } catch (_catchErr) {
-    console.error('readCachedJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readCachedJson failed', _catchErr);
     /* cold cache */
   }
   return null;
@@ -480,7 +481,7 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
         }
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* skip */
     }
 
@@ -507,7 +508,7 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
         }
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* skip */
     }
   }
@@ -539,7 +540,7 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
         }
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* skip */
     }
   }
@@ -575,7 +576,7 @@ async function searchIocCheck(needle: string, env: import('../env').Env): Promis
         }
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* skip */
     }
   }

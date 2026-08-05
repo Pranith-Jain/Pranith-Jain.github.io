@@ -5,6 +5,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { readBriefing } from '../lib/briefing-builder/build';
 import { renderBriefingMarkdown } from '../lib/briefing-markdown-renderer';
@@ -24,7 +25,7 @@ export async function briefingRenderHandler(c: Context<{ Bindings: Env }>): Prom
     // consume it.
     return c.json({ markdown: md }, 200);
   } catch (e) {
-    console.error('briefingRenderHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('briefingRenderHandler failed', e);
     const msg = e instanceof Error ? e.message : String(e);
     return internalError(c, msg);
   }

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
@@ -110,7 +111,7 @@ async function fetchForumText(url: string): Promise<string | null> {
     if (!res.ok) return null;
     return await res.text();
   } catch (_catchErr) {
-    console.error('fetchForumText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchForumText failed', _catchErr);
     return null;
   }
 }

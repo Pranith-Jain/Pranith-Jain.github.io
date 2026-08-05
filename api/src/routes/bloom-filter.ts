@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 import { safeNullLog } from '../lib/safe-catch';
@@ -45,7 +46,7 @@ async function readFilterEntry(_kv: KVNamespace, type: string): Promise<unknown 
     const hit = await cache.match(filterCacheReq(type));
     if (hit) return await hit.json();
   } catch (_catchErr) {
-    console.error('readFilterEntry failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readFilterEntry failed', _catchErr);
   }
   return null;
 }

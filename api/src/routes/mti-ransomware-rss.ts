@@ -14,6 +14,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { fetchMythreatintelRansomwareVictims } from '../lib/mythreatintel-parser';
 
 function escapeXml(s: string): string {
@@ -38,7 +39,7 @@ export async function buildMtiRansomwareRss(): Promise<{ xml: string; count: num
   try {
     victims = await fetchMythreatintelRansomwareVictims();
   } catch (_catchErr) {
-    console.error('buildMtiRansomwareRss failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('buildMtiRansomwareRss failed', _catchErr);
     victims = [];
   }
 

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 
 /**
@@ -147,7 +148,7 @@ export async function certStreamHandler(c: Context<{ Bindings: Env }>): Promise<
       succeeded = true;
       break;
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logError('handler failed', e);
       lastError = `crt.sh fetch failed: ${(e as Error).message}`;
       if (attempt < RETRY_ATTEMPTS - 1) {
         await new Promise((r) => setTimeout(r, RETRY_BACKOFF_MS[attempt]));
@@ -224,7 +225,7 @@ export async function certStreamHandler(c: Context<{ Bindings: Env }>): Promise<
           }
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* certspotter also failed; fall through to stale-cache path */
       }
     }

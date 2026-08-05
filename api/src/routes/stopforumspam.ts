@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
@@ -69,7 +70,7 @@ export async function stopForumSpamHandler(c: Context<{ Bindings: Env }>): Promi
     if (!res.ok) return badGateway(c, `stopforumspam upstream ${res.status}`);
     data = (await res.json()) as SfsResponse;
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'stopforumspam unreachable');
   }
 

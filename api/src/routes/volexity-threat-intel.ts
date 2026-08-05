@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { writeLastGood } from '../lib/lastgood';
@@ -367,7 +368,7 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
       }
       upstreamError = `upstream ${res.status}`;
     } catch (err) {
-      console.error('loadTree failed:', err instanceof Error ? err.message : String(err));
+      logError('loadTree failed', err);
       upstreamError = err instanceof Error ? err.message : 'fetch failed';
     }
     // fall back to KV last-good tree
@@ -379,7 +380,7 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
           return { full: { ...staleFull, stale: true, upstream_error: upstreamError }, error: upstreamError };
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* stale read failed; fall through */
       }
     }
@@ -471,7 +472,7 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
           upstreamError = `upstream ${res.status}`;
         }
       } catch (err) {
-        console.error('handler failed:', err instanceof Error ? err.message : String(err));
+        logError('handler failed', err);
         upstreamError = err instanceof Error ? err.message : 'fetch failed';
       }
     } else {
@@ -506,7 +507,7 @@ export async function volexityThreatIntelHandler(c: Context<{ Bindings: Env }>):
             });
           }
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           /* fall through */
         }
       }

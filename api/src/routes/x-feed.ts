@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 
 /**
  * Cybersec social-media firehose at /api/v1/x-feed.
@@ -300,7 +301,7 @@ async function fetchBlueskyApi(spec: HandleSpec): Promise<{ ok: boolean; items: 
       }));
     return { ok: items.length > 0, items };
   } catch (_catchErr) {
-    console.error('bsky-api failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('bsky-api failed', _catchErr);
     clearTimeout(timer);
     return { ok: false, items: [] };
   }
@@ -345,7 +346,7 @@ async function fetchHandle(spec: HandleSpec): Promise<{ ok: boolean; items: XFee
     }
     return { ok: false, items: [] };
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     clearTimeout(timer);
     // Last-resort fallback for Bluesky
     if (spec.platform === 'bluesky') return fetchBlueskyApi(spec);

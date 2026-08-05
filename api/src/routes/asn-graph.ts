@@ -19,6 +19,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { PRIVATE_IPV4 } from '../lib/ssrf-guard';
 import { badRequest, forbidden } from '../lib/api-error';
 import { trackEvent, visitorCountry } from '../lib/analytics';
@@ -94,7 +95,7 @@ export async function asnGraphHandler(c: Context<{ Bindings: Env }>): Promise<Re
       return c.json(cached, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}` });
     }
   } catch (_catchErr) {
-    console.error('asnGraphHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('asnGraphHandler failed', _catchErr);
     /* cache miss is fine; fall through */
   }
 
@@ -136,7 +137,7 @@ export async function asnGraphHandler(c: Context<{ Bindings: Env }>): Promise<Re
             indexes: [visitorCountry(c.req.raw)],
           });
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           /* telemetry is best-effort */
         }
       })()
@@ -157,7 +158,7 @@ export async function asnGraphHandler(c: Context<{ Bindings: Env }>): Promise<Re
           })
         );
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* cache writes are non-fatal */
       }
     })()

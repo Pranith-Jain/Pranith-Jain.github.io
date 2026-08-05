@@ -17,6 +17,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 import {
   gitHubSecurityRecentHandler,
@@ -73,7 +74,7 @@ async function githubRequest(endpoint: string, token?: string): Promise<GitHubFe
       try {
         return { data: await res.json(), status: res.status, rateLimited: false };
       } catch (_catchErr) {
-        console.error('githubRequest failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('githubRequest failed', _catchErr);
         return { data: null, status: res.status, rateLimited: false };
       }
     }
@@ -207,7 +208,7 @@ export async function gitHubSecurityHandler(c: Context<{ Bindings: Env }>): Prom
       'Cache-Control': `public, max-age=${CACHE_TTL}`,
     });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return c.json(
       {
         error: 'GitHub Security lookup failed',

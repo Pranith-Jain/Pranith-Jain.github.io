@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 
@@ -386,7 +387,7 @@ export async function builtwithHandler(c: Context<{ Bindings: Env }>): Promise<R
       const raw = await res.text();
       body = raw.length > 512 * 1024 ? raw.slice(0, 512 * 1024) : raw;
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       body = '';
     }
 
@@ -426,7 +427,7 @@ export async function builtwithHandler(c: Context<{ Bindings: Env }>): Promise<R
       { 'Cache-Control': 'public, max-age=3600' }
     );
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     // SSRF guard rejected the host (private/reserved/metadata, or a redirect to
     // one). Fail closed with a generic 400 — don't echo the blocked IP/internal
     // detail back to the caller (no SSRF oracle).

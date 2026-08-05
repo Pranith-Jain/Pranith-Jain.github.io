@@ -14,6 +14,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { runReportAnalyzer, type AnalyzerInput, type AnalyzerOutput } from '../lib/report-analyzer';
 
@@ -24,7 +25,7 @@ export async function reportAnalyzerHandler(c: Context<{ Bindings: Env }>): Prom
   try {
     body = await c.req.json<AnalyzerInput>();
   } catch (_catchErr) {
-    console.error('reportAnalyzerHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('reportAnalyzerHandler failed', _catchErr);
     return badRequest(c, 'invalid JSON body');
   }
   if (!body.text && !body.url) {
@@ -41,7 +42,7 @@ export async function reportAnalyzerHandler(c: Context<{ Bindings: Env }>): Prom
     const out: AnalyzerOutput = await runReportAnalyzer(body, c.env);
     return c.json(out, 200, { 'cache-control': `no-store, max-age=${CACHE_TTL}` });
   } catch (e) {
-    console.error('reportAnalyzerHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('reportAnalyzerHandler failed', e);
     const msg = e instanceof Error ? e.message : String(e);
     return badGateway(c, msg);
   }

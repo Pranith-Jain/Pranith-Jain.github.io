@@ -21,6 +21,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { PRIVATE_IPV4, isPrivateIpv6 } from '../lib/ssrf-guard';
 import { badRequest, internalError, forbidden } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
@@ -84,7 +85,7 @@ async function fetchInternetDB(ip: string): Promise<InternetDBResponse | null> {
     if (!res.ok) return null;
     return (await res.json()) as InternetDBResponse;
   } catch (_catchErr) {
-    console.error('fetchInternetDB failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchInternetDB failed', _catchErr);
     return null;
   }
 }
@@ -110,7 +111,7 @@ async function fetchIpApi(ip: string): Promise<IpApiResponse | null> {
     const data = (await res.json()) as IpApiResponse;
     return data.status === 'success' ? data : null;
   } catch (_catchErr) {
-    console.error('fetchIpApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchIpApi failed', _catchErr);
     return null;
   }
 }
@@ -140,7 +141,7 @@ async function fetchSpur(
       service: data.client?.proxy,
     };
   } catch (_catchErr) {
-    console.error('fetchSpur failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchSpur failed', _catchErr);
     return null;
   }
 }
@@ -282,7 +283,7 @@ export async function exposedHostHandler(c: Context<{ Bindings: Env }>): Promise
 
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }

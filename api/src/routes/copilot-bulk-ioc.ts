@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError } from '../lib/api-error';
 import { detectType } from '../lib/indicator';
 
@@ -173,7 +174,7 @@ export async function copilotBulkIocHandler(c: Context<{ Bindings: Env }>): Prom
       results,
     });
   } catch (e) {
-    console.error('copilotBulkIocHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('copilotBulkIocHandler failed', e);
     return internalError(c, e);
   }
 }

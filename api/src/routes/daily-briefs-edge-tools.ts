@@ -11,6 +11,7 @@
  */
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError, notFound } from '../lib/api-error';
 
 const KV_INDEX_KEY = 'db:index';
@@ -153,7 +154,7 @@ dailyBriefsRouter.get('/daily-briefs/', async (c) => {
       briefs: idx.briefs,
     });
   } catch (e) {
-    console.error('loadDbMod failed:', e instanceof Error ? e.message : String(e));
+    logError('loadDbMod failed', e);
     return internalError(c, `db_index_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -170,7 +171,7 @@ dailyBriefsRouter.get('/daily-briefs/:type', async (c) => {
     const briefs = (idx.briefs ?? []).filter((b) => b.type === type);
     return c.json({ type, total: idx.counts[type as keyof typeof idx.counts], returned: briefs.length, briefs });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `db_list_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -190,7 +191,7 @@ dailyBriefsRouter.get('/daily-briefs/:type/:date', async (c) => {
     if (!body) return notFound(c, `brief_not_found: ${type}/${date}`);
     return c.json(body);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `db_brief_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -207,7 +208,7 @@ dailyBriefsRouter.get('/daily-briefs/stats', async (c) => {
       generatedAt: idx.generatedAt,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `db_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

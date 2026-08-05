@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { runCompletion } from '../case-study/generation/ai-client';
 
 const SYSTEM_PROMPT = `You are a CTI analyst mentor. Given a user's query and the assistant's response, suggest 3 short follow-up questions the analyst could ask next.
@@ -50,7 +51,7 @@ export async function copilotFollowUpsHandler(c: Context<{ Bindings: Env }>): Pr
 
     return c.json({ suggestions });
   } catch (e) {
-    console.error('copilotFollowUpsHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('copilotFollowUpsHandler failed', e);
     return c.json({
       suggestions: ['What are the key TTPs involved?', 'What detection rules can I write for this?', 'What related threats should I investigate?'],
     });

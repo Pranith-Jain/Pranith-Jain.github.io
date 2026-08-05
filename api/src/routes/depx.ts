@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
@@ -148,7 +149,7 @@ export async function depxFeedHandler(c: Context<{ Bindings: Env }>): Promise<Re
     }
     return response;
   } catch (err) {
-    console.error('depxFeedHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('depxFeedHandler failed', err);
     return internalError(c, 'feed failed');
   }
 }
@@ -200,7 +201,7 @@ export async function depxFeedStatsHandler(c: Context<{ Bindings: Env }>): Promi
     c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
     return response;
   } catch (err) {
-    console.error('depxFeedStatsHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('depxFeedStatsHandler failed', err);
     return internalError(c, 'stats failed');
   }
 }
@@ -334,7 +335,7 @@ export async function depxCheckHandler(c: Context<{ Bindings: Env }>): Promise<R
       { 'Cache-Control': 'public, max-age=3600' }
     );
   } catch (err) {
-    console.error('depxCheckHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('depxCheckHandler failed', err);
     return internalError(c, 'check failed');
   }
 }

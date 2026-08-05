@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 const CACHE_TTL_SECONDS = 1800; // 30 min
@@ -211,7 +212,7 @@ export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise
         }
       }
     } catch (_catchErr) {
-      console.error('secretLeaksHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('secretLeaksHandler failed', _catchErr);
       /* continue to live fetch */
     }
   }
@@ -269,7 +270,7 @@ export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise
         });
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       // Skip failed pattern searches silently
     }
   });

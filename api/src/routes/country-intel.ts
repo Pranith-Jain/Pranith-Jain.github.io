@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
@@ -54,7 +55,7 @@ export async function countryIntelHandler(c: Context<{ Bindings: Env }>): Promis
     const intel = parseJson(text);
     return c.json({ intel, model, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('country-intel error:', e);
+    logError('country-intel error:', e);
     return internalError(c, 'analysis failed');
   }
 }

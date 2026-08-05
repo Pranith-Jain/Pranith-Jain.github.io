@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { safeIso } from '../lib/safe-date';
 import { CYBERCRIME_SOURCES, type CybercrimeSource } from '../lib/cybercrime-sources';
@@ -76,7 +77,7 @@ async function fetchText(url: string): Promise<string | null> {
     if (!res.ok) return null;
     return await res.text();
   } catch (_catchErr) {
-    console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchText failed', _catchErr);
     return null;
   }
 }
@@ -256,7 +257,7 @@ export async function fetchCybercrime(
           const { kept, dropped } = applyFilter(parsed, src.filterKeywords);
           return { src, ok: kept.length > 0, items: kept.slice(0, MAX_PER_SOURCE), dropped };
         } catch (_catchErr) {
-          console.error('fetchCybercrime failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('fetchCybercrime failed', _catchErr);
           return { src, ok: false, items: [] as CybercrimeItem[], dropped: 0, error: 'parse failed' };
         }
       })
@@ -303,7 +304,7 @@ export async function fetchCybercrime(
         afStale = true;
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* leave afOk = false */
     }
   }

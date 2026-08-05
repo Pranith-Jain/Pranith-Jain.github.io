@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { buildDeepDarkCti } from './deepdarkcti';
 import { getTelegramFeedCacheKey, TELEGRAM_FEED_CACHE_KEY } from './telegram-feed';
 import { REDDIT_FEED_CACHE_KEY } from './reddit-feed';
@@ -69,7 +70,7 @@ async function _readCachedJson<T>(cacheKey: string): Promise<T | null> {
     if (!hit) return null;
     return (await hit.json()) as T;
   } catch (_catchErr) {
-    console.error('_readCachedJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('_readCachedJson failed', _catchErr);
     return null;
   }
 }
@@ -95,7 +96,7 @@ export async function buildStealerForumIntel(env: Env, ctx: ExecutionContext): P
       .map(([category, entries]) => ({ category, count: entries.length, entries }))
       .sort((a, b) => b.count - a.count);
   } catch (_catchErr) {
-    console.error('buildStealerForumIntel failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('buildStealerForumIntel failed', _catchErr);
     forums = [];
   }
 
@@ -138,7 +139,7 @@ export async function buildStealerForumIntel(env: Env, ctx: ExecutionContext): P
       tg = (await tgMatch.json()) as TgFeed;
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     tg = null;
   }
   try {
@@ -147,7 +148,7 @@ export async function buildStealerForumIntel(env: Env, ctx: ExecutionContext): P
       rd = (await rdMatch.json()) as RdFeed;
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     rd = null;
   }
 

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 // Canonical producer keys — readers previously hardcoded stale v11/v8 and
 // returned a confident `no_data` for live indicators (see watch-engine).
@@ -30,7 +31,7 @@ async function readCache<T>(key: string): Promise<T | null> {
     const cached = await cache.match(new Request(key));
     if (cached) return (await cached.json()) as T;
   } catch (_catchErr) {
-    console.error('readCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readCache failed', _catchErr);
     /* miss */
   }
   return null;
@@ -187,7 +188,7 @@ async function runTasks(tasks: AutoTask[]): Promise<AutomationResult['tasks']> {
         results.push(...actResults);
       }
     } catch (e) {
-      console.error('runTasks failed:', e instanceof Error ? e.message : String(e));
+      logError('runTasks failed', e);
       results.push({
         name: task.type,
         status: 'error',
@@ -241,7 +242,7 @@ export async function automationRunHandler(c: Context<{ Bindings: Env }>): Promi
 
     return c.json(result, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
-    console.error('automationRunHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('automationRunHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

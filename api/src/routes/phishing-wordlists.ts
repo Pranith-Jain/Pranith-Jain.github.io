@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 /**
@@ -77,7 +78,7 @@ async function fetchText(url: string): Promise<string | null> {
     if (!res.ok) return null;
     return await res.text();
   } catch (_catchErr) {
-    console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchText failed', _catchErr);
     return null;
   }
 }

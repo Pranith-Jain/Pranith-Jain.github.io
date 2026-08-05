@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
@@ -62,7 +63,7 @@ export async function campaignTrackerHandler(c: Context<{ Bindings: Env }>): Pro
     const campaign = parseJson(text);
     return c.json({ campaign, model, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('campaign-tracker error:', e);
+    logError('campaign-tracker error:', e);
     return internalError(c, 'campaign analysis failed');
   }
 }

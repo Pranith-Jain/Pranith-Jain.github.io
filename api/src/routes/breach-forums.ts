@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { buildDeepDarkCti } from './deepdarkcti';
 
 /**
@@ -170,7 +171,7 @@ export async function buildBreachForums(env: Env, ctx: ExecutionContext): Promis
       directory++;
     }
   } catch (_catchErr) {
-    console.error('buildBreachForums failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('buildBreachForums failed', _catchErr);
     /* deepdarkCTI cold/unavailable — curated list still renders */
   }
 

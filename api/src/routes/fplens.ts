@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { runCompletion } from '../case-study/generation/ai-client';
 
@@ -96,7 +97,7 @@ function extractJson(text: string): unknown {
   try {
     return JSON.parse(trimmed);
   } catch (_catchErr) {
-    console.error('extractJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('extractJson failed', _catchErr);
     // Fall back to extracting the first {...} block.
     const start = trimmed.indexOf('{');
     const end = trimmed.lastIndexOf('}');
@@ -163,7 +164,7 @@ export async function fplensAnalyzeHandler(c: Context<{ Bindings: Env }>) {
   try {
     body = (await c.req.json()) as FpLensRequest;
   } catch (_catchErr) {
-    console.error('fplensAnalyzeHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fplensAnalyzeHandler failed', _catchErr);
     return badRequest(c, 'request body must be JSON');
   }
   if (!body.rule || typeof body.rule !== 'string' || body.rule.trim().length === 0) {
@@ -208,7 +209,7 @@ export async function fplensAnalyzeHandler(c: Context<{ Bindings: Env }>) {
     const result = normalizeFpLensResult(parsed);
     return c.json(result, 200, { 'cache-control': 'no-store' });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     const msg = err instanceof Error ? err.message : String(err);
     if (msg === 'fplens-timeout') {
       return badGateway(c, 'FP analysis timed out');

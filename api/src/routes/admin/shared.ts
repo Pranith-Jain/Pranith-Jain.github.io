@@ -1,4 +1,5 @@
 import type { Env } from '../../env';
+import { logError } from '../lib/logger';
 import type { Post } from '../../case-study/types';
 import { getDraft } from '../../case-study/storage/drafts';
 import { getSiteUrl } from '../../lib/site-config';
@@ -31,7 +32,7 @@ export async function fetchOgCardPng(
     const bytes = new Uint8Array(await res.arrayBuffer());
     return bytes.length > 0 ? bytes : undefined;
   } catch (_catchErr) {
-    console.error('fetchOgCardPng failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchOgCardPng failed', _catchErr);
     return undefined;
   }
 }

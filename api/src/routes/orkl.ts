@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
@@ -40,7 +41,7 @@ export async function orklSearchHandler(c: Context<{ Bindings: Env }>): Promise<
     c.executionCtx.waitUntil(cache.put(new Request(cacheKey), response.clone()));
     return response;
   } catch (e) {
-    console.error('orklSearchHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('orklSearchHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'orkl unreachable');
   }
 }
@@ -70,7 +71,7 @@ export async function orklEntryHandler(c: Context<{ Bindings: Env }>): Promise<R
     c.executionCtx.waitUntil(cache.put(new Request(cacheKey), response.clone()));
     return response;
   } catch (e) {
-    console.error('orklEntryHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('orklEntryHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'orkl unreachable');
   }
 }
@@ -96,7 +97,7 @@ export async function orklInfoHandler(c: Context<{ Bindings: Env }>): Promise<Re
     c.executionCtx.waitUntil(cache.put(new Request(cacheKey), response.clone()));
     return response;
   } catch (e) {
-    console.error('orklInfoHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('orklInfoHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'orkl unreachable');
   }
 }

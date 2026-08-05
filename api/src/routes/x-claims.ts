@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { fetchAuthedTimeline } from '../lib/twitter-auth-graphql';
 import { classifySocialClaim } from '../lib/social-claim-parser';
 import { classifySector } from '../lib/sector-classifier';
@@ -136,7 +137,7 @@ export async function readXClaimsCache(): Promise<XClaimsResponse | null> {
     if (!hit) return null;
     return (await hit.json()) as XClaimsResponse;
   } catch (_catchErr) {
-    console.error('readXClaimsCache failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readXClaimsCache failed', _catchErr);
     return null;
   }
 }

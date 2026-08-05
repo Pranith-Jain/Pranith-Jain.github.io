@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound } from '../../lib/api-error';
 import { safeJsonBody } from '../../lib/safe-body';
 import { getAi } from '../../lib/ai-binding';
@@ -283,7 +284,7 @@ draftsRouter.post('/drafts/:slug/regenerate', async (c) => {
       mode,
     });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     // Surface the actual post-process / LLM error so the admin can see
     // WHY the rewrite failed (e.g. "missing section: ## Lessons learned",
     // "qa failed: too thin (56 words < 160)"). 422 not 500 — the request

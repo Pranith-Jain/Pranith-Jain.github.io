@@ -12,6 +12,7 @@
  */
 
 import { Hono } from 'hono';
+import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
 import type { D1Database, KVNamespace, Ai } from '@cloudflare/workers-types';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
@@ -87,7 +88,7 @@ async function runAiPrompt(
     );
     return result.text;
   } catch (e) {
-    console.error('runAiPrompt failed:', e instanceof Error ? e.message : String(e));
+    logError('runAiPrompt failed', e);
     return `AI analysis unavailable: ${(e as Error).message || 'unknown error'}`;
   }
 }
@@ -178,7 +179,7 @@ Respond in JSON format:
       sources: context.source_count || 0,
     };
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     analysis = {
       indicator: body.indicator,
       type: body.type || 'unknown',
@@ -239,7 +240,7 @@ Provide a structured summary in JSON:
   try {
     return c.json(JSON.parse(response));
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return c.json({ summary: response.slice(0, 1000), severity: 'medium' });
   }
 });
@@ -365,7 +366,7 @@ Respond in JSON:
   try {
     return c.json(JSON.parse(response));
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return c.json({
       queries: [
         { name: 'Fallback query', platform: 'kql', query: response.slice(0, 2000), description: body.scenario },
@@ -444,7 +445,7 @@ Format as JSON:
   try {
     return c.json(JSON.parse(response));
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return c.json({
       title: `Threat Brief: ${topic}`,
       executive_summary: response.slice(0, 1000),
@@ -509,7 +510,7 @@ async function gatherIndicatorContext(db: D1Database, indicator: string): Promis
       }
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     // Graceful degradation - tables may not exist
   }
 

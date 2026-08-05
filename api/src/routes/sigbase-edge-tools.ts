@@ -17,6 +17,7 @@
  */
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { internalError, notFound } from '../lib/api-error';
 
 async function loadSigBaseMod() {
@@ -37,7 +38,7 @@ sigBaseRouter.get('/sigbase/', async (c) => {
       counts: idx.counts,
     });
   } catch (e) {
-    console.error('loadSigBaseMod failed:', e instanceof Error ? e.message : String(e));
+    logError('loadSigBaseMod failed', e);
     return internalError(c, `sigbase_index_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -62,7 +63,7 @@ sigBaseRouter.get('/sigbase/rules', async (c) => {
       rules,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `sigbase_rules_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -78,7 +79,7 @@ sigBaseRouter.get('/sigbase/rules/:slug', async (c) => {
     }
     return c.json(body);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `sigbase_rule_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -101,7 +102,7 @@ sigBaseRouter.get('/sigbase/iocs', async (c) => {
       lists,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `sigbase_iocs_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -119,7 +120,7 @@ sigBaseRouter.get('/sigbase/iocs/:slug', async (c) => {
     const entries = keyword ? mod.searchIocEntries(body, keyword) : body.entries;
     return c.json({ ...body, total: body.entryCount, returned: entries.length, entries });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `sigbase_ioc_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -137,7 +138,7 @@ sigBaseRouter.get('/sigbase/stats', async (c) => {
       cache: mod.sigBaseCacheStats(),
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `sigbase_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

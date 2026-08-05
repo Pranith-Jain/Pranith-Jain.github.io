@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import type { ReportInput } from '../lib/stix-build';
 import { buildBundleFromReport, BundleBuildError } from './intel-bundle';
@@ -19,7 +20,7 @@ export async function reportIngestHandler(c: Context<{ Bindings: Env }>): Promis
   try {
     form = await c.req.formData();
   } catch (_catchErr) {
-    console.error('reportIngestHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('reportIngestHandler failed', _catchErr);
     return badRequest(c, 'invalid_multipart');
   }
 
@@ -41,7 +42,7 @@ export async function reportIngestHandler(c: Context<{ Bindings: Env }>): Promis
   try {
     extracted = await extractText(bytes, file.type, file.name, c.env);
   } catch (err) {
-    console.error('reportIngestHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('reportIngestHandler failed', err);
     if (err instanceof UnsupportedFile) return badRequest(c, 'unsupported_file_type');
     if (err instanceof ImageTooLarge) {
       return c.json(
@@ -82,7 +83,7 @@ export async function reportIngestHandler(c: Context<{ Bindings: Env }>): Promis
     const built = await buildBundleFromReport(c, report);
     return c.json({ bundle: built.bundle, view: built.view, cache: 'computed', ingest: extracted.meta }, 200);
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     if (err instanceof BundleBuildError) return badGateway(c, err.code);
     return badGateway(c, 'build_failed');
   }

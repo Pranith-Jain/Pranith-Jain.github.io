@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 const TRACEIX_BASE = 'https://ai.perkinsfund.org';
@@ -49,7 +50,7 @@ traceixRouter.get('/traceix/lookup', async (c) => {
       avResults: body.results ?? [],
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return c.json(
       {
         success: false,

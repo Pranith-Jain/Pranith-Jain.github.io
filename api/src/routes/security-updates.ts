@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
 
 interface SecurityUpdateEntry {
@@ -125,7 +126,7 @@ async function fetchKevUpdates(vendor?: string): Promise<SecurityUpdateEntry[]> 
     }
     return entries;
   } catch (_catchErr) {
-    console.error('fetchKevUpdates failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchKevUpdates failed', _catchErr);
     return [];
   }
 }
@@ -205,7 +206,7 @@ async function fetchVendorAdvisories(env: Env, vendor?: string, product?: string
           }
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         // Advisory page unreachable — degrade to whatever we already have.
       }
     }
@@ -254,7 +255,7 @@ export async function securityUpdatesHandler(c: Context<{ Bindings: Env }>): Pro
             }
           }
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           // Continue with KEV entries
         }
       }
@@ -285,7 +286,7 @@ export async function securityUpdatesHandler(c: Context<{ Bindings: Env }>): Pro
       'Cache-Control': 'public, max-age=3600',
     });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return c.json(
       {
         error: 'Security updates lookup failed',

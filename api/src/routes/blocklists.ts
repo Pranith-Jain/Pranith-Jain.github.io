@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { serviceUnavailable } from '../lib/api-error';
 import { BLOCKLIST_KV_ALL_KEY, buildBlocklists } from '../lib/blocklist-builder';
 import { safeNullLog } from '../lib/safe-catch';
@@ -26,7 +27,7 @@ async function readAllFromKv(kv: KVNamespace | undefined): Promise<BlocklistAll 
     const hit = await cache.match(new Request(BLOCKLIST_CACHE_KEY));
     if (hit) return (await hit.json()) as BlocklistAll;
   } catch (_catchErr) {
-    console.error('readAllFromKv failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readAllFromKv failed', _catchErr);
     /* fall through to KV */
   }
   try {

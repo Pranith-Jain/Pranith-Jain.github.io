@@ -16,6 +16,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 import {
   fetchMtiSource,
@@ -154,7 +155,7 @@ export async function mtiHandler(c: Context<{ Bindings: Env }>): Promise<Respons
         );
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* fall through to the error path */
     }
   }

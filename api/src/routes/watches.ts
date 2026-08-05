@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { listWatches, saveWatch, deleteWatch, getAlertLog, type Watch } from '../lib/watch-engine';
 import { safeJsonBody } from '../lib/safe-body';
 import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
@@ -35,7 +36,7 @@ export async function createWatchHandler(c: Context<{ Bindings: Env }>): Promise
   try {
     url = new URL(body.webhook);
   } catch (_catchErr) {
-    console.error('createWatchHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('createWatchHandler failed', _catchErr);
     return badRequest(c, 'Invalid webhook URL');
   }
   if (url.protocol !== 'http:' && url.protocol !== 'https:') {
@@ -80,7 +81,7 @@ export async function updateWatchHandler(c: Context<{ Bindings: Env }>): Promise
     try {
       url = new URL(body.webhook);
     } catch (_catchErr) {
-      console.error('updateWatchHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('updateWatchHandler failed', _catchErr);
       return badRequest(c, 'Invalid webhook URL');
     }
     if (url.protocol !== 'http:' && url.protocol !== 'https:') {

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { readLastGood } from '../lib/lastgood';
 import type { Pir } from './pir';
 import { FEED_STATUS_CACHE_KEY } from './feed-status';
@@ -446,7 +447,7 @@ export async function predictiveGapsHandler(c: Context<{ Bindings: Env }>): Prom
     const lg = await readLastGood<Pir[]>(c.env, 'pirs');
     pirs = lg ?? undefined;
   } catch (_catchErr) {
-    console.error('predictiveGapsHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('predictiveGapsHandler failed', _catchErr);
     /* best-effort */
   }
 
@@ -458,7 +459,7 @@ export async function predictiveGapsHandler(c: Context<{ Bindings: Env }>): Prom
       if (body.rows) for (const r of body.rows) sourceCoverage[r.id] = r.status;
     }
   } catch (_catchErr) {
-    console.error('predictiveGapsHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('predictiveGapsHandler failed', _catchErr);
     /* best-effort */
   }
 

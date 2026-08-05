@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError } from '../lib/api-error';
 
 interface SavedRule {
@@ -63,7 +64,7 @@ export async function copilotRulesSaveHandler(c: Context<{ Bindings: Env }>): Pr
 
     return c.json({ id, created_at: now });
   } catch (e) {
-    console.error('copilotRulesSaveHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('copilotRulesSaveHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -86,7 +87,7 @@ export async function copilotRulesListHandler(c: Context<{ Bindings: Env }>): Pr
     }
     return c.json({ rules: rows.results ?? [] });
   } catch (e) {
-    console.error('copilotRulesListHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('copilotRulesListHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -101,7 +102,7 @@ export async function copilotRulesDeleteHandler(c: Context<{ Bindings: Env }>): 
     await db.prepare('DELETE FROM copilot_saved_rules WHERE id = ?').bind(id).run();
     return c.json({ deleted: true });
   } catch (e) {
-    console.error('copilotRulesDeleteHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('copilotRulesDeleteHandler failed', e);
     return internalError(c, e);
   }
 }

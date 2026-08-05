@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import {
   parseUrlhaus,
   parseThreatfox,
@@ -87,7 +88,7 @@ async function fetchText(url: string): Promise<string | null> {
     if (!res.ok) return null;
     return await res.text();
   } catch (_catchErr) {
-    console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchText failed', _catchErr);
     return null;
   }
 }
@@ -118,7 +119,7 @@ async function geolocateBatch(ips: string[]): Promise<Map<string, { country: str
         }
       }
     } catch (_catchErr) {
-      console.error('geolocateBatch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('geolocateBatch failed', _catchErr);
       /* skip batch on failure */
     }
   }
@@ -157,7 +158,7 @@ export async function fetchThreatMap(): Promise<ThreatMapResponse> {
         const host = new URL(e.value).hostname;
         if (/^(?:\d{1,3}\.){3}\d{1,3}$/.test(host)) addIp(host, 'urlhaus');
       } catch (_catchErr) {
-        console.error('fetchThreatMap failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('fetchThreatMap failed', _catchErr);
         /* skip malformed url */
       }
     }

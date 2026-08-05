@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
@@ -51,7 +52,7 @@ export async function alertCheckHandler(c: Context<{ Bindings: Env }>): Promise<
     const result = parseJson(text) as Record<string, unknown>;
     return c.json({ ...result, model, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('alert-check error:', e);
+    logError('alert-check error:', e);
     return internalError(c, 'alert check failed');
   }
 }

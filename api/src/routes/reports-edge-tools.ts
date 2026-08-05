@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { internalError, notFound } from '../lib/api-error';
 
 async function loadMod() {
@@ -17,7 +18,7 @@ reportsRouter.get('/reports/stats', async (c) => {
       cache: mod.reportsCacheStats(),
     });
   } catch (e) {
-    console.error('loadMod failed:', e instanceof Error ? e.message : String(e));
+    logError('loadMod failed', e);
     return internalError(c, `reports_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -34,7 +35,7 @@ reportsRouter.get('/reports', async (c) => {
     const reports = mod.listReports(idx, { category: category as any, keyword, year, publisher, limit });
     return c.json({ count: reports.length, reports });
   } catch (e) {
-    console.error('loadMod failed:', e instanceof Error ? e.message : String(e));
+    logError('loadMod failed', e);
     return internalError(c, `reports_list_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -48,7 +49,7 @@ reportsRouter.get('/reports/:slug', async (c) => {
     if (!report) return notFound(c, `Report '${slug}' not found`);
     return c.json(report);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `reports_get_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

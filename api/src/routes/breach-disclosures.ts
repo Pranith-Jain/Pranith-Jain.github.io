@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 
 const FETCH_TIMEOUT_MS = 20_000;
 const HIBP_URL = 'https://haveibeenpwned.com/api/v3/breaches';
@@ -100,7 +101,7 @@ export async function breachDisclosuresHandler(c: Context<{ Bindings: Env }>): P
       breaches = breaches.slice(0, MAX_ITEMS);
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* HIBP unreachable - return what we have */
   }
 

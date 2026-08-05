@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { writeLastGood } from '../lib/lastgood';
@@ -181,7 +182,7 @@ export async function mispGalaxyActorsHandler(c: Context<{ Bindings: Env }>): Pr
       upstreamError = `upstream ${res.status}`;
     }
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     upstreamError = err instanceof Error ? err.message : 'fetch failed';
   }
 
@@ -198,7 +199,7 @@ export async function mispGalaxyActorsHandler(c: Context<{ Bindings: Env }>): Pr
           });
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* stale read failed; fall through to error */
       }
     }

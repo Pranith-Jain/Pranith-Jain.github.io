@@ -16,6 +16,7 @@
  */
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { internalError, notFound } from '../lib/api-error';
 
 async function loadWinRegMod() {
@@ -38,7 +39,7 @@ winRegRouter.get('/winreg/', async (c) => {
       categories: idx.categories,
     });
   } catch (e) {
-    console.error('loadWinRegMod failed:', e instanceof Error ? e.message : String(e));
+    logError('loadWinRegMod failed', e);
     return internalError(c, `winreg_index_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -62,7 +63,7 @@ winRegRouter.get('/winreg/artifacts', async (c) => {
       artifacts,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `winreg_artifacts_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -78,7 +79,7 @@ winRegRouter.get('/winreg/artifacts/:slug', async (c) => {
     }
     return c.json(body);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `winreg_artifact_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -94,7 +95,7 @@ winRegRouter.get('/winreg/categories', async (c) => {
       categories: idx.categories,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `winreg_categories_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -116,7 +117,7 @@ winRegRouter.get('/winreg/stats', async (c) => {
       cache: mod.winRegCacheStats(),
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `winreg_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

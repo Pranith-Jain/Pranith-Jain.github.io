@@ -28,6 +28,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { unauthorized, badRequest, badGateway } from '../lib/api-error';
 
 const MCP_URL = 'https://mcp.ti-mindmap-hub.com/mcp';
@@ -57,7 +58,7 @@ export async function mcpProxyHandler(c: Context<{ Bindings: Env }>): Promise<Re
   try {
     body = (await c.req.json()) as ProxyRequest;
   } catch (_catchErr) {
-    console.error('mcpProxyHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('mcpProxyHandler failed', _catchErr);
     return badRequest(c, 'invalid JSON body');
   }
   if (!body.method || typeof body.method !== 'string') {
@@ -116,7 +117,7 @@ export async function mcpProxyHandler(c: Context<{ Bindings: Env }>): Promise<Re
       signal: ctl.signal,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     clearTimeout(timer);
     const msg = e instanceof Error ? e.message : String(e);
     if (msg.includes('aborted')) {

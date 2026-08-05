@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { queryCorpus } from '../lib/rag-embedder';
 import { findUngroundedCves, findInvalidMitreIds } from '../lib/ai-output-validator';
@@ -122,7 +123,7 @@ async function gatherAchContext(
       }
     }
   } catch (_catchErr) {
-    console.error('gatherAchContext failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('gatherAchContext failed', _catchErr);
     /* non-fatal */
   }
 
@@ -147,7 +148,7 @@ async function gatherAchContext(
       }
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* non-fatal */
   }
 
@@ -210,7 +211,7 @@ async function callLlm(env: Env, system: string, user: string): Promise<string> 
         return data?.choices?.[0]?.message?.content ?? '';
       }
     } catch (_catchErr) {
-      console.error('callLlm failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('callLlm failed', _catchErr);
       /* fall through */
     }
   }
@@ -219,7 +220,7 @@ async function callLlm(env: Env, system: string, user: string): Promise<string> 
     try {
       return await callNvidia(env, system, user);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* fall through */
     }
   }
@@ -283,7 +284,7 @@ export async function achHandler(c: Context<{ Bindings: Env }>): Promise<Respons
 
     return c.json(response, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

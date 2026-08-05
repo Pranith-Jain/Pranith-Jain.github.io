@@ -12,6 +12,7 @@
  */
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { internalError, notFound } from '../lib/api-error';
 
 async function loadOssMod() {
@@ -34,7 +35,7 @@ ossFeedsRouter.get('/oss-feeds/', async (c) => {
       categories: idx.categories,
     });
   } catch (e) {
-    console.error('loadOssMod failed:', e instanceof Error ? e.message : String(e));
+    logError('loadOssMod failed', e);
     return internalError(c, `oss_feeds_index_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -57,7 +58,7 @@ ossFeedsRouter.get('/oss-feeds/feeds', async (c) => {
     });
     return c.json({ total: idx.counts.total, returned: feeds.length, feeds });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `oss_feeds_list_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -68,7 +69,7 @@ ossFeedsRouter.get('/oss-feeds/categories', async (c) => {
     const idx = await mod.loadOssFeedsIndex(c.env.ASSETS);
     return c.json({ total: idx.categories.length, categories: idx.categories });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `oss_feeds_categories_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -81,7 +82,7 @@ ossFeedsRouter.get('/oss-feeds/categories/:cat', async (c) => {
     if (!body) return notFound(c, `oss_category_not_found: ${cat}`);
     return c.json(body);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `oss_feeds_category_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });
@@ -100,7 +101,7 @@ ossFeedsRouter.get('/oss-feeds/stats', async (c) => {
       cache,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `oss_feeds_stats_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

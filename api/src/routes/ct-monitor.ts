@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, serviceUnavailable } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 
@@ -163,7 +164,7 @@ async function fetchCertificates(domain: string): Promise<CrtShCert[]> {
     const data = await res.json();
     return Array.isArray(data) ? data : [];
   } catch (_catchErr) {
-    console.error('fetchCertificates failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchCertificates failed', _catchErr);
     return [];
   }
 }

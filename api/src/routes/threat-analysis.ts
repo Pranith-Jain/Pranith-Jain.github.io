@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
@@ -154,7 +155,7 @@ async function callNvidia(
       const text = data?.choices?.[0]?.message?.content;
       if (text?.trim()) return text;
     } catch (_catchErr) {
-      console.error('callNvidia failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('callNvidia failed', _catchErr);
       /* try next model */
     }
   }
@@ -314,7 +315,7 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
     try {
       analysis = JSON.parse(text);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       // Try to extract JSON from markdown code block
       const jsonMatch = text.match(/```(?:json)?\s*([\s\S]*?)```/);
       if (jsonMatch?.[1]) {
@@ -335,7 +336,7 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
       ...(validationIssues.length > 0 ? { quality_warnings: validationIssues } : {}),
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     const msg = e instanceof Error ? e.message : String(e);
     if (msg.includes('rate-limited')) {
       return tooManyRequests(c, 'Groq API rate limit exceeded');

@@ -9,7 +9,7 @@ export async function readKvJson<T>(kv: KVNamespace | undefined, key: string): P
     if (!val) return null;
     return JSON.parse(val) as T;
   } catch (_catchErr) {
-    console.error('readKvJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readKvJson failed', _catchErr);
     return null;
   }
 }

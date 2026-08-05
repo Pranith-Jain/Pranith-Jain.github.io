@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
@@ -70,7 +71,7 @@ export async function pdLeaksHandler(c: Context<{ Bindings: Env }>): Promise<Res
     }
     data = await res.json();
   } catch (e) {
-    console.error('pdLeaksHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('pdLeaksHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'ProjectDiscovery unreachable');
   }
 
@@ -139,7 +140,7 @@ export async function pdSubdomainsHandler(c: Context<{ Bindings: Env }>): Promis
     }
     chaos = (await res.json()) as ChaosResponse;
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Chaos unreachable');
   }
 
@@ -202,7 +203,7 @@ function parseCves(text: string): PdCve[] {
     try {
       rec = JSON.parse(trimmed) as CveTemplate;
     } catch (_catchErr) {
-      console.error('parseCves failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('parseCves failed', _catchErr);
       continue;
     }
     if (!rec.ID) continue;
@@ -246,7 +247,7 @@ export async function pdCvesHandler(c: Context<{ Bindings: Env }>): Promise<Resp
     );
     if (res.ok) text = await res.text();
   } catch (_catchErr) {
-    console.error('pdCvesHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('pdCvesHandler failed', _catchErr);
     text = null;
   }
   if (!text) {
@@ -368,7 +369,7 @@ async function fetchSsvc(cveUpper: string): Promise<Ssvc | null> {
     }
     return null;
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return null;
   }
 }
@@ -400,7 +401,7 @@ export async function pdCveDetailHandler(c: Context<{ Bindings: Env }>): Promise
     }
     d = (await res.json()) as CvedbResponse;
   } catch (e) {
-    console.error('pdCveDetailHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('pdCveDetailHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'cvedb unreachable');
   }
 

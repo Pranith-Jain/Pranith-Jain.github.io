@@ -15,6 +15,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import type { AnalyzerOutput } from '../lib/report-analyzer';
 import { buildAnalyticsReport } from '../lib/analytics-report-builder';
@@ -40,7 +41,7 @@ export async function analyticsReportHandler(c: Context<{ Bindings: Env }>): Pro
   try {
     body = await c.req.json<AnalyticsReportBody>();
   } catch (_catchErr) {
-    console.error('analyticsReportHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('analyticsReportHandler failed', _catchErr);
     return badRequest(c, 'invalid JSON body');
   }
 
@@ -71,7 +72,7 @@ export async function analyticsReportHandler(c: Context<{ Bindings: Env }>): Pro
     });
     return c.json({ markdown: md }, 200);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     const msg = e instanceof Error ? e.message : String(e);
     return internalError(c, msg);
   }

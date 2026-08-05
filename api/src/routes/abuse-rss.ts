@@ -7,6 +7,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 import { getSiteUrl } from '../lib/site-config';
 import { FEED_SOURCES, buildSummary, type IocEntry, type SourceId } from '../lib/ioc-feed-parsers';
@@ -69,7 +70,7 @@ export async function abuseRssHandler(c: Context<{ Bindings: Env }>) {
     const body = await upstream.text();
     entries = buildSummary(sourceParam, body).entries;
   } catch (err) {
-    console.error('abuseRssHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('abuseRssHandler failed', err);
     return badGateway(c, err instanceof Error ? err.message : 'fetch failed');
   }
 

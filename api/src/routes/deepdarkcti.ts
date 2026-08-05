@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { DDC_FILES, parseDDCFile, type DDCEntry, type DDCFileConfig } from '../lib/deepdarkcti-parser';
 import { readLastGood, writeLastGood } from '../lib/lastgood';
@@ -51,7 +52,7 @@ async function fetchFile(cfg: DDCFileConfig): Promise<string | null> {
     if (!res.ok) return null;
     return await res.text();
   } catch (_catchErr) {
-    console.error('fetchFile failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchFile failed', _catchErr);
     return null;
   }
 }
@@ -101,7 +102,7 @@ async function resolveFile(
         };
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* fall through */
     }
   }

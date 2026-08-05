@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { safeIso } from '../lib/safe-date';
@@ -392,7 +393,7 @@ function parseFeedBody(body: string, sourceUrl: string, host: string, perSource:
         return parseJsonFeedItems(parsed.items, sourceUrl, host, perSource);
       }
     } catch (_catchErr) {
-      console.error('parseFeedBody failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('parseFeedBody failed', _catchErr);
       // Not valid JSON — fall through to XML parsing
     }
   }
@@ -473,7 +474,7 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
       const { xml } = await buildMtiRansomwareRss();
       return { items: parseFeedBody(xml, url, parsed.hostname, perSource) };
     } catch (e) {
-      console.error('fetchOne failed:', e instanceof Error ? e.message : String(e));
+      logError('fetchOne failed', e);
       return { items: [], error: `mti_build_failed: ${(e as Error).message}` };
     }
   }
@@ -482,7 +483,7 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
       const { xml } = await buildRansomwareMergedRss(env);
       return { items: parseFeedBody(xml, url, parsed.hostname, perSource) };
     } catch (e) {
-      console.error('fetchOne failed:', e instanceof Error ? e.message : String(e));
+      logError('fetchOne failed', e);
       return { items: [], error: `ransomware_merged_build_failed: ${(e as Error).message}` };
     }
   }
@@ -513,7 +514,7 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
       // only once, since the next put will overwrite this key.
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     /* edge-cache miss / parse fail; fall through to live fetch */
   }
 
@@ -559,7 +560,7 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
       try {
         next = new URL(location, currentUrl);
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         return { items: [], error: 'redirect_malformed' };
       }
       if (next.protocol !== 'http:' && next.protocol !== 'https:') {
@@ -602,12 +603,12 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
       });
       await edgeCache.put(edgeKey, cacheable);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* cache put failures are non-fatal */
     }
     return { items };
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     const msg = (e as Error).message || String(e);
     if (msg.toLowerCase().includes('abort') || msg.toLowerCase().includes('timeout')) {
       return { items: [], error: 'timeout' };

@@ -18,6 +18,7 @@
 import type { Context } from 'hono';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { requireAdmin } from '../lib/admin-auth';
 import { badRequest, internalError } from '../lib/api-error';
 import { auditAdminAction } from '../lib/admin-audit';
@@ -61,7 +62,7 @@ export async function runRetentionHandler(c: Context<{ Bindings: Env }>): Promis
     });
     return c.json(result, 200);
   } catch (e) {
-    console.error('runRetentionHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('runRetentionHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -99,7 +100,7 @@ export async function telegramCleanupHandler(c: Context<{ Bindings: Env }>): Pro
       count_after: countAfter,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }

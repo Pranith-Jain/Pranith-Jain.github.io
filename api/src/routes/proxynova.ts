@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 
 interface ProxyNovaResponse {
@@ -41,7 +42,7 @@ export async function proxyNovaSearchHandler(c: Context<{ Bindings: Env }>): Pro
     c.executionCtx.waitUntil(caches.default.put(cacheReq, response.clone()));
     return response;
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'ProxyNova unreachable');
   }
 }

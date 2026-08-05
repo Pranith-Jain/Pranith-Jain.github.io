@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
@@ -54,7 +55,7 @@ export async function feedQualityHandler(c: Context<{ Bindings: Env }>): Promise
     const quality = parseJson(text);
     return c.json({ quality, model, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('feed-quality error:', e);
+    logError('feed-quality error:', e);
     return internalError(c, 'quality assessment failed');
   }
 }

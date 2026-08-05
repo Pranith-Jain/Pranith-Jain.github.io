@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound } from '../lib/api-error';
 import { listToolChains, getToolChain } from '../lib/agent/tool-chain';
 
@@ -25,7 +26,7 @@ toolChainRouter.post('/tool-chains/:id/run', async (c) => {
   try {
     body = await c.req.json();
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return badRequest(c, 'invalid JSON body');
   }
   const indicator = body.indicator?.trim();
@@ -77,7 +78,7 @@ toolChainRouter.post('/tool-chains/:id/run', async (c) => {
         durationMs: Date.now() - start,
       });
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logError('handler failed', e);
       stepResults.push({
         step: step.id,
         name: step.name,

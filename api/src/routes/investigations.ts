@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { safeJsonBody } from '../lib/safe-body';
 import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 
@@ -119,7 +120,7 @@ function parseTags(raw: unknown): string[] {
     try {
       return JSON.parse(raw);
     } catch (_catchErr) {
-      console.error('parseTags failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('parseTags failed', _catchErr);
       return [];
     }
   return [];

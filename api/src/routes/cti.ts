@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 import { parseStixBundle } from '../lib/stix-parse';
 import { safeErrorMessage } from '../lib/error';
@@ -39,7 +40,7 @@ export async function ctiParseHandler(c: Context<{ Bindings: Env }>) {
   try {
     bundle = JSON.parse(text);
   } catch (_catchErr) {
-    console.error('ctiParseHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('ctiParseHandler failed', _catchErr);
     return badRequest(c, 'invalid JSON: request body must be a STIX 2.1 bundle in JSON form');
   }
   // Quick shape check before handing to the parser, so users get a clear message.
@@ -63,7 +64,7 @@ export async function ctiParseHandler(c: Context<{ Bindings: Env }>) {
     // attributions they consider sensitive; don't let an intermediary cache it.
     return c.json(parsedBundle, 200, { 'Cache-Control': 'no-store' });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return c.json(
       {
         error: 'failed to parse STIX bundle',

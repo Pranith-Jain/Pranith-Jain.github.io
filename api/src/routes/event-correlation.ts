@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
@@ -59,7 +60,7 @@ export async function eventCorrelationHandler(c: Context<{ Bindings: Env }>): Pr
     const correlation = parseJson(text);
     return c.json({ correlation, model, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('event-correlation error:', e);
+    logError('event-correlation error:', e);
     return internalError(c, 'correlation failed');
   }
 }

@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import type { KVNamespace } from '@cloudflare/workers-types';
 import type { Env } from '../../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../../lib/api-error';
 import { safeJsonBody } from '../../lib/safe-body';
 import { getAi } from '../../lib/ai-binding';
@@ -165,7 +166,7 @@ candidatesRouter.post('/candidates/:key/generate', async (c) => {
         errors.push(`unknown format: ${fmt}`);
       }
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logError('handler failed', err);
       errors.push(`${fmt}: ${err instanceof Error ? err.message : String(err)}`);
     }
   }

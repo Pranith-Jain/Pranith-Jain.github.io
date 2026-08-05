@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 
 interface UrlscanResult {
@@ -70,7 +71,7 @@ export async function urlscanIpHandler(c: Context<{ Bindings: Env }>) {
 
     return c.json({ ip, total: json.total ?? 0, results });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return badGateway(c, err instanceof Error ? err.message : 'Unknown error');
   }
 }

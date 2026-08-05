@@ -20,6 +20,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
 const UPSTREAM_URL = 'https://research.redhuntlabs.com/api/latest.json';
@@ -102,7 +103,7 @@ async function refreshUpstream(): Promise<void> {
     const payload = await fetchAndCache();
     if (!payload.ok) return;
   } catch (_catchErr) {
-    console.error('refreshUpstream failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('refreshUpstream failed', _catchErr);
   }
 }
 
@@ -128,7 +129,7 @@ async function fetchAndCache(): Promise<CachedPayload> {
     routeCachePut(CACHE_KEY, payload, CACHE_TTL_SECONDS * 2).catch(() => {});
     return payload;
   } catch (e) {
-    console.error('fetchAndCache failed:', e instanceof Error ? e.message : String(e));
+    logError('fetchAndCache failed', e);
     return { ...CACHE_FALLBACK, error: e instanceof Error ? e.message : 'upstream unreachable' };
   }
 }

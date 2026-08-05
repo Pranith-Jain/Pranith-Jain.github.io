@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
 import { TAKEOVER_FINGERPRINTS, type TakeoverFingerprint } from '../lib/takeover-fingerprints';
 import { assertPublicHost, pinnedFetch, SsrfError } from '../lib/ssrf-guard';
@@ -118,7 +119,7 @@ async function dohCname(name: string): Promise<string | null> {
       .toLowerCase();
     return cname ?? null;
   } catch (_catchErr) {
-    console.error('dohCname failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('dohCname failed', _catchErr);
     return null;
   }
 }
@@ -147,7 +148,7 @@ async function checkFingerprint(domain: string, fp: TakeoverFingerprint): Promis
         try {
           response = await pinnedFetch(currentUrl, { signal: ctrl.signal, redirect: 'manual' });
         } catch (e) {
-          console.error('checkFingerprint failed:', e instanceof Error ? e.message : String(e));
+          logError('checkFingerprint failed', e);
           if (e instanceof SsrfError) break; // redirect into a blocked host → stop, try next scheme
           throw e;
         } finally {
@@ -169,7 +170,7 @@ async function checkFingerprint(domain: string, fp: TakeoverFingerprint): Promis
         return `Body contains "${fp.fingerprint}" (${scheme})`;
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* try next scheme */
     }
   }

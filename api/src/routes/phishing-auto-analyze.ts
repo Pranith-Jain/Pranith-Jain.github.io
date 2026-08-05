@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
 import { pinnedFetchFollow } from '../lib/ssrf-guard';
 
@@ -150,7 +151,7 @@ export async function phishingAnalyzeAutoHandler(c: Context<{ Bindings: Env }>):
         ip = dnsData.Answer?.[0]?.data;
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* best-effort */
     }
 
@@ -176,7 +177,7 @@ export async function phishingAnalyzeAutoHandler(c: Context<{ Bindings: Env }>):
       { 'Cache-Control': 'public, max-age=60' }
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return c.json(
       {
         url,

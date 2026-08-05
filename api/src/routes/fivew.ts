@@ -9,6 +9,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { extractFiveW, type FiveW } from '../lib/fivew-extract';
 
@@ -24,7 +25,7 @@ export async function fivewHandler(c: Context<{ Bindings: Env }>): Promise<Respo
   try {
     body = await c.req.json();
   } catch (_catchErr) {
-    console.error('fivewHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fivewHandler failed', _catchErr);
     return badRequest(c, 'invalid JSON body');
   }
   const text = typeof body.text === 'string' ? body.text : '';
@@ -43,7 +44,7 @@ export async function fivewHandler(c: Context<{ Bindings: Env }>): Promise<Respo
       return c.json(data, 200, { 'cache-control': `public, max-age=${CACHE_TTL}` });
     }
   } catch (_catchErr) {
-    console.error('fivewHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fivewHandler failed', _catchErr);
     /* miss */
   }
 

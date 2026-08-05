@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 const FEED_JSON_URL = 'https://ai-honeypots.com/feeds/iocs.json';
@@ -69,7 +70,7 @@ export async function aiHoneypotFeedHandler(c: Context<{ Bindings: Env }>): Prom
     c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
     return response;
   } catch (e) {
-    console.error('aiHoneypotFeedHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('aiHoneypotFeedHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Fetch failed');
   }
 }

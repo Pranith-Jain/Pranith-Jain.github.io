@@ -17,6 +17,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError, serviceUnavailable } from '../lib/api-error';
 import { z } from 'zod';
 import { safeNullLog } from '../lib/safe-catch';
@@ -84,7 +85,7 @@ export async function submitFeedbackHandler(c: Context<{ Bindings: Env }>): Prom
 
     return c.json({ ok: true, action, finding_hash }, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
-    console.error('submitFeedbackHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('submitFeedbackHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -140,7 +141,7 @@ export async function getFeedbackHandler(c: Context<{ Bindings: Env }>): Promise
       { 'Cache-Control': 'public, max-age=60' }
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }
@@ -183,7 +184,7 @@ export async function submitAnnotationHandler(c: Context<{ Bindings: Env }>): Pr
       { 'Cache-Control': 'no-store' }
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }
@@ -219,7 +220,7 @@ export async function getAnnotationsHandler(c: Context<{ Bindings: Env }>): Prom
       { 'Cache-Control': 'public, max-age=60' }
     );
   } catch (e) {
-    console.error('getAnnotationsHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('getAnnotationsHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -280,7 +281,7 @@ export async function feedbackSummaryHandler(c: Context<{ Bindings: Env }>): Pro
       { 'Cache-Control': 'public, max-age=300' }
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }

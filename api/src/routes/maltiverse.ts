@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 
 const CACHE_TTL_SECONDS = 3600;
@@ -31,7 +32,7 @@ export async function maltiverseSearchHandler(c: Context<{ Bindings: Env }>): Pr
     c.executionCtx.waitUntil(caches.default.put(cacheReq, response.clone()));
     return response;
   } catch (e) {
-    console.error('maltiverseSearchHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('maltiverseSearchHandler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Maltiverse unreachable');
   }
 }

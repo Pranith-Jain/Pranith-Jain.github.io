@@ -14,6 +14,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { rdapLookup } from '../lib/rdap';
 import { whoisTcpLookup } from '../lib/whois-tcp';
 import { storeWhoisSnapshot, getWhoisHistory, pivotDomains, getWhoisStats } from '../lib/whois-history';
@@ -66,7 +67,7 @@ export async function domainHistoryHandler(c: Context<{ Bindings: Env }>): Promi
       }
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }
@@ -103,7 +104,7 @@ export async function domainChangesHandler(c: Context<{ Bindings: Env }>): Promi
       }
     );
   } catch (e) {
-    console.error('domainChangesHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('domainChangesHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -161,7 +162,7 @@ export async function domainPivotHandler(c: Context<{ Bindings: Env }>): Promise
       }
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }
@@ -192,7 +193,7 @@ export async function domainHistoryStatsHandler(c: Context<{ Bindings: Env }>): 
       }
     );
   } catch (e) {
-    console.error('domainHistoryStatsHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('domainHistoryStatsHandler failed', e);
     return internalError(c, e);
   }
 }
@@ -242,7 +243,7 @@ export async function domainRegistrantSearchHandler(c: Context<{ Bindings: Env }
       }
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }
@@ -294,7 +295,7 @@ export async function domainSnapshotHandler(c: Context<{ Bindings: Env }>): Prom
       }
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }

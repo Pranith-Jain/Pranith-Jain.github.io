@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 
 interface FeedCatalogEntry {
@@ -91,7 +92,7 @@ export async function feedCatalogHandler(c: Context<{ Bindings: Env }>): Promise
       'Cache-Control': `public, max-age=${CACHE_TTL}`,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, String(e));
   }
 }

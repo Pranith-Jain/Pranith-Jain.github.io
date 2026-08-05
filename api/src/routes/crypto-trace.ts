@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { checkAddress, type SanctionsCheck } from '../lib/ofac-sanctions';
 import { checkScamSniffer, loadScamSnifferSet, type ScamSnifferCheck } from '../lib/scamsniffer';
@@ -121,7 +122,7 @@ async function withTimeout<T>(p: Promise<T>, ms: number): Promise<T | null> {
       }),
     ]);
   } catch (_catchErr) {
-    console.error('withTimeout failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('withTimeout failed', _catchErr);
     return null;
   } finally {
     if (timer) clearTimeout(timer);
@@ -190,7 +191,7 @@ async function fetchBtc(address: string): Promise<ChainResult> {
       explorer_url,
     };
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return {
       chain: 'btc',
       label: 'Bitcoin',
@@ -286,7 +287,7 @@ async function rpcCall<T>(rpc: string, method: string, params: unknown[]): Promi
     const j = (await r.json()) as RpcResp<T>;
     return j.result ?? null;
   } catch (_catchErr) {
-    console.error('rpcCall failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('rpcCall failed', _catchErr);
     return null;
   }
 }

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 import { runCompletion, RateLimitError } from '../case-study/generation/ai-client';
 import { safeJsonBody } from '../lib/safe-body';
@@ -225,7 +226,7 @@ export async function campaignGeneratorHandler(c: Context<{ Bindings: Env }>): P
     completionText = out.text;
     modelUsed = out.modelUsed;
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     if (err instanceof RateLimitError) {
       return tooManyRequests(c, 'AI rate limited — try again in a few minutes');
     }
@@ -243,7 +244,7 @@ export async function campaignGeneratorHandler(c: Context<{ Bindings: Env }>): P
   try {
     modelParsed = JSON.parse(json);
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return badGateway(c, 'model JSON malformed');
   }
   const doc = validate(modelParsed);

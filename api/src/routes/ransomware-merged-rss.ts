@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { getSiteUrl } from '../lib/site-config';
 import { RANSOMWARE_RECENT_CACHE_KEY, fetchRansomwareRecent } from './ransomware-recent';
 

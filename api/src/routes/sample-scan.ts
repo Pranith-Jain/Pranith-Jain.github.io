@@ -30,6 +30,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { compositeScore } from '../lib/scoring';
 import { sseStream } from '../lib/sse';
@@ -160,7 +161,7 @@ async function parseInput(c: Ctx): Promise<ParsedInput | { error: Response }> {
     try {
       body = (await c.req.json()) as { hash?: string; filename?: string; size?: number };
     } catch (_catchErr) {
-      console.error('parseInput failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('parseInput failed', _catchErr);
       return { error: badRequest(c, 'invalid JSON') };
     }
     const hash = body.hash?.trim().toLowerCase();
@@ -260,7 +261,7 @@ async function runHashFanOut(
           recordProviderFailure(p);
         }
       } catch (err) {
-        console.error('handler failed:', err instanceof Error ? err.message : String(err));
+        logError('handler failed', err);
         recordProviderFailure(p);
         const errResult = makeErrorResult(p, err);
         collected.push(errResult);

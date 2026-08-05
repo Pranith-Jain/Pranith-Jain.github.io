@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
 
 import { safeNullLog } from '../lib/safe-catch';
@@ -59,7 +60,7 @@ function makeHandler(endpoint: string, cacheKeyPrefix: string) {
       if (kv) c.executionCtx.waitUntil(kv.put(kvKey, JSON.stringify(payload), { expirationTtl: 86400 }));
       return response;
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logError('handler failed', e);
       if (e instanceof Error && e.message === 'RATE_LIMITED') {
         if (kv) {
           const kvCached = await safeNullLog('kv-get-hackertarget-rate', kv.get(kvKey, 'json'));

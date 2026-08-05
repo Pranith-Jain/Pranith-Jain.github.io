@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { requireAdmin } from '../lib/admin-auth';
 import { safeNullLog } from '../lib/safe-catch';
@@ -74,7 +75,7 @@ async function readIndex(kv: KVNamespace): Promise<IndexEntry[]> {
     const parsed = JSON.parse(raw) as IndexEntry[];
     return Array.isArray(parsed) ? parsed : [];
   } catch (_catchErr) {
-    console.error('readIndex failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readIndex failed', _catchErr);
     return [];
   }
 }
@@ -143,7 +144,7 @@ export async function saveCampaignHandler(c: Context<{ Bindings: Env }>): Promis
   try {
     body = await c.req.json();
   } catch (_catchErr) {
-    console.error('saveCampaignHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('saveCampaignHandler failed', _catchErr);
     return badRequest(c, 'invalid JSON body');
   }
   const validated = validateCampaignBody(body);
@@ -194,7 +195,7 @@ export async function getCampaignHandler(c: Context<{ Bindings: Env }>): Promise
     c.executionCtx.waitUntil(cache.put(req, resp.clone()));
     return resp;
   } catch (_catchErr) {
-    console.error('getCampaignHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('getCampaignHandler failed', _catchErr);
     return internalError(c, 'corrupted campaign record');
   }
 }

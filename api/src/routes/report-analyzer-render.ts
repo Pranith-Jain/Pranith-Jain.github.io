@@ -13,6 +13,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import type { AnalyzerOutput } from '../lib/report-analyzer';
 import { renderReportMarkdown } from '../lib/report-analyzer-markdown';
@@ -50,7 +51,7 @@ export async function reportAnalyzerRenderHandler(c: Context<{ Bindings: Env }>)
     // A raw text/markdown response would fail the MCP tool's json() parse.
     return c.json({ markdown: md }, 200);
   } catch (e) {
-    console.error('reportAnalyzerRenderHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('reportAnalyzerRenderHandler failed', e);
     const msg = e instanceof Error ? e.message : String(e);
     return internalError(c, msg);
   }

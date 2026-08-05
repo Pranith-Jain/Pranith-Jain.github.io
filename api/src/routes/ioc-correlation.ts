@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import {
   parseUrlhaus,
   parseThreatfox,
@@ -86,7 +87,7 @@ async function fetchText(url: string): Promise<string | null> {
     if (!res.ok) return null;
     return await res.text();
   } catch (_catchErr) {
-    console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchText failed', _catchErr);
     return null;
   }
 }
@@ -143,7 +144,7 @@ function hostOf(u: string): string | null {
   try {
     return new URL(u).hostname.toLowerCase();
   } catch (_catchErr) {
-    console.error('hostOf failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('hostOf failed', _catchErr);
     return null;
   }
 }

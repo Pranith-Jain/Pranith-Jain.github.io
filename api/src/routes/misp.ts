@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, respondError } from '../lib/api-error';
 import { pinnedFetch, SsrfError } from '../lib/ssrf-guard';
 import { safeNull } from '../lib/safe-catch';
@@ -30,7 +31,7 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
   try {
     parsed = new URL(url);
   } catch (_catchErr) {
-    console.error('mispProxyHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('mispProxyHandler failed', _catchErr);
     return badRequest(c, 'invalid baseUrl/endpoint');
   }
   if (parsed.protocol !== 'https:') {
@@ -53,7 +54,7 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
       signal: AbortSignal.timeout(15000),
     });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     if (err instanceof SsrfError) {
       return respondError(c, 'error', err.detail, err.status as 400 | 403 | 502);
     }
@@ -64,7 +65,7 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
   try {
     body = await response.json();
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     if (response.body) safeNull(response.body.cancel());
     return badGateway(c, 'MISP returned invalid JSON');
   }

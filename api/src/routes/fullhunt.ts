@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict } from '../lib/api-error';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
@@ -37,7 +38,7 @@ fullhuntRouter.get('/fullhunt/domain', async (c) => {
     c.executionCtx.waitUntil(routeCachePut(cacheKey, body, CACHE_TTL));
     return c.json(body);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'FullHunt unreachable');
   }
 });
@@ -59,7 +60,7 @@ fullhuntRouter.get('/fullhunt/host', async (c) => {
     const data = await res.json();
     return c.json({ host, results: data, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'FullHunt unreachable');
   }
 });
@@ -81,7 +82,7 @@ fullhuntRouter.get('/fullhunt/subdomains', async (c) => {
     const data = await res.json();
     return c.json({ domain, results: data, generated_at: new Date().toISOString() });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'FullHunt unreachable');
   }
 });

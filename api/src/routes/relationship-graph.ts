@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
 import { buildGraph, type GraphResponse } from '../lib/relationship-graph';
 import { safeNullLog } from '../lib/safe-catch';
@@ -51,7 +52,7 @@ export async function relationshipGraphHandler(c: Context<{ Bindings: Env }>): P
         return response;
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* ignore */
     }
   }

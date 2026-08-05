@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badGateway } from '../lib/api-error';
 import { fetchCyberNews, type FeedTier } from '../lib/cyber-news-feeds';
 
@@ -28,7 +29,7 @@ export async function cyberNewsHandler(c: Context<{ Bindings: Env }>) {
       'Cache-Control': 'public, max-age=300, s-maxage=600',
     });
   } catch (err) {
-    console.error('cyberNewsHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('cyberNewsHandler failed', err);
     const msg = err instanceof Error ? err.message : String(err);
     return badGateway(c, 'News fetch failed');
   } finally {

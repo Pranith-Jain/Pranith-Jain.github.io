@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import { sseStream } from '../lib/sse';
 import { claimSseSlot } from '../lib/sse-concurrency';
@@ -66,7 +67,7 @@ async function readRotationState(): Promise<RotationState> {
       if (json && typeof json === 'object') return json;
     }
   } catch (_catchErr) {
-    console.error('readRotationState failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readRotationState failed', _catchErr);
     /* fall through */
   }
   return {};
@@ -85,7 +86,7 @@ async function writeRotationState(state: RotationState): Promise<void> {
       })
     );
   } catch (_catchErr) {
-    console.error('writeRotationState failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('writeRotationState failed', _catchErr);
     /* swallow */
   }
 }
@@ -237,7 +238,7 @@ export async function actorEnrichOtxStreamHandler(c: Context<{ Bindings: Env }>)
             attempted_at: now,
           });
         } catch (err) {
-          console.error('handler failed:', err instanceof Error ? err.message : String(err));
+          logError('handler failed', err);
           skipped += 1;
           write('error', {
             type: 'error',

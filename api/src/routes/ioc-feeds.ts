@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { buildSummary, FEED_SOURCES, type SourceId } from '../lib/ioc-feed-parsers';
 import { safeErrorMessage } from '../lib/error';
@@ -62,7 +63,7 @@ export async function iocFeedSummaryHandler(c: Context<{ Bindings: Env }>) {
       'Cache-Control': `public, max-age=${summary.cache_control_seconds}`,
     });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return badGateway(c, safeErrorMessage(c.env as unknown as Record<string, unknown>, err));
   }
 }

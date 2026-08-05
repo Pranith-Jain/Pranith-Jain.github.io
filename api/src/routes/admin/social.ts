@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, serviceUnavailable, internalError } from '../../lib/api-error';
 import { safeJsonBody } from '../../lib/safe-body';
 import { getAi } from '../../lib/ai-binding';
@@ -228,7 +229,7 @@ socialRouter.post('/social/:slug', async (c) => {
     await c.env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
     return c.json({ ok: true, social });
   } catch (err) {
-    console.error('social generation failed:', err);
+    logError('social generation failed:', err);
     return internalError(c, 'social_generation_failed');
   }
 });
@@ -258,7 +259,7 @@ socialRouter.post('/social/:slug/use-hook', async (c) => {
     await c.env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
     return c.json({ ok: true, social });
   } catch (err) {
-    console.error('use-hook regeneration failed:', err);
+    logError('use-hook regeneration failed:', err);
     return internalError(c, 'hook_regeneration_failed');
   }
 });
@@ -355,7 +356,7 @@ socialRouter.post('/social/:slug/twitter', async (c) => {
     await c.env.CASE_STUDIES.put(csKvKeys.socialTwitter(slug), twitter);
     return c.json({ ok: true, platform: 'twitter', content: twitter, generatedAt });
   } catch (err) {
-    console.error('twitter generation failed:', err);
+    logError('twitter generation failed:', err);
     return c.json(
       { error: 'twitter_generation_failed', detail: err instanceof Error ? err.message : String(err) },
       500
@@ -382,7 +383,7 @@ socialRouter.post('/social/:slug/linkedin', async (c) => {
     await c.env.CASE_STUDIES.put(csKvKeys.socialLinkedin(slug), linkedin);
     return c.json({ ok: true, platform: 'linkedin', content: linkedin, generatedAt });
   } catch (err) {
-    console.error('linkedin generation failed:', err);
+    logError('linkedin generation failed:', err);
     return c.json(
       { error: 'linkedin_generation_failed', detail: err instanceof Error ? err.message : String(err) },
       500

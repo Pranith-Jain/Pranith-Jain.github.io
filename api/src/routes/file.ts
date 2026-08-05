@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { virustotal } from '../providers/virustotal';
 import { hybridanalysis } from '../providers/hybridanalysis';
@@ -35,7 +36,7 @@ export async function fileAnalyzeHandler(c: Context<{ Bindings: Env }>) {
   try {
     parsed = JSON.parse(raw) as RequestBody;
   } catch (_catchErr) {
-    console.error('fileAnalyzeHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fileAnalyzeHandler failed', _catchErr);
     return badRequest(c, 'invalid JSON');
   }
 
@@ -63,7 +64,7 @@ export async function fileAnalyzeHandler(c: Context<{ Bindings: Env }>) {
     try {
       return await fn(indicator, env, signal);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logError('handler failed', err);
       return {
         source: name as ProviderResult['source'],
         status: 'error',

@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Fetcher } from '@cloudflare/workers-types';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 
 /**
  * Cybersec Reddit firehose. Curated set of public subreddits.
@@ -73,7 +74,7 @@ async function fromAssets(env?: { ASSETS: Fetcher }): Promise<RedditFeedResponse
       if (validFeed(data)) return data;
     }
   } catch (_catchErr) {
-    console.error('fromAssets failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fromAssets failed', _catchErr);
     /* ignore */
   }
   return null;
@@ -91,7 +92,7 @@ async function fromRawBranch(): Promise<RedditFeedResponse | null> {
       if (validFeed(data)) return data;
     }
   } catch (_catchErr) {
-    console.error('fromRawBranch failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fromRawBranch failed', _catchErr);
     /* ignore */
   }
   return null;

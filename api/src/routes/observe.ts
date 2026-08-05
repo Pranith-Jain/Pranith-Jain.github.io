@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError } from '../lib/api-error';
 import { resolveEntity, buildEntityProfile, type ResolvedEntity, type EntityProfile } from '../lib/entity-resolution';
 
@@ -154,7 +155,7 @@ async function readCachedJson<T>(key: string): Promise<T | null> {
     const cached = await cache.match(new Request(key));
     if (cached) return (await cached.json()) as T;
   } catch (_catchErr) {
-    console.error('readCachedJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('readCachedJson failed', _catchErr);
     /* miss */
   }
   return null;
@@ -172,7 +173,7 @@ export async function observeHandler(c: Context<{ Bindings: Env }>): Promise<Res
       try {
         profile = await buildEntityProfile(entity);
       } catch (_catchErr) {
-        console.error('observeHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('observeHandler failed', _catchErr);
         /* non-fatal */
       }
     }
@@ -202,7 +203,7 @@ export async function observeHandler(c: Context<{ Bindings: Env }>): Promise<Res
       'Cache-Control': 'public, max-age=60',
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e);
   }
 }
@@ -223,7 +224,7 @@ async function gatherCachedCounts(q: string, type: string): Promise<ObserveRespo
           counts.live_ioc_count = liveIocs.items.filter((i) => i.value?.toLowerCase() === ql).length;
         }
       } catch (_catchErr) {
-        console.error('gatherCachedCounts failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('gatherCachedCounts failed', _catchErr);
         /* skip */
       }
     })(),
@@ -234,7 +235,7 @@ async function gatherCachedCounts(q: string, type: string): Promise<ObserveRespo
           counts.c2_count = c2Data.entries.filter((e) => e.ip?.toLowerCase() === ql).length;
         }
       } catch (_catchErr) {
-        console.error('gatherCachedCounts failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('gatherCachedCounts failed', _catchErr);
         /* skip */
       }
     })(),
@@ -251,7 +252,7 @@ async function gatherCachedCounts(q: string, type: string): Promise<ObserveRespo
             counts.malware_sample_count = samples.samples.filter((s) => s.sha256?.toLowerCase() === ql).length;
           }
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logError('handler failed', _catchErr);
           /* skip */
         }
       })()
@@ -270,7 +271,7 @@ async function gatherCachedCounts(q: string, type: string): Promise<ObserveRespo
           ).length;
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* skip */
       }
     })()

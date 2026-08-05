@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
 import { ATTACK_ID_INDEX } from '../data/attack-id-index';
 
@@ -75,7 +76,7 @@ async function fetchFromCollection(collectionId: string, stixId: string): Promis
     const body = (await res.json()) as TaxiiEnvelope;
     return { obj: body.objects?.[0] ?? null, status: 200 };
   } catch (_catchErr) {
-    console.error('fetchFromCollection failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchFromCollection failed', _catchErr);
     return { obj: null, status: -1 };
   } finally {
     clearTimeout(timer);

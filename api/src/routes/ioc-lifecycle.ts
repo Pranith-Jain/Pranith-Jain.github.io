@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, serviceUnavailable } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 
@@ -209,7 +210,7 @@ function rowToLifecycle(row: IocLifecycleRow): IocLifecycle {
       const parsed = JSON.parse(val);
       return Array.isArray(parsed) ? parsed : [];
     } catch (_catchErr) {
-      console.error('rowToLifecycle failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('rowToLifecycle failed', _catchErr);
       return [];
     }
   };

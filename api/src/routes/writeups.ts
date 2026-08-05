@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { WRITEUP_SOURCES, type WriteupSourceSpec } from '../lib/writeup-sources';
 import { concurrentMap } from '../lib/concurrent-map';
 import { safeIso } from '../lib/safe-date';
@@ -106,7 +107,7 @@ async function fetchText(url: string, kind?: string): Promise<string | null> {
     if (firstNonWs.startsWith('<!DOCTYPE') || firstNonWs.startsWith('<html')) return null;
     return text;
   } catch (_catchErr) {
-    console.error('fetchText failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchText failed', _catchErr);
     return null;
   }
 }
@@ -173,7 +174,7 @@ function parseJsonFeed(body: string, kind: Writeup['kind'], sourceLabel: string)
   try {
     parsed = JSON.parse(body);
   } catch (_catchErr) {
-    console.error('parseJsonFeed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('parseJsonFeed failed', _catchErr);
     return [];
   }
   if (!parsed || typeof parsed !== 'object' || !('items' in parsed)) return [];
@@ -385,7 +386,7 @@ export async function fetchWriteups(): Promise<WriteupsResponse> {
       // source, not reject Promise.all and 502 every writeup feed.
       parsed = parseFeedItems(body, kind, label);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'parse failed' };
     }
     // Trim per-source. Items inside a single feed are typically already
@@ -553,7 +554,7 @@ export async function writeupsHandler(c: Context<{ Bindings: Env }>): Promise<Re
     if (tier === 'all') return fullResponse;
     return makeResp(filterByTier(body, tier));
   } catch (err) {
-    console.error('writeupsHandler error:', err);
+    logError('writeupsHandler error:', err);
     return new Response(
       JSON.stringify({
         generated_at: new Date().toISOString(),

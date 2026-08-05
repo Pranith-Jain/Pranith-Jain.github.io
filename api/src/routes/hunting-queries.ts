@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { runCompletion } from '../case-study/generation/ai-client';
 import { findInvalidMitreIds } from '../lib/ai-output-validator';
@@ -59,7 +60,7 @@ export async function huntingQueryHandler(c: Context<{ Bindings: Env }>): Promis
   try {
     body = await c.req.json();
   } catch (_catchErr) {
-    console.error('huntingQueryHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('huntingQueryHandler failed', _catchErr);
     return badRequest(c, 'invalid JSON');
   }
 

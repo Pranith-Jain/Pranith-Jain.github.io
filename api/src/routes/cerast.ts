@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, internalError } from '../lib/api-error';
 import { cerastSearch, isValidCerastQuery } from '../lib/cerast';
 
@@ -14,7 +15,7 @@ cerastRouter.get('/cerast/search', async (c) => {
     const result = await cerastSearch(q);
     return c.json(result);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, `cerast_search_failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 });

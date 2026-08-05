@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 
 const ATLAS_DATA_URL = 'https://raw.githubusercontent.com/mitre-atlas/atlas-data/main/atlas_json/atlas.json';
@@ -77,7 +78,7 @@ export async function atlasTechniqueHandler(c: Context<{ Bindings: Env }>) {
   try {
     objects = await fetchAtlasData();
   } catch (err) {
-    console.error('atlasTechniqueHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('atlasTechniqueHandler failed', err);
     if (err instanceof UpstreamError) {
       const status = err.upstreamStatus === 429 ? 429 : 502;
       return c.json(

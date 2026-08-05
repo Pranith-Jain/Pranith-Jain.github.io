@@ -17,6 +17,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 import { badRequest,internalError,respondError } from '../lib/api-error';
 import { z } from 'zod';
@@ -393,7 +394,7 @@ export async function openDirectoryScanHandler(c: Context<{ Bindings: Env }>): P
 
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=300' });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     if (e instanceof SsrfError) {
       return respondError(c, 'blocked', e.detail, e.status as 400 | 403 | 502 | 503);
     }

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { safeJsonBody } from '../lib/safe-body';
 import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 import { requireAdmin } from '../lib/admin-auth';
@@ -47,7 +48,7 @@ function cacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
   } catch (_catchErr) {
-    console.error('cacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('cacheApi failed', _catchErr);
     return null;
   }
 }
@@ -67,7 +68,7 @@ async function loadAll(kv: KVNamespace): Promise<ObservableEntry[]> {
       const r = await cache.match(OBS_CACHE_KEY);
       if (r) return (await r.json()) as ObservableEntry[];
     } catch (_catchErr) {
-      console.error('loadAll failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('loadAll failed', _catchErr);
       /* fall through */
     }
   }

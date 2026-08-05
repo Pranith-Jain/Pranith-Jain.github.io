@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { internalError } from '../lib/api-error';
 
 /**
@@ -71,7 +72,7 @@ export async function correlateHandler(c: Context<{ Bindings: Env }>): Promise<R
         }
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* non-fatal */
     }
 
@@ -104,7 +105,7 @@ export async function correlateHandler(c: Context<{ Bindings: Env }>): Promise<R
           }
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* non-fatal */
       }
     }
@@ -170,7 +171,7 @@ export async function correlateHandler(c: Context<{ Bindings: Env }>): Promise<R
         }
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* non-fatal */
     }
 
@@ -202,7 +203,7 @@ export async function correlateHandler(c: Context<{ Bindings: Env }>): Promise<R
           // Generic gap: we have data but no detection coverage mapped
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* non-fatal */
       }
     }
@@ -223,7 +224,7 @@ export async function correlateHandler(c: Context<{ Bindings: Env }>): Promise<R
       { 'Cache-Control': 'no-store' }
     );
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

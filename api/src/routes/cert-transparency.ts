@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { cachedJson } from '../lib/route-cache';
 
 interface CertEntry {
   name_value: string;
@@ -34,7 +35,7 @@ export async function certTransparencyHandler(c: Context<{ Bindings: Env }>): Pr
     .trim();
   if (!clean || clean.includes(' ')) return badRequest(c, 'invalid domain');
 
-  try {
+  return cachedJson(c, `cert-transparency:${clean}`, 3600, async () => {
     const url = `https://crt.sh/?q=${encodeURIComponent(clean)}&output=json`;
     const res = await fetch(url, {
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; DFIR-Portfolio/1.0)' },
@@ -54,21 +55,13 @@ export async function certTransparencyHandler(c: Context<{ Bindings: Env }>): Pr
       }
     }
 
-    const result: CertTransparencyResult = {
+    return {
       domain: clean,
       subdomains: [...subdomains].sort(),
       total_certs: data.length,
       entries: data.slice(0, 50),
       source: 'crt.sh',
       fetched_at: new Date().toISOString(),
-    };
-
-    return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
-  } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return c.json(
-      { error: `cert transparency lookup failed: ${err instanceof Error ? err.message : String(err)}` },
-      502
-    );
-  }
+    } as CertTransparencyResult;
+  });
 }

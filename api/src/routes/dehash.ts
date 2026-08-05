@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
 
@@ -59,7 +60,7 @@ dehashRouter.get('/dehash', async (c) => {
     c.executionCtx.waitUntil(routeCachePut(cacheKey, body, CACHE_TTL));
     return c.json(body);
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     return badGateway(c, e instanceof Error ? e.message : 'Dehash.lt unreachable');
   }
 });

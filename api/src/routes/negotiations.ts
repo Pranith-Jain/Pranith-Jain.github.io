@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import { fetchRlUpstream } from './ransomwarelive';
 import { fetchMtiSource, type MtiGroup, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
@@ -246,7 +247,7 @@ export async function negotiationTranscriptHandler(c: Context<{ Bindings: Env }>
   try {
     json = await upstream.json();
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return badGateway(c, 'upstream_not_json');
   }
   const response = c.json({ source: 'Casualtek/Ransomchats', group, ...(rec(json) ? json : { raw: json }) }, 200, {

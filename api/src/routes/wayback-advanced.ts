@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 
 interface WaybackEntry {
@@ -187,7 +188,7 @@ function analyzeContent(entries: WaybackEntry[]): WaybackAdvancedResponse['analy
         const url = new URL(e.original || '');
         return url.pathname;
       } catch (_catchErr) {
-        console.error('analyzeContent failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('analyzeContent failed', _catchErr);
         return '';
       }
     })
@@ -380,7 +381,7 @@ export async function waybackAdvancedHandler(c: Context<{ Bindings: Env }>): Pro
       'Cache-Control': `public, max-age=${CACHE_TTL}`,
     });
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return c.json(
       { error: 'Enhanced Wayback lookup failed', message: err instanceof Error ? err.message : 'Unknown error' },
       502,

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { mitreGroupRef, type MitreGroupRef } from '../lib/ransomware-mitre-groups';
 import { techniquesForGroup, type Technique } from '../lib/ransomware-group-techniques';
 import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
@@ -137,7 +138,7 @@ async function fetchJson<T>(url: string): Promise<T | null> {
       if (res.ok) return (await res.json()) as T;
       if (res.status !== 429 && res.status < 500) return null; // 4xx (not 429) won't change
     } catch (_catchErr) {
-      console.error('fetchJson failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('fetchJson failed', _catchErr);
       /* timeout / network — retry */
     }
   }

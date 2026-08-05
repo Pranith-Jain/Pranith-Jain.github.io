@@ -9,6 +9,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
 import { requireAdmin } from '../lib/admin-auth';
 import { runCyberPulseIngestion } from './cyberpulse-ingest';
@@ -299,7 +300,7 @@ export async function cyberpulseIngestHandler(c: Context<{ Bindings: Env }>): Pr
       results,
     });
   } catch (e) {
-    console.error('cyberpulseIngestHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('cyberpulseIngestHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -350,7 +351,7 @@ export async function cyberpulseScanHandler(c: Context<{ Bindings: Env }>): Prom
       })),
     });
   } catch (e) {
-    console.error('cyberpulseScanHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('cyberpulseScanHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

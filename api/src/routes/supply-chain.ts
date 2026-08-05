@@ -3,6 +3,7 @@
 // HERE (per-colo Cache API), never in the lib fns. See design §8.3.
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
 import { fetchDepsDev } from '../lib/supply-chain/depsdev';
 import { routeCacheGet, routeCachePut } from '../lib/route-cache';
@@ -28,7 +29,7 @@ export async function depsDevPackageHandler(c: Context<{ Bindings: Env }>): Prom
     }
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=1800' });
   } catch (err) {
-    console.error('depsDevPackageHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('depsDevPackageHandler failed', err);
     return c.json(
       { error: 'deps.dev lookup failed', message: err instanceof Error ? err.message : 'Unknown error' },
       502,

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { safeErrorMessage } from '../lib/error';
 import { safeNullLog } from '../lib/safe-catch';
 
@@ -109,7 +110,7 @@ export async function googleDorksHandler(c: Context<{ Bindings: Env }>): Promise
       const body = await cached.json();
       return jsonResponse(c, body, 200, CACHE_TTL_SECONDS);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* fall through to fresh fetch */
     }
   }
@@ -136,7 +137,7 @@ export async function googleDorksHandler(c: Context<{ Bindings: Env }>): Promise
     }
     upstream = (await res.json()) as SerpResponse;
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return jsonResponse(
       c,
       { error: 'fetch_failed', detail: safeErrorMessage(c.env as unknown as Record<string, unknown>, err) },

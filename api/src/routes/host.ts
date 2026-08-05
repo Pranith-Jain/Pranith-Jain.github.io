@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
 import { safeErrorMessage } from '../lib/error';
 import { aggregateHostIntel, isValidIpv4 } from '../lib/host-intel';
@@ -22,7 +23,7 @@ export async function hostIntelHandler(c: Context<{ Bindings: Env }>): Promise<R
     // Live data — cache 30 min at the edge to stay within the source rate limits.
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=1800' });
   } catch (err) {
-    console.error('hostIntelHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('hostIntelHandler failed', err);
     return badGateway(c, safeErrorMessage(c.env as never, err));
   }
 }

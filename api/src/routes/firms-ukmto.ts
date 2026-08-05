@@ -20,6 +20,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 
 const FIRMS_CSV_URL = 'https://firms.modaps.eosdis.nasa.gov/api/area/csv/VIIRS_NOAA20_NRT/world/1';
 const UKMTO_URL = 'https://www.ukmto.org/api/incidents';
@@ -116,7 +117,7 @@ async function fetchFirms(): Promise<FirmsFire[]> {
     const csv = await r.text();
     return parseFirmsCsv(csv);
   } catch (_catchErr) {
-    console.error('fetchFirms failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchFirms failed', _catchErr);
     return [];
   }
 }
@@ -160,7 +161,7 @@ async function fetchUkmto(): Promise<UkmtoIncident[]> {
       ];
     });
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return [];
   }
 }
@@ -190,7 +191,7 @@ export async function firmsUkmtoHandler(_c: Context<{ Bindings: Env }>): Promise
     }
     return res;
   } catch (e) {
-    console.error('firmsUkmtoHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('firmsUkmtoHandler failed', e);
     return new Response(JSON.stringify({ error: (e as Error).message }), {
       status: 500,
       headers: { 'content-type': 'application/json' },

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
@@ -222,7 +223,7 @@ async function loadManifest(
     }
     upstreamError = `upstream ${res.status}`;
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     upstreamError = err instanceof Error ? err.message : 'fetch failed';
   }
 
@@ -235,7 +236,7 @@ async function loadManifest(
         return { full: staleFull, stale: true, error: upstreamError };
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       /* stale read failed; fall through */
     }
   }
@@ -262,7 +263,7 @@ async function loadFlowBundle(c: Context<{ Bindings: Env }>, entry: FlowEntry): 
       { attempts: 3, timeoutMs: 20_000 }
     );
   } catch (err) {
-    console.error('loadFlowBundle failed:', err instanceof Error ? err.message : String(err));
+    logError('loadFlowBundle failed', err);
     return c.json(
       {
         error: 'Attack Flow bundle unavailable',
@@ -300,7 +301,7 @@ async function loadFlowBundle(c: Context<{ Bindings: Env }>, entry: FlowEntry): 
   try {
     parsed = (await res.json()) as typeof parsed;
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return badGateway(c, 'Attack Flow bundle not valid JSON');
   }
 

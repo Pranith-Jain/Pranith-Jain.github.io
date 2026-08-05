@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
 import {
   torStatus,
@@ -89,7 +90,7 @@ export async function onionLookupHandler(c: Context<{ Bindings: Env }>) {
     const r = await onionLookup(address);
     return c.json(r);
   } catch (err) {
-    console.error('onionLookupHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('onionLookupHandler failed', err);
     // CIRCL (the upstream onion-intel provider) is intermittently down / rate-
     // limited and returns non-2xx for some addresses. Degrade gracefully with a
     // 200 "unavailable" result so the Dark Web Recon page renders an empty card

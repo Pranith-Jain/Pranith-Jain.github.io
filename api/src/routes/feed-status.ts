@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { SOURCE_RELIABILITY_REGISTRY } from '../lib/confidence';
 import { SNAPSHOT_CACHE_KEY } from './snapshot';
 import { CVE_RECENT_CACHE_KEY } from './cve-recent';
@@ -871,7 +872,7 @@ async function probeOne(spec: FeedProbeSpec): Promise<FeedStatusRow> {
     const evaluated = spec.evaluate(body);
     return toRow(evaluated.status, evaluated.reason, evaluated.ageS);
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return toRow('down', 'cache read error');
   }
 }
@@ -953,7 +954,7 @@ export async function feedStatusHandler(c: Context<{ Bindings: Env }>): Promise<
     );
     return response;
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     // Fallback: return a minimal response so the frontend never sees 503
     return new Response(
       JSON.stringify({

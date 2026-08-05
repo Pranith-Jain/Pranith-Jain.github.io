@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { fetchRansomwareRecent, RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
 import { fetchTelegramFeed, TELEGRAM_FEED_CACHE_KEY, type TelegramFeedResponse } from './telegram-feed';
 import { aggregateFeeds } from './feeds-aggregate';
@@ -128,7 +129,7 @@ async function safe<T>(fn: () => Promise<T>): Promise<SourcePayload<T>> {
     const data = await fn();
     return { ok: true, data };
   } catch (e) {
-    console.error('safe failed:', e instanceof Error ? e.message : String(e));
+    logError('safe failed', e);
     // Generic surface — the err.message often names upstream services or
     // internal paths. Wrangler tail still sees the real error for ops.
     const isTimeout = e instanceof Error && (e.name === 'TimeoutError' || e.name === 'AbortError');
@@ -237,7 +238,7 @@ async function warmTelegramCaches(c: Context<{ Bindings: Env }>, body: TelegramF
       /* best-effort shadow */
     }
   } catch (_catchErr) {
-    console.error('warmTelegramCaches failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('warmTelegramCaches failed', _catchErr);
     /* best-effort */
   }
 }
@@ -309,7 +310,7 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
             const fresh = c.json(body, 200, { 'Cache-Control': `public, max-age=60, s-maxage=${CACHE_TTL}` });
             await cache.put(cacheKey, fresh);
           } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            logError('handler failed', _catchErr);
             /* non-fatal */
           }
         })()

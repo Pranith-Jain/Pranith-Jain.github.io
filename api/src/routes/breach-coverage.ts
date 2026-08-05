@@ -19,6 +19,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
 import { fetchBreachCoverage, type CoverageTopic, type CoverageInputItem } from '../lib/breach-coverage';
 import { trackEvent, visitorCountry } from '../lib/analytics';
@@ -79,7 +80,7 @@ export async function breachCoverageHandler(c: Context<{ Bindings: Env }>): Prom
     const hit = await caches.default.match(cacheKey);
     if (hit) return new Response(hit.body, hit);
   } catch (_catchErr) {
-    console.error('breachCoverageHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('breachCoverageHandler failed', _catchErr);
     /* cache miss is fine */
   }
 
@@ -108,7 +109,7 @@ export async function breachCoverageHandler(c: Context<{ Bindings: Env }>): Prom
           })
         );
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* cache writes are non-fatal */
       }
       try {
@@ -118,7 +119,7 @@ export async function breachCoverageHandler(c: Context<{ Bindings: Env }>): Prom
           indexes: [visitorCountry(c.req.raw)],
         });
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         /* telemetry is best-effort */
       }
     })()

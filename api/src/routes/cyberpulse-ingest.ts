@@ -25,6 +25,7 @@ import { fetchRedditFeed, type RedditFeedItem } from './reddit-feed';
 import { readXClaimsCache } from './x-claims';
 import { classifySector as libClassifySector } from '../lib/sector-classifier';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 
 /**
  * Optionally pre-fetched feed data, threaded in by the caller.
@@ -875,7 +876,7 @@ export async function fetchXAccountPosts(
         const claims = await readXClaimsCache();
         return claims?.breach;
       } catch (_catchErr) {
-        console.error('fetchXAccountPosts failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('fetchXAccountPosts failed', _catchErr);
         return undefined;
       }
     })());
@@ -1239,7 +1240,7 @@ async function fetchRedditBreachFeed(items?: RedditFeedItem[], fetched?: boolean
     const feedItems = items && items.length > 0 ? items : fetched ? (items ?? []) : (await fetchRedditFeed()).items;
     return feedItems.map(redditItemToRawPost);
   } catch (_catchErr) {
-    console.error('fetchRedditBreachFeed failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchRedditBreachFeed failed', _catchErr);
     return [];
   }
 }
@@ -1303,7 +1304,7 @@ export async function runCyberPulseIngestion(
       duration_ms: Date.now() - xStart,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     const err = e instanceof Error ? e.message : String(e);
     await logScan(db, 'x_accounts', null, null, 0, 0, 0, Date.now() - xStart, err);
     results.push({
@@ -1360,7 +1361,7 @@ export async function runCyberPulseIngestion(
       duration_ms: Date.now() - tgStart,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     const err = e instanceof Error ? e.message : String(e);
     await logScan(db, 'telegram', null, null, 0, 0, 0, Date.now() - tgStart, err);
     results.push({
@@ -1417,7 +1418,7 @@ export async function runCyberPulseIngestion(
       duration_ms: Date.now() - socialStart,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     const err = e instanceof Error ? e.message : String(e);
     await logScan(db, 'bluesky_mastodon', null, null, 0, 0, 0, Date.now() - socialStart, err);
     results.push({
@@ -1464,7 +1465,7 @@ export async function runCyberPulseIngestion(
       duration_ms: Date.now() - redditStart,
     });
   } catch (e) {
-    console.error('handler failed:', e instanceof Error ? e.message : String(e));
+    logError('handler failed', e);
     const err = e instanceof Error ? e.message : String(e);
     await logScan(db, 'reddit', null, null, 0, 0, 0, Date.now() - redditStart, err);
     results.push({

@@ -1,6 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest } from '../lib/api-error';
+import { cachedJson } from '../lib/route-cache';
 
 import { safeNullLog } from '../lib/safe-catch';
 import { findActorsInText } from '../lib/cve-heuristic-mapping';
@@ -77,6 +79,9 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
 
   const aliasesRaw = c.req.query('aliases') ?? '';
   const softwareRaw = c.req.query('software') ?? '';
+  const cacheKey = `actor-enrich:${name.trim().toLowerCase()}:${aliasesRaw}:${softwareRaw}`;
+
+  return cachedJson(c, cacheKey, 3600, async () => {
 
   const queryTerms = [
     name.trim(),
@@ -122,7 +127,7 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
         });
         return r.ok ? await r.json() : [];
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         return [];
       }
     };
@@ -233,7 +238,7 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
       }
     }
   } catch (err) {
-    console.error('actor-enrich error:', err);
+    logError('actor-enrich error:', err);
   }
 
   // ── Local alias fallback ────────────────────────────────────────────────
@@ -292,7 +297,6 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
   }
   result.linked_cves = [...cveSet].sort((a, b) => b.localeCompare(a));
 
-  return c.json({ ok: true, ...result }, 200, {
-    'cache-control': 'public, max-age=3600',
+  return { ok: true, ...result };
   });
 }

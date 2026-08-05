@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { cachedJson } from '../lib/route-cache';
 
 interface CdnDetectResult {
   ip: string;
@@ -27,7 +28,7 @@ export async function cdnDetectHandler(c: Context<{ Bindings: Env }>): Promise<R
     return badRequest(c, 'invalid IPv4 address');
   }
 
-  try {
+  return cachedJson(c, `cdn-detect:${clean}`, 3600, async () => {
     // Use bgp.he.net to check ASN — free, no API key
     const bgpUrl = `https://bgp.he.net/net/${encodeURIComponent(clean)}/json`;
     const bgpRes = await fetch(bgpUrl, {
@@ -100,9 +101,6 @@ export async function cdnDetectHandler(c: Context<{ Bindings: Env }>): Promise<R
       fetched_at: new Date().toISOString(),
     };
 
-    return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
-  } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
-    return badGateway(c, `CDN detection failed: ${err instanceof Error ? err.message : String(err)}`);
-  }
+    return result;
+  });
 }

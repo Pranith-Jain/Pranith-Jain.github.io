@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
 import { assertPublicHost } from '../lib/ssrf-guard';
 import { safeNull } from '../lib/safe-catch';
@@ -416,7 +417,7 @@ async function probeOne(baseUrl: string, def: ProbeDef, pinIp?: string): Promise
       description: `${def.path} returns ${status}`,
     };
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('handler failed', _catchErr);
     return { path: def.path, status: 0, outcome: 'error', severity: 'info', description: 'probe timed out or failed' };
   }
 }
@@ -461,7 +462,7 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
   try {
     parsed = new URL(raw);
   } catch (_catchErr) {
-    console.error('webScanHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('webScanHandler failed', _catchErr);
     return badRequest(c, 'invalid url');
   }
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
@@ -497,7 +498,7 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
         const nextHost = new URL(finalUrl).hostname;
         currentHostCheck = await assertPublicHost(nextHost);
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         return badGateway(c, 'redirect_target_invalid');
       }
       if (!currentHostCheck.ok) {
@@ -531,7 +532,7 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
       } as RequestInit);
       clearTimeout(timer);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('handler failed', _catchErr);
       return badGateway(c, 'fetch failed');
     }
 
@@ -544,7 +545,7 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
         finalUrl = next.toString();
         finalOrigin = next.origin;
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         break;
       }
       continue;

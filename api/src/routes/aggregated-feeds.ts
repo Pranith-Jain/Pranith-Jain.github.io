@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 
 interface AggregatedFeed {
   id: string;
@@ -184,7 +185,7 @@ async function fetchLines(url: string): Promise<{ lines: string[]; size: number 
       .filter((l) => l && !l.startsWith('#'));
     return { lines, size: new TextEncoder().encode(text).length };
   } catch (_catchErr) {
-    console.error('fetchLines failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('fetchLines failed', _catchErr);
     return null;
   }
 }

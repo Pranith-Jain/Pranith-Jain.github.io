@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
 import { searchByUsername } from '../../../worker/lib/hudsonrock';
 
@@ -797,7 +798,7 @@ async function checkBreach(
     const result = await searchByUsername(env, [digits]);
     return { checked: true, reason: 'ok', stealerStats: result };
   } catch (_catchErr) {
-    console.error('checkBreach failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('checkBreach failed', _catchErr);
     return { checked: false, reason: 'Hudson Rock API error' };
   }
 }
@@ -824,7 +825,7 @@ async function tryNumVerify(digits: string, env: Env): Promise<Record<string, st
       line_type: String(data.line_type ?? ''),
     };
   } catch (_catchErr) {
-    console.error('tryNumVerify failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('tryNumVerify failed', _catchErr);
     return null;
   }
 }

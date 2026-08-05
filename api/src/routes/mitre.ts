@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 
 const MITRE_ATTCK_API = 'https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json';
@@ -95,7 +96,7 @@ export async function mitreTechniqueHandler(c: Context<{ Bindings: Env }>) {
   try {
     objects = await fetchMitreData();
   } catch (err) {
-    console.error('mitreTechniqueHandler failed:', err instanceof Error ? err.message : String(err));
+    logError('mitreTechniqueHandler failed', err);
     if (err instanceof UpstreamError) {
       const status = err.upstreamStatus === 429 ? 429 : 502;
       return c.json(

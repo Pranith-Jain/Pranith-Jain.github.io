@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { safeErrorMessage } from '../lib/error';
 import { badGateway, tooManyRequests, badRequest, forbidden } from '../lib/api-error';
 
@@ -289,7 +290,7 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
   try {
     parsed = new URL(url);
   } catch (_catchErr) {
-    console.error('feedProxyHandler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('feedProxyHandler failed', _catchErr);
     return badRequest(c, 'invalid url');
   }
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
@@ -382,7 +383,7 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
       try {
         next = new URL(location, current);
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logError('handler failed', _catchErr);
         return badGateway(c, 'upstream redirect to malformed url');
       }
       if (next.protocol !== 'http:' && next.protocol !== 'https:') {
@@ -433,7 +434,7 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
     c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
     return response;
   } catch (err) {
-    console.error('handler failed:', err instanceof Error ? err.message : String(err));
+    logError('handler failed', err);
     return badGateway(c, safeErrorMessage(c.env as unknown as Record<string, unknown>, err));
   }
 }

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict } from '../lib/api-error';
 import { safeJsonBody } from '../lib/safe-body';
 import { requireAdmin } from '../lib/admin-auth';
@@ -33,7 +34,7 @@ function resCacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
   } catch (_catchErr) {
-    console.error('resCacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('resCacheApi failed', _catchErr);
     return null;
   }
 }
@@ -75,7 +76,7 @@ async function readDynamic(kv: KVNamespace): Promise<ExternalResource[]> {
       const r = await cache.match(RES_CACHE_KEY);
       if (r) return (await r.json()) as ExternalResource[];
     } catch (_catchErr) {
-      console.error('readDynamic failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('readDynamic failed', _catchErr);
       /* fall through */
     }
   }
@@ -118,7 +119,7 @@ function deriveId(url: string): string {
   try {
     host = new URL(url).hostname.toLowerCase();
   } catch (_catchErr) {
-    console.error('deriveId failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('deriveId failed', _catchErr);
     host = 'entry';
   }
   host = host.replace(/^www\./, '').replace(/[^a-z0-9.-]+/g, '');

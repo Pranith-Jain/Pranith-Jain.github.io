@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
 import {
   resolveEntity,
@@ -52,7 +53,7 @@ export async function entityExtractHandler(c: Context<{ Bindings: Env }>): Promi
       { 'Cache-Control': 'public, max-age=60' }
     );
   } catch (e) {
-    console.error('entityExtractHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('entityExtractHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -90,7 +91,7 @@ export async function entityProfileHandler(c: Context<{ Bindings: Env }>): Promi
       results,
     });
   } catch (e) {
-    console.error('entityProfileHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('entityProfileHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }

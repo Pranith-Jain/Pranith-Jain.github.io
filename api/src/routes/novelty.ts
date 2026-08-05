@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { logError } from '../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
 import { safeNullLog } from '../lib/safe-catch';
 
@@ -18,7 +19,7 @@ function noveltyCacheApi(): Cache | null {
   try {
     return (caches as unknown as { default: Cache }).default;
   } catch (_catchErr) {
-    console.error('noveltyCacheApi failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logError('noveltyCacheApi failed', _catchErr);
     return null;
   }
 }
@@ -63,7 +64,7 @@ export async function checkNovelty(
         return { novel: false, score, first_seen };
       }
     } catch (_catchErr) {
-      console.error('checkNovelty failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logError('checkNovelty failed', _catchErr);
       /* fall through */
     }
   }
@@ -111,7 +112,7 @@ export async function noveltyHandler(c: Context<{ Bindings: Env }>): Promise<Res
     const result = await checkNovelty(c.env, text, markSeen);
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=60' });
   } catch (e) {
-    console.error('noveltyHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('noveltyHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
@@ -130,7 +131,7 @@ export async function noveltyBatchHandler(c: Context<{ Bindings: Env }>): Promis
     const results = await Promise.all(body.texts.map((t) => checkNovelty(c.env, t, body.mark_seen ?? false)));
     return c.json({ results });
   } catch (e) {
-    console.error('noveltyBatchHandler failed:', e instanceof Error ? e.message : String(e));
+    logError('noveltyBatchHandler failed', e);
     return internalError(c, e instanceof Error ? e.message : String(e));
   }
 }
