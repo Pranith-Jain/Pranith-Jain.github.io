@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { FileText, Search, Users } from 'lucide-react';
 import { IocChip } from '../../components/dfir/IocChip';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 
 interface TrailFile {
   name: string;
@@ -170,35 +171,33 @@ export default function MaltrailTrails(): JSX.Element {
                 )}
               </div>
               <div className="max-h-[65vh] overflow-auto">
-                <table className="w-full text-sm">
-                  <thead className="bg-slate-50 dark:bg-[rgb(var(--input-200))] sticky top-0">
-                    <tr className="text-left text-micro font-mono uppercase tracking-wider text-slate-500">
-                      <th scope="col" className="px-4 py-2">
-                        Value
-                      </th>
-                      <th scope="col" className="px-4 py-2 w-20">
-                        Type
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {content.iocs.map((ioc, i) => (
-                      <tr
-                        key={i}
-                        className="border-t border-slate-100 dark:border-[rgb(var(--border-400))] font-mono text-meta hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200))]"
-                      >
-                        <td className="px-4 py-1.5">
+                <DataTable
+                  columns={
+                    [
+                      {
+                        key: 'value',
+                        header: 'Value',
+                        sortValue: (ioc: (typeof content.iocs)[number]) => ioc.value,
+                        render: (ioc) => (
                           <IocChip value={ioc.value} bare size="sm" pivots={false} className="min-w-0" />
-                        </td>
-                        <td className="px-4 py-1.5">
+                        ),
+                      },
+                      {
+                        key: 'type',
+                        header: 'Type',
+                        sortValue: (ioc: (typeof content.iocs)[number]) => ioc.type,
+                        render: (ioc) => (
                           <span className="text-micro uppercase bg-slate-100 dark:bg-[rgb(var(--surface-300))] text-muted rounded px-1 py-0.5">
                             {ioc.type}
                           </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                        ),
+                      },
+                    ] as DataTableColumn<(typeof content.iocs)[number]>[]
+                  }
+                  rows={content.iocs}
+                  rowKey={(ioc, i) => `${ioc.value}-${i}`}
+                  rowClassName={() => 'font-mono text-meta hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200))]'}
+                />
               </div>
             </div>
           )}

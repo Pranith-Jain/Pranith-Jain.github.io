@@ -2,6 +2,7 @@ import { Fragment, type JSX } from 'react';
 import { FileDown, FileText, ShieldAlert } from 'lucide-react';
 import type { Report, Tlp } from '../../lib/threatintel/report-client';
 import { ShareBar } from '../intel/ShareBar';
+import { DataTable, type DataTableColumn } from '../ui/DataTable';
 
 const TLP_CLASS: Record<Tlp, string> = {
   CLEAR: 'bg-slate-500 text-white',
@@ -269,28 +270,17 @@ function AppendixTable({ title, head, rows }: { title: string; head: string[]; r
   return (
     <section className="surface-card p-5 overflow-x-auto">
       <h2 className="font-display font-semibold text-lg mb-3">{title}</h2>
-      <table className="w-full text-xs font-mono">
-        <thead>
-          <tr className="text-left text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-            {head.map((h) => (
-              <th key={h} className="py-1 pr-3 font-semibold">
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r, i) => (
-            <tr key={i} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
-              {r.map((cell, j) => (
-                <td key={j} className="py-1 pr-3 text-slate-700 dark:text-slate-300 break-all">
-                  {cell}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <DataTable
+        columns={
+          head.map((h, j) => ({
+            key: `col-${j}`,
+            header: h,
+            render: (r: string[]) => <span className="break-all text-slate-700 dark:text-slate-300">{r[j]}</span>,
+          })) as DataTableColumn<string[]>[]
+        }
+        rows={rows}
+        rowKey={(_, i) => `row-${i}`}
+      />
     </section>
   );
 }

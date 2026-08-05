@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { FileCheck, Upload, FileSearch } from 'lucide-react';
 
 interface Row {
@@ -183,50 +184,58 @@ export default function WebLogAnalyzer(): JSX.Element {
             )}
           </div>
           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">
-            <table className="w-full text-mini font-mono">
-              <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] sticky top-0">
-                <tr>
-                  {['#', 'IP', 'Method', 'Path', 'Status', 'Findings'].map((h) => (
-                    <th
-                      key={h}
-                      scope="col"
-                      className="text-left px-2 py-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
-                    >
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {res.rows.slice(0, 2000).map((r) => (
-                  <tr key={r.n} className="even:bg-slate-50/50 dark:even:bg-[rgb(var(--surface-200)/0.5)]">
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] text-slate-500">
-                      {r.n}
-                    </td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">{r.ip}</td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
-                      {r.method}
-                    </td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] break-all">
-                      {r.path}
-                    </td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
-                      {r.status}
-                    </td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
-                      {r.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="inline-block mr-1 mb-0.5 px-1 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <DataTable
+              columns={
+                [
+                  {
+                    key: 'n',
+                    header: '#',
+                    sortValue: (r: (typeof res.rows)[number]) => r.n,
+                    render: (r) => <span className="text-slate-500">{r.n}</span>,
+                  },
+                  { key: 'ip', header: 'IP', sortValue: (r: (typeof res.rows)[number]) => r.ip, render: (r) => r.ip },
+                  {
+                    key: 'method',
+                    header: 'Method',
+                    sortValue: (r: (typeof res.rows)[number]) => r.method,
+                    render: (r) => r.method,
+                  },
+                  {
+                    key: 'path',
+                    header: 'Path',
+                    sortValue: (r: (typeof res.rows)[number]) => r.path,
+                    render: (r) => <span className="break-all">{r.path}</span>,
+                  },
+                  {
+                    key: 'status',
+                    header: 'Status',
+                    sortValue: (r: (typeof res.rows)[number]) => r.status,
+                    render: (r) => r.status,
+                  },
+                  {
+                    key: 'findings',
+                    header: 'Findings',
+                    render: (r) => (
+                      <>
+                        {r.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="inline-block mr-1 mb-0.5 px-1 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </>
+                    ),
+                  },
+                ] as DataTableColumn<(typeof res.rows)[number]>[]
+              }
+              rows={res.rows.slice(0, 2000)}
+              rowKey={(r) => String(r.n)}
+              rowClassName={() =>
+                '[&:nth-child(even)]:bg-slate-50/50 dark:[&:nth-child(even)]:bg-[rgb(var(--surface-200)/0.5)]'
+              }
+            />
             {res.rows.length === 0 && (
               <p className="p-3 font-mono text-meta text-slate-500">No suspicious requests matched the heuristics.</p>
             )}

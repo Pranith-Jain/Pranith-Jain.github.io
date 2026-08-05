@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { postJsonWithBody } from './adminApi';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 
 /**
  * Admin Retention tab - data retention sweep + Telegram cleanup.
@@ -219,22 +220,27 @@ export default function RetentionTab() {
 
             {result.tables_swept.length > 0 && (
               <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded">
-                <table className="w-full text-sm">
-                  <thead className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-500 uppercase text-xs tracking-wider">
-                    <tr>
-                      <th className="text-left px-3 py-2">Table</th>
-                      <th className="text-right px-3 py-2">{wasDry ? 'Would delete' : 'Deleted'}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.tables_swept.map((row) => (
-                      <tr key={row.table} className="border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
-                        <td className="px-3 py-1.5 font-mono text-slate-700 dark:text-slate-300">{row.table}</td>
-                        <td className="px-3 py-1.5 text-right text-slate-900 dark:text-slate-100">{row.deleted}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <DataTable
+                  columns={
+                    [
+                      {
+                        key: 'table',
+                        header: 'Table',
+                        sortValue: (r: (typeof result.tables_swept)[number]) => r.table,
+                        render: (r) => <span className="font-mono text-slate-700 dark:text-slate-300">{r.table}</span>,
+                      },
+                      {
+                        key: 'deleted',
+                        header: wasDry ? 'Would delete' : 'Deleted',
+                        align: 'right',
+                        sortValue: (r: (typeof result.tables_swept)[number]) => r.deleted,
+                        render: (r) => <span className="text-slate-900 dark:text-slate-100">{r.deleted}</span>,
+                      },
+                    ] as DataTableColumn<(typeof result.tables_swept)[number]>[]
+                  }
+                  rows={result.tables_swept}
+                  rowKey={(r) => r.table}
+                />
               </div>
             )}
 
