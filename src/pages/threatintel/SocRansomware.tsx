@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShieldAlert, Skull, Users, Crosshair, Building2, ExternalLink } from 'lucide-react';
 import { fetchJson } from '../../lib/fetch-helpers';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
@@ -227,10 +228,7 @@ export default function SocRansomware(): JSX.Element {
       description={
         <span>
           Recent ransomware leak-site claims merged across{' '}
-          <Link
-            to="/threatintel/ransomware-hub"
-            className="text-rose-600 dark:text-rose-400 hover:underline"
-          >
+          <Link to="/threatintel/ransomware-hub" className="text-rose-600 dark:text-rose-400 hover:underline">
             live trackers
           </Link>
           , deduped by (group + victim + day). Volume, top actors, country and sector attribution with auto-refresh and
@@ -427,45 +425,61 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
   }
   return (
     <div className="overflow-x-auto -mx-4 sm:mx-0">
-      <table className="w-full text-meta font-mono">
-        <thead>
-          <tr className="text-left text-mini uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-            <th className="px-4 sm:px-2 py-2 font-mono font-medium">Victim</th>
-            <th className="px-2 py-2 font-mono font-medium">Group</th>
-            <th className="px-2 py-2 font-mono font-medium">Sector</th>
-            <th className="px-2 py-2 font-mono font-medium">Country</th>
-            <th className="px-2 py-2 font-mono font-medium text-right">Discovered</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((v, i) => (
-            <tr
-              key={`${v.victim}-${i}`}
-              className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60 last:border-b-0 hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]"
-            >
-              <td
-                className="px-4 sm:px-2 py-1.5 text-slate-900 dark:text-slate-100 truncate max-w-[200px]"
-                title={v.victim}
-              >
-                {v.victim}
-              </td>
-              <td className="px-2 py-1.5 text-slate-700 dark:text-slate-300">
+      <DataTable
+        columns={
+          [
+            {
+              key: 'victim',
+              header: 'Victim',
+              sortValue: (v: (typeof rows)[number]) => v.victim,
+              render: (v) => (
+                <span className="text-slate-900 dark:text-slate-100 truncate max-w-[200px]" title={v.victim}>
+                  {v.victim}
+                </span>
+              ),
+            },
+            {
+              key: 'group',
+              header: 'Group',
+              sortValue: (v: (typeof rows)[number]) => v.group,
+              render: (v) => (
                 <Link
                   to={`/threatintel/actors/${encodeURIComponent(slugifyGroup(v.group))}`}
-                  className="hover:text-rose-600 dark:hover:text-rose-400"
+                  className="text-slate-700 dark:text-slate-300 hover:text-rose-600 dark:hover:text-rose-400"
                 >
                   {v.group}
                 </Link>
-              </td>
-              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">{v.sector ?? '-'}</td>
-              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400">{v.country ?? '-'}</td>
-              <td className="px-2 py-1.5 text-slate-500 dark:text-slate-400 text-right tabular-nums">
-                {v.discovered ? v.discovered.slice(0, 10) : '-'}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              ),
+            },
+            {
+              key: 'sector',
+              header: 'Sector',
+              sortValue: (v: (typeof rows)[number]) => v.sector ?? '',
+              render: (v) => <span className="text-slate-500 dark:text-slate-400">{v.sector ?? '-'}</span>,
+            },
+            {
+              key: 'country',
+              header: 'Country',
+              sortValue: (v: (typeof rows)[number]) => v.country ?? '',
+              render: (v) => <span className="text-slate-500 dark:text-slate-400">{v.country ?? '-'}</span>,
+            },
+            {
+              key: 'discovered',
+              header: 'Discovered',
+              align: 'right',
+              sortValue: (v: (typeof rows)[number]) => v.discovered ?? '',
+              render: (v) => (
+                <span className="text-slate-500 dark:text-slate-400 tabular-nums">
+                  {v.discovered ? v.discovered.slice(0, 10) : '-'}
+                </span>
+              ),
+            },
+          ] as DataTableColumn<(typeof rows)[number]>[]
+        }
+        rows={rows}
+        rowKey={(v, i) => `${v.victim}-${i}`}
+        rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+      />
     </div>
   );
 }

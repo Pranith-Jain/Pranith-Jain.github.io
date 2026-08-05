@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { RefreshCw, ExternalLink, Search, Calendar, ShieldAlert, Info } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -337,44 +338,53 @@ export default function MispBrowser() {
                 Attributes ({e.Attribute.length})
               </h3>
               <div className="overflow-auto max-h-80">
-                <table className="w-full text-xs font-mono">
-                  <thead>
-                    <tr className="text-left text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                      <th scope="col" className="py-1 pr-3">
-                        Type
-                      </th>
-                      <th scope="col" className="py-1 pr-3">
-                        Category
-                      </th>
-                      <th scope="col" className="py-1 pr-3">
-                        Value
-                      </th>
-                      <th scope="col" className="py-1 pr-3">
-                        IDS
-                      </th>
-                      <th scope="col" className="py-1">
-                        Comment
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {e.Attribute.map((a) => (
-                      <tr key={a.id} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
-                        <td className="py-1 pr-3 text-slate-500">{a.type}</td>
-                        <td className="py-1 pr-3 text-slate-500">{a.category}</td>
-                        <td className="py-1 pr-3 text-slate-900 dark:text-slate-100 break-all max-w-md">{a.value}</td>
-                        <td className="py-1 pr-3">
-                          {a.to_ids ? (
+                <DataTable
+                  columns={
+                    [
+                      {
+                        key: 'type',
+                        header: 'Type',
+                        sortValue: (a: (typeof e.Attribute)[number]) => a.type,
+                        render: (a) => <span className="text-slate-500">{a.type}</span>,
+                      },
+                      {
+                        key: 'category',
+                        header: 'Category',
+                        sortValue: (a: (typeof e.Attribute)[number]) => a.category,
+                        render: (a) => <span className="text-slate-500">{a.category}</span>,
+                      },
+                      {
+                        key: 'value',
+                        header: 'Value',
+                        sortValue: (a: (typeof e.Attribute)[number]) => a.value,
+                        render: (a) => (
+                          <span className="text-slate-900 dark:text-slate-100 break-all max-w-md">{a.value}</span>
+                        ),
+                      },
+                      {
+                        key: 'ids',
+                        header: 'IDS',
+                        render: (a) =>
+                          a.to_ids ? (
                             <span className="text-emerald-600 dark:text-emerald-400">ok</span>
                           ) : (
                             <span className="text-slate-500 dark:text-slate-400">-</span>
-                          )}
-                        </td>
-                        <td className="py-1 text-slate-500 dark:text-slate-400 max-w-xs truncate">{a.comment || ''}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                          ),
+                      },
+                      {
+                        key: 'comment',
+                        header: 'Comment',
+                        render: (a) => (
+                          <span className="text-slate-500 dark:text-slate-400 max-w-xs truncate">
+                            {a.comment || ''}
+                          </span>
+                        ),
+                      },
+                    ] as DataTableColumn<(typeof e.Attribute)[number]>[]
+                  }
+                  rows={e.Attribute}
+                  rowKey={(a) => String(a.id)}
+                />
               </div>
             </div>
           )}
