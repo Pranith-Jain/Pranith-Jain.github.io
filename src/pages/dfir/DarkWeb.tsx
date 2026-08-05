@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { Virtuoso } from 'react-virtuoso';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
@@ -11,7 +12,20 @@ import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { usePostSummaries } from '../../components/intel/usePostSummaries';
 import { PostSummary } from '../../components/intel/PostSummary';
 import type { FeedItem, DateWindow, MatchedItem } from './darkweb-helpers';
-import { ALL_FEED_IDS, loadJson, saveJson, findWatchMatches, compileSearch, withinWindow, highlightInText, STORAGE_KEY_WATCH, STORAGE_KEY_SOURCES, MAX_ITEMS, MAX_PER_SOURCE, DARKWEB_FEEDS } from './darkweb-helpers';
+import {
+  ALL_FEED_IDS,
+  loadJson,
+  saveJson,
+  findWatchMatches,
+  compileSearch,
+  withinWindow,
+  highlightInText,
+  STORAGE_KEY_WATCH,
+  STORAGE_KEY_SOURCES,
+  MAX_ITEMS,
+  MAX_PER_SOURCE,
+  DARKWEB_FEEDS,
+} from './darkweb-helpers';
 
 // Use the same shape as before so we minimise downstream churn.
 
@@ -148,7 +162,7 @@ export default function DarkWeb(): JSX.Element {
     try {
       return new RegExp(`(${escaped})`, 'gi');
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       return null;
     }
   }, [search, watchlist]);
@@ -748,7 +762,7 @@ export function RansomwareActivityPanel(): JSX.Element {
         const json = (await res.json()) as RansomwareResponse;
         setData(json);
       } catch (e) {
-        console.error('handler failed:', e instanceof Error ? e.message : String(e));
+        logCatch(e);
         if ((e as Error).name !== 'AbortError') setError((e as Error).message);
       } finally {
         setLoading(false);
@@ -1193,7 +1207,7 @@ export function TelegramFeedPanel(): JSX.Element {
       }
       if (!ac.signal.aborted) {
         if (lastErr) {
-          console.error('handler failed:', lastErr instanceof Error ? lastErr.message : String(lastErr));
+          logCatch(lastErr);
           if ((lastErr as Error).name !== 'AbortError') setError((lastErr as Error).message);
         }
         setLoading(false);

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useState, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
@@ -116,7 +117,7 @@ export default function CtiDashboard(): JSX.Element {
         setPredictions(data.predictions || []);
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       setLoadError(true);
     }
   }, []);
@@ -126,7 +127,7 @@ export default function CtiDashboard(): JSX.Element {
       const res = await fetch(`${API}/mutations`);
       if (res.ok) setMutations(await res.json());
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       setLoadError(true);
     }
   }, []);
@@ -139,7 +140,7 @@ export default function CtiDashboard(): JSX.Element {
         setNews(data.news || []);
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       setLoadError(true);
     }
   }, []);
@@ -162,7 +163,7 @@ export default function CtiDashboard(): JSX.Element {
         await fetchNews();
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : 'Collection failed');
     }
     setCollecting(false);
@@ -181,7 +182,7 @@ export default function CtiDashboard(): JSX.Element {
       if (data.error) setError(data.error);
       else if (data.predictions) setPredictions(data.predictions);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : 'Prediction failed');
     }
     setPredicting(false);
@@ -204,7 +205,7 @@ export default function CtiDashboard(): JSX.Element {
         setMutationInput('');
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : 'Mutation failed');
     }
     setMutating(false);
@@ -277,7 +278,8 @@ export default function CtiDashboard(): JSX.Element {
           <div className="space-y-6">
             {/* Action bar */}
             <div className="flex flex-wrap gap-3">
-              <button type="button"
+              <button
+                type="button"
                 onClick={handleCollect}
                 disabled={collecting}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-rose-300 dark:border-rose-500/40 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 text-sm font-mono font-semibold hover:bg-rose-100 dark:hover:bg-rose-900/40 disabled:opacity-50 transition-colors"
@@ -285,7 +287,8 @@ export default function CtiDashboard(): JSX.Element {
                 {collecting ? <RefreshCw size={14} className="animate-spin" /> : <Zap size={14} />}
                 {collecting ? 'Collecting...' : 'Run Collection'}
               </button>
-              <button type="button"
+              <button
+                type="button"
                 onClick={() => {
                   fetchStats();
                   fetchNews();
@@ -426,7 +429,8 @@ export default function CtiDashboard(): JSX.Element {
         {tab === 'predictions' && (
           <div className="space-y-4">
             <div className="flex gap-3">
-              <button type="button"
+              <button
+                type="button"
                 onClick={handlePredict}
                 disabled={predicting}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-violet-300 dark:border-violet-700 bg-violet-50 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300 text-sm font-mono font-semibold hover:bg-violet-100 dark:hover:bg-violet-900/40 disabled:opacity-50 transition-colors"
@@ -516,7 +520,8 @@ export default function CtiDashboard(): JSX.Element {
                 placeholder="Describe an attack pattern, campaign, or malware (e.g. 'LockBit ransomware exploiting CVE-2024-21413 via phishing email to encrypt ESXi servers')"
                 className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-300)/0.5)] p-3 text-sm font-mono text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 resize-none h-24 focus:outline-none focus:ring-2 focus:ring-rose-500/30 focus:border-rose-500 dark:focus:border-rose-400"
               />
-              <button type="button"
+              <button
+                type="button"
                 onClick={handleMutate}
                 disabled={mutating || !mutationInput.trim()}
                 className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-orange-300 dark:border-orange-700 bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 text-sm font-mono font-semibold hover:bg-orange-100 dark:hover:bg-orange-900/40 disabled:opacity-50 transition-colors"
@@ -529,11 +534,7 @@ export default function CtiDashboard(): JSX.Element {
             {/* Stats */}
             {mutations?.stats && (
               <div className="grid grid-cols-3 gap-3">
-                <StatCard
-                  label="Seeds"
-                  value={mutations.stats.seeds || 0}
-                  accent="text-rose-600 dark:text-rose-400"
-                />
+                <StatCard label="Seeds" value={mutations.stats.seeds || 0} accent="text-rose-600 dark:text-rose-400" />
                 <StatCard
                   label="Variants"
                   value={mutations.stats.variants || 0}
@@ -593,7 +594,8 @@ export default function CtiDashboard(): JSX.Element {
         {tab === 'news' && (
           <div className="space-y-3">
             <div className="flex gap-3">
-              <button type="button"
+              <button
+                type="button"
                 onClick={fetchNews}
                 className="inline-flex items-center gap-2 px-3 py-1.5 surface-card-faint text-slate-600 dark:text-slate-400 text-sm font-mono hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200))] transition-colors"
               >

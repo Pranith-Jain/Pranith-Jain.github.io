@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ShareBar } from '../../components/intel/ShareBar';
@@ -143,7 +144,7 @@ export default function VerdiktAi(): JSX.Element {
             narrative = raw;
           }
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           narrative = raw;
         }
       }
@@ -159,7 +160,7 @@ export default function VerdiktAi(): JSX.Element {
         detectionQueries,
       });
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : String(err));
     } finally {
@@ -174,7 +175,7 @@ export default function VerdiktAi(): JSX.Element {
       setCopiedNarrative(true);
       setTimeout(() => setCopiedNarrative(false), 1500);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* */
     }
   };

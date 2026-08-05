@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback, useRef, useEffect, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
@@ -143,7 +144,7 @@ export default function WhoisHistory(): JSX.Element {
       setHistory(data);
       setActiveTab('timeline');
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if (e instanceof DOMException && e.name === 'AbortError') return;
       if (!mountedRef.current) return;
       setError(e instanceof Error ? e.message : 'lookup failed');
@@ -163,7 +164,7 @@ export default function WhoisHistory(): JSX.Element {
       setPivots(data);
       setActiveTab('pivots');
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if (e instanceof DOMException && e.name === 'AbortError') return;
       if (!mountedRef.current) return;
       setError(e instanceof Error ? e.message : 'pivot failed');
@@ -182,7 +183,7 @@ export default function WhoisHistory(): JSX.Element {
     try {
       return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       return d;
     }
   };
@@ -198,7 +199,7 @@ export default function WhoisHistory(): JSX.Element {
         minute: '2-digit',
       });
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       return d;
     }
   };

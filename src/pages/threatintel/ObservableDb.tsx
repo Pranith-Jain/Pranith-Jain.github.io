@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useState, useCallback, useRef, type FormEvent } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
@@ -137,7 +138,7 @@ export default function ObservableDb(): JSX.Element {
       setEntries(data.entries);
       setTotal(data.total);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if (ctrl.signal.aborted) return;
       setError(e instanceof Error ? e.message : 'Failed to load');
     } finally {
@@ -184,7 +185,7 @@ export default function ObservableDb(): JSX.Element {
       setAddTags('');
       void fetchData();
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
   };
@@ -203,7 +204,7 @@ export default function ObservableDb(): JSX.Element {
       setTotal((prev) => prev - 1);
       if (selected?.id === id) setSelected(null);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
   };
@@ -226,7 +227,7 @@ export default function ObservableDb(): JSX.Element {
       setEntries((prev) => prev.map((e) => (e.id === data.entry.id ? data.entry : e)));
       setNoteText('');
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
   };
@@ -246,7 +247,7 @@ export default function ObservableDb(): JSX.Element {
       setSelected(data.entry);
       setEntries((prev) => prev.map((e) => (e.id === data.entry.id ? data.entry : e)));
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
   };
@@ -266,7 +267,7 @@ export default function ObservableDb(): JSX.Element {
       setEntries((prev) => prev.map((e) => (e.id === data.entry.id ? data.entry : e)));
       if (selected?.id === id) setSelected(data.entry);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
   };

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useMemo, useState } from 'react';
 import { Coins, Loader2, AlertTriangle, ExternalLink, Check, Crosshair } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
@@ -98,7 +99,7 @@ export default function Tracer(): JSX.Element {
         setCluster(data.cluster ?? null);
         setGraph((prev) => mergeExpand(prev ?? base ?? emptyGraph(data.root.id), data));
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logCatch(_catchErr);
         setError('Network error');
       } finally {
         setLoading(false);
@@ -141,7 +142,7 @@ export default function Tracer(): JSX.Element {
       const n = data.total ?? 0;
       setUnifiedResult(`${n} result${n === 1 ? '' : 's'} - open in Unified Search`);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       setUnifiedResult('search unavailable');
     }
   }, []);
@@ -153,7 +154,7 @@ export default function Tracer(): JSX.Element {
       const data = (await res.json()) as { context?: { ens_name?: string | null } };
       if (data.context?.ens_name) setEnsName(data.context.ens_name);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore - Tier-1 unaffected */
     }
   }, []);
@@ -262,7 +263,7 @@ export default function Tracer(): JSX.Element {
       setChain(row.chain);
       setSelected(null);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       setError('Saved trace is corrupted.');
     }
   }, []);
@@ -285,7 +286,7 @@ export default function Tracer(): JSX.Element {
         a.download = `${base}.png`;
         a.click();
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logCatch(_catchErr);
         setError('PNG export failed - JSON/CSV still work.');
       }
     },

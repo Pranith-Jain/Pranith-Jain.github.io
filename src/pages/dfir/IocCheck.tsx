@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useState, useRef, useCallback, useMemo, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
@@ -291,7 +292,7 @@ export default function IocCheck(): JSX.Element {
       const data = (await res.json()) as { explanation: string; generated_at: string };
       setExplainText(data.explanation);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     } finally {
       setExplainLoading(false);
@@ -315,7 +316,7 @@ export default function IocCheck(): JSX.Element {
       setRuleName(data.rule_name);
       setRuleText(data.rule_text);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     } finally {
       setRuleLoading(false);
@@ -378,7 +379,7 @@ export default function IocCheck(): JSX.Element {
       const data = (await r.json()) as { bundle: { id: string } };
       setStixBundleId(data.bundle.id);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setStixError(`STIX build failed: ${(e as Error).message}. The intel-bundle endpoint may be down.`);
     } finally {
       setStixLoading(false);

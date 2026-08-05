@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Shield, Save, Plus, Trash2, Globe, Server, Cloud } from 'lucide-react';
@@ -129,7 +130,7 @@ export default function EstateConfig() {
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       setError('Failed to save configuration');
     } finally {
       setSaving(false);
@@ -149,7 +150,7 @@ export default function EstateConfig() {
       const d = await fetch('/api/v1/estate/assets').then((r) => r.json());
       setAssets(d.assets ?? []);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : 'Failed to add asset');
     }
   };
@@ -159,7 +160,7 @@ export default function EstateConfig() {
       await fetch(`/api/v1/estate/assets/${id}`, { method: 'DELETE' });
       setAssets((prev) => prev.filter((a) => a.id !== id));
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : 'Failed to delete asset');
     }
   };

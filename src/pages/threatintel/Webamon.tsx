@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback, useEffect, useRef, type FormEvent } from 'react';
 import { BackLink } from '../../components/BackLink';
 import {
@@ -666,7 +667,7 @@ function SandboxTab() {
         void fetchReport(data.report_id);
       }
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : 'Request failed');
     } finally {
       setSubmitting(false);
@@ -682,7 +683,7 @@ function SandboxTab() {
         setReportData(data);
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* degraded */
     } finally {
       setLoadingReport(false);
@@ -698,7 +699,7 @@ function SandboxTab() {
         setScreenshotUrl(URL.createObjectURL(blob));
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* degraded */
     } finally {
       setScreenshotLoading(false);
@@ -1165,7 +1166,7 @@ function InfraTab() {
       if (!res.ok) throw new Error((json as { error?: string })?.error ?? `HTTP ${res.status}`);
       setData({ [mode]: json });
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : 'Lookup failed');
     } finally {
       setLoading(false);

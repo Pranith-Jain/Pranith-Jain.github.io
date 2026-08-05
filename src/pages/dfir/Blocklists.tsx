@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { Download, RefreshCw, Clock, Shield, Terminal, Activity, Copy, Check } from 'lucide-react';
@@ -67,7 +68,7 @@ export default function BlocklistsPage(): JSX.Element {
       if (ctrl.signal.aborted || !mountedRef.current) return;
       setMeta(data);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if (ctrl.signal.aborted || !mountedRef.current) return;
       setError((e as Error).message);
     } finally {
@@ -102,7 +103,7 @@ export default function BlocklistsPage(): JSX.Element {
       }
       await fetchMeta();
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
     if (!ctrl.signal.aborted) setRefreshing(false);
@@ -124,7 +125,7 @@ export default function BlocklistsPage(): JSX.Element {
       a.click();
       URL.revokeObjectURL(url);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
   };
@@ -142,7 +143,7 @@ export default function BlocklistsPage(): JSX.Element {
       if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
       copyTimerRef.current = setTimeout(() => setCopiedKey(null), 1500);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
   };

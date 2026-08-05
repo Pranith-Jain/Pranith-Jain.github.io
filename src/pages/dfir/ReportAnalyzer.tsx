@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useMemo, useState, useRef, useEffect } from 'react';
 import {
   ReactFlow,
@@ -33,7 +34,18 @@ import {
 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { exportAnalyzerPdf, downloadBlob, pdfFilename } from '../../lib/dfir/report-analyzer/export-pdf';
-import type { IocKind, ExtractedIoc, TtpHit, ExtractedCve, FiveW, MindmapNode, MindmapEdge, DiamondModel, AttackFlowPhase, AnalyzerOutput } from './report-analyzer-types';
+import type {
+  IocKind,
+  ExtractedIoc,
+  TtpHit,
+  ExtractedCve,
+  FiveW,
+  MindmapNode,
+  MindmapEdge,
+  DiamondModel,
+  AttackFlowPhase,
+  AnalyzerOutput,
+} from './report-analyzer-types';
 import { downloadCsv, exportIocsCsv, exportDetectionCsv } from './report-analyzer-csv';
 
 // ── Helpers ──────────────────────────────────────────────────────────
@@ -241,7 +253,7 @@ export default function ReportAnalyzer(): JSX.Element {
       }
       setData((await res.json()) as AnalyzerOutput);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);
@@ -255,7 +267,7 @@ export default function ReportAnalyzer(): JSX.Element {
       const blob = await exportAnalyzerPdf(data);
       downloadBlob(blob, pdfFilename(data));
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setPdfExporting(false);
@@ -276,7 +288,7 @@ export default function ReportAnalyzer(): JSX.Element {
       if (!json.markdown) throw new Error('render returned no markdown');
       downloadBlob(new Blob([json.markdown], { type: 'text/markdown' }), `${slug(data.title)}.md`);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : String(e));
     }
   };
@@ -301,7 +313,7 @@ export default function ReportAnalyzer(): JSX.Element {
       const j = (await res.json()) as { id: string };
       setSavedMsg(`Saved as ${j.id.slice(0, 8)}…`);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setSaving(false);
@@ -328,7 +340,7 @@ export default function ReportAnalyzer(): JSX.Element {
       };
       setCorrelations(Object.keys(j.correlations).length > 0 ? j.correlations : null);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       // Silently fail - correlation is best-effort
     } finally {
       setCorrelating(false);

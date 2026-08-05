@@ -5,6 +5,7 @@
  * field qualifiers, IOC auto-extraction, timeline, saved searches.
  */
 
+import { logCatch } from '../../lib/log';
 import { useEffect, useState, useCallback, useRef, type FormEvent } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
@@ -189,7 +190,7 @@ function TgIntelSearch() {
         setTimeline(t.timeline || []);
         setTopChannels(t.topChannels || []);
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logCatch(_catchErr);
         setError('Search failed');
       }
       setLoading(false);
@@ -212,7 +213,7 @@ function TgIntelSearch() {
       const r = await fetch(`${api}/tg-saved-searches`);
       setSavedSearches((await r.json()).searches || []);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* */
     }
   }, []);
@@ -622,7 +623,7 @@ function TgIntelSearch() {
                 try {
                   return JSON.parse(entry.domains_found || '[]');
                 } catch (_catchErr) {
-                  console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+                  logCatch(_catchErr);
                   return [];
                 }
               })();

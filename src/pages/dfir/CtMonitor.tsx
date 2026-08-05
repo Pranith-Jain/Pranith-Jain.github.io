@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useEffect, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { api } from '../../lib/api-client';
@@ -68,7 +69,7 @@ export default function CtMonitor(): JSX.Element {
       );
       setCerts(data.certs ?? []);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setCertsLoading(false);
@@ -91,7 +92,7 @@ export default function CtMonitor(): JSX.Element {
       setNewDomain('');
       await fetchWatched();
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
@@ -110,7 +111,7 @@ export default function CtMonitor(): JSX.Element {
           setCerts([]);
         }
       } catch (err) {
-        console.error('handler failed:', err instanceof Error ? err.message : String(err));
+        logCatch(err);
         setError(err instanceof Error ? err.message : String(err));
       }
     },

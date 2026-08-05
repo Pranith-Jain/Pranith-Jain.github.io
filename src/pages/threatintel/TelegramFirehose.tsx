@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useState, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { RefreshCw, Radio, Search, AlertTriangle, ExternalLink, Zap } from 'lucide-react';
@@ -138,7 +139,7 @@ export default function TelegramFirehose(): JSX.Element {
       const j = (await r.json()) as TelegramFeedResponse;
       setFeed(j);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setFeedError((e as Error).message);
     } finally {
       setFeedLoading(false);
@@ -154,7 +155,7 @@ export default function TelegramFirehose(): JSX.Element {
       const j = (await r.json()) as { entries: LeakEntry[] };
       setLeaks(j.entries ?? []);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setLeakError((e as Error).message);
     } finally {
       setLeakLoading(false);
@@ -170,7 +171,7 @@ export default function TelegramFirehose(): JSX.Element {
       const j = (await r.json()) as LiveIocsResponse;
       setLiveIocs((j.items ?? []).filter((it) => it.source === 'telegram-leak' || it.source === 'telegram'));
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setLiveError((e as Error).message);
     } finally {
       setLiveLoading(false);
@@ -238,7 +239,7 @@ export default function TelegramFirehose(): JSX.Element {
               const arr = JSON.parse(l.domains_found);
               return Array.isArray(arr) && arr.length > 0 ? `${arr.length} domains` : '-';
             } catch (_catchErr) {
-              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+              logCatch(_catchErr);
               return '-';
             }
           })(),

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ShareBar } from '../../components/intel/ShareBar';
@@ -141,7 +142,7 @@ export default function ChronoAi(): JSX.Element {
           const p = JSON.parse(body) as { message?: string; error?: string };
           msg = p.message ?? p.error ?? msg;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* */
         }
         throw new Error(msg);
@@ -157,12 +158,12 @@ export default function ChronoAi(): JSX.Element {
           parsed = { timeline, summary: summary || 'Timeline reconstructed.' };
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logCatch(_catchErr);
         /* */
       }
       setResult(parsed ?? { timeline: [], summary: raw });
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
@@ -183,7 +184,7 @@ export default function ChronoAi(): JSX.Element {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* */
     }
   };
@@ -231,7 +232,9 @@ export default function ChronoAi(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Log Events</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">required</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                required
+              </span>
             </div>
             <textarea
               value={logs}
@@ -312,7 +315,9 @@ export default function ChronoAi(): JSX.Element {
                         <div key={p.id} className="flex-1">
                           <div className="flex items-center gap-1 mb-1">
                             <span className="text-micro text-slate-500">{PHASE_ICONS[p.id]}</span>
-                            <span className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate">{p.label}</span>
+                            <span className="text-micro font-mono text-slate-500 dark:text-slate-400 truncate">
+                              {p.label}
+                            </span>
                           </div>
                           <div className="h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
                             <div
@@ -390,7 +395,12 @@ export default function ChronoAi(): JSX.Element {
 
               <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                 <ShareBar
-                  shareText={result.summary?.split('\n').find((l) => l.trim())?.slice(0, 200) || 'CHRONO-AI timeline reconstruction'}
+                  shareText={
+                    result.summary
+                      ?.split('\n')
+                      .find((l) => l.trim())
+                      ?.slice(0, 200) || 'CHRONO-AI timeline reconstruction'
+                  }
                   title="CHRONO-AI timeline"
                   size="sm"
                   label="Share:"

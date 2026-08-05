@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
@@ -99,7 +100,7 @@ function parsePacket(
           }
           if (labels.length) acc.dns.add(labels.join('.'));
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* skip */
         }
       }
@@ -113,7 +114,7 @@ function parsePacket(
           const host = txt.match(/[Hh]ost:\s*([^\r\n]+)/);
           if (m) acc.http.add(`${m[1]} ${host ? host[1]!.trim() : ''}${m[2]}`.slice(0, 120));
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* skip */
         }
       }
@@ -121,7 +122,7 @@ function parsePacket(
     } else if (proto === 1) note('ICMP');
     else note(`IP proto ${proto}`);
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logCatch(_catchErr);
     /* malformed packet - skip */
   }
 }
@@ -251,7 +252,7 @@ export default function PcapTriage(): JSX.Element {
             setErr('');
             setS(parse(await f.arrayBuffer()));
           } catch (ex) {
-            console.error('handler failed:', ex instanceof Error ? ex.message : String(ex));
+            logCatch(ex);
             setS(null);
             setErr(ex instanceof Error ? ex.message : String(ex));
           }

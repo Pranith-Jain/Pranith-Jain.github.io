@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useState, useRef } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
@@ -82,7 +83,7 @@ export default function OnionWatch(): JSX.Element {
           const parsed = JSON.parse(body) as { error?: string };
           msg = parsed.error ?? msg;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* use default */
         }
         throw new Error(msg);
@@ -92,7 +93,7 @@ export default function OnionWatch(): JSX.Element {
       const json = (await res.json()) as OnionWatchResponse;
       setData(json);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if (ctrl.signal.aborted) return;
       setError((e as Error).message);
     } finally {
@@ -152,7 +153,7 @@ export default function OnionWatch(): JSX.Element {
       setCopiedKey(key);
       setTimeout(() => setCopiedKey((k) => (k === key ? null : k)), 1500);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* clipboard blocked - silent */
     }
   };

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback, useRef } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
@@ -147,7 +148,7 @@ export default function MispBrowser() {
         throw new Error('Unexpected response format');
       }
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : 'Connection failed');
     } finally {
@@ -179,7 +180,7 @@ export default function MispBrowser() {
           setTotal(data.length === 20 ? p * 20 : p * 20 - 20 + data.length);
         }
       } catch (err) {
-        console.error('handler failed:', err instanceof Error ? err.message : String(err));
+        logCatch(err);
         if (ctrl.signal.aborted) return;
         setError(err instanceof Error ? err.message : 'Failed to load events');
       } finally {
@@ -208,7 +209,7 @@ export default function MispBrowser() {
           setSelected(data);
         }
       } catch (err) {
-        console.error('handler failed:', err instanceof Error ? err.message : String(err));
+        logCatch(err);
         if (ctrl.signal.aborted) return;
         setError(err instanceof Error ? err.message : 'Failed to load event');
       } finally {

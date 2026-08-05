@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useState } from 'react';
 import { Search, RefreshCw, ExternalLink, Layers, Info, ChevronRight } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -125,7 +126,7 @@ export default function CuratedCerts(): JSX.Element {
         }
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
     setOpenSet(new Set([data.sections[0]?.name].filter(Boolean) as string[]));
@@ -162,7 +163,7 @@ export default function CuratedCerts(): JSX.Element {
       try {
         window.localStorage.setItem('curated-certs:open', JSON.stringify(Array.from(next)));
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logCatch(_catchErr);
         /* ignore */
       }
       return next;
@@ -175,7 +176,7 @@ export default function CuratedCerts(): JSX.Element {
     try {
       window.localStorage.setItem('curated-certs:open', JSON.stringify(['__all__']));
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
   };
@@ -184,7 +185,7 @@ export default function CuratedCerts(): JSX.Element {
     try {
       window.localStorage.setItem('curated-certs:open', JSON.stringify([]));
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
   };

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { ShareBar } from '../../components/intel/ShareBar';
@@ -121,7 +122,7 @@ export default function InsightAi(): JSX.Element {
           const p = JSON.parse(body) as { message?: string; error?: string };
           msg = p.message ?? p.error ?? msg;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* */
         }
         throw new Error(msg);
@@ -131,7 +132,7 @@ export default function InsightAi(): JSX.Element {
       const firstMode = [...selectedModes][0];
       setActiveTab(firstMode!);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
@@ -145,7 +146,7 @@ export default function InsightAi(): JSX.Element {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* */
     }
   };
@@ -191,7 +192,9 @@ export default function InsightAi(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Alert / Log Content</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">required</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                required
+              </span>
             </div>
             <textarea
               value={alertText}
@@ -360,7 +363,12 @@ export default function InsightAi(): JSX.Element {
                 </div>
                 <div className="mt-3 pt-3 border-t border-slate-200 dark:border-[rgb(var(--border-400))]">
                   <ShareBar
-                    shareText={result.split('\n').find((l) => l.trim())?.slice(0, 200) || 'INSIGHT-AI runbook'}
+                    shareText={
+                      result
+                        .split('\n')
+                        .find((l) => l.trim())
+                        ?.slice(0, 200) || 'INSIGHT-AI runbook'
+                    }
                     title="INSIGHT-AI runbook"
                     size="sm"
                     label="Share:"

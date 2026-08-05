@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback, useRef } from 'react';
 import { BookOpen, Calendar, FileText, Globe, Loader2, Search, User, Hash } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
@@ -104,7 +105,7 @@ export default function Orkl(): JSX.Element {
       if (body.status !== 'success') throw new Error(body.status ?? 'orkl error');
       setResults(body.data ?? []);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if (ctrl.signal.aborted) return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -132,7 +133,7 @@ export default function Orkl(): JSX.Element {
         setSelected(body.data);
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* keep the basic entry */
     } finally {
       if (!ctrl.signal.aborted) setDetailLoading(false);
@@ -156,7 +157,7 @@ export default function Orkl(): JSX.Element {
         setInfo(body.data);
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
     setShowInfo(true);

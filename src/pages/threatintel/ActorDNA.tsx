@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useEffect, useRef } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Dna, Search, Loader2, Users, ChevronRight, ChevronDown } from 'lucide-react';
@@ -86,7 +87,7 @@ export default function ActorDNA(): JSX.Element {
       setActors(data.actors ?? []);
       setError(null);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       if (ctrl.signal.aborted) return;
       setError((err as Error).message);
     }
@@ -110,7 +111,7 @@ export default function ActorDNA(): JSX.Element {
       setSelectedActor(data);
       setError(null);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       if (ctrl.signal.aborted) return;
       setError((err as Error).message);
       setSelectedActor(null);
@@ -143,7 +144,7 @@ export default function ActorDNA(): JSX.Element {
       setMatches(data.matches ?? []);
       setError(null);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       if (ctrl.signal.aborted) return;
       setError((err as Error).message);
     } finally {
@@ -175,7 +176,8 @@ export default function ActorDNA(): JSX.Element {
         </p>
       )}
       <div className="flex gap-2 mb-6">
-        <button type="button"
+        <button
+          type="button"
           onClick={() => setMatchMode(false)}
           className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
             !matchMode
@@ -186,7 +188,8 @@ export default function ActorDNA(): JSX.Element {
           <Users className="w-4 h-4 inline mr-2" />
           Actor Profiles
         </button>
-        <button type="button"
+        <button
+          type="button"
           onClick={() => setMatchMode(true)}
           className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
             matchMode
@@ -211,7 +214,8 @@ export default function ActorDNA(): JSX.Element {
               placeholder="Enter TTPs (comma-separated): spearphishing, powershell, cobalt_strike"
               className="flex-1 bg-white dark:bg-[rgb(var(--surface-200))]/40 border border-slate-300 dark:border-[rgb(var(--border-400))] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus:border-rose-500"
             />
-            <button type="button"
+            <button
+              type="button"
               onClick={() => void matchTTPs()}
               disabled={loading}
               className="px-6 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-sm font-medium text-white transition-colors flex items-center gap-2"
@@ -253,7 +257,8 @@ export default function ActorDNA(): JSX.Element {
           <h2 className="font-semibold mb-4">Known Threat Actors ({actors.length})</h2>
           <div className="space-y-2">
             {actors.map((actor) => (
-              <button type="button"
+              <button
+                type="button"
                 key={actor.actor_id}
                 onClick={() => fetchActorDNA(actor.actor_id)}
                 className={`w-full text-left p-3 rounded-xl transition-colors ${
@@ -282,7 +287,9 @@ export default function ActorDNA(): JSX.Element {
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h2 className="text-xl font-bold">{selectedActor.actor_name}</h2>
-                    <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">{selectedActor.aliases.join(' · ')}</div>
+                    <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                      {selectedActor.aliases.join(' · ')}
+                    </div>
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-rose-600 dark:text-rose-400">
@@ -300,7 +307,11 @@ export default function ActorDNA(): JSX.Element {
 
               {/* TTP Signature */}
               <div className="bg-white dark:bg-[rgb(var(--surface-200))]/40 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <button type="button" onClick={() => toggleSection('ttp')} className="w-full flex items-center justify-between p-4">
+                <button
+                  type="button"
+                  onClick={() => toggleSection('ttp')}
+                  className="w-full flex items-center justify-between p-4"
+                >
                   <span className="font-semibold">TTP Signature</span>
                   {expandedSections.has('ttp') ? (
                     <ChevronDown className="w-4 h-4" />
@@ -330,7 +341,8 @@ export default function ActorDNA(): JSX.Element {
 
               {/* Victimology */}
               <div className="bg-white dark:bg-[rgb(var(--surface-200))]/40 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <button type="button"
+                <button
+                  type="button"
                   onClick={() => toggleSection('victimology')}
                   className="w-full flex items-center justify-between p-4"
                 >
@@ -385,7 +397,11 @@ export default function ActorDNA(): JSX.Element {
 
               {/* Operational Tempo */}
               <div className="bg-white dark:bg-[rgb(var(--surface-200))]/40 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <button type="button" onClick={() => toggleSection('tempo')} className="w-full flex items-center justify-between p-4">
+                <button
+                  type="button"
+                  onClick={() => toggleSection('tempo')}
+                  className="w-full flex items-center justify-between p-4"
+                >
                   <span className="font-semibold">Operational Tempo</span>
                   {expandedSections.has('tempo') ? (
                     <ChevronDown className="w-4 h-4" />
@@ -428,7 +444,11 @@ export default function ActorDNA(): JSX.Element {
 
               {/* Infrastructure DNA */}
               <div className="bg-white dark:bg-[rgb(var(--surface-200))]/40 rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <button type="button" onClick={() => toggleSection('infra')} className="w-full flex items-center justify-between p-4">
+                <button
+                  type="button"
+                  onClick={() => toggleSection('infra')}
+                  className="w-full flex items-center justify-between p-4"
+                >
                   <span className="font-semibold">Infrastructure DNA</span>
                   {expandedSections.has('infra') ? (
                     <ChevronDown className="w-4 h-4" />

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
@@ -258,7 +259,7 @@ export default function XWatch(): JSX.Element {
     try {
       localStorage.setItem(STORAGE_KEY_LAST, active);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* localStorage unavailable */
     }
   }, [active]);
@@ -267,7 +268,7 @@ export default function XWatch(): JSX.Element {
     try {
       localStorage.setItem(STORAGE_KEY_CUSTOM, JSON.stringify(customHandles));
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* localStorage unavailable */
     }
   }, [customHandles]);
@@ -278,7 +279,7 @@ export default function XWatch(): JSX.Element {
       localStorage.setItem('x-watch.include-replies', includeReplies ? '1' : '0');
       localStorage.setItem('x-watch.include-pinned', includePinned ? '1' : '0');
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* localStorage unavailable */
     }
   }, [sinceDays, includeReplies, includePinned]);

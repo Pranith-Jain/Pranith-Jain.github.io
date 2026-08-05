@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -114,7 +115,7 @@ export default function CveLookup(): JSX.Element {
       const safe = await sanitizeAiHtml(data.narrative);
       setExplainText(safe);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     } finally {
       setExplainLoading(false);
@@ -138,7 +139,7 @@ export default function CveLookup(): JSX.Element {
       setRuleName(data.rule_name);
       setRuleText(data.rule_text);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     } finally {
       setRuleLoading(false);
@@ -164,7 +165,7 @@ export default function CveLookup(): JSX.Element {
           const parsed = JSON.parse(body) as { message?: string };
           msg = parsed.message ?? msg;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* use default */
         }
         throw new Error(msg);
@@ -173,7 +174,7 @@ export default function CveLookup(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult((await r.json()) as CveLookupResult);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : 'lookup failed');
     } finally {
       setLoading(false);

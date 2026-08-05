@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useRef, useState, type FormEvent, type CSSProperties } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -428,7 +429,7 @@ function PasswordTab(): JSX.Element {
       }
       setResult({ found, count: found ? count : undefined });
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : 'check failed');
     } finally {
       setLoading(false);
@@ -614,7 +615,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
           const parsed = JSON.parse(body) as { error?: string };
           msg = parsed.error ?? msg;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* use default */
         }
         throw new Error(msg);
@@ -623,7 +624,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult((await r.json()) as BreachEmailResponse);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : 'lookup failed');
     } finally {
       setLoading(false);
@@ -855,7 +856,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
           const parsed = JSON.parse(body) as { error?: string };
           msg = parsed.error ?? msg;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* use default */
         }
         throw new Error(msg);
@@ -864,7 +865,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult((await r.json()) as BreachDomainResponse);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : 'lookup failed');
     } finally {
       setLoading(false);

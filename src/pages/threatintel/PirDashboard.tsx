@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import { DataState } from '../../components/DataState';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -147,7 +148,7 @@ export default function PirDashboard(): JSX.Element {
       const saved = sessionStorage.getItem('pir-kiq-answers');
       if (saved) setKiqAnswers(JSON.parse(saved));
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
   }, []);
@@ -155,7 +156,7 @@ export default function PirDashboard(): JSX.Element {
     try {
       sessionStorage.setItem('pir-kiq-answers', JSON.stringify(kiqAnswers));
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
   }, [kiqAnswers]);
@@ -286,7 +287,7 @@ export default function PirDashboard(): JSX.Element {
         active_count: updated.active_count ?? 0,
       });
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if ((e as Error).name === 'AbortError') return;
       setActionError(e instanceof Error ? e.message : 'Operation failed');
     } finally {

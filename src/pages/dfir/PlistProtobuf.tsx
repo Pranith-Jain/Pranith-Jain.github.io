@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
@@ -127,11 +128,11 @@ function parseProtobuf(buf: Uint8Array, depth = 0): unknown {
           if (depth < 6 && sub.length > 1 && (sub[0]! & 0x07) <= 5) val = parseProtobuf(sub, depth + 1);
           else throw 0;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           try {
             val = txt.decode(sub);
           } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            logCatch(_catchErr);
             val = `<${len} bytes>`;
           }
         }
@@ -139,7 +140,7 @@ function parseProtobuf(buf: Uint8Array, depth = 0): unknown {
       } else break;
     }
   } catch (_catchErr) {
-    console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+    logCatch(_catchErr);
     /* best-effort */
   }
   return out;

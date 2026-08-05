@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Plus, Trash2, Bell, RefreshCw, AlertTriangle, ExternalLink, Activity, Search } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -71,7 +72,7 @@ export default function Watches(): JSX.Element {
       setWatches(wData.watches ?? []);
       setAlerts(aData.alerts ?? []);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -101,7 +102,7 @@ export default function Watches(): JSX.Element {
       setForm({ label: '', type: 'ransomware-group', value: '', webhook: '' });
       await fetchData();
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setSubmitting(false);
@@ -132,7 +133,7 @@ export default function Watches(): JSX.Element {
       setWatches((prev) => prev.map((w) => (w.id === id ? data.watch : w)));
       cancelEdit();
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : String(e));
     }
   };
@@ -148,7 +149,7 @@ export default function Watches(): JSX.Element {
       if (!res.ok) throw new Error('Failed to delete');
       setWatches((prev) => prev.filter((w) => w.id !== id));
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : String(e));
     }
   };

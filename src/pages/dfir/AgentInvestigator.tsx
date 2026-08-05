@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   BarChart3,
@@ -349,7 +350,7 @@ export default function AgentInvestigator(): JSX.Element {
         error: null,
       });
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setIsStarting(false);
@@ -387,7 +388,7 @@ export default function AgentInvestigator(): JSX.Element {
       }
       fetchSessions();
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* non-fatal */
     }
   };
@@ -689,7 +690,7 @@ export default function AgentInvestigator(): JSX.Element {
                 if (!res.ok) return { tool: 'hunting_queries', data: { error: `HTTP ${res.status}` } };
                 return { tool: 'hunting_queries', data: await res.json() };
               } catch (e) {
-                console.error('handler failed:', e instanceof Error ? e.message : String(e));
+                logCatch(e);
                 return { tool: 'hunting_queries', data: { error: e instanceof Error ? e.message : String(e) } };
               }
             }}
@@ -722,7 +723,7 @@ export default function AgentInvestigator(): JSX.Element {
                 if (!res.ok) return { tool: 'yara_rule', data: { error: `HTTP ${res.status}` } };
                 return { tool: 'yara_rule', data: await res.json() };
               } catch (e) {
-                console.error('handler failed:', e instanceof Error ? e.message : String(e));
+                logCatch(e);
                 return { tool: 'yara_rule', data: { error: e instanceof Error ? e.message : String(e) } };
               }
             }}

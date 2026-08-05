@@ -5,6 +5,7 @@
  * Acquire → Enrich → Assess → Deliver phases with step-by-step guidance.
  */
 
+import { logCatch } from '../../lib/log';
 import { useEffect, useState, useCallback, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -132,7 +133,7 @@ export default function Workspaces() {
       const res = await fetch(`${api}/workspaces/${id}/workflow/summary`, { headers: adminAuthHeaders() });
       setSummary(await res.json());
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* */
     }
   }, []);
@@ -163,7 +164,7 @@ export default function Workspaces() {
         setSelectedId(ws.id);
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       setError('Failed to create workspace');
     }
   };
@@ -178,7 +179,7 @@ export default function Workspaces() {
       });
       if (res.ok) await fetchSummary(selectedId);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* */
     }
     setAdvancing(false);
