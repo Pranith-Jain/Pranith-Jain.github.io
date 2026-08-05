@@ -37,6 +37,7 @@ import { buildReport, pollReport, type Report, type Progress } from '../../lib/t
 import { exportReportPdf } from '../../lib/threatintel/report-pdf';
 import { ReportView } from '../../components/threatintel/ReportView';
 import { SelfEvalScorecard, type SelfEvalResult } from '../../components/threatintel/SelfEvalScorecard';
+import { InvestigationTrace } from '../../components/threatintel/InvestigationTrace';
 import { PivotSuggestions } from '../../components/threatintel/PivotSuggestions';
 import { DetectionGenerate } from '../../components/threatintel/DetectionGenerate';
 import { BulkIocInput } from '../../components/threatintel/BulkIocInput';
@@ -257,7 +258,7 @@ export default function Copilot(): JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  const [mode, setMode] = useState<'chat' | 'quick' | 'report'>('chat');
+  const [mode, setMode] = useState<'chat' | 'quick' | 'report' | 'challenge'>('chat');
   const [template, setTemplate] = useState<string>('auto');
   const [tlp, setTlp] = useState<string>('AMBER');
   const [progress, setProgress] = useState<Progress | null>(null);
@@ -669,13 +670,111 @@ export default function Copilot(): JSX.Element {
     [role]
   );
 
+  // Challenge mode — delegates to the Vera adversarial chat endpoint.
+  // Uses the same chat UI (messages + streaming) but routes through
+  // /api/v1/agents/chat with mode: 'challenge' so the backend applies
+  // the adversarial system prompt.
+  const submitChallenge = useCallback(
+    async (q: string) => {
+      if (!q.trim()) return;
+      const userMsg: ChatMessage = { role: 'user', content: q.trim() };
+      setChatMessages((prev) => [...prev, userMsg, { role: 'assistant', content: '' }]);
+      setStreaming(true);
+      setAgentSteps([]);
+      setSelfEval(null);
+      setStreamingContent('');
+      setError(null);
+      const ac = new AbortController();
+      abortControllerRef.current = ac;
+      try {
+        const sid = `copilot_challenge_${Date.now()}_${crypto.randomUUID()}`;
+        const res = await fetch('/api/v1/agents/chat', {
+          method: 'POST',
+          signal: AbortSignal.timeout(30_000),
+          headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
+          body: JSON.stringify({ sessionId: sid, mode: 'challenge', role, query: q.trim() }),
+        });
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.message ?? err.error ?? 'Challenge failed');
+        }
+        const { sessionId: newId } = await res.json();
+        const streamRes = await fetch(`/api/v1/agents/chat/${encodeURIComponent(newId)}/stream`, {
+          headers: adminAuthHeaders(),
+          signal: ac.signal,
+        });
+        if (!streamRes.ok || !streamRes.body) throw new Error('Stream unavailable');
+        const reader = streamRes.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() ?? '';
+          for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            try {
+              const d = JSON.parse(line.slice(6));
+              if (d.type === 'heartbeat') continue;
+              if (d.type === 'step' && d.step) {
+                setAgentSteps((prev) => {
+                  if (prev.find((s) => s.stepNumber === d.step.stepNumber)) return prev;
+                  return [...prev, d.step];
+                });
+              }
+              if (d.type === 'token' && typeof d.token === 'string') {
+                setStreamingContent((prev) => prev + d.token);
+              }
+              if (d.type === 'done' && d.report) {
+                const assistantMsg: ChatMessage = {
+                  role: 'assistant',
+                  content: d.report,
+                  model_used: d.modelUsed,
+                  processed_at: new Date().toISOString(),
+                  sources: d.sources,
+                  _meta: d._meta,
+                };
+                if (d.selfEval) setSelfEval(d.selfEval as SelfEvalResult);
+                else setSelfEval(null);
+                setChatMessages((prev) => {
+                  const next = [...prev];
+                  const last = next[next.length - 1];
+                  if (last && last.role === 'assistant') next[next.length - 1] = assistantMsg;
+                  else next.push(assistantMsg);
+                  return next;
+                });
+                setStreamingContent('');
+              }
+              if (d.type === 'error') {
+                setStreaming(false);
+                setAgentSteps([]);
+                return;
+              }
+            } catch {
+              /* skip */
+            }
+          }
+        }
+      } catch (e) {
+        setError(e instanceof Error ? e.message : String(e));
+      } finally {
+        setStreaming(false);
+        setAgentSteps([]);
+      }
+    },
+    [role]
+  );
+
   const submit = useCallback(
     (q: string) => {
       if (mode === 'chat') void submitChat(q);
       else if (mode === 'report') void runReport(q);
+      else if (mode === 'challenge') void submitChallenge(q);
       else void investigate(q);
     },
-    [mode, submitChat, runReport, investigate]
+    [mode, submitChat, runReport, investigate, submitChallenge]
   );
 
   const handleEditMessage = useCallback(
@@ -890,6 +989,9 @@ export default function Copilot(): JSX.Element {
                         <div className="w-full max-w-[95%] sm:max-w-[85%] rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
                           {i === chatMessages.length - 1 && streaming && currentSteps.length > 0 && (
                             <StepIndicator steps={currentSteps} currentStep={currentStepNum} />
+                          )}
+                          {i === chatMessages.length - 1 && !streaming && currentSteps.length > 0 && (
+                            <InvestigationTrace steps={currentSteps} />
                           )}
                           {msg.content ? (
                             <div className="animate-[textReveal_0.5s_ease-out]">
@@ -1515,10 +1617,10 @@ function SessionSidebar({
   onDelete: (id: string) => void;
   onNew: () => void;
   onClose: () => void;
-  mode?: 'chat' | 'quick' | 'report';
+  mode?: 'chat' | 'quick' | 'report' | 'challenge';
   role?: string;
   roles?: { id: string; label: string; icon: typeof import('lucide-react').Shield; desc: string; color: string }[];
-  onModeChange?: (m: 'chat' | 'quick' | 'report') => void;
+  onModeChange?: (m: 'chat' | 'quick' | 'report' | 'challenge') => void;
   onRoleChange?: (r: AnalystRole) => void;
   onTemplateChange?: (t: string) => void;
   onTlpChange?: (t: string) => void;
@@ -1610,7 +1712,7 @@ function SessionSidebar({
                 Mode
               </label>
               <div className="flex gap-1">
-                {(['chat', 'quick', 'report'] as const).map((m) => (
+                {(['chat', 'challenge', 'quick', 'report'] as const).map((m) => (
                   <button
                     type="button"
                     key={m}

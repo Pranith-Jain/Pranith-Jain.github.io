@@ -34,6 +34,7 @@ import { exportReportPdf } from '../../lib/threatintel/report-pdf';
 import { ReportView } from '../../components/threatintel/ReportView';
 import { PivotSuggestions } from '../../components/threatintel/PivotSuggestions';
 import { SelfEvalScorecard, type SelfEvalResult } from '../../components/threatintel/SelfEvalScorecard';
+import { InvestigationTrace } from '../../components/threatintel/InvestigationTrace';
 import { DetectionGenerate } from '../../components/threatintel/DetectionGenerate';
 import { BulkIocInput } from '../../components/threatintel/BulkIocInput';
 import { useToast } from '../../components/ui/Toast';
@@ -975,6 +976,9 @@ export default function VeraChat(): JSX.Element {
                         <div className="w-full max-w-[95%] sm:max-w-[85%] rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-[rgb(var(--border-400))] dark:bg-[rgb(var(--surface-200))]">
                           {i === chatMessages.length - 1 && streaming && currentSteps.length > 0 && (
                             <StepIndicator steps={currentSteps} currentStep={currentStepNum} />
+                          )}
+                          {i === chatMessages.length - 1 && !streaming && currentSteps.length > 0 && (
+                            <InvestigationTrace steps={currentSteps} />
                           )}
                           {msg.content ? (
                             <div className="animate-[textReveal_0.5s_ease-out]">
