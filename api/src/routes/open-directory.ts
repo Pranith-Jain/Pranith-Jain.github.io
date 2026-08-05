@@ -187,10 +187,7 @@ function parseDirectoryListing(html: string, _baseUrl: string): DirEntry[] {
     try {
       name = decodeURIComponent(href);
     } catch (_catchErr) {
-      console.error(
-        'parseDirectoryListing failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
+      logError('parseDirectoryListing failed', _catchErr);
       name = href;
     }
 

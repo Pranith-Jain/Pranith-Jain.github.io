@@ -15,10 +15,7 @@ export async function cryptoWatchAddHandler(c: Context<{ Bindings: Env }>): Prom
     try {
       url = new URL(input.webhook_url);
     } catch (_catchErr) {
-      console.error(
-        'cryptoWatchAddHandler failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
+      logError('cryptoWatchAddHandler failed', _catchErr);
       return badRequest(c, 'invalid webhook URL');
     }
     if (url.protocol !== 'http:' && url.protocol !== 'https:') {

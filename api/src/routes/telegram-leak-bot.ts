@@ -239,10 +239,7 @@ export async function telegramLeakBotWebhookHandler(c: Context<{ Bindings: Env }
   try {
     update = (await c.req.json()) as TelegramUpdate;
   } catch (_catchErr) {
-    console.error(
-      'telegramLeakBotWebhookHandler failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('telegramLeakBotWebhookHandler failed', _catchErr);
     return badRequest(c, 'invalid JSON');
   }
 

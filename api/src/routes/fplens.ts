@@ -214,7 +214,7 @@ export async function fplensAnalyzeHandler(c: Context<{ Bindings: Env }>) {
     if (msg === 'fplens-timeout') {
       return badGateway(c, 'FP analysis timed out');
     }
-    console.error('fplens analyze failed:', msg);
+    logError('fplens analyze failed', msg);
     return internalError(c, msg);
   }
 }

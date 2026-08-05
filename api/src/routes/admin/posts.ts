@@ -112,7 +112,7 @@ postsRouter.post('/posts/manual', async (c) => {
   await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
 
   generateSocialForPost(slug, c.env as unknown as CaseStudyEnv, new Date()).catch((err) =>
-    console.error('auto-social failed:', err)
+    logError('auto-social failed', err)
   );
 
   return c.json({ ok: true, slug });

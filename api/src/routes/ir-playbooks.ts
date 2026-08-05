@@ -186,7 +186,7 @@ export async function irPlaybookHandler(c: Context<{ Bindings: Env }>): Promise<
 
     return c.json(response, 200, { 'cache-control': 'public, max-age=3600' });
   } catch (err) {
-    console.error(JSON.stringify({ job: 'ir-playbook', error: err instanceof Error ? err.message : String(err) }));
+    logError('ir-playbook', err);
     return serviceUnavailable(c, 'Failed to generate playbook');
   }
 }

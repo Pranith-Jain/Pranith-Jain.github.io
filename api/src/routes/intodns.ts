@@ -88,10 +88,7 @@ export async function intodnsSnapshotHandler(c: Context<{ Bindings: Env }>): Pro
       return new Response(cached.body, { status: 200, headers });
     }
   } catch (_catchErr) {
-    console.error(
-      'intodnsSnapshotHandler failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('intodnsSnapshotHandler failed', _catchErr);
   }
 
   const url =
@@ -220,10 +217,7 @@ export async function intodnsExplainHandler(c: Context<{ Bindings: Env }>): Prom
       );
     }
   } catch (_catchErr) {
-    console.error(
-      'intodnsExplainHandler failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('intodnsExplainHandler failed', _catchErr);
   }
 
   // 2. Fetch the raw snapshot. We could call our own /snapshot endpoint

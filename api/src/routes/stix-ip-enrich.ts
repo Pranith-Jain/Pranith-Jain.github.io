@@ -287,10 +287,7 @@ export async function stixIpEnrichBatchHandler(c: Context<{ Bindings: Env }>): P
   try {
     body = await c.req.json();
   } catch (_catchErr) {
-    console.error(
-      'stixIpEnrichBatchHandler failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('stixIpEnrichBatchHandler failed', _catchErr);
     return badRequest(c, 'invalid_json: Request body must be JSON with { ips: string[] }.');
   }
 

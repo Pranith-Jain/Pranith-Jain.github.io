@@ -59,7 +59,7 @@ approvedRouter.post('/approved/:id/publish-now', async (c) => {
     await touchDedup(env.CASE_STUDIES, candidate.key, now, post.slug);
 
     generateSocialForPost(post.slug, c.env as unknown as CaseStudyEnv, now).catch((err) =>
-      console.error('auto-social failed:', err)
+      logError('auto-social failed', err)
     );
 
     return c.json({ ok: true, slug: post.slug, title: post.title });

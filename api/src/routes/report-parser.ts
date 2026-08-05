@@ -350,10 +350,7 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
       try {
         body = await c.req.json();
       } catch (_catchErr) {
-        console.error(
-          'reportParserHandler failed:',
-          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-        );
+        logError('reportParserHandler failed', _catchErr);
         return badRequest(c, 'invalid JSON');
       }
       const parsed = reportParserJsonSchema.safeParse(body);

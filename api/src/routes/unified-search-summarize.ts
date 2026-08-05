@@ -33,10 +33,7 @@ export async function unifiedSearchSummarizeHandler(c: Context<{ Bindings: Env }
   try {
     body = await c.req.json<SummarizeBody>();
   } catch (_catchErr) {
-    console.error(
-      'unifiedSearchSummarizeHandler failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('unifiedSearchSummarizeHandler failed', _catchErr);
     return badRequest(c, 'invalid JSON body');
   }
 

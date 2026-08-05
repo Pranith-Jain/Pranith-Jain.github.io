@@ -86,7 +86,7 @@ export async function feedQualityHandler(c: Context<{ Bindings: Env }>): Promise
   // Best-effort persist of the current build. Failures are logged but
   // don't break the response — the read path tolerates a missing row.
   const persist = persistCurrentBuild(db, result).catch((err) => {
-    console.error('tifce: failed to persist current build', err);
+    logError('tifce: failed to persist current build', err);
   });
   c.executionCtx.waitUntil(persist);
 
@@ -172,7 +172,7 @@ async function loadTpIndicatorSet(db: D1Database): Promise<Set<string>> {
     for (const r of res.results ?? []) set.add(r.indicator);
     return set;
   } catch (err) {
-    console.error('tifce: ioc_lifecycle TP load failed', err);
+    logError('tifce: ioc_lifecycle TP load failed', err);
     return new Set();
   }
 }
@@ -206,16 +206,13 @@ async function loadPlatformReportedSet(db: D1Database): Promise<Set<string>> {
           }
         }
       } catch (_catchErr) {
-        console.error(
-          'loadPlatformReportedSet failed:',
-          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-        );
+        logError('loadPlatformReportedSet failed', _catchErr);
         /* skip malformed body */
       }
     }
     return set;
   } catch (err) {
-    console.error('tifce: briefings platform-reported load failed', err);
+    logError('tifce: briefings platform-reported load failed', err);
     return new Set();
   }
 }
@@ -236,10 +233,7 @@ async function loadDetectionFiredSet(env: Env): Promise<Set<string>> {
       const hit = await cache.match(new Request(CACHE_KEY));
       if (hit) return new Set<string>((await hit.json()) as string[]);
     } catch (_catchErr) {
-      console.error(
-        'loadDetectionFiredSet failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
+      logError('loadDetectionFiredSet failed', _catchErr);
       /* fall through */
     }
   }
@@ -299,7 +293,7 @@ async function loadDetectionFiredSet(env: Env): Promise<Set<string>> {
     }
     return set;
   } catch (err) {
-    console.error('tifce: detection-fired set load failed', err);
+    logError('tifce: detection-fired set load failed', err);
     return set;
   }
 }
@@ -329,7 +323,7 @@ async function loadHistory(db: D1Database): Promise<Record<string, TifceHistoryR
     }
     return out;
   } catch (err) {
-    console.error('tifce: history load failed (table may not exist yet)', err);
+    logError('tifce: history load failed (table may not exist yet)', err);
     return {};
   }
 }

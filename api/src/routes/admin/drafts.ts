@@ -53,18 +53,18 @@ draftsRouter.post('/drafts/:slug/approve', async (c) => {
   await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
 
   generateSocialForPost(promoted.slug, c.env as unknown as CaseStudyEnv, now).catch((err) =>
-    console.error('auto-social failed:', err)
+    logError('auto-social failed', err)
   );
 
   notifyPublished(c.env as unknown as WebhookEnv, promoted.slug, promoted.title, promoted.type).catch((err) =>
-    console.error('notifyPublished failed:', err)
+    logError('notifyPublished failed', err)
   );
 
   // Mirror to D1 for search
   const d1 = c.env.BRIEFINGS_DB as D1Database | undefined;
   if (d1) {
     import('../../case-study/storage/cs-posts-d1').then(({ upsertCsPostD1 }) =>
-      upsertCsPostD1(d1, promoted).catch((err) => console.error('upsertCsPostD1 failed:', err))
+      upsertCsPostD1(d1, promoted).catch((err) => logError('upsertCsPostD1 failed', err))
     );
   }
 
@@ -293,7 +293,7 @@ draftsRouter.post('/drafts/:slug/regenerate', async (c) => {
     // because the client helper extracts only the `error` field from
     // 4xx/5xx bodies.
     const detail = err instanceof Error ? err.message : String(err);
-    console.error(JSON.stringify({ job: 'regenerate-rewrite', slug, error: detail }));
+    logError('regenerate-rewrite', detail);
     return c.json(
       {
         error: `rewrite_failed: ${detail}`,

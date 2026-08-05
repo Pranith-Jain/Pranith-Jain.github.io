@@ -98,9 +98,7 @@ export async function crossCampaignCorrelationHandler(c: Context<{ Bindings: Env
       'cache-control': 'public, max-age=300',
     });
   } catch (err) {
-    console.error(
-      JSON.stringify({ job: 'cross-campaign-correlation', error: err instanceof Error ? err.message : String(err) })
-    );
+    logError('cross-campaign-correlation', err);
     return c.json({ correlations: [], generated_at: new Date().toISOString() });
   }
 }

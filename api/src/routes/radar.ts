@@ -523,10 +523,7 @@ function extractQueryParameters(html: string, baseUrl: string): string[] {
       const u = new URL(raw);
       u.searchParams.forEach((_v, k) => params.add(k));
     } catch (_catchErr) {
-      console.error(
-        'extractQueryParameters failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
+      logError('extractQueryParameters failed', _catchErr);
       /* skip */
     }
   }
@@ -748,10 +745,7 @@ function extractBackupFiles(html: string, baseUrl: string): string[] {
         try {
           urls.add(new URL(m[1], baseUrl).href);
         } catch (_catchErr) {
-          console.error(
-            'extractBackupFiles failed:',
-            _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-          );
+          logError('extractBackupFiles failed', _catchErr);
           /* skip */
         }
       }
@@ -1111,10 +1105,7 @@ async function checkNodeModulesExposure(baseUrl: string): Promise<string[]> {
       const res = await pinnedFetch(url, { method: 'HEAD', redirect: 'manual' });
       if (res.status === 200) found.push(url);
     } catch (_catchErr) {
-      console.error(
-        'checkNodeModulesExposure failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
+      logError('checkNodeModulesExposure failed', _catchErr);
       /* skip */
     }
   });

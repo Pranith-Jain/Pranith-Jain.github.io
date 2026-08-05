@@ -257,7 +257,7 @@ export async function watchlistDigestGenerateHandler(c: Context<{ Bindings: Env 
     // Store in KV
     await kv
       .put(`digest:weekly:${isoWeek}`, JSON.stringify(digest), { expirationTtl: 86400 * 14 })
-      .catch((err) => console.error('watchlist digest cache put failed:', err));
+      .catch((err) => logError('watchlist digest cache put failed:', err));
 
     const indexRaw = await kv.get('digest:weekly:index').catch(() => null);
     const weeks: string[] = indexRaw ? JSON.parse(indexRaw) : [];

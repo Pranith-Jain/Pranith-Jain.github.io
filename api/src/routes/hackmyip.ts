@@ -36,10 +36,7 @@ export async function hackMyIpBreachHandler(c: Context<{ Bindings: Env }>): Prom
     try {
       data = await res.json();
     } catch (_catchErr) {
-      console.error(
-        'hackMyIpBreachHandler failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
+      logError('hackMyIpBreachHandler failed', _catchErr);
       return badGateway(c, 'HackMyIP returned invalid JSON');
     }
     const body = JSON.stringify({

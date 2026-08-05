@@ -80,11 +80,11 @@ scheduleRouter.post('/schedule/:candidateId/publish-now', async (c) => {
     await touchDedup(c.env.CASE_STUDIES, candidate.key, now, post.slug);
 
     generateSocialForPost(post.slug, c.env as unknown as CaseStudyEnv, now).catch((err) =>
-      console.error('auto-social failed:', err)
+      logError('auto-social failed', err)
     );
 
     notifyPublished(c.env as unknown as WebhookEnv, post.slug, post.title, post.type).catch((err) =>
-      console.error('notifyPublished failed:', err)
+      logError('notifyPublished failed', err)
     );
 
     return c.json({ ok: true, slug: post.slug, title: post.title });

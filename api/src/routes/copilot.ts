@@ -1079,7 +1079,7 @@ export async function callGroq(env: Env, system: string, user: string): Promise<
       const text = data?.choices?.[0]?.message?.content;
       if (text) return text;
     } catch (err) {
-      console.error(`copilot Groq ${model} failed:`, err instanceof Error ? err.message : String(err));
+      logError(`copilot Groq  failed`, err);
       continue;
     }
   }
@@ -1169,7 +1169,7 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
           break;
         } catch (e) {
           lastErr = e instanceof Error ? e : new Error(String(e));
-          console.error(`copilot ${provider.name} failed:`, lastErr.message);
+          logError(`copilot  failed`, lastErr);
         }
       }
       if (lastErr) throw new Error(`All LLM providers failed: ${lastErr.message}`);
@@ -1211,7 +1211,7 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
 
   return Promise.race([work(), timeoutPromise]).catch((e) => {
     const msg = e instanceof Error ? e.message : String(e);
-    console.error('copilot investigate timeout/fatal:', msg);
+    logError('copilot investigate timeout/fatal', msg);
     return internalError(c, e instanceof Error ? e : new Error(String(e)));
   });
 }

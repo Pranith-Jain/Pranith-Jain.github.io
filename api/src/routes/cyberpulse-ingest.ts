@@ -1193,10 +1193,7 @@ async function fetchTelegramBreachFeed(kv?: KVNamespace, items?: TelegramFeedIte
     const feedItems = items ?? (await fetchTelegramFeed(kv, env)).items;
     return feedItems.map(telegramItemToRawPost).filter((p): p is RawPost => p !== null);
   } catch (_catchErr) {
-    console.error(
-      'fetchTelegramBreachFeed failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('fetchTelegramBreachFeed failed', _catchErr);
     return [];
   }
 }

@@ -60,7 +60,7 @@ export async function reportIngestHandler(c: Context<{ Bindings: Env }>): Promis
       );
     }
     // AI-vision / bridge failures land here — log for prod observability.
-    console.error('report/ingest extraction failed', err);
+    logError('report/ingest extraction failed', err);
     return badGateway(c, 'extraction_failed: bridge or OCR error');
   }
 

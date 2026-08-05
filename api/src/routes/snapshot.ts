@@ -249,10 +249,7 @@ async function warmTelegramCachesFromLive(c: Context<{ Bindings: Env }>): Promis
     const body = await fetchTelegramFeed(c.env.KV_CACHE, c.env);
     await warmTelegramCaches(c, body);
   } catch (_catchErr) {
-    console.error(
-      'warmTelegramCachesFromLive failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('warmTelegramCachesFromLive failed', _catchErr);
     /* best-effort */
   }
 }

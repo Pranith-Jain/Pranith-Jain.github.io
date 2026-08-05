@@ -43,10 +43,7 @@ export async function buildRansomwareMergedRss(env?: Env): Promise<{ xml: string
       victims = body.victims ?? [];
     }
   } catch (_catchErr) {
-    console.error(
-      'buildRansomwareMergedRss failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('buildRansomwareMergedRss failed', _catchErr);
     victims = [];
   }
 
@@ -57,10 +54,7 @@ export async function buildRansomwareMergedRss(env?: Env): Promise<{ xml: string
       const result = await fetchRansomwareRecent(env);
       victims = result.body.victims ?? [];
     } catch (_catchErr) {
-      console.error(
-        'buildRansomwareMergedRss failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
+      logError('buildRansomwareMergedRss failed', _catchErr);
       victims = [];
     }
   }

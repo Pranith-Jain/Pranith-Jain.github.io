@@ -318,11 +318,7 @@ async function fetchWithRetry(url: string): Promise<string | null> {
       if (!text.includes('tgme_widget_message_wrap')) continue;
       return text;
     } catch (_catchErr) {
-      console.error(
-        'fetchHtml attempt %d failed:',
-        attempt,
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
+      logError('fetchHtml attempt failed', _catchErr);
       clearTimeout(timer);
     }
   }
@@ -332,7 +328,7 @@ async function fetchWithRetry(url: string): Promise<string | null> {
 export async function fetchHtml(url: string): Promise<string | null> {
   const result = await fetchWithRetry(url);
   if (!result) {
-    console.error('fetchHtml: all attempts failed for URL (telegram.me may be on hold)');
+    logError('fetchHtml failed', new Error('all attempts failed for URL (telegram.me may be on hold)'));
   }
   return result;
 }
@@ -571,9 +567,7 @@ export async function pollBotUpdates(env: Env): Promise<void> {
     offset ? `&offset=${offset}` : ''
   }`;
   const r = await fetch(url).catch((e) => {
-    console.error(
-      JSON.stringify({ job: 'tg-bot-poll', status: 'fetch_failed', error: e instanceof Error ? e.message : String(e) })
-    );
+    logError('tg-bot-poll fetch_failed', e);
     return null;
   });
   if (!r || !r.ok) {
@@ -893,10 +887,7 @@ export async function fetchTelegramFeed(kv?: KVNamespace, env?: Env): Promise<Te
         });
       }
     } catch (_catchErr) {
-      console.error(
-        'fetchTelegramFeed (bot-bonus) failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
+      logError('fetchTelegramFeed (bot-bonus) failed', _catchErr);
     }
   }
 
@@ -979,19 +970,13 @@ export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promis
       try {
         await cache.put(cacheKey, cacheResponseBump);
       } catch (_catchErr) {
-        console.error(
-          'telegramFeedHandler failed:',
-          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-        );
+        logError('telegramFeedHandler failed', _catchErr);
         /* swallow */
       }
       try {
         await cache.put(new Request(TELEGRAM_FEED_CACHE_KEY), cacheResponseBase);
       } catch (_catchErr) {
-        console.error(
-          'telegramFeedHandler failed:',
-          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-        );
+        logError('telegramFeedHandler failed', _catchErr);
         /* swallow */
       }
     })()
@@ -1015,10 +1000,7 @@ export async function telegramCustomChannelsGetHandler(c: Context<{ Bindings: En
     const channels: CustomChannelEntry[] = raw ? JSON.parse(raw) : [];
     return c.json({ channels }, 200, { 'cache-control': 'no-store' });
   } catch (_catchErr) {
-    console.error(
-      'telegramCustomChannelsGetHandler failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('telegramCustomChannelsGetHandler failed', _catchErr);
     return c.json({ channels: [], error: 'failed to read custom channels' }, 500);
   }
 }
@@ -1054,10 +1036,7 @@ export async function telegramCustomChannelsPostHandler(c: Context<{ Bindings: E
     try {
       await (caches as unknown as { default: Cache }).default.delete(BUMP_SHADOW_CACHE_KEY);
     } catch (_catchErr) {
-      console.error(
-        'telegramCustomChannelsPostHandler failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
+      logError('telegramCustomChannelsPostHandler failed', _catchErr);
       /* swallow */
     }
 
@@ -1089,18 +1068,12 @@ export async function telegramCustomChannelsDeleteHandler(c: Context<{ Bindings:
     try {
       await (caches as unknown as { default: Cache }).default.delete(BUMP_SHADOW_CACHE_KEY);
     } catch (_catchErr) {
-      console.error(
-        'telegramCustomChannelsDeleteHandler failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
+      logError('telegramCustomChannelsDeleteHandler failed', _catchErr);
       /* swallow */
     }
     return c.json({ ok: true });
   } catch (_catchErr) {
-    console.error(
-      'telegramCustomChannelsDeleteHandler failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('telegramCustomChannelsDeleteHandler failed', _catchErr);
     return internalError(c, 'failed to delete custom channel');
   }
 }
@@ -1197,10 +1170,7 @@ export async function telegramBotRegisterHandler(c: Context<{ Bindings: Env }>):
     }
     return c.json({ ok: true, channel: { handle, chat_id: chatId } }, 200);
   } catch (_catchErr) {
-    console.error(
-      'telegramBotRegisterHandler failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('telegramBotRegisterHandler failed', _catchErr);
     return internalError(c, 'failed to register channel');
   }
 }

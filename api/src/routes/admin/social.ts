@@ -413,7 +413,7 @@ socialRouter.post('/social/:slug/post-twitter', async (c) => {
 
   if (!result.ok) {
     notifySocialFailed(c.env as unknown as WebhookEnv, slug, 'twitter', result.error ?? 'unknown').catch((err) =>
-      console.error('notifySocialFailed (twitter) failed:', err)
+      logError('notifySocialFailed (twitter) failed', err)
     );
     return c.json(result, 400);
   }
@@ -439,7 +439,7 @@ socialRouter.post('/social/:slug/post-linkedin', async (c) => {
     const result = await postToLinkedin(combined.linkedin, c.env.LINKEDIN_ACCESS_TOKEN, image);
     if (!result.ok) {
       notifySocialFailed(c.env as unknown as WebhookEnv, slug, 'linkedin', result.error ?? 'unknown').catch((err) =>
-        console.error('notifySocialFailed (linkedin) failed:', err)
+        logError('notifySocialFailed (linkedin) failed', err)
       );
       return c.json(result, 400);
     }
@@ -450,7 +450,7 @@ socialRouter.post('/social/:slug/post-linkedin', async (c) => {
   const result = await postToLinkedin(social, c.env.LINKEDIN_ACCESS_TOKEN, image);
   if (!result.ok) {
     notifySocialFailed(c.env as unknown as WebhookEnv, slug, 'linkedin', result.error ?? 'unknown').catch((err) =>
-      console.error('notifySocialFailed (linkedin) failed:', err)
+      logError('notifySocialFailed (linkedin) failed', err)
     );
     return c.json(result, 400);
   }

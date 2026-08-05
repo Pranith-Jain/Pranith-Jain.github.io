@@ -264,7 +264,7 @@ export async function buildBriefingHandler(c: AdminCtx) {
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     const stack = err instanceof Error ? err.stack?.split('\n').slice(0, 3).join(' | ') : '';
-    console.error('briefing build failed:', msg, stack);
+    logError('briefing build failed', new Error(msg + ' ' + stack));
     return c.json(
       {
         error: `briefing build failed: ${msg}`,
@@ -484,10 +484,7 @@ export async function briefingsForActorHandler(c: Context<{ Bindings: Env }>) {
         const full = await readBriefing(db, b.slug);
         return full ? { b, full } : null;
       } catch (_catchErr) {
-        console.error(
-          'briefingsForActorHandler failed:',
-          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-        );
+        logError('briefingsForActorHandler failed', _catchErr);
         degraded = true;
         return null;
       }

@@ -224,10 +224,7 @@ export async function actorUsernamesStatsHandler(c: Context<{ Bindings: Env }>):
       total = typeof json.metadata?.total_usernames === 'number' ? json.metadata.total_usernames : null;
       sources = Array.isArray(json.metadata?.sources) ? json.metadata!.sources! : [];
     } catch (_catchErr) {
-      console.error(
-        'actorUsernamesStatsHandler failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
+      logError('actorUsernamesStatsHandler failed', _catchErr);
       /* leave defaults */
     }
   }

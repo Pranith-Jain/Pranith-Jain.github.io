@@ -215,7 +215,7 @@ async function buildCveDossier(c: Context<{ Bindings: Env }>, entity: DossierEnt
   if (kv)
     await kv
       .put(`dossier:cve:${entity.value}`, JSON.stringify(dossier), { expirationTtl: 7200 })
-      .catch((err) => console.error('dossier cache put failed:', err));
+      .catch((err) => logError('dossier cache put failed:', err));
 
   return c.json(dossier);
 }
@@ -285,10 +285,7 @@ function buildDiamondModelFromEnrichment(
 
     return buildDiamondModel({ actors, malware: [] }, [], iocs, fiveW, enrichment.rawText);
   } catch (_catchErr) {
-    console.error(
-      'buildDiamondModelFromEnrichment failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('buildDiamondModelFromEnrichment failed', _catchErr);
     return null;
   }
 }

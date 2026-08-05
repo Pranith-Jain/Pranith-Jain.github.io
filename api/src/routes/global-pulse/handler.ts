@@ -171,10 +171,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       syncEvents.push(...safe(() => fromLiveIocs(iocData)));
     }
   } catch (_catchErr) {
-    console.error(
-      'global-pulse sync fetch failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('global-pulse sync fetch failed', _catchErr);
   }
 
   // ── Convert warm KV slices to events ─────────────────────────────────

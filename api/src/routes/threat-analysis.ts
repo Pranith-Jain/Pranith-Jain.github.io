@@ -341,7 +341,7 @@ export async function threatAnalysisHandler(c: Context<{ Bindings: Env }>): Prom
     if (msg.includes('rate-limited')) {
       return tooManyRequests(c, 'Groq API rate limit exceeded');
     }
-    console.error('threat-analysis error:', msg);
+    logError('threat-analysis error', msg);
     return internalError(c, msg);
   }
 }

@@ -856,10 +856,7 @@ export async function telegramLeakGeoHandler(c: Context<{ Bindings: Env }>): Pro
           }
         }
       } catch (_catchErr) {
-        console.error(
-          'telegramLeakGeoHandler failed:',
-          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-        );
+        logError('telegramLeakGeoHandler failed', _catchErr);
         /* skip malformed json */
       }
     }

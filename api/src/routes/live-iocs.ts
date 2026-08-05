@@ -1230,10 +1230,7 @@ async function maybeEnqueueAllFeeds(
           new Response('1', { headers: { 'cache-control': `max-age=${ENQUEUE_COOLDOWN_SECONDS}` } })
         );
       } catch (_catchErr) {
-        console.error(
-          'maybeEnqueueAllFeeds failed:',
-          _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-        );
+        logError('maybeEnqueueAllFeeds failed', _catchErr);
         /* best-effort */
       }
     }
@@ -1251,13 +1248,7 @@ async function composeOrFallback(c: Context<{ Bindings: Env }>): Promise<LiveIoc
   const kv = c.env.KV_CACHE;
   c.executionCtx.waitUntil(
     maybeEnqueueAllFeeds(c.env.FEEDS_QUEUE, kv).catch((e) =>
-      console.error(
-        JSON.stringify({
-          job: 'live-iocs-enqueue',
-          status: 'failed',
-          error: e instanceof Error ? e.message : String(e),
-        })
-      )
+      logError("live-iocs-enqueue failed", e)
     )
   );
   const { response, presentSlices } = await composeLiveIocs(c.env);

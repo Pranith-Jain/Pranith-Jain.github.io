@@ -173,10 +173,7 @@ export async function createExternalResourceHandler(c: AdminCtx) {
       return badRequest(c, 'url must use http or https');
     }
   } catch (_catchErr) {
-    console.error(
-      'createExternalResourceHandler failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('createExternalResourceHandler failed', _catchErr);
     return badRequest(c, 'url is malformed');
   }
 

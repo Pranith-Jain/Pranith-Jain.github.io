@@ -133,7 +133,7 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
         'cache-control': 'public, max-age=300, s-maxage=600',
       });
     } catch (anonErr) {
-      console.error('anonymous fallback failed:', anonErr instanceof Error ? anonErr.message : String(anonErr));
+      logError('anonymous fallback failed', anonErr);
       const status = code === 'auth_missing' ? 503 : code === 'auth_expired' ? 401 : 502;
       const detail =
         code === 'stale_qid'

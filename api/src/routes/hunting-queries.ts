@@ -130,7 +130,7 @@ export async function huntingQueryHandler(c: Context<{ Bindings: Env }>): Promis
 
     return c.json(response, 200, { 'cache-control': 'public, max-age=3600' });
   } catch (err) {
-    console.error(JSON.stringify({ job: 'hunting-queries', error: err instanceof Error ? err.message : String(err) }));
+    logError('hunting-queries', err);
     return serviceUnavailable(c, 'Failed to generate hunting queries');
   }
 }

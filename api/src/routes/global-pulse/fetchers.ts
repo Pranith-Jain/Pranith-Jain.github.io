@@ -466,10 +466,7 @@ export async function fetchBlocklistAttackers(): Promise<PulseEvent[]> {
       };
     });
   } catch (_catchErr) {
-    console.error(
-      'fetchBlocklistAttackers failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('fetchBlocklistAttackers failed', _catchErr);
     return [];
   }
 }

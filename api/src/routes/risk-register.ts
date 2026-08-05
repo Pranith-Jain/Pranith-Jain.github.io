@@ -136,7 +136,7 @@ async function loadAll(env: Env): Promise<RiskRegisterEntry[]> {
           INDEX_CACHE_KEY,
           new Response(JSON.stringify(sorted), { headers: { 'cache-control': `max-age=${INDEX_CACHE_TTL}` } })
         )
-      ).catch((err) => console.error('risk-index cache put failed:', err));
+      ).catch((err) => logError('risk-index cache put failed:', err));
     }
     return sorted;
   } catch {

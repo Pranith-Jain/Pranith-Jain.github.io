@@ -159,10 +159,7 @@ async function fetchVendorAdvisories(env: Env, vendor?: string, product?: string
         }
       }
     } catch (_catchErr) {
-      console.error(
-        'fetchVendorAdvisories failed:',
-        _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-      );
+      logError('fetchVendorAdvisories failed', _catchErr);
       // VulnCheck failed, continue with the HTML-advisory fallback.
     }
   }

@@ -234,10 +234,7 @@ export async function negotiationTranscriptHandler(c: Context<{ Bindings: Env }>
       cf: { cacheTtl: 3600, cacheEverything: true },
     });
   } catch (_catchErr) {
-    console.error(
-      'negotiationTranscriptHandler failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('negotiationTranscriptHandler failed', _catchErr);
     return badGateway(c, 'upstream_unreachable');
   }
   if (!upstream.ok) {

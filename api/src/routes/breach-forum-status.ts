@@ -74,10 +74,7 @@ export async function breachForumStatusHandler(c: Context<{ Bindings: Env }>): P
     const hit = await caches.default.match(cacheKey);
     if (hit) return new Response(hit.body, hit);
   } catch (_catchErr) {
-    console.error(
-      'breachForumStatusHandler failed:',
-      _catchErr instanceof Error ? _catchErr.message : String(_catchErr)
-    );
+    logError('breachForumStatusHandler failed', _catchErr);
     /* cache miss is fine */
   }
 
