@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest, serviceUnavailable } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 
 /**
@@ -163,15 +163,27 @@ export async function reconstructAttackChain(
   // per-indicator query inside the loop fired up to 500 D1 subrequests and
   // blew the Free-plan 50-subrequest/invocation cap. SELECT `indicator` too
   // so techniques stay attributed to the correct IOC.
+  //
+  // DEFENSIVE: the `ioc_techniques` table is optional (no migration creates it;
+  // no writer populates it). If it doesn't exist, D1 throws SQLITE_ERROR which
+  // would 500 the whole route and make `reconstruct_attack_chain` report 0%
+  // success in the agent's tool-health. Treat a missing/erroring table as an
+  // empty result so the route degrades gracefully to the IOC pattern matcher
+  // + malware/actor technique maps above.
   const uniqueIndicators = [...new Set(indicators)];
   if (uniqueIndicators.length > 0) {
-    const placeholders = uniqueIndicators.map(() => '?').join(',');
-    const rows = await db
-      .prepare(`SELECT indicator, technique_id FROM ioc_techniques WHERE indicator IN (${placeholders})`)
-      .bind(...uniqueIndicators)
-      .all<{ indicator: string; technique_id: string }>();
-    for (const row of rows.results ?? []) {
-      addTechnique(techniqueMap, row.technique_id, row.indicator, 70);
+    try {
+      const placeholders = uniqueIndicators.map(() => '?').join(',');
+      const rows = await db
+        .prepare(`SELECT indicator, technique_id FROM ioc_techniques WHERE indicator IN (${placeholders})`)
+        .bind(...uniqueIndicators)
+        .all<{ indicator: string; technique_id: string }>();
+      for (const row of rows.results ?? []) {
+        addTechnique(techniqueMap, row.technique_id, row.indicator, 70);
+      }
+    } catch {
+      // Table missing or D1 unavailable — skip; the pattern-based mappings
+      // above still produce a useful attack chain.
     }
   }
 

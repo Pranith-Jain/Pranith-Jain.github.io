@@ -50,6 +50,7 @@ import { runGraphIngest } from '../api/src/routes/graph-ingest';
 import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
 import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
 import { enqueueGpFeeds } from '../api/src/routes/global-pulse';
+import { signInternalToken } from '../api/src/lib/internal-token';
 import { scanForPhishingDomains, type PassiveDnsEnv } from '../api/src/lib/passive-dns';
 import { runCyberPulseIngestion } from '../api/src/routes/cyberpulse-ingest';
 import { fetchXClaims } from '../api/src/routes/x-claims';
@@ -527,7 +528,8 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               JSON.stringify({
                 job: 'briefing-heal',
                 status: 'skipped-cotenants',
-                reason: 'daily heal ran live fan-out; skipping intel-bundle-warm + cti-collector this tick to stay under the 50-subrequest cap',
+                reason:
+                  'daily heal ran live fan-out; skipping intel-bundle-warm + cti-collector this tick to stay under the 50-subrequest cap',
               })
             );
           }
@@ -1199,6 +1201,47 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           console.error(
             JSON.stringify({
               job: 'cp-30-ingest',
+              status: 'failed',
+              error: e instanceof Error ? e.message : String(e),
+            })
+          );
+        }
+
+        // ── Global-pulse cache rebuild ──────────────────────────────────
+        // The GlobalPulse DO only READS the cache (Cache API + KV fallback);
+        // it never triggers a rebuild. Without a visitor hitting
+        // /api/v1/global-pulse, the cache goes cold (Cache API 300s, KV 2h)
+        // and the live WS feed goes stale ("2 hours ago"). This rebuilds the
+        // cache every 30 min from the cron-warmed gp:warm:* slices so the
+        // DO always has fresh data to broadcast, independent of traffic.
+        try {
+          const tokenSecret = (env as unknown as { INTERNAL_TOKEN_SECRET?: string }).INTERNAL_TOKEN_SECRET;
+          if (tokenSecret && env.SELF) {
+            const token = await signInternalToken('cron', tokenSecret);
+            const res = await env.SELF.fetch('https://self/api/v1/global-pulse?force=1', {
+              headers: { 'x-internal-token': token },
+              signal: AbortSignal.timeout(25_000),
+            });
+            console.log(
+              JSON.stringify({
+                job: 'gp-30-rebuild',
+                status: res.ok ? 'ok' : 'failed',
+                http: res.status,
+              })
+            );
+          } else {
+            console.warn(
+              JSON.stringify({
+                job: 'gp-30-rebuild',
+                status: 'skipped',
+                reason: 'missing INTERNAL_TOKEN_SECRET or SELF',
+              })
+            );
+          }
+        } catch (e) {
+          console.error(
+            JSON.stringify({
+              job: 'gp-30-rebuild',
               status: 'failed',
               error: e instanceof Error ? e.message : String(e),
             })

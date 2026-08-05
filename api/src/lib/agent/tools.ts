@@ -808,7 +808,12 @@ export function buildToolRegistry(
               indicators: String(args.indicators)
                 .split(',')
                 .map((s) => s.trim()),
-              actor: args.actor ? String(args.actor) : undefined,
+              // Handler/schema expect `actors` (array), not `actor` (singular).
+              // Sending `actor` was silently ignored → the attack chain was
+              // reconstructed without actor context, and when combined with
+              // the missing ioc_techniques table (now guarded) contributed to
+              // the tool's 0% success rate.
+              actors: args.actor ? [String(args.actor)] : undefined,
             }),
           },
           ih
@@ -1030,13 +1035,42 @@ export function buildToolRegistry(
     {
       name: 'parse_threat_report',
       description:
-        'Parse threat report to extract IOCs, actors, malware, MITRE techniques, CVEs. Supports text input or URL (max 100K chars for URL content).',
+        'Parse threat report to extract IOCs, actors, malware, MITRE techniques, CVEs. You MUST provide EITHER `text` (the report content) OR `url` (a public report URL) — one is required, the tool fails with "text or url required" if both are empty. Max 100K chars.',
       params: [
-        { name: 'text', type: 'string', description: 'Report text (max 100K chars)', required: false },
-        { name: 'url', type: 'string', description: 'Report URL (content must be under 100K chars)', required: false },
+        {
+          name: 'text',
+          type: 'string',
+          description: 'Report text to parse (max 100K chars). REQUIRED unless url is given.',
+          required: false,
+        },
+        {
+          name: 'url',
+          type: 'string',
+          description:
+            'Public report URL to fetch+parse (content must be under 100K chars). REQUIRED unless text is given.',
+          required: false,
+        },
       ],
       execute: (args) => {
-        if (!args.text && !args.url) return Promise.reject(new Error('text or url required'));
+        if (!args.text && !args.url) {
+          // Return a structured error (not a throw) so the agent observer can
+          // surface it as a data gap instead of a tool failure that tanks the
+          // tool-health success rate. The previous `Promise.reject` made this
+          // tool report 0% success even though the route itself works fine —
+          // the planner just wasn't passing text/url.
+          return Promise.resolve({
+            error: 'text or url required',
+            iocs: { ipv4: [], ipv6: [], domains: [], urls: [], hashes: { md5: [], sha1: [], sha256: [] } },
+            threat_actors: [],
+            malware: [],
+            mitre_techniques: [],
+            cves: [],
+            sectors: [],
+            affected_products: [],
+            summary: 'parse_threat_report was called without text or url — no report to parse.',
+            meta: { extracted_at: new Date().toISOString(), method: 'error', confidence: 'low' },
+          });
+        }
         // Truncate text if too long
         let text = args.text ? String(args.text) : undefined;
         if (text && text.length > 95000) text = text.slice(0, 95000) + '\n[truncated]';
