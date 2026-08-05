@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { AlertTriangle, Bug, ExternalLink, FileText, Link2, Search, Shield, Target, Zap } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { AGENTIC_REPORTS, AGENTIC_BY_ID, type AgenticReport } from '../../data/threatintel/agentic-reports';
 
 const SEVERITY_STYLES: Record<string, string> = {
@@ -144,43 +145,16 @@ function ReportDetail({ report }: { report: AgenticReport }) {
       {report.sources.length > 0 && (
         <Section title="Source Reports" icon={<FileText className="h-4 w-4" />} count={report.sources.length}>
           <div className="overflow-x-auto">
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                  <th className="text-left py-1.5 px-2 font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    #
-                  </th>
-                  <th className="text-left py-1.5 px-2 font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Title
-                  </th>
-                  <th className="text-left py-1.5 px-2 font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Source
-                  </th>
-                  <th className="text-left py-1.5 px-2 font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Date
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {report.sources.map((s, i) => (
-                  <tr key={i} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60">
-                    <td className="py-1.5 px-2 font-mono text-slate-500 dark:text-slate-400">{i + 1}</td>
-                    <td className="py-1.5 px-2">
-                      <a
-                        href={s.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors"
-                      >
-                        {s.title} <ExternalLink className="h-2.5 w-2.5" />
-                      </a>
-                    </td>
-                    <td className="py-1.5 px-2 text-slate-600 dark:text-slate-300">{s.source}</td>
-                    <td className="py-1.5 px-2 font-mono text-slate-500 dark:text-slate-400">{s.publishedAt}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <DataTable
+              columns={[
+                { key: 'num', header: '#', render: (_s: typeof report.sources[number], i: number) => <span className="font-mono text-slate-500 dark:text-slate-400">{i + 1}</span> },
+                { key: 'title', header: 'Title', sortValue: (s: typeof report.sources[number]) => s.title, render: (s: typeof report.sources[number]) => <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-1 transition-colors">{s.title} <ExternalLink className="h-2.5 w-2.5" /></a> },
+                { key: 'source', header: 'Source', sortValue: (s: typeof report.sources[number]) => s.source ?? '', render: (s: typeof report.sources[number]) => <span className="font-mono text-slate-500 dark:text-slate-400">{s.source}</span> },
+                { key: 'date', header: 'Date', sortValue: (s: typeof report.sources[number]) => s.publishedAt ?? '', render: (s: typeof report.sources[number]) => <span className="font-mono text-slate-500 dark:text-slate-400">{s.publishedAt}</span> },
+              ] as DataTableColumn<typeof report.sources[number]>[]}
+              rows={report.sources}
+              rowKey={(s, i) => `${s.title}-${i}`}
+            />
           </div>
         </Section>
       )}
@@ -260,40 +234,16 @@ function ReportDetail({ report }: { report: AgenticReport }) {
       {report.iocs.length > 0 && (
         <Section title="Indicators of Compromise" icon={<Link2 className="h-4 w-4" />} count={report.iocs.length}>
           <div className="overflow-x-auto">
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                  <th className="text-left py-1.5 px-2 font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Type
-                  </th>
-                  <th className="text-left py-1.5 px-2 font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Value
-                  </th>
-                  <th className="text-left py-1.5 px-2 font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Description
-                  </th>
-                  <th className="text-left py-1.5 px-2 font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Confidence
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {report.iocs.map((ioc, i) => (
-                  <tr key={i} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60">
-                    <td className="py-1.5 px-2 font-mono text-sky-600 dark:text-sky-400">{ioc.type}</td>
-                    <td className="py-1.5 px-2 font-mono text-slate-900 dark:text-slate-100 break-all">{ioc.value}</td>
-                    <td className="py-1.5 px-2 text-slate-600 dark:text-slate-300">{ioc.description}</td>
-                    <td className="py-1.5 px-2">
-                      <span
-                        className={`text-micro font-mono uppercase rounded border px-1.5 py-0.5 ${CONFIDENCE_STYLES[ioc.confidence]}`}
-                      >
-                        {ioc.confidence}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <DataTable
+              columns={[
+                { key: 'type', header: 'Type', sortValue: (ioc: typeof report.iocs[number]) => ioc.type, render: (ioc) => <span className="font-mono text-sky-600 dark:text-sky-400">{ioc.type}</span> },
+                { key: 'value', header: 'Value', sortValue: (ioc: typeof report.iocs[number]) => ioc.value, render: (ioc) => <span className="font-mono text-slate-900 dark:text-slate-100 break-all">{ioc.value}</span> },
+                { key: 'description', header: 'Description', render: (ioc) => <span className="text-slate-600 dark:text-slate-300">{ioc.description}</span> },
+                { key: 'confidence', header: 'Confidence', sortValue: (ioc: typeof report.iocs[number]) => ioc.confidence, render: (ioc) => <span className={`text-micro font-mono uppercase rounded border px-1.5 py-0.5 ${CONFIDENCE_STYLES[ioc.confidence]}`}>{ioc.confidence}</span> },
+              ] as DataTableColumn<typeof report.iocs[number]>[]}
+              rows={report.iocs}
+              rowKey={(ioc, i) => `${ioc.value}-${i}`}
+            />
           </div>
         </Section>
       )}
@@ -302,43 +252,16 @@ function ReportDetail({ report }: { report: AgenticReport }) {
       {report.ttps.length > 0 && (
         <Section title="MITRE ATT&CK Techniques" icon={<Bug className="h-4 w-4" />} count={report.ttps.length}>
           <div className="overflow-x-auto">
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                  <th className="text-left py-1.5 px-2 font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    ID
-                  </th>
-                  <th className="text-left py-1.5 px-2 font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Technique
-                  </th>
-                  <th className="text-left py-1.5 px-2 font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Tactic
-                  </th>
-                  <th className="text-left py-1.5 px-2 font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Description
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {report.ttps.map((t) => (
-                  <tr key={t.id} className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/60">
-                    <td className="py-1.5 px-2">
-                      <a
-                        href={`https://attack.mitre.org/techniques/${t.id}/`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors"
-                      >
-                        {t.id}
-                      </a>
-                    </td>
-                    <td className="py-1.5 px-2 text-slate-900 dark:text-slate-100">{t.name}</td>
-                    <td className="py-1.5 px-2 font-mono text-violet-600 dark:text-violet-400">{t.tactic}</td>
-                    <td className="py-1.5 px-2 text-slate-600 dark:text-slate-300 max-w-xs">{t.description}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <DataTable
+              columns={[
+                { key: 'id', header: 'ID', sortValue: (t: typeof report.ttps[number]) => t.id, render: (t) => <a href={`https://attack.mitre.org/techniques/${t.id}/`} target="_blank" rel="noopener noreferrer" className="font-mono text-rose-600 dark:text-rose-400 hover:underline transition-colors">{t.id}</a> },
+                { key: 'technique', header: 'Technique', sortValue: (t: typeof report.ttps[number]) => t.name, render: (t) => <span className="text-slate-900 dark:text-slate-100">{t.name}</span> },
+                { key: 'tactic', header: 'Tactic', sortValue: (t: typeof report.ttps[number]) => t.tactic, render: (t) => <span className="text-slate-500 dark:text-slate-400">{t.tactic}</span> },
+                { key: 'description', header: 'Description', render: (t) => <span className="text-slate-600 dark:text-slate-300">{t.description}</span> },
+              ] as DataTableColumn<typeof report.ttps[number]>[]}
+              rows={report.ttps}
+              rowKey={(t) => t.id}
+            />
           </div>
         </Section>
       )}

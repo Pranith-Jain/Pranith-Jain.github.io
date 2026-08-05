@@ -7,6 +7,7 @@ import { DataState } from '../../components/DataState';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { StatBar } from '../../components/StatBar';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 
 /**
  * MyThreatIntel dashboard - one surface over the official REST API
@@ -338,51 +339,22 @@ function DnsScanPanel(): JSX.Element {
                 </button>
               </div>
               <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-left">
-                      {['Permutation', 'Domain', 'A', 'MX', 'NS', 'Registered'].map((h) => (
-                        <th
-                          key={h}
-                          scope="col"
-                          className="px-3 py-2 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
-                        >
-                          {h}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {rows.map((r, i) => {
+                <DataTable
+                  columns={[
+                    { key: 'fuzzer', header: 'Permutation', sortValue: (r: typeof rows[number]) => r.fuzzer ?? '', render: (r) => <span className="font-mono text-mini text-slate-500 whitespace-nowrap">{r.fuzzer || '-'}</span> },
+                    { key: 'domain', header: 'Domain', sortValue: (r: typeof rows[number]) => r.domain ?? '', render: (r) => <span className="font-mono text-meta text-slate-800 dark:text-slate-200 break-all">{r.domain || '-'}</span> },
+                    { key: 'dns_a', header: 'A', render: (r) => <span className="font-mono text-mini text-muted break-all">{recArr(r.dns_a)}</span> },
+                    { key: 'dns_mx', header: 'MX', render: (r) => <span className="font-mono text-mini text-muted break-all">{recArr(r.dns_mx)}</span> },
+                    { key: 'dns_ns', header: 'NS', render: (r) => <span className="font-mono text-mini text-muted break-all">{recArr(r.dns_ns)}</span> },
+                    { key: 'registered', header: 'Registered', sortValue: (r: typeof rows[number]) => (r.dns_a?.length ?? 0) > 0 ? 'yes' : 'no', render: (r) => {
                       const registered = (r.dns_a?.length ?? 0) > 0;
-                      return (
-                        <tr
-                          key={`${r.domain}-${i}`}
-                          className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70 align-top hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--surface-200)/0.4)]"
-                        >
-                          <td className="px-3 py-2 font-mono text-mini text-slate-500 whitespace-nowrap">
-                            {r.fuzzer || '-'}
-                          </td>
-                          <td className="px-3 py-2 font-mono text-meta text-slate-800 dark:text-slate-200 break-all">
-                            {r.domain || '-'}
-                          </td>
-                          <td className="px-3 py-2 font-mono text-mini text-muted break-all">{recArr(r.dns_a)}</td>
-                          <td className="px-3 py-2 font-mono text-mini text-muted break-all">{recArr(r.dns_mx)}</td>
-                          <td className="px-3 py-2 font-mono text-mini text-muted break-all">{recArr(r.dns_ns)}</td>
-                          <td className="px-3 py-2 whitespace-nowrap">
-                            {registered ? (
-                              <span className="text-mini font-mono px-2 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
-                                resolves
-                              </span>
-                            ) : (
-                              <span className="text-mini font-mono text-slate-500 dark:text-slate-400">-</span>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                      return registered ? <span className="text-mini font-mono px-2 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">resolves</span> : <span className="text-mini font-mono text-slate-500 dark:text-slate-400">-</span>;
+                    } },
+                  ] as DataTableColumn<typeof rows[number]>[]}
+                  rows={rows}
+                  rowKey={(r, i) => `${r.domain}-${i}`}
+                  rowClassName={() => 'hover:bg-slate-50/60 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+                />
               </div>
             </>
           )}
