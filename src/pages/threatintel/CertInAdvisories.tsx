@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Download, ExternalLink, Hash, RefreshCw, Search, Shield, AlertTriangle, Calendar } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { DataState } from '../../components/DataState';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 
 interface CertInAdvisory {
   id: string;
@@ -30,10 +31,7 @@ interface CertInResponse {
   };
 }
 
-type SortKey = 'published_at' | 'severity' | 'id' | 'cve_count';
-type SortDir = 'asc' | 'desc';
 
-const SEVERITY_ORDER: Record<string, number> = { critical: 4, high: 3, medium: 2, low: 1, unknown: 0 };
 
 const SEVERITY_STYLES: Record<string, string> = {
   critical: 'border-rose-500/50 bg-rose-500/10 text-rose-700 dark:text-rose-300',
@@ -54,8 +52,6 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
   const [query, setQuery] = useState('');
   const [yearFilter, setYearFilter] = useState('');
   const [severityFilter, setSeverityFilter] = useState('');
-  const [sortKey, setSortKey] = useState<SortKey>('published_at');
-  const [sortDir, setSortDir] = useState<SortDir>('desc');
 
   const params = new URLSearchParams();
   if (query.trim()) params.set('q', query.trim());
@@ -73,24 +69,11 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
     /* state is already triggering refetch via url change */
   }, [qs]);
 
-  const sorted = useMemo(() => {
-    if (!data) return [];
-    const items = [...data.advisories];
-    items.sort((a, b) => {
-      let cmp = 0;
-      if (sortKey === 'published_at') cmp = (a.published_at || '').localeCompare(b.published_at || '');
-      else if (sortKey === 'severity') cmp = (SEVERITY_ORDER[a.severity] ?? 0) - (SEVERITY_ORDER[b.severity] ?? 0);
-      else if (sortKey === 'id') cmp = a.id.localeCompare(b.id);
-      else if (sortKey === 'cve_count') cmp = a.cves.length - b.cves.length;
-      return sortDir === 'asc' ? cmp : -cmp;
-    });
-    return items;
-  }, [data, sortKey, sortDir]);
 
   const stats = useMemo(() => {
     if (!data) return { total: 0, critical: 0, high: 0, years: 0, withCve: 0 };
     return {
-      total: data.total,
+      total: data?.total ?? 0,
       critical: data.advisories.filter((a) => a.severity === 'critical').length,
       high: data.advisories.filter((a) => a.severity === 'high').length,
       withCve: data.advisories.filter((a) => a.cves.length > 0).length,
@@ -142,28 +125,6 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
     a.download = `cert-in-advisories-${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
-  }
-
-  function SortHeader({ label, field }: { label: string; field: SortKey }): JSX.Element {
-    const active = sortKey === field;
-    return (
-      <button
-        type="button"
-        onClick={() => {
-          if (active) setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
-          else {
-            setSortKey(field);
-            setSortDir('desc');
-          }
-        }}
-        className={`flex items-center gap-1 font-mono text-xs uppercase tracking-wider ${
-          active ? 'text-rose-600 dark:text-rose-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
-        }`}
-      >
-        {label}
-        {active && <span aria-hidden>{sortDir === 'asc' ? '↑' : '↓'}</span>}
-      </button>
-    );
   }
 
   return (
@@ -273,7 +234,7 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
       {data && (
         <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono">
           <span>
-            {sorted.length} of {data.total} advisories
+            {(data?.advisories.length ?? 0)} of {data?.total ?? 0} advisories
           </span>
           <a
             href="https://www.cert-in.org.in/"
@@ -287,102 +248,53 @@ export default function CertInAdvisories({ bare = false }: { bare?: boolean } = 
       )}
 
       {/* Table */}
-      <DataState loading={loading} error={error} empty={sorted.length === 0} onRetry={refetch} rows={6}>
+      <DataState loading={loading} error={error} empty={(data?.advisories.length ?? 0) === 0} onRetry={refetch} rows={6}>
         <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))]/80 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <th className="px-3 py-2.5 text-left">
-                  <SortHeader label="Advisory ID" field="id" />
-                </th>
-                <th className="px-3 py-2.5 text-left">
-                  <SortHeader label="Published" field="published_at" />
-                </th>
-                <th className="px-3 py-2.5 text-left">
-                  <SortHeader label="Severity" field="severity" />
-                </th>
-                <th className="px-3 py-2.5 text-left">
-                  <SortHeader label="CVEs" field="cve_count" />
-                </th>
-                <th className="px-3 py-2.5 text-left">Products</th>
-                <th className="px-3 py-2.5 text-left">Description</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
-              {sorted.map((adv) => (
-                <tr key={adv.id} className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)] transition">
-                  <td className="px-3 py-2 font-mono whitespace-nowrap">
-                    <a
-                      href={adv.detail_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 transition-colors"
-                    >
-                      {adv.id} <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </td>
-                  <td className="px-3 py-2 font-mono whitespace-nowrap text-slate-600 dark:text-slate-400">
-                    {formatDate(adv.published_at)}
-                  </td>
-                  <td className="px-3 py-2">
-                    <span
-                      className={`inline-block px-2 py-0.5 rounded border text-xs font-mono uppercase tracking-wider ${
-                        SEVERITY_STYLES[adv.severity] || SEVERITY_STYLES.unknown
-                      }`}
-                    >
-                      {adv.severity}
-                    </span>
-                  </td>
-                  <td className="px-3 py-2">
-                    {adv.cves.length > 0 ? (
-                      <div className="flex flex-wrap gap-1 max-w-xs">
-                        {adv.cves.slice(0, 3).map((cve) => (
-                          <a
-                            key={cve}
-                            href={`https://nvd.nist.gov/vuln/detail/${cve}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-mono text-xs text-rose-600 dark:text-rose-400 hover:underline transition-colors"
-                          >
-                            {cve}
-                          </a>
-                        ))}
-                        {adv.cves.length > 3 && <span className="text-xs text-slate-500">+{adv.cves.length - 3}</span>}
-                      </div>
-                    ) : (
-                      <span className="text-slate-500 dark:text-slate-400 text-xs">-</span>
-                    )}
-                  </td>
-                  <td className="px-3 py-2 max-w-xs">
-                    {adv.products_affected.length > 0 ? (
-                      <div className="flex flex-wrap gap-1">
-                        {adv.products_affected.slice(0, 2).map((p, i) => (
-                          <span
-                            key={i}
-                            className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.6)] text-slate-600 dark:text-slate-400"
-                          >
-                            {p.length > 32 ? `${p.slice(0, 32)}…` : p}
-                          </span>
-                        ))}
-                        {adv.products_affected.length > 2 && (
-                          <span className="text-xs text-slate-500">+{adv.products_affected.length - 2}</span>
-                        )}
-                      </div>
-                    ) : (
-                      <span className="text-slate-500 dark:text-slate-400 text-xs">-</span>
-                    )}
-                  </td>
-                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 text-xs max-w-md">
-                    {adv.description ? (
-                      <span className="line-clamp-2">{adv.description}</span>
-                    ) : (
-                      <span className="italic text-slate-500 dark:text-slate-400">{adv.summary}</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <DataTable
+          columns={[
+            { key: 'id', header: 'Advisory ID', sortValue: (adv: NonNullable<typeof data>['advisories'][number]) => adv.id, render: (adv) => (
+              <a href={adv.detail_url} target="_blank" rel="noopener noreferrer" className="font-mono whitespace-nowrap text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1 transition-colors">
+                {adv.id} <ExternalLink className="w-3 h-3" />
+              </a>
+            ) },
+            { key: 'published_at', header: 'Published', sortValue: (adv: NonNullable<typeof data>['advisories'][number]) => adv.published_at, render: (adv) => <span className="font-mono whitespace-nowrap text-slate-600 dark:text-slate-400">{formatDate(adv.published_at)}</span> },
+            { key: 'severity', header: 'Severity', sortValue: (adv: NonNullable<typeof data>['advisories'][number]) => adv.severity, render: (adv) => (
+              <span className={`inline-block px-2 py-0.5 rounded border text-xs font-mono uppercase tracking-wider ${SEVERITY_STYLES[adv.severity] || SEVERITY_STYLES.unknown}`}>{adv.severity}</span>
+            ) },
+            { key: 'cve_count', header: 'CVEs', sortValue: (adv: NonNullable<typeof data>['advisories'][number]) => adv.cves.length, render: (adv) => (
+              <div className="flex flex-wrap gap-1 max-w-xs">
+                {adv.cves.slice(0, 3).map((cve) => (
+                  <a key={cve} href={`https://nvd.nist.gov/vuln/detail/${cve}`} target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-rose-600 dark:text-rose-400 hover:underline">
+                    {cve}
+                  </a>
+                ))}
+                {adv.cves.length > 3 && <span className="text-xs text-slate-500">+{adv.cves.length - 3}</span>}
+              </div>
+            ) },
+            { key: 'products', header: 'Products', render: (adv) => (
+              <div className="max-w-xs">
+                {adv.products_affected.length > 0 ? (
+                  <div className="flex flex-wrap gap-1">
+                    {adv.products_affected.slice(0, 2).map((p, i) => (
+                      <span key={i} className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[rgb(var(--surface-300)/0.6)] text-slate-600 dark:text-slate-400">
+                        {p.length > 32 ? `${p.slice(0, 32)}…` : p}
+                      </span>
+                    ))}
+                    {adv.products_affected.length > 2 && <span className="text-xs text-slate-500">+{adv.products_affected.length - 2}</span>}
+                  </div>
+                ) : <span className="text-slate-500 dark:text-slate-400 text-xs">-</span>}
+              </div>
+            ) },
+            { key: 'description', header: 'Description', render: (adv) => (
+              <span className="text-slate-600 dark:text-slate-400 text-xs max-w-md">
+                {adv.description ? <span className="line-clamp-2">{adv.description}</span> : <span className="italic text-slate-500 dark:text-slate-400">{adv.summary}</span>}
+              </span>
+            ) },
+          ] as DataTableColumn<NonNullable<typeof data>['advisories'][number]>[]}
+          rows={data?.advisories ?? []}
+          rowKey={(adv) => adv.id}
+          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+        />
         </div>
       </DataState>
     </div>

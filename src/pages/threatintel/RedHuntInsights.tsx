@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import type { LucideIcon } from 'lucide-react';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 
 // ── Types mirroring api/src/routes/redhunt-insights.ts ───────────────
 interface TrendSeries {
@@ -562,22 +563,14 @@ export default function RedHuntInsights(): JSX.Element {
                   show numeric table ({topDomainsEntries.length} domains)
                 </summary>
                 <div className="overflow-x-auto">
-                  <table className="mt-2 w-full text-left">
-                    <thead className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      <tr>
-                        <th className="py-1">Domain</th>
-                        <th className="py-1 text-right">Subdomains</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {topDomainsEntries.map(([d, c]) => (
-                        <tr key={d} className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]">
-                          <td className="py-1 font-mono text-slate-700 dark:text-slate-300">{d}</td>
-                          <td className="py-1 text-right font-mono tabular-nums text-muted">{c.toLocaleString()}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  <DataTable
+                    columns={[
+                      { key: 'domain', header: 'Domain', sortValue: (e: [string, number]) => e[0], render: (e) => <span className="font-mono text-slate-700 dark:text-slate-300">{e[0]}</span> },
+                      { key: 'count', header: 'Subdomains', align: 'right', sortValue: (e: [string, number]) => e[1], render: (e) => <span className="font-mono tabular-nums text-muted">{e[1].toLocaleString()}</span> },
+                    ] as DataTableColumn<[string, number]>[]}
+                    rows={topDomainsEntries}
+                    rowKey={(e) => e[0]}
+                  />
                 </div>
               </details>
             )}
