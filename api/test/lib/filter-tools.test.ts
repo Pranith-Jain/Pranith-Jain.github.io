@@ -136,6 +136,35 @@ describe('getSpecialistsForQueryType', () => {
     expect(specialists).toContain('supply-chain');
   });
 
+  it('routes soc to soc-automation + detection-rules', () => {
+    const specialists = getSpecialistsForQueryType('soc');
+    expect(specialists).toContain('soc-automation');
+    expect(specialists).toContain('detection-rules');
+  });
+
+  it('routes incident to soc-automation + ioc-reputation', () => {
+    const specialists = getSpecialistsForQueryType('incident');
+    expect(specialists).toContain('soc-automation');
+    expect(specialists).toContain('ioc-reputation');
+  });
+
+  it('routes alert to soc-automation + ioc-reputation', () => {
+    const specialists = getSpecialistsForQueryType('alert');
+    expect(specialists).toContain('soc-automation');
+    expect(specialists).toContain('ioc-reputation');
+  });
+
+  it('routes playbook to soc-automation', () => {
+    const specialists = getSpecialistsForQueryType('playbook');
+    expect(specialists).toContain('soc-automation');
+  });
+
+  it('routes detection to detection-rules + soc-automation', () => {
+    const specialists = getSpecialistsForQueryType('detection');
+    expect(specialists).toContain('detection-rules');
+    expect(specialists).toContain('soc-automation');
+  });
+
   it('routes generic to strategic-intel + dark-web + ioc-reputation', () => {
     const specialists = getSpecialistsForQueryType('generic');
     expect(specialists).toContain('strategic-intel');
