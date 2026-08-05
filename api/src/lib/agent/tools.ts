@@ -1485,9 +1485,14 @@ function boundedJson(data: unknown, maxLen: number): string {
 
 export function describeTools(tools: AgentTool[]): string {
   return tools
-    .map(
-      (t) =>
-        `- **${t.name}**: ${t.description}\n  Params: ${t.params.length === 0 ? '(none)' : t.params.map((p) => `${p.name}${p.required ? '' : '?'}: ${p.type}${p.enum ? ` [${p.enum.join('|')}]` : ''}`).join(', ')}`
-    )
+    .map((t) => {
+      // Compress: first sentence of description only, omit optional param
+      // descriptions. This cuts tool-description context ~40% (from ~6K to
+      // ~3.6K tokens) leaving more context for working memory + data.
+      const shortDesc = t.description.split('.')[0];
+      const requiredParams = t.params.filter((p) => p.required);
+      const paramStr = requiredParams.length === 0 ? '' : ` (${requiredParams.map((p) => p.name).join(', ')})`;
+      return `- ${t.name}${paramStr}: ${shortDesc}`;
+    })
     .join('\n');
 }

@@ -185,6 +185,7 @@ export default function Copilot(): JSX.Element {
   const [selfEval, setSelfEval] = useState<SelfEvalResult | null>(null);
   const [dataGaps, setDataGaps] = useState<ToolFailure[] | null>(null);
   const [cost, setCost] = useState<{ usd: number; tokens: number; llmCalls: number } | null>(null);
+  const [priorIntel, setPriorIntel] = useState<string | null>(null);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sessions, setSessions] = useState<SessionItem[]>([]);
@@ -240,6 +241,7 @@ export default function Copilot(): JSX.Element {
     setSelfEval(null);
     setDataGaps(null);
     setCost(null);
+    setPriorIntel(null);
     setError(null);
     setEditingIndex(null);
     sessionStorage.removeItem('copilot_session_id');
@@ -381,6 +383,8 @@ export default function Copilot(): JSX.Element {
               else setDataGaps(null);
               if (d.cost) setCost(d.cost as { usd: number; tokens: number; llmCalls: number });
               else setCost(null);
+              if (d.priorIntelligence) setPriorIntel(d.priorIntelligence as string);
+              else setPriorIntel(null);
               setChatMessages((prev) => {
                 const next = [...prev];
                 const last = next[next.length - 1];
@@ -667,6 +671,8 @@ export default function Copilot(): JSX.Element {
                 else setDataGaps(null);
                 if (d.cost) setCost(d.cost as { usd: number; tokens: number; llmCalls: number });
                 else setCost(null);
+                if (d.priorIntelligence) setPriorIntel(d.priorIntelligence as string);
+                else setPriorIntel(null);
                 setChatMessages((prev) => {
                   const next = [...prev];
                   const last = next[next.length - 1];
@@ -988,6 +994,14 @@ export default function Copilot(): JSX.Element {
                               {cost && i === chatMessages.length - 1 && (
                                 <span className="font-mono text-mini text-slate-400 dark:text-slate-500">
                                   ${cost.usd.toFixed(4)} · {(cost.tokens / 1000).toFixed(1)}K tok · {cost.llmCalls} LLM
+                                </span>
+                              )}
+                              {priorIntel && i === chatMessages.length - 1 && (
+                                <span
+                                  className="font-mono text-mini text-violet-600 dark:text-violet-400"
+                                  title={priorIntel}
+                                >
+                                  ↺ built on prior investigations
                                 </span>
                               )}
                             </div>

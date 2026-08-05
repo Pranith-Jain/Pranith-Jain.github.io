@@ -410,6 +410,7 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
                 qa: state.qa,
                 dataGaps: state.dataGaps,
                 cost: state.cost,
+                priorIntelligence: state.priorIntelligence,
               })
             );
 
