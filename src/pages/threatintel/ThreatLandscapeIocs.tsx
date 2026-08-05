@@ -2,6 +2,7 @@ import { logCatch } from '../../lib/log';
 import { useState, useEffect, useCallback } from 'react';
 import { Shield, Download, Search, RefreshCw } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { DataState } from '../../components/DataState';
 import { PageMeta } from '../../components/PageMeta';
 
@@ -214,56 +215,31 @@ export default function ThreatLandscapeIocs(): JSX.Element {
         >
           {data && (
             <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <table className="w-full text-xs">
-                <thead>
-                  <tr className="bg-slate-100 dark:bg-[rgb(var(--surface-200))] border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                    <th className="px-3 py-2 text-left font-medium">Type</th>
-                    <th className="px-3 py-2 text-left font-medium">Value</th>
-                    <th className="px-3 py-2 text-left font-medium">Valid Until</th>
-                    <th className="px-3 py-2 text-left font-medium">Source Bundle</th>
-                    <th className="px-3 py-2 text-right font-medium">Seq ID</th>
-                    <th className="px-3 py-2 text-left font-medium">Created</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((row) => (
-                    <tr
-                      key={`${row.ioc_value}-${row.seq_id}`}
-                      className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50"
-                    >
-                      <td className="px-3 py-2">
-                        <span className={`px-1.5 py-0.5 rounded-full text-micro ${iocTypeColor(row.ioc_type)}`}>
-                          {IOC_LABELS[row.ioc_type] ?? row.ioc_type}
-                        </span>
-                      </td>
-                      <td className="px-3 py-2 font-mono text-mini max-w-[280px] truncate" title={row.ioc_value}>
-                        {row.ioc_value}
-                      </td>
-                      <td className="px-3 py-2 text-slate-500">
-                        {row.valid_until ? (
-                          <span
-                            className={new Date(row.valid_until) < new Date() ? 'text-rose-500' : 'text-emerald-500'}
-                          >
-                            {new Date(row.valid_until).toLocaleDateString()}
-                          </span>
-                        ) : (
-                          <span className="text-slate-500 dark:text-slate-400">never</span>
-                        )}
-                      </td>
-                      <td
-                        className="px-3 py-2 font-mono text-micro text-slate-500 dark:text-slate-400 max-w-[150px] truncate"
-                        title={row.source_bundle_id ?? ''}
-                      >
-                        {row.source_bundle_id ?? '-'}
-                      </td>
-                      <td className="px-3 py-2 text-right font-mono text-slate-500">{row.seq_id}</td>
-                      <td className="px-3 py-2 text-slate-500">
-                        {row.created_at ? new Date(row.created_at).toLocaleDateString() : '-'}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <DataTable
+                columns={[
+                  { key: 'type', header: 'Type', sortValue: (row: typeof data[number]) => row.ioc_type, render: (row) => (
+                    <span className={`px-1.5 py-0.5 rounded-full text-micro ${iocTypeColor(row.ioc_type)}`}>{IOC_LABELS[row.ioc_type] ?? row.ioc_type}</span>
+                  ) },
+                  { key: 'value', header: 'Value', sortValue: (row: typeof data[number]) => row.ioc_value, render: (row) => (
+                    <span className="font-mono text-mini max-w-[280px] truncate" title={row.ioc_value}>{row.ioc_value}</span>
+                  ) },
+                  { key: 'validUntil', header: 'Valid Until', sortValue: (row: typeof data[number]) => row.valid_until ?? '', render: (row) => (
+                    row.valid_until ? (
+                      <span className={new Date(row.valid_until) < new Date() ? 'text-rose-500' : 'text-emerald-500'}>{new Date(row.valid_until).toLocaleDateString()}</span>
+                    ) : <span className="text-slate-500 dark:text-slate-400">never</span>
+                  ) },
+                  { key: 'bundle', header: 'Source Bundle', render: (row) => (
+                    <span className="font-mono text-micro text-slate-500 dark:text-slate-400 max-w-[150px] truncate" title={row.source_bundle_id ?? ''}>{row.source_bundle_id ?? '-'}</span>
+                  ) },
+                  { key: 'seqId', header: 'Seq ID', align: 'right', sortValue: (row: typeof data[number]) => row.seq_id, render: (row) => <span className="font-mono text-slate-500">{row.seq_id}</span> },
+                  { key: 'created', header: 'Created', sortValue: (row: typeof data[number]) => row.created_at ?? '', render: (row) => (
+                    <span className="text-slate-500">{row.created_at ? new Date(row.created_at).toLocaleDateString() : '-'}</span>
+                  ) },
+                ] as DataTableColumn<typeof data[number]>[]}
+                rows={data}
+                rowKey={(row) => `${row.ioc_value}-${row.seq_id}`}
+                rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-slate-800/50'}
+              />
             </div>
           )}
           {data && (

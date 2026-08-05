@@ -2,6 +2,7 @@ import { useState, useCallback, type FormEvent } from 'react';
 import { Search, FolderOpen, File, AlertTriangle, Shield, Clock, Server, HardDrive, Info } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { SEVERITY_TONE, SEVERITY_BAR, type Severity } from '../../components/severity';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 
 const API = '/api/v1';
 
@@ -215,56 +216,29 @@ export default function OpenDirectory(): JSX.Element {
           {/* File List */}
           <div className="surface-card overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full text-xs">
-                <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] sticky top-0">
-                  <tr>
-                    <th className="px-3 py-2 text-left font-mono font-semibold text-muted">Name</th>
-                    <th className="px-3 py-2 text-left font-mono font-semibold text-muted w-20">Type</th>
-                    <th className="px-3 py-2 text-right font-mono font-semibold text-muted w-24">Size</th>
-                    <th className="px-3 py-2 text-left font-mono font-semibold text-muted w-20">Risk</th>
-                    <th className="px-3 py-2 text-left font-mono font-semibold text-muted w-48">Reason</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredEntries.map((entry) => (
-                    <tr
-                      key={entry.name}
-                      className={`border-t border-slate-100 dark:border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-300)/0.5)] cursor-pointer ${
-                        entry.risk === 'critical' ? 'bg-rose-50/50 dark:bg-rose-950/10' : ''
-                      }`}
-                      onClick={() => setExpandedEntry(expandedEntry === entry.name ? null : entry.name)}
-                    >
-                      <td className="px-3 py-2">
-                        <div className="flex items-center gap-2">
-                          {entry.type === 'directory' ? (
-                            <FolderOpen size={12} className="text-amber-500 flex-shrink-0" />
-                          ) : (
-                            <File size={12} className="text-slate-500 dark:text-slate-400 flex-shrink-0" />
-                          )}
-                          <span
-                            className={`font-mono truncate ${entry.risk === 'critical' ? 'font-semibold text-rose-700 dark:text-rose-300' : ''}`}
-                          >
-                            {entry.name}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-3 py-2 font-mono text-slate-500">
-                        {entry.extension ?? (entry.type === 'directory' ? 'dir' : '-')}
-                      </td>
-                      <td className="px-3 py-2 text-right font-mono text-slate-500">{formatSize(entry.size)}</td>
-                      <td className="px-3 py-2">
-                        <span
-                          className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-micro font-mono uppercase border ${SEVERITY_TONE[entry.risk]}`}
-                        >
-                          <span className={`w-1.5 h-1.5 rounded-full ${SEVERITY_BAR[entry.risk]}`} />
-                          {entry.risk}
-                        </span>
-                      </td>
-                      <td className="px-3 py-2 text-slate-500">{entry.riskReason ?? '-'}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <DataTable
+                columns={[
+                  { key: 'name', header: 'Name', sortValue: (e: typeof filteredEntries[number]) => e.name, render: (e) => (
+                    <div className="flex items-center gap-2">
+                      {e.type === 'directory' ? <FolderOpen size={12} className="text-amber-500 flex-shrink-0" /> : <File size={12} className="text-slate-500 dark:text-slate-400 flex-shrink-0" />}
+                      <span className={`font-mono truncate ${e.risk === 'critical' ? 'font-semibold text-rose-700 dark:text-rose-300' : ''}`}>{e.name}</span>
+                    </div>
+                  ) },
+                  { key: 'type', header: 'Type', sortValue: (e: typeof filteredEntries[number]) => e.extension ?? '', render: (e) => <span className="font-mono text-slate-500">{e.extension ?? (e.type === 'directory' ? 'dir' : '-')}</span> },
+                  { key: 'size', header: 'Size', align: 'right', sortValue: (e: typeof filteredEntries[number]) => e.size, render: (e) => <span className="font-mono text-slate-500">{formatSize(e.size)}</span> },
+                  { key: 'risk', header: 'Risk', sortValue: (e: typeof filteredEntries[number]) => e.risk, render: (e) => (
+                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-micro font-mono uppercase border ${SEVERITY_TONE[e.risk]}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${SEVERITY_BAR[e.risk]}`} />
+                      {e.risk}
+                    </span>
+                  ) },
+                  { key: 'reason', header: 'Reason', render: (e) => <span className="text-slate-500">{e.riskReason ?? '-'}</span> },
+                ] as DataTableColumn<typeof filteredEntries[number]>[]}
+                rows={filteredEntries}
+                rowKey={(e) => e.name}
+                onRowClick={(e) => setExpandedEntry(expandedEntry === e.name ? null : e.name)}
+                rowClassName={(e) => `cursor-pointer ${e.risk === 'critical' ? 'bg-rose-50/50 dark:bg-rose-950/10' : ''}`}
+              />
             </div>
             {filteredEntries.length === 0 && (
               <div className="p-8 text-center text-sm text-slate-500">

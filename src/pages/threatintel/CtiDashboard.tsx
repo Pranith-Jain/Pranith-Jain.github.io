@@ -1,6 +1,7 @@
 import { logCatch } from '../../lib/log';
 import { useEffect, useState, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import {
   RefreshCw,
   Brain,
@@ -386,39 +387,18 @@ export default function CtiDashboard(): JSX.Element {
                   <TrendingUp size={14} /> Most Observed IOCs (multi-source)
                 </h3>
                 <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="text-xs font-mono text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                        <th className="text-left py-2 font-semibold">Value</th>
-                        <th className="text-left py-2 font-semibold">Type</th>
-                        <th className="text-left py-2 font-semibold">Source</th>
-                        <th className="text-right py-2 font-semibold">Obs.</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {stats.trending.map((t, i) => (
-                        <tr
-                          key={i}
-                          className="border-b border-slate-100 dark:border-[rgb(var(--border-400))] last:border-0"
-                        >
-                          <td className="py-2 font-mono text-xs text-rose-600 dark:text-rose-400 max-w-xs truncate">
-                            {t.value}
-                          </td>
-                          <td className="py-2">
-                            <span
-                              className={`inline-flex px-1.5 py-0.5 rounded text-micro font-mono border ${TYPE_PILL[t.type] || 'border-slate-300 bg-slate-100 text-slate-600'}`}
-                            >
-                              {t.type}
-                            </span>
-                          </td>
-                          <td className="py-2 font-mono text-xs text-slate-500 dark:text-slate-400">{t.source}</td>
-                          <td className="py-2 text-right font-mono text-xs text-slate-800 dark:text-slate-200">
-                            {t.observations}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  <DataTable
+                    columns={[
+                      { key: 'value', header: 'Value', sortValue: (t: typeof stats.trending[number]) => t.value, render: (t) => <span className="font-mono text-xs text-rose-600 dark:text-rose-400 max-w-xs truncate">{t.value}</span> },
+                      { key: 'type', header: 'Type', sortValue: (t: typeof stats.trending[number]) => t.type, render: (t) => (
+                        <span className={`inline-flex px-1.5 py-0.5 rounded text-micro font-mono border ${TYPE_PILL[t.type] || 'border-slate-300 bg-slate-100 text-slate-600'}`}>{t.type}</span>
+                      ) },
+                      { key: 'source', header: 'Source', sortValue: (t: typeof stats.trending[number]) => t.source, render: (t) => <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{t.source}</span> },
+                      { key: 'obs', header: 'Obs.', align: 'right', sortValue: (t: typeof stats.trending[number]) => t.observations, render: (t) => <span className="font-mono text-xs text-slate-800 dark:text-slate-200">{t.observations}</span> },
+                    ] as DataTableColumn<typeof stats.trending[number]>[]}
+                    rows={stats.trending}
+                    rowKey={(t, i) => `${t.value}-${i}`}
+                  />
                 </div>
               </div>
             )}

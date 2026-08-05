@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Smartphone, Upload } from 'lucide-react';
 import { loadSql } from '../../lib/loadSql';
 import { fileTooLarge } from '../../lib/dfir/file-guard';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { BackLink } from '../../components/BackLink';
 import { useDebounce } from '../../hooks/useDebounce';
 
@@ -137,36 +138,16 @@ export default function IosBackupExplorer(): JSX.Element {
             className="w-full surface-card px-3 py-2 font-mono text-sm focus:border-brand-500 focus:outline-none"
           />
           <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">
-            <table className="w-full text-mini font-mono">
-              <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] sticky top-0">
-                <tr>
-                  {['domain', 'relativePath', 'fileID'].map((c) => (
-                    <th
-                      key={c}
-                      scope="col"
-                      className="text-left px-2 py-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
-                    >
-                      {c}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {shown.map((f, i) => (
-                  <tr key={i} className="even:bg-slate-50/50 dark:even:bg-[rgb(var(--surface-200)/0.5)]">
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))]">
-                      {f.domain}
-                    </td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] break-all">
-                      {f.path}
-                    </td>
-                    <td className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] text-slate-500">
-                      {f.fileID.slice(0, 12)}…
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <DataTable
+              columns={[
+                { key: 'domain', header: 'domain', sortValue: (f: typeof shown[number]) => f.domain, render: (f) => f.domain },
+                { key: 'relativePath', header: 'relativePath', sortValue: (f: typeof shown[number]) => f.path, render: (f) => <span className="break-all">{f.path}</span> },
+                { key: 'fileID', header: 'fileID', sortValue: (f: typeof shown[number]) => f.fileID, render: (f) => <span className="text-slate-500">{f.fileID.slice(0, 12)}…</span> },
+              ] as DataTableColumn<typeof shown[number]>[]}
+              rows={shown}
+              rowKey={(f, i) => `${f.fileID}-${i}`}
+              rowClassName={() => '[&:nth-child(even)]:bg-slate-50/50 dark:[&:nth-child(even)]:bg-[rgb(var(--surface-200)/0.5)]'}
+            />
           </div>
           <p className="font-mono text-mini text-slate-500">showing {shown.length} (filtered, capped 1000)</p>
         </div>
