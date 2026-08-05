@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-tui-china-2026-08-03",
-  "title": "TUI China",
-  "group": "DragonForce",
-  "discovered": "2026-08-03T00:00:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "China",
-  "sizeBytes": 0,
-  "description": "Internal files exfiltrated in ransomware attack",
-  "source_url": "https://recentbreaches.com/breach/tui-china-dragonforce-2026-08",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Hospitality",
-  "references": ["RecentBreaches.com"]
-}
+{"slug":"dragonforce-tui-china-2026-08-03","title":"TUI China","group":"dragonforce","discovered":"2026-08-03T06:52:53.000Z","category":"ransomware","severity":"critical","country":"CN","sizeBytes":0,"description":"An affiliate of TUI Group, the world's number one leisure tourism business, TUI China was established in late 2003 as the first joint venture with foreign majority share in the Chinese tourism industry.\nPassports, visas, internal documentation, legal and financial documents, etc.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Hospitality","references":["ransomware.live"]}

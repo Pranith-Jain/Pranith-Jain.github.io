@@ -1,15 +1,1 @@
-{
-  "slug": "interlock-gardiner-family-chiropractic-2026-07-31",
-  "title": "Gardiner Family Chiropractic",
-  "group": "interlock",
-  "discovered": "2026-07-31T14:56:09.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Gardiner Family Chiropractic has been providing medical services to residents of Gardiner and the surrounding area since 1989. However, it is not responsible for its patients and makes no attempt to ensure the security of its stored information. Therefore, patient data, client records, medical histories, and internal company financial information have been compromised and are being made available to you.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"interlock-gardiner-family-chiropractic-2026-07-31","title":"Gardiner Family Chiropractic","group":"interlock","discovered":"2026-07-31T14:56:09.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Gardiner Family Chiropractic has been providing medical services to residents of Gardiner and the surrounding area since 1989. However, it is not responsible for its patients and makes no attempt to ensure the security of its stored information. Therefore, patient data, client records, medical histories, and internal company financial information have been compromised and are being made available to you.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

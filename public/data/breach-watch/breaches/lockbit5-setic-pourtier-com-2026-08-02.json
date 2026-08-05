@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-setic-pourtier-com-2026-08-02",
-  "title": "setic-pourtier.com",
-  "group": "lockbit5",
-  "discovered": "2026-08-02T23:27:57.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Consolidating gains and preparing the future, Setic, Pourtier C2S help you to stay ahead of the prod...",
-  "source_url": "https://www.ransomlook.io/screenshots/lockbit5/setic-pourtiercom.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"lockbit5-setic-pourtier-com-2026-08-02","title":"setic-pourtier.com","group":"lockbit5","discovered":"2026-08-02T23:27:57.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Consolidating gains and preparing the future, Setic, Pourtier C2S help you to stay ahead of the prod...","source_url":"https://www.ransomlook.io/screenshots/lockbit5/setic-pourtiercom.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-upanal-cnc-solutions-2026-07-30",
-  "title": "Upanal CNC Solutions",
-  "group": "thegentlemen",
-  "discovered": "2026-07-30T06:48:54.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "PE",
-  "sizeBytes": 0,
-  "description": "upanalcnc.com zoominfo.com/c/upanal-cnc-solutions/370526030 Upanal CNC Solutions is an Indian company specializing in advanced metal cutting and metal forming technologies, particularly CNC machinery. Beyond supplying equipment, they provide comprehensive services including machine modernization, 24/7 technical support, and structured training programs for operators and engineers. Headquartered in Bangalore with a technical center in Chennai and an international office in Bahrain, the company serves a trusted network of over 500 clients across various manufacturing industries",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-upanal-cnc-solutions-2026-07-30","title":"Upanal CNC Solutions","group":"thegentlemen","discovered":"2026-07-30T06:48:54.000Z","category":"ransomware","severity":"critical","country":"PE","sizeBytes":0,"description":"upanalcnc.com zoominfo.com/c/upanal-cnc-solutions/370526030 Upanal CNC Solutions is an Indian company specializing in advanced metal cutting and metal forming technologies, particularly CNC machinery. Beyond supplying equipment, they provide comprehensive services including machine modernization, 24/7 technical support, and structured training programs for operators and engineers. Headquartered in Bangalore with a technical center in Chennai and an international office in Bahrain, the company serves a trusted network of over 500 clients across various manufacturing industries","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "crpxo-do-an-holdi-ng-2026-07-31",
-  "title": "DOĞAN HOLDİNG",
-  "group": "CRPxO",
-  "discovered": "2026-07-31T23:51:14.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "TR",
-  "sizeBytes": 0,
-  "description": "Sector: Media / Energy Conglomerate | Data leaked: 3.1 GB",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Other",
-  "references": ["ransomware.live"]
-}
+{"slug":"crpxo-do-an-holdi-ng-2026-07-31","title":"DOĞAN HOLDİNG","group":"CRPxO","discovered":"2026-07-31T23:51:14.000Z","category":"data_breach","severity":"high","country":"TR","sizeBytes":0,"description":"Sector: Media / Energy Conglomerate | Data leaked: 3.1 GB","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

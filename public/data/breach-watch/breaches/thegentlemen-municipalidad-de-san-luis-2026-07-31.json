@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-municipalidad-de-san-luis-2026-07-31",
-  "title": "Municipalidad de San Luis",
-  "group": "thegentlemen",
-  "discovered": "2026-07-31T18:22:48.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "PE",
-  "sizeBytes": 0,
-  "description": "munisanluis.gob.pe zoominfo.com/c/municipalidad-de-san-luis/1322909314 The District Municipality of San Luis is the local government body for the San Luis district in Lima, Peru, dedicated to promoting the integral development and well-being of its residents. Its core mission is to lead, regulate, and provide essential public services while fostering community engagement through cultural, sports, and safety programs. The municipality actively modernizes its operations, offering digital platforms for online procedures and payments to ensure efficient, accessible, and transparent governance",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Government & Defense",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-municipalidad-de-san-luis-2026-07-31","title":"Municipalidad de San Luis","group":"thegentlemen","discovered":"2026-07-31T18:22:48.000Z","category":"ransomware","severity":"critical","country":"PE","sizeBytes":0,"description":"munisanluis.gob.pe zoominfo.com/c/municipalidad-de-san-luis/1322909314 The District Municipality of San Luis is the local government body for the San Luis district in Lima, Peru, dedicated to promoting the integral development and well-being of its residents. Its core mission is to lead, regulate, and provide essential public services while fostering community engagement through cultural, sports, and safety programs. The municipality actively modernizes its operations, offering digital platforms for online procedures and payments to ensure efficient, accessible, and transparent governance","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Government & Defense","references":["ransomware.live"]}

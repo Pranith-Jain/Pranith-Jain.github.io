@@ -1,15 +1,1 @@
-{
-  "slug": "orova-conceptual-designs-inc-2026-08-04",
-  "title": "Conceptual Designs, Inc.",
-  "group": "Orova",
-  "discovered": "2026-08-04T12:20:41.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Conceptual Designs, Inc. proudly provides interior design services for businesses across the Quad Cities from our studio in Bettendorf, Iowa. No matter what kind of business you own, we can help make your space match your company’s culture and values in a creative way. With over 35 years of experience, our team of designers can help bring your vision to life.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Other",
-  "references": ["ransomware.live"]
-}
+{"slug":"orova-conceptual-designs-inc-2026-08-04","title":"Conceptual Designs, Inc.","group":"Orova","discovered":"2026-08-04T12:20:41.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Conceptual Designs, Inc. proudly provides interior design services for businesses across the Quad Cities from our studio in Bettendorf, Iowa. No matter what kind of business you own, we can help make your space match your company’s culture and values in a creative way. With over 35 years of experience, our team of designers can help bring your vision to life.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

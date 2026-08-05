@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-azn-co-jp-2026-08-03",
-  "title": "azn.co.jp",
-  "group": "safepay",
-  "discovered": "2026-08-03T17:59:15.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "JP",
-  "sizeBytes": 0,
-  "description": "Founded in 1991, the company specializes in comprehensive asset management, inheritance planning, business succession consulting, real estate advisory services, and …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Retail & E-Commerce",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-azn-co-jp-2026-08-03","title":"azn.co.jp","group":"safepay","discovered":"2026-08-03T17:59:15.000Z","category":"ransomware","severity":"high","country":"JP","sizeBytes":0,"description":"Founded in 1991, the company specializes in comprehensive asset management, inheritance planning, business succession consulting, real estate advisory services, and …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

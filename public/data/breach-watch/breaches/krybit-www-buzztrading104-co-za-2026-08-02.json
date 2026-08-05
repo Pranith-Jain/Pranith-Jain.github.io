@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-www-buzztrading104-co-za-2026-08-02",
-  "title": "www.buzztrading104.co.za",
-  "group": "krybit",
-  "discovered": "2026-08-02T13:26:24.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "ZA",
-  "sizeBytes": 0,
-  "description": "Buzz Trading 104 (Pty) Ltd (also trading as Master Products) is a South African privately owned manufacturer and wholesa...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-www-buzztrading104-co-za-2026-08-02","title":"www.buzztrading104.co.za","group":"krybit","discovered":"2026-08-02T13:26:24.000Z","category":"ransomware","severity":"high","country":"ZA","sizeBytes":0,"description":"Buzz Trading 104 (Pty) Ltd (also trading as Master Products) is a South African privately owned manufacturer and wholesa...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

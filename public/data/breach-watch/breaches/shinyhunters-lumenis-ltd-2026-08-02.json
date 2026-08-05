@@ -1,15 +1,1 @@
-{
-  "slug": "shinyhunters-lumenis-ltd-2026-08-02",
-  "title": "Lumenis Ltd.",
-  "group": "shinyhunters",
-  "discovered": "2026-08-02T00:00:00.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IL",
-  "sizeBytes": 0,
-  "description": "Over 1.1 million records containing some Pil of customers/employees and 176GB+ of internal corporate data was compromised.\r\n\r\nThis is a final warning to reach out by 4\r\nAugust 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"shinyhunters-lumenis-ltd-2026-08-02","title":"Lumenis Ltd.","group":"shinyhunters","discovered":"2026-08-02T00:00:00.000Z","category":"ransomware","severity":"critical","country":"IL","sizeBytes":0,"description":"Over 1.1 million records containing some Pil of customers/employees and 176GB+ of internal corporate data was compromised.\r\n\r\nThis is a final warning to reach out by 4\r\nAugust 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

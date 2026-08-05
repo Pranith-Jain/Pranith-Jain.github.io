@@ -1,15 +1,1 @@
-{
-  "slug": "orova-ssi-holding-far-east-limited-2026-08-04",
-  "title": "SSI HOLDING (FAR EAST) LIMITED",
-  "group": "Orova",
-  "discovered": "2026-08-04T12:22:53.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "HK",
-  "sizeBytes": 0,
-  "description": "AIMING at streamlining all aspects of business, procuring excellent quality of management and strengthening connexion of our well established affilated companies, S.S.I. Holding (Far East) Limited was found in November of 1995 with association of Simex Sport GmbH, a German base corporation of over 30 years experience in sport related business when inception.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Other",
-  "references": ["ransomware.live"]
-}
+{"slug":"orova-ssi-holding-far-east-limited-2026-08-04","title":"SSI HOLDING (FAR EAST) LIMITED","group":"Orova","discovered":"2026-08-04T12:22:53.000Z","category":"data_breach","severity":"high","country":"HK","sizeBytes":0,"description":"AIMING at streamlining all aspects of business, procuring excellent quality of management and strengthening connexion of our well established affilated companies, S.S.I. Holding (Far East) Limited was found in November of 1995 with association of Simex Sport GmbH, a German base corporation of over 30 years experience in sport related business when inception.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

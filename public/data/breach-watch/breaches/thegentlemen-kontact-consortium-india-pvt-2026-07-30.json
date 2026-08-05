@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-kontact-consortium-india-pvt-2026-07-30",
-  "title": "Kontact Consortium India Pvt",
-  "group": "thegentlemen",
-  "discovered": "2026-07-30T06:49:15.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "kontact.in zoominfo.com/c/kontact-consortium-india-pvt-ltd/437934184 Kontact is an Indian engineering company with over 50 years of experience, specializing in electrical and mechanical solutions for the railway, infrastructure, and industrial sectors. They provide end-to-end services, including railway rolling stock supplies, LV/MV power distribution panels, and electrical contracting, backed by a 40,000+ sq. ft. manufacturing facility. The company is recognized for its reliability and quality, holding key international certifications such as ISO 9001, IRIS, and EN 15085-2",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Other",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-kontact-consortium-india-pvt-2026-07-30","title":"Kontact Consortium India Pvt","group":"thegentlemen","discovered":"2026-07-30T06:49:15.000Z","category":"ransomware","severity":"critical","country":"IN","sizeBytes":0,"description":"kontact.in zoominfo.com/c/kontact-consortium-india-pvt-ltd/437934184 Kontact is an Indian engineering company with over 50 years of experience, specializing in electrical and mechanical solutions for the railway, infrastructure, and industrial sectors. They provide end-to-end services, including railway rolling stock supplies, LV/MV power distribution panels, and electrical contracting, backed by a 40,000+ sq. ft. manufacturing facility. The company is recognized for its reliability and quality, holding key international certifications such as ISO 9001, IRIS, and EN 15085-2","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Other","references":["ransomware.live"]}

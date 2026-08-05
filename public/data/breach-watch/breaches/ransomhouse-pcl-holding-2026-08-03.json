@@ -1,15 +1,1 @@
-{
-  "slug": "ransomhouse-pcl-holding-2026-08-03",
-  "title": "PCL Holding",
-  "group": "ransomhouse",
-  "discovered": "2026-08-03T13:26:00.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "CA",
-  "sizeBytes": 0,
-  "description": "PCL Holding Public Company Limited is a Thai-based holding entity operating as a premier importer and distributor of diagnostic instruments, reagents, and consumables for medical and research laboratories. The company manages a comprehensive portfolio of products across hematology, chemistry, immunology, and laboratory automation systems, representing globally recognized brands such as Beckman Coulter. With over 100 employees, the organization serves a broad client base of hospitals and government sectors throughout the Thai domestic market. Established in 1995 and converted to a public company in 2023, the firm delivers end-to-end service support to the public health sector. The company’s structure as a holding company enables strategic management of its diverse operational subsidiaries and product verticals to drive market leadership.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["RANSOM HOUSE"],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"ransomhouse-pcl-holding-2026-08-03","title":"PCL Holding","group":"ransomhouse","discovered":"2026-08-03T13:26:00.000Z","category":"ransomware","severity":"high","country":"CA","sizeBytes":0,"description":"PCL Holding Public Company Limited is a Thai-based holding entity operating as a premier importer and distributor of diagnostic instruments, reagents, and consumables for medical and research laboratories. The company manages a comprehensive portfolio of products across hematology, chemistry, immunology, and laboratory automation systems, representing globally recognized brands such as Beckman Coulter. With over 100 employees, the organization serves a broad client base of hospitals and government sectors throughout the Thai domestic market. Established in 1995 and converted to a public company in 2023, the firm delivers end-to-end service support to the public health sector. The company’s structure as a holding company enables strategic management of its diverse operational subsidiaries and product verticals to drive market leadership.","source_url":"https://www.ransomware.live/","groupAliases":["RANSOM HOUSE"],"activity":"Professional Services","references":["ransomware.live"]}

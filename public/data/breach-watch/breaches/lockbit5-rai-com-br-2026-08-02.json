@@ -1,15 +1,1 @@
-{
-  "slug": "lockbit5-rai-com-br-2026-08-02",
-  "title": "rai.com.br",
-  "group": "lockbit5",
-  "discovered": "2026-08-02T23:27:55.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Grupo Rái is one of the largest independent communication groups in Brazil, consisting of six specia...",
-  "source_url": "https://www.ransomlook.io/screenshots/lockbit5/raicombr.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"lockbit5-rai-com-br-2026-08-02","title":"rai.com.br","group":"lockbit5","discovered":"2026-08-02T23:27:55.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Grupo Rái is one of the largest independent communication groups in Brazil, consisting of six specia...","source_url":"https://www.ransomlook.io/screenshots/lockbit5/raicombr.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-kenaitze-indian-tribe-2026-07-31",
-  "title": "Kenaitze Indian Tribe",
-  "group": "thegentlemen",
-  "discovered": "2026-07-31T18:30:19.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "kenaitze.org The Kenaitze Indian Tribe is a federally recognized sovereign nation of the Kahtnuht'ana Dena'ina people located on Alaska's Kenai Peninsula. Its core mission is \"to assure Kahtnuht'ana Dena'ina thrive forever\" through holistic, culturally grounded support. The Tribe operates the Dena'ina Wellness Center, providing comprehensive medical, dental, and behavioral health services, alongside education, elder care, and tribal fisheries to preserve their heritage and promote community well-being",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Government & Defense",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-kenaitze-indian-tribe-2026-07-31","title":"Kenaitze Indian Tribe","group":"thegentlemen","discovered":"2026-07-31T18:30:19.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"kenaitze.org The Kenaitze Indian Tribe is a federally recognized sovereign nation of the Kahtnuht'ana Dena'ina people located on Alaska's Kenai Peninsula. Its core mission is \"to assure Kahtnuht'ana Dena'ina thrive forever\" through holistic, culturally grounded support. The Tribe operates the Dena'ina Wellness Center, providing comprehensive medical, dental, and behavioral health services, alongside education, elder care, and tribal fisheries to preserve their heritage and promote community well-being","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Government & Defense","references":["ransomware.live"]}

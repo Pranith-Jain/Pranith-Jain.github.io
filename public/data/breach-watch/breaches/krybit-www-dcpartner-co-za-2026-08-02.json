@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-www-dcpartner-co-za-2026-08-02",
-  "title": "www.dcpartner.co.za",
-  "group": "krybit",
-  "discovered": "2026-08-02T14:25:08.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "ZA",
-  "sizeBytes": 0,
-  "description": "DC Partner (Pty) Ltd is a South African market-leading Payment Distribution Agency (PDA), one of only four NCR-accredite...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-www-dcpartner-co-za-2026-08-02","title":"www.dcpartner.co.za","group":"krybit","discovered":"2026-08-02T14:25:08.000Z","category":"ransomware","severity":"high","country":"ZA","sizeBytes":0,"description":"DC Partner (Pty) Ltd is a South African market-leading Payment Distribution Agency (PDA), one of only four NCR-accredite...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

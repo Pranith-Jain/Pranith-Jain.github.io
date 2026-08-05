@@ -1,15 +1,1 @@
-{
-  "slug": "coinbasecartel-cen-and-cenelec-2026-08-01",
-  "title": "CEN and Cenelec",
-  "group": "coinbasecartel",
-  "discovered": "2026-08-01T05:30:30.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "BE",
-  "sizeBytes": 0,
-  "description": "[AI generated] CEN (European Committee for Standardization) and CENELEC (European Committee for Electrotechnical Standardization) are European standardization organizations headquartered in Brussels, Belgium. They develop and publish voluntary technical standards across industries including engineering, manufacturing, energy, and electrotechnical sectors. Their standards facilitate trade, safety, and interoperability across European Union and European Economic Area member states.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["coinbase cartel"],
-  "activity": "Other",
-  "references": ["ransomware.live"]
-}
+{"slug":"coinbasecartel-cen-and-cenelec-2026-08-01","title":"CEN and Cenelec","group":"coinbasecartel","discovered":"2026-08-01T05:30:30.000Z","category":"ransomware","severity":"high","country":"BE","sizeBytes":0,"description":"[AI generated] CEN (European Committee for Standardization) and CENELEC (European Committee for Electrotechnical Standardization) are European standardization organizations headquartered in Brussels, Belgium. They develop and publish voluntary technical standards across industries including engineering, manufacturing, energy, and electrotechnical sectors. Their standards facilitate trade, safety, and interoperability across European Union and European Economic Area member states.","source_url":"https://www.ransomware.live/","groupAliases":["coinbase cartel"],"activity":"Other","references":["ransomware.live"]}

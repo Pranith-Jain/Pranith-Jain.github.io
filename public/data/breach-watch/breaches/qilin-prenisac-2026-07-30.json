@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-prenisac-2026-07-30",
-  "title": "Prenisac",
-  "group": "qilin",
-  "discovered": "2026-07-30T08:59:55.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-prenisac-2026-07-30","title":"Prenisac","group":"qilin","discovered":"2026-07-30T08:59:55.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Not Found","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "gunra-weilhotel-2026-08-01",
-  "title": "Weilhotel",
-  "group": "gunra",
-  "discovered": "2026-08-01T04:03:53.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://lgiil72vkmdtbc3qv4tyq6wedyjxqr2qd4ze7xl2cxgerdnymxj7soqd.onion/company/7UiO9d1EIQ2-_fUf6o1dO",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"gunra-weilhotel-2026-08-01","title":"Weilhotel","group":"gunra","discovered":"2026-08-01T04:03:53.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":null,"source_url":"http://lgiil72vkmdtbc3qv4tyq6wedyjxqr2qd4ze7xl2cxgerdnymxj7soqd.onion/company/7UiO9d1EIQ2-_fUf6o1dO","groupAliases":[],"activity":null,"references":["CTI.FYI"]}

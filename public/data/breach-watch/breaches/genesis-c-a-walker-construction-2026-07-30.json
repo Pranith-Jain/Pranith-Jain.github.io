@@ -1,15 +1,1 @@
-{
-  "slug": "genesis-c-a-walker-construction-2026-07-30",
-  "title": "C.A. Walker Construction",
-  "group": "genesis",
-  "discovered": "2026-07-30T21:25:51.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "A construction management company",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"genesis-c-a-walker-construction-2026-07-30","title":"C.A. Walker Construction","group":"genesis","discovered":"2026-07-30T21:25:51.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"A construction management company","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

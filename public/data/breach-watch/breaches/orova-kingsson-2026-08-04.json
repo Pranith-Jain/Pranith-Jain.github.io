@@ -1,15 +1,1 @@
-{
-  "slug": "orova-kingsson-2026-08-04",
-  "title": "KINGSSON",
-  "group": "Orova",
-  "discovered": "2026-08-04T12:23:25.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "TW",
-  "sizeBytes": 0,
-  "description": "KINGSSON primarily operates as an OEM/ODM manufacturer, supplying customized security sealing products under customers' own brands. The company markets mainly to distributors and industrial customers rather than retail consumers.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Other",
-  "references": ["ransomware.live"]
-}
+{"slug":"orova-kingsson-2026-08-04","title":"KINGSSON","group":"Orova","discovered":"2026-08-04T12:23:25.000Z","category":"data_breach","severity":"high","country":"TW","sizeBytes":0,"description":"KINGSSON primarily operates as an OEM/ODM manufacturer, supplying customized security sealing products under customers' own brands. The company markets mainly to distributors and industrial customers rather than retail consumers.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

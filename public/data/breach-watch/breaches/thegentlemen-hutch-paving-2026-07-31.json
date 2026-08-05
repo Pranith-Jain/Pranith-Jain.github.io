@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-hutch-paving-2026-07-31",
-  "title": "Hutch Paving",
-  "group": "thegentlemen",
-  "discovered": "2026-07-31T18:27:57.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "hutchpaving.com zoominfo.com/c/hutch-paving-inc/38258180 Hutch Paving is a highly respected asphalt and concrete paving contractor based in Southeast Michigan, serving the region since 1993. The company specializes in comprehensive pavement solutions, including resurfacing, maintenance, sealcoating, and new construction for commercial, municipal, industrial, and residential clients. Known for its safety-first approach, modern equipment, and attention to detail, Hutch Paving is committed to delivering durable, high-quality infrastructure with exceptional customer service",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Transportation",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-hutch-paving-2026-07-31","title":"Hutch Paving","group":"thegentlemen","discovered":"2026-07-31T18:27:57.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"hutchpaving.com zoominfo.com/c/hutch-paving-inc/38258180 Hutch Paving is a highly respected asphalt and concrete paving contractor based in Southeast Michigan, serving the region since 1993. The company specializes in comprehensive pavement solutions, including resurfacing, maintenance, sealcoating, and new construction for commercial, municipal, industrial, and residential clients. Known for its safety-first approach, modern equipment, and attention to detail, Hutch Paving is committed to delivering durable, high-quality infrastructure with exceptional customer service","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Transportation","references":["ransomware.live"]}

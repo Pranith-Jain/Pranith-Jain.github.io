@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-service-electric-2026-08-04",
-  "title": "Service Electric",
-  "group": "qilin",
-  "discovered": "2026-08-04T01:40:56.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Software",
-  "source_url": "https://www.ransomlook.io/screenshots/qilin/Service Electric.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"qilin-service-electric-2026-08-04","title":"Service Electric","group":"qilin","discovered":"2026-08-04T01:40:56.000Z","category":"ransomware","severity":"critical","country":null,"sizeBytes":0,"description":"Software","source_url":"https://www.ransomlook.io/screenshots/qilin/Service Electric.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

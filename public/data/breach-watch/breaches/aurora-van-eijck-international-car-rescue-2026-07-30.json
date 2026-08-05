@@ -1,15 +1,1 @@
-{
-  "slug": "aurora-van-eijck-international-car-rescue-2026-07-30",
-  "title": "Van Eijck International Car Rescue",
-  "group": "aurora",
-  "discovered": "2026-07-30T07:23:44.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "NL",
-  "sizeBytes": 0,
-  "description": "[recovery, rescue] Van Eijck International Car Rescue B.V. — a family-owned Dutch towing and recovery company with 225+ vehicles, 180+ employees, and 20 branch offices across the Netherlands and Spain.\n\nThe exposed material includes:\n\n<censored>\n227 employee home directories (156 GB) containing personal documents, tax forms (loonheffingen), salary records, photos, and financial data.\n12 GB of RentRunner customer rental contracts with copies of identity documents, driving licenses, and vehicle registrations.\n10 years of customer claims data (2010–2019) — 500+ individual claims with damage assessments, insurance details, and customer PII.\nComplete Google Workspace backup (CubeBackup) — Gmail, Drive, and Calendar for 18 user accounts and 206 groups.\n<censored>",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Transportation",
-  "references": ["ransomware.live"]
-}
+{"slug":"aurora-van-eijck-international-car-rescue-2026-07-30","title":"Van Eijck International Car Rescue","group":"aurora","discovered":"2026-07-30T07:23:44.000Z","category":"data_breach","severity":"high","country":"NL","sizeBytes":0,"description":"[recovery, rescue] Van Eijck International Car Rescue B.V. — a family-owned Dutch towing and recovery company with 225+ vehicles, 180+ employees, and 20 branch offices across the Netherlands and Spain.\n\nThe exposed material includes:\n\n<censored>\n227 employee home directories (156 GB) containing personal documents, tax forms (loonheffingen), salary records, photos, and financial data.\n12 GB of RentRunner customer rental contracts with copies of identity documents, driving licenses, and vehicle registrations.\n10 years of customer claims data (2010–2019) — 500+ individual claims with damage assessments, insurance details, and customer PII.\nComplete Google Workspace backup (CubeBackup) — Gmail, Drive, and Calendar for 18 user accounts and 206 groups.\n<censored>","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Transportation","references":["ransomware.live"]}

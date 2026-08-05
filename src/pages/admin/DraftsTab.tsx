@@ -59,7 +59,7 @@ export default function DraftsTab() {
   const [previewLoading, setPreviewLoading] = useState<string | null>(null);
   const [actionBusy, setActionBusy] = useState<string | null>(null);
   const [actionMsg, setActionMsg] = useState<string | null>(null);
-  const [socialGen, setSocialGen] = useState<Record<string, string>>({});
+  const [_socialGen, _setSocialGen] = useState<Record<string, string>>({});
   const latestPreviewReq = useRef<string | null>(null);
 
   const load = useCallback(async () => {
@@ -209,22 +209,23 @@ export default function DraftsTab() {
     }
   }
 
-  async function generateSocial(slug: string, platform: string) {
+// @ts-ignore: dead code, kept for future social generation feature
+  async function _generateSocial(slug: string, platform: string) {
     // The backend /social/:slug/:platform endpoint uses getPostOrDraft which
     // reads from BOTH posts:<slug> and drafts:<slug> KV keys, so this works
     // for drafts too. No candidateId lookup needed.
     const key = `${slug}:${platform}`;
-    setSocialGen((prev) => ({ ...prev, [key]: 'busy' }));
+    _setSocialGen((prev) => ({ ...prev, [key]: 'busy' }));
     setActionMsg(null);
     try {
       await postJsonWithBody(`/social/${encodeURIComponent(slug)}/${platform}`, {});
       setActionMsg(`${platform} generated for ${slug}`);
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
-      console.error('generateSocial failed:', msg);
+      console.error('_generateSocial failed:', msg);
       setActionMsg(`${platform} failed: ${msg}`);
     } finally {
-      setSocialGen((prev) => ({ ...prev, [key]: '' }));
+      _setSocialGen((prev) => ({ ...prev, [key]: '' }));
     }
   }
 
@@ -625,7 +626,8 @@ function LinkVerifyBadge({
   );
 }
 
-function SocialBtn({ label, busy, onClick }: { label: string; busy?: string; onClick: () => void }) {
+// @ts-ignore: dead code, kept for future social generation feature
+function _SocialBtn({ label, busy, onClick }: { label: string; busy?: string; onClick: () => void }) {
   const base = 'px-2 py-1 rounded text-xs border ';
   if (busy === 'busy') {
     return (
@@ -657,7 +659,8 @@ function SocialBtn({ label, busy, onClick }: { label: string; busy?: string; onC
  * The dropdown lives inline in the Actions cell so the row stays a
  * single line on desktop and wraps gracefully on narrow viewports.
  */
-function RegenMenu({
+// @ts-ignore: dead code, kept for future social generation feature
+function _RegenMenu({
   slug,
   busy,
   disabled,

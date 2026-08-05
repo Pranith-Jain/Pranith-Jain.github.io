@@ -1,15 +1,1 @@
-{
-  "slug": "krybit-www-ville-rinxent-fr-2026-08-02",
-  "title": "www.ville-rinxent.fr",
-  "group": "krybit",
-  "discovered": "2026-08-02T13:55:27.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "FR",
-  "sizeBytes": 0,
-  "description": "Mairie de Rinxent (Municipality of Rinxent) is the official website of the town hall (mairie) of Rinxent, a small French...",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Government & Defense",
-  "references": ["ransomware.live"]
-}
+{"slug":"krybit-www-ville-rinxent-fr-2026-08-02","title":"www.ville-rinxent.fr","group":"krybit","discovered":"2026-08-02T13:55:27.000Z","category":"ransomware","severity":"high","country":"FR","sizeBytes":0,"description":"Mairie de Rinxent (Municipality of Rinxent) is the official website of the town hall (mairie) of Rinxent, a small French...","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

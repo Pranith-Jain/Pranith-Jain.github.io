@@ -1,15 +1,1 @@
-{
-  "slug": "orova-jk-capital-management-limited-2026-08-04",
-  "title": "JK Capital Management Limited",
-  "group": "Orova",
-  "discovered": "2026-08-04T12:20:09.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "HK",
-  "sizeBytes": 0,
-  "description": "JK Capital Management Limited is an asset management company set up in Hong Kong in 1997 and  regulated by the Securities and Futures Commission of Hong Kong. We are GIPS and MIFID II compliant. Our mutual funds are all registered with CSSF, the Luxembourg regulator.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"orova-jk-capital-management-limited-2026-08-04","title":"JK Capital Management Limited","group":"Orova","discovered":"2026-08-04T12:20:09.000Z","category":"data_breach","severity":"high","country":"HK","sizeBytes":0,"description":"JK Capital Management Limited is an asset management company set up in Hong Kong in 1997 and  regulated by the Securities and Futures Commission of Hong Kong. We are GIPS and MIFID II compliant. Our mutual funds are all registered with CSSF, the Luxembourg regulator.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

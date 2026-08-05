@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-community-management-associates-2026-07-31",
-  "title": "Community Management Associates",
-  "group": "qilin",
-  "discovered": "2026-07-31T19:00:46.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-community-management-associates-2026-07-31","title":"Community Management Associates","group":"qilin","discovered":"2026-07-31T19:00:46.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

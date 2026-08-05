@@ -1,15 +1,1 @@
-{
-  "slug": "orova-dbm-reflex-2026-08-04",
-  "title": "DBM Reflex",
-  "group": "Orova",
-  "discovered": "2026-08-04T12:27:25.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "TW",
-  "sizeBytes": 0,
-  "description": "DBM Technology Co., Ltd. is a leading brand in electroforming mold cores in Asia, established in 1999. With a team of over 70 professionals, the company specializes in mold core design and high-quality electroformed mold production, having produced more than 9,000 sets to date. Their services include feasibility assessments, optical design, mold core structure design, product testing, and light distribution testing, making them a preferred choice in the automotive industry.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Other",
-  "references": ["ransomware.live"]
-}
+{"slug":"orova-dbm-reflex-2026-08-04","title":"DBM Reflex","group":"Orova","discovered":"2026-08-04T12:27:25.000Z","category":"data_breach","severity":"high","country":"TW","sizeBytes":0,"description":"DBM Technology Co., Ltd. is a leading brand in electroforming mold cores in Asia, established in 1999. With a team of over 70 professionals, the company specializes in mold core design and high-quality electroformed mold production, having produced more than 9,000 sets to date. Their services include feasibility assessments, optical design, mold core structure design, product testing, and light distribution testing, making them a preferred choice in the automotive industry.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

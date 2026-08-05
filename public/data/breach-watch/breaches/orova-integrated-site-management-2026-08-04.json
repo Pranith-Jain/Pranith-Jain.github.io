@@ -1,15 +1,1 @@
-{
-  "slug": "orova-integrated-site-management-2026-08-04",
-  "title": "Integrated Site Management",
-  "group": "Orova",
-  "discovered": "2026-08-04T12:21:13.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Integrated Site Management is a full service site consulting company with our foundation reinforced by developing partnerships with clients, vendors & suppliers. Partnerships built from professionalism, honesty, integrity, respect, and open communication. Integrated Site Management listens, researches, identifies, and then provides solutions for our clients needs.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"orova-integrated-site-management-2026-08-04","title":"Integrated Site Management","group":"Orova","discovered":"2026-08-04T12:21:13.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"Integrated Site Management is a full service site consulting company with our foundation reinforced by developing partnerships with clients, vendors & suppliers. Partnerships built from professionalism, honesty, integrity, respect, and open communication. Integrated Site Management listens, researches, identifies, and then provides solutions for our clients needs.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Professional Services","references":["ransomware.live"]}

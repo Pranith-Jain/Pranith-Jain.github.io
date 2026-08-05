@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-hanan-hov-co-il-2026-08-04",
-  "title": "hanan-hov.co.il",
-  "group": "safepay",
-  "discovered": "2026-08-04T01:40:59.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Headquartered in Neve Yamin, Israel, the company provides comprehensive logistics support for construction, infrastructure, industrial, and commercial projects throughout the …",
-  "source_url": "https://www.ransomlook.io/screenshots/safepay/hanan-hovcoil.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"safepay-hanan-hov-co-il-2026-08-04","title":"hanan-hov.co.il","group":"safepay","discovered":"2026-08-04T01:40:59.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"Headquartered in Neve Yamin, Israel, the company provides comprehensive logistics support for construction, infrastructure, industrial, and commercial projects throughout the …","source_url":"https://www.ransomlook.io/screenshots/safepay/hanan-hovcoil.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

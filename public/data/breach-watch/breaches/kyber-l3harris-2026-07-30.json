@@ -1,15 +1,1 @@
-{
-  "slug": "kyber-l3harris-2026-07-30",
-  "title": "L3HARRIS",
-  "group": "kyber",
-  "discovered": "2026-07-30T20:32:02.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "L3Harris is a global aerospace and defense technology innovator that provides mission-critical solutions for government, defense, and commercial sectors.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Government & Defense",
-  "references": ["ransomware.live"]
-}
+{"slug":"kyber-l3harris-2026-07-30","title":"L3HARRIS","group":"kyber","discovered":"2026-07-30T20:32:02.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"L3Harris is a global aerospace and defense technology innovator that provides mission-critical solutions for government, defense, and commercial sectors.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Government & Defense","references":["ransomware.live"]}

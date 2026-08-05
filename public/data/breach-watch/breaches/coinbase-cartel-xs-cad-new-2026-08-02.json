@@ -1,15 +1,1 @@
-{
-  "slug": "coinbase-cartel-xs-cad-new-2026-08-02",
-  "title": "Xs Cad NEW",
-  "group": "coinbase cartel",
-  "discovered": "2026-08-02T16:49:59.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "Architecture - $26.9 Million",
-  "source_url": "https://www.ransomlook.io/screenshots/coinbase cartel/Xs Cad NEW.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"coinbase-cartel-xs-cad-new-2026-08-02","title":"Xs Cad NEW","group":"coinbase cartel","discovered":"2026-08-02T16:49:59.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":"Architecture - $26.9 Million","source_url":"https://www.ransomlook.io/screenshots/coinbase cartel/Xs Cad NEW.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

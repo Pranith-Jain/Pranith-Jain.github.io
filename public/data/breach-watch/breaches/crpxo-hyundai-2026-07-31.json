@@ -1,15 +1,1 @@
-{
-  "slug": "crpxo-hyundai-2026-07-31",
-  "title": "HYUNDAI",
-  "group": "CRPxO",
-  "discovered": "2026-07-31T23:50:43.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "KR",
-  "sizeBytes": 0,
-  "description": "Sector: Automotive | Data leaked: 1.5 GB",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"crpxo-hyundai-2026-07-31","title":"HYUNDAI","group":"CRPxO","discovered":"2026-07-31T23:50:43.000Z","category":"data_breach","severity":"high","country":"KR","sizeBytes":0,"description":"Sector: Automotive | Data leaked: 1.5 GB","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

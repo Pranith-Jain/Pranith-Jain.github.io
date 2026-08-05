@@ -1,15 +1,1 @@
-{
-  "slug": "direwolf-cl-nica-vida-2026-08-04",
-  "title": "🇨🇴 Clínica Vida",
-  "group": "direwolf",
-  "discovered": "2026-08-04T08:02:15.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion/#cl-nica-vida",
-  "groupAliases": ["DIRE WOLF"],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"direwolf-cl-nica-vida-2026-08-04","title":"🇨🇴 Clínica Vida","group":"direwolf","discovered":"2026-08-04T08:02:15.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":null,"source_url":"http://direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion/#cl-nica-vida","groupAliases":["DIRE WOLF"],"activity":null,"references":["CTI.FYI"]}

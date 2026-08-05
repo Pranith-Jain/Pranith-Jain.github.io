@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-pushidrosal-id-2026-08-04",
-  "title": "pushidrosal.id",
-  "group": "incransom",
-  "discovered": "2026-08-04T03:27:36.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "ID",
-  "sizeBytes": 0,
-  "description": "*",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Other",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-pushidrosal-id-2026-08-04","title":"pushidrosal.id","group":"incransom","discovered":"2026-08-04T03:27:36.000Z","category":"ransomware","severity":"critical","country":"ID","sizeBytes":0,"description":"*","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Other","references":["ransomware.live"]}

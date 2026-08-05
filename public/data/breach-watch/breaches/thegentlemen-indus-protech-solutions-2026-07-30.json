@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-indus-protech-solutions-2026-07-30",
-  "title": "Indus Protech Solutions",
-  "group": "thegentlemen",
-  "discovered": "2026-07-30T06:48:34.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IN",
-  "sizeBytes": 0,
-  "description": "indusprotech.com zoominfo.com/c/indus-protech-solutions-ltd/1323287130 Indus Protech Solutions is a Chennai-based company specializing in comprehensive bulk MRO (Maintenance, Repair, and Operations) and supply chain services for global trade. Acting as a one-stop sourcing partner, they provide access to over 1.5 million products across 50+ categories, serving diverse sectors like defense, energy, agriculture, and pharmaceuticals. The company connects businesses with global manufacturers, ensuring assured quality, competitive pricing, and streamlined procurement for Fortune 500 companies and large corporate networks",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-indus-protech-solutions-2026-07-30","title":"Indus Protech Solutions","group":"thegentlemen","discovered":"2026-07-30T06:48:34.000Z","category":"ransomware","severity":"critical","country":"IN","sizeBytes":0,"description":"indusprotech.com zoominfo.com/c/indus-protech-solutions-ltd/1323287130 Indus Protech Solutions is a Chennai-based company specializing in comprehensive bulk MRO (Maintenance, Repair, and Operations) and supply chain services for global trade. Acting as a one-stop sourcing partner, they provide access to over 1.5 million products across 50+ categories, serving diverse sectors like defense, energy, agriculture, and pharmaceuticals. The company connects businesses with global manufacturers, ensuring assured quality, competitive pricing, and streamlined procurement for Fortune 500 companies and large corporate networks","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "anubis-blackburns-2026-08-03",
-  "title": "BLACKBURN'S",
-  "group": "anubis",
-  "discovered": "2026-08-03T18:21:52.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Major home healthcare provider data breach.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"anubis-blackburns-2026-08-03","title":"BLACKBURN'S","group":"anubis","discovered":"2026-08-03T18:21:52.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Major home healthcare provider data breach.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}

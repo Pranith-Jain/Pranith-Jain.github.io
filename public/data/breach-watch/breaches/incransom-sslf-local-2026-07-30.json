@@ -1,15 +1,1 @@
-{
-  "slug": "incransom-sslf-local-2026-07-30",
-  "title": "sslf.local",
-  "group": "incransom",
-  "discovered": "2026-07-30T12:57:51.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Samuels & Thornton is a law firm based in New Orleans, specializing in medical malpractice and personal injury cases. They provide personalized legal guidance to individuals, families, and businesses facing legal challenges, ensuring that each client receives dedicated attention from experienced attorneys. Their practice areas include medical malpractice, product liability, auto accident litigation, and more. The firm is committed to delivering proven results and effective representation throughout Louisiana.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["inc ransom", "INC"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"incransom-sslf-local-2026-07-30","title":"sslf.local","group":"incransom","discovered":"2026-07-30T12:57:51.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"Samuels & Thornton is a law firm based in New Orleans, specializing in medical malpractice and personal injury cases. They provide personalized legal guidance to individuals, families, and businesses facing legal challenges, ensuring that each client receives dedicated attention from experienced attorneys. Their practice areas include medical malpractice, product liability, auto accident litigation, and more. The firm is committed to delivering proven results and effective representation throughout Louisiana.","source_url":"https://www.ransomware.live/","groupAliases":["inc ransom","INC"],"activity":"Not Found","references":["ransomware.live"]}

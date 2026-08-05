@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-promatrix-2026-07-30",
-  "title": "Promatrix",
-  "group": "thegentlemen",
-  "discovered": "2026-07-30T06:50:38.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "promatrixcorp.com zoominfo.com/c/promatrix-corp/347777611 Promatrix Corp is a rapidly growing IT consulting and outsourcing company based in New Jersey, USA. They deliver comprehensive global technology solutions, including web application development, managed IT services, and staff augmentation. The company also specializes in enterprise resource planning (SAP) support and HR outsourcing to help businesses optimize their operations and scale efficiently",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-promatrix-2026-07-30","title":"Promatrix","group":"thegentlemen","discovered":"2026-07-30T06:50:38.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"promatrixcorp.com zoominfo.com/c/promatrix-corp/347777611 Promatrix Corp is a rapidly growing IT consulting and outsourcing company based in New Jersey, USA. They deliver comprehensive global technology solutions, including web application development, managed IT services, and staff augmentation. The company also specializes in enterprise resource planning (SAP) support and HR outsourcing to help businesses optimize their operations and scale efficiently","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Technology","references":["ransomware.live"]}

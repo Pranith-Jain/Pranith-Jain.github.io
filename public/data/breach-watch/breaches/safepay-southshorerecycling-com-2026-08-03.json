@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-southshorerecycling-com-2026-08-03",
-  "title": "southshorerecycling.com",
-  "group": "safepay",
-  "discovered": "2026-08-03T17:58:43.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "The company specializes in metal recycling, concrete and asphalt recycling, aggregate production, and construction waste processing for commercial, industrial, and …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-southshorerecycling-com-2026-08-03","title":"southshorerecycling.com","group":"safepay","discovered":"2026-08-03T17:58:43.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"The company specializes in metal recycling, concrete and asphalt recycling, aggregate production, and construction waste processing for commercial, industrial, and …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

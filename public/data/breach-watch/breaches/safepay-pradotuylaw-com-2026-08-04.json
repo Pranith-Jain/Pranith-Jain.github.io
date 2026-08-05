@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-pradotuylaw-com-2026-08-04",
-  "title": "pradotuylaw.com",
-  "group": "safepay",
-  "discovered": "2026-08-04T01:41:03.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": "The firm focuses on practice areas including personal injury, wrongful death, workplace harassment, business litigation, civil settlements, and environmental litigation. …",
-  "source_url": "https://www.ransomlook.io/screenshots/safepay/pradotuylawcom.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"safepay-pradotuylaw-com-2026-08-04","title":"pradotuylaw.com","group":"safepay","discovered":"2026-08-04T01:41:03.000Z","category":"ransomware","severity":"high","country":null,"sizeBytes":0,"description":"The firm focuses on practice areas including personal injury, wrongful death, workplace harassment, business litigation, civil settlements, and environmental litigation. …","source_url":"https://www.ransomlook.io/screenshots/safepay/pradotuylawcom.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

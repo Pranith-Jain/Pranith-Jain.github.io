@@ -1,15 +1,1 @@
-{
-  "slug": "orova-sbi-manufacturing-2026-08-04",
-  "title": "SBI Manufacturing",
-  "group": "Orova",
-  "discovered": "2026-08-04T12:28:29.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "SBI Manufacturing is a family-owned company based in Sioux Falls, SD, specializing in metal fabrication and machine welding. They provide services primarily to the agricultural, industrial, and transportation sectors.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"orova-sbi-manufacturing-2026-08-04","title":"SBI Manufacturing","group":"Orova","discovered":"2026-08-04T12:28:29.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"SBI Manufacturing is a family-owned company based in Sioux Falls, SD, specializing in metal fabrication and machine welding. They provide services primarily to the agricultural, industrial, and transportation sectors.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

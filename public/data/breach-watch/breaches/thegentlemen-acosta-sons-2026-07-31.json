@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-acosta-sons-2026-07-31",
-  "title": "Acosta Sons",
-  "group": "thegentlemen",
-  "discovered": "2026-07-31T18:28:58.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "acostaandsons.com zoominfo.com/c/acosta--sons-inc/398811105 Acosta and Sons is a family-owned appliance sales and repair company based in The Bronx, New York, with additional locations serving the broader New York area. They specialize in providing a wide range of home appliances at discounted prices, catering to both individual customers and property management or landlord accounts. The company is known for its reliable customer service, offering comprehensive solutions from appliance sales to professional repair and maintenance.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Agriculture and Food Production",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-acosta-sons-2026-07-31","title":"Acosta Sons","group":"thegentlemen","discovered":"2026-07-31T18:28:58.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"acostaandsons.com zoominfo.com/c/acosta--sons-inc/398811105 Acosta and Sons is a family-owned appliance sales and repair company based in The Bronx, New York, with additional locations serving the broader New York area. They specialize in providing a wide range of home appliances at discounted prices, catering to both individual customers and property management or landlord accounts. The company is known for its reliable customer service, offering comprehensive solutions from appliance sales to professional repair and maintenance.","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Agriculture and Food Production","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "gammax-mtco-mahmoud-altaheni-partners-trading-company-2026-08-01",
-  "title": "MTCO (Mahmoud Altaheni & Partners Trading Company)",
-  "group": "Gammax",
-  "discovered": "2026-08-01T09:21:41.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "SA",
-  "sizeBytes": 0,
-  "description": "Status: data_published",
-  "source_url": "https://darkfield.orizon.one/victims/84ceeec4-f1f7-44a6-9f84-9371f8eaf201",
-  "groupAliases": [],
-  "activity": "Professional Services",
-  "references": ["Darkfield"]
-}
+{"slug":"gammax-mtco-mahmoud-altaheni-partners-trading-company-2026-08-01","title":"MTCO (Mahmoud Altaheni & Partners Trading Company)","group":"Gammax","discovered":"2026-08-01T09:21:41.000Z","category":"data_breach","severity":"high","country":"SA","sizeBytes":0,"description":"Status: data_published","source_url":"https://darkfield.orizon.one/victims/84ceeec4-f1f7-44a6-9f84-9371f8eaf201","groupAliases":[],"activity":"Professional Services","references":["Darkfield"]}

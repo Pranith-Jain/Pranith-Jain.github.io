@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-ohk-energy-2026-07-31",
-  "title": "OHK Energy",
-  "group": "thegentlemen",
-  "discovered": "2026-07-31T18:28:17.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IE",
-  "sizeBytes": 0,
-  "description": "ohkenergy.com rocketreach.co/ohk-energy-profile_b6d2700bc7449e3f OHK Energy is Ireland’s largest and most trusted renewable energy provider and retrofit specialist, registered with the Sustainable Energy Authority of Ireland (SEAI). The company specializes in designing and installing solar PV, heat pumps, battery storage, and EV chargers for homeowners, businesses, farms, and communities. With a service-driven and future-focused approach, OHK Energy is dedicated to building a cleaner, more sustainable island by delivering tailored, high-quality energy solutions",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Energy & Utilities",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-ohk-energy-2026-07-31","title":"OHK Energy","group":"thegentlemen","discovered":"2026-07-31T18:28:17.000Z","category":"ransomware","severity":"critical","country":"IE","sizeBytes":0,"description":"ohkenergy.com rocketreach.co/ohk-energy-profile_b6d2700bc7449e3f OHK Energy is Ireland’s largest and most trusted renewable energy provider and retrofit specialist, registered with the Sustainable Energy Authority of Ireland (SEAI). The company specializes in designing and installing solar PV, heat pumps, battery storage, and EV chargers for homeowners, businesses, farms, and communities. With a service-driven and future-focused approach, OHK Energy is dedicated to building a cleaner, more sustainable island by delivering tailored, high-quality energy solutions","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Energy & Utilities","references":["ransomware.live"]}

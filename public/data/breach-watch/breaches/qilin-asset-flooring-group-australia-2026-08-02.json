@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-asset-flooring-group-australia-2026-08-02",
-  "title": "Asset Flooring Group Australia",
-  "group": "qilin",
-  "discovered": "2026-08-02T20:26:32.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "AU",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Retail & E-Commerce",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-asset-flooring-group-australia-2026-08-02","title":"Asset Flooring Group Australia","group":"qilin","discovered":"2026-08-02T20:26:32.000Z","category":"ransomware","severity":"critical","country":"AU","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

@@ -171,7 +171,7 @@ export default function SqliteExplorer(): JSX.Element {
                   })) as DataTableColumn<unknown[]>[]}
                   rows={result.rows}
                   rowKey={(_, i) => `row-${i}`}
-                  rowClassName={(_r: unknown[], i: number) => (i % 2 === 1 ? 'even:bg-slate-50/50 dark:even:bg-[rgb(var(--surface-200)/0.5)]' : '')}
+                  rowClassName={(row: unknown[]) => (result.rows.indexOf(row) % 2 === 1 ? 'even:bg-slate-50/50 dark:even:bg-[rgb(var(--surface-200)/0.5)]' : '')}
                 />
                 {result.rows.length === 0 && <p className="p-3 font-mono text-meta text-slate-500">0 rows.</p>}
               </div>

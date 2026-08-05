@@ -1,15 +1,1 @@
-{
-  "slug": "orova-tat-fung-textile-co-ltd-2026-08-04",
-  "title": "Tat Fung Textile Co., Ltd.",
-  "group": "Orova",
-  "discovered": "2026-08-04T12:21:46.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "HK",
-  "sizeBytes": 0,
-  "description": "Tat Fung & Panther Denim is a premium woven, denim, and print fabric mill established in 1986. The company specializes in producing high-quality denim and print fabrics, focusing on sustainability and innovation.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"orova-tat-fung-textile-co-ltd-2026-08-04","title":"Tat Fung Textile Co., Ltd.","group":"Orova","discovered":"2026-08-04T12:21:46.000Z","category":"data_breach","severity":"high","country":"HK","sizeBytes":0,"description":"Tat Fung & Panther Denim is a premium woven, denim, and print fabric mill established in 1986. The company specializes in producing high-quality denim and print fabrics, focusing on sustainability and innovation.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

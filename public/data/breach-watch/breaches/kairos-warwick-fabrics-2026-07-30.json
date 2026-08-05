@@ -1,15 +1,1 @@
-{
-  "slug": "kairos-warwick-fabrics-2026-07-30",
-  "title": "Warwick Fabrics",
-  "group": "kairos",
-  "discovered": "2026-07-30T08:56:34.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "NZ",
-  "sizeBytes": 0,
-  "description": "As one of the world’s leading textile and soft furnishing wholesalers, Warwick is a family-owned company that has been committed to providing quality materials to New Zealanders since 1985. \n\nWarwick are driven to continuously meet the evolving needs of today’s global textile markets by constantly creating and updating collections with the latest trends and classic designs, pushing boundaries, and creating quality products that inspire creativity in the interior design world. We are passionate on being innovative and are committed to our promise of exceptional quality and service, now and into the future.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"kairos-warwick-fabrics-2026-07-30","title":"Warwick Fabrics","group":"kairos","discovered":"2026-07-30T08:56:34.000Z","category":"data_breach","severity":"high","country":"NZ","sizeBytes":0,"description":"As one of the world’s leading textile and soft furnishing wholesalers, Warwick is a family-owned company that has been committed to providing quality materials to New Zealanders since 1985. \n\nWarwick are driven to continuously meet the evolving needs of today’s global textile markets by constantly creating and updating collections with the latest trends and classic designs, pushing boundaries, and creating quality products that inspire creativity in the interior design world. We are passionate on being innovative and are committed to our promise of exceptional quality and service, now and into the future.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

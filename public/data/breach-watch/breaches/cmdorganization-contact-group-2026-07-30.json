@@ -1,15 +1,1 @@
-{
-  "slug": "cmdorganization-contact-group-2026-07-30",
-  "title": "Contact Group",
-  "group": "cmdorganization",
-  "discovered": "2026-07-30T14:20:18.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "AU",
-  "sizeBytes": 0,
-  "description": "Contact Group is a proudly Tasmanian company specializing in building services and multi-technology solutions. They offer award-winning services across various divisions, including electrical and communications, HVAC-R, infrastructure, fire, technology, security, plumbing, and facilities maintenance, ensuring a high-quality customer experience. Their intended clients span multiple sectors such as commercial, government, healthcare, education, and more. With over 35 years of experience, Contact Group is committed to excellence and sustainability in their operations.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["cmd organization"],
-  "activity": "Professional Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"cmdorganization-contact-group-2026-07-30","title":"Contact Group","group":"cmdorganization","discovered":"2026-07-30T14:20:18.000Z","category":"ransomware","severity":"high","country":"AU","sizeBytes":0,"description":"Contact Group is a proudly Tasmanian company specializing in building services and multi-technology solutions. They offer award-winning services across various divisions, including electrical and communications, HVAC-R, infrastructure, fire, technology, security, plumbing, and facilities maintenance, ensuring a high-quality customer experience. Their intended clients span multiple sectors such as commercial, government, healthcare, education, and more. With over 35 years of experience, Contact Group is committed to excellence and sustainability in their operations.","source_url":"https://www.ransomware.live/","groupAliases":["cmd organization"],"activity":"Professional Services","references":["ransomware.live"]}

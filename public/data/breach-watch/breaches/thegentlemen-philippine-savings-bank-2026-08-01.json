@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-philippine-savings-bank-2026-08-01",
-  "title": "Philippine Savings Bank",
-  "group": "thegentlemen",
-  "discovered": "2026-08-01T21:31:52.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "PH",
-  "sizeBytes": 0,
-  "description": "psbank.com.ph zoominfo.com/c/philippine-savings-bank/83461899 SBank is widely recognized across the Philippines for its highly accessible Auto and Home Loan programs that make vehicle and property ownership easier for everyday consumers.\nOne of its most unique financial products is the Flexi Personal Loan, a revolving credit line that allows clients to withdraw, repay, and reuse funds flexibly",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-philippine-savings-bank-2026-08-01","title":"Philippine Savings Bank","group":"thegentlemen","discovered":"2026-08-01T21:31:52.000Z","category":"ransomware","severity":"critical","country":"PH","sizeBytes":0,"description":"psbank.com.ph zoominfo.com/c/philippine-savings-bank/83461899 SBank is widely recognized across the Philippines for its highly accessible Auto and Home Loan programs that make vehicle and property ownership easier for everyday consumers.\nOne of its most unique financial products is the Flexi Personal Loan, a revolving credit line that allows clients to withdraw, repay, and reuse funds flexibly","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Financial Services","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "aurora-pyramid-analytics-b-v-2026-07-30",
-  "title": "Pyramid Analytics B.V.",
-  "group": "aurora",
-  "discovered": "2026-07-30T07:22:25.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "NL",
-  "sizeBytes": 0,
-  "description": "[analytics] Pyramid Analytics B.V. — a decision-intelligence platform company headquartered in Amsterdam, acquired by ServiceNow (NYSE: NOW) for hundreds of millions of dollars just four months earlier.\n\nWe obtained the complete source code of the Pyramid Decision Intelligence Platform along with:\n\n10+ copies of the platform source code with full Git history, revealing every feature, algorithm, security module, and AI integration ever built.\n<censored>\n<censored>\n22 GB of SQL Server production database backups likely containing user accounts, credentials, and business data.\nCustomer data from publicly traded companies — Shufersal (TASE: SAE) retail sales data and ABB (NYSE: ABB) OLAP cube backups.\n<censored>\n<censored>",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"aurora-pyramid-analytics-b-v-2026-07-30","title":"Pyramid Analytics B.V.","group":"aurora","discovered":"2026-07-30T07:22:25.000Z","category":"data_breach","severity":"high","country":"NL","sizeBytes":0,"description":"[analytics] Pyramid Analytics B.V. — a decision-intelligence platform company headquartered in Amsterdam, acquired by ServiceNow (NYSE: NOW) for hundreds of millions of dollars just four months earlier.\n\nWe obtained the complete source code of the Pyramid Decision Intelligence Platform along with:\n\n10+ copies of the platform source code with full Git history, revealing every feature, algorithm, security module, and AI integration ever built.\n<censored>\n<censored>\n22 GB of SQL Server production database backups likely containing user accounts, credentials, and business data.\nCustomer data from publicly traded companies — Shufersal (TASE: SAE) retail sales data and ABB (NYSE: ABB) OLAP cube backups.\n<censored>\n<censored>","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

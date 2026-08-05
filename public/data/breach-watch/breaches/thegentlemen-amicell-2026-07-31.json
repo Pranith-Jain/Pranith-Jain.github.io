@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-amicell-2026-07-31",
-  "title": "Amicell",
-  "group": "thegentlemen",
-  "discovered": "2026-07-31T18:24:10.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "IL",
-  "sizeBytes": 0,
-  "description": "amicell.co.il zoominfo.com/c/amicell/426539109 Amicell (Amit Industries Ltd.) is a leading Israeli manufacturer founded in 1989, specializing in custom-designed battery packs, chargers, and Battery Management Systems (BMS). Headquartered in Ashdod, the company provides advanced energy solutions for demanding sectors, including defense, medical, UAVs, robotics, and industrial applications. With over 35 years of experience, Amicell is recognized for delivering reliable, high-tech power systems tailored to complex operational requirements",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-amicell-2026-07-31","title":"Amicell","group":"thegentlemen","discovered":"2026-07-31T18:24:10.000Z","category":"ransomware","severity":"critical","country":"IL","sizeBytes":0,"description":"amicell.co.il zoominfo.com/c/amicell/426539109 Amicell (Amit Industries Ltd.) is a leading Israeli manufacturer founded in 1989, specializing in custom-designed battery packs, chargers, and Battery Management Systems (BMS). Headquartered in Ashdod, the company provides advanced energy solutions for demanding sectors, including defense, medical, UAVs, robotics, and industrial applications. With over 35 years of experience, Amicell is recognized for delivering reliable, high-tech power systems tailored to complex operational requirements","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Healthcare","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-clear-vision-signs-2026-07-31",
-  "title": "Clear Vision Signs",
-  "group": "thegentlemen",
-  "discovered": "2026-07-31T18:25:33.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "clearvisionsigns.net zoominfo.com/c/clear-vision-signs/365480092 Clear Vision Signs is a full-service architectural signage and graphics company based in Dade City, Florida, serving clients nationwide. They specialize in turnkey solutions, including wayfinding systems, ADA-compliant signage, environmental graphics, and comprehensive project management. By acting as a single trusted partner for developers and property managers, they ensure efficient, safe, and visually impactful signage programs from initial concept to final installation",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Retail & E-Commerce",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-clear-vision-signs-2026-07-31","title":"Clear Vision Signs","group":"thegentlemen","discovered":"2026-07-31T18:25:33.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"clearvisionsigns.net zoominfo.com/c/clear-vision-signs/365480092 Clear Vision Signs is a full-service architectural signage and graphics company based in Dade City, Florida, serving clients nationwide. They specialize in turnkey solutions, including wayfinding systems, ADA-compliant signage, environmental graphics, and comprehensive project management. By acting as a single trusted partner for developers and property managers, they ensure efficient, safe, and visually impactful signage programs from initial concept to final installation","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Retail & E-Commerce","references":["ransomware.live"]}

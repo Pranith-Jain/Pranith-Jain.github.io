@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-lamont-pridmore-2026-07-31",
-  "title": "Lamont Pridmore",
-  "group": "dragonforce",
-  "discovered": "2026-07-31T15:54:04.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "GB",
-  "sizeBytes": 0,
-  "description": "Lamont Pridmore is a leading independent chartered accountancy practice based in Carlisle, Cumbria, and Lancashire, offering a comprehensive range of accountancy, tax, and business advisory services. Their expertise spans various sectors including agriculture, tourism, and family businesses, catering to both individuals and organizations throughout the North of England and Southern Scotland. The firm specializes in services such as asset and wealth management, corporate finance, and tax planning, aiming to support clients in improving their financial performance. The release consists of a single archive that expands to 250 GB of data once unpacked. This includes both internal company documentation and client data containing confidential financial information.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Not Found",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-lamont-pridmore-2026-07-31","title":"Lamont Pridmore","group":"dragonforce","discovered":"2026-07-31T15:54:04.000Z","category":"ransomware","severity":"critical","country":"GB","sizeBytes":0,"description":"Lamont Pridmore is a leading independent chartered accountancy practice based in Carlisle, Cumbria, and Lancashire, offering a comprehensive range of accountancy, tax, and business advisory services. Their expertise spans various sectors including agriculture, tourism, and family businesses, catering to both individuals and organizations throughout the North of England and Southern Scotland. The firm specializes in services such as asset and wealth management, corporate finance, and tax planning, aiming to support clients in improving their financial performance. The release consists of a single archive that expands to 250 GB of data once unpacked. This includes both internal company documentation and client data containing confidential financial information.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Not Found","references":["ransomware.live"]}

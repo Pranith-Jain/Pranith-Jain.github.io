@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-okovolt-solartechnik-2026-07-31",
-  "title": "Okovolt Solartechnik",
-  "group": "thegentlemen",
-  "discovered": "2026-07-31T18:21:24.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "oekovolt.com Ökovolt Solartechnik GmbH is an Austrian company specializing in the planning, installation, and maintenance of photovoltaic systems for private, commercial, and industrial clients. Based in Upper Austria with over 15 years of experience, the firm provides comprehensive, customized solar energy solutions to promote sustainability and energy independence. They focus on high-quality components, expert consulting, and reliable service to maximize the efficiency and lifespan of every solar project",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Energy & Utilities",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-okovolt-solartechnik-2026-07-31","title":"Okovolt Solartechnik","group":"thegentlemen","discovered":"2026-07-31T18:21:24.000Z","category":"ransomware","severity":"critical","country":"DE","sizeBytes":0,"description":"oekovolt.com Ökovolt Solartechnik GmbH is an Austrian company specializing in the planning, installation, and maintenance of photovoltaic systems for private, commercial, and industrial clients. Based in Upper Austria with over 15 years of experience, the firm provides comprehensive, customized solar energy solutions to promote sustainability and energy independence. They focus on high-quality components, expert consulting, and reliable service to maximize the efficiency and lifespan of every solar project","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Energy & Utilities","references":["ransomware.live"]}

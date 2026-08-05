@@ -1,15 +1,1 @@
-{
-  "slug": "safepay-naskdoorinc-com-2026-08-03",
-  "title": "naskdoorinc.com",
-  "group": "safepay",
-  "discovered": "2026-08-03T18:28:53.000Z",
-  "category": "ransomware",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "Headquartered in West Chester, Pennsylvania, the company has served customers throughout southeastern Pennsylvania and northern Delaware for several decades. Although …",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"safepay-naskdoorinc-com-2026-08-03","title":"naskdoorinc.com","group":"safepay","discovered":"2026-08-03T18:28:53.000Z","category":"ransomware","severity":"high","country":"US","sizeBytes":0,"description":"Headquartered in West Chester, Pennsylvania, the company has served customers throughout southeastern Pennsylvania and northern Delaware for several decades. Although …","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

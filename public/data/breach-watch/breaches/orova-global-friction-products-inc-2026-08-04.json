@@ -1,15 +1,1 @@
-{
-  "slug": "orova-global-friction-products-inc-2026-08-04",
-  "title": "Global Friction Products, Inc",
-  "group": "Orova",
-  "discovered": "2026-08-04T12:19:28.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "GLOBAL FRICTION PRODUCTS, INC is a company that manufactures, repairs, and /or re-arcs brake and clutch bands back to original drum for even wear on friction material.  We specialize in the construction, mining, marine and offshore industries, i.e., cranes, draglines, clamshells, barges, dredges, ships, tugs, winches and more.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"orova-global-friction-products-inc-2026-08-04","title":"Global Friction Products, Inc","group":"Orova","discovered":"2026-08-04T12:19:28.000Z","category":"data_breach","severity":"high","country":"US","sizeBytes":0,"description":"GLOBAL FRICTION PRODUCTS, INC is a company that manufactures, repairs, and /or re-arcs brake and clutch bands back to original drum for even wear on friction material.  We specialize in the construction, mining, marine and offshore industries, i.e., cranes, draglines, clamshells, barges, dredges, ships, tugs, winches and more.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

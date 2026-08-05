@@ -1,15 +1,1 @@
-{
-  "slug": "thegentlemen-total-auto-business-solutions-2026-07-31",
-  "title": "Total Auto Business Solutions",
-  "group": "thegentlemen",
-  "discovered": "2026-07-31T18:21:45.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "autorepairsoftware.com Total Auto Business Solutions, Inc. (TABS) is a leading provider of comprehensive shop management software, best known for its flagship product, AutoFluent. Founded in 2001 and based in Northern California, the company serves auto repair shops, tire dealers, and fleet operators across the US and Canada. Their all-in-one platform streamlines daily operations by seamlessly integrating scheduling, inventory management, accounting, and customer relationship tools into a single, user-friendly system",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["the gentlemen"],
-  "activity": "Transportation",
-  "references": ["ransomware.live"]
-}
+{"slug":"thegentlemen-total-auto-business-solutions-2026-07-31","title":"Total Auto Business Solutions","group":"thegentlemen","discovered":"2026-07-31T18:21:45.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"autorepairsoftware.com Total Auto Business Solutions, Inc. (TABS) is a leading provider of comprehensive shop management software, best known for its flagship product, AutoFluent. Founded in 2001 and based in Northern California, the company serves auto repair shops, tire dealers, and fleet operators across the US and Canada. Their all-in-one platform streamlines daily operations by seamlessly integrating scheduling, inventory management, accounting, and customer relationship tools into a single, user-friendly system","source_url":"https://www.ransomware.live/","groupAliases":["the gentlemen"],"activity":"Transportation","references":["ransomware.live"]}

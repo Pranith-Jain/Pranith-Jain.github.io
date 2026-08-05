@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-servitelco-2026-07-30",
-  "title": "servitelco",
-  "group": "qilin",
-  "discovered": "2026-07-30T07:59:05.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "CL",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Technology",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-servitelco-2026-07-30","title":"servitelco","group":"qilin","discovered":"2026-07-30T07:59:05.000Z","category":"ransomware","severity":"critical","country":"CL","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Technology","references":["ransomware.live"]}

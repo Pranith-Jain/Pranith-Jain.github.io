@@ -1,15 +1,1 @@
-{
-  "slug": "crpxo-finansbank-2026-07-31",
-  "title": "FINANSBANK",
-  "group": "CRPxO",
-  "discovered": "2026-07-31T23:52:01.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "TR",
-  "sizeBytes": 0,
-  "description": "Sector: Banking | Data leaked: 2.3 GB",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Financial Services",
-  "references": ["ransomware.live"]
-}
+{"slug":"crpxo-finansbank-2026-07-31","title":"FINANSBANK","group":"CRPxO","discovered":"2026-07-31T23:52:01.000Z","category":"data_breach","severity":"high","country":"TR","sizeBytes":0,"description":"Sector: Banking | Data leaked: 2.3 GB","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Financial Services","references":["ransomware.live"]}

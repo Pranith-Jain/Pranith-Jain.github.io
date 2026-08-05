@@ -1,15 +1,1 @@
-{
-  "slug": "aurora-evosys-laser-gmbh-2026-07-30",
-  "title": "Evosys Laser GmbH",
-  "group": "aurora",
-  "discovered": "2026-07-30T07:23:03.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": "DE",
-  "sizeBytes": 0,
-  "description": "[manufacturer] Evosys Laser GmbH — an Erlangen-based industrial laser welding systems manufacturer with ~130 employees, subsidiaries in the US, China, and a string of Tier 1 automotive customers.\n\nThe dataset is the complete corporate repository, spanning every business function:\n\n130 employees' complete HR files — employment contracts, salary histories, bank IBANs, tax IDs, social insurance numbers, pension records, medical examinations, disciplinary warnings, and two confirmed minors' health records.\n<censored>\n<censored>\nComplete server infrastructure map via mRemoteNG XML — 7 servers named, domain admin credentials, internal IPs. The Citrix admin password is Password1.\n326 GB of customer project data — laser welding process parameters, CAD files, robot control software, and the award-winning AQW process know-how.\nComplete financial history — Jahresabschlüsse (2015–2025), P&L forecasts through 2028, cash positions, investor documents, executive compensation.\nAttorney-client privileged communications (230 MB) and whistleblower reports under HinSchG.\nIndustrial control data — robot SRS source code, PLC programs, nginx private keys for laser system web interfaces, VPN configurations for customer site remote access.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"aurora-evosys-laser-gmbh-2026-07-30","title":"Evosys Laser GmbH","group":"aurora","discovered":"2026-07-30T07:23:03.000Z","category":"data_breach","severity":"high","country":"DE","sizeBytes":0,"description":"[manufacturer] Evosys Laser GmbH — an Erlangen-based industrial laser welding systems manufacturer with ~130 employees, subsidiaries in the US, China, and a string of Tier 1 automotive customers.\n\nThe dataset is the complete corporate repository, spanning every business function:\n\n130 employees' complete HR files — employment contracts, salary histories, bank IBANs, tax IDs, social insurance numbers, pension records, medical examinations, disciplinary warnings, and two confirmed minors' health records.\n<censored>\n<censored>\nComplete server infrastructure map via mRemoteNG XML — 7 servers named, domain admin credentials, internal IPs. The Citrix admin password is Password1.\n326 GB of customer project data — laser welding process parameters, CAD files, robot control software, and the award-winning AQW process know-how.\nComplete financial history — Jahresabschlüsse (2015–2025), P&L forecasts through 2028, cash positions, investor documents, executive compensation.\nAttorney-client privileged communications (230 MB) and whistleblower reports under HinSchG.\nIndustrial control data — robot SRS source code, PLC programs, nginx private keys for laser system web interfaces, VPN configurations for customer site remote access.","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Manufacturing","references":["ransomware.live"]}

@@ -1,15 +1,1 @@
-{
-  "slug": "gammax-mtco-mahmoud-altaheni-partners-trading-co-mtco-mahmoud-altaheni-partners-trading-company-operates-in-saudi-arabia",
-  "title": "MTCO (Mahmoud Altaheni & Partners Trading Co)\nMTCO (Mahmoud Altaheni & Partners Trading Company) operates in Saudi Arabia (KSA) and the GCC with 15+ years’ industry experience, established in ...",
-  "group": "Gammax",
-  "discovered": "2026-08-01T09:12:46.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "http://gammax6w3dkfdjfrjthtmqzsioue52vzy6lz54qy6jcvmogfpubutjyd.onion/post/B7FLS1KVkQLdkKEZEkRYn82W3bQNht1v",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["CTI.FYI"]
-}
+{"slug":"gammax-mtco-mahmoud-altaheni-partners-trading-co-mtco-mahmoud-altaheni-partners-trading-company-operates-in-saudi-arabia","title":"MTCO (Mahmoud Altaheni & Partners Trading Co)\nMTCO (Mahmoud Altaheni & Partners Trading Company) operates in Saudi Arabia (KSA) and the GCC with 15+ years’ industry experience, established in ...","group":"Gammax","discovered":"2026-08-01T09:12:46.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":null,"source_url":"http://gammax6w3dkfdjfrjthtmqzsioue52vzy6lz54qy6jcvmogfpubutjyd.onion/post/B7FLS1KVkQLdkKEZEkRYn82W3bQNht1v","groupAliases":[],"activity":null,"references":["CTI.FYI"]}

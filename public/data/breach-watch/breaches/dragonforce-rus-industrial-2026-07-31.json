@@ -1,15 +1,1 @@
-{
-  "slug": "dragonforce-rus-industrial-2026-07-31",
-  "title": "RUS Industrial",
-  "group": "dragonforce",
-  "discovered": "2026-07-31T13:28:29.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "RUS Industrial specializes in heavy industrial construction services, catering to sectors such as chemical refineries, petrochemical plants, oil and gas facilities, and mission-critical data centers.",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": ["DRAGON FORCE"],
-  "activity": "Manufacturing",
-  "references": ["ransomware.live"]
-}
+{"slug":"dragonforce-rus-industrial-2026-07-31","title":"RUS Industrial","group":"dragonforce","discovered":"2026-07-31T13:28:29.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"RUS Industrial specializes in heavy industrial construction services, catering to sectors such as chemical refineries, petrochemical plants, oil and gas facilities, and mission-critical data centers.","source_url":"https://www.ransomware.live/","groupAliases":["DRAGON FORCE"],"activity":"Manufacturing","references":["ransomware.live"]}

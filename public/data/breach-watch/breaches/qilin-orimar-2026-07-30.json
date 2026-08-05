@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-orimar-2026-07-30",
-  "title": "Orimar",
-  "group": "qilin",
-  "discovered": "2026-07-30T07:58:28.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "BE",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Other",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-orimar-2026-07-30","title":"Orimar","group":"qilin","discovered":"2026-07-30T07:58:28.000Z","category":"ransomware","severity":"critical","country":"BE","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Other","references":["ransomware.live"]}

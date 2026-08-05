@@ -1,15 +1,1 @@
-{
-  "slug": "gunra-weilhotel-2026-08-02",
-  "title": "Weilhotel",
-  "group": "gunra",
-  "discovered": "2026-08-02T16:50:09.000Z",
-  "category": "data_breach",
-  "severity": "high",
-  "country": null,
-  "sizeBytes": 0,
-  "description": null,
-  "source_url": "https://www.ransomlook.io/screenshots/gunra/Weilhotel.png",
-  "groupAliases": [],
-  "activity": null,
-  "references": ["ransomlook.io"]
-}
+{"slug":"gunra-weilhotel-2026-08-02","title":"Weilhotel","group":"gunra","discovered":"2026-08-02T16:50:09.000Z","category":"data_breach","severity":"high","country":null,"sizeBytes":0,"description":null,"source_url":"https://www.ransomlook.io/screenshots/gunra/Weilhotel.png","groupAliases":[],"activity":null,"references":["ransomlook.io"]}

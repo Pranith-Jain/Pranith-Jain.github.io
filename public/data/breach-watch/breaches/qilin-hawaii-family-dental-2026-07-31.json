@@ -1,15 +1,1 @@
-{
-  "slug": "qilin-hawaii-family-dental-2026-07-31",
-  "title": "Hawaii Family Dental",
-  "group": "qilin",
-  "discovered": "2026-07-31T03:58:25.000Z",
-  "category": "ransomware",
-  "severity": "critical",
-  "country": "US",
-  "sizeBytes": 0,
-  "description": "N/A",
-  "source_url": "https://www.ransomware.live/",
-  "groupAliases": [],
-  "activity": "Healthcare",
-  "references": ["ransomware.live"]
-}
+{"slug":"qilin-hawaii-family-dental-2026-07-31","title":"Hawaii Family Dental","group":"qilin","discovered":"2026-07-31T03:58:25.000Z","category":"ransomware","severity":"critical","country":"US","sizeBytes":0,"description":"N/A","source_url":"https://www.ransomware.live/","groupAliases":[],"activity":"Healthcare","references":["ransomware.live"]}
