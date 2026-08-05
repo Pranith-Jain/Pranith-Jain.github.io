@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type JSX } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import {
@@ -37,9 +38,6 @@ import { LAYER_DEFS, SEVERITY_CONFIG, ALL_KINDS, formatTime, formatTimeFull } fr
 
 const PulseMap = lazy(() => import('./PulseMap'));
 const CtiGlobe = lazy(() => import('../../components/threatintel/cti/CtiGlobe'));
-
-
-
 
 /* ─── Component ─────────────────────────────────────────────────────────── */
 
@@ -356,7 +354,7 @@ export default function GlobalPulse(): JSX.Element {
       const cached = localStorage.getItem('gp:last');
       if (cached) setData((d) => d ?? (JSON.parse(cached) as GlobalPulseResponse));
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* ignore */
     }
   }, []);

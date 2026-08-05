@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -248,7 +249,7 @@ export default function DmarcAnalyzer(): JSX.Element {
         setReport(parsed);
         enrichAll(parsed.records);
       } catch (e) {
-        console.error('handler failed:', e instanceof Error ? e.message : String(e));
+        logCatch(e);
         setError(e instanceof Error ? e.message : 'Failed to parse DMARC report');
       } finally {
         setLoading(false);

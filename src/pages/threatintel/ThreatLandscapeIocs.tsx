@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useEffect, useCallback } from 'react';
 import { Shield, Download, Search, RefreshCw } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -56,7 +57,7 @@ export default function ThreatLandscapeIocs(): JSX.Element {
       const json = (await res.json()) as ActionableIoc[];
       setData(json);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : 'Unknown error');
     } finally {
       setLoading(false);

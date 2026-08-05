@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Network } from 'lucide-react';
@@ -60,7 +61,7 @@ export default function AsnLookup(): JSX.Element {
       }
       setResult((await r.json()) as AsnResult);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : 'lookup failed');
     } finally {
@@ -108,7 +109,6 @@ export default function AsnLookup(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="AS15169 or 15169"
-              
             />
           </div>
           <button

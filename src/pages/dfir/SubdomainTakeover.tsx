@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState } from 'react';
 import { Search, AlertTriangle, CheckCircle, ExternalLink, Loader2, Link2 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
@@ -155,14 +156,14 @@ export default function SubdomainTakeover() {
             });
           }
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           // skip individual subdomain failures
         }
       }
 
       setResults(newResults);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);

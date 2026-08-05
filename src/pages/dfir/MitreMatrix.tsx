@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
@@ -178,7 +179,7 @@ export default function MitreMatrix(): JSX.Element {
     try {
       localStorage.setItem(COVERAGE_KEY, JSON.stringify(coverage));
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* quota exceeded / private mode - silently skip */
     }
   }, [coverage]);

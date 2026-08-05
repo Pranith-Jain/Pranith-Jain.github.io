@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useParams } from 'react-router-dom';
@@ -323,7 +324,7 @@ function IocDumpPanel({
     try {
       await navigator.clipboard.writeText(dump.content);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       // Fall back to a hidden textarea + execCommand for older browsers.
       const ta = document.createElement('textarea');
       ta.value = dump.content;
@@ -334,7 +335,7 @@ function IocDumpPanel({
       try {
         document.execCommand('copy');
       } catch (err) {
-        console.error('handler failed:', err instanceof Error ? err.message : String(err));
+        logCatch(err);
         // Older browser / insecure context - clipboard copy unavailable.
         // We just silently fall through; the download button is the other path.
         void err;

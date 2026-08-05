@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useMemo, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { Search, Shield, AlertTriangle, CheckCircle, HelpCircle, Loader2, Upload, X } from 'lucide-react';
@@ -122,7 +123,7 @@ export default function XVeridikt(): JSX.Element {
               const p = JSON.parse(body) as { message?: string; error?: string };
               msg = p.message ?? p.error ?? msg;
             } catch (_catchErr) {
-              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+              logCatch(_catchErr);
               /* */
             }
             throw new Error(`${indicator}: ${msg}`);
@@ -145,7 +146,7 @@ export default function XVeridikt(): JSX.Element {
       if (ctrl.signal.aborted) return;
       setResults(outcomes);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : String(err));
     } finally {
@@ -225,7 +226,9 @@ export default function XVeridikt(): JSX.Element {
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
                   <Search size={14} className="text-slate-500 dark:text-slate-400" />
-                  <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">IOC Type</span>
+                  <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    IOC Type
+                  </span>
                   {iocInput && (
                     <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300 border border-brand-500/30">
                       {iocType}
@@ -247,7 +250,9 @@ export default function XVeridikt(): JSX.Element {
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
                   <Upload size={14} className="text-slate-500 dark:text-slate-400" />
-                  <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Bulk Input</span>
+                  <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    Bulk Input
+                  </span>
                 </div>
                 <textarea
                   value={bulkInput}
@@ -256,7 +261,9 @@ export default function XVeridikt(): JSX.Element {
                   rows={6}
                   className="w-full rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))] p-3 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 font-mono"
                 />
-                <p className="text-micro font-mono text-slate-500 dark:text-slate-400">One IOC per line. Auto-detects type.</p>
+                <p className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                  One IOC per line. Auto-detects type.
+                </p>
               </div>
             )}
 
@@ -288,7 +295,9 @@ export default function XVeridikt(): JSX.Element {
           {results.length > 0 && (
             <div className="surface-card/40 shadow-e1 p-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Filter</span>
+                <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  Filter
+                </span>
               </div>
               <div className="flex flex-wrap gap-2">
                 <select
@@ -404,7 +413,9 @@ export default function XVeridikt(): JSX.Element {
         </div>
       </div>
 
-      <p className="mt-8 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">Multi-provider engine · H3AD-X / X-VERDIKT</p>
+      <p className="mt-8 text-micro font-mono text-slate-500 dark:text-slate-400 text-center">
+        Multi-provider engine · H3AD-X / X-VERDIKT
+      </p>
     </div>
   );
 }

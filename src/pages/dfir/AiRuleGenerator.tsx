@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback } from 'react';
 import { Wand2, Loader2, Download, Shield, FileCode, Database, AlertTriangle, Code } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -193,7 +194,7 @@ export default function AiRuleGenerator(): JSX.Element {
           const p = JSON.parse(errBody) as { error?: string };
           msg = p.error ?? msg;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* ok */
         }
         throw new Error(msg);
@@ -202,7 +203,7 @@ export default function AiRuleGenerator(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult(await res.json());
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
@@ -426,7 +427,9 @@ export default function AiRuleGenerator(): JSX.Element {
                 <h2 className="font-display font-bold text-sm mb-3">Metadata</h2>
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div>
-                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-0.5">Rule Name</div>
+                    <div className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-0.5">
+                      Rule Name
+                    </div>
                     <div className="font-mono">{result.rule_name}</div>
                   </div>
                   <div>

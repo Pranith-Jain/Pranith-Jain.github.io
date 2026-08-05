@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useEffect, useCallback } from 'react';
 import { Server, Database, Shield, Loader2, RefreshCw } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
@@ -63,7 +64,7 @@ export default function TaxiiServer(): JSX.Element {
       const data = (await res.json()) as { objects?: TaxiiObject[] };
       setObjects(data.objects ?? []);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       setObjects([]);
     } finally {
       setObjectsLoading(false);

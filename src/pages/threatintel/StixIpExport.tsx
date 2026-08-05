@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useState } from 'react';
 import { FileText, Search, Download, Copy, Check, AlertTriangle } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -123,7 +124,7 @@ export default function StixIpExport() {
       });
       setBatchResult(r);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : 'Batch enrichment failed.');
     } finally {
       setLoading(false);

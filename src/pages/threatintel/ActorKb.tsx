@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useMemo, useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
@@ -148,7 +149,7 @@ export default function ActorKb(): JSX.Element {
         setSyncError(`Sync failed: ${data.error ?? 'unknown'}`);
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setSyncError(`Sync failed: ${(e as Error).message}`);
     } finally {
       setSyncing(false);

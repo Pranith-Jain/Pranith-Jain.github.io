@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { detectIoc } from '../../lib/dfir/ioc-detect';
@@ -168,14 +169,14 @@ export default function Observe(): JSX.Element {
               verdicts.push({ source: parsed.source, score: parsed.score ?? 0, verdict: parsed.verdict ?? 'unknown' });
             }
           } catch (_catchErr) {
-            console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+            logCatch(_catchErr);
             /* skip malformed */
           }
         }
       }
       setIocVerdicts(verdicts);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       const msg = e instanceof Error ? e.message : String(e);
       if (msg !== 'The operation was aborted') {
         setError(`IOC check failed: ${msg}`);

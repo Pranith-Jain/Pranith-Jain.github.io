@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -102,7 +103,7 @@ export default function DomainReputation(): JSX.Element {
         setResults(data);
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if (!signal.aborted) setError(e instanceof Error ? e.message : 'check failed');
     } finally {
       if (!signal.aborted) setLoading(false);

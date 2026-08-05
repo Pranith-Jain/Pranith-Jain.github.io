@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ScrollText, Upload, Loader2 } from 'lucide-react';
@@ -134,7 +135,7 @@ export default function EvtxParser(): JSX.Element {
             await yieldToPaint();
             setData(parse(await f.arrayBuffer()));
           } catch (ex) {
-            console.error('handler failed:', ex instanceof Error ? ex.message : String(ex));
+            logCatch(ex);
             setData(null);
             setErr(ex instanceof Error ? ex.message : String(ex));
           } finally {

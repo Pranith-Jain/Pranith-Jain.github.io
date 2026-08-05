@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -216,7 +217,7 @@ export default function CyberPulse(): JSX.Element {
       if (statsRes.ok) setStats(await statsRes.json());
       if (trendRes.ok) setTrending(await trendRes.json());
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if (ctrl.signal.aborted) return;
       setError(e instanceof Error ? e.message : 'Failed to load');
     } finally {

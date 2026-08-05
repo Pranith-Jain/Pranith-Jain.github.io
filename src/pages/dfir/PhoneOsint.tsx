@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -254,7 +255,7 @@ export default function PhoneOsint(): JSX.Element {
       if (!res.ok) throw new Error(`API returned ${res.status}`);
       setApiResult(await res.json());
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setApiError(err instanceof Error ? err.message : 'Failed to fetch phone intel');
     } finally {
       setLoading(false);

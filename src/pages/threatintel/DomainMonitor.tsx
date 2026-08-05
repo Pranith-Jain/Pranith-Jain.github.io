@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Search, Loader2, Globe, Shield, AlertTriangle, ExternalLink } from 'lucide-react';
@@ -68,7 +69,7 @@ export default function DomainMonitor(): JSX.Element {
       const data = (await r.json()) as DomainMonitorResponse;
       setResults(data);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if (!signal.aborted) setError(e instanceof Error ? e.message : 'check failed');
     } finally {
       if (!signal.aborted) setLoading(false);

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
@@ -89,7 +90,7 @@ export default function Wayback(): JSX.Element {
         try {
           detail = (await res.json()) as typeof detail;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* upstream returned non-JSON */
         }
         if (res.status === 429 && detail.retry_after_seconds) {
@@ -122,7 +123,7 @@ export default function Wayback(): JSX.Element {
       }));
       setSnapshots(parsed);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError((e as Error).message);
     } finally {
       setLoading(false);

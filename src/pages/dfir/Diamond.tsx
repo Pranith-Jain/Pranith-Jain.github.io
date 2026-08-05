@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
@@ -501,7 +502,7 @@ function Diamond(): JSX.Element {
         `Filled: ${filled.join(', ')}. ${skipped.length ? `Skipped: ${skipped.join('; ')}. ` : ''}Edit any field to refine.`
       );
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if ((e as Error).name === 'AbortError') return;
       setAutoFillNote(`Auto-fill failed: ${(e as Error).message}`);
     } finally {

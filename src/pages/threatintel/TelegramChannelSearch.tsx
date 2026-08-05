@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useRef, useState, useCallback, FormEvent } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Search, Loader2, Users, BarChart3, ExternalLink, Shield, AlertTriangle, Lock } from 'lucide-react';
@@ -119,7 +120,7 @@ export default function TelegramChannelSearch(): JSX.Element {
         throw new Error(j.message ?? j.error ?? `HTTP ${res.status}`);
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {

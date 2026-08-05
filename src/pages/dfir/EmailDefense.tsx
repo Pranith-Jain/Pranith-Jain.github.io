@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -48,7 +49,7 @@ export default function EmailDefense(): JSX.Element {
           const parsed = JSON.parse(body) as { error?: string };
           msg = parsed.error ?? msg;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           msg = `${msg}: ${body.slice(0, 200)}`;
         }
         throw new Error(msg);
@@ -58,7 +59,7 @@ export default function EmailDefense(): JSX.Element {
       const json = (await res.json()) as DomainApiResponse;
       setData(json);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : 'Lookup failed');
     } finally {
       setLoading(false);

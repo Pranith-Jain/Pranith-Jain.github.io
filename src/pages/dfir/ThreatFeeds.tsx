@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
@@ -142,7 +143,7 @@ export default function ThreatFeeds(): JSX.Element {
       setFeedsReturned(data.feeds_returned);
       setFeedStatuses(data.feeds ?? []);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError((e as Error).message);
     } finally {
       setLoading(false);

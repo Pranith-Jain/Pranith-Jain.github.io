@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
@@ -152,7 +153,7 @@ export default function SupplyChainIntelligence(): JSX.Element {
         setVerdict(body.data);
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setVerdictError((e as Error).message);
     } finally {
       setVerdictLoading(false);

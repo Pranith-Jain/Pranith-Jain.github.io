@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -225,7 +226,7 @@ export default function WeatherOsint(): JSX.Element {
       });
       setHistory((prev) => [search, ...prev.filter((h) => h !== search)].slice(0, 8));
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if ((e as Error).name === 'AbortError') return;
       setError((e as Error).message);
     } finally {

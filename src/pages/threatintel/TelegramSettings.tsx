@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Plus, Trash2, ExternalLink, RefreshCw, Loader2, Bot, Radio } from 'lucide-react';
@@ -87,7 +88,7 @@ export default function TelegramSettings(): JSX.Element {
         load();
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if ((e as Error).name === 'AbortError') return;
       setAddError((e as Error).message);
     } finally {
@@ -105,7 +106,7 @@ export default function TelegramSettings(): JSX.Element {
       });
       if (res.ok) load();
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
     }
   };
 

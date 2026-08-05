@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
@@ -209,14 +210,14 @@ export default function DfirCopilot(): JSX.Element {
         try {
           msg = (JSON.parse(body) as { error?: string }).error ?? msg;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* */
         }
         throw new Error(msg);
       }
       setResult(await res.json());
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);

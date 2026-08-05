@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -205,7 +206,7 @@ export default function WifiInvestigation(): JSX.Element {
       const data = await res.json();
       setApiResult(data);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setApiError(err instanceof Error ? err.message : 'Failed to fetch investigation data');
     } finally {
       setLoading(false);

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -340,7 +341,7 @@ export default function Infostealer(): JSX.Element {
         setArticles(merged);
         setArticlesErr(null);
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logCatch(_catchErr);
         setArticlesErr('failed to parse RSS feeds');
       }
 

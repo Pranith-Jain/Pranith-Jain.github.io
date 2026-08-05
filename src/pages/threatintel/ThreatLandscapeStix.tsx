@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useEffect, useCallback } from 'react';
 import { Search, Filter, Download, Database, ChevronDown, ChevronUp } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -80,7 +81,7 @@ export default function ThreatLandscapeStix(): JSX.Element {
       const json = (await res.json()) as StixBundle[];
       setData(json);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : 'Unknown error');
     } finally {
       setLoading(false);

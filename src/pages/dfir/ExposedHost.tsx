@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback, useRef, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -134,7 +135,7 @@ export default function ExposedHostView(): JSX.Element {
         .then((d) => setCdnResult(d))
         .catch(() => {});
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : 'Lookup failed');
     } finally {
       setLoading(false);

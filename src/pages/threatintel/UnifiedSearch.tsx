@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { sanitizeUrl } from '../../lib/sanitize-url';
@@ -160,7 +161,7 @@ export default function UnifiedSearch(): JSX.Element {
       const d = (await r.json()) as UnifiedSearchResponse;
       if (!ac.signal.aborted) setData(d);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if ((e as Error).name === 'AbortError') return; // superseded / unmounted - swallow
       lastSearchedRef.current = '';
       setError(e instanceof Error ? e.message : 'search failed');

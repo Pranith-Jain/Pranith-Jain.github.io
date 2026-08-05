@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Globe, Search, ShieldCheck, Loader2, AlertTriangle } from 'lucide-react';
@@ -143,7 +144,7 @@ export default function Dnscope(): JSX.Element {
 
       setSections(built);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setScanning(false);
@@ -173,7 +174,9 @@ export default function Dnscope(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-center gap-2 mb-3">
               <Search size={14} className="text-slate-500 dark:text-slate-400" />
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Target Domain</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Target Domain
+              </span>
             </div>
             <input
               type="text"

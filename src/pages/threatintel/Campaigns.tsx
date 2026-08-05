@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, RefreshCw, ExternalLink, Trash2, Wand2 } from 'lucide-react';
@@ -72,7 +73,7 @@ export default function Campaigns(): JSX.Element {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setItems((prev) => prev.filter((i) => i.id !== id));
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(`Delete failed: ${(e as Error).message}`);
     }
   };

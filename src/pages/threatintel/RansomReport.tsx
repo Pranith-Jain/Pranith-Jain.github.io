@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FileDown, Loader2, Search, ShieldAlert } from 'lucide-react';
@@ -360,7 +361,7 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
       }
       doc.save(`ransom-report-${(profile.group ?? selected).replace(/[^a-z0-9]/gi, '_')}.pdf`);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       setPdfError("Couldn't generate the PDF - the export library failed to load. Check your connection and retry.");
     } finally {
       setPdfBusy(false);

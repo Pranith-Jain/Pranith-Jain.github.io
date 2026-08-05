@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useState } from 'react';
 import { DataPageLayout, useInsideDataPageLayout } from '../../components/DataPageLayout';
 import { Search, RefreshCw, AlertTriangle, FileText, ExternalLink } from 'lucide-react';
@@ -179,7 +180,7 @@ export default function TelegramLeaks(): JSX.Element {
               try {
                 return JSON.parse(entry.domains_found);
               } catch (_catchErr) {
-                console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+                logCatch(_catchErr);
                 return [];
               }
             })()

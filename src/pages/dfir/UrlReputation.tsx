@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
@@ -58,7 +59,7 @@ export default function UrlReputation(): JSX.Element {
     try {
       return input.trim() ? new URL(input.trim()).hostname : '';
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       return '';
     }
   }, [input]);

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
@@ -209,7 +210,7 @@ export default function InfostealerIntel(): JSX.Element {
       else if (tab === 'infection') setInfectionResult(data as InfectionResult);
       else setSearchResult(data as SearchResult);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if (!mountedRef.current) return;
       setError((e as Error).message);
     } finally {

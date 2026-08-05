@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useState } from 'react';
 import { postJsonWithBody } from './adminApi';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
@@ -77,7 +78,7 @@ export default function RetentionTab() {
       const r = await postJsonWithBody<TgCleanupResult>('/retention/telegram-cleanup', { days: tgDays });
       setTgResult(r);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setTgError(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(null);

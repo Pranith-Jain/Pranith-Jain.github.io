@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FolderTree, Upload, Loader2 } from 'lucide-react';
@@ -218,7 +219,7 @@ export default function RegistryHive(): JSX.Element {
             await yieldToPaint();
             setRoot(parseHive(await f.arrayBuffer()));
           } catch (ex) {
-            console.error('handler failed:', ex instanceof Error ? ex.message : String(ex));
+            logCatch(ex);
             setRoot(null);
             setErr(ex instanceof Error ? ex.message : String(ex));
           } finally {

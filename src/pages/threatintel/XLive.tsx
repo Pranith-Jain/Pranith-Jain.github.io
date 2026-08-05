@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
@@ -108,7 +109,7 @@ export default function XLive(): JSX.Element {
     try {
       localStorage.setItem('x-live.since-hours', String(sinceHours));
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* localStorage unavailable */
     }
     return load(sinceHours);

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
@@ -148,7 +149,7 @@ export default function RelationshipGraphPage(): JSX.Element {
         if (reqId !== reqIdRef.current) return;
         setGraphData(data);
       } catch (e) {
-        console.error('handler failed:', e instanceof Error ? e.message : String(e));
+        logCatch(e);
         if (reqId !== reqIdRef.current) return;
         setError((e as Error).message);
         setGraphData(null);
@@ -175,7 +176,7 @@ export default function RelationshipGraphPage(): JSX.Element {
       });
       setExpandedCount((c) => c + 1);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       // silent
     } finally {
       setLoading(false);

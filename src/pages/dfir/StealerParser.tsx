@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
@@ -94,7 +95,7 @@ export default function StealerParser(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult(await res.json());
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : String(err));
     } finally {

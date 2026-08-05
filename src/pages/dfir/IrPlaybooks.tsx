@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import {
@@ -98,7 +99,7 @@ export default function IrPlaybooks(): JSX.Element {
           const p = JSON.parse(body) as { error?: string };
           msg = p.error ?? msg;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* ok */
         }
         throw new Error(msg);
@@ -107,7 +108,7 @@ export default function IrPlaybooks(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult(await res.json());
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
@@ -225,7 +226,9 @@ export default function IrPlaybooks(): JSX.Element {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium">{step.title}</div>
-                      <div className="text-micro font-mono text-slate-500 dark:text-slate-400">{step.estimated_time}</div>
+                      <div className="text-micro font-mono text-slate-500 dark:text-slate-400">
+                        {step.estimated_time}
+                      </div>
                     </div>
                     {step.critical && (
                       <span className="text-micro font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300">

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
@@ -277,7 +278,7 @@ export default function ThreatMap(): JSX.Element {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setData((await r.json()) as ThreatMapResponse);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if (ctrl.signal.aborted) return;
       setError((e as Error).message);
     } finally {

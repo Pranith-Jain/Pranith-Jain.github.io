@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { ReportView, type ReportActionCard } from '../../components/dfir/ReportView';
@@ -146,7 +147,7 @@ export default function TieEnrich() {
                 evtSource.close();
               }
             } catch (_catchErr) {
-              console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+              logCatch(_catchErr);
             }
           };
           evtSource.onerror = () => {
@@ -159,7 +160,7 @@ export default function TieEnrich() {
 
         setResult(data);
       } catch (err) {
-        console.error('handler failed:', err instanceof Error ? err.message : String(err));
+        logCatch(err);
         if (ctrl.signal.aborted) return;
         setError(err instanceof Error ? err.message : String(err));
       } finally {

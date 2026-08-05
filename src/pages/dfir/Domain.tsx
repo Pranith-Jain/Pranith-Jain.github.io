@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useEffect, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, ExternalLink, Globe, ChevronDown, ChevronRight, Fingerprint, Shield, Link2 } from 'lucide-react';
@@ -68,7 +69,7 @@ export default function Domain(): JSX.Element {
       setResult(r2);
       recordHistory({ tool: 'domain', indicator: r2.domain, verdict: r2.verdict, score: r2.score });
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : 'lookup failed');
     } finally {
       setLoading(false);

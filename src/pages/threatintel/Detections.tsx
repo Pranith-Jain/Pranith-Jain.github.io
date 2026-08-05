@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useState } from 'react';
 import { relativeAgo } from '../../lib/relativeTime';
 const shortRel = (iso?: string) => relativeAgo(iso, 'no timestamp');
@@ -280,7 +281,7 @@ export default function Detections(): JSX.Element {
       const res = (await r.json()) as { bundle: { id: string } };
       setStixBundleId(res.bundle.id);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setStixError(`STIX build failed: ${(e as Error).message}`);
     } finally {
       setStixLoading(false);

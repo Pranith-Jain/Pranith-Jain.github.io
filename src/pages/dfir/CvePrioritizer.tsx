@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useState } from 'react';
 import { SEVERITY_TONE, SEVERITY_BAR, type Severity as Sev } from '../../components/severity';
 import { sanitizeUrl } from '../../lib/sanitize-url';
@@ -200,7 +201,7 @@ export default function CvePrioritizer(): JSX.Element {
         const data = (await r.json()) as BatchCveLookup;
         return { id, loading: false, data };
       } catch (e) {
-        console.error('handler failed:', e instanceof Error ? e.message : String(e));
+        logCatch(e);
         return { id, loading: false, error: (e as Error).message };
       }
     });

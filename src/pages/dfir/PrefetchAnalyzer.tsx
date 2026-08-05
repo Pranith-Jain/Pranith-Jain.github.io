@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Activity, Upload, Loader2 } from 'lucide-react';
@@ -243,7 +244,7 @@ export default function PrefetchAnalyzer(): JSX.Element {
             await yieldToPaint();
             setPf(parsePrefetch(await f.arrayBuffer()));
           } catch (ex) {
-            console.error('handler failed:', ex instanceof Error ? ex.message : String(ex));
+            logCatch(ex);
             setPf(null);
             setErr(ex instanceof Error ? ex.message : String(ex));
           } finally {

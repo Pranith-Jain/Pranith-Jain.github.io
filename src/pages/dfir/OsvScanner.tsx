@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ShieldAlert, ShieldCheck, Loader2, ExternalLink } from 'lucide-react';
@@ -145,7 +146,7 @@ export default function OsvScanner(): JSX.Element {
       setRows(sorted);
       setMeta({ kind, total: d.total_packages });
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if (ctrl.signal.aborted) return;
       setErr((e as Error).message);
     } finally {

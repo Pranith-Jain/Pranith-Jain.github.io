@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useRef, useState, useCallback, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -207,7 +208,7 @@ export default function TelegramLinkedActors(): JSX.Element {
       const j = (await r.json()) as SearchResponse;
       if (!ctrl.signal.aborted) setSearchData(j);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if ((e as Error).name === 'AbortError') return;
       setSearchError((e as Error).message);
     } finally {

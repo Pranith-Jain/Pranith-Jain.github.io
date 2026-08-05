@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -918,7 +919,7 @@ export default function AIReportShowcase(): JSX.Element {
         const d = (await r.json()) as AnalyzerOutput;
         setData(d);
       } catch (e) {
-        console.error('handler failed:', e instanceof Error ? e.message : String(e));
+        logCatch(e);
         const message = e instanceof Error ? e.message : String(e);
         setError(message || 'analysis failed');
       } finally {

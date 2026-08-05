@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
@@ -136,7 +137,7 @@ export default function FpLens(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult((await res.json()) as FpLensResult);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
@@ -185,7 +186,9 @@ export default function FpLens(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Detection rule / alert</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">required</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                required
+              </span>
             </div>
             <textarea
               value={rule}
@@ -211,7 +214,9 @@ export default function FpLens(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Sample hits / additional logs</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">optional</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                optional
+              </span>
             </div>
             <textarea
               value={sampleHits}
@@ -225,7 +230,9 @@ export default function FpLens(): JSX.Element {
           <div className="surface-card/40 shadow-e1 p-5">
             <div className="flex items-baseline justify-between mb-2">
               <h2 className="font-display font-bold text-sm">Environment context</h2>
-              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">optional</span>
+              <span className="text-micro font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                optional
+              </span>
             </div>
             <input
               type="text"
@@ -313,7 +320,9 @@ export default function FpLens(): JSX.Element {
               <div className="surface-card/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <AlertTriangle size={14} className="text-amber-600 dark:text-amber-400" /> False Positive Patterns
-                  <span className="ml-auto text-micro font-mono text-slate-500 dark:text-slate-400">{result.fp_patterns.length}</span>
+                  <span className="ml-auto text-micro font-mono text-slate-500 dark:text-slate-400">
+                    {result.fp_patterns.length}
+                  </span>
                 </h2>
                 <div className="space-y-3">
                   {result.fp_patterns.map((p, i) => (
@@ -337,7 +346,9 @@ export default function FpLens(): JSX.Element {
               <div className="surface-card/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <CheckCircle2 size={14} className="text-emerald-600 dark:text-emerald-400" /> True Positive Signals
-                  <span className="ml-auto text-micro font-mono text-slate-500 dark:text-slate-400">{result.tp_signals.length}</span>
+                  <span className="ml-auto text-micro font-mono text-slate-500 dark:text-slate-400">
+                    {result.tp_signals.length}
+                  </span>
                 </h2>
                 <ul className="space-y-1.5 text-sm text-slate-700 dark:text-slate-300">
                   {result.tp_signals.map((t, i) => (
@@ -369,7 +380,9 @@ export default function FpLens(): JSX.Element {
               <div className="surface-card/40 shadow-e1 p-5">
                 <h2 className="font-display font-bold text-sm mb-3 flex items-center gap-2">
                   <ListChecks size={14} className="text-brand-600 dark:text-brand-400" /> Tuning Guidance
-                  <span className="ml-auto text-micro font-mono text-slate-500 dark:text-slate-400">{result.tuning_guidance.length}</span>
+                  <span className="ml-auto text-micro font-mono text-slate-500 dark:text-slate-400">
+                    {result.tuning_guidance.length}
+                  </span>
                 </h2>
                 <ol className="space-y-2 text-sm text-slate-700 dark:text-slate-300 list-decimal pl-5">
                   {result.tuning_guidance.map((g, i) => (

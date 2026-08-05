@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback, useRef } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Upload, MapPin, Camera, Image, FileText, ShieldCheck } from 'lucide-react';
@@ -103,7 +104,7 @@ export default function ExifParse(): JSX.Element {
         setMetadata(data);
       }
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : 'Failed to parse file');
     } finally {
       setLoading(false);

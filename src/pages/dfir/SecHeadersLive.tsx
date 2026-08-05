@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useEffect, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
@@ -103,7 +104,7 @@ export default function SecHeadersLive(): JSX.Element {
       const json = (await res.json()) as IntodnsSecHeadersResponse;
       setData(json);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : 'scan failed');
     } finally {
       setLoading(false);

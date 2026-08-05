@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useNoindex } from '../../lib/use-noindex';
@@ -137,7 +138,7 @@ function streamSampleScan(
           else if (currentEvent === 'result') onResult(data as ProviderResultWire);
           else if (currentEvent === 'done') onDone(data as DoneEvent);
         } catch (e) {
-          console.error('handler failed:', e instanceof Error ? e.message : String(e));
+          logCatch(e);
           onError(`malformed ${currentEvent} frame`);
         }
         currentEvent = null;
@@ -291,7 +292,7 @@ export default function SampleScan(): JSX.Element {
         setHashInput(a.sha256);
         startScan(a.sha256);
       } catch (e) {
-        console.error('handler failed:', e instanceof Error ? e.message : String(e));
+        logCatch(e);
         setError(e instanceof Error ? e.message : 'analysis failed');
         setPhase('error');
       }

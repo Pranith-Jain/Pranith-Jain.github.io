@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { Copy, Download, FileCode, FileText, Link as LinkIcon, Loader2, Upload } from 'lucide-react';
@@ -99,7 +100,7 @@ export default function StixBuilder(): JSX.Element {
         const result = (await res.json()) as IntelBundleResponse;
         if (!cancelled) setBuild({ status: 'ready', result });
       } catch (err) {
-        console.error('handler failed:', err instanceof Error ? err.message : String(err));
+        logCatch(err);
         if (!cancelled) {
           setBuild({ status: 'error', error: err instanceof Error ? err.message : String(err) });
         }
@@ -200,7 +201,7 @@ export default function StixBuilder(): JSX.Element {
       const result = (await res.json()) as IntelBundleResponse;
       if (buildCtrlRef.current === ctrl) setBuild({ status: 'ready', result });
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       if ((err as { name?: string }).name === 'AbortError') return;
       if (buildCtrlRef.current === ctrl) {
         setBuild({ status: 'error', error: err instanceof Error ? err.message : String(err) });

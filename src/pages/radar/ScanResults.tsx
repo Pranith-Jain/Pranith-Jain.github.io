@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
@@ -760,7 +761,7 @@ export default function ScanResults() {
           setTimeout(poll, 2000);
         }
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logCatch(_catchErr);
         setTimeout(poll, 3000);
       }
     };

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { Crosshair, Loader2, AlertTriangle, Shield, Terminal, Search, Clock, Trash2 } from 'lucide-react';
@@ -100,7 +101,7 @@ export default function QuerycraftAi(): JSX.Element {
           const p = JSON.parse(body) as { error?: string; message?: string };
           msg = p.error ?? p.message ?? msg;
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* */
         }
         throw new Error(msg);
@@ -133,7 +134,7 @@ export default function QuerycraftAi(): JSX.Element {
       setHistory(updated);
       saveHistory(updated);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);

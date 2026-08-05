@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useEffect, useCallback, type FormEvent } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import {
@@ -534,7 +535,7 @@ export default function AssetIntel(): JSX.Element {
         setWhoisData((await r.json()) as HistoryResult);
       }
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : 'lookup failed');
     } finally {
       setLoading(false);

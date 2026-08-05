@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -121,7 +122,7 @@ export default function CertStreamLive(): JSX.Element {
       }
       setLastPoll(data.generated_at);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError((e as Error).message);
     } finally {
       setLoading(false);
@@ -151,7 +152,7 @@ export default function CertStreamLive(): JSX.Element {
     try {
       localStorage.setItem(STORAGE_KEY, keyword.trim());
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* localStorage unavailable - fine, just won't persist */
     }
     setItems([]);

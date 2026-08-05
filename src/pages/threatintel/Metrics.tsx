@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AttackHeatmap } from '../../components/threatintel/AttackHeatmap';
@@ -408,7 +409,7 @@ export default function Metrics(): JSX.Element {
           };
           if (r.victims && r.victims.length > 0) return { victims: r.victims };
         } catch (_catchErr) {
-          console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+          logCatch(_catchErr);
           /* fall through to retry */
         }
         if (cancelled || attempt === 1) break;
@@ -490,7 +491,7 @@ export default function Metrics(): JSX.Element {
           error: null,
         });
       } catch (e) {
-        console.error('handler failed:', e instanceof Error ? e.message : String(e));
+        logCatch(e);
         if (cancelled) return;
         const msg = e instanceof Error ? e.message : typeof e === 'string' ? e : String(e);
         setState((s) => ({ ...s, loading: false, error: msg }));

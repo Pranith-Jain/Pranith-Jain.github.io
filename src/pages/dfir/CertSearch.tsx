@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -68,7 +69,7 @@ export default function CertSearch(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setData((await res.json()) as CertSearchResponse);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError((e as Error).message);
     } finally {
       setLoading(false);

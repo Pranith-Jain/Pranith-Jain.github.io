@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState } from 'react';
 import { Download, FileCode, FileText, Shield, Copy, Check, Loader2, type LucideIcon } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -82,7 +83,7 @@ export default function ExportHub(): JSX.Element {
       const text = await res.text();
       setResult(text);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setResult(`Error: ${(e as Error).message}`);
     } finally {
       setLoading(false);

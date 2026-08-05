@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useState, useCallback } from 'react';
 import { DataState } from '../../components/DataState';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -85,7 +86,7 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
       // both remove it from the unreviewed queue).
       setChannels((prev) => prev.filter((ch) => ch.handle !== handle));
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(null);

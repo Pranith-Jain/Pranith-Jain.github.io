@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useRef, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, Globe, Shield, Lock, Server, ExternalLink, Loader2, Wifi } from 'lucide-react';
@@ -97,7 +98,7 @@ export default function DomainWebcheck(): JSX.Element {
           .catch(() => {});
       }
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : 'scan failed');
     } finally {
       setLoading(false);

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { Suspense, lazy, useCallback, useMemo, useState } from 'react';
 import { FileJson, Trash2, Copy, Check, Filter, Globe2, Loader2, ExternalLink } from 'lucide-react';
 import {
@@ -177,7 +178,7 @@ export default function StixViewer(): JSX.Element {
       setFilterTypes(new Set());
       setFetchedFrom({ collection: data.collection ?? 'unknown', attackId: data.attack_id });
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setFetchError((e as Error).message);
     } finally {
       setFetching(false);
@@ -200,7 +201,7 @@ export default function StixViewer(): JSX.Element {
         objects,
       };
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setParseError((e as Error).message);
       return null;
     }

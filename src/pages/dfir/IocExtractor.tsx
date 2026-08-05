@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -210,7 +211,7 @@ export default function IocExtractor(): JSX.Element {
         sessionStorage.removeItem(cfg.storage);
       }
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* sessionStorage unavailable - silently skip */
     }
     // Drop the ?from param so the URL is clean after the pipe.

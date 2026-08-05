@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import {} from 'lucide-react';
@@ -94,7 +95,7 @@ export default function PgpTool() {
       }
       setStatus('done');
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setStatus('error');
       setMessage(err instanceof Error ? err.message : String(err));
     }

@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Sparkles, AlertTriangle, ExternalLink, Copy, Check, Trash2 } from 'lucide-react';
@@ -141,7 +142,7 @@ export default function CampaignDetail(): JSX.Element {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setDeleted(true);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(`Delete failed: ${(e as Error).message}`);
     }
   };
@@ -154,7 +155,7 @@ export default function CampaignDetail(): JSX.Element {
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1500);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* clipboard blocked */
     }
   };

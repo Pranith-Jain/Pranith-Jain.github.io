@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -121,7 +122,7 @@ export default function UrlPreview(): JSX.Element {
       if (!r.ok) throw new Error(body.error ?? `HTTP ${r.status}`);
       setResult(body);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       setError(err instanceof Error ? err.message : 'preview failed');
     } finally {
       setLoading(false);
@@ -179,7 +180,6 @@ export default function UrlPreview(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="https://www.cisa.gov/"
-              
             />
           </div>
           <button
@@ -259,7 +259,7 @@ export default function UrlPreview(): JSX.Element {
                   </div>
                 );
               } catch (_catchErr) {
-                console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+                logCatch(_catchErr);
                 return null;
               }
             })()}

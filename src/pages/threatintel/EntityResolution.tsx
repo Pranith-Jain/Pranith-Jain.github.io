@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useRef, useEffect } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import {
@@ -190,7 +191,7 @@ export default function EntityResolution(): JSX.Element {
       });
       fetchRelevantPirs(q.trim(), signal);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -221,7 +222,7 @@ export default function EntityResolution(): JSX.Element {
       const data = await res.json();
       if (!ctrl.signal.aborted) setExtracted(data.entities ?? []);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       if ((e as Error).name === 'AbortError') return;
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -392,7 +393,9 @@ export default function EntityResolution(): JSX.Element {
                             {pir.priority}
                           </span>
                           <span className="flex-1 truncate">{pir.title}</span>
-                          <span className="text-micro text-slate-500 dark:text-slate-400">{pir.matched_in.join(', ')}</span>
+                          <span className="text-micro text-slate-500 dark:text-slate-400">
+                            {pir.matched_in.join(', ')}
+                          </span>
                         </a>
                       ))}
                     </div>

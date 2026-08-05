@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import {
@@ -95,7 +96,7 @@ export default function BloomFilter(): JSX.Element {
         await fetch(`/api/v1/bloom/${type}`, { signal: AbortSignal.any([ctrl.signal, AbortSignal.timeout(30_000)]) });
         await fetchStats();
       } catch (_catchErr) {
-        console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+        logCatch(_catchErr);
         /* silent */
       }
     },
@@ -122,7 +123,7 @@ export default function BloomFilter(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON');
       setCheckResult((await res.json()) as BloomCheckResult);
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       /* silent */
     } finally {
       if (!ctrl.signal.aborted) setLoading(false);

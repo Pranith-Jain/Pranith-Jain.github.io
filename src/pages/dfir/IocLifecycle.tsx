@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useEffect, useCallback } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { IocChip } from '../../components/dfir/IocChip';
@@ -113,7 +114,7 @@ export default function IocLifecycle(): JSX.Element {
       if (d.found && d.lifecycle) setLifecycle(d.lifecycle);
       else setError('IOC not found');
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);

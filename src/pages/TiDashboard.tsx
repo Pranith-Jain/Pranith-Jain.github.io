@@ -1,3 +1,4 @@
+import { logCatch } from '../lib/log';
 import { useMemo, useState, useCallback } from 'react';
 import {
   FileText,
@@ -203,7 +204,7 @@ export default function TiDashboard() {
         minute: '2-digit',
       });
     } catch (_catchErr) {
-      console.error('handler failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
+      logCatch(_catchErr);
       return dateStr;
     }
   };

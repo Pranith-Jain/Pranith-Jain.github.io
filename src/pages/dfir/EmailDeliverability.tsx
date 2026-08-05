@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useState, useEffect, useRef, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
@@ -160,7 +161,7 @@ export default function EmailDeliverability(): JSX.Element {
       const data = (await res.json()) as IntodnsDebugResponse;
       setResult(data);
     } catch (err) {
-      console.error('handler failed:', err instanceof Error ? err.message : String(err));
+      logCatch(err);
       if (ctrl.signal.aborted) return;
       setError(err instanceof Error ? err.message : 'analysis failed');
     } finally {
