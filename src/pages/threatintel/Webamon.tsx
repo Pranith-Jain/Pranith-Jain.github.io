@@ -1,6 +1,7 @@
 import { logCatch } from '../../lib/log';
 import { useState, useCallback, useEffect, useRef, type FormEvent } from 'react';
 import { BackLink } from '../../components/BackLink';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import {
   Search,
   ExternalLink,
@@ -874,32 +875,16 @@ function SandboxTab() {
                           <Cookie size={14} /> Cookies ({r.cookie.length})
                         </h3>
                         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))]/50 overflow-hidden">
-                          <table className="w-full text-micro font-mono">
-                            <thead>
-                              <tr className="text-left text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                                <th className="py-1 pr-2">Name</th>
-                                <th className="py-1 pr-2">Domain</th>
-                                <th className="py-1 pr-2">Secure</th>
-                                <th className="py-1 pr-2">HttpOnly</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {r.cookie.map((c, i) => (
-                                <tr
-                                  key={i}
-                                  role="tab"
-                                  className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50"
-                                >
-                                  <td className="py-1 pr-2 text-slate-700 dark:text-slate-300 break-all">
-                                    {c.name ?? '-'}
-                                  </td>
-                                  <td className="py-1 pr-2 text-muted break-all">{c.domain ?? '-'}</td>
-                                  <td className="py-1 pr-2 text-muted">{c.secure ? 'yes' : 'no'}</td>
-                                  <td className="py-1 pr-2 text-muted">{c.httpOnly ? 'yes' : 'no'}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
+                          <DataTable
+                            columns={[
+                              { key: 'name', header: 'Name', sortValue: (c: typeof r.cookie[number]) => c.name ?? '', render: (c) => <span className="text-slate-700 dark:text-slate-300 break-all">{c.name ?? '-'}</span> },
+                              { key: 'domain', header: 'Domain', sortValue: (c: typeof r.cookie[number]) => c.domain ?? '', render: (c) => <span className="text-muted break-all">{c.domain ?? '-'}</span> },
+                              { key: 'secure', header: 'Secure', render: (c) => <span className="text-muted">{c.secure ? 'yes' : 'no'}</span> },
+                              { key: 'httpOnly', header: 'HttpOnly', render: (c) => <span className="text-muted">{c.httpOnly ? 'yes' : 'no'}</span> },
+                            ] as DataTableColumn<typeof r.cookie[number]>[]}
+                            rows={r.cookie}
+                            rowKey={(c, i) => `${c.name ?? ''}-${i}`}
+                          />
                         </div>
                       </section>
                     )}
@@ -936,36 +921,16 @@ function SandboxTab() {
                           <HardDrive size={14} /> Resources ({r.resource.length})
                         </h3>
                         <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
-                          <table className="w-full text-micro font-mono">
-                            <thead>
-                              <tr className="text-left text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                                <th className="py-1 pr-3">SHA256</th>
-                                <th className="py-1 pr-3">MIME</th>
-                                <th className="py-1 pr-3">Size</th>
-                                <th className="py-1 pr-3">URL</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {r.resource.map((res, i) => (
-                                <tr
-                                  key={i}
-                                  role="tab"
-                                  className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50"
-                                >
-                                  <td className="py-1 pr-3 text-slate-700 dark:text-slate-300 break-all">
-                                    {res.sha256 ? res.sha256.slice(0, 16) + '…' : '-'}
-                                  </td>
-                                  <td className="py-1 pr-3 text-muted">{res.mime ?? '-'}</td>
-                                  <td className="py-1 pr-3 text-muted">
-                                    {res.size ? `${(res.size / 1024).toFixed(1)}KB` : '-'}
-                                  </td>
-                                  <td className="py-1 pr-3 text-muted break-all max-w-[200px] truncate">
-                                    {res.url ?? '-'}
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
+                          <DataTable
+                            columns={[
+                              { key: 'sha256', header: 'SHA256', sortValue: (res: typeof r.resource[number]) => res.sha256 ?? '', render: (res) => <span className="text-slate-700 dark:text-slate-300 break-all">{res.sha256 ? res.sha256.slice(0, 16) + '…' : '-'}</span> },
+                              { key: 'mime', header: 'MIME', sortValue: (res: typeof r.resource[number]) => res.mime ?? '', render: (res) => <span className="text-muted">{res.mime ?? '-'}</span> },
+                              { key: 'size', header: 'Size', sortValue: (res: typeof r.resource[number]) => res.size ?? 0, render: (res) => <span className="text-muted">{res.size ? `${(res.size / 1024).toFixed(1)}KB` : '-'}</span> },
+                              { key: 'url', header: 'URL', sortValue: (res: typeof r.resource[number]) => res.url ?? '', render: (res) => <span className="text-muted break-all max-w-[200px] truncate">{res.url ?? '-'}</span> },
+                            ] as DataTableColumn<typeof r.resource[number]>[]}
+                            rows={r.resource}
+                            rowKey={(res, i) => `${res.sha256 ?? ''}-${i}`}
+                          />
                         </div>
                       </section>
                     )}
