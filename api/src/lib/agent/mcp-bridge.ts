@@ -1982,5 +1982,208 @@ export function bridgeMcpTools(
     },
   });
 
+  // ══════════════════════════════════════════════════════════════════════
+  //  SOC AUTOMATION — soc_playbook_* (playbook CRUD + execute + runs + stats)
+  //  The SOC automation platform lets the agent create, execute, and track
+  //  incident response playbooks. This bridges the full playbook lifecycle.
+  // ══════════════════════════════════════════════════════════════════════
+
+  dnGet(
+    'soc_playbook_list',
+    'List SOC automation playbooks. Each playbook has a trigger (incident_created, alert_created, scheduled, manual), actions (webhook, email, MCP tool, create ticket, run script), and execution history.',
+    () => '/api/v1/soc/playbooks',
+    []
+  );
+  dnGet(
+    'soc_playbook_get',
+    'Get a specific SOC playbook by ID, including all actions, trigger config, and run history.',
+    (a) => `/api/v1/soc/playbooks/${encodeURIComponent(String(a.id))}`,
+    [{ name: 'id', description: 'Playbook ID', required: true }]
+  );
+  add({
+    name: 'soc_playbook_create',
+    description:
+      'Create a new SOC automation playbook. Define a trigger (incident_created, alert_created, scheduled, webhook, manual) and a chain of actions (webhook, email, slack, MCP tool, create ticket, run script, wait, condition).',
+    params: [
+      { name: 'name', type: 'string', description: 'Playbook name', required: true },
+      { name: 'description', type: 'string', description: 'What this playbook does', required: false },
+      {
+        name: 'trigger',
+        type: 'string',
+        description: 'Trigger type: incident_created, alert_created, scheduled, webhook, manual',
+        required: false,
+      },
+    ],
+    execute: async (args) => {
+      return apiFetchWithMethod('/api/v1/soc/playbooks', 'POST', {
+        name: args.name,
+        description: args.description ?? '',
+        trigger: args.trigger ?? 'manual',
+        actions: [],
+        enabled: false,
+        tags: [],
+      });
+    },
+  });
+  add({
+    name: 'soc_playbook_execute',
+    description:
+      'Execute a SOC playbook by ID. Triggers the action chain (webhook, email, MCP tool, etc.) and returns the run result with per-action status.',
+    params: [
+      { name: 'id', type: 'string', description: 'Playbook ID to execute', required: true },
+      {
+        name: 'trigger_event_id',
+        type: 'string',
+        description: 'Optional trigger event ID for correlation',
+        required: false,
+      },
+    ],
+    execute: async (args) => {
+      return apiFetchWithMethod(`/api/v1/soc/playbooks/${encodeURIComponent(String(args.id))}/execute`, 'POST', {
+        trigger_event_id: args.trigger_event_id,
+      });
+    },
+  });
+  dnGet(
+    'soc_playbook_runs',
+    'List recent SOC playbook execution runs with status, duration, and per-action results.',
+    () => '/api/v1/soc/runs',
+    []
+  );
+  dnGet(
+    'soc_playbook_run_get',
+    'Get a specific SOC playbook run by ID, including per-action execution results, outputs, and timing.',
+    (a) => `/api/v1/soc/runs/${encodeURIComponent(String(a.id))}`,
+    [{ name: 'id', description: 'Run ID', required: true }]
+  );
+  dnGet(
+    'soc_playbook_stats',
+    'Get SOC automation statistics: total playbooks, enabled count, playbooks by trigger, total runs, success rate, average duration.',
+    () => '/api/v1/soc/stats',
+    []
+  );
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  SOC INVESTIGATION — soc_cve_report, live IOC stream, threat pulse
+  //  These give the agent SOC-specific investigation capabilities: generate
+  //  SOC-ready CVE reports, pull live IOC streams, and get the current
+  //  threat pulse for situational awareness.
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'soc_cve_report',
+    description:
+      'Generate a SOC-ready CVE report with CVSS, KEV status, EPSS, PoC availability, affected products, and recommended actions. Returns markdown or JSON.',
+    params: [
+      { name: 'cve', type: 'string', description: 'CVE ID (e.g. CVE-2024-3094)', required: true },
+      {
+        name: 'format',
+        type: 'string',
+        description: 'Output format: json or markdown (default json)',
+        required: false,
+      },
+    ],
+    execute: async (args) => {
+      const fmt = args.format === 'markdown' ? '' : '/json';
+      return apiFetchWithMethod(`/api/v1/soc-cve-report${fmt}`, 'POST', { cve: args.cve });
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  ADDITIONAL OSINT / INVESTIGATION TOOLS
+  //  Niche tools that round out the SOC investigation capability.
+  // ══════════════════════════════════════════════════════════════════════
+
+  dnGet(
+    'fbi_wanted_search',
+    'Search the FBI Most Wanted list for cyber criminals by name, keyword, or crime category.',
+    (a) => `/api/v1/fbi-wanted/search?q=${encodeURIComponent(String(a.q))}`,
+    [{ name: 'q', description: 'Search query (name, keyword, crime)', required: true }]
+  );
+  dnGet(
+    'fbi_wanted_list',
+    'List FBI Most Wanted cyber criminals. Returns name, aliases, description, reward, and mugshot.',
+    () => '/api/v1/fbi-wanted',
+    []
+  );
+  dnGet(
+    'interpol_search',
+    'Search INTERPOL notices (Red Notices, Yellow Notices) by name or keyword.',
+    (a) => `/api/v1/interpol/search?q=${encodeURIComponent(String(a.q))}`,
+    [{ name: 'q', description: 'Search query', required: true }]
+  );
+  dnGet(
+    'interpol_notice_detail',
+    'Get a specific INTERPOL notice by ID.',
+    (a) => `/api/v1/interpol/${encodeURIComponent(String(a.id))}`,
+    [{ name: 'id', description: 'Notice ID', required: true }]
+  );
+  dnGet(
+    'fullhunt_domain',
+    "Search FullHunt for a domain's attack surface: exposed services, subdomains, ports, and technologies.",
+    (a) => `/api/v1/fullhunt/domain?domain=${encodeURIComponent(String(a.domain))}`,
+    [{ name: 'domain', description: 'Domain name', required: true }]
+  );
+  dnGet(
+    'fullhunt_subdomains',
+    'Enumerate subdomains for a domain via FullHunt.',
+    (a) => `/api/v1/fullhunt/subdomains?domain=${encodeURIComponent(String(a.domain))}`,
+    [{ name: 'domain', description: 'Domain name', required: true }]
+  );
+  dnGet(
+    'google_dorks',
+    'Generate Google dorks for OSINT investigation of a domain (sensitive files, exposed credentials, admin panels, etc.).',
+    (a) => `/api/v1/google-dorks?domain=${encodeURIComponent(String(a.domain))}`,
+    [{ name: 'domain', description: 'Domain to generate dorks for', required: true }]
+  );
+  dnGet(
+    'mozilla_tls_scan',
+    "Scan a domain's TLS/SSL configuration against Mozilla's modern intermediate compatibility standards. Returns grade, protocol versions, cipher suites, and recommendations.",
+    (a) => `/api/v1/mozilla-tls-scan?domain=${encodeURIComponent(String(a.domain))}`,
+    [{ name: 'domain', description: 'Domain to scan', required: true }]
+  );
+  dnGet(
+    'virushee_check',
+    'Check a file hash against Virushee (community malware scanner). Returns detection ratio, AV verdicts, and file metadata.',
+    (a) => `/api/v1/virushee/check?hash=${encodeURIComponent(String(a.hash))}`,
+    [{ name: 'hash', description: 'File hash (SHA-256, MD5, SHA-1)', required: true }]
+  );
+  dnGet(
+    'cerast_domain_search',
+    'Search Cerast for domain threat intelligence: malware associations, C2 infrastructure, and reputation data.',
+    (a) => `/api/v1/cerast/domain?domain=${encodeURIComponent(String(a.domain))}`,
+    [{ name: 'domain', description: 'Domain to search', required: true }]
+  );
+  dnGet(
+    'threatmon_infostealer_search',
+    'Search ThreatMon for infostealer logs by email, domain, or username. Returns compromised credentials and stealer family.',
+    (a) => `/api/v1/threatmon/search?q=${encodeURIComponent(String(a.q))}`,
+    [{ name: 'q', description: 'Search query (email, domain, username)', required: true }]
+  );
+  dnGet(
+    'dehash_lookup',
+    'Search DeHashed for leaked credentials by email, username, domain, or phone. Returns plaintext passwords, hashes, and breach sources.',
+    (a) => `/api/v1/dehash?q=${encodeURIComponent(String(a.q))}`,
+    [{ name: 'q', description: 'Search query (email, username, domain, phone)', required: true }]
+  );
+  dnGet(
+    'btc_abuse_check',
+    'Check a Bitcoin address against the Bitcoin Abuse database. Returns abuse reports, scam associations, and report count.',
+    (a) => `/api/v1/btc-abuse?address=${encodeURIComponent(String(a.address))}`,
+    [{ name: 'address', description: 'Bitcoin address', required: true }]
+  );
+  dnGet(
+    'onion_lookup',
+    'Look up a .onion address in the onion directory (Ahmia, Tor66, etc.). Returns title, description, categories, and status.',
+    (a) => `/api/v1/onion-lookup?address=${encodeURIComponent(String(a.address))}`,
+    [{ name: 'address', description: '.onion address', required: true }]
+  );
+  dnGet(
+    'analyze_report',
+    'Analyze a threat intelligence report (URL or text) and extract IOCs, TTPs, MITRE techniques, and actor attributions automatically.',
+    (a) => `/api/v1/report-analyzer?url=${encodeURIComponent(String(a.url))}`,
+    [{ name: 'url', description: 'Report URL to analyze', required: true }]
+  );
+
   return tools;
 }

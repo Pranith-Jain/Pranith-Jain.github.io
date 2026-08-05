@@ -22,7 +22,8 @@ export type SpecialistRole =
   | 'campaign-correlation'
   | 'dark-web'
   | 'strategic-intel'
-  | 'supply-chain';
+  | 'supply-chain'
+  | 'soc-automation';
 
 export interface SpecialistDef {
   role: SpecialistRole;
@@ -685,6 +686,57 @@ Strategy:
 - Step 3: Synthesize with verdict (clean/malicious/unknown) + CVEs.`;
     },
   },
+  'soc-automation': {
+    role: 'soc-automation',
+    label: 'SOC Automation Specialist',
+    description:
+      'Manages SOC playbooks, generates IR playbooks, creates detection rules, and provides situational awareness for SOC analysts.',
+    handlesQueryTypes: ['soc', 'incident', 'alert', 'playbook', 'detection'],
+    maxSteps: 3,
+    exitConditions: [
+      {
+        name: 'playbook-or-detection-generated',
+        met: (v) =>
+          hasToolBeenCalled(v.steps, 'generate_ir_playbook') ||
+          hasToolBeenCalled(v.steps, 'generate_yara_rule') ||
+          hasToolBeenCalled(v.steps, 'generate_hunting_queries') ||
+          hasToolBeenCalled(v.steps, 'soc_playbook_execute') ||
+          hasToolBeenCalled(v.steps, 'soc_cve_report'),
+        reason: () => 'SOC automation output generated',
+      },
+      {
+        name: 'max-steps',
+        met: (v) => v.stepNum >= v.maxSteps,
+        reason: () => 'Specialist step budget exhausted',
+      },
+    ],
+    guardrails: [
+      {
+        name: 'soc-tools-only',
+        filter: (calls) => {
+          const allowed = new Set(SPECIALIST_TOOLS['soc-automation']);
+          return calls.filter((c) => allowed.has(c.tool));
+        },
+      },
+    ],
+    buildPlannerPrompt: (tools, step, maxSteps, query, _steps) => {
+      const toolList = tools.map((t) => `  - ${t.name}: ${t.description.split('.')[0]}`).join('\n');
+      return `You are the SOC Automation Specialist. Your job: provide SOC-ready outputs — IR playbooks, detection rules, CVE reports, live IOC streams, and situational awareness.
+
+Query: ${query}
+
+Available tools:
+${toolList}
+
+Step ${step}/${maxSteps}.
+
+Strategy:
+- Step 1: Assess the situation — get_today_briefing / get_threat_pulse / get_live_iocs / get_trending_iocs for current threat landscape
+- Step 2: Generate output — generate_ir_playbook (for incident response), generate_yara_rule / generate_hunting_queries (for detection), soc_cve_report (for CVE analysis), or soc_playbook_create (for automation)
+- Step 3: Enrich — check_ioc / enrich_ioc_deep for indicators, lookup_cve / lookup_cisa_kev for vulnerabilities, fbi_wanted_search / interpol_search for threat actors
+- Synthesize with SOC-ready recommendations: detection rules, hunting queries, IR playbook steps, and prioritized actions.`;
+    },
+  },
 };
 
 // ── Tool subset mapping ───────────────────────────────────────────────────
@@ -860,6 +912,36 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'ti_list_cves',
     'lookup_cve',
   ],
+  'soc-automation': [
+    'soc_playbook_list',
+    'soc_playbook_get',
+    'soc_playbook_create',
+    'soc_playbook_execute',
+    'soc_playbook_runs',
+    'soc_playbook_run_get',
+    'soc_playbook_stats',
+    'soc_cve_report',
+    'generate_ir_playbook',
+    'generate_yara_rule',
+    'generate_hunting_queries',
+    'get_detections',
+    'get_live_iocs',
+    'get_trending_iocs',
+    'get_feed_status',
+    'get_today_briefing',
+    'list_briefings',
+    'check_ioc',
+    'enrich_ioc_deep',
+    'lookup_cve',
+    'lookup_cisa_kev',
+    'unified_search',
+    'get_threat_pulse',
+    'get_ransomware_activity',
+    'get_cyber_crime_news',
+    'fbi_wanted_search',
+    'interpol_search',
+    'analyze_report',
+  ],
 };
 
 // ── Query-type to specialist routing ─────────────────────────────────────
@@ -879,6 +961,11 @@ const ROUTING_TABLE: Record<string, SpecialistRole[]> = {
   campaign: ['campaign-correlation', 'threat-actor'],
   'supply-chain': ['supply-chain', 'vulnerability'],
   package: ['supply-chain'],
+  soc: ['soc-automation', 'detection-rules'],
+  incident: ['soc-automation', 'ioc-reputation'],
+  alert: ['soc-automation', 'ioc-reputation'],
+  playbook: ['soc-automation'],
+  detection: ['detection-rules', 'soc-automation'],
   generic: ['strategic-intel', 'dark-web', 'ioc-reputation'],
 };
 
@@ -912,6 +999,8 @@ export function resolveRoutingQueryType(query: string, queryType: string): strin
       return 'campaign';
     case 'supply_chain':
       return 'supply-chain';
+    case 'soc':
+      return 'soc';
     default:
       return queryType;
   }
