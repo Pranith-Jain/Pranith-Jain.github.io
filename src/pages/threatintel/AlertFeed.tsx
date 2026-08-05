@@ -78,7 +78,10 @@ export default function AlertFeed() {
   };
 
   useEffect(() => {
+    // loadAlerts is a plain function (not useCallback) that closes over filter;
+    // re-running on filter change is the intended trigger.
     loadAlerts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
   const markRead = async (id: string) => {

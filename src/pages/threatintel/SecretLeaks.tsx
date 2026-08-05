@@ -3,6 +3,7 @@ import { DataPageLayout } from '../../components/DataPageLayout';
 import { DataState } from '../../components/DataState';
 import { SEVERITY_TONE, SEVERITY_BAR } from '../../components/severity';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 import {
   Activity,
   AlertTriangle,
@@ -578,6 +579,13 @@ export default function SecretLeaks(): JSX.Element {
                           <div className="text-xs font-mono text-slate-500 mt-1">
                             {leak.secretCount} secret{leak.secretCount > 1 ? 's' : ''}
                           </div>
+                          <PostAnalysisButton
+                            title={`${leak.provider} key leak in ${leak.owner}/${leak.repo}`}
+                            description={`${leak.severity} severity · ${leak.secretCount} secret(s) · ${leak.file} · exposure ${leak.exposureScore}`}
+                            source={leak.provider}
+                            link={leak.url}
+                            compact
+                          />
                         </div>
                       </div>
                     </div>

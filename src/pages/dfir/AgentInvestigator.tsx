@@ -373,6 +373,9 @@ export default function AgentInvestigator(): JSX.Element {
         .catch(() => {});
     }, 2000);
     return () => clearInterval(interval);
+    // agentState?.status is already in the deps; eslint sees the full
+    // agentState object as a missing dep due to optional chaining.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeId, agentState?.status, connected, fetchSessions]);
 
   const deleteSession = async (id: string) => {

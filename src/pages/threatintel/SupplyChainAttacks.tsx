@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AlertOctagon, ExternalLink, ShieldAlert } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 interface AffectedEntity {
   name: string;
@@ -227,6 +228,13 @@ export default function SupplyChainAttacks(): JSX.Element {
                     {inc.severity}
                   </span>
                 )}
+                <PostAnalysisButton
+                  title={inc.title}
+                  description={inc.summary}
+                  source="supply-chain-attacks"
+                  link={inc.url}
+                  compact
+                />
               </div>
 
               <div className="flex flex-wrap items-center gap-1.5 mt-1.5">

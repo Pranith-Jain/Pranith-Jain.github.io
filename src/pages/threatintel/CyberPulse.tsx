@@ -222,6 +222,9 @@ export default function CyberPulse(): JSX.Element {
     } finally {
       if (!ctrl.signal.aborted) setLoading(false);
     }
+    // refreshKey is intentionally a dep to bust the callback identity so the
+    // fetch effect re-fires on manual refresh — it isn't read inside the body.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days, typeFilter, severityFilter, platformFilter, debouncedSearch, refreshKey]);
 
   useEffect(() => {

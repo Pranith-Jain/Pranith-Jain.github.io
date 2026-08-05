@@ -278,6 +278,9 @@ export default function SocVulns(): JSX.Element {
       ]);
     }
     downloadCsv(`soc-vulns-${windowDays}d-${new Date().toISOString().slice(0, 10)}.csv`, rows);
+    // data is only used for the null guard; inWindow (derived from data) is the
+    // real dep. Adding data would change identity every render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inWindow, windowDays]);
 
   const navigate = useNavigate();

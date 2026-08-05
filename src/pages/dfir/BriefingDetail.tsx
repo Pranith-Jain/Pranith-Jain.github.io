@@ -666,18 +666,22 @@ export default function BriefingDetail(): JSX.Element {
     return parts.join('\n');
   }, [briefing]);
 
-  const stats = briefing?.stats ?? {
-    findings: 0,
-    sections: 0,
-    cves: 0,
-    kevs: 0,
-    iocs: 0,
-    critical: 0,
-    high: 0,
-    medium: 0,
-    low: 0,
-    ransomware_victims: 0,
-  };
+  const stats = useMemo(
+    () =>
+      briefing?.stats ?? {
+        findings: 0,
+        sections: 0,
+        cves: 0,
+        kevs: 0,
+        iocs: 0,
+        critical: 0,
+        high: 0,
+        medium: 0,
+        low: 0,
+        ransomware_victims: 0,
+      },
+    [briefing]
+  );
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
   const shareTitle = briefing?.title ?? '';
 

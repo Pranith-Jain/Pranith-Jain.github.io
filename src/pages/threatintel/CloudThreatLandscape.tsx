@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Cloud, ExternalLink, Target } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 interface ExternalRef {
   source_name: string;
@@ -200,6 +201,7 @@ export default function CloudThreatLandscape(): JSX.Element {
                     {inc.type}
                   </span>
                 )}
+                <PostAnalysisButton title={inc.name} description={inc.description} source={inc.type} compact />
               </div>
 
               <div className="flex flex-wrap items-center gap-1.5 mt-1.5">

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Users, ExternalLink, FileCode, ChevronDown, ChevronRight, Loader2 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 interface RuleFile {
   name: string;
@@ -160,6 +161,12 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
         {folder.date && (
           <span className="text-micro font-mono text-slate-500 dark:text-slate-400 shrink-0">{folder.date}</span>
         )}
+        <PostAnalysisButton
+          title={folder.label}
+          description={`${folder.year} · ${folder.date} · ${folder.rule_files.length} rule(s)${folder.has_indicators ? ' · has indicators' : ''}`}
+          source="volexity"
+          compact
+        />
       </button>
 
       {open && (

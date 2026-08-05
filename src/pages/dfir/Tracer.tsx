@@ -250,7 +250,7 @@ export default function Tracer(): JSX.Element {
     const res = await fetch('/api/v1/tracer/graphs');
     if (res.status === 401 || res.status === 403) return setError('Saved traces require an admin session.');
     if (res.ok) setSavedList(((await res.json()) as { graphs: typeof savedList }).graphs);
-  }, [savedList]);
+  }, []);
 
   const loadTrace = useCallback(async (id: string) => {
     const res = await fetch(`/api/v1/tracer/graphs/${id}`);

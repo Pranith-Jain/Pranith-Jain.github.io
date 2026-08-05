@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Radar, RefreshCw } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 interface C2Entry {
   ip: string;
@@ -228,6 +229,12 @@ export default function C2Tracker(): JSX.Element {
                     >
                       bl
                     </Link>
+                    <PostAnalysisButton
+                      title={`${entry.framework} C2: ${entry.ip}`}
+                      description={entry.context}
+                      source={entry.framework}
+                      compact
+                    />
                   </div>
                 </div>
               ))}

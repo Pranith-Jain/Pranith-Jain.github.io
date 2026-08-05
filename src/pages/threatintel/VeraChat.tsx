@@ -35,6 +35,7 @@ import { exportReportPdf } from '../../lib/threatintel/report-pdf';
 import { ReportView } from '../../components/threatintel/ReportView';
 import { PivotSuggestions } from '../../components/threatintel/PivotSuggestions';
 import { SelfEvalScorecard, type SelfEvalResult } from '../../components/threatintel/SelfEvalScorecard';
+import { DataGapsPanel, type ToolFailure } from '../../components/threatintel/DataGapsPanel';
 import { InvestigationTrace } from '../../components/threatintel/InvestigationTrace';
 import { DetectionGenerate } from '../../components/threatintel/DetectionGenerate';
 import { BulkIocInput } from '../../components/threatintel/BulkIocInput';
@@ -77,7 +78,6 @@ interface ChatMessage {
   _meta?: { total_sources: number; total_items: number };
   confidence?: CopilotResponse['confidence'];
 }
-
 
 interface SessionItem {
   id: string;
@@ -173,7 +173,6 @@ const CAPABILITY_GRID = [
 
 // ── Markdown renderer ───────────────────────────────────────────────────
 
-
 function formatTime(iso: string): string {
   const d = new Date(iso);
   const now = new Date();
@@ -214,6 +213,7 @@ export default function VeraChat(): JSX.Element {
   const [agentSteps, setAgentSteps] = useState<AgentStep[]>([]);
   const [streamingContent, setStreamingContent] = useState('');
   const [selfEval, setSelfEval] = useState<SelfEvalResult | null>(null);
+  const [dataGaps, setDataGaps] = useState<ToolFailure[] | null>(null);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sessions, setSessions] = useState<SessionItem[]>([]);
@@ -286,6 +286,7 @@ export default function VeraChat(): JSX.Element {
     setAgentSteps([]);
     setStreamingContent('');
     setSelfEval(null);
+    setDataGaps(null);
     setError(null);
     setResult(null);
     setReport(null);
@@ -372,9 +373,11 @@ export default function VeraChat(): JSX.Element {
         })
         .catch(() => {});
     }
+    // Mount-only: reconnect to an orphaned stream from a previous session.
+    // reconnectToStream is defined below via useCallback; adding it as a dep
+    // would re-fire this effect on every render it changes identity.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // ── Reconnect to orphaned stream ────────────────────────────────────
 
   const reconnectToStream = useCallback(async (sid: string) => {
     setStreaming(true);
@@ -425,6 +428,8 @@ export default function VeraChat(): JSX.Element {
               };
               if (d.selfEval) setSelfEval(d.selfEval as SelfEvalResult);
               else setSelfEval(null);
+              if (d.dataGaps) setDataGaps(d.dataGaps as ToolFailure[]);
+              else setDataGaps(null);
               setChatMessages((prev) => {
                 const next = [...prev];
                 const last = next[next.length - 1];
@@ -1014,6 +1019,9 @@ export default function VeraChat(): JSX.Element {
                               })()}
                               <DetectionGenerate context={msg.content ?? ''} />
                               {selfEval && i === chatMessages.length - 1 && <SelfEvalScorecard selfEval={selfEval} />}
+                              {dataGaps && dataGaps.length > 0 && i === chatMessages.length - 1 && (
+                                <DataGapsPanel dataGaps={dataGaps} />
+                              )}
                             </>
                           )}
                         </div>
@@ -1231,7 +1239,6 @@ export default function VeraChat(): JSX.Element {
 }
 
 // ── Chat narrative renderer ────────────────────────────────────────────
-
 
 // ── Follow-up suggestions ──────────────────────────────────────────────
 
