@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../../env';
-import { logError } from '../lib/logger';
+import { logError } from '../../lib/logger';
 import { badRequest, notFound, serviceUnavailable, internalError } from '../../lib/api-error';
 import { safeJsonBody } from '../../lib/safe-body';
 import { getAi } from '../../lib/ai-binding';

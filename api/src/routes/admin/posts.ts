@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../../env';
-import { logError } from '../lib/logger';
+import { logError } from '../../lib/logger';
 import { badRequest, notFound, internalError, badGateway, serviceUnavailable, conflict } from '../../lib/api-error';
 import { safeJsonBody } from '../../lib/safe-body';
 import { putPost, listPostIndex, removePost } from '../../case-study/storage/posts';

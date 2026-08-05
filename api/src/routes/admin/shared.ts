@@ -1,5 +1,5 @@
 import type { Env } from '../../env';
-import { logError } from '../lib/logger';
+import { logError } from '../../lib/logger';
 import type { Post } from '../../case-study/types';
 import { getDraft } from '../../case-study/storage/drafts';
 import { getSiteUrl } from '../../lib/site-config';
