@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { DataPageLayout } from '../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../components/ui/DataTable';
 import { Globe, Crosshair, Wrench, FileCode, Cpu, Database, Shield, Search, X } from 'lucide-react';
 
 interface AptmapIndex {
@@ -658,36 +659,52 @@ export default function AptmapPage() {
                 <span className="text-micro font-mono text-slate-500">{certificates.length} unique certs</span>
               </div>
               <div className="overflow-x-auto">
-                <table className="w-full text-xs font-mono">
-                  <thead>
-                    <tr className="text-slate-500 border-b border-[rgb(var(--border-400))]">
-                      <th className="text-left py-2 pr-4 font-medium">#</th>
-                      <th className="text-left py-2 pr-4 font-medium">Organization</th>
-                      <th className="text-left py-2 pr-4 font-medium">Issuer</th>
-                      <th className="text-right py-2 font-medium">Count</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {certificates.slice(0, 30).map((c, idx) => {
-                      const parts = String(c.certificate ?? '').split(' ');
-                      const issuer = parts[0] === 'n/a' ? null : parts[0];
-                      const org = parts.length > 1 ? parts.slice(1).join(' ') : parts[0];
-                      return (
-                        <tr
-                          key={c.id}
-                          className="border-b border-[rgb(var(--border-400))]/50 hover:bg-slate-100 dark:bg-slate-800/20 transition-colors"
-                        >
-                          <td className="py-1.5 pr-4 text-slate-500">{idx + 1}</td>
-                          <td className="py-1.5 pr-4 text-slate-700 dark:text-slate-300">{org || '-'}</td>
-                          <td className="py-1.5 pr-4 text-slate-500">{issuer || '-'}</td>
-                          <td className="py-1.5 text-right text-slate-700 dark:text-slate-300 tabular-nums">
+                <DataTable
+                  columns={
+                    [
+                      {
+                        key: 'num',
+                        header: '#',
+                        render: (_c: (typeof certificates)[number], i: number) => (
+                          <span className="text-slate-500">{i + 1}</span>
+                        ),
+                      },
+                      {
+                        key: 'org',
+                        header: 'Organization',
+                        sortValue: (c: (typeof certificates)[number]) => String(c.certificate ?? ''),
+                        render: (c) => {
+                          const parts = String(c.certificate ?? '').split(' ');
+                          const org = parts.length > 1 ? parts.slice(1).join(' ') : parts[0];
+                          return <span className="text-slate-700 dark:text-slate-300">{org || '-'}</span>;
+                        },
+                      },
+                      {
+                        key: 'issuer',
+                        header: 'Issuer',
+                        render: (c) => {
+                          const parts = String(c.certificate ?? '').split(' ');
+                          const issuer = parts[0] === 'n/a' ? null : parts[0];
+                          return <span className="text-slate-500">{issuer || '-'}</span>;
+                        },
+                      },
+                      {
+                        key: 'count',
+                        header: 'Count',
+                        align: 'right',
+                        sortValue: (c: (typeof certificates)[number]) => c.count,
+                        render: (c) => (
+                          <span className="text-slate-700 dark:text-slate-300 tabular-nums">
                             {c.count.toLocaleString()}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                          </span>
+                        ),
+                      },
+                    ] as DataTableColumn<(typeof certificates)[number]>[]
+                  }
+                  rows={certificates.slice(0, 30)}
+                  rowKey={(c) => String(c.id)}
+                  rowClassName={() => 'hover:bg-slate-100 dark:bg-slate-800/20'}
+                />
               </div>
               <p className="text-micro font-mono text-slate-500 mt-3">
                 {certificates[0] && String(certificates[0].certificate).startsWith('n/a')
