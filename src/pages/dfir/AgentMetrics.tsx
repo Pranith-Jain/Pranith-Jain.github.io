@@ -26,6 +26,9 @@ interface AgentMetricsData {
     routingRefinements: number;
     avgFindings: number;
     avgCostUsd: number;
+    convergenceIterations: number;
+    avgSelfEvalScore: number;
+    dataGapsCount: number;
   };
 }
 
@@ -135,6 +138,9 @@ export default function AgentMetrics(): JSX.Element {
           <Stat label="Avg Score Δ" value={f.avgScoreDelta > 0 ? `+${f.avgScoreDelta}` : f.avgScoreDelta} />
           <Stat label="Route Refinements" value={f.routingRefinements} />
           <Stat label="Avg Findings" value={f.avgFindings} />
+          <Stat label="GAN Convergence" value={f.convergenceIterations ?? 0} />
+          <Stat label="Avg Self-Eval" value={f.avgSelfEvalScore ? `${f.avgSelfEvalScore.toFixed(1)}/5` : '—'} />
+          <Stat label="Data Gaps" value={f.dataGapsCount ?? 0} />
         </div>
       </div>
 

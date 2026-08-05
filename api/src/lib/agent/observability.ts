@@ -21,6 +21,9 @@ export interface AgentMetrics {
     routingRefinements: number;
     avgFindings: number;
     avgCostUsd: number;
+    convergenceIterations: number;
+    avgSelfEvalScore: number;
+    dataGapsCount: number;
   };
 }
 
@@ -47,6 +50,12 @@ export interface InvestigationMeta {
   tokens?: number;
   /** Number of LLM completion calls. */
   llmCalls?: number;
+  /** GAN convergence: number of generator-evaluator iterations (0 = no retry). */
+  convergenceIterations?: number;
+  /** Self-eval overall score (1-5) if the self-eval ran. */
+  selfEvalScore?: number;
+  /** Number of tool failures captured by introspection. */
+  dataGapsCount?: number;
 }
 
 /**
@@ -123,6 +132,10 @@ export function aggregateObservability(
   let findingsCount = 0;
   let costSum = 0;
   let costCount = 0;
+  let convergenceIterations = 0;
+  let selfEvalScoreSum = 0;
+  let selfEvalScoreCount = 0;
+  let dataGapsCount = 0;
 
   for (const row of rows) {
     let usedTimings = false;
@@ -167,6 +180,16 @@ export function aggregateObservability(
           costSum += m.costUsd;
           costCount++;
         }
+        if (typeof m.convergenceIterations === 'number') {
+          convergenceIterations += m.convergenceIterations;
+        }
+        if (typeof m.selfEvalScore === 'number') {
+          selfEvalScoreSum += m.selfEvalScore;
+          selfEvalScoreCount++;
+        }
+        if (typeof m.dataGapsCount === 'number') {
+          dataGapsCount += m.dataGapsCount;
+        }
       } catch {
         /* skip malformed */
       }
@@ -192,6 +215,9 @@ export function aggregateObservability(
       routingRefinements,
       avgFindings: findingsCount > 0 ? Math.round(findingsSum / findingsCount) : 0,
       avgCostUsd: costCount > 0 ? Math.round((costSum / costCount) * 10000) / 10000 : 0,
+      convergenceIterations,
+      avgSelfEvalScore: selfEvalScoreCount > 0 ? Math.round((selfEvalScoreSum / selfEvalScoreCount) * 10) / 10 : 0,
+      dataGapsCount,
     },
   };
 }
@@ -305,6 +331,9 @@ export async function getAgentMetrics(db: D1Database): Promise<AgentMetrics> {
         routingRefinements: 0,
         avgFindings: 0,
         avgCostUsd: 0,
+        convergenceIterations: 0,
+        avgSelfEvalScore: 0,
+        dataGapsCount: 0,
       },
     };
   }

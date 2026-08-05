@@ -31,6 +31,7 @@ import {
   SPECIALIST_TOOLS,
   getToolsForSpecialist,
   getSpecialistsForQueryType,
+  filterToolsForQueryType,
   resolveRoutingQueryType,
   type SpecialistRole,
   type SpecialistFinding,
@@ -621,6 +622,11 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       return state;
     }
 
+    // Context-aware tool filtering: pass only the tools relevant to this
+    // query type to the planner, not all ~291. This cuts the planner's
+    // tool-description context from ~5,800 tokens to ~1,500-2,500 tokens.
+    const plannerTools = filterToolsForQueryType(state.queryType, state.query, availableTools);
+
     const plan = await planNextStep(
       ai,
       state.query,
@@ -628,7 +634,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       state.steps,
       stepNum,
       state.maxSteps,
-      availableTools,
+      plannerTools,
       {
         infronKey,
         groqKey,
@@ -1412,6 +1418,9 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
             costUsd: Math.round(synthTracker.totalCostUsd * 10000) / 10000,
             tokens: synthTracker.totalInputTokens + synthTracker.totalOutputTokens,
             llmCalls: synthTracker.entries.length,
+            convergenceIterations: (state.reportVersioning?.versions.length ?? 1) - 1,
+            selfEvalScore: state.selfEval?.overallScore,
+            dataGapsCount: state.dataGaps?.length ?? 0,
           },
           error: state.error ?? undefined,
           completedAt: state.completedAt,

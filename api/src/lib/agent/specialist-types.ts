@@ -890,3 +890,58 @@ export function getToolsForSpecialist(role: SpecialistRole, allTools: AgentTool[
   const allowed = new Set(SPECIALIST_TOOLS[role]);
   return allTools.filter((t) => allowed.has(t.name));
 }
+
+/**
+ * Always-available utility tools that every query type needs regardless of
+ * specialist routing. These are the "glue" tools — search, correlation,
+ * STIX export, and synthesis helpers that any investigation may call.
+ */
+const ALWAYS_AVAILABLE_TOOLS = new Set([
+  'unified_search',
+  'cross_correlate',
+  'get_relationships',
+  'build_stix_bundle',
+  'lookup_mitre',
+  'get_threat_pulse',
+  'get_cyber_crime_news',
+  'get_blocklists',
+  'parse_threat_report',
+  'extract_ttps',
+  'ti_list_cves',
+  'ti_get_cve',
+  'ti_list_kev',
+  'ti_list_iocs',
+  'ti_list_darknet',
+  'ti_stats',
+]);
+
+/**
+ * Context-aware tool filtering for the planner.
+ *
+ * Instead of passing ALL ~291 tools to the planner (which wastes ~5,800
+ * tokens of context on tool descriptions), this function returns only the
+ * tools relevant to the query type — the union of tools from all routed
+ * specialists, plus a small set of always-available utility tools.
+ *
+ * This cuts the planner's tool-description context from ~5,800 tokens to
+ * ~1,500-2,500 tokens (depending on query type), leaving more context for
+ * working memory and investigation data.
+ */
+export function filterToolsForQueryType(
+  queryType: string,
+  query: string | undefined,
+  allTools: AgentTool[]
+): AgentTool[] {
+  const specialists = getSpecialistsForQueryType(queryType, query);
+  const relevantToolNames = new Set<string>(ALWAYS_AVAILABLE_TOOLS);
+  for (const role of specialists) {
+    for (const name of SPECIALIST_TOOLS[role]) {
+      relevantToolNames.add(name);
+    }
+  }
+  const filtered = allTools.filter((t) => relevantToolNames.has(t.name));
+  // Fallback: if filtering produced too few tools (e.g. unknown query type
+  // with no routed specialists), return all tools rather than starving the
+  // planner.
+  return filtered.length >= 5 ? filtered : allTools;
+}
