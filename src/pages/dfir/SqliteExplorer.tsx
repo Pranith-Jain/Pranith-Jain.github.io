@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Database, Upload } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { loadSql } from '../../lib/loadSql';
 
 interface DB {
@@ -158,35 +159,20 @@ export default function SqliteExplorer(): JSX.Element {
             </div>
             {result && (
               <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-auto max-h-[60vh]">
-                <table className="w-full text-mini font-mono">
-                  <thead className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] sticky top-0">
-                    <tr>
-                      {result.cols.map((c) => (
-                        <th
-                          key={c}
-                          scope="col"
-                          className="text-left px-2 py-1 border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
-                        >
-                          {c}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.rows.map((r, i) => (
-                      <tr key={i} className="even:bg-slate-50/50 dark:even:bg-[rgb(var(--surface-200)/0.5)]">
-                        {r.map((cell, j) => (
-                          <td
-                            key={j}
-                            className="px-2 py-1 border-b border-slate-100 dark:border-[rgb(var(--border-400))] break-all"
-                          >
-                            {cell === null ? <span className="text-slate-500">NULL</span> : String(cell).slice(0, 300)}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <DataTable
+                  columns={result.cols.map((col, j) => ({
+                    key: `col-${j}`,
+                    header: col,
+                    render: (r: unknown[]) => (
+                      <span className="break-all">
+                        {r[j] === null ? <span className="text-slate-500">NULL</span> : String(r[j]).slice(0, 300)}
+                      </span>
+                    ),
+                  })) as DataTableColumn<unknown[]>[]}
+                  rows={result.rows}
+                  rowKey={(_, i) => `row-${i}`}
+                  rowClassName={(_r: unknown[], i: number) => (i % 2 === 1 ? 'even:bg-slate-50/50 dark:even:bg-[rgb(var(--surface-200)/0.5)]' : '')}
+                />
                 {result.rows.length === 0 && <p className="p-3 font-mono text-meta text-slate-500">0 rows.</p>}
               </div>
             )}

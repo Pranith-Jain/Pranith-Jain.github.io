@@ -108,7 +108,7 @@ export default function AsnLookup(): JSX.Element {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="AS15169 or 15169"
-              className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              
             />
           </div>
           <button

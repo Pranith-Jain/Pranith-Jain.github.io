@@ -211,6 +211,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [X/Twitter Hub](https://pranithjain.qzz.io/threatintel/social/x-hub) (threatintel): X/Twitter intelligence - firehose, live stream, and watchlist monitoring.
 - [Dark Web Watch](https://pranithjain.qzz.io/threatintel/darkweb/watch) (threatintel): Dark-web monitoring dashboard.
 - [Darknet Markets Timeline](https://pranithjain.qzz.io/threatintel/darkweb/markets) (threatintel): Darknet market timelines - Empire, Genesis, Hydra successors.
+- [Darknet Directory](https://pranithjain.qzz.io/threatintel/darkweb/darknetlist) (threatintel): Live Tor site directory from darknetlist.is - 108 sites across 9 categories with up/down status and onion URLs.
 - [Breach Forums](https://pranithjain.qzz.io/threatintel/darkweb/forums) (threatintel): Breach forum tracker - posts, threads, user activity.
 - [DeepDarkCTI](https://pranithjain.qzz.io/threatintel/darkweb/deepdark) (threatintel): DeepDark CTI sources - vetted onion feeds.
 - [Cybercrime](https://pranithjain.qzz.io/threatintel/darkweb/crime) (threatintel): Cybercrime ecosystem intelligence - actors, services, pricing.
