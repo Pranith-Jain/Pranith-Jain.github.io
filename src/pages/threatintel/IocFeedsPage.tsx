@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { AlertTriangle, Download, Filter, Rss, Search, Shield } from 'lucide-react';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
+import { AlertTriangle, Filter, Rss, Search, Shield } from 'lucide-react';
 import { IOC_FEEDS, type IocFeed } from '../../data/threatintel/ioc-feeds-data';
-import { sanitizeUrl } from '../../lib/sanitize-url';
 
 const SEVERITIES = ['critical', 'high', 'medium', 'low'] as const;
 const SEV_COLORS: Record<string, string> = {
@@ -113,23 +113,14 @@ export default function IocFeedsPage(): JSX.Element {
 
       <div className="rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))] overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left font-mono text-xs">
-            <thead>
-              <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]">
-                <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider">Severity</th>
-                <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider">Feed</th>
-                <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider">Tags</th>
-                <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider text-right">IOCs</th>
-                <th className="px-4 py-3 text-slate-500 font-semibold uppercase tracking-wider text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((feed) => (
-                <tr
-                  key={feed.id}
-                  className="border-b border-slate-100 dark:border-[rgb(var(--border-400))]/50 hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)] transition-colors"
-                >
-                  <td className="px-4 py-3">
+          <DataTable
+            columns={
+              [
+                {
+                  key: 'severity',
+                  header: 'Severity',
+                  sortValue: (feed: IocFeed) => feed.severity,
+                  render: (feed) => (
                     <span
                       className={`inline-flex items-center gap-1 text-micro font-semibold px-2 py-0.5 rounded border uppercase tracking-wider ${SEV_COLORS[feed.severity]}`}
                     >
@@ -137,12 +128,23 @@ export default function IocFeedsPage(): JSX.Element {
                       {feed.severity === 'high' && <Shield size={9} />}
                       {feed.severity}
                     </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className="text-slate-900 dark:text-slate-100">{feed.title}</span>
-                    <span className="text-slate-500 ml-2">· {feed.date}</span>
-                  </td>
-                  <td className="px-4 py-3">
+                  ),
+                },
+                {
+                  key: 'feed',
+                  header: 'Feed',
+                  sortValue: (feed: IocFeed) => feed.title,
+                  render: (feed) => (
+                    <span>
+                      <span className="text-slate-900 dark:text-slate-100">{feed.title}</span>
+                      <span className="text-slate-500 ml-2">· {feed.date}</span>
+                    </span>
+                  ),
+                },
+                {
+                  key: 'tags',
+                  header: 'Tags',
+                  render: (feed) => (
                     <div className="flex flex-wrap gap-1">
                       {feed.tags.map((tag) => (
                         <span
@@ -153,9 +155,20 @@ export default function IocFeedsPage(): JSX.Element {
                         </span>
                       ))}
                     </div>
-                  </td>
-                  <td className="px-4 py-3 text-right text-slate-700 dark:text-slate-300">{feed.iocCount}</td>
-                  <td className="px-4 py-3 text-right">
+                  ),
+                },
+                {
+                  key: 'iocCount',
+                  header: 'IOCs',
+                  align: 'right',
+                  sortValue: (feed: IocFeed) => feed.iocCount,
+                  render: (feed) => <span className="text-slate-700 dark:text-slate-300">{feed.iocCount}</span>,
+                },
+                {
+                  key: 'actions',
+                  header: 'Actions',
+                  align: 'right',
+                  render: (feed) => (
                     <div className="flex items-center justify-end gap-1.5">
                       <button
                         type="button"
@@ -163,22 +176,16 @@ export default function IocFeedsPage(): JSX.Element {
                         className="inline-flex items-center gap-1 text-micro px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                       >
                         {copiedId === feed.id ? 'copied' : <Filter size={9} />}
-                        {copiedId === feed.id ? 'Copied' : 'Copy URL'}
                       </button>
-                      <a
-                        href={sanitizeUrl(feed.downloadUrl)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-micro px-2 py-1 rounded border border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-500 hover:border-rose-500/50 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
-                      >
-                        <Download size={9} /> Download
-                      </a>
                     </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  ),
+                },
+              ] as DataTableColumn<IocFeed>[]
+            }
+            rows={filtered}
+            rowKey={(feed) => feed.id}
+            rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--input-200)/0.5)]'}
+          />
         </div>
       </div>
 
