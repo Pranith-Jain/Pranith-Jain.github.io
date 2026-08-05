@@ -71,6 +71,20 @@ import { traceixLookup } from '../traceix';
 // Whoxy (reverse WHOIS)
 import { whoxyReverseWhois } from '../whoxy';
 
+// ETDA threat actors (504 APT actors)
+import { loadActorIndex, getActor } from '../etda-actors-manifest';
+// SigBase (Sigma rules + IOC database)
+import { loadSigBaseIndex, filterYara, filterIocs as filterSigBaseIocs } from '../sigbase-manifest';
+// BreachWatch (breach database)
+import { loadBwIndex, getBwBreach, filterBreaches } from '../breach-watch-manifest';
+// Campaigns manifest
+import { loadCampaignsIndex, listCampaigns, getCampaign } from '../campaigns-manifest';
+// Reports manifest
+import { loadReportsIndex, listReports, getReport } from '../reports-manifest';
+// Daily briefs
+import { loadDbIndex, getDbBrief, filterBriefs } from '../daily-briefs-manifest';
+// AI threats
+import { loadAiThreatsIndex, getAiThreat, filterThreats } from '../ai-threats-manifest';
 // depx (supply-chain malicious packages) — uses REST route, not a lib
 // breach_vip_search — uses REST route
 
@@ -1161,6 +1175,224 @@ export function bridgeMcpTools(
     (a) => `/api/v1/username-osint/profile?username=${encodeURIComponent(String(a.username))}`,
     [{ name: 'username', description: 'Username to search', required: true }]
   );
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  ETDA — etda_* (504 APT threat actors)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'etda_list_actors',
+    description:
+      'List APT threat actors from the ETDA Threat Group Cards. 504 actors (416 APT, 54 other, 34 unknown). Filter by category, country, MITRE, or keyword.',
+    params: [
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against slug/name/aliases/description',
+        required: false,
+      },
+      { name: 'limit', type: 'number', description: 'Max actors (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadActorIndex(assets);
+      return idx.actorIndex.slice(0, (args.limit as number) ?? 50);
+    },
+  });
+
+  add({
+    name: 'etda_get_actor',
+    description:
+      'Return the full ETDA threat actor body: aliases, country, sponsor, motivation, observed period, tools, operations, MITRE techniques.',
+    params: [{ name: 'slug', type: 'string', description: 'Actor slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getActor(assets, args.slug as string);
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  SIGBASE — sigbase_* (Sigma rules + IOC database)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'sigbase_list_rules',
+    description: 'List Sigma detection rules from SigBase. Filter by keyword.',
+    params: [
+      { name: 'keyword', type: 'string', description: 'Substring match', required: false },
+      { name: 'limit', type: 'number', description: 'Max rules (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadSigBaseIndex(assets);
+      return filterYara(idx, { keyword: args.keyword as string | undefined, limit: (args.limit as number) ?? 50 });
+    },
+  });
+
+  add({
+    name: 'sigbase_list_iocs',
+    description: 'List IOC entries from SigBase. Filter by type or keyword.',
+    params: [
+      { name: 'keyword', type: 'string', description: 'Substring match', required: false },
+      { name: 'limit', type: 'number', description: 'Max IOCs (default 100)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadSigBaseIndex(assets);
+      return filterSigBaseIocs(idx, {
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 100,
+      });
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  BREACHWATCH — bw_* (breach database)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'bw_list_breaches',
+    description: 'List recent breach disclosures from BreachWatch. Filter by category, severity, or keyword.',
+    params: [
+      { name: 'keyword', type: 'string', description: 'Substring match against title/description', required: false },
+      { name: 'limit', type: 'number', description: 'Max breaches (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadBwIndex(assets);
+      return filterBreaches(idx, { keyword: args.keyword as string | undefined, limit: (args.limit as number) ?? 50 });
+    },
+  });
+
+  add({
+    name: 'bw_get_breach',
+    description: 'Get a specific breach disclosure by slug from BreachWatch.',
+    params: [{ name: 'slug', type: 'string', description: 'Breach slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getBwBreach(assets, args.slug as string);
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  CAMPAIGNS — campaigns_* (threat campaigns)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'campaigns_list',
+    description: 'List threat campaigns from the campaigns manifest. Filter by status, category, or keyword.',
+    params: [
+      { name: 'keyword', type: 'string', description: 'Substring match against title/description', required: false },
+      { name: 'limit', type: 'number', description: 'Max campaigns (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCampaignsIndex(assets);
+      return listCampaigns(idx, { keyword: args.keyword as string | undefined, limit: (args.limit as number) ?? 50 });
+    },
+  });
+
+  add({
+    name: 'campaigns_get',
+    description: 'Get a specific threat campaign by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'Campaign slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCampaignsIndex(assets);
+      return getCampaign(idx, args.slug as string);
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  REPORTS — reports_* (threat intel reports)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'reports_list',
+    description: 'List threat intelligence reports. Filter by category or keyword.',
+    params: [
+      { name: 'keyword', type: 'string', description: 'Substring match against title/summary', required: false },
+      { name: 'limit', type: 'number', description: 'Max reports (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadReportsIndex(assets);
+      return listReports(idx, { keyword: args.keyword as string | undefined, limit: (args.limit as number) ?? 50 });
+    },
+  });
+
+  add({
+    name: 'reports_get',
+    description: 'Get a specific threat intelligence report by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'Report slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadReportsIndex(assets);
+      return getReport(idx, args.slug as string);
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  DAILY BRIEFS — db_* (AI-generated intelligence briefs)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'db_list_briefs',
+    description:
+      'List available daily intelligence briefs (cyber, deepfake, disaster, maritime). Filter by type or date range.',
+    params: [
+      { name: 'type', type: 'string', description: 'Brief type: cyber, deepfake, disaster, maritime', required: false },
+      { name: 'limit', type: 'number', description: 'Max briefs (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadDbIndex(assets);
+      return filterBriefs(idx, { type: args.type as any, limit: (args.limit as number) ?? 50 });
+    },
+  });
+
+  add({
+    name: 'db_get_brief',
+    description:
+      'Get a specific daily intelligence brief by type and date. Use db_list_briefs first to discover dates.',
+    params: [
+      { name: 'type', type: 'string', description: 'Brief type: cyber, deepfake, disaster, maritime', required: true },
+      { name: 'date', type: 'string', description: 'Brief date (YYYY-MM-DD)', required: true },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getDbBrief(assets, args.type as any, args.date as string);
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  AI THREATS — ai_threats_* (AI/LLM-related threats)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'ai_threats_list',
+    description:
+      'List AI/LLM-related threats (prompt injection, model theft, data poisoning). Filter by category or keyword.',
+    params: [
+      { name: 'keyword', type: 'string', description: 'Substring match', required: false },
+      { name: 'limit', type: 'number', description: 'Max threats (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadAiThreatsIndex(assets);
+      return filterThreats(idx, { keyword: args.keyword as string | undefined, limit: (args.limit as number) ?? 50 });
+    },
+  });
+
+  add({
+    name: 'ai_threats_get',
+    description: 'Get a specific AI/LLM threat by slug.',
+    params: [{ name: 'slug', type: 'string', description: 'Threat slug', required: true }],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getAiThreat(assets, args.slug as string);
+    },
+  });
 
   return tools;
 }

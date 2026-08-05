@@ -717,6 +717,8 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'get_ransomware_group_profile',
     'get_ransomware_activity',
     'get_victim_releaks',
+    'etda_list_actors',
+    'etda_get_actor',
   ],
   vulnerability: [
     'lookup_cve',
@@ -779,6 +781,8 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'build_stix_bundle',
     'lookup_mitre',
     'generate_ir_playbook',
+    'sigbase_list_rules',
+    'sigbase_list_iocs',
   ],
   phishing: ['analyze_phishing_url', 'analyze_phishing_email', 'check_ioc', 'lookup_domain'],
   ransomware: [
@@ -826,6 +830,8 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'hr_search_username',
     'hr_domain_overview',
     'hr_third_party_risk',
+    'bw_list_breaches',
+    'bw_get_breach',
   ],
   'strategic-intel': [
     'get_threat_pulse',
@@ -835,6 +841,14 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'get_supply_chain_attacks',
     'get_ransomware_stats',
     'get_cyber_crime_news',
+    'campaigns_list',
+    'campaigns_get',
+    'reports_list',
+    'reports_get',
+    'db_list_briefs',
+    'db_get_brief',
+    'ai_threats_list',
+    'ai_threats_get',
   ],
   'supply-chain': [
     'depx_feed',
