@@ -45,6 +45,11 @@ interface XLiveResponse {
   enrichment_failures?: number;
   stale?: boolean;
   items: LiveTweet[];
+  /** Ransomware + breach claims extracted from the enriched tweet text. */
+  claims?: {
+    ransomware: Array<{ victim: string; group: string; discovered: string; source_url: string; country?: string }>;
+    breach: Array<{ text: string; discovered: string; source_url: string; handle: string }>;
+  };
 }
 
 function formatTimeAgo(iso: string | number): string {
@@ -316,7 +321,7 @@ export default function XLive(): JSX.Element {
       {/* Extracted ransomware + breach claims from FalconFeeds/@DailyDarkWeb.
           Parsed server-side by /api/v1/x-claims — the free-text posts are
           triaged into structured victim/group/country rows. */}
-      <XClaimsPanel />
+      <XClaimsPanel fallback={data?.claims} />
 
       {!loading && data && filtered.length === 0 && (
         <p className="text-xs font-mono text-slate-500 rounded border border-dashed border-slate-300 dark:border-[rgb(var(--border-400))] p-4 text-center">

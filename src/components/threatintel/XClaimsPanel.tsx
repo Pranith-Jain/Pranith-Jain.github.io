@@ -46,7 +46,17 @@ function timeAgo(iso: string): string {
   return `${Math.round(hrs / 24)}d ago`;
 }
 
-export function XClaimsPanel() {
+interface XClaimsPanelProps {
+  /** Optional fallback claims from the x-live route (fxtwitter-enriched).
+   * Rendered when the authed /api/v1/x-claims route returns nothing (X cookies
+   * expired) so the panel stays populated via the free TweetFeed path. */
+  fallback?: {
+    ransomware: { victim: string; group: string; discovered: string; source_url: string; country?: string }[];
+    breach: { text: string; discovered: string; source_url: string; handle: string }[];
+  };
+}
+
+export function XClaimsPanel({ fallback }: XClaimsPanelProps = {}) {
   const [data, setData] = useState<XClaimsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<Tab>('ransomware');
@@ -55,15 +65,30 @@ export function XClaimsPanel() {
     let alive = true;
     (async () => {
       const res = await fetchJsonOrNull<XClaimsResponse>('/api/v1/x-claims');
-      if (alive) {
+      if (!alive) return;
+      // Fall back to the x-live route's free-text claims (fxtwitter-enriched)
+      // when the authed x-claims route returns nothing — keeps the panel
+      // populated even when X cookies are expired.
+      if (!res || (res.ransomware.length === 0 && res.breach.length === 0)) {
+        if (fallback && (fallback.ransomware.length > 0 || fallback.breach.length > 0)) {
+          setData({
+            generated_at: new Date().toISOString(),
+            handles: [],
+            ransomware: fallback.ransomware,
+            breach: fallback.breach,
+          });
+        } else {
+          setData(res);
+        }
+      } else {
         setData(res);
-        setLoading(false);
       }
+      setLoading(false);
     })();
     return () => {
       alive = false;
     };
-  }, []);
+  }, [fallback]);
 
   const ransomware = data?.ransomware ?? [];
   const breach = data?.breach ?? [];

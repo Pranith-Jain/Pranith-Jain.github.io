@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { classifySocialClaim } from '../lib/social-claim-parser';
 import { logError } from '../lib/logger';
 import { badGateway } from '../lib/api-error';
 import { readLastGood, writeLastGood } from '../lib/lastgood';
@@ -101,6 +102,13 @@ export interface XLiveResponse {
   enrichment_failures?: number;
   stale?: boolean;
   items: LiveTweet[];
+  /** Ransomware + breach claims extracted from the enriched tweet text via
+   * classifySocialClaim. Works without X auth (uses fxtwitter text), so the
+   * claims panel renders even when the authed x-claims route is down. */
+  claims?: {
+    ransomware: Array<{ victim: string; group: string; discovered: string; source_url: string; country?: string }>;
+    breach: Array<{ text: string; discovered: string; source_url: string; handle: string }>;
+  };
 }
 
 /** Parse a single CSV row from TweetFeed: ts,user,type,value,tags,permalink. */
@@ -286,6 +294,50 @@ export async function fetchXLive(options: {
   }
   const items = enriched.filter((x): x is LiveTweet => x !== null).sort((a, b) => b.created_at_ms - a.created_at_ms);
   const lookedUp = ordered.length;
+
+  // Extract ransomware + breach claims from the enriched tweet text. This runs
+  // the same classifySocialClaim parser as the authed x-claims route, but on
+  // the free fxtwitter-enriched text — so the claims panel renders even when
+  // X cookies are expired and the authed timeline fetch fails.
+  const ransByKey = new Map<
+    string,
+    { victim: string; group: string; discovered: string; source_url: string; country?: string }
+  >();
+  const breachByKey = new Map<string, { text: string; discovered: string; source_url: string; handle: string }>();
+  for (const t of items) {
+    if (!t.text) continue;
+    const claim = classifySocialClaim(t.text);
+    if (claim.kind === 'other') continue;
+    const discovered = new Date(t.created_at_ms).toISOString();
+    const day = discovered.slice(0, 10);
+    if (claim.kind === 'ransomware' && claim.victim && claim.group) {
+      const key = `${claim.group.toLowerCase()}|${claim.victim.toLowerCase()}|${day}`;
+      if (!ransByKey.has(key)) {
+        ransByKey.set(key, {
+          victim: claim.victim,
+          group: claim.group.toLowerCase(),
+          discovered,
+          source_url: t.url,
+          ...(claim.country ? { country: claim.country } : {}),
+        });
+      }
+    } else if (claim.kind === 'breach') {
+      const key = `${t.author.screen_name.toLowerCase()}|${t.text.slice(0, 80).toLowerCase()}|${day}`;
+      if (!breachByKey.has(key)) {
+        breachByKey.set(key, {
+          text: t.text.slice(0, 300),
+          discovered,
+          source_url: t.url,
+          handle: t.author.screen_name,
+        });
+      }
+    }
+  }
+  const claims = {
+    ransomware: [...ransByKey.values()],
+    breach: [...breachByKey.values()],
+  };
+
   return {
     generated_at: new Date().toISOString(),
     source: 'tweetfeed→fxtwitter hybrid',
@@ -294,6 +346,7 @@ export async function fetchXLive(options: {
     enriched_count: items.length,
     enrichment_failures: lookedUp > 0 ? lookedUp - items.length : undefined,
     items,
+    claims,
   };
 }
 
@@ -427,6 +480,32 @@ export async function xLiveHandler(c: Context<{ Bindings: Env }>): Promise<Respo
       fallback.stale = true;
       fallback.generated_at = new Date().toISOString();
       fallback.since_hours = sinceHours;
+      // Re-classify claims on the fallback items so the panel stays populated.
+      if (!fallback.claims) {
+        const rans: { victim: string; group: string; discovered: string; source_url: string; country?: string }[] = [];
+        const breach: { text: string; discovered: string; source_url: string; handle: string }[] = [];
+        for (const t of fallback.items) {
+          if (!t.text) continue;
+          const c = classifySocialClaim(t.text);
+          if (c.kind === 'ransomware' && c.victim && c.group) {
+            rans.push({
+              victim: c.victim,
+              group: c.group.toLowerCase(),
+              discovered: new Date(t.created_at_ms).toISOString(),
+              source_url: t.url,
+              ...(c.country ? { country: c.country } : {}),
+            });
+          } else if (c.kind === 'breach') {
+            breach.push({
+              text: t.text.slice(0, 300),
+              discovered: new Date(t.created_at_ms).toISOString(),
+              source_url: t.url,
+              handle: t.author.screen_name,
+            });
+          }
+        }
+        fallback.claims = { ransomware: rans, breach };
+      }
       body = fallback;
     }
   }
