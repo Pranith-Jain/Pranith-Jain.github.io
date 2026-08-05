@@ -1,3 +1,4 @@
+import { logCatch } from '../../lib/log';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   getJson,
@@ -117,7 +118,7 @@ export default function PublishedTab() {
       }
       setSocial(initial);
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setError(e instanceof Error ? e.message : 'failed to load');
     } finally {
       setLoading(false);
@@ -201,7 +202,7 @@ export default function PublishedTab() {
         setSocialAndExpand(slug, { loadingTwitter: false, error: r.error ?? 'failed' });
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setSocialAndExpand(slug, { loadingTwitter: false, error: e instanceof Error ? e.message : String(e) });
     }
   }
@@ -238,7 +239,7 @@ export default function PublishedTab() {
         setSocialAndExpand(slug, { loadingLinkedin: false, error: r.error ?? 'failed' });
       }
     } catch (e) {
-      console.error('handler failed:', e instanceof Error ? e.message : String(e));
+      logCatch(e);
       setSocialAndExpand(slug, { loadingLinkedin: false, error: e instanceof Error ? e.message : String(e) });
     }
   }

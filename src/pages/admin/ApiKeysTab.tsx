@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { getJson, postJsonWithBody } from './adminApi';
 import { adminAuthHeaders } from '../../lib/admin-token';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 
 interface ApiKey {
   id: string;
@@ -178,60 +179,24 @@ export default function ApiKeysTab() {
           <p className="text-sm text-slate-600 dark:text-slate-500">No API keys yet. Create one above.</p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-left text-xs text-slate-600 dark:text-slate-500 uppercase tracking-wider">
-                  <th scope="col" className="pb-2 pr-4">
-                    Prefix
-                  </th>
-                  <th scope="col" className="pb-2 pr-4">
-                    Label
-                  </th>
-                  <th scope="col" className="pb-2 pr-4">
-                    Role
-                  </th>
-                  <th scope="col" className="pb-2 pr-4">
-                    Created
-                  </th>
-                  <th scope="col" className="pb-2 pr-4">
-                    Last Used
-                  </th>
-                  <th scope="col" className="pb-2"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {keys.map((k) => (
-                  <tr key={k.id} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                    <td className="py-3 pr-4 font-mono text-slate-700 dark:text-slate-300">{k.prefix}…</td>
-                    <td className="py-3 pr-4 text-slate-800 dark:text-slate-200">{k.label}</td>
-                    <td className="py-3 pr-4">
-                      <span
-                        className={`px-2 py-0.5 rounded text-xs font-medium ${
-                          k.role === 'admin'
-                            ? 'bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-300 dark:border-amber-500/30'
-                            : 'bg-sky-100 dark:bg-sky-500/10 text-sky-400 border border-sky-300 dark:border-sky-500/30'
-                        }`}
-                      >
-                        {k.role}
-                      </span>
-                    </td>
-                    <td className="py-3 pr-4 text-slate-500 dark:text-slate-400 text-xs">{formatDate(k.created_at)}</td>
-                    <td className="py-3 pr-4 text-slate-500 dark:text-slate-400 text-xs">
-                      {formatDate(k.last_used_at)}
-                    </td>
-                    <td className="py-3">
-                      <button
-                        onClick={() => handleRevoke(k.id)}
-                        disabled={revoking === k.id}
-                        className="px-2 py-1 text-xs text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/50 rounded hover:bg-rose-50 dark:hover:bg-rose-950/30 disabled:opacity-50"
-                      >
-                        {revoking === k.id ? 'Revoking…' : 'Revoke'}
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <DataTable
+              columns={[
+                { key: 'prefix', header: 'Prefix', sortValue: (k: typeof keys[number]) => k.prefix, render: (k) => <span className="font-mono text-slate-700 dark:text-slate-300">{k.prefix}…</span> },
+                { key: 'label', header: 'Label', sortValue: (k: typeof keys[number]) => k.label, render: (k) => <span className="text-slate-800 dark:text-slate-200">{k.label}</span> },
+                { key: 'role', header: 'Role', sortValue: (k: typeof keys[number]) => k.role, render: (k) => (
+                  <span className={`px-2 py-0.5 rounded text-xs font-medium ${k.role === 'admin' ? 'bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-300 dark:border-amber-500/30' : 'bg-sky-100 dark:bg-sky-500/10 text-sky-400 border border-sky-300 dark:border-sky-500/30'}`}>{k.role}</span>
+                ) },
+                { key: 'created', header: 'Created', sortValue: (k: typeof keys[number]) => k.created_at, render: (k) => <span className="text-slate-500 dark:text-slate-400 text-xs">{formatDate(k.created_at)}</span> },
+                { key: 'last_used', header: 'Last Used', sortValue: (k: typeof keys[number]) => k.last_used_at ?? '', render: (k) => <span className="text-slate-500 dark:text-slate-400 text-xs">{formatDate(k.last_used_at)}</span> },
+                { key: 'actions', header: '', render: (k) => (
+                  <button onClick={() => handleRevoke(k.id)} disabled={revoking === k.id} className="px-2 py-1 text-xs text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/50 rounded hover:bg-rose-50 dark:hover:bg-rose-950/30 disabled:opacity-50">
+                    {revoking === k.id ? 'Revoking…' : 'Revoke'}
+                  </button>
+                ) },
+              ] as DataTableColumn<typeof keys[number]>[]}
+              rows={keys}
+              rowKey={(k) => String(k.id)}
+            />
           </div>
         )}
       </section>

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Users, ExternalLink, FileCode, ChevronDown, ChevronRight, Loader2 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
@@ -232,43 +233,23 @@ function FolderRow({ folder }: FolderRowProps): JSX.Element {
 
               {data.iocs.length > 0 && (
                 <div className="overflow-x-auto">
-                  <table className="w-full text-xs">
-                    <thead>
-                      <tr className="text-left text-slate-500 dark:text-slate-400 font-mono">
-                        <th className="py-1 pr-3 font-normal">indicator</th>
-                        <th className="py-1 pr-3 font-normal">type</th>
-                        <th className="py-1 font-normal">context</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.iocs.slice(0, 2000).map((ioc, i) => (
-                        <tr
-                          key={`${ioc.value}-${i}`}
-                          className="border-t border-slate-200/70 dark:border-[rgb(var(--border-400))]/70 align-top"
-                        >
-                          <td className="py-1 pr-3 font-mono break-all text-slate-800 dark:text-slate-200">
-                            {pivotable(ioc.kind) ? (
-                              <Link
-                                to={`/dfir/ioc-check?indicator=${encodeURIComponent(ioc.value)}`}
-                                className="hover:text-rose-600 dark:hover:text-rose-400"
-                                title="Pivot to IOC checker"
-                              >
-                                {ioc.value} →
-                              </Link>
-                            ) : (
-                              ioc.value
-                            )}
-                          </td>
-                          <td className="py-1 pr-3 font-mono whitespace-nowrap">
-                            <span className={`px-1.5 py-0.5 rounded border ${KIND_TONE[ioc.kind] ?? KIND_TONE.other}`}>
-                              {ioc.entity_type || ioc.kind}
-                            </span>
-                          </td>
-                          <td className="py-1 text-slate-500 dark:text-slate-400">{ioc.description}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  <DataTable
+                    columns={[
+                      { key: 'indicator', header: 'indicator', sortValue: (ioc: typeof data.iocs[number]) => ioc.value, render: (ioc) => (
+                        <span className="font-mono break-all text-slate-800 dark:text-slate-200">
+                          {pivotable(ioc.kind) ? (
+                            <Link to={`/dfir/ioc-check?indicator=${encodeURIComponent(ioc.value)}`} className="hover:text-rose-600 dark:hover:text-rose-400" title="Pivot to IOC checker">{ioc.value} →</Link>
+                          ) : ioc.value}
+                        </span>
+                      ) },
+                      { key: 'type', header: 'type', sortValue: (ioc: typeof data.iocs[number]) => ioc.kind, render: (ioc) => (
+                        <span className={`px-1.5 py-0.5 rounded border ${KIND_TONE[ioc.kind] ?? KIND_TONE.other}`}>{ioc.entity_type || ioc.kind}</span>
+                      ) },
+                      { key: 'context', header: 'context', render: (ioc) => <span className="text-slate-500 dark:text-slate-400">{ioc.description}</span> },
+                    ] as DataTableColumn<typeof data.iocs[number]>[]}
+                    rows={data.iocs.slice(0, 2000)}
+                    rowKey={(ioc, i) => `${ioc.value}-${i}`}
+                  />
                 </div>
               )}
 

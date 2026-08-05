@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getJson, postJson } from './adminApi';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { SearchFilter } from './SearchFilter';
 
 interface FailureRecord {
@@ -113,57 +114,22 @@ export default function FailedTab() {
               </button>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                  <tr>
-                    <th scope="col" className="py-2 pr-4">
-                      Slot ID
-                    </th>
-                    <th scope="col" className="py-2 pr-4">
-                      Candidate ID
-                    </th>
-                    <th scope="col" className="py-2 pr-4">
-                      Error
-                    </th>
-                    <th scope="col" className="py-2 pr-4">
-                      Failed at
-                    </th>
-                    <th scope="col" className="py-2 pr-4">
-                      Retries
-                    </th>
-                    <th scope="col" className="py-2">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {shown.map((f) => (
-                    <tr
-                      key={`${f.slotId}-${f.failedAt}`}
-                      className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] align-top"
-                    >
-                      <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400">{f.slotId}</td>
-                      <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400">
-                        {f.candidateId}
-                      </td>
-                      <td className="py-2 pr-4 text-rose-700 dark:text-rose-300 max-w-md break-words">{f.error}</td>
-                      <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
-                        {new Date(f.failedAt).toLocaleString()}
-                      </td>
-                      <td className="py-2 pr-4 text-slate-700 dark:text-slate-300 tabular-nums">{f.retries}</td>
-                      <td className="py-2">
-                        <button
-                          onClick={() => clearOne(f.slotId)}
-                          disabled={busy === f.slotId}
-                          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
-                        >
-                          {busy === f.slotId ? '…' : 'Clear'}
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <DataTable
+                columns={[
+                  { key: 'slotId', header: 'Slot ID', sortValue: (f: typeof shown[number]) => f.slotId, render: (f) => <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{f.slotId}</span> },
+                  { key: 'candidateId', header: 'Candidate ID', sortValue: (f: typeof shown[number]) => f.candidateId, render: (f) => <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{f.candidateId}</span> },
+                  { key: 'error', header: 'Error', sortValue: (f: typeof shown[number]) => f.error, render: (f) => <span className="text-rose-700 dark:text-rose-300 max-w-md break-words">{f.error}</span> },
+                  { key: 'failedAt', header: 'Failed at', sortValue: (f: typeof shown[number]) => f.failedAt, render: (f) => <span className="text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">{new Date(f.failedAt).toLocaleString()}</span> },
+                  { key: 'retries', header: 'Retries', align: 'right', sortValue: (f: typeof shown[number]) => f.retries, render: (f) => <span className="text-slate-700 dark:text-slate-300 tabular-nums">{f.retries}</span> },
+                  { key: 'actions', header: 'Actions', render: (f) => (
+                    <button onClick={() => clearOne(f.slotId)} disabled={busy === f.slotId} className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50">
+                      {busy === f.slotId ? '…' : 'Clear'}
+                    </button>
+                  ) },
+                ] as DataTableColumn<typeof shown[number]>[]}
+                rows={shown}
+                rowKey={(f) => `${f.slotId}-${f.failedAt}`}
+              />
             </div>
           </div>
         );
