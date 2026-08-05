@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getJson, postJson, postJsonWithBody } from './adminApi';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 
 interface Candidate {
   key: string;
@@ -115,56 +116,63 @@ export default function ApprovedTab() {
         </p>
       )}
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-            <tr>
-              <th scope="col" className="py-2 pr-4">
-                Type
-              </th>
-              <th scope="col" className="py-2 pr-4">
-                Title
-              </th>
-              <th scope="col" className="py-2 pr-4">
-                Score
-              </th>
-              <th scope="col" className="py-2">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {approved.map((c) => (
-              <tr key={c.key} className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{c.type}</td>
-                <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{c.title}</td>
-                <td className="py-2 pr-4 text-slate-700 dark:text-slate-300 tabular-nums">{c.score.toFixed(2)}</td>
-                <td className="py-2 flex gap-2">
-                  <button
-                    onClick={() => publishNow(c.key)}
-                    disabled={publishing === c.key}
-                    className="px-2 py-1 border border-emerald-700 rounded text-xs hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
-                  >
-                    {publishing === c.key ? 'Publishing…' : 'Publish now'}
-                  </button>
-                  <button
-                    onClick={() => publishSoon(c.key)}
-                    disabled={publishing === c.key}
-                    className="px-2 py-1 border border-sky-700 rounded text-xs hover:bg-sky-50 dark:hover:bg-sky-900/30 disabled:opacity-50"
-                    title="Queue for the next hourly publish (≤1h)"
-                  >
-                    Publish soon
-                  </button>
-                  <button
-                    onClick={() => unapprove(c.key)}
-                    className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
-                  >
-                    Unapprove
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DataTable
+          columns={
+            [
+              {
+                key: 'type',
+                header: 'Type',
+                sortValue: (c: Candidate) => c.type,
+                render: (c) => <span className="text-slate-500 dark:text-slate-400 uppercase text-xs">{c.type}</span>,
+              },
+              {
+                key: 'title',
+                header: 'Title',
+                sortValue: (c: Candidate) => c.title,
+                render: (c) => <span className="text-slate-900 dark:text-slate-100">{c.title}</span>,
+              },
+              {
+                key: 'score',
+                header: 'Score',
+                sortValue: (c: Candidate) => c.score,
+                render: (c) => (
+                  <span className="text-slate-700 dark:text-slate-300 tabular-nums">{c.score.toFixed(2)}</span>
+                ),
+              },
+              {
+                key: 'actions',
+                header: 'Actions',
+                render: (c) => (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => publishNow(c.key)}
+                      disabled={publishing === c.key}
+                      className="px-2 py-1 border border-emerald-700 rounded text-xs hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
+                    >
+                      {publishing === c.key ? 'Publishing…' : 'Publish now'}
+                    </button>
+                    <button
+                      onClick={() => publishSoon(c.key)}
+                      disabled={publishing === c.key}
+                      className="px-2 py-1 border border-sky-700 rounded text-xs hover:bg-sky-50 dark:hover:bg-sky-900/30 disabled:opacity-50"
+                      title="Queue for the next hourly publish (≤1h)"
+                    >
+                      Publish soon
+                    </button>
+                    <button
+                      onClick={() => unapprove(c.key)}
+                      className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                    >
+                      Unapprove
+                    </button>
+                  </div>
+                ),
+              },
+            ] as DataTableColumn<Candidate>[]
+          }
+          rows={approved}
+          rowKey={(c) => c.key}
+        />
       </div>
     </div>
   );
