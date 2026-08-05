@@ -31,7 +31,7 @@ function makeStep(): AgentStep {
 
 describe('selfEvaluateReport', () => {
   it('returns null when all providers are exhausted', async () => {
-    vi.mocked(runCompletion).mockResolvedValue({ text: '', provider: 'google', model: 'gemini-2.0-flash' });
+    vi.mocked(runCompletion).mockResolvedValue({ text: '', provider: 'google', modelUsed: 'gemini-2.0-flash' });
     const result = await selfEvaluateReport({} as never, 'test query', 'ip', 'test report', [makeStep()], {
       googleKey: 'test',
       groqKey: 'test',
@@ -54,7 +54,7 @@ describe('selfEvaluateReport', () => {
     vi.mocked(runCompletion).mockResolvedValueOnce({
       text: `\`\`\`json\n${JSON.stringify(mockResponse)}\n\`\`\``,
       provider: 'google',
-      model: 'gemini-2.0-flash',
+      modelUsed: 'gemini-2.0-flash',
     });
 
     const result = await selfEvaluateReport({} as never, 'test query', 'ip', 'test report', [makeStep()], {
@@ -84,7 +84,7 @@ describe('selfEvaluateReport', () => {
     vi.mocked(runCompletion).mockResolvedValueOnce({
       text: JSON.stringify(mockResponse),
       provider: 'groq',
-      model: 'llama-3.3-70b-versatile',
+      modelUsed: 'llama-3.3-70b-versatile',
     });
 
     const result = await selfEvaluateReport({} as never, 'test', 'ip', 'report', [makeStep()], { groqKey: 'test' });
@@ -96,14 +96,14 @@ describe('selfEvaluateReport', () => {
 
   it('falls through to next provider on parse failure', async () => {
     vi.mocked(runCompletion)
-      .mockResolvedValueOnce({ text: 'not json', provider: 'google', model: 'gemini-2.0-flash' })
+      .mockResolvedValueOnce({ text: 'not json', provider: 'google', modelUsed: 'gemini-2.0-flash' })
       .mockResolvedValueOnce({
         text: JSON.stringify({
           axes: Array(5).fill({ axis: 'accuracy', score: 3, evidence: 'test', improvement: 'test' }),
           topGap: 'test',
         }),
         provider: 'groq',
-        model: 'llama-3.3-70b-versatile',
+        modelUsed: 'llama-3.3-70b-versatile',
       });
 
     const result = await selfEvaluateReport({} as never, 'test', 'ip', 'report', [makeStep()], {
@@ -119,7 +119,7 @@ describe('selfEvaluateReport', () => {
     vi.mocked(runCompletion).mockResolvedValueOnce({
       text: JSON.stringify({ axes: [{ axis: 'accuracy', score: 4, evidence: 'test', improvement: 'test' }] }),
       provider: 'google',
-      model: 'gemini-2.0-flash',
+      modelUsed: 'gemini-2.0-flash',
     });
 
     const result = await selfEvaluateReport({} as never, 'test', 'ip', 'report', [makeStep()], { googleKey: 'test' });

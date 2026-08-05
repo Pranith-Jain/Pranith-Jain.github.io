@@ -54,6 +54,11 @@ export interface CompletionInput {
 export interface CompletionOutput {
   text: string;
   modelUsed: string;
+  /** Provider that produced this output (e.g. "google", "groq"). Optional —
+   *  set by some callers for logging, not by the core runCompletion path. */
+  provider?: string;
+  /** Model name (alias for modelUsed in tests). */
+  model?: string;
 }
 
 export interface CompletionOpts {

@@ -48,7 +48,7 @@ describe('xFirehoseProbeBatchHandler', () => {
   it('returns 400 when there are no valid handles', async () => {
     const res = await run({ handles: ['bad handle!', ''] });
     expect(res.status).toBe(400);
-    expect(res.body.error).toBe('no valid handles');
+    expect(res.body.error).toBe('bad_request');
     expect(mockFetch).not.toHaveBeenCalled();
   });
 
