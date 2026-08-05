@@ -751,7 +751,14 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'generate_yara_rule',
     'generate_hunting_queries',
   ],
-  'malware-analysis': ['sample_scan', 'malware_family_detail', 'search_triage', 'search_malpedia', 'traceix_lookup', 'dn_bazaar_hash'],
+  'malware-analysis': [
+    'sample_scan',
+    'malware_family_detail',
+    'search_triage',
+    'search_malpedia',
+    'traceix_lookup',
+    'dn_bazaar_hash',
+  ],
   'detection-rules': [
     'generate_yara_rule',
     'generate_hunting_queries',

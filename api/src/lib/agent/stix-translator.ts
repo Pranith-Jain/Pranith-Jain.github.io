@@ -86,7 +86,8 @@ const INTENT_PATTERNS: Array<{ pattern: RegExp; intent: StixQueryIntent; entityK
   },
   { pattern: /\b(operation|campaign)\s+\w+/i, intent: 'campaign', entityKey: 'campaign' },
   {
-    pattern: /\b(npm|pypi|gem|cargo|nuget|maven|dependency|dependencies|package|supply\s*chain|malicious\s*package|ossf)\b/i,
+    pattern:
+      /\b(npm|pypi|gem|cargo|nuget|maven|dependency|dependencies|package|supply\s*chain|malicious\s*package|ossf)\b/i,
     intent: 'supply_chain',
     entityKey: 'package',
   },

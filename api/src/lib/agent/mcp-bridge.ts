@@ -764,7 +764,8 @@ export function bridgeMcpTools(
   dnGet(
     'dn_threatfox_tag',
     'Get ThreatFox IOCs by tag. Returns all IOCs tagged with the given value.',
-    (a) => `/api/v1/darknet-intel/abusech/threatfox-tag?tag=${encodeURIComponent(String(a.tag))}${a.limit ? `&limit=${a.limit}` : ''}`,
+    (a) =>
+      `/api/v1/darknet-intel/abusech/threatfox-tag?tag=${encodeURIComponent(String(a.tag))}${a.limit ? `&limit=${a.limit}` : ''}`,
     [
       { name: 'tag', description: 'Tag to search', required: true },
       { name: 'limit', description: 'Max results', required: false },
@@ -793,7 +794,8 @@ export function bridgeMcpTools(
   dnGet(
     'dn_bazaar_tag',
     'Get MalwareBazaar samples by tag.',
-    (a) => `/api/v1/darknet-intel/abusech/bazaar-tag?tag=${encodeURIComponent(String(a.tag))}${a.limit ? `&limit=${a.limit}` : ''}`,
+    (a) =>
+      `/api/v1/darknet-intel/abusech/bazaar-tag?tag=${encodeURIComponent(String(a.tag))}${a.limit ? `&limit=${a.limit}` : ''}`,
     [
       { name: 'tag', description: 'Tag to search', required: true },
       { name: 'limit', description: 'Max results', required: false },
@@ -852,7 +854,8 @@ export function bridgeMcpTools(
   dnGet(
     'dn_pulsedive_indicator',
     'Look up an indicator (IP, domain, URL, or hash) on Pulsedive: risk level, threats, feeds, linked indicators. Free, no key.',
-    (a) => `/api/v1/darknet-intel/pulsedive/indicator?type=${a.type ?? 'ip'}&value=${encodeURIComponent(String(a.value))}`,
+    (a) =>
+      `/api/v1/darknet-intel/pulsedive/indicator?type=${a.type ?? 'ip'}&value=${encodeURIComponent(String(a.value))}`,
     [
       { name: 'type', description: 'Indicator type: ip, domain, url, hash', required: true },
       { name: 'value', description: 'Indicator value', required: true },

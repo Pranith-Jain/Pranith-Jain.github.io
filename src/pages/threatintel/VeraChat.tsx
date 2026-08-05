@@ -1094,9 +1094,7 @@ export default function VeraChat(): JSX.Element {
                                 ) : null;
                               })()}
                               <DetectionGenerate context={msg.content ?? ''} />
-                              {selfEval && i === chatMessages.length - 1 && (
-                                <SelfEvalScorecard selfEval={selfEval} />
-                              )}
+                              {selfEval && i === chatMessages.length - 1 && <SelfEvalScorecard selfEval={selfEval} />}
                             </>
                           )}
                         </div>
