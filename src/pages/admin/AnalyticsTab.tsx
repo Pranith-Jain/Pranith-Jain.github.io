@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getSocialAnalytics, saveSocialMetrics } from './adminApi';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import type {
   SocialAnalyticsPost,
   SocialAnalyticsByType,
@@ -12,15 +13,6 @@ import type {
 function fmtNum(n: number | undefined): string {
   if (n == null) return '-';
   return n.toLocaleString();
-}
-
-function fmtDate(iso: string): string {
-  try {
-    return new Date(iso).toLocaleString();
-  } catch (_catchErr) {
-    console.error('fmtDate failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return iso;
-  }
 }
 
 /** Simple bar as a CSS-width div. `value` is already the max in the set. */
@@ -235,54 +227,23 @@ function ByTypeTable({ rows }: { rows: SocialAnalyticsByType[] }) {
         What performs - by content type
       </h2>
       <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
-        <table className="w-full text-sm">
-          <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)]">
-            <tr>
-              <th scope="col" className="px-3 py-2 pr-4">
-                Type
-              </th>
-              <th scope="col" className="px-3 py-2 pr-4 text-right">
-                Posts
-              </th>
-              <th scope="col" className="px-3 py-2 pr-4 text-right">
-                Avg engagement
-              </th>
-              <th scope="col" className="px-3 py-2 pr-4 text-right">
-                Total engagement
-              </th>
-              <th scope="col" className="px-3 py-2 text-right">
-                Total impressions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr
-                key={row.type}
-                className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]"
-              >
-                <td className="px-3 py-2 pr-4 font-mono text-xs uppercase text-slate-700 dark:text-slate-300">
-                  {row.type}
-                </td>
-                <td className="px-3 py-2 pr-4 text-right text-slate-600 dark:text-slate-400">{row.posts}</td>
-                <td className="px-3 py-2 pr-4 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <EngagementBar value={row.avgEngagement} max={maxAvg} />
-                    <span className="text-slate-900 dark:text-slate-100 tabular-nums">
-                      {row.avgEngagement.toFixed(1)}
-                    </span>
-                  </div>
-                </td>
-                <td className="px-3 py-2 pr-4 text-right tabular-nums text-slate-700 dark:text-slate-300">
-                  {row.totalEngagement.toLocaleString()}
-                </td>
-                <td className="px-3 py-2 text-right tabular-nums text-slate-700 dark:text-slate-300">
-                  {fmtNum(row.totalImpressions)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DataTable
+          columns={[
+            { key: 'type', header: 'Type', sortValue: (row: typeof rows[number]) => row.type, render: (row) => <span className="font-mono text-xs uppercase text-slate-700 dark:text-slate-300">{row.type}</span> },
+            { key: 'posts', header: 'Posts', align: 'right', sortValue: (row: typeof rows[number]) => row.posts, render: (row) => <span className="text-slate-600 dark:text-slate-400">{row.posts}</span> },
+            { key: 'avgEngagement', header: 'Avg engagement', align: 'right', sortValue: (row: typeof rows[number]) => row.avgEngagement, render: (row) => (
+              <div className="flex items-center justify-end gap-2">
+                <EngagementBar value={row.avgEngagement} max={maxAvg} />
+                <span className="text-slate-900 dark:text-slate-100 tabular-nums">{row.avgEngagement.toFixed(1)}</span>
+              </div>
+            ) },
+            { key: 'totalEngagement', header: 'Total engagement', align: 'right', sortValue: (row: typeof rows[number]) => row.totalEngagement, render: (row) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{row.totalEngagement.toLocaleString()}</span> },
+            { key: 'totalImpressions', header: 'Total impressions', align: 'right', sortValue: (row: typeof rows[number]) => row.totalImpressions, render: (row) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{fmtNum(row.totalImpressions)}</span> },
+          ] as DataTableColumn<typeof rows[number]>[]}
+          rows={rows}
+          rowKey={(row) => row.type}
+          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+        />
       </div>
     </section>
   );
@@ -300,93 +261,26 @@ function PostsTable({ posts }: { posts: SocialAnalyticsPost[] }) {
         Per-post breakdown
       </h2>
       <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
-        <table className="w-full text-sm">
-          <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200)/0.5)]">
-            <tr>
-              <th scope="col" className="px-3 py-2 pr-4">
-                Slug
-              </th>
-              <th scope="col" className="px-3 py-2 pr-4">
-                Platform
-              </th>
-              <th scope="col" className="px-3 py-2 pr-4 text-right">
-                Engagement
-              </th>
-              <th scope="col" className="px-3 py-2 pr-4 text-right">
-                Likes
-              </th>
-              <th scope="col" className="px-3 py-2 pr-4 text-right">
-                Reposts
-              </th>
-              <th scope="col" className="px-3 py-2 pr-4 text-right">
-                Replies
-              </th>
-              <th scope="col" className="px-3 py-2 pr-4 text-right">
-                Impressions
-              </th>
-              <th scope="col" className="px-3 py-2 pr-4">
-                Post link
-              </th>
-              <th scope="col" className="px-3 py-2">
-                Fetched
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {posts.map((p, i) => (
-              <tr
-                key={`${p.slug}-${p.platform}-${i}`}
-                className="border-t border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]"
-              >
-                <td className="px-3 py-2 pr-4">
-                  <a
-                    href={`/blog/${p.slug}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline transition-colors"
-                    aria-label={`Open blog post ${p.slug}`}
-                  >
-                    {p.slug}
-                  </a>
-                </td>
-                <td className="px-3 py-2 pr-4 text-xs uppercase text-slate-500 dark:text-slate-400">{p.platform}</td>
-                <td className="px-3 py-2 pr-4 text-right tabular-nums font-medium text-slate-900 dark:text-slate-100">
-                  {p.engagement.toLocaleString()}
-                </td>
-                <td className="px-3 py-2 pr-4 text-right tabular-nums text-slate-700 dark:text-slate-300">
-                  {fmtNum(p.metrics.likes)}
-                </td>
-                <td className="px-3 py-2 pr-4 text-right tabular-nums text-slate-700 dark:text-slate-300">
-                  {fmtNum(p.metrics.reposts)}
-                </td>
-                <td className="px-3 py-2 pr-4 text-right tabular-nums text-slate-700 dark:text-slate-300">
-                  {fmtNum(p.metrics.replies)}
-                </td>
-                <td className="px-3 py-2 pr-4 text-right tabular-nums text-slate-700 dark:text-slate-300">
-                  {fmtNum(p.metrics.impressions)}
-                </td>
-                <td className="px-3 py-2 pr-4">
-                  {p.postUrl ? (
-                    <a
-                      href={p.postUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-slate-600 dark:text-slate-400 hover:underline transition-colors"
-                      aria-label={`View ${p.platform} post for ${p.slug}`}
-                    >
-                      View
-                    </a>
-                  ) : (
-                    <span className="text-xs text-slate-400 dark:text-slate-600">-</span>
-                  )}
-                </td>
-                <td className="px-3 py-2 text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">
-                  {fmtDate(p.fetchedAt)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DataTable
+          columns={[
+            { key: 'slug', header: 'Slug', sortValue: (p: typeof posts[number]) => p.slug, render: (p) => (
+              <a href={`/blog/${p.slug}`} target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline transition-colors" aria-label={`Open blog post ${p.slug}`}>{p.slug}</a>
+            ) },
+            { key: 'platform', header: 'Platform', sortValue: (p: typeof posts[number]) => p.platform, render: (p) => <span className="text-xs text-slate-600 dark:text-slate-400">{p.platform}</span> },
+            { key: 'engagement', header: 'Engagement', align: 'right', sortValue: (p: typeof posts[number]) => p.engagement, render: (p) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{p.engagement.toLocaleString()}</span> },
+            { key: 'likes', header: 'Likes', align: 'right', sortValue: (p: typeof posts[number]) => (p.metrics.likes ?? 0), render: (p) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{(p.metrics.likes ?? 0).toLocaleString()}</span> },
+            { key: 'reposts', header: 'Reposts', align: 'right', sortValue: (p: typeof posts[number]) => (p.metrics.reposts ?? 0), render: (p) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{(p.metrics.reposts ?? 0).toLocaleString()}</span> },
+            { key: 'replies', header: 'Replies', align: 'right', sortValue: (p: typeof posts[number]) => (p.metrics.replies ?? 0), render: (p) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{(p.metrics.replies ?? 0).toLocaleString()}</span> },
+            { key: 'impressions', header: 'Impressions', align: 'right', sortValue: (p: typeof posts[number]) => (p.metrics.impressions ?? 0), render: (p) => <span className="tabular-nums text-slate-700 dark:text-slate-300">{fmtNum((p.metrics.impressions ?? 0))}</span> },
+            { key: 'link', header: 'Post link', render: (p) => p.postUrl ? (
+              <a href={p.postUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-brand-600 dark:text-brand-400 hover:underline">view</a>
+            ) : <span className="text-xs text-slate-400">-</span> },
+            { key: 'fetched', header: 'Fetched', sortValue: (p: typeof posts[number]) => p.fetchedAt, render: (p) => <span className="text-xs text-slate-500 dark:text-slate-400">{new Date(p.fetchedAt).toLocaleDateString()}</span> },
+          ] as DataTableColumn<typeof posts[number]>[]}
+          rows={posts}
+          rowKey={(p, i) => `${p.slug}-${p.platform}-${i}`}
+          rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.4)]'}
+        />
       </div>
     </section>
   );

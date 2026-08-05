@@ -2,6 +2,7 @@ import { logCatch } from '../../lib/log';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import {
   Upload,
   Shield,
@@ -10,8 +11,6 @@ import {
   CheckCircle2,
   XCircle,
   Loader2,
-  Globe,
-  Building2,
 } from 'lucide-react';
 
 interface IpEnrichment {
@@ -466,133 +465,21 @@ export default function DmarcAnalyzer(): JSX.Element {
 
           <div className="surface-card overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full text-sm font-mono">
-                <thead>
-                  <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--input-200))]">
-                    <th
-                      scope="col"
-                      className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
-                    >
-                      Source IP
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
-                    >
-                      Organization
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
-                    >
-                      Country
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-right px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
-                    >
-                      Volume
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-center px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
-                    >
-                      SPF
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-center px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
-                    >
-                      DKIM
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-center px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
-                    >
-                      DMARC
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
-                    >
-                      Header From
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {report.records.map((r, i) => {
-                    const dmarcPass = r.spf === 'pass' || r.dkim === 'pass';
-                    return (
-                      <tr
-                        key={r.sourceIp}
-                        className={`border-b border-slate-100 dark:border-[rgb(var(--border-400))] ${
-                          i % 2 === 0
-                            ? 'bg-white dark:bg-[rgb(var(--surface-200))]'
-                            : 'bg-slate-50/50 dark:bg-[rgb(var(--input-200)/0.5)]'
-                        }`}
-                      >
-                        <td className="px-4 py-3 text-xs font-medium">{r.sourceIp}</td>
-                        <td className="px-4 py-3 text-xs max-w-[200px] truncate" title={r.enrichment?.org}>
-                          {r.enrichment?.org ? (
-                            <span className="inline-flex items-center gap-1.5">
-                              <Building2 size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
-                              {r.enrichment.org}
-                            </span>
-                          ) : (
-                            <span className="text-slate-500">-</span>
-                          )}
-                        </td>
-                        <td className="px-4 py-3 text-xs">
-                          {r.enrichment?.country ? (
-                            <span className="inline-flex items-center gap-1.5">
-                              <Globe size={12} className="text-slate-500 dark:text-slate-400 shrink-0" />
-                              {r.enrichment.country}
-                              {r.enrichment.country_code && ` (${r.enrichment.country_code})`}
-                            </span>
-                          ) : (
-                            <span className="text-slate-500">-</span>
-                          )}
-                        </td>
-                        <td className="px-4 py-3 text-right text-xs">{r.count.toLocaleString()}</td>
-                        <td className="px-4 py-3 text-center">
-                          {r.spf === 'pass' ? (
-                            <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-xs">
-                              <CheckCircle2 size={12} /> pass
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 text-xs">
-                              <XCircle size={12} /> {r.spf}
-                            </span>
-                          )}
-                        </td>
-                        <td className="px-4 py-3 text-center">
-                          {r.dkim === 'pass' ? (
-                            <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-xs">
-                              <CheckCircle2 size={12} /> pass
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 text-xs">
-                              <XCircle size={12} /> {r.dkim}
-                            </span>
-                          )}
-                        </td>
-                        <td className="px-4 py-3 text-center">
-                          <span
-                            className={`inline-flex items-center gap-1 text-xs font-medium ${
-                              dmarcPass ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
-                            }`}
-                          >
-                            {dmarcPass ? 'PASS' : 'FAIL'}
-                          </span>
-                        </td>
-                        <td className="px-4 py-3 text-xs max-w-[160px] truncate" title={r.headerFrom}>
-                          {r.headerFrom}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+              <DataTable
+                columns={[
+                  { key: 'sourceIp', header: 'Source IP', sortValue: (r: typeof report.records[number]) => r.sourceIp, render: (r) => <span className="text-xs">{r.sourceIp}</span> },
+                  { key: 'org', header: 'Organization', sortValue: (r: typeof report.records[number]) => r.enrichment?.org ?? '', render: (r) => <span className="text-xs max-w-[200px] truncate" title={r.enrichment?.org}>{r.enrichment?.org ?? '-'}</span> },
+                  { key: 'country', header: 'Country', sortValue: (r: typeof report.records[number]) => r.enrichment?.country ?? '', render: (r) => <span className="text-xs">{r.enrichment?.country ?? '-'}</span> },
+                  { key: 'count', header: 'Volume', align: 'right', sortValue: (r: typeof report.records[number]) => r.count, render: (r) => <span className="text-xs">{r.count.toLocaleString()}</span> },
+                  { key: 'spf', header: 'SPF', align: 'center', sortValue: (r: typeof report.records[number]) => r.spf, render: (r) => r.spf === 'pass' ? <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-xs"><CheckCircle2 size={12} /> pass</span> : <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 text-xs"><XCircle size={12} /> {r.spf}</span> },
+                  { key: 'dkim', header: 'DKIM', align: 'center', sortValue: (r: typeof report.records[number]) => r.dkim, render: (r) => r.dkim === 'pass' ? <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-xs"><CheckCircle2 size={12} /> pass</span> : <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 text-xs"><XCircle size={12} /> {r.dkim}</span> },
+                  { key: 'dmarc', header: 'DMARC', align: 'center', render: (r) => { const dmarcPass = r.spf === 'pass' || r.dkim === 'pass'; return <span className={`inline-flex items-center gap-1 text-xs font-medium ${dmarcPass ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>{dmarcPass ? 'PASS' : 'FAIL'}</span>; } },
+                  { key: 'headerFrom', header: 'Header From', sortValue: (r: typeof report.records[number]) => r.headerFrom, render: (r) => <span className="text-xs max-w-[160px] truncate" title={r.headerFrom}>{r.headerFrom}</span> },
+                ] as DataTableColumn<typeof report.records[number]>[]}
+                rows={report.records}
+                rowKey={(r) => r.sourceIp}
+                rowClassName={(r) => (r.spf !== 'pass' && r.dkim !== 'pass') ? 'bg-rose-50/30 dark:bg-rose-950/10' : ''}
+              />
             </div>
           </div>
 
