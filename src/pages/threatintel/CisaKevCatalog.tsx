@@ -227,7 +227,6 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
     }
   };
 
-  const sortIcon = (col: typeof sortCol) => (sortCol === col ? (sortAsc ? ' \u2191' : ' \u2193') : '');
 
   const body = (
     <div className="space-y-4">
@@ -337,7 +336,7 @@ export default function CisaKevCatalog({ bare = false }: { bare?: boolean } = {}
                   onClick={col.key ? () => toggleSort(col.key!) : undefined}
                 >
                   {col.label}
-                  {col.key ? sortIcon(col.key) : ''}
+                  
                 </th>
               ))}
             </tr>
