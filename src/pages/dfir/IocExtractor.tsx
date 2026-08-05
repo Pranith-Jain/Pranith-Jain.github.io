@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { ClipboardCopy, Check, ShieldAlert, Terminal, Crosshair, Upload } from 'lucide-react';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
+import { Textarea } from '../../components/ui/Input';
 
 type IocBucket = 'ipv4' | 'ipv6' | 'domain' | 'url' | 'md5' | 'sha1' | 'sha256' | 'email';
 
@@ -292,14 +293,13 @@ export default function IocExtractor(): JSX.Element {
       <label htmlFor="ioc-extractor-input" className="sr-only">
         Text blob to extract IOCs from
       </label>
-      <textarea
+      <Textarea
         id="ioc-extractor-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Paste raw email, chat log, threat report, or any blob - refanging is automatic. Try patterns like example[.]com, hxxps://bad[.]site, 1[.]2[.]3[.]4[:]8080, [[.]] nesting, or Cyrillic homographs."
         rows={14}
         aria-label="Text blob to extract IOCs from"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 
       <div className="flex flex-wrap items-center justify-between gap-3 mt-4 mb-4">

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import type { Severity as Sev } from '../../components/severity';
 import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
+import { Textarea } from '../../components/ui/Input';
 
 /**
  * Kubernetes RBAC Analyzer - 100% client-side.
@@ -383,7 +384,7 @@ export default function K8sRbacAnalyzer(): JSX.Element {
       <label htmlFor="rbac-input" className="sr-only">
         Kubernetes RBAC JSON
       </label>
-      <textarea
+      <Textarea
         id="rbac-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -391,7 +392,6 @@ export default function K8sRbacAnalyzer(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="Kubernetes RBAC JSON"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 
       {analysis?.error && <p className="mt-6 text-sm font-mono text-rose-600 dark:text-rose-400">{analysis.error}</p>}

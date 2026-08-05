@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ShieldAlert, ShieldCheck, Loader2, ExternalLink } from 'lucide-react';
+import { Textarea } from '../../components/ui/Input';
 
 /**
  * OSV Dependency Scanner - paste a lockfile/manifest → known
@@ -209,7 +210,7 @@ export default function OsvScanner(): JSX.Element {
       <label htmlFor="osv-input" className="sr-only">
         Lockfile / manifest
       </label>
-      <textarea
+      <Textarea
         id="osv-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -217,7 +218,6 @@ export default function OsvScanner(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="Lockfile / manifest"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
       <button
         type="button"

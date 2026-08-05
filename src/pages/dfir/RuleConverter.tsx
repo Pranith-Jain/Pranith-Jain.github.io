@@ -16,6 +16,7 @@ import {
   type RuleIR,
 } from '../../lib/dfir/rule-convert';
 import { CONVERTER_STARTERS, groupedConverterStarters } from '../../lib/dfir/rule-convert/starters';
+import { Textarea } from '../../components/ui/Input';
 
 const SAMPLES: Record<RuleFormat, string> = {
   sigma: `title: Certutil URL cache download
@@ -338,7 +339,7 @@ export default function RuleConverter(): JSX.Element {
           <label htmlFor="rc-input" className="sr-only">
             Source rule
           </label>
-          <textarea
+          <Textarea
             id="rc-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -350,7 +351,6 @@ export default function RuleConverter(): JSX.Element {
                 : `Paste a ${FORMAT_LABELS[from]} rule…`
             }
             aria-label="Source rule"
-            className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
         </section>
 

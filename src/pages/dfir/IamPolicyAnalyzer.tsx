@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import type { Severity as Sev } from '../../components/severity';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
+import { Textarea } from '../../components/ui/Input';
 
 /**
  * AWS IAM / Cloud Policy Analyzer - 100% client-side.
@@ -421,7 +422,7 @@ export default function IamPolicyAnalyzer(): JSX.Element {
       <label htmlFor="policy-input" className="sr-only">
         AWS policy JSON
       </label>
-      <textarea
+      <Textarea
         id="policy-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -429,7 +430,6 @@ export default function IamPolicyAnalyzer(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="AWS policy JSON"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 
       {analysis?.error && (

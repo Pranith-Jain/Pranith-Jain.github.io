@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { AlertTriangle, ShieldAlert, ShieldX, Info, Loader2, FileDown, ChevronDown, ChevronRight } from 'lucide-react';
+import { Textarea } from '../../components/ui/Input';
 import {
   scoreCve,
   decideCve,
@@ -325,7 +326,7 @@ export default function CvePrioritizer(): JSX.Element {
       <label htmlFor="cve-input" className="sr-only">
         CVE IDs
       </label>
-      <textarea
+      <Textarea
         id="cve-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -333,7 +334,6 @@ export default function CvePrioritizer(): JSX.Element {
         rows={6}
         spellCheck={false}
         aria-label="CVE IDs"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
       <button
         type="button"

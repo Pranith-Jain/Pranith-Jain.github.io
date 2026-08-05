@@ -30,6 +30,7 @@ import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 import { PivotMatrix } from '../../components/dfir/PivotMatrix';
 import { AdmiraltyBadge } from '../../components/dfir/AdmiraltyBadge';
 import { PivotsTab } from '../../components/dfir/PivotsTab';
+import { Textarea } from '../../components/ui/Input';
 
 type BulkVerdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -492,14 +493,13 @@ export default function IocCheck(): JSX.Element {
           <label htmlFor="ioc-bulk-input" className="sr-only">
             Bulk IOCs
           </label>
-          <textarea
+          <Textarea
             id="ioc-bulk-input"
             value={bulkInput}
             onChange={(e) => setBulkInput(e.target.value)}
             rows={5}
             spellCheck={false}
             placeholder={`Paste up to ${BULK_MAX} IPs / domains / URLs / hashes. Separators: newline / comma / space / pipe.`}
-            className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <button
@@ -685,7 +685,6 @@ export default function IocCheck(): JSX.Element {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="paste an IP, domain, URL, or hash"
                 aria-label="Indicator of compromise"
-                className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               />
               {input && detectedType !== 'unknown' && (
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-brand-600 dark:text-brand-400 uppercase">

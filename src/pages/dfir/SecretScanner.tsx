@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import type { Severity as Sev } from '../../components/severity';
 import { BackLink } from '../../components/BackLink';
 import { AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
+import { Textarea } from '../../components/ui/Input';
 
 /**
  * Secret / API-Key Scanner - 100% client-side.
@@ -222,7 +223,7 @@ export default function SecretScanner(): JSX.Element {
       <label htmlFor="sec-input" className="sr-only">
         Text to scan for secrets
       </label>
-      <textarea
+      <Textarea
         id="sec-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -230,7 +231,7 @@ export default function SecretScanner(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="Text to scan for secrets"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        
       />
       {result && (
         <div className="mt-8 space-y-6">

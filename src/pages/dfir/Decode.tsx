@@ -5,6 +5,7 @@ import { ChevronRight, KeyRound, Search } from 'lucide-react';
 import { detectEncoding, decodeBase64, decodeUrl, decodeChain, type DecodeStep } from '../../lib/dfir/decode';
 import { hasIocCandidates } from '../../lib/dfir/ioc-detect';
 import { CopyButton } from '../../components/dfir/CopyButton';
+import { Textarea } from '../../components/ui/Input';
 
 const FORMAT_BADGE: Record<string, string> = {
   base64: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300',
@@ -162,13 +163,13 @@ export default function Decode(): JSX.Element {
               </span>
             )}
           </div>
-          <textarea
+          <Textarea
             id="decode-input"
             value={input}
             onChange={(e) => handleInput(e.target.value)}
             placeholder="Paste encoded string here..."
             rows={12}
-            className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-none"
+            className="resize-none"
           />
         </div>
 
@@ -200,7 +201,7 @@ export default function Decode(): JSX.Element {
             </div>
           </div>
           <div className="relative h-full">
-            <textarea
+            <Textarea
               id="decode-output"
               readOnly
               value={output}

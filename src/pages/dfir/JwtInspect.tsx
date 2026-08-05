@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { Textarea } from '../../components/ui/Input';
 import { AlertTriangle, ShieldCheck, Info } from 'lucide-react';
 interface DecodedJwt {
   raw: string;
@@ -151,14 +152,14 @@ export default function JwtInspect(): JSX.Element {
       <label htmlFor="jwt-input" className="sr-only">
         JSON Web Token to decode
       </label>
-      <textarea
+      <Textarea
         id="jwt-input"
         value={token}
         onChange={(e) => setToken(e.target.value)}
         placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.…"
         rows={5}
         aria-label="JSON Web Token"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-sm break-all text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        className="break-all"
       />
 
       {decoded?.error && (

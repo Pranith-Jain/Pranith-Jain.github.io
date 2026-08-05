@@ -16,6 +16,7 @@ import {
   Check,
 } from 'lucide-react';
 import { type ScannerHit, type Severity, type ScannerRule, ALL_RULES, detectLanguage } from '../../lib/scanner-rules';
+import { Textarea } from '../../components/ui/Input';
 
 const SEV_STYLE: Record<Severity, { text: string; chip: string; Icon: typeof ShieldAlert; bg: string }> = {
   critical: {
@@ -482,7 +483,7 @@ export default function MedusaScanner(): JSX.Element {
       <label htmlFor="medusa-input" className="sr-only">
         Code to scan
       </label>
-      <textarea
+      <Textarea
         id="medusa-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -490,7 +491,6 @@ export default function MedusaScanner(): JSX.Element {
         rows={12}
         spellCheck={false}
         aria-label="Code to scan for security issues"
-        className="w-full px-4 py-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl font-mono text-tool text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 
       {result && (
