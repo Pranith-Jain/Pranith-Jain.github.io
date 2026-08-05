@@ -32,6 +32,7 @@ import {
   BookOpen,
 } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 
 // ---------------------------------------------------------------------------
 // Phase model
@@ -611,65 +612,26 @@ export default function F3ead(): JSX.Element {
         </header>
 
         <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-[rgb(var(--border-400))]">
-          <table className="w-full text-sm">
-            <thead className="bg-slate-50 dark:bg-[rgb(var(--input-200))] text-left">
-              <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <th className="px-3 py-2 font-mono text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Framework
-                </th>
-                <th className="px-3 py-2 font-mono text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Kind
-                </th>
-                <th className="px-3 py-2 font-mono text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  What it answers
-                </th>
-                <th className="px-3 py-2 font-mono text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Primary user
-                </th>
-                <th className="px-3 py-2 font-mono text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  On the platform
-                </th>
-                <th className="px-3 py-2 font-mono text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Note
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {COMPARISON.map((row, i) => (
-                <tr
-                  key={row.name}
-                  className={`border-b border-slate-100 dark:border-slate-900 ${i % 2 === 0 ? 'bg-white dark:bg-[rgb(var(--surface-200))]' : 'bg-slate-50/50 dark:bg-[rgb(var(--input-200)/0.5)]'}`}
-                >
-                  <td className="px-3 py-2 font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                    {row.name}
-                  </td>
-                  <td className="px-3 py-2">
-                    <span
-                      className={`inline-block rounded border px-1.5 py-0.5 text-micro font-mono uppercase tracking-wider ${
-                        row.kind === 'process'
-                          ? 'border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300'
-                          : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300'
-                      }`}
-                    >
-                      {row.kind}
-                    </span>
-                  </td>
-                  <td className="px-3 py-2 text-slate-700 dark:text-slate-300">{row.question}</td>
-                  <td className="px-3 py-2 text-slate-700 dark:text-slate-300 whitespace-nowrap">{row.primaryUser}</td>
-                  <td className="px-3 py-2">
-                    <Link
-                      to={row.platformPage}
-                      className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline font-mono text-xs"
-                    >
-                      {row.platformPage.replace('/threatintel/', '/ti/').replace('/dfir/', '/d/')}
-                      <ExternalLink className="h-3 w-3" />
-                    </Link>
-                  </td>
-                  <td className="px-3 py-2 text-muted text-xs">{row.note}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <DataTable
+            columns={[
+              { key: 'name', header: 'Framework', sortValue: (row: typeof COMPARISON[number]) => row.name, render: (row) => <span className="font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap">{row.name}</span> },
+              { key: 'kind', header: 'Kind', sortValue: (row: typeof COMPARISON[number]) => row.kind, render: (row) => (
+                <span className={`inline-block rounded border px-1.5 py-0.5 text-micro font-mono uppercase tracking-wider ${row.kind === 'process' ? 'border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300' : 'border-slate-300 dark:border-[rgb(var(--border-400))] bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-slate-600 dark:text-slate-300'}`}>{row.kind}</span>
+              ) },
+              { key: 'question', header: 'What it answers', sortValue: (row: typeof COMPARISON[number]) => row.question, render: (row) => <span className="text-slate-700 dark:text-slate-300">{row.question}</span> },
+              { key: 'primaryUser', header: 'Primary user', sortValue: (row: typeof COMPARISON[number]) => row.primaryUser, render: (row) => <span className="text-slate-700 dark:text-slate-300 whitespace-nowrap">{row.primaryUser}</span> },
+              { key: 'platformPage', header: 'On the platform', sortValue: (row: typeof COMPARISON[number]) => row.platformPage, render: (row) => (
+                <Link to={row.platformPage} className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 hover:underline font-mono text-xs">
+                  {row.platformPage.replace('/threatintel/', '/ti/').replace('/dfir/', '/d/')}
+                  <ExternalLink className="h-3 w-3" />
+                </Link>
+              ) },
+              { key: 'note', header: 'Note', render: (row) => <span className="text-muted text-xs">{row.note}</span> },
+            ] as DataTableColumn<typeof COMPARISON[number]>[]}
+            rows={COMPARISON}
+            rowKey={(row) => row.name}
+            rowClassName={() => '[&:nth-child(even)]:bg-slate-50/50 dark:[&:nth-child(even)]:bg-[rgb(var(--input-200)/0.5)]'}
+          />
         </div>
       </section>
 

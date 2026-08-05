@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { PageMeta } from '../../components/PageMeta';
 import { Search, Globe, Loader2, ExternalLink, Shield, AlertTriangle } from 'lucide-react';
 
@@ -161,88 +162,40 @@ export default function Cerast() {
               {/* Table */}
               {data.results.length > 0 && (
                 <div className="overflow-x-auto rounded-xl border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-200))]">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b border-[rgb(var(--border-400))] bg-[rgb(var(--surface-300))]/50">
-                        <th className="text-left px-4 py-2.5 text-micro uppercase tracking-wider text-muted font-semibold">
-                          Domain
-                        </th>
-                        <th className="text-left px-4 py-2.5 text-micro uppercase tracking-wider text-muted font-semibold">
-                          Path
-                        </th>
-                        <th className="text-left px-4 py-2.5 text-micro uppercase tracking-wider text-muted font-semibold">
-                          Category
-                        </th>
-                        <th className="text-left px-4 py-2.5 text-micro uppercase tracking-wider text-muted font-semibold">
-                          Impact
-                        </th>
-                        <th className="text-right px-4 py-2.5 text-micro uppercase tracking-wider text-muted font-semibold">
-                          Score
-                        </th>
-                        <th className="text-left px-4 py-2.5 text-micro uppercase tracking-wider text-muted font-semibold">
-                          First Seen
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.results.map((r, i) => (
-                        <tr
-                          key={`${r.domain}-${r.path}-${i}`}
-                          className="border-b border-[rgb(var(--border-400))] last:border-b-0 hover:bg-[rgb(var(--surface-300))]/40 transition-colors group"
-                        >
-                          <td className="px-4 py-2.5 font-mono text-xs">
-                            <span
-                              className={
-                                r.multihost
-                                  ? 'opacity-50'
-                                  : 'text-foreground group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors'
-                              }
-                            >
-                              {r.domain}
-                            </span>
-                            {r.multihost && (
-                              <span className="ml-1.5 text-micro uppercase tracking-wider text-muted border border-dashed border-[rgb(var(--border-400))] rounded-full px-1.5 py-0.5">
-                                multihost
-                              </span>
-                            )}
-                          </td>
-                          <td className="px-4 py-2.5 font-mono text-xs text-muted">
-                            {r.path && r.path !== '/' ? (
-                              <a
-                                href={`https://${r.domain}${r.path}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:text-rose-600 dark:hover:text-rose-400 transition inline-flex items-center gap-1"
-                              >
-                                {r.path}{' '}
-                                <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                              </a>
-                            ) : (
-                              <span className="opacity-30">/</span>
-                            )}
-                          </td>
-                          <td className="px-4 py-2.5">
-                            <span className="px-2 py-0.5 rounded-full border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-300))]/50 text-mini text-muted">
-                              {r.category}
-                            </span>
-                          </td>
-                          <td className="px-4 py-2.5">
-                            <span
-                              className={`px-2 py-0.5 rounded-full border text-mini font-semibold ${IMPACT_CLS[r.impact] ?? IMPACT_CLS.LOW}`}
-                            >
-                              {r.impact}
-                            </span>
-                          </td>
-                          <td className="px-4 py-2.5 text-right font-mono text-xs text-muted">
-                            {r.page_rank > 0 ? r.page_rank.toFixed(1) : '–'}
-                          </td>
-                          <td className="px-4 py-2.5 text-xs text-muted font-mono whitespace-nowrap">
-                            {fmtDate(r.created)}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  <DataTable
+                  columns={[
+                    { key: 'domain', header: 'Domain', sortValue: (r: typeof data.results[number]) => r.domain, render: (r) => (
+                      <span className="font-mono text-xs">
+                        <span className={r.multihost ? 'opacity-50' : 'text-foreground group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors'}>{r.domain}</span>
+                        {r.multihost && <span className="ml-1.5 text-micro uppercase tracking-wider text-muted border border-dashed border-[rgb(var(--border-400))] rounded-full px-1.5 py-0.5">multihost</span>}
+                      </span>
+                    ) },
+                    { key: 'path', header: 'Path', sortValue: (r: typeof data.results[number]) => r.path ?? '', render: (r) => (
+                      <span className="font-mono text-xs text-muted">
+                        {r.path && r.path !== '/' ? (
+                          <a href={`https://${r.domain}${r.path}`} target="_blank" rel="noopener noreferrer" className="hover:text-rose-600 dark:hover:text-rose-400 transition inline-flex items-center gap-1">
+                            {r.path} <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </a>
+                        ) : <span className="opacity-30">/</span>}
+                      </span>
+                    ) },
+                    { key: 'category', header: 'Category', sortValue: (r: typeof data.results[number]) => r.category, render: (r) => (
+                      <span className="px-2 py-0.5 rounded-full border border-[rgb(var(--border-400))] bg-[rgb(var(--surface-300))]/50 text-mini text-muted">{r.category}</span>
+                    ) },
+                    { key: 'impact', header: 'Impact', sortValue: (r: typeof data.results[number]) => r.impact, render: (r) => (
+                      <span className={`px-2 py-0.5 rounded-full border text-mini font-semibold ${IMPACT_CLS[r.impact] ?? IMPACT_CLS.LOW}`}>{r.impact}</span>
+                    ) },
+                    { key: 'score', header: 'Score', align: 'right', sortValue: (r: typeof data.results[number]) => r.page_rank, render: (r) => (
+                      <span className="font-mono text-xs text-muted">{r.page_rank > 0 ? r.page_rank.toFixed(1) : '–'}</span>
+                    ) },
+                    { key: 'firstSeen', header: 'First Seen', sortValue: (r: typeof data.results[number]) => r.created ?? '', render: (r) => (
+                      <span className="text-xs text-muted font-mono whitespace-nowrap">{fmtDate(r.created)}</span>
+                    ) },
+                  ] as DataTableColumn<typeof data.results[number]>[]}
+                  rows={data.results}
+                  rowKey={(r, i) => `${r.domain}-${r.path}-${i}`}
+                  rowClassName={() => 'hover:bg-[rgb(var(--surface-300))]/40 group'}
+                />
                 </div>
               )}
 

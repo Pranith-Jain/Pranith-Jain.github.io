@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FileDown, Loader2, Search, ShieldAlert } from 'lucide-react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { ClusterTabs, RANSOMWARE_TABS } from '../../components/threatintel/ClusterTabs';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { SEVERITY_TONE, type Severity } from '../../components/severity';
@@ -515,49 +516,21 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
           {vulns.length > 0 && (
             <Section title={`Exploited vulnerabilities (${vulns.length})`}>
               <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-left">
-                      {['CVE', 'Severity', 'CVSS', 'Vendor', 'Product'].map((h) => (
-                        <th
-                          key={h}
-                          className="px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
-                        >
-                          {h}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {vulns.map((v, i) => (
-                      <tr
-                        key={`${v.CVE}-${i}`}
-                        className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70"
-                      >
-                        <td className="px-3 py-1.5 whitespace-nowrap">
-                          <a
-                            href={sanitizeUrl(`https://nvd.nist.gov/vuln/detail/${v.CVE}`) || undefined}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-mono text-meta text-rose-600 dark:text-rose-400 hover:underline transition-colors"
-                          >
-                            {v.CVE}
-                          </a>
-                        </td>
-                        <td className="px-3 py-1.5">
-                          <span
-                            className={`text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_TONE[normSeverity(v.severity)]}`}
-                          >
-                            {v.severity ?? '-'}
-                          </span>
-                        </td>
-                        <td className="px-3 py-1.5 font-mono text-meta tabular-nums text-muted">{v.CVSS ?? '-'}</td>
-                        <td className="px-3 py-1.5 text-meta text-muted">{v.Vendor ?? '-'}</td>
-                        <td className="px-3 py-1.5 text-meta text-muted">{v.Product ?? '-'}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <DataTable
+                  columns={[
+                    { key: 'CVE', header: 'CVE', sortValue: (v: typeof vulns[number]) => v.CVE, render: (v) => (
+                      <a href={sanitizeUrl(`https://nvd.nist.gov/vuln/detail/${v.CVE}`) || undefined} target="_blank" rel="noopener noreferrer" className="font-mono text-meta text-rose-600 dark:text-rose-400 hover:underline transition-colors">{v.CVE}</a>
+                    ) },
+                    { key: 'severity', header: 'Severity', sortValue: (v: typeof vulns[number]) => v.severity ?? '', render: (v) => (
+                      <span className={`text-mini font-mono px-2 py-0.5 rounded border ${SEVERITY_TONE[normSeverity(v.severity)]}`}>{v.severity ?? '-'}</span>
+                    ) },
+                    { key: 'CVSS', header: 'CVSS', sortValue: (v: typeof vulns[number]) => v.CVSS ?? '', render: (v) => <span className="font-mono text-meta tabular-nums text-muted">{v.CVSS ?? '-'}</span> },
+                    { key: 'Vendor', header: 'Vendor', sortValue: (v: typeof vulns[number]) => v.Vendor ?? '', render: (v) => <span className="text-meta text-muted">{v.Vendor ?? '-'}</span> },
+                    { key: 'Product', header: 'Product', sortValue: (v: typeof vulns[number]) => v.Product ?? '', render: (v) => <span className="text-meta text-muted">{v.Product ?? '-'}</span> },
+                  ] as DataTableColumn<typeof vulns[number]>[]}
+                  rows={vulns}
+                  rowKey={(v, i) => `${v.CVE}-${i}`}
+                />
               </div>
             </Section>
           )}
@@ -596,37 +569,16 @@ export default function RansomReport({ embedded = false }: { embedded?: boolean 
                 From the latest 100 disclosures on ransomware.live.
               </p>
               <div className="overflow-x-auto rounded border border-slate-200 dark:border-[rgb(var(--border-400))]">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-slate-50 dark:bg-[rgb(var(--surface-200))] text-left">
-                      {['Victim', 'Country', 'Sector', 'Disclosed'].map((h) => (
-                        <th
-                          key={h}
-                          className="px-3 py-1.5 font-mono text-mini uppercase tracking-wider text-slate-500 whitespace-nowrap"
-                        >
-                          {h}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {victims.map((v, i) => (
-                      <tr
-                        key={`${v.victim}-${i}`}
-                        className="border-t border-slate-100 dark:border-[rgb(var(--border-400))]/70"
-                      >
-                        <td className="px-3 py-1.5 text-meta text-slate-700 dark:text-slate-300 break-all">
-                          {v.victim ?? '-'}
-                        </td>
-                        <td className="px-3 py-1.5 text-meta text-muted">{v.country ?? '-'}</td>
-                        <td className="px-3 py-1.5 text-meta text-muted">{v.activity ?? '-'}</td>
-                        <td className="px-3 py-1.5 font-mono text-mini text-slate-500 whitespace-nowrap">
-                          {(v.discovered ?? v.attackdate ?? '').slice(0, 10) || '-'}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <DataTable
+                  columns={[
+                    { key: 'victim', header: 'Victim', sortValue: (v: typeof victims[number]) => v.victim ?? '', render: (v) => <span className="text-meta text-slate-700 dark:text-slate-300 break-all">{v.victim ?? '-'}</span> },
+                    { key: 'country', header: 'Country', sortValue: (v: typeof victims[number]) => v.country ?? '', render: (v) => <span className="text-meta text-muted">{v.country ?? '-'}</span> },
+                    { key: 'sector', header: 'Sector', sortValue: (v: typeof victims[number]) => v.activity ?? '', render: (v) => <span className="text-meta text-muted">{v.activity ?? '-'}</span> },
+                    { key: 'disclosed', header: 'Disclosed', sortValue: (v: typeof victims[number]) => v.discovered ?? v.attackdate ?? '', render: (v) => <span className="font-mono text-mini text-slate-500 whitespace-nowrap">{(v.discovered ?? v.attackdate ?? '').slice(0, 10) || '-'}</span> },
+                  ] as DataTableColumn<typeof victims[number]>[]}
+                  rows={victims}
+                  rowKey={(v, i) => `${v.victim}-${i}`}
+                />
               </div>
             </Section>
           )}

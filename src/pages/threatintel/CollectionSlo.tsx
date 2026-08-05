@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { Activity, AlertTriangle, CheckCircle2, HelpCircle, Clock } from 'lucide-react';
 
 interface CollectorSlo {
@@ -176,68 +177,32 @@ export default function CollectionSlo(): JSX.Element {
           {/* Source table */}
           <div className="surface-card overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-mini font-mono text-slate-500 uppercase tracking-wider">
-                    <th scope="col" className="text-left px-4 py-3 font-medium">
-                      Source
-                    </th>
-                    <th scope="col" className="text-left px-4 py-3 font-medium">
-                      Rel.
-                    </th>
-                    <th scope="col" className="text-left px-4 py-3 font-medium">
-                      Category
-                    </th>
-                    <th scope="col" className="text-left px-4 py-3 font-medium">
-                      Status
-                    </th>
-                    <th scope="col" className="text-right px-4 py-3 font-medium">
-                      Age
-                    </th>
-                    <th scope="col" className="text-right px-4 py-3 font-medium">
-                      Uptime
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                  {filtered.map((s) => (
-                    <tr
-                      key={s.id}
-                      className="hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.3)] transition-colors"
-                    >
-                      <td className="px-4 py-3">
-                        <div className="text-sm font-medium">{s.label}</div>
-                        <div className="text-mini font-mono text-slate-500 dark:text-slate-400">{s.id}</div>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span
-                          className={`text-micro font-mono px-1.5 py-0.5 rounded ${RELIABILITY_BADGE[s.reliability ?? ''] ?? ''}`}
-                        >
-                          {s.reliability ?? '-'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-mini font-mono text-slate-500">{s.category ?? '-'}</td>
-                      <td className="px-4 py-3">
-                        <span
-                          className={`text-micro font-mono px-2 py-0.5 rounded border ${STATUS_STYLES[s.status] ?? ''}`}
-                        >
-                          {statusToDisplay(s.status)}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-right text-mini font-mono text-slate-500">
-                        {s.upstream_age_s !== undefined ? `${Math.round(s.upstream_age_s / 3600)}h` : '-'}
-                      </td>
-                      <td className="px-4 py-3 text-right">
-                        <span
-                          className={`text-mini font-mono ${s.metrics?.sources_ok !== undefined ? 'text-emerald-500' : 'text-slate-500 dark:text-slate-400'}`}
-                        >
-                          {s.metrics?.sources_ok ?? '-'}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <DataTable
+                columns={[
+                  { key: 'source', header: 'Source', sortValue: (s: CollectorSlo) => s.label, render: (s) => (
+                    <div>
+                      <div className="text-sm font-medium">{s.label}</div>
+                      <div className="text-mini font-mono text-slate-500 dark:text-slate-400">{s.id}</div>
+                    </div>
+                  ) },
+                  { key: 'rel', header: 'Rel.', sortValue: (s: CollectorSlo) => s.reliability ?? '', render: (s) => (
+                    <span className={`text-micro font-mono px-1.5 py-0.5 rounded ${RELIABILITY_BADGE[s.reliability ?? ''] ?? ''}`}>{s.reliability ?? '-'}</span>
+                  ) },
+                  { key: 'category', header: 'Category', sortValue: (s: CollectorSlo) => s.category ?? '', render: (s) => <span className="text-mini font-mono text-slate-500">{s.category ?? '-'}</span> },
+                  { key: 'status', header: 'Status', sortValue: (s: CollectorSlo) => s.status, render: (s) => (
+                    <span className={`text-micro font-mono px-2 py-0.5 rounded border ${STATUS_STYLES[s.status] ?? ''}`}>{statusToDisplay(s.status)}</span>
+                  ) },
+                  { key: 'age', header: 'Age', align: 'right', sortValue: (s: CollectorSlo) => s.upstream_age_s ?? 0, render: (s) => (
+                    <span className="text-mini font-mono text-slate-500">{s.upstream_age_s !== undefined ? `${Math.round(s.upstream_age_s / 3600)}h` : '-'}</span>
+                  ) },
+                  { key: 'uptime', header: 'Uptime', align: 'right', render: (s) => (
+                    <span className={`text-mini font-mono ${s.metrics?.sources_ok !== undefined ? 'text-emerald-500' : 'text-slate-500 dark:text-slate-400'}`}>{s.metrics?.sources_ok ?? '-'}</span>
+                  ) },
+                ] as DataTableColumn<CollectorSlo>[]}
+                rows={filtered}
+                rowKey={(s) => s.id}
+                rowClassName={() => 'hover:bg-slate-50 dark:hover:bg-[rgb(var(--surface-200)/0.3)]'}
+              />
             </div>
           </div>
         </>

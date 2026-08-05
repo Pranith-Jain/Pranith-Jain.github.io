@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getJson, postJson, postJsonWithBody } from './adminApi';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { Modal } from '../../components/ui/Modal';
 
 interface Slot {
@@ -198,90 +199,32 @@ export default function ScheduleTab() {
 
       {viewMode === 'list' && (
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-              <tr>
-                <th scope="col" className="py-2 pr-4">
-                  Slot time
-                </th>
-                <th scope="col" className="py-2 pr-4">
-                  Candidate ID
-                </th>
-                <th scope="col" className="py-2 pr-4">
-                  Status
-                </th>
-                <th scope="col" className="py-2">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {schedule.map((s, i) => (
-                <tr
-                  key={`${s.candidateId}-${i}`}
-                  className="border-b border-slate-200 dark:border-[rgb(var(--border-400))]"
-                >
-                  <td className="py-2 pr-4 text-slate-700 dark:text-slate-300 whitespace-nowrap">
-                    {new Date(s.slotAt).toLocaleString()}
-                  </td>
-                  <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400">{s.candidateId}</td>
-                  <td className="py-2 pr-4 text-slate-700 dark:text-slate-300">{s.status}</td>
-                  <td className="py-2 flex gap-2">
-                    {s.status === 'pending' && (
-                      <>
-                        <button
-                          onClick={() => publishNow(s.candidateId)}
-                          disabled={publishing === s.candidateId}
-                          className="px-2 py-1 border border-emerald-700 rounded text-xs hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50"
-                        >
-                          {publishing === s.candidateId ? 'Publishing…' : 'Publish now'}
-                        </button>
-                        <button
-                          onClick={() => reschedule(s.candidateId)}
-                          disabled={publishing === s.candidateId}
-                          className="px-2 py-1 border border-sky-700 rounded text-xs hover:bg-sky-50 dark:hover:bg-sky-900/30 disabled:opacity-50"
-                          title="Move this slot to a new date/time"
-                        >
-                          Reschedule
-                        </button>
-                        <button
-                          onClick={() => removeSlot(s.candidateId)}
-                          disabled={publishing === s.candidateId}
-                          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
-                        >
-                          Remove
-                        </button>
-                      </>
-                    )}
-                    {s.status === 'published' && s.publishedSlug && (
-                      <a
-                        href={`/blog/${s.publishedSlug}`}
-                        className="text-xs text-slate-500 dark:text-slate-400 underline px-2 py-1"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        View
-                      </a>
-                    )}
-                    {s.status === 'failed' && (
-                      <button
-                        onClick={() => removeSlot(s.candidateId)}
-                        disabled={publishing === s.candidateId}
-                        className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50"
-                      >
-                        Remove
-                      </button>
-                    )}
-                    {s.status === 'draft' && (
-                      <span className="px-2 py-1 text-xs text-slate-500 dark:text-slate-400">
-                        Awaiting approval in the Drafts tab
-                      </span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <DataTable
+          columns={[
+            { key: 'slotAt', header: 'Slot time', sortValue: (s: Slot) => s.slotAt, render: (s) => <span className="text-slate-700 dark:text-slate-300 whitespace-nowrap">{new Date(s.slotAt).toLocaleString()}</span> },
+            { key: 'candidateId', header: 'Candidate ID', sortValue: (s: Slot) => s.candidateId, render: (s) => <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{s.candidateId}</span> },
+            { key: 'status', header: 'Status', sortValue: (s: Slot) => s.status, render: (s) => <span className="text-slate-700 dark:text-slate-300">{s.status}</span> },
+            { key: 'actions', header: 'Actions', render: (s) => (
+              <div className="flex gap-2">
+                {s.status === 'pending' && (
+                  <>
+                    <button onClick={() => publishNow(s.candidateId)} disabled={publishing === s.candidateId} className="px-2 py-1 border border-emerald-700 rounded text-xs hover:bg-emerald-50 dark:hover:bg-emerald-900/30 disabled:opacity-50">
+                      {publishing === s.candidateId ? 'Publishing…' : 'Publish now'}
+                    </button>
+                    <button onClick={() => reschedule(s.candidateId)} disabled={publishing === s.candidateId} className="px-2 py-1 border border-sky-700 rounded text-xs hover:bg-sky-50 dark:hover:bg-sky-900/30 disabled:opacity-50" title="Move this slot to a new date/time">
+                      Reschedule
+                    </button>
+                    <button onClick={() => removeSlot(s.candidateId)} disabled={publishing === s.candidateId} className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))] disabled:opacity-50">
+                      Remove
+                    </button>
+                  </>
+                )}
+              </div>
+            ) },
+          ] as DataTableColumn<Slot>[]}
+          rows={schedule}
+          rowKey={(s, i) => `${s.candidateId}-${i}`}
+        />
         </div>
       )}
 
