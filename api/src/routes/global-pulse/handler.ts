@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../../env';
-import { logError } from '../lib/logger';
+import { logError } from '../../lib/logger';
 import type {
   PulseEvent,
   PulseKind,

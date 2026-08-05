@@ -27,6 +27,7 @@ export type StixQueryIntent =
   | 'campaign'
   | 'strategic'
   | 'timerange'
+  | 'supply_chain'
   | 'general';
 
 export interface StixTranslation {
@@ -84,6 +85,11 @@ const INTENT_PATTERNS: Array<{ pattern: RegExp; intent: StixQueryIntent; entityK
     entityKey: 'sector',
   },
   { pattern: /\b(operation|campaign)\s+\w+/i, intent: 'campaign', entityKey: 'campaign' },
+  {
+    pattern: /\b(npm|pypi|gem|cargo|nuget|maven|dependency|dependencies|package|supply\s*chain|malicious\s*package|ossf)\b/i,
+    intent: 'supply_chain',
+    entityKey: 'package',
+  },
   {
     pattern: /\b(trend|landscape|evolving|shift|emerging|strategic|overview|posture|risk)\b/i,
     intent: 'strategic',
@@ -305,6 +311,7 @@ function buildSummary(
     campaign: 'Campaign intelligence',
     strategic: 'Strategic threat landscape',
     timerange: 'Time-bounded intelligence',
+    supply_chain: 'Supply-chain intelligence',
     general: 'General intelligence search',
   };
   parts.push(intentLabels[intent] ?? 'General intelligence search');

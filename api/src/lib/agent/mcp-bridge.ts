@@ -649,5 +649,339 @@ export function bridgeMcpTools(
     },
   });
 
+  // ══════════════════════════════════════════════════════════════════════
+  //  DARKNET INTEL — dn_* (43 tools across 13 providers)
+  //  GreyNoise, AbuseIPDB, HIBP, ThreatFox, MalwareBazaar, OTX, Hybrid
+  //  Analysis, IntelX, Pulsedive, Vulners, ransomware.live, URLhaus.
+  //  All call REST routes via self.fetch (same as the MCP server).
+  // ══════════════════════════════════════════════════════════════════════
+
+  // Helper: generate a GET-route tool with string params.
+  function dnGet(
+    name: string,
+    description: string,
+    routeTemplate: (args: Record<string, unknown>) => string,
+    params: { name: string; description: string; required: boolean }[]
+  ): void {
+    add({
+      name,
+      description,
+      params: params.map((p) => ({ ...p, type: 'string' as const })),
+      execute: async (args) => {
+        const path = routeTemplate(args);
+        return apiFetch(path);
+      },
+    });
+  }
+
+  // ── GreyNoise ──────────────────────────────────────────────────────
+  dnGet(
+    'dn_greynoise_check',
+    'Quick check: is this IP a known scanner or known benign service? Returns classification only (benign/malicious/unknown). Free, no key.',
+    (a) => `/api/v1/darknet-intel/greynoise/check?ip=${encodeURIComponent(String(a.ip))}`,
+    [{ name: 'ip', description: 'IPv4 address to check', required: true }]
+  );
+  dnGet(
+    'dn_greynoise_ip',
+    'Full GreyNoise IP lookup: classification, tags, metadata, raw data. Free, no key.',
+    (a) => `/api/v1/darknet-intel/greynoise/ip?ip=${encodeURIComponent(String(a.ip))}`,
+    [{ name: 'ip', description: 'IPv4 address', required: true }]
+  );
+
+  // ── AbuseIPDB ──────────────────────────────────────────────────────
+  dnGet(
+    'dn_abuseipdb_check',
+    'Check an IP address against AbuseIPDB. Returns abuse confidence score, country, usage type, and ISP.',
+    (a) => `/api/v1/darknet-intel/abuseipdb/check?ip=${encodeURIComponent(String(a.ip))}`,
+    [{ name: 'ip', description: 'IPv4 address', required: true }]
+  );
+  dnGet(
+    'dn_abuseipdb_reports',
+    'Get abuse reports for an IP from AbuseIPDB. Returns recent report entries with categories and comments.',
+    (a) => `/api/v1/darknet-intel/abuseipdb/reports?ip=${encodeURIComponent(String(a.ip))}`,
+    [{ name: 'ip', description: 'IPv4 address', required: true }]
+  );
+  dnGet(
+    'dn_abuseipdb_blacklist',
+    'Get the AbuseIPDB blacklist (IPs with high abuse confidence). Optional limit and confidence minimum.',
+    (a) => {
+      const params = new URLSearchParams();
+      if (a.limit) params.set('limit', String(a.limit));
+      if (a.confidenceMinimum) params.set('confidenceMinimum', String(a.confidenceMinimum));
+      return `/api/v1/darknet-intel/abuseipdb/blacklist${params.toString() ? `?${params}` : ''}`;
+    },
+    [
+      { name: 'limit', description: 'Max results (default 10000)', required: false },
+      { name: 'confidenceMinimum', description: 'Min abuse confidence score (0-100)', required: false },
+    ]
+  );
+  dnGet(
+    'dn_abuseipdb_check_block',
+    'Check a network block (CIDR) against AbuseIPDB.',
+    (a) => `/api/v1/darknet-intel/abuseipdb/check-block?network=${encodeURIComponent(String(a.network))}`,
+    [{ name: 'network', description: 'CIDR network block, e.g. 192.168.0.0/24', required: true }]
+  );
+
+  // ── HIBP (Have I Been Pwned) ──────────────────────────────────────
+  dnGet(
+    'dn_hibp_latest',
+    'Get the most recently added data breaches from HIBP. Free, no key.',
+    () => '/api/v1/darknet-intel/hibp/latest',
+    []
+  );
+  dnGet(
+    'dn_hibp_breach',
+    'Get details about a specific breach from HIBP by name.',
+    (a) => `/api/v1/darknet-intel/hibp/breach?name=${encodeURIComponent(String(a.name))}`,
+    [{ name: 'name', description: 'Breach name', required: true }]
+  );
+  dnGet(
+    'dn_hibp_data_classes',
+    'List all HIBP data classes (types of data compromised in breaches).',
+    () => '/api/v1/darknet-intel/hibp/data-classes',
+    []
+  );
+  dnGet(
+    'dn_hibp_password',
+    'Check if a password has appeared in known data breaches (HIBP).',
+    (a) => `/api/v1/darknet-intel/hibp/password?password=${encodeURIComponent(String(a.password))}`,
+    [{ name: 'password', description: 'Password to check', required: true }]
+  );
+
+  // ── ThreatFox (abuse.ch) ─────────────────────────────────────────
+  dnGet(
+    'dn_threatfox_iocs',
+    'Get recent ThreatFox IOCs (malicious indicators) from the last N days. Free, no key.',
+    (a) => `/api/v1/darknet-intel/abusech/threatfox-iocs?days=${a.days ?? 3}`,
+    [{ name: 'days', description: 'Number of days back (default 3)', required: false }]
+  );
+  dnGet(
+    'dn_threatfox_search',
+    'Search ThreatFox for an IOC (IP, domain, URL, hash). Returns malware family, confidence, tags.',
+    (a) => `/api/v1/darknet-intel/abusech/threatfox-search?q=${encodeURIComponent(String(a.q))}`,
+    [{ name: 'q', description: 'IOC value to search', required: true }]
+  );
+  dnGet(
+    'dn_threatfox_tag',
+    'Get ThreatFox IOCs by tag. Returns all IOCs tagged with the given value.',
+    (a) => `/api/v1/darknet-intel/abusech/threatfox-tag?tag=${encodeURIComponent(String(a.tag))}${a.limit ? `&limit=${a.limit}` : ''}`,
+    [
+      { name: 'tag', description: 'Tag to search', required: true },
+      { name: 'limit', description: 'Max results', required: false },
+    ]
+  );
+  dnGet(
+    'dn_threatfox_malware',
+    'Get ThreatFox IOCs by malware name. Returns all IOCs associated with the malware family.',
+    (a) => `/api/v1/darknet-intel/abusech/threatfox-malware?malware=${encodeURIComponent(String(a.malware))}`,
+    [{ name: 'malware', description: 'Malware name', required: true }]
+  );
+
+  // ── MalwareBazaar (abuse.ch) ──────────────────────────────────────
+  dnGet(
+    'dn_bazaar_hash',
+    'Look up a malware sample by SHA-256 hash on MalwareBazaar. Returns signature, tags, file info.',
+    (a) => `/api/v1/darknet-intel/abusech/bazaar-hash?hash=${encodeURIComponent(String(a.hash))}`,
+    [{ name: 'hash', description: 'SHA-256 hash', required: true }]
+  );
+  dnGet(
+    'dn_bazaar_recent',
+    'Get recently uploaded malware samples from MalwareBazaar.',
+    () => '/api/v1/darknet-intel/abusech/bazaar-recent',
+    []
+  );
+  dnGet(
+    'dn_bazaar_tag',
+    'Get MalwareBazaar samples by tag.',
+    (a) => `/api/v1/darknet-intel/abusech/bazaar-tag?tag=${encodeURIComponent(String(a.tag))}${a.limit ? `&limit=${a.limit}` : ''}`,
+    [
+      { name: 'tag', description: 'Tag to search', required: true },
+      { name: 'limit', description: 'Max results', required: false },
+    ]
+  );
+
+  // ── URLhaus (abuse.ch) ────────────────────────────────────────────
+  dnGet(
+    'dn_urlhaus_lookup',
+    'Look up a URL on URLhaus (malicious URL database). Returns status, threat, tags.',
+    (a) => {
+      const params = new URLSearchParams();
+      if (a.url) params.set('url', String(a.url));
+      if (a.host) params.set('host', String(a.host));
+      return `/api/v1/darknet-intel/abusech/urlhaus?${params}`;
+    },
+    [
+      { name: 'url', description: 'URL to check', required: false },
+      { name: 'host', description: 'Hostname to check', required: false },
+    ]
+  );
+  dnGet(
+    'dn_urlhaus_tag',
+    'Get URLhaus entries by tag.',
+    (a) => `/api/v1/darknet-intel/abusech/urlhaus-tag?tag=${encodeURIComponent(String(a.tag))}`,
+    [{ name: 'tag', description: 'Tag to search', required: true }]
+  );
+
+  // ── OTX (AlienVault) ──────────────────────────────────────────────
+  dnGet(
+    'dn_otx_ip',
+    'Look up an IP on AlienVault OTX. Returns pulses, indicators, threat data.',
+    (a) => `/api/v1/darknet-intel/otx/ip?ip=${encodeURIComponent(String(a.ip))}`,
+    [{ name: 'ip', description: 'IP address', required: true }]
+  );
+  dnGet(
+    'dn_otx_domain',
+    'Look up a domain on AlienVault OTX. Returns pulses, indicators, threat data.',
+    (a) => `/api/v1/darknet-intel/otx/domain?domain=${encodeURIComponent(String(a.domain))}`,
+    [{ name: 'domain', description: 'Domain name', required: true }]
+  );
+  dnGet(
+    'dn_otx_hash',
+    'Look up a file hash on AlienVault OTX. Returns pulses, indicators, threat data.',
+    (a) => `/api/v1/darknet-intel/otx/hash?hash=${encodeURIComponent(String(a.hash))}`,
+    [{ name: 'hash', description: 'File hash (SHA-256, MD5, SHA-1)', required: true }]
+  );
+  dnGet(
+    'dn_otx_cve',
+    'Look up a CVE on AlienVault OTX. Returns pulses, indicators, references.',
+    (a) => `/api/v1/darknet-intel/otx/cve?cve=${encodeURIComponent(String(a.cve))}`,
+    [{ name: 'cve', description: 'CVE ID, e.g. CVE-2024-3094', required: true }]
+  );
+
+  // ── Pulsedive ─────────────────────────────────────────────────────
+  dnGet(
+    'dn_pulsedive_indicator',
+    'Look up an indicator (IP, domain, URL, or hash) on Pulsedive: risk level, threats, feeds, linked indicators. Free, no key.',
+    (a) => `/api/v1/darknet-intel/pulsedive/indicator?type=${a.type ?? 'ip'}&value=${encodeURIComponent(String(a.value))}`,
+    [
+      { name: 'type', description: 'Indicator type: ip, domain, url, hash', required: true },
+      { name: 'value', description: 'Indicator value', required: true },
+    ]
+  );
+  dnGet(
+    'dn_pulsedive_search',
+    'Search Pulsedive for indicators by query. Free, no key.',
+    (a) => `/api/v1/darknet-intel/pulsedive/search?q=${encodeURIComponent(String(a.q))}`,
+    [{ name: 'q', description: 'Search query', required: true }]
+  );
+  dnGet(
+    'dn_pulsedive_explore',
+    'Explore linked indicators on Pulsedive from a given indicator. Free, no key.',
+    (a) => `/api/v1/darknet-intel/pulsedive/explore?indicator=${encodeURIComponent(String(a.indicator))}`,
+    [{ name: 'indicator', description: 'Indicator value to explore', required: true }]
+  );
+
+  // ── Vulners ───────────────────────────────────────────────────────
+  dnGet(
+    'dn_vulners_search',
+    'Search Vulners for vulnerabilities and exploits by query. Free, no key.',
+    () => '/api/v1/darknet-intel/vulners/search',
+    []
+  );
+  dnGet(
+    'dn_vulners_id',
+    'Get a specific Vulners entry by ID. Free, no key.',
+    (a) => `/api/v1/darknet-intel/vulners/id?id=${encodeURIComponent(String(a.id))}`,
+    [{ name: 'id', description: 'Vulners entry ID', required: true }]
+  );
+  dnGet(
+    'dn_vulners_exploit',
+    'Search Vulners for exploits. Free, no key.',
+    () => '/api/v1/darknet-intel/vulners/exploit',
+    []
+  );
+
+  // ── IntelX (IntelX) ───────────────────────────────────────────────
+  dnGet(
+    'dn_intelx_search',
+    'Search IntelX for leaks, breaches, paste sites. Returns search results.',
+    (a) => `/api/v1/darknet-intel/intelx/search?q=${encodeURIComponent(String(a.q))}`,
+    [{ name: 'q', description: 'Search query', required: true }]
+  );
+  dnGet(
+    'dn_intelx_search_results',
+    'Get IntelX search results by search ID.',
+    (a) => `/api/v1/darknet-intel/intelx/results?id=${encodeURIComponent(String(a.id))}`,
+    [{ name: 'id', description: 'Search ID from intelx/search', required: true }]
+  );
+  dnGet(
+    'dn_intelx_phonebook',
+    'IntelX phonebook search — find email addresses and credentials by query.',
+    (a) => `/api/v1/darknet-intel/intelx/phonebook?q=${encodeURIComponent(String(a.q))}`,
+    [{ name: 'q', description: 'Search query', required: true }]
+  );
+  dnGet(
+    'dn_intelx_phonebook_results',
+    'Get IntelX phonebook search results by search ID.',
+    (a) => `/api/v1/darknet-intel/intelx/phonebook-results?id=${encodeURIComponent(String(a.id))}`,
+    [{ name: 'id', description: 'Search ID from intelx/phonebook', required: true }]
+  );
+
+  // ── Hybrid Analysis ───────────────────────────────────────────────
+  dnGet(
+    'dn_hybrid_search',
+    'Search Hybrid Analysis for a file hash. Returns malware reports, verdicts, signatures.',
+    (a) => `/api/v1/darknet-intel/hybrid/search?hash=${encodeURIComponent(String(a.hash))}`,
+    [{ name: 'hash', description: 'File hash (SHA-256)', required: true }]
+  );
+  dnGet(
+    'dn_hybrid_feed',
+    'Get the Hybrid Analysis public feed of recent malware reports.',
+    () => '/api/v1/darknet-intel/hybrid/feed',
+    []
+  );
+
+  // ── ransomware.live ──────────────────────────────────────────────
+  dnGet(
+    'dn_ransomware_group',
+    'Get a ransomware group profile from ransomware.live: description, onion URLs, TTPs, tools, victim count.',
+    (a) => `/api/v1/darknet-intel/ransomware/group?name=${encodeURIComponent(String(a.name))}`,
+    [{ name: 'name', description: 'Group name', required: true }]
+  );
+  dnGet(
+    'dn_ransomware_victims',
+    'Get victims of a ransomware group from ransomware.live.',
+    (a) => `/api/v1/darknet-intel/ransomware/victims?name=${encodeURIComponent(String(a.name))}`,
+    [{ name: 'name', description: 'Group name', required: true }]
+  );
+  dnGet(
+    'dn_ransomware_search',
+    'Search ransomware.live for a group or keyword.',
+    (a) => `/api/v1/darknet-intel/ransomware/search?q=${encodeURIComponent(String(a.q))}`,
+    [{ name: 'q', description: 'Search query', required: true }]
+  );
+  dnGet(
+    'dn_ransomware_country',
+    'Get ransomware victims by country code from ransomware.live.',
+    (a) => `/api/v1/darknet-intel/ransomware/country?code=${encodeURIComponent(String(a.code))}`,
+    [{ name: 'code', description: 'ISO country code', required: true }]
+  );
+  dnGet(
+    'dn_ransomware_sector',
+    'Get ransomware victims by sector from ransomware.live.',
+    (a) => `/api/v1/darknet-intel/ransomware/sector?sector=${encodeURIComponent(String(a.sector))}`,
+    [{ name: 'sector', description: 'Sector name', required: true }]
+  );
+  dnGet(
+    'dn_ransomlook_groups',
+    'List all ransomware groups from RansomLook.',
+    () => '/api/v1/darknet-intel/ransomware/ransomlook-groups',
+    []
+  );
+  dnGet(
+    'dn_ransomlook_recent',
+    'Get recent ransomware victims from RansomLook.',
+    () => '/api/v1/darknet-intel/ransomware/ransomlook-recent',
+    []
+  );
+
+  // ── Sources ───────────────────────────────────────────────────────
+  dnGet(
+    'dn_sources',
+    'List all available darknet intel data sources with configuration status, API key status, tool counts, and free/paid indicators.',
+    () => '/api/v1/darknet-intel/sources',
+    []
+  );
+
   return tools;
 }

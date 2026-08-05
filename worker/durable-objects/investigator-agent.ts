@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import type { Env as ApiEnv } from '../../api/src/env';
 import type { AgentState, AgentStep, AgentToolResult, AgentToolCall, IocEntry } from '../../api/src/lib/agent/types';
 import { buildToolRegistry } from '../../api/src/lib/agent/tools';
+import { bridgeMcpTools } from '../../api/src/lib/agent/mcp-bridge';
 import { planNextStep } from '../../api/src/lib/agent/planner';
 import {
   evaluateCtiExit,
@@ -349,9 +350,26 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
     const internalToken = await signInternalToken('investigator-do', tokenSecret);
     const allTools = buildToolRegistry(this.env.SELF, undefined, { 'x-internal-token': internalToken });
 
+    // Bridge MCP-only tools that the hand-written registry doesn't cover.
+    // These call library functions directly (same as the MCP server) — no
+    // HTTP hop, no auth. Adds ti_* (CVEs/KEV/IOCs/darknet), si_* (skills/
+    // queries), winreg_*, traceix, whoxy, depx, breach_vip, dn_* (43
+    // darknet-intel provider tools) tools.
+    const existingNames = new Set(allTools.map((t) => t.name));
+    const bridged = bridgeMcpTools(
+      this.env.ASSETS,
+      this.env as unknown as { ASSETS?: Fetcher; TRACEIX_API_KEY?: string; WHOXY_API_KEY?: string },
+      existingNames,
+      this.env.SELF,
+      { 'x-internal-token': internalToken }
+    );
+    const allToolsWithBridge = [...allTools, ...bridged];
+
     const allowedTools = state.allowedTools;
     const availableTools =
-      allowedTools && allowedTools.length > 0 ? allTools.filter((t) => allowedTools.includes(t.name)) : allTools;
+      allowedTools && allowedTools.length > 0
+        ? allToolsWithBridge.filter((t) => allowedTools.includes(t.name))
+        : allToolsWithBridge;
 
     const stepNum = state.currentStep + 1;
     const stepStart = new Date().toISOString();
@@ -438,7 +456,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         googleKey,
         nvidiaKey,
         infronKey,
-        allTools,
+        allToolsWithBridge,
         workingMemory
       );
       if (burst) return burst;
@@ -471,11 +489,11 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       }
     }
 
-    let specialistTools = allTools;
+    let specialistTools = allToolsWithBridge;
     let specialistPrompt = '';
 
     if (currentRole) {
-      specialistTools = getToolsForSpecialist(currentRole, allTools);
+      specialistTools = getToolsForSpecialist(currentRole, allToolsWithBridge);
       specialistPrompt = getSpecialistPrompt(
         currentRole,
         specialistTools,

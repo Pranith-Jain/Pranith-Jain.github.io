@@ -21,7 +21,8 @@ export type SpecialistRole =
   | 'ransomware'
   | 'campaign-correlation'
   | 'dark-web'
-  | 'strategic-intel';
+  | 'strategic-intel'
+  | 'supply-chain';
 
 export interface SpecialistDef {
   role: SpecialistRole;
@@ -640,6 +641,50 @@ Strategy:
 - Step 3: Synthesize with strategic assessment.`;
     },
   },
+  'supply-chain': {
+    role: 'supply-chain',
+    label: 'Supply Chain Specialist',
+    description: 'Tracks malicious packages (npm/pypi/gem), dependency vulnerabilities, and OSSF disclosures.',
+    handlesQueryTypes: ['supply-chain', 'dependencies', 'package'],
+    maxSteps: 3,
+    exitConditions: [
+      {
+        name: 'depx-checked',
+        met: (v) => hasToolBeenCalled(v.steps, 'depx_check') || hasToolBeenCalled(v.steps, 'depx_feed'),
+        reason: () => 'Supply-chain data collected',
+      },
+      {
+        name: 'max-steps',
+        met: (v) => v.stepNum >= v.maxSteps,
+        reason: () => 'Specialist step budget exhausted',
+      },
+    ],
+    guardrails: [
+      {
+        name: 'supply-chain-tools-only',
+        filter: (calls) => {
+          const allowed = new Set(SPECIALIST_TOOLS['supply-chain']);
+          return calls.filter((c) => allowed.has(c.tool));
+        },
+      },
+    ],
+    buildPlannerPrompt: (tools, step, maxSteps, query, _steps) => {
+      const toolList = tools.map((t) => `  - ${t.name}: ${t.description.split('.')[0]}`).join('\n');
+      return `You are the Supply Chain Specialist. Your job: assess whether a package or dependency is known-malicious and surface related vulnerabilities.
+
+Query: ${query}
+
+Available tools:
+${toolList}
+
+Step ${step}/${maxSteps}.
+
+Strategy:
+- Step 1: depx_check (is the package known-malicious?) + scan_package/scan_dependencies
+- Step 2: ti_list_cves / lookup_cve for related vulnerabilities
+- Step 3: Synthesize with verdict (clean/malicious/unknown) + CVEs.`;
+    },
+  },
 };
 
 // ── Tool subset mapping ───────────────────────────────────────────────────
@@ -706,7 +751,7 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'generate_yara_rule',
     'generate_hunting_queries',
   ],
-  'malware-analysis': ['sample_scan', 'malware_family_detail', 'search_triage', 'search_malpedia'],
+  'malware-analysis': ['sample_scan', 'malware_family_detail', 'search_triage', 'search_malpedia', 'traceix_lookup', 'dn_bazaar_hash'],
   'detection-rules': [
     'generate_yara_rule',
     'generate_hunting_queries',
@@ -739,6 +784,24 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'trace_crypto_address',
     'breach_check',
     'breach_disclosures_recent',
+    'ti_list_darknet',
+    'ti_get_darknet_site',
+    'ti_get_darknet_category',
+    'breach_vip_search',
+    'dn_greynoise_check',
+    'dn_abuseipdb_check',
+    'dn_hibp_latest',
+    'dn_threatfox_search',
+    'dn_bazaar_hash',
+    'dn_otx_ip',
+    'dn_otx_domain',
+    'dn_otx_hash',
+    'dn_pulsedive_indicator',
+    'dn_intelx_search',
+    'dn_hybrid_search',
+    'dn_ransomware_group',
+    'dn_ransomware_search',
+    'dn_urlhaus_lookup',
   ],
   'strategic-intel': [
     'get_threat_pulse',
@@ -748,6 +811,16 @@ export const SPECIALIST_TOOLS: Record<SpecialistRole, string[]> = {
     'get_supply_chain_attacks',
     'get_ransomware_stats',
     'get_cyber_crime_news',
+  ],
+  'supply-chain': [
+    'depx_feed',
+    'depx_check',
+    'depx_stats',
+    'scan_package',
+    'scan_dependencies',
+    'get_supply_chain_attacks',
+    'ti_list_cves',
+    'lookup_cve',
   ],
 };
 
@@ -766,6 +839,8 @@ const ROUTING_TABLE: Record<string, SpecialistRole[]> = {
   ransomware: ['ransomware', 'threat-actor'],
   phishing: ['phishing', 'ioc-reputation'],
   campaign: ['campaign-correlation', 'threat-actor'],
+  'supply-chain': ['supply-chain', 'vulnerability'],
+  package: ['supply-chain'],
   generic: ['strategic-intel', 'dark-web', 'ioc-reputation'],
 };
 
@@ -797,6 +872,8 @@ export function resolveRoutingQueryType(query: string, queryType: string): strin
       return 'ransomware';
     case 'campaign':
       return 'campaign';
+    case 'supply_chain':
+      return 'supply-chain';
     default:
       return queryType;
   }

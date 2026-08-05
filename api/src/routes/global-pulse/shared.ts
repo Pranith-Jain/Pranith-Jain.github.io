@@ -1,4 +1,5 @@
 import type { Sev } from './types';
+import { logError } from '../../lib/logger';
 
 /* ─── Cache reader ──────────────────────────────────────────────────────── */
 

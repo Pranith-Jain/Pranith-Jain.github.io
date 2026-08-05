@@ -33,6 +33,7 @@ import { buildReport, pollReport, type Report, type Progress } from '../../lib/t
 import { exportReportPdf } from '../../lib/threatintel/report-pdf';
 import { ReportView } from '../../components/threatintel/ReportView';
 import { PivotSuggestions } from '../../components/threatintel/PivotSuggestions';
+import { SelfEvalScorecard, type SelfEvalResult } from '../../components/threatintel/SelfEvalScorecard';
 import { DetectionGenerate } from '../../components/threatintel/DetectionGenerate';
 import { BulkIocInput } from '../../components/threatintel/BulkIocInput';
 import { useToast } from '../../components/ui/Toast';
@@ -295,7 +296,8 @@ export default function VeraChat(): JSX.Element {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [streaming, setStreaming] = useState(false);
   const [agentSteps, setAgentSteps] = useState<AgentStep[]>([]);
-  const [, setStreamingContent] = useState('');
+  const [streamingContent, setStreamingContent] = useState('');
+  const [selfEval, setSelfEval] = useState<SelfEvalResult | null>(null);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sessions, setSessions] = useState<SessionItem[]>([]);
@@ -367,6 +369,7 @@ export default function VeraChat(): JSX.Element {
     setStreaming(false);
     setAgentSteps([]);
     setStreamingContent('');
+    setSelfEval(null);
     setError(null);
     setResult(null);
     setReport(null);
@@ -492,6 +495,9 @@ export default function VeraChat(): JSX.Element {
                 return [...prev, d.step];
               });
             }
+            if (d.type === 'token' && typeof d.token === 'string') {
+              setStreamingContent((prev) => prev + d.token);
+            }
             if (d.type === 'done' && d.report) {
               const assistantMsg: ChatMessage = {
                 role: 'assistant',
@@ -501,6 +507,8 @@ export default function VeraChat(): JSX.Element {
                 sources: d.sources,
                 _meta: d._meta,
               };
+              if (d.selfEval) setSelfEval(d.selfEval as SelfEvalResult);
+              else setSelfEval(null);
               setChatMessages((prev) => {
                 const next = [...prev];
                 const last = next[next.length - 1];
@@ -973,34 +981,42 @@ export default function VeraChat(): JSX.Element {
                               <ChatNarrative markdown={msg.content} />
                             </div>
                           ) : streaming && i === chatMessages.length - 1 ? (
-                            <div className="flex items-center gap-3 py-2">
-                              <div className="flex items-center gap-2">
-                                <div className="flex gap-1">
-                                  <span
-                                    className="h-2 w-2 animate-bounce rounded-full bg-rose-500"
-                                    style={{ animationDelay: '0ms' }}
-                                  />
-                                  <span
-                                    className="h-2 w-2 animate-bounce rounded-full bg-rose-500"
-                                    style={{ animationDelay: '150ms' }}
-                                  />
-                                  <span
-                                    className="h-2 w-2 animate-bounce rounded-full bg-rose-500"
-                                    style={{ animationDelay: '300ms' }}
-                                  />
+                            <div>
+                              {streamingContent ? (
+                                <div className="animate-[textReveal_0.5s_ease-out]">
+                                  <ChatNarrative markdown={streamingContent} />
                                 </div>
-                                <span className="font-mono text-xs text-slate-500 dark:text-slate-400">
-                                  Investigating
-                                </span>
-                              </div>
-                              <button
-                                type="button"
-                                onClick={cancelInvestigation}
-                                className="inline-flex items-center gap-1 rounded-md border border-rose-200 bg-rose-50 px-2 py-1 text-mini font-mono text-rose-600 transition-colors hover:bg-rose-100 dark:border-rose-800/50 dark:bg-rose-950/20 dark:text-rose-400"
-                                aria-label="Cancel investigation"
-                              >
-                                Cancel
-                              </button>
+                              ) : (
+                                <div className="flex items-center gap-3 py-2">
+                                  <div className="flex items-center gap-2">
+                                    <div className="flex gap-1">
+                                      <span
+                                        className="h-2 w-2 animate-bounce rounded-full bg-rose-500"
+                                        style={{ animationDelay: '0ms' }}
+                                      />
+                                      <span
+                                        className="h-2 w-2 animate-bounce rounded-full bg-rose-500"
+                                        style={{ animationDelay: '150ms' }}
+                                      />
+                                      <span
+                                        className="h-2 w-2 animate-bounce rounded-full bg-rose-500"
+                                        style={{ animationDelay: '300ms' }}
+                                      />
+                                    </div>
+                                    <span className="font-mono text-xs text-slate-500 dark:text-slate-400">
+                                      Investigating
+                                    </span>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={cancelInvestigation}
+                                    className="inline-flex items-center gap-1 rounded-md border border-rose-200 bg-rose-50 px-2 py-1 text-mini font-mono text-rose-600 transition-colors hover:bg-rose-100 dark:border-rose-800/50 dark:bg-rose-950/20 dark:text-rose-400"
+                                    aria-label="Cancel investigation"
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              )}
                             </div>
                           ) : null}
                           {msg.sources && msg.sources.length > 0 && (
@@ -1078,6 +1094,9 @@ export default function VeraChat(): JSX.Element {
                                 ) : null;
                               })()}
                               <DetectionGenerate context={msg.content ?? ''} />
+                              {selfEval && i === chatMessages.length - 1 && (
+                                <SelfEvalScorecard selfEval={selfEval} />
+                              )}
                             </>
                           )}
                         </div>
