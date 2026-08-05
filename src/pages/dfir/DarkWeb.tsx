@@ -5,7 +5,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { ExternalLink, RefreshCw, Plus, X, Eye, Bell, Search, Filter, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince, useFocusTrap } from '../../hooks';
-import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
+import { fetchAggregatedFeed, formatRelativeTime } from '../../services/rssService';
 import { rssFeeds } from '../../data/rssFeeds';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { usePostSummaries } from '../../components/intel/usePostSummaries';

@@ -6,8 +6,6 @@ import { BackLink } from '../../components/BackLink';
 import { fetchJson } from '../../lib/fetch-helpers';
 import { dedupRansomwareVictims } from '../../lib/dedup-ransomware';
 import {
-import type { RansomwareVictim, RecentCve, PhishingUrl, ThreatMapResponse, MalwareSample, ReleakRow, C2Response, BreachDisclosure, PulseEntity, DeepDarkCtiResponse } from './metrics-types';
-import { ago, withinDays, dayKey } from './metrics-types';
   Activity,
   BarChart3,
   Briefcase,
@@ -25,6 +23,8 @@ import { ago, withinDays, dayKey } from './metrics-types';
   TrendingUp,
   Users,
 } from 'lucide-react';
+import type { RansomwareVictim, RecentCve, PhishingUrl, ThreatMapResponse, MalwareSample, ReleakRow, C2Response, BreachDisclosure, PulseEntity, DeepDarkCtiResponse } from './metrics-types';
+import { withinDays, dayKey, SEVERITY_COLORS } from './metrics-types';
 
 /**
  * Threat Intel Metrics - quantitative read of what's flowing through the
