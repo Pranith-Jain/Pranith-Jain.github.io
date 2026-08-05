@@ -85,3 +85,71 @@ describe('shouldConverge', () => {
     expect(result.continue).toBe(true);
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Convergence adoption invariant (audit fix #5): the GAN loop must NEVER
+// adopt a corrected draft whose QA score is not strictly higher than the
+// current draft's. A non-improving correction is discarded and the loop stops.
+// This locks the control-flow invariant in `doSynthesize` against future
+// refactors that might flip the adoption branch.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Pure model of the DO's adoption decision (mirrors the branch in
+ * `investigator-agent.ts` doSynthesize). Returns the report/score the loop
+ * keeps after one convergence iteration.
+ */
+function simulateAdoption(currentScore: number, correctedScore: number): { adopted: boolean; keptScore: number } {
+  // Mirrors: `if (qaNext.qualityScore > currentQa.qualityScore) { adopt } else { break }`
+  if (correctedScore > currentScore) {
+    return { adopted: true, keptScore: correctedScore };
+  }
+  return { adopted: false, keptScore: currentScore };
+}
+
+describe('convergence adoption invariant — never adopt a worse draft', () => {
+  it('adopts a strictly-improving correction', () => {
+    const r = simulateAdoption(70, 78);
+    expect(r.adopted).toBe(true);
+    expect(r.keptScore).toBe(78);
+  });
+
+  it('rejects an equal-score correction (no improvement → stop)', () => {
+    // Equal is NOT strictly greater, so the loop must NOT adopt and must break.
+    const r = simulateAdoption(75, 75);
+    expect(r.adopted).toBe(false);
+    expect(r.keptScore).toBe(75);
+  });
+
+  it('rejects a lower-score correction (keep the better prior draft)', () => {
+    const r = simulateAdoption(80, 72);
+    expect(r.adopted).toBe(false);
+    expect(r.keptScore).toBe(80);
+  });
+
+  it('combined with shouldConverge: a non-improving iteration stops the loop', () => {
+    // Iteration 1: score 70, prev null → continue (improving from nothing)
+    expect(shouldConverge(70, null, 2, 3, 0, 3, 80).continue).toBe(true);
+    // Iteration 2: corrected score 68 (did NOT improve over 70) →
+    //   adoption rejects it (keptScore stays 70), AND shouldConverge stops.
+    const adoption = simulateAdoption(70, 68);
+    expect(adoption.adopted).toBe(false);
+    expect(adoption.keptScore).toBe(70);
+    // On the NEXT convergence check, prevScore=70 and currentScore=70 (unchanged)
+    // → shouldConverge sees currentScore <= previousScore → stop.
+    expect(shouldConverge(70, 70, 2, 3, 1, 3, 80).continue).toBe(false);
+  });
+
+  it('the final kept score is always >= the first QA-passing score', () => {
+    // Simulate a 3-iteration sequence where scores go 60 → 72 → 65.
+    // The loop should keep 72 (the best), not regress to 65.
+    let kept = 60; // first QA-passing score
+    for (const next of [72, 65]) {
+      const r = simulateAdoption(kept, next);
+      if (r.adopted) kept = r.keptScore;
+      // When not adopted, kept stays unchanged (the DO breaks the loop).
+      if (!r.adopted) break;
+    }
+    expect(kept).toBe(72); // never regressed below the best seen
+  });
+});

@@ -45,7 +45,9 @@ describe('rebuildWorkingMemory', () => {
     const mem = rebuildWorkingMemory(steps);
     expect(mem.iocs.map((i) => i.value).sort()).toEqual(['1.2.3.4', 'evil.com']);
     expect(mem.mitre.map((m) => m.id)).toEqual(['T1059.001']);
-    expect(mem.keyFacts).toContain('C2 beaconing observed');
+    expect(mem.keyFacts.map((k) => k.text)).toContain('C2 beaconing observed');
+    // Observer findings without explicit provenance default to 'llm'.
+    expect(mem.keyFacts.find((k) => k.text === 'C2 beaconing observed')?.provenance).toBe('llm');
     expect(mem.openGaps).toContain('no sample hash yet');
     expect(mem.confidenceHistory.at(-1)?.confidence).toBe('high');
   });
@@ -81,7 +83,7 @@ describe('rebuildWorkingMemory', () => {
     const mem = rebuildWorkingMemory(steps);
     expect(mem.iocs.map((i) => i.value).sort()).toEqual(['1.2.3.4', '5.6.7.8']);
     expect(mem.mitre.map((m) => m.id).sort()).toEqual(['T1059', 'T1071']);
-    expect(mem.keyFacts).toEqual(['fact A', 'fact B']);
+    expect(mem.keyFacts.map((k) => k.text)).toEqual(['fact A', 'fact B']);
     expect(mem.confidenceHistory).toHaveLength(1);
   });
 
@@ -103,7 +105,7 @@ describe('rebuildWorkingMemory', () => {
     const mem = rebuildWorkingMemory(steps);
     expect(mem.iocs.map((i) => i.value)).toEqual(['bad.example']);
     expect(mem.mitre.map((m) => m.id)).toEqual(['T1566']);
-    expect(mem.keyFacts).toContain('actor X');
+    expect(mem.keyFacts.map((k) => k.text)).toContain('actor X');
   });
 
   it('ignores errored results and unstructured payloads', () => {
@@ -120,6 +122,80 @@ describe('rebuildWorkingMemory', () => {
     expect(mem.iocs).toEqual([]);
     expect(mem.mitre).toEqual([]);
     expect(mem.keyFacts).toEqual([]);
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Provenance tagging (audit fix #6): keyFacts in WorkingMemory carry their
+// observer provenance so the planner can downweight heuristic fallback facts
+// (produced when the observer LLM was unavailable) vs. LLM-confirmed facts.
+// The persistence path (investigator-agent.ts memory admission) already
+// filtered by provenance; this propagates the tag into in-flight planner context.
+// ─────────────────────────────────────────────────────────────────────────────
+
+describe('rebuildWorkingMemory — provenance tagging', () => {
+  it('tags observer-LLM keyFacts as llm provenance', () => {
+    const steps = [
+      step({
+        stepNumber: 1,
+        observerFindings: {
+          iocs: [],
+          actors: [],
+          cves: [],
+          malware: [],
+          mitre: [],
+          keyFacts: ['C2 beaconing observed'],
+          gaps: [],
+          confidence: 'high',
+          provenance: 'llm',
+        },
+      }),
+    ];
+    const mem = rebuildWorkingMemory(steps);
+    expect(mem.keyFacts).toHaveLength(1);
+    expect(mem.keyFacts[0]).toEqual({ text: 'C2 beaconing observed', provenance: 'llm' });
+  });
+
+  it('tags fallback keyFacts as fallback provenance', () => {
+    const steps = [
+      step({
+        stepNumber: 1,
+        observerFindings: {
+          iocs: [],
+          actors: [],
+          cves: [],
+          malware: [],
+          mitre: [],
+          keyFacts: ['check_ioc: score 85'],
+          gaps: [],
+          confidence: 'medium',
+          provenance: 'fallback',
+        },
+      }),
+    ];
+    const mem = rebuildWorkingMemory(steps);
+    expect(mem.keyFacts).toHaveLength(1);
+    expect(mem.keyFacts[0]?.provenance).toBe('fallback');
+  });
+
+  it('defaults to llm provenance when observerFindings has no provenance field', () => {
+    const steps = [
+      step({
+        stepNumber: 1,
+        observerFindings: {
+          iocs: [],
+          actors: [],
+          cves: [],
+          malware: [],
+          mitre: [],
+          keyFacts: ['fact without provenance'],
+          gaps: [],
+          confidence: 'medium',
+        },
+      }),
+    ];
+    const mem = rebuildWorkingMemory(steps);
+    expect(mem.keyFacts[0]?.provenance).toBe('llm');
   });
 });
 

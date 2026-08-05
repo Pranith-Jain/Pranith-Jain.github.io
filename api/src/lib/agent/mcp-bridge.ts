@@ -1932,5 +1932,55 @@ export function bridgeMcpTools(
     },
   });
 
+  // ══════════════════════════════════════════════════════════════════════
+  //  SI ENRICH + HYPOTHESES (the 2 most useful remaining si_ tools)
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'si_enrich_ip',
+    description:
+      'Enrich a single IPv4/IPv6 address using IPinfo / AbuseIPDB / Shodan / Shodan-InternetDB / VPNAPI providers. Returns the same shape as upstream security-investigator/enrich_ips.py.',
+    params: [{ name: 'ip', type: 'string', description: 'IPv4 or IPv6 address', required: true }],
+    execute: async (args) => {
+      const { enrichIp, isValidIp } = await import('../si-enrich');
+      const ip = args.ip as string;
+      if (!isValidIp(ip)) return { error: 'invalid_ip', ip, hint: 'Pass a valid IPv4 or IPv6 address.' };
+      return enrichIp(env as unknown as Parameters<typeof enrichIp>[0], ip);
+    },
+  });
+
+  add({
+    name: 'si_hypos_generate',
+    description:
+      'HYPOS: hypothesis engine for threat hunting. Given a free-text anomaly description and optional IOCs / environment, return ranked hypotheses with kill-chain phase, MITRE techniques, what-to-look-for signals, sample KQL, and matched SI skills.',
+    params: [
+      {
+        name: 'text',
+        type: 'string',
+        description: 'Free-text description of the anomaly (alert name, observed behaviour, user report)',
+        required: true,
+      },
+      { name: 'iocs', type: 'string', description: 'Optional IOCs to bias scoring (comma-separated)', required: false },
+      {
+        name: 'environment',
+        type: 'string',
+        description: 'Environment: endpoint, identity, cloud, network, email, saas, unknown',
+        required: false,
+      },
+    ],
+    execute: async (args) => {
+      const { siHyposGenerate } = await import('../si-hypos');
+      return siHyposGenerate(
+        {
+          text: args.text as string,
+          iocs: args.iocs ? (args.iocs as string).split(',').map((s) => s.trim()) : undefined,
+          environment: args.environment as
+            'endpoint' | 'identity' | 'cloud' | 'network' | 'email' | 'saas' | 'unknown' | undefined,
+        },
+        { ASSETS: assets }
+      );
+    },
+  });
+
   return tools;
 }

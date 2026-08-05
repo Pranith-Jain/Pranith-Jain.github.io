@@ -56,20 +56,8 @@ import {
 } from '../../api/src/lib/agent/cost-tracker';
 import { checkDuplicate, registerInvestigation } from '../../api/src/lib/agent/request-dedup';
 import { extractGraphFromSteps } from '../../api/src/lib/agent/ioc-graph';
+import { truncateData } from '../lib/truncate-data';
 import { createVersionedReport, addVersion, getVersionDiff } from '../../api/src/lib/agent/report-versioning';
-
-/** Truncate JSON-serializable data to a max char length. Returns valid JSON. */
-function truncateData(data: unknown, maxChars: number): unknown {
-  const json = JSON.stringify(data);
-  if (json.length <= maxChars) return data;
-  const truncated = json.slice(0, maxChars);
-  try {
-    return JSON.parse(truncated);
-  } catch (_catchErr) {
-    console.error('truncateData failed:', _catchErr instanceof Error ? _catchErr.message : String(_catchErr));
-    return { _truncated: true, _original_chars: json.length, _preview: truncated.slice(0, 500) };
-  }
-}
 
 /** Map a specialist finding to an action-card IOC entry type. */
 function classifyFindingIocType(f: SpecialistFinding): IocEntry['type'] | null {

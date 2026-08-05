@@ -101,12 +101,15 @@ export async function handleChatWebSocket(request: Request, env: Env): Promise<R
 
       // Load or create session
       if (msg.sessionId) {
-        const row = await db!.prepare('SELECT id, title, messages_json, created_at, updated_at FROM copilot_sessions WHERE id = ?').bind(msg.sessionId).first<{
-          id: string;
-          messages_json: string;
-          created_at: string;
-          updated_at: string;
-        }>();
+        const row = await db!
+          .prepare('SELECT id, title, messages_json, created_at, updated_at FROM copilot_sessions WHERE id = ?')
+          .bind(msg.sessionId)
+          .first<{
+            id: string;
+            messages_json: string;
+            created_at: string;
+            updated_at: string;
+          }>();
         if (row) {
           session = {
             id: row.id,
@@ -130,7 +133,22 @@ export async function handleChatWebSocket(request: Request, env: Env): Promise<R
       // Detect query type
       const queryType = detectType(content);
 
-      // Start agent investigation
+      // Start agent investigation.
+      //
+      // IMPORTANT — multi-turn contract: each chat message starts a FULLY
+      // INDEPENDENT investigation. The POST /investigate body deliberately
+      // sends only { id, query, queryType, maxSteps } and NOT the session
+      // message history. This is by design: the persisted `session.messages`
+      // is display-only (rendered in the chat UI), never fed back to the
+      // agent as context. This avoids cross-turn memory contamination (an
+      // old turn's unverified claims leaking into a new investigation) at
+      // the cost of no conversational continuity.
+      //
+      // If multi-turn continuity is ever needed, pass a COMPACT
+      // priorTurnSummary (derived from the last completed investigation's
+      // QA-passed keyFacts, NOT raw history) into the planner's
+      // `specialistContext` — never the raw message log, which would
+      // re-introduce the contamination this design avoids.
       const agentId = crypto.randomUUID();
       currentAgentId = agentId;
 

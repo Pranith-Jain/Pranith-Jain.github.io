@@ -165,7 +165,10 @@ function buildCompactSummary(steps: AgentStep[]): string {
       if (r.status !== 'ok' || !r.data) continue;
       const json = JSON.stringify(r.data);
       const truncated = json.length > 800 ? json.slice(0, 800) + '...' : json;
-      lines.push(`[${r.tool}] ${truncated}`);
+      // Tool data is untrusted — neutralize so it cannot forge the
+      // </collected_data> delimiter or inject QA instructions. Mirrors the
+      // single-model path (buildDataSummary in qa-verifier.ts).
+      lines.push(`[${r.tool}] ${neutralizeUntrusted(truncated)}`);
     }
   }
   const joined = lines.join('\n\n');

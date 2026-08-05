@@ -22,8 +22,10 @@ export interface WorkingMemory {
   iocs: Array<{ type: string; value: string; confidence: string; source: string }>;
   /** All MITRE techniques observed. */
   mitre: Array<{ id: string; name?: string; evidence?: string }>;
-  /** Key facts extracted by the observer. */
-  keyFacts: string[];
+  /** Key facts extracted by the observer. Tagged with provenance so the
+   * planner can downweight heuristic fallback facts (produced when the
+   * observer LLM was unavailable) vs. LLM-confirmed facts. */
+  keyFacts: Array<{ text: string; provenance: 'llm' | 'fallback' }>;
   /** Threat actor attributions. */
   actors: string[];
   /** CVEs referenced. */
@@ -67,6 +69,10 @@ export function mergeIntoMemory(
     malware?: string[];
     mitre?: string[];
     keyFacts?: string[];
+    /** Provenance of this batch's keyFacts. 'llm' = observer LLM produced
+     * them; 'fallback' = deterministic heuristic stub (low-confidence).
+     * Defaults to 'llm' for backward compatibility. */
+    keyFactsProvenance?: 'llm' | 'fallback';
     confidence?: string;
     gaps?: string[];
   }>
@@ -103,10 +109,11 @@ export function mergeIntoMemory(
         next.mitre.push({ id });
       }
     }
-    // Key facts
+    // Key facts — dedup by text, tagged with provenance
+    const provenance = r.keyFactsProvenance ?? 'llm';
     for (const f of r.keyFacts ?? []) {
-      if (f && !next.keyFacts.includes(f)) {
-        next.keyFacts.push(f);
+      if (f && !next.keyFacts.some((k) => k.text === f)) {
+        next.keyFacts.push({ text: f, provenance });
       }
     }
     // Gaps
@@ -169,6 +176,7 @@ export function rebuildWorkingMemory(steps: AgentStep[]): WorkingMemory {
       malware?: string[];
       mitre?: string[];
       keyFacts?: string[];
+      keyFactsProvenance?: 'llm' | 'fallback';
       confidence?: string;
       gaps?: string[];
     }> = [];
@@ -183,6 +191,9 @@ export function rebuildWorkingMemory(steps: AgentStep[]): WorkingMemory {
         malware: step.observerFindings.malware,
         mitre: step.observerFindings.mitre,
         keyFacts: step.observerFindings.keyFacts,
+        // Propagate the observer's provenance so the planner can downweight
+        // heuristic fallback facts vs. LLM-confirmed facts.
+        keyFactsProvenance: step.observerFindings.provenance,
         confidence: step.observerFindings.confidence,
         gaps: step.observerFindings.gaps,
       });
@@ -277,7 +288,10 @@ export function memoryToPrompt(mem: WorkingMemory): string {
   if (mem.keyFacts.length > 0) {
     lines.push(`Key facts (${mem.keyFacts.length}):`);
     for (const f of mem.keyFacts.slice(-10)) {
-      lines.push(`  • ${f}`);
+      // Tag fallback-sourced facts so the planner treats them as low-confidence
+      // heuristics, not LLM-confirmed intelligence.
+      const tag = f.provenance === 'fallback' ? ' (heuristic)' : '';
+      lines.push(`  • ${f.text}${tag}`);
     }
   }
   if (mem.openGaps.length > 0) {

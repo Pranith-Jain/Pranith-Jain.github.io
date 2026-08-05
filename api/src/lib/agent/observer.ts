@@ -7,7 +7,7 @@ import { runCompletion, type CompletionInput } from '../../case-study/generation
 import type { AgentToolResult } from './types';
 import { buildObserverPrompt } from './prompts';
 import { summarizeToolResult } from './tools';
-import { neutralizeAttr } from '../prompt-fence';
+import { neutralizeAttr, neutralizeUntrusted } from '../prompt-fence';
 import { ObserverOutputSchema, parseWithErrors } from './schemas';
 
 /**
@@ -27,7 +27,9 @@ async function getCachedObservation(key: string): Promise<ObserverOutput | null>
   try {
     const hit = await (caches as unknown as { default: Cache }).default.match(new Request(key));
     if (hit) return (await hit.json()) as ObserverOutput;
-  } catch { /* best-effort */ }
+  } catch {
+    /* best-effort */
+  }
   return null;
 }
 async function setCachedObservation(key: string, obs: ObserverOutput): Promise<void> {
@@ -38,7 +40,9 @@ async function setCachedObservation(key: string, obs: ObserverOutput): Promise<v
         headers: { 'content-type': 'application/json', 'cache-control': 'max-age=3600' },
       })
     );
-  } catch { /* best-effort */ }
+  } catch {
+    /* best-effort */
+  }
 }
 
 export interface ObserverOutput {
@@ -104,7 +108,10 @@ export async function observeStep(
     const resultBlock = results
       .map((r) => {
         const status = r.status === 'ok' ? 'OK' : `ERROR: ${r.error}`;
-        const data = r.data ? summarizeToolResult(r.tool, r.data, 2000) : '(no data)';
+        // Tool data is untrusted — neutralize so it cannot forge the </step>
+        // delimiter or inject observer instructions. Mirrors the QA verifier's
+        // buildDataSummary and the ensemble-qa buildCompactSummary defenses.
+        const data = r.data ? neutralizeUntrusted(summarizeToolResult(r.tool, r.data, 2000)) : '(no data)';
         const next = r.nextActions && r.nextActions.length > 0 ? `\n  next_actions: ${r.nextActions.join(', ')}` : '';
         return `- ${r.tool}(${JSON.stringify(r.args)}): ${status}\n  ${data}${next}`;
       })
