@@ -96,13 +96,16 @@ async function ensureTable(db: D1Database): Promise<void> {
 }
 
 async function loadSession(db: D1Database, id: string): Promise<ChatSession | null> {
-  const row = await db.prepare('SELECT id, title, messages_json, created_at, updated_at FROM copilot_sessions WHERE id = ?').bind(id).first<{
-    id: string;
-    title: string;
-    messages_json: string;
-    created_at: string;
-    updated_at: string;
-  }>();
+  const row = await db
+    .prepare('SELECT id, title, messages_json, created_at, updated_at FROM copilot_sessions WHERE id = ?')
+    .bind(id)
+    .first<{
+      id: string;
+      title: string;
+      messages_json: string;
+      created_at: string;
+      updated_at: string;
+    }>();
   if (!row) return null;
   return {
     id: row.id,
@@ -288,7 +291,10 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
         if (closed) return;
         try {
           const res = await stub.fetch(`https://agent/state?id=${encodeURIComponent(agentId)}`);
-          if (!res.ok) { scheduleNext(pollDelay); return; }
+          if (!res.ok) {
+            scheduleNext(pollDelay);
+            return;
+          }
           const state = (await res.json()) as AgentState;
 
           let hasNew = false;
@@ -354,6 +360,7 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
                   : undefined,
                 selfEval: state.selfEval,
                 qa: state.qa,
+                dataGaps: state.dataGaps,
               })
             );
 
@@ -404,15 +411,19 @@ export async function copilotChatStreamHandler(c: Context<{ Bindings: Env }>): P
         clearTimeout(timeoutTimer);
       };
 
-      c.req.raw.signal.addEventListener('abort', () => {
-        cleanup();
-        closed = true;
-        try {
-          controller.close();
-        } catch (_catchErr) {
-          logError('handler failed', _catchErr);
-        }
-      }, { once: true });
+      c.req.raw.signal.addEventListener(
+        'abort',
+        () => {
+          cleanup();
+          closed = true;
+          try {
+            controller.close();
+          } catch (_catchErr) {
+            logError('handler failed', _catchErr);
+          }
+        },
+        { once: true }
+      );
 
       poll(); // start first poll
     },

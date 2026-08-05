@@ -578,10 +578,12 @@ export function shouldRetry(
   missingFacts: number,
   step: number,
   maxSteps: number,
-  retryCount = 0
+  retryCount = 0,
+  maxRetries = 1
 ): boolean {
-  // Hard cap: one self-correction retry per investigation. No second pass.
-  if (retryCount >= 1) return false;
+  // Hard cap on self-correction retries. Default 1 (bounded repair).
+  // GAN-style convergence allows up to 3 — stops when score stops improving.
+  if (retryCount >= maxRetries) return false;
 
   // Don't retry if we're already at max steps (no budget for another synthesis)
   if (step >= maxSteps - 1) return false;
@@ -598,4 +600,41 @@ export function shouldRetry(
   if (flaggedClaims > 0 && qualityScore < 80) return true;
 
   return false;
+}
+
+/**
+ * GAN-style convergence check: should the generator-evaluator loop continue?
+ *
+ * Returns true when the loop should make another iteration. The loop stops
+ * when:
+ *   - The score reached the target (>= 80)
+ *   - The score stopped improving (delta <= 0)
+ *   - The max iterations were reached
+ *   - There are no fixable issues (no flagged claims, no missing facts)
+ */
+export function shouldConverge(
+  currentScore: number,
+  previousScore: number | null,
+  flaggedClaims: number,
+  missingFacts: number,
+  iteration: number,
+  maxIterations = 3,
+  targetScore = 80
+): { continue: boolean; reason: string } {
+  if (iteration >= maxIterations) {
+    return { continue: false, reason: `Max iterations (${maxIterations}) reached` };
+  }
+  if (currentScore >= targetScore && flaggedClaims === 0) {
+    return { continue: false, reason: `Target score ${targetScore} reached with no flagged claims` };
+  }
+  if (previousScore !== null && currentScore <= previousScore) {
+    return { continue: false, reason: `Score stopped improving (${previousScore}→${currentScore})` };
+  }
+  if (flaggedClaims === 0 && missingFacts <= 3 && currentScore >= 70) {
+    return { continue: false, reason: 'No fixable issues remaining' };
+  }
+  return {
+    continue: true,
+    reason: `Iteration ${iteration + 1}: score ${currentScore}, ${flaggedClaims} flagged, ${missingFacts} missing`,
+  };
 }

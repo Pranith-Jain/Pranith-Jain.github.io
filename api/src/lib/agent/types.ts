@@ -154,6 +154,8 @@ export interface AgentState {
   };
   /** 5-axis self-evaluation scorecard (accuracy, completeness, clarity, actionability, conciseness). */
   selfEval?: import('./self-eval').SelfEvalResult;
+  /** Structured tool-failure introspection (what was missed + diagnosis). */
+  dataGaps?: import('./introspection').ToolFailure[];
 }
 
 /** Structured log entry for the investigation loop. */

@@ -107,14 +107,17 @@ async function ensureTable(db: D1Database): Promise<void> {
 }
 
 async function loadSession(db: D1Database, id: string): Promise<VeraSession | null> {
-  const row = await db.prepare('SELECT id, mode, messages_json, created_at, updated_at, role FROM vera_sessions WHERE id = ?').bind(id).first<{
-    id: string;
-    mode: string;
-    messages_json: string;
-    created_at: string;
-    updated_at: string;
-    role: string | null;
-  }>();
+  const row = await db
+    .prepare('SELECT id, mode, messages_json, created_at, updated_at, role FROM vera_sessions WHERE id = ?')
+    .bind(id)
+    .first<{
+      id: string;
+      mode: string;
+      messages_json: string;
+      created_at: string;
+      updated_at: string;
+      role: string | null;
+    }>();
   if (!row) return null;
   return {
     id: row.id,
@@ -405,6 +408,7 @@ export async function veraChatStreamHandler(c: Context<{ Bindings: Env }>): Prom
                 toolsUsed,
                 selfEval: state.selfEval,
                 qa: state.qa,
+                dataGaps: state.dataGaps,
               })
             );
 

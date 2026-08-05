@@ -17,6 +17,7 @@ import { observeStep } from '../../api/src/lib/agent/observer';
 import { synthesizeReport, splitSynthOutput } from '../../api/src/lib/agent/synthesizer';
 import { verifyReport } from '../../api/src/lib/agent/qa-verifier';
 import { selfEvaluateReport } from '../../api/src/lib/agent/self-eval';
+import { extractToolFailures } from '../../api/src/lib/agent/introspection';
 import { signInternalToken } from '../../api/src/lib/internal-token';
 import {
   buildOrchestratorPlan,
@@ -39,6 +40,7 @@ import {
   rebuildWorkingMemory,
   memoryToPrompt,
   shouldRetry,
+  shouldConverge,
   buildSelfCorrectionPrompt,
   type WorkingMemory,
 } from '../../api/src/lib/agent/agent-framework';
@@ -1091,30 +1093,60 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
           reason: 'Initial synthesis + QA',
         });
 
-        // BOUNDED REPAIR LOOP: at most ONE self-correction retry. retryCount=1
-        // means shouldRetry returns false on any subsequent call, so this block
-        // runs at most once per investigation.
-        if (
+        // GAN-STYLE CONVERGENCE LOOP: generator (synthesizer) → evaluator (QA)
+        // → generator revises → evaluator re-scores. Stops when:
+        //   - score reaches target (80) with no flagged claims
+        //   - score stops improving (delta <= 0)
+        //   - max 3 iterations (bounded — never spins)
+        //   - no fixable issues remaining
+        // Each iteration uses a different provider for QA (judge independence).
+        let convergenceIteration = 0;
+        let prevScore: number | null = null;
+        let currentReport = result.report;
+        let currentActionCard = result.actionCard;
+        let currentModelUsed = result.modelUsed;
+        let currentQa = qa;
+        let convergenceReason = '';
+
+        while (
           qa.qualityScore >= 0 &&
           shouldRetry(
-            qa.qualityScore,
-            qa.flaggedClaims.length,
-            qa.missingFacts.length,
+            currentQa.qualityScore,
+            currentQa.flaggedClaims.length,
+            currentQa.missingFacts.length,
             stepNum,
             state.maxSteps,
-            1 // retryCount — this is the (only) allowed retry
+            convergenceIteration,
+            3 // maxRetries — GAN convergence allows up to 3 iterations
           )
         ) {
+          const convCheck = shouldConverge(
+            currentQa.qualityScore,
+            prevScore,
+            currentQa.flaggedClaims.length,
+            currentQa.missingFacts.length,
+            convergenceIteration,
+            3,
+            80
+          );
+          if (!convCheck.continue) {
+            convergenceReason = convCheck.reason;
+            break;
+          }
+
           this.broadcastToWatchers({
             type: 'step',
-            step: { ...qaStep, observation: `QA score ${qa.qualityScore}/100 — running self-correction…` },
+            step: {
+              ...qaStep,
+              observation: `GAN convergence iteration ${convergenceIteration + 1}: ${convCheck.reason}`,
+            },
           });
 
           const workingMem = this.buildWorkingMemory(state);
           const memStr = memoryToPrompt(workingMem);
           const correctionPrompt = buildSelfCorrectionPrompt(
-            result.report,
-            { flaggedClaims: qa.flaggedClaims, missingFacts: qa.missingFacts, qualityNotes: '' },
+            currentReport,
+            { flaggedClaims: currentQa.flaggedClaims, missingFacts: currentQa.missingFacts, qualityNotes: '' },
             memStr
           );
 
@@ -1136,10 +1168,9 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
 
           const { report: correctedProse, actionCard: correctedCard } = splitSynthOutput(correctedText);
 
-          // QA2 also excludes the generator (the corrected synthesizer's provider)
-          // so the second verification is judge-independent of the rewrite.
+          // QA excludes the generator (judge independence)
           const correctedProvider = correctedModel.split(':')[0] as 'infron' | 'groq' | 'gemini' | 'nvidia' | undefined;
-          const qa2 = await verifyReport(ai, state.query, state.queryType, correctedProse, state.steps, {
+          const qaNext = await verifyReport(ai, state.query, state.queryType, correctedProse, state.steps, {
             infronKey,
             groqKey,
             googleKey,
@@ -1149,35 +1180,40 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
           });
 
           versioned = addVersion(versioned, correctedProse, {
-            qualityScore: qa2.qualityScore,
-            modelUsed: qa2.modelUsed,
-            reason: 'Self-correction retry',
+            qualityScore: qaNext.qualityScore,
+            modelUsed: qaNext.modelUsed,
+            reason: `GAN convergence iteration ${convergenceIteration + 1}`,
           });
 
-          if (qa2.qualityScore > qa.qualityScore) {
-            // Use the SYNTHESIZER's corrected prose (qa2.verifiedReport ===
-            // correctedProse now that QA only flags, never rewrites). The
-            // synthesizer owns all rewriting via the self-correction prompt.
-            finalReport = correctedProse;
-            finalActionCard = correctedCard ?? result.actionCard;
-            finalModelUsed = `${result.modelUsed} → QA:${qa.modelUsed} → retry:${correctedModel} → QA:${qa2.modelUsed}`;
-            finalQa = {
-              qualityScore: qa2.qualityScore,
-              flaggedClaims: qa2.flaggedClaims,
-              missingFacts: qa2.missingFacts,
-            };
-            qaStep.observation = `QA complete (with self-correction). Score improved: ${qa.qualityScore}→${qa2.qualityScore}/100.`;
+          prevScore = currentQa.qualityScore;
+
+          if (qaNext.qualityScore > currentQa.qualityScore) {
+            // Improvement — adopt the corrected version
+            currentReport = correctedProse;
+            currentActionCard = correctedCard ?? currentActionCard;
+            currentModelUsed = `${currentModelUsed} → QA:${qaNext.modelUsed}`;
+            currentQa = qaNext;
+            convergenceReason = `Score improved: ${qa.qualityScore}→${qaNext.qualityScore}/100 (iteration ${convergenceIteration + 1})`;
           } else {
-            // NO-IMPROVEMENT EXIT: keep the original report. The retry did not
-            // help, so we discard the corrected version and stop — the loop is
-            // bounded and will not retry again (retryCount cap).
-            qaStep.observation = `QA complete. Self-correction did not improve (${qa.qualityScore}→${qa2.qualityScore}). Keeping original.`;
+            // No improvement — stop the loop (convergence)
+            convergenceReason = `Convergence: score did not improve (${currentQa.qualityScore}→${qaNext.qualityScore}). Stopping after iteration ${convergenceIteration + 1}.`;
+            break;
           }
+
+          convergenceIteration++;
+        }
+
+        finalReport = currentReport;
+        finalActionCard = currentActionCard;
+        finalModelUsed = currentModelUsed;
+        finalQa = currentQa;
+
+        if (convergenceIteration > 0) {
+          qaStep.observation = `QA complete (GAN convergence, ${convergenceIteration} iteration${convergenceIteration > 1 ? 's' : ''}). ${convergenceReason}`;
+        } else if (qa.qualityScore < 0) {
+          qaStep.observation = `QA skipped — all LLM providers exhausted. Original report preserved.`;
         } else {
-          qaStep.observation =
-            qa.qualityScore < 0
-              ? `QA skipped — all LLM providers exhausted. Original report preserved.`
-              : `QA complete. Score: ${qa.qualityScore}/100. Flagged: ${qa.flaggedClaims.length} claims. Missing: ${qa.missingFacts.length} facts.`;
+          qaStep.observation = `QA complete. Score: ${qa.qualityScore}/100. Flagged: ${qa.flaggedClaims.length} claims. Missing: ${qa.missingFacts.length} facts.`;
         }
 
         const { report: proseOnly, actionCard: qaCard } = splitSynthOutput(finalReport);
@@ -1245,6 +1281,19 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         }
       } catch (selfEvalErr) {
         console.error('self-eval failed:', selfEvalErr instanceof Error ? selfEvalErr.message : String(selfEvalErr));
+      }
+
+      // ── Introspection: extract tool failures for the UI ────────────
+      // Populates state.dataGaps so the frontend can surface what was
+      // missed. The synthesizer prompt already includes the data-gaps
+      // section in the report prose; this is the structured version.
+      try {
+        const failures = extractToolFailures(state.steps);
+        if (failures.length > 0) {
+          state.dataGaps = failures;
+        }
+      } catch (introErr) {
+        console.error('introspection failed:', introErr instanceof Error ? introErr.message : String(introErr));
       }
 
       const toolCounts = new Map<string, number>();

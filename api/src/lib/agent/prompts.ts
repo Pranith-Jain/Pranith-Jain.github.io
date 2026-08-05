@@ -419,7 +419,7 @@ analyst_approval_required: true
 - **Structural contract (non-negotiable)**: The report MUST start with a \`\`\`report-header JSON block and MUST end with a \`\`\`action-card JSON block, with a :::handoff block between the prose and the action-card. A report missing any of these three blocks is structurally invalid and will be rejected by QA regardless of prose quality.
 - **Integrity**: Write ONLY about data that EXISTS in tool results. NEVER invent CVE IDs, CVSS scores, EPSS values, actor names, technique IDs, hashes, IPs, or dates. DO NOT cite tools that returned 0 results or errored.
 - **Attribution**: NEVER attribute ransomware data to a non-ransomware actor. NEVER merge data across entities — every claim must trace to a tool result that explicitly names the entity.
-- **Voice**: The report presents FINDINGS, not process. NEVER say "Tool X returned Y." Active voice, present tense. "Block 1.2.3.4" not "1.2.3.4 should be blocked."
+- **Voice**: The report presents FINDINGS, not process. NEVER say "Tool X returned Y", "The actor_timeline tool provided", "The get_victim_releaks tool returned", or any variant that names the tool in the prose. Active voice, present tense. "Block 1.2.3.4" not "1.2.3.4 should be blocked." Synthesize the data into intelligence — the reader cares about the threat, not which API was called. Tool names belong ONLY in the Methodology section's source list.
 - **Format**: Each section heading and table structure must match exactly. No extra commentary between sections. The prose goes in the section body, not the table cells.
 - **Confidence marking**: [Confirmed] (2+ sources), [Probable] (1 source), [Possible] (weak signal). Use ISO dates (YYYY-MM-DD). Times in UTC. Separate confidence (evidence strength) from likelihood (forward-looking probability) per ICD-203; mark likelihood "n/a (observed)" for retrospective findings.
 - **Compactness**: ≤1500 words. Dense sentences. No filler. One fact per sentence is ideal. OMIT a section if you have <2 data points for it.
@@ -524,6 +524,19 @@ export function buildSynthesizerUserPrompt(query: string, queryType: string, ste
   // Keep at most 5 most-recent steps with meaningful data to stay within 8K token
   // context windows. Earlier steps are summarized into the observation text.
   const limitedSteps = steps.length > 5 ? steps.slice(-5) : steps;
+
+  // ── Introspection: extract failed tools and build a data-gaps section ──
+  // This surfaces what the investigation MISSED so the synthesizer can include
+  // a "Data Gaps & Limitations" section in the report.
+  const failedTools = steps.flatMap((s) =>
+    s.results
+      .filter((r) => r.status === 'error')
+      .map((r) => ({ tool: r.tool, error: r.error ?? 'unknown', step: s.stepNumber }))
+  );
+  const failedSummary =
+    failedTools.length > 0
+      ? failedTools.map((f) => `- ${f.tool} (step ${f.step}): ${f.error.slice(0, 120)}`).join('\n')
+      : null;
   const stepBlocks = limitedSteps
     .map((s) => {
       const toolBlocks = s.results
@@ -605,6 +618,17 @@ ${
 Key data sources: ${[...new Set(okTools.map((r) => r.tool))].slice(0, 8).join(', ') || 'none'}
 ${omitTools.length > 0 ? `Failed tools: ${[...new Set(omitTools)].join(', ')}` : ''}
 </quality_summary>
+
+<data_gaps>
+${
+  failedSummary
+    ? `The following tools FAILED during this investigation. You MUST include a "## Data Gaps & Limitations" section at the END of the report (before the :::handoff block) that lists each failed tool, what intelligence it would have provided, and how the gap affects the report's completeness. Do NOT fabricate data for failed tools.
+
+Failed tools:
+${failedSummary}`
+    : 'No tools failed during this investigation. Do NOT include a Data Gaps section.'
+}
+</data_gaps>
 
 <data_availability>
 ${availability.length > 0 ? availability.join('\n') : 'No tools were called during this investigation.'}
