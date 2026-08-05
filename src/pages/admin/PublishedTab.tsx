@@ -299,9 +299,10 @@ export default function PublishedTab() {
                   );
                 } },
                 { key: 'actions', header: 'Actions', render: (p) => (
-                  <button onClick={() => unpublish(p.slug)}  className="px-2 py-1 border border-rose-200 dark:border-rose-800 rounded text-xs text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50">
-                    'Unpublish'
-                  </button>
+                  <div className="flex gap-1.5">
+                    <button onClick={() => viewSocial(p.slug)} className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]">View</button>
+                    <button onClick={() => unpublish(p.slug)} className="px-2 py-1 border border-rose-200 dark:border-rose-800 rounded text-xs text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50">Unpublish</button>
+                  </div>
                 ) },
               ] as DataTableColumn<typeof filtered[number]>[]}
               rows={filtered}

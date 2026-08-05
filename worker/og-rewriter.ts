@@ -145,7 +145,7 @@ export interface OgOverride {
  *  be poisoned by a request arriving on a non-canonical host. */
 const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
 
-const OG_CACHE_VERSION = 'v10';
+const OG_CACHE_VERSION = 'v11';
 
 /**
  * Clamp a string so its UTF-8 byte length stays within `maxBytes`. Some

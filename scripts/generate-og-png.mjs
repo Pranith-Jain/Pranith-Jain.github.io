@@ -101,7 +101,7 @@ function buildSvg(c) {
     .join('\n  ');
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="'Hanken Grotesk', system-ui, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="418" viewBox="0 0 1200 630" font-family="'Hanken Grotesk', system-ui, sans-serif">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#070b1c"/><stop offset="50%" stop-color="#1c2538"/><stop offset="100%" stop-color="#070b1c"/>
@@ -177,7 +177,7 @@ for (const c of CARDS) {
   const svg = buildSvg(c);
   writeFileSync(join(root, `public/${c.slug}.svg`), svg);
   const resvg = new Resvg(svg, {
-    fitTo: { mode: 'width', value: 1200 },
+    fitTo: { mode: 'width', value: 800 },
     font: { fontBuffers, defaultFontFamily: 'Hanken Grotesk', loadSystemFonts: true },
     background: '#0b1120',
   });
