@@ -10,6 +10,37 @@ import { summarizeToolResult } from './tools';
 import { neutralizeAttr } from '../prompt-fence';
 import { ObserverOutputSchema, parseWithErrors } from './schemas';
 
+/**
+ * Observation cache — when the same tool+args produce the same result (via
+ * agent-cache), the observation is also identical. Cache the LLM observation
+ * keyed on the tool+args hash so we skip the LLM call entirely on repeat.
+ * Uses Cache-API (free, per-colo, no KV quota).
+ */
+const OBS_CACHE_PREFIX = 'https://agent-obs-cache.internal/v1';
+function obsCacheKey(stepNumber: number, results: AgentToolResult[]): string {
+  // Hash the tool names + args + status — if the same tools ran with the
+  // same args and the same status, the observation is deterministic.
+  const sig = results.map((r) => `${r.tool}:${JSON.stringify(r.args)}:${r.status}`).join('|');
+  return `${OBS_CACHE_PREFIX}/${stepNumber}:${sig.length}:${sig.slice(0, 200)}`;
+}
+async function getCachedObservation(key: string): Promise<ObserverOutput | null> {
+  try {
+    const hit = await (caches as unknown as { default: Cache }).default.match(new Request(key));
+    if (hit) return (await hit.json()) as ObserverOutput;
+  } catch { /* best-effort */ }
+  return null;
+}
+async function setCachedObservation(key: string, obs: ObserverOutput): Promise<void> {
+  try {
+    await (caches as unknown as { default: Cache }).default.put(
+      new Request(key),
+      new Response(JSON.stringify(obs), {
+        headers: { 'content-type': 'application/json', 'cache-control': 'max-age=3600' },
+      })
+    );
+  } catch { /* best-effort */ }
+}
+
 export interface ObserverOutput {
   observation: string;
   keyFacts: string[];
@@ -56,12 +87,24 @@ export async function observeStep(
     return { ...fallback, provenance: 'fallback' };
   }
 
+  // Observation cache: if the same tools ran with the same args and the same
+  // status (e.g. a cached tool result from agent-cache), the observation is
+  // deterministic — skip the LLM call entirely. This saves one LLM call per
+  // repeat-tool step (common when the agent re-checks an indicator it already
+  // investigated in a prior step).
+  const cacheKey = obsCacheKey(stepNumber, results);
+  const cached = await getCachedObservation(cacheKey);
+  if (cached) return cached;
+  if (allErrored) {
+    return { ...fallback, provenance: 'fallback' };
+  }
+
   try {
     const system = buildObserverPrompt();
     const resultBlock = results
       .map((r) => {
         const status = r.status === 'ok' ? 'OK' : `ERROR: ${r.error}`;
-        const data = r.data ? summarizeToolResult(r.tool, r.data, 1000) : '(no data)';
+        const data = r.data ? summarizeToolResult(r.tool, r.data, 2000) : '(no data)';
         const next = r.nextActions && r.nextActions.length > 0 ? `\n  next_actions: ${r.nextActions.join(', ')}` : '';
         return `- ${r.tool}(${JSON.stringify(r.args)}): ${status}\n  ${data}${next}`;
       })
@@ -74,7 +117,7 @@ ${resultBlock}
 
 Analyze these results. What was found? Extract exact values into keyFacts/iocs/actors/cves/malware/mitre. Which Diamond Model vertex did this populate? What report sections can now be written, and which gaps remain?`;
 
-    const input: CompletionInput = { system, user, maxTokens: 800, temperature: 0.2 };
+    const input: CompletionInput = { system, user, maxTokens: 1200, temperature: 0.1 };
 
     const MAX_RETRIES = 2;
     let lastErrors = '';
@@ -98,7 +141,7 @@ Analyze these results. What was found? Extract exact values into keyFacts/iocs/a
         const usedFallbackForKeyFacts = parsed.data.keyFacts.length === 0 && fallback.keyFacts.length > 0;
         const usedFallbackForGaps = parsed.data.gaps.length === 0 && fallback.gaps.length > 0;
         const provenance: 'llm' | 'fallback' = usedFallbackForKeyFacts || usedFallbackForGaps ? 'fallback' : 'llm';
-        return {
+        const output: ObserverOutput = {
           observation: parsed.data.observation || fallback.observation,
           keyFacts: parsed.data.keyFacts.length > 0 ? parsed.data.keyFacts : fallback.keyFacts,
           iocs: parsed.data.iocs,
@@ -110,6 +153,12 @@ Analyze these results. What was found? Extract exact values into keyFacts/iocs/a
           gaps: parsed.data.gaps.length > 0 ? parsed.data.gaps : fallback.gaps,
           provenance,
         };
+        // Cache the observation so a repeat of the same tool+args (via
+        // agent-cache) skips the LLM call on the next investigation.
+        if (provenance === 'llm') {
+          await setCachedObservation(cacheKey, output);
+        }
+        return output;
       }
 
       lastErrors = parsed.errors;

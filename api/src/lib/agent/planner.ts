@@ -69,7 +69,7 @@ export async function planNextStep(
     opts.specialistContext
   );
 
-  const input: CompletionInput = { system, user, maxTokens: 1200, temperature: 0.2 };
+  const input: CompletionInput = { system, user, maxTokens: 2000, temperature: 0.3 };
 
   let parseRetries = 0;
   for (let attempt = 0; attempt <= MAX_PARSE_RETRIES; attempt++) {
