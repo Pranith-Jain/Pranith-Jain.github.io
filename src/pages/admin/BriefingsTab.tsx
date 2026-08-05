@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { briefingsGet, briefingsPost } from './adminApi';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 
 /**
  * Admin Briefings tab - manual control over the threat-briefing pipeline.
@@ -449,29 +450,29 @@ export default function BriefingsTab() {
           </div>
         )}
         <div className="border border-slate-200 dark:border-[rgb(var(--border-400))] rounded overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-500 uppercase text-xs tracking-wider">
-              <tr>
-                <th className="text-left px-3 py-2">Slug</th>
-                <th className="text-left px-3 py-2">Type</th>
-                <th className="text-left px-3 py-2">Stats</th>
-                <th className="text-right px-3 py-2">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {items.map((it) => (
-                <tr
-                  key={it.slug}
-                  className={`border-t border-slate-200 dark:border-[rgb(var(--border-400))] ${isEmpty(it.metadata.stats) ? 'bg-rose-50 dark:bg-rose-950/20' : ''}`}
-                >
-                  <td className="px-3 py-1.5 font-mono text-slate-700 dark:text-slate-300">{it.slug}</td>
-                  <td className="px-3 py-1.5 text-slate-500 dark:text-slate-400 capitalize">
-                    {it.metadata.type ?? '-'}
-                  </td>
-                  <td className="px-3 py-1.5">
-                    <StatPills stats={it.metadata.stats} />
-                  </td>
-                  <td className="px-3 py-1.5 text-right">
+          <DataTable
+            columns={
+              [
+                {
+                  key: 'slug',
+                  header: 'Slug',
+                  sortValue: (it: (typeof items)[number]) => it.slug,
+                  render: (it) => <span className="font-mono text-slate-700 dark:text-slate-300">{it.slug}</span>,
+                },
+                {
+                  key: 'type',
+                  header: 'Type',
+                  sortValue: (it: (typeof items)[number]) => it.metadata.type ?? '',
+                  render: (it) => (
+                    <span className="text-slate-500 dark:text-slate-400 capitalize">{it.metadata.type ?? '-'}</span>
+                  ),
+                },
+                { key: 'stats', header: 'Stats', render: (it) => <StatPills stats={it.metadata.stats} /> },
+                {
+                  key: 'action',
+                  header: 'Action',
+                  align: 'right',
+                  render: (it) => (
                     <button
                       onClick={() => deleteOne(it.slug)}
                       disabled={deletingSlug !== null}
@@ -479,18 +480,15 @@ export default function BriefingsTab() {
                     >
                       {deletingSlug === it.slug ? 'Deleting…' : 'Delete'}
                     </button>
-                  </td>
-                </tr>
-              ))}
-              {items.length === 0 && !listLoading && (
-                <tr>
-                  <td colSpan={4} className="px-3 py-4 text-center text-slate-600 dark:text-slate-500">
-                    No briefings.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                  ),
+                },
+              ] as DataTableColumn<(typeof items)[number]>[]
+            }
+            rows={items}
+            rowKey={(it) => it.slug}
+            rowClassName={(it) => (isEmpty(it.metadata.stats) ? 'bg-rose-50 dark:bg-rose-950/20' : '')}
+            empty={items.length === 0 && !listLoading ? 'No briefings.' : undefined}
+          />
         </div>
       </div>
     </div>

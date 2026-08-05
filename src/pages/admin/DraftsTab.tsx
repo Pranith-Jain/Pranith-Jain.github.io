@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { getJson, postJson, postJsonWithBody } from './adminApi';
+import { DataTable, type DataTableColumn } from '../../components/ui/DataTable';
 import { SearchFilter } from './SearchFilter';
 
 /**
@@ -272,46 +273,50 @@ export default function DraftsTab() {
         <SearchFilter items={drafts} placeholder="Filter drafts…">
           {(filtered) => (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="text-left text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500 border-b border-slate-200 dark:border-[rgb(var(--border-400))]">
-                  <tr>
-                    <th scope="col" className="py-2 pr-4">
-                      Type
-                    </th>
-                    <th scope="col" className="py-2 pr-4">
-                      Title
-                    </th>
-                    <th scope="col" className="py-2 pr-4">
-                      Generated
-                    </th>
-                    <th scope="col" className="py-2 pr-4">
-                      Slug
-                    </th>
-                    <th scope="col" className="py-2">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((d) => {
-                    const isPreviewing = preview?.post.slug === d.slug;
-                    const previewBusy = previewLoading === d.slug;
-                    const approveBusy = actionBusy === `approve:${d.slug}`;
-                    const rejectBusy = actionBusy === `reject:${d.slug}`;
-                    return (
-                      <tr
-                        key={d.slug}
-                        className="border-b border-slate-200 dark:border-[rgb(var(--border-400))] align-top"
-                      >
-                        <td className="py-2 pr-4 text-slate-500 dark:text-slate-400 uppercase text-xs">{d.type}</td>
-                        <td className="py-2 pr-4 text-slate-900 dark:text-slate-100">{d.title}</td>
-                        <td className="py-2 pr-4 text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
+              <DataTable
+                columns={
+                  [
+                    {
+                      key: 'type',
+                      header: 'Type',
+                      sortValue: (d: (typeof filtered)[number]) => d.type,
+                      render: (d) => (
+                        <span className="text-slate-500 dark:text-slate-400 uppercase text-xs">{d.type}</span>
+                      ),
+                    },
+                    {
+                      key: 'title',
+                      header: 'Title',
+                      sortValue: (d: (typeof filtered)[number]) => d.title,
+                      render: (d) => <span className="text-slate-900 dark:text-slate-100">{d.title}</span>,
+                    },
+                    {
+                      key: 'generated',
+                      header: 'Generated',
+                      sortValue: (d: (typeof filtered)[number]) => d.publishedAt,
+                      render: (d) => (
+                        <span className="text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
                           {new Date(d.publishedAt).toLocaleString()}
-                        </td>
-                        <td className="py-2 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400 break-all">
-                          {d.slug}
-                        </td>
-                        <td className="py-2">
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'slug',
+                      header: 'Slug',
+                      sortValue: (d: (typeof filtered)[number]) => d.slug,
+                      render: (d) => (
+                        <span className="font-mono text-xs text-slate-500 dark:text-slate-400 break-all">{d.slug}</span>
+                      ),
+                    },
+                    {
+                      key: 'actions',
+                      header: 'Actions',
+                      render: (d) => {
+                        const isPreviewing = preview?.post.slug === d.slug;
+                        const previewBusy = previewLoading === d.slug;
+                        const approveBusy = actionBusy === `approve:${d.slug}`;
+                        const rejectBusy = actionBusy === `reject:${d.slug}`;
+                        return (
                           <div className="flex flex-wrap gap-1.5">
                             <button
                               onClick={() => (isPreviewing ? setPreview(null) : void loadPreview(d.slug))}
@@ -334,29 +339,15 @@ export default function DraftsTab() {
                             >
                               {rejectBusy ? '…' : 'Reject'}
                             </button>
-                            <RegenMenu
-                              slug={d.slug}
-                              busy={actionBusy === `regen:${d.slug}`}
-                              disabled={approveBusy || rejectBusy || actionBusy === `regen:${d.slug}`}
-                              onRegen={(mode, notes) => void regenerate(d.slug, mode, notes)}
-                            />
-                            <SocialBtn
-                              label="LI"
-                              busy={socialGen[`${d.slug}:linkedin`]}
-                              onClick={() => void generateSocial(d.slug, 'linkedin')}
-                            />
-                            <SocialBtn
-                              label="Tw"
-                              busy={socialGen[`${d.slug}:twitter`]}
-                              onClick={() => void generateSocial(d.slug, 'twitter')}
-                            />
                           </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+                        );
+                      },
+                    },
+                  ] as DataTableColumn<(typeof filtered)[number]>[]
+                }
+                rows={filtered}
+                rowKey={(d) => d.slug}
+              />
             </div>
           )}
         </SearchFilter>
