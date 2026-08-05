@@ -145,7 +145,7 @@ export interface OgOverride {
  *  be poisoned by a request arriving on a non-canonical host. */
 const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
 
-const OG_CACHE_VERSION = 'v11';
+const OG_CACHE_VERSION = 'v12';
 
 /**
  * Clamp a string so its UTF-8 byte length stays within `maxBytes`. Some
@@ -200,13 +200,13 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'CRUCIBLE · DFIR Toolkit',
     description:
       'CRUCIBLE — 90+ free, browser-side DFIR tools: IOC checker, CVE prioritizer, crypto tracer, decoders, YARA/Sigma converter. No signup.',
-    image: '/og-dfir.png?v=5',
+    image: '/og-dfir.png?v=6',
   },
   '/radar': {
     title: 'SCOUT · Recon Scanner',
     description:
       'SCOUT — deep crawl, JS analysis, API discovery, secret detection, and 0-100 security scoring. Free, browser-driven recon.',
-    image: '/og-scout.png?v=5',
+    image: '/og-scout.png?v=6',
   },
   '/copilot': {
     title: 'CTI Copilot',
@@ -217,7 +217,7 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'PANOPTICON · Threat Intel Platform',
     description:
       'PANOPTICON — live ransomware leaks, CVE × CISA KEV, cross-source IOC correlation, actor × MITRE, STIX 2.1 export. Edge-hosted and free.',
-    image: '/og-threatintel.png?v=5',
+    image: '/og-threatintel.png?v=6',
   },
   '/threatintel/external-resources': {
     title: 'External Resources Catalog · pranithjain.qzz.io',
@@ -233,7 +233,7 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'ARGUS · Threat Nexus',
     description:
       'ARGUS — nation-state threat intel dashboard with 3D globe, actor dossiers, relationship graphs, and live threat feeds. Interactive D3 + three.js.',
-    image: '/og-argus.png?v=5',
+    image: '/og-argus.png?v=6',
   },
   '/threatintel/correlation': {
     title: 'Cross-source IOC correlation · pranithjain.qzz.io',
@@ -350,9 +350,19 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
     if (override.image) {
       const imgUrl = `${CANONICAL_ORIGIN}${override.image}`;
       const imgAttr = escapeAttr(imgUrl);
+      // Determine if this is a dynamic page-card image (1200×630) or a
+      // static branded card (800×418). Dynamic cards are served by
+      // /api/v1/og-image/page.png and are 1200×630; static cards are
+      // /og-*.png and are 800×418. Set the correct dimensions so crawlers
+      // don't reject the card for a width/height mismatch.
+      const isDynamic = override.image.includes('/api/v1/og-image/');
+      const imgWidth = isDynamic ? '1200' : '800';
+      const imgHeight = isDynamic ? '630' : '418';
       out = out
         .replace(/<meta\s+property="og:image"\s+content="[^"]*"/gi, `<meta property="og:image" content="${imgAttr}"`)
-        .replace(/<meta\s+name="twitter:image"\s+content="[^"]*"/gi, `<meta name="twitter:image" content="${imgAttr}"`);
+        .replace(/<meta\s+name="twitter:image"\s+content="[^"]*"/gi, `<meta name="twitter:image" content="${imgAttr}"`)
+        .replace(/<meta\s+property="og:image:width"\s+content="[^"]*"/gi, `<meta property="og:image:width" content="${imgWidth}"`)
+        .replace(/<meta\s+property="og:image:height"\s+content="[^"]*"/gi, `<meta property="og:image:height" content="${imgHeight}"`);
     }
   }
   if (nonce) {

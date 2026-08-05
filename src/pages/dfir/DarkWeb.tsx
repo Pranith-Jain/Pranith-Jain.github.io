@@ -757,6 +757,7 @@ export function RansomwareActivityPanel(): JSX.Element {
         setError(null);
         const res = await fetch('/api/v1/ransomware-recent', {
           signal: AbortSignal.any([ac.signal, AbortSignal.timeout(15_000)]),
+          cache: 'no-cache',
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = (await res.json()) as RansomwareResponse;
