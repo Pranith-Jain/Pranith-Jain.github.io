@@ -38,6 +38,10 @@ function stripTags(html: string): string {
     .replace(/&quot;/g, '"')
     .replace(/&#x27;/g, "'")
     .replace(/&#\d+;/g, '')
+    .replace(/\u2011/g, '-') // non-breaking hyphen → ASCII (CVE IDs etc.)
+    .replace(/\u2013|\u2014/g, '-')
+    .replace(/\u2018|\u2019/g, "'")
+    .replace(/\u201c|\u201d/g, '"')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -46,40 +50,44 @@ function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function extractBetween(html: string, startPattern: string | RegExp, endPattern?: string | RegExp): string {
-  let startIdx: number;
-  if (startPattern instanceof RegExp) {
-    const m = html.match(startPattern);
-    if (!m || m.index === undefined) return '';
-    startIdx = m.index + m[0].length;
-  } else {
-    startIdx = html.indexOf(startPattern);
-    if (startIdx === -1) return '';
-    startIdx += startPattern.length;
-  }
-  const rest = html.slice(startIdx);
-  if (!endPattern) return rest;
-  let endIdx: number;
-  if (endPattern instanceof RegExp) {
-    const m = rest.match(endPattern);
-    if (!m || m.index === undefined) return rest;
-    endIdx = m.index;
-  } else {
-    endIdx = rest.indexOf(endPattern);
-    if (endIdx === -1) return rest;
-  }
-  return rest.slice(0, endIdx);
-}
-
+/**
+ * Extract the body of a named section. Matches four heading variants used
+ * across the reference site's brief types:
+ *   1. <h2>Title</h2>                       (deepfake)
+ *   2. <h2 class="sec">Title</h2>           (disaster)
+ *   3. <h2>N. Title</h2>                    (maritime — numbered)
+ *   4. <div class="section-title">Title</div>  (cyber)
+ */
 function extractSection(html: string, heading: string): string {
-  const firstWord = (heading.split(' ')[0] ?? heading) || '';
-  const patterns = [
-    new RegExp(`<h2[^>]*>\\s*${escapeRegex(heading)}\\s*</h2>([\\s\\S]*?)(?=<h2[^>]*>|<section|<footer|$)`, 'i'),
-    new RegExp(`<h2[^>]*>[^<]*${escapeRegex(firstWord)}[^<]*</h2>([\\s\\S]*?)(?=<h2[^>]*>|<section|<footer|$)`, 'i'),
+  const esc = escapeRegex(heading);
+  const variants: RegExp[] = [
+    // <div class="section-title">Title</div> ... <div class="section-body">BODY</div>
+    // (cyber: a <span class="pill"> may sit between section-title and
+    // section-body, so we match up to the next section-body open.)
+    new RegExp(
+      `<div class="section-title"[^>]*>\\s*${esc}[\\s\\S]*?</div>[\\s\\S]*?<div class="section-body"[^>]*>([\\s\\S]*?)(?=<section class="section"|<footer|<aside|$)`,
+      'i'
+    ),
+    // <h2 class="sec">Title</h2>
+    new RegExp(`<h2 class="sec"[^>]*>\\s*${esc}[\\s\\S]*?</h2>([\\s\\S]*?)(?=<h2 class="sec"|<footer|<aside|$)`, 'i'),
+    // <h2>N. Title</h2>  (maritime numbered)
+    new RegExp(`<h2[^>]*>\\s*\\d+\\.\\s*${esc}[\\s\\S]*?</h2>([\\s\\S]*?)(?=<h2[^>]*>|<footer|<aside|$)`, 'i'),
+    // <h2>Title</h2>  (bare — deepfake; also a generic fallback)
+    new RegExp(`<h2[^>]*>\\s*${esc}[\\s\\S]*?</h2>([\\s\\S]*?)(?=<h2[^>]*>|<section class="section"|<footer|<aside|$)`, 'i'),
   ];
-  for (const re of patterns) {
+  for (const re of variants) {
     const m = html.match(re);
-    if (m && m[1]) return m[1]!;
+    if (m && m[1] && m[1].trim()) return m[1]!;
+  }
+  // Fuzzy: match on the first word only.
+  const firstWord = escapeRegex(heading.split(/\s+/)[0] ?? heading);
+  const fuzzy: RegExp[] = [
+    new RegExp(`<div class="section-title"[^>]*>[^<]*${firstWord}[\\s\\S]*?</div>[\\s\\S]*?<div class="section-body"[^>]*>([\\s\\S]*?)(?=<section class="section"|<footer|$)`, 'i'),
+    new RegExp(`<h2[^>]*>[^<]*${firstWord}[\\s\\S]*?</h2>([\\s\\S]*?)(?=<h2[^>]*>|<footer|<aside|$)`, 'i'),
+  ];
+  for (const re of fuzzy) {
+    const m = html.match(re);
+    if (m && m[1] && m[1].trim()) return m[1]!;
   }
   return '';
 }
@@ -89,28 +97,10 @@ function extractChips(html: string): string[] {
   const re = /<span class="chip"[^>]*>([\s\S]*?)<\/span>/gi;
   let m: RegExpExecArray | null;
   while ((m = re.exec(html)) !== null) {
-    chips.push(stripTags(m[1]!).trim());
+    const t = stripTags(m[1]!).trim();
+    if (t) chips.push(t);
   }
   return chips;
-}
-
-function extractCards(
-  html: string
-): { title: string; text: string; chips: string[]; links: { url: string; label: string }[] }[] {
-  const cards: { title: string; text: string; chips: string[]; links: { url: string; label: string }[] }[] = [];
-  const re = /<div class="card">([\s\S]*?)<\/div>\s*(?=<div class="card"|<\/section|$)/gi;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(html)) !== null) {
-    const inner = m[1]!;
-    const h3 = inner.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i);
-    const title = h3 ? stripTags(h3[1]!).trim() : '';
-    const bodyHtml = h3 ? inner.slice(inner.indexOf(h3[0]!) + h3[0]!.length) : inner;
-    const text = stripTags(bodyHtml).trim();
-    const chips = extractChips(inner);
-    const links = extractLinks(inner);
-    cards.push({ title, text, chips, links });
-  }
-  return cards;
 }
 
 function extractLinks(html: string): { url: string; label: string }[] {
@@ -118,44 +108,10 @@ function extractLinks(html: string): { url: string; label: string }[] {
   const re = /<a[^>]+href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/gi;
   let m: RegExpExecArray | null;
   while ((m = re.exec(html)) !== null) {
-    links.push({ url: m[1]!, label: stripTags(m[2]!).trim() });
+    const label = stripTags(m[2]!).trim();
+    if (m[1] && !m[1].startsWith('#')) links.push({ url: m[1]!, label });
   }
   return links;
-}
-
-function extractEvents(
-  html: string
-): { title: string; severity: string; text: string; chips: string[]; sources: { url: string; label: string }[] }[] {
-  const events: {
-    title: string;
-    severity: string;
-    text: string;
-    chips: string[];
-    sources: { url: string; label: string }[];
-  }[] = [];
-  const re = /<div class="event"[^>]*>/gi;
-  const positions: number[] = [];
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(html)) !== null) positions.push(m.index);
-
-  for (let i = 0; i < positions.length; i++) {
-    const start = positions[i];
-    const end = i + 1 < positions.length ? positions[i + 1] : html.indexOf('</section>', start);
-    const chunk = end === -1 ? html.slice(start) : html.slice(start, end);
-
-    const headMatch = chunk.match(/<div class="head">([\s\S]*?)<\/div>\s*<div class="sev\s+(\w+)"/i);
-    const bodyStart = chunk.indexOf('<div class="body">');
-    if (!headMatch || bodyStart === -1) continue;
-    const bodyChunk = chunk.slice(bodyStart);
-    const strong = headMatch[1]!.match(/<strong>([\s\S]*?)<\/strong>/i);
-    const title = strong ? stripTags(strong[1]!).trim() : stripTags(headMatch[1]!).trim();
-    const severity = headMatch[2]!.toLowerCase();
-    const text = stripTags(bodyChunk).trim();
-    const chips = extractChips(bodyChunk);
-    const sources = extractLinks(bodyChunk);
-    events.push({ title, severity, text, chips, sources });
-  }
-  return events;
 }
 
 function extractListItems(html: string): string[] {
@@ -163,43 +119,31 @@ function extractListItems(html: string): string[] {
   const re = /<li>([\s\S]*?)<\/li>/gi;
   let m: RegExpExecArray | null;
   while ((m = re.exec(html)) !== null) {
-    items.push(stripTags(m[1]!).trim());
+    const t = stripTags(m[1]!).trim();
+    if (t) items.push(t);
   }
   return items;
 }
 
 const MONTHS: Record<string, number> = {
-  january: 0,
-  february: 1,
-  march: 2,
-  april: 3,
-  may: 4,
-  june: 5,
-  july: 6,
-  august: 7,
-  september: 8,
-  october: 9,
-  november: 10,
-  december: 11,
+  january: 0, february: 1, march: 2, april: 3, may: 4, june: 5,
+  july: 6, august: 7, september: 8, october: 9, november: 10, december: 11,
 };
 
 function extractDate(html: string): string {
-  // ISO "Report date:</strong> 2026-08-02" (current cyber page) — exact,
-  // avoids grabbing arbitrary ISO dates from article bodies.
   const iso = html.match(/Report date[^0-9]*?(\d{4}-\d{2}-\d{2})/i);
   if (iso) return iso[1]!;
+  const titleDate = html.match(/<title>[^<]*?-\s*([A-Za-z]+ \d{1,2},\s*\d{4})[^<]*<\/title>/i);
+  if (titleDate) return titleDate[1]!;
   const m = html.match(/<div class="date"[^>]*>([\s\S]*?)<\/div>/i);
   if (m) return stripTags(m[1]!).trim();
-  const m2 = html.match(
-    /(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+\d{4}/i
-  );
+  const m2 = html.match(/(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+\d{4}/i);
   return m2 ? m2[0]! : '';
 }
 
 function dateFromContent(html: string): string {
   const dateStr = extractDate(html);
   if (!dateStr) return new Date().toISOString().slice(0, 10);
-  // Month-name format: "August 02, 2026" (disaster/deepfake/maritime pages).
   const named = dateStr.match(
     /(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(\d{4})/i
   );
@@ -215,28 +159,12 @@ function dateFromContent(html: string): string {
   return d.toISOString().slice(0, 10);
 }
 
-function extractThreatLevel(html: string): string {
-  // New netlify cyber layout: masthead + KPI card
-  //   <strong>Overall OT cyber threat level:</strong> <span style=...>CRITICAL</span>
-  //   <div class="kpi threat"><div class="value">CRITICAL</div></div>
-  const masthead = html.match(/Overall (?:OT )?(?:cyber )?threat level:<\/strong>\s*<span[^>]*>([^<]+)<\/span>/i);
-  if (masthead) return stripTags(masthead[1]!).trim();
-  const kpiThreat = html.match(/<div class="kpi threat"[^>]*>[\s\S]*?<div class="value"[^>]*>([\s\S]*?)<\/div>/i);
-  if (kpiThreat) return stripTags(kpiThreat[1]!).trim();
-  // Disaster layout: <div class="level"><span class="badge high">HIGH</span></div>
-  const badge = html.match(/<span class="badge\s+(?:high|medium|low|moderate|critical)"[^>]*>([^<]+)<\/span>/i);
-  if (badge) return stripTags(badge[1]!).trim();
-  // Maritime layout: <span class="level-pill level-low">LOW</span>
-  const levelPill = html.match(/<span class="level-pill level-\w+"[^>]*>([^<]+)<\/span>/i);
-  if (levelPill) return stripTags(levelPill[1]!).trim();
-  const m = html.match(/<span class="pill[^"]*"[^>]*>([\s\S]*?)<\/span>/i);
-  if (m) return stripTags(m[1]!).trim();
-  return '';
-}
-
 function extractBalancedDiv(html: string, startIdx: number): string {
-  let depth = 0;
-  let i = startIdx;
+  // startIdx points at a `<div ...>` opening tag. Start scanning AFTER it
+  // with depth=1 (we're already inside the opening div) so the matching
+  // close is the one that brings depth back to 0.
+  let depth = 1;
+  let i = startIdx + 4;
   while (i < html.length) {
     const nextOpen = html.indexOf('<div', i);
     const nextClose = html.indexOf('</div>', i);
@@ -245,129 +173,297 @@ function extractBalancedDiv(html: string, startIdx: number): string {
       depth++;
       i = nextOpen + 4;
     } else {
-      if (depth === 0) return html.slice(startIdx, nextClose);
       depth--;
+      if (depth === 0) return html.slice(startIdx, nextClose + 6);
       i = nextClose + 6;
     }
   }
   return html.slice(startIdx);
 }
 
-function extractKpis(html: string): { value: string; label: string }[] {
-  const kpis: { value: string; label: string }[] = [];
-  // Matches both old layout (<div class="card kpi"> with .n/.l children)
-  // and the current netlify layouts:
-  //   - cyber:     <div class="kpi threat"><div class="label">..</div><div class="value">..</div>
-  //   - disaster:  <div class="card kpi"><div class="label">..</div><div class="value">..</div>
-  //   - maritime:  <div class="card kpi" style="grid-column:span 3"><div class="label">..</div><div class="value status-low">..</div>
-  const re = /class="[^"]*\bkpi\b[^"]*"[^>]*>/gi;
+/** cyber: <div class="kpi"><div class="label">L</div><div class="value">V</div><div class="trend">T</div></div> */
+function extractKpisCyber(html: string): { value: string; label: string; trend?: string }[] {
+  const kpis: { value: string; label: string; trend?: string }[] = [];
+  const re = /<div class="kpi"[^>]*>/gi;
   let m: RegExpExecArray | null;
   while ((m = re.exec(html)) !== null) {
     const inner = extractBalancedDiv(html, m.index);
-    const numOld = inner.match(/<div class="n"[^>]*>([\s\S]*?)<\/div>/i);
-    const labelOld = inner.match(/<div class="l"[^>]*>([\s\S]*?)<\/div>/i);
-    const valueNew = inner.match(/<div class="value[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
-    const labelNew = inner.match(/<div class="label[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
-    const value = numOld ? stripTags(numOld[1]!).trim() : valueNew ? stripTags(valueNew[1]!).trim() : '';
-    const label = labelOld ? stripTags(labelOld[1]!).trim() : labelNew ? stripTags(labelNew[1]!).trim() : '';
-    if (label || value) kpis.push({ value, label });
+    const label = inner.match(/<div class="label"[^>]*>([\s\S]*?)<\/div>/i);
+    const value = inner.match(/<div class="value"[^>]*>([\s\S]*?)<\/div>/i);
+    const trend = inner.match(/<div class="trend"[^>]*>([\s\S]*?)<\/div>/i);
+    const l = label ? stripTags(label[1]!).trim() : '';
+    const v = value ? stripTags(value[1]!).trim() : '';
+    if (l || v) kpis.push({ value: v, label: l, ...(trend ? { trend: stripTags(trend[1]!).trim() } : {}) });
   }
   return kpis;
 }
 
+/** disaster: <div class="kpi escalate"><h4>L</h4><div class="val">V</div><div class="note">N</div></div> */
+function extractKpisDisaster(html: string): { value: string; label: string }[] {
+  const kpis: { value: string; label: string }[] = [];
+  const re = /<div class="kpi[^"]*"[^>]*>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html)) !== null) {
+    const inner = extractBalancedDiv(html, m.index);
+    const label = inner.match(/<h4[^>]*>([\s\S]*?)<\/h4>/i);
+    const val = inner.match(/<div class="val"[^>]*>([\s\S]*?)<\/div>/i);
+    const l = label ? stripTags(label[1]!).trim() : '';
+    const v = val ? stripTags(val[1]!).trim() : '';
+    if (l || v) kpis.push({ value: v, label: l });
+  }
+  return kpis;
+}
+
+/** maritime: <div class="card"><div class="label">L</div><div class="metric">V</div></div> */
+function extractKpisMaritime(html: string): { value: string; label: string }[] {
+  const kpis: { value: string; label: string }[] = [];
+  const dash = extractSection(html, 'Maritime Threat Dashboard') || '';
+  const re = /<div class="card"[^>]*>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(dash)) !== null) {
+    const inner = extractBalancedDiv(dash, m.index);
+    const label = inner.match(/<div class="label"[^>]*>([\s\S]*?)<\/div>/i);
+    const metric = inner.match(/<div class="metric"[^>]*>([\s\S]*?)<\/div>/i);
+    const l = label ? stripTags(label[1]!).trim() : '';
+    let v = metric ? stripTags(metric[1]!).trim() : '';
+    v = v.replace(/\s+Level\s*$/, '').trim();
+    if (l || v) kpis.push({ value: v, label: l });
+  }
+  return kpis;
+}
+
+/** cyber: <div class="card"><h4>Title</h4><div class="note">…</div></div> (dashboard) */
+function extractCardsCyberDash(html: string): { title: string; text: string; chips: string[] }[] {
+  const cards: { title: string; text: string; chips: string[] }[] = [];
+  const re = /<div class="card"[^>]*>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html)) !== null) {
+    const inner = extractBalancedDiv(html, m.index);
+    const h4 = inner.match(/<h4[^>]*>([\s\S]*?)<\/h4>/i);
+    const note = inner.match(/<div class="note"[^>]*>([\s\S]*?)<\/div>/i);
+    const title = h4 ? stripTags(h4[1]!).trim() : '';
+    const text = note ? stripTags(note[1]!).trim() : '';
+    if (title) cards.push({ title, text, chips: extractChips(inner) });
+  }
+  return cards;
+}
+
+/** cyber: <div class="card priority"><h4>Title</h4><div class="impact">…</div><a …></div> */
+function extractCardsCyberPriority(html: string): { title: string; action: string; sources: { url: string; label: string }[] }[] {
+  const cards: { title: string; action: string; sources: { url: string; label: string }[] }[] = [];
+  const re = /<div class="card priority"[^>]*>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html)) !== null) {
+    const inner = extractBalancedDiv(html, m.index);
+    const h4 = inner.match(/<h4[^>]*>([\s\S]*?)<\/h4>/i);
+    const impact = inner.match(/<div class="impact"[^>]*>([\s\S]*?)<\/div>/i);
+    cards.push({
+      title: h4 ? stripTags(h4[1]!).trim() : '',
+      action: impact ? stripTags(impact[1]!).trim() : '',
+      sources: extractLinks(inner),
+    });
+  }
+  return cards;
+}
+
+/** cyber events: <div class="event escalate|monitor|ignore">…<h4>…<div class="desc">…</div> */
+function extractEventsCyber(html: string): { title: string; severity: string; text: string; chips: string[]; sources: { url: string; label: string }[]; threat?: string }[] {
+  const events: { title: string; severity: string; text: string; chips: string[]; sources: { url: string; label: string }[]; threat?: string }[] = [];
+  const re = /<div class="event\s+(escalate|monitor|ignore)"[^>]*>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html)) !== null) {
+    const severity = m[1]!.toLowerCase();
+    const inner = extractBalancedDiv(html, m.index);
+    const tag = inner.match(/<div class="tag"[^>]*>([\s\S]*?)<\/div>/i);
+    const h4 = inner.match(/<h4[^>]*>([\s\S]*?)<\/h4>/i);
+    const meta = inner.match(/<div class="meta"[^>]*>([\s\S]*?)<\/div>/i);
+    const desc = inner.match(/<div class="desc"[^>]*>([\s\S]*?)<\/div>/i);
+    const links = inner.match(/<div class="links"[^>]*>([\s\S]*?)<\/div>/i);
+    const title = h4 ? stripTags(h4[1]!).trim() : '';
+    const text = desc ? stripTags(desc[1]!).trim() : '';
+    const chips = meta ? extractChips(meta[1]!) : [];
+    const sources = links ? extractLinks(links[1]!) : extractLinks(inner);
+    const threat = tag ? stripTags(tag[1]!).trim() : '';
+    events.push({ title, severity, text, chips, sources, ...(threat ? { threat } : {}) });
+  }
+  return events;
+}
+
+/** deepfake incidents: <div class="incident-card card">…<h3>…<div class="meta">chips</div>… */
+function extractIncidentsDeepfake(html: string): { title: string; badges: string[]; fields: Record<string, string>; summary: string; sources: { url: string; label: string }[] }[] {
+  const incidents: { title: string; badges: string[]; fields: Record<string, string>; summary: string; sources: { url: string; label: string }[] }[] = [];
+  const re = /<div class="incident-card card"[^>]*>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html)) !== null) {
+    const inner = extractBalancedDiv(html, m.index);
+    const h3 = inner.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i);
+    const title = h3 ? stripTags(h3[1]!).trim() : '';
+    const badges: string[] = [];
+    const badgeRe = /<span class="badge[^"]*"[^>]*>([^<]+)<\/span>/gi;
+    let bm: RegExpExecArray | null;
+    while ((bm = badgeRe.exec(inner)) !== null) badges.push(stripTags(bm[1]!).trim());
+    const fields: Record<string, string> = {};
+    const metaInner = inner.match(/<div class="meta"[^>]*>([\s\S]*?)<\/div>/i);
+    if (metaInner) {
+      const spanRe = /<span class="chip"[^>]*>([^:]+):\s*([^<]+)<\/span>/gi;
+      let sm: RegExpExecArray | null;
+      while ((sm = spanRe.exec(metaInner[1]!)) !== null) fields[stripTags(sm[1]!).trim()] = stripTags(sm[2]!).trim();
+    }
+    const summaryP = inner.match(/<p><strong>Incident Summary:[^<]*<\/strong>\s*([\s\S]*?)<\/p>/i);
+    const summary = summaryP ? stripTags(summaryP[1]!).trim() : '';
+    const sources = extractLinks(inner);
+    incidents.push({ title, badges, fields, summary, sources });
+  }
+  return incidents;
+}
+
+/** disaster events: <div class="event-card indicator escalate|monitor">…<h4 class="event-title">… */
+function extractEventsDisaster(html: string): { title: string; severity: string; text: string; chips: string[]; sources: { url: string; label: string }[] }[] {
+  const events: { title: string; severity: string; text: string; chips: string[]; sources: { url: string; label: string }[] }[] = [];
+  const re = /<div class="event-card indicator\s+(escalate|monitor|ignore)"[^>]*>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html)) !== null) {
+    const severity = m[1]!.toLowerCase();
+    const inner = extractBalancedDiv(html, m.index);
+    const titleM = inner.match(/<h4 class="event-title"[^>]*>([\s\S]*?)<\/h4>/i);
+    const bodyM = inner.match(/<div class="event-body"[^>]*>([\s\S]*?)<\/div>/i);
+    const title = titleM ? stripTags(titleM[1]!).trim() : '';
+    const bodyHtml = bodyM ? bodyM[1]! : '';
+    const text = stripTags(bodyHtml).trim();
+    const chips: string[] = [];
+    const tagRe = /<span class="tag"[^>]*>([\s\S]*?)<\/span>/gi;
+    let tm: RegExpExecArray | null;
+    while ((tm = tagRe.exec(bodyHtml)) !== null) {
+      const t = stripTags(tm[1]!).trim();
+      if (t) chips.push(t);
+    }
+    const sources = extractLinks(bodyHtml);
+    events.push({ title, severity, text, chips, sources });
+  }
+  return events;
+}
+
+/** maritime priority: <div class="priority"><h3><span class="num">N</span> • Title</h3>… */
+function extractPriorityMaritime(html: string): { title: string; action: string; items: string[]; sources: { url: string; label: string }[] }[] {
+  const cards: { title: string; action: string; items: string[]; sources: { url: string; label: string }[] }[] = [];
+  const section = extractSection(html, 'Top Five Priority Threats') || '';
+  const re = /<div class="priority"[^>]*>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(section)) !== null) {
+    const inner = extractBalancedDiv(section, m.index);
+    const h3 = inner.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i);
+    const title = h3 ? stripTags(h3[1]!).trim() : '';
+    const whyMatch = inner.match(/Why it matters:\s*([\s\S]*?)(?=<ul|<a)/i);
+    const action = whyMatch ? stripTags(whyMatch[1]!).trim() : '';
+    const ul = inner.match(/<ul[^>]*>([\s\S]*?)<\/ul>/i);
+    const items = ul ? extractListItems(ul[1]!) : [];
+    const sources = extractLinks(inner);
+    cards.push({ title, action, items, sources });
+  }
+  return cards;
+}
+
+/** maritime events: <div class="event-card"><h4>Title</h4><div class="event-meta">badges</div>… */
+function extractEventsMaritime(html: string): { title: string; severity: string; text: string; chips: string[]; sources: { url: string; label: string }[]; items?: string[] }[] {
+  const events: { title: string; severity: string; text: string; chips: string[]; sources: { url: string; label: string }[]; items?: string[] }[] = [];
+  const section = extractSection(html, 'Intelligence Event Cards') || '';
+  const re = /<div class="event-card"[^>]*>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(section)) !== null) {
+    const inner = extractBalancedDiv(section, m.index);
+    const h4 = inner.match(/<h4[^>]*>([\s\S]*?)<\/h4>/i);
+    const title = h4 ? stripTags(h4[1]!).trim() : '';
+    const meta = inner.match(/<div class="event-meta"[^>]*>([\s\S]*?)<\/div>/i);
+    const kicker = inner.match(/<div class="kicker"[^>]*>([\s\S]*?)<\/div>/i);
+    const ul = inner.match(/<ul[^>]*>([\s\S]*?)<\/ul>/i);
+    let severity = 'monitor';
+    if (meta) {
+      const sevBadge = meta[1]!.match(/<span class="badge"[^>]*>\s*Threat:\s*(\w+)/i);
+      if (sevBadge) {
+        const t = sevBadge[1]!.toLowerCase();
+        severity = t === 'critical' || t === 'high' ? 'escalate' : 'monitor';
+      }
+    }
+    const text = (kicker ? stripTags(kicker[1]!).trim() : '') + (ul ? ' ' + stripTags(ul[1]!).trim() : '');
+    const items = ul ? extractListItems(ul[1]!) : [];
+    const sources = extractLinks(inner);
+    events.push({ title, severity, text: text.trim(), chips: [], sources, ...(items.length ? { items } : {}) });
+  }
+  return events;
+}
+
 function parseCyberBrief(html: string, date: string) {
+  const threatLevel = (() => {
+    const pill = html.match(/<div class="level-pill"[^>]*>([\s\S]*?)<\/div>/i);
+    return pill ? stripTags(pill[1]!).trim() : '';
+  })();
+
   const executiveSummary = stripTags(extractSection(html, 'Executive Summary')).trim();
 
-  const keyFindingsCards = extractCards(extractSection(html, 'Key Findings'));
-  const keyFindings = keyFindingsCards.map((c) => ({ title: c.title, summary: c.text }));
+  const kfSection = extractSection(html, 'Key Findings');
+  const kfItems = extractListItems(kfSection);
+  const keyFindings = kfItems.map((item) => {
+    const colonIdx = item.indexOf(':');
+    if (colonIdx > 0 && colonIdx < 80) return { title: item.slice(0, colonIdx).trim(), summary: item.slice(colonIdx + 1).trim() };
+    return { title: item.slice(0, 80), summary: item };
+  });
 
-  const kpis = extractKpis(html);
+  const kpis = extractKpisCyber(html);
 
   const dashboardSection = extractSection(html, 'Threat Dashboard');
-  if (!dashboardSection) {
-    return {
-      type: 'cyber' as const,
-      date,
-      threatLevel: extractThreatLevel(html),
-      executiveSummary: executiveSummary || stripTags(html).slice(0, 2048),
-      keyFindings:
-        keyFindings.length > 0 ? keyFindings : [{ title: 'Summary', summary: stripTags(html).slice(0, 4096) }],
-      dashboard: {
-        kpis: kpis.length > 0 ? kpis : [{ value: 'N/A', label: 'No KPI data' }],
-        activelyExploited: [],
-        vendors: [],
-        sectors: [],
-      },
-      topThreats: [],
-      threatActors: [],
-      cveWatch: [],
-      events: [],
-      ttps: { descriptions: [], mitreIds: [] },
-      outlook72h: '',
-      relatedCves: [],
-      rawMarkdown: stripTags(html).slice(0, 16384),
-    };
-  }
-  const dashboardCards = extractCards(dashboardSection);
-  const dashboardMap: Record<string, string[]> = {};
-  for (const dc of dashboardCards) {
-    if (dc.title) dashboardMap[dc.title.toLowerCase()] = dc.chips;
-  }
-  const activelyExploited = dashboardMap['actively exploited'] ?? extractChips(dashboardSection);
-  const vendorsFromDash = dashboardMap['ot vendors impacted'] ?? [];
-  const sectorsFromDash = dashboardMap['primary sectors at risk'] ?? [];
-  const vendorsSection = extractSection(html, 'Affected Vendors');
-  const vendors = [...new Set([...vendorsFromDash, ...extractChips(vendorsSection)])];
-  const sectorsSection = extractSection(html, 'Affected Sectors');
-  const sectors = [...new Set([...sectorsFromDash, ...extractChips(sectorsSection)])];
+  const dashboardCards = extractCardsCyberDash(dashboardSection);
+  const dashboardMap: Record<string, { title: string; text: string; chips: string[] }> = {};
+  for (const dc of dashboardCards) dashboardMap[dc.title.toLowerCase()] = dc;
 
-  const topThreatsCards = extractCards(extractSection(html, 'Top Five Priority Threats'));
-  const topThreats = topThreatsCards.map((c) => ({ title: c.title, action: c.text }));
+  const activelyExploited = (() => {
+    const dashCard = dashboardMap['perimeter devices under active exploit'];
+    if (dashCard?.text) return dashCard.text.split(/,\s*/).map((s) => s.trim()).filter(Boolean);
+    return extractChips(extractSection(html, 'Actively Exploited Focus'));
+  })();
+
+  const vendors = [...new Set(extractChips(extractSection(html, 'Affected Vendors')))];
+  const sectors = [...new Set(extractChips(extractSection(html, 'Affected Sectors')))];
+
+  const topThreats = extractCardsCyberPriority(extractSection(html, 'Top Five Priority Threats')).map((c) => ({
+    title: c.title,
+    action: c.action,
+    sources: c.sources,
+  }));
 
   const threatActorsSection = extractSection(html, 'Threat Actor Activity');
-  const threatActors = extractCards(threatActorsSection).map((c) => ({
-    category: c.title,
-    items: extractListItems(
-      c.text.includes('<ul>') ? threatActorsSection.slice(threatActorsSection.indexOf(c.title)) : ''
-    ),
-  }));
+  const threatActorItems = extractListItems(threatActorsSection);
+  const threatActors = threatActorItems.length > 0 ? [{ category: 'Activity', items: threatActorItems }] : [];
 
-  const cveWatchSection = extractSection(html, 'Vulnerability and CVE Watch');
-  const cveWatch = extractCards(cveWatchSection).map((c) => ({
-    category: c.title,
-    items: extractListItems(c.text.includes('<ul>') ? cveWatchSection.slice(cveWatchSection.indexOf(c.title)) : ''),
-  }));
+  const cveWatchSection = extractSection(html, 'New/Notable OT CVEs');
+  const cveWatchItems = extractListItems(cveWatchSection);
+  const cveWatch = cveWatchItems.length > 0 ? [{ category: 'New/Notable OT CVEs and Issues', items: cveWatchItems }] : [];
 
-  const eventCards = extractEvents(html);
+  const events = extractEventsCyber(html);
 
-  const ttpSection = extractSection(html, 'TTPs and ATT');
-  const ttpsText = extractListItems(ttpSection);
-  const mitreIds = [...new Set(ttpsText.join(' ').match(/T\d{4}(?:\.\d{3})?/g) || [])];
+  const ttpSection = extractSection(html, 'TTPs and MITRE ATT') || extractSection(html, 'TTPs');
+  const ttpItems = extractListItems(ttpSection);
+  const mitreIds = [...new Set(ttpItems.join(' ').match(/T\d{4}(?:\.\d{3})?/g) || [])];
 
-  const outlookSection = extractSection(html, 'Next 72');
-  const outlook = stripTags(outlookSection).trim();
+  const outlook = stripTags(extractSection(html, 'Next 72')).trim();
 
-  const allCves = [
-    ...new Set(
-      (html.match(/CVE[\-\u2011]\d{4}[\-\u2011]\d{4,}/gi) || []).map((c) => c.toUpperCase().replace(/[\u2011]/g, '-'))
-    ),
-  ];
+  const allCves = [...new Set(
+    (html.match(/CVE[\-\u2011]\d{4}[\-\u2011]\d{4,}/gi) || []).map((c) => c.toUpperCase().replace(/[\u2011]/g, '-'))
+  )];
 
   return {
     type: 'cyber' as const,
     date,
-    threatLevel: extractThreatLevel(html),
+    threatLevel,
     executiveSummary,
     keyFindings,
     dashboard: { kpis, activelyExploited, vendors, sectors },
     topThreats,
     threatActors,
     cveWatch,
-    events: eventCards,
-    ttps: { descriptions: ttpsText, mitreIds },
+    events,
+    ttps: { descriptions: ttpItems, mitreIds },
     outlook72h: outlook,
     relatedCves: allCves,
-    rawMarkdown: stripTags(html).slice(0, 16384),
   };
 }
 
@@ -376,194 +472,142 @@ function parseDeepfakeBrief(html: string, date: string) {
     stripTags(extractSection(html, 'Executive Overview')).trim() ||
     stripTags(extractSection(html, 'Executive Summary')).trim();
 
-  const riskOutlookMatch = html.match(/Overall Outlook:\s*([\w]+)/i) || html.match(/Assessment:\s*([\w]+)/i);
-  const riskOutlook = riskOutlookMatch ? riskOutlookMatch[1] : '';
+  const riskSection = extractSection(html, 'Risk Outlook');
+  const riskMatch = riskSection.match(/Assessment:\s*(\w+)/i) || html.match(/Assessment:\s*(\w+)/i);
+  const riskOutlook = riskMatch ? riskMatch[1] : '';
 
-  const keyFindingsSection = extractSection(html, 'Key Findings');
-  const keyFindingsCards = extractCards(keyFindingsSection);
-  let keyFindings: { title: string; summary: string }[] = keyFindingsCards.map((c) => ({
-    title: c.title,
-    summary: c.text,
-  }));
-  if (keyFindings.length === 0) {
-    const items = extractListItems(keyFindingsSection);
-    keyFindings = items.map((item) => {
-      const colonIdx = item.indexOf(':');
-      if (colonIdx > 0 && colonIdx < 80) {
-        return { title: item.slice(0, colonIdx).trim(), summary: item.slice(colonIdx + 1).trim() };
-      }
-      return { title: item.slice(0, 80), summary: item };
-    });
-  }
+  const kfSection = extractSection(html, 'Key Findings');
+  const kfItems = extractListItems(kfSection);
+  const keyFindings = kfItems.map((item) => {
+    const colonIdx = item.indexOf(':');
+    if (colonIdx > 0 && colonIdx < 80) return { title: item.slice(0, colonIdx).trim(), summary: item.slice(colonIdx + 1).trim() };
+    return { title: item.slice(0, 80), summary: item };
+  });
 
-  const incidentsSection = extractSection(html, 'Priority Incidents');
-  const incidents: {
-    title: string;
-    badges: string[];
-    fields: Record<string, string>;
-    summary: string;
-    sources: { url: string; label: string }[];
-  }[] = [];
-  if (incidentsSection) {
-    // Current netlify layout: <div class="card incident-card"><div class="incident-head"><span class="badge badge-escalate">..</span><h3 class="incident-title">Title</h3></div><div class="meta">..</div><div class="incident-body">..</div>
-    const cardRe =
-      /<div class="card\s+incident-card"[^>]*>([\s\S]*?)(?=<div class="card\s+incident-card"|<\/section|$)/gi;
-    let cm: RegExpExecArray | null;
-    while ((cm = cardRe.exec(incidentsSection)) !== null) {
-      const inner = cm[1]!;
-      const titleMatch = inner.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i);
-      const title = titleMatch ? stripTags(titleMatch[1]!).trim() : '';
-      const badges: string[] = [];
-      const badgeRe = /<span class="badge\s+(\w+)">([^<]+)<\/span>/gi;
-      let bm: RegExpExecArray | null;
-      while ((bm = badgeRe.exec(inner)) !== null) badges.push(bm[2]!.trim());
-      const fields: Record<string, string> = {};
-      const metaInner = inner.match(/<div class="meta">([\s\S]*?)<\/div>/i);
-      if (metaInner) {
-        const spanRe = /<span>([^:]+):\s*([^<]+)<\/span>/gi;
-        let sm: RegExpExecArray | null;
-        while ((sm = spanRe.exec(metaInner[1]!)) !== null) fields[sm[1]!.trim()] = stripTags(sm[2]!).trim();
-      }
-      const bodyInner = inner.match(/<div class="incident-body">([\s\S]*?)$/i)?.[1] ?? inner;
-      const pMatch = bodyInner.match(/<p>([\s\S]*?)<\/p>/i);
-      const summary = pMatch ? stripTags(pMatch[1]!).trim() : '';
-      const sources = extractLinks(bodyInner);
-      incidents.push({ title, badges, fields, summary, sources });
-    }
-  }
+  const incidents = extractIncidentsDeepfake(html);
 
-  const trendsSection = extractSection(html, 'Emerging Trends');
-  const emergingTrends = extractListItems(trendsSection);
-
-  const geoSection = extractSection(html, 'Geographic Observations');
-  const geographicObservations = extractListItems(geoSection);
-
-  const detectionSection = extractSection(html, 'Detection and Defensive');
-  const detectionDevelopments = extractListItems(detectionSection);
+  const emergingTrends = extractListItems(extractSection(html, 'Emerging Trends'));
+  const geographicObservations = extractListItems(extractSection(html, 'Geographic Observations'));
+  const detectionDevelopments = extractListItems(extractSection(html, 'Detection and Defensive'));
 
   return {
     type: 'deepfake' as const,
     date,
-    riskOutlook: riskOutlook || 'Unknown',
-    executiveSummary: executiveSummary || stripTags(html).slice(0, 2048),
-    keyFindings: keyFindings.length > 0 ? keyFindings : [{ title: 'Summary', summary: stripTags(html).slice(0, 4096) }],
+    riskOutlook,
+    executiveSummary,
+    keyFindings,
     incidents,
-    emergingTrends: emergingTrends.length > 0 ? emergingTrends : [],
-    geographicObservations: geographicObservations.length > 0 ? geographicObservations : [],
-    detectionDevelopments: detectionDevelopments.length > 0 ? detectionDevelopments : [],
-    rawMarkdown: stripTags(html).slice(0, 16384),
+    emergingTrends,
+    geographicObservations,
+    detectionDevelopments,
   };
 }
 
 function parseDisasterBrief(html: string, date: string) {
   const executiveSummary = stripTags(extractSection(html, 'Executive Summary')).trim();
 
-  const overallThreat =
-    extractThreatLevel(html) || html.match(/<span class="level">([^<]+)<\/span>/i)?.[1]?.trim() || '';
+  const overallThreat = (() => {
+    const flag = html.match(/<span class="flag\s+(\w+)"[^>]*>([^<]+)<\/span>/i);
+    if (flag) return stripTags(flag[2]!).trim().toLowerCase();
+    const kpiEsc = html.match(/<div class="kpi\s+(escalate|monitor)"[^>]*>[\s\S]*?<h4[^>]*>([\s\S]*?)<\/h4>/i);
+    if (kpiEsc) return stripTags(kpiEsc[2]!).trim().toLowerCase();
+    return '';
+  })();
 
-  const kpis = extractKpis(html);
+  const kpis = extractKpisDisaster(html);
 
-  const events: { title: string; severity: string; text: string; sources: { url: string; label: string }[] }[] = [];
-  const eventRe = /<div class="card\s+event-card"[^>]*>/gi;
-  const positions: { idx: number }[] = [];
+  const allEvents = extractEventsDisaster(html);
+  const escalateEvents = allEvents.filter((e) => e.severity === 'escalate');
+  const monitorEvents = allEvents.filter((e) => e.severity === 'monitor');
+
+  const topSection = extractSection(html, 'Top Five Critical Events');
+  const topEvents: { title: string; severity: string; text: string; sources: { url: string; label: string }[] }[] = [];
+  const re = /<div class="priority"[^>]*>/gi;
   let m: RegExpExecArray | null;
-  while ((m = eventRe.exec(html)) !== null) positions.push({ idx: m.index });
-  for (let i = 0; i < positions.length; i++) {
-    const pos = positions[i]!;
-    const start = pos.idx;
-    const end = i + 1 < positions.length ? positions[i + 1]!.idx : html.indexOf('</section>', start);
-    const chunk = end === -1 ? html.slice(start) : html.slice(start, end);
-    const titleMatch = chunk.match(/<div class="title">([\s\S]*?)<\/div>/i);
-    const title = titleMatch ? stripTags(titleMatch[1]!).trim() : '';
-    // Severity from the chip color or label inside the card.
-    const chipMatch = chunk.match(/<span class="chip\s+(\w+)"[^>]*>([^<]+)<\/span>/i);
-    const chipText = chipMatch ? stripTags(chipMatch[2]!).trim().toLowerCase() : '';
-    const severity =
-      chipText === 'escalate' || chipText === 'monitor' || chipText === 'ignore'
-        ? chipText
-        : chipMatch
-          ? chipMatch[1]!.toLowerCase()
-          : '';
-    const bodyStart = chunk.indexOf('</div>', chunk.indexOf('<div class="meta">')) + 6;
-    const text = bodyStart > 6 ? stripTags(chunk.slice(bodyStart)).trim() : '';
-    const sources = extractLinks(chunk);
-    events.push({ title, severity, text, sources });
+  while ((m = re.exec(topSection)) !== null) {
+    const inner = extractBalancedDiv(topSection, m.index);
+    const h3 = inner.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i);
+    const p = inner.match(/<p>([\s\S]*?)<\/p>/i);
+    topEvents.push({
+      title: h3 ? stripTags(h3[1]!).trim() : '',
+      severity: 'escalate',
+      text: p ? stripTags(p[1]!).trim() : '',
+      sources: extractLinks(inner),
+    });
   }
+  const topEventsFinal = topEvents.length > 0 ? topEvents.slice(0, 5) : escalateEvents.slice(0, 5);
 
-  const topEvents = events.filter((e) => e.severity === 'escalate').slice(0, 5);
-  const escalateEvents = events.filter((e) => e.severity === 'escalate');
-  const monitorEvents = events.filter((e) => e.severity === 'monitor');
-
-  const outlookSection = extractSection(html, 'Next 72');
-  const outlook = stripTags(outlookSection).trim();
-
-  const regionsSection = extractSection(html, 'Regional and Hazard');
-  const regionalTrends = extractListItems(regionsSection);
+  const outlook = stripTags(extractSection(html, 'Next 72')).trim();
+  const regionalTrends = extractListItems(extractSection(html, 'Regional and Hazard'));
 
   return {
     type: 'disaster' as const,
     date,
-    overallThreat: overallThreat || 'Unknown',
-    executiveSummary: executiveSummary || stripTags(html).slice(0, 2048),
-    dashboard: { kpis: kpis.length > 0 ? kpis : [{ value: 'N/A', label: 'No KPI data' }] },
-    topEvents,
+    overallThreat,
+    executiveSummary,
+    dashboard: { kpis },
+    topEvents: topEventsFinal,
     escalateEvents,
     monitorEvents,
     outlook72h: outlook,
     regionalTrends,
-    rawMarkdown: stripTags(html).slice(0, 16384),
   };
 }
 
 function parseMaritimeBrief(html: string, date: string) {
   const executiveSummary = stripTags(extractSection(html, 'Executive Summary')).trim();
 
-  const threatLevel = extractThreatLevel(html);
+  const tlSection = extractSection(html, 'Overall Maritime Cyber Threat Level');
+  let threatLevel = 'Unknown';
+  const tlMatch = tlSection.match(/Assessed Threat Level:\s*(\w+)/i);
+  if (tlMatch) threatLevel = tlMatch[1]!;
 
-  const kpis = extractKpis(html);
+  const kpis = extractKpisMaritime(html);
 
-  // Events: <div class="event"><div class="title">..</div><div class="meta"><span class="decision-pill dec-escalate">..</div><div class="body">..</div>
-  const events: { title: string; severity: string; text: string; sources: { url: string; label: string }[] }[] = [];
-  const eventRe = /<div class="event"[^>]*>/gi;
-  const positions: { idx: number }[] = [];
-  let m: RegExpExecArray | null;
-  while ((m = eventRe.exec(html)) !== null) positions.push({ idx: m.index });
-  for (let i = 0; i < positions.length; i++) {
-    const start = positions[i]!.idx;
-    const end = i + 1 < positions.length ? positions[i + 1]!.idx : html.indexOf('</section>', start);
-    const chunk = end === -1 ? html.slice(start) : html.slice(start, end);
-    const titleMatch = chunk.match(/<div class="title">([\s\S]*?)<\/div>/i);
-    const title = titleMatch ? stripTags(titleMatch[1]!).trim() : '';
-    const pillMatch = chunk.match(/decision-pill dec-(escalate|monitor|ignore)/i);
-    const severity = pillMatch ? pillMatch[1]!.toLowerCase() : 'ignore';
-    const bodyStart = chunk.indexOf('<div class="body">');
-    const text = bodyStart !== -1 ? stripTags(chunk.slice(bodyStart)).trim() : '';
-    const sources = extractLinks(chunk);
-    events.push({ title, severity, text, sources });
-  }
+  const topThreats = extractPriorityMaritime(html).map((c) => ({
+    title: c.title,
+    action: c.action,
+    sources: c.sources,
+  }));
 
-  const topEvents = events.filter((e) => e.severity === 'escalate').slice(0, 5);
+  const events = extractEventsMaritime(html);
   const escalateEvents = events.filter((e) => e.severity === 'escalate');
   const monitorEvents = events.filter((e) => e.severity === 'monitor');
+  const topEventsFinal = escalateEvents.slice(0, 5);
 
-  const keyFindingsSection = extractSection(html, 'Key Findings');
-  const regionalTrends = extractListItems(keyFindingsSection);
+  const kfItems = extractListItems(extractSection(html, 'Key Findings'));
 
-  const outlookSection = extractSection(html, 'Next 72');
-  const outlook = stripTags(outlookSection).trim();
+  const cveWatchItems = extractListItems(extractSection(html, 'Vulnerability and CVE Watch'));
+  const cveWatch = cveWatchItems.length > 0 ? [{ category: 'Vulnerability and CVE Watch', items: cveWatchItems }] : [];
+
+  const ttpItems = extractListItems(extractSection(html, 'TTPs and MITRE ATT'));
+  const mitreIds = [...new Set(ttpItems.join(' ').match(/T\d{4}(?:\.\d{3})?/g) || [])];
+
+  const vendors = extractChips(extractSection(html, 'Affected Vendors'));
+  const sectors = extractChips(extractSection(html, 'Affected Maritime Sectors'));
+
+  const outlook = stripTags(extractSection(html, 'Next 72-Hour Maritime Cyber Outlook')).trim();
+
+  const allCves = [...new Set(
+    (html.match(/CVE[\-\u2011]\d{4}[\-\u2011]\d{4,}/gi) || []).map((c) => c.toUpperCase().replace(/[\u2011]/g, '-'))
+  )];
 
   return {
     type: 'maritime' as const,
     date,
-    overallThreat: threatLevel || 'Unknown',
+    threatLevel,
     executiveSummary: executiveSummary || stripTags(html).slice(0, 2048),
-    dashboard: { kpis: kpis.length > 0 ? kpis : [{ value: 'N/A', label: 'No KPI data' }] },
-    topEvents,
+    dashboard: { kpis: kpis.length > 0 ? kpis : [{ value: 'N/A', label: 'No KPI data' }], vendors, sectors },
+    keyFindings: kfItems,
+    topThreats,
+    cveWatch,
+    events,
+    topEvents: topEventsFinal,
     escalateEvents,
     monitorEvents,
+    ttps: { descriptions: ttpItems, mitreIds },
     outlook72h: outlook,
-    regionalTrends,
-    rawMarkdown: stripTags(html).slice(0, 16384),
+    relatedCves: allCves,
   };
 }
 
