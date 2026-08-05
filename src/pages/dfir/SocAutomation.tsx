@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Shield, Info, Plus, Play, CheckCircle, XCircle, ChevronDown, ChevronRight } from 'lucide-react';
+import { Shield, Info, Plus, Play, CheckCircle, XCircle, ChevronDown, ChevronRight, Bot } from 'lucide-react';
 
 type PlaybookTrigger = 'incident_created' | 'incident_updated' | 'alert_created' | 'scheduled' | 'webhook' | 'manual';
 
@@ -67,6 +68,7 @@ const TRIGGER_LABELS: Record<string, string> = {
 };
 
 export default function SocAutomation(): JSX.Element {
+  const navigate = useNavigate();
   const [playbooks, setPlaybooks] = useState<Playbook[]>([]);
   const [runs, setRuns] = useState<PlaybookRun[]>([]);
   const [stats, setStats] = useState<SocStats | null>(null);
@@ -139,6 +141,28 @@ export default function SocAutomation(): JSX.Element {
     if (r.ok) void fetchData();
   };
 
+  // ── Agent integration ──────────────────────────────────────────────
+  // Send playbook context to Copilot for deeper investigation.
+  const askAgentAboutPlaybook = (pb: Playbook) => {
+    const actions = pb.actions.map((a, i) => `${i + 1}. ${a.type}: ${a.label}`).join('\n');
+    const query = `Analyze this SOC automation playbook and suggest improvements:\n\nPlaybook: ${pb.name}\nTrigger: ${TRIGGER_LABELS[pb.trigger] ?? pb.trigger}\nDescription: ${pb.description}\nActions:\n${actions || '(none)'}\nRuns: ${pb.run_count} (avg ${pb.avg_duration_ms}ms, last: ${pb.last_run_status ?? 'never'})\n\nReview the playbook for: detection gaps, missing containment steps, and recommend additional actions or detection rules.`;
+    navigate(`/copilot?q=${encodeURIComponent(query)}`);
+  };
+
+  const askAgentAboutRun = (run: PlaybookRun) => {
+    const actionResults = run.action_results
+      .map((ar) => `${ar.action_label}: ${ar.status} (${ar.duration_ms}ms)`)
+      .join('\n');
+    const query = `Investigate this SOC playbook run that ${run.status === 'failed' ? 'FAILED' : 'completed'}:\n\nPlaybook: ${run.playbook_name}\nTrigger: ${TRIGGER_LABELS[run.trigger] ?? run.trigger}\nStatus: ${run.status}\nStarted: ${run.started_at}\nDuration: ${run.duration_ms ?? 'N/A'}ms\nAction results:\n${actionResults || '(none)'}\n${run.error ? `Error: ${run.error}` : ''}\n\n${run.status === 'failed' ? 'Diagnose the failure, identify root cause, and suggest remediation steps.' : 'Review the run for efficiency improvements and suggest optimizations.'}`;
+    navigate(`/copilot?q=${encodeURIComponent(query)}`);
+  };
+
+  const generatePlaybookWithAgent = () => {
+    navigate(
+      `/copilot?q=${encodeURIComponent('Generate an incident response playbook for the current threat landscape. Include detection rules, containment steps, and remediation guidance. Use the generate_ir_playbook tool.')}`
+    );
+  };
+
   const togglePb = (id: string) => {
     const next = new Set(expandedPb);
     if (next.has(id)) next.delete(id);
@@ -202,13 +226,23 @@ export default function SocAutomation(): JSX.Element {
           </button>
         </div>
         {tab === 'playbooks' && (
-          <button
-            type="button"
-            onClick={() => setShowCreate(!showCreate)}
-            className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
-          >
-            <Plus size={11} /> New Playbook
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowCreate(!showCreate)}
+              className="text-xs font-mono px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 inline-flex items-center gap-1.5"
+            >
+              <Plus size={11} /> New Playbook
+            </button>
+            <button
+              type="button"
+              onClick={generatePlaybookWithAgent}
+              className="text-xs font-mono px-3 py-1.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/50 inline-flex items-center gap-1.5"
+              title="Ask the agent to generate an IR playbook"
+            >
+              <Bot size={11} /> Generate with Agent
+            </button>
+          </div>
         )}
       </div>
 
@@ -317,6 +351,14 @@ export default function SocAutomation(): JSX.Element {
                         </button>
                         <button
                           type="button"
+                          onClick={() => askAgentAboutPlaybook(pb)}
+                          className="text-micro font-mono px-2 py-1 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/50 inline-flex items-center gap-1.5"
+                          title="Ask the agent to analyze this playbook"
+                        >
+                          <Bot size={10} /> Ask Agent
+                        </button>
+                        <button
+                          type="button"
                           onClick={() => handleToggleEnabled(pb.id, !pb.enabled)}
                           className={`text-micro font-mono px-2 py-1 rounded border ${pb.enabled ? 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300' : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'}`}
                         >
@@ -410,6 +452,16 @@ export default function SocAutomation(): JSX.Element {
                 </div>
               )}
               {r.error && <p className="text-micro font-mono text-rose-500 mt-1">Error: {r.error}</p>}
+              <div className="mt-2 flex gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => askAgentAboutRun(r)}
+                  className="text-micro font-mono px-2 py-1 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/50 inline-flex items-center gap-1.5"
+                  title="Ask the agent to investigate this run"
+                >
+                  <Bot size={10} /> {r.status === 'failed' ? 'Diagnose with Agent' : 'Analyze with Agent'}
+                </button>
+              </div>
             </div>
           ))}
           {runs.length === 0 && (

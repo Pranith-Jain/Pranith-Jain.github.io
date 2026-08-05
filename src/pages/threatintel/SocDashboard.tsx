@@ -1,8 +1,8 @@
 import { Suspense, lazy, useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { TabLoader } from '../../components/ui/TabLoader';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Shield } from 'lucide-react';
+import { Shield, Bot } from 'lucide-react';
 
 const SocRansomware = lazy(() => import('./SocRansomware'));
 const SocVulns = lazy(() => import('./SocVulns'));
@@ -17,6 +17,7 @@ const TABS: Array<{ id: TabId; label: string; desc: string }> = [
 ];
 
 export default function SocDashboard(): JSX.Element {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const paramTab = searchParams.get('tab') as TabId | null;
   const [activeTab, setActiveTab] = useState<TabId>(
@@ -67,6 +68,25 @@ export default function SocDashboard(): JSX.Element {
       <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
         {TABS.find((t) => t.id === activeTab)?.desc}
       </p>
+
+      <div className="mb-4 flex justify-end">
+        <button
+          type="button"
+          onClick={() => {
+            const queries: Record<TabId, string> = {
+              ransomware:
+                'Investigate the current ransomware threat landscape. Which groups are most active, what are their TTPs, and what detection rules should we deploy?',
+              vulns:
+                'Investigate the latest critical vulnerabilities. Which CVEs are being actively exploited, what are the KEV entries, and what patching guidance should we prioritize?',
+              iocs: 'Investigate the latest IOC stream. What are the trending indicators, which threat actors are they associated with, and what hunting queries should we deploy?',
+            };
+            navigate(`/copilot?q=${encodeURIComponent(queries[activeTab])}`);
+          }}
+          className="text-xs font-mono px-3 py-1.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-rose-500/50 inline-flex items-center gap-1.5"
+        >
+          <Bot size={11} /> Investigate with Agent
+        </button>
+      </div>
 
       <div role="tabpanel">
         <Suspense fallback={<TabLoader />}>
