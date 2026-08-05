@@ -26,6 +26,9 @@ import {
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { useWebSocket } from '../../hooks/useWebSocket';
 import { ReportView, type ReportActionCard } from '../../components/dfir/ReportView';
+import { SelfEvalScorecard } from '../../components/threatintel/SelfEvalScorecard';
+import { DataGapsPanel } from '../../components/threatintel/DataGapsPanel';
+import { InvestigationTrace } from '../../components/threatintel/InvestigationTrace';
 import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface AgentToolResult {
@@ -81,6 +84,20 @@ interface AgentState {
   };
   cost?: { usd: number; tokens: number; llmCalls: number };
   priorIntelligence?: string;
+  selfEval?: {
+    axes: Array<{ axis: string; score: number; evidence: string; improvement: string }>;
+    overallScore: number;
+    topGap: string;
+    modelUsed: string;
+  };
+  dataGaps?: Array<{
+    tool: string;
+    error: string;
+    step: number;
+    cause: string;
+    diagnosis: string;
+    missedCapability: string;
+  }>;
 }
 
 interface SessionEntry {
@@ -106,6 +123,8 @@ type AgentWsMessage =
       reportVersioning?: AgentState['reportVersioning'];
       cost?: AgentState['cost'];
       priorIntelligence?: AgentState['priorIntelligence'];
+      selfEval?: AgentState['selfEval'];
+      dataGaps?: AgentState['dataGaps'];
     }
   | { type: 'error'; error: string };
 
@@ -291,6 +310,8 @@ export default function AgentInvestigator(): JSX.Element {
                   reportVersioning: msg.reportVersioning,
                   cost: msg.cost,
                   priorIntelligence: msg.priorIntelligence,
+                  selfEval: msg.selfEval,
+                  dataGaps: msg.dataGaps,
                   completedAt: new Date().toISOString(),
                 }
               : prev
@@ -735,6 +756,17 @@ export default function AgentInvestigator(): JSX.Element {
               window.location.href = `/threatintel/tools/copilot?${params.toString()}`;
             }}
           />
+
+          {/* Self-evaluation scorecard */}
+          {agentState.selfEval && <SelfEvalScorecard selfEval={agentState.selfEval as any} />}
+
+          {/* Data gaps panel */}
+          {agentState.dataGaps && agentState.dataGaps.length > 0 && (
+            <DataGapsPanel dataGaps={agentState.dataGaps as any} />
+          )}
+
+          {/* Investigation trace */}
+          {agentState.steps && agentState.steps.length > 0 && <InvestigationTrace steps={agentState.steps as any} />}
         </section>
       )}
 
