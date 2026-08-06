@@ -361,8 +361,14 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
       out = out
         .replace(/<meta\s+property="og:image"\s+content="[^"]*"/gi, `<meta property="og:image" content="${imgAttr}"`)
         .replace(/<meta\s+name="twitter:image"\s+content="[^"]*"/gi, `<meta name="twitter:image" content="${imgAttr}"`)
-        .replace(/<meta\s+property="og:image:width"\s+content="[^"]*"/gi, `<meta property="og:image:width" content="${imgWidth}"`)
-        .replace(/<meta\s+property="og:image:height"\s+content="[^"]*"/gi, `<meta property="og:image:height" content="${imgHeight}"`);
+        .replace(
+          /<meta\s+property="og:image:width"\s+content="[^"]*"/gi,
+          `<meta property="og:image:width" content="${imgWidth}"`
+        )
+        .replace(
+          /<meta\s+property="og:image:height"\s+content="[^"]*"/gi,
+          `<meta property="og:image:height" content="${imgHeight}"`
+        );
     }
   }
   if (nonce) {
@@ -816,7 +822,26 @@ export async function injectOgMeta(
 export async function getOrInjectOg(request: Request, env: Env, ctx: ExecutionContext, url: URL): Promise<Response> {
   const assetRes = await env.ASSETS.fetch(request);
   const ct = assetRes.headers.get('content-type') ?? '';
-  if (!ct.toLowerCase().includes('text/html')) return assetRes;
+  if (!ct.toLowerCase().includes('text/html')) {
+    // Image responses (OG cards, OG PNGs, blog illustrations) must NOT carry
+    // x-frame-options: DENY — social platforms (X/Twitter, LinkedIn, Facebook,
+    // Slack) fetch the twitter:image / og:image URL to render a preview card;
+    // x-frame-options: DENY causes their validators to reject the image and
+    // show no preview. The ASSETS binding adds x-frame-options: DENY by default;
+    // strip it for image responses so OG images render correctly.
+    if (ct.toLowerCase().startsWith('image/')) {
+      const h = new Headers(assetRes.headers);
+      h.delete('x-frame-options');
+      h.delete('content-security-policy');
+      h.delete('content-security-policy-report-only');
+      return new Response(assetRes.body, {
+        status: assetRes.status,
+        statusText: assetRes.statusText,
+        headers: h,
+      });
+    }
+    return assetRes;
+  }
 
   const etag = assetRes.headers.get('etag') ?? assetRes.headers.get('last-modified') ?? 'unversioned';
   const cache = caches.default;
