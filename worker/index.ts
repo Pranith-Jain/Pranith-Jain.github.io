@@ -228,6 +228,21 @@ export default {
       } catch {
         // KV miss or error — fall through to ASSETS
       }
+      // KV/shadow miss: serve the committed static file from ASSETS (the build
+      // pipeline writes public/data/daily-briefs/ → dist/data/daily-briefs/).
+      // Without this, /data/daily-briefs/*.json would fall through to the SPA
+      // shell and return HTML instead of JSON.
+      const dbAsset = await env.ASSETS.fetch(request);
+      if (dbAsset.ok) {
+        const h = new Headers(dbAsset.headers);
+        h.set('x-source', 'assets');
+        h.set('x-request-id', requestId);
+        return withSecurityHeaders(
+          new Response(dbAsset.body, { status: dbAsset.status, statusText: dbAsset.statusText, headers: h }),
+          undefined,
+          url.origin
+        );
+      }
     }
 
     // SPA shell fallback — serve prerendered HTML or the shell for client routing
