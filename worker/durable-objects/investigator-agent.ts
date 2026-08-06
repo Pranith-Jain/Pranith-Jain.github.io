@@ -1433,83 +1433,86 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       // and add IOCs to the watchlist. This closes the loop: investigation →
       // automated response. Only fires for SOC-relevant query types.
       try {
-        const isSocRelevant = [
-          'soc',
-          'incident',
-          'alert',
-          'playbook',
-          'detection',
-          'ip',
-          'domain',
-          'hash',
-          'url',
-          'ransomware',
-          'malware',
-        ].includes(state.queryType);
-        const qualityScore = state.qa?.qualityScore ?? 0;
-        const iocs = state.actionCard?.iocs ?? [];
-        const mitreTechniques = state.actionCard?.mitre ?? [];
+        // Guard: only fire on successful investigations with IOCs
+        if (state.status === 'done') {
+          const isSocRelevant = [
+            'soc',
+            'incident',
+            'alert',
+            'playbook',
+            'detection',
+            'ip',
+            'domain',
+            'hash',
+            'url',
+            'ransomware',
+            'malware',
+          ].includes(state.queryType);
+          const qualityScore = state.qa?.qualityScore ?? 0;
+          const iocs = state.actionCard?.iocs ?? [];
+          const mitreTechniques = state.actionCard?.mitre ?? [];
 
-        if (isSocRelevant && qualityScore >= 70 && iocs.length > 0) {
-          const tokenSecret = this.env.INTERNAL_TOKEN_SECRET;
-          if (tokenSecret) {
-            const internalToken = await signInternalToken('investigator-do', tokenSecret);
-            const headers = { 'content-type': 'application/json', 'x-internal-token': internalToken };
+          if (isSocRelevant && qualityScore >= 70 && iocs.length > 0) {
+            const tokenSecret = this.env.INTERNAL_TOKEN_SECRET;
+            if (tokenSecret) {
+              const internalToken = await signInternalToken('investigator-do', tokenSecret);
+              const headers = { 'content-type': 'application/json', 'x-internal-token': internalToken };
 
-            // Create a SOC playbook from the investigation findings
-            const playbookName = `Auto: ${state.query.slice(0, 60)}`;
-            const playbookActions = [
-              {
-                id: 'detect',
-                type: 'mcp_tool',
-                label: `Detect: ${iocs
-                  .slice(0, 5)
-                  .map((i) => i.value)
-                  .join(', ')}`,
-                config: { tool: 'generate_hunting_queries', args: { threat: state.query } },
-                timeout_seconds: 30,
-              },
-              {
-                id: 'contain',
-                type: 'add_note',
-                label: `Contain: ${
-                  mitreTechniques
-                    .slice(0, 3)
-                    .map((m) => m.id)
-                    .join(', ') || 'Review IOCs for blocking'
-                }`,
-                config: { note: `Investigation ${state.id} found ${iocs.length} IOCs. Review and block.` },
-                timeout_seconds: 10,
-              },
-              {
-                id: 'watchlist',
-                type: 'mcp_tool',
-                label: `Add ${iocs.length} IOCs to watchlist`,
-                config: {
-                  tool: 'ioc_watchlist_add',
-                  args: { iocs: iocs.map((i) => ({ type: i.type, value: i.value })) },
+              // Create a SOC playbook from the investigation findings
+              const playbookName = `Auto: ${state.query.slice(0, 60)}`;
+              const playbookActions = [
+                {
+                  id: 'detect',
+                  type: 'mcp_tool',
+                  label: `Detect: ${iocs
+                    .slice(0, 5)
+                    .map((i) => i.value)
+                    .join(', ')}`,
+                  config: { tool: 'generate_hunting_queries', args: { threat: state.query } },
+                  timeout_seconds: 30,
                 },
-                timeout_seconds: 15,
-              },
-            ];
+                {
+                  id: 'contain',
+                  type: 'add_note',
+                  label: `Contain: ${
+                    mitreTechniques
+                      .slice(0, 3)
+                      .map((m) => m.id)
+                      .join(', ') || 'Review IOCs for blocking'
+                  }`,
+                  config: { note: `Investigation ${state.id} found ${iocs.length} IOCs. Review and block.` },
+                  timeout_seconds: 10,
+                },
+                {
+                  id: 'watchlist',
+                  type: 'mcp_tool',
+                  label: `Add ${iocs.length} IOCs to watchlist`,
+                  config: {
+                    tool: 'ioc_watchlist_add',
+                    args: { iocs: iocs.map((i) => ({ type: i.type, value: i.value })) },
+                  },
+                  timeout_seconds: 15,
+                },
+              ];
 
-            const pbRes = await this.env.SELF.fetch(
-              new Request('https://api.local/api/v1/soc/playbooks', {
-                method: 'POST',
-                headers,
-                body: JSON.stringify({
-                  name: playbookName,
-                  description: `Auto-generated from investigation ${state.id}. Query: ${state.query}. QA: ${qualityScore}/100.`,
-                  trigger: 'manual',
-                  actions: playbookActions,
-                  enabled: false,
-                  tags: ['auto-generated', state.queryType, `qa-${qualityScore}`],
-                }),
-              })
-            );
+              const pbRes = await this.env.SELF.fetch(
+                new Request('https://api.local/api/v1/soc/playbooks', {
+                  method: 'POST',
+                  headers,
+                  body: JSON.stringify({
+                    name: playbookName,
+                    description: `Auto-generated from investigation ${state.id}. Query: ${state.query}. QA: ${qualityScore}/100.`,
+                    trigger: 'manual',
+                    actions: playbookActions,
+                    enabled: false,
+                    tags: ['auto-generated', state.queryType, `qa-${qualityScore}`],
+                  }),
+                })
+              );
 
-            if (pbRes.ok) {
-              console.log(`Agent → SOC: created playbook from investigation ${state.id}`);
+              if (pbRes.ok) {
+                console.log(`Agent → SOC: created playbook from investigation ${state.id}`);
+              }
             }
           }
         }
