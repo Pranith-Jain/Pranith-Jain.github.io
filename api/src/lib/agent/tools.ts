@@ -1253,7 +1253,7 @@ export function buildToolRegistry(
         'Passive DNS history lookup — subdomains, historical IPs, first/last seen timestamps. Uses crt.sh and optional SecurityTrails for historical DNS data.',
       params: [{ name: 'q', type: 'string', description: 'Domain or IP address', required: true }],
       execute: (args) =>
-        apiFetch(self, `/api/v1/passive-dns?q=${encodeURIComponent(String(args.q))}`, apiKey, undefined, ih),
+        apiFetch(self, `/api/v1/passive-dns?query=${encodeURIComponent(String(args.q))}`, apiKey, undefined, ih),
     },
 
     // ══════════════════════════════════════════════════════════════════════

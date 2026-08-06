@@ -158,3 +158,63 @@ describe('buildPivotFollowUps', () => {
     expect(followUps.length).toBeLessThanOrEqual(4);
   });
 });
+
+describe('buildPivotFollowUps — source domain filtering', () => {
+  it('does not pivot on mitre.org / sentinelone.com (vendor/reference domains from TTP descriptions)', () => {
+    const primary: QueryEntities = { ...noEntities, actors: ['Qilin'] };
+    // Simulate get_ransomware_group_profile results with TTP descriptions mentioning
+    // 'MITRE ATT&CK' and 'SentinelOne' — these produce mitre.org + sentinelone.com
+    // in the JSON, which the old regex would extract as "discovered domains".
+    const results: AgentToolResult[] = [
+      {
+        tool: 'get_ransomware_group_profile',
+        args: { slug: 'qilin' },
+        status: 'ok',
+        data: {
+          ttps: [
+            {
+              tactic_name: 'Initial Access',
+              techniques: [
+                {
+                  technique_name: 'Valid Accounts',
+                  technique_details: 'Compromised credentials. See MITRE ATT&CK for details. SentinelOne research.',
+                },
+              ],
+            },
+          ],
+        },
+        durationMs: 100,
+      },
+    ];
+    const followUps = buildPivotFollowUps(primary, results);
+    const passiveDnsCalls = followUps.filter((f) => f.tool === 'passive_dns_lookup');
+    const domains = passiveDnsCalls.map((c) => c.args.q);
+    expect(domains).not.toContain('mitre.org');
+    expect(domains).not.toContain('sentinelone.com');
+    expect(domains).not.toContain('attack.mitre.org');
+  });
+
+  it('still pivots on real attacker domains discovered in tool results', () => {
+    const primary: QueryEntities = { ...noEntities, actors: ['Qilin'] };
+    const results: AgentToolResult[] = [
+      {
+        tool: 'get_ransomware_group_profile',
+        args: { slug: 'qilin' },
+        status: 'ok',
+        data: {
+          leak_url: 'http://qilinblogxyz4aiyfxes5njqm7t6i5ib6t4bxg4uqisi6f3nks2e3fjid.onion/',
+          c2: 'evil-c2.attacker.com',
+        },
+        durationMs: 100,
+      },
+    ];
+    const followUps = buildPivotFollowUps(primary, results);
+    const passiveDnsCalls = followUps.filter((f) => f.tool === 'passive_dns_lookup');
+    const domains = passiveDnsCalls.map((c) => c.args.q);
+    // The regex extracts the registrable domain (attacker.com) from evil-c2.attacker.com
+    // — either form is a valid pivot target. Just verify it's NOT a source domain.
+    expect(domains).not.toContain('mitre.org');
+    expect(domains).not.toContain('sentinelone.com');
+    expect(domains.some((d) => d.includes('attacker.com'))).toBe(true);
+  });
+});

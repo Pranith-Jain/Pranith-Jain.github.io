@@ -144,6 +144,39 @@ export function buildPivotFollowUps(primaryEntities: QueryEntities, stepResults:
   const discoveredIps = new Set<string>();
   const discoveredDomains = new Set<string>();
 
+  // Source/citation domains that appear in tool results but are NOT attacker
+  // infrastructure — vendor sites (sentinelone.com, mitre.org), reputation
+  // feeds (ransomlook.io, virustotal.com), documentation. Pivoting on these
+  // wastes tool calls and pollutes the report with non-attacker infrastructure.
+  const SOURCE_DOMAINS = new Set([
+    'mitre.org',
+    'attack.mitre.org',
+    'sentinelone.com',
+    'microsoft.com',
+    'google.com',
+    'github.com',
+    'wikipedia.org',
+    'cloudflare.com',
+    'virustotal.com',
+    'abuse.ch',
+    'urlscan.io',
+    'shodan.io',
+    'censys.io',
+    'greynoise.io',
+    'threatfox.io',
+    'malwarebazaar.com',
+    'ransomlook.io',
+    'ransomware.live',
+    'example.com',
+    'example.org',
+    'nvd.nist.gov',
+    'cve.mitre.org',
+    'learn.microsoft.com',
+    'docs.microsoft.com',
+    'raw.githubusercontent.com',
+    'objects.githubusercontent.com',
+  ]);
+
   for (const r of stepResults) {
     if (r.status !== 'ok' || !r.data) continue;
     const json = JSON.stringify(r.data);
@@ -151,12 +184,18 @@ export function buildPivotFollowUps(primaryEntities: QueryEntities, stepResults:
     for (const ip of json.match(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g) ?? []) {
       if (ip !== primaryEntities.ips[0] && isValidIp(ip)) discoveredIps.add(ip);
     }
-    // Extract domains
+    // Extract domains — filter out source/citation/vendor domains so we don't
+    // pivot on mitre.org (from TTP descriptions) or sentinelone.com (vendor mentions)
     for (const d of json.match(
       /\b[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.(?:com|org|net|io|co|ru|cn|gov|edu|info|xyz|biz|us|uk|de|fr|nl|to|me|cc|tk)\b/gi
     ) ?? []) {
       const lower = d.toLowerCase();
-      if (lower !== primaryEntities.domains[0]) discoveredDomains.add(lower);
+      if (lower === primaryEntities.domains[0]) continue;
+      // Drop source/citation domains + their subdomains
+      if (SOURCE_DOMAINS.has(lower)) continue;
+      const lastTwo = lower.split('.').slice(-2).join('.');
+      if (lastTwo && SOURCE_DOMAINS.has(lastTwo)) continue;
+      discoveredDomains.add(lower);
     }
   }
 
