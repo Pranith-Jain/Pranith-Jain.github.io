@@ -1,0 +1,311 @@
+{
+  "type": "disaster",
+  "date": "2026-08-05",
+  "overallThreat": "severe",
+  "executiveSummary": "Southern Europe faces a sustained, multi-country wildfire emergency with evacuations on an historic scale in France and Spain and lethal firefighting incidents near Athens; reporting varies but evacuations range from more than 220,000 to over 360,000 people across peaks of the crisis. View Article Supporting Report In the U.S., wind-driven fires around Spokane, Washington triggered approximately 60,000-67,000 evacuations and destroyed at least 600-700 structures, with power outages and emergency declarations compounding impacts. View Article Supporting Report Pakistan's monsoon floods have killed 100+ people, with many casualties linked to house and roof collapses, and ongoing rainfall maintaining high risk. View Article Guatemala's Fuego volcano eruption continues to disrupt communities with evacuations, road and school closures, and roughly 1,700 people in shelters and ~29,000 affected by ashfall. View Article A deadly landslide in Chongqing, China killed 51 people and forced the evacuation of 1,100+ residents, highlighting acute slope-stability risk following heavy rains. View Article Flash floods in Central Texas caused fatalities and hundreds of rescues, while a separate Missouri event forced air evacuations of children and staff from a flooded camp. View Article Supporting Report Concurrent extreme heat in Western North America and Europe is amplifying wildfire spread and public-health risk, with repeated service disruptions and degraded air quality in affected regions. View Article Supporting Report",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "10",
+        "label": "Active critical events (consolidated)",
+        "trend": "Merged from multiple reports"
+      },
+      {
+        "value": "Wildfire · Flood · Volcano · Landslide · Earthquake · Typhoon",
+        "label": "Primary hazards in scope"
+      },
+      {
+        "value": "Hundreds of thousands+",
+        "label": "Evacuations (order of magnitude)",
+        "trend": "Europe, China coast, U.S., Guatemala"
+      },
+      {
+        "value": "150+",
+        "label": "Reported fatalities (known, min.)",
+        "trend": "Pakistan, China landslide, Japan, Greece"
+      }
+    ]
+  },
+  "keyFindings": [
+    {
+      "title": "Mass wildfire evacuations in France and Spain reached hundreds of thousands; Gre",
+      "summary": "Mass wildfire evacuations in France and Spain reached hundreds of thousands; Greece experienced lethal responder incidents and sea evacuations near Athens. View Article"
+    },
+    {
+      "title": "Spokane, Washington wildfires displaced roughly 60,000-67,000 people; 600-700 st",
+      "summary": "Spokane, Washington wildfires displaced roughly 60,000-67,000 people; 600-700 structures were destroyed as power shutoffs and hospital evacuations occurred. View Article"
+    },
+    {
+      "title": "Pakistan's monsoon floods caused 100+ deaths and widespread community inundation",
+      "summary": "Pakistan's monsoon floods caused 100+ deaths and widespread community inundation, with continued rainfall risk. Source"
+    },
+    {
+      "title": "Guatemala's Fuego eruption keeps ~1,700 people in shelters; ashfall affected aro",
+      "summary": "Guatemala's Fuego eruption keeps ~1,700 people in shelters; ashfall affected around 29,000; road and school closures remain. Source"
+    },
+    {
+      "title": "Chongqing landslide killed 51, with additional missing and injured, and signific",
+      "summary": "Chongqing landslide killed 51, with additional missing and injured, and significant housing and transport impacts. Source"
+    },
+    {
+      "title": "Flash floods in Central Texas and the Missouri Ozarks triggered fatalities, mass",
+      "summary": "Flash floods in Central Texas and the Missouri Ozarks triggered fatalities, mass rescues, and air evacuations. Source"
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "Southern Europe Wildfire Complex (France-Spain-Greece)",
+      "severity": "escalate",
+      "text": "Mass evacuations (220,000-360,000+ at peaks), fatalities among responders near Athens, widespread shelter and relief demand; reporting varies by day and country.",
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/amp/news/2026/7/26/more-than-360000-evacuated-as-wildfires-rage-in-france-and-spain",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/726b55a6fe6c51de1fb086b437eb28de",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Spokane Area, Washington (United States) Wildfires",
+      "severity": "escalate",
+      "text": "Approximately 60,000-67,000 evacuees; at least 600-700 structures destroyed; power shutoffs and hospital relocations reported.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/3f70ca42599d306cf0c540df34ee50d0",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/8e42b37783bda01e7d004d71e546458e",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Pakistan Monsoon Floods (esp. Punjab)",
+      "severity": "escalate",
+      "text": "100+ deaths, continued flood risk from monsoon rains; emergency teams deployed for drainage and relief.",
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/news/2026/7/27/death-toll-from-pakistan-monsoon-rains-floods-tops-100",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Fuego Volcano Eruption (Guatemala)",
+      "severity": "escalate",
+      "text": "Evacuations ongoing; ~1,700 people in shelters; ~29,000 affected by ashfall; road and school closures remain.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/d4791ca218180a2daa42a3b09673a52c",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Chongqing Landslide (Pengshui County, China)",
+      "severity": "escalate",
+      "text": "51 fatalities, 10 missing, 10 injured; >1,100 residents evacuated; residential buildings and a minibus buried; transport disrupted.",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/10f434c8dfa4f3c3872367d15d2a2a75",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [
+    {
+      "title": "Southern Europe Wildfire Crisis - France, Spain, Greece",
+      "severity": "escalate",
+      "text": "Key impacts: Mass evacuations (220,000-360,000+ at peaks), fatalities among responders near Athens, homes destroyed, large shelters activated, boat evacuations in Greece. Reporting differs across days and countries.",
+      "chips": ["Hazard: Wildfire", "Decision: ESCALATE", "Urgency: High"],
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/amp/news/2026/7/26/more-than-360000-evacuated-as-wildfires-rage-in-france-and-spain",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/726b55a6fe6c51de1fb086b437eb28de",
+          "label": "Supporting Report"
+        },
+        {
+          "url": "https://www.ifrc.org/press-release/ifrc-new-heatwave-could-worsen-wildfires-across-spain-and-france-red-cross-teams",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Spokane Area Wildfires - Washington, United States",
+      "severity": "escalate",
+      "text": "Key impacts: ~60,000-67,000 evacuees; 600-700 structures destroyed; power shutoffs; hospital and patient relocations; community access restrictions.",
+      "chips": ["Hazard: Wildfire", "Decision: ESCALATE", "Urgency: High"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/3f70ca42599d306cf0c540df34ee50d0",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/8e42b37783bda01e7d004d71e546458e",
+          "label": "Update"
+        }
+      ]
+    },
+    {
+      "title": "Monsoon Floods - Pakistan (esp. Punjab)",
+      "severity": "escalate",
+      "text": "Key impacts: 100+ fatalities; community inundation; emergency drainage operations; ongoing rainfall risk.",
+      "chips": ["Hazard: Floods", "Decision: ESCALATE", "Urgency: High"],
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/news/2026/7/27/death-toll-from-pakistan-monsoon-rains-floods-tops-100",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Fuego Volcano Eruption - Guatemala",
+      "severity": "escalate",
+      "text": "Key impacts: ~1,700 people in shelters; ~29,000 affected by ashfall; major highway closed; school suspensions; continued activity threatening nearby communities.",
+      "chips": ["Hazard: Volcanic eruption", "Decision: ESCALATE", "Urgency: High"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/d4791ca218180a2daa42a3b09673a52c",
+          "label": "View Article"
+        },
+        {
+          "url": "https://apnews.com/article/bf23164625284f5ea083ec9dc9e61da2",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Deadly Landslide - Pengshui County, Chongqing, China",
+      "severity": "escalate",
+      "text": "Key impacts: 51 dead, 10 missing, 10 injured; >1,100 evacuated; residential buildings buried; transport disruption.",
+      "chips": ["Hazard: Landslide", "Decision: ESCALATE", "Urgency: High"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/10f434c8dfa4f3c3872367d15d2a2a75",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Flash Flooding - Central Texas & Hill Country, U.S.",
+      "severity": "escalate",
+      "text": "Key impacts: At least two fatalities; hundreds of water rescues; homes and roads flooded; flash flood emergencies affecting access.",
+      "chips": ["Hazard: Floods", "Decision: ESCALATE", "Urgency: High"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/616ad82c32b5728d8a0f894c5e602b24",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/jul/16/texas-flooding-emergency-latest",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Camp Flood Evacuations - Missouri, U.S.",
+      "severity": "escalate",
+      "text": "Key impacts: 200+ children and staff airlifted; additional rescues; infrastructure and access disrupted in camp areas.",
+      "chips": ["Hazard: Floods", "Decision: ESCALATE", "Urgency: High"],
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/us-news/2026/jul/11/missouri-flooding-airlift-rescue",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Kyushu Earthquake - Japan",
+      "severity": "escalate",
+      "text": "Key impacts: At least 3 dead, ~30 injured; evacuation advice for >260,000; damage to roads, bridges, buildings; blackouts and fires reported.",
+      "chips": ["Hazard: Earthquake", "Decision: ESCALATE", "Urgency: High"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/09e6f40acbcc96053946c9c104e7a242",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Venezuela Earthquakes - Ongoing Humanitarian Needs",
+      "severity": "escalate",
+      "text": "Key impacts: Thousands homeless; sheltering outside unsafe homes; urgent needs for health care, psychosocial support, and safe water; heightened public-health risks.",
+      "chips": ["Hazard: Earthquake (after-effects)", "Decision: ESCALATE", "Urgency: High"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/99a155f55b67b68bfa76d17e1744cb5a",
+          "label": "View Article"
+        },
+        {
+          "url": "https://www.ifrc.org/press-release/ifrc-one-month-after-venezuelas-earthquakes-health-care-psychosocial-support-and-safe-water-remain-urgent-priorities",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "Typhoon Noul - Guangdong & Hong Kong, China",
+      "severity": "escalate",
+      "text": "Key impacts: Hundreds of thousands evacuated ahead of landfall; severe weather disrupted transport and public services.",
+      "chips": ["Hazard: Typhoon", "Decision: ESCALATE", "Urgency: High"],
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/news/2026/7/26/typhoon-noul-makes-landfall-in-china-with-hundreds-of-thousands-evacuated",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Eastern Oregon Wildfire - U.S.",
+      "severity": "escalate",
+      "text": "Key impacts: \"Go Now\" evacuation for a town of ~500 residents; Interstate 84 closed for 70 miles; continuing smoke and access constraints.",
+      "chips": ["Hazard: Wildfire", "Decision: ESCALATE", "Urgency: High"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/f44665d325f08eb67d0ac44efa6eb0ae",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "monitorEvents": [
+    {
+      "title": "Extreme Heat and Fire Weather - Western United States",
+      "severity": "monitor",
+      "text": "Risks: Dangerous heat affecting vulnerable populations; heightens wildfire ignition and spread potential; sustained demand at cooling centers.",
+      "chips": ["Hazard: Heat wave", "Decision: MONITOR", "Urgency: Medium"],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/594390d448a480564ec7db6b15b5fffc",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Widespread Wildfires & Smoke - Northern Ontario, Canada",
+      "severity": "monitor",
+      "text": "Risks: Town evacuations; degraded air quality across Canada and downwind U.S. cities; disruption to normal life and services.",
+      "chips": ["Hazard: Wildfire/Smoke", "Decision: MONITOR", "Urgency: Medium"],
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/2026/jul/28/wildfires-europe-north-america-effects",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "outlook72h": "Wildfires: Expect continued evacuation readiness in Southern Europe and the Western U.S. where winds and heat persist. Reignition and ember-cast risks remain elevated near containment lines; smoke impacts likely downwind. Floods/Monsoon: Localized flash flooding remains possible in saturated basins; monitor urban drainage and low-lying settlements for rapid-onset hazards. Volcano (Fuego): Continued intermittent ash emissions may prompt short-notice road and school closures; maintain shelter and respiratory protection support near ashfall zones. Earthquakes/Secondary hazards: Aftershocks can degrade damaged structures in Japan and Venezuela; maintain exclusion zones and debris management to limit injury and public-health risks.",
+  "regionalTrends": [
+    "Heat-fire coupling: Persistent hot, dry, and windy conditions are sustaining fire activity in Southern Europe and the Western U.S., elevating evacuation likelihood and stressing response resources. View Article",
+    "Monsoon and terrain risk: High rainfall rates are driving flood mortality in Pakistan and landslide risk in steep terrain across parts of China.",
+    "Compound hazards: Volcano-related ashfall in Guatemala is creating respiratory and mobility constraints alongside ongoing evacuation and shelter needs. Source",
+    "Typhoon season impacts: Large pre-emptive evacuations in coastal China highlight exposure of dense urban areas to high winds and flooding. Source"
+  ]
+}

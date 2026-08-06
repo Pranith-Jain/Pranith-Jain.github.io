@@ -1,90 +1,107 @@
 {
   "type": "cyber",
   "date": "2026-08-05",
-  "threatLevel": "Overall OT Cyber Threat Level: CRITICAL",
-  "executiveSummary": "Threat level remains critical due to active exploitation of PLCs in water and wastewater operations, causing operator lockouts and service impacts. Security Advisory Multiple VPN/edge management products are under active attack (Check Point Remote/Mobile Access IKEv1 auth-bypass; N-able N-central RMM auth-bypass; F5 BIG-IP APM RCE), enabling direct perimeter compromise and lateral movement. Security Advisory KEV Notice OT-native risks are elevated by a protocol-level integrity flaw in Mitsubishi Electric CC-Link IE TSN (no patch), and engineering-workstation code execution in Schneider IGSS-both threatening loss of control if abused. ICS Advisory ICS Advisory Nation-state operations targeting critical services continue: China-nexus covert networks of compromised SOHO/IoT devices for pre-positioning; Iranian-affiliated actors manipulating PLC logic/alarm states; APT activity against aviation/telecom/government with covert WSS tunneling. Joint Advisory Joint Advisory Ransomware and supply-chain exposure remain acute via exploited VPNs/RMMs, compromised email platforms, and EV charging/telecom infrastructure vulnerabilities-presenting operational disruption risks across energy, manufacturing, and communications. View Article CISA Bulletin Key defensive imperatives: patch and harden perimeter devices; rotate credentials/keys; eliminate direct OT/PLC internet exposure; enforce MFA and strict segmentation; and conduct targeted threat hunting on VPN/RMM, firewall managers, and HMI/PLC assets.",
+  "threatLevel": "Overall Threat Level: CRITICAL",
+  "executiveSummary": "The OT/ICS threat landscape is at a critical posture this cycle due to simultaneous, actively exploited edge-access vectors and direct activity against industrial control assets. Multiple government advisories confirm ongoing intrusions against exposed PLCs in the U.S. water sector and opportunistic HMI compromises via VNC, alongside active exploitation of RMM and VPN/remote-access platforms used to bridge into OT environments. Supply-chain attacks targeting developer ecosystems raise risks to CI/CD pipelines supporting industrial operations. Direct OT device targeting: Threat actors are changing passwords/IPs on internet-exposed PLCs in Water/Wastewater, causing operational disruptions and manual mode operations. Immediate removal from the public internet and gateway-mediated access are mandated. Security Advisory Opportunistic HMI compromise via exposed VNC: Pro-Russia hacktivists continue mass scanning/brute forcing VNC to deface/change setpoints and suppress alarms on HMIs in Water, Food/Agriculture, and Energy sectors. Security Advisory Perimeter/RMM exploitation enabling OT pivots: Authentication bypass in N-able N-central is under active exploitation (new hotfix available); CISA added it to KEV. Hard-coded credential exposure in Cisco FMC is also being exploited. Restrict exposure, patch, and hunt for signs of misuse. CISA KEV View Article FortiGate credential leakage (\"FortiBleed\") at scale: Valid admin/VPN secrets observed in the wild; organizations must rotate credentials, enforce PBKDF2 hashing, and re-assess trusted tunnels (including site-to-site IPsec paths into OT). Security Advisory OT protocol/library risks: Unpatched protocol-integrity weakness across Mitsubishi Electric CC-Link IE TSN devices permits on-segment data tampering/DoS; MZ Automation's libiec61850 flaws (MMS/IEC 61850) carry DoS risks to substation operations-inventory and patch paths are priority. CISA Advisory CISA Advisory EVSE exposure: Multiple critical EV charger flaws (EVbee DC-80) enable unauthenticated remote control/RCE via OCPP/WebSockets-segment EVSE networks and enforce mTLS. CISA Bulletin Developer ecosystem supply-chain compromise: Active npm/Open VSX poisoning (Keyv-linked worm and \"evil twin\" extensions) steals tokens and propagates via trusted workflows, threatening CI/CD supporting industrial vendors/operators. Treat exposed runners/workstations as compromised and rotate all secrets. Supporting Report Supporting Report Nation-state infrastructure abuse continues: China-nexus actors leverage vast SOHO/IoT proxy botnets to mask operations and pre-position near critical infrastructure; edge device hygiene and segmentation remain urgent. Security Advisory",
   "keyFindings": [
     {
-      "title": "Active OT disruption",
-      "summary": "adversaries are locking operators out of PLCs in WWS, forcing manual operations and boil-water notices. Security Advisory"
+      "title": "Active OT asset targeting (PLCs, exposed HMIs) is causing real operational impact; immediate internet exposure removal and access control are required",
+      "summary": "Security Advisory Security Advisory"
     },
     {
-      "title": "Exploited VPN/RMM perimeters",
-      "summary": "Check Point IKEv1 auth-bypass, N-able N-central auth-bypass (KEV), and F5 BIG-IP APM RCE are confirmed in the wild. Security Advisory Security Advisory"
+      "title": "Edge/RMM compromises (N-able N-central, Cisco FMC) present rapid enterprise takeover and likely OT pivot paths via remote access jump hosts",
+      "summary": "CISA KEV"
     },
     {
-      "title": "Unpatched protocol risk",
-      "summary": "CC-Link IE TSN integrity flaw across many Mitsubishi Electric products has no fix; strict segmentation and monitoring are required. ICS Advisory"
+      "title": "FortiGate credential leaks at scale enable trusted-tunnel abuse into CI environments; credential and key rotation with PBKDF2 enforcement is urgent",
+      "summary": "Security Advisory"
     },
     {
-      "title": "State actors",
-      "summary": "China-nexus covert device networks and Iranian-affiliated PLC intrusions threaten energy, water, and government operations. Joint Advisory Joint Advisory"
+      "title": "OT communications and EV charging ecosystems expose protocol/library and controller weaknesses (CC-Link IE TSN, libiec61850, EVbee), risking process disruption if not segmented and patched",
+      "summary": "CISA Advisory CISA Bulletin"
     },
     {
-      "title": "Supply-chain and telecom exposures",
-      "summary": "exploited EVSE/OCPP flaws risk charger takeover; telco femtocell certificate abuse enabled voice/SMS interception and fraud. CISA Bulletin View Article"
+      "title": "Active supply-chain compromises in developer toolchains (npm, Open VSX) threaten CI/CD and downstream ICS software integrity; organizations must harden provenance, disable install scripts in CI, and rotate credentials broadly",
+      "summary": "View Article View Article"
     }
   ],
   "dashboard": {
     "kpis": [
       {
-        "value": "14",
-        "label": "Actively Exploited Items Tracked",
-        "trend": "Perimeter devices and VPNs dominate"
+        "value": "CRITICAL",
+        "label": "Overall OT/ICS Threat Level",
+        "trend": "Active exploitation and direct OT asset impact"
       },
       {
-        "value": "10",
-        "label": "OT/ICS-Specific Advisories",
-        "trend": "Multiple PLC/SCADA and protocol issues"
+        "value": "12",
+        "label": "Escalate-priority events (this brief)",
+        "trend": "Multiple edge/RMM and OT device advisories"
+      },
+      {
+        "value": "4",
+        "label": "New/Active KEV items impacting segmentation/RMM",
+        "trend": "Requires rapid patch + compromise assessment"
       },
       {
         "value": "20+",
-        "label": "High-Risk Vendors Impacted",
-        "trend": "Cisco, Check Point, Fortinet, F5, SonicWall, Mitsubishi"
+        "label": "Vendors/Technologies with OT relevance",
+        "trend": "Mitsubishi, Fortinet, F5, EVSE, IEC stacks, more"
       },
       {
-        "value": "8",
-        "label": "72-Hour Priority Actions",
-        "trend": "Patch, rotate, segment, hunt"
+        "value": "Immediate removal from internet",
+        "label": "1) Internet-Exposed PLCs (WWS)",
+        "trend": "Lockouts/operational impact observed"
+      },
+      {
+        "value": "Setpoint/Alarm tampering risk",
+        "label": "2) Exposed VNC on HMIs (multi-sector)",
+        "trend": "Scan/brute-force at scale"
+      },
+      {
+        "value": "Remote fleet control risk",
+        "label": "3) N-able N-central Auth-Bypass (KEV)",
+        "trend": "Patch + incident hunting now"
+      },
+      {
+        "value": "Trusted tunnel abuse",
+        "label": "4) FortiBleed: FortiGate Cred Leaks",
+        "trend": "Rotate creds/keys; enforce PBKDF2"
+      },
+      {
+        "value": "Remote manipulation risk",
+        "label": "5) EV Charger (EVbee DC-80) RCE",
+        "trend": "Segment EVSE + mTLS on OCPP"
       }
     ],
-    "activelyExploited": [
-      "F5 APM",
-      "Check Point VPN",
-      "SonicWall SMA",
-      "Cisco FMC",
-      "N-able N-central"
-    ],
+    "activelyExploited": [],
     "vendors": [
       "Mitsubishi Electric (CC-Link IE TSN)",
-      "Schneider Electric IGSS",
-      "MZ Automation libiec61850",
-      "Check Point (Security Gateways/Remote Access)",
+      "Fortinet FortiGate / FortiOS",
       "F5 BIG-IP APM",
-      "Cisco Secure FMC",
-      "SonicWall SMA 1000",
-      "Fortinet FortiOS/FortiGate",
       "N-able N-central (RMM)",
-      "EVbee / Autel EVSE (OCPP)",
-      "Delta Electronics PLC",
-      "PcVue HMI",
-      "Apache IoTDB",
-      "WWS sector PLCs (multiple vendors)"
+      "Cisco Secure FMC",
+      "EVbee DC-80 EV Chargers (OCPP)",
+      "MZ Automation libiec61850 (IEC 61850)",
+      "Zimbra Collaboration Suite",
+      "Ivanti EPMM / Sentry",
+      "Apache Tomcat / GeoServer",
+      "Developer ecosystems (npm / Open VSX)",
+      "Kaspersky-reported APT tooling (OctLurk/SilkLurk)"
     ],
     "sectors": [
       "Water and Wastewater Systems",
-      "Energy / Power",
+      "Energy and Utilities",
+      "Transportation (EV charging)",
       "Critical Manufacturing",
-      "Communications / Telecom",
-      "Transportation (EVSE)",
-      "Government Facilities and Services",
-      "Aviation and Aerospace"
+      "Healthcare and Public Health",
+      "Government/Public Services",
+      "Communications"
     ]
   },
   "topThreats": [
     {
-      "title": "WWS PLCs targeted and locked out",
-      "action": "Operational impacts reported; immediate removal from internet and credential resets required.",
+      "title": "1) Internet-Exposed PLCs (WWS)",
+      "action": "Immediate removal from internet",
       "sources": [
         {
           "url": "https://www.cisa.gov/news-events/alerts/2026/07/30/cisa-urges-water-and-wastewater-systems-sector-protect-ot-against-activity-targeting-plcs",
@@ -93,46 +110,46 @@
       ]
     },
     {
-      "title": "Check Point VPN (IKEv1) authentication bypass exploited",
-      "action": "Unauthorized VPN access enabling enterprise-to-OT pivots; disable IKEv1 and patch.",
+      "title": "2) Exposed VNC on HMIs (multi-sector)",
+      "action": "Setpoint/Alarm tampering risk",
       "sources": [
         {
-          "url": "https://www.jpcert.or.jp/at/2026/at260016.html",
+          "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-343a",
           "label": "Security Advisory"
         }
       ]
     },
     {
-      "title": "N-able N-central RMM auth-bypass (KEV)",
-      "action": "Supply-chain risk via MSP takeover and endpoint control; patch and hunt immediately.",
+      "title": "3) N-able N-central Auth-Bypass (KEV)",
+      "action": "Remote fleet control risk",
       "sources": [
         {
           "url": "https://www.cisa.gov/news-events/alerts/2026/08/03/cisa-adds-one-known-exploited-vulnerability-catalog",
-          "label": "KEV Notice"
+          "label": "CISA KEV"
         },
         {
-          "url": "https://thehackernews.com/2026/08/cisa-adds-exploited-n-able-n-central.html",
+          "url": "https://www.heise.de/news/Jetzt-patchen-Angreifer-attackieren-N-able-N-central-11397397.html",
           "label": "View Article"
         }
       ]
     },
     {
-      "title": "F5 BIG-IP APM unauth RCE actively exploited",
-      "action": "Perimeter breach path to internal networks; assess for compromise and reimage if needed.",
+      "title": "4) FortiBleed: FortiGate Cred Leaks",
+      "action": "Trusted tunnel abuse",
       "sources": [
         {
-          "url": "https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-004/",
-          "label": "Security Advisory"
+          "url": "https://www.jpcert.or.jp/at/2026/at260019.html",
+          "label": "Security Alert"
         }
       ]
     },
     {
-      "title": "Mitsubishi CC-Link IE TSN integrity flaw (no patch)",
-      "action": "Potential command/IO tampering; requires strict segmentation and monitoring controls.",
+      "title": "5) EV Charger (EVbee DC-80) RCE",
+      "action": "Remote manipulation risk",
       "sources": [
         {
-          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-211-07",
-          "label": "ICS Advisory"
+          "url": "https://www.cisa.gov/news-events/bulletins/sb26-201",
+          "label": "CISA Bulletin"
         }
       ]
     }
@@ -141,385 +158,247 @@
     {
       "category": "Activity",
       "items": [
-        "China-nexus covert networks leveraging compromised SOHO/IoT for pre-positioning against CNI. Joint Advisory",
-        "Iranian-affiliated activity modifying PLC logic and disabling alarms across US critical infrastructure. Joint Advisory",
-        "APT29/Midnight Blizzard targeting travelers via captive portals to capture M365 tokens and device creds. View Article",
-        "Mirage Kitten espionage with covert WSS tunnelers and DLL hijacking against aviation/telecom/government. Supporting Report"
+        "Pro-Russia hacktivist clusters target exposed VNC/OT HMIs at scale for disruption and propaganda. Security Advisory",
+        "China-nexus actors leveraging covert SOHO/IoT proxy networks for masking and pre-positioning near critical infrastructure. Security Advisory",
+        "Espionage campaigns (OctLurk/SilkLurk; Mirage Kitten) show credential theft, DLL sideloading, covert tunneling and lateral movement into government/public-service networks with possible overlap to CI. View Article View Article",
+        "Ransomware (GenieLocker) demonstrates cross-platform payloads (Windows/Linux/ESXi) and partner VPN abuse that can disrupt virtualized servers supporting OT operations. View Article"
       ]
     }
   ],
-  "cveWatch": [
-    {
-      "category": "New/Notable OT CVEs and Issues",
-      "items": [
-        "Mitsubishi Electric CC-Link IE TSN protocol integrity flaw (no fix planned): segment/allow-list/monitor. ICS Advisory",
-        "Schneider IGSS Definition OOB write via malicious CGF-code execution on engineering workstations. ICS Advisory",
-        "MZ Automation libiec61850 DoS in IEC 61850 stacks ( ICS Advisory",
-        "Delta Electronics PLC/Modbus unauth operations and DoS paths. CISA Bulletin",
-        "EV charging (EVbee DC-80, Autel MaxiCharger) multiple unauth RCE and unsigned firmware vectors. CISA Bulletin CISA Bulletin",
-        "Patching of PcVue HMI, Apache IoTDB, and others recommended due to OT-adjacent exposure. CISA Bulletin"
-      ]
-    }
-  ],
+  "cveWatch": [],
   "events": [
     {
-      "title": "WWS PLCs targeted for lockouts and configuration abuse",
+      "title": "WWS: Internet-Exposed PLCs Under Active Attack",
       "severity": "escalate",
-      "text": "Operators reported forced manual operations and boil-water notices due to password and IP changes on internet-exposed PLCs. Remove internet exposure, broker via MFA-enabled gateways, and restore from clean backups.",
-      "chips": [
-        "Water/Wastewater",
-        "PLC",
-        "Loss of View/Control"
-      ],
+      "text": "Actors are changing passwords/IPs on exposed PLCs, disrupting operations and requiring manual control. Remove exposure, enforce VPN/MFA, and restore from known-good backups.",
+      "chips": [],
       "sources": [
         {
           "url": "https://www.cisa.gov/news-events/alerts/2026/07/30/cisa-urges-water-and-wastewater-systems-sector-protect-ot-against-activity-targeting-plcs",
           "label": "Security Advisory"
         }
-      ],
-      "threat": "THREAT: 5"
+      ]
     },
     {
-      "title": "Check Point VPN auth-bypass (CVE-2026-50751) actively exploited",
+      "title": "Pro-Russia Hacktivists Exploit Exposed VNC on HMIs",
       "severity": "escalate",
-      "text": "IKEv1-enabled deployments allow unauthorized VPN access. Disable IKEv1 immediately, apply vendor fixes, rotate creds/tokens, and review VPN/AD logs for anomalous access.",
-      "chips": [
-        "Remote Access",
-        "Identity"
-      ],
-      "sources": [
-        {
-          "url": "https://www.jpcert.or.jp/at/2026/at260016.html",
-          "label": "Security Advisory"
-        }
-      ],
-      "threat": "THREAT: 5"
-    },
-    {
-      "title": "F5 BIG-IP APM unauth RCE under active exploitation (CVE-2025-53521)",
-      "severity": "escalate",
-      "text": "Attackers execute commands via iControl REST \"util bash,\" deploy persistence, and attempt SELinux disablement. Restrict/monitor REST, hunt IOCs, reimage if compromised, and rotate credentials/certs.",
-      "chips": [
-        "Perimeter",
-        "Webshells"
-      ],
-      "sources": [
-        {
-          "url": "https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-004/",
-          "label": "Security Advisory"
-        }
-      ],
-      "threat": "THREAT: 5"
-    },
-    {
-      "title": "INC ransomware exploiting SonicWall SMA 1000 zero-days",
-      "severity": "escalate",
-      "text": "Active intrusions leverage KNUCKLEBALL and web shells to steal creds, sessions, and TOTP seeds. Patch, invalidate sessions, rotate secrets, and threat-hunt /wsproxy access and lateral movement.",
-      "chips": [
-        "Ransomware",
-        "VPN"
-      ],
-      "sources": [
-        {
-          "url": "https://thehackernews.com/2026/08/inc-ransomware-emerges-as-dominant.html",
-          "label": "View Article"
-        }
-      ],
-      "threat": "THREAT: 5"
-    },
-    {
-      "title": "Iranian-affiliated actors exploiting PLCs across US critical infrastructure",
-      "severity": "escalate",
-      "text": "Manipulation of project files/AOIs and HMI data to disable alarms and safety logic. Remove internet access, enforce zones/conduits, place controllers in RUN, and validate logic integrity.",
-      "chips": [
-        "Nation-State",
-        "PLC Logic/Alarms"
-      ],
-      "sources": [
-        {
-          "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a",
-          "label": "Joint Advisory"
-        }
-      ],
-      "threat": "THREAT: 5"
-    },
-    {
-      "title": "China-nexus covert networks of compromised devices pre-positioning against CNI",
-      "severity": "escalate",
-      "text": "Actors route operations through large fleets of compromised routers/IoT to evade attribution. Enforce router hygiene (SNMPv3, disable SMI), segmentation, and egress controls.",
-      "chips": [
-        "SOHO/IoT",
-        "Pre-positioning"
-      ],
-      "sources": [
-        {
-          "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-113a",
-          "label": "Joint Advisory"
-        }
-      ],
-      "threat": "THREAT: 5"
-    },
-    {
-      "title": "N-able N-central RMM auth-bypass (CVE-2026-18577) - active exploitation",
-      "severity": "escalate",
-      "text": "Admin takeover enables mass endpoint control and lateral movement. Patch (2026.3 HF1/3.1), restrict exposure, audit \"Take Control,\" and hunt for cloudflared tunnels/rogue svchost.exe.",
-      "chips": [
-        "Supply Chain",
-        "RMM"
-      ],
-      "sources": [
-        {
-          "url": "https://www.cisa.gov/news-events/alerts/2026/08/03/cisa-adds-one-known-exploited-vulnerability-catalog",
-          "label": "KEV Notice"
-        },
-        {
-          "url": "https://thehackernews.com/2026/08/cisa-adds-exploited-n-able-n-central.html",
-          "label": "View Article"
-        }
-      ],
-      "threat": "THREAT: 4"
-    },
-    {
-      "title": "Cisco Secure FMC hard-coded password exploited (KEV)",
-      "severity": "escalate",
-      "text": "Compromise risks collapse of segmentation and unauthorized rule changes. Patch, rotate secrets, validate policies, and review admin accounts/sessions.",
-      "chips": [
-        "Firewall Manager",
-        "Policy Tampering"
-      ],
-      "sources": [
-        {
-          "url": "https://www.cisa.gov/news-events/alerts/2026/07/29/cisa-adds-one-known-exploited-vulnerability-catalog",
-          "label": "KEV Notice"
-        }
-      ],
-      "threat": "THREAT: 4"
-    },
-    {
-      "title": "Ivanti EPMM RCEs (CVE-2026-1281/1340) exploited with public PoC",
-      "severity": "escalate",
-      "text": "Attacks via crafted GETs to /mifs/… with JSP webshell persistence; isolate appliances, patch, hunt, and assess SSO/IdP integration risk.",
-      "chips": [
-        "MDM/Perimeter",
-        "Webshells"
-      ],
-      "sources": [
-        {
-          "url": "https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-001/",
-          "label": "Security Advisory"
-        }
-      ],
-      "threat": "THREAT: 4"
-    },
-    {
-      "title": "Pro-Russia hacktivists abusing exposed VNC-connected HMIs/SCADA",
-      "severity": "escalate",
-      "text": "Observed loss of view, parameter changes, downtime, and some physical damage. Remove exposure, enforce strong auth and segmentation, and monitor setpoint/alarm changes.",
-      "chips": [
-        "HMI/SCADA",
-        "Brute Force/Defaults"
-      ],
+      "text": "Opportunistic attacks deface HMIs, change setpoints, suppress alarms, and lock out operators. Remove exposed VNC, harden accounts, and monitor 5900-5910.",
+      "chips": [],
       "sources": [
         {
           "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-343a",
-          "label": "Joint Advisory"
+          "label": "Security Advisory"
         }
-      ],
-      "threat": "THREAT: 4"
+      ]
     },
     {
-      "title": "GeoServer RCE (CVE-2024-36401) leveraged against US agency",
+      "title": "N-able N-central Authentication Bypass (KEV) - Actively Exploited",
       "severity": "escalate",
-      "text": "China Chopper webshells and Stowaway C2 used to pivot to SQL server; immediate patching and hunting for listed ports/processes advised.",
-      "chips": [
-        "GIS",
-        "Webshell/C2"
-      ],
+      "text": "Active exploitation enables account takeover and mass deployment. Patch immediately, restrict exposure, enforce MFA, and hunt for unauthorized jobs and tokens.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/alerts/2026/08/03/cisa-adds-one-known-exploited-vulnerability-catalog",
+          "label": "CISA KEV"
+        },
+        {
+          "url": "https://www.heise.de/news/Jetzt-patchen-Angreifer-attackieren-N-able-N-central-11397397.html",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Cisco FMC Hard-Coded Password (KEV)",
+      "severity": "escalate",
+      "text": "Active exploitation of Cisco Secure Firewall Management Center can yield full control over managed firewalls-patch, restrict access, audit changes, and validate integrity.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/alerts/2026/07/29/cisa-adds-one-known-exploited-vulnerability-catalog",
+          "label": "CISA KEV"
+        }
+      ]
+    },
+    {
+      "title": "F5 BIG-IP APM iControl REST RCE - In the Wild",
+      "severity": "escalate",
+      "text": "Confirmed exploitation with concrete IoCs. Remove public exposure, patch or hotfix, conduct compromise assessment, rotate credentials, and reimage if modified.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-004/",
+          "label": "Security Alert"
+        }
+      ]
+    },
+    {
+      "title": "FortiBleed - FortiGate Credential Leaks at Scale",
+      "severity": "escalate",
+      "text": "Leaked credentials facilitate AD harvesting and lateral movement via trusted tunnels. Rotate creds/keys, enforce PBKDF2, restrict admin access, and review logs/IoCs.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.jpcert.or.jp/at/2026/at260019.html",
+          "label": "Security Alert"
+        }
+      ]
+    },
+    {
+      "title": "Mitsubishi Electric CC-Link IE TSN Protocol Integrity Flaw",
+      "severity": "escalate",
+      "text": "On-segment attackers can tamper with control I/O or induce DoS. Enforce strict L2 segmentation, MACsec/ACLs, time-sync hardening, and ICS-aware monitoring.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-211-07",
+          "label": "CISA Advisory"
+        }
+      ]
+    },
+    {
+      "title": "China-Nexus Covert SOHO/IoT Proxy Networks",
+      "severity": "escalate",
+      "text": "Large covert networks route operations and mask attribution; harden/replace edge devices, enforce egress controls, and segment OT with monitored jump hosts.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-113a",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "Ivanti EPMM Unauth RCE - Active Exploitation with PoC",
+      "severity": "escalate",
+      "text": "Active exploitation with Ivanti-provided detection scripts. Isolate EPMM/Sentry, patch, review logs and internal pivots, rotate creds/tokens, and rebuild if compromised.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cert.ssi.gouv.fr/alerte/CERTFR-2026-ALE-001/",
+          "label": "Security Alert"
+        }
+      ]
+    },
+    {
+      "title": "npm Supply-Chain Worm (Keyv-linked) - Credential Theft & Propagation",
+      "severity": "escalate",
+      "text": "Preinstall hooks and editor integrations steal secrets and auto-publish. Disable scripts in CI, rotate tokens, isolate runners, and verify package provenance.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://thehackernews.com/2026/08/keyv-linked-npm-worm-poisons-hundreds.html",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Open VSX \"Evil Twin\" Extensions Exfiltrate Developer Data",
+      "severity": "escalate",
+      "text": "Malicious look-alike extensions exfiltrate developer/CI data. Enforce extension allowlists, block egress to indicators, and remove flagged IDs from fleets.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://thehackernews.com/2026/08/open-vsx-removes-77-malicious-evil-twin.html",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Zimbra 0-day Campaign (LAUNDRY BEAR) - Data Theft & Persistence",
+      "severity": "escalate",
+      "text": "Phishing + XSS on message view enabled automated exfiltration and IMAP persistence. Patch ZCS, revoke app passcodes/2FA scratch keys, and hunt SOAP patterns.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-204a",
+          "label": "Security Advisory"
+        }
+      ]
+    },
+    {
+      "title": "IEC 61850 libiec61850 DoS Risks (Energy/Substations)",
+      "severity": "monitor",
+      "text": "Potential DoS via malformed MMS on devices embedding the library; segment and restrict TCP/102 to authorized hosts only.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-211-10",
+          "label": "CISA Advisory"
+        }
+      ]
+    },
+    {
+      "title": "EV Chargers & Middleware (Multiple CVEs across weeks)",
+      "severity": "monitor",
+      "text": "Multiple EVSE/OCPP and integration-stack exposures (ActiveMQ, IoTDB, NiFi, DAQFactory) across CISA weekly bulletins.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.cisa.gov/news-events/bulletins/sb26-180",
+          "label": "CISA Bulletin"
+        },
+        {
+          "url": "https://www.cisa.gov/news-events/bulletins/sb26-208",
+          "label": "CISA Bulletin"
+        }
+      ]
+    },
+    {
+      "title": "GeoServer RCE - FCEB IR Lessons (transferable controls)",
+      "severity": "monitor",
+      "text": "Real-world multi-host compromise via GeoServer; adopt egress filtering, disable risky DB features, and hunt for web shells/BITS misuse.",
+      "chips": [],
       "sources": [
         {
           "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-266a",
-          "label": "Advisory"
+          "label": "CISA Advisory"
         }
-      ],
-      "threat": "THREAT: 4"
+      ]
     },
     {
-      "title": "Telecom femtocell certificate abuse and BPFDoor on internal servers (KT)",
-      "severity": "escalate",
-      "text": "Rogue femtocell enabled ARS/SMS interception and fraud; regulators found BPFDoor on 38 servers. Revoke/rotate device certs, segment management, and hunt eBPF backdoors.",
-      "chips": [
-        "Telecom",
-        "Fraud/Backdoor"
-      ],
-      "sources": [
-        {
-          "url": "https://www.infosecurity-magazine.com/news/koreas-largest-telco-kt-fine-39m/",
-          "label": "View Article"
-        }
-      ],
-      "threat": "THREAT: 4"
-    },
-    {
-      "title": "Midnight Blizzard via captive portals targeting traveler identities",
+      "title": "Check Point Security Mgmt Server Auth Bypass (Hotfixes)",
       "severity": "monitor",
-      "text": "Hijacked captive portals deliver fake updates/device-code phishing to deploy CornFlake RAT/ChocoShell; enforce conditional access and avoid captive-portal software prompts.",
-      "chips": [
-        "APT29",
-        "M365 Tokens"
-      ],
-      "sources": [
-        {
-          "url": "https://www.infosecurity-magazine.com/news/captivecrunch-midnight-blizzard/",
-          "label": "View Article"
-        }
-      ],
-      "threat": "THREAT: 3"
-    },
-    {
-      "title": "CISA weekly CVE rollups with OT relevance (PcVue, IoTDB, BeyondTrust)",
-      "severity": "monitor",
-      "text": "HMI credential/storage weaknesses, time-series DB path traversal, and remote support pre-auth bypass-patch per vendor notes and restrict exposure.",
-      "chips": [
-        "Multiple Vendors"
-      ],
-      "sources": [
-        {
-          "url": "https://www.cisa.gov/news-events/bulletins/sb26-194",
-          "label": "CISA Bulletin"
-        }
-      ],
-      "threat": "THREAT: 4"
-    },
-    {
-      "title": "EV charging infrastructure RCEs and unsigned firmware paths",
-      "severity": "monitor",
-      "text": "Multiple pre-auth command injection vectors and weak update mechanisms risk charger takeover and service disruption; segment, require mTLS, and patch.",
-      "chips": [
-        "Energy/Transport",
-        "OCPP"
-      ],
-      "sources": [
-        {
-          "url": "https://www.cisa.gov/news-events/bulletins/sb26-201",
-          "label": "CISA Bulletin"
-        },
-        {
-          "url": "https://www.cisa.gov/news-events/bulletins/sb26-215",
-          "label": "CISA Bulletin"
-        }
-      ],
-      "threat": "THREAT: 4"
-    },
-    {
-      "title": "Microsoft Patch Tuesday: ADFS/SharePoint exploited; BitLocker bypass",
-      "severity": "monitor",
-      "text": "Record volume patches include exploited zero-days affecting identity and SharePoint ingress; expedite patching and identity hardening.",
-      "chips": [
-        "Windows/Identity"
-      ],
-      "sources": [
-        {
-          "url": "https://krebsonsecurity.com/2026/07/microsoft-patches-a-record-570-security-flaws/",
-          "label": "View Article"
-        }
-      ],
-      "threat": "THREAT: 4"
-    },
-    {
-      "title": "Mirage Kitten: new backdoors and WSS tunnelers against aviation/telecom",
-      "severity": "monitor",
-      "text": "NightLedger/BridgeHead/ArcBridge enable covert C2 and per-target execution; harden DLL search paths, enforce WDAC/AppLocker, and monitor egress to suspicious WSS endpoints.",
-      "chips": [
-        "DLL Hijacking",
-        "WSS C2"
-      ],
-      "sources": [
-        {
-          "url": "https://securelist.com/mirage-kitten-new-tools/120811/",
-          "label": "Supporting Report"
-        }
-      ],
-      "threat": "THREAT: 4"
-    },
-    {
-      "title": "Vendor AI model release (Gemini 3.6/Flash Cyber)",
-      "severity": "ignore",
-      "text": "Product announcements; no indicators or OT/ICS impact reported.",
+      "text": "Critical flaw allows full takeover of firewall policy management (no public exploitation noted in article). Apply latest jumbo takes and restrict access.",
       "chips": [],
       "sources": [
         {
-          "url": "https://arstechnica.com/google/2026/07/google-reveals-faster-and-cheaper-gemini-3-6-flash-says-3-5-pro-is-still-in-testing/",
+          "url": "https://www.heise.de/news/Check-Point-Angreifer-koennen-Security-Management-Server-uebernehmen-11398187.html",
           "label": "View Article"
         }
-      ],
-      "threat": "THREAT: 1"
+      ]
     },
     {
-      "title": "Policy statements and program landing pages (NCSC ACD, proliferation)",
+      "title": "Generic policy/sector summaries without indicators",
       "severity": "ignore",
-      "text": "High-level guidance without actionable indicators; monitor only for future updates.",
+      "text": "No OT/ICS targeting or concrete indicators; monitor only for future actionable releases.",
       "chips": [],
-      "sources": [
-        {
-          "url": "https://www.ncsc.gov.uk/report/acd-the-sixth-year",
-          "label": "View Article"
-        },
-        {
-          "url": "https://www.ncsc.gov.uk/report/commercial-cyber-proliferation-assessment",
-          "label": "View Article"
-        }
-      ],
-      "threat": "THREAT: 1"
-    },
-    {
-      "title": "Tooling updates and brief promos (ISC Stormcast, zipdump.py)",
-      "severity": "ignore",
-      "text": "No threat content or indicators; informational only.",
-      "chips": [],
-      "sources": [
-        {
-          "url": "https://isc.sans.edu/diary/rss/33202",
-          "label": "View Article"
-        }
-      ],
-      "threat": "THREAT: 1"
-    },
-    {
-      "title": "Depthfirst dfs-large1 model announcement",
-      "severity": "ignore",
-      "text": "Vendor research post with no concrete CVEs/IOCs or OT relevance.",
-      "chips": [],
-      "sources": [
-        {
-          "url": "https://depthfirst.com/research/dfs-large-new-model-release",
-          "label": "View Article"
-        }
-      ],
-      "threat": "THREAT: 1"
+      "sources": []
     }
   ],
   "ttps": {
     "descriptions": [
-      "Initial Access: Exploit public-facing applications and VPNs (ATT&CK T1190, T1133); auth bypass on VPN/RMM; webshells on appliances.",
-      "Persistence: Application passcodes in email platforms; scheduled tasks, WMI subscriptions; rogue services; device tunnels.",
-      "Credential Access: Token theft (M365), password dumps, AD federation abuse; interception via compromised gateways.",
-      "Command and Control: Covert WSS/HTTPS tunnels; residential/SOHO proxy infrastructure; DNS-based exfil.",
-      "Lateral Movement: RDP/SSH, PsExec/PAExec; abuse of remote admin modules in RMM and EVSE backends.",
-      "ICS ATT&CK: Loss of View/Control via exposed VNC HMIs (TA0103); Modify Controller Tasking (T0858); Inhibit Response Function (T0814); Protocol abuse (Modbus/IEC 61850)."
+      "Exploit Public-Facing Application (T1190): N-central auth-bypass; F5 iControl REST RCE; GeoServer RCE; EVSE/OCPP endpoints.",
+      "Valid Accounts (T1078) and Credential Access (T1003/T1555): FortiBleed credential use; AD/NTLM/2FA token theft in multiple campaigns.",
+      "Remote Services (T1021): RDP/SSH, exposed VNC to HMIs (loss of view/control).",
+      "Lateral Movement via Remote Admin (T1021.004/T1570): RMM abuse, PsExec/PAExec; partner VPN trust abuse.",
+      "Command and Control via Proxy/Covert Channels (T1090/T1572): Residential/SOHO proxy botnets; WebSocket/DNS exfil.",
+      "Defense Evasion via DLL Sideloading (T1574.002) and Living-off-the-Land: OctLurk/SilkLurk, GeoServer/SQL xp_cmdshell, BITS jobs.",
+      "Supply-Chain Compromise (T1195): npm/Open VSX poisoning; AI-agent assisted PR backdoors."
     ],
     "mitreIds": [
       "T1190",
-      "T1133",
-      "T0858",
-      "T0814"
+      "T1078",
+      "T1003",
+      "T1555",
+      "T1021",
+      "T1021.004",
+      "T1570",
+      "T1090",
+      "T1572",
+      "T1574.002",
+      "T1195"
     ]
   },
-  "outlook72h": "Expect continued exploitation attempts against VPNs/RMM/firewall managers; prioritize emergency patching, exposure reduction, and token/credential rotation on these devices. Increase monitoring of OT gateways and HMIs for unauthorized configuration changes, alarm suppression, and logic downloads-validate backups and readiness to restore. Activate targeted hunts for N-able \"Take Control\" misuse, F5 iControl REST \"util bash\" artifacts, Check Point IKEv1-based access, and SonicWall SMA /wsproxy access trails. For CC-Link IE TSN environments, enforce strict segmentation and device access controls now; prepare containment playbooks for suspected IO tampering.",
-  "relatedCves": [
-    "CVE-2026-50751",
-    "CVE-2026-18577",
-    "CVE-2025-53521",
-    "CVE-2026-1281",
-    "CVE-2024-36401"
-  ]
+  "outlook72h": "Expect continued opportunistic exploitation of exposed PLCs/VNC and accelerated targeting of unpatched RMM/VPN/edge consoles listed in KEV. High likelihood of follow-on activity abusing leaked FortiGate credentials for trusted VPN ingress; monitor and re-establish trust boundaries. Developer-ecosystem threats likely persist (npm/Open VSX); anticipate refreshed indicators and copycats-keep revocation and response procedures active. OT protocol/library issues (CC-Link IE TSN, IEC 61850) remain latent risk; prioritize compensating controls while coordinating with vendors for updates. Actively Exploited Focus - ESCALATE Events requiring immediate action WWS: Internet-Exposed PLCs Under Active Attack Sector: Water/Wastewater • Impact: Lockouts, manual operations Actors are changing passwords/IPs on exposed PLCs, disrupting operations and requiring manual control. Remove exposure, enforce VPN/MFA, and restore from known-good backups. Security Advisory Pro-Russia Hacktivists Exploit Exposed VNC on HMIs Sectors: Water, Energy, Food/Ag • TTPs: Scan/Brute force VNC Opportunistic attacks deface HMIs, change setpoints, suppress alarms, and lock out operators. Remove exposed VNC, harden accounts, and monitor 5900-5910. Security Advisory N-able N-central Authentication Bypass (KEV) - Actively Exploited Vector: RMM console takeover • Risk: Fleet-wide control Active exploitation enables account takeover and mass deployment. Patch immediately, restrict exposure, enforce MFA, and hunt for unauthorized jobs and tokens. CISA KEV View Article Cisco FMC Hard-Coded Password (KEV) Vector: Edge management compromise • Impact: Policy manipulation Active exploitation of Cisco Secure Firewall Management Center can yield full control over managed firewalls-patch, restrict access, audit changes, and validate integrity. CISA KEV F5 BIG-IP APM iControl REST RCE - In the Wild Vector: Unauth RCE • Role: VPN/remote access front-end Confirmed exploitation with concrete IoCs. Remove public exposure, patch or hotfix, conduct compromise assessment, rotate credentials, and reimage if modified. Security Alert FortiBleed - FortiGate Credential Leaks at Scale Risk: Trusted VPN ingress • Exposure: Admin/VPN creds Leaked credentials facilitate AD harvesting and lateral movement via trusted tunnels. Rotate creds/keys, enforce PBKDF2, restrict admin access, and review logs/IoCs. Security Alert Mitsubishi Electric CC-Link IE TSN Protocol Integrity Flaw Scope: Broad PLC/drive/HMI portfolio • Fix: None (protocol) On-segment attackers can tamper with control I/O or induce DoS. Enforce strict L2 segmentation, MACsec/ACLs, time-sync hardening, and ICS-aware monitoring. CISA Advisory China-Nexus Covert SOHO/IoT Proxy Networks TTP: Botnet-based proxy chaining • Impact: Pre-positioning Large covert networks route operations and mask attribution; harden/replace edge devices, enforce egress controls, and segment OT with monitored jump hosts. Security Advisory Ivanti EPMM Unauth RCE - Active Exploitation with PoC Risk: MDM gateway pivot • Action: Isolate, patch, hunt IoCs Active exploitation with Ivanti-provided detection scripts. Isolate EPMM/Sentry, patch, review logs and internal pivots, rotate creds/tokens, and rebuild if compromised. Security Alert npm Supply-Chain Worm (Keyv-linked) - Credential Theft & Propagation Impact: CI/CD compromise • Scope: Hundreds of packages Preinstall hooks and editor integrations steal secrets and auto-publish. Disable scripts in CI, rotate tokens, isolate runners, and verify package provenance. View Article Open VSX \"Evil Twin\" Extensions Exfiltrate Developer Data Vector: IDE extensions • Impact: Token exfil, CI secrets Malicious look-alike extensions exfiltrate developer/CI data. Enforce extension allowlists, block egress to indicators, and remove flagged IDs from fleets. View Article Zimbra 0-day Campaign (LAUNDRY BEAR) - Data Theft & Persistence Impact: Mail exfil, app passwords • Target: Gov/DIB/Energy/NGO Phishing + XSS on message view enabled automated exfiltration and IMAP persistence. Patch ZCS, revoke app passcodes/2FA scratch keys, and hunt SOAP patterns. Security Advisory Situational Awareness - MONITOR Events to track and prepare mitigations IEC 61850 libiec61850 DoS Risks (Energy/Substations) Action: Inventory, patch to 1.6.2, deploy MMS DPI Potential DoS via malformed MMS on devices embedding the library; segment and restrict TCP/102 to authorized hosts only. CISA Advisory EV Chargers & Middleware (Multiple CVEs across weeks) Action: Segment EVSE; patch brokers/middleware Multiple EVSE/OCPP and integration-stack exposures (ActiveMQ, IoTDB, NiFi, DAQFactory) across CISA weekly bulletins. CISA Bulletin CISA Bulletin GeoServer RCE - FCEB IR Lessons (transferable controls) Action: Patch, WAF rules, harden upload paths Real-world multi-host compromise via GeoServer; adopt egress filtering, disable risky DB features, and hunt for web shells/BITS misuse. CISA Advisory Check Point Security Mgmt Server Auth Bypass (Hotfixes) Action: Patch, restrict mgmt access, monitor rule changes Critical flaw allows full takeover of firewall policy management (no public exploitation noted in article). Apply latest jumbo takes and restrict access. View Article Low Relevance - IGNORE Items with insufficient OT/ICS relevance or actionable detail Generic policy/sector summaries without indicators Examples: high-level AI threat overviews, legal sector briefs No OT/ICS targeting or concrete indicators; monitor only for future actionable releases.",
+  "relatedCves": []
 }

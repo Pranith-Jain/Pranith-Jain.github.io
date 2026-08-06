@@ -1,0 +1,198 @@
+{
+  "type": "maritime",
+  "date": "2026-08-05",
+  "threatLevel": "MODERATE",
+  "executiveSummary": "Navigation risk remains a key concern: Government advisories note continuing GPS disruption in multiple regions and reinforce that AIS is open and spoofable; mariners should avoid relying on AIS for collision avoidance and report anomalies to NAVCEN. Confidence: High. Government Advisory Port and terminal cyber exposure: Advisory highlights risk from foreign-manufactured port equipment, remotely serviceable ship-to-shore cranes, and logistics platforms such as LOGINK and Nuctech, recommending segmentation, patching, access control, and recovery planning; alignment with USCG directives is emphasized. Confidence: High. Government Advisory Operational picture: No new confirmed maritime cyber incidents, exploitable CVEs, or malware campaigns were identified in the recent 10-day window of the provided feed. This reduces immediate incident-response pressure but does not diminish the strategic risks above. Confidence: Medium. Outlook: Continued reports of GNSS interference and growing scrutiny of port OT supply-chain dependencies are likely. Bridge teams should heighten cross-checks of position sources; ports should review remote access and segmentation controls for cranes and terminal OT. Confidence: Medium. Facts above are drawn from government advisories; judgments synthesize risk relevance for maritime operations and do not assert new incidents absent source confirmation.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "MODERATE",
+        "label": "Overall Threat Level"
+      },
+      {
+        "value": "4",
+        "label": "Total Intelligence Records Analyzed"
+      },
+      {
+        "value": "4",
+        "label": "Unique Maritime Intelligence Events"
+      },
+      {
+        "value": "0",
+        "label": "ESCALATE Events"
+      },
+      {
+        "value": "2",
+        "label": "MONITOR Events"
+      },
+      {
+        "value": "2",
+        "label": "IGNORE Events"
+      },
+      {
+        "value": "0",
+        "label": "Active Incidents"
+      },
+      {
+        "value": "1",
+        "label": "Navigation-Related Threats"
+      },
+      {
+        "value": "1",
+        "label": "Port/Terminal OT Threats"
+      },
+      {
+        "value": "0",
+        "label": "Vulnerabilities or CVEs"
+      },
+      {
+        "value": "2",
+        "label": "High-Confidence Assessments"
+      }
+    ],
+    "vendors": [],
+    "sectors": []
+  },
+  "keyFindings": [
+    "GPS disruption persists across multiple regions; AIS remains spoofable and should not be used as a primary collision-avoidance sensor. View Advisory",
+    "Foreign-manufactured port technologies and remotely serviceable cranes introduce notable cyber exposure to IT/OT; segmentation, access control, and patching are priority defenses. View Advisory",
+    "No new exploitable CVEs, malware, or actor campaigns specific to maritime OT were identified in the supplied reporting window."
+  ],
+  "topThreats": [
+    {
+      "title": "1) GPS/GNSS disruption and AIS spoofing risks to global navigation",
+      "action": "Loss or manipulation of GNSS position can degrade ECDIS and conning displays; AIS spoofing can distort traffic awareness and VTS picture.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-008-global-us-maritime-advisory-updates-resources-and-contacts",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "2) Cyber exposure from foreign-manufactured port equipment and logistics platforms",
+      "action": "Remotely serviceable cranes and integrated logistics platforms can expand adversary access pathways into terminal OT, impacting cargo flow and safety systems.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Government Advisory"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [
+    {
+      "title": "Global GPS disruption and AIS spoofing risks (MARAD 2026-008)",
+      "severity": "monitor",
+      "text": "Assessment: Advisory reiterates GPS disruption affecting maritime navigation in multiple regions and emphasizes AIS spoofability; AIS must not be relied upon for collision avoidance. Maritime domains: Navigation, Bridge systems, VTS interface. Affected systems: GNSS receivers, ECDIS, AIS transceivers, conning displays. Impacts: Possible navigation and safety effects; potential supply-chain delay if traffic management degrades. Recommended actions: Cross-check position sources; report disruptions to NAVCEN; leverage maritime cybersecurity resources.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-008-global-us-maritime-advisory-updates-resources-and-contacts",
+          "label": "View Advisory"
+        }
+      ],
+      "items": [
+        "Assessment: Advisory reiterates GPS disruption affecting maritime navigation in multiple regions and emphasizes AIS spoofability; AIS must not be relied upon for collision avoidance.",
+        "Maritime domains: Navigation, Bridge systems, VTS interface.",
+        "Affected systems: GNSS receivers, ECDIS, AIS transceivers, conning displays.",
+        "Impacts: Possible navigation and safety effects; potential supply-chain delay if traffic management degrades.",
+        "Recommended actions: Cross-check position sources; report disruptions to NAVCEN; leverage maritime cybersecurity resources."
+      ]
+    },
+    {
+      "title": "Foreign technological, physical, and cyber influence in maritime infrastructure (MARAD 2026-007)",
+      "severity": "monitor",
+      "text": "Assessment: Advisory warns that foreign-manufactured port equipment, logistics platforms (e.g., LOGINK), and remotely serviceable ship-to-shore cranes can expose terminal IT/OT to cyber risk; recommends segmentation, patching, access-control scrutiny, traffic validation, and recovery planning; encourages compliance with USCG directives for PRC-manufactured cranes. Maritime domains: Ports, Terminals, Logistics. Affected systems: Crane OT controls, terminal networks, logistics IT, screening/inspection systems (e.g., Nuctech). Impacts: Possible safety and operational disruption; potential supply-chain impacts from crane downtime and yard congestion. Recommended actions: Strengthen IT/OT boundaries, restrict vendor remote access (with MFA and allow-listing), monitor east-west traffic, maintain tested backups, and patch supported components.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "View Advisory"
+        }
+      ],
+      "items": [
+        "Assessment: Advisory warns that foreign-manufactured port equipment, logistics platforms (e.g., LOGINK), and remotely serviceable ship-to-shore cranes can expose terminal IT/OT to cyber risk; recommends segmentation, patching, access-control scrutiny, traffic validation, and recovery planning; encourages compliance with USCG directives for PRC-manufactured cranes.",
+        "Maritime domains: Ports, Terminals, Logistics.",
+        "Affected systems: Crane OT controls, terminal networks, logistics IT, screening/inspection systems (e.g., Nuctech).",
+        "Impacts: Possible safety and operational disruption; potential supply-chain impacts from crane downtime and yard congestion.",
+        "Recommended actions: Strengthen IT/OT boundaries, restrict vendor remote access (with MFA and allow-listing), monitor east-west traffic, maintain tested backups, and patch supported components."
+      ]
+    },
+    {
+      "title": "No qualifying recent maritime cyber articles identified (feed notice)",
+      "severity": "ignore",
+      "text": "Assessment: The collection cycle did not yield qualifying open-source maritime cyber articles within the past 10 days; available reporting skewed to kinetic conflict, trade, or opinion. Operational note: Not an incident; no direct maritime cyber impact inferred.",
+      "chips": [],
+      "sources": [],
+      "items": [
+        "Assessment: The collection cycle did not yield qualifying open-source maritime cyber articles within the past 10 days; available reporting skewed to kinetic conflict, trade, or opinion.",
+        "Operational note: Not an incident; no direct maritime cyber impact inferred."
+      ]
+    },
+    {
+      "title": "No qualifying maritime cyber article in the requested window (supplemental feed notice)",
+      "severity": "ignore",
+      "text": "Assessment: Confirms a lack of new maritime cyber items in the immediate collection window. Operational note: No action required beyond routine monitoring.",
+      "chips": [],
+      "sources": [],
+      "items": [
+        "Assessment: Confirms a lack of new maritime cyber items in the immediate collection window.",
+        "Operational note: No action required beyond routine monitoring."
+      ]
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [
+    {
+      "title": "Global GPS disruption and AIS spoofing risks (MARAD 2026-008)",
+      "severity": "monitor",
+      "text": "Assessment: Advisory reiterates GPS disruption affecting maritime navigation in multiple regions and emphasizes AIS spoofability; AIS must not be relied upon for collision avoidance. Maritime domains: Navigation, Bridge systems, VTS interface. Affected systems: GNSS receivers, ECDIS, AIS transceivers, conning displays. Impacts: Possible navigation and safety effects; potential supply-chain delay if traffic management degrades. Recommended actions: Cross-check position sources; report disruptions to NAVCEN; leverage maritime cybersecurity resources.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-008-global-us-maritime-advisory-updates-resources-and-contacts",
+          "label": "View Advisory"
+        }
+      ],
+      "items": [
+        "Assessment: Advisory reiterates GPS disruption affecting maritime navigation in multiple regions and emphasizes AIS spoofability; AIS must not be relied upon for collision avoidance.",
+        "Maritime domains: Navigation, Bridge systems, VTS interface.",
+        "Affected systems: GNSS receivers, ECDIS, AIS transceivers, conning displays.",
+        "Impacts: Possible navigation and safety effects; potential supply-chain delay if traffic management degrades.",
+        "Recommended actions: Cross-check position sources; report disruptions to NAVCEN; leverage maritime cybersecurity resources."
+      ]
+    },
+    {
+      "title": "Foreign technological, physical, and cyber influence in maritime infrastructure (MARAD 2026-007)",
+      "severity": "monitor",
+      "text": "Assessment: Advisory warns that foreign-manufactured port equipment, logistics platforms (e.g., LOGINK), and remotely serviceable ship-to-shore cranes can expose terminal IT/OT to cyber risk; recommends segmentation, patching, access-control scrutiny, traffic validation, and recovery planning; encourages compliance with USCG directives for PRC-manufactured cranes. Maritime domains: Ports, Terminals, Logistics. Affected systems: Crane OT controls, terminal networks, logistics IT, screening/inspection systems (e.g., Nuctech). Impacts: Possible safety and operational disruption; potential supply-chain impacts from crane downtime and yard congestion. Recommended actions: Strengthen IT/OT boundaries, restrict vendor remote access (with MFA and allow-listing), monitor east-west traffic, maintain tested backups, and patch supported components.",
+      "chips": [],
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "View Advisory"
+        }
+      ],
+      "items": [
+        "Assessment: Advisory warns that foreign-manufactured port equipment, logistics platforms (e.g., LOGINK), and remotely serviceable ship-to-shore cranes can expose terminal IT/OT to cyber risk; recommends segmentation, patching, access-control scrutiny, traffic validation, and recovery planning; encourages compliance with USCG directives for PRC-manufactured cranes.",
+        "Maritime domains: Ports, Terminals, Logistics.",
+        "Affected systems: Crane OT controls, terminal networks, logistics IT, screening/inspection systems (e.g., Nuctech).",
+        "Impacts: Possible safety and operational disruption; potential supply-chain impacts from crane downtime and yard congestion.",
+        "Recommended actions: Strengthen IT/OT boundaries, restrict vendor remote access (with MFA and allow-listing), monitor east-west traffic, maintain tested backups, and patch supported components."
+      ]
+    }
+  ],
+  "ttps": {
+    "descriptions": [
+      "GNSS interference/spoofing leading to loss or manipulation of position (behavior observed/assessed; no ATT&CK ID asserted).",
+      "AIS data spoofing to distort traffic awareness (behavior observed/assessed; no ATT&CK ID asserted).",
+      "Use of external remote services into terminal crane OT for maintenance/support increasing potential initial access pathway (behavior assessed; no ATT&CK ID asserted)."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for continuing regional GNSS interference reports affecting bridge operations; maintain readiness for position-source cross-checks. Confidence: Medium. Government Advisory Additional attention to terminal OT remote access pathways is warranted; further government or port-level guidance may emerge emphasizing segmentation and vendor controls. Confidence: Medium. Government Advisory Current evidence does not establish an immediate spike in maritime-targeted malware or exploit campaigns within the supplied reporting. Confidence: Medium.",
+  "relatedCves": []
+}
