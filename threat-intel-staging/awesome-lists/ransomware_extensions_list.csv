@@ -1,0 +1,739 @@
+file_path,metadata_comment
+"*.jackpot*","variant of the MedusaLocker ransomware"
+"*.AngryDuck","Low-tier, opportunistic strain - no known affiliate group ."
+"*.0day","Generic label - no known threat actor attribution."
+"*.beef","Hobbyist/testware - no known affiliation."
+"*.beer","Amateur extortion variant - no associated campaign."
+"*.BitCryptor","Independent mid-tier ransomware - no major group links."
+"*.BOMBO","Rare custom strain - no actor attribution."
+"*.CommonRansom","Generic tag - used by scattered hobbyist variants."
+"*.CoronaLock","COVID-themed RaaS - no single threat actor identified."
+"*.Crypt0L0cker","CryptoLocker lineage builds - independent copies."
+"*.D00mEd","Amatuer scareware - no group ties."
+"*.Dablio","One-off hobby variant."
+"*.DIABLO6","Locky‑Diablo6 variant—spread via Necurs botnet, originally from Locky authors ."
+"*.pedro","Obscure DIY strain - no group attribution."
+"*.FrozrLock","Low-volume - no campaign links."
+"*.usam","Prototype/joke - no threat actor."
+"*.GoldenEye","Petya‑family - Russian-linked destructive actors."
+"*.Horriblemorning","Hobbyist variant - no affiliation."
+"*.Lazarus","DPRK-linked Lazarus Group (APT38) destructive ransomware modus ."
+"*.locker","Generic mid-tier locker malware - no unified group."
+"*.locky","Locky ransomware by Necurs botnet operators - attributed to Evil Corp ."
+"*.money","Uncommon - likely solo authors."
+"*.newlock","Uncommon - likely solo authors."
+"*.NOOB","Prototype/testware - no actor."
+"*.nuclear","Nuclear RaaS - mid‑range independent operators."
+"*.parrot","Low-profile extortion strains - no group ties."
+"*.PayDay","Low-profile extortion strains - no group ties."
+"*.petra","Petra RaaS - targeted at SMBs."
+"*.porno","Scareware locker - no threat actor groups."
+"*.PrOtOnIs","DIY ransomware - no known campaign."
+"*.razor","AppleJeus-linked loader, tied to Lazarus infrastructure ."
+"*.Ryuk","High-tier BGH ransomware by Wizard Spider (aka Grim Spider) gang ."
+"*.satan","Satan RaaS - mid‑range, focused on double-extortion."
+"*.satana","Satana ransomware - utilitarian group, moderate campaigns."
+"*.SHARK","Rare developer/test version - no group."
+"*.TROLL","Amateur locker variant - no affiliation."
+"*.weapologize","Low-profile strain - no actor."
+"*.write_us_on_email","Instruction-based hobby malware - no threat actor."
+"*.zeppelin","Zeppelin RaaS from VegaLocker family - active since 2019, targeting healthcare/enterprise using RDP/phishing ."
+*.dragonforce_encrypted,https://github.com/Casualtek/Ransomchats/blob/e62311608fee638eb5bcda1bb93d9df301d01e87/Dragonforce/C7CD31EAAF9DE9AC.json#L6
+*.ELPACO-team,https://thedfirreport.com/2025/05/19/another-confluence-bites-the-dust-falling-to-elpaco-team-ransomware/
+*.help_restoremydata,https://x.com/PaduckLee/status/1866748855053848886
+*Mail-Evo.team1992@gmail.com].WDW,https://x.com/PaduckLee/status/1867095366828691953
+*.starcat,https://x.com/PaduckLee/status/1867388335653798345
+*.[DecryptData@skiff.com].IQPH,https://x.com/PaduckLee/status/1868614599202972027
+*Leoxrinse234@mailfence.com].Kupe,https://x.com/PaduckLee/status/1879784240906440905
+*.NBA,https://x.com/PaduckLee/status/1889168831228375407
+*.wxr,https://x.com/PaduckLee/status/1892857629635924344
+*.[DecryptData@skiff.com].IQPH,https://x.com/PaduckLee/status/1868614599202972027
+*.[reaction0@tutamail.com].IQPH,https://x.com/PaduckLee/status/1894025128129994933
+*_Mail-Redemption1441@gmail.com].B3K,https://x.com/PaduckLee/status/1901851815144194445
+*.aptlock,https://x.com/PaduckLee/status/1902469894257700995
+*.frag,https://x.com/PaduckLee/status/1902732142448353760
+*.satan,https://x.com/PaduckLee/status/1917046174911238173
+*.ThreeAMtime,ThreeAM ransomware https://x.com/virusbtn/status/1749382900901146813/photo/1
+*.powerranges,Megazord variants ransomware https://unit42.paloaltonetworks.com/threat-assessment-howling-scorpius-akira-ransomware/
+*.trinitylock,https://ransomch.at/trinity-0004
+*.avdn,Avaddon ransowmare
+*.rontok,B0r0nt0k ransomware
+*.0x0,
+*.1999,
+*.1btc,
+*.1cbu1,
+*.1txt,
+*.2ed2,
+*.31392E30362E32303136_*_LSBJ1,
+*.564ba1,EMBARGO Ransomware https://cyble.com/blog/the-rust-revolution-new-embargo-ransomware-steps-in/
+*.61gutq,Prometheus ransomware https://www.avast.com/en-us/ransomware-decryption-tools#pc
+*.725,
+*.726,
+*.73i87A,
+*.777,
+*.7h9r,
+*.7z.encrypted,
+*.7zipper,
+*.8c7f,
+*.8lock8,HiddenTear ransomware
+*.911,
+*.9ten0p,Prometheus ransomware https://www.avast.com/en-us/ransomware-decryption-tools#pc
+*.ACRYPT,Globe ransomware
+*.AES,
+*.AES256,
+*.AESIR,
+*.AFD,
+*.Abyss,Abyss Ransomware 28E7CF3D80CFDC9FFB650BAAAC74DAA8 https://x.com/siri_urz/status/1640337514706657282
+*.Aleta,Aleta ransomware
+*.AngleWare,
+*.AreYouLoveMyRansFile,
+*.B6E1,
+*.BRINKS_PWNED,Prometheus ransomware https://www.avast.com/en-us/ransomware-decryption-tools#pc
+*.BUGSECCCC,HiddenTear ransomware
+*.BarRax,
+*.BlackSuit,BlackSuit Ransomware 748DE52961D2F182D47E88D736F6C835 https://x.com/siri_urz/status/1653692714750279681
+*.CAZZO,HiddenTear ransomware
+*.CCCRRRPPP,
+*.CHIP,CHIP ransomware
+*.CRRRT,CRRRT ransomware
+*.CRYPTOSHIEL,
+*.CRYPTOSHIELD,Cryptoshield ransomware
+*.CRYSTAL,Prometheus ransomware https://www.avast.com/en-us/ransomware-decryption-tools#pc
+*.CTB2,CTB-Locker ransomware
+*.CTBL,CTB-Locker ransomware
+*.CrySiS,CrySiS ransomware
+*.CryptoTorLocker2015!,
+*.D7k,Ransomware AC92A84E2A4BAED818F97DF2EC0CF12F (XOR 2C encoding) https://x.com/siri_urz/status/1641016029240340482
+*.Dexter,Dexter ransomware
+*.ENC,
+*.ENCR,
+*.ENCRYPTED,
+*.EnCiPhErEd,
+*.EnCrYpTeD,
+*.FONIX,Fonix ransomware
+*.FenixIloveyou!!,
+*.FuckYourData,
+*.Fuck_You,
+*.GDCB,GandCrab ransomware
+*.GSupport*,Globe ransomware
+*.GSupport,Globe ransomware
+*.GWS,
+*.H3LL,
+*.HA3,
+*.Hollycrypt,HiddenTear ransomware
+*.JLQUF,
+*.JUST,
+*.KEYH0LES,
+*.KEYHOLES,
+*.KEYZ,
+*.KKK,Jigsaw ransomware
+*.KRAB,GandCrab ransomware
+*.L0CKED,
+*.L0cked,
+*.LOL!,
+*.LeChiffre,LeChiffre ransomware
+*.Lime,Lime-RAT ransomware extension
+*.Lock,Golang ransomware
+*.Locked-by-Mafia,
+*.MERRY,Merry ransomware
+*.MRCR1,
+*.MTXLOCK,
+*.MyChemicalRomance4EVER,LambdaLocker ransomware https://www.avast.com/en-us/ransomware-decryption-tools#pc
+*.NotStonks,
+*.OMG!,
+*.PEGS1,
+*.PLBOY,PlayBoy #Ransomware F33EB2CC612E2C0D369F0D444617F48E https://x.com/siri_urz/status/1850827098488795496
+*.PYAS,PYAS Ransomware 7FC98DA7061AFE0891E57A104B5F0013
+*.PayMe100USD,Ransomware AC77EA8B979CC9C793136A3C0AE51C5B https://x.com/siri_urz/status/1633466780596461571
+*.PoAr2w,
+*.Proton,Proton #Ransomware 00FEEA12D59C4FE3DB282307E9CE4E00 https://x.com/siri_urz/status/1669321061123387394
+*.R.i.P,
+*.R16M01D05,
+*.R16m01d05,
+*.R4A,
+*.R5A,
+*.RAD,
+*.RADAMANT,Radamant ransomware
+*.RARE1,
+*.RDM,
+*.RGNR_ESXI,
+*.RMCM1,
+*.RRK,
+*.RSNSlocked,
+*.RSplited,
+*.RedAlert,Ransomware 1AA88E686D27C12E10D04525AA077FBD https://x.com/siri_urz/status/1610248787540197376
+*.SUPERCRYPT,
+*.Sauron,Sauron #Ransomware EB13533A89DA9762D93DE5D54966DF5F https://x.com/siri_urz/status/1846456053589762471
+*.SecureCrypted,
+*.Silent,
+*.TheTrumpLockerf,TheTrumpLocker ransomware
+*.TheTrumpLockerfp,TheTrumpLocker ransomware
+*.Venusf,
+*.Venusp,
+*.VforVendetta,
+*.WNCRY,WannaCry ransomware
+*.Where_my_files.txt,WannaCry ransomware
+*.Whereisyourfiles,
+*.XINOF,Fonix ransomware
+*.XRNT,
+*.XTBL,
+*.Z81928819,
+*.ZeroCool,ZeroCool ransomware 5D143217465527897F81B250BAD418CC https://x.com/siri_urz/status/1671071413938077696
+*._AiraCropEncrypted,
+*.__AiraCropEncrypted!,
+*.___xratteamLucked,
+*._crypt,
+*._locked,Trigona Ransomware 27175EA8CBE46FF37DE5F88C3BB914AF https://x.com/siri_urz/status/1616336669933723649
+*._read_thi$_file,
+*._ryp,
+*.a19,
+*.a5zfn,
+*.aaa,
+*.abc,
+*.adair,
+*.adk,
+*.adr,
+*.aes128ctr,
+*.aes_ni,
+*.aes_ni_0day,
+*.aes_ni_gov,
+*.cts1,Cactus ransomware
+*.cts0,Cactus ransomware
+*.aesir,
+*.aesir,AESIR ransomware
+*.aga,
+*.akira,Akira Ransomware https://blog.checkpoint.com/research/june-2024s-most-wanted-malware-ransomhub-takes-top-spot-as-most-prevalent-ransomware-group-in-wake-of-lockbit3-decline/
+*.alcatraz,
+*.basta,Blackbasta ransomware https://securityscorecard.com/research/a-deep-dive-into-black-basta-ransomware
+*.blackbyte,Blackbyte ransomware
+*.blackbytent,Blackbyte ransomware
+*.amba,
+*.amnesia,Amnesia ransomware
+*.angelamerkel,
+*.animus,
+*.antihacker2017,
+*.ap19,
+*.architek,TargetCompany ransomware https://www.avast.com/en-us/ransomware-decryption-tools#pc
+*.arena,Arena ransomware
+*.areyoulovemyrans,
+*.asier,
+*.atlas,
+*.aurora,Aurora ransomware
+*.avos,AvosLocker ransomware
+*.avos2,AvosLocker ransomware
+*.avoslinux,AvosLocker ransomware
+*.axx,
+*.babyk,Babuk Lovely ransomware https://x.com/malwrhunterteam/status/1524850354453618695
+*.barracuda,
+*.bart,Bart ransomware
+*.bart.zip,Bart ransomware
+*.better_call_saul,Troldesh / Shade or Encoder.858 ransomware
+*.bip,Bip ransomware
+*.birbb,
+*.bitkangoroo,
+*.bitstak,
+*.black007,
+*.blackblock,Globe ransomware
+*.bleep,
+*.bleepYourFiles,
+*.bloc,
+*.blocatto,
+*.bloccato,HiddenTear ransomware
+*.block,
+*.boom,
+*.braincrypt,
+*.breaking_bad,Troldesh / Shade or Encoder.858 ransomware
+*.breeding123,
+*.bript,
+*.brrr,
+*.btc,Jigsaw ransomware
+*.btc-help-you,
+*.btcbtcbtc,
+*.buddyransome,Ransomware F7B5B9FD8C7020DEDB138EF75190DFFC https://x.com/siri_urz/status/1616436468871843840
+*.bully,bully Ransomware 5ECE414405E81CA65995B2268CCD868D
+*.cancer,
+*.canihelpyou,
+*.carone,TargetCompany ransomware https://www.avast.com/en-us/ransomware-decryption-tools#pc
+*.cbf,
+*.ccc,Cerber ransomware
+*.cccmn,
+*.cerber,
+*.cerber,Cerber ransomware
+*.cerber2,
+*.cerber2,Cerber ransomware
+*.cerber3,
+*.cerber3,Cerber ransomware
+*.checkdiskenced,
+*.chifrator@qq_com,
+*.cifgksaffsfyghd,
+*.clf,
+*.clop,Clop ransomware
+*.C_I_0P,Clop ransomware
+*.CIIp,Clop ransomware
+*.C_L_O_P,Clop ransomware
+*.cnc,
+*.cobain,
+*.code,
+*.coded,
+*.comrade,
+*.conficker,
+*.country82000,
+*.coverton,
+*.cpyt,yroctp Ransomware E231D644F5B878ACD617F35994ACD50D F:\Code\yroctp\target\release\deps\yroctp_encrypt.pdb https://x.com/siri_urz/status/1609951849590685696
+*.crYpt,54EFAC23D7B524D56BEDBCE887E11849
+*.crYptA,
+*.crYptA2,
+*.crYptA3,
+*.crYptAl,
+*.crYptB,
+*.crYptB2,
+*.crYptC,
+*.crYptC2,
+*.crYptD,
+*.crYptE,
+*.crYptF,
+*.crab,GandCrab ransomware
+*.crashed,
+*.crime,
+*.crinf,
+*.criptiko,
+*.criptoko,
+*.criptokod,
+*.cripttt,
+*.crjoker,
+*.crptrgr,
+*.cry,
+*.cry_,
+*.cryakl,
+*.cryeye,
+*.cryp1,
+*.crypt,FindZip ransomware
+*.crypt1,FileCryptor Ransomware 3D3489B12E31CB4282A896B03A25CC66 https://x.com/siri_urz/status/1619705685926887425
+*.crypt38,
+*.crypte,
+*.crypted,Powershell Mamba wiper
+*.crypted000007,Troldesh / Shade or Encoder.858 ransomware
+*.crypted000078,Troldesh / Shade or Encoder.858 ransomware
+*.crypted_file,
+*.cryptes,
+*.crypto,
+*.cryptolocker,CryptoLocker ransomware
+*.crypton,
+*.cryptowall,
+*.cryptowall,CryptoWall ransomware
+*.cryptowin,
+*.cryptz,
+*.crypz,
+*.crysis,
+*.css,
+*.ctb1,
+*.ctb2,CTB-Locker ransomware
+*.ctbl,CTB-Locker ransomware
+*.cvenc,CyberVolk (Cyberbytes) #ransomware F112EB122755CDD12D13759B1639AFEE067A386DCB9608C09181D71E7CBBFEA2
+*.czvxce,
+*.d4nk,
+*.dCrypt,
+*.da_vinci_code,Troldesh / Shade or Encoder.858 ransomware
+*.dale,
+*.damage,
+*.darkcry,DarkCry ransomware
+*.darkness,
+*.decrypt2017,
+*.decrypt_it,Troldesh / Shade or Encoder.858 ransomware
+*.ded,
+*.dedsec,Dedsec Ransomware E550347D6A124953EBD5625B4EEF4B97
+*.deria,
+*.desu,
+*.dharma,Dharma ransomware
+*.diablo6,Diablo6 ransomware
+*.disappeared,
+*.disposed2017,
+*.divine,
+*.dll555,Globe ransomware
+*.domino,
+*.doomed,HiddenTear ransomware
+*.doubleoffset,
+*.duhust,Globe ransomware
+*.dxxd,
+*.dyatel@qq_com,
+*.ecc,
+*.ecrp,Eternity Ransomware DAFC8E7CCD381AF36F19267A2A9B3F9B https://x.com/siri_urz/status/1616333289815425026
+*.edgel,
+*.eight,
+*.emario,
+*.enc,
+*.encedRSA,
+*.enciphered,
+*.encmywork,
+*.encoderpass,
+*.encr,
+*.encrypt,
+*.encrypted,Jigsaw ransomware
+*.encrypted,P2Pinfect
+*.encryptedAES,
+*.encryptedJB,HermeticRansom
+*.encryptedRSA,
+*.encryptedped,
+*.encryptedyourfiles,
+*.encrypto,
+*.enigma,Enigma ransomware
+*.epic,
+*.evillock,
+*.exotic,
+*.exploit,TargetCompany + Globe ransomware https://www.avast.com/en-us/ransomware-decryption-tools#pc
+*.exte,
+*.exx,
+*.ezz,
+*.fantom,Fantom ransomware
+*.fear,
+*.file0locked,
+*.filegofprencrp,
+*.fileiscryptedhard,
+*.filock,
+*.firecrypt,FireCrypt ransomware
+*.flamingo,
+*.flocked,Fog ransomware https://x.com/MsftSecIntel/status/1812932766431904038
+*.flyper,HiddenTear ransomware
+*.frozen,Globe ransomware
+*.frtrss,
+*.fs0ciety,
+*.fuck,
+*.fucked,HiddenTear ransomware
+*.fucku,
+*.fun,
+*.gamma,Gamma ransomware
+*.gefickt,Jigsaw ransomware
+*.gembok,
+*.globe,Globe ransomware
+*.glutton,
+*.goforhelp,
+*.good,
+*.grinch,
+*.grt,
+*.gruzin@qq_com,
+*.gryphon,
+*.gws,Jigsaw ransomware
+*.ha3,
+*.hairullah@inbox.lv,
+*.hakunamatata,
+*.hannah,
+*.happenencedfiles,
+*.happyday,
+*.happydayzz,
+*.happydayzzz,
+*.hardbit,Hardbit ransomware https://www.varonis.com/blog/hardbit-2.0-ransomware
+*.hardbit2,Hardbit ransomware https://www.varonis.com/blog/hardbit-2.0-ransomware
+*.haters,
+*.hb15,
+*.heisenberg,Troldesh / Shade or Encoder.858 ransomware
+*.helpdecrypt@ukr*.net,
+*.helpdecrypt@ukr.net,
+*.helpdecrypt@ukr_net,
+*.helpmeencedfiles,
+*.hendrix,
+*.herbst,
+*.hermes,Hermes ransomware
+*.hitler,
+*.hnumkhotep,
+*.hnyear,Globe ransomware
+*.homer,
+*.howcanihelpusir,
+*.hush,
+*.hydracrypt*,
+*.hydracrypt,
+*.iaufkakfhsaraf,
+*.ifuckedyou,
+*.iloveworld,
+*.infected,
+*.invaded,
+*.invader,invader ransomware D1B2DF3069830BD012E2582FB1FA9A84 (Base64+reverse) https://x.com/siri_urz/status/1691775465579589776
+*.invoke,
+*.ipYgh,
+*.isis,
+*.iwanthelpuuu,
+*.iwishiyou,
+*.jaff,Jaff ransomware
+*.jasmin,
+*.java,
+*.jnec,
+*.justbtcwillhelpyou,
+*.karma,
+*.kb15,
+*.keemail.me,
+*.keepcalm,
+*.kencf,
+*.kernel_complete,
+*.kernel_pid,
+*.kernel_time,
+*.keybtc@inbox_com,
+*.killedXXX,
+*.kimcilware,
+*.kirked,
+*.kk,
+*.kkk,
+*.knight_l,Knight Ransomware https://tria.ge/230901-c2fbqacb36
+*.korrektor,
+*.kostya,
+*.kr3,
+*.krab,Krab ransomware
+*.kraken,
+*.kratos,HiddenTear ransomware
+*.krypted,HiddenTear ransomware
+*.kyra,Globe ransomware
+*.l0ck,
+*.lambda_l0cked,
+*.lcked,
+*.lechiffre,LeChiffre ransomware
+*.legion,
+*.lesli,
+*.letmetrydecfiles,
+*.like,
+*.lock,
+*.lock93,
+*.lockbit,LockBit Ransowmare
+*.locked,
+*.locked-mafiaware,
+*.locklock,
+*.locky,
+*.locky,Locky ransomware
+*.lok,HiddenTear ransomware
+*.lol!,
+*.lol,
+*.loli,
+*.loprt,
+*.los_pollos,Troldesh / Shade or Encoder.858 ransomware
+*.loveransisgood,
+*.lovewindows,
+*.lukitus,
+*.lukitus,Lukitus ransomware
+*.madebyadam,
+*.magic,
+*.magic_software_syndicate,Troldesh / Shade or Encoder.858 ransomware
+*.maktub,Maktub ransomware
+*.malki,
+*.mallox,TargetCompany ransomware https://www.avast.com/en-us/ransomware-decryption-tools#pc
+*.mamai10,Medusa Locker Ransomware 86194C0629C2A850625B59375FB320F9 https://x.com/siri_urz/status/1633115256066113540
+*.mario,
+*.maya,
+*.mecpt,HiddenTear ransomware
+*.mention9823,
+*.merry,Merry ransomware
+*.miami_california,Troldesh / Shade or Encoder.858 ransomware
+*.micro,Micro ransomware
+*.mkp,Makop Ransomware 225735711ACBA917DF381EFEDBF77A6C
+*.mole,
+*.mole,Mole ransomware
+*.moments2900,
+*.monstro,HiddenTear ransomware
+*.muuq,
+*.myransext2017,
+*.nalog@qq_com,
+*.nemo-hacks.at.sigaint.org,
+*.nemucod,
+*.no_more_ransom,Troldesh / Shade or Encoder.858 ransomware
+*.nobad,
+*.nochance,
+*.nolvalid,
+*.noproblemwedecfiles,
+*.notfoundrans,
+*.nuclear,Nuclear ransomware
+*.nuclear55,
+*.obleep,
+*.odcodc,
+*.odin,Odin ransomware
+*.oled,
+*.omg,
+*.one-we_can-help_you,
+*.onion,
+*.onion.to._,
+*.only-we_can-help_you,
+*.oops,
+*.oor,
+*.openforyou@india.com,
+*.oplata@qq.com,
+*.oplata@qq_com,
+*.oshit,
+*.osiris,
+*.osiris,Osiris ransomware
+*.otherinformation,
+*.oxr,
+*.p5tkjw,
+*.pablukcrypt,
+*.padcrypt,PadCrypt ransomware
+*.pay2unlock,BlackSnakeTeam Ransomware Clipper BD197A2585B78C05F9B8D2AD789DFE12 https://x.com/siri_urz/status/1634151298651021313
+*.payb,Jigsaw ransomware
+*.paybtcs,Jigsaw ransomware
+*.paym,Jigsaw ransomware
+*.paymrss,Jigsaw ransomware
+*.payms,Jigsaw ransomware
+*.paymst,Jigsaw ransomware
+*.paymts,Jigsaw ransomware
+*.payransom,Jigsaw ransomware
+*.payrms,Jigsaw ransomware
+*.payrmts,Jigsaw ransomware
+*.pays,Jigsaw ransomware
+*.paytounlock,
+*.pdcr,
+*.pec,
+*.pizda@qq_com,
+*.play,Play ransomware https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-352a
+*.porno,Jigsaw ransomware
+*.pornoransom,Jigsaw ransomware
+*.potato,
+*.powerfulldecryp,
+*.powerfulldecrypt,
+*.powned,
+*.pr0tect,
+*.prince,Prince ransomware https://github.com/SecDbg/Prince-Ransomware/blob/main/Encryptor/configuration/configuration.go
+*.prosperous666,
+*.pubg,
+*.purge,
+*.purged,Globe ransomware
+*.pzdc,
+*.r16m*,
+*.r16m,
+*.r3store,
+*.r5a,
+*.raid1,Globe ransomware
+*.raid10,Globe ransomware
+*.raid2,Globe ransomware
+*.raid3,Globe ransomware
+*.raid4,Globe ransomware
+*.raid5,Globe ransomware
+*.raid6,Globe ransomware
+*.raid7,Globe ransomware
+*.raid8,Globe ransomware
+*.raid9,Globe ransomware
+*.rastakhiz,
+*.razy,Razy ransomware
+*.rdm,
+*.rdmk,
+*.realfs0ciety@sigaint.org.fs0ciety,
+*.rec_rans,Rancoz #ransomware 8D9F3E223F8D5E350B87DC0908FEE0A5 https://x.com/siri_urz/status/1653673187316576256
+*.recry1,
+*.rekt,
+*.relock@qq_com,
+*.remind,
+*.reofgv,Prometheus ransomware https://www.avast.com/en-us/ransomware-decryption-tools#pc
+*.reyptson,
+*.rip,
+*.rmd,
+*.rnsmwr,
+*.rokku,
+*.royal_u,
+*.rrk,
+*.rsa3072,Troldesh / Shade or Encoder.858 ransomware
+*.ruby,
+*.rumba,
+*.rwg,RansomWar Ransomware 92FB0AC6921A545B83EA95F97319B234 C:\Users\Administrator\Desktop\PEs4Testing\5.1\x64\Release\RansomWar.pdb https://x.com/siri_urz/status/1620701595184037889
+*.ryp,
+*.saeid,HiddenTear ransomware
+*.sage,Sage ransomware
+*.salsa222,
+*.sanction,
+*.scl,
+*.seiv,Ransomware 3491F6DB6DA5664B3856BD2718B24D8F C:\Users\Savvas-Laptop\source\repos\ArtOfCrypt\x64\Release\ENcrypt0r.pdb
+*.serp,
+*.serpent,Serpent ransomware
+*.sexy,
+*.shino,
+*.shit,
+*.sifreli,
+*.siri-down@india.com,Globe ransomware
+*.skjdthghh,
+*.smukx,Encryfer ransomware https://github.com/Whitecat18/Rust-for-Malware-Development/blob/f26246e5fd76a096bc5e3800f7163e6766eb16f8/Malware-Samples/Encryfer - https://app.any.run/tasks/565206b9-a4a0-4e1c-827c-4301364fadaa
+*.spora,Spora ransomware
+*.sport,
+*.stn,
+*.stubbin,
+*.supercrypt,
+*.supported2017,
+*.suppose665,
+*.suppose666,
+*.surprise,Surprise ransomware
+*.szf,
+*.t5019,
+*.tedcrypt,
+*.tgpo,
+*.thda,
+*.theworldisyours,
+*.thor,Thor ransomware
+*.tiywepxb,Ransomware 14888882BCF01C20A4A45BB9AA2B35F7 https://x.com/siri_urz/status/1657007200957607936
+*.toxcrypt,
+*.trmt,
+*.troyancoder@qq_com,
+*.trun,
+*.ttt,
+*.tyson,Troldesh / Shade or Encoder.858 ransomware
+*.tzu,
+*.uk-dealer@sigaint.org,Jigsaw ransomware
+*.umbreCrypt,
+*.unavailable,
+*.unlockit,HiddenTear ransomware
+*.unlockvt@india.com,
+*.uo8bpy,Prometheus ransomware https://www.avast.com/en-us/ransomware-decryption-tools#pc
+*.vape,
+*.vault,
+*.vbransom,
+*.vekanhelpu,
+*.velikasrbija,
+*.venusf,
+*.versiegelt,
+*.viki,
+*.vindows,
+*.visioncrypt,
+*.vscrypt,
+*.vvv,
+*.vxLock,
+*.vxlock,
+*.wallet,
+*.wannasmile,wannasmile #Ransomware C513E4DC502B8AFA8E69AF7D26CF5C16 Decryption key is saved in %APPDATA%\data.wnns
+*.wcry,WannaCry ransomware
+*.weapologize,
+*.weareyourfriends,
+*.weencedufiles,
+*.wflx,
+*.windows10,Troldesh / Shade or Encoder.858 ransomware
+*.windows8,Troldesh / Shade or Encoder.858 ransomware
+*.wlu,
+*.wncry,WannaCry ransomware
+*.wncrypt,WannaCry ransomware
+*.wncryt,WannaCry ransomware
+*.wnry,WannaCry ransomware
+*.wnx,
+*.wowreadfordecryp,
+*.wowwhereismyfiles,
+*.wuciwug,
+*.www,
+*.xcri,
+*.xdata,XData ransomware
+*.xiaoba,
+*.xort,
+*.xrnt,
+*.xrtn,
+*.xtbl,Globe ransomware
+*.xxx,
+*.xyz,
+*.y9sx7x,Prometheus ransomware https://www.avast.com/en-us/ransomware-decryption-tools#pc
+*.ya.ru,
+*.yourransom,
+*.ytbl,
+*.zXz,
+*.zc3791,
+*.zcrypt,
+*.zendr1,Globe ransomware
+*.zendr2,Globe ransomware
+*.zendr3,Globe ransomware
+*.zendr4,Globe ransomware
+*.zendr5,Globe ransomware
+*.zendr6,Globe ransomware
+*.zendr7,Globe ransomware
+*.zendr8,Globe ransomware
+*.zendr9,Globe ransomware
+*.zendrz,Globe ransomware
+*.zepto,
+*.zepto,Zepto ransomware
+*.zorro,
+*.zyklon,Zyklon ransomware
+*.zzz,
+*.zzzzz,

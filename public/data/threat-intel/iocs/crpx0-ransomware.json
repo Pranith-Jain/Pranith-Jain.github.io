@@ -1,0 +1,85 @@
+{
+  "slug": "crpx0-ransomware",
+  "family": "CRPX0 Ransomware",
+  "category": "ransomware",
+  "aliases": [],
+  "firstSeen": "2026-08-03T00:00:00.000Z",
+  "mitreTechniques": [],
+  "indicatorCount": 32,
+  "description": "ARTICLE: https://theravenfile.com/2026/08/03/crpx0-scammer-turned-ransomware-operator/",
+  "sizeBytes": 872,
+  "indicators": [
+    { "type": "md5", "value": "2ff86a4fdfec4a5b49d5545f9a62ec4c", "firstSeen": null, "confidence": "medium" },
+    { "type": "md5", "value": "cc2c8ac5aea8d7c36e9161d54e4255f3", "firstSeen": null, "confidence": "medium" },
+    { "type": "md5", "value": "4966992c81f7062ed3913ee023240edc", "firstSeen": null, "confidence": "medium" },
+    { "type": "md5", "value": "a8e9a638aa9e1c2d73f3432b997d7a7f", "firstSeen": null, "confidence": "medium" },
+    { "type": "md5", "value": "ced4c9b53c3c93a4dbefe2f243cd1c71", "firstSeen": null, "confidence": "medium" },
+    { "type": "md5", "value": "1ef19373aae940002a980a984f25555b", "firstSeen": null, "confidence": "medium" },
+    { "type": "md5", "value": "ea3f9230bb76deb18dedfaea490fd687", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "23.224.4.114", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "23.224.4.115", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "23.224.4.116", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "23.224.4.117", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "23.224.4.118", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "104.18.21.226", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "151.101.128.223", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "146.75.116.175", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "104.18.20.226", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "48.192.1.65", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "151.101.0.223", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "140.248.136.175", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "146.75.120.175", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "146.75.122.133", "firstSeen": null, "confidence": "medium" },
+    { "type": "ipv4", "value": "151.101.192.223", "firstSeen": null, "confidence": "medium" },
+    {
+      "type": "onion",
+      "value": "tlxoddx4odmc2qvsmtsbgwwsv5j45osb5sox7mz6izxliuju5mkulzad.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "onion",
+      "value": "xburs4nr6cbuktokhqwefeh5hsjakz6usll5o7z5uhrfcnolakj4ptad.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "onion",
+      "value": "kqi5yty6ipuhwz4anutty6hob6et7dvnnxg6kcnulwedjaz5oton2zyd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    { "type": "domain", "value": "theravenfile.com", "firstSeen": null, "confidence": "medium" },
+    {
+      "type": "domain",
+      "value": "tlxoddx4odmc2qvsmtsbgwwsv5j45osb5sox7mz6izxliuju5mkulzad.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "domain",
+      "value": "xburs4nr6cbuktokhqwefeh5hsjakz6usll5o7z5uhrfcnolakj4ptad.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    {
+      "type": "domain",
+      "value": "kqi5yty6ipuhwz4anutty6hob6et7dvnnxg6kcnulwedjaz5oton2zyd.onion",
+      "firstSeen": null,
+      "confidence": "medium"
+    },
+    { "type": "domain", "value": "option.spark198.com", "firstSeen": null, "confidence": "medium" },
+    { "type": "domain", "value": "crpx0.su", "firstSeen": null, "confidence": "medium" },
+    { "type": "domain", "value": "crpxoxo.pw", "firstSeen": null, "confidence": "medium" }
+  ],
+  "context": "ARTICLE: https://theravenfile.com/2026/08/03/crpx0-scammer-turned-ransomware-operator/\n\nOnion\n=====\ntlxoddx4odmc2qvsmtsbgwwsv5j45osb5sox7mz6izxliuju5mkulzad.onion \nxburs4nr6cbuktokhqwefeh5hsjakz6usll5o7z5uhrfcnolakj4ptad.onion\nkqi5yty6ipuhwz4anutty6hob6et7dvnnxg6kcnulwedjaz5oton2zyd.onion\n\nURLs\n====\nhttps://23.224.4.114\nhttps://23.224.4.115\nhttps://23.224.4.116\nhttps://23.224.4.117\nhttps://23.224.4.118\n\nMD5\n===\n2ff86a4fdfec4a5b49d5545f9a62ec4c\ncc2c8ac5aea8d7c36e9161d54e4255f3\n4966992c81f7062ed3913ee023240edc\na8e9a638aa9e1c2d73f3432b997d7a7f\nced4c9b53c3c93a4dbefe2f243cd1c71\n1ef19373aae940002a980a984f25555b\nea3f9230bb76deb18dedfaea490fd687\n\nDomain\n=======\noption.spark198.com\ncrpx0.su\ncrpxoxo.pw\n\nIP\n==\n104.18.21.226\n151.101.128.223\n146.75.116.175\n104.18.20.226\n48.192.1.65\n151.101.0.223\n140.248.136.175\n146.75.120.175\n146.75.122.133\n151.101.192.223\n140.248.136.175\n",
+  "references": [
+    "https://theravenfile.com/2026/08/03/crpx0-scammer-turned-ransomware-operator/",
+    "https://23.224.4.114",
+    "https://23.224.4.115",
+    "https://23.224.4.116",
+    "https://23.224.4.117",
+    "https://23.224.4.118"
+  ],
+  "llmSummary": null
+}
