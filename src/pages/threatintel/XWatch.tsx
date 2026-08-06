@@ -107,6 +107,7 @@ const SECTIONS: HandleSection[] = [
       'VulnCheckAI',
       'ransomnews',
       'LeakRadario',
+      'IBreaches',
       'etugenio',
       'drb_ra',
       '3xp0rtblog',
