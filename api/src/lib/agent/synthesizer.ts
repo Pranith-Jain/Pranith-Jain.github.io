@@ -21,7 +21,13 @@ import type {
 import { buildSynthesizerSystemPrompt } from './agent-framework';
 import { buildSynthesizerUserPrompt, buildMinimalSynthesizerPrompt } from './prompts';
 import { ReportHeaderSchema } from './schemas';
-import { filterIocEntries, extractInfrastructure, SOURCE_DOMAINS, filterIocs } from './ioc-filter';
+import {
+  filterIocEntries,
+  filterIocEntriesWithVictims,
+  extractInfrastructure,
+  SOURCE_DOMAINS,
+  filterIocs,
+} from './ioc-filter';
 
 interface DataQuality {
   totalOk: number;
@@ -115,6 +121,18 @@ export async function synthesizeReport(
   const mitre = extractMitre(report);
   const confidence = actionCard?.verdict.confidence ?? estimateConfidence(steps, dq);
 
+  // Victim-domain filtering: cross-reference the action-card IOCs against
+  // ransomware victim data in the step results so victim organizations'
+  // domains (elumax.com, lasevillanita.com) are never listed as attacker
+  // IOCs. This runs AFTER splitSynthOutput (which doesn't have steps) —
+  // synthesizeReport is the only place with access to both.
+  if (actionCard?.iocs && actionCard.iocs.length > 0) {
+    const okSteps = steps.flatMap((s) =>
+      s.results.filter((r) => r.status === 'ok' && r.data).map((r) => ({ tool: r.tool, data: r.data }))
+    );
+    actionCard.iocs = filterIocEntriesWithVictims(actionCard.iocs, okSteps);
+  }
+
   // Normalize the report-header values so the UI never receives invalid enum
   // values. The LLM may emit anything — the type assertion is not enforced.
   const reportHeader = rawHeader ? normaliseReportHeader(rawHeader) : undefined;
@@ -185,7 +203,22 @@ export function splitSynthOutput(raw: string): {
   reportHeader?: ReportHeader;
 } {
   // Pull out the report-header JSON block (machine-readable BLUF) first.
-  const headerMatch = raw.match(/```(?:report-header|json)\s*\n([\s\S]*?)\n```/);
+  //
+  // REGRESSION FIX (audit 2026-08): the previous regex accepted a bare
+  // ```json fence alias (`/```(?:report-header|json)…/`). When the LLM emitted
+  // BOTH the report-header and the action-card as ```json blocks, the
+  // non-anchored header regex matched the FIRST ```json fence (which could be
+  // the action-card), and the `$`-anchored card regex greedily captured from
+  // the FIRST ```json fence to the LAST — swallowing the entire report prose
+  // into `cardJson`. JSON.parse then failed, the fallback card ran on an
+  // EMPTY body, and the user received a synthesized stub instead of the real
+  // report. The fix: require explicit `report-header` / `action-card` labels.
+  // If the LLM emits a bare ```json block, we disambiguate by CONTENT (a block
+  // with a `verdict` key is the action-card; a block with `headline` +
+  // `severity` is the report-header) so well-formed-but-mislabeled output still
+  // parses. Content disambiguation never spans two blocks, so it cannot
+  // reproduce the greedy-swallow regression.
+  const headerMatch = raw.match(/```report-header\s*\n([\s\S]*?)\n```/);
   let reportHeader: ReportHeader | undefined;
   if (headerMatch && headerMatch[1]) {
     try {
@@ -200,17 +233,69 @@ export function splitSynthOutput(raw: string): {
     }
   }
 
-  // Pull out the action-card JSON block first.
-  const cardMatch = raw.match(/```(?:action-card|json)\s*\n([\s\S]*?)\n```\s*$/);
-  const cardJson = cardMatch?.[1]?.trim() ?? '';
+  // Pull out the action-card JSON block. Anchored at end-of-string so it
+  // matches the LAST fenced block (the action-card is always emitted last).
+  // Explicit `action-card` label only — no `json` alias (see header comment).
+  const cardMatch = raw.match(/```action-card\s*\n([\s\S]*?)\n```\s*$/);
+  let cardJson = cardMatch?.[1]?.trim() ?? '';
+  let cardStart = cardMatch?.index; // end of prose = start of card block
+
+  // Fallback disambiguation: if the LLM used bare ```json fences (no explicit
+  // label), try to recover by content. Collect every ```json block and
+  // classify each by its parsed keys. This is content-based, not positional,
+  // so it cannot reproduce the greedy-swallow bug.
+  if (!headerMatch || !cardMatch) {
+    const bareBlocks = [...raw.matchAll(/```json\s*\n([\s\S]*?)\n```/g)];
+    for (const m of bareBlocks) {
+      const body = m[1]?.trim();
+      if (!body) continue;
+      let parsed: Record<string, unknown> | null = null;
+      try {
+        parsed = JSON.parse(body);
+      } catch {
+        continue; // not valid JSON — skip
+      }
+      if (!parsed || typeof parsed !== 'object') continue;
+      // Action-card has `verdict` + `severity` + `actions`.
+      const looksLikeCard =
+        'verdict' in parsed && 'severity' in parsed && Array.isArray((parsed as { actions?: unknown }).actions);
+      // Report-header has `headline` + `bluf` + `severity` + `tlp`.
+      const looksLikeHeader = 'headline' in parsed && 'bluf' in parsed && 'severity' in parsed && 'tlp' in parsed;
+      if (looksLikeCard && !cardMatch) {
+        cardJson = body;
+        cardStart = m.index;
+      } else if (looksLikeHeader && !headerMatch) {
+        try {
+          const result = ReportHeaderSchema.safeParse(parsed);
+          if (result.success) reportHeader = result.data;
+        } catch {
+          /* leave undefined */
+        }
+      }
+    }
+  }
+
   let body = raw;
-  if (cardMatch && cardMatch.index !== undefined) {
-    body = raw.slice(0, cardMatch.index);
+  if (cardStart !== undefined) {
+    body = raw.slice(0, cardStart);
   }
   // Strip the report-header from the prose body so it doesn't render as a
   // stray code block.
   if (headerMatch && headerMatch.index !== undefined) {
     body = body.slice(0, headerMatch.index) + body.slice(headerMatch.index + headerMatch[0].length);
+  } else {
+    // If the header was recovered via bare-json fallback, strip that block too.
+    const bareHeader = raw.match(/```json\s*\n([\s\S]*?)\n```/);
+    if (bareHeader && bareHeader.index !== undefined) {
+      try {
+        const p = JSON.parse(bareHeader[1].trim());
+        if (p && typeof p === 'object' && 'headline' in p && 'bluf' in p && 'tlp' in p) {
+          body = body.slice(0, bareHeader.index) + body.slice(bareHeader.index + bareHeader[0].length);
+        }
+      } catch {
+        /* not the header block — leave body intact */
+      }
+    }
   }
 
   // Then the :::handoff block (just before the action-card).
@@ -362,8 +447,8 @@ function normaliseActionCard(card: ReportActionCard, prose: string): ReportActio
     : [];
   // Filter out non-attacker infrastructure the LLM scraped from tool results
   // (citation URLs like ransomlook.io, email domains like duck.com, victim
-  // domains, blog-post hashes). These pollute the Indicators panel with false
-  // IOCs that aren't attacker infrastructure.
+  // domains like elumax.com, blog-post hashes). These pollute the Indicators
+  // panel with false IOCs that aren't attacker infrastructure.
   const iocs = filterIocEntries(rawIocs);
 
   const diamond: DiamondModel | undefined = card.diamond

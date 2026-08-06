@@ -68,9 +68,38 @@ describe('Qilin investigation integration', () => {
     expect(filtered).not.toContain('ransomlook.io');
     expect(filtered).not.toContain('www.ransomlook.io');
     // The filter drops source domains + their subdomains, but victim domains
-    // (elumax.com etc.) are NOT in SOURCE_DOMAINS — they'd only be dropped
-    // if the LLM doesn't put them in the IOC table. The filter is a safety net,
-    // not a victim-domain detector.
+    // (elumax.com etc.) are NOT in SOURCE_DOMAINS — they're dropped by the
+    // victim-domain filter (filterIocEntriesWithVictims) which cross-references
+    // against ransomware activity tool results.
+  });
+
+  it('drops victim domains from the action-card IOC list via filterIocEntriesWithVictims', async () => {
+    const { filterIocEntriesWithVictims } = await import('../../src/lib/agent/ioc-filter');
+    const entries = QILIN_FALSE_IOCS.map((v) => ({
+      type: 'domain' as const,
+      value: v,
+      confidence: 'Probable' as const,
+    }));
+    // Simulate the ransomware activity tool results that contain the victim domains
+    const steps = [
+      {
+        tool: 'get_ransomware_activity',
+        data: { posts: [{ victim: 'elumax.com' }, { victim: 'lasevillanita.com' }, { victim: 'www.integer.net' }] },
+      },
+    ];
+    const filtered = filterIocEntriesWithVictims(entries, steps);
+    const values = filtered.map((e) => e.value);
+    // Victim domains MUST be dropped
+    expect(values).not.toContain('elumax.com');
+    expect(values).not.toContain('www.elumax.com');
+    expect(values).not.toContain('lasevillanita.com');
+    expect(values).not.toContain('www.integer.net');
+    // Source/email domains MUST also be dropped
+    expect(values).not.toContain('duck.com');
+    expect(values).not.toContain('ransomlook.io');
+    expect(values).not.toContain('www.ransomlook.io');
+    // The list should be EMPTY (all 7 were false IOCs)
+    expect(values).toHaveLength(0);
   });
 
   it('extracts real Qilin infrastructure from tool results (onion + payment)', () => {

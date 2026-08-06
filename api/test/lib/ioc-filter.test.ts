@@ -176,3 +176,78 @@ describe('SOURCE_DOMAINS', () => {
     expect(SOURCE_DOMAINS.has('gmail.com')).toBe(true);
   });
 });
+
+describe('extractVictimDomains', () => {
+  it('extracts victim domains from ransomware activity tool results', async () => {
+    const { extractVictimDomains } = await import('../../src/lib/agent/ioc-filter');
+    const steps = [
+      {
+        tool: 'get_ransomware_activity',
+        data: {
+          posts: [
+            { victim: 'elumax.com', group: 'qilin', source_url: 'https://www.ransomlook.io/blog/elumax' },
+            {
+              victim: 'Kewaunee Scientific',
+              group: 'qilin',
+              source_url: 'https://www.ransomlook.io/companies/kewaunee',
+            },
+            { victim: 'lasevillanita.com', group: 'qilin' },
+          ],
+        },
+      },
+    ];
+    const victims = extractVictimDomains(steps);
+    expect(victims.has('elumax.com')).toBe(true);
+    expect(victims.has('lasevillanita.com')).toBe(true);
+    // ransomlook.io is a source domain — should NOT be in victims
+    expect(victims.has('ransomlook.io')).toBe(false);
+  });
+
+  it('does not extract from non-ransomware tools (IOC enrichment)', async () => {
+    const { extractVictimDomains } = await import('../../src/lib/agent/ioc-filter');
+    const steps = [{ tool: 'check_ioc', data: { ioc: 'evil-c2.attacker.com', reputation: 'malicious' } }];
+    const victims = extractVictimDomains(steps);
+    expect(victims.size).toBe(0);
+  });
+});
+
+describe('filterIocEntriesWithVictims', () => {
+  it('drops victim domains from the action-card IOC list', async () => {
+    const { filterIocEntriesWithVictims } = await import('../../src/lib/agent/ioc-filter');
+    const entries = [
+      { type: 'domain' as const, value: 'elumax.com', confidence: 'Probable' as const },
+      { type: 'domain' as const, value: 'lasevillanita.com', confidence: 'Probable' as const },
+      { type: 'domain' as const, value: 'c2.attacker.com', confidence: 'Confirmed' as const },
+      { type: 'domain' as const, value: 'duck.com', confidence: 'Probable' as const },
+      { type: 'ipv4' as const, value: '89.245.139.187', confidence: 'Confirmed' as const },
+    ];
+    const steps = [
+      {
+        tool: 'get_ransomware_activity',
+        data: { posts: [{ victim: 'elumax.com' }, { victim: 'lasevillanita.com' }] },
+      },
+    ];
+    const filtered = filterIocEntriesWithVictims(entries, steps);
+    const values = filtered.map((e) => e.value);
+    expect(values).not.toContain('elumax.com');
+    expect(values).not.toContain('lasevillanita.com');
+    expect(values).not.toContain('duck.com');
+    expect(values).toContain('c2.attacker.com');
+    expect(values).toContain('89.245.139.187');
+  });
+
+  it('drops subdomains of victim domains', async () => {
+    const { filterIocEntriesWithVictims } = await import('../../src/lib/agent/ioc-filter');
+    const entries = [
+      { type: 'domain' as const, value: 'www.elumax.com', confidence: 'Probable' as const },
+      { type: 'domain' as const, value: 'mail.elumax.com', confidence: 'Probable' as const },
+      { type: 'domain' as const, value: 'c2.attacker.com', confidence: 'Confirmed' as const },
+    ];
+    const steps = [{ tool: 'get_ransomware_activity', data: { posts: [{ victim: 'elumax.com' }] } }];
+    const filtered = filterIocEntriesWithVictims(entries, steps);
+    const values = filtered.map((e) => e.value);
+    expect(values).not.toContain('www.elumax.com');
+    expect(values).not.toContain('mail.elumax.com');
+    expect(values).toContain('c2.attacker.com');
+  });
+});

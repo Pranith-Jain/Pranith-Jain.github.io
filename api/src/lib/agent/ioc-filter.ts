@@ -75,6 +75,63 @@ export const SOURCE_DOMAINS = new Set([
  *  drop the tracker domains themselves. */
 
 /**
+ * Extract victim domains from ransomware activity / victim-releak tool results.
+ * These are VICTIM organizations' domains (elumax.com, lasevillanita.com),
+ * NOT attacker infrastructure. The IOC filter uses this blocklist to drop
+ * victim domains that the LLM mistakenly puts in the IOC table.
+ *
+ * Pulls domains from: victim field, source_url host, description, post_url.
+ */
+export function extractVictimDomains(steps: { tool: string; data?: unknown }[]): Set<string> {
+  const victims = new Set<string>();
+  for (const step of steps) {
+    if (!step.data) continue;
+    const tool = step.tool;
+    // Only extract from ransomware victim tools — not from IOC enrichment tools
+    // (which return attacker infrastructure, not victims).
+    if (!/ransomware|victim|releak|leak/i.test(tool)) continue;
+    const json = JSON.stringify(step.data);
+    // Domains in victim fields, source_urls, post_urls, descriptions
+    for (const m of json.matchAll(
+      /"(?:victim|source_url|post_url|url|domain|website|company_url)"\s*:\s*"[^"]*([a-z0-9-]+\.[a-z]{2,})[^"]*"/gi
+    )) {
+      const d = (m[1] ?? '').toLowerCase();
+      if (d && !SOURCE_DOMAINS.has(d) && d.length > 4) victims.add(d);
+    }
+    // Bare domains in victim name fields (e.g. "victim": "elumax.com")
+    for (const m of json.matchAll(/"victim"\s*:\s*"([^"]+)"/gi)) {
+      const v = (m[1] ?? '').toLowerCase();
+      // If the victim field IS a domain, add it
+      const domainMatch = v.match(/([a-z0-9-]+\.[a-z]{2,})$/);
+      if (domainMatch && !SOURCE_DOMAINS.has(domainMatch[1]!)) victims.add(domainMatch[1]!);
+    }
+  }
+  return victims;
+}
+
+/**
+ * Filter IOC entries, dropping victim domains extracted from the step results.
+ * Use this in the synthesizer (which has access to steps) to drop victim
+ * domains the LLM mistakenly put in the action-card IOC list.
+ */
+export function filterIocEntriesWithVictims<T extends { value: string }>(
+  entries: T[],
+  steps: { tool: string; data?: unknown }[]
+): T[] {
+  const victimDomains = extractVictimDomains(steps);
+  if (victimDomains.size === 0) return filterIocEntries(entries);
+  return filterIocEntries(entries).filter((e) => {
+    const v = e.value.trim().toLowerCase();
+    // Drop if the IOC value is a victim domain or a subdomain of one
+    if (victimDomains.has(v)) return false;
+    for (const vd of victimDomains) {
+      if (v.endsWith('.' + vd) || v === vd) return false;
+    }
+    return true;
+  });
+}
+
+/**
  * Filter a list of IOC values (strings) to drop non-attacker infrastructure.
  * Removes:
  *   - source/citation domains (SOURCE_DOMAINS)
