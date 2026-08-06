@@ -29,9 +29,12 @@ export const BANNED_TOOLS = new Set(['get_live_iocs', 'get_today_briefing', 'get
 /** Max tool calls executed per step (was prose: "Maximum 2 tool calls per step"). */
 export const MAX_TOOLS_PER_STEP = 2;
 
-/** Count of successful (status==='ok') results collected so far. */
+/** Count of successful (status==='ok') results collected so far.
+ *  Excludes the deterministic pivot step (stepNumber 0) so the seeded
+ *  infrastructure graph doesn't trigger an early "enough results" exit
+ *  before the LLM planner has run. */
 export function countOkResults(steps: AgentStep[]): number {
-  return steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0);
+  return steps.reduce((n, s) => n + (s.stepNumber === 0 ? 0 : s.results.filter((r) => r.status === 'ok').length), 0);
 }
 
 // ── Exit conditions ────────────────────────────────────────────────────────

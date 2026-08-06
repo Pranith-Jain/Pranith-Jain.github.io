@@ -406,6 +406,30 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
     let currentRole: SpecialistRole | undefined = state.currentSpecialist as SpecialistRole | undefined;
 
     if (stepNum === 1) {
+      // ── Deterministic IOC pivot chain (step 0) ────────────────────────────
+      // When the query contains a concrete indicator (hash/domain/IP/URL), run
+      // a deterministic infrastructure walk BEFORE the LLM planner takes over.
+      // This seeds the investigation with the subdomain/C2/contacted-IP graph a
+      // deep-dive report needs (NamrataSonii-style), so the planner starts
+      // from a rich working memory instead of an empty one. Best-effort: a
+      // single tool failure never blocks the rest.
+      if (state.steps.length === 0) {
+        try {
+          const { extractQueryEntities, hasIndicators } = await import('../../api/src/lib/agent/query-entities');
+          const { executePivotChain } = await import('../../api/src/lib/agent/pivot-chain');
+          const entities = extractQueryEntities(state.query);
+          if (hasIndicators(entities)) {
+            const pivotStep = await executePivotChain(entities, allToolsWithBridge);
+            if (pivotStep) {
+              state.steps.push(pivotStep);
+              this.broadcastToWatchers({ type: 'step', step: pivotStep });
+            }
+          }
+        } catch (_pivotErr) {
+          console.error('pivot chain failed:', _pivotErr instanceof Error ? _pivotErr.message : String(_pivotErr));
+        }
+      }
+
       try {
         const plan = await buildOrchestratorPlan(state.query, state.queryType, {
           infronKey,
