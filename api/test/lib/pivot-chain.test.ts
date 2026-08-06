@@ -210,7 +210,7 @@ describe('buildPivotFollowUps — source domain filtering', () => {
     ];
     const followUps = buildPivotFollowUps(primary, results);
     const passiveDnsCalls = followUps.filter((f) => f.tool === 'passive_dns_lookup');
-    const domains = passiveDnsCalls.map((c) => c.args.q);
+    const domains = passiveDnsCalls.map((c) => String(c.args.q ?? ''));
     // The regex extracts the registrable domain (attacker.com) from evil-c2.attacker.com
     // — either form is a valid pivot target. Just verify it's NOT a source domain.
     expect(domains).not.toContain('mitre.org');
