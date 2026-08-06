@@ -228,7 +228,18 @@ ${
 
 ### Collection
 
-Sources used: internal telemetry, OSINT (shodan, abuse.ch, urlscan), vendor reporting, government advisories. Gaps: name what you couldn't see and how that limited the assessment.
+List the ACTUAL tools called during this investigation (from the step history) and what each provided. Name each tool explicitly — do not use generic categories like "OSINT" or "internal telemetry". Map each to its OSINT-equivalent capability so the reader understands the collection method. If a tool failed or returned empty, note it as a gap.
+
+| Tool | Capability | Provided |
+|---|---|---|
+| (e.g. check_ioc) | Multi-source reputation (VirusTotal-equivalent) | (what it returned) |
+| (e.g. passive_dns_lookup) | Subdomain/historical DNS (crt.sh/SecurityTrails-equivalent) | (what it returned) |
+| (e.g. lookup_domain) | DNS/WHOIS/RDAP/CT logs (DNSDumpster/Whois-equivalent) | (what it returned) |
+| (e.g. traceix_lookup) | AV/reputation verdicts (VirusTotal-equivalent) | (what it returned) |
+| (e.g. enrich_ioc_deep) | Deep enrichment (ASN/geo/VPN/proxy) | (what it returned) |
+| (e.g. get_relationships) | IOC relationship graph (Robtex-equivalent) | (what it returned) |
+
+Gaps: name what you couldn't see (failed tools, empty results, data not collected) and how that limited the assessment.
 
 ### Analytic Techniques
 
