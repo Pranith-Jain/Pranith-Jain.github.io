@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { DataPageLayout } from '../components/DataPageLayout';
+import { AiSummaryCard } from '../components/intel/AiSummaryCard';
 import { Shield, AlertTriangle, Cloud, Anchor, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 
 type Tab = 'cyber' | 'deepfake' | 'disaster' | 'maritime';
@@ -135,6 +136,39 @@ function Expandable({
   );
 }
 
+/**
+ * Extract feed-style items from any brief type for the AI summary card.
+ * Each brief shape has different fields — this normalizes them into
+ * { title, body, source } items the AiSummaryCard can summarize.
+ */
+function briefToSummaryItems(
+  brief: CyberBrief | DeepfakeBrief | DisasterBrief
+): Array<{ title: string; body: string; source?: string }> {
+  const items: Array<{ title: string; body: string; source?: string }> = [];
+  if (brief.type === 'cyber' || brief.type === 'maritime') {
+    const b = brief as CyberBrief;
+    items.push({ title: `${b.threatLevel ?? 'Threat'} — Executive Summary`, body: b.executiveSummary ?? '' });
+    for (const f of b.keyFindings ?? []) items.push({ title: f.title, body: f.summary ?? '' });
+    for (const e of b.events ?? []) items.push({ title: e.title, body: e.text ?? '', source: e.sources?.[0]?.label });
+    if (b.outlook72h) items.push({ title: '72h Outlook', body: b.outlook72h });
+  } else if (brief.type === 'deepfake') {
+    const b = brief as DeepfakeBrief;
+    items.push({ title: 'Deepfake Risk Outlook', body: b.riskOutlook ?? b.executiveSummary ?? '' });
+    for (const f of b.keyFindings ?? []) items.push({ title: f.title, body: f.summary ?? '' });
+    for (const inc of b.incidents ?? [])
+      items.push({ title: inc.title, body: inc.summary ?? '', source: inc.sources?.[0]?.label });
+    for (const t of b.emergingTrends ?? []) items.push({ title: 'Emerging Trend', body: t });
+  } else if (brief.type === 'disaster') {
+    const b = brief as DisasterBrief;
+    items.push({ title: `${b.overallThreat ?? 'Disaster'} — Executive Summary`, body: b.executiveSummary ?? '' });
+    for (const e of [...(b.escalateEvents ?? []), ...(b.topEvents ?? []), ...(b.monitorEvents ?? [])]) {
+      items.push({ title: e.title, body: e.text ?? '', source: e.sources?.[0]?.label });
+    }
+    if (b.outlook72h) items.push({ title: '72h Outlook', body: b.outlook72h });
+  }
+  return items;
+}
+
 export default function DailyBriefs() {
   const [tab, setTab] = useState<Tab>('cyber');
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -252,7 +286,7 @@ export default function DailyBriefs() {
           </p>
           <p className="mt-1 text-xs">Run the sync pipeline to populate data.</p>
         </div>
-      ) : tab === 'cyber' ? (
+      ) : tab === 'cyber' || tab === 'maritime' ? (
         <CyberBriefView brief={brief as CyberBrief} />
       ) : tab === 'deepfake' ? (
         <DeepfakeBriefView brief={brief as DeepfakeBrief} />
@@ -280,6 +314,15 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
         <h2 className="mb-2 text-lg font-bold text-slate-900 dark:text-white">Executive Summary</h2>
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">{brief.executiveSummary}</p>
       </section>
+
+      {/* AI Analysis */}
+      <AiSummaryCard
+        surface={`Daily Brief — ${brief.type.toUpperCase()} (${brief.date})`}
+        dayKey={brief.date}
+        items={briefToSummaryItems(brief)}
+        requireAdmin={false}
+        autoFetch
+      />
 
       {/* KPIs */}
       {brief.dashboard?.kpis?.length > 0 && (
@@ -555,6 +598,15 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">{brief.executiveSummary}</p>
       </section>
 
+      {/* AI Analysis */}
+      <AiSummaryCard
+        surface={`Daily Brief — ${brief.type.toUpperCase()} (${brief.date})`}
+        dayKey={brief.date}
+        items={briefToSummaryItems(brief)}
+        requireAdmin={false}
+        autoFetch
+      />
+
       {/* Key Findings */}
       {brief.keyFindings?.length > 0 && (
         <section className="surface-card rounded-xl p-5">
@@ -695,6 +747,15 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
         <h2 className="mb-2 text-lg font-bold text-slate-900 dark:text-white">Executive Summary</h2>
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">{brief.executiveSummary}</p>
       </section>
+
+      {/* AI Analysis */}
+      <AiSummaryCard
+        surface={`Daily Brief — ${brief.type.toUpperCase()} (${brief.date})`}
+        dayKey={brief.date}
+        items={briefToSummaryItems(brief)}
+        requireAdmin={false}
+        autoFetch
+      />
 
       {/* KPIs */}
       {brief.dashboard?.kpis?.length > 0 && (
