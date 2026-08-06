@@ -1244,16 +1244,30 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
 
           prevScore = currentQa.qualityScore;
 
-          if (qaNext.qualityScore > currentQa.qualityScore) {
+          // ADOPTION GATE (audit fix 2026-08): adopt the corrected report when it
+          // is strictly better on EITHER axis — score OR flagged-claims count.
+          // The previous gate was purely numeric (`qaNext.qualityScore >
+          // currentQa.qualityScore`), so a corrected report that removed 3
+          // flagged hallucinations but held the same score (e.g. 72→72 because
+          // it also added missing facts that balanced the rubric) was REJECTED
+          // and the loop stopped, keeping the original report with its
+          // hallucinations. The convergence-stop condition (shouldConverge)
+          // already handles the true no-improvement case (score delta <= 0 AND
+          // no claim reduction) — the adoption gate must not be stricter than
+          // the stop condition.
+          const claimsReduced = qaNext.flaggedClaims.length < currentQa.flaggedClaims.length;
+          const scoreImproved = qaNext.qualityScore > currentQa.qualityScore;
+          if (scoreImproved || claimsReduced) {
             // Improvement — adopt the corrected version
             currentReport = correctedProse;
             currentActionCard = correctedCard ?? currentActionCard;
             currentModelUsed = `${currentModelUsed} → QA:${qaNext.modelUsed}`;
             currentQa = qaNext;
-            convergenceReason = `Score improved: ${qa.qualityScore}→${qaNext.qualityScore}/100 (iteration ${convergenceIteration + 1})`;
+            const how = scoreImproved && claimsReduced ? 'score + claims' : scoreImproved ? 'score' : 'claims';
+            convergenceReason = `Improved (${how}): ${qa.qualityScore}→${qaNext.qualityScore}/100, flagged ${currentQa.flaggedClaims.length}→${qaNext.flaggedClaims.length} (iteration ${convergenceIteration + 1})`;
           } else {
-            // No improvement — stop the loop (convergence)
-            convergenceReason = `Convergence: score did not improve (${currentQa.qualityScore}→${qaNext.qualityScore}). Stopping after iteration ${convergenceIteration + 1}.`;
+            // No improvement on either axis — stop the loop (convergence)
+            convergenceReason = `Convergence: no improvement (score ${currentQa.qualityScore}→${qaNext.qualityScore}, flagged ${currentQa.flaggedClaims.length}→${qaNext.flaggedClaims.length}). Stopping after iteration ${convergenceIteration + 1}.`;
             break;
           }
 

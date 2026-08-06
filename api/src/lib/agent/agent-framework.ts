@@ -236,15 +236,32 @@ export function buildFactList(steps: AgentStep[]): string {
   const malware = new Set<string>();
   const mitre = new Set<string>();
   const facts: string[] = [];
+  const unconfirmedFacts: string[] = [];
   for (const s of steps) {
     const f = s.observerFindings;
     if (!f) continue;
+    // Provenance gate (audit fix 2026-08): when the observer LLM was
+    // unavailable and the deterministic stub produced these findings
+    // (provenance === 'fallback'), the keyFacts are heuristic extractions
+    // (score/verdict/items.length) — NOT analyst-confirmed intelligence.
+    // Tagging them [unconfirmed] prevents the synthesizer/QA from asserting
+    // them as established facts. The iocs/actors/cves/mitre arrays are empty
+    // in fallback mode (the stub doesn't extract them), so only keyFacts
+    // need the gate.
+    const isFallback = f.provenance === 'fallback';
     for (const i of f.iocs) if (i) iocs.add(i);
     for (const a of f.actors ?? []) if (a) actors.add(a);
     for (const c of f.cves ?? []) if (c) cves.add(c.toUpperCase());
     for (const m of f.malware ?? []) if (m) malware.add(m);
     for (const m of f.mitre) if (m) mitre.add(m.trim().toUpperCase());
-    for (const k of f.keyFacts) if (k && !facts.includes(k)) facts.push(k);
+    for (const k of f.keyFacts) {
+      if (!k) continue;
+      if (isFallback) {
+        if (!unconfirmedFacts.includes(k)) unconfirmedFacts.push(k);
+      } else {
+        if (!facts.includes(k)) facts.push(k);
+      }
+    }
   }
   const lines: string[] = [];
   if (iocs.size > 0) lines.push(`IOCs confirmed by tools: ${[...iocs].slice(0, 25).join(', ')}`);
@@ -255,6 +272,12 @@ export function buildFactList(steps: AgentStep[]): string {
   if (facts.length > 0) {
     lines.push('Key facts confirmed by tools:');
     for (const f of facts.slice(0, 20)) lines.push(`  - ${f}`);
+  }
+  if (unconfirmedFacts.length > 0) {
+    lines.push(
+      'Unconfirmed heuristic extractions (observer LLM was unavailable — do NOT assert as analyst findings; verify against raw tool data before relying on):'
+    );
+    for (const f of unconfirmedFacts.slice(0, 10)) lines.push(`  - [unconfirmed] ${f}`);
   }
   return lines.join('\n');
 }

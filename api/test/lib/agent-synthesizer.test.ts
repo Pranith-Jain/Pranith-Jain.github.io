@@ -264,6 +264,110 @@ describe('splitSynthOutput', () => {
     expect(out.actionCard).toBeDefined();
   });
 
+  // REGRESSION (audit 2026-08): regex-extracted IOCs in the fallback card must
+  // be tagged 'Possible' (not 'Probable') because length-based typing without
+  // context cannot distinguish an MD5 from a sandbox sample ID.
+  it('tags fallback-card IOCs as Possible confidence (not Probable)', () => {
+    const proseWithIocs = `# Report\n\n## 6. Indicators of Compromise\n\n| Type | Indicator | Context |\n|---|---|---|\n| IP Addresses | 1.2.3.4 | C2 |\n| Hashes | ${'a'.repeat(64)} | sample |`;
+    const out = splitSynthOutput(proseWithIocs);
+    expect(out.actionCard).toBeDefined();
+    expect(out.actionCard?.iocs.length).toBeGreaterThan(0);
+    for (const ioc of out.actionCard?.iocs ?? []) {
+      expect(ioc.confidence).toBe('Possible');
+    }
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // REGRESSION (audit 2026-08): splitSynthOutput must not greedily swallow
+  // report prose into the action-card JSON when the LLM emits BOTH the
+  // report-header and the action-card as bare ```json fences (no explicit
+  // label). The previous regex accepted a `json` alias on both the header and
+  // card matchers; the card regex was `$`-anchored and captured from the FIRST
+  // ```json fence to the LAST, corrupting the prose and forcing a fallback card.
+  // ─────────────────────────────────────────────────────────────────────────
+  describe('bare ```json fence disambiguation (audit regression)', () => {
+    const bareJsonReport = `# Report
+
+\`\`\`json
+{
+  "headline": "Active C2 at 1.2.3.4",
+  "bluf": "Active C2.",
+  "key_takeaway": "x",
+  "severity": "critical",
+  "posture": "active",
+  "confidence": "high",
+  "tlp": "AMBER",
+  "actor": null,
+  "campaign": null,
+  "primary_indicator": {"type": "ipv4", "value": "1.2.3.4"},
+  "time_to_act": "PT15M"
+}
+\`\`\`
+
+## 1. Executive Summary
+
+Active command-and-control infrastructure was observed at 1.2.3.4.
+
+:::handoff
+next_stages:
+  - detect_hunt: deploy KQL to SIEM
+analyst_approval_required: true
+:::
+
+\`\`\`json
+{
+  "verdict": {"headline": "Active C2 at 1.2.3.4", "confidence": "high", "posture": "active", "tlp": "AMBER"},
+  "severity": "critical",
+  "actions": [{"severity": "critical", "action": "Block 1.2.3.4", "category": "contain", "stakeholders": ["soc"]}],
+  "mitre": [],
+  "iocs": [{"type": "ipv4", "value": "1.2.3.4", "confidence": "Confirmed"}],
+  "kev": false,
+  "ransomware": false,
+  "attributed": false
+}
+\`\`\``;
+
+    it('recovers the action-card from a bare ```json fence by content', () => {
+      const out = splitSynthOutput(bareJsonReport);
+      expect(out.actionCard).toBeDefined();
+      expect(out.actionCard?.severity).toBe('critical');
+      expect(out.actionCard?.verdict.headline).toContain('Active C2');
+      expect(out.actionCard?.actions).toHaveLength(1);
+      expect(out.actionCard?.actions[0]?.category).toBe('contain');
+      expect(out.actionCard?.iocs).toHaveLength(1);
+      expect(out.actionCard?.iocs[0]?.value).toBe('1.2.3.4');
+    });
+
+    it('recovers the report-header from a bare ```json fence by content', () => {
+      const out = splitSynthOutput(bareJsonReport);
+      expect(out.reportHeader).toBeDefined();
+      expect(out.reportHeader?.severity).toBe('critical');
+      expect(out.reportHeader?.headline).toContain('Active C2');
+      expect(out.reportHeader?.tlp).toBe('AMBER');
+    });
+
+    it('does NOT swallow report prose into the action-card JSON', () => {
+      const out = splitSynthOutput(bareJsonReport);
+      // The prose must survive — the greedy-swallow bug emptied the body.
+      expect(out.report).toContain('Executive Summary');
+      expect(out.report).toContain('1.2.3.4');
+      // The handoff must survive too.
+      expect(out.handoff).toBeDefined();
+      expect(out.handoff?.next_stages).toHaveLength(1);
+    });
+
+    it('does not misclassify a bare ```json block with neither header nor card keys', () => {
+      // A stray JSON block that is neither a report-header nor an action-card
+      // must not be recovered as either.
+      const stray = `# Report\n\n## 1. Executive Summary\n\nProse.\n\n\`\`\`json\n{"random": "data", "foo": "bar"}\n\`\`\``;
+      const out = splitSynthOutput(stray);
+      expect(out.reportHeader).toBeUndefined();
+      // Falls back to a synthesized card (no action-card block found)
+      expect(out.actionCard).toBeDefined();
+      expect(out.actionCard?.severity).toBe('medium'); // fallback default
+    });
+  });
+
   it('maps stakeholder aliases', () => {
     const card = `\`\`\`action-card
 {

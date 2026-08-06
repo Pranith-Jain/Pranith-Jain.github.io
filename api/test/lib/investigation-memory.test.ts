@@ -46,4 +46,36 @@ describe('buildPriorIntelNote', () => {
     expect(note).toContain('q2');
     expect(note).not.toContain('q3');
   });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // REGRESSION (audit 2026-08): prior intel must be ordered by quality desc so
+  // the highest-quality investigation anchors the planner, and the instruction
+  // must frame it as a hint to verify (not established fact) so a stale/wrong
+  // prior attribution does not get re-asserted.
+  // ─────────────────────────────────────────────────────────────────────────
+  it('orders entries by quality score desc (highest-quality wins the slice)', () => {
+    const entries = [
+      entry({ query: 'low-quality-prior', qualityScore: 40, completedAt: '2026-01-03' }),
+      entry({ query: 'high-quality-prior', qualityScore: 95, completedAt: '2026-01-01' }),
+      entry({ query: 'mid-quality-prior', qualityScore: 70, completedAt: '2026-01-02' }),
+    ];
+    const note = buildPriorIntelNote(entries, 2);
+    // The two highest-quality entries should appear; the low-quality one should not
+    expect(note).toContain('high-quality-prior');
+    expect(note).toContain('mid-quality-prior');
+    expect(note).not.toContain('low-quality-prior');
+    // high-quality should appear before mid-quality (quality desc)
+    const highIdx = note.indexOf('high-quality-prior');
+    const midIdx = note.indexOf('mid-quality-prior');
+    expect(highIdx).toBeLessThan(midIdx);
+  });
+
+  it('frames prior intel as a hint to verify, not established fact', () => {
+    const note = buildPriorIntelNote([entry({ query: 'q' })]);
+    expect(note).toContain('NOT as established fact');
+    expect(note).toContain('verify each prior finding');
+    expect(note).toContain('current tool wins');
+    // The old instruction that risked re-asserting stale attributions is gone
+    expect(note).not.toContain('do not re-discover what is already known');
+  });
 });

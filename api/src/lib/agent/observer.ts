@@ -170,7 +170,13 @@ Analyze these results. What was found? Extract exact values into keyFacts/iocs/a
 
       lastErrors = parsed.errors;
       if (attempt < MAX_RETRIES) {
-        input.user = `${user}\n\nIMPORTANT: Respond with ONLY valid JSON matching the required schema. Errors to fix:\n${lastErrors}`;
+        // AUDIT FIX (2026-08): neutralize the Zod error string before
+        // concatenating it into the prompt. The errors include field paths and
+        // messages derived from the LLM's own malformed output; while the LLM
+        // is echoing its own output (not untrusted third-party text), wrapping
+        // it in neutralizeUntrusted is defense-in-depth against a field value
+        // containing prompt-injection text that Zod surfaces in the error path.
+        input.user = `${user}\n\nIMPORTANT: Respond with ONLY valid JSON matching the required schema. Errors to fix:\n${neutralizeUntrusted(lastErrors)}`;
       }
     }
     return { ...fallback, provenance: 'fallback' };
@@ -212,7 +218,12 @@ function deterministicObserve(results: AgentToolResult[]): ObserverOutput {
     cves: [],
     malware: [],
     mitre: [],
-    confidence: 'medium',
+    // AUDIT FIX (2026-08): return 'low' (not 'medium') when the observer LLM
+    // was unavailable. A hardcoded 'medium' propagated into the working
+    // memory's confidenceHistory and the synthesizer's confidence estimate,
+    // making a fully-degraded step look analyst-assessed. 'low' signals that
+    // no LLM analysis was performed.
+    confidence: 'low',
     gaps: [],
     provenance: 'fallback',
   };

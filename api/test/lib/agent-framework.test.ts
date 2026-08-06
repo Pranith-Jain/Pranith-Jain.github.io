@@ -240,4 +240,65 @@ describe('buildFactList', () => {
     expect(out.match(/C2 seen/g)).toHaveLength(1);
     expect(out.match(/T1059/g)).toHaveLength(1);
   });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // REGRESSION (audit 2026-08): fallback-provenance keyFacts (produced by the
+  // deterministic observer stub when the LLM is unavailable) must be tagged
+  // [unconfirmed] and separated from LLM-confirmed facts, so the synthesizer/QA
+  // do not assert heuristic extractions (score/verdict/items.length) as
+  // analyst-confirmed intelligence.
+  // ─────────────────────────────────────────────────────────────────────────
+  it('tags fallback-provenance keyFacts as [unconfirmed] and separates them from LLM-confirmed facts', () => {
+    const steps = [
+      step({
+        stepNumber: 1,
+        observerFindings: {
+          iocs: ['1.2.3.4'],
+          mitre: ['T1059'],
+          keyFacts: ['C2 beaconing observed'],
+          provenance: 'llm',
+          gaps: [],
+        },
+      }),
+      step({
+        stepNumber: 2,
+        observerFindings: {
+          iocs: [],
+          mitre: [],
+          keyFacts: ['check_ioc: score 87', 'check_ioc: verdict malicious'],
+          provenance: 'fallback',
+          gaps: [],
+        },
+      }),
+    ];
+    const out = buildFactList(steps);
+    // LLM-confirmed fact appears under the confirmed section
+    expect(out).toContain('Key facts confirmed by tools:');
+    expect(out).toContain('- C2 beaconing observed');
+    // Fallback facts appear under a separate, clearly-labeled section
+    expect(out).toContain('Unconfirmed heuristic extractions');
+    expect(out).toContain('[unconfirmed] check_ioc: score 87');
+    expect(out).toContain('[unconfirmed] check_ioc: verdict malicious');
+    // The confirmed section must NOT contain the heuristic stubs
+    const confirmedSection = out.split('Unconfirmed heuristic extractions')[0];
+    expect(confirmedSection).not.toContain('check_ioc: score 87');
+  });
+
+  it('does not tag LLM-provenance facts as unconfirmed', () => {
+    const steps = [
+      step({
+        stepNumber: 1,
+        observerFindings: {
+          iocs: ['1.2.3.4'],
+          mitre: [],
+          keyFacts: ['C2 beaconing observed'],
+          provenance: 'llm',
+          gaps: [],
+        },
+      }),
+    ];
+    const out = buildFactList(steps);
+    expect(out).not.toContain('[unconfirmed]');
+    expect(out).not.toContain('Unconfirmed heuristic extractions');
+  });
 });

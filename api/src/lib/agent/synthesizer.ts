@@ -286,7 +286,7 @@ export function splitSynthOutput(raw: string): {
   } else {
     // If the header was recovered via bare-json fallback, strip that block too.
     const bareHeader = raw.match(/```json\s*\n([\s\S]*?)\n```/);
-    if (bareHeader && bareHeader.index !== undefined) {
+    if (bareHeader && bareHeader.index !== undefined && bareHeader[1]) {
       try {
         const p = JSON.parse(bareHeader[1].trim());
         if (p && typeof p === 'object' && 'headline' in p && 'bluf' in p && 'tlp' in p) {
@@ -635,6 +635,12 @@ function extractHeadline(prose: string): string | undefined {
 
 function synthesiseFallbackCard(prose: string): ReportActionCard {
   const headline = extractHeadline(prose) ?? 'Investigation complete';
+  // AUDIT FIX (2026-08): regex-extracted IOCs are length-typed without
+  // context (a 32-hex value could be an MD5 or a sandbox sample ID). Tag them
+  // 'Possible' rather than 'Probable' to signal lower confidence. The
+  // structured action-card block (parsed from the LLM's ```action-card JSON)
+  // is the source of truth; this fallback only runs when that block is absent
+  // or unparseable.
   const iocs = extractIocs(prose)
     .slice(0, 10)
     .map((value) => {
@@ -644,7 +650,7 @@ function synthesiseFallbackCard(prose: string): ReportActionCard {
       else if (/^CVE-\d{4}-\d+/i.test(value)) type = 'cve';
       else if (/^https?:\/\//i.test(value)) type = 'url';
       else if (/^[^@\s]+@[^@\s]+$/.test(value)) type = 'email';
-      return { type, value, confidence: 'Probable' as const };
+      return { type, value, confidence: 'Possible' as const };
     });
   return {
     verdict: {

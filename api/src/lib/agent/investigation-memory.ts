@@ -204,8 +204,18 @@ export function jsonEscapeForLike(value: string): string {
  */
 export function buildPriorIntelNote(entries: InvestigationMemoryEntry[], max = 3): string {
   if (entries.length === 0) return '';
+  // AUDIT FIX (2026-08): order by quality score desc (then recency) so the
+  // highest-quality prior intel wins the `max` slice. Previously the caller
+  // (lookupMemory) sorted by completedAt desc only, so a low-quality or
+  // superseded investigation could anchor the planner over a better one.
+  // Re-sorting here keeps the contract pure (the caller's sort is preserved
+  // for other consumers) while ensuring the note surfaces the best evidence.
+  const ranked = [...entries].sort((a, b) => {
+    if (b.qualityScore !== a.qualityScore) return b.qualityScore - a.qualityScore;
+    return new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime();
+  });
   const lines: string[] = ['<prior_intelligence>You have investigated related indicators before:'];
-  for (const e of entries.slice(0, max)) {
+  for (const e of ranked.slice(0, max)) {
     const parts: string[] = [];
     if (e.actors.length > 0) parts.push(`actors: ${e.actors.slice(0, 3).join(', ')}`);
     if (e.cves.length > 0) parts.push(`CVEs: ${e.cves.slice(0, 3).join(', ')}`);
@@ -215,8 +225,13 @@ export function buildPriorIntelNote(entries: InvestigationMemoryEntry[], max = 3
       `- "${e.query}" (${e.queryType}, quality ${e.qualityScore}/100)${parts.length > 0 ? `: ${parts.join(' | ')}` : ''}`
     );
   }
+  // AUDIT FIX (2026-08): reframe as a hint to VERIFY, not established fact.
+  // The previous instruction ("do not re-discover what is already known")
+  // risked the planner re-asserting a stale or wrong prior attribution. Prior
+  // intel is a starting point — the planner must confirm each fact against
+  // current tool data before relying on it.
   lines.push(
-    'Build on this prior work — do not re-discover what is already known; focus on the gaps.</prior_intelligence>'
+    'Treat this as a starting point to build on, NOT as established fact — verify each prior finding against current tool data before relying on it; if a tool contradicts a prior finding, the current tool wins. Focus on the gaps the prior investigation left open.</prior_intelligence>'
   );
   return '\n' + lines.join('\n');
 }

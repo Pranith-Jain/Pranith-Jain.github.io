@@ -129,7 +129,9 @@ async function singleModelVerifyReport(
 
       lastErr = parsed.errors;
       if (attempt < MAX_RETRIES) {
-        input.user = `${user}\n\nIMPORTANT: Respond with ONLY valid JSON matching the required schema. Errors to fix:\n${lastErr}`;
+        // AUDIT FIX (2026-08): neutralize the Zod error string before
+        // concatenating it into the prompt (defense-in-depth — see observer.ts).
+        input.user = `${user}\n\nIMPORTANT: Respond with ONLY valid JSON matching the required schema. Errors to fix:\n${neutralizeUntrusted(lastErr)}`;
       }
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
