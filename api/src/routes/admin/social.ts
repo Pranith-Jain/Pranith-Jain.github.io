@@ -315,12 +315,29 @@ socialRouter.get('/social/:slug', async (c) => {
     c.env.CASE_STUDIES.get<string>(csKvKeys.socialTwitter(slug)),
     c.env.CASE_STUDIES.get<string>(csKvKeys.socialLinkedin(slug)),
   ]);
-  const social: SocialContent = {
-    slug,
-    twitter: twitter ?? combined?.twitter ?? '',
-    linkedin: linkedin ?? combined?.linkedin ?? '',
-    generatedAt: combined?.generatedAt ?? new Date().toISOString(),
-  };
+  // Return the full combined social object (which carries _validation,
+  //  instagram, carousel, hooks, and the readiness gate) so the frontend
+  //  can surface the cross-platform quality verdict. Fall back to a minimal
+  //  reconstruction only when the combined blob is absent (legacy posts
+  //  generated before the _validation field existed).
+  let social: SocialContent;
+  if (combined) {
+    // Override twitter/linkedin with the per-platform blobs when they exist
+    // (the admin can regenerate one platform independently — those land in
+    //  separate KV keys, not back in the combined blob).
+    social = {
+      ...combined,
+      twitter: twitter ?? combined.twitter,
+      linkedin: linkedin ?? combined.linkedin,
+    };
+  } else {
+    social = {
+      slug,
+      twitter: twitter ?? '',
+      linkedin: linkedin ?? '',
+      generatedAt: new Date().toISOString(),
+    };
+  }
   if (!social.twitter && !social.linkedin) return notFound(c, 'not found');
   return c.json({ ok: true, social });
 });

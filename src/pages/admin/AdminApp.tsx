@@ -16,6 +16,7 @@ import XCookiesTab from './XCookiesTab';
 import RetentionTab from './RetentionTab';
 import BriefingsTab from './BriefingsTab';
 import AnalyticsTab from './AnalyticsTab';
+import CalendarTab from './CalendarTab';
 
 type TabKey =
   | 'pending'
@@ -31,7 +32,8 @@ type TabKey =
   | 'xcookies'
   | 'briefings'
   | 'retention'
-  | 'analytics';
+  | 'analytics'
+  | 'calendar';
 
 const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'pending', label: 'Pending' },
@@ -48,6 +50,7 @@ const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'briefings', label: 'Briefings' },
   { key: 'retention', label: 'Retention' },
   { key: 'analytics', label: 'Analytics' },
+  { key: 'calendar', label: 'Calendar' },
 ];
 
 const STAGES: Array<{ stage: 'discovery' | 'planner' | 'publisher'; label: string; hint: string }> = [
@@ -269,6 +272,7 @@ export default function AdminApp() {
         {active === 'briefings' && <BriefingsTab />}
         {active === 'retention' && <RetentionTab />}
         {active === 'analytics' && <AnalyticsTab />}
+        {active === 'calendar' && <CalendarTab />}
       </section>
     </div>
   );

@@ -56,6 +56,31 @@ interface CarouselSlide {
   kind?: string;
 }
 
+interface SocialQuality {
+  char_count: number;
+  over_limit: boolean;
+  ungrounded_cves: string[];
+  untrusted_urls: number;
+  slop_count: number;
+  score: number;
+  issues: string[];
+}
+
+interface ReadinessVerdict {
+  score: number;
+  ready: boolean;
+  blockers: string[];
+  warnings: string[];
+  platforms: Array<{ platform: string; present: boolean; score: number; overLimit: boolean; issues: string[] }>;
+  crossPlatform: {
+    hookDiversity: number;
+    bodyOverlap: number;
+    similarHookPairs: Array<{ a: string; b: string; similarity: number }>;
+    similarBodyPairs: Array<{ a: string; b: string; similarity: number }>;
+    hooks: { twitter?: string; linkedin?: string; instagram?: string };
+  };
+}
+
 interface SocialContent {
   slug: string;
   twitter: string;
@@ -64,6 +89,12 @@ interface SocialContent {
   carousel?: { format: 'instagram'; slides: CarouselSlide[] };
   generatedAt: string;
   hooks?: string[];
+  _validation?: {
+    twitter_quality?: SocialQuality;
+    linkedin_quality?: SocialQuality;
+    instagram_quality?: SocialQuality;
+    readiness?: ReadinessVerdict;
+  };
 }
 
 interface SocialEntry {
@@ -276,35 +307,96 @@ export default function PublishedTab() {
         {(filtered) => (
           <div className="overflow-x-auto">
             <DataTable
-              columns={[
-                { key: 'type', header: 'Type', sortValue: (p: typeof filtered[number]) => p.type, render: (p) => <span className="text-slate-500 dark:text-slate-400 uppercase text-xs">{p.type}</span> },
-                { key: 'title', header: 'Title', sortValue: (p: typeof filtered[number]) => p.title, render: (p) => <span className="text-slate-900 dark:text-slate-100">{p.title}</span> },
-                { key: 'publishedAt', header: 'Published', sortValue: (p: typeof filtered[number]) => p.publishedAt, render: (p) => <span className="text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">{new Date(p.publishedAt).toLocaleString()}</span> },
-                { key: 'slug', header: 'Slug', sortValue: (p: typeof filtered[number]) => p.slug, render: (p) => (
-                  <a href={`/blog/${p.slug}`} target="_blank" rel="noopener noreferrer" className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline transition-colors">{p.slug}</a>
-                ) },
-                { key: 'social', header: 'Social', render: (p) => {
-                  const s = social[p.slug];
-                  const hasTwitter = !!s?.hasTwitter;
-                  const hasLinkedin = !!s?.hasLinkedin;
-                  return (
-                    <div className="flex flex-wrap gap-1.5">
-                      <button onClick={() => generateTwitter(p.slug)} disabled={s?.loadingTwitter} className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/30'}`}>
-                        {s?.loadingTwitter ? '…' : hasTwitter ? 'Re-Tweet' : 'Tweet'}
-                      </button>
-                      <button onClick={() => generateLinkedin(p.slug)} disabled={s?.loadingLinkedin} className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/30'}`}>
-                        {s?.loadingLinkedin ? '…' : hasLinkedin ? 'Re-LinkedIn' : 'LinkedIn'}
-                      </button>
-                    </div>
-                  );
-                } },
-                { key: 'actions', header: 'Actions', render: (p) => (
-                  <div className="flex gap-1.5">
-                    <button onClick={() => viewSocial(p.slug)} className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]">View</button>
-                    <button onClick={() => unpublish(p.slug)} className="px-2 py-1 border border-rose-200 dark:border-rose-800 rounded text-xs text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50">Unpublish</button>
-                  </div>
-                ) },
-              ] as DataTableColumn<typeof filtered[number]>[]}
+              columns={
+                [
+                  {
+                    key: 'type',
+                    header: 'Type',
+                    sortValue: (p: (typeof filtered)[number]) => p.type,
+                    render: (p) => (
+                      <span className="text-slate-500 dark:text-slate-400 uppercase text-xs">{p.type}</span>
+                    ),
+                  },
+                  {
+                    key: 'title',
+                    header: 'Title',
+                    sortValue: (p: (typeof filtered)[number]) => p.title,
+                    render: (p) => <span className="text-slate-900 dark:text-slate-100">{p.title}</span>,
+                  },
+                  {
+                    key: 'publishedAt',
+                    header: 'Published',
+                    sortValue: (p: (typeof filtered)[number]) => p.publishedAt,
+                    render: (p) => (
+                      <span className="text-slate-600 dark:text-slate-500 text-xs whitespace-nowrap">
+                        {new Date(p.publishedAt).toLocaleString()}
+                      </span>
+                    ),
+                  },
+                  {
+                    key: 'slug',
+                    header: 'Slug',
+                    sortValue: (p: (typeof filtered)[number]) => p.slug,
+                    render: (p) => (
+                      <a
+                        href={`/blog/${p.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:underline transition-colors"
+                      >
+                        {p.slug}
+                      </a>
+                    ),
+                  },
+                  {
+                    key: 'social',
+                    header: 'Social',
+                    render: (p) => {
+                      const s = social[p.slug];
+                      const hasTwitter = !!s?.hasTwitter;
+                      const hasLinkedin = !!s?.hasLinkedin;
+                      return (
+                        <div className="flex flex-wrap gap-1.5">
+                          <button
+                            onClick={() => generateTwitter(p.slug)}
+                            disabled={s?.loadingTwitter}
+                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/30'}`}
+                          >
+                            {s?.loadingTwitter ? '…' : hasTwitter ? 'Re-Tweet' : 'Tweet'}
+                          </button>
+                          <button
+                            onClick={() => generateLinkedin(p.slug)}
+                            disabled={s?.loadingLinkedin}
+                            className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-slate-200 dark:border-[rgb(var(--border-400))] hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]' : 'border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/30'}`}
+                          >
+                            {s?.loadingLinkedin ? '…' : hasLinkedin ? 'Re-LinkedIn' : 'LinkedIn'}
+                          </button>
+                        </div>
+                      );
+                    },
+                  },
+                  {
+                    key: 'actions',
+                    header: 'Actions',
+                    render: (p) => (
+                      <div className="flex gap-1.5">
+                        <button
+                          onClick={() => viewSocial(p.slug)}
+                          className="px-2 py-1 border border-slate-200 dark:border-[rgb(var(--border-400))] rounded text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[rgb(var(--surface-300))]"
+                        >
+                          View
+                        </button>
+                        <button
+                          onClick={() => unpublish(p.slug)}
+                          className="px-2 py-1 border border-rose-200 dark:border-rose-800 rounded text-xs text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 disabled:opacity-50"
+                        >
+                          Unpublish
+                        </button>
+                      </div>
+                    ),
+                  },
+                ] as DataTableColumn<(typeof filtered)[number]>[]
+              }
               rows={filtered}
               rowKey={(p) => p.slug}
             />
@@ -460,6 +552,46 @@ function QueueStatusBadge({ item }: { item: SocialQueueItem }) {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
+/** Cross-platform readiness badge — surfaces the content-engine quality gate
+ *  verdict (hook diversity, body overlap, per-platform scores, blockers).
+ *  Advisory: warnings don't block posting; blockers (char limits) do. */
+function ReadinessBadge({ verdict }: { verdict: ReadinessVerdict }) {
+  const { score, ready, blockers, warnings, crossPlatform } = verdict;
+  const tone = ready
+    ? 'border-emerald-200 dark:border-emerald-700/50 bg-emerald-50 dark:bg-emerald-900/20'
+    : 'border-amber-200 dark:border-amber-700/50 bg-amber-50 dark:bg-amber-900/20';
+  const labelTone = ready ? 'text-emerald-700 dark:text-emerald-300' : 'text-amber-700 dark:text-amber-300';
+  return (
+    <div className={`mb-4 rounded border ${tone} p-3`}>
+      <div className="flex items-center gap-2 mb-2">
+        <span className={`text-xs font-mono font-semibold ${labelTone}`}>{ready ? '✓ READY' : '⚠ REVIEW'}</span>
+        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">score {score}/100</span>
+        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+          · hook diversity {crossPlatform.hookDiversity}/100
+        </span>
+        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+          · body overlap {crossPlatform.bodyOverlap}/100
+        </span>
+      </div>
+      {blockers.length > 0 && (
+        <ul className="text-xs text-rose-600 dark:text-rose-400 space-y-0.5 mb-1">
+          {blockers.map((b, i) => (
+            <li key={i}>✗ {b}</li>
+          ))}
+        </ul>
+      )}
+      {warnings.length > 0 && (
+        <ul className="text-xs text-amber-600 dark:text-amber-400 space-y-0.5">
+          {warnings.slice(0, 4).map((w, i) => (
+            <li key={i}>⚠ {w}</li>
+          ))}
+          {warnings.length > 4 && <li className="text-slate-400">+{warnings.length - 4} more</li>}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 type PostState = {
   posting: boolean;
   result: { ok: boolean; postUrl?: string; error?: string } | null;
@@ -525,6 +657,8 @@ function SocialContentPanel({
       <p className="text-xs text-slate-600 dark:text-slate-500 mb-4">
         Generated {new Date(data.generatedAt).toLocaleString()}
       </p>
+
+      {data._validation?.readiness && <ReadinessBadge verdict={data._validation.readiness} />}
 
       {data.hooks && data.hooks.length > 0 && (
         <HookSelector

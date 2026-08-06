@@ -44,6 +44,7 @@ import { putDraft } from './storage/drafts';
 import { recordFailure } from './storage/failed';
 import { renderRss } from './rendering/rss';
 import { generatePost } from './generation';
+import { getVoiceProfileString } from './generation/voice-profile';
 import { liveVerifyUrls } from './generation/verify-references';
 import { createBatchedCachedVerify } from '../lib/verify-url-cache';
 import { generateSocialContent } from './generation/social';
@@ -485,7 +486,7 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
     markSlotStatus: (cid, status, extras) => markSlotStatus(env.CASE_STUDIES, cid, status, extras),
     getApproved: (k) => getApproved(env.CASE_STUDIES, k),
     unapprove: (k) => unapprove(env.CASE_STUDIES, k),
-    generatePost: (cand, n) =>
+    generatePost: async (cand, n) =>
       generatePost({
         candidate: cand,
         ai: getAi(env),
@@ -514,6 +515,12 @@ export async function runPublisherNow(env: CaseStudyEnv, now: Date) {
           env.BLOG_AI_IMAGES_DISABLED === 'true'
             ? undefined
             : { enabled: true, put: (slug, name, bytes) => putPostImage(env.CASE_STUDIES, slug, name, bytes) },
+        // Voice profile: descriptive stats from the author's published posts,
+        // injected into the system prompt so the model matches the real
+        // writing rhythm (sentence length, contraction rate, hook forms,
+        // vocabulary). Cached 24h in KV. Best-effort — falls back to the
+        // prescriptive VOICE_IDENTITY when unavailable.
+        voiceProfile: await getVoiceProfileString(env.CASE_STUDIES).catch(() => ''),
       }),
     putPost: (p) => putPost(env.CASE_STUDIES, p),
     putDraft: (p) => putDraft(env.CASE_STUDIES, p),

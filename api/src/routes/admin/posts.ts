@@ -1,11 +1,12 @@
 import { Hono } from 'hono';
 import type { Env } from '../../env';
 import { logError } from '../../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, conflict } from '../../lib/api-error';
+import { badRequest, conflict } from '../../lib/api-error';
 import { safeJsonBody } from '../../lib/safe-body';
 import { putPost, listPostIndex, removePost } from '../../case-study/storage/posts';
 import { getSchedule, setSchedule } from '../../case-study/storage/schedule';
 import { generateSocialForPost, type CaseStudyEnv } from '../../case-study/run';
+import { buildVoiceProfileFromIndex } from '../../case-study/generation/voice-profile';
 import { kv as csKvKeys } from '../../case-study/kv-keys';
 import { renderRss } from '../../case-study/rendering/rss';
 import { getSiteUrl } from '../../lib/site-config';
@@ -116,4 +117,14 @@ postsRouter.post('/posts/manual', async (c) => {
   );
 
   return c.json({ ok: true, slug });
+});
+
+// ─── Voice profile ─────────────────────────────────────────────────────
+// Returns the descriptive voice profile derived from published posts.
+// The operator can inspect what the author's real writing rhythm looks
+// like (sentence length, contraction rate, hook forms, vocabulary) and
+// how it compares to the prescriptive VOICE_IDENTITY rules.
+postsRouter.get('/voice-profile', async (c) => {
+  const profile = await buildVoiceProfileFromIndex(c.env.CASE_STUDIES);
+  return c.json({ profile });
 });

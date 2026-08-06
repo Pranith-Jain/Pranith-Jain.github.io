@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest } from '../lib/api-error';
 import { requireAdminMiddleware } from '../lib/admin-auth';
 import { safeJsonBody } from '../lib/safe-body';
 import { getAi } from '../lib/ai-binding';
@@ -24,6 +24,7 @@ import { postsRouter } from './admin/posts';
 import { failuresRouter } from './admin/failures';
 import { inferenceRouter } from './admin/inference';
 import { runRouter } from './admin/run';
+import { calendarRouter } from './admin/calendar';
 
 export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   const admin = new Hono<{ Bindings: Env }>();
@@ -179,6 +180,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   admin.route('/', failuresRouter);
   admin.route('/', inferenceRouter);
   admin.route('/', runRouter);
+  admin.route('/', calendarRouter);
 
   app.route('/api/v1/admin', admin);
 }

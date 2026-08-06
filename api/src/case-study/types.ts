@@ -176,6 +176,56 @@ export interface SocialContent {
   /** Alternative opening hooks (different angles) for A/B / manual selection. */
   hooks?: string[];
   generatedAt: string;
+  /** Per-platform quality validation + cross-platform readiness gate.
+   *  Populated by generateSocialContent; persisted to KV so the admin
+   *  frontend can surface the verdict. Underscore-prefixed because it's
+   *  metadata, not copy. */
+  _validation?: {
+    twitter_quality?: SocialQuality;
+    linkedin_quality?: SocialQuality;
+    instagram_quality?: SocialQuality;
+    /** Cross-platform readiness gate — runs after all platforms generate.
+     *  Detects hook/body duplication across platforms and aggregates the
+     *  per-platform quality scores into a single publish verdict. */
+    readiness?: ReadinessVerdict;
+  };
+}
+
+/** Per-platform quality score from validateSocial(). Mirrors the shape
+ *  generated in generation/social.ts — kept here in the canonical types
+ *  file so the route layer can type the KV blob without importing from
+ *  the generation module (which would create a circular dep). */
+export interface SocialQuality {
+  char_count: number;
+  over_limit: boolean;
+  ungrounded_cves: string[];
+  untrusted_urls: number;
+  slop_count: number;
+  score: number;
+  issues: string[];
+}
+
+/** Cross-platform readiness verdict from assessReadiness(). Mirrors the
+ *  shape generated in generation/readiness-gate.ts. */
+export interface ReadinessVerdict {
+  score: number;
+  ready: boolean;
+  blockers: string[];
+  warnings: string[];
+  platforms: Array<{
+    platform: 'twitter' | 'linkedin' | 'instagram';
+    present: boolean;
+    score: number;
+    overLimit: boolean;
+    issues: string[];
+  }>;
+  crossPlatform: {
+    hookDiversity: number;
+    bodyOverlap: number;
+    similarHookPairs: Array<{ a: string; b: string; similarity: number }>;
+    similarBodyPairs: Array<{ a: string; b: string; similarity: number }>;
+    hooks: { twitter?: string; linkedin?: string; instagram?: string };
+  };
 }
 
 /** Per-platform posting state for the social scheduling queue.

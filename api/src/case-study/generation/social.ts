@@ -1,39 +1,19 @@
 import type { Ai } from '@cloudflare/workers-types';
-import type { Candidate, Post } from '../types';
+import type { Candidate, Post, SocialContent, SocialQuality, ReadinessVerdict } from '../types';
 import { runCompletion } from './ai-client';
 import { VOICE_IDENTITY, COPYWRITING_RULES, PIPELINE_OUTPUT_GUARDRAIL, QUALITY_CHECKS } from './copywriting';
 import { stripUntrustedUrls, findUngroundedCves, detectSlop } from '../../lib/ai-output-validator';
 import { slugify } from '../stable-keys';
-import type { CarouselSpec, ContentSlide } from '../social/slide-spec';
+import type { ContentSlide } from '../social/slide-spec';
 import { buildCarouselSlides } from '../social/carousel-build';
 import { buildHashtags } from './hashtags';
 import { generateHookVariants } from './hook-variants';
+import { assessReadiness } from './readiness-gate';
+import { planRepurposing, buildClaimHint } from './claim-extract';
 
-export interface SocialContent {
-  slug: string;
-  twitter: string;
-  linkedin: string;
-  instagram?: string;
-  carousel?: CarouselSpec;
-  /** Alternative opening hooks (different angles) for A/B / manual selection. */
-  hooks?: string[];
-  generatedAt: string;
-  _validation?: {
-    twitter_quality?: SocialQuality;
-    linkedin_quality?: SocialQuality;
-    instagram_quality?: SocialQuality;
-  };
-}
-
-export interface SocialQuality {
-  char_count: number;
-  over_limit: boolean;
-  ungrounded_cves: string[];
-  untrusted_urls: number;
-  slop_count: number;
-  score: number; // 0-100
-  issues: string[];
-}
+// Re-export the canonical types so existing imports from this module
+// (e.g. `import type { SocialContent } from './social'`) keep working.
+export type { SocialContent, SocialQuality, ReadinessVerdict };
 
 /** Minimal content source for social generation — works from published
  *  posts, candidate evidence, or user-provided notes. */
@@ -636,13 +616,14 @@ async function generateInstagramFromSource(
   groqKey?: string,
   googleKey?: string,
   nvidiaKey?: string,
-  infronKey?: string
+  infronKey?: string,
+  claimHint = ''
 ): Promise<{ caption: string; quality?: SocialQuality; slides: Awaited<ReturnType<typeof buildCarouselSlides>> }> {
   const [captionRes, slides] = await Promise.all([
     generateWithValidation(
       ai,
       SOCIAL_SYSTEM,
-      buildInstagramPrompt(src),
+      buildInstagramPrompt(src) + claimHint,
       'instagram',
       src.body,
       groqKey,
@@ -807,11 +788,23 @@ async function generateSocialFromSource(
 ): Promise<SocialContent> {
   const factNote = extractVerifiedFacts(src.body);
 
+  // Atomic claim extraction + platform assignment (content-engine skill's
+  // repurposing flow: extract 3-7 claims, rank by sharpness/novelty/proof,
+  // assign one strong idea per platform so the three outputs lead with
+  // DIFFERENT angles instead of converging on the same obvious one).
+  const { assignments } = planRepurposing(src.body);
+  const twitterHint = assignments.find((a) => a.platform === 'twitter');
+  const linkedinHint = assignments.find((a) => a.platform === 'linkedin');
+  const instagramHint = assignments.find((a) => a.platform === 'instagram');
+  const twitterClaimNote = buildClaimHint(twitterHint);
+  const linkedinClaimNote = buildClaimHint(linkedinHint);
+  const igClaimNote = buildClaimHint(instagramHint);
+
   const [twitterRes, linkedinRes, igRes, hooksRes] = await Promise.allSettled([
     generateWithValidation(
       ai,
       SOCIAL_SYSTEM,
-      buildTwitterPrompt(src) + factNote,
+      buildTwitterPrompt(src) + factNote + twitterClaimNote,
       'twitter',
       src.body,
       groqKey,
@@ -823,7 +816,7 @@ async function generateSocialFromSource(
     generateWithValidation(
       ai,
       SOCIAL_SYSTEM,
-      buildLinkedinPrompt(src) + factNote,
+      buildLinkedinPrompt(src) + factNote + linkedinClaimNote,
       'linkedin',
       src.body,
       groqKey,
@@ -833,7 +826,7 @@ async function generateSocialFromSource(
       2000
     ),
     post
-      ? generateInstagramFromSource(src, post, ai, groqKey, googleKey, nvidiaKey, infronKey)
+      ? generateInstagramFromSource(src, post, ai, groqKey, googleKey, nvidiaKey, infronKey, igClaimNote)
       : Promise.resolve({
           caption: '',
           quality: undefined as SocialQuality | undefined,
@@ -844,11 +837,23 @@ async function generateSocialFromSource(
 
   const ig = igRes.status === 'fulfilled' ? igRes.value : { caption: '', quality: undefined, slides: [] };
   const hooks = hooksRes.status === 'fulfilled' ? hooksRes.value : [];
-  return {
+  const twitterText = twitterRes.status === 'fulfilled' ? twitterRes.value.text : '';
+  const linkedinText = linkedinRes.status === 'fulfilled' ? linkedinRes.value.text : '';
+  const igCaption = ig.caption || '';
+
+  // Cross-platform readiness gate — runs AFTER all platforms generate.
+  // The content-engine skill's quality gate requires "no duplicated copy
+  // across platforms" and "gaps that must be filled before publishing."
+  // The three generators above run in parallel with no awareness of each
+  // other; this pass measures hook/body overlap and aggregates the
+  // per-platform quality scores into a single publish verdict. Advisory
+  // (warnings, not blockers) so a borderline post still ships — the
+  // per-platform validateSocial already hard-blocks on char limits + slop.
+  const content: SocialContent = {
     slug: src.slug,
-    twitter: twitterRes.status === 'fulfilled' ? twitterRes.value.text : '',
-    linkedin: linkedinRes.status === 'fulfilled' ? linkedinRes.value.text : '',
-    instagram: ig.caption || undefined,
+    twitter: twitterText,
+    linkedin: linkedinText,
+    instagram: igCaption || undefined,
     carousel: ig.slides.length ? { format: 'instagram', slides: ig.slides } : undefined,
     hooks: hooks.length ? hooks : undefined,
     generatedAt: now.toISOString(),
@@ -858,6 +863,8 @@ async function generateSocialFromSource(
       instagram_quality: ig.quality,
     },
   };
+  content._validation!.readiness = assessReadiness(content);
+  return content;
 }
 
 // ── Public API (backward compat — accept Post) ───────────────────────────

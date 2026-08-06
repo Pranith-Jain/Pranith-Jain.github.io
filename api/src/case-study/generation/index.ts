@@ -259,6 +259,10 @@ export interface GeneratePostDeps {
     enabled: boolean;
     put: (slug: string, name: string, bytes: Uint8Array) => Promise<void>;
   };
+  /** Optional voice-profile string (from voice-profile.ts) injected into
+   *  the system prompt so the model matches the author's real writing
+   *  rhythm. When unset, only the prescriptive VOICE_IDENTITY governs. */
+  voiceProfile?: string;
 }
 
 export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
@@ -287,6 +291,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     title: candidate.title,
     facts: candidate.evidence,
     sources,
+    voiceProfile: deps.voiceProfile,
   });
 
   // Inject verified facts into the prompt for grounding
