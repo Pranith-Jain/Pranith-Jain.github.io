@@ -1,0 +1,88 @@
+{
+  "source": "pranithjain.qzz.io — custom CTI investigation skills",
+  "license": "MIT",
+  "generatedAt": "2026-08-06",
+  "counts": { "skills": 6 },
+  "skills": [
+    {
+      "slug": "ioc-pivot-investigation",
+      "name": "IOC Pivot Investigation",
+      "category": "Investigation Methodology",
+      "description": "Follow an indicator (hash, domain, IP, URL) through its infrastructure graph: hash → AV verdicts → contacted domains/IPs → subdomains → C2 → related files.",
+      "triggerKeywords": ["hash", "sha256", "domain", "ip", "url", "c2", "infrastructure", "pivot", "trace"]
+    },
+    {
+      "slug": "ransomware-actor-deep-dive",
+      "name": "Ransomware Actor Deep-Dive",
+      "category": "Investigation Methodology",
+      "description": "Profile a ransomware group: group profile, TTPs, victimology, leak-site infrastructure, payment addresses, re-leak analysis.",
+      "triggerKeywords": [
+        "ransomware",
+        "lockbit",
+        "qilin",
+        "clop",
+        "blackbasta",
+        "akira",
+        "play",
+        "alphv",
+        "blackcat",
+        "affiliate",
+        "leak site",
+        "double extortion"
+      ]
+    },
+    {
+      "slug": "cve-triage-and-exploitation",
+      "name": "CVE Triage & Exploitation Analysis",
+      "category": "Investigation Methodology",
+      "description": "Triage a CVE: CVSS, KEV status, affected products, exploit availability, threat-actor exploitation, patch guidance.",
+      "triggerKeywords": ["cve", "vulnerability", "cvss", "kev", "exploit", "patch", "rce", "zero-day", "cisa"]
+    },
+    {
+      "slug": "apt-actor-profiling",
+      "name": "APT Actor Profiling",
+      "category": "Investigation Methodology",
+      "description": "Profile a nation-state/APT actor: aliases, sponsorship, motivation, TTPs, malware arsenal, target sectors, campaign history, MITRE mapping.",
+      "triggerKeywords": [
+        "apt",
+        "nation-state",
+        "lazarus",
+        "sandworm",
+        "fancy bear",
+        "cozy bear",
+        "turla",
+        "equation",
+        "chinese",
+        "russian",
+        "iranian",
+        "north korean",
+        "espionage"
+      ]
+    },
+    {
+      "slug": "domain-infrastructure-analysis",
+      "name": "Domain Infrastructure Analysis",
+      "category": "Investigation Methodology",
+      "description": "Deep-dive a domain: DNS records, WHOIS/RDAP, certificate transparency, subdomain enumeration, passive DNS history, blocklist hits, co-hosted domains.",
+      "triggerKeywords": ["domain", "dns", "whois", "subdomain", "certificate", "rdap", "infrastructure", "hosting"]
+    },
+    {
+      "slug": "malware-sample-analysis",
+      "name": "Malware Sample Analysis",
+      "category": "Investigation Methodology",
+      "description": "Analyze a malware sample by hash: AV/reputation verdicts, contacted infrastructure, related samples, YARA rules, MITRE mapping.",
+      "triggerKeywords": [
+        "malware",
+        "hash",
+        "sha256",
+        "sha1",
+        "md5",
+        "sample",
+        "ransomware sample",
+        "trojan",
+        "backdoor",
+        "rat"
+      ]
+    }
+  ]
+}

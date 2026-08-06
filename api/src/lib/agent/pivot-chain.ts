@@ -92,7 +92,43 @@ export function buildPivotChain(entities: QueryEntities): PivotCall[] {
     }
   }
 
+  // ── Actor pivot: enrich_actor + actor_timeline + ransomware group profile ──
+  // Actors have infrastructure (leak sites, payment addresses, C2) and TTPs
+  // worth seeding before the LLM planner takes over. The group profile
+  // (ransomware.live) returns the leak-site URL, payment addresses, and
+  // known infrastructure that the report's Network Communication + IOC
+  // sections need.
+  if (
+    entities.actors.length > 0 &&
+    entities.hashes.length === 0 &&
+    entities.domains.length === 0 &&
+    entities.ips.length === 0
+  ) {
+    const actor = entities.actors[0]!;
+    const slug = actorToSlug(actor);
+    calls.push({ tool: 'enrich_actor', args: { actor: slug }, reason: `Actor profile + aliases + TTPs for ${actor}` });
+    calls.push({ tool: 'actor_timeline', args: { actor: slug }, reason: `Activity timeline for ${actor}` });
+    calls.push({
+      tool: 'get_ransomware_group_profile',
+      args: { slug },
+      reason: `Ransomware group profile (leak site, payment, CVEs) for ${actor}`,
+    });
+    calls.push({
+      tool: 'get_ransomware_activity',
+      args: { group: slug },
+      reason: `Recent leak-site posts + victim disclosures for ${actor}`,
+    });
+  }
+
   return calls;
+}
+
+/** Normalize an actor name to the slug the tools expect (lowercase, hyphenated). */
+function actorToSlug(actor: string): string {
+  return actor
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/^(apt)(\d+)$/, '$1-$2');
 }
 
 /**

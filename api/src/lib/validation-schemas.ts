@@ -809,6 +809,10 @@ export const agentInvestigateSchema = z.object({
     .transform((s) => s.trim()),
   queryType: z.string().max(50).optional(),
   maxSteps: z.number().int().min(1).max(10).optional(),
+  /** User-provided TI-Mindmap-Hub API key. When set, the agent bridges the
+   *  TI-Mindmap MCP tools (timindmap_*) into its tool registry so it can
+   *  search the knowledge graph during investigations. Never persisted. */
+  tiMindmapApiKey: z.string().max(200).optional(),
 });
 
 // ── Briefings (query-param validated) ────────────────────────────

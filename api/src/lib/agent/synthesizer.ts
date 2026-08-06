@@ -21,6 +21,7 @@ import type {
 import { buildSynthesizerSystemPrompt } from './agent-framework';
 import { buildSynthesizerUserPrompt, buildMinimalSynthesizerPrompt } from './prompts';
 import { ReportHeaderSchema } from './schemas';
+import { filterIocEntries, extractInfrastructure, SOURCE_DOMAINS, filterIocs } from './ioc-filter';
 
 interface DataQuality {
   totalOk: number;
@@ -144,6 +145,11 @@ export async function synthesizeReport(
     iocsExtracted: iocs,
     mitreTechniques: mitre,
     actionCard,
+    infrastructure: extractInfrastructure(
+      steps.flatMap((s) =>
+        s.results.filter((r) => r.status === 'ok' && r.data).map((r) => ({ tool: r.tool, data: r.data }))
+      )
+    ),
   };
 }
 
@@ -337,7 +343,7 @@ function normaliseActionCard(card: ReportActionCard, prose: string): ReportActio
         .filter((m) => /^T\d{4}(\.\d{3})?$/.test(m.id))
     : [];
 
-  const iocs = Array.isArray(card.iocs)
+  const rawIocs = Array.isArray(card.iocs)
     ? card.iocs
         .slice(0, 30)
         .map((i) => ({
@@ -354,6 +360,11 @@ function normaliseActionCard(card: ReportActionCard, prose: string): ReportActio
         }))
         .filter((i) => i.value)
     : [];
+  // Filter out non-attacker infrastructure the LLM scraped from tool results
+  // (citation URLs like ransomlook.io, email domains like duck.com, victim
+  // domains, blog-post hashes). These pollute the Indicators panel with false
+  // IOCs that aren't attacker infrastructure.
+  const iocs = filterIocEntries(rawIocs);
 
   const diamond: DiamondModel | undefined = card.diamond
     ? {
@@ -614,34 +625,44 @@ function extractKeyFindings(report: string): string[] {
 
 function extractIocs(report: string): string[] {
   const iocs: string[] = [];
+
+  // Only extract IOCs from the IOC table section (## 6. Indicators of Compromise)
+  // — NOT from the entire report body. Scraping the whole body picks up citation
+  // URLs (ransomlook.io), email domains (duck.com from xenoz84@duck.com), victim
+  // domains (elumax.com), and blog-post hashes (ransomlook post IDs) that are
+  // NOT attacker infrastructure. The IOC table is the only place the LLM is
+  // instructed to list actual indicators.
+  const iocSection = report.match(
+    /##\s*6\.\s*Indicators of Compromise[\s\S]*?(?=##\s*7\.|##\s*7\s|:::handoff|```action-card|$)/i
+  );
+  const haystack = iocSection ? iocSection[0] : '';
+  if (!haystack) return iocs;
+
   const ipv4 = /\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\b/g;
   let m: RegExpExecArray | null;
-  while ((m = ipv4.exec(report)) !== null) {
+  while ((m = ipv4.exec(haystack)) !== null) {
     const ip = m[0];
     const first = Number(ip.split('.')[0]);
     if (first === 0 || first === 127 || first >= 224) continue;
     iocs.push(ip);
   }
   const sha256 = /\b[a-fA-F0-9]{64}\b/g;
-  while ((m = sha256.exec(report)) !== null) iocs.push(m[0]);
-  const SKIP = new Set([
-    'example.com',
-    'example.org',
-    'github.com',
-    'mitre.org',
-    'nvd.nist.gov',
-    'cloudflare.com',
-    'microsoft.com',
-    'google.com',
-    'wikipedia.org',
-  ]);
+  while ((m = sha256.exec(haystack)) !== null) iocs.push(m[0]);
+  // Also catch SHA-1 (40) and MD5 (32) — only in the IOC section, so false
+  // positives from blog-post IDs elsewhere are already excluded.
+  const sha1 = /\b[a-fA-F0-9]{40}\b/g;
+  while ((m = sha1.exec(haystack)) !== null) iocs.push(m[0]);
+  const md5 = /\b[a-fA-F0-9]{32}\b/g;
+  while ((m = md5.exec(haystack)) !== null) iocs.push(m[0]);
   const domains = /\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|org|net|io|co|ru|cn|onion)\b/gi;
-  while ((m = domains.exec(report)) !== null) {
+  while ((m = domains.exec(haystack)) !== null) {
     const d = m[0].toLowerCase();
-    if (SKIP.has(d) || /^\d+\.\d+/.test(d)) continue;
+    if (SOURCE_DOMAINS.has(d) || /^\d+\.\d+/.test(d)) continue;
     iocs.push(d);
   }
-  return [...new Set(iocs)].slice(0, 30);
+  // Apply the shared filter (drops emails, private IPs, source domains a
+  // second time — defense in depth for values that slipped through the regex).
+  return filterIocs(iocs).slice(0, 30);
 }
 
 function extractMitre(report: string): string[] {

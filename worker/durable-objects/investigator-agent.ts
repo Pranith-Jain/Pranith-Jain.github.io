@@ -4,6 +4,7 @@ import type { Env as ApiEnv } from '../../api/src/env';
 import type { AgentState, AgentStep, AgentToolResult, AgentToolCall, IocEntry } from '../../api/src/lib/agent/types';
 import { buildToolRegistry } from '../../api/src/lib/agent/tools';
 import { bridgeMcpTools } from '../../api/src/lib/agent/mcp-bridge';
+import { bridgeTiMindmapTools } from '../lib/ti-mindmap-mcp-bridge';
 import { planNextStep } from '../../api/src/lib/agent/planner';
 import {
   evaluateCtiExit,
@@ -171,6 +172,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         role?: string;
         rolePreamble?: string;
         responseFormat?: string;
+        tiMindmapApiKey?: string;
       };
       const existingId = await checkDuplicate(body.query);
       if (existingId) {
@@ -194,6 +196,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         allowedTools: body.allowedTools,
         rolePreamble: body.rolePreamble,
         responseFormat: body.responseFormat,
+        tiMindmapApiKey: body.tiMindmapApiKey,
       };
       // Reset session-scoped tool-failure state for the new investigation (fix #7).
       this.resetSessionToolState();
@@ -356,11 +359,17 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
     );
     const allToolsWithBridge = [...allTools, ...bridged];
 
+    // Bridge TI-Mindmap MCP tools (user-keyed external knowledge graph).
+    // Only bridged when the user provides their TI-Mindmap API key — the
+    // tools call the upstream MCP directly (server-side, no CORS proxy).
+    const tiMindmapTools = bridgeTiMindmapTools(state.tiMindmapApiKey);
+    const allToolsWithTiMindmap = [...allToolsWithBridge, ...tiMindmapTools];
+
     const allowedTools = state.allowedTools;
     const availableTools =
       allowedTools && allowedTools.length > 0
-        ? allToolsWithBridge.filter((t) => allowedTools.includes(t.name))
-        : allToolsWithBridge;
+        ? allToolsWithTiMindmap.filter((t) => allowedTools.includes(t.name))
+        : allToolsWithTiMindmap;
 
     const stepNum = state.currentStep + 1;
     const stepStart = new Date().toISOString();
@@ -419,7 +428,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
           const { executePivotChain } = await import('../../api/src/lib/agent/pivot-chain');
           const entities = extractQueryEntities(state.query);
           if (hasIndicators(entities)) {
-            const pivotStep = await executePivotChain(entities, allToolsWithBridge);
+            const pivotStep = await executePivotChain(entities, allToolsWithTiMindmap);
             if (pivotStep) {
               state.steps.push(pivotStep);
               this.broadcastToWatchers({ type: 'step', step: pivotStep });
@@ -427,6 +436,33 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
           }
         } catch (_pivotErr) {
           console.error('pivot chain failed:', _pivotErr instanceof Error ? _pivotErr.message : String(_pivotErr));
+        }
+      }
+
+      // ── CTI investigation skill (methodology playbook) ────────────────────
+      // Pick the best-matching methodology skill for the query (IOC pivot,
+      // ransomware deep-dive, CVE triage, APT profiling, etc.) and load its
+      // playbook. The playbook tells the planner which tools to call, which
+      // report sections to populate, and which anti-patterns to avoid. Injected
+      // as specialist context so the LLM follows the methodology.
+      if (!state.ctiSkillPlaybook) {
+        try {
+          const { loadCtiIndex, pickCtiSkillForQuery, getCtiSkill } =
+            await import('../../worker/lib/cti-skills-manifest');
+          const idx = await loadCtiIndex(this.env.ASSETS);
+          const skill = pickCtiSkillForQuery(idx, state.query, state.queryType);
+          if (skill) {
+            const body = await getCtiSkill(this.env.ASSETS, skill.slug);
+            if (body?.bodyMarkdown) {
+              state.ctiSkillPlaybook = {
+                slug: skill.slug,
+                name: skill.name,
+                playbook: body.bodyMarkdown,
+              };
+            }
+          }
+        } catch (_skillErr) {
+          console.error('cti skill load failed:', _skillErr instanceof Error ? _skillErr.message : String(_skillErr));
         }
       }
 
@@ -471,7 +507,7 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         googleKey,
         nvidiaKey,
         infronKey,
-        allToolsWithBridge,
+        allToolsWithTiMindmap,
         workingMemory
       );
       if (burst) return burst;
@@ -504,11 +540,11 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
       }
     }
 
-    let specialistTools = allToolsWithBridge;
+    let specialistTools = allToolsWithTiMindmap;
     let specialistPrompt = '';
 
     if (currentRole) {
-      specialistTools = getToolsForSpecialist(currentRole, allToolsWithBridge);
+      specialistTools = getToolsForSpecialist(currentRole, allToolsWithTiMindmap);
       specialistPrompt = getSpecialistPrompt(
         currentRole,
         specialistTools,
@@ -522,6 +558,9 @@ export class InvestigatorAgentDO extends Agent<Env, InvestigatorAgentState> {
         (specialistPrompt
           ? `\n<specialist_role>${SPECIALIST_REGISTRY[currentRole].label}</specialist_role>\n<specialist_instructions>${specialistPrompt}</specialist_instructions>`
           : '') +
+          (state.ctiSkillPlaybook
+            ? `\n<cti_methodology_skill slug="${state.ctiSkillPlaybook.slug}" name="${state.ctiSkillPlaybook.name}">\n${state.ctiSkillPlaybook.playbook}\n</cti_methodology_skill>`
+            : '') +
           degradedNote +
           (state.priorIntelligence ?? '') || undefined;
 

@@ -1,0 +1,1 @@
+../../../worker/lib/cti-skills-manifest.ts

@@ -6,8 +6,7 @@ import type { AgentToolResult } from '../../src/lib/agent/types';
 const noEntities: QueryEntities = { ips: [], hashes: [], cves: [], domains: [], urls: [], actors: [] };
 
 describe('buildPivotChain', () => {
-  it('returns empty for actor/CVE queries (no indicator to pivot)', () => {
-    expect(buildPivotChain({ ...noEntities, actors: ['APT40'] })).toHaveLength(0);
+  it('returns empty for CVE queries (no indicator to pivot)', () => {
     expect(buildPivotChain({ ...noEntities, cves: ['CVE-2017-0199'] })).toHaveLength(0);
   });
 
@@ -56,6 +55,30 @@ describe('buildPivotChain', () => {
     // domain takes precedence — URL host is the same domain, so no duplicate
     const domainCalls = chain.filter((c) => c.tool === 'lookup_domain');
     expect(domainCalls).toHaveLength(1);
+  });
+
+  it('builds an actor pivot chain with enrich_actor + timeline + group profile + activity', () => {
+    const chain = buildPivotChain({ ...noEntities, actors: ['Qilin'] });
+    const tools = chain.map((c) => c.tool);
+    expect(tools).toContain('enrich_actor');
+    expect(tools).toContain('actor_timeline');
+    expect(tools).toContain('get_ransomware_group_profile');
+    expect(tools).toContain('get_ransomware_activity');
+    expect(chain[0]!.args.actor).toBe('qilin');
+    expect(chain[2]!.args.slug).toBe('qilin');
+    expect(chain[3]!.args.group).toBe('qilin');
+  });
+
+  it('normalizes APT actor names to slugs (APT40 → apt-40)', () => {
+    const chain = buildPivotChain({ ...noEntities, actors: ['APT40'] });
+    expect(chain[0]!.args.actor).toBe('apt-40');
+  });
+
+  it('does not run actor pivot when an IOC is also present (IOC pivot takes precedence)', () => {
+    const chain = buildPivotChain({ ...noEntities, actors: ['Qilin'], ips: ['1.2.3.4'] });
+    const tools = chain.map((c) => c.tool);
+    expect(tools).toContain('check_ioc');
+    expect(tools).not.toContain('enrich_actor');
   });
 });
 

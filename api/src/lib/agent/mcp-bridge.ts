@@ -62,6 +62,9 @@ import {
   type SiSkillCategory,
 } from '../si-manifest';
 
+// CTI investigation skills (custom methodology playbooks)
+import { loadCtiIndex, getCtiSkill, filterCtiSkills, pickCtiSkillForQuery } from '../cti-skills-manifest';
+
 // WinReg manifest (292 Windows registry forensic artifacts)
 import { loadWinRegIndex, getWinRegArtifact, filterArtifacts } from '../winreg-manifest';
 
@@ -485,6 +488,73 @@ export function bridgeMcpTools(
     execute: async (args) => {
       if (!assets) throw new Error('ASSETS binding unavailable');
       return getSiSkill(assets, args.slug as string);
+    },
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  CTI INVESTIGATION SKILLS — cti_* (custom methodology playbooks)
+  //  Markdown playbooks that guide the investigator's methodology per query
+  //  type (IOC pivot, ransomware deep-dive, CVE triage, APT profiling, domain
+  //  infrastructure, malware sample analysis). The agent lists/retrieves these
+  //  to pick the right investigation methodology before running tools.
+  // ══════════════════════════════════════════════════════════════════════
+
+  add({
+    name: 'cti_list_skills',
+    description:
+      'List the custom CTI investigation methodology skills (IOC pivot, ransomware deep-dive, CVE triage, APT profiling, domain infrastructure, malware sample analysis). Each skill is a markdown playbook guiding which tools to call and which report sections to populate. Filter by category or keyword.',
+    params: [
+      { name: 'category', type: 'string', description: 'Filter by skill category', required: false },
+      {
+        name: 'keyword',
+        type: 'string',
+        description: 'Substring match against title / description / trigger keywords',
+        required: false,
+      },
+      { name: 'limit', type: 'number', description: 'Max skills (default 50)', required: false },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCtiIndex(assets);
+      return filterCtiSkills(idx, {
+        category: args.category as string | undefined,
+        keyword: args.keyword as string | undefined,
+        limit: (args.limit as number) ?? 50,
+      });
+    },
+  });
+
+  add({
+    name: 'cti_get_skill',
+    description:
+      'Return the full methodology playbook (markdown) for a CTI investigation skill slug. Use cti_list_skills first to discover slugs. The playbook tells you which tools to call, which report sections to populate, and which anti-patterns to avoid for the investigation type.',
+    params: [
+      { name: 'slug', type: 'string', description: 'Skill slug, e.g. "ioc-pivot-investigation"', required: true },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      return getCtiSkill(assets, args.slug as string);
+    },
+  });
+
+  add({
+    name: 'cti_pick_skill_for_query',
+    description:
+      'Pick the best-matching CTI investigation skill for a query (by trigger keyword match). Returns the skill slug + name so you can retrieve the full playbook with cti_get_skill. Call this at the start of an investigation to load the right methodology.',
+    params: [
+      { name: 'query', type: 'string', description: 'The investigation query text', required: true },
+      {
+        name: 'queryType',
+        type: 'string',
+        description: 'The query type (actor, ioc, cve, ransomware, etc.)',
+        required: false,
+      },
+    ],
+    execute: async (args) => {
+      if (!assets) throw new Error('ASSETS binding unavailable');
+      const idx = await loadCtiIndex(assets);
+      const skill = pickCtiSkillForQuery(idx, args.query as string, (args.queryType as string) ?? '');
+      return skill ?? { slug: null, message: 'No matching skill — use cti_list_skills to browse all methodologies.' };
     },
   });
 

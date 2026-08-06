@@ -1,5 +1,25 @@
 /** Core types for the autonomous DFIR/ThreatIntel investigator agent. */
 
+// ── Infrastructure artifacts (extracted from tool step results) ──────────
+/** Real attacker infrastructure pulled from raw tool JSON — leak-site .onion
+ *  URLs, payment addresses, C2 IPs/domains, name servers, subdomains. Distinct
+ *  from the IOC list (which is regex-scraped from the prose report). */
+export interface InfrastructureArtifact {
+  type:
+    | 'leak_site'
+    | 'onion'
+    | 'payment_address'
+    | 'c2_ip'
+    | 'c2_domain'
+    | 'nameserver'
+    | 'subdomain'
+    | 'resolved_ip'
+    | 'port_service';
+  value: string;
+  context: string;
+  source: string;
+}
+
 // ── Tool definitions ─────────────────────────────────────────────────────
 
 export interface AgentToolParam {
@@ -106,6 +126,16 @@ export interface AgentState {
   rolePreamble?: string;
   /** Role-specific response format instruction. */
   responseFormat?: string;
+  /** User-provided TI-Mindmap-Hub API key (per-session, never persisted).
+   *  When set, the TI-Mindmap MCP tools (timindmap_*) are bridged into the
+   *  agent's tool registry so it can search the knowledge graph during
+   *  investigations. */
+  tiMindmapApiKey?: string;
+  /** CTI investigation methodology playbook loaded at step 1 (matched to the
+   *  query via trigger keywords). Injected into the specialist context so the
+   *  planner follows the right methodology (IOC pivot, ransomware deep-dive,
+   *  CVE triage, APT profiling, etc.). */
+  ctiSkillPlaybook?: { slug: string; name: string; playbook: string };
   /** Current specialist role in the mesh (e.g. 'vulnerability', 'ioc-reputation'). */
   currentSpecialist?: string;
   /** QA verification results (populated after QA phase) */
@@ -327,6 +357,12 @@ export interface SynthesizerOutput {
   mitreTechniques: string[];
   /** Structured action card. Optional for backward compat. */
   actionCard?: ReportActionCard;
+  /** Real attacker infrastructure extracted from tool step results — leak-site
+   *  .onion URLs, payment addresses, C2 IPs/domains, name servers, subdomains.
+   *  Distinct from iocsExtracted (which is regex-scraped from the prose) — this
+   *  is pulled directly from the raw tool JSON so citation URLs and victim
+   *  domains never contaminate it. */
+  infrastructure?: InfrastructureArtifact[];
 }
 
 // ── D1 row shape ─────────────────────────────────────────────────────────

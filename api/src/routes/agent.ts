@@ -44,9 +44,9 @@ async function atomicAgentIncr(c: Context<{ Bindings: Env }>, keyId: string, buc
 
 export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
-    let body: { query?: string; maxSteps?: number };
+    let body: { query?: string; maxSteps?: number; tiMindmapApiKey?: string };
     try {
-      body = await c.req.json<{ query?: string; maxSteps?: number }>();
+      body = await c.req.json<{ query?: string; maxSteps?: number; tiMindmapApiKey?: string }>();
     } catch (_catchErr) {
       logError('agentInvestigateHandler failed', _catchErr);
       return badRequest(c, 'Invalid JSON body');
@@ -94,7 +94,7 @@ export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Pr
     const doRes = await stub.fetch(`https://agent/investigate`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ id, query, queryType, maxSteps }),
+      body: JSON.stringify({ id, query, queryType, maxSteps, tiMindmapApiKey: body.tiMindmapApiKey }),
     });
 
     if (!doRes.ok) {
