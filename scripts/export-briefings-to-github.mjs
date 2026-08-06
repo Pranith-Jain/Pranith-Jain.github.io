@@ -16,11 +16,32 @@ const OUT_DIR = join(process.cwd(), 'briefings-out');
 const DAYS = parseInt(process.argv.find((_, i, a) => a[i - 1] === '--days') ?? '7', 10);
 
 function d1Query(sql) {
-  const raw = execSync(
-    `npx wrangler d1 execute pranithjain-briefings --remote --json --command "${sql.replace(/"/g, '\\"')}"`,
-    { encoding: 'utf8', timeout: 60_000, maxBuffer: 50 * 1024 * 1024, stdio: ['pipe', 'pipe', 'pipe'] }
-  );
-  const parsed = JSON.parse(raw);
+  let raw;
+  try {
+    raw = execSync(
+      `npx wrangler d1 execute pranithjain-briefings --remote --json --command "${sql.replace(/"/g, '\\"')}"`,
+      { encoding: 'utf8', timeout: 60_000, maxBuffer: 50 * 1024 * 1024, stdio: ['pipe', 'pipe', 'pipe'] }
+    );
+  } catch (err) {
+    // Surface the real wrangler/D1 error instead of a generic execSync failure.
+    // Common causes: missing/invalid CLOUDFLARE_API_TOKEN, wrong account, DB
+    // not bound, or a SQL syntax error. Without this, CI fails with a cryptic
+    // "Command failed" and the briefings/ folder silently stops updating.
+    const stderr = err.stderr?.toString?.() ?? '';
+    const stdout = err.stdout?.toString?.() ?? '';
+    const detail = (stderr || stdout || err.message).slice(0, 500);
+    throw new Error(
+      `wrangler d1 execute failed (exit ${err.status ?? '?'}): ${detail}\n` +
+      `Hint: ensure CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID are set and ` +
+      `the token has D1 read access on account 6a7461d701e2e1c989e05137b0255405.`
+    );
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    throw new Error(`wrangler returned non-JSON output (first 300 chars): ${raw.slice(0, 300)}`);
+  }
   const results = parsed?.[0]?.results ?? parsed?.results ?? [];
   return results;
 }
@@ -123,8 +144,11 @@ const slugs = d1Query(
 );
 
 if (slugs.length === 0) {
-  console.log('No briefings found in D1. Nothing to export.');
-  process.exit(0);
+  // Exit NON-zero so CI fails loudly instead of silently publishing an empty
+  // briefings/ folder. An empty result almost always means the D1 query is
+  // broken or the briefing cron stopped — both need a human to notice.
+  console.error(`::error::No briefings found in D1 since ${cutoff}. Aborting (the briefing cron may have stopped).`);
+  process.exit(1);
 }
 
 mkdirSync(OUT_DIR, { recursive: true });

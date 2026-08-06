@@ -29,8 +29,17 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          test -n "$CLOUDFLARE_API_TOKEN" || { echo "::error::CLOUDFLARE_API_TOKEN is not set"; exit 1; }
-          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "::error::CLOUDFLARE_ACCOUNT_ID is not set"; exit 1; }
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::error::CLOUDFLARE_API_TOKEN secret is not set on this repo."
+            echo "Create a Cloudflare API token with D1 read scope (Account > API Tokens > Create Token > Custom) and add it as a repository secret named CLOUDFLARE_API_TOKEN."
+            echo "Dashboard: https://dash.cloudflare.com/profile/api-tokens"
+            exit 1
+          fi
+          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::CLOUDFLARE_ACCOUNT_ID secret is not set on this repo."
+            echo "Find it at https://dash.cloudflare.com/ (right sidebar) and add it as a repository secret named CLOUDFLARE_ACCOUNT_ID."
+            exit 1
+          fi
           node scripts/export-briefings-to-github.mjs --days 30
 
       - name: Push to daily-threat-brief repo
@@ -38,7 +47,11 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           set -euo pipefail
-          test -n "$GH_PAT" || { echo "::error::GH_PAT secret is not set"; exit 1; }
+          if [ -z "$GH_PAT" ]; then
+            echo "::error::GH_PAT secret is not set on this repo."
+            echo "Create a fine-grained PAT (or classic PAT with 'repo' scope) at https://github.com/settings/tokens and add it as a repository secret named GH_PAT."
+            exit 1
+          fi
           # Clone the existing repo and commit exports only under briefings/ so
           # scripts/, workflows/ and history are preserved (NO force push).
           rm -rf /tmp/dtb-sync
@@ -55,4 +68,5 @@ jobs:
           else
             git commit -m "chore: sync PANOPTICON briefings $(date -u +%Y-%m-%d)"
             git push origin main
+            echo "::notice::Pushed $(git diff --name-only HEAD~1 HEAD | wc -l) files to Pranith-Jain/daily-threat-brief"
           fi
