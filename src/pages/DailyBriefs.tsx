@@ -148,7 +148,16 @@ function briefToSummaryItems(
   if (brief.type === 'cyber' || brief.type === 'maritime') {
     const b = brief as CyberBrief;
     items.push({ title: `${b.threatLevel ?? 'Threat'} — Executive Summary`, body: b.executiveSummary ?? '' });
-    for (const f of b.keyFindings ?? []) items.push({ title: f.title, body: f.summary ?? '' });
+    // Maritime keyFindings are strings; cyber keyFindings are {title, summary}.
+    // Handle both shapes so a string finding doesn't produce an undefined title
+    // (which fails the /api/v1/ai-summary schema's title min(1) validation → 400).
+    for (const f of (b.keyFindings ?? []) as Array<{ title?: string; summary?: string } | string>) {
+      if (typeof f === 'string') {
+        items.push({ title: 'Key Finding', body: f });
+      } else {
+        items.push({ title: f.title ?? 'Key Finding', body: f.summary ?? '' });
+      }
+    }
     for (const e of b.events ?? []) items.push({ title: e.title, body: e.text ?? '', source: e.sources?.[0]?.label });
     if (b.outlook72h) items.push({ title: '72h Outlook', body: b.outlook72h });
   } else if (brief.type === 'deepfake') {
@@ -321,7 +330,6 @@ function CyberBriefView({ brief }: { brief: CyberBrief }) {
         dayKey={brief.date}
         items={briefToSummaryItems(brief)}
         requireAdmin={false}
-        autoFetch
       />
 
       {/* KPIs */}
@@ -604,7 +612,6 @@ function DeepfakeBriefView({ brief }: { brief: DeepfakeBrief }) {
         dayKey={brief.date}
         items={briefToSummaryItems(brief)}
         requireAdmin={false}
-        autoFetch
       />
 
       {/* Key Findings */}
@@ -754,7 +761,6 @@ function DisasterBriefView({ brief }: { brief: DisasterBrief }) {
         dayKey={brief.date}
         items={briefToSummaryItems(brief)}
         requireAdmin={false}
-        autoFetch
       />
 
       {/* KPIs */}
