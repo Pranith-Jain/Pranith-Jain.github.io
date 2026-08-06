@@ -275,6 +275,14 @@ ${
 
 Date range of observed activity. For actor queries: from actor_timeline; for CVE: from NVD publication date; for IOC: from first/last seen lifecycle data.
 
+### Network Communication
+
+Raw network artifacts from the pivot chain / sandbox / passive-DNS tool data. Surface the actual observed traffic — HTTP requests, TCP flows, DNS resolutions, subdomains, contacted IPs — so a reader can build detection rules directly from this section. Include EVERY infrastructure detail the tools returned: subdomains, resolved IPs, name servers, ASNs, ports/services, HTTP request paths, C2 channels. If no network artifacts were observed, OMIT this subsection.
+
+| Artifact Type | Value | Context |
+|---|---|---|
+| (from tool data) | (exact value) | (role: C2 / delivery / resolver / pivot) |
+
 ### Related Reporting
 
 Cite advisories, vendor blogs, indictments, internal reports, and partner-shared analyses covering the same activity. Format: [Source Name](url) — what it provided.
@@ -299,7 +307,7 @@ ${
 
 ## 6. Indicators of Compromise
 
-Pyramid of Pain tiers. Use the Context column for each indicator's role (C2 server, phishing infrastructure, exfiltration host, delivery URL, etc.).
+Pyramid of Pain tiers. Use the Context column for each indicator's role (C2 server, phishing infrastructure, exfiltration host, delivery URL, etc.). Surface EVERY indicator from the tool data — exact values matter for detection engineering. The Network Artifacts row should list observed HTTP requests, TCP flows, and DNS resolutions verbatim from the pivot chain / sandbox / passive-DNS results.
 
 ${
   isHash
