@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { ExternalLink, Filter, RefreshCw, Search } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { DataState } from '../../components/DataState';
 import { relativeAgo } from '../../lib/relativeTime';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { PostAnalysisButton } from '../../components/threatintel/PostAnalysisButton';
 
 interface NewsItem {
   title: string;
@@ -55,11 +57,28 @@ export default function CyberNewsFeed(): JSX.Element {
 
   const { data, loading, error, refetch } = useDataFetch<NewsResult>({ url, ttl: 300_000 });
 
-  const filtered = data?.articles.filter(
-    (a) =>
-      !query ||
-      a.title.toLowerCase().includes(query.toLowerCase()) ||
-      a.description.toLowerCase().includes(query.toLowerCase())
+  const filtered = useMemo(
+    () =>
+      data?.articles.filter(
+        (a) =>
+          !query ||
+          a.title.toLowerCase().includes(query.toLowerCase()) ||
+          a.description.toLowerCase().includes(query.toLowerCase())
+      ),
+    [data, query]
+  );
+
+  // Items shaped for the AI summary card — title + body + source, capped at
+  // 30 so the summariser stays inside the model context budget (matches the
+  // ThreatSignalRss / AlertFeed pattern).
+  const summaryItems = useMemo(
+    () =>
+      (filtered ?? []).slice(0, 30).map((a) => ({
+        title: a.title,
+        body: a.description,
+        source: a.source,
+      })),
+    [filtered]
   );
 
   return (
@@ -122,6 +141,11 @@ export default function CyberNewsFeed(): JSX.Element {
       >
         {data && (
           <>
+            {/* AI summary of the visible news cut. Public surface so every
+                visitor sees the analyst take on the prioritised articles. */}
+            {summaryItems.length > 0 && (
+              <AiSummaryCard surface="Cyber Security News" items={summaryItems} requireAdmin={false} className="mb-4" />
+            )}
             <div className="text-xs text-slate-500 dark:text-slate-400">
               {filtered?.length ?? 0} articles - updated {relativeAgo(data.last_updated)}
             </div>
@@ -129,11 +153,8 @@ export default function CyberNewsFeed(): JSX.Element {
               {filtered?.map((article, i) => {
                 const tier = (TIER_LABELS[article.tier] ?? TIER_LABELS[5])!;
                 return (
-                  <a
+                  <div
                     key={`${article.link}-${i}`}
-                    href={article.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="block p-3 bg-white dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-[rgb(var(--border-400))] rounded-xl hover:border-rose-300 dark:hover:border-rose-600 transition-colors group"
                   >
                     <div className="flex items-start gap-3">
@@ -156,10 +177,24 @@ export default function CyberNewsFeed(): JSX.Element {
                               {relativeAgo(article.pub_date)}
                             </span>
                           )}
+                          <PostAnalysisButton
+                            title={article.title}
+                            description={article.description}
+                            source={article.source}
+                            link={article.link}
+                            compact
+                          />
                         </div>
                         <h3 className="text-sm font-medium text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400 line-clamp-2 flex items-center gap-1">
-                          {article.title}
-                          <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 flex-shrink-0" />
+                          <a
+                            href={article.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1"
+                          >
+                            {article.title}
+                            <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 flex-shrink-0" />
+                          </a>
                         </h3>
                         {article.description && (
                           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
@@ -168,7 +203,7 @@ export default function CyberNewsFeed(): JSX.Element {
                         )}
                       </div>
                     </div>
-                  </a>
+                  </div>
                 );
               })}
             </div>
