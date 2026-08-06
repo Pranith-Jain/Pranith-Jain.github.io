@@ -62,10 +62,17 @@ jobs:
       - name: Commit to main
         if: steps.changes.outputs.changed == 'true'
         run: |
+          # Auto/data commits: skip husky/lint-staged (prettier reformats the
+          # generated minified JSON back to HEAD, making the commit empty and
+          # aborting the run — same fix as webamon-dtb-sync.yml).
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(daily-briefs): sync intelligence briefs $(date -u +%Y-%m-%d)"
-          git push origin main
+          if git diff --cached --quiet HEAD; then
+            echo "Nothing to commit after all."
+          else
+            git commit --no-verify -m "chore(daily-briefs): sync intelligence briefs $(date -u +%Y-%m-%d)"
+            git push origin main
+          fi
 
       # ── Deploy (only when data changed) ─────────────────────────────
       - name: Typecheck
