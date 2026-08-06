@@ -35,7 +35,7 @@ export function buildObserverPrompt(): string {
 <output_format>
 {
   "observation": "1-2 sentence summary of what this tool revealed and which Diamond Model vertex it populated",
-  "keyFacts": ["<specific fact with exact value + source, e.g. 'CVE-2024-3400 CVSS 9.8 critical — PAN-OS RCE [source: lookup_cve]' or 'AS12345 hosts 4 additional malicious IPs [source: enrich_ioc_deep]'>"],
+  "keyFacts": ["<specific fact with exact value + source, e.g. 'CVE-XXXX-XXXXX CVSS X.X critical — <product> RCE [source: lookup_cve]' or '<ASN> hosts N additional malicious IPs [source: enrich_ioc_deep]'>"],
   "iocs": ["<extracted IOC values: IPs, domains, hashes, URLs — exact strings from the tool response>"],
   "actors": ["<threat actor / ransomware group names found in the tool response, e.g. APT28, LockBit>"],
   "cves": ["<CVE IDs found in the tool response, e.g. CVE-2024-3400>"],
@@ -255,7 +255,7 @@ ${
     : isCve
       ? `Document affected products, vendors, and versions from lookup_cve. Use table when multiple products.`
       : isIoc
-        ? `Document the infrastructure context: ASN, host, co-hosted domains, registered owner from lookup_asn / lookup_domain / lookup_ipinfo.`
+        ? `Document the FULL infrastructure context: ASN, host, co-hosted domains, registered owner, name servers, resolved subdomains, ports/services, certificate details from lookup_asn / lookup_domain / lookup_ipinfo / passive_dns_lookup. Include every infrastructure pivot the tools surfaced — subdomains, contacted IPs, C2 channels, DNS resolutions. This is the core of the report.`
         : `Document the affected entity or sector.`
 }
 
@@ -307,7 +307,7 @@ ${
 
 ## 6. Indicators of Compromise
 
-Pyramid of Pain tiers. Use the Context column for each indicator's role (C2 server, phishing infrastructure, exfiltration host, delivery URL, etc.). Surface EVERY indicator from the tool data — exact values matter for detection engineering. The Network Artifacts row should list observed HTTP requests, TCP flows, and DNS resolutions verbatim from the pivot chain / sandbox / passive-DNS results.
+Pyramid of Pain tiers. Use the Context column for each indicator's role (C2 server, phishing infrastructure, exfiltration host, delivery URL, etc.). Surface EVERY indicator from the tool data — exact values matter for detection engineering. Include ALL infrastructure details the tools returned: IPs, domains, subdomains, hashes, URLs, ASN, name servers, ports/services, C2 channels, certificate fingerprints. Do NOT omit infrastructure just because it wasn't the primary query — co-hosted domains, resolved subdomains, and contacted IPs are all IOCs. The Network Artifacts row should list observed HTTP requests, TCP flows, and DNS resolutions verbatim from the pivot chain / sandbox / passive-DNS results.
 
 ${
   isHash
@@ -438,7 +438,7 @@ Auto-fill all fields from investigation metadata.
 
 | | |
 |---|---|
-| **Report Title** | Auto-generated from query: [brief title, e.g. "CVE-2026-1234 Exploitation Analysis" or "IP 1.2.3.4 C2 Infrastructure Report"] |
+| **Report Title** | Auto-generated from query: [brief title derived from the query, e.g. "<CVE-ID> Exploitation Analysis" or "<indicator> Infrastructure Report"] |
 | **Publication Date** | ${currentDate ?? new Date().toISOString().split('T')[0]} |
 | **Report Classification** | TLP: [CLEAR / GREEN / AMBER / RED — match the report-header TLP] |
 
@@ -465,7 +465,7 @@ analyst_approval_required: true
 - **Structural contract (non-negotiable)**: The report MUST start with a \`\`\`report-header JSON block and MUST end with a \`\`\`action-card JSON block, with a :::handoff block between the prose and the action-card. A report missing any of these three blocks is structurally invalid and will be rejected by QA regardless of prose quality.
 - **Integrity**: Write ONLY about data that EXISTS in tool results. NEVER invent CVE IDs, CVSS scores, EPSS values, actor names, technique IDs, hashes, IPs, or dates. DO NOT cite tools that returned 0 results or errored.
 - **Attribution**: NEVER attribute ransomware data to a non-ransomware actor. NEVER merge data across entities — every claim must trace to a tool result that explicitly names the entity.
-- **Voice**: The report presents FINDINGS, not process. NEVER say "Tool X returned Y", "The actor_timeline tool provided", "The get_victim_releaks tool returned", or any variant that names the tool in the prose. Active voice, present tense. "Block 1.2.3.4" not "1.2.3.4 should be blocked." Synthesize the data into intelligence — the reader cares about the threat, not which API was called. Tool names belong ONLY in the Methodology section's source list.
+- **Voice**: The report presents FINDINGS, not process. NEVER say "Tool X returned Y", "The actor_timeline tool provided", "The get_victim_releaks tool returned", or any variant that names the tool in the prose. Active voice, present tense. Synthesize the data into intelligence — the reader cares about the threat, not which API was called. Tool names belong ONLY in the Methodology section's source list.
 - **Format**: Each section heading and table structure must match exactly. No extra commentary between sections. The prose goes in the section body, not the table cells.
 - **Confidence marking**: [Confirmed] (2+ sources), [Probable] (1 source), [Possible] (weak signal). Use ISO dates (YYYY-MM-DD). Times in UTC. Separate confidence (evidence strength) from likelihood (forward-looking probability) per ICD-203; mark likelihood "n/a (observed)" for retrospective findings.
 - **Compactness**: ≤1500 words. Dense sentences. No filler. One fact per sentence is ideal. OMIT a section if you have <2 data points for it.
