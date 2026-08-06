@@ -344,6 +344,28 @@ ${
 
 ## 7. Defensive Implications
 
+### Defensive Checklist
+
+A concrete, prescriptive checklist of actions the reader's team must take. Generate each item from the actual IOCs, TTPs, and infrastructure in this report — do NOT use generic boilerplate. Each item must reference a specific finding (IOC, MITRE ID, or infrastructure detail) from the report. Group by priority: Immediate (contain) → Short-term (harden) → Ongoing (monitor).
+
+**Immediate (contain — act within hours):**
+- [ ] Block the IOCs in this report at the perimeter firewall / proxy / EDR (list the specific IPs/domains/hashes from section 6)
+- [ ] Hunt for the observed TTPs in the last 24h–7d of logs (reference the MITRE IDs from section 5)
+- [ ] Isolate any confirmed-compromised hosts matching the indicators
+
+**Short-term (harden — act within days):**
+- [ ] Enforce Zero Trust / least-privilege on the affected systems (restrict network movement, verify access)
+- [ ] Enable MFA on accounts that could be reached via the observed initial-access vector
+- [ ] Segment networks to isolate critical systems from the affected blast radius
+- [ ] Patch the specific CVEs / vulnerabilities named in this report (reference section 6)
+- [ ] Deploy detection rules from the Detection Engineering Content below to the SIEM
+
+**Ongoing (monitor — continuous):**
+- [ ] Monitor OSINT / dark-web feeds for the actor's evolving infrastructure and TTPs
+- [ ] Analyze new infrastructure pivoting from the IOCs in this report (passive DNS on the domains, ASN pivots on the IPs)
+- [ ] Join threat-intelligence sharing (ISACs, partner networks) for the actor's latest campaigns
+- [ ] Reverse-engineer associated malware samples (reference the hashes from section 6) to uncover new attack strategies
+
 ### Defensive Measures
 
 Ordered by priority (highest-impact first). Each row tags the team(s) responsible so stakeholders can filter. Stakeholder tags: CTI / SOC / IR / VMGT / RED / AWARE / EXEC / LEGAL / TPRM.
