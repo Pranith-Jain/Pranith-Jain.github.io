@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { api } from '../lib/api-client';
 import { memoryCache } from '../infrastructure/cache/memory-cache';
+import { isAbortError } from '../lib/abort-error';
 
 export interface UseDataFetchOptions<T> {
   url: string | null;
@@ -50,7 +51,7 @@ export function useDataFetch<T = unknown>({
       setStale(false);
     } catch (err) {
       if (!mountedRef.current || signal.aborted) return;
-      if (err instanceof DOMException && err.name === 'AbortError') return;
+      if (isAbortError(err)) return;
       const msg = err instanceof Error ? err.message : String(err);
       setError(msg);
       setLoading(false);

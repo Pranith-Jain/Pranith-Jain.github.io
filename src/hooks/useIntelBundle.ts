@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { isAbortError } from '../lib/abort-error';
 
 /**
  * useIntelBundle - fetch (or compute-on-miss) a STIX 2.1 intel bundle for a
@@ -165,7 +166,7 @@ export function useIntelBundle(options: UseIntelBundleOptions): UseIntelBundleRe
         setView(json.view);
         setStatus('ready');
       } catch (err) {
-        if ((err as { name?: string }).name === 'AbortError') return;
+        if (isAbortError(err)) return;
         setError(err instanceof Error ? err.message : String(err));
         setStatus('error');
       }

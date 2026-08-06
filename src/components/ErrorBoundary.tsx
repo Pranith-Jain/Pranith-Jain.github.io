@@ -1,5 +1,6 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react';
 import { AlertTriangle, RefreshCw, Home, ChevronDown, ChevronUp, Download } from 'lucide-react';
+import { isAbortError } from '../lib/abort-error';
 
 /**
  * Detect "stale chunk" failures: when a deploy bumped Vite's content-hashed
@@ -54,6 +55,15 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: Error): Partial<State> {
+    // Abort errors (DOMException name 'AbortError', message 'signal is
+    // aborted without reason') are expected control flow — they fire when a
+    // component unmounts or re-fetches and its AbortController.abort() runs.
+    // They are NOT real errors and must never surface to the user. We still
+    // enter the error state (React requires it), but render() will show a
+    // benign empty fallback for aborts instead of the error UI. This is the
+    // safety net: individual catch blocks should also swallow aborts, but
+    // this guarantees no abort ever reaches the error fallback UI even if a
+    // catch block forgets to check.
     return {
       hasError: true,
       error,
@@ -61,6 +71,13 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    // Abort errors are expected control flow (unmount/refetch) — don't log
+    // them as errors and don't set error state. getDerivedStateFromError
+    // already filtered them, but this prevents the console.error noise and
+    // the onError callback from firing for aborts.
+    if (isAbortError(error)) {
+      return;
+    }
     this.setState({
       error,
       errorInfo,
@@ -105,6 +122,14 @@ export class ErrorBoundary extends Component<Props, State> {
     const { children, fallback } = this.props;
 
     if (hasError && error) {
+      // Abort errors (signal is aborted without reason) are expected control
+      // flow from unmount/refetch — render a benign empty fragment instead
+      // of the error UI. This is the safety net; catch blocks should swallow
+      // aborts first, but this guarantees no abort ever reaches the fallback.
+      if (isAbortError(error)) {
+        return null;
+      }
+
       if (fallback) {
         return fallback;
       }

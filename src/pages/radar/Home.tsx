@@ -1,6 +1,7 @@
 import { useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, Radar, Globe, Shield, Code, Lock, ArrowRight, Loader2 } from 'lucide-react';
+import { isAbortError } from '../../lib/abort-error';
 import { RadarStructuredData } from '../../components/ToolStructuredData';
 import { FaqStructuredData } from '../../components/FaqStructuredData';
 import { PageMeta } from '../../components/PageMeta';
@@ -36,8 +37,8 @@ export default function RadarHome() {
       const data = await res.json();
       if (!ctrl.signal.aborted) navigate(`/radar/scan/${data.id}`);
     } catch (err) {
+      if (isAbortError(err)) return;
       console.error('RadarHome failed:', err instanceof Error ? err.message : String(err));
-      if ((err as Error).name === 'AbortError') return;
       setError(err instanceof Error ? err.message : 'Scan failed');
     } finally {
       if (!ctrl.signal.aborted) setScanning(false);

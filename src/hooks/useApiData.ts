@@ -21,6 +21,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { api, ApiError } from '../lib/api-client';
 import { memoryCache } from '../infrastructure/cache/memory-cache';
+import { isAbortError } from '../lib/abort-error';
 
 export interface UseApiDataOptions<T> {
   /** Initial data while loading. */
@@ -69,7 +70,7 @@ export function useApiData<T = unknown>(url: string | null, options: UseApiDataO
         setLoading(false);
       } catch (err) {
         if (!mountedRef.current || signal.aborted) return;
-        if (err instanceof DOMException && err.name === 'AbortError') return;
+        if (isAbortError(err)) return;
         const msg = err instanceof ApiError ? err.message : err instanceof Error ? err.message : String(err);
         setError(msg);
         setLoading(false);
