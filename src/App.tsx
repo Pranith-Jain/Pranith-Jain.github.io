@@ -128,6 +128,7 @@ const Nhi = lazy(() => import('./pages/dfir/Nhi'));
 const Pivex = lazy(() => import('./pages/dfir/Pivex'));
 const CryptoTracer = lazy(() => import('./pages/dfir/CryptoTracer'));
 const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
+const PowershellAnalyzer = lazy(() => import('./pages/dfir/PowershellAnalyzer'));
 const InvestigationHistory = lazy(() => import('./pages/threatintel/InvestigationHistory'));
 const Tabletop = lazy(() => import('./pages/dfir/Tabletop'));
 const DetectionChokepointsHub = lazy(() => import('./pages/dfir/DetectionChokepointsHub'));
@@ -518,6 +519,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/dmarc-analyzer', Component: DmarcAnalyzer },
   { path: '/dfir/nhi', Component: Nhi },
   { path: '/dfir/powershell-deobf', Component: PowershellDeobf },
+  { path: '/dfir/powershell-analyzer', Component: PowershellAnalyzer },
   { path: '/dfir/agent-history', Component: InvestigationHistory },
   { path: '/dfir/agent-suite', Component: AgentSuite },
   { path: '/dfir/tabletop', Component: Tabletop },

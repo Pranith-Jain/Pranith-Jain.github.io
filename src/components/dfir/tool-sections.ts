@@ -273,6 +273,13 @@ export const SECTIONS: Section[] = [
         icon: Terminal,
       },
       {
+        path: '/dfir/powershell-analyzer',
+        useCase: 'Static-analyze a PowerShell script for malicious behavior.',
+        label: 'PowerShell Security Analyzer',
+        desc: '250+ signatures · MITRE ATT&CK mapping · IOC extraction · obfuscation scoring · risk score · 100% client-side',
+        icon: ShieldCheck,
+      },
+      {
         path: '/dfir/pe',
         useCase: 'Profile a suspicious binary before reversing.',
         label: 'PE Static Analyzer Lite',
