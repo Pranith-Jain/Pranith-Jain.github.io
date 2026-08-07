@@ -83,7 +83,11 @@ async function writeJobsCache(jobs: FeedJob[]): Promise<void> {
 async function listJobs(db: D1Database): Promise<FeedJob[]> {
   const cached = await readJobsCached();
   if (cached) return cached;
-  const { results } = await db.prepare(`SELECT id, name, source_url, interval_minutes, parser, enabled, created_at, last_run_at, last_status, last_item_count, last_error, tags FROM  ORDER BY created_at DESC`).all<FeedJob>();
+  const { results } = await db
+    .prepare(
+      `SELECT id, name, source_url, interval_minutes, parser, enabled, created_at, last_run_at, last_status, last_item_count, last_error, tags FROM ${FEED_JOBS_TABLE} ORDER BY created_at DESC`
+    )
+    .all<FeedJob>();
   const jobs = (results ?? []).map((r) => ({ ...r, tags: JSON.parse((r.tags as unknown as string) ?? '[]') }));
   await writeJobsCache(jobs);
   return jobs;
@@ -124,7 +128,9 @@ export { listJobs, saveJobs };
  */
 async function readJobHistory(db: D1Database, jobId: string): Promise<FeedRunHistory[]> {
   const { results } = await db
-    .prepare(`SELECT id, job_id, started_at, finished_at, status, item_count, error FROM  WHERE job_id = ? ORDER BY started_at DESC LIMIT ?`)
+    .prepare(
+      `SELECT id, job_id, started_at, finished_at, status, item_count, error FROM ${FEED_HISTORY_TABLE} WHERE job_id = ? ORDER BY started_at DESC LIMIT ?`
+    )
     .bind(jobId, MAX_HISTORY)
     .all<FeedRunHistory>();
   return results ?? [];
