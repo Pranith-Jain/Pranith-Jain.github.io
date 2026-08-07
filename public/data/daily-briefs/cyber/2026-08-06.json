@@ -1,0 +1,135 @@
+{
+  "type": "cyber",
+  "date": "2026-08-06",
+  "threatLevel": "",
+  "executiveSummary": "State-linked threat activity against OT is ongoing. U.S. agencies report Iranian-affiliated actors actively compromising PLCs across Government Services, Water/Wastewater, and Energy, including manipulation of project files and alarms. Immediate removal of internet exposure and logic integrity validation are directed. Security Advisory CISA separately urged the Water/Wastewater sector to protect internet-exposed PLCs after observed password changes and IP reconfiguration caused boil-water notices and manual operations. Security Advisory Supply-chain and perimeter management exposures remain high-risk: actively exploited TeamCity RCE and N-able N-central auth bypass were added to CISA's KEV Catalog, enabling CI/CD takeover and MSP-driven lateral movement into operators. CISA KEV CISA KEV Factory-implanted backdoors were found in multiple Zbtlink routers used at the edge; an unauthenticated root shell is exposed and beacons every ~35 seconds-high risk of OT pivot at remote/field sites. View Article Enterprise gateways remain a principal ingress: F5 BIG-IP APM and Ivanti EPMM unauthenticated RCEs show active exploitation and web-shell persistence. Organizations should isolate, patch, and perform compromise assessments before re-enrollment. CERT-FR Alert CERT-FR Alert Adversary use of covert router/IOT networks for staging and masking operations continues at scale (FSB Center 16; PRC \"covert networks\"), with strong recommendations to harden SNMP/SMI, disable TFTP/FTP, and replace EoL devices. Security Advisory Security Advisory",
+  "keyFindings": [
+    {
+      "title": "Adversaries are actively changing PLC configurations and project logic on intern",
+      "summary": "Adversaries are actively changing PLC configurations and project logic on internet-exposed systems; multiple agencies document real operational impacts and urge immediate segmentation and access control. Security Advisory"
+    },
+    {
+      "title": "Edge device compromise and router misuse remain a systemic risk",
+      "summary": "FSB Center 16 (Russia) abuses SNMP and Smart Install; PRC-nexus actors operate large covert SOHO/IoT botnets to mask operations. Security Advisory Security Advisory"
+    },
+    {
+      "title": "Supply-chain footholds via CI/CD, RMM, and package ecosystems are being actively",
+      "summary": "Supply-chain footholds via CI/CD, RMM, and package ecosystems are being actively exploited (TeamCity RCE; N-central auth bypass; ChainDrop/keyv npm worm). CISA KEV View Article"
+    },
+    {
+      "title": "Factory-implanted backdoors in Zbtlink routers allow unauthenticated root shells",
+      "summary": "Factory-implanted backdoors in Zbtlink routers allow unauthenticated root shells and periodic beaconing, enabling rapid enterprise-to-OT pivot at remote sites. View Article"
+    },
+    {
+      "title": "Gateway/RAS platforms under active exploitation (F5 BIG-IP APM, Ivanti EPMM) war",
+      "summary": "Gateway/RAS platforms under active exploitation (F5 BIG-IP APM, Ivanti EPMM) warrant isolation, patching, log review, and re-enrollment procedures. CERT-FR Alert CERT-FR Alert"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "CRITICAL",
+        "label": ""
+      },
+      {
+        "value": "11+",
+        "label": ""
+      },
+      {
+        "value": "26",
+        "label": ""
+      },
+      {
+        "value": "30+",
+        "label": ""
+      },
+      {
+        "value": "12",
+        "label": ""
+      },
+      {
+        "value": "9+",
+        "label": ""
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [
+      "Rockwell Automation (CompactLogix, Micro850, MicroLogix)",
+      "Schneider Electric (Modicon M340/BMX P34)",
+      "Siemens S7-1200",
+      "libiec61850 (MZ Automation)",
+      "JetBrains TeamCity",
+      "N-able N-central",
+      "Cisco Secure FMC",
+      "F5 BIG-IP APM",
+      "Ivanti EPMM/Sentry",
+      "Zbtlink Routers",
+      "PcVue",
+      "Apache IoTDB / Camel / ActiveMQ",
+      "BeyondTrust Remote Support",
+      "EVbee / Autel EVSE",
+      "GeoServer"
+    ],
+    "sectors": [
+      "Rockwell Automation (CompactLogix, Micro850, MicroLogix)",
+      "Schneider Electric (Modicon M340/BMX P34)",
+      "Siemens S7-1200",
+      "libiec61850 (MZ Automation)",
+      "JetBrains TeamCity",
+      "N-able N-central",
+      "Cisco Secure FMC",
+      "F5 BIG-IP APM",
+      "Ivanti EPMM/Sentry",
+      "Zbtlink Routers",
+      "PcVue",
+      "Apache IoTDB / Camel / ActiveMQ",
+      "BeyondTrust Remote Support",
+      "EVbee / Autel EVSE",
+      "GeoServer"
+    ]
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iran-affiliated operators: Active PLC intrusions with program/download abuse and HMI manipulation across multiple sectors. Security Advisory",
+        "Russia FSB Center 16: Router exploitation using SNMP defaults and Cisco Smart Install to steal configs via TFTP/FTP, enabling credential theft and pivoting. Security Advisory",
+        "Mirage Kitten (UNC1549): New backdoors and WebSocket tunnelers target telecom/government/aerospace with DLL hijacking and proxy-aware C2. View Article",
+        "Pro-Russia hacktivists: Opportunistic HMI/VNC exposure abuse causing loss-of-view/parameter manipulation; prioritize VNC elimination from internet per guidance. Security Advisory"
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Initial access via exposed OT services and weak/absent auth; router/SNMP/SMI abuse; default credentials (ATT&CK: T1190, T1078, T1110).",
+      "Supply-chain compromise of CI/CD and npm packages leading to credential theft and artifact poisoning (T1195, T1552, T1555).",
+      "Web-shells and deserialization RCE on gateways/APM/CI; living-off-the-land via SQL xp_cmdshell, PowerShell/WinRM (T1505.003, T1059, T1210).",
+      "PLC program/download manipulation, alarm suppression, parameter changes; HMI/VNC abuse (ICS: T0843, T0851; Enterprise: T1021.005).",
+      "Covert tunneling and WSS/HTTPS C2; SOCKS proxies; residential proxy masking (T1090, T1572)."
+    ],
+    "mitreIds": [
+      "T1190",
+      "T1078",
+      "T1110",
+      "T1195",
+      "T1552",
+      "T1555",
+      "T1505.003",
+      "T1059",
+      "T1210",
+      "T0843",
+      "T0851",
+      "T1021.005",
+      "T1090",
+      "T1572"
+    ]
+  },
+  "outlook72h": "Complete emergency checks for internet-exposed PLCs and router/CPE at remote sites. If found: disconnect, validate configurations, and restore from clean backups. Patch TeamCity, N-central, F5 APM, Cisco FMC, Ivanti EPMM; remove public exposure; rotate keys/tokens; review logs for unauthorized admin actions and web-shells. Block Zbtlink backdoor infrastructure and inspect for /usr/sbin/kworker and related artifacts on listed models; plan device replacement. Audit CI/CD artifacts released in the last 30 days; rebuild/sign from trusted environments if TeamCity exposure is suspected. Deploy or tune OT protocol monitoring (CIP/S7/Modbus) to alert on downloads/mode changes and alarm suppression patterns.",
+  "relatedCves": [
+    "CVE-2026-63077",
+    "CVE-2026-50751"
+  ]
+}

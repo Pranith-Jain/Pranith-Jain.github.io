@@ -1,0 +1,49 @@
+{
+  "type": "disaster",
+  "date": "2026-08-06",
+  "overallThreat": "",
+  "executiveSummary": "Widespread wildfires across France, Spain, and Greece have triggered one of Europe's largest recent evacuations, with reporting varying from roughly 250,000 to 375,000 people displaced in France and Spain, and additional evacuations and fatalities in Greece. View Article Supporting Report Japan's Kumamoto Prefecture continues earthquake response and recovery amid lethal aftershocks, significant building damage, and large-scale evacuations; hospitals and transport systems reported disruptions. Source View Article In the United States, a fast-moving wildfire around Spokane, Washington has displaced an estimated 60,000-67,000 people and destroyed hundreds of structures, with evacuation zones still active. Source China's Guangdong province and broader parts of Asia faced extreme rainfall and tropical storm conditions; evacuations in Guangdong approached 900,000 with transport disruption and power impacts reported. View Article Supporting Report Severe floods in Texas Hill Country led to mass evacuation orders and numerous water rescues, with at least two fatalities and extensive road closures. View Article Supporting Report",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "European wildfires have driven extraordinary evacuations, with reporting ranging",
+      "summary": "European wildfires have driven extraordinary evacuations, with reporting ranging from 250,000 to 375,000 displaced across France and Spain; Greece faced deadly incidents and coastal access constraints. View Article"
+    },
+    {
+      "title": "Japan's Kumamoto earthquake caused at least 36 fatalities, over 100 injuries, an",
+      "summary": "Japan's Kumamoto earthquake caused at least 36 fatalities, over 100 injuries, and widespread structural damage, with ongoing heat risk for evacuees. Source"
+    },
+    {
+      "title": "Spokane, Washington wildfires triggered 60,000-67,000 evacuations and destroyed ",
+      "summary": "Spokane, Washington wildfires triggered 60,000-67,000 evacuations and destroyed hundreds of buildings; threat remains in surrounding communities. View Article"
+    },
+    {
+      "title": "Guangdong, China evacuated roughly 900,000 people amid Tropical Storm Noul; rail",
+      "summary": "Guangdong, China evacuated roughly 900,000 people amid Tropical Storm Noul; rail and expressways were disrupted before partial resumption. Source"
+    },
+    {
+      "title": "Texas Hill Country flooding caused multiple fatalities, more than 230 rescues, a",
+      "summary": "Texas Hill Country flooding caused multiple fatalities, more than 230 rescues, and widespread road closures; additional evacuations were enforced along major rivers. View Article"
+    },
+    {
+      "title": "France recorded about 5,700 excess deaths during June's heat wave, straining mor",
+      "summary": "France recorded about 5,700 excess deaths during June's heat wave, straining mortuaries and hospitals-compounding wildfire risk and response. Source"
+    },
+    {
+      "title": "Venezuela's post-earthquake public health risks include potential water contamin",
+      "summary": "Venezuela's post-earthquake public health risks include potential water contamination, disease spread, and access constraints from blocked roads. Source"
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Wildfires (EU/US): Elevated fire weather in parts of Western US may hinder containment and evacuation reentry timelines; European fires may continue to threaten perimeters where winds intensify. Uncertainty remains high near urban-wildland interfaces. Source Japan Earthquake: Continued aftershock risk and infrastructure checks likely to sustain shelter demand and health service load in Kumamoto. View Article South China/Asia Flooding: Rainband variability could prolong localized flooding and transit disruptions; authorities may retain contingency evacuations in exposed river basins. Supporting Report Texas Floods: Recurrent convective storms could trigger renewed flash-flood pockets; residual hazards persist near saturated river corridors. Source",
+  "regionalTrends": [
+    "Europe: Heat and wind are sustaining large, fast-moving fires across France, Spain, and Greece, with repeated evacuations and smoke-related health advisories. Source",
+    "East Asia: Concurrent monsoon and cyclone effects are producing high evacuation counts and complex transport disruptions, especially in Guangdong. Source",
+    "United States: Prolonged, dangerous heat in the West is compounding wildfire risk and complicating suppression. Source",
+    "Seismic risk: Japan's aftershocks and Venezuela's post-quake health concerns highlight prolonged humanitarian and recovery needs beyond initial impact."
+  ]
+}

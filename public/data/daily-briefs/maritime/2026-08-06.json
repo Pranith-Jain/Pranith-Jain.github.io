@@ -1,0 +1,130 @@
+{
+  "type": "maritime",
+  "date": "2026-08-06",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Immediate Priority: Confirmed GNSS spoofing/jamming continues to affect vessel approaches and transits in key Middle East corridors, and a surge in AIS deception incidents in the Indo-Pacific is degrading maritime situational awareness. Port OT risk remains elevated under MARAD Advisory 2026-007. Confidence: medium-to-high. Available reporting indicates multiple concurrent maritime cyber-relevant pressures this period. Confirmed GPS/GNSS interference impacting vessels near Fujairah and Oman presents direct navigation risk to bridge operations and ECDIS integrity. View Article Vessel-reported GNSS spoofing/jamming in the Red Sea remains an active concern per USCG NAVCEN inputs. Government Advisory Current reporting suggests identity-deception activity using AIS falsification has surged, with 40 incidents recorded in June across the IFC's area of responsibility. This activity may increase risk to traffic monitoring, screening, and voyage risk assessment. View Article The collected intelligence supports an assessment that ports and terminals should treat supply-chain and OT exposure as elevated due to the ongoing MARAD 2026-007 advisory, which highlights risks associated with PRC-manufactured cranes, Nuctech equipment, and LOGINK logistics platforms and provides explicit segmentation and monitoring guidance. Government Advisory Separately, an updated U.S. government alert summarized by industry media warns of Iranian actors targeting ICS equipment (Siemens, Schneider, Rockwell) via access to PLC ecosystems with capabilities including logic modification and disabling alarms; while not maritime-specific, these TTPs are applicable to port and offshore OT if exposed. Supporting Report Facts reported: Confirmed GNSS interference near Fujairah/Oman and Red Sea; 40 AIS-deception incidents in June; active MARAD 2026-007 advisory; ICS-targeting alert by U.S. agencies. Analytical assessment: Navigation assurance and vessel identification are the most immediate operational concerns; port OT cyber exposure requires near-term segmentation and vendor-access review. Outlook judgment: Over the next 72 hours, continued AIS deception and intermittent GNSS interference are likely in affected waterways; advisory-driven hardening steps at ports/terminals may accelerate. Confidence: medium.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "Overall Threat",
+        "label": "Overall Threat Level"
+      },
+      {
+        "value": "Total Intelligence Records Analyzed",
+        "label": "Total Intelligence Records Analyzed"
+      },
+      {
+        "value": "Unique Maritime Intelligence Events",
+        "label": "Unique Maritime Intelligence Events"
+      },
+      {
+        "value": "C:ESCALATE Events",
+        "label": "C:ESCALATE Events"
+      },
+      {
+        "value": "B:MONITOR Events",
+        "label": "B:MONITOR Events"
+      },
+      {
+        "value": "A:IGNORE Events",
+        "label": "A:IGNORE Events"
+      },
+      {
+        "value": "Active Incidents (Confirmed)",
+        "label": "Active Incidents (Confirmed)"
+      },
+      {
+        "value": "Navigation-Related Threats",
+        "label": "Navigation-Related Threats"
+      },
+      {
+        "value": "Maritime OT/ICS Threats",
+        "label": "Maritime OT/ICS Threats"
+      },
+      {
+        "value": "Vulnerabilities / CVEs",
+        "label": "Vulnerabilities / CVEs"
+      },
+      {
+        "value": "High-Confidence Assessments",
+        "label": "High-Confidence Assessments"
+      }
+    ],
+    "vendors": [],
+    "sectors": []
+  },
+  "keyFindings": [
+    "Confirmed GNSS spoofing/jamming is affecting navigation near Fujairah and Oman, prompting operational mitigations such as reliance on Doppler logs for approaches. View Article",
+    "USCG NAVCEN records indicate continued vessel-reported GNSS interference in the Red Sea, sustaining elevated navigation risk in a critical corridor. Government Advisory",
+    "IFC recorded 40 AIS-deception incidents in June across its AOR, with falsified vessel identity details intended to mislead maritime observers. View Article",
+    "MARAD Advisory 2026-007 highlights cyber risks to port networks and OT from foreign-manufactured cranes, Nuctech equipment, and LOGINK, with explicit segmentation/MFA/backup guidance for mitigation. Government Advisory",
+    "Updated U.S. advisory (via industry report) describes Iranian ICS-targeting behaviors including project-file exfiltration, logic tampering, and disabling shutdown/alarm logic-techniques relevant to maritime OT if boundaries are weak. Supporting Report"
+  ],
+  "topThreats": [
+    {
+      "title": "Confirmed GPS/GNSS interference near Fujairah & Oman degrading ECDIS integrity",
+      "action": "Erroneous positions and track instability can cause unsafe approaches and collision risk; operators instructed to validate Doppler logs.",
+      "sources": [
+        {
+          "url": "https://www.lloydslist.com/LL1157699/Middle-East-port-update-Tuesday-June-30",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Red Sea vessel-reported GNSS spoofing/jamming persists",
+      "action": "Affects a major trade corridor; undermines situational awareness and automated voyage planning.",
+      "sources": [
+        {
+          "url": "https://www.navcen.uscg.gov/guide-tool",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "MARAD Advisory 2026-007: Foreign adversarial technological, physical, and cyber influence on ports",
+      "action": "Highlights risks from PRC-manufactured cranes, Nuctech equipment, and LOGINK; provides explicit segmentation, MFA, monitoring, and recovery guidance.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "IFC logs 40 AIS deception cases in June across AOR",
+      "action": "Falsified identity/flag/vessel type degrades screening and risk assessment, complicating chartering and compliance checks.",
+      "sources": [
+        {
+          "url": "https://safety4sea.com/ifc-ais-deception-drives-surge-in-maritime-cyber-security-incidents/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Iranian threat actors targeting ICS ecosystems (Siemens, Schneider, Rockwell)",
+      "action": "TTPs-logic modification, disabling alarms/shutdown-could translate to maritime OT if boundaries and remote access are weak.",
+      "sources": [
+        {
+          "url": "https://www.securityweek.com/us-warns-of-iranian-hackers-targeting-siemens-schneider-and-rockwell-ics-devices/",
+          "label": "Supporting Report"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "GNSS spoofing/jamming leading to loss of accurate PNT (loss of view; manipulation of control via misleading position data).",
+      "AIS falsification to obscure vessel identity, flag, or type (deception for evasion/misdirection).",
+      "ICS access and project-file exfiltration; logic modification; disabling shutdown and alarm logic (impair process control; inhibit response function). Supporting Report"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor continued GNSS interference reports in the Red Sea and Gulf of Oman/Fujairah region; immediate navigation risk remains elevated. Confidence: medium. Government Advisory View Article Additional AIS deception disclosures may emerge across the Indo-Pacific as IFC reporting is digested by industry partners. Confidence: medium. View Article Ports/terminals are likely to accelerate review of MARAD 2026-007 controls; expect follow-on internal advisories and vendor-access changes. Confidence: medium. Government Advisory Current evidence does not establish imminent, widespread exploitation of maritime ICS; however, opportunistic attempts against exposed services are plausible. Confidence: low-to-medium. Supporting Report",
+  "relatedCves": []
+}
