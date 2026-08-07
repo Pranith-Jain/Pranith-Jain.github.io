@@ -1,14 +1,12 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { tooManyRequests } from '../lib/api-error';
 import { classifySector, type Sector } from '../lib/sector-classifier';
 import { safeIsoOr } from '../lib/safe-date';
 import { fetchMythreatintelRansomwareVictims } from '../lib/mythreatintel-parser';
 import { safeNullLog } from '../lib/safe-catch';
 import { fetchAFRansomwareVictims } from '../lib/andreafortuna-feeds';
 import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
-import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { readXClaimsCache } from './x-claims';
 import { normalizeGroup } from '../lib/group-normalize';
 import { normalizeVictimKey } from '../lib/briefing-builder/aggregate';
@@ -771,35 +769,6 @@ const LASTGOOD_SHADOW_TTL_SECONDS = 900; // matches edge-cache TTL
 
 const lastgoodShadowKey = new Request('https://ransomware-recent-lastgood-shadow.internal/v1');
 
-async function writeRansomwareLastGood(env: Env, body: ResponseBody): Promise<void> {
-  if (!env.KV_CACHE || body.victims.length === 0) return;
-  // Debounce: the lastgood is only a stale-outage fallback. Without this, every
-  // cache-miss success + SWR background refresh rewrote a single shared KV key
-  // from every colo (KV 1-write/sec/key limit + write cost). Once every few
-  // hours per colo is plenty — KV is cross-colo durable.
-  if (!(await shouldWriteLastGood('ransomware-recent'))) return;
-  try {
-    await env.KV_CACHE.put(RANSOMWARE_LASTGOOD_KV_KEY, JSON.stringify(body), {
-      expirationTtl: LASTGOOD_TTL_SECONDS,
-    });
-    const cache = (caches as unknown as { default: Cache }).default;
-    try {
-      await cache.put(
-        lastgoodShadowKey,
-        new Response(JSON.stringify(body), {
-          headers: { 'content-type': 'application/json', 'cache-control': `max-age=${LASTGOOD_SHADOW_TTL_SECONDS}` },
-        })
-      );
-    } catch (_catchErr) {
-      logError('writeRansomwareLastGood failed', _catchErr);
-      /* best-effort shadow */
-    }
-  } catch (_catchErr) {
-    logError('writeRansomwareLastGood failed', _catchErr);
-    /* non-fatal */
-  }
-}
-
 async function readRansomwareLastGood(env: Env): Promise<ResponseBody | null> {
   if (!env.KV_CACHE) return null;
   const cache = (caches as unknown as { default: Cache }).default;
@@ -923,6 +892,32 @@ function parseDaysParam(raw: string | undefined): number {
   return n;
 }
 
+/**
+ * Cron-warm for the ransomware-recent merged payload. Must run inside the DO
+ * cron (30s CPU budget), never a user/self fetch (10ms free-plan cap). Builds
+ * the merged feed once and refreshes the edge Cache-API + KV last-good so the
+ * request handler stays on splash: Cache-API hit → KV last-good → 503.
+ */
+export async function warmRansomwareRecentCache(env?: Env): Promise<{ count: number; ok: boolean }> {
+  const { body, upstreamOk } = await fetchRansomwareRecent(env);
+  const cache = (caches as unknown as { default: Cache }).default;
+  const response = new Response(JSON.stringify(body), {
+    status: 200,
+    headers: {
+      'content-type': 'application/json',
+      'cache-control': `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`,
+      'x-source': 'cron-warm',
+    },
+  });
+  await cache.put(new Request(CACHE_KEY), response);
+  if (env?.KV_CACHE && upstreamOk && body.victims.length > 0) {
+    await env.KV_CACHE.put(RANSOMWARE_LASTGOOD_KV_KEY, JSON.stringify(body), {
+      expirationTtl: LASTGOOD_TTL_SECONDS,
+    });
+  }
+  return { count: body.victims.length, ok: upstreamOk };
+}
+
 export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const days = parseDaysParam(c.req.query('days'));
   const groupFilter = (c.req.query('group') ?? '').trim().toLowerCase();
@@ -930,87 +925,40 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
   const cacheKey = new Request(CACHE_KEY);
   const cached = await cache.match(cacheKey);
   if (cached) {
-    // Stale-while-revalidate: serve stale data and refresh in background
-    const cacheDate = cached.headers.get('date');
-    const age = cacheDate ? (Date.now() - new Date(cacheDate).getTime()) / 1000 : 0;
-    if (age > CACHE_TTL_SECONDS * 0.8) {
-      c.executionCtx.waitUntil(
-        (async () => {
-          try {
-            const { body, upstreamOk } = await fetchRansomwareRecent(c.env);
-            if (upstreamOk && body.victims.length > 0) {
-              const fresh = c.json(body, 200, {
-                'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`,
-                'x-cache': 'REVALIDATED',
-              });
-              await cache.put(cacheKey, fresh);
-              await writeRansomwareLastGood(c.env, body);
-            }
-          } catch (_catchErr) {
-            logError('ransomwareRecentHandler failed', _catchErr);
-            /* non-fatal */
-          }
-        })()
-      );
-    }
     if (days === 7 && !groupFilter) return new Response(cached.body, cached);
     let filtered = filterByDaysWindow((await cached.json()) as ResponseBody, days);
     if (groupFilter) filtered = filterByGroup(filtered, groupFilter);
     return c.json(filtered, 200, { 'x-cache': 'FILTERED' });
   }
 
-  const { body, upstreamOk, rateLimited } = await fetchRansomwareRecent(c.env);
-
-  // On rate-limit: try KV lastgood before hard-failing with 429. A cold-colo
-  // visitor shouldn't see an upstream 429 when we have stale-but-good data in
-  // the global lastgood store.
-  if (rateLimited) {
-    const lastGood = await readRansomwareLastGood(c.env);
-    if (lastGood) {
-      const response = c.json(lastGood, 200, {
-        'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`,
-        'x-cache': 'LASTGOOD',
-      });
-      c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
-      return response;
-    }
-    return tooManyRequests(c, 'upstream_rate_limited');
+  // Free-plan guard: NEVER build the merged feed inline. A cold-cache miss has
+  // only a 10ms CPU budget (fetch invocation) — insufficient for the 9-upstream
+  // merge (4 trackers + MTI API + scraper + ransomware.live + X + cti.fyi).
+  // The hourly DO cron runs `warmRansomwareRecentCache` (30s DO budget) instead.
+  // Serve the global KV last-good here; err on the side of a fast 503 if we
+  // have nothing yet.
+  const lastGood = await readRansomwareLastGood(c.env);
+  if (lastGood) {
+    let finalBody = filterByDaysWindow(lastGood, days);
+    if (groupFilter) finalBody = filterByGroup(finalBody, groupFilter);
+    const response = c.json(finalBody, 200, {
+      'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`,
+      'x-cache': 'LASTGOOD',
+    });
+    c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()).catch(() => {}));
+    return response;
   }
 
-  let finalBody = body;
-  let cacheable = upstreamOk && body.victims.length > 0;
-
-  if (cacheable) {
-    // Healthy fetch — refresh the global last-good for other colos.
-    c.executionCtx.waitUntil(writeRansomwareLastGood(c.env, body));
-  } else {
-    // This colo's upstreams came back empty. Rather than blank the page with
-    // "0 claims", serve the global last-good from KV if we have one.
-    const lastGood = await readRansomwareLastGood(c.env);
-    if (lastGood) {
-      finalBody = lastGood;
-      cacheable = true; // real data again — safe to cache locally
-    }
-  }
-
-  // Apply the `?days=N` window filter to the freshly-built response.
-  // We always cache the 7-day payload (so revalidation is cheap) and
-  // filter per-request — this keeps the cache simple and the day-1
-  // day-7 day-30 views consistent.
-  if (days !== 7) finalBody = filterByDaysWindow(finalBody, days);
-  if (groupFilter) finalBody = filterByGroup(finalBody, groupFilter);
-
-  // An empty payload is never cacheable — serve it with no-store so a transient
-  // zero-victim result can't get pinned at the edge or in the browser for the
-  // whole TTL. stale-while-revalidate lets a cached good copy refresh in the
-  // background instead of going hard-stale.
-  const response = c.json(finalBody, 200, {
-    'Cache-Control': cacheable
-      ? `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`
-      : 'no-store',
+  const empty: ResponseBody = {
+    generated_at: new Date().toISOString(),
+    source: 'warming',
+    count: 0,
+    groups: [],
+    sectors: [],
+    victims: [],
+  };
+  return c.json(empty, 503, {
+    'retry-after': '300',
+    'x-source': 'ransomware-recent-warming',
   });
-  if (cacheable) {
-    c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
-  }
-  return response;
 }

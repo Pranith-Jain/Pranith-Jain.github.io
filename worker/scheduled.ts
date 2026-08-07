@@ -31,6 +31,8 @@ import {
 } from '../api/src/routes/telegram-feed';
 import { fetchXFeed } from '../api/src/routes/x-feed';
 import { refreshVictimReleaksCache } from '../api/src/routes/victim-releaks';
+import { warmCveRecentCache } from '../api/src/routes/cve-recent';
+import { warmRansomwareRecentCache } from '../api/src/routes/ransomware-recent';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
 import { checkWatches } from '../api/src/lib/watch-engine';
 import { checkAddressWatches } from '../api/src/lib/address-watch';
@@ -67,7 +69,10 @@ import type { Env as ApiEnv } from '../api/src/env';
 import type { Env } from './env';
 
 /**
- * Cron-triggered work. Dispatched on cron string:
+ * Cron-triggered work. The cron stub dispatches to the CronJobDO; the heavy
+ * bodies run inside that DO's durable alarm (see durable-objects/cron-job.ts)
+ * with a DO CPU budget — the free-plan 10ms cron cap cannot run them inline.
+ * The bodies, keyed on cron string:
  * - "0 * * * *"  → hourly: telegram scan, cache-warm, graph-ingest,
  *                  feed-scheduler, infra-scan, retention, PIR alerts,
  *                  breach-forum snapshot, RAG re-index + BRIEFING HEAL
@@ -83,8 +88,50 @@ import type { Env } from './env';
  *                  Workers KV writes for negligible UX gain. Snapshot
  *                  cache TTL bumped to 1h to match.
  */
+/**
+ * Cron stub — runs under the free-plan 10ms CPU cap.
+ *
+ * It does NOT do any heavy work itself. It forwards `{ cron, scheduledTime }`
+ * to the per-cron CronJobDO instance, which runs the real job body
+ * ([[executeCronJob]]) inside a durable alarm with a DO CPU budget (30s).
+ * A one-line fetch is ~1-2ms CPU + ~1 subrequest — well inside free limits.
+ *
+ * Fallback: when CRON_JOB_DO is unbound (miniflare / `wrangler dev` without
+ * the binding) the job runs inline, preserving the old local-dev behavior.
+ */
 export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
   const cron = event.cron;
+  const scheduledTime = event.scheduledTime;
+  if (!env.CRON_JOB_DO) {
+    console.warn(
+      JSON.stringify({ job: 'cron-dispatch', cron, status: 'inline_fallback', reason: 'CRON_JOB_DO unbound' })
+    );
+    await executeCronJob(cron, scheduledTime, env, ctx);
+    return;
+  }
+  const id = env.CRON_JOB_DO.idFromName(cron);
+  const stub = env.CRON_JOB_DO.get(id);
+  ctx.waitUntil(
+    stub
+      .fetch('https://cron-job.internal/run', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ cron, scheduledTime }),
+      })
+      .then((res) => {
+        console.log(JSON.stringify({ job: 'cron-dispatch', cron, status: res.status }));
+      })
+      .catch((e) => console.error(JSON.stringify({ job: 'cron-dispatch', cron, status: 'failed', error: String(e) })))
+  );
+}
+
+/** The actual job bodies — executed inside the CronJobDO (not the cron itself). */
+export async function executeCronJob(
+  cron: string,
+  scheduledTime: number,
+  env: Env,
+  ctx: ExecutionContext
+): Promise<void> {
   const startMs = Date.now();
 
   // === Per-cron-string single-flight lease (Durable Object) ===========
@@ -111,8 +158,8 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   const releaseLease = (): Promise<void> => releaseCronLease(env, cron, lease.token ?? '');
 
   // === Case-study generator — piggybacks on the existing 3 crons ===
-  const csNow = new Date(event.scheduledTime);
-  const csCron = event.cron;
+  const csNow = new Date(scheduledTime);
+  const csCron = cron;
 
   const logCronFail = (job: string) => (e: unknown) =>
     console.error(JSON.stringify({ cron: csCron, job, error: e instanceof Error ? e.message : String(e) }));
@@ -177,6 +224,28 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             // which starves every source past the first ~11 — the "16 unreachable"
             // blocklists (blocklist-de, cinsscore, threatview, certpl, bitwire…).
             await enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue'));
+          }
+
+          // === CVE-recent + ransomware-recent warm — FIRST (before the pipeline) =
+          // These MUST land at the top of the hourly branch: the rest of the
+          // pipeline (telegram/x/reddit scans, fireAndForget fan-out, CTI
+          // collector) can exhaust the DO alarm's 30s CPU budget, and these
+          // warms are the only thing preventing free-plan `exceededCpu` 503s
+          // on self-fetches of /api/v1/cve-recent and /api/v1/ransomware-recent
+          // (GlobalPulse, fusion-exposure, ioc-enrich-deep). Same reasoning as
+          // enqueueGpFeeds above — "moved to TOP because the old position was
+          // never reached".
+          try {
+            const warm = await warmCveRecentCache(env as unknown as ApiEnv);
+            console.log(JSON.stringify({ job: 'cve-recent-warm', count: warm.count, ok: warm.ok }));
+          } catch (e) {
+            logCronFail('cve-recent-warm')(e);
+          }
+          try {
+            const warm = await warmRansomwareRecentCache(env as unknown as ApiEnv);
+            console.log(JSON.stringify({ job: 'ransomware-recent-warm', count: warm.count, ok: warm.ok }));
+          } catch (e) {
+            logCronFail('ransomware-recent-warm')(e);
           }
 
           // === Daily Briefs sync (every 6 hours) ==============================
@@ -1214,14 +1283,24 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         // and the live WS feed goes stale ("2 hours ago"). This rebuilds the
         // cache every 30 min from the cron-warmed gp:warm:* slices so the
         // DO always has fresh data to broadcast, independent of traffic.
+        //
+        // IN-PROCESS dispatch, not env.SELF.fetch: a self fetch spawns a
+        // stateless Worker invocation under the free-plan 10ms CPU cap, and
+        // the handler's 41 KV-slice reads + JSON.parse blow that cap
+        // (`exceededCpu`). Dispatching through apiApp.fetch runs the handler
+        // inside this DO alarm with its 30s CPU budget — same pattern as the
+        // the infra-scan block and the queue consumer's gp-warm slices.
         try {
           const tokenSecret = (env as unknown as { INTERNAL_TOKEN_SECRET?: string }).INTERNAL_TOKEN_SECRET;
           if (tokenSecret && env.SELF) {
             const token = await signInternalToken('cron', tokenSecret);
-            const res = await env.SELF.fetch('https://self/api/v1/global-pulse?force=1', {
-              headers: { 'x-internal-token': token },
-              signal: AbortSignal.timeout(25_000),
-            });
+            const res = await apiApp.fetch(
+              new Request('https://self/api/v1/global-pulse?force=1', {
+                headers: { 'x-internal-token': token },
+              }),
+              env as never,
+              ctx
+            );
             console.log(
               JSON.stringify({
                 job: 'gp-30-rebuild',
@@ -1244,6 +1323,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               job: 'gp-30-rebuild',
               status: 'failed',
               error: e instanceof Error ? e.message : String(e),
+              reason: 'in-process apiApp.fetch',
             })
           );
         }

@@ -87,6 +87,161 @@ async function signedSelfFetch(
   }
 }
 
+/* ─── Shared sync build — callable from the request handler AND the DO cron ── */
+/* The free-plan 10ms CPU cap kills a stateless rebuild: the sync build reads 21
+ * KV warm slices + 3 self-fetches + ~10 converters. The DO cron
+ * (`gp-30-rebuild`) has a 30s CPU budget, so it runs this directly (via an
+ * in-DO warm) instead of SELF.fetch-ing `?force=1` (which re-enters the 10ms
+ * stateless worker). Keep the request path as the cheap primary:
+ * Cache-API → GP KV last-good → this build.
+
+/**
+ * Build the sync GlobalPulse payload from warm-KV slices + direct self-fetches.
+ * Pure work, no hono context, no cache writes — the caller (handler or DO cron)
+ * owns the Cache-API / KV writes. Returns the payload + the incoming warm KV
+ * map so the DO cron can additionally persist a last-good copy.
+ */
+export async function buildGlobalPulseSync(
+  env: Pick<Env, 'SELF' | 'KV_CACHE' | 'INTERNAL_TOKEN_SECRET'>,
+  _waitUntil?: (p: Promise<unknown>) => void
+): Promise<{ payload: GlobalPulseResponse; warm: Record<string, unknown>; sync: number }> {
+  const kv = env.KV_CACHE;
+
+  // Safe wrapper — used by both the sync fetch and the background build.
+  const safe = <T>(fn: () => T): T => {
+    try {
+      return fn();
+    } catch (_catchErr) {
+      logError('handler failed', _catchErr);
+      return [] as unknown as T;
+    }
+  };
+
+  // ── Read per-feed warm KV slices (one batched read) ──────────────────
+  const warm: Record<string, unknown> = {};
+  if (kv) {
+    const sliceVals = await Promise.all(GP_FEEDS.map((f) => readKvJson(kv, gpWarmKey(f.key))));
+    GP_FEEDS.forEach((f, i) => {
+      if (sliceVals[i] != null) warm[f.key] = sliceVals[i];
+    });
+  }
+
+  // ── Synchronously fetch the 3 highest-value feeds ────────────────────
+  const syncEvents: PulseEvent[] = [];
+  try {
+    const [cveRes, ransomRes, iocRes] = await Promise.allSettled([
+      signedSelfFetch(env.SELF, '/api/v1/cve-recent?days=7', env, 12000),
+      signedSelfFetch(env.SELF, '/api/v1/ransomware-recent?days=7', env, 10000),
+      signedSelfFetch(env.SELF, '/api/v1/live-iocs', env, 10000),
+    ]);
+    if (cveRes.status === 'fulfilled' && cveRes.value?.ok) {
+      const cveData = (await cveRes.value.json()) as Parameters<typeof fromCveRecent>[0];
+      syncEvents.push(...safe(() => fromCveRecent(cveData)));
+    }
+    if (ransomRes.status === 'fulfilled' && ransomRes.value?.ok) {
+      const ransomData = (await ransomRes.value.json()) as Parameters<typeof fromRansomware>[0];
+      syncEvents.push(...safe(() => fromRansomware(ransomData)));
+    }
+    if (iocRes.status === 'fulfilled' && iocRes.value?.ok) {
+      const iocData = (await iocRes.value.json()) as Parameters<typeof fromLiveIocs>[0];
+      syncEvents.push(...safe(() => fromLiveIocs(iocData)));
+    }
+  } catch (_catchErr) {
+    logError('global-pulse sync fetch failed', _catchErr);
+  }
+
+  // ── Convert warm KV slices to events ─────────────────────────────────
+  const warmEvents: PulseEvent[] = [];
+  if (warm.tm) warmEvents.push(...safe(() => iocFromThreatMap(warm.tm as Parameters<typeof iocFromThreatMap>[0])));
+  if (warm.telegram) warmEvents.push(...safe(() => fromTelegram(warm.telegram as Parameters<typeof fromTelegram>[0])));
+  if (warm.reddit) warmEvents.push(...safe(() => fromReddit(warm.reddit as Parameters<typeof fromReddit>[0])));
+  if (warm.x) warmEvents.push(...safe(() => fromXFeed(warm.x as Parameters<typeof fromXFeed>[0])));
+  if (warm.scam) warmEvents.push(...safe(() => fromScam(warm.scam as Parameters<typeof fromScam>[0])));
+  if (warm.breach) warmEvents.push(...safe(() => fromBreaches(warm.breach as Parameters<typeof fromBreaches>[0])));
+  if (warm.stealer)
+    warmEvents.push(...safe(() => fromStealerForum(warm.stealer as Parameters<typeof fromStealerForum>[0])));
+  if (warm.phishing) warmEvents.push(...safe(() => fromPhishing(warm.phishing as Parameters<typeof fromPhishing>[0])));
+  if (warm.malware) warmEvents.push(...safe(() => fromMalware(warm.malware as Parameters<typeof fromMalware>[0])));
+  if (warm.cybercrime)
+    warmEvents.push(...safe(() => fromCybercrime(warm.cybercrime as Parameters<typeof fromCybercrime>[0])));
+  if (warm.writeups) warmEvents.push(...safe(() => fromWriteups(warm.writeups as Parameters<typeof fromWriteups>[0])));
+  if (warm.xclaims) warmEvents.push(...safe(() => fromXClaims(warm.xclaims as XClaimsResponse)));
+  if (warm.actor) warmEvents.push(...safe(() => fromActorTimeline(warm.actor as ActorTimelineResponse)));
+  if (warm.iocc) warmEvents.push(...safe(() => fromIocCorrelation(warm.iocc as IocCorrelationResponse)));
+  if (warm.secretleaks)
+    warmEvents.push(...safe(() => fromSecretLeaks(warm.secretleaks as Parameters<typeof fromSecretLeaks>[0])));
+  if (warm.malpkg)
+    warmEvents.push(...safe(() => fromMaliciousPackages(warm.malpkg as Parameters<typeof fromMaliciousPackages>[0])));
+  if (warm.exploit) warmEvents.push(...safe(() => fromExploitDb(warm.exploit as Parameters<typeof fromExploitDb>[0])));
+  if (warm.ghsa)
+    warmEvents.push(...safe(() => fromGithubAdvisories(warm.ghsa as Parameters<typeof fromGithubAdvisories>[0])));
+  if (warm.kev) warmEvents.push(...safe(() => fromCisaKev(warm.kev as Parameters<typeof fromCisaKev>[0])));
+  if (warm.rss) warmEvents.push(...safe(() => fromRss(warm.rss as Parameters<typeof fromRss>[0])));
+  if (warm.webamon)
+    warmEvents.push(...safe(() => fromWebamonCampaigns(warm.webamon as Parameters<typeof fromWebamonCampaigns>[0])));
+  if (warm.honeypot) warmEvents.push(...safe(() => fromHoneypot(warm.honeypot as Parameters<typeof fromHoneypot>[0])));
+
+  // ── CyberPulse incidents (D1) ────────────────────────────────────────
+  let cyberpulseEvents: PulseEvent[] = [];
+  try {
+    const cpRes = await signedSelfFetch(env.SELF, '/api/v1/cyberpulse/incidents?days=7&limit=30', env, 10000);
+    if (cpRes && cpRes.ok) {
+      const cpData = (await cpRes.json()) as Parameters<typeof fromCyberPulse>[0];
+      cyberpulseEvents = safe(() => fromCyberPulse(cpData));
+    }
+  } catch (_catchErr) {
+    logError('handler failed', _catchErr);
+  }
+
+  // ── Merge + sort ─────────────────────────────────────────────────────
+  const tagCti = <T extends PulseKind>(kind: T): PulseEvent['cti'] => {
+    switch (kind) {
+      case 'ransomware':
+        return 'ransomware';
+      case 'cve':
+      case 'cisa_advisory':
+        return 'cve';
+      case 'ioc_activity':
+      case 'cyber_attack':
+      case 'c2_tracker':
+      case 'blocklist':
+      case 'honeypot':
+        return 'ioc';
+      case 'cyberpulse':
+        return 'threat';
+      case 'ioc_correlation':
+        return 'ioc';
+      case 'rss':
+        return 'other';
+      default:
+        return 'other';
+    }
+  };
+  const sevRank = (s: string): number => (s === 'critical' ? 4 : s === 'high' ? 3 : s === 'medium' ? 2 : 1);
+  const allEvents = [...syncEvents, ...warmEvents, ...cyberpulseEvents]
+    .map((e) => ({ ...e, cti: tagCti(e.kind) }))
+    .sort((a, b) => {
+      const sd = sevRank(b.severity) - sevRank(a.severity);
+      if (sd !== 0) return sd;
+      return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+    });
+
+  const syncLayers: Record<string, number> = {};
+  for (const e of allEvents) {
+    syncLayers[e.kind] = (syncLayers[e.kind] ?? 0) + 1;
+  }
+
+  const payload: GlobalPulseResponse = {
+    generated_at: new Date().toISOString(),
+    total_events: allEvents.length,
+    events: allEvents,
+    layers: syncLayers,
+    // layers_ is a runtime-only field for the DO's stale guard
+  } as unknown as GlobalPulseResponse;
+
+  return { payload, warm, sync: allEvents.length };
+}
+
 /* ─── Handler ───────────────────────────────────────────────────────────── */
 
 export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -141,126 +296,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     }
   };
 
-  // ── Read per-feed warm KV slices (one batched read) ──────────────────
-  const warm: Record<string, unknown> = {};
-  if (kv) {
-    const sliceVals = await Promise.all(GP_FEEDS.map((f) => readKvJson(kv, gpWarmKey(f.key))));
-    GP_FEEDS.forEach((f, i) => {
-      if (sliceVals[i] != null) warm[f.key] = sliceVals[i];
-    });
-  }
-
-  // ── Synchronously fetch the 3 highest-value feeds ────────────────────
-  const syncEvents: PulseEvent[] = [];
-  try {
-    const [cveRes, ransomRes, iocRes] = await Promise.allSettled([
-      signedSelfFetch(self, '/api/v1/cve-recent?days=7', c.env, 12000),
-      signedSelfFetch(self, '/api/v1/ransomware-recent?days=7', c.env, 10000),
-      signedSelfFetch(self, '/api/v1/live-iocs', c.env, 10000),
-    ]);
-    if (cveRes.status === 'fulfilled' && cveRes.value?.ok) {
-      const cveData = (await cveRes.value.json()) as Parameters<typeof fromCveRecent>[0];
-      syncEvents.push(...safe(() => fromCveRecent(cveData)));
-    }
-    if (ransomRes.status === 'fulfilled' && ransomRes.value?.ok) {
-      const ransomData = (await ransomRes.value.json()) as Parameters<typeof fromRansomware>[0];
-      syncEvents.push(...safe(() => fromRansomware(ransomData)));
-    }
-    if (iocRes.status === 'fulfilled' && iocRes.value?.ok) {
-      const iocData = (await iocRes.value.json()) as Parameters<typeof fromLiveIocs>[0];
-      syncEvents.push(...safe(() => fromLiveIocs(iocData)));
-    }
-  } catch (_catchErr) {
-    logError('global-pulse sync fetch failed', _catchErr);
-  }
-
-  // ── Convert warm KV slices to events ─────────────────────────────────
-  const warmEvents: PulseEvent[] = [];
-  if (warm.tm) warmEvents.push(...safe(() => iocFromThreatMap(warm.tm as Parameters<typeof iocFromThreatMap>[0])));
-  if (warm.telegram) warmEvents.push(...safe(() => fromTelegram(warm.telegram as Parameters<typeof fromTelegram>[0])));
-  if (warm.reddit) warmEvents.push(...safe(() => fromReddit(warm.reddit as Parameters<typeof fromReddit>[0])));
-  if (warm.x) warmEvents.push(...safe(() => fromXFeed(warm.x as Parameters<typeof fromXFeed>[0])));
-  if (warm.scam) warmEvents.push(...safe(() => fromScam(warm.scam as Parameters<typeof fromScam>[0])));
-  if (warm.breach) warmEvents.push(...safe(() => fromBreaches(warm.breach as Parameters<typeof fromBreaches>[0])));
-  if (warm.stealer)
-    warmEvents.push(...safe(() => fromStealerForum(warm.stealer as Parameters<typeof fromStealerForum>[0])));
-  if (warm.phishing) warmEvents.push(...safe(() => fromPhishing(warm.phishing as Parameters<typeof fromPhishing>[0])));
-  if (warm.malware) warmEvents.push(...safe(() => fromMalware(warm.malware as Parameters<typeof fromMalware>[0])));
-  if (warm.cybercrime)
-    warmEvents.push(...safe(() => fromCybercrime(warm.cybercrime as Parameters<typeof fromCybercrime>[0])));
-  if (warm.writeups) warmEvents.push(...safe(() => fromWriteups(warm.writeups as Parameters<typeof fromWriteups>[0])));
-  if (warm.xclaims) warmEvents.push(...safe(() => fromXClaims(warm.xclaims as XClaimsResponse)));
-  if (warm.actor) warmEvents.push(...safe(() => fromActorTimeline(warm.actor as ActorTimelineResponse)));
-  if (warm.iocc) warmEvents.push(...safe(() => fromIocCorrelation(warm.iocc as IocCorrelationResponse)));
-  if (warm.secretleaks)
-    warmEvents.push(...safe(() => fromSecretLeaks(warm.secretleaks as Parameters<typeof fromSecretLeaks>[0])));
-  if (warm.malpkg)
-    warmEvents.push(...safe(() => fromMaliciousPackages(warm.malpkg as Parameters<typeof fromMaliciousPackages>[0])));
-  if (warm.exploit) warmEvents.push(...safe(() => fromExploitDb(warm.exploit as Parameters<typeof fromExploitDb>[0])));
-  if (warm.ghsa)
-    warmEvents.push(...safe(() => fromGithubAdvisories(warm.ghsa as Parameters<typeof fromGithubAdvisories>[0])));
-  if (warm.kev) warmEvents.push(...safe(() => fromCisaKev(warm.kev as Parameters<typeof fromCisaKev>[0])));
-  if (warm.rss) warmEvents.push(...safe(() => fromRss(warm.rss as Parameters<typeof fromRss>[0])));
-  if (warm.webamon)
-    warmEvents.push(...safe(() => fromWebamonCampaigns(warm.webamon as Parameters<typeof fromWebamonCampaigns>[0])));
-  if (warm.honeypot) warmEvents.push(...safe(() => fromHoneypot(warm.honeypot as Parameters<typeof fromHoneypot>[0])));
-
-  // ── CyberPulse incidents (D1) ────────────────────────────────────────
-  let cyberpulseEvents: PulseEvent[] = [];
-  try {
-    const cpRes = await signedSelfFetch(self, '/api/v1/cyberpulse/incidents?days=7&limit=30', c.env, 10000);
-    if (cpRes && cpRes.ok) {
-      const cpData = (await cpRes.json()) as Parameters<typeof fromCyberPulse>[0];
-      cyberpulseEvents = safe(() => fromCyberPulse(cpData));
-    }
-  } catch (_catchErr) {
-    logError('handler failed', _catchErr);
-  }
-
-  // ── Merge + sort ─────────────────────────────────────────────────────
-  const tagCti = <T extends PulseKind>(kind: T): PulseEvent['cti'] => {
-    switch (kind) {
-      case 'ransomware':
-        return 'ransomware';
-      case 'cve':
-      case 'cisa_advisory':
-        return 'cve';
-      case 'ioc_activity':
-      case 'cyber_attack':
-      case 'c2_tracker':
-      case 'blocklist':
-      case 'honeypot':
-        return 'ioc';
-      case 'cyberpulse':
-        return 'threat';
-      case 'ioc_correlation':
-        return 'ioc';
-      case 'rss':
-        return 'other';
-      default:
-        return 'other';
-    }
-  };
-  const sevRank = (s: string): number => (s === 'critical' ? 4 : s === 'high' ? 3 : s === 'medium' ? 2 : 1);
-  const allEvents = [...syncEvents, ...warmEvents, ...cyberpulseEvents]
-    .map((e) => ({ ...e, cti: tagCti(e.kind) }))
-    .sort((a, b) => {
-      const sd = sevRank(b.severity) - sevRank(a.severity);
-      if (sd !== 0) return sd;
-      return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
-    });
-
-  const syncLayers: Record<string, number> = {};
-  for (const e of allEvents) {
-    syncLayers[e.kind] = (syncLayers[e.kind] ?? 0) + 1;
-  }
-
-  const syncPayload = {
-    generated_at: new Date().toISOString(),
-    total_events: allEvents.length,
-    events: allEvents,
-    layers: syncLayers,
-  };
+  // ── Shared sync build (also used by the DO gp-30-rebuild cron) ──────
+  const { payload: syncResult } = await buildGlobalPulseSync(c.env, c.executionCtx.waitUntil.bind(c.executionCtx));
 
   // Stale-if-error guard: the sync build above only sees warm-KV slices + the 3
   // direct feeds, so the background-only layers (c2_tracker, supply_chain_attacks,
@@ -274,13 +311,13 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     l && typeof l === 'object'
       ? Object.values(l as Record<string, unknown>).filter((n) => typeof n === 'number' && n > 0).length
       : 0;
-  let payload: typeof syncPayload | GlobalPulseResponse = syncPayload;
+  let payload: GlobalPulseResponse = syncResult;
   const lastGood = await routeCacheGet<GlobalPulseResponse>(GP_LAST_GOOD_KEY);
   if (
     lastGood &&
     Array.isArray(lastGood.events) &&
     lastGood.layers &&
-    nonZeroLayers(lastGood.layers) > nonZeroLayers(syncLayers)
+    nonZeroLayers(lastGood.layers) > nonZeroLayers(syncResult.layers)
   ) {
     payload = lastGood;
   }
