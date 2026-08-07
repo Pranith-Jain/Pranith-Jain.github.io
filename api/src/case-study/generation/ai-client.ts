@@ -1,10 +1,10 @@
 /**
- * LLM client — multi-provider with fallback chain: Infron → Groq → Google Gemini → NVIDIA.
+ * LLM client — multi-provider with fallback chain: Gemini → Groq → NVIDIA → Infron.
  *
- * Infron (https://infron.ai) is the DEFAULT provider — an OpenAI-compatible
- * routing platform with free models (sapiens/agnes-2.0-flash:free for agent
- * workflows, deepseek/deepseek-v4-flash:free for summaries). Groq is the
- * fallback when Infron is unavailable or rate-limited.
+ * Gemini (3.6 → 3.5 → 2.5-flash free tiers, 1M ctx) is the PRIMARY for agent/
+ * analyst work. Groq (gpt-5-oss-120b, streaming) is next — and stays primary for
+ * the synthesizer via preferGroq. NVIDIA after that; Infron's free :free
+ * endpoints are unreliable, so it sits last as an emergency fallback only.
  */
 
 const INFRON_URL = 'https://llm.onerouter.pro/v1/chat/completions';
@@ -24,7 +24,7 @@ const GROQ_MODEL_DEEP: string = 'openai/gpt-oss-120b';
 const GROQ_TIMEOUT_MS = 15_000;
 
 const GOOGLE_GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
-const GEMINI_MODEL = 'gemini-2.0-flash';
+const GEMINI_MODELS = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-2.5-flash'];
 const GEMINI_TIMEOUT_MS = 20_000;
 
 const NVIDIA_URL = 'https://integrate.api.nvidia.com/v1/chat/completions';
@@ -131,6 +131,20 @@ export function isRequestTooLarge(err: unknown): boolean {
   return msg.includes('413') || msg.includes('too large') || msg.includes('request too large');
 }
 
+/**
+ * True when the invocation has hit the Workers free-plan 50-subrequest cap
+ * ("Too many subrequests by single Worker invocation"). Once exhausted, EVERY
+ * further fetch/KV/`ai.run` in this invocation fails the same way — so the
+ * fallback chain must stop immediately instead of burning the remaining
+ * provider models (each of which is guaranteed to fail). Relevant in the
+ * CronJobDO alarm, where the hourly pipeline shares one invocation budget
+ * with the briefing-heal LLM call.
+ */
+export function isSubrequestExhausted(err: unknown): boolean {
+  const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
+  return msg.includes('subrequest') || msg.includes('sub-request') || msg.includes('sub request');
+}
+
 // ── Workers AI fallback ─────────────────────────────────────────────────
 // Always available on the Worker (no external API key, no shared quota) and
 // large-context, so it neither 413s on a big prompt nor trips the same rate
@@ -171,6 +185,10 @@ async function runWorkersAI(ai: WorkersAiBinding, input: CompletionInput): Promi
     } catch (err) {
       lastErr = `${model}: ${err instanceof Error ? err.message : String(err)}`;
       console.error(`runWorkersAI ${lastErr.slice(0, 200)}`);
+      // Invocation subrequest budget is spent — remaining models would all
+      // fail identically, so do not burn them (free-plan 50-subrequest cap
+      // is shared with the whole cron alarm). Re-throw to fail fast.
+      if (isSubrequestExhausted(err)) throw err;
     }
   }
   throw new Error(`workers-ai exhausted: ${lastErr}`);
@@ -258,34 +276,41 @@ async function runInfron(key: string, input: CompletionInput, model: string): Pr
   return text;
 }
 
-async function runGemini(key: string, input: CompletionInput): Promise<string> {
-  const url = `${GOOGLE_GEMINI_URL}/${GEMINI_MODEL}:generateContent?key=${key}`;
-  try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ role: 'user', parts: [{ text: `${input.system}\n\n${input.user}` }] }],
-        generationConfig: {
-          maxOutputTokens: input.maxTokens ?? 4000,
-          temperature: input.temperature ?? 0.5,
-        },
-      }),
-      signal: AbortSignal.timeout(GEMINI_TIMEOUT_MS),
-    });
-    if (!res.ok) {
-      const body = await res.text().catch(() => '');
-      throw new Error(`gemini HTTP ${res.status}${body ? `: ${body.slice(0, 200)}` : ''}`);
+async function runGemini(key: string, input: CompletionInput): Promise<{ text: string; model: string }> {
+  let lastError: Error | null = null;
+  for (const model of GEMINI_MODELS) {
+    const url = `${GOOGLE_GEMINI_URL}/${model}:generateContent?key=${key}`;
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ role: 'user', parts: [{ text: `${input.system}\n\n${input.user}` }] }],
+          generationConfig: {
+            maxOutputTokens: input.maxTokens ?? 4000,
+            temperature: input.temperature ?? 0.5,
+          },
+        }),
+        signal: AbortSignal.timeout(GEMINI_TIMEOUT_MS),
+      });
+      if (!res.ok) {
+        const body = await res.text().catch(() => '');
+        const msg = `gemini HTTP ${res.status}${body ? `: ${body.slice(0, 200)}` : ''}`;
+        if (res.status === 401 || res.status === 403) throw new Error(msg);
+        lastError = new Error(msg);
+        continue;
+      }
+      const j = (await res.json()) as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
+      const text = j?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (typeof text !== 'string' || !text.trim()) throw new Error('gemini empty response');
+      return { text, model };
+    } catch (err) {
+      lastError = err instanceof Error ? err : new Error(String(err));
     }
-    const j = (await res.json()) as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
-    const text = j?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (typeof text !== 'string' || !text.trim()) throw new Error('gemini empty response');
-    return text;
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
-    console.error(`runGemini failed: ${msg.slice(0, 200)}`);
-    throw new Error(`gemini failed: ${msg}`);
   }
+  const msg = (lastError?.message ?? 'all models failed').slice(0, 200);
+  console.error(`runGemini failed: ${msg}`);
+  throw new Error(`gemini failed: ${msg}`);
 }
 
 async function runNvidia(key: string, input: CompletionInput): Promise<string> {
@@ -331,18 +356,19 @@ export async function runCompletion(
   const inputText = `${input.system}\n${input.user}`;
   const usageRole = opts.role ?? 'completion';
 
-  // Build provider order. Infron is the DEFAULT (free models, agent-optimized).
-  // preferGroq bumps Groq ahead of Infron for callers that specifically want
-  // Groq's streaming/reasoning (synthesizer, ai-summary). preferProvider
-  // overrides the whole order.
-  const allProviders = ['infron', 'groq', 'gemini', 'nvidia'] as const;
-  const providers: Array<(typeof allProviders)[number]> = opts.preferProvider
+  // Build provider order. Gemini is the PRIMARY LLM for the agent/analyst paths
+  // (3.6 → 3.5 → fallbacks: free tiers, 1M ctx, ~1,500 req/day each). Groq
+  // gpt-oss-120b is next, NVIDIA after, Infron last (unreliable free endpoints).
+  // `preferGroq` keeps the synthesizer on Groq for streaming output; use case
+  // study generator is the only main-streaming caller.
+  const fallbackOrder = ['gemini', 'groq', 'nvidia', 'infron'] as const;
+  const providers: Array<(typeof fallbackOrder)[number]> = opts.preferProvider
     ? opts.exclusiveProvider
       ? [opts.preferProvider]
-      : [opts.preferProvider, ...allProviders.filter((p) => p !== opts.preferProvider)]
+      : [opts.preferProvider, ...fallbackOrder.filter((p) => p !== opts.preferProvider)]
     : opts.preferGroq
-      ? ['groq', 'infron', 'gemini', 'nvidia']
-      : ['infron', 'groq', 'gemini', 'nvidia'];
+      ? ['groq', 'gemini', 'nvidia', 'infron']
+      : ['gemini', 'groq', 'nvidia', 'infron'];
 
   // Judge-independence guard: never let QA grade the model that generated the
   // report being verified. excludeProvider drops that provider from the chain
@@ -375,6 +401,9 @@ export async function runCompletion(
           const errMsg = err instanceof Error ? err.message : String(err);
           console.error(`runCompletion infron:${model} failed: ${errMsg.slice(0, 200)}`);
           errors.push(`infron:${model}: ${errMsg.slice(0, 80)}`);
+          // Invocation subrequest budget spent — the whole chain is doomed,
+          // do not walk the remaining models/providers.
+          if (isSubrequestExhausted(err)) throw err;
           if (isRequestTooLarge(err)) break;
           if (health) await health.recordFailure('infron', isRateLimited(err));
           if (isAuthError(err)) break;
@@ -398,6 +427,7 @@ export async function runCompletion(
           // health signal, so bail without tripping the circuit breaker (which
           // would wrongly skip Groq for later, smaller requests). Fall through to
           // gemini/nvidia/workers-ai, which have larger input windows.
+          if (isSubrequestExhausted(err)) throw err;
           if (isRequestTooLarge(err)) break;
           if (health) await health.recordFailure('groq', isRateLimited(err));
           if (isAuthError(err)) break;
@@ -406,14 +436,15 @@ export async function runCompletion(
     } else if (provider === 'gemini' && opts.googleKey) {
       const startMs = Date.now();
       try {
-        const text = await runGemini(opts.googleKey, input);
+        const { text, model } = await runGemini(opts.googleKey, input);
         if (health) await health.recordSuccess('gemini', Date.now() - startMs);
-        opts.recordUsage?.(`gemini:${GEMINI_MODEL}`, inputText, text, usageRole);
-        return { text, modelUsed: `gemini:${GEMINI_MODEL}` };
+        opts.recordUsage?.(`gemini:${model}`, inputText, text, usageRole);
+        return { text, modelUsed: `gemini:${model}` };
       } catch (err) {
         const errMsg = err instanceof Error ? err.message : String(err);
         console.error(`runCompletion gemini failed: ${errMsg.slice(0, 200)}`);
         errors.push(`gemini: ${errMsg.slice(0, 80)}`);
+        if (isSubrequestExhausted(err)) throw err;
         if (health) await health.recordFailure('gemini', isRateLimited(err));
       }
     } else if (provider === 'nvidia' && opts.nvidiaKey) {
@@ -427,6 +458,7 @@ export async function runCompletion(
         const errMsg = err instanceof Error ? err.message : String(err);
         console.error(`runCompletion nvidia failed: ${errMsg.slice(0, 200)}`);
         errors.push(`nvidia: ${errMsg.slice(0, 80)}`);
+        if (isSubrequestExhausted(err)) throw err;
         if (health) await health.recordFailure('nvidia', isRateLimited(err));
       }
     }
@@ -443,7 +475,11 @@ export async function runCompletion(
       opts.recordUsage?.(`workers-ai:${model.split('/').pop()}`, inputText, text, usageRole);
       return { text, modelUsed: `workers-ai:${model.split('/').pop()}` };
     } catch (err) {
-      errors.push(`workers-ai: ${(err instanceof Error ? err.message : String(err)).slice(0, 80)}`);
+      const errMsg = err instanceof Error ? err.message : String(err);
+      errors.push(`workers-ai: ${errMsg.slice(0, 80)}`);
+      // Budget is spent — rethrow so the caller knows it's not a transient
+      // provider issue (a retry inside the same invocation would also fail).
+      if (isSubrequestExhausted(err)) throw err;
     }
   }
 
@@ -525,6 +561,10 @@ async function runGroqStream(key: string, input: CompletionInput, onToken: (toke
  * Streaming completion. Tries Groq SSE first (invoking `onToken` per delta);
  * on any failure falls back to the whole-text `runCompletion` chain, emitting
  * the result as a single chunk. Always resolves to the full text + model.
+ *
+ * Gemini is the whole-text chain's primary but is non-streaming here, so the
+ * streamed case lands on Groq (gpt-oss-120b). Infron's flaky :free endpoints
+ * are skipped entirely.
  */
 export async function runCompletionStream(
   ai: unknown,
@@ -533,24 +573,6 @@ export async function runCompletionStream(
   onToken: (token: string) => void
 ): Promise<CompletionOutput> {
   const health = await getProviderHealth();
-  // Try Infron first (non-streaming — Infron SSE streaming is supported but
-  // the synthesizer's token-by-token UX is not critical for free models).
-  if (opts.infronKey && (!health || (await health.isProviderHealthy('infron')))) {
-    const startMs = Date.now();
-    try {
-      const text = await runInfron(opts.infronKey, input, INFRON_MODEL);
-      if (health) await health.recordSuccess('infron', Date.now() - startMs);
-      onToken(text);
-      opts.recordUsage?.(`infron:${INFRON_MODEL}`, `${input.system}\n${input.user}`, text, opts.role ?? 'completion');
-      return { text, modelUsed: `infron:${INFRON_MODEL}` };
-    } catch (err) {
-      console.error(
-        `runCompletionStream infron failed: ${(err instanceof Error ? err.message : String(err)).slice(0, 120)}`
-      );
-      if (health) await health.recordFailure('infron', isRateLimited(err));
-      // fall through to Groq streaming, then the whole-text chain
-    }
-  }
   if (opts.groqKey && (!health || (await health.isProviderHealthy('groq')))) {
     const startMs = Date.now();
     try {

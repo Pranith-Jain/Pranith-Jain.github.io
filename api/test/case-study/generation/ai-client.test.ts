@@ -3,6 +3,7 @@ import {
   runCompletion,
   isRateLimited,
   isRequestTooLarge,
+  isSubrequestExhausted,
   RateLimitError,
 } from '../../../src/case-study/generation/ai-client';
 import { resetProviderHealth } from '../../../src/lib/agent/provider-health';
@@ -32,6 +33,20 @@ describe('isRequestTooLarge', () => {
       expect(isRequestTooLarge(new Error(m))).toBe(true);
     }
     expect(isRequestTooLarge(new Error('rate limited (429)'))).toBe(false);
+  });
+});
+
+describe('isSubrequestExhausted', () => {
+  it('matches the Workers free-plan subrequest cap wording', () => {
+    for (const m of [
+      'Too many subrequests by single Worker invocation',
+      'Too many sub-requests: exceeded 50',
+      'sub request limit reached',
+    ]) {
+      expect(isSubrequestExhausted(new Error(m))).toBe(true);
+    }
+    expect(isSubrequestExhausted(new Error('rate limited (429)'))).toBe(false);
+    expect(isSubrequestExhausted(new Error('All LLM providers exhausted'))).toBe(false);
   });
 });
 
@@ -67,6 +82,43 @@ describe('runCompletion — Workers AI fallback', () => {
     await expect(runCompletion(ai, { system: 's', user: 'u' }, { groqKey: 'k' })).rejects.toThrow(
       'All LLM providers exhausted'
     );
+  });
+
+  it('fail-fast rethrows subrequest-exhaustion instead of walking the rest of the chain', async () => {
+    // Every fetch throws once the invocation's 50-subrequest budget is spent.
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => {
+        throw new Error(
+          'Too many subrequests by single Worker invocation, limit reached. Read the docs on scaling to avoid this. Please retry request'
+        );
+      })
+    );
+    const ai = { run: vi.fn(async () => ({ response: 'never reached' })) };
+    await expect(runCompletion(ai, { system: 's', user: 'u' }, { groqKey: 'k' })).rejects.toThrow(
+      'Too many subrequests'
+    );
+    // The Workers AI binding must not be called — the invocation is doomed and
+    // the remaining provider models would all fail identically.
+    expect(ai.run).not.toHaveBeenCalled();
+  });
+
+  it('fail-fast rethrows from Workers AI when the binding exhausts the budget', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response('nope', { status: 500 }))
+    );
+    const ai = {
+      run: vi.fn(async () => {
+        throw new Error('Too many subrequests by single Worker invocation is 50');
+      }),
+    };
+    await expect(runCompletion(ai, { system: 's', user: 'u' }, { groqKey: 'k' })).rejects.toThrow(
+      'Too many subrequests'
+    );
+    // Only the first model is attempted — after the budget hits zero there is
+    // no point trying qwen / gpt-oss / llama-3.1.
+    expect(ai.run).toHaveBeenCalledTimes(1);
   });
 });
 
