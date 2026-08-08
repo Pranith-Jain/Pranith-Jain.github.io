@@ -1,0 +1,198 @@
+{
+  "type": "deepfake",
+  "date": "2026-08-07",
+  "riskOutlook": "Worsening",
+  "executiveSummary": "The most consequential developments this cycle are twofold: escalating AI-driven election risks in the United States and confirmed criminal exploitation of voice impersonation to deliver ransomware. Reporting indicates AI-generated political content is already widespread ahead of the U.S. midterms amid fragmented state-level protections, increasing the likelihood of voter deception and operational strain on election stakeholders Source . In parallel, voice-based social engineering led to multiple intrusions and rapid ransomware deployment, with at least one victim reaching encryption in under 17 hours View Article . On the defensive and governance front, EU transparency obligations for AI-generated and manipulated content are coming into effect, with specific grace periods for legacy systems-shaping near-term labeling, provenance, and compliance expectations across public and private sectors Quick Facts Regulation Text . Platform and standards momentum also continues with expanded C2PA participation and multi-layer provenance tooling updates that could strengthen authenticity checks View Article OpenAI Update . Research advances in watermarking and provenance verification-spanning public-key watermarking for text and more robust techniques for images-may improve future detection efficacy but remain pre-deployment Text Watermarking Image Watermarking . Overall, the threat environment appears to be worsening due to active political deception risks and confirmed voice-based ransomware intrusions, despite improving policy and provenance defenses.",
+  "keyFindings": [
+    {
+      "title": "AI-generated political content is already proliferating ahead of U.S. midterms, ",
+      "summary": "AI-generated political content is already proliferating ahead of U.S. midterms, with uneven state protections heightening voter deception risk. View Article"
+    },
+    {
+      "title": "Voice-based IT support impersonation led to rapid ransomware deployment across m",
+      "summary": "Voice-based IT support impersonation led to rapid ransomware deployment across multiple targets, including encryption in under 17 hours in at least one case. View Article"
+    },
+    {
+      "title": "EU transparency obligations for AI-generated/manipulated content are taking effe",
+      "summary": "EU transparency obligations for AI-generated/manipulated content are taking effect, shaping immediate labeling and provenance workflows. Quick Facts"
+    },
+    {
+      "title": "AI Act implementation includes a compliance extension for certain pre-Aug 2, 202",
+      "summary": "AI Act implementation includes a compliance extension for certain pre-Aug 2, 2026 systems to meet machine-readable marking by Dec 2, 2026. Regulation Text"
+    },
+    {
+      "title": "Public-key watermarking for LLM text aims to enable public verification even und",
+      "summary": "Public-key watermarking for LLM text aims to enable public verification even under edits and partial copies. Supporting Report"
+    },
+    {
+      "title": "Robust image watermarking methods show detectability under regeneration and spar",
+      "summary": "Robust image watermarking methods show detectability under regeneration and sparse-latent attacks in testing. Supporting Report"
+    },
+    {
+      "title": "Policy-constrained watermark detection proposes limiting detector misuse while e",
+      "summary": "Policy-constrained watermark detection proposes limiting detector misuse while enabling enterprise provenance checks. Supporting Report"
+    },
+    {
+      "title": "Platforms and standards",
+      "summary": "TikTok joined the C2PA steering committee, signaling scaled commitment to interoperable provenance. View Article"
+    },
+    {
+      "title": "Provenance tooling momentum",
+      "summary": "OpenAI advanced C2PA-aligned metadata and SynthID watermarking with public verification preview. OpenAI Update"
+    },
+    {
+      "title": "FBI IC3 reporting underscores substantial losses tied to AI-enabled fraud and vo",
+      "summary": "FBI IC3 reporting underscores substantial losses tied to AI-enabled fraud and voice cloning. Security Advisory"
+    }
+  ],
+  "incidents": [
+    {
+      "title": "U.S. midterms face surge of AI-generated political content amid fragmented state rules",
+      "badges": [
+        "ESCALATE"
+      ],
+      "fields": {
+        "Publication date": "2026-08-07",
+        "Location": "United States",
+        "Media type": "Social Media",
+        "Threat category": "Political",
+        "Affected sector": "Government"
+      },
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.axios.com/2026/08/07/election-ai-deepfake-rules-states",
+          "label": "Axios: election AI deepfake rules vary by state"
+        }
+      ]
+    },
+    {
+      "title": "Voice-based IT support impersonation enables rapid Chaos ransomware deployment",
+      "badges": [
+        "ESCALATE"
+      ],
+      "fields": {
+        "Publication date": "2026-07-30",
+        "Location": "North America",
+        "Media type": "Voice",
+        "Threat category": "Criminal",
+        "Affected sector": "Corporate"
+      },
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/microsoft-teams-vishing-attacks-lead-to-chaos-ransomware-attacks/",
+          "label": "BleepingComputer: Teams vishing linked to Chaos ransomware"
+        }
+      ]
+    },
+    {
+      "title": "Government",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.axios.com/2026/08/07/election-ai-deepfake-rules-states",
+          "label": "Source"
+        }
+      ]
+    },
+    {
+      "title": "Corporate",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.bleepingcomputer.com/news/security/microsoft-teams-vishing-attacks-lead-to-chaos-ransomware-attacks/",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Media & Platforms",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://c2pa.org/c2pa-welcomes-tiktok-to-steering-committee/",
+          "label": "C2PA"
+        },
+        {
+          "url": "https://openai.com/index/advancing-content-provenance/",
+          "label": "OpenAI"
+        }
+      ]
+    },
+    {
+      "title": "Public",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": [
+        {
+          "url": "https://www.fbi.gov/file-repository/2025_ic3report.pdf",
+          "label": "FBI IC3"
+        }
+      ]
+    },
+    {
+      "title": "For Investigators",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": []
+    },
+    {
+      "title": "For Organizations",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": []
+    },
+    {
+      "title": "For News & Public-Safety Orgs",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": []
+    },
+    {
+      "title": "For Legal & Policy Professionals",
+      "badges": [],
+      "fields": {},
+      "summary": "",
+      "sources": []
+    }
+  ],
+  "emergingTrends": [
+    "Political or social disinformation: Proliferation of AI-generated political content ahead of elections with uneven legal protections. Source",
+    "AI-enabled vishing and ransomware: Voice impersonation to gain remote access and deploy ransomware within hours. View Article",
+    "Content provenance and standards: Expanded C2PA adoption by major platforms and vendors. View Article",
+    "Watermarking advancements (observation): New text and image watermarking proposals aim for robustness under edits and regeneration. Text Image",
+    "Policy-constrained detection (observation): Designs to limit detector misuse while enabling enterprise provenance checks. Supporting Report",
+    "Regulatory enforcement: EU transparency obligations are entering force, prompting immediate labeling and machine-readable marking considerations. Quick Facts"
+  ],
+  "geographicObservations": [
+    "United States: Elevated election-related synthetic media risk ahead of midterms. Source",
+    "North America: Vishing-enabled ransomware operations observed across multiple organizations. View Article",
+    "European Union: Transparency and labeling obligations for AI-generated/manipulated content entering into effect with specific grace periods. Quick Facts Regulation Text",
+    "Global: Platform and standards moves (C2PA, provenance tooling) and ongoing research in watermarking and detection. C2PA OpenAI"
+  ],
+  "detectionDevelopments": [
+    "EU transparency rules for AI systems (including deepfakes) are taking effect, requiring disclosures and machine-readable marking. Quick Facts Regulation Text",
+    "OpenAI advanced a multi-layer provenance approach (C2PA metadata + SynthID watermarking) with a public verification preview. OpenAI Update",
+    "TikTok joined the C2PA Steering Committee, signaling scaled platform alignment to provenance standards. C2PA",
+    "Google outlined expanded support for identifying AI-generated media online. Google Blog",
+    "Research: Public-key watermarking for LLM text aims for public verification under edits; robust image watermarking claims survivability under regeneration. Text Image",
+    "Research: Policy-constrained watermark detection proposes limiting detector misuse while enabling provenance checks. Supporting Report",
+    "Adopt layered provenance: ingest C2PA metadata, validate trusted signing keys, and cross-check with resilient watermark signals. (Analyst Recommendation)",
+    "Institutionalize out-of-band verification for IT support requests and access escalations; log and audit all remote-assist sessions. (Analyst Recommendation)",
+    "For elections and high-stakes comms, implement rapid \"first-seen media\" triage with pre-bunking playbooks and coordinated platform/escalation channels. (Analyst Recommendation)",
+    "Expand voice fraud controls: verified callback policies, anti-vishing user prompts on collaboration tools, and limited standing access tokens. (Analyst Recommendation)",
+    "Track EU Article 50 obligations and machine-readable marking deadlines; conduct gap analyses for content-lifecycle labeling. (Analyst Recommendation)",
+    "Evaluate watermarking research pilots in sandboxed environments; measure robustness under common editing/regeneration attacks. (Analyst Recommendation)"
+  ]
+}

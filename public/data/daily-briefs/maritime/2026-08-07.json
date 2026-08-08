@@ -1,0 +1,86 @@
+{
+  "type": "maritime",
+  "date": "2026-08-07",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Overall maritime cyber threat level: HIGH. This assessment reflects confirmed GPS disruption affecting vessels at Fujairah anchorage, an actively exploited SD-WAN orchestrator vulnerability with potential maritime network exposure, ongoing regional attacks on shipping that raise cyber-enabled navigation and communications risk, and a reported port cyber incident under verification. Confirmed navigation disruption: USCG NAVCEN documented multiple recent marine GPS interference cases near Fujairah, UAE, with no constellation anomaly or authorized testing identified; this presents an immediate navigation and safety risk for vessels operating in a critical energy corridor. Government Advisory Actively exploited vulnerability: A critical OS command injection (CVE-2026-16812) in Arista VeloCloud Orchestrator On-Prem was exploited as a zero-day; maritime operators using SD-WAN for vessel, port, or remote connectivity should urgently verify exposure and patch/mitigate. View Article Regional security environment: The IMO condemned renewed attacks on ships in the Red Sea; while kinetic, the environment may elevate risks of communications interference, deception, or cyber-enabled navigation challenges for transiting vessels. Maritime Advisory Port operations: Community reporting indicates a cyber incident impacting North Carolina Ports (Charlotte Inland Port and facilities linked to Wilmington and Morehead City), with limited technical details and low-confidence open-source confirmation at time of writing; operators should validate any operational dependencies on affected nodes. Supporting Report Targeted ICS/OT threat: Reporting attributes four attack waves by Boggy Serpens/MuddyWater against a national marine and energy company (Aug 2025-Feb 2026), using phishing, macros, backdoors, and new payloads-reinforcing persistent interest in maritime-adjacent ICS environments. Threat Intel Assessment notes: • Facts are sourced from the linked articles and advisories. • The elevated threat level is an analytical judgment synthesizing multiple events. • Outlook judgments below reflect current indicators and are not predictions of certainty. Confidence: high for USCG NAVCEN and Arista vulnerability exploitation; medium for IMO context; medium for APT interest; low for the reported NC Ports incident.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "6",
+        "label": ""
+      },
+      {
+        "value": "6",
+        "label": ""
+      },
+      {
+        "value": "4",
+        "label": ""
+      },
+      {
+        "value": "1",
+        "label": ""
+      },
+      {
+        "value": "1",
+        "label": ""
+      },
+      {
+        "value": "1",
+        "label": ""
+      },
+      {
+        "value": "1",
+        "label": ""
+      },
+      {
+        "value": "1",
+        "label": ""
+      },
+      {
+        "value": "1",
+        "label": ""
+      },
+      {
+        "value": "2",
+        "label": ""
+      }
+    ],
+    "vendors": [],
+    "sectors": []
+  },
+  "keyFindings": [
+    "CVE-2026-16812 in Arista VeloCloud Orchestrator On-Prem is under active exploitation; any maritime SD-WAN deployments require urgent review of exposure, patching status, and external management-plane access. View Article",
+    "Renewed attacks on shipping in the Red Sea elevate the likelihood of cyber-enabled navigation and communications challenges in contested waters (spoofing, jamming, deception) even if not explicitly reported as cyber incidents. Maritime Advisory",
+    "Community reporting of an NC Ports cyber incident suggests potential disruption to port business systems and inland logistics; verification and contingency checks are advised for counterparties with dependencies. Supporting Report",
+    "APT activity targeting a national marine/energy company (MuddyWater) underscores sustained interest in maritime-adjacent ICS/OT via phishing and custom payloads. Threat Intel"
+  ],
+  "topThreats": [],
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Type: OS command injection; reported as exploited as a zero-day.",
+        "Risk: Privileged internal functionality exposure; compromise of confidentiality, integrity, availability of orchestrator.",
+        "Maritime impact: Potential control over SD-WAN paths for vessel, port, and offshore connectivity.",
+        "Action: Patch/mitigate immediately; restrict external access; monitor for abnormal orchestrator actions."
+      ]
+    }
+  ],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Phishing with macro-enabled attachments leading to backdoor deployment (initial access, execution, persistence, C2) - reported in marine/energy targeting. Threat Intel",
+      "Exploitation of public-facing application (SD-WAN orchestrator) to obtain command execution and privileged access. View Article",
+      "Navigation disruption consistent with RF interference; formal ATT&CK mapping not applicable; behavior described in operational terms. Government Advisory"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor for additional Fujairah-area GNSS disruption reports; immediate risk to navigation remains elevated for vessels in the vicinity. Confidence: high. Government Advisory Expect continued disclosures and patch guidance around CVE-2026-16812 as operators assess exposure; opportunistic exploitation attempts may persist against internet-exposed orchestrators. Confidence: medium. View Article Additional statements on Red Sea risks are likely as maritime security conditions evolve; prepare for comms/nav contingency operations during transits. Confidence: medium. Maritime Advisory There is insufficient authoritative information to determine the extent of the reported NC Ports disruption; continue verification and adjust logistics plans if confirmed. Confidence: low. Supporting Report",
+  "relatedCves": [
+    "CVE-2026-16812"
+  ]
+}

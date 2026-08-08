@@ -1,0 +1,68 @@
+{
+  "type": "cyber",
+  "date": "2026-08-07",
+  "threatLevel": "",
+  "executiveSummary": "",
+  "keyFindings": [],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "Multiple campaigns and KEV items",
+        "label": "Active Exploitation (in scope)"
+      },
+      {
+        "value": "PLCs, HMIs, EVSE, HMI/SCADA",
+        "label": "OT-Direct Issues"
+      },
+      {
+        "value": "VPN/RMM/Firewall/CI/CD",
+        "label": "Edge/Identity Pressure"
+      },
+      {
+        "value": "Water, Energy, Transport, Gov, Healthcare",
+        "label": "Top Sectors at Risk"
+      },
+      {
+        "value": "Remove OT internet exposure; patch KEV; rotate creds",
+        "label": "72-Hour Focus"
+      },
+      {
+        "value": "PLC/HMI targeting; Edge device abuse",
+        "label": "Priority Campaigns"
+      },
+      {
+        "value": "CI/CD, RMM, Firewall",
+        "label": "KEV Pressure"
+      },
+      {
+        "value": "VPN/RDP/AitM risks",
+        "label": "Identity & Access"
+      },
+      {
+        "value": "PcVue, EVSE, IoTDB",
+        "label": "OT-Facing Software"
+      },
+      {
+        "value": "Remove exposure; MFA; rotate creds",
+        "label": "Immediate Controls"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [],
+    "sectors": []
+  },
+  "topThreats": [],
+  "threatActors": [],
+  "cveWatch": [],
+  "events": [],
+  "ttps": {
+    "descriptions": [],
+    "mitreIds": []
+  },
+  "outlook72h": "",
+  "relatedCves": [
+    "CVE-2026-50641",
+    "CVE-2025-67649",
+    "CVE-2026-33385"
+  ]
+}
