@@ -15,7 +15,22 @@ import { matchOgImagePath, matchOgPagePath, type OgImageType } from './og-path';
 import { svgToPng } from './og-raster';
 import { workerRateLimit, rateLimitResponse, callerIp } from './lib/worker-rate-limit';
 
-const OG_LIMIT = 20;
+const OG_LIMIT = 60;
+
+/**
+ * Social crawlers must NEVER be rate-limited off this route — the endpoint
+ * exists precisely so their og:image fetch can render a card. X (Twitter)
+ * and LinkedIn crawl links in bursts (one fetch per shared URL, same IP),
+ * so a 20/min cap was 429ing a fraction of their fetches → "some links show
+ * no image". Bypass the limiter for known crawler user-agents.
+ */
+const CRAWLER_UA_RE =
+  /twitterbot|linkedinbot|facebookexternalhit|facebot|slackbot|discordbot|telegrambot|whatsapp|googlebot|bingbot|duckduckbot|pinterestbot|yandexbot/i;
+
+function isSocialCrawler(request: Request): boolean {
+  const ua = request.headers.get('user-agent') ?? '';
+  return CRAWLER_UA_RE.test(ua);
+}
 
 const ASSET_ORIGIN = 'https://og-assets.internal';
 
@@ -66,12 +81,8 @@ export async function handleOgImage(request: Request, env: Env, url: URL, ctx: E
   // single clean segment. No-op for briefing/blog slugs (already url-safe).
   const keySlug = encodeURIComponent(slug);
 
-  const rl = await workerRateLimit('og', callerIp(request), OG_LIMIT);
-  if (!rl.allowed) return rateLimitResponse(rl);
-
-  // v5: bumped for the flat-design regeneration (gradients/glow/grid removed
-  // so PNGs are ~3x smaller; output size is now 1200×630 exactly). Bump on
-  // any card redesign so cached cards re-render.
+  // Cache-first: a cached card must always be served, even during a crawl
+  // burst — the rate limiter below only governs actual renders.
   const cacheKey = new Request(`https://og-png.internal/v5/${type}/${keySlug}.png`);
   const cached = await caches.default.match(cacheKey);
   if (cached) return cached;
@@ -80,6 +91,10 @@ export async function handleOgImage(request: Request, env: Env, url: URL, ctx: E
   const pngCacheReq = new Request(`https://og-png-cache.internal/v1/${encodeURIComponent(kvKey)}`);
   const cachedPng = await caches.default.match(pngCacheReq);
   if (cachedPng) return cachedPng;
+
+  // Uncached renders only, and never for known crawler user-agents.
+  const rl = await workerRateLimit('og', callerIp(request), OG_LIMIT);
+  if (!rl.allowed && !isSocialCrawler(request)) return rateLimitResponse(rl);
 
   try {
     const data = await loadOgData(env, type, slug);
