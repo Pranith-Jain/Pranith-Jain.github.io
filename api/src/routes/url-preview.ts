@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
+import { badGateway, tooManyRequests, respondError } from '../lib/api-error';
 import { safeErrorMessage } from '../lib/error';
 import { assertPublicHost } from '../lib/ssrf-guard';
 
@@ -332,17 +332,17 @@ function feedsOf(links: ParsedLink[], base: string): { title?: string; url: stri
 
 export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
   const raw = c.req.query('url');
-  if (!raw) return badRequest(c, 'missing url');
+  if (!raw) return respondError(c, 'missing url', 'url parameter is required', 400);
 
   let parsed: URL;
   try {
     parsed = new URL(raw);
   } catch (_catchErr) {
     logError('urlPreviewHandler failed', _catchErr);
-    return badRequest(c, 'invalid url');
+    return respondError(c, 'invalid url', 'url could not be parsed', 400);
   }
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
-    return badRequest(c, 'unsupported protocol');
+    return respondError(c, 'unsupported protocol', 'only http and https are supported', 400);
   }
 
   // Resolve A + AAAA and refuse any private/reserved answer (complete
@@ -405,8 +405,9 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
     // Surface upstream rate-limit so the client can back off rather than
     // get a generic 502. Pass through the upstream Retry-After if given.
     if (finalRes.status === 429) {
-      const retryAfter = finalRes.headers.get('retry-after') ?? '60';
-      return tooManyRequests(c, 'upstream_rate_limited');
+      const retryAfter = Number(finalRes.headers.get('retry-after') ?? '60');
+      const windowSeconds = Number.isFinite(retryAfter) && retryAfter > 0 ? Math.round(retryAfter) : 60;
+      return tooManyRequests(c, 'upstream_rate_limited', { windowSeconds });
     }
 
     if (finalRes.status >= 300 && finalRes.status < 400) {

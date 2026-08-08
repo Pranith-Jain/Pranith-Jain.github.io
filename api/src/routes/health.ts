@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
+import { serviceUnavailable } from '../lib/api-error';
 import { getSiteUrl } from '../lib/site-config';
 import { healthDetailedHandler } from './health-detailed';
 import { featuresHandler } from './features';
@@ -146,13 +146,19 @@ health.get('/api/v1/debug/llm', async (c) => {
         max_completion_tokens: 5,
       }),
       google: await testEndpoint(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' +
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=' +
+          env.GOOGLE_AI_STUDIO_API_KEY,
+        env.GOOGLE_AI_STUDIO_API_KEY,
+        { contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 5 } }
+      ),
+      googleMid: await testEndpoint(
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=' +
           env.GOOGLE_AI_STUDIO_API_KEY,
         env.GOOGLE_AI_STUDIO_API_KEY,
         { contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 5 } }
       ),
       googleFallback: await testEndpoint(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' +
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' +
           env.GOOGLE_AI_STUDIO_API_KEY,
         env.GOOGLE_AI_STUDIO_API_KEY,
         { contents: [{ role: 'user', parts: [{ text: 'ping' }] }], generationConfig: { maxOutputTokens: 5 } }

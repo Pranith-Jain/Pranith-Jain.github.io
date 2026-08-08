@@ -1,0 +1,15 @@
+{
+  "slug": "barracuda-rs-automation-co-ltd-2026-08-06",
+  "title": "RS Automation Co., Ltd.",
+  "group": "Barracuda",
+  "discovered": "2026-08-06T08:31:28.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CN",
+  "sizeBytes": 0,
+  "description": "Full dump of all files from the servers and developers personal files and NAS. Legal documents, letters, drawings, assembly, C, and C++ source codes. Official manufacturer website: rsautomation.co.kr | Status: upcoming | Size: 637 GB | Starts at $50000.00",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

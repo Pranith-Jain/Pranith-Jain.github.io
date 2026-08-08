@@ -29,7 +29,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
+import { respondError } from '../lib/api-error';
 import { detectType } from '../lib/indicator';
 import { signInternalToken } from '../lib/internal-token';
 
@@ -87,10 +87,43 @@ async function timeIt<T>(
   }
 }
 
+/**
+ * Overall fan-out deadline. Each live sub-route carries its own AbortSignal,
+ * but a stuck upstream (proxy hang, provider with no egress, slow SSRF probe)
+ * could otherwise hold the entire deep-enrich request open indefinitely.
+ * Cap the fan-out so the request always returns with per-source results
+ * (timed-out hits carry an `error` for the caller to surface).
+ */
+const FANOUT_DEADLINE_MS = 13_000;
+
+async function settleWithin(
+  hits: Array<Promise<{ source: string; ok: boolean; error?: string; data: unknown; ms: number }>>,
+  deadlineMs: number
+): Promise<PromiseSettledResult<{ source: string; ok: boolean; error?: string; data: unknown; ms: number }>[]> {
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  return new Promise((resolve) => {
+    timer = setTimeout(() => {
+      resolve(
+        hits.map((p, i) => ({
+          status: 'rejected' as const,
+          reason: new Error(`fan-out deadline exceeded (source ${i})`),
+        }))
+      );
+    }, deadlineMs);
+    void Promise.allSettled(hits).then((results) => {
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
+      }
+      resolve(results);
+    });
+  });
+}
+
 export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const ind = (c.req.query('indicator') ?? c.req.query('q') ?? '').trim();
-  if (!ind) return badRequest(c, 'missing indicator');
-  if (ind.length > 2000) return badRequest(c, 'indicator too long');
+  if (!ind) return respondError(c, 'missing indicator', 'indicator parameter is required', 400);
+  if (ind.length > 2000) return respondError(c, 'indicator too long', 'indicator exceeds max length', 400);
 
   // Allow opt-in to *trigger* a real webamon scan (writes, expensive,
   // rate-limited). Off by default — default behaviour is to read the public
@@ -98,14 +131,14 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
   const triggerWebamonScan = (c.req.query('trigger') ?? '').toLowerCase().split(',').includes('scan');
 
   const t = detectType(ind) as IndicatorType;
-  if (t === 'unknown') return badRequest(c, 'unrecognized indicator type');
+  if (t === 'unknown') return respondError(c, 'unrecognized indicator type', 'indicator type is not supported', 400);
 
   const enc = encodeURIComponent(ind);
   const env = c.env;
   const self = (env as unknown as { SELF?: Fetcher }).SELF;
   const tokenSecret = env.INTERNAL_TOKEN_SECRET;
   if (!tokenSecret) {
-    return serviceUnavailable(c, 'internal_token_not_configured');
+    return respondError(c, 'internal_token_not_configured', 'internal token secret is not set', 503);
   }
   const token = await signInternalToken('api-enrich-deep', tokenSecret);
 
@@ -320,7 +353,7 @@ export async function iocEnrichDeepHandler(c: Context<{ Bindings: Env }>): Promi
     );
   }
 
-  const results = await Promise.allSettled(hits);
+  const results = await settleWithin(hits, FANOUT_DEADLINE_MS);
   const sources: SourceHit[] = [];
   for (const r of results) {
     if (r.status === 'fulfilled') sources.push(r.value);

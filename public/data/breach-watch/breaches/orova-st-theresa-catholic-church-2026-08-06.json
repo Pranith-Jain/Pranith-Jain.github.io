@@ -1,0 +1,15 @@
+{
+  "slug": "orova-st-theresa-catholic-church-2026-08-06",
+  "title": "St Theresa Catholic Church",
+  "group": "Orova",
+  "discovered": "2026-08-06T09:52:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Today we have broadened our network and capability to provide services by partnering with other individuals, groups and churches through the Belleview Area Social Services (BASS) Network. BASS works to bring a coordinated approach to providing services to those in need.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

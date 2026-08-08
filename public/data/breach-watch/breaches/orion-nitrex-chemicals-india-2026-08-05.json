@@ -1,0 +1,15 @@
+{
+  "slug": "orion-nitrex-chemicals-india-2026-08-05",
+  "title": "Nitrex Chemicals India",
+  "group": "orion",
+  "discovered": "2026-08-05T19:57:11.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "We only seek money. No morals, no political stance Your data is only secure IF you pay us",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

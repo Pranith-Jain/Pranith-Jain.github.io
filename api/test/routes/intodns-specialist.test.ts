@@ -1,5 +1,6 @@
 import { SELF } from 'cloudflare:test';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { withTestApiKey } from '../test-helpers';
 
 beforeEach(() => vi.restoreAllMocks());
 
@@ -19,11 +20,12 @@ describe('GET /api/v1/intodns/blacklist', () => {
   });
 
   it('returns parsed JSON on 200 and surfaces X-Intodns-Cache header', async () => {
-    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-      new Response(JSON.stringify({ domain: 'example.com', mailServers: [] }), {
-        status: 200,
-        headers: { 'content-type': 'application/json' },
-      })
+    vi.spyOn(globalThis, 'fetch').mockImplementation(
+      async () =>
+        new Response(JSON.stringify({ domain: 'example.com', mailServers: [] }), {
+          status: 200,
+          headers: { 'content-type': 'application/json' },
+        })
     );
     const r = await SELF.fetch('https://x/api/v1/intodns/blacklist?domain=example.com');
     expect(r.status).toBe(200);
@@ -64,7 +66,8 @@ describe('GET /api/v1/intodns/badge', () => {
 
 describe('POST /api/v1/intodns/debug-email', () => {
   it('rejects empty body', async () => {
-    const r = await SELF.fetch('https://x/api/v1/intodns/debug-email', {
+    const fetchAuthed = await withTestApiKey();
+    const r = await fetchAuthed('https://x/api/v1/intodns/debug-email', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ raw_email: '' }),
@@ -73,7 +76,8 @@ describe('POST /api/v1/intodns/debug-email', () => {
   });
 
   it('rejects missing raw_email', async () => {
-    const r = await SELF.fetch('https://x/api/v1/intodns/debug-email', {
+    const fetchAuthed = await withTestApiKey();
+    const r = await fetchAuthed('https://x/api/v1/intodns/debug-email', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({}),

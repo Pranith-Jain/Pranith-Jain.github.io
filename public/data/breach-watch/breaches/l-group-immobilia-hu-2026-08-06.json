@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-immobilia-hu-2026-08-06",
+  "title": "immobilia.hu",
+  "group": "l group",
+  "discovered": "2026-08-06T22:19:22.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Immobilia Zrt. is a Budapest-based real estate development company that provides continuous and highest-quality development services in the city centre of Budapest.",
+  "source_url": "https://www.ransomlook.io/screenshots/l group/immobiliahu.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

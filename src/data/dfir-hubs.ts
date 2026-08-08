@@ -272,6 +272,15 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'PowershellDeobf',
       },
       {
+        path: '/dfir/powershell-analyzer',
+        tabId: 'powershell-analyzer',
+        label: 'PowerShell Security Analyzer',
+        desc: 'Static-analysis a PowerShell script for malicious behavior - 250+ signatures, MITRE ATT&CK mapping, IOC extraction, obfuscation scoring, risk score, 100% client-side.',
+        compVar: 'PowershellAnalyzer',
+        badge: 'new',
+        keywords: ['powershell', 'malware', 'obfuscation', 'ioc', 'mitre', 'static analysis', 'script'],
+      },
+      {
         path: '/dfir/file',
         tabId: 'file',
         label: 'File Analyzer',

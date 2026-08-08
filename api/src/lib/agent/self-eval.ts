@@ -102,7 +102,7 @@ Rate this report on the 5 axes. Respond as JSON.`;
       name: 'gemini',
       build: () => ({
         provider: 'google',
-        model: 'gemini-2.0-flash',
+        model: 'gemini-3.6-flash',
         system: SELF_EVAL_SYSTEM_PROMPT,
         user: userPrompt,
         temperature: 0.3,

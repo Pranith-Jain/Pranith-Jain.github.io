@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest } from '../lib/api-error';
 import { checkAddress, type SanctionsCheck } from '../lib/ofac-sanctions';
 import { checkScamSniffer, loadScamSnifferSet, type ScamSnifferCheck } from '../lib/scamsniffer';
 import { getAddressContext, getRecentTransfers, type AddressContext, type TokenTransfer } from '../lib/blockscout';

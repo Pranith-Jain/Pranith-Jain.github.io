@@ -1,0 +1,15 @@
+{
+  "slug": "storm-liberty-healthcare-corporation-2026-08-06",
+  "title": "Liberty Healthcare Corporation",
+  "group": "storm",
+  "discovered": "2026-08-06T18:35:10.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Liberty Healthcare Corporation is a prominent health and human services management company that has been addressing complex healthcare challenges for over 30 years. They specialize in health workforce outsourcing, program management, and population health management, focusing on supporting specialized and vulnerable populations. Their innovative, person-centered solutions aim to improve quality and performance in healthcare organizations. With expertise in behavioral health, aging, and intellectual developmental disabilities, Liberty Healthcare is dedicated to transforming challenges into opportunities for success. The company headquarters is located in 401 East City Avenue, Suite 820, Bala Cynwyd, PA 19004, United States.",
+  "source_url": "https://www.ransomlook.io/screenshots/storm/Liberty Healthcare Corporation.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

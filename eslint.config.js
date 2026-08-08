@@ -142,5 +142,17 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
     },
+  },
+
+  // api/test — helper modules here (e.g. test-helpers.ts) are not `*.test.ts`
+  // files, so nothing matched them and directory traversal parsed them with
+  // the default espree parser (TS syntax → "Parsing error"). Give the whole
+  // directory the TS parser + relaxed test rules.
+  {
+    files: ['api/test/**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    },
   }
 );

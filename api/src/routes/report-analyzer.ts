@@ -15,7 +15,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
+import { badRequest, badGateway, payloadTooLarge } from '../lib/api-error';
 import { runReportAnalyzer, type AnalyzerInput, type AnalyzerOutput } from '../lib/report-analyzer';
 
 const CACHE_TTL = 0; // never cache — the point of this endpoint is fresh analysis

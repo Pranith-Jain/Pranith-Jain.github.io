@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
+import { badRequest, badGateway } from '../lib/api-error';
 
 import { safeNullLog } from '../lib/safe-catch';
 const CACHE_TTL_SECONDS = 3600;
@@ -24,8 +24,7 @@ const KV_PREFIX = 'hackertarget:v2:';
 function makeHandler(endpoint: string, cacheKeyPrefix: string) {
   return async (c: Context<{ Bindings: Env }>): Promise<Response> => {
     const q = c.req.query('q');
-    if (!q || q.length > 200)
-      return badRequest(c, 'q parameter required (max 200)');
+    if (!q || q.length > 200) return badRequest(c, 'q parameter required (max 200)');
 
     const cacheUrl = `https://hackertarget-cache.internal/v2-${cacheKeyPrefix}-${encodeURIComponent(q)}`;
     const cacheReq = new Request(cacheUrl);

@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
+import { badRequest, badGateway } from '../lib/api-error';
 
 const HM_BASE = 'https://hackmyip.com/api/breach';
 const CACHE_TTL_SECONDS = 3600;

@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest, internalError } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const CAMPAIGN_SYSTEM = `You are a threat intelligence campaign tracker. Given a collection of related threat articles/events, construct a campaign timeline and analysis.

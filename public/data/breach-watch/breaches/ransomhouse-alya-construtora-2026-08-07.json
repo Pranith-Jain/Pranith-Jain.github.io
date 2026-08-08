@@ -1,0 +1,15 @@
+{
+  "slug": "ransomhouse-alya-construtora-2026-08-07",
+  "title": "Alya Construtora",
+  "group": "ransomhouse",
+  "discovered": "2026-08-07T13:33:22.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "Álya Construtora is one of Brazil's leading privately owned engineering and construction companies, specializing in complex infrastructure, industrial, energy, urban mobility, and building projects with more than 70 years of operating experience.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["RANSOM HOUSE"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

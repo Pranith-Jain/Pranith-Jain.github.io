@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-ferretornillos-com-2026-08-06",
+  "title": "ferretornillos.com",
+  "group": "l group",
+  "discovered": "2026-08-06T22:23:02.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Ferretornillos SA is a company that operates in the Food & Beverage industry.",
+  "source_url": "https://www.ransomlook.io/screenshots/l group/ferretornilloscom.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

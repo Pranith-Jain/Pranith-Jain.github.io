@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest, internalError } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const ALERT_SYSTEM = `You are a threat alert engine. Given a user's watchlist keywords and a batch of recent events, identify matches and assess relevance.

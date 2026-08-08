@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-atp-chaco-gob-ar-2026-08-07",
+  "title": "atp.chaco.gob.ar",
+  "group": "L Group",
+  "discovered": "2026-08-07T08:42:04.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AR",
+  "sizeBytes": 0,
+  "description": "[AI generated] atp.chaco.gob.ar is the official web domain of the Administración Tributaria Provincial (ATP) of Chaco, a government agency located in Chaco Province, Argentina. It operates within the public sector, specifically in tax administration and revenue collection. The agency is responsible for managing provincial taxes, enforcing fiscal regulations, and providing taxpayer services to residents and businesses operating within the Chaco province.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Government & Defense",
+  "references": ["ransomware.live"]
+}

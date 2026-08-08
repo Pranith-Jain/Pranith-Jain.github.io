@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
+import { badRequest, internalError } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const MITRE_SYSTEM = `You are a MITRE ATT&CK framework expert. Map the given threat intelligence to relevant ATT&CK techniques.

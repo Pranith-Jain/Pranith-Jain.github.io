@@ -1,0 +1,15 @@
+{
+  "slug": "ransomhouse-city-of-beacon-2026-08-06",
+  "title": "City of Beacon",
+  "group": "ransomhouse",
+  "discovered": "2026-08-06T13:26:32.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "The City of Beacon is committed to protecting online users' privacy. If you send the company an electronic mail message with a question or comment that contains personally identifying information, or fill out a form that e-mails the company this information, the company will only use the personally identifiable information to respond to your request and analyze trends. The company may redirect your message to another government agency or person who is in a better position to answer your question. The company's server logs automatically collect electronically generated information about your visit to the company's site, such as the date, type of browser used, and technical Internet protocol data. The company may collect this information about each user session and refer to it in summary form for statistical purposes. The company do not use 'persistent' cookies to collect permanent information.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["RANSOM HOUSE"],
+  "activity": "Government & Defense",
+  "references": ["ransomware.live"]
+}

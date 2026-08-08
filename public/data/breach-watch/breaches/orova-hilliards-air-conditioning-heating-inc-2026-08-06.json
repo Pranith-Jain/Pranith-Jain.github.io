@@ -1,0 +1,15 @@
+{
+  "slug": "orova-hilliards-air-conditioning-heating-inc-2026-08-06",
+  "title": "Hilliard's Air Conditioning & Heating Inc",
+  "group": "Orova",
+  "discovered": "2026-08-06T10:51:25.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Since 1988 customers have trusted Hilliard's Air Conditioning & Heating, Inc. as their air conditioning and heating specialist. As a family run business, Hilliard's takes great pride in serving Central Florida and is state licensed and insured.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

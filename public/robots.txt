@@ -19,29 +19,6 @@ Disallow: /private/
 Allow: /api/v1/og-image/
 Disallow: /api/
 
-# Binary asset directories — large WASM, gzip, and document files that
-# Google Safe Browsing flags as "harmful downloads" or "uncommon downloads".
-# These are runtime dependencies for client-side features (OCR, resume),
-# not downloadable content, but Google's heuristic treats them as such.
-Disallow: /tesseract/
-Disallow: /resume.docx
-Disallow: /*.docx
-Disallow: /*.gz
-Disallow: /*.wasm
-Disallow: /*.ps1
-Disallow: /data/si/scripts/
-
-# Malware/sample-related pages — Google Safe Browsing flags these as
-# "uncommon download" or "malware" warnings. These are analysis tools,
-# not download sites, but Google's heuristic treats them the same.
-Disallow: /threatintel/malware-vault
-Disallow: /threatintel/malware-sandbox
-Disallow: /threatintel/malware/vault
-Disallow: /threatintel/malware/sandbox
-Disallow: /dfir/malware-scan
-Disallow: /dfir/sample-scan
-Disallow: /dfir/sandbox
-
 # AI answer-engine crawlers — explicitly allowed so blog/threat-intel content
 # is eligible to be cited in AI Overviews / ChatGPT / Perplexity / Claude /
 # Gemini / Copilot / Perplexity answers. Blocking any of these would make the

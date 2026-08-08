@@ -33,6 +33,8 @@ export interface SummaryInput {
 export interface SummaryResult {
   summary: string;
   tweet: string;
+  /** LinkedIn-formatted post body (no URL — the client appends it). */
+  linkedin: string;
   modelUsed: string;
   itemCount: number;
   _validation?: {
@@ -42,25 +44,35 @@ export interface SummaryResult {
   };
 }
 
-const SYSTEM_PROMPT = `You are a senior cyber-threat-intelligence analyst who also writes compelling social media content. Given a list of security items from a specific feed surface, produce TWO outputs separated by a line containing only "---TWEET---".
+const SYSTEM_PROMPT = `You are a senior cyber-threat-intelligence analyst who also writes compelling social media content. Given a list of security items from a specific feed surface, produce THREE outputs separated by lines containing ONLY the markers ---TWEET--- and ---LINKEDIN--- (in that order).
 
 OUTPUT 1 — FULL SUMMARY (150-300 words):
 Structure:
-1. **Headline**: One punchy sentence capturing the most important development.
+1. **Headline**: One or two punchy sentences capturing the most important development.
 2. **Key themes**: 2-4 bullet points (prefixed with "- ") of dominant trends.
 3. **Notable entities**: Specific threat actors, malware families, CVEs, or campaigns.
 4. **Analyst takeaway**: One actionable sentence for defenders.
 
 OUTPUT 2 — TWEET (after ---TWEET---):
-A single tweet-ready line (max 280 chars) that a security professional would actually post. Include 1-2 relevant hashtags (#ThreatIntel, #CyberSecurity, #InfoSec, #CVE, etc). Make it punchy, specific, and jargon-light enough for a broad tech audience. No markdown formatting.
+A single tweet-ready line (max 280 chars) that a security professional would actually post. Include 1-3 relevant hashtags (#ThreatIntel, #CyberSecurity, #InfoSec, #CVE, etc). Make it punchy, specific, and jargon-light enough for a broad tech audience. No markdown formatting.
 
-Rules:
+OUTPUT 3 — LINKEDIN POST (after ---LINKEDIN---):
+A LinkedIn post (300-600 chars, plus 3-5 hashtags) written for practitioners, using the 2026 LinkedIn engagement rules:
+1. **HOOK** — first 1-2 lines (<= 210 chars, all inside the above-the-fold window): a complete, standalone concrete point — named actor/CVE/campaign + a hard number. NOT a teaser; the reader learns something specific without clicking "see more".
+2. **INSIGHT** — 1-2 short paragraphs (2-4 lines each) with the analytical take the coverage misses. Lead with the take, then support it.
+3. **A bullet list** of 3-5 scannable concrete facts (named CVE / vendor / sector / group). One bullet = one fact.
+4. **CLOSE** — one line takeaway + a substantive question in the style a SOC lead or IR consultant would actually answer. NOT "Thoughts?".
+5. **FINAL LINE**: at most 3 hashtags, specific to the case — never a generic stack (#ThreatIntel works; #CyberSecurity #InfoSec alone is too generic).
+Rules for LinkedIn: NO URL in the body — the client adds it so the reader can move it to the first comment. No markdown headers, no **bold**, no asterisks. At most ONE emoji (🔴 ⚠️) — never decorative.
+
+Rules (all outputs):
 - Be specific and factual. Reference actual names, CVE IDs, and actors from the items.
 - Do not invent or speculate beyond what the items state.
-- Write like a human analyst, not a corporate press release. Avoid filler phrases.
+- Write like a human analyst, not a corporate release. Avoid filler phrases.
 - If the items are thin or low-signal, say so honestly rather than padding.
-- Do not use markdown headers (#). Use bold (**) for emphasis only in the full summary.
+- Do not use markdown headers (#). Use bold (**) only in the full summary.
 - The tweet must stand alone and make sense without the full summary.
+- The LinkedIn post must read differently from the tweet — same substance, platform-native structure.
 
 ${UNTRUSTED_DATA_SYSTEM_NOTE}`;
 
@@ -116,9 +128,10 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
           user: userPrompt,
           // gpt-oss-120b is a reasoning model: max_completion_tokens must cover
           // the internal reasoning trace AND the visible output. The prompt now
-          // asks for two outputs (full summary + tweet), so 800 starved the
-          // model into empty/truncated content (→ null → 503). 1500 gives headroom.
-          maxTokens: 1500,
+          // asks for three outputs (full summary + tweet + LinkedIn post), so
+          // 800 starved the model into empty/truncated content (→ null → 503)
+          // and 1500 covered two outputs. 2000 gives headroom for three.
+          maxTokens: 2000,
           temperature: 0.3,
         },
         {
@@ -143,11 +156,18 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
 
     const tweetSplit = text.split('---TWEET---');
     const summary = tweetSplit[0]!.trim();
-    const tweet = (tweetSplit[1] ?? '').trim().slice(0, 280) || summary.split('\n')[0]!.slice(0, 280);
+    const linkedinSplit = (tweetSplit[1] ?? '').split('---LINKEDIN---');
+    const tweet = (linkedinSplit[0] ?? '').trim().slice(0, 280) || summary.split('\n')[0]!.slice(0, 280);
+    // LinkedIn fallback: if the model skipped the block (e.g. low-signal items),
+    // reuse the summary stripped of markdown rather than leaving the field empty.
+    const linkedin =
+      (linkedinSplit[1] ?? '').trim().slice(0, 3000) || summary.replace(/\*\*/g, '').trim().slice(0, 900);
 
     // Validate grounding against source items
     const sourceText = input.items.map((i) => `${i.title} ${i.body}`).join(' ');
-    const ungrounded = findUngroundedCves(summary, sourceText);
+    const ungrounded = [
+      ...new Set([...findUngroundedCves(summary, sourceText), ...findUngroundedCves(linkedin, sourceText)]),
+    ];
     const slop = detectSlop(summary);
     const sourceCves = new Set(extractCves(sourceText));
     const textCves = extractCves(summary);
@@ -163,6 +183,7 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
     return {
       summary,
       tweet,
+      linkedin,
       modelUsed: result.modelUsed,
       itemCount: Math.min(input.items.length, input.maxItems ?? 30),
       _validation: {

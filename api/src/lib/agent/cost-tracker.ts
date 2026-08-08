@@ -33,10 +33,21 @@ const COST_PER_1K: Record<string, number> = {
   'infron:deepseek/deepseek-v4-flash:free': 0,
   'infron:meta/llama-3.2-11b-vision-instruct:free': 0,
   'groq:openai/gpt-oss-120b': 0.0006,
+  'groq:openai/gpt-oss-20b': 0.0003,
   'groq:llama-3.3-70b-versatile': 0.00059,
   'groq:llama-3.1-8b-instant': 0.00005,
-  'gemini:gemini-2.0-flash': 0.0001,
+  'gemini:gemini-3.6-flash': 0.0001,
+  'gemini:gemini-3.5-flash': 0.0001,
+  'gemini:gemini-2.5-flash': 0.0001,
   'nvidia:meta/llama-3.3-70b-instruct': 0.0006,
+  'nvidia:meta/llama-3.1-70b-instruct': 0.0006,
+  'nvidia:minimaxai/minimax-m2.7': 0.00045,
+  'nvidia:z-ai/glm-5.2': 0.0004,
+  'workers-ai:llama-3.3-70b-instruct-fp8-fast': 0.0001,
+  'workers-ai:llama-3.1-8b-instruct': 0.00002,
+  'workers-ai:qwen3-30b-a3b-fp8': 0.00005,
+  'workers-ai:gpt-oss-120b': 0.00015,
+  'workers-ai:llama-3.1-8b-instant': 0.00005,
 };
 
 /** Max budget per investigation (USD). Hard limit to prevent runaway costs. */

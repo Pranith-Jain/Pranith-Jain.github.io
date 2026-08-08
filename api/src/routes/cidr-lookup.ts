@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
+import { badRequest } from '../lib/api-error';
 import { cachedJson } from '../lib/route-cache';
 
 interface CidrEntry {

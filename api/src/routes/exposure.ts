@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest } from '../lib/api-error';
 import { aggregateExposure } from '../lib/exposure';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;

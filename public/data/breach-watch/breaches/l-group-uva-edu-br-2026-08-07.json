@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-uva-edu-br-2026-08-07",
+  "title": "uva.edu.br",
+  "group": "L Group",
+  "discovered": "2026-08-07T08:44:35.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "BR",
+  "sizeBytes": 0,
+  "description": "[AI generated] Universidade Veiga de Almeida (UVA) is a private higher education institution based in Rio de Janeiro, Brazil. Founded in 1972, it offers undergraduate and postgraduate courses across various fields including law, health sciences, engineering, and business administration. Operating in the education sector, UVA serves thousands of students through multiple campuses in Rio de Janeiro, providing in-person and distance learning programs.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

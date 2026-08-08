@@ -1,0 +1,15 @@
+{
+  "slug": "lockbit5-briggsplc-com-2026-08-05",
+  "title": "briggsplc.com",
+  "group": "lockbit5",
+  "discovered": "2026-08-05T20:06:09.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Briggs began operations in 1740. As a well-known UK-based company in the engineering equipment indus...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

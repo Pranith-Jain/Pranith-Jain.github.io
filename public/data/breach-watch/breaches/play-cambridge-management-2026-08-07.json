@@ -1,0 +1,15 @@
+{
+  "slug": "play-cambridge-management-2026-08-07",
+  "title": "Cambridge Management",
+  "group": "play",
+  "discovered": "2026-08-07T19:04:55.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "http://j75o7xvvsm4lpsjhkjvb4wl2q6ajegvabe6oswthuaubbykk4xkzgpid.onion/topic.php?id=mmWo7mrab7Mwqp",
+  "groupAliases": ["PlayCrypt"],
+  "activity": null,
+  "references": ["CTI.FYI"]
+}

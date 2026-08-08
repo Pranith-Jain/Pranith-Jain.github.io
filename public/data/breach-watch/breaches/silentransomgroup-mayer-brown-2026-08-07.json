@@ -1,0 +1,15 @@
+{
+  "slug": "silentransomgroup-mayer-brown-2026-08-07",
+  "title": "Mayer Brown",
+  "group": "SilentRansomGroup",
+  "discovered": "2026-08-07T00:20:55.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Mayer Brown is a distinctively global law firm, uniquely positioned to advise the world's leading comp…",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

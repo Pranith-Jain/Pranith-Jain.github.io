@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-coastproduce-com-2026-08-07",
+  "title": "coastproduce.com",
+  "group": "L Group",
+  "discovered": "2026-08-07T08:32:04.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AU",
+  "sizeBytes": 0,
+  "description": "[AI generated] Coast Produce Company is a wholesale produce distributor based in the United States, primarily operating in California. The company supplies fresh fruits and vegetables to retailers, restaurants, foodservice operators, and other commercial buyers. It operates within the agricultural distribution and food supply industry, serving clients across the West Coast and broader domestic markets with a focus on quality and reliable cold chain logistics.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

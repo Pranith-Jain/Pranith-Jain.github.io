@@ -1,0 +1,15 @@
+{
+  "slug": "helix-westland-insurance-2026-08-06",
+  "title": "Westland Insurance",
+  "group": "helix",
+  "discovered": "2026-08-06T23:26:03.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Westland reached out, got the full demand, then stalled with no serious number.\n\nContacting us and dragging process is not negotiation.",
+  "source_url": "https://www.ransomlook.io/screenshots/helix/Westland Insurance.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

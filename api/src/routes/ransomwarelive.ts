@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
+import { badGateway, respondError } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { safeErrorMessage } from '../lib/error';
 
@@ -110,15 +110,19 @@ export async function ransomwareLiveHandler(c: Context<{ Bindings: Env }>): Prom
   const spec: ResourceSpec | undefined = RESOURCES[resource];
 
   if (!spec) {
-    return notFound(c, 'unknown_resource');
+    return c.json({ error: 'unknown_resource', message: 'unknown resource', allowed: Object.keys(RESOURCES) }, 404, {
+      'Cache-Control': 'no-store, max-age=0',
+    });
   }
   if (spec.argRequired && !arg) {
-    return badRequest(c, 'arg_required');
+    return respondError(c, 'arg_required', 'required argument missing', 400);
   }
 
   const apiKey = c.env.RANSOMWARELIVE_API_KEY;
   if (!apiKey) {
-    return serviceUnavailable(c, 'RANSOMWARELIVE_API_KEY secret is not set');
+    return c.json({ error: 'not_configured', message: 'RANSOMWARELIVE_API_KEY secret is not set' }, 503, {
+      'Cache-Control': 'no-store, max-age=0',
+    });
   }
 
   const cache = (caches as unknown as { default: Cache }).default;

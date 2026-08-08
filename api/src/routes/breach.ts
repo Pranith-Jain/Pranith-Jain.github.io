@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { respondError } from '../lib/api-error';
 
 const HIBP_RANGE = 'https://api.pwnedpasswords.com/range';
 const XON_BASE = 'https://api.xposedornot.com/v1';
@@ -747,10 +747,10 @@ async function queryLcDomain(domain: string): Promise<BreachDomainEntry[]> {
 export async function breachRangeHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const prefix = c.req.query('prefix');
   if (!prefix) {
-    return badRequest(c, 'missing_param');
+    return respondError(c, 'missing_param', 'prefix parameter is required', 400);
   }
   if (!PREFIX_RE.test(prefix)) {
-    return badRequest(c, 'invalid_prefix');
+    return respondError(c, 'invalid_prefix', 'prefix must be 5 hex characters', 400);
   }
 
   try {
@@ -764,7 +764,7 @@ export async function breachRangeHandler(c: Context<{ Bindings: Env }>): Promise
     });
 
     if (!upstream.ok) {
-      return badGateway(c, `upstream_${upstream.status}`);
+      return respondError(c, `upstream_${upstream.status}`, 'HIBP upstream returned an error', 502);
     }
 
     const body = await upstream.text();
@@ -777,7 +777,7 @@ export async function breachRangeHandler(c: Context<{ Bindings: Env }>): Promise
     });
   } catch (_catchErr) {
     logError('handler failed', _catchErr);
-    return badGateway(c, 'upstream_error');
+    return respondError(c, 'upstream_error', 'HIBP upstream request failed', 502);
   }
 }
 
@@ -790,10 +790,10 @@ export async function breachRangeHandler(c: Context<{ Bindings: Env }>): Promise
 export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const email = c.req.query('email');
   if (!email) {
-    return badRequest(c, 'missing_param');
+    return respondError(c, 'missing_param', 'email parameter is required', 400);
   }
   if (!EMAIL_RE.test(email)) {
-    return badRequest(c, 'invalid_email');
+    return respondError(c, 'invalid_email', 'email must be a valid address', 400);
   }
 
   const sources = await Promise.allSettled([
@@ -822,7 +822,7 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
   // breach DBs were unreachable.
   const primaryRejected = sources[0]?.status === 'rejected' && sources[1]?.status === 'rejected';
   if (primaryRejected) {
-    return badGateway(c, 'breach upstreams unavailable');
+    return respondError(c, 'breach_upstreams_unavailable', 'primary breach upstreams unavailable', 502);
   }
 
   const breaches: BreachEntry[] = [];
@@ -858,10 +858,10 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
 export async function breachDomainHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = c.req.query('domain');
   if (!domain) {
-    return badRequest(c, 'missing_param');
+    return respondError(c, 'missing_param', 'domain parameter is required', 400);
   }
   if (!DOMAIN_RE.test(domain)) {
-    return badRequest(c, 'invalid_domain');
+    return respondError(c, 'invalid_domain', 'domain must be a valid hostname', 400);
   }
 
   const sources = await Promise.allSettled([
@@ -884,7 +884,7 @@ export async function breachDomainHandler(c: Context<{ Bindings: Env }>): Promis
   // See breachEmailHandler — 502 when both primary upstreams reject.
   const primaryRejected = sources[0]?.status === 'rejected' && sources[1]?.status === 'rejected';
   if (primaryRejected) {
-    return badGateway(c, 'breach upstreams unavailable');
+    return respondError(c, 'breach_upstreams_unavailable', 'primary breach upstreams unavailable', 502);
   }
 
   const breaches: BreachDomainEntry[] = [];

@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
+import { badRequest } from '../lib/api-error';
 import { lookupHandle } from '../lib/scrapedintel';
 
 const MIN_QUERY_LEN = 2;

@@ -10,7 +10,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
+import { badRequest, badGateway } from '../lib/api-error';
 import { safeJsonBody } from '../lib/safe-body';
 import { queryOsvBatch, type OsvPkgQuery } from '../lib/supply-chain/osv';
 

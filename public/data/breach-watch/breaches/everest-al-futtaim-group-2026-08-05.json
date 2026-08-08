@@ -1,0 +1,15 @@
+{
+  "slug": "everest-al-futtaim-group-2026-08-05",
+  "title": "Al-Futtaim Group",
+  "group": "everest",
+  "discovered": "2026-08-05T13:08:41.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "AE",
+  "sizeBytes": 0,
+  "description": "[AI generated] Al-Futtaim Group is a diversified conglomerate headquartered in Dubai, United Arab Emirates. Founded in the 1930s, it operates across retail, automotive, real estate, and financial services sectors. The group represents major global brands including IKEA, Toyota, and Marks & Spencer across the Middle East, Africa, and Asia. It is one of the region's most prominent privately held business enterprises.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["ransomware.live"]
+}

@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest, internalError } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const CORRELATE_SYSTEM = `You are a CTI correlation engine. Given a list of recent threat events, identify related events that likely belong to the same campaign, actor, or incident.

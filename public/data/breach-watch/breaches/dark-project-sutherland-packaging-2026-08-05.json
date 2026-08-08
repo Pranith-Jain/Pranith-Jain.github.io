@@ -1,0 +1,15 @@
+{
+  "slug": "dark-project-sutherland-packaging-2026-08-05",
+  "title": "Sutherland Packaging",
+  "group": "Dark Project",
+  "discovered": "2026-08-05T13:09:35.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "About SPI Sutherland Packaging LLC is a leading manufacturer specializing in creative digitally printed full-color point-of-purchase displays for brands worldwide. The company offers a range of services including digital printing, retail packaging, and turnkey fulfillment, focusing on delivering custom-blended solutions that meet client demands. With over 50 years of experience, Sutherland Packaging is trusted by global brands for its high-quality and cost-effective solutions. Due to cyberattack on Sutherland Packaging more than \"200\" Gb of company data was stolen. Leakage contains big amount of sensitive data such as company's customers data, bank and financial information documents. About 250 000 files are not secured by Sutherland Packaging for now.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

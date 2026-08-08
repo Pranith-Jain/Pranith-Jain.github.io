@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
+import { badRequest, notFound } from '../lib/api-error';
 
 /**
  * Threat Actor Behavioral DNA — fingerprint actors by behavior, not just tools.

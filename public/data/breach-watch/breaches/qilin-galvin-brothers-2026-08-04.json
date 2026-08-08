@@ -1,1 +1,15 @@
-{"slug":"qilin-galvin-brothers-2026-08-04","title":"Galvin Brothers","group":"Qilin","discovered":"2026-08-04T00:00:00.000Z","category":"ransomware","severity":"critical","country":"Ireland","sizeBytes":0,"description":"Internal files exfiltrated in ransomware attack","source_url":"https://recentbreaches.com/breach/galvin-brothers-qilin-2026-08","groupAliases":[],"activity":"Manufacturing","references":["RecentBreaches.com"]}
+{
+  "slug": "qilin-galvin-brothers-2026-08-04",
+  "title": "Galvin Brothers",
+  "group": "qilin",
+  "discovered": "2026-08-04T18:01:02.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IE",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

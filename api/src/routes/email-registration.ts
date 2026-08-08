@@ -14,7 +14,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest } from '../lib/api-error';
 
 const FETCH_TIMEOUT_MS = 8_000;
 const CACHE_TTL_SECONDS = 30 * 60;

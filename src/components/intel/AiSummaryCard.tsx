@@ -39,16 +39,27 @@ export interface AiSummaryCardProps {
 interface SummaryResponse {
   summary: string;
   tweet: string;
+  linkedin?: string;
   modelUsed: string;
   itemCount: number;
 }
 
-function ShareRow({ tweet, summary, surface }: { tweet: string; summary: string; surface: string }) {
+function ShareRow({
+  tweet,
+  summary,
+  linkedin,
+  surface,
+}: {
+  tweet: string;
+  summary: string;
+  linkedin?: string;
+  surface: string;
+}) {
   const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
   const shareText = tweet || summary.split('\n')[0] || `AI threat summary: ${surface}`;
   return (
     <div className="mt-3 pt-3 border-t border-slate-200 dark:border-white/8">
-      <ShareBar shareText={shareText} url={pageUrl} size="sm" label="Share:" />
+      <ShareBar shareText={shareText} linkedinText={linkedin} url={pageUrl} size="sm" label="Share:" xPrefix="🚨 " />
     </div>
   );
 }
@@ -241,7 +252,7 @@ export function AiSummaryCard({
                   );
                 })}
               </div>
-              <ShareRow tweet={data.tweet} summary={data.summary} surface={surface} />
+              <ShareRow tweet={data.tweet} summary={data.summary} linkedin={data.linkedin} surface={surface} />
             </div>
           )}
 

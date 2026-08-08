@@ -30,8 +30,16 @@ function app() {
 // handles missing secrets by emitting degraded (but still 200) results.
 const TEST_ENV: Record<string, unknown> = {};
 
-beforeEach(() => {
+beforeEach(async () => {
   vi.restoreAllMocks();
+  // Reset the per-IP SSE concurrency counter (routes/claimSseSlot). It lives
+  // in the shared caches.default and release is a TTL-based no-op, so across
+  // the file's own SSE tests the "anon" IP accumulates slots and 429s later
+  // tests. cache.delete (URL-targeted) is the only reliable clear here.
+  const cache = (globalThis as unknown as { caches?: { default?: Cache } }).caches?.default;
+  if (cache) {
+    await cache.delete('https://sse-open.internal/v1/anon').catch(() => {});
+  }
 });
 
 const KNOWN_GOOD_SHA256 = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'; // empty file

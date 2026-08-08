@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
+import { badRequest, badGateway, serviceUnavailable, unauthorized, tooManyRequests } from '../lib/api-error';
 import {
   fetchSearchTimeline,
   resolveAuthCookies,

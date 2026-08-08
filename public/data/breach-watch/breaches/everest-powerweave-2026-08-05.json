@@ -1,0 +1,15 @@
+{
+  "slug": "everest-powerweave-2026-08-05",
+  "title": "Powerweave",
+  "group": "everest",
+  "discovered": "2026-08-05T13:07:22.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IN",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

@@ -44,8 +44,11 @@ describe('GET /api/v1/feeds/proxy', () => {
       }
       return fetch(input, _init);
     });
+    // Unique query in the requested URL — the proxy caches per-URL, so a
+    // cache slot written by an earlier test (proxies allowed host) would
+    // otherwise be replayed here and the 503 mock never reached.
     const r = await SELF.fetch(
-      'https://x/api/v1/feeds/proxy?url=' + encodeURIComponent('https://www.cisa.gov/feed.xml')
+      'https://x/api/v1/feeds/proxy?url=' + encodeURIComponent('https://www.cisa.gov/feed.xml?cb=upstream-error-test')
     );
     expect(r.status).toBe(502);
   });
@@ -55,7 +58,7 @@ describe('GET /api/v1/feeds/proxy', () => {
       new Response(null, { status: 302, headers: { location: 'https://evil.example/' } })
     );
     const r = await SELF.fetch(
-      'https://x/api/v1/feeds/proxy?url=' + encodeURIComponent('https://www.cisa.gov/feed.xml')
+      'https://x/api/v1/feeds/proxy?url=' + encodeURIComponent('https://www.cisa.gov/feed.xml?cb=redirect-403-test')
     );
     // SSRF guard: the proxy follows redirects only within the allow-list.
     // evil.example is not allow-listed, so the redirect is refused, not followed.

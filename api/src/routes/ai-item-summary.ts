@@ -2,7 +2,7 @@
  * /api/v1/ai-item-summary — per-post AI summaries (batched).
  *
  * POST body: { surface: string, items: Array<{ id, title, body?, source? }> }
- * Returns:   { summaries: { [id]: string }, modelHint: 'groq:openai/gpt-oss-120b' }
+ * Returns:   { summaries: { [id]: string }, modelHint: '<provider>:<model>' }
  *
  * Each item is summarised at most once and cached in KV by content hash
  * (see lib/ai-item-summary.ts), so repeated loads / cross-page reuse are free.
@@ -13,7 +13,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
+import { badRequest } from '../lib/api-error';
 import { generateItemSummary, type ItemInput } from '../lib/ai-item-summary';
 
 interface ItemSummaryBody {
@@ -47,8 +47,9 @@ export async function aiItemSummaryHandler(c: Context<{ Bindings: Env }>): Promi
   }
 
   const summaries: Record<string, string> = {};
+  const modelsUsed: string[] = [];
 
-  // Bounded concurrency so a cold batch doesn't fan out N parallel Groq calls.
+  // Bounded concurrency so a cold batch doesn't fan out N parallel LLM calls.
   let cursor = 0;
   async function worker(): Promise<void> {
     while (cursor < items.length) {
@@ -56,10 +57,14 @@ export async function aiItemSummaryHandler(c: Context<{ Bindings: Env }>): Promi
       cursor += 1;
       const item = items[idx]!;
       const summary = await generateItemSummary(item, c.env);
-      if (summary) summaries[item.id] = summary;
+      if (summary) {
+        summaries[item.id] = summary.summary;
+        if (summary.model !== 'cache' && !modelsUsed.includes(summary.model)) modelsUsed.push(summary.model);
+      }
     }
   }
   await Promise.all(Array.from({ length: Math.min(CONCURRENCY, items.length) }, () => worker()));
 
-  return c.json({ summaries, modelHint: 'groq:openai/gpt-oss-120b' }, 200, { 'cache-control': 'private, max-age=300' });
+  const modelHint = modelsUsed[0] ?? 'cache';
+  return c.json({ summaries, modelHint }, 200, { 'cache-control': 'private, max-age=300' });
 }

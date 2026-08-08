@@ -1,0 +1,15 @@
+{
+  "slug": "helix-highwoods-properties-2026-08-07",
+  "title": "Highwoods Properties",
+  "group": "Helix",
+  "discovered": "2026-08-07T07:20:39.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "SharePoint libraries staged T1 (least) → T4 (most). Release countdown live on Helix. Tiers unlock by stage when each set timer reaches 0.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

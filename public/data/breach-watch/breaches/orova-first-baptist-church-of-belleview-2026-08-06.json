@@ -1,0 +1,15 @@
+{
+  "slug": "orova-first-baptist-church-of-belleview-2026-08-06",
+  "title": "First Baptist Church of Belleview",
+  "group": "Orova",
+  "discovered": "2026-08-06T11:20:48.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "First Baptist Church Belleview is dedicated to fostering devoted followers of Jesus Christ through worship and community engagement. They offer Sunday services at 10:45 a.m. and provide opportunities for learning and connection through various ministries and events.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

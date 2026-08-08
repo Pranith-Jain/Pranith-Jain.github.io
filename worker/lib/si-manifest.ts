@@ -289,7 +289,6 @@ const docsIndexCache: { value: SiDocsIndex | null } = { value: null };
 const docBodyCache: BodyCache<SiDoc> = { map: new Map(), hits: 0, misses: 0 };
 const refBodyCache: BodyCache<unknown> = { map: new Map(), hits: 0, misses: 0 };
 let routingPromptCache: string | null = null;
-let routingPromptAt: number | null = null;
 
 export async function loadDocsIndex(assets: Fetcher): Promise<SiDocsIndex> {
   if (docsIndexCache.value) return docsIndexCache.value;
@@ -334,7 +333,6 @@ export async function getRoutingPrompt(assets: Fetcher): Promise<string> {
   const res = await assets.fetch(new Request(url));
   if (!res.ok) throw new Error('routing-prompt.md not found — rebuild via scripts/build-si-manifest.mjs');
   routingPromptCache = await res.text();
-  routingPromptAt = Date.now();
   return routingPromptCache;
 }
 
@@ -345,7 +343,6 @@ export function clearDocsCache(): void {
   refBodyCache.map.clear();
   refBodyCache.hits = refBodyCache.misses = 0;
   routingPromptCache = null;
-  routingPromptAt = null;
 }
 
 // ─── PowerShell + detection-manifest scripts ─────────────────────────

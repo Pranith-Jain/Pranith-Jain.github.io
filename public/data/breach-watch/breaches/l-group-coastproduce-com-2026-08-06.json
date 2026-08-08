@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-coastproduce-com-2026-08-06",
+  "title": "coastproduce.com",
+  "group": "l group",
+  "discovered": "2026-08-06T22:17:54.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Coast Produce Company began nearly 60 years ago as one man’s hard work selling a small truckload of a single item every day.\r\nThe Dunn family continues to own and operate the organization as it has grown to a $100MM company with 160 employees working across all aspects of produce procurement, mixing, transportation and retail support.",
+  "source_url": "https://www.ransomlook.io/screenshots/l group/coastproducecom.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

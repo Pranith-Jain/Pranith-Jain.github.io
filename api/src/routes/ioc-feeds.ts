@@ -1,8 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
-import { cachedJson } from '../lib/route-cache';
+import { badGateway } from '../lib/api-error';
+
 import { buildSummary, FEED_SOURCES, type SourceId } from '../lib/ioc-feed-parsers';
 import { safeErrorMessage } from '../lib/error';
 

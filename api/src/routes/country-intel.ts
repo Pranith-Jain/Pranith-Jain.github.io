@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest, internalError } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const INTEL_SYSTEM = `You are a senior CTI analyst specializing in geopolitical and cyber-threat intelligence. Given a country name and optionally a list of recent threat events, produce a comprehensive threat intelligence brief.

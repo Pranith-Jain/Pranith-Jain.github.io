@@ -44,3 +44,11 @@
 /data/si/scripts/*
   Content-Type: text/plain; charset=utf-8
   X-Content-Type-Options: nosniff
+
+# Tesseract OCR runtime data (eng.traineddata.gz) — fetched by tesseract.js
+# via fetch().arrayBuffer(), so the content type is irrelevant to the app.
+# Serving it as text/plain instead of a binary download elides Google Safe
+# Browsing's "harmful downloads" flag on the .gz while keeping OCR working.
+/tesseract/*.gz
+  Content-Type: text/plain; charset=utf-8
+  X-Content-Type-Options: nosniff

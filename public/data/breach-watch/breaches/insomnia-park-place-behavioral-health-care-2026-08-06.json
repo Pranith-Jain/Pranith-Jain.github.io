@@ -1,0 +1,15 @@
+{
+  "slug": "insomnia-park-place-behavioral-health-care-2026-08-06",
+  "title": "Park Place Behavioral Health Care",
+  "group": "insomnia",
+  "discovered": "2026-08-06T14:54:24.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "PPBHC provides mental health and substance use services in Osceola County, Florida, with 40+ years’ experience. They offer crisis intervention, therapy, recovery-oriented care, telehealth, and partner with GENOA for medication access.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

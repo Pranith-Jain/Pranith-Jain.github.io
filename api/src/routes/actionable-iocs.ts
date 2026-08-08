@@ -29,7 +29,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
+import { badRequest, serviceUnavailable } from '../lib/api-error';
 import { parsePostgrestQuery } from '../lib/postgrest-filter';
 
 const ACTIONABLE_IOCS_TABLE = 'actionable_iocs';

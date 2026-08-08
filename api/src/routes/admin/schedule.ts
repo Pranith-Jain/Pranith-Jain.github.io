@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import type { Env } from '../../env';
 import { logError } from '../../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../../lib/api-error';
+import { badRequest, notFound, internalError } from '../../lib/api-error';
 import { getAi } from '../../lib/ai-binding';
 import { safeJsonBody } from '../../lib/safe-body';
 import { getDedup, touchDedup } from '../../case-study/storage/dedup';

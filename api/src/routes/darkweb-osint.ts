@@ -9,7 +9,7 @@
  */
 import { Hono } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict } from '../lib/api-error';
+import { badRequest, internalError } from '../lib/api-error';
 import { darkwebMultiSearch, darkwebCrawl, darkwebScrapeDeep } from '../lib/darkweb-osint';
 import { torSearchOnion, onionLookup, btcAbuseCheck, torExitCheck } from '../lib/darknet';
 

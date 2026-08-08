@@ -10,7 +10,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
+import { badRequest, notFound } from '../lib/api-error';
 
 // ── Country data ──
 
@@ -377,7 +377,6 @@ export async function threatReportCountryHandler(c: Context<{ Bindings: Env }>):
   const country = (c.req.query('country') || 'US').toUpperCase();
   const data = COUNTRY_THREAT_DATA[country];
   if (!data) {
-    const available = Object.keys(COUNTRY_THREAT_DATA).map((k) => ({ code: k, name: COUNTRY_THREAT_DATA[k]!.name }));
     return notFound(c, `Country code "${country}" not found`);
   }
   return c.json({
@@ -392,7 +391,6 @@ export async function threatReportIndustryHandler(c: Context<{ Bindings: Env }>)
   const industry = (c.req.query('industry') || '').toLowerCase();
   const data = INDUSTRY_THREAT_DATA[industry];
   if (!data) {
-    const available = Object.keys(INDUSTRY_THREAT_DATA).map((k) => ({ slug: k, name: INDUSTRY_THREAT_DATA[k]!.name }));
     return notFound(c, `Industry "${industry}" not found`);
   }
   return c.json({

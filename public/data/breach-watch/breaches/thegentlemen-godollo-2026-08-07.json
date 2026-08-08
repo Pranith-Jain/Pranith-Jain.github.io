@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-godollo-2026-08-07",
+  "title": "Godollo",
+  "group": "thegentlemen",
+  "discovered": "2026-08-07T08:07:07.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "HU",
+  "sizeBytes": 0,
+  "description": "godolloi.hu zoominfo.com/c/gödöll/1295448671 Gödöllő Ingatlanközpont is a leading real estate agency based in Gödöllő, Hungary, specializing in property sales, rentals, and construction in Eastern Pest County. The company offers a vast portfolio of residential and commercial properties, including apartments, family houses, land plots, and industrial spaces across Gödöllő and its surrounding towns. Established as a trusted local expert, the agency provides comprehensive real estate brokerage services to help clients navigate the regional property market",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

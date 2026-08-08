@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
+import { badRequest, badGateway } from '../lib/api-error';
 
 /**
  * KQL hunting-query scraper for ransomware.live.

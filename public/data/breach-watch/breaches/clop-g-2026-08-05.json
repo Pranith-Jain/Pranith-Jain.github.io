@@ -1,0 +1,15 @@
+{
+  "slug": "clop-g-2026-08-05",
+  "title": "g*******",
+  "group": "clop",
+  "discovered": "2026-08-05T20:41:17.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "[CVE‑2026‑12569] Data exfiltrated included the following: Software backups, system files, projects",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

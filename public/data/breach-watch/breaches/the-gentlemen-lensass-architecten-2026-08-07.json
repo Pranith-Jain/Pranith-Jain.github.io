@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-lensass-architecten-2026-08-07",
+  "title": "LensAss Architecten",
+  "group": "The Gentlemen",
+  "discovered": "2026-08-07T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Belgium",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/lensass-architecten-thegentlemen-2026-08",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["RecentBreaches.com"]
+}

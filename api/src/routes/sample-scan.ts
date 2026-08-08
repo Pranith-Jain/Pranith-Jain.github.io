@@ -31,7 +31,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
+import { badRequest } from '../lib/api-error';
 import { compositeScore } from '../lib/scoring';
 import { sseStream } from '../lib/sse';
 import { claimSseSlot, SSE_MAX_CONCURRENT } from '../lib/sse-concurrency';

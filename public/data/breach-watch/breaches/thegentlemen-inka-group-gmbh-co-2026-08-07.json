@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-inka-group-gmbh-co-2026-08-07",
+  "title": "INKA Group GmbH Co",
+  "group": "thegentlemen",
+  "discovered": "2026-08-07T08:09:34.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "INKA Group GmbH & Co. KG is a German real estate holding company headquartered in Munich, registered in the Munich Commercial Register under HRA 99442. It specializes in leasing and renting own or leased land, buildings, and apartments, as well as managing commercial real estate on a fee or contract basis. The company operates as a closed investment and management vehicle with no public website or brand. It should not be confused with the Turkish İnka Group holding or other similarly named companies.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

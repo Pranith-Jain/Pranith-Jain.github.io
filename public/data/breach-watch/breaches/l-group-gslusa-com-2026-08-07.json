@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-gslusa-com-2026-08-07",
+  "title": "gslusa.com",
+  "group": "L Group",
+  "discovered": "2026-08-07T08:33:15.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

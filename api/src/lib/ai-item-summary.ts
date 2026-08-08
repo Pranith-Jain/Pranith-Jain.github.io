@@ -65,9 +65,13 @@ function buildUserPrompt(item: ItemInput): string {
 
 /**
  * Summarise a single item. Returns the cached summary when present, otherwise
- * generates + caches one. Returns null on any failure (caller skips the line).
+ * generates + caches one, including the provider:model that produced it (for
+ * the route's modelHint). Returns null on any failure (caller skips the line).
  */
-export async function generateItemSummary(item: ItemInput, env: Env): Promise<string | null> {
+export async function generateItemSummary(
+  item: ItemInput,
+  env: Env
+): Promise<{ summary: string; model: string } | null> {
   if (!item.title || item.title.trim().length === 0) return null;
 
   const kv = env.KV_CACHE;
@@ -76,7 +80,7 @@ export async function generateItemSummary(item: ItemInput, env: Env): Promise<st
     try {
       key = CACHE_PREFIX + (await contentHash(item));
       const cached = await kv.get(key);
-      if (cached) return cached;
+      if (cached) return { summary: cached, model: 'cache' };
     } catch {
       /* cache unavailable — generate fresh */
     }
@@ -114,7 +118,7 @@ export async function generateItemSummary(item: ItemInput, env: Env): Promise<st
         /* best-effort cache write */
       }
     }
-    return text;
+    return { summary: text, model: result.modelUsed ?? 'groq:openai/gpt-oss-120b' };
   } catch {
     return null;
   }

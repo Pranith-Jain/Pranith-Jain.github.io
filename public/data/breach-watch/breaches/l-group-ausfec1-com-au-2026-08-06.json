@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-ausfec1-com-au-2026-08-06",
+  "title": "ausfec1.com.au",
+  "group": "l group",
+  "discovered": "2026-08-06T22:34:18.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "ausfec1.com.au",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

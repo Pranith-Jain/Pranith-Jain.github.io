@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-ponti-2026-08-07",
+  "title": "Ponti",
+  "group": "thegentlemen",
+  "discovered": "2026-08-07T08:07:28.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "PL",
+  "sizeBytes": 0,
+  "description": "ponti.pl Ponti is a specialized automotive company based in Gdańsk, Poland, focused on the direct import, sales, and professional servicing of American vehicles. Operating as a leading expert in the US car market, the company handles everything from modern everyday models to the restoration of classic muscle cars and vintage vehicles. They provide a comprehensive range of services, including sourcing, repairing post-accident imports, and dedicated mechanical maintenance for automotive enthusiasts",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

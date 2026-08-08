@@ -1,0 +1,15 @@
+{
+  "slug": "orion-emanic-net-2026-08-05",
+  "title": "emanic.net",
+  "group": "orion",
+  "discovered": "2026-08-05T19:59:38.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "emanic.net",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

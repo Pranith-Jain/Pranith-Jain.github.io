@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
+import { badRequest, notFound, badGateway } from '../lib/api-error';
 
 const MALTRAIL_RAW = 'https://raw.githubusercontent.com/stamparm/maltrail/master/trails/static/malware';
 const MALTRAIL_API = 'https://api.github.com/repos/stamparm/maltrail/contents/trails/static/malware';

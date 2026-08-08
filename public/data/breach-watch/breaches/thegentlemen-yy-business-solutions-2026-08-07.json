@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-yy-business-solutions-2026-08-07",
+  "title": "YY Business Solutions",
+  "group": "thegentlemen",
+  "discovered": "2026-08-07T08:01:53.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Y&Y Business Solutions (YYB Business Solutions Inc.) is a Bronx-based company located at 169 Lincoln Avenue, Suite 208, Bronx, NY 10454, reachable at (347) 270-1283. Founded and led by Valerie and Yerlin, the firm specializes in income taxes, immigration services, business license & registration, DMV & TLC services, and document translation. The company primarily serves Spanish-speaking immigrants and small business owners, helping them navigate U.S. immigration processes and tax requirements. They are most active on Instagram (@yybsolutions) and Facebook, where they share updates and client guidance.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

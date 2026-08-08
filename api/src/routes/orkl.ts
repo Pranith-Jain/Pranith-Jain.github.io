@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest, badGateway } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 const ORKL_BASE = 'https://orkl.eu/api/v1';
@@ -48,8 +48,7 @@ export async function orklSearchHandler(c: Context<{ Bindings: Env }>): Promise<
 
 export async function orklEntryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const uuid = c.req.param('uuid') ?? '';
-  if (!uuid || !/^[0-9a-f-]{36}$/i.test(uuid))
-    return badRequest(c, 'valid uuid parameter required');
+  if (!uuid || !/^[0-9a-f-]{36}$/i.test(uuid)) return badRequest(c, 'valid uuid parameter required');
 
   const cache = caches.default;
   const cacheKey = `https://orkl-cache.internal/entry/${uuid}`;

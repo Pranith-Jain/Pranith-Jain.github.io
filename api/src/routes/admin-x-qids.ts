@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
+import { badRequest, serviceUnavailable } from '../lib/api-error';
 import { requireAdmin } from '../lib/admin-auth';
 import {
   X_QIDS_KV_KEY,

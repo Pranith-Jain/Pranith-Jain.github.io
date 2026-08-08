@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-bouygues-es-fr-2026-08-07",
+  "title": "bouygues-es.fr",
+  "group": "L Group",
+  "discovered": "2026-08-07T08:38:25.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "FR",
+  "sizeBytes": 0,
+  "description": "[AI generated] Bouygues Energies & Services (bouygues-es.fr) is a French company operating in the energy and services sector. It is a subsidiary of the Bouygues Group and specializes in electrical engineering, facility management, energy efficiency, smart buildings, and industrial maintenance. The company operates primarily in France and internationally, serving public and private sector clients across infrastructure, construction, and multi-technical services.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Energy & Utilities",
+  "references": ["ransomware.live"]
+}

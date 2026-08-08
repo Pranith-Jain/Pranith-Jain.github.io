@@ -79,6 +79,36 @@ async function webamonFetch(path: string, retries = 2): Promise<Response | null>
   return null;
 }
 
+/**
+ * The webamon `/scan` endpoint streams progress as Server-Sent Events
+ * (`event: message` / `data: {…}` lines) rather than a plain JSON body.
+ * Consume the text, take the LAST `data:` payload (the terminal report),
+ * and fall back to whole-body JSON when the upstream returns plain JSON.
+ */
+async function webamonConsume(res: Response): Promise<unknown> {
+  const text = await res.text();
+  const dataLines = text
+    .split(/\r?\n/)
+    .map((l) => l.trim())
+    .filter((l) => l.startsWith('data:'))
+    .map((l) => l.slice(5).trim());
+  if (dataLines.length > 0) {
+    const last = dataLines[dataLines.length - 1];
+    if (typeof last === 'string') {
+      try {
+        return JSON.parse(last);
+      } catch {
+        /* fall through to whole-body parse */
+      }
+    }
+  }
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text;
+  }
+}
+
 /* ─── Search (public) ───────────────────────────────────────────────────── */
 
 export async function webamonSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -118,7 +148,7 @@ export async function webamonScanHandler(c: Context<{ Bindings: Env }>): Promise
     if (!body.submission_url) return badRequest(c, 'missing submission_url');
     const res = await webamonFetch(`/scan?submission_url=${encodeURIComponent(body.submission_url)}`);
     if (!res) return badGateway(c, 'webamon upstream unreachable');
-    const data = await res.json();
+    const data = await webamonConsume(res);
     return c.json(data, (res.ok ? 200 : res.status) as ContentfulStatusCode);
   } catch (err) {
     logError('webamonScanHandler failed', err);

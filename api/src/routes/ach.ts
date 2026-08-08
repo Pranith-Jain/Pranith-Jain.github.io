@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
+import { badRequest, internalError, badGateway } from '../lib/api-error';
 import { queryCorpus } from '../lib/rag-embedder';
 import { findUngroundedCves, findInvalidMitreIds } from '../lib/ai-output-validator';
 

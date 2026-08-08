@@ -1,0 +1,15 @@
+{
+  "slug": "barracuda-micro-comm-inc-2026-08-06",
+  "title": "Micro-Comm Inc.",
+  "group": "Barracuda",
+  "discovered": "2026-08-06T08:32:42.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Micro-Comm, Inc. is an industrial automation company based in Olathe, Kansas, that provides water and wastewater control systems, manufacturing control panels, micro-controllers, and SCADA software. [http://www.micro-comm-inc.com]. Tree of all files: https://www.filemail.com/d/vpqdvykqwssupsw. Files count: 894 963, documents type: maps, schemes, personal employers information, personal citizens information, work photos, emails, partners personal information | Status: selling | Size: 643 GB | Starting at $30000.00",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

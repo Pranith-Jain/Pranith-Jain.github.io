@@ -6,7 +6,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
+import { badRequest, notFound, internalError, serviceUnavailable } from '../lib/api-error';
 import { readBriefing } from '../lib/briefing-builder/build';
 import { renderBriefingMarkdown } from '../lib/briefing-markdown-renderer';
 
@@ -15,11 +15,9 @@ export async function briefingRenderHandler(c: Context<{ Bindings: Env }>): Prom
   if (!slug) return badRequest(c, 'missing slug');
   try {
     const db = c.env.BRIEFINGS_DB;
-    if (!db)
-      return serviceUnavailable(c, 'BRIEFINGS_DB not bound');
+    if (!db) return serviceUnavailable(c, 'BRIEFINGS_DB not bound');
     const briefing = await readBriefing(db, slug);
-    if (!briefing)
-      return notFound(c, `briefing ${slug} not found`);
+    if (!briefing) return notFound(c, `briefing ${slug} not found`);
     const md = renderBriefingMarkdown(briefing);
     // Return JSON so MCP's apiFetch (which always calls res.json()) can
     // consume it.

@@ -2,7 +2,7 @@ import type { Context } from 'hono';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest, serviceUnavailable } from '../lib/api-error';
 import type { LiveIoc } from './live-iocs';
 import { fetchTelegramFeed } from './telegram-feed';
 import { fetchRansomwareRecent } from './ransomware-recent';

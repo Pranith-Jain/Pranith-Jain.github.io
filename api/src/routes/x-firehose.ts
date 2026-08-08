@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, tooManyRequests } from '../lib/api-error';
+import { badRequest, badGateway, tooManyRequests } from '../lib/api-error';
 import {
   fetchAuthedTimeline,
   resolveAuthCookies,
@@ -134,15 +134,6 @@ export async function xFirehoseHandler(c: Context<{ Bindings: Env }>): Promise<R
       });
     } catch (anonErr) {
       logError('anonymous fallback failed', anonErr);
-      const status = code === 'auth_missing' ? 503 : code === 'auth_expired' ? 401 : 502;
-      const detail =
-        code === 'stale_qid'
-          ? 'X GraphQL query IDs appear stale - refresh the QIDs in api/src/lib/twitter-auth-graphql.ts'
-          : code === 'auth_expired'
-            ? 'X cookies expired - refresh auth_token/ct0 in admin > X Cookies'
-            : code === 'auth_missing'
-              ? 'X cookies not configured - add them in admin > X Cookies'
-              : msg.slice(0, 200);
       return badGateway(c, 'upstream error');
     }
   }
@@ -183,12 +174,20 @@ export async function xFirehoseProbeBatchHandler(c: Context<{ Bindings: Env }>):
 
     const staleKey = staleCacheKey(h);
     try {
-      const res = await fetchAuthedTimeline(c.env, h, { count: 5, sinceDays, includePinned: false, includeReplies: false });
+      const res = await fetchAuthedTimeline(c.env, h, {
+        count: 5,
+        sinceDays,
+        includePinned: false,
+        includeReplies: false,
+      });
       results[h] = { count: res.items.length, status: 'ok' };
       if (res.items.length > 0) {
         const cacheable = new Response(JSON.stringify(res), {
           status: 200,
-          headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${STALE_CACHE_TTL_SECONDS}` },
+          headers: {
+            'content-type': 'application/json',
+            'cache-control': `public, max-age=${STALE_CACHE_TTL_SECONDS}`,
+          },
         });
         c.executionCtx.waitUntil(edgeCache.put(staleKey, cacheable).catch(() => undefined));
       }
@@ -201,7 +200,9 @@ export async function xFirehoseProbeBatchHandler(c: Context<{ Bindings: Env }>):
             results[h] = { count: parsed.items?.length ?? 0, status: 'ok' };
             continue;
           }
-        } catch { /* fall through */ }
+        } catch {
+          /* fall through */
+        }
         results[h] = { count: 0, status: 'rate_limited' };
         for (let j = i + 1; j < handles.length; j++) {
           results[handles[j]!] = { count: 0, status: 'rate_limited' };

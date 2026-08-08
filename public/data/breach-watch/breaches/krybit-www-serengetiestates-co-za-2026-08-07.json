@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-www-serengetiestates-co-za-2026-08-07",
+  "title": "www.serengetiestates.co.za",
+  "group": "krybit",
+  "discovered": "2026-08-07T02:25:08.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "ZA",
+  "sizeBytes": 0,
+  "description": "Serengeti Estates (Serengeti Golf and Wildlife Estate) is a premier South African luxury residential golf and wildlife e...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

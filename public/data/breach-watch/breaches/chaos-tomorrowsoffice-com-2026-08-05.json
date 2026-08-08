@@ -1,0 +1,15 @@
+{
+  "slug": "chaos-tomorrowsoffice-com-2026-08-05",
+  "title": "tomorrowsoffice.com",
+  "group": "chaos",
+  "discovered": "2026-08-05T16:23:51.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "URGENT DATA LEAK NOTICE: TOMORROW'S OFFICE\n\nTarget: Tomorrow’s Office (tomorrowsoffice.com)\n\nStatus: Ongoing Data Publication Countdown\n\nSecurity researchers have successfully exfiltrated 125 GB of critical and confidential data from the internal infrastructure of Tomorrow’s Office (tomorrowsoff…",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

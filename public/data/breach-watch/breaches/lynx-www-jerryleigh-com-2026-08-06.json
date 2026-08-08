@@ -1,0 +1,15 @@
+{
+  "slug": "lynx-www-jerryleigh-com-2026-08-06",
+  "title": "www.jerryleigh.com",
+  "group": "lynx",
+  "discovered": "2026-08-06T17:26:56.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Jerry Leigh is a family-owned women's, men's, and children's clothing manufacturer and brand management headquartered in Panorama City, CA, and established in 1962.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

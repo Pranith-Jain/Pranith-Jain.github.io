@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-nobema-2026-08-07",
+  "title": "Nobema",
+  "group": "thegentlemen",
+  "discovered": "2026-08-07T08:04:19.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "DE",
+  "sizeBytes": 0,
+  "description": "nobema.com zoominfo.com/c/nobema-srl/371446900 Nobema S.r.l. is an Italian family-run manufacturing company based near Turin, specializing in plastic molding and integrated industrial services since 1986. They provide end-to-end solutions ranging from custom mold design and pre-series sampling to advanced gas injection technology and mass production. The company serves diverse sectors with high-quality plastic components, uniquely combining industrial parts with niche consumer products like drumsticks",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

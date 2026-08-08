@@ -1,0 +1,15 @@
+{
+  "slug": "dark-project-mayco-international-2026-08-05",
+  "title": "Mayco International",
+  "group": "Dark Project",
+  "discovered": "2026-08-05T13:10:14.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "About Mayco International At least 2Tb of sensitive data were exfiltrated from the company’s control following a cyberattack. The compromised dataset leaked from Mayco internatioins company infrastructure includes internal organizational documents, proprietary technical schemas, employee personally identifiable information, and a substantial volume of financial records.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

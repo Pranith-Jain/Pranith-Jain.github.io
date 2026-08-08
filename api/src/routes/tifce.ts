@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden } from '../lib/api-error';
+import { serviceUnavailable } from '../lib/api-error';
 import type { D1Database } from '@cloudflare/workers-types';
 import { fetchIocCorrelation } from './ioc-correlation';
 import { fetchLiveIocs, type LiveIocsResponse, type LiveIoc, type LiveSource } from './live-iocs';

@@ -1,0 +1,15 @@
+{
+  "slug": "orova-stonecrest-poa-2026-08-06",
+  "title": "Stonecrest POA",
+  "group": "Orova",
+  "discovered": "2026-08-06T09:50:52.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Stonecrest POA is the mandatory property owners association for Stonecrest, a large gated 55+ residential community in Summerfield, Marion County, Florida. It is a nonprofit community-governance organization, not a conventional profit-making company.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

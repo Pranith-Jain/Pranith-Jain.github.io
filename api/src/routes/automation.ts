@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest, internalError } from '../lib/api-error';
 // Canonical producer keys — readers previously hardcoded stale v11/v8 and
 // returned a confident `no_data` for live indicators (see watch-engine).
 import { LIVE_IOCS_CACHE_KEY } from './live-iocs';

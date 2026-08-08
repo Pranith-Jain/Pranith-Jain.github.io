@@ -1,5 +1,5 @@
 import type { Context } from 'hono';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest, serviceUnavailable } from '../lib/api-error';
 import {
   queryPassiveDns,
   reverseLookup,

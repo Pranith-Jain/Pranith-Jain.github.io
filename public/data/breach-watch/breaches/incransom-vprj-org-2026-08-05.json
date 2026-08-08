@@ -1,0 +1,15 @@
+{
+  "slug": "incransom-vprj-org-2026-08-05",
+  "title": "vprj.org",
+  "group": "incransom",
+  "discovered": "2026-08-05T23:53:43.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "The Virginia Peninsula Regional Jail (VPRJ) is a state-authorized, regional correctional facility located in Williamsburg, Virginia, USA. Opened in 1997, VPRJ provides short-to-medium-term detention services, ensuring public safety and order across the Virginia Peninsula region under the governance of a multi-jurisdictional jail board.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["inc ransom", "INC"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-cookieskids-com-2026-08-06",
+  "title": "cookieskids.com",
+  "group": "l group",
+  "discovered": "2026-08-06T22:15:46.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Cookie’s Kids specializes in a wide range of clothing and accessories for boys and girls, including school uniforms, casual wear, and seasonal attire.",
+  "source_url": "https://www.ransomlook.io/screenshots/l group/cookieskidscom.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

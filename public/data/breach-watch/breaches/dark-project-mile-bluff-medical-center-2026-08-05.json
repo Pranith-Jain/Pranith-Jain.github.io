@@ -1,0 +1,15 @@
+{
+  "slug": "dark-project-mile-bluff-medical-center-2026-08-05",
+  "title": "Mile Bluff Medical Center",
+  "group": "Dark Project",
+  "discovered": "2026-08-05T13:04:44.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "About Mile Bluff Medical Center Located in Mauston, Wisconsin, Mile Bluff Medical center has been in operation since 1912. Its services include acute emergency care, as well as long term nursing and rehabilitation A \"Mile Bluff Medical Center\" company suffered a cyberattack leading to the theft of over 550 GB of sensitive data. Exposed files include a full SQL database backup, employee records, confidential company financial information, bank records, patients' personal documents, Social Security numbers, medical records, medical histories, and surgical records. As a result, the personal data of more than 25,000 patients and staff members was leaked. Download here: http://7iphetz64a7iihcpwr3nirjioghyt6lrku62gu4z7f3zo7rcz5qrgvad.onion/",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

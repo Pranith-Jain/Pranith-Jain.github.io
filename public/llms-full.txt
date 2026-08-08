@@ -45,6 +45,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Plist & Protobuf Decoder](https://pranithjain.qzz.io/dfir/plist-protobuf) (dfir): Apple binary plist + protobuf human-readable view.
 - [Punycode / Homoglyph Viewer](https://pranithjain.qzz.io/dfir/punycode) (dfir): Visualise IDN homograph attacks - Cyrillic vs Latin lookalikes.
 - [PowerShell Deobfuscator](https://pranithjain.qzz.io/dfir/powershell-deobf) (dfir): Unroll encoded / base64 / invoke-expression chains - step by step.
+- [PowerShell Security Analyzer](https://pranithjain.qzz.io/dfir/powershell-analyzer) (dfir): Static-analysis a PowerShell script for malicious behavior - 250+ signatures, MITRE ATT&CK mapping, IOC extraction, obfuscation scoring, risk score, 100% client-side.
 - [File Analyzer](https://pranithjain.qzz.io/dfir/file) (dfir): Upload a file - extract metadata, hashes, strings, and embedded indicators.
 - [PCAP Triage](https://pranithjain.qzz.io/dfir/pcap-triage) (dfir): Protocol breakdown - top talkers - DNS / HTTP / TLS summaries.
 - [Registry Hive Explorer](https://pranithjain.qzz.io/dfir/registry-hive) (dfir): Browse - search - diff Windows registry hives offline.

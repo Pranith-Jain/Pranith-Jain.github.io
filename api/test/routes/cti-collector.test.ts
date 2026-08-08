@@ -1,13 +1,18 @@
 import { SELF, env } from 'cloudflare:test';
 import { describe, it, expect, beforeAll } from 'vitest';
 import type { Env } from '../../src/env';
+import { withTestApiKey } from '../test-helpers';
 
 const testEnv = env as unknown as Env;
 
 async function ensureTables() {
   const db = testEnv.BRIEFINGS_DB;
   if (!db) throw new Error('BRIEFINGS_DB not bound');
-  await db.exec(`
+  // Note: miniflare's D1 `exec` splits the SQL on newlines (one statement per
+  // line), so a multi-line template literal breaks. `batch` + per-statement
+  // `prepare` sidesteps that and works identically on real D1.
+  await db.batch([
+    db.prepare(`
     CREATE TABLE IF NOT EXISTS cti_iocs (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       value TEXT NOT NULL,
@@ -24,8 +29,11 @@ async function ensureTables() {
       decay_score REAL DEFAULT 1.0,
       created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
     );
+  `),
+    db.prepare(`
     CREATE UNIQUE INDEX IF NOT EXISTS idx_cti_iocs_unique ON cti_iocs(value, source);
-
+  `),
+    db.prepare(`
     CREATE TABLE IF NOT EXISTS cti_news (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL,
@@ -36,7 +44,8 @@ async function ensureTables() {
       tags TEXT DEFAULT '[]',
       fetched_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
     );
-
+  `),
+    db.prepare(`
     CREATE TABLE IF NOT EXISTS cti_predictions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       prediction_id TEXT UNIQUE NOT NULL,
@@ -58,7 +67,8 @@ async function ensureTables() {
       date_range_end TEXT DEFAULT '',
       generated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
     );
-
+  `),
+    db.prepare(`
     CREATE TABLE IF NOT EXISTS cti_mutation_seeds (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       seed_id TEXT UNIQUE NOT NULL,
@@ -70,7 +80,8 @@ async function ensureTables() {
       source_refs TEXT DEFAULT '[]',
       created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
     );
-
+  `),
+    db.prepare(`
     CREATE TABLE IF NOT EXISTS cti_mutation_variants (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       variant_id TEXT UNIQUE NOT NULL,
@@ -93,7 +104,8 @@ async function ensureTables() {
       defense_playbook TEXT DEFAULT '{}',
       created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
     );
-
+  `),
+    db.prepare(`
     CREATE TABLE IF NOT EXISTS cti_collection_jobs (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       source TEXT NOT NULL,
@@ -103,7 +115,8 @@ async function ensureTables() {
       started_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
       completed_at TEXT DEFAULT ''
     );
-  `);
+  `),
+  ]);
 }
 
 beforeAll(async () => {
@@ -189,7 +202,8 @@ describe('CTI Collector API', () => {
 
   describe('POST /api/v1/cti/collect', () => {
     it('triggers collection and returns result', async () => {
-      const res = await SELF.fetch('https://example.com/api/v1/cti/collect', {
+      const fetchAuthed = await withTestApiKey();
+      const res = await fetchAuthed('https://example.com/api/v1/cti/collect', {
         method: 'POST',
       });
       expect(res.status).toBe(200);
@@ -210,7 +224,8 @@ describe('CTI Collector API', () => {
 
   describe('POST /api/v1/cti/decay', () => {
     it('applies decay scoring', async () => {
-      const res = await SELF.fetch('https://example.com/api/v1/cti/decay', {
+      const fetchAuthed = await withTestApiKey();
+      const res = await fetchAuthed('https://example.com/api/v1/cti/decay', {
         method: 'POST',
       });
       expect(res.status).toBe(200);

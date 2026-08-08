@@ -1,0 +1,15 @@
+{
+  "slug": "clop-mam-2026-08-05",
+  "title": "mam*******",
+  "group": "clop",
+  "discovered": "2026-08-05T20:45:57.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "[CVE‑2026‑12569] Data exfiltrated included the following: .png files, files Windchil",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

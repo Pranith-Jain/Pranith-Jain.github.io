@@ -1,0 +1,15 @@
+{
+  "slug": "orova-country-oaks-veterinary-clinic-2026-08-06",
+  "title": "Country Oaks Veterinary Clinic",
+  "group": "Orova",
+  "discovered": "2026-08-06T09:22:03.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Country Oaks Veterinary Clinic is a full-service hospital established in 1976. We provide high-quality veterinary care in a modern, welcoming environment. Our experienced doctors and staff treat your pets like family.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

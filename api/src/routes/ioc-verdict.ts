@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
+import { badRequest, internalError } from '../lib/api-error';
 import { detectType } from '../lib/indicator';
 import type { Indicator, ProviderResult, ProviderId } from '../providers/types';
 import { ADAPTERS, buildProviderEnv, PROVIDER_LABELS, PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS } from '../providers';

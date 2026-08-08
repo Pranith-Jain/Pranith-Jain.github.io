@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badGateway } from '../lib/api-error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 const D3FEND_MATRIX_URL = 'https://d3fend.mitre.org/api/matrix.json';

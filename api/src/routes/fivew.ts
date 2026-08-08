@@ -10,7 +10,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, payloadTooLarge } from '../lib/api-error';
+import { badRequest, payloadTooLarge } from '../lib/api-error';
 import { extractFiveW, type FiveW } from '../lib/fivew-extract';
 
 const CACHE_TTL = 300;

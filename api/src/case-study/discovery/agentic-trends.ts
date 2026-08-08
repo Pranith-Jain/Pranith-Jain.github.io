@@ -30,7 +30,7 @@ interface TrendCandidate {
 }
 
 const GOOGLE_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
-const GOOGLE_MODEL = 'gemini-2.5-flash';
+const GOOGLE_MODELS = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-2.5-flash'];
 
 const CATEGORY_POOLS = [
   ['ransomware-evolution', 'supply-chain-attacks', 'mobile-threats'],
@@ -303,29 +303,40 @@ function buildStoredSources(realSources: string[], statuses: Record<string, Link
 }
 
 async function callGoogle(key: string, prompt: string, userMsg: string): Promise<string> {
-  const res = await fetch(`${GOOGLE_BASE}/${GOOGLE_MODEL}:generateContent?key=${key}`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({
-      system_instruction: { parts: [{ text: prompt }] },
-      contents: [{ role: 'user', parts: [{ text: userMsg }] }],
-      generationConfig: {
-        maxOutputTokens: 4000,
-        temperature: 0.9,
-      },
-    }),
-    signal: AbortSignal.timeout(30_000),
-  });
-  if (!res.ok) {
-    const body = await res.text().catch(() => '');
-    throw new Error(`google HTTP ${res.status}: ${body.slice(0, 200)}`);
+  let lastError: Error | null = null;
+  for (const model of GOOGLE_MODELS) {
+    try {
+      const res = await fetch(`${GOOGLE_BASE}/${model}:generateContent?key=${key}`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: prompt }] },
+          contents: [{ role: 'user', parts: [{ text: userMsg }] }],
+          generationConfig: {
+            maxOutputTokens: 4000,
+            temperature: 0.9,
+          },
+        }),
+        signal: AbortSignal.timeout(30_000),
+      });
+      if (!res.ok) {
+        const body = await res.text().catch(() => '');
+        const msg = `google HTTP ${res.status}: ${body.slice(0, 200)}`;
+        if (res.status === 401 || res.status === 403) throw new Error(msg);
+        lastError = new Error(msg);
+        continue;
+      }
+      const j = (await res.json()) as {
+        candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
+      };
+      const text = j?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (typeof text !== 'string' || !text.trim()) throw new Error('google empty response');
+      return text;
+    } catch (err) {
+      lastError = err instanceof Error ? err : new Error(String(err));
+    }
   }
-  const j = (await res.json()) as {
-    candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
-  };
-  const text = j?.candidates?.[0]?.content?.parts?.[0]?.text;
-  if (typeof text !== 'string' || !text.trim()) throw new Error('google empty response');
-  return text;
+  throw lastError ?? new Error('google all models failed');
 }
 
 export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Candidate[]> {

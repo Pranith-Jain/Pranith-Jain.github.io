@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badGateway } from '../lib/api-error';
 
 const FEED_JSON_URL = 'https://ai-honeypots.com/feeds/iocs.json';
 const CACHE_TTL = 30 * 60;

@@ -1,0 +1,15 @@
+{
+  "slug": "lynx-www-talbotdes-org-2026-08-06",
+  "title": "www.talbotdes.org",
+  "group": "lynx",
+  "discovered": "2026-08-06T17:26:18.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "Talbot County Department of Emergency Services provides essential emergency services including 9-1-1 communications, emergency medical services, and emergency management. The department aims to prepare the community for various emergencies, including natural and man-made disasters. Their intended clients include residents of Talbot County, first responders, and local businesses. They also offer resources such as CPR classes and community alerting systems to enhance public safety.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

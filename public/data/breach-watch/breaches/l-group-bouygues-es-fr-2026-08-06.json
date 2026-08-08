@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-bouygues-es-fr-2026-08-06",
+  "title": "bouygues-es.fr",
+  "group": "l group",
+  "discovered": "2026-08-06T22:23:28.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Bouygues Energies & Services is a company that operates in the Industrial Machinery & Equipment industry.",
+  "source_url": "https://www.ransomlook.io/screenshots/l group/bouygues-esfr.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

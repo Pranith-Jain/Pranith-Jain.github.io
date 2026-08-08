@@ -1,0 +1,15 @@
+{
+  "slug": "dark-project-long-lewis-automotive-group-2026-08-06",
+  "title": "Long-Lewis Automotive Group",
+  "group": "dark project",
+  "discovered": "2026-08-06T17:23:56.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Following a successful cyberattack on Long Lewis, more than 500 GB of confidential information was stolen. More than 15,000 records containing personal data of the organization’s customers and employees, important financial and banking documents, and other valuable company information were compromised. Currently, Long Lewis lost control of more than 650,000 files.",
+  "source_url": "https://www.ransomlook.io/screenshots/dark project/Long-Lewis Automotive Group.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

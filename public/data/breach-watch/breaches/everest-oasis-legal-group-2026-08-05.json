@@ -1,0 +1,15 @@
+{
+  "slug": "everest-oasis-legal-group-2026-08-05",
+  "title": "Oasis Legal Group",
+  "group": "everest",
+  "discovered": "2026-08-05T13:14:58.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

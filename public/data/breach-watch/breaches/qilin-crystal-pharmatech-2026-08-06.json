@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-crystal-pharmatech-2026-08-06",
+  "title": "Crystal Pharmatech",
+  "group": "qilin",
+  "discovered": "2026-08-06T23:28:03.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

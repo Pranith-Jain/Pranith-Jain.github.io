@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
+import { badGateway, respondError } from '../lib/api-error';
 import { safeErrorMessage } from '../lib/error';
 
 const ASN_RE = /^(?:AS)?(\d{1,10})$/i;
@@ -48,9 +48,9 @@ function isV6(prefix: string): boolean {
 
 export async function asnLookupHandler(c: Context<{ Bindings: Env }>) {
   const raw = c.req.query('asn');
-  if (!raw) return badRequest(c, 'missing asn');
+  if (!raw) return respondError(c, 'missing asn', 'asn parameter is required', 400);
   const m = raw.match(ASN_RE);
-  if (!m || !m[1]) return badRequest(c, 'invalid asn (expected AS15169 or 15169)');
+  if (!m || !m[1]) return respondError(c, 'invalid asn (expected AS15169 or 15169)', 'asn must be numeric', 400);
   const num = parseInt(m[1], 10);
 
   try {

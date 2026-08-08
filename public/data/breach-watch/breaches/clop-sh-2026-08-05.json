@@ -1,0 +1,15 @@
+{
+  "slug": "clop-sh-2026-08-05",
+  "title": "sh*******",
+  "group": "clop",
+  "discovered": "2026-08-05T20:40:46.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "[CVE‑2026‑12569] Data exfiltrated included the following: Engineering drawings, photos of the facilities, scans of facility testing reports, project plans",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

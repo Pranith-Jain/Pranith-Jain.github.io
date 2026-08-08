@@ -1,0 +1,15 @@
+{
+  "slug": "everest-allied-telesis-2026-08-05",
+  "title": "Allied Telesis",
+  "group": "everest",
+  "discovered": "2026-08-05T13:11:11.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "JP",
+  "sizeBytes": 0,
+  "description": "[AI generated] Allied Telesis is a global networking solutions provider headquartered in Tokyo, Japan. Founded in 1987, the company operates in the telecommunications and IT infrastructure industry, designing and manufacturing network hardware and software including switches, routers, wireless access points, and network management systems. It serves enterprise, government, healthcare, and education sectors across more than 40 countries worldwide.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

@@ -1,5 +1,5 @@
 import { SELF } from 'cloudflare:test';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 
 describe('ioc-enrich-deep route', () => {
   it('rejects missing indicator', async () => {
@@ -43,6 +43,12 @@ describe('ioc-enrich-deep route', () => {
   });
 
   it('does NOT call webamon-scan by default for domains (BUG-006 regression guard)', async () => {
+    // Fail every upstream fetch fast so the internal sub-routes (reputation,
+    // webamon-search, …) settle immediately instead of hanging on blocked
+    // egress. The fan-out sources are what we're asserting, not their payloads.
+    vi.spyOn(globalThis, 'fetch').mockImplementation(
+      async () => new Response('{}', { status: 500, headers: { 'content-type': 'application/json' } })
+    );
     const res = await SELF.fetch('https://self.internal/api/v1/ioc/enrich-deep?indicator=example.com');
     expect([200, 502]).toContain(res.status);
     if (res.status === 200) {
@@ -55,6 +61,9 @@ describe('ioc-enrich-deep route', () => {
   });
 
   it('calls webamon-scan only when ?trigger=scan is set', async () => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(
+      async () => new Response('{}', { status: 500, headers: { 'content-type': 'application/json' } })
+    );
     const res = await SELF.fetch('https://self.internal/api/v1/ioc/enrich-deep?indicator=example.com&trigger=scan');
     expect([200, 502]).toContain(res.status);
     if (res.status === 200) {

@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-holborn-european-marketing-2026-08-07",
+  "title": "Holborn European Marketing",
+  "group": "The Gentlemen",
+  "discovered": "2026-08-07T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CY",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/holborn-european-marketing-thegentlemen-2026-08",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["RecentBreaches.com"]
+}

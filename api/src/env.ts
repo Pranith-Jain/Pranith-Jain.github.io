@@ -12,6 +12,10 @@ export interface Env {
    *  (so a parallel burst can't bypass the brute-force cap). Optional — the
    *  rate limiter degrades to the per-colos Cache/KV path when it is unbound. */
   CRON_LOCK_DO: DurableObjectNamespace;
+  /** Cron execution DO — per-cron instances run the heavy cron bodies in a
+   *  durable alarm (30s CPU budget), keeping the parent `scheduled` handler
+   *  inside the free-plan 10ms cron cap. */
+  CRON_JOB_DO?: DurableObjectNamespace;
   /** Report-generation pipeline DO (Copilot full-report builder). */
   REPORT_BUILDER: DurableObjectNamespace;
   /** Autonomous investigator agent DO. */
@@ -94,7 +98,7 @@ export interface Env {
    *  unset, native ETH transfers come from Blockscout's keyless endpoint. */
   ETHERSCAN_API_KEY?: string;
   /** Google AI Studio (Gemini) API key (set via `wrangler secret put GOOGLE_AI_STUDIO_API_KEY`).
-   *  Free tier: gemini-2.0-flash (1000 RPM), gemini-1.5-pro (50 RPM). When
+   *  Free tier: gemini-3.6-flash (1,500 req/day), gemini-2.5-flash fallback. When
    *  set, Gemini is tried first before Groq/Workers AI. */
   GOOGLE_AI_STUDIO_API_KEY?: string;
   /** Groq free-tier API key (set via `wrangler secret put GROQ_API_KEY`).

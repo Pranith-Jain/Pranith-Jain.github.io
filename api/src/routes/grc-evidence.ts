@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { notFound } from '../lib/api-error';
 import { kvBulkGetText } from '../lib/safe-catch';
 
 export interface GrcFramework {

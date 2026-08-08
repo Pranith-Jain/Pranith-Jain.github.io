@@ -1,0 +1,15 @@
+{
+  "slug": "orion-bridgestoneamericas-com-2026-08-05",
+  "title": "bridgestoneamericas.com",
+  "group": "orion",
+  "discovered": "2026-08-05T20:03:43.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "bridgestoneamericas.com",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

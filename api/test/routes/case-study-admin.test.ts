@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Hono } from 'hono';
 import { registerAdminRoutes } from '../../src/routes/case-study-admin';
 import type { Candidate } from '../../src/case-study/types';
@@ -59,6 +59,20 @@ const cand: Candidate = {
 };
 
 describe('admin routes', () => {
+  beforeEach(async () => {
+    // The schedule is mirrored into caches.default (slot
+    // https://schedule-cache.internal/v1) and read BEFORE KV, so a slot
+    // written by a previous test in the same pool would shadow the fresh
+    // per-test KV store. Delete the single slot by URL. (Enumerating keys
+    // is avoided — cache.keys() does not resolve in this pool.)
+    try {
+      const cache = (caches as unknown as { default: Cache }).default;
+      await cache.delete('https://schedule-cache.internal/v1');
+    } catch {
+      /* best-effort */
+    }
+  });
+
   it('rejects requests without token', async () => {
     const r = await app().request('/api/v1/admin/candidates', {}, mockEnv());
     expect(r.status).toBe(401);

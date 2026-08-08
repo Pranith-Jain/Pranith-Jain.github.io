@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest, internalError } from '../lib/api-error';
 import { runAi, parseJson } from '../lib/ai';
 
 const DARKWEB_SYSTEM = `You are a dark web intelligence analyst. Given a list of dark web monitoring items (leak site posts, forum discussions, marketplace listings), produce a structured intelligence brief.

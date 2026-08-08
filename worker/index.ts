@@ -1,6 +1,7 @@
 import apiApp from '../api/src/index';
 import { LiveFeedDO } from './durable-objects/live-feed';
 import { CronLockDO } from './durable-objects/cron-lock';
+import { CronJobDO } from './durable-objects/cron-job';
 import { ReportBuilderDO } from './durable-objects/report-builder';
 import { InvestigatorAgentDO } from './durable-objects/investigator-agent';
 import { RadarCrawlerDO } from './durable-objects/radar-crawler';
@@ -19,7 +20,16 @@ import { handleRadarCrawl } from './radar-handler';
 import { handleArgusRss } from './argus-feed';
 import type { Env } from './env';
 
-export { LiveFeedDO, DfirMcpServer, CronLockDO, ReportBuilderDO, InvestigatorAgentDO, RadarCrawlerDO, GlobalPulseDO };
+export {
+  LiveFeedDO,
+  DfirMcpServer,
+  CronLockDO,
+  ReportBuilderDO,
+  InvestigatorAgentDO,
+  RadarCrawlerDO,
+  GlobalPulseDO,
+  CronJobDO,
+};
 export type { Env };
 
 /**

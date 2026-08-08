@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-p-a-inc-performance-alloys-2026-08-05",
+  "title": "P. A. Inc. (Performance Alloys)",
+  "group": "dragonforce",
+  "discovered": "2026-08-05T17:53:32.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "P.A. Inc. is a leading distributor of high nickel alloy and specialty stainless steel piping products, based in Houston, Texas. The company offers a comprehensive inventory of materials including Nickel 200, Alloy 400, Alloy 600, and various titanium grades, catering to industries requiring high-temperature and corrosion-resistant solutions. Their services include custom fabrication and a qualitative specification assurance process to ensure product quality. P.A. Inc. serves clients in sectors such as specialty chemicals, oil and gas, and petrochemicals, providing efficient and effective procurement solutions.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

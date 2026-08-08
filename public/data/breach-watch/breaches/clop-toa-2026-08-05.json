@@ -1,0 +1,15 @@
+{
+  "slug": "clop-toa-2026-08-05",
+  "title": "toa*******",
+  "group": "clop",
+  "discovered": "2026-08-05T20:43:54.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "[CVE‑2026‑12569] Data exfiltrated included the following: project, backup database, logs",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

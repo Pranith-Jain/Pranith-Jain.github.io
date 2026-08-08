@@ -1330,6 +1330,15 @@ const DFIR_PAGES: readonly PageEntry[] = [
     keywords: ['powershell', 'deobfuscate', 'obfuscation'],
   },
   {
+    path: '/dfir/powershell-analyzer',
+    label: 'PowerShell Security Analyzer',
+    description:
+      'Static analyze a PowerShell script for malicious indicators - signatures, MITRE ATT&CK mapping, IOC extraction, obfuscation scoring, risk score.',
+    sectionLabel: 'DFIR · Forensics',
+    group: 'dfir',
+    keywords: ['powershell', 'analyzer', 'malware', 'obfuscation', 'ioc', 'mitre', 'script'],
+  },
+  {
     path: '/dfir/sample-scan',
     label: 'Sample Scan',
     description: 'Scan a malware sample - hash lookup, sandbox verdict, and family attribution.',

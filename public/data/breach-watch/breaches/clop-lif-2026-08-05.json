@@ -1,0 +1,15 @@
+{
+  "slug": "clop-lif-2026-08-05",
+  "title": "lif*******",
+  "group": "clop",
+  "discovered": "2026-08-05T20:54:55.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "[CVE‑2026‑12569] Data exfiltrated included the following: Database, Projects, Backups, Logs, Soft installers, PDF, TXT, XML - files",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Cl0p"],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

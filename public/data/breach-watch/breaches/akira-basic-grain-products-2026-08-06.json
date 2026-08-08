@@ -1,0 +1,15 @@
+{
+  "slug": "akira-basic-grain-products-2026-08-06",
+  "title": "Basic Grain Products",
+  "group": "akira",
+  "discovered": "2026-08-06T12:21:02.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "TasteMorr is a culinary platform that offers a variety of gourmet food products and cooking ser\nvices. The company aims to cater to food enthusiasts and home cooks looking for high-quality in\ngredients and unique recipes.\n\nWe will upload 104gb corporate data soon. Employee personal information (passports and SSNs, w9\nforms and so on), detailed financials, contracts and agreements, NDA, clients information and \nso on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

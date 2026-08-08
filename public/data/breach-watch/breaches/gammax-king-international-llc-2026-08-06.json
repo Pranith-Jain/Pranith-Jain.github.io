@@ -1,0 +1,15 @@
+{
+  "slug": "gammax-king-international-llc-2026-08-06",
+  "title": "King International LLC",
+  "group": "Gammax",
+  "discovered": "2026-08-06T16:51:04.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "King International LLC (DL International) is a fresh-fruits-and-vegetables wholesaler/distributor that supplies produce for ongoing needs in retail an...",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

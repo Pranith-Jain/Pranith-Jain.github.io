@@ -1,11 +1,11 @@
 import { Hono } from 'hono';
 import type { Env } from '../../env';
 import { logError } from '../../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../../lib/api-error';
+import { notFound, internalError } from '../../lib/api-error';
 import { getAi } from '../../lib/ai-binding';
 import { unapprove, listApproved, getApproved } from '../../case-study/storage/approved';
 import { touchDedup } from '../../case-study/storage/dedup';
-import { removeSlot } from '../../case-study/storage/schedule';
+import { removeSlot, getSchedule, setSchedule, markSlotStatus } from '../../case-study/storage/schedule';
 import { putPost } from '../../case-study/storage/posts';
 import { renderRss } from '../../case-study/rendering/rss';
 import { getSiteUrl } from '../../lib/site-config';
@@ -27,6 +27,27 @@ approvedRouter.post('/approved/:id/unapprove', async (c) => {
   // approved row and treat it as a failure.
   await removeSlot(c.env.CASE_STUDIES, id);
   return c.json({ ok: true });
+});
+
+// ─── Schedule an approved candidate "due now" (publisher cron owns the publish) ─
+// Unlike publish-now (which generates + publishes immediately), publish-soon just
+// drops a pending slot into the schedule timestamped `now`, so the publisher's
+// next hourly run picks it up. Re-running for a candidate already in the schedule
+// bumps its slotAt to now and resets any failed/draft status.
+approvedRouter.post('/approved/:id/publish-soon', async (c) => {
+  const id = c.req.param('id');
+  const candidate = await getApproved(c.env.CASE_STUDIES, id);
+  if (!candidate) return notFound(c, `approved candidate not found: ${id}`);
+
+  const ns = c.env.CASE_STUDIES;
+  const now = new Date().toISOString();
+  const schedule = await getSchedule(ns);
+  if (schedule.some((s) => s.candidateId === id)) {
+    await markSlotStatus(ns, id, 'pending', { slotAt: now, error: undefined });
+  } else {
+    await setSchedule(ns, [...schedule, { candidateId: id, status: 'pending', slotAt: now }]);
+  }
+  return c.json({ ok: true, candidateId: id, slotAt: now });
 });
 
 // ─── Publish an approved candidate immediately (skip the schedule) ──────

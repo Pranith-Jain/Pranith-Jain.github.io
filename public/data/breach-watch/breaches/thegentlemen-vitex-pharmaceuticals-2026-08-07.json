@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-vitex-pharmaceuticals-2026-08-07",
+  "title": "Vitex Pharmaceuticals",
+  "group": "thegentlemen",
+  "discovered": "2026-08-07T08:09:13.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "vitexpharma.com zoominfo.com/c/vitex-pharmaceuticals-pty-ltd/90505264 Vitex Pharmaceuticals is a leading Australian contract manufacturer specializing in vitamins, minerals, and nutritional complementary medicines. Founded in 1989, this wholly Australian-owned company operates one of the country's largest and most state-of-the-art pharmaceutical manufacturing facilities. Recently, the company significantly expanded its capacity by opening a massive $250 million facility in Western Sydney to supply both domestic and global markets",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

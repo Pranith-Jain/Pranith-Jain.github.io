@@ -1,0 +1,15 @@
+{
+  "slug": "orion-ipsenlogistics-com-2026-08-05",
+  "title": "ipsenlogistics.com",
+  "group": "orion",
+  "discovered": "2026-08-05T20:02:18.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "ipsenlogistics.com",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Transportation",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "storm-sawyer-savings-bank-2026-08-07",
+  "title": "Sawyer Savings Bank",
+  "group": "storm",
+  "discovered": "2026-08-07T20:32:19.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "FinTech | Saugerties, New York, United States | Sawyer Savings Bank is a community-focused financial institution with over 150 years of experience, offering a range of personal and business banking services. Their products include personal checking, savings accounts, business loans, and digital banking solutions designed to enhance customer convenience and security. The bank is dedicated to supporting local communities through various initiatives, including scholarships and volunteerism. Their target clients include individuals seeking personal banking solutions and businesses looking for comprehensive banking support. \nThe company headquarters is located in 87 Market Street, Saugerties, NY 12477, United States.11-50 Employees | Deadline: 2026-09-01T20:31:56.429Z",
+  "source_url": "https://www.ransomlook.io/screenshots/storm/Sawyer Savings Bank.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

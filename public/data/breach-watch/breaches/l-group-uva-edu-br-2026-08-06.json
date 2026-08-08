@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-uva-edu-br-2026-08-06",
+  "title": "uva.edu.br",
+  "group": "l group",
+  "discovered": "2026-08-06T22:35:27.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Universidade Veiga de Almeida (Veiga de Almeida University, often abbreviated as UVA) is a private university with campuses located in Rio de Janeiro and Cabo Frio, Brazil.",
+  "source_url": "https://www.ransomlook.io/screenshots/l group/uvaedubr.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

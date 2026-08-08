@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-jean-petit-lu-2026-08-07",
+  "title": "jean-petit.lu",
+  "group": "L Group",
+  "discovered": "2026-08-07T08:42:39.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "LU",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["ransomware.live"]
+}

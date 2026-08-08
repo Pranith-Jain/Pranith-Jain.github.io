@@ -1,0 +1,15 @@
+{
+  "slug": "orion-albanybank-com-2026-08-05",
+  "title": "albanybank.com",
+  "group": "orion",
+  "discovered": "2026-08-05T20:02:59.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "albanybank.com",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

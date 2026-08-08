@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-psec-com-ar-2026-08-07",
+  "title": "psec.com.ar",
+  "group": "L Group",
+  "discovered": "2026-08-07T08:39:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "AR",
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

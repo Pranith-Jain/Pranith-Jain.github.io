@@ -1,0 +1,15 @@
+{
+  "slug": "dark-project-rocky-mount-recyclers-2026-08-05",
+  "title": "Rocky Mount Recyclers",
+  "group": "Dark Project",
+  "discovered": "2026-08-05T13:06:57.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Due to cyberattack on Rocky Mount Recyclers more than 40Gb of company personal data was stolen. Leakage contains big amount of sensitive data such as personal emlpoyes documents, company's customers data, bank and financial information documents. About 12,000 files are not secured by RMR for now. Download here: http://2zl5qc3mqap7vziqfis65oyjcgdiedigoequxbqsn6uwian7ieozvoqd.onion/",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "storm-southern-indiana-radiological-associates-2026-08-07",
+  "title": "Southern Indiana Radiological Associates",
+  "group": "Storm",
+  "discovered": "2026-08-07T07:46:56.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Southern Indiana Radiological Associates provides a comprehensive range of diagnostic imaging services including CT, MRI, PET scans, and various breast imaging procedures. Established in 1964, SIRA focuses on delivering high-quality medical imaging to diagnosis disease or injury while ensuring patient comfort and reassurance. Their target clients include individuals seeking imaging services in Bloomington and Southern Indiana, with a commitment to providing test results to healthcare providers within 48 hours. SIRA is recognized as a Breast Imaging Center of Excellence, emphasizing their dedication to women's health and advanced imaging technology. \nThe company headquarters is located in 500 S Landmark Ave, Bloomington, IN 47403, United States.\n51-200 Employees",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

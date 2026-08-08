@@ -1,0 +1,15 @@
+{
+  "slug": "everest-techcorr-2026-08-05",
+  "title": "TechCorr",
+  "group": "everest",
+  "discovered": "2026-08-05T13:12:29.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "[AI generated] N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "dark-project-the-miller-group-2026-08-05",
+  "title": "The Miller Group",
+  "group": "Dark Project",
+  "discovered": "2026-08-05T13:06:16.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "About The Miller Group The Miller Group refers to The Miller Group - Multiplex Division, a retail display manufacturer with operations spanning Dupo, Illinois and Richmond, Virginia As a result of the cyberattack, the company lost control of 500 GB of confidential data, including: employees’ Social Security numbers, email addresses, home addresses, and ZIP codes—plain Excel spreadsheets; financial documents in PDF format—budgets, transactions, and internal reports; complete project drawings—working diagrams and perspective sketches.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

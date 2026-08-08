@@ -1,0 +1,15 @@
+{
+  "slug": "everest-formulatrix-2026-08-05",
+  "title": "Formulatrix",
+  "group": "everest",
+  "discovered": "2026-08-05T13:15:35.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Formulatrix is a US-based company headquartered in Bedford, Massachusetts, that designs and manufactures laboratory automation instruments primarily for the life sciences industry. The company specializes in liquid handling robotics, imaging systems, and automation solutions used in drug discovery, protein crystallography, and genomics research. Its products are widely adopted by pharmaceutical companies, biotechnology firms, and academic research institutions worldwide.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict, respondError } from '../lib/api-error';
+import { badRequest, badGateway, respondError } from '../lib/api-error';
 import { pinnedFetch, SsrfError } from '../lib/ssrf-guard';
 import { safeNull } from '../lib/safe-catch';
 

@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-mdj-management-2026-08-07",
+  "title": "Mdj Management",
+  "group": "thegentlemen",
+  "discovered": "2026-08-07T08:08:52.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "appliedbizinvest.com zoominfo.com/c/mdj-management-llc/410565499 Applied Business Investments, Inc. (operating alongside MDJ Management LLC) is a private US-based management and finance consulting firm registered in Florida. Founded in the late 2000s, the company focuses on business investments, corporate management strategies, and financial advisory services. It operates as a boutique entity providing specialized support and investment structuring for various commercial projects",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "l-group-laticrete-com-cn-2026-08-07",
+  "title": "laticrete.com.cn",
+  "group": "L Group",
+  "discovered": "2026-08-07T08:40:13.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CN",
+  "sizeBytes": 0,
+  "description": "[AI generated] LATICRETE China (laticrete.com.cn) is the Chinese subsidiary of LATICRETE International, a global manufacturer of construction materials. Operating in China's building materials industry, the company produces and distributes tile and stone installation systems, waterproofing solutions, flooring underlayments, and surface care products. It serves contractors, architects, and builders across residential and commercial construction sectors throughout mainland China.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

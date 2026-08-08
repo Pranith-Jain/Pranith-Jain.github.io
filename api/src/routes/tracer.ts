@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { notFound, serviceUnavailable } from '../lib/api-error';
 import { fetchTransfers, type TracerChain } from '../lib/chain-sources';
 import { clusterCommonInputs, fetchBtcTxsRaw, type CoInputCluster } from '../lib/chain-sources/btc';
 import {

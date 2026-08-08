@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-feraboli-zootech-2026-08-07",
+  "title": "Feraboli Zootech",
+  "group": "thegentlemen",
+  "discovered": "2026-08-07T08:04:40.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "feraboli.it Feraboli Zootech is a historic Italian company operating in the livestock sector since 1880, with a heritage spanning over six generations. Based in Sospiro (Cremona), it specializes in designing and building advanced cattle barns, metal structures, and tailor-made equipment for dairy and fattening farms. The company combines traditional craftsmanship with modern automation and animal welfare solutions for professional breeders.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Agriculture and Food Production",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "barracuda-namyang-industrial-co-ltd-namyang-nexmo-2026-08-06",
+  "title": "Namyang Industrial Co., Ltd. \\ NAMYANG NEXMO",
+  "group": "Barracuda",
+  "discovered": "2026-08-06T08:32:06.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "KR",
+  "sizeBytes": 0,
+  "description": "Selling fresh full database dumps of company Namyang Industrial Co., Ltd. (renamed to Namyang Nexmo). \nInfrastructure dump, not website! There information about employers, manufacturing, parts, clients, partners and etc. Total lines (csv format): 17 641 181. | Status: selling | Size: 2.51 GB | Starting at $40000.00",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

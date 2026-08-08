@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict, payloadTooLarge } from '../lib/api-error';
+import { badRequest, badGateway, payloadTooLarge } from '../lib/api-error';
 import type { ReportInput } from '../lib/stix-build';
 import { buildBundleFromReport, BundleBuildError } from './intel-bundle';
 import { extractText, sha256Hex, UnsupportedFile, BridgeUnavailable, ImageTooLarge } from '../lib/file2txt';
@@ -43,7 +43,9 @@ export async function reportIngestHandler(c: Context<{ Bindings: Env }>): Promis
     extracted = await extractText(bytes, file.type, file.name, c.env);
   } catch (err) {
     logError('reportIngestHandler failed', err);
-    if (err instanceof UnsupportedFile) return badRequest(c, 'unsupported_file_type');
+    if (err instanceof UnsupportedFile) {
+      return c.json({ error: 'unsupported_file_type', detail: 'file type is not supported' }, 415);
+    }
     if (err instanceof ImageTooLarge) {
       return c.json(
         {

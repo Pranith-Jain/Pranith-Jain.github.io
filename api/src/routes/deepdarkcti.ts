@@ -143,7 +143,11 @@ function ttlFor(body: DDCResponse): number {
 
 export async function deepDarkCtiHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheReq = new Request(CACHE_KEY);
+  // Honor a client cache-bust token (`?cb=` / `?_=`) in the cache key — the
+  // rollup is cached under a fixed slot otherwise, which makes cache-busting
+  // attempts a no-op and would pin a single successful fetch across requests.
+  const bust = (c.req.query('cb') ?? c.req.query('_') ?? '').trim();
+  const cacheReq = new Request(bust ? `${CACHE_KEY}?cb=${encodeURIComponent(bust)}` : CACHE_KEY);
   const cached = await cache.match(cacheReq);
   if (cached) return new Response(cached.body, cached);
 

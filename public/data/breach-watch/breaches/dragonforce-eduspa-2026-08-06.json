@@ -1,0 +1,15 @@
+{
+  "slug": "dragonforce-eduspa-2026-08-06",
+  "title": "EduSpa",
+  "group": "dragonforce",
+  "discovered": "2026-08-06T10:24:56.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Parkmungak has been operating since 1972, providing a range of services and products tailored to meet the needs of its clients. The company focuses on delivering high-quality solutions and has established a reputation for excellence in its field. With a commitment to innovation and customer satisfaction, Parkmungak aims to serve a diverse clientele. Their offerings include various services designed to enhance user experience and operational efficiency.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["DRAGON FORCE"],
+  "activity": "Hospitality",
+  "references": ["ransomware.live"]
+}

@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, conflict } from '../lib/api-error';
+import { badRequest, notFound, serviceUnavailable, conflict } from '../lib/api-error';
 import { safeJsonBody } from '../lib/safe-body';
 import { requireAdmin } from '../lib/admin-auth';
 import { safeNullLog } from '../lib/safe-catch';

@@ -1,0 +1,15 @@
+{
+  "slug": "akira-pharma-test-apparatebau-ag-2026-08-06",
+  "title": "Pharma Test Apparatebau AG",
+  "group": "akira",
+  "discovered": "2026-08-06T11:51:36.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "CH",
+  "sizeBytes": 0,
+  "description": "Pharma Test is an internationally leading manufacturer and household name for the development a\nnd production of high-value test devices and systems. They offer a complete product range from \nmanual, physical testing instruments to fully automated, analytical test systems to analyze the\nactive chemical composition of a dosage form as well as its release rate.\n\nWe will upload 46gb corporate data soon. Employee personal information (passports and so on), f\ninancials, contracts and agreements, NDA, clients information and so on.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["Megazord"],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

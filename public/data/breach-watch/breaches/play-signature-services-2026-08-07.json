@@ -1,0 +1,15 @@
+{
+  "slug": "play-signature-services-2026-08-07",
+  "title": "Signature Services",
+  "group": "play",
+  "discovered": "2026-08-07T19:04:55.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "http://j75o7xvvsm4lpsjhkjvb4wl2q6ajegvabe6oswthuaubbykk4xkzgpid.onion/topic.php?id=dj7YZ0SGIBx7A0",
+  "groupAliases": ["PlayCrypt"],
+  "activity": null,
+  "references": ["CTI.FYI"]
+}

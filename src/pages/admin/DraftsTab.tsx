@@ -209,7 +209,7 @@ export default function DraftsTab() {
     }
   }
 
-// @ts-ignore: dead code, kept for future social generation feature
+  // @ts-expect-error: dead code, kept for future social generation feature
   async function _generateSocial(slug: string, platform: string) {
     // The backend /social/:slug/:platform endpoint uses getPostOrDraft which
     // reads from BOTH posts:<slug> and drafts:<slug> KV keys, so this works
@@ -626,7 +626,7 @@ function LinkVerifyBadge({
   );
 }
 
-// @ts-ignore: dead code, kept for future social generation feature
+// @ts-expect-error: dead code, kept for future social generation feature
 function _SocialBtn({ label, busy, onClick }: { label: string; busy?: string; onClick: () => void }) {
   const base = 'px-2 py-1 rounded text-xs border ';
   if (busy === 'busy') {
@@ -659,8 +659,8 @@ function _SocialBtn({ label, busy, onClick }: { label: string; busy?: string; on
  * The dropdown lives inline in the Actions cell so the row stays a
  * single line on desktop and wraps gracefully on narrow viewports.
  */
-// @ts-ignore: dead code, kept for future social generation feature
-function _RegenMenu({
+// @ts-expect-error: dead code, kept for future social generation feature
+function RegenMenu({
   slug,
   busy,
   disabled,

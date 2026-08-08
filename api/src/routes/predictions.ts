@@ -40,7 +40,13 @@ export async function predictionsHandler(c: Context<{ Bindings: Env }>): Promise
   const buckets = await fetchPredictions();
   const body = envelope(buckets);
   if (body.total > 0) {
-    c.executionCtx.waitUntil(routeCachePut(CACHE_KEY, body, CACHE_TTL));
+    // Hono's `executionCtx` getter throws when no execution context exists
+    // (e.g. a bare `app.request` in unit tests), so guard the whole call.
+    try {
+      c.executionCtx.waitUntil(routeCachePut(CACHE_KEY, body, CACHE_TTL));
+    } catch {
+      void routeCachePut(CACHE_KEY, body, CACHE_TTL);
+    }
   }
   return c.json(body, 200, { 'Cache-Control': 'public, max-age=600' });
 }

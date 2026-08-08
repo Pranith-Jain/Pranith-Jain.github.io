@@ -30,7 +30,6 @@ export async function cyberNewsHandler(c: Context<{ Bindings: Env }>) {
     });
   } catch (err) {
     logError('cyberNewsHandler failed', err);
-    const msg = err instanceof Error ? err.message : String(err);
     return badGateway(c, 'News fetch failed');
   } finally {
     clearTimeout(timeout);

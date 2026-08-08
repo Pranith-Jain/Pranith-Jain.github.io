@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
+import { badRequest, badGateway, tooManyRequests } from '../lib/api-error';
 import { fetchUserTimeline, TwitterRateLimited, type TwitterTimelineResponse } from '../lib/twitter-graphql';
 
 /**

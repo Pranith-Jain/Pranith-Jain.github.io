@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-halliday-watkins-mann-2026-08-07",
+  "title": "Halliday Watkins Mann",
+  "group": "thegentlemen",
+  "discovered": "2026-08-07T08:02:13.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "hwmlawfirm.com zoominfo.com/c/halliday--watkins--mann-pc/42929145 Halliday, Watkins & Mann, P.C. (HWM) is a Salt Lake City-based law firm founded in 1935, now operating as a fourth-generation family practice. The firm exclusively serves the mortgage banking industry, specializing in creditor remedies such as foreclosures, bankruptcies, replevins, evictions, and REO closings. With a team of 51–200 employees, HWM provides full-service legal support and title curative work to financial institutions across multiple states",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
+import { notFound, badGateway, respondError } from '../lib/api-error';
 
 const ATLAS_DATA_URL = 'https://raw.githubusercontent.com/mitre-atlas/atlas-data/main/atlas_json/atlas.json';
 
@@ -59,7 +59,7 @@ async function fetchAtlasData(): Promise<AtlasStixObject[]> {
 export async function atlasTechniqueHandler(c: Context<{ Bindings: Env }>) {
   const q = c.req.query('technique') ?? c.req.query('t') ?? c.req.query('q');
   if (!q) {
-    return badRequest(c, 'missing technique param (e.g. AML-T1234)');
+    return respondError(c, 'missing technique param (e.g. AML-T1234)', 'technique parameter is required', 400);
   }
 
   // Accept BOTH our local dash format (`AML-T0000`, used by the static
@@ -69,7 +69,12 @@ export async function atlasTechniqueHandler(c: Context<{ Bindings: Env }>) {
   // dot form when searching.
   const techniqueId = q.toUpperCase();
   if (!techniqueId.match(/^AML[-.]T\d{4}(\.\d{3})?$/i)) {
-    return badRequest(c, 'invalid ATLAS technique ID (expected AML-T0000 or AML.T0000)');
+    return respondError(
+      c,
+      'invalid ATLAS technique ID (expected AML-T0000 or AML.T0000)',
+      'technique ID format is invalid',
+      400
+    );
   }
   // Canonicalise both forms — `AML-T0000.001` → `AML.T0000.001` for the lookup.
   const techniqueIdDot = techniqueId.replace(/^AML-/, 'AML.');

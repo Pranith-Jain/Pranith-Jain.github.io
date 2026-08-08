@@ -1,0 +1,15 @@
+{
+  "slug": "panzer-festina-group-2026-08-05",
+  "title": "Festina Group",
+  "group": "Panzer",
+  "discovered": "2026-08-05T21:28:59.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CH",
+  "sizeBytes": 0,
+  "description": "Festina Group is a major watch and jewelry company that owns six different brands: Festina, Lotus, Lotus Style, Calypso, Candino, and Jaguar. They blend Swiss watchmaking traditions with modern design, creating timepieces that mix classic craftsmanship with contemporary style. Each brand offers something unique, from sporty watches to elegant jewelry, giving customers plenty of choices for different tastes and occasions.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Retail & E-Commerce",
+  "references": ["ransomware.live"]
+}

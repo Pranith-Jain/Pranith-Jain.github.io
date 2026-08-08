@@ -1,0 +1,15 @@
+{
+  "slug": "storm-ovp-health-2026-08-07",
+  "title": "OVP Health",
+  "group": "Storm",
+  "discovered": "2026-08-07T07:45:23.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "OVP Health is a physician-owned company with over 20 years of experience in healthcare, specializing in emergency department and hospitalist staffing and management. The company offers a wide range of services including addiction treatment, behavioral health care, primary care, and telemedicine across West Virginia, Kentucky, Ohio, and Virginia. OVP Health is dedicated to addressing the needs of patients suffering from severe drug and alcohol addiction, providing both inpatient and outpatient care. Their facilities are CARF-accredited, ensuring high-quality treatment and support for individuals and families in crisis",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

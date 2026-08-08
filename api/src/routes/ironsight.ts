@@ -1,7 +1,6 @@
 import type { Context } from 'hono';
 import { getSiteUrl } from '../lib/site-config';
-import { cachedJson } from '../lib/route-cache';
-import type { Env } from '../env';
+
 import { logError } from '../lib/logger';
 
 function corsHeaders(c: Context): Record<string, string> {

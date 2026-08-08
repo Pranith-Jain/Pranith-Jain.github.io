@@ -11,15 +11,30 @@ export interface ShareBarProps {
   url?: string;
   size?: 'sm' | 'md';
   label?: string;
+  /** Prepended to the tweet text in the X share link only (e.g. '🚨 '). */
+  xPrefix?: string;
+  /** LinkedIn-flavored post body; "Copy LinkedIn" uses it when present
+   *  (falls back to shareText). No URL — the UI appends it on copy. */
+  linkedinText?: string;
   className?: string;
 }
 
-type CopiedKind = 'post' | 'link' | null;
+type CopiedKind = 'post' | 'linkedin' | 'link' | null;
 
-export function ShareBar({ shareText, title, url, size = 'md', label, className }: ShareBarProps): JSX.Element {
+export function ShareBar({
+  shareText,
+  title,
+  url,
+  size = 'md',
+  label,
+  xPrefix,
+  linkedinText,
+  className,
+}: ShareBarProps): JSX.Element {
   const [copied, setCopied] = useState<CopiedKind>(null);
   const pageUrl = typeof window !== 'undefined' ? (url ?? window.location.href) : (url ?? '');
   const text = shareText?.trim() || title?.trim() || '';
+  const linkedin = linkedinText?.trim() || text;
 
   const copyToClipboard = useCallback(async (payload: string): Promise<boolean> => {
     try {
@@ -51,6 +66,16 @@ export function ShareBar({ shareText, title, url, size = 'md', label, className 
     }
   }, [text, pageUrl, copyToClipboard]);
 
+  // LinkedIn never gets the URL in the body (reach cut); append it on its
+  // own trailing line so the user can move it to the first comment.
+  const copyLinkedin = useCallback(async () => {
+    const payload = linkedin ? `${linkedin}\n\n${pageUrl}` : pageUrl;
+    if (await copyToClipboard(payload)) {
+      setCopied('linkedin');
+      setTimeout(() => setCopied(null), 1800);
+    }
+  }, [linkedin, pageUrl, copyToClipboard]);
+
   const copyLink = useCallback(async () => {
     if (await copyToClipboard(pageUrl)) {
       setCopied('link');
@@ -67,7 +92,7 @@ export function ShareBar({ shareText, title, url, size = 'md', label, className 
     }
   }, [title, text, pageUrl]);
 
-  const xIntent = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(pageUrl)}`;
+  const xIntent = `https://x.com/intent/tweet?text=${encodeURIComponent((xPrefix ?? '') + text)}&url=${encodeURIComponent(pageUrl)}`;
   const liIntent = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`;
 
   const btnBase =
@@ -100,6 +125,15 @@ export function ShareBar({ shareText, title, url, size = 'md', label, className 
       <button type="button" onClick={copyPost} title="Copy a ready-to-paste post (text + link)" className={postBtn}>
         {copied === 'post' ? <Check className={`${icons} text-emerald-500`} /> : <Copy className={icons} />}
         {copied === 'post' ? 'Copied' : 'Copy post'}
+      </button>
+      <button
+        type="button"
+        onClick={copyLinkedin}
+        title="Copy a LinkedIn-native post (URL appended for the first comment)"
+        className={postBtn}
+      >
+        {copied === 'linkedin' ? <Check className={`${icons} text-emerald-500`} /> : <Copy className={icons} />}
+        {copied === 'linkedin' ? 'Copied' : 'Copy LinkedIn'}
       </button>
       <button type="button" onClick={copyLink} title="Copy the bare URL" className={btnBase}>
         {copied === 'link' ? <Check className={`${icons} text-emerald-500`} /> : <Link2 className={icons} />}

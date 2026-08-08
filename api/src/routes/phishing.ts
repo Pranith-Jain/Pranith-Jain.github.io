@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, payloadTooLarge } from '../lib/api-error';
+import { badRequest, payloadTooLarge } from '../lib/api-error';
 import { parseHeaders, parseAuthResults, extractUrls } from '../lib/email-parse';
 import { phishingScore } from '../lib/phishing-score';
 import { urlhaus } from '../providers/urlhaus';
@@ -66,19 +66,17 @@ export async function phishingAnalyzeHandler(c: Context<{ Bindings: Env }>) {
       const indicator = { type: 'url' as const, value: url };
       const results = await Promise.all(
         urlProviders.map((p) =>
-          p(indicator, env, signal).catch(
-            (err): ProviderResult => ({
-              source: 'urlhaus',
-              status: 'error',
-              score: 0,
-              verdict: 'unknown',
-              raw_summary: {},
-              tags: [],
-              error: err instanceof Error ? err.message : String(err),
-              fetched_at: new Date().toISOString(),
-              cached: false,
-            })
-          )
+          p(indicator, env, signal).catch((err): ProviderResult => ({
+            source: 'urlhaus',
+            status: 'error',
+            score: 0,
+            verdict: 'unknown',
+            raw_summary: {},
+            tags: [],
+            error: err instanceof Error ? err.message : String(err),
+            fetched_at: new Date().toISOString(),
+            cached: false,
+          }))
         )
       );
       const hits = results

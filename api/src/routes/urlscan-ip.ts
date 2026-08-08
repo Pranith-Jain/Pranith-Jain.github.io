@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, conflict } from '../lib/api-error';
+import { badRequest, badGateway } from '../lib/api-error';
 
 interface UrlscanResult {
   task?: { url?: string; domain?: string; uuid?: string; screenshotURL?: string };

@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests, payloadTooLarge } from '../lib/api-error';
+import { badRequest, badGateway, tooManyRequests } from '../lib/api-error';
 
 /**
  * Certificate Transparency log search via SSLMate's Cert Spotter API.

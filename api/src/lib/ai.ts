@@ -1,8 +1,9 @@
 import type { Env } from '../env';
 
 const GOOGLE_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
-const GOOGLE_MODEL = 'gemini-2.5-flash';
-const GOOGLE_MODEL_FALLBACK = 'gemini-2.0-flash';
+const GOOGLE_MODEL = 'gemini-3.6-flash';
+const GOOGLE_MODEL_FALLBACK = 'gemini-3.5-flash';
+const GOOGLE_MODEL_LEGACY = 'gemini-2.5-flash';
 const GOOGLE_TIMEOUT_MS = 30_000;
 
 interface AiInput {
@@ -47,9 +48,11 @@ async function callGoogleModel(
 }
 
 async function runGoogle(key: string, input: AiInput): Promise<{ text: string; model: string } | null> {
-  const result = await callGoogleModel(key, GOOGLE_MODEL, input);
-  if (result) return result;
-  return callGoogleModel(key, GOOGLE_MODEL_FALLBACK, input);
+  for (const model of [GOOGLE_MODEL, GOOGLE_MODEL_FALLBACK, GOOGLE_MODEL_LEGACY]) {
+    const result = await callGoogleModel(key, model, input);
+    if (result) return result;
+  }
+  return null;
 }
 
 async function callGroq(groqKey: string, input: AiInput): Promise<{ text: string; model: string } | null> {
@@ -117,8 +120,8 @@ export async function runAi(
   googleKey?: string,
   nvidiaKey?: string
 ): Promise<{ text: string; model: string }> {
-  if (nvidiaKey) {
-    const result = await callNvidia(nvidiaKey, input);
+  if (googleKey) {
+    const result = await runGoogle(googleKey, input);
     if (result) return result;
   }
 
@@ -127,8 +130,8 @@ export async function runAi(
     if (result) return result;
   }
 
-  if (googleKey) {
-    const result = await runGoogle(googleKey, input);
+  if (nvidiaKey) {
+    const result = await callNvidia(nvidiaKey, input);
     if (result) return result;
   }
 

@@ -20,11 +20,12 @@ import { aiItemSummaryHandler } from '../../src/routes/ai-item-summary';
 
 // Stub runCompletion so the test is offline + deterministic. Both AI summary
 // libs import runCompletion from case-study/generation/ai-client; mocking the
-// module once covers both. The stub returns a canned two-part summary
-// (full summary + tweet, separated by ---TWEET---) matching the real contract.
+// module once covers both. The stub returns a canned three-part summary
+// (full summary + tweet + LinkedIn post, separated by ---TWEET--- and
+// ---LINKEDIN---) matching the real contract.
 vi.mock('../../src/case-study/generation/ai-client', () => ({
   runCompletion: vi.fn(async () => ({
-    text: '**Headline**: Stub threat summary.\n- Theme one\n- Theme two\n\nAnalyst takeaway: patch now.\n---TWEET---\nStub tweet #ThreatIntel',
+    text: '**Headline**: Stub threat summary.\n- Theme one\n- Theme two\n\nAnalyst takeaway: patch now.\n---TWEET---\nStub tweet #ThreatIntel\n---LINKEDIN---\nStub hook for the LinkedIn post.\n\nInsight paragraph here.\n- Fact one\n- Fact two\n\nClose question? #ThreatIntel',
     modelUsed: 'groq:stub-model',
   })),
 }));
@@ -92,9 +93,17 @@ describe('POST /api/v1/ai-summary (mini-app)', () => {
       items: [{ title: 'CVE-2026-9999 in foo', body: 'Critical RCE in foo library', source: 'test' }],
     });
     expect(r.status).toBe(200);
-    const body = (await r.json()) as { summary: string; tweet: string; modelUsed: string; itemCount: number };
+    const body = (await r.json()) as {
+      summary: string;
+      tweet: string;
+      linkedin: string;
+      modelUsed: string;
+      itemCount: number;
+    };
     expect(body.summary).toContain('Headline');
     expect(body.tweet).toContain('#ThreatIntel');
+    expect(body.linkedin).toContain('Stub hook for the LinkedIn post');
+    expect(body.linkedin).not.toContain('**');
     expect(body.itemCount).toBeGreaterThanOrEqual(1);
   });
 
@@ -133,7 +142,7 @@ describe('POST /api/v1/ai-item-summary (mini-app)', () => {
     });
     expect(r.status).toBe(200);
     const body = (await r.json()) as { summaries: Record<string, string>; modelHint: string };
-    expect(body.modelHint).toBe('groq:openai/gpt-oss-120b');
+    expect(body.modelHint).toBe('groq:stub-model');
     // The stub never fails, so every submitted id should get a summary.
     expect(Object.keys(body.summaries)).toEqual(expect.arrayContaining(['post-1', 'post-2']));
   });

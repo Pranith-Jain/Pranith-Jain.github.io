@@ -17,7 +17,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, tooManyRequests } from '../lib/api-error';
+import { badRequest } from '../lib/api-error';
 import {
   fetchMtiSource,
   fetchMtiDns,
@@ -57,12 +57,16 @@ interface MtiLastGood {
 export async function mtiHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const sourceParam = (c.req.query('source') ?? 'iocs').trim();
   if (!isMtiSource(sourceParam)) {
-    return badRequest(c, 'unknown_source');
+    return c.json({ error: 'unknown_source', message: 'unknown source', allowed: MTI_SOURCES }, 400, {
+      'Cache-Control': 'no-store, max-age=0',
+    });
   }
   const source: MtiSource = sourceParam;
 
   if (!c.env.MYTHREATINTEL_API_TOKEN) {
-    return serviceUnavailable(c, 'MYTHREATINTEL_API_TOKEN secret is not set');
+    return c.json({ error: 'not_configured', message: 'MYTHREATINTEL_API_TOKEN secret is not set' }, 503, {
+      'Cache-Control': 'no-store, max-age=0',
+    });
   }
 
   const q = c.req.query('q') ?? '';
@@ -86,7 +90,7 @@ export async function mtiHandler(c: Context<{ Bindings: Env }>): Promise<Respons
           // on every cache-miss success across colos (KV 1-write/sec/key limit +
           // write cost). The fallback only needs refreshing every few hours.
           if (!(await shouldWriteLastGood('mti:' + source))) return;
-          safeNullLog(
+          await safeNullLog(
             'kv-put-mti-lastgood',
             (async () => {
               await kv.put(lastGoodKey, JSON.stringify(payload), { expirationTtl: MTI_LASTGOOD_TTL_SECONDS });
@@ -200,7 +204,9 @@ export async function mtiDnsHandler(c: Context<{ Bindings: Env }>): Promise<Resp
     return badRequest(c, 'expected an apex domain like company.com');
   }
   if (!c.env.MYTHREATINTEL_API_TOKEN) {
-    return serviceUnavailable(c, 'MYTHREATINTEL_API_TOKEN secret is not set');
+    return c.json({ error: 'not_configured', message: 'MYTHREATINTEL_API_TOKEN secret is not set' }, 503, {
+      'Cache-Control': 'no-store, max-age=0',
+    });
   }
 
   // Light input hygiene: allowlist chars, cap length — these are forwarded

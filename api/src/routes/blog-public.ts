@@ -1,6 +1,6 @@
 import type { Hono } from 'hono';
 import type { Env } from '../env';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable, unauthorized, forbidden, conflict, tooManyRequests, payloadTooLarge, respondError } from '../lib/api-error';
+import { badRequest, notFound } from '../lib/api-error';
 import type { Post, PostIndexEntry } from '../case-study/types';
 import { kv } from '../case-study/kv-keys';
 import { renderMarkdown } from '../case-study/rendering/markdown';

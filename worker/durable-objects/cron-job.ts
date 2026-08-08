@@ -1,0 +1,90 @@
+import { DurableObject } from 'cloudflare:workers';
+import type { Env } from '../env';
+import { executeCronJob } from '../scheduled';
+import type { ExecutionContext } from '@cloudflare/workers-types';
+
+/**
+ * Cron execution Durable Object.
+ *
+ * The parent Worker's `handleScheduled` runs under the free-plan CPU cap
+ * (10 ms per cron trigger) — far too small for the briefing build, the
+ * discovery/planner pipeline, or the hourly fan-out. Durable Objects have
+ * their own per-invocation CPU budget (30 s default) that is independent of
+ * the calling Worker, so we hand the heavy job off here.
+ *
+ * Flow:
+ *   1. `handleScheduled` does a single cheap fetch → POST /run with
+ *      `{ cron, scheduledTime }` and returns immediately.
+ *   2. This DO validates, parks the job in storage, and schedules a durable
+ *      alarm (~500 ms later) so the fetch itself stays a fast-accept.
+ *   3. The alarm handler runs the REAL job body ([[executeCronJob]]) with its
+ *      own 15-min wall / 30s CPU budget, then releases the cron lease.
+ *
+ * One DO instance per cron string (`idFromName(cron)`) keeps distinct crons
+ * isolated and a single (stale) instance from blocking re-scheduling.
+ */
+interface PendingJob {
+  cron: string;
+  scheduledTime: number;
+}
+
+const JOB_KEY = 'pending';
+
+export class CronJobDO extends DurableObject<Env> {
+  override async fetch(request: Request): Promise<Response> {
+    const url = new URL(request.url);
+    if (url.pathname !== '/run') {
+      return Response.json({ error: 'not found' }, { status: 404 });
+    }
+    let body: PendingJob;
+    try {
+      body = (await request.json()) as PendingJob;
+    } catch {
+      return Response.json({ error: 'bad request body' }, { status: 400 });
+    }
+    if (typeof body.cron !== 'string' || typeof body.scheduledTime !== 'number') {
+      return Response.json({ error: 'cron and scheduledTime required' }, { status: 400 });
+    }
+    await this.ctx.storage.put<PendingJob>(JOB_KEY, body);
+    // Defer the actual work to a durable alarm so this fetch returns fast and
+    // the heavy CPU lands in its own invocation.
+    await this.ctx.storage.setAlarm(Date.now() + 500);
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 202,
+      headers: { 'content-type': 'application/json' },
+    });
+  }
+
+  /** Durable alarm handler — the heavy job runs here with a DO CPU budget. */
+  override async alarm(): Promise<void> {
+    const job = await this.ctx.storage.get<PendingJob>(JOB_KEY);
+    if (!job) return;
+    await this.ctx.storage.delete(JOB_KEY);
+
+    // The job bodies expect an ExecutionContext (waitUntil for cache writes,
+    // passThroughOnException for the in-process apiApp.fetch). The DO state
+    // object honours waitUntil; shim the rest. Same pattern as
+    // api/src/routes/rag-corpus-index.ts:stubCtx.
+    const shimCtx: ExecutionContext = {
+      waitUntil: (p: Promise<unknown>): void => {
+        void this.ctx.waitUntil(p);
+      },
+      passThroughOnException: () => {},
+    } as unknown as ExecutionContext;
+    try {
+      await executeCronJob(job.cron, job.scheduledTime, this.env, shimCtx);
+    } catch (e) {
+      // executeCronJob swallows per-component failures; an unexpected throw
+      // here means the DO retries the alarm, which is the desired backstop.
+      console.error(
+        JSON.stringify({
+          job: 'cron-job',
+          cron: job.cron,
+          status: 'failed',
+          error: e instanceof Error ? e.message : String(e),
+        })
+      );
+      throw e;
+    }
+  }
+}

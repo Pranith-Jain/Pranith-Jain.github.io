@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { logError } from '../lib/logger';
-import { badRequest, notFound, internalError, badGateway, serviceUnavailable } from '../lib/api-error';
+import { badRequest, notFound, badGateway } from '../lib/api-error';
 import { cachedJson } from '../lib/route-cache';
 
 const MALPEDIA_BASE = 'https://malpedia.caad.fkie.fraunhofer.de';
