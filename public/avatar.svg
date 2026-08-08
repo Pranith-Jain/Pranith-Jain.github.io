@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
-  <defs>
-    <radialGradient id="bg" cx="50%" cy="36%" r="80%">
-      <stop offset="0%" stop-color="#16264e"/><stop offset="100%" stop-color="#070b1c"/>
-    </radialGradient>
-    <radialGradient id="node" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#6d8bf7" stop-opacity="0.5"/><stop offset="100%" stop-color="#6d8bf7" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="nodeRose" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#fb7185" stop-opacity="0.6"/><stop offset="100%" stop-color="#fb7185" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="sweep" cx="0%" cy="50%" r="100%">
-      <stop offset="0%" stop-color="#6d8bf7" stop-opacity="0.4"/><stop offset="100%" stop-color="#6d8bf7" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
-      <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#6d8bf7" stroke-opacity="0.05" stroke-width="1"/>
-    </pattern>
-  </defs>
-  <rect width="400" height="400" fill="url(#bg)"/>
-  <rect width="400" height="400" fill="url(#grid)"/>
+  <!-- Flat design: no gradients/glow/grid — they multiply PNG file size
+       (measured 270KB → ~90KB for the same 800×800 avatar once flattened). -->
+  <rect width="400" height="400" fill="#070b1c"/>
   <circle cx="200" cy="200" r="188" fill="none" stroke="#6d8bf7" stroke-opacity="0.45" stroke-width="3"/>
   
-  <circle cx="200" cy="200" r="118" fill="url(#node)" opacity="0.7"/>
+  <circle cx="200" cy="200" r="118" fill="#6d8bf7" fill-opacity="0.16"/>
   <path d="M 60 200 Q 200 104 340 200" fill="none" stroke="#6d8bf7" stroke-opacity="0.55" stroke-width="3"/>
   <path d="M 60 200 Q 200 296 340 200" fill="none" stroke="#6d8bf7" stroke-opacity="0.55" stroke-width="3"/>
   <circle cx="200" cy="200" r="88" fill="none" stroke="#6d8bf7" stroke-opacity="0.3" stroke-width="2"/>

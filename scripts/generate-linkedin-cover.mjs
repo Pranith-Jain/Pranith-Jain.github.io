@@ -53,7 +53,7 @@ function globe() {
       const mx = (a.sx + a.ex) / 2;
       const my = (a.sy + a.ey) / 2 - a.loft;
       const bright = a.c !== FAINT;
-      const halo = bright ? `<circle cx="${a.ex}" cy="${a.ey}" r="15" fill="url(#node)" opacity="0.6"/>` : '';
+      const halo = bright ? `<circle cx="${a.ex}" cy="${a.ey}" r="15" fill="#6d8bf7" opacity="0.12"/>` : '';
       return `<path d="M ${a.sx} ${a.sy} Q ${mx.toFixed(0)} ${my.toFixed(0)} ${a.ex} ${a.ey}" fill="none" stroke="${a.c}" stroke-opacity="${bright ? 0.72 : 0.4}" stroke-width="1.6"/>
   ${halo}
   <circle cx="${a.sx}" cy="${a.sy}" r="2.6" fill="${a.c}"/>
@@ -61,7 +61,7 @@ function globe() {
     })
     .join('\n  ');
   return `
-  <circle cx="${cx}" cy="${cy}" r="${r * 1.25}" fill="url(#node)" opacity="0.45"/>
+  <circle cx="${cx}" cy="${cy}" r="${r * 1.25}" fill="#6d8bf7" opacity="0.10"/>
   ${lats}
   ${lons}
   <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${BRAND}" stroke-opacity="0.32" stroke-width="1.6"/>
@@ -94,7 +94,7 @@ function graph() {
     [inner[2], outer[2]], [inner[2], outer[3]], [inner[1], hub],
   ];
   const edges = E.map(([a, b]) => `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${FAINT}" stroke-opacity="0.4" stroke-width="1.3"/>`).join('\n  ');
-  const halo = (n, k) => `<circle cx="${n.x}" cy="${n.y}" r="${k}" fill="url(#node)" opacity="0.6"/>`;
+  const halo = (n, k) => `<circle cx="${n.x}" cy="${n.y}" r="${k}" fill="#6d8bf7" opacity="0.12"/>`;
   const halos = [halo(hub, 28), ...inner.map((n) => halo(n, 18)), ...outer.filter((o) => o.c !== FAINT).map((o) => halo(o, 16))].join('\n  ');
   const dots =
     `<circle cx="${hub.x}" cy="${hub.y}" r="8" fill="${BRAND}"/>` +
@@ -117,7 +117,7 @@ function radar() {
   const a1 = (-18 * Math.PI) / 180;
   const a2 = (30 * Math.PI) / 180;
   const R = 158;
-  const sweep = `<path d="M ${cx} ${cy} L ${(cx + R * Math.cos(a1)).toFixed(0)} ${(cy + R * Math.sin(a1)).toFixed(0)} A ${R} ${R} 0 0 1 ${(cx + R * Math.cos(a2)).toFixed(0)} ${(cy + R * Math.sin(a2)).toFixed(0)} Z" fill="url(#sweep)"/>
+  const sweep = `<path d="M ${cx} ${cy} L ${(cx + R * Math.cos(a1)).toFixed(0)} ${(cy + R * Math.sin(a1)).toFixed(0)} A ${R} ${R} 0 0 1 ${(cx + R * Math.cos(a2)).toFixed(0)} ${(cy + R * Math.sin(a2)).toFixed(0)} Z" fill="#6d8bf7" fill-opacity="0.12"/>
   <line x1="${cx}" y1="${cy}" x2="${(cx + R * Math.cos(a2)).toFixed(0)}" y2="${(cy + R * Math.sin(a2)).toFixed(0)}" stroke="${BRAND}" stroke-opacity="0.5" stroke-width="1.4"/>`;
   const blips = [
     { x: cx + 64, y: cy - 40, c: BRAND, r: 5 },
@@ -126,7 +126,7 @@ function radar() {
     { x: cx + 116, y: cy + 30, c: ROSE, r: 5 },
     { x: cx - 36, y: cy - 88, c: FAINT, r: 4 },
   ]
-    .map((b) => `<circle cx="${b.x}" cy="${b.y}" r="${b.r * 3.2}" fill="url(#node)" opacity="0.5"/>\n  <circle cx="${b.x}" cy="${b.y}" r="${b.r}" fill="${b.c}"/>`)
+    .map((b) => `<circle cx="${b.x}" cy="${b.y}" r="${b.r * 3.2}" fill="#6d8bf7" opacity="0.10"/>\n  <circle cx="${b.x}" cy="${b.y}" r="${b.r}" fill="${b.c}"/>`)
     .join('\n  ');
   return `
   ${rings}
@@ -162,7 +162,7 @@ function circuit() {
   ]
     .map((p) => {
       const bright = p.c !== FAINT;
-      const halo = bright ? `<circle cx="${p.x}" cy="${p.y}" r="13" fill="url(#node)" opacity="0.55"/>` : '';
+      const halo = bright ? `<circle cx="${p.x}" cy="${p.y}" r="13" fill="#6d8bf7" opacity="0.12"/>` : '';
       return `${halo}<rect x="${p.x - 4}" y="${p.y - 4}" width="8" height="8" rx="2" fill="${p.c}"/>`;
     })
     .join('\n  ');
@@ -181,38 +181,19 @@ const MOTIFS = { globe, graph, radar, circuit };
 function cover(motifSvg) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="'Hanken Grotesk', system-ui, sans-serif">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#070b1c"/><stop offset="55%" stop-color="#0c1530"/><stop offset="100%" stop-color="#070b1c"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="80%" cy="26%" r="56%">
-      <stop offset="0%" stop-color="#435ef1" stop-opacity="0.24"/><stop offset="55%" stop-color="#435ef1" stop-opacity="0.06"/><stop offset="100%" stop-color="#435ef1" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#5a78f2"/><stop offset="100%" stop-color="#2c3ee5"/>
-    </linearGradient>
-    <linearGradient id="pj" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#2c3ee5"/><stop offset="100%" stop-color="#435ef1"/>
-    </linearGradient>
-    <radialGradient id="node" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#6d8bf7" stop-opacity="0.55"/><stop offset="100%" stop-color="#6d8bf7" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="sweep" cx="0%" cy="50%" r="100%">
-      <stop offset="0%" stop-color="#6d8bf7" stop-opacity="0.34"/><stop offset="100%" stop-color="#6d8bf7" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="grid" width="46" height="46" patternUnits="userSpaceOnUse">
-      <path d="M 46 0 L 0 0 0 46" fill="none" stroke="#6d8bf7" stroke-opacity="0.05" stroke-width="1"/>
-    </pattern>
+<defs>
+    <!-- Flat design: no smooth gradients / glows / grid patterns — they
+         multiply PNG file size. Solid fills + low-opacity discs keep the
+         navy brand look at a fraction of the bytes. -->
   </defs>
 
-  <rect width="${W}" height="${H}" fill="url(#bg)"/>
-  <rect width="${W}" height="${H}" fill="url(#grid)"/>
-  <rect width="${W}" height="${H}" fill="url(#glow)"/>
-  <rect x="0" y="0" width="6" height="${H}" fill="url(#bar)"/>
+  <rect width="${W}" height="${H}" fill="#0b1220"/>
+  <circle cx="1120" cy="120" r="330" fill="${BRAND}" opacity="0.07"/>
+  <rect x="0" y="0" width="6" height="${H}" fill="${BRAND}"/>
 
   ${motifSvg}
 
-  <rect x="100" y="110" width="66" height="66" rx="15" fill="url(#pj)"/>
+  <rect x="100" y="110" width="66" height="66" rx="15" fill="#2c3ee5"/>
   <text x="133" y="154" text-anchor="middle" font-size="30" font-weight="800" fill="#ffffff">PJ</text>
 
   <text x="186" y="146" font-size="52" font-weight="800" letter-spacing="-0.5" fill="#ffffff">Pranith Jain</text>

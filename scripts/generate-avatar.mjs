@@ -32,7 +32,7 @@ function eye() {
     return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${BRAND}" stroke-opacity="0.22" stroke-width="2"/>`;
   }).join('\n  ');
   return `
-  <circle cx="${C}" cy="${C}" r="118" fill="url(#node)" opacity="0.7"/>
+  <circle cx="${C}" cy="${C}" r="118" fill="#6d8bf7" fill-opacity="0.16"/>
   <path d="${lidUp}" fill="none" stroke="${BRAND}" stroke-opacity="0.55" stroke-width="3"/>
   <path d="${lidLo}" fill="none" stroke="${BRAND}" stroke-opacity="0.55" stroke-width="3"/>
   <circle cx="${C}" cy="${C}" r="88" fill="none" stroke="${BRAND}" stroke-opacity="0.3" stroke-width="2"/>
@@ -51,12 +51,12 @@ function radar() {
   <line x1="${C}" y1="${C - 130}" x2="${C}" y2="${C + 130}" stroke="${FAINT}" stroke-opacity="0.25" stroke-width="1.6"/>`;
   const [sx, sy] = polar(124, -20);
   const [ex, ey] = polar(124, 34);
-  const sweep = `<path d="M ${C} ${C} L ${sx.toFixed(0)} ${sy.toFixed(0)} A 124 124 0 0 1 ${ex.toFixed(0)} ${ey.toFixed(0)} Z" fill="url(#sweep)"/>
+  const sweep = `<path d="M ${C} ${C} L ${sx.toFixed(0)} ${sy.toFixed(0)} A 124 124 0 0 1 ${ex.toFixed(0)} ${ey.toFixed(0)} Z" fill="#6d8bf7" fill-opacity="0.10"/>
   <line x1="${C}" y1="${C}" x2="${ex.toFixed(0)}" y2="${ey.toFixed(0)}" stroke="${BRIGHT}" stroke-opacity="0.7" stroke-width="2.2"/>`;
   const [bx, by] = polar(70, 22);
-  const blip = `<circle cx="${bx.toFixed(0)}" cy="${by.toFixed(0)}" r="16" fill="url(#nodeRose)" opacity="0.8"/>\n  <circle cx="${bx.toFixed(0)}" cy="${by.toFixed(0)}" r="6" fill="${ROSE}"/>`;
+  const blip = `<circle cx="${bx.toFixed(0)}" cy="${by.toFixed(0)}" r="16" fill="#fb7185" fill-opacity="0.18"/>\n  <circle cx="${bx.toFixed(0)}" cy="${by.toFixed(0)}" r="6" fill="${ROSE}"/>`;
   return `
-  <circle cx="${C}" cy="${C}" r="128" fill="url(#node)" opacity="0.6"/>
+  <circle cx="${C}" cy="${C}" r="128" fill="#6d8bf7" fill-opacity="0.14"/>
   ${rings}
   ${cross}
   ${sweep}
@@ -78,13 +78,13 @@ function network() {
   const nodes = sats
     .map(([x, y], i) => {
       const c = i === 4 ? ROSE : BRAND;
-      const g = i === 4 ? 'nodeRose' : 'node';
-      return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="20" fill="url(#${g})" opacity="0.7"/>\n  <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" fill="${c}"/>`;
+      const halo = i === 4 ? '#fb7185' : '#6d8bf7';
+      return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="20" fill="${halo}" fill-opacity="0.10"/>\n  <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" fill="${c}"/>`;
     })
     .join('\n  ');
   return `
   ${edges}
-  <circle cx="${hub[0]}" cy="${hub[1]}" r="30" fill="url(#node)" opacity="0.8"/>
+  <circle cx="${hub[0]}" cy="${hub[1]}" r="30" fill="#6d8bf7" fill-opacity="0.18"/>
   ${nodes}
   <circle cx="${hub[0]}" cy="${hub[1]}" r="13" fill="${BRIGHT}"/>`;
 }
@@ -103,11 +103,11 @@ function globe() {
     `\n  <line x1="${C}" y1="${C - r}" x2="${C}" y2="${C + r}" stroke="${FAINT}" stroke-opacity="0.22" stroke-width="1.6"/>`;
   const [mx, my] = polar(r, -36);
   return `
-  <circle cx="${C}" cy="${C}" r="${r * 1.2}" fill="url(#node)" opacity="0.6"/>
+  <circle cx="${C}" cy="${C}" r="${r * 1.2}" fill="#6d8bf7" fill-opacity="0.14"/>
   ${lats}
   ${lons}
   <circle cx="${C}" cy="${C}" r="${r}" fill="none" stroke="${BRAND}" stroke-opacity="0.4" stroke-width="2"/>
-  <circle cx="${mx.toFixed(0)}" cy="${my.toFixed(0)}" r="14" fill="url(#nodeRose)" opacity="0.8"/>
+  <circle cx="${mx.toFixed(0)}" cy="${my.toFixed(0)}" r="14" fill="#fb7185" fill-opacity="0.18"/>
   <circle cx="${mx.toFixed(0)}" cy="${my.toFixed(0)}" r="6" fill="${ROSE}"/>`;
 }
 
@@ -116,25 +116,9 @@ const VARIANTS = { eye, radar, network, globe };
 function avatar(inner) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${S}" height="${S}" viewBox="0 0 ${S} ${S}">
-  <defs>
-    <radialGradient id="bg" cx="50%" cy="36%" r="80%">
-      <stop offset="0%" stop-color="#16264e"/><stop offset="100%" stop-color="#070b1c"/>
-    </radialGradient>
-    <radialGradient id="node" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#6d8bf7" stop-opacity="0.5"/><stop offset="100%" stop-color="#6d8bf7" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="nodeRose" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#fb7185" stop-opacity="0.6"/><stop offset="100%" stop-color="#fb7185" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="sweep" cx="0%" cy="50%" r="100%">
-      <stop offset="0%" stop-color="#6d8bf7" stop-opacity="0.4"/><stop offset="100%" stop-color="#6d8bf7" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
-      <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#6d8bf7" stroke-opacity="0.05" stroke-width="1"/>
-    </pattern>
-  </defs>
-  <rect width="${S}" height="${S}" fill="url(#bg)"/>
-  <rect width="${S}" height="${S}" fill="url(#grid)"/>
+  <!-- Flat design: no gradients/glow/grid — they multiply PNG file size
+       (measured 270KB → ~90KB for the same 800×800 avatar once flattened). -->
+  <rect width="${S}" height="${S}" fill="#070b1c"/>
   <circle cx="${C}" cy="${C}" r="188" fill="none" stroke="#6d8bf7" stroke-opacity="0.45" stroke-width="3"/>
   ${inner}
 </svg>`;

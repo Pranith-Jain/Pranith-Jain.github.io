@@ -7,6 +7,13 @@
  * post media. Keep the markup strict/well-formed: resvg's XML parser is far
  * less forgiving than a browser's.
  *
+ * DESIGN RULE — flat fills only, no smooth gradients / radial glows / tiled
+ * patterns. Smooth colour transitions are high-entropy and blow up the PNG
+ * file size (measured 215KB → 66KB for the same 1200×630 card once flattened).
+ * Social crawlers fetch the card over the network; a small file loads fast
+ * and never hits platform image-size ceilings. Flat accent circles + thin
+ * stroked rings keep the navy brand look without the entropy.
+ *
  * Consumed by: og-route.ts (HTTP card) and og-data.ts (data → OgImageData).
  */
 
@@ -185,28 +192,21 @@ export function generateOgSvg(data: OgImageData): string {
     .join('\n      ');
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${WIDTH} ${HEIGHT}" width="${WIDTH}" height="${HEIGHT}">
-  <defs>
-    <!-- Background gradient -->
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#070b1c"/>
-      <stop offset="50%" stop-color="#1c2538"/>
-      <stop offset="100%" stop-color="#070b1c"/>
-    </linearGradient>
-    <!-- Accent glow -->
-    <radialGradient id="glow" cx="85%" cy="20%" r="50%">
-      <stop offset="0%" stop-color="${accent.primary}" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="${accent.primary}" stop-opacity="0"/>
-    </radialGradient>
-    <!-- Grid pattern -->
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="${accent.primary}" stroke-opacity="0.06" stroke-width="0.5"/>
-    </pattern>
-  </defs>
+  <!-- Flat design: solid bg + flat accent discs. No gradients/glows/patterns —
+       they multiply PNG file size (see module header). -->
 
   <!-- Background -->
-  <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#bg)"/>
-  <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#glow)"/>
-  <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#grid)"/>
+  <rect width="${WIDTH}" height="${HEIGHT}" fill="#0b1120"/>
+
+  <!-- Flat accent glow substitute: large soft disc top-right -->
+  <circle cx="990" cy="180" r="300" fill="${accent.primary}" opacity="0.10"/>
+
+  <!-- Scan-ring motif -->
+  <g stroke="${accent.secondary}" fill="none">
+    <circle cx="1010" cy="300" r="110" stroke-opacity="0.20" stroke-width="1.5"/>
+    <circle cx="1010" cy="300" r="185" stroke-opacity="0.12" stroke-width="1.5"/>
+  </g>
+  <circle cx="1010" cy="300" r="6" fill="${accent.secondary}"/>
 
   <!-- Left accent bar -->
   <rect x="0" y="0" width="6" height="${HEIGHT}" fill="${accent.primary}"/>

@@ -1,35 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="418" viewBox="0 0 1200 630" font-family="'Hanken Grotesk', system-ui, sans-serif">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#070b1c"/><stop offset="50%" stop-color="#1c2538"/><stop offset="100%" stop-color="#070b1c"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="80%" cy="16%" r="60%">
-      <stop offset="0%" stop-color="#2c3ee5" stop-opacity="0.32"/><stop offset="55%" stop-color="#2c3ee5" stop-opacity="0.07"/><stop offset="100%" stop-color="#2c3ee5" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#5a78f2"/><stop offset="100%" stop-color="#2c3ee5"/>
-    </linearGradient>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#5a78f2" stroke-opacity="0.06" stroke-width="1"/>
-    </pattern>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="'Hanken Grotesk', system-ui, sans-serif">
+  <!-- Flat: solid bg + accent discs. No gradients/glow/grid — they multiply
+       PNG file size (see generate-og-png.mjs header). -->
+  <rect width="1200" height="630" fill="#0b1120"/>
 
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect width="1200" height="630" fill="url(#grid)"/>
-  <rect width="1200" height="630" fill="url(#glow)"/>
+  <!-- flat accent glow substitute (top-right) -->
+  <circle cx="962" cy="156" r="300" fill="#2c3ee5" opacity="0.10"/>
 
   <!-- scan-ring motif (right) -->
   <g stroke="#5a78f2" fill="none">
-    <circle cx="1030" cy="300" r="74" stroke-opacity="0.16" stroke-width="1.5"/>
-    <circle cx="1030" cy="300" r="130" stroke-opacity="0.10" stroke-width="1.5"/>
-    <circle cx="1030" cy="300" r="188" stroke-opacity="0.05" stroke-width="1.5"/>
+    <circle cx="1040" cy="300" r="74" stroke-opacity="0.16" stroke-width="1.5"/>
+    <circle cx="1040" cy="300" r="130" stroke-opacity="0.10" stroke-width="1.5"/>
+    <circle cx="1040" cy="300" r="188" stroke-opacity="0.05" stroke-width="1.5"/>
   </g>
-  <circle cx="1030" cy="300" r="5" fill="#5a78f2"/>
+  <circle cx="1040" cy="300" r="5" fill="#5a78f2"/>
   <circle cx="1095" cy="252" r="4" fill="#fbbf24"/>
   <circle cx="962" cy="356" r="4" fill="#38bdf8"/>
 
-  <rect x="0" y="0" width="8" height="630" fill="url(#bar)"/>
+  <rect x="0" y="0" width="8" height="630" fill="#2c3ee5"/>
 
   <!-- header: brand mark + name -->
   <rect x="80" y="64" width="56" height="56" rx="13" fill="#2c3ee5"/>

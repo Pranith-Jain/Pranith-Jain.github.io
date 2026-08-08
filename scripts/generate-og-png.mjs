@@ -11,8 +11,14 @@
  *
  * Cards are built from config here (no hand-edited SVG sources) so they stay
  * consistent with the LinkedIn cover (docs/linkedin-cover-*) and the live OG
- * raster pipeline: same dark slate gradient, grid, glow, left accent bar,
- * scan-ring motif, and the brand Hanken Grotesk font embedded via resvg-wasm.
+ * raster pipeline: same dark slate fill, flat accent discs, scan-ring motif,
+ * left accent bar, and the brand Hanken Grotesk font embedded via resvg-wasm.
+ *
+ * DESIGN RULE — flat fills only, no smooth gradients / radial glows / tiled
+ * patterns. Smooth colour transitions are high-entropy and blow up the PNG
+ * file size (measured 170KB → 43KB at 800px, 274KB → 66KB at 1200px after
+ * flattening). Social crawlers fetch the card over the network; a small file
+ * loads fast, never hits platform image-size ceilings, and renders reliably.
  *
  * Run: node scripts/generate-og-png.mjs
  */
@@ -101,37 +107,25 @@ function buildSvg(c) {
     .join('\n  ');
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="418" viewBox="0 0 1200 630" font-family="'Hanken Grotesk', system-ui, sans-serif">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#070b1c"/><stop offset="50%" stop-color="#1c2538"/><stop offset="100%" stop-color="#070b1c"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="80%" cy="16%" r="60%">
-      <stop offset="0%" stop-color="${c.accent}" stop-opacity="0.32"/><stop offset="55%" stop-color="${c.accent}" stop-opacity="0.07"/><stop offset="100%" stop-color="${c.accent}" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${c.accent2}"/><stop offset="100%" stop-color="${c.accent}"/>
-    </linearGradient>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="${c.accent2}" stroke-opacity="0.06" stroke-width="1"/>
-    </pattern>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="'Hanken Grotesk', system-ui, sans-serif">
+  <!-- Flat: solid bg + accent discs. No gradients/glow/grid — they multiply
+       PNG file size (see generate-og-png.mjs header). -->
+  <rect width="1200" height="630" fill="#0b1120"/>
 
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect width="1200" height="630" fill="url(#grid)"/>
-  <rect width="1200" height="630" fill="url(#glow)"/>
+  <!-- flat accent glow substitute (top-right) -->
+  <circle cx="962" cy="156" r="300" fill="${c.accent}" opacity="0.10"/>
 
   <!-- scan-ring motif (right) -->
   <g stroke="${c.accent2}" fill="none">
-    <circle cx="1030" cy="300" r="74" stroke-opacity="0.16" stroke-width="1.5"/>
-    <circle cx="1030" cy="300" r="130" stroke-opacity="0.10" stroke-width="1.5"/>
-    <circle cx="1030" cy="300" r="188" stroke-opacity="0.05" stroke-width="1.5"/>
+    <circle cx="1040" cy="300" r="74" stroke-opacity="0.16" stroke-width="1.5"/>
+    <circle cx="1040" cy="300" r="130" stroke-opacity="0.10" stroke-width="1.5"/>
+    <circle cx="1040" cy="300" r="188" stroke-opacity="0.05" stroke-width="1.5"/>
   </g>
-  <circle cx="1030" cy="300" r="5" fill="${c.accent2}"/>
+  <circle cx="1040" cy="300" r="5" fill="${c.accent2}"/>
   <circle cx="1095" cy="252" r="4" fill="#fbbf24"/>
   <circle cx="962" cy="356" r="4" fill="#38bdf8"/>
 
-  <rect x="0" y="0" width="8" height="630" fill="url(#bar)"/>
+  <rect x="0" y="0" width="8" height="630" fill="${c.accent}"/>
 
   <!-- header: brand mark + name -->
   <rect x="80" y="64" width="56" height="56" rx="13" fill="${c.accent}"/>
@@ -177,7 +171,7 @@ for (const c of CARDS) {
   const svg = buildSvg(c);
   writeFileSync(join(root, `public/${c.slug}.svg`), svg);
   const resvg = new Resvg(svg, {
-    fitTo: { mode: 'width', value: 800 },
+    fitTo: { mode: 'width', value: 1200 },
     font: { fontBuffers, defaultFontFamily: 'Hanken Grotesk', loadSystemFonts: true },
     background: '#0b1120',
   });
