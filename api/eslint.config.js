@@ -96,5 +96,18 @@ export default tseslint.config(
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/no-non-null-asserted-optional-chain': 'warn',
     },
+  },
+  // Non-`*.test.ts` helpers in test/ (e.g. test-helpers.ts) match no block
+  // above, so directory traversal parsed them with the default espree parser
+  // (TS syntax → "Parsing error"). Give the rest of test/ the lint rules too.
+  {
+    files: ['test/**/*.{ts,tsx}'],
+    plugins: {
+      '@typescript-eslint': tseslint.plugin,
+    },
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    },
   }
 );
