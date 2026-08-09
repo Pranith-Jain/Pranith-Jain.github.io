@@ -1,0 +1,74 @@
+{
+  "type": "maritime",
+  "date": "2026-08-08",
+  "threatLevel": "Unknown",
+  "executiveSummary": "A confirmed cyberattack at North Carolina Ports forced a shift to manual processing at Wilmington, Morehead City, and Charlotte, indicating real operational disruption in U.S. maritime logistics and potential ripple effects for carriers and intermodal flows. Confidence is high. View Article A standing MARAD advisory highlights systemic cyber and data-security risks from foreign-manufactured port technologies and logistics platforms (e.g., remotely serviceable ship-to-shore cranes, LOGINK, and Nuctech systems), underscoring ongoing OT exposure, third-party remote access concerns, and supply-chain visibility risks for ports worldwide. Government Advisory MARAD's latest piracy advisory for the Gulf of Aden, Arabian Sea, and Indian Ocean reports four hijackings and 17 boarding/armed-robbery incidents since March 2026 and directs enhanced watchstanding and incident-reporting coordination. While primarily physical-security focused, it raises the importance of resilient communications, SSAS readiness, and security-incident workflows on board. Government Advisory U.S. Coast Guard Maritime Security Advisory 01-25 indicates no specific credible maritime threat to the U.S. homeland but references potential targeted cyber operations by Iranian state-sponsored or affiliated actors, urging plan reviews, training, and drills among MTSA stakeholders. Government Advisory Analytical assessment: The collected intelligence supports an assessment that port and terminal business systems remain attractive targets with tangible supply-chain impact when disrupted, and that persistent OT exposure through foreign-manufactured equipment and remote service channels presents strategic risk to port operations. Confidence in this overall assessment is medium-high given one confirmed incident and multiple authoritative advisories. Outlook judgment: Over the next 72 hours, analysts should prioritize monitoring recovery operations at the affected North Carolina facilities and review third-party remote access to port and terminal OT per MARAD guidance. Confidence in this near-term outlook is medium.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "N/A",
+        "label": "No KPI data"
+      }
+    ],
+    "vendors": [],
+    "sectors": []
+  },
+  "keyFindings": [],
+  "topThreats": [
+    {
+      "title": "",
+      "action": "Confirmed intrusion disrupted port IT, forcing manual processing and likely causing gate/yard delays and schedule adjustments.",
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "action": "Standing U.S. government advisory highlights exposure from remotely serviceable STS cranes, logistics platforms (e.g., LOGINK), and inspection systems (e.g., Nuctech), with emphasis on access control and remote-access restrictions.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "action": "Increased boarding/hijacking incidents elevate the need for resilient communications, SSAS readiness, and coordinated reporting workflows.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-010-gulf-aden-arabian-sea-indian-ocean-piracyarmed-robberykidnapping-ransom",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "action": "Advisory urges plan reviews/drills amid potential targeted activity; no specific credible threat to U.S. homeland noted.",
+      "sources": [
+        {
+          "url": "https://www.dco.uscg.mil/Portals/9/CG-FAC/Documents/USCG%20Maritime%20Security%20Advisory%2001-25_508%20Compliant.pdf?timestamp=1751555341180&ver=-TfZre6nzV1vdimNFrITlg%3D%3D",
+          "label": "Government Advisory"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Observed behavior (NC Ports): Business IT disruption; initial access and methods not disclosed. Formal ATT&CK mapping cannot be confirmed from available reporting.",
+      "Risk patterns (port OT): Potential abuse of external remote services and third-party/vendor remote access; risk of data exfiltration from logistics platforms; potential to impair process control if segmentation is weak. These are analytically derived from MARAD guidance, not from confirmed exploitation. MARAD Advisory",
+      "Targeting context (USCG): Potential targeted cyber operations by Iranian actors; specific techniques not detailed in the advisory. Government Advisory"
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Analysts should monitor ongoing recovery at North Carolina Ports for service restoration milestones and any disclosure of intrusion vectors or data exposure. Confidence: medium. View Article Continued emphasis on port OT remote-access governance is warranted; additional operator notices or follow-on advisories may emerge as ports review vendor access pathways. Confidence: medium. MARAD Advisory In GoA/AS/IO, maintain comms and alerting readiness; further incident reporting is likely given recent trends, though not inherently cyber in nature. Confidence: medium-high. MARAD Advisory There is insufficient information to determine immediate elevated cyber risk to the U.S. homeland beyond standard vigilance advised by USCG. Confidence: medium. USCG Advisory",
+  "relatedCves": []
+}

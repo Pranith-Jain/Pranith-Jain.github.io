@@ -1,0 +1,101 @@
+{
+  "type": "cyber",
+  "date": "2026-08-08",
+  "threatLevel": "",
+  "executiveSummary": "Multiple, concurrent threat streams elevate OT/ICS risk to critical. Active adversary activity is impacting or imminently threatening control environments: pro-Russia hacktivists are abusing exposed VNC on HMIs to disrupt industrial operations; Iranian-affiliated APTs are targeting internet-exposed PLCs; and CISA reports ongoing disruptive activity in the U.S. Water/Wastewater sector against PLCs and remote access pathways. Security Advisory Security Advisory Security Advisory Perimeter and remote-management systems are under active exploitation pressure, creating direct enterprise-to-OT pivot risks. CISA added Progress LoadMaster (CVE-2026-8037), Cisco FMC (CVE-2026-20316), and N-able N-central (CVE-2026-18577) to the Known Exploited Vulnerabilities catalog; exploitation enables policy tampering, session hijack, and mass administrative control over managed estates. KEV Notice KEV Notice KEV Notice Supply-chain and developer-tool compromises continue at pace. A rapidly spreading npm worm compromised keyv/cacheable namespaces with credential theft and unusual persistence vectors (e.g., IDE/AI-agent autostart), while TeamPCP's multi-year operation spans K8s/Ray abuse and destructive wiper functionality. These increase risk to software pipelines that feed OT operations and vendors. Supporting Report View Article EV charging infrastructure and classic OT stacks have notable new vulnerabilities: unauthenticated RCE and insecure update chains across EV chargers (Autel, EVbee) and multiple OT/ICS platforms (Delta PLCs, PcVue, ABB Zenon, JCI TL280) warrant accelerated patching and strict network isolation. CISA Bulletin CISA Bulletin CISA Bulletin Fortinet FortiGate credential exposures (\"FortiBleed\") and Check Point RA VPN auth bypass (CVE-2026-50751) threaten IT/OT perimeters where these gateways front ICS access; immediate credential rotation, hardening, and exploitation hunting are recommended. Security Advisory Security Advisory",
+  "keyFindings": [
+    {
+      "title": "Exposed HMI/VNC and internet-reachable PLCs are being actively manipulated, caus",
+      "summary": "Exposed HMI/VNC and internet-reachable PLCs are being actively manipulated, causing loss of view/control and downtime in critical sectors. Security Advisory Security Advisory"
+    },
+    {
+      "title": "Perimeter appliances and RMM platforms are under active exploitation; compromise",
+      "summary": "Perimeter appliances and RMM platforms are under active exploitation; compromise can rewrite firewall policies, seize admin control, and facilitate enterprise-to-OT pivots. KEV Notice View Article"
+    },
+    {
+      "title": "Broad supply-chain exposure via npm worm (keyv/cacheable) and actor TeamPCP's mu",
+      "summary": "Broad supply-chain exposure via npm worm (keyv/cacheable) and actor TeamPCP's multi-year DevOps abuse increases risk to CI/CD and K8s/Ray clusters supporting CI operations. Supporting Report View Article"
+    },
+    {
+      "title": "EV charging and OT platforms show critical flaws enabling remote code execution,",
+      "summary": "EV charging and OT platforms show critical flaws enabling remote code execution, auth bypass, and insecure updates-demanding segmentation and expedited patching. CISA Bulletin CISA Bulletin"
+    },
+    {
+      "title": "Enterprise email/BI compromises (Zimbra, Metabase) are facilitating data theft a",
+      "summary": "Enterprise email/BI compromises (Zimbra, Metabase) are facilitating data theft and persistence; they present credible lateral-movement paths toward operational networks. Security Advisory View Article"
+    }
+  ],
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "",
+        "label": "Overall OT Threat Level"
+      },
+      {
+        "value": "Escalate 24 • Monitor 36 • Ignore 12",
+        "label": "Events by Decision"
+      },
+      {
+        "value": "8+",
+        "label": "Actively Exploited (KEV/Confirmed)"
+      },
+      {
+        "value": "High",
+        "label": "Perimeter/Access Tech Under Pressure"
+      }
+    ],
+    "activelyExploited": [],
+    "vendors": [],
+    "sectors": []
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Iranian-affiliated APT targeting PLCs and engineering tools to modify logic and disable protections. Security Advisory",
+        "China-nexus operations leveraging covert SOHO/IoT botnets for pre-positioning in CI networks. Security Advisory",
+        "Mirage Kitten espionage using WSS tunneling and DLL sideloading across aviation/telecom/government targets. Research",
+        "Pro-Russia hacktivists abusing exposed HMIs via VNC, triggering setpoint changes and lockouts. Joint Advisory",
+        "GenieLocker ransomware (Toy Ghouls) with Windows/Linux/ESXi builds; risks virtualized OT servers. Research",
+        "TeamPCP multi-year supply-chain and K8s/Ray compromises with destructive branch observed. View Article"
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Initial access: exploitation of internet-exposed services and appliances (T1190), VNC to HMIs (ATT&CK for ICS: T0822 - Modify Controller Parameters via HMI), VPN auth bypass, credential leaks (T1078).",
+      "Persistence and lateral movement: RMM abuse (T1105/T1547), Cloudflare Tunnel (T1090), DLL sideloading (T1574.001), WSS tunneling (T1071/T1090), policy tampering on FMC/load balancers.",
+      "Impact on OT: Program/logic modification (ATT&CK for ICS: T0831 Modify Program), alarm inhibition (T0826), inhibit response functions (T0889), loss of view/control (T0827/T0814).",
+      "Collection/Exfiltration: Webmail/XSS token theft chains, BI platform SQLi to admin (Metabase), Zimbra view-only XSS with app passwords for IMAP persistence."
+    ],
+    "mitreIds": [
+      "T1190",
+      "T0822",
+      "T1078",
+      "T1105",
+      "T1547",
+      "T1090",
+      "T1574.001",
+      "T1071",
+      "T0831",
+      "T0826",
+      "T0889",
+      "T0827",
+      "T0814"
+    ]
+  },
+  "outlook72h": "Prioritize remediation of KEV-listed LoadMaster, Cisco FMC, and N-central on public-facing or DMZ systems; validate for pre-patch compromise per BOD 26-04. KEV Immediate audit for exposed VNC/HMIs and PLCs reachable from the internet; enforce emergency blocks and move access behind MFA-gated jump hosts. Joint Advisory Review Fortinet and Check Point VPN configurations and logs for suspicious RA sessions and config exports; rotate secrets/PSKs and reimage if indicators present. Fortinet Advisory Contain BI/email exposures: patch Metabase; check for reset endpoint abuse; rotate DB creds/tokens; scan Zimbra logs for app password creation and mass GAL queries. View Article Security Advisory",
+  "relatedCves": [
+    "CVE-2026-8037",
+    "CVE-2026-20316",
+    "CVE-2026-18577",
+    "CVE-2026-50751",
+    "CVE-2026-34486",
+    "CVE-2026-9198",
+    "CVE-2026-66066",
+    "CVE-2025-67649"
+  ]
+}

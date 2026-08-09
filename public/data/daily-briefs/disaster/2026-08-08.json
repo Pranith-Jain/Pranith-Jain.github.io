@@ -1,0 +1,53 @@
+{
+  "type": "disaster",
+  "date": "2026-08-08",
+  "overallThreat": "",
+  "executiveSummary": "Southwest Europe faces a severe wildfire emergency, with more than 300,000 people evacuated across France and Spain amid major road closures and at least one fatality reported in Spain. View Article In Washington State, USA, wildfires triggered evacuations for about 60,000-67,000 people, destroyed an estimated 600-850 structures, and forced patient transfers from a veterans medical facility. Source Update Greece's Attica region, including Megara and areas west of Athens, continues to see multi-front wildfires with fresh evacuations and at least two firefighter fatalities; dozens of homes have been destroyed and sea evacuations occurred as access routes were cut. View Article Europe's heatwave placed all major Italian cities on red alert, strained transport and energy networks, and contributed to wildfire and drought risks; a grass fire temporarily closed Heathrow's southern runway in the UK. View Article Kumamoto Prefecture, Japan, reports at least 36-38 deaths, over 100 injuries, and 8,500+ people sheltering in extreme heat after a destructive earthquake; around 46,000 households lacked water and thousands of buildings sustained damage. Reporting varies across updates. Source Guatemala's Fuego volcano affected roughly 29,000 people with ashfall and kept about 1,700 in shelters; authorities warned the next 72 hours were critical due to lahar risk during rains. View Article Typhoon Dolphin prompted school and port closures across parts of Zhejiang, Fujian, and Shanghai as authorities warned of severe flood and landslide risks. View Article In Okinawa, hundreds sheltered as a typhoon crossed the islands; Naha Airport closed with all flights canceled and at least three elderly residents injured. Source Mid-July US floods caused deaths, hundreds of rescues, and infrastructure damage across Texas, Missouri, and parts of the Northeast, including bridge failure and submerged interstates. Texas Northeast/Updates Serbia declared large-scale wildfire responses under extreme heat and drought, including army support to protect threatened communities. View Article",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Cross-border European wildfires displaced more than 300,000 people and forced ma",
+      "summary": "Cross-border European wildfires displaced more than 300,000 people and forced major road closures, including a 60 km stretch of the A63 near Bordeaux. Source"
+    },
+    {
+      "title": "Spokane-area wildfires in Washington State led to 60,000-67,000 evacuations and ",
+      "summary": "Spokane-area wildfires in Washington State led to 60,000-67,000 evacuations and destroyed hundreds of structures, with hospitals conducting patient transfers. Source"
+    },
+    {
+      "title": "Red alerts for extreme heat covered all major Italian cities, with impacts rippl",
+      "summary": "Red alerts for extreme heat covered all major Italian cities, with impacts rippling across transport and energy and amplifying fire risk. Source"
+    },
+    {
+      "title": "An earthquake in Kumamoto, Japan caused at least 36-38 deaths, 100+ injuries, se",
+      "summary": "An earthquake in Kumamoto, Japan caused at least 36-38 deaths, 100+ injuries, severe water outages, and extensive housing damage. Source"
+    },
+    {
+      "title": "Guatemala's Fuego volcano response maintained 1,700 people in shelters; ashfall ",
+      "summary": "Guatemala's Fuego volcano response maintained 1,700 people in shelters; ashfall affected ~29,000 and near-term lahar risk remains elevated during rains. Supporting Report"
+    },
+    {
+      "title": "Typhoon Dolphin activated emergency measures in China's coastal provinces, with ",
+      "summary": "Typhoon Dolphin activated emergency measures in China's coastal provinces, with schools, ferries, cruises, and tourist sites closed. Security Advisory"
+    },
+    {
+      "title": "Greece's Attica fires resulted in fatalities among firefighting crews, multi-fro",
+      "summary": "Greece's Attica fires resulted in fatalities among firefighting crews, multi-front spread near Megara, and repeated evacuations including by sea. View Article"
+    },
+    {
+      "title": "US mid-July flooding caused fatalities and mass rescues, with critical transport",
+      "summary": "US mid-July flooding caused fatalities and mass rescues, with critical transport assets submerged and a bridge collapse in Texas. Source"
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "China (Zhejiang-Fujian-Shanghai): Typhoon Dolphin likely to deliver heavy rain, coastal flooding, and landslide risk; additional school/transport disruption possible. Confidence: High. View Article Guatemala (Fuego): Elevated lahar risk during rainfall; maintain evacuation readiness and movement controls on Route 14 corridors. Confidence: High. Supporting Report Europe: Persistent heat will sustain high fire danger, especially in drought-affected France, Spain, Greece, and Serbia; watch for wind shifts and flare-ups. Confidence: Medium-High. View Article Western United States: Critical fire weather windows amid heat and wind in WA/OR/UT; rapid evacuation changes remain possible near active perimeters. Confidence: Medium-High. View Article Japan (Kumamoto & Okinawa): Post-quake relief will remain heat-stressed; intermittent typhoon-related transport impacts possible in southern islands. Confidence: Medium. Source",
+  "regionalTrends": [
+    "Wildfires: Sustained, large-scale displacement in France-Spain; lethal, multi-front fires in Greece; fast-moving US incidents in Washington, Oregon, Utah; emerging threat zones in Serbia under drought and heat. Source",
+    "Heat: Continental European heatwave persists with red alerts in Italy; Western US heat continues to strain vulnerable groups and elevate fire danger. View Article View Article",
+    "Hydromet: Flood impacts across Texas, Missouri, and parts of the Northeast reveal rapid-onset risks from intense downpours, with life-safety rescues and bridge/highway failures. Source",
+    "Geophysical: Kumamoto's quake created significant shelter and WASH needs; Fuego's activity continues with ashfall exposure and lahar potential during rains. Source Source"
+  ]
+}
