@@ -1,0 +1,15 @@
+{
+  "slug": "leakeddata-marshall-dennehey-2026-08-08",
+  "title": "Marshall Dennehey",
+  "group": "Leakeddata",
+  "discovered": "2026-08-08T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/marshall-dennehey-leakeddata-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

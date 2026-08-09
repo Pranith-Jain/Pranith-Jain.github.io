@@ -1,0 +1,15 @@
+{
+  "slug": "coinbase-cartel-xs-cad-2026-08-08",
+  "title": "Xs Cad",
+  "group": "Coinbase Cartel",
+  "discovered": "2026-08-08T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/xs-cad-coinbase-cartel-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

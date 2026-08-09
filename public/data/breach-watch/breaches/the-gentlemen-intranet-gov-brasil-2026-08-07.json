@@ -1,15 +1,15 @@
 {
   "slug": "the-gentlemen-intranet-gov-brasil-2026-08-07",
   "title": "Intranet Gov Brasil",
-  "group": "The Gentlemen",
-  "discovered": "2026-08-07T00:00:00.000Z",
+  "group": "the gentlemen",
+  "discovered": "2026-08-07T08:23:12.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "Brazil",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/intranet-gov-brasil-thegentlemen-2026-08",
+  "description": "English:\nintranet.gov.br \"Intranet Gov Brasil\" refers to the secure internal corporate network and digital portal infrastructure used by the Brazilian Federal Government (gov.br) for its civil servants and ministries. It provides restricted access to internal administrative systems, official communications, and digital public services that are hidden from the general public. The underlying IT infrastructure and cybersecurity of these portals are primarily developed and maintained by state-owned technology companies like Serpro and Dataprev.",
+  "source_url": "https://www.ransomlook.io/recent",
   "groupAliases": [],
-  "activity": "Government & Defense",
-  "references": ["RecentBreaches.com"]
+  "activity": null,
+  "references": ["ransomlook.io"]
 }

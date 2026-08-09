@@ -1,0 +1,15 @@
+{
+  "slug": "leakeddata-sandberg-phoenix-2026-08-08",
+  "title": "Sandberg Phoenix",
+  "group": "Leakeddata",
+  "discovered": "2026-08-08T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/sandberg-phoenix-leakeddata-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

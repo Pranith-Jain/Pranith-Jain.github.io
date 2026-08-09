@@ -1,0 +1,15 @@
+{
+  "slug": "krybit-studiotibaldi-it-2026-08-09",
+  "title": "studiotibaldi.it",
+  "group": "Krybit",
+  "discovered": "2026-08-09T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/studiotibaldi-it-krybit-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

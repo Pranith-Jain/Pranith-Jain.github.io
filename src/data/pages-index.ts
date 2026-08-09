@@ -727,6 +727,14 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
   },
   {
+    path: '/dfir/url-risk',
+    label: 'URL Risk Analyzer',
+    description:
+      'Multi-source URL risk score - static signals plus VirusTotal, Google Safe Browsing, URLScan, AbuseIPDB and WHOIS-age correlation (IntelX Phishing Intelligence Framework port).',
+    sectionLabel: 'DFIR · Investigate',
+    group: 'dfir',
+  },
+  {
     path: '/dfir/whoxy',
     label: 'Whoxy Reverse WHOIS',
     description: 'Reverse WHOIS lookup via whoxy.com - find domains by email, owner name, company, or keyword.',

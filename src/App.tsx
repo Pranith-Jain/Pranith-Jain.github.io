@@ -45,6 +45,7 @@ const SigBase = lazy(() => import('./pages/SigBase'));
 const Aptmap = lazy(() => import('./pages/Aptmap'));
 const ETDAActors = lazy(() => import('./pages/ETDAActors'));
 const Traceix = lazy(() => import('./pages/Traceix'));
+const UrlRisk = lazy(() => import('./pages/dfir/UrlRisk'));
 const Whoxy = lazy(() => import('./pages/Whoxy'));
 const Cerast = lazy(() => import('./pages/threatintel/Cerast'));
 const ThreatMonInfostealer = lazy(() => import('./pages/threatintel/ThreatMonInfostealer'));
@@ -571,6 +572,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/eml', Component: EmlExtractor },
   { path: '/dfir/email-deliverability', Component: EmailDeliverability },
   { path: '/dfir/url-rep', Component: UrlReputation },
+  { path: '/dfir/url-risk', Component: UrlRisk },
   { path: '/dfir/email-rep', Component: EmailReputation },
   { path: '/dfir/email-osnit', Component: EmailOsnit },
   { path: '/threatintel/catalog', Component: ThreatIntelCatalog },

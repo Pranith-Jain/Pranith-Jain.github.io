@@ -1,0 +1,15 @@
+{
+  "slug": "storm-sawyer-savings-bank-2026-08-08",
+  "title": "Sawyer Savings Bank",
+  "group": "Storm",
+  "discovered": "2026-08-08T09:20:49.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Sawyer Savings Bank is a community-focused financial institution with over 150 years of experience, offering a range of personal and business banking services. Their products include personal checking, savings accounts, business loans, and digital banking solutions designed to enhance customer convenience and security. The bank is dedicated to supporting local communities through various initiatives, including scholarships and volunteerism. Their target clients include individuals seeking personal banking solutions and businesses looking for comprehensive banking support. \nThe company headquarters is located in 87 Market Street, Saugerties, NY 12477, United States.11-50 Employees",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["ransomware.live"]
+}

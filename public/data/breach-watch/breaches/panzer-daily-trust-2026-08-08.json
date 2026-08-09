@@ -1,0 +1,15 @@
+{
+  "slug": "panzer-daily-trust-2026-08-08",
+  "title": "Daily Trust",
+  "group": "Panzer",
+  "discovered": "2026-08-08T19:21:01.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "NG",
+  "sizeBytes": 0,
+  "description": "Daily Trust is a Nigerian news organization that provides breaking news, investigative stories, and various features across multiple sectors including business, politics, sports, and entertainment. The company offers content through print, online platforms, and media outlets like Trust TV and Trust Radio. Its services cater primarily to the Nigerian public, with a focus on providing comprehensive coverage of local and international news. Daily Trust aims to inform and engage its audience through a diverse range of storytelling and analysis.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}
