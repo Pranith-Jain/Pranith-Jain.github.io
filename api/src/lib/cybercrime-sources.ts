@@ -105,8 +105,9 @@ export const CYBERCRIME_SOURCES: CybercrimeSource[] = [
     filterKeywords: CYBER_KEYWORDS,
   },
   // BleepingComputer — high-volume breaking news. Filter to crime/fraud only.
+  // URL is the Google News mirror: bleepingcomputer.com 403s datacenter egress.
   {
-    url: 'https://www.bleepingcomputer.com/feed/',
+    url: 'https://news.google.com/rss/search?q=site:bleepingcomputer.com&hl=en-US&gl=US&ceid=US:en',
     label: 'BleepingComputer',
     category: 'news',
     filterKeywords: CYBER_KEYWORDS,

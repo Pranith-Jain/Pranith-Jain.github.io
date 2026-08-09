@@ -14,7 +14,8 @@ import { parseRssItems } from './rss-util';
 // aggregator (src/data/rssFeeds.ts), so they're known to resolve + parse.
 const FEEDS = [
   'https://thedfirreport.com/feed/',
-  'https://www.bleepingcomputer.com/feed/',
+  // BleepingComputer 403s datacenter egress — Google News mirror instead.
+  'https://news.google.com/rss/search?q=site:bleepingcomputer.com&hl=en-US&gl=US&ceid=US:en',
   'https://krebsonsecurity.com/feed/',
   'https://www.sentinelone.com/labs/feed/',
   'https://blog.talosintelligence.com/rss/',
@@ -69,8 +70,7 @@ export async function discoverIntel(deps: DiscoverDeps): Promise<Candidate[]> {
           status: 'pending',
         });
       }
-    } catch {
-    }
+    } catch {}
   }
   return out;
 }

@@ -12,7 +12,8 @@ const FEEDS = [
   'https://krebsonsecurity.com/feed/',
   'https://www.ic3.gov/PSA/RSS',
   'https://www.hackread.com/category/security/data-breach/feed/',
-  'https://www.bleepingcomputer.com/feed/',
+  // BleepingComputer 403s datacenter egress — Google News mirror instead.
+  'https://news.google.com/rss/search?q=site:bleepingcomputer.com&hl=en-US&gl=US&ceid=US:en',
   'https://feeds.feedburner.com/TheHackersNews',
 ];
 const WINDOW_MS = 7 * 24 * 3600 * 1000;
@@ -57,8 +58,7 @@ export async function discoverScams(deps: DiscoverDeps): Promise<Candidate[]> {
           status: 'pending',
         });
       }
-    } catch {
-    }
+    } catch {}
   }
   return out;
 }

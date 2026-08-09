@@ -57,6 +57,18 @@ const FETCH_TIMEOUT_MS = 20_000;
 const PER_URL_CACHE_TTL_SECONDS = 3600;
 const CACHE_TTL_SECONDS = 300; // 5 minutes — matches per-feed proxy cache
 
+/**
+ * BleepingComputer's Cloudflare bot-challenge returns 403 to datacenter
+ * egress (any Cloudflare Worker — documented in writeup-sources.ts, verified
+ * live 2026-08-09). Its content is mirrored by Google News RSS
+ * (news.google.com, already allowlisted below), which is served to any
+ * client. Fetch the mirror but keep the ORIGINAL URL as the canonical host
+ * so cache keys and per-feed status/section grouping stay stable.
+ */
+const BLEEPING_COMPUTER_MIRROR =
+  'https://news.google.com/rss/search?q=site:bleepingcomputer.com&hl=en-US&gl=US&ceid=US:en';
+const BLEEPING_COMPUTER_HOST_RE = /^(?:www\.)?bleepingcomputer\.com$/i;
+
 const ALLOWED_HOSTS = new Set([
   // Same allow-list as feeds.ts. Could be DRYed but inlining keeps this route
   // self-contained and avoids a circular dep.
@@ -518,6 +530,11 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
     /* edge-cache miss / parse fail; fall through to live fetch */
   }
 
+  // Resolve upstream: bleepingComputer.com 403s datacenter egress, so
+  // fetch its Google News mirror instead (still parsed under the original
+  // host so items keep `source: bleepingcomputer.com` and sections work).
+  const upstreamUrl = BLEEPING_COMPUTER_HOST_RE.test(parsed.hostname) ? BLEEPING_COMPUTER_MIRROR : url;
+
   try {
     // Retry transient 429/5xx — several upstreams (hnrss.org, ycombinator,
     // some vendor blogs) rate-limit the shared Worker IP; one miss used to
@@ -551,7 +568,7 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
     // allow-list. An allow-listed origin with an open redirect could otherwise
     // bounce `redirect:'follow'` to an arbitrary internal/private target,
     // defeating the allow-list (SSRF-2). Hop count is bounded.
-    let currentUrl = url;
+    let currentUrl = upstreamUrl;
     let res = await fetchResilient(currentUrl, fetchInit, resilientOpts);
     for (let hop = 0; hop < 4 && res.status >= 300 && res.status < 400; hop++) {
       const location = res.headers.get('location');

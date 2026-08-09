@@ -74,7 +74,12 @@ const RSS_SOURCES = [
   { url: 'https://securelist.com/feed/', name: 'SecureList (Kaspersky)', category: 'vendor' as const },
 
   // ── News & Investigation ──
-  { url: 'https://www.bleepingcomputer.com/feed/', name: 'BleepingComputer', category: 'news' as const },
+  // BleepingComputer 403s datacenter egress — Google News mirror instead.
+  {
+    url: 'https://news.google.com/rss/search?q=site:bleepingcomputer.com&hl=en-US&gl=US&ceid=US:en',
+    name: 'BleepingComputer',
+    category: 'news' as const,
+  },
   { url: 'https://www.darkreading.com/feeds/rss.xml', name: 'Dark Reading', category: 'news' as const },
   { url: 'https://krebsonsecurity.com/feed/', name: 'Krebs on Security', category: 'news' as const },
   { url: 'https://feeds.feedburner.com/TheHackersNews', name: 'The Hacker News', category: 'news' as const },

@@ -194,7 +194,9 @@ export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
   //   sister company-blog feed www.aikido.dev/blog/rss.xml above instead,
   //   which surfaces the same supply-chain research as articles.
   // bleepingcomputer.com/feed/tag/ransomware/: returns 403 to server-side
-  //   fetchers (bot detection). Re-add if we add residential-IP egress.
+  //   fetchers (bot detection). The main /feed/ is served via the Google News
+  //   mirror in feeds-aggregate.ts fetchOne (news.google.com allowlisted),
+  //   which surfaces the same BleepingComputer stories to any client.
   // therecord.media/feed: 5 items only and content overlaps with Recorded
   //   Future feed already in the vendor section.
   // infosecurity-magazine.com/rss/news/: 250-item feed; would dominate the

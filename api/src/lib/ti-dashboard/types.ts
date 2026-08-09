@@ -106,7 +106,13 @@ export interface RawSupplyChainIncident {
 
 export const NEWS_FEEDS = [
   { id: 'thehackernews', name: 'The Hacker News', url: 'https://feeds.feedburner.com/TheHackersNews', type: 'news' },
-  { id: 'bleepingcomputer', name: 'BleepingComputer', url: 'https://www.bleepingcomputer.com/feed/', type: 'news' },
+  {
+    id: 'bleepingcomputer',
+    name: 'BleepingComputer',
+    // bleepingcomputer.com 403s datacenter egress — Google News mirror instead.
+    url: 'https://news.google.com/rss/search?q=site:bleepingcomputer.com&hl=en-US&gl=US&ceid=US:en',
+    type: 'news',
+  },
   { id: 'darkreading', name: 'Dark Reading', url: 'https://www.darkreading.com/rss.xml', type: 'news' },
   { id: 'securityweek', name: 'SecurityWeek', url: 'https://feeds.feedblitz.com/securityweek&x=1', type: 'news' },
 ] as const;

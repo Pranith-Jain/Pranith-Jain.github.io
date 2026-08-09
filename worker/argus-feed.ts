@@ -21,7 +21,9 @@ const ALLOWED_RSS = new Set([
   'https://www.sentinelone.com/blog/feed/',
   'https://www.microsoft.com/en-us/security/blog/feed/',
   'https://securelist.com/feed/',
-  'https://www.bleepingcomputer.com/feed/',
+  // BleepingComputer 403s datacenter egress (Cloudflare bot challenge) —
+  // serve its Google News mirror instead.
+  'https://news.google.com/rss/search?q=site:bleepingcomputer.com&hl=en-US&gl=US&ceid=US:en',
   'https://www.darkreading.com/feeds/rss.xml',
   'https://krebsonsecurity.com/feed/',
   'https://feeds.feedburner.com/TheHackersNews',

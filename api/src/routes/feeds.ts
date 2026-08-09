@@ -301,6 +301,17 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
     return forbidden(c, `host not in allow-list: ${parsed.hostname}`);
   }
 
+  // BleepingComputer 403s datacenter egress (Cloudflare bot challenge).
+  // Fetch its Google News mirror instead; news.google.com is allowlisted
+  // above. Mirrors the same alias in feeds-aggregate.ts fetchOne.
+  const BLEEPING_COMPUTER_HOST_RE = /^(?:www\.)?bleepingcomputer\.com$/i;
+  if (BLEEPING_COMPUTER_HOST_RE.test(parsed.hostname)) {
+    parsed = new URL('https://news.google.com/rss/search?q=site:bleepingcomputer.com&hl=en-US&gl=US&ceid=US:en');
+    if (!ALLOWED_HOSTS.has(parsed.hostname.toLowerCase())) {
+      return forbidden(c, `mirror host not in allow-list: ${parsed.hostname}`);
+    }
+  }
+
   // Cache-API first (free, no KV quota). Keyed on the full URL so repeated
   // requests for the same feed skip the upstream fetch entirely.
   const CACHE_TTL = 300; // 5min

@@ -45,16 +45,16 @@ const FEEDS: Record<string, FeedSource> = {
   Mandiant: { url: 'https://www.mandiant.com/resources/blog/recent.xml', tier: 1 },
   'Cisco Talos': { url: 'https://blog.talosintelligence.com/feed/', tier: 1 },
   'SANS ISC': { url: 'https://isc.sans.edu/rssfeed.xml', tier: 1 },
-  'Volexity': { url: 'https://www.volexity.com/blog/feed/', tier: 1 },
+  Volexity: { url: 'https://www.volexity.com/blog/feed/', tier: 1 },
 
   /* Tier 2 — major security news & vendor research */
   'Packet Storm': { url: 'https://rss.packetstormsecurity.com/files/', tier: 2 },
   'Cybersecurity Dive': { url: 'https://www.cybersecuritydive.com/feeds/news/', tier: 2 },
   'Schneier on Security': { url: 'https://www.schneier.com/feed/', tier: 2 },
   'Dark Reading': { url: 'https://www.darkreading.com/rss.xml', tier: 2 },
-  'SecurityWeek': { url: 'https://www.securityweek.com/feed/', tier: 2 },
+  SecurityWeek: { url: 'https://www.securityweek.com/feed/', tier: 2 },
   'The Record': { url: 'https://therecord.media/feed/', tier: 2 },
-  'Threatpost': { url: 'https://threatpost.com/feed/', tier: 2 },
+  Threatpost: { url: 'https://threatpost.com/feed/', tier: 2 },
   'Naked Security': { url: 'https://nakedsecurity.sophos.com/feed/', tier: 2 },
   'CrowdStrike Blog': { url: 'https://www.crowdstrike.com/blog/feed/', tier: 2 },
   'SentinelOne Blog': { url: 'https://www.sentinelone.com/blog/feed/', tier: 2 },
@@ -67,7 +67,11 @@ const FEEDS: Record<string, FeedSource> = {
 
   /* Tier 3 — secondary news, industry & community */
   'The Hacker News': { url: 'https://feeds.feedburner.com/TheHackersNews', tier: 3 },
-  BleepingComputer: { url: 'https://www.bleepingcomputer.com/feed/', tier: 3 },
+  // BleepingComputer 403s datacenter egress — Google News mirror instead.
+  BleepingComputer: {
+    url: 'https://news.google.com/rss/search?q=site:bleepingcomputer.com&hl=en-US&gl=US&ceid=US:en',
+    tier: 3,
+  },
   CyberSecurityNews: { url: 'https://cybersecuritynews.com/feed/', tier: 3 },
   StateScoop: { url: 'https://statescoop.com/feed/', tier: 3 },
   FedScoop: { url: 'https://fedscoop.com/feed/', tier: 3 },
@@ -167,17 +171,15 @@ async function fetchFeed(name: string, source: FeedSource, signal?: AbortSignal)
 
   return items
     .filter((item) => item.title && item.link)
-    .map(
-      (item): CyberNewsItem => ({
-        title: item.title!,
-        link: item.link!,
-        description: item.description ? cleanHtml(item.description) : '',
-        pub_date: item.pubDate ?? '',
-        source: name,
-        tier: source.tier,
-        image_url: extractImage(item),
-      })
-    );
+    .map((item): CyberNewsItem => ({
+      title: item.title!,
+      link: item.link!,
+      description: item.description ? cleanHtml(item.description) : '',
+      pub_date: item.pubDate ?? '',
+      source: name,
+      tier: source.tier,
+      image_url: extractImage(item),
+    }));
 }
 
 /**

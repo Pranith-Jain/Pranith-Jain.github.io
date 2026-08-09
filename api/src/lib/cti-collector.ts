@@ -246,7 +246,8 @@ async function fetchCisaKev(): Promise<CollectedIoc[]> {
 // ── News RSS feeds ─────────────────────────────────────────────────────
 
 const RSS_FEEDS: Record<string, string> = {
-  bleepingcomputer: 'https://www.bleepingcomputer.com/feed/',
+  // bleepingcomputer.com 403s datacenter egress — Google News mirror instead.
+  bleepingcomputer: 'https://news.google.com/rss/search?q=site:bleepingcomputer.com&hl=en-US&gl=US&ceid=US:en',
   hackernews: 'https://feeds.feedburner.com/TheHackersNews',
   darkreading: 'https://www.darkreading.com/rss.xml',
   therecord: 'https://therecord.media/feed',

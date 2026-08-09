@@ -44,7 +44,8 @@ export const BREACH_COVERAGE_SOURCES: Array<{ id: string; name: string; url: str
   {
     id: 'bleepingcomputer-breaches',
     name: 'BleepingComputer · Data Breaches',
-    url: 'https://www.bleepingcomputer.com/feed/',
+    // bleepingcomputer.com 403s datacenter egress — Google News mirror instead.
+    url: 'https://news.google.com/rss/search?q=site:bleepingcomputer.com&hl=en-US&gl=US&ceid=US:en',
     description: 'BleepingComputer breach coverage via main feed',
   },
   {
