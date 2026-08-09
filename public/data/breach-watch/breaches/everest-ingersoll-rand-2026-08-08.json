@@ -1,0 +1,15 @@
+{
+  "slug": "everest-ingersoll-rand-2026-08-08",
+  "title": "Ingersoll Rand",
+  "group": "everest",
+  "discovered": "2026-08-08T12:24:17.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Ingersoll Rand is an American industrial manufacturing company headquartered in Davidson, North Carolina. It designs and produces a wide range of industrial equipment including air compressors, power tools, fluid management systems, and HVAC solutions. The company serves diverse sectors such as manufacturing, construction, and energy. Formerly part of a larger conglomerate, it operates globally across multiple countries and markets.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

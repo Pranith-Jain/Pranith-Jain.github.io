@@ -1,0 +1,15 @@
+{
+  "slug": "leakeddata-mayer-brown-2026-08-08",
+  "title": "Mayer Brown",
+  "group": "leakeddata",
+  "discovered": "2026-08-08T09:32:23.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Mayer Brown is a distinctively global law firm, uniquely positioned to advise the world's leading comp…",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

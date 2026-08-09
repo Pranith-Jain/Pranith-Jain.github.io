@@ -1,0 +1,15 @@
+{
+  "slug": "storm-united-group-of-companies-2026-08-08",
+  "title": "United Group of Companies",
+  "group": "Storm",
+  "discovered": "2026-08-08T09:21:21.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Since 1972, The United Group of Companies, Inc. has specialized in all phases of real estate: development, financing, construction, and management. Their specialties include independent senior living, student apartment communities, multi-family (including affordable) housing, commercial properties, and mixed-use neighborhoods. The United Group of Companies is headquartered out of Troy, New York. \nThe company headquarters is located in 300 Jordan Road, Troy, NY 12180, United States. 201-500 Employees",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

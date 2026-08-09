@@ -1,0 +1,15 @@
+{
+  "slug": "coinbase-cartel-cen-and-cenelec-2026-08-08",
+  "title": "CEN and Cenelec",
+  "group": "coinbase cartel",
+  "discovered": "2026-08-08T07:37:16.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Membership Organizations - $21.9 Million",
+  "source_url": "https://www.ransomlook.io/screenshots/coinbase cartel/CEN and Cenelec.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

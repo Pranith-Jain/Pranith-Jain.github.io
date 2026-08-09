@@ -1,15 +1,15 @@
 {
   "slug": "the-gentlemen-holborn-european-marketing-2026-08-07",
   "title": "Holborn European Marketing",
-  "group": "The Gentlemen",
-  "discovered": "2026-08-07T00:00:00.000Z",
+  "group": "the gentlemen",
+  "discovered": "2026-08-07T08:23:07.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "CY",
+  "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/holborn-european-marketing-thegentlemen-2026-08",
+  "description": "holborn.com.cy zoominfo.com/c/holborn-european-marketing-company-ltd/462273998 \nHolborn European Marketing Company Limited is a Cyprus-based energy trading firm established in 1987, operating from its headquarters in Larnaca. The company specializes in purchasing crude oil and feedstocks, selling refined petroleum products, and active oil trading. It serves as a major energy supplier that fulfills local market needs in Cyprus while also maintaining a significant operational presence as a key oil products supplier in Northern Germany.",
+  "source_url": "https://www.ransomlook.io/recent",
   "groupAliases": [],
-  "activity": "Professional Services",
-  "references": ["RecentBreaches.com"]
+  "activity": null,
+  "references": ["ransomlook.io"]
 }

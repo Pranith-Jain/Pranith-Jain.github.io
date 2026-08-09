@@ -1,15 +1,15 @@
 {
   "slug": "the-gentlemen-national-furniture-outlet-2026-08-07",
   "title": "National Furniture Outlet",
-  "group": "The Gentlemen",
-  "discovered": "2026-08-07T00:00:00.000Z",
+  "group": "the gentlemen",
+  "discovered": "2026-08-07T08:23:14.000Z",
   "category": "data_breach",
   "severity": "high",
   "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/national-furniture-outlet-the-gentlemen-2026-08",
+  "description": "nationalfurnitureoutlet.com National Furniture Outlet is a family-owned retail store in Westwego, Louisiana, serving the Greater New Orleans area for over three decades. They specialize in selling affordable living room, bedroom, and dining room furniture, as well as mattresses and appliances at highly competitive, discounted prices. The business is well-known locally for its frequent overstock sales and flexible financing options to support the community",
+  "source_url": "https://www.ransomlook.io/recent",
   "groupAliases": [],
   "activity": null,
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomlook.io"]
 }

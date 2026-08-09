@@ -1,0 +1,15 @@
+{
+  "slug": "everest-omnicell-2026-08-08",
+  "title": "Omnicell",
+  "group": "everest",
+  "discovered": "2026-08-08T12:23:38.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "[AI generated] Omnicell is a United States-based healthcare technology company founded in 1992 and headquartered in Austin, Texas. It specializes in medication management solutions, providing automated pharmacy systems, dispensing cabinets, and software platforms to hospitals, pharmacies, and healthcare facilities. Its products aim to improve medication safety, reduce errors, and streamline pharmacy workflows across the healthcare industry.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}
