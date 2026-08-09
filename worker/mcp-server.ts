@@ -1032,6 +1032,21 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       }
     );
 
+    // ── URL Risk Correlation (IntelX port) ──────────────────────────────
+    this.tools(
+      'analyze_url_risk',
+      'Correlate a URL across VirusTotal, Google Safe Browsing, urlscan.io, AbuseIPDB, and WHOIS domain age using the weighted IntelX risk engine. Returns a 0-100 risk score, verdict (Critical/High/Suspicious/Low/No Strong Threat Evidence), confidence, static heuristic flags (punycode, shorteners, keywords, @-symbol, IP hosts), and a per-provider evidence chain with score breakdown.',
+      { url: z.string().describe('http(s) URL to score') },
+      async ({ url }) => {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, `/api/v1/url-risk/analyze`, this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ url }),
+        });
+        return untrustedToolResult(data);
+      }
+    );
+
     // ── Web Scan ────────────────────────────────────────────────────────
     this.tools(
       'scan_website',
