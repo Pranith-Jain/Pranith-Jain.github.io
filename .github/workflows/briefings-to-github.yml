@@ -13,7 +13,7 @@ jobs:
   export:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -40,33 +40,28 @@ jobs:
             echo "Find it at https://dash.cloudflare.com/ (right sidebar) and add it as a repository secret named CLOUDFLARE_ACCOUNT_ID."
             exit 1
           fi
+          # Wipe stale files so briefings beyond the 30-day window are removed.
+          rm -rf briefings
           node scripts/export-briefings-to-github.mjs --days 30
 
-      - name: Push to daily-threat-brief repo
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+      - name: Commit and push briefings to main
         run: |
           set -euo pipefail
-          if [ -z "$GH_PAT" ]; then
-            echo "::error::GH_PAT secret is not set on this repo."
-            echo "Create a fine-grained PAT (or classic PAT with 'repo' scope) at https://github.com/settings/tokens and add it as a repository secret named GH_PAT."
-            exit 1
-          fi
-          # Clone the existing repo and commit exports only under briefings/ so
-          # scripts/, workflows/ and history are preserved (NO force push).
-          rm -rf /tmp/dtb-sync
-          git clone --depth 1 "https://x-access-token:${GH_PAT}@github.com/Pranith-Jain/daily-threat-brief.git" /tmp/dtb-sync
-          rm -rf /tmp/dtb-sync/briefings
-          mkdir -p /tmp/dtb-sync/briefings
-          cp -R briefings-out/. /tmp/dtb-sync/briefings/
-          cd /tmp/dtb-sync
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add briefings/
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
             git commit -m "chore: sync PANOPTICON briefings $(date -u +%Y-%m-%d)"
-            git push origin main
-            echo "::notice::Pushed $(git diff --name-only HEAD~1 HEAD | wc -l) files to Pranith-Jain/daily-threat-brief"
+            # Retry a few times — this repo's main moves fast (auto-FF merges).
+            for i in 1 2 3; do
+              if git pull --rebase origin main 2>/dev/null && git push origin main; then
+                echo "::notice::Pushed $(git diff --name-only HEAD~1 HEAD | wc -l) briefing files"
+                exit 0
+              fi
+              sleep 10
+            done
+            echo "::error::Could not push after 3 attempts (main kept moving)."
+            exit 1
           fi

@@ -5,14 +5,14 @@
  * Usage: node scripts/export-briefings-to-github.mjs [--days 7]
  *
  * Reads briefings from the pranithjain-briefings D1 database via wrangler,
- * renders each as structured markdown, and writes to briefings-out/.
- * The GitHub Action then commits these to Pranith-Jain/daily-threat-brief.
+ * renders each as structured markdown, and writes to briefings/ in this repo.
+ * The GitHub Action then commits them and pushes to main on this repo.
  */
 import { execSync } from 'node:child_process';
 import { mkdirSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
-const OUT_DIR = join(process.cwd(), 'briefings-out');
+const OUT_DIR = join(process.cwd(), 'briefings');
 const DAYS = parseInt(process.argv.find((_, i, a) => a[i - 1] === '--days') ?? '7', 10);
 
 function d1Query(sql) {
