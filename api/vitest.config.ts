@@ -6,6 +6,19 @@ export default defineConfig({
     cloudflareTest({
       singleWorker: true,
       wrangler: { configPath: '/Users/pranith/Documents/portfolio/wrangler.jsonc' },
+      // Provider secrets aren't present in the test environment; provider
+      // adapters degrade to 'unsupported' without their key and the
+      // url-risk / ioc route tests would never exercise the wiring.
+      // Fake keys make the keyed adapters take the mocked-fetch path.
+      // Never use real keys here — these values are committed.
+      miniflare: {
+        bindings: {
+          VT_API_KEY: 'test-key',
+          GOOGLE_SAFE_BROWSING_API_KEY: 'test-key',
+          ABUSEIPDB_API_KEY: 'test-key',
+          URLSCAN_API_KEY: 'test-key',
+        },
+      },
     }),
   ],
   test: {

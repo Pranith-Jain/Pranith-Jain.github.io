@@ -17,6 +17,7 @@ import {
   intodnsDebugEmailHandler,
 } from './routes/intodns-specialist';
 import { phishingAnalyzeHandler } from './routes/phishing';
+import { urlRiskAnalyzeHandler } from './routes/url-risk';
 import { exposureScanHandler } from './routes/exposure';
 import { fileAnalyzeHandler } from './routes/file';
 import { feedProxyHandler } from './routes/feeds';
@@ -1092,6 +1093,9 @@ app.post(
   validateText(phishingEmailTextSchema, { maxBytes: 64 * 1024 }),
   phishingAnalyzeHandler
 );
+// URL risk analyzer — IntelX-style weighted 5-source correlation
+// (VirusTotal / Google Safe Browsing / URLScan / AbuseIPDB / WHOIS age).
+app.post('/api/v1/url-risk/analyze', urlRiskAnalyzeHandler);
 app.post('/api/v1/file/analyze', validate('json', hashAnalyzeSchema), fileAnalyzeHandler);
 app.get('/api/v1/feeds/proxy', feedProxyHandler);
 app.get('/api/v1/feeds/abuse-rss', abuseRssHandler);
