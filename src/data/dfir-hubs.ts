@@ -153,6 +153,15 @@ export const HUB_META: readonly HubMeta[] = [
         compVar: 'TraceixPage',
       },
       {
+        path: '/dfir/url-risk',
+        tabId: 'url-risk',
+        label: 'URL Risk Analyzer',
+        desc: 'Multi-source URL risk scoring - static signals + VirusTotal, Safe Browsing, URLScan, AbuseIPDB and WHOIS-age correlation (IntelX framework port). 0-100 score with evidence chain.',
+        compVar: 'UrlRiskPage',
+        badge: 'new',
+        keywords: ['url', 'risk', 'phishing', 'virustotal', 'safe browsing', 'urlscan', 'abuseipdb', 'whois', 'score'],
+      },
+      {
         path: '/dfir/whoxy',
         tabId: 'whoxy',
         label: 'Whoxy Reverse WHOIS',
