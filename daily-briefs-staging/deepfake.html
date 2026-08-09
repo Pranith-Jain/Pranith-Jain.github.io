@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepFake and Generative AI Intelligence Brief — 29 July 2026</title>
+  <style>
+    :root{
+      --bg:#0b1730;
+      --panel:#101f3f;
+      --card:#13244a;
+      --border:#2a3f6b;
+      --text:#ffffff;
+      --muted:#a8b4ca;
+      --accent-red:#ff4d4f;
+      --accent-amber:#ffb020;
+      --accent-green:#2ecc71;
+      --accent-cyan:#00d1d8;
+      --badge-bg:#192d57;
+      --link:#8ecbff;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;line-height:1.55}
+    a{color:var(--link);text-decoration:none;border-bottom:1px dotted rgba(142,203,255,.4)}
+    a:hover{opacity:.9;border-bottom-color:var(--link)}
+    .container{max-width:1200px;margin:0 auto;padding:24px}
+    .masthead{
+      background:linear-gradient(135deg,#1e3a8a,#0ea5e9);
+      border-radius:14px;
+      padding:28px 24px;
+      position:relative;
+      box-shadow:0 8px 30px rgba(0,0,0,.35);
+      margin-bottom:22px;
+    }
+    .masthead h1{margin:0 0 8px;font-size:28px;color:#fff}
+    .subhead{display:flex;gap:16px;flex-wrap:wrap;color:#e8f2ff}
+    .badge{
+      display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;
+      background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff
+    }
+    .threat-badge{
+      position:absolute;top:18px;right:18px;
+      background:var(--accent-red);border:none;font-weight:700;box-shadow:0 4px 18px rgba(255,77,79,.35)
+    }
+    section.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px 18px 8px;margin:16px 0}
+    section.panel h2{margin:4px 6px 14px;color:#fff;font-size:20px}
+    p, li{color:#eef3ff}
+    .muted{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media (max-width: 900px){.grid{grid-template-columns:1fr}}
+    .card{
+      background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;position:relative
+    }
+    .card h3{margin:2px 0 8px;font-size:17px}
+    .label{font-size:12px;color:var(--muted);margin-right:10px}
+    .kv{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 8px}
+    .status{position:absolute;top:12px;right:12px;display:flex;gap:8px}
+    .status .dec{padding:4px 8px;border-radius:6px;font-size:12px;border:1px solid var(--border);background:var(--badge-bg)}
+    .dec.escalate{background:rgba(255,77,79,.12);border-color:rgba(255,77,79,.5);color:#ff9a9b}
+    .dec.monitor{background:rgba(255,176,32,.12);border-color:rgba(255,176,32,.5);color:#ffd8a1}
+    .urg.high{background:rgba(255,77,79,.15);color:#ff9a9b;border:1px solid rgba(255,77,79,.5)}
+    .urg.medium{background:rgba(255,176,32,.15);color:#ffd8a1;border:1px solid rgba(255,176,32,.5)}
+    .urg.low{background:rgba(0,209,216,.15);color:#9be8ea;border:1px solid rgba(0,209,216,.5)}
+    .urg{padding:4px 8px;border-radius:6px;font-size:12px}
+    .source-link{display:inline-block;margin-top:4px}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width: 800px){.two-col{grid-template-columns:1fr}}
+    .small{font-size:12px;color:var(--muted)}
+    .footer-note{margin-top:20px;color:#a7b7d6;font-size:12px;text-align:center}
+    .list-compact li{margin-bottom:6px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="masthead">
+      <h1>DeepFake and Generative AI Intelligence Brief</h1>
+      <div class="subhead">
+        <span class="badge">Generated: Wednesday, July 29, 2026</span>
+        <span class="badge">Classification: Publicly Available Information</span>
+      </div>
+      <span class="badge threat-badge">Threat Level: Worsening</span>
+    </header>
+
+    <section class="panel" id="executive-overview">
+      <h2>Executive Overview</h2>
+      <p>The reporting period highlights significant operational abuse of AI and synthetic-media–enabled deception. Notably, researchers observed an autonomous AI agent aiding an active intrusion at Thailand’s Ministry of Finance, automating post-exploitation and reconnaissance during a government compromise. <a href="https://therecord.media/thailand-hackers-ai-finance-ministry" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></p>
+      <p>Criminal impersonation of trusted AI brands and enterprise IT support remains a high-impact vector: a fake “Claude” app promoted via Bing Ads delivered SectopRat malware and reportedly compromised at least 29 organizations, while voice-based Microsoft Teams impersonation campaigns pushed EtherRAT and abused Microsoft 365 passkey enrollment to seize identities. <a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://www.bleepingcomputer.com/news/security/fake-it-support-calls-on-microsoft-teams-push-etherrat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://www.bleepingcomputer.com/news/security/enentra-passkey-enrollment-vishing-targets-microsoft-365-users/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></p>
+      <p>Enforcement and policy responses are active: the UK announced measures against foreign information warfare operations using deepfakes and forged content, while INTERPOL’s global anti-fraud action reported 5,811 arrests and USD 293 million intercepted in social-engineering scams. <a href="https://www.gov.uk/government/publications/uk-action-against-russian-foreign-information-warfare/new-uk-action-against-foreign-information-warfare" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> <a href="https://www.interpol.int/News-and-Events/News/2026/Over-5-800-arrests-USD-293-million-intercepted-in-global-fraud-bust" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></p>
+      <p>On defense, OpenAI released a public image verification tool and documented C2PA/SynthID provenance signals, while Android added fake-call detection to counter voice cloning scams. A newly disclosed CVE affecting Content Credentials underscores the need to harden authenticity infrastructure. Overall, the operational environment appears to be worsening, with scalable vishing, brand impersonation, and AI-agent–assisted intrusions expanding faster than defenses. <a href="https://openai.com/research/verify/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a> <a href="https://www.bleepingcomputer.com/news/security/google-adds-android-protection-against-ai-deepfake-scam-calls/amp/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48287" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></p>
+    </section>
+
+    <section class="panel" id="key-findings">
+      <h2>Key Findings</h2>
+      <ul class="list-compact">
+        <li>Autonomous AI agent used in an active government intrusion at Thailand’s Ministry of Finance, automating post-exploitation tasks. <a href="https://therecord.media/thailand-hackers-ai-finance-ministry" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Fake “Claude” app distributed via Bing Ads delivered SectopRat malware and reportedly compromised at least 29 organizations. <a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Voice-based Microsoft Teams impersonation campaigns achieved initial access and deployed EtherRAT in enterprise environments. <a href="https://www.bleepingcomputer.com/news/security/fake-it-support-calls-on-microsoft-teams-push-etherrat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Attackers are vishing users to enroll attacker-controlled passkeys into Microsoft 365 accounts, enabling durable identity compromise. <a href="https://www.bleepingcomputer.com/news/security/enentra-passkey-enrollment-vishing-targets-microsoft-365-users/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>UK announced action against foreign information warfare operations using deepfakes and forged documents. <a href="https://www.gov.uk/government/publications/uk-action-against-russian-foreign-information-warfare/new-uk-action-against-foreign-information-warfare" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>INTERPOL reported 5,811 arrests and USD 293M intercepted during a global anti-fraud crackdown on social engineering scams. <a href="https://www.interpol.int/News-and-Events/News/2026/Over-5-800-arrests-USD-293-million-intercepted-in-global-fraud-bust" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>FBI recorded more than 22,000 AI-related complaints and USD 893M in losses in 2025, including USD 30M in AI-enabled BEC. <a href="https://www.fbi.gov/file-repository/2025_ic3report.pdf" target="_blank" rel="noopener noreferrer" class="source-link">View Report</a></li>
+        <li>OpenAI published a public C2PA/SynthID image verification tool, advancing practical provenance checks for investigators. <a href="https://openai.com/research/verify/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>Android added real-time protections against AI deepfake scam calls, signaling platform-level response to voice cloning fraud. <a href="https://www.bleepingcomputer.com/news/security/google-adds-android-protection-against-ai-deepfake-scam-calls/amp/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></li>
+        <li>CVE-2026-48287 affects Adobe Content Credentials/C2PA tooling, highlighting risks to authenticity infrastructure. <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48287" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></li>
+      </ul>
+    </section>
+
+    <section class="panel" id="risk-outlook">
+      <h2>Risk Outlook</h2>
+      <p><strong>Assessment:</strong> Worsening</p>
+      <p>The combination of AI-agent–assisted government intrusions, large-scale brand impersonation malware campaigns, and persistent voice-based enterprise compromise indicates escalating operational risk. Recent enforcement and defensive rollouts help, but concurrent reporting of global fraud arrests, continued vishing operations, and material losses in the FBI IC3 data suggest adversary capability and scale remain significant. <a href="https://therecord.media/thailand-hackers-ai-finance-ministry" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a> <a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a> <a href="https://www.fbi.gov/file-repository/2025_ic3report.pdf" target="_blank" rel="noopener noreferrer" class="source-link">View Report</a></p>
+    </section>
+
+    <section class="panel" id="priority-incidents">
+      <h2>Priority Incidents</h2>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec escalate">ESCALATE</span>
+          <span class="urg high">High</span>
+        </div>
+        <h3>Thailand Ministry of Finance intrusion leveraged an autonomous AI agent</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-27
+          <span class="label">Location:</span> Thailand
+          <span class="label">Media type:</span> Multimedia
+          <span class="label">Threat category:</span> National Security
+          <span class="label">Affected sector:</span> Government
+        </div>
+        <a href="https://therecord.media/thailand-hackers-ai-finance-ministry" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Incident Summary:</strong> Researchers reported an active espionage operation in which an autonomous AI agent was used during a compromise of Thailand’s Ministry of Finance to automate post-exploitation and reconnaissance alongside malware and stolen credentials.</p>
+        <p><strong>Operational Impact:</strong> Elevated risk of credential theft, automation-driven lateral movement, and potential compromise of state financial systems.</p>
+        <p><strong>Technology and Deception Method:</strong> Autonomous AI agent augmented attacker workflow during government network compromise.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
+        <p><strong>Analyst Assessment:</strong> Use of autonomous agents in live intrusions meaningfully lowers attacker labor and dwell-time requirements, complicating traditional incident response timelines.</p>
+        <p><strong>Investigator Considerations:</strong> Examine command automation footprints, scheduled tasks, and agent/process orchestration logs to differentiate human-driven from agent-driven actions; prioritize credential hygiene review.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.90). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec escalate">ESCALATE</span>
+          <span class="urg high">High</span>
+        </div>
+        <h3>Fake “Claude” app via Bing Ads delivers SectopRat; at least 29 orgs impacted</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-23
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Document
+          <span class="label">Threat category:</span> Criminal
+          <span class="label">Affected sector:</span> Corporate/Public
+        </div>
+        <a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Incident Summary:</strong> Attackers impersonated a major AI service through fraudulent ads and branding to distribute SectopRat malware. Reporting indicates at least 29 organizations were compromised.</p>
+        <p><strong>Operational Impact:</strong> Multi-organization malware infections, potential credential theft, and risk of broader enterprise compromise due to brand-trust abuse.</p>
+        <p><strong>Technology and Deception Method:</strong> AI-service brand impersonation; malvertising; fake installer delivering SectopRat.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
+        <p><strong>Analyst Assessment:</strong> Trusted-brand impersonation via search ads remains a high-yield initial access tactic; ad supply-chain vetting and allowlisting are critical.</p>
+        <p><strong>Investigator Considerations:</strong> Review endpoint execution logs for installer artifacts; pivot on ad referral URLs and signed binary metadata; check EDR telemetry for SectopRat TTPs.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.89). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec escalate">ESCALATE</span>
+          <span class="urg high">High</span>
+        </div>
+        <h3>Microsoft Teams voice IT-impersonation campaign deploys EtherRAT</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-06
+          <span class="label">Location:</span> Corporate Microsoft 365 environments
+          <span class="label">Media type:</span> Voice
+          <span class="label">Threat category:</span> Criminal
+          <span class="label">Affected sector:</span> Corporate
+        </div>
+        <a href="https://www.bleepingcomputer.com/news/security/fake-it-support-calls-on-microsoft-teams-push-etherrat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Incident Summary:</strong> Attackers impersonated internal IT via Microsoft Teams voice calls to socially engineer employees into granting access and installing malware, including EtherRAT.</p>
+        <p><strong>Operational Impact:</strong> Initial access to enterprise networks, malware deployment, and potential lateral movement and data theft.</p>
+        <p><strong>Technology and Deception Method:</strong> Real-time vishing on Teams; phishing plus remote-access tooling.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
+        <p><strong>Analyst Assessment:</strong> Voice-based social engineering over enterprise collaboration platforms bypasses traditional email controls and merits targeted user training and call-back verification policies.</p>
+        <p><strong>Investigator Considerations:</strong> Correlate Teams call logs, device management prompts, and installer execution timelines; scrutinize MFA reset and remote tool install events.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.93). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec escalate">ESCALATE</span>
+          <span class="urg high">High</span>
+        </div>
+        <h3>Vishing abuses Microsoft 365 passkey enrollment to hijack identities</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-08
+          <span class="label">Location:</span> Multiple sectors, global
+          <span class="label">Media type:</span> Voice
+          <span class="label">Threat category:</span> Financial
+          <span class="label">Affected sector:</span> Corporate
+        </div>
+        <a href="https://www.bleepingcomputer.com/news/security/enentra-passkey-enrollment-vishing-targets-microsoft-365-users/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Incident Summary:</strong> Attackers impersonate security staff to socially engineer users into enrolling attacker-controlled passkeys on Microsoft 365 accounts.</p>
+        <p><strong>Operational Impact:</strong> Durable account compromise across sectors; potential data theft and financial fraud via trusted identity takeover.</p>
+        <p><strong>Technology and Deception Method:</strong> Voice-based impersonation; social engineering of passkey enrollment workflows.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
+        <p><strong>Analyst Assessment:</strong> Enrollment-path MFA abuse is increasingly favored; tighten administrative approval and alerts on new passkey registrations.</p>
+        <p><strong>Investigator Considerations:</strong> Audit identity providers for new credential registrations; correlate call records, helpdesk tickets, and enrollment logs for anomalous approvals.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.89). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec escalate">ESCALATE</span>
+          <span class="urg high">High</span>
+        </div>
+        <h3>UK action targets foreign information warfare using deepfakes and forged content</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-13
+          <span class="label">Location:</span> United Kingdom
+          <span class="label">Media type:</span> Social Media
+          <span class="label">Threat category:</span> Regulation
+          <span class="label">Affected sector:</span> Government/Media
+        </div>
+        <a href="https://www.gov.uk/government/publications/uk-action-against-russian-foreign-information-warfare/new-uk-action-against-foreign-information-warfare" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Incident Summary:</strong> The UK announced measures against named foreign information operations employing deepfakes and counterfeit documents during ongoing geopolitical conflict.</p>
+        <p><strong>Operational Impact:</strong> Increased pressure on platforms and media to detect and disrupt coordinated influence operations; potential legal and policy changes.</p>
+        <p><strong>Technology and Deception Method:</strong> Deepfake media and forged-document tradecraft.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
+        <p><strong>Analyst Assessment:</strong> Formal attribution and action can deter or displace campaigns and supports cross-sector threat sharing ahead of elections.</p>
+        <p><strong>Investigator Considerations:</strong> Track linked personas, hosting, and content clusters; integrate takedown/notification workflows with provenance checks.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.92). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec escalate">ESCALATE</span>
+          <span class="urg high">High</span>
+        </div>
+        <h3>INTERPOL global anti-fraud operation: 5,811 arrests, USD 293M intercepted</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-09
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Unknown
+          <span class="label">Threat category:</span> Fraud
+          <span class="label">Affected sector:</span> Public
+        </div>
+        <a href="https://www.interpol.int/News-and-Events/News/2026/Over-5-800-arrests-USD-293-million-intercepted-in-global-fraud-bust" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Incident Summary:</strong> INTERPOL reported mass arrests and funds interception targeting social engineering and impersonation scams worldwide.</p>
+        <p><strong>Operational Impact:</strong> Confirms large-scale, organized fraud activity affecting individuals and businesses; signals ongoing law-enforcement focus.</p>
+        <p><strong>Technology and Deception Method:</strong> Multi-channel social engineering; impersonation; likely overlaps with voice and AI-enabled scams.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
+        <p><strong>Analyst Assessment:</strong> Arrests disrupt operations but do not eliminate infrastructure; anticipate adaptation and migration to new platforms and scripts.</p>
+        <p><strong>Investigator Considerations:</strong> Follow financial flows, mule accounts, and cross-border messaging infrastructure linked to identified operations.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.84). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec escalate">ESCALATE</span>
+          <span class="urg high">High</span>
+        </div>
+        <h3>UK charges over call-spoofing platform enabling 1.8M+ scam calls</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-13
+          <span class="label">Location:</span> United Kingdom
+          <span class="label">Media type:</span> Voice
+          <span class="label">Threat category:</span> Fraud
+          <span class="label">Affected sector:</span> Public
+        </div>
+        <a href="https://www.bleepingcomputer.com/news/security/uk-charges-suspects-linked-to-russian-coms-call-spoofing-platform/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Incident Summary:</strong> Authorities charged suspects linked to a platform that facilitated over 1.8 million spoofed scam calls, using voice-changing and caller-ID manipulation services.</p>
+        <p><strong>Operational Impact:</strong> Large-scale consumer targeting; strain on telecom anti-spoofing and law enforcement resources.</p>
+        <p><strong>Technology and Deception Method:</strong> Caller-ID spoofing and voice-changing services supporting impersonation fraud.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
+        <p><strong>Analyst Assessment:</strong> Commodity spoofing platforms industrialize vishing; telecom-level analytics and call authentication remain essential.</p>
+        <p><strong>Investigator Considerations:</strong> Seek cooperation for platform data, payment records, and bridging infrastructure; correlate with victim call metadata.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.88). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec escalate">ESCALATE</span>
+          <span class="urg high">High</span>
+        </div>
+        <h3>FBI IC3: 22,000+ AI-related complaints and USD 893M losses in 2025</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-05-01
+          <span class="label">Location:</span> United States
+          <span class="label">Media type:</span> Voice
+          <span class="label">Threat category:</span> Fraud
+          <span class="label">Affected sector:</span> Public
+        </div>
+        <a href="https://www.fbi.gov/file-repository/2025_ic3report.pdf" target="_blank" rel="noopener noreferrer" class="source-link">View Report</a>
+        <p><strong>Incident Summary:</strong> FBI’s IC3 reported AI-linked fraud losses exceeding USD 893M, including over USD 30M in AI-enabled BEC, with widespread voice cloning and distress scams.</p>
+        <p><strong>Operational Impact:</strong> Significant consumer and business financial harm; validates scale and persistence of AI-enabled fraud.</p>
+        <p><strong>Technology and Deception Method:</strong> AI voice cloning; AI-assisted BEC; synthetic-media–driven social engineering.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
+        <p><strong>Analyst Assessment:</strong> The data evidences broad exposure across sectors, underscoring urgency for identity verification and payment controls.</p>
+        <p><strong>Investigator Considerations:</strong> Prioritize financial tracebacks, OTP/MFA enrollment event review, and telecom data preservation for voice scams.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.95). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec escalate">ESCALATE</span>
+          <span class="urg high">High</span>
+        </div>
+        <h3>FBI: AI-generated voice messages impersonate senior U.S. officials</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2025-12-18 (campaign ongoing; see also 2025-05-15)
+          <span class="label">Location:</span> United States
+          <span class="label">Media type:</span> Voice
+          <span class="label">Threat category:</span> Identity Theft/Fraud
+          <span class="label">Affected sector:</span> Government
+        </div>
+        <a href="https://www.fbi.gov/investigate/cyber/alerts/2025/senior-us-officials-continue-to-be-impersonated-in-malicious-messaging-campaign" target="_blank" rel="noopener noreferrer" class="source-link">View Advisory (Dec 2025)</a>
+        <a href="https://www.fbi.gov/investigate/cyber/alerts/2025/senior-us-officials-impersonated-in-malicious-messaging-campaign" target="_blank" rel="noopener noreferrer" class="source-link">View Advisory (May 2025)</a>
+        <p><strong>Incident Summary:</strong> Ongoing malicious messaging campaigns use AI-generated voices to impersonate current and former senior U.S. officials, aiming to build trust and steal access.</p>
+        <p><strong>Operational Impact:</strong> Heightened risk of personal and official account compromise; potential for cascading targeting via trusted networks.</p>
+        <p><strong>Technology and Deception Method:</strong> AI voice generation; impersonation of high-profile officials.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
+        <p><strong>Analyst Assessment:</strong> High-profile impersonation risks social amplification and spearphishing success; verification protocols for VIP communications are essential.</p>
+        <p><strong>Investigator Considerations:</strong> Preserve voicemail metadata and call records; map distribution lists and compromised contacts for secondary targeting risk.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.91). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec escalate">ESCALATE</span>
+          <span class="urg high">High</span>
+        </div>
+        <h3>Impersonated IT call enabled Odido cyberattack affecting 6M+ customers</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-09
+          <span class="label">Location:</span> Netherlands
+          <span class="label">Media type:</span> Voice
+          <span class="label">Threat category:</span> Identity Theft
+          <span class="label">Affected sector:</span> Corporate (Telecom)
+        </div>
+        <a href="https://therecord.media/dutch-police-suspect-dutch-accomplice-in-odido-cyberattack" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Incident Summary:</strong> Dutch police indicated a caller posing as an Odido IT employee helped enable a cyberattack that exposed personal data of more than 6 million customers.</p>
+        <p><strong>Operational Impact:</strong> Large-scale PII exposure; legal, regulatory, and reputational consequences for the telecom sector.</p>
+        <p><strong>Technology and Deception Method:</strong> Voice-based IT impersonation; social engineering of support workflows.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
+        <p><strong>Analyst Assessment:</strong> Call-center and helpdesk procedures remain vulnerable to confident-sounding callers; enforce strong internal verification steps.</p>
+        <p><strong>Investigator Considerations:</strong> Review call recordings, ticket histories, and access logs around the breach window; confirm identity-proofing failures.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.87). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec escalate">ESCALATE</span>
+          <span class="urg high">High</span>
+        </div>
+        <h3>Recruiter impersonation phishing steals Google accounts using big-brand lures</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-06
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Social Media
+          <span class="label">Threat category:</span> Fraud
+          <span class="label">Affected sector:</span> Corporate
+        </div>
+        <a href="https://www.bleepingcomputer.com/news/security/phishing-poses-as-big-brand-job-interview-to-steal-google-accounts/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Incident Summary:</strong> A phishing campaign abuses the identities of more than 30 major brands and real recruiter personas to steal Google account credentials from targeted professionals.</p>
+        <p><strong>Operational Impact:</strong> Credential theft with potential access to corporate documents, email, and cloud assets; reputational harm to impersonated brands.</p>
+        <p><strong>Technology and Deception Method:</strong> Identity impersonation at scale; realistic recruiter profiles and brand hijacking.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
+        <p><strong>Analyst Assessment:</strong> Recruiting workflows are trust-heavy and time-pressured, making them prime targets for identity-based lures.</p>
+        <p><strong>Investigator Considerations:</strong> Examine OAuth tokens, session logs, and third-party app grants following suspected credential capture.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.88). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec escalate">ESCALATE</span>
+          <span class="urg high">High</span>
+        </div>
+        <h3>Android rolls out protections against AI deepfake scam calls</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-06-03
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Voice
+          <span class="label">Threat category:</span> Fraud
+          <span class="label">Affected sector:</span> Public
+        </div>
+        <a href="https://www.bleepingcomputer.com/news/security/google-adds-android-protection-against-ai-deepfake-scam-calls/amp/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Incident Summary:</strong> Google added real-time fake-call detection aimed at AI voice-cloning and caller-ID spoofing scams, reflecting the scale of abuse.</p>
+        <p><strong>Operational Impact:</strong> Potential reduction in successful vishing and distress scams for supported devices.</p>
+        <p><strong>Technology and Deception Method:</strong> Voice cloning and spoofing targeted by platform-level detection features.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> Android fake-call detection rollout.</p>
+        <p><strong>Analyst Assessment:</strong> Platform defenses can meaningfully shift attacker ROI but will not cover all devices or methods.</p>
+        <p><strong>Investigator Considerations:</strong> Consider device capability in victimology; not all endpoints can benefit from new protections.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.86). Confidence reflects the supplied intelligence record and does not constitute independent verification.</p>
+      </div>
+
+      <!-- MONITOR ITEMS -->
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>INTERPOL threat assessment: escalating sophistication in global financial fraud</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-03-16
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Document
+          <span class="label">Threat category:</span> Research
+          <span class="label">Affected sector:</span> Other
+        </div>
+        <a href="https://www.interpol.int/en/News-and-Events/News/2026/INTERPOL-report-warns-of-increasingly-sophisticated-global-financial-fraud-threat" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Summary:</strong> INTERPOL warns AI-generated content is increasingly enabling sextortion, romance, and investment fraud, affecting individuals and businesses.</p>
+        <p><strong>Operational Impact:</strong> Rising losses and cross-border complexity for fraud investigations.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.86).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>OpenAI images: C2PA Content Credentials and SynthID watermarking</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-15
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Image
+          <span class="label">Threat category:</span> Detection
+          <span class="label">Affected sector:</span> Media
+        </div>
+        <a href="https://help.openai.com/en/articles/8912793-c2pa-and-synthid-in-openai-generated-images" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Summary:</strong> OpenAI help documentation states generated images include C2PA Content Credentials and SynthID watermarking, offering layered provenance signals and public verification options.</p>
+        <p><strong>Operational Impact:</strong> Strengthens authenticity workflows for newsrooms and investigators where these signals persist.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> Public verification via Content Credentials/SynthID.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.90).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>OpenAI public image verification tool (C2PA + SynthID)</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-29
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Image
+          <span class="label">Threat category:</span> Detection
+          <span class="label">Affected sector:</span> Public
+        </div>
+        <a href="https://openai.com/research/verify/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Summary:</strong> OpenAI released a public verification tool to check images for C2PA Content Credentials and SynthID watermarks.</p>
+        <p><strong>Operational Impact:</strong> Provides a practical first-pass authenticity check; gaps remain for non-participating models and edited media.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> Public verification capability.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.88).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>Advancing content provenance (OpenAI C2PA conformance & SynthID)</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-05-19
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Image
+          <span class="label">Threat category:</span> Detection
+          <span class="label">Affected sector:</span> Media/Corporate
+        </div>
+        <a href="https://openai.com/index/advancing-content-provenance/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Summary:</strong> OpenAI stated images generated with ChatGPT/Codex/API include C2PA metadata and SynthID watermarks and can be checked with a public tool.</p>
+        <p><strong>Operational Impact:</strong> Improves cross-platform provenance checks; assists enterprise authenticity workflows.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> C2PA compatibility and watermarking.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.91).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>Content Authenticity Initiative: Durable Content Credentials (three pillars)</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-01-22
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Image
+          <span class="label">Threat category:</span> Technology
+          <span class="label">Affected sector:</span> Media
+        </div>
+        <a href="https://contentauthenticity.org/blog/three-pillars-of-provenance" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Summary:</strong> Describes open-source methods to preserve and recover provenance through watermarking, metadata, and fingerprinting.</p>
+        <p><strong>Operational Impact:</strong> Addresses metadata-stripping failure modes in content verification.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> Durable credentials approach.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.83).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>CVE-2026-48287: Vulnerability in Adobe Content Credentials / C2PA tooling</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-16
+          <span class="label">Location:</span> United States
+          <span class="label">Media type:</span> Multimedia
+          <span class="label">Threat category:</span> Detection
+          <span class="label">Affected sector:</span> Corporate
+        </div>
+        <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48287" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a>
+        <p><strong>Summary:</strong> A vulnerability affecting Content Credentials and related C2PA tooling could undermine authenticity infrastructure if unpatched.</p>
+        <p><strong>Operational Impact:</strong> Potential compromise of provenance workflows; urgency for patching.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> Refer to vendor/NVD guidance.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.82).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>C2PA UX recommendations for provenance signals</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> UNKNOWN
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Multimedia
+          <span class="label">Threat category:</span> Detection
+          <span class="label">Affected sector:</span> Other
+        </div>
+        <a href="https://spec.c2pa.org/specifications/specifications/2.2/ux/UX_Recommendations.html" target="_blank" rel="noopener noreferrer" class="source-link">View Specification</a>
+        <p><strong>Summary:</strong> Provides guidance to display, recover, and verify durable provenance data including watermark-linked manifests.</p>
+        <p><strong>Operational Impact:</strong> Can improve end-user trust cues and investigative checks across platforms.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> UX best practices for provenance.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.71).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>NIST synthetic content report: detection and provenance overview</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-04-01
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Multimedia
+          <span class="label">Threat category:</span> Research
+          <span class="label">Affected sector:</span> Law Enforcement
+        </div>
+        <a href="https://airc.nist.gov/docs/NIST.AI.100-4.SyntheticContent.ipd.pdf" target="_blank" rel="noopener noreferrer" class="source-link">View Report</a>
+        <p><strong>Summary:</strong> Reviews provenance tracking, detection approaches, and testing gaps relevant to forensic practice.</p>
+        <p><strong>Operational Impact:</strong> Supports standardization and evaluation of authenticity controls.</p>
+        <p><strong>Source-Reported Detection or Mitigation:</strong> No source-specific detection or mitigation guidance was reported.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.83).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>Research cautions: provenance signals may not prove authenticity or truth</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-04-29
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Multimedia
+          <span class="label">Threat category:</span> Research
+          <span class="label">Affected sector:</span> Media
+        </div>
+        <a href="https://arxiv.org/abs/2604.24890" target="_blank" rel="noopener noreferrer" class="source-link">View Paper</a>
+        <p><strong>Summary:</strong> Independent analysis warns users may overtrust C2PA/watermark signals, which do not guarantee truthfulness under attack conditions.</p>
+        <p><strong>Operational Impact:</strong> Necessitates layered verification and editorial safeguards.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.75).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>Research: conflicts between provenance and watermark checks can mislead</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-03-04
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Multimedia
+          <span class="label">Threat category:</span> Research
+          <span class="label">Affected sector:</span> Media
+        </div>
+        <a href="https://arxiv.org/abs/2603.02378" target="_blank" rel="noopener noreferrer" class="source-link">View Paper</a>
+        <p><strong>Summary:</strong> Highlights a failure mode where C2PA claims and AI watermarks can conflict, risking misclassification without cross-layer validation.</p>
+        <p><strong>Operational Impact:</strong> Verification tools should reconcile provenance layers to avoid false trust.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.76).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>Multimodal watermarking and verification research</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-15
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Multimedia
+          <span class="label">Threat category:</span> Research
+          <span class="label">Affected sector:</span> Other
+        </div>
+        <a href="https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2026.1848963/full" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Summary:</strong> Explores combined multimodal watermarking and verification approaches to strengthen deepfake detection.</p>
+        <p><strong>Operational Impact:</strong> Potential future improvements for enterprise and platform defenses.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.70).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>NIST 2026 Text Detection Challenge</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07
+          <span class="label">Location:</span> United States
+          <span class="label">Media type:</span> Multimedia
+          <span class="label">Threat category:</span> Research
+          <span class="label">Affected sector:</span> Other
+        </div>
+        <a href="https://ai-challenges.nist.gov/text-2026" target="_blank" rel="noopener noreferrer" class="source-link">View Challenge</a>
+        <p><strong>Summary:</strong> Provides an evaluation framework for measuring text detector performance against realistic generated content.</p>
+        <p><strong>Operational Impact:</strong> Aids benchmarking and improvement of detection tools.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.74).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>AP updates newsroom AI standards; ban on AI-generated/altered news photography reaffirmed</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-23
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Social Media
+          <span class="label">Threat category:</span> Technology
+          <span class="label">Affected sector:</span> Media
+        </div>
+        <a href="https://www.ap.org/the-definitive-source/announcements/ap-updates-newsroom-standards-for-artificial-intelligence/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Summary:</strong> AP tightened newsroom rules against using generative AI to create, alter, or enhance news imagery, elevating verification demands.</p>
+        <p><strong>Operational Impact:</strong> Reinforces editorial integrity and provenance workflows.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.83).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>INTERPOL Project SynthWave: building synthetic media detection capabilities</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-25
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Unknown
+          <span class="label">Threat category:</span> National Security
+          <span class="label">Affected sector:</span> Law Enforcement
+        </div>
+        <a href="https://www.interpol.int/How-we-work/Innovation/Projects/Project-SynthWave" target="_blank" rel="noopener noreferrer" class="source-link">View Project</a>
+        <p><strong>Summary:</strong> INTERPOL initiative to train agencies on detecting AI-generated synthetic media and overcoming investigative challenges.</p>
+        <p><strong>Operational Impact:</strong> Expands law-enforcement readiness for synthetic media threats.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.80).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>Prompt-injection attacks deceive AI agents into fraudulent crypto actions</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-06
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Unknown
+          <span class="label">Threat category:</span> Research
+          <span class="label">Affected sector:</span> Finance
+        </div>
+        <a href="https://www.securityweek.com/prompt-injection-attacks-trick-ai-agents-into-making-crypto-payments/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Summary:</strong> Researchers documented prompt-injection in web content that manipulates autonomous AI agents into trusting fraudulent crypto payment flows.</p>
+        <p><strong>Operational Impact:</strong> Raises risk for enterprises deploying browsing-enabled AI agents in financial workflows.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.76).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg high">High</span>
+        </div>
+        <h3>“Helix” vishing group targets SharePoint; data theft via voice impersonation and MFA abuse</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-09
+          <span class="label">Location:</span> Multiple sectors
+          <span class="label">Media type:</span> Voice
+          <span class="label">Threat category:</span> Criminal
+          <span class="label">Affected sector:</span> Corporate
+        </div>
+        <a href="https://www.bleepingcomputer.com/news/security/new-helix-vishing-group-emerges-in-sharepoint-data-theft-attacks/amp/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Summary:</strong> Emerging group uses vishing, impersonation, and MFA abuse to steal SharePoint data, indicating sustained enterprise targeting via voice deception.</p>
+        <p><strong>Operational Impact:</strong> Risk of data exfiltration and extortion across multiple industries.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.82).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>UK call for evidence: addressing unauthorized fraud and AI-enabled social engineering</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-07-15
+          <span class="label">Location:</span> United Kingdom
+          <span class="label">Media type:</span> Voice
+          <span class="label">Threat category:</span> Fraud
+          <span class="label">Affected sector:</span> Finance
+        </div>
+        <a href="https://www.gov.uk/government/calls-for-evidence/unauthorised-fraud-in-the-uk/unauthorised-fraud-in-the-uk-call-for-evidence" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Summary:</strong> UK government seeks input on tackling rising unauthorized fraud, including vulnerabilities exploited by AI-enabled social engineering.</p>
+        <p><strong>Operational Impact:</strong> Signals potential regulatory and industry changes for authentication and fraud prevention.</p>
+        <p class="small"><strong>Confidence:</strong> High (0.88).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg medium">Medium</span>
+        </div>
+        <h3>ATHR vishing platform automates AI voice-agent attacks</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> 2026-04-16
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Voice
+          <span class="label">Threat category:</span> Fraud
+          <span class="label">Affected sector:</span> Finance
+        </div>
+        <a href="https://www.bleepingcomputer.com/news/security/new-athr-vishing-platform-uses-ai-voice-agents-for-automated-attacks/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a>
+        <p><strong>Summary:</strong> Offensive platform uses AI voice agents to automate vishing against major online and financial services, lowering attacker barriers.</p>
+        <p><strong>Operational Impact:</strong> Expands scale and speed of credential-harvesting calls.</p>
+        <p class="small"><strong>Confidence:</strong> Moderate (0.78).</p>
+      </div>
+
+      <div class="card">
+        <div class="status">
+          <span class="dec monitor">MONITOR</span>
+          <span class="urg low">Low</span>
+        </div>
+        <h3>Recent-window incident scarcity notices</h3>
+        <div class="kv">
+          <span class="label">Publication date:</span> UNKNOWN
+          <span class="label">Location:</span> Global
+          <span class="label">Media type:</span> Unknown
+          <span class="label">Threat category:</span> Detection
+          <span class="label">Affected sector:</span> Other
+        </div>
+        <p><strong>Summary:</strong> Some searches in the last 5 days did not yield additional qualifying, operationally significant synthetic-media incidents from accessible authoritative sources.</p>
+        <p><strong>Operational Impact:</strong> Indicates variability in near-real-time public reporting; continued monitoring recommended.</p>
+        <p class="small"><strong>Confidence:</strong> Low (0.41–0.63).</p>
+      </div>
+    </section>
+
+    <section class="panel" id="emerging-trends">
+      <h2>Emerging Trends</h2>
+      <ul class="list-compact">
+        <li>Voice-based enterprise compromise via collaboration platforms (Teams vishing, passkey enrollment manipulation). <a href="https://www.bleepingcomputer.com/news/security/fake-it-support-calls-on-microsoft-teams-push-etherrat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a> <a href="https://www.bleepingcomputer.com/news/security/enentra-passkey-enrollment-vishing-targets-microsoft-365-users/" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>AI-agent–assisted intrusions accelerating post-exploitation in government targets. <a href="https://therecord.media/thailand-hackers-ai-finance-ministry" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>Brand impersonation of AI services as initial-access vector (malvertising and fake installers). <a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>Platform-level defenses against AI voice scams gaining traction (Android fake-call detection). <a href="https://www.bleepingcomputer.com/news/security/google-adds-android-protection-against-ai-deepfake-scam-calls/amp/" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>Content provenance adoption and verification tooling expanding (OpenAI C2PA/SynthID; public Verify tool). <a href="https://openai.com/research/verify/" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>Law-enforcement mobilization and disruption of large-scale voice spoofing operations. <a href="https://www.bleepingcomputer.com/news/security/uk-charges-suspects-linked-to-russian-coms-call-spoofing-platform/" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a> <a href="https://www.interpol.int/News-and-Events/News/2026/Over-5-800-arrests-USD-293-million-intercepted-in-global-fraud-bust" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+        <li>Policy and standards work continues, with caveats about over-trusting provenance signals. <a href="https://arxiv.org/abs/2604.24890" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></li>
+      </ul>
+    </section>
+
+    <section class="panel" id="industry-impact">
+      <h2>Industry Impact</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Government</h3>
+          <p>- Observed Risk: AI-agent–assisted intrusions and AI voice impersonation of senior officials.</p>
+          <p>- Trust Mechanisms at Risk: Internal comms verification; credential issuance; post-exploitation detection.</p>
+          <p>- Consequence: Accelerated compromise and potential policy manipulation or data theft. <a href="https://therecord.media/thailand-hackers-ai-finance-ministry" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></p>
+        </div>
+        <div class="card">
+          <h3>Corporate</h3>
+          <p>- Observed Risk: Vishing-led initial access; passkey enrollment abuse; recruiter impersonation credential theft.</p>
+          <p>- Trust Mechanisms at Risk: Helpdesk identity proofing; MFA enrollment; hiring workflows.</p>
+          <p>- Consequence: Account takeover, malware deployment, data exfiltration. <a href="https://www.bleepingcomputer.com/news/security/fake-it-support-calls-on-microsoft-teams-push-etherrat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></p>
+        </div>
+        <div class="card">
+          <h3>Finance</h3>
+          <p>- Observed Risk: AI-agent deception in browsing/payment flows; AI-enabled fraud pressure on institutions.</p>
+          <p>- Trust Mechanisms at Risk: Transaction approvals; agent autonomy; customer authentication.</p>
+          <p>- Consequence: Unauthorized transfers and regulatory scrutiny. <a href="https://www.securityweek.com/prompt-injection-attacks-trick-ai-agents-into-making-crypto-payments/" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></p>
+        </div>
+        <div class="card">
+          <h3>Telecom</h3>
+          <p>- Observed Risk: Social engineering of IT/helpdesk enabling major data breaches.</p>
+          <p>- Trust Mechanisms at Risk: Internal caller verification and privileged access workflows.</p>
+          <p>- Consequence: Large-scale PII exposure and regulatory penalties. <a href="https://therecord.media/dutch-police-suspect-dutch-accomplice-in-odido-cyberattack" target="_blank" rel="noopener noreferrer" class="source-link">View Article</a></p>
+        </div>
+        <div class="card">
+          <h3>Media and Platforms</h3>
+          <p>- Observed Risk: Deepfake/forgery in influence operations; vulnerabilities in Content Credentials.</p>
+          <p>- Trust Mechanisms at Risk: Provenance pipelines; editorial standards; verification tools.</p>
+          <p>- Consequence: Misinformation risk and authenticity signal erosion. <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48287" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></p>
+        </div>
+        <div class="card">
+          <h3>Law Enforcement</h3>
+          <p>- Observed Risk: Scale of voice-based and AI-enabled scams requiring coordinated disruption.</p>
+          <p>- Trust Mechanisms at Risk: Cross-border coordination; telecom data access.</p>
+          <p>- Consequence: Resource intensification and technical training needs. <a href="https://www.interpol.int/How-we-work/Innovation/Projects/Project-SynthWave" target="_blank" rel="noopener noreferrer" class="source-link">View Project</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="geographic-observations">
+      <h2>Geographic Observations</h2>
+      <ul class="list-compact">
+        <li>Thailand: Ministry of Finance targeted with AI-agent–assisted intrusion. <a href="https://therecord.media/thailand-hackers-ai-finance-ministry" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+        <li>United Kingdom: Government actions against foreign information warfare; charges for call-spoofing platform; call for evidence on unauthorized fraud. <a href="https://www.gov.uk/government/publications/uk-action-against-russian-foreign-information-warfare/new-uk-action-against-foreign-information-warfare" target="_blank" rel="noopener noreferrer" class="source-link">Source</a> <a href="https://www.bleepingcomputer.com/news/security/uk-charges-suspects-linked-to-russian-coms-call-spoofing-platform/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+        <li>Netherlands: Voice impersonation reportedly enabled major telecom breach. <a href="https://therecord.media/dutch-police-suspect-dutch-accomplice-in-odido-cyberattack" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+        <li>United States: FBI reporting on AI-enabled fraud losses and official impersonation voice campaigns. <a href="https://www.fbi.gov/file-repository/2025_ic3report.pdf" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+        <li>Global: INTERPOL anti-fraud arrests; Android fake-call detection; OpenAI provenance tooling. <a href="https://www.interpol.int/News-and-Events/News/2026/Over-5-800-arrests-USD-293-million-intercepted-in-global-fraud-bust" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+      </ul>
+    </section>
+
+    <section class="panel" id="defensive-developments">
+      <h2>Detection and Defensive Developments</h2>
+      <div class="two-col">
+        <div class="card">
+          <h3>A. Source-Reported Measures</h3>
+          <ul class="list-compact">
+            <li>Android fake-call detection to counter AI voice-cloning and spoofing. <a href="https://www.bleepingcomputer.com/news/security/google-adds-android-protection-against-ai-deepfake-scam-calls/amp/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+            <li>OpenAI public image verification tool (C2PA + SynthID). <a href="https://openai.com/research/verify/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+            <li>OpenAI images include C2PA Content Credentials and SynthID watermarks. <a href="https://help.openai.com/en/articles/8912793-c2pa-and-synthid-in-openai-generated-images" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+            <li>CVE-2026-48287 disclosed affecting Adobe Content Credentials / C2PA tooling. <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48287" target="_blank" rel="noopener noreferrer" class="source-link">Security Advisory</a></li>
+            <li>AP newsroom policy bans AI-generated or altered news photography. <a href="https://www.ap.org/the-definitive-source/announcements/ap-updates-newsroom-standards-for-artificial-intelligence/" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+            <li>INTERPOL Project SynthWave builds synthetic media detection capacity. <a href="https://www.interpol.int/How-we-work/Innovation/Projects/Project-SynthWave" target="_blank" rel="noopener noreferrer" class="source-link">Source</a></li>
+            <li>NIST synthetic content report and text detection challenge inform standards/testing. <a href="https://airc.nist.gov/docs/NIST.AI.100-4.SyntheticContent.ipd.pdf" target="_blank" rel="noopener noreferrer" class="source-link">Report</a> <a href="https://ai-challenges.nist.gov/text-2026" target="_blank" rel="noopener noreferrer" class="source-link">Challenge</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>B. Analyst Recommendations</h3>
+          <ul class="list-compact">
+            <li>Establish out-of-band verification for any access, reset, or enrollment requests delivered via voice or chat. Label: Analyst Recommendation</li>
+            <li>Restrict and alert on Microsoft 365 passkey enrollments; require secondary approver for new FIDO/passkey bindings. Label: Analyst Recommendation</li>
+            <li>Harden collaboration platforms (Teams): disable external calls where not needed; monitor for anomalous call patterns and app sideload attempts. Label: Analyst Recommendation</li>
+            <li>Implement ad and download allowlisting; scrutinize search-ad referrals to prevent brand-impersonation malware installs. Label: Analyst Recommendation</li>
+            <li>Instrument provenance checks in newsroom and trust-and-safety workflows; use OpenAI Verify and C2PA validators where available. Label: Analyst Recommendation</li>
+            <li>Patch Content Credentials/C2PA-related tools per CVE-2026-48287; sandbox untrusted media used in verification pipelines. Label: Analyst Recommendation</li>
+            <li>For AI agents with browsing/payment capability, enforce strict prompt-injection mitigations, domain allowlists, and human-in-the-loop approvals. Label: Analyst Recommendation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="recommendations">
+      <h2>Recommendations</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>For Investigators</h3>
+          <ul class="list-compact">
+            <li>Correlate call metadata, MFA events, and identity-provider enrollment logs to trace vishing-led compromises. Analyst Recommendation</li>
+            <li>Capture and analyze installer provenance and ad referral chains when brand impersonation is suspected. Analyst Recommendation</li>
+            <li>Leverage provenance tooling (C2PA/SynthID) as triage—not truth—signals; corroborate with independent evidence. Analyst Recommendation</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>For Organizations</h3>
+          <ul class="list-compact">
+            <li>Deploy call-back verification policies for IT/helpdesk; ban credential or enrollment changes during inbound calls. Analyst Recommendation</li>
+            <li>Implement privileged access JIT and require multi-party approval for new passkeys/security keys. Analyst Recommendation</li>
+            <li>Filter malicious ads/domains at the network edge; use application control to block untrusted installers. Analyst Recommendation</li>
+            <li>Continuously train staff on vishing and recruiter-impersonation red flags; simulate voice-based social engineering. Analyst Recommendation</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>For News and Public-Safety Organizations</h3>
+          <ul class="list-compact">
+            <li>Adopt durable Content Credentials with policy guardrails; maintain an auditable chain for AI-assisted workflows. Analyst Recommendation</li>
+            <li>Publicly clarify standards (e.g., AP policy) and provide correction/takedown pathways for synthetic-media incidents. Analyst Recommendation</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>For Legal and Policy Professionals</h3>
+          <ul class="list-compact">
+            <li>Support telecom authentication (STIR/SHAKEN equivalents) and penalties for spoofing-as-a-service platforms. Analyst Recommendation</li>
+            <li>Encourage transparent provenance adoption while cautioning against overreliance without corroboration. Analyst Recommendation</li>
+            <li>Engage in calls for evidence (e.g., UK unauthorized fraud) to align regulation with operational realities. Analyst Recommendation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="forensic-insight">
+      <h2>Forensic Insight of the Day</h2>
+      <p>Across multiple incidents, the decisive inflection point is not high-fidelity voice cloning but enrollment or support workflow abuse over trusted channels (Teams calls, helpdesks, and passkey registration). Prioritizing telemetry and approvals on “who can change who’s factors” often outperforms deepfake detection in stopping real-world compromises. This insight is supported by reports on Teams vishing, passkey-enrollment abuse, and telecom helpdesk impersonation. <a href="https://www.bleepingcomputer.com/news/security/fake-it-support-calls-on-microsoft-teams-push-etherrat-malware/" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a> <a href="https://www.bleepingcomputer.com/news/security/enentra-passkey-enrollment-vishing-targets-microsoft-365-users/" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a> <a href="https://therecord.media/dutch-police-suspect-dutch-accomplice-in-odido-cyberattack" target="_blank" rel="noopener noreferrer" class="source-link">Supporting Report</a></p>
+    </section>
+
+    <section class="panel" id="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul class="list-compact">
+        <li>AI agents are now observed assisting live intrusions against government targets.</li>
+        <li>Brand impersonation of AI services via ads is delivering malware at enterprise scale.</li>
+        <li>Vishing continues to bypass email defenses, targeting Teams and identity enrollment workflows.</li>
+        <li>Enforcement is disrupting spoofing infrastructure, but fraud at scale persists.</li>
+        <li>Provenance tooling is improving; verification must be layered and not overtrusted.</li>
+        <li>Authenticity infrastructure itself requires hardening (e.g., CVE-2026-48287).</li>
+        <li>Training and process controls around helpdesk and MFA enrollment are critical.</li>
+        <li>Policy actions (UK, INTERPOL) and standards work (NIST, C2PA) are accelerating.</li>
+      </ul>
+    </section>
+
+    <section class="panel" id="source-index">
+      <h2>Source Index</h2>
+      <ul class="list-compact">
+        <li>2026-07-27 — Thailand hackers used AI agent in Finance Ministry attack — <a href="https://therecord.media/thailand-hackers-ai-finance-ministry" target="_blank" rel="noopener noreferrer">https://therecord.media/thailand-hackers-ai-finance-ministry</a></li>
+        <li>2026-07-23 — Fake Claude app promoted by Bing Ads pushes SectopRat malware — <a href="https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/" target="_blank" rel="noopener noreferrer">https://www.bleepingcomputer.com/news/security/fake-claude-app-promoted-by-bing-ads-pushes-sectoprat-malware/</a></li>
+        <li>2026-07-06 — Fake IT support calls on Microsoft Teams push EtherRAT malware — <a href="https://www.bleepingcomputer.com/news/security/fake-it-support-calls-on-microsoft-teams-push-etherrat-malware/" target="_blank" rel="noopener noreferrer">https://www.bleepingcomputer.com/news/security/fake-it-support-calls-on-microsoft-teams-push-etherrat-malware/</a></li>
+        <li>2026-07-08 — Entra passkey enrollment vishing targets Microsoft 365 users — <a href="https://www.bleepingcomputer.com/news/security/enentra-passkey-enrollment-vishing-targets-microsoft-365-users/" target="_blank" rel="noopener noreferrer">https://www.bleepingcomputer.com/news/security/enentra-passkey-enrollment-vishing-targets-microsoft-365-users/</a></li>
+        <li>2026-07-13 — New UK action against foreign information warfare — <a href="https://www.gov.uk/government/publications/uk-action-against-russian-foreign-information-warfare/new-uk-action-against-foreign-information-warfare" target="_blank" rel="noopener noreferrer">https://www.gov.uk/government/publications/uk-action-against-russian-foreign-information-warfare/new-uk-action-against-foreign-information-warfare</a></li>
+        <li>2026-07-09 — Over 5,800 arrests, USD 293M intercepted in global fraud bust — <a href="https://www.interpol.int/News-and-Events/News/2026/Over-5-800-arrests-USD-293-million-intercepted-in-global-fraud-bust" target="_blank" rel="noopener noreferrer">https://www.interpol.int/News-and-Events/News/2026/Over-5-800-arrests-USD-293-million-intercepted-in-global-fraud-bust</a></li>
+        <li>2026-07-13 — UK charges linked to call-spoofing platform — <a href="https://www.bleepingcomputer.com/news/security/uk-charges-suspects-linked-to-russian-coms-call-spoofing-platform/" target="_blank" rel="noopener noreferrer">https://www.bleepingcomputer.com/news/security/uk-charges-suspects-linked-to-russian-coms-call-spoofing-platform/</a></li>
+        <li>2026-05-01 — FBI IC3 2025 Internet Crime Report — <a href="https://www.fbi.gov/file-repository/2025_ic3report.pdf" target="_blank" rel="noopener noreferrer">https://www.fbi.gov/file-repository/2025_ic3report.pdf</a></li>
+        <li>2025-12-18 — Senior U.S. officials continue to be impersonated in malicious messaging campaign — <a href="https://www.fbi.gov/investigate/cyber/alerts/2025/senior-us-officials-continue-to-be-impersonated-in-malicious-messaging-campaign" target="_blank" rel="noopener noreferrer">https://www.fbi.gov/investigate/cyber/alerts/2025/senior-us-officials-continue-to-be-impersonated-in-malicious-messaging-campaign</a></li>
+        <li>2025-05-15 — Senior U.S. officials impersonated in malicious messaging campaign — <a href="https://www.fbi.gov/investigate/cyber/alerts/2025/senior-us-officials-impersonated-in-malicious-messaging-campaign" target="_blank" rel="noopener noreferrer">https://www.fbi.gov/investigate/cyber/alerts/2025/senior-us-officials-impersonated-in-malicious-messaging-campaign</a></li>
+        <li>2026-07-09 — Dutch police suspect accomplice in Odido cyberattack — <a href="https://therecord.media/dutch-police-suspect-dutch-accomplice-in-odido-cyberattack" target="_blank" rel="noopener noreferrer">https://therecord.media/dutch-police-suspect-dutch-accomplice-in-odido-cyberattack</a></li>
+        <li>2026-07-06 — Phishing poses as big-brand job interview to steal Google accounts — <a href="https://www.bleepingcomputer.com/news/security/phishing-poses-as-big-brand-job-interview-to-steal-google-accounts/" target="_blank" rel="noopener noreferrer">https://www.bleepingcomputer.com/news/security/phishing-poses-as-big-brand-job-interview-to-steal-google-accounts/</a></li>
+        <li>2026-06-03 — Google adds Android protection against AI deepfake scam calls — <a href="https://www.bleepingcomputer.com/news/security/google-adds-android-protection-against-ai-deepfake-scam-calls/amp/" target="_blank" rel="noopener noreferrer">https://www.bleepingcomputer.com/news/security/google-adds-android-protection-against-ai-deepfake-scam-calls/amp/</a></li>
+        <li>2026-03-16 — INTERPOL report warns of increasingly sophisticated global financial fraud threat — <a href="https://www.interpol.int/en/News-and-Events/News/2026/INTERPOL-report-warns-of-increasingly-sophisticated-global-financial-fraud-threat" target="_blank" rel="noopener noreferrer">https://www.interpol.int/en/News-and-Events/News/2026/INTERPOL-report-warns-of-increasingly-sophisticated-global-financial-fraud-threat</a></li>
+        <li>2026-07-15 — C2PA and SynthID in OpenAI-generated images — <a href="https://help.openai.com/en/articles/8912793-c2pa-and-synthid-in-openai-generated-images" target="_blank" rel="noopener noreferrer">https://help.openai.com/en/articles/8912793-c2pa-and-synthid-in-openai-generated-images</a></li>
+        <li>2026-05-19 — Advancing content provenance (OpenAI) — <a href="https://openai.com/index/advancing-content-provenance/" target="_blank" rel="noopener noreferrer">https://openai.com/index/advancing-content-provenance/</a></li>
+        <li>2026-07-29 — Verify: OpenAI public image provenance checker — <a href="https://openai.com/research/verify/" target="_blank" rel="noopener noreferrer">https://openai.com/research/verify/</a></li>
+        <li>2026-01-22 — Three pillars of provenance (CAI) — <a href="https://contentauthenticity.org/blog/three-pillars-of-provenance" target="_blank" rel="noopener noreferrer">https://contentauthenticity.org/blog/three-pillars-of-provenance</a></li>
+        <li>2026-07-16 — CVE-2026-48287 (NVD) — <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48287" target="_blank" rel="noopener noreferrer">https://nvd.nist.gov/vuln/detail/CVE-2026-48287</a></li>
+        <li>UNKNOWN — C2PA UX Recommendations — <a href="https://spec.c2pa.org/specifications/specifications/2.2/ux/UX_Recommendations.html" target="_blank" rel="noopener noreferrer">https://spec.c2pa.org/specifications/specifications/2.2/ux/UX_Recommendations.html</a></li>
+        <li>2026-04-01 — NIST AI 100-4 Synthetic Content (ipd) — <a href="https://airc.nist.gov/docs/NIST.AI.100-4.SyntheticContent.ipd.pdf" target="_blank" rel="noopener noreferrer">https://airc.nist.gov/docs/NIST.AI.100-4.SyntheticContent.ipd.pdf</a></li>
+        <li>2026-04-29 — Paper questioning overtrust in provenance (arXiv 2604.24890) — <a href="https://arxiv.org/abs/2604.24890" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2604.24890</a></li>
+        <li>2026-03-04 — Paper on conflicts between watermark and provenance signals (arXiv 2603.02378) — <a href="https://arxiv.org/abs/2603.02378" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2603.02378</a></li>
+        <li>2026-07-15 — Frontiers: multimodal watermarking and verification — <a href="https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2026.1848963/full" target="_blank" rel="noopener noreferrer">https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2026.1848963/full</a></li>
+        <li>2026-07 — NIST 2026 Text Challenge — <a href="https://ai-challenges.nist.gov/text-2026" target="_blank" rel="noopener noreferrer">https://ai-challenges.nist.gov/text-2026</a></li>
+        <li>2026-07-23 — AP updates newsroom standards for AI — <a href="https://www.ap.org/the-definitive-source/announcements/ap-updates-newsroom-standards-for-artificial-intelligence/" target="_blank" rel="noopener noreferrer">https://www.ap.org/the-definitive-source/announcements/ap-updates-newsroom-standards-for-artificial-intelligence/</a></li>
+        <li>2026-07-25 — INTERPOL Project SynthWave — <a href="https://www.interpol.int/How-we-work/Innovation/Projects/Project-SynthWave" target="_blank" rel="noopener noreferrer">https://www.interpol.int/How-we-work/Innovation/Projects/Project-SynthWave</a></li>
+        <li>2026-07-06 — Prompt injection tricks AI agents into crypto payments — <a href="https://www.securityweek.com/prompt-injection-attacks-trick-ai-agents-into-making-crypto-payments/" target="_blank" rel="noopener noreferrer">https://www.securityweek.com/prompt-injection-attacks-trick-ai-agents-into-making-crypto-payments/</a></li>
+        <li>2026-07-09 — New “Helix” vishing group in SharePoint data theft attacks — <a href="https://www.bleepingcomputer.com/news/security/new-helix-vishing-group-emerges-in-sharepoint-data-theft-attacks/amp/" target="_blank" rel="noopener noreferrer">https://www.bleepingcomputer.com/news/security/new-helix-vishing-group-emerges-in-sharepoint-data-theft-attacks/amp/</a></li>
+        <li>2026-07-15 — Unauthorised Fraud in the UK: Call for Evidence — <a href="https://www.gov.uk/government/calls-for-evidence/unauthorised-fraud-in-the-uk/unauthorised-fraud-in-the-uk-call-for-evidence" target="_blank" rel="noopener noreferrer">https://www.gov.uk/government/calls-for-evidence/unauthorised-fraud-in-the-uk/unauthorised-fraud-in-the-uk-call-for-evidence</a></li>
+      </ul>
+    </section>
+
+    <section class="panel" id="methodology">
+      <h2>Methodology Note</h2>
+      <p>This intelligence brief is based on publicly available reporting from the listed sources. Source-reported facts are presented alongside clearly labeled analyst assessments, recommendations, and considerations. Inclusion of a source does not constitute independent verification of every claim; readers should consult the original linked materials for complete context and updates.</p>
+      <div class="footer-note">Prepared for digital investigators, law enforcement, intelligence analysts, corporate security teams, journalists, government agencies, legal professionals, researchers, and AI governance executives. Generated from AI-assisted analysis.</div>
+    </section>
+  </div>
+</body>
+</html>
