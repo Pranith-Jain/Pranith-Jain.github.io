@@ -11,7 +11,10 @@ export function extractJson<T = Record<string, unknown>>(raw: string): T | null 
   if (!raw || typeof raw !== 'string') return null;
 
   // Strip markdown code fences
-  let s = raw.replace(/```(?:json|JSON)?\s*\n?/g, '').replace(/```\s*$/gm, '').trim();
+  const s = raw
+    .replace(/```(?:json|JSON)?\s*\n?/g, '')
+    .replace(/```\s*$/gm, '')
+    .trim();
 
   // Find the outermost JSON object
   const i = s.indexOf('{');

@@ -60,6 +60,8 @@ export default tseslint.config(
         Event: 'readonly',
         FetchEvent: 'readonly',
         ScheduledEvent: 'readonly',
+        ExecutionContext: 'readonly',
+        performance: 'readonly',
         Buffer: 'readonly',
         process: 'readonly',
         console: 'readonly',
@@ -104,6 +106,9 @@ export default tseslint.config(
     files: ['test/**/*.{ts,tsx}'],
     plugins: {
       '@typescript-eslint': tseslint.plugin,
+    },
+    languageOptions: {
+      parser: tseslint.parser,
     },
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
