@@ -1,5 +1,0 @@
-{
-  "slug": "query/web-shells",
-  "name": "query-web-shells",
-  "bodyMarkdown": "# Web Shell Detection Query\n\n**Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium\n**Techniques:** T1505.003 | **Log Sources:** Sysmon EID 1, EID 11\n\n```kql\nDeviceProcessEvents\n| where Timestamp > ago(1h)\n| where InitiatingProcessFileName in (\"w3wp.exe\", \"httpd.exe\", \"nginx.exe\", \"php-fpm.exe\")\n| where FileName in (\"cmd.exe\", \"powershell.exe\", \"pwsh.exe\", \"bash\", \"sh\", \"python\")\n| project Timestamp, DeviceName, InitiatingProcessFileName, FileName, ProcessCommandLine, AccountName\n| sort by Timestamp desc\n```"
-}

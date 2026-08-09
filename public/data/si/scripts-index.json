@@ -1,1 +1,9 @@
-{"source": "github.com/SCStelz/security-investigator/.github/skills/{detection-authoring,sentinel-ingestion-report}", "license": "MIT", "count": 3, "scripts": [{"name": "example-detection-manifest.json", "sizeBytes": 1979}, {"name": "sentinel-chokepoint-rules.json", "sizeBytes": 24564}, {"name": "sentinel-ingestion-drilldown.md", "sizeBytes": 35622}]}
+{
+  "source": "github.com/SCStelz/security-investigator/.github/skills/{detection-authoring,mitre-coverage-report,sentinel-ingestion-report}",
+  "license": "MIT",
+  "count": 2,
+  "scripts": [
+    { "name": "example-detection-manifest.json", "sizeBytes": 1979 },
+    { "name": "sentinel-ingestion-drilldown.md", "sizeBytes": 35446 }
+  ]
+}

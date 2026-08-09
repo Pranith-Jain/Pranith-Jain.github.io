@@ -1,5 +1,0 @@
-{
-  "slug": "query/renamed-rmm",
-  "name": "query-renamed-rmm",
-  "bodyMarkdown": "# Renamed RMM Tool Detection Query\n\n**Category:** Detection Chokepoints | **Maturity:** Hunt | **FP Rate:** Medium\n**Techniques:** T1219.002 | **Log Sources:** Sysmon EID 1, EID 11\n\n```kql\nDeviceFileEvents\n| where Timestamp > ago(1h)\n| where FileName endswith \".exe\" or FileName endswith \".msi\"\n| where InitiatingProcessFileName in (\"chrome.exe\", \"msedge.exe\", \"firefox.exe\")\n| where FolderPath has_any (\"Downloads\", \"Temp\", \"AppData\")\n| project Timestamp, DeviceName, InitiatingProcessFileName, FileName, FolderPath, SHA256\n| sort by Timestamp desc\n```"
-}
