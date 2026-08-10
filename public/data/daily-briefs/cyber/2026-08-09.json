@@ -1,0 +1,25 @@
+{
+  "type": "cyber",
+  "date": "2026-08-09",
+  "threatLevel": "",
+  "executiveSummary": "Active exploitation and confirmed operational impacts against PLCs in U.S. Water/Wastewater and broader U.S. critical infrastructure increase the likelihood of loss-of-view, lockouts, and parameter tampering. Immediate removal of PLCs from public internet and validation of logic integrity are required. CISA Alert Supporting Report Perimeter and management-plane exposures are being actively exploited or under heavy probing: Fortinet \"FortiBleed\" leaked credentials, Progress LoadMaster command injection (KEV), and Cisco Secure FMC hard-coded password (KEV) can enable rapid pivots toward OT if segmentation is weak. Security Advisory CISA KEV RMM and CI/CD compromise paths continue to expand: N-able N-central (KEV; active auth bypass with persistence via Cloudflare Tunnel) and TeamCity (KEV; deserialization RCE) raise the risk of mass deployment abuse and poisoned builds affecting OT-adjacent environments. CISA KEV CISA KEV Supply-chain threats are active: a hijacked npm maintainer account seeded a wormed preinstall hook across hundreds of packages to steal cloud, SCM, and K8s secrets; TeamPCP activity shows multi-year reuse of infra against K8s/Docker/Ray and recent package compromise attempts. View Article View Article Multiple state-linked campaigns elevate enterprise-to-OT pivot risk: China-nexus covert device networks (pre-positioning), Russian FSB router exploitation via SNMP/SMI, Mirage Kitten and OctLurk/SilkLurk espionage toolsets with lateral-movement tradecraft. CISA Advisory CISA Advisory Unique OT lesson learned: misconfigured private cellular APNs can allow device-to-device access into plant networks; one CHP plant suffered turbine and water-treatment shutdown. Immediate audits of APN peer isolation and OT DMZ terminations are recommended. Supporting Report Trend: Widespread exposure of remote access, load balancers, and CI/CD combined with active supply-chain abuse and state-linked pre-positioning keeps the OT cyber threat level at HIGH.",
+  "keyFindings": [],
+  "dashboard": {
+    "kpis": [],
+    "activelyExploited": [],
+    "vendors": [],
+    "sectors": []
+  },
+  "topThreats": [],
+  "threatActors": [],
+  "cveWatch": [],
+  "events": [],
+  "ttps": {
+    "descriptions": [],
+    "mitreIds": []
+  },
+  "outlook72h": "- Complete KEV-driven emergency patching and compromise assessments for LoadMaster, N-central, TeamCity, and Cisco FMC. - Remove any direct internet exposure to PLCs/HMIs/VNC; verify no inbound routes to Levels 0-2; enforce IP allowlists on gateways. - Execute FortiBleed playbook: rotate VPN and downstream credentials; audit for anomalous admin access; enforce MFA everywhere. - Contain npm worm exposure in developer/CI fleets; disable lifecycle scripts in CI; rotate SCM/cloud/K8s secrets; rebuild tainted images. - Audit private APN configurations with carriers; implement peer isolation; terminate via OT DMZ with strict allowlists. - Enhance monitoring for WSS/WebSocket tunnels, SNMP Set-Requests, OCPP anomalies, and unexpected admin/policy changes in FMC/LoadMaster/firewalls.",
+  "relatedCves": [
+    "CVE-2024-36401"
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "type": "disaster",
+  "date": "2026-08-09",
+  "overallThreat": "",
+  "executiveSummary": "Concurrent high-impact disasters are straining emergency services across East Asia, North America, and parts of Europe. A powerful typhoon triggered mass relocations in eastern China (300,000+) and widespread flight cancellations (1,300+); the same system drove deadly flooding and landslides in the Philippines, with thousands displaced. View Article Fast-moving wildfires around Okanagan Lake, British Columbia forced 20,000+ evacuations, destroyed homes, closed major routes, and prompted a provincial emergency declaration. View Article In the Spokane, Washington area, 60,000-67,000 people evacuated and roughly 850 buildings were destroyed; many residents remain displaced with uncertain return timelines. View Article Japan's Kyushu region continues post-earthquake relief amid extreme heat, with at least 38 fatalities, 8,500+ sheltering, and prolonged water outages for tens of thousands of households. Source Monsoon flooding in India's Assam state has killed at least 50 people and displaced about 700,000, overwhelming relief camps and rescue services. View Article In the U.S. West, separate fires in Utah and Oregon caused evacuations and fatalities and disrupted air operations; humanitarian agencies scaled up shelter, food, and health support for evacuees. View Article Supporting Report Southwest Europe and parts of Greece face large wildfire emergencies with mass evacuations and structure losses; evacuation counts vary as conditions change rapidly. View Article Source Figures reflect available reporting; totals may change as assessments continue.",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Typhoon impacts across eastern China and the Philippines are disrupting transpor",
+      "summary": "Typhoon impacts across eastern China and the Philippines are disrupting transportation and prompting preemptive relocations, with elevated flood and landslide risk. Source"
+    },
+    {
+      "title": "Okanagan Lake wildfires (British Columbia) produced mass evacuations, home losse",
+      "summary": "Okanagan Lake wildfires (British Columbia) produced mass evacuations, home losses, and critical road closures under a provincial emergency. Source"
+    },
+    {
+      "title": "Spokane-area fires (Washington) caused 60,000-67,000 evacuations and destroyed a",
+      "summary": "Spokane-area fires (Washington) caused 60,000-67,000 evacuations and destroyed about 850 buildings; prolonged displacement and utility outages persist. Source"
+    },
+    {
+      "title": "Kyushu earthquake (Japan) response is hampered by heat and utility disruptions",
+      "summary": "at least 38 dead, 8,500+ sheltering, and 46,000+ households without water at peak. Source"
+    },
+    {
+      "title": "Assam floods (India) displaced roughly 700,000 people and killed at least 50; ne",
+      "summary": "Assam floods (India) displaced roughly 700,000 people and killed at least 50; nearly 300,000 are staying in relief camps amid submerged villages and power outages. Source"
+    },
+    {
+      "title": "Western U.S. wildfires in Utah and Oregon included a firefighter fatality and de",
+      "summary": "Western U.S. wildfires in Utah and Oregon included a firefighter fatality and destroyed structures; air operations were also impacted. Source"
+    },
+    {
+      "title": "Large European wildfires (France, Spain, Greece) forced mass evacuations and dam",
+      "summary": "Large European wildfires (France, Spain, Greece) forced mass evacuations and damaged homes, with continued risk under hot, windy conditions. Source"
+    },
+    {
+      "title": "Extreme heat across the western United States is compounding wildfire risk and h",
+      "summary": "Extreme heat across the western United States is compounding wildfire risk and health threats for vulnerable populations. Source"
+    }
+  ],
+  "topEvents": [
+    {
+      "title": "Typhoon with mass relocations and severe transport disruption",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/d40f4d49b0d89935366f360f1f13afd8",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Okanagan Lake wildfires under provincial emergency",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/61002c95f641a4060b78195b016fbea3",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Spokane-area wildfires with large-scale displacement and structure loss",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/3738a2f795ca9cc0cca93eae76fb7ff0",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "Kyushu earthquake relief amid heat and utility outages",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/12c805ac8666c005aff926358de3961e",
+          "label": "Source"
+        }
+      ]
+    },
+    {
+      "title": "Monsoon flooding with mass displacement",
+      "severity": "escalate",
+      "text": "",
+      "sources": [
+        {
+          "url": "https://apnews.com/article/042b23c3945161454c0d836439124d9c",
+          "label": "View Article"
+        }
+      ]
+    }
+  ],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Typhoon-affected East Asia: Expect continued heavy rain bands inland with localized flash floods and landslides; transport disruptions likely to persist near major hubs. BC and U.S. Northwest wildfires: Critical fire weather windows (heat, low RH, variable winds) may drive flare-ups and spot fires; smoke impacts to expand with wind shifts. Kyushu earthquake response: Aftershocks and heat will complicate sheltering and water/medical distribution; prioritize cooling, hydration, and vector control. Assam flooding: Riverine flooding and stagnant waters may prolong displacement and increase waterborne disease risk; logistics constrained by submerged routes. Europe wildfires: Wind-driven spread episodes remain possible; evacuations and road closures may be reactivated with changing conditions. Forecast emphasis is operational and risk-focused; consult national meteorological and emergency agencies for official warnings.",
+  "regionalTrends": [
+    "Western North America: Intensifying wildfire activity from the U.S. Pacific Northwest into British Columbia, driven by heat, wind, and dry fuels.",
+    "East Asia: Late-season typhoon impacts with cascading flood and landslide risk across coastal and mountainous communities.",
+    "South Asia: Monsoon flooding remains a leading driver of displacement, straining relief infrastructure.",
+    "Europe: Recurrent, wind-driven wildfires in France, Spain, and Greece; rapid evacuation triggers and high variability in impact metrics.",
+    "Compounding Hazards: Extreme heat amplifies health risks, degrades air quality, and elevates new ignition potential in fire-prone regions."
+  ]
+}
