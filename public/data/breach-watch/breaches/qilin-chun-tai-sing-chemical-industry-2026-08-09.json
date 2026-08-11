@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-chun-tai-sing-chemical-industry-2026-08-09",
+  "title": "Chun Tai Sing Chemical Industry",
+  "group": "qilin",
+  "discovered": "2026-08-09T17:01:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "HK",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

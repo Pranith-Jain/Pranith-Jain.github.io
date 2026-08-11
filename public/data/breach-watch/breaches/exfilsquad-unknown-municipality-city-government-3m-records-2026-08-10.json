@@ -1,0 +1,15 @@
+{
+  "slug": "exfilsquad-unknown-municipality-city-government-3m-records-2026-08-10",
+  "title": "Unknown Municipality/City Government (3M records)",
+  "group": "ExfilSquad",
+  "discovered": "2026-08-10T02:55:09.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/dfa153ab-d71e-416a-a22b-dff2fa98286c",
+  "groupAliases": [],
+  "activity": "Government / Municipal",
+  "references": ["Darkfield"]
+}

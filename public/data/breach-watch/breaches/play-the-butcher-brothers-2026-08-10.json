@@ -1,0 +1,15 @@
+{
+  "slug": "play-the-butcher-brothers-2026-08-10",
+  "title": "The Butcher Brothers",
+  "group": "Play",
+  "discovered": "2026-08-10T02:44:20.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/2eebb8a7-3d9d-4770-823f-904d523b7d30",
+  "groupAliases": ["PlayCrypt"],
+  "activity": null,
+  "references": ["Darkfield"]
+}

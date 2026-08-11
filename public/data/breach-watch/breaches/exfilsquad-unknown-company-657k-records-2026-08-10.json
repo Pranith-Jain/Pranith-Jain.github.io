@@ -1,0 +1,15 @@
+{
+  "slug": "exfilsquad-unknown-company-657k-records-2026-08-10",
+  "title": "Unknown Company (657K records)",
+  "group": "ExfilSquad",
+  "discovered": "2026-08-10T02:55:07.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1a37404d-de58-4ec6-ac46-5aa7127dbb71",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["Darkfield"]
+}

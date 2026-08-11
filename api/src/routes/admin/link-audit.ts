@@ -83,7 +83,7 @@ linkAuditRouter.post('/links/:slug/audit-fix', async (c) => {
   const post = await getPost(c.env.CASE_STUDIES, slug);
   if (!post) return notFound(c, 'post not found');
 
-  const result = await fixPostLinks(post, liveVerifyUrls);
+  const result = await fixPostLinks(post, (urls) => liveVerifyUrls(urls, { deepSoft404: true }));
   if (result.fixed) {
     await putPost(c.env.CASE_STUDIES, result.updated);
     // Keep the D1 search mirror (used by /blog search + briefings) in sync.

@@ -1,15 +1,15 @@
 {
   "slug": "shinyhunters-ali-2026-08-09",
   "title": "Ali** **********",
-  "group": "ShinyHunters",
-  "discovered": "2026-08-09T00:00:00.000Z",
+  "group": "shinyhunters",
+  "discovered": "2026-08-09T09:29:48.000Z",
   "category": "ransomware",
   "severity": "critical",
   "country": null,
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/ali-shinyhunters-2026-08",
+  "description": "August 7, 2026 3:00 PM ET: Over 11.5 million records across Salesforce, ServiceNow, and Entra containing some PII of customers and employees and 3.1TB+ of internal corporate data was compromised. This is a final warning to reach out by 10 August 2026 before we leak along with several annoying (digital) problems that'll come your way. Make the right decision, don't be the next headline. | Updated: 08 August 2026 | Warning: FINAL WARNING PAY OR LEAK",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Technology",
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomware.live"]
 }

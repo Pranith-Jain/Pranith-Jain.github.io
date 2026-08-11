@@ -1,0 +1,15 @@
+{
+  "slug": "exfilsquad-unknown-educational-institution-440k-records-2026-08-10",
+  "title": "Unknown Educational Institution (440K records)",
+  "group": "ExfilSquad",
+  "discovered": "2026-08-10T02:55:08.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/592621f4-169a-45d5-adff-4f831fc1f50d",
+  "groupAliases": [],
+  "activity": "Education",
+  "references": ["Darkfield"]
+}

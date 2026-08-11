@@ -138,7 +138,10 @@ export async function fixPostLinks(
     sources: (post.sources ?? []) as PostSource[],
     verify,
   });
-  const droppedSources = report.droppedSources > 0 ? report.broken : [];
+  const brokenSet = new Set(report.broken);
+  const droppedSources = (post.sources ?? [])
+    .filter((s: PostSource) => brokenSet.has(s.url))
+    .map((s: PostSource) => s.url);
   const updated: Post = {
     ...post,
     body,
@@ -151,7 +154,7 @@ export async function fixPostLinks(
       brokenUrls: report.broken.slice(0, 5),
     },
   };
-  const fixed = report.droppedSources > 0 || report.droppedRefBullets > 0 || report.broken.length > 0;
+  const fixed = droppedSources.length > 0 || report.droppedRefBullets > 0;
   return {
     fixed,
     droppedSources,

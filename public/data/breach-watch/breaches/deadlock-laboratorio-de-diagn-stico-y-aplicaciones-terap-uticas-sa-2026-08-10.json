@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-laboratorio-de-diagn-stico-y-aplicaciones-terap-uticas-sa-2026-08-10",
+  "title": "Laboratorio de Diagnóstico y Aplicaciones Terapéuticas, SA",
+  "group": "Deadlock",
+  "discovered": "2026-08-10T02:59:15.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "Spain",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/d87365ba-fea5-4b42-85eb-7c32a6e2fbcb",
+  "groupAliases": [],
+  "activity": "Biopharmaceuticals",
+  "references": ["Darkfield"]
+}

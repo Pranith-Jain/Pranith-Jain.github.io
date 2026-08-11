@@ -1,0 +1,15 @@
+{
+  "slug": "crpx0-benjamin-h-wang-dds-inc-2026-08-10",
+  "title": "Benjamin H. Wang DDS Inc.",
+  "group": "CRPX0",
+  "discovered": "2026-08-10T02:33:58.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/b69e3cf4-ef57-4ccb-89b8-061c216a0400",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

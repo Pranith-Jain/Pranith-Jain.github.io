@@ -1,0 +1,15 @@
+{
+  "slug": "unsafe-constellation-homebuilder-systems-2026-08-09",
+  "title": "Constellation HomeBuilder Systems",
+  "group": "unsafe",
+  "discovered": "2026-08-09T14:41:20.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Revenue: $138.1M",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

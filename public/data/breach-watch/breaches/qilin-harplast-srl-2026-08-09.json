@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-harplast-srl-2026-08-09",
+  "title": "Harplast SRL",
+  "group": "qilin",
+  "discovered": "2026-08-09T14:32:05.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "RO",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "spacebears-elixi-international-sa-2026-08-11",
+  "title": "Elixi International SA",
+  "group": "Spacebears",
+  "discovered": "2026-08-11T02:34:46.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Switzerland",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/0170484e-f0cf-453b-939e-610dc44f57ba",
+  "groupAliases": ["space bears"],
+  "activity": "Pharmaceutical",
+  "references": ["Darkfield"]
+}

@@ -1,15 +1,15 @@
 {
   "slug": "qilin-service-dusinage-9002-2026-08-09",
   "title": "Service d'usinage 9002",
-  "group": "Qilin",
-  "discovered": "2026-08-09T00:00:00.000Z",
+  "group": "qilin",
+  "discovered": "2026-08-09T08:28:24.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "CA",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/service-d-usinage-9002-qilin-2026-08",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
 }

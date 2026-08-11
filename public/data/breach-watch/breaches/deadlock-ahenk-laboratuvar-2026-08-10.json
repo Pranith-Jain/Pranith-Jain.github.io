@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-ahenk-laboratuvar-2026-08-10",
+  "title": "Ahenk Laboratuvarı",
+  "group": "Deadlock",
+  "discovered": "2026-08-10T02:59:14.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "Turkey",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/2c0aa4a3-e44a-4ec3-ab26-edc317457066",
+  "groupAliases": [],
+  "activity": "Healthcare / Medical Laboratory",
+  "references": ["Darkfield"]
+}

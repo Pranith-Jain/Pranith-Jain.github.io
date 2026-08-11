@@ -1,0 +1,15 @@
+{
+  "slug": "play-signature-services-2026-08-10",
+  "title": "Signature Services",
+  "group": "Play",
+  "discovered": "2026-08-10T02:44:17.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/ecea4778-32c7-4849-a626-09a871cfab84",
+  "groupAliases": ["PlayCrypt"],
+  "activity": null,
+  "references": ["Darkfield"]
+}

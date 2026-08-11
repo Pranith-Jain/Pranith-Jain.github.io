@@ -1,0 +1,15 @@
+{
+  "slug": "triple-x-henshaw-law-2026-08-10",
+  "title": "Henshaw Law",
+  "group": "TRIPLE X",
+  "discovered": "2026-08-10T03:07:20.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/1e4edc9e-6a6f-47d1-8b92-a70b35acfd73",
+  "groupAliases": [],
+  "activity": "Legal",
+  "references": ["Darkfield"]
+}

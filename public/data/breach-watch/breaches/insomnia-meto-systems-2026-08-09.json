@@ -1,0 +1,15 @@
+{
+  "slug": "insomnia-meto-systems-2026-08-09",
+  "title": "METO Systems",
+  "group": "insomnia",
+  "discovered": "2026-08-09T19:04:25.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "http://i62huw7ve22rpyw6lnq3kmfump2dmsg4xpveec3ere73njwatrz74gad.onion/Company/METOSystems",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["CTI.FYI"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "play-mie-solutions-2026-08-10",
+  "title": "MIE Solutions",
+  "group": "Play",
+  "discovered": "2026-08-10T02:44:16.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/3650012b-05ab-40ee-96d8-c5ea88e74fdd",
+  "groupAliases": ["PlayCrypt"],
+  "activity": null,
+  "references": ["Darkfield"]
+}

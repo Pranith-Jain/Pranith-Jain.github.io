@@ -103,7 +103,8 @@ export default function GrcEvidence(): JSX.Element {
     try {
       const r = await fetch(`/api/v1/grc/controls?framework_id=${fwId}`);
       if (!r.ok) return;
-      setControls((await r.json()) as GrcControl[]);
+      const data = (await r.json()) as { count: number; controls: GrcControl[] };
+      setControls(data.controls ?? []);
     } catch {
       /* ignore */
     }

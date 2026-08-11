@@ -92,6 +92,27 @@ describe('og-rewriter per-route metadata (contract vs real index.html)', () => {
     expect(metaByProperty(html, 'og:image')).toContain('/og-dfir.png');
   });
 
+  it('rewrites og:image:alt + twitter:image:alt per route when an override declares an image', async () => {
+    const html = await serve('/dfir');
+    // The alt text must match the page-specific card, not the generic homepage alt
+    const alt = metaByProperty(html, 'og:image:alt');
+    expect(alt).toBeTruthy();
+    expect(alt).not.toContain('PANOPTICON'); // must not be the homepage alt
+    expect(alt).toContain('CRUCIBLE');
+    const twitterAlt = metaByName(html, 'twitter:image:alt');
+    expect(twitterAlt).toBeTruthy();
+    expect(twitterAlt).not.toContain('PANOPTICON');
+  });
+
+  it('rewrites og:image:alt for deep pages with dynamic page cards', async () => {
+    const html = await serve('/dfir/cve');
+    const alt = metaByProperty(html, 'og:image:alt');
+    expect(alt).toBeTruthy();
+    expect(alt).not.toContain('PANOPTICON'); // must not be the generic homepage alt
+    const twitterAlt = metaByName(html, 'twitter:image:alt');
+    expect(twitterAlt).toBeTruthy();
+  });
+
   it('gives a deep page a UNIQUE generated page card (og:image + twitter:image)', async () => {
     const html = await serve('/dfir/cve');
     expect(metaByProperty(html, 'og:image')).toContain('/api/v1/og-image/page.png?p=');

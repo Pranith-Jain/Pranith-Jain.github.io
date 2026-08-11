@@ -58,6 +58,8 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [REGSCOPE Registry Analyzer](https://pranithjain.qzz.io/dfir/regscope) (dfir): Multi-hive registry scope: persistence, autoruns, services, scheduled tasks.
 - [Windows Registry Artifacts Reference](https://pranithjain.qzz.io/dfir/winreg) (dfir): Windows Registry Forensic Artifact Reference - 292 artifacts, 16 categories, 10 hive types, 77 MITRE techniques.
 - [Signature-Base YARA + IOCs](https://pranithjain.qzz.io/dfir/sigbase) (dfir): Neo23x0 signature-base - 746 YARA rule files (5,784 rules) + 4 IOC lists (hashes, C2, filenames, keywords).
+- [DFIR Reference](https://pranithjain.qzz.io/dfir/dfir-ref) (dfir): Event IDs, memory forensics, browser artifacts, evidence collection phases — practitioner reference.
+- [Chain of Custody Generator](https://pranithjain.qzz.io/dfir/coc-generator) (dfir): Build a defensible custody timeline — evidence inventory with hashes, transfer handlers, timestamps.
 - [Domain Investigator](https://pranithjain.qzz.io/dfir/domain-investigator) (dfir): Cross-source domain investigation hub - 6 aliases route here (domain-rep, webcheck, etc.).
 - [WHOIS History Explorer](https://pranithjain.qzz.io/dfir/whois-history) (dfir): Historical WHOIS pivots - registrant, nameserver, status changes.
 - [ASN Lookup](https://pranithjain.qzz.io/dfir/asn) (dfir): ASN details - prefix ranges - peer relationships.
@@ -97,6 +99,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [CVE Prioritizer](https://pranithjain.qzz.io/dfir/cve-prioritizer) (dfir): CVSS + EPSS + KEV + ransomware-use - single patch-priority call.
 - [CVE Resources Catalog](https://pranithjain.qzz.io/dfir/vuln-toolkit) (dfir): Curated list of CVE databases, exploit trackers, vendor PSIRTs.
 - [OSV Dependency Scan](https://pranithjain.qzz.io/dfir/osv-scan) (dfir): Paste a manifest.json / package-lock / requirements.txt - known vulns.
+- [CVE Risk Matrix](https://pranithjain.qzz.io/dfir/cve-risk-matrix) (dfir): CTI priority score (CVSS + EPSS + KEV + recency) plotted against CVSS — quadrant scatter plot + sortable table + SSVC-V decisions.
 - [Fusion Exposure Worklist](https://pranithjain.qzz.io/dfir/fusion-exposure) (dfir): Composite 4-dimension scoring (CVSS/KEV/EPSS/Exploit-DB) - ranked worklist with per-dimension breakdown.
 - [Risk Register](https://pranithjain.qzz.io/dfir/risk-register) (dfir): Full lifecycle CRUD with FAIR quantification, inherent->residual levels, and treatment plans.
 - [Attack Path Graph](https://pranithjain.qzz.io/dfir/attack-path) (dfir): BFS shortest-path reachability from exposed assets to crown jewels - choke point detection, demo fallback.
@@ -115,6 +118,10 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Detection Chokepoints](https://pranithjain.qzz.io/dfir/detection-chokepoints) (dfir): Invariant detection points - prerequisites attackers cannot bypass, mapped to MITRE ATT&CK.
 - [IR Playbooks](https://pranithjain.qzz.io/dfir/ir-playbooks) (dfir): Step-by-step playbooks for common incident types.
 - [TRACERULES](https://pranithjain.qzz.io/dfir/tracerules) (dfir): Trace a rule back to its source intel - coverage and lineage.
+- [SIEM Use-Case Library](https://pranithjain.qzz.io/dfir/siem-library) (dfir): 60 detection use-cases across 16 categories — KQL + SPL starter rules with MITRE mapping.
+- [Hunting Hypothesis Library](https://pranithjain.qzz.io/dfir/hunt-hypotheses) (dfir): 154 hunt hypotheses across 12 MITRE tactics — technique-driven, data-source-aware starter queries.
+- [SOC Calculators](https://pranithjain.qzz.io/dfir/soc-calculators) (dfir): Alert fatigue index, SOAR ROI, EDR maturity, and log volume estimators.
+- [Sysmon Config Generator](https://pranithjain.qzz.io/dfir/sysmon-config) (dfir): Build v15 Sysmon XML configs — verbose, baseline, and lean presets with field-level exclude mode.
 - [STIX Workbench](https://pranithjain.qzz.io/dfir/stix-workbench) (dfir): Build, view, and export STIX 2.x bundles (canonical entry - /dfir/stix, /dfir/stix-builder, /dfir/taxii, /dfir/report-ingest all redirect here).
 - [IAM & RBAC Hub](https://pranithjain.qzz.io/dfir/iam-hub) (dfir): Cloud identity analysis - AWS, GCP, Azure, and Kubernetes RBAC policy analyzers.
 - [Security Group Analyzer](https://pranithjain.qzz.io/dfir/sg-analyzer) (dfir): AWS security group visualizer - 0.0.0.0/0 + port exposure heatmap.
@@ -122,6 +129,7 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Terraform Scanner](https://pranithjain.qzz.io/dfir/terraform-scan) (dfir): Static analysis of HCL - misconfigurations + drift.
 - [Non-Human Identity (NHI)](https://pranithjain.qzz.io/dfir/nhi) (dfir): Catalogue service accounts, API keys, OAuth grants.
 - [Zero-Trust AI Agents](https://pranithjain.qzz.io/dfir/zero-trust-ai-agents) (dfir): Verify identity + intent for autonomous agent actions.
+- [Cloud Shared-Responsibility Matrix](https://pranithjain.qzz.io/dfir/cloud-reference) (dfir): AWS / Azure / GCP / OCI SRM — 16 domains, customer/cloud responsibilities, cloud hunt queries by provider.
 - [Prompt Injection](https://pranithjain.qzz.io/dfir/prompt-injection) (dfir): Test a prompt against a curated set of injection payloads.
 - [PI Taxonomy](https://pranithjain.qzz.io/dfir/pi-taxonomy) (dfir): Arcanum Prompt Injection Taxonomy - 172 classified attack nodes.
 - [MCP Audit](https://pranithjain.qzz.io/dfir/mcp-audit) (dfir): Audit a Model Context Protocol server for tool-poisoning vectors.
@@ -156,6 +164,8 @@ endpoints (admin, write operations) require an API key or admin token issued at 
 - [Personal Security](https://pranithjain.qzz.io/dfir/personal-security) (dfir): OPSEC checklist - threat-modelling for individuals.
 - [DLP Scan](https://pranithjain.qzz.io/dfir/dlp-scan) (dfir): Data-loss-prevention scan for files + clipboard + screenshots.
 - [Linux IR Triage](https://pranithjain.qzz.io/dfir/linux-triage) (dfir): Bash one-liners for live Linux incident response.
+- [GRC Checklists](https://pranithjain.qzz.io/dfir/grc-checklists) (dfir): Control checklists for NIST CSF, ISO 27001, SOC 2, PCI DSS v4, DPDP 2023, CERT-In, SEBI — plus cross-framework mapper.
+- [Post-Quantum Cryptography](https://pranithjain.qzz.io/dfir/pqc) (dfir): Algorithm profiles, HNDL threat model, crypto-class readiness assessment, and migration checklist.
 - [ATT&CK Navigator](https://pranithjain.qzz.io/dfir/attack-navigator) (dfir): Layered ATT&CK matrix - coverage heatmap, gap analysis.
 - [Attack Chain](https://pranithjain.qzz.io/dfir/attack-chain) (dfir): Visualise a multi-stage attack as a connected kill-chain.
 - [Cyber Kill Chain](https://pranithjain.qzz.io/dfir/kill-chain) (dfir): Lockheed Martin 7-phase kill chain with ATT&CK cross-links.

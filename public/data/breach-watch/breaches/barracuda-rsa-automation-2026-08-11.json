@@ -1,0 +1,15 @@
+{
+  "slug": "barracuda-rsa-automation-2026-08-11",
+  "title": "RSA Automation",
+  "group": "Barracuda",
+  "discovered": "2026-08-11T02:36:58.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "South Korea",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/e892fde0-985e-41d0-baf2-c8e4b456d8f6",
+  "groupAliases": [],
+  "activity": "Industrial Automation",
+  "references": ["Darkfield"]
+}

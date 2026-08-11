@@ -1,0 +1,15 @@
+{
+  "slug": "cmd-organization-contact-group-2026-08-11",
+  "title": "Contact Group",
+  "group": "CMD ORGANIZATION",
+  "discovered": "2026-08-11T02:46:40.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Australia",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/45e9174c-c8c3-47cd-b36e-caa4738d8519",
+  "groupAliases": [],
+  "activity": "Building Services & Technology",
+  "references": ["Darkfield"]
+}

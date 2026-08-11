@@ -1,0 +1,15 @@
+{
+  "slug": "direwolf-merge-2026-08-11",
+  "title": "Merge",
+  "group": "direwolf",
+  "discovered": "2026-08-11T00:47:21.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": ["DIRE WOLF"],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

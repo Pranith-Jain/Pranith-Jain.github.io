@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-zion-contracting-2026-08-10",
+  "title": "Zion Contracting",
+  "group": "the gentlemen",
+  "discovered": "2026-08-10T03:24:51.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "zioncontracting.com Zion Contracting LLC is a trusted general contractor based in New York, specializing in complex infrastructure and transportation projects. As a certified MBE, DBE, and SBE firm, they partner with government agencies to help fulfill minority and diversity contracting goals. Their main focus is delivering essential public works projects that strengthen communities across the state",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "spacebears-hitech-distribuzione-informatica-s-r-l-htdi-2026-08-10",
+  "title": "Hitech Distribuzione Informatica S.r.l. (HTDI)",
+  "group": "Spacebears",
+  "discovered": "2026-08-10T03:01:44.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Italy",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/6b7d88bb-79f6-4298-8fdb-08fab1cb35c4",
+  "groupAliases": ["space bears"],
+  "activity": "Information Technology",
+  "references": ["Darkfield"]
+}

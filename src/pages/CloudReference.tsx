@@ -31,13 +31,9 @@ interface CloudQueryBody {
   id: string;
   name: string;
   provider: string;
-  service?: string;
-  description: string;
   mitre?: string | null;
-  query: string;
-  params?: string[];
-  falsePositives?: string;
-  tags: string[];
+  desc: string;
+  kql: string;
 }
 
 const PROVIDER_TONE: Record<string, string> = {
@@ -85,11 +81,6 @@ function QueryDetail({ body, onClose }: { body: CloudQueryBody; onClose: () => v
           >
             {body.provider}
           </span>
-          {body.service && (
-            <span className="font-mono text-micro px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300">
-              {body.service}
-            </span>
-          )}
           {body.mitre && (
             <a
               href={`https://attack.mitre.org/techniques/${body.mitre.replace('.', '/')}/`}
@@ -101,28 +92,8 @@ function QueryDetail({ body, onClose }: { body: CloudQueryBody; onClose: () => v
             </a>
           )}
         </div>
-        <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.description}</p>
-        <QueryBlock query={body.query} />
-        {body.falsePositives && (
-          <div className="border-l-2 border-amber-500 pl-4 py-2 bg-amber-50 dark:bg-amber-950/20 rounded-r-lg">
-            <div className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">
-              False Positives
-            </div>
-            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.falsePositives}</p>
-          </div>
-        )}
-        {body.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5">
-            {body.tags.map((t, i) => (
-              <span
-                key={i}
-                className="font-mono text-micro text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-        )}
+        <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.desc}</p>
+        <QueryBlock query={body.kql} />
       </div>
     </Modal>
   );

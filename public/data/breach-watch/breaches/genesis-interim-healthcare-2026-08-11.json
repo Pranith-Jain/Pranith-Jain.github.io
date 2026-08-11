@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-interim-healthcare-2026-08-11",
+  "title": "Interim HealthCare",
+  "group": "Genesis",
+  "discovered": "2026-08-11T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/interim-healthcare-genesis-2026-08",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["RecentBreaches.com"]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "spacebears-anpra-sas-2026-08-10",
+  "title": "Anpra SAS",
+  "group": "Spacebears",
+  "discovered": "2026-08-10T03:01:45.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Colombia",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/33ef6b2c-3c16-4a2d-8cd0-0d619f9e4bc0",
+  "groupAliases": ["space bears"],
+  "activity": "Automotive / Distribution",
+  "references": ["Darkfield"]
+}

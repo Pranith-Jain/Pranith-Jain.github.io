@@ -1,0 +1,15 @@
+{
+  "slug": "sovcali-eshocan-engineering-2026-08-11",
+  "title": "eShocan Engineering",
+  "group": "Sovcali",
+  "discovered": "2026-08-11T02:30:11.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/6ff3e1b4-bd53-40d8-9f4d-1a9c93fabd53",
+  "groupAliases": [],
+  "activity": "Engineering",
+  "references": ["Darkfield"]
+}

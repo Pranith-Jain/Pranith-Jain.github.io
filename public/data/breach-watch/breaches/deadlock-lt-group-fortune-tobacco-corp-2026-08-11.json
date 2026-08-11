@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-lt-group-fortune-tobacco-corp-2026-08-11",
+  "title": "LT Group / Fortune Tobacco Corp",
+  "group": "deadlock",
+  "discovered": "2026-08-11T00:47:20.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": null,
+  "source_url": "https://www.ransomlook.io/screenshots/deadlock/LT Group  Fortune Tobacco Corp.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

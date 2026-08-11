@@ -1,0 +1,15 @@
+{
+  "slug": "wallstreet-t-rad-north-america-2026-08-10",
+  "title": "T.RAD North America",
+  "group": "Wallstreet",
+  "discovered": "2026-08-10T10:52:03.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "T.RAD North America (tradna.com) is a Hopkinsville, Kentucky-based manufacturer focused on heat exchangers for thermal-management applications such as vehicle powertrains, HVAC/architectural systems, and emerging technologies like battery and fuel-cell cooling.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["ransomware.live"]
+}

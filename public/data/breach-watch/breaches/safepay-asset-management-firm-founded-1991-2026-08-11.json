@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-asset-management-firm-founded-1991-2026-08-11",
+  "title": "Asset Management Firm (Founded 1991)",
+  "group": "safepay",
+  "discovered": "2026-08-11T03:02:46.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/a6a65f3d-070d-450a-81ca-414aa32eb92a",
+  "groupAliases": [],
+  "activity": "Financial Services",
+  "references": ["Darkfield"]
+}

@@ -139,6 +139,13 @@ export interface OgOverride {
    * canonical origin.
    */
   image?: string;
+  /**
+   * Alt text for the OG image. When `image` is set, the worker rewrites
+   * `og:image:alt` + `twitter:image:alt` to this value so the alt text
+   * matches the page-specific card instead of the generic homepage alt.
+   * If omitted when `image` is set, falls back to `description`.
+   */
+  imageAlt?: string;
 }
 
 /** The one true public origin. Used for canonical/OG URLs so they can never
@@ -201,12 +208,14 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     description:
       'CRUCIBLE — 90+ free, browser-side DFIR tools: IOC checker, CVE prioritizer, crypto tracer, decoders, YARA/Sigma converter. No signup.',
     image: '/og-dfir.png?v=7',
+    imageAlt: 'CRUCIBLE DFIR toolkit — 90+ free browser-side digital forensics and incident response tools',
   },
   '/radar': {
     title: 'SCOUT · Recon Scanner',
     description:
       'SCOUT — deep crawl, JS analysis, API discovery, secret detection, and 0-100 security scoring. Free, browser-driven recon.',
     image: '/og-scout.png?v=7',
+    imageAlt: 'SCOUT recon scanner — deep crawl, JS analysis, API discovery, and security scoring',
   },
   '/copilot': {
     title: 'CTI Copilot',
@@ -218,6 +227,7 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     description:
       'PANOPTICON — live ransomware leaks, CVE × CISA KEV, cross-source IOC correlation, actor × MITRE, STIX 2.1 export. Edge-hosted and free.',
     image: '/og-threatintel.png?v=7',
+    imageAlt: 'PANOPTICON threat intel platform — live ransomware leaks, CVE/KEV, IOC correlation, and STIX export',
   },
   '/threatintel/external-resources': {
     title: 'External Resources Catalog · pranithjain.qzz.io',
@@ -234,6 +244,7 @@ export const OG_OVERRIDES: Record<string, OgOverride> = {
     description:
       'ARGUS — nation-state threat intel dashboard with 3D globe, actor dossiers, relationship graphs, and live threat feeds. Interactive D3 + three.js.',
     image: '/og-argus.png?v=7',
+    imageAlt: 'ARGUS threat nexus — nation-state dashboard with 3D globe, actor dossiers, and relationship graphs',
   },
   '/threatintel/correlation': {
     title: 'Cross-source IOC correlation · pranithjain.qzz.io',
@@ -284,6 +295,7 @@ function findOgOverride(pathname: string): OgOverride | null {
       title: value.title ?? merged.title,
       description: value.description ?? merged.description,
       image: value.image ?? merged.image,
+      imageAlt: value.imageAlt ?? merged.imageAlt,
     };
   }
   return merged;
@@ -357,6 +369,10 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
       // and matches the size LinkedIn/Twitter render best.
       const imgWidth = '1200';
       const imgHeight = '630';
+      // Alt text for the OG image — must match the page-specific card, not
+      // the generic homepage alt. Falls back to description when no explicit
+      // imageAlt is set. Clamped to 125 chars (X/LinkedIn alt-text limit).
+      const imgAlt = clampToBytes(escapeAttr(override.imageAlt ?? override.description), 125);
       out = out
         .replace(/<meta\s+property="og:image"\s+content="[^"]*"/gi, `<meta property="og:image" content="${imgAttr}"`)
         .replace(/<meta\s+name="twitter:image"\s+content="[^"]*"/gi, `<meta name="twitter:image" content="${imgAttr}"`)
@@ -367,6 +383,14 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
         .replace(
           /<meta\s+property="og:image:height"\s+content="[^"]*"/gi,
           `<meta property="og:image:height" content="${imgHeight}"`
+        )
+        .replace(
+          /<meta\s+property="og:image:alt"\s+content="[^"]*"/gi,
+          `<meta property="og:image:alt" content="${imgAlt}"`
+        )
+        .replace(
+          /<meta\s+name="twitter:image:alt"\s+content="[^"]*"/gi,
+          `<meta name="twitter:image:alt" content="${imgAlt}"`
         );
     }
   }
@@ -481,12 +505,17 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
           title: `${rawTitle}${SUFFIX}`,
           description,
           image,
+          imageAlt: description,
         };
       }
     } catch {
       /* fall through to the generic blog card (still with the dynamic image) */
     }
-    return { ...(OG_OVERRIDES['/blog'] ?? { title: '', description: '' }), image };
+    return {
+      ...(OG_OVERRIDES['/blog'] ?? { title: '', description: '' }),
+      image,
+      imageAlt: OG_OVERRIDES['/blog']?.description ?? '',
+    };
   }
 
   // Briefing detail pages get a per-briefing card: dynamic PNG image always,
@@ -511,13 +540,18 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
             title: `${rawTitle}${SUFFIX}`,
             description,
             image,
+            imageAlt: description,
           };
         }
       } catch {
         /* fall through to the generic threat-intel card (still with the image) */
       }
     }
-    return { ...(OG_OVERRIDES['/threatintel'] ?? { title: '', description: '' }), image };
+    return {
+      ...(OG_OVERRIDES['/threatintel'] ?? { title: '', description: '' }),
+      image,
+      imageAlt: OG_OVERRIDES['/threatintel']?.description ?? '',
+    };
   }
 
   const override = findOgOverride(url.pathname);
@@ -531,7 +565,12 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
   // card is kept.
   const meta = ogMetaForPath(url.pathname);
   if (!meta) return override ?? null;
-  return { title: meta.title, description: meta.description, image: pageCardUrl(url.pathname) };
+  return {
+    title: meta.title,
+    description: meta.description,
+    image: pageCardUrl(url.pathname),
+    imageAlt: meta.description,
+  };
 }
 
 /**

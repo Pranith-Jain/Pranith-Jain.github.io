@@ -1,0 +1,15 @@
+{
+  "slug": "play-cambridge-management-2026-08-10",
+  "title": "Cambridge Management",
+  "group": "Play",
+  "discovered": "2026-08-10T02:44:18.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/617c1bc3-79c8-4dec-91be-f2c56e01f2d3",
+  "groupAliases": ["PlayCrypt"],
+  "activity": null,
+  "references": ["Darkfield"]
+}

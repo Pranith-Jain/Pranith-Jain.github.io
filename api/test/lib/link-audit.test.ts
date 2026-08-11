@@ -29,12 +29,8 @@ describe('extractAuditUrls', () => {
       body: '## References\n- [Example](https://example.com/a)\n',
     });
     const urls = extractAuditUrls(post);
-    expect(urls.map((e: { url: string }) => e.url)).toEqual([
-      'https://example.com/a',
-      'https://example.com/b',
-      'https://example.com/a',
-    ]);
-    // De-duped: the first occurrence wins (source before reference).
+    expect(urls.map((e: { url: string }) => e.url)).toEqual(['https://example.com/a', 'https://example.com/b']);
+    // De-duped: the same URL from sources and references appears only once.
     expect(urls.filter((e: { url: string }) => e.url === 'https://example.com/a')).toHaveLength(1);
     expect(urls.filter((e: { url: string }) => e.url === 'https://example.com/b')).toHaveLength(1);
   });
@@ -53,11 +49,11 @@ describe('extractAuditUrls', () => {
       ].join('\n'),
     });
     const urls = extractAuditUrls(post);
-    expect(urls.map((e) => e.url)).toEqual([
+    expect(urls.map((e: { url: string }) => e.url)).toEqual([
       'https://www.bleepingcomputer.com/news/security/something',
       'https://krebsonsecurity.com/2026/01/something',
     ]);
-    expect(urls.every((e) => e.surface === 'reference')).toBe(true);
+    expect(urls.every((e: { surface: string }) => e.surface === 'reference')).toBe(true);
   });
 
   it('ignores non-http URLs and deduplicates across sources and references', () => {
@@ -66,7 +62,7 @@ describe('extractAuditUrls', () => {
       body: '## References\n- [Example](https://example.com/a)\n- [Also Example](https://example.com/a)\n',
     });
     const urls = extractAuditUrls(post);
-    expect(urls.map((e) => e.url)).toEqual(['https://example.com/a']);
+    expect(urls.map((e: { url: string }) => e.url)).toEqual(['https://example.com/a']);
   });
 
   it('returns empty when body has no References section', () => {

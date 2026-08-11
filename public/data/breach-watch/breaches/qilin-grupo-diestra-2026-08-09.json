@@ -1,15 +1,15 @@
 {
   "slug": "qilin-grupo-diestra-2026-08-09",
   "title": "Grupo Diestra",
-  "group": "Qilin",
-  "discovered": "2026-08-09T00:00:00.000Z",
+  "group": "qilin",
+  "discovered": "2026-08-09T10:59:54.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": null,
+  "country": "PE",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/grupo-diestra-qilin-2026-08",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
-  "activity": null,
-  "references": ["RecentBreaches.com"]
+  "activity": "Manufacturing",
+  "references": ["ransomware.live"]
 }

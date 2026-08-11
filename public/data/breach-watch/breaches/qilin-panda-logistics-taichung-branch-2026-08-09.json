@@ -1,0 +1,15 @@
+{
+  "slug": "qilin-panda-logistics-taichung-branch-2026-08-09",
+  "title": "Panda Logistics Taichung Branch",
+  "group": "qilin",
+  "discovered": "2026-08-09T17:02:03.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "TW",
+  "sizeBytes": 0,
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Transportation",
+  "references": ["ransomware.live"]
+}

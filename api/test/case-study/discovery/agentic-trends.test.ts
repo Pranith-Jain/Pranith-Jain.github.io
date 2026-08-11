@@ -184,7 +184,7 @@ describe('decideTrendAcceptance', () => {
   it('rejects when at least one source is confirmed broken and none ok', () => {
     const r = _test_decideTrendAcceptance({
       hasRealSource: true,
-      hasRealCve: true,
+      hasRealCve: false,
       sourceStatuses: { 'https://example.com/a': 'broken', 'https://example.com/b': 'unchecked' },
     });
     expect(r.accepted).toBe(false);

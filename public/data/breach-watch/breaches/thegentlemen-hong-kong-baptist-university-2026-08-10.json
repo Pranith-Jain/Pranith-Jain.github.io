@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-hong-kong-baptist-university-2026-08-10",
+  "title": "Hong Kong Baptist University",
+  "group": "thegentlemen",
+  "discovered": "2026-08-10T08:09:24.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "HK",
+  "sizeBytes": 0,
+  "description": "hkbu.edu.hk zoominfo.com/c/hong-kong-baptist-university/429650952 Hong Kong Baptist University (HKBU) is a leading public research university established in 1956 in Hong Kong.\nIt is highly regarded for its academic excellence, particularly in liberal arts, business, communication, and traditional Chinese medicine.\nAs one of the region's eight statutory publicly funded universities, it is dedicated to fostering global citizenship and innovative research.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

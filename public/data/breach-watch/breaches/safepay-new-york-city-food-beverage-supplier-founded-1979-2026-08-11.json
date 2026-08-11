@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-new-york-city-food-beverage-supplier-founded-1979-2026-08-11",
+  "title": "New York City Food/Beverage Supplier (Founded 1979)",
+  "group": "safepay",
+  "discovered": "2026-08-11T03:02:46.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "United States",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/a17f9b5d-11fe-4479-9676-ed7069a80894",
+  "groupAliases": [],
+  "activity": "Food & Beverage/Distribution",
+  "references": ["Darkfield"]
+}

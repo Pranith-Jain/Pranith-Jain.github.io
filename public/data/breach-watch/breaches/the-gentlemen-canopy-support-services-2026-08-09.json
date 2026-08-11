@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-canopy-support-services-2026-08-09",
+  "title": "Canopy Support Services",
+  "group": "the gentlemen",
+  "discovered": "2026-08-09T23:49:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "canopysupport.ca zoominfo.com/c/canopy-support-services/347650822 Canopy Support Services is a community-based organization in Peterborough, Ontario, dedicated to supporting individuals with intellectual and developmental disabilities.\nThey provide a safe, welcoming environment for people, including those with Autism Spectrum Disorder, to learn new skills and achieve their personal goals.\nThe organization empowers its clients to overcome everyday barriers, build self-confidence, and lead more independent lives",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

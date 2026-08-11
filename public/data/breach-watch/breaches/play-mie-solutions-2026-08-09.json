@@ -1,0 +1,15 @@
+{
+  "slug": "play-mie-solutions-2026-08-09",
+  "title": "MIE Solutions",
+  "group": "play",
+  "discovered": "2026-08-09T19:26:53.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "United States",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["PlayCrypt"],
+  "activity": "Professional Services",
+  "references": ["ransomware.live"]
+}

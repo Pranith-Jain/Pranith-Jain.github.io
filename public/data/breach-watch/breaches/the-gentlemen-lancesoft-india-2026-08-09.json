@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-lancesoft-india-2026-08-09",
+  "title": "Lancesoft India",
+  "group": "the gentlemen",
+  "discovered": "2026-08-09T23:37:28.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "lancesoft.in zoominfo.com/c/lancesoft-india/547301190 LanceSoft India is a key division of a global workforce solutions and IT services company founded in 2000.\nBased in Bengaluru, it employs thousands of professionals to deliver comprehensive staffing solutions, including temporary and permanent placements.\nThe company connects businesses worldwide with top-tier talent across diverse industries such as IT, engineering, and healthcare.",
+  "source_url": "https://www.ransomlook.io/recent",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

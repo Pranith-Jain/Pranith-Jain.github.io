@@ -1,0 +1,15 @@
+{
+  "slug": "play-marconi-industrial-services-2026-08-10",
+  "title": "Marconi Industrial Services",
+  "group": "Play",
+  "discovered": "2026-08-10T02:44:15.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/e8244644-6d6a-4a37-b675-40cd96fa387e",
+  "groupAliases": ["PlayCrypt"],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

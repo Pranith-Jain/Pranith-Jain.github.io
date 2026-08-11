@@ -1,0 +1,15 @@
+{
+  "slug": "akira-i4-solutions-2026-08-10",
+  "title": "i4 Solutions",
+  "group": "Akira",
+  "discovered": "2026-08-10T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/i4-solutions-akira-2026-08",
+  "groupAliases": ["Megazord"],
+  "activity": "Technology",
+  "references": ["RecentBreaches.com"]
+}

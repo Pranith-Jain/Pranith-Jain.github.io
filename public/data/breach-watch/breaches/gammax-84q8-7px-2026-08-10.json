@@ -1,0 +1,15 @@
+{
+  "slug": "gammax-84q8-7px-2026-08-10",
+  "title": "84Q8+7PX",
+  "group": "Gammax",
+  "discovered": "2026-08-10T03:01:38.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Panama",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/a0e123a2-a3aa-4ffb-b5f7-dda361aab940",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["Darkfield"]
+}

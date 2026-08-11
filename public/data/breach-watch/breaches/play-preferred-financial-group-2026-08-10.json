@@ -1,0 +1,15 @@
+{
+  "slug": "play-preferred-financial-group-2026-08-10",
+  "title": "Preferred Financial Group",
+  "group": "Play",
+  "discovered": "2026-08-10T02:44:18.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/eecdfb6d-cd86-4157-a3c8-0d77ea74097c",
+  "groupAliases": ["PlayCrypt"],
+  "activity": null,
+  "references": ["Darkfield"]
+}

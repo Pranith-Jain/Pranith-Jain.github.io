@@ -1,0 +1,15 @@
+{
+  "slug": "the-gentlemen-contac-ingenieros-2026-08-10",
+  "title": "CONTAC Ingenieros",
+  "group": "The Gentlemen",
+  "discovered": "2026-08-10T00:00:00.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Chile",
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/contac-ingenieros-thegentlemen-2026-08",
+  "groupAliases": [],
+  "activity": "Professional Services",
+  "references": ["RecentBreaches.com"]
+}

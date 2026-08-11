@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-takis-biotech-2026-08-10",
+  "title": "Takis Biotech",
+  "group": "Deadlock",
+  "discovered": "2026-08-10T02:59:15.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "Italy",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/a885df24-316b-46fd-a4b7-23f421947309",
+  "groupAliases": [],
+  "activity": "Biotechnology",
+  "references": ["Darkfield"]
+}

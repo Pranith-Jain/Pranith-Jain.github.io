@@ -1,0 +1,15 @@
+{
+  "slug": "deadlock-united-fiber-optic-communication-inc-ufoc-2026-08-10",
+  "title": "United Fiber Optic Communication Inc. (UFOC)",
+  "group": "Deadlock",
+  "discovered": "2026-08-10T02:59:14.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "Taiwan",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/d9b1f45f-7faa-4a5c-b1fc-5cf440825017",
+  "groupAliases": [],
+  "activity": "Telecommunications",
+  "references": ["Darkfield"]
+}

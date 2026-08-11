@@ -1,15 +1,15 @@
 {
   "slug": "qilin-impact-centre-chr-tien-2026-08-08",
   "title": "Impact Centre Chrétien",
-  "group": "Qilin",
-  "discovered": "2026-08-08T00:00:00.000Z",
+  "group": "qilin",
+  "discovered": "2026-08-08T16:28:01.000Z",
   "category": "ransomware",
   "severity": "critical",
-  "country": "HT",
+  "country": "FR",
   "sizeBytes": 0,
-  "description": "Internal files exfiltrated",
-  "source_url": "https://recentbreaches.com/breach/impact-centre-chr-tien-qilin-2026-08",
+  "description": "N/A",
+  "source_url": "https://www.ransomware.live/",
   "groupAliases": [],
   "activity": "Other",
-  "references": ["RecentBreaches.com"]
+  "references": ["ransomware.live"]
 }

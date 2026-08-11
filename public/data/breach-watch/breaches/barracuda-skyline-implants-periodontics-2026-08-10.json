@@ -1,0 +1,15 @@
+{
+  "slug": "barracuda-skyline-implants-periodontics-2026-08-10",
+  "title": "Skyline Implants & Periodontics",
+  "group": "Barracuda",
+  "discovered": "2026-08-10T02:36:40.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "United States",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/bc8f33f2-859d-411e-85d6-4893cb21bc69",
+  "groupAliases": [],
+  "activity": "Healthcare",
+  "references": ["Darkfield"]
+}

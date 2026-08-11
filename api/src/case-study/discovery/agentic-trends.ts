@@ -217,7 +217,7 @@ interface GroundingResult {
  * is the change that closes the "agentic-trends hallucination" gap that
  * produced the bogus North-Korean-APT-Indian-government post.
  */
-function evaluateGrounding(t: TrendCandidate): GroundingResult {
+function evaluateGrounding(t: TrendCandidate, currentYear?: number): GroundingResult {
   const evidence = (t.evidence ?? {}) as Record<string, unknown>;
   const sources: string[] = [];
   if (Array.isArray(evidence.sources)) {
@@ -257,7 +257,7 @@ function evaluateGrounding(t: TrendCandidate): GroundingResult {
   const entities = Array.isArray(evidence.entities)
     ? evidence.entities.filter((x): x is string => typeof x === 'string')
     : [];
-  const currentYear = new Date().getUTCFullYear();
+  const cy = currentYear ?? new Date().getUTCFullYear();
   const cveRe = /CVE-(\d{4})-(\d{4,7})/g;
   let hasRealCve = false;
   const blobText = [
@@ -271,7 +271,7 @@ function evaluateGrounding(t: TrendCandidate): GroundingResult {
   for (const m of blobText.matchAll(cveRe)) {
     const year = Number(m[1]);
     const seq = Number(m[2]);
-    if (year >= 2020 && year <= currentYear + 1 && seq > 0) {
+    if (year >= 2020 && year <= cy + 1 && seq > 0) {
       hasRealCve = true;
       break;
     }
@@ -314,7 +314,7 @@ function buildStoredSources(realSources: string[], statuses: Record<string, Link
  * probe so a candidate whose ONLY grounding is a made-up CVE id is
  * rejected instead of sailing through to a dead NVD citation.
  */
-function extractCveIds(t: TrendCandidate): string[] {
+function extractCveIds(t: TrendCandidate, currentYear?: number): string[] {
   const evidence = (t.evidence ?? {}) as Record<string, unknown>;
   const entities = Array.isArray(evidence.entities)
     ? evidence.entities.filter((x): x is string => typeof x === 'string')
@@ -330,11 +330,11 @@ function extractCveIds(t: TrendCandidate): string[] {
   ].join(' ');
   const out: string[] = [];
   const seen = new Set<string>();
-  const currentYear = new Date().getUTCFullYear();
+  const cy = currentYear ?? new Date().getUTCFullYear();
   for (const m of blob.matchAll(/CVE-(\d{4})-(\d{4,7})/g)) {
     const year = Number(m[1]);
     const seq = Number(m[2]);
-    if (year < 2020 || year > currentYear + 1 || seq <= 0) continue;
+    if (year < 2020 || year > cy + 1 || seq <= 0) continue;
     const id = `CVE-${m[1]}-${m[2]}`;
     if (seen.has(id)) continue;
     seen.add(id);
@@ -452,6 +452,7 @@ async function callGoogle(key: string, prompt: string, userMsg: string): Promise
 
 export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Candidate[]> {
   const { googleKey, now, getDedup, trendingContext, alreadyCoveredTopics, deepVerify } = deps;
+  const currentYear = now.getUTCFullYear();
 
   if (!googleKey) {
     return [];
@@ -504,7 +505,7 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
       // invented CVEs (the root cause of the bogus
       // north-korean-apt-indian-government post). The grounding check
       // requires at least one real source URL or one well-formed CVE.
-      const grounding = evaluateGrounding(t);
+      const grounding = evaluateGrounding(t, currentYear);
       if (!grounding.hasRealSource && !grounding.hasRealCve) {
         continue;
       }
@@ -539,7 +540,7 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
       const cveStatuses: Record<string, LinkStatus> = {};
       const hasOkSource = Object.values(sourceLinkStatuses).some((s) => s === 'ok');
       if (!hasOkSource && grounding.hasRealCve) {
-        for (const cve of extractCveIds(t)) {
+        for (const cve of extractCveIds(t, currentYear)) {
           const url = `https://nvd.nist.gov/vuln/detail/${encodeURIComponent(cve)}`;
           if (!(url in cveStatuses)) {
             const r = await verifyUrl(url, 3000);

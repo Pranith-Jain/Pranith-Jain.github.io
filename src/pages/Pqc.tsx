@@ -23,12 +23,10 @@ interface PqcAlgorithmBody {
   fips: string;
   type: string;
   status: string;
-  class: string;
-  keySizes: string;
-  description: string;
-  uses: string[];
-  migration: string;
-  rfc?: string;
+  purpose: string;
+  sizes: Record<string, string> | string;
+  security: string;
+  notes: string;
 }
 
 const CARD = 'surface-card';
@@ -40,6 +38,12 @@ const RISK_TONE: Record<string, string> = {
 };
 
 function AlgorithmDetail({ body, onClose }: { body: PqcAlgorithmBody; onClose: () => void }) {
+  const keySizes =
+    typeof body.sizes === 'string'
+      ? body.sizes
+      : Object.entries(body.sizes)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join('\n');
   return (
     <Modal open onClose={onClose} title={body.name} size="lg">
       <div className="space-y-4 max-h-[70vh] overflow-y-auto">
@@ -48,49 +52,35 @@ function AlgorithmDetail({ body, onClose }: { body: PqcAlgorithmBody; onClose: (
             {body.fips}
           </span>
           <span className="font-mono text-micro px-2 py-0.5 rounded border border-slate-300 dark:border-[rgb(var(--border-400))] text-slate-600 dark:text-slate-300">
-            {body.class}
+            {body.type}
           </span>
-          {body.rfc && (
-            <a
-              href={body.rfc}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-mono text-micro text-brand-600 dark:text-brand-400 hover:underline"
-            >
-              RFC / spec ↗
-            </a>
-          )}
         </div>
-        <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.description}</p>
         <div>
           <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
-            Key Sizes
+            Purpose
           </div>
-          <p className="text-sm font-mono text-slate-700 dark:text-slate-200">{body.keySizes}</p>
+          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.purpose}</p>
         </div>
-        {body.uses.length > 0 && (
-          <div>
-            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-              Uses
+        <div>
+          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+            Security Levels
+          </div>
+          <p className="text-sm font-mono text-slate-700 dark:text-slate-200">{body.security}</p>
+        </div>
+        <div>
+          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+            Key / Parameter Sizes
+          </div>
+          <pre className="text-sm font-mono text-slate-700 dark:text-slate-200 whitespace-pre-wrap">{keySizes}</pre>
+        </div>
+        {body.notes && (
+          <div className="border-l-2 border-violet-500 pl-4 py-2 bg-violet-50 dark:bg-violet-950/20 rounded-r-lg">
+            <div className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
+              Migration Notes
             </div>
-            <div className="flex flex-wrap gap-1.5">
-              {body.uses.map((u, i) => (
-                <span
-                  key={i}
-                  className="font-mono text-micro text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded"
-                >
-                  {u}
-                </span>
-              ))}
-            </div>
+            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.notes}</p>
           </div>
         )}
-        <div className="border-l-2 border-violet-500 pl-4 py-2 bg-violet-50 dark:bg-violet-950/20 rounded-r-lg">
-          <div className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
-            Migration Path
-          </div>
-          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.migration}</p>
-        </div>
         <p className="text-micro text-slate-500 dark:text-slate-500">{body.status}</p>
       </div>
     </Modal>

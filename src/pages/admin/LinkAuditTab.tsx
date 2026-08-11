@@ -11,6 +11,7 @@ interface AuditPost {
   broken: number;
   brokenUrls: string[];
   truncated?: boolean;
+  statuses?: Record<string, string>;
 }
 
 interface AuditResult {

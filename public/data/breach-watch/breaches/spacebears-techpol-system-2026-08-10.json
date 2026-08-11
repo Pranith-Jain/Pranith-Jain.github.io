@@ -1,0 +1,15 @@
+{
+  "slug": "spacebears-techpol-system-2026-08-10",
+  "title": "Techpol-System",
+  "group": "Spacebears",
+  "discovered": "2026-08-10T03:01:45.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "Poland",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/3068316c-41b3-49a3-a10a-7c5576ef96e6",
+  "groupAliases": ["space bears"],
+  "activity": "Engineering / Industrial",
+  "references": ["Darkfield"]
+}

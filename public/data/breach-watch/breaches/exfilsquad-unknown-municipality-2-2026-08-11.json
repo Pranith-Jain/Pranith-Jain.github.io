@@ -1,0 +1,15 @@
+{
+  "slug": "exfilsquad-unknown-municipality-2-2026-08-11",
+  "title": "Unknown Municipality 2",
+  "group": "ExfilSquad",
+  "discovered": "2026-08-11T02:46:15.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/c3e48602-83eb-444a-87ad-da113a77ea8f",
+  "groupAliases": [],
+  "activity": "Government/Municipal",
+  "references": ["Darkfield"]
+}

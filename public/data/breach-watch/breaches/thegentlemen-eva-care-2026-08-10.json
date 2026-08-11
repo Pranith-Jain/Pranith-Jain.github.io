@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-eva-care-2026-08-10",
+  "title": "Eva Care",
+  "group": "thegentlemen",
+  "discovered": "2026-08-10T08:09:03.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "evacare.com rocketreach.co/eva-care-profile_b7a227f8c53b4785 Eva Care Group is a healthcare provider specializing in the post-acute care industry, headquartered in Los Angeles, California.\nWith over 50 years of combined experience, the company operates and manages a network of nursing homes and rehabilitation facilities.\nThey deliver comprehensive solutions encompassing clinical, financial, operational, and environmental management to ensure high-quality patient care.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

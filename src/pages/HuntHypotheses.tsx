@@ -19,12 +19,9 @@ interface HuntBody {
   tactic: string;
   technique: string;
   title: string;
-  premise: string;
-  isTrue: string;
-  isFalse: string;
+  hypothesis: string;
+  rationale: string;
   queries: string[];
-  dataSources: string[];
-  tags: string[];
 }
 
 const CARD = 'surface-card';
@@ -80,20 +77,14 @@ function HuntDetail({ body, onClose }: { body: HuntBody; onClose: () => void }) 
           <div className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
             Hypothesis
           </div>
-          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.premise}</p>
+          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.hypothesis}</p>
         </div>
 
         <div>
-          <div className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
-            If TRUE
+          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+            Rationale
           </div>
-          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.isTrue}</p>
-        </div>
-        <div>
-          <div className="text-xs font-semibold text-rose-600 dark:text-rose-400 uppercase tracking-wider mb-1">
-            If FALSE
-          </div>
-          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.isFalse}</p>
+          <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{body.rationale}</p>
         </div>
 
         {body.queries.length > 0 && (
@@ -104,24 +95,6 @@ function HuntDetail({ body, onClose }: { body: HuntBody; onClose: () => void }) 
             <div className="space-y-2">
               {body.queries.map((q, i) => (
                 <QueryBlock key={i} query={q} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {body.dataSources.length > 0 && (
-          <div>
-            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-              Data Sources
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {body.dataSources.map((d, i) => (
-                <span
-                  key={i}
-                  className="font-mono text-micro text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-[rgb(var(--surface-200))] border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded"
-                >
-                  {d}
-                </span>
               ))}
             </div>
           </div>

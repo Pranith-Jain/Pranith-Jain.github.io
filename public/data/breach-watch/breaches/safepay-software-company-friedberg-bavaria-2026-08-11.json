@@ -1,0 +1,15 @@
+{
+  "slug": "safepay-software-company-friedberg-bavaria-2026-08-11",
+  "title": "Software Company (Friedberg, Bavaria)",
+  "group": "safepay",
+  "discovered": "2026-08-11T03:02:45.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": "Germany",
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/8fe5ce04-a7d4-4fe5-8812-fc89825aae4f",
+  "groupAliases": [],
+  "activity": "Technology/Software",
+  "references": ["Darkfield"]
+}

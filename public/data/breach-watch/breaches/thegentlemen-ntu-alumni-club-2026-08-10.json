@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-ntu-alumni-club-2026-08-10",
+  "title": "NTU Alumni Club",
+  "group": "thegentlemen",
+  "discovered": "2026-08-10T08:10:28.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "SG",
+  "sizeBytes": 0,
+  "description": "ntualumni.org.sg zoominfo.com/c/ntu-alumni-club/447180090 The NTU Alumni Club is an independent association for graduates of Nanyang Technological University in Singapore.\nIt serves as a dedicated platform for alumni to connect, network, and maintain a lifelong relationship with their alma mater.\nMembers enjoy exclusive perks, career opportunities, and access to physical facilities like lounges and co-working spaces at their clubhouse.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Education",
+  "references": ["ransomware.live"]
+}

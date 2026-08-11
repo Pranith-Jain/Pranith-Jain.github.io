@@ -1,0 +1,15 @@
+{
+  "slug": "spacebears-elixi-international-sa-2026-08-10",
+  "title": "Elixi International SA",
+  "group": "spacebears",
+  "discovered": "2026-08-10T10:37:28.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "CH",
+  "sizeBytes": 0,
+  "description": "Elixi International SA is a Swiss pharmaceutical distributor (headquartered in Chiasso, founded in 2016) specializing in the global supply of both licensed and unlicensed medicinal products, including expanded access programs for patients.The company operates on a B2B model, serving hospitals, clinics, and pharmacies, ensuring quality through its Swissmedic license and robotic authenticity control systems, while prioritizing the rapid delivery of life-saving medicines.In addition to Switzerland, it has offices in Singapore.-SQL Data-Personal information of employees and clients-Financial documents https://www.elixi-int.com/",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["space bears"],
+  "activity": "Healthcare",
+  "references": ["ransomware.live"]
+}

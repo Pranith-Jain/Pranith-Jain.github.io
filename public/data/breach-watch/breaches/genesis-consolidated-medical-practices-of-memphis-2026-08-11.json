@@ -1,0 +1,15 @@
+{
+  "slug": "genesis-consolidated-medical-practices-of-memphis-2026-08-11",
+  "title": "Consolidated Medical Practices of Memphis",
+  "group": "genesis",
+  "discovered": "2026-08-11T02:35:54.000Z",
+  "category": "ransomware",
+  "severity": "high",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "A healthcare organization",
+  "source_url": "https://www.ransomlook.io/screenshots/genesis/Consolidated Medical Practices of Memphis.png",
+  "groupAliases": [],
+  "activity": null,
+  "references": ["ransomlook.io"]
+}

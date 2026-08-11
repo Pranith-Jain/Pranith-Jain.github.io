@@ -1,0 +1,15 @@
+{
+  "slug": "bravox-verona-83-2026-08-10",
+  "title": "Verona 83",
+  "group": "bravox",
+  "discovered": "2026-08-10T16:55:03.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "IT",
+  "sizeBytes": 0,
+  "description": "Integrated services, logistics and event management.",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": [],
+  "activity": "Not Found",
+  "references": ["ransomware.live"]
+}

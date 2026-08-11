@@ -1,0 +1,15 @@
+{
+  "slug": "thegentlemen-aims-group-2026-08-10",
+  "title": "AIMS Group",
+  "group": "thegentlemen",
+  "discovered": "2026-08-10T08:11:10.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": "GB",
+  "sizeBytes": 0,
+  "description": "aimsgroup.com AIMS Group LLC is a major conglomerate based in Ajman, UAE, established in 2003 with a workforce of thousands.\nIt operates primarily in the environmental services and construction sectors, specializing in infrastructure and road development.\nThe company provides comprehensive industrial solutions, including asphalt production, building materials supply, and fleet management",
+  "source_url": "https://www.ransomware.live/",
+  "groupAliases": ["the gentlemen"],
+  "activity": "Other",
+  "references": ["ransomware.live"]
+}

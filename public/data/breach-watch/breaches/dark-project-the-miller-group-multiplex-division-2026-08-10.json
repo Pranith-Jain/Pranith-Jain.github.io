@@ -1,0 +1,15 @@
+{
+  "slug": "dark-project-the-miller-group-multiplex-division-2026-08-10",
+  "title": "The Miller Group - Multiplex Division",
+  "group": "Dark Project",
+  "discovered": "2026-08-10T02:43:13.000Z",
+  "category": "data_breach",
+  "severity": "high",
+  "country": "US",
+  "sizeBytes": 0,
+  "description": "Status: data_published",
+  "source_url": "https://darkfield.orizon.one/victims/8cdf6cd3-7a14-40b1-b9fe-ca8b76c4175d",
+  "groupAliases": [],
+  "activity": "Manufacturing",
+  "references": ["Darkfield"]
+}

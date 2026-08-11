@@ -1,0 +1,15 @@
+{
+  "slug": "play-platinum-group-2026-08-10",
+  "title": "Platinum Group",
+  "group": "Play",
+  "discovered": "2026-08-10T02:44:17.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Status: listed",
+  "source_url": "https://darkfield.orizon.one/victims/c16f8323-7a99-464a-8ed8-497fc4b6c552",
+  "groupAliases": ["PlayCrypt"],
+  "activity": null,
+  "references": ["Darkfield"]
+}
