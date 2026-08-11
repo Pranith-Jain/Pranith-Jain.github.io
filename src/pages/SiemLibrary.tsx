@@ -130,13 +130,11 @@ function UseCaseDetail({ body, onClose }: { body: SiemBody; onClose: () => void 
 }
 
 export default function SiemLibrary() {
-  const { data: index, loading, error } = useDataFetch<SiemIndex>({ url: '/api/v1/siem-library/', ttl: 120_000 });
-  const { data: listData, loading: listLoading } = useDataFetch<{ useCases: SiemIndex['useCaseIndex']; total: number }>(
-    {
-      url: '/api/v1/siem-library/use-cases?limit=60',
-      ttl: 120_000,
-    }
-  );
+  const {
+    data: index,
+    loading,
+    error,
+  } = useDataFetch<SiemIndex>({ url: '/data/siem-library/index.json', ttl: 120_000 });
 
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -144,13 +142,13 @@ export default function SiemLibrary() {
   const [detailId, setDetailId] = useState<string | null>(null);
 
   const { data: detailBody } = useDataFetch<SiemBody>({
-    url: detailId ? `/api/v1/siem-library/use-cases/${detailId}` : null,
+    url: detailId ? `/data/siem-library/use-cases/${detailId}.json` : null,
     ttl: 300_000,
   });
 
   const filtered = useMemo(() => {
-    if (!listData?.useCases) return [];
-    let items = listData.useCases;
+    if (!index?.useCaseIndex) return [];
+    let items = index.useCaseIndex;
     if (selectedCategory) items = items.filter((u) => u.category === selectedCategory);
     if (selectedSeverity) items = items.filter((u) => u.severity.toLowerCase() === selectedSeverity.toLowerCase());
     if (search.trim()) {
@@ -158,7 +156,7 @@ export default function SiemLibrary() {
       items = items.filter((u) => `${u.id} ${u.name} ${u.category} ${u.mitre}`.toLowerCase().includes(q));
     }
     return items;
-  }, [listData, selectedCategory, selectedSeverity, search]);
+  }, [index, selectedCategory, selectedSeverity, search]);
 
   return (
     <DataPageLayout
@@ -190,7 +188,7 @@ export default function SiemLibrary() {
             />
           </div>
           <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-            {filtered.length} / {listData?.total ?? 0} use-cases
+            {filtered.length} / {index?.useCaseIndex.length ?? 0} use-cases
           </div>
         </div>
 
@@ -234,7 +232,7 @@ export default function SiemLibrary() {
           ))}
         </div>
 
-        {listLoading ? (
+        {loading ? (
           <div className="flex items-center justify-center py-16 text-slate-500">
             <div className="w-6 h-6 border-2 border-slate-300 dark:border-slate-600 border-t-brand-500 rounded-full animate-spin mr-3" />
             Loading use-cases...

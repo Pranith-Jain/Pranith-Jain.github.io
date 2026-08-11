@@ -98,11 +98,11 @@ function AlgorithmDetail({ body, onClose }: { body: PqcAlgorithmBody; onClose: (
 }
 
 export default function Pqc() {
-  const { data: index, loading, error } = useDataFetch<PqcIndex>({ url: '/api/v1/pqc/', ttl: 120_000 });
+  const { data: index, loading, error } = useDataFetch<PqcIndex>({ url: '/data/pqc/index.json', ttl: 120_000 });
   const [detailSlug, setDetailSlug] = useState<string | null>(null);
 
   const { data: detailBody } = useDataFetch<PqcAlgorithmBody>({
-    url: detailSlug ? `/api/v1/pqc/algorithms/${detailSlug}` : null,
+    url: detailSlug ? `/data/pqc/algorithms/${detailSlug}.json` : null,
     ttl: 300_000,
   });
 

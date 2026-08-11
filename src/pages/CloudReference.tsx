@@ -129,14 +129,11 @@ function QueryDetail({ body, onClose }: { body: CloudQueryBody; onClose: () => v
 }
 
 export default function CloudReference() {
-  const { data: index, loading, error } = useDataFetch<CloudRefIndex>({ url: '/api/v1/cloud-ref/', ttl: 120_000 });
-  const { data: queriesData, loading: queriesLoading } = useDataFetch<{
-    queries: CloudRefIndex['queryIndex'];
-    total: number;
-  }>({
-    url: '/api/v1/cloud-ref/queries?limit=40',
-    ttl: 120_000,
-  });
+  const {
+    data: index,
+    loading,
+    error,
+  } = useDataFetch<CloudRefIndex>({ url: '/data/cloud-ref/index.json', ttl: 120_000 });
 
   const [tab, setTab] = useState<'srm' | 'queries'>('srm');
   const [search, setSearch] = useState('');
@@ -144,20 +141,20 @@ export default function CloudReference() {
   const [detailId, setDetailId] = useState<string | null>(null);
 
   const { data: detailBody } = useDataFetch<CloudQueryBody>({
-    url: detailId ? `/api/v1/cloud-ref/queries/${detailId}` : null,
+    url: detailId ? `/data/cloud-ref/queries/${detailId}.json` : null,
     ttl: 300_000,
   });
 
   const filteredQueries = useMemo(() => {
-    if (!queriesData?.queries) return [];
-    let items = queriesData.queries;
+    if (!index?.queryIndex) return [];
+    let items = index.queryIndex;
     if (provider) items = items.filter((q) => q.provider.toLowerCase() === provider.toLowerCase());
     if (search.trim()) {
       const needle = search.toLowerCase();
       items = items.filter((q) => `${q.id} ${q.name} ${q.provider}`.toLowerCase().includes(needle));
     }
     return items;
-  }, [queriesData, provider, search]);
+  }, [index, provider, search]);
 
   return (
     <DataPageLayout
@@ -270,7 +267,7 @@ export default function CloudReference() {
                 />
               </div>
               <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-                {filteredQueries.length} / {queriesData?.total ?? 0}
+                {filteredQueries.length} / {index?.queryIndex.length ?? 0}
               </div>
             </div>
             <div className="flex flex-wrap gap-1.5">
@@ -286,7 +283,7 @@ export default function CloudReference() {
                 </button>
               ))}
             </div>
-            {queriesLoading ? (
+            {loading ? (
               <div className="flex items-center justify-center py-16 text-slate-500">
                 <div className="w-6 h-6 border-2 border-slate-300 dark:border-slate-600 border-t-brand-500 rounded-full animate-spin mr-3" />
                 Loading queries...

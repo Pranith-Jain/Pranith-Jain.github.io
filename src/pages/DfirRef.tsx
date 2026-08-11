@@ -161,31 +161,36 @@ function DfirRefDetail({ body, onClose }: { body: DfirRefBody; onClose: () => vo
 }
 
 export default function DfirRef() {
-  const { data: index, loading, error } = useDataFetch<DfirRefIndex>({ url: '/api/v1/dfir-ref/', ttl: 120_000 });
-  const { data: listData, loading: listLoading } = useDataFetch<{ items: DfirRefIndex['itemIndex']; total: number }>({
-    url: '/api/v1/dfir-ref/items?limit=200',
-    ttl: 120_000,
-  });
+  const {
+    data: index,
+    loading,
+    error,
+  } = useDataFetch<DfirRefIndex>({ url: '/data/dfir-ref/index.json', ttl: 120_000 });
 
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [detailSlug, setDetailSlug] = useState<string | null>(null);
 
+  const detailCategory = useMemo(() => {
+    if (!detailSlug || !index?.itemIndex) return null;
+    return index.itemIndex.find((i) => i.slug === detailSlug)?.category ?? null;
+  }, [detailSlug, index]);
+
   const { data: detailBody } = useDataFetch<DfirRefBody>({
-    url: detailSlug ? `/api/v1/dfir-ref/items/${detailSlug}` : null,
+    url: detailSlug && detailCategory ? `/data/dfir-ref/sections/${detailCategory}/${detailSlug}.json` : null,
     ttl: 300_000,
   });
 
   const filtered = useMemo(() => {
-    if (!listData?.items) return [];
-    let items = listData.items;
+    if (!index?.itemIndex) return [];
+    let items = index.itemIndex;
     if (selectedCategory) items = items.filter((i) => i.category === selectedCategory);
     if (search.trim()) {
       const q = search.toLowerCase();
       items = items.filter((i) => `${i.name} ${i.id} ${i.categoryLabel} ${i.tags.join(' ')}`.toLowerCase().includes(q));
     }
     return items;
-  }, [listData, selectedCategory, search]);
+  }, [index, selectedCategory, search]);
 
   const catCount = (key: string) => index?.itemIndex.filter((i) => i.category === key).length ?? 0;
 
@@ -219,7 +224,7 @@ export default function DfirRef() {
             />
           </div>
           <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-            {filtered.length} / {listData?.total ?? 0} items
+            {filtered.length} / {index?.itemIndex.length ?? 0} items
           </div>
         </div>
 
@@ -249,7 +254,7 @@ export default function DfirRef() {
           ))}
         </div>
 
-        {listLoading ? (
+        {loading ? (
           <div className="flex items-center justify-center py-16 text-slate-500">
             <div className="w-6 h-6 border-2 border-slate-300 dark:border-slate-600 border-t-brand-500 rounded-full animate-spin mr-3" />
             Loading reference...

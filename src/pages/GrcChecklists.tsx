@@ -59,7 +59,7 @@ const FRAMEWORK_LABELS: Record<string, string> = {
 const CARD = 'surface-card';
 
 export default function GrcChecklists() {
-  const { data: index, loading, error } = useDataFetch<GrcIndex>({ url: '/api/v1/grc/', ttl: 120_000 });
+  const { data: index, loading, error } = useDataFetch<GrcIndex>({ url: '/data/grc/index.json', ttl: 120_000 });
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
   const [tab, setTab] = useState<'frameworks' | 'mapper'>('frameworks');
   const [search, setSearch] = useState('');
@@ -69,7 +69,7 @@ export default function GrcChecklists() {
     loading: fwLoading,
     error: fwError,
   } = useDataFetch<GrcFrameworkBody>({
-    url: selectedKey ? `/api/v1/grc/frameworks/${selectedKey}` : null,
+    url: selectedKey ? `/data/grc/frameworks/${selectedKey}.json` : null,
     ttl: 300_000,
   });
 

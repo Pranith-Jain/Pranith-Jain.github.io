@@ -132,34 +132,31 @@ function HuntDetail({ body, onClose }: { body: HuntBody; onClose: () => void }) 
 }
 
 export default function HuntHypotheses() {
-  const { data: index, loading, error } = useDataFetch<HuntIndex>({ url: '/api/v1/hunt-hypotheses/', ttl: 120_000 });
-  const { data: listData, loading: listLoading } = useDataFetch<{
-    hypotheses: HuntIndex['hypothesisIndex'];
-    total: number;
-  }>({
-    url: '/api/v1/hunt-hypotheses/hypotheses?limit=200',
-    ttl: 120_000,
-  });
+  const {
+    data: index,
+    loading,
+    error,
+  } = useDataFetch<HuntIndex>({ url: '/data/hunt-hypotheses/index.json', ttl: 120_000 });
 
   const [search, setSearch] = useState('');
   const [selectedTactic, setSelectedTactic] = useState<string | null>(null);
   const [detailId, setDetailId] = useState<string | null>(null);
 
   const { data: detailBody } = useDataFetch<HuntBody>({
-    url: detailId ? `/api/v1/hunt-hypotheses/hypotheses/${detailId}` : null,
+    url: detailId ? `/data/hunt-hypotheses/hypotheses/${detailId}.json` : null,
     ttl: 300_000,
   });
 
   const filtered = useMemo(() => {
-    if (!listData?.hypotheses) return [];
-    let items = listData.hypotheses;
+    if (!index?.hypothesisIndex) return [];
+    let items = index.hypothesisIndex;
     if (selectedTactic) items = items.filter((h) => h.tactic === selectedTactic);
     if (search.trim()) {
       const q = search.toLowerCase();
       items = items.filter((h) => `${h.id} ${h.tactic} ${h.technique} ${h.title}`.toLowerCase().includes(q));
     }
     return items;
-  }, [listData, selectedTactic, search]);
+  }, [index, selectedTactic, search]);
 
   return (
     <DataPageLayout
@@ -191,7 +188,7 @@ export default function HuntHypotheses() {
             />
           </div>
           <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-            {filtered.length} / {listData?.total ?? 0} hypotheses
+            {filtered.length} / {index?.hypothesisIndex.length ?? 0} hypotheses
           </div>
         </div>
 
@@ -221,7 +218,7 @@ export default function HuntHypotheses() {
           ))}
         </div>
 
-        {listLoading ? (
+        {loading ? (
           <div className="flex items-center justify-center py-16 text-slate-500">
             <div className="w-6 h-6 border-2 border-slate-300 dark:border-slate-600 border-t-brand-500 rounded-full animate-spin mr-3" />
             Loading hypotheses...
