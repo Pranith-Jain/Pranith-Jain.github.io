@@ -1,0 +1,13 @@
+{
+  "id": "UC037",
+  "name": "CloudTrail: DeleteTrail / StopLogging",
+  "category": "Cloud",
+  "mitre": "T1562.008",
+  "severity": "Critical",
+  "kql": "AWSCloudTrail | where EventName in ('DeleteTrail','StopLogging','UpdateTrail') | where UserIdentity.arn !in (allowedSecOps)",
+  "spl": "index=aws sourcetype=aws:cloudtrail EventName=DeleteTrail OR EventName=StopLogging",
+  "dataSource": "CloudTrail",
+  "fpRate": "Low",
+  "tuning": "Enable S3 object lock + trail immutability; alert immediately.",
+  "apt": "Turla, APT29 cloud intrusions"
+}

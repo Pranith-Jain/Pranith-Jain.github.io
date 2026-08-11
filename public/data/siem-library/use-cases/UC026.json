@@ -1,0 +1,13 @@
+{
+  "id": "UC026",
+  "name": "PsExec/SMBExec execution",
+  "category": "Lateral Movement",
+  "mitre": "T1021.002",
+  "severity": "High",
+  "kql": "SecurityEvent | where EventID == 5140 and ShareName == 'ADMIN$' and RelativeTargetName contains 'PSEXESVC' | or (DeviceProcessEvents | where FileName == 'psexec.exe')",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=5140 ShareName=ADMIN$ RelativeTargetName=*PSEXESVC OR index=windows Image=*\\\\psexec.exe",
+  "dataSource": "Security 5140 + Sysmon",
+  "fpRate": "Low",
+  "tuning": "org standard = allowlist sysadmin hosts; unknown psexec = immediate investigation.",
+  "apt": "Universal"
+}

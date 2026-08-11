@@ -1,0 +1,11 @@
+{
+  "tactic": "Execution",
+  "technique": "T1203",
+  "title": "Exploitation for client execution (browser/app)",
+  "hypothesis": "A client-side exploit (browser, PDF, office) executed on a workstation.",
+  "queries": [
+    "DeviceProcessEvents | where FileName in ('acrord32.exe','chrome.exe','msedge.exe') | where ProcessCommandLine contains 'rundll32' or ProcessCommandLine contains 'powershell'"
+  ],
+  "rationale": "Client apps spawning shells = exploit chain.",
+  "id": "H138"
+}

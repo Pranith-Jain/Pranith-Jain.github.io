@@ -1,0 +1,9 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1558.001",
+  "title": "krbtgt hash request",
+  "hypothesis": "krbtgt accounts were used for sign-on outside expected KDC flows.",
+  "queries": ["SecurityEvent | where EventID in (4768, 4769) | where AccountName == 'krbtgt'"],
+  "rationale": "krbtgt direct use = golden ticket attempt.",
+  "id": "H075"
+}

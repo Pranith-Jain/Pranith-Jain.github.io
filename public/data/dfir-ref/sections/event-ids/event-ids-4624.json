@@ -1,0 +1,12 @@
+{
+  "id": 4624,
+  "name": "Logon success",
+  "log": "Security",
+  "mitre": "T1078",
+  "description": "An account was successfully logged on.",
+  "indicators": ["Account logon", "Lateral movement"],
+  "investigation": "Check LogonType 3/10 from unexpected hosts, non-working-hour LogonProcessName, unusual account names, and correlate with network logon events 4624+4625 pairs.",
+  "slug": "event-ids-4624",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

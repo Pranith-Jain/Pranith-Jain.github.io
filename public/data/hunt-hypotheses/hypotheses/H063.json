@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1003.008",
+  "title": "ntds.dit access",
+  "hypothesis": "A DC's ntds.dit was accessed/copied (DCSync or offline).",
+  "queries": [
+    "DeviceFileEvents | where FileName == 'ntds.dit' | where ActionType in ('FileAccessed','FileCopied','FileCreated')"
+  ],
+  "rationale": "ntds.dit copies = full domain credential theft.",
+  "id": "H063"
+}

@@ -1,0 +1,501 @@
+{
+  "key": "iso27001",
+  "name": "ISO/IEC 27001:2022",
+  "year": "2022",
+  "description": "Annex A controls — 93 controls across 4 themes (37 organizational, 8 people, 14 physical, 34 technological).",
+  "themes": ["Organizational", "People", "Physical", "Technological"],
+  "categories": [
+    {
+      "key": "A5",
+      "name": "Organizational controls (A.5.1–A.5.37)",
+      "controls": [
+        {
+          "id": "A.5.1",
+          "name": "Policies for information security",
+          "req": "Define, approve, publish and review an information security policy and topic-specific policies."
+        },
+        {
+          "id": "A.5.2",
+          "name": "Information security roles and responsibilities",
+          "req": "Assign and communicate IS roles and responsibilities to all employees and relevant third parties."
+        },
+        {
+          "id": "A.5.3",
+          "name": "Segregation of duties",
+          "req": "Separate conflicting duties and areas of responsibility to reduce unauthorized activity risk."
+        },
+        {
+          "id": "A.5.4",
+          "name": "Management responsibilities",
+          "req": "Management requires all personnel to apply the information security policy per their role."
+        },
+        {
+          "id": "A.5.5",
+          "name": "Contact with authorities",
+          "req": "Establish and maintain contacts with relevant authorities (e.g. CERT-In, law enforcement)."
+        },
+        {
+          "id": "A.5.6",
+          "name": "Contact with special interest groups",
+          "req": "Maintain contacts with security forums and professional groups for threat intelligence sharing."
+        },
+        {
+          "id": "A.5.7",
+          "name": "Threat intelligence",
+          "req": "Collect and analyze threat intelligence to produce actionable information on threats."
+        },
+        {
+          "id": "A.5.8",
+          "name": "Information security in project management",
+          "req": "Integrate IS risk management into project lifecycle management."
+        },
+        {
+          "id": "A.5.9",
+          "name": "Inventory of information and other associated assets",
+          "req": "Maintain and review an inventory of information and associated assets with owners."
+        },
+        {
+          "id": "A.5.10",
+          "name": "Acceptable use of information and other associated assets",
+          "req": "Define rules for acceptable use and handling of information and assets."
+        },
+        {
+          "id": "A.5.11",
+          "name": "Return of assets",
+          "req": "Ensure personnel and third parties return organization assets on termination/change of engagement."
+        },
+        {
+          "id": "A.5.12",
+          "name": "Classification of information",
+          "req": "Classify information by sensitivity and label per the organization's classification scheme."
+        },
+        {
+          "id": "A.5.13",
+          "name": "Labelling of information",
+          "req": "Apply and remove labels per the chosen classification and labelling scheme."
+        },
+        {
+          "id": "A.5.14",
+          "name": "Information transfer",
+          "req": "Apply controls to protect information transferred within and outside the organization (NDA, encryption)."
+        },
+        {
+          "id": "A.5.15",
+          "name": "Access control",
+          "req": "Establish rules for physical and logical access based on business and IS requirements."
+        },
+        {
+          "id": "A.5.16",
+          "name": "Identity management",
+          "req": "Manage the full lifecycle of identities (onboarding, changes, offboarding) of users and systems."
+        },
+        {
+          "id": "A.5.17",
+          "name": "Authentication information",
+          "req": "Allocate and manage authentication information securely (MFA, password policy, no shared creds)."
+        },
+        {
+          "id": "A.5.18",
+          "name": "Access rights",
+          "req": "Review, adjust and remove access rights (least privilege, periodic review, revocation within SLA)."
+        },
+        {
+          "id": "A.5.19",
+          "name": "Information security in supplier relationships",
+          "req": "Define and agree IS requirements with suppliers (SLA, security clauses) before engagement."
+        },
+        {
+          "id": "A.5.20",
+          "name": "Addressing IS within supplier agreements",
+          "req": "Include IS requirements in supplier agreements and review them periodically."
+        },
+        {
+          "id": "A.5.21",
+          "name": "Managing IS in the ICT supply chain",
+          "req": "Manage risks in the ICT supply chain, including software quality, updates and secure development."
+        },
+        {
+          "id": "A.5.22",
+          "name": "Monitoring, review and change management of supplier services",
+          "req": "Monitor, review and audit supplier service delivery and changes against agreements."
+        },
+        {
+          "id": "A.5.23",
+          "name": "IS for use of cloud services",
+          "req": "Define acquisition, use, management and exiting of cloud services per security requirements."
+        },
+        {
+          "id": "A.5.24",
+          "name": "IS incident management planning and preparation",
+          "req": "Plan, prepare and assign roles for incident response incl. procedures, tools and exercises."
+        },
+        {
+          "id": "A.5.25",
+          "name": "Assessment and decision on IS events",
+          "req": "Assess IS events and decide whether they are incidents."
+        },
+        {
+          "id": "A.5.26",
+          "name": "Response to IS incidents",
+          "req": "Respond per the incident management plan: containment, eradication, recovery, communication."
+        },
+        {
+          "id": "A.5.27",
+          "name": "Learning from IS incidents",
+          "req": "Extract lessons learned, feed back into controls, and use knowledge to improve."
+        },
+        {
+          "id": "A.5.28",
+          "name": "Collection of evidence",
+          "req": "Collect, preserve and present evidence in a legally admissible manner (chain of custody)."
+        },
+        {
+          "id": "A.5.29",
+          "name": "IS during disruption",
+          "req": "Maintain appropriate level of IS during disruptions (backup, DR aligned with BCM)."
+        },
+        {
+          "id": "A.5.30",
+          "name": "ICT readiness for business continuity",
+          "req": "Plan ICT continuity based on BCM objectives, incl. redundancy and recovery times."
+        },
+        {
+          "id": "A.5.31",
+          "name": "Legal, statutory, regulatory and contractual requirements",
+          "req": "Identify, document and comply with legal/regulatory/contractual IS requirements."
+        },
+        {
+          "id": "A.5.32",
+          "name": "Intellectual property rights",
+          "req": "Protect IPR (licenses for software, media content)."
+        },
+        {
+          "id": "A.5.33",
+          "name": "Protection of records",
+          "req": "Protect records from loss, destruction, falsification, unauthorized access and disclosure (retention + integrity)."
+        },
+        {
+          "id": "A.5.34",
+          "name": "Privacy and protection of PII",
+          "req": "Identify and comply with privacy legislation requirements (e.g. DPDP Act 2023)."
+        },
+        {
+          "id": "A.5.35",
+          "name": "Independent review of IS",
+          "req": "Review the IS management approach independently at planned intervals (internal/external audit)."
+        },
+        {
+          "id": "A.5.36",
+          "name": "Compliance with policies, rules and standards for IS",
+          "req": "Comply with internal policies and standards; verify compliance regularly."
+        },
+        {
+          "id": "A.5.37",
+          "name": "Documented operating procedures",
+          "req": "Document operating procedures for information processing facilities and keep them available."
+        }
+      ]
+    },
+    {
+      "key": "A6",
+      "name": "People controls (A.6.1–A.6.8)",
+      "controls": [
+        {
+          "id": "A.6.1",
+          "name": "Screening",
+          "req": "Verify background checks for candidates before employment, per policy and regulations."
+        },
+        {
+          "id": "A.6.2",
+          "name": "Terms and conditions of employment",
+          "req": "Include IS roles and responsibilities in contractual terms (code of conduct, confidentiality)."
+        },
+        {
+          "id": "A.6.3",
+          "name": "IS awareness, education and training",
+          "req": "Deliver security awareness, education and training tailored to job function, at hire and regularly."
+        },
+        {
+          "id": "A.6.4",
+          "name": "Disciplinary process",
+          "req": "Have a formal, communicated disciplinary process for policy violations."
+        },
+        {
+          "id": "A.6.5",
+          "name": "Responsibilities after termination or change of employment",
+          "req": "Define and enforce responsibilities and duties after termination (asset return, access revocation)."
+        },
+        {
+          "id": "A.6.6",
+          "name": "Confidentiality or non-disclosure agreements",
+          "req": "Use NDAs reflecting the organization's needs for protecting information."
+        },
+        {
+          "id": "A.6.7",
+          "name": "Remote working",
+          "req": "Protect information accessed, processed and stored at remote locations (secure access, device policy)."
+        },
+        {
+          "id": "A.6.8",
+          "name": "IS event reporting",
+          "req": "Provide a mechanism for personnel to report observed or suspected IS events promptly."
+        }
+      ]
+    },
+    {
+      "key": "A7",
+      "name": "Physical controls (A.7.1–A.7.14)",
+      "controls": [
+        {
+          "id": "A.7.1",
+          "name": "Physical security perimeters",
+          "req": "Define security perimeters to protect areas containing information and assets."
+        },
+        {
+          "id": "A.7.2",
+          "name": "Physical entry",
+          "req": "Control entry to secure areas with appropriate access controls."
+        },
+        {
+          "id": "A.7.3",
+          "name": "Securing offices, rooms and facilities",
+          "req": "Design offices/rooms/facilities physically secure per risk."
+        },
+        {
+          "id": "A.7.4",
+          "name": "Physical security monitoring",
+          "req": "Continuously monitor secure areas (alarms, CCTV, guards)."
+        },
+        {
+          "id": "A.7.5",
+          "name": "Protecting against physical and environmental threats",
+          "req": "Protect against threats like fire, flood, earthquake, explosions (detection + suppression)."
+        },
+        {
+          "id": "A.7.6",
+          "name": "Working in secure areas",
+          "req": "Apply rules for working in secure areas (restricted activities, supervision, recorded visits)."
+        },
+        {
+          "id": "A.7.7",
+          "name": "Clear desk and clear screen",
+          "req": "Apply clear desk/clear screen rules (secure unattended documents and endpoints)."
+        },
+        {
+          "id": "A.7.8",
+          "name": "Equipment siting and protection",
+          "req": "Sit and protect equipment to reduce environmental and access risks."
+        },
+        {
+          "id": "A.7.9",
+          "name": "Security of assets off-premises",
+          "req": "Protect off-premises assets (laptops, mobile, removable media) with equivalent controls."
+        },
+        {
+          "id": "A.7.10",
+          "name": "Storage media",
+          "req": "Manage the lifecycle of storage media (acquisition, use, transport, disposal)."
+        },
+        {
+          "id": "A.7.11",
+          "name": "Supporting utilities",
+          "req": "Protect supporting utilities (power, cooling, comms) from failure (redundancy, UPS)."
+        },
+        {
+          "id": "A.7.12",
+          "name": "Cabling security",
+          "req": "Protect power and data cabling from interception and damage."
+        },
+        {
+          "id": "A.7.13",
+          "name": "Equipment maintenance",
+          "req": "Maintain equipment per manufacturer specifications and retention of records."
+        },
+        {
+          "id": "A.7.14",
+          "name": "Secure disposal or reuse of equipment",
+          "req": "Verify equipment/medium disposal and reuse performed securely (data erasure, degauss)."
+        }
+      ]
+    },
+    {
+      "key": "A8",
+      "name": "Technological controls (A.8.1–A.8.34)",
+      "controls": [
+        {
+          "id": "A.8.1",
+          "name": "User endpoint devices",
+          "req": "Protect information on user devices (policy, patch, encryption, MDM)."
+        },
+        {
+          "id": "A.8.2",
+          "name": "Privileged access rights",
+          "req": "Restrict and manage privileged access rights (dedicated admin accounts, review)."
+        },
+        {
+          "id": "A.8.3",
+          "name": "Information access restriction",
+          "req": "Restrict information access per access control policy (need-to-know, least privilege)."
+        },
+        {
+          "id": "A.8.4",
+          "name": "Access to source code",
+          "req": "Restrict access to source code (separate environments, version control access control)."
+        },
+        {
+          "id": "A.8.5",
+          "name": "Secure authentication",
+          "req": "Implement secure authentication technologies and procedures (MFA, passwordless, session controls)."
+        },
+        {
+          "id": "A.8.6",
+          "name": "Capacity management",
+          "req": "Monitor and manage capacity to meet performance and growth needs."
+        },
+        {
+          "id": "A.8.7",
+          "name": "Protection against malware",
+          "req": "Implement malware protection (AV/EDR, egress filtering, awareness)."
+        },
+        {
+          "id": "A.8.8",
+          "name": "Management of technical vulnerabilities",
+          "req": "Discover and remediate technical vulnerabilities (scans, patch management, SLAs by severity)."
+        },
+        {
+          "id": "A.8.9",
+          "name": "Configuration management",
+          "req": "Manage configurations incl. baselines, changes and review of security settings."
+        },
+        {
+          "id": "A.8.10",
+          "name": "Information deletion",
+          "req": "Delete information when no longer needed per retention schedule; document secure deletion."
+        },
+        {
+          "id": "A.8.11",
+          "name": "Data masking",
+          "req": "Apply data masking techniques aligned with access control policy and business needs."
+        },
+        {
+          "id": "A.8.12",
+          "name": "Data leakage prevention",
+          "req": "Prevent and detect unauthorized data leakage (DLP on data at rest, in motion, in use)."
+        },
+        {
+          "id": "A.8.13",
+          "name": "Information backup",
+          "req": "Back up information, software and systems per agreed schedule; test restores regularly."
+        },
+        {
+          "id": "A.8.14",
+          "name": "Redundancy of information processing facilities",
+          "req": "Provide redundant processing facilities meeting availability requirements."
+        },
+        {
+          "id": "A.8.15",
+          "name": "Logging",
+          "req": "Log user activities, exceptions, faults and IS events; retain per policy; protect logs from tampering."
+        },
+        {
+          "id": "A.8.16",
+          "name": "Monitoring activities",
+          "req": "Monitor systems, networks and user activity for effectiveness and anomalies."
+        },
+        {
+          "id": "A.8.17",
+          "name": "Clock synchronization",
+          "req": "Synchronize clocks of information processing systems to a trusted time source."
+        },
+        {
+          "id": "A.8.18",
+          "name": "Use of privileged utility programs",
+          "req": "Restrict and tightly control use of privileged utilities (debuggers, sys internals)."
+        },
+        {
+          "id": "A.8.19",
+          "name": "Installation of software on operational systems",
+          "req": "Control software installation on operational systems (approved catalog, least privilege)."
+        },
+        {
+          "id": "A.8.20",
+          "name": "Networks security",
+          "req": "Secure networks and network services (segmentation, firewalls, monitoring)."
+        },
+        {
+          "id": "A.8.21",
+          "name": "Security of network services",
+          "req": "Define and implement security mechanisms for network services (MSSP, VPN, filtering)."
+        },
+        {
+          "id": "A.8.22",
+          "name": "Segregation of networks",
+          "req": "Segregate networks (DMZ, internal zones, OT isolation, guest Wi-Fi)."
+        },
+        {
+          "id": "A.8.23",
+          "name": "Web filtering",
+          "req": "Manage access to external websites (category-based filtering, DGA/blocklist checks)."
+        },
+        {
+          "id": "A.8.24",
+          "name": "Use of cryptography",
+          "req": "Define and apply cryptographic controls (ciphersuites, key lifecycle, HSM for high assurance)."
+        },
+        {
+          "id": "A.8.25",
+          "name": "Secure development lifecycle",
+          "req": "Establish rules for secure development (SDL: threat modeling, secure coding, review)."
+        },
+        {
+          "id": "A.8.26",
+          "name": "Application security requirements",
+          "req": "Identify and document security requirements during requirements phase."
+        },
+        {
+          "id": "A.8.27",
+          "name": "Secure system architecture and engineering principles",
+          "req": "Apply secure architecture principles (defense in depth, least privilege) to new systems."
+        },
+        {
+          "id": "A.8.28",
+          "name": "Secure coding",
+          "req": "Define and apply secure coding principles (input validation, OWASP ASVS alignment)."
+        },
+        {
+          "id": "A.8.29",
+          "name": "Security testing in development and acceptance",
+          "req": "Test security during development and acceptance (SAST, DAST, dependency scans)."
+        },
+        {
+          "id": "A.8.30",
+          "name": "Outsourced development",
+          "req": "Manage security of outsourced development (vendor controls, IP rights in code)."
+        },
+        {
+          "id": "A.8.31",
+          "name": "Separation of development, test and production",
+          "req": "Separate development, test and production environments (no direct prod data in test)."
+        },
+        {
+          "id": "A.8.32",
+          "name": "Change management",
+          "req": "Apply change management to changes in systems, services and processes (approval, rollback)."
+        },
+        {
+          "id": "A.8.33",
+          "name": "Test information",
+          "req": "Use information that is appropriately protected for testing; avoid real PII; mask."
+        },
+        {
+          "id": "A.8.34",
+          "name": "Protection of IS during audit testing",
+          "req": "Plan and approve audit/testing activities to minimize impact on production operations."
+        }
+      ]
+    }
+  ],
+  "source": "ISO/IEC 27001:2022 Annex A (copyright ISO — simplified summaries for compliance work)",
+  "sourceUrl": "https://www.iso.org/standard/27001",
+  "license": "Summarized reference; not a substitute for the standard"
+}

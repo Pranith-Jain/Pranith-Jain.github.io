@@ -1,0 +1,13 @@
+{
+  "id": "UC055",
+  "name": "Automated account creation then immediate logon",
+  "category": "Persistence",
+  "mitre": "T1136",
+  "severity": "High",
+  "kql": "SecurityEvent | where EventID in (4720, 4730) | let acct = Account | join kind=inner (SecurityEvent | where EventID == 4624 | where TimeGenerated between (now(-15m) .. now())) on Account",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4720 OR EventCode=4730 | join Account [search index=windows EventCode=4624]",
+  "dataSource": "Security",
+  "fpRate": "Low",
+  "tuning": "Account created + logged in within 15 min = attacker backdoor account.",
+  "apt": "Universal post-exploit"
+}

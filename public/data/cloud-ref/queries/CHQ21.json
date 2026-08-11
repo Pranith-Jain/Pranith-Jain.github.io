@@ -1,0 +1,8 @@
+{
+  "id": "CHQ21",
+  "name": "RBAC role assignment spike",
+  "provider": "Azure",
+  "mitre": "T1098",
+  "desc": "Role grants to new principals — privilege delegation.",
+  "kql": "AuditLogs | where Operation == 'Add member to role' | where TargetResources[0].type == 'User' | summarize count() by bin(TimeGenerated, 15m) | where count_ > 5"
+}

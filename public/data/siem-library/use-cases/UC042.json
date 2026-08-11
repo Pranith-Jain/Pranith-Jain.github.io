@@ -1,0 +1,13 @@
+{
+  "id": "UC042",
+  "name": "GCP: service account key creation",
+  "category": "Cloud",
+  "mitre": "T1098.001",
+  "severity": "High",
+  "kql": "GCPAuditLogs | where operation.method == 'CreateServiceAccountKey' | where actor.email !in (allowed)",
+  "spl": "index=gcp sourcetype=gcp:audit resource.type=service_account method=CreateServiceAccountKey",
+  "dataSource": "GCP audit logs",
+  "fpRate": "Low",
+  "tuning": "Keys are long-lived creds — alert + respond.",
+  "apt": "APT groups hitting GCP (Nobelium)"
+}

@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1102",
+  "title": "Web service C2 (pastebin/GitHub)",
+  "hypothesis": "C2 used public web services to host content (pastebin, gist, raw URLs).",
+  "queries": [
+    "DeviceNetworkEvents | where RemoteUrl has_any ('pastebin.com','gist.github.com','raw.githubusercontent.com') | where InitiatingProcessFileName != 'browser'"
+  ],
+  "rationale": "Public-service fetches from odd processes = stager.",
+  "id": "H115"
+}

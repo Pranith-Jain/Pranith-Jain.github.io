@@ -1,0 +1,1 @@
+../../../worker/lib/grc-manifest.ts

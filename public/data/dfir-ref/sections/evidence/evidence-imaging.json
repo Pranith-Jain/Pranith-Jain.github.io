@@ -1,0 +1,16 @@
+{
+  "phase": "Imaging",
+  "name": "Forensic imaging",
+  "steps": [
+    "Acquire physical disk image (RAW/DD or E01) via write-blocked hardware or verified software write-block.",
+    "Record drive model, serial, size, partition layout before imaging.",
+    "Compute SHA-256 on source and image; verify independently.",
+    "Store images on authenticated media; label with case number, exhibit number, date, initials.",
+    "Verify image integrity with the original hash before analysis begins."
+  ],
+  "tools": "FTK Imager, dc3dd, Guymager, EnCase/Exterro",
+  "notes": "Use E01 for compression+hash metadata; retain the raw hash for court.",
+  "slug": "evidence-imaging",
+  "section": "evidence",
+  "sectionLabel": "Evidence Collection & Chain of Custody"
+}

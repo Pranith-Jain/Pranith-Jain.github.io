@@ -1,0 +1,12 @@
+{
+  "id": 7045,
+  "name": "New service installed",
+  "log": "System",
+  "mitre": "T1543.003",
+  "description": "A new service was installed.",
+  "indicators": ["Persistence", "C2 service"],
+  "investigation": "Services with ImagePath outside Program Files, pointing to temp/Public dirs, or non-msi installers — classic persistence. Correlate with 4688 for sc.exe/create.",
+  "slug": "event-ids-7045",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

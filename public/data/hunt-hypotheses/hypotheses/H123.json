@@ -1,0 +1,11 @@
+{
+  "tactic": "Exfiltration",
+  "technique": "T1020",
+  "title": "Automated exfil (scheduled)",
+  "hypothesis": "A scheduled task uploads data on a regular cadence.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'schtasks.exe' | where ProcessCommandLine contains '/create' | where ProcessCommandLine contains 'powershell' or ProcessCommandLine contains 'curl'"
+  ],
+  "rationale": "Scheduled task wrapping network tools = automated exfil.",
+  "id": "H123"
+}

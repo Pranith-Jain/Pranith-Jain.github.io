@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1003.001",
+  "title": "LSASS process memory read",
+  "hypothesis": "A non-system process read LSASS memory to extract credentials.",
+  "queries": [
+    "DeviceEvents | where ActionType == 'OpenProcessApiCall' | where TargetProcessName == 'lsass.exe' | where ProcessAccessRightFlags contains 'VM_READ'"
+  ],
+  "rationale": "ProcessAccess VM_READ on lsass = mimikatz/creddump.",
+  "id": "H061"
+}

@@ -1,0 +1,11 @@
+{
+  "tactic": "Initial Access",
+  "technique": "T1566.002",
+  "title": "Voice phishing callback",
+  "hypothesis": "A vishing callback led the user to install remote-control software.",
+  "queries": [
+    "DeviceProcessEvents | where FileName has_any ('teamviewer.exe','anydesk.exe','quickassist.exe') | where ProcessCommandLine contains 'http'"
+  ],
+  "rationale": "Remote-control installs with network URIs match vishing workflow.",
+  "id": "H007"
+}

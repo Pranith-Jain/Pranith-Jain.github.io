@@ -1,0 +1,8 @@
+{
+  "id": "CHQ19",
+  "name": "Azure key vault access from unexpected principal",
+  "provider": "Azure",
+  "mitre": "T1552.005",
+  "desc": "Vault reads outside service principals break key custody.",
+  "kql": "AzureDiagnostics | where OperationName has_any ('SecretGet','KeyGet') | where identity.claims['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] !in (kvAllowedSpns)"
+}

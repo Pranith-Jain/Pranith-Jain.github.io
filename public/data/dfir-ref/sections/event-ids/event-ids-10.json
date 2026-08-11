@@ -1,0 +1,12 @@
+{
+  "id": 10,
+  "name": "Sysmon process access",
+  "log": "Microsoft-Windows-Sysmon/Operational",
+  "mitre": "T1003.001",
+  "description": "Sysmon process accessed (OpenProcess).",
+  "indicators": ["LSASS access", "Credential dumping"],
+  "investigation": "PROCESS_ALL_ACCESS (0x1FFFFF) opens on lsass by non-system processes — mimikatz/prelude; correlate with 4688.",
+  "slug": "event-ids-10",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

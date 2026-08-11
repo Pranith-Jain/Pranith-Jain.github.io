@@ -1,0 +1,9 @@
+{
+  "tactic": "Initial Access",
+  "technique": "T1189",
+  "title": "Drive-by download from common website",
+  "hypothesis": "A user browsed a compromised site that redirected to a payload.",
+  "queries": ["DeviceNetworkEvents | where RemoteUrl contains '.zip' and InitiatingProcessFileName == 'browser'"],
+  "rationale": "Browser downloads of executables/archives from non-enterprise domains = drive-by.",
+  "id": "H006"
+}

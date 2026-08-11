@@ -1,0 +1,13 @@
+{
+  "id": "UC054",
+  "name": "PHP webshell access pattern",
+  "category": "Web",
+  "mitre": "T1505.003",
+  "severity": "High",
+  "kql": "WebApplicationFirewallLogs | where UrlPath contains 'eval(' or UrlPath contains 'system(' or UrlPath contains 'passthru('",
+  "spl": "index=web sourcetype=weblog url=*eval(* OR url=*system(* OR url=*passthru(*",
+  "dataSource": "WAF / web proxy logs",
+  "fpRate": "Medium",
+  "tuning": "WebshelL keywords in URL/body params; review POST bodies.",
+  "apt": "China-nexus web server compromises"
+}

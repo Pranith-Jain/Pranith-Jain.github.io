@@ -1,0 +1,13 @@
+{
+  "id": "UC003",
+  "name": "Kerberoasting — RC4 service ticket requests",
+  "category": "Active Directory",
+  "mitre": "T1558.003",
+  "severity": "High",
+  "kql": "SecurityEvent | where EventID == 4769 | where TicketEncryptionType == '0x17' | where ServiceName !endswith '$' | summarize count() by SubjectUserName, IpAddress, bin(TimeGenerated, 10m) | where count_ >= 3",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4769 TicketEncryptionType=0x17 NOT ServiceName=*$ | stats count by User, src_ip, _time | where count >= 3",
+  "dataSource": "Windows Security 4769",
+  "fpRate": "Low-Medium",
+  "tuning": "Baseline service accounts; exclude known SPNs requested by legitimate apps (MSSQL, Exchange); enable AES after reviewing.",
+  "apt": "Lazarus, APT29, Wizard Spider"
+}

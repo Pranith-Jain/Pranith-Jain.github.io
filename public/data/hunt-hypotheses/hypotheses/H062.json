@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1003.002",
+  "title": "SAM hive exfiltration",
+  "hypothesis": "An attacker copied SAM/SYSTEM hives for offline password extraction.",
+  "queries": [
+    "DeviceFileEvents | where FileName has_any ('sam','system','security') | where FolderPath contains '\\\\config\\\\' | where ActionType == 'FileCreated' or ActionType == 'FileCopied'"
+  ],
+  "rationale": "Registry hive copies to writable dirs = hash dump.",
+  "id": "H062"
+}

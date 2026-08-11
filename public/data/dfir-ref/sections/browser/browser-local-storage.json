@@ -1,0 +1,11 @@
+{
+  "browser": "Chrome",
+  "artifact": "Local Storage",
+  "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Local Storage\\leveldb",
+  "evidence": "Site 'localStorage' key-value data, session tokens.",
+  "tools": "leveldb parsers, Hindsight",
+  "note": "May contain JWT/OAuth tokens persisted by web apps.",
+  "slug": "browser-local-storage",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

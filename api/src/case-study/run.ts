@@ -381,6 +381,10 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
         infronKey: env.INFRON_API_KEY,
         trendingContext,
         alreadyCoveredTopics,
+        // Same opt-in flag as the generation-time reference probe — one extra
+        // ranged GET per HEAD-200 source URL (title-sniff for soft-404s). The
+        // only discovery runner that needs it: trend sources are LLM-invented.
+        deepVerify: env.DEEP_LINK_VERIFY === 'true',
       }),
   };
   // Discovery diversity model (2026-06-22 — platform split into 3):

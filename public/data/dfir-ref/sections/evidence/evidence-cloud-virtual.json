@@ -1,0 +1,16 @@
+{
+  "phase": "Cloud & Virtual",
+  "name": "Cloud and virtualized evidence",
+  "steps": [
+    "Snapshot the VM volume and memory (if available) via provider API; note snapshot IDs and times.",
+    "Capture IAM access logs, key rotations, login events (CloudTrail, Azure AD sign-ins, GCP audit).",
+    "Preserve the instance metadata: instance ID, AMI/image, launch time, attached IAM role.",
+    "Export from managed services with official export functions; record the export job ID and completion time.",
+    "Do not assume the provider's retention covers your needs — snapshot early."
+  ],
+  "tools": "AWS CLI, az CLI, gcloud, provider console exports",
+  "notes": "Cloud evidence often lives in immutable logs with fixed retention — collect before expiry.",
+  "slug": "evidence-cloud-virtual",
+  "section": "evidence",
+  "sectionLabel": "Evidence Collection & Chain of Custody"
+}

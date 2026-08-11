@@ -1,0 +1,13 @@
+{
+  "plugin": "svcscan",
+  "version": "both",
+  "purpose": "Scan Windows services (including non-active ones).",
+  "category": "Persistence",
+  "example": "volatility -f image.mem svcscan",
+  "mitre": "T1543.003",
+  "notes": "Services with ImagePath in temp/appdata or unknown DLLs.",
+  "indicators": "Malicious services, driver persistence.",
+  "slug": "memory-svcscan",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

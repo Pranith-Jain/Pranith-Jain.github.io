@@ -1,0 +1,13 @@
+{
+  "plugin": "printkey",
+  "version": "both",
+  "purpose": "Print registry key/value (given hive offset).",
+  "category": "Registry",
+  "example": "volatility -f image.mem printkey -K \"Software\\Microsoft\\Windows\\CurrentVersion\\Run\" --offset=0x...",
+  "mitre": "T1112",
+  "notes": "Manual deep-key forensics — the parsimonious way to inspect persistence.",
+  "indicators": "Run keys, AppInit_DLLs, Image File Execution Options.",
+  "slug": "memory-printkey",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

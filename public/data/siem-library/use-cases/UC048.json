@@ -1,0 +1,13 @@
+{
+  "id": "UC048",
+  "name": "AS-REP roasting (Kerberos pre-auth disabled)",
+  "category": "Active Directory",
+  "mitre": "T1558.004",
+  "severity": "Medium",
+  "kql": "SecurityEvent | where EventID == 4768 | where PreAuthenticationType == 0 | where AccountName !in (legacyAllowed)",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4768 PreAuthType=0 OR PreAuthenticationType=0",
+  "dataSource": "Security 4768",
+  "fpRate": "Low",
+  "tuning": "Any 4768 with PreAuthenticationType=0 = roastable account; disable pre-auth for anomalies.",
+  "apt": "ASREPRoast users"
+}

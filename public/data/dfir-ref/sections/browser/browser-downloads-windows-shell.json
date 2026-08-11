@@ -1,0 +1,11 @@
+{
+  "browser": "All",
+  "artifact": "Downloads (Windows shell)",
+  "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\WordWheelQuery",
+  "evidence": "Typed search terms incl. filenames of downloaded payloads.",
+  "tools": "Registry explorer / lecmd",
+  "note": "Frequently recovers payload filenames users forgot to clear.",
+  "slug": "browser-downloads-windows-shell",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

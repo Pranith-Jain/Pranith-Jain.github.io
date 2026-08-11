@@ -1,0 +1,169 @@
+{
+  "name": "Cloud Shared Responsibility Matrix",
+  "description": "Who secures what across AWS, Azure, GCP under IaaS / PaaS / SaaS. C = customer, P = provider, S = shared. Defaults: compute/storage/network = C for IaaS; most PaaS = S; SaaS = P (except data + identity + client side).",
+  "domains": [
+    {
+      "domain": "Physical facilities & hardware",
+      "posture": "S / S / P",
+      "desc": "Data centers always provider-owned. Under SaaS the provider owns everything above the browser.",
+      "cells": [
+        { "model": "IaaS", "aws": "P", "azure": "P", "gcp": "P" },
+        { "model": "PaaS", "aws": "P", "azure": "P", "gcp": "P" },
+        { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+      ]
+    },
+    {
+      "domain": "Virtualization & hypervisor",
+      "posture": "P / P / P",
+      "desc": "Hypervisor always provider. Customers do not touch it under any model.",
+      "cells": [
+        { "model": "IaaS", "aws": "P", "azure": "P", "gcp": "P" },
+        { "model": "PaaS", "aws": "P", "azure": "P", "gcp": "P" },
+        { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+      ]
+    },
+    {
+      "domain": "Compute (VMs / containers / serverless)",
+      "posture": "C / S / P",
+      "desc": "IaaS: customer patches the OS and hardens the VM. PaaS (serverless): provider patches runtime, customer configures. SaaS: fully managed.",
+      "cells": [
+        { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+        { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+      ]
+    },
+    {
+      "domain": "Guest OS & middleware",
+      "posture": "C / C / P",
+      "desc": "IaaS/PaaS: customer configures, patches, hardens OS and middleware. SaaS: nothing to manage.",
+      "cells": [
+        { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "PaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+      ]
+    },
+    {
+      "domain": "Applications & workloads",
+      "posture": "C / C / S",
+      "desc": "Customers always own the application logic, data handling, and app-level security. SaaS providers host but don't fix your app bugs.",
+      "cells": [
+        { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "PaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "SaaS", "aws": "S", "azure": "S", "gcp": "S" }
+      ]
+    },
+    {
+      "domain": "Identity & access management",
+      "posture": "S / S / S",
+      "desc": "Providers build the IAM control plane; customers own users, roles, policies, and lifecycle. Cloud IAM is always shared.",
+      "cells": [
+        { "model": "IaaS", "aws": "S", "azure": "S", "gcp": "S" },
+        { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+        { "model": "SaaS", "aws": "S", "azure": "S", "gcp": "S" }
+      ]
+    },
+    {
+      "domain": "Data & encryption at rest / in transit",
+      "posture": "C / C / C",
+      "desc": "Providers give KMS + TLS defaults, but classification, key custody, KMS policies, rotation and DLP are always the customer's.",
+      "cells": [
+        { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "PaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "SaaS", "aws": "C", "azure": "C", "gcp": "C" }
+      ]
+    },
+    {
+      "domain": "Network security (VPC, firewalls, segmentation)",
+      "posture": "C / C / P",
+      "desc": "IaaS: customer own NACLs/SG/firewalls. PaaS: shared (provider secures the service network). SaaS: provider.",
+      "cells": [
+        { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+        { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+      ]
+    },
+    {
+      "domain": "Monitoring, logging & audit",
+      "posture": "S / S / P",
+      "desc": "Providers guarantee log availability of their plane; customers configure what is logged, retention, SIEM ingestion, and alerting.",
+      "cells": [
+        { "model": "IaaS", "aws": "S", "azure": "S", "gcp": "S" },
+        { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+        { "model": "SaaS", "aws": "S", "azure": "S", "gcp": "S" }
+      ]
+    },
+    {
+      "domain": "Patch management (platform services)",
+      "posture": "S / S / P",
+      "desc": "IaaS: customer patches VMs. PaaS: provider patches runtime, customer patched container images. SaaS: provider.",
+      "cells": [
+        { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+        { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+      ]
+    },
+    {
+      "domain": "Vulnerability management (scans, findings)",
+      "posture": "C / C / C",
+      "desc": "Providers give scanner APIs (Inspector/Defender/SCC); turning findings into patched systems is the customer's job everywhere.",
+      "cells": [
+        { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "PaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "SaaS", "aws": "C", "azure": "C", "gcp": "C" }
+      ]
+    },
+    {
+      "domain": "Incident response & forensics",
+      "posture": "C / C / C",
+      "desc": "Providers expose snapshot/export APIs; running the IR process, evidence collection and containment is customer-owned.",
+      "cells": [
+        { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "PaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "SaaS", "aws": "C", "azure": "C", "gcp": "C" }
+      ]
+    },
+    {
+      "domain": "Backup & DR",
+      "posture": "C / S / P",
+      "desc": "IaaS: customer builds backup/DR. PaaS services often include provider-side backups (RDS, Cosmos DB) but customer defines RPO and tests. SaaS: provider manages, customer verifies restores.",
+      "cells": [
+        { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+        { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+      ]
+    },
+    {
+      "domain": "Compliance & certification evidence",
+      "posture": "S / S / S",
+      "desc": "Providers publish compliance reports (SOC2/ISO); customers collect evidence of their own configuration compliance and map to their frameworks.",
+      "cells": [
+        { "model": "IaaS", "aws": "S", "azure": "S", "gcp": "S" },
+        { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+        { "model": "SaaS", "aws": "S", "azure": "S", "gcp": "S" }
+      ]
+    },
+    {
+      "domain": "Data residency & sovereignty",
+      "posture": "S / S / S",
+      "desc": "Providers offer regions; choosing regions, restricting replication, and complying with local law (DPDP/RBI for India) is the customer's.",
+      "cells": [
+        { "model": "IaaS", "aws": "S", "azure": "S", "gcp": "S" },
+        { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+        { "model": "SaaS", "aws": "S", "azure": "S", "gcp": "S" }
+      ]
+    },
+    {
+      "domain": "Client-side & endpoints",
+      "posture": "C / C / C",
+      "desc": "Anything outside the provider's boundary (endpoints, browsers, VPN clients, exported data) is always the customer's.",
+      "cells": [
+        { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "PaaS", "aws": "C", "azure": "C", "gcp": "C" },
+        { "model": "SaaS", "aws": "C", "azure": "C", "gcp": "C" }
+      ]
+    }
+  ],
+  "source": "AWS/Azure/GCP shared-responsibility documentation (summarized)",
+  "sourceUrl": "https://aws.amazon.com/compliance/shared-responsibility-model/",
+  "license": "Vendor documentation summaries"
+}

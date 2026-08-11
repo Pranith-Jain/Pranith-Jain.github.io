@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1573.001",
+  "title": "Encrypted custom protocol on odd port",
+  "hypothesis": "An attacker established a custom encrypted channel on a non-standard port.",
+  "queries": [
+    "DeviceNetworkEvents | where RemotePort !in (80, 443, 53) | where RemotePort < 1024 | where InitiatingProcessFileName in (sysProcesses) and InitiatingProcessFileName not in (svchost)"
+  ],
+  "rationale": "System processes on unusual ports = covert channel.",
+  "id": "H108"
+}

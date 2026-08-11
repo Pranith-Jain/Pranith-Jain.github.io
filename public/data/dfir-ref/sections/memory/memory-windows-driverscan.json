@@ -1,0 +1,13 @@
+{
+  "plugin": "windows.driverscan",
+  "version": "vol3",
+  "purpose": "Scan loaded kernel drivers (incl. hidden).",
+  "category": "Rootkits",
+  "example": "vol3 -f image.mem windows.driverscan",
+  "mitre": "T1547.006",
+  "notes": "Cross-check with driver.sys catalog of signed drivers.",
+  "indicators": "Unsigned/unknown drivers.",
+  "slug": "memory-windows-driverscan",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

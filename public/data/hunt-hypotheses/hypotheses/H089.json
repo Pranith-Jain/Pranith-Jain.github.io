@@ -1,0 +1,9 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1021.002",
+  "title": "SMB ADMIN$ access pattern",
+  "hypothesis": "An attacker used SMB admin shares to move laterally.",
+  "queries": ["SecurityEvent | where EventID == 5140 | where ShareName == 'ADMIN$' | where AccountName !endswith '$'"],
+  "rationale": "ADMIN$ access with user account = PsExec/WMI-adjacent movement.",
+  "id": "H089"
+}

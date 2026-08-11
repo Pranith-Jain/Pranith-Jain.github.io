@@ -1,0 +1,13 @@
+{
+  "id": "UC008",
+  "name": "Run key / startup folder persistence",
+  "category": "Persistence",
+  "mitre": "T1547.001",
+  "severity": "High",
+  "kql": "DeviceRegistryEvents | where ActionType == 'RegistryValueSet' | where RegistryKey has_any ('CurrentVersion\\\\Run', 'CurrentVersion\\\\RunOnce') | where RegistryValueData contains '.exe' | where not(RegistryValueData contains '\\\\Program Files' or RegistryValueData contains '\\\\Windows\\\\')",
+  "spl": "index=windows sourcetype=Sysmon:Registry EventCode=13 TargetObject=*CurrentVersion\\\\Run* OR TargetObject=*RunOnce*",
+  "dataSource": "Sysmon 12/13, MDATP registry events",
+  "fpRate": "Medium",
+  "tuning": "Whitelist known AV/agent entries (Defender, CrowdStrike, Sentinel).",
+  "apt": "Classic; used by APT32, Turla, many"
+}

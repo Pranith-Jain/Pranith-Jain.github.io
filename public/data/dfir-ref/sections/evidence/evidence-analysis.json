@@ -1,0 +1,16 @@
+{
+  "phase": "Analysis",
+  "name": "Analysis on copies only",
+  "steps": [
+    "Work exclusively on a bit-identical copy or mounted image (read-only).",
+    "Document the analysis toolchain with versions (and tool hashes if required).",
+    "Record findings in a timeline with artifact, source evidence, and analyst.",
+    "Preserve 'raw' extracted artifacts (files, registry keys, event rows) as exhibits.",
+    "Hash every extracted artifact that becomes an exhibit (malware samples, scripts, config)."
+  ],
+  "tools": "Autopsy, EnCase, X-Ways, Volatility, Eric Zimmerman tools",
+  "notes": "Analysis records = the audit trail that makes the report defensible.",
+  "slug": "evidence-analysis",
+  "section": "evidence",
+  "sectionLabel": "Evidence Collection & Chain of Custody"
+}

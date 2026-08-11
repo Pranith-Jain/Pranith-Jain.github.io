@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1552.001",
+  "title": "Credential files in user profiles",
+  "hypothesis": "An attacker searched for passwords in user files (txt, ini, config).",
+  "queries": [
+    "DeviceProcessEvents | where FileName in ('reg.exe','findstr.exe') | where ProcessCommandLine contains 'password' or ProcessCommandLine contains 'passwd'"
+  ],
+  "rationale": "findstr credential sweeps in profiles = classic password mining.",
+  "id": "H067"
+}

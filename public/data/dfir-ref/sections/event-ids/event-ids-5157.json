@@ -1,0 +1,12 @@
+{
+  "id": 5157,
+  "name": "WFP connection blocked",
+  "log": "Security",
+  "mitre": "TA0011",
+  "description": "The Windows Filtering Platform blocked a connection.",
+  "indicators": ["Blocked lateral movement / malware"],
+  "investigation": "Repeated blocked attempts to internal IPs = propagation probing; to external = exfil attempt.",
+  "slug": "event-ids-5157",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

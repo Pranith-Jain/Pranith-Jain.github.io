@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1016",
+  "title": "Network configuration discovery",
+  "hypothesis": "An attacker read network config to plan C2 routing.",
+  "queries": [
+    "DeviceProcessEvents | where ProcessCommandLine has_any ('ipconfig /all','route print','arp -a','netsh wlan show')"
+  ],
+  "rationale": "Network config queries from odd hosts.",
+  "id": "H083"
+}

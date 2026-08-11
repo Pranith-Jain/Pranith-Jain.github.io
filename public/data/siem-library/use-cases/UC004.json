@@ -1,0 +1,13 @@
+{
+  "id": "UC004",
+  "name": "DCSync — directory replication request",
+  "category": "Active Directory",
+  "mitre": "T1003.006",
+  "severity": "Critical",
+  "kql": "SecurityEvent | where EventID == 4662 | where ObjectServer == 'DS' | where OperationType == 'Control Access' | where (ObjectName startswith 'Replicating Directory Changes' or ObjectName startswith 'Replicating Directory Changes All') | where Account !in ('MSOL_*')",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4662 ObjectServer=DS (ObjectName=\"Replicating Directory Changes*\") NOT User=MSOL_*",
+  "dataSource": "Windows Security 4662 (with DS Access auditing)",
+  "fpRate": "Low",
+  "tuning": "If Change Notification All fires broadly, use ldap:1138/1139 access events; whitelist legitimate sync tools.",
+  "apt": "Mimikatz users: Conti, APT28, FIN7, Volt Typhoon"
+}

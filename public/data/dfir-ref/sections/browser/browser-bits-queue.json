@@ -1,0 +1,11 @@
+{
+  "browser": "All",
+  "artifact": "BITS queue",
+  "path": "C:\\ProgramData\\Microsoft\\Network\\Downloader\\qmgr.db",
+  "evidence": "BITS downloads by URL — attacker payload staging via BITSAdmin.",
+  "tools": "QmgrDb Explorer, TSK",
+  "note": "Correlate BITS job owner with user and network timeline.",
+  "slug": "browser-bits-queue",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

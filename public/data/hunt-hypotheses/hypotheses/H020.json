@@ -1,0 +1,9 @@
+{
+  "tactic": "Execution",
+  "technique": "T1059.008",
+  "title": "Bash/awk on Windows (WSL)",
+  "hypothesis": "An attacker used WSL to run Linux tooling on Windows.",
+  "queries": ["DeviceProcessEvents | where FileName has_any ('bash.exe','wsl.exe')"],
+  "rationale": "WSL spawn of Linux binaries is a lateral/execution oddity on Windows hosts.",
+  "id": "H020"
+}

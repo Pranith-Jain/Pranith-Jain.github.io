@@ -1,0 +1,9 @@
+{
+  "tactic": "Execution",
+  "technique": "T1218.005",
+  "title": "mshta as execution bridge",
+  "hypothesis": "mshta fetched and ran remote script.",
+  "queries": ["DeviceProcessEvents | where FileName == 'mshta.exe' | where ProcessCommandLine contains 'http'"],
+  "rationale": "mshta with remote URI is weaponized by default.",
+  "id": "H014"
+}

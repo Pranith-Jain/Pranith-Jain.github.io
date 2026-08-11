@@ -1,0 +1,11 @@
+{
+  "tactic": "Exfiltration",
+  "technique": "T1041",
+  "title": "Data exfiltration over HTTP POST",
+  "hypothesis": "Large volumes of internal data leaving over HTTP/S.",
+  "queries": [
+    "DeviceNetworkEvents | where Direction == 'Outbound' | where RemoteUrl startswith 'http' | where InitiatingProcessFileName != 'browser' | where ActionType == 'ConnectionSuccess' | summarize bytes=count() by RemoteUrl | where bytes > 1000"
+  ],
+  "rationale": "Bulk POST volume signal (needs byte counts from proxy).",
+  "id": "H119"
+}

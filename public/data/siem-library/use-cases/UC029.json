@@ -1,0 +1,13 @@
+{
+  "id": "UC029",
+  "name": "New local admin added on servers",
+  "category": "Persistence",
+  "mitre": "T1078.003",
+  "severity": "High",
+  "kql": "SecurityEvent | where EventID == 4732 | where TargetAccount == 'Administrators' | where Computer contains 'srv'",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4732 TargetAccount=Administrators host=*srv*",
+  "dataSource": "Security 4732",
+  "fpRate": "Medium",
+  "tuning": "Compare vs ITSM request list; immediate for user accounts.",
+  "apt": "Volt Typhoon, Ransomware affiliates"
+}

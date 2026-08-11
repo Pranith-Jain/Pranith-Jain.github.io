@@ -1,0 +1,13 @@
+{
+  "plugin": "cachedump",
+  "version": "both",
+  "purpose": "Cached domain credentials (MSCash).",
+  "category": "Credentials",
+  "example": "volatility -f image.mem cachedump",
+  "mitre": "T1003.005",
+  "notes": "Offline cracking warmup for lateral movement analysis.",
+  "indicators": "",
+  "slug": "memory-cachedump",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

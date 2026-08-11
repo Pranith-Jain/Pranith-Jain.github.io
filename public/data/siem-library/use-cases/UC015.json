@@ -1,0 +1,13 @@
+{
+  "id": "UC015",
+  "name": "Unusual PowerShell -enc execution",
+  "category": "Defense Evasion",
+  "mitre": "T1059.001",
+  "severity": "High",
+  "kql": "DeviceProcessEvents | where FileName == 'powershell.exe' or FileName == 'pwsh.exe' | where ProcessCommandLine contains '-enc' or ProcessCommandLine contains '-encodedcommand' | where ProcessCommandLine !contains 'Invoke-WebRequest'",
+  "spl": "index=windows sourcetype=ProcessRollup2 Image=*\\\\powershell.exe (CommandLine=*-enc* OR CommandLine=*-encodedcommand*)",
+  "dataSource": "EDR / Sysmon 1",
+  "fpRate": "Low",
+  "tuning": "Alert; include flag for -w hidden and -nop combos for higher severity.",
+  "apt": "Almost universal"
+}

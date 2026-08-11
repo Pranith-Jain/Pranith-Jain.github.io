@@ -1,0 +1,13 @@
+{
+  "plugin": "windows.registry.hivelist / printkey",
+  "version": "vol3",
+  "purpose": "Vol3 registry hive access + key printing.",
+  "category": "Registry",
+  "example": "vol3 -f image.mem windows.registry.printkey --key \"Software\\Microsoft\\Windows\\CurrentVersion\\Run\"",
+  "mitre": "T1112",
+  "notes": "Vol3 namespaced plugin names.",
+  "indicators": "",
+  "slug": "memory-windows-registry-hivelist-printkey",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

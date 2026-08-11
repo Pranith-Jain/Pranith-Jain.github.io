@@ -1,0 +1,12 @@
+{
+  "id": 12,
+  "name": "Sysmon registry event",
+  "log": "Microsoft-Windows-Sysmon/Operational",
+  "mitre": "T1112",
+  "description": "Sysmon registry value/object set or deleted.",
+  "indicators": ["Persistence keys", "Run keys"],
+  "investigation": "Writes to Run/RunOnce keys, service ImagePath, winlogon shell — persistence registration; target object names are the hunt key.",
+  "slug": "event-ids-12",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

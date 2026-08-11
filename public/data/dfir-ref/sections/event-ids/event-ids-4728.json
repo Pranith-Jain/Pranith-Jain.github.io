@@ -1,0 +1,12 @@
+{
+  "id": 4728,
+  "name": "Member added to global security group",
+  "log": "Security",
+  "mitre": "T1098.001",
+  "description": "A member was added to a global security group.",
+  "indicators": ["Privilege escalation", "Persistence"],
+  "investigation": "Escalation into privileged groups (Domain Admins, Administrators, Schema Admins) is critical; capture old/new member group membership deltas.",
+  "slug": "event-ids-4728",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

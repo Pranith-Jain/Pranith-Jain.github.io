@@ -1,0 +1,11 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1482",
+  "title": "Domain trust discovery",
+  "hypothesis": "An attacker enumerated domain trusts for cross-domain jumps.",
+  "queries": [
+    "SecurityEvent | where EventID == 4688 | where ProcessName == 'cmd.exe' and CommandLine contains 'nltest /trusted_domains'"
+  ],
+  "rationale": "nltest trust enumeration = recon for cross-domain attack.",
+  "id": "H054"
+}

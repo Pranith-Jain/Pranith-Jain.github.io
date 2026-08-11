@@ -1,0 +1,11 @@
+{
+  "name": "ML-DSA (Dilithium)",
+  "fips": "FIPS 204",
+  "type": "Signature — replaces RSA/ECDSA signing",
+  "purpose": "Code signing, certificates, TLS authentication, document signing.",
+  "sizes": { "public": "1952 bytes (ML-DSA-87)", "signature": "4627 bytes", "secret": "4896 bytes" },
+  "security": "ML-DSA-44 ≈ AES-128, ML-DSA-65 ≈ AES-192, ML-DSA-87 ≈ AES-256",
+  "status": "Finalized Aug 2024. Widely available in OpenSSL 3.5+.",
+  "notes": "Signatures ~10x larger than ECDSA — watch MTU/cert chain sizes. Pair with ML-KEM for full PQC TLS.",
+  "slug": "ml-dsa-dilithium"
+}

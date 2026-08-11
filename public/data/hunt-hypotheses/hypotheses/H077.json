@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1087.001",
+  "title": "Account enumeration",
+  "hypothesis": "An attacker enumerated users/groups to map the domain.",
+  "queries": [
+    "DeviceProcessEvents | where ProcessCommandLine contains 'net user /domain' or ProcessCommandLine contains 'net group /domain' or ProcessCommandLine contains 'Get-ADUser'"
+  ],
+  "rationale": "Bulk user/group enumeration = discovery phase.",
+  "id": "H077"
+}

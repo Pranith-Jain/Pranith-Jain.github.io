@@ -1,0 +1,11 @@
+{
+  "tactic": "Execution",
+  "technique": "T1129",
+  "title": "Shared module execution",
+  "hypothesis": "An attacker executed code via exported functions of shared modules.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'rundll32.exe' | where ProcessCommandLine contains ',Export' or ProcessCommandLine contains 'Control_RunDLL'"
+  ],
+  "rationale": "rundll32 export invocation = module-based execution.",
+  "id": "H141"
+}

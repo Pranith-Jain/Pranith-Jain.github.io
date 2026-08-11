@@ -1,0 +1,9 @@
+{
+  "tactic": "C2",
+  "technique": "T1090.002",
+  "title": "External proxy use",
+  "hypothesis": "Malware routes traffic via an open proxy it controls.",
+  "queries": ["DeviceNetworkEvents | where RemotePort in (3128, 8080, 1080) | where RemoteIP !in (corporateProxies)"],
+  "rationale": "Non-corporate proxy ports = C2 redirector.",
+  "id": "H117"
+}

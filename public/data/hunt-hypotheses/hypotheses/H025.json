@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1547.009",
+  "title": "Shortcut (.lnk) modification for autostart",
+  "hypothesis": "An existing autostart shortcut was repointed to attacker code.",
+  "queries": [
+    "DeviceFileEvents | where FileName endswith '.lnk' | where FolderPath contains 'Startup' or FolderPath contains 'Programs' | where ActionType == 'FileCreated'"
+  ],
+  "rationale": "Standard location shortcut rewrites match shortcut hijack.",
+  "id": "H025"
+}

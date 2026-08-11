@@ -1,0 +1,8 @@
+{
+  "id": "CHQ33",
+  "name": "IAM role escalation via policy binding",
+  "provider": "GCP",
+  "mitre": "T1098",
+  "desc": "Binding users to roles they shouldn't hold.",
+  "kql": "GCPAuditLogs | where operation.method == 'setIamPolicy' | where protoPayload.request.policy contains 'roles/owner' or 'roles/admin'"
+}

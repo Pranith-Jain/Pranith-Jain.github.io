@@ -1,0 +1,12 @@
+{
+  "id": 4779,
+  "name": "Session disconnected from a winstation",
+  "log": "Security",
+  "mitre": "T1021.001",
+  "description": "A session was disconnected from a Windows station.",
+  "indicators": ["RDP activity"],
+  "investigation": "Strange RDP session durations may point to hijacked interactive sessions.",
+  "slug": "event-ids-4779",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

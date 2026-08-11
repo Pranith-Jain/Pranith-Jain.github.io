@@ -1,0 +1,8 @@
+{
+  "id": "CHQ35",
+  "name": "Pod exec into namespace",
+  "provider": "Kubernetes",
+  "mitre": "T1021.002",
+  "desc": "exec sessions into pods = container escape attempts.",
+  "kql": "K8sAuditLogs | where verb == 'create' | where objectRef.subresource == 'exec' | where user.username !in (allowedOperators)"
+}

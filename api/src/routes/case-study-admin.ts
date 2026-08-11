@@ -25,6 +25,7 @@ import { failuresRouter } from './admin/failures';
 import { inferenceRouter } from './admin/inference';
 import { runRouter } from './admin/run';
 import { calendarRouter } from './admin/calendar';
+import { linkAuditRouter } from './admin/link-audit';
 
 export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   const admin = new Hono<{ Bindings: Env }>();
@@ -181,6 +182,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   admin.route('/', inferenceRouter);
   admin.route('/', runRouter);
   admin.route('/', calendarRouter);
+  admin.route('/', linkAuditRouter);
 
   app.route('/api/v1/admin', admin);
 }

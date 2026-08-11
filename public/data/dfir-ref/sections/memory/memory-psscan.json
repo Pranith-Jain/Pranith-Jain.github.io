@@ -1,0 +1,13 @@
+{
+  "plugin": "psscan",
+  "version": "both",
+  "purpose": "Scan memory pool for EPROCESS objects — finds hidden or orphaned processes.",
+  "category": "Processes",
+  "example": "volatility -f image.mem psscan",
+  "mitre": "T1055",
+  "notes": "Cross-reference pslist vs psscan to detect rootkit hiding.",
+  "indicators": "Processes present in psscan but absent in pslist.",
+  "slug": "memory-psscan",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

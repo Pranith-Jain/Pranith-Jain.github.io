@@ -1,0 +1,13 @@
+{
+  "plugin": "timeliner",
+  "version": "vol2",
+  "purpose": "Generate a timeline of system activity from memory artifacts.",
+  "category": "Investigation",
+  "example": "volatility -f image.mem timeliner --output=body",
+  "mitre": "",
+  "notes": "Feed into mactime/inode2timeline for super-timeline.",
+  "indicators": "",
+  "slug": "memory-timeliner",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "UC033",
+  "name": "Email forwarding rule created (BEC)",
+  "category": "Email / BEC",
+  "mitre": "T1114.003",
+  "severity": "High",
+  "kql": "EmailEvents | join kind=inner (AuditLogs | where Operation == 'Set-Mailbox' | where modification != '') on SenderFromAddress",
+  "spl": "index=o365 sourcetype=o365:management:activity Operation=Set-Mailbox AND (Parameters{}.Name=ForwardSmtpAddress OR Parameters{}.Name=ForwardingSmtpAddress)",
+  "dataSource": "Exchange Admin audit",
+  "fpRate": "Low",
+  "tuning": "Alert on any new forwarding rule to external domain by executive accounts.",
+  "apt": "TA453, MuddyWater, TAXA group"
+}

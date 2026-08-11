@@ -1,0 +1,13 @@
+{
+  "plugin": "windows.bigpools",
+  "version": "vol3",
+  "purpose": "Scan bigpool allocations (kernel driver evidence).",
+  "category": "Rootkits",
+  "example": "vol3 -f image.mem windows.bigpools",
+  "mitre": "T1547.006",
+  "notes": "Memory-only drivers may leave bigpool tags.",
+  "indicators": "",
+  "slug": "memory-windows-bigpools",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

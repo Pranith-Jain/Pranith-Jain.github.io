@@ -1,0 +1,11 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1090.003",
+  "title": "Proxy/port-forward setup",
+  "hypothesis": "An attacker forwarded internal ports through a compromised host.",
+  "queries": [
+    "DeviceProcessEvents | where FileName has_any ('netsh.exe','ssh.exe') | where ProcessCommandLine contains 'portproxy' or ProcessCommandLine contains '-L '"
+  ],
+  "rationale": "portproxy/SSH tunneling = movement infrastructure.",
+  "id": "H096"
+}

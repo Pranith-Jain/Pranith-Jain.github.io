@@ -1,0 +1,11 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1072",
+  "title": "Config management tool abuse (Ansible/Chef)",
+  "hypothesis": "An attacker abused configuration-management push for code exec.",
+  "queries": [
+    "DeviceProcessEvents | where FileName has_any ('ansible-playbook','chef-client','puppet') | where ProcessCommandLine contains 'sudo' or ProcessCommandLine contains 'run'"
+  ],
+  "rationale": "Config-push utilities as exec channel = expected only by ops teams.",
+  "id": "H148"
+}

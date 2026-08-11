@@ -1,0 +1,8 @@
+{
+  "id": "CHQ20",
+  "name": "Storage account firewall disabled",
+  "provider": "Azure",
+  "mitre": "T1020",
+  "desc": "Public-network access to storage = data exposure.",
+  "kql": "AzureActivity | where OperationName == 'MICROSOFT.STORAGE/STORAGEACCOUNTS/WRITE' | where Properties contains '\\\"networkAcls\\\".*\\\"defaultAction\\\":\\\"Allow\\\""
+}

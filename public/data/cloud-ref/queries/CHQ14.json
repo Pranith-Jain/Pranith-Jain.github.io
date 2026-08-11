@@ -1,0 +1,8 @@
+{
+  "id": "CHQ14",
+  "name": "New service-linked role created",
+  "provider": "AWS",
+  "mitre": "T1078.004",
+  "desc": "Service-linked role additions correlate with new attack surfaces.",
+  "kql": "AWSCloudTrail | where EventName == 'CreateServiceLinkedRole'"
+}

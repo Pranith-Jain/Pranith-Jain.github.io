@@ -1,0 +1,8 @@
+{
+  "id": "CHQ06",
+  "name": "EC2 instance launched with public IP",
+  "provider": "AWS",
+  "mitre": "T1133",
+  "desc": "Unexpected public instances = crypto or C2 hosting.",
+  "kql": "AWSCloudTrail | where EventName == 'RunInstances' | where requestParameters.associatePublicIpAddress == 'true'"
+}

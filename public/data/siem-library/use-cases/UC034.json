@@ -1,0 +1,13 @@
+{
+  "id": "UC034",
+  "name": "OAuth app consent grant to external tenant",
+  "category": "Email / BEC",
+  "mitre": "T1550.001",
+  "severity": "High",
+  "kql": "AuditLogs | where Operation == 'Consent to application' | where result != 'success' or contains ThreatIntelligence",
+  "spl": "index=o365 sourcetype=o365:management:activity Operation=\"Consent to application\"",
+  "dataSource": "Azure AD audit",
+  "fpRate": "Low",
+  "tuning": "CT policies: block high-risk app consent; monitor OAuth2PermissionGrant adds.",
+  "apt": "Midnight Blizzard (APT29), Scattered Spider"
+}

@@ -1,0 +1,9 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1558.004",
+  "title": "AS-REP roasting",
+  "hypothesis": "An account with pre-auth disabled requested TGTs without pre-auth.",
+  "queries": ["SecurityEvent | where EventID == 4768 | where PreAuthenticationType == 0"],
+  "rationale": "Pre-auth type 0 = roastable account probing.",
+  "id": "H065"
+}

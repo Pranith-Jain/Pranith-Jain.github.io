@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1547.004",
+  "title": "winlogon shell key change",
+  "hypothesis": "The winlogon shell was changed to include attacker binary.",
+  "queries": [
+    "DeviceRegistryEvents | where RegistryKey contains 'Winlogon' | where RegistryValueName == 'Shell' | where RegistryValueData != 'explorer.exe'"
+  ],
+  "rationale": "winlogon Shell deviation = interactive-session persistence.",
+  "id": "H031"
+}

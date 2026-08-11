@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1132.001",
+  "title": "Encoded command exfil over HTTP",
+  "hypothesis": "C2 used base64-encoded parameters in HTTP requests.",
+  "queries": [
+    "DeviceNetworkEvents | where RemoteUrl contains 'http' | where RemoteUrl contains '=' | where UrlExtension contains 'php' or UrlExtension contains 'asp'"
+  ],
+  "rationale": "Query-string payloads to script endpoints = C2 encoding.",
+  "id": "H113"
+}

@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1056.003",
+  "title": "Web portal credential prompt (phishing page)",
+  "hypothesis": "An attacker stood up a local prompt page to harvest credentials.",
+  "queries": [
+    "DeviceProcessEvents | where FileName in ('chrome.exe','msedge.exe') | where ProcessCommandLine contains 'file://' or ProcessCommandLine contains 'data:text/html'"
+  ],
+  "rationale": "Local html file open = credential-phishing page.",
+  "id": "H074"
+}

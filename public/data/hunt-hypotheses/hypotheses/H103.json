@@ -1,0 +1,11 @@
+{
+  "tactic": "Collection",
+  "technique": "T1560",
+  "title": "Archive collection",
+  "hypothesis": "An attacker archived data dirs for exfil (zip creation).",
+  "queries": [
+    "DeviceProcessEvents | where FileName has_any ('7z.exe','rar.exe','winrar.exe','tar.exe') | where LocalAppDataFolder has 'Temp' or ProcessCommandLine contains '\\\\Users\\\\'"
+  ],
+  "rationale": "Archive tools on endpoints = collection stage.",
+  "id": "H103"
+}

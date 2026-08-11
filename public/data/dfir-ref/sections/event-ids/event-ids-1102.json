@@ -1,0 +1,12 @@
+{
+  "id": 1102,
+  "name": "Audit log cleared",
+  "log": "Security",
+  "mitre": "T1070.001",
+  "description": "The security audit log was cleared or deleted.",
+  "indicators": ["Log tampering", "Defense evasion"],
+  "investigation": "Check for other log gaps around the clear time, correlate with process creation events (4688) and who ran wevtutil/powershell -c Clear-EventLog.",
+  "slug": "event-ids-1102",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

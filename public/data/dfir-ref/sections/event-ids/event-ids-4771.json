@@ -1,0 +1,12 @@
+{
+  "id": 4771,
+  "name": "Kerberos pre-auth failed",
+  "log": "Security",
+  "mitre": "T1110",
+  "description": "Kerberos pre-authentication failed.",
+  "indicators": ["Brute force", "AS-REP roasting"],
+  "investigation": "Correlate fail code 0x18 (pre-auth) with account + IP for AS-REP roasting candidates and spray attempts.",
+  "slug": "event-ids-4771",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

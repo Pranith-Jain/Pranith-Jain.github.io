@@ -1,0 +1,8 @@
+{
+  "id": "CHQ32",
+  "name": "BigQuery dataset public read",
+  "provider": "GCP",
+  "mitre": "T1530",
+  "desc": "Dataset ACL allowing allUsers/allAuthenticatedUsers.",
+  "kql": "GCPAuditLogs | where operation.method == 'bigquery.datasets.update' | where resource contains 'allUsers'"
+}

@@ -1,0 +1,145 @@
+[
+  {
+    "phase": "Preparation",
+    "name": "Pre-incident preparation",
+    "steps": [
+      "Maintain pre-approved forensic imaging hardware (write blockers, verified blank media).",
+      "Document the organization's IR escalation chain and legal contact list (in-house counsel, outside counsel, law enforcement).",
+      "Define the authority chain: who may seize a device, with what internal authorization.",
+      "Pre-test the imaging workflow on similar hardware; keep checksums of the tooling itself.",
+      "Identify the jurisdiction(s) the evidence may be presented in and note admissibility requirements."
+    ],
+    "tools": "Tableau write blockers, FTK Imager, hardware hashers",
+    "notes": "Preparation failures invalidate chain of custody more often than acquisition errors."
+  },
+  {
+    "phase": "Identification",
+    "name": "Identify and scope potential evidence",
+    "steps": [
+      "Identify systems of interest: affected hosts, servers, network gear, cloud accounts, removable media.",
+      "Prioritize by volatility: memory > running processes > network > disk (live acquisition order).",
+      "Record system names, roles, IP/MAC addresses, time zone and current UTC offset.",
+      "Interview the system owner re: passwords, encryption, and unusual activity observed.",
+      "Check for FDE (BitLocker/FileVault) — if recovery key unavailable, do NOT shut down (lose memory) without a plan."
+    ],
+    "tools": "Asset inventory, IR runbook, encryption-status check (manage-bde / csrutil)",
+    "notes": "Document every system touched — scope creep later looks like negligence."
+  },
+  {
+    "phase": "Preservation",
+    "name": "Preserve original evidence",
+    "steps": [
+      "Write-block the source media; never boot the original disk r/w.",
+      "Image with verified hashes (SHA-256) before and after acquisition; record hash values.",
+      "For live systems: capture memory first, then acquire logical files (hiberfil.sys, pagefile, unallocated where feasible).",
+      "Disable backup overwrites; snapshot cloud VM volumes before further access.",
+      "Keep the original evidence byte-for-byte untouched; work only on copies."
+    ],
+    "tools": "FTK Imager, dd/ewfacquire, Guymager, cloud snapshot APIs",
+    "notes": "The verified hash is the single most challenged item in court — record both source and copy hashes."
+  },
+  {
+    "phase": "Collection",
+    "name": "Collect volatile and persistent data",
+    "steps": [
+      "Memory: dump with tool built for the OS (WinPmem, LiME, vmss2core) — document tool version + SHA256.",
+      "Collect process list, network connections, logged-on users, event logs (Security/System/PowerShell), registry hives.",
+      "Collect browser artifacts, shell artifacts (Recent, Prefetch, Jump Lists), scheduled tasks, services.",
+      "For cloud: collect API logs (CloudTrail/ActivityLogs), IAM role last-used, MFA events, without exposing secrets.",
+      "Label every artifact with source system, collector, date/time, and hash."
+    ],
+    "tools": "WinPmem, LiME, KAPE, FTK Imager live, Carbon Black/XDR exports",
+    "notes": "KAPE's '!SANS_Triage' module automates the standard triage collection set."
+  },
+  {
+    "phase": "Imaging",
+    "name": "Forensic imaging",
+    "steps": [
+      "Acquire physical disk image (RAW/DD or E01) via write-blocked hardware or verified software write-block.",
+      "Record drive model, serial, size, partition layout before imaging.",
+      "Compute SHA-256 on source and image; verify independently.",
+      "Store images on authenticated media; label with case number, exhibit number, date, initials.",
+      "Verify image integrity with the original hash before analysis begins."
+    ],
+    "tools": "FTK Imager, dc3dd, Guymager, EnCase/Exterro",
+    "notes": "Use E01 for compression+hash metadata; retain the raw hash for court."
+  },
+  {
+    "phase": "Analysis",
+    "name": "Analysis on copies only",
+    "steps": [
+      "Work exclusively on a bit-identical copy or mounted image (read-only).",
+      "Document the analysis toolchain with versions (and tool hashes if required).",
+      "Record findings in a timeline with artifact, source evidence, and analyst.",
+      "Preserve 'raw' extracted artifacts (files, registry keys, event rows) as exhibits.",
+      "Hash every extracted artifact that becomes an exhibit (malware samples, scripts, config)."
+    ],
+    "tools": "Autopsy, EnCase, X-Ways, Volatility, Eric Zimmerman tools",
+    "notes": "Analysis records = the audit trail that makes the report defensible."
+  },
+  {
+    "phase": "Documentation",
+    "name": "Documentation of custody",
+    "steps": [
+      "Create the chain-of-custody log: item, description, source, date/time, handler, transfer, reason.",
+      "Every transfer requires: two signatures (transferor/recipient), timestamp, purpose, and seal status.",
+      "Photograph the exhibit, its surroundings, and the original state of the system.",
+      "Record all passcodes/encryption keys received (in sealed, restricted-access storage).",
+      "Attach the acquisition hash sheet to the case file."
+    ],
+    "tools": "CoC template, case management (e.g. Autopsy case, FTK case), camera",
+    "notes": "Gaps in documentation create admissibility risk — document before, during, after."
+  },
+  {
+    "phase": "Transport & Storage",
+    "name": "Transport and storage",
+    "steps": [
+      "Use tamper-evident bags and sealed containers for physical media.",
+      "Track storage location access via sign-in sheet or electronic access log.",
+      "Maintain environmental controls (temperature/humidity) for long-term storage.",
+      "Barcode or unique-ID every item; log physical moves in the custody ledger.",
+      "Secure the evidence room with restricted access + CCTV where policy requires."
+    ],
+    "tools": "Tamper-evident bags, evidence lockers, asset tag system",
+    "notes": "Digital evidence also needs logical access control: encrypt at rest, RBAC, audit trail."
+  },
+  {
+    "phase": "Return / Disposition",
+    "name": "Return or disposition",
+    "steps": [
+      "Return original media only after case approval and verification of integrity (re-hash).",
+      "For disposal: degauss, shred, or cryptographically wipe per policy; document method + witness.",
+      "Retain the case record (images, notes, hashes) for the retention period required by policy/law.",
+      "Remove exhibits from the chain log with signatures confirming receipt back by owner/law.",
+      "Preserve a complete copy of the case file for potential legal challenge."
+    ],
+    "tools": "Degaussers, shredders, retention schedule",
+    "notes": "Disposition must be documented as carefully as acquisition."
+  },
+  {
+    "phase": "Cloud & Virtual",
+    "name": "Cloud and virtualized evidence",
+    "steps": [
+      "Snapshot the VM volume and memory (if available) via provider API; note snapshot IDs and times.",
+      "Capture IAM access logs, key rotations, login events (CloudTrail, Azure AD sign-ins, GCP audit).",
+      "Preserve the instance metadata: instance ID, AMI/image, launch time, attached IAM role.",
+      "Export from managed services with official export functions; record the export job ID and completion time.",
+      "Do not assume the provider's retention covers your needs — snapshot early."
+    ],
+    "tools": "AWS CLI, az CLI, gcloud, provider console exports",
+    "notes": "Cloud evidence often lives in immutable logs with fixed retention — collect before expiry."
+  },
+  {
+    "phase": "Reporting",
+    "name": "Report with evidence mapping",
+    "steps": [
+      "Produce the final report mapping each finding to the artifact name, path, and exhibit number.",
+      "Include the acquisition summary: tool, version, hash, and a copy of the CoC log.",
+      "Include the timeline of events and any artifacts that contradict or corroborate the timeline.",
+      "State limitations explicitly (encrypted volumes, logs unavailable, tool version constraints).",
+      "Have a second analyst (or supervisor) peer-review the report before release."
+    ],
+    "tools": "Report templates, timeline tools, case file",
+    "notes": "A finding without an exhibit reference is a rumor, not evidence."
+  }
+]

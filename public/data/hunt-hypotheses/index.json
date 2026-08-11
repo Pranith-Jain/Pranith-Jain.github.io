@@ -1,0 +1,950 @@
+{
+  "metadata": {
+    "description": "Structured threat-hunting hypothesis library — 154 hypotheses across 12 ATT&CK tactics, each with an evidence-based premise and starter queries",
+    "totalHypotheses": 154,
+    "totalTactics": 12
+  },
+  "source": "Authored in-repo (hypothesis-driven hunting practice; MITRE ATT&CK mapping)",
+  "sourceUrl": "https://pranithjain.qzz.io/dfir/hunt-hypotheses",
+  "license": "CC-BY-NC-SA; queries free to reuse",
+  "replicatedAt": "2026-08-10",
+  "counts": { "hypotheses": 154, "tactics": 12 },
+  "tactics": [
+    { "name": "Initial Access", "count": 8 },
+    { "name": "Execution", "count": 16 },
+    { "name": "Persistence", "count": 20 },
+    { "name": "Privilege Escalation", "count": 8 },
+    { "name": "Defense Evasion", "count": 16 },
+    { "name": "Credential Access", "count": 21 },
+    { "name": "Discovery", "count": 15 },
+    { "name": "Lateral Movement", "count": 16 },
+    { "name": "Collection", "count": 6 },
+    { "name": "C2", "count": 16 },
+    { "name": "Exfiltration", "count": 6 },
+    { "name": "Impact", "count": 6 }
+  ],
+  "hypothesisIndex": [
+    {
+      "id": "H001",
+      "tactic": "Initial Access",
+      "technique": "T1566.001",
+      "title": "Spear-phishing with macro-bearing document",
+      "sizeBytes": 459
+    },
+    {
+      "id": "H002",
+      "tactic": "Initial Access",
+      "technique": "T1566.001",
+      "title": "Phishing link via mail with external sender spoof",
+      "sizeBytes": 384
+    },
+    {
+      "id": "H003",
+      "tactic": "Initial Access",
+      "technique": "T1190",
+      "title": "Internet-facing appliance compromise",
+      "sizeBytes": 464
+    },
+    {
+      "id": "H004",
+      "tactic": "Initial Access",
+      "technique": "T1190",
+      "title": "CVE exploitation in DMZ web app",
+      "sizeBytes": 441
+    },
+    {
+      "id": "H005",
+      "tactic": "Initial Access",
+      "technique": "T1078.004",
+      "title": "Valid creds from prior breach",
+      "sizeBytes": 354
+    },
+    {
+      "id": "H006",
+      "tactic": "Initial Access",
+      "technique": "T1189",
+      "title": "Drive-by download from common website",
+      "sizeBytes": 381
+    },
+    {
+      "id": "H007",
+      "tactic": "Initial Access",
+      "technique": "T1566.002",
+      "title": "Voice phishing callback",
+      "sizeBytes": 401
+    },
+    {
+      "id": "H008",
+      "tactic": "Initial Access",
+      "technique": "T1091",
+      "title": "Removable media infection",
+      "sizeBytes": 411
+    },
+    {
+      "id": "H009",
+      "tactic": "Execution",
+      "technique": "T1059.001",
+      "title": "Obfuscated PowerShell onbox",
+      "sizeBytes": 377
+    },
+    {
+      "id": "H010",
+      "tactic": "Execution",
+      "technique": "T1059.003",
+      "title": "Windows command shell batch execution",
+      "sizeBytes": 394
+    },
+    { "id": "H011", "tactic": "Execution", "technique": "T1059.005", "title": "VBScript host use", "sizeBytes": 392 },
+    { "id": "H012", "tactic": "Execution", "technique": "T1047", "title": "WMI remote execution", "sizeBytes": 368 },
+    {
+      "id": "H013",
+      "tactic": "Execution",
+      "technique": "T1053.005",
+      "title": "Scheduled task execution in minutes",
+      "sizeBytes": 437
+    },
+    {
+      "id": "H014",
+      "tactic": "Execution",
+      "technique": "T1218.005",
+      "title": "mshta as execution bridge",
+      "sizeBytes": 305
+    },
+    {
+      "id": "H015",
+      "tactic": "Execution",
+      "technique": "T1204.002",
+      "title": "Malicious LNK in attachments/desktop",
+      "sizeBytes": 332
+    },
+    {
+      "id": "H016",
+      "tactic": "Execution",
+      "technique": "T1059.007",
+      "title": "JS execution via cscript",
+      "sizeBytes": 374
+    },
+    {
+      "id": "H017",
+      "tactic": "Execution",
+      "technique": "T1106",
+      "title": "Direct syscall execution",
+      "sizeBytes": 378
+    },
+    {
+      "id": "H018",
+      "tactic": "Execution",
+      "technique": "T1218.011",
+      "title": "Rundll32 shellcode loader",
+      "sizeBytes": 364
+    },
+    {
+      "id": "H019",
+      "tactic": "Execution",
+      "technique": "T1569.002",
+      "title": "Service binary execution via sc.exe",
+      "sizeBytes": 389
+    },
+    {
+      "id": "H020",
+      "tactic": "Execution",
+      "technique": "T1059.008",
+      "title": "Bash/awk on Windows (WSL)",
+      "sizeBytes": 323
+    },
+    {
+      "id": "H021",
+      "tactic": "Persistence",
+      "technique": "T1547.001",
+      "title": "Registry Run key addition",
+      "sizeBytes": 358
+    },
+    {
+      "id": "H022",
+      "tactic": "Persistence",
+      "technique": "T1547.001",
+      "title": "Startup folder placement",
+      "sizeBytes": 364
+    },
+    {
+      "id": "H023",
+      "tactic": "Persistence",
+      "technique": "T1543.003",
+      "title": "RunAs service persistence",
+      "sizeBytes": 433
+    },
+    {
+      "id": "H024",
+      "tactic": "Persistence",
+      "technique": "T1546.003",
+      "title": "WMI event subscription persistence",
+      "sizeBytes": 336
+    },
+    {
+      "id": "H025",
+      "tactic": "Persistence",
+      "technique": "T1547.009",
+      "title": "Shortcut (.lnk) modification for autostart",
+      "sizeBytes": 424
+    },
+    {
+      "id": "H026",
+      "tactic": "Persistence",
+      "technique": "T1546.010",
+      "title": "Image File Execution Options debugger",
+      "sizeBytes": 390
+    },
+    { "id": "H027", "tactic": "Persistence", "technique": "T1546.011", "title": "AppInit_DLLs", "sizeBytes": 361 },
+    {
+      "id": "H028",
+      "tactic": "Persistence",
+      "technique": "T1547.006",
+      "title": "Kernel driver autostart",
+      "sizeBytes": 503
+    },
+    {
+      "id": "H029",
+      "tactic": "Persistence",
+      "technique": "T1053.005",
+      "title": "Task with SYSTEM privileges",
+      "sizeBytes": 440
+    },
+    {
+      "id": "H030",
+      "tactic": "Persistence",
+      "technique": "T1098.004",
+      "title": "authorized_keys write (Linux)",
+      "sizeBytes": 361
+    },
+    {
+      "id": "H031",
+      "tactic": "Persistence",
+      "technique": "T1547.004",
+      "title": "winlogon shell key change",
+      "sizeBytes": 388
+    },
+    {
+      "id": "H032",
+      "tactic": "Persistence",
+      "technique": "T1136.001",
+      "title": "Undocumented local account",
+      "sizeBytes": 358
+    },
+    {
+      "id": "H033",
+      "tactic": "Persistence",
+      "technique": "T1546.002",
+      "title": "ScreenSaver binary hijack",
+      "sizeBytes": 413
+    },
+    {
+      "id": "H034",
+      "tactic": "Persistence",
+      "technique": "T1574.001",
+      "title": "DLL search order hijack",
+      "sizeBytes": 408
+    },
+    {
+      "id": "H035",
+      "tactic": "Persistence",
+      "technique": "T1546.012",
+      "title": "COM object hijacking",
+      "sizeBytes": 384
+    },
+    {
+      "id": "H036",
+      "tactic": "Persistence",
+      "technique": "T1547.002",
+      "title": "WinLogon notify/LogonScript",
+      "sizeBytes": 354
+    },
+    {
+      "id": "H037",
+      "tactic": "Privilege Escalation",
+      "technique": "T1068",
+      "title": "Exploitation of privilege-escalation CVE",
+      "sizeBytes": 498
+    },
+    {
+      "id": "H038",
+      "tactic": "Privilege Escalation",
+      "technique": "T1134.003",
+      "title": "Token manipulation",
+      "sizeBytes": 342
+    },
+    {
+      "id": "H039",
+      "tactic": "Privilege Escalation",
+      "technique": "T1548.002",
+      "title": "UAC bypass via fodhelper",
+      "sizeBytes": 351
+    },
+    {
+      "id": "H040",
+      "tactic": "Privilege Escalation",
+      "technique": "T1548.001",
+      "title": "sudo misconfig (Linux)",
+      "sizeBytes": 357
+    },
+    {
+      "id": "H041",
+      "tactic": "Privilege Escalation",
+      "technique": "T1055.001",
+      "title": "DLL injection into elevated process",
+      "sizeBytes": 432
+    },
+    {
+      "id": "H042",
+      "tactic": "Privilege Escalation",
+      "technique": "T1037",
+      "title": "Startup folder as admin",
+      "sizeBytes": 437
+    },
+    {
+      "id": "H043",
+      "tactic": "Privilege Escalation",
+      "technique": "T1543.004",
+      "title": "Service binary replacement",
+      "sizeBytes": 418
+    },
+    {
+      "id": "H044",
+      "tactic": "Privilege Escalation",
+      "technique": "T1134.002",
+      "title": "CREATE_NEW_PROCESS_GROUP privilege use",
+      "sizeBytes": 427
+    },
+    {
+      "id": "H045",
+      "tactic": "Defense Evasion",
+      "technique": "T1070.004",
+      "title": "File deletion of security artifacts",
+      "sizeBytes": 447
+    },
+    {
+      "id": "H046",
+      "tactic": "Defense Evasion",
+      "technique": "T1070.001",
+      "title": "Event log clearing",
+      "sizeBytes": 350
+    },
+    {
+      "id": "H047",
+      "tactic": "Defense Evasion",
+      "technique": "T1562.001",
+      "title": "EDR/AV service stop",
+      "sizeBytes": 354
+    },
+    {
+      "id": "H048",
+      "tactic": "Defense Evasion",
+      "technique": "T1562.004",
+      "title": "Firewall rule removal",
+      "sizeBytes": 382
+    },
+    {
+      "id": "H049",
+      "tactic": "Defense Evasion",
+      "technique": "T1497.001",
+      "title": "Sandbox detection (sleep/CPU checks)",
+      "sizeBytes": 459
+    },
+    {
+      "id": "H050",
+      "tactic": "Defense Evasion",
+      "technique": "T1027.001",
+      "title": "Binary packing detection",
+      "sizeBytes": 471
+    },
+    {
+      "id": "H051",
+      "tactic": "Defense Evasion",
+      "technique": "T1564.001",
+      "title": "Hidden file/system attribute set",
+      "sizeBytes": 382
+    },
+    {
+      "id": "H052",
+      "tactic": "Defense Evasion",
+      "technique": "T1553.001",
+      "title": "Trusted publisher cert abuse",
+      "sizeBytes": 356
+    },
+    {
+      "id": "H053",
+      "tactic": "Defense Evasion",
+      "technique": "T1070.003",
+      "title": "Clear PowerShell console history",
+      "sizeBytes": 395
+    },
+    {
+      "id": "H054",
+      "tactic": "Defense Evasion",
+      "technique": "T1482",
+      "title": "Domain trust discovery",
+      "sizeBytes": 365
+    },
+    {
+      "id": "H055",
+      "tactic": "Defense Evasion",
+      "technique": "T1112",
+      "title": "Registry modification for evasion",
+      "sizeBytes": 368
+    },
+    {
+      "id": "H056",
+      "tactic": "Defense Evasion",
+      "technique": "T1202",
+      "title": "Indirect command via utilities",
+      "sizeBytes": 433
+    },
+    {
+      "id": "H057",
+      "tactic": "Defense Evasion",
+      "technique": "T1036.005",
+      "title": "Masquerading as system binary name",
+      "sizeBytes": 436
+    },
+    {
+      "id": "H058",
+      "tactic": "Defense Evasion",
+      "technique": "T1140",
+      "title": "Deobfuscation step (certutil decode)",
+      "sizeBytes": 334
+    },
+    {
+      "id": "H059",
+      "tactic": "Defense Evasion",
+      "technique": "T1562.002",
+      "title": "CLFS/event log tampering",
+      "sizeBytes": 436
+    },
+    {
+      "id": "H060",
+      "tactic": "Defense Evasion",
+      "technique": "T1564.003",
+      "title": "ADS (Alternate Data Stream) use",
+      "sizeBytes": 317
+    },
+    {
+      "id": "H061",
+      "tactic": "Credential Access",
+      "technique": "T1003.001",
+      "title": "LSASS process memory read",
+      "sizeBytes": 396
+    },
+    {
+      "id": "H062",
+      "tactic": "Credential Access",
+      "technique": "T1003.002",
+      "title": "SAM hive exfiltration",
+      "sizeBytes": 430
+    },
+    {
+      "id": "H063",
+      "tactic": "Credential Access",
+      "technique": "T1003.008",
+      "title": "ntds.dit access",
+      "sizeBytes": 342
+    },
+    {
+      "id": "H064",
+      "tactic": "Credential Access",
+      "technique": "T1558.003",
+      "title": "RC4 service tickets (Kerberoasting)",
+      "sizeBytes": 371
+    },
+    {
+      "id": "H065",
+      "tactic": "Credential Access",
+      "technique": "T1558.004",
+      "title": "AS-REP roasting",
+      "sizeBytes": 308
+    },
+    {
+      "id": "H066",
+      "tactic": "Credential Access",
+      "technique": "T1555",
+      "title": "Browser credential store access",
+      "sizeBytes": 458
+    },
+    {
+      "id": "H067",
+      "tactic": "Credential Access",
+      "technique": "T1552.001",
+      "title": "Credential files in user profiles",
+      "sizeBytes": 428
+    },
+    {
+      "id": "H068",
+      "tactic": "Credential Access",
+      "technique": "T1552.004",
+      "title": "Unattended.xml/powershell profile with creds",
+      "sizeBytes": 400
+    },
+    {
+      "id": "H069",
+      "tactic": "Credential Access",
+      "technique": "T1003.006",
+      "title": "Replication of directory changes (DCSync)",
+      "sizeBytes": 417
+    },
+    {
+      "id": "H070",
+      "tactic": "Credential Access",
+      "technique": "T1110.004",
+      "title": "Credential stuffing on internal apps",
+      "sizeBytes": 400
+    },
+    {
+      "id": "H071",
+      "tactic": "Credential Access",
+      "technique": "T1056.001",
+      "title": "Keylogger module loaded",
+      "sizeBytes": 396
+    },
+    {
+      "id": "H072",
+      "tactic": "Credential Access",
+      "technique": "T1550.003",
+      "title": "Kerberos ticket use from non-DC host",
+      "sizeBytes": 469
+    },
+    {
+      "id": "H073",
+      "tactic": "Credential Access",
+      "technique": "T1555.004",
+      "title": "Vault/DPAPI access",
+      "sizeBytes": 372
+    },
+    {
+      "id": "H074",
+      "tactic": "Credential Access",
+      "technique": "T1056.003",
+      "title": "Web portal credential prompt (phishing page)",
+      "sizeBytes": 428
+    },
+    {
+      "id": "H075",
+      "tactic": "Credential Access",
+      "technique": "T1558.001",
+      "title": "krbtgt hash request",
+      "sizeBytes": 314
+    },
+    {
+      "id": "H076",
+      "tactic": "Credential Access",
+      "technique": "T1110.001",
+      "title": "RDP brute force",
+      "sizeBytes": 360
+    },
+    { "id": "H077", "tactic": "Discovery", "technique": "T1087.001", "title": "Account enumeration", "sizeBytes": 391 },
+    { "id": "H078", "tactic": "Discovery", "technique": "T1018", "title": "Hostname enumeration", "sizeBytes": 321 },
+    {
+      "id": "H079",
+      "tactic": "Discovery",
+      "technique": "T1069.001",
+      "title": "Group membership discovery",
+      "sizeBytes": 403
+    },
+    {
+      "id": "H080",
+      "tactic": "Discovery",
+      "technique": "T1082",
+      "title": "System information gathering",
+      "sizeBytes": 414
+    },
+    {
+      "id": "H081",
+      "tactic": "Discovery",
+      "technique": "T1120",
+      "title": "Peripheral device discovery",
+      "sizeBytes": 361
+    },
+    { "id": "H082", "tactic": "Discovery", "technique": "T1046", "title": "Network service scan", "sizeBytes": 417 },
+    {
+      "id": "H083",
+      "tactic": "Discovery",
+      "technique": "T1016",
+      "title": "Network configuration discovery",
+      "sizeBytes": 332
+    },
+    {
+      "id": "H084",
+      "tactic": "Discovery",
+      "technique": "T1083",
+      "title": "File/directory discovery",
+      "sizeBytes": 414
+    },
+    {
+      "id": "H085",
+      "tactic": "Discovery",
+      "technique": "T1497.003",
+      "title": "Time-based evasion (long baseline)",
+      "sizeBytes": 414
+    },
+    { "id": "H086", "tactic": "Discovery", "technique": "T1012", "title": "Registry discovery", "sizeBytes": 410 },
+    {
+      "id": "H087",
+      "tactic": "Discovery",
+      "technique": "T1518.001",
+      "title": "Security software discovery",
+      "sizeBytes": 464
+    },
+    {
+      "id": "H088",
+      "tactic": "Discovery",
+      "technique": "T1087.004",
+      "title": "Cloud account enumeration",
+      "sizeBytes": 356
+    },
+    {
+      "id": "H089",
+      "tactic": "Lateral Movement",
+      "technique": "T1021.002",
+      "title": "SMB ADMIN$ access pattern",
+      "sizeBytes": 351
+    },
+    {
+      "id": "H090",
+      "tactic": "Lateral Movement",
+      "technique": "T1021.001",
+      "title": "RDP session chaining",
+      "sizeBytes": 434
+    },
+    {
+      "id": "H091",
+      "tactic": "Lateral Movement",
+      "technique": "T1570",
+      "title": "Admin share file staging",
+      "sizeBytes": 334
+    },
+    {
+      "id": "H092",
+      "tactic": "Lateral Movement",
+      "technique": "T1072",
+      "title": "Software deployment tool abuse",
+      "sizeBytes": 413
+    },
+    {
+      "id": "H093",
+      "tactic": "Lateral Movement",
+      "technique": "T1563",
+      "title": "Session hijack (RDP tsclient)",
+      "sizeBytes": 322
+    },
+    {
+      "id": "H094",
+      "tactic": "Lateral Movement",
+      "technique": "T1210",
+      "title": "Exploitation of network services",
+      "sizeBytes": 423
+    },
+    {
+      "id": "H095",
+      "tactic": "Lateral Movement",
+      "technique": "T1021.006",
+      "title": "WinRM/PSRemoting execution",
+      "sizeBytes": 419
+    },
+    {
+      "id": "H096",
+      "tactic": "Lateral Movement",
+      "technique": "T1090.003",
+      "title": "Proxy/port-forward setup",
+      "sizeBytes": 401
+    },
+    {
+      "id": "H097",
+      "tactic": "Lateral Movement",
+      "technique": "T1566.002",
+      "title": "Internal phishing",
+      "sizeBytes": 355
+    },
+    {
+      "id": "H098",
+      "tactic": "Lateral Movement",
+      "technique": "T1027.004",
+      "title": "Compressed payload over share",
+      "sizeBytes": 343
+    },
+    {
+      "id": "H099",
+      "tactic": "Lateral Movement",
+      "technique": "T1559",
+      "title": "COM inter-process movement",
+      "sizeBytes": 377
+    },
+    {
+      "id": "H100",
+      "tactic": "Lateral Movement",
+      "technique": "T1021.004",
+      "title": "SSH from admin workstation",
+      "sizeBytes": 347
+    },
+    {
+      "id": "H101",
+      "tactic": "Collection",
+      "technique": "T1005",
+      "title": "Sensitive file collection",
+      "sizeBytes": 493
+    },
+    { "id": "H102", "tactic": "Collection", "technique": "T1114.001", "title": "Mailbox search", "sizeBytes": 328 },
+    { "id": "H103", "tactic": "Collection", "technique": "T1560", "title": "Archive collection", "sizeBytes": 393 },
+    { "id": "H104", "tactic": "Collection", "technique": "T1113", "title": "Screen capture", "sizeBytes": 387 },
+    { "id": "H105", "tactic": "Collection", "technique": "T1005.001", "title": "Clipboard capture", "sizeBytes": 319 },
+    {
+      "id": "H106",
+      "tactic": "Collection",
+      "technique": "T1114.002",
+      "title": "Remote email API use for bulk access",
+      "sizeBytes": 397
+    },
+    { "id": "H107", "tactic": "C2", "technique": "T1071.001", "title": "HTTP/S beacon", "sizeBytes": 426 },
+    {
+      "id": "H108",
+      "tactic": "C2",
+      "technique": "T1573.001",
+      "title": "Encrypted custom protocol on odd port",
+      "sizeBytes": 439
+    },
+    { "id": "H109", "tactic": "C2", "technique": "T1568.002", "title": "DGA domain resolution", "sizeBytes": 378 },
+    { "id": "H110", "tactic": "C2", "technique": "T1105", "title": "File download via C2 channel", "sizeBytes": 409 },
+    { "id": "H111", "tactic": "C2", "technique": "T1071.004", "title": "DNS tunneling", "sizeBytes": 352 },
+    { "id": "H112", "tactic": "C2", "technique": "T1219", "title": "Remote access tool install", "sizeBytes": 391 },
+    {
+      "id": "H113",
+      "tactic": "C2",
+      "technique": "T1132.001",
+      "title": "Encoded command exfil over HTTP",
+      "sizeBytes": 385
+    },
+    { "id": "H114", "tactic": "C2", "technique": "T1071.003", "title": "Mail protocols as C2", "sizeBytes": 351 },
+    {
+      "id": "H115",
+      "tactic": "C2",
+      "technique": "T1102",
+      "title": "Web service C2 (pastebin/GitHub)",
+      "sizeBytes": 401
+    },
+    { "id": "H116", "tactic": "C2", "technique": "T1095", "title": "Raw TCP/UDP non-HTTP", "sizeBytes": 389 },
+    { "id": "H117", "tactic": "C2", "technique": "T1090.002", "title": "External proxy use", "sizeBytes": 309 },
+    { "id": "H118", "tactic": "C2", "technique": "T1071.002", "title": "FTP-based exfil/beacon", "sizeBytes": 283 },
+    {
+      "id": "H119",
+      "tactic": "Exfiltration",
+      "technique": "T1041",
+      "title": "Data exfiltration over HTTP POST",
+      "sizeBytes": 476
+    },
+    {
+      "id": "H120",
+      "tactic": "Exfiltration",
+      "technique": "T1048",
+      "title": "Exfil to cloud storage",
+      "sizeBytes": 397
+    },
+    {
+      "id": "H121",
+      "tactic": "Exfiltration",
+      "technique": "T1567.002",
+      "title": "Exfil to paste service",
+      "sizeBytes": 318
+    },
+    {
+      "id": "H122",
+      "tactic": "Exfiltration",
+      "technique": "T1048.003",
+      "title": "Exfil via DNS TXT",
+      "sizeBytes": 366
+    },
+    {
+      "id": "H123",
+      "tactic": "Exfiltration",
+      "technique": "T1020",
+      "title": "Automated exfil (scheduled)",
+      "sizeBytes": 423
+    },
+    {
+      "id": "H124",
+      "tactic": "Exfiltration",
+      "technique": "T1030",
+      "title": "Data transfer size anomaly",
+      "sizeBytes": 431
+    },
+    {
+      "id": "H125",
+      "tactic": "Impact",
+      "technique": "T1486",
+      "title": "Ransomware file extension surge",
+      "sizeBytes": 415
+    },
+    { "id": "H126", "tactic": "Impact", "technique": "T1490", "title": "Backup/VSS destruction", "sizeBytes": 353 },
+    { "id": "H127", "tactic": "Impact", "technique": "T1485", "title": "Mass file deletion", "sizeBytes": 350 },
+    { "id": "H128", "tactic": "Impact", "technique": "T1499", "title": "Resource exhaustion DoS", "sizeBytes": 471 },
+    {
+      "id": "H129",
+      "tactic": "Impact",
+      "technique": "T1565",
+      "title": "Data manipulation (defacement)",
+      "sizeBytes": 403
+    },
+    {
+      "id": "H130",
+      "tactic": "Impact",
+      "technique": "T1485",
+      "title": "ShadowPage/sysvol tampering",
+      "sizeBytes": 352
+    },
+    {
+      "id": "H131",
+      "tactic": "Discovery",
+      "technique": "T1087.002",
+      "title": "Domain admin session enumeration",
+      "sizeBytes": 455
+    },
+    {
+      "id": "H132",
+      "tactic": "Discovery",
+      "technique": "T1010",
+      "title": "Window/desktop enumeration",
+      "sizeBytes": 412
+    },
+    {
+      "id": "H133",
+      "tactic": "Discovery",
+      "technique": "T1615",
+      "title": "Printer/Share discovery (spooler abuse prep)",
+      "sizeBytes": 405
+    },
+    {
+      "id": "H134",
+      "tactic": "Persistence",
+      "technique": "T1546.008",
+      "title": "Accessibility feature binary replacement",
+      "sizeBytes": 461
+    },
+    {
+      "id": "H135",
+      "tactic": "Persistence",
+      "technique": "T1556.002",
+      "title": "Password filter DLL installation",
+      "sizeBytes": 427
+    },
+    {
+      "id": "H136",
+      "tactic": "Persistence",
+      "technique": "T1547.010",
+      "title": "Port Monitor persistence",
+      "sizeBytes": 355
+    },
+    {
+      "id": "H137",
+      "tactic": "Persistence",
+      "technique": "T1547.013",
+      "title": "XDG autostart (Linux desktop)",
+      "sizeBytes": 338
+    },
+    {
+      "id": "H138",
+      "tactic": "Execution",
+      "technique": "T1203",
+      "title": "Exploitation for client execution (browser/app)",
+      "sizeBytes": 434
+    },
+    {
+      "id": "H139",
+      "tactic": "Execution",
+      "technique": "T1216",
+      "title": "Signed script execution (Msiexec/others)",
+      "sizeBytes": 393
+    },
+    {
+      "id": "H140",
+      "tactic": "Execution",
+      "technique": "T1218.010",
+      "title": "Regsvr32 scriptlet execution",
+      "sizeBytes": 323
+    },
+    { "id": "H141", "tactic": "Execution", "technique": "T1129", "title": "Shared module execution", "sizeBytes": 389 },
+    {
+      "id": "H142",
+      "tactic": "Credential Access",
+      "technique": "T1555.003",
+      "title": "Credentials in memory of RDP clients",
+      "sizeBytes": 434
+    },
+    {
+      "id": "H143",
+      "tactic": "Credential Access",
+      "technique": "T1552.003",
+      "title": "Bash history credential search",
+      "sizeBytes": 403
+    },
+    {
+      "id": "H144",
+      "tactic": "Credential Access",
+      "technique": "T1003.005",
+      "title": "Cached credentials dump",
+      "sizeBytes": 397
+    },
+    {
+      "id": "H145",
+      "tactic": "Credential Access",
+      "technique": "T1555.005",
+      "title": "Password manager vault access",
+      "sizeBytes": 433
+    },
+    {
+      "id": "H146",
+      "tactic": "Credential Access",
+      "technique": "T1056.002",
+      "title": "GUI input capture (RDP inject)",
+      "sizeBytes": 390
+    },
+    {
+      "id": "H147",
+      "tactic": "Lateral Movement",
+      "technique": "T1550.001",
+      "title": "Pass-the-cache (Kerberos cache use)",
+      "sizeBytes": 359
+    },
+    {
+      "id": "H148",
+      "tactic": "Lateral Movement",
+      "technique": "T1072",
+      "title": "Config management tool abuse (Ansible/Chef)",
+      "sizeBytes": 447
+    },
+    {
+      "id": "H149",
+      "tactic": "Lateral Movement",
+      "technique": "T1210",
+      "title": "Exploit attempts against SMB (EternalBlue family)",
+      "sizeBytes": 408
+    },
+    {
+      "id": "H150",
+      "tactic": "Lateral Movement",
+      "technique": "T1570",
+      "title": "Remote copy via xcopy/robocopy",
+      "sizeBytes": 353
+    },
+    { "id": "H151", "tactic": "C2", "technique": "T1090.001", "title": "Internal proxy rotation", "sizeBytes": 369 },
+    {
+      "id": "H152",
+      "tactic": "C2",
+      "technique": "T1102.003",
+      "title": "One-way C2 via web storage (Google Docs/Forms)",
+      "sizeBytes": 434
+    },
+    { "id": "H153", "tactic": "C2", "technique": "T1568.001", "title": "Domain fronting", "sizeBytes": 423 },
+    {
+      "id": "H154",
+      "tactic": "C2",
+      "technique": "T1104",
+      "title": "Multi-stage beacon check-in pattern",
+      "sizeBytes": 457
+    }
+  ]
+}

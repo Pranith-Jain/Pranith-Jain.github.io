@@ -1,0 +1,11 @@
+{
+  "browser": "Firefox",
+  "artifact": "cookies.sqlite",
+  "path": "%APPDATA%\\Mozilla\\Firefox\\Profiles\\<profile>\\cookies.sqlite",
+  "evidence": "Cookie store (name, value, host, path, expiry).",
+  "tools": "DB Browser, cookies viewer",
+  "note": "Legacy store; newer versions use cookies.sqlite still, encrypted only with profile password.",
+  "slug": "browser-cookies-sqlite",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

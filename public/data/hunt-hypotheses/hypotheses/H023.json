@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1543.003",
+  "title": "RunAs service persistence",
+  "hypothesis": "A service was created that runs as SYSTEM and executes an attacker binary.",
+  "queries": [
+    "SecurityEvent | where EventID == 7045 | where ServiceStartType == 'auto' | where ServiceFileName contains 'Users\\\\' or ServiceFileName contains 'Temp'"
+  ],
+  "rationale": "Auto-start service from writable dir as SYSTEM = high confidence persistence.",
+  "id": "H023"
+}

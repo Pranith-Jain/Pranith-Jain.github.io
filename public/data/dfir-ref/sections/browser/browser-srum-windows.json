@@ -1,0 +1,11 @@
+{
+  "browser": "All",
+  "artifact": "SRUM (Windows)",
+  "path": "C:\\Windows\\System32\\sru\\SRUDB.dat",
+  "evidence": "Network usage per-app (bytes sent/received) — exfil and browser activity volume.",
+  "tools": "SrumDump, TimelineExplorer",
+  "note": "Shows per-process network bytes, app connectivity times.",
+  "slug": "browser-srum-windows",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

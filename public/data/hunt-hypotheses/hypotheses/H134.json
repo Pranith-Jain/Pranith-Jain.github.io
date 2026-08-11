@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1546.008",
+  "title": "Accessibility feature binary replacement",
+  "hypothesis": "An attacker replaced sethc/Utilman with cmd for login-prompt persistence.",
+  "queries": [
+    "DeviceFileEvents | where FileName in ('sethc.exe','utilman.exe','magnify.exe') | where ActionType in ('FileModified','FileCreated') | where InitiatingProcessFileName != 'dism.exe'"
+  ],
+  "rationale": "Replacing accessibility binaries = classic elevator persistence.",
+  "id": "H134"
+}

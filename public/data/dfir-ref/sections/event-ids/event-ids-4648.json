@@ -1,0 +1,12 @@
+{
+  "id": 4648,
+  "name": "Logon with explicit credentials",
+  "log": "Security",
+  "mitre": "T1078.003",
+  "description": "A logon was attempted using explicit credentials (RunAs, RDP, secondary logon).",
+  "indicators": ["Credential abuse", "Lateral movement"],
+  "investigation": "Look for RunAs usage (LogonType 2) followed by network logons — classic lateral movement chain. Enrich target account with 4624 events.",
+  "slug": "event-ids-4648",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1003.006",
+  "title": "Replication of directory changes (DCSync)",
+  "hypothesis": "An account requested directory replication (DCSync) from the DC.",
+  "queries": [
+    "SecurityEvent | where EventID == 4662 | where OperationType == 'Control Access' | where ObjectName startswith 'Replicating Directory Changes'"
+  ],
+  "rationale": "DS-Replication-Get-Changes beyond legit sync tools = DCSync.",
+  "id": "H069"
+}

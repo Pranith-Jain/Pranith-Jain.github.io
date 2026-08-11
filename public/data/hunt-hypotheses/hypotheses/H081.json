@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1120",
+  "title": "Peripheral device discovery",
+  "hypothesis": "An attacker queried attached devices (memory, disk) for later theft.",
+  "queries": [
+    "DeviceProcessEvents | where ProcessCommandLine contains 'wmic' and ProcessCommandLine contains 'logicaldisk'"
+  ],
+  "rationale": "wmic logicaldisk queries from non-admin = peripheral recon.",
+  "id": "H081"
+}

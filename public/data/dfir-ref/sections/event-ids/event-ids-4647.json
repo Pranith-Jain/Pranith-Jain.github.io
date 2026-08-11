@@ -1,0 +1,12 @@
+{
+  "id": 4647,
+  "name": "User initiated logoff",
+  "log": "Security",
+  "mitre": "T1078",
+  "description": "A user initiated a logoff.",
+  "indicators": ["User activity"],
+  "investigation": "Unexpected logoffs at odd hours may indicate attacker session cleanup.",
+  "slug": "event-ids-4647",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

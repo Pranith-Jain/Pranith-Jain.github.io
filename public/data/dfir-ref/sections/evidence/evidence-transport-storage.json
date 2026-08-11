@@ -1,0 +1,16 @@
+{
+  "phase": "Transport & Storage",
+  "name": "Transport and storage",
+  "steps": [
+    "Use tamper-evident bags and sealed containers for physical media.",
+    "Track storage location access via sign-in sheet or electronic access log.",
+    "Maintain environmental controls (temperature/humidity) for long-term storage.",
+    "Barcode or unique-ID every item; log physical moves in the custody ledger.",
+    "Secure the evidence room with restricted access + CCTV where policy requires."
+  ],
+  "tools": "Tamper-evident bags, evidence lockers, asset tag system",
+  "notes": "Digital evidence also needs logical access control: encrypt at rest, RBAC, audit trail.",
+  "slug": "evidence-transport-storage",
+  "section": "evidence",
+  "sectionLabel": "Evidence Collection & Chain of Custody"
+}

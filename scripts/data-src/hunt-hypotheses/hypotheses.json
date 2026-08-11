@@ -1,0 +1,1521 @@
+[
+  {
+    "tactic": "Initial Access",
+    "technique": "T1566.001",
+    "title": "Spear-phishing with macro-bearing document",
+    "hypothesis": "An employee received a macro-enabled document that delivered an initial stager.",
+    "queries": [
+      "DeviceProcessEvents | where FileName in ('winword.exe','excel.exe') | where InitiatingProcessFileName has_any ('powershell.exe','cmd.exe','wscript.exe')"
+    ],
+    "rationale": "Office spawn of scripting host is the classic macro kill chain starting point."
+  },
+  {
+    "tactic": "Initial Access",
+    "technique": "T1566.001",
+    "title": "Phishing link via mail with external sender spoof",
+    "hypothesis": "A spoofed external sender convinced a user to open a link and sign in.",
+    "queries": ["EmailEvents | where EmailDirection == 'Inbound' | where SenderMailFromDomain != SenderFromDomain"],
+    "rationale": "From-domain mismatch is a cheap spoofing indicator pre-DMARC."
+  },
+  {
+    "tactic": "Initial Access",
+    "technique": "T1190",
+    "title": "Internet-facing appliance compromise",
+    "hypothesis": "A perimeter device (VPN, web app, mail) was exploited before internal movement.",
+    "queries": [
+      "DeviceProcessEvents | where InitiatingProcessFileName has_any ('w3wp.exe','httpd.exe','nginx.exe','sshd.exe') | where FileName has_any ('cmd.exe','powershell.exe','bash')"
+    ],
+    "rationale": "Web/service processes spawning shells = remote code execution on perimeter."
+  },
+  {
+    "tactic": "Initial Access",
+    "technique": "T1190",
+    "title": "CVE exploitation in DMZ web app",
+    "hypothesis": "An exploit payload was executed in the DMZ matching recent KEV CVEs.",
+    "queries": [
+      "WafLogs | where UrlPath contains '=' and UrlPath contains '../../../../etc/passwd'",
+      "WafLogs | where UrlPath contains 'cmd' or UrlPath contains 'exec'"
+    ],
+    "rationale": "Path traversal + command execution strings indicate exploit attempts against known CVEs."
+  },
+  {
+    "tactic": "Initial Access",
+    "technique": "T1078.004",
+    "title": "Valid creds from prior breach",
+    "hypothesis": "Credentials from a leak/stealer log were used to log into internal systems.",
+    "queries": ["SecurityEvent | where EventID == 4625 | where Account in (knownBreachAccounts)"],
+    "rationale": "Spraying leaked credentials produces 4625 bursts before success."
+  },
+  {
+    "tactic": "Initial Access",
+    "technique": "T1189",
+    "title": "Drive-by download from common website",
+    "hypothesis": "A user browsed a compromised site that redirected to a payload.",
+    "queries": ["DeviceNetworkEvents | where RemoteUrl contains '.zip' and InitiatingProcessFileName == 'browser'"],
+    "rationale": "Browser downloads of executables/archives from non-enterprise domains = drive-by."
+  },
+  {
+    "tactic": "Initial Access",
+    "technique": "T1566.002",
+    "title": "Voice phishing callback",
+    "hypothesis": "A vishing callback led the user to install remote-control software.",
+    "queries": [
+      "DeviceProcessEvents | where FileName has_any ('teamviewer.exe','anydesk.exe','quickassist.exe') | where ProcessCommandLine contains 'http'"
+    ],
+    "rationale": "Remote-control installs with network URIs match vishing workflow."
+  },
+  {
+    "tactic": "Initial Access",
+    "technique": "T1091",
+    "title": "Removable media infection",
+    "hypothesis": "Autorun-style malware from an external USB executed on an internal host.",
+    "queries": [
+      "DeviceProcessEvents | where InitiatingProcessFileName == 'explorer.exe' | where FileName has_any ('autorun.inf','solver.exe','copy.exe')"
+    ],
+    "rationale": "Explorer-spawned odd binaries can indicate removable-media auto-execution."
+  },
+
+  {
+    "tactic": "Execution",
+    "technique": "T1059.001",
+    "title": "Obfuscated PowerShell onbox",
+    "hypothesis": "PowerShell ran obfuscated code to bypass detection on an endpoint.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'powershell.exe' | where ProcessCommandLine contains '-enc' or ProcessCommandLine contains '-e '"
+    ],
+    "rationale": "Encoded command = deliberate evasion attempt."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1059.003",
+    "title": "Windows command shell batch execution",
+    "hypothesis": "An attacker chained batch commands via cmd /c.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'cmd.exe' | where ProcessCommandLine contains '/c' | where ProcessCommandLine matches regex @'.*(&|&&|;).*'"
+    ],
+    "rationale": "Chained commands in one /c invocation are unusual for admins."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1059.005",
+    "title": "VBScript host use",
+    "hypothesis": "cscript/wscript ran a script from a writable location.",
+    "queries": [
+      "DeviceProcessEvents | where FileName has_any ('cscript.exe','wscript.exe') | where ProcessCommandLine contains 'Users\\\\' or ProcessCommandLine contains 'Temp'"
+    ],
+    "rationale": "Launching scripts from user-writable dirs = LNK/HTA chain."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1047",
+    "title": "WMI remote execution",
+    "hypothesis": "A remote host executed commands through WMI process creation.",
+    "queries": [
+      "DeviceProcessEvents | where InitiatingProcessName contains 'wmiprvse.exe' | where InitiatingProcessAccountName != 'SYSTEM'"
+    ],
+    "rationale": "wmiprvse spawning subprocesses under a user account = remote exec."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1053.005",
+    "title": "Scheduled task execution in minutes",
+    "hypothesis": "A task was created and fired in under 10 minutes as an exec channel.",
+    "queries": [
+      "SecurityEvent | where EventID in (4698, 4699, 4702) | let t = TimeGenerated | join kind=inner (SecurityEvent | where EventID == 4698) on Computer | where t - TimeGenerated < 10m"
+    ],
+    "rationale": "Create-then-run immediacy = execution not persistence."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1218.005",
+    "title": "mshta as execution bridge",
+    "hypothesis": "mshta fetched and ran remote script.",
+    "queries": ["DeviceProcessEvents | where FileName == 'mshta.exe' | where ProcessCommandLine contains 'http'"],
+    "rationale": "mshta with remote URI is weaponized by default."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1204.002",
+    "title": "Malicious LNK in attachments/desktop",
+    "hypothesis": "A user double-clicked an LNK that spawned PowerShell/CMD.",
+    "queries": ["DeviceProcessEvents | where InitiatingProcessFileName endswith '.lnk' and FileName == 'cmd.exe'"],
+    "rationale": "LNK-sourced cmd = shortcut weaponization."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1059.007",
+    "title": "JS execution via cscript",
+    "hypothesis": "JavaScript payload (download cradle) executed through cscript.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'cscript.exe' | where ProcessCommandLine contains '.js' | where ProcessCommandLine contains 'http'"
+    ],
+    "rationale": "JS with remote fetch from cscript = downloader."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1106",
+    "title": "Direct syscall execution",
+    "hypothesis": "A process used direct syscalls to execute, bypassing EDR hooks.",
+    "queries": [
+      "DeviceEvents | where ActionType == 'ProcessStart' | where InitiatingProcessCommandLine contains 'NtCreateFile'"
+    ],
+    "rationale": "Ndless-process direct-syscall patterns only identifiable via kernel/ETW telemetry."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1218.011",
+    "title": "Rundll32 shellcode loader",
+    "hypothesis": "rundll32 executed shellcode from a data URI or DLL.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'rundll32.exe' | where ProcessCommandLine contains 'javascript:' or ProcessCommandLine contains 'data:'"
+    ],
+    "rationale": "Rundll32 js/data URIs = shellcode loaders."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1569.002",
+    "title": "Service binary execution via sc.exe",
+    "hypothesis": "An attacker created and started a service to execute a binary.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'sc.exe' | where ProcessCommandLine contains 'create' | where ProcessCommandLine contains 'start'"
+    ],
+    "rationale": "sc create + start rapid-fire = service exec channel."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1059.008",
+    "title": "Bash/awk on Windows (WSL)",
+    "hypothesis": "An attacker used WSL to run Linux tooling on Windows.",
+    "queries": ["DeviceProcessEvents | where FileName has_any ('bash.exe','wsl.exe')"],
+    "rationale": "WSL spawn of Linux binaries is a lateral/execution oddity on Windows hosts."
+  },
+
+  {
+    "tactic": "Persistence",
+    "technique": "T1547.001",
+    "title": "Registry Run key addition",
+    "hypothesis": "An attacker registered a binary in HKCU Run keys for autostart.",
+    "queries": [
+      "DeviceRegistryEvents | where RegistryKey has 'CurrentVersion\\\\Run' | where RegistryValueData contains '.exe'"
+    ],
+    "rationale": "New Run entries outside vendor allowlist = persistence."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1547.001",
+    "title": "Startup folder placement",
+    "hypothesis": "A binary/script was dropped in the StartUp folder.",
+    "queries": [
+      "DeviceFileEvents | where FolderPath contains 'Startup' | where FileName endswith ('.exe','.bat','.vbs','.lnk')"
+    ],
+    "rationale": "Startup folder writes require user-level write access — attacker footprint."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1543.003",
+    "title": "RunAs service persistence",
+    "hypothesis": "A service was created that runs as SYSTEM and executes an attacker binary.",
+    "queries": [
+      "SecurityEvent | where EventID == 7045 | where ServiceStartType == 'auto' | where ServiceFileName contains 'Users\\\\' or ServiceFileName contains 'Temp'"
+    ],
+    "rationale": "Auto-start service from writable dir as SYSTEM = high confidence persistence."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1546.003",
+    "title": "WMI event subscription persistence",
+    "hypothesis": "An attacker bound a WMI event filter to a consumer for silent startup.",
+    "queries": ["SecurityEvent | where EventID == 5861 | where ProviderName contains 'Binding'"],
+    "rationale": "New WMI bindings are rare and typically malicious."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1547.009",
+    "title": "Shortcut (.lnk) modification for autostart",
+    "hypothesis": "An existing autostart shortcut was repointed to attacker code.",
+    "queries": [
+      "DeviceFileEvents | where FileName endswith '.lnk' | where FolderPath contains 'Startup' or FolderPath contains 'Programs' | where ActionType == 'FileCreated'"
+    ],
+    "rationale": "Standard location shortcut rewrites match shortcut hijack."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1546.010",
+    "title": "Image File Execution Options debugger",
+    "hypothesis": "An attacker registered a debugger for a system binary to hijack execution.",
+    "queries": [
+      "DeviceRegistryEvents | where RegistryKey contains 'Image File Execution Options' | where RegistryValueName == 'Debugger'"
+    ],
+    "rationale": "IFEO Debugger for non-debug binaries = classic hijack."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1546.011",
+    "title": "AppInit_DLLs",
+    "hypothesis": "AppInit_DLLs was set to load attacker DLL into processes.",
+    "queries": [
+      "DeviceRegistryEvents | where RegistryKey contains 'Windows NT\\\\CurrentVersion\\\\Windows' | where RegistryValueName == 'AppInit_DLLs'"
+    ],
+    "rationale": "AppInit_DLLs registry load = legacy DLL persistence."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1547.006",
+    "title": "Kernel driver autostart",
+    "hypothesis": "A kernel driver was installed with autostart service.",
+    "queries": [
+      "SecurityEvent | where EventID == 7045 | where ServiceType contains 'kernel' | where ServiceFileName contains '\\\\Windows\\\\System32\\\\drivers' | where ServiceFileName !contains '\\\\Windows\\\\System32\\\\drivers\\\\' and length(ServiceFileName) > 100"
+    ],
+    "rationale": "Signed-driver abuse (e.g. vulnerable cert) persists at kernel level."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1053.005",
+    "title": "Task with SYSTEM privileges",
+    "hypothesis": "A scheduled task was registered to run with highest privileges.",
+    "queries": [
+      "SecurityEvent | where EventID == 4698 | where TaskContent contains '<RunLevel>HighestAvailable</RunLevel>' | where TaskContent contains 'Users\\\\' or TaskContent contains 'Temp'"
+    ],
+    "rationale": "HighestAvailable run level + writable path = privilege persistence."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1098.004",
+    "title": "authorized_keys write (Linux)",
+    "hypothesis": "An attacker appended an SSH key to a user's authorized_keys.",
+    "queries": [
+      "AuditdLogs | where type == 'PATH' | where name endswith 'authorized_keys' | where op != 'removed_attr'"
+    ],
+    "rationale": "authorized_keys modifications are high-signal persistence events."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1547.004",
+    "title": "winlogon shell key change",
+    "hypothesis": "The winlogon shell was changed to include attacker binary.",
+    "queries": [
+      "DeviceRegistryEvents | where RegistryKey contains 'Winlogon' | where RegistryValueName == 'Shell' | where RegistryValueData != 'explorer.exe'"
+    ],
+    "rationale": "winlogon Shell deviation = interactive-session persistence."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1136.001",
+    "title": "Undocumented local account",
+    "hypothesis": "A local account was created outside identity management process.",
+    "queries": [
+      "SecurityEvent | where EventID == 4720 | where AccountName !endswith '$' | where AccountName !in (knownAccounts)"
+    ],
+    "rationale": "Local account creation without IT ticket = backdoor."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1546.002",
+    "title": "ScreenSaver binary hijack",
+    "hypothesis": "ScreenSaver key points to an attacker binary.",
+    "queries": [
+      "DeviceRegistryEvents | where RegistryKey contains 'Control Panel\\\\Desktop' | where RegistryValueName == 'SCRNSAVE.EXE' | where RegistryValueData !contains '\\\\Windows\\\\System32'"
+    ],
+    "rationale": "Non-system screensaver path = odd-but-cheap persistence."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1574.001",
+    "title": "DLL search order hijack",
+    "hypothesis": "A writable dir was placed before system dirs in search order with attacker DLL.",
+    "queries": [
+      "DeviceImageLoadEvents | where FileName endswith '.dll' | where FolderPath contains 'Users\\\\' | where InitiatingProcessFileName in (signedApps)"
+    ],
+    "rationale": "Authenticated app loading user-written DLL = sideloading."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1546.012",
+    "title": "COM object hijacking",
+    "hypothesis": "A HKCU CLSID override redirects COM activation to attacker DLL.",
+    "queries": [
+      "DeviceRegistryEvents | where RegistryKey contains 'CLSID\\\\{0002DF01-0000-0000-C000-000000000046}' or RegistryKey contains 'TreatAs'"
+    ],
+    "rationale": "CLSID overrides with InprocServer32 pointing to writable paths."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1547.002",
+    "title": "WinLogon notify/LogonScript",
+    "hypothesis": "Logon scripts or notify packages execute attacker code at logon.",
+    "queries": [
+      "DeviceRegistryEvents | where RegistryKey contains 'Winlogon\\\\Notify' | where RegistryValueName == 'DllName'"
+    ],
+    "rationale": "Notify package additions = early logon execution."
+  },
+
+  {
+    "tactic": "Privilege Escalation",
+    "technique": "T1068",
+    "title": "Exploitation of privilege-escalation CVE",
+    "hypothesis": "A local privilege escalation CVE (from KEV list) was exploited on an endpoint.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'wevtutil.exe' or FileName == 'cmd.exe' | where ProcessCommandLine contains '/c' | where InitiatingProcessIntegrityLevel == 'Medium' and FinalProcessIntegrityLevel == 'High'"
+    ],
+    "rationale": "Medium→High integrity jump via cmd = exploitation marker."
+  },
+  {
+    "tactic": "Privilege Escalation",
+    "technique": "T1134.003",
+    "title": "Token manipulation",
+    "hypothesis": "A process duplicated a SYSTEM token to elevate privileges.",
+    "queries": ["DeviceEvents | where ActionType has 'Token' | where InitiatingProcessIntegrityLevel != 'System'"],
+    "rationale": "Token duplication by low-integrity process = token theft."
+  },
+  {
+    "tactic": "Privilege Escalation",
+    "technique": "T1548.002",
+    "title": "UAC bypass via fodhelper",
+    "hypothesis": "An attacker used fodhelper fringe-value bypass to elevate.",
+    "queries": [
+      "DeviceProcessEvents | where InitiatingProcessFileName == 'fodhelper.exe' | where FileName == 'cmd.exe'"
+    ],
+    "rationale": "fodhelper (auto-elevate) spawning shell = UAC bypass."
+  },
+  {
+    "tactic": "Privilege Escalation",
+    "technique": "T1548.001",
+    "title": "sudo misconfig (Linux)",
+    "hypothesis": "An attacker abused a sudoers entry to run commands as root.",
+    "queries": [
+      "SecurityEvent | where Channel contains 'auth' | where CommandLine contains 'sudo' | where User == 'root'"
+    ],
+    "rationale": "sudo escalation with unexpected command = misconfig abuse."
+  },
+  {
+    "tactic": "Privilege Escalation",
+    "technique": "T1055.001",
+    "title": "DLL injection into elevated process",
+    "hypothesis": "A low-integrity process injected a thread into a System process.",
+    "queries": [
+      "DeviceEvents | where ActionType == 'CreateRemoteThread' | where InitiatingProcessIntegrityLevel == 'Low' and TargetProcessName in (systemProcessNames)"
+    ],
+    "rationale": "Cross-integrity CreateRemoteThread = injection into higher privilege."
+  },
+  {
+    "tactic": "Privilege Escalation",
+    "technique": "T1037",
+    "title": "Startup folder as admin",
+    "hypothesis": "An attacker dropped a binary into the Startup folder to regain admin context.",
+    "queries": [
+      "DeviceFileEvents | where FolderPath contains '\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\StartUp' | where FileName endswith ('.exe','.bat')"
+    ],
+    "rationale": "All-users startup writes mean admin had already been achieved."
+  },
+  {
+    "tactic": "Privilege Escalation",
+    "technique": "T1543.004",
+    "title": "Service binary replacement",
+    "hypothesis": "An existing service binary was replaced with attacker executable.",
+    "queries": [
+      "DeviceFileEvents | where FolderPath contains '\\\\Program Files' | where ActionType == 'FileModified' | where InitiatingProcessFileName == 'cmd.exe'"
+    ],
+    "rationale": "Repointing service binaries to temp files = privileged exec path."
+  },
+  {
+    "tactic": "Privilege Escalation",
+    "technique": "T1134.002",
+    "title": "CREATE_NEW_PROCESS_GROUP privilege use",
+    "hypothesis": "A process was spawned with a privilege token it shouldn't have.",
+    "queries": [
+      "DeviceEvents | where ActionType == 'ProcessStart' | where InitiatingProcessPrivileges contains 'SeDebugPrivilege' or 'SeImpersonatePrivilege'"
+    ],
+    "rationale": "SeDebug/SeImpersonate are the classic potato-chain enabling privileges."
+  },
+
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1070.004",
+    "title": "File deletion of security artifacts",
+    "hypothesis": "An attacker deleted evidence files (logs, tool records, cmd history).",
+    "queries": [
+      "DeviceFileEvents | where FileName has_any ('.log','.evtx','history','Recent') | where ActionType == 'FileDeleted' | where count() by InitiatingProcessFileName, bin(TimeGenerated,5m) >= 20"
+    ],
+    "rationale": "Bulk deletion of history/logs = anti-forensics."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1070.001",
+    "title": "Event log clearing",
+    "hypothesis": "Security/System log was cleared to remove attack traces.",
+    "queries": [
+      "SecurityEvent | where EventID == 1102",
+      "DeviceEvents | where ActionType has 'Delete' and FileName contains '.evtx'"
+    ],
+    "rationale": "Log clearing events are direct evidence of tampering."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1562.001",
+    "title": "EDR/AV service stop",
+    "hypothesis": "An attacker stopped security agent services.",
+    "queries": [
+      "SecurityEvent | where EventID == 7036 | where AccountName contains 'sensor' or AccountName contains 'defender' | where EventType == 'stopped'"
+    ],
+    "rationale": "Security agent stop = preventive evasion."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1562.004",
+    "title": "Firewall rule removal",
+    "hypothesis": "An attacker disabled firewall rules to open egress/ingress.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'netsh.exe' | where ProcessCommandLine contains 'delete' or ProcessCommandLine contains 'set profile state off'"
+    ],
+    "rationale": "netsh firewall disable = C2 enabling step."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1497.001",
+    "title": "Sandbox detection (sleep/CPU checks)",
+    "hypothesis": "Malware slept or performed CPU/RAM checks to evade sandboxing.",
+    "queries": [
+      "DeviceProcessEvents | where FileName has_any ('powershell.exe','cmd.exe') | where ProcessCommandLine contains 'Start-Sleep' or ProcessCommandLine contains 'ping -n ' or ProcessCommandLine contains 'timeout'"
+    ],
+    "rationale": "Long sleeps before behavior = sandbox evasion."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1027.001",
+    "title": "Binary packing detection",
+    "hypothesis": "A packed/obfuscated binary was dropped and executed.",
+    "queries": [
+      "DeviceProcessEvents | where FileName endswith '.exe' | where InitiatingProcessCommandLine contains 'Temp' | project SHA256 | join kind=inner (DeviceProcessEvents) on SHA256 | where ProcessIntegrityLevel == 'Medium'"
+    ],
+    "rationale": "Fresh-sha temp exe = packer/obfuscation candidate; verify with VT query."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1564.001",
+    "title": "Hidden file/system attribute set",
+    "hypothesis": "An attacker marked files hidden with attrib +h to avoid casual discovery.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'attrib.exe' | where ProcessCommandLine contains '+h' or ProcessCommandLine contains '+s'"
+    ],
+    "rationale": "attrib hiding of fresh files = stealth."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1553.001",
+    "title": "Trusted publisher cert abuse",
+    "hypothesis": "An attacker signed code with a stolen/abused trusted certificate.",
+    "queries": ["DeviceProcessEvents | where SigningStatus != 'Valid' and ProcessIntegrityLevel == 'System'"],
+    "rationale": "System-level unsigned/suspicious-signed binaries warrant review."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1070.003",
+    "title": "Clear PowerShell console history",
+    "hypothesis": "An attacker cleared PowerShell history to hide commands.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'powershell.exe' | where ProcessCommandLine contains 'history' and ProcessCommandLine contains 'clear'"
+    ],
+    "rationale": "History clearing combos with early execution = cover-up."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1482",
+    "title": "Domain trust discovery",
+    "hypothesis": "An attacker enumerated domain trusts for cross-domain jumps.",
+    "queries": [
+      "SecurityEvent | where EventID == 4688 | where ProcessName == 'cmd.exe' and CommandLine contains 'nltest /trusted_domains'"
+    ],
+    "rationale": "nltest trust enumeration = recon for cross-domain attack."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1112",
+    "title": "Registry modification for evasion",
+    "hypothesis": "An attacker modified Defender/EDR registry settings.",
+    "queries": [
+      "DeviceRegistryEvents | where RegistryKey contains 'Windows Defender\\\\Exclusions' or RegistryKey contains 'DisableAntiSpyware'"
+    ],
+    "rationale": "AV-disable registry writes are unambiguous evasion."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1202",
+    "title": "Indirect command via utilities",
+    "hypothesis": "An attacker used odd utilities (forfiles, wmic word) to run commands indirectly.",
+    "queries": [
+      "DeviceProcessEvents | where FileName has_any ('forfiles.exe','wmic.exe','bitsadmin.exe') | where ProcessCommandLine contains '/c ' and ProcessCommandLine contains 'cmd'"
+    ],
+    "rationale": "Indirect command execution via transfer utilities."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1036.005",
+    "title": "Masquerading as system binary name",
+    "hypothesis": "An attacker copied a binary under a system name in a writable path.",
+    "queries": [
+      "DeviceProcessEvents | where FileName has_any ('svchost.exe','rundll32.exe','lsass.exe','explorer.exe') | where FolderPath contains 'Users\\\\' or FolderPath contains 'Temp'"
+    ],
+    "rationale": "System-named binaries outside System32 = masquerading."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1140",
+    "title": "Deobfuscation step (certutil decode)",
+    "hypothesis": "certutil decoded an encoded payload to disk.",
+    "queries": ["DeviceProcessEvents | where FileName == 'certutil.exe' | where ProcessCommandLine contains '-decode'"],
+    "rationale": "certutil decode of exe content = payload restore."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1562.002",
+    "title": "CLFS/event log tampering",
+    "hypothesis": "System .evtx logs were edited/deleted by other than 'wevtutil' expected patterns.",
+    "queries": [
+      "DeviceFileEvents | where FileName endswith '.evtx' | where ActionType in ('FileModified','FileDeleted') | where InitiatingProcessFileName !in ('wsmprovhost.exe','winlogon.exe')"
+    ],
+    "rationale": "Non-standard writers of .evtx = log tampering."
+  },
+  {
+    "tactic": "Defense Evasion",
+    "technique": "T1564.003",
+    "title": "ADS (Alternate Data Stream) use",
+    "hypothesis": "An attacker hid a payload in an NTFS ADS stream.",
+    "queries": ["DeviceFileEvents | where FileName contains ':' | where ActionType == 'FileCreated'"],
+    "rationale": "Colon streams = ADS storage of payload/scripts."
+  },
+
+  {
+    "tactic": "Credential Access",
+    "technique": "T1003.001",
+    "title": "LSASS process memory read",
+    "hypothesis": "A non-system process read LSASS memory to extract credentials.",
+    "queries": [
+      "DeviceEvents | where ActionType == 'OpenProcessApiCall' | where TargetProcessName == 'lsass.exe' | where ProcessAccessRightFlags contains 'VM_READ'"
+    ],
+    "rationale": "ProcessAccess VM_READ on lsass = mimikatz/creddump."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1003.002",
+    "title": "SAM hive exfiltration",
+    "hypothesis": "An attacker copied SAM/SYSTEM hives for offline password extraction.",
+    "queries": [
+      "DeviceFileEvents | where FileName has_any ('sam','system','security') | where FolderPath contains '\\\\config\\\\' | where ActionType == 'FileCreated' or ActionType == 'FileCopied'"
+    ],
+    "rationale": "Registry hive copies to writable dirs = hash dump."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1003.008",
+    "title": "ntds.dit access",
+    "hypothesis": "A DC's ntds.dit was accessed/copied (DCSync or offline).",
+    "queries": [
+      "DeviceFileEvents | where FileName == 'ntds.dit' | where ActionType in ('FileAccessed','FileCopied','FileCreated')"
+    ],
+    "rationale": "ntds.dit copies = full domain credential theft."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1558.003",
+    "title": "RC4 service tickets (Kerberoasting)",
+    "hypothesis": "An account requested RC4 service tickets to crack SPN passwords.",
+    "queries": [
+      "SecurityEvent | where EventID == 4769 | where TicketEncryptionType == '0x17' | where ServiceName !endswith '$'"
+    ],
+    "rationale": "0x17 encryption on service tickets = kerberoasting."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1558.004",
+    "title": "AS-REP roasting",
+    "hypothesis": "An account with pre-auth disabled requested TGTs without pre-auth.",
+    "queries": ["SecurityEvent | where EventID == 4768 | where PreAuthenticationType == 0"],
+    "rationale": "Pre-auth type 0 = roastable account probing."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1555",
+    "title": "Browser credential store access",
+    "hypothesis": "An attacker read browser login data stores.",
+    "queries": [
+      "DeviceFileEvents | where FileName has_any ('Login Data','logins.json','Cookies') | where ActionType == 'FileAccessed' | where InitiatingProcessFileName != 'chrome.exe' and InitiatingProcessFileName != 'firefox.exe'"
+    ],
+    "rationale": "Non-browser processes reading browser vault = credential theft."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1552.001",
+    "title": "Credential files in user profiles",
+    "hypothesis": "An attacker searched for passwords in user files (txt, ini, config).",
+    "queries": [
+      "DeviceProcessEvents | where FileName in ('reg.exe','findstr.exe') | where ProcessCommandLine contains 'password' or ProcessCommandLine contains 'passwd'"
+    ],
+    "rationale": "findstr credential sweeps in profiles = classic password mining."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1552.004",
+    "title": "Unattended.xml/powershell profile with creds",
+    "hypothesis": "Deployment scripts or shell profiles contain plaintext credentials read by attacker.",
+    "queries": [
+      "DeviceFileEvents | where FileName has_any ('unattended.xml','sysprep.xml') | where ActionType == 'FileAccessed'"
+    ],
+    "rationale": "unattended.xml holds admin creds — access = theft."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1003.006",
+    "title": "Replication of directory changes (DCSync)",
+    "hypothesis": "An account requested directory replication (DCSync) from the DC.",
+    "queries": [
+      "SecurityEvent | where EventID == 4662 | where OperationType == 'Control Access' | where ObjectName startswith 'Replicating Directory Changes'"
+    ],
+    "rationale": "DS-Replication-Get-Changes beyond legit sync tools = DCSync."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1110.004",
+    "title": "Credential stuffing on internal apps",
+    "hypothesis": "Attackers used breached passwords against internal apps (VPN, webmail).",
+    "queries": [
+      "SigninLogs | where ResultType == '50053' or ResultType == '50126' | summarize count() by UserPrincipalName | where count_ > 10"
+    ],
+    "rationale": "Repeated failed logins with common passwords = stuffing."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1056.001",
+    "title": "Keylogger module loaded",
+    "hypothesis": "A module that hooks keyboard input was loaded into processes.",
+    "queries": [
+      "DeviceImageLoadEvents | where FileName contains 'hook' or FileName contains 'keylog' | where FolderPath contains 'Users\\\\' or FolderPath contains 'Temp'"
+    ],
+    "rationale": "Custom hook/keylog DLL names in writable paths."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1550.003",
+    "title": "Kerberos ticket use from non-DC host",
+    "hypothesis": "A host used a Kerberos ticket for admin services without requesting TGT.",
+    "queries": [
+      "SecurityEvent | where EventID == 4769 | where ServiceName startswith 'cifs/' or ServiceName startswith 'ldap/' | where AccountName !endswith '$' | where IpAddress !in (legitAdminIPs)"
+    ],
+    "rationale": "Passed golden/silver tickets hit cifs/ldap service tickets directly."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1555.004",
+    "title": "Vault/DPAPI access",
+    "hypothesis": "An attacker accessed Windows DPAPI vault or secrets.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'cmd.exe' | where ProcessCommandLine contains 'dpapi' or ProcessCommandLine contains 'vaultcmd'"
+    ],
+    "rationale": "Manual DPAPI/vault commands = secret extraction attempt."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1056.003",
+    "title": "Web portal credential prompt (phishing page)",
+    "hypothesis": "An attacker stood up a local prompt page to harvest credentials.",
+    "queries": [
+      "DeviceProcessEvents | where FileName in ('chrome.exe','msedge.exe') | where ProcessCommandLine contains 'file://' or ProcessCommandLine contains 'data:text/html'"
+    ],
+    "rationale": "Local html file open = credential-phishing page."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1558.001",
+    "title": "krbtgt hash request",
+    "hypothesis": "krbtgt accounts were used for sign-on outside expected KDC flows.",
+    "queries": ["SecurityEvent | where EventID in (4768, 4769) | where AccountName == 'krbtgt'"],
+    "rationale": "krbtgt direct use = golden ticket attempt."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1110.001",
+    "title": "RDP brute force",
+    "hypothesis": "An RDP endpoint was brute-forced with common passwords.",
+    "queries": [
+      "SecurityEvent | where EventID == 4625 | where LogonType == 10 | summarize count() by IpAddress, bin(TimeGenerated, 30m) | where count_ >= 20"
+    ],
+    "rationale": "RDP login failure storms = brute force."
+  },
+
+  {
+    "tactic": "Discovery",
+    "technique": "T1087.001",
+    "title": "Account enumeration",
+    "hypothesis": "An attacker enumerated users/groups to map the domain.",
+    "queries": [
+      "DeviceProcessEvents | where ProcessCommandLine contains 'net user /domain' or ProcessCommandLine contains 'net group /domain' or ProcessCommandLine contains 'Get-ADUser'"
+    ],
+    "rationale": "Bulk user/group enumeration = discovery phase."
+  },
+  {
+    "tactic": "Discovery",
+    "technique": "T1018",
+    "title": "Hostname enumeration",
+    "hypothesis": "An attacker mapped internal hosts by name.",
+    "queries": [
+      "DeviceProcessEvents | where ProcessCommandLine contains 'net view /domain' or ProcessCommandLine contains 'Get-ADComputer'"
+    ],
+    "rationale": "Host inventory queries = lateral prep."
+  },
+  {
+    "tactic": "Discovery",
+    "technique": "T1069.001",
+    "title": "Group membership discovery",
+    "hypothesis": "An attacker queried admin group memberships to find escalation targets.",
+    "queries": [
+      "DeviceProcessEvents | where ProcessCommandLine contains 'net localgroup administrators' or ProcessCommandLine contains 'Get-ADGroupMember'"
+    ],
+    "rationale": "Privileged-group enumeration is standard post-exploitation recon."
+  },
+  {
+    "tactic": "Discovery",
+    "technique": "T1082",
+    "title": "System information gathering",
+    "hypothesis": "An attacker collected host info (OS, patches, AV) for exploit matching.",
+    "queries": [
+      "DeviceProcessEvents | where ProcessCommandLine has_any ('systeminfo','whoami /all','tasklist') | where count() by InitiatingProcessFileName, bin(TimeGenerated,1h) >= 5"
+    ],
+    "rationale": "Batch systeminfo/tasklist loops = fingerprinting."
+  },
+  {
+    "tactic": "Discovery",
+    "technique": "T1120",
+    "title": "Peripheral device discovery",
+    "hypothesis": "An attacker queried attached devices (memory, disk) for later theft.",
+    "queries": [
+      "DeviceProcessEvents | where ProcessCommandLine contains 'wmic' and ProcessCommandLine contains 'logicaldisk'"
+    ],
+    "rationale": "wmic logicaldisk queries from non-admin = peripheral recon."
+  },
+  {
+    "tactic": "Discovery",
+    "technique": "T1046",
+    "title": "Network service scan",
+    "hypothesis": "An attacker scanned internal subnets for listening services.",
+    "queries": [
+      "DeviceNetworkEvents | where ActionType == 'ConnectionAttempt' | where RemotePort in (445, 3389, 22, 8080) | where LocalPort != RemotePort | summarize count() by RemoteIP | where count_ > 100"
+    ],
+    "rationale": "High-volume connection attempts = port scanning."
+  },
+  {
+    "tactic": "Discovery",
+    "technique": "T1016",
+    "title": "Network configuration discovery",
+    "hypothesis": "An attacker read network config to plan C2 routing.",
+    "queries": [
+      "DeviceProcessEvents | where ProcessCommandLine has_any ('ipconfig /all','route print','arp -a','netsh wlan show')"
+    ],
+    "rationale": "Network config queries from odd hosts."
+  },
+  {
+    "tactic": "Discovery",
+    "technique": "T1083",
+    "title": "File/directory discovery",
+    "hypothesis": "An attacker enumerated interesting files (docs, configs, keys).",
+    "queries": [
+      "DeviceProcessEvents | where ProcessCommandLine has_any ('dir /s','Get-ChildItem -Recurse') | where ProcessCommandLine contains 'Users' or ProcessCommandLine contains 'AppData'"
+    ],
+    "rationale": "Deep recursive listing of user dirs = data discovery."
+  },
+  {
+    "tactic": "Discovery",
+    "technique": "T1497.003",
+    "title": "Time-based evasion (long baseline)",
+    "hypothesis": "Malware waited days before acting (time-based evasion).",
+    "queries": [
+      "DeviceProcessEvents | where TimeGenerated between (now(-10d) .. now()) | where InitiatingProcessFileName == 'rundll32.exe' | where ProcessCommandLine contains 'svchost'"
+    ],
+    "rationale": "Long-delay first activity from dropper = time evasion."
+  },
+  {
+    "tactic": "Discovery",
+    "technique": "T1012",
+    "title": "Registry discovery",
+    "hypothesis": "An attacker queried registry for config/secrets.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'reg.exe' | where ProcessCommandLine contains 'query' | where ProcessCommandLine contains 'CurrentVersion\\\\Run' or ProcessCommandLine contains 'Winlogon'"
+    ],
+    "rationale": "Enumeration of autostart keys = persistence recon."
+  },
+  {
+    "tactic": "Discovery",
+    "technique": "T1518.001",
+    "title": "Security software discovery",
+    "hypothesis": "An attacker mapped the security stack to choose evasion.",
+    "queries": [
+      "DeviceProcessEvents | where ProcessCommandLine has_any ('sc query','WMIC Product','Get-WmiObject') | where ProcessCommandLine contains 'defender' or ProcessCommandLine contains 'sensor' or ProcessCommandLine contains 'edr'"
+    ],
+    "rationale": "Security-product queries = AV selection for blind spots."
+  },
+  {
+    "tactic": "Discovery",
+    "technique": "T1087.004",
+    "title": "Cloud account enumeration",
+    "hypothesis": "An attacker enumerated cloud IAM users/roles.",
+    "queries": [
+      "AWSCloudTrail | where EventName has_any ('ListUsers','GetRole','ListRoles','ListAttachedUserPolicies') | where UserIdentity.userName != 'admin'"
+    ],
+    "rationale": "IAM enumeration from non-admin identity."
+  },
+
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1021.002",
+    "title": "SMB ADMIN$ access pattern",
+    "hypothesis": "An attacker used SMB admin shares to move laterally.",
+    "queries": [
+      "SecurityEvent | where EventID == 5140 | where ShareName == 'ADMIN$' | where AccountName !endswith '$'"
+    ],
+    "rationale": "ADMIN$ access with user account = PsExec/WMI-adjacent movement."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1021.001",
+    "title": "RDP session chaining",
+    "hypothesis": "An attacker chained RDP sessions across hosts (pivot).",
+    "queries": [
+      "SecurityEvent | where EventID == 4624 | where LogonType == 10 | let src = IpAddress | join kind=inner (SecurityEvent | where EventID == 4624 | where LogonType == 10) on Computer | where IpAddress == src"
+    ],
+    "rationale": "Host A→B→C RDP logons in sequence = pivot chain."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1570",
+    "title": "Admin share file staging",
+    "hypothesis": "An attacker copied executables to admin shares.",
+    "queries": [
+      "SecurityEvent | where EventID == 5145 | where RelativeTargetName matches regex @'ADMIN\\$.*\\.(exe|dll|ps1|bat)$'"
+    ],
+    "rationale": "Share writes of binaries = movement staging."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1072",
+    "title": "Software deployment tool abuse",
+    "hypothesis": "An attacker used the software deployment platform for executable push.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'psexec.exe' or FileName == 'paexec.exe' | where ProcessCommandLine contains '\\\\' and ProcessCommandLine contains ' -s'"
+    ],
+    "rationale": "psexec -s remote push = movement/exec channel."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1563",
+    "title": "Session hijack (RDP tsclient)",
+    "hypothesis": "An attacker hijacked an RDP session via tsclient share.",
+    "queries": ["DeviceProcessEvents | where ProcessCommandLine contains 'tsclient'"],
+    "rationale": "tsclient access = clipboard/drive redirection hijack capabilities."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1210",
+    "title": "Exploitation of network services",
+    "hypothesis": "An attacker exploited a network service (SMB/RDP/WinRM) vulnerability for movement.",
+    "queries": [
+      "SecurityEvent | where EventID == 4625 | where LogonType == 3 | where IpAddress !endswith '.0' | summarize count() by IpAddress | where count_ > 50"
+    ],
+    "rationale": "Failure bursts against services = exploit attempt trail."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1021.006",
+    "title": "WinRM/PSRemoting execution",
+    "hypothesis": "An attacker used WinRM to run commands remotely.",
+    "queries": [
+      "DeviceProcessEvents | where InitiatingProcessParentName == 'WmiPrvSE.exe' | where FileName == 'powershell.exe' | where ProcessCommandLine contains 'Remoting' or ProcessCommandLine contains 'WinRM'"
+    ],
+    "rationale": "WinRM-sourced PowerShell = remote exec."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1090.003",
+    "title": "Proxy/port-forward setup",
+    "hypothesis": "An attacker forwarded internal ports through a compromised host.",
+    "queries": [
+      "DeviceProcessEvents | where FileName has_any ('netsh.exe','ssh.exe') | where ProcessCommandLine contains 'portproxy' or ProcessCommandLine contains '-L '"
+    ],
+    "rationale": "portproxy/SSH tunneling = movement infrastructure."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1566.002",
+    "title": "Internal phishing",
+    "hypothesis": "An attacker sent phishing from inside the network to another user.",
+    "queries": [
+      "SecurityEvent | where EventID == 4688 | where ProcessName == 'outlook.exe' | where CommandLine contains '/c'"
+    ],
+    "rationale": "Outlook launching shell = internal phishing/vba abuse."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1027.004",
+    "title": "Compressed payload over share",
+    "hypothesis": "An attacker compressed tools and moved them over SMB.",
+    "queries": [
+      "SecurityEvent | where EventID == 5145 | where RelativeTargetName endswith '.zip' or RelativeTargetName endswith '.7z'"
+    ],
+    "rationale": "Archives in shares = tool staging."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1559",
+    "title": "COM inter-process movement",
+    "hypothesis": "An attacker used COM objects across processes to execute.",
+    "queries": [
+      "DeviceEvents | where ActionType == 'ComObject' | where ObjectName contains 'InternetExplorer' or ObjectName contains 'ShellWindows'"
+    ],
+    "rationale": "Unusual COM activation from scripts = lateral capability."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1021.004",
+    "title": "SSH from admin workstation",
+    "hypothesis": "An attacker pivoted Linux-to-Linux via SSH from a jump host.",
+    "queries": ["SecurityEvent | where Channel == 'auth' | where CommandLine contains 'ssh ' | where User != 'root'"],
+    "rationale": "SSH logons from non-admin user to many hosts = pivot."
+  },
+
+  {
+    "tactic": "Collection",
+    "technique": "T1005",
+    "title": "Sensitive file collection",
+    "hypothesis": "An attacker collected documents/credentials from user profiles.",
+    "queries": [
+      "DeviceFileEvents | where FolderPath contains '\\\\Desktop' or FolderPath contains '\\\\Documents' | where FileName endswith ('.pst','.ost','.xlsx','.docx','.zip') | where ActionType == 'FileCopied' | where InitiatingProcessFileName in ('cmd.exe','powershell.exe')"
+    ],
+    "rationale": "Copy-doc actions from shells = collection."
+  },
+  {
+    "tactic": "Collection",
+    "technique": "T1114.001",
+    "title": "Mailbox search",
+    "hypothesis": "An attacker searched mailboxes for sensitive keywords.",
+    "queries": [
+      "AuditLogs | where Operation == 'Search-Mailbox' or Operation == 'MailItemsAccessed' | where ResultType == 'success'"
+    ],
+    "rationale": "Unusual mailbox search ops = email theft."
+  },
+  {
+    "tactic": "Collection",
+    "technique": "T1560",
+    "title": "Archive collection",
+    "hypothesis": "An attacker archived data dirs for exfil (zip creation).",
+    "queries": [
+      "DeviceProcessEvents | where FileName has_any ('7z.exe','rar.exe','winrar.exe','tar.exe') | where LocalAppDataFolder has 'Temp' or ProcessCommandLine contains '\\\\Users\\\\'"
+    ],
+    "rationale": "Archive tools on endpoints = collection stage."
+  },
+  {
+    "tactic": "Collection",
+    "technique": "T1113",
+    "title": "Screen capture",
+    "hypothesis": "An attacker captured screenshots of the desktop.",
+    "queries": [
+      "DeviceFileEvents | where FileName endswith ('.png','.jpg','.bmp') | where FolderPath contains 'Temp' or FolderPath contains 'AppData' | where ActionType == 'FileCreated'"
+    ],
+    "rationale": "Fresh images in temp from unknown process = screenshots."
+  },
+  {
+    "tactic": "Collection",
+    "technique": "T1005.001",
+    "title": "Clipboard capture",
+    "hypothesis": "An attacker read the clipboard for secrets.",
+    "queries": [
+      "DeviceProcessEvents | where ProcessCommandLine contains 'Get-Clipboard' or ProcessCommandLine contains 'GetText'"
+    ],
+    "rationale": "Clipboard read commands from odd processes."
+  },
+  {
+    "tactic": "Collection",
+    "technique": "T1114.002",
+    "title": "Remote email API use for bulk access",
+    "hypothesis": "An attacker used Graph/EWS APIs to pull mail at volume.",
+    "queries": [
+      "SigninLogs | where AppDisplayName has_any ('Microsoft Graph','Office 365 Exchange Online') | where UserAgent contains 'python' or UserAgent contains 'curl'"
+    ],
+    "rationale": "Scripted API mailbox access = bulk email theft."
+  },
+
+  {
+    "tactic": "C2",
+    "technique": "T1071.001",
+    "title": "HTTP/S beacon",
+    "hypothesis": "A host communicates with C2 over HTTP/S on a fixed cadence.",
+    "queries": [
+      "DeviceNetworkEvents | where RemoteUrl startswith 'http' | where InitiatingProcessFileName != 'chrome.exe' | summarize count() by InitiatingProcessFileName, RemoteUrl, bin(TimeGenerated, 30m) | where count_ >= 10"
+    ],
+    "rationale": "Regular intervals to same URL from odd process."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1573.001",
+    "title": "Encrypted custom protocol on odd port",
+    "hypothesis": "An attacker established a custom encrypted channel on a non-standard port.",
+    "queries": [
+      "DeviceNetworkEvents | where RemotePort !in (80, 443, 53) | where RemotePort < 1024 | where InitiatingProcessFileName in (sysProcesses) and InitiatingProcessFileName not in (svchost)"
+    ],
+    "rationale": "System processes on unusual ports = covert channel."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1568.002",
+    "title": "DGA domain resolution",
+    "hypothesis": "Malware resolved algorithmically generated domains.",
+    "queries": [
+      "DeviceNetworkEvents | where ActionType == 'DnsQuery' | where RemoteUrl matches regex @'^[a-z0-9]{15,}\\.' | where RemoteUrl endswith ('.top','.xyz','.ru','.icu')"
+    ],
+    "rationale": "High-entropy long subdomains on cheap TLDs = DGA."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1105",
+    "title": "File download via C2 channel",
+    "hypothesis": "A C2 channel was used to pull additional tools.",
+    "queries": [
+      "DeviceFileEvents | where FileName endswith ('.exe','.dll','.ps1') | where ActionType == 'FileCreated' | where InitiatingProcessFileName != 'browser' | where InitiatingProcessFileName != 'svchost.exe'"
+    ],
+    "rationale": "Non-browser binary fetches = tool delivery."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1071.004",
+    "title": "DNS tunneling",
+    "hypothesis": "Malware exfiltrated/beaconed via DNS queries to a controlled domain.",
+    "queries": [
+      "DeviceNetworkEvents | where ActionType == 'DnsQuery' | where RemoteUrl endswith '.example.net' | where strlen(RemoteUrl) > 40"
+    ],
+    "rationale": "Long subdomain queries to one domain = DNS tunnel."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1219",
+    "title": "Remote access tool install",
+    "hypothesis": "An attacker installed RAT/remote-control software for persistent access.",
+    "queries": [
+      "DeviceProcessEvents | where FileName has_any ('teamviewer.exe','anydesk.exe','remoteutilities.exe','mremoteng.exe') | where InitiatingProcessFileName != 'explorer.exe'"
+    ],
+    "rationale": "RAT install from non-user context."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1132.001",
+    "title": "Encoded command exfil over HTTP",
+    "hypothesis": "C2 used base64-encoded parameters in HTTP requests.",
+    "queries": [
+      "DeviceNetworkEvents | where RemoteUrl contains 'http' | where RemoteUrl contains '=' | where UrlExtension contains 'php' or UrlExtension contains 'asp'"
+    ],
+    "rationale": "Query-string payloads to script endpoints = C2 encoding."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1071.003",
+    "title": "Mail protocols as C2",
+    "hypothesis": "An attacker used SMTP/IMAP (mail) as a covert C2 channel.",
+    "queries": [
+      "DeviceNetworkEvents | where RemotePort in (25, 587, 993, 143) | where InitiatingProcessFileName not in ('outlook.exe','mapisvc')"
+    ],
+    "rationale": "Non-client processes talking mail ports = mail C2."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1102",
+    "title": "Web service C2 (pastebin/GitHub)",
+    "hypothesis": "C2 used public web services to host content (pastebin, gist, raw URLs).",
+    "queries": [
+      "DeviceNetworkEvents | where RemoteUrl has_any ('pastebin.com','gist.github.com','raw.githubusercontent.com') | where InitiatingProcessFileName != 'browser'"
+    ],
+    "rationale": "Public-service fetches from odd processes = stager."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1095",
+    "title": "Raw TCP/UDP non-HTTP",
+    "hypothesis": "A beacon uses raw sockets (non-HTTP) for C2.",
+    "queries": [
+      "DeviceNetworkEvents | where ActionType == 'OutboundConnection' | where RemotePort not in (80,443,53,3389,445,22) | summarize count() by RemoteIP, InitiatingProcessFileName | where count_ >= 20"
+    ],
+    "rationale": "Persistent odd-port connections = raw C2."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1090.002",
+    "title": "External proxy use",
+    "hypothesis": "Malware routes traffic via an open proxy it controls.",
+    "queries": ["DeviceNetworkEvents | where RemotePort in (3128, 8080, 1080) | where RemoteIP !in (corporateProxies)"],
+    "rationale": "Non-corporate proxy ports = C2 redirector."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1071.002",
+    "title": "FTP-based exfil/beacon",
+    "hypothesis": "An attacker used FTP for payload movement.",
+    "queries": ["DeviceNetworkEvents | where RemotePort == 21 | where RemoteIP !in (ftpAllowlist)"],
+    "rationale": "FTP from non-admin hosts = traffic channel."
+  },
+
+  {
+    "tactic": "Exfiltration",
+    "technique": "T1041",
+    "title": "Data exfiltration over HTTP POST",
+    "hypothesis": "Large volumes of internal data leaving over HTTP/S.",
+    "queries": [
+      "DeviceNetworkEvents | where Direction == 'Outbound' | where RemoteUrl startswith 'http' | where InitiatingProcessFileName != 'browser' | where ActionType == 'ConnectionSuccess' | summarize bytes=count() by RemoteUrl | where bytes > 1000"
+    ],
+    "rationale": "Bulk POST volume signal (needs byte counts from proxy)."
+  },
+  {
+    "tactic": "Exfiltration",
+    "technique": "T1048",
+    "title": "Exfil to cloud storage",
+    "hypothesis": "Data was uploaded to personal cloud storage (Dropbox, Google Drive, MEGA).",
+    "queries": [
+      "DeviceNetworkEvents | where RemoteUrl has_any ('dropbox.com','drive.google.com','mega.nz','wetransfer.com') | where InitiatingProcessFileName != 'browser'"
+    ],
+    "rationale": "Non-browser upload to personal cloud = exfil."
+  },
+  {
+    "tactic": "Exfiltration",
+    "technique": "T1567.002",
+    "title": "Exfil to paste service",
+    "hypothesis": "An attacker pasted sensitive data to pastebin-like services.",
+    "queries": ["DeviceNetworkEvents | where RemoteUrl has_any ('pastebin.com','bit.ly','tinyurl.com')"],
+    "rationale": "Paste/URL-shortener use by unknown processes."
+  },
+  {
+    "tactic": "Exfiltration",
+    "technique": "T1048.003",
+    "title": "Exfil via DNS TXT",
+    "hypothesis": "Data was exfiltrated in DNS TXT records to attacker domain.",
+    "queries": [
+      "DeviceNetworkEvents | where ActionType == 'DnsQuery' | where QueryType == 'TXT' | where RemoteUrl !endswith '.example.com' and strlen(RemoteUrl) > 60"
+    ],
+    "rationale": "Long TXT queries = DNS-based exfil."
+  },
+  {
+    "tactic": "Exfiltration",
+    "technique": "T1020",
+    "title": "Automated exfil (scheduled)",
+    "hypothesis": "A scheduled task uploads data on a regular cadence.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'schtasks.exe' | where ProcessCommandLine contains '/create' | where ProcessCommandLine contains 'powershell' or ProcessCommandLine contains 'curl'"
+    ],
+    "rationale": "Scheduled task wrapping network tools = automated exfil."
+  },
+  {
+    "tactic": "Exfiltration",
+    "technique": "T1030",
+    "title": "Data transfer size anomaly",
+    "hypothesis": "A host suddenly transferred unusually large volumes.",
+    "queries": [
+      "DeviceNetworkEvents | where Direction == 'Outbound' | where InitiatingProcessFileName != 'browser' | summarize bytes=count() by InitiatingProcessFileName, bin(TimeGenerated, 1h) | where bytes > 500000"
+    ],
+    "rationale": "Volume anomalies from single process = exfil burst."
+  },
+
+  {
+    "tactic": "Impact",
+    "technique": "T1486",
+    "title": "Ransomware file extension surge",
+    "hypothesis": "Many files were renamed/changed to ransomware extensions in a short window.",
+    "queries": [
+      "DeviceFileEvents | where FileName endswith ('.lockbit','.enc','.crypt','.hive','.8lock8') | summarize count() by Computer, bin(TimeGenerated, 10m) | where count_ > 50"
+    ],
+    "rationale": "Mass extension change = encryption in progress."
+  },
+  {
+    "tactic": "Impact",
+    "technique": "T1490",
+    "title": "Backup/VSS destruction",
+    "hypothesis": "An attacker disabled backups and deleted shadow copies.",
+    "queries": [
+      "DeviceProcessEvents | where ProcessCommandLine has_any ('vssadmin delete shadows','wmic shadowcopy delete','bcdedit /set recoveryenabled')"
+    ],
+    "rationale": "Backup destruction = ransomware precursor."
+  },
+  {
+    "tactic": "Impact",
+    "technique": "T1485",
+    "title": "Mass file deletion",
+    "hypothesis": "An attacker deleted large volumes of user data.",
+    "queries": [
+      "DeviceFileEvents | where ActionType == 'FileDeleted' | summarize count() by InitiatingProcessFileName, bin(TimeGenerated, 15m) | where count_ > 500"
+    ],
+    "rationale": "Mass deletion bursts = destructive impact."
+  },
+  {
+    "tactic": "Impact",
+    "technique": "T1499",
+    "title": "Resource exhaustion DoS",
+    "hypothesis": "A host was used to flood internal/external targets.",
+    "queries": [
+      "DeviceNetworkEvents | where ActionType == 'OutboundConnection' | where RemotePort not in (80,443,53) | where InitiatingProcessFileName in (sysProcesses) and InitiatingProcessFileName != 'svchost.exe' | summarize count() by RemoteIP | where count_ > 1000"
+    ],
+    "rationale": "Volumetric odd-port traffic = DoS participation."
+  },
+  {
+    "tactic": "Impact",
+    "technique": "T1565",
+    "title": "Data manipulation (defacement)",
+    "hypothesis": "An attacker modified web content or databases.",
+    "queries": [
+      "DeviceFileEvents | where FolderPath contains 'inetpub' or FolderPath contains 'wwwroot' | where ActionType in ('FileModified','FileCreated') | where InitiatingProcessFileName != 'w3wp.exe'"
+    ],
+    "rationale": "Non-server writes to web root = defacement."
+  },
+  {
+    "tactic": "Impact",
+    "technique": "T1485",
+    "title": "ShadowPage/sysvol tampering",
+    "hypothesis": "An attacker corrupted core system state (sysvol, GPOs).",
+    "queries": [
+      "SecurityEvent | where EventID == 5136 | where ObjectName contains 'Sysvol' | where OperationType contains 'Modify'"
+    ],
+    "rationale": "Sysvol changes outside GPO change windows = state tampering."
+  },
+
+  {
+    "tactic": "Discovery",
+    "technique": "T1087.002",
+    "title": "Domain admin session enumeration",
+    "hypothesis": "An attacker enumerated active admin sessions to plan token theft.",
+    "queries": [
+      "DeviceProcessEvents | where FileName in ('cmd.exe','powershell.exe') | where ProcessCommandLine contains 'net session' or ProcessCommandLine contains 'qwinsta' or ProcessCommandLine contains 'query session'"
+    ],
+    "rationale": "Session enumeration = token/credential targeting."
+  },
+  {
+    "tactic": "Discovery",
+    "technique": "T1010",
+    "title": "Window/desktop enumeration",
+    "hypothesis": "An attacker enumerated open windows/screens for interception or screenshots.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'powershell.exe' | where ProcessCommandLine contains 'Get-Process' and ProcessCommandLine contains 'MainWindowTitle'"
+    ],
+    "rationale": "Window-title enumeration = screen/UI interception prep."
+  },
+  {
+    "tactic": "Discovery",
+    "technique": "T1615",
+    "title": "Printer/Share discovery (spooler abuse prep)",
+    "hypothesis": "An attacker queried the print spooler for later exploitation.",
+    "queries": [
+      "DeviceProcessEvents | where ProcessCommandLine contains 'spooler' and (ProcessCommandLine contains 'query' or ProcessCommandLine contains 'enum')"
+    ],
+    "rationale": "Spooler enumeration precedes PrintNightmare-class abuse."
+  },
+
+  {
+    "tactic": "Persistence",
+    "technique": "T1546.008",
+    "title": "Accessibility feature binary replacement",
+    "hypothesis": "An attacker replaced sethc/Utilman with cmd for login-prompt persistence.",
+    "queries": [
+      "DeviceFileEvents | where FileName in ('sethc.exe','utilman.exe','magnify.exe') | where ActionType in ('FileModified','FileCreated') | where InitiatingProcessFileName != 'dism.exe'"
+    ],
+    "rationale": "Replacing accessibility binaries = classic elevator persistence."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1556.002",
+    "title": "Password filter DLL installation",
+    "hypothesis": "An attacker installed a password filter to harvest password changes.",
+    "queries": [
+      "DeviceRegistryEvents | where RegistryKey contains 'LSA\\\\Notification Packages' | where RegistryValueData contains '.dll' | where RegistryValueData !contains 'scecli'"
+    ],
+    "rationale": "LSA notification packages = password-change harvesting."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1547.010",
+    "title": "Port Monitor persistence",
+    "hypothesis": "An attacker registered a port monitor DLL for print-spooler persistence.",
+    "queries": [
+      "DeviceRegistryEvents | where RegistryKey contains '\\\\Print\\\\Monitors' | where RegistryValueData contains '.dll'"
+    ],
+    "rationale": "Print monitors autoload DLLs as SYSTEM."
+  },
+  {
+    "tactic": "Persistence",
+    "technique": "T1547.013",
+    "title": "XDG autostart (Linux desktop)",
+    "hypothesis": "An attacker added a .desktop autostart entry on Linux.",
+    "queries": ["AuditdLogs | where type == 'PATH' | where name contains 'autostart' and name endswith '.desktop'"],
+    "rationale": "Desktop autostart entries = user-persistence on Linux."
+  },
+
+  {
+    "tactic": "Execution",
+    "technique": "T1203",
+    "title": "Exploitation for client execution (browser/app)",
+    "hypothesis": "A client-side exploit (browser, PDF, office) executed on a workstation.",
+    "queries": [
+      "DeviceProcessEvents | where FileName in ('acrord32.exe','chrome.exe','msedge.exe') | where ProcessCommandLine contains 'rundll32' or ProcessCommandLine contains 'powershell'"
+    ],
+    "rationale": "Client apps spawning shells = exploit chain."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1216",
+    "title": "Signed script execution (Msiexec/others)",
+    "hypothesis": "An attacker ran signed utilities (msiexec, regsvr32) with payloads.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'msiexec.exe' | where ProcessCommandLine contains 'http' or ProcessCommandLine contains '\\\\\\\\'"
+    ],
+    "rationale": "msiexec remote/UNC install = signed-script abuse."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1218.010",
+    "title": "Regsvr32 scriptlet execution",
+    "hypothesis": "regsvr32 ran a remote scriptlet (web delivery).",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'regsvr32.exe' | where ProcessCommandLine contains 'scrobj.dll'"
+    ],
+    "rationale": "regsvr32 scrobj.dll = scriptlet execution."
+  },
+  {
+    "tactic": "Execution",
+    "technique": "T1129",
+    "title": "Shared module execution",
+    "hypothesis": "An attacker executed code via exported functions of shared modules.",
+    "queries": [
+      "DeviceProcessEvents | where FileName == 'rundll32.exe' | where ProcessCommandLine contains ',Export' or ProcessCommandLine contains 'Control_RunDLL'"
+    ],
+    "rationale": "rundll32 export invocation = module-based execution."
+  },
+
+  {
+    "tactic": "Credential Access",
+    "technique": "T1555.003",
+    "title": "Credentials in memory of RDP clients",
+    "hypothesis": "An attacker dumped credentials from Password Manager / RDP clients memory.",
+    "queries": [
+      "DeviceProcessEvents | where FileName in ('mstsc.exe','creddump','ProcDump') | where ProcessCommandLine contains 'mstsc' and ProcessCommandLine contains 'saved'"
+    ],
+    "rationale": "RDP client memory dumps = saved-credential extraction."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1552.003",
+    "title": "Bash history credential search",
+    "hypothesis": "An attacker mined bash history files for passwords/keys.",
+    "queries": [
+      "AuditdLogs | where type == 'SYSCALL' | where exe == '/usr/bin/tail' and cwd contains '/root' or exe == '/bin/cat' and name endswith '.bash_history'"
+    ],
+    "rationale": "History reads during lateral movement = credential harvest."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1003.005",
+    "title": "Cached credentials dump",
+    "hypothesis": "An attacker attempted to extract cached domain credentials (MSCash).",
+    "queries": [
+      "DeviceProcessEvents | where FileName in ('cmd.exe','powershell.exe') | where ProcessCommandLine contains 'cachedump' or ProcessCommandLine contains 'lsadump'"
+    ],
+    "rationale": "Cache-dump tool names in process tree."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1555.005",
+    "title": "Password manager vault access",
+    "hypothesis": "An attacker accessed password manager vaults (LastPass, KeePass, 1Password).",
+    "queries": [
+      "DeviceProcessEvents | where FileName in ('KeePass.exe','1Password.exe','LastPass.exe') | where ProcessCommandLine contains 'dump' or ProcessCommandLine contains 'export'"
+    ],
+    "rationale": "Vault tools with export/dump args = vault theft."
+  },
+  {
+    "tactic": "Credential Access",
+    "technique": "T1056.002",
+    "title": "GUI input capture (RDP inject)",
+    "hypothesis": "An attacker hooked desktop GUI input (keyboard) on a server.",
+    "queries": [
+      "DeviceImageLoadEvents | where FileName contains 'hook' | where InitiatingProcessFileName != 'explorer.exe' and FolderPath contains 'Users\\\\'"
+    ],
+    "rationale": "User-dir hook DLLs into sessions = GUI capture."
+  },
+
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1550.001",
+    "title": "Pass-the-cache (Kerberos cache use)",
+    "hypothesis": "An attacker used cached Kerberos tickets from memory.",
+    "queries": ["SecurityEvent | where EventID == 4769 | where IpAddress != '::1' | where AccountName == 'SYSTEM'"],
+    "rationale": "SYSTEM-account service requests from workstations = ticket reuse."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1072",
+    "title": "Config management tool abuse (Ansible/Chef)",
+    "hypothesis": "An attacker abused configuration-management push for code exec.",
+    "queries": [
+      "DeviceProcessEvents | where FileName has_any ('ansible-playbook','chef-client','puppet') | where ProcessCommandLine contains 'sudo' or ProcessCommandLine contains 'run'"
+    ],
+    "rationale": "Config-push utilities as exec channel = expected only by ops teams."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1210",
+    "title": "Exploit attempts against SMB (EternalBlue family)",
+    "hypothesis": "SMB exploit attempts (MS17-010) were made against internal hosts.",
+    "queries": [
+      "SecurityEvent | where EventID == 5145 or EventID == 5140 | where RelativeTargetName contains 'IPC$' | where IpAddress !in (knownPatchMgmt)"
+    ],
+    "rationale": "IPC$ access + fail patterns = SMB exploit probing."
+  },
+  {
+    "tactic": "Lateral Movement",
+    "technique": "T1570",
+    "title": "Remote copy via xcopy/robocopy",
+    "hypothesis": "An attacker used xcopy/robocopy to push files laterally.",
+    "queries": [
+      "DeviceProcessEvents | where FileName has_any ('xcopy.exe','robocopy.exe') | where ProcessCommandLine contains '\\\\\\\\'"
+    ],
+    "rationale": "UNC-target copies = lateral file staging."
+  },
+
+  {
+    "tactic": "C2",
+    "technique": "T1090.001",
+    "title": "Internal proxy rotation",
+    "hypothesis": "An attacker used internal hosts as C2 relay hops.",
+    "queries": [
+      "DeviceNetworkEvents | where RemoteIP in (internalRanges) | where RemotePort in (8080, 3128, 1080) | where InitiatingProcessFileName != 'browser'"
+    ],
+    "rationale": "Internal proxy ports from odd processes = internal relay."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1102.003",
+    "title": "One-way C2 via web storage (Google Docs/Forms)",
+    "hypothesis": "Malware uses Google Docs/Forms or similar as dead-drop resolvers.",
+    "queries": [
+      "DeviceNetworkEvents | where RemoteUrl has_any ('docs.google.com','forms.gle','api.telegram.org') | where InitiatingProcessFileName not in ('chrome.exe','msedge.exe','outlook.exe')"
+    ],
+    "rationale": "Dead-drop resolver endpoints from odd processes."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1568.001",
+    "title": "Domain fronting",
+    "hypothesis": "An attacker used domain fronting (HTTPS host header mismatch) for C2.",
+    "queries": [
+      "DeviceNetworkEvents | where RemoteUrl startswith 'https://' | where InitiatingProcessFileName != 'browser' | where ActionType == 'DnsQuery' and RemoteUrl !endswith proxyAllowedDomains"
+    ],
+    "rationale": "HTTPS resolvers that aren't allowed destinations = fronting."
+  },
+  {
+    "tactic": "C2",
+    "technique": "T1104",
+    "title": "Multi-stage beacon check-in pattern",
+    "hypothesis": "Malware performs staged check-ins (short-then-long) to evade blocking.",
+    "queries": [
+      "DeviceNetworkEvents | where InitiatingProcessFileName in (suspectedBeacons) | summarize min(TimeGenerated), max(TimeGenerated), count() by RemoteIP | extend delta = max - min | where delta > 1d and count() < 50"
+    ],
+    "rationale": "Sparse-but-persistent connections = staged beacon."
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "id": 5857,
+  "name": "WMI activity started",
+  "log": "Microsoft-Windows-WMI-Activity/Operational",
+  "mitre": "T1047",
+  "description": "WMI activity started (creator process).",
+  "indicators": ["WMI abuse", "Lateral movement"],
+  "investigation": "wmic.exe/PowerShell creating WMI processes on RDP-accessed hosts — flag creator PID + process correlation.",
+  "slug": "event-ids-5857",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

@@ -1,0 +1,11 @@
+{
+  "browser": "Safari (macOS)",
+  "artifact": "LastSession.plist / LastSession.html",
+  "path": "~/Library/Safari/LastSession.plist",
+  "evidence": "Restored session URLs — recovers tabs after crash.",
+  "tools": "plutil",
+  "note": "",
+  "slug": "browser-lastsession-plist-lastsession-html",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

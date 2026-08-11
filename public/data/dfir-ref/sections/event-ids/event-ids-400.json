@@ -1,0 +1,12 @@
+{
+  "id": 400,
+  "name": "PowerShell engine state change",
+  "log": "PowerShell",
+  "mitre": "T1059.001",
+  "description": "PowerShell engine started/stopped.",
+  "indicators": ["PowerShell execution lifecycle"],
+  "investigation": "Engine starts from non-shell parents (Word, Excel, svchost) = execution flow abuse; correlate with 800/4104 for content.",
+  "slug": "event-ids-400",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

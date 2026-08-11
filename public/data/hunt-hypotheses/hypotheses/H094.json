@@ -1,0 +1,11 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1210",
+  "title": "Exploitation of network services",
+  "hypothesis": "An attacker exploited a network service (SMB/RDP/WinRM) vulnerability for movement.",
+  "queries": [
+    "SecurityEvent | where EventID == 4625 | where LogonType == 3 | where IpAddress !endswith '.0' | summarize count() by IpAddress | where count_ > 50"
+  ],
+  "rationale": "Failure bursts against services = exploit attempt trail.",
+  "id": "H094"
+}

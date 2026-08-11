@@ -1,0 +1,11 @@
+{
+  "browser": "Chrome",
+  "artifact": "Extensions",
+  "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\<ID>\\<ver>",
+  "evidence": "Installed extensions incl. malicious/rogue ones (manifest.json + JS).",
+  "tools": "strings, jq, yara",
+  "note": "Correlate extension install time with History + Preferences.",
+  "slug": "browser-extensions",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

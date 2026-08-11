@@ -1,0 +1,13 @@
+{
+  "plugin": "mactime",
+  "version": "external",
+  "purpose": "Build human-readable timeline from bodyfile output.",
+  "category": "Investigation",
+  "example": "mactime -d -b bodyfile > timeline.csv",
+  "mitre": "",
+  "notes": "Pair with disk forensics timeline for full picture.",
+  "indicators": "",
+  "slug": "memory-mactime",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

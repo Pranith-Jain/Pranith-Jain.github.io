@@ -1,0 +1,9 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1563",
+  "title": "Session hijack (RDP tsclient)",
+  "hypothesis": "An attacker hijacked an RDP session via tsclient share.",
+  "queries": ["DeviceProcessEvents | where ProcessCommandLine contains 'tsclient'"],
+  "rationale": "tsclient access = clipboard/drive redirection hijack capabilities.",
+  "id": "H093"
+}

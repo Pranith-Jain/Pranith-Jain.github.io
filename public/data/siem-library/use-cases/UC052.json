@@ -1,0 +1,13 @@
+{
+  "id": "UC052",
+  "name": "DLL sideload from writable location",
+  "category": "Defense Evasion",
+  "mitre": "T1574.002",
+  "severity": "High",
+  "kql": "DeviceImageLoadEvents | where FileName endswith '.dll' | where FolderPath contains 'Users\\\\' or FolderPath contains 'Temp' | where InitiatingProcessFileName == 'svchost.exe' and FolderPath not contains 'System32'",
+  "spl": "index=windows sourcetype=Sysmon:ImageLoad EventCode=7 ImageLoaded=*\\\\Users\\\\* Image=*",
+  "dataSource": "Sysmon 7",
+  "fpRate": "Low",
+  "tuning": "DLLs from user-writable dirs into system binaries = sideload.",
+  "apt": "SideTwist, Veeam-focused (FIN7, BlackCat)"
+}

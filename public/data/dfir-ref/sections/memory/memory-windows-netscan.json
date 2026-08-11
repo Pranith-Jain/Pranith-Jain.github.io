@@ -1,0 +1,13 @@
+{
+  "plugin": "windows.netscan",
+  "version": "vol3",
+  "purpose": "Vol3 network connections.",
+  "category": "Network",
+  "example": "vol3 -f image.mem windows.netscan",
+  "mitre": "TA0011",
+  "notes": "",
+  "indicators": "",
+  "slug": "memory-windows-netscan",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

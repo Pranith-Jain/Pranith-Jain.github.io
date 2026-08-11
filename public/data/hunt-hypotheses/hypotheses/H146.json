@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1056.002",
+  "title": "GUI input capture (RDP inject)",
+  "hypothesis": "An attacker hooked desktop GUI input (keyboard) on a server.",
+  "queries": [
+    "DeviceImageLoadEvents | where FileName contains 'hook' | where InitiatingProcessFileName != 'explorer.exe' and FolderPath contains 'Users\\\\'"
+  ],
+  "rationale": "User-dir hook DLLs into sessions = GUI capture.",
+  "id": "H146"
+}

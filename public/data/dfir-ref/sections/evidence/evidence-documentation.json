@@ -1,0 +1,16 @@
+{
+  "phase": "Documentation",
+  "name": "Documentation of custody",
+  "steps": [
+    "Create the chain-of-custody log: item, description, source, date/time, handler, transfer, reason.",
+    "Every transfer requires: two signatures (transferor/recipient), timestamp, purpose, and seal status.",
+    "Photograph the exhibit, its surroundings, and the original state of the system.",
+    "Record all passcodes/encryption keys received (in sealed, restricted-access storage).",
+    "Attach the acquisition hash sheet to the case file."
+  ],
+  "tools": "CoC template, case management (e.g. Autopsy case, FTK case), camera",
+  "notes": "Gaps in documentation create admissibility risk — document before, during, after.",
+  "slug": "evidence-documentation",
+  "section": "evidence",
+  "sectionLabel": "Evidence Collection & Chain of Custody"
+}

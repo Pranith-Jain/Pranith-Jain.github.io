@@ -1,0 +1,11 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1497.001",
+  "title": "Sandbox detection (sleep/CPU checks)",
+  "hypothesis": "Malware slept or performed CPU/RAM checks to evade sandboxing.",
+  "queries": [
+    "DeviceProcessEvents | where FileName has_any ('powershell.exe','cmd.exe') | where ProcessCommandLine contains 'Start-Sleep' or ProcessCommandLine contains 'ping -n ' or ProcessCommandLine contains 'timeout'"
+  ],
+  "rationale": "Long sleeps before behavior = sandbox evasion.",
+  "id": "H049"
+}

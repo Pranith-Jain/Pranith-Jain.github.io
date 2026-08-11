@@ -1,0 +1,9 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1140",
+  "title": "Deobfuscation step (certutil decode)",
+  "hypothesis": "certutil decoded an encoded payload to disk.",
+  "queries": ["DeviceProcessEvents | where FileName == 'certutil.exe' | where ProcessCommandLine contains '-decode'"],
+  "rationale": "certutil decode of exe content = payload restore.",
+  "id": "H058"
+}

@@ -1751,6 +1751,92 @@ const DFIR_PAGES: readonly PageEntry[] = [
     group: 'dfir',
     keywords: ['oss', 'feeds', 'open-source', 'threat-intel', 'intelligence'],
   },
+  {
+    path: '/dfir/dfir-ref',
+    label: 'DFIR Reference',
+    description:
+      'Event IDs, memory forensics, browser artifacts, evidence collection phases - practitioner reference for incident response.',
+    sectionLabel: 'DFIR · Core DFIR',
+    group: 'dfir',
+    keywords: ['event ids', 'memory', 'volatility', 'browser', 'evidence', 'forensics', 'reference'],
+  },
+  {
+    path: '/dfir/coc-generator',
+    label: 'Chain of Custody Generator',
+    description:
+      'Build a defensible custody timeline - evidence inventory with hashes, transfer handlers, and timestamps for court-ready documentation.',
+    sectionLabel: 'DFIR · Core DFIR',
+    group: 'dfir',
+    keywords: ['chain of custody', 'evidence', 'forensic', 'timeline', 'court', 'legal'],
+  },
+  {
+    path: '/dfir/cve-risk-matrix',
+    label: 'CVE Risk Matrix',
+    description:
+      'CTI priority score (CVSS + EPSS + KEV + recency) plotted against CVSS - quadrant scatter plot, sortable table, and SSVC-V decisions.',
+    sectionLabel: 'DFIR · Vulnerabilities',
+    group: 'dfir',
+    keywords: ['cve', 'risk', 'matrix', 'scoring', 'epss', 'kev', 'ssvc', 'priority'],
+  },
+  {
+    path: '/dfir/grc-checklists',
+    label: 'GRC Checklists',
+    description:
+      'Control checklists for NIST CSF, ISO 27001, SOC 2, PCI DSS v4, DPDP 2023, CERT-In, SEBI - plus cross-framework mapper.',
+    sectionLabel: 'DFIR · GRC',
+    group: 'dfir',
+    keywords: ['grc', 'checklist', 'nist', 'iso27001', 'soc2', 'pci', 'dpdp', 'cert-in', 'sebi', 'compliance'],
+  },
+  {
+    path: '/dfir/siem-library',
+    label: 'SIEM Use-Case Library',
+    description: '60 detection use-cases across 16 categories - KQL + SPL starter rules with MITRE ATT&CK mapping.',
+    sectionLabel: 'DFIR · Detection Engineering',
+    group: 'dfir',
+    keywords: ['siem', 'detection', 'kql', 'spl', 'use-case', 'rule', 'mitre'],
+  },
+  {
+    path: '/dfir/hunt-hypotheses',
+    label: 'Hunting Hypothesis Library',
+    description: '154 hunt hypotheses across 12 MITRE tactics - technique-driven, data-source-aware starter queries.',
+    sectionLabel: 'DFIR · Detection Engineering',
+    group: 'dfir',
+    keywords: ['hunting', 'hypothesis', 'mitre', 'kql', 'spl', 'starter', 'query'],
+  },
+  {
+    path: '/dfir/soc-calculators',
+    label: 'SOC Calculators',
+    description: 'Alert fatigue index, SOAR ROI, EDR maturity, and log volume estimators for SOC operations.',
+    sectionLabel: 'DFIR · Detection Engineering',
+    group: 'dfir',
+    keywords: ['soc', 'calculator', 'alert', 'fatigue', 'soar', 'edr', 'maturity', 'log', 'volume'],
+  },
+  {
+    path: '/dfir/sysmon-config',
+    label: 'Sysmon Config Generator',
+    description: 'Build v15 Sysmon XML configs - verbose, baseline, and lean presets with field-level exclude mode.',
+    sectionLabel: 'DFIR · Detection Engineering',
+    group: 'dfir',
+    keywords: ['sysmon', 'xml', 'config', 'detection', 'endpoint', 'windows'],
+  },
+  {
+    path: '/dfir/cloud-reference',
+    label: 'Cloud Shared-Responsibility Matrix',
+    description:
+      'AWS / Azure / GCP / OCI shared-responsibility matrix - 16 domains, customer vs cloud responsibilities, cloud hunt queries by provider.',
+    sectionLabel: 'DFIR · Cloud Security',
+    group: 'dfir',
+    keywords: ['cloud', 'shared', 'responsibility', 'srm', 'aws', 'azure', 'gcp', 'oci', 'hunt'],
+  },
+  {
+    path: '/dfir/pqc',
+    label: 'Post-Quantum Cryptography',
+    description:
+      'Algorithm profiles, HNDL threat model, crypto-class readiness assessment, and migration checklist for PQC transition.',
+    sectionLabel: 'DFIR · Frameworks',
+    group: 'dfir',
+    keywords: ['post-quantum', 'pqc', 'nist', 'mlkem', 'ml-dsa', 'slh-dsa', 'hndl', 'crypto'],
+  },
 ];
 
 /* ------------------------------------------------------------------ */

@@ -1,0 +1,8 @@
+{
+  "id": "CHQ16",
+  "name": "Entra ID guest account admin role",
+  "provider": "Azure",
+  "mitre": "T1098.001",
+  "desc": "Guest accounts with directory roles = privilege escalation path.",
+  "kql": "AuditLogs | where Operation == 'Add member to role' | where TargetResources[0].userPrincipalName contains '#' | where ActivityDisplayName contains 'Global Administrator'"
+}

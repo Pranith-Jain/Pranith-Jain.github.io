@@ -1,0 +1,16 @@
+{
+  "phase": "Return / Disposition",
+  "name": "Return or disposition",
+  "steps": [
+    "Return original media only after case approval and verification of integrity (re-hash).",
+    "For disposal: degauss, shred, or cryptographically wipe per policy; document method + witness.",
+    "Retain the case record (images, notes, hashes) for the retention period required by policy/law.",
+    "Remove exhibits from the chain log with signatures confirming receipt back by owner/law.",
+    "Preserve a complete copy of the case file for potential legal challenge."
+  ],
+  "tools": "Degaussers, shredders, retention schedule",
+  "notes": "Disposition must be documented as carefully as acquisition.",
+  "slug": "evidence-return-disposition",
+  "section": "evidence",
+  "sectionLabel": "Evidence Collection & Chain of Custody"
+}

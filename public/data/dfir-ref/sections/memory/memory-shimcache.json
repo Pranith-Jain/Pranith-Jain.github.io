@@ -1,0 +1,13 @@
+{
+  "plugin": "shimcache",
+  "version": "both",
+  "purpose": "AppCompat shim cache (executed binaries incl. deleted).",
+  "category": "Registry",
+  "example": "volatility -f image.mem shimcache",
+  "mitre": "T1070",
+  "notes": "Executed-binary evidence even when 4688/1 unavailable.",
+  "indicators": "Deleted executables that ran.",
+  "slug": "memory-shimcache",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

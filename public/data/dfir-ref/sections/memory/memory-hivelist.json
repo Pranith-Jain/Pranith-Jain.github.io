@@ -1,0 +1,13 @@
+{
+  "plugin": "hivelist",
+  "version": "both",
+  "purpose": "List registry hive virtual addresses + physical offsets.",
+  "category": "Registry",
+  "example": "volatility -f image.mem hivelist",
+  "mitre": "T1112",
+  "notes": "Precondition for hive/printkey.",
+  "indicators": "",
+  "slug": "memory-hivelist",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

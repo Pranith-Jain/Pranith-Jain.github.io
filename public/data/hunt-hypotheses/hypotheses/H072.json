@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1550.003",
+  "title": "Kerberos ticket use from non-DC host",
+  "hypothesis": "A host used a Kerberos ticket for admin services without requesting TGT.",
+  "queries": [
+    "SecurityEvent | where EventID == 4769 | where ServiceName startswith 'cifs/' or ServiceName startswith 'ldap/' | where AccountName !endswith '$' | where IpAddress !in (legitAdminIPs)"
+  ],
+  "rationale": "Passed golden/silver tickets hit cifs/ldap service tickets directly.",
+  "id": "H072"
+}

@@ -1,0 +1,11 @@
+{
+  "browser": "All",
+  "artifact": "Jump lists",
+  "path": "%APPDATA%\\Microsoft\\Windows\\Recent\\AutomaticDestinations\\",
+  "evidence": "Recently opened files per-app (incl. browser-downloaded docs and executables), app usage.",
+  "tools": "JumpListExplorer (EZ tools), LECmd",
+  "note": "OpenWith targeted binaries — strong evidence of what was executed.",
+  "slug": "browser-jump-lists",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

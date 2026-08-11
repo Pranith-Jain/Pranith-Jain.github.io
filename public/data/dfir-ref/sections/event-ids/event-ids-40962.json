@@ -1,0 +1,12 @@
+{
+  "id": 40962,
+  "name": "Kernel file system driver loaded",
+  "log": "Microsoft-Windows-Kernel-File/CVE",
+  "mitre": "T1547.006",
+  "description": "Kernel filesystem driver loaded (file less than 1MB / memory-only detection).",
+  "indicators": ["Rootkit driver"],
+  "investigation": "Memory-only driver loads (no file) — likely rootkit; inspect kernel memory.",
+  "slug": "event-ids-40962",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

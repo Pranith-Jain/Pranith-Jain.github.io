@@ -1,0 +1,9 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1564.003",
+  "title": "ADS (Alternate Data Stream) use",
+  "hypothesis": "An attacker hid a payload in an NTFS ADS stream.",
+  "queries": ["DeviceFileEvents | where FileName contains ':' | where ActionType == 'FileCreated'"],
+  "rationale": "Colon streams = ADS storage of payload/scripts.",
+  "id": "H060"
+}

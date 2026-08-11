@@ -1,0 +1,13 @@
+{
+  "id": "UC005",
+  "name": "Pass-the-Hash NTLM logon",
+  "category": "Active Directory",
+  "mitre": "T1550.002",
+  "severity": "High",
+  "kql": "SecurityEvent | where EventID == 4624 and LogonType == 3 | where AccountName != '$' | join kind=leftouter (SecurityEvent | where EventID == 8004) on Account",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4624 LogonType=3 NOT User=*$ | join User [search index=windows EventCode=8004]",
+  "dataSource": "Security 4624 + NTLM auditing 8004",
+  "fpRate": "Low",
+  "tuning": "Alert when NTLM logon source differs from account's usual host; enable Negotiate/NTLM auditing on DCs.",
+  "apt": "Volt Typhoon, LockBit affiliates"
+}

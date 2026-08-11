@@ -1,0 +1,13 @@
+{
+  "plugin": "mftparser",
+  "version": "both",
+  "purpose": "Parse MFT entries from memory (file activity incl. deletions).",
+  "category": "Files",
+  "example": "volatility -f image.mem mftparser",
+  "mitre": "T1070.004",
+  "notes": "Deletion/overwrite evidence; slow but thorough.",
+  "indicators": "",
+  "slug": "memory-mftparser",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

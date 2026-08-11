@@ -1,0 +1,178 @@
+{
+  "key": "rbi",
+  "name": "RBI IT Framework",
+  "year": "2011/2016",
+  "description": "Reserve Bank of India Information Technology Vision (2011) + Master Direction on Information Technology Governance, Risk, Controls and Assurance Practices (2016) — applicable to banks and NBFCs regulated by RBI.",
+  "themes": ["Governance", "Risk", "Controls", "Assurance"],
+  "categories": [
+    {
+      "key": "itg",
+      "name": "IT Governance",
+      "controls": [
+        {
+          "id": "R1-1",
+          "name": "IT strategy aligned to business",
+          "req": "IT strategy committee / board-level IT governance with documented alignment to business strategy."
+        },
+        {
+          "id": "R1-2",
+          "name": "IT steering committee",
+          "req": "Establish an IT Steering Committee chaired by senior management with periodic reviews and minutes."
+        },
+        {
+          "id": "R1-3",
+          "name": "IT policies approved & communicated",
+          "req": "Board-approved IT, IS and BCM policies, reviewed at defined frequency."
+        },
+        {
+          "id": "R1-4",
+          "name": "CISO role defined",
+          "req": "Define CISO/ISG head role with direct reporting to senior management and adequate independence."
+        }
+      ]
+    },
+    {
+      "key": "irm",
+      "name": "IT Risk Management",
+      "controls": [
+        {
+          "id": "R2-1",
+          "name": "IT risk management framework",
+          "req": "Framework aligned to ISO 31000/Basel: risk appetite, identification, assessment, mitigation, monitoring."
+        },
+        {
+          "id": "R2-2",
+          "name": "Risk register with owners",
+          "req": "Maintain an IT risk register with risk owners, ratings, treatment plans and review cycles."
+        },
+        {
+          "id": "R2-3",
+          "name": "Third-party/vendor risk",
+          "req": "Vendor due-diligence, contracts with security clauses, ongoing monitoring, exit strategy (esp. cloud and outsourcing)."
+        },
+        {
+          "id": "R2-4",
+          "name": "Cyber risk indicators",
+          "req": "Define cyber KRIs (patch latency, incident counts, MTTD/MTTR) reported to board-level."
+        }
+      ]
+    },
+    {
+      "key": "isa",
+      "name": "Information System Assurance",
+      "controls": [
+        {
+          "id": "R3-1",
+          "name": "IS audit function",
+          "req": "Independent IS audit function (CISA-qualified) with risk-based audit coverage."
+        },
+        {
+          "id": "R3-2",
+          "name": "Audit frequency & coverage",
+          "req": "Audit critical systems at least annually; audit trail + exception reporting to Board/Audit Committee."
+        },
+        {
+          "id": "R3-3",
+          "name": "VAPT by independent agency",
+          "req": "VAPT by empanelled agencies at defined frequency (annually and on major changes; also after security incidents)."
+        },
+        {
+          "id": "R3-4",
+          "name": "ISACA/CISA alignment",
+          "req": "Align assurance practices with ISACA/COBIT to satisfy regulator inspection expectations."
+        }
+      ]
+    },
+    {
+      "key": "bcm",
+      "name": "Business Continuity & DR",
+      "controls": [
+        {
+          "id": "R4-1",
+          "name": "BCP/DR plan",
+          "req": "Documented BCP & DR policy with RTO/RPO per business process criticality classification."
+        },
+        {
+          "id": "R4-2",
+          "name": "DR site with tested recovery",
+          "req": "Off-site DR facility with periodic testing (minimum frequency per RBI guidance) and test reports."
+        },
+        {
+          "id": "R4-3",
+          "name": "Backup integrity & retention",
+          "req": "Tape/cloud backups with verification of recovery, retention policy, and off-site storage."
+        },
+        {
+          "id": "R4-4",
+          "name": "Business impact analysis refresh",
+          "req": "Re-run BIA on org changes; update recovery priorities and procedures."
+        }
+      ]
+    },
+    {
+      "key": "secops",
+      "name": "Security Operations",
+      "controls": [
+        {
+          "id": "R5-1",
+          "name": "Information security framework",
+          "req": "Framework covering access control, data classification, encryption, network security, malware defence."
+        },
+        {
+          "id": "R5-2",
+          "name": "SOC / 24x7 monitoring",
+          "req": "Establish SOC or 24x7 monitoring with defined playbooks for alerts and escalation."
+        },
+        {
+          "id": "R5-3",
+          "name": "Incident response plan",
+          "req": "IR plan with roles, communication (incl. RBI reporting), containment/eradication/recovery, lessons learned."
+        },
+        {
+          "id": "R5-4",
+          "name": "Reporting to RBI",
+          "req": "Report significant cyber incidents to RBI within the notified timeframe; comply with specific reporting formats."
+        },
+        {
+          "id": "R5-5",
+          "name": "Patch & vulnerability management",
+          "req": "CVSS-based SLAs, patch testing, and vulnerability scanning of external and internal surfaces."
+        },
+        {
+          "id": "R5-6",
+          "name": "Access control reviews",
+          "req": "Least privilege, quarterly access reviews, immediate revocation on exit, privileged access management."
+        }
+      ]
+    },
+    {
+      "key": "cloud",
+      "name": "Cloud & Emerging Tech (RBI 2024)",
+      "controls": [
+        {
+          "id": "R6-1",
+          "name": "Cloud adoption framework",
+          "req": "Board-approved cloud strategy incl. risk assessment, regulatory (DPDP/PMLA) and data-localization checks."
+        },
+        {
+          "id": "R6-2",
+          "name": "Cloud security responsibilities",
+          "req": "Explicit shared-responsibility mapping, encryption key management, and contractual controls for hyperscalers."
+        },
+        {
+          "id": "R6-3",
+          "name": "Data residency & exit",
+          "req": "Define data residency requirements, egress/exit plan, and data deletion obligations on cloud exit."
+        },
+        {
+          "id": "R6-4",
+          "name": "AI/ML governance",
+          "req": "For AI deployments: model risk management, bias/fairness checks, explainability, and audit trail (aligning with RBI's Responsible AI approach)."
+        }
+      ]
+    }
+  ],
+  "source": "RBI IT Vision 2011 + Master Direction ITGRCA (2016) + 2024 cloud circular",
+  "sourceUrl": "https://www.rbi.org.in",
+  "license": "Public regulatory documents — simplified checklist"
+}

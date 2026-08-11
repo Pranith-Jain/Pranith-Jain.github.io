@@ -1,0 +1,11 @@
+{
+  "tactic": "Collection",
+  "technique": "T1113",
+  "title": "Screen capture",
+  "hypothesis": "An attacker captured screenshots of the desktop.",
+  "queries": [
+    "DeviceFileEvents | where FileName endswith ('.png','.jpg','.bmp') | where FolderPath contains 'Temp' or FolderPath contains 'AppData' | where ActionType == 'FileCreated'"
+  ],
+  "rationale": "Fresh images in temp from unknown process = screenshots.",
+  "id": "H104"
+}

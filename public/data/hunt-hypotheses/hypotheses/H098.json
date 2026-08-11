@@ -1,0 +1,11 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1027.004",
+  "title": "Compressed payload over share",
+  "hypothesis": "An attacker compressed tools and moved them over SMB.",
+  "queries": [
+    "SecurityEvent | where EventID == 5145 | where RelativeTargetName endswith '.zip' or RelativeTargetName endswith '.7z'"
+  ],
+  "rationale": "Archives in shares = tool staging.",
+  "id": "H098"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 8,
+  "name": "Sysmon CreateRemoteThread",
+  "log": "Microsoft-Windows-Sysmon/Operational",
+  "mitre": "T1055",
+  "description": "Sysmon CreateRemoteThread detected.",
+  "indicators": ["Process injection"],
+  "investigation": "Cross-process thread creation into lsass.exe or svchost.exe from non-system processes — injection; verify with memory analysis.",
+  "slug": "event-ids-8",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

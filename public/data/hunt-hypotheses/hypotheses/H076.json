@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1110.001",
+  "title": "RDP brute force",
+  "hypothesis": "An RDP endpoint was brute-forced with common passwords.",
+  "queries": [
+    "SecurityEvent | where EventID == 4625 | where LogonType == 10 | summarize count() by IpAddress, bin(TimeGenerated, 30m) | where count_ >= 20"
+  ],
+  "rationale": "RDP login failure storms = brute force.",
+  "id": "H076"
+}

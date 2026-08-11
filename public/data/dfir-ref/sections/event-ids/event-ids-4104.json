@@ -1,0 +1,12 @@
+{
+  "id": 4104,
+  "name": "PowerShell script block logging",
+  "log": "PowerShell",
+  "mitre": "T1059.001",
+  "description": "PowerShell script block logged (full command content).",
+  "indicators": ["PowerShell abuse", "Obfuscation bypass evidence"],
+  "investigation": "Search for -enc, IEX, DownloadString, Reflection, and suspicious large script blocks. Correlate ScriptBlockId with 4103 and 400.",
+  "slug": "event-ids-4104",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

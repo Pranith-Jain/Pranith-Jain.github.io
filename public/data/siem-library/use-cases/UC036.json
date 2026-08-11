@@ -1,0 +1,13 @@
+{
+  "id": "UC036",
+  "name": "MFA fatigue — repeated MFA prompts",
+  "category": "Initial Access",
+  "mitre": "T1621",
+  "severity": "High",
+  "kql": "SigninLogs | where ResultType != '0' | summarize failures=count() by UserPrincipalName, AppDisplayName, bin(TimeGenerated, 10m) | where failures >= 5",
+  "spl": "index=o365 sourcetype=o365:management:activity Operation=UserLoginFailed | stats count by user | where count > 5",
+  "dataSource": "Azure AD sign-ins",
+  "fpRate": "Low",
+  "tuning": "Multiple 'approve' demands = fatigue; require number matching / conditional access.",
+  "apt": "Scattered Spider, APT29 (2022 campaigns)"
+}

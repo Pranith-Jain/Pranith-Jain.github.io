@@ -1,0 +1,13 @@
+{
+  "id": "UC031",
+  "name": "Password spray — many 4625 for one account",
+  "category": "Initial Access",
+  "mitre": "T1110.003",
+  "severity": "Medium",
+  "kql": "SecurityEvent | where EventID == 4625 | where LogonType in (3, 10) | summarize count() by Account, IpAddress, bin(TimeGenerated, 5m) | where count_ >= 10",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4625 | stats count by User, src_ip | where count > 10",
+  "dataSource": "Security 4625",
+  "fpRate": "Medium",
+  "tuning": "Baseline account-specific; spray uses slow cadence — use 24h windows too.",
+  "apt": "Nobelium, APT29, Scattered Spider"
+}

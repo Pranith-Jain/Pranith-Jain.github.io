@@ -1,0 +1,13 @@
+{
+  "id": "UC007",
+  "name": "Scheduled task creation pointing to writable path",
+  "category": "Persistence",
+  "mitre": "T1053.005",
+  "severity": "High",
+  "kql": "SecurityEvent | where EventID == 4698 | where TaskContent contains '\\\\Users\\\\' or TaskContent contains 'Temp' or TaskContent contains 'AppData' or TaskContent contains 'Base64'",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4698 (TaskContent=*Users* OR TaskContent=*Temp* OR TaskContent=*AppData*)",
+  "dataSource": "Windows Security 4698 (task content audit on)",
+  "fpRate": "Medium",
+  "tuning": "Baseline legit product tasks (Adobe, Teams update); focus on tasks with /script or powershell -enc.",
+  "apt": "Semi-common persistence for APT29, Wizard Spider"
+}

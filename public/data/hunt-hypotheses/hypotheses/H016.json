@@ -1,0 +1,11 @@
+{
+  "tactic": "Execution",
+  "technique": "T1059.007",
+  "title": "JS execution via cscript",
+  "hypothesis": "JavaScript payload (download cradle) executed through cscript.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'cscript.exe' | where ProcessCommandLine contains '.js' | where ProcessCommandLine contains 'http'"
+  ],
+  "rationale": "JS with remote fetch from cscript = downloader.",
+  "id": "H016"
+}

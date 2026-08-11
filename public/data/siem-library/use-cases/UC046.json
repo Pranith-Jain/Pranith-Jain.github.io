@@ -1,0 +1,13 @@
+{
+  "id": "UC046",
+  "name": "TGT request for sensitive SPN (admin SPN hunting)",
+  "category": "Active Directory",
+  "mitre": "T1558.004",
+  "severity": "Medium",
+  "kql": "SecurityEvent | where EventID == 4769 | where ServiceName has_any ('MSSQLSvc','HTTP/','exchangeAB') | where AccountName !endswith '$'",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4769 (ServiceName=MSSQLSvc* OR ServiceName=HTTP/*)",
+  "dataSource": "Security 4769",
+  "fpRate": "Medium",
+  "tuning": "SPN tgt hunting reveals kerberoastable service accounts.",
+  "apt": "Kerberoasting — all"
+}

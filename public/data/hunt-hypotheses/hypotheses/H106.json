@@ -1,0 +1,11 @@
+{
+  "tactic": "Collection",
+  "technique": "T1114.002",
+  "title": "Remote email API use for bulk access",
+  "hypothesis": "An attacker used Graph/EWS APIs to pull mail at volume.",
+  "queries": [
+    "SigninLogs | where AppDisplayName has_any ('Microsoft Graph','Office 365 Exchange Online') | where UserAgent contains 'python' or UserAgent contains 'curl'"
+  ],
+  "rationale": "Scripted API mailbox access = bulk email theft.",
+  "id": "H106"
+}

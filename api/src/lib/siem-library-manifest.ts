@@ -1,0 +1,1 @@
+../../../worker/lib/siem-library-manifest.ts

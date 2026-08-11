@@ -1,0 +1,11 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1021.006",
+  "title": "WinRM/PSRemoting execution",
+  "hypothesis": "An attacker used WinRM to run commands remotely.",
+  "queries": [
+    "DeviceProcessEvents | where InitiatingProcessParentName == 'WmiPrvSE.exe' | where FileName == 'powershell.exe' | where ProcessCommandLine contains 'Remoting' or ProcessCommandLine contains 'WinRM'"
+  ],
+  "rationale": "WinRM-sourced PowerShell = remote exec.",
+  "id": "H095"
+}

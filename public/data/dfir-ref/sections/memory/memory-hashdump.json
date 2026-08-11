@@ -1,0 +1,13 @@
+{
+  "plugin": "hashdump",
+  "version": "both",
+  "purpose": "Dump SAM user hashes (NTLM/LM).",
+  "category": "Credentials",
+  "example": "volatility -f image.mem hashdump",
+  "mitre": "T1003.002",
+  "notes": "Compare enabled admin accounts vs HR; crack or check hash against known leak databases (breach lookup).",
+  "indicators": "",
+  "slug": "memory-hashdump",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

@@ -1,0 +1,11 @@
+{
+  "browser": "All",
+  "artifact": "Prefetch (Windows)",
+  "path": "C:\\Windows\\Prefetch\\<APP>.pf",
+  "evidence": "Executed application evidence incl. browsers and downloaded tools (first-run timestamps).",
+  "tools": "PECmd (Eric Zimmerman)",
+  "note": "Correlate browser download time with Prefetch of the downloaded binary.",
+  "slug": "browser-prefetch-windows",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

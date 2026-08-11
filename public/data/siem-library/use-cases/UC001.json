@@ -1,0 +1,13 @@
+{
+  "id": "UC001",
+  "name": "Shadow copy deletion",
+  "category": "Ransomware",
+  "mitre": "T1490",
+  "severity": "Critical",
+  "kql": "SecurityEvent | where EventID == 8222 or (EventID == 4688 and ProcessName endswith '\\\\vssadmin.exe' and CommandLine has 'delete')",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=8222 OR (EventCode=4688 AND Image=*\\\\vssadmin.exe AND CommandLine=*delete*)",
+  "dataSource": "Windows Security / Sysmon 1",
+  "fpRate": "Low",
+  "tuning": "Alert immediately — no legitimate business reason to delete shadow copies without change ticket.",
+  "apt": "LockBit, Conti, REvil, BlackCat"
+}

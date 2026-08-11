@@ -1,0 +1,13 @@
+{
+  "plugin": "userassist",
+  "version": "both",
+  "purpose": "UserAssist GUI artifact on Windows 7+ (program execution counts/times).",
+  "category": "Registry",
+  "example": "volatility -f image.mem userassist",
+  "mitre": "T1078",
+  "notes": "Reveals tools actually run by the user (mimikatz, ps, etc.).",
+  "indicators": "Security tool usage by rogue user.",
+  "slug": "memory-userassist",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

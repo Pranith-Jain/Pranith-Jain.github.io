@@ -1,0 +1,13 @@
+{
+  "id": "UC018",
+  "name": "Mshta execution",
+  "category": "Execution",
+  "mitre": "T1218.005",
+  "severity": "High",
+  "kql": "DeviceProcessEvents | where FileName == 'mshta.exe' | where ProcessCommandLine contains 'http' or ProcessCommandLine contains 'javascript:'",
+  "spl": "index=windows sourcetype=ProcessRollup2 Image=*\\\\mshta.exe",
+  "dataSource": "EDR / Sysmon",
+  "fpRate": "Low",
+  "tuning": "mshta + URL/js = weaponized; rare in enterprise.",
+  "apt": "Emotet, IcedID, DarkGate"
+}

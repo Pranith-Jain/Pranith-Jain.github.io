@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1546.010",
+  "title": "Image File Execution Options debugger",
+  "hypothesis": "An attacker registered a debugger for a system binary to hijack execution.",
+  "queries": [
+    "DeviceRegistryEvents | where RegistryKey contains 'Image File Execution Options' | where RegistryValueName == 'Debugger'"
+  ],
+  "rationale": "IFEO Debugger for non-debug binaries = classic hijack.",
+  "id": "H026"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "CHQ38",
+  "name": "Cluster-admin bind",
+  "provider": "Kubernetes",
+  "mitre": "T1098.001",
+  "desc": "cluster-admin grants in audit log = escalation.",
+  "kql": "K8sAuditLogs | where objectRef.resource contains 'clusterrolebinding' | where requestObject contains 'cluster-admin'"
+}

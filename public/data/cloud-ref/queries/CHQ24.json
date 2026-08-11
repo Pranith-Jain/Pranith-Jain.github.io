@@ -1,0 +1,8 @@
+{
+  "id": "CHQ24",
+  "name": "Azure AD risky sign-in tombstone",
+  "provider": "Azure",
+  "mitre": "T1078",
+  "desc": "Risky sign-ins that fail then succeed = password spray success.",
+  "kql": "SigninLogs | where RiskDetail == 'userPassswordLeak' or RiskDetail == 'userRiskDetected' | where ResultType == '0'"
+}

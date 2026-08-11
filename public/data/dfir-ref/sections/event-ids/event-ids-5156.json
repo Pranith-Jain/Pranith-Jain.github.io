@@ -1,0 +1,12 @@
+{
+  "id": 5156,
+  "name": "Windows Filtering Platform connection",
+  "log": "Security",
+  "mitre": "TA0011",
+  "description": "The Windows Filtering Platform allowed a connection.",
+  "indicators": ["Network connections", "C2 egress"],
+  "investigation": "Compare against allowlist for beaconing (fixed interval, low volume) and unusual destination ports; correlate with DNS 22 events.",
+  "slug": "event-ids-5156",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

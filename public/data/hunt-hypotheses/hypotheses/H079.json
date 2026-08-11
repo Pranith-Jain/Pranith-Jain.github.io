@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1069.001",
+  "title": "Group membership discovery",
+  "hypothesis": "An attacker queried admin group memberships to find escalation targets.",
+  "queries": [
+    "DeviceProcessEvents | where ProcessCommandLine contains 'net localgroup administrators' or ProcessCommandLine contains 'Get-ADGroupMember'"
+  ],
+  "rationale": "Privileged-group enumeration is standard post-exploitation recon.",
+  "id": "H079"
+}

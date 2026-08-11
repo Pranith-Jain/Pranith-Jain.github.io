@@ -1,0 +1,9 @@
+{
+  "tactic": "C2",
+  "technique": "T1071.002",
+  "title": "FTP-based exfil/beacon",
+  "hypothesis": "An attacker used FTP for payload movement.",
+  "queries": ["DeviceNetworkEvents | where RemotePort == 21 | where RemoteIP !in (ftpAllowlist)"],
+  "rationale": "FTP from non-admin hosts = traffic channel.",
+  "id": "H118"
+}

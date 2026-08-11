@@ -1,0 +1,12 @@
+{
+  "id": 7040,
+  "name": "Service start type changed",
+  "log": "System",
+  "mitre": "T1543.003",
+  "description": "The start type of a service was changed.",
+  "indicators": ["Persistence modification"],
+  "investigation": "Service changed to AUTO_START by non-admin context — persistence setup.",
+  "slug": "event-ids-7040",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

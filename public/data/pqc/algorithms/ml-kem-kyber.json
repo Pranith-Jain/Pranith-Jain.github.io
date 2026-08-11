@@ -1,0 +1,11 @@
+{
+  "name": "ML-KEM (Kyber)",
+  "fips": "FIPS 203",
+  "type": "KEM — key encapsulation (replaces RSA/ECDH key exchange)",
+  "purpose": "Public-key encapsulation for TLS 1.3, SSH, VPN, hybrid key exchange.",
+  "sizes": { "public": "800 bytes (ML-KEM-768)", "ciphertext": "1088 bytes", "secret": "2400 bytes" },
+  "security": "ML-KEM-512 ≈ AES-128, ML-KEM-768 ≈ AES-192, ML-KEM-1024 ≈ AES-256",
+  "status": "Finalized Aug 2024. Deployed in Chrome/Edge TLS (X25519MLKEM768 hybrid) since 2023.",
+  "notes": "Default choice for ephemeral key exchange. Use with hybrid (X25519+ML-KEM) until ecosystem trusts standalone KEM-only handshakes.",
+  "slug": "ml-kem-kyber"
+}

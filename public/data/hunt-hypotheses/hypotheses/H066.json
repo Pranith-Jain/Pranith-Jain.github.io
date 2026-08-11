@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1555",
+  "title": "Browser credential store access",
+  "hypothesis": "An attacker read browser login data stores.",
+  "queries": [
+    "DeviceFileEvents | where FileName has_any ('Login Data','logins.json','Cookies') | where ActionType == 'FileAccessed' | where InitiatingProcessFileName != 'chrome.exe' and InitiatingProcessFileName != 'firefox.exe'"
+  ],
+  "rationale": "Non-browser processes reading browser vault = credential theft.",
+  "id": "H066"
+}

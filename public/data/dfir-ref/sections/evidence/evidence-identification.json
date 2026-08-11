@@ -1,0 +1,16 @@
+{
+  "phase": "Identification",
+  "name": "Identify and scope potential evidence",
+  "steps": [
+    "Identify systems of interest: affected hosts, servers, network gear, cloud accounts, removable media.",
+    "Prioritize by volatility: memory > running processes > network > disk (live acquisition order).",
+    "Record system names, roles, IP/MAC addresses, time zone and current UTC offset.",
+    "Interview the system owner re: passwords, encryption, and unusual activity observed.",
+    "Check for FDE (BitLocker/FileVault) — if recovery key unavailable, do NOT shut down (lose memory) without a plan."
+  ],
+  "tools": "Asset inventory, IR runbook, encryption-status check (manage-bde / csrutil)",
+  "notes": "Document every system touched — scope creep later looks like negligence.",
+  "slug": "evidence-identification",
+  "section": "evidence",
+  "sectionLabel": "Evidence Collection & Chain of Custody"
+}

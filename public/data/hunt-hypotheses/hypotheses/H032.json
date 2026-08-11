@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1136.001",
+  "title": "Undocumented local account",
+  "hypothesis": "A local account was created outside identity management process.",
+  "queries": [
+    "SecurityEvent | where EventID == 4720 | where AccountName !endswith '$' | where AccountName !in (knownAccounts)"
+  ],
+  "rationale": "Local account creation without IT ticket = backdoor.",
+  "id": "H032"
+}

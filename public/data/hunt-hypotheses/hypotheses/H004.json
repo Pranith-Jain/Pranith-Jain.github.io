@@ -1,0 +1,12 @@
+{
+  "tactic": "Initial Access",
+  "technique": "T1190",
+  "title": "CVE exploitation in DMZ web app",
+  "hypothesis": "An exploit payload was executed in the DMZ matching recent KEV CVEs.",
+  "queries": [
+    "WafLogs | where UrlPath contains '=' and UrlPath contains '../../../../etc/passwd'",
+    "WafLogs | where UrlPath contains 'cmd' or UrlPath contains 'exec'"
+  ],
+  "rationale": "Path traversal + command execution strings indicate exploit attempts against known CVEs.",
+  "id": "H004"
+}

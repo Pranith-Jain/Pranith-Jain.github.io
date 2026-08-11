@@ -1,0 +1,12 @@
+{
+  "id": 1117,
+  "name": "Defender action taken",
+  "log": "Microsoft-Windows-Windows Defender/Operational",
+  "mitre": "T1055",
+  "description": "Windows Defender action taken on detected malware.",
+  "indicators": ["Malware response"],
+  "investigation": "Review Action enum (blocked/removed/quarantined) and whether user excluded the path afterwards (registry tampering).",
+  "slug": "event-ids-1117",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

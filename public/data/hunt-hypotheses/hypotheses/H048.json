@@ -1,0 +1,11 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1562.004",
+  "title": "Firewall rule removal",
+  "hypothesis": "An attacker disabled firewall rules to open egress/ingress.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'netsh.exe' | where ProcessCommandLine contains 'delete' or ProcessCommandLine contains 'set profile state off'"
+  ],
+  "rationale": "netsh firewall disable = C2 enabling step.",
+  "id": "H048"
+}

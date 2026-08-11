@@ -1,0 +1,12 @@
+{
+  "id": 7,
+  "name": "Sysmon image loaded",
+  "log": "Microsoft-Windows-Sysmon/Operational",
+  "mitre": "T1055",
+  "description": "Sysmon image (DLL) loaded.",
+  "indicators": ["DLL sideloading", "Process injection prep"],
+  "investigation": "Loads of unsigned DLLs from temp/writable paths into signed binaries (signed→suspicious DLL) — sideloading detection.",
+  "slug": "event-ids-7",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

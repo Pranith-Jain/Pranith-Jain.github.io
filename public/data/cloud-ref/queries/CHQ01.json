@@ -1,0 +1,8 @@
+{
+  "id": "CHQ01",
+  "name": "Access key created for unexpected user",
+  "provider": "AWS",
+  "mitre": "T1098.001",
+  "desc": "New IAM access keys outside change-control are credential backdoors.",
+  "kql": "AWSCloudTrail | where EventName == 'CreateAccessKey' | where UserIdentity.type == 'IAMUser' | where UserIdentity.userName !in (managedCredsUsers)"
+}

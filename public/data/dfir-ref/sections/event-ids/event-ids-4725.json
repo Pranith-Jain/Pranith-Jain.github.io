@@ -1,0 +1,12 @@
+{
+  "id": 4725,
+  "name": "User account disabled",
+  "log": "Security",
+  "mitre": "T1078",
+  "description": "A user account was disabled.",
+  "indicators": ["Account lifecycle abuse", "Sabotage"],
+  "investigation": "Mass disables close together suggest destructive intent or dormancy cleanup — correlate with logon history.",
+  "slug": "event-ids-4725",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

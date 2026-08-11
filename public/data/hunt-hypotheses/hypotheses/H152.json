@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1102.003",
+  "title": "One-way C2 via web storage (Google Docs/Forms)",
+  "hypothesis": "Malware uses Google Docs/Forms or similar as dead-drop resolvers.",
+  "queries": [
+    "DeviceNetworkEvents | where RemoteUrl has_any ('docs.google.com','forms.gle','api.telegram.org') | where InitiatingProcessFileName not in ('chrome.exe','msedge.exe','outlook.exe')"
+  ],
+  "rationale": "Dead-drop resolver endpoints from odd processes.",
+  "id": "H152"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "CHQ31",
+  "name": "gcloud identity from unexpected network",
+  "provider": "GCP",
+  "mitre": "T1078",
+  "desc": "API calls from fresh IPs/UA for existing service accounts.",
+  "kql": "GCPAuditLogs | where protoPayload.authenticationInfo.principalEmail endswith '.gserviceaccount.com' | where protoPayload.requestMetadata.callerIp !in (authorizedIpBlocks)"
+}

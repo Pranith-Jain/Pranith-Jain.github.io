@@ -1,0 +1,12 @@
+{
+  "id": 1100,
+  "name": "Event log service shutdown",
+  "log": "System",
+  "mitre": "T1070.001",
+  "description": "Windows Event Log service was shut down.",
+  "indicators": ["Log disruption"],
+  "investigation": "Correlate with 1102. Check service control events 7036 and process tree for log-killing tools.",
+  "slug": "event-ids-1100",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

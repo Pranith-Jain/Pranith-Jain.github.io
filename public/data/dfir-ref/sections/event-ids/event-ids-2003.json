@@ -1,0 +1,12 @@
+{
+  "id": 2003,
+  "name": "Defender engine status",
+  "log": "Microsoft-Windows-Windows Defender/Operational",
+  "mitre": "T1562.001",
+  "description": "Windows Defender engine/definition state changed.",
+  "indicators": ["AV disable", "Stale definitions"],
+  "investigation": "Engine update failures / status turning off across fleet = AV tampering or group policy drift.",
+  "slug": "event-ids-2003",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

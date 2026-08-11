@@ -1,0 +1,12 @@
+{
+  "id": 1002,
+  "name": "Defender unexpected error",
+  "log": "Microsoft-Windows-Windows Defender/Operational",
+  "mitre": "T1562.001",
+  "description": "Windows Defender reported an unexpected error.",
+  "indicators": ["AV tampering"],
+  "investigation": "Errors after tamper-protection disable attempts — check for WMI/registry exclusions being added (event 5007/5001).",
+  "slug": "event-ids-1002",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

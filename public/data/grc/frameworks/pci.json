@@ -1,0 +1,111 @@
+{
+  "key": "pci",
+  "name": "PCI DSS v4.0",
+  "year": "2024",
+  "description": "Payment Card Industry Data Security Standard v4.0.1 — 12 requirements for cardholder data environments (CDE). Applies to all entities storing/processing/transmitting cardholder data.",
+  "themes": ["Build & Maintain", "Protect", "Monitor", "Organize"],
+  "categories": [
+    {
+      "key": "build",
+      "name": "Build and maintain a secure network (Req 1–2)",
+      "controls": [
+        {
+          "id": "1",
+          "name": "Network security controls",
+          "req": "Install and maintain network security controls (firewalls, segmentation of CDE, deny-by-default egress/ingress)."
+        },
+        {
+          "id": "1.2",
+          "name": "NSC configuration",
+          "req": "Secure configuration of network security controls: deny by default, limited DMZ services, documented rules."
+        },
+        {
+          "id": "2",
+          "name": "Secure configuration of systems",
+          "req": "Apply vendor hardening (remove defaults — passwords, SNMP strings, services), manage configuration of all system components."
+        }
+      ]
+    },
+    {
+      "key": "protect",
+      "name": "Protect account data (Req 3–4)",
+      "controls": [
+        {
+          "id": "3",
+          "name": "Protect stored account data",
+          "req": "Minimize storage; never store PAN beyond need; render PAN unreadable (encryption/truncation); protect SAD (CVV, PIN, track)."
+        },
+        {
+          "id": "3.3",
+          "name": "PAN display protection",
+          "req": "Mask PAN displays (max 4–6 digits) per role; restrict ability to copy/move PAN."
+        },
+        {
+          "id": "4",
+          "name": "Protect cardholder data in transit",
+          "req": "Use strong cryptography for transmission (TLS 1.2+, no SSL/early TLS); never send unprotected PAN over open networks."
+        }
+      ]
+    },
+    {
+      "key": "monitor",
+      "name": "Maintain a vulnerability management program (Req 5–6) and monitor (Req 10–11)",
+      "controls": [
+        {
+          "id": "5",
+          "name": "Protect against malware",
+          "req": "Deploy and maintain anti-malware (AV/EDR) on all system components; keep updated; address non-OS mobile/browser risks."
+        },
+        {
+          "id": "6",
+          "name": "Secure software development",
+          "req": "Vulnerability mgmt for custom/acquired software: secure coding (OWASP), SAST/DAST for web apps, patch critical/high CVEs within timelines."
+        },
+        {
+          "id": "10",
+          "name": "Logging and monitoring",
+          "req": "Log all access to system components + CDE (audit trail: who, when, what); monitor logs and audit trails for anomalies."
+        },
+        {
+          "id": "10.5",
+          "name": "Log integrity",
+          "req": "Protect audit logs from modification; review daily; retain 12 months history with 3 months immediately available."
+        },
+        {
+          "id": "11",
+          "name": "Test security of systems",
+          "req": "Quarterly internal + external vulnerability scans (ASV for external), annual penetration testing incl. segmentation effectiveness."
+        }
+      ]
+    },
+    {
+      "key": "organize",
+      "name": "Maintain a policy program (Req 12) + identity/privacy (Req 7–9)",
+      "controls": [
+        {
+          "id": "7",
+          "name": "Restrict access by need-to-know",
+          "req": "Limit access to system components and CDE to least privilege; role-based access; documented approvals."
+        },
+        {
+          "id": "8",
+          "name": "Identify and authenticate users",
+          "req": "Unique IDs, strong authentication (MFA for remote/CDE admin), lockout policies, session management; no shared accounts."
+        },
+        {
+          "id": "9",
+          "name": "Restrict physical access",
+          "req": "Physical access controls to CDE (facility access, media storage, badge logs, video monitoring, POI device tamper checks)."
+        },
+        {
+          "id": "12",
+          "name": "Information security policy",
+          "req": "Supporting policies and operational procedures: risk assessments, incident response plan, vendor/supplier management, periodic reviews."
+        }
+      ]
+    }
+  ],
+  "source": "PCI SSC PCI DSS v4.0.1",
+  "sourceUrl": "https://www.pcisecuritystandards.org",
+  "license": "Public standard — simplified checklist (use official SAQ/ROC for compliance)"
+}

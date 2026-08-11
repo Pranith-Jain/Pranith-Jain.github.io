@@ -1,0 +1,13 @@
+{
+  "plugin": "netscan",
+  "version": "both",
+  "purpose": "Active TCP/UDP connections incl. remote endpoints (Windows 7+ / older via pool).",
+  "category": "Network",
+  "example": "volatility -f image.mem netscan",
+  "mitre": "TA0011",
+  "notes": "Pairs with Sysmon 3. Look for foreign-language locale endpoints and beacon cadence.",
+  "indicators": "C2 connections, unknown listeners (e.g. port 4444, 1337, 8888).",
+  "slug": "memory-netscan",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

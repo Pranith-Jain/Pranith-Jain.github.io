@@ -1,0 +1,11 @@
+{
+  "browser": "Chrome",
+  "artifact": "Top Sites / Shortcuts",
+  "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Top Sites",
+  "evidence": "Most-visited URLs — survives History clearing in some builds.",
+  "tools": "strings, DB Browser",
+  "note": "",
+  "slug": "browser-top-sites-shortcuts",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

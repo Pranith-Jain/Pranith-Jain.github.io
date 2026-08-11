@@ -1,0 +1,11 @@
+{
+  "browser": "Safari (macOS)",
+  "artifact": "Cookies.binarycookies",
+  "path": "~/Library/Cookies/Cookies.binarycookies",
+  "evidence": "Cookie store (binarycookies format).",
+  "tools": "binarycookie parser, MacForensicsLab",
+  "note": "",
+  "slug": "browser-cookies-binarycookies",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

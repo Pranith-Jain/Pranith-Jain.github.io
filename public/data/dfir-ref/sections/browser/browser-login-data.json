@@ -1,0 +1,11 @@
+{
+  "browser": "Chrome",
+  "artifact": "Login Data",
+  "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data",
+  "evidence": "Saved usernames/passwords for sites (encrypted, AES-256-GCM with DPAPI master key).",
+  "tools": "Hindsight, mimikatz (DPAPI), chrome-passwords-dump",
+  "note": "Requires user DPAPI master key + user's password or domain session.",
+  "slug": "browser-login-data",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

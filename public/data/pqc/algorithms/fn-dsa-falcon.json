@@ -1,0 +1,11 @@
+{
+  "name": "FN-DSA (Falcon)",
+  "fips": "FIPS 206 (final, 2025)",
+  "type": "Signature — compact lattice",
+  "purpose": "Small signature sizes (666 bytes for FN-DSA-512), good for constrained / bandwidth-sensitive signing.",
+  "sizes": { "public": "897 bytes", "signature": "666 bytes (FN-DSA-512)", "secret": "1281 bytes" },
+  "security": "FN-DSA-512 ≈ AES-128.",
+  "status": "Finalized 2025.",
+  "notes": "Complex signing implementation; pairs well where signature size matters (DNSSEC, mTLS).",
+  "slug": "fn-dsa-falcon"
+}

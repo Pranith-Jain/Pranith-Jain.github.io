@@ -1,0 +1,11 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1570",
+  "title": "Remote copy via xcopy/robocopy",
+  "hypothesis": "An attacker used xcopy/robocopy to push files laterally.",
+  "queries": [
+    "DeviceProcessEvents | where FileName has_any ('xcopy.exe','robocopy.exe') | where ProcessCommandLine contains '\\\\\\\\'"
+  ],
+  "rationale": "UNC-target copies = lateral file staging.",
+  "id": "H150"
+}

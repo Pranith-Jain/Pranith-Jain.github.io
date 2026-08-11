@@ -1,0 +1,12 @@
+{
+  "id": 3,
+  "name": "Sysmon network connection",
+  "log": "Microsoft-Windows-Sysmon/Operational",
+  "mitre": "TA0011",
+  "description": "Sysmon network connection detected.",
+  "indicators": ["C2 beaconing", "Exfiltration"],
+  "investigation": "Beacon interval analysis (dstip:port fixed, 20-60s cadence), unknown destinations per process, and TCP connect to ephemeral external ports.",
+  "slug": "event-ids-3",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

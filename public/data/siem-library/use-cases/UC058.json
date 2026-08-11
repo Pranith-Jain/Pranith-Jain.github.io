@@ -1,0 +1,13 @@
+{
+  "id": "UC058",
+  "name": "BloodHound-style session enumeration (NetSessionEnum)",
+  "category": "Reconnaissance",
+  "mitre": "T1087.002",
+  "severity": "Medium",
+  "kql": "SecurityEvent | where EventID == 5140 or EventID == 5145 | where RelativeTargetName contains 'sessions' or ShareName contains 'IPC$' | where AccountName != ''",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=5140 ShareName=IPC$",
+  "dataSource": "Security 5140",
+  "fpRate": "Medium",
+  "tuning": "IPC$ bursts from single host = session scanning (BloodHound/SharpHound).",
+  "apt": "ALL post-exploitation"
+}

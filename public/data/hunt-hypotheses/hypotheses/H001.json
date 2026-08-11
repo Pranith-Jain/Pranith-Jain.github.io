@@ -1,0 +1,11 @@
+{
+  "tactic": "Initial Access",
+  "technique": "T1566.001",
+  "title": "Spear-phishing with macro-bearing document",
+  "hypothesis": "An employee received a macro-enabled document that delivered an initial stager.",
+  "queries": [
+    "DeviceProcessEvents | where FileName in ('winword.exe','excel.exe') | where InitiatingProcessFileName has_any ('powershell.exe','cmd.exe','wscript.exe')"
+  ],
+  "rationale": "Office spawn of scripting host is the classic macro kill chain starting point.",
+  "id": "H001"
+}

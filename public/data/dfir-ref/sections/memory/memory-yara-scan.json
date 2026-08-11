@@ -1,0 +1,13 @@
+{
+  "plugin": "yara-scan",
+  "version": "both",
+  "purpose": "YARA scan across process memory.",
+  "category": "Hunting",
+  "example": "volatility -f image.mem yarascan -y rules.yar -p 4321",
+  "mitre": "T1055",
+  "notes": "Scan with Cobalt Strike, mimikatz, and keylogger signatures.",
+  "indicators": "",
+  "slug": "memory-yara-scan",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

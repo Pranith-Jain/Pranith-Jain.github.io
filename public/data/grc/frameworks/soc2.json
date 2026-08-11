@@ -1,0 +1,164 @@
+{
+  "key": "soc2",
+  "name": "SOC 2 (Type II)",
+  "year": "2023 (2025 TSC update)",
+  "description": "AICPA System and Organization Controls 2 — trust services criteria across 5 categories; Type II requires evidence of operating effectiveness over a period.",
+  "themes": ["Security", "Availability", "Processing Integrity", "Confidentiality", "Privacy"],
+  "categories": [
+    {
+      "key": "security",
+      "name": "Security Trust Service Criteria (CC1–CC9)",
+      "controls": [
+        {
+          "id": "CC1",
+          "name": "Control environment",
+          "req": "Commitment to integrity, ethical values, and board/senior management oversight of internal control."
+        },
+        {
+          "id": "CC2",
+          "name": "Communication and information",
+          "req": "Relevant information communicated internally/externally; incident and control-deviation communication paths."
+        },
+        {
+          "id": "CC3",
+          "name": "Risk assessment",
+          "req": "Identify, analyze and manage risks of meeting objectives (FR/CSR): fraud, change, system operations."
+        },
+        {
+          "id": "CC4",
+          "name": "Monitoring activities",
+          "req": "Monitor control operation (ongoing evaluations, separate evaluations) and remediate deficiencies."
+        },
+        {
+          "id": "CC5",
+          "name": "Control activities",
+          "req": "Policies and procedures establishing control activities across the org (segregation, approvals)."
+        },
+        {
+          "id": "CC6",
+          "name": "Logical and physical access",
+          "req": "Restrict logical and physical access to systems/data: least privilege, authentication, MFA, termination revocation."
+        },
+        {
+          "id": "CC7",
+          "name": "System operations",
+          "req": "Manage system operations: vulnerability mgmt, monitoring, incident detection/response, change management (data retention incl.)."
+        },
+        {
+          "id": "CC8",
+          "name": "Change management",
+          "req": "Authorized, designed, developed, tested, approved, implemented and documented changes; detection of unauthorized changes."
+        },
+        {
+          "id": "CC9",
+          "name": "Risk mitigation",
+          "req": "Business disruption risks addressed (BC/DR); vendor and business-partner risks mitigated."
+        }
+      ]
+    },
+    {
+      "key": "availability",
+      "name": "Availability (A1)",
+      "controls": [
+        {
+          "id": "A1-1",
+          "name": "Availability commitments",
+          "req": "Availability commitments (SLA uptime) met, monitored, and reported; capacity planning for expected loads."
+        },
+        {
+          "id": "A1-2",
+          "name": "Recovery planning",
+          "req": "Recovery plan and procedures for disruptions: RTO/RPO definitions, backup, DR exercises, communication."
+        },
+        {
+          "id": "A1-3",
+          "name": "Environmental protections",
+          "req": "Physical and environmental controls (power, cooling, fire) aligned with commitments."
+        }
+      ]
+    },
+    {
+      "key": "integrity",
+      "name": "Processing Integrity (PI1)",
+      "controls": [
+        {
+          "id": "PI1-1",
+          "name": "Processing integrity commitments",
+          "req": "System processing is complete, valid, timely, accurate and authorized per commitments (input validation, reconciliations)."
+        },
+        {
+          "id": "PI1-2",
+          "name": "Error handling",
+          "req": "Processing errors detected, logged and remediated; exception reporting meets commitments."
+        },
+        {
+          "id": "PI1-3",
+          "name": "Data correction",
+          "req": "Incorrect data corrected and communicated to affected parties per commitments."
+        }
+      ]
+    },
+    {
+      "key": "confidentiality",
+      "name": "Confidentiality (C1)",
+      "controls": [
+        {
+          "id": "C1-1",
+          "name": "Confidential information identification",
+          "req": "Identify and classify confidential information per commitments (labels, inventories)."
+        },
+        {
+          "id": "C1-2",
+          "name": "Confidentiality safeguards",
+          "req": "Safeguards (encryption, access control, DLP, disposal) for confidential information through lifecycle."
+        },
+        {
+          "id": "C1-3",
+          "name": "Confidentiality incident handling",
+          "req": "Confidentiality breach detection, response and notification aligned with commitments."
+        }
+      ]
+    },
+    {
+      "key": "privacy",
+      "name": "Privacy (P1–P8)",
+      "controls": [
+        {
+          "id": "P1",
+          "name": "Notice",
+          "req": "Provide notice of privacy practices (collection, use, retention, disclosure) to data subjects (DPDP-aligned where applicable)."
+        },
+        {
+          "id": "P2",
+          "name": "Choice and consent",
+          "req": "Offer choice and obtain consent for PII collection, use and disclosure; honor preferences."
+        },
+        { "id": "P3", "name": "Collection", "req": "Collect PII only per commitments — minimal, lawful collection." },
+        {
+          "id": "P4",
+          "name": "Use, retention and disposal",
+          "req": "Use PII per commitments; retain per schedule; dispose securely on expiry of purpose."
+        },
+        {
+          "id": "P5",
+          "name": "Access",
+          "req": "Provide data subjects access to their PII and permit correction/amendment as committed."
+        },
+        {
+          "id": "P6",
+          "name": "Disclosure and notification",
+          "req": "Disclose PII to third parties per commitments; notify subjects on breach (DPDP breach notification alignment)."
+        },
+        { "id": "P7", "name": "Quality", "req": "Maintain accurate, complete PII; correct/update as needed." },
+        {
+          "id": "P8",
+          "name": "Monitoring and enforcement",
+          "req": "Monitor compliance with privacy commitments and enforce controls (reviews, remediation of lapses)."
+        }
+      ]
+    }
+  ],
+  "source": "AICPA Trust Services Criteria (2025 edition)",
+  "sourceUrl": "https://www.aicpa-cima.com",
+  "license": "Public framework — simplified checklist"
+}

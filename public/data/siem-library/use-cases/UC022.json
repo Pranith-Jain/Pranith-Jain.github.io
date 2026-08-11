@@ -1,0 +1,13 @@
+{
+  "id": "UC022",
+  "name": "DNS query to DGA-like domain",
+  "category": "C2",
+  "mitre": "T1568.002",
+  "severity": "Medium",
+  "kql": "DeviceNetworkEvents | where ActionType == 'DnsQuery' | where RemoteUrl matches regex @'^[a-z0-9]{12,}\\.(top|xyz|ru|info|site)$'",
+  "spl": "index=windows sourcetype=Sysmon:Network EventCode=22 QueryName=* regex=^[a-z0-9]{12,}\\.",
+  "dataSource": "Sysmon 22 / DNS telemetry",
+  "fpRate": "Medium",
+  "tuning": "High-entropy TLDs per-domain-daily; aggregate by host for confirmation.",
+  "apt": "Qakbot, Emotet, BumbleBee DGAs"
+}

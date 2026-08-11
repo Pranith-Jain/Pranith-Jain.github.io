@@ -1,0 +1,11 @@
+{
+  "browser": "Firefox",
+  "artifact": "sessionstore.jsonlz4",
+  "path": "%APPDATA%\\Mozilla\\Firefox\\Profiles\\<profile>\\sessionstore.jsonlz4",
+  "evidence": "Restored tabs/windows incl. URLs open at crash/close — recovers cleared-history context.",
+  "tools": "MozLz4a, strings",
+  "note": "LZ4-compressed; also 'sessionstore-backups' folder keeps older snapshots.",
+  "slug": "browser-sessionstore-jsonlz4",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

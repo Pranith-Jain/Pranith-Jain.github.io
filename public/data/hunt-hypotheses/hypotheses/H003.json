@@ -1,0 +1,11 @@
+{
+  "tactic": "Initial Access",
+  "technique": "T1190",
+  "title": "Internet-facing appliance compromise",
+  "hypothesis": "A perimeter device (VPN, web app, mail) was exploited before internal movement.",
+  "queries": [
+    "DeviceProcessEvents | where InitiatingProcessFileName has_any ('w3wp.exe','httpd.exe','nginx.exe','sshd.exe') | where FileName has_any ('cmd.exe','powershell.exe','bash')"
+  ],
+  "rationale": "Web/service processes spawning shells = remote code execution on perimeter.",
+  "id": "H003"
+}

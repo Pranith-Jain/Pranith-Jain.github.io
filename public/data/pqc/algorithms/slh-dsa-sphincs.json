@@ -1,0 +1,15 @@
+{
+  "name": "SLH-DSA (SPHINCS+)",
+  "fips": "FIPS 205",
+  "type": "Stateless hash-based signature (conservative)",
+  "purpose": "Long-term signing, firmware, scenarios distrusting structured lattices.",
+  "sizes": {
+    "public": "48 bytes",
+    "signature": "17 KB (SLH-DSA-128s) to 49 KB (SLH-DSA-192f)",
+    "secret": "64–128 bytes"
+  },
+  "security": "Failsafe: security from hash functions only — no lattice assumptions.",
+  "status": "Finalized Aug 2024.",
+  "notes": "Slow + huge signatures; use for certificates/root anchors and firmware, not packet-level signing.",
+  "slug": "slh-dsa-sphincs"
+}

@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1555.005",
+  "title": "Password manager vault access",
+  "hypothesis": "An attacker accessed password manager vaults (LastPass, KeePass, 1Password).",
+  "queries": [
+    "DeviceProcessEvents | where FileName in ('KeePass.exe','1Password.exe','LastPass.exe') | where ProcessCommandLine contains 'dump' or ProcessCommandLine contains 'export'"
+  ],
+  "rationale": "Vault tools with export/dump args = vault theft.",
+  "id": "H145"
+}

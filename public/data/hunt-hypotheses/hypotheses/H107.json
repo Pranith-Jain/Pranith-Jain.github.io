@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1071.001",
+  "title": "HTTP/S beacon",
+  "hypothesis": "A host communicates with C2 over HTTP/S on a fixed cadence.",
+  "queries": [
+    "DeviceNetworkEvents | where RemoteUrl startswith 'http' | where InitiatingProcessFileName != 'chrome.exe' | summarize count() by InitiatingProcessFileName, RemoteUrl, bin(TimeGenerated, 30m) | where count_ >= 10"
+  ],
+  "rationale": "Regular intervals to same URL from odd process.",
+  "id": "H107"
+}

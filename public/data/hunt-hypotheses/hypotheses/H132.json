@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1010",
+  "title": "Window/desktop enumeration",
+  "hypothesis": "An attacker enumerated open windows/screens for interception or screenshots.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'powershell.exe' | where ProcessCommandLine contains 'Get-Process' and ProcessCommandLine contains 'MainWindowTitle'"
+  ],
+  "rationale": "Window-title enumeration = screen/UI interception prep.",
+  "id": "H132"
+}

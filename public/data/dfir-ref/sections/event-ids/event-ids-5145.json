@@ -1,0 +1,12 @@
+{
+  "id": 5145,
+  "name": "Detailed file share access",
+  "log": "Security",
+  "mitre": "T1039",
+  "description": "Detailed file share access audit.",
+  "indicators": ["Data exfiltration", "Lateral movement"],
+  "investigation": "Mass reads of sensitive shares, sensitive file extensions (.dmp, .pst, .bak) from one machine, or tarball creation in shares.",
+  "slug": "event-ids-5145",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

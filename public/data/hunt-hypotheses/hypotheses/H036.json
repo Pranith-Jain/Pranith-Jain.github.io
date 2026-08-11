@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1547.002",
+  "title": "WinLogon notify/LogonScript",
+  "hypothesis": "Logon scripts or notify packages execute attacker code at logon.",
+  "queries": [
+    "DeviceRegistryEvents | where RegistryKey contains 'Winlogon\\\\Notify' | where RegistryValueName == 'DllName'"
+  ],
+  "rationale": "Notify package additions = early logon execution.",
+  "id": "H036"
+}

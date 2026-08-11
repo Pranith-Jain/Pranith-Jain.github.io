@@ -41,6 +41,16 @@ const PcMedicalist = lazy(() => import('./pages/threatintel/PcMedicalist'));
 const AIThreats = lazy(() => import('./pages/AIThreats'));
 const OssFeeds = lazy(() => import('./pages/OssFeeds'));
 const WinReg = lazy(() => import('./pages/WinReg'));
+const DfirRef = lazy(() => import('./pages/DfirRef'));
+const GrcChecklists = lazy(() => import('./pages/GrcChecklists'));
+const SiemLibrary = lazy(() => import('./pages/SiemLibrary'));
+const HuntHypotheses = lazy(() => import('./pages/HuntHypotheses'));
+const CloudReference = lazy(() => import('./pages/CloudReference'));
+const Pqc = lazy(() => import('./pages/Pqc'));
+const CveRiskMatrix = lazy(() => import('./pages/CveRiskMatrix'));
+const CoCGenerator = lazy(() => import('./pages/dfir/CoCGenerator'));
+const SocCalculators = lazy(() => import('./pages/dfir/SocCalculators'));
+const SysmonConfig = lazy(() => import('./pages/dfir/SysmonConfig'));
 const SigBase = lazy(() => import('./pages/SigBase'));
 const Aptmap = lazy(() => import('./pages/Aptmap'));
 const ETDAActors = lazy(() => import('./pages/ETDAActors'));
@@ -416,6 +426,16 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/ai-threats', Component: AIThreats },
   { path: '/dfir/oss-feeds', Component: OssFeeds },
   { path: '/dfir/winreg', Component: WinReg },
+  { path: '/dfir/dfir-ref', Component: DfirRef },
+  { path: '/dfir/grc-checklists', Component: GrcChecklists },
+  { path: '/dfir/siem-library', Component: SiemLibrary },
+  { path: '/dfir/hunt-hypotheses', Component: HuntHypotheses },
+  { path: '/dfir/cloud-reference', Component: CloudReference },
+  { path: '/dfir/pqc', Component: Pqc },
+  { path: '/dfir/cve-risk-matrix', Component: CveRiskMatrix },
+  { path: '/dfir/coc-generator', Component: CoCGenerator },
+  { path: '/dfir/soc-calculators', Component: SocCalculators },
+  { path: '/dfir/sysmon-config', Component: SysmonConfig },
   { path: '/dfir/sigbase', Component: SigBase },
   { path: '/dfir/traceix', Component: Traceix },
   { path: '/dfir/whoxy', Component: Whoxy },

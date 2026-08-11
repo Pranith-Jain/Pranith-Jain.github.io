@@ -1,0 +1,13 @@
+{
+  "id": "UC056",
+  "name": "Non-admin adds user to Remote Management Users",
+  "category": "Persistence",
+  "mitre": "T1098.001",
+  "severity": "High",
+  "kql": "SecurityEvent | where EventID == 4732 | where TargetAccount == 'Remote Management Users' | where SubjectUserName !contains '$'",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4732 TargetAccount=\"Remote Management Users\"",
+  "dataSource": "Security 4732",
+  "fpRate": "Low",
+  "tuning": "WinRM backdoor prep",
+  "apt": "WinRM persistence users"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "CHQ26",
+  "name": "Service account key creation (GCP)",
+  "provider": "GCP",
+  "mitre": "T1098.001",
+  "desc": "New SA keys are long-lived credentials.",
+  "kql": "GCPAuditLogs | where operation.method == 'CreateServiceAccountKey' | where actor.email !in (authorizedAdminEmails)"
+}

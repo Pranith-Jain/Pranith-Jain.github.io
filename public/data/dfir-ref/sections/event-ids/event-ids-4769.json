@@ -1,0 +1,12 @@
+{
+  "id": 4769,
+  "name": "Kerberos service ticket requested",
+  "log": "Security",
+  "mitre": "T1558.003",
+  "description": "A Kerberos service ticket was requested.",
+  "indicators": ["Kerberoasting", "Lateral movement"],
+  "investigation": "Multiple 4769 for the same service from one account (TicketEncryptionType 0x17, RC4) = Kerberoasting. ServiceName not ending in $ with high counts is the signal.",
+  "slug": "event-ids-4769",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

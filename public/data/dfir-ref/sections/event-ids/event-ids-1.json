@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "name": "Sysmon process creation",
+  "log": "Microsoft-Windows-Sysmon/Operational",
+  "mitre": "T1059",
+  "description": "Sysmon process creation with hash, integrity level, parent chain.",
+  "indicators": ["Full process chain", "Hash evidence"],
+  "investigation": "The definitive process signal: includes SHA256, parent PID/GUID ordering, integrity level. Hunt parent-child anomalies (Word→powershell).",
+  "slug": "event-ids-1",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

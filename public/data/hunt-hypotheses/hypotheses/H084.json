@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1083",
+  "title": "File/directory discovery",
+  "hypothesis": "An attacker enumerated interesting files (docs, configs, keys).",
+  "queries": [
+    "DeviceProcessEvents | where ProcessCommandLine has_any ('dir /s','Get-ChildItem -Recurse') | where ProcessCommandLine contains 'Users' or ProcessCommandLine contains 'AppData'"
+  ],
+  "rationale": "Deep recursive listing of user dirs = data discovery.",
+  "id": "H084"
+}

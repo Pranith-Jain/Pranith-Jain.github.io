@@ -1,0 +1,13 @@
+{
+  "id": "UC032",
+  "name": "Unusual logon out of hours (admin)",
+  "category": "Initial Access",
+  "mitre": "T1078",
+  "severity": "Medium",
+  "kql": "SecurityEvent | where EventID == 4624 | where Account in (AdminAccounts) | where hour_of_day(TimeGenerated) between (22 .. 5) | where LogonType in (3, 10, 8)",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4624 User IN (admins) NOT wday, _time | where _time >= relative_now(7d) | eval h=strftime(_time,\"%H\") | where h>=22 OR h<=5",
+  "dataSource": "Security 4624",
+  "fpRate": "Medium",
+  "tuning": "Needs admin account group baseline; exclude on-call rotations.",
+  "apt": "Universal"
+}

@@ -1,0 +1,11 @@
+{
+  "tactic": "Collection",
+  "technique": "T1005",
+  "title": "Sensitive file collection",
+  "hypothesis": "An attacker collected documents/credentials from user profiles.",
+  "queries": [
+    "DeviceFileEvents | where FolderPath contains '\\\\Desktop' or FolderPath contains '\\\\Documents' | where FileName endswith ('.pst','.ost','.xlsx','.docx','.zip') | where ActionType == 'FileCopied' | where InitiatingProcessFileName in ('cmd.exe','powershell.exe')"
+  ],
+  "rationale": "Copy-doc actions from shells = collection.",
+  "id": "H101"
+}

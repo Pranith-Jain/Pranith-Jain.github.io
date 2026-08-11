@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1497.003",
+  "title": "Time-based evasion (long baseline)",
+  "hypothesis": "Malware waited days before acting (time-based evasion).",
+  "queries": [
+    "DeviceProcessEvents | where TimeGenerated between (now(-10d) .. now()) | where InitiatingProcessFileName == 'rundll32.exe' | where ProcessCommandLine contains 'svchost'"
+  ],
+  "rationale": "Long-delay first activity from dropper = time evasion.",
+  "id": "H085"
+}

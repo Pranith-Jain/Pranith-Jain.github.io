@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1053.005",
+  "title": "Task with SYSTEM privileges",
+  "hypothesis": "A scheduled task was registered to run with highest privileges.",
+  "queries": [
+    "SecurityEvent | where EventID == 4698 | where TaskContent contains '<RunLevel>HighestAvailable</RunLevel>' | where TaskContent contains 'Users\\\\' or TaskContent contains 'Temp'"
+  ],
+  "rationale": "HighestAvailable run level + writable path = privilege persistence.",
+  "id": "H029"
+}

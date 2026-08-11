@@ -1,0 +1,11 @@
+{
+  "tactic": "Execution",
+  "technique": "T1059.003",
+  "title": "Windows command shell batch execution",
+  "hypothesis": "An attacker chained batch commands via cmd /c.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'cmd.exe' | where ProcessCommandLine contains '/c' | where ProcessCommandLine matches regex @'.*(&|&&|;).*'"
+  ],
+  "rationale": "Chained commands in one /c invocation are unusual for admins.",
+  "id": "H010"
+}

@@ -1,0 +1,202 @@
+[
+  {
+    "browser": "Chrome",
+    "artifact": "History",
+    "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History",
+    "evidence": "URLs visited, timestamps, typed search terms, downloads, favicon lookups.",
+    "tools": "DB Browser for SQLite, Chrome History View, autopsy",
+    "note": "SQLite — check for WAL file (History-wal) for recently-written rows lost on close."
+  },
+  {
+    "browser": "Chrome",
+    "artifact": "Cookies",
+    "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Network\\Cookies",
+    "evidence": "Session cookies, auth tokens for sites visited.",
+    "tools": "DB Browser for SQLite, Hindsight, Magnets",
+    "note": "Encrypted with DPAPI (v10+). Guest/incognito inherits existing cookies until close."
+  },
+  {
+    "browser": "Chrome",
+    "artifact": "Login Data",
+    "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data",
+    "evidence": "Saved usernames/passwords for sites (encrypted, AES-256-GCM with DPAPI master key).",
+    "tools": "Hindsight, mimikatz (DPAPI), chrome-passwords-dump",
+    "note": "Requires user DPAPI master key + user's password or domain session."
+  },
+  {
+    "browser": "Chrome",
+    "artifact": "Preferences / Secure Preferences",
+    "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Preferences",
+    "evidence": "Default search engine (evidence of hijack), extensions list, saved password count.",
+    "tools": "vi, strings, jq",
+    "note": "JSON — check 'extensions.settings' for rogue extensions and 'default_search_provider'."
+  },
+  {
+    "browser": "Chrome",
+    "artifact": "Extensions",
+    "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\<ID>\\<ver>",
+    "evidence": "Installed extensions incl. malicious/rogue ones (manifest.json + JS).",
+    "tools": "strings, jq, yara",
+    "note": "Correlate extension install time with History + Preferences."
+  },
+  {
+    "browser": "Chrome",
+    "artifact": "Cache (Simple Cache)",
+    "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cache\\Cache_Data",
+    "evidence": "Cached resources (images, JS, files downloaded to cache).",
+    "tools": "ChromeCacheView (NirSoft), autopsy",
+    "note": "Stores index + f_XXXXXX files; useful when History cleared."
+  },
+  {
+    "browser": "Chrome",
+    "artifact": "Local Storage",
+    "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Local Storage\\leveldb",
+    "evidence": "Site 'localStorage' key-value data, session tokens.",
+    "tools": "leveldb parsers, Hindsight",
+    "note": "May contain JWT/OAuth tokens persisted by web apps."
+  },
+  {
+    "browser": "Chrome",
+    "artifact": "Top Sites / Shortcuts",
+    "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Top Sites",
+    "evidence": "Most-visited URLs — survives History clearing in some builds.",
+    "tools": "strings, DB Browser",
+    "note": ""
+  },
+  {
+    "browser": "Chrome",
+    "artifact": "Web Data",
+    "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Web Data",
+    "evidence": "Autofill form data (names, emails, addresses typed into forms).",
+    "tools": "DB Browser, Hindsight",
+    "note": "Autofill reveals OSINT profiles even when History is cleared."
+  },
+  {
+    "browser": "Edge",
+    "artifact": "History / Cookies / Login Data",
+    "path": "%USERPROFILE%\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default\\",
+    "evidence": "Same Chromium artifacts as Chrome: History (Add-Type SQLite), Cookies (Network\\Cookies), Login Data.",
+    "tools": "Hindsight, DB Browser, ChromeCacheView",
+    "note": "Edge profile path mirrors Chrome; also check 'Default\\Preferences' for hijacked search."
+  },
+  {
+    "browser": "Firefox",
+    "artifact": "places.sqlite",
+    "path": "%APPDATA%\\Mozilla\\Firefox\\Profiles\\<profile>\\places.sqlite",
+    "evidence": "Browsing history (moz_places), bookmarks, visits with timestamps.",
+    "tools": "DB Browser, Firefox History Viewer (NirSoft)",
+    "note": "Also 'places.sqlite-wal'; check 'favicons.sqlite' for icons of visited sites."
+  },
+  {
+    "browser": "Firefox",
+    "artifact": "cookies.sqlite",
+    "path": "%APPDATA%\\Mozilla\\Firefox\\Profiles\\<profile>\\cookies.sqlite",
+    "evidence": "Cookie store (name, value, host, path, expiry).",
+    "tools": "DB Browser, cookies viewer",
+    "note": "Legacy store; newer versions use cookies.sqlite still, encrypted only with profile password."
+  },
+  {
+    "browser": "Firefox",
+    "artifact": "logins.json + key4.db",
+    "path": "%APPDATA%\\Mozilla\\Firefox\\Profiles\\<profile>\\",
+    "evidence": "Saved passwords (logins.json encrypted with key4.db master key).",
+    "tools": "FirefoxDecrypt, ffpass",
+    "note": "Master key in key4.db protected by OS keyring / primary password."
+  },
+  {
+    "browser": "Firefox",
+    "artifact": "sessionstore.jsonlz4",
+    "path": "%APPDATA%\\Mozilla\\Firefox\\Profiles\\<profile>\\sessionstore.jsonlz4",
+    "evidence": "Restored tabs/windows incl. URLs open at crash/close — recovers cleared-history context.",
+    "tools": "MozLz4a, strings",
+    "note": "LZ4-compressed; also 'sessionstore-backups' folder keeps older snapshots."
+  },
+  {
+    "browser": "Firefox",
+    "artifact": "cache2",
+    "path": "%APPDATA%\\Mozilla\\Firefox\\Profiles\\<profile>\\cache2\\entries",
+    "evidence": "Cached resources (encrypted with key in key4.db on modern Firefox).",
+    "tools": "autopsy, strings",
+    "note": ""
+  },
+  {
+    "browser": "Safari (macOS)",
+    "artifact": "History.db",
+    "path": "~/Library/Safari/History.db",
+    "evidence": "History items + visits with timestamps (visit_count_summary).",
+    "tools": "DB Browser, Safari History Viewer (NirSoft)",
+    "note": "macOS forensic images — path accessible under /Users/<u>/Library/Safari/."
+  },
+  {
+    "browser": "Safari (macOS)",
+    "artifact": "Cookies.binarycookies",
+    "path": "~/Library/Cookies/Cookies.binarycookies",
+    "evidence": "Cookie store (binarycookies format).",
+    "tools": "binarycookie parser, MacForensicsLab",
+    "note": ""
+  },
+  {
+    "browser": "Safari (macOS)",
+    "artifact": "TopSites.plist",
+    "path": "~/Library/Safari/TopSites.plist",
+    "evidence": "Most-visited sites.",
+    "tools": "plutil, strings",
+    "note": "Survives History deletion in older macOS."
+  },
+  {
+    "browser": "Safari (macOS)",
+    "artifact": "LastSession.plist / LastSession.html",
+    "path": "~/Library/Safari/LastSession.plist",
+    "evidence": "Restored session URLs — recovers tabs after crash.",
+    "tools": "plutil",
+    "note": ""
+  },
+  {
+    "browser": "All",
+    "artifact": "Prefetch (Windows)",
+    "path": "C:\\Windows\\Prefetch\\<APP>.pf",
+    "evidence": "Executed application evidence incl. browsers and downloaded tools (first-run timestamps).",
+    "tools": "PECmd (Eric Zimmerman)",
+    "note": "Correlate browser download time with Prefetch of the downloaded binary."
+  },
+  {
+    "browser": "All",
+    "artifact": "SRUM (Windows)",
+    "path": "C:\\Windows\\System32\\sru\\SRUDB.dat",
+    "evidence": "Network usage per-app (bytes sent/received) — exfil and browser activity volume.",
+    "tools": "SrumDump, TimelineExplorer",
+    "note": "Shows per-process network bytes, app connectivity times."
+  },
+  {
+    "browser": "All",
+    "artifact": "RecentApps (Windows 10+)",
+    "path": "Registry HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search\\RecentApps",
+    "evidence": "Recently used apps with last-touch times — browser usage indicators.",
+    "tools": "Registry explorer, RecentAppsView",
+    "note": ""
+  },
+  {
+    "browser": "All",
+    "artifact": "Downloads (Windows shell)",
+    "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\WordWheelQuery",
+    "evidence": "Typed search terms incl. filenames of downloaded payloads.",
+    "tools": "Registry explorer / lecmd",
+    "note": "Frequently recovers payload filenames users forgot to clear."
+  },
+  {
+    "browser": "All",
+    "artifact": "BITS queue",
+    "path": "C:\\ProgramData\\Microsoft\\Network\\Downloader\\qmgr.db",
+    "evidence": "BITS downloads by URL — attacker payload staging via BITSAdmin.",
+    "tools": "QmgrDb Explorer, TSK",
+    "note": "Correlate BITS job owner with user and network timeline."
+  },
+  {
+    "browser": "All",
+    "artifact": "Jump lists",
+    "path": "%APPDATA%\\Microsoft\\Windows\\Recent\\AutomaticDestinations\\",
+    "evidence": "Recently opened files per-app (incl. browser-downloaded docs and executables), app usage.",
+    "tools": "JumpListExplorer (EZ tools), LECmd",
+    "note": "OpenWith targeted binaries — strong evidence of what was executed."
+  }
+]

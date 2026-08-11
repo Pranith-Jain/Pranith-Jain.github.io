@@ -1,0 +1,12 @@
+{
+  "id": 4778,
+  "name": "Session reconnected to a winstation",
+  "log": "Security",
+  "mitre": "T1021.001",
+  "description": "A session was reconnected to a Windows station (RDP).",
+  "indicators": ["RDP activity"],
+  "investigation": "RDP reconnects from unexpected source IPs or at odd hours — check 4779 disconnect and 4624 LogonType 10.",
+  "slug": "event-ids-4778",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

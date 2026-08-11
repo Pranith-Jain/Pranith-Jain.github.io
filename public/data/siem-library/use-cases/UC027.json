@@ -1,0 +1,13 @@
+{
+  "id": "UC027",
+  "name": "Copying files to ADMIN$ share (staging)",
+  "category": "Lateral Movement",
+  "mitre": "T1570",
+  "severity": "High",
+  "kql": "SecurityEvent | where EventID == 5145 | where RelativeTargetName matches regex @'ADMIN\\$.*\\.(exe|dll|bat|ps1|zip)$'",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=5145 RelativeTargetName=ADMIN$* (*.exe OR *.dll OR *.bat OR *.ps1 OR *.zip)",
+  "dataSource": "Security 5145 (object access 5128)",
+  "fpRate": "Low",
+  "tuning": "Immediate alert.",
+  "apt": "Universal staging pattern"
+}

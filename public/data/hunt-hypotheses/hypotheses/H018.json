@@ -1,0 +1,11 @@
+{
+  "tactic": "Execution",
+  "technique": "T1218.011",
+  "title": "Rundll32 shellcode loader",
+  "hypothesis": "rundll32 executed shellcode from a data URI or DLL.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'rundll32.exe' | where ProcessCommandLine contains 'javascript:' or ProcessCommandLine contains 'data:'"
+  ],
+  "rationale": "Rundll32 js/data URIs = shellcode loaders.",
+  "id": "H018"
+}

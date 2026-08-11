@@ -1,0 +1,11 @@
+{
+  "tactic": "Exfiltration",
+  "technique": "T1048",
+  "title": "Exfil to cloud storage",
+  "hypothesis": "Data was uploaded to personal cloud storage (Dropbox, Google Drive, MEGA).",
+  "queries": [
+    "DeviceNetworkEvents | where RemoteUrl has_any ('dropbox.com','drive.google.com','mega.nz','wetransfer.com') | where InitiatingProcessFileName != 'browser'"
+  ],
+  "rationale": "Non-browser upload to personal cloud = exfil.",
+  "id": "H120"
+}

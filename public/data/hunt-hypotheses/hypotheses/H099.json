@@ -1,0 +1,11 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1559",
+  "title": "COM inter-process movement",
+  "hypothesis": "An attacker used COM objects across processes to execute.",
+  "queries": [
+    "DeviceEvents | where ActionType == 'ComObject' | where ObjectName contains 'InternetExplorer' or ObjectName contains 'ShellWindows'"
+  ],
+  "rationale": "Unusual COM activation from scripts = lateral capability.",
+  "id": "H099"
+}

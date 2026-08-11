@@ -1,0 +1,11 @@
+{
+  "tactic": "Privilege Escalation",
+  "technique": "T1037",
+  "title": "Startup folder as admin",
+  "hypothesis": "An attacker dropped a binary into the Startup folder to regain admin context.",
+  "queries": [
+    "DeviceFileEvents | where FolderPath contains '\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\StartUp' | where FileName endswith ('.exe','.bat')"
+  ],
+  "rationale": "All-users startup writes mean admin had already been achieved.",
+  "id": "H042"
+}

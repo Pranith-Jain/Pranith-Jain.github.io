@@ -1,0 +1,11 @@
+{
+  "tactic": "Privilege Escalation",
+  "technique": "T1548.001",
+  "title": "sudo misconfig (Linux)",
+  "hypothesis": "An attacker abused a sudoers entry to run commands as root.",
+  "queries": [
+    "SecurityEvent | where Channel contains 'auth' | where CommandLine contains 'sudo' | where User == 'root'"
+  ],
+  "rationale": "sudo escalation with unexpected command = misconfig abuse.",
+  "id": "H040"
+}

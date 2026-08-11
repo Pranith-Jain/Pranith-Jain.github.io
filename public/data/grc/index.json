@@ -1,0 +1,335 @@
+{
+  "metadata": {
+    "description": "Compliance checklist vertical — ISO 27001:2022, CERT-In 2022, SEBI CSCRF, RBI IT, SOC 2, PCI DSS v4, DPDP 2023 + cross-framework control mapper + AI/DPDP mapper",
+    "totalFrameworks": 7,
+    "totalControls": 232,
+    "mapperThemes": 19
+  },
+  "source": "Authored from public regulatory/standards documents (summarized; not a substitute for the standards)",
+  "sourceUrl": "https://pranithjain.qzz.io/dfir/grc",
+  "license": "Reference summaries of public standards/regulations",
+  "replicatedAt": "2026-08-10",
+  "counts": { "frameworks": 7, "controls": 232, "mapperThemes": 19 },
+  "frameworks": [
+    {
+      "key": "iso27001",
+      "name": "ISO/IEC 27001:2022",
+      "year": "2022",
+      "description": "Annex A controls — 93 controls across 4 themes (37 organizational, 8 people, 14 physical, 34 technological).",
+      "themes": ["Organizational", "People", "Physical", "Technological"],
+      "categories": [
+        { "key": "A5", "name": "Organizational controls (A.5.1–A.5.37)", "count": 37 },
+        { "key": "A6", "name": "People controls (A.6.1–A.6.8)", "count": 8 },
+        { "key": "A7", "name": "Physical controls (A.7.1–A.7.14)", "count": 14 },
+        { "key": "A8", "name": "Technological controls (A.8.1–A.8.34)", "count": 34 }
+      ],
+      "controlCount": 93
+    },
+    {
+      "key": "certin",
+      "name": "CERT-In Directions 2022",
+      "year": "2022",
+      "description": "Indian Computer Emergency Response Team directions under IT Act 2000 (s.70B) — mandatory for all service providers, intermediaries, data centres, government bodies in India.",
+      "themes": ["Reporting", "Logging", "Coordination", "Compliance"],
+      "categories": [
+        { "key": "incident-reporting", "name": "Incident reporting obligations", "count": 6 },
+        { "key": "logging", "name": "Logging and retention obligations", "count": 6 },
+        { "key": "kyp", "name": "Customer/transaction record obligations", "count": 3 },
+        { "key": "nac", "name": "Coordination and compliance", "count": 4 }
+      ],
+      "controlCount": 19
+    },
+    {
+      "key": "sebi",
+      "name": "SEBI CSCRF 2024",
+      "year": "2024",
+      "description": "SEBI Cybersecurity and Cyber Resilience Framework — tiered (Tier 1/2/3) obligations for regulated entities in Indian securities markets (2024 circular, phased applicability).",
+      "themes": ["Governance", "Resilience", "Supply Chain", "Oversight"],
+      "categories": [
+        { "key": "tier1", "name": "Tier 1 — all market infrastructure and regulated entities", "count": 10 },
+        { "key": "tier2", "name": "Tier 2 — systemically important entities (additional)", "count": 5 },
+        {
+          "key": "tier3",
+          "name": "Tier 3 — highest systemic importance (market infrastructure institutions)",
+          "count": 5
+        }
+      ],
+      "controlCount": 20
+    },
+    {
+      "key": "rbi",
+      "name": "RBI IT Framework",
+      "year": "2011/2016",
+      "description": "Reserve Bank of India Information Technology Vision (2011) + Master Direction on Information Technology Governance, Risk, Controls and Assurance Practices (2016) — applicable to banks and NBFCs regulated by RBI.",
+      "themes": ["Governance", "Risk", "Controls", "Assurance"],
+      "categories": [
+        { "key": "itg", "name": "IT Governance", "count": 4 },
+        { "key": "irm", "name": "IT Risk Management", "count": 4 },
+        { "key": "isa", "name": "Information System Assurance", "count": 4 },
+        { "key": "bcm", "name": "Business Continuity & DR", "count": 4 },
+        { "key": "secops", "name": "Security Operations", "count": 6 },
+        { "key": "cloud", "name": "Cloud & Emerging Tech (RBI 2024)", "count": 4 }
+      ],
+      "controlCount": 26
+    },
+    {
+      "key": "soc2",
+      "name": "SOC 2 (Type II)",
+      "year": "2023 (2025 TSC update)",
+      "description": "AICPA System and Organization Controls 2 — trust services criteria across 5 categories; Type II requires evidence of operating effectiveness over a period.",
+      "themes": ["Security", "Availability", "Processing Integrity", "Confidentiality", "Privacy"],
+      "categories": [
+        { "key": "security", "name": "Security Trust Service Criteria (CC1–CC9)", "count": 9 },
+        { "key": "availability", "name": "Availability (A1)", "count": 3 },
+        { "key": "integrity", "name": "Processing Integrity (PI1)", "count": 3 },
+        { "key": "confidentiality", "name": "Confidentiality (C1)", "count": 3 },
+        { "key": "privacy", "name": "Privacy (P1–P8)", "count": 8 }
+      ],
+      "controlCount": 26
+    },
+    {
+      "key": "pci",
+      "name": "PCI DSS v4.0",
+      "year": "2024",
+      "description": "Payment Card Industry Data Security Standard v4.0.1 — 12 requirements for cardholder data environments (CDE). Applies to all entities storing/processing/transmitting cardholder data.",
+      "themes": ["Build & Maintain", "Protect", "Monitor", "Organize"],
+      "categories": [
+        { "key": "build", "name": "Build and maintain a secure network (Req 1–2)", "count": 3 },
+        { "key": "protect", "name": "Protect account data (Req 3–4)", "count": 3 },
+        {
+          "key": "monitor",
+          "name": "Maintain a vulnerability management program (Req 5–6) and monitor (Req 10–11)",
+          "count": 5
+        },
+        { "key": "organize", "name": "Maintain a policy program (Req 12) + identity/privacy (Req 7–9)", "count": 4 }
+      ],
+      "controlCount": 15
+    },
+    {
+      "key": "dpdp",
+      "name": "DPDP Act 2023",
+      "year": "2023",
+      "description": "India's Digital Personal Data Protection Act, 2023 — obligations for Data Fiduciaries (DFs), rights of Data Principals (DPs), and penalties up to ₹250 crore per significant breach.",
+      "themes": ["Obligations", "Rights", "Breach & Penalties", "AI Mapper"],
+      "categories": [
+        { "key": "obligations", "name": "Data fiduciary obligations (s.8)", "count": 13 },
+        { "key": "rights", "name": "Data principal rights (s.11–12)", "count": 5 },
+        { "key": "breach", "name": "Breach handling, penalties, and compliance ops", "count": 5 },
+        { "key": "ai", "name": "AI / ML system mapper (DPDP × AI lifecycle)", "count": 10 }
+      ],
+      "controlCount": 33
+    }
+  ],
+  "mapper": {
+    "key": "mapper",
+    "name": "Cross-Framework Control Mapper",
+    "description": "Common control themes mapped across ISO 27001:2022, CERT-In Directions, SEBI CSCRF, RBI IT, SOC 2, PCI DSS v4 and DPDP — find where each obligation lives in every framework.",
+    "themes": [
+      {
+        "theme": "Access Control & Identity",
+        "iso": ["A.5.15", "A.5.16", "A.5.17", "A.5.18", "A.8.2", "A.8.3", "A.8.5", "A.8.18"],
+        "certin": ["DL-1", "DL-2"],
+        "sebi": ["S1-6"],
+        "rbi": ["R5-6"],
+        "soc2": ["CC6", "P3"],
+        "pci": ["7", "8"],
+        "dpdp": ["D8"]
+      },
+      {
+        "theme": "Incident Response & Reporting",
+        "iso": ["A.5.24", "A.5.25", "A.5.26", "A.5.27", "A.5.28"],
+        "certin": ["DI-1", "DI-2", "DI-3", "DI-4", "DI-5", "DI-6"],
+        "sebi": ["S1-4", "S2-5"],
+        "rbi": ["R5-3", "R5-4"],
+        "soc2": ["CC7"],
+        "pci": ["12"],
+        "dpdp": ["D9", "DP1", "DP2", "DP3"]
+      },
+      {
+        "theme": "Logging & Monitoring",
+        "iso": ["A.8.15", "A.8.16", "A.8.17"],
+        "certin": ["DL-1", "DL-2", "DL-3", "DL-4", "DL-5", "DL-6"],
+        "sebi": ["S1-5", "S2-1", "S2-5"],
+        "rbi": ["R5-2"],
+        "soc2": ["CC7", "A1-1"],
+        "pci": ["10", "10.5"],
+        "dpdp": ["D8"]
+      },
+      {
+        "theme": "Vulnerability & Patch Management",
+        "iso": ["A.8.8", "A.8.9"],
+        "certin": [],
+        "sebi": ["S1-3"],
+        "rbi": ["R5-5"],
+        "soc2": ["CC7", "CC8"],
+        "pci": ["5", "6", "11"],
+        "dpdp": ["D8"]
+      },
+      {
+        "theme": "Malware / Endpoint Protection",
+        "iso": ["A.8.7", "A.8.1"],
+        "certin": [],
+        "sebi": ["S2-1"],
+        "rbi": ["R5-1"],
+        "soc2": ["CC6", "CC7"],
+        "pci": ["5"],
+        "dpdp": ["D8"]
+      },
+      {
+        "theme": "Backup & Business Continuity / DR",
+        "iso": ["A.5.29", "A.5.30", "A.8.13", "A.8.14"],
+        "certin": ["DC-1"],
+        "sebi": ["S1-7", "S3-3"],
+        "rbi": ["R4-1", "R4-2", "R4-3", "R4-4"],
+        "soc2": ["A1-1", "A1-2", "A1-3"],
+        "pci": ["12"],
+        "dpdp": []
+      },
+      {
+        "theme": "Data Protection & Privacy",
+        "iso": ["A.5.33", "A.5.34", "A.8.10", "A.8.11", "A.8.12"],
+        "certin": ["DK-1", "DK-2", "DK-3"],
+        "sebi": ["S1-8"],
+        "rbi": ["R6-3"],
+        "soc2": ["C1-1", "C1-2", "C1-3", "P1", "P2", "P4", "P5", "P6", "P7", "P8"],
+        "pci": ["3", "3.3"],
+        "dpdp": ["D4", "D5", "D6", "D7", "DR1", "DR2", "DR3", "DR4", "DR5"]
+      },
+      {
+        "theme": "Encryption & Cryptography",
+        "iso": ["A.8.24"],
+        "certin": ["DK-3"],
+        "sebi": ["S1-8"],
+        "rbi": ["R5-1"],
+        "soc2": ["C1-2"],
+        "pci": ["3", "4"],
+        "dpdp": ["D8"]
+      },
+      {
+        "theme": "Third-Party / Vendor & Supply Chain",
+        "iso": ["A.5.19", "A.5.20", "A.5.21", "A.5.22", "A.5.23"],
+        "certin": [],
+        "sebi": ["S3-2"],
+        "rbi": ["R2-3"],
+        "soc2": ["CC9"],
+        "pci": ["12"],
+        "dpdp": ["D12"]
+      },
+      {
+        "theme": "Change Management & Secure Development",
+        "iso": ["A.8.25", "A.8.26", "A.8.27", "A.8.28", "A.8.29", "A.8.30", "A.8.31", "A.8.32", "A.8.33", "A.8.34"],
+        "certin": [],
+        "sebi": ["S1-3"],
+        "rbi": [],
+        "soc2": ["CC8", "PI1-1", "PI1-2", "PI1-3"],
+        "pci": ["6", "11"],
+        "dpdp": ["D2"]
+      },
+      {
+        "theme": "Risk Assessment & Governance",
+        "iso": ["A.5.1", "A.5.2", "A.5.3", "A.5.8", "A.5.35", "A.5.36", "A.5.37"],
+        "certin": ["DC-2", "DC-3", "DC-4"],
+        "sebi": ["S1-1", "S1-2", "S1-9", "S1-10", "S3-1"],
+        "rbi": ["R1-1", "R1-2", "R1-3", "R1-4", "R2-1", "R2-2", "R2-4"],
+        "soc2": ["CC1", "CC2", "CC3", "CC4", "CC5"],
+        "pci": ["2", "12"],
+        "dpdp": ["D13"]
+      },
+      {
+        "theme": "Physical Security",
+        "iso": [
+          "A.7.1",
+          "A.7.2",
+          "A.7.3",
+          "A.7.4",
+          "A.7.5",
+          "A.7.6",
+          "A.7.7",
+          "A.7.8",
+          "A.7.9",
+          "A.7.10",
+          "A.7.11",
+          "A.7.12",
+          "A.7.13",
+          "A.7.14"
+        ],
+        "certin": [],
+        "sebi": [],
+        "rbi": [],
+        "soc2": ["CC6"],
+        "pci": ["9"],
+        "dpdp": []
+      },
+      {
+        "theme": "Personnel Security & Awareness",
+        "iso": ["A.6.1", "A.6.2", "A.6.3", "A.6.4", "A.6.5", "A.6.6", "A.6.7", "A.6.8"],
+        "certin": [],
+        "sebi": [],
+        "rbi": [],
+        "soc2": ["CC1", "CC5"],
+        "pci": ["12"],
+        "dpdp": []
+      },
+      {
+        "theme": "Network Security & Segmentation",
+        "iso": ["A.8.20", "A.8.21", "A.8.22", "A.8.23"],
+        "certin": [],
+        "sebi": ["S2-1"],
+        "rbi": ["R5-1"],
+        "soc2": ["CC6"],
+        "pci": ["1", "1.2"],
+        "dpdp": ["D8"]
+      },
+      {
+        "theme": "Retention & Disposal",
+        "iso": ["A.8.10", "A.7.10", "A.7.14", "A.5.33"],
+        "certin": ["DL-1", "DK-1", "DK-2"],
+        "sebi": ["S1-5"],
+        "rbi": ["R4-3"],
+        "soc2": ["P4", "CC7"],
+        "pci": ["10.5", "3"],
+        "dpdp": ["D6", "DR2"]
+      },
+      {
+        "theme": "Audit, Testing & Assurance",
+        "iso": ["A.5.35", "A.5.36", "A.5.37"],
+        "certin": ["DC-2"],
+        "sebi": ["S1-3", "S3-1", "S3-4"],
+        "rbi": ["R3-1", "R3-2", "R3-3", "R3-4"],
+        "soc2": ["CC4"],
+        "pci": ["11"],
+        "dpdp": ["D13"]
+      },
+      {
+        "theme": "Threat Intelligence & Monitoring",
+        "iso": ["A.5.7"],
+        "certin": [],
+        "sebi": ["S3-5"],
+        "rbi": ["R5-2"],
+        "soc2": ["CC7"],
+        "pci": ["10"],
+        "dpdp": []
+      },
+      {
+        "theme": "Privacy Breach Notification",
+        "iso": ["A.5.34"],
+        "certin": ["DI-1"],
+        "sebi": ["S1-4"],
+        "rbi": ["R5-4"],
+        "soc2": ["P6", "C1-3"],
+        "pci": ["12"],
+        "dpdp": ["D9", "DP1", "DP2", "DP3"]
+      },
+      {
+        "theme": "AI Governance & Ethics",
+        "iso": ["A.5.34", "A.8.25"],
+        "certin": [],
+        "sebi": [],
+        "rbi": ["R6-4"],
+        "soc2": [],
+        "pci": [],
+        "dpdp": ["AI1", "AI2", "AI3", "AI4", "AI5", "AI6", "AI7", "AI8", "AI9", "AI10"]
+      }
+    ]
+  }
+}

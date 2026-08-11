@@ -1,0 +1,12 @@
+{
+  "id": 4700,
+  "name": "Scheduled task enabled",
+  "log": "Security",
+  "mitre": "T1053.005",
+  "description": "A scheduled task was enabled.",
+  "indicators": ["Persistence activation"],
+  "investigation": "Newly enabled tasks after initial compromise — check creator and task content.",
+  "slug": "event-ids-4700",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

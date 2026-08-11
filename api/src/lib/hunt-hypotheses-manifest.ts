@@ -1,0 +1,1 @@
+../../../worker/lib/hunt-hypotheses-manifest.ts

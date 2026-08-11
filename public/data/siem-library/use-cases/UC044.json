@@ -1,0 +1,13 @@
+{
+  "id": "UC044",
+  "name": "Linux: bashrc/profile modification",
+  "category": "Persistence",
+  "mitre": "T1546.004",
+  "severity": "Medium",
+  "kql": "FileCreateTelemetryEvents | where FilePath has_any ('.bashrc','.bash_profile','.profile','.zshrc') | where InitiatingProcessFileName != 'bash'",
+  "spl": "index=linux sourcetype=linux:audit auditd.type=PATH name=*.bashrc OR name=*.profile",
+  "dataSource": "Auditd / file telemetry",
+  "fpRate": "Medium",
+  "tuning": "Baseline admin touch events.",
+  "apt": "Many (esp. cryptominer ops)"
+}

@@ -1,0 +1,13 @@
+{
+  "plugin": "privs",
+  "version": "both",
+  "purpose": "Enabled privileges per process.",
+  "category": "Processes",
+  "example": "volatility -f image.mem privs -p 4321",
+  "mitre": "T1134",
+  "notes": "SeDebugPrivilege on non-admin-process = token meddling.",
+  "indicators": "Abnormal privilege sets.",
+  "slug": "memory-privs",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

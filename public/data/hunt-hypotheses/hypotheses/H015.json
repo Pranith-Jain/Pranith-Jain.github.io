@@ -1,0 +1,9 @@
+{
+  "tactic": "Execution",
+  "technique": "T1204.002",
+  "title": "Malicious LNK in attachments/desktop",
+  "hypothesis": "A user double-clicked an LNK that spawned PowerShell/CMD.",
+  "queries": ["DeviceProcessEvents | where InitiatingProcessFileName endswith '.lnk' and FileName == 'cmd.exe'"],
+  "rationale": "LNK-sourced cmd = shortcut weaponization.",
+  "id": "H015"
+}

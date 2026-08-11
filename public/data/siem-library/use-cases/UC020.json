@@ -1,0 +1,13 @@
+{
+  "id": "UC020",
+  "name": "WMI process launch (winmgmt spawn)",
+  "category": "Execution",
+  "mitre": "T1047",
+  "severity": "Medium",
+  "kql": "DeviceProcessEvents | where InitiatingProcessFileName == 'wmiprvse.exe' | where FileName != 'svchost.exe' and FileName != 'conhost.exe'",
+  "spl": "index=windows sourcetype=Sysmon:ProcessCreation EventCode=1 ParentImage=*\\\\wmiprvse.exe NOT Image=*\\\\svchost.exe",
+  "dataSource": "Sysmon 1 / EDR",
+  "fpRate": "Medium",
+  "tuning": "Benign WMI consumer launches happen; focus on child = powershell/cmd of remote origin (source port > 1024).",
+  "apt": "APT1, FIN7, SombRAT operations"
+}

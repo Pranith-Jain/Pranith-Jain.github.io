@@ -1,0 +1,13 @@
+{
+  "id": "UC017",
+  "name": "Suspicious parent-child: Office spawning shell",
+  "category": "Execution",
+  "mitre": "T1204.002",
+  "severity": "High",
+  "kql": "DeviceProcessEvents | where FileName in ('powershell.exe','cmd.exe','wscript.exe','mshta.exe','rundll32.exe','cscript.exe') | where InitiatingProcessFileName in ('winword.exe','excel.exe','powerpnt.exe','outlook.exe')",
+  "spl": "index=windows sourcetype=Sysmon:ProcessCreation EventCode=1 ParentImage=*\\\\WINWORD.EXE OR ParentImage=*\\\\EXCEL.EXE OR ParentImage=*\\\\OUTLOOK.EXE",
+  "dataSource": "Sysmon 1 / EDR",
+  "fpRate": "Low",
+  "tuning": "Macros emitting shells are ~always malicious; check for DDE/automation legit uses.",
+  "apt": "Phishing initial access — APT28, APT29, ALL"
+}

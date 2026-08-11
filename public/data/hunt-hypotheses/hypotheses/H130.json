@@ -1,0 +1,11 @@
+{
+  "tactic": "Impact",
+  "technique": "T1485",
+  "title": "ShadowPage/sysvol tampering",
+  "hypothesis": "An attacker corrupted core system state (sysvol, GPOs).",
+  "queries": [
+    "SecurityEvent | where EventID == 5136 | where ObjectName contains 'Sysvol' | where OperationType contains 'Modify'"
+  ],
+  "rationale": "Sysvol changes outside GPO change windows = state tampering.",
+  "id": "H130"
+}

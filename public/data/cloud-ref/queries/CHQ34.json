@@ -1,0 +1,8 @@
+{
+  "id": "CHQ34",
+  "name": "K8s service account token abuse",
+  "provider": "Kubernetes",
+  "mitre": "T1552.001",
+  "desc": "Cluster roles granting secret access to default SAs.",
+  "kql": "K8sAuditLogs | where verb in ('create','patch') | where objectRef.resource in ('rolebindings','clusterrolebindings') | where requestObject contains 'secrets'"
+}

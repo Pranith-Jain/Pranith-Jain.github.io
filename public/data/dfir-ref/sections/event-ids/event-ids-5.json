@@ -1,0 +1,12 @@
+{
+  "id": 5,
+  "name": "Sysmon process terminated",
+  "log": "Microsoft-Windows-Sysmon/Operational",
+  "mitre": "T1059",
+  "description": "Sysmon process terminated.",
+  "indicators": ["Process lifecycle"],
+  "investigation": "Termination of critical security tools or agents by injected processes.",
+  "slug": "event-ids-5",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

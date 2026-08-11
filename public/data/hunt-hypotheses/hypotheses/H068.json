@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1552.004",
+  "title": "Unattended.xml/powershell profile with creds",
+  "hypothesis": "Deployment scripts or shell profiles contain plaintext credentials read by attacker.",
+  "queries": [
+    "DeviceFileEvents | where FileName has_any ('unattended.xml','sysprep.xml') | where ActionType == 'FileAccessed'"
+  ],
+  "rationale": "unattended.xml holds admin creds — access = theft.",
+  "id": "H068"
+}

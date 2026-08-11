@@ -1,0 +1,234 @@
+{
+  "metadata": {
+    "description": "Cloud security reference — shared responsibility matrix (AWS/Azure/GCP × IaaS/PaaS/SaaS × 15 domains) + cloud hunt queries (KQL) across AWS/Azure/GCP/K8s",
+    "totalDomains": 16,
+    "totalQueries": 40
+  },
+  "source": "Vendor shared-responsibility documentation (summarized) + authored hunt queries",
+  "sourceUrl": "https://pranithjain.qzz.io/dfir/cloud-reference",
+  "license": "CC-BY-NC-SA; queries free to reuse",
+  "replicatedAt": "2026-08-10",
+  "counts": { "domains": 16, "queries": 40, "providers": 5 },
+  "providerCounts": { "AWS": 15, "Azure": 10, "GCP": 8, "Kubernetes": 5, "Multi-Cloud": 2 },
+  "srm": {
+    "name": "Cloud Shared Responsibility Matrix",
+    "description": "Who secures what across AWS, Azure, GCP under IaaS / PaaS / SaaS. C = customer, P = provider, S = shared. Defaults: compute/storage/network = C for IaaS; most PaaS = S; SaaS = P (except data + identity + client side).",
+    "domains": [
+      {
+        "domain": "Physical facilities & hardware",
+        "posture": "S / S / P",
+        "desc": "Data centers always provider-owned. Under SaaS the provider owns everything above the browser.",
+        "cells": [
+          { "model": "IaaS", "aws": "P", "azure": "P", "gcp": "P" },
+          { "model": "PaaS", "aws": "P", "azure": "P", "gcp": "P" },
+          { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+        ]
+      },
+      {
+        "domain": "Virtualization & hypervisor",
+        "posture": "P / P / P",
+        "desc": "Hypervisor always provider. Customers do not touch it under any model.",
+        "cells": [
+          { "model": "IaaS", "aws": "P", "azure": "P", "gcp": "P" },
+          { "model": "PaaS", "aws": "P", "azure": "P", "gcp": "P" },
+          { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+        ]
+      },
+      {
+        "domain": "Compute (VMs / containers / serverless)",
+        "posture": "C / S / P",
+        "desc": "IaaS: customer patches the OS and hardens the VM. PaaS (serverless): provider patches runtime, customer configures. SaaS: fully managed.",
+        "cells": [
+          { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+          { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+        ]
+      },
+      {
+        "domain": "Guest OS & middleware",
+        "posture": "C / C / P",
+        "desc": "IaaS/PaaS: customer configures, patches, hardens OS and middleware. SaaS: nothing to manage.",
+        "cells": [
+          { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "PaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+        ]
+      },
+      {
+        "domain": "Applications & workloads",
+        "posture": "C / C / S",
+        "desc": "Customers always own the application logic, data handling, and app-level security. SaaS providers host but don't fix your app bugs.",
+        "cells": [
+          { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "PaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "SaaS", "aws": "S", "azure": "S", "gcp": "S" }
+        ]
+      },
+      {
+        "domain": "Identity & access management",
+        "posture": "S / S / S",
+        "desc": "Providers build the IAM control plane; customers own users, roles, policies, and lifecycle. Cloud IAM is always shared.",
+        "cells": [
+          { "model": "IaaS", "aws": "S", "azure": "S", "gcp": "S" },
+          { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+          { "model": "SaaS", "aws": "S", "azure": "S", "gcp": "S" }
+        ]
+      },
+      {
+        "domain": "Data & encryption at rest / in transit",
+        "posture": "C / C / C",
+        "desc": "Providers give KMS + TLS defaults, but classification, key custody, KMS policies, rotation and DLP are always the customer's.",
+        "cells": [
+          { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "PaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "SaaS", "aws": "C", "azure": "C", "gcp": "C" }
+        ]
+      },
+      {
+        "domain": "Network security (VPC, firewalls, segmentation)",
+        "posture": "C / C / P",
+        "desc": "IaaS: customer own NACLs/SG/firewalls. PaaS: shared (provider secures the service network). SaaS: provider.",
+        "cells": [
+          { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+          { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+        ]
+      },
+      {
+        "domain": "Monitoring, logging & audit",
+        "posture": "S / S / P",
+        "desc": "Providers guarantee log availability of their plane; customers configure what is logged, retention, SIEM ingestion, and alerting.",
+        "cells": [
+          { "model": "IaaS", "aws": "S", "azure": "S", "gcp": "S" },
+          { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+          { "model": "SaaS", "aws": "S", "azure": "S", "gcp": "S" }
+        ]
+      },
+      {
+        "domain": "Patch management (platform services)",
+        "posture": "S / S / P",
+        "desc": "IaaS: customer patches VMs. PaaS: provider patches runtime, customer patched container images. SaaS: provider.",
+        "cells": [
+          { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+          { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+        ]
+      },
+      {
+        "domain": "Vulnerability management (scans, findings)",
+        "posture": "C / C / C",
+        "desc": "Providers give scanner APIs (Inspector/Defender/SCC); turning findings into patched systems is the customer's job everywhere.",
+        "cells": [
+          { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "PaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "SaaS", "aws": "C", "azure": "C", "gcp": "C" }
+        ]
+      },
+      {
+        "domain": "Incident response & forensics",
+        "posture": "C / C / C",
+        "desc": "Providers expose snapshot/export APIs; running the IR process, evidence collection and containment is customer-owned.",
+        "cells": [
+          { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "PaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "SaaS", "aws": "C", "azure": "C", "gcp": "C" }
+        ]
+      },
+      {
+        "domain": "Backup & DR",
+        "posture": "C / S / P",
+        "desc": "IaaS: customer builds backup/DR. PaaS services often include provider-side backups (RDS, Cosmos DB) but customer defines RPO and tests. SaaS: provider manages, customer verifies restores.",
+        "cells": [
+          { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+          { "model": "SaaS", "aws": "P", "azure": "P", "gcp": "P" }
+        ]
+      },
+      {
+        "domain": "Compliance & certification evidence",
+        "posture": "S / S / S",
+        "desc": "Providers publish compliance reports (SOC2/ISO); customers collect evidence of their own configuration compliance and map to their frameworks.",
+        "cells": [
+          { "model": "IaaS", "aws": "S", "azure": "S", "gcp": "S" },
+          { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+          { "model": "SaaS", "aws": "S", "azure": "S", "gcp": "S" }
+        ]
+      },
+      {
+        "domain": "Data residency & sovereignty",
+        "posture": "S / S / S",
+        "desc": "Providers offer regions; choosing regions, restricting replication, and complying with local law (DPDP/RBI for India) is the customer's.",
+        "cells": [
+          { "model": "IaaS", "aws": "S", "azure": "S", "gcp": "S" },
+          { "model": "PaaS", "aws": "S", "azure": "S", "gcp": "S" },
+          { "model": "SaaS", "aws": "S", "azure": "S", "gcp": "S" }
+        ]
+      },
+      {
+        "domain": "Client-side & endpoints",
+        "posture": "C / C / C",
+        "desc": "Anything outside the provider's boundary (endpoints, browsers, VPN clients, exported data) is always the customer's.",
+        "cells": [
+          { "model": "IaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "PaaS", "aws": "C", "azure": "C", "gcp": "C" },
+          { "model": "SaaS", "aws": "C", "azure": "C", "gcp": "C" }
+        ]
+      }
+    ],
+    "source": "AWS/Azure/GCP shared-responsibility documentation (summarized)",
+    "sourceUrl": "https://aws.amazon.com/compliance/shared-responsibility-model/",
+    "license": "Vendor documentation summaries"
+  },
+  "queryIndex": [
+    { "id": "CHQ01", "name": "Access key created for unexpected user", "provider": "AWS", "mitre": "T1098.001" },
+    { "id": "CHQ02", "name": "Console login without MFA", "provider": "AWS", "mitre": "T1078.004" },
+    { "id": "CHQ03", "name": "S3 bucket made public (policy)", "provider": "AWS", "mitre": "T1530" },
+    { "id": "CHQ04", "name": "Security group wide open", "provider": "AWS", "mitre": "T1135" },
+    { "id": "CHQ05", "name": "Trail deletion / disable", "provider": "AWS", "mitre": "T1562.008" },
+    { "id": "CHQ06", "name": "EC2 instance launched with public IP", "provider": "AWS", "mitre": "T1133" },
+    { "id": "CHQ07", "name": "Lambda function new with permissive role", "provider": "AWS", "mitre": "T1098.002" },
+    { "id": "CHQ08", "name": "STS assume-role escalation", "provider": "AWS", "mitre": "T1078.004" },
+    { "id": "CHQ09", "name": "Snapshot export of RDS/EBS", "provider": "AWS", "mitre": "T1530" },
+    { "id": "CHQ10", "name": "S3 lifecycle deletion", "provider": "AWS", "mitre": "T1485" },
+    { "id": "CHQ11", "name": "SSH connection from public IP to bastion", "provider": "AWS", "mitre": "T1021.001" },
+    { "id": "CHQ12", "name": "Data transfer cost spike (exfil)", "provider": "AWS", "mitre": "T1041" },
+    { "id": "CHQ13", "name": "IAM policy with assume-role wildcard", "provider": "AWS", "mitre": "T1098.002" },
+    { "id": "CHQ14", "name": "New service-linked role created", "provider": "AWS", "mitre": "T1078.004" },
+    { "id": "CHQ15", "name": "CloudShell use by non-admin", "provider": "AWS", "mitre": "T1078" },
+    { "id": "CHQ16", "name": "Entra ID guest account admin role", "provider": "Azure", "mitre": "T1098.001" },
+    { "id": "CHQ17", "name": "Conditional Access policy change", "provider": "Azure", "mitre": "T1562.006" },
+    {
+      "id": "CHQ18",
+      "name": "Excessive PowerShell sign-ins with client app token",
+      "provider": "Azure",
+      "mitre": "T1550.001"
+    },
+    {
+      "id": "CHQ19",
+      "name": "Azure key vault access from unexpected principal",
+      "provider": "Azure",
+      "mitre": "T1552.005"
+    },
+    { "id": "CHQ20", "name": "Storage account firewall disabled", "provider": "Azure", "mitre": "T1020" },
+    { "id": "CHQ21", "name": "RBAC role assignment spike", "provider": "Azure", "mitre": "T1098" },
+    { "id": "CHQ22", "name": "VM with exposed management port", "provider": "Azure", "mitre": "T1135" },
+    { "id": "CHQ23", "name": "App registration new credentials", "provider": "Azure", "mitre": "T1098.001" },
+    { "id": "CHQ24", "name": "Azure AD risky sign-in tombstone", "provider": "Azure", "mitre": "T1078" },
+    { "id": "CHQ25", "name": "Legacy auth success after block", "provider": "Azure", "mitre": "T1078.003" },
+    { "id": "CHQ26", "name": "Service account key creation (GCP)", "provider": "GCP", "mitre": "T1098.001" },
+    { "id": "CHQ27", "name": "IAM policy grant to allUsers (GCP)", "provider": "GCP", "mitre": "T1530" },
+    { "id": "CHQ28", "name": "Firewall rule allowing 0.0.0.0/0 (GCP)", "provider": "GCP", "mitre": "T1135" },
+    { "id": "CHQ29", "name": "GCS bucket IAM change", "provider": "GCP", "mitre": "T1530" },
+    { "id": "CHQ30", "name": "Compute instance stopped + disk exported", "provider": "GCP", "mitre": "T1530" },
+    { "id": "CHQ31", "name": "gcloud identity from unexpected network", "provider": "GCP", "mitre": "T1078" },
+    { "id": "CHQ32", "name": "BigQuery dataset public read", "provider": "GCP", "mitre": "T1530" },
+    { "id": "CHQ33", "name": "IAM role escalation via policy binding", "provider": "GCP", "mitre": "T1098" },
+    { "id": "CHQ34", "name": "K8s service account token abuse", "provider": "Kubernetes", "mitre": "T1552.001" },
+    { "id": "CHQ35", "name": "Pod exec into namespace", "provider": "Kubernetes", "mitre": "T1021.002" },
+    { "id": "CHQ36", "name": "Privileged container creation", "provider": "Kubernetes", "mitre": "T1611" },
+    { "id": "CHQ37", "name": "K8s secret read burst", "provider": "Kubernetes", "mitre": "T1552.001" },
+    { "id": "CHQ38", "name": "Cluster-admin bind", "provider": "Kubernetes", "mitre": "T1098.001" },
+    { "id": "CHQ39", "name": "CloudTrail stopped by K8s workload", "provider": "Multi-Cloud", "mitre": "T1562.008" },
+    { "id": "CHQ40", "name": "CI/CD pipeline secret exposure", "provider": "Multi-Cloud", "mitre": "T1552.001" }
+  ]
+}

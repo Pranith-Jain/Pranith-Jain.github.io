@@ -1,0 +1,15 @@
+{
+  "slug": "shinyhunters-ali-2026-08-09",
+  "title": "Ali** **********",
+  "group": "ShinyHunters",
+  "discovered": "2026-08-09T00:00:00.000Z",
+  "category": "ransomware",
+  "severity": "critical",
+  "country": null,
+  "sizeBytes": 0,
+  "description": "Internal files exfiltrated",
+  "source_url": "https://recentbreaches.com/breach/ali-shinyhunters-2026-08",
+  "groupAliases": [],
+  "activity": "Technology",
+  "references": ["RecentBreaches.com"]
+}

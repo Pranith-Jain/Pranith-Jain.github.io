@@ -1,0 +1,13 @@
+{
+  "id": "UC014",
+  "name": "Registry exclusion added to Defender",
+  "category": "Defense Evasion",
+  "mitre": "T1562.001",
+  "severity": "High",
+  "kql": "DeviceRegistryEvents | where RegistryKey has ('Exclusions\\\\Path' or 'Exclusions\\\\Process' or 'Exclusions\\\\Extension') | where RegistryValueName != ''",
+  "spl": "index=windows sourcetype=Sysmon:Registry EventCode=12 TargetObject=*Exclusions*",
+  "dataSource": "Sysmon 12, Defender 5007",
+  "fpRate": "Very Low",
+  "tuning": "Malware disables AV via exclusion of its own dir — alert every exclusion add.",
+  "apt": "LockBit, Medusa, BlackCat affiliate"
+}

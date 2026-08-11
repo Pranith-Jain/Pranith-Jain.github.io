@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1003.005",
+  "title": "Cached credentials dump",
+  "hypothesis": "An attacker attempted to extract cached domain credentials (MSCash).",
+  "queries": [
+    "DeviceProcessEvents | where FileName in ('cmd.exe','powershell.exe') | where ProcessCommandLine contains 'cachedump' or ProcessCommandLine contains 'lsadump'"
+  ],
+  "rationale": "Cache-dump tool names in process tree.",
+  "id": "H144"
+}

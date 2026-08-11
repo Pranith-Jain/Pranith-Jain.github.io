@@ -1,0 +1,13 @@
+{
+  "id": "UC025",
+  "name": "RDP logon from unusual source",
+  "category": "Lateral Movement",
+  "mitre": "T1021.001",
+  "severity": "Medium",
+  "kql": "SecurityEvent | where EventID == 4624 and LogonType == 10 | where IpAddress != '127.0.0.1' | project TimeGenerated, Account, IpAddress, Computer, WorkstationName",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4624 LogonType=10 NOT src_ip=127.0.0.1",
+  "dataSource": "Security 4624",
+  "fpRate": "Medium",
+  "tuning": "Compare source vs target computer naming heuristic; temporal outliers by account.",
+  "apt": "RDP c2 networks, FIN7"
+}

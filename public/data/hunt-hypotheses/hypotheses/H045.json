@@ -1,0 +1,11 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1070.004",
+  "title": "File deletion of security artifacts",
+  "hypothesis": "An attacker deleted evidence files (logs, tool records, cmd history).",
+  "queries": [
+    "DeviceFileEvents | where FileName has_any ('.log','.evtx','history','Recent') | where ActionType == 'FileDeleted' | where count() by InitiatingProcessFileName, bin(TimeGenerated,5m) >= 20"
+  ],
+  "rationale": "Bulk deletion of history/logs = anti-forensics.",
+  "id": "H045"
+}

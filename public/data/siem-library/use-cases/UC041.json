@@ -1,0 +1,13 @@
+{
+  "id": "UC041",
+  "name": "Azure: new guest user added",
+  "category": "Cloud",
+  "mitre": "T1136.003",
+  "severity": "Medium",
+  "kql": "AuditLogs | where Operation == 'Add guest user' | where TargetResources[0].modifiedProperties contains 'invitedUser'",
+  "spl": "index=o365 sourcetype=azure:audit Operation=\"Add guest user\"",
+  "dataSource": "Azure AD audit",
+  "fpRate": "Medium",
+  "tuning": "Baseline invite workflow; guest + admin role = critical.",
+  "apt": "MFA bypass guest-invite campaigns"
+}

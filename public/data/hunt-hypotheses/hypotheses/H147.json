@@ -1,0 +1,9 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1550.001",
+  "title": "Pass-the-cache (Kerberos cache use)",
+  "hypothesis": "An attacker used cached Kerberos tickets from memory.",
+  "queries": ["SecurityEvent | where EventID == 4769 | where IpAddress != '::1' | where AccountName == 'SYSTEM'"],
+  "rationale": "SYSTEM-account service requests from workstations = ticket reuse.",
+  "id": "H147"
+}

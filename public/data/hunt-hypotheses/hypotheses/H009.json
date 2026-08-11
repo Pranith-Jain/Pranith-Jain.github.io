@@ -1,0 +1,11 @@
+{
+  "tactic": "Execution",
+  "technique": "T1059.001",
+  "title": "Obfuscated PowerShell onbox",
+  "hypothesis": "PowerShell ran obfuscated code to bypass detection on an endpoint.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'powershell.exe' | where ProcessCommandLine contains '-enc' or ProcessCommandLine contains '-e '"
+  ],
+  "rationale": "Encoded command = deliberate evasion attempt.",
+  "id": "H009"
+}

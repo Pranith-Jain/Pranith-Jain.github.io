@@ -1,0 +1,11 @@
+{
+  "browser": "Firefox",
+  "artifact": "places.sqlite",
+  "path": "%APPDATA%\\Mozilla\\Firefox\\Profiles\\<profile>\\places.sqlite",
+  "evidence": "Browsing history (moz_places), bookmarks, visits with timestamps.",
+  "tools": "DB Browser, Firefox History Viewer (NirSoft)",
+  "note": "Also 'places.sqlite-wal'; check 'favicons.sqlite' for icons of visited sites.",
+  "slug": "browser-places-sqlite",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

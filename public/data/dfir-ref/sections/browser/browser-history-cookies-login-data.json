@@ -1,0 +1,11 @@
+{
+  "browser": "Edge",
+  "artifact": "History / Cookies / Login Data",
+  "path": "%USERPROFILE%\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default\\",
+  "evidence": "Same Chromium artifacts as Chrome: History (Add-Type SQLite), Cookies (Network\\Cookies), Login Data.",
+  "tools": "Hindsight, DB Browser, ChromeCacheView",
+  "note": "Edge profile path mirrors Chrome; also check 'Default\\Preferences' for hijacked search.",
+  "slug": "browser-history-cookies-login-data",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

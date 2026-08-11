@@ -1,0 +1,12 @@
+{
+  "id": 4702,
+  "name": "Scheduled task updated",
+  "log": "Security",
+  "mitre": "T1053.005",
+  "description": "A scheduled task was updated.",
+  "indicators": ["Persistence modification"],
+  "investigation": "Tasks updated to run with highest privileges or new binary path — persistence mutation.",
+  "slug": "event-ids-4702",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

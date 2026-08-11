@@ -1,0 +1,12 @@
+{
+  "id": 1116,
+  "name": "Defender malware detected",
+  "log": "Microsoft-Windows-Windows Defender/Operational",
+  "mitre": "T1055",
+  "description": "Windows Defender detected malware.",
+  "indicators": ["Malware detection", "First-seen weapons"],
+  "investigation": "Detection on one machine + downloader artifacts elsewhere = P2P kill chain; capture ThreatName, Path, and correlate with process creation.",
+  "slug": "event-ids-1116",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

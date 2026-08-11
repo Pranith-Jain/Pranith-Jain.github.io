@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1568.002",
+  "title": "DGA domain resolution",
+  "hypothesis": "Malware resolved algorithmically generated domains.",
+  "queries": [
+    "DeviceNetworkEvents | where ActionType == 'DnsQuery' | where RemoteUrl matches regex @'^[a-z0-9]{15,}\\.' | where RemoteUrl endswith ('.top','.xyz','.ru','.icu')"
+  ],
+  "rationale": "High-entropy long subdomains on cheap TLDs = DGA.",
+  "id": "H109"
+}

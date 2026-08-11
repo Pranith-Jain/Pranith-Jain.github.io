@@ -1,0 +1,11 @@
+{
+  "browser": "Firefox",
+  "artifact": "cache2",
+  "path": "%APPDATA%\\Mozilla\\Firefox\\Profiles\\<profile>\\cache2\\entries",
+  "evidence": "Cached resources (encrypted with key in key4.db on modern Firefox).",
+  "tools": "autopsy, strings",
+  "note": "",
+  "slug": "browser-cache2",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

@@ -1,0 +1,12 @@
+{
+  "id": 4634,
+  "name": "Logoff",
+  "log": "Security",
+  "mitre": "T1078",
+  "description": "An account logged off.",
+  "indicators": ["Session lifecycle"],
+  "investigation": "Pair with 4624 for session duration analysis — very short sessions may indicate credential harvesting or automated access.",
+  "slug": "event-ids-4634",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

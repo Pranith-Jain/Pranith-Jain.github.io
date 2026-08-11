@@ -1,0 +1,13 @@
+{
+  "plugin": "imageinfo",
+  "version": "vol2",
+  "purpose": "Identify OS profile (Windows version, architecture) from the memory image.",
+  "category": "Baseline",
+  "example": "volatility -f image.mem imageinfo",
+  "mitre": "",
+  "notes": "First step for Volatility 2; Volatility 3 auto-detects.",
+  "indicators": "Wrong profile = false negatives across every plugin.",
+  "slug": "memory-imageinfo",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

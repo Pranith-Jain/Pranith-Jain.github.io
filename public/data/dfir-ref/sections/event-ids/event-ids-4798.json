@@ -1,0 +1,12 @@
+{
+  "id": 4798,
+  "name": "User's local group membership enumerated",
+  "log": "Security",
+  "mitre": "T1069.001",
+  "description": "A user's local group membership was enumerated.",
+  "indicators": ["Reconnaissance", "Privilege discovery"],
+  "investigation": "Repeated enumeration of privileged groups (net localgroup administrators) by non-admin = discovery phase.",
+  "slug": "event-ids-4798",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

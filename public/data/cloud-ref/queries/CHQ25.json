@@ -1,0 +1,8 @@
+{
+  "id": "CHQ25",
+  "name": "Legacy auth success after block",
+  "provider": "Azure",
+  "mitre": "T1078.003",
+  "desc": "Basic auth endpoints used after modern-auth enforcement = scripted attacks.",
+  "kql": "SigninLogs | where AuthenticationRequirement contains 'legacy' | where ResultType == '0'"
+}

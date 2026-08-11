@@ -5,7 +5,7 @@
   "discovered": "2026-08-05T13:12:19.000Z",
   "category": "data_breach",
   "severity": "high",
-  "country": "US",
+  "country": "CA",
   "sizeBytes": 0,
   "description": "Due to cyberattack on Genesis more than 70 Gb of company data was stolen. Leakage contains big amount of sensitive data such as company's customers data, bank and financial information documents. About 10 000 files are not secured by THERMO KING for now. Download here: http://wjcml4mxpcvsmjxm33zhjb46nzutxk6g3f5w23fopgpwj6pqjcidiyqd.onion",
   "source_url": "https://www.ransomware.live/",

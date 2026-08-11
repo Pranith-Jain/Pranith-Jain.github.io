@@ -1,0 +1,8 @@
+{
+  "id": "CHQ15",
+  "name": "CloudShell use by non-admin",
+  "provider": "AWS",
+  "mitre": "T1078",
+  "desc": "Interactive shell in browser = session hijack channel.",
+  "kql": "AWSCloudTrail | where EventName == 'StartSession' | where userAgent contains 'CloudShell'"
+}

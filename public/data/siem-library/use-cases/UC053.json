@@ -1,0 +1,13 @@
+{
+  "id": "UC053",
+  "name": "New process spawned from WebRoot/Debug dirs on IIS",
+  "category": "Web",
+  "mitre": "T1190",
+  "severity": "High",
+  "kql": "DeviceProcessEvents | where InitiatingProcessFileName == 'w3wp.exe' | where FileName != 'w3wp.exe' | where FileName != 'conhost.exe' | where ProcessCommandLine contains 'aspnet' or ProcessCommandLine contains '\\\\webroot\\\\'",
+  "spl": "index=windows sourcetype=Sysmon:ProcessCreation EventCode=1 ParentImage=*\\\\w3wp.exe",
+  "dataSource": "Sysmon 1",
+  "fpRate": "Low",
+  "tuning": "w3wp spawning shells/cmd = webshell execution.",
+  "apt": "Exchange Web Shells, China-nexus APTs"
+}

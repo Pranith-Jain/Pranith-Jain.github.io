@@ -1,0 +1,11 @@
+{
+  "browser": "Chrome",
+  "artifact": "Cache (Simple Cache)",
+  "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cache\\Cache_Data",
+  "evidence": "Cached resources (images, JS, files downloaded to cache).",
+  "tools": "ChromeCacheView (NirSoft), autopsy",
+  "note": "Stores index + f_XXXXXX files; useful when History cleared.",
+  "slug": "browser-cache-simple-cache",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

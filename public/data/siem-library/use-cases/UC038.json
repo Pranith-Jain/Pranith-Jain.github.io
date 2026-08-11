@@ -1,0 +1,13 @@
+{
+  "id": "UC038",
+  "name": "CloudTrail: console login without MFA",
+  "category": "Cloud",
+  "mitre": "T1078.004",
+  "severity": "High",
+  "kql": "AWSCloudTrail | where EventName == 'ConsoleLogin' | where responseElements.ConsoleLogin == 'Failure' or (responseElements.AdditionalDetails.MFAUsed != 'Yes')",
+  "spl": "index=aws sourcetype=aws:cloudtrail EventName=ConsoleLogin responseElements.AdditionalDetails.MFAUsed=No",
+  "dataSource": "CloudTrail",
+  "fpRate": "Low",
+  "tuning": "Require MFA; alert No MFA logins from non-bootstrap IAM users.",
+  "apt": "Cloud-focused intrusions"
+}

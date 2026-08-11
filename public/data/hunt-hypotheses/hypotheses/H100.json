@@ -1,0 +1,9 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1021.004",
+  "title": "SSH from admin workstation",
+  "hypothesis": "An attacker pivoted Linux-to-Linux via SSH from a jump host.",
+  "queries": ["SecurityEvent | where Channel == 'auth' | where CommandLine contains 'ssh ' | where User != 'root'"],
+  "rationale": "SSH logons from non-admin user to many hosts = pivot.",
+  "id": "H100"
+}

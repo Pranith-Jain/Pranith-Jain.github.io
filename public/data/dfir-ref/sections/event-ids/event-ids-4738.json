@@ -1,0 +1,12 @@
+{
+  "id": 4738,
+  "name": "User account changed",
+  "log": "Security",
+  "mitre": "T1098",
+  "description": "A user account was changed.",
+  "indicators": ["Account manipulation"],
+  "investigation": "Flag changes to UAC flags, account flags, or SID history for cross-domain compromise (SIDHistory injection).",
+  "slug": "event-ids-4738",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

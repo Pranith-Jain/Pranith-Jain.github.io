@@ -1,0 +1,13 @@
+{
+  "id": "UC049",
+  "name": "Obfuscated certutil decode to PE",
+  "category": "Defense Evasion",
+  "mitre": "T1140",
+  "severity": "High",
+  "kql": "DeviceProcessEvents | where FileName == 'certutil.exe' | where ProcessCommandLine contains '-decode' | where ProcessCommandLine contains '.exe' or ProcessCommandLine contains '.dll'",
+  "spl": "index=windows sourcetype=Sysmon:ProcessCreation Image=*\\\\certutil.exe CommandLine=*-decode* (*.exe OR *.dll)",
+  "dataSource": "Sysmon 1",
+  "fpRate": "Low",
+  "tuning": "decode of exe = payload restore",
+  "apt": "Ryuk/CONTROL, Qakbot decoders"
+}

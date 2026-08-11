@@ -1,0 +1,8 @@
+{
+  "id": "CHQ36",
+  "name": "Privileged container creation",
+  "provider": "Kubernetes",
+  "mitre": "T1611",
+  "desc": "privileged:true pods = escape-ready.",
+  "kql": "K8sAuditLogs | where objectRef.resource == 'pods' | where requestObject contains 'privileged' and requestObject contains 'true'"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "CHQ11",
+  "name": "SSH connection from public IP to bastion",
+  "provider": "AWS",
+  "mitre": "T1021.001",
+  "desc": "Bastion SSH access from non-VPN IPs.",
+  "kql": "AWSVPCFlow | where dstPort == 22 | where srcAddr !in (vpnCidr)"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "CHQ08",
+  "name": "STS assume-role escalation",
+  "provider": "AWS",
+  "mitre": "T1078.004",
+  "desc": "AssumeRole to admin role from user context outside SLA.",
+  "kql": "AWSCloudTrail | where EventName == 'AssumeRole' | where responseElements.credentials.accessKeyId != '' | where eventSource == 'sts.amazonaws.com'"
+}

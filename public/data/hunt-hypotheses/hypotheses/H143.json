@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1552.003",
+  "title": "Bash history credential search",
+  "hypothesis": "An attacker mined bash history files for passwords/keys.",
+  "queries": [
+    "AuditdLogs | where type == 'SYSCALL' | where exe == '/usr/bin/tail' and cwd contains '/root' or exe == '/bin/cat' and name endswith '.bash_history'"
+  ],
+  "rationale": "History reads during lateral movement = credential harvest.",
+  "id": "H143"
+}

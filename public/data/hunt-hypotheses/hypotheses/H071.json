@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1056.001",
+  "title": "Keylogger module loaded",
+  "hypothesis": "A module that hooks keyboard input was loaded into processes.",
+  "queries": [
+    "DeviceImageLoadEvents | where FileName contains 'hook' or FileName contains 'keylog' | where FolderPath contains 'Users\\\\' or FolderPath contains 'Temp'"
+  ],
+  "rationale": "Custom hook/keylog DLL names in writable paths.",
+  "id": "H071"
+}

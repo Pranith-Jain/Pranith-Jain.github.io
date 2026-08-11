@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1071.004",
+  "title": "DNS tunneling",
+  "hypothesis": "Malware exfiltrated/beaconed via DNS queries to a controlled domain.",
+  "queries": [
+    "DeviceNetworkEvents | where ActionType == 'DnsQuery' | where RemoteUrl endswith '.example.net' | where strlen(RemoteUrl) > 40"
+  ],
+  "rationale": "Long subdomain queries to one domain = DNS tunnel.",
+  "id": "H111"
+}

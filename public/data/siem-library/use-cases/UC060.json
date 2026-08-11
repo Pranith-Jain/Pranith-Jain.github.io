@@ -1,0 +1,13 @@
+{
+  "id": "UC060",
+  "name": "SAM dump via vssadmin copy (volsnap)",
+  "category": "Credential Access",
+  "mitre": "T1003.002",
+  "severity": "Critical",
+  "kql": "SecurityEvent | where EventID == 4688 | where ProcessName endswith '\\\\vssadmin.exe' and CommandLine contains 'copy' and (CommandLine contains '\\\\System32\\\\config' or CommandLine contains 'shadow')",
+  "spl": "index=windows sourcetype=Sysmon:ProcessCreation EventCode=1 Image=*\\\\vssadmin.exe CommandLine=*create* shadow*",
+  "dataSource": "Sysmon 1 / 4688",
+  "fpRate": "Low",
+  "tuning": "Shadow copy creation + copy of config hive = hashdump precursor.",
+  "apt": "Ryuk, Conti, LockBit"
+}

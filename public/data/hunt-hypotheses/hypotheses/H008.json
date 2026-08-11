@@ -1,0 +1,11 @@
+{
+  "tactic": "Initial Access",
+  "technique": "T1091",
+  "title": "Removable media infection",
+  "hypothesis": "Autorun-style malware from an external USB executed on an internal host.",
+  "queries": [
+    "DeviceProcessEvents | where InitiatingProcessFileName == 'explorer.exe' | where FileName has_any ('autorun.inf','solver.exe','copy.exe')"
+  ],
+  "rationale": "Explorer-spawned odd binaries can indicate removable-media auto-execution.",
+  "id": "H008"
+}

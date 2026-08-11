@@ -1,0 +1,11 @@
+{
+  "tactic": "Execution",
+  "technique": "T1047",
+  "title": "WMI remote execution",
+  "hypothesis": "A remote host executed commands through WMI process creation.",
+  "queries": [
+    "DeviceProcessEvents | where InitiatingProcessName contains 'wmiprvse.exe' | where InitiatingProcessAccountName != 'SYSTEM'"
+  ],
+  "rationale": "wmiprvse spawning subprocesses under a user account = remote exec.",
+  "id": "H012"
+}

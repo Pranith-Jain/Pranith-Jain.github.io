@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1105",
+  "title": "File download via C2 channel",
+  "hypothesis": "A C2 channel was used to pull additional tools.",
+  "queries": [
+    "DeviceFileEvents | where FileName endswith ('.exe','.dll','.ps1') | where ActionType == 'FileCreated' | where InitiatingProcessFileName != 'browser' | where InitiatingProcessFileName != 'svchost.exe'"
+  ],
+  "rationale": "Non-browser binary fetches = tool delivery.",
+  "id": "H110"
+}

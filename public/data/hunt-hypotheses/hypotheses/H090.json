@@ -1,0 +1,11 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1021.001",
+  "title": "RDP session chaining",
+  "hypothesis": "An attacker chained RDP sessions across hosts (pivot).",
+  "queries": [
+    "SecurityEvent | where EventID == 4624 | where LogonType == 10 | let src = IpAddress | join kind=inner (SecurityEvent | where EventID == 4624 | where LogonType == 10) on Computer | where IpAddress == src"
+  ],
+  "rationale": "Host A→B→C RDP logons in sequence = pivot chain.",
+  "id": "H090"
+}

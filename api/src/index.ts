@@ -767,6 +767,12 @@ app.use('/api/v1/*', async (c, next) => {
     path.includes('/si/') ||
     path.includes('/threat-intel/') ||
     path.includes('/winreg/') ||
+    path.includes('/dfir-ref/') ||
+    path.includes('/grc/') ||
+    path.includes('/siem-library/') ||
+    path.includes('/hunt-hypotheses/') ||
+    path.includes('/cloud-ref/') ||
+    path.includes('/pqc/') ||
     path.includes('/etda-actors/') ||
     path.includes('/tools/') ||
     path.includes('/osint/') ||
@@ -1031,6 +1037,12 @@ import { mozillaTlsRouter } from './routes/mozilla-tls';
 import { virusheeRouter } from './routes/virushee';
 import { toolsRouter } from './routes/tools-edge-tools';
 import { etdaActorsRouter } from './routes/etda-actors-edge-tools';
+import { dfirRefRouter } from './routes/dfir-ref-edge-tools';
+import { grcRouter } from './routes/grc-edge-tools';
+import { siemLibraryRouter } from './routes/siem-library-edge-tools';
+import { huntHypothesesRouter } from './routes/hunt-hypotheses-edge-tools';
+import { cloudRefRouter } from './routes/cloud-ref-edge-tools';
+import { pqcRouter } from './routes/pqc-edge-tools';
 import {
   listNotebooksHandler,
   getNotebookHandler,
@@ -2256,6 +2268,19 @@ app.route('/api/v1', cerastRouter);
 // ThreatMon IntelHub — infostealer investigation (stealer log search by domain)
 import { threatmonInfostealerRouter } from './routes/threatmon-infostealer';
 app.route('/api/v1', threatmonInfostealerRouter);
+
+// CVE Risk Matrix — CVSS × EPSS × KEV × recency quadrant scoring
+import { cveRiskMatrixHandler } from './routes/cve-risk-matrix';
+app.get('/api/v1/cve/risk-matrix', cveRiskMatrixHandler);
+
+// Toolkit verticals — DFIR reference, GRC, SIEM library, hunting hypotheses,
+// cloud reference, post-quantum crypto (all read-only, ASSETS-backed manifests)
+app.route('/api/v1', dfirRefRouter);
+app.route('/api/v1', grcRouter);
+app.route('/api/v1', siemLibraryRouter);
+app.route('/api/v1', huntHypothesesRouter);
+app.route('/api/v1', cloudRefRouter);
+app.route('/api/v1', pqcRouter);
 
 // Standardized 404 shape: matches the api-error contract ({ error, message })
 // so clients get a human-readable message, not just a bare error code.

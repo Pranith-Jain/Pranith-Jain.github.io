@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1546.011",
+  "title": "AppInit_DLLs",
+  "hypothesis": "AppInit_DLLs was set to load attacker DLL into processes.",
+  "queries": [
+    "DeviceRegistryEvents | where RegistryKey contains 'Windows NT\\\\CurrentVersion\\\\Windows' | where RegistryValueName == 'AppInit_DLLs'"
+  ],
+  "rationale": "AppInit_DLLs registry load = legacy DLL persistence.",
+  "id": "H027"
+}

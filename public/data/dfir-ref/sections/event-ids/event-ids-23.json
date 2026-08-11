@@ -1,0 +1,12 @@
+{
+  "id": 23,
+  "name": "Sysmon file delete (archive)",
+  "log": "Microsoft-Windows-Sysmon/Operational",
+  "mitre": "T1485",
+  "description": "Sysmon file delete archived (moved to quarantine).",
+  "indicators": ["Data deletion"],
+  "investigation": "Mass deletion of files by unusual processes = destructive attack or cleanup.",
+  "slug": "event-ids-23",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

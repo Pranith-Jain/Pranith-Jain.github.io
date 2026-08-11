@@ -1,0 +1,11 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1112",
+  "title": "Registry modification for evasion",
+  "hypothesis": "An attacker modified Defender/EDR registry settings.",
+  "queries": [
+    "DeviceRegistryEvents | where RegistryKey contains 'Windows Defender\\\\Exclusions' or RegistryKey contains 'DisableAntiSpyware'"
+  ],
+  "rationale": "AV-disable registry writes are unambiguous evasion.",
+  "id": "H055"
+}

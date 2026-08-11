@@ -1,0 +1,13 @@
+{
+  "plugin": "windows.cmdline",
+  "version": "vol3",
+  "purpose": "Vol3 process command lines.",
+  "category": "Processes",
+  "example": "vol3 -f image.mem windows.cmdline",
+  "mitre": "T1059",
+  "notes": "",
+  "indicators": "",
+  "slug": "memory-windows-cmdline",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

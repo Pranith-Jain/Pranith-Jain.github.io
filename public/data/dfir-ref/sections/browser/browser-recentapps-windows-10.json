@@ -1,0 +1,11 @@
+{
+  "browser": "All",
+  "artifact": "RecentApps (Windows 10+)",
+  "path": "Registry HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search\\RecentApps",
+  "evidence": "Recently used apps with last-touch times — browser usage indicators.",
+  "tools": "Registry explorer, RecentAppsView",
+  "note": "",
+  "slug": "browser-recentapps-windows-10",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

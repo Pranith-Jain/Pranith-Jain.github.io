@@ -1,0 +1,11 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1562.002",
+  "title": "CLFS/event log tampering",
+  "hypothesis": "System .evtx logs were edited/deleted by other than 'wevtutil' expected patterns.",
+  "queries": [
+    "DeviceFileEvents | where FileName endswith '.evtx' | where ActionType in ('FileModified','FileDeleted') | where InitiatingProcessFileName !in ('wsmprovhost.exe','winlogon.exe')"
+  ],
+  "rationale": "Non-standard writers of .evtx = log tampering.",
+  "id": "H059"
+}

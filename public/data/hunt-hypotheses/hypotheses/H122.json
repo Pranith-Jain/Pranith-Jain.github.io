@@ -1,0 +1,11 @@
+{
+  "tactic": "Exfiltration",
+  "technique": "T1048.003",
+  "title": "Exfil via DNS TXT",
+  "hypothesis": "Data was exfiltrated in DNS TXT records to attacker domain.",
+  "queries": [
+    "DeviceNetworkEvents | where ActionType == 'DnsQuery' | where QueryType == 'TXT' | where RemoteUrl !endswith '.example.com' and strlen(RemoteUrl) > 60"
+  ],
+  "rationale": "Long TXT queries = DNS-based exfil.",
+  "id": "H122"
+}

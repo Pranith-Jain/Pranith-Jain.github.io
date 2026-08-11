@@ -1,0 +1,11 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1564.001",
+  "title": "Hidden file/system attribute set",
+  "hypothesis": "An attacker marked files hidden with attrib +h to avoid casual discovery.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'attrib.exe' | where ProcessCommandLine contains '+h' or ProcessCommandLine contains '+s'"
+  ],
+  "rationale": "attrib hiding of fresh files = stealth.",
+  "id": "H051"
+}

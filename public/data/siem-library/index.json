@@ -1,0 +1,498 @@
+{
+  "metadata": {
+    "description": "SIEM/EDR use-case library — detection rules with KQL + SPL, MITRE ATT&CK mapping, false-positive guidance and APT attribution",
+    "totalUseCases": 60,
+    "totalCategories": 16
+  },
+  "source": "Authored in-repo (referenced vendor-doc patterns + MITRE ATT&CK)",
+  "sourceUrl": "https://pranithjain.qzz.io/dfir/siem-library",
+  "license": "CC-BY-NC-SA; KQL/SPL snippets free to reuse",
+  "replicatedAt": "2026-08-10",
+  "counts": { "useCases": 60, "categories": 16, "techniques": 49 },
+  "categories": [
+    { "name": "Ransomware", "count": 2 },
+    { "name": "Active Directory", "count": 8 },
+    { "name": "Persistence", "count": 8 },
+    { "name": "Credential Access", "count": 3 },
+    { "name": "Defense Evasion", "count": 6 },
+    { "name": "Execution", "count": 5 },
+    { "name": "C2", "count": 2 },
+    { "name": "Lateral Movement", "count": 4 },
+    { "name": "Initial Access", "count": 4 },
+    { "name": "Email / BEC", "count": 3 },
+    { "name": "Cloud", "count": 6 },
+    { "name": "Cloud / Linux", "count": 2 },
+    { "name": "Exfiltration", "count": 2 },
+    { "name": "Web", "count": 2 },
+    { "name": "Reconnaissance", "count": 2 },
+    { "name": "Data Theft", "count": 1 }
+  ],
+  "severities": { "Critical": 10, "High": 35, "Medium": 15 },
+  "techniques": {
+    "T1490": 1,
+    "T1140": 2,
+    "T1558.003": 1,
+    "T1003.006": 1,
+    "T1550.002": 1,
+    "T1098.001": 3,
+    "T1053.005": 1,
+    "T1547.001": 1,
+    "T1546.003": 1,
+    "T1543.003": 1,
+    "T1003.001": 1,
+    "T1003.002": 2,
+    "T1562.001": 3,
+    "T1059.001": 1,
+    "T1204.002": 1,
+    "T1218.005": 1,
+    "T1218.011": 1,
+    "T1047": 1,
+    "TA0011": 1,
+    "T1568.002": 1,
+    "T1105": 1,
+    "T1021.002": 2,
+    "T1021.001": 1,
+    "T1570": 1,
+    "T1558.001": 1,
+    "T1078.003": 1,
+    "T1110.001": 1,
+    "T1110.003": 1,
+    "T1078": 4,
+    "T1114.003": 1,
+    "T1550.001": 1,
+    "T1621": 1,
+    "T1562.008": 1,
+    "T1078.004": 1,
+    "T1098": 1,
+    "T1530": 1,
+    "T1136.003": 1,
+    "T1098.004": 1,
+    "T1546.004": 1,
+    "T1558.004": 2,
+    "T1567.001": 1,
+    "T1041": 1,
+    "T1574.002": 1,
+    "T1190": 1,
+    "T1505.003": 1,
+    "T1136": 1,
+    "T1018": 1,
+    "T1087.002": 1,
+    "T1039": 1
+  },
+  "useCaseIndex": [
+    {
+      "id": "UC001",
+      "name": "Shadow copy deletion",
+      "category": "Ransomware",
+      "mitre": "T1490",
+      "severity": "Critical"
+    },
+    {
+      "id": "UC002",
+      "name": "Certutil download of executable",
+      "category": "Ransomware",
+      "mitre": "T1140",
+      "severity": "High"
+    },
+    {
+      "id": "UC003",
+      "name": "Kerberoasting — RC4 service ticket requests",
+      "category": "Active Directory",
+      "mitre": "T1558.003",
+      "severity": "High"
+    },
+    {
+      "id": "UC004",
+      "name": "DCSync — directory replication request",
+      "category": "Active Directory",
+      "mitre": "T1003.006",
+      "severity": "Critical"
+    },
+    {
+      "id": "UC005",
+      "name": "Pass-the-Hash NTLM logon",
+      "category": "Active Directory",
+      "mitre": "T1550.002",
+      "severity": "High"
+    },
+    {
+      "id": "UC006",
+      "name": "Admin group member added (DCSync/ACL attack precursor)",
+      "category": "Active Directory",
+      "mitre": "T1098.001",
+      "severity": "Critical"
+    },
+    {
+      "id": "UC007",
+      "name": "Scheduled task creation pointing to writable path",
+      "category": "Persistence",
+      "mitre": "T1053.005",
+      "severity": "High"
+    },
+    {
+      "id": "UC008",
+      "name": "Run key / startup folder persistence",
+      "category": "Persistence",
+      "mitre": "T1547.001",
+      "severity": "High"
+    },
+    {
+      "id": "UC009",
+      "name": "WMI event subscription creation",
+      "category": "Persistence",
+      "mitre": "T1546.003",
+      "severity": "High"
+    },
+    {
+      "id": "UC010",
+      "name": "Service installed from unusual path",
+      "category": "Persistence",
+      "mitre": "T1543.003",
+      "severity": "High"
+    },
+    {
+      "id": "UC011",
+      "name": "LSASS access from non-system process",
+      "category": "Credential Access",
+      "mitre": "T1003.001",
+      "severity": "Critical"
+    },
+    {
+      "id": "UC012",
+      "name": "SAM/SYSTEM hive copy attempt",
+      "category": "Credential Access",
+      "mitre": "T1003.002",
+      "severity": "Critical"
+    },
+    {
+      "id": "UC013",
+      "name": "Disabled security service (Defender stop)",
+      "category": "Defense Evasion",
+      "mitre": "T1562.001",
+      "severity": "High"
+    },
+    {
+      "id": "UC014",
+      "name": "Registry exclusion added to Defender",
+      "category": "Defense Evasion",
+      "mitre": "T1562.001",
+      "severity": "High"
+    },
+    {
+      "id": "UC015",
+      "name": "Unusual PowerShell -enc execution",
+      "category": "Defense Evasion",
+      "mitre": "T1059.001",
+      "severity": "High"
+    },
+    {
+      "id": "UC016",
+      "name": "AMSI bypass / Reflection.Assembly Load",
+      "category": "Defense Evasion",
+      "mitre": "T1562.001",
+      "severity": "Critical"
+    },
+    {
+      "id": "UC017",
+      "name": "Suspicious parent-child: Office spawning shell",
+      "category": "Execution",
+      "mitre": "T1204.002",
+      "severity": "High"
+    },
+    { "id": "UC018", "name": "Mshta execution", "category": "Execution", "mitre": "T1218.005", "severity": "High" },
+    {
+      "id": "UC019",
+      "name": "Rundll32 with remote URL (davclnt/url.dll)",
+      "category": "Execution",
+      "mitre": "T1218.011",
+      "severity": "High"
+    },
+    {
+      "id": "UC020",
+      "name": "WMI process launch (winmgmt spawn)",
+      "category": "Execution",
+      "mitre": "T1047",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC021",
+      "name": "Beaconing — fixed-interval outbound connections",
+      "category": "C2",
+      "mitre": "TA0011",
+      "severity": "High"
+    },
+    {
+      "id": "UC022",
+      "name": "DNS query to DGA-like domain",
+      "category": "C2",
+      "mitre": "T1568.002",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC023",
+      "name": "PowerShell download cradle",
+      "category": "Execution",
+      "mitre": "T1105",
+      "severity": "High"
+    },
+    {
+      "id": "UC024",
+      "name": "SMB ADMIN$ access from workstation",
+      "category": "Lateral Movement",
+      "mitre": "T1021.002",
+      "severity": "High"
+    },
+    {
+      "id": "UC025",
+      "name": "RDP logon from unusual source",
+      "category": "Lateral Movement",
+      "mitre": "T1021.001",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC026",
+      "name": "PsExec/SMBExec execution",
+      "category": "Lateral Movement",
+      "mitre": "T1021.002",
+      "severity": "High"
+    },
+    {
+      "id": "UC027",
+      "name": "Copying files to ADMIN$ share (staging)",
+      "category": "Lateral Movement",
+      "mitre": "T1570",
+      "severity": "High"
+    },
+    {
+      "id": "UC028",
+      "name": "Golden ticket (TGT w/ krbtgt anomalies)",
+      "category": "Active Directory",
+      "mitre": "T1558.001",
+      "severity": "Critical"
+    },
+    {
+      "id": "UC029",
+      "name": "New local admin added on servers",
+      "category": "Persistence",
+      "mitre": "T1078.003",
+      "severity": "High"
+    },
+    {
+      "id": "UC030",
+      "name": "Brute force — lockout storm",
+      "category": "Initial Access",
+      "mitre": "T1110.001",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC031",
+      "name": "Password spray — many 4625 for one account",
+      "category": "Initial Access",
+      "mitre": "T1110.003",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC032",
+      "name": "Unusual logon out of hours (admin)",
+      "category": "Initial Access",
+      "mitre": "T1078",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC033",
+      "name": "Email forwarding rule created (BEC)",
+      "category": "Email / BEC",
+      "mitre": "T1114.003",
+      "severity": "High"
+    },
+    {
+      "id": "UC034",
+      "name": "OAuth app consent grant to external tenant",
+      "category": "Email / BEC",
+      "mitre": "T1550.001",
+      "severity": "High"
+    },
+    {
+      "id": "UC035",
+      "name": "AAD sign-in from risky IP + legacy auth",
+      "category": "Email / BEC",
+      "mitre": "T1078",
+      "severity": "High"
+    },
+    {
+      "id": "UC036",
+      "name": "MFA fatigue — repeated MFA prompts",
+      "category": "Initial Access",
+      "mitre": "T1621",
+      "severity": "High"
+    },
+    {
+      "id": "UC037",
+      "name": "CloudTrail: DeleteTrail / StopLogging",
+      "category": "Cloud",
+      "mitre": "T1562.008",
+      "severity": "Critical"
+    },
+    {
+      "id": "UC038",
+      "name": "CloudTrail: console login without MFA",
+      "category": "Cloud",
+      "mitre": "T1078.004",
+      "severity": "High"
+    },
+    {
+      "id": "UC039",
+      "name": "IAM policy modification / privilege escalation",
+      "category": "Cloud",
+      "mitre": "T1098",
+      "severity": "Critical"
+    },
+    {
+      "id": "UC040",
+      "name": "S3 bucket policy public exposure",
+      "category": "Cloud",
+      "mitre": "T1530",
+      "severity": "High"
+    },
+    {
+      "id": "UC041",
+      "name": "Azure: new guest user added",
+      "category": "Cloud",
+      "mitre": "T1136.003",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC042",
+      "name": "GCP: service account key creation",
+      "category": "Cloud",
+      "mitre": "T1098.001",
+      "severity": "High"
+    },
+    {
+      "id": "UC043",
+      "name": "Linux: SSH key added to authorized_keys",
+      "category": "Cloud / Linux",
+      "mitre": "T1098.004",
+      "severity": "High"
+    },
+    {
+      "id": "UC044",
+      "name": "Linux: bashrc/profile modification",
+      "category": "Persistence",
+      "mitre": "T1546.004",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC045",
+      "name": "SSH login from new IP for established account",
+      "category": "Cloud / Linux",
+      "mitre": "T1078",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC046",
+      "name": "TGT request for sensitive SPN (admin SPN hunting)",
+      "category": "Active Directory",
+      "mitre": "T1558.004",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC047",
+      "name": "Suspicious Account.Name contains 'svc' but not service",
+      "category": "Active Directory",
+      "mitre": "T1078",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC048",
+      "name": "AS-REP roasting (Kerberos pre-auth disabled)",
+      "category": "Active Directory",
+      "mitre": "T1558.004",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC049",
+      "name": "Obfuscated certutil decode to PE",
+      "category": "Defense Evasion",
+      "mitre": "T1140",
+      "severity": "High"
+    },
+    {
+      "id": "UC050",
+      "name": "File copy to hidden share / exfil staging",
+      "category": "Exfiltration",
+      "mitre": "T1567.001",
+      "severity": "High"
+    },
+    {
+      "id": "UC051",
+      "name": "HTTP POST to external host with large payload",
+      "category": "Exfiltration",
+      "mitre": "T1041",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC052",
+      "name": "DLL sideload from writable location",
+      "category": "Defense Evasion",
+      "mitre": "T1574.002",
+      "severity": "High"
+    },
+    {
+      "id": "UC053",
+      "name": "New process spawned from WebRoot/Debug dirs on IIS",
+      "category": "Web",
+      "mitre": "T1190",
+      "severity": "High"
+    },
+    {
+      "id": "UC054",
+      "name": "PHP webshell access pattern",
+      "category": "Web",
+      "mitre": "T1505.003",
+      "severity": "High"
+    },
+    {
+      "id": "UC055",
+      "name": "Automated account creation then immediate logon",
+      "category": "Persistence",
+      "mitre": "T1136",
+      "severity": "High"
+    },
+    {
+      "id": "UC056",
+      "name": "Non-admin adds user to Remote Management Users",
+      "category": "Persistence",
+      "mitre": "T1098.001",
+      "severity": "High"
+    },
+    {
+      "id": "UC057",
+      "name": "ADSI/AD module enumeration (recon)",
+      "category": "Reconnaissance",
+      "mitre": "T1018",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC058",
+      "name": "BloodHound-style session enumeration (NetSessionEnum)",
+      "category": "Reconnaissance",
+      "mitre": "T1087.002",
+      "severity": "Medium"
+    },
+    {
+      "id": "UC059",
+      "name": "Access to sensitive share extensions (pst/dmp/bak)",
+      "category": "Data Theft",
+      "mitre": "T1039",
+      "severity": "High"
+    },
+    {
+      "id": "UC060",
+      "name": "SAM dump via vssadmin copy (volsnap)",
+      "category": "Credential Access",
+      "mitre": "T1003.002",
+      "severity": "Critical"
+    }
+  ]
+}

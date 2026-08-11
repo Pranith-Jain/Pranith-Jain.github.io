@@ -1,0 +1,16 @@
+{
+  "phase": "Reporting",
+  "name": "Report with evidence mapping",
+  "steps": [
+    "Produce the final report mapping each finding to the artifact name, path, and exhibit number.",
+    "Include the acquisition summary: tool, version, hash, and a copy of the CoC log.",
+    "Include the timeline of events and any artifacts that contradict or corroborate the timeline.",
+    "State limitations explicitly (encrypted volumes, logs unavailable, tool version constraints).",
+    "Have a second analyst (or supervisor) peer-review the report before release."
+  ],
+  "tools": "Report templates, timeline tools, case file",
+  "notes": "A finding without an exhibit reference is a rumor, not evidence.",
+  "slug": "evidence-reporting",
+  "section": "evidence",
+  "sectionLabel": "Evidence Collection & Chain of Custody"
+}

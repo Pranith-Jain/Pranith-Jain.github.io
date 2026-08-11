@@ -1,0 +1,9 @@
+{
+  "tactic": "Privilege Escalation",
+  "technique": "T1548.002",
+  "title": "UAC bypass via fodhelper",
+  "hypothesis": "An attacker used fodhelper fringe-value bypass to elevate.",
+  "queries": ["DeviceProcessEvents | where InitiatingProcessFileName == 'fodhelper.exe' | where FileName == 'cmd.exe'"],
+  "rationale": "fodhelper (auto-elevate) spawning shell = UAC bypass.",
+  "id": "H039"
+}

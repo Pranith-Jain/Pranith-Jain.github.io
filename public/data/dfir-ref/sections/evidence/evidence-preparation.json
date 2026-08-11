@@ -1,0 +1,16 @@
+{
+  "phase": "Preparation",
+  "name": "Pre-incident preparation",
+  "steps": [
+    "Maintain pre-approved forensic imaging hardware (write blockers, verified blank media).",
+    "Document the organization's IR escalation chain and legal contact list (in-house counsel, outside counsel, law enforcement).",
+    "Define the authority chain: who may seize a device, with what internal authorization.",
+    "Pre-test the imaging workflow on similar hardware; keep checksums of the tooling itself.",
+    "Identify the jurisdiction(s) the evidence may be presented in and note admissibility requirements."
+  ],
+  "tools": "Tableau write blockers, FTK Imager, hardware hashers",
+  "notes": "Preparation failures invalidate chain of custody more often than acquisition errors.",
+  "slug": "evidence-preparation",
+  "section": "evidence",
+  "sectionLabel": "Evidence Collection & Chain of Custody"
+}

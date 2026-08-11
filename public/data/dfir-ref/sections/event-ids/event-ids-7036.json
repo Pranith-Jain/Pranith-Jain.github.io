@@ -1,0 +1,12 @@
+{
+  "id": 7036,
+  "name": "Service state changed",
+  "log": "System",
+  "mitre": "T1543.003",
+  "description": "The service entered the running/stopped state.",
+  "indicators": ["Service lifecycle", "Disruption"],
+  "investigation": "Stopping of security services (Defender, wscsvc) is high signal for antivirus kill.",
+  "slug": "event-ids-7036",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

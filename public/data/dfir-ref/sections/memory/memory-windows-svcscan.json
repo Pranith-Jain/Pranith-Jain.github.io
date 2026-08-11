@@ -1,0 +1,13 @@
+{
+  "plugin": "windows.svcscan",
+  "version": "vol3",
+  "purpose": "Vol3 service scan.",
+  "category": "Persistence",
+  "example": "vol3 -f image.mem windows.svcscan",
+  "mitre": "T1543.003",
+  "notes": "",
+  "indicators": "",
+  "slug": "memory-windows-svcscan",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

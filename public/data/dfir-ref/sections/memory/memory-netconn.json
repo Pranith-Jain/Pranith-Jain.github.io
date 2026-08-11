@@ -1,0 +1,13 @@
+{
+  "plugin": "netconn",
+  "version": "vol2",
+  "purpose": "Older-net connection list (XP/2003).",
+  "category": "Network",
+  "example": "volatility -f image.mem --profile=WinXPSP3x86 netconn",
+  "mitre": "TA0011",
+  "notes": "For legacy images only.",
+  "indicators": "",
+  "slug": "memory-netconn",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "UC059",
+  "name": "Access to sensitive share extensions (pst/dmp/bak)",
+  "category": "Data Theft",
+  "mitre": "T1039",
+  "severity": "High",
+  "kql": "SecurityEvent | where EventID == 5145 | where RelativeTargetName matches regex @'\\.(pst|ost|dmp|bak|vhd|vmdk|key|crt)$' | summarize count() by AccountName, Computer, bin(TimeGenerated, 15m) | where count_ >= 10",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=5145 (RelativeTargetName=*.pst OR *.dmp OR *.bak OR *.vhd)",
+  "dataSource": "Security 5145 (sensitive file browsing)",
+  "fpRate": "Medium",
+  "tuning": "Backup agents exempt; alert non-backup accounts.",
+  "apt": "Whatever stage you are in"
+}

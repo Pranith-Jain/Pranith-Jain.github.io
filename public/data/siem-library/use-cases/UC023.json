@@ -1,0 +1,13 @@
+{
+  "id": "UC023",
+  "name": "PowerShell download cradle",
+  "category": "Execution",
+  "mitre": "T1105",
+  "severity": "High",
+  "kql": "DeviceProcessEvents | where FileName in ('powershell.exe','pwsh.exe') | where ProcessCommandLine has_any ('DownloadString','DownloadFile','Invoke-WebRequest','IWR ','Net.WebClient')",
+  "spl": "index=windows sourcetype=WinEventLog:Microsoft-Windows-PowerShell/Operational EventCode=4104 ScriptBlockText=*DownloadString* OR ScriptBlockText=*IEX*",
+  "dataSource": "PowerShell 4104 / EDR",
+  "fpRate": "Medium",
+  "tuning": "Whitelist HTTPS-only admin scripts from known update endpoints; flag HTTP.",
+  "apt": "ALL commodity malware"
+}

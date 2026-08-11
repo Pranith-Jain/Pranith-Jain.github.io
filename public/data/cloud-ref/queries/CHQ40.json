@@ -1,0 +1,8 @@
+{
+  "id": "CHQ40",
+  "name": "CI/CD pipeline secret exposure",
+  "provider": "Multi-Cloud",
+  "mitre": "T1552.001",
+  "desc": "Build logs containing secrets = supply-chain exposure.",
+  "kql": "CIBuildLogs | where BuildResult contains 'secret' or BuildResult contains 'AKIA' or BuildResult contains '-----BEGIN'"
+}

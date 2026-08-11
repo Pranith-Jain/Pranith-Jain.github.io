@@ -1,0 +1,13 @@
+{
+  "id": "UC019",
+  "name": "Rundll32 with remote URL (davclnt/url.dll)",
+  "category": "Execution",
+  "mitre": "T1218.011",
+  "severity": "High",
+  "kql": "DeviceProcessEvents | where FileName == 'rundll32.exe' | where ProcessCommandLine contains 'url.dll,FileProtocolHandler' or ProcessCommandLine contains 'javascript:' or ProcessCommandLine contains 'http'",
+  "spl": "index=windows sourcetype=ProcessRollup2 Image=*\\\\rundll32.exe CommandLine=*javascript:* OR CommandLine=*FileProtocolHandler*",
+  "dataSource": "EDR / Sysmon",
+  "fpRate": "Low",
+  "tuning": "URL.dll/FileProtocolHandler fetches remote payloads.",
+  "apt": "TA505, FIN7, IcedID"
+}

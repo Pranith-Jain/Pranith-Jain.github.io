@@ -1,0 +1,8 @@
+{
+  "id": "CHQ37",
+  "name": "K8s secret read burst",
+  "provider": "Kubernetes",
+  "mitre": "T1552.001",
+  "desc": "Volume secret reads = credential harvesting.",
+  "kql": "K8sAuditLogs | where objectRef.resource == 'secrets' | where verb in ('get','list') | summarize count() by user.username, bin(TimeGenerated, 15m) | where count_ > 20"
+}

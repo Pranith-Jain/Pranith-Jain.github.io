@@ -1,0 +1,12 @@
+{
+  "id": 4722,
+  "name": "User account enabled",
+  "log": "Security",
+  "mitre": "T1078",
+  "description": "A user account was enabled.",
+  "indicators": ["Account lifecycle abuse"],
+  "investigation": "Re-enabled disabled accounts may be an attacker resurrecting an old credential.",
+  "slug": "event-ids-4722",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

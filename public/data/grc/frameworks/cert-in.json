@@ -1,0 +1,131 @@
+{
+  "key": "certin",
+  "name": "CERT-In Directions 2022",
+  "year": "2022",
+  "description": "Indian Computer Emergency Response Team directions under IT Act 2000 (s.70B) — mandatory for all service providers, intermediaries, data centres, government bodies in India.",
+  "themes": ["Reporting", "Logging", "Coordination", "Compliance"],
+  "categories": [
+    {
+      "key": "incident-reporting",
+      "name": "Incident reporting obligations",
+      "controls": [
+        {
+          "id": "DI-1",
+          "name": "6-hour incident reporting",
+          "req": "Report cybersecurity incidents to CERT-In within 6 hours of noticing or being notified, via certin.org.in portal."
+        },
+        {
+          "id": "DI-2",
+          "name": "Incident categories in scope",
+          "req": "Report the mandatory categories: targeting, malware, ransomware, DoS/DDoS, website defacement, data breach, attacks on critical infrastructure."
+        },
+        {
+          "id": "DI-3",
+          "name": "Format and fields for reports",
+          "req": "Submit in the specified format with: organization, contact, affected systems, IPs (public + private), CVE IDs, affected users, breach scope."
+        },
+        {
+          "id": "DI-4",
+          "name": "Ransomware specific reporting",
+          "req": "For ransomware: include ransom demanded amount/currency, wallet/account details, communication channel with attackers."
+        },
+        {
+          "id": "DI-5",
+          "name": "Log of all reported incidents",
+          "req": "Maintain an internal log of every incident reported to CERT-In, with timestamps and acknowledgements."
+        },
+        {
+          "id": "DI-6",
+          "name": "Designated officer responsibilities",
+          "req": "Designate an officer responsible for CERT-In coordination and reporting; keep contact current."
+        }
+      ]
+    },
+    {
+      "key": "logging",
+      "name": "Logging and retention obligations",
+      "controls": [
+        {
+          "id": "DL-1",
+          "name": "Logs retention — 180 days",
+          "req": "Maintain logs of all ICT systems (servers, network devices, endpoints) for a rolling 180 days."
+        },
+        {
+          "id": "DL-2",
+          "name": "Log content requirements",
+          "req": "Logs must enable traceability: user activity, timestamps, source/destination IPs, ports, URLs, and transaction details."
+        },
+        {
+          "id": "DL-3",
+          "name": "Log integrity",
+          "req": "Protect logs from alteration (write-once/WORM or equivalent); enable tamper-evident evidence."
+        },
+        {
+          "id": "DL-4",
+          "name": "Log availability to CERT-In",
+          "req": "Provide access to logs to CERT-In or authorized entities for investigation on request."
+        },
+        {
+          "id": "DL-5",
+          "name": "Time synchronization",
+          "req": "Synchronize system clocks (NTP) so logs from different devices correlate."
+        },
+        {
+          "id": "DL-6",
+          "name": "Resume logging after outage",
+          "req": "Ensure logging resumes automatically after failure and gaps are documented."
+        }
+      ]
+    },
+    {
+      "key": "kyp",
+      "name": "Customer/transaction record obligations",
+      "controls": [
+        {
+          "id": "DK-1",
+          "name": "KYC records — 5 years",
+          "req": "Maintain validated customer/validator KYC records (name, address, ID type/number as per M-II) for 5 years."
+        },
+        {
+          "id": "DK-2",
+          "name": "In-transit transaction records",
+          "req": "Preserve records of all transactions passing through systems (financial or otherwise) as specified."
+        },
+        {
+          "id": "DK-3",
+          "name": "Secure storage of KYC data",
+          "req": "Store KYC information securely with access control and encryption (data processors to comply too)."
+        }
+      ]
+    },
+    {
+      "key": "nac",
+      "name": "Coordination and compliance",
+      "controls": [
+        {
+          "id": "DC-1",
+          "name": "NAC deployment with CERT-In",
+          "req": "Network Access Control integration: interoperate with CERT-In systems (API/portal integration for automated exchange, blocking and coordination)."
+        },
+        {
+          "id": "DC-2",
+          "name": "Apply by dates",
+          "req": "Comply with direction deadlines (e.g. 28 days for logging from June 2022 direction), maintain evidence of readiness."
+        },
+        {
+          "id": "DC-3",
+          "name": "Penalty exposure awareness",
+          "req": "Failure to comply is punishable under IT Act s.70B: imprisonment up to 1 year or fine up to ₹1 lakh (and per-incident penalties)."
+        },
+        {
+          "id": "DC-4",
+          "name": "Review of obligations",
+          "req": "Track subsequent CERT-In updates/directions (2023–2025 amendments) and re-map controls annually."
+        }
+      ]
+    }
+  ],
+  "source": "CERT-In Directions under IT Act 2000 (Certified as per Govt of India Gazette 28 Apr 2022)",
+  "sourceUrl": "https://www.cert-in.org.in",
+  "license": "Government of India — public document; checklist is a simplification"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "CHQ02",
+  "name": "Console login without MFA",
+  "provider": "AWS",
+  "mitre": "T1078.004",
+  "desc": "Non-MFA console logins from new IPs may be stolen-key use.",
+  "kql": "AWSCloudTrail | where EventName == 'ConsoleLogin' | where responseElements.AdditionalDetails.MFAUsed != 'Yes' | where sourceIPAddress !in (companyEgressIPs)"
+}

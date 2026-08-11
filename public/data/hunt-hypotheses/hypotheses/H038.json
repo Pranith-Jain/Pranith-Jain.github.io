@@ -1,0 +1,9 @@
+{
+  "tactic": "Privilege Escalation",
+  "technique": "T1134.003",
+  "title": "Token manipulation",
+  "hypothesis": "A process duplicated a SYSTEM token to elevate privileges.",
+  "queries": ["DeviceEvents | where ActionType has 'Token' | where InitiatingProcessIntegrityLevel != 'System'"],
+  "rationale": "Token duplication by low-integrity process = token theft.",
+  "id": "H038"
+}

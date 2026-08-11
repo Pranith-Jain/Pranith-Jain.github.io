@@ -1,0 +1,12 @@
+{
+  "id": 6,
+  "name": "Sysmon driver loaded",
+  "log": "Microsoft-Windows-Sysmon/Operational",
+  "mitre": "T1547.006",
+  "description": "Sysmon driver loaded.",
+  "indicators": ["Kernel driver activity"],
+  "investigation": "Unknown/malicious kernel drivers — compare loaded driver hashes against catalog.",
+  "slug": "event-ids-6",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

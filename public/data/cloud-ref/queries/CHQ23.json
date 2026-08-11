@@ -1,0 +1,8 @@
+{
+  "id": "CHQ23",
+  "name": "App registration new credentials",
+  "provider": "Azure",
+  "mitre": "T1098.001",
+  "desc": "New client secrets/certs on apps — credential addition persistence.",
+  "kql": "AuditLogs | where Operation in ('Add application secret','Add application certificate') | where TargetResources[0].displayName !in (managedApps)"
+}

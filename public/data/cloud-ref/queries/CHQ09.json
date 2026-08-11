@@ -1,0 +1,8 @@
+{
+  "id": "CHQ09",
+  "name": "Snapshot export of RDS/EBS",
+  "provider": "AWS",
+  "mitre": "T1530",
+  "desc": "Snapshot export = data theft or staging.",
+  "kql": "AWSCloudTrail | where EventName in ('CopyDBSnapshot','CopySnapshot','StartExportTask')"
+}

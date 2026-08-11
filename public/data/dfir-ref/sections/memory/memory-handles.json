@@ -1,0 +1,13 @@
+{
+  "plugin": "handles",
+  "version": "both",
+  "purpose": "List handle table per process.",
+  "category": "Processes",
+  "example": "volatility -f image.mem handles -p 4321 | findstr /i \"\\Device\\HarddiskVolume\"",
+  "mitre": "T1074",
+  "notes": "Find open file handles to odd paths — exfil staging or keylogging artifact files.",
+  "indicators": "Open handles to .lnk/.tmp/keylog files.",
+  "slug": "memory-handles",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

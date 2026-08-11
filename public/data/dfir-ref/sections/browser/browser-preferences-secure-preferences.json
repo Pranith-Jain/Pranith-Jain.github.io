@@ -1,0 +1,11 @@
+{
+  "browser": "Chrome",
+  "artifact": "Preferences / Secure Preferences",
+  "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Preferences",
+  "evidence": "Default search engine (evidence of hijack), extensions list, saved password count.",
+  "tools": "vi, strings, jq",
+  "note": "JSON — check 'extensions.settings' for rogue extensions and 'default_search_provider'.",
+  "slug": "browser-preferences-secure-preferences",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

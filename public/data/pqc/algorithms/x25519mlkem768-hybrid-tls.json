@@ -1,0 +1,11 @@
+{
+  "name": "X25519MLKEM768 (hybrid TLS)",
+  "fips": "— (IETF draft)",
+  "type": "Hybrid key exchange for TLS 1.3",
+  "purpose": "Drop-in TLS 1.3 group that keeps classical security while adding PQC post-quantum resistance.",
+  "sizes": { "public": "1216 bytes", "secret": "32 bytes" },
+  "security": "Security of X25519 AND ML-KEM-768 — fails open only if both break.",
+  "status": "Deployed by Google/Cloudflare/Mozilla (2023-2025), IETF draft-ietf-tls-hybrid-design.",
+  "notes": "Enable now — backwards compatible with classical peers via key-share fallback.",
+  "slug": "x25519mlkem768-hybrid-tls"
+}

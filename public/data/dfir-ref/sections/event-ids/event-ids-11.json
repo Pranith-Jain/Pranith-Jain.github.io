@@ -1,0 +1,12 @@
+{
+  "id": 11,
+  "name": "Sysmon file create",
+  "log": "Microsoft-Windows-Sysmon/Operational",
+  "mitre": "T1074",
+  "description": "Sysmon file created.",
+  "indicators": ["Malware drop", "Staging"],
+  "investigation": "Executables/scripts written to %APPDATA%, %TEMP%, Public dirs, or ProgramData — drop artifact detection; hash new binaries.",
+  "slug": "event-ids-11",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

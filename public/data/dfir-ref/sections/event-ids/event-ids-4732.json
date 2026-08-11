@@ -1,0 +1,12 @@
+{
+  "id": 4732,
+  "name": "Member added to local security group",
+  "log": "Security",
+  "mitre": "T1098.001",
+  "description": "A member was added to a local security group.",
+  "indicators": ["Privilege escalation", "Persistence"],
+  "investigation": "Local Admins group additions on servers/workstations — check if the adding user is legitimate IT.",
+  "slug": "event-ids-4732",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

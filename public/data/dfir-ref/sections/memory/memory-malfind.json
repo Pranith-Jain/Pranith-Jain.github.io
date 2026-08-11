@@ -1,0 +1,13 @@
+{
+  "plugin": "malfind",
+  "version": "both",
+  "purpose": "Find injected code — VADs with PAGE_EXECUTE_READWRITE + no mapped file.",
+  "category": "Processes",
+  "example": "volatility -f image.mem malfind -p 4321",
+  "mitre": "T1055",
+  "notes": "The primary process-injection detector; dump with --dump-dir.",
+  "indicators": "RWX pages, MZ headers in unbacked regions.",
+  "slug": "memory-malfind",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

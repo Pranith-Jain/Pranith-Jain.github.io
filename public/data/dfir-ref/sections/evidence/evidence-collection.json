@@ -1,0 +1,16 @@
+{
+  "phase": "Collection",
+  "name": "Collect volatile and persistent data",
+  "steps": [
+    "Memory: dump with tool built for the OS (WinPmem, LiME, vmss2core) — document tool version + SHA256.",
+    "Collect process list, network connections, logged-on users, event logs (Security/System/PowerShell), registry hives.",
+    "Collect browser artifacts, shell artifacts (Recent, Prefetch, Jump Lists), scheduled tasks, services.",
+    "For cloud: collect API logs (CloudTrail/ActivityLogs), IAM role last-used, MFA events, without exposing secrets.",
+    "Label every artifact with source system, collector, date/time, and hash."
+  ],
+  "tools": "WinPmem, LiME, KAPE, FTK Imager live, Carbon Black/XDR exports",
+  "notes": "KAPE's '!SANS_Triage' module automates the standard triage collection set.",
+  "slug": "evidence-collection",
+  "section": "evidence",
+  "sectionLabel": "Evidence Collection & Chain of Custody"
+}

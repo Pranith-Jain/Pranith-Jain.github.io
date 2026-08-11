@@ -1,0 +1,11 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1566.002",
+  "title": "Internal phishing",
+  "hypothesis": "An attacker sent phishing from inside the network to another user.",
+  "queries": [
+    "SecurityEvent | where EventID == 4688 | where ProcessName == 'outlook.exe' | where CommandLine contains '/c'"
+  ],
+  "rationale": "Outlook launching shell = internal phishing/vba abuse.",
+  "id": "H097"
+}

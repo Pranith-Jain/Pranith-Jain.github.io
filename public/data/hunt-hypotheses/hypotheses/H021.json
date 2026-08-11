@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1547.001",
+  "title": "Registry Run key addition",
+  "hypothesis": "An attacker registered a binary in HKCU Run keys for autostart.",
+  "queries": [
+    "DeviceRegistryEvents | where RegistryKey has 'CurrentVersion\\\\Run' | where RegistryValueData contains '.exe'"
+  ],
+  "rationale": "New Run entries outside vendor allowlist = persistence.",
+  "id": "H021"
+}

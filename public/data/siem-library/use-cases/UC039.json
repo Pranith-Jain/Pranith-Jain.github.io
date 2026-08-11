@@ -1,0 +1,13 @@
+{
+  "id": "UC039",
+  "name": "IAM policy modification / privilege escalation",
+  "category": "Cloud",
+  "mitre": "T1098",
+  "severity": "Critical",
+  "kql": "AWSCloudTrail | where EventName has_any ('AttachUserPolicy','AttachRolePolicy','CreatePolicyVersion','PutUserPolicy','AddUserToGroup','CreateAccessKey')",
+  "spl": "index=aws sourcetype=aws:cloudtrail EventName IN (AttachUserPolicy, CreateAccessKey, AddUserToGroup, CreatePolicyVersion)",
+  "dataSource": "CloudTrail",
+  "fpRate": "Low",
+  "tuning": "Alert ALL; cross-check with change tickets.",
+  "apt": "APT29 (Nobelium), Scattered Spider"
+}

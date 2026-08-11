@@ -1,0 +1,13 @@
+{
+  "id": "UC016",
+  "name": "AMSI bypass / Reflection.Assembly Load",
+  "category": "Defense Evasion",
+  "mitre": "T1562.001",
+  "severity": "Critical",
+  "kql": "DeviceProcessEvents | where FileName in ('powershell.exe','pwsh.exe') | where ProcessCommandLine contains 'Reflection.Assembly' or ProcessCommandLine contains 'Microsoft.Win32.UnsafeNativeMethods' or ProcessCommandLine contains 'FreeLibrary'",
+  "spl": "index=windows sourcetype=WinEventLog:Microsoft-Windows-PowerShell/Operational EventCode=4104 ScriptBlockText=*Reflection.Assembly* OR ScriptBlockText=*AMSI*",
+  "dataSource": "PowerShell 4104 script block",
+  "fpRate": "Very Low",
+  "tuning": "Script block logging must be enabled (4104); any match is near-certain malice.",
+  "apt": "ALL — mimikatz/Kerberoast loaders"
+}

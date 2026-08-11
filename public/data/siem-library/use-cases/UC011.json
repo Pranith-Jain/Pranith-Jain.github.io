@@ -1,0 +1,13 @@
+{
+  "id": "UC011",
+  "name": "LSASS access from non-system process",
+  "category": "Credential Access",
+  "mitre": "T1003.001",
+  "severity": "Critical",
+  "kql": "DeviceEvents | where ActionType == 'OpenProcessApiCall' or ActionType == 'ProcessAccess' | where TargetFileName contains 'lsass.exe' | where InitiatingProcessFileName != 'lsass.exe' | where ProcessAccessRightFlags has 'VM_READ' or GrantedAccess != '0x1000'",
+  "spl": "index=windows sourcetype=Sysmon:ProcessAccess EventCode=10 TargetImage=*\\\\lsass.exe NOT SourceImage=*sysmon* NOT SourceImage=*lsass*",
+  "dataSource": "Sysmon 10 / EDR",
+  "fpRate": "Low",
+  "tuning": "Whitelist AV scanners running OpenProcess on lsass (defender, edr dlls).",
+  "apt": "Mimikatz — virtually every major campaign"
+}

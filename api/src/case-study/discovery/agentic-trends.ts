@@ -2,7 +2,7 @@ import type { Candidate, DedupRecord, CaseStudyType } from '../types';
 import { topicKey } from '../stable-keys';
 import { severityScore, noveltyScore, finalScore } from '../scoring';
 import { dayOfYear } from './rotation';
-import { verifyUrls, type LinkStatus } from '../../lib/verify-url';
+import { verifyUrl, verifyUrls, type LinkStatus } from '../../lib/verify-url';
 
 export interface AgenticTrendsDeps {
   now: Date;
@@ -10,6 +10,12 @@ export interface AgenticTrendsDeps {
   groqKey?: string;
   googleKey?: string;
   infronKey?: string;
+  /** Opt into the deep soft-404 probe (one extra ranged GET per HEAD-200
+   *  source URL, sniffing the <title> for not-found markers). Catches
+   *  fabricated article slugs on WAF-fronted hosts that answer HEAD 200
+   *  for any path. Costs ~1 extra subrequest per source URL, so it is
+   *  OFF by default for the discovery cron's 50-subrequest budget. */
+  deepVerify?: boolean;
   /** Optional real trending data to ground the LLM response (recent CVEs,
    *  ransomware victims, breach headlines, etc.). When absent the LLM
    *  hallucinates from training data, producing similar output every day. */
@@ -302,6 +308,111 @@ function buildStoredSources(realSources: string[], statuses: Record<string, Link
   return out;
 }
 
+/**
+ * Well-formed CVE ids extracted from a trend candidate's blob (title,
+ * rationale, hook, angle, entities, impact). Used by the CVE-existence
+ * probe so a candidate whose ONLY grounding is a made-up CVE id is
+ * rejected instead of sailing through to a dead NVD citation.
+ */
+function extractCveIds(t: TrendCandidate): string[] {
+  const evidence = (t.evidence ?? {}) as Record<string, unknown>;
+  const entities = Array.isArray(evidence.entities)
+    ? evidence.entities.filter((x): x is string => typeof x === 'string')
+    : [];
+  const blob = [
+    t.title,
+    t.rationale,
+    t.hook,
+    t.angle,
+    entities.join(' '),
+    typeof evidence.impact === 'string' ? evidence.impact : '',
+    typeof evidence.cveId === 'string' ? evidence.cveId : '',
+  ].join(' ');
+  const out: string[] = [];
+  const seen = new Set<string>();
+  const currentYear = new Date().getUTCFullYear();
+  for (const m of blob.matchAll(/CVE-(\d{4})-(\d{4,7})/g)) {
+    const year = Number(m[1]);
+    const seq = Number(m[2]);
+    if (year < 2020 || year > currentYear + 1 || seq <= 0) continue;
+    const id = `CVE-${m[1]}-${m[2]}`;
+    if (seen.has(id)) continue;
+    seen.add(id);
+    out.push(id);
+  }
+  return out;
+}
+
+/**
+ * Decision gate for a trend candidate, kept pure so the tests can pin the
+ * exact acceptance rules. A candidate is accepted when:
+ *
+ *   1. It has at least one source URL verified 'ok' (the LLM's story is
+ *      anchored to a URL that actually resolves), OR
+ *   2. It has no real source URLs but names CVE ids, and at least one of
+ *      those CVEs exists (NVD probe came back 'ok' or 'unchecked' — a
+ *      transient probe failure keeps the candidate on the benefit of the
+ *      doubt, only a confirmed NXDOMAIN/404 drops it), OR
+ *   3. It has neither sources nor CVEs — rejected (ungrounded).
+ *
+ * Previously the gate only rejected when a URL was CONFIRMED broken AND
+ * none verified ok. A WAF-blocked 403 (classified 'unchecked') or a
+ * HEAD-200-any-path host let fabricated article slugs and invented CVEs
+ * (e.g. CVE-2025-1234) sail through to published posts as dead citations.
+ * The trends runner is the ONLY runner whose candidates are not anchored
+ * to a real intel feed, so it is the cheapest place to be strict: a
+ * rejected candidate costs one LLM call, not a published broken link.
+ */
+export function decideTrendAcceptance(input: {
+  hasRealSource: boolean;
+  hasRealCve: boolean;
+  /** URL → linkStatus from the discovery-time verification pass. */
+  sourceStatuses: Record<string, LinkStatus>;
+  /** CVE id → linkStatus from the NVD existence probe (only populated
+   *  when the candidate has no ok-verified source URL). */
+  cveStatuses?: Record<string, LinkStatus>;
+}): { accepted: boolean; reason?: string } {
+  const statuses = Object.values(input.sourceStatuses);
+  const hasOk = statuses.some((s) => s === 'ok');
+  const hasBroken = statuses.some((s) => s === 'broken');
+
+  // Rule 1: at least one verified-ok source URL anchors the story.
+  if (input.hasRealSource && hasOk) return { accepted: true };
+
+  // Rule 2: no OK source, but the candidate names CVE ids — ground it on
+  // a real CVE instead. A candidate whose only anchor is a made-up CVE
+  // (e.g. CVE-2025-1234 — well-formed but nonexistent) must not produce a
+  // dead NVD citation, so probe NVD for the named ids. 'unchecked' (probe
+  // timeout / NVD hiccup) keeps the candidate on the benefit of the doubt;
+  // a confirmed 404 for EVERY named CVE drops it.
+  if (input.hasRealCve) {
+    const cveStatuses = Object.values(input.cveStatuses ?? {});
+    if (cveStatuses.length === 0) return { accepted: true }; // no probe ran
+    if (cveStatuses.every((s) => s === 'broken')) {
+      return { accepted: false, reason: 'no verified-ok source and every named CVE missing from NVD' };
+    }
+    return { accepted: true };
+  }
+
+  // Rule 3: source URLs exist but none verified ok. 'unchecked'-only (WAF
+  // block / timeout / HEAD-200 soft-404 hosts) is NOT good enough for an
+  // LLM-invented candidate — the model is instructed to provide real URLs,
+  // and a URL we could not confirm is exactly where fabrication hides. The
+  // LLM picks different URLs next run; the alternative is another dead
+  // citation on a published post.
+  if (input.hasRealSource) {
+    return {
+      accepted: false,
+      reason: hasBroken
+        ? 'no verified-ok source (at least one URL confirmed broken)'
+        : 'no verified-ok source (all sources unchecked)',
+    };
+  }
+
+  // Rule 4: neither sources nor CVEs — ungrounded hallucination.
+  return { accepted: false, reason: 'no real source URL and no well-formed CVE id (ungrounded trend candidate)' };
+}
+
 async function callGoogle(key: string, prompt: string, userMsg: string): Promise<string> {
   let lastError: Error | null = null;
   for (const model of GOOGLE_MODELS) {
@@ -340,7 +451,7 @@ async function callGoogle(key: string, prompt: string, userMsg: string): Promise
 }
 
 export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Candidate[]> {
-  const { googleKey, now, getDedup, trendingContext, alreadyCoveredTopics } = deps;
+  const { googleKey, now, getDedup, trendingContext, alreadyCoveredTopics, deepVerify } = deps;
 
   if (!googleKey) {
     return [];
@@ -402,23 +513,56 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
       // verifyUrl now returns a nuanced `linkStatus`: 'broken' only for a
       // confirmed-dead URL (404/410, soft-404, or NXDOMAIN). WAF blocks
       // (403/429), 5xx, and timeouts come back 'unchecked' so a live source
-      // behind a bot-wall isn't wrongly dropped.
+      // behind a bot-wall isn't wrongly dropped. When `deepVerify` is on,
+      // HEAD-200 URLs get an extra ranged GET whose <title> is sniffed for
+      // not-found markers — the only probe that catches fabricated article
+      // slugs on hosts that answer HEAD 200 for ANY path.
       const sourceLinkStatuses: Record<string, LinkStatus> = {};
       if (grounding.realSources.length > 0) {
-        const statuses = await verifyUrls(grounding.realSources, 3000);
+        const statuses = await verifyUrls(grounding.realSources, 3000, {
+          deepSoft404: deepVerify === true,
+        });
         for (const [url, result] of statuses) {
           sourceLinkStatuses[url] = result.linkStatus;
         }
       }
 
-      // Link-verification gate: reject if any URL returned a definite HTTP error
-      // (4xx/5xx) AND no URL resolved successfully. Network errors (timeout, DNS
-      // failure) alone don't trigger rejection — they might be transient.
-      // These URLs become blog post references via extractSources() in the
-      // generation pipeline, so genuinely broken URLs must be rejected.
-      const hasOk = Object.values(sourceLinkStatuses).some((s) => s === 'ok');
-      const hasBroken = Object.values(sourceLinkStatuses).some((s) => s === 'broken');
-      if (grounding.hasRealSource && !hasOk && hasBroken) {
+      // NVD existence probe: when NO source URL verified ok, the only
+      // remaining anchor for this candidate is a CVE id — but "well-formed"
+      // ids are trivially fake (CVE-2025-1234 passes the regex). Probe NVD's
+      // canonical detail page for each named CVE; a confirmed 404 means the
+      // CVE does not exist and the candidate's grounding was a hallucination.
+      // Costs ≤1 subrequest per named CVE, only for candidates whose sources
+      // did not verify ok (the common fabrication pattern). NVD answers HEAD
+      // 404 for unknown ids, so a 'broken' verdict here is reliable; timeouts
+      // come back 'unchecked' and keep the candidate on benefit of the doubt.
+      const cveStatuses: Record<string, LinkStatus> = {};
+      const hasOkSource = Object.values(sourceLinkStatuses).some((s) => s === 'ok');
+      if (!hasOkSource && grounding.hasRealCve) {
+        for (const cve of extractCveIds(t)) {
+          const url = `https://nvd.nist.gov/vuln/detail/${encodeURIComponent(cve)}`;
+          if (!(url in cveStatuses)) {
+            const r = await verifyUrl(url, 3000);
+            cveStatuses[cve] = r.linkStatus;
+          }
+        }
+      }
+
+      // Hard acceptance gate — see decideTrendAcceptance. Root-cause fix for
+      // fabricated trend stories: previously a candidate was only rejected
+      // when a URL came back CONFIRMED broken AND none verified ok, so an
+      // LLM-invented slug on a WAF-fronted host (HEAD 200 for any path, or
+      // 403 datacenter egress ⇒ 'unchecked') sailed straight through to a
+      // published post as a dead citation. Now a trend candidate must be
+      // anchored to at least one verified-ok source URL, or to a CVE id
+      // that NVD confirms exists.
+      const acceptance = decideTrendAcceptance({
+        hasRealSource: grounding.hasRealSource,
+        hasRealCve: grounding.hasRealCve,
+        sourceStatuses: sourceLinkStatuses,
+        cveStatuses: cveStatuses,
+      });
+      if (!acceptance.accepted) {
         continue;
       }
 
@@ -472,6 +616,11 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
           // placeholder hosts that the grounding pass already rejected).
           sources: buildStoredSources(grounding.realSources, sourceLinkStatuses),
           sourceLinkStatuses,
+          // NVD existence-probe verdicts per named CVE (only populated when
+          // the candidate's sources had no ok verdict). The admin Pending tab
+          // renders this so an operator can see the anchor that got the
+          // candidate accepted.
+          cveStatuses,
           hook: t.hook || '',
           angle: t.angle || '',
           trendingSignal: t.trendingSignal ?? trendingBoost,
@@ -479,6 +628,7 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
             hasRealSource: grounding.hasRealSource,
             hasRealCve: grounding.hasRealCve,
             realSourceCount: grounding.realSources.length,
+            acceptanceReason: acceptance.accepted ? undefined : acceptance.reason,
           },
           source: 'agentic-trends',
           generatedAt: now.toISOString(),
@@ -497,3 +647,5 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
 // imports `discoverAgenticTrends` and never touches this directly.
 export const _test_evaluateGrounding = evaluateGrounding;
 export const _test_buildStoredSources = buildStoredSources;
+export const _test_extractCveIds = extractCveIds;
+export const _test_decideTrendAcceptance = decideTrendAcceptance;

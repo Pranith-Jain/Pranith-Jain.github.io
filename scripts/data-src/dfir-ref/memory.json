@@ -1,0 +1,462 @@
+[
+  {
+    "plugin": "imageinfo",
+    "version": "vol2",
+    "purpose": "Identify OS profile (Windows version, architecture) from the memory image.",
+    "category": "Baseline",
+    "example": "volatility -f image.mem imageinfo",
+    "mitre": "",
+    "notes": "First step for Volatility 2; Volatility 3 auto-detects.",
+    "indicators": "Wrong profile = false negatives across every plugin."
+  },
+  {
+    "plugin": "windows.info",
+    "version": "vol3",
+    "purpose": "Volatility 3 system information — OS, kernel, uptime, KASLR offsets.",
+    "category": "Baseline",
+    "example": "vol3 -f image.mem windows.info",
+    "mitre": "",
+    "notes": "Replaces imageinfo on Vol3.",
+    "indicators": ""
+  },
+  {
+    "plugin": "kdbgscan",
+    "version": "vol2",
+    "purpose": "Find kernel debugger data block manual scan when imageinfo/profile fails.",
+    "category": "Baseline",
+    "example": "volatility -f image.mem --profile=Win7SP1x64 kdbgscan",
+    "mitre": "",
+    "notes": "Useful for images with KASLR on older profiles.",
+    "indicators": ""
+  },
+  {
+    "plugin": "pslist",
+    "version": "both",
+    "purpose": "List processes from the doubly-linked process list (EPROCESS).",
+    "category": "Processes",
+    "example": "volatility -f image.mem pslist",
+    "mitre": "T1055",
+    "notes": "Does NOT show hidden/injected processes; compare with psscan.",
+    "indicators": "Rogue processes, odd parents, unknown binaries in temp."
+  },
+  {
+    "plugin": "psscan",
+    "version": "both",
+    "purpose": "Scan memory pool for EPROCESS objects — finds hidden or orphaned processes.",
+    "category": "Processes",
+    "example": "volatility -f image.mem psscan",
+    "mitre": "T1055",
+    "notes": "Cross-reference pslist vs psscan to detect rootkit hiding.",
+    "indicators": "Processes present in psscan but absent in pslist."
+  },
+  {
+    "plugin": "pstree",
+    "version": "both",
+    "purpose": "Parent-child process tree with exit times.",
+    "category": "Processes",
+    "example": "volatility -f image.mem pstree",
+    "mitre": "T1059",
+    "notes": "Look for orphaned processes (PPID = unlisted or exited) — classic injection/detachment.",
+    "indicators": "Orphaned processes, familiar parents (winword.exe → powershell.exe)."
+  },
+  {
+    "plugin": "psxview",
+    "version": "both",
+    "purpose": "Cross-view comparison of processes (PsActiveProcessHead, pool scan, threads, sessions, desktop).",
+    "category": "Processes",
+    "example": "volatility -f image.mem psxview",
+    "mitre": "T1055",
+    "notes": "Any process False in all columns except one = likely hidden.",
+    "indicators": "Hidden processes."
+  },
+  {
+    "plugin": "dlllist",
+    "version": "both",
+    "purpose": "List loaded DLLs per process (PEB).",
+    "category": "Processes",
+    "example": "volatility -f image.mem dlllist -p 4321",
+    "mitre": "T1055",
+    "notes": "DLLs loaded from temp/writable dirs into signed processes.",
+    "indicators": "Unsigned DLLs, DLLs from AppData/Temp, missing entries."
+  },
+  {
+    "plugin": "ldrmodules",
+    "version": "both",
+    "purpose": "Detect unlinked (hidden) DLLs via VAD vs PEB comparison.",
+    "category": "Processes",
+    "example": "volatility -f image.mem ldrmodules -p 4321",
+    "mitre": "T1055",
+    "notes": "Entries with InLoad/InInit/InMem = False indicate DLL injection/unlinking.",
+    "indicators": "Hidden modules."
+  },
+  {
+    "plugin": "cmdline",
+    "version": "both",
+    "purpose": "Process command lines from PEB (if captured).",
+    "category": "Processes",
+    "example": "volatility -f image.mem cmdline",
+    "mitre": "T1059",
+    "notes": "Does not show memory-only created processes; pairs with 4688/1 Sysmon.",
+    "indicators": "Malicious arguments, encoded powershell, LOLBins with payloads."
+  },
+  {
+    "plugin": "envars",
+    "version": "both",
+    "purpose": "Environment variables per process.",
+    "category": "Processes",
+    "example": "volatility -f image.mem envars -p 4321",
+    "mitre": "T1574",
+    "notes": "DLL search path hijacking evidence via modified PATH.",
+    "indicators": "Modified PATH/APPDATA pointing to writable dirs."
+  },
+  {
+    "plugin": "malfind",
+    "version": "both",
+    "purpose": "Find injected code — VADs with PAGE_EXECUTE_READWRITE + no mapped file.",
+    "category": "Processes",
+    "example": "volatility -f image.mem malfind -p 4321",
+    "mitre": "T1055",
+    "notes": "The primary process-injection detector; dump with --dump-dir.",
+    "indicators": "RWX pages, MZ headers in unbacked regions."
+  },
+  {
+    "plugin": "handles",
+    "version": "both",
+    "purpose": "List handle table per process.",
+    "category": "Processes",
+    "example": "volatility -f image.mem handles -p 4321 | findstr /i \"\\Device\\HarddiskVolume\"",
+    "mitre": "T1074",
+    "notes": "Find open file handles to odd paths — exfil staging or keylogging artifact files.",
+    "indicators": "Open handles to .lnk/.tmp/keylog files."
+  },
+  {
+    "plugin": "privs",
+    "version": "both",
+    "purpose": "Enabled privileges per process.",
+    "category": "Processes",
+    "example": "volatility -f image.mem privs -p 4321",
+    "mitre": "T1134",
+    "notes": "SeDebugPrivilege on non-admin-process = token meddling.",
+    "indicators": "Abnormal privilege sets."
+  },
+  {
+    "plugin": "netscan",
+    "version": "both",
+    "purpose": "Active TCP/UDP connections incl. remote endpoints (Windows 7+ / older via pool).",
+    "category": "Network",
+    "example": "volatility -f image.mem netscan",
+    "mitre": "TA0011",
+    "notes": "Pairs with Sysmon 3. Look for foreign-language locale endpoints and beacon cadence.",
+    "indicators": "C2 connections, unknown listeners (e.g. port 4444, 1337, 8888)."
+  },
+  {
+    "plugin": "netconn",
+    "version": "vol2",
+    "purpose": "Older-net connection list (XP/2003).",
+    "category": "Network",
+    "example": "volatility -f image.mem --profile=WinXPSP3x86 netconn",
+    "mitre": "TA0011",
+    "notes": "For legacy images only.",
+    "indicators": ""
+  },
+  {
+    "plugin": "connscan/netstat",
+    "version": "both",
+    "purpose": "Connection object scan for terminated connections.",
+    "category": "Network",
+    "example": "volatility -f image.mem connscan",
+    "mitre": "TA0011",
+    "notes": "Catches connections closed before acquisition.",
+    "indicators": "Residual C2 endpoints."
+  },
+  {
+    "plugin": "svcscan",
+    "version": "both",
+    "purpose": "Scan Windows services (including non-active ones).",
+    "category": "Persistence",
+    "example": "volatility -f image.mem svcscan",
+    "mitre": "T1543.003",
+    "notes": "Services with ImagePath in temp/appdata or unknown DLLs.",
+    "indicators": "Malicious services, driver persistence."
+  },
+  {
+    "plugin": "autoruns",
+    "version": "both",
+    "purpose": "Enumerate autostart locations (Run keys, services, drivers, scheduled tasks) from memory.",
+    "category": "Persistence",
+    "example": "volatility -f image.mem autoruns",
+    "mitre": "T1547",
+    "notes": "One-shot persistence sweep; cross-check with registry plugins.",
+    "indicators": "Unknown binaries in autostart paths."
+  },
+  {
+    "plugin": "scheduledtasks",
+    "version": "both",
+    "purpose": "Scheduled tasks from memory.",
+    "category": "Persistence",
+    "example": "volatility -f image.mem scheduledtasks",
+    "mitre": "T1053.005",
+    "notes": "",
+    "indicators": "Tasks referencing temp scripts."
+  },
+  {
+    "plugin": "hivelist",
+    "version": "both",
+    "purpose": "List registry hive virtual addresses + physical offsets.",
+    "category": "Registry",
+    "example": "volatility -f image.mem hivelist",
+    "mitre": "T1112",
+    "notes": "Precondition for hive/printkey.",
+    "indicators": ""
+  },
+  {
+    "plugin": "printkey",
+    "version": "both",
+    "purpose": "Print registry key/value (given hive offset).",
+    "category": "Registry",
+    "example": "volatility -f image.mem printkey -K \"Software\\Microsoft\\Windows\\CurrentVersion\\Run\" --offset=0x...",
+    "mitre": "T1112",
+    "notes": "Manual deep-key forensics — the parsimonious way to inspect persistence.",
+    "indicators": "Run keys, AppInit_DLLs, Image File Execution Options."
+  },
+  {
+    "plugin": "userassist",
+    "version": "both",
+    "purpose": "UserAssist GUI artifact on Windows 7+ (program execution counts/times).",
+    "category": "Registry",
+    "example": "volatility -f image.mem userassist",
+    "mitre": "T1078",
+    "notes": "Reveals tools actually run by the user (mimikatz, ps, etc.).",
+    "indicators": "Security tool usage by rogue user."
+  },
+  {
+    "plugin": "shimcache",
+    "version": "both",
+    "purpose": "AppCompat shim cache (executed binaries incl. deleted).",
+    "category": "Registry",
+    "example": "volatility -f image.mem shimcache",
+    "mitre": "T1070",
+    "notes": "Executed-binary evidence even when 4688/1 unavailable.",
+    "indicators": "Deleted executables that ran."
+  },
+  {
+    "plugin": "amcache",
+    "version": "both",
+    "purpose": "Amcache application inventory (recently executed).",
+    "category": "Registry",
+    "example": "volatility -f image.mem amcache",
+    "mitre": "T1078",
+    "notes": "",
+    "indicators": ""
+  },
+  {
+    "plugin": "dumpfiles",
+    "version": "both",
+    "purpose": "Extract files from disk/memory (MFT or VAD).",
+    "category": "Files",
+    "example": "volatility -f image.mem dumpfiles --virtaddr=0x... --dump-dir=out/",
+    "mitre": "T1005",
+    "notes": "Hash every extracted item against sandbox/AV and compute IOC hashes.",
+    "indicators": ""
+  },
+  {
+    "plugin": "filescan",
+    "version": "both",
+    "purpose": "Physical-memory file object scan — every known file in the image.",
+    "category": "Files",
+    "example": "volatility -f image.mem filescan",
+    "mitre": "T1005",
+    "notes": "Find deleted binaries still resident, odd paths, staged archives.",
+    "indicators": "Deleted malware files, zip/7z archives in temp."
+  },
+  {
+    "plugin": "mftparser",
+    "version": "both",
+    "purpose": "Parse MFT entries from memory (file activity incl. deletions).",
+    "category": "Files",
+    "example": "volatility -f image.mem mftparser",
+    "mitre": "T1070.004",
+    "notes": "Deletion/overwrite evidence; slow but thorough.",
+    "indicators": ""
+  },
+  {
+    "plugin": "hashdump",
+    "version": "both",
+    "purpose": "Dump SAM user hashes (NTLM/LM).",
+    "category": "Credentials",
+    "example": "volatility -f image.mem hashdump",
+    "mitre": "T1003.002",
+    "notes": "Compare enabled admin accounts vs HR; crack or check hash against known leak databases (breach lookup).",
+    "indicators": ""
+  },
+  {
+    "plugin": "lsadump",
+    "version": "both",
+    "purpose": "LSA secrets (cached credentials, service passwords).",
+    "category": "Credentials",
+    "example": "volatility -f image.mem lsadump",
+    "mitre": "T1003.004",
+    "notes": "Cached domain credentials — pivot to domain-wide check.",
+    "indicators": ""
+  },
+  {
+    "plugin": "cachedump",
+    "version": "both",
+    "purpose": "Cached domain credentials (MSCash).",
+    "category": "Credentials",
+    "example": "volatility -f image.mem cachedump",
+    "mitre": "T1003.005",
+    "notes": "Offline cracking warmup for lateral movement analysis.",
+    "indicators": ""
+  },
+  {
+    "plugin": "mimikatz",
+    "version": "vol2",
+    "purpose": "In-memory Mimikatz run against the image.",
+    "category": "Credentials",
+    "example": "volatility -f image.mem mimikatz",
+    "mitre": "T1003.001",
+    "notes": "Use sparingly — extracts secrets from live memory structures; hashdump is usually sufficient.",
+    "indicators": ""
+  },
+  {
+    "plugin": "windows.registry.hivelist / printkey",
+    "version": "vol3",
+    "purpose": "Vol3 registry hive access + key printing.",
+    "category": "Registry",
+    "example": "vol3 -f image.mem windows.registry.printkey --key \"Software\\Microsoft\\Windows\\CurrentVersion\\Run\"",
+    "mitre": "T1112",
+    "notes": "Vol3 namespaced plugin names.",
+    "indicators": ""
+  },
+  {
+    "plugin": "windows.svcscan",
+    "version": "vol3",
+    "purpose": "Vol3 service scan.",
+    "category": "Persistence",
+    "example": "vol3 -f image.mem windows.svcscan",
+    "mitre": "T1543.003",
+    "notes": "",
+    "indicators": ""
+  },
+  {
+    "plugin": "yara-scan",
+    "version": "both",
+    "purpose": "YARA scan across process memory.",
+    "category": "Hunting",
+    "example": "volatility -f image.mem yarascan -y rules.yar -p 4321",
+    "mitre": "T1055",
+    "notes": "Scan with Cobalt Strike, mimikatz, and keylogger signatures.",
+    "indicators": ""
+  },
+  {
+    "plugin": "strings",
+    "version": "both",
+    "purpose": "Extract printable strings from memory regions.",
+    "category": "Hunting",
+    "example": "volatility -f image.mem strings -s image.mem > strs.txt",
+    "mitre": "T1059",
+    "notes": "Grep for URLs, mutexes, domain names, base64 blobs.",
+    "indicators": "C2 URLs, named pipes, unique mutexes."
+  },
+  {
+    "plugin": "mutantscan",
+    "version": "both",
+    "purpose": "Scan kernel mutex objects.",
+    "category": "Hunting",
+    "example": "volatility -f image.mem mutantscan",
+    "mitre": "T1055",
+    "notes": "Malware mutexes (e.g. Global\\MZ-* for Qakbot) fingerprint families.",
+    "indicators": ""
+  },
+  {
+    "plugin": "screenshot",
+    "version": "both",
+    "purpose": "Extract screenshot(s) of desktop from memory (Windows 7+).",
+    "category": "User Activity",
+    "example": "volatility -f image.mem screenshot --dump-dir=out/",
+    "mitre": "T1056",
+    "notes": "Show what the user saw — great for briefing execs.",
+    "indicators": ""
+  },
+  {
+    "plugin": "timeliner",
+    "version": "vol2",
+    "purpose": "Generate a timeline of system activity from memory artifacts.",
+    "category": "Investigation",
+    "example": "volatility -f image.mem timeliner --output=body",
+    "mitre": "",
+    "notes": "Feed into mactime/inode2timeline for super-timeline.",
+    "indicators": ""
+  },
+  {
+    "plugin": "mactime",
+    "version": "external",
+    "purpose": "Build human-readable timeline from bodyfile output.",
+    "category": "Investigation",
+    "example": "mactime -d -b bodyfile > timeline.csv",
+    "mitre": "",
+    "notes": "Pair with disk forensics timeline for full picture.",
+    "indicators": ""
+  },
+  {
+    "plugin": "windows.pslist",
+    "version": "vol3",
+    "purpose": "Vol3 process list.",
+    "category": "Processes",
+    "example": "vol3 -f image.mem windows.pslist",
+    "mitre": "T1055",
+    "notes": "",
+    "indicators": ""
+  },
+  {
+    "plugin": "windows.malfind",
+    "version": "vol3",
+    "purpose": "Vol3 injected-code detector.",
+    "category": "Processes",
+    "example": "vol3 -f image.mem windows.malfind -p 4321",
+    "mitre": "T1055",
+    "notes": "",
+    "indicators": ""
+  },
+  {
+    "plugin": "windows.netscan",
+    "version": "vol3",
+    "purpose": "Vol3 network connections.",
+    "category": "Network",
+    "example": "vol3 -f image.mem windows.netscan",
+    "mitre": "TA0011",
+    "notes": "",
+    "indicators": ""
+  },
+  {
+    "plugin": "windows.cmdline",
+    "version": "vol3",
+    "purpose": "Vol3 process command lines.",
+    "category": "Processes",
+    "example": "vol3 -f image.mem windows.cmdline",
+    "mitre": "T1059",
+    "notes": "",
+    "indicators": ""
+  },
+  {
+    "plugin": "windows.bigpools",
+    "version": "vol3",
+    "purpose": "Scan bigpool allocations (kernel driver evidence).",
+    "category": "Rootkits",
+    "example": "vol3 -f image.mem windows.bigpools",
+    "mitre": "T1547.006",
+    "notes": "Memory-only drivers may leave bigpool tags.",
+    "indicators": ""
+  },
+  {
+    "plugin": "windows.driverscan",
+    "version": "vol3",
+    "purpose": "Scan loaded kernel drivers (incl. hidden).",
+    "category": "Rootkits",
+    "example": "vol3 -f image.mem windows.driverscan",
+    "mitre": "T1547.006",
+    "notes": "Cross-check with driver.sys catalog of signed drivers.",
+    "indicators": "Unsigned/unknown drivers."
+  }
+]

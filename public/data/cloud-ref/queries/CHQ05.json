@@ -1,0 +1,8 @@
+{
+  "id": "CHQ05",
+  "name": "Trail deletion / disable",
+  "provider": "AWS",
+  "mitre": "T1562.008",
+  "desc": "CloudTrail changes hide everything after them.",
+  "kql": "AWSCloudTrail | where EventName in ('DeleteTrail','StopLogging','UpdateTrail') | where UserIdentity.arn !in (secops)"
+}

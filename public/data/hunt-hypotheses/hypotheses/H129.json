@@ -1,0 +1,11 @@
+{
+  "tactic": "Impact",
+  "technique": "T1565",
+  "title": "Data manipulation (defacement)",
+  "hypothesis": "An attacker modified web content or databases.",
+  "queries": [
+    "DeviceFileEvents | where FolderPath contains 'inetpub' or FolderPath contains 'wwwroot' | where ActionType in ('FileModified','FileCreated') | where InitiatingProcessFileName != 'w3wp.exe'"
+  ],
+  "rationale": "Non-server writes to web root = defacement.",
+  "id": "H129"
+}

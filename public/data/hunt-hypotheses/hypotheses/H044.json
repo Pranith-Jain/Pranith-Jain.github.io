@@ -1,0 +1,11 @@
+{
+  "tactic": "Privilege Escalation",
+  "technique": "T1134.002",
+  "title": "CREATE_NEW_PROCESS_GROUP privilege use",
+  "hypothesis": "A process was spawned with a privilege token it shouldn't have.",
+  "queries": [
+    "DeviceEvents | where ActionType == 'ProcessStart' | where InitiatingProcessPrivileges contains 'SeDebugPrivilege' or 'SeImpersonatePrivilege'"
+  ],
+  "rationale": "SeDebug/SeImpersonate are the classic potato-chain enabling privileges.",
+  "id": "H044"
+}

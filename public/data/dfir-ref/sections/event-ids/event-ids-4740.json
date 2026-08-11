@@ -1,0 +1,12 @@
+{
+  "id": 4740,
+  "name": "Account locked out",
+  "log": "Security",
+  "mitre": "T1110",
+  "description": "A user account was locked out.",
+  "indicators": ["Brute force", "Kerberoasting side effect"],
+  "investigation": "Lockout storms on many accounts point to spray attacks; single-account lockouts to targeted brute force. Correlate with 4771/4625 source IPs.",
+  "slug": "event-ids-4740",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

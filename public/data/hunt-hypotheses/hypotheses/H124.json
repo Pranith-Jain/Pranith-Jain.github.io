@@ -1,0 +1,11 @@
+{
+  "tactic": "Exfiltration",
+  "technique": "T1030",
+  "title": "Data transfer size anomaly",
+  "hypothesis": "A host suddenly transferred unusually large volumes.",
+  "queries": [
+    "DeviceNetworkEvents | where Direction == 'Outbound' | where InitiatingProcessFileName != 'browser' | summarize bytes=count() by InitiatingProcessFileName, bin(TimeGenerated, 1h) | where bytes > 500000"
+  ],
+  "rationale": "Volume anomalies from single process = exfil burst.",
+  "id": "H124"
+}

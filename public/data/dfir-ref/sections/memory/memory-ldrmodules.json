@@ -1,0 +1,13 @@
+{
+  "plugin": "ldrmodules",
+  "version": "both",
+  "purpose": "Detect unlinked (hidden) DLLs via VAD vs PEB comparison.",
+  "category": "Processes",
+  "example": "volatility -f image.mem ldrmodules -p 4321",
+  "mitre": "T1055",
+  "notes": "Entries with InLoad/InInit/InMem = False indicate DLL injection/unlinking.",
+  "indicators": "Hidden modules.",
+  "slug": "memory-ldrmodules",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

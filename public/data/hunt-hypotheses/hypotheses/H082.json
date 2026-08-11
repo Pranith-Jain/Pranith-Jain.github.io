@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1046",
+  "title": "Network service scan",
+  "hypothesis": "An attacker scanned internal subnets for listening services.",
+  "queries": [
+    "DeviceNetworkEvents | where ActionType == 'ConnectionAttempt' | where RemotePort in (445, 3389, 22, 8080) | where LocalPort != RemotePort | summarize count() by RemoteIP | where count_ > 100"
+  ],
+  "rationale": "High-volume connection attempts = port scanning.",
+  "id": "H082"
+}

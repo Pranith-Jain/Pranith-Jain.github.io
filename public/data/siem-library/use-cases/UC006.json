@@ -1,0 +1,13 @@
+{
+  "id": "UC006",
+  "name": "Admin group member added (DCSync/ACL attack precursor)",
+  "category": "Active Directory",
+  "mitre": "T1098.001",
+  "severity": "Critical",
+  "kql": "SecurityEvent | where EventID in (4728, 4729, 4732, 4733, 4756, 4757) | where TargetAccount in ('Domain Admins', 'Administrators', 'Enterprise Admins', 'Schema Admins', 'Account Operators')",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode IN (4728,4732,4756) TargetAccount IN (\"Domain Admins\",\"Administrators\",\"Enterprise Admins\")",
+  "dataSource": "Windows Security",
+  "fpRate": "Low",
+  "tuning": "Immediately suspicious unless driven by password manager/ITSM workflow.",
+  "apt": "Universal post-compromise"
+}

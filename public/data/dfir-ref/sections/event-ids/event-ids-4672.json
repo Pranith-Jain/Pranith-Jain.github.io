@@ -1,0 +1,12 @@
+{
+  "id": 4672,
+  "name": "Special privileges assigned",
+  "log": "Security",
+  "mitre": "T1078",
+  "description": "Special privileges assigned to new logon (typically admin/SeDebugPrivilege).",
+  "indicators": ["Privilege elevation"],
+  "investigation": "Flag privileged logons on workstations by non-admin users; correlate with 4624 same session id.",
+  "slug": "event-ids-4672",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

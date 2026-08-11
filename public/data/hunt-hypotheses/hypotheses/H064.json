@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1558.003",
+  "title": "RC4 service tickets (Kerberoasting)",
+  "hypothesis": "An account requested RC4 service tickets to crack SPN passwords.",
+  "queries": [
+    "SecurityEvent | where EventID == 4769 | where TicketEncryptionType == '0x17' | where ServiceName !endswith '$'"
+  ],
+  "rationale": "0x17 encryption on service tickets = kerberoasting.",
+  "id": "H064"
+}

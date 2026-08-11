@@ -1,0 +1,13 @@
+{
+  "id": "UC030",
+  "name": "Brute force — lockout storm",
+  "category": "Initial Access",
+  "mitre": "T1110.001",
+  "severity": "Medium",
+  "kql": "SecurityEvent | where EventID == 4740 | summarize count() by Computer, bin(TimeGenerated, 1h) | where count_ >= 5",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4740 | stats count by host, _time | where count > 5",
+  "dataSource": "Security 4740",
+  "fpRate": "Low",
+  "tuning": "Lockout storms across accounts = spray; single-account = targeted.",
+  "apt": "Password spray — Nobelium, APT29"
+}

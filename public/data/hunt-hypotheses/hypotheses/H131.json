@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1087.002",
+  "title": "Domain admin session enumeration",
+  "hypothesis": "An attacker enumerated active admin sessions to plan token theft.",
+  "queries": [
+    "DeviceProcessEvents | where FileName in ('cmd.exe','powershell.exe') | where ProcessCommandLine contains 'net session' or ProcessCommandLine contains 'qwinsta' or ProcessCommandLine contains 'query session'"
+  ],
+  "rationale": "Session enumeration = token/credential targeting.",
+  "id": "H131"
+}

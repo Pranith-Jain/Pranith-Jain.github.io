@@ -1,0 +1,9 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1547.013",
+  "title": "XDG autostart (Linux desktop)",
+  "hypothesis": "An attacker added a .desktop autostart entry on Linux.",
+  "queries": ["AuditdLogs | where type == 'PATH' | where name contains 'autostart' and name endswith '.desktop'"],
+  "rationale": "Desktop autostart entries = user-persistence on Linux.",
+  "id": "H137"
+}

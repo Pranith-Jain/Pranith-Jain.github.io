@@ -1,0 +1,1 @@
+../../../worker/lib/pqc-manifest.ts

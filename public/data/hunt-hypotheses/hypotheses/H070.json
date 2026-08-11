@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1110.004",
+  "title": "Credential stuffing on internal apps",
+  "hypothesis": "Attackers used breached passwords against internal apps (VPN, webmail).",
+  "queries": [
+    "SigninLogs | where ResultType == '50053' or ResultType == '50126' | summarize count() by UserPrincipalName | where count_ > 10"
+  ],
+  "rationale": "Repeated failed logins with common passwords = stuffing.",
+  "id": "H070"
+}

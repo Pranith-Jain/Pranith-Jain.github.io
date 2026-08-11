@@ -1,0 +1,1441 @@
+{
+  "metadata": {
+    "description": "DFIR practitioner reference — Windows Event IDs, memory forensics, browser artifacts, evidence collection",
+    "totalItems": 142,
+    "totalCategories": 4,
+    "authors": "Authored in-repo (CyberGuard-Forte-style toolkit reference)"
+  },
+  "source": "Authored reference data (scripts/data-src/dfir-ref)",
+  "sourceUrl": "https://pranithjain.qzz.io/dfir/dfir-ref",
+  "license": "CC-BY-NC-SA (reference summaries; MITRE ATT&CK mappings per ATT&CK license)",
+  "replicatedAt": "2026-08-11",
+  "counts": { "eventIds": 60, "memoryCommands": 46, "browserArtifacts": 25, "evidencePhases": 11 },
+  "categories": [
+    { "key": "event-ids", "name": "Windows Event ID Reference", "count": 60 },
+    { "key": "memory", "name": "Memory Forensics (Volatility)", "count": 46 },
+    { "key": "browser", "name": "Browser Forensics", "count": 25 },
+    { "key": "evidence", "name": "Evidence Collection & Chain of Custody", "count": 11 }
+  ],
+  "itemIndex": [
+    {
+      "slug": "event-ids-1102",
+      "id": "1102",
+      "name": "1102 — Audit log cleared",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Log tampering", "Defense evasion"],
+      "mitre": "T1070.001",
+      "sizeBytes": 440
+    },
+    {
+      "slug": "event-ids-1100",
+      "id": "1100",
+      "name": "1100 — Event log service shutdown",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["System", "Log disruption"],
+      "mitre": "T1070.001",
+      "sizeBytes": 374
+    },
+    {
+      "slug": "event-ids-4624",
+      "id": "4624",
+      "name": "4624 — Logon success",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Account logon", "Lateral movement"],
+      "mitre": "T1078",
+      "sizeBytes": 439
+    },
+    {
+      "slug": "event-ids-4625",
+      "id": "4625",
+      "name": "4625 — Logon failure",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Brute force", "Password spray"],
+      "mitre": "T1110",
+      "sizeBytes": 448
+    },
+    {
+      "slug": "event-ids-4634",
+      "id": "4634",
+      "name": "4634 — Logoff",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Session lifecycle"],
+      "mitre": "T1078",
+      "sizeBytes": 365
+    },
+    {
+      "slug": "event-ids-4647",
+      "id": "4647",
+      "name": "4647 — User initiated logoff",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "User activity"],
+      "mitre": "T1078",
+      "sizeBytes": 328
+    },
+    {
+      "slug": "event-ids-4648",
+      "id": "4648",
+      "name": "4648 — Logon with explicit credentials",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Credential abuse", "Lateral movement"],
+      "mitre": "T1078.003",
+      "sizeBytes": 482
+    },
+    {
+      "slug": "event-ids-4672",
+      "id": "4672",
+      "name": "4672 — Special privileges assigned",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Privilege elevation"],
+      "mitre": "T1078",
+      "sizeBytes": 415
+    },
+    {
+      "slug": "event-ids-4720",
+      "id": "4720",
+      "name": "4720 — User account created",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Persistence", "Backdoor account"],
+      "mitre": "T1136.001",
+      "sizeBytes": 425
+    },
+    {
+      "slug": "event-ids-4722",
+      "id": "4722",
+      "name": "4722 — User account enabled",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Account lifecycle abuse"],
+      "mitre": "T1078",
+      "sizeBytes": 347
+    },
+    {
+      "slug": "event-ids-4724",
+      "id": "4724",
+      "name": "4724 — Password reset attempt",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Account takeover", "Persistence"],
+      "mitre": "T1098",
+      "sizeBytes": 389
+    },
+    {
+      "slug": "event-ids-4725",
+      "id": "4725",
+      "name": "4725 — User account disabled",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Account lifecycle abuse", "Sabotage"],
+      "mitre": "T1078",
+      "sizeBytes": 388
+    },
+    {
+      "slug": "event-ids-4728",
+      "id": "4728",
+      "name": "4728 — Member added to global security group",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Privilege escalation", "Persistence"],
+      "mitre": "T1098.001",
+      "sizeBytes": 460
+    },
+    {
+      "slug": "event-ids-4732",
+      "id": "4732",
+      "name": "4732 — Member added to local security group",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Privilege escalation", "Persistence"],
+      "mitre": "T1098.001",
+      "sizeBytes": 414
+    },
+    {
+      "slug": "event-ids-4738",
+      "id": "4738",
+      "name": "4738 — User account changed",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Account manipulation"],
+      "mitre": "T1098",
+      "sizeBytes": 373
+    },
+    {
+      "slug": "event-ids-4740",
+      "id": "4740",
+      "name": "4740 — Account locked out",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Brute force", "Kerberoasting side effect"],
+      "mitre": "T1110",
+      "sizeBytes": 426
+    },
+    {
+      "slug": "event-ids-4768",
+      "id": "4768",
+      "name": "4768 — Kerberos TGT requested",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Authentication", "Kerberoasting precursor"],
+      "mitre": "T1558",
+      "sizeBytes": 425
+    },
+    {
+      "slug": "event-ids-4769",
+      "id": "4769",
+      "name": "4769 — Kerberos service ticket requested",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Kerberoasting", "Lateral movement"],
+      "mitre": "T1558.003",
+      "sizeBytes": 468
+    },
+    {
+      "slug": "event-ids-4771",
+      "id": "4771",
+      "name": "4771 — Kerberos pre-auth failed",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Brute force", "AS-REP roasting"],
+      "mitre": "T1110",
+      "sizeBytes": 390
+    },
+    {
+      "slug": "event-ids-4776",
+      "id": "4776",
+      "name": "4776 — NTLM credential validation",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "NTLM auth", "Brute force", "Pass-the-hash"],
+      "mitre": "T1110",
+      "sizeBytes": 466
+    },
+    {
+      "slug": "event-ids-4778",
+      "id": "4778",
+      "name": "4778 — Session reconnected to a winstation",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "RDP activity"],
+      "mitre": "T1021.001",
+      "sizeBytes": 406
+    },
+    {
+      "slug": "event-ids-4779",
+      "id": "4779",
+      "name": "4779 — Session disconnected from a winstation",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "RDP activity"],
+      "mitre": "T1021.001",
+      "sizeBytes": 375
+    },
+    {
+      "slug": "event-ids-4798",
+      "id": "4798",
+      "name": "4798 — User's local group membership enumerated",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Reconnaissance", "Privilege discovery"],
+      "mitre": "T1069.001",
+      "sizeBytes": 430
+    },
+    {
+      "slug": "event-ids-4688",
+      "id": "4688",
+      "name": "4688 — Process creation",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Execution", "Command line evidence", "LOLBins"],
+      "mitre": "T1059",
+      "sizeBytes": 470
+    },
+    {
+      "slug": "event-ids-4689",
+      "id": "4689",
+      "name": "4689 — Process terminated",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Process lifecycle"],
+      "mitre": "T1059",
+      "sizeBytes": 373
+    },
+    {
+      "slug": "event-ids-5140",
+      "id": "5140",
+      "name": "5140 — Network share object accessed",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Lateral movement", "Data staging"],
+      "mitre": "T1021.002",
+      "sizeBytes": 408
+    },
+    {
+      "slug": "event-ids-5145",
+      "id": "5145",
+      "name": "5145 — Detailed file share access",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Data exfiltration", "Lateral movement"],
+      "mitre": "T1039",
+      "sizeBytes": 418
+    },
+    {
+      "slug": "event-ids-7045",
+      "id": "7045",
+      "name": "7045 — New service installed",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["System", "Persistence", "C2 service"],
+      "mitre": "T1543.003",
+      "sizeBytes": 433
+    },
+    {
+      "slug": "event-ids-7040",
+      "id": "7040",
+      "name": "7040 — Service start type changed",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["System", "Persistence modification"],
+      "mitre": "T1543.003",
+      "sizeBytes": 361
+    },
+    {
+      "slug": "event-ids-7036",
+      "id": "7036",
+      "name": "7036 — Service state changed",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["System", "Service lifecycle", "Disruption"],
+      "mitre": "T1543.003",
+      "sizeBytes": 380
+    },
+    {
+      "slug": "event-ids-7001",
+      "id": "7001",
+      "name": "7001 — Service start failed",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["System", "Service abuse attempt"],
+      "mitre": "T1543.003",
+      "sizeBytes": 354
+    },
+    {
+      "slug": "event-ids-4698",
+      "id": "4698",
+      "name": "4698 — Scheduled task created",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Persistence", "Privilege escalation"],
+      "mitre": "T1053.005",
+      "sizeBytes": 419
+    },
+    {
+      "slug": "event-ids-4700",
+      "id": "4700",
+      "name": "4700 — Scheduled task enabled",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Persistence activation"],
+      "mitre": "T1053.005",
+      "sizeBytes": 353
+    },
+    {
+      "slug": "event-ids-4702",
+      "id": "4702",
+      "name": "4702 — Scheduled task updated",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Persistence modification"],
+      "mitre": "T1053.005",
+      "sizeBytes": 364
+    },
+    {
+      "slug": "event-ids-4104",
+      "id": "4104",
+      "name": "4104 — PowerShell script block logging",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["PowerShell", "PowerShell abuse", "Obfuscation bypass evidence"],
+      "mitre": "T1059.001",
+      "sizeBytes": 463
+    },
+    {
+      "slug": "event-ids-4103",
+      "id": "4103",
+      "name": "4103 — PowerShell module logging",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["PowerShell", "PowerShell command evidence"],
+      "mitre": "T1059.001",
+      "sizeBytes": 393
+    },
+    {
+      "slug": "event-ids-400",
+      "id": "400",
+      "name": "400 — PowerShell engine state change",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["PowerShell", "PowerShell execution lifecycle"],
+      "mitre": "T1059.001",
+      "sizeBytes": 416
+    },
+    {
+      "slug": "event-ids-800",
+      "id": "800",
+      "name": "800 — PowerShell pipeline execution details",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["PowerShell", "PowerShell command history"],
+      "mitre": "T1059.001",
+      "sizeBytes": 396
+    },
+    {
+      "slug": "event-ids-5857",
+      "id": "5857",
+      "name": "5857 — WMI activity started",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-WMI-Activity/Operational", "WMI abuse", "Lateral movement"],
+      "mitre": "T1047",
+      "sizeBytes": 425
+    },
+    {
+      "slug": "event-ids-5860",
+      "id": "5860",
+      "name": "5860 — WMI permanent event subscription created",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-WMI-Activity/Operational", "WMI persistence"],
+      "mitre": "T1546.003",
+      "sizeBytes": 474
+    },
+    {
+      "slug": "event-ids-1116",
+      "id": "1116",
+      "name": "1116 — Defender malware detected",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Windows Defender/Operational", "Malware detection", "First-seen weapons"],
+      "mitre": "T1055",
+      "sizeBytes": 471
+    },
+    {
+      "slug": "event-ids-1117",
+      "id": "1117",
+      "name": "1117 — Defender action taken",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Windows Defender/Operational", "Malware response"],
+      "mitre": "T1055",
+      "sizeBytes": 439
+    },
+    {
+      "slug": "event-ids-2003",
+      "id": "2003",
+      "name": "2003 — Defender engine status",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Windows Defender/Operational", "AV disable", "Stale definitions"],
+      "mitre": "T1562.001",
+      "sizeBytes": 435
+    },
+    {
+      "slug": "event-ids-1002",
+      "id": "1002",
+      "name": "1002 — Defender unexpected error",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Windows Defender/Operational", "AV tampering"],
+      "mitre": "T1562.001",
+      "sizeBytes": 437
+    },
+    {
+      "slug": "event-ids-5156",
+      "id": "5156",
+      "name": "5156 — Windows Filtering Platform connection",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Network connections", "C2 egress"],
+      "mitre": "TA0011",
+      "sizeBytes": 448
+    },
+    {
+      "slug": "event-ids-5157",
+      "id": "5157",
+      "name": "5157 — WFP connection blocked",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Security", "Blocked lateral movement / malware"],
+      "mitre": "TA0011",
+      "sizeBytes": 400
+    },
+    {
+      "slug": "event-ids-40962",
+      "id": "40962",
+      "name": "40962 — Kernel file system driver loaded",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Kernel-File/CVE", "Rootkit driver"],
+      "mitre": "T1547.006",
+      "sizeBytes": 427
+    },
+    {
+      "slug": "event-ids-1",
+      "id": "1",
+      "name": "1 — Sysmon process creation",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Sysmon/Operational", "Full process chain", "Hash evidence"],
+      "mitre": "T1059",
+      "sizeBytes": 479
+    },
+    {
+      "slug": "event-ids-3",
+      "id": "3",
+      "name": "3 — Sysmon network connection",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Sysmon/Operational", "C2 beaconing", "Exfiltration"],
+      "mitre": "TA0011",
+      "sizeBytes": 447
+    },
+    {
+      "slug": "event-ids-5",
+      "id": "5",
+      "name": "5 — Sysmon process terminated",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Sysmon/Operational", "Process lifecycle"],
+      "mitre": "T1059",
+      "sizeBytes": 359
+    },
+    {
+      "slug": "event-ids-6",
+      "id": "6",
+      "name": "6 — Sysmon driver loaded",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Sysmon/Operational", "Kernel driver activity"],
+      "mitre": "T1547.006",
+      "sizeBytes": 367
+    },
+    {
+      "slug": "event-ids-7",
+      "id": "7",
+      "name": "7 — Sysmon image loaded",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Sysmon/Operational", "DLL sideloading", "Process injection prep"],
+      "mitre": "T1055",
+      "sizeBytes": 422
+    },
+    {
+      "slug": "event-ids-8",
+      "id": "8",
+      "name": "8 — Sysmon CreateRemoteThread",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Sysmon/Operational", "Process injection"],
+      "mitre": "T1055",
+      "sizeBytes": 424
+    },
+    {
+      "slug": "event-ids-10",
+      "id": "10",
+      "name": "10 — Sysmon process access",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Sysmon/Operational", "LSASS access", "Credential dumping"],
+      "mitre": "T1003.001",
+      "sizeBytes": 427
+    },
+    {
+      "slug": "event-ids-11",
+      "id": "11",
+      "name": "11 — Sysmon file create",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Sysmon/Operational", "Malware drop", "Staging"],
+      "mitre": "T1074",
+      "sizeBytes": 405
+    },
+    {
+      "slug": "event-ids-12",
+      "id": "12",
+      "name": "12 — Sysmon registry event",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Sysmon/Operational", "Persistence keys", "Run keys"],
+      "mitre": "T1112",
+      "sizeBytes": 441
+    },
+    {
+      "slug": "event-ids-13",
+      "id": "13",
+      "name": "13 — Sysmon registry value set",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Sysmon/Operational", "Persistence", "SQLite stores"],
+      "mitre": "T1112",
+      "sizeBytes": 405
+    },
+    {
+      "slug": "event-ids-22",
+      "id": "22",
+      "name": "22 — Sysmon DNS query",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Sysmon/Operational", "DNS tunneling", "C2 DGA", "Domain generation"],
+      "mitre": "T1568",
+      "sizeBytes": 446
+    },
+    {
+      "slug": "event-ids-23",
+      "id": "23",
+      "name": "23 — Sysmon file delete (archive)",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Sysmon/Operational", "Data deletion"],
+      "mitre": "T1485",
+      "sizeBytes": 389
+    },
+    {
+      "slug": "event-ids-26",
+      "id": "26",
+      "name": "26 — Sysmon file delete",
+      "category": "event-ids",
+      "categoryLabel": "Windows Event ID Reference",
+      "tags": ["Microsoft-Windows-Sysmon/Operational", "Data destruction"],
+      "mitre": "T1485",
+      "sizeBytes": 394
+    },
+    {
+      "slug": "memory-imageinfo",
+      "id": "imageinfo",
+      "name": "imageinfo",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol2", "Baseline", "Wrong profile = false negatives across every plugin."],
+      "mitre": null,
+      "sizeBytes": 431
+    },
+    {
+      "slug": "memory-windows-info",
+      "id": "windows.info",
+      "name": "windows.info",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol3", "Baseline"],
+      "mitre": null,
+      "sizeBytes": 348
+    },
+    {
+      "slug": "memory-kdbgscan",
+      "id": "kdbgscan",
+      "name": "kdbgscan",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol2", "Baseline"],
+      "mitre": null,
+      "sizeBytes": 388
+    },
+    {
+      "slug": "memory-pslist",
+      "id": "pslist",
+      "name": "pslist",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Processes", "Rogue processes, odd parents, unknown binaries in temp."],
+      "mitre": "T1055",
+      "sizeBytes": 425
+    },
+    {
+      "slug": "memory-psscan",
+      "id": "psscan",
+      "name": "psscan",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Processes", "Processes present in psscan but absent in pslist."],
+      "mitre": "T1055",
+      "sizeBytes": 429
+    },
+    {
+      "slug": "memory-pstree",
+      "id": "pstree",
+      "name": "pstree",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Processes", "Orphaned processes, familiar parents (winword.exe → powershell.exe)."],
+      "mitre": "T1059",
+      "sizeBytes": 444
+    },
+    {
+      "slug": "memory-psxview",
+      "id": "psxview",
+      "name": "psxview",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Processes", "Hidden processes."],
+      "mitre": "T1055",
+      "sizeBytes": 423
+    },
+    {
+      "slug": "memory-dlllist",
+      "id": "dlllist",
+      "name": "dlllist",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Processes", "Unsigned DLLs, DLLs from AppData/Temp, missing entries."],
+      "mitre": "T1055",
+      "sizeBytes": 406
+    },
+    {
+      "slug": "memory-ldrmodules",
+      "id": "ldrmodules",
+      "name": "ldrmodules",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Processes", "Hidden modules."],
+      "mitre": "T1055",
+      "sizeBytes": 412
+    },
+    {
+      "slug": "memory-cmdline",
+      "id": "cmdline",
+      "name": "cmdline",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Processes", "Malicious arguments, encoded powershell, LOLBins with payloads."],
+      "mitre": "T1059",
+      "sizeBytes": 428
+    },
+    {
+      "slug": "memory-envars",
+      "id": "envars",
+      "name": "envars",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Processes", "Modified PATH/APPDATA pointing to writable dirs."],
+      "mitre": "T1574",
+      "sizeBytes": 390
+    },
+    {
+      "slug": "memory-malfind",
+      "id": "malfind",
+      "name": "malfind",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Processes", "RWX pages, MZ headers in unbacked regions."],
+      "mitre": "T1055",
+      "sizeBytes": 432
+    },
+    {
+      "slug": "memory-handles",
+      "id": "handles",
+      "name": "handles",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Processes", "Open handles to .lnk/.tmp/keylog files."],
+      "mitre": "T1074",
+      "sizeBytes": 450
+    },
+    {
+      "slug": "memory-privs",
+      "id": "privs",
+      "name": "privs",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Processes", "Abnormal privilege sets."],
+      "mitre": "T1134",
+      "sizeBytes": 362
+    },
+    {
+      "slug": "memory-netscan",
+      "id": "netscan",
+      "name": "netscan",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Network", "C2 connections, unknown listeners (e.g. port 4444, 1337, 8888)."],
+      "mitre": "TA0011",
+      "sizeBytes": 475
+    },
+    {
+      "slug": "memory-netconn",
+      "id": "netconn",
+      "name": "netconn",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol2", "Network"],
+      "mitre": "TA0011",
+      "sizeBytes": 330
+    },
+    {
+      "slug": "memory-connscan-netstat",
+      "id": "connscan/netstat",
+      "name": "connscan/netstat",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Network", "Residual C2 endpoints."],
+      "mitre": "TA0011",
+      "sizeBytes": 386
+    },
+    {
+      "slug": "memory-svcscan",
+      "id": "svcscan",
+      "name": "svcscan",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Persistence", "Malicious services, driver persistence."],
+      "mitre": "T1543.003",
+      "sizeBytes": 401
+    },
+    {
+      "slug": "memory-autoruns",
+      "id": "autoruns",
+      "name": "autoruns",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Persistence", "Unknown binaries in autostart paths."],
+      "mitre": "T1547",
+      "sizeBytes": 442
+    },
+    {
+      "slug": "memory-scheduledtasks",
+      "id": "scheduledtasks",
+      "name": "scheduledtasks",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Persistence", "Tasks referencing temp scripts."],
+      "mitre": "T1053.005",
+      "sizeBytes": 336
+    },
+    {
+      "slug": "memory-hivelist",
+      "id": "hivelist",
+      "name": "hivelist",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Registry"],
+      "mitre": "T1112",
+      "sizeBytes": 339
+    },
+    {
+      "slug": "memory-printkey",
+      "id": "printkey",
+      "name": "printkey",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Registry", "Run keys, AppInit_DLLs, Image File Execution Options."],
+      "mitre": "T1112",
+      "sizeBytes": 494
+    },
+    {
+      "slug": "memory-userassist",
+      "id": "userassist",
+      "name": "userassist",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Registry", "Security tool usage by rogue user."],
+      "mitre": "T1078",
+      "sizeBytes": 423
+    },
+    {
+      "slug": "memory-shimcache",
+      "id": "shimcache",
+      "name": "shimcache",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Registry", "Deleted executables that ran."],
+      "mitre": "T1070",
+      "sizeBytes": 393
+    },
+    {
+      "slug": "memory-amcache",
+      "id": "amcache",
+      "name": "amcache",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Registry"],
+      "mitre": "T1078",
+      "sizeBytes": 299
+    },
+    {
+      "slug": "memory-dumpfiles",
+      "id": "dumpfiles",
+      "name": "dumpfiles",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Files"],
+      "mitre": "T1005",
+      "sizeBytes": 397
+    },
+    {
+      "slug": "memory-filescan",
+      "id": "filescan",
+      "name": "filescan",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Files", "Deleted malware files, zip/7z archives in temp."],
+      "mitre": "T1005",
+      "sizeBytes": 426
+    },
+    {
+      "slug": "memory-mftparser",
+      "id": "mftparser",
+      "name": "mftparser",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Files"],
+      "mitre": "T1070.004",
+      "sizeBytes": 365
+    },
+    {
+      "slug": "memory-hashdump",
+      "id": "hashdump",
+      "name": "hashdump",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Credentials"],
+      "mitre": "T1003.002",
+      "sizeBytes": 393
+    },
+    {
+      "slug": "memory-lsadump",
+      "id": "lsadump",
+      "name": "lsadump",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Credentials"],
+      "mitre": "T1003.004",
+      "sizeBytes": 363
+    },
+    {
+      "slug": "memory-cachedump",
+      "id": "cachedump",
+      "name": "cachedump",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Credentials"],
+      "mitre": "T1003.005",
+      "sizeBytes": 351
+    },
+    {
+      "slug": "memory-mimikatz",
+      "id": "mimikatz",
+      "name": "mimikatz",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol2", "Credentials"],
+      "mitre": "T1003.001",
+      "sizeBytes": 393
+    },
+    {
+      "slug": "memory-windows-registry-hivelist-printkey",
+      "id": "windows.registry.hivelist / printkey",
+      "name": "windows.registry.hivelist / printkey",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol3", "Registry"],
+      "mitre": "T1112",
+      "sizeBytes": 447
+    },
+    {
+      "slug": "memory-windows-svcscan",
+      "id": "windows.svcscan",
+      "name": "windows.svcscan",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol3", "Persistence"],
+      "mitre": "T1543.003",
+      "sizeBytes": 292
+    },
+    {
+      "slug": "memory-yara-scan",
+      "id": "yara-scan",
+      "name": "yara-scan",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Hunting"],
+      "mitre": "T1055",
+      "sizeBytes": 366
+    },
+    {
+      "slug": "memory-strings",
+      "id": "strings",
+      "name": "strings",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Hunting", "C2 URLs, named pipes, unique mutexes."],
+      "mitre": "T1059",
+      "sizeBytes": 406
+    },
+    {
+      "slug": "memory-mutantscan",
+      "id": "mutantscan",
+      "name": "mutantscan",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "Hunting"],
+      "mitre": "T1055",
+      "sizeBytes": 351
+    },
+    {
+      "slug": "memory-screenshot",
+      "id": "screenshot",
+      "name": "screenshot",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["both", "User Activity"],
+      "mitre": "T1056",
+      "sizeBytes": 387
+    },
+    {
+      "slug": "memory-timeliner",
+      "id": "timeliner",
+      "name": "timeliner",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol2", "Investigation"],
+      "mitre": null,
+      "sizeBytes": 382
+    },
+    {
+      "slug": "memory-mactime",
+      "id": "mactime",
+      "name": "mactime",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["external", "Investigation"],
+      "mitre": null,
+      "sizeBytes": 361
+    },
+    {
+      "slug": "memory-windows-pslist",
+      "id": "windows.pslist",
+      "name": "windows.pslist",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol3", "Processes"],
+      "mitre": "T1055",
+      "sizeBytes": 283
+    },
+    {
+      "slug": "memory-windows-malfind",
+      "id": "windows.malfind",
+      "name": "windows.malfind",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol3", "Processes"],
+      "mitre": "T1055",
+      "sizeBytes": 304
+    },
+    {
+      "slug": "memory-windows-netscan",
+      "id": "windows.netscan",
+      "name": "windows.netscan",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol3", "Network"],
+      "mitre": "TA0011",
+      "sizeBytes": 292
+    },
+    {
+      "slug": "memory-windows-cmdline",
+      "id": "windows.cmdline",
+      "name": "windows.cmdline",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol3", "Processes"],
+      "mitre": "T1059",
+      "sizeBytes": 295
+    },
+    {
+      "slug": "memory-windows-bigpools",
+      "id": "windows.bigpools",
+      "name": "windows.bigpools",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol3", "Rootkits"],
+      "mitre": "T1547.006",
+      "sizeBytes": 367
+    },
+    {
+      "slug": "memory-windows-driverscan",
+      "id": "windows.driverscan",
+      "name": "windows.driverscan",
+      "category": "memory",
+      "categoryLabel": "Memory Forensics (Volatility)",
+      "tags": ["vol3", "Rootkits", "Unsigned/unknown drivers."],
+      "mitre": "T1547.006",
+      "sizeBytes": 401
+    },
+    {
+      "slug": "browser-history",
+      "id": "History",
+      "name": "History (Chrome)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Chrome"],
+      "mitre": null,
+      "sizeBytes": 446
+    },
+    {
+      "slug": "browser-cookies",
+      "id": "Cookies",
+      "name": "Cookies (Chrome)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Chrome"],
+      "mitre": null,
+      "sizeBytes": 420
+    },
+    {
+      "slug": "browser-login-data",
+      "id": "Login Data",
+      "name": "Login Data (Chrome)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Chrome"],
+      "mitre": null,
+      "sizeBytes": 449
+    },
+    {
+      "slug": "browser-preferences-secure-preferences",
+      "id": "Preferences / Secure Preferences",
+      "name": "Preferences / Secure Preferences (Chrome)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Chrome"],
+      "mitre": null,
+      "sizeBytes": 475
+    },
+    {
+      "slug": "browser-extensions",
+      "id": "Extensions",
+      "name": "Extensions (Chrome)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Chrome"],
+      "mitre": null,
+      "sizeBytes": 408
+    },
+    {
+      "slug": "browser-cache-simple-cache",
+      "id": "Cache (Simple Cache)",
+      "name": "Cache (Simple Cache) (Chrome)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Chrome"],
+      "mitre": null,
+      "sizeBytes": 424
+    },
+    {
+      "slug": "browser-local-storage",
+      "id": "Local Storage",
+      "name": "Local Storage (Chrome)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Chrome"],
+      "mitre": null,
+      "sizeBytes": 395
+    },
+    {
+      "slug": "browser-top-sites-shortcuts",
+      "id": "Top Sites / Shortcuts",
+      "name": "Top Sites / Shortcuts (Chrome)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Chrome"],
+      "mitre": null,
+      "sizeBytes": 348
+    },
+    {
+      "slug": "browser-web-data",
+      "id": "Web Data",
+      "name": "Web Data (Chrome)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Chrome"],
+      "mitre": null,
+      "sizeBytes": 388
+    },
+    {
+      "slug": "browser-history-cookies-login-data",
+      "id": "History / Cookies / Login Data",
+      "name": "History / Cookies / Login Data (Edge)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Edge"],
+      "mitre": null,
+      "sizeBytes": 501
+    },
+    {
+      "slug": "browser-places-sqlite",
+      "id": "places.sqlite",
+      "name": "places.sqlite (Firefox)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Firefox"],
+      "mitre": null,
+      "sizeBytes": 428
+    },
+    {
+      "slug": "browser-cookies-sqlite",
+      "id": "cookies.sqlite",
+      "name": "cookies.sqlite (Firefox)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Firefox"],
+      "mitre": null,
+      "sizeBytes": 410
+    },
+    {
+      "slug": "browser-logins-json-key4-db",
+      "id": "logins.json + key4.db",
+      "name": "logins.json + key4.db (Firefox)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Firefox"],
+      "mitre": null,
+      "sizeBytes": 394
+    },
+    {
+      "slug": "browser-sessionstore-jsonlz4",
+      "id": "sessionstore.jsonlz4",
+      "name": "sessionstore.jsonlz4 (Firefox)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Firefox"],
+      "mitre": null,
+      "sizeBytes": 440
+    },
+    {
+      "slug": "browser-cache2",
+      "id": "cache2",
+      "name": "cache2 (Firefox)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Firefox"],
+      "mitre": null,
+      "sizeBytes": 313
+    },
+    {
+      "slug": "browser-history-db",
+      "id": "History.db",
+      "name": "History.db (Safari (macOS))",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Safari (macOS)"],
+      "mitre": null,
+      "sizeBytes": 384
+    },
+    {
+      "slug": "browser-cookies-binarycookies",
+      "id": "Cookies.binarycookies",
+      "name": "Cookies.binarycookies (Safari (macOS))",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Safari (macOS)"],
+      "mitre": null,
+      "sizeBytes": 313
+    },
+    {
+      "slug": "browser-topsites-plist",
+      "id": "TopSites.plist",
+      "name": "TopSites.plist (Safari (macOS))",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Safari (macOS)"],
+      "mitre": null,
+      "sizeBytes": 294
+    },
+    {
+      "slug": "browser-lastsession-plist-lastsession-html",
+      "id": "LastSession.plist / LastSession.html",
+      "name": "LastSession.plist / LastSession.html (Safari (macOS))",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["Safari (macOS)"],
+      "mitre": null,
+      "sizeBytes": 320
+    },
+    {
+      "slug": "browser-prefetch-windows",
+      "id": "Prefetch (Windows)",
+      "name": "Prefetch (Windows) (All)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["All"],
+      "mitre": null,
+      "sizeBytes": 396
+    },
+    {
+      "slug": "browser-srum-windows",
+      "id": "SRUM (Windows)",
+      "name": "SRUM (Windows) (All)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["All"],
+      "mitre": null,
+      "sizeBytes": 374
+    },
+    {
+      "slug": "browser-recentapps-windows-10",
+      "id": "RecentApps (Windows 10+)",
+      "name": "RecentApps (Windows 10+) (All)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["All"],
+      "mitre": null,
+      "sizeBytes": 374
+    },
+    {
+      "slug": "browser-downloads-windows-shell",
+      "id": "Downloads (Windows shell)",
+      "name": "Downloads (Windows shell) (All)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["All"],
+      "mitre": null,
+      "sizeBytes": 416
+    },
+    {
+      "slug": "browser-bits-queue",
+      "id": "BITS queue",
+      "name": "BITS queue (All)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["All"],
+      "mitre": null,
+      "sizeBytes": 364
+    },
+    {
+      "slug": "browser-jump-lists",
+      "id": "Jump lists",
+      "name": "Jump lists (All)",
+      "category": "browser",
+      "categoryLabel": "Browser Forensics",
+      "tags": ["All"],
+      "mitre": null,
+      "sizeBytes": 420
+    },
+    {
+      "slug": "evidence-preparation",
+      "id": "Preparation",
+      "name": "Pre-incident preparation",
+      "category": "evidence",
+      "categoryLabel": "Evidence Collection & Chain of Custody",
+      "tags": ["Preparation"],
+      "mitre": null,
+      "sizeBytes": 829
+    },
+    {
+      "slug": "evidence-identification",
+      "id": "Identification",
+      "name": "Identify and scope potential evidence",
+      "category": "evidence",
+      "categoryLabel": "Evidence Collection & Chain of Custody",
+      "tags": ["Identification"],
+      "mitre": null,
+      "sizeBytes": 849
+    },
+    {
+      "slug": "evidence-preservation",
+      "id": "Preservation",
+      "name": "Preserve original evidence",
+      "category": "evidence",
+      "categoryLabel": "Evidence Collection & Chain of Custody",
+      "tags": ["Preservation"],
+      "mitre": null,
+      "sizeBytes": 786
+    },
+    {
+      "slug": "evidence-collection",
+      "id": "Collection",
+      "name": "Collect volatile and persistent data",
+      "category": "evidence",
+      "categoryLabel": "Evidence Collection & Chain of Custody",
+      "tags": ["Collection"],
+      "mitre": null,
+      "sizeBytes": 858
+    },
+    {
+      "slug": "evidence-imaging",
+      "id": "Imaging",
+      "name": "Forensic imaging",
+      "category": "evidence",
+      "categoryLabel": "Evidence Collection & Chain of Custody",
+      "tags": ["Imaging"],
+      "mitre": null,
+      "sizeBytes": 696
+    },
+    {
+      "slug": "evidence-analysis",
+      "id": "Analysis",
+      "name": "Analysis on copies only",
+      "category": "evidence",
+      "categoryLabel": "Evidence Collection & Chain of Custody",
+      "tags": ["Analysis"],
+      "mitre": null,
+      "sizeBytes": 720
+    },
+    {
+      "slug": "evidence-documentation",
+      "id": "Documentation",
+      "name": "Documentation of custody",
+      "category": "evidence",
+      "categoryLabel": "Evidence Collection & Chain of Custody",
+      "tags": ["Documentation"],
+      "mitre": null,
+      "sizeBytes": 775
+    },
+    {
+      "slug": "evidence-transport-storage",
+      "id": "Transport & Storage",
+      "name": "Transport and storage",
+      "category": "evidence",
+      "categoryLabel": "Evidence Collection & Chain of Custody",
+      "tags": ["Transport & Storage"],
+      "mitre": null,
+      "sizeBytes": 730
+    },
+    {
+      "slug": "evidence-return-disposition",
+      "id": "Return / Disposition",
+      "name": "Return or disposition",
+      "category": "evidence",
+      "categoryLabel": "Evidence Collection & Chain of Custody",
+      "tags": ["Return / Disposition"],
+      "mitre": null,
+      "sizeBytes": 760
+    },
+    {
+      "slug": "evidence-cloud-virtual",
+      "id": "Cloud & Virtual",
+      "name": "Cloud and virtualized evidence",
+      "category": "evidence",
+      "categoryLabel": "Evidence Collection & Chain of Custody",
+      "tags": ["Cloud & Virtual"],
+      "mitre": null,
+      "sizeBytes": 820
+    },
+    {
+      "slug": "evidence-reporting",
+      "id": "Reporting",
+      "name": "Report with evidence mapping",
+      "category": "evidence",
+      "categoryLabel": "Evidence Collection & Chain of Custody",
+      "tags": ["Reporting"],
+      "mitre": null,
+      "sizeBytes": 753
+    }
+  ]
+}

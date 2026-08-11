@@ -1,0 +1,542 @@
+[
+  {
+    "id": 1102,
+    "name": "Audit log cleared",
+    "log": "Security",
+    "mitre": "T1070.001",
+    "description": "The security audit log was cleared or deleted.",
+    "indicators": ["Log tampering", "Defense evasion"],
+    "investigation": "Check for other log gaps around the clear time, correlate with process creation events (4688) and who ran wevtutil/powershell -c Clear-EventLog."
+  },
+  {
+    "id": 1100,
+    "name": "Event log service shutdown",
+    "log": "System",
+    "mitre": "T1070.001",
+    "description": "Windows Event Log service was shut down.",
+    "indicators": ["Log disruption"],
+    "investigation": "Correlate with 1102. Check service control events 7036 and process tree for log-killing tools."
+  },
+  {
+    "id": 4624,
+    "name": "Logon success",
+    "log": "Security",
+    "mitre": "T1078",
+    "description": "An account was successfully logged on.",
+    "indicators": ["Account logon", "Lateral movement"],
+    "investigation": "Check LogonType 3/10 from unexpected hosts, non-working-hour LogonProcessName, unusual account names, and correlate with network logon events 4624+4625 pairs."
+  },
+  {
+    "id": 4625,
+    "name": "Logon failure",
+    "log": "Security",
+    "mitre": "T1110",
+    "description": "An account failed to log on.",
+    "indicators": ["Brute force", "Password spray"],
+    "investigation": "Group by account + workstation: high volume of 4625 (SubStatus 0xC000006A) or guest/administrator logons = password spray or brute force. Check 4771/4776 for Kerberos/NTLM variants."
+  },
+  {
+    "id": 4634,
+    "name": "Logoff",
+    "log": "Security",
+    "mitre": "T1078",
+    "description": "An account logged off.",
+    "indicators": ["Session lifecycle"],
+    "investigation": "Pair with 4624 for session duration analysis — very short sessions may indicate credential harvesting or automated access."
+  },
+  {
+    "id": 4647,
+    "name": "User initiated logoff",
+    "log": "Security",
+    "mitre": "T1078",
+    "description": "A user initiated a logoff.",
+    "indicators": ["User activity"],
+    "investigation": "Unexpected logoffs at odd hours may indicate attacker session cleanup."
+  },
+  {
+    "id": 4648,
+    "name": "Logon with explicit credentials",
+    "log": "Security",
+    "mitre": "T1078.003",
+    "description": "A logon was attempted using explicit credentials (RunAs, RDP, secondary logon).",
+    "indicators": ["Credential abuse", "Lateral movement"],
+    "investigation": "Look for RunAs usage (LogonType 2) followed by network logons — classic lateral movement chain. Enrich target account with 4624 events."
+  },
+  {
+    "id": 4672,
+    "name": "Special privileges assigned",
+    "log": "Security",
+    "mitre": "T1078",
+    "description": "Special privileges assigned to new logon (typically admin/SeDebugPrivilege).",
+    "indicators": ["Privilege elevation"],
+    "investigation": "Flag privileged logons on workstations by non-admin users; correlate with 4624 same session id."
+  },
+  {
+    "id": 4720,
+    "name": "User account created",
+    "log": "Security",
+    "mitre": "T1136.001",
+    "description": "A user account was created.",
+    "indicators": ["Persistence", "Backdoor account"],
+    "investigation": "New accounts created outside HR processes are high signal; check who created it (SubjectUserName) and whether it logged on afterwards (4624/4625)."
+  },
+  {
+    "id": 4722,
+    "name": "User account enabled",
+    "log": "Security",
+    "mitre": "T1078",
+    "description": "A user account was enabled.",
+    "indicators": ["Account lifecycle abuse"],
+    "investigation": "Re-enabled disabled accounts may be an attacker resurrecting an old credential."
+  },
+  {
+    "id": 4724,
+    "name": "Password reset attempt",
+    "log": "Security",
+    "mitre": "T1098",
+    "description": "An attempt was made to reset an account password.",
+    "indicators": ["Account takeover", "Persistence"],
+    "investigation": "Password resets on service accounts or admin accounts by unexpected users are high signal."
+  },
+  {
+    "id": 4725,
+    "name": "User account disabled",
+    "log": "Security",
+    "mitre": "T1078",
+    "description": "A user account was disabled.",
+    "indicators": ["Account lifecycle abuse", "Sabotage"],
+    "investigation": "Mass disables close together suggest destructive intent or dormancy cleanup — correlate with logon history."
+  },
+  {
+    "id": 4728,
+    "name": "Member added to global security group",
+    "log": "Security",
+    "mitre": "T1098.001",
+    "description": "A member was added to a global security group.",
+    "indicators": ["Privilege escalation", "Persistence"],
+    "investigation": "Escalation into privileged groups (Domain Admins, Administrators, Schema Admins) is critical; capture old/new member group membership deltas."
+  },
+  {
+    "id": 4732,
+    "name": "Member added to local security group",
+    "log": "Security",
+    "mitre": "T1098.001",
+    "description": "A member was added to a local security group.",
+    "indicators": ["Privilege escalation", "Persistence"],
+    "investigation": "Local Admins group additions on servers/workstations — check if the adding user is legitimate IT."
+  },
+  {
+    "id": 4738,
+    "name": "User account changed",
+    "log": "Security",
+    "mitre": "T1098",
+    "description": "A user account was changed.",
+    "indicators": ["Account manipulation"],
+    "investigation": "Flag changes to UAC flags, account flags, or SID history for cross-domain compromise (SIDHistory injection)."
+  },
+  {
+    "id": 4740,
+    "name": "Account locked out",
+    "log": "Security",
+    "mitre": "T1110",
+    "description": "A user account was locked out.",
+    "indicators": ["Brute force", "Kerberoasting side effect"],
+    "investigation": "Lockout storms on many accounts point to spray attacks; single-account lockouts to targeted brute force. Correlate with 4771/4625 source IPs."
+  },
+  {
+    "id": 4768,
+    "name": "Kerberos TGT requested",
+    "log": "Security",
+    "mitre": "T1558",
+    "description": "A Kerberos ticket-granting ticket was requested.",
+    "indicators": ["Authentication", "Kerberoasting precursor"],
+    "investigation": "Volume analysis for golden-ticket indicators (unusual TGT for krbtgt) — check TicketEncryptionType and pre-auth type."
+  },
+  {
+    "id": 4769,
+    "name": "Kerberos service ticket requested",
+    "log": "Security",
+    "mitre": "T1558.003",
+    "description": "A Kerberos service ticket was requested.",
+    "indicators": ["Kerberoasting", "Lateral movement"],
+    "investigation": "Multiple 4769 for the same service from one account (TicketEncryptionType 0x17, RC4) = Kerberoasting. ServiceName not ending in $ with high counts is the signal."
+  },
+  {
+    "id": 4771,
+    "name": "Kerberos pre-auth failed",
+    "log": "Security",
+    "mitre": "T1110",
+    "description": "Kerberos pre-authentication failed.",
+    "indicators": ["Brute force", "AS-REP roasting"],
+    "investigation": "Correlate fail code 0x18 (pre-auth) with account + IP for AS-REP roasting candidates and spray attempts."
+  },
+  {
+    "id": 4776,
+    "name": "NTLM credential validation",
+    "log": "Security",
+    "mitre": "T1110",
+    "description": "The domain controller validated credentials for an account (NTLM).",
+    "indicators": ["NTLM auth", "Brute force", "Pass-the-hash"],
+    "investigation": "High 4776 failure volume or success followed by privilege use = NTLM relay/pass-the-hash; correlate with 8004 (NTLM auditing) on clients."
+  },
+  {
+    "id": 4778,
+    "name": "Session reconnected to a winstation",
+    "log": "Security",
+    "mitre": "T1021.001",
+    "description": "A session was reconnected to a Windows station (RDP).",
+    "indicators": ["RDP activity"],
+    "investigation": "RDP reconnects from unexpected source IPs or at odd hours — check 4779 disconnect and 4624 LogonType 10."
+  },
+  {
+    "id": 4779,
+    "name": "Session disconnected from a winstation",
+    "log": "Security",
+    "mitre": "T1021.001",
+    "description": "A session was disconnected from a Windows station.",
+    "indicators": ["RDP activity"],
+    "investigation": "Strange RDP session durations may point to hijacked interactive sessions."
+  },
+  {
+    "id": 4798,
+    "name": "User's local group membership enumerated",
+    "log": "Security",
+    "mitre": "T1069.001",
+    "description": "A user's local group membership was enumerated.",
+    "indicators": ["Reconnaissance", "Privilege discovery"],
+    "investigation": "Repeated enumeration of privileged groups (net localgroup administrators) by non-admin = discovery phase."
+  },
+  {
+    "id": 4688,
+    "name": "Process creation",
+    "log": "Security",
+    "mitre": "T1059",
+    "description": "A new process was created.",
+    "indicators": ["Execution", "Command line evidence", "LOLBins"],
+    "investigation": "The core execution signal when command-line auditing is on (GPO Audit Process Creation). Hunt for LOLBins (rundll32, mshta, regsvr32), encoded PowerShell, and unusual parent-child chains."
+  },
+  {
+    "id": 4689,
+    "name": "Process terminated",
+    "log": "Security",
+    "mitre": "T1059",
+    "description": "A process was terminated.",
+    "indicators": ["Process lifecycle"],
+    "investigation": "Abrupt termination of AV/EDR processes may indicate anti-forensics tooling (correlate with 4688 for TASKKILL/kill)."
+  },
+  {
+    "id": 5140,
+    "name": "Network share object accessed",
+    "log": "Security",
+    "mitre": "T1021.002",
+    "description": "A network share object was accessed.",
+    "indicators": ["Lateral movement", "Data staging"],
+    "investigation": "ADMIN$/C$ access from workstations or enumeration of many shares (4688 net view) = staging or tool deployment."
+  },
+  {
+    "id": 5145,
+    "name": "Detailed file share access",
+    "log": "Security",
+    "mitre": "T1039",
+    "description": "Detailed file share access audit.",
+    "indicators": ["Data exfiltration", "Lateral movement"],
+    "investigation": "Mass reads of sensitive shares, sensitive file extensions (.dmp, .pst, .bak) from one machine, or tarball creation in shares."
+  },
+  {
+    "id": 7045,
+    "name": "New service installed",
+    "log": "System",
+    "mitre": "T1543.003",
+    "description": "A new service was installed.",
+    "indicators": ["Persistence", "C2 service"],
+    "investigation": "Services with ImagePath outside Program Files, pointing to temp/Public dirs, or non-msi installers — classic persistence. Correlate with 4688 for sc.exe/create."
+  },
+  {
+    "id": 7040,
+    "name": "Service start type changed",
+    "log": "System",
+    "mitre": "T1543.003",
+    "description": "The start type of a service was changed.",
+    "indicators": ["Persistence modification"],
+    "investigation": "Service changed to AUTO_START by non-admin context — persistence setup."
+  },
+  {
+    "id": 7036,
+    "name": "Service state changed",
+    "log": "System",
+    "mitre": "T1543.003",
+    "description": "The service entered the running/stopped state.",
+    "indicators": ["Service lifecycle", "Disruption"],
+    "investigation": "Stopping of security services (Defender, wscsvc) is high signal for antivirus kill."
+  },
+  {
+    "id": 7001,
+    "name": "Service start failed",
+    "log": "System",
+    "mitre": "T1543.003",
+    "description": "A service failed to start.",
+    "indicators": ["Service abuse attempt"],
+    "investigation": "Failed launches of injected/registry-hijacked services may reveal persistence attempts."
+  },
+  {
+    "id": 4698,
+    "name": "Scheduled task created",
+    "log": "Security",
+    "mitre": "T1053.005",
+    "description": "A scheduled task was created.",
+    "indicators": ["Persistence", "Privilege escalation"],
+    "investigation": "Tasks with Action that references temp/appdata paths or powershell -enc — frequent persistence. Note TaskContent field when enabled."
+  },
+  {
+    "id": 4700,
+    "name": "Scheduled task enabled",
+    "log": "Security",
+    "mitre": "T1053.005",
+    "description": "A scheduled task was enabled.",
+    "indicators": ["Persistence activation"],
+    "investigation": "Newly enabled tasks after initial compromise — check creator and task content."
+  },
+  {
+    "id": 4702,
+    "name": "Scheduled task updated",
+    "log": "Security",
+    "mitre": "T1053.005",
+    "description": "A scheduled task was updated.",
+    "indicators": ["Persistence modification"],
+    "investigation": "Tasks updated to run with highest privileges or new binary path — persistence mutation."
+  },
+  {
+    "id": 4104,
+    "name": "PowerShell script block logging",
+    "log": "PowerShell",
+    "mitre": "T1059.001",
+    "description": "PowerShell script block logged (full command content).",
+    "indicators": ["PowerShell abuse", "Obfuscation bypass evidence"],
+    "investigation": "Search for -enc, IEX, DownloadString, Reflection, and suspicious large script blocks. Correlate ScriptBlockId with 4103 and 400."
+  },
+  {
+    "id": 4103,
+    "name": "PowerShell module logging",
+    "log": "PowerShell",
+    "mitre": "T1059.001",
+    "description": "PowerShell module logging entry.",
+    "indicators": ["PowerShell command evidence"],
+    "investigation": "Module logging reveals cmdlet usage (Invoke-Mimikatz, Get-Content) when script block logging is bypassed."
+  },
+  {
+    "id": 400,
+    "name": "PowerShell engine state change",
+    "log": "PowerShell",
+    "mitre": "T1059.001",
+    "description": "PowerShell engine started/stopped.",
+    "indicators": ["PowerShell execution lifecycle"],
+    "investigation": "Engine starts from non-shell parents (Word, Excel, svchost) = execution flow abuse; correlate with 800/4104 for content."
+  },
+  {
+    "id": 800,
+    "name": "PowerShell pipeline execution details",
+    "log": "PowerShell",
+    "mitre": "T1059.001",
+    "description": "PowerShell pipeline execution details.",
+    "indicators": ["PowerShell command history"],
+    "investigation": "Provides command invocation with parameters — good fallback when script block logging is off."
+  },
+  {
+    "id": 5857,
+    "name": "WMI activity started",
+    "log": "Microsoft-Windows-WMI-Activity/Operational",
+    "mitre": "T1047",
+    "description": "WMI activity started (creator process).",
+    "indicators": ["WMI abuse", "Lateral movement"],
+    "investigation": "wmic.exe/PowerShell creating WMI processes on RDP-accessed hosts — flag creator PID + process correlation."
+  },
+  {
+    "id": 5860,
+    "name": "WMI permanent event subscription created",
+    "log": "Microsoft-Windows-WMI-Activity/Operational",
+    "mitre": "T1546.003",
+    "description": "WMI permanent event subscription created.",
+    "indicators": ["WMI persistence"],
+    "investigation": "Permanent event subscriptions (EventFilter+EventConsumer) referencing script/executable — silent persistence; correlate with 2810 on MDM side."
+  },
+  {
+    "id": 1116,
+    "name": "Defender malware detected",
+    "log": "Microsoft-Windows-Windows Defender/Operational",
+    "mitre": "T1055",
+    "description": "Windows Defender detected malware.",
+    "indicators": ["Malware detection", "First-seen weapons"],
+    "investigation": "Detection on one machine + downloader artifacts elsewhere = P2P kill chain; capture ThreatName, Path, and correlate with process creation."
+  },
+  {
+    "id": 1117,
+    "name": "Defender action taken",
+    "log": "Microsoft-Windows-Windows Defender/Operational",
+    "mitre": "T1055",
+    "description": "Windows Defender action taken on detected malware.",
+    "indicators": ["Malware response"],
+    "investigation": "Review Action enum (blocked/removed/quarantined) and whether user excluded the path afterwards (registry tampering)."
+  },
+  {
+    "id": 2003,
+    "name": "Defender engine status",
+    "log": "Microsoft-Windows-Windows Defender/Operational",
+    "mitre": "T1562.001",
+    "description": "Windows Defender engine/definition state changed.",
+    "indicators": ["AV disable", "Stale definitions"],
+    "investigation": "Engine update failures / status turning off across fleet = AV tampering or group policy drift."
+  },
+  {
+    "id": 1002,
+    "name": "Defender unexpected error",
+    "log": "Microsoft-Windows-Windows Defender/Operational",
+    "mitre": "T1562.001",
+    "description": "Windows Defender reported an unexpected error.",
+    "indicators": ["AV tampering"],
+    "investigation": "Errors after tamper-protection disable attempts — check for WMI/registry exclusions being added (event 5007/5001)."
+  },
+  {
+    "id": 5156,
+    "name": "Windows Filtering Platform connection",
+    "log": "Security",
+    "mitre": "TA0011",
+    "description": "The Windows Filtering Platform allowed a connection.",
+    "indicators": ["Network connections", "C2 egress"],
+    "investigation": "Compare against allowlist for beaconing (fixed interval, low volume) and unusual destination ports; correlate with DNS 22 events."
+  },
+  {
+    "id": 5157,
+    "name": "WFP connection blocked",
+    "log": "Security",
+    "mitre": "TA0011",
+    "description": "The Windows Filtering Platform blocked a connection.",
+    "indicators": ["Blocked lateral movement / malware"],
+    "investigation": "Repeated blocked attempts to internal IPs = propagation probing; to external = exfil attempt."
+  },
+  {
+    "id": 40962,
+    "name": "Kernel file system driver loaded",
+    "log": "Microsoft-Windows-Kernel-File/CVE",
+    "mitre": "T1547.006",
+    "description": "Kernel filesystem driver loaded (file less than 1MB / memory-only detection).",
+    "indicators": ["Rootkit driver"],
+    "investigation": "Memory-only driver loads (no file) — likely rootkit; inspect kernel memory."
+  },
+  {
+    "id": 1,
+    "name": "Sysmon process creation",
+    "log": "Microsoft-Windows-Sysmon/Operational",
+    "mitre": "T1059",
+    "description": "Sysmon process creation with hash, integrity level, parent chain.",
+    "indicators": ["Full process chain", "Hash evidence"],
+    "investigation": "The definitive process signal: includes SHA256, parent PID/GUID ordering, integrity level. Hunt parent-child anomalies (Word→powershell)."
+  },
+  {
+    "id": 3,
+    "name": "Sysmon network connection",
+    "log": "Microsoft-Windows-Sysmon/Operational",
+    "mitre": "TA0011",
+    "description": "Sysmon network connection detected.",
+    "indicators": ["C2 beaconing", "Exfiltration"],
+    "investigation": "Beacon interval analysis (dstip:port fixed, 20-60s cadence), unknown destinations per process, and TCP connect to ephemeral external ports."
+  },
+  {
+    "id": 5,
+    "name": "Sysmon process terminated",
+    "log": "Microsoft-Windows-Sysmon/Operational",
+    "mitre": "T1059",
+    "description": "Sysmon process terminated.",
+    "indicators": ["Process lifecycle"],
+    "investigation": "Termination of critical security tools or agents by injected processes."
+  },
+  {
+    "id": 6,
+    "name": "Sysmon driver loaded",
+    "log": "Microsoft-Windows-Sysmon/Operational",
+    "mitre": "T1547.006",
+    "description": "Sysmon driver loaded.",
+    "indicators": ["Kernel driver activity"],
+    "investigation": "Unknown/malicious kernel drivers — compare loaded driver hashes against catalog."
+  },
+  {
+    "id": 7,
+    "name": "Sysmon image loaded",
+    "log": "Microsoft-Windows-Sysmon/Operational",
+    "mitre": "T1055",
+    "description": "Sysmon image (DLL) loaded.",
+    "indicators": ["DLL sideloading", "Process injection prep"],
+    "investigation": "Loads of unsigned DLLs from temp/writable paths into signed binaries (signed→suspicious DLL) — sideloading detection."
+  },
+  {
+    "id": 8,
+    "name": "Sysmon CreateRemoteThread",
+    "log": "Microsoft-Windows-Sysmon/Operational",
+    "mitre": "T1055",
+    "description": "Sysmon CreateRemoteThread detected.",
+    "indicators": ["Process injection"],
+    "investigation": "Cross-process thread creation into lsass.exe or svchost.exe from non-system processes — injection; verify with memory analysis."
+  },
+  {
+    "id": 10,
+    "name": "Sysmon process access",
+    "log": "Microsoft-Windows-Sysmon/Operational",
+    "mitre": "T1003.001",
+    "description": "Sysmon process accessed (OpenProcess).",
+    "indicators": ["LSASS access", "Credential dumping"],
+    "investigation": "PROCESS_ALL_ACCESS (0x1FFFFF) opens on lsass by non-system processes — mimikatz/prelude; correlate with 4688."
+  },
+  {
+    "id": 11,
+    "name": "Sysmon file create",
+    "log": "Microsoft-Windows-Sysmon/Operational",
+    "mitre": "T1074",
+    "description": "Sysmon file created.",
+    "indicators": ["Malware drop", "Staging"],
+    "investigation": "Executables/scripts written to %APPDATA%, %TEMP%, Public dirs, or ProgramData — drop artifact detection; hash new binaries."
+  },
+  {
+    "id": 12,
+    "name": "Sysmon registry event",
+    "log": "Microsoft-Windows-Sysmon/Operational",
+    "mitre": "T1112",
+    "description": "Sysmon registry value/object set or deleted.",
+    "indicators": ["Persistence keys", "Run keys"],
+    "investigation": "Writes to Run/RunOnce keys, service ImagePath, winlogon shell — persistence registration; target object names are the hunt key."
+  },
+  {
+    "id": 13,
+    "name": "Sysmon registry value set",
+    "log": "Microsoft-Windows-Sysmon/Operational",
+    "mitre": "T1112",
+    "description": "Sysmon registry value set.",
+    "indicators": ["Persistence", "SQLite stores"],
+    "investigation": "New/deleted values under Run*, Services, and AppCertDLLs — pairwise with 12 for object-level granularity."
+  },
+  {
+    "id": 22,
+    "name": "Sysmon DNS query",
+    "log": "Microsoft-Windows-Sysmon/Operational",
+    "mitre": "T1568",
+    "description": "Sysmon DNS query recorded.",
+    "indicators": ["DNS tunneling", "C2 DGA", "Domain generation"],
+    "investigation": "High-entropy subdomains (XORShift DGA lookalike), large TXT queries, NXDOMAIN storms, or known-bad domains; correlate with 3 for resolution."
+  },
+  {
+    "id": 23,
+    "name": "Sysmon file delete (archive)",
+    "log": "Microsoft-Windows-Sysmon/Operational",
+    "mitre": "T1485",
+    "description": "Sysmon file delete archived (moved to quarantine).",
+    "indicators": ["Data deletion"],
+    "investigation": "Mass deletion of files by unusual processes = destructive attack or cleanup."
+  },
+  {
+    "id": 26,
+    "name": "Sysmon file delete",
+    "log": "Microsoft-Windows-Sysmon/Operational",
+    "mitre": "T1485",
+    "description": "Sysmon file delete (no archive).",
+    "indicators": ["Data destruction"],
+    "investigation": "Terminate-file deletes without archive on critical paths — ransomware defrag/shadow-copy related activity."
+  }
+]

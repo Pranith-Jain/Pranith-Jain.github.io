@@ -1,0 +1,13 @@
+{
+  "plugin": "lsadump",
+  "version": "both",
+  "purpose": "LSA secrets (cached credentials, service passwords).",
+  "category": "Credentials",
+  "example": "volatility -f image.mem lsadump",
+  "mitre": "T1003.004",
+  "notes": "Cached domain credentials — pivot to domain-wide check.",
+  "indicators": "",
+  "slug": "memory-lsadump",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

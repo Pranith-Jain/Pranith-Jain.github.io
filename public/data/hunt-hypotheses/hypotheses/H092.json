@@ -1,0 +1,11 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1072",
+  "title": "Software deployment tool abuse",
+  "hypothesis": "An attacker used the software deployment platform for executable push.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'psexec.exe' or FileName == 'paexec.exe' | where ProcessCommandLine contains '\\\\' and ProcessCommandLine contains ' -s'"
+  ],
+  "rationale": "psexec -s remote push = movement/exec channel.",
+  "id": "H092"
+}

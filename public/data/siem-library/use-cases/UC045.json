@@ -1,0 +1,13 @@
+{
+  "id": "UC045",
+  "name": "SSH login from new IP for established account",
+  "category": "Cloud / Linux",
+  "mitre": "T1078",
+  "severity": "Medium",
+  "kql": "LinuxLogs | where ProcessName == 'sshd' | where Message contains 'Accepted password' | where IpAddress !in (knownAdminIPs)",
+  "spl": "index=linux sourcetype=linux:syslog sshd.*Accepted* | lookup admin_ips.csv IP",
+  "dataSource": "sshd syslog",
+  "fpRate": "Medium",
+  "tuning": "First-seen IP per account over 30d window.",
+  "apt": "Operators with fresh C2 infra"
+}

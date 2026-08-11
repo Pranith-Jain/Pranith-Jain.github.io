@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1547.010",
+  "title": "Port Monitor persistence",
+  "hypothesis": "An attacker registered a port monitor DLL for print-spooler persistence.",
+  "queries": [
+    "DeviceRegistryEvents | where RegistryKey contains '\\\\Print\\\\Monitors' | where RegistryValueData contains '.dll'"
+  ],
+  "rationale": "Print monitors autoload DLLs as SYSTEM.",
+  "id": "H136"
+}

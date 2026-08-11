@@ -1,0 +1,13 @@
+{
+  "id": "UC047",
+  "name": "Suspicious Account.Name contains 'svc' but not service",
+  "category": "Active Directory",
+  "mitre": "T1078",
+  "severity": "Medium",
+  "kql": "SecurityEvent | where EventID == 4624 | where Account endswith 'svc' or Account startswith 'svc_' | where LogonType == 3 | where Account !in (knownSvcAccounts)",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4624 User=*svc* LogonType=3",
+  "dataSource": "Security 4624",
+  "fpRate": "Medium",
+  "tuning": "Unknown svc accounts with network logon → credential reuse.",
+  "apt": "Service-account attacks"
+}

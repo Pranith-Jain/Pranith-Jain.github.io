@@ -1,0 +1,13 @@
+{
+  "plugin": "strings",
+  "version": "both",
+  "purpose": "Extract printable strings from memory regions.",
+  "category": "Hunting",
+  "example": "volatility -f image.mem strings -s image.mem > strs.txt",
+  "mitre": "T1059",
+  "notes": "Grep for URLs, mutexes, domain names, base64 blobs.",
+  "indicators": "C2 URLs, named pipes, unique mutexes.",
+  "slug": "memory-strings",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

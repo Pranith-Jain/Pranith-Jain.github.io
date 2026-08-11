@@ -1,0 +1,11 @@
+{
+  "tactic": "Execution",
+  "technique": "T1059.005",
+  "title": "VBScript host use",
+  "hypothesis": "cscript/wscript ran a script from a writable location.",
+  "queries": [
+    "DeviceProcessEvents | where FileName has_any ('cscript.exe','wscript.exe') | where ProcessCommandLine contains 'Users\\\\' or ProcessCommandLine contains 'Temp'"
+  ],
+  "rationale": "Launching scripts from user-writable dirs = LNK/HTA chain.",
+  "id": "H011"
+}

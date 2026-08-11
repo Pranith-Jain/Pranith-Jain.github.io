@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1012",
+  "title": "Registry discovery",
+  "hypothesis": "An attacker queried registry for config/secrets.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'reg.exe' | where ProcessCommandLine contains 'query' | where ProcessCommandLine contains 'CurrentVersion\\\\Run' or ProcessCommandLine contains 'Winlogon'"
+  ],
+  "rationale": "Enumeration of autostart keys = persistence recon.",
+  "id": "H086"
+}

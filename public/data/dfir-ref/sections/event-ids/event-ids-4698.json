@@ -1,0 +1,12 @@
+{
+  "id": 4698,
+  "name": "Scheduled task created",
+  "log": "Security",
+  "mitre": "T1053.005",
+  "description": "A scheduled task was created.",
+  "indicators": ["Persistence", "Privilege escalation"],
+  "investigation": "Tasks with Action that references temp/appdata paths or powershell -enc — frequent persistence. Note TaskContent field when enabled.",
+  "slug": "event-ids-4698",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

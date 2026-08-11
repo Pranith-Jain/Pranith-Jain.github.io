@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1555.003",
+  "title": "Credentials in memory of RDP clients",
+  "hypothesis": "An attacker dumped credentials from Password Manager / RDP clients memory.",
+  "queries": [
+    "DeviceProcessEvents | where FileName in ('mstsc.exe','creddump','ProcDump') | where ProcessCommandLine contains 'mstsc' and ProcessCommandLine contains 'saved'"
+  ],
+  "rationale": "RDP client memory dumps = saved-credential extraction.",
+  "id": "H142"
+}

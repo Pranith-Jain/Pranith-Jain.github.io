@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1568.001",
+  "title": "Domain fronting",
+  "hypothesis": "An attacker used domain fronting (HTTPS host header mismatch) for C2.",
+  "queries": [
+    "DeviceNetworkEvents | where RemoteUrl startswith 'https://' | where InitiatingProcessFileName != 'browser' | where ActionType == 'DnsQuery' and RemoteUrl !endswith proxyAllowedDomains"
+  ],
+  "rationale": "HTTPS resolvers that aren't allowed destinations = fronting.",
+  "id": "H153"
+}

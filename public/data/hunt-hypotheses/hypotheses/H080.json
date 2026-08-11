@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1082",
+  "title": "System information gathering",
+  "hypothesis": "An attacker collected host info (OS, patches, AV) for exploit matching.",
+  "queries": [
+    "DeviceProcessEvents | where ProcessCommandLine has_any ('systeminfo','whoami /all','tasklist') | where count() by InitiatingProcessFileName, bin(TimeGenerated,1h) >= 5"
+  ],
+  "rationale": "Batch systeminfo/tasklist loops = fingerprinting.",
+  "id": "H080"
+}

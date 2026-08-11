@@ -1,0 +1,11 @@
+{
+  "browser": "Firefox",
+  "artifact": "logins.json + key4.db",
+  "path": "%APPDATA%\\Mozilla\\Firefox\\Profiles\\<profile>\\",
+  "evidence": "Saved passwords (logins.json encrypted with key4.db master key).",
+  "tools": "FirefoxDecrypt, ffpass",
+  "note": "Master key in key4.db protected by OS keyring / primary password.",
+  "slug": "browser-logins-json-key4-db",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

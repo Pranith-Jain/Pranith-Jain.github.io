@@ -1,0 +1,11 @@
+{
+  "browser": "Chrome",
+  "artifact": "Web Data",
+  "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Web Data",
+  "evidence": "Autofill form data (names, emails, addresses typed into forms).",
+  "tools": "DB Browser, Hindsight",
+  "note": "Autofill reveals OSINT profiles even when History is cleared.",
+  "slug": "browser-web-data",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

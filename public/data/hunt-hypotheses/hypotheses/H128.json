@@ -1,0 +1,11 @@
+{
+  "tactic": "Impact",
+  "technique": "T1499",
+  "title": "Resource exhaustion DoS",
+  "hypothesis": "A host was used to flood internal/external targets.",
+  "queries": [
+    "DeviceNetworkEvents | where ActionType == 'OutboundConnection' | where RemotePort not in (80,443,53) | where InitiatingProcessFileName in (sysProcesses) and InitiatingProcessFileName != 'svchost.exe' | summarize count() by RemoteIP | where count_ > 1000"
+  ],
+  "rationale": "Volumetric odd-port traffic = DoS participation.",
+  "id": "H128"
+}

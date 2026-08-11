@@ -1,0 +1,8 @@
+{
+  "id": "CHQ28",
+  "name": "Firewall rule allowing 0.0.0.0/0 (GCP)",
+  "provider": "GCP",
+  "mitre": "T1135",
+  "desc": "Public ingress to GCP VMs.",
+  "kql": "GCPAuditLogs | where operation.method == 'compute.firewalls.insert' | where request contains '0.0.0.0/0'"
+}

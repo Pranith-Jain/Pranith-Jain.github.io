@@ -1,0 +1,11 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1036.005",
+  "title": "Masquerading as system binary name",
+  "hypothesis": "An attacker copied a binary under a system name in a writable path.",
+  "queries": [
+    "DeviceProcessEvents | where FileName has_any ('svchost.exe','rundll32.exe','lsass.exe','explorer.exe') | where FolderPath contains 'Users\\\\' or FolderPath contains 'Temp'"
+  ],
+  "rationale": "System-named binaries outside System32 = masquerading.",
+  "id": "H057"
+}

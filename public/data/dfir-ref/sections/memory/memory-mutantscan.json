@@ -1,0 +1,13 @@
+{
+  "plugin": "mutantscan",
+  "version": "both",
+  "purpose": "Scan kernel mutex objects.",
+  "category": "Hunting",
+  "example": "volatility -f image.mem mutantscan",
+  "mitre": "T1055",
+  "notes": "Malware mutexes (e.g. Global\\MZ-* for Qakbot) fingerprint families.",
+  "indicators": "",
+  "slug": "memory-mutantscan",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

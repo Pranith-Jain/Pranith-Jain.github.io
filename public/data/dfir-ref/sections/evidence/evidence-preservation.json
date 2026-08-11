@@ -1,0 +1,16 @@
+{
+  "phase": "Preservation",
+  "name": "Preserve original evidence",
+  "steps": [
+    "Write-block the source media; never boot the original disk r/w.",
+    "Image with verified hashes (SHA-256) before and after acquisition; record hash values.",
+    "For live systems: capture memory first, then acquire logical files (hiberfil.sys, pagefile, unallocated where feasible).",
+    "Disable backup overwrites; snapshot cloud VM volumes before further access.",
+    "Keep the original evidence byte-for-byte untouched; work only on copies."
+  ],
+  "tools": "FTK Imager, dd/ewfacquire, Guymager, cloud snapshot APIs",
+  "notes": "The verified hash is the single most challenged item in court — record both source and copy hashes.",
+  "slug": "evidence-preservation",
+  "section": "evidence",
+  "sectionLabel": "Evidence Collection & Chain of Custody"
+}

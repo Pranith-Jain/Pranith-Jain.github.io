@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { _test_evaluateGrounding, _test_buildStoredSources } from '../../../src/case-study/discovery/agentic-trends';
+import {
+  _test_evaluateGrounding,
+  _test_buildStoredSources,
+  _test_extractCveIds,
+  _test_decideTrendAcceptance,
+} from '../../../src/case-study/discovery/agentic-trends';
 
 describe('agentic-trends stored-source filtering', () => {
   it('drops confirmed-broken URLs so they never reach extractSources / post.sources', () => {
@@ -112,5 +117,129 @@ describe('agentic-trends grounding gate', () => {
     });
     expect(result.hasRealSource).toBe(true);
     expect(result.realSources[0]).toContain('krebsonsecurity.com');
+  });
+});
+
+describe('extractCveIds', () => {
+  it('pulls well-formed CVE ids from title, rationale, hook, angle, entities', () => {
+    const ids = _test_extractCveIds({
+      title: 'CVE-2026-12345 in Acme',
+      type: 'cve',
+      rationale: 'Critical flaw.',
+      hook: 'A 9.8 RCE.',
+      angle: 'Mass exploitation.',
+      evidence: { entities: ['CVE-2026-99999'] },
+      trendingSignal: 0.9,
+    });
+    expect(ids).toEqual(['CVE-2026-12345', 'CVE-2026-99999']);
+  });
+
+  it('deduplicates CVE ids across fields', () => {
+    const ids = _test_extractCveIds({
+      title: 'CVE-2026-11111',
+      type: 'cve',
+      rationale: 'See CVE-2026-11111.',
+      hook: '',
+      angle: '',
+      evidence: {},
+      trendingSignal: 0.8,
+    });
+    expect(ids).toEqual(['CVE-2026-11111']);
+  });
+
+  it('rejects out-of-range years', () => {
+    const ids = _test_extractCveIds({
+      title: 'CVE-2019-99999',
+      type: 'cve',
+      rationale: 'Old vuln.',
+      hook: '',
+      angle: '',
+      evidence: {},
+      trendingSignal: 0.5,
+    });
+    expect(ids).toEqual([]);
+  });
+});
+
+describe('decideTrendAcceptance', () => {
+  it('accepts when at least one source URL is verified ok', () => {
+    const r = _test_decideTrendAcceptance({
+      hasRealSource: true,
+      hasRealCve: true,
+      sourceStatuses: { 'https://example.com/a': 'unchecked', 'https://example.com/b': 'ok' },
+    });
+    expect(r.accepted).toBe(true);
+  });
+
+  it('rejects when all sources are unchecked (WAF block / HEAD-200 fake slug)', () => {
+    const r = _test_decideTrendAcceptance({
+      hasRealSource: true,
+      hasRealCve: false,
+      sourceStatuses: { 'https://example.com/fake': 'unchecked' },
+    });
+    expect(r.accepted).toBe(false);
+    expect(r.reason).toMatch(/unchecked/);
+  });
+
+  it('rejects when at least one source is confirmed broken and none ok', () => {
+    const r = _test_decideTrendAcceptance({
+      hasRealSource: true,
+      hasRealCve: true,
+      sourceStatuses: { 'https://example.com/a': 'broken', 'https://example.com/b': 'unchecked' },
+    });
+    expect(r.accepted).toBe(false);
+    expect(r.reason).toMatch(/broken/);
+  });
+
+  it('accepts CVE-only candidate when NVD probe found ok', () => {
+    const r = _test_decideTrendAcceptance({
+      hasRealSource: false,
+      hasRealCve: true,
+      sourceStatuses: {},
+      cveStatuses: { 'CVE-2026-12345': 'ok' },
+    });
+    expect(r.accepted).toBe(true);
+  });
+
+  it('accepts CVE-only candidate when NVD probe is unchecked (benefit of doubt)', () => {
+    const r = _test_decideTrendAcceptance({
+      hasRealSource: false,
+      hasRealCve: true,
+      sourceStatuses: {},
+      cveStatuses: { 'CVE-2026-99999': 'unchecked' },
+    });
+    expect(r.accepted).toBe(true);
+  });
+
+  it('rejects CVE-only candidate when every named CVE is missing from NVD', () => {
+    const r = _test_decideTrendAcceptance({
+      hasRealSource: false,
+      hasRealCve: true,
+      sourceStatuses: {},
+      cveStatuses: { 'CVE-2025-1234': 'broken', 'CVE-2026-99999': 'broken' },
+    });
+    expect(r.accepted).toBe(false);
+    expect(r.reason).toMatch(/every named CVE missing from NVD/);
+  });
+
+  it('rejects ungrounded candidate (no sources, no CVE)', () => {
+    const r = _test_decideTrendAcceptance({
+      hasRealSource: false,
+      hasRealCve: false,
+      sourceStatuses: {},
+    });
+    expect(r.accepted).toBe(false);
+    expect(r.reason).toMatch(/ungrounded/);
+  });
+
+  it('falls through to CVE gate when source check failed (no ok source)', () => {
+    const r = _test_decideTrendAcceptance({
+      hasRealSource: true,
+      hasRealCve: true,
+      sourceStatuses: { 'https://example.com/fake': 'unchecked' },
+      cveStatuses: { 'CVE-2026-12345': 'ok' },
+    });
+    // Source gate rejects (no ok), but CVE probe accepts → accepted overall.
+    expect(r.accepted).toBe(true);
   });
 });

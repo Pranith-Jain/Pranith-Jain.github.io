@@ -1,0 +1,13 @@
+{
+  "id": "UC002",
+  "name": "Certutil download of executable",
+  "category": "Ransomware",
+  "mitre": "T1140",
+  "severity": "High",
+  "kql": "DeviceProcessEvents | where FileName == 'certutil.exe' and ProcessCommandLine matches regex @'(-urlcache|-verifyctl|-decodehex)' and (ProcessCommandLine contains '.exe' or ProcessCommandLine contains '.dll' or ProcessCommandLine contains '.ps1')",
+  "spl": "index=windows sourcetype=ProcessRollup2 OR sourcetype=Sysmon:ProcessCreation Image=*\\\\certutil.exe (CommandLine=*-urlcache* OR CommandLine=*-verifyctl*)",
+  "dataSource": "EDR / Sysmon 1",
+  "fpRate": "Low",
+  "tuning": "Exclude IT-approved script update jobs; verify destination path under TEMP/Public before alerting.",
+  "apt": "Ryuk, pre-ransom activity, many commodity loaders"
+}

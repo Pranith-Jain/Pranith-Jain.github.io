@@ -1,0 +1,13 @@
+{
+  "plugin": "screenshot",
+  "version": "both",
+  "purpose": "Extract screenshot(s) of desktop from memory (Windows 7+).",
+  "category": "User Activity",
+  "example": "volatility -f image.mem screenshot --dump-dir=out/",
+  "mitre": "T1056",
+  "notes": "Show what the user saw — great for briefing execs.",
+  "indicators": "",
+  "slug": "memory-screenshot",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

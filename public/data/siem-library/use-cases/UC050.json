@@ -1,0 +1,13 @@
+{
+  "id": "UC050",
+  "name": "File copy to hidden share / exfil staging",
+  "category": "Exfiltration",
+  "mitre": "T1567.001",
+  "severity": "High",
+  "kql": "DeviceFileEvents | where FileName has_any ('.zip','.7z','.rar') | where FolderPath contains '\\\\Users\\\\' | where InitiatingProcessFileName has_any ('7z.exe','rar.exe','winrar.exe','tar.exe') | summarize count() by InitiatingProcessAccountName, bin(TimeGenerated, 1h) | where count_ >= 5",
+  "spl": "index=windows sourcetype=Sysmon:FileCreation EventCode=11 Image=*\\\\7z.exe OR Image=*\\\\rar.exe",
+  "dataSource": "Sysmon 11 / EDR",
+  "fpRate": "Medium",
+  "tuning": "rar/7z not in RMM tooling catalog + archive creation = staging",
+  "apt": "Exfil-stage in every ransomware break"
+}

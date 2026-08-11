@@ -1,0 +1,13 @@
+{
+  "id": "UC012",
+  "name": "SAM/SYSTEM hive copy attempt",
+  "category": "Credential Access",
+  "mitre": "T1003.002",
+  "severity": "Critical",
+  "kql": "DeviceFileEvents | where FileName in ('sam', 'system', 'security') | where FolderPath contains '\\\\Windows\\\\System32\\\\config' | where InitiatingProcessCommandLine contains 'reg save' or InitiatingProcessCommandLine contains 'vssadmin'",
+  "spl": "index=windows sourcetype=Sysmon:FileCreation EventCode=11 TargetFilename=*\\\\config\\\\SAM OR TargetFilename=*\\\\config\\\\SYSTEM",
+  "dataSource": "Sysmon 11 / EDR file events",
+  "fpRate": "Low",
+  "tuning": "config\\SAM reads via reg.exe save outside backup windows = dump attempt.",
+  "apt": "APTs extracting local hashes for PTH"
+}

@@ -1,0 +1,1 @@
+../../../worker/lib/cloud-ref-manifest.ts

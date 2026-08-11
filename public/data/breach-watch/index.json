@@ -1,21 +1,21 @@
 {
   "source": "ransomware.live + ransomlook.io + Darkfield + RecentBreaches.com + CTI.FYI + XposedOrNot",
   "license": "CC0 — public data from open trackers",
-  "replicatedAt": "2026-08-09T08:42:46.262Z",
-  "counts": { "breaches": 2644, "groups": 108, "categories": 3 },
-  "lastSyncedAt": "2026-08-09T08:42:46.262Z",
+  "replicatedAt": "2026-08-09T12:46:42.742Z",
+  "counts": { "breaches": 2645, "groups": 109, "categories": 3 },
+  "lastSyncedAt": "2026-08-09T12:46:42.742Z",
   "categories": [
-    { "key": "ransomware", "label": "Ransomware", "count": 1986 },
-    { "key": "data_breach", "label": "Data Breach", "count": 656 },
+    { "key": "ransomware", "label": "Ransomware", "count": 1991 },
+    { "key": "data_breach", "label": "Data Breach", "count": 652 },
     { "key": "credential_leak", "label": "Credential Leak", "count": 2 }
   ],
   "groups": [
+    { "name": "qilin", "count": 322, "topCategory": "ransomware" },
     { "name": "thegentlemen", "count": 321, "topCategory": "ransomware" },
-    { "name": "qilin", "count": 319, "topCategory": "ransomware" },
     { "name": "dragonforce", "count": 128, "topCategory": "ransomware" },
     { "name": "incransom", "count": 100, "topCategory": "ransomware" },
     { "name": "Deadlock", "count": 95, "topCategory": "ransomware" },
-    { "name": "akira", "count": 89, "topCategory": "ransomware" },
+    { "name": "akira", "count": 87, "topCategory": "ransomware" },
     { "name": "lockbit5", "count": 79, "topCategory": "ransomware" },
     { "name": "safepay", "count": 75, "topCategory": "ransomware" },
     { "name": "nova", "count": 73, "topCategory": "ransomware" },
@@ -27,8 +27,8 @@
     { "name": "genesis", "count": 40, "topCategory": "ransomware" },
     { "name": "cmdorganization", "count": 39, "topCategory": "ransomware" },
     { "name": "CRPxO", "count": 37, "topCategory": "data_breach" },
+    { "name": "shinyhunters", "count": 36, "topCategory": "ransomware" },
     { "name": "Orova", "count": 35, "topCategory": "data_breach" },
-    { "name": "shinyhunters", "count": 35, "topCategory": "ransomware" },
     { "name": "Global Secret Group", "count": 33, "topCategory": "data_breach" },
     { "name": "settra", "count": 31, "topCategory": "data_breach" },
     { "name": "everest", "count": 30, "topCategory": "ransomware" },
@@ -36,11 +36,11 @@
     { "name": "payload", "count": 28, "topCategory": "ransomware" },
     { "name": "spacebears", "count": 26, "topCategory": "data_breach" },
     { "name": "L Group", "count": 26, "topCategory": "data_breach" },
-    { "name": "l group", "count": 26, "topCategory": "data_breach" },
     { "name": "anubis", "count": 26, "topCategory": "ransomware" },
     { "name": "the gentlemen", "count": 25, "topCategory": "data_breach" },
     { "name": "coinbasecartel", "count": 24, "topCategory": "ransomware" },
     { "name": "pear", "count": 24, "topCategory": "ransomware" },
+    { "name": "l group", "count": 22, "topCategory": "data_breach" },
     { "name": "m3rx", "count": 21, "topCategory": "ransomware" },
     { "name": "worldleaks", "count": 21, "topCategory": "ransomware" },
     { "name": "aurora", "count": 20, "topCategory": "data_breach" },
@@ -64,7 +64,6 @@
     { "name": "shadowbyt3$", "count": 11, "topCategory": "data_breach" },
     { "name": "Icarus", "count": 10, "topCategory": "data_breach" },
     { "name": "Storm", "count": 9, "topCategory": "data_breach" },
-    { "name": "Leakeddata", "count": 9, "topCategory": "data_breach" },
     { "name": "SilentRansomGroup", "count": 9, "topCategory": "data_breach" },
     { "name": "blacknevas", "count": 9, "topCategory": "ransomware" },
     { "name": "kairos", "count": 9, "topCategory": "data_breach" },
@@ -76,9 +75,11 @@
     { "name": "termite", "count": 8, "topCategory": "data_breach" },
     { "name": "Doommageddon", "count": 8, "topCategory": "data_breach" },
     { "name": "morpheus", "count": 7, "topCategory": "data_breach" },
+    { "name": "Leakeddata", "count": 6, "topCategory": "data_breach" },
     { "name": "lynx", "count": 6, "topCategory": "data_breach" },
     { "name": "killsec", "count": 6, "topCategory": "data_breach" },
     { "name": "lapsus$", "count": 6, "topCategory": "data_breach" },
+    { "name": "Qilin", "count": 5, "topCategory": "ransomware" },
     { "name": "Helix", "count": 5, "topCategory": "data_breach" },
     { "name": "helix", "count": 5, "topCategory": "data_breach" },
     { "name": "securotrop", "count": 5, "topCategory": "data_breach" },
@@ -88,6 +89,7 @@
     { "name": "0day Syndicate", "count": 5, "topCategory": "data_breach" },
     { "name": "Panzer", "count": 4, "topCategory": "data_breach" },
     { "name": "coinbase cartel", "count": 4, "topCategory": "data_breach" },
+    { "name": "Coinbase Cartel", "count": 4, "topCategory": "data_breach" },
     { "name": "Gammax", "count": 4, "topCategory": "data_breach" },
     { "name": "Barracuda", "count": 4, "topCategory": "data_breach" },
     { "name": "Triple X", "count": 4, "topCategory": "data_breach" },
@@ -96,30 +98,79 @@
     { "name": "cloak", "count": 4, "topCategory": "data_breach" },
     { "name": "rhysida", "count": 4, "topCategory": "ransomware" },
     { "name": "direwolf", "count": 4, "topCategory": "data_breach" },
-    { "name": "Qilin", "count": 3, "topCategory": "ransomware" },
     { "name": "storm", "count": 3, "topCategory": "data_breach" },
     { "name": "blackwater", "count": 3, "topCategory": "data_breach" },
     { "name": "blackout", "count": 3, "topCategory": "data_breach" },
     { "name": "D1R", "count": 3, "topCategory": "ransomware" },
     { "name": "abyss", "count": 3, "topCategory": "ransomware" },
+    { "name": "Sovcali", "count": 2, "topCategory": "data_breach" },
     { "name": "inc ransom", "count": 2, "topCategory": "data_breach" },
     { "name": "cry0", "count": 2, "topCategory": "data_breach" },
     { "name": "Blackfield", "count": 2, "topCategory": "data_breach" },
     { "name": "embargo", "count": 2, "topCategory": "data_breach" },
     { "name": "Redact", "count": 2, "topCategory": "data_breach" },
     { "name": "fulcrumsec", "count": 2, "topCategory": "ransomware" },
-    { "name": "nitrogen", "count": 2, "topCategory": "data_breach" },
+    { "name": "ShinyHunters", "count": 1, "topCategory": "ransomware" },
     { "name": "Krybit", "count": 1, "topCategory": "ransomware" },
     { "name": "sovcali", "count": 1, "topCategory": "data_breach" },
     { "name": "panzer", "count": 1, "topCategory": "data_breach" },
-    { "name": "Coinbase Cartel", "count": 1, "topCategory": "data_breach" },
-    { "name": "INC Ransom", "count": 1, "topCategory": "data_breach" },
     { "name": "space bears", "count": 1, "topCategory": "data_breach" },
     { "name": "kyber", "count": 1, "topCategory": "data_breach" },
     { "name": "ransomexx", "count": 1, "topCategory": "data_breach" },
+    { "name": "nitrogen", "count": 1, "topCategory": "data_breach" },
     { "name": "beast", "count": 1, "topCategory": "data_breach" }
   ],
   "breachIndex": [
+    {
+      "slug": "qilin-phithan-phanich-2026-08-09",
+      "title": "Phithan Phanich",
+      "group": "qilin",
+      "discovered": "2026-08-09T11:00:35.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "TH",
+      "sizeBytes": 342
+    },
+    {
+      "slug": "qilin-grupo-diestra-2026-08-09",
+      "title": "Grupo Diestra",
+      "group": "qilin",
+      "discovered": "2026-08-09T10:59:54.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "PE",
+      "sizeBytes": 338
+    },
+    {
+      "slug": "qilin-universit-libre-de-bruxelles-2026-08-09",
+      "title": "Université Libre de Bruxelles",
+      "group": "qilin",
+      "discovered": "2026-08-09T10:59:21.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "BE",
+      "sizeBytes": 366
+    },
+    {
+      "slug": "shinyhunters-ali-2026-08-09",
+      "title": "Ali** **********",
+      "group": "shinyhunters",
+      "discovered": "2026-08-09T09:29:48.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 790
+    },
+    {
+      "slug": "sovcali-lucidmotors-2026-08-09",
+      "title": "Lucidmotors",
+      "group": "Sovcali",
+      "discovered": "2026-08-09T09:21:19.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "US",
+      "sizeBytes": 730
+    },
     {
       "slug": "qilin-service-dusinage-9002-2026-08-09",
       "title": "Service d'usinage 9002",
@@ -161,6 +212,46 @@
       "sizeBytes": 829
     },
     {
+      "slug": "shinyhunters-ali-2026-08-09",
+      "title": "Ali** **********",
+      "group": "ShinyHunters",
+      "discovered": "2026-08-09T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 398
+    },
+    {
+      "slug": "qilin-phithan-phanich-2026-08-09",
+      "title": "Phithan Phanich",
+      "group": "Qilin",
+      "discovered": "2026-08-09T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 392
+    },
+    {
+      "slug": "qilin-universit-libre-de-bruxelles-2026-08-09",
+      "title": "Université Libre de Bruxelles",
+      "group": "Qilin",
+      "discovered": "2026-08-09T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 433
+    },
+    {
+      "slug": "qilin-grupo-diestra-2026-08-09",
+      "title": "Grupo Diestra",
+      "group": "Qilin",
+      "discovered": "2026-08-09T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 386
+    },
+    {
       "slug": "krybit-studiotibaldi-it-2026-08-09",
       "title": "studiotibaldi.it",
       "group": "Krybit",
@@ -169,6 +260,16 @@
       "severity": "high",
       "country": null,
       "sizeBytes": 394
+    },
+    {
+      "slug": "qilin-service-dusinage-9002-2026-08-09",
+      "title": "Service d'usinage 9002",
+      "group": "Qilin",
+      "discovered": "2026-08-09T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": null,
+      "sizeBytes": 412
     },
     {
       "slug": "sovcali-lucidmotors-2026-08-08",
@@ -451,6 +552,106 @@
       "sizeBytes": 477
     },
     {
+      "slug": "qilin-impact-centre-chr-tien-2026-08-08",
+      "title": "Impact Centre Chrétien",
+      "group": "Qilin",
+      "discovered": "2026-08-08T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "HT",
+      "sizeBytes": 417
+    },
+    {
+      "slug": "sovcali-lucidmotors-2026-08-08",
+      "title": "Lucidmotors",
+      "group": "Sovcali",
+      "discovered": "2026-08-08T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 383
+    },
+    {
+      "slug": "leakeddata-rutan-tucker-llp-2026-08-08",
+      "title": "Rutan & Tucker, LLP",
+      "group": "Leakeddata",
+      "discovered": "2026-08-08T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 410
+    },
+    {
+      "slug": "leakeddata-moses-singer-2026-08-08",
+      "title": "Moses & Singer",
+      "group": "Leakeddata",
+      "discovered": "2026-08-08T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 397
+    },
+    {
+      "slug": "leakeddata-mayer-brown-2026-08-08",
+      "title": "Mayer Brown",
+      "group": "Leakeddata",
+      "discovered": "2026-08-08T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 392
+    },
+    {
+      "slug": "coinbase-cartel-m-b-kahn-construction-co-2026-08-08",
+      "title": "M. B. Kahn Construction Co.",
+      "group": "Coinbase Cartel",
+      "discovered": "2026-08-08T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 449
+    },
+    {
+      "slug": "coinbase-cartel-cen-and-cenelec-2026-08-08",
+      "title": "CEN and Cenelec",
+      "group": "Coinbase Cartel",
+      "discovered": "2026-08-08T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 419
+    },
+    {
+      "slug": "coinbase-cartel-mim-fertility-2026-08-08",
+      "title": "MIM Fertility",
+      "group": "Coinbase Cartel",
+      "discovered": "2026-08-08T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 413
+    },
+    {
+      "slug": "leakeddata-farella-braun-martel-llp-2026-08-08",
+      "title": "Farella Braun + Martel LLP",
+      "group": "Leakeddata",
+      "discovered": "2026-08-08T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 433
+    },
+    {
+      "slug": "leakeddata-barclay-damon-2026-08-08",
+      "title": "Barclay Damon",
+      "group": "Leakeddata",
+      "discovered": "2026-08-08T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": null,
+      "sizeBytes": 398
+    },
+    {
       "slug": "coinbase-cartel-xs-cad-2026-08-08",
       "title": "Xs Cad",
       "group": "Coinbase Cartel",
@@ -469,126 +670,6 @@
       "severity": "high",
       "country": null,
       "sizeBytes": 407
-    },
-    {
-      "slug": "leakeddata-barclay-damon-2026-08-08",
-      "title": "Barclay Damon",
-      "group": "Leakeddata",
-      "discovered": "2026-08-08T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 398
-    },
-    {
-      "slug": "leakeddata-rutan-tucker-llp-2026-08-08",
-      "title": "Rutan & Tucker, LLP",
-      "group": "Leakeddata",
-      "discovered": "2026-08-08T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 410
-    },
-    {
-      "slug": "leakeddata-farella-braun-martel-llp-2026-08-08",
-      "title": "Farella Braun + Martel LLP",
-      "group": "Leakeddata",
-      "discovered": "2026-08-08T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 433
-    },
-    {
-      "slug": "leakeddata-moses-singer-2026-08-08",
-      "title": "Moses & Singer",
-      "group": "Leakeddata",
-      "discovered": "2026-08-08T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 397
-    },
-    {
-      "slug": "qilin-clausing-2026-08-08",
-      "title": "Clausing",
-      "group": "Qilin",
-      "discovered": "2026-08-08T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "Germany",
-      "sizeBytes": 387
-    },
-    {
-      "slug": "leakeddata-porter-wright-2026-08-08",
-      "title": "Porter Wright",
-      "group": "Leakeddata",
-      "discovered": "2026-08-08T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 398
-    },
-    {
-      "slug": "leakeddata-fox-rothschild-llp-2026-08-08",
-      "title": "Fox Rothschild LLP",
-      "group": "Leakeddata",
-      "discovered": "2026-08-08T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 413
-    },
-    {
-      "slug": "leakeddata-marshall-dennehey-2026-08-08",
-      "title": "Marshall Dennehey",
-      "group": "Leakeddata",
-      "discovered": "2026-08-08T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 410
-    },
-    {
-      "slug": "qilin-clls-co-ltd-2026-08-08",
-      "title": "CLLS Co Ltd",
-      "group": "Qilin",
-      "discovered": "2026-08-08T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "Singapore",
-      "sizeBytes": 394
-    },
-    {
-      "slug": "leakeddata-floyd-skeren-manukian-langevin-llp-2026-08-08",
-      "title": "Floyd Skeren Manukian Langevin, LLP",
-      "group": "Leakeddata",
-      "discovered": "2026-08-08T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 462
-    },
-    {
-      "slug": "inc-ransom-louisville-bar-association-2026-08-08",
-      "title": "Louisville Bar Association",
-      "group": "INC Ransom",
-      "discovered": "2026-08-08T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 437
-    },
-    {
-      "slug": "qilin-impact-centre-chr-tien-2026-08-08",
-      "title": "Impact Centre Chrétien",
-      "group": "Qilin",
-      "discovered": "2026-08-08T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "HT",
-      "sizeBytes": 417
     },
     {
       "slug": "bravox-medicos-2026-08-07",
@@ -1677,7 +1758,7 @@
       "discovered": "2026-08-07T08:01:53.000Z",
       "category": "ransomware",
       "severity": "critical",
-      "country": null,
+      "country": "US",
       "sizeBytes": 980
     },
     {
@@ -2139,46 +2220,6 @@
       "severity": "high",
       "country": null,
       "sizeBytes": 1327
-    },
-    {
-      "slug": "l-group-onsite-eng-ca-2026-08-06",
-      "title": "onsite-eng.ca",
-      "group": "l group",
-      "discovered": "2026-08-06T22:17:05.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 828
-    },
-    {
-      "slug": "l-group-doclv-com-2026-08-06",
-      "title": "doclv.com",
-      "group": "l group",
-      "discovered": "2026-08-06T22:16:42.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 680
-    },
-    {
-      "slug": "l-group-www-upbrand-com-2026-08-06",
-      "title": "www.upbrand.com",
-      "group": "l group",
-      "discovered": "2026-08-06T22:16:14.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 993
-    },
-    {
-      "slug": "l-group-cookieskids-com-2026-08-06",
-      "title": "cookieskids.com",
-      "group": "l group",
-      "discovered": "2026-08-06T22:15:46.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": null,
-      "sizeBytes": 515
     },
     {
       "slug": "play-signature-services-2026-08-06",
@@ -3387,7 +3428,7 @@
       "discovered": "2026-08-05T13:12:19.000Z",
       "category": "data_breach",
       "severity": "high",
-      "country": "US",
+      "country": "CA",
       "sizeBytes": 682
     },
     {
@@ -4551,16 +4592,6 @@
       "sizeBytes": 667
     },
     {
-      "slug": "shinyhunters-questel-sas-2026-08-02",
-      "title": "Questel SAS",
-      "group": "shinyhunters",
-      "discovered": "2026-08-02T00:00:00.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "FR",
-      "sizeBytes": 642
-    },
-    {
       "slug": "shinyhunters-alcon-inc-2026-08-02",
       "title": "Alcon Inc.",
       "group": "shinyhunters",
@@ -4569,6 +4600,16 @@
       "severity": "critical",
       "country": "CH",
       "sizeBytes": 609
+    },
+    {
+      "slug": "shinyhunters-questel-sas-2026-08-02",
+      "title": "Questel SAS",
+      "group": "shinyhunters",
+      "discovered": "2026-08-02T00:00:00.000Z",
+      "category": "ransomware",
+      "severity": "critical",
+      "country": "FR",
+      "sizeBytes": 642
     },
     {
       "slug": "thegentlemen-philippine-savings-bank-2026-08-01",
@@ -20001,6 +20042,36 @@
       "sizeBytes": 376
     },
     {
+      "slug": "ulose-hize-aero-2026-06-09",
+      "title": "HIZE Aero",
+      "group": "ULose",
+      "discovered": "2026-06-09T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "KR",
+      "sizeBytes": 431
+    },
+    {
+      "slug": "ulose-nrcapital-2026-06-09",
+      "title": "NRCapital",
+      "group": "ULose",
+      "discovered": "2026-06-09T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "KR",
+      "sizeBytes": 409
+    },
+    {
+      "slug": "ulose-handok-2026-06-09",
+      "title": "HanDok",
+      "group": "ULose",
+      "discovered": "2026-06-09T00:00:00.000Z",
+      "category": "data_breach",
+      "severity": "high",
+      "country": "KR",
+      "sizeBytes": 388
+    },
+    {
       "slug": "ulose-msicapital-2026-06-09",
       "title": "MSICapital",
       "group": "ULose",
@@ -20019,36 +20090,6 @@
       "severity": "high",
       "country": "KR",
       "sizeBytes": 402
-    },
-    {
-      "slug": "ulose-nrcapital-2026-06-09",
-      "title": "NRCapital",
-      "group": "ULose",
-      "discovered": "2026-06-09T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "KR",
-      "sizeBytes": 409
-    },
-    {
-      "slug": "ulose-hize-aero-2026-06-09",
-      "title": "HIZE Aero",
-      "group": "ULose",
-      "discovered": "2026-06-09T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "KR",
-      "sizeBytes": 431
-    },
-    {
-      "slug": "ulose-handok-2026-06-09",
-      "title": "HanDok",
-      "group": "ULose",
-      "discovered": "2026-06-09T00:00:00.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "KR",
-      "sizeBytes": 388
     },
     {
       "slug": "termite-wiese-usa-2026-06-08",
@@ -26529,36 +26570,6 @@
       "severity": "critical",
       "country": "US",
       "sizeBytes": 988
-    },
-    {
-      "slug": "akira-circle-u-foods-2026-05-11",
-      "title": "Circle U Foods",
-      "group": "akira",
-      "discovered": "2026-05-11T12:20:42.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "US",
-      "sizeBytes": 842
-    },
-    {
-      "slug": "akira-nijborg-staal-2026-05-11",
-      "title": "Nijborg Staal",
-      "group": "akira",
-      "discovered": "2026-05-11T12:20:29.000Z",
-      "category": "ransomware",
-      "severity": "critical",
-      "country": "NL",
-      "sizeBytes": 834
-    },
-    {
-      "slug": "nitrogen-foxconn-2026-05-11",
-      "title": "FOXCONN",
-      "group": "nitrogen",
-      "discovered": "2026-05-11T11:23:46.000Z",
-      "category": "data_breach",
-      "severity": "high",
-      "country": "TW",
-      "sizeBytes": 560
     }
   ]
 }

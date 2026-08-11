@@ -1,0 +1,13 @@
+{
+  "plugin": "windows.malfind",
+  "version": "vol3",
+  "purpose": "Vol3 injected-code detector.",
+  "category": "Processes",
+  "example": "vol3 -f image.mem windows.malfind -p 4321",
+  "mitre": "T1055",
+  "notes": "",
+  "indicators": "",
+  "slug": "memory-windows-malfind",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

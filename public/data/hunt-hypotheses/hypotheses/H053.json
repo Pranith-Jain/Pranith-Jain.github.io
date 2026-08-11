@@ -1,0 +1,11 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1070.003",
+  "title": "Clear PowerShell console history",
+  "hypothesis": "An attacker cleared PowerShell history to hide commands.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'powershell.exe' | where ProcessCommandLine contains 'history' and ProcessCommandLine contains 'clear'"
+  ],
+  "rationale": "History clearing combos with early execution = cover-up.",
+  "id": "H053"
+}

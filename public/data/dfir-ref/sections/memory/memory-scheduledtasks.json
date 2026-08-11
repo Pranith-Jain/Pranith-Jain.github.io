@@ -1,0 +1,13 @@
+{
+  "plugin": "scheduledtasks",
+  "version": "both",
+  "purpose": "Scheduled tasks from memory.",
+  "category": "Persistence",
+  "example": "volatility -f image.mem scheduledtasks",
+  "mitre": "T1053.005",
+  "notes": "",
+  "indicators": "Tasks referencing temp scripts.",
+  "slug": "memory-scheduledtasks",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

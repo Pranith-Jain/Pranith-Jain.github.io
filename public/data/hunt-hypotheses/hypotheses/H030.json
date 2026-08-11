@@ -1,0 +1,9 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1098.004",
+  "title": "authorized_keys write (Linux)",
+  "hypothesis": "An attacker appended an SSH key to a user's authorized_keys.",
+  "queries": ["AuditdLogs | where type == 'PATH' | where name endswith 'authorized_keys' | where op != 'removed_attr'"],
+  "rationale": "authorized_keys modifications are high-signal persistence events.",
+  "id": "H030"
+}

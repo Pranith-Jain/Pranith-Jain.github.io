@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1574.001",
+  "title": "DLL search order hijack",
+  "hypothesis": "A writable dir was placed before system dirs in search order with attacker DLL.",
+  "queries": [
+    "DeviceImageLoadEvents | where FileName endswith '.dll' | where FolderPath contains 'Users\\\\' | where InitiatingProcessFileName in (signedApps)"
+  ],
+  "rationale": "Authenticated app loading user-written DLL = sideloading.",
+  "id": "H034"
+}

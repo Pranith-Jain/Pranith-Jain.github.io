@@ -1,0 +1,8 @@
+{
+  "id": "CHQ12",
+  "name": "Data transfer cost spike (exfil)",
+  "provider": "AWS",
+  "mitre": "T1041",
+  "desc": "Wide-open egress volume per instance = exfil.",
+  "kql": "AWSVPCFlow | where action == 'ACCEPT' | where dstAddr notin (privateNetworks) | summarize TotalBytes = sum(bytes) by srcInstanceId, bin(TimeGenerated, 1h) | where TotalBytes > threshold"
+}

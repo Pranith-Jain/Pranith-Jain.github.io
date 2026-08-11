@@ -1,0 +1,8 @@
+{
+  "id": "CHQ27",
+  "name": "IAM policy grant to allUsers (GCP)",
+  "provider": "GCP",
+  "mitre": "T1530",
+  "desc": "allUsers/allAuthenticatedUsers grants = public data access.",
+  "kql": "GCPAuditLogs | where operation.method == 'SetIamPolicy' | where resource.securityCenterProperties contains 'allUsers'"
+}

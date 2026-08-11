@@ -1,0 +1,201 @@
+{
+  "key": "dpdp",
+  "name": "DPDP Act 2023",
+  "year": "2023",
+  "description": "India's Digital Personal Data Protection Act, 2023 — obligations for Data Fiduciaries (DFs), rights of Data Principals (DPs), and penalties up to ₹250 crore per significant breach.",
+  "themes": ["Obligations", "Rights", "Breach & Penalties", "AI Mapper"],
+  "categories": [
+    {
+      "key": "obligations",
+      "name": "Data fiduciary obligations (s.8)",
+      "controls": [
+        {
+          "id": "D1",
+          "name": "Lawful processing",
+          "req": "Process personal data only for a lawful purpose (consent of the DP, or one of the specified legitimate uses in First Schedule)."
+        },
+        {
+          "id": "D2",
+          "name": "Consent notice",
+          "req": "Provide a clear, concise consent notice in the DP's language covering purpose, DP's rights and grievance redressal, before consent."
+        },
+        {
+          "id": "D3",
+          "name": "Consent manager",
+          "req": "Where consent is sought for processing, use a Consent Manager (registered with DPB) — applicable for prescribed significant DFs."
+        },
+        {
+          "id": "D4",
+          "name": "Purpose limitation",
+          "req": "Process personal data only for the purpose specified in the notice; non-consensual secondary uses prohibited."
+        },
+        {
+          "id": "D5",
+          "name": "Data minimization",
+          "req": "Collect only the minimum personal data necessary for the specified purpose."
+        },
+        {
+          "id": "D6",
+          "name": "Storage limitation",
+          "req": "Retain personal data only as long as needed for the purpose (deletion procedure + retention schedule enforceable)."
+        },
+        {
+          "id": "D7",
+          "name": "Accuracy and correction",
+          "req": "Take reasonable steps to ensure accuracy and completeness of personal data, considering the purpose of processing."
+        },
+        {
+          "id": "D8",
+          "name": "Security safeguards",
+          "req": "Reasonable security safeguards to prevent personal data breach; breach includes loss, unauthorized access, alteration, disclosure."
+        },
+        {
+          "id": "D9",
+          "name": "Breach notification",
+          "req": "Notify the Data Protection Board AND each affected DP of any personal data breach — in the form/manner prescribed, within the timeline prescribed."
+        },
+        {
+          "id": "D10",
+          "name": "Grievance redressal",
+          "req": "Establish a mechanism (DP Grievance Officer, contact details in notice) to answer DP questions and resolve grievances."
+        },
+        {
+          "id": "D11",
+          "name": "Children's data",
+          "req": "Process children's personal data only with verifiable parental consent and with safeguards; no tracking/behavioural ads on children."
+        },
+        {
+          "id": "D12",
+          "name": "Data processor obligations",
+          "req": "Processors act under a contract with the DF covering purpose, security safeguards, and limitation of use."
+        },
+        {
+          "id": "D13",
+          "name": "Significant Data Fiduciary duties",
+          "req": "If classified Significant DF (government notification): Data Protection Impact Assessment, audit annually (data processor too), and additional obligations."
+        }
+      ]
+    },
+    {
+      "key": "rights",
+      "name": "Data principal rights (s.11–12)",
+      "controls": [
+        {
+          "id": "DR1",
+          "name": "Right to access & summary",
+          "req": "Provide the DP a summary of personal data processed and the processing activities, on request."
+        },
+        {
+          "id": "DR2",
+          "name": "Right to correction & erasure",
+          "req": "Correct inaccurate data, complete incomplete data, and erase personal data (subject to lawful-retention exceptions)."
+        },
+        {
+          "id": "DR3",
+          "name": "Right to grievance redressal",
+          "req": "Respond to DP grievances within the prescribed time period (currently 30 days in draft rules, extendable)."
+        },
+        {
+          "id": "DR4",
+          "name": "Right to withdraw consent",
+          "req": "Provide an easy mechanism to withdraw consent; stop processing from withdrawal unless a legitimate-use exception applies."
+        },
+        {
+          "id": "DR5",
+          "name": "Right to nominate",
+          "req": "Allow the DP to nominate a person to exercise rights in case of death or incapacity."
+        }
+      ]
+    },
+    {
+      "key": "breach",
+      "name": "Breach handling, penalties, and compliance ops",
+      "controls": [
+        {
+          "id": "DP1",
+          "name": "Incident response aligned to breach definition",
+          "req": "Treat loss, unauthorized access, alteration, disclosure or destruction as 'personal data breach' — IR plan must cover all five."
+        },
+        {
+          "id": "DP2",
+          "name": "Board notification timeliness",
+          "req": "Establish capability to notify Board within required timeline (rules pending; best practice: 72h)."
+        },
+        {
+          "id": "DP3",
+          "name": "Affected DP notification content",
+          "req": "Prepare breach communication template: what happened, data affected, measures taken, and DP remedy steps."
+        },
+        {
+          "id": "DP4",
+          "name": "Penalty exposure tracking",
+          "req": "Track penalty bands (up to ₹250 crore per significant breach) in risk register; map control gaps to exposure."
+        },
+        {
+          "id": "DP5",
+          "name": "Registration/operations readiness",
+          "req": "Track DPB rule-making (2025 draft rules): DP Grievance Officer appointment, consent managers, and audit timelines."
+        }
+      ]
+    },
+    {
+      "key": "ai",
+      "name": "AI / ML system mapper (DPDP × AI lifecycle)",
+      "controls": [
+        {
+          "id": "AI1",
+          "name": "Lawful basis for AI training data",
+          "req": "Document lawful purpose + consent/or legitimate use for every personal-data dataset used to train, fine-tune, or evaluate models."
+        },
+        {
+          "id": "AI2",
+          "name": "Consent notice for AI features",
+          "req": "Notice must disclose AI-based processing (e.g. behaviour analysis, recommendations) and allow refusal (especially for children's content)."
+        },
+        {
+          "id": "AI3",
+          "name": "Data minimization in training",
+          "req": "Minimize training data — use synthetic/anonymized data where the purpose permits; no blanket scraping of DPs' data."
+        },
+        {
+          "id": "AI4",
+          "name": "Storage limitation for model artifacts",
+          "req": "Define retention for datasets, model checkpoints, and inferences; purge after purpose or on DP request."
+        },
+        {
+          "id": "AI5",
+          "name": "Accuracy obligations for automated decisions",
+          "req": "Automated decisioning (scoring, classification) must be accurate and complete per purpose — validate drift on protected classes."
+        },
+        {
+          "id": "AI6",
+          "name": "Security safeguards for model IP + data",
+          "req": "Protect training pipelines, model weights and inference data (MFA, encryption, prompt-leak controls) as personal data security safeguards."
+        },
+        {
+          "id": "AI7",
+          "name": "Breach = training-data exposure",
+          "req": "Model inversion/leakage of personal data counts as personal data breach — include in breach-notification scope."
+        },
+        {
+          "id": "AI8",
+          "name": "Grievance redressal for AI outputs",
+          "req": "DPs may question processing decisions driven by AI — maintain explainability records and a human-accessible appeal path."
+        },
+        {
+          "id": "AI9",
+          "name": "Children's AI services",
+          "req": "AI features for children require verifiable parental consent + safeguards; prohibit behavioural tracking/ad targeting on children."
+        },
+        {
+          "id": "AI10",
+          "name": "Significant DF + AI DPIA",
+          "req": "If Significant DF: DPIA for high-risk AI processing (profiling, biometrics, large-scale) before deployment; audit annually."
+        }
+      ]
+    }
+  ],
+  "source": "Digital Personal Data Protection Act 2023 (India) + 2025 draft rules",
+  "sourceUrl": "https://www.meity.gov.in",
+  "license": "Public statute — simplified mapper (legal advice required for compliance)"
+}

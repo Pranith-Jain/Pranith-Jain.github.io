@@ -112,19 +112,43 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
   // Expanded to check evidence.urls[] (cve, actor), evidence.sources[]
   // (agentic-trends, briefing, platform-data), and evidence.cveId (construct NVD
   // URL) so CVE runners dedup against RSS/article runners that cite the same CVE.
+  // URL normalization normalizes trailing slashes, drops fragments, lowercases
+  // hosts, and strips tracking params so near-duplicates are caught.
   const seenUrl = new Set<string>();
   let deduped = 0;
 
+  function normalizeUrl(raw: string): string {
+    try {
+      const u = new URL(raw);
+      u.hash = '';
+      u.hostname = u.hostname.toLowerCase().replace(/^www\./, '');
+      u.pathname = u.pathname.replace(/\/+$/, '') || '/';
+      u.searchParams.delete('utm_source');
+      u.searchParams.delete('utm_medium');
+      u.searchParams.delete('utm_campaign');
+      u.searchParams.delete('utm_term');
+      u.searchParams.delete('utm_content');
+      u.searchParams.delete('fbclid');
+      u.searchParams.delete('gclid');
+      // Rebuild without tracking params.
+      const qs = u.searchParams.toString();
+      u.search = qs ? `?${qs}` : '';
+      return u.toString();
+    } catch {
+      return raw;
+    }
+  }
+
   function pushEvidenceUrls(ev: Record<string, unknown>, into: Set<string>): void {
     const push = (u: unknown) => {
-      if (typeof u === 'string' && /^https?:\/\//.test(u)) into.add(u);
+      if (typeof u === 'string' && /^https?:\/\//.test(u)) into.add(normalizeUrl(u));
     };
     push(ev.url);
     if (Array.isArray(ev.urls)) ev.urls.forEach(push);
     if (Array.isArray(ev.sources)) ev.sources.forEach(push);
     push(ev.sourceUrl);
     if (typeof ev.cveId === 'string') {
-      into.add(`https://nvd.nist.gov/vuln/detail/${encodeURIComponent(ev.cveId)}`);
+      into.add(normalizeUrl(`https://nvd.nist.gov/vuln/detail/${encodeURIComponent(ev.cveId)}`));
     }
   }
 

@@ -1,0 +1,11 @@
+{
+  "tactic": "Collection",
+  "technique": "T1005.001",
+  "title": "Clipboard capture",
+  "hypothesis": "An attacker read the clipboard for secrets.",
+  "queries": [
+    "DeviceProcessEvents | where ProcessCommandLine contains 'Get-Clipboard' or ProcessCommandLine contains 'GetText'"
+  ],
+  "rationale": "Clipboard read commands from odd processes.",
+  "id": "H105"
+}

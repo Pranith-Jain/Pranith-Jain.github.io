@@ -1,0 +1,12 @@
+{
+  "id": 22,
+  "name": "Sysmon DNS query",
+  "log": "Microsoft-Windows-Sysmon/Operational",
+  "mitre": "T1568",
+  "description": "Sysmon DNS query recorded.",
+  "indicators": ["DNS tunneling", "C2 DGA", "Domain generation"],
+  "investigation": "High-entropy subdomains (XORShift DGA lookalike), large TXT queries, NXDOMAIN storms, or known-bad domains; correlate with 3 for resolution.",
+  "slug": "event-ids-22",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "CHQ07",
+  "name": "Lambda function new with permissive role",
+  "provider": "AWS",
+  "mitre": "T1098.002",
+  "desc": "Function roles with broad policies = persistence token.",
+  "kql": "AWSCloudTrail | where EventName == 'CreateFunction20150331' | where requestParameters.role startsWith 'arn:aws:iam' | where requestParameters.tags doesn't contain 'approved'"
+}

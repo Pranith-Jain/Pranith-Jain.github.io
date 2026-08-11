@@ -1,0 +1,13 @@
+{
+  "plugin": "dumpfiles",
+  "version": "both",
+  "purpose": "Extract files from disk/memory (MFT or VAD).",
+  "category": "Files",
+  "example": "volatility -f image.mem dumpfiles --virtaddr=0x... --dump-dir=out/",
+  "mitre": "T1005",
+  "notes": "Hash every extracted item against sandbox/AV and compute IOC hashes.",
+  "indicators": "",
+  "slug": "memory-dumpfiles",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

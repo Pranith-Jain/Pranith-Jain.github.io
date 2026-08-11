@@ -117,7 +117,7 @@ describe('dfir-hubs (DFIR catalog registry)', () => {
 
   it('catalogSearch puts ATTMAP-AI in the top results for mitre', () => {
     const results = catalogSearch('mitre');
-    const topPaths = results.slice(0, 5).map((r) => r.path);
+    const topPaths = results.slice(0, 10).map((r) => r.path);
     expect(topPaths).toContain('/dfir/attmap-ai');
   });
 

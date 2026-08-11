@@ -1,0 +1,8 @@
+{
+  "id": "CHQ30",
+  "name": "Compute instance stopped + disk exported",
+  "provider": "GCP",
+  "mitre": "T1530",
+  "desc": "Disk image export = VM theft / evidence-stage.",
+  "kql": "GCPAuditLogs | where operation.method has_any ('compute.disks.insert','compute.images.insert','compute.disks.createSnapshot')"
+}

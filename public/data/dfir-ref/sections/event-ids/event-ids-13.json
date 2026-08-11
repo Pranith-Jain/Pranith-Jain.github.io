@@ -1,0 +1,12 @@
+{
+  "id": 13,
+  "name": "Sysmon registry value set",
+  "log": "Microsoft-Windows-Sysmon/Operational",
+  "mitre": "T1112",
+  "description": "Sysmon registry value set.",
+  "indicators": ["Persistence", "SQLite stores"],
+  "investigation": "New/deleted values under Run*, Services, and AppCertDLLs — pairwise with 12 for object-level granularity.",
+  "slug": "event-ids-13",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

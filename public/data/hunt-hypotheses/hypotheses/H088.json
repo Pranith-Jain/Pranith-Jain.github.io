@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1087.004",
+  "title": "Cloud account enumeration",
+  "hypothesis": "An attacker enumerated cloud IAM users/roles.",
+  "queries": [
+    "AWSCloudTrail | where EventName has_any ('ListUsers','GetRole','ListRoles','ListAttachedUserPolicies') | where UserIdentity.userName != 'admin'"
+  ],
+  "rationale": "IAM enumeration from non-admin identity.",
+  "id": "H088"
+}

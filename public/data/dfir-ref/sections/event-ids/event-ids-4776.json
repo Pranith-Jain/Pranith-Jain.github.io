@@ -1,0 +1,12 @@
+{
+  "id": 4776,
+  "name": "NTLM credential validation",
+  "log": "Security",
+  "mitre": "T1110",
+  "description": "The domain controller validated credentials for an account (NTLM).",
+  "indicators": ["NTLM auth", "Brute force", "Pass-the-hash"],
+  "investigation": "High 4776 failure volume or success followed by privilege use = NTLM relay/pass-the-hash; correlate with 8004 (NTLM auditing) on clients.",
+  "slug": "event-ids-4776",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

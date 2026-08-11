@@ -1,0 +1,11 @@
+{
+  "tactic": "Lateral Movement",
+  "technique": "T1570",
+  "title": "Admin share file staging",
+  "hypothesis": "An attacker copied executables to admin shares.",
+  "queries": [
+    "SecurityEvent | where EventID == 5145 | where RelativeTargetName matches regex @'ADMIN\\$.*\\.(exe|dll|ps1|bat)$'"
+  ],
+  "rationale": "Share writes of binaries = movement staging.",
+  "id": "H091"
+}

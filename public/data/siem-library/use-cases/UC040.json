@@ -1,0 +1,13 @@
+{
+  "id": "UC040",
+  "name": "S3 bucket policy public exposure",
+  "category": "Cloud",
+  "mitre": "T1530",
+  "severity": "High",
+  "kql": "AWSCloudTrail | where EventName == 'PutBucketPolicy' | where requestParameters.bucketPolicy.Policy contains '\"Effect\":\"Allow\"' and requestParameters.bucketPolicy.Policy contains '\"Principal\":\"*\"'",
+  "spl": "index=aws sourcetype=aws:cloudtrail EventName=PutBucketPolicy (Policy=*Principal\\\":*\"*\"*)",
+  "dataSource": "CloudTrail + access analyzer",
+  "fpRate": "Low",
+  "tuning": "Any public-principal bucket policy = alert.",
+  "apt": "Exfil-stage; ransomware groups (S3 targeted)"
+}

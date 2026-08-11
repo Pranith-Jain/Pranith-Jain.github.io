@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1071.003",
+  "title": "Mail protocols as C2",
+  "hypothesis": "An attacker used SMTP/IMAP (mail) as a covert C2 channel.",
+  "queries": [
+    "DeviceNetworkEvents | where RemotePort in (25, 587, 993, 143) | where InitiatingProcessFileName not in ('outlook.exe','mapisvc')"
+  ],
+  "rationale": "Non-client processes talking mail ports = mail C2.",
+  "id": "H114"
+}

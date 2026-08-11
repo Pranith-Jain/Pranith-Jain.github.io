@@ -1,0 +1,12 @@
+{
+  "id": 800,
+  "name": "PowerShell pipeline execution details",
+  "log": "PowerShell",
+  "mitre": "T1059.001",
+  "description": "PowerShell pipeline execution details.",
+  "indicators": ["PowerShell command history"],
+  "investigation": "Provides command invocation with parameters — good fallback when script block logging is off.",
+  "slug": "event-ids-800",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

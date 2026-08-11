@@ -1,0 +1,11 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1202",
+  "title": "Indirect command via utilities",
+  "hypothesis": "An attacker used odd utilities (forfiles, wmic word) to run commands indirectly.",
+  "queries": [
+    "DeviceProcessEvents | where FileName has_any ('forfiles.exe','wmic.exe','bitsadmin.exe') | where ProcessCommandLine contains '/c ' and ProcessCommandLine contains 'cmd'"
+  ],
+  "rationale": "Indirect command execution via transfer utilities.",
+  "id": "H056"
+}

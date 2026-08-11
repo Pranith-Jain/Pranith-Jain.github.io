@@ -1,0 +1,11 @@
+{
+  "tactic": "Impact",
+  "technique": "T1485",
+  "title": "Mass file deletion",
+  "hypothesis": "An attacker deleted large volumes of user data.",
+  "queries": [
+    "DeviceFileEvents | where ActionType == 'FileDeleted' | summarize count() by InitiatingProcessFileName, bin(TimeGenerated, 15m) | where count_ > 500"
+  ],
+  "rationale": "Mass deletion bursts = destructive impact.",
+  "id": "H127"
+}

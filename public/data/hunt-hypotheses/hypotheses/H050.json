@@ -1,0 +1,11 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1027.001",
+  "title": "Binary packing detection",
+  "hypothesis": "A packed/obfuscated binary was dropped and executed.",
+  "queries": [
+    "DeviceProcessEvents | where FileName endswith '.exe' | where InitiatingProcessCommandLine contains 'Temp' | project SHA256 | join kind=inner (DeviceProcessEvents) on SHA256 | where ProcessIntegrityLevel == 'Medium'"
+  ],
+  "rationale": "Fresh-sha temp exe = packer/obfuscation candidate; verify with VT query.",
+  "id": "H050"
+}

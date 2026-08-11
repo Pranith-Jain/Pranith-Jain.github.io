@@ -1,0 +1,13 @@
+{
+  "id": "UC028",
+  "name": "Golden ticket (TGT w/ krbtgt anomalies)",
+  "category": "Active Directory",
+  "mitre": "T1558.001",
+  "severity": "Critical",
+  "kql": "SecurityEvent | where EventID == 4768 | where TicketEncryptionType == '0x17' | where AccountName == 'krbtgt' | where IpAddress !in (allowed KC IPs)",
+  "spl": "index=windows sourcetype=WinEventLog:Security EventCode=4768 (User=krbtgt OR TicketEncryptionType=0x17)",
+  "dataSource": "Security 4768",
+  "fpRate": "Low",
+  "tuning": "RC4 TGT requests for krbtgt always flag 0x17; detect via encryption downgrade.",
+  "apt": "Mimikatz — state-sponsored (APT28/APT29)"
+}

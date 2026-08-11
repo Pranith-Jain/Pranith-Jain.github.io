@@ -1,0 +1,11 @@
+{
+  "browser": "Chrome",
+  "artifact": "Cookies",
+  "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Network\\Cookies",
+  "evidence": "Session cookies, auth tokens for sites visited.",
+  "tools": "DB Browser for SQLite, Hindsight, Magnets",
+  "note": "Encrypted with DPAPI (v10+). Guest/incognito inherits existing cookies until close.",
+  "slug": "browser-cookies",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

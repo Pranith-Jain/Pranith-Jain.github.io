@@ -1,0 +1,8 @@
+{
+  "id": "CHQ22",
+  "name": "VM with exposed management port",
+  "provider": "Azure",
+  "mitre": "T1135",
+  "desc": "NSG allowing 22/3389 from Internet.",
+  "kql": "AzureNetworkAnalytics_CL | where DestinationPort in (22,3389) | where SourceIPAddress_Prefix == '0.0.0.0/0'"
+}

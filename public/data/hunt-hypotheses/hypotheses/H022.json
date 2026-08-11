@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1547.001",
+  "title": "Startup folder placement",
+  "hypothesis": "A binary/script was dropped in the StartUp folder.",
+  "queries": [
+    "DeviceFileEvents | where FolderPath contains 'Startup' | where FileName endswith ('.exe','.bat','.vbs','.lnk')"
+  ],
+  "rationale": "Startup folder writes require user-level write access — attacker footprint.",
+  "id": "H022"
+}

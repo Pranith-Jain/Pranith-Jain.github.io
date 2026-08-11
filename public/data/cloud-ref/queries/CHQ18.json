@@ -1,0 +1,8 @@
+{
+  "id": "CHQ18",
+  "name": "Excessive PowerShell sign-ins with client app token",
+  "provider": "Azure",
+  "mitre": "T1550.001",
+  "desc": "Scripted auth (Microsoft.Azure.PowerShell) without MFA = token theft.",
+  "kql": "SigninLogs | where AppDisplayName contains 'Azure PowerShell' | where AuthenticationRequirement != 'multiFactorAuthentication' | where RiskLevelDuringSignIn == 'high'"
+}

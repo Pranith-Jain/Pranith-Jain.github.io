@@ -1,0 +1,13 @@
+{
+  "plugin": "windows.info",
+  "version": "vol3",
+  "purpose": "Volatility 3 system information — OS, kernel, uptime, KASLR offsets.",
+  "category": "Baseline",
+  "example": "vol3 -f image.mem windows.info",
+  "mitre": "",
+  "notes": "Replaces imageinfo on Vol3.",
+  "indicators": "",
+  "slug": "memory-windows-info",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

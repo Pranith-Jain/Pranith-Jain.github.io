@@ -1,0 +1,13 @@
+{
+  "plugin": "psxview",
+  "version": "both",
+  "purpose": "Cross-view comparison of processes (PsActiveProcessHead, pool scan, threads, sessions, desktop).",
+  "category": "Processes",
+  "example": "volatility -f image.mem psxview",
+  "mitre": "T1055",
+  "notes": "Any process False in all columns except one = likely hidden.",
+  "indicators": "Hidden processes.",
+  "slug": "memory-psxview",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

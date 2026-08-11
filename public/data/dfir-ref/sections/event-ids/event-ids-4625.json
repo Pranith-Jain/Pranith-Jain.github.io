@@ -1,0 +1,12 @@
+{
+  "id": 4625,
+  "name": "Logon failure",
+  "log": "Security",
+  "mitre": "T1110",
+  "description": "An account failed to log on.",
+  "indicators": ["Brute force", "Password spray"],
+  "investigation": "Group by account + workstation: high volume of 4625 (SubStatus 0xC000006A) or guest/administrator logons = password spray or brute force. Check 4771/4776 for Kerberos/NTLM variants.",
+  "slug": "event-ids-4625",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

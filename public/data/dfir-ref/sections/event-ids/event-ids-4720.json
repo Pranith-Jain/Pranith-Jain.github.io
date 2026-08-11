@@ -1,0 +1,12 @@
+{
+  "id": 4720,
+  "name": "User account created",
+  "log": "Security",
+  "mitre": "T1136.001",
+  "description": "A user account was created.",
+  "indicators": ["Persistence", "Backdoor account"],
+  "investigation": "New accounts created outside HR processes are high signal; check who created it (SubjectUserName) and whether it logged on afterwards (4624/4625).",
+  "slug": "event-ids-4720",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

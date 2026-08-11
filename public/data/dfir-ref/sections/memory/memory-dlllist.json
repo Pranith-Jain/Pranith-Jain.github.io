@@ -1,0 +1,13 @@
+{
+  "plugin": "dlllist",
+  "version": "both",
+  "purpose": "List loaded DLLs per process (PEB).",
+  "category": "Processes",
+  "example": "volatility -f image.mem dlllist -p 4321",
+  "mitre": "T1055",
+  "notes": "DLLs loaded from temp/writable dirs into signed processes.",
+  "indicators": "Unsigned DLLs, DLLs from AppData/Temp, missing entries.",
+  "slug": "memory-dlllist",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

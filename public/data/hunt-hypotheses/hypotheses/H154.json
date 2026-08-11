@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1104",
+  "title": "Multi-stage beacon check-in pattern",
+  "hypothesis": "Malware performs staged check-ins (short-then-long) to evade blocking.",
+  "queries": [
+    "DeviceNetworkEvents | where InitiatingProcessFileName in (suspectedBeacons) | summarize min(TimeGenerated), max(TimeGenerated), count() by RemoteIP | extend delta = max - min | where delta > 1d and count() < 50"
+  ],
+  "rationale": "Sparse-but-persistent connections = staged beacon.",
+  "id": "H154"
+}

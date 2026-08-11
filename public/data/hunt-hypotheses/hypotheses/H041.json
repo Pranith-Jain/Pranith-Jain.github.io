@@ -1,0 +1,11 @@
+{
+  "tactic": "Privilege Escalation",
+  "technique": "T1055.001",
+  "title": "DLL injection into elevated process",
+  "hypothesis": "A low-integrity process injected a thread into a System process.",
+  "queries": [
+    "DeviceEvents | where ActionType == 'CreateRemoteThread' | where InitiatingProcessIntegrityLevel == 'Low' and TargetProcessName in (systemProcessNames)"
+  ],
+  "rationale": "Cross-integrity CreateRemoteThread = injection into higher privilege.",
+  "id": "H041"
+}

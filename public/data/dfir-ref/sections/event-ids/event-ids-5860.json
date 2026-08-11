@@ -1,0 +1,12 @@
+{
+  "id": 5860,
+  "name": "WMI permanent event subscription created",
+  "log": "Microsoft-Windows-WMI-Activity/Operational",
+  "mitre": "T1546.003",
+  "description": "WMI permanent event subscription created.",
+  "indicators": ["WMI persistence"],
+  "investigation": "Permanent event subscriptions (EventFilter+EventConsumer) referencing script/executable — silent persistence; correlate with 2810 on MDM side.",
+  "slug": "event-ids-5860",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

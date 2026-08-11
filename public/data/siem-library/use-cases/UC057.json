@@ -1,0 +1,13 @@
+{
+  "id": "UC057",
+  "name": "ADSI/AD module enumeration (recon)",
+  "category": "Reconnaissance",
+  "mitre": "T1018",
+  "severity": "Medium",
+  "kql": "DeviceProcessEvents | where ProcessCommandLine contains 'LDAP://' or ProcessCommandLine contains 'Get-ADUser' or ProcessCommandLine contains 'Get-ADComputer'",
+  "spl": "index=windows sourcetype=WinEventLog:Microsoft-Windows-PowerShell/Operational EventCode=4104 ScriptBlockText=*Get-ADUser* OR ScriptBlockText=*LDAP://*",
+  "dataSource": "PowerShell 4104",
+  "fpRate": "Medium",
+  "tuning": "Bulk enumeration in short window by one account.",
+  "apt": "Recon phase — all APTs"
+}

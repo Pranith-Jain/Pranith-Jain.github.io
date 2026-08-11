@@ -1,0 +1,325 @@
+[
+  {
+    "id": "CHQ01",
+    "name": "Access key created for unexpected user",
+    "provider": "AWS",
+    "mitre": "T1098.001",
+    "desc": "New IAM access keys outside change-control are credential backdoors.",
+    "kql": "AWSCloudTrail | where EventName == 'CreateAccessKey' | where UserIdentity.type == 'IAMUser' | where UserIdentity.userName !in (managedCredsUsers)"
+  },
+  {
+    "id": "CHQ02",
+    "name": "Console login without MFA",
+    "provider": "AWS",
+    "mitre": "T1078.004",
+    "desc": "Non-MFA console logins from new IPs may be stolen-key use.",
+    "kql": "AWSCloudTrail | where EventName == 'ConsoleLogin' | where responseElements.AdditionalDetails.MFAUsed != 'Yes' | where sourceIPAddress !in (companyEgressIPs)"
+  },
+  {
+    "id": "CHQ03",
+    "name": "S3 bucket made public (policy)",
+    "provider": "AWS",
+    "mitre": "T1530",
+    "desc": "Public-principal bucket policy = data exposure or exfil drop.",
+    "kql": "AWSCloudTrail | where EventName == 'PutBucketPolicy' | where requestParameters.bucketPolicy contains '\\\"Principal\\\":\\\"*\\\"'"
+  },
+  {
+    "id": "CHQ04",
+    "name": "Security group wide open",
+    "provider": "AWS",
+    "mitre": "T1135",
+    "desc": "0.0.0.0/0 ingress to management ports = internet-facing attack surface.",
+    "kql": "AWSCloudTrail | where EventName == 'AuthorizeSecurityGroupIngress' | where requestParameters.ipPermissions contains '0.0.0.0/0'"
+  },
+  {
+    "id": "CHQ05",
+    "name": "Trail deletion / disable",
+    "provider": "AWS",
+    "mitre": "T1562.008",
+    "desc": "CloudTrail changes hide everything after them.",
+    "kql": "AWSCloudTrail | where EventName in ('DeleteTrail','StopLogging','UpdateTrail') | where UserIdentity.arn !in (secops)"
+  },
+  {
+    "id": "CHQ06",
+    "name": "EC2 instance launched with public IP",
+    "provider": "AWS",
+    "mitre": "T1133",
+    "desc": "Unexpected public instances = crypto or C2 hosting.",
+    "kql": "AWSCloudTrail | where EventName == 'RunInstances' | where requestParameters.associatePublicIpAddress == 'true'"
+  },
+  {
+    "id": "CHQ07",
+    "name": "Lambda function new with permissive role",
+    "provider": "AWS",
+    "mitre": "T1098.002",
+    "desc": "Function roles with broad policies = persistence token.",
+    "kql": "AWSCloudTrail | where EventName == 'CreateFunction20150331' | where requestParameters.role startsWith 'arn:aws:iam' | where requestParameters.tags doesn't contain 'approved'"
+  },
+  {
+    "id": "CHQ08",
+    "name": "STS assume-role escalation",
+    "provider": "AWS",
+    "mitre": "T1078.004",
+    "desc": "AssumeRole to admin role from user context outside SLA.",
+    "kql": "AWSCloudTrail | where EventName == 'AssumeRole' | where responseElements.credentials.accessKeyId != '' | where eventSource == 'sts.amazonaws.com'"
+  },
+  {
+    "id": "CHQ09",
+    "name": "Snapshot export of RDS/EBS",
+    "provider": "AWS",
+    "mitre": "T1530",
+    "desc": "Snapshot export = data theft or staging.",
+    "kql": "AWSCloudTrail | where EventName in ('CopyDBSnapshot','CopySnapshot','StartExportTask')"
+  },
+  {
+    "id": "CHQ10",
+    "name": "S3 lifecycle deletion",
+    "provider": "AWS",
+    "mitre": "T1485",
+    "desc": "Bulk object deletion from storage = destructive action.",
+    "kql": "AWSCloudTrail | where EventName in ('DeleteObject','DeleteObjects','PutBucketLifecycleConfiguration')"
+  },
+  {
+    "id": "CHQ11",
+    "name": "SSH connection from public IP to bastion",
+    "provider": "AWS",
+    "mitre": "T1021.001",
+    "desc": "Bastion SSH access from non-VPN IPs.",
+    "kql": "AWSVPCFlow | where dstPort == 22 | where srcAddr !in (vpnCidr)"
+  },
+  {
+    "id": "CHQ12",
+    "name": "Data transfer cost spike (exfil)",
+    "provider": "AWS",
+    "mitre": "T1041",
+    "desc": "Wide-open egress volume per instance = exfil.",
+    "kql": "AWSVPCFlow | where action == 'ACCEPT' | where dstAddr notin (privateNetworks) | summarize TotalBytes = sum(bytes) by srcInstanceId, bin(TimeGenerated, 1h) | where TotalBytes > threshold"
+  },
+  {
+    "id": "CHQ13",
+    "name": "IAM policy with assume-role wildcard",
+    "provider": "AWS",
+    "mitre": "T1098.002",
+    "desc": "Resource '*' policies can be abused for privilege spread.",
+    "kql": "AWSCloudTrail | where EventName == 'PutRolePolicy' | where requestParameters.policyDocument contains '\\\"Resource\\\":\\\"*\\\"'"
+  },
+  {
+    "id": "CHQ14",
+    "name": "New service-linked role created",
+    "provider": "AWS",
+    "mitre": "T1078.004",
+    "desc": "Service-linked role additions correlate with new attack surfaces.",
+    "kql": "AWSCloudTrail | where EventName == 'CreateServiceLinkedRole'"
+  },
+  {
+    "id": "CHQ15",
+    "name": "CloudShell use by non-admin",
+    "provider": "AWS",
+    "mitre": "T1078",
+    "desc": "Interactive shell in browser = session hijack channel.",
+    "kql": "AWSCloudTrail | where EventName == 'StartSession' | where userAgent contains 'CloudShell'"
+  },
+
+  {
+    "id": "CHQ16",
+    "name": "Entra ID guest account admin role",
+    "provider": "Azure",
+    "mitre": "T1098.001",
+    "desc": "Guest accounts with directory roles = privilege escalation path.",
+    "kql": "AuditLogs | where Operation == 'Add member to role' | where TargetResources[0].userPrincipalName contains '#' | where ActivityDisplayName contains 'Global Administrator'"
+  },
+  {
+    "id": "CHQ17",
+    "name": "Conditional Access policy change",
+    "provider": "Azure",
+    "mitre": "T1562.006",
+    "desc": "CA policy weakening = MFA bypass prep.",
+    "kql": "AuditLogs | where Operation in ('Update conditional access policy','Delete conditional access policy') | where ActivityDisplayName contains 'Grant'"
+  },
+  {
+    "id": "CHQ18",
+    "name": "Excessive PowerShell sign-ins with client app token",
+    "provider": "Azure",
+    "mitre": "T1550.001",
+    "desc": "Scripted auth (Microsoft.Azure.PowerShell) without MFA = token theft.",
+    "kql": "SigninLogs | where AppDisplayName contains 'Azure PowerShell' | where AuthenticationRequirement != 'multiFactorAuthentication' | where RiskLevelDuringSignIn == 'high'"
+  },
+  {
+    "id": "CHQ19",
+    "name": "Azure key vault access from unexpected principal",
+    "provider": "Azure",
+    "mitre": "T1552.005",
+    "desc": "Vault reads outside service principals break key custody.",
+    "kql": "AzureDiagnostics | where OperationName has_any ('SecretGet','KeyGet') | where identity.claims['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] !in (kvAllowedSpns)"
+  },
+  {
+    "id": "CHQ20",
+    "name": "Storage account firewall disabled",
+    "provider": "Azure",
+    "mitre": "T1020",
+    "desc": "Public-network access to storage = data exposure.",
+    "kql": "AzureActivity | where OperationName == 'MICROSOFT.STORAGE/STORAGEACCOUNTS/WRITE' | where Properties contains '\\\"networkAcls\\\".*\\\"defaultAction\\\":\\\"Allow\\\""
+  },
+  {
+    "id": "CHQ21",
+    "name": "RBAC role assignment spike",
+    "provider": "Azure",
+    "mitre": "T1098",
+    "desc": "Role grants to new principals — privilege delegation.",
+    "kql": "AuditLogs | where Operation == 'Add member to role' | where TargetResources[0].type == 'User' | summarize count() by bin(TimeGenerated, 15m) | where count_ > 5"
+  },
+  {
+    "id": "CHQ22",
+    "name": "VM with exposed management port",
+    "provider": "Azure",
+    "mitre": "T1135",
+    "desc": "NSG allowing 22/3389 from Internet.",
+    "kql": "AzureNetworkAnalytics_CL | where DestinationPort in (22,3389) | where SourceIPAddress_Prefix == '0.0.0.0/0'"
+  },
+  {
+    "id": "CHQ23",
+    "name": "App registration new credentials",
+    "provider": "Azure",
+    "mitre": "T1098.001",
+    "desc": "New client secrets/certs on apps — credential addition persistence.",
+    "kql": "AuditLogs | where Operation in ('Add application secret','Add application certificate') | where TargetResources[0].displayName !in (managedApps)"
+  },
+  {
+    "id": "CHQ24",
+    "name": "Azure AD risky sign-in tombstone",
+    "provider": "Azure",
+    "mitre": "T1078",
+    "desc": "Risky sign-ins that fail then succeed = password spray success.",
+    "kql": "SigninLogs | where RiskDetail == 'userPassswordLeak' or RiskDetail == 'userRiskDetected' | where ResultType == '0'"
+  },
+  {
+    "id": "CHQ25",
+    "name": "Legacy auth success after block",
+    "provider": "Azure",
+    "mitre": "T1078.003",
+    "desc": "Basic auth endpoints used after modern-auth enforcement = scripted attacks.",
+    "kql": "SigninLogs | where AuthenticationRequirement contains 'legacy' | where ResultType == '0'"
+  },
+
+  {
+    "id": "CHQ26",
+    "name": "Service account key creation (GCP)",
+    "provider": "GCP",
+    "mitre": "T1098.001",
+    "desc": "New SA keys are long-lived credentials.",
+    "kql": "GCPAuditLogs | where operation.method == 'CreateServiceAccountKey' | where actor.email !in (authorizedAdminEmails)"
+  },
+  {
+    "id": "CHQ27",
+    "name": "IAM policy grant to allUsers (GCP)",
+    "provider": "GCP",
+    "mitre": "T1530",
+    "desc": "allUsers/allAuthenticatedUsers grants = public data access.",
+    "kql": "GCPAuditLogs | where operation.method == 'SetIamPolicy' | where resource.securityCenterProperties contains 'allUsers'"
+  },
+  {
+    "id": "CHQ28",
+    "name": "Firewall rule allowing 0.0.0.0/0 (GCP)",
+    "provider": "GCP",
+    "mitre": "T1135",
+    "desc": "Public ingress to GCP VMs.",
+    "kql": "GCPAuditLogs | where operation.method == 'compute.firewalls.insert' | where request contains '0.0.0.0/0'"
+  },
+  {
+    "id": "CHQ29",
+    "name": "GCS bucket IAM change",
+    "provider": "GCP",
+    "mitre": "T1530",
+    "desc": "Bucket ACL/policy changes = exposure or staging.",
+    "kql": "GCPAuditLogs | where operation.method has_any ('storage.buckets.setIamPolicy','storage.objects.insert') | where resource.labels.bucket_name !in (managedBuckets)"
+  },
+  {
+    "id": "CHQ30",
+    "name": "Compute instance stopped + disk exported",
+    "provider": "GCP",
+    "mitre": "T1530",
+    "desc": "Disk image export = VM theft / evidence-stage.",
+    "kql": "GCPAuditLogs | where operation.method has_any ('compute.disks.insert','compute.images.insert','compute.disks.createSnapshot')"
+  },
+  {
+    "id": "CHQ31",
+    "name": "gcloud identity from unexpected network",
+    "provider": "GCP",
+    "mitre": "T1078",
+    "desc": "API calls from fresh IPs/UA for existing service accounts.",
+    "kql": "GCPAuditLogs | where protoPayload.authenticationInfo.principalEmail endswith '.gserviceaccount.com' | where protoPayload.requestMetadata.callerIp !in (authorizedIpBlocks)"
+  },
+  {
+    "id": "CHQ32",
+    "name": "BigQuery dataset public read",
+    "provider": "GCP",
+    "mitre": "T1530",
+    "desc": "Dataset ACL allowing allUsers/allAuthenticatedUsers.",
+    "kql": "GCPAuditLogs | where operation.method == 'bigquery.datasets.update' | where resource contains 'allUsers'"
+  },
+  {
+    "id": "CHQ33",
+    "name": "IAM role escalation via policy binding",
+    "provider": "GCP",
+    "mitre": "T1098",
+    "desc": "Binding users to roles they shouldn't hold.",
+    "kql": "GCPAuditLogs | where operation.method == 'setIamPolicy' | where protoPayload.request.policy contains 'roles/owner' or 'roles/admin'"
+  },
+
+  {
+    "id": "CHQ34",
+    "name": "K8s service account token abuse",
+    "provider": "Kubernetes",
+    "mitre": "T1552.001",
+    "desc": "Cluster roles granting secret access to default SAs.",
+    "kql": "K8sAuditLogs | where verb in ('create','patch') | where objectRef.resource in ('rolebindings','clusterrolebindings') | where requestObject contains 'secrets'"
+  },
+  {
+    "id": "CHQ35",
+    "name": "Pod exec into namespace",
+    "provider": "Kubernetes",
+    "mitre": "T1021.002",
+    "desc": "exec sessions into pods = container escape attempts.",
+    "kql": "K8sAuditLogs | where verb == 'create' | where objectRef.subresource == 'exec' | where user.username !in (allowedOperators)"
+  },
+  {
+    "id": "CHQ36",
+    "name": "Privileged container creation",
+    "provider": "Kubernetes",
+    "mitre": "T1611",
+    "desc": "privileged:true pods = escape-ready.",
+    "kql": "K8sAuditLogs | where objectRef.resource == 'pods' | where requestObject contains 'privileged' and requestObject contains 'true'"
+  },
+  {
+    "id": "CHQ37",
+    "name": "K8s secret read burst",
+    "provider": "Kubernetes",
+    "mitre": "T1552.001",
+    "desc": "Volume secret reads = credential harvesting.",
+    "kql": "K8sAuditLogs | where objectRef.resource == 'secrets' | where verb in ('get','list') | summarize count() by user.username, bin(TimeGenerated, 15m) | where count_ > 20"
+  },
+  {
+    "id": "CHQ38",
+    "name": "Cluster-admin bind",
+    "provider": "Kubernetes",
+    "mitre": "T1098.001",
+    "desc": "cluster-admin grants in audit log = escalation.",
+    "kql": "K8sAuditLogs | where objectRef.resource contains 'clusterrolebinding' | where requestObject contains 'cluster-admin'"
+  },
+  {
+    "id": "CHQ39",
+    "name": "CloudTrail stopped by K8s workload",
+    "provider": "Multi-Cloud",
+    "mitre": "T1562.008",
+    "desc": "Workload IAM used to disable audit trail.",
+    "kql": "AWSCloudTrail | where EventName == 'StopLogging' | let t = TimeGenerated | join kind=inner (K8sAuditLogs) on TimeGenerated | where t - TimeGenerated < 5m"
+  },
+  {
+    "id": "CHQ40",
+    "name": "CI/CD pipeline secret exposure",
+    "provider": "Multi-Cloud",
+    "mitre": "T1552.001",
+    "desc": "Build logs containing secrets = supply-chain exposure.",
+    "kql": "CIBuildLogs | where BuildResult contains 'secret' or BuildResult contains 'AKIA' or BuildResult contains '-----BEGIN'"
+  }
+]

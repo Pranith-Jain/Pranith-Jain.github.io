@@ -1,0 +1,11 @@
+{
+  "tactic": "Collection",
+  "technique": "T1114.001",
+  "title": "Mailbox search",
+  "hypothesis": "An attacker searched mailboxes for sensitive keywords.",
+  "queries": [
+    "AuditLogs | where Operation == 'Search-Mailbox' or Operation == 'MailItemsAccessed' | where ResultType == 'success'"
+  ],
+  "rationale": "Unusual mailbox search ops = email theft.",
+  "id": "H102"
+}

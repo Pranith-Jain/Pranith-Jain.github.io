@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1018",
+  "title": "Hostname enumeration",
+  "hypothesis": "An attacker mapped internal hosts by name.",
+  "queries": [
+    "DeviceProcessEvents | where ProcessCommandLine contains 'net view /domain' or ProcessCommandLine contains 'Get-ADComputer'"
+  ],
+  "rationale": "Host inventory queries = lateral prep.",
+  "id": "H078"
+}

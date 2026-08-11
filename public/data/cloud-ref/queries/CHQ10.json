@@ -1,0 +1,8 @@
+{
+  "id": "CHQ10",
+  "name": "S3 lifecycle deletion",
+  "provider": "AWS",
+  "mitre": "T1485",
+  "desc": "Bulk object deletion from storage = destructive action.",
+  "kql": "AWSCloudTrail | where EventName in ('DeleteObject','DeleteObjects','PutBucketLifecycleConfiguration')"
+}

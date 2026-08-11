@@ -1,0 +1,13 @@
+{
+  "plugin": "amcache",
+  "version": "both",
+  "purpose": "Amcache application inventory (recently executed).",
+  "category": "Registry",
+  "example": "volatility -f image.mem amcache",
+  "mitre": "T1078",
+  "notes": "",
+  "indicators": "",
+  "slug": "memory-amcache",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "UC051",
+  "name": "HTTP POST to external host with large payload",
+  "category": "Exfiltration",
+  "mitre": "T1041",
+  "severity": "Medium",
+  "kql": "DeviceNetworkEvents | where Direction == 'Outbound' | where RemoteUrl startswith 'http://' | where InitiatingProcessFileName in ('powershell.exe','rundll32.exe','curl.exe','bitsadmin.exe')",
+  "spl": "index=windows sourcetype=Sysmon:Network EventCode=3 Direction=Out Image=*\\\\powershell.exe OR Image=*\\\\rundll32.exe",
+  "dataSource": "Sysmon 3",
+  "fpRate": "Medium",
+  "tuning": "Proxy logs + byte counts needed for true volume signal",
+  "apt": "HTTP exfil — universal"
+}

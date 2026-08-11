@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1556.002",
+  "title": "Password filter DLL installation",
+  "hypothesis": "An attacker installed a password filter to harvest password changes.",
+  "queries": [
+    "DeviceRegistryEvents | where RegistryKey contains 'LSA\\\\Notification Packages' | where RegistryValueData contains '.dll' | where RegistryValueData !contains 'scecli'"
+  ],
+  "rationale": "LSA notification packages = password-change harvesting.",
+  "id": "H135"
+}

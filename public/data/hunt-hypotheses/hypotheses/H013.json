@@ -1,0 +1,11 @@
+{
+  "tactic": "Execution",
+  "technique": "T1053.005",
+  "title": "Scheduled task execution in minutes",
+  "hypothesis": "A task was created and fired in under 10 minutes as an exec channel.",
+  "queries": [
+    "SecurityEvent | where EventID in (4698, 4699, 4702) | let t = TimeGenerated | join kind=inner (SecurityEvent | where EventID == 4698) on Computer | where t - TimeGenerated < 10m"
+  ],
+  "rationale": "Create-then-run immediacy = execution not persistence.",
+  "id": "H013"
+}

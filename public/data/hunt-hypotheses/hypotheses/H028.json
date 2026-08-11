@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1547.006",
+  "title": "Kernel driver autostart",
+  "hypothesis": "A kernel driver was installed with autostart service.",
+  "queries": [
+    "SecurityEvent | where EventID == 7045 | where ServiceType contains 'kernel' | where ServiceFileName contains '\\\\Windows\\\\System32\\\\drivers' | where ServiceFileName !contains '\\\\Windows\\\\System32\\\\drivers\\\\' and length(ServiceFileName) > 100"
+  ],
+  "rationale": "Signed-driver abuse (e.g. vulnerable cert) persists at kernel level.",
+  "id": "H028"
+}

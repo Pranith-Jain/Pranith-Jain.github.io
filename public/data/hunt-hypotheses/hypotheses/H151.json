@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1090.001",
+  "title": "Internal proxy rotation",
+  "hypothesis": "An attacker used internal hosts as C2 relay hops.",
+  "queries": [
+    "DeviceNetworkEvents | where RemoteIP in (internalRanges) | where RemotePort in (8080, 3128, 1080) | where InitiatingProcessFileName != 'browser'"
+  ],
+  "rationale": "Internal proxy ports from odd processes = internal relay.",
+  "id": "H151"
+}

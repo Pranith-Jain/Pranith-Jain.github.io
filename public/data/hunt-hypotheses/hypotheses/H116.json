@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1095",
+  "title": "Raw TCP/UDP non-HTTP",
+  "hypothesis": "A beacon uses raw sockets (non-HTTP) for C2.",
+  "queries": [
+    "DeviceNetworkEvents | where ActionType == 'OutboundConnection' | where RemotePort not in (80,443,53,3389,445,22) | summarize count() by RemoteIP, InitiatingProcessFileName | where count_ >= 20"
+  ],
+  "rationale": "Persistent odd-port connections = raw C2.",
+  "id": "H116"
+}

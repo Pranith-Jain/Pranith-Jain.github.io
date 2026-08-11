@@ -1,0 +1,13 @@
+{
+  "plugin": "mimikatz",
+  "version": "vol2",
+  "purpose": "In-memory Mimikatz run against the image.",
+  "category": "Credentials",
+  "example": "volatility -f image.mem mimikatz",
+  "mitre": "T1003.001",
+  "notes": "Use sparingly — extracts secrets from live memory structures; hashdump is usually sufficient.",
+  "indicators": "",
+  "slug": "memory-mimikatz",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

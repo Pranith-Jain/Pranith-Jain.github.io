@@ -1,0 +1,13 @@
+{
+  "plugin": "windows.pslist",
+  "version": "vol3",
+  "purpose": "Vol3 process list.",
+  "category": "Processes",
+  "example": "vol3 -f image.mem windows.pslist",
+  "mitre": "T1055",
+  "notes": "",
+  "indicators": "",
+  "slug": "memory-windows-pslist",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "CHQ03",
+  "name": "S3 bucket made public (policy)",
+  "provider": "AWS",
+  "mitre": "T1530",
+  "desc": "Public-principal bucket policy = data exposure or exfil drop.",
+  "kql": "AWSCloudTrail | where EventName == 'PutBucketPolicy' | where requestParameters.bucketPolicy contains '\\\"Principal\\\":\\\"*\\\"'"
+}

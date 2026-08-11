@@ -1,0 +1,13 @@
+{
+  "plugin": "connscan/netstat",
+  "version": "both",
+  "purpose": "Connection object scan for terminated connections.",
+  "category": "Network",
+  "example": "volatility -f image.mem connscan",
+  "mitre": "TA0011",
+  "notes": "Catches connections closed before acquisition.",
+  "indicators": "Residual C2 endpoints.",
+  "slug": "memory-connscan-netstat",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

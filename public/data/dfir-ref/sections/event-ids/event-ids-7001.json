@@ -1,0 +1,12 @@
+{
+  "id": 7001,
+  "name": "Service start failed",
+  "log": "System",
+  "mitre": "T1543.003",
+  "description": "A service failed to start.",
+  "indicators": ["Service abuse attempt"],
+  "investigation": "Failed launches of injected/registry-hijacked services may reveal persistence attempts.",
+  "slug": "event-ids-7001",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

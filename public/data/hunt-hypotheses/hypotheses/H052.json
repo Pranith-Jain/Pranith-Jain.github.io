@@ -1,0 +1,9 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1553.001",
+  "title": "Trusted publisher cert abuse",
+  "hypothesis": "An attacker signed code with a stolen/abused trusted certificate.",
+  "queries": ["DeviceProcessEvents | where SigningStatus != 'Valid' and ProcessIntegrityLevel == 'System'"],
+  "rationale": "System-level unsigned/suspicious-signed binaries warrant review.",
+  "id": "H052"
+}

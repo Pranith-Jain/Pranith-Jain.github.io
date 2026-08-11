@@ -1,0 +1,12 @@
+{
+  "id": 4689,
+  "name": "Process terminated",
+  "log": "Security",
+  "mitre": "T1059",
+  "description": "A process was terminated.",
+  "indicators": ["Process lifecycle"],
+  "investigation": "Abrupt termination of AV/EDR processes may indicate anti-forensics tooling (correlate with 4688 for TASKKILL/kill).",
+  "slug": "event-ids-4689",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

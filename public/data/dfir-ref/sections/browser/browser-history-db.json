@@ -1,0 +1,11 @@
+{
+  "browser": "Safari (macOS)",
+  "artifact": "History.db",
+  "path": "~/Library/Safari/History.db",
+  "evidence": "History items + visits with timestamps (visit_count_summary).",
+  "tools": "DB Browser, Safari History Viewer (NirSoft)",
+  "note": "macOS forensic images — path accessible under /Users/<u>/Library/Safari/.",
+  "slug": "browser-history-db",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

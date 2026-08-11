@@ -1,0 +1,12 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1070.001",
+  "title": "Event log clearing",
+  "hypothesis": "Security/System log was cleared to remove attack traces.",
+  "queries": [
+    "SecurityEvent | where EventID == 1102",
+    "DeviceEvents | where ActionType has 'Delete' and FileName contains '.evtx'"
+  ],
+  "rationale": "Log clearing events are direct evidence of tampering.",
+  "id": "H046"
+}

@@ -1,0 +1,11 @@
+{
+  "tactic": "Execution",
+  "technique": "T1569.002",
+  "title": "Service binary execution via sc.exe",
+  "hypothesis": "An attacker created and started a service to execute a binary.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'sc.exe' | where ProcessCommandLine contains 'create' | where ProcessCommandLine contains 'start'"
+  ],
+  "rationale": "sc create + start rapid-fire = service exec channel.",
+  "id": "H019"
+}

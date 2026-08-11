@@ -1,0 +1,12 @@
+{
+  "id": 4768,
+  "name": "Kerberos TGT requested",
+  "log": "Security",
+  "mitre": "T1558",
+  "description": "A Kerberos ticket-granting ticket was requested.",
+  "indicators": ["Authentication", "Kerberoasting precursor"],
+  "investigation": "Volume analysis for golden-ticket indicators (unusual TGT for krbtgt) — check TicketEncryptionType and pre-auth type.",
+  "slug": "event-ids-4768",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

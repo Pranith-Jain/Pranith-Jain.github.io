@@ -1,0 +1,8 @@
+{
+  "id": "CHQ39",
+  "name": "CloudTrail stopped by K8s workload",
+  "provider": "Multi-Cloud",
+  "mitre": "T1562.008",
+  "desc": "Workload IAM used to disable audit trail.",
+  "kql": "AWSCloudTrail | where EventName == 'StopLogging' | let t = TimeGenerated | join kind=inner (K8sAuditLogs) on TimeGenerated | where t - TimeGenerated < 5m"
+}

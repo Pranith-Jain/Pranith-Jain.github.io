@@ -1,0 +1,13 @@
+{
+  "plugin": "filescan",
+  "version": "both",
+  "purpose": "Physical-memory file object scan — every known file in the image.",
+  "category": "Files",
+  "example": "volatility -f image.mem filescan",
+  "mitre": "T1005",
+  "notes": "Find deleted binaries still resident, odd paths, staged archives.",
+  "indicators": "Deleted malware files, zip/7z archives in temp.",
+  "slug": "memory-filescan",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

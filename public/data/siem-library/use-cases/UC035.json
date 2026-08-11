@@ -1,0 +1,13 @@
+{
+  "id": "UC035",
+  "name": "AAD sign-in from risky IP + legacy auth",
+  "category": "Email / BEC",
+  "mitre": "T1078",
+  "severity": "High",
+  "kql": "SigninLogs | where RiskLevelDuringSignIn == 'high' | where AuthenticationRequirement contains 'legacy' | where AppDisplayName != 'Microsoft Teams'",
+  "spl": "index=o365 sourcetype=o365:management:activity (Operation=UserLoginFailed OR Operation=UserLoginSucceeded) AuthenticationRequirement=legacy clientIp=*",
+  "dataSource": "Azure AD sign-ins",
+  "fpRate": "Low",
+  "tuning": "Pair with confirmed phishing campaigns.",
+  "apt": "Midnight Blizzard (APT29) legacy-auth push"
+}

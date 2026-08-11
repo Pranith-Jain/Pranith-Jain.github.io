@@ -1,0 +1,9 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1546.003",
+  "title": "WMI event subscription persistence",
+  "hypothesis": "An attacker bound a WMI event filter to a consumer for silent startup.",
+  "queries": ["SecurityEvent | where EventID == 5861 | where ProviderName contains 'Binding'"],
+  "rationale": "New WMI bindings are rare and typically malicious.",
+  "id": "H024"
+}

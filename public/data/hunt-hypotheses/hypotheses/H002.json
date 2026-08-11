@@ -1,0 +1,9 @@
+{
+  "tactic": "Initial Access",
+  "technique": "T1566.001",
+  "title": "Phishing link via mail with external sender spoof",
+  "hypothesis": "A spoofed external sender convinced a user to open a link and sign in.",
+  "queries": ["EmailEvents | where EmailDirection == 'Inbound' | where SenderMailFromDomain != SenderFromDomain"],
+  "rationale": "From-domain mismatch is a cheap spoofing indicator pre-DMARC.",
+  "id": "H002"
+}

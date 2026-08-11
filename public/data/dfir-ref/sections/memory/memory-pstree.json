@@ -1,0 +1,13 @@
+{
+  "plugin": "pstree",
+  "version": "both",
+  "purpose": "Parent-child process tree with exit times.",
+  "category": "Processes",
+  "example": "volatility -f image.mem pstree",
+  "mitre": "T1059",
+  "notes": "Look for orphaned processes (PPID = unlisted or exited) — classic injection/detachment.",
+  "indicators": "Orphaned processes, familiar parents (winword.exe → powershell.exe).",
+  "slug": "memory-pstree",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

@@ -1,0 +1,197 @@
+{
+  "name": "Post-Quantum Cryptography Reference",
+  "description": "NIST FIPS 203/204/205 algorithms, harvest-now-decrypt-later threat, crypto inventory and readiness. For deployment guidance (TLS, SSH, VPN), see the readiness and inventory helpers.",
+  "algorithms": [
+    {
+      "name": "ML-KEM (Kyber)",
+      "fips": "FIPS 203",
+      "type": "KEM — key encapsulation (replaces RSA/ECDH key exchange)",
+      "purpose": "Public-key encapsulation for TLS 1.3, SSH, VPN, hybrid key exchange.",
+      "sizes": { "public": "800 bytes (ML-KEM-768)", "ciphertext": "1088 bytes", "secret": "2400 bytes" },
+      "security": "ML-KEM-512 ≈ AES-128, ML-KEM-768 ≈ AES-192, ML-KEM-1024 ≈ AES-256",
+      "status": "Finalized Aug 2024. Deployed in Chrome/Edge TLS (X25519MLKEM768 hybrid) since 2023.",
+      "notes": "Default choice for ephemeral key exchange. Use with hybrid (X25519+ML-KEM) until ecosystem trusts standalone KEM-only handshakes."
+    },
+    {
+      "name": "ML-DSA (Dilithium)",
+      "fips": "FIPS 204",
+      "type": "Signature — replaces RSA/ECDSA signing",
+      "purpose": "Code signing, certificates, TLS authentication, document signing.",
+      "sizes": { "public": "1952 bytes (ML-DSA-87)", "signature": "4627 bytes", "secret": "4896 bytes" },
+      "security": "ML-DSA-44 ≈ AES-128, ML-DSA-65 ≈ AES-192, ML-DSA-87 ≈ AES-256",
+      "status": "Finalized Aug 2024. Widely available in OpenSSL 3.5+.",
+      "notes": "Signatures ~10x larger than ECDSA — watch MTU/cert chain sizes. Pair with ML-KEM for full PQC TLS."
+    },
+    {
+      "name": "SLH-DSA (SPHINCS+)",
+      "fips": "FIPS 205",
+      "type": "Stateless hash-based signature (conservative)",
+      "purpose": "Long-term signing, firmware, scenarios distrusting structured lattices.",
+      "sizes": {
+        "public": "48 bytes",
+        "signature": "17 KB (SLH-DSA-128s) to 49 KB (SLH-DSA-192f)",
+        "secret": "64–128 bytes"
+      },
+      "security": "Failsafe: security from hash functions only — no lattice assumptions.",
+      "status": "Finalized Aug 2024.",
+      "notes": "Slow + huge signatures; use for certificates/root anchors and firmware, not packet-level signing."
+    },
+    {
+      "name": "X25519MLKEM768 (hybrid TLS)",
+      "fips": "— (IETF draft)",
+      "type": "Hybrid key exchange for TLS 1.3",
+      "purpose": "Drop-in TLS 1.3 group that keeps classical security while adding PQC post-quantum resistance.",
+      "sizes": { "public": "1216 bytes", "secret": "32 bytes" },
+      "security": "Security of X25519 AND ML-KEM-768 — fails open only if both break.",
+      "status": "Deployed by Google/Cloudflare/Mozilla (2023-2025), IETF draft-ietf-tls-hybrid-design.",
+      "notes": "Enable now — backwards compatible with classical peers via key-share fallback."
+    },
+    {
+      "name": "FN-DSA (Falcon)",
+      "fips": "FIPS 206 (final, 2025)",
+      "type": "Signature — compact lattice",
+      "purpose": "Small signature sizes (666 bytes for FN-DSA-512), good for constrained / bandwidth-sensitive signing.",
+      "sizes": { "public": "897 bytes", "signature": "666 bytes (FN-DSA-512)", "secret": "1281 bytes" },
+      "security": "FN-DSA-512 ≈ AES-128.",
+      "status": "Finalized 2025.",
+      "notes": "Complex signing implementation; pairs well where signature size matters (DNSSEC, mTLS)."
+    }
+  ],
+  "models": [
+    {
+      "model": "Classic",
+      "detail": "RSA-2048/3072, ECC P-256, ECDSA — breakable by 4096 logical qubits (Shor's algorithm on ~2M physical qubits for RSA-2048)."
+    },
+    {
+      "model": "Hybrid",
+      "detail": "Classical + PQC combined (e.g. X25519MLKEM768, RSA + ML-DSA certs) — safe against HNDL today; smallest operational change."
+    },
+    {
+      "model": "Standalone PQC",
+      "detail": "ML-KEM/ML-DSA-only stacks — trust that lattice assumptions hold; required only when hybrid is unsupported (some hardware/HSM contexts)."
+    }
+  ],
+  "hndl": {
+    "threat": "Harvest Now, Decrypt Later",
+    "summary": "Adversaries (esp. nation-states) archive encrypted traffic today; when a quantum computer reaches thousands of logical qubits, they decrypt the archive in bulk — including data with a decades-long secrecy need (health records, PII, patents, defense comms).",
+    "timeline": [
+      "NSA CNSSP-15: protect secret data by 2030, top-secret by 2033",
+      "NIST: PQC standards finalized 2024; migration recommended to start before 2030",
+      "Industry: hybrid TLS already ships (Chrome, Edge, Cloudflare, AWS KMS)",
+      "Conservative analysts: large-scale cryptanalytic quantum computer 2030–2035; 'store now, decrypt later' risk is real TODAY for 10+ year secrets"
+    ],
+    "whoShouldActFirst": [
+      "Health/pharma, finance, government, defense (long-horizon data)",
+      "Anyone with data that must stay confidential >10 years",
+      "PKI operators, HSM-hold crypto inventory owners"
+    ],
+    "mitigations": [
+      "Adopt hybrid key exchange (X25519MLKEM768) on all TLS/SSH/messaging now",
+      "PQC for all NEW keys; classic→PQC transition for long-lived certs",
+      "Post-quantum signatures (ML-DSA/SLH-DSA) for certificate authorities & firmware",
+      "Inventory all crypto assets and classify by secrecy horizon — anything ≫10 years is HNDL-exposed",
+      "Monitor NIST/CNSA transition deadlines when selecting new products"
+    ]
+  },
+  "cryptoClasses": [
+    {
+      "class": "PKI / certificates",
+      "risk": "High",
+      "action": "Root and intermediate CAs re-key to ML-DSA (or SLH-DSA); issue PQC leaf certs; plan hybrid chains during transition."
+    },
+    {
+      "class": "TLS / HTTPS",
+      "risk": "High",
+      "action": "Enable X25519MLKEM768 on servers/CDNs/clients; verify with SSL Labs 'Post-quantum' tag; hybrid-certs for mutual TLS."
+    },
+    {
+      "class": "SSH",
+      "risk": "Medium",
+      "action": "sntrup761x25519-sha512 key exchange + ML-DSA host keys (OpenSSH 9.0+); port in inventory."
+    },
+    {
+      "class": "Email (S/MIME, PGP)",
+      "risk": "Medium",
+      "action": "S/MIME with PQC-able CAs (2024 RSA-1024 ban raised cert churn); PGP keys remain quantum-vulnerable — plan re-key."
+    },
+    {
+      "class": "VPN (IPsec/WireGuard)",
+      "risk": "Medium",
+      "action": "IPsec: enable hybrid PQC (post-quantum IKEv2 drafts); WireGuard: switch to PQ-hybrid WG keys when upstream ships."
+    },
+    {
+      "class": "Code / firmware signing",
+      "risk": "High",
+      "action": "Sign with ML-DSA or SLH-DSA; retain long-term verification chains; HSM support required."
+    },
+    {
+      "class": "Database / at-rest encryption",
+      "risk": "Low",
+      "action": "At-rest AES-256 is quantum-safe (Grover halves to 128); key exchange protecting the keys is the PQC concern."
+    },
+    {
+      "class": "TLS session keys (forward secrecy)",
+      "risk": "Low",
+      "action": "Already forward-secret sessions safe; HNDL risk is only non-FS flows (old RSA key transport)."
+    },
+    {
+      "class": "DNSSEC",
+      "risk": "Medium",
+      "action": "Migrate zone-signing keys to FN-DSA/ML-DSA when validator/registrar support arrives; signature size matters."
+    },
+    {
+      "class": "HSMs / crypto modules",
+      "risk": "High",
+      "action": "Validate FIPS 140-3 modules shipping ML-KEM/ML-DSA; inventory module versions for key-migration readiness."
+    }
+  ],
+  "readiness": [
+    {
+      "id": "PQ1",
+      "question": "Do we have a complete crypto inventory (certificates, TLS configs, SSH keys, HSMs, signing keys)?",
+      "weight": 3
+    },
+    {
+      "id": "PQ2",
+      "question": "Is every TLS endpoint (incl. internal services, IoT, appliances) identified and versioned?",
+      "weight": 2
+    },
+    {
+      "id": "PQ3",
+      "question": "Have we classified data/communications by secrecy horizon (>10 years = HNDL-relevant)?",
+      "weight": 3
+    },
+    { "id": "PQ4", "question": "Are new certificates issued on PQC-capable CAs (ML-DSA hybrid chains)?", "weight": 2 },
+    { "id": "PQ5", "question": "Is X25519MLKEM768 enabled on internet-facing servers/CDN?", "weight": 3 },
+    {
+      "id": "PQ6",
+      "question": "Are remote-access VPNs and SSH configured with PQC-capable key exchange?",
+      "weight": 2
+    },
+    {
+      "id": "PQ7",
+      "question": "Do our HSMs/crypto modules support ML-KEM/ML-DSA (FIPS 140-3 validated)?",
+      "weight": 3
+    },
+    { "id": "PQ8", "question": "Is code/firmware signing migrated (or planned) to ML-DSA/SLH-DSA?", "weight": 2 },
+    {
+      "id": "PQ9",
+      "question": "Have we identified vendor PQC adoption roadmaps for third-party products?",
+      "weight": 1
+    },
+    {
+      "id": "PQ10",
+      "question": "Is PQC migration tracked as a formal project with an owner and 2030 deadline?",
+      "weight": 2
+    },
+    { "id": "PQ11", "question": "Do we test hybrid key exchange in staging before production rollout?", "weight": 1 },
+    {
+      "id": "PQ12",
+      "question": "Is DNSSEC / mail / document signing on the PQC plan (with sighsize impacts assessed)?",
+      "weight": 1
+    }
+  ],
+  "source": "NIST FIPS 203/204/205/206, NSA CNSSP-15, IETF TLS hybrid drafts",
+  "sourceUrl": "https://csrc.nist.gov/projects/post-quantum-cryptography",
+  "license": "Public standards — summarized reference"
+}

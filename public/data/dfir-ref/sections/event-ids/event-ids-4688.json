@@ -1,0 +1,12 @@
+{
+  "id": 4688,
+  "name": "Process creation",
+  "log": "Security",
+  "mitre": "T1059",
+  "description": "A new process was created.",
+  "indicators": ["Execution", "Command line evidence", "LOLBins"],
+  "investigation": "The core execution signal when command-line auditing is on (GPO Audit Process Creation). Hunt for LOLBins (rundll32, mshta, regsvr32), encoded PowerShell, and unusual parent-child chains.",
+  "slug": "event-ids-4688",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

@@ -1,0 +1,11 @@
+{
+  "browser": "Chrome",
+  "artifact": "History",
+  "path": "%USERPROFILE%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History",
+  "evidence": "URLs visited, timestamps, typed search terms, downloads, favicon lookups.",
+  "tools": "DB Browser for SQLite, Chrome History View, autopsy",
+  "note": "SQLite — check for WAL file (History-wal) for recently-written rows lost on close.",
+  "slug": "browser-history",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

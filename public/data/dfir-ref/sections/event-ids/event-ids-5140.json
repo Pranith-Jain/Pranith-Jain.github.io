@@ -1,0 +1,12 @@
+{
+  "id": 5140,
+  "name": "Network share object accessed",
+  "log": "Security",
+  "mitre": "T1021.002",
+  "description": "A network share object was accessed.",
+  "indicators": ["Lateral movement", "Data staging"],
+  "investigation": "ADMIN$/C$ access from workstations or enumeration of many shares (4688 net view) = staging or tool deployment.",
+  "slug": "event-ids-5140",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

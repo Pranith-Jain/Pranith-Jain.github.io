@@ -1,0 +1,13 @@
+{
+  "plugin": "autoruns",
+  "version": "both",
+  "purpose": "Enumerate autostart locations (Run keys, services, drivers, scheduled tasks) from memory.",
+  "category": "Persistence",
+  "example": "volatility -f image.mem autoruns",
+  "mitre": "T1547",
+  "notes": "One-shot persistence sweep; cross-check with registry plugins.",
+  "indicators": "Unknown binaries in autostart paths.",
+  "slug": "memory-autoruns",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

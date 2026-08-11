@@ -1,0 +1,12 @@
+{
+  "id": 4103,
+  "name": "PowerShell module logging",
+  "log": "PowerShell",
+  "mitre": "T1059.001",
+  "description": "PowerShell module logging entry.",
+  "indicators": ["PowerShell command evidence"],
+  "investigation": "Module logging reveals cmdlet usage (Invoke-Mimikatz, Get-Content) when script block logging is bypassed.",
+  "slug": "event-ids-4103",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

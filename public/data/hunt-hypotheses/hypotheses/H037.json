@@ -1,0 +1,11 @@
+{
+  "tactic": "Privilege Escalation",
+  "technique": "T1068",
+  "title": "Exploitation of privilege-escalation CVE",
+  "hypothesis": "A local privilege escalation CVE (from KEV list) was exploited on an endpoint.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'wevtutil.exe' or FileName == 'cmd.exe' | where ProcessCommandLine contains '/c' | where InitiatingProcessIntegrityLevel == 'Medium' and FinalProcessIntegrityLevel == 'High'"
+  ],
+  "rationale": "Medium→High integrity jump via cmd = exploitation marker.",
+  "id": "H037"
+}

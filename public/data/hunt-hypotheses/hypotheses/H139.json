@@ -1,0 +1,11 @@
+{
+  "tactic": "Execution",
+  "technique": "T1216",
+  "title": "Signed script execution (Msiexec/others)",
+  "hypothesis": "An attacker ran signed utilities (msiexec, regsvr32) with payloads.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'msiexec.exe' | where ProcessCommandLine contains 'http' or ProcessCommandLine contains '\\\\\\\\'"
+  ],
+  "rationale": "msiexec remote/UNC install = signed-script abuse.",
+  "id": "H139"
+}

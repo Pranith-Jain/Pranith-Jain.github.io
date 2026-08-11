@@ -1,0 +1,130 @@
+{
+  "key": "sebi",
+  "name": "SEBI CSCRF 2024",
+  "year": "2024",
+  "description": "SEBI Cybersecurity and Cyber Resilience Framework — tiered (Tier 1/2/3) obligations for regulated entities in Indian securities markets (2024 circular, phased applicability).",
+  "themes": ["Governance", "Resilience", "Supply Chain", "Oversight"],
+  "categories": [
+    {
+      "key": "tier1",
+      "name": "Tier 1 — all market infrastructure and regulated entities",
+      "controls": [
+        {
+          "id": "S1-1",
+          "name": "CISO designation",
+          "req": "Designate a CISO with defined responsibilities accountable to the Board/senior management."
+        },
+        {
+          "id": "S1-2",
+          "name": "Cybersecurity policy framework",
+          "req": "Board-approved cybersecurity and cyber-resilience policy covering prevention, detection, response, recovery."
+        },
+        {
+          "id": "S1-3",
+          "name": "Annual vulnerability assessment + pentest",
+          "req": "Conduct VAPT annually (and on significant changes) with findings remediated and reported."
+        },
+        {
+          "id": "S1-4",
+          "name": "Incident reporting",
+          "req": "Report cybersecurity incidents to SEBI within 6 hours of detection/doubt, and to CERT-In/sectoral CERTs as applicable."
+        },
+        {
+          "id": "S1-5",
+          "name": "Log retention",
+          "req": "Retain security logs (network, server, application, database) for 180 days; maintain audit trail."
+        },
+        {
+          "id": "S1-6",
+          "name": "MFA / credential hygiene",
+          "req": "Enforce MFA for remote access, privileged users and system administrators; timely password rotation for default creds."
+        },
+        {
+          "id": "S1-7",
+          "name": "Data backup and recovery",
+          "req": "Maintain backups with tested recovery (RPO/RTO defined per criticality), air-gapped/offline copies."
+        },
+        {
+          "id": "S1-8",
+          "name": "Data classification + encryption",
+          "req": "Classify data (public/confidential/secret) with mapping; encrypt data at rest and in transit."
+        },
+        {
+          "id": "S1-9",
+          "name": "Cyber insurance",
+          "req": "Evaluate and maintain cyber insurance coverage appropriate to risk profile."
+        },
+        {
+          "id": "S1-10",
+          "name": "Board reporting",
+          "req": "Report cybersecurity posture, incidents and remediation status to the Board at defined intervals."
+        }
+      ]
+    },
+    {
+      "key": "tier2",
+      "name": "Tier 2 — systemically important entities (additional)",
+      "controls": [
+        {
+          "id": "S2-1",
+          "name": "Baseline controls catalogue (BCC)",
+          "req": "Map and self-certify against the BCC: the 10-domain baseline (CSPP, IDS/IPS, E-Discovery, NDR, etc.)."
+        },
+        {
+          "id": "S2-2",
+          "name": "CSPP compliance",
+          "req": "Comply with Comprehensive Security Policy and Procedures (CSPP) for market infrastructure institutionals."
+        },
+        {
+          "id": "S2-3",
+          "name": "E-Discovery + forensics readiness",
+          "req": "Maintain E-Discovery and digital forensics capabilities/contracts for incident response."
+        },
+        {
+          "id": "S2-4",
+          "name": "Cyber Drills",
+          "req": "Participate in sectoral cyber drills (SEBI/CERT-In simulated exercises) and act on observations."
+        },
+        {
+          "id": "S2-5",
+          "name": "SOC with monitoring",
+          "req": "Establish a security operations center (in-house or MSP) with 24x7 monitoring and runbooks."
+        }
+      ]
+    },
+    {
+      "key": "tier3",
+      "name": "Tier 3 — highest systemic importance (market infrastructure institutions)",
+      "controls": [
+        {
+          "id": "S3-1",
+          "name": "Independent auditor / CA + concurrent audit",
+          "req": "Engage independent auditors (CISA-enabled) and concurrent auditors for cybersecurity review."
+        },
+        {
+          "id": "S3-2",
+          "name": "Sectoral CERTS + threat intel sharing",
+          "req": "Operate sectoral CERTs (e.g. CERC) with threat-intel sharing among MIIs and market participants."
+        },
+        {
+          "id": "S3-3",
+          "name": "MTD + System Resilience drills",
+          "req": "Conduct maximum tolerable downtime (MTD) mapping and full-scale business continuity/DR drills."
+        },
+        {
+          "id": "S3-4",
+          "name": "APT/insider threat program",
+          "req": "Sustain an APT and insider-threat program with dedicated tooling and analyst capability."
+        },
+        {
+          "id": "S3-5",
+          "name": "Global/regional intel feed integration",
+          "req": "Integrate global cyber threat intelligence feeds into detection stack with actionable playbooks."
+        }
+      ]
+    }
+  ],
+  "source": "SEBI circular SEBI/HO/MRD/MRD-PoD-3/P/CIR/2024/17 (April 2024) — Cybersecurity and Cyber Resilience Framework",
+  "sourceUrl": "https://www.sebi.gov.in",
+  "license": "Public regulatory circular — simplified checklist"
+}

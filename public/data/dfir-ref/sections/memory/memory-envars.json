@@ -1,0 +1,13 @@
+{
+  "plugin": "envars",
+  "version": "both",
+  "purpose": "Environment variables per process.",
+  "category": "Processes",
+  "example": "volatility -f image.mem envars -p 4321",
+  "mitre": "T1574",
+  "notes": "DLL search path hijacking evidence via modified PATH.",
+  "indicators": "Modified PATH/APPDATA pointing to writable dirs.",
+  "slug": "memory-envars",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

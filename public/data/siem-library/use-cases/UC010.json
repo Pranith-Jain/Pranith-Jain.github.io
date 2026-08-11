@@ -1,0 +1,13 @@
+{
+  "id": "UC010",
+  "name": "Service installed from unusual path",
+  "category": "Persistence",
+  "mitre": "T1543.003",
+  "severity": "High",
+  "kql": "SecurityEvent | where EventID == 7045 | where ServiceFileName !startswith 'C:\\\\Windows\\\\' and ServiceFileName !startswith 'C:\\\\Program Files' and ServiceFileName !startswith 'C:\\\\Program Files (x86)'",
+  "spl": "index=windows sourcetype=WinEventLog:System EventCode=7045 NOT ImagePath=*\\\\Windows\\\\* NOT ImagePath=*\\\\Program Files*",
+  "dataSource": "System 7045",
+  "fpRate": "Medium",
+  "tuning": "Exclude vendor agents installed into custom paths; alert is cheap at this volume.",
+  "apt": "LockBit, Zeppelin, BlackSuit"
+}

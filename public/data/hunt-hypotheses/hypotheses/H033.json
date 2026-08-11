@@ -1,0 +1,11 @@
+{
+  "tactic": "Persistence",
+  "technique": "T1546.002",
+  "title": "ScreenSaver binary hijack",
+  "hypothesis": "ScreenSaver key points to an attacker binary.",
+  "queries": [
+    "DeviceRegistryEvents | where RegistryKey contains 'Control Panel\\\\Desktop' | where RegistryValueName == 'SCRNSAVE.EXE' | where RegistryValueData !contains '\\\\Windows\\\\System32'"
+  ],
+  "rationale": "Non-system screensaver path = odd-but-cheap persistence.",
+  "id": "H033"
+}

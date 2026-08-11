@@ -1,0 +1,13 @@
+{
+  "plugin": "cmdline",
+  "version": "both",
+  "purpose": "Process command lines from PEB (if captured).",
+  "category": "Processes",
+  "example": "volatility -f image.mem cmdline",
+  "mitre": "T1059",
+  "notes": "Does not show memory-only created processes; pairs with 4688/1 Sysmon.",
+  "indicators": "Malicious arguments, encoded powershell, LOLBins with payloads.",
+  "slug": "memory-cmdline",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "CHQ29",
+  "name": "GCS bucket IAM change",
+  "provider": "GCP",
+  "mitre": "T1530",
+  "desc": "Bucket ACL/policy changes = exposure or staging.",
+  "kql": "GCPAuditLogs | where operation.method has_any ('storage.buckets.setIamPolicy','storage.objects.insert') | where resource.labels.bucket_name !in (managedBuckets)"
+}

@@ -1,0 +1,11 @@
+{
+  "tactic": "Privilege Escalation",
+  "technique": "T1543.004",
+  "title": "Service binary replacement",
+  "hypothesis": "An existing service binary was replaced with attacker executable.",
+  "queries": [
+    "DeviceFileEvents | where FolderPath contains '\\\\Program Files' | where ActionType == 'FileModified' | where InitiatingProcessFileName == 'cmd.exe'"
+  ],
+  "rationale": "Repointing service binaries to temp files = privileged exec path.",
+  "id": "H043"
+}

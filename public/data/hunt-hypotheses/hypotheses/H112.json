@@ -1,0 +1,11 @@
+{
+  "tactic": "C2",
+  "technique": "T1219",
+  "title": "Remote access tool install",
+  "hypothesis": "An attacker installed RAT/remote-control software for persistent access.",
+  "queries": [
+    "DeviceProcessEvents | where FileName has_any ('teamviewer.exe','anydesk.exe','remoteutilities.exe','mremoteng.exe') | where InitiatingProcessFileName != 'explorer.exe'"
+  ],
+  "rationale": "RAT install from non-user context.",
+  "id": "H112"
+}

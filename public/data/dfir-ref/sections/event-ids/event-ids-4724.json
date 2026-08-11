@@ -1,0 +1,12 @@
+{
+  "id": 4724,
+  "name": "Password reset attempt",
+  "log": "Security",
+  "mitre": "T1098",
+  "description": "An attempt was made to reset an account password.",
+  "indicators": ["Account takeover", "Persistence"],
+  "investigation": "Password resets on service accounts or admin accounts by unexpected users are high signal.",
+  "slug": "event-ids-4724",
+  "section": "event-ids",
+  "sectionLabel": "Windows Event ID Reference"
+}

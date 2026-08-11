@@ -1,0 +1,8 @@
+{
+  "id": "CHQ17",
+  "name": "Conditional Access policy change",
+  "provider": "Azure",
+  "mitre": "T1562.006",
+  "desc": "CA policy weakening = MFA bypass prep.",
+  "kql": "AuditLogs | where Operation in ('Update conditional access policy','Delete conditional access policy') | where ActivityDisplayName contains 'Grant'"
+}

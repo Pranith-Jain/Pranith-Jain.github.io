@@ -1,0 +1,11 @@
+{
+  "tactic": "Credential Access",
+  "technique": "T1555.004",
+  "title": "Vault/DPAPI access",
+  "hypothesis": "An attacker accessed Windows DPAPI vault or secrets.",
+  "queries": [
+    "DeviceProcessEvents | where FileName == 'cmd.exe' | where ProcessCommandLine contains 'dpapi' or ProcessCommandLine contains 'vaultcmd'"
+  ],
+  "rationale": "Manual DPAPI/vault commands = secret extraction attempt.",
+  "id": "H073"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "UC009",
+  "name": "WMI event subscription creation",
+  "category": "Persistence",
+  "mitre": "T1546.003",
+  "severity": "High",
+  "kql": "SecurityEvent | where EventID == 5861 | where ProviderName contains 'EventFilter' or ProviderName contains 'EventConsumer' or ProviderName contains 'Binding'",
+  "spl": "index=windows sourcetype=WinEventLog:Microsoft-Windows-WMI-Activity/Operational EventCode=5861",
+  "dataSource": "WMI-Activity Operational 5861",
+  "fpRate": "Low",
+  "tuning": "Baseline out of box — any new permanent subscription by non-admin is suspicious.",
+  "apt": "APT3, FIN7, Kimsuky"
+}

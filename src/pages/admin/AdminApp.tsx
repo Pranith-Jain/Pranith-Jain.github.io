@@ -17,6 +17,7 @@ import RetentionTab from './RetentionTab';
 import BriefingsTab from './BriefingsTab';
 import AnalyticsTab from './AnalyticsTab';
 import CalendarTab from './CalendarTab';
+import LinkAuditTab from './LinkAuditTab';
 
 type TabKey =
   | 'pending'
@@ -33,7 +34,8 @@ type TabKey =
   | 'briefings'
   | 'retention'
   | 'analytics'
-  | 'calendar';
+  | 'calendar'
+  | 'linkaudit';
 
 const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'pending', label: 'Pending' },
@@ -51,6 +53,7 @@ const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'retention', label: 'Retention' },
   { key: 'analytics', label: 'Analytics' },
   { key: 'calendar', label: 'Calendar' },
+  { key: 'linkaudit', label: 'Link audit' },
 ];
 
 const STAGES: Array<{ stage: 'discovery' | 'planner' | 'publisher'; label: string; hint: string }> = [
@@ -273,6 +276,7 @@ export default function AdminApp() {
         {active === 'retention' && <RetentionTab />}
         {active === 'analytics' && <AnalyticsTab />}
         {active === 'calendar' && <CalendarTab />}
+        {active === 'linkaudit' && <LinkAuditTab />}
       </section>
     </div>
   );

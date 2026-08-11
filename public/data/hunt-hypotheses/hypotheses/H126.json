@@ -1,0 +1,11 @@
+{
+  "tactic": "Impact",
+  "technique": "T1490",
+  "title": "Backup/VSS destruction",
+  "hypothesis": "An attacker disabled backups and deleted shadow copies.",
+  "queries": [
+    "DeviceProcessEvents | where ProcessCommandLine has_any ('vssadmin delete shadows','wmic shadowcopy delete','bcdedit /set recoveryenabled')"
+  ],
+  "rationale": "Backup destruction = ransomware precursor.",
+  "id": "H126"
+}

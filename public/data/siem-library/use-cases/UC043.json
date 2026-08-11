@@ -1,0 +1,13 @@
+{
+  "id": "UC043",
+  "name": "Linux: SSH key added to authorized_keys",
+  "category": "Cloud / Linux",
+  "mitre": "T1098.004",
+  "severity": "High",
+  "kql": "FileCreateTelemetryEvents | where FilePath endswith 'authorized_keys' | where FileName != 'authorized_keys' or InitiatingProcessFileName != 'sshd'",
+  "spl": "index=linux sourcetype=linux:audit auditd.type=SYSCALL key=ssh|authorized_keys",
+  "dataSource": "Auditd / file telemetry",
+  "fpRate": "Low",
+  "tuning": "authorized_keys writes by non-admin or over network = backdoor.",
+  "apt": "GreyEnergy, WatchDog, SSH backdoors"
+}

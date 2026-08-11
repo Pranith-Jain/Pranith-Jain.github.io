@@ -1,0 +1,13 @@
+{
+  "plugin": "pslist",
+  "version": "both",
+  "purpose": "List processes from the doubly-linked process list (EPROCESS).",
+  "category": "Processes",
+  "example": "volatility -f image.mem pslist",
+  "mitre": "T1055",
+  "notes": "Does NOT show hidden/injected processes; compare with psscan.",
+  "indicators": "Rogue processes, odd parents, unknown binaries in temp.",
+  "slug": "memory-pslist",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

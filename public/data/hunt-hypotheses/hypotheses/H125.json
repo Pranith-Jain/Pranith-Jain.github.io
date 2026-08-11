@@ -1,0 +1,11 @@
+{
+  "tactic": "Impact",
+  "technique": "T1486",
+  "title": "Ransomware file extension surge",
+  "hypothesis": "Many files were renamed/changed to ransomware extensions in a short window.",
+  "queries": [
+    "DeviceFileEvents | where FileName endswith ('.lockbit','.enc','.crypt','.hive','.8lock8') | summarize count() by Computer, bin(TimeGenerated, 10m) | where count_ > 50"
+  ],
+  "rationale": "Mass extension change = encryption in progress.",
+  "id": "H125"
+}

@@ -1,0 +1,1 @@
+../../../worker/lib/dfir-ref-manifest.ts

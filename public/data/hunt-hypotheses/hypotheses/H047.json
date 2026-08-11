@@ -1,0 +1,11 @@
+{
+  "tactic": "Defense Evasion",
+  "technique": "T1562.001",
+  "title": "EDR/AV service stop",
+  "hypothesis": "An attacker stopped security agent services.",
+  "queries": [
+    "SecurityEvent | where EventID == 7036 | where AccountName contains 'sensor' or AccountName contains 'defender' | where EventType == 'stopped'"
+  ],
+  "rationale": "Security agent stop = preventive evasion.",
+  "id": "H047"
+}

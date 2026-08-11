@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1615",
+  "title": "Printer/Share discovery (spooler abuse prep)",
+  "hypothesis": "An attacker queried the print spooler for later exploitation.",
+  "queries": [
+    "DeviceProcessEvents | where ProcessCommandLine contains 'spooler' and (ProcessCommandLine contains 'query' or ProcessCommandLine contains 'enum')"
+  ],
+  "rationale": "Spooler enumeration precedes PrintNightmare-class abuse.",
+  "id": "H133"
+}

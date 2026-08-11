@@ -1,0 +1,13 @@
+{
+  "plugin": "kdbgscan",
+  "version": "vol2",
+  "purpose": "Find kernel debugger data block manual scan when imageinfo/profile fails.",
+  "category": "Baseline",
+  "example": "volatility -f image.mem --profile=Win7SP1x64 kdbgscan",
+  "mitre": "",
+  "notes": "Useful for images with KASLR on older profiles.",
+  "indicators": "",
+  "slug": "memory-kdbgscan",
+  "section": "memory",
+  "sectionLabel": "Memory Forensics (Volatility)"
+}

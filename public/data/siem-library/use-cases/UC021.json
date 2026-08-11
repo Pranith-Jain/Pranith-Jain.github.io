@@ -1,0 +1,13 @@
+{
+  "id": "UC021",
+  "name": "Beaconing — fixed-interval outbound connections",
+  "category": "C2",
+  "mitre": "TA0011",
+  "severity": "High",
+  "kql": "DeviceNetworkEvents | where RemotePort != 443 or Direction == 'Outbound' | summarize start=min(Timestamp), end=max(Timestamp), total=count(), distinct=make_set(RemoteUrl) by InitiatingProcessFileName, RemoteIP | extend span = datetime_diff('second', end, start) | where total >= 10 | extend rate = total / max(span / 3600.0, 1) | where rate >= 0.5 and rate <= 30",
+  "spl": "index=windows sourcetype=WinEventLog:Microsoft-Windows-Sysmon/Operational EventCode=3 Direction=Out | stats count by Image, DestIp, _time | where count > 10",
+  "dataSource": "Sysmon 3 / EDR network events",
+  "fpRate": "Medium",
+  "tuning": "Baseline legit cloud telemetry; look for count spikes from single process at regular delta (jitter-aware)",
+  "apt": "Cobalt Strike, Sliver, Meterpreter — universal"
+}

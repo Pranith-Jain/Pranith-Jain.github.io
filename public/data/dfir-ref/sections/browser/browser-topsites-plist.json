@@ -1,0 +1,11 @@
+{
+  "browser": "Safari (macOS)",
+  "artifact": "TopSites.plist",
+  "path": "~/Library/Safari/TopSites.plist",
+  "evidence": "Most-visited sites.",
+  "tools": "plutil, strings",
+  "note": "Survives History deletion in older macOS.",
+  "slug": "browser-topsites-plist",
+  "section": "browser",
+  "sectionLabel": "Browser Forensics"
+}

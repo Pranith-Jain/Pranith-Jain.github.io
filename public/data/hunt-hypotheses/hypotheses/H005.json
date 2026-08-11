@@ -1,0 +1,9 @@
+{
+  "tactic": "Initial Access",
+  "technique": "T1078.004",
+  "title": "Valid creds from prior breach",
+  "hypothesis": "Credentials from a leak/stealer log were used to log into internal systems.",
+  "queries": ["SecurityEvent | where EventID == 4625 | where Account in (knownBreachAccounts)"],
+  "rationale": "Spraying leaked credentials produces 4625 bursts before success.",
+  "id": "H005"
+}

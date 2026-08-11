@@ -1,0 +1,11 @@
+{
+  "tactic": "Discovery",
+  "technique": "T1518.001",
+  "title": "Security software discovery",
+  "hypothesis": "An attacker mapped the security stack to choose evasion.",
+  "queries": [
+    "DeviceProcessEvents | where ProcessCommandLine has_any ('sc query','WMIC Product','Get-WmiObject') | where ProcessCommandLine contains 'defender' or ProcessCommandLine contains 'sensor' or ProcessCommandLine contains 'edr'"
+  ],
+  "rationale": "Security-product queries = AV selection for blind spots.",
+  "id": "H087"
+}

@@ -1,0 +1,9 @@
+{
+  "tactic": "Exfiltration",
+  "technique": "T1567.002",
+  "title": "Exfil to paste service",
+  "hypothesis": "An attacker pasted sensitive data to pastebin-like services.",
+  "queries": ["DeviceNetworkEvents | where RemoteUrl has_any ('pastebin.com','bit.ly','tinyurl.com')"],
+  "rationale": "Paste/URL-shortener use by unknown processes.",
+  "id": "H121"
+}

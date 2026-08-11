@@ -1,0 +1,11 @@
+{
+  "tactic": "Execution",
+  "technique": "T1106",
+  "title": "Direct syscall execution",
+  "hypothesis": "A process used direct syscalls to execute, bypassing EDR hooks.",
+  "queries": [
+    "DeviceEvents | where ActionType == 'ProcessStart' | where InitiatingProcessCommandLine contains 'NtCreateFile'"
+  ],
+  "rationale": "Ndless-process direct-syscall patterns only identifiable via kernel/ETW telemetry.",
+  "id": "H017"
+}

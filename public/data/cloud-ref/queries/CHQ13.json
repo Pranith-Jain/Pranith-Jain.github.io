@@ -1,0 +1,8 @@
+{
+  "id": "CHQ13",
+  "name": "IAM policy with assume-role wildcard",
+  "provider": "AWS",
+  "mitre": "T1098.002",
+  "desc": "Resource '*' policies can be abused for privilege spread.",
+  "kql": "AWSCloudTrail | where EventName == 'PutRolePolicy' | where requestParameters.policyDocument contains '\\\"Resource\\\":\\\"*\\\"'"
+}

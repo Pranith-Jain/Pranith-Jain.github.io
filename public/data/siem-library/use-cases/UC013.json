@@ -1,0 +1,13 @@
+{
+  "id": "UC013",
+  "name": "Disabled security service (Defender stop)",
+  "category": "Defense Evasion",
+  "mitre": "T1562.001",
+  "severity": "High",
+  "kql": "SecurityEvent | where EventID == 7036 | where AccountName contains 'WinDefend' or AccountName contains 'wscsvc' | where EventType == 'stopped'",
+  "spl": "index=windows sourcetype=WinEventLog:System EventCode=7036 (Message=*Windows Defender* OR Message=*Security Center*) (Message=*stopped*)",
+  "dataSource": "System 7036",
+  "fpRate": "Low",
+  "tuning": "No legit reason to stop Defender except maintenance — pair with GPO change audit.",
+  "apt": "Ransomware groups, Hive, BlackBasta"
+}
