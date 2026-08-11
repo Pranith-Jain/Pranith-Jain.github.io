@@ -1,0 +1,112 @@
+{
+  "type": "maritime",
+  "date": "2026-08-10",
+  "threatLevel": "Unknown",
+  "executiveSummary": "Overall Maritime Cyber Threat Level: HIGH. This reflects an active disruption at a U.S. port authority, a U.S. government advisory on adversarial technology in port ecosystems, and expanded federal warnings about Iran-linked OT attacks that target widely used PLCs relevant to maritime OT. Active port disruption: North Carolina Ports reported a cyberattack that forced manual processing at Wilmington, Morehead City, and Charlotte Inland Port, slowing operations. Response involved the U.S. Coast Guard and state officials. This indicates immediate risk to port IT-dependent workflows and knock-on logistics delays. View Article Adversarial tech in ports: The U.S. Maritime Administration (MARAD) issued an advisory warning that certain foreign-manufactured port equipment, cranes, screening systems, and logistics platforms (e.g., remote-serviced STS cranes, LOGINK, Nuctech) may expose maritime IT/OT to exploitation, sensitive data loss, or remote compromise. Government Advisory OT attack tradecraft expanding: Updated federal reporting describes Iran-linked actors targeting PLCs from Rockwell, Schneider, and Siemens, with behaviors including project file exfiltration, logic modification, and disabling alarms/shutdowns-tactics with direct relevance to terminal cranes, cargo-handling systems, and offshore process safety. Supporting Report Navigation risk context: Continued GNSS spoofing and jamming across the Persian Gulf, Strait of Hormuz, Red Sea, and Gulf of Oman create hazards for AIS-integrated navigation and autopilot-dependent operations; industry commentary underscores the case for resilient PNT (e.g., eLoran) as a backup. View Article Targeting of navigation-related authority: Reporting attributes a phishing operation exploiting a Zimbra flaw to APT28 against Ukraine's State Hydrographic Service, enabling credential and mailbox data theft-raising concerns about potential targeting of maritime charting or navigation-adjacent institutions. Source Assessment: Available reporting indicates immediate operational risk at a U.S. port operator and strategic risk to port OT due to adversarial technology exposure and evolving OT attack tradecraft. Current reporting suggests navigation integrity remains a regional concern where GNSS interference is persistent. The collected intelligence supports an assessment that port and terminal operators should prioritize segmentation at IT/OT boundaries, review remote vendor access, and validate PLC engineering change controls. Confidence in the active incident and government advisory assessments is high; confidence in broader navigation-risk generalizations is medium given the editorial nature of some sources.",
+  "dashboard": {
+    "kpis": [
+      {
+        "value": "Overall Level HIGH",
+        "label": ""
+      },
+      {
+        "value": "Total Intelligence Records 7",
+        "label": ""
+      },
+      {
+        "value": "ESCALATE 5",
+        "label": ""
+      },
+      {
+        "value": "Navigation-Related Threats 2",
+        "label": ""
+      }
+    ],
+    "vendors": [],
+    "sectors": []
+  },
+  "keyFindings": [
+    "Cyberattack disrupted North Carolina Ports' IT systems, forcing manual operations at multiple facilities and causing delays-demonstrating the fragility of port logistics when core IT systems fail. View Article",
+    "MARAD warns that certain foreign-manufactured port equipment and logistics platforms may enable remote exploitation of OT networks and expose sensitive logistics data; advisory includes defensive measures for operators. Government Advisory",
+    "U.S. federal alert broadened: Iran-linked actors are observed targeting Siemens, Schneider, and Rockwell PLCs; reported behaviors include logic modification and disabling alarms-tactics with serious safety and operational implications for terminals and offshore energy. Supporting Report",
+    "Industry analysis emphasizes persistent GNSS spoofing/jamming in key Middle Eastern waterways, heightening risk to AIS/ECDIS-integrated navigation and suggesting eLoran as a resilient backup PNT. View Article",
+    "APT28 reportedly exploited a Zimbra flaw to compromise Ukraine's State Hydrographic Service, enabling data and credential theft-an indicator of continued interest in maritime navigation-adjacent institutions. Source"
+  ],
+  "topThreats": [
+    {
+      "title": "#1 Cyberattack Disrupts North Carolina Ports",
+      "action": "Direct disruption to port IT forced manual processing at Wilmington, Morehead City, and Charlotte Inland Port, creating immediate throughput and scheduling risks across the local maritime supply chain.",
+      "sources": [
+        {
+          "url": "https://therecord.media/cyberattack-north-carolina-ports",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "#2 Iran-Linked OT Attacks Target Common PLCs",
+      "action": "Reported behaviors-PLC logic modification, alarm/shutdown disablement-could cause loss of view/control for cranes, cargo-handling systems, and offshore processes used widely in maritime.",
+      "sources": [
+        {
+          "url": "https://www.securityweek.com/us-warns-of-iranian-hackers-targeting-siemens-schneider-and-rockwell-ics-devices/",
+          "label": "Supporting Report"
+        }
+      ]
+    },
+    {
+      "title": "#3 MARAD Advisory on Adversarial Port Technology",
+      "action": "Remote-serviced foreign-manufactured cranes, logistics platforms, and screening systems may expose port IT/OT to exploitation and sensitive data leakage, with global maritime implications.",
+      "sources": [
+        {
+          "url": "https://www.maritime.dot.gov/msci/2026-007-worldwide-worldwide-foreign-adversarial-technological-physical-and-cyber-influence",
+          "label": "Government Advisory"
+        }
+      ]
+    },
+    {
+      "title": "#4 Persistent GNSS Interference in Key Waterways",
+      "action": "Spoofing/jamming degrades AIS/ECDIS-integrated situational awareness and can affect autopilot-dependent operations for tankers and LNG carriers in congested or high-risk areas.",
+      "sources": [
+        {
+          "url": "https://maritime-executive.com/editorials/an-imperative-case-for-eloran",
+          "label": "View Article"
+        }
+      ]
+    },
+    {
+      "title": "#5 APT28 Targets State Hydrographic Service (Ukraine)",
+      "action": "Compromise of a navigation-adjacent authority could enable access to sensitive communications or datasets relevant to maritime charting or coastal operations.",
+      "sources": [
+        {
+          "url": "https://therecord.media/russia-hackers-ukraine-zimbra-breach",
+          "label": "Source"
+        }
+      ]
+    }
+  ],
+  "cveWatch": [
+    {
+      "category": "Vulnerability and CVE Watch",
+      "items": [
+        "Zimbra webmail XSS reportedly exploited in the APT28 campaign (CVE as reported in source); patching and WAF rules recommended where applicable. Source"
+      ]
+    }
+  ],
+  "events": [],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "ttps": {
+    "descriptions": [
+      "Initial Access: Phishing leveraging webmail XSS vulnerability (Zimbra) to obtain session tokens and credentials (source-reported).",
+      "Credential Access: Theft of browser-stored passwords and backup 2FA codes (source-reported).",
+      "Exploitation of Public-Facing Application: Webmail platform exploited to gain access (source-reported).",
+      "Engineering Workstation Abuse: Use of PLC engineering software; project file exfiltration and logic manipulation (source-reported).",
+      "Impair Process Control / Inhibit Safety Functions: Disabling alarms/shutdown logic; manipulation of HMI/SCADA data (source-reported).",
+      "Remote Services: Vendor or adversary remote access pathways into crane/PLC networks highlighted as a risk (government advisory)."
+    ],
+    "mitreIds": []
+  },
+  "outlook72h": "Ports and terminals: Expect continued restoration and monitoring at impacted U.S. port sites; analysts should watch for public claims or follow-on phishing/ransomware activity leveraging the incident. Confidence: medium. View Article OT/ICS: Additional disclosures and network detections related to PLC-targeting activity may emerge as asset owners validate engineering changes and backups. Confidence: medium. Supporting Report Navigation: GNSS interference likely to persist in known hotspots; bridge teams should maintain heightened verification during transits. Confidence: medium. View Article Government guidance: MARAD advisory may prompt operator self-assessments of vendor access and equipment provenance; expect internal control reviews rather than immediate public updates. Confidence: high. Government Advisory",
+  "relatedCves": []
+}

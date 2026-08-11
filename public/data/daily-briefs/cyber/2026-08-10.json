@@ -1,0 +1,103 @@
+{
+  "type": "cyber",
+  "date": "2026-08-10",
+  "threatLevel": "",
+  "executiveSummary": "Active OT-targeting and perimeter exploitation elevate systemic risk. U.S. Water/Wastewater PLCs are being altered on the public internet, forcing manual ops and boil-water notices. Security Advisory Credential/config leaks tied to 86k+ FortiGate devices enable AD credential theft and VPN abuse-significant IT-to-OT pivot exposure at operators relying on Fortinet edge. Security Advisory Edge appliances and RMMs are under live exploitation: Progress LoadMaster unauth RCE; N-able N-central auth bypass with Cloudflare Tunnel persistence; TeamCity RCE in KEV-each is a potential blast path into OT. CISA KEV View Article Coordinated OT attack in Poland abused a misconfigured private APN to reach turbine and water-treatment controls-an emerging cellular ingress vector CI owners must audit now. Supporting Report Pro-Russia hacktivists continue opportunistic VNC intrusions on HMI/SCADA causing loss of view and parameter changes-eliminate exposed VNC immediately. Security Advisory Actively exploited enterprise apps (Metabase pre-auth admin takeover; GeoServer RCE playbook) threaten data pipelines and GIS platforms often adjacent to OT. View Article Security Advisory EV charging (EVSE) vulnerabilities (unauth RCE over OCPP, local interfaces) present grid-edge disruption potential; segment and update urgently. CISA Bulletin",
+  "keyFindings": [
+    {
+      "title": "Multiple actively exploited perimeter technologies (LoadMaster, N-central, TeamC",
+      "summary": "Multiple actively exploited perimeter technologies (LoadMaster, N-central, TeamCity, Metabase) provide rapid paths from IT into OT DMZs-reduce exposure and patch within 72 hours. CISA KEV"
+    },
+    {
+      "title": "FortiGate \"FortiBleed\" datasets contain live credentials/configs leveraged to in",
+      "summary": "FortiGate \"FortiBleed\" datasets contain live credentials/configs leveraged to intercept Kerberos/NTLM and steal AD creds-rotate and reimage where needed. Advisory"
+    },
+    {
+      "title": "Private APN misconfigurations enable direct OT reachability-confirmed operationa",
+      "summary": "Private APN misconfigurations enable direct OT reachability-confirmed operational impact at a CHP plant in Poland. Follow-up Report"
+    },
+    {
+      "title": "Opportunistic VNC attacks on exposed HMIs/SCADA continue across sectors-remove V",
+      "summary": "Opportunistic VNC attacks on exposed HMIs/SCADA continue across sectors-remove VNC from internet, enforce MFA and allowlists. Advisory"
+    },
+    {
+      "title": "Actively exploited BI/web platforms (Metabase, Zimbra, GeoServer) support analyt",
+      "summary": "Actively exploited BI/web platforms (Metabase, Zimbra, GeoServer) support analytics and operations-compromise risks data exfiltration and lateral movement. View Article"
+    }
+  ],
+  "dashboard": {
+    "kpis": [],
+    "activelyExploited": [
+      "WWS",
+      "OT-Direct",
+      "Edge",
+      "RCE",
+      "RMM",
+      "Supply Chain",
+      "CI/CD",
+      "RCE",
+      "VPN",
+      "Cred Theft",
+      "Energy",
+      "Cellular",
+      "OT",
+      "VNC",
+      "Analytics",
+      "Pre-auth",
+      "GIS",
+      "RCE"
+    ],
+    "vendors": [
+      "Fortinet FortiGate",
+      "Progress LoadMaster",
+      "N-able N-central (RMM)",
+      "JetBrains TeamCity",
+      "Metabase",
+      "ABB Ability Zenon",
+      "Johnson Controls TL280",
+      "Medixant RadiAnt DICOM",
+      "PcVue",
+      "Apache IoTDB",
+      "GeoServer",
+      "Zimbra ZCS",
+      "EVSE (Autel MaxiCharger)"
+    ],
+    "sectors": []
+  },
+  "topThreats": [],
+  "threatActors": [
+    {
+      "category": "Activity",
+      "items": [
+        "Pro-Russia hacktivists (e.g., CARR, Z-Pentest, NoName057(16), Sector16) opportunistically targeting exposed VNC on HMIs/SCADA with loss-of-view and unsafe parameter changes. Security Advisory",
+        "Russian state-supported LAUNDRY BEAR exploiting Zimbra zero-day to mass-exfiltrate mail and establish persistent access in defense/energy/government networks. Security Advisory",
+        "OctLurk/SilkLurk espionage toolchains (Central Asia/Syria) with SOCKS5 tunneling, credential theft, and PlugX-credible enterprise-to-OT pivot risk. View Article"
+      ]
+    }
+  ],
+  "cveWatch": [],
+  "events": [],
+  "ttps": {
+    "descriptions": [
+      "Initial Access via exposed services: VNC to HMIs (T1133), web app RCE/SQLi on Metabase/GeoServer (T1190).",
+      "Abuse of remote services and admin tools: RMM abuse (T1219), VPN auth bypass, ADC command injection (T1190/T1059).",
+      "Credential Access and Privilege Escalation: Kerberoasting (T1558.003), AD token abuse, auth bypasses (KEV items), password dumping via DB/resident toolkits.",
+      "Command and Control/Evasion: Cloud proxy tunnels (Cloudflare Tunnel), SOCKS proxies (custom), living-off-the-land (BITS, PowerShell), BitB/AitM phishing for session tokens.",
+      "Data Exfiltration and Impact: Email/GAL dumps (Zimbra), GIS/DB exfil (GeoServer), parameter changes and lockouts on PLCs/HMIs (ICS: Loss of View/Control)."
+    ],
+    "mitreIds": [
+      "T1133",
+      "T1190",
+      "T1219",
+      "T1059",
+      "T1558.003"
+    ]
+  },
+  "outlook72h": "Patch window: prioritize LoadMaster, N-central (Hotfix 2), TeamCity, Metabase; remove public exposure and apply WAF virtual patches where feasible. Credentials: enterprise-wide rotation for FortiGate-linked accounts/PSKs/certs; revoke suspicious app passwords; enforce MFA on edge/RMM/CI/CD. Exposure reduction: immediate takedown of exposed VNC and any internet-reachable PLC/HMI; run external scans to validate closure. Cellular ingress: emergency audit of private APN configs and 4G/5G routers; block intra-APN east-west and log all APN traffic to OT DMZ sensors. Threat hunt: look for Cloudflare Tunnel services on managed endpoints (N-central persistence), Metabase IoC request pairs, Zimbra SOAP/app password creations, and web shells on GeoServer/Tomcat.",
+  "relatedCves": [
+    "CVE-2026-8037",
+    "CVE-2026-18577",
+    "CVE-2026-63077",
+    "CVE-2025-66376"
+  ]
+}

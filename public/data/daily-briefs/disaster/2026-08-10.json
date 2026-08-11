@@ -1,0 +1,40 @@
+{
+  "type": "disaster",
+  "date": "2026-08-10",
+  "overallThreat": "",
+  "executiveSummary": "Eastern China: Authorities preemptively relocated more than 300,000 people as a typhoon brought flooding and landslide threats; over 1,300 flights were canceled across Shanghai's airports. View Article Supporting Report British Columbia, Canada: Fast-moving wildfires around Okanagan Lake forced more than 20,000 people to flee; Highway 97 closed, air rescues occurred, and at least one fatality was reported. View Article Supporting Report Spokane area, Washington (US): Wildfires displaced about 60,000-67,000 people; 850-920 structures were reported destroyed, with hospital/VA patient movements and prolonged access restrictions. View Article Supporting Report Europe: Extreme heat triggered top-level alerts across parts of Italy and wider Europe, with elevated mortality risk and infrastructure strain reported. View Article Supporting Report France (Gironde/Bordeaux): Large wildfires prompted mass evacuations and destroyed hundreds of homes; reporting indicates orders affecting about 220,000 people at peak, though figures vary by source and time. View Article Supporting Report Central Texas: Severe flooding caused at least two deaths, widespread damage, and county-level disaster declarations. View Article Western US wildfire operations: A bulldozer operator was killed in Oregon during suppression efforts; additional fatalities were reported in related incidents in the region. View Article Note: Evacuation and impact numbers reflect multiple sources and reporting windows; figures may overlap and are subject to revision.",
+  "dashboard": {
+    "kpis": []
+  },
+  "keyFindings": [
+    {
+      "title": "Wildfires remain the dominant global hazard this period, with concurrent, high-i",
+      "summary": "Wildfires remain the dominant global hazard this period, with concurrent, high-intensity incidents in British Columbia and eastern Washington straining evacuation, shelter, and health systems. Source"
+    },
+    {
+      "title": "Typhoon-driven flooding and landslide risk in eastern China triggered large-scal",
+      "summary": "Typhoon-driven flooding and landslide risk in eastern China triggered large-scale preemptive relocations and major aviation disruption in Shanghai. Source"
+    },
+    {
+      "title": "European extreme heat poses sustained public health risk, with knock-on effects ",
+      "summary": "European extreme heat poses sustained public health risk, with knock-on effects to power and transport; conditions may exacerbate wildfire potential in affected countries. Source"
+    },
+    {
+      "title": "Significant infrastructure losses in the Spokane area (estimated 850-920 structu",
+      "summary": "Significant infrastructure losses in the Spokane area (estimated 850-920 structures) and closures of Highway 97 in British Columbia are prolonging displacement and complicating returns. Source"
+    },
+    {
+      "title": "Lethal flooding in Central Texas underscores persistent convective storm risk to",
+      "summary": "Lethal flooding in Central Texas underscores persistent convective storm risk to life and property during the warm season. Source"
+    }
+  ],
+  "topEvents": [],
+  "escalateEvents": [],
+  "monitorEvents": [],
+  "outlook72h": "Eastern China: Continued flooding and localized landslides possible in saturated zones; expect staggered restoration of flights and surface transport as cleanup proceeds. Residual coastal hazards may linger 24-48 hours post-peak. Uncertainty: moderate. Source British Columbia & Eastern Washington: Hot, dry, and locally windy periods may challenge containment lines and delay reentry, particularly around Highway 97 corridors and restricted Spokane-area neighborhoods. Uncertainty: moderate. Source Europe: Persisting heat in parts of Italy and Western Europe maintains elevated health risk and wildfire potential; monitor grid stability and healthcare surge capacity. Uncertainty: low-moderate. Source US Southern Rockies: Burn-scar flash flooding risk persists in Colorado's high country with convective storms possible; ready-to-evacuate messaging should continue. Uncertainty: moderate. Source",
+  "regionalTrends": [
+    "North America: Synchronized wildfire activity in British Columbia and the US Pacific Northwest continues to stretch regional resources and prolong displacement. Source",
+    "East Asia: Typhoon-related rainfall bands are producing urban flooding, landslide risk, and multi-day transport disruption in Zhejiang-Shanghai corridors. Source",
+    "Europe: Heat extremes heighten wildfire potential and compound health system load; previous weeks saw large-scale evacuations in France's Gironde and impacts near Madrid. Source"
+  ]
+}

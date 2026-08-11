@@ -1,0 +1,66 @@
+{
+  "type": "deepfake",
+  "date": "2026-08-10",
+  "riskOutlook": "",
+  "executiveSummary": "The reporting period highlights two high-urgency developments: quantified U.S. financial losses tied to AI-enabled scams, including voice-cloned distress and business email compromise (BEC), and uneven state-level protections against AI-generated political content heading into U.S. elections. These stress both consumer safety and institutional resilience across payment verification, identity assurance, and election integrity. View Article View Article Voice cloning remains a principal synthetic-media vector in fraud, with platform-level defenses emerging such as Android's call-authentication protections aimed at AI deepfake scam calls. Concurrent research signals increased realism and persuasion-particularly through emotionally expressive speech deepfakes-and warns that fully synthetic, text-to-video \"fake news\" could challenge newsroom verification workflows. View Article Supporting Report Supporting Report Regulatory momentum in the European Union has immediate operational implications: AI Act Article 50 deepfake transparency obligations now apply, requiring visible disclosures and machine-readable markings for synthetic content, though enforcement gaps may persist. Enterprises, platforms, and publishers should adapt provenance and disclosure workflows accordingly. View Article Supporting Report Overall, the environment appears to be worsening as quantified losses rise, political-communication risks escalate, and research advances both offensive realism and questions about watermark reliability. Near-term priorities include strengthened out-of-band verification, provenance adoption, and election-related content authentication. View Article",
+  "keyFindings": [
+    {
+      "title": "U.S. victims and businesses sustained significant AI-enabled fraud losses, inclu",
+      "summary": "U.S. victims and businesses sustained significant AI-enabled fraud losses, including over $30M in AI-linked BEC, underscoring identity and payment-control gaps. View Article"
+    },
+    {
+      "title": "AI-generated political content is widespread with inconsistent state protections",
+      "summary": "AI-generated political content is widespread with inconsistent state protections, creating uneven voter safeguards and fragmented compliance for campaigns. View Article"
+    },
+    {
+      "title": "Android's new call-authentication protections target live AI voice-impersonation",
+      "summary": "Android's new call-authentication protections target live AI voice-impersonation scams, potentially reducing successful vishing on supported devices. View Article"
+    },
+    {
+      "title": "Research on emotionally expressive speech deepfakes indicates rising persuasiven",
+      "summary": "Research on emotionally expressive speech deepfakes indicates rising persuasiveness, challenging detectors trained on neutral-speech datasets. View Article"
+    },
+    {
+      "title": "EU AI Act Article 50 deepfake transparency obligations are now active, requiring",
+      "summary": "EU AI Act Article 50 deepfake transparency obligations are now active, requiring visible and machine-readable disclosures for synthetic content. View Article"
+    },
+    {
+      "title": "New research raises doubts about relying on watermarking alone for content authe",
+      "summary": "New research raises doubts about relying on watermarking alone for content authenticity, signaling need for broader provenance and governance controls. View Article"
+    },
+    {
+      "title": "Privacy-preserving C2PA provenance redaction methods could help newsrooms and pl",
+      "summary": "Privacy-preserving C2PA provenance redaction methods could help newsrooms and platforms share verifiable images without exposing sensitive metadata. View Article"
+    },
+    {
+      "title": "Text-to-video fake news research warns that fully synthetic clips may become har",
+      "summary": "Text-to-video fake news research warns that fully synthetic clips may become harder to spot than edited real footage, complicating newsroom triage. View Article"
+    }
+  ],
+  "incidents": [],
+  "emergingTrends": [
+    "Voice cloning and vishing: Continued use in financial fraud and distress scams, plus OS-level defenses emerging to counter live impersonation. Source Supporting Report",
+    "Political and social disinformation: Widespread AI-generated campaign content amid fragmented U.S. state protections. Source",
+    "Deepfake realism: Emotionally expressive speech synthesis increases persuasiveness; detectors may underperform on emotion-rich attacks. Source",
+    "Fully synthetic video: Text-to-video fake news may complicate verification pipelines for news and platforms. Source",
+    "Content provenance and transparency: EU AI Act Article 50 in force; C2PA redaction research may expand practical adoption of authenticity signals. Source Supporting Report",
+    "Detection limits: Watermark reliability concerns and NIST forensics benchmarks highlight ongoing fragility of detectors. Source Supporting Report"
+  ],
+  "geographicObservations": [
+    "United States: High-urgency AI-enabled financial fraud and uneven election deepfake protections reported. Source Source",
+    "European Union: Transparency obligations for deepfakes now active under the AI Act; final approval confirmed. Source Source",
+    "Singapore: Government advisory emphasizes safe generative AI use and authenticity verification. Source",
+    "Global/Unknown: Multiple research developments on speech deepfakes, watermarking, C2PA, and synthetic video were reported with global applicability. Source"
+  ],
+  "detectionDevelopments": [
+    "Android: Call-authentication protections targeting AI deepfake scam calls. View Article",
+    "EU: Article 50 transparency obligations in force; disclosure and machine-readable marking for synthetic content. View Article",
+    "NIST: Guidance to evaluate authenticity and manage synthetic content provenance/detection. View Article",
+    "Singapore: Advisory urging verification and safe-use practices for generative AI. View Article",
+    "Adopt layered provenance: combine C2PA, cryptographic signing, and selective redaction for privacy-preserving verification.",
+    "Harden payment workflows: mandate out-of-band callbacks, multi-factor approvals, and role-based spending limits for urgent transfers.",
+    "Voice-clone countermeasures: train staff on codeword/phrase verification and restrict public exposure of high-value voice samples. (Analyst Recommendation)",
+    "Election content triage: implement rapid provenance checks, model-assisted detection, and pre-authorized escalation with platforms. (Analyst Recommendation)",
+    "Model/detector validation: routinely test detectors against emotion-rich and multimodal datasets; document performance drift. (Analyst Recommendation)"
+  ]
+}
